@@ -1,3 +1,53 @@
-# sandbox-bootstrap
+# Synthetic textbook for Apple’s macOS Seatbelt/XNUSandbox.
+>For concrete instructions, conventions, or workflows, see `AGENTS.md` at the root.
 
-We're going to write a synthetic textbook about macOS security and use it to teach a robot to keep macs secure. Wish us luck!
+This repo is not a traditional software project. It is a curated, local-only universe for understanding the macOS sandbox circa 2025, with an emphasis on:
+
+- Fixing a workable model of Seatbelt internals and the App Sandbox.
+- Capturing a stable vocabulary and concept graph.
+- Providing runnable, inspectable labs that exercise real mechanisms.
+- Giving you and your agents a consistent substrate to reason against.
+
+Nothing here enforces policy; the focus is to **decode, document, and teach**.
+
+---
+
+## Scope and stance
+
+The time slice is “modern macOS” (Ventura/Sonoma and neighbors), not just historical Snow Leopard. Older materials (Apple Sandbox Guide, Blazakis, SandBlaster, etc.) appear as explicitly mediated sources, not as invisible authorities.
+
+The repo treats as primary:
+
+- Apple’s own documentation, as filtered through the guidance layer.
+- Empirical behavior from examples, profile ingestion, and real profiles.
+
+External texts are pulled into `guidance/sources/` with exegesis files and are meant to act as time-stamped anchors. The intent is to keep claims traceable and to make drifts in macOS behavior visible over time rather than silently overwriting them.
+
+This exists to give you a stable, inspectable base layer for sandbox reasoning you can come back to after gaps.
+
+---
+
+## Repository layout (top level)
+
+High-level map of the root:
+
+- `guidance/`  
+  Orientation, concepts, appendix, canon, errata, and per-source exegesis for key documents.
+
+- `concepts/`  
+  Concept inventory and cross-cutting code (e.g., profile ingestion) that multiple artifacts rely on.
+
+- `examples/`  
+  Runnable labs and tools that exercise specific aspects of the sandbox (entitlements, containers, extensions, mach, network, metafilters, platform policy, etc.).
+
+- `profiles/`  
+  Real sandbox profiles and entitlements (currently TextEdit) used as concrete anchors for analysis and whatever narrative you eventually decide to write.
+
+- `book/`  
+  Draft chapter stubs you can grow into a synthetic textbook if and when that becomes useful.
+
+- `history/`  
+  Modernization reports, concept evolution notes, and reset reports capturing how the repo has changed over time.
+
+- `AGENTS.md`  
+  Root-level routing and role guidance for you and for any machine agents acting in this repo (with additional AGENTS files in key subdirectories).
