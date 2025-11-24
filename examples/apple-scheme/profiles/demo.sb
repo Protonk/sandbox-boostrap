@@ -1,0 +1,14 @@
+(version 1)
+(deny default)
+
+; allow basic runtime behavior for the compile demo
+(allow process*)
+(allow file-read* (subpath "/System"))
+(allow file-read* (subpath "/usr"))
+(allow file-read* (subpath "/dev"))
+
+; allow a user-writable staging area that downstream tools can probe
+(allow file-read* (subpath "/tmp/apple-scheme-demo"))
+(allow file-write* (subpath "/tmp/apple-scheme-demo"))
+
+; leave most other operations denied (default)
