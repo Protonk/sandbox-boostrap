@@ -192,6 +192,14 @@ Agents should preserve this three-layer structure.
 
 ---
 
+### 2.6 `sources/`: Directory of information on canon sources
+
+A directory of subdirectories with the short name of a source, e.g. `sources/BLAZAKIS2011/`. Each of these contain one or more markdown documents written by a chat agent pointed at the source. The original sources ***are not checked in to the repo***--these interpretations are what form our universe of information, not the pdfs.
+
+### 2.7 `reports/`: Reports from research agents
+
+Contains one or more `.md` files with reports from research runs.
+
 ## 3. Agent Roles
 
 This section suggests **typical roles** for working with the knowledge substrate. Real workflows may blend roles, but you should adopt one primary stance per task.
@@ -210,51 +218,7 @@ This section suggests **typical roles** for working with the knowledge substrate
 
 ---
 
-## 4. Traversal Recipes
-
-This section gives **concrete routes** through the substrate for common situations.
-
-### 4.1 “I just landed in this repo; what is going on?”
-
-1. Read `Orientation.md`.
-2. Skim `Concepts.md` to learn the vocabulary.
-3. Scan `Appendix.md` to see that:
-   - There is a DSL cheat sheet.
-   - There is a binary format/graph section.
-   - There is an operations/filters reference.
-4. Remember that:
-   - `Canon.md` exists to guide external reading.
-   - `ERRATA.md` exists to explain divergences you may see later.
-
-### 4.2 “I need to decode a compiled profile.”
-
-1. From `Concepts.md`, confirm:
-   - What a compiled profile is.
-   - What nodes, operations, filters, and decisions are.
-2. From `Appendix.md`, read the relevant:
-   - Binary format description.
-   - Graph navigation description.
-   - Operation/filter vocab mapping.
-3. Implement / inspect code that:
-   - Reads header → operation tables → nodes → literal/regex tables.
-   - Builds an internal decision graph.
-   - Pretty-prints to SBPL-like text using DSL patterns from the cheatsheet.
-
-### 4.3 “I suspect a behaviour drift on macOS N.”
-
-1. Re-check Orientation/Concepts/Appendix to ensure:
-   - You understand the model you are comparing against.
-2. Check `ERRATA.md`:
-   - See if the behaviour is already logged.
-3. If external consultation is allowed:
-   - Use `Canon.md` to pick appropriate sources (e.g., `WORMSLOOK2024` for modern drift, `STATEOFSANDBOX2019` for ecosystem behaviour).
-4. Record your findings:
-   - As a new or updated entry in `ERRATA.md` and/or catalog.
-   - Without silently rewriting `Concepts.md` or `Orientation.md` unless the underlying model is genuinely wrong.
-
----
-
-## 5. Invariants and Boundaries for All Agents
+## 4. Invariants and Boundaries for All Agents
 
 - **Shared vocabulary**  
   Use terms from `Concepts.md`. Avoid inventing synonyms for core entities (operation, filter, profile, policy stack, decision).
