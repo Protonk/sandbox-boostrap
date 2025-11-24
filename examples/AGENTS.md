@@ -13,9 +13,43 @@ Use this map to route yourself to the right example. Each entry gives:
 
 ---
 
-## 1. Sandbox behavior probes
+## Layout and conventions
 
-Use these when you want to observe **live behavior**: syscalls, metadata, and how platform/app policy interact.
+Each example lives in its own subdirectory, typically with:
+
+- One or more **code files** (`*.c`, `*.swift`, `*.sh`, `*.py`, etc.).
+- A short **explainer** (`lessons.md`) describing:
+  - What the example is meant to show.
+  - Which sandbox operations / filters it exercises.
+  - How to run it and interpret the results.
+- Optionally a **driver script** (`run-demo.sh`) that builds and runs the demo.
+
+Examples are designed to be **small and focused**: usually one capability or concept per directory.
+
+## Two main “families” of examples
+
+You will see two broad kinds of examples here.
+
+### 1. Sandbox behavior probes
+
+These are the descendants of the original XNUSandbox examples. They focus on how Seatbelt evaluates specific operations, filters, and metadata:
+
+- **SBPL and policy structure**
+  - Minimal SBPL profiles showing `deny default`, `allow process*`, path filters (`literal`, `subpath`, `regex`), metafilters (`require-any/all/not`), and `(param "...")` usage.
+- **Filesystem and containers**
+  - Probes that walk `~/Library/Containers` and `~/Library/Group Containers`, resolve symlinks, and show what paths the sandbox actually sees.
+- **Entitlements and platform metadata**
+  - Programs that inspect their signing identifier and entitlements and explain how SBPL filters such as `(entitlement-is-present ...)` and `(signing-identifier ...)` are applied.
+- **Extensions and dynamic capabilities**
+  - Demos using `libsandbox` extension APIs (issue / consume / release) to illustrate how `(extension ...)` filters act as temporary capability grants.
+- **Mach, network, sysctl, platform policy**
+  - Probes for `mach-lookup`, various `network` socket types, `sysctl`, and SIP-protected paths, emphasizing the distinction between global platform policy and per-process SBPL.
+
+These examples assume a macOS system with:
+
+- `libsandbox.dylib` available.
+- `sandbox-exec` present for the SBPL harnesses (where used).
+- Typical macOS 13/14 behavior; exact errno results may vary by OS version and configuration.
 
 ### `entitlements-evolution/`
 
@@ -125,9 +159,21 @@ Use these when you want to observe **live behavior**: syscalls, metadata, and ho
 
 ---
 
-## 2. Profile + regex tooling
+### 2. Profile tooling and legacy formats
 
+Other examples focus on the **artifacts** around Seatbelt rather than the live sandbox behavior:
+
+- **SBPL → binary compilers**
+  - Tiny Python helpers that call `sandbox_compile_file` via `libsandbox` and emit `.sb.bin` blobs for further analysis.
+- **Legacy decision-tree disassembly**
+  - Tools that target the early “decision-tree” profile format (Blazakis-era), using documented headers to reconstruct per-operation filter trees and decode embedded AppleMatch regex tables.
+- **Regex extraction and visualization**
+  - Extractors that snarf compiled regex blobs (`.re`) from legacy profiles.
+  - Converters that turn AppleMatch NFAs into Graphviz `.dot` graphs or approximate textual regexes.
+- **Modern graph-based ingestion**
+  - Examples that compile a sample SBPL and then immediately pass the resulting blob through the shared `concepts/cross/profile-ingestion` layer to parse headers and slice sections (op table, node array, regex/literal tables).
 Use these when you need to **compile, extract, disassemble, or visualize profiles and AppleMatch regex blobs**, not run live sandboxed workloads.
+
 
 ### `apple-scheme/`
 
