@@ -62,7 +62,7 @@ Finally, use the corpus to calibrate your skepticism about the catalog itself. F
 
 ## Listing by SHORTNAME
 
-The SHORTNAME identifiers below are the canonical labels used throughout this project and in the macOS capability catalog; use them as stable handles when cross-referencing catalog entries with these sources.
+The SHORTNAME identifiers below are the canonical labels used throughout this project and in the macOS capability catalog; use them as stable handles when cross-referencing catalog entries. Because the canonical sources for this project are third-party works that we conservatively treat as “all rights reserved,” we do not redistribute their content. Instead, each listing includes an external URL. Readers should access the originals directly from their publishers.
 
 ### ROWESANDBOXING
 
