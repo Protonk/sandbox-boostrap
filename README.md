@@ -1,5 +1,4 @@
-Synthetic textbook for Apple’s macOS Seatbelt/XNUSandbox.
-
+# Synthetic textbook for Apple’s macOS Seatbelt/XNUSandbox.
 >For concrete instructions, conventions, or workflows, see `AGENTS.md` at the root.
 
 This repo is not a traditional software project. It is a curated, local-only universe for understanding the macOS sandbox circa 2025, with an emphasis on:
@@ -9,7 +8,7 @@ This repo is not a traditional software project. It is a curated, local-only uni
 - Providing runnable, inspectable labs that exercise real mechanisms.
 - Giving you and your agents a consistent substrate to reason against.
 
-Nothing here enforces policy; the focus is to **decode, document, and teach**.
+Nothing here enforces policy.
 
 ---
 
