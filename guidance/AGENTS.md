@@ -52,7 +52,7 @@ If you are a Code Agent or a Chapter Author, your first responsibility is to **a
 
 **Key invariant**
 
-> Orientation defines the **top-level model**. If other documents or observations appear to contradict it, treat that as “drift to be explained” (see `ERRATA.md` / `Canon.md`), not as permission to silently change the model.
+> Orientation defines the **top-level model**. Detail and caveats are found in other files.
 
 ---
 
@@ -83,7 +83,7 @@ If you are a Code Agent or a Chapter Author, your first responsibility is to **a
 
 **Key invariant**
 
-> Concepts is the **source of naming truth**. Code and output should prefer these terms and definitions. If you must invent a new term, explain it in relation to `Concepts.md`.
+> Concepts is the **source of naming truth**. Code and output should prefer these terms and definitions.
 
 ---
 
@@ -140,104 +140,61 @@ Agents should preserve this three-layer structure.
 
 **Use this file when**
 
-- You are allowed to bring in non-local knowledge and need to:
+- You are mediating a conflict between claims in sources and you need to:
   - Check structural claims (formats, hooks, SBPL semantics).
   - Investigate drift and modern behaviour.
-  - Generate probe ideas based on historical bypasses or real-world app behaviour.
+  - Understand where knowledge may be limited
 
 **Good tasks anchored on Canon**
 
-- Choose **which external document to re-read** in detail for a specific question.
+- Choose **which source to re-read** in detail for a specific question.
   - “I want binary format details” → `BLAZAKIS2011` or `SANDBLASTER2016`.
   - “I want real-world entitlement usage” → `STATEOFSANDBOX2019`.
   - “I want modern drift probes” → `WORMSLOOK2024`.
-- Frame Deep Research / exegesis prompts that:
-  - Take a canon source as anchor.
-  - Carefully mesh it with the local model.
-
-**Important boundary**
-
-> When working under a “local-only” epistemic stance, `Canon.md` is *descriptive*, not executable: you may discuss what it says about the sources as text, but you must not import new facts from those sources unless explicitly permitted.
 
 ---
 
-### 2.5 `ERRATA.md` — Drift, Pitfalls, and Corrections
+### 2.5 `State2025.md` — Contemporary macOS Seatbelt Snapshot
 
 **Role**
 
-- A running log of **places where hands-on macOS behaviour** diverges from Orientation/Appendix framing:
-  - API availability (`sandbox_apply`, `sandbox-exec` usage).
-  - Actual locations of profiles / formats on modern systems.
-  - Subtle differences in how extensions, parameters, or regex engines behave.
+- Summarizes what the macOS sandbox ecosystem actually looks like circa 2024–2025 (who is sandboxed, how containers/extensions are wired up, how secinit/containermanagerd/TCC fit together).
+- Separates **stable invariants** from **high-churn surfaces** to guide probe design and threat modeling.
+- Bridges older canon to modern behavior so authors can cite “current state” without re-deriving it each time.
 
 **Use this file when**
 
-- You find a discrepancy between:
-  - The conceptual model (Orientation/Concepts/Appendix), and
-  - Actual behaviour observed on a specific macOS version.
-- You plan to modify code that depends on version-sensitive details.
+- You need to answer “What does Seatbelt do on current macOS releases?” for code, probes, or narrative text.
+- You are choosing which parts of the stack to measure (containers, entitlement usage, extension issuance, TCC interactions).
+- You are summarizing drift or continuity between historical documentation and present-day macOS.
 
-**Good tasks anchored on Errata**
+**Good tasks anchored on State2025**
 
-- Confirm whether an odd behaviour is already known:
-  - “Is this `EPERM` from `sandbox_apply` expected?”
-- Annotate code paths with “this relies on a known divergence; see ERRATA entry X”.
-- Decide whether to:
-  - Update Orientation/Appendix, or
-  - Treat a divergence as version-specific behaviour that should be documented but not folded into the general model.
+- Plan probes or experiments that validate modern behavior (secinit decisions, containermanagerd container setup, sandbox extensions).
+- Align code/tests with today’s defaults and deployment patterns (App Store vs third-party, sandboxed vs unsandboxed).
+- Write short “state of the world” paragraphs for chapters or reports without re-reading every source.
 
 **Key invariant**
 
-> Errata does not replace the model; it **pins** deviations and nuances to specific contexts (OS versions, APIs, tools). Treat it as a list of “known sharp edges”.
+> Treat `State2025.md` as the best-effort **snapshot** of current behavior.
 
 ---
 
 ### 2.6 `sources/`: Directory of information on canon sources
 
-A directory of subdirectories with the short name of a source, e.g. `sources/BLAZAKIS2011/`. Each of these contain one or more markdown documents written by a chat agent pointed at the source. The original sources ***are not checked in to the repo***--these interpretations are what form our universe of information, not the pdfs.
-
-### 2.7 `reports/`: Reports from research agents
-
-Contains one or more `.md` files with reports from research runs.
-
-## 3. Agent Roles
-
-This section suggests **typical roles** for working with the knowledge substrate. Real workflows may blend roles, but you should adopt one primary stance per task.
-
-### 3.1 Chapter Author
-
-- Uses this substrate as the primary source of truth when drafting or revising explanatory text (especially in `book/`).
-- Focuses on coherence, traceability, and explicit scope: what is established, what is tentative, and what is out of scope.
-- Flags gaps, tensions, or contradictions as issues or marginalia instead of silently “fixing” the underlying model.
-
-### 3.2 Code Agent
-
-- Treats this substrate as the specification for experiments, probes, and tooling that touch the sandbox.
-- Uses the shared vocabulary and model here when naming operations, filters, behaviours, and test cases.
-- Proposes changes only after reconciling discrepancies between observed behaviour and the documented model, feeding back minimal notes when new edge cases are discovered.
+A directory of close-reading summaries of sources by SHORTNAME, e.g. `APPLESANDBOXGUIDE.md`. Original sources ***are not checked in to the repo***--these interpretations form our universe of information, not the pdfs.
 
 ---
 
-## 4. Invariants and Boundaries for All Agents
+## 3. Invariants and Boundaries for All Agents
 
 - **Shared vocabulary**  
   Use terms from `Concepts.md`. Avoid inventing synonyms for core entities (operation, filter, profile, policy stack, decision).
 
 - **Layered knowledge**  
   - Orientation → Concepts → Appendix form the core conceptual/binary layer.
-  - Canon adds external perspectives.
-  - Errata pins OS-specific deviations.
-
-- **No silent drift**  
-  When you learn something new that conflicts with the current model:
-  - Do not retroactively change what words mean.
-  - Instead, propose updates in:
-    - `ERRATA.md` (for version-specific quirks), and/or
-    - A future revision of Orientation/Appendix/Concepts, with clear justification.
 
 - **Separation of concerns in code and text**
   - Binary parsing ≠ graph semantics ≠ SBPL pretty-printing.
-  - External research ≠ local model.
-  - Capability catalog ≠ raw decoding.
 
 If all agents respect this routing and these boundaries, the documents in this pack remain a **stable, shared substrate** that humans, code, and chat systems can all rely on when reasoning about the macOS Seatbelt sandbox.

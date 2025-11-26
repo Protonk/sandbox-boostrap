@@ -1,6 +1,6 @@
 # Sandbox DSL Cheatsheet
 
-This section is a compact reference for Apple’s Sandbox Profile Language (SBPL) as it appears in macOS/iOS Seatbelt. It focuses on the patterns you will see in XNUSandbox output and related tooling, not the full Scheme language.
+This section is a compact reference for Apple’s Sandbox Profile Language (SBPL) as used in macOS “Seatbelt” policies. It focuses on the subset that shows up in system profiles, compiled sandbox output, and related tooling, not the full Scheme language.
 
 ---
 
@@ -14,21 +14,19 @@ A minimal SBPL profile looks like:
 
 (allow file-read* (path "/tmp/foo") (subpath "/tmp/bar"))
 (allow (with report) sysctl (sysctl-name "kern.hostname"))
-(allow file-write-create*
-  (require-all
-    (require-not (vnode-type SYMLINK))
-    (subpath "/tmp/no-symlinks")))
+...
 ```
 
-Key observations:
+Key elements:
 
-* `(version 1)` declares the profile version.
-* `(deny default)` sets the default decision for all operations not otherwise matched. Most real profiles are “default deny” and then whitelist specific permissions.
-* Rules are expressed via `(allow …)` or `(deny …)`; each rule names:
+* `(version 1)` – profile format version, not OS version.
+* `(deny default)` – default decision if no rule matches (usually `deny` in built-in profiles).
+* `(allow ...)` / `(deny ...)` – top-level rules.
+* Operation names like `file-read*`, `network-outbound`, `mach-lookup`.
+* Filters like `(path "/tmp/foo")`, `(subpath "/tmp/bar")`, `(sysctl-name "kern.hostname")`.
+* Action modifiers like `(with report)`.
 
-  * An operation (e.g., `file-read*`, `sysctl`, `file-write-create*`).
-  * Optional action modifiers (e.g., `(with report)`).
-  * Zero or more filters (predicates) that must match for the rule to apply.
+---
 
 ### Parameterization and templating
 
@@ -39,7 +37,9 @@ System profiles often template paths or names using parameters that must be supp
   (subpath (string-append "/System/Library/" (param "bundle"))))
 ```
 
-`(param "bundle")` is a placeholder; the compiler substitutes concrete values only when the caller provides them (e.g., via `sandbox_compile`). Apple’s shipped profiles lean on this pattern—often with `string-append`—to avoid hardcoding paths while still producing concrete literals in the compiled blob.
+`(param "bundle")` is a placeholder; the compiler substitutes concrete values from a parameter dictionary. This lets Apple ship generic profiles that can be specialized per-application or per-context (e.g., different containers or bundle IDs) while still producing concrete literals in the compiled blob.
+
+In many shipped profiles these parameters are mandatory: compiling without the expected keys or with incompatible values will fail or yield an unusable profile.
 
 ---
 
@@ -57,48 +57,65 @@ Typical top-level forms:
 
   ```scheme
   (deny default)
-  ;; or less commonly:
-  (allow default)
   ```
 
-  The default operation’s decision applies when no other rule’s filters match for a given operation. In practice, almost all built-in profiles are default-deny.
-
-* Operation rules:
+* Rules:
 
   ```scheme
-  (allow OPERATION [FILTER ...])
-  (deny  OPERATION [FILTER ...])
-  (allow (with ACTION-MODIFIER ...) OPERATION [FILTER ...])
+  (allow OPERATION
+    (FILTER-KEY FILTER-VALUE ...)
+    ...)
+  (deny OPERATION
+    ...)
   ```
 
-Each `(allow|deny)` applies to a named operation and is guarded by zero or more filters or metafilters (see below).
+* Optional profile metadata (not always present in shipped profiles).
+
+At the SBPL level, rules are order-sensitive: the first matching rule for a given operation generally determines the effective decision, although the compiled representation uses a graph that doesn’t look like a simple ordered list.
 
 ---
 
 ## 3. Operations
 
-An operation in SBPL is a symbolic name that corresponds to one or more kernel actions (syscalls / hooks). Examples:
+Operations are the verbs of the sandbox: they name classes of kernel actions (file reads, process creation, network I/O, etc.). At the SBPL level they appear as symbols:
 
-* Filesystem:
+```scheme
+(allow file-read* ...)
+(allow network-outbound ...)
+(deny process-exec ...)
+```
 
-  * `file-read*`, `file-read-data`, `file-read-metadata`
-  * `file-write*`, `file-write-create*`, `file-write-data`
-* Networking:
+Common examples (abbreviated):
 
-  * `network-outbound`, `network-inbound`, sometimes `network*`
-* IPC / services:
+* File and directory:
 
-  * `mach-lookup`, `mach-register`, `ipc-posix-shm`
-* System info:
+  * `file-read*`, `file-write*`, `file-ioctl`, `file-issue-extension`
+  * `file-write-create`, `file-write-unlink`
+  * `file-read-metadata`, `file-write-xattr`
 
-  * `sysctl`, `sysctl-read`
-* Process-related:
+* Process and signals:
 
-  * `process-fork`, `process-exec`, `signal`
+  * `process-exec`, `process-fork`, `process-suspend`
+  * `signal`
 
-At the SBPL level, operations are just symbols. The mapping from symbol → numeric operation ID lives in `libsandbox.dylib` and in the compiled profile format that XNUSandbox parses.
+* IPC:
 
-For a fuller discussion of operation families, see the “Operations and Filters Reference” section.
+  * `mach-lookup`, `mach-register`
+  * `ipc-posix-shm`, `ipc-posix-sem`
+  * `ipc-unix`, `ipc-sysv-shm`, `ipc-sysv-sem`, `ipc-sysv-msg`
+
+* Network:
+
+  * `network-inbound`, `network-outbound`
+  * `network-bind`, `network-listen`
+
+* System:
+
+  * `sysctl-read`, `sysctl-write`
+  * `system-logging`
+  * `iokit-open`, `iokit-set-properties`
+
+For each operation, filters specify when the rule applies. For example, `file-read*` with a `(subpath "/Applications/TextEdit.app")` filter permits file reads under that subtree.
 
 ---
 
@@ -112,121 +129,82 @@ A filter narrows the applicability of a rule. Conceptually:
   (FILTER-KEY2 FILTER-VALUE2 ...))
 ```
 
-At the binary level, a filter is a key–value pair, where both key and value are encoded as small integers that index shared tables.
+At the binary level, a filter is a key–value pair, where both key and value are encoded as small integers that index shared tables (for literals, regexes, and other metadata). The same SBPL syntax can map to different internal encodings depending on the operation and filter semantics.
 
-Representative filters you will see (names approximate but aligned with Apple profiles and reversing notes):
+Common filter families include:
 
-### 4.1 Path-based filters (filesystem)
+* **Path / vnode filters**:
 
-* Exact path:
+  * `(path "/absolute/path")`
+  * `(literal "/absolute/path")` – older style; effectively the same in many profiles.
+  * `(subpath "/prefix")`
+  * `(regex #"^/tmp/.*")`
+  * `(vnode-type REGULAR-FILE)`
+  * `(vnode-type DIR)`
+  * `(vnode-type SYMLINK)`
 
-  ```scheme
-  (path "/exact/path")
-  (literal "/bin/secret.txt")
-  ```
+* **Process / identity filters**:
 
-* Prefix / tree:
+  * `(uid 0)` or `(uid 501)`
+  * `(gid 0)`
+  * `(target self)` / `(target other)`
+  * `(target pid 1234)` – less common in static profiles; more common in runtime-created policies.
 
-  ```scheme
-  (subpath "/Applications/MyApp.app")
-  (subpath "/private/var/mobile/Containers/Data/Application")
-  ```
+* **Network filters**:
 
-* Regex on path:
+  * `(remote ip "127.0.0.1")`, `(remote ip "0.0.0.0/0")`
+  * `(local ip "10.0.0.0/8")`
+  * `(remote port 80)`, `(local port 1024-65535)`
+  * `(protocol "tcp")`, `(protocol "udp")`
 
-  ```scheme
-  (regex #"/bin/.*")
-  (regex #"^/Users/[^/]+/Documents")
-  ```
+* **Mach / IPC filters**:
 
-* Vnode type:
+  * `(global-name "com.apple.cfprefsd.daemon")`
+  * `(local-name "com.apple.sandboxd")`
+  * `(service-name "com.apple.backupd")`
 
-  ```scheme
-  (vnode-type REGULAR-FILE)
-  (vnode-type DIR)
-  (vnode-type SYMLINK)
-  ```
-
-These show up heavily in file-related operations (`file-read*`, `file-write*`, etc.).
-
-### 4.2 Network filters
-
-Examples:
-
-* Remote address / IP:
-
-  ```scheme
-  (remote ip "127.0.0.1")
-  ```
-
-* Remote TCP:
-
-  ```scheme
-  (remote tcp "localhost:22")
-  ```
-
-These correspond to lower-level `socket-local` / `socket-remote` filter keys in the binary format. SBPL spells them in a more human-readable form.
-
-### 4.3 Other common filters
-
-* `sysctl-name`:
-
-  ```scheme
-  (sysctl-name "kern.hostname")
-  ```
-
-* Sandbox extensions:
-
-  ```scheme
-  (extension "com.apple.app-sandbox.read")
-  (extension "com.apple.sandbox.container")
-  ```
-
-* Process / signing predicates (in platform / App Sandbox profiles):
-
-  ```scheme
-  (signing-identifier "com.example.myapp")
-  (entitlement-is-present "com.apple.security.network.client")
-  (csr APPLE_EVENT)
-  (system-attribute "platform-binary")
-  ```
-
-In compiled profiles, each of these is a filter key with an encoded value (string index, enum, bitfield, etc.).
+Apple’s internal profiles contain many more specialized filters (I/O Kit classes, entitlements, container-relative paths, etc.), but they all follow the key–value predicate idea.
 
 ---
 
-## 5. Metafilters (Boolean Combinators)
+## 5. Metafilters: require-any/all/not
 
-Metafilters combine other filters logically. They are critical for mapping graph structures back into SBPL and show up frequently in real profiles.
+Metafilters combine other filters to express Boolean structure. They are most commonly seen as `require-any`, `require-all`, and `require-not`.
 
-### 5.1 `require-any` (logical OR)
+### 5.1 require-any
+
+“Allow if any of these conditions hold”:
 
 ```scheme
 (allow file-read*
   (require-any
-    (regex #"/bin/.*")
-    (vnode-type REGULAR-FILE)))
+    (subpath "/Applications/TextEdit.app")
+    (subpath "/System/Applications/TextEdit.app")))
 ```
 
-Semantics: allow if any of the nested filters match.
+Semantics: the rule applies if **either** subpath condition matches.
 
-### 5.2 `require-all` (logical AND)
+### 5.2 require-all
+
+“Allow only if all of these conditions hold”:
 
 ```scheme
-(allow file-read*
+(allow file-write*
   (require-all
-    (regex #"/bin/.*")
+    (subpath "/Users/alice/Library/Containers/com.apple.TextEdit")
     (vnode-type REGULAR-FILE)))
 ```
 
-Semantics: allow only if all nested filters match.
+Semantics: both the subpath and vnode-type constraints must be satisfied.
 
-### 5.3 `require-not` (logical NOT)
+### 5.3 require-not
+
+“Allow only if this condition does *not* hold”:
 
 ```scheme
 (allow file-read*
   (require-not
-    (vnode-type REGULAR-FILE)))
+    (subpath "/System/Volumes/Data/private")))
 ```
 
 Semantics: allow only if the nested filter does not match.
@@ -247,7 +225,7 @@ You can nest metafilters to express complex conditions:
 In the compiled graph:
 
 * Non-terminal nodes represent individual filter tests with “match” and “unmatch” edges.
-* `require-any/all/not` emerge from specific patterns of nodes and edges; the binary format does not carry the names of these combinators explicitly.
+* `require-any/all/not` emerge from specific patterns of nodes and edges, not from dedicated opcodes. The graph structure encodes Boolean combinations; the compiled format does not carry the names of these combinators explicitly.
 
 XNUSandbox’s job includes recognizing those patterns and reconstructing the right metafilter structure.
 
@@ -257,302 +235,206 @@ XNUSandbox’s job includes recognizing those patterns and reconstructing the ri
 
 Action modifiers decorate an `allow`/`deny` with additional behavior, such as logging or user consent.
 
-### 6.1 `(with report)`
+Examples include:
 
-Example:
+* `(with report)` – request that violations be logged (e.g., to the system log).
+* `(with telemetry)` – hypothetical; used here as a stand-in for custom reporting hooks.
+* `(with user-approval)` – hypothetical; could represent a TCC-style user prompt.
 
-```scheme
-(allow (with report) sysctl
-  (sysctl-name "kern.hostname"))
-```
-
-Semantics:
-
-* The operation is allowed if the filters match.
-* A report/log entry is produced whenever this rule is triggered. In practice this affects whether sandboxd logs the event even though the syscall succeeds.
-
-### 6.2 User-consent modifiers
-
-More recent macOS profiles can include action modifiers that defer to user-consent workflows (TCC) for sensitive resources, for example camera or microphone access. Conceptually:
+At the SBPL level, these are nested forms:
 
 ```scheme
-(allow (with user-approval "Camera access")
-  device-camera
-  ...)
+(allow (with report) file-read* (subpath "/tmp"))
 ```
 
-This is illustrative rather than canonical syntax, but the underlying idea is:
-
-* Instead of outright deny or allow, the sandbox and TCC cooperate to prompt the user.
-* The compiled profile encodes a decision plus flags that cause sandboxd/tccd to consult user consent.
-
-From XNUSandbox’s perspective, these modifiers appear as additional flags or attributes on decision nodes.
-
----
-
-## 7. Raw Strings and Scheme Features
-
-SBPL rides on top of a TinyScheme-derived interpreter in `libsandbox.dylib`, with Apple-specific extensions.
-
-Notable points:
-
-* Raw string literals: `#"…"` are used for regexes and certain path strings:
-
-  ```scheme
-  (regex #"/bin/.*")
-  ```
-
-* TinyScheme was extended to support these “sharp expressions” so profiles can contain regexes without escaping everything.
-
-* General Scheme constructs (conditionals, lambdas, macros, parameterization) exist, and Apple’s internal profiles do use macros and helper functions for reuse and entitlement-driven exceptions.
-
-For XNUSandbox’s purposes, most of this sophistication is baked away during compilation. The compiled binary format mainly reflects:
-
-* Which operation is involved.
-* Which filters (key–value predicates) apply.
-* How filters are combined (any/all/not).
-* The final decisions and action modifiers.
-
-When you see unfamiliar SBPL in XNUSandbox output, normalize it to that core structure.
+In the compiled profile, these usually become bits or attributes attached to the decision node. Not all modifiers have public names in system profiles, but the pattern “modifier wraps operation in SBPL” → “flags on decision node in policy graph” holds.
 
 ---
 
 # Binary Profile Formats and Policy Graphs
 
-This section explains how SBPL policies become the binary “policy graphs” that Seatbelt actually enforces. It is the bridge between the high-level Sandbox DSL and the low-level XNUSandbox code that parses serialized blobs.
+This section explains how SBPL policies become the binary “policy graph” structures that Seatbelt evaluates in the kernel, and how those structures are laid out in memory. It connects the textual DSL above with the low-level XNUSandbox code that parses serialized blobs.
 
 ---
 
 ## 1. High-Level Picture: Binary Profiles as Serialized Graphs
 
-Apple’s shipped sandbox profiles are compiled SBPL programs stored as binary blobs, not text. These blobs encode the policy as a graph of nodes:
+Apple’s shipped sandbox profiles are compiled SBPL programs stored as binary blobs. Conceptually, each compiled profile is:
 
-* Each node represents either:
+* A header describing counts and offsets.
+* A table mapping operation IDs to entrypoints into a graph.
+* A set of nodes forming per-operation decision graphs.
+* Shared tables for strings, regular expressions, and other literals.
 
-  * A filter test (e.g., “path matches this regex”) with outgoing edges for match / non-match, or
-  * A terminal decision (allow/deny, possibly with flags).
-* Each operation has an entrypoint into this graph.
-* Shared tables hold strings, regexes, and other literal data.
-
-From a reversing perspective:
-
-* SBPL operations (like `file-read*`, `mach-lookup`) become entrypoints into per-operation subgraphs.
-* SBPL filters become typed nodes with references into shared literal/regex tables.
-* SBPL metafilters (`require-all/any/not`) are compiled into specific node patterns that can be reconstructed later.
-
-Sandbox profiles can be stored as:
-
-* Individual blobs per profile (“separated” storage).
-* A single multi-profile blob (“bundled”), where profiles share tables and header structures.
-
-XNUSandbox’s role is to parse these blobs, reconstruct the graph, and emit something close to the original SBPL.
+At runtime, the kernel walks these graphs when mediating system calls and other events.
 
 ---
 
-## 2. Storage Models Across OS Versions
+## 2. Early Decision-Tree Format (Blazakis-Era)
 
-On iOS (and conceptually similarly on macOS), profiles are stored as binary blobs in OS images. The main evolution (following SandBlaster’s terminology) is:
+Blazakis’s 2011 paper (“The Apple Sandbox”) reverse-engineers an early on-disk and in-memory format where each operation’s policy is represented as a decision tree:
 
-* iOS 2–4:
+* A fixed header with a `re_table_offset` pointing to a regex cache.
+* An array of operation records.
+* A contiguous sequence of “handler” records encoding filter tests and terminal decisions.
+* A separate regex cache, pointed to by `re_table_offset`.
 
-  * Profiles embedded in the sandbox kernel extension (`com.apple.security.sandbox`).
-  * Typically one blob per profile.
-* iOS 5–8:
+Each handler record has fields roughly corresponding to:
 
-  * Profiles moved into `/usr/libexec/sandboxd` as discrete blobs.
-* iOS 9+:
+* Kind of node (filter vs decision).
+* Filter key (e.g., path, vnode-type, global-name).
+* Filter argument (index into literal/regex table, enums for vnode type, etc.).
+* Offsets for “match” and “unmatch” edges.
 
-  * Profiles moved back into `com.apple.security.sandbox`.
-  * Profiles bundled into a single blob with:
+The kernel uses these to evaluate operations like `file-read*`: starting from an operation-specific entrypoint, it follows edges through filter nodes until reaching a terminal “allow” or “deny.”
 
-    * A header describing the bundle.
-    * Shared operation-node, regex, and literal tables.
-    * Per-profile indices into these shared structures.
+From a reverse-engineering perspective, this format is convenient:
 
-On macOS 14 and later, sandbox profiles are stored as `.sb` files in `/System/Library/Sandbox/Profiles/`, removing the need to extract them from the kernelcache.
+* The header gives you counts and offsets.
+* The handler array gives you a flat list of nodes.
+* The regex cache can be parsed separately and reassembled into human-readable patterns.
 
-For reversing, this matters mainly for extraction. Once you have the raw blob for a given profile (or the bundle), the internal layout is a graph plus a handful of tables.
-
----
-
-## 3. Early Decision-Tree Format (Blazakis-Era)
-
-Blazakis documented an early compiled profile format used by SandBox.kext. The core data structure:
-
-* Header with:
-
-  * `re_table_offset`: offset to regex-table (in 8-byte words).
-  * `re_table_count`: number of compiled regexes.
-  * `op_table`: an array of 16-bit offsets pointing to operation handlers.
-
-  On macOS 14, compiled profiles may have `re_table_offset = 0`, indicating a new format variant. Decoders should not assume this offset is always nonzero.
-
-* A sequence of handler records (nodes) forming per-operation decision trees:
-
-  * Each handler entry begins with an opcode byte, e.g.:
-
-    * `0x01` – terminal (decision node).
-    * `0x00` – non-terminal (filter node).
-  * For terminal nodes:
-
-    * A result byte, e.g. `0x00 = allow`, `0x01 = deny`.
-  * For non-terminal nodes:
-
-    * `filter_type`: 1-byte filter key (path, xattr, file-mode, mach-global, mach-local, socket-local, socket-remote, signal, etc.).
-    * `filter_arg`: 16-bit index into a table (literal/regex index, attribute value, etc.).
-    * `transition_matched`: 16-bit offset of the next node if filter matches.
-    * `transition_unmatched`: 16-bit offset of the next node otherwise.
-
-* A regex cache sub-format referenced via `re_table_offset` / `re_table_count`, whose entries point to per-regex blobs that AppleMatch.kext unpacks and executes.
-
-Operationally:
-
-* For a given operation ID, SandBox.kext uses `op_table[op_id]` as the entrypoint into the node list.
-* It then walks nodes, evaluating filters and following match / unmatch edges until landing on a terminal node that yields `allow` or `deny`.
-
-In userland parsers like XNUSandbox, you typically see:
-
-* A C struct mirroring the handler layout (opcode, result/filter type byte, 16-bit args, offsets).
-* A table or enum mapping filter codes back to textual keys.
-* Logic that, for each operation ID, follows transitions recursively to reconstruct a tree/graph and emit a readable representation.
+However, this decision-tree format is only one point in the evolution of Apple’s compiled sandbox representation.
 
 ---
 
-## 4. iOS 7–9 Graph-Based Formats (SandBlaster Model)
+## 3. Later Graph-Based Formats
 
-SandBlaster generalizes and updates this view for later iOS versions, describing the compiled profile as a set of sections that together encode a policy graph.
+Later OS versions (macOS and iOS) move from a strict tree representation to a more generic graph:
 
-For iOS 7–8 (separated profiles), the layout is roughly:
+* Nodes are still filter tests or terminal decisions, but they are shared across different operations where possible (e.g., common subgraphs).
+* The operation pointer table maps each operation ID to a node offset.
+* A literal/regex table aggregates all string and regex data.
+* Regexes are stored in an AppleMatch-specific NFA encoding, not as plain text.
 
-* **Header**
+Blazakis’s decision-tree format is best thought of as a special case of these more general graph-based layouts. The core ideas remain:
+
+* One or more tables of shared literals and regexes.
+* A node array encoding filter tests and decisions.
+* Operation-specific entrypoints into that array.
+* Regex caches with AppleMatch NFAs.
+
+---
+
+## 4. Modern Bundled Profile Format (macOS 13–14)
+
+On macOS 13–14, system sandbox profiles live on disk as `.sb` files, typically under `/System/Library/Sandbox/Profiles/`. These files bundle:
+
+* A header.
+* An operation pointer table.
+* A node graph.
+* Literal and regex tables.
+* Optional metadata.
+
+While the exact header layout and section offsets differ across OS versions, a common pattern is:
+
+* **Header**:
 
   * Magic / version identifier.
   * Counts and offsets for sections.
-* **Operation Node Pointers (also known as Operation Pointer Table)**
+
+* **Operation Node Pointers (also known as Operation Pointer Table)**:
 
   * Array indexed by operation ID.
   * Each entry is an offset into Operation Node Actions.
-* **Operation Node Actions**
+
+* **Operation Node Actions**:
 
   * The serialized node graph for all operations in the profile.
   * Each node is a rule element (filter + maybe decision) with edges.
-* **Regular Expression Pointers**
+
+* **Regular Expression Pointers**:
 
   * Array of offsets into the Literal/Regex section.
-* **Literals and Regular Expressions**
+  * Each entry corresponds to a compiled AppleMatch NFA for a regex used in the profile.
 
-  * Shared table of literal strings and serialized regexes.
+* **Literal / Regex Payloads**:
 
-For iOS 9 (bundled profiles), the same ideas apply, but:
+  * Shared tables for strings and regex NFAs.
 
-* The header identifies the blob as a bundle and includes:
-
-  * Number of profiles.
-  * A list of profiles, each with:
-
-    * Offset to its name string.
-    * Offsets for its per-profile OpNode pointer table.
-* Operation Node Actions, Regex Pointers, and Literals/Regexes are shared across all profiles in the bundle.
-
-From an XNUSandbox point of view:
-
-1. Parse the header and locate section offsets.
-2. For a given profile:
-
-   * Identify its operation-pointer table.
-3. For each operation:
-
-   * Use the pointer to locate the head of its rule subgraph in Operation Node Actions.
-   * Walk nodes, resolving any references into the Regex / Literal tables.
+Older descriptions of `re_table_offset` still apply conceptually (there is a section containing regex blobs), but the exact header fields and offsets have evolved. On macOS 14, compiled profiles may have `re_table_offset = 0` and use a different arrangement of regex tables; decoders should not assume this offset is always nonzero.
 
 ---
 
-## 5. Policy Graphs: Operations, Nodes, and Defaults
+## 5. Nodes and Edges
 
-SandBlaster uses the term “operation node” for the serialized rule elements. Each operation’s policy is a subgraph of these nodes:
+In all these formats, the core idea is the same: a graph of nodes with edges that encode Boolean structure.
 
-* Each node encodes:
+A node typically has:
 
-  * Zero or more filters (e.g., path literal, path regex, vnode-type, process predicate).
-  * A decision (allow/deny) or a continuation edge to other node(s).
-  * Optional flags (logging, user-approval, etc.) depending on OS version.
+* An opcode or kind field (filter vs decision).
 
-Metafilters (`require-all`, `require-any`, `require-not`) are encoded as patterns of node/edge structure rather than explicit tags:
+* For filter nodes:
 
-* `require-any` – multiple filters whose match edges converge on the same decision.
-* `require-all` – sequential filters where failing any filter routes to a different decision.
-* `require-not` – a node where match leads to deny and unmatch leads to allow, wrapped as a logical NOT of the underlying predicate.
+  * A filter key code (path, vnode-type, global-name, etc.).
+  * A filter argument (index into literal/regex table, enums for vnode type).
+  * Two outgoing edges: `match` and `unmatch`.
 
-The profile format guarantees that every known operation has an entry in the operation-pointer table, even if the original SBPL did not list it explicitly. In that case, the operation’s graph collapses to a default decision, typically deny.
+* For decision nodes:
 
-Reconstruction workflow (SandBlaster-style):
+  * A decision code (`allow`, `deny`, or a small set of variants).
+  * Optional flags for action modifiers (reporting, logging, etc.).
+  * No outgoing edges.
 
-1. Build operation ID ↔ name mappings from `libsandbox.dylib` and `.sb` profiles.
-2. For each operation:
+Edges are represented as:
 
-   * Start from its Operation Node Pointer.
-   * Traverse Operation Node Actions, building an in-memory graph.
-3. Post-process the graph:
+* Byte or 16-bit offsets into the node array.
+* Sometimes relative, sometimes absolute, depending on OS version.
 
-   * Detect patterns corresponding to `require-any`, `require-all`, `require-not`.
-   * Collapse literal/regex references into SBPL filters.
-   * Emit SBPL-like rules that mirror the graph.
+The graph patterns corresponding to `require-any/all/not` emerge from how nodes connect:
 
-XNUSandbox code will look very similar, although details may vary.
+* `require-any` ≈ parallel branches whose results OR together.
+* `require-all` ≈ sequential tests where any failure jumps to a deny.
+* `require-not` ≈ a branch inversion around some condition.
 
----
-
-## 6. Regular Expressions and Literal Tables
-
-Filters that involve paths or other strings rely on shared literal and regex tables:
-
-* Filters refer to literals/regexes by index into the Regular Expression Pointers array, which in turn points into the combined Literals/Regex section.
-* Literals are stored as plain strings.
-* Regexes are stored as serialized NFAs that AppleMatch.kext interprets in the kernel.
-
-A userland reversing tool generally:
-
-1. Reads the regex pointer table.
-2. For each regex:
-
-   * Parses the serialized NFA.
-   * Optionally reconstructs a human-readable regex.
-3. Maps the regex indices back into SBPL `(regex #"...")` filters.
-
-XNUSandbox may or may not fully reconstruct regex syntax; it might instead give approximate or structured representations, depending on its goals.
+XNUSandbox’s parsers reconstruct a higher-level tree or graph representation from these low-level nodes and edges.
 
 ---
 
-## 7. Practical Hooks for Interpreting XNUSandbox
+## 6. AppleMatch and Regex Tables
 
-When reading XNUSandbox:
+Regex filters in SBPL, such as:
 
-* Look for header parsing code:
+```scheme
+(allow file-read*
+  (regex #"^/Applications/.*\\.app/Contents/Info.plist$"))
+```
 
-  * Reads a fixed-header struct.
-  * Computes offsets to operation-pointer tables, node arrays, and literal/regex tables.
-* Look for node-traversal routines:
+compile to AppleMatch-specific NFAs stored in regex tables. The binary profile typically has:
 
-  * Accept an operation ID (or pointer index) and return a rule graph or iterated list of conditions + decision.
-  * Switch on a node opcode / filter type byte.
-* Look for post-processing passes:
+* A table of regex pointers (offsets into a regex payload section).
+* One or more blobs containing AppleMatch NFA encodings.
 
-  * Recognize graph patterns that correspond to `require-any`, `require-all`, `require-not`.
-  * Emit SBPL or an intermediary Scheme-like format.
+Early reversing work used AppleMatch itself to interpret these NFAs. On modern macOS versions, userland tools instead parse the NFA encoding directly or via independent decoders; XNUSandbox treats the regex table as opaque NFA data that can be disassembled into a more convenient internal representation.
 
-If something looks like “offset table + handler nodes + literal/regex region,” you are almost certainly looking at the binary policy graph substrate that Seatbelt uses at enforcement time.
+---
+
+## 7. Storage Locations and Evolution
+
+Historically:
+
+* Early iOS/macOS builds embedded sandbox profiles in kernel extensions or the kernelcache itself.
+* Later versions moved profiles into userland (`sandboxd`) or dedicated bundles.
+* Modern macOS 13–14 store `.sb` files under `/System/Library/Sandbox/Profiles/` and load them at boot or as needed.
+
+From a tooling perspective, this evolution means:
+
+* Kernelcache scraping (as described in older blog posts and tools) is largely unnecessary on macOS 14: profiles are available as `.sb` files on disk.
+* Tools like `extract_sbs` work at the SBPL/binary profile level, not by patching or scraping kernel images.
+
+XNUSandbox assumes profiles are obtained from these modern `.sb` bundles (or from test fixtures compiled with `sandbox-exec`-style tooling on older systems) rather than from kernelcache offsets.
 
 ---
 
 # Operations and Filters Reference
 
-This section gives you a compact mental model for the Seatbelt “vocabulary”: what an operation is, what a filter is, and how they compose into rules that XNUSandbox is decoding. For SBPL syntax details, see “Sandbox DSL Cheatsheet”. For serialization details, see “Binary Profile Formats and Policy Graphs”.
+This section gives you a compact mental model for the Seatbelt “vocabulary”: what an operation is, what a filter is, and how they compose in policy graphs. It assumes familiarity with the SBPL syntax in the cheatsheet above; for compile-time and layout details, see “Binary Profile Formats and Policy Graphs”.
 
 ---
 
 ## 1. Operations: The Verbs of the Sandbox
 
-At the SBPL level, an operation is a named class of kernel action such as `file-read*`, `network-outbound`, `mach-lookup`, or `sysctl-read`.
+At the SBPL level, an operation is a named class of kernel action: `file-read*`, `network-outbound`, `mach-lookup`, or `sysctl-read`.
 
 At compile time:
 
@@ -561,7 +443,7 @@ At compile time:
 
   * `operation ID → entrypoint into policy graph`.
 
-The `libsandbox` interpreter builds an internal vector (`*rules*` in Blazakis’ description) where each index corresponds to an operation’s rule graph. In the binary formats SandBlaster describes, the Operation Node Pointer table plays the same role: mapping each operation ID to its starting node.
+The `libsandbox` interpreter builds an internal vector (`*rules*` in Scheme) where each element corresponds to an operation’s rule graph. In the binary formats, the operation pointer table plays the same role: mapping each operation ID to its starting node.
 
 Key points:
 
@@ -570,153 +452,67 @@ Key points:
 
   * ~59 operations on 10.6.8.
   * ~80–120 operations on later iOS versions, depending on OS version.
-* XNUSandbox needs (and maintains) a mapping table between operation IDs and human-readable names, usually derived from `libsandbox.dylib` and `.sb` profiles.
+* XNUSandbox needs (and maintains) a mapping table between operation IDs and symbolic names, usually derived from `libsandbox.dylib` and `.sb` profiles.
+  Because `libsandbox.dylib` is a private component without stable public headers or packaging, these symbol- and string-based mappings are inherently fragile and may change across OS versions; XNUSandbox treats them as best-effort hints rather than a stable API.
 
 Treat operation ID as the primary key for everything else in the profile.
 
 ---
 
-## 2. Operation Families You’ll See in Profiles
+## 2. Operation Families
 
-You usually don’t need an exhaustive list in the orientation; instead track the major families so patterns in decompiled output make sense.
+Some operations are closely related and share filters:
 
-### 2.1 Filesystem (`file*` family)
+* File read/write families:
 
-Examples:
+  * `file-read*`, `file-read-metadata`
+  * `file-write*`, `file-write-create`, `file-write-unlink`
+  * `file-issue-extension`
 
-* `file-read*`, `file-read-data`, `file-read-metadata`
-* `file-write*`, `file-write-create*`, `file-write-data`
-* Sometimes generic `file*` for a broader catch-all.
+* Network:
 
-Common patterns:
+  * `network-inbound`, `network-outbound`, `network-bind`, `network-listen`
 
-* Default-deny:
+* Mach IPC:
 
-  ```scheme
-  (deny default)
-  ```
-* Allow only reads under certain directories:
+  * `mach-lookup`, `mach-register`, related service filters.
 
-  ```scheme
-  (allow file-read* (subpath "/System"))
-  (allow file-read* (subpath "/usr/lib"))
-  ```
-* Explicit denies:
-
-  ```scheme
-  (deny file-read* (literal "/bin/secret.txt"))
-  ```
-
-These patterns show up clearly in reversed profiles (e.g., Blazakis’ toy examples and SandBlaster’s reconstructed policies).
-
-### 2.2 Process / control (`process*`, `signal`, `sysctl*`, etc.)
-
-Representative operations:
-
-* `process-fork`, `process-exec`
-* `signal`
-* `sysctl`, `sysctl-read`, `sysctl-write`
-* `system-fsctl` and similar lower-level control operations
-
-Profiles often:
-
-* Allow broad process operations (`allow process*`) but constrain dangerous variants (`signal`, `sysctl-write`) to root or platform binaries.
-* Use filters like `sysctl-name` and CSR predicates to gate access.
-
-### 2.3 Mach IPC (`mach-*`)
-
-Operations:
-
-* `mach-lookup`
-* `mach-register`
-* `mach-priv-port` (on some OS versions)
-* Other Mach IPC variants
-
-These operations are typically constrained by filters on bootstrap names:
-
-```scheme
-(allow mach-lookup (global-name "com.apple.analyticsd"))
-(deny  mach-lookup (global-name "com.apple.securityd"))
-```
-
-In the binary format, these are `mach-global` / `mach-local` filter keys plus string indices into the literal table.
-
-### 2.4 Network (`network-*`)
-
-Operations:
-
-* `network-outbound`
-* `network-inbound`
-* Sometimes `network*` as a family catch-all.
-
-Typical policy shapes:
-
-* App Sandbox-style profiles that broadly allow outbound client network, optionally with entitlements gating:
-
-  ```scheme
-  (allow network-outbound (entitlement-is-present "com.apple.security.network.client"))
-  ```
-* Highly constrained profiles (daemons, platform components) that only permit specific local or remote destinations.
-
-The underlying filters are `socket-local` / `socket-remote` predicates, but SBPL presents a higher-level spelling.
-
-### 2.5 Meta / management operations
-
-The Seatbelt module also exposes meta-operations (e.g., via `mac_syscall`) for managing profiles:
-
-* `set_profile` – apply a compiled profile to a process.
-* `platform_policy` – run checks against the platform profile.
-* `check_sandbox` – manually query the current sandbox.
-
-These are not SBPL operations in the resource sense; they are management commands. You may see them in XNUSandbox if it includes code that disassembles the sandbox syscall interface.
+Understanding these families helps when constructing capability catalogs: you rarely need to list every variant if they share the same filter structure and differ only in small semantics.
 
 ---
 
-## 3. Filters: The Conditions on Each Operation
+## 3. Filters: The Conditions on Rules
 
-A filter is a predicate on an operation’s parameters or on process/OS state. In the binary profile, each non-terminal node encodes:
+Filters are key–value predicates that further constrain when a rule applies. In the compiled graph:
 
-* A filter key (path, xattr, vnode-type, mach-global, socket-remote, etc.).
-* A filter value (path index, regex index, vnode type enum, IP/port encoding, etc.).
-* Match and unmatch successors in the graph.
+* Each filter is encoded as a filter key code plus an argument (often an index into a shared literal or regex table).
+* Edges leave each filter node for the “match” and “unmatch” cases.
 
-Blazakis and SandBlaster describe early filter key sets that remain a good conceptual basis:
+Broad categories:
 
-* Path / file:
+### 3.1 Path and vnode filters
 
-  * `path`, `literal`, `subpath`, `regex`, `vnode-type`, `file-mode`, `xattr`
-* Mach:
+These are the most common and govern file-system access:
 
-  * `mach-global`, `mach-local`
-* Network:
-
-  * `socket-local`, `socket-remote`
-* Process / system:
-
-  * `signing-identifier`, `entitlement-is-present`, `csr`, `system-attribute`, etc., in later profiles
-
-You can think of filters in a few major groups.
-
-### 3.1 Path- and file-based filters
-
-These constrain filesystem operations and are the most commonly seen in examples:
-
-* **Literal path**:
+* Exact path:
 
   ```scheme
-  (literal "/bin/secret.txt")
+  (path "/bin/ls")
   ```
-* **Subpath**:
+
+* Subpath:
 
   ```scheme
-  (subpath "/Applications/MyApp.app")
+  (subpath "/Applications/TextEdit.app")
   ```
-* **Regex**:
+
+* Regex path:
 
   ```scheme
-  (regex #"^/Users/[^/]+/Documents")
+  (regex #"^/Users/[^/]+/Library/Containers/")
   ```
-* **Vnode type**:
+
+* Vnode type:
 
   ```scheme
   (vnode-type REGULAR-FILE)
@@ -735,102 +531,112 @@ These constrain Mach bootstrap services and other IPC endpoints:
   ```scheme
   (global-name "com.apple.analyticsd")
   ```
+
 * By local name or other service identifiers.
 
-These appear in SBPL attached to `mach-lookup` / `mach-register`, and in binary as filter keys with indices into literal tables.
+These appear in SBPL attached to `mach-lookup` / `mach-register`, and in binary as filters referencing literal strings.
 
 ### 3.3 Network filters
 
-These constrain network operations. While the high-level SBPL names vary, conceptually they include:
+These govern network operations:
 
-* Remote IP / port:
+* Remote address and port:
 
   ```scheme
   (remote ip "127.0.0.1")
-  (remote tcp "localhost:22")
+  (remote port 80)
   ```
-* Possibly local address / port filters too.
 
-These correspond to `socket-local` / `socket-remote` filter keys and encoded address values in the binary graph.
-
-### 3.4 Process and OS state filters
-
-These examine the calling process and system configuration:
-
-* Signing identity:
+* Local address and port:
 
   ```scheme
-  (signing-identifier "com.example.myapp")
+  (local ip "10.0.0.0/8")
+  (local port 49152-65535)
   ```
-* Entitlements:
+
+* Protocol:
 
   ```scheme
-  (entitlement-is-present "com.apple.security.device.camera")
-  ```
-* SIP / platform flags:
-
-  ```scheme
-  (csr APPLE_EVENT)
-  (system-attribute "platform-binary")
+  (protocol "tcp")
   ```
 
-They are critical in platform/App Sandbox profiles, which often gate access to powerful operations on entitlements and signing state.
+The binary format encodes these as structured arguments, often via small enums and packed integers.
+
+### 3.4 Process / identity filters
+
+These constrain by user, group, or process identity:
+
+```scheme
+(uid 0)
+(gid 0)
+(target self)
+(target other)
+```
+
+They show up frequently in platform policies that differentiate between root and non-root actions, or between self-targeted and other-targeted signals.
 
 ---
 
 ## 4. Metafilters and Rule Composition
 
-Filters can be combined directly (multiple filters in a single rule) or via explicit metafilters:
+As described earlier, metafilters like `require-any`, `require-all`, and `require-not` combine filters:
 
-* `require-any` – logical OR.
-* `require-all` – logical AND.
-* `require-not` – logical NOT.
+* `require-any`: OR of multiple branches.
+* `require-all`: AND of multiple conditions.
+* `require-not`: negation of a condition.
 
-At the compiled level, this is represented purely by graph structure:
+In the compiled graph:
 
-* Non-terminal nodes split control flow based on filter match / unmatch.
-* Specific patterns of nodes and edges correspond to these logical combinators.
-* XNUSandbox and SandBlaster detect these patterns when reconstructing SBPL.
-
-When reading XNUSandbox output:
-
-* If you see a rule printed with `require-any/require-all/require-not`, you are looking at the high-level interpretation of one of these node patterns.
-* If you explore the underlying graph, expect multiple filters whose match edges converge or diverge in ways that implement OR/AND/NOT.
+* These do not appear as dedicated opcodes.
+* Instead, they emerge from patterns in how filter and decision nodes connect.
+* XNUSandbox recognizes these patterns and reconstructs metafilters for human-readable output or capability catalogs.
 
 ---
 
-## 5. How XNUSandbox Obtains and Uses Operation/Filter Metadata
+## 5. Decisions and Action Modifiers
 
-Tools like SandBlaster and XNUSandbox typically:
+The terminal nodes in the policy graph carry decisions:
 
-1. Extract operation and filter names from `libsandbox.dylib`:
+* `allow`
+* `deny`
 
-   * `libsandbox` contains strings for operation names, filter keys, and sometimes descriptions.
-2. Cross-check against `.sb` profiles in `/usr/share/sandbox` or `/System/Library/Sandbox/Profiles`.
-3. Build bidirectional maps:
+Action modifiers are attached to these decisions as flags:
 
-   * Operation name ↔ operation ID.
-   * Filter key name ↔ filter key ID.
-   * Filter enumerations (vnode types, system attributes, etc.).
+* Logging/reporting.
+* Telemetry hooks.
+* User-approval prompts (TCC-style mediation).
 
-XNUSandbox then uses those mappings to:
+In SBPL, modifiers wrap the operation; in the compiled graph, they live as bits on the decision node.
 
-* Turn binary operation IDs into SBPL names (`file-read*`, `mach-lookup`, etc.).
-* Turn filter keys/values into SBPL filter expressions.
-* Validate decoded graphs by comparing them against known `libsandbox` intermediary representations (e.g., Scheme `*rules*` tables).
+---
 
-In summary:
+## 6. Operation and Filter Vocabulary Maps
 
-* Operations tell you “what the process is trying to do.”
-* Filters tell you “under what conditions.”
-* Metafilters and graph structure tell you “how multiple conditions combine.”
-* XNUSandbox sits at the seam, turning binary encodings of IDs and filter codes back into that higher-level vocabulary.
+XNUSandbox maintains its own “vocabulary maps”:
+
+* Operation map:
+
+  * Operation ID ↔ operation name (`file-read*`, `mach-lookup`, etc.).
+  * Derived from `libsandbox.dylib`, Apple’s `.sb` profiles, and test fixtures.
+
+* Filter map:
+
+  * Filter key ID ↔ filter name (`path`, `subpath`, `vnode-type`, etc.).
+  * Filter argument encodings ↔ human-readable values (string literals, regexes, enums).
+
+These maps are essential for:
+
+* Parsing compiled profiles into human-readable structures.
+* Building capability catalogs that refer to operations and filters by name.
+* Comparing profiles across OS versions (detecting added/removed operations and filters).
+
+Because operation IDs and filter codes can change across OS versions, these maps are versioned and derived from the concrete artifacts at hand, not assumed to be stable.
 
 ---
 
 # Policy Stacking and Platform Sandbox
 
-This section explains how Seatbelt policies stack: platform policy, per-process policy, and dynamic extensions. It provides context so you don’t over-interpret a single profile as the entire effective sandbox.
+This section explains how Seatbelt policies stack: platform policies, app-specific policies, and sandbox extensions combine to produce the effective sandbox for a process. It emphasizes that you must consider all layers together when reasoning about capabilities, and that you should not over-interpret a single profile as the entire effective sandbox.
 
 ---
 
@@ -838,140 +644,251 @@ This section explains how Seatbelt policies stack: platform policy, per-process 
 
 Seatbelt enforces sandbox rules at two distinct levels inside `Sandbox.kext`:
 
-* **Platform sandbox policy**
+* **Platform sandbox policy**:
 
-  * Global policy applied system-wide.
-  * Encodes system-wide constraints and behavior, including pieces of System Integrity Protection (SIP) and other global controls.
-* **Process sandbox policy**
+  * System-wide rules applied to many processes, often tied to platform roles (system daemons, built-in apps, etc.).
+  * Loaded early at boot.
+  * Defines global restrictions and allow-lists.
 
-  * Per-process profile applied when:
+* **Process-specific sandbox policy**:
 
-    * The process is App Sandbox-enabled, or
-    * The process calls `sandbox_init*` with a particular SBPL profile.
-  * The compiled policy is attached to the process’s credentials as a MAC label.
+  * Per-process policy created when an app opts into App Sandbox or is otherwise launched with a profile.
+  * Often based on templates like `com.apple.sandbox.default`, specialized by entitlements.
 
-From the kernel’s point of view, both are “just policies” evaluated through the same machinery; they differ in scope and how they are attached.
-
----
-
-## 2. Evaluation Order: Platform First, Then Process
-
-When a sandbox-relevant operation occurs (file open, socket connect, Mach lookup, etc.), XNU calls a sandbox MACF hook. `Sandbox.kext` then:
-
-1. Maps the hook to a sandbox operation ID.
-2. Evaluates the platform policy for that operation:
-
-   * If the platform policy denies, the operation fails immediately.
-   * The per-process sandbox is not consulted.
-3. If the platform policy allows, and the process has its own sandbox profile:
-
-   * Evaluates the per-process policy.
-   * If the process policy denies, the operation fails.
-4. If both allow (and any other MAC policies agree), the operation proceeds.
-
-Net effect:
-
-* Effective policy = platform policy ∧ process policy ∧ any other MAC policies.
-* Platform-level denies are absolute, regardless of the per-process profile.
-
-For a single decoded profile, you are always looking at one layer of this stack, not the final behavior in isolation.
+Together, these layers form a stack: the effective decision for an operation is the result of evaluating both policies (and any extensions) with a defined precedence.
 
 ---
 
-## 3. Relationship to SIP, Entitlements, and Global Predicates
+## 2. Platform vs App Sandbox
 
-The platform sandbox policy is tightly coupled to SIP and global configuration:
+Platform policies:
 
-* Predicates such as `csr` and `system-attribute` expose SIP state and system-wide flags into SBPL.
-* Platform/App Sandbox profiles use process metadata predicates heavily:
+* Cover system daemons, services, and core OS processes.
+* Are typically defined in profiles that are not directly visible or customizable to third-party developers.
+* Use operations and filters similar to app policies but are oriented around OS roles.
 
-  * `signing-identifier` to restrict rules to binaries with specific bundle IDs.
-  * `entitlement-is-present` to gate access on entitlements (network, camera, files, etc.).
-  * `system-attribute` to distinguish platform binaries from third-party apps.
+App sandbox policies:
+
+* Are derived from templates and tuned by entitlements.
+* Govern access to the file system, network, hardware, and IPC for individual apps.
+* Are documented at a high level in Apple’s App Sandbox and Hardened Runtime guides.
+
+From a capability catalog perspective:
+
+* Platform policies set the background “fence line” of the system.
+* App policies define additional fences or gates specific to each app.
+* You must inspect both to correctly characterize what a process can and cannot do.
+
+---
+
+## 3. Evaluation Order and Precedence
+
+Conceptually, when a sandboxed process attempts an action:
+
+1. Seatbelt consults the platform policy.
+2. Seatbelt consults the process-specific policy.
+3. It combines decisions according to fixed precedence rules.
+
+A simplified precedence model:
+
+* If any layer yields a definitive `deny` (without an explicit override mechanism), the effective decision is `deny`.
+* `allow` in a lower-priority layer cannot override a `deny` in a higher-priority layer.
+* Sandbox extensions can add more specific allowances, but they do not rewrite existing rules.
+
+This matches both the public documentation and reverse-engineering observations: platform denies (for example, forbidding writes to certain system paths) cannot be trivially overridden by app-level profiles.
+
+---
+
+## 4. Sandbox Extensions as a Third Dimension
+
+Sandbox extensions are opaque tokens that grant additional, narrowly scoped capabilities without changing the underlying profile:
+
+* Issued by trusted system components (e.g., `launchd`, system daemons, TCC agents).
+* Encoded as blobs attached to the process’s label in the kernel.
+* Referenced by filters like `(extension "com.apple.app-sandbox.read-write")`.
+
+Examples of uses:
+
+* Granting temporary read/write access to a file the user selected in an open/save dialog.
+* Allowing access to a removable volume or network share.
+* Enabling a process to receive data from another sandboxed process via a controlled channel.
 
 In practice:
 
-* Entitlements act as inputs to sandbox policy, not as independent allow/deny mechanisms.
-* The platform policy often encodes “apps with entitlement X may do Y,” while individual App Sandbox templates encode more generic logic.
+* Extensions are neither pure “platform” nor pure “app” policy; they are a dynamic overlay.
+* XNUSandbox and similar tools model them as a separate capability channel.
+* When building capability catalogs, you must account for extensions as potential “escape hatches” that legitimately widen an app’s access in specific contexts.
 
-When you see filters referencing entitlements, signing IDs, or CSR flags in XNUSandbox output, you are likely looking at platform/App Sandbox logic, not app-specific one-off rules.
+The policy stack, in summary, is:
 
----
+* Platform profile(s).
+* Process-specific profile.
+* Sandbox extensions.
 
-## 4. Userland Interface: Platform vs Process-Level Syscalls
-
-Userland interacts with `Sandbox.kext` primarily via `__mac_syscall("Sandbox", ...)`, wrapped in `__sandbox_ms` and higher-level `libsandbox` APIs. Reversing work identifies several management commands (names vary by source):
-
-* `set_profile`-like commands to:
-
-  * Apply a compiled or named profile to the current process (or a target process).
-* `platform_policy`-like commands to:
-
-  * Trigger platform-specific checks against a process or operation.
-* `check_sandbox`-like commands to:
-
-  * Explicitly ask “would this operation be allowed by the current sandbox stack?”
-
-These commands:
-
-* Operate on the same underlying bytecode format (policy graphs) described earlier.
-* Distinguish whether the call is manipulating process profiles, querying platform policy, or just checking an operation.
-
-For XNUSandbox itself, this matters mainly as context: it focuses on decoding profiles, not on issuing these syscalls.
+Any realistic assessment of a process’s sandbox must consider all three together, rather than any one layer in isolation.
 
 ---
 
-## 5. Sandbox Extensions as a Third Dimension
+# Lifecycle pipeline: from signed binary to sandboxed process
 
-Beyond static platform + process policies, sandbox extensions add a dynamic third dimension:
-
-* A sandbox extension is an opaque token that, when consumed by a process, extends its sandbox to access specific resources (paths, Mach names, etc.).
-* Extensions are typically issued by trusted daemons (e.g., securityd, tccd, container management services) in response to system events:
-
-  * Opening files via NSOpenPanel.
-  * Granting Photos or Contacts access via TCC dialogs.
-  * Launch services handing off file URLs across processes.
-* Extensions are stored in MACF label slots and consulted in sandbox policy via filters like:
-
-  ```scheme
-  (extension "com.apple.app-sandbox.read")
-  (extension "com.apple.sandbox.read-write")
-  ```
-
-  usually combined with path or other filters.
-
-Conceptually:
-
-* For a given operation, platform and process profiles both can query “does this process hold extension X?” and allow access only if so.
-* Extensions therefore implement targeted exceptions without widening the base profile globally.
+This section ties together the “where does a profile come from?” questions into a single pipeline: from a signed Mach-O on disk to a process with a Seatbelt label and an active policy graph in the kernel. It draws on the high-level view in ROWE_SANDBOXING, the low-level reverse engineering in BLAZAKIS2011 and SANDBLASTER2016, and the broader system context in APPLESANDBOXGUIDE, STATEOFSANDBOX2019, and WORMSLOOK2024.
 
 ---
 
-## 6. Implications for XNUSandbox and Profile Analysis
+## 1. On-disk ingredients
 
-For a profile-decoding tool:
+Before any sandboxing happens at runtime, the system already has several relevant artifacts on disk:
 
-* A single decoded profile is one layer in a multi-layer system:
+* **Signed executable and entitlements**
 
-  * It might be a platform profile.
-  * It might be an App Sandbox template (e.g., `application.sb`).
-  * It might be a daemon’s custom profile.
-* The effective runtime sandbox is:
+  * Each modern macOS app is a code-signed Mach-O binary (or bundle) whose signature includes an entitlements plist.
+  * Entitlements determine, among other things, whether the app opts into the App Sandbox and what additional capabilities (network, device access, etc.) it requests.
 
-  * Platform profile decisions
-    ∧ process profile decisions (if any)
-    ∧ active sandbox extensions
-    ∧ other MAC policies (including SIP-related MAC modules)
-    ∧ user-consent workflows (TCC) encoded via action modifiers and extension issuance.
+* **Profile sources**
 
-When using XNUSandbox output to reason about real-world behavior:
+  * Built-in SBPL templates and precompiled profiles for the App Sandbox and system roles.
+  * System `.sb` files under `/System/Library/Sandbox/Profiles/` in newer macOS versions, which hold compiled or bundled Seatbelt policies.
+  * SBPL strings or files provided by applications that use the sandbox(7) APIs directly.
 
-* Do not assume a per-process profile alone explains why an operation is allowed or denied.
-* Pay attention to:
+* **Platform policy bundle**
 
-  * Global predicates (`csr`, `system-attribute`).
-  * Entitlement-based filters.
-  * Extension filters.
-* Remember the evaluation order: platform first, then process. A deny in the platform profile will win even if the process profile appears permissive.
+  * A set of platform profiles that capture OS-level policy for daemons, helpers, and core services, loaded at boot or as needed.
 
-This stacking model is essential context when tying decoded profiles back to actual behavior on modern macOS/iOS and when designing probes that try to characterize sandbox capabilities empirically.
+These map directly onto the **Compiled Profile Source** and **Profile Layer** concepts: you can think of them as the raw material for the per-process policy stack.
+
+---
+
+## 2. Launch and early initialization
+
+When a process is started (via `launchd`, `xpcproxy`, or similar launch machinery), a series of early steps determine whether it will be sandboxed and how:
+
+1. **Code signature and entitlements are evaluated**
+
+   * A security initialization component (often referred to in the literature as `secinit`) checks the code signature, reads entitlements, and applies hardened runtime rules.
+   * At this stage the system can already decide whether the App Sandbox entitlement is present and whether special platform flags apply.
+
+2. **libSystem initializers decide whether to apply a sandbox**
+
+   * For App Sandbox processes (those with the App Sandbox entitlement), Rowe observes that they are sandboxed “automatically by initializers in `libSystem` that run very early during an application’s launch.” ROWE_SANDBOXING
+   * For processes without the App Sandbox entitlement, sandboxing is opt-in via explicit calls to the sandbox(7) APIs, primarily `sandbox_init_*`.
+
+3. **Explicit vs implicit sandbox entry points**
+
+   * **Implicit (App Sandbox):** `libSystem`’s early initializers consult process attributes (notably entitlements) and apply the App Sandbox policy automatically for Mac App Store and similar apps. The application itself does not call sandbox(7) directly.
+   * **Explicit (custom policy):** Non-App-Sandboxed applications can call APIs like `sandbox_init` / `sandbox_init_with_parameters` to apply a named profile, SBPL file, or SBPL string at a time of their choosing.
+
+Historically, the `sandbox-exec` utility wrapped this explicit path by calling `sandbox_init` before `fork`/`exec`. BLAZAKIS2011
+
+---
+
+## 3. Selecting and parameterizing a profile
+
+Once the runtime has decided *that* a process should be sandboxed and *how* (App Sandbox template vs explicit policy), it must choose a concrete profile and fill in any parameters.
+
+1. **Template and source selection**
+
+   * **App Sandbox path:**
+
+     * macOS uses a predefined App Sandbox profile template, effectively a large SBPL policy that represents what “being App Sandboxed” means at a coarse level.
+     * Additional entitlements (network, hardware access, container exceptions) act as selectors that turn particular pieces of that template on or off.
+
+   * **Custom sandbox path:**
+
+     * The calling process can specify a named built-in profile, a path to an SBPL file, or a literal SBPL string.
+
+2. **Parameter dictionaries**
+
+   * Many system SBPL profiles use `(param "…")` forms and string combinators (`string-append`, etc.) that require a parameter dictionary at compile time (bundle identifiers, container roots, and other app-specific values). BLAZAKIS2011, WORMSLOOK2024
+   * For App Sandbox profiles, entitlements and other launch metadata effectively *are* the parameter source; the system derives parameter values (e.g., container path fragments) and passes them to the SBPL compiler.
+
+3. **Mapping to the concept space**
+
+   * This stage corresponds to moving from a generic **SBPL Profile** plus **SBPL Parameterization** to a specific instance tied to a single process’s identity and entitlements.
+   * The outcome is a concrete SBPL program with all parameters resolved, ready for compilation into the binary policy graph described elsewhere in the Appendix.
+
+---
+
+## 4. Compiling SBPL into a policy graph
+
+The next step is to turn the selected, parameterized SBPL profile into a compiled representation that the kernel can evaluate efficiently.
+
+1. **SBPL interpretation and compilation in `libsandbox`**
+
+   * BLAZAKIS2011 and ROWE_SANDBOXING describe an interpreter within `libsandbox` (based on TinyScheme) that reads SBPL and emits a compiled form.
+   * `sandbox_init` and related APIs in `libSystem` dynamically load `libsandbox.dylib`, invoke one of several `sandbox_compile_*` functions, and receive back a compiled policy blob.
+
+2. **Compiled profile structure**
+
+   * The compiled blob is a serialized **PolicyGraph**:
+
+     * A header with offsets and counts.
+     * An operation pointer table mapping operation IDs to graph entrypoints.
+     * A node array of filter and decision nodes.
+     * Shared tables for literals and regex NFAs (AppleMatch).
+
+   * This is exactly the binary structure described in “Binary Profile Formats and Policy Graphs” and matches the **PolicyGraph**, **Policy Node**, and **Operation Pointer Table** concepts.
+
+3. **Action modifiers and logging configuration**
+
+   * During compilation, SBPL action modifiers (e.g., `(with report)`) are translated into flags on decision nodes in the graph, controlling logging behavior and violation reporting via `sandboxd`.
+
+At the end of this stage, user space holds a compiled sandbox blob that is ready to be installed into `Sandbox.kext`.
+
+---
+
+## 5. Installing the profile in the kernel
+
+With a compiled policy in hand, the system must make it active for the target process by loading it into the Sandbox kernel extension and attaching it to the process’s credentials.
+
+1. **User–kernel boundary**
+
+   * In earlier OS versions, BLAZAKIS2011 documents `sandbox_apply` as the userland entry point that hands the compiled blob to the kernel.
+   * Later work observes both a dedicated syscall stub (`sandbox_ms`) and MIG-based messaging into `Sandbox.kext`, depending on OS version. SANDBLASTER2016, STATEOFSANDBOX2019
+
+2. **Profile registration and reference counting**
+
+   * The kernel stores the compiled profile in internal data structures and typically reference-counts it so that multiple processes can share the same compiled instance when appropriate. SANDBLASTER2016, STATEOFSANDBOX2019
+   * Platform profiles (part of the global policy) are loaded early and shared widely; App Sandbox and custom profiles may be loaded on demand.
+
+3. **Attaching to the process label**
+
+   * XNU’s MAC Framework (MACF) maintains per-credential security labels. `Sandbox.kext` stores pointers to the process’s platform and app-level profiles, as well as any sandbox extensions, in this label. ROWE_SANDBOXING, SANDBLASTER2016
+   * Conceptually, this is where the **Policy Stack Evaluation Order** and **Profile Layer** concepts become concrete: the process now has an effective policy stack consisting of:
+
+     * One or more platform profiles.
+     * Zero or one app-specific profile (App Sandbox or custom).
+     * Zero or more sandbox extensions.
+
+From this point on, the process is “sandboxed” in the sense that all relevant MACF hooks will consult this label and its associated policy graphs.
+
+---
+
+## 6. Enforcement at runtime
+
+Once the label is attached, enforcement is entirely driven by kernel-side hooks and the policy graphs:
+
+1. **MACF hooks into system call handling**
+
+   * `Sandbox.kext` registers handlers for many MACF policy hooks, covering file operations, process management, IPC, and other sensitive actions. ROWE_SANDBOXING, SANDBLASTER2016
+   * When a covered operation is attempted, XNU calls the Sandbox policy hook early in the system-call handling path, providing context (arguments, credentials, etc.).
+
+2. **Policy graph evaluation**
+
+   * The Sandbox hook:
+
+     * Identifies the relevant operation ID (e.g., `file-read*`, `mach-lookup`).
+     * Looks up the entrypoint in the operation pointer table for both platform and app profiles.
+     * Walks the filter and decision nodes, following `match`/`unmatch` edges according to the operation’s arguments.
+
+   * The kernel combines decisions across layers according to fixed precedence rules (platform denies dominating app allows, with extensions providing scoped exceptions), as described in “Policy Stacking and Platform Sandbox.”
+
+3. **Outcomes and reporting**
+
+   * If the effective decision is **allow**, the system call proceeds normally.
+   * If it is **deny**, the kernel returns `EPERM` (operation not permitted) or similar to user space. ROWE_SANDBOXING
+   * Depending on compiled action modifiers, `Sandbox.kext` may:
+
+     * Log the violation via system logging.
+     * Ask `sandboxd` to generate a violation report with backtrace and context. ROWE_SANDBOXING
+
+At this point the lifecycle is complete: the signed binary and its entitlements have been turned into a concrete SBPL profile, compiled into a policy graph, loaded into the kernel, attached to the process label, and used to gate every relevant operation for the lifetime of the process.
