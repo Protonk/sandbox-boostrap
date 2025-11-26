@@ -2,7 +2,7 @@
 
 This directory holds the **concept layer** of the repo: named ideas, cross-cutting abstractions, and shared tooling that sit between the high-level guidance docs and the concrete examples.
 
-Use `guidance/` to understand the model; use `examples/` to see focused demos; use `concepts/` to find and evolve reusable pieces that multiple examples share.
+Use `substrate/` to understand the model; use `examples/` to see focused demos; use `concepts/` to find and evolve reusable pieces that multiple examples share.
 
 ---
 

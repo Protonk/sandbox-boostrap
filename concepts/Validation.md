@@ -292,19 +292,3 @@ We define four primary validation modes. Most concepts will be validated by one 
   - Evidence of when policies take effect and how extensions modify them.
 
 ---
-
-## 4. Interaction with Examples (Minimized for Now)
-
-This design is concept-first. The examples will come later and can be organized around these clusters and modes, but we do not prescribe that structure here.
-
-For now:
-
-- Each example can be small and self-contained.
-- When examples are added, they should:
-  - Declare which validation mode(s) they participate in.
-  - Identify the concepts they are intended to witness.
-- The concept inventory will, over time, accumulate:
-  - Links from each concept to its witnesses.
-  - A record of which validation modes are used for that concept.
-
-The details of how we tag example folders, store boundary objects, and generate reports are left to downstream tooling. The purpose of this document is to give the concept inventory a clear validation architecture: clusters of concepts, and shared validation modes that we will use to support them.
