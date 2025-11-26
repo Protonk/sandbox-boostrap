@@ -1,10 +1,10 @@
-1. STATEOFTHESANDBOX2019
+## 1. STATEOFTHESANDBOX2019
 
 This paper empirically studies how Apple’s macOS App Sandbox is actually used in practice, and how well its intended restrictions are reflected in real-world apps. It has two main contributions: (1) a technical but high-level description of the App Sandbox mechanism and lifecycle (configuration via entitlements, initialization via the dynamic linker and libsandbox, and enforcement in the Sandbox kernel extension), and (2) a large-scale measurement of sandbox adoption and entitlement usage across 8366 free Mac App Store (MAS) apps (≈25% of all MAS apps) and 4672 apps from the third-party store MacUpdate (MU), including per-category entitlement patterns, privilege separation through XPC helpers, and a concrete sandbox-bypass bug where apps with sandbox entitlements sometimes ran unsandboxed.
 
 ---
 
-2. Architecture pipeline (as far as this paper describes)
+## 2. Architecture pipeline (as far as this paper describes)
 
 The paper treats the App Sandbox as a lifecycle that starts with static configuration, continues with initialization at process start, and ends with runtime enforcement on each protected operation.
 
@@ -16,7 +16,7 @@ The paper contrasts this with iOS only briefly: on iOS the sandbox is kernel-enf
 
 ---
 
-3. Language and policy model (as seen here)
+## 3. Language and policy model (as seen here)
 
 The paper focuses on entitlements as the primary, supported policy interface for third-party developers, rather than on low-level SBPL profiles. Entitlements are represented as key–value pairs embedded into the app’s executable as a property list and protected by the code signature. Each entitlement key denotes a capability (e.g., network client, camera, microphone, file access modes, container access), and the corresponding value configures it (often just a boolean).
 
@@ -28,9 +28,9 @@ The authors also discuss two special classes of policy objects. Temporary except
 
 ---
 
-4. Empirical findings and enforcement mechanics in practice
+## 4. Empirical findings and enforcement mechanics in practice
 
-4.1 Scope, platforms, and methodology
+### 4.1 Scope, platforms, and methodology
 
 The empirical analysis covers macOS apps; iOS is considered only in the conceptual background. The authors crawl:
 
@@ -39,7 +39,7 @@ The empirical analysis covers macOS apps; iOS is considered only in the conceptu
 
 They statically extract entitlements and Info.plist metadata from main binaries and XPC helpers, and dynamically determine whether an app is sandboxed by launching it, waiting ~30 seconds, and then asking the OS via a private API (`sandbox_check`) whether the process is currently sandboxed. An app counts as sandboxed only if both the entitlement is present and the runtime check reports an active sandbox.
 
-4.2 Ecosystem adoption and coverage
+### 4.2 Ecosystem adoption and coverage
 
 The main adoption numbers are:
 
@@ -50,7 +50,7 @@ Among 173 apps that appear in both datasets (same bundle identifier), 53 are san
 
 The paper interprets these findings as strong evidence that MAS requirements drive sandbox adoption: once Apple enforces the sandbox for store submissions, most apps comply, while outside that regime developers rarely opt in voluntarily. Legacy unsandboxed MAS apps remain in circulation and can be updated without being forced into the sandbox.
 
-4.3 Entitlement usage and capability shapes
+### 4.3 Entitlement usage and capability shapes
 
 For entitlement analysis, the authors restrict to the latest version of each app and to apps that are actually sandboxed at runtime. They focus on the entitlements exposed in Xcode’s “App Sandbox” UI and group read-only vs read/write file entitlements together.
 
@@ -84,7 +84,7 @@ Version history analysis shows that entitlements tend to accumulate: between suc
 
 Temporary exception entitlements appear infrequently; the most common are scripting/automation exceptions used by about 3.2% of apps. Private entitlements are observed only in Apple’s own apps. The authors attempt to detect anomalous entitlement profiles via clustering, but conclude that the dataset is too heterogeneous; a manual inspection of high-privilege, unique entitlement combinations also does not reveal obviously over-privileged apps. They therefore conclude that, once constrained to configure via entitlements, developers generally choose capabilities sensibly.
 
-4.4 Privilege separation and helpers
+### 4.4 Privilege separation and helpers
 
 The paper examines privilege separation through XPC helpers, which are separate binaries that can each have their own entitlements and sandbox. For MAS apps, the App Sandbox is disabled by default for XPC services in Xcode, but Apple’s documentation encourages developers to sandbox helpers individually with minimal needed privileges.
 
@@ -92,15 +92,15 @@ The authors compare helper entitlements to those of the main app and classify he
 
 They note that the effective capability surface of an app should include the union of entitlements across all helpers reachable via IPC. Recomputing their entitlement analyses on this “overall privilege” basis does not materially change the earlier patterns: category- and co-occurrence-level observations remain similar.
 
-4.5 Sandbox-bypass and enforcement anomalies
+### 4.5 Sandbox-bypass and enforcement anomalies
 
 While scanning apps, the authors discover a critical anomaly: a small number of apps (six MAS apps and eleven MU apps in the dataset) contain the sandbox entitlement but are not sandboxed at runtime, according to the dynamic `sandbox_check` test. They interpret this as a sandbox-bypass situation where sandbox initialization fails or is skipped, leaving the process effectively unsandboxed despite its static configuration. The details of the vulnerability and its root cause are discussed later in the paper; the authors note that it has been fixed by Apple, “improving the security of millions of systems.”
 
 ---
 
-5. Patterns, idioms, and implications for a capability catalog
+## 5. Patterns, idioms, and implications for a capability catalog
 
-5.1 Recurring patterns in sandbox and entitlement use
+### 5.1 Recurring patterns in sandbox and entitlement use
 
 From the paper’s findings, several practical idioms in real-world sandbox use emerge:
 
@@ -112,7 +112,7 @@ From the paper’s findings, several practical idioms in real-world sandbox use 
 
 The sandbox-bypass bug shows that the enforcement pipeline (entitlements → libsandbox → dyld init → kernel profile) can fail, leaving an app fully unsandboxed despite static configuration saying otherwise. This underscores the importance of treating runtime status, not just entitlements, as authoritative when reasoning about capabilities.
 
-5.2 Implications for a macOS capability catalog
+### 5.2 Implications for a macOS capability catalog
 
 For someone building a capability catalog of macOS sandbox operations and enforcement behavior, this paper suggests several concrete structuring choices:
 

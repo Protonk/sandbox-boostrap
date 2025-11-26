@@ -1,4 +1,4 @@
-1. Short orientation (1–2 paragraphs)
+## 1. Short orientation (1–2 paragraphs)
 
 The paper provides a concrete, implementation-level walk from user processes calling `sandbox_init` down through `libSystem`, `libsandbox.dylib`, the Scheme/TinyScheme layer, the compiled binary profile format, the TrustedBSD policy plumbing, `Sandbox.kext`, and finally the `AppleMatch.kext` regex engine. It is explicitly aimed at reverse engineers and names many functions, data structures, and byte-level layouts.
 
@@ -6,7 +6,7 @@ As an implementation skeleton and repo-alignment guide, you can treat the paper 
 
 ---
 
-2. Symbol and structure inventory
+## 2. Symbol and structure inventory
 
 I’ll group symbols by layer. Within each, I list name (as in paper), role, and any naming notes.
 
@@ -306,7 +306,7 @@ I’ll group symbols by layer. Within each, I list name (as in paper), role, and
 
 ---
 
-3. Phase-oriented implementation skeleton
+## 3. Phase-oriented implementation skeleton
 
 This section follows the phases the paper describes, with concrete call skeletons and key symbols.
 
@@ -466,7 +466,7 @@ Pseudo-call skeleton (phase 7):
 
 ---
 
-4. Data structures and evaluator patterns
+## 4. Data structures and evaluator patterns
 
 ### 4.1 Compiled profile representation
 
@@ -535,7 +535,7 @@ This pattern makes `sb_evaluate` the implementation focal point: it ties togethe
 
 ---
 
-5. Repo-alignment, search hints, and priorities
+## 5. Repo-alignment, search hints, and priorities
 
 ### 5.1 Search hints
 

@@ -1,8 +1,8 @@
-1. WORMSLOOK2024
+## 1. WORMSLOOK2024
 
 WORMSLOOK2024 is a modern, implementation-focused tour of Apple’s Sandbox on macOS and iOS, with particular emphasis on how containers, entitlements, sandbox profiles, and MACF-based kernel hooks fit together into a working system. It explains which processes are sandboxed on each platform, how container directories and their metadata (including embedded profile blobs) are created and managed, how libsystem_secinit and libsandbox decide whether and how to initialize a sandbox at process startup, and how Sandbox.kext uses MACF hooks, per-credential sandbox labels, and a central evaluator to enforce the policy, including the use of sandbox extensions to delegate capabilities like file access across process boundaries. 
 
-2. Architecture pipeline
+## 2. Architecture pipeline
 
 At the top of the pipeline are code-signing and entitlements. On both macOS and iOS, entitlements are a property list embedded into the signed binary, expressed as key–value pairs that declare what capabilities the system should grant (for example, printing, network access, or iCloud sync). WORMSLOOK2024 highlights com.apple.security.app-sandbox as the key entitlement on macOS: when set to true, the app is voluntarily asking to be sandboxed. On iOS, the controlling entitlement for opting out is com.apple.private.security.no-sandbox: if this is present and set to false, the application is explicitly told not to bypass sandboxing, and for third-party apps this effectively means “always sandboxed,” since only Apple can meaningfully use this entitlement. The paper stresses that Apple’s own signed apps can use many private entitlements, while third-party apps are constrained to a documented subset.
 
@@ -22,7 +22,7 @@ Each hooked operation is evaluated by all registered MAC policies, so the app’
 
 Process sandboxing proper happens in the cred_label_update_execve MACF hook, which WORMSLOOK2024 identifies as the “star of the show.” When a process is about to exec a new image, this hook runs in Sandbox.kext and performs several tasks. First, it asks AppleMobileFileIntegrity (another subsystem) for the process’s entitlements so it can read values like the seatbelt-profiles entitlement on iOS and the application identifier. Based on these entitlements and the platform, it decides which sandbox profile to use. It then calls platform_set_container to set up the process’s container association, allocates a sandbox struct that will hold all per-process sandbox state, and issues sandbox extensions that let the process access its own executable and container (so it can at least read its own code and data). Finally, it calls label_set_sandbox to store a pointer to this sandbox struct into slot 1 of the process’s cr_label (the MACF label field in the kauth_cred_t credentials). From this point on, any MACF hook that Sandbox implements can retrieve the sandbox struct using label_get_sandbox and pass it into cred_sb_evaluate along with an operation code and an argument buffer, so that the central evaluator decides allow/deny for each operation.
 
-3. Language and policy model (SBPL as seen here)
+## 3. Language and policy model (SBPL as seen here)
 
 WORMSLOOK2024 treats sandbox profiles as the declarative layer that maps entitlements and container scoping into concrete allow/deny rules. A profile is a set of rules; each rule has three main pieces: (1) an action (allow or deny), (2) one or more operations, and (3) optional contextual filters. There is also a mandatory default rule that says what to do when no specific rule matches (allow or deny “default”). Profiles are expressed in the Sandbox Profile Language (SBPL), a Scheme-inspired embedded DSL.
 
@@ -36,7 +36,7 @@ Entitlements and profiles connect in two ways in WORMSLOOK2024. On iOS, the seat
 
 Finally, WORMSLOOK2024 points out that SBPL is also used for system-level hardening. A key example is System Integrity Protection (“SIP” or “rootless”), whose implementation is “partially just a Sandbox profile” called platform_profile stored as rootless.conf under /System/Library/Sandbox. This profile denies writes to critical system paths like /System, /bin, and certain app bundles, and does so even for many privileged processes, showing that the same language is used to express both app-level containment and system-wide write protections.
 
-4. Compilation, internal format, and enforcement mechanics
+## 4. Compilation, internal format, and enforcement mechanics
 
 WORMSLOOK2024 describes the data flow from on-disk profile and container metadata to kernel enforcement without fully specifying the internal binary format. On iOS, compiled sandbox profiles are stored as opaque binary blobs in the __TEXT.__const segment of Sandbox.kext; on macOS, SBPL text profiles from /System/Library/Sandbox/Profiles are read and compiled by libsandbox at app launch time. In both cases, the paper treats the compilation stage largely as a black box and focuses on how the compiled result is used. The only explicit structural details are that iOS container metadata includes SandboxProfileData (a base64-encoded profile blob) and SandboxProfileDataValidationInfo (a dictionary of parameters libsandbox will feed into its compiler), and that Sandbox.kext expects to receive a compact representation that can be evaluated by its internal engine.
 
@@ -50,7 +50,7 @@ The issuer must already have access to the resource; Sandbox will not mint an ef
 
 The enforcement path for a typical operation therefore looks like this in WORMSLOOK2024’s account: a syscall or high-level operation (open, connect, Apple Event send, preferences access, etc.) triggers a MACF hook or a Sandbox-specific interception point; that hook builds an argument buffer and calls cred_sb_evaluate; cred_sb_evaluate retrieves the process’s sandbox struct and forwards the operation identifier and arguments to sb_evaluate_internal; sb_evaluate_internal invokes eval on the compiled profile while also considering any active sandbox extensions; the evaluator returns allow or deny; and Sandbox.kext then permits the kernel to proceed with the operation or returns an appropriate errno to user space.
 
-5. Patterns in built-in profiles
+## 5. Patterns in built-in profiles
 
 WORMSLOOK2024 does not catalog all of Apple’s built-in profiles exhaustively, but it does highlight several idioms that matter for understanding capability boundaries. Most prominently, SBPL profiles almost always begin by setting an explicit default action (either (allow default) or (deny default)) and then layering specific exceptions. System-level hardening profiles like platform_profile for SIP use a default-allow model for most operations but add denies for writes to critical system paths, effectively creating a “write-restricted but generally readable” system. App-level profiles for the App Sandbox tend to do the opposite: they use (deny default) and then selectively allow operations within the app’s container, within user-selected locations via sandbox extensions, or to specific system services.
 

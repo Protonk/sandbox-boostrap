@@ -1,10 +1,10 @@
-1. APPLESANDBOXGUIDE
+## 1. APPLESANDBOXGUIDE
 
 Apple Sandbox Guide v1.0 is a reverse-engineered, Snow Leopard–era reference for the Seatbelt sandbox profile language (SBPL) and its operation set. It does not try to describe the full kernel architecture; instead, it catalogs the user-visible policy surface: actions, operations, filters, modifiers, and some special hard-coded behaviors. For a capabilities map, its value is that it defines the operation taxonomy (file, IPC, Mach, network, process, signal, sysctl, system), explains what each operation is supposed to control, shows how operations group kernel entry points via “Applies to” lists, and documents several quirks and bugs that affect how rules actually behave in practice. 
 
 ---
 
-2. Architecture pipeline (as far as this guide describes)
+## 2. Architecture pipeline (as far as this guide describes)
 
 The guide situates Seatbelt within macOS as a TrustedBSD MAC–based sandbox, but only at a high level. It states that sandboxing was introduced in Leopard, is based on TrustedBSD MAC, and can mediate file, IPC, Mach, network, process, signal, sysctl, and system operations. It notes that sandboxing can be applied either via the `sandbox-exec` utility (for arbitrary binaries) or programmatically via `sandbox_init`, using a small set of pre-defined profiles such as “no-internet”, “no-network”, “no-write”, “no-write-except-temporary”, and “pure-computation”. These built-ins are just SBPL profiles like any other, but exposed as constants for developers. 
 
@@ -16,7 +16,7 @@ Overall, the guide is almost entirely “surface-level” from the kernel’s po
 
 ---
 
-3. Language and policy model (operations and semantics in this guide)
+## 3. Language and policy model (operations and semantics in this guide)
 
 The guide’s policy model has four main ingredients: actions, operations, filters, and modifiers.
 
@@ -99,7 +99,7 @@ The author also marks a few operations as effectively broken or unreliable under
 
 ---
 
-4. Filters, context, and evaluation behaviour
+## 4. Filters, context, and evaluation behaviour
 
 The guide divides SBPL “commands” into actions, operations, filters, modifiers, and some other keywords. Filters are per-operation selectors that make capabilities path- or context-sensitive; modifiers alter logging or side effects.
 
@@ -160,7 +160,7 @@ The guide’s examples show typical rule shapes like:
 
 ---
 
-5. Patterns and implications for a capability catalog
+## 5. Patterns and implications for a capability catalog
 
 From the examples, tables, and comments, several patterns emerge that matter for a capability catalog built on top of this guide.
 

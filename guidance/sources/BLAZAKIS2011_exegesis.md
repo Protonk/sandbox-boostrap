@@ -1,10 +1,10 @@
-1. BLAZAKIS2011
+## 1. BLAZAKIS2011
 
 Blazakis’s “The Apple Sandbox” is a reverse-engineering study of the Snow Leopard–era macOS sandbox (“Seatbelt”). It traces the entire pipeline from public APIs (`sandbox_init`, `sandbox-exec`), through user-space implementation (`libSystem`, `libsandbox.dylib`, TinyScheme and SBPL), into the kernel implementation (`Sandbox.kext` as a TrustedBSD MAC policy, plus `AppleMatch.kext` for regex support). The paper reconstructs the SBPL language semantics, shows how profiles are compiled into a compact binary decision tree format, explains how that format is loaded into the kernel via a MAC syscall and bound to processes, and then walks through how that policy is evaluated at MAC hooks for filesystem, networking, and other operations. For anyone building a capability catalog, it provides a concrete map of operation codes, filter types, and how Apple’s stock profiles (like `no-internet`, `named.sb`, `ntpd.sb`) actually enforce their constraints.
 
 ---
 
-2. Architecture pipeline
+## 2. Architecture pipeline
 
 From userland, the main programmatic entry point is `sandbox_init(profile, flags, &errorbuf)`, exported by `libSystem.dylib`. Blazakis disassembles this function and shows that, depending on `flags`, it either calls into `libsandbox.dylib` to compile and apply a profile, or bypasses `libsandbox` and goes directly to the kernel. In the common case (`flags` nonzero), `sandbox_init` loads `libsandbox`, calls one of the `sandbox_compile_*` functions (e.g., `sandbox_compile_string`, `sandbox_compile_file`, `sandbox_compile_named`), then calls `sandbox_apply` with the resulting compiled profile, and finally `sandbox_free_profile`. There is a special case with `flags == 0` (used by `sandbox-exec -p`) where the `profile` string is treated as a full SBPL policy rather than a named profile.
 
@@ -26,7 +26,7 @@ Regular expression matching in path-based filters is offloaded to `AppleMatch.ke
 
 ---
 
-3. Language and policy model (SBPL as seen here)
+## 3. Language and policy model (SBPL as seen here)
 
 Blazakis recovers the sandbox profile language (SBPL) from the user-space side by inspecting `libsandbox.dylib`, extracting its Scheme files (`init.scm`, `sbpl_stub.scm`, `sbpl_1_prelude.scm`, `sbpl_1.scm`), and running them under TinyScheme. The stub comment and code spell out the semantic model: evaluating a profile populates a global vector `*rules*`. Each element of `*rules*` corresponds to a specific operation code and is a list of rules. Each rule is either:
 
@@ -49,7 +49,7 @@ To inspect the intermediate `*rules*` representation, Blazakis modifies TinySche
 
 ---
 
-4. Compilation, internal format, and enforcement mechanics
+## 4. Compilation, internal format, and enforcement mechanics
 
 On the user-space side, the key consolidation point is a function typically named `compile` inside `libsandbox.dylib`. All public compilation functions (`sandbox_compile_string`, `sandbox_compile_file`, `sandbox_compile_named`) ultimately call this function. For example, `sandbox_compile_string` simply forwards the SBPL string to `compile`, whereas `sandbox_compile_named` resolves the named profile to a file, then calls `sandbox_compile_file`, which again ends in `compile`. After compilation, the caller receives a pointer/length pair representing the compiled profile blob.
 
@@ -110,7 +110,7 @@ The third MAC syscall sub-call exposed by `Sandbox.kext` allows a process to que
 
 ---
 
-5. Patterns in built-in profiles
+## 5. Patterns in built-in profiles
 
 The paper examines Apple’s stock profiles both in their SBPL form under `/usr/share/sandbox` and via the compiled/intermediate structures described above. The built-in profiles exposed via `sandbox_init` constants and the `sandbox-exec` man page (`kSBXProfileNoInternet`, `kSBXProfileNoNetwork`, `kSBXProfileNoWrite`, `kSBXProfileNoWriteExceptTemporary`, `kSBXProfilePureComputation`) have human-oriented descriptions like “TCP/IP networking is prohibited,” “all sockets-based networking is prohibited,” “filesystem writes are prohibited,” “writes are restricted to temporary locations,” and “all operating system services are prohibited.” Although the paper focuses more on service-specific profiles, these built-ins seem to follow the same structural patterns: a strong default stance plus targeted whitelists for the few operations still allowed.
 

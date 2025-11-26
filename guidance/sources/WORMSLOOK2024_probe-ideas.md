@@ -1,10 +1,10 @@
-1. WORMSLOOK2024
+## 1. WORMSLOOK2024
 
 WORMSLOOK2024 is an implementation-focused walkthrough of how Apple’s Sandbox is wired into the system on macOS and iOS, covering containers, entitlements, libsystem_secinit/libsandbox, containermanagerd, Sandbox.kext, MACF hooks, and sandbox extensions. You can treat it as a description of the “intended” modern design: when and how processes become sandboxed, what data structures (profiles, labels, extensions, container metadata) look like, and which operations are controlled.
 
 In this report, the same text is re-read as a source of empirical hypotheses rather than general architecture. Each claim below is turned into “If A,B,C → then R” form, grouped into probe families, and annotated for likely stability vs drift. Where the paper is silent, this is noted explicitly; where a small extrapolation is useful, it is prefixed with “Inference:”.
 
-2. Extracted testable claims
+## 2. Extracted testable claims
 
 Hypotheses are labeled H1, H2, … and framed for modern macOS; iOS-specific ones are marked as such.
 
@@ -84,7 +84,7 @@ Hypotheses are labeled H1, H2, … and framed for modern macOS; iOS-specific one
     Hypothesis: If a sandboxed macOS process calls userland APIs such as sandbox_check to test an operation that would be denied by its active sandbox profile, then sandbox_check will report denial consistent with what the kernel would enforce for the corresponding operation.
     OS-version constraints: Described as current userland interaction; no explicit version.
 
-20. Probe families
+## 20. Probe families
 
 Family F1 – Container layout and visibility (macOS)
 
@@ -235,7 +235,7 @@ Key observables:
 * Whether the presence/absence of App Sandbox entitlement at the new binary actually flips sandboxing on/off as described.
 * Any asymmetries between starting sandboxed vs becoming sandboxed via exec.
 
-4. Stability vs drift analysis
+## 4. Stability vs drift analysis
 
 Here each hypothesis is tagged and briefly justified.
 
@@ -317,7 +317,7 @@ Here each hypothesis is tagged and briefly justified.
 
 Where extrapolations (e.g., issuer capabilities for extensions, extension lifetime) are desirable to test but not clearly stated, they should be treated as “provisional, inferred from design intent” and explicitly tagged as such in your own catalog.
 
-5. Risk register and catalog notes
+## 5. Risk register and catalog notes
 
 Below are mechanism areas/themes and how to treat WORMSLOOK2024’s claims when building a capability catalog.
 

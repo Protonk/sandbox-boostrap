@@ -1,10 +1,10 @@
-1. HACKTRICKS_MACOSSANDBOX
+## 1. HACKTRICKS_MACOSSANDBOX
 
 The HackTricks macOS Sandbox notes are a practical, exploitation-oriented orientation to the macOS “Seatbelt” sandbox, focusing on how containers, entitlements, sandbox profiles, extensions, and kernel/userland plumbing actually behave in a running system. The document explains where profiles live, how they are compiled and applied, how sandbox checks can be traced and inspected, and how extension tokens and special sandbox management APIs can expand or bypass normal checks. It does not present full exploit chains, but it does highlight concrete behaviors (such as extension token reuse, opt-in sandboxing on macOS, and special “bypass” management operations) and points to real sandbox-escape write-ups, so its main contribution is to show how the nominal SBPL/entitlement model is shaped and sometimes weakened by container metadata, extension mechanisms, privileged management interfaces, and other macOS security subsystems (TCC, SIP, Gatekeeper).
 
 ---
 
-2. Architecture pipeline (as seen through this document)
+## 2. Architecture pipeline (as seen through this document)
 
 The document models the sandbox as a layered pipeline:
 
@@ -20,7 +20,7 @@ From the HackTricks perspective, the key actors in the pipeline are: sandboxed a
 
 ---
 
-3. Language and policy model (as seen here)
+## 3. Language and policy model (as seen here)
 
 The document treats “the sandbox” as an SBPL policy evaluated by `Sandbox.kext` under MACF, with entitlements driving which rules are included. It explains that sandbox profiles are written in Sandbox Profile Language (SBPL), “which uses the Scheme programming language.” An example profile is given with typical structure: a `(version 1)` header, a default `(deny default)` rule, and `allow` forms parameterized by operation families (`network*`, `file*`, `file-read*`, `process*`) and filters such as `subpath`, `literal`, and `regex`. The example shows that a naive profile that only allows access to a target file in `/tmp` will still fail to run `touch` because the process also needs access to binaries (`/usr/bin/touch`), the dynamic loader, `kern.bootargs`, and “/” itself. This demonstrates that real profiles must account for a lot of auxiliary accesses that a naive capability map might ignore.
 
@@ -32,35 +32,35 @@ Finally, the notes position SIP as itself a sandbox profile (`platform_profile`)
 
 ---
 
-4. Enforcement mechanics and bypass chains
+## 4. Enforcement mechanics and bypass chains
 
 This section focuses on what the document actually shows about enforcement behavior and where it points to bypasses or capability escalations.
 
-4.1 Container layout, symlinks, and RedirectablePaths
+### 4.1 Container layout, symlinks, and RedirectablePaths
 
 * Initial state: A sandboxed app has a container in `~/Library/Containers/<CFBundleIdentifier>`, with a `Data` directory. Inside `Data` there are symlinks like `Desktop -> ../../../../Desktop` and `Downloads -> ../../../../Downloads`, and real directories like `Documents`, `Library`, `SystemData` and `tmp`.
 * Enforcement: The notes emphasize that “even if the symlinks are there to ‘escape’ from the Sandbox and access other folders, the App still needs to have permissions to access them.” Those permissions are governed by the container metadata’s `RedirectablePaths` plist entries as well as the sandbox profile.
 * Effective capability: Symlinks alone do not grant extra capabilities; they only provide paths that can be used if the profile already allows them. A naive capability map that assumes “any symlink inside the container gives free access to that target tree” would be wrong; the effective surface is still constrained by entitlements and `RedirectablePaths`.
 
-4.2 Quarantine attribute and execution
+### 4.2 Quarantine attribute and execution
 
 * Initial state: A sandboxed app creates or modifies a file.
 * Enforcement: The document states that “everything created/modified by a Sandboxed application will get the quarantine attribute.” If the app later tries to execute that file via `open`, Gatekeeper is invoked and can block it.
 * Effective capability: The sandbox alone might allow `exec` of a file the app just wrote, but the effective system behavior is stricter because Gatekeeper interposes based on quarantine metadata. Inference: For capability cataloging, “can write file + can exec file” is not sufficient to assert a working self-bootstrap to arbitrary code execution; Gatekeeper must be considered.
 
-4.3 External sandbox escape examples via policy quirks
+### 4.3 External sandbox escape examples via policy quirks
 
 * The document explicitly lists two external “bypasses examples” and mentions that in one of them “they are able to write files outside the sandbox whose name starts with `~$`.”
 * Preconditions and mechanism (as implied here): A sandboxed application has a narrow exception in its profile allowing writes outside its container for certain filenames (e.g., special temporary file patterns). Abuse consists of creating files under that pattern to obtain write access outside the nominal container boundaries.
 * Effective capability: This is a pattern where a narrowly tailored exception (for app-specific temp files) effectively widens the file-write capability surface when combined with attacker-controlled filenames. The document does not provide full details but confirms that such behavior exists.
 
-4.4 Opt-in sandboxing and “Debug & Bypass”
+### 4.4 Opt-in sandboxing and “Debug & Bypass”
 
 * The notes stress that “on macOS, unlike iOS where processes are sandboxed from the start by the kernel, processes must opt-in to the sandbox themselves. This means on macOS, a process is not restricted by the sandbox until it actively decides to enter it, although App Store apps are always sandboxed.” Processes are “automatically Sandboxed from userland when they start if they have the entitlement `com.apple.security.app-sandbox`.”
 * A section titled “Debug & Bypass Sandbox” points to an external deep-dive for the detailed mechanics.
 * Inference: This establishes a potential bypass surface at initialization time—any code that runs before the sandbox is entered (or that interferes with the userland sandbox initialization path) executes without sandbox constraints. The document does not itself present a concrete exploit, but it clearly distinguishes macOS’s opt-in model from iOS’s kernel-enforced model in a section explicitly labeled “Debug & Bypass.”
 
-4.5 Sandbox extensions and token reuse
+### 4.5 Sandbox extensions and token reuse
 
 * Preconditions: A process is allowed to access a protected resource via TCC or other policy (for example, Photos). According to the notes, an allowed process receives an extension token (e.g., for the Photos service) from `tccd` in an XPC message.
 * Mechanism:
@@ -71,7 +71,7 @@ This section focuses on what the document actually shows about enforcement behav
   4. Extensions are “usually granted by allowed processes,” and some entitlements automatically grant certain extensions.
 * Resulting effective capability: An extension token is a transferable capability: if it leaks to another process, that process can consume it and gain the corresponding extra rights, even if its own entitlements and base sandbox profile would not allow that resource. This is a concrete mechanism by which the effective sandbox surface can be larger than what entitlements alone suggest. The document does not show a full attack chain, but it explicitly highlights the process-agnostic nature of tokens and their relationship to entitlements and TCC.
 
-4.6 Management APIs: suspend, passthrough, and profile changes
+### 4.6 Management APIs: suspend, passthrough, and profile changes
 
 Through the `mac_syscall` “Sandbox” module and related wrappers, the document lists management operations:
 
@@ -94,7 +94,7 @@ Mechanically, a privileged caller can:
 
 Effective capability: For processes with these management entitlements, the sandbox becomes advisory; they can temporarily or selectively bypass checks via documented APIs. From a catalog perspective, “has sandbox-manager entitlements” is itself a super-capability that dominates most SBPL-level restrictions. The document does not claim these entitlements are widely available, but it clearly describes the bypass semantics.
 
-4.7 Versioning and platform differences
+### 4.7 Versioning and platform differences
 
 The document includes specific version/platform notes that affect applicability:
 
@@ -107,11 +107,11 @@ Outside of these, the document does not systematically map techniques to specifi
 
 ---
 
-5. Patterns, idioms, and implications for a capability catalog
+## 5. Patterns, idioms, and implications for a capability catalog
 
 From these notes, several recurring patterns emerge that matter for a capability catalog that wants to reflect real behavior rather than a purely SBPL/entitlement-level model.
 
-5.1 Capabilities are shaped by container metadata and symlink overlay
+### 5.1 Capabilities are shaped by container metadata and symlink overlay
 The document shows that a sandboxed app’s effective file system surface is jointly determined by:
 
 * The SBPL profile (allow/deny rules for `file*` operations).
@@ -120,7 +120,7 @@ The document shows that a sandboxed app’s effective file system surface is joi
 
 Symlinks alone do not grant capabilities; they are potential paths gated by both container config and profile. For cataloging, any capability like “can read Desktop” should be conditioned on both the profile and whether the container’s redirectable paths include that location, not just on the presence of a `Desktop` symlink.
 
-5.2 Entitlements → profiles → extensions → effective rights
+### 5.2 Entitlements → profiles → extensions → effective rights
 There is a multi-stage chain:
 
 * Entitlements determine which high-level capabilities are intended (e.g., network server, Photos access).
@@ -133,7 +133,7 @@ For a capability catalog, this means:
 * The naive “entitlement → capability” mapping is incomplete; you must model extension issuance and consumption as a separate dimension.
 * A higher-level capability concept like “can hold and reuse sandbox extension tokens of type X” is needed, since the document shows tokens can be consumed by “any process with access to the token” and reused across processes.
 
-5.3 Management super-capabilities
+### 5.3 Management super-capabilities
 APIs like `sandbox_suspend`, `passthrough_access`, and `set_profile`, as well as `rootless_*` functions, are effectively super-capabilities for processes that can invoke them:
 
 * “Can suspend sandbox checks” (requires sandbox-manager-style entitlements).
@@ -143,7 +143,7 @@ APIs like `sandbox_suspend`, `passthrough_access`, and `set_profile`, as well as
 
 In a capability catalog, these should be modeled explicitly as distinct capabilities that dominate ordinary permissions. An app with such entitlements cannot be reasoned about purely in terms of SBPL allow/deny rules; the ability to suspend or bypass the sandbox changes the effective model entirely.
 
-5.4 Initialization and opt-in behavior as an attack family
+### 5.4 Initialization and opt-in behavior as an attack family
 Because macOS uses an opt-in sandbox model, there is a distinct attack family around “code before the sandbox.” The HackTricks notes explicitly distinguish this from iOS and point to a separate “Debug & Bypass” write-up. Even without the external details, the catalog should recognize:
 
 * A capability “runs unsandboxed before calling sandbox_init / applying profile,” which all sandboxed processes effectively have on macOS.
@@ -151,7 +151,7 @@ Because macOS uses an opt-in sandbox model, there is a distinct attack family ar
 
 Inference: These should be modeled as separate from ordinary “sandboxed process” capabilities because they allow (at least in principle) behaviors that cannot be captured by the steady-state profile alone.
 
-5.5 Policy quirks and exception-based bypasses
+### 5.5 Policy quirks and exception-based bypasses
 The document’s reference to real-world escapes via narrowly scoped exceptions (such as being able to write files outside the container whose names match a particular pattern) suggests an idiom where:
 
 * A profile includes special allowances for “legitimate” operational needs (temp files, caches, Office document helpers, etc.).
@@ -159,7 +159,7 @@ The document’s reference to real-world escapes via narrowly scoped exceptions 
 
 Even though the document does not spell out the full chains, the inclusion of that example implies that catalog entries like “can write outside container, but only under specific naming conventions/location constraints” should be annotated as high-risk: a small exception can be turned into a general-purpose write primitive by a determined attacker.
 
-5.6 Cross-system interactions (TCC, SIP, Gatekeeper)
+### 5.6 Cross-system interactions (TCC, SIP, Gatekeeper)
 
 Finally, the notes highlight that effective capabilities are mediated by other subsystems:
 

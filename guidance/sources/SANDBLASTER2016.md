@@ -1,19 +1,19 @@
-1. SANDBLASTER2016
+## 1. SANDBLASTER2016
 
 SandBlaster is a 2016 reverse-engineering paper that introduces a toolchain for decompiling Apple’s binary sandbox profiles back into human-readable SBPL, focusing on iOS 7–9 but explicitly built on the sandbox implementation in the shared XNU kernel used by both iOS and Mac OS X (platform-unspecified, but naming both OSes). iOS-only: The concrete targets are built-in iOS sandbox profiles (notably including the default “container” profile for third-party apps) stored as binary serialized graphs in iOS firmware images. macOS-specific: The authors compile their reversed SBPL profiles on Mac OS X to validate syntactic correctness, revealing that some SBPL tokens differ between iOS and Mac OS X but that the overall language and profile structure are compatible. Inference: likely shared mechanism for macOS Seatbelt—because the sandbox resides in XNU and profiles are written in SBPL on both platforms, SandBlaster’s findings on profile structure, binary representation, default decisions, metafilters, and implicit rules are highly likely to describe macOS sandbox behaviour as well, even though the paper does not study macOS policies directly.
 
 ---
 
-2. Architecture pipeline (as seen through this paper)
+## 2. Architecture pipeline (as seen through this paper)
 
-2.1 High-level sandbox placement in the OS
+### 2.1 High-level sandbox placement in the OS
 
 * Platform-unspecified (iOS and Mac OS X, both named): The paper describes the “Apple sandbox” as a kernel-level security layer implemented as part of the XNU kernel, using the TrustedBSD MAC framework, and used “on Mac OS X and iOS” to confine apps or system processes to a subset of actions defined in a sandbox profile. These actions are explicitly said to be system calls and system-call arguments.
 * iOS-only: The primary use case studied is iOS, where “every third party application and many system applications” are sandboxed via profiles. macOS-specific use cases are not discussed beyond noting that sandboxing is used there to limit damage from malware or exploited processes. 
 
 Attack model in this architectural sense is generic and platform-unspecified: the sandbox is described as a mitigation to “reduce the damage of malware or an exploited app or system process,” but no concrete attack chains are given for either OS. 
 
-2.2 Profile storage and loading (iOS focus)
+### 2.2 Profile storage and loading (iOS focus)
 
 * iOS-only: SandBlaster reverses where and how iOS stores compiled sandbox profiles:
 
@@ -28,7 +28,7 @@ Attack model in this architectural sense is generic and platform-unspecified: th
 
 * Inference: likely shared mechanism on macOS: The fact that the iOS sandbox profiles are stored as binary serialized graphs inside `com.apple.security.sandbox` and that the same kernel extension name is used is strong evidence that macOS also uses binary graph representations of profiles inside its sandbox kernel extension, even though the paper does not state this for macOS explicitly. This inference is about internal representation, not target paths or file layout on disk.
 
-2.3 Logical enforcement pipeline (as reflected by the binary format)
+### 2.3 Logical enforcement pipeline (as reflected by the binary format)
 
 Within the paper’s scope, the enforcement pipeline is visible mainly at the “policy graph” level, not at syscall hook sites:
 
@@ -44,9 +44,9 @@ The paper does not discuss entitlements, XPC services, containers as directory s
 
 ---
 
-3. Language and policy model (as seen here)
+## 3. Language and policy model (as seen here)
 
-3.1 SBPL and rule structure
+### 3.1 SBPL and rule structure
 
 * Platform-unspecified: The sandbox policy language is described as a Scheme-like language called SBPL (Sandbox Profile Language). Profiles are initially written in SBPL, then compiled to a binary format consisting of serialized graphs.
 
@@ -56,7 +56,7 @@ The paper does not discuss entitlements, XPC services, containers as directory s
 
 * macOS-specific: The reversed profiles are compiled on Mac OS X to validate syntactic correctness. The authors note that “minor modifications” are necessary because some tokens differ between iOS and Mac OS X (e.g., platform-specific identifiers), but they do not list the differences. 
 
-3.2 Metafilters and complex conditions
+### 3.2 Metafilters and complex conditions
 
 * Platform-unspecified: The policy model includes three SBPL “metafilters” that operate on filters and entire rule fragments:
 
@@ -71,7 +71,7 @@ The paper does not discuss entitlements, XPC services, containers as directory s
 
 * Inference: likely shared mechanism on macOS: Because SBPL is presented as the common profile language for the “Apple sandbox” and because Mac OS X successfully compiles SBPL with the same metafilter syntax, it is reasonable to infer that macOS profiles also make use of `require-any`, `require-all`, and `require-not` in the same way. The paper does not demonstrate any specific macOS profile that uses them.
 
-3.3 Implicit SBPL rules
+### 3.3 Implicit SBPL rules
 
 * Platform-unspecified: By examining `libsandbox.dylib` and experimenting with custom profiles, the authors find that the sandbox compiler injects implicit SBPL rules into profiles. A listing in the paper shows SBPL-like code defining helper predicates `allowed?` and `denied?` and then:
 
@@ -87,7 +87,7 @@ The paper does not discuss entitlements, XPC services, containers as directory s
 
 * Inference: likely shared mechanism on macOS: Because these implicit rules are derived from `libsandbox.dylib` (which exists on both platforms) and are not tied to iOS-specific paths alone (e.g., launchd sockets, signals, Mach bootstrap/lookup are generic), it is reasonable to infer that analogous implicit SBPL rules are present for macOS sandbox profiles, affecting how capabilities are actually enforced versus what is visible in the explicit SBPL. The paper does not explicitly confirm this for macOS.
 
-3.4 What the paper does not cover
+### 3.4 What the paper does not cover
 
 * iOS-only: The “container” profile for third-party apps is singled out as particularly important, but the paper does not list its rules or discuss containers as filesystem directories.
 * Not in this paper: There is no discussion of entitlements, XPC services, App Sandbox UI configuration, or how profiles are selected based on app metadata on either iOS or macOS.
@@ -95,9 +95,9 @@ The paper does not discuss entitlements, XPC services, containers as directory s
 
 ---
 
-4. Enforcement mechanics and bypass chains
+## 4. Enforcement mechanics and bypass chains
 
-4.1 Enforcement mechanics at the profile-graph level
+### 4.1 Enforcement mechanics at the profile-graph level
 
 * Platform-unspecified: The binary format for a sandbox profile is described as a directed acyclic graph with operation nodes and terminal decision nodes (`allow`, `deny`). Each operation node contains filters and references to other nodes; evaluation of an action corresponds to walking this graph based on whether filters match or not. A default operation (with a default decision) is used when no rule matches.
 
@@ -111,7 +111,7 @@ The paper does not discuss entitlements, XPC services, containers as directory s
 
 * macOS-specific: When reversed iOS profiles are compiled on Mac OS X, minor syntactic edits are needed due to token differences, but the overall graph-to-SBPL mapping does not change; this suggests that enforcement logic at the graph level is compatible between platforms. 
 
-4.2 Attack models and chains
+### 4.2 Attack models and chains
 
 * Platform-unspecified attack model (very high level): The introduction frames the sandbox as a mechanism “to limit the damage of malware on Mac OS X and iOS,” protecting against exploited apps or system processes. This implies the starting point is arbitrary code execution inside a sandboxed process, and the goal is to constrain further damage to the system. However, the paper does not formalize a threat model beyond this brief description. 
 
@@ -125,9 +125,9 @@ Given this, there are no “attack chains” to enumerate with starting conditio
 
 ---
 
-5. Patterns, idioms, and macOS-relevant implications for a capability catalog
+## 5. Patterns, idioms, and macOS-relevant implications for a capability catalog
 
-5.1 Recurring patterns and idioms
+### 5.1 Recurring patterns and idioms
 
 * iOS-only patterns (concrete data):
 
@@ -148,7 +148,7 @@ Given this, there are no “attack chains” to enumerate with starting conditio
 
   * Reversed iOS SBPL compiles on Mac OS X with only minor token edits, demonstrating that Mac OS X shares the same SBPL semantics and that its sandbox compiler behaves similarly at a structural level. 
 
-5.2 What SandBlaster gives an expert macOS capability catalog
+### 5.2 What SandBlaster gives an expert macOS capability catalog
 
 Direct macOS-specific contributions (explicit in the paper):
 
@@ -174,7 +174,7 @@ Given the explicit shared-kernel statement and Mac OS X compilation tests, it is
 
 * Inference: graph-based enforcement and metafilters: Since profiles compile to graphs where metafilters are encoded structurally, a macOS catalog should not treat SBPL rules as isolated lines, but as parts of a graph that may implement complex conditions (e.g., nested AND/OR/NOT over filters). The paper’s reversing algorithms suggest that vulnerabilities might hide in specific combinations of filters and default decisions, rather than in any single allow rule, even though SandBlaster itself does not examine vulnerabilities. 
 
-5.3 What the paper does not provide for macOS
+### 5.3 What the paper does not provide for macOS
 
 * Not in this paper: No macOS-specific profiles, entitlements, containers, XPC services, or helper-based techniques are analysed.
 * Not in this paper: No explicit macOS sandbox bypass, no description of how to pivot from a sandboxed macOS app to unsandboxed code, and no examples of reading/writing outside macOS containers.

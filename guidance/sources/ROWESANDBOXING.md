@@ -1,8 +1,8 @@
-1. ROWESANDBOXING
+## 1. ROWESANDBOXING
 
 This paper gives a concrete, implementation-oriented overview of how macOS sandboxing (“Seatbelt”) works from the point where a process opts into sandboxing, through policy specification in SBPL, compilation in libsandbox, and finally enforcement in the kernel via the Sandbox kernel extension and the MAC Framework (MACF). It explains how applications become sandboxed (either via the App Sandbox entitlement or via private sandbox(7) APIs), describes the SBPL policy language and its use of operations, predicates, parameters, and sandbox extensions, and then details how compiled sandbox bytecode is attached to processes and evaluated on each MACF hook. It also sketches the relationship between the platform-wide sandbox policy and per-process policies, and briefly contrasts macOS with iOS and related platforms (where sandboxing is mandatory and custom policies are not supported for third-party apps).
 
-2. Architecture pipeline
+## 2. Architecture pipeline
 
 From a high level, sandboxing on macOS is implemented by a Sandbox kernel extension that acts as a client of the kernel’s Mandatory Access Control Framework (MACF), and by a family of userspace APIs collectively referred to as sandbox(7). The kernel exposes on the order of hundreds of MACF policy hooks that correspond to system calls and file system operations. The Sandbox kernel extension implements many of these hooks; when one of the corresponding system calls runs, the kernel invokes the Sandbox hook early, passing context about the operation. This hook can then decide whether to allow or deny the operation based on the sandbox policy.
 
@@ -14,7 +14,7 @@ The translation from a high-level policy to kernel enforcement happens via libsa
 
 At enforcement time, when a system call or other MACF-mediated operation occurs, the kernel calls the appropriate Sandbox MACF hook. The Sandbox hook maps the low-level MACF hook to a logical “sandbox operation type” that describes the attempted operation. This mapping provides an indirection layer between kernel hooks and sandbox operations. The operation is first evaluated against a platform sandbox policy that applies to all processes. If the platform policy denies the operation, the denial is propagated back through the MACF hook and the system call returns an error. If the platform policy allows it, the Sandbox kernel extension retrieves any sandbox policy associated with the process (via its MAC label) and evaluates that policy. If the process has a policy and it denies the operation, the denial is returned; if there is no process policy, the operation is permitted (subject to the platform policy only).
 
-3. Language and policy model (as seen here)
+## 3. Language and policy model (as seen here)
 
 The paper describes sandbox policies as written in SBPL, a dialect of Scheme. At the source level, a policy consists of a default action and a series of allow/deny declarations for specific operations, each decorated with predicates that must match for the action to apply. A default action is specified using a form such as `(default deny)` or `(default allow)`, and operation-specific rules are expressed with forms such as `(allow file-read* (path "/tmp/foo") (subpath "/tmp/bar"))`. The default action governs any operation instances that do not match an explicit allow/deny clause.
 
@@ -26,7 +26,7 @@ The model also integrates sandbox extensions at the policy level. SBPL rules can
 
 Finally, the policy model includes “action modifiers” that adjust the side-effects of allow and deny decisions. At the SBPL level these appear as modifiers on the action, e.g., `(allow (with report) sysctl ...)` to request a violation report even when the action is allowed. The paper later ties these modifiers to concrete behaviors such as overriding errno on deny, suppressing or enabling reporting, logging, sending signals, or triggering internal telemetry. The core model, however, remains: per-operation rules, written in SBPL, combining predicates over operation context and process/environment attributes, with an explicit default and optional modifiers on actions.
 
-4. Compilation, internal format, and enforcement mechanics
+## 4. Compilation, internal format, and enforcement mechanics
 
 On the userspace side, the paper states that SBPL policies are “interpreted via an interpreter within libsandbox, based on TinyScheme, which generates a compiled representation of the policy that it passes to the Sandbox kernel extension.” When sandbox_init_with_parameters is used, libsandbox takes the SBPL source string and an array of parameters, evaluates the SBPL using the interpreter, and compiles the resulting state into policy bytecode. That bytecode is then submitted to the Sandbox kernel extension as part of applying the sandbox to the current process. For repeated use of the same policy, sandbox_compile and sandbox_apply allow splitting compilation and application: sandbox_compile produces the bytecode once, which can be cached, and sandbox_apply later reuses this precompiled bytecode when sandboxing additional processes.
 
@@ -38,7 +38,7 @@ The predicates available in filter instructions mostly inspect the operation’s
 
 Enforcement mechanics tie this bytecode to MACF hooks. When a relevant system call is made, XNU invokes the Sandbox kernel extension’s MACF hook and supplies the operation context (arguments and related metadata). The Sandbox hook translates the concrete MACF hook into a logical sandbox operation type. It then evaluates the platform sandbox policy’s bytecode for that operation. If that evaluation produces a deny action, the error is returned immediately to the system call via the MACF machinery. If the platform policy allows, the Sandbox kernel extension looks up any per-process sandbox policy associated with the process via its MAC label. If a process policy exists, it runs the bytecode linked to that operation; if the process is unsandboxed, that second phase is skipped and the operation is allowed (subject only to the platform policy). By default, denied operations fail with EPERM, the kernel logs a message, and sandboxd may produce a violation report with a thread backtrace; action modifiers can change these behaviors, but the paper does not describe the internal plumbing for logging or reporting beyond this.
 
-5. Patterns and implications for a capability catalog
+## 5. Patterns and implications for a capability catalog
 
 The paper emphasizes a default-deny, allow-list idiom. Policies are expected to block most operations by default and then whitelist those needed for normal execution. This is reflected in SBPL via `(default deny)` plus per-operation `allow` forms. The examples show fine-grained controls: tightly scoped file access (one file, one subtree), specific sysctls, or constrained file-creation rules that disallow symlinks. For profiling capabilities, this suggests that “capability” is not just “operation X is allowed” but “operation X with particular predicates is allowed,” especially for file and sysctl operations.
 
