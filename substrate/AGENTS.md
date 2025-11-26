@@ -1,4 +1,3 @@
->SUBSTRATE_2025-frozen
 # AGENTS
 
 This file tells you how to use `substrate/`. It exists to route you to the right substrate text for a given question, not to tell you how to write the textbook or how to build tools.

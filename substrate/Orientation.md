@@ -1,7 +1,7 @@
 >SUBSTRATE_2025-frozen
-# Seatbelt / XNUSandbox Orientation
+# Seatbelt / Sandbox Orientation
 
-This document gives you a compact mental model of Apple’s Seatbelt sandbox and the XNUSandbox code in this repository. It is aimed at readers who are comfortable with macOS internals and willing to read C / reverse-engineered code, not a beginner’s primer.
+This document gives you a compact mental model of Apple’s sandbox. It is aimed at readers who are comfortable with macOS internals and willing to read C / reverse-engineered code, not a beginner’s primer.
 
 You can assume the following reference sections exist and are available:
 * In `Appendix.md`:
@@ -18,11 +18,6 @@ Use this orientation as your conceptual scaffold and the appendices above for pr
 
 ## 1. Purpose and Scope
 
-XNUSandbox has two jobs:
-
-1. Decode compiled Seatbelt profiles into a representation you can reason about: operations, filters, policy graphs, and decisions.
-2. Provide a stable, concept-driven surface for tests, tools, and documentation that talk about “the sandbox” without re-reverse-engineering everything from scratch.
-
 This orientation explains:
 
 * What Seatbelt is, at the level of “moving parts” (operations, filters, policy graphs, label state).
@@ -31,14 +26,14 @@ This orientation explains:
 
 It is deliberately light on:
 
-* Concrete SBPL profiles and per-OS quirks (those live in the cheatsheet and appendix).
-* Adjacent systems like TCC, hardened runtime, and SIP (those live in “Sandbox Environment”).
+* Concrete SBPL profiles and per-OS quirks (those live in the Appendix).
+* Adjacent systems like TCC, hardened runtime, and SIP (those live in Environment).
 
 ---
 
-## 2. Core Concepts the Code Assumes
+## 2. Core Concepts
 
-XNUSandbox is written against a small conceptual model. Everything in the code should be understandable in terms of the following objects.
+A comprehensive concept list is available at `substrate/Concept.md`.
 
 1. **Operation**
 
@@ -103,7 +98,7 @@ XNUSandbox is written against a small conceptual model. Everything in the code s
 
    XNUSandbox does not care about the exact provenance once it has a compiled blob, but the rest of the documentation does.
 
-At enforcement time there is no Scheme interpreter. The kernel walks a compiled graph for each relevant operation; XNUSandbox exists to decode that graph and relate it back to the vocabulary above.
+At enforcement time there is no Scheme interpreter. The kernel walks a compiled graph for each relevant operation; our code must decode that graph and relate it back to the vocabulary above.
 
 ---
 
@@ -169,37 +164,11 @@ Seatbelt policy is attached to *process credentials*, not to files or users in t
    * Stored alongside profile references in the credential label.
    * Checked by extension filters inside the policy graph.
 
-From XNUSandbox’s viewpoint, the key fact is: at the moment of evaluation, the kernel has a set of compiled profiles and extensions attached to the process label; those are what XNUSandbox parses and displays.
+At the moment of evaluation, the kernel has a set of compiled profiles and extensions attached to the process label; those are what we can parse and display.
 
 ---
 
-## 5. What XNUSandbox Does (and Does Not) Do
-
-XNUSandbox is deliberately constrained. It does:
-
-* Decode binary profiles into a higher-level representation:
-  * Operations, filters, metafilters, decisions.
-  * Literal and regex tables.
-  * Graph structure per operation.
-* Provide stable structures and vocabulary for:
-  * Capability catalogs.
-  * Tests that assert “this operation under this profile should allow/deny”.
-  * Documentation that needs to describe “what the sandbox says” in structured terms.
-
-It does **not**:
-
-* Execute SBPL or act as a general Scheme runtime.
-* Re-implement `libsandbox` in user space; it treats compiled blobs as inputs.
-* Act as a live system tracer:
-  * It does not attach to processes or intercept syscalls directly.
-  * It does not itself generate platform decisions or any TCC behavior; it only decodes sandbox profiles.
-* Provide complete coverage of every historical format variant; instead it focuses on the modern, graph-based layouts needed for macOS 13–14.
-
-XNUSandbox is a decoder and explainer, not an enforcement engine.
-
----
-
-## 6. How to Reason About a Sandboxed Operation
+## 5. How to Reason About a Sandboxed Operation
 
 When you see a denied (or allowed) operation in practice, you should think in terms of a stack and a graph, not a single flat rule list.
 
@@ -233,14 +202,14 @@ XNUSandbox’s representations (and the Appendix/Environment docs) are set up so
 
 ---
 
-## 7. Working Discipline for Code and Documentation
+## 6. Working Discipline for Code and Documentation
 
-To keep XNUSandbox maintainable and the surrounding documentation useful, adopt the following discipline:
+To keep code maintainable and the surrounding documentation useful, adopt the following discipline:
 
 1. **Keep the conceptual model small and explicit.**
 
    * New code should fit into the existing concept vocabulary (Operation, Filter, PolicyGraph, Profile Layer, etc.).
-   * If you find yourself inventing new terms, consider whether they are aliases for existing concepts or truly new objects worth adding to Concepts.md.
+   * If you find yourself inventing new terms, consider whether they are aliases for existing concepts.
 
 2. **Separate SBPL, compiled format, and analysis.**
 
@@ -264,5 +233,3 @@ To keep XNUSandbox maintainable and the surrounding documentation useful, adopt 
 
    * Operation counts, specific filter IDs, and exact profile contents are high-churn.
    * Structural invariants (graph shape, operation pointer tables, policy stacking) are stable; prefer to reason and test against those.
-
-If you maintain this separation—small, explicit concept set; clear stage boundaries; structural focus over empirical trivia—XNUSandbox and the surrounding documents will behave more like a well-specified abstract machine and less like an opaque pile of reverse-engineering notes.
