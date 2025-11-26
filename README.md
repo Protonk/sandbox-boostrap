@@ -38,6 +38,3 @@ High-level map of the root:
 
 - `book/`  
   A cathedral of shit
-
-- `AGENTS.md`  
-  Root-level routing and role guidance for you and for any machine agents acting in this repo (with additional AGENTS files in key subdirectories).
