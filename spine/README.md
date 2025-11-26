@@ -175,8 +175,5 @@ The spine never reaches the coder agent directly, but it shapes the plan the pla
 
 ## When and how to extend the spine
 
-* Prefer to edit `INVARIANTS.md` only when you have new, well-supported cross-document facts or need to correct a real error.
-* Update `INDEX.md` when you add or remove major substrate documents, or when the topology changes enough that the index would mislead an agent.
-* Extend `GROUNDING.md` when you discover new failure modes in model behavior (e.g., a recurring kind of hallucination or a subtle conflict resolution rule that needs to be spelled out).
+You should almost never need to edit these files, with the exception of `INVARIANTS.md`. Edit `INVARIANTS.md` only when you have new, well-supported cross-document facts or need to correct a real error.
 
-Keep each spine file short. If something starts to look like a full essay, move it into the main substrate and have `INDEX.md` point to it instead.
