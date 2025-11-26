@@ -1,3 +1,4 @@
+>SUBSTRATE_2025-frozen
 ## 1. STATEOFTHESANDBOX2019
 
 This paper empirically studies how Apple’s macOS App Sandbox is actually used in practice, and how well its intended restrictions are reflected in real-world apps. It has two main contributions: (1) a technical but high-level description of the App Sandbox mechanism and lifecycle (configuration via entitlements, initialization via the dynamic linker and libsandbox, and enforcement in the Sandbox kernel extension), and (2) a large-scale measurement of sandbox adoption and entitlement usage across 8366 free Mac App Store (MAS) apps (≈25% of all MAS apps) and 4672 apps from the third-party store MacUpdate (MU), including per-category entitlement patterns, privilege separation through XPC helpers, and a concrete sandbox-bypass bug where apps with sandbox entitlements sometimes ran unsandboxed.

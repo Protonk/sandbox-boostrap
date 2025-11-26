@@ -1,3 +1,4 @@
+>SUBSTRATE_2025-frozen
 # Seatbelt / XNUSandbox Orientation
 
 This document gives you a compact mental model of Apple’s Seatbelt sandbox and the XNUSandbox code in this repository. It is aimed at readers who are comfortable with macOS internals and willing to read C / reverse-engineered code, not a beginner’s primer.

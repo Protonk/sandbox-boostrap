@@ -1,3 +1,4 @@
+>SUBSTRATE_2025-frozen
 ## 1. WORMSLOOK2024
 
 WORMSLOOK2024 is a modern, implementation-focused tour of Apple’s Sandbox on macOS and iOS, with particular emphasis on how containers, entitlements, sandbox profiles, and MACF-based kernel hooks fit together into a working system. It explains which processes are sandboxed on each platform, how container directories and their metadata (including embedded profile blobs) are created and managed, how libsystem_secinit and libsandbox decide whether and how to initialize a sandbox at process startup, and how Sandbox.kext uses MACF hooks, per-credential sandbox labels, and a central evaluator to enforce the policy, including the use of sandbox extensions to delegate capabilities like file access across process boundaries. 

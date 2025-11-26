@@ -1,3 +1,4 @@
+>SUBSTRATE_2025-frozen
 ## 1. WORMSLOOK2024
 
 WORMSLOOK2024 is an implementation-focused walkthrough of how Apple’s Sandbox is wired into the system on macOS and iOS, covering containers, entitlements, libsystem_secinit/libsandbox, containermanagerd, Sandbox.kext, MACF hooks, and sandbox extensions. You can treat it as a description of the “intended” modern design: when and how processes become sandboxed, what data structures (profiles, labels, extensions, container metadata) look like, and which operations are controlled.

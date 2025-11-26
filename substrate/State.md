@@ -1,3 +1,4 @@
+>SUBSTRATE_2025-frozen
 # State of the macOS sandbox, ~2025
 
 This document summarizes how Apple’s macOS “Seatbelt” sandbox behaves in practice around 2024–2025. It assumes familiarity with Seatbelt as a TrustedBSD MAC policy module, SBPL/profile semantics, and the binary profile format. The focus here is “what the world actually looks like now”: who is sandboxed, what other systems sit around Seatbelt, and which parts of the stack are stable versus volatile.

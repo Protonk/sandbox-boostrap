@@ -1,3 +1,4 @@
+>SUBSTRATE_2025-frozen
 ## 1. APPLESANDBOXGUIDE
 
 Apple Sandbox Guide v1.0 is a reverse-engineered, Snow Leopard–era reference for the Seatbelt sandbox profile language (SBPL) and its operation set. It does not try to describe the full kernel architecture; instead, it catalogs the user-visible policy surface: actions, operations, filters, modifiers, and some special hard-coded behaviors. For a capabilities map, its value is that it defines the operation taxonomy (file, IPC, Mach, network, process, signal, sysctl, system), explains what each operation is supposed to control, shows how operations group kernel entry points via “Applies to” lists, and documents several quirks and bugs that affect how rules actually behave in practice. 

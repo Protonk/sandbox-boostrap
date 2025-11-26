@@ -1,3 +1,4 @@
+>SUBSTRATE_2025-frozen
 ## 1. Short orientation (1–2 paragraphs)
 
 The paper provides a concrete, implementation-level walk from user processes calling `sandbox_init` down through `libSystem`, `libsandbox.dylib`, the Scheme/TinyScheme layer, the compiled binary profile format, the TrustedBSD policy plumbing, `Sandbox.kext`, and finally the `AppleMatch.kext` regex engine. It is explicitly aimed at reverse engineers and names many functions, data structures, and byte-level layouts.

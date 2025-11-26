@@ -1,3 +1,4 @@
+>SUBSTRATE_2025-frozen
 # Appendix
 
 This appendix is the technical reference for Seatbelt as XNUSandbox understands it: it spells out the concrete structures and mechanics that sit behind the concepts in Concepts.md and the scaffold in Orientation. The first sections treat SBPL as source—operations, filters, metafilters, and action modifiers—then follow that policy through its compiled form (headers, operation pointer tables, node graphs, literal/regex tables) and into the stacked profiles the kernel actually evaluates. Later sections describe the lifecycle pipeline from signed binary to attached policy, the role of entitlements in selecting and parameterizing profiles, and how compiled profile sources map onto platform/app/auxiliary layers. Where Orientation tells you how to think about the sandbox, this document is where you come to see exactly what the code and blobs look like.

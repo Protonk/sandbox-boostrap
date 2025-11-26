@@ -1,3 +1,4 @@
+>SUBSTRATE_2025-frozen
 # Concepts
 
 This document defines the core concepts that XNUSandbox and the surrounding texts rely on when talking about the macOS Seatbelt sandbox. Each entry is meant to be a stable, implementation-shaped idea (operation, filter, policy graph, profile layer, entitlement-driven parameterization, etc.), not a loose metaphor or API surface. The goal is to give tools and agents a shared set of names and roles they can use when parsing profiles, generating probes, or interpreting results. When other documents (Orientation, Appendix, State2025, Canon) use these terms, they should mean exactly what is written here; if they do not, this file is the reference that wins.
