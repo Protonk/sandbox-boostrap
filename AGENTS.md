@@ -8,12 +8,10 @@ You just landed in a **synthetic textbook workspace** about the macOS Seatbelt/X
 - Guidance docs that define the model, vocabulary, and known drifts on modern macOS.
 
 ## Where things live
-- `examples/` — runnable labs and probes (mach, network, containers, entitlements, extensions, params, metafilters) plus tooling (compile, disassemble, regex viz). Each folder has a `lessons.md` and sometimes a local `AGENTS.md`.
 - `concepts/` — concept inventory and shared code (e.g., profile ingestion for modern and legacy blobs under `cross/profile-ingestion`).
 - `substrate/` — the conceptual spine listed above; `substrate/sources/` holds per-source exegesis.
-- `book/` — early chapter stubs intended to become the textbook proper.
-- `profiles/` — real profiles to anchor the story (e.g., TextEdit App Sandbox).
+- `book/` — the book, including code examples and profiles
 
 ## If your prompt is vague (“what is this project?”)
 - Answer: it is a teaching/research substrate for the macOS sandbox, not a product. Your job is to read/ingest/describe, not to ship features.
-- Navigate in this order: root `AGENTS.md` (this file) → `substrate/Orientation.md` → `substrate/Concepts.md` → skim `examples/README.md` to see the lab menu.
+- Navigate in this order: root `AGENTS.md` (this file) → `substrate/AGENTS.md`

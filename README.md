@@ -37,17 +37,8 @@ High-level map of the root:
 - `concepts/`  
   Concept inventory and cross-cutting code (e.g., profile ingestion) that multiple artifacts rely on.
 
-- `examples/`  
-  Runnable labs and tools that exercise specific aspects of the sandbox (entitlements, containers, extensions, mach, network, metafilters, platform policy, etc.).
-
-- `profiles/`  
-  Real sandbox profiles and entitlements (currently TextEdit) used as concrete anchors for analysis and whatever narrative you eventually decide to write.
-
 - `book/`  
-  Draft chapter stubs you can grow into a synthetic textbook if and when that becomes useful.
-
-- `history/`  
-  Modernization reports, concept evolution notes, and reset reports capturing how the repo has changed over time.
+  A cathedral of shit
 
 - `AGENTS.md`  
   Root-level routing and role guidance for you and for any machine agents acting in this repo (with additional AGENTS files in key subdirectories).
