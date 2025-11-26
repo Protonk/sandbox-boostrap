@@ -1,4 +1,4 @@
-1. ROWE_SANDBOXING
+1. ROWESANDBOXING
 
 This paper gives a concrete, implementation-oriented overview of how macOS sandboxing (“Seatbelt”) works from the point where a process opts into sandboxing, through policy specification in SBPL, compilation in libsandbox, and finally enforcement in the kernel via the Sandbox kernel extension and the MAC Framework (MACF). It explains how applications become sandboxed (either via the App Sandbox entitlement or via private sandbox(7) APIs), describes the SBPL policy language and its use of operations, predicates, parameters, and sandbox extensions, and then details how compiled sandbox bytecode is attached to processes and evaluated on each MACF hook. It also sketches the relationship between the platform-wide sandbox policy and per-process policies, and briefly contrasts macOS with iOS and related platforms (where sandboxing is mandatory and custom policies are not supported for third-party apps).
 

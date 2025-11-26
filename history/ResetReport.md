@@ -17,7 +17,7 @@
     - BLAZAKIS2011/exegesis.md
     - BLAZAKIS2011/launchpad.md
     - HACKTRICKS_MACOSSANDBOX/exegesis.md
-    - ROWE_SANDBOXING/exegesis.md
+    - ROWESANDBOXING/exegesis.md
     - SANDBLASTER2016/exegesis.md
     - STATEOFTHESANDBOX2019/exegesis.md
     - WORMSLOOK2024/exegesis.md
@@ -157,7 +157,7 @@ Response: **Project Aim**
   - launchpad.md: Orientation plus symbol/structure inventory extracted from Blazakis’s paper for code-grepping and implementation alignment.
 - HACKTRICKS_MACOSSANDBOX/
   - exegesis.md: Practitioner/offensive overview of macOS sandbox behavior, containers, entitlements, extension tokens, and observable bypass surfaces.
-- ROWE_SANDBOXING/
+- ROWESANDBOXING/
   - exegesis.md: Implementation-oriented overview of macOS sandboxing lifecycle, SBPL, platform vs per-process policy, and MACF enforcement.
 - SANDBLASTER2016/
   - exegesis.md: Analysis of the SandBlaster toolchain and reversed iOS profiles, extrapolating binary profile structure and SBPL semantics relevant to macOS.

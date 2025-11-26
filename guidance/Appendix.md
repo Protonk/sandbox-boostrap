@@ -731,7 +731,7 @@ Any realistic assessment of a process’s sandbox must consider all three togeth
 
 # Lifecycle pipeline: from signed binary to sandboxed process
 
-This section ties together the “where does a profile come from?” questions into a single pipeline: from a signed Mach-O on disk to a process with a Seatbelt label and an active policy graph in the kernel. It draws on the high-level view in ROWE_SANDBOXING, the low-level reverse engineering in BLAZAKIS2011 and SANDBLASTER2016, and the broader system context in APPLESANDBOXGUIDE, STATEOFSANDBOX2019, and WORMSLOOK2024.
+This section ties together the “where does a profile come from?” questions into a single pipeline: from a signed Mach-O on disk to a process with a Seatbelt label and an active policy graph in the kernel. It draws on the high-level view in ROWESANDBOXING, the low-level reverse engineering in BLAZAKIS2011 and SANDBLASTER2016, and the broader system context in APPLESANDBOXGUIDE, STATEOFSANDBOX2019, and WORMSLOOK2024.
 
 ---
 
@@ -769,7 +769,7 @@ When a process is started (via `launchd`, `xpcproxy`, or similar launch machiner
 
 2. **libSystem initializers decide whether to apply a sandbox**
 
-   * For App Sandbox processes (those with the App Sandbox entitlement), Rowe observes that they are sandboxed “automatically by initializers in `libSystem` that run very early during an application’s launch.” ROWE_SANDBOXING
+   * For App Sandbox processes (those with the App Sandbox entitlement), Rowe observes that they are sandboxed “automatically by initializers in `libSystem` that run very early during an application’s launch.” ROWESANDBOXING
    * For processes without the App Sandbox entitlement, sandboxing is opt-in via explicit calls to the sandbox(7) APIs, primarily `sandbox_init_*`.
 
 3. **Explicit vs implicit sandbox entry points**
@@ -814,7 +814,7 @@ The next step is to turn the selected, parameterized SBPL profile into a compile
 
 1. **SBPL interpretation and compilation in `libsandbox`**
 
-   * BLAZAKIS2011 and ROWE_SANDBOXING describe an interpreter within `libsandbox` (based on TinyScheme) that reads SBPL and emits a compiled form.
+   * BLAZAKIS2011 and ROWESANDBOXING describe an interpreter within `libsandbox` (based on TinyScheme) that reads SBPL and emits a compiled form.
    * `sandbox_init` and related APIs in `libSystem` dynamically load `libsandbox.dylib`, invoke one of several `sandbox_compile_*` functions, and receive back a compiled policy blob.
 
 2. **Compiled profile structure**
@@ -852,7 +852,7 @@ With a compiled policy in hand, the system must make it active for the target pr
 
 3. **Attaching to the process label**
 
-   * XNU’s MAC Framework (MACF) maintains per-credential security labels. `Sandbox.kext` stores pointers to the process’s platform and app-level profiles, as well as any sandbox extensions, in this label. ROWE_SANDBOXING, SANDBLASTER2016
+   * XNU’s MAC Framework (MACF) maintains per-credential security labels. `Sandbox.kext` stores pointers to the process’s platform and app-level profiles, as well as any sandbox extensions, in this label. ROWESANDBOXING, SANDBLASTER2016
    * Conceptually, this is where the **Policy Stack Evaluation Order** and **Profile Layer** concepts become concrete: the process now has an effective policy stack consisting of:
 
      * One or more platform profiles.
@@ -869,7 +869,7 @@ Once the label is attached, enforcement is entirely driven by kernel-side hooks 
 
 1. **MACF hooks into system call handling**
 
-   * `Sandbox.kext` registers handlers for many MACF policy hooks, covering file operations, process management, IPC, and other sensitive actions. ROWE_SANDBOXING, SANDBLASTER2016
+   * `Sandbox.kext` registers handlers for many MACF policy hooks, covering file operations, process management, IPC, and other sensitive actions. ROWESANDBOXING, SANDBLASTER2016
    * When a covered operation is attempted, XNU calls the Sandbox policy hook early in the system-call handling path, providing context (arguments, credentials, etc.).
 
 2. **Policy graph evaluation**
@@ -885,10 +885,280 @@ Once the label is attached, enforcement is entirely driven by kernel-side hooks 
 3. **Outcomes and reporting**
 
    * If the effective decision is **allow**, the system call proceeds normally.
-   * If it is **deny**, the kernel returns `EPERM` (operation not permitted) or similar to user space. ROWE_SANDBOXING
+   * If it is **deny**, the kernel returns `EPERM` (operation not permitted) or similar to user space. ROWESANDBOXING
    * Depending on compiled action modifiers, `Sandbox.kext` may:
 
      * Log the violation via system logging.
-     * Ask `sandboxd` to generate a violation report with backtrace and context. ROWE_SANDBOXING
+     * Ask `sandboxd` to generate a violation report with backtrace and context. ROWESANDBOXING
 
 At this point the lifecycle is complete: the signed binary and its entitlements have been turned into a concrete SBPL profile, compiled into a policy graph, loaded into the kernel, attached to the process label, and used to gate every relevant operation for the lifetime of the process.
+
+# Entitlements as capability selectors and profile parameters
+
+Entitlements are key–value claims embedded in a code signature that tell macOS what an application is *allowed* to ask for. In the sandbox context, they serve two roles:
+
+1. They decide whether the App Sandbox is enabled for a process at all.
+2. They parameterize and specialize the SBPL profile that will be compiled and attached to the process.
+
+This section explains how those roles play out and how they map onto the concepts used elsewhere in this appendix.
+
+---
+
+## 1. Entitlements as capability claims
+
+At a high level, an entitlement is a boolean or structured value in the app’s code signature, such as:
+
+* `com.apple.security.app-sandbox = true`
+* `com.apple.security.network.client = true`
+* `com.apple.security.files.user-selected.read-write = true`
+
+STATEOFSANDBOX2019 describes these as “capabilities that allow the app to access certain resources,” highlighting that, since June 2012, Mac App Store apps must be sandboxed and declare their capabilities explicitly, while non-Store apps may remain unsandboxed.
+
+From the system’s point of view, entitlements are:
+
+* Available very early during launch (as part of the signature validation and hardened runtime checks).
+* Stable, signed metadata that can be trusted when selecting and parameterizing sandbox profiles.
+* A primary control surface for platform policy: Apple can require specific entitlements for certain sensitive operations or for use of internal APIs.
+
+This aligns with the **Compiled Profile Source** and **Profile Layer** concepts: entitlements are one of the main knobs for choosing which profile sources to use and how to specialize them.
+
+---
+
+## 2. The App Sandbox entitlement
+
+The single most important sandbox-related entitlement is:
+
+* `com.apple.security.app-sandbox = true`
+
+When present, the process is treated as an App Sandbox client:
+
+* Rowe notes that such apps are sandboxed “automatically by initializers in `libSystem` that run very early during an application’s launch,” without the app calling sandbox(7) APIs directly. ROWESANDBOXING
+* The system chooses an App Sandbox profile template and then consults additional entitlements to decide which sections of that template to activate.
+
+In conceptual terms:
+
+* This entitlement turns on a particular **Profile Layer** (the app’s sandbox layer) that would otherwise be absent.
+* Other entitlements act as selectors within that layer, enabling or disabling specific rule bundles.
+
+Apps without the App Sandbox entitlement can still be sandboxed, but only via explicit sandbox(7) calls; in that case entitlements are not the primary driver of profile selection.
+
+---
+
+## 3. Entitlements as selectors on profile templates
+
+For App Sandbox apps, entitlements act as structured switches on a large SBPL template. APPLESANDBOXGUIDE and STATEOFSANDBOX2019 both describe a coarse-grained model:
+
+* There is a base App Sandbox policy that, by default, denies broad access to the filesystem, network, hardware devices, and inter-process communication.
+* Entitlements correspond to *capability groups* that selectively relax parts of this policy.
+
+Examples of how this maps into SBPL-level structure:
+
+* Network entitlements (`com.apple.security.network.client`, `com.apple.security.network.server`) gate inclusion of rules like:
+
+  ```scheme
+  (allow network-outbound ...)
+  (allow network-inbound ...)
+  ```
+
+* File-entitlement families (`com.apple.security.files.*`) control the presence and scope of rules that reference user directories, removable media, or “user-selected file” patterns.
+
+* Device-related entitlements determine whether operations tied to specific I/O Kit classes or TCC-governed services appear in the profile at all.
+
+In the compiled profile:
+
+* These switches are reflected as the presence or absence of subgraphs for certain operation IDs (for example, no `network-outbound` allow graph at all if networking is not permitted).
+* Entitlements thus directly shape the **PolicyGraph** structure—not just its parameters.
+
+---
+
+## 4. Entitlements as inputs to SBPL parameterization
+
+Many system SBPL profiles use `(param "…")` forms and string combinators such as `string-append` to represent app- or context-specific values. BLAZAKIS2011 and WORMSLOOK2024 show examples where:
+
+* Bundle identifiers, container directory roots, or specific exception paths are not hardcoded as literals in the template.
+* Instead, the template carries placeholders like `(param "bundle-id")`, `(param "container-root")`, etc.
+
+At compile time:
+
+1. The system constructs a parameter dictionary using launch metadata:
+
+   * The app’s bundle ID.
+   * Container identifiers and paths (often derived from the bundle ID and other attributes).
+   * Sometimes entitlement values themselves.
+
+2. `libsandbox` evaluates the SBPL template under this dictionary:
+
+   * `(param "…")` forms are replaced with concrete strings.
+   * `string-append` and similar combinators build full paths and names from these fragments.
+
+3. The result is a concrete **SBPL Profile** instance, with no remaining parameters, ready to be compiled into a policy graph.
+
+If required parameters are missing or inconsistent, compilation fails or yields an unusable profile. From the concepts’ point of view, entitlements and other metadata move the profile from “parametric template” to “fully instantiated profile” within the **SBPL Parameterization** concept.
+
+---
+
+## 5. Public vs private entitlements
+
+Not all entitlements are documented or intended for third-party use. STATEOFSANDBOX2019 and related work emphasize two broad categories:
+
+* **Public entitlements**:
+
+  * Documented in Apple’s developer materials.
+  * Intended for App Store and third-party distribution.
+  * Map relatively cleanly to user-visible capabilities (networking, file access classes, hardware features).
+
+* **Private/internal entitlements**:
+
+  * Undocumented or marked as “Apple Internal only.”
+  * Used by Apple’s own system apps and daemons to obtain capabilities not available to third parties.
+  * Often gate very sensitive operations or platform roles (e.g., power management, system updates, low-level hardware control).
+
+Structurally, both categories feed into the same mechanisms:
+
+* They are read from the code signature during early launch.
+* They influence profile selection and parameterization.
+* They can act as filters in SBPL rules (e.g., “only grant this allow if entitlement X is present”).
+
+For this project’s purposes, it is usually enough to reason at the category level: “public App Sandbox capability” vs “internal/platform-only capability,” while treating the exact list of private entitlements as high-churn and outside the scope of the static appendix.
+
+---
+
+## 6. Entitlements vs sandbox extensions and TCC
+
+Entitlements are one of several mechanisms that influence what an app can do:
+
+* **Entitlements**: baked into the code signature; shape which sandbox profile is applied and what it looks like.
+* **Sandbox extensions**: dynamic tokens granting scoped exceptions (e.g., to specific files or volumes) on top of the existing profile.
+* **TCC and related services**: separate systems that enforce user consent for certain classes of data, even if the sandbox would otherwise allow access.
+
+In terms of the concept inventory:
+
+* Entitlements live primarily at the profile-selection and parameterization stages (**Compiled Profile Source**, **SBPL Parameterization**, **Profile Layer**).
+* Sandbox extensions and TCC show up later, when constructing and evaluating the **Policy Stack Evaluation Order** and related runtime decisions.
+
+The important point for the appendix is that entitlements are the *static* capability declarations that influence which SBPL and policy graph a process receives. Extensions and TCC, while important, operate as additional layers on top of that graph rather than as substitutes for it.
+
+# Compiled profile sources and layers
+
+Seatbelt policies are not a single monolithic profile. A process’s effective sandbox is built from multiple compiled profiles drawn from different sources and stacked into layers. This section describes where those compiled profiles come from and how they map onto the **Profile Layer** and **Compiled Profile Source** concepts used elsewhere in this appendix.
+
+---
+
+## 1. Kinds of compiled profile sources
+
+In practice, Seatbelt consumes compiled policies from four main sources:
+
+1. **Platform profiles**
+
+   * OS-supplied policies that describe how core daemons, helpers, and services are sandboxed.
+   * Historically embedded in kernel extensions or the kernelcache, later moved into userland bundles and `.sb` files as the system evolved. BLAZAKIS2011, SANDBLASTER2016, STATEOFSANDBOX2019
+   * Loaded at boot or on demand and shared by many processes in the same role.
+
+2. **App Sandbox profiles**
+
+   * Derived from a relatively stable App Sandbox SBPL template, specialized by entitlements, bundle metadata, and parameters. APPLESANDBOXGUIDE, STATEOFSANDBOX2019
+   * Compiled at or before first launch of a given app configuration, then reused for subsequent launches when possible.
+
+3. **Custom profiles via sandbox(7)**
+
+   * SBPL strings, SBPL files, or named built-in profiles supplied by applications using `sandbox_init_*` directly. BLAZAKIS2011, ROWESANDBOXING
+   * Compiled on demand in the caller’s context and installed for that process (and, in some cases, its children).
+
+4. **Test and harness profiles**
+
+   * Profiles used by tools, harnesses, or research systems (including XNUSandbox) to probe behavior.
+   * Typically SBPL text compiled via `libsandbox` or equivalent private APIs, then loaded for short-lived test processes.
+
+From the point of view of the kernel, they all end up in the same form: compiled **PolicyGraph** blobs stored in `Sandbox.kext` data structures and referenced from process labels.
+
+---
+
+## 2. Profile layers: platform vs app vs auxiliary
+
+The **Profile Layer** concept distinguishes profiles by their role in the policy stack:
+
+1. **Platform layer**
+
+   * One or more platform profiles that apply system-wide constraints and grants.
+   * Enforced for large classes of processes: system daemons, background services, some graphical apps.
+   * Often tied to “who you are” (launchd job label, binary path, platform flags) rather than explicit entitlements alone. STATEOFSANDBOX2019, SANDBLASTER2016
+
+2. **App layer**
+
+   * A per-process profile representing the App Sandbox (for App Sandbox apps) or a custom sandbox(7) policy (for others).
+   * Its presence and shape are primarily driven by entitlements and sandbox(7) calls, as described in the lifecycle and entitlements sections. ROWESANDBOXING, APPLESANDBOXGUIDE
+   * This is the layer most visible to third-party developers and is what “sandboxed app” usually means in Apple’s documentation.
+
+3. **Auxiliary layers**
+
+   * Additional compiled policies occasionally used for narrow roles: helper tools, plug-ins, or debugging contexts.
+   * May be attached temporarily or for subsets of processes that perform particularly sensitive tasks (e.g., parsers, converters, or update helpers). STATEOFSANDBOX2019
+
+All of these are realized as compiled profiles and are treated uniformly by `Sandbox.kext` at enforcement time; their distinction is conceptual and based on how and when they are attached to a process.
+
+---
+
+## 3. How sources map onto layers
+
+The mapping between compiled profile sources and layers is many-to-many but regular:
+
+* **Platform profiles → platform layer**
+
+  * Built from OS-supplied SBPL or internal configuration and compiled early.
+  * Attached automatically based on launch configuration (launchd job, binary identity, platform flags).
+  * Many processes share the same compiled platform profiles.
+
+* **App Sandbox templates → app layer**
+
+  * A small number of Apple-maintained SBPL templates (for App Sandbox and related roles) serve as the source. APPLESANDBOXGUIDE
+  * Entitlements and bundle metadata drive parameterization and selective inclusion of rules.
+  * The resulting compiled profile attaches as the app layer for App Sandbox processes.
+
+* **Custom SBPL and named profiles → app or auxiliary layer**
+
+  * Profiles created via `sandbox_init_*` (named profiles or SBPL files/strings) become compiled policies that usually occupy the same logical “app layer” slot for the calling process. BLAZAKIS2011, ROWESANDBOXING
+  * In some specialized cases (e.g., helpers spawned under restricted policies), they function like auxiliary layers from a system-design perspective.
+
+* **Harness/test profiles → auxiliary layer**
+
+  * Profiles explicitly loaded by research tools or harnesses attach in addition to any platform profiles, often replacing or supplementing the app layer for the duration of a test.
+
+In terms of the concept inventory:
+
+* The **Compiled Profile Source** tells you *where* the policy came from (platform bundle, App Sandbox template, custom SBPL, harness).
+* The **Profile Layer** tells you *how it participates* in the effective policy stack (platform, app, or auxiliary).
+
+---
+
+## 4. Layering and evaluation order
+
+At enforcement time, `Sandbox.kext` does not care how many SBPL templates or `.sb` files were involved; it sees a set of compiled profiles stacked in a fixed precedence order, plus sandbox extensions:
+
+1. Platform profile(s).
+2. App (or custom) profile.
+3. Any auxiliary policies.
+4. Sandbox extensions attached to the process label.
+
+The evaluation pattern described in “Policy Stacking and Platform Sandbox” applies:
+
+* Denies in higher-priority layers (usually platform) dominate allows in lower layers.
+* Allows in a lower layer cannot trivially cancel denies in a higher layer.
+* Sandbox extensions act as scoped exceptions that add allow paths or capabilities without rewriting the underlying compiled profiles.
+
+This is the concrete realization of **Policy Stack Evaluation Order**: the kernel walks operation graphs for each compiled profile in the stack, combines decisions according to these precedence rules, and then applies any extension-based adjustments.
+
+---
+
+## 5. Practical implications for analysis and tooling
+
+Understanding compiled profile sources and layers is important for any tool or analysis that tries to explain “what sandbox is this process actually under?”:
+
+* Inspecting only one compiled profile (for example, the App Sandbox layer) can misrepresent capabilities if platform profiles or auxiliary policies are ignored.
+* Differences between processes often come from *which* source templates were used and *how* entitlements parameterized them, not just from obvious SBPL text differences.
+* When building capability catalogs, it is often useful to attribute capabilities to both a source and a layer:
+
+  * “Platform: grants read-only access to `/System` for this daemon.”
+  * “App layer: grants network-outbound for this App Sandbox client via entitlements.”
+  * “Extension: temporarily grants read-write to a user-selected file.”
+
+The rest of this appendix assumes this layered, source-aware picture when describing operations, filters, policy graphs, and enforcement.
