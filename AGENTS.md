@@ -9,7 +9,7 @@ You just landed in a **synthetic textbook workspace** about the macOS Seatbelt s
 
 ## Where things live
 - `concepts/` — concept inventory and shared code (e.g., profile ingestion for modern and legacy blobs under `cross/profile-ingestion`).
-- `substrate/` — the conceptual spine listed above; `substrate/sources/` holds per-source exegesis.
+- `substrate/` — the conceptual spine listed above; `substrate/exegesis/` holds per-source exegesis.
 - `book/` — the book, including code examples and profiles
 
 ## If your prompt is vague (“what is this project?”)

@@ -1,6 +1,6 @@
-# Substrate Index
+# Index
 
-This file lists and briefly describes the core substrate documents for the macOS Seatbelt sandbox project. These documents are the primary textual sources for the project’s architecture, concepts, environment, and empirical state.
+What follows is an index to core substrate documents for the macOS Seatbelt sandbox project. These documents are the primary textual sources for the project’s architecture, concepts, environment, and empirical state.
 
 Treat the files indexed here as normative: they define the model, vocabulary, and assumptions the rest of the repository is expected to follow. This index is a navigational map, not a replacement for reading the documents themselves when details matter.
 
@@ -47,10 +47,4 @@ Treat the files indexed here as normative: they define the model, vocabulary, an
 - **Role:** Snapshot of how the macOS sandbox is actually used and behaves in practice around 2024–2025.
 - **Summary:** Focuses on modern macOS (13–14, primarily Apple Silicon) and describes who is sandboxed (Mac App Store apps, many Apple apps and services) versus who typically is not (most traditionally distributed desktop software). It outlines how code signing, Gatekeeper, hardened runtime, entitlements, secinit, and containermanagerd feed into Seatbelt, TCC, and SIP to form the effective security pipeline. It distinguishes structural realities from high-churn details in the current ecosystem, summarizes common patterns of entitlement use and misconfiguration, and sketches an implicit threat model and historical failure modes that justify probes, catalogs, and empirical checks.
 - **Primary topics:** ecosystem state, sandbox adoption, entitlements in practice, modern pipeline, threat model, empirical variability
-
-## How to Use This Index
-
-Use this index to decide which substrate document to consult for a given task: Orientation for high-level architecture and lifecycle questions, Concepts for precise terminology and abstractions, Appendix for SBPL and binary details, Environment for containers and adjacent controls, State for real-world usage and threat posture, and Canon for grounding in external sources. It should help you route architecture work, concept and catalog design, environment/state reasoning, and empirical probe design to the right substrate text.
-
-When correctness or nuance matters, treat this index only as a starting map and read the referenced substrate document(s) directly. The substrate files themselves remain the authoritative statements of what the project believes about Seatbelt and its surrounding ecosystem.
 

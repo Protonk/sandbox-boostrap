@@ -1,3 +1,7 @@
+# Invariants
+
+The following points are project-wide invariants: fixed assumptions about Seatbelt’s architecture, terminology, and modeling that other texts and tools in this project rely on. When you reason, explain, or write code for this project, do not contradict them; if external knowledge differs, follow these invariants and at most note the discrepancy.
+
 * Seatbelt is implemented as a TrustedBSD MAC policy inside `Sandbox.kext` that mediates sensitive operations via internal policy graphs.
 
 * Seatbelt mediates kernel operations by consulting compiled policy graphs keyed by operation identifiers, not by interpreting SBPL at runtime.

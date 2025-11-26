@@ -13,7 +13,6 @@ The substrate is meant to support, not decorate the work of the output. Write yo
 ---
 
 ## 2. Router: which file to consult for which question
->N.B. The `substrate/spine/` directory contains pre-digested “spine” views derived from these frozen texts. Those files exist primarily to feed chat-model prompts with compact context; treat them as convenience bundles rather than separate sources of claims.
 
 Use this section as your primary decision tree.
 
@@ -97,7 +96,7 @@ Use it to choose what to read next or to understand why the substrate leans the 
 
 ---
 
-### Per-source exegesis and evidence → `sources/`
+### Per-source exegesis and evidence → `exegesis/`
 
 Go here when your question is:
 

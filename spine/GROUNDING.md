@@ -1,9 +1,9 @@
-# Grounding Spine
+# Grounding
 >This spine summarizes substrate version SUBSTRATE_2025-frozen
 
-This grounding spine is a compressed view of the substrate for the macOS Seatbelt sandbox project. It is meant to act as a compact context bundle for agents when working on textbook text, code, or analysis, without having to reload the full substrate every time.
+What follows is a compressed view of the substrate for the macOS Seatbelt sandbox project. It is meant to act as a compact context bundle for agents when working on textbook text, code, or analysis.
 
-The summaries here are derived from `substrate/Orientation.md`, `substrate/Concepts.md`, `substrate/Appendix.md`, `substrate/Environment.md`, and `substrate/State.md`. Those originals remain the normative sources; this file is a dense, readable map of what they say and how they fit together.
+Summaries here map to originals as follows: `substrate/Orientation.md` → ("Orientation"), `substrate/Concepts.md` → ("Concepts"), `substrate/Appendix.md` → ("Appendix"), `substrate/Environment.md` → ("Environment"), and `substrate/State.md` → ("State"). Those originals remain the normative sources; this file is a dense, readable map of what they say and how they fit together.
 
 ## Orientation
 

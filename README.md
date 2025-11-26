@@ -20,7 +20,7 @@ The repo treats as primary:
 - Apple’s own documentation, as filtered through the guidance layer.
 - Empirical behavior from examples, profile ingestion, and real profiles.
 
-External texts are pulled into `substrate/sources/` with exegesis files and are meant to act as time-stamped anchors. The intent is to keep claims traceable and to make drifts in macOS behavior visible over time rather than silently overwriting them.
+External texts are pulled into `substrate/exegesis/` with exegesis files and are meant to act as time-stamped anchors. The intent is to keep claims traceable and to make drifts in macOS behavior visible over time rather than silently overwriting them.
 
 This exists to give you a stable, inspectable base layer for sandbox reasoning you can come back to after gaps.
 
