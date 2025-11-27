@@ -8,11 +8,12 @@ import ctypes
 import sys
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parents[2]
+REPO_ROOT = Path(__file__).resolve().parents[3]
 if str(REPO_ROOT) not in sys.path:
     sys.path.append(str(REPO_ROOT))
 
-from concepts.cross import profile_ingestion as ingestion  # noqa: E402
+# Shared ingestion helpers live under book/concepts/validation/
+from book.concepts.validation import profile_ingestion as ingestion  # noqa: E402
 
 
 class SandboxProfile(ctypes.Structure):

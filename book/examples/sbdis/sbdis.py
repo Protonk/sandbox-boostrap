@@ -9,8 +9,8 @@ from pathlib import Path
 
 import redis
 import find_operations
-sys.path.append(str(Path(__file__).resolve().parents[2]))
-from concepts.cross import profile_ingestion as ingestion  # noqa: E402
+sys.path.append(str(Path(__file__).resolve().parents[3]))
+from book.concepts.validation import profile_ingestion as ingestion  # noqa: E402
 # Header/section parsing now flows through the shared Axis 4.1 ingestion layer.
 
 # u2 re_table_offset (8-byte words from start of sb)

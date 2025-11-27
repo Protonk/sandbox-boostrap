@@ -349,7 +349,7 @@ The validation plan ties the examples in `book/examples/` to the four clusters. 
 
 **Stage 0 — Setup and metadata**
 - Record host OS/build, hardware, SIP/TCC state, and profile format variant cues before collecting evidence.
-- Use the shared ingestion spine (`concepts/cross/profile-ingestion/ingestion.py`) for all blob parsing to keep IR consistent across clusters.
+- Use the shared ingestion spine (`book/concepts/validation/profile_ingestion.py`) for all blob parsing to keep IR consistent across clusters.
 
 **Stage 1 — Static-Format validation**
 - Run `sb/run-demo.sh`, `extract_sbs/run-demo.sh`, and `sbsnarf`/`apple-scheme` as needed to produce modern compiled blobs; ingest them to JSON under `validation/out/static/` with headers/op-table/node/regex/literal sections plus variant tags.
