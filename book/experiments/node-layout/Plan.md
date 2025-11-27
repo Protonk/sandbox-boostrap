@@ -1,6 +1,6 @@
 # Node Layout Experiment Plan (Sonoma host)
 
-Goal: recover enough of the modern compiled profile node layout to say something concrete about node tags, edges, and (eventually) filter keys, using only local artifacts. This plan is written so a new agent with only `spine/` can replay the work.
+Goal: recover enough of the modern compiled profile node layout to say something concrete about node tags, edges, and (eventually) filter keys, using only local artifacts. 
 
 ---
 
@@ -143,6 +143,6 @@ These items are explicitly *not* solved yet; they are the next frontier for futu
 - [ ] **Literal index mapping:** We still do not know exactly how nodes refer to the literal/regex pool in modern blobs. Controlled foo→bar and multi-literal variants show pool changes but not obvious node-field changes in shared prefixes.
 - [ ] **Filter key location:** We have not yet identified which node field carries filter key codes as opposed to literal indices; tag and edge patterns alone are insufficient.
 - [ ] **Tail layout:** Extra nodes and remainders at the tail do not fit a simple fixed stride; a better model (variable-size records, per-tag sizes, or a distinct tail encoding) is still to be derived.
-- [ ] **Per-op segmentation:** Mixed-op profiles now show at least two distinct op-table entry indices, but we still lack a mapping from operation vocabulary IDs to those indices and a way to use them to cleanly segment the node array per operation.
+- [ ] **Per-op segmentation:** Mixed-op profiles now show at least two distinct op-table entry indices, but we still lack a mapping from operation vocabulary IDs to those indices and a way to use them to cleanly segment the node array per operation. Combining “flat” ops (e.g., mach+network, write+network) leaves the op-table uniform; only v8–v10 produced `[6,…,5]`, and the lone `5` remains unmapped.
 
 Even with these open boxes, the experiment has already produced reusable artifacts (SBPL variants, blobs, structured summaries) and a clearer picture of what can and cannot be inferred from modern graph blobs without deeper reverse engineering.

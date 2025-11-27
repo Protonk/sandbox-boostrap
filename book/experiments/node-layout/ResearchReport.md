@@ -210,7 +210,8 @@ At this stage we have:
 
 We **do not yet** have:
 
-- A trustworthy mapping from node fields to literal indices or filter key codes.
+- A trustworthy mapping from specific node fields to literal/regex pool entries.
+- Any identification of which fields encode filter keys (as opposed to literal indices), or how tag values (for example, tag6) relate to filter classes.
 - A robust node layout model that explains tails (and odd edge values) as well as the front of the node region.
 - More than very coarse per-operation segmentation of the graph from op-table entries: mixed-op profiles show at most two distinct entry indices shared across several operations, and we still lack a vocabulary-aware mapping from operations to entrypoints.
 
@@ -222,9 +223,10 @@ In terms of the textbook’s goals, this is still useful:
 
 Future work can build on this by:
 
-- Designing additional profiles where different operations have visibly different policies, building on the mixed-op probes in §10, to further refine op-table entrypoint mapping.
-- Extending `analyze.py` or related tools to experiment with variable-length node parsing and to correlate node fields with literal pool indices more aggressively.
-- Feeding these artifacts into a more systematic reverse-engineering pass that can be versioned and tied back into the substrate as a new static-format annex.
+- Designing additional, deliberately asymmetric profiles where only one operation is added or removed across profiles that all exhibit the `[6,…,5]` pattern (see §10), to observe whether the position of the lone `5` moves and thereby pin it to a specific operation vocabulary entry.
+- Extending `analyze.py` with a small correlation pass that tracks op-table indices across all synthetic profiles and, once an operation vocabulary map is available for this host, assigns each index to a concrete operation ID for per-operation PolicyGraph entrypoints.
+- Experimenting with variable-length node parsing across all variants by treating tags as node types with candidate sizes and searching for tag→size mappings that both match total node lengths and minimize out-of-bounds “edges,” especially in the tails.
+- Adding finer-grained literal/filter probes (e.g., toggling a single literal or filter on/off, or swapping filter types while holding literals constant) and scoring which node fields change in lockstep with literal pool contents vs filter structure.
 
 ## 10. Mixed-op probes and first op-table divergence
 
@@ -242,6 +244,12 @@ Findings:
 - Node tag sets now include tag6; early stride=12 records carry the main differences across variants (indices ~3–5, 14), with tag6/tag3 swaps and lit fields toggling 3↔6 alongside edge/extra changes (`03000600` vs `06000600`).
 - Node lengths vary slightly (v8/v9: 32 records + 2-byte remainder; v10: 31 records + 11-byte remainder), hinting at structural shifts when a `literal` filter is involved.
 - Literal pools now show prefixed strings: `G/tmp/foo`, `G/tmp/bar`, `Wcom.apple.cfprefsd.agent`, `I/etc/hosts`, reinforcing that the pool stores a class/type marker alongside the payload.
+
+Additional probes extended this picture:
+
+- Single-operation profiles for `mach-lookup` with the same global-name, `file-write*`, and `network-outbound` (v11–v13) all produced uniform op-table entries (`[5,…,5]` or `[4,…,4]`) and node/tag shapes closely aligned with the original read-only baseline and its simple variants.
+- Mixed profiles that combine only “flat” operations—mach+network, write+network, read+network, read+write+network, read+mach+network, mach+write+network (v14–v19)—likewise retained fully uniform op-table entries and only small, local shifts in stride-12 record patterns.
+- As of these probes, the only profiles that exhibit genuinely non-uniform op-table entries are v8–v10 with `[6,6,6,6,6,6,5]`; the identity of the operation associated with the lone `5` entry remains unknown.
 
 Still open:
 

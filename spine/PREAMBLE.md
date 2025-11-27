@@ -1,1 +1,0 @@
-This conversation is grounded in a frozen documentation substrate about Apple’s macOS “Seatbelt” sandbox and a synthetic textbook being built from it. Treat what follows as the shared context for answering questions, proposing text, or analyzing behavior within that sandbox world.

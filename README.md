@@ -38,7 +38,6 @@ High-level map of the root and `book/`:
     - `graph/Package.swift`, `graph/Sources/` – BookGraph types and generator CLI.
     - `graph/concepts/` – concept inventory, validation docs, and generated concept JSON.
     - `graph/regions/` – stub `text_regions.json` for chapter bindings.
-- `spine/` – compressed context bundle summarizing the substrate.
 - `substrate/` – Orientation, Concepts, Appendix, Environment, State; frozen at `SUBSTRATE_2025-frozen`.
 - `troubles/` – records of crashes or validation troubles.
 
