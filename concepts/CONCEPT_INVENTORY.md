@@ -1,709 +1,344 @@
 # CONCEPT_INVENTORY.md
 
-## 0. Preface
+## Purpose
 
-This document is a **concept inventory** for the Seatbelt sandbox work in this repo. It enumerates the key ideas from `Orientation.md` and `Appendix.md` and gives each concept:
+Make the core Seatbelt concepts explicit and enumerable. Provide one canonical “home” per concept to link, track, and validate: 
+- Definitions
+- Evidence
+- Shared abstractions
 
-- A stable name.
-- A short definition snapshot.
-- A place to later record implementation status and evidence.
+## Win condition
 
-Think of this as the bridge between the *abstract model* (Orientation/Appendix) and the *code/examples* in the modernized folders. It does **not** describe concrete implementations in detail; that is left to code-level documentation and future Codex passes.
+Concretely, “success” means that each concept has:
+1. **Witnesses**
+- One or more *witnesses* where a witness is something concrete that constrains how the concept can be implemented or argued about: a parsed profile, a small SBPL snippet, a probe run, a log, etc.
+2. **Explicit evidence types**
+- We know which kinds of evidence are relevant:
+  - Static structure (what we can see in compiled profiles or binaries).
+  - Dynamic behavior (what happens when we run code under a sandbox).
+  - Cross-references (how names and IDs line up across sources).
+3. **Stable and tractable mappings**
+- We can fix in a machine-readbale form:
+  - How concepts map to example code.
+  - How concepts map to shared abstractions.
 
-### 0.1 Purpose
+## Concept Clusters by Evidence Type
 
-- Make the core Seatbelt concepts explicit and enumerable.
-- Provide one canonical “home” per concept to track:
-  - Definitions (now),
-  - Implementation status and evidence (later),
-  - Version-specific caveats and open questions (later).
-- Support cross-cutting refactors: multiple examples can converge on the same conceptual targets instead of re-inventing them.
+To keep validation manageable, we group concepts by the kind of evidence that most naturally supports them. These *concept clusters* are not philosophical categories; they are “how can we actually see this?” categories.
 
-### 0.2 How to read this document
+### Static-Format Cluster
 
-- Sections **3.x** each describe a single concept.
-- For each concept:
-  - The heading includes initial **status** and **epistemic** tags (see §1).
-  - An **introductory remark** gives a quick sense of why this concept matters.
-  - `3.x.1 Definition snapshot` is filled now.
-  - `3.x.2+` are placeholders for future work by code-aware agents (Codex).
+**Purpose**
 
-### 0.3 Relationship to other documents
+These concepts are about how profiles look when compiled and stored: the concrete bytes and structures that the kernel and libraries consume.
 
-- `Orientation.md` – narrative overview of the Seatbelt model (what the sandbox “is” and “does”).
-- `Appendix.md` – reference material (DSL cheatsheet, binary formats, operations/filters, policy stacking).
-- `CONCEPT_INVENTORY.md` (this file) – index of the **conceptual pieces** that all of the above rely on and that future code should explicitly implement or reference.
+**Representative concepts**
 
----
+- Binary Profile Header  
+- Operation Pointer Table  
+- Regex/Literal Table  
+- Profile Format Variant  
+- Compiled Profile Source (in the “blob” sense)
 
-## 1. Status & Epistemic Legend
+**Primary evidence**
 
-These tags are attached to each concept heading as rough initial labels. They are intentionally conservative and should be updated as code and evidence accumulate.
+- Captured compiled profiles (system profiles, small hand-compiled profiles, profiles emitted by tooling).
+- Parsers that map blobs into typed structures.
+- Structural invariants:
+  - Offsets and sizes line up.
+  - Operation tables and their indices are consistent.
+  - String/regex tables are referenced correctly.
 
-### 1.1 Status tags (`S:`)
+**Validation implications**
 
-- `[S:doc-only]`  
-  Concept appears only in text (Orientation/Appendix/etc.); no shared code-level abstraction yet.
-
-- `[S:doc-only→code-partial]`  
-  Concept is currently only documented, but there is a clear intent to implement a shared abstraction; some ad hoc code may already exist in examples.
-
-- `[S:code-partial]`  
-  Concept is implemented in some form in one or more examples, but not yet unified into a shared abstraction (multiple ad hoc versions, partial coverage).
-
-- `[S:code-partial→core]`  
-  Concept is partially implemented and is a good candidate to become a central shared abstraction.
-
-- `[S:code-core]`  
-  Concept has a clear, shared implementation that is used across examples (this is a target state, not a claim for current code).
-
-### 1.2 Epistemic tags (`E:`)
-
-- `[E:2011-heavy]`  
-  Understanding is anchored mainly in 2010–2011-era reversing and documents (Blazakis, SandBlaster, early OS X/iOS).
-
-- `[E:14.x-sampled]`  
-  Concept has been empirically checked on at least some macOS 14.x profiles or behavior (as described in modernization docs).
-
-- `[E:speculative]`  
-  Concept is plausible and consistent with public docs, but hasn’t been strongly validated on modern systems; details may be wrong or incomplete.
-
-- Combined tags like `[E:2011-heavy+14.x-sampled]` or `[E:2011-heavy+speculative-on-14.x]` indicate mixed grounding.
-
-### 1.3 Sources and evidence (for future use)
-
-When later filling in `3.x.2+` sections, evidence should be ordered roughly by:
-
-1. Direct behavior/tests on current macOS (14.x+).
-2. Orientation/Appendix alignment.
-3. Historical papers and code.
-4. Inferred patterns and informed speculation.
+- A single “profile ingestion” spine can serve the entire static-format cluster:
+  - Input: raw profile blobs.
+  - Output: typed structures plus a set of invariant checks.
+- For each static-format concept, the concept inventory should point to:
+  - The relevant parser or ingest module.
+  - The invariants that are asserted.
+  - The example profiles that are used as witnesses (e.g., specific system profiles, minimal synthetic profiles).
 
 ---
 
-## 2. Global Model (high-level)
+### Semantic Graph and Evaluation Cluster
 
-This section describes how the concepts fit together, at a coarse level.
+**Purpose**
 
-### 2.1 Seatbelt model snapshot
+These concepts describe how the sandbox decides what to allow or deny: operations, filters, decisions, and the structure of the policy graph.
 
-At a high level, Seatbelt is a **kernel-enforced reference monitor** driven by policies written in SBPL, compiled by `libsandbox` into binary profiles, and evaluated via MAC hooks for each sensitive operation. The core moving parts are:
+**Representative concepts**
 
-- **SBPL profiles** (what the policy author writes).
-- **Operations** (what is being attempted).
-- **Filters and metafilters** (under what conditions rules apply).
-- **Decisions and action modifiers** (what happens: allow/deny/log/prompt).
-- **Policy graphs** over **nodes**, backed by **headers**, **operation pointer tables**, and **regex/literal tables** in the compiled blob.
-- A **stack** of profile layers (platform, per-process) plus **extensions** and other MAC modules that combine into a final decision.
+- Operation  
+- Filter  
+- Metafilter  
+- Decision  
+- Action Modifier  
+- Policy Node  
+- PolicyGraph  
+- Policy Stack Evaluation Order  
+- Profile Layer (semantics of stacking/composition)
 
-### 2.2 Concept vs encoding
+**Primary evidence**
 
-Many concepts have two faces:
+- Small, focused profiles or profile fragments that encode particular semantic shapes:
+  - Allow-all / deny-all.
+  - “Deny except X.”
+  - “Allow only if regex/path filter matches.”
+  - Profiles with multiple layers and overrides.
+- Probes that:
+  - Run under those profiles.
+  - Attempt a small, explicit set of operations (file opens, network calls, IPC, etc.).
+  - Record which actions succeed or fail.
 
-- A **semantic face**: “an operation is a class of behavior like `file-read*`.”
-- A **format face**: “operation ID 37 indexes into this pointer table entry.”
+**Validation implications**
 
-The inventory deliberately separates these:
+- We want a “microprofile + probe” pattern:
+  - For each semantic scenario, there is a tiny profile and a tiny test program/script.
+  - The probe logs the attempted operations and outcomes in a structured way (e.g., JSON).
+- A single evaluation harness can run these microprofiles and collect evidence:
+  - For each run, we know which operations were attempted, which filters were relevant, and what the resulting decisions were.
+- For each semantic concept, the concept inventory should point to:
+  - Which scenarios (profiles + probes) witness the behavior.
+  - What invariants are being tested (e.g., “filters of type X must cause Y under condition Z”).
 
-- Concepts like **Operation**, **Filter**, **Decision**, **PolicyGraph** are semantic.
-- Concepts like **Binary Profile Header**, **Operation Pointer Table**, **Profile Format Variant** are about concrete encodings.
-
-This separation should guide future code: semantic types on one side; format-specific parsers/writers on the other.
-
-### 2.3 Concept → examples linkage (for future filling)
-
-A later Codex pass can fill in a matrix of:
-
-- Concepts vs examples (which folders exercise what).
-- Concepts vs shared abstractions (which types/modules implement what).
-
-For now, this document just defines the concepts.
-
----
-
-## 3. Concept Inventory
-
-> Note: For each concept below, only **Introductory remarks** and **3.x.1 Definition snapshot** are filled. Sections 3.x.2–3.x.6 are placeholders.
-
----
-
-### 3.1 SBPL Profile `[S:code-partial][E:2011-heavy+14.x-sampled]`
-
-Introductory remarks  
-SBPL profiles are the textual “programs” that define sandbox policies; they are the most human-facing artifacts in the system and the starting point for many examples.
-
-#### 3.1.1 Definition snapshot
-
-An SBPL profile is the high-level sandbox policy written in Apple’s Scheme-like Sandbox DSL: it declares a version, a default decision (usually `(deny default)`), and a list of `(allow …)`/`(deny …)` rules that name operations and constrain them with filters. This is the “source code” for a Seatbelt policy that `libsandbox` parses and compiles into a binary form; it’s where concepts like `file-read*`, `mach-lookup`, `subpath`, and `require-any` appear explicitly and in a way humans can read and edit.
-
-#### 3.1.2 Implementation status
-
-#### 3.1.3 Evidence & tests
-
-#### 3.1.4 Version-specific notes
-
-#### 3.1.5 Example usages
-
-#### 3.1.6 Open questions / TODOs
+A single well-designed microprofile can often witness multiple concepts at once (operation, filter, decision, action modifier, policy node shape).
 
 ---
 
-### 3.2 Operation `[S:code-partial][E:2011-heavy+14.x-sampled]`
+### Vocabulary and Mapping Cluster
 
-Introductory remarks  
-Operations are the verbs of Seatbelt: every syscall or action the sandbox can control is mapped to one of these named operations.
+**Purpose**
 
-#### 3.2.1 Definition snapshot
+These concepts are about naming and alignment: how symbolic names and argument shapes relate to on-disk IDs and observed behavior.
 
-An operation is a named class of kernel action that the sandbox can control, such as `file-read*`, `file-write*`, `network-outbound`, `mach-lookup`, or `sysctl-read`. In SBPL it appears as the main verb in a rule; in compiled profiles it becomes an integer operation ID keyed into a table of entrypoints. Conceptually, an operation answers “what kind of thing is this process trying to do?” before filters and policy graphs decide whether that attempt is allowed.
+**Representative concepts**
 
-#### 3.2.2 Implementation status
+- SBPL Profile (as a named aggregate)  
+- Operation Vocabulary Map  
+- Filter Vocabulary Map  
+- Profile Format Variant (insofar as it changes vocab coverage)
 
-#### 3.2.3 Evidence & tests
+**Primary evidence**
 
-#### 3.2.4 Version-specific notes
+- Enumerations of operations and filters from multiple sources:
+  - Documentation (Apple Sandbox Guide, etc.).
+  - Reverse-engineering sources.
+  - Live system profiles (extracted operation/filter tables).
+  - Runtime logs from probes (which operation IDs / names actually get used).
+- Cross-checks between:
+  - Our canonical vocab tables.
+  - Tables extracted from compiled profiles.
+  - The operation and filter names referred to by examples and probes.
 
-#### 3.2.5 Example usages
+**Validation implications**
 
-#### 3.2.6 Open questions / TODOs
+- A “vocabulary survey” pipeline can consolidate and check vocab knowledge:
+  - Gather all op/filter names and IDs from available sources.
+  - Normalize them into canonical tables.
+  - Mark each entry with status (known, deprecated, unknown, 14.x-only, etc.).
+- Example folders do not need to implement vocab logic themselves:
+  - They should record which operations/filters they believe they are exercising (using canonical names).
+  - A shared vocab-mapper can reconcile those names with IDs and on-disk representations.
+- For each vocab-related concept, the concept inventory should point to:
+  - The canonical vocab tables.
+  - Any discrepancies or unknowns.
+  - Tests or reports that compare different sources.
 
----
-
-### 3.3 Filter `[S:code-partial][E:2011-heavy+14.x-sampled]`
-
-Introductory remarks  
-Filters encode the conditions under which a rule applies, by looking at paths, addresses, process metadata, and other parameters.
-
-#### 3.3.1 Definition snapshot
-
-A filter is a key–value predicate that narrows when a rule applies by inspecting arguments or process/system state: path predicates (`literal`, `subpath`, `regex`), vnode properties (`vnode-type`), IPC names (`global-name`), network endpoints (`remote ip`, `remote tcp`), or metadata like `signing-identifier`, `entitlement-is-present`, and `csr`. In SBPL these appear as nested s-expressions after the operation; in the compiled graph each filter becomes a node that tests a particular key/value and branches based on whether it matches.
-
-#### 3.3.2 Implementation status
-
-#### 3.3.3 Evidence & tests
-
-#### 3.3.4 Version-specific notes
-
-#### 3.3.5 Example usages
-
-#### 3.3.6 Open questions / TODOs
-
----
-
-### 3.4 Metafilter `[S:doc-only→code-partial][E:2011-heavy+speculative]`
-
-Introductory remarks  
-Metafilters describe the logical structure of conditions—how individual filters combine as AND/OR/NOT—rather than any single predicate.
-
-#### 3.4.1 Definition snapshot
-
-A metafilter is a logical combinator that glues filters together using boolean structure: `require-all` (AND), `require-any` (OR), and `require-not` (NOT). They let SBPL express complex conditions like “allow file reads under `/System` that are not symlinks and either match this regex or carry a particular extension token” in a structured way. In compiled profiles, these combinators disappear as named constructs and are implemented by specific patterns of filter nodes and edges in the policy graph.
-
-#### 3.4.2 Implementation status
-
-#### 3.4.3 Evidence & tests
-
-#### 3.4.4 Version-specific notes
-
-#### 3.4.5 Example usages
-
-#### 3.4.6 Open questions / TODOs
+This cluster ensures that when we say “operation X” or “filter Y,” we can trace that name from source snippets, to IDs in compiled profiles, to behavior observed at runtime.
 
 ---
 
-### 3.5 Decision `[S:code-partial][E:2011-heavy+14.x-sampled]`
+### Runtime Lifecycle and Extension Cluster
 
-Introductory remarks  
-Decisions are where policy evaluation ends: they determine whether an operation is allowed or denied (and with what side effects).
+**Purpose**
 
-#### 3.5.1 Definition snapshot
+These concepts concern when and how profiles apply over a process lifetime, and how extensions modify effective policy.
 
-A decision is the terminal outcome of evaluating a policy graph for a given operation and set of arguments: typically “allow” or “deny”, possibly decorated with flags like “log this” or “defer to user consent”. In SBPL it’s implicit in the `(allow …)` or `(deny …)` form; in the compiled graph it appears as a terminal node or encoded result code that ends traversal. When the kernel walks the graph for an operation, the decision node it lands on determines whether the underlying syscall succeeds or fails.
+**Representative concepts**
 
-#### 3.5.2 Implementation status
+- Sandbox Extension  
+- Policy Lifecycle Stage  
+- Profile Layer (in the sense of system/global/app layering)  
+- Any app/container-specific concepts we decide to promote to the inventory
 
-#### 3.5.3 Evidence & tests
+**Primary evidence**
 
-#### 3.5.4 Version-specific notes
+- Scenario-style probes that:
+  - Launch processes through different paths (launchd services, GUI app launch, sandbox-exec, etc.).
+  - Observe system behavior at distinct lifecycle points (e.g., pre-init, post-init, after extensions are granted).
+  - Track how access changes over time in response to extensions and profile changes.
 
-#### 3.5.5 Example usages
+**Validation implications**
 
-#### 3.5.6 Open questions / TODOs
+- These concepts likely require fewer, more complex examples:
+  - Each scenario can witness multiple lifecycle concepts simultaneously.
+- They can reuse:
+  - The same static ingestion tools (to see what profiles/extensions exist).
+  - The same operation/decision probes from the semantic cluster (but applied at different lifecycle stages).
+- For each lifecycle concept, the concept inventory should point to:
+  - Which scenarios illustrate the lifecycle transitions.
+  - What kinds of extensions or profile layering are being exercised.
 
----
-
-### 3.6 Action Modifier `[S:doc-only][E:2011-heavy+speculative]`
-
-Introductory remarks  
-Action modifiers change what happens around a decision—logging, prompting, etc.—without changing the basic allow/deny verdict.
-
-#### 3.6.1 Definition snapshot
-
-An action modifier is an annotation on a rule that changes what happens when it matches without changing the basic allow/deny verdict, such as `(with report)` for extra logging or user-consent modifiers that integrate with TCC. They appear in SBPL as a wrapper around the operation, e.g. `(allow (with report) sysctl …)`, and in compiled form as additional flags or fields attached to decision nodes. Conceptually, they encode side effects like “log this event” or “ask the user” layered on top of the permit/deny outcome.
-
-#### 3.6.2 Implementation status
-
-#### 3.6.3 Evidence & tests
-
-#### 3.6.4 Version-specific notes
-
-#### 3.6.5 Example usages
-
-#### 3.6.6 Open questions / TODOs
+This cluster is more “macro” than the others, but aligning it with shared ingestion and probe tooling keeps it from becoming a separate universe.
 
 ---
 
-### 3.7 Profile Layer `[S:doc-only][E:2011-heavy+speculative-on-14.x]`
+## Misconceptions
 
-Introductory remarks  
-Profile layers separate “what this app’s sandbox says” from “what the platform policy says”, which matters when interpreting effective behavior.
+The point of building a concept inventory and a validation plan is straightforward: every important idea about the sandbox needs something concrete under it. For each “operation,” “filter,” “policy graph,” or “extension,” we want to be able to say what artifacts and behaviors show that we understand it correctly on current macOS. That is why we bothered to group concepts and sketch validation modes at all—static ingestion to see how profiles are really encoded; microprofiles and probes to see how decisions are really made; vocabulary surveys to see how names and IDs really line up; lifecycle scenarios to see when and how policies really apply.
 
-#### 3.7.1 Definition snapshot
+Once we take that stance—“a concept is only as good as the evidence that constrains it”—a problem appears. We are not just challenged by ignorance; hallucinating something false about the sandbox can be more troublesome than admitting we do not know. A clean-looking test, table, or diagram built on the wrong mental model will happily “confirm” that model. If you quietly assume that the SBPL text you see is the whole policy, or that each syscall matches one operation, or that layers simply intersect as “most restrictive wins,” you can design validation that seems careful and still leads you away from how the system actually behaves.
 
-A profile layer describes which sandbox policy is being applied in the multi-layer system: the global **platform** policy that applies to almost all processes, per-process policies like App Sandbox or custom profiles attached via `sandbox_init*`, and any other Seatbelt profiles. The conceptual model is that multiple layers can apply to a single operation, with platform policy evaluated first and per-process policy next; thinking in terms of layers helps keep straight where a particular rule lives and why a decision was made.
+The next examples walk through a small set of “fair” misconceptions—plausible, technically informed ways to be wrong about profiles, operations, filters, layers, and extensions—and show the kinds of errors they produce. Each one looks sensible in isolation, lines up with how other systems work, and can be reinforced by partial evidence—yet they will assuredly lead you astray.
 
-#### 3.7.2 Implementation status
+### SBPL Profile
 
-#### 3.7.3 Evidence & tests
+**Misconception**
 
-#### 3.7.4 Version-specific notes
+“An SBPL profile is *the* policy for a process: if I read the profile text, I see the full effective sandbox.”
 
-#### 3.7.5 Example usages
+This treats the SBPL file (or snippet) as a self-contained, complete description of the sandbox, ignoring that:
 
-#### 3.7.6 Open questions / TODOs
+* The effective policy can be a composition of multiple profiles (system base profile, app/container profile, service-specific overlays).
+* Some behavior comes from implicit or generated rules (e.g., containerization, platform defaults), not explicitly written SBPL.
 
----
+**Resulting error**
 
-### 3.8 Sandbox Extension `[S:doc-only][E:2011-heavy+speculative]`
+You might confidently claim:
 
-Introductory remarks  
-Sandbox extensions are the mechanism for granting narrow, dynamic exceptions to otherwise static SBPL rules.
+> “If operation X is allowed in this SBPL, the process can always perform X.”
 
-#### 3.8.1 Definition snapshot
+Then you design a probe that:
 
-A sandbox extension is a token-based capability that, when granted to and consumed by a process, temporarily widens what its sandbox allows for specific resources like paths, Mach services, or containers. Instead of rewriting profiles, trusted system components issue opaque extension strings that the sandbox policy recognizes via `extension` filters and uses to grant narrowly scoped exceptions. Extensions bridge static SBPL rules and dynamic, per-request access decisions driven by components like tccd or Launch Services.
+* Runs under a containerized app profile that is layered on top of the SBPL you’re looking at, or
+* Picks a system service whose effective policy has extra hidden constraints.
 
-#### 3.8.2 Implementation status
-
-#### 3.8.3 Evidence & tests
-
-#### 3.8.4 Version-specific notes
-
-#### 3.8.5 Example usages
-
-#### 3.8.6 Open questions / TODOs
+Your probe reports “denied,” and you incorrectly attribute that denial to a failure in your understanding of the SBPL syntax, rather than to stacked profiles and implicit rules you never accounted for.
 
 ---
 
-### 3.9 Policy Lifecycle Stage `[S:code-partial][E:2011-heavy+14.x-sampled]`
+### Operation
 
-Introductory remarks  
-The policy lifecycle captures the different shapes a sandbox policy takes as it moves from text to kernel-enforced graph.
+**Misconception**
 
-#### 3.9.1 Definition snapshot
+“Each syscall maps to exactly one sandbox ‘operation’, and those names are just thin labels over syscalls.”
 
-Policy lifecycle stages are the distinct forms a sandbox policy takes from authoring to enforcement: (1) SBPL source text written in the sandbox DSL, (2) the `libsandbox` / TinyScheme intermediary representation (often exposed as a per-operation rules vector), (3) the compiled binary profile blob (header, operation tables, node graph, regex/literal tables), and (4) the in-kernel evaluation of that blob via MAC hooks at syscall time. Separating these stages helps you reason about which tools and formats are involved at each step.
+This flattens the abstraction:
 
-#### 3.9.2 Implementation status
+* Operations can be broader than a single syscall (e.g., multiple syscalls hitting the same operation).
+* A single syscall can trigger multiple operations, or an operation can be consulted in contexts that don’t look like a single obvious syscall boundary.
+* Operations sometimes correspond to higher-level notions (e.g., `file-read-data`, `mach-lookup`) rather than raw kernel entry points.
 
-#### 3.9.3 Evidence & tests
+**Resulting error**
 
-#### 3.9.4 Version-specific notes
+You assume:
 
-#### 3.9.5 Example usages
+> “If `open(2)` fails due to the sandbox, that means the `file-read-data` operation is denied.”
 
-#### 3.9.6 Open questions / TODOs
+Then you:
 
----
+* Design probes and documentation that equate “open denied” ⇔ “operation A denied,” and “open allowed” ⇔ “operation A allowed.”
+* Use that equivalence to build a capabilities table.
 
-### 3.10 Binary Profile Header `[S:code-partial→core][E:2011-heavy+14.x-sampled]`
+Later you discover cases where:
 
-Introductory remarks  
-The binary profile header is the entry point for any decoder: it tells you how to find everything else in the compiled blob.
+* `open` fails for reasons tied to different operations (e.g., metadata-only access, path resolution, or a Mach-right precondition), or
+* A different syscall hitting the same operation gives a different denial pattern.
 
-#### 3.10.1 Definition snapshot
-
-The binary profile header is the fixed-layout structure at the start of a compiled profile blob that records format/version information and the offsets and counts for all major sections: operation pointer table, node array, regex pointer table, literal/regex data, and, in bundled formats, per-profile descriptors. It’s the entry point for any decoder: reading the header tells you how many operations there are, where to find each section, and which variant of the format you’re dealing with.
-
-#### 3.10.2 Implementation status
-
-Shared parsers for both the modern graph-based layout (`graph-v1`, used by `examples/sb/`) and the legacy decision-tree layout (`legacy-tree-v1`, used by `examples/sbdis/`) live in `concepts/cross/profile-ingestion/ingestion.py`.
-
-#### 3.10.3 Evidence & tests
-
-#### 3.10.4 Version-specific notes
-
-#### 3.10.5 Example usages
-
-#### 3.10.6 Open questions / TODOs
+Your whole mapping from “observed syscall outcomes” to “operation-level policy” ends up misleading, and you over- or under-estimate the scope of particular operations.
 
 ---
 
-### 3.11 Operation Pointer Table `[S:code-partial→core][E:2011-heavy+14.x-sampled]`
+### Filter
 
-Introductory remarks  
-The operation pointer table is how the profile connects abstract “operations” to concrete starting points in the node graph.
+**Misconception**
 
-#### 3.11.1 Definition snapshot
+“Filters are simple ‘if-conditions’ that are checked once per rule; if the key/value matches, the rule fires, otherwise it’s ignored.”
 
-The operation pointer table is an array indexed by operation ID where each entry is an offset or index into the policy node array for that operation’s rule graph. Instead of giving each operation a separate block, the compiled profile often stores all nodes in a single array and uses this table as the set of entrypoints. When decoding, you start from the pointer for a given operation and follow nodes until you reach a decision; without this table, all you have is an undifferentiated node heap.
+This treats filters as a one-shot guard on a flat rule list, instead of:
 
-#### 3.11.2 Implementation status
+* Nodes and edges in a graph where unmatched filters can route evaluation to other nodes.
+* Something that can be evaluated in multiple stages, with default branches and combinations, not just “test and drop rule.”
 
-Operation pointer table parsing for both modern graph-based and legacy decision-tree formats is provided by the shared ingestion layer in `concepts/cross/profile-ingestion/ingestion.py`, exercised by `examples/sb/` and `examples/sbdis/`.
+**Resulting error**
 
-#### 3.11.3 Evidence & tests
+You explain filters as:
 
-#### 3.11.4 Version-specific notes
+> “Think of filters like `if (path == "/foo") then allow; else ignore this rule`.”
 
-#### 3.11.5 Example usages
+Then you:
 
-#### 3.11.6 Open questions / TODOs
+* Try to “prove” that a certain dangerous path is unreachable because every rule with that path filter looks safely denying/allowing in isolation.
+* Ignore how non-matching filters might send evaluation along a default edge that reaches a permissive decision for broader paths.
 
----
+You miss an allow-path that emerges from graph structure (default edges, metafilters, fall-through) and state in your write-up:
 
-### 3.12 Policy Node `[S:code-partial][E:2011-heavy+14.x-sampled]`
+> “Path /foo/bar is definitely denied in all cases,”
 
-Introductory remarks  
-Policy nodes are the basic building blocks of the compiled graph: each node either tests something or decides something.
-
-#### 3.12.1 Definition snapshot
-
-A policy node is an individual element in the compiled policy graph: either a non-terminal filter node that tests a specific key/value and has “match” and “unmatch” successors, or a terminal decision node that encodes allow/deny (and possibly logging/consent flags) and ends traversal. The entire policy is built from these nodes, with operations selecting starting nodes via the op-pointer table and filters/metafilters emerging from how nodes and successors are wired together.
-
-#### 3.12.2 Implementation status
-
-#### 3.12.3 Evidence & tests
-
-#### 3.12.4 Version-specific notes
-
-#### 3.12.5 Example usages
-
-#### 3.12.6 Open questions / TODOs
+when in reality the graph structure allows it via a non-obvious route.
 
 ---
 
-### 3.13 Policy Graph / PolicyGraph `[S:code-partial][E:2011-heavy+14.x-sampled]`
+### Profile Layer / Policy Stack Evaluation Order
 
-Introductory remarks  
-The policy graph (or `PolicyGraph` type) is the canonical in-memory representation we want everything to converge on.
+**Misconception**
 
-#### 3.13.1 Definition snapshot
+“Multiple sandbox layers just combine as ‘most restrictive wins’ (a simple logical AND over allows/denies).”
 
-A policy graph (often modeled as a `PolicyGraph` type) is the full, per-profile representation of how operations, filters, metafilters, and decisions connect: for each operation ID, an entrypoint into a directed graph of policy nodes. Conceptually, it’s the canonical internal form for analysis and tooling: once you’ve turned a profile blob into a PolicyGraph, you can render it as SBPL-like rules, visualize subgraphs, test reachability for certain decisions, or compare different profiles structurally.
+This is an intuitive model, but:
 
-#### 3.13.2 Implementation status
+* Real composition includes ordering, default paths, and sometimes explicit overrides.
+* Some layers might introduce new operations/filters or default behavior that is not a pure subset of another.
+* Extensions and dynamic changes can alter the stack in ways that do not look like a straightforward meet of policies.
 
-#### 3.13.3 Evidence & tests
+**Resulting error**
 
-#### 3.13.4 Version-specific notes
+You teach:
 
-#### 3.13.5 Example usages
+> “If any layer denies an operation, it’s denied overall; if all allow it, it’s allowed. Just think of layers as intersecting sets of permissions.”
 
-#### 3.13.6 Open questions / TODOs
+Then you:
 
----
+* Analyze a system profile + app profile + extension scenario under this AND model.
+* Conclude that a certain sensitive operation is impossible because “layer B denies it.”
 
-### 3.14 Regex / Literal Table `[S:code-partial][E:2011-heavy+14.x-sampled]`
-
-Introductory remarks  
-The regex/literal table is where all the stringy bits live: paths, patterns, and other literals shared across nodes.
-
-#### 3.14.1 Definition snapshot
-
-The regex/literal table is the shared pool of string data and serialized regex NFAs referenced by filters in the policy graph. Rather than embedding full paths or patterns in nodes, compiled profiles store them once in a combined literals/regex section and have filter nodes hold small indices into this table. Decoding these tables lets you turn abstract “filter key = path, value index = 17” back into concrete expressions like `(literal "/bin/ls")` or `(regex #"^/Users/[^/]+/Documents")` in reconstructed SBPL.
-
-#### 3.14.2 Implementation status
-
-#### 3.14.3 Evidence & tests
-
-#### 3.14.4 Version-specific notes
-
-#### 3.14.5 Example usages
-
-#### 3.14.6 Open questions / TODOs
+In practice, the effective evaluation order or an extension changes the decision path so that the deny in layer B is never reached (or is overridden). Your risk assessment or example explanation claims “this cannot happen,” when in fact it does under real evaluation order.
 
 ---
 
-### 3.15 Profile Format Variant `[S:doc-only→code-partial][E:2011-heavy+14.x-sampled]`
+### Sandbox Extension
 
-Introductory remarks  
-Profile format variants capture that the same high-level concepts have been encoded in different binary layouts over OS and device generations.
+**Misconception**
 
-#### 3.15.1 Definition snapshot
+“A sandbox extension is basically a ‘turn off sandbox here’ token; once you have one, the sandbox doesn’t really apply to that resource anymore.”
 
-A profile format variant is a concrete on-disk/in-kernel encoding of compiled policies, such as the early decision-tree format (simple handler records with terminal/non-terminal opcodes) and the later graph-based formats (operation pointer tables plus shared node arrays and regex tables), including bundled multi-profile blobs used on newer systems. Each variant uses the same conceptual building blocks—operations, filters, nodes, graphs—but with different headers, node layouts, and section arrangements that decoders must handle explicitly.
+This conflates:
 
-#### 3.15.2 Implementation status
+* Scoped, capability-like grants (often tied to a path or specific operation types) with a global disable.
+* The idea that extensions can be time- or context-limited, or only affect certain operations, with a blanket exemption.
 
-Shared code currently handles two concrete variants via the ingestion layer: `graph-v1` (modern, `examples/sb/`) and `legacy-tree-v1` (early decision-tree, `examples/sbdis/`).
-#### 3.15.3 Evidence & tests
+**Resulting error**
 
-#### 3.15.4 Version-specific notes
+You describe extensions as:
 
-#### 3.15.5 Example usages
+> “If an app gets an extension for `/private/foo`, it can do anything there, sandbox be damned.”
 
-#### 3.15.6 Open questions / TODOs
+On that basis you:
 
----
+* Design probes that simply check “with extension present, can we read/write/delete everything under that path?” and treat any failure as “extension is broken” or “my understanding is wrong.”
+* Overstate threat models in your teaching material (“leak one extension and the whole sandbox collapses”), ignoring narrower semantics.
 
-### 3.16 Operation Vocabulary Map `[S:doc-only→code-partial][E:2011-heavy+14.x-sampled]`
-
-Introductory remarks  
-The operation vocabulary map is the dictionary that turns integer operation IDs back into human-readable names like `file-read*`.
-
-#### 3.16.1 Definition snapshot
-
-The Operation Vocabulary Map is the bidirectional mapping between numeric operation IDs used in compiled profiles and the human-readable operation names used in SBPL, like `file-read*` or `mach-lookup`. It’s essential for turning anonymous graphs into understandable output and for targeting analysis to specific behaviors; in practice it’s built from `libsandbox` strings, system SBPL profiles, and observed behavior, and must track which mappings are confirmed, inherited from older reversals, or still unknown on a given OS version.
-
-#### 3.16.2 Implementation status
-
-#### 3.16.3 Evidence & tests
-
-#### 3.16.4 Version-specific notes
-
-#### 3.16.5 Example usages
-
-#### 3.16.6 Open questions / TODOs
+You mischaracterize the scope of extensions (and thus both overestimate and misdescribe certain attacks), and you design validation that expects full removal of constraints, misinterpreting partial, correctly scoped behavior as surprising or inconsistent.
 
 ---
 
-### 3.17 Filter Vocabulary Map `[S:doc-only→code-partial][E:2011-heavy+14.x-sampled]`
+### Dangers
 
-Introductory remarks  
-The filter vocabulary map plays the same role as the operation map, but for the keys and encoded values used in filter nodes.
+All of these misconceptions share a pattern: they compress a layered, data-structure-heavy, evaluation-order-sensitive system into something almost like a static ACL with a few predicates. That compression makes the sandbox seem easy to reason about and tempting to summarize with a few diagrams, tables, or one-off probes. That's a coherent but wrong model of the sandbox, and coherent wrong models are hard to dislodge.
 
-#### 3.17.1 Definition snapshot
+If you believe “the SBPL I’m looking at is the whole story,” you will design both attacks and defenses around that single text artifact. For a defender, that can mean auditing one app’s profile and concluding an operation is safely denied, without realizing that a system base profile, a container profile, or a per-service override is also in play. For an attacker, it can mean over-focusing on clever SBPL tricks in one layer while ignoring a weaker, more permissive layer that is actually controlling the decision path. In both cases, you are not just missing details—you are steering your entire project around the wrong object.
 
-The Filter Vocabulary Map is the similar mapping for filter keys and their encoded values: from numeric filter key IDs and packed representations (enums, indices, bitfields) in nodes to names and semantics like `literal`, `subpath`, `vnode-type`, `global-name`, `signing-identifier`, `entitlement-is-present`, and so on. It underpins meaningful reconstruction of SBPL filters from raw nodes and allows tools to group and reason about filters by category (path-based, Mach, network, process metadata, CSR/TCC-related) rather than by opaque integers.
+## Process
 
-#### 3.17.2 Implementation status
-
-#### 3.17.3 Evidence & tests
-
-#### 3.17.4 Version-specific notes
-
-#### 3.17.5 Example usages
-
-#### 3.17.6 Open questions / TODOs
-
----
-
-### 3.18 Policy Stack Evaluation Order `[S:doc-only][E:2011-heavy+speculative-on-14.x]`
-
-Introductory remarks  
-The evaluation order explains how multiple policies and MAC modules combine to produce a single allow/deny for any given operation.
-
-#### 3.18.1 Definition snapshot
-
-Policy stack evaluation order describes how Seatbelt composes multiple policies when a sandbox-relevant operation occurs: the platform policy is evaluated first, then any per-process profile (App Sandbox or custom), and the final decision is the logical AND of all participating MAC policies (including non-Seatbelt ones). Understanding this order matters because a deny in the platform profile short-circuits per-process rules, and because some constraints that look “mysterious” at the SBPL level may actually live in a different layer of the stack.
-
-#### 3.18.2 Implementation status
-
-#### 3.18.3 Evidence & tests
-
-#### 3.18.4 Version-specific notes
-
-#### 3.18.5 Example usages
-
-#### 3.18.6 Open questions / TODOs
-
----
-
-### 3.19 Compiled Profile Source `[S:doc-only→code-partial][E:14.x-sampled]`
-
-Introductory remarks  
-Compiled profile source is about provenance: what kind of profile a blob represents and how it was obtained.
-
-#### 3.19.1 Definition snapshot
-
-“Compiled profile source” describes *where* a given binary sandbox profile blob comes from and *what role* it plays in the system. At this level we distinguish at least three broad classes: (1) **toy/test profiles** that we compile ourselves from small SBPL snippets for experimentation and unit tests, (2) **system service / App Sandbox profiles** that Apple ships as `.sb` files or embedded policies for daemons and GUI apps, and (3) **platform / global profiles** that are baked into system components and act as the baseline policy for large classes of processes. Tracking the source class for each blob is crucial, because it determines the intended scope of the rules (single process vs class of apps vs entire platform), the expected interaction with other policy layers, and how confidently we can generalize any structural observations we make from that profile.
-
-#### 3.19.2 Implementation status
-
-#### 3.19.3 Evidence & tests
-
-#### 3.19.4 Version-specific notes
-
-#### 3.19.5 Example usages
-
-#### 3.19.6 Open questions / TODOs
-
-## 4. Cross-Cutting Axes
-
-This section groups concepts from §3 into a few **vertical axes** that cut across formats and examples. Each axis is a potential shared implementation layer: if we build one good abstraction per axis, most examples can converge on it.
-
-> Note: Like §3.x.2+, the subsections here are mostly placeholders for future code-aware passes. The main content now is the **structure** and **linkage to concepts**.
-
----
-
-### 4.1 Profile Ingestion Layer
-
-This axis covers everything from “raw bytes on disk” to “typed representation of a compiled profile’s sections.”
-
-#### 4.1.1 Scope & intent
-
-- Define a minimal, shared interface for:
-  - Reading compiled profile blobs from various **sources**.
-  - Parsing **headers** and locating sections.
-  - Normalizing differences between **profile format variants**.
-
-#### 4.1.2 Related concepts
-
-- **Binary Profile Header** (§3.10)
-- **Operation Pointer Table** (§3.11)
-- **Regex / Literal Table** (§3.14)
-- **Profile Format Variant** (§3.15)
-- **Compiled Profile Source** (§3.19)
-- Touches: **Policy Lifecycle Stage** (§3.9), **SBPL Profile** (§3.1) as origin
-
-#### 4.1.3 Example entry points
-
-- Folders that currently contain ad hoc ingestion logic:
-  - `examples/apple-scheme/`
-  - `examples/extract_sbs/`
-  - `examples/sb/`
-  - `examples/sbsnarf/`
-  - `examples/sbdis/`
-  - `examples/resnarf/`
-
-#### 4.1.4 Target shared abstractions (for future filling)
-
-- Design targets (not yet implemented):
-  - Types:
-    - `ProfileBlob` – raw bytes plus `CompiledProfileSource` metadata.
-    - `ProfileHeader` – parsed header fields: format identifier, counts, section offsets.
-    - `ProfileSections` – typed slices for op-pointer table, node array, regex/literal data.
-    - Optional `ProfileFormatVariant` tag to annotate layout differences.
-  - Core functions:
-    - `parse_header(ProfileBlob) -> ProfileHeader`
-    - `slice_sections(ProfileBlob, ProfileHeader) -> ProfileSections`
-    - Optional `detect_format(ProfileBlob) -> ProfileFormatVariant`
-  - All of the above are conceptual sketches to guide future implementations; no code exists yet.
-
-#### 4.1.5 Open tasks (for future filling)
-
-- Unifying per-folder parsers.
-- Handling additional format variants.
-- Corpus integration from §3.19.
-- Refactor additional legacy consumers (e.g., `examples/resnarf/`) to consume the shared ingestion layer for header/section parsing.
-
----
-
-### 4.2 Graph Construction Layer
-
-This axis covers turning “sections” into a **PolicyGraph** built from **nodes**, **filters**, **metafilters**, and **decisions**.
-
-#### 4.2.1 Scope & intent
-
-- Define how to take:
-  - Header + op-pointer table + node array (+ regex/literal table),
-  - And build a stable in-memory **PolicyGraph** representation.
-- Capture filter and decision semantics at the node level, independent of exact encoding.
-
-#### 4.2.2 Related concepts
-
-- **Policy Node** (§3.12)
-- **Policy Graph / PolicyGraph** (§3.13)
-- **Filter** (§3.3)
-- **Metafilter** (§3.4)
-- **Decision** (§3.5)
-- Touches: **Regex / Literal Table** (§3.14), **Action Modifier** (§3.6)
-
-#### 4.2.3 Example entry points
-
-Graph Construction: `examples/sbdis/`, `examples/re2dot/`, `examples/resnarf/`
-
-#### 4.2.4 Target shared abstractions (for future filling)
-
-- Proposed `PolicyGraph` API:
-  - Node structs/enums,
-  - Per-operation entrypoints,
-  - Traversal helpers.
-
-#### 4.2.5 Open tasks (for future filling)
-
-- Formalizing metafilter detection patterns.
-- Handling unknown node opcodes.
-- Representing action modifiers cleanly in the graph.
-
----
-
-### 4.3 Vocabulary Mapping Layer
-
-This axis covers mapping numeric IDs and encodings back to **names and semantics** for operations and filters.
-
-#### 4.3.1 Scope & intent
-
-- Provide a version-aware dictionary from:
-  - Operation IDs → operation names (and categories).
-  - Filter key IDs / encoded values → filter names and semantics.
-- Track confidence and provenance for each mapping.
-
-#### 4.3.2 Related concepts
-
-- **Operation Vocabulary Map** (§3.16)
-- **Filter Vocabulary Map** (§3.17)
-- **Operation** (§3.2)
-- **Filter** (§3.3)
-- Touches: **Profile Format Variant** (§3.15), **Compiled Profile Source** (§3.19)
-
-#### 4.3.3 Example entry points (for future filling)
-
-Vocabulary Mapping: `examples/sbdis/`, `examples/network-filters/`, `examples/mach-services/`, `examples/entitlements-evolution/`
-
-#### 4.3.4 Target shared abstractions (for future filling)
-
-- Central mapping structures:
-  - `OperationVocabulary` (with known/legacy/unknown states),
-  - `FilterVocabulary` (with categories and encodings).
-- Strategy for seeding from `libsandbox`, SBPL, and observed blobs.
-
-#### 4.3.5 Open tasks (for future filling)
-
-- Completing 14.x operation and filter maps.
-- Representing unknown and partially known IDs gracefully.
-- Handling OS/version-specific differences.
-
----
-
-### 4.4 Rendering & Analysis Layer
-
-This axis covers everything that turns a **PolicyGraph** plus vocab into human-facing representations and analyses.
-
-#### 4.4.1 Scope & intent
-
-- Define a family of renderers and analyzers that consume:
-  - `PolicyGraph`,
-  - Operation/filter vocab,
-  - Optional source/corpus metadata.
-- Produce:
-  - SBPL-like text,
-  - DOT graphs,
-  - Tabular summaries,
-  - Higher-level diagnostics.
-
-#### 4.4.2 Related concepts
-
-- **SBPL Profile** (§3.1) – target for reconstruction
-- **Policy Graph / PolicyGraph** (§3.13)
-- **Operation Vocabulary Map** (§3.16)
-- **Filter Vocabulary Map** (§3.17)
-- **Policy Lifecycle Stage** (§3.9)
-- Touches: **Profile Layer** (§3.7), **Policy Stack Evaluation Order** (§3.18), **Sandbox Extension** (§3.8), **Action Modifier** (§3.6)
-
-#### 4.4.3 Example entry points
-
-Rendering & Analysis: `examples/re2dot/`, `examples/sbdis/`, `examples/metafilter-tests/`
-
-#### 4.4.4 Target shared abstractions (for future filling)
-
-- Shared renderers:
-  - `to_sbpl`, `to_dot`, `summarize_operations`, `summarize_filters`.
-- Hooks for profile-layer/source annotations (e.g., app vs platform).
-
-#### 4.4.5 Open tasks (for future filling)
-
-- Normalizing output formats across examples.
-- Identifying useful “standard views” for teaching and debugging.
-- Integrating policy-layer context (when/if identifiable) into renderings.
+TODO
