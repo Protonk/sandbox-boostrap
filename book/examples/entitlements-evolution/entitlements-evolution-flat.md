@@ -363,9 +363,9 @@ This experiment makes concrete that sandbox behavior is **entitlement-driven**: 
 
 ---
 
-## 5. Lessons tied to `lessons.md`
+## 5. Lessons`
 
-The `lessons.md` file summarizes the main concepts. The example code provides the runnable demonstration behind each bullet:
+The example code provides the runnable demonstration behind each bullet:
 
 1. **Entitlements as signature metadata**
 

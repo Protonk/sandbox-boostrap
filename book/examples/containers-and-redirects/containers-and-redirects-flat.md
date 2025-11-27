@@ -49,9 +49,22 @@ This is safe to run in your normal user environment. It only reads directories a
 
 ---
 
-## 3. Walking through the code
+## 3. Lessons
 
-### 3.1 Setup and container roots
+1. **Containers relocate data into `~/Library/Containers/...` and group containers.**
+   User-facing paths (what you click or type) might be symlinks or redirects, but the sandbox engine evaluates file rules based on where those paths lead.
+
+2. **Symlinks do not bypass sandbox checks.**
+   The effective policy applies to the final, resolved path, which is what the SBPL path filters see.
+
+3. **Knowing container layout is necessary to read profiles correctly.**
+   When you see a rule like `(allow file-read* (subpath "/Users/you/Library/Containers/..."))` in decoded SBPL, you can now map that back to the “same-looking” paths you interact with as a user and understand why a sandboxed app behaves differently from an unsandboxed tool.
+
+You can treat `containers_demo.swift` as an executable illustration for these bullets: run it, look at the concrete paths on your machine, and then cross-check them against any decoded profiles or sandbox logs you are studying.
+
+## 4. Walking through the code
+
+### 4.1 Setup and container roots
 
 ```swift
 let fm = FileManager.default
@@ -73,7 +86,7 @@ These are the primary hubs where sandboxed applications’ data actually lives.
 
 ---
 
-### 3.2 Listing container entries
+### 4.2 Listing container entries
 
 ```swift
 func listTopEntries(_ url: URL, limit: Int = 5) {
@@ -112,7 +125,7 @@ Why this matters:
 
 ---
 
-### 3.3 Showing logical vs resolved paths
+### 4.3 Showing logical vs resolved paths
 
 ```swift
 func describePath(_ path: String) {
@@ -146,7 +159,7 @@ In sandbox terms, the **resolved** path is the one that matters, because path-ba
 
 ---
 
-### 3.4 Driving the inspection
+### 4.4 Driving the inspection
 
 The main body of the script:
 
@@ -185,7 +198,7 @@ The goal is to connect what you think “Documents” is with where those bytes 
 
 ---
 
-### 3.5 Notes block and conceptual recap
+### 4.5 Notes block and conceptual recap
 
 At the end, the script prints a multi-line note:
 
@@ -206,18 +219,3 @@ These bullet points summarize the intended takeaways:
 * When you see paths in decoded profiles (especially `subpath` rules), you should think in terms of **resolved paths** that look like `~/Library/Containers/...`, not whichever alias you followed in Finder.
 
 ---
-
-## 4. Lessons captured in `lessons.md`
-
-The `lessons.md` file distills the example into three bullets:
-
-1. **Containers relocate data into `~/Library/Containers/...` and group containers.**
-   User-facing paths (what you click or type) might be symlinks or redirects, but the sandbox engine evaluates file rules based on where those paths lead.
-
-2. **Symlinks do not bypass sandbox checks.**
-   The effective policy applies to the final, resolved path, which is what the SBPL path filters see.
-
-3. **Knowing container layout is necessary to read profiles correctly.**
-   When you see a rule like `(allow file-read* (subpath "/Users/you/Library/Containers/..."))` in decoded SBPL, you can now map that back to the “same-looking” paths you interact with as a user and understand why a sandboxed app behaves differently from an unsandboxed tool.
-
-You can treat `containers_demo.swift` as an executable illustration for these bullets: run it, look at the concrete paths on your machine, and then cross-check them against any decoded profiles or sandbox logs you are studying.

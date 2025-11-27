@@ -362,3 +362,10 @@ A practical way to use this demo:
    * Treat the differences as a concrete visualization of how SBPL’s network filter vocabulary maps onto real syscalls.
 
 In short, `network_demo.c` is a minimal, repeatable client that touches three common network shapes (TCP, UDP, AF_UNIX). `lessons.md` tells you how to interpret these as `network-outbound` operations with different domains, types, and endpoints. Together they make it easier to reason about network policy rules by grounding them in observed behavior.
+
+## Lessons
+
+- Network syscalls map to sandbox operations such as `network-outbound`, with filters for `socket-domain`, `socket-type`, and remote/local addresses (substrate/Appendix.md).
+- TCP, UDP, and AF_UNIX sockets exercise different combinations of those filters; the same code path looks different to the sandbox depending on domain/type/port/path.
+- Outside a sandbox these calls usually succeed (or fail with ECONNREFUSED), but under SBPL rules you can target very specific combinations, making network policy richer than early Seatbelt examples.
+- Running a consistent client while changing policy is a good way to see how the filter vocabulary translates to real syscalls.

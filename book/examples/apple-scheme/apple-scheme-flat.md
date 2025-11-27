@@ -40,7 +40,14 @@ Typical flow:
 
 ---
 
-## 3. The SBPL profile: `profiles/demo.sb`
+## 3. Lessons
+
+- Builds a tiny clang shim that calls `sandbox_compile_file` to turn `profiles/demo.sb` into a compiled blob (`build/demo.sb.bin`), mirroring the SBPL → TinyScheme → binary pipeline in `substrate/Orientation.md` §3.2.
+- Output bytecode layout matches the header/op-table/node/regex/literal structure described in `substrate/Appendix.md`; feed the blob to decoders like `sbdis`, `re2dot`, or `resnarf`.
+- The demo profile is intentionally permissive enough to compile/run the helper; adjust `profiles/demo.sb` to watch how changes in SBPL affect the compiled graph.
+
+
+## 4. The SBPL profile: `profiles/demo.sb`
 
 ```scheme
 (version 1)
@@ -78,7 +85,7 @@ Conceptually, this profile is intentionally minimal: it’s a whitelist that giv
 
 ---
 
-## 4. Build glue: `Makefile` and `run-demo.sh`
+## 5. Build glue: `Makefile` and `run-demo.sh`
 
 ### `Makefile`
 
@@ -161,7 +168,7 @@ Taken together, `Makefile` + `run-demo.sh` give you a one-command “lab setup�
 
 ---
 
-## 5. The compiler shim: `src/compile_profile.c`
+## 6. The compiler shim: `src/compile_profile.c`
 
 This is the heart of the example: a small C program that calls private `libsandbox` entry points, captures the `sandbox_profile` struct they return, and writes the `bytecode` portion to disk.
 
@@ -290,7 +297,7 @@ The structure of `main` is deliberately linear and boring: almost all of the int
 
 ---
 
-## 6. How to use this as a learning scaffold
+## 7. How to use this as a learning scaffold
 
 Ways to learn from and extend this example:
 

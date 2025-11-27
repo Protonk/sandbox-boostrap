@@ -310,9 +310,7 @@ Because issuance is expected to fail on a stock, unentitled CLI, you can treat t
 
 ---
 
-## 5. Lessons tied to `lessons.md`
-
-The bullets in `lessons.md` align directly with the code:
+## 5. Lessons
 
 1. **Scoped, dynamic capabilities via `(extension ...)` filters**
 
@@ -343,4 +341,3 @@ The bullets in `lessons.md` align directly with the code:
      * cross-process handoffs via Launch Services.
    * The static sandbox profile remains tight; extensions allow **specific, time-bound** exceptions.
 
-Reading `extensions_demo.c` alongside `lessons.md` lets you see how extension tokens move from an abstract concept in SBPL (`(extension ...)`) to concrete strings issued, consumed, and released by `libsandbox`, and how they act as a dynamic overlay on top of the static sandbox policy.
