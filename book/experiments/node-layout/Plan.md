@@ -81,3 +81,10 @@ Goal: recover enough of the modern compiled profile node layout to extract node 
 Nailing down a modern node layout directly improves the **static-format** and **vocabulary/mapping** parts of the book. With trustworthy node and filter-key decoding, we can show concrete PolicyGraph shapes for current macOS, not just schematic diagrams, and back the operation/filter vocab tables with real IDs extracted from live profiles. That makes chapters that talk about compiled profiles, operation pointer tables, and vocab maps (and the associated capability catalogs) much more grounded: every “operation X” and “filter Y” can be tied to bytes in a blob and to observed behavior in a probe.
 
 It also sharpens the **runtime lifecycle and extension** story. Once we can read node counts and filter keys from system profiles, we can correlate scenario probes (containers, extensions, mach, network) with the actual graph fragments they exercise, rather than treating the profiles as opaque. That supports clearer worked examples in the TextEdit and Example.app chapters, where we want to move seamlessly between SBPL snippets, profile graphs, process labels, and extension-driven capability changes.
+
+## Open questions / current unknowns
+
+- Literal index mapping: changing a `subpath` literal (`/tmp/foo` → `/tmp/bar`) did not change node bytes in initial variants, even though the literal pool changed. Need to determine where/how literal indices are encoded and whether they are shared across equal-length literals or normalized differently.
+- Multiple literals: unclear how nodes reference multiple literals of the same filter type; need a variant with two distinct literals to see if node records diverge.
+- Filter key location: tags and edge fields are plausible at stride 12, but the field carrying filter key codes (vs literal indices) remains unidentified without a known node tag schema.
+- Op-table anchoring: mapping node indices back to specific operations may help interpret edge fields; op-table entrypoints are known but not yet used to partition the node array.

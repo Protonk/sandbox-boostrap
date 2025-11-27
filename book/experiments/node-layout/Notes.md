@@ -26,3 +26,36 @@
 
 ## 2025-11-27 2
 
+- Created minimal SBPL variants under `book/experiments/node-layout/sb/`:
+  - `v0_baseline`: allow `file-read*` only.
+  - `v1_subpath_foo`: allow `file-read*` with `(subpath "/tmp/foo")`.
+  - `v2_subpath_bar`: same with `/tmp/bar`.
+  - `v3_two_filters`: `(require-all (subpath "/tmp/foo") (subpath "/dev"))` on `file-read*`.
+- Compiled with `sandbox_compile_string`:
+  - v0 len=440, ops=5, nodes=387, literals=27.
+  - v1/v2 len=467, ops=6, nodes=365, literals=74.
+  - v3 len=440, ops=5, nodes=387, literals=27.
+- Stride=12 node slices:
+  - v1 vs v2: node regions are identical (no differing records), so changing literal from `/tmp/foo` to `/tmp/bar` did not change node bytes (literal table differs; literal pool contains `/tmp/foo` in v1). Suggests literal indices may be encoded elsewhere or nodes reference a shared literal index that didn’t change across these two strings.
+  - v0 vs v1: 31 records differ; op_count increases (5→6) and literals grow. Indicates adding a `subpath` filter changes node region but not in a way that distinguishes foo vs bar.
+  - v0 vs v3: 2 differing records; both have same op_count (5). Diffs show only literal index changes (e.g., record 2 lit 3→4) and tag change in record 3 (3→4). Hypothesis: adding a second filter tweaks literal indices but keeps node count constant when op_count unchanged.
+- Literal pools:
+  - v0/v3 literals are short, no path strings visible (pure metadata?).
+  - v1 literals contain `/tmp/foo`; v2 literals contain `/tmp/bar`. Node bytes unchanged between v1 and v2, so literal index field at bytes6-7 may be a small ID independent of the literal table position, or the literal pool order is fixed and both literals share the same index bucket.
+- Open questions:
+  - How to map literal indices to actual offsets; current heuristic doesn’t link node field to literal pool address.
+  - Whether a different filter type or additional literal would change the node bytes enough to isolate the literal index field.
+- Next steps:
+  - Add a profile with two distinct literals for the same filter type (e.g., two subpaths) to see if node records diverge.
+  - Try stride 8/16 again on v1/v2 to see if any field changes with foo→bar.
+  - Consider parsing the op-table entrypoints to anchor which records belong to which operation.
+
+## 2025-11-27 3
+
+- Added open questions to Plan.md (literal index mapping, multiple literals, filter key location, op-table anchoring).
+- Still need a variant with two distinct literals in the same profile to force literal index differences; current v1 vs v2 suggests literal field isn’t simply “literal pool offset.”
+- Possible next probes:
+  - Profile with `(allow file-read* (require-any (subpath "/tmp/foo") (subpath "/tmp/bar")))`.
+  - Profile with different filter types (e.g., `literal` vs `subpath`) to see if tag or field changes more clearly.
+  - Use op-table entrypoints to segment node array per operation and see if edge fields line up with op_count changes (5→6).
+
