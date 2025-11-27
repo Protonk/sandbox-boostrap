@@ -106,50 +106,6 @@ This concluding chapter gathers the threads of the book into a bundle of what we
 
 ---
 
-**Addendum — Lab Companion**
-
-This addendum collects the concrete scaffolding behind the book’s examples: where to find experiments, how capability catalogs are structured, and small reference tables the chapters lean on.
-
-1. **A.1 Experiment and Probe Index**
-
-   * A.1.1 Chapter-to-artifact map
-
-     * For each chapter section that relies on a concrete probe, app incarnation, or profile, list:
-
-       * the artifact’s short name,
-       * its role (what concept or behaviour it demonstrates),
-       * and its rough location in the accompanying repository.
-   * A.1.2 Boundary object summary
-
-     * A compact table of the main “boundary objects” used in the book (probes, profiles, catalogs), with columns for: concept focus (e.g., PolicyGraph, profile layers, containers), expected outcome, and cross-references to figures or examples in the text.
-
-2. **A.2 Capability Catalog Schema and Examples**
-
-   * A.2.1 Schema overview
-
-     * A concise description of the catalog structure: how entries record operations, filters, entitlements, profile layers, sandbox extensions, and provenance.
-   * A.2.2 Minimal schema reference
-
-     * A small, implementation-shaped schema (in prose or pseudo-structured form) that defines the required fields and their meanings, aligned with the terminology used in the main chapters.
-   * A.2.3 Worked entries
-
-     * One or two fully spelled-out catalog entries (e.g., the example app in two sandbox incarnations) that are more detailed than the abbreviated forms shown in the chapters.
-     * Brief annotations showing how to read each field and how it connects back to operations, filters, PolicyGraphs, and containers.
-
-3. **A.3 Reference Tables and Glosses**
-
-   * A.3.1 Operations and filters used in the book
-
-     * A small table of the operations and filters that recur most often in examples, with very short descriptions and pointers to where they first appear in the text.
-   * A.3.2 Profile-layer roles and examples
-
-     * A table that links profile-layer roles (platform, app, helper, auxiliary) to representative examples from the chapters and to their typical place in the policy stack.
-   * A.3.3 Compact glossary for recurring terms
-
-     * A brief glossary for terms that the book assumes once introduced (e.g., sandbox extension, Compiled Profile Source, Policy Stack Evaluation Order, capability catalog), giving the reader a quick lookup without re-entering earlier chapters.
-
----
-
 **API — Using the Book as a Lab**
 
 This chapter explains how to treat the textbook and its companion repository as an addressable environment rather than a static document, so that both human readers and automated tools can navigate sections, concepts, artifacts, and capability catalogs through a small, explicit API.
@@ -158,3 +114,38 @@ This chapter explains how to treat the textbook and its companion repository as 
 * **API.2 Resource types and IDs** — Introduces the small set of resource types (`section`, `concept`, `artifact`, `catalog_entry`) and their naming schemes, and shows how they correspond to chapters, concepts, example app incarnations, and capability catalogs.
 * **API.3 Indexes and maps in the repository** — Outlines the role of the `api/` index files (for sections, concepts, artifacts, and catalogs), how to read them, and how they link the narrative chapters to concrete files and decoded profiles.
 * **API.4 Common jobs and workflows for agents** — Shows how to use the API surfaces to do a few recurring jobs: answering “why did this happen?”, finding where a concept is defined and demonstrated, replaying an example, and comparing two apps or profiles via their capability catalogs.
+
+---
+
+**Addendum — Lab Companion**
+
+This addendum collects the concrete scaffolding behind the book’s examples: where to find experiments, how capability catalogs are structured, and small reference tables the chapters lean on.
+
+1. **A.1 Experiment and Probe Index**
+
+* A.1.1 Chapter-to-artifact map
+  * For each chapter section that relies on a concrete probe, app incarnation, or profile, list:
+  * the artifact’s short name,
+  * its role (what concept or behaviour it demonstrates),
+  * and its rough location in the accompanying repository.
+* A.1.2 Boundary object summary
+  * A compact table of the main “boundary objects” used in the book (probes, profiles, catalogs), with columns for: concept focus (e.g., PolicyGraph, profile layers, containers), expected outcome, and cross-references to figures or examples in the text.
+
+2. **A.2 Capability Catalog Schema and Examples**
+
+* A.2.1 Schema overview
+  * A concise description of the catalog structure: how entries record operations, filters, entitlements, profile layers, sandbox extensions, and provenance.
+* A.2.2 Minimal schema reference
+  * A small, implementation-shaped schema (in prose or pseudo-structured form) that defines the required fields and their meanings, aligned with the terminology used in the main chapters.
+* A.2.3 Worked entries
+  * One or two fully spelled-out catalog entries (e.g., the example app in two sandbox incarnations) that are more detailed than the abbreviated forms shown in the chapters.
+  * Brief annotations showing how to read each field and how it connects back to operations, filters, PolicyGraphs, and containers.
+
+3. **A.3 Reference Tables and Glosses**
+
+* A.3.1 Operations and filters used in the book
+  * A small table of the operations and filters that recur most often in examples, with very short descriptions and pointers to where they first appear in the text.
+* A.3.2 Profile-layer roles and examples
+  * A table that links profile-layer roles (platform, app, helper, auxiliary) to representative examples from the chapters and to their typical place in the policy stack.
+* A.3.3 Compact glossary for recurring terms
+  * A brief glossary for terms that the book assumes once introduced (e.g., sandbox extension, Compiled Profile Source, Policy Stack Evaluation Order, capability catalog), giving the reader a quick lookup without re-entering earlier chapters.
