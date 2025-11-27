@@ -56,6 +56,9 @@ High-level map of the root and `book/`:
 - `substrate/`  
   Orientation, concepts, appendix, canon, and per-source exegesis. Frozen at `SUBSTRATE_2025-frozen`. 
 
+- `troubles/`  
+  Records of crashes or validation troubles
+
 ## Scope
 
 The main object of concern is modern macOS (Ventura/Sonoma and neighbors), not just historical Snow Leopard, though this is where accurate, comprehensive sourcing is richest. Older materials (Apple Sandbox Guide, Blazakis, SandBlaster, etc.) appear as explicitly mediated sources, not as invisible authorities.
