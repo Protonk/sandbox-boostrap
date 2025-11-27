@@ -400,18 +400,18 @@ func main() {
     let root = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
     let concepts = parseConcepts(
         conceptsPath: root.appendingPathComponent("substrate/Concepts.md").path,
-        inventoryPath: root.appendingPathComponent("book/concepts/CONCEPT_INVENTORY.md").path
+        inventoryPath: root.appendingPathComponent("book/graph/concepts/CONCEPT_INVENTORY.md").path
     )
     let strategyList = strategies(concepts: concepts)
     let examples = exampleEntries(base: root)
     let regions = textRegions(base: root)
     let bindings = conceptTextBindings()
 
-    writeJSON(concepts, to: root.appendingPathComponent("book/concepts/concepts.json").path)
-    writeJSON(strategyList, to: root.appendingPathComponent("book/concepts/validation/strategies.json").path)
+    writeJSON(concepts, to: root.appendingPathComponent("book/graph/concepts/concepts.json").path)
+    writeJSON(strategyList, to: root.appendingPathComponent("book/graph/concepts/validation/strategies.json").path)
     writeJSON(examples, to: root.appendingPathComponent("book/examples/examples.json").path)
-    writeJSON(regions, to: root.appendingPathComponent("book/text/text_regions.json").path)
-    writeJSON(bindings, to: root.appendingPathComponent("book/concepts/concept_text_map.json").path)
+    writeJSON(regions, to: root.appendingPathComponent("book/graph/regions/text_regions.json").path)
+    writeJSON(bindings, to: root.appendingPathComponent("book/graph/concepts/concept_text_map.json").path)
 }
 
 main()
