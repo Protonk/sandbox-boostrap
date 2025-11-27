@@ -1,0 +1,4 @@
+(version 1)
+(deny default)
+(allow file-read* (literal "/etc/hosts"))
+(allow file-write* (subpath "/tmp/foo"))

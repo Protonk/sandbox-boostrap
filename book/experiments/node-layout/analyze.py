@@ -8,6 +8,8 @@ Outputs:
   - blob length, op_count, op_table entries
   - section lengths (op_table, nodes, literals/regex)
   - stride stats (tags, remainder, edge in-bounds counts) for strides 8/12/16
+  - full stride=12 record dump (tags, edges, literal-ish field, extra bytes) and per-tag counts
+  - literal pool ASCII slices (offset + string)
   - tail records (last 3 full records at stride=12 plus remainder bytes)
 """
 
@@ -136,6 +138,58 @@ def op_entries(blob: bytes, op_count: int) -> List[int]:
     return [int.from_bytes(ops[i : i + 2], "little") for i in range(0, len(ops), 2)]
 
 
+def record_dump(nodes: bytes, stride: int) -> Dict[str, Any]:
+    """
+    Emit all stride-sized records for closer inspection alongside any remainder.
+    """
+    recs = []
+    full = len(nodes) // stride
+    for idx in range(full):
+        rec = nodes[idx * stride : (idx + 1) * stride]
+        recs.append(
+            {
+                "index": idx,
+                "tag": rec[0],
+                "edge1": int.from_bytes(rec[2:4], "little"),
+                "edge2": int.from_bytes(rec[4:6], "little"),
+                "lit": int.from_bytes(rec[6:8], "little"),
+                "extra": rec[8:12].hex(),
+            }
+        )
+    remainder = nodes[full * stride :]
+    return {"records": recs, "remainder_hex": remainder.hex()}
+
+
+def tag_counts(records: List[Dict[str, Any]]) -> Dict[int, int]:
+    counts: Dict[int, int] = {}
+    for rec in records:
+        tag = rec["tag"]
+        counts[tag] = counts.get(tag, 0) + 1
+    return counts
+
+
+def ascii_strings(buf: bytes, min_len: int = 4) -> List[Dict[str, Any]]:
+    """
+    Pull out printable ASCII runs from a bytes-like buffer.
+    """
+    runs: List[Dict[str, Any]] = []
+    start = None
+    current: List[str] = []
+    for idx, byte in enumerate(buf):
+        if 0x20 <= byte < 0x7F:
+            if start is None:
+                start = idx
+            current.append(chr(byte))
+        else:
+            if current and len(current) >= min_len and start is not None:
+                runs.append({"offset": start, "string": "".join(current)})
+            start = None
+            current = []
+    if current and len(current) >= min_len and start is not None:
+        runs.append({"offset": start, "string": "".join(current)})
+    return runs
+
+
 def summarize_variant(src: Path, blob: bytes) -> Dict[str, Any]:
     """
     Parse a compiled blob with the shared ingestion helpers and collect
@@ -148,6 +202,7 @@ def summarize_variant(src: Path, blob: bytes) -> Dict[str, Any]:
     header = pi.parse_header(pi.ProfileBlob(bytes=blob, source=src.stem))
     sections = pi.slice_sections(pi.ProfileBlob(bytes=blob, source=src.stem), header)
     op_count = header.operation_count or 0
+    records12 = record_dump(sections.nodes, stride=12)
     summary = {
         "name": src.stem,
         "length": len(blob),
@@ -160,6 +215,10 @@ def summarize_variant(src: Path, blob: bytes) -> Dict[str, Any]:
             "literals": len(sections.regex_literals),
         },
         "stride_stats": [],
+        "records_stride12": records12["records"],
+        "tag_counts_stride12": tag_counts(records12["records"]),
+        "remainder_stride12_hex": records12["remainder_hex"],
+        "literal_strings": ascii_strings(sections.regex_literals),
         "tail": tail_records(sections.nodes, stride=12),
     }
     for stride in (8, 12, 16):

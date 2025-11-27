@@ -112,10 +112,10 @@ The op-table is the bridge from operations to node entrypoints. Even if we do no
 Observations:
 - v0/v5 (op_count=5) both have op entries `[4,4,4,4,4]`.
 - v1/v2/v4 (op_count=6) have op entries `[5,5,5,5,5,5]`.
-- This suggests that on these tiny profiles, all operations share the same entry index; op-table entries do not help segment nodes per operation yet.
+- This suggests that on these initial tiny profiles, all operations share the same entry index; op-table entries do not help segment nodes per operation yet. Later mixed-op probes (`v6`–`v10`) show the first non-uniform op-table entries but still do not give a clean mapping from individual operations to unique entrypoints.
 
 Open check:
-- [ ] Find a profile where operations differ meaningfully (e.g., `file-read*` vs `file-write*`) and verify whether op-table entries diverge. (Not yet attempted in this experiment.)
+- [x] Find a profile where operations differ meaningfully (e.g., `file-read*` vs `file-write*`) and verify whether op-table entries diverge. (Achieved with mixed-op variants `v8`–`v10`, which show op-table entries `[6,6,6,6,6,6,5]`; mapping back to specific operations remains unresolved.)
 
 ---
 
@@ -143,7 +143,6 @@ These items are explicitly *not* solved yet; they are the next frontier for futu
 - [ ] **Literal index mapping:** We still do not know exactly how nodes refer to the literal/regex pool in modern blobs. Controlled foo→bar and multi-literal variants show pool changes but not obvious node-field changes in shared prefixes.
 - [ ] **Filter key location:** We have not yet identified which node field carries filter key codes as opposed to literal indices; tag and edge patterns alone are insufficient.
 - [ ] **Tail layout:** Extra nodes and remainders at the tail do not fit a simple fixed stride; a better model (variable-size records, per-tag sizes, or a distinct tail encoding) is still to be derived.
-- [ ] **Per-op segmentation:** Op-table entries are constant across ops in these tiny profiles; we have not yet produced a profile where different operations have different entrypoints and used that to segment the node array.
+- [ ] **Per-op segmentation:** Mixed-op profiles now show at least two distinct op-table entry indices, but we still lack a mapping from operation vocabulary IDs to those indices and a way to use them to cleanly segment the node array per operation.
 
 Even with these open boxes, the experiment has already produced reusable artifacts (SBPL variants, blobs, structured summaries) and a clearer picture of what can and cannot be inferred from modern graph blobs without deeper reverse engineering.
-

@@ -151,3 +151,28 @@ To probe the layout, we then constructed a series of tiny SBPL profiles that dif
 From there, we introduced more focused variants to stress “multiple literals” and “mixed filter types”: a profile that uses `require-any` over two subpaths (`/tmp/foo` and `/tmp/bar`), and one that combines a `literal "/etc/hosts"` with a `subpath "/tmp/foo"` in a `require-all`. The require-any profile increased the node region length but kept the shared prefix identical with the single-subpath case, while the literal+subpath profile changed a slice of records without altering op-count. Across all of these, the literal pools evolved exactly as expected—new strings appeared where they should—but the node bytes in the shared regions remained opaque, reinforcing the idea that node fields likely hold compact IDs rather than raw literal offsets.
 
 Taken together, these steps give us a progressively tighter picture of the graph layout: we have a plausible stride, a sense of how adding filters and literals perturbs the node region, and confirmation that literal tables behave as a separate pool. The remaining work is to anchor nodes to specific operations via the op-table, examine the non-shared tails where new filters live, and build a small analyzer that can systematically test candidate field layouts for tags, edges, filter keys, and literal indices across all these controlled variants.
+
+## 2025-11-28 2
+
+- Added two more SBPL probes: `v6_read_write.sb` (allow `file-read*` + `file-write*`) and `v7_read_and_mach.sb` (allow `file-read*` + `mach-lookup` on `com.apple.cfprefsd.agent`).
+- Enhanced `analyze.py` to emit full stride=12 record dumps, per-tag counts, literal ASCII runs with offsets, and to keep the existing tail/remainder view.
+- Regenerated all blobs/summaries. `summary.json` now carries `records_stride12`, `tag_counts_stride12`, `remainder_stride12_hex`, and `literal_strings` per variant for deeper offline inspection.
+- Observations:
+  - `v6_read_write` keeps op_count=5 with uniform op entries `[4,...]` and node length 387 (same as baseline), but the first few stride=12 records shift (indices 3–5 swap tag4/tag3 patterns) and tag counts move (tag3: 15 vs 13, tag4: 15 vs 17). Literal pool still has no ASCII runs. Adding a second operation did not diversify the op-table; dispatch is still hidden in the shared graph.
+  - `v7_read_and_mach` lands at op_count=6 with op entries `[5,...]`, node length 365 (same shape as the single-subpath profile), and a literal string `Wcom.apple.cfprefsd.agent` in the pool. Stride=12 counts match the subpath case (tags {0:1,1:1,4:6,5:22}); only a couple of records differ (indices 2 and 14 swap edge/extra values), suggesting the mach-lookup op uses the same entrypoint skeleton with small tweaks rather than a separate op-table entry.
+- Cross-cutting: even with multiple operations in one profile, the op-table still points every operation ID at the same entry index. Per-op segmentation remains unsolved; whatever per-op branching exists is buried in the node graph rather than the table.
+
+## 2025-11-28 3
+
+- Added mixed-op probes to stress per-op entrypoints:
+  - `v8_read_write_dual_subpath.sb`: `file-read*` on `/tmp/foo`, `file-write*` on `/tmp/bar`.
+  - `v9_read_subpath_mach_name.sb`: `file-read*` on `/tmp/foo`, `mach-lookup` for `com.apple.cfprefsd.agent`.
+  - `v10_read_literal_write_subpath.sb`: `file-read*` with `literal "/etc/hosts"`, `file-write*` with `subpath "/tmp/foo"`.
+- Analyzer now emits per-tag counts and full stride=12 record dumps; reran it to refresh `out/summary.json` with the new variants.
+- Observations:
+  - All three mixed-op profiles jump to `op_count=7` and, for the first time, op-table entries are not uniform: `[6, 6, 6, 6, 6, 6, 5]`. This is the first hint of differentiated entrypoints by operation ID, though the vocabulary map is still unknown.
+  - Tag sets now include tag6; tag counts sit around {0:1,1:1,3:2?,5:5,6:23–25}. Early stride=12 records show the main differences across variants (indices ~3–5, 14). For example, v8 vs v9 flips literals/edges at indices 3–5 (lit 3→6, tag6↔tag3) and index 14 extra bytes swap `06000600`/`03000600`.
+  - Node lengths differ slightly: v8/v9 have 32 stride=12 records plus a 2-byte remainder; v10 has 31 records with an 11-byte remainder, suggesting a small structural shift when using `literal` on the read side.
+  - Literal pools show prefixed strings: `G/tmp/foo`, `G/tmp/bar`, `Wcom.apple.cfprefsd.agent`, `I/etc/hosts`. The leading letters likely encode string type/class (global-name vs path vs literal), reinforcing that the pool encodes metadata alongside bytes.
+  - Even with two distinct op-table entry values (5 and 6), multiple operations still share the same entry index within a profile; per-op segmentation remains coarse.
+- Next: isolate which operation maps to the lone `5` entry by crafting asymmetric profiles (e.g., single-op vs dual-op variants with the same op_count) and watching which op-table slot flips, or augment the analyzer to dump op-table indices alongside guessed operation IDs from the ingestion header if available.

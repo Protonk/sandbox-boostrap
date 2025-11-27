@@ -139,7 +139,7 @@ Use SANDBLASTER2016 when you need to reason about compiled profiles as concrete 
 ### APPLESANDBOXGUIDE
 
 **Citation**
-fG!. “Apples Sandbox Guide v1.0.” reverse.put.as, 2011. Practitioner-focused guide to Apple’s sandbox profile language and stock policies.
+fG!. “Apple Sandbox Guide v1.0.” reverse.put.as, 2011. Practitioner-focused guide to Apple’s sandbox profile language and stock policies.
 
 **Public link**
 [https://reverse.put.as/wp-content/uploads/2011/09/Apple-Sandbox-Guide-v1.0.pdf](https://reverse.put.as/wp-content/uploads/2011/09/Apple-Sandbox-Guide-v1.0.pdf)

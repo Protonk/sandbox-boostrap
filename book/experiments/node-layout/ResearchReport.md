@@ -162,17 +162,17 @@ We have not yet found a simple, stride-friendly field that we can confidently la
 
 ## 7. Op-table entrypoints
 
-The operation pointer table is the documented bridge from operations to graph entry nodes. Using the heuristic that it starts at byte 0x10 and contains `operation_count` u16 indices, we extracted op-table entries for each variant:
+The operation pointer table is the documented bridge from operations to graph entry nodes. Using the heuristic that it starts at byte 0x10 and contains `operation_count` u16 indices, we first extracted op-table entries for the single-op and single-filter variants:
 
 - v0 / v5 (ops=5): op_entries `[4,4,4,4,4]`.
 - v1 / v2 / v4 (ops=6): op_entries `[5,5,5,5,5,5]`.
 
-In other words, in all these tiny synthetic profiles, every operation points to the same entry index. This tells us:
+In other words, in these initial tiny synthetic profiles, every operation points to the same entry index. This tells us:
 
 - The op-table is present and structured, but
-- In our current examples it does not help segment the node array per operation, because all ops share the same entrypoint.
+- For these cases it does not help segment the node array per operation, because all ops share the same entrypoint.
 
-We have not yet built a variant where operations are structurally distinct enough to yield different op-table entry indices; that remains a good follow-on probe.
+Later mixed-op probes (see §10) introduce profiles with `op_count=7` and non-uniform entries `[6,6,6,6,6,6,5]`, giving the first evidence of more than one entry index in use but still no clear mapping from individual operations to unique entrypoints.
 
 ## 8. Artifacts produced
 
@@ -212,7 +212,7 @@ We **do not yet** have:
 
 - A trustworthy mapping from node fields to literal indices or filter key codes.
 - A robust node layout model that explains tails (and odd edge values) as well as the front of the node region.
-- Any per-operation segmentation of the graph from op-table entries, at least for these tiny profiles.
+- More than very coarse per-operation segmentation of the graph from op-table entries: mixed-op profiles show at most two distinct entry indices shared across several operations, and we still lack a vocabulary-aware mapping from operations to entrypoints.
 
 In terms of the textbook’s goals, this is still useful:
 
@@ -222,7 +222,29 @@ In terms of the textbook’s goals, this is still useful:
 
 Future work can build on this by:
 
-- Designing profiles where different operations have visibly different policies, to force divergent op-table entrypoints.
+- Designing additional profiles where different operations have visibly different policies, building on the mixed-op probes in §10, to further refine op-table entrypoint mapping.
 - Extending `analyze.py` or related tools to experiment with variable-length node parsing and to correlate node fields with literal pool indices more aggressively.
 - Feeding these artifacts into a more systematic reverse-engineering pass that can be versioned and tied back into the substrate as a new static-format annex.
 
+## 10. Mixed-op probes and first op-table divergence
+
+Follow-on probes added mixed operations with distinct filters to stress per-op entrypoints:
+
+- `v8_read_write_dual_subpath`: `file-read*` with `(subpath "/tmp/foo")`, `file-write*` with `(subpath "/tmp/bar")`.
+- `v9_read_subpath_mach_name`: `file-read*` with `(subpath "/tmp/foo")`, `mach-lookup` with `(global-name "com.apple.cfprefsd.agent")`.
+- `v10_read_literal_write_subpath`: `file-read*` with `(literal "/etc/hosts")`, `file-write*` with `(subpath "/tmp/foo")`.
+
+Analyzer enhancements now emit full stride=12 record dumps, per-tag counts, and ASCII literal runs; the refreshed `summary.json` captures these.
+
+Findings:
+
+- These profiles bump `op_count` to 7 and, for the first time, op-table entries are non-uniform: `[6, 6, 6, 6, 6, 6, 5]`. This suggests at least two distinct entry indices in play, though operation→index mapping is still unknown.
+- Node tag sets now include tag6; early stride=12 records carry the main differences across variants (indices ~3–5, 14), with tag6/tag3 swaps and lit fields toggling 3↔6 alongside edge/extra changes (`03000600` vs `06000600`).
+- Node lengths vary slightly (v8/v9: 32 records + 2-byte remainder; v10: 31 records + 11-byte remainder), hinting at structural shifts when a `literal` filter is involved.
+- Literal pools now show prefixed strings: `G/tmp/foo`, `G/tmp/bar`, `Wcom.apple.cfprefsd.agent`, `I/etc/hosts`, reinforcing that the pool stores a class/type marker alongside the payload.
+
+Still open:
+
+- Which operation maps to the lone `5` op-table entry.
+- Whether tag6 corresponds to a specific filter class or branching construct, and how its size interacts with the tail remainders.
+- How to parse the tail beyond fixed stride so these per-op differences can be tied to concrete filter keys and literal references.
