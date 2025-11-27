@@ -59,3 +59,24 @@
   - Profile with different filter types (e.g., `literal` vs `subpath`) to see if tag or field changes more clearly.
   - Use op-table entrypoints to segment node array per operation and see if edge fields line up with op_count changes (5→6).
 
+## 2025-11-27 4
+
+- Added variants:
+  - `v4_any_two_literals`: `(allow file-read* (require-any (subpath "/tmp/foo") (subpath "/tmp/bar")))`.
+  - `v5_literal_and_subpath`: `(allow file-read* (require-all (literal "/etc/hosts") (subpath "/tmp/foo")))`.
+- Compiled all variants with `sandbox_compile_string`:
+  - v4: len=481, ops=6, nodes=403, lits=50.
+  - v5: len=440, ops=5, nodes=387, lits=27.
+- Diffs:
+  - v1 (`/tmp/foo`) vs v4 (foo+bar): node region lengths differ (365 vs 403) but **no differing records** when comparing common prefix; literal pool differs (contains both foo/bar). Suggests added literals/operators are appended beyond the smaller node array; shared prefix identical. Literal index still not visible in shared records.
+  - v1 vs v5 (literal + subpath): 30 differing records, node length increases to 387. This profile introduces a `literal` filter and keeps op_count at 5; indicates new nodes inserted for the extra filter type.
+  - v0 (baseline) vs v5: only 2 differing records; both node arrays 387 bytes. Adding `(literal "/etc/hosts")` + subpath without increasing ops tweaks a couple of records (likely the filter nodes) but not the whole shape.
+  - v1 vs v2 (foo vs bar): still identical nodes; literal pool differs.
+  - v1 vs v4 literal pools: v4 shows `/tmp/foo` and `/tmp/bar` strings; nodes unchanged in shared prefix.
+- Observations:
+  - Literal strings move into the pool, but node fields for shared regions remain unchanged. Likely literal references are via IDs or the differing nodes live beyond the shorter node array (v4 has extra nodes after the shared prefix).
+  - Tag/edge pattern at stride 12 still plausible; need to segment nodes per operation using op-table entrypoints to see which records are new for the added filter(s).
+- Next steps:
+  - Use op-table entrypoints (first 9 u16s) to derive entry node indices and map which node ranges are actually used by each operation; compare v1 vs v4 in the non-shared tail.
+  - Add a variant with two different filter types on the same op but keeping op_count constant, then diff with op-table-aware segmentation.
+  - Write a small analyzer to list op-table entries and dump per-op node slices for comparison across variants.

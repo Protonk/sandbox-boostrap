@@ -88,3 +88,29 @@ It also sharpens the **runtime lifecycle and extension** story. Once we can read
 - Multiple literals: unclear how nodes reference multiple literals of the same filter type; need a variant with two distinct literals to see if node records diverge.
 - Filter key location: tags and edge fields are plausible at stride 12, but the field carrying filter key codes (vs literal indices) remains unidentified without a known node tag schema.
 - Op-table anchoring: mapping node indices back to specific operations may help interpret edge fields; op-table entrypoints are known but not yet used to partition the node array.
+
+## Targeted resolution plan
+
+To resolve the unknowns, run a short battery of controlled variants and automated diffs:
+
+1. **Literal index mapping**
+   - Build profiles with multiple literals in the same filter form, e.g., `(allow file-read* (require-any (subpath "/tmp/foo") (subpath "/tmp/bar")))` and a third literal of different length.
+   - Diff node records across single-literal vs multi-literal variants; watch the suspected literal-index field (bytes 6–7 at stride 12). If it stays constant, the literal reference may be elsewhere (e.g., a shared ID).
+   - Inspect literal pool order to see whether indices are small IDs unrelated to offsets.
+
+2. **Multiple literals mapping**
+   - Add variants mixing filter types (e.g., `subpath`, `literal`, `vnode-type`) in otherwise identical profiles. Look for tag or field changes when the filter type changes but literals remain constant.
+
+3. **Filter key location**
+   - Use the mixed filter-type variants above to identify a field that varies with filter type. If tags change, map tag values to filter types; if a mid-record word changes, treat it as a key code candidate.
+
+4. **Op-table anchoring**
+   - Parse op-table entrypoints (u16 indices) and use them to segment the node array per operation. This can clarify which records belong to which op and how op-count changes affect entry nodes.
+
+5. **Automate diffing/scoring**
+   - Write a small analyzer to load variants, test strides (8/12/16), and report fields that change across specific pairs (foo→bar, add filter type, add literal). Score candidates where edges stay in-bounds and literal fields plausibly align with the literal pool.
+
+6. **Cross-check with system blobs**
+   - Apply the candidate layout to `airlock`/`bsd` to ensure edges are in bounds and literal indices point into the literal tail. If it holds, extract node counts and filter key IDs as provisional vocab evidence.
+
+This plan targets each open question with a specific variant/diff. It uses controlled changes (literal content, number of literals, filter type) to isolate which node fields encode literals vs keys, and uses op-table entrypoints to anchor node indices. Automated scoring helps choose between stride/layout hypotheses before applying them to system blobs.
