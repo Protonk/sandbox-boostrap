@@ -1,0 +1,63 @@
+# Field2 ↔ Filter Mapping – Research Report (Sonoma / macOS 14.4.1)
+
+## Purpose
+
+Decode the meaning of `field2` values in decoded PolicyGraph nodes by aligning them with the harvested Filter Vocabulary. Use targeted SBPL probes and system profiles to establish a stable mapping of `field2` ↔ filter-ID on this host.
+
+## Baseline and scope
+
+- Host: macOS 14.4.1 (23E224), Apple Silicon, SIP enabled (same as other experiments).
+- Vocab artifacts: `book/graph/concepts/validation/out/vocab/filters.json` (93 entries, status: ok), `ops.json` (196 entries, status: ok).
+- Canonical blobs for cross-check: `book/examples/extract_sbs/build/profiles/airlock.sb.bin`, `bsd.sb.bin`, `sample.sb.bin`.
+
+## Plan (summary)
+
+1. **Baseline inventory**: Decode canonical blobs, tally `field2` values per node tag, and see which op-table entries reach which values.
+2. **Single-filter probes**: Build tiny SBPL profiles, each exercising one filter (subpath, literal, global-name, local-name, vnode-type, socket-domain, iokit-registry-entry-class, etc.), then record `field2` from graph walks.
+3. **Cross-op checks**: For filters used by multiple operations, ensure `field2` is stable across ops; flag inconsistencies.
+4. **System profile cross-check**: Use literals in system profiles (paths, mach names) to confirm the mapping.
+5. **Synthesis**: Summarize the mapping with evidence and add guardrail tests.
+
+## Current status
+
+- Experiment scaffold created (`Plan.md`, `Notes.md`, this report).
+- Vocab artifacts available and will be used as ground truth for filter names/IDs.
+- Baseline `field2` inventory (decoder-only) from canonical blobs:
+  - `bsd.sb.bin`: numerous `field2` values with clear vocab hits (e.g., 27=`preference-domain`, 26=`right-name`, 18=`iokit-connection`, 17=`iokit-property`, 11=`socket-type`, 5=`global-name`, 1=`mount-relative-path`, 15=`ioctl-command`).
+  - `sample.sb.bin`: low IDs align with path/socket naming (`0=path`, `1=mount-relative-path`, `3=file-mode`, `7=local`, `8=remote`); a sentinel-like `3584` appears once.
+  - `airlock.sb.bin`: mostly high values (166, 165, 10752) with no vocab hits yet; likely tied to profile-specific filters or padding.
+- First round of synthetic single-filter probes (`v0_subpath`, `v1_literal`, `v2_global_name`, `v3_local_name`, `v4_vnode_type`, `v5_socket_domain`, `v6_iokit_registry_class`, `v7_require_any_subpath_literal`) compiled via `libsandbox` and decoded successfully.
+
+## Expected outcomes
+
+- A table mapping `field2` values to filter IDs/names with provenance (probes + system blobs).
+- Confirmation (or refutation) that `field2` is a direct filter-ID encoding on this host.
+- A minimal guardrail test to prevent regressions for key filters (subpath, literal, global-name, local-name).
+
+## Current wrinkle: synthetic profiles and field2 skew
+
+The initial single-filter probes did not cleanly separate `field2` values by filter in the way we expected:
+
+- All of the tiny profiles compiled by `libsandbox` (`op_count` 6–7) produce very short op-tables; when we decode and tally `field2` across their nodes:
+  - The dominant `field2` values are small IDs that already appear in canonical blobs for other reasons:
+    - 5 → `global-name`
+    - 4 → `ipc-posix-name`
+    - 3 → `file-mode`
+    - 0 → `path`
+    - 6 → `local-name` (most visible in the `network-outbound` variant).
+  - These IDs are present even in profiles intended to exercise structurally different filters (e.g., `subpath`, `literal`, `vnode-type`, `iokit-registry-entry-class`), which suggests that the nodes we are seeing along the short graph walks are dominated by generic path/name machinery rather than the filter-specific node we hoped to isolate.
+
+Implications for the experiment:
+
+- The small op-tables produced for these synthetic profiles do not give us a direct, easily readable “one filter ↔ one `field2`” mapping. Instead, `field2` is heavily influenced by shared infrastructure filters (path/name checks) that sit in front of or around the specific filter we are trying to probe.
+- Simply looking at “all `field2` values reachable from the operation entry” in these profiles is not enough to assign a unique `field2` to each filter; the signal is a mixture of generic and specific filters.
+
+Next steps (conceptual, without changing code yet):
+
+- Use richer profiles (including system profiles with higher `op_count` and more diverse filters) and more selective graph walks to target nodes whose surrounding context clearly indicates a specific filter (e.g., path literals for `subpath`/`literal`, mach names for `global-name`/`local-name`).
+- Treat the small synthetic profiles as structural sanity checks (confirming that low `field2` IDs like 0, 1, 3, 4, 5, 6 match known path/name filters), not as the sole evidence for a complete `field2` ↔ filter-ID mapping.
+## Open questions
+
+- Are any `field2` values context-dependent (e.g., change with meta-filters or op class)?
+- Do some filters share `field2` values (unlikely, but needs evidence)?
+- Does `field2` ever encode non-filter data in modern profiles?
