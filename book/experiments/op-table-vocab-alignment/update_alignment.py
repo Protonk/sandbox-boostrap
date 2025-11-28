@@ -5,6 +5,7 @@ Regenerate op_table_vocab_alignment.json using the harvested Operation Vocabular
 Inputs:
 - book/experiments/op-table-operation/out/summary.json
 - book/graph/concepts/validation/out/vocab/ops.json
+- book/graph/concepts/validation/out/vocab/filters.json
 
 Outputs:
 - book/experiments/op-table-vocab-alignment/out/op_table_vocab_alignment.json
@@ -18,6 +19,7 @@ from pathlib import Path
 
 SUMMARY_PATH = Path("book/experiments/op-table-operation/out/summary.json")
 OPS_VOCAB_PATH = Path("book/graph/concepts/validation/out/vocab/ops.json")
+FILTERS_VOCAB_PATH = Path("book/graph/concepts/validation/out/vocab/filters.json")
 OUT_PATH = Path("book/experiments/op-table-vocab-alignment/out/op_table_vocab_alignment.json")
 
 
@@ -26,15 +28,19 @@ def main() -> None:
     ops_vocab_json = json.loads(OPS_VOCAB_PATH.read_text())
     vocab_version = ops_vocab_json.get("generated_at")
     ops_map = {entry["name"]: entry["id"] for entry in ops_vocab_json.get("ops", [])}
+    filters_map = {entry["name"]: entry["id"] for entry in json.loads(FILTERS_VOCAB_PATH.read_text()).get("filters", [])} if FILTERS_VOCAB_PATH.exists() else {}
 
     records = []
     for s in summary:
         op_ids = [ops_map.get(op) for op in s.get("ops", [])]
+        filter_ids = [filters_map.get(f) for f in s.get("filters", [])]
         records.append(
             {
                 "profile": s["name"],
                 "ops": s.get("ops", []),
+                "filters": s.get("filters", []),
                 "operation_ids": op_ids,
+                "filter_ids": filter_ids,
                 "op_entries": s.get("op_entries", []),
                 "op_count": len(s.get("op_entries", [])),
                 "vocab_version": vocab_version,
@@ -47,6 +53,7 @@ def main() -> None:
         "vocab_present": bool(ops_map),
         "vocab_status": "ok" if ops_map else "missing",
         "vocab_version": vocab_version,
+        "filter_vocab_present": bool(filters_map),
     }
     OUT_PATH.parent.mkdir(exist_ok=True)
     OUT_PATH.write_text(json.dumps(alignment, indent=2, sort_keys=True))

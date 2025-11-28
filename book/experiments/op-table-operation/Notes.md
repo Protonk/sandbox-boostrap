@@ -65,3 +65,8 @@
   - The “5” bucket reaches tag5 (and sometimes tag6) with literal field 5; `[6,…,5]` profiles give both entries signatures with tags {5,6}.
   - Walks are shallow (1–2 nodes) because the heuristic edges likely stop quickly, so signatures are best treated as coarse fingerprints, not decoded graphs.
 - No decoder errors; outputs regenerated cleanly. Next steps stay focused on using these decoder-backed signatures to correlate buckets across profiles once vocab IDs exist or to design deltas that move the lone `5` entry in the `[6,…,5]` pattern.
+
+## 2025-12-03
+
+- Extended `analyze.py` to parse filter symbols from SBPL (via vocab intersection) and emit `filters` / `filter_ids` alongside `ops`. This keeps per-profile summaries aligned with both operation and filter vocab.
+- Reran analyzer with current vocab lengths; regenerated `summary.json`, `op_table_map.json`, and `op_table_signatures.json` with filter annotations intact.

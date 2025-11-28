@@ -35,3 +35,7 @@
    - Added `book/graph/concepts/validation/vocab_extraction.py` to collect decoder-derived metadata from canonical blobs and emit partial vocab artifacts even when names/IDs are unavailable.
    - Ran the script; new `out/vocab/ops.json` / `filters.json` now include host metadata, decoder-derived `op_count`/`op_table` entries for system/sample blobs, and `status: partial` instead of `unavailable`.
    - Refreshed `out/op_table_vocab_alignment.json` to record the new vocab version (`generated_at`) and `vocab_status: partial`; `operation_ids` remain null until real vocab extraction is implemented.
+
+7. **Alignment refreshed with real vocab + filters (2025-12-03)**
+   - Updated `update_alignment.py` to ingest `filters.json` alongside `ops.json` and to copy per-profile filters from the op-table-operation summaries.
+   - Regenerated `out/op_table_vocab_alignment.json`; records now include `filters` and `filter_ids`, and `operation_ids` are populated from the harvested vocab.

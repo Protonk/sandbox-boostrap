@@ -20,3 +20,7 @@ Use this file for dated, concise notes on progress, issues, and commands used. K
 - The count (196) comes from the span between `_operation_names` and `_operation_info`; earlier 167-op counts were heuristic/decoder artifacts.
 - Spot-check: treating op_table length as 196 for compiled SBPLs (e.g., `v1_read`, `v3_mach`) yields sensible nonzero entries at expected IDs (file-read* → index 21, mach-lookup → index 96), confirming the 196-entry vocabulary aligns with compiled blobs.
 - Added `harvest_filters.py` to parse `_filter_info` and recover the Filter Vocabulary (masked pointers → `__TEXT.__cstring`). Harvest output: `out/filter_names.json` with 93 entries, first `path`, last `kas-info-selector`. Updated `validation/out/vocab/filters.json` to `status: ok` with these IDs.
+
+## 2025-12-04
+
+- Added `check_vocab.py`, a lightweight guardrail that asserts `ops.json`/`filters.json` are `status: ok` with counts ops=196, filters=93. Intended to catch regressions if vocab artifacts drift.

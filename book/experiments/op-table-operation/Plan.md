@@ -34,6 +34,7 @@ Deliverables:
   - [x] Compare single-op vs paired-op profiles to see which `op_entries` value changes or appears.
   - [x] If op-table entries are uniform, record that and fall back to node/tag deltas for hints.
   - [x] Emit `out/op_table_map.json` keyed by profile → op_entries, plus inferred op→index notes.
+  - [x] Record filters present per profile (via vocab) to enable filter-aware alignment downstream.
 
 ---
 

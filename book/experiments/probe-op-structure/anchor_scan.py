@@ -122,6 +122,7 @@ def summarize(profile_path: Path, anchors: List[str], filter_names: Dict[int, st
         anchor_hits.append(
             {
                 "anchor": anchor,
+                "offsets": offsets_lit,
                 "literal_offsets": offsets_lit,
                 "literal_string_index": string_index,
                 "node_indices": node_idxs,

@@ -89,10 +89,9 @@ This experiment assumes the existence of two vocabulary artifacts under `book/gr
      - `arg_schema` / `notes` (optional),
      - `provenance`.
 
-At the time of writing:
+Current status (Sonoma host):
 
-- Placeholders for these files exist with `status: "unavailable"` and empty `entries`.
-- The real vocabulary extraction pipeline has not yet been implemented; this experiment therefore uses placeholders and records that limitation explicitly.
+- `ops.json` and `filters.json` are harvested from the dyld cache (`status: ok`, 196 ops, 93 filters) with OS/build metadata and provenance in place.
 
 ---
 
@@ -108,7 +107,7 @@ Its role is to capture, for each synthetic profile in `op-table-operation`, the 
 
 - Top-level keys:
   - `vocab_present`: whether any `out/vocab/ops.json` was found at alignment time.
-  - `vocab_version`: a timestamp or version string for the vocab file used (placeholder for now).
+  - `vocab_version`: a timestamp or version string for the vocab file used.
   - `source_summary`: path to the op-table-operation `out/summary.json` used as input.
   - `records`: list of per-profile alignment records.
 
@@ -118,19 +117,15 @@ Its role is to capture, for each synthetic profile in `op-table-operation`, the 
 - `ops`: list of SBPL operation symbols in this profile (e.g., `["file-read*"]`).
 - `op_entries`: the op-table entries (bucket values) from `out/summary.json`.
 - `op_count`: the `operation_count` (heuristic) from header/decoder.
-- `operation_ids`: list of numeric Operation IDs corresponding to `ops`; `null` until vocab is available.
-- `vocab_version`: the specific vocabulary version/hash used for this record; `null` until vocab is available.
+- `operation_ids`: list of numeric Operation IDs corresponding to `ops`.
+- `filters` / `filter_ids`: filter symbols present in the SBPL and their vocab IDs.
+- `vocab_version`: the specific vocabulary version/hash used for this record.
 
 **Current status:**
 
-- The alignment file exists and includes all profiles from `op-table-operation/out/summary.json`.
-- A partial vocab scaffold now exists via `book/graph/concepts/validation/vocab_extraction.py`, which:
-  - runs the decoder over canonical blobs (`examples/extract_sbs/build/profiles/*.sb.bin`, `examples/sb/build/sample.sb.bin`),
-  - records `op_count`, `op_table_offset`, and raw op_table entries per source,
-  - emits `ops.json` / `filters.json` with `status: "partial"` and empty `entries` (no name↔ID mapping yet).
-- `out/op_table_vocab_alignment.json` has been refreshed to record the new vocab `generated_at` and `vocab_status: partial`; per-profile `operation_ids` remain `null` until real vocab extraction lands.
-
-This file is deliberately conservative: it records everything we can know today (SBPL operations, op-table buckets, operation_count, host baseline), but it refuses to invent IDs in the absence of a proper vocabulary map.
+- The alignment file covers all profiles from `op-table-operation/out/summary.json`, now with `operation_ids`, `filters`, and `filter_ids` populated from the harvested vocab.
+- `vocab_version` reflects the `generated_at` stamp in `ops.json`; `vocab_status: ok` and `filter_vocab_present: true` are recorded at the top level.
+- The file stays conservative: it captures SBPL ops/filters, op-table buckets, op_count, host baseline, and vocab provenance without inventing mappings beyond the vocab artifacts.
 
 ---
 
@@ -150,8 +145,7 @@ With the Sonoma vocab harvested (`ops.json`/`filters.json` status: ok), we can n
   - Unfiltered mixes (`v5_read_write`, `v7_read_network`) keep bucket 3 for file/net ops.
   - Mach-inclusive mixes (`v6_read_mach`, `v8_write_mach`, `v10_mach_network`) show buckets {3,5} depending on op: mach stays 5; file/net stay 3.
   - Filtered read variants (subpath/literal) elevate file-read* to bucket 5 in these synthetic profiles, indicating filter-driven bucket changes.
-
-Filter IDs are now available (93 entries, `filters.json` status: ok) but not yet threaded into these alignment records; filter/bucket correlations remain to be annotated.
+- Filter IDs are available and recorded per profile; correlating bucket shifts with specific filter IDs remains open analysis work.
 
 ---
 
@@ -166,14 +160,7 @@ This experiment can now close the Operation-ID alignment; the remaining work is 
 2. **Maintenance**
    - Keep `op_table_vocab_alignment.json` in sync with future vocab versions (regenerate if `ops.json` changes).
    - If additional operations/filters are exercised in new SBPL variants, extend the alignment records accordingly.
-
-   - Update `op-table-vocab-alignment` tooling to:
-     - load `ops.json`,
-     - map SBPL operation names from each profile to numeric IDs,
-     - fill `operation_ids` for each record in `out/op_table_vocab_alignment.json`,
-     - store the vocab hash/version in both the top-level `vocab_version` and per-record `vocab_version`.
-   - Optionally:
-     - annotate records with filter IDs (e.g., which Filter IDs are present in each profile) using `filters.json` and node-layout’s field observations.
+   - Tooling already loads `ops.json`/`filters.json` and fills operation_ids/filter_ids; keep the vocab hash/version current when regenerating.
 
 3. **Sanity-check buckets vs IDs**
 
@@ -215,22 +202,12 @@ If you pick up this experiment, the recommended workflow is:
 2. **Confirm current alignment state**
    - Inspect `book/experiments/op-table-vocab-alignment/out/op_table_vocab_alignment.json` to see:
      - which profiles are covered,
-     - which fields are populated,
-     - whether `operation_ids` is still null (expected until vocab exists).
-   - Verify that placeholder `ops.json` / `filters.json` still mark `status: "unavailable"`.
+     - which fields are populated (ops, operation_ids, filters, filter_ids).
+   - Verify `ops.json` / `filters.json` status is `ok` (ops=196, filters=93) and note the `generated_at` stamp being used.
 
-3. **Focus on vocabulary extraction before refining alignment**
-   - Avoid adding complexity to alignment logic until real vocab data exists.
-   - Instead, invest effort into:
-     - extracting Operation and Filter vocabulary maps from canonical blobs using the decoder,
-     - wiring that into `validation/tasks.py`.
-
-4. **Re-run alignment and update this report once vocab exists**
-   - Once `ops.json` / `filters.json` are real:
-     - modify the alignment script to fill `operation_ids`,
-     - record the vocab hash/version,
-     - re-run and inspect the alignment file.
-   - Then update this report’s “What remains to be done” section with concrete conclusions (bucket↔ID relationships) and any contradictions surfaced.
+3. **Refine interpretation**
+   - With vocab in place, focus on interpreting bucket↔operation/filter patterns rather than plumbing.
+   - Record any stable bucket assignments in `ResearchReport.md`, scoped to this host/build and vocab version.
 
 5. **Keep changes small and well-documented**
    - When you adjust alignment logic or vocab contracts:

@@ -51,6 +51,7 @@ We intentionally avoid guessing a full Operation Vocabulary Map; that belongs to
 - `analyze.py` – the main tool here:
   - compiles all `sb/*.sb` using `libsandbox.dylib` and `sandbox_compile_string`,
   - parses SBPL to recover the list of allowed operation symbols per profile,
+  - tokenizes SBPL to recover filter symbols and map them to filter vocab IDs,
   - uses `profile_ingestion.parse_header` and `slice_sections` to recover `operation_count` and section boundaries,
   - calls `decoder.decode_profile_dict` to get node counts, tag counts, literal strings, and sections,
   - extracts op-table entries from the blob,

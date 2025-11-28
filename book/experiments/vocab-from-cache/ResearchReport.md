@@ -8,10 +8,10 @@ Extract Operation/Filter vocab tables (name ↔ ID) from the macOS dyld shared c
 
 - Host: macOS 14.4.1 (23E224), kernel 23.4.0, arm64, SIP enabled.
 - Canonical blobs for alignment:
-  - `book/examples/extract_sbs/build/profiles/airlock.sb.bin`
-  - `book/examples/extract_sbs/build/profiles/bsd.sb.bin`
-  - `book/examples/sb/build/sample.sb.bin`
-- Current vocab artifacts (`validation/out/vocab/ops.json` / `filters.json`) are `status: partial` with decoder-derived op_count/op_table metadata only.
+- `book/examples/extract_sbs/build/profiles/airlock.sb.bin`
+- `book/examples/extract_sbs/build/profiles/bsd.sb.bin`
+- `book/examples/sb/build/sample.sb.bin`
+- Current vocab artifacts (`validation/out/vocab/ops.json` / `filters.json`) are `status: ok` (196 ops, 93 filters) harvested from the dyld cache.
 
 ## Plan (summary)
 
@@ -27,3 +27,4 @@ Extract Operation/Filter vocab tables (name ↔ ID) from the macOS dyld shared c
 - Added `harvest_filters.py` to decode `_filter_info` → `__TEXT.__cstring`; harvested 93 ordered filter names (`out/filter_names.json`).
 - `book/graph/concepts/validation/out/vocab/ops.json` is `status: ok` (IDs 0–195); `filters.json` now `status: ok` (IDs 0–92) from the cache harvest.
 - Regenerated `book/experiments/op-table-operation/out/*` with the vocab length override (196 ops) and refreshed `op-table-vocab-alignment` to fill `operation_ids` per profile; op_table entries now cover the full vocabulary. (Filters not yet propagated into downstream experiments.)
+- Added `check_vocab.py`, a guardrail script that asserts vocab status is `ok` and counts are ops=196, filters=93 for this host.

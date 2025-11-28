@@ -15,7 +15,7 @@ This experiment is a bridge between the existing `node-layout` and `op-table-ope
   - [x] `book/experiments/op-table-operation/out/op_table_map.json`
 - [x] Locate vocabulary-mapping tasks and outputs:
   - [x] `book/graph/concepts/validation/tasks.py` (vocabulary cluster).
-  - [x] Any existing `out/vocab/ops.json` / `filters.json` for this host (if present) — none found initially; placeholder “unavailable” artifacts created in `validation/out/vocab/` pending real extraction.
+  - [x] Any existing `out/vocab/ops.json` / `filters.json` for this host (if present) — now harvested (`status: ok`, ops=196, filters=93).
 
 Deliverables for this phase:
 - Clear note in `ResearchReport.md` describing the host baseline and which vocab artifacts (if any) are already available.
@@ -49,6 +49,7 @@ Deliverables for this phase:
     - Observed op-table indices (4,5,6, …).
   - [x] Emit a JSON artifact (e.g., `out/op_table_vocab_alignment.json`) capturing this mapping (with Operation IDs placeholders until vocab exists).
 - [x] Summarize the alignment method and current status in `ResearchReport.md`.
+- [x] Refresh alignment once vocab exists; include filter IDs alongside operation IDs.
 
 Deliverables for this phase:
 - Alignment JSON artifact (even if operation IDs are still placeholders).
@@ -59,7 +60,7 @@ Deliverables for this phase:
 
 ## 4. Interpretation and limits
 
-- [ ] Once a vocabulary file exists, perform a cautious interpretation:
+- [ ] With vocab in place, perform a cautious interpretation:
   - [ ] For each bucket (4,5,6, …), list which Operation IDs appear across profiles.
   - [ ] Highlight stable patterns (e.g., “bucket 5 always includes mach-lookup’s ID on this host”).
 - [ ] Explicitly document:

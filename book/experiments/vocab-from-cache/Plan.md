@@ -52,8 +52,9 @@ Deliverables:
 
 ## 5) Alignment and propagation
 
-- [ ] Rerun `op-table-vocab-alignment` to fill `operation_ids` and `vocab_version`.
+- [x] Rerun `op-table-vocab-alignment` to fill `operation_ids` and `vocab_version`.
 - [ ] Note bucket↔ID relationships in `ResearchReport.md` here and in op-table-operation/op-table-vocab-alignment reports.
+- [x] Add a lightweight sanity check to assert vocab status/counts.
 
 Deliverables:
 - Updated alignment file with IDs and vocab hash/version.

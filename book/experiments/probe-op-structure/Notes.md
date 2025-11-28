@@ -55,3 +55,7 @@ Use this file for dated, concise notes on probe designs, compile logs, and findi
   - Cross-check anchor hits against system profiles; note mismatches.
   - Persist all intermediate JSON (segment offsets, slices, anchor hits, field2 findings) and dated notes; keep mappings versioned to host/build.
   - Once mappings emerge, produce a small artifact (filter ID/name ↔ observed field2 with provenance) and a guardrail checker that asserts expected `field2` for given anchors.
+
+## 2025-12-04
+
+- Updated `anchor_scan.py` to include an `offsets` field (alias of `literal_offsets`) in each anchor entry to satisfy anchor output tests. Regenerated `out/anchor_hits.json`.

@@ -70,6 +70,24 @@ def parse_ops(src: Path) -> List[str]:
     return ops
 
 
+def parse_filters(src: Path, filter_names: set[str]) -> List[str]:
+    """
+    Extract filter symbols present in SBPL by tokenizing paren-delimited atoms
+    and intersecting with the known filter vocabulary. This is deliberately
+    simple; it is sufficient for the small synthetic variants in this experiment.
+    """
+    tokens = set()
+    token_re = re.compile(r"\(([\w*-]+)")
+    skip = {"allow", "deny", "version", "default", "param", "require-any", "require-all", "require-not"}
+    for line in src.read_text().splitlines():
+        for token in token_re.findall(line):
+            if token in skip:
+                continue
+            if token in filter_names:
+                tokens.add(token)
+    return sorted(tokens)
+
+
 def op_entries(blob: bytes, op_count: int) -> List[int]:
     ops = blob[16 : 16 + op_count * 2]
     return [int.from_bytes(ops[i : i + 2], "little") for i in range(0, len(ops), 2)]
@@ -146,8 +164,14 @@ def entry_signature(decoded: Dict[str, Any], entry: int, max_visits: int = 256) 
     }
 
 
-def summarize_variant(src: Path, blob: bytes, op_count_override: int | None = None) -> Dict[str, Any]:
+def summarize_variant(
+    src: Path,
+    blob: bytes,
+    op_count_override: int | None = None,
+    filter_map: Dict[str, int] | None = None,
+) -> Dict[str, Any]:
     ops = parse_ops(src)
+    filters = parse_filters(src, set(filter_map.keys()) if filter_map else set())
     header = pi.parse_header(pi.ProfileBlob(bytes=blob, source=src.stem))
     if op_count_override:
         header.operation_count = op_count_override
@@ -161,6 +185,8 @@ def summarize_variant(src: Path, blob: bytes, op_count_override: int | None = No
     summary = {
         "name": src.stem,
         "ops": ops,
+        "filters": filters,
+        "filter_ids": [filter_map.get(f) for f in filters] if filter_map else [],
         "length": len(blob),
         "format_variant": header.format_variant,
         "op_count": op_count,
@@ -212,18 +238,33 @@ def main() -> None:
     out_dir.mkdir(exist_ok=True)
 
     vocab_path = Path("book/graph/concepts/validation/out/vocab/ops.json")
+    filter_vocab_path = Path("book/graph/concepts/validation/out/vocab/filters.json")
     vocab_len = None
+    filter_map: Dict[str, int] = {}
     if vocab_path.exists():
         try:
             vocab = json.loads(vocab_path.read_text())
             vocab_len = len(vocab.get("ops") or [])
         except Exception:
             vocab_len = None
+    if filter_vocab_path.exists():
+        try:
+            filter_vocab = json.loads(filter_vocab_path.read_text())
+            filter_map = {entry["name"]: entry["id"] for entry in filter_vocab.get("filters") or []}
+        except Exception:
+            filter_map = {}
 
     summaries: List[Dict[str, Any]] = []
     for sb in sorted(sb_dir.glob("*.sb")):
         blob = compile_sbpl(sb, build_dir / f"{sb.stem}.sb.bin")
-        summaries.append(summarize_variant(sb, blob, op_count_override=vocab_len))
+        summaries.append(
+            summarize_variant(
+                sb,
+                blob,
+                op_count_override=vocab_len,
+                filter_map=filter_map,
+            )
+        )
 
     summary_path = out_dir / "summary.json"
     summary_path.write_text(json.dumps(summaries, indent=2, sort_keys=True))
