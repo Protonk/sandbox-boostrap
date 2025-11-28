@@ -143,3 +143,22 @@ Immediate next step (tracked in the vocab-from-cache experiment, not here) is to
 
 - Parse `libsandbox.1.dylib` to recover the ordered Operation name block (~190 operation-like strings from `appleevent-send` through `default-message-filter`).
 - Align that block with the decoder’s `op_count=167` from canonical blobs so we can assign stable Operation IDs and emit real `ops.json` / `filters.json` for this host.
+
+
+## Lessons
+
+For textbook readers, the interesting part of this episode is not the Swift shim itself but what it reveals about how sandbox vocabulary actually lives on a modern macOS system and why our `ops.json` / `filters.json` are trustworthy.
+1. **The sandbox vocabulary really lives in the dyld cache now.**
+   On recent macOS (Ventura/Sonoma, Apple Silicon), the canonical copies of `libsandbox`/`Sandbox.framework` may not appear as ordinary files at the paths older tools and blog posts expect. Instead, the “real” binaries live inside the dyld shared cache under the Cryptex Preboot volume. That means any serious attempt to enumerate operations and filters has to be prepared to go through the cache, not just walk `/System/Library`.
+
+2. **Apple removed the obvious tooling, but left a supported path.**
+   Older workflows used a `dyld_shared_cache_util` CLI to explode the cache. Current macOS does not ship that tool, but the underlying extraction mechanism (`dsc_extractor.bundle` and its `dyld_shared_cache_extract_dylibs_progress` entry point) is still present in the OS. The experiment shows how a small wrapper (here, a Swift program) can call that API to reconstruct real `libsandbox` / `libsystem_sandbox` dylibs on disk.
+
+3. **`ops.json` / `filters.json` are grounded in these binaries, not guesswork.**
+   The immediate outcome of the experiment is that our operation and filter vocabularies are derived directly from `libsandbox.1.dylib` and related images extracted from the dyld cache on a specific Sonoma host. That matters pedagogically: when you see an operation name or ID in this book, you are looking at something recovered from Apple’s own binaries, not a reverse-engineered naming scheme or a blog’s partial list.
+
+4. **Versioning and high-churn surfaces in action.**
+   This episode is a concrete instance of the “high-churn surface” invariant. The cache layout, presence/absence of `dyld_shared_cache_util`, and exact vocab tables are all version-specific. The experiment documents how we tied a particular `ops.json` to a particular OS configuration (Sonoma, arm64e, specific dyld cache), rather than pretending there is a single timeless operation map.
+
+5. **A reusable pattern for future readers and tools.**
+   Finally, this is a template: if you want to repeat or extend the analysis on a different macOS version, the steps are clear and reproducible—locate the dyld cache, use `dsc_extractor.bundle` (or equivalent) to extract `libsandbox`/`libsystem_sandbox`, then parse the resulting binaries for vocab tables. The experiment in the repo is the worked example that demonstrates this pipeline end-to-end.
