@@ -34,6 +34,7 @@ High-level map of the root and `book/`:
   - `chapters/` – per-chapter text and plans (e.g., TextEdit case study).
   - `profiles/` – SBPL/profile sources used in the book.
   - `examples/` – runnable labs and probes (each subdirectory is a unit example).
+  - `experiments/` – Cross cutting experiments to test concept mapping to modern macOS.
   - `graph/` – Swift-based contracts and JSON artifacts:
     - `graph/Package.swift`, `graph/Sources/` – BookGraph types and generator CLI.
     - `graph/concepts/` – concept inventory, validation docs, and generated concept JSON.
