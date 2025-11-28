@@ -1,0 +1,8 @@
+(version 1)
+(deny default)
+(allow file-read*
+  (require-all
+    (subpath "/tmp/foo")
+    (literal "/etc/hosts")))
+(allow mach-lookup
+  (global-name "com.apple.cfprefsd.agent"))

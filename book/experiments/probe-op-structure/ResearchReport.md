@@ -24,6 +24,16 @@ Design richer SBPL probes that vary operations, filters, and metafilters to expo
 ## Current status
 
 - Experiment scaffold created (`Plan.md`, `Notes.md`, this report). Probe matrix and SBPL implementations are pending.
+- Initial probes implemented and compiled:
+  - File-focused: require-all/any mixes of `subpath`/`literal`/`vnode-type` (`v0`–`v2`).
+  - Single-op non-file: mach with global/local (`v3`), network with socket-domain/type/protocol (`v4`), iokit with registry-entry-class + property (`v5`).
+  - Mixed: file+mach (`v6`), file+network (`v7`), all ops combined (`v8`).
+- Early decoding results (decoder, padded to vocab length) show `field2` still dominated by generic low IDs:
+  - `global-name` (5), `local-name` (6), `ipc-posix-name` (4), `file-mode` (3), `remote` (8) appear across many probes regardless of intended filter.
+  - Network probe surfaces `remote` (8); mach/global/local variants surface {5,6}; file-only variants surface {3,4} or {5,6}.
+  - Decoder heuristic failed on `v8_all_combo` (node_count 0), likely due to literal-start detection; richer slicing may be needed if we pursue that profile.
+
+Interim takeaway: even with richer structures, short op-tables and generic path/name scaffolding still mask filter-specific `field2` signals. Additional slicing or targeted traversal (e.g., anchoring on literals) may be required to isolate specific filters.
 
 ## Expected outcomes
 

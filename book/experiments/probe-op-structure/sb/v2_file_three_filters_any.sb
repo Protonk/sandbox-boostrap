@@ -1,0 +1,7 @@
+(version 1)
+(deny default)
+(allow file-read*
+  (require-any
+    (subpath "/tmp/foo")
+    (subpath "/var/log")
+    (literal "/etc/hosts")))

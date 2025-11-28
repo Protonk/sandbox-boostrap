@@ -1,0 +1,6 @@
+(version 1)
+(deny default)
+(allow iokit-open*
+  (require-all
+    (iokit-registry-entry-class "IOUSBHostInterface")
+    (iokit-property "idVendor")))

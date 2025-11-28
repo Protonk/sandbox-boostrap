@@ -1,0 +1,365 @@
+[
+  {
+    "profile": "v0_file_require_all",
+    "ops": [
+      "file-read*"
+    ],
+    "op_count_decoded": 5,
+    "node_count": 32,
+    "op_entries_first10": [
+      4,
+      4,
+      4,
+      4,
+      4,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "per_op": [
+      {
+        "op": "file-read*",
+        "opid": 21,
+        "bucket": 0,
+        "field2_values": [
+          3,
+          4
+        ],
+        "field2_names": [
+          "file-mode",
+          "ipc-posix-name"
+        ],
+        "visited": 3
+      }
+    ]
+  },
+  {
+    "profile": "v1_file_require_any",
+    "ops": [
+      "file-read*"
+    ],
+    "op_count_decoded": 7,
+    "node_count": 31,
+    "op_entries_first10": [
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      5,
+      0,
+      0,
+      0
+    ],
+    "per_op": [
+      {
+        "op": "file-read*",
+        "opid": 21,
+        "bucket": 0,
+        "field2_values": [
+          5,
+          6
+        ],
+        "field2_names": [
+          "global-name",
+          "local-name"
+        ],
+        "visited": 3
+      }
+    ]
+  },
+  {
+    "profile": "v2_file_three_filters_any",
+    "ops": [
+      "file-read*"
+    ],
+    "op_count_decoded": 6,
+    "node_count": 30,
+    "op_entries_first10": [
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      0,
+      0,
+      0,
+      0
+    ],
+    "per_op": [
+      {
+        "op": "file-read*",
+        "opid": 21,
+        "bucket": 0,
+        "field2_values": [
+          5
+        ],
+        "field2_names": [
+          "global-name"
+        ],
+        "visited": 3
+      }
+    ]
+  },
+  {
+    "profile": "v3_mach_global_local",
+    "ops": [
+      "mach-lookup"
+    ],
+    "op_count_decoded": 7,
+    "node_count": 31,
+    "op_entries_first10": [
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      5,
+      0,
+      0,
+      0
+    ],
+    "per_op": [
+      {
+        "op": "mach-lookup",
+        "opid": 96,
+        "bucket": 0,
+        "field2_values": [
+          5,
+          6
+        ],
+        "field2_names": [
+          "global-name",
+          "local-name"
+        ],
+        "visited": 3
+      }
+    ]
+  },
+  {
+    "profile": "v4_network_socket_require_all",
+    "ops": [
+      "network-outbound"
+    ],
+    "op_count_decoded": 9,
+    "node_count": 32,
+    "op_entries_first10": [
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      7,
+      8,
+      7,
+      0
+    ],
+    "per_op": [
+      {
+        "op": "network-outbound",
+        "opid": 112,
+        "bucket": 0,
+        "field2_values": [
+          8
+        ],
+        "field2_names": [
+          "remote"
+        ],
+        "visited": 3
+      }
+    ]
+  },
+  {
+    "profile": "v5_iokit_class_property",
+    "ops": [
+      "iokit-open*"
+    ],
+    "op_count_decoded": 7,
+    "node_count": 31,
+    "op_entries_first10": [
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      5,
+      0,
+      0,
+      0
+    ],
+    "per_op": [
+      {
+        "op": "iokit-open*",
+        "opid": 62,
+        "bucket": 0,
+        "field2_values": [
+          5,
+          6
+        ],
+        "field2_names": [
+          "global-name",
+          "local-name"
+        ],
+        "visited": 3
+      }
+    ]
+  },
+  {
+    "profile": "v6_file_mach_combo",
+    "ops": [
+      "file-read*",
+      "mach-lookup"
+    ],
+    "op_count_decoded": 6,
+    "node_count": 30,
+    "op_entries_first10": [
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      0,
+      0,
+      0,
+      0
+    ],
+    "per_op": [
+      {
+        "op": "mach-lookup",
+        "opid": 96,
+        "bucket": 0,
+        "field2_values": [
+          5
+        ],
+        "field2_names": [
+          "global-name"
+        ],
+        "visited": 3
+      },
+      {
+        "op": "file-read*",
+        "opid": 21,
+        "bucket": 0,
+        "field2_values": [
+          5
+        ],
+        "field2_names": [
+          "global-name"
+        ],
+        "visited": 3
+      }
+    ]
+  },
+  {
+    "profile": "v7_file_network_combo",
+    "ops": [
+      "file-read*",
+      "network-outbound"
+    ],
+    "op_count_decoded": 9,
+    "node_count": 32,
+    "op_entries_first10": [
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      7,
+      8,
+      7,
+      0
+    ],
+    "per_op": [
+      {
+        "op": "file-read*",
+        "opid": 21,
+        "bucket": 0,
+        "field2_values": [
+          8
+        ],
+        "field2_names": [
+          "remote"
+        ],
+        "visited": 3
+      },
+      {
+        "op": "network-outbound",
+        "opid": 112,
+        "bucket": 0,
+        "field2_values": [
+          8
+        ],
+        "field2_names": [
+          "remote"
+        ],
+        "visited": 3
+      }
+    ]
+  },
+  {
+    "profile": "v8_all_combo",
+    "ops": [
+      "file-read*",
+      "mach-lookup",
+      "network-outbound",
+      "iokit-open*"
+    ],
+    "op_count_decoded": 13,
+    "node_count": 0,
+    "op_entries_first10": [
+      12,
+      12,
+      12,
+      12,
+      12,
+      12,
+      11,
+      12,
+      11,
+      12
+    ],
+    "per_op": [
+      {
+        "op": "mach-lookup",
+        "opid": 96,
+        "bucket": 0,
+        "field2_values": [],
+        "field2_names": [],
+        "visited": 0
+      },
+      {
+        "op": "file-read*",
+        "opid": 21,
+        "bucket": 0,
+        "field2_values": [],
+        "field2_names": [],
+        "visited": 0
+      },
+      {
+        "op": "iokit-open*",
+        "opid": 62,
+        "bucket": 0,
+        "field2_values": [],
+        "field2_names": [],
+        "visited": 0
+      },
+      {
+        "op": "network-outbound",
+        "opid": 112,
+        "bucket": 0,
+        "field2_values": [],
+        "field2_names": [],
+        "visited": 0
+      }
+    ]
+  }
+]
