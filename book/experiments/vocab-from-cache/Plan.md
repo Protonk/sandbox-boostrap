@@ -6,9 +6,9 @@ Goal: extract Operation/Filter vocab tables (name ↔ ID) from the macOS dyld sh
 
 ## 1) Setup and scope
 
-- [ ] Record host baseline (OS/build, kernel, SIP) in `ResearchReport.md`.
-- [ ] Inventory canonical blobs for alignment: `examples/extract_sbs/build/profiles/*.sb.bin`, `examples/sb/build/sample.sb.bin` (decoder op_count ~167).
-- [ ] Confirm existing partial vocab artifacts (`validation/out/vocab/ops.json`, `filters.json`) and metadata (`validation/out/metadata.json`).
+- [x] Record host baseline (OS/build, kernel, SIP) in `ResearchReport.md`.
+- [x] Inventory canonical blobs for alignment: `examples/extract_sbs/build/profiles/*.sb.bin`, `examples/sb/build/sample.sb.bin` (decoder op_count ~167).
+- [x] Confirm existing partial vocab artifacts (`validation/out/vocab/ops.json`, `filters.json`) and metadata (`validation/out/metadata.json`).
 
 Deliverables:
 - `Plan.md`, `Notes.md`, `ResearchReport.md` in this directory.
@@ -16,22 +16,22 @@ Deliverables:
 
 ## 2) Cache extraction
 
-- [ ] Locate the dyld shared cache (`/System/Library/dyld/dyld_shared_cache_*`).
-- [ ] Use `dyld_shared_cache_util` (or equivalent) to extract Sandbox-related slices:
+- [x] Locate the dyld shared cache (`/System/Library/dyld/dyld_shared_cache_*`).
+- [x] Use `dyld_shared_cache_util` (or equivalent) to extract Sandbox-related slices:
   - Sandbox.framework
   - libsandbox.dylib (if present)
-- [ ] Store extracted binaries under `book/experiments/vocab-from-cache/extracted/` with provenance notes (cache path, command used).
+- [x] Store extracted binaries under `book/experiments/vocab-from-cache/extracted/` with provenance notes (cache path, command used).
 
 Deliverables:
 - Extracted binaries and a short note in `Notes.md` describing commands used and any issues.
 
 ## 3) Name harvesting
 
-- [ ] Write a small parser (Python) to scan extracted binaries for operation/filter name tables:
+- [x] Write a small parser (Python) to scan extracted binaries for operation/filter name tables:
   - Search for known operation strings (`file-read*`, `mach-lookup`, `network-outbound`) to anchor tables.
   - If symbol-linked arrays exist, preserve ordering; otherwise, infer ordering via contiguous strings/offsets.
-- [ ] Count recovered names; compare to decoder `op_count` from canonical blobs (target ~167 on this host).
-- [ ] If filter names are discoverable, repeat for filter tables.
+- [x] Count recovered names; compare to decoder `op_count` from canonical blobs (target ~167 on this host).
+- [x] If filter names are discoverable, repeat for filter tables.
 
 Deliverables:
 - `harvest.py` (or similar) that emits candidate name lists with offsets/order.
@@ -39,10 +39,10 @@ Deliverables:
 
 ## 4) ID alignment
 
-- [ ] Align harvested names with decoder op_table/op_count:
+- [x] Align harvested names with decoder op_table/op_count:
   - Ensure name count matches `op_count`.
   - Spot-check by compiling single-op SBPL (from op-table-operation) and verifying op_table index matches inferred ID.
-- [ ] Emit `validation/out/vocab/ops.json` / `filters.json` with:
+- [x] Emit `validation/out/vocab/ops.json` / `filters.json` with:
   - `status: ok` (or `partial` if only names),
   - metadata (host, build, format_variant, sources, content hash),
   - entries `{name, id, provenance}`.

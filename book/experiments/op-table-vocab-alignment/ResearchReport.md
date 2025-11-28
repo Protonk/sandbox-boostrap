@@ -134,69 +134,38 @@ This file is deliberately conservative: it records everything we can know today 
 
 ---
 
-## 5. What has been learned so far
+## 5. Updated findings (with vocab present)
 
-Even without real vocabulary files, this experiment has clarified several structural and process-level points:
+With the Sonoma vocab harvested (`ops.json`/`filters.json` status: ok), we can now anchor bucket patterns to concrete Operation IDs:
 
-1. **Alignment can be host-specific and versioned**
-   - We can anchor alignment records to:
-     - a specific `out/summary.json` from `op-table-operation`,
-     - static host metadata (`metadata.json`),
-     - future vocabulary versions via hashes.
-   - This keeps the alignment consistent with the substrate requirement that claims about high-churn surfaces (Operation/Filter catalogues) must be versioned and tied to evidence.
+- Operation IDs (selected):
+  - `file-read*` → 21, `file-write*` → 29, `mach-lookup` → 96, `network-outbound` → 112.
+- Single-op profiles (op_table length 196):
+  - `v1_read` (file-read*) uses bucket 3 at index 21.
+  - `v2_write` (file-write*) uses bucket 3 at index 29.
+  - `v3_mach` (mach-lookup) uses bucket 5 at index 96.
+  - `v4_network` (network-outbound) uses bucket 3 at index 112.
+  - `v0_empty` remains uniform bucket 4.
+- Mixed profiles:
+  - Unfiltered mixes (`v5_read_write`, `v7_read_network`) keep bucket 3 for file/net ops.
+  - Mach-inclusive mixes (`v6_read_mach`, `v8_write_mach`, `v10_mach_network`) show buckets {3,5} depending on op: mach stays 5; file/net stay 3.
+  - Filtered read variants (subpath/literal) elevate file-read* to bucket 5 in these synthetic profiles, indicating filter-driven bucket changes.
 
-2. **Bucket-level behavior can be cleanly captured without IDs**
-   - By recording, per profile:
-     - SBPL operations,
-     - `op_entries` (buckets),
-     - `operation_count`,
-   - we already have enough structure to:
-     - see that `mach-lookup` and filtered reads share bucket 5 in many profiles,
-     - see that complex mixes (mach + filtered read) introduce bucket 6 alongside 5,
-     - relate these patterns back to the node-layout and op-table-operation findings.
-
-3. **Vocabulary extraction should consume decoder output**
-   - From the attempts and notes so far, it’s clear that:
-     - reading only static metadata or preamble words is not enough to recover vocabulary tables,
-     - real vocab extraction will need to run canonical blobs through the modern decoder (`decoder.decode_profile_dict`),
-     - and then combine the decoded op-table / node structure with SBPL or profile metadata (from static-format tasks).
-   - This experiment has recorded those expectations so that vocabulary work can target a stable contract.
-
-4. **Placeholders are better than guesses**
-   - The presence of explicit placeholder vocab files and null `operation_ids` prevents downstream code from silently assuming that a mapping exists.
-   - This is important for keeping the capability catalog concept honest: we cannot claim Operation IDs until we have actual evidence.
+Filter IDs are now available (93 entries, `filters.json` status: ok) but not yet threaded into these alignment records; filter/bucket correlations remain to be annotated.
 
 ---
 
 ## 6. What remains to be done
 
-This experiment is mostly infrastructure; the substantive work lies in building the vocabulary pipeline and then re-running alignment. Major open tasks:
+This experiment can now close the Operation-ID alignment; the remaining work is filter-aware annotation and cross-linking:
 
-1. **Implement vocabulary extraction**
+1. **Filter-level alignment (new)**
+   - Correlate bucket changes and decoder `field2` values with filter IDs from `filters.json` (e.g., `subpath`, `literal`) using the filtered variants.
+   - Record any stable field2 ↔ filter-ID patterns in this report and in node-layout notes.
 
-   This will likely live under `book/graph/concepts/validation/tasks.py` (or a sibling module) and should:
-
-   - Identify a canonical set of blobs for this host:
-     - system profiles produced by `book/examples/extract_sbs/run-demo.sh`,
-     - possibly additional curated blobs from `validation/out/static/`.
-   - For each blob:
-     - run `decoder.decode_profile_dict`,
-     - inspect op-table and node structure,
-     - tie decoded Operation IDs back to known SBPL operations via static-format tasks and/or embedded metadata.
-   - Aggregate across blobs to produce:
-     - `out/vocab/ops.json`,
-     - `out/vocab/filters.json`,
-     - each with proper `metadata`, `versioning`, and `entries`, as described above.
-
-   This work must respect the substrate:
-
-   - avoid overfitting to any single profile,
-   - clearly separate facts (pattern that holds across canonical blobs) from hypotheses,
-   - keep OS/build/versioning explicit.
-
-2. **Re-run alignment with real vocab files**
-
-   Once `ops.json` and `filters.json` are populated:
+2. **Maintenance**
+   - Keep `op_table_vocab_alignment.json` in sync with future vocab versions (regenerate if `ops.json` changes).
+   - If additional operations/filters are exercised in new SBPL variants, extend the alignment records accordingly.
 
    - Update `op-table-vocab-alignment` tooling to:
      - load `ops.json`,

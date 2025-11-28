@@ -146,9 +146,11 @@ def entry_signature(decoded: Dict[str, Any], entry: int, max_visits: int = 256) 
     }
 
 
-def summarize_variant(src: Path, blob: bytes) -> Dict[str, Any]:
+def summarize_variant(src: Path, blob: bytes, op_count_override: int | None = None) -> Dict[str, Any]:
     ops = parse_ops(src)
     header = pi.parse_header(pi.ProfileBlob(bytes=blob, source=src.stem))
+    if op_count_override:
+        header.operation_count = op_count_override
     sections = pi.slice_sections(pi.ProfileBlob(bytes=blob, source=src.stem), header)
     op_count = header.operation_count or 0
     entries = op_entries(blob, op_count)
@@ -162,6 +164,7 @@ def summarize_variant(src: Path, blob: bytes) -> Dict[str, Any]:
         "length": len(blob),
         "format_variant": header.format_variant,
         "op_count": op_count,
+        "op_count_source": "override" if op_count_override else "header",
         "op_entries": entries,
         "section_lengths": {
             "op_table": len(sections.op_table),
@@ -208,10 +211,19 @@ def main() -> None:
     out_dir = root / "out"
     out_dir.mkdir(exist_ok=True)
 
+    vocab_path = Path("book/graph/concepts/validation/out/vocab/ops.json")
+    vocab_len = None
+    if vocab_path.exists():
+        try:
+            vocab = json.loads(vocab_path.read_text())
+            vocab_len = len(vocab.get("ops") or [])
+        except Exception:
+            vocab_len = None
+
     summaries: List[Dict[str, Any]] = []
     for sb in sorted(sb_dir.glob("*.sb")):
         blob = compile_sbpl(sb, build_dir / f"{sb.stem}.sb.bin")
-        summaries.append(summarize_variant(sb, blob))
+        summaries.append(summarize_variant(sb, blob, op_count_override=vocab_len))
 
     summary_path = out_dir / "summary.json"
     summary_path.write_text(json.dumps(summaries, indent=2, sort_keys=True))

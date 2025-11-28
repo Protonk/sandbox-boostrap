@@ -22,7 +22,8 @@ Extract Operation/Filter vocab tables (name ↔ ID) from the macOS dyld shared c
 
 ## Current status
 
-- Experiment initialized; plan and notes created. Extraction/harvesting not yet performed.
-- Dyld shared cache located at `/System/Volumes/Preboot/Cryptexes/OS/System/Library/dyld/dyld_shared_cache_arm64e`; extracted using a Swift shim that calls `/usr/lib/dsc_extractor.bundle` into `book/experiments/vocab-from-cache/extracted/`.
-- Extracted artifacts include `usr/lib/libsandbox.1.dylib`, `usr/lib/system/libsystem_sandbox.dylib`, and `AppSandbox.framework` binary.
-- Initial `strings -t x` on `libsandbox.1.dylib` reveals a contiguous block of ~190 operation-like names from `appleevent-send` through `default-message-filter`; needs alignment to the 167 `op_count` seen in canonical blobs before emitting vocab tables.
+- Dyld shared cache located at `/System/Volumes/Preboot/Cryptexes/OS/System/Library/dyld/dyld_shared_cache_arm64e`; extracted via Swift shim using `/usr/lib/dsc_extractor.bundle` into `book/experiments/vocab-from-cache/extracted/` (Sandbox.framework + libsandbox pulled out).
+- Added `harvest_ops.py` to decode `_operation_names` → `__TEXT.__cstring`; harvested 196 ordered operation names (`out/operation_names.json`), confirming the op_count heuristic (167) was a decoder artifact.
+- Added `harvest_filters.py` to decode `_filter_info` → `__TEXT.__cstring`; harvested 93 ordered filter names (`out/filter_names.json`).
+- `book/graph/concepts/validation/out/vocab/ops.json` is `status: ok` (IDs 0–195); `filters.json` now `status: ok` (IDs 0–92) from the cache harvest.
+- Regenerated `book/experiments/op-table-operation/out/*` with the vocab length override (196 ops) and refreshed `op-table-vocab-alignment` to fill `operation_ids` per profile; op_table entries now cover the full vocabulary. (Filters not yet propagated into downstream experiments.)
