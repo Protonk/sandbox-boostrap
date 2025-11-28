@@ -317,3 +317,32 @@ The final notes for 2025-11-28 push further into mixed-op probes explicitly targ
   - Require-any drops the `field2=0` branch marker once there are ≥3 literals; adding a fourth or reordering literals leaves decoded nodes untouched.
   - Require-all behaves like the baseline field2 set {3,4} regardless of literal count and does not surface literal strings via the decoder (pool still grows). Likely a different combinator path that doesn’t expose branch markers in `field2`.
   - Tail bytes track filter/combinator changes even when decoded nodes stay identical; remainders now cataloged for require-any/all families.
+
+## 2025-12-02 2
+
+- Added more require-any probes to push literal count further:
+  - `v29_five_literals_require_any`: adds `/Applications/Calculator.app`.
+  - `v30_six_literals_require_any`: adds the Calculator literal plus a font path.
+- Analyzer results:
+  - `v29`: op-table `[5,…]`, tag counts {0:1,1:1,4:6,5:22}, field2 {5:20,4:9,3:1}, node_count=30, literals length 157; decoder nodes identical to v25 (four literals).
+  - `v30`: op-table `[5,…]`, tag counts {0:1,1:1,4:6,5:23}, field2 {5:20,4:9,3:1,0:1}, node_count=31; decoder adds one `tag5` node with `field2=0` at offset 360 (same shape as the two-literal require-any branch marker). Six literals reintroduce the branch marker that disappeared at three–five literals.
+- Tail helper (little-endian u16 words) for require-any/all families:
+  - Require-any: v21 (2 literals) rem_hex `000e0100040005` → words [3584, 1, 4, 5]; v24/v25/v26/v29 (3–5 literals) rem_hex `0500050004` → words [5, 5, 4]; v30 (6 literals) rem_hex `000e0100040005` → words [3584, 1, 4, 5].
+  - Require-all: v27/v28 rem_hex `010003` → words [1, 3].
+  - Literal pool lengths scale with literal count (require-any: 72 → 102 → 125 → 157 → 191; require-all fixed at 27).
+- Takeaways:
+  - Require-any combinator toggles between two tail patterns: `[3584,1,4,5]` when there are exactly 2 or ≥6 literals (and emits a `field2=0` node), and `[5,5,4]` for 3–5 literals with no `field2=0`. Ordering does not matter.
+  - Require-all continues to hide literals from the decoder and keeps field2 at {3,4} with a stable tail `[1,3]`, independent of literal count.
+  - Tail words appear to encode combinator shape/branching, not literal text; they flip in lockstep with the presence/absence of the branch marker node.
+
+## 2025-12-02 3
+
+- Pushed require-any to 7 and 8 literals (`v31_seven_literals_require_any`, `v32_eight_literals_require_any`).
+- Decoder results:
+  - `v31`/`v32`: op-table `[5,…]`, tag counts {0:1,1:1,4:6,5:23}, field2 {5:20,4:9,3:1,0:1}, node_count=31; `field2=0` present (single `tag5` node at offset 360); decoder nodes identical to the six-literal case (`v30`).
+  - Literal pools keep growing (len 229 / 281) but do not change decoded nodes.
+- Tail words (u16) across require-any counts:
+  - 2 literals (`v21`): `[3584, 1, 4, 5]` (rem len 7).
+  - 3–5 literals (`v24`/`v25`/`v29`): `[5, 5, 4]` (rem len 5).
+  - 6–8 literals (`v30`/`v31`/`v32`): `[3584, 1, 4, 5]` (rem len 7).
+- Takeaway: require-any shows a bimodal tail/branch pattern—branch marker + `[3584,1,4,5]` for 2 or ≥6 literals; no marker + `[5,5,4]` for 3–5 literals. Ordering stays irrelevant; decoder nodes stabilize per mode.

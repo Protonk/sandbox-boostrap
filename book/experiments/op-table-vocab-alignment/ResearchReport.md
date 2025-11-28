@@ -124,10 +124,11 @@ Its role is to capture, for each synthetic profile in `op-table-operation`, the 
 **Current status:**
 
 - The alignment file exists and includes all profiles from `op-table-operation/out/summary.json`.
-- `vocab_present` is `true` (because placeholder vocab files exist), but:
-  - `vocab_status` inside those files is `"unavailable"`,
-  - `operation_ids` and per-record `vocab_version` remain `null`,
-  - no real Operation IDs have been attached yet.
+- A partial vocab scaffold now exists via `book/graph/concepts/validation/vocab_extraction.py`, which:
+  - runs the decoder over canonical blobs (`examples/extract_sbs/build/profiles/*.sb.bin`, `examples/sb/build/sample.sb.bin`),
+  - records `op_count`, `op_table_offset`, and raw op_table entries per source,
+  - emits `ops.json` / `filters.json` with `status: "partial"` and empty `entries` (no name↔ID mapping yet).
+- `out/op_table_vocab_alignment.json` has been refreshed to record the new vocab `generated_at` and `vocab_status: partial`; per-profile `operation_ids` remain `null` until real vocab extraction lands.
 
 This file is deliberately conservative: it records everything we can know today (SBPL operations, op-table buckets, operation_count, host baseline), but it refuses to invent IDs in the absence of a proper vocabulary map.
 

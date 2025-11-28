@@ -30,3 +30,8 @@
    - Reviewed the new decoder-backed outputs from sibling experiments and updated `Plan.md`/`ResearchReport.md` to spell out how future vocab extraction should consume decoder slices plus static metadata.
    - Kept alignment artifacts unchanged (still placeholders) but clarified that a future vocabulary pipeline should read canonical blobs via `decoder.decode_profile_dict` and attach OS/build hashes to `ops.json`/`filters.json`.
    - No new vocab data yet; alignment remains bucket-only with `operation_ids=null`, but the contract for filling them is now more explicit.
+
+3. **Partial vocab scaffold (Chat agent, 2025-11-28)**
+   - Added `book/graph/concepts/validation/vocab_extraction.py` to collect decoder-derived metadata from canonical blobs and emit partial vocab artifacts even when names/IDs are unavailable.
+   - Ran the script; new `out/vocab/ops.json` / `filters.json` now include host metadata, decoder-derived `op_count`/`op_table` entries for system/sample blobs, and `status: partial` instead of `unavailable`.
+   - Refreshed `out/op_table_vocab_alignment.json` to record the new vocab version (`generated_at`) and `vocab_status: partial`; `operation_ids` remain null until real vocab extraction is implemented.

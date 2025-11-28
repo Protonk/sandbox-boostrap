@@ -169,4 +169,13 @@ Progress update (2025-12-02):
 - [x] **Require-all probes:** Added `v27`/`v28` (two vs four literals). Field2 collapses to {3,4}, op-table `[4,…]`, node_count=32, decoder literals empty; nodes identical across literal counts. Require-all does not expose branch markers or literal strings in the decoder output.
 - [ ] **Tail layout:** Remainder bytes logged for require-any (len5 `0500050004` once ≥3 literals) and require-all (len3 `010003`). Still need a model for these tails.
 
+Progress update (2025-12-02, later):
+- [x] **Five/six-literal require-any probes:** Added `v29` (five literals) and `v30` (six literals). Field2 stays {3,4,5} for 5 literals; at 6 literals a single `field2=0` `tag5` node reappears (node_count=31) and the tail flips back to the two-literal pattern.
+- [x] **Tail helper:** Logged tail words for require-any/all: require-any shows `[3584,1,4,5]` when there are exactly 2 or 6 literals (with `field2=0`), `[5,5,4]` for 3–5 literals; require-all tails stay `[1,3]`. Literal pool length scales with literal count even when decoder literals are empty.
+- [ ] **Tail model:** Still need to interpret what these tail words represent (counts? pointers?) and why the branch marker toggles at 6 literals.
+
+Progress update (2025-12-02, late):
+- [x] **7+/require-any probes:** Added `v31` (seven literals) and `v32` (eight literals). Field2 stays {3,4,5,0}, node_count=31, op-table `[5,…]`, decoder nodes identical to the six-literal mode; tail remains `[3584,1,4,5]`. Branch marker persists for ≥6 literals.
+- [ ] **Tail model:** Threshold behavior confirmed (2 and ≥6 vs 3–5 literals). Still open to decode meaning of `[3584,1,4,5]` vs `[5,5,4]`.
+
 Even with these open boxes, the experiment has already produced reusable artifacts (SBPL variants, blobs, structured summaries) and a clearer picture of what can and cannot be inferred from modern graph blobs without deeper reverse engineering.

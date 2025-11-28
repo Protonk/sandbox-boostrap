@@ -107,6 +107,7 @@ The SBPL variants in `sb/` are deliberately tiny and tightly controlled. They fa
    - `v23_mach_two_literals_require_any`: `file-read*` with `require-any` over two literals plus the same `mach-lookup`.
    - `v24_three_literals_require_any`: `file-read*` with `require-any` over three literals (`"/etc/hosts"`, `"/tmp/foo"`, `"/usr/bin/yes"`), no mach.
    - `v25_four_literals_require_any` and `v26_four_literals_require_any_reordered`: `file-read*` with `require-any` over four literals (same set, different order), no mach.
+   - `v29_five_literals_require_any` and `v30_six_literals_require_any`: `require-any` extended to five/six literals to probe branch markers.
    - `v27_two_literals_require_all` and `v28_four_literals_require_all`: `file-read*` with `require-all` over literals (two vs four).
 
 Together, these probes let us vary:
@@ -219,6 +220,8 @@ The key structural observation from decoder output is that the **third 16‑bit 
   - Mach + literal-only probes (`v22_mach_literal`, `v23_mach_two_literals_require_any`) land on the same pattern as `v9`: op-table `[6,…,5]`, tag counts {0:1,5:5,6:25}, `field2` histogram {6:17,5:12,4:1,0:1}. Decoder `nodes` are identical across `v22`/`v23`/`v9`; differences are confined to node-region remainders and literal pools. Require-any over literals under mach does not introduce new `field2` values beyond the existing {0,4,5,6}.
   - Three-literal require-any without mach (`v24_three_literals_require_any`) drops `field2=0` entirely (histogram {5:20,4:9,3:1}, node_count=30) and removes the extra `tag5` node seen in the two-literal require-any (`v21`). This suggests `require-any` may compile differently once there are more than two branches (balanced/folded) rather than emitting an explicit “second branch” marker.
   - Four-literal require-any (v25/v26, reordered) keeps the same pattern as v24: field2 {5:20,4:9,3:1}, node_count=30, op-table `[5,…]`, decoder nodes identical across orderings. Literal order and count ≥3 do not reintroduce `field2=0`.
+  - Five-literal require-any (v29) remains identical to v25/v26 (field2 {5,4,3}, node_count=30, no `field2=0`); six-literal require-any (v30) reintroduces a single `field2=0` `tag5` node (node_count=31) and matches the earlier two-literal branch-marker pattern. Tail words flip alongside this change (see below).
+  - Seven- and eight-literal require-any (v31/v32) stay in the six-literal mode: field2 {5,4,3,0}, node_count=31, op-table `[5,…]`, decoder nodes identical to v30; branch marker persists and tails remain in the “long” pattern.
   - Require-all over literals (v27/v28) reverts to the baseline-like field2 set {3,4} with op-table `[4,…]`, node_count=32, and decoder literal_strings empty despite a non-zero literal pool. Two vs four literals produce identical decoded nodes and tails.
 
 **Working hypothesis**
@@ -271,6 +274,7 @@ Despite the progress above, several important pieces remain unknown or only loos
      - nodes whose semantics are unclear (especially with field2=0/6 and remainders).
    - Earlier brute-force attempts to assign per-tag sizes (8/12/16) to explain the tails did not converge.
    - Recent mach/literal swaps show identical decoded nodes while tail bytes change (e.g., `v9` vs `v22` remainders `0600000e01` vs `010005000600000e010005`; `v22` vs `v23` swap `010005000600000e010005` vs `06`; `v21` vs `v24` shift `000e0100040005` vs `0500050004`). Tail bytes likely carry filter-specific data the current decoder ignores.
+   - Require-any tails oscillate between two word patterns: `[3584,1,4,5]` (hex `000e0100040005`) when there are exactly 2 or ≥6 literals (and a `field2=0` branch node), and `[5,5,4]` (hex `0500050004`) for 3–5 literals (no branch node). Require-all tails stay at `[1,3]` (hex `010003`) regardless of literal count. Literal pool lengths scale with literal count even when decoder literal_strings stay empty (require-all).
 
 4. **Per-operation segmentation**
    - We know that multiple Operations often share the same op-table entry in small profiles (especially when op-table entries are uniform).

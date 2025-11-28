@@ -53,6 +53,7 @@ Deliverables for this phase:
 Deliverables for this phase:
 - Alignment JSON artifact (even if operation IDs are still placeholders).
 - Updated sections in `ResearchReport.md` explaining alignment logic and limitations.
+- Status update (2025-11-28): partial vocab scaffold added (`vocab_extraction.py`) that emits decoder-derived `ops.json`/`filters.json` with `status: partial`; alignment refreshed to carry the new vocab version while keeping `operation_ids=null`.
 
 ---
 

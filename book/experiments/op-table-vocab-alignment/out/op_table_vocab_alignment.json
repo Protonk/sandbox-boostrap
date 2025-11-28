@@ -1,28 +1,39 @@
 {
-  "vocab_present": true,
-  "vocab_version": "2025-11-27T20:57:03.939966Z",
-  "source_summary": "book/experiments/op-table-operation/out/summary.json",
   "records": [
     {
-      "profile": "v0_empty",
+      "op_count": 5,
+      "op_entries": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "operation_ids": null,
       "ops": [],
-      "op_entries": [
-        4,
-        4,
-        4,
-        4,
-        4
-      ],
-      "op_count": 5,
-      "operation_ids": null,
-      "vocab_version": null
+      "profile": "v0_empty",
+      "vocab_version": "2025-11-28T00:31:06Z"
     },
     {
+      "op_count": 6,
+      "op_entries": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "operation_ids": null,
+      "ops": [
+        "mach-lookup",
+        "network-outbound"
+      ],
       "profile": "v10_mach_network",
-      "ops": [
-        "mach-lookup",
-        "network-outbound"
-      ],
+      "vocab_version": "2025-11-28T00:31:06Z"
+    },
+    {
+      "op_count": 6,
       "op_entries": [
         5,
         5,
@@ -31,52 +42,52 @@
         5,
         5
       ],
-      "op_count": 6,
       "operation_ids": null,
-      "vocab_version": null
-    },
-    {
+      "ops": [
+        "file-read*"
+      ],
       "profile": "v11_read_subpath",
-      "ops": [
-        "file-read*"
-      ],
-      "op_entries": [
-        5,
-        5,
-        5,
-        5,
-        5,
-        5
-      ],
-      "op_count": 6,
-      "operation_ids": null,
-      "vocab_version": null
+      "vocab_version": "2025-11-28T00:31:06Z"
     },
     {
+      "op_count": 7,
+      "op_entries": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        5
+      ],
+      "operation_ids": null,
+      "ops": [
+        "file-read*",
+        "mach-lookup"
+      ],
       "profile": "v12_read_subpath_mach",
-      "ops": [
-        "file-read*",
-        "mach-lookup"
-      ],
-      "op_entries": [
-        6,
-        6,
-        6,
-        6,
-        6,
-        6,
-        5
-      ],
-      "op_count": 7,
-      "operation_ids": null,
-      "vocab_version": null
+      "vocab_version": "2025-11-28T00:31:06Z"
     },
     {
+      "op_count": 6,
+      "op_entries": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "operation_ids": null,
+      "ops": [
+        "file-read*",
+        "file-write*"
+      ],
       "profile": "v13_read_subpath_write",
-      "ops": [
-        "file-read*",
-        "file-write*"
-      ],
+      "vocab_version": "2025-11-28T00:31:06Z"
+    },
+    {
+      "op_count": 6,
       "op_entries": [
         5,
         5,
@@ -85,34 +96,35 @@
         5,
         5
       ],
-      "op_count": 6,
       "operation_ids": null,
-      "vocab_version": null
-    },
-    {
+      "ops": [
+        "file-read*",
+        "network-outbound"
+      ],
       "profile": "v14_read_subpath_network",
-      "ops": [
-        "file-read*",
-        "network-outbound"
-      ],
-      "op_entries": [
-        5,
-        5,
-        5,
-        5,
-        5,
-        5
-      ],
-      "op_count": 6,
-      "operation_ids": null,
-      "vocab_version": null
+      "vocab_version": "2025-11-28T00:31:06Z"
     },
     {
+      "op_count": 7,
+      "op_entries": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        5
+      ],
+      "operation_ids": null,
+      "ops": [
+        "mach-lookup",
+        "file-read*"
+      ],
       "profile": "v15_mach_literal",
-      "ops": [
-        "mach-lookup",
-        "file-read*"
-      ],
+      "vocab_version": "2025-11-28T00:31:06Z"
+    },
+    {
+      "op_count": 7,
       "op_entries": [
         6,
         6,
@@ -122,35 +134,33 @@
         6,
         5
       ],
-      "op_count": 7,
       "operation_ids": null,
-      "vocab_version": null
-    },
-    {
+      "ops": [
+        "file-read*",
+        "mach-lookup",
+        "file-read*"
+      ],
       "profile": "v16_subpath_mach_literal",
-      "ops": [
-        "file-read*",
-        "mach-lookup",
-        "file-read*"
-      ],
-      "op_entries": [
-        6,
-        6,
-        6,
-        6,
-        6,
-        6,
-        5
-      ],
-      "op_count": 7,
-      "operation_ids": null,
-      "vocab_version": null
+      "vocab_version": "2025-11-28T00:31:06Z"
     },
     {
+      "op_count": 5,
+      "op_entries": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "operation_ids": null,
+      "ops": [
+        "file-read*"
+      ],
       "profile": "v1_read",
-      "ops": [
-        "file-read*"
-      ],
+      "vocab_version": "2025-11-28T00:31:06Z"
+    },
+    {
+      "op_count": 5,
       "op_entries": [
         4,
         4,
@@ -158,48 +168,32 @@
         4,
         4
       ],
-      "op_count": 5,
       "operation_ids": null,
-      "vocab_version": null
-    },
-    {
+      "ops": [
+        "file-write*"
+      ],
       "profile": "v2_write",
-      "ops": [
-        "file-write*"
-      ],
-      "op_entries": [
-        4,
-        4,
-        4,
-        4,
-        4
-      ],
-      "op_count": 5,
-      "operation_ids": null,
-      "vocab_version": null
+      "vocab_version": "2025-11-28T00:31:06Z"
     },
     {
+      "op_count": 6,
+      "op_entries": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "operation_ids": null,
+      "ops": [
+        "mach-lookup"
+      ],
       "profile": "v3_mach",
-      "ops": [
-        "mach-lookup"
-      ],
-      "op_entries": [
-        5,
-        5,
-        5,
-        5,
-        5,
-        5
-      ],
-      "op_count": 6,
-      "operation_ids": null,
-      "vocab_version": null
+      "vocab_version": "2025-11-28T00:31:06Z"
     },
     {
-      "profile": "v4_network",
-      "ops": [
-        "network-outbound"
-      ],
+      "op_count": 5,
       "op_entries": [
         4,
         4,
@@ -207,68 +201,67 @@
         4,
         4
       ],
-      "op_count": 5,
       "operation_ids": null,
-      "vocab_version": null
+      "ops": [
+        "network-outbound"
+      ],
+      "profile": "v4_network",
+      "vocab_version": "2025-11-28T00:31:06Z"
     },
     {
-      "profile": "v5_read_write",
+      "op_count": 5,
+      "op_entries": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "operation_ids": null,
       "ops": [
         "file-read*",
         "file-write*"
       ],
-      "op_entries": [
-        4,
-        4,
-        4,
-        4,
-        4
-      ],
-      "op_count": 5,
-      "operation_ids": null,
-      "vocab_version": null
+      "profile": "v5_read_write",
+      "vocab_version": "2025-11-28T00:31:06Z"
     },
     {
+      "op_count": 6,
+      "op_entries": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "operation_ids": null,
+      "ops": [
+        "file-read*",
+        "mach-lookup"
+      ],
       "profile": "v6_read_mach",
-      "ops": [
-        "file-read*",
-        "mach-lookup"
-      ],
-      "op_entries": [
-        5,
-        5,
-        5,
-        5,
-        5,
-        5
-      ],
-      "op_count": 6,
-      "operation_ids": null,
-      "vocab_version": null
+      "vocab_version": "2025-11-28T00:31:06Z"
     },
     {
+      "op_count": 5,
+      "op_entries": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "operation_ids": null,
+      "ops": [
+        "file-read*",
+        "network-outbound"
+      ],
       "profile": "v7_read_network",
-      "ops": [
-        "file-read*",
-        "network-outbound"
-      ],
-      "op_entries": [
-        4,
-        4,
-        4,
-        4,
-        4
-      ],
-      "op_count": 5,
-      "operation_ids": null,
-      "vocab_version": null
+      "vocab_version": "2025-11-28T00:31:06Z"
     },
     {
-      "profile": "v8_write_mach",
-      "ops": [
-        "file-write*",
-        "mach-lookup"
-      ],
+      "op_count": 6,
       "op_entries": [
         5,
         5,
@@ -277,16 +270,16 @@
         5,
         5
       ],
-      "op_count": 6,
       "operation_ids": null,
-      "vocab_version": null
-    },
-    {
-      "profile": "v9_write_network",
       "ops": [
         "file-write*",
-        "network-outbound"
+        "mach-lookup"
       ],
+      "profile": "v8_write_mach",
+      "vocab_version": "2025-11-28T00:31:06Z"
+    },
+    {
+      "op_count": 5,
       "op_entries": [
         4,
         4,
@@ -294,10 +287,17 @@
         4,
         4
       ],
-      "op_count": 5,
       "operation_ids": null,
-      "vocab_version": null
+      "ops": [
+        "file-write*",
+        "network-outbound"
+      ],
+      "profile": "v9_write_network",
+      "vocab_version": "2025-11-28T00:31:06Z"
     }
   ],
-  "vocab_status": "unavailable"
+  "source_summary": "book/experiments/op-table-operation/out/summary.json",
+  "vocab_present": true,
+  "vocab_status": "partial",
+  "vocab_version": "2025-11-28T00:31:06Z"
 }
