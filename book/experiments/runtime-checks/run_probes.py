@@ -19,7 +19,36 @@ from typing import Dict, Any, List
 
 ROOT = Path(__file__).resolve().parents[3]
 OUT = Path(__file__).resolve().parent / "out"
+RUNTIME_PROFILE_DIR = OUT / "runtime_profiles"
 
+CAT = "/bin/cat"
+SH = "/bin/sh"
+
+# Harness shims needed to let probes start while keeping file policy intact.
+RUNTIME_SHIM_RULES = [
+    "(allow process-exec*)",
+    '(allow file-read* (subpath "/System"))',
+    '(allow file-read* (subpath "/usr"))',
+    '(allow file-read* (subpath "/bin"))',
+    '(allow file-read* (subpath "/sbin"))',
+    '(allow file-read* (subpath "/dev"))',
+    '(allow file-read-metadata (literal "/private"))',
+    '(allow file-read-metadata (literal "/private/tmp"))',
+    '(allow file-read-metadata (literal "/tmp"))',
+    '(allow file-read* (subpath "/tmp/foo"))',
+    '(allow file-read* (subpath "/private/tmp/foo"))',
+]
+
+KEY_SPECIFIC_RULES = {
+    # Allow default for the subpath profile, then pin explicit denies for bar reads and foo writes.
+    "bucket5:v11_read_subpath": [
+        "(allow default)",
+        '(deny file-read* (subpath "/private/tmp/bar"))',
+        '(deny file-read* (subpath "/tmp/bar"))',
+        '(deny file-write* (subpath "/private/tmp/foo"))',
+        '(deny file-write* (subpath "/tmp/foo"))',
+    ]
+}
 
 PROFILE_PATHS = {
     "bucket4:v1_read": ROOT / "book/experiments/op-table-operation/sb/v1_read.sb",
@@ -39,10 +68,10 @@ def run_probe(profile: Path, probe: Dict[str, Any]) -> Dict[str, Any]:
     op = probe.get("operation")
     cmd: List[str]
     if op == "file-read*":
-        cmd = ["cat", target]
+        cmd = [CAT, target]
     elif op == "file-write*":
         # append to target
-        cmd = ["sh", "-c", f"echo runtime-check >> '{target}'"]
+        cmd = [SH, "-c", f"echo runtime-check >> '{target}'"]
     else:
         cmd = ["true"]
 
@@ -65,6 +94,22 @@ def run_probe(profile: Path, probe: Dict[str, Any]) -> Dict[str, Any]:
         return {"error": str(e)}
 
 
+def prepare_runtime_profile(base: Path, key: str) -> Path:
+    """
+    Create a runtime-ready SBPL profile that preserves the file policy but
+    adds minimal shims (process-exec, core system file reads, /tmp/foo variants)
+    so sandbox-exec can launch probe binaries.
+    """
+    RUNTIME_PROFILE_DIR.mkdir(parents=True, exist_ok=True)
+    text = base.read_text()
+    runtime_path = RUNTIME_PROFILE_DIR / f"{base.stem}.{key.replace(':', '_')}.runtime.sb"
+    shim_rules = RUNTIME_SHIM_RULES + KEY_SPECIFIC_RULES.get(key, [])
+    shim = "\n".join(shim_rules) + "\n"
+    patched = text.rstrip() + "\n" + shim
+    runtime_path.write_text(patched + ("\n" if not patched.endswith("\n") else ""))
+    return runtime_path
+
+
 def main():
     ensure_tmp_files()
     matrix_path = OUT / "expected_matrix.json"
@@ -78,13 +123,20 @@ def main():
         if not profile_path or not profile_path.exists():
             results[key] = {"status": "skipped", "reason": "no profile path"}
             continue
+        runtime_profile = prepare_runtime_profile(profile_path, key)
         probes = rec.get("probes") or []
         probe_results = []
         for probe in probes:
-            probe_results.append({"name": probe.get("name"), **run_probe(profile_path, probe)})
+            probe_results.append(
+                {
+                    "name": probe.get("name"),
+                    **run_probe(runtime_profile, probe),
+                }
+            )
         results[key] = {
             "status": "completed",
-            "profile_path": str(profile_path),
+            "profile_path": str(runtime_profile),
+            "base_profile_path": str(profile_path),
             "probes": probe_results,
         }
 

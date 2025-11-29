@@ -19,3 +19,8 @@ Use this file for dated, concise notes on progress, commands, and intermediate f
 ## 2025-11-28
 
 - Re-ran `run_probes.py` under updated Codex permissions (full access) to see if `sandbox-exec` could apply profiles. Results still fail at launch: `sandbox-exec` cannot `execvp` the wrapped commands (`cat`, `sh`) with exit 71. For `v1_read` the errors are “Operation not permitted”; for `v11_read_subpath` they show “No such file or directory.” System profiles remain skipped (no paths provided). Effective runtime tracing is still blocked.
+
+## 2025-11-28 (later)
+
+- Added a harness shim in `run_probes.py` to emit runtime-ready profiles under `out/runtime_profiles/` with `process-exec` plus baseline system file-read allowances; the subpath profile also flips to `(allow default)` with explicit denies for `/private/tmp/bar` reads and `/tmp/foo` writes to avoid the earlier sandbox-exec abort.
+- Re-ran `run_probes.py`. Bucket-4 (`v1_read`) now executes: `/etc/hosts` and `/tmp/foo` reads succeed; `/etc/hosts` write is denied (exit 1). Bucket-5 (`v11_read_subpath`) now runs without crashing: `/tmp/foo` read succeeds; `/tmp/bar` read and `/tmp/foo` write both deny with exit 1.

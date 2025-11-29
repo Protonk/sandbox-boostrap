@@ -1,75 +1,77 @@
 {
   "bucket4:v1_read": {
     "status": "completed",
-    "profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/op-table-operation/sb/v1_read.sb",
+    "profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
+    "base_profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/op-table-operation/sb/v1_read.sb",
     "probes": [
       {
         "name": "read_/etc/hosts",
         "command": [
-          "cat",
+          "/bin/cat",
           "/etc/hosts"
         ],
-        "exit_code": 71,
-        "stdout": "",
-        "stderr": "sandbox-exec: execvp() of 'cat' failed: Operation not permitted\n"
+        "exit_code": 0,
+        "stdout": "##\n# Host Database\n#\n# localhost is used to configure the loopback interface\n# when the system is booting.  Do not change this entry.\n##\n127.0.0.1\tlocalhost\n255.255.255.255\tbroadcasthost\n::1             localhost\n",
+        "stderr": ""
       },
       {
         "name": "write_/etc/hosts",
         "command": [
-          "sh",
+          "/bin/sh",
           "-c",
           "echo runtime-check >> '/etc/hosts'"
         ],
-        "exit_code": 71,
+        "exit_code": 1,
         "stdout": "",
-        "stderr": "sandbox-exec: execvp() of 'sh' failed: Operation not permitted\n"
+        "stderr": "/bin/sh: /etc/hosts: Operation not permitted\n"
       },
       {
         "name": "read_/tmp/foo",
         "command": [
-          "cat",
+          "/bin/cat",
           "/tmp/foo"
         ],
-        "exit_code": 71,
-        "stdout": "",
-        "stderr": "sandbox-exec: execvp() of 'cat' failed: Operation not permitted\n"
+        "exit_code": 0,
+        "stdout": "runtime-checks foo\n",
+        "stderr": ""
       }
     ]
   },
   "bucket5:v11_read_subpath": {
     "status": "completed",
-    "profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/op-table-operation/sb/v11_read_subpath.sb",
+    "profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
+    "base_profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/op-table-operation/sb/v11_read_subpath.sb",
     "probes": [
       {
         "name": "read_/tmp/foo",
         "command": [
-          "cat",
+          "/bin/cat",
           "/tmp/foo"
         ],
-        "exit_code": 71,
-        "stdout": "",
-        "stderr": "sandbox-exec: execvp() of 'cat' failed: No such file or directory\n"
+        "exit_code": 0,
+        "stdout": "runtime-checks foo\n",
+        "stderr": ""
       },
       {
         "name": "read_/tmp/bar",
         "command": [
-          "cat",
+          "/bin/cat",
           "/tmp/bar"
         ],
-        "exit_code": 71,
+        "exit_code": 1,
         "stdout": "",
-        "stderr": "sandbox-exec: execvp() of 'cat' failed: No such file or directory\n"
+        "stderr": "cat: /tmp/bar: Operation not permitted\n"
       },
       {
         "name": "write_/tmp/foo",
         "command": [
-          "sh",
+          "/bin/sh",
           "-c",
           "echo runtime-check >> '/tmp/foo'"
         ],
-        "exit_code": 71,
+        "exit_code": 1,
         "stdout": "",
-        "stderr": "sandbox-exec: execvp() of 'sh' failed: No such file or directory\n"
+        "stderr": "/bin/sh: /tmp/foo: Operation not permitted\n"
       }
     ]
   },
