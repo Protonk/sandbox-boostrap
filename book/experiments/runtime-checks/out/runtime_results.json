@@ -104,12 +104,162 @@
     ]
   },
   "sys:bsd": {
-    "status": "skipped",
-    "reason": "no profile path"
+    "status": "completed",
+    "profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/examples/extract_sbs/build/profiles/bsd.sb.bin",
+    "base_profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/examples/extract_sbs/build/profiles/bsd.sb.bin",
+    "probes": [
+      {
+        "name": "read_/etc/hosts",
+        "expected": "allow",
+        "actual": "deny",
+        "match": false,
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/api/SBPL-wrapper/wrapper",
+          "--blob",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/examples/extract_sbs/build/profiles/bsd.sb.bin",
+          "--",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_reader",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/examples/extract_sbs/build/profiles/bsd.sb.bin",
+          "/etc/hosts"
+        ],
+        "exit_code": 127,
+        "stdout": "",
+        "stderr": "execvp: Operation not permitted\n"
+      },
+      {
+        "name": "write_/etc/hosts",
+        "expected": "deny",
+        "actual": "deny",
+        "match": true,
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/api/SBPL-wrapper/wrapper",
+          "--blob",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/examples/extract_sbs/build/profiles/bsd.sb.bin",
+          "--",
+          "/bin/sh",
+          "-c",
+          "echo runtime-check >> '/etc/hosts'"
+        ],
+        "exit_code": 127,
+        "stdout": "",
+        "stderr": "execvp: Operation not permitted\n"
+      },
+      {
+        "name": "read_/tmp/foo",
+        "expected": "allow",
+        "actual": "deny",
+        "match": false,
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/api/SBPL-wrapper/wrapper",
+          "--blob",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/examples/extract_sbs/build/profiles/bsd.sb.bin",
+          "--",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_reader",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/examples/extract_sbs/build/profiles/bsd.sb.bin",
+          "/tmp/foo"
+        ],
+        "exit_code": 127,
+        "stdout": "",
+        "stderr": "execvp: Operation not permitted\n"
+      },
+      {
+        "name": "write_/tmp/foo",
+        "expected": "allow",
+        "actual": "deny",
+        "match": false,
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/api/SBPL-wrapper/wrapper",
+          "--blob",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/examples/extract_sbs/build/profiles/bsd.sb.bin",
+          "--",
+          "/bin/sh",
+          "-c",
+          "echo runtime-check >> '/tmp/foo'"
+        ],
+        "exit_code": 127,
+        "stdout": "",
+        "stderr": "execvp: Operation not permitted\n"
+      }
+    ]
   },
   "sys:airlock": {
-    "status": "skipped",
-    "reason": "no profile path"
+    "status": "completed",
+    "profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/examples/extract_sbs/build/profiles/airlock.sb.bin",
+    "base_profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/examples/extract_sbs/build/profiles/airlock.sb.bin",
+    "probes": [
+      {
+        "name": "read_/etc/hosts",
+        "expected": "allow",
+        "actual": "deny",
+        "match": false,
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/api/SBPL-wrapper/wrapper",
+          "--blob",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/examples/extract_sbs/build/profiles/airlock.sb.bin",
+          "--",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_reader",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/examples/extract_sbs/build/profiles/airlock.sb.bin",
+          "/etc/hosts"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox_apply: Operation not permitted\n"
+      },
+      {
+        "name": "write_/etc/hosts",
+        "expected": "deny",
+        "actual": "deny",
+        "match": true,
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/api/SBPL-wrapper/wrapper",
+          "--blob",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/examples/extract_sbs/build/profiles/airlock.sb.bin",
+          "--",
+          "/bin/sh",
+          "-c",
+          "echo runtime-check >> '/etc/hosts'"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox_apply: Operation not permitted\n"
+      },
+      {
+        "name": "read_/tmp/foo",
+        "expected": "allow",
+        "actual": "deny",
+        "match": false,
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/api/SBPL-wrapper/wrapper",
+          "--blob",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/examples/extract_sbs/build/profiles/airlock.sb.bin",
+          "--",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_reader",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/examples/extract_sbs/build/profiles/airlock.sb.bin",
+          "/tmp/foo"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox_apply: Operation not permitted\n"
+      },
+      {
+        "name": "write_/tmp/foo",
+        "expected": "allow",
+        "actual": "deny",
+        "match": false,
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/api/SBPL-wrapper/wrapper",
+          "--blob",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/examples/extract_sbs/build/profiles/airlock.sb.bin",
+          "--",
+          "/bin/sh",
+          "-c",
+          "echo runtime-check >> '/tmp/foo'"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox_apply: Operation not permitted\n"
+      }
+    ]
   },
   "sys:sample": {
     "status": "skipped",

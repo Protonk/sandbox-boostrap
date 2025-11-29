@@ -332,6 +332,7 @@ The `Plan.md` file contains an up-to-date checklist; this section highlights the
      - run a tiny app or harness under selected synthetic profiles (e.g., “bucket‑4 only”, “bucket‑5 only”, “[6,…,5]”),
      - exercise operations like `mach-lookup` and `network-outbound`,
      - log which SBPL operations and kernel operations appear in traces.
+     - The new `book/api/SBPL-wrapper/wrapper` (SBPL and blob) plus the runtime-checks harness can drive these probes without `sandbox-exec`.
    - Use these logs to validate that:
      - “mach bucket” profiles really gate mach behavior as expected,
      - read/write/network behavior is consistent between bucket 4 and 5 where allowed by SBPL.
@@ -366,7 +367,7 @@ Within the project’s conceptual stack:
 
 The key outcome is not a finished mapping from SBPL names to numeric IDs, but a disciplined, reproducible set of bucket-level observations and structured signatures that future vocabulary-mapping and runtime experiments can build on.***
 
-## Status summary (2025-12-09)
+## Status summary (2026-01-XX)
 
 - Bucket behavior and vocab alignment are stable on this host: unfiltered read/write/network live in buckets {3,4}; mach lives in {5,6}; bucket 6 appears only in mach+filtered-read mixes. Alignment artifacts and summaries are current.
-- Remaining work is optional: runtime probes or filter-level annotation once field2 decoding matures. Otherwise, for bucket↔operation ID mapping on this host, the experiment is effectively complete.
+- Remaining work is optional: runtime probes or filter-level annotation once field2 decoding matures. Runtime spot-checks are now feasible via the SBPL wrapper if we want to add behavioral evidence.

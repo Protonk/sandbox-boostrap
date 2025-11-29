@@ -21,9 +21,9 @@ Produce small “golden” triples (SBPL source, decoded graph, runtime probe ou
    - Extract node IDs/filters/decisions relevant to the probes into a concise summary per profile.
 
 3) **Run runtime probes**
-   - Reuse/extend a harness (sandbox-exec or runner) to execute a few file probes per profile, logging operation, path, exit, and errno to ndjson.
+   - Reuse/extend a harness (runner/reader or `book/api/SBPL-wrapper/wrapper --blob`) to execute a few file probes per profile, logging operation, path, exit, and errno to ndjson.
    - For environments where sandbox-apply is blocked, note the failure and prepare to rerun in a SIP-relaxed context.
-   - Status: runtime probes now run via `sandbox_runner` on this host for bucket profiles; extend harness to these profiles next.
+   - Status: runtime probes run via `sandbox_runner`/`sandbox_reader` for these profiles; wrapper-based blob runs are available via the runtime-checks harness.
 
 4) **Link triple**
    - Build a manifest that ties SBPL → compiled blob → decoded nodes → runtime outcomes for each profile, with OS/build metadata.

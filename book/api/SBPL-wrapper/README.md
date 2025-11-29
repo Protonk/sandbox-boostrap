@@ -20,5 +20,3 @@ Run:
 ```
 
 The wrapper applies the SBPL profile via `sandbox_init` to the current process, then execs the command. If apply fails, it prints the error and exits non-zero before exec.
-
-See `Plan.md` for the roadmap toward compiled-blob support and harness wiring.

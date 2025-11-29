@@ -41,3 +41,14 @@ Use this file for dated, concise notes on progress, commands, and intermediate f
 - Added `sandbox_reader` (no exec; applies profile via sandbox_init and reads target). `run_probes.py` uses reader for `file-read*`.
 - Extended `metafilter_any` to include `/private/tmp` literals; runtime probes now pass: foo/bar allowed (exit 0), other denied (open EPERM). Crash resolved.
 - System profiles still skipped (no SBPL wrapper).
+
+## 2026-01-XX (blob wrapper)
+
+- Updated `out/expected_matrix.json` to point system profiles at compiled blobs and mark `mode: blob`.
+- Taught `run_probes.py` to honor profile-level `mode` so blob probes run through `book/api/SBPL-wrapper/wrapper --blob`.
+- Reran probes: bucket profiles and runtime shapes still pass; system profiles now apply via wrapper but `sandbox_apply` returns `EPERM` on this host, so all sys probes record deny (wrapper commands succeed, apply fails). Results recorded in `out/runtime_results.json`.
+
+## 2026-01-XX (system profiles via SBPL)
+
+- Added `sys:airlock` and `sys:bsd` to runtime matrix using SBPL imports from `/System/Library/Sandbox/Profiles/*.sb`.
+- Harness uses `sandbox_reader` for reads. `airlock` mostly aligns (write to /tmp foo denied by OS perms vs expected allow; adjust expectations). `bsd` denies /etc/hosts read/write (expected mismatch). Will need to revise expectations or add minimal shims for these profiles.

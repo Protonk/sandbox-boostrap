@@ -17,17 +17,15 @@ Validate that runtime allow/deny behavior for selected profiles matches decoder-
 ## Plan (summary)
 
 1. Define probes and expected outcomes per profile based on decoder outputs.
-2. Run runtime probes via `sandbox-exec`; capture success/errno and logs.
+2. Run runtime probes via local harness (runner/reader) and wrapper blob mode; capture success/errno and logs.
 3. Compare runtime results to expectations; add guardrail script covering representative cases.
 
 ## Current status
 
 - Experiment scaffolded (this report, Plan, Notes).
-- Initial expected probe matrix written to `out/expected_matrix.json` covering bucket-4 (`v1_read`) and bucket-5 (`v11_read_subpath`) synthetic profiles with SBPL-aligned allow/deny expectations; system profiles listed as placeholders.
-- First harness attempts via `run_probes.py` using `sandbox-exec` on SBPL profiles (`v1_read.sb`, `v11_read_subpath.sb`) failed on this host: `sandbox_apply: Operation not permitted` (exit code 71) for all probes, even with Codex full-access permissions (`execvp()` errors).
-- Added harness shims to generate runtime-ready profiles under `out/runtime_profiles/`: process-exec allowance, baseline system file-read grants, and for the subpath profile a `(allow default)` plus explicit denies for `/private/tmp/bar` reads and `/tmp/foo` writes to avoid sandbox-exec abort. On earlier runs, this produced successful probes (reads allowed, writes denied) but is not stable.
-- Latest run (with expected/actual annotations) still sees `sandbox_apply: Operation not permitted` for both bucket profiles; probes record `deny` because apply fails before execution. System profiles remain skipped due to missing SBPL paths. A different harness (or SIP-relaxed environment) is needed to get reliable runtime traces.
-- Implemented a local `sandbox_runner` (C shim using `sandbox_init` on SBPL text). `run_probes.py` prefers it over `sandbox-exec`, but on this host `sandbox_init` returns EPERM (“Operation not permitted”) as well, so runtime traces still fail at apply time. Indicates SIP/entitlement gate blocks both approaches here.
+- Expected probe matrix in `out/expected_matrix.json` covers bucket-4 (`v1_read`) and bucket-5 (`v11_read_subpath`) synthetic profiles, runtime shapes (`allow_all`, `metafilter_any`), and system blobs (`airlock`, `bsd`) flagged for blob mode.
+- Harness now prefers local shims and wrapper: `sandbox_runner`/`sandbox_reader` succeed for bucket profiles and runtime shapes; metafilter_any stabilized by adding `/private/tmp` literals and reader mode.
+- `sys:airlock` and `sys:bsd` now run through `book/api/SBPL-wrapper/wrapper --blob`; on this host `sandbox_apply` returns `EPERM`, so probes record deny + apply failure. Expectations need revisiting or a more permissive host.
 
 ## Expected outcomes
 

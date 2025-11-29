@@ -78,3 +78,8 @@
 ## 2025-12-07
 
 - Reran `analyze.py` after decoder updates; summaries and alignment regenerated (no bucket shifts observed). Alignment refreshed via `op-table-vocab-alignment/update_alignment.py`.
+
+## 2026-01-XX
+
+- SBPL wrapper now available (`book/api/SBPL-wrapper/wrapper --sbpl/--blob`); runtime-checks harness can invoke compiled blobs via `run_probes.py`.
+- Next actionable: reuse the wrapper to run a small runtime spot-check for representative profiles (e.g., `v1_read`, `v11_read_subpath`) and correlate observed allow/deny with the op-table buckets already mapped.

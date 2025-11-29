@@ -48,16 +48,68 @@
       ],
       "notes": "Bucket-5 filtered profile: read allowed only under /tmp/foo via subpath filter."
     },
-    "sys:bsd": {
-      "blob": "book/examples/extract_sbs/build/profiles/bsd.sb.bin",
-      "probes": [],
-      "notes": "System profile; expectations TBD based on decoder signatures."
-    },
-    "sys:airlock": {
-      "blob": "book/examples/extract_sbs/build/profiles/airlock.sb.bin",
-      "probes": [],
-      "notes": "System profile; expectations TBD."
-    },
+  "sys:bsd": {
+    "blob": "book/examples/extract_sbs/build/profiles/bsd.sb.bin",
+    "probes": [
+      {
+        "name": "read_/etc/hosts",
+        "operation": "file-read*",
+        "target": "/etc/hosts",
+          "expected": "allow"
+        },
+        {
+          "name": "write_/etc/hosts",
+          "operation": "file-write*",
+          "target": "/etc/hosts",
+          "expected": "deny"
+        },
+        {
+          "name": "read_/tmp/foo",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow"
+        },
+        {
+          "name": "write_/tmp/foo",
+          "operation": "file-write*",
+          "target": "/tmp/foo",
+          "expected": "allow"
+      }
+    ],
+    "notes": "BSD system profile via SBPL import.",
+    "mode": "blob"
+  },
+  "sys:airlock": {
+    "blob": "book/examples/extract_sbs/build/profiles/airlock.sb.bin",
+    "probes": [
+      {
+        "name": "read_/etc/hosts",
+        "operation": "file-read*",
+        "target": "/etc/hosts",
+          "expected": "allow"
+        },
+        {
+          "name": "write_/etc/hosts",
+          "operation": "file-write*",
+          "target": "/etc/hosts",
+          "expected": "deny"
+        },
+        {
+          "name": "read_/tmp/foo",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow"
+        },
+        {
+          "name": "write_/tmp/foo",
+          "operation": "file-write*",
+          "target": "/tmp/foo",
+          "expected": "allow"
+      }
+    ],
+    "notes": "Airlock system profile via SBPL import.",
+    "mode": "blob"
+  },
     "sys:sample": {
       "blob": "book/examples/sb/build/sample.sb.bin",
       "probes": [],

@@ -24,12 +24,12 @@ Show how specific entitlements change compiled profiles and filters/parameters, 
    - Decode with `profile_ingestion.py` and diff filters/parameters to show entitlement-driven changes.
 
 4) **Runtime probes (if allowed)**
-   - Run simple probes (file/network/mach) under each variant and log allow/deny results. Note if SIP/TCC block runtime on this host; rerun in a permissive environment if needed.
+   - Run simple probes (file/network/mach) under each variant and log allow/deny results. Use `book/api/SBPL-wrapper/wrapper` (SBPL or blob) instead of `sandbox-exec` where possible. Note if SIP/TCC block runtime on this host; rerun in a permissive environment if needed.
 
 5) **Summarize deltas**
    - Produce a short manifest showing entitlement → filter/param changes → observed behavior, with OS/build metadata.
 
-Status: binaries and entitlements captured; need a method to derive/apply sandbox profiles that reflect the entitlements (e.g., App Sandbox template) before runtime probes.
+Status: binaries and entitlements captured; need a method to derive/apply sandbox profiles that reflect the entitlements (e.g., App Sandbox template) before runtime probes. Wrapper is available once profiles are derived.
 
 ## Done criteria
 

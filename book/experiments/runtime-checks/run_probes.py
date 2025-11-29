@@ -23,6 +23,7 @@ OUT = Path(__file__).resolve().parent / "out"
 RUNTIME_PROFILE_DIR = OUT / "runtime_profiles"
 RUNNER = Path(__file__).resolve().parent / "sandbox_runner"
 READER = Path(__file__).resolve().parent / "sandbox_reader"
+WRAPPER = Path(__file__).resolve().parents[2] / "api" / "SBPL-wrapper" / "wrapper"
 
 CAT = "/bin/cat"
 SH = "/bin/sh"
@@ -76,6 +77,8 @@ PROFILE_PATHS = {
     "bucket5:v11_read_subpath": ROOT / "book/experiments/op-table-operation/sb/v11_read_subpath.sb",
     "runtime:allow_all": ROOT / "book/experiments/sbpl-graph-runtime/profiles/allow_all.sb",
     "runtime:metafilter_any": ROOT / "book/experiments/sbpl-graph-runtime/profiles/metafilter_any.sb",
+    "sys:airlock": ROOT / "book/examples/extract_sbs/build/profiles/airlock.sb.bin",
+    "sys:bsd": ROOT / "book/examples/extract_sbs/build/profiles/bsd.sb.bin",
 }
 
 
@@ -86,7 +89,7 @@ def ensure_tmp_files():
         p.write_text(f"runtime-checks {name}\n")
 
 
-def run_probe(profile: Path, probe: Dict[str, Any]) -> Dict[str, Any]:
+def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None) -> Dict[str, Any]:
     target = probe.get("target")
     op = probe.get("operation")
     cmd: List[str]
@@ -103,7 +106,11 @@ def run_probe(profile: Path, probe: Dict[str, Any]) -> Dict[str, Any]:
     else:
         cmd = ["true"]
 
-    if reader_mode:
+    blob_mode = (probe.get("mode") == "blob") or (profile_mode == "blob")
+
+    if blob_mode and WRAPPER.exists():
+        full_cmd = [str(WRAPPER), "--blob", str(profile), "--"] + cmd
+    elif reader_mode:
         full_cmd = cmd
     elif RUNNER.exists():
         full_cmd = [str(RUNNER), str(profile), "--"] + cmd
@@ -136,6 +143,9 @@ def prepare_runtime_profile(base: Path, key: str) -> Path:
     so sandbox-exec can launch probe binaries.
     """
     RUNTIME_PROFILE_DIR.mkdir(parents=True, exist_ok=True)
+    if base.suffix == ".bin":
+        # For blob mode, just return the blob path; no shimmed SBPL.
+        return base
     text = base.read_text()
     runtime_path = RUNTIME_PROFILE_DIR / f"{base.stem}.{key.replace(':', '_')}.runtime.sb"
     shim_rules = RUNTIME_SHIM_RULES + KEY_SPECIFIC_RULES.get(key, [])
@@ -159,10 +169,11 @@ def main():
             results[key] = {"status": "skipped", "reason": "no profile path"}
             continue
         runtime_profile = prepare_runtime_profile(profile_path, key)
+        profile_mode = rec.get("mode")
         probes = rec.get("probes") or []
         probe_results = []
         for probe in probes:
-            raw = run_probe(runtime_profile, probe)
+            raw = run_probe(runtime_profile, probe, profile_mode)
             # Simple allow/deny heuristic: exit_code==0 => allow
             actual = "allow" if raw.get("exit_code") == 0 else "deny"
             expected = probe.get("expected")
