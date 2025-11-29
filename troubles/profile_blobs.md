@@ -47,3 +47,9 @@ If blob mode remains unavailable, disassemble system blobs to SBPL (`sbdis`) and
 ## Blob mode integration attempt (runtime harness)
 - Wired runtime harness to use compiled blobs for `sys:airlock`/`sys:bsd` via the wrapper’s `--blob` path. Probes now fail with `sandbox initialization failed: no version specified` when applying `.sb.bin` blobs via `sandbox_runner`/`sandbox_reader`. This indicates the blob mode is still going through SBPL init rather than `sandbox_apply`, or the wrapper is not invoked for these probes.
 - Next steps: ensure `run_probes.py` actually invokes the blob-aware wrapper for blob-mode entries, and that `sandbox_apply` is called instead of `sandbox_init`. If issues persist, check whether the compiled blobs need a version header or different apply flags.
+
+## Update (EPERM on platform blobs)
+
+- After wiring `run_probes.py` to route blob-mode profiles through `book/api/SBPL-wrapper/wrapper --blob`, system blobs (`airlock.sb.bin`, `bsd.sb.bin`) now fail at apply with `sandbox_apply: Operation not permitted` before exec. Custom blobs (e.g., `allow_all.sb.bin`) apply cleanly.
+- Likely cause: these are platform profile layers that the kernel only installs when handed down by secinit/sandboxd with platform credentials; ad hoc `sandbox_apply` from an unsigned/non-platform process is rejected.
+- Workarounds: use SBPL text imports for system profiles, or run blob apply on a permissive/entitled host. Pending: inspect blob headers/flags to confirm platform-only provenance.

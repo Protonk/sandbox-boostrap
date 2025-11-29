@@ -48,6 +48,10 @@ Use this file for dated, concise notes on progress, commands, and intermediate f
 - Taught `run_probes.py` to honor profile-level `mode` so blob probes run through `book/api/SBPL-wrapper/wrapper --blob`.
 - Reran probes: bucket profiles and runtime shapes still pass; system profiles now apply via wrapper but `sandbox_apply` returns `EPERM` on this host, so all sys probes record deny (wrapper commands succeed, apply fails). Results recorded in `out/runtime_results.json`.
 
+## 2026-01-XX (platform blob gate)
+
+- EPERM applies only to platform system blobs (`airlock`, `bsd`) when using blob mode; custom blobs apply fine. Likely platform-only provenance/credential check in the kernel when installing platform profile layers. SBPL imports remain a viable fallback; blob apply may need a more permissive host or explicit platform credentials.
+
 ## 2026-01-XX (system profiles via SBPL)
 
 - Added `sys:airlock` and `sys:bsd` to runtime matrix using SBPL imports from `/System/Library/Sandbox/Profiles/*.sb`.

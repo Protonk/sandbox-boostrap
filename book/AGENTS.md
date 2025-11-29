@@ -1,14 +1,17 @@
-# AGENTS.md — book workspace router
+# AGENTS.md — router for `book/`
 
-You are in `book/`, the Seatbelt textbook workspace. Use this as a router to find the right materials; it is not a workflow script.
+You are in `book/`, the Seatbelt textbook workspace. This is a router; use it to jump to the right place. For vocabulary and lifecycle discipline, defer to `substrate/AGENTS.md`.
 
-- `Outline.md` — high-level book outline and chapter sequencing.
-- `chapters/` — per-chapter drafts/plans; filenames match chapter numbers. Check local README/notes inside each chapter.
-- `graph/` — Swift contracts and generated JSON for concepts/regions (`Sources/main.swift`, `Package.swift`, `concepts/`, `regions/`).
-- `experiments/` — research clusters with `Plan.md`, `Notes.md`, `ResearchReport.md`, and `out/` artifacts (e.g., `runtime-checks`, `op-table-operation`, `node-layout`).
-- `examples/` — runnable SBPL/demo bundles; indexed by `examples/examples.json`.
-- `profiles/` — SBPL sources/builds used by chapters, examples, and experiments.
-- `api/` — API planning and existing tooling
-- `tests/` — guardrails for book artifacts and experiment outputs.
+- `Outline.md` — top-level book outline and chapter ordering.
+- `chapters/` — per-chapter drafts and notes; filenames match chapter numbers. Look for chapter-local README/notes when editing content.
+- `graph/` — concept graph, mappings, and validation glue:
+  - `concepts/` — semantic/spec text (Orientation, Concepts, Appendix-aligned) plus validation helpers.
+  - `mappings/` — canonical vocab/op-table/tag/system-profile artifacts consumed by experiments and chapters.
+  - `validation/` — harness skeletons that import the decoder and run evidence-gathering tasks.
+- `experiments/` — research clusters, each with `Plan.md`, `Notes.md`, `ResearchReport.md`, and `out/` artifacts. Examples: `runtime-checks`, `op-table-operation`, `node-layout`, `field2-filters`.
+- `examples/` — runnable SBPL/demo bundles and extraction helpers (`examples.json`, `extract_sbs`, etc.) used by experiments and chapters.
+- `profiles/` — SBPL sources/build outputs shared across chapters/experiments (non-example-specific).
+- `api/` — API/tooling layer (see `api/AGENTS.md`); includes the SBPL/blob wrapper and shared decoder.
+- `tests/` — guardrails for book artifacts and experiment outputs; run via the repo’s test harness.
 
-For canonical Seatbelt vocabulary or lifecycle framing, step up to `substrate/AGENTS.md`
+When in doubt, start from the relevant directory’s README/AGENTS before editing.
