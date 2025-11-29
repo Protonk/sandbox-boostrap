@@ -29,6 +29,8 @@ Show how specific entitlements change compiled profiles and filters/parameters, 
 5) **Summarize deltas**
    - Produce a short manifest showing entitlement → filter/param changes → observed behavior, with OS/build metadata.
 
+Status: binaries and entitlements captured; need a method to derive/apply sandbox profiles that reflect the entitlements (e.g., App Sandbox template) before runtime probes.
+
 ## Done criteria
 
 - At least one entitlement with a clear profile/filter delta demonstrated across signed variants.

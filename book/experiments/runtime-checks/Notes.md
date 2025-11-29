@@ -30,3 +30,14 @@ Use this file for dated, concise notes on progress, commands, and intermediate f
 - Added expected/actual/match annotations to `run_probes.py` so runtime results carry a simple verdict comparison to `out/expected_matrix.json`.
 - Re-ran `run_probes.py` on this host; `sandbox-exec` now fails to apply both bucket profiles (exit 71, `sandbox_apply: Operation not permitted`) despite the shims. All probes record `deny` due to apply failure; matches remain true only where expected=deny. System profiles still skipped (no SBPL path). Needs an alternative harness or SIP-relaxed environment to proceed.
 - Added a local `sandbox_runner` (C shim calling `sandbox_init` on SBPL text, then `execvp`) and teach `run_probes.py` to prefer it over `sandbox-exec`. On this host, `sandbox_init` also fails with EPERM (“Operation not permitted”), so probes still show `deny` from apply failure. Conclusion: SIP/entitlement gate blocks both sandbox-exec and sandbox_init here; need a different environment or privileges to get runtime traces.
+
+## 2026-01-XX (later)
+
+- With danger-full-access, `sandbox_runner` now applies profiles: bucket-4/bucket-5 probes match expectations; added `runtime:allow_all` (mostly allows, except /etc/hosts write denied by OS perms) and `runtime:metafilter_any` (shows SIGABRT exit -6 on foo/bar reads, likely due to missing literal/param handling in shimmed profile). System profiles still skipped (no SBPL form). Need to debug metafilter profile crash and add SBPL/wrapper for system profiles.
+- Reworked `metafilter_any` profile to an explicit allow-only form; still seeing exit -6 on allowed reads. Suspect shim/profile interaction; needs decoder check and maybe a simpler metafilter shape.
+
+## 2026-01-XX (after reader switch)
+
+- Added `sandbox_reader` (no exec; applies profile via sandbox_init and reads target). `run_probes.py` uses reader for `file-read*`.
+- Extended `metafilter_any` to include `/private/tmp` literals; runtime probes now pass: foo/bar allowed (exit 0), other denied (open EPERM). Crash resolved.
+- System profiles still skipped (no SBPL wrapper).

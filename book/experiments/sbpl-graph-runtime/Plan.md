@@ -23,6 +23,7 @@ Produce small “golden” triples (SBPL source, decoded graph, runtime probe ou
 3) **Run runtime probes**
    - Reuse/extend a harness (sandbox-exec or runner) to execute a few file probes per profile, logging operation, path, exit, and errno to ndjson.
    - For environments where sandbox-apply is blocked, note the failure and prepare to rerun in a SIP-relaxed context.
+   - Status: runtime probes now run via `sandbox_runner` on this host for bucket profiles; extend harness to these profiles next.
 
 4) **Link triple**
    - Build a manifest that ties SBPL → compiled blob → decoded nodes → runtime outcomes for each profile, with OS/build metadata.

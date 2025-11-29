@@ -14,4 +14,4 @@ Demonstrate round-trip alignment between SBPL source, compiled graph structure, 
 
 - Profiles authored: allow_all, deny_all, deny_except_tmp, metafilter_any (param_path pending param injection).
 - Compiled to binaries with `sbsnarf.py` (absolute paths) and decoded via `profile_ingestion.py`; see `out/ingested.json` for header/section summaries (modern-heuristic).
-- Runtime probes not yet captured: both sandbox-exec and sandbox_init-based runners fail with EPERM on this host under SIP. Triples are currently “SBPL + graph” only; runtime leg deferred until a permissive environment is available.
+- Runtime probes: running via `sandbox_runner`/`sandbox_reader` on this host. `deny_all`/`deny_except_tmp` equivalents match expectations; `allow_all` mostly matches (OS perms deny `/etc/hosts` write). `metafilter_any` now passes (foo/bar allowed, other denied) after adding `/private/tmp` literals and using reader (no exec). System profiles not included (no SBPL/wrapper).

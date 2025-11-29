@@ -241,7 +241,7 @@ The validation plan ties the examples in `book/examples/` to the four clusters. 
 - Build a stateless summary of the content in `validation/` for an agent who will audit your work. They do not need explanation, context, or reasoning--they need a rich router to the code and linkages. Place this summary and routing alongside the example/cluster map (see `book/graph/concepts/EXAMPLES.md` and the “Inventory Summary” section there).
 
 **Cross-cutting experiment hooks**
-- `book/experiments/sbpl-graph-runtime/`: “golden” triples tying SBPL → decoded graph → runtime probes for canonical shapes. Graph leg exists (compiled + ingested); runtime leg deferred pending a permissive harness.
+- `book/experiments/sbpl-graph-runtime/`: “golden” triples tying SBPL → decoded graph → runtime probes for canonical shapes. Graph leg exists (compiled + ingested); runtime leg now runs via `sandbox_runner`/`sandbox_reader` for simple shapes (including metafilter); system profile inclusion still pending.
 - `book/experiments/entitlement-diff/`: signed variants with/without selected entitlements (e.g., `com.apple.security.network.server`) with extracted entitlements; profile extraction/runtime probes to be wired once an App Sandbox pipeline or permissive harness is available.
 
 

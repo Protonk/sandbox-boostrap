@@ -62,6 +62,60 @@
       "blob": "book/examples/sb/build/sample.sb.bin",
       "probes": [],
       "notes": "System profile; expectations TBD."
+    },
+    "runtime:allow_all": {
+      "blob": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/sbpl-graph-runtime/out/allow_all.sb.bin",
+      "probes": [
+        {
+          "name": "read_/etc/hosts",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "allow"
+        },
+        {
+          "name": "write_/etc/hosts",
+          "operation": "file-write*",
+          "target": "/etc/hosts",
+          "expected": "allow"
+        },
+        {
+          "name": "read_/tmp/foo",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow"
+        },
+        {
+          "name": "read_/tmp/bar",
+          "operation": "file-read*",
+          "target": "/tmp/bar",
+          "expected": "allow"
+        }
+      ],
+      "notes": "allow default; should allow all file read/write"
+    },
+    "runtime:metafilter_any": {
+      "blob": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/sbpl-graph-runtime/out/metafilter_any.sb.bin",
+      "probes": [
+        {
+          "name": "read_foo",
+          "operation": "file-read*",
+          "target": "/tmp/foo.txt",
+          "expected": "allow"
+        },
+        {
+          "name": "read_bar",
+          "operation": "file-read*",
+          "target": "/tmp/bar.txt",
+          "expected": "allow"
+        },
+        {
+          "name": "read_other",
+          "operation": "file-read*",
+          "target": "/tmp/other.txt",
+          "expected": "deny"
+        }
+      ],
+      "notes": "require-any literal foo/bar"
     }
   }
 }

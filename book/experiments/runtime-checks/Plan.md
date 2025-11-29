@@ -41,6 +41,10 @@ Deliverables: `out/expected_matrix.json` (profile × probe → expected verdict)
 - Re-run or redesign runtime checks with a harness that can successfully apply the sandbox profiles under SIP, and capture meaningful allow/deny behavior.
 - Consider alternative runners (e.g., compiled blob apply via helper, dev mode without SIP) since `sandbox-exec` continues to return `sandbox_apply: Operation not permitted` on this host.
 
+**Updates**
+
+- `sandbox_runner` now works on this host: bucket-4 and bucket-5 probes complete with expected/actual/match fields; system profiles still skipped (no SBPL path). Integrate system profile runs once SBPL/wrapper available.
+
 Deliverables: `out/runtime_results.json` plus brief Notes.
 
 ## 4) Compare and guardrail

@@ -22,6 +22,7 @@ ROOT = Path(__file__).resolve().parents[3]
 OUT = Path(__file__).resolve().parent / "out"
 RUNTIME_PROFILE_DIR = OUT / "runtime_profiles"
 RUNNER = Path(__file__).resolve().parent / "sandbox_runner"
+READER = Path(__file__).resolve().parent / "sandbox_reader"
 
 CAT = "/bin/cat"
 SH = "/bin/sh"
@@ -54,12 +55,27 @@ KEY_SPECIFIC_RULES = {
         '(deny file-read* (subpath "/tmp/bar"))',
         '(deny file-write* (subpath "/private/tmp/foo"))',
         '(deny file-write* (subpath "/tmp/foo"))',
+    ],
+    "runtime:allow_all": [
+        "(allow default)",
+        "(allow process-exec*)",
+        "(allow file-read* (regex \".*\"))",
+        "(allow file-write* (regex \".*\"))",
+        "(allow file-read-metadata (regex \".*\"))",
+        "(allow file-write-create (regex \".*\"))",
+    ],
+    "runtime:metafilter_any": [
+        "(allow process-exec*)",
+        '(allow file-read* (literal "/tmp/foo.txt"))',
+        '(allow file-read* (literal "/tmp/bar.txt"))',
     ]
 }
 
 PROFILE_PATHS = {
     "bucket4:v1_read": ROOT / "book/experiments/op-table-operation/sb/v1_read.sb",
     "bucket5:v11_read_subpath": ROOT / "book/experiments/op-table-operation/sb/v11_read_subpath.sb",
+    "runtime:allow_all": ROOT / "book/experiments/sbpl-graph-runtime/profiles/allow_all.sb",
+    "runtime:metafilter_any": ROOT / "book/experiments/sbpl-graph-runtime/profiles/metafilter_any.sb",
 }
 
 
@@ -74,15 +90,22 @@ def run_probe(profile: Path, probe: Dict[str, Any]) -> Dict[str, Any]:
     target = probe.get("target")
     op = probe.get("operation")
     cmd: List[str]
+    reader_mode = False
     if op == "file-read*":
-        cmd = [CAT, target]
+        if READER.exists():
+            cmd = [str(READER), str(profile), target]
+            reader_mode = True
+        else:
+            cmd = [CAT, target]
     elif op == "file-write*":
         # append to target
         cmd = [SH, "-c", f"echo runtime-check >> '{target}'"]
     else:
         cmd = ["true"]
 
-    if RUNNER.exists():
+    if reader_mode:
+        full_cmd = cmd
+    elif RUNNER.exists():
         full_cmd = [str(RUNNER), str(profile), "--"] + cmd
     else:
         full_cmd = ["sandbox-exec", "-f", str(profile), "--"] + cmd

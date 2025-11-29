@@ -7,18 +7,16 @@
       {
         "name": "read_/etc/hosts",
         "expected": "allow",
-        "actual": "deny",
-        "match": false,
+        "actual": "allow",
+        "match": true,
         "command": [
-          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_runner",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_reader",
           "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
-          "--",
-          "/bin/cat",
           "/etc/hosts"
         ],
-        "exit_code": 1,
-        "stdout": "",
-        "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n"
+        "exit_code": 0,
+        "stdout": "##\n# Host Database\n#\n# localhost is used to configure the loopback interface\n# when the system is booting.  Do not change this entry.\n##\n127.0.0.1\tlocalhost\n255.255.255.255\tbroadcasthost\n::1             localhost\n",
+        "stderr": ""
       },
       {
         "name": "write_/etc/hosts",
@@ -35,23 +33,21 @@
         ],
         "exit_code": 1,
         "stdout": "",
-        "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n"
+        "stderr": "/bin/sh: /etc/hosts: Permission denied\n"
       },
       {
         "name": "read_/tmp/foo",
         "expected": "allow",
-        "actual": "deny",
-        "match": false,
+        "actual": "allow",
+        "match": true,
         "command": [
-          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_runner",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_reader",
           "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
-          "--",
-          "/bin/cat",
           "/tmp/foo"
         ],
-        "exit_code": 1,
-        "stdout": "",
-        "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n"
+        "exit_code": 0,
+        "stdout": "runtime-checks foo\n",
+        "stderr": ""
       }
     ]
   },
@@ -63,18 +59,16 @@
       {
         "name": "read_/tmp/foo",
         "expected": "allow",
-        "actual": "deny",
-        "match": false,
+        "actual": "allow",
+        "match": true,
         "command": [
-          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_runner",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_reader",
           "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
-          "--",
-          "/bin/cat",
           "/tmp/foo"
         ],
-        "exit_code": 1,
-        "stdout": "",
-        "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n"
+        "exit_code": 0,
+        "stdout": "runtime-checks foo\n",
+        "stderr": ""
       },
       {
         "name": "read_/tmp/bar",
@@ -82,15 +76,13 @@
         "actual": "deny",
         "match": true,
         "command": [
-          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_runner",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_reader",
           "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
-          "--",
-          "/bin/cat",
           "/tmp/bar"
         ],
-        "exit_code": 1,
+        "exit_code": 2,
         "stdout": "",
-        "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n"
+        "stderr": "open target: Operation not permitted\n"
       },
       {
         "name": "write_/tmp/foo",
@@ -107,7 +99,7 @@
         ],
         "exit_code": 1,
         "stdout": "",
-        "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n"
+        "stderr": "/bin/sh: /tmp/foo: Operation not permitted\n"
       }
     ]
   },
@@ -122,5 +114,120 @@
   "sys:sample": {
     "status": "skipped",
     "reason": "no profile path"
+  },
+  "runtime:allow_all": {
+    "status": "completed",
+    "profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/allow_all.runtime_allow_all.runtime.sb",
+    "base_profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/sbpl-graph-runtime/profiles/allow_all.sb",
+    "probes": [
+      {
+        "name": "read_/etc/hosts",
+        "expected": "allow",
+        "actual": "allow",
+        "match": true,
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_reader",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/allow_all.runtime_allow_all.runtime.sb",
+          "/etc/hosts"
+        ],
+        "exit_code": 0,
+        "stdout": "##\n# Host Database\n#\n# localhost is used to configure the loopback interface\n# when the system is booting.  Do not change this entry.\n##\n127.0.0.1\tlocalhost\n255.255.255.255\tbroadcasthost\n::1             localhost\n",
+        "stderr": ""
+      },
+      {
+        "name": "write_/etc/hosts",
+        "expected": "allow",
+        "actual": "deny",
+        "match": false,
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_runner",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/allow_all.runtime_allow_all.runtime.sb",
+          "--",
+          "/bin/sh",
+          "-c",
+          "echo runtime-check >> '/etc/hosts'"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "/bin/sh: /etc/hosts: Permission denied\n"
+      },
+      {
+        "name": "read_/tmp/foo",
+        "expected": "allow",
+        "actual": "allow",
+        "match": true,
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_reader",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/allow_all.runtime_allow_all.runtime.sb",
+          "/tmp/foo"
+        ],
+        "exit_code": 0,
+        "stdout": "runtime-checks foo\n",
+        "stderr": ""
+      },
+      {
+        "name": "read_/tmp/bar",
+        "expected": "allow",
+        "actual": "allow",
+        "match": true,
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_reader",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/allow_all.runtime_allow_all.runtime.sb",
+          "/tmp/bar"
+        ],
+        "exit_code": 0,
+        "stdout": "runtime-checks bar\n",
+        "stderr": ""
+      }
+    ]
+  },
+  "runtime:metafilter_any": {
+    "status": "completed",
+    "profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
+    "base_profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/sbpl-graph-runtime/profiles/metafilter_any.sb",
+    "probes": [
+      {
+        "name": "read_foo",
+        "expected": "allow",
+        "actual": "allow",
+        "match": true,
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_reader",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
+          "/tmp/foo.txt"
+        ],
+        "exit_code": 0,
+        "stdout": "foo\n",
+        "stderr": ""
+      },
+      {
+        "name": "read_bar",
+        "expected": "allow",
+        "actual": "allow",
+        "match": true,
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_reader",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
+          "/tmp/bar.txt"
+        ],
+        "exit_code": 0,
+        "stdout": "bar\n",
+        "stderr": ""
+      },
+      {
+        "name": "read_other",
+        "expected": "deny",
+        "actual": "deny",
+        "match": true,
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_reader",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
+          "/tmp/other.txt"
+        ],
+        "exit_code": 2,
+        "stdout": "",
+        "stderr": "open target: Operation not permitted\n"
+      }
+    ]
   }
 }
