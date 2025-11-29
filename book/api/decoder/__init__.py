@@ -27,6 +27,8 @@ DEFAULT_TAG_LAYOUTS: Dict[int, Tuple[int, Tuple[int, ...], Tuple[int, ...]]] = {
 class DecodedProfile:
     format_variant: str
     preamble_words: List[int]
+    preamble_words_full: List[int]
+    header_bytes: bytes
     op_count: Optional[int]
     op_table_offset: int
     op_table: List[int]
@@ -37,11 +39,12 @@ class DecodedProfile:
     literal_strings: List[str]
     sections: Dict[str, int]
     validation: Dict[str, Any]
+    header_fields: Dict[str, Any]
 
 
-def _read_preamble(data: bytes) -> List[int]:
+def _read_words(data: bytes, byte_len: int) -> List[int]:
     words = []
-    for i in range(0, min(len(data), 16), 2):
+    for i in range(0, min(len(data), byte_len), 2):
         words.append(int.from_bytes(data[i : i + 2], "little"))
     return words
 
@@ -162,8 +165,10 @@ def _extract_strings_with_offsets(buf: bytes, min_len: int = 4) -> List[Tuple[in
     return out
 
 
-def decode_profile(data: bytes) -> DecodedProfile:
-    preamble = _read_preamble(data)
+def decode_profile(data: bytes, header_window: int = 128) -> DecodedProfile:
+    preamble = _read_words(data, 16)
+    preamble_full = _read_words(data, header_window)
+    header_bytes = data[:header_window]
     op_count = _guess_op_count(preamble)
     op_table_len = (op_count or 0) * 2
     op_table_start = 16
@@ -247,9 +252,26 @@ def decode_profile(data: bytes) -> DecodedProfile:
     for node, refs in zip(nodes, literal_refs_per_node):
         node["literal_refs"] = refs
 
+    header_fields: Dict[str, Any] = {}
+    try:
+        header_fields = {
+            "magic": preamble_full[2] if len(preamble_full) > 2 else None,
+            "op_count_word": preamble_full[1] if len(preamble_full) > 1 else None,
+            "maybe_flags": preamble_full[0] if preamble_full else None,
+            "unknown_words": [
+                {"index": i, "value": w} for i, w in enumerate(preamble_full[3:], start=3)
+            ]
+            if len(preamble_full) > 3
+            else [],
+        }
+    except Exception:
+        header_fields = {}
+
     decoded = DecodedProfile(
         format_variant="modern-heuristic",
         preamble_words=preamble,
+        preamble_words_full=preamble_full,
+        header_bytes=header_bytes,
         op_count=op_count,
         op_table_offset=op_table_start,
         op_table=_parse_op_table(op_table_bytes),
@@ -273,6 +295,7 @@ def decode_profile(data: bytes) -> DecodedProfile:
             "literal_start": literal_start,
             "tag_validation": tag_validation,
         },
+        header_fields=header_fields,
     )
     decoded.literal_strings_with_offsets = literal_strings_with_offsets  # type: ignore[attr-defined]
 
@@ -285,6 +308,8 @@ def decode_profile_dict(data: bytes) -> Dict[str, Any]:
     return {
         "format_variant": d.format_variant,
         "preamble_words": d.preamble_words,
+        "preamble_words_full": d.preamble_words_full,
+        "header_bytes": d.header_bytes.hex(),
         "op_count": d.op_count,
         "op_table_offset": d.op_table_offset,
         "op_table": d.op_table,
@@ -297,4 +322,5 @@ def decode_profile_dict(data: bytes) -> Dict[str, Any]:
         ),
         "sections": d.sections,
         "validation": getattr(d, "validation", {}),
+        "header_fields": getattr(d, "header_fields", {}),
     }

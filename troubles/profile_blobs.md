@@ -53,3 +53,19 @@ If blob mode remains unavailable, disassemble system blobs to SBPL (`sbdis`) and
 - After wiring `run_probes.py` to route blob-mode profiles through `book/api/SBPL-wrapper/wrapper --blob`, system blobs (`airlock.sb.bin`, `bsd.sb.bin`) now fail at apply with `sandbox_apply: Operation not permitted` before exec. Custom blobs (e.g., `allow_all.sb.bin`) apply cleanly.
 - Likely cause: these are platform profile layers that the kernel only installs when handed down by secinit/sandboxd with platform credentials; ad hoc `sandbox_apply` from an unsigned/non-platform process is rejected.
 - Workarounds: use SBPL text imports for system profiles, or run blob apply on a permissive/entitled host. Pending: inspect blob headers/flags to confirm platform-only provenance.
+
+## Header inspection (decoder)
+
+- Ran `book.api.decoder.decode_profile` on `airlock.sb.bin`, `bsd.sb.bin`, and a custom `allow_all.sb.bin`.
+- Preamble words (16-bit LE): `airlock=[16384,167,190,0,0,1,7,283]`, `bsd=[0,28,190,0,0,0,0,27]`, `allow_all=[0,2,190,0,0,0,0,1]`. Word0 differs: `airlock` carries `0x4000`, others `0x0000`. Word1 aligns with op_count (167/28/2).
+- Early 32-byte hex (LE pairs): `airlock` starts `0040 a700 be00 ...`, `bsd` starts `0000 1c00 be00 ...`, `allow_all` starts `0000 0200 be00 ...`. No explicit type field surfaced by the current decoder, but the `0x4000` word0 on `airlock` may mark platform provenance.
+- Sections: decoder still slices op-table at byte 16 for `op_count*2`; nodes/literal offsets differ due to size, not flags.
+- No discriminating “profile type” field is exposed yet; next step is to expose more header words/flags in the decoder or compare against known format docs.
+
+### Header dump via CLI helper
+
+- Using `python -m book.api.decoder dump --summary`, outputs for key blobs:
+  - `airlock.sb.bin`: `op_count=167`, `maybe_flags=16384 (0x4000)`, `word0=16384`, `word2=190`.
+  - `bsd.sb.bin`: `op_count=28`, `maybe_flags=0`, `word0=0`, `word2=190`.
+  - `allow_all.sb.bin` (custom): `op_count=2`, `maybe_flags=0`, `word0=0`, `word2=190`.
+- Full header (64-byte) dumps show `header_fields.magic=0x00be` across all, word1=op_count, and `unknown_words` populated with trailing header words. The only clear discriminator so far is `maybe_flags=0x4000` on `airlock`; `bsd` matches the custom blob on flags. Platform-only provenance may be flagged differently per profile; more analysis needed if EPERM persists on both.
