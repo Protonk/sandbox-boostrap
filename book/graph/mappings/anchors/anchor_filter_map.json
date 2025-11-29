@@ -1,0 +1,128 @@
+{
+  "/tmp/foo": {
+    "candidates": [
+      "global-name",
+      "ipc-posix-name",
+      "local-name",
+      "path"
+    ],
+    "field2_values": [
+      0,
+      4,
+      5,
+      6
+    ],
+    "sources": [
+      "probe:v1_file_require_any",
+      "probe:v2_file_three_filters_any"
+    ],
+    "status": "ambiguous"
+  },
+  "/etc/hosts": {
+    "candidates": [
+      "global-name",
+      "local",
+      "local-name",
+      "mount-relative-path",
+      "path"
+    ],
+    "field2_values": [
+      0,
+      1,
+      5,
+      6,
+      7,
+      3584
+    ],
+    "sources": [
+      "probe:v1_file_require_any",
+      "probe:v2_file_three_filters_any",
+      "sys:sample"
+    ],
+    "status": "ambiguous"
+  },
+  "/var/log": {
+    "filter_name": "ipc-posix-name",
+    "filter_id": 4,
+    "sources": [
+      "probe:v2_file_three_filters_any"
+    ],
+    "field2_values": [
+      4
+    ],
+    "status": "mapped"
+  },
+  "com.apple.cfprefsd.agent": {
+    "candidates": [
+      "global-name",
+      "ipc-posix-name",
+      "local-name",
+      "path"
+    ],
+    "field2_values": [
+      0,
+      4,
+      5,
+      6
+    ],
+    "sources": [
+      "probe:v3_mach_global_local",
+      "probe:v6_file_mach_combo"
+    ],
+    "status": "ambiguous"
+  },
+  "flow-divert": {
+    "candidates": [
+      "local",
+      "xattr"
+    ],
+    "field2_values": [
+      2,
+      7,
+      2560
+    ],
+    "sources": [
+      "probe:v4_network_socket_require_all",
+      "probe:v7_file_network_combo"
+    ],
+    "status": "ambiguous"
+  },
+  "IOUSBHostInterface": {
+    "candidates": [
+      "global-name",
+      "local-name",
+      "path"
+    ],
+    "field2_values": [
+      0,
+      5,
+      6
+    ],
+    "sources": [
+      "probe:v5_iokit_class_property"
+    ],
+    "status": "ambiguous"
+  },
+  "idVendor": {
+    "filter_name": "local-name",
+    "filter_id": 6,
+    "sources": [
+      "probe:v5_iokit_class_property"
+    ],
+    "field2_values": [
+      6
+    ],
+    "status": "mapped"
+  },
+  "preferences/logging": {
+    "filter_name": "global-name",
+    "filter_id": 5,
+    "sources": [
+      "sys:bsd"
+    ],
+    "field2_values": [
+      5
+    ],
+    "status": "mapped"
+  }
+}

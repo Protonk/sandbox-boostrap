@@ -75,17 +75,26 @@ def _parse_op_table(data: bytes) -> List[int]:
 
 def _load_external_tag_layouts() -> Dict[int, Tuple[int, Tuple[int, ...], Tuple[int, ...]]]:
     """
-    Optionally merge in tag layout hints from the probe-op-structure experiment.
+    Optionally merge in tag layout hints from stable mappings or experiments.
 
-    This stays best-effort: if the file is missing or malformed we fall back to
-    the built-in defaults. Keys are tag ints; values mirror DEFAULT_TAG_LAYOUTS.
+    Priority: published mapping under book/graph/mappings/tag_layouts/tag_layouts.json,
+    then experimental assumptions under probe-op-structure. If none found, fall
+    back to the built-in defaults. Keys are tag ints; values mirror DEFAULT_TAG_LAYOUTS.
     """
-    path = Path("book/experiments/probe-op-structure/out/tag_layout_assumptions.json")
-    if not path.exists():
-        return {}
-    try:
-        data = json.loads(path.read_text())
-    except Exception:
+    candidates = [
+        Path("book/graph/mappings/tag_layouts/tag_layouts.json"),
+        Path("book/experiments/probe-op-structure/out/tag_layout_assumptions.json"),
+    ]
+    data = None
+    for path in candidates:
+        if not path.exists():
+            continue
+        try:
+            data = json.loads(path.read_text())
+            break
+        except Exception:
+            continue
+    if not data:
         return {}
     out: Dict[int, Tuple[int, Tuple[int, ...], Tuple[int, ...]]] = {}
     for entry in data.get("tags", []):

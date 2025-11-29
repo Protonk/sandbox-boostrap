@@ -1,0 +1,67 @@
+{
+  "profiles": {
+    "bucket4:v1_read": {
+      "blob": "book/experiments/op-table-operation/sb/build/v1_read.sb.bin",
+      "probes": [
+        {
+          "name": "read_/etc/hosts",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "allow"
+        },
+        {
+          "name": "write_/etc/hosts",
+          "operation": "file-write*",
+          "target": "/etc/hosts",
+          "expected": "deny"
+        },
+        {
+          "name": "read_/tmp/foo",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow"
+        }
+      ],
+      "notes": "Baseline bucket-4 profile: allow file-read* only."
+    },
+    "bucket5:v11_read_subpath": {
+      "blob": "book/experiments/op-table-operation/sb/build/v11_read_subpath.sb.bin",
+      "probes": [
+        {
+          "name": "read_/tmp/foo",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow"
+        },
+        {
+          "name": "read_/tmp/bar",
+          "operation": "file-read*",
+          "target": "/tmp/bar",
+          "expected": "deny"
+        },
+        {
+          "name": "write_/tmp/foo",
+          "operation": "file-write*",
+          "target": "/tmp/foo",
+          "expected": "deny"
+        }
+      ],
+      "notes": "Bucket-5 filtered profile: read allowed only under /tmp/foo via subpath filter."
+    },
+    "sys:bsd": {
+      "blob": "book/examples/extract_sbs/build/profiles/bsd.sb.bin",
+      "probes": [],
+      "notes": "System profile; expectations TBD based on decoder signatures."
+    },
+    "sys:airlock": {
+      "blob": "book/examples/extract_sbs/build/profiles/airlock.sb.bin",
+      "probes": [],
+      "notes": "System profile; expectations TBD."
+    },
+    "sys:sample": {
+      "blob": "book/examples/sb/build/sample.sb.bin",
+      "probes": [],
+      "notes": "System profile; expectations TBD."
+    }
+  }
+}
