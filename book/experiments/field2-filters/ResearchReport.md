@@ -31,7 +31,7 @@ Decode the meaning of `field2` values in decoded PolicyGraph nodes by aligning t
   - System profiles confirm that `field2` values line up with filter IDs/names from `filters.json` (e.g., `bsd` shows preference-domain/right-name/iokit-*; `sample` shows path/socket filters; `airlock` carries high, still-unknown IDs).
   - Single-filter probes remain dominated by generic path/name scaffolding in the aggregate histogram: subpath/literal/vnode-type variants all show `field2` {5,4,3} (global-name/ipc-posix-name/file-mode); socket-domain shows {6,5,0} (local-name/global-name/path). Filter-specific IDs are not yet surfaced in these tiny profiles via histogram alone.
 
-Anchor-aware decoder integration from `probe-op-structure` is available: anchors now bind to nodes in simple probes, but the bound nodes still carry generic field2 IDs. Field2 mapping remains open pending richer tag decoding and anchor-strong probes.
+Anchor-aware decoder integration from `probe-op-structure` is available: anchors now bind to nodes in simple probes (and `field2_inventory.json` includes any anchor hits), but the bound nodes still carry generic field2 IDs. Field2 mapping remains open pending richer tag decoding and anchor-strong probes.
 
 ## Expected outcomes
 

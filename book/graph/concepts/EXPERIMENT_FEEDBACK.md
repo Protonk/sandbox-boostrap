@@ -130,8 +130,9 @@ and then decide whether to deepen the SBPL delta experiments, wire in vocab extr
 **Current state**
 
 - Field2 mapping remains blocked by modern node decoding: stride-12 heuristics expose small filter-ID-like values but no literal/regex references.
-- Anchor scans now include an `offsets` field and successfully list anchors, but `node_indices` stay empty because node→literal bindings aren’t decoded.
+- Anchor scans now include an `offsets` field and list anchors; with decoder literal_refs and prefix normalization, simple probes now produce node hits for anchors (e.g., `/tmp/foo` → nodes in `v1_file_require_any`). Literal/regex operand decoding is still heuristic and needs proper tag-aware layouts.
 - Tag-aware decoder scaffold exists; literal references and per-tag layouts remain to be reverse-engineered.
+- Anchor→field2 hints are published under `book/graph/mappings/anchors/anchor_field2_map.json` for reuse.
 
 **Recommended next steps**
 

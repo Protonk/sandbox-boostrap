@@ -29,7 +29,7 @@ def load_filters() -> Dict[int, str]:
     return {entry["id"]: entry["name"] for entry in data.get("filters", [])}
 
 
-def summarize_profile(path: Path, filter_names: Dict[int, str]) -> Dict[str, Any]:
+def summarize_profile(path: Path, filter_names: Dict[int, str], anchors: Dict[str, Any]) -> Dict[str, Any]:
     prof = decoder.decode_profile_dict(path.read_bytes())
     nodes = prof.get("nodes") or []
     hist: Dict[int, int] = {}
@@ -38,6 +38,7 @@ def summarize_profile(path: Path, filter_names: Dict[int, str]) -> Dict[str, Any
         if len(fields) > 2:
             val = fields[2]
             hist[val] = hist.get(val, 0) + 1
+    anchor_hits = anchors if isinstance(anchors, list) else anchors.get(path.stem, [])
     return {
         "op_count": prof.get("op_count"),
         "node_count": prof.get("node_count"),
@@ -49,6 +50,7 @@ def summarize_profile(path: Path, filter_names: Dict[int, str]) -> Dict[str, Any
             }
             for v, c in sorted(hist.items(), key=lambda x: -x[1])
         ],
+        "anchors": anchor_hits,
     }
 
 
@@ -66,8 +68,16 @@ def main() -> None:
         for p in sorted(probes_dir.glob("*.sb.bin")):
             profiles[f"probe:{p.stem}"] = p
 
+    # Anchor hits (optional): reuse probe-op-structure results where names match stem keys
+    anchors_map: Dict[str, Any] = {}
+    anchor_hits_path = Path("book/experiments/probe-op-structure/out/anchor_hits.json")
+    if anchor_hits_path.exists():
+        raw = json.loads(anchor_hits_path.read_text())
+        for prof_key, rec in raw.items():
+            anchors_map[Path(prof_key).stem] = rec.get("anchors", [])
+
     out = {
-        name: summarize_profile(path, filter_names)
+        name: summarize_profile(path, filter_names, anchors_map.get(name, []))
         for name, path in profiles.items()
         if path.exists()
     }
