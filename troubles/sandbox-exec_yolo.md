@@ -45,5 +45,62 @@ This is a detailed read-out of the sandbox-exec harness work in `book/experiment
    - The bucket-5 shim now uses `(allow default)`, so it no longer mirrors the strict `(deny default)` SBPL; only the probed operations are guarded by explicit denies. Broader enforcement gaps likely exist if more operations were exercised.  
    - The exact abort cause under `(deny default)` + narrow allows is still unresolved (suspected loader/resource starvation). No sandboxd logs captured. Crash reports suggest Seatbelt kill tied to missing dyld resources, but not confirmed.
 
+## Concept connections (teaching view)
+
+This section ties the concrete harness behaviour back to the substrate’s Concepts / Orientation vocabulary so that the log can double as a worked example.
+
+### 1. Where this sits in the Policy Lifecycle
+
+- **SBPL Profile → compiled policy → runtime decision.**  
+  In this experiment, `v1_read.sb` and `v11_read_subpath.sb` are SBPL Profiles: `(version 1)`, a default decision, then operation rules (`file-read*`, `file-write*`). `sandbox-exec` is the mechanism that, at run time, takes that SBPL Profile, compiles it via `libsandbox` into a PolicyGraph, installs it, and applies it to the probed process. We never see the compiled blob directly here, but the exit codes and crash reports are evidence of where we are in the Policy Lifecycle Stage:
+  - Exit 71 (`sandbox_apply: Operation not permitted`) means the policy never became a usable compiled profile attached to the process at all; we failed in the “install compiled policy” stage.
+  - Exit 1 with `EPERM` from `cat`/`sh` means the compiled PolicyGraph was installed and reached a deny Decision node for the probed Operation.
+  - Exit -6 / SIGABRT with a crash report means the compiled policy did attach, but the combination of SBPL Profile and State starved some ambient requirement (dyld or similar) so badly that the process was terminated outside the “clean allow/deny” path.
+
+- **Compiled Profile Source.**  
+  The profiles under `book/experiments/op-table-operation/sb/` are harness SBPL Profiles, not App Sandbox templates or platform policies. In Compiled Profile Source terms, they are “test fixtures,” intended to exercise specific Operation and Filter combinations that the decoder grouped into bucket-4 and bucket-5. The runtime-checks harness is deliberately not using system `.sb` bundles yet; it isolates the experiment to these synthetic sources.
+
+### 2. Operations, filters, and what is actually being probed
+
+- **Operation focus.**  
+  All of the probes are about two Operations: `file-read*` and `file-write*`. The bucket-4 SBPL Profile (`v1_read`) uses `(allow file-read*)` with no Filters, so the Operation is unconstrained by path in policy space even though the underlying OS may still deny writes or other actions for non-sandbox reasons. The bucket-5 SBPL Profile (`v11_read_subpath`) uses `(allow file-read* (subpath "/tmp/foo"))`, adding a `subpath` Filter that narrows the allow to a specific region of the filesystem.
+
+- **Filter semantics vs expectations.**  
+  The expected matrix in `out/expected_matrix.json` encodes a concept-level view: “bucket-4 = allow reads everywhere, writes nowhere; bucket-5 = allow reads only under `/tmp/foo`, deny reads elsewhere, deny writes.” That is a clean Operation × Filter × Decision story. The crashy behaviour for bucket-5 shows that in a real State, the SBPL Profile’s default `(deny default)` plus a single subpath Filter interacts with unmodeled dependencies (dyld, runtime, platform policies). The shims we added (`process-exec`, system path reads, tmp metadata) can be read as an implicit Filter vocabulary extension: we are manually adding the “hidden” Filters that the loader needs to function.
+
+### 3. Buckets, PolicyGraph shape, and what the decoder expects
+
+- **Bucket-level behaviour as PolicyGraph signature.**  
+  Elsewhere in the repo, bucket-4 vs bucket-5 is a decoder-level clustering of PolicyGraph structure: a profile whose `file-read*` graph has no path Filter lands in bucket-4; a profile whose `file-read*` graph tests a `subpath` and then decides lands in bucket-5. The runtime-checks experiment is the runtime side of that story: can we observe, via probes, that the effective Decision for those Operations matches the bucket assignment?
+
+- **Shim impact on graph structure.**  
+  Every shim line we added is a new SBPL rule and therefore a new branch or node structure in the PolicyGraph:
+  - `(allow process-exec*)` introduces a separate Operation entry for `process-exec*` with a trivial allow path; without it, the operation pointer table entry for `process-exec*` effectively points at a deny decision.
+  - The global system path allows ( `/System`, `/usr`, `/bin`, `/sbin`, `/dev`, metadata on `/tmp`) likely add filter nodes to several file-related Operations, giving dyld and the runtime a path through the graph to allow their own `file-read*` operations.
+  - The bucket-5-specific `(allow default)` followed by denies for `/tmp/bar` and `/tmp/foo` writes creates a PolicyGraph where `file-read*` and `file-write*` are still constrained on the specific probes, but many other operations now flow directly to an allow Decision. That is why the harness becomes stable but the profile is no longer “pure bucket-5” in a global sense.
+
+### 4. Failure modes as different layers of the system
+
+Using Orientation’s “stack and graph” mental model, the three failure modes we saw naturally align with different layers:
+
+- **Harness-layer failure (exit 71).**  
+  Here, the custom SBPL Profile and the State’s platform policies combine to deny `process-exec*` for the probe binaries themselves. The platform layer is fine; our harness SBPL Profile is too restrictive. No PolicyGraph for `file-read*` or `file-write*` is ever actually evaluated for the target process because we never get a running process under the sandbox.
+
+- **Policy Decision-layer behaviour (exit 1, `EPERM`).**  
+  Once process-exec and loader dependencies are unblocked, the denies we care about—`/etc/hosts` write for bucket-4, `/tmp/bar` read and `/tmp/foo` write for bucket-5—show up as clean “deny Decision reached in the relevant PolicyGraph” semantics. From Concepts’ point of view, these are the only outcomes that really validate or falsify our understanding of Operation, Filter, Decision, and PolicyGraph shape.
+
+- **Environment/State-layer aborts (exit -6 / SIGABRT).**  
+  The crash reports sit closer to Environment and State: the combination of SIP, hardened runtime, dyld shared cache layout, and our SBPL Profile left the process in a situation where Seatbelt (or another MAC/policy) terminates it. This is not the “deny with EPERM at a single Operation” story that the runtime-checks plan wanted; it is an example of how State2025 (Sonoma) constrains the use of sandbox-exec in ways that older Appendix-era examples did not.
+
+### 5. Profile layers and what we are (not) modeling
+
+- **Single layer vs real Policy Stack.**  
+  In real processes, Policy Stack Evaluation Order combines platform, App Sandbox, and other layers. The runtime-checks harness intentionally ignores that complexity and installs a single test SBPL Profile via sandbox-exec. The loader failures and crashes are reminders that even in this toy setup, other platform layers (SIP, hardened runtime, dyld expectations) are still present and can dominate behaviour.
+
+- **Teaching implication.**  
+  For readers learning Seatbelt from this repo, this incident is a concrete illustration that:
+  - A “minimal” SBPL Profile that looks correct at the SBPL and PolicyGraph level can still be unusable on a modern State because it conflicts with Environment-level invariants.
+  - Runtime experiments must be designed with those invariants in mind; sometimes the harness needs its own small profile layer (our shims) that keeps the system viable while still letting you carve out a narrow region of the operation/filter space to study.
+
 ## Narrative summary (appended)
 Started with pure SBPL profiles and a simple sandbox-exec harness; everything died with exit 71 because Seatbelt blocked `process-exec` for `cat`/`sh`. Verified sandbox-exec works when permissive. Added process-exec shim and absolute paths; bucket-4 recovered, but bucket-5 kept aborting (exit -6/SIGABRT). Layered in system file-read and tmp metadata allows; still crashed. Finally, for the bucket-5 subpath profile, flipped to `(allow default)` with targeted denies for `/tmp/bar` reads and `/tmp/foo` writes. That avoided the abort and produced the expected verdicts on the probed operations. Tradeoff: the runtime shim now diverges from the strict `(deny default)` policy, so unprobed operations may be over-permitted. Crash root cause under the strict profile remains unsolved; no sandboxd telemetry was visible, only crash reports pointing at Seatbelt/dyld resource issues. System profiles remain untested pending SBPL paths.
