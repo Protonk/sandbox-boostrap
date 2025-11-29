@@ -6,31 +6,52 @@ Goal: exercise compiled profiles at runtime to verify that observed allow/deny b
 
 ## 1) Scope and setup
 
-- [ ] Record host baseline (OS/build, SIP) in `ResearchReport.md`.
-- [ ] Identify target profiles: canonical system blobs (`airlock`, `bsd`, `sample`) and representative synthetic profiles from `op-table-operation` (bucket-4 and bucket-5 cases).
-- [ ] Choose harness: `sandbox-exec` with SBPL source or compiled blobs; small driver scripts for filesystem, mach, and network probes.
+**Done**
+
+- Identified target profiles: canonical system blobs (`airlock`, `bsd`, `sample`) and representative bucket-4/bucket-5 synthetic profiles (`v1_read`, `v11_read_subpath`) from `op-table-operation`.
+- Chosen an initial harness strategy: `sandbox-exec` plus a small `run_probes.py` driver for filesystem probes.
+
+**Upcoming**
+
+- Record an explicit host baseline (OS/build, SIP) in `ResearchReport.md` if more runtime work resumes.
+- Decide on an alternative harness or privilege model, given that `sandbox-exec` is blocked by SIP on this host.
 
 Deliverables: plan/notes/report in this directory; `out/` for raw traces/logs.
 
 ## 2) Define probes and expectations
 
-- [x] For each target profile, list the operations to test (e.g., `file-read*` on `/etc/hosts`, `file-write*` to `/tmp`, `mach-lookup` on a known name, `network-outbound` to loopback).
-- [ ] Use decoder outputs (bucket assignments, tag signatures) to note expected allow/deny outcomes for each probe.
+**Done**
+
+- Listed the operations and concrete probes for bucket-4 and bucket-5 profiles (e.g., `file-read*` on `/etc/hosts` and `/tmp/foo`, `file-write*` to `/etc/hosts` / `/tmp/foo`), captured in `out/expected_matrix.json`.
+
+**Upcoming**
+
+- Refine expected allow/deny outcomes based on decoder bucket assignments and tag signatures once a workable runtime harness is available.
 
 Deliverables: `out/expected_matrix.json` (profile × probe → expected verdict).
 
 ## 3) Run runtime checks
 
-- [ ] Execute probes under each target profile using the chosen harness.
-- [ ] Capture logs (success/errno) and summarize verdicts.
+**Done (attempted)**
+
+- Implemented `run_probes.py` to execute filesystem probes under `sandbox-exec` for the selected SBPL profiles and write results to `out/runtime_results.json`.
+
+**Upcoming**
+
+- Re-run or redesign runtime checks with a harness that can successfully apply the sandbox profiles under SIP, and capture meaningful allow/deny behavior.
 
 Deliverables: `out/runtime_results.json` plus brief Notes.
 
 ## 4) Compare and guardrail
 
-- [ ] Compare runtime results to expected matrix; investigate any mismatches.
-- [ ] Add a guardrail test/script to rerun a small subset (e.g., one bucket-4 and one bucket-5 profile) to catch regressions.
-- [ ] Update `ResearchReport.md` with findings, mismatches, and next steps.
+**Done (baseline)**
+
+- Added a guardrail test (`tests/test_runtime_matrix_shape.py`) that asserts matrix shape and the presence of bucket-4/bucket-5 probe definitions.
+- Recorded the current harness failure (`sandbox_apply: Operation not permitted`) and its implications in `ResearchReport.md` and `Notes.md`.
+
+**Upcoming**
+
+- Once a working harness exists, compare actual runtime results to the expected matrix and extend guardrails to cover representative allow/deny outcomes.
 
 Stop condition: runtime traces collected for bucket-4/bucket-5 and system profiles, with a minimal guardrail and documented alignment (or gaps) with decoder expectations.
 

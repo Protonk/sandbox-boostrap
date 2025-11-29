@@ -6,9 +6,14 @@ Goal: design and run a set of SBPL probes with richer, varied structure to extra
 
 ## 1) Scope and setup
 
-- [ ] Record host baseline (OS/build, kernel, SIP) in `ResearchReport.md`.
-- [ ] Confirm vocab artifacts (`graph/mappings/vocab/ops.json`, `filters.json`) are `status: ok`.
-- [ ] Identify prior experiments to reuse/compare: `field2-filters`, `op-table-operation`, `node-layout`.
+**Done**
+
+- Confirmed vocab artifacts (`graph/mappings/vocab/ops.json`, `filters.json`) are `status: ok`.
+- Identified prior experiments (`field2-filters`, `op-table-operation`, `node-layout`) as upstream context for this probe work.
+
+**Upcoming**
+
+- Make the host baseline (OS/build, kernel, SIP) explicit in `ResearchReport.md` as this experiment evolves.
 
 Deliverables:
 - `Plan.md`, `Notes.md`, `ResearchReport.md` in this directory.
@@ -16,70 +21,88 @@ Deliverables:
 
 ## 1.5) Per-tag inventory (sanity pass)
 
-- [ ] Group decoded nodes by tag across a few profiles (simple probes + system profiles).
-- [ ] Record total bytes per tag, candidate minimal strides (common divisors), and remainders.
-- [ ] Keep stride scans as coarse slicing sanity (front vs tail), not as final layouts.
+**Done (initial)**
+
+- Performed coarse tag/stride inventories across probe and system profiles (see `tag_inventory` outputs) to sanity-check slicing.
+
+**Upcoming**
+
+- Extend the per-tag inventory once richer tag layouts are available from the tag-layout-decode experiment.
 
 Deliverables:
 - Notes on tag byte counts/stride candidates in `Notes.md`; brief summary in `ResearchReport.md`.
 
 ## 2) Improve slicing/decoding
 
-- [ ] Add segment-aware slicing fallback for complex profiles to avoid node_count=0 (e.g., use op_table length from vocab; literal/pool detection with a stronger heuristic).
-- [ ] Keep the heuristic decoder but record when fallback is used.
+**Done**
+
+- Added segment-aware slicing fallbacks in shared ingestion/decoder code to recover node regions for complex profiles that previously yielded `node_count=0`.
+
+**Upcoming**
+
+- Continue to track when fallbacks are used and adjust heuristics as new profile shapes appear.
 
 Deliverables:
 - Updated helper script(s) for slicing/decoding richer profiles; note usage in `Notes.md`.
 
 ## 3) Anchor-based traversal
 
-- [ ] Scan decoded literals/strings for strong anchors (paths, mach names, iokit classes) per profile.
-- [ ] Map anchor literals to nodes (`field2`, tag, offsets), not just op-table entry walks.
-- [ ] Prefer anchors that are unique per filter to reduce ambiguity.
-  - Status: anchors now resolve to literal offsets; decoded `literal_refs` yield node indices for simple probes (e.g., `/tmp/foo` in `v1_file_require_any` → nodes [16,22,30]). Still heuristic; needs richer tag decoding.
+**Done (baseline)**
+
+- Implemented anchor scanning over decoded literal strings and offsets; anchors now resolve to literal offsets and, for simple probes, to node indices via `literal_refs`.
+
+**Upcoming**
+
+- Improve tag-aware decoding so anchor-bound nodes can be interpreted reliably in terms of Filters and field2.
 
 Deliverables:
 - JSON or notes tying anchor literals → node indices → `field2` → inferred filter.
 
 ## 4) Probe design (anchor-aware)
 
-- [ ] Define profiles where each filter has a disjoint anchor (e.g., unique paths, mach names, iokit class names).
-- [ ] Include multi-op profiles where different filter families live on different ops to separate traversal paths.
+**Done (initial)**
+
+- Designed and implemented an initial probe matrix (file require-all/any, mach global/local, network socket, iokit class/property, and mixed combos) with distinct anchors.
+
+**Upcoming**
+
+- Refine probes to maximize anchor separation and reduce generic path/name masking once node decoding improves.
 
 Deliverables:
 - Updated probe matrix in `Notes.md` reflecting anchor choices.
 
 ## 5) Compilation and decoding
 
-- [ ] Author/adjust SBPL per the anchor-aware matrix; compile via `libsandbox` to `sb/build/*.sb.bin`.
-- [ ] Decode with updated slicing; collect both op-table walks and anchor-based node hits.
+**Done**
+
+- Authored SBPL profiles per the initial anchor-aware matrix, compiled them via `libsandbox`, and decoded them with updated slicing.
+- Collected op-table behavior, field2 histograms, and anchor-based node hits in experiment outputs.
+
+**Upcoming**
+
+- Recompile/redecode only if new probes or decoder changes warrant it.
 
 Deliverables:
 - `sb/` sources and compiled blobs; updated summaries including anchor-based findings.
 
 ## 6) Analysis and mapping
 
-- [ ] Compare anchor-derived `field2` values across probes to isolate filter-specific IDs.
-- [ ] Cross-op consistency checks for shared filters using anchor evidence.
-- [ ] Triangulate with system profiles (clear anchors) where possible.
-- [ ] **Tag-specific layout hypotheses:** propose per-tag record sizes/field positions; evaluate via edge in-bounds rates and literal/regex operand plausibility. Capture candidate layouts and evidence in `Notes.md`, summarize accepted/rejected in `ResearchReport.md`.
-- [ ] **Literal/regex correlation:** use profiles that differ only in literal content/count to see which tag/field positions change; cross-check with system-profile anchors to validate operand slots.
+**Done (initial)**
+
+- Used anchor hits and field2 inventories to confirm that generic path/name filters dominate small profiles and to motivate tag-aware decoding.
+- Began forming tag-specific layout hypotheses and literal/regex correlation strategies, feeding into the tag-layout-decode experiment.
+
+**Upcoming**
+
+- Perform a focused analysis of anchor-derived field2 values once node layouts and literal bindings are better understood.
+- Triangulate with system profiles and refine hypotheses into concrete mappings.
 
 Deliverables:
 - Updated `ResearchReport.md` with provisional mappings, evidence tiers, and structural notes.
 
 ## 7) Guardrails and reuse
 
-- [ ] Add a checker that locates anchor literals in probe blobs and asserts expected `field2` values once mappings stabilize.
-- [ ] Document reuse for other experiments (field2 mapping, op-table alignment).
+**Upcoming**
 
-Deliverables:
-- Guardrail script/test (when mappings are ready) and usage notes in `Notes.md`.
-
-## 6) Guardrails and reuse
-
-- [ ] Add a small assertion script/test to verify key mappings found here.
-- [ ] Document how these probes can be reused by other experiments (field2 mapping, op-table alignment).
-
-Deliverables:
-- Guardrail script/test (if mappings emerge), plus usage notes in `Notes.md`.
+- Once stable mappings exist, add a checker that locates anchor literals in probe blobs and asserts expected `field2` values.
+- Document how these probes can be reused by other experiments (field2 mapping, op-table alignment) and add guardrail tests accordingly.

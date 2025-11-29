@@ -26,6 +26,7 @@ Validate that runtime allow/deny behavior for selected profiles matches decoder-
 - Initial expected probe matrix written to `out/expected_matrix.json` covering bucket-4 (`v1_read`) and bucket-5 (`v11_read_subpath`) synthetic profiles with SBPL-aligned allow/deny expectations; system profiles listed as placeholders. Runtime harness still pending.
 - Stub runtime results recorded in `out/runtime_results.json` (status: not-run) to track expectations; guardrail `tests/test_runtime_matrix_shape.py` ensures matrix shape persists.
 - First harness attempt via `run_probes.py` using `sandbox-exec` on SBPL profiles (`v1_read.sb`, `v11_read_subpath.sb`) failed on this host: `sandbox_apply: Operation not permitted` (exit code 71) for all probes. System profiles remain skipped. Need alternative runtime mechanism to proceed under SIP.
+- Re-ran `run_probes.py` with Codex full-access permissions; `sandbox-exec` still cannot launch the wrapped commands (exit 71). Errors now report `execvp()` failures (`Operation not permitted` for `v1_read` probes, `No such file or directory` for `v11_read_subpath` probes). System profiles remain skipped due to missing SBPL paths. Runtime evidence remains unavailable until a different harness or privilege path is used.
 
 ## Expected outcomes
 

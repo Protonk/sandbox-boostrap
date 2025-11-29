@@ -6,9 +6,15 @@ Goal: extract Operation/Filter vocab tables (name ↔ ID) from the macOS dyld sh
 
 ## 1) Setup and scope
 
-- [x] Record host baseline (OS/build, kernel, SIP) in `ResearchReport.md`.
-- [x] Inventory canonical blobs for alignment: `examples/extract_sbs/build/profiles/*.sb.bin`, `examples/sb/build/sample.sb.bin` (decoder op_count ~167).
-- [x] Confirm existing partial vocab artifacts (`graph/mappings/vocab/ops.json`, `filters.json`) and metadata (`validation/out/metadata.json`).
+**Done**
+
+- Recorded host baseline (OS/build, kernel, SIP) in `ResearchReport.md`.
+- Inventoried canonical blobs for alignment (system profiles plus `sample.sb.bin`).
+- Confirmed vocab artifacts and static metadata under `book/graph/mappings/vocab` and `validation/out/metadata.json`.
+
+**Upcoming**
+
+- None for this section.
 
 Deliverables:
 - `Plan.md`, `Notes.md`, `ResearchReport.md` in this directory.
@@ -16,22 +22,27 @@ Deliverables:
 
 ## 2) Cache extraction
 
-- [x] Locate the dyld shared cache (`/System/Library/dyld/dyld_shared_cache_*`).
-- [x] Use `dyld_shared_cache_util` (or equivalent) to extract Sandbox-related slices:
-  - Sandbox.framework
-  - libsandbox.dylib (if present)
-- [x] Store extracted binaries under `book/experiments/vocab-from-cache/extracted/` with provenance notes (cache path, command used).
+**Done**
+
+- Located the dyld shared cache and extracted Sandbox-related slices (Sandbox.framework, libsandbox) into `extracted/` with provenance in `Notes.md`.
+
+**Upcoming**
+
+- None for this section.
 
 Deliverables:
 - Extracted binaries and a short note in `Notes.md` describing commands used and any issues.
 
 ## 3) Name harvesting
 
-- [x] Write a small parser (Python) to scan extracted binaries for operation/filter name tables:
-  - Search for known operation strings (`file-read*`, `mach-lookup`, `network-outbound`) to anchor tables.
-  - If symbol-linked arrays exist, preserve ordering; otherwise, infer ordering via contiguous strings/offsets.
-- [x] Count recovered names; compare to decoder `op_count` from canonical blobs (target ~167 on this host).
-- [x] If filter names are discoverable, repeat for filter tables.
+**Done**
+
+- Implemented Python harvesters to scan extracted binaries for operation and filter name tables, using symbol-linked arrays where available.
+- Counted recovered names and compared them to decoder op_count; confirmed 196 operations and 93 filters.
+
+**Upcoming**
+
+- None for this section.
 
 Deliverables:
 - `harvest.py` (or similar) that emits candidate name lists with offsets/order.
@@ -39,22 +50,25 @@ Deliverables:
 
 ## 4) ID alignment
 
-- [x] Align harvested names with decoder op_table/op_count:
-  - Ensure name count matches `op_count`.
-  - Spot-check by compiling single-op SBPL (from op-table-operation) and verifying op_table index matches inferred ID.
-- [x] Emit `graph/mappings/vocab/ops.json` / `filters.json` with:
-  - `status: ok` (or `partial` if only names),
-  - metadata (host, build, format_variant, sources, content hash),
-  - entries `{name, id, provenance}`.
+**Done**
+
+- Aligned harvested names with decoder op_table/op_count and spot-checked using single-op SBPL profiles.
+- Emitted `book/graph/mappings/vocab/ops.json` and `filters.json` with `status: ok`, host/build metadata, and per-entry provenance.
 
 Deliverables:
 - Updated vocab artifacts with real entries and provenance.
 
 ## 5) Alignment and propagation
 
-- [x] Rerun `op-table-vocab-alignment` to fill `operation_ids` and `vocab_version`.
-- [ ] Note bucket↔ID relationships in `ResearchReport.md` here and in op-table-operation/op-table-vocab-alignment reports.
-- [x] Add a lightweight sanity check to assert vocab status/counts.
+**Done**
+
+- Reran `op-table-vocab-alignment` to fill `operation_ids` and `vocab_version`, then updated alignment artifacts.
+- Added a lightweight sanity check (`check_vocab.py`) to assert vocab status and counts.
+- Noted key bucket↔Operation ID relationships (e.g., mach-lookup in buckets {5,6}) in this ResearchReport and in the op-table experiments.
+
+**Upcoming**
+
+- Refresh alignment and bucket snapshots only if vocab artifacts are regenerated for a new host/build.
 
 Deliverables:
 - Updated alignment file with IDs and vocab hash/version.

@@ -6,9 +6,15 @@ Goal: map decoder `field2` values to Filter IDs using the harvested filter vocab
 
 ## 1) Scope and setup
 
-- [ ] Record host baseline (OS/build, kernel, SIP) in `ResearchReport.md`.
-- [ ] Confirm vocab artifacts (`graph/mappings/vocab/filters.json`, `ops.json`) are `status: ok`.
-- [ ] Identify canonical blobs for cross-check: `examples/extract_sbs/build/profiles/airlock.sb.bin`, `bsd.sb.bin`, `sample.sb.bin`.
+**Done**
+
+- Host baseline (OS/build, kernel, SIP) and canonical blobs recorded in `ResearchReport.md`.
+- Vocab artifacts (`book/graph/mappings/vocab/filters.json`, `ops.json`) confirmed `status: ok` (93 filters, 196 ops).
+- Canonical blobs for cross-check identified and used: `book/examples/extract_sbs/build/profiles/airlock.sb.bin`, `bsd.sb.bin`, `sample.sb.bin`.
+
+**Upcoming**
+
+- Keep baseline/version notes updated if the host or vocab artifacts change.
 
 Deliverables:
 - `Plan.md`, `Notes.md`, `ResearchReport.md` in this directory.
@@ -16,17 +22,28 @@ Deliverables:
 
 ## 2) Baseline inventory
 
-- [ ] Decode canonical blobs and tally unique `field2` values per node tag; record which op-table entries reach which `field2` values (via graph walks).
-- [ ] Compare observed `field2` ranges to the filter vocab ID range (0..N-1).
+**Done**
+
+- Decoded canonical blobs and tallied unique `field2` values; baseline histograms recorded in `ResearchReport.md` and `Notes.md`.
+- Confirmed that many `field2` values align directly with filter vocab IDs (e.g., path/socket/iokit filters in `bsd` and `sample`), with high unknowns in `airlock`.
+
+**Upcoming**
+
+- Refine per-tag/per-op inventories using newer decoder layouts if needed.
 
 Deliverables:
 - Intermediate JSON/notes summarizing `field2` histograms and per-op reachable values.
 
 ## 3) Synthetic single-filter probes
 
-- [ ] Author tiny SBPL profiles, each exercising exactly one filter (e.g., `subpath`, `literal`, `global-name`, `local-name`, `vnode-type`, `socket-domain`, `iokit-registry-entry-class`).
-- [ ] Compile and decode each; walk from relevant op entry and record `field2` values.
-- [ ] Add combination probes (require-any/require-all) to see if meta-filters affect `field2` assignment.
+**Done**
+
+- Authored single-filter SBPL variants (subpath, literal, global-name, local-name, vnode-type, socket-domain, iokit-registry-entry-class, require-any mixtures) and compiled them under `sb/build/`.
+- Decoded each variant and recorded `field2` values; synthesized into `out/field2_inventory.json`.
+
+**Upcoming**
+
+- Design additional probes that reduce generic path/name scaffolding (e.g., richer operations or more complex metafilters) if needed to surface filter-specific `field2` values.
 
 Deliverables:
 - `sb/` variants + compiled blobs under `sb/build/`.
@@ -34,24 +51,44 @@ Deliverables:
 
 ## 4) Cross-op consistency checks
 
-- [ ] For filters appearing in multiple operations (e.g., path filters across `file-read*`/`file-write*`, `global-name` across mach/socket), verify `field2` is consistent across ops.
-- [ ] Flag any discrepancies for further probing.
+**Done (initial)**
+
+- Checked that low `field2` IDs corresponding to path/name filters (0,1,3,4,5,6,7,8) behave consistently across system profiles and synthetic probes.
+- Confirmed that system profiles (`bsd`, `sample`) reinforce the mapping for common filters (preference-domain, right-name, iokit-*, path/socket).
+
+**Upcoming**
+
+- Perform focused cross-op checks for less common filters once better probes or anchors are available.
+- Flag and investigate any inconsistencies that appear as decoding improves.
 
 Deliverables:
 - Table of filter → `field2` with cross-op status (consistent/inconsistent).
 
 ## 5) System profile cross-check
 
-- [ ] Inspect selected system profiles (from cache) where literals indicate filter type (e.g., paths, mach names) and confirm matching `field2` IDs.
+**Done (baseline)**
+
+- Inspected curated system profiles where literals strongly indicate filter type (paths, mach names, iokit properties) and confirmed that `field2` IDs match vocab entries where known.
+
+**Upcoming**
+
+- Use anchor mappings and updated tag layouts to deepen system-profile cross-checks, especially for high, currently-unknown `field2` values in `airlock`.
 
 Deliverables:
 - Notes tying system-profile nodes to the inferred mapping.
 
 ## 6) Synthesis and guardrails
 
-- [ ] Summarize inferred `field2` ↔ filter-ID mapping with evidence (probes and system blobs).
-- [ ] Add a small test or script to assert expected `field2` for key filters (subpath, literal, global-name, local-name) against the synthetic profiles.
-- [ ] Update `ResearchReport.md` with findings and open questions.
+**Done (partial)**
+
+- Summarized current understanding of `field2` behavior (generic path/name dominance, confirmed mappings for common filters, persistence of unknowns) in `ResearchReport.md` and `Notes.md`.
+- Regenerated `out/field2_inventory.json` using shared tag layouts and anchor/filter mappings to keep inventories aligned with the global IR.
+
+**Upcoming**
+
+- Distill a stable `field2` ↔ filter-ID table for a small, high-confidence subset of filters.
+- Add a guardrail test/script that checks these mappings against synthetic profiles.
+- Extend `ResearchReport.md` with any newly established mappings and explicit open questions.
 
 Deliverables:
 - Updated `ResearchReport.md` and `Notes.md`.

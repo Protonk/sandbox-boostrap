@@ -11,7 +11,7 @@
         ],
         "exit_code": 71,
         "stdout": "",
-        "stderr": "sandbox-exec: sandbox_apply: Operation not permitted\n"
+        "stderr": "sandbox-exec: execvp() of 'cat' failed: Operation not permitted\n"
       },
       {
         "name": "write_/etc/hosts",
@@ -22,7 +22,7 @@
         ],
         "exit_code": 71,
         "stdout": "",
-        "stderr": "sandbox-exec: sandbox_apply: Operation not permitted\n"
+        "stderr": "sandbox-exec: execvp() of 'sh' failed: Operation not permitted\n"
       },
       {
         "name": "read_/tmp/foo",
@@ -32,7 +32,7 @@
         ],
         "exit_code": 71,
         "stdout": "",
-        "stderr": "sandbox-exec: sandbox_apply: Operation not permitted\n"
+        "stderr": "sandbox-exec: execvp() of 'cat' failed: Operation not permitted\n"
       }
     ]
   },
@@ -48,7 +48,7 @@
         ],
         "exit_code": 71,
         "stdout": "",
-        "stderr": "sandbox-exec: sandbox_apply: Operation not permitted\n"
+        "stderr": "sandbox-exec: execvp() of 'cat' failed: No such file or directory\n"
       },
       {
         "name": "read_/tmp/bar",
@@ -58,7 +58,7 @@
         ],
         "exit_code": 71,
         "stdout": "",
-        "stderr": "sandbox-exec: sandbox_apply: Operation not permitted\n"
+        "stderr": "sandbox-exec: execvp() of 'cat' failed: No such file or directory\n"
       },
       {
         "name": "write_/tmp/foo",
@@ -69,7 +69,7 @@
         ],
         "exit_code": 71,
         "stdout": "",
-        "stderr": "sandbox-exec: sandbox_apply: Operation not permitted\n"
+        "stderr": "sandbox-exec: execvp() of 'sh' failed: No such file or directory\n"
       }
     ]
   },

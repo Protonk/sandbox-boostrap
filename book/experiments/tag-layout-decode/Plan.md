@@ -6,31 +6,51 @@ Goal: decode tag layouts for nodes that carry literal/regex operands, align them
 
 ## 1) Scope and setup
 
-- [ ] Record host baseline (OS/build, SIP, decoder version) in `ResearchReport.md`.
-- [ ] Confirm decoder path (`book.api.decoder`) and shared mappings (`book/graph/mappings/vocab`, `book/graph/mappings/op_table`) are in place.
-- [ ] Identify reference blobs: canonical system profiles (`airlock.sb.bin`, `bsd.sb.bin`, `sample.sb.bin`) and probe outputs (`probe-op-structure`).
+**Done**
+
+- Identified reference blobs: canonical system profiles (`airlock.sb.bin`, `bsd.sb.bin`, `sample.sb.bin`) and shared mappings needed for decoding.
+- Confirmed decoder path (`book.api.decoder`) and access to `book/graph/mappings/vocab` and `book/graph/mappings/op_table`.
+
+**Upcoming**
+
+- Make host baseline (OS/build, SIP, decoder version) explicit in `ResearchReport.md` if tag layouts are extended or revised.
 
 Deliverables: `Plan.md`, `Notes.md`, `ResearchReport.md` in this directory; `out/` folder for scratch JSON/histograms.
 
 ## 2) Baseline decode and tag histogram
 
-- [x] Decode reference blobs; capture node tag histograms, literal/regex pool offsets, and any anchor hits.
-- [ ] Note which tags show literal or regex indices (`literal_pool`, `regex`) and whether padding/sentinels appear.
+**Done**
+
+- Decoded reference blobs; captured node tag histograms, literal pool offsets, and basic section information in `out/tag_histogram.json`.
+
+**Upcoming**
+
+- Refine notes on which tags show literal or regex indices and any sentinel/padding patterns as decoding improves.
 
 Deliverables: `out/tag_histogram.json` (or similar) with tag → counts, literal/regex usage.
 
 ## 3) Tag layout reconstruction
 
-- [x] For tags that carry literal/regex operands, map field positions (`fields[0..2]`, edges) and interpret operands using the literal/regex tables (best-effort).
-- [ ] Use anchors from `probe-op-structure` to bind specific nodes to SBPL constructs.
-- [ ] Cross-check against `field2`/filter vocab and op-table buckets to detect reused layouts.
+**Done**
+
+- For tags that carry literal/regex operands, mapped field positions (edges vs payloads) using literal tables on canonical profiles and wrote initial layouts.
+
+**Upcoming**
+
+- Use anchors from `probe-op-structure` and shared vocab/op-table mappings to refine tag layouts and detect reused structures across operations.
 
 Deliverables: draft `tag_layouts.json` (per-tag layout description) plus short notes on evidence.
 
 ## 4) Synthesis and guardrails
 
-- [x] Finalize `book/graph/mappings/tag_layouts/tag_layouts.json` with per-tag field names, operand types, and provenance notes.
-- [x] Add a small guardrail test or script that decodes reference blobs and asserts expected literal/regex placements for a few tags.
-- [ ] Update `ResearchReport.md` with findings, open questions, and links to artifacts.
+**Done**
+
+- Finalized `book/graph/mappings/tag_layouts/tag_layouts.json` with per-tag field sizes, edge fields, and payload fields for literal-bearing tags, plus host metadata.
+- Added guardrail tests (`tests/test_mappings_guardrail.py`) that assert presence and basic shape of the tag layout mapping.
+- Updated `ResearchReport.md` and `Notes.md` to describe current layouts and how they are used by the decoder.
+
+**Upcoming**
+
+- Revisit layouts if new tags or operand types surface in future experiments.
 
 Stop condition: tag layouts for literal/regex-bearing nodes validated across reference blobs and probes; reusable map committed; guardrail in place.
