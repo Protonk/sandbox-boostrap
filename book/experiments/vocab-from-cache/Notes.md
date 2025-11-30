@@ -24,3 +24,7 @@ Use this file for dated, concise notes on progress, issues, and commands used. K
 ## 2025-12-04
 
 - Added `check_vocab.py`, a lightweight guardrail that asserts `ops.json`/`filters.json` are `status: ok` with counts ops=196, filters=93. Intended to catch regressions if vocab artifacts drift.
+
+## 2025-12-06
+
+- Marked experiment complete and deleted the raw cache extraction at `book/experiments/vocab-from-cache/extracted` to reclaim space; retained trimmed libs at `book/graph/mappings/dyld-libs/` for future harvest reruns.

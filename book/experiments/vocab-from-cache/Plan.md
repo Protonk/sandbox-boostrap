@@ -2,6 +2,8 @@
 
 Goal: extract Operation/Filter vocab tables (name ↔ ID) from the macOS dyld shared cache (Sandbox.framework/libsandbox payloads) and align them with decoder-derived op_count/op_table data from canonical blobs, producing real `ops.json` / `filters.json` for this host.
 
+Status: Complete — extracted material deleted (trimmed copies retained under `book/graph/mappings/dyld-libs/`).
+
 ---
 
 ## 1) Setup and scope

@@ -28,3 +28,4 @@ Extract Operation/Filter vocab tables (name ↔ ID) from the macOS dyld shared c
 - `book/graph/mappings/vocab/ops.json` is `status: ok` (IDs 0–195); `filters.json` now `status: ok` (IDs 0–92) from the cache harvest.
 - Regenerated `book/experiments/op-table-operation/out/*` with the vocab length override (196 ops) and refreshed `op-table-vocab-alignment` to fill `operation_ids` per profile; op_table entries now cover the full vocabulary. (Filters not yet propagated into downstream experiments.)
 - Added `check_vocab.py`, a guardrail script that asserts vocab status is `ok` and counts are ops=196, filters=93 for this host.
+- Experiment marked complete; raw cache extraction under `book/experiments/vocab-from-cache/extracted/` removed after harvesting, with trimmed copies retained in `book/graph/mappings/dyld-libs/`.
