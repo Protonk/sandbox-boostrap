@@ -25,7 +25,7 @@ Validate that runtime allow/deny behavior for selected profiles matches decoder-
 - Experiment scaffolded (this report, Plan, Notes).
 - Expected probe matrix in `out/expected_matrix.json` covers bucket-4 (`v1_read`) and bucket-5 (`v11_read_subpath`) synthetic profiles, runtime shapes (`allow_all`, `metafilter_any`), and system blobs (`airlock`, `bsd`) flagged for blob mode.
 - Harness now prefers local shims and wrapper: `sandbox_runner`/`sandbox_reader` succeed for bucket profiles and runtime shapes; metafilter_any stabilized by adding `/private/tmp` literals and reader mode.
-- `sys:airlock` and `sys:bsd` now run through `book/api/SBPL-wrapper/wrapper --blob`; on this host `sandbox_apply` returns `EPERM`, so probes record deny + apply failure. Expectations need revisiting or a more permissive host.
+- `sys:airlock`/`bsd` via blob: `airlock` returns `EPERM` even when recompiled from SBPL; `bsd` applies when compiled/SBPL but failed in one wrapper run due to execvp; SBPL path remains usable for `bsd` only. Treat `airlock` as expected-fail on this host; use SBPL/recompiled `bsd` if running system probes.
 
 ## Expected outcomes
 

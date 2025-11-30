@@ -65,7 +65,18 @@ If blob mode remains unavailable, disassemble system blobs to SBPL (`sbdis`) and
 ### Header dump via CLI helper
 
 - Using `python -m book.api.decoder dump --summary`, outputs for key blobs:
-  - `airlock.sb.bin`: `op_count=167`, `maybe_flags=16384 (0x4000)`, `word0=16384`, `word2=190`.
-  - `bsd.sb.bin`: `op_count=28`, `maybe_flags=0`, `word0=0`, `word2=190`.
-  - `allow_all.sb.bin` (custom): `op_count=2`, `maybe_flags=0`, `word0=0`, `word2=190`.
-- Full header (64-byte) dumps show `header_fields.magic=0x00be` across all, word1=op_count, and `unknown_words` populated with trailing header words. The only clear discriminator so far is `maybe_flags=0x4000` on `airlock`; `bsd` matches the custom blob on flags. Platform-only provenance may be flagged differently per profile; more analysis needed if EPERM persists on both.
+  - `airlock.sb.bin`: `op_count=167`, `maybe_flags=16384 (0x4000)`, `word0=16384`, `word2=190`, heuristic `profile_class=0` at word index 3.
+  - `bsd.sb.bin`: `op_count=28`, `maybe_flags=0`, `word0=0`, `word2=190`, heuristic `profile_class=0` at word index 0.
+  - `allow_all.sb.bin` (custom): `op_count=2`, `maybe_flags=0`, `word0=0`, `word2=190`, heuristic `profile_class=0` at word index 0.
+- Full header (64-byte) dumps show `header_fields.magic=0x00be` across all, word1=op_count, and `unknown_words` populated with trailing header words. Heuristic `profile_class` is 0 for all three; `maybe_flags=0x4000` still only on `airlock`. Platform-only provenance likely enforced via caller credentials and/or deeper class fields not yet decoded.
+
+## Recompiled SBPL apply attempts (this host)
+- Recompiled SBPL text from `/System/Library/Sandbox/Profiles/{airlock,bsd}.sb` using `sandbox_compile_string` and applied via `sandbox_apply`:
+  - `bsd` compiled blob applies successfully (`rc=0`).
+  - `airlock` compiled blob still fails (`rc=-1`, errno EPERM).
+- `sandbox_init` on SBPL text:
+  - `bsd` SBPL applies cleanly (`rc=0`).
+  - `airlock` SBPL fails with `Operation not permitted` on this host.
+- Direct `wrapper --blob` on shipped blobs:
+  - `airlock` fails `sandbox_apply: Operation not permitted`.
+  - `bsd` path failed earlier due to execvp permission when invoking the wrapped command; need a simpler noop exec to confirm apply status, but SBPL compiled/apply suggests base blob may be acceptable if exec hurdles are cleared.

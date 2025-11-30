@@ -14,7 +14,7 @@ Goal: exercise compiled profiles at runtime to verify that observed allow/deny b
 **Upcoming**
 
 - Record an explicit host baseline (OS/build, SIP) in `ResearchReport.md` if more runtime work resumes.
-- If blob apply remains EPERM for system profiles on this host, rerun on a permissive host or adjust expectations accordingly.
+- If blob apply remains EPERM for system profiles on this host, rerun on a permissive host or adjust expectations accordingly (use SBPL/recompiled bsd only; airlock is expected to fail here).
 
 Deliverables: plan/notes/report in this directory; `out/` for raw traces/logs.
 
@@ -39,13 +39,13 @@ Deliverables: `out/expected_matrix.json` (profile × probe → expected verdict)
 
 **Upcoming**
 
-- Re-run or redesign runtime checks with a harness that can successfully apply system blob profiles on this host (current result: `sandbox_apply` → EPERM).
-- Consider alternative runners or hosts if the local SIP/seatbelt policy refuses blob apply for system profiles.
+- Re-run or redesign runtime checks with a harness that can successfully apply system profiles on this host (current result: `sandbox_apply` → EPERM for airlock; bsd works via SBPL/compile).
+- Consider alternative runners or hosts if the local SIP/seatbelt policy refuses platform profiles; treat airlock as expected-fail locally.
 
 **Updates**
 
 - `sandbox_runner`/`sandbox_reader` now work on this host: bucket-4/5, allow_all, and metafilter_any complete with expected/actual/match fields (metafilter fixed by adding /private/tmp literals and reader mode).
-- System profiles now run as compiled blobs through the wrapper; on this host `sandbox_apply` returns `EPERM` for those blobs, so probes record deny with apply failure noted.
+- System profiles now run as compiled blobs through the wrapper; on this host `sandbox_apply` returns `EPERM` for airlock (even when recompiled); bsd works via SBPL/compiled blob. Adjust expectations accordingly; airlock treated as expected-fail locally.
 
 Deliverables: `out/runtime_results.json` plus brief Notes.
 

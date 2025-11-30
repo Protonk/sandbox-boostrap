@@ -254,6 +254,7 @@ def decode_profile(data: bytes, header_window: int = 128) -> DecodedProfile:
 
     header_fields: Dict[str, Any] = {}
     try:
+        # Basic header fields
         header_fields = {
             "magic": preamble_full[2] if len(preamble_full) > 2 else None,
             "op_count_word": preamble_full[1] if len(preamble_full) > 1 else None,
@@ -264,6 +265,15 @@ def decode_profile(data: bytes, header_window: int = 128) -> DecodedProfile:
             if len(preamble_full) > 3
             else [],
         }
+        # Heuristic profile_class: look for small ints near the start of the header and within the first header_window.
+        profile_class = None
+        for idx in range(0, min(len(preamble_full), header_window // 2)):
+            val = preamble_full[idx]
+            if val in (0, 1, 2, 3):
+                profile_class = val
+                header_fields["profile_class_word_index"] = idx
+                break
+        header_fields["profile_class"] = profile_class
     except Exception:
         header_fields = {}
 

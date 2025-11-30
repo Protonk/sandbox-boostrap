@@ -12,7 +12,7 @@ What it does (current behavior):
   - `tag_counts`: histogram of node tags; `node_count` and any parsing remainder.
   - `literal_pool` and `literal_strings`: printable runs from the trailing literal/regex region, with offsets preserved internally.
   - `sections`: byte offsets for the op-table, node region, and literal region; `validation` includes basic edge sanity (in-bounds edge counts).
-  - `header_fields`: parsed candidates from the preamble (magic/version, op_count_word, maybe_flags, unknown_words for manual inspection).
+  - `header_fields`: parsed candidates from the header region (magic/version, op_count_word, maybe_flags, unknown_words for manual inspection, heuristic `profile_class` if a small integer is found early).
 - Keeps decoding conservative: unknown tags fall back to 12-byte stride; failures leave buffers intact rather than guessing.
 
 How to use:

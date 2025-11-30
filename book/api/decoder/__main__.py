@@ -36,6 +36,8 @@ def dump_blobs(paths: list[Path], byte_window: int, summary: bool) -> list[dict]
                 "maybe_flags": prof.header_fields.get("maybe_flags"),
                 "word0": prof.preamble_words_full[0] if prof.preamble_words_full else None,
                 "word2": prof.preamble_words_full[2] if len(prof.preamble_words_full) > 2 else None,
+                "profile_class": prof.header_fields.get("profile_class"),
+                "profile_class_word_index": prof.header_fields.get("profile_class_word_index"),
             }
         out.append(entry)
     return out
