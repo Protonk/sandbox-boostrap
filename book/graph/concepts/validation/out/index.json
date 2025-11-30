@@ -12,6 +12,12 @@
       "source": "book/examples/extract_sbs/build/profiles/{airlock,bsd}.sb.bin",
       "status": "ok",
       "notes": "Ingested with profile_ingestion.py (modern-heuristic)."
+    },
+    {
+      "path": "book/graph/concepts/validation/out/static/mappings.json",
+      "source": "book/graph/mappings/{system_profiles,op_table,tag_layouts,anchors}",
+      "status": "ok",
+      "notes": "Pointers to stable mapping artifacts (digests, op-table buckets/signatures, tag layouts, anchor→filter map) with host/build metadata."
     }
   ],
   "vocabulary-mapping": [
@@ -34,14 +40,46 @@
       "path": "book/graph/concepts/validation/out/vocab/filter_names.json",
       "provenance": "Sonoma dyld cache (Sandbox framework/libsandbox)",
       "status": "ok"
+    },
+    {
+      "path": "book/graph/concepts/validation/out/vocab/runtime_usage.json",
+      "provenance": "book/experiments/runtime-checks/out/runtime_results.json",
+      "status": "blocked (sandbox_init EPERM; no runtime IDs observed)"
     }
   ],
   "semantic-graph": {
-    "status": "deferred",
-    "notes": "sandbox-exec-based probes pending harness fixes; existing ndjson logs are preliminary."
+    "status": "blocked",
+    "notes": "sandbox_init/sandbox_exec return EPERM on this host; see runtime_results.json for apply failures captured via sandbox_runner/reader.",
+    "artifacts": [
+      {
+        "path": "book/graph/concepts/validation/out/semantic/runtime_results.json",
+        "source": "book/experiments/runtime-checks/run_probes.py",
+        "status": "sandbox_init EPERM (all probes denied)"
+      },
+      {
+        "path": "book/graph/concepts/validation/out/semantic/metafilter.jsonl",
+        "source": "book/examples/metafilter-tests/metafilter_demo.sh",
+        "status": "legacy sandbox-exec run (brittle)"
+      },
+      {
+        "path": "book/graph/concepts/validation/out/semantic/sbpl_params.jsonl",
+        "source": "book/examples/sbpl-params/params_demo.sh",
+        "status": "legacy sandbox-exec run (brittle)"
+      },
+      {
+        "path": "book/graph/concepts/validation/out/semantic/network.jsonl",
+        "source": "book/examples/network-filters/network_demo.c",
+        "status": "legacy sandbox-exec run (brittle)"
+      },
+      {
+        "path": "book/graph/concepts/validation/out/semantic/mach_services.jsonl",
+        "source": "book/examples/mach-services",
+        "status": "legacy sandbox-exec run (brittle)"
+      }
+    ]
   },
   "lifecycle-extension": {
-    "status": "deferred",
-    "notes": "runtime probes (extensions, entitlements, containers) deferred; existing notes are placeholders."
+    "status": "partial",
+    "notes": "entitlements-evolution runnable; extension/container/platform probes not yet rerun. Expect sandbox_init gate to block apply attempts on this host."
   }
 }

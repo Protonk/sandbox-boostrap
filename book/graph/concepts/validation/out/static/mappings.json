@@ -1,0 +1,38 @@
+[
+  {
+    "path": "book/graph/mappings/system_profiles/digests.json",
+    "source": "book/experiments/system-profile-digest",
+    "status": "ok",
+    "notes": "Curated digest of canonical system blobs (airlock, bsd, sample) with host/build metadata."
+  },
+  {
+    "path": "book/graph/mappings/op_table/op_table_map.json",
+    "source": "book/experiments/op-table-operation",
+    "status": "ok",
+    "notes": "Bucket-level op-table entries and single-op hints for synthetic profiles on this host."
+  },
+  {
+    "path": "book/graph/mappings/op_table/op_table_signatures.json",
+    "source": "book/experiments/op-table-operation",
+    "status": "ok",
+    "notes": "Per-bucket structural signatures (tag/field2/literal summaries) for the same synthetic profiles."
+  },
+  {
+    "path": "book/graph/mappings/op_table/op_table_vocab_alignment.json",
+    "source": "book/experiments/op-table-vocab-alignment",
+    "status": "ok",
+    "notes": "Op-table buckets aligned with Operation IDs via vocab (Sonoma host/build)."
+  },
+  {
+    "path": "book/graph/mappings/tag_layouts/tag_layouts.json",
+    "source": "book/experiments/tag-layout-decode",
+    "status": "ok",
+    "notes": "Per-tag layouts for literal/regex-bearing nodes with host/build metadata and guardrails."
+  },
+  {
+    "path": "book/graph/mappings/anchors/anchor_filter_map.json",
+    "source": "book/experiments/anchor-filter-map",
+    "status": "ok",
+    "notes": "Anchor strings bound to Filter IDs with provenance; ambiguous anchors noted in-map."
+  }
+]

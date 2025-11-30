@@ -68,6 +68,8 @@ These concepts are about how profiles look when compiled and stored: the concret
 - **Field2 / node decoding / anchor probes**
   - `book/experiments/field2-filters/`, `node-layout/`, and `probe-op-structure/` have established a tag-aware decoder scaffold and produced anchor→node hints (e.g., `/tmp/foo` → nodes in `v1_file_require_any`), but literal/regex operand decoding and stable `field2`→filter-ID mapping are still incomplete.
   - Next steps are to finish tag-aware node decoding (per-tag variable-width layouts carrying literal/regex indices), rerun anchor scans to map anchors→nodes→filter IDs with guardrails for key anchors, and cross-check against strong anchors in system profiles.
+- **Stable mapping artifacts**
+  - Static witnesses for this host/build are published under `book/graph/mappings/`: system profile digests (`system_profiles/digests.json`), op-table buckets/signatures and vocab alignment (`op_table/*`), per-tag literal/regex layouts (`tag_layouts/tag_layouts.json`), and anchor→filter bindings (`anchors/anchor_filter_map.json`). These can be cited directly for Binary Profile Header, Operation Pointer Table, Profile Format Variant, PolicyGraph/Policy Node, and Filter evidence without rerunning probes.
 
 ---
 
@@ -160,6 +162,8 @@ This cluster ensures that when we say “operation X” or “filter Y,” we ca
   - `book/experiments/vocab-from-cache/` harvests operation and filter vocab tables from the Sonoma dyld cache (Sandbox framework/libsandbox), yielding `ops.json` (196 entries) and `filters.json` (93 entries) with provenance and a guardrail script (`check_vocab.py`) to assert counts/status.
   - `book/experiments/op-table-vocab-alignment/` aligns op-table buckets from synthetic profiles with these vocab IDs, populating per-profile alignment artifacts with `operation_ids`, `filters`, and `filter_ids` and recording `vocab_status: ok`.
   - Recommended next steps: summarise which operation IDs appear in each observed bucket (4/5/6), thread filter IDs into bucket shifts observed in filtered profiles, keep vocab guardrails in CI, and feed stable findings back into the versioned vocab tables and concept docs.
+- **Stable vocab artifacts**
+  - Canonical vocab tables live under `book/graph/mappings/vocab/` (`ops.json`, `filters.json`, name lists) and are mirrored into `book/graph/concepts/validation/out/vocab/`. Op-table ↔ vocab alignment for this host is published at `book/graph/mappings/op_table/op_table_vocab_alignment.json` and listed in `validation/out/static/mappings.json` for reuse.
 - **Link back to op-table experiments**
   - Once the vocab tables are in place for a given OS/build, the op-table buckets from the static-format experiments can be re-interpreted in terms of concrete operation IDs rather than opaque indices, tying the Operation, Operation Pointer Table, and Operation Vocabulary Map concepts together across SBPL, binary structure, and runtime behavior.
 

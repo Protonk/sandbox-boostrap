@@ -11,7 +11,7 @@
 // is to show how SBPL’s `(extension ...)` filters map to tokens that widen a
 // sandbox dynamically (substrate/Appendix.md §5).
 
-typedef int (*issue_fn)(const char *ext, const char *path, int flags, char **token);
+typedef char *(*issue_fn)(const char *ext, const char *path, unsigned long long flags);
 typedef int (*consume_fn)(const char *token);
 typedef int (*release_fn)(const char *token);
 
@@ -48,11 +48,10 @@ int main(void) {
         return 1;
     }
 
-    char *token = NULL;
-    int rc = issue("com.apple.app-sandbox.read", target, 0, &token);
-    if (rc != 0 || token == NULL) {
-        printf("sandbox_extension_issue_file failed rc=%d errno=%d (%s)\n",
-               rc, errno, strerror(errno));
+    char *token = issue("com.apple.app-sandbox.read", target, 0);
+    if (token == NULL) {
+        printf("sandbox_extension_issue_file failed errno=%d (%s)\n",
+               errno, strerror(errno));
         printf("On systems without the right entitlements, issuance is denied by design. Skipping consume/release.\n");
         dlclose(handle);
         printf("\nExtensions act as a third dimension: platform policy ∧ process policy ∧ active extensions.\n");
