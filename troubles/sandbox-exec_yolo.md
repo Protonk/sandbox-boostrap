@@ -45,6 +45,35 @@ This is a detailed read-out of the sandbox-exec harness work in `book/experiment
    - The bucket-5 shim now uses `(allow default)`, so it no longer mirrors the strict `(deny default)` SBPL; only the probed operations are guarded by explicit denies. Broader enforcement gaps likely exist if more operations were exercised.  
    - The exact abort cause under `(deny default)` + narrow allows is still unresolved (suspected loader/resource starvation). No sandboxd logs captured. Crash reports suggest Seatbelt kill tied to missing dyld resources, but not confirmed.
 
+## Next steps: in-process probe + slimmer helper
+
+To avoid exec/loader starvation while still exercising SBPL decisions, build a two-prong probe:
+
+1) **In-process probe path**
+   - Write a tiny C helper that:
+     - Applies SBPL via `sandbox_init` (or `sandbox_compile_string` + `sandbox_apply`) in-process.
+     - Performs file probes (read/write) directly after apply, without `execvp` of `/bin/sh`/`cat`.
+     - Emits JSON lines for each probe (op, path, rc, errno) to stdout.
+   - Keep dependencies minimal: no printf-format heavy lifting; use `write(1, ...)` to avoid stdio/dlopen churn. Consider linking with `-static`-like flags where possible or at least avoid loading locale/iconv.
+   - Profiles to test: `allow_all`, `deny_all`, `deny_except_tmp`, `metafilter_any`, plus bucket-4/5 variants from `op-table-operation`.
+
+2) **Slimmer helper binary**
+   - If full in-process apply is too invasive, build a lean probe binary that:
+     - Accepts a path + operation selector (read/write) and performs the op without spawning shells.
+     - Is invoked under the wrapper (`wrapper --sbpl ... -- ./probe path read`).
+     - Links only libc/lsandbox; avoids shell/dyld-heavy dependencies.
+
+3) **Harness integration**
+   - Add a mode to `runtime-checks/run_probes.py` to use the in-process helper (or slim probe) instead of `/bin/sh`/`cat`.
+   - Capture outputs in `validation/out/semantic/runtime_results.json` and update the semantic block in `validation/out/index.json` to reflect “synthetic-ok with in-process probe.”
+
+4) **Targets and expectations**
+   - Goal: demonstrate allow/deny for file-read*/file-write* under strict `(deny default)` profiles without adding broad shims.
+   - Track any residual denials that look like loader/syscall gaps (e.g., `process-fork`, `mach-lookup` needed for libc) and document the minimal additional allows needed.
+
+Lessons learned to carry forward:
+- Exec-heavy probes conflate `process-exec*`/dyld needs with the file-read*/write* decisions we want to observe.
+- In-process apply + direct syscalls should isolate the Operation/Filter decisions and reduce false aborts.
 ## Concept connections (teaching view)
 
 This section ties the concrete harness behaviour back to the substrate’s Concepts / Orientation vocabulary so that the log can double as a worked example.

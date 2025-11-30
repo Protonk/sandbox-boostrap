@@ -23,7 +23,7 @@ Produce small “golden” triples (SBPL source, decoded graph, runtime probe ou
 3) **Run runtime probes**
    - Reuse/extend a harness (runner/reader or `book/api/SBPL-wrapper/wrapper --blob`) to execute a few file probes per profile, logging operation, path, exit, and errno to ndjson.
    - For environments where sandbox-apply is blocked, note the failure and prepare to rerun in a SIP-relaxed context.
-   - Status: runtime probes run via `sandbox_runner`/`sandbox_reader` for these profiles; wrapper-based blob runs are available via the runtime-checks harness. System profiles: bsd is usable via SBPL/compiled blob; airlock is expected-fail locally (EPERM).
+   - Status: runtime probes now run via `book/api/SBPL-wrapper/wrapper --sbpl` with a slim file probe binary. Strict `(deny default)` profiles still kill the probe (-6) even after adding process-exec*/fork, system reads, and /tmp metadata; allows only surface when defaults are relaxed. System profiles: bsd is usable via SBPL/compiled blob; airlock is expected-fail locally (EPERM).
 
 4) **Link triple**
    - Build a manifest that ties SBPL → compiled blob → decoded nodes → runtime outcomes for each profile, with OS/build metadata.

@@ -1,4 +1,6 @@
 (version 1)
-(deny default)
+(allow default)
+(deny file-read* (literal "/tmp/deny.txt"))
+(deny file-write* (literal "/tmp/deny.txt"))
 (allow file-read* (subpath "/tmp/allow"))
 (allow file-write* (subpath "/tmp/allow"))

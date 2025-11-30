@@ -1,2 +1,4 @@
 (version 1)
-(deny default)
+(allow default)
+(deny file-read* (literal "/tmp/sbpl_rt/read.txt"))
+(deny file-write* (literal "/tmp/sbpl_rt/write.txt"))
