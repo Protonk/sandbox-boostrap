@@ -3,11 +3,11 @@
 Provenance: macOS 14.4.1 (23E224) on Apple Silicon, per `SYSTEM_VERSION.txt`. Darwin kernel 23.4.0. Artifacts live under `dumps/Sandbox-private/14.4.1-23E224/` and stay git-ignored; handle them in place.
 
 ## Summary (sizes and mtimes)
-- `dumps/Sandbox-private/14.4.1-23E224/kernel/BootKernelExtensions.kc` — 62734336 bytes; mtime 2025-11-30 12:12:48 PST
-- `dumps/Sandbox-private/14.4.1-23E224/userland/libsystem_sandbox.dylib` — 36864 bytes; mtime 2025-11-30 12:13:40 PST
-- `dumps/Sandbox-private/14.4.1-23E224/profiles/compiled/com.apple.TextEdit.sandbox.sb.bin` — 21691 bytes; mtime 2025-11-30 13:11:51 PST
-- `dumps/Sandbox-private/14.4.1-23E224/SYSTEM_VERSION.txt` — 206 bytes; mtime 2025-11-30 08:38:02 PST
-- `profiles/Profiles/` — 412 SBPL templates; aggregate 1847316 bytes; mtimes mostly 2025-11-30 12:14:12 PST (bulk extract timestamp)
+- `dumps/Sandbox-private/14.4.1-23E224/kernel/BootKernelExtensions.kc` — 62734336 bytes;
+- `dumps/Sandbox-private/14.4.1-23E224/userland/libsystem_sandbox.dylib` — 36864 bytes;
+- `dumps/Sandbox-private/14.4.1-23E224/profiles/compiled/com.apple.TextEdit.sandbox.sb.bin` — 21691 bytes;
+- `dumps/Sandbox-private/14.4.1-23E224/SYSTEM_VERSION.txt` — 206 bytes;
+- `profiles/Profiles/` — 412 SBPL templates; aggregate 1847316 bytes;
 - `profiles/compiled/com.apple.TextEdit.sandbox.sb.bin` listed above; single compiled App Sandbox blob for TextEdit
 - `meta/` — present, currently empty (no files)
 

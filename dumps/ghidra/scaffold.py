@@ -86,6 +86,12 @@ TASKS: Dict[str, TaskConfig] = {
         import_target="kernel",
         description="Recover operation pointer table entries from the KC.",
     ),
+    "kernel-string-refs": TaskConfig(
+        name="kernel-string-refs",
+        script="kernel_string_refs.py",
+        import_target="kernel",
+        description="Resolve references to sandbox strings and AppleMatch imports in the KC.",
+    ),
 }
 
 
@@ -149,6 +155,45 @@ def build_headless_command(
     return cmd, out_dir
 
 
+def build_process_command(
+    task: TaskConfig,
+    build: BuildPaths,
+    ghidra_headless: str | None,
+    vm_path: Path | None,
+    no_analysis: bool,
+) -> Tuple[List[str], Path]:
+    import_path = getattr(build, task.import_target)
+    out_dir = OUT_ROOT / build.build_id / task.name
+    ensure_under(out_dir, OUT_ROOT)
+    headless = resolve_headless_path(ghidra_headless, require_exists=False)
+    project_dir = PROJECTS_ROOT
+    project_name = f"sandbox_{build.build_id}"
+    cmd = [
+        str(headless),
+        str(project_dir),
+        project_name,
+    ]
+    if no_analysis:
+        cmd.append("-noanalysis")
+    cmd.extend(
+        [
+            "-process",
+            import_path.name,
+            "-scriptPath",
+            str(SCRIPTS_DIR),
+            "-scriptlog",
+            str(out_dir / "script.log"),
+            "-postScript",
+            task.script,
+            str(out_dir),
+            build.build_id,
+        ]
+    )
+    if vm_path:
+        cmd.extend(["-vmPath", str(vm_path)])
+    return cmd, out_dir
+
+
 def render_shell_command(cmd: Iterable[str]) -> str:
     return " ".join(shlex.quote(part) for part in cmd)
 
@@ -172,6 +217,11 @@ def parse_args(argv: List[str]) -> argparse.Namespace:
         help="Override path to Java executable passed via -vmPath; defaults to JAVA_HOME/bin/java when JAVA_HOME is set.",
     )
     parser.add_argument("--no-analysis", action="store_true", help="Add -noanalysis to the headless run.")
+    parser.add_argument(
+        "--process-existing",
+        action="store_true",
+        help="Use an existing analyzed project (no import/overwrite) and run the script via -process.",
+    )
     parser.add_argument("--exec", action="store_true", dest="do_exec", help="Execute instead of printing.")
     return parser.parse_args(argv)
 
@@ -193,7 +243,15 @@ def main(argv: List[str] | None = None) -> int:
     elif args.java_home:
         vm_path = Path(args.java_home).resolve() / "bin" / "java"
 
-    cmd, out_dir = build_headless_command(task, build, args.ghidra_headless, vm_path, args.no_analysis)
+    project_name = f"sandbox_{build.build_id}"
+    project_file = PROJECTS_ROOT / f"{project_name}.gpr"
+    if args.process_existing:
+        if not project_file.exists():
+            sys.stderr.write(f"Missing project for --process-existing: {project_file}\n")
+            return 1
+        cmd, out_dir = build_process_command(task, build, args.ghidra_headless, vm_path, args.no_analysis)
+    else:
+        cmd, out_dir = build_headless_command(task, build, args.ghidra_headless, vm_path, args.no_analysis)
     shell_cmd = render_shell_command(cmd)
     print(f"[task {task.name}] output dir: {out_dir}")
     print(f"[task {task.name}] command: {shell_cmd}")
