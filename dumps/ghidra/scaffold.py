@@ -109,7 +109,13 @@ def resolve_headless_path(candidate: str | None, require_exists: bool) -> Path:
     return path
 
 
-def build_headless_command(task: TaskConfig, build: BuildPaths, ghidra_headless: str | None) -> Tuple[List[str], Path]:
+def build_headless_command(
+    task: TaskConfig,
+    build: BuildPaths,
+    ghidra_headless: str | None,
+    vm_path: Path | None,
+    no_analysis: bool,
+) -> Tuple[List[str], Path]:
     import_path = getattr(build, task.import_target)
     out_dir = OUT_ROOT / build.build_id / task.name
     ensure_under(out_dir, OUT_ROOT)
@@ -120,15 +126,26 @@ def build_headless_command(task: TaskConfig, build: BuildPaths, ghidra_headless:
         str(headless),
         str(project_dir),
         project_name,
-        "-import",
-        str(import_path),
-        "-scriptPath",
-        str(SCRIPTS_DIR),
-        "-postScript",
-        task.script,
-        str(out_dir),
-        build.build_id,
+        "-overwrite",
     ]
+    if no_analysis:
+        cmd.append("-noanalysis")
+    cmd.extend(
+        [
+            "-import",
+            str(import_path),
+            "-scriptPath",
+            str(SCRIPTS_DIR),
+            "-scriptlog",
+            str(out_dir / "script.log"),
+            "-postScript",
+            task.script,
+            str(out_dir),
+            build.build_id,
+        ]
+    )
+    if vm_path:
+        cmd.extend(["-vmPath", str(vm_path)])
     return cmd, out_dir
 
 
@@ -141,6 +158,20 @@ def parse_args(argv: List[str]) -> argparse.Namespace:
     parser.add_argument("task", choices=sorted(TASKS.keys()), help="Task to run.")
     parser.add_argument("--build-id", default=DEFAULT_BUILD_ID, help="Sandbox-private build ID.")
     parser.add_argument("--ghidra-headless", help="Path to Ghidra analyzeHeadless (env GHIDRA_HEADLESS fallback).")
+    parser.add_argument(
+        "--user-dir",
+        default=str(HERE / "user"),
+        help="Ghidra user settings dir (keeps java_home.save inside repo).",
+    )
+    parser.add_argument(
+        "--java-home",
+        help="JAVA_HOME to export for the headless subprocess; sets VM lookup and avoids interactive JDK prompt.",
+    )
+    parser.add_argument(
+        "--vm-path",
+        help="Override path to Java executable passed via -vmPath; defaults to JAVA_HOME/bin/java when JAVA_HOME is set.",
+    )
+    parser.add_argument("--no-analysis", action="store_true", help="Add -noanalysis to the headless run.")
     parser.add_argument("--exec", action="store_true", dest="do_exec", help="Execute instead of printing.")
     return parser.parse_args(argv)
 
@@ -155,7 +186,14 @@ def main(argv: List[str] | None = None) -> int:
             sys.stderr.write(f"Missing input: {path}\n")
         return 1
 
-    cmd, out_dir = build_headless_command(task, build, args.ghidra_headless)
+    user_dir = Path(args.user_dir).resolve()
+    vm_path = None
+    if args.vm_path:
+        vm_path = Path(args.vm_path).resolve()
+    elif args.java_home:
+        vm_path = Path(args.java_home).resolve() / "bin" / "java"
+
+    cmd, out_dir = build_headless_command(task, build, args.ghidra_headless, vm_path, args.no_analysis)
     shell_cmd = render_shell_command(cmd)
     print(f"[task {task.name}] output dir: {out_dir}")
     print(f"[task {task.name}] command: {shell_cmd}")
@@ -168,7 +206,18 @@ def main(argv: List[str] | None = None) -> int:
         cmd[0] = str(headless_path)
     out_dir.mkdir(parents=True, exist_ok=True)
     PROJECTS_ROOT.mkdir(parents=True, exist_ok=True)
-    completed = subprocess.run(cmd, check=False)
+    user_dir.mkdir(parents=True, exist_ok=True)
+    env = dict(os.environ)
+    if args.java_home:
+        env["JAVA_HOME"] = args.java_home
+    env["GHIDRA_USER_HOME"] = str(user_dir)
+    env["HOME"] = str(user_dir)
+    user_home_prop = f"-Duser.home={user_dir}"
+    if env.get("JAVA_TOOL_OPTIONS"):
+        env["JAVA_TOOL_OPTIONS"] = env["JAVA_TOOL_OPTIONS"] + " " + user_home_prop
+    else:
+        env["JAVA_TOOL_OPTIONS"] = user_home_prop
+    completed = subprocess.run(cmd, check=False, env=env)
     return completed.returncode
 
 
