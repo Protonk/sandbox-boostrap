@@ -19,415 +19,415 @@ Provenance: macOS 14.4.1 (23E224) on Apple Silicon, per `SYSTEM_VERSION.txt`. Da
 - Metadata: `SYSTEM_VERSION.txt` records OS/build provenance; `meta/` is reserved for additional provenance and is empty here.
 
 ## SBPL corpus (all 412 entries)
-- `ASPCarryLog.sb` — 4155 bytes; mtime 2025-11-30 12:14:12 PST
-- `NANDTaskScheduler.sb` — 2065 bytes; mtime 2025-11-30 12:14:12 PST
-- `NFRestoreService.sb` — 2094 bytes; mtime 2025-11-30 12:14:12 PST
-- `WeatherKitAuthService.sb` — 2963 bytes; mtime 2025-11-30 12:14:12 PST
-- `WiFiVelocityAgent.sb` — 1300 bytes; mtime 2025-11-30 12:14:12 PST
-- `airlock.sb` — 27350 bytes; mtime 2025-11-30 12:14:12 PST
-- `application.sb` — 42641 bytes; mtime 2025-11-30 12:14:12 PST
-- `appsandbox-common.sb` — 30705 bytes; mtime 2025-11-30 12:14:12 PST
-- `apsd.sb` — 6893 bytes; mtime 2025-11-30 12:14:12 PST
-- `betaenrollmentd.sb` — 4272 bytes; mtime 2025-11-30 12:14:12 PST
-- `blastdoor.sb` — 19419 bytes; mtime 2025-11-30 12:14:12 PST
-- `bluetoothuserd.sb` — 8958 bytes; mtime 2025-11-30 12:14:12 PST
-- `bsd.sb` — 858 bytes; mtime 2025-11-30 12:14:12 PST
-- `calaccessd.sb` — 7995 bytes; mtime 2025-11-30 12:14:12 PST
-- `cloudpaird.sb` — 9962 bytes; mtime 2025-11-30 12:14:12 PST
-- `cmioextension.sb` — 12079 bytes; mtime 2025-11-30 12:14:12 PST
-- `colorsyncd.sb` — 1951 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.ANECompilerService.sb` — 1301 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.AirPlayXPCHelper.sb` — 7399 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.AppSSOAgent.login.sb` — 6501 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.AppSSOAgent.sb` — 7223 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.AppSSODaemon.sb` — 4411 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.AppStoreDaemon.StorePrivilegedTaskService.sb` — 2231 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.AppStoreDaemon.StoreUIService.sb` — 17082 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.AssetCacheLocatorService.sb` — 2117 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.AssetCacheManagerService.sb` — 762 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.AssetCacheTetheratorService.sb` — 2261 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.AudioComponentRegistrar.sb` — 2744 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.AuthenticationServices.ASConfigurationSubscriber.sb` — 2415 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.BiomeAgent.sb` — 4500 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.BiomeWriteService.sb` — 1666 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.CMValidateMovieDataReferenceService.sb` — 1389 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.CipherMLService.sb` — 2750 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.ClassroomKit.BooksService.sb` — 1048 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.ClassroomKit.ClassroomMCXService.sb` — 3026 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.ClassroomKit.ResourcesService.sb` — 3534 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.CloudDocsDaemon.container-metadata-extractor.sb` — 2393 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.CodeSigningHelper.sb` — 479 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.CommerceKit.TransactionService.sb` — 8189 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.ContextStoreAgent.sb` — 3443 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.CoreGraphics.CGPDFService.sb` — 13845 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.CoreMLModelSecurityService.sb` — 3326 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.CryptoTokenKit.ctkahp.sb` — 4515 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.DiagnosticsKit.XPCTestService.sb` — 8038 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.DumpGPURestart.sb` — 1934 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.FTLivePhotoService.sb` — 4382 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.FaceTime.FTConversationService.sb` — 2349 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.FilesystemMetadataSnapshotService.sb` — 2340 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.GSSCred.sb` — 3093 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.GameController.gamecontrolleragentd.sb` — 3067 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.GameController.gamecontrollerd.sb` — 4121 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.GamePolicyAgent.sb` — 2179 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.HydraRenderingService.sb` — 2020 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.IMAutomaticHistoryDeletionAgent.sb` — 3313 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.IOAccelMemoryInfoCollector.sb` — 141 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.ImageIOXPCService.sb` — 3655 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.LOMXPCService.sb` — 2256 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.MEValidationService.sb` — 853 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.MTLAssetUpgraderD.sb` — 2146 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.ManagedSettingsAgent.sb` — 3008 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.Maps.mapssyncd.sb` — 1823 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.MetricMeasurementHelper.sb` — 2129 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.MobileAccessoryUpdater.EAUpdaterService.sb` — 2478 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.MobileAccessoryUpdater.GenericKextUpdaterService.sb` — 2439 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.MobileAccessoryUpdater.ThunderboltAccessoryUpdaterService.sb` — 2877 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.MobileAccessoryUpdater.USBCAccessoryUpdaterService.sb` — 3352 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.MotionTrackingAgent.sb` — 4498 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.OSLogService.sb` — 778 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.PIPAgent.sb` — 375 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.PerfPowerServices.sb` — 8751 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.PerfPowerServicesExtended.sb` — 1548 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.Photos.CPLDiagnose.sb` — 5087 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.RAQL-Inline-Service.sb` — 10766 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.RemoteManagementAgent.sb` — 6194 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.RemoteManagementMCXProfile.sb` — 2215 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.RemoteManagementMCXService.sb` — 2501 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.ReportGPURestart.sb` — 983 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.STExtractionService.sb` — 3149 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.ScopedBookmarkAgent.sb` — 3491 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.ServicesUIAgent.sb` — 4208 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.SetStoreUpdateService.sb` — 2090 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.SharePlay.GroupSessionService.sb` — 5635 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.SharingXPCHelper.sb` — 1439 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.SiriTTSTrainingAgent.sb` — 3883 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.SpeechRecognitionCore.brokerd.sb` — 1857 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.SpeechRecognitionCore.speechrecognitiond.sb` — 6050 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.StorageManagement.Service.sb` — 4826 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.StreamingUnzipService.sb` — 1801 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.SubmitDiagInfo.sb` — 5473 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.TrustedPeersHelper.sb` — 1084 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.UARPUpdaterServiceAFU.sb` — 2419 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.UARPUpdaterServiceHID.sb` — 5209 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.UARPUpdaterServiceLegacyAudio.sb` — 3281 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.UARPUpdaterServiceUSBPD.sb` — 5063 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.UIKitSystemApp.sb` — 4798 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.USDLib.FormatLoader.sb` — 1863 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.WindowManager.sb` — 10021 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.WindowServer.sb` — 14160 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.WorkflowKit.BackgroundShortcutRunner.sb` — 18734 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.XprotectFramework.AnalysisService.sb` — 2222 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.accessibility.AccessibilityOnboarding.sb` — 5779 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.accessibility.LiveSpeech.sb` — 5832 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.accessibility.LiveTranscriptionAgent.sb` — 5978 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.accessibility.SCRSystemSetup.sb` — 1897 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.accessibility.mediaaccessibilityd.sb` — 2038 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.accessoryupdaterd.sb` — 5193 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.akd.sb` — 7653 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.amp.mediasharingd.sb` — 2279 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.amsengagementd.sb` — 4779 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.analyticsd.sb` — 5323 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.aned.sb` — 1504 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.aneuserd.sb` — 1516 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.ap.adprivacyd.sb` — 4437 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.ap.promotedcontentd.sb` — 4525 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.appinstalld.sb` — 3125 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.appleaccountd.sb` — 5979 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.appleh13camerad.sb` — 3650 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.appleh16camerad.sb` — 3736 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.appleidsetupd.sb` — 2788 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.applekeystored.sb` — 1010 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.appstoreagent.sb` — 11244 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.appstorecomponentsd.sb` — 7853 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.appstored.sb` — 6860 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.asktod.sb` — 3507 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.assessmentagent.sb` — 3225 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.assistant_cdmd.sb` — 3794 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.assistantd.sb` — 17223 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.assistantd.transcoded.sb` — 14100 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.audio.AUHostingService.sb` — 3380 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.audio.AudioConverterService.sb` — 1292 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.audio.SandboxHelper.sb` — 3034 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.audio.coreaudiod.sb` — 5622 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.audio.systemsoundserverd.sb` — 2027 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.audiomxd.sb` — 2154 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.auearlyboot.sb` — 3876 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.authd.sb` — 2459 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.avatarsd.sb` — 2483 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.avconferenced.sb` — 8000 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.backgroundtaskmanagementd.sb` — 3505 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.backgroundtaskmanagementsubscriber.sb` — 2081 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.biomed.sb` — 2029 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.biomestreamtool.sb` — 2233 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.biomesyncd.sb` — 3158 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.bookassetd.sb` — 4988 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.bookdatastored.sb` — 3894 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.businessservicesd.sb` — 1906 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.captiveagent.sb` — 2173 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.cf.appsleepd.sb` — 46 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.cfprefsd.sb` — 4635 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.chronod.sb` — 5129 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.ciphermld.sb` — 3307 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.cmio.AVCAssistant.sb` — 1706 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.cmio.IIDCVideoAssistant.sb` — 1757 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.cmio.VDCAssistant.sb` — 2529 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.cmio.iOSScreenCaptureAssistant.sb` — 5670 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.cmio.registerassistantservice.sb` — 2426 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.colorsync.displayservices.sb` — 1409 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.colorsync.useragent.sb` — 1549 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.commerce.sb` — 7535 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.contactsd.sb` — 3343 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.containermanagerd.sb` — 6422 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.contextstored.sb` — 3205 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.controlstrip.sb` — 383 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.coordinated.sb` — 4688 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.coredatad.sb` — 1760 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.coreduetd.sb` — 3813 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.corefoundation.sb` — 1424 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.corekdld.sb` — 1997 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.coreparsec.silhouette.sb` — 2793 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.coreservices.appleevents.appleeventsd.sb` — 3246 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.coreservices.launchservices.launchservicesd.sb` — 1031 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.coreservicesd.sb` — 2381 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.corespeechd.sb` — 6148 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.countryd.sb` — 2234 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.ctkbind.sb` — 4523 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.ctkd.sb` — 2066 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.dasd.sb` — 6719 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.datadetectors.sourceaccess.sb` — 361 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.deleted.sb` — 5587 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.desktopservices.ArchiveService.sb` — 2446 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.devicecheckd.sb` — 1937 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.diagnosticd.sb` — 1469 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.diskimagescontroller.sb` — 3724 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.diskimagesiod.sb` — 2296 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.distnoted.sb` — 426 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.dmd.sb` — 3013 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.donotdisturbd.sb` — 5310 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.dprivacyd.sb` — 1409 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.efilogin-helper.sb` — 989 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.email.maild.sb` — 6029 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.extensionkitservice.sb` — 809 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.fairplaydeviceidentityd.sb` — 3135 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.fileproviderd.sb` — 12866 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.financed.sb` — 6112 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.gamecontroller.ConfigService.sb` — 2053 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.gamed.sb` — 9637 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.gamepolicyd.sb` — 2078 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.gpusw.ParavirtualizedGraphicsGPUTask.sb` — 1299 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.gputoolsserviced.sb` — 7079 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.groupkitd.sb` — 3064 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.healthd.sb` — 5044 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.heard.sb` — 7263 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.homed.sb` — 9526 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.homeenergyd.sb` — 3379 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.iMessage.addressbook.sb` — 1570 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.iMessage.shared.sb` — 5888 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.icdd.sb` — 1792 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.icloud.findmydeviced.findmydevice-user-agent.sb` — 1741 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.iconservicesagent.sb` — 2290 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.iconservicesd.sb` — 1549 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.identityservicesd.sb` — 9646 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.imagent.sb` — 15069 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.imdpersistence.IMDPersistenceAgent.sb` — 8054 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.imtranscoding.IMTranscoderAgent.sb` — 7242 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.imtransferservices.IMTransferAgent.sb` — 6850 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.installcoordinationd.sb` — 2926 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.intelligenceplatform.IntelligencePlatformComputeService.sb` — 5119 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.intelligenceplatform.intelligenceplatformd.sb` — 5422 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.intelligenceplatform.knowledgeconstructiond.sb` — 5800 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.intelligentroutingd.sb` — 3689 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.itunescloudd.sb` — 5392 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.kernelmanager_helper.sb` — 3873 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.kernelmanagerd.sb` — 4129 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.keychainsharingmessagingd.sb` — 2192 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.knowledge-agent.sb` — 6287 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.lightsoutmanagementd.consolidated.sb` — 2645 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.lightsoutmanagementd.sb` — 2008 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.linkd.sb` — 2755 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.locationd.sb` — 7418 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.lockoutagent.sb` — 1555 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.logd.sb` — 1946 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.logd_helper.sb` — 2140 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.logd_reporter.sb` — 729 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.lskdd.sb` — 2586 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.mDNSResponderHelper.sb` — 2713 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.managedappdistributionagent.sb` — 1905 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.managedappdistributiond.sb` — 1901 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.maps.destinationd.sb` — 3181 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.mapspushd.sb` — 5274 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.mediaremoted.sb` — 4025 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.metrickitd.sb` — 2495 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.mlhostd.sb` — 3431 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.mlruntimed.sb` — 5145 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.mobile.softwareupdated.sb` — 8649 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.mtlcompilerservice.sb` — 7862 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.naturallanguaged.sb` — 2741 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.navd.sb` — 2698 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.neagent.sb` — 1279 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.nearbyd.sb` — 2939 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.nehelper.sb` — 4057 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.nesessionmanager.sb` — 3117 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.networkqualityd.sb` — 2395 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.networkqualityrelay.sb` — 1874 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.networkserviceproxy.sb` — 3420 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.nexusd.sb` — 1252 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.nlcd.sb` — 722 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.noticeboard.agent.sb` — 3409 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.noticeboard.state.sb` — 1606 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.notify-tests.sb` — 413 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.notifyd.sb` — 969 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.opendirectoryd-deny-default.sb` — 21663 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.osanalyticshelper.sb` — 3081 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.parsec-fbf.sb` — 4929 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.parsecd.sb` — 6212 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.passd.sb` — 7625 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.pboard.sb` — 953 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.pluginkit.pkd.sb` — 2981 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.printtool.agent.sb` — 5566 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.printtool.daemon.sb` — 4520 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.proactived.sb` — 3983 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.proactiveeventtrackerd.sb` — 3058 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.progressd.sb` — 8303 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.ptpcamerad.sb` — 2735 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.quicklook.ThumbnailsAgent.sb` — 6883 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.rapportd.sb` — 3989 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.relatived.sb` — 3733 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.remindd.sb` — 8673 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.remotemanagement.AccountSubscriber.sb` — 2113 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.remotemanagement.DiskManagementSubscriber.sb` — 2151 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.remotemanagement.InteractiveLegacyProfilesSubscriber.sb` — 2300 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.remotemanagement.LegacyProfilesSubscriber.sb` — 2288 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.remotemanagement.ManagedConfigurationFilesSubscriber.sb` — 2095 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.remotemanagement.ManagementTestSubscriber.sb` — 2422 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.remotemanagement.PasscodeSettingsSubscriber.sb` — 2290 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.remotemanagement.PowerSubscriber.sb` — 2127 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.remotemanagement.ScreenSharingSubscriber.sb` — 2836 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.remotemanagement.SecuritySubscriber.sb` — 2701 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.remotemanagement.SoftwareUpdateSubscriber.sb` — 1935 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.remotemanagementd.sb` — 6156 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.replayd.sb` — 5130 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.reversetemplated.sb` — 3297 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.revisiond.sb` — 3046 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.rpcbind.sb` — 1930 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.rtcreportingd.sb` — 3818 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.runningboard.sb` — 2580 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.secd.sb` — 3039 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.secinitd.sb` — 1975 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.secureelementservice.sb` — 3906 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.security.KeychainStasher.sb` — 661 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.security.XPCAcmeService.sb` — 1554 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.securityd.sb` — 2495 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.securityd_system.sb` — 2074 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.securitydservice.sb` — 848 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.securityuploadd.sb` — 3132 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.sharingd.sb` — 16671 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.shazamd.sb` — 4887 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.siri-distributed-evaluation.sb` — 3623 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.siriactionsd.sb` — 9609 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.siriknowledged.sb` — 4463 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.sirittsd.sb` — 4802 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.sociallayerd.sb` — 4345 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.soundanalysisd.sb` — 5474 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.speech.localspeechrecognition.sb` — 4409 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.speech.speechsynthesisd.sb` — 8489 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.sportsd.sb` — 4788 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.spotlight.CSExattrCryptoService.sb` — 1853 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.statuskitagent.sb` — 2939 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.storeaccountd.sb` — 8721 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.storeassetd.sb` — 8642 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.storedownloadd.sb` — 9009 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.storekitagent.sb` — 5884 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.storelegacy.sb` — 7320 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.storereceiptinstaller.sb` — 2219 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.storeuid.sb` — 10445 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.studentd.sb` — 12905 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.suggestd.sb` — 13629 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.swcd.sb` — 1780 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.symptomsd-diag.sb` — 5287 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.synapse.contentlinkingd.sb` — 3042 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.syncdefaultsd.sb` — 3346 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.sysextd.sb` — 3801 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.systemstats.analysis.sb` — 3907 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.systemstatusd.sb` — 2141 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.tccd.sb` — 2482 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.telephonyutilities.callservicesd.sb` — 16410 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.testmanagerd.sb` — 4601 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.textunderstandingd.sb` — 1764 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.timesync.audioclocksyncd.sb` — 1220 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.tipsd.sb` — 5507 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.tracd.sb` — 2167 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.translationd.sb` — 4071 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.transparencyStaticKey.sb` — 2116 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.transparencyd.sb` — 6144 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.trial.TrialArchivingService.sb` — 2132 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.triald.sb` — 5787 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.triald.system.sb` — 2353 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.trustd.sb` — 3346 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.trustdFileHelper.sb` — 1363 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.tzlinkd.sb` — 389 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.uarpupdaterservice.display.sb` — 5882 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.usbmuxd.sb` — 4596 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.useractivityd.sb` — 2952 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.usermanagerhelper.sb` — 586 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.usernotificationsd.sb` — 1701 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.uvcassistant.sb` — 2666 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.videosubscriptionsd.sb` — 2352 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.voicememod.sb` — 3237 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.wifianalyticsd.sb` — 3851 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.wifip2pd.sb` — 2860 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.writeconfig.sb` — 110 bytes; mtime 2025-11-30 12:14:12 PST
-- `com.apple.xpc.xpcroleaccountd.sb` — 1049 bytes; mtime 2025-11-30 12:14:12 PST
-- `contacts.sb` — 4302 bytes; mtime 2025-11-30 12:14:12 PST
-- `container.sb` — 38950 bytes; mtime 2025-11-30 12:14:12 PST
-- `coresymbolicationd.sb` — 314 bytes; mtime 2025-11-30 12:14:12 PST
-- `cryptex-default-shared-tmp.sb` — 652 bytes; mtime 2025-11-30 12:14:12 PST
-- `cryptex-session-base.sb` — 2040 bytes; mtime 2025-11-30 12:14:12 PST
-- `cryptex-session-default.sb` — 4632 bytes; mtime 2025-11-30 12:14:12 PST
-- `cryptex-session-ruby-insecure.sb` — 687 bytes; mtime 2025-11-30 12:14:12 PST
-- `cryptex-session-ruby-secure.sb` — 649 bytes; mtime 2025-11-30 12:14:12 PST
-- `cryptex-session-shared-tmp.sb` — 652 bytes; mtime 2025-11-30 12:14:12 PST
-- `cryptex-session-template.sb` — 4260 bytes; mtime 2025-11-30 12:14:12 PST
-- `darwin-container-base.sb` — 2111 bytes; mtime 2025-11-30 12:14:12 PST
-- `darwin-container-default.sb` — 4632 bytes; mtime 2025-11-30 12:14:12 PST
-- `darwin-container-ruby-insecure.sb` — 687 bytes; mtime 2025-11-30 12:14:12 PST
-- `darwin-container-ruby-secure.sb` — 649 bytes; mtime 2025-11-30 12:14:12 PST
-- `darwin-container-shared-tmp.sb` — 652 bytes; mtime 2025-11-30 12:14:12 PST
-- `darwin-container-template.sb` — 4260 bytes; mtime 2025-11-30 12:14:12 PST
-- `dataaccessd.sb` — 6573 bytes; mtime 2025-11-30 12:14:12 PST
-- `diagnosticextensionsd.sb` — 4616 bytes; mtime 2025-11-30 12:14:12 PST
-- `directoryserver.sb` — 561 bytes; mtime 2025-11-30 12:14:12 PST
-- `dyld-support.sb` — 2554 bytes; mtime 2025-11-30 12:14:12 PST
-- `findmybeaconingd.sb` — 5162 bytes; mtime 2025-11-30 12:14:12 PST
-- `findmylocateagent.sb` — 5709 bytes; mtime 2025-11-30 12:14:12 PST
-- `fmfd.sb` — 10988 bytes; mtime 2025-11-30 12:14:12 PST
-- `frameworks.sb` — 43578 bytes; mtime 2025-11-30 12:14:12 PST
-- `iWorkXPC.sb` — 1047 bytes; mtime 2025-11-30 12:14:12 PST
-- `lockdownmoded.sb` — 4045 bytes; mtime 2025-11-30 12:14:12 PST
-- `media-extension-format-reader.sb` — 1837 bytes; mtime 2025-11-30 12:14:12 PST
-- `media-extension-video-decoder.sb` — 1823 bytes; mtime 2025-11-30 12:14:12 PST
-- `mediaanalysisd-access.sb` — 1924 bytes; mtime 2025-11-30 12:14:12 PST
-- `mobile_storage_mounter.sb` — 3204 bytes; mtime 2025-11-30 12:14:12 PST
-- `mobile_storage_proxy.sb` — 1909 bytes; mtime 2025-11-30 12:14:12 PST
-- `mobileactivationd.sb` — 6197 bytes; mtime 2025-11-30 12:14:12 PST
-- `mobiletimerd.sb` — 2749 bytes; mtime 2025-11-30 12:14:12 PST
-- `nfcd.sb` — 4394 bytes; mtime 2025-11-30 12:14:12 PST
-- `nsattributedstringagent.sb` — 2982 bytes; mtime 2025-11-30 12:14:12 PST
-- `nsurlsessiond.sb` — 9968 bytes; mtime 2025-11-30 12:14:12 PST
-- `opendirectory.sb` — 798 bytes; mtime 2025-11-30 12:14:12 PST
-- `quicklook-preview.sb` — 13705 bytes; mtime 2025-11-30 12:14:12 PST
-- `quicklook-thumbnail.sb` — 11359 bytes; mtime 2025-11-30 12:14:12 PST
-- `racoon.sb` — 1760 bytes; mtime 2025-11-30 12:14:12 PST
-- `recoverylogd.sb` — 2111 bytes; mtime 2025-11-30 12:14:12 PST
-- `searchpartyd.sb` — 4797 bytes; mtime 2025-11-30 12:14:12 PST
-- `searchpartyuseragent.sb` — 6417 bytes; mtime 2025-11-30 12:14:12 PST
-- `seld.sb` — 3272 bytes; mtime 2025-11-30 12:14:12 PST
-- `sensornetd.sb` — 1936 bytes; mtime 2025-11-30 12:14:12 PST
-- `spotlight-import.sb` — 2361 bytes; mtime 2025-11-30 12:14:12 PST
-- `system.sb` — 10629 bytes; mtime 2025-11-30 12:14:12 PST
-- `talagent.sb` — 4183 bytes; mtime 2025-11-30 12:14:12 PST
-- `usernoted.sb` — 3733 bytes; mtime 2025-11-30 12:14:12 PST
-- `watchlistd.sb` — 4489 bytes; mtime 2025-11-30 12:14:12 PST
-- `weatherd.sb` — 4143 bytes; mtime 2025-11-30 12:14:12 PST
+- `ASPCarryLog.sb` — 4155 bytes;
+- `NANDTaskScheduler.sb` — 2065 bytes;
+- `NFRestoreService.sb` — 2094 bytes;
+- `WeatherKitAuthService.sb` — 2963 bytes;
+- `WiFiVelocityAgent.sb` — 1300 bytes;
+- `airlock.sb` — 27350 bytes;
+- `application.sb` — 42641 bytes;
+- `appsandbox-common.sb` — 30705 bytes;
+- `apsd.sb` — 6893 bytes;
+- `betaenrollmentd.sb` — 4272 bytes;
+- `blastdoor.sb` — 19419 bytes;
+- `bluetoothuserd.sb` — 8958 bytes;
+- `bsd.sb` — 858 bytes;
+- `calaccessd.sb` — 7995 bytes;
+- `cloudpaird.sb` — 9962 bytes;
+- `cmioextension.sb` — 12079 bytes;
+- `colorsyncd.sb` — 1951 bytes;
+- `com.apple.ANECompilerService.sb` — 1301 bytes;
+- `com.apple.AirPlayXPCHelper.sb` — 7399 bytes;
+- `com.apple.AppSSOAgent.login.sb` — 6501 bytes;
+- `com.apple.AppSSOAgent.sb` — 7223 bytes;
+- `com.apple.AppSSODaemon.sb` — 4411 bytes;
+- `com.apple.AppStoreDaemon.StorePrivilegedTaskService.sb` — 2231 bytes;
+- `com.apple.AppStoreDaemon.StoreUIService.sb` — 17082 bytes;
+- `com.apple.AssetCacheLocatorService.sb` — 2117 bytes;
+- `com.apple.AssetCacheManagerService.sb` — 762 bytes;
+- `com.apple.AssetCacheTetheratorService.sb` — 2261 bytes;
+- `com.apple.AudioComponentRegistrar.sb` — 2744 bytes;
+- `com.apple.AuthenticationServices.ASConfigurationSubscriber.sb` — 2415 bytes;
+- `com.apple.BiomeAgent.sb` — 4500 bytes;
+- `com.apple.BiomeWriteService.sb` — 1666 bytes;
+- `com.apple.CMValidateMovieDataReferenceService.sb` — 1389 bytes;
+- `com.apple.CipherMLService.sb` — 2750 bytes;
+- `com.apple.ClassroomKit.BooksService.sb` — 1048 bytes;
+- `com.apple.ClassroomKit.ClassroomMCXService.sb` — 3026 bytes;
+- `com.apple.ClassroomKit.ResourcesService.sb` — 3534 bytes;
+- `com.apple.CloudDocsDaemon.container-metadata-extractor.sb` — 2393 bytes;
+- `com.apple.CodeSigningHelper.sb` — 479 bytes;
+- `com.apple.CommerceKit.TransactionService.sb` — 8189 bytes;
+- `com.apple.ContextStoreAgent.sb` — 3443 bytes;
+- `com.apple.CoreGraphics.CGPDFService.sb` — 13845 bytes;
+- `com.apple.CoreMLModelSecurityService.sb` — 3326 bytes;
+- `com.apple.CryptoTokenKit.ctkahp.sb` — 4515 bytes;
+- `com.apple.DiagnosticsKit.XPCTestService.sb` — 8038 bytes;
+- `com.apple.DumpGPURestart.sb` — 1934 bytes;
+- `com.apple.FTLivePhotoService.sb` — 4382 bytes;
+- `com.apple.FaceTime.FTConversationService.sb` — 2349 bytes;
+- `com.apple.FilesystemMetadataSnapshotService.sb` — 2340 bytes;
+- `com.apple.GSSCred.sb` — 3093 bytes;
+- `com.apple.GameController.gamecontrolleragentd.sb` — 3067 bytes;
+- `com.apple.GameController.gamecontrollerd.sb` — 4121 bytes;
+- `com.apple.GamePolicyAgent.sb` — 2179 bytes;
+- `com.apple.HydraRenderingService.sb` — 2020 bytes;
+- `com.apple.IMAutomaticHistoryDeletionAgent.sb` — 3313 bytes;
+- `com.apple.IOAccelMemoryInfoCollector.sb` — 141 bytes;
+- `com.apple.ImageIOXPCService.sb` — 3655 bytes;
+- `com.apple.LOMXPCService.sb` — 2256 bytes;
+- `com.apple.MEValidationService.sb` — 853 bytes;
+- `com.apple.MTLAssetUpgraderD.sb` — 2146 bytes;
+- `com.apple.ManagedSettingsAgent.sb` — 3008 bytes;
+- `com.apple.Maps.mapssyncd.sb` — 1823 bytes;
+- `com.apple.MetricMeasurementHelper.sb` — 2129 bytes;
+- `com.apple.MobileAccessoryUpdater.EAUpdaterService.sb` — 2478 bytes;
+- `com.apple.MobileAccessoryUpdater.GenericKextUpdaterService.sb` — 2439 bytes;
+- `com.apple.MobileAccessoryUpdater.ThunderboltAccessoryUpdaterService.sb` — 2877 bytes;
+- `com.apple.MobileAccessoryUpdater.USBCAccessoryUpdaterService.sb` — 3352 bytes;
+- `com.apple.MotionTrackingAgent.sb` — 4498 bytes;
+- `com.apple.OSLogService.sb` — 778 bytes;
+- `com.apple.PIPAgent.sb` — 375 bytes;
+- `com.apple.PerfPowerServices.sb` — 8751 bytes;
+- `com.apple.PerfPowerServicesExtended.sb` — 1548 bytes;
+- `com.apple.Photos.CPLDiagnose.sb` — 5087 bytes;
+- `com.apple.RAQL-Inline-Service.sb` — 10766 bytes;
+- `com.apple.RemoteManagementAgent.sb` — 6194 bytes;
+- `com.apple.RemoteManagementMCXProfile.sb` — 2215 bytes;
+- `com.apple.RemoteManagementMCXService.sb` — 2501 bytes;
+- `com.apple.ReportGPURestart.sb` — 983 bytes;
+- `com.apple.STExtractionService.sb` — 3149 bytes;
+- `com.apple.ScopedBookmarkAgent.sb` — 3491 bytes;
+- `com.apple.ServicesUIAgent.sb` — 4208 bytes;
+- `com.apple.SetStoreUpdateService.sb` — 2090 bytes;
+- `com.apple.SharePlay.GroupSessionService.sb` — 5635 bytes;
+- `com.apple.SharingXPCHelper.sb` — 1439 bytes;
+- `com.apple.SiriTTSTrainingAgent.sb` — 3883 bytes;
+- `com.apple.SpeechRecognitionCore.brokerd.sb` — 1857 bytes;
+- `com.apple.SpeechRecognitionCore.speechrecognitiond.sb` — 6050 bytes;
+- `com.apple.StorageManagement.Service.sb` — 4826 bytes;
+- `com.apple.StreamingUnzipService.sb` — 1801 bytes;
+- `com.apple.SubmitDiagInfo.sb` — 5473 bytes;
+- `com.apple.TrustedPeersHelper.sb` — 1084 bytes;
+- `com.apple.UARPUpdaterServiceAFU.sb` — 2419 bytes;
+- `com.apple.UARPUpdaterServiceHID.sb` — 5209 bytes;
+- `com.apple.UARPUpdaterServiceLegacyAudio.sb` — 3281 bytes;
+- `com.apple.UARPUpdaterServiceUSBPD.sb` — 5063 bytes;
+- `com.apple.UIKitSystemApp.sb` — 4798 bytes;
+- `com.apple.USDLib.FormatLoader.sb` — 1863 bytes;
+- `com.apple.WindowManager.sb` — 10021 bytes;
+- `com.apple.WindowServer.sb` — 14160 bytes;
+- `com.apple.WorkflowKit.BackgroundShortcutRunner.sb` — 18734 bytes;
+- `com.apple.XprotectFramework.AnalysisService.sb` — 2222 bytes;
+- `com.apple.accessibility.AccessibilityOnboarding.sb` — 5779 bytes;
+- `com.apple.accessibility.LiveSpeech.sb` — 5832 bytes;
+- `com.apple.accessibility.LiveTranscriptionAgent.sb` — 5978 bytes;
+- `com.apple.accessibility.SCRSystemSetup.sb` — 1897 bytes;
+- `com.apple.accessibility.mediaaccessibilityd.sb` — 2038 bytes;
+- `com.apple.accessoryupdaterd.sb` — 5193 bytes;
+- `com.apple.akd.sb` — 7653 bytes;
+- `com.apple.amp.mediasharingd.sb` — 2279 bytes;
+- `com.apple.amsengagementd.sb` — 4779 bytes;
+- `com.apple.analyticsd.sb` — 5323 bytes;
+- `com.apple.aned.sb` — 1504 bytes;
+- `com.apple.aneuserd.sb` — 1516 bytes;
+- `com.apple.ap.adprivacyd.sb` — 4437 bytes;
+- `com.apple.ap.promotedcontentd.sb` — 4525 bytes;
+- `com.apple.appinstalld.sb` — 3125 bytes;
+- `com.apple.appleaccountd.sb` — 5979 bytes;
+- `com.apple.appleh13camerad.sb` — 3650 bytes;
+- `com.apple.appleh16camerad.sb` — 3736 bytes;
+- `com.apple.appleidsetupd.sb` — 2788 bytes;
+- `com.apple.applekeystored.sb` — 1010 bytes;
+- `com.apple.appstoreagent.sb` — 11244 bytes;
+- `com.apple.appstorecomponentsd.sb` — 7853 bytes;
+- `com.apple.appstored.sb` — 6860 bytes;
+- `com.apple.asktod.sb` — 3507 bytes;
+- `com.apple.assessmentagent.sb` — 3225 bytes;
+- `com.apple.assistant_cdmd.sb` — 3794 bytes;
+- `com.apple.assistantd.sb` — 17223 bytes;
+- `com.apple.assistantd.transcoded.sb` — 14100 bytes;
+- `com.apple.audio.AUHostingService.sb` — 3380 bytes;
+- `com.apple.audio.AudioConverterService.sb` — 1292 bytes;
+- `com.apple.audio.SandboxHelper.sb` — 3034 bytes;
+- `com.apple.audio.coreaudiod.sb` — 5622 bytes;
+- `com.apple.audio.systemsoundserverd.sb` — 2027 bytes;
+- `com.apple.audiomxd.sb` — 2154 bytes;
+- `com.apple.auearlyboot.sb` — 3876 bytes;
+- `com.apple.authd.sb` — 2459 bytes;
+- `com.apple.avatarsd.sb` — 2483 bytes;
+- `com.apple.avconferenced.sb` — 8000 bytes;
+- `com.apple.backgroundtaskmanagementd.sb` — 3505 bytes;
+- `com.apple.backgroundtaskmanagementsubscriber.sb` — 2081 bytes;
+- `com.apple.biomed.sb` — 2029 bytes;
+- `com.apple.biomestreamtool.sb` — 2233 bytes;
+- `com.apple.biomesyncd.sb` — 3158 bytes;
+- `com.apple.bookassetd.sb` — 4988 bytes;
+- `com.apple.bookdatastored.sb` — 3894 bytes;
+- `com.apple.businessservicesd.sb` — 1906 bytes;
+- `com.apple.captiveagent.sb` — 2173 bytes;
+- `com.apple.cf.appsleepd.sb` — 46 bytes;
+- `com.apple.cfprefsd.sb` — 4635 bytes;
+- `com.apple.chronod.sb` — 5129 bytes;
+- `com.apple.ciphermld.sb` — 3307 bytes;
+- `com.apple.cmio.AVCAssistant.sb` — 1706 bytes;
+- `com.apple.cmio.IIDCVideoAssistant.sb` — 1757 bytes;
+- `com.apple.cmio.VDCAssistant.sb` — 2529 bytes;
+- `com.apple.cmio.iOSScreenCaptureAssistant.sb` — 5670 bytes;
+- `com.apple.cmio.registerassistantservice.sb` — 2426 bytes;
+- `com.apple.colorsync.displayservices.sb` — 1409 bytes;
+- `com.apple.colorsync.useragent.sb` — 1549 bytes;
+- `com.apple.commerce.sb` — 7535 bytes;
+- `com.apple.contactsd.sb` — 3343 bytes;
+- `com.apple.containermanagerd.sb` — 6422 bytes;
+- `com.apple.contextstored.sb` — 3205 bytes;
+- `com.apple.controlstrip.sb` — 383 bytes;
+- `com.apple.coordinated.sb` — 4688 bytes;
+- `com.apple.coredatad.sb` — 1760 bytes;
+- `com.apple.coreduetd.sb` — 3813 bytes;
+- `com.apple.corefoundation.sb` — 1424 bytes;
+- `com.apple.corekdld.sb` — 1997 bytes;
+- `com.apple.coreparsec.silhouette.sb` — 2793 bytes;
+- `com.apple.coreservices.appleevents.appleeventsd.sb` — 3246 bytes;
+- `com.apple.coreservices.launchservices.launchservicesd.sb` — 1031 bytes;
+- `com.apple.coreservicesd.sb` — 2381 bytes;
+- `com.apple.corespeechd.sb` — 6148 bytes;
+- `com.apple.countryd.sb` — 2234 bytes;
+- `com.apple.ctkbind.sb` — 4523 bytes;
+- `com.apple.ctkd.sb` — 2066 bytes;
+- `com.apple.dasd.sb` — 6719 bytes;
+- `com.apple.datadetectors.sourceaccess.sb` — 361 bytes;
+- `com.apple.deleted.sb` — 5587 bytes;
+- `com.apple.desktopservices.ArchiveService.sb` — 2446 bytes;
+- `com.apple.devicecheckd.sb` — 1937 bytes;
+- `com.apple.diagnosticd.sb` — 1469 bytes;
+- `com.apple.diskimagescontroller.sb` — 3724 bytes;
+- `com.apple.diskimagesiod.sb` — 2296 bytes;
+- `com.apple.distnoted.sb` — 426 bytes;
+- `com.apple.dmd.sb` — 3013 bytes;
+- `com.apple.donotdisturbd.sb` — 5310 bytes;
+- `com.apple.dprivacyd.sb` — 1409 bytes;
+- `com.apple.efilogin-helper.sb` — 989 bytes;
+- `com.apple.email.maild.sb` — 6029 bytes;
+- `com.apple.extensionkitservice.sb` — 809 bytes;
+- `com.apple.fairplaydeviceidentityd.sb` — 3135 bytes;
+- `com.apple.fileproviderd.sb` — 12866 bytes;
+- `com.apple.financed.sb` — 6112 bytes;
+- `com.apple.gamecontroller.ConfigService.sb` — 2053 bytes;
+- `com.apple.gamed.sb` — 9637 bytes;
+- `com.apple.gamepolicyd.sb` — 2078 bytes;
+- `com.apple.gpusw.ParavirtualizedGraphicsGPUTask.sb` — 1299 bytes;
+- `com.apple.gputoolsserviced.sb` — 7079 bytes;
+- `com.apple.groupkitd.sb` — 3064 bytes;
+- `com.apple.healthd.sb` — 5044 bytes;
+- `com.apple.heard.sb` — 7263 bytes;
+- `com.apple.homed.sb` — 9526 bytes;
+- `com.apple.homeenergyd.sb` — 3379 bytes;
+- `com.apple.iMessage.addressbook.sb` — 1570 bytes;
+- `com.apple.iMessage.shared.sb` — 5888 bytes;
+- `com.apple.icdd.sb` — 1792 bytes;
+- `com.apple.icloud.findmydeviced.findmydevice-user-agent.sb` — 1741 bytes;
+- `com.apple.iconservicesagent.sb` — 2290 bytes;
+- `com.apple.iconservicesd.sb` — 1549 bytes;
+- `com.apple.identityservicesd.sb` — 9646 bytes;
+- `com.apple.imagent.sb` — 15069 bytes;
+- `com.apple.imdpersistence.IMDPersistenceAgent.sb` — 8054 bytes;
+- `com.apple.imtranscoding.IMTranscoderAgent.sb` — 7242 bytes;
+- `com.apple.imtransferservices.IMTransferAgent.sb` — 6850 bytes;
+- `com.apple.installcoordinationd.sb` — 2926 bytes;
+- `com.apple.intelligenceplatform.IntelligencePlatformComputeService.sb` — 5119 bytes;
+- `com.apple.intelligenceplatform.intelligenceplatformd.sb` — 5422 bytes;
+- `com.apple.intelligenceplatform.knowledgeconstructiond.sb` — 5800 bytes;
+- `com.apple.intelligentroutingd.sb` — 3689 bytes;
+- `com.apple.itunescloudd.sb` — 5392 bytes;
+- `com.apple.kernelmanager_helper.sb` — 3873 bytes;
+- `com.apple.kernelmanagerd.sb` — 4129 bytes;
+- `com.apple.keychainsharingmessagingd.sb` — 2192 bytes;
+- `com.apple.knowledge-agent.sb` — 6287 bytes;
+- `com.apple.lightsoutmanagementd.consolidated.sb` — 2645 bytes;
+- `com.apple.lightsoutmanagementd.sb` — 2008 bytes;
+- `com.apple.linkd.sb` — 2755 bytes;
+- `com.apple.locationd.sb` — 7418 bytes;
+- `com.apple.lockoutagent.sb` — 1555 bytes;
+- `com.apple.logd.sb` — 1946 bytes;
+- `com.apple.logd_helper.sb` — 2140 bytes;
+- `com.apple.logd_reporter.sb` — 729 bytes;
+- `com.apple.lskdd.sb` — 2586 bytes;
+- `com.apple.mDNSResponderHelper.sb` — 2713 bytes;
+- `com.apple.managedappdistributionagent.sb` — 1905 bytes;
+- `com.apple.managedappdistributiond.sb` — 1901 bytes;
+- `com.apple.maps.destinationd.sb` — 3181 bytes;
+- `com.apple.mapspushd.sb` — 5274 bytes;
+- `com.apple.mediaremoted.sb` — 4025 bytes;
+- `com.apple.metrickitd.sb` — 2495 bytes;
+- `com.apple.mlhostd.sb` — 3431 bytes;
+- `com.apple.mlruntimed.sb` — 5145 bytes;
+- `com.apple.mobile.softwareupdated.sb` — 8649 bytes;
+- `com.apple.mtlcompilerservice.sb` — 7862 bytes;
+- `com.apple.naturallanguaged.sb` — 2741 bytes;
+- `com.apple.navd.sb` — 2698 bytes;
+- `com.apple.neagent.sb` — 1279 bytes;
+- `com.apple.nearbyd.sb` — 2939 bytes;
+- `com.apple.nehelper.sb` — 4057 bytes;
+- `com.apple.nesessionmanager.sb` — 3117 bytes;
+- `com.apple.networkqualityd.sb` — 2395 bytes;
+- `com.apple.networkqualityrelay.sb` — 1874 bytes;
+- `com.apple.networkserviceproxy.sb` — 3420 bytes;
+- `com.apple.nexusd.sb` — 1252 bytes;
+- `com.apple.nlcd.sb` — 722 bytes;
+- `com.apple.noticeboard.agent.sb` — 3409 bytes;
+- `com.apple.noticeboard.state.sb` — 1606 bytes;
+- `com.apple.notify-tests.sb` — 413 bytes;
+- `com.apple.notifyd.sb` — 969 bytes;
+- `com.apple.opendirectoryd-deny-default.sb` — 21663 bytes;
+- `com.apple.osanalyticshelper.sb` — 3081 bytes;
+- `com.apple.parsec-fbf.sb` — 4929 bytes;
+- `com.apple.parsecd.sb` — 6212 bytes;
+- `com.apple.passd.sb` — 7625 bytes;
+- `com.apple.pboard.sb` — 953 bytes;
+- `com.apple.pluginkit.pkd.sb` — 2981 bytes;
+- `com.apple.printtool.agent.sb` — 5566 bytes;
+- `com.apple.printtool.daemon.sb` — 4520 bytes;
+- `com.apple.proactived.sb` — 3983 bytes;
+- `com.apple.proactiveeventtrackerd.sb` — 3058 bytes;
+- `com.apple.progressd.sb` — 8303 bytes;
+- `com.apple.ptpcamerad.sb` — 2735 bytes;
+- `com.apple.quicklook.ThumbnailsAgent.sb` — 6883 bytes;
+- `com.apple.rapportd.sb` — 3989 bytes;
+- `com.apple.relatived.sb` — 3733 bytes;
+- `com.apple.remindd.sb` — 8673 bytes;
+- `com.apple.remotemanagement.AccountSubscriber.sb` — 2113 bytes;
+- `com.apple.remotemanagement.DiskManagementSubscriber.sb` — 2151 bytes;
+- `com.apple.remotemanagement.InteractiveLegacyProfilesSubscriber.sb` — 2300 bytes;
+- `com.apple.remotemanagement.LegacyProfilesSubscriber.sb` — 2288 bytes;
+- `com.apple.remotemanagement.ManagedConfigurationFilesSubscriber.sb` — 2095 bytes;
+- `com.apple.remotemanagement.ManagementTestSubscriber.sb` — 2422 bytes;
+- `com.apple.remotemanagement.PasscodeSettingsSubscriber.sb` — 2290 bytes;
+- `com.apple.remotemanagement.PowerSubscriber.sb` — 2127 bytes;
+- `com.apple.remotemanagement.ScreenSharingSubscriber.sb` — 2836 bytes;
+- `com.apple.remotemanagement.SecuritySubscriber.sb` — 2701 bytes;
+- `com.apple.remotemanagement.SoftwareUpdateSubscriber.sb` — 1935 bytes;
+- `com.apple.remotemanagementd.sb` — 6156 bytes;
+- `com.apple.replayd.sb` — 5130 bytes;
+- `com.apple.reversetemplated.sb` — 3297 bytes;
+- `com.apple.revisiond.sb` — 3046 bytes;
+- `com.apple.rpcbind.sb` — 1930 bytes;
+- `com.apple.rtcreportingd.sb` — 3818 bytes;
+- `com.apple.runningboard.sb` — 2580 bytes;
+- `com.apple.secd.sb` — 3039 bytes;
+- `com.apple.secinitd.sb` — 1975 bytes;
+- `com.apple.secureelementservice.sb` — 3906 bytes;
+- `com.apple.security.KeychainStasher.sb` — 661 bytes;
+- `com.apple.security.XPCAcmeService.sb` — 1554 bytes;
+- `com.apple.securityd.sb` — 2495 bytes;
+- `com.apple.securityd_system.sb` — 2074 bytes;
+- `com.apple.securitydservice.sb` — 848 bytes;
+- `com.apple.securityuploadd.sb` — 3132 bytes;
+- `com.apple.sharingd.sb` — 16671 bytes;
+- `com.apple.shazamd.sb` — 4887 bytes;
+- `com.apple.siri-distributed-evaluation.sb` — 3623 bytes;
+- `com.apple.siriactionsd.sb` — 9609 bytes;
+- `com.apple.siriknowledged.sb` — 4463 bytes;
+- `com.apple.sirittsd.sb` — 4802 bytes;
+- `com.apple.sociallayerd.sb` — 4345 bytes;
+- `com.apple.soundanalysisd.sb` — 5474 bytes;
+- `com.apple.speech.localspeechrecognition.sb` — 4409 bytes;
+- `com.apple.speech.speechsynthesisd.sb` — 8489 bytes;
+- `com.apple.sportsd.sb` — 4788 bytes;
+- `com.apple.spotlight.CSExattrCryptoService.sb` — 1853 bytes;
+- `com.apple.statuskitagent.sb` — 2939 bytes;
+- `com.apple.storeaccountd.sb` — 8721 bytes;
+- `com.apple.storeassetd.sb` — 8642 bytes;
+- `com.apple.storedownloadd.sb` — 9009 bytes;
+- `com.apple.storekitagent.sb` — 5884 bytes;
+- `com.apple.storelegacy.sb` — 7320 bytes;
+- `com.apple.storereceiptinstaller.sb` — 2219 bytes;
+- `com.apple.storeuid.sb` — 10445 bytes;
+- `com.apple.studentd.sb` — 12905 bytes;
+- `com.apple.suggestd.sb` — 13629 bytes;
+- `com.apple.swcd.sb` — 1780 bytes;
+- `com.apple.symptomsd-diag.sb` — 5287 bytes;
+- `com.apple.synapse.contentlinkingd.sb` — 3042 bytes;
+- `com.apple.syncdefaultsd.sb` — 3346 bytes;
+- `com.apple.sysextd.sb` — 3801 bytes;
+- `com.apple.systemstats.analysis.sb` — 3907 bytes;
+- `com.apple.systemstatusd.sb` — 2141 bytes;
+- `com.apple.tccd.sb` — 2482 bytes;
+- `com.apple.telephonyutilities.callservicesd.sb` — 16410 bytes;
+- `com.apple.testmanagerd.sb` — 4601 bytes;
+- `com.apple.textunderstandingd.sb` — 1764 bytes;
+- `com.apple.timesync.audioclocksyncd.sb` — 1220 bytes;
+- `com.apple.tipsd.sb` — 5507 bytes;
+- `com.apple.tracd.sb` — 2167 bytes;
+- `com.apple.translationd.sb` — 4071 bytes;
+- `com.apple.transparencyStaticKey.sb` — 2116 bytes;
+- `com.apple.transparencyd.sb` — 6144 bytes;
+- `com.apple.trial.TrialArchivingService.sb` — 2132 bytes;
+- `com.apple.triald.sb` — 5787 bytes;
+- `com.apple.triald.system.sb` — 2353 bytes;
+- `com.apple.trustd.sb` — 3346 bytes;
+- `com.apple.trustdFileHelper.sb` — 1363 bytes;
+- `com.apple.tzlinkd.sb` — 389 bytes;
+- `com.apple.uarpupdaterservice.display.sb` — 5882 bytes;
+- `com.apple.usbmuxd.sb` — 4596 bytes;
+- `com.apple.useractivityd.sb` — 2952 bytes;
+- `com.apple.usermanagerhelper.sb` — 586 bytes;
+- `com.apple.usernotificationsd.sb` — 1701 bytes;
+- `com.apple.uvcassistant.sb` — 2666 bytes;
+- `com.apple.videosubscriptionsd.sb` — 2352 bytes;
+- `com.apple.voicememod.sb` — 3237 bytes;
+- `com.apple.wifianalyticsd.sb` — 3851 bytes;
+- `com.apple.wifip2pd.sb` — 2860 bytes;
+- `com.apple.writeconfig.sb` — 110 bytes;
+- `com.apple.xpc.xpcroleaccountd.sb` — 1049 bytes;
+- `contacts.sb` — 4302 bytes;
+- `container.sb` — 38950 bytes;
+- `coresymbolicationd.sb` — 314 bytes;
+- `cryptex-default-shared-tmp.sb` — 652 bytes;
+- `cryptex-session-base.sb` — 2040 bytes;
+- `cryptex-session-default.sb` — 4632 bytes;
+- `cryptex-session-ruby-insecure.sb` — 687 bytes;
+- `cryptex-session-ruby-secure.sb` — 649 bytes;
+- `cryptex-session-shared-tmp.sb` — 652 bytes;
+- `cryptex-session-template.sb` — 4260 bytes;
+- `darwin-container-base.sb` — 2111 bytes;
+- `darwin-container-default.sb` — 4632 bytes;
+- `darwin-container-ruby-insecure.sb` — 687 bytes;
+- `darwin-container-ruby-secure.sb` — 649 bytes;
+- `darwin-container-shared-tmp.sb` — 652 bytes;
+- `darwin-container-template.sb` — 4260 bytes;
+- `dataaccessd.sb` — 6573 bytes;
+- `diagnosticextensionsd.sb` — 4616 bytes;
+- `directoryserver.sb` — 561 bytes;
+- `dyld-support.sb` — 2554 bytes;
+- `findmybeaconingd.sb` — 5162 bytes;
+- `findmylocateagent.sb` — 5709 bytes;
+- `fmfd.sb` — 10988 bytes;
+- `frameworks.sb` — 43578 bytes;
+- `iWorkXPC.sb` — 1047 bytes;
+- `lockdownmoded.sb` — 4045 bytes;
+- `media-extension-format-reader.sb` — 1837 bytes;
+- `media-extension-video-decoder.sb` — 1823 bytes;
+- `mediaanalysisd-access.sb` — 1924 bytes;
+- `mobile_storage_mounter.sb` — 3204 bytes;
+- `mobile_storage_proxy.sb` — 1909 bytes;
+- `mobileactivationd.sb` — 6197 bytes;
+- `mobiletimerd.sb` — 2749 bytes;
+- `nfcd.sb` — 4394 bytes;
+- `nsattributedstringagent.sb` — 2982 bytes;
+- `nsurlsessiond.sb` — 9968 bytes;
+- `opendirectory.sb` — 798 bytes;
+- `quicklook-preview.sb` — 13705 bytes;
+- `quicklook-thumbnail.sb` — 11359 bytes;
+- `racoon.sb` — 1760 bytes;
+- `recoverylogd.sb` — 2111 bytes;
+- `searchpartyd.sb` — 4797 bytes;
+- `searchpartyuseragent.sb` — 6417 bytes;
+- `seld.sb` — 3272 bytes;
+- `sensornetd.sb` — 1936 bytes;
+- `spotlight-import.sb` — 2361 bytes;
+- `system.sb` — 10629 bytes;
+- `talagent.sb` — 4183 bytes;
+- `usernoted.sb` — 3733 bytes;
+- `watchlistd.sb` — 4489 bytes;
+- `weatherd.sb` — 4143 bytes;
