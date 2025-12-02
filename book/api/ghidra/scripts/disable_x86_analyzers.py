@@ -17,9 +17,9 @@ def run():
     for name in TARGET_ANALYZERS:
         if opts.contains(name):
             opts.setBoolean(name, False)
-            print(f"Disabled analyzer: {name}")
+            print("Disabled analyzer: %s" % name)
         else:
-            print(f"Analyzer not present: {name}")
+            print("Analyzer not present: %s" % name)
 
 
 run()

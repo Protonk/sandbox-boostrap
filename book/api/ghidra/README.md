@@ -46,5 +46,6 @@ Addressing and script-only passes:
 - To avoid repeating long analysis, run `--process-existing --no-analysis` once a project is fully analyzed; this skips analyzers and only executes the script against the saved project.
 - Outputs for data-define land at `dumps/ghidra/out/<build>/kernel-data-define/data_refs.json` with the per-address data type/value and callers.
 
-Analysis properties:
-- To skip x86-only analyzers on ARM64 images, pass `--analysis-properties book/api/ghidra/analysis_arm64.properties` (or an equivalent property string with escaped spaces) via the scaffold CLI, or set `analysis_properties` when building a connector invocation. The file is also available as `book.api.ghidra.connector.ARM64_ANALYSIS_PROPERTIES`. This sets `Analysis.X86 Constant Reference Analyzer.enabled=false` and `Analysis.X86 Emulate Instruction Analyzer.enabled=false` and trims >5 minutes from KC analysis runs.
+Analyzer trimming and pre-scripts:
+- `analyzeHeadless` 11.4.2 does not accept `-analysisProperties`; instead use a pre-script. A helper `disable_x86_analyzers.py` lives in `book/api/ghidra/scripts/`—run it via `--pre-script disable_x86_analyzers.py` (scaffold/connector) to turn off the x86-only analyzers before analysis begins.
+- For Apple Silicon KC imports, explicitly set the processor (for example, `--processor AARCH64:LE:64:AppleSilicon` if available in your Ghidra build) to avoid x86-language auto-detection and keep x86 analyzers from running.

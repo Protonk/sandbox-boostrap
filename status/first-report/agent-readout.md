@@ -366,6 +366,19 @@ This section covers the host-specific mapping datasets under `book/graph/mapping
 
     * Tests in `tests/test_mappings_guardrail.py` and `tests/test_runtime_matrix_shape.py` ensure that these files remain present and minimally well-formed and that the expected shapes of runtime matrices do not drift silently.
 
+### Examples
+
+The `book/examples/` tree is a set of 16 runnable labs that accompany chapters. They are separate from the mapping datasets and validation harness but are meant to be lined up with concepts so that a reader running code in the book can see how each probe could become semantic evidence.
+
+* **Families and coverage**
+
+* Sandbox-behavior probes: mach services, network sockets, containers/redirects, extensions, entitlements, metafilters, SBPL params. Each demo is scoped to a small set of Operations/Filters and illustrates how inputs (anchors, entitlements, extensions) flow into Decisions.
+* Artifact/tooling labs: SBPL → blob compilers, legacy profile disassemblers, regex extraction/visualization. These show how to pull PolicyGraphs and AppleMatch tables out of real profiles for inspection.
+
+* **Role in the book**
+
+* Chapters can embed these examples as runnable code while also pointing to the relevant concept inventory entries (Operation, Filter, PolicyGraph, Profile Layer, Sandbox Extension). The intent is to tag each example with those concepts so a reader can connect a hands-on run to the same evidence clusters the validation harness uses, without making the example tree itself part of the core “web of encoded knowledge.”
+
 ---
 
 ## Gaps and suggested next actions
