@@ -1,35 +1,42 @@
-# Agent readout — repo status (Sonoma host, macOS 14.4.1 / 23E224)
+SANDBOX_LORE is a synthetic textbook-in-progress about the macOS Seatbelt sandbox, aiming to tell a concrete, host-specific story of how policies are represented, compiled, and enforced on a Sonoma baseline. The substrate fixes the theoretical picture of the world, but the concept inventory and its validation harness—now only partially complete—are the machinery that mates that picture to real blobs, graphs, and runtime behavior so the eventual book is constrained by evidence rather than internal cleverness. At this moment, the static side of the story is the most mature: compiled profile format, Operation/Filter vocabularies, op-table structure, tag layouts, and host-specific mapping datasets are in good shape and wired into tests. The runtime, lifecycle, and kernel-dispatch stories exist mainly as scaffolding—microprofiles, wrappers, entitlement probes, and Ghidra leads—whose behavior is still too inconsistent or gated to serve as “golden” narrative examples. A few textbook chapters and outlines have been drafted around this spine, but they are sketches resting on a still-being-validated concept inventory.
 
-This report summarizes the current state of the Seatbelt textbook repo: what has been established so far, which artifacts are currently considered reliable, and where the open problems still are.
+# Agent readout of SANDBOX_LORE
+
+The repo contains a coherent first pass on the static story: compiled profile format, Operation and Filter vocabularies from the dyld cache, node-tag and tag-layout decoding, and mapping datasets that tie substrate concepts to concrete IDs, offsets, and literals on this host; these mappings are stable in shape and provenance but not yet exhaustive, especially for `field2` and anchor coverage.
+
+Graph-level structure and the concept inventory are in an intermediate state. Experiments under `book/experiments/` establish the shape of the Operation Pointer Table, node layout and `field2`, and anchors that bind paths and names to Filters; the concept inventory and validation harness organize these results into Static-Format, Vocabulary/Mapping, Semantic Graph, and Runtime Lifecycle clusters. Static-format and vocabulary clusters are supported by shared decoders, system-profile digests, and guardrailed mapping files, while semantic and lifecycle clusters are scaffolded but remain explicitly provisional.
+
+The main uncertainties lie in runtime behavior, entitlement-driven lifecycle, and kernel-level dispatch. SBPL microprofiles and wrappers can be applied, but platform profile blobs are gated by `sandbox_init` / `sandbox_apply` on this host and several deny-default profiles do not yet match expected Decisions. Entitlement experiments demonstrate extraction of contrastive entitlement sets but stop short of a full entitlements → SBPL → compiled profile → runtime pipeline, and kernel reverse engineering has identified promising structures without isolating a definitive PolicyGraph dispatcher. The following sections detail the experiments, validation state, tooling, and next steps against this backdrop.
+
+## Scope and method
+
+This report was assembled in multiple agent passes over the repo. An initial Codex-style agent produced two status documents (`agent-readout.md` and `validation-status.md`) from the experiment tree, mappings, and validation harness; a second, chat-style agent then re-read the substrate and primary artifacts, wrote a cross-check (`agent-crosscheck.md`), and patched the reports to correct inaccuracies and clarify scope.
+
+The current text incorporates that cross-check loop and is intended to be self-contained: descriptions of experiments, mappings, and validation state are grounded in `book/experiments/*/Plan.md` and `ResearchReport.md`, `book/graph/mappings/*`, and `book/graph/concepts/validation/out/*` rather than inferred from code alone. Machine-generated drafts and human edits have been interleaved to smooth phrasing while keeping status claims anchored to explicit artifacts. Status claims are specific to a Sonoma host running macOS 14.4.1 (23E224) on Apple Silicon with SIP enabled, and to the profile-format variant described in `book/graph/concepts/validation/out/metadata.json`.
 
 All vocabulary is aligned to the substrate (`substrate/Orientation.md`, `substrate/Concepts.md`, `substrate/State.md`): **Operation**, **Filter**, **PolicyGraph**, **Profile Layer**, **Sandbox Extension**, etc. The current host baseline for most artifacts is:
-
 - macOS 14.4.1 (23E224), kernel 23.4.0
 - Apple Silicon, SIP enabled
 
----
+## Big picture
 
-## 1. Big picture
-
-This repo is a synthetic textbook about the macOS Seatbelt sandbox. The substrate files fix the world we are talking about; the experiments, mappings, and validation harnesses are the evidence the book will lean on. At this point in the project, the “first pass” static story is in good shape and can support early chapters, while the runtime, lifecycle, and kernel chapters are still being actively pushed forward.
+This repo is a synthetic textbook about the macOS Seatbelt sandbox. The substrate files fix the world we are talking about; the experiments, mappings, and validation harnesses are the evidence the book will lean on. At this point in the project, the “first pass” static story is in good shape (Static-Format and Vocabulary/Mapping clusters `ok` in the validation index) and can support early chapters, while the runtime, lifecycle, and kernel chapters are still being actively pushed forward.
 
 Roughly, the project is now at the stage where:
 
-- Static profile format, vocabulary, and mapping datasets are stable enough to serve as shared reference for this Sonoma host.
+- Static profile format, vocabulary, and mapping datasets are stable enough to serve as shared reference for this Sonoma host (and are `status: ok` in the validation index).
 - Graph-level structure (node tags, op-table buckets, `field2`, tag layouts) is decoded well enough to drive experiments and mappings, but not yet down to every Filter key and tail-layout detail.
 - Runtime behavior and lifecycle pipelines exist (SBPL microprofiles, wrappers, file probes), but expectation mismatches and `sandbox_init` / `sandbox_apply` gates mean they cannot yet be treated as strong semantic evidence.
-- The concept inventory and validation harness are in place; static-format and vocabulary clusters are backed by real artifacts, while semantic and lifecycle clusters remain provisional.
+- The concept inventory and validation harness are in place; static-format and vocabulary clusters are backed by real artifacts and marked `ok`, while semantic and lifecycle clusters remain blocked/partial in the validation index.
 - Kernel dispatcher reverse-engineering is underway in Ghidra; candidate structures and signatures exist, but the concrete PolicyGraph dispatcher has not yet been pinned down.
 
 The rest of this document provides a more detailed map: what each experiment proved, how the concept inventory and validation wiring look, and which tools and mappings are treated as “reference”.
 
----
-
-## 2. Experiments: what they have established
+## Experiments
 
 This section walks through the `book/experiments/` tree in logical clusters rather than alphabetically.
 
-### 2.1 Static structure and vocabulary
+### Static structure and vocabulary
 
 This cluster tells us what modern compiled profiles look like on disk and how their Operation and Filter vocabularies are wired in: it anchors concepts like **Binary Profile Header**, **Operation Pointer Table**, **Regex/Literal Table**, **PolicyGraph**, and the **Operation/Filter Vocabulary Maps** in concrete blobs and tables. The outputs here are the backbone for the Static-Format and Vocabulary/Mapping clusters in the concept inventory: other experiments and chapters can assume that op-counts, table offsets, tag layouts, and vocab IDs are stable and correctly interpreted for this host.
 
@@ -62,7 +69,7 @@ This cluster tells us what modern compiled profiles look like on disk and how th
     - Name lists under `book/graph/mappings/vocab/{operation_names.json,filter_names.json}`.
   - These files are treated as `status: ok` in `book/graph/concepts/validation/out/vocab/*.json`; `check_vocab.py` enforces counts and status.
 
-### 2.2 Operation pointer table and buckets
+### Operation pointer table and buckets
 
 This cluster focuses on how SBPL **Operations** connect to entrypoints in the compiled **PolicyGraph** via the **Operation Pointer Table**, and how those entrypoints relate to the **Operation Vocabulary Map**. It provides concrete evidence for concepts like Operation, Operation Pointer Table, and Operation Vocabulary Map in the concept inventory, showing that on this host specific operation IDs (e.g., `file-read*`, `mach-lookup`) consistently land in particular op-table buckets and that those buckets have distinct structural signatures.
 
@@ -87,7 +94,7 @@ This cluster focuses on how SBPL **Operations** connect to entrypoints in the co
     - `file-read*` (21), `file-write*` (29), `network-outbound` (112) use buckets in `{3,4}` across the probed profiles.
     - `mach-lookup` (96) uses buckets in `{5,6}`, with 6 only in complex profiles with filtered reads.
 
-### 2.3 Node layout and `field2`
+### Node layout and `field2`
 
 This cluster drills into the shape of **PolicyGraph** nodes and the role of the `field2` key, tying together concepts like **Policy Node**, **Filter**, **Metafilter**, **Regex/Literal Table**, and (eventually) the **Filter Vocabulary Map**. It doesn’t yet name every node type, but it fixes important structural facts: where node arrays live, how tags and small integer keys change when Filters and Metafilters change, and how literal/regex pools are referenced, all of which support the Static-Format and Semantic Graph clusters in the concept inventory.
 
@@ -124,7 +131,7 @@ This cluster drills into the shape of **PolicyGraph** nodes and the role of the 
     - Those nodes still carry generic `field2` keys (`global-name`, `local-name`, `path`-like values), so filter-specific mapping is not yet achieved.
   - Next steps recorded in `ResearchReport.md`: complete tag-aware node decode, then rerun anchor scans to get a more precise `field2` ↔ Filter mapping.
 
-### 2.4 Runtime behavior (provisional)
+### Runtime behavior
 
 This cluster tries to connect SBPL and compiled **PolicyGraphs** to real runtime **Decisions** (allow/deny) for specific **Operations** and **Filters**, exercising concepts like Decision, Metafilter, Action Modifier, and Profile Layer in the Semantic Graph and Runtime Lifecycle clusters. On this host the evidence is still provisional—apply gates and expectation mismatches mean we cannot treat these runs as definitive—but the harnesses and microprofiles here are the starting point for future, validated concept witnesses.
 
@@ -153,7 +160,7 @@ This cluster tries to connect SBPL and compiled **PolicyGraphs** to real runtime
   - Conclusion:
     - The triples exist structurally, but semantic behavior does not yet match expectations; these runs are not safe to treat as ground truth until profiles or harness are revised.
 
-### 2.5 Entitlements and lifecycle
+### Entitlements and lifecycle
 
 This cluster is the seed of the Runtime Lifecycle and Extension story, focusing on **Entitlements**, **Profile Layers**, and **Policy Lifecycle Stage** rather than raw graph structure. By comparing differently signed binaries and their entitlements, it sets up the pipeline for showing how app-level metadata feeds into App Sandbox SBPL templates, compiled profiles, and effective policy, tying entitlement-driven behavior back to lifecycle concepts in the inventory.
 
@@ -168,7 +175,7 @@ This cluster is the seed of the Runtime Lifecycle and Extension story, focusing 
 
 Lifecycle/extension behavior is more fully tracked in the validation harness (see below), but this experiment is the main concrete starting point for entitlement-driven profile differences.
 
-### 2.6 Kernel reverse engineering
+### Kernel reverse engineering
 
 This cluster looks below the profile format into the kernel’s implementation of **PolicyGraph evaluation**, hunting for the dispatcher that walks nodes and consults AppleMatch, and for the MACF hook glue that connects syscalls to Operation IDs. When completed, it will provide low-level witnesses for concepts like Operation, PolicyGraph, Decision, and Policy Stack Evaluation Order, tying the Static-Format and Semantic Graph clusters back to concrete kernel code on this host.
 
@@ -184,11 +191,11 @@ This cluster looks below the profile format into the kernel’s implementation o
 
 ---
 
-## 3. Concept inventory and validation state
+## Concept inventory and validation state
 
-The concept inventory’s aim is to turn the Seatbelt model into a disciplined set of named, testable ideas rather than a vague mental model. For each concept (Operation, Filter, PolicyGraph, Profile Layer, Sandbox Extension, etc.) it tries to fix a canonical definition, identify concrete “witnesses” (profiles, probes, logs, mappings), and spell out what kinds of evidence constrain it: static structure, runtime behavior, vocabulary alignment, or lifecycle scenarios. Concepts are grouped into four clusters—Static-Format, Semantic Graph and Evaluation, Vocabulary and Mapping, and Runtime Lifecycle and Extension—so validation work can be organized by what we can actually observe and test.
+The concept inventory’s aim is to turn the Seatbelt model into a disciplined set of named, testable ideas rather than a vague mental model. For each concept (Operation, Filter, PolicyGraph, Profile Layer, Sandbox Extension, etc.) it tries to fix a canonical definition, identify concrete “witnesses” (profiles, probes, logs, mappings), and spell out what kinds of evidence constrain it: static structure, runtime behavior, vocabulary alignment, or lifecycle scenarios. Concepts are grouped into four clusters—Static-Format, Semantic Graph and Evaluation, Vocabulary and Mapping, and Runtime Lifecycle and Extension—so validation work can be organized by what can actually be observed and tested.
 
-In terms of status, the Static-Format and Vocabulary/Mapping clusters are in the best shape: we have a working decoder, system-profile digests, op-table and tag-layout mappings, and host-specific Operation/Filter vocab tables tied back to dyld cache material. The Semantic Graph and Runtime Lifecycle clusters are scaffolded but still provisional: there are microprofiles and runtime harnesses, and some runs via the SBPL wrapper, but apply gates and expectation mismatches mean we cannot yet treat runtime evidence as firm support for concepts like Decision, Metafilter, and Policy Stack Evaluation Order. The validation index reflects this split—static and vocab outputs marked “ok,” semantic and lifecycle outputs present but explicitly flagged as brittle or partial.
+In terms of status (as recorded in `validation/out/index.json`), the Static-Format and Vocabulary/Mapping clusters are `ok` for this host: there is a working decoder, system-profile digests, op-table and tag-layout mappings, and host-specific Operation/Filter vocab tables tied back to dyld cache material. The Semantic Graph cluster is `blocked`, and the Runtime Lifecycle and Extension cluster is `partial`: microprofiles and runtime harnesses exist, and some runs are recorded, but apply gates and expectation mismatches mean runtime evidence cannot yet be treated as firm support for concepts like Decision, Metafilter, and Policy Stack Evaluation Order. Within the blocked and partial clusters, individual artifacts are further annotated as “brittle” where runs rely on legacy sandbox-exec behavior.
 
 The conceptual “truth” lives under `book/graph/concepts/`, with the substrate definitions as the ultimate reference. Validation harness code and evidence live under `book/graph/concepts/validation/`.
 
@@ -207,31 +214,31 @@ The conceptual “truth” lives under `book/graph/concepts/`, with the substrat
   - `tasks.py` lists the validation tasks (which examples to run, which artifacts to expect) for each cluster.
   - `out/` contains:
     - `metadata.json` — host baseline and profile format variant (`modern-heuristic`).
-    - `static/` — ingested `sample.sb`, system profiles, and mapping pointers.
-    - `vocab/` — Operation/Filter vocab files (mirroring `book/graph/mappings/vocab/`) and a `runtime_usage.json` stub marked blocked.
-    - `semantic/` — runtime results from wrappers and legacy sandbox-exec runs, all flagged as brittle/provisional in `index.json`.
-    - `lifecycle/` — entitlement and extension probe notes (partial).
+    - `static/` — ingested `sample.sb`, system profiles, and mapping pointers (`status: ok` in the index).
+    - `vocab/` — Operation/Filter vocab files (mirroring `book/graph/mappings/vocab/`) and a `runtime_usage.json` stub marked `status: blocked`.
+    - `semantic/` — runtime results from wrappers and legacy sandbox-exec runs; the semantic-graph cluster is `status: blocked`, with artifact-level notes such as apply failures and “legacy sandbox-exec (brittle)”.
+    - `lifecycle/` — entitlement and extension probe notes; the lifecycle/extension cluster is `status: partial`.
     - `index.json` — an index of all of the above, including cluster status and artifact paths.
 
 - **Cluster status (summarized)**
   - Static-Format:
-    - Largely validated for this host. Ingestion of `sample.sb` and system profiles works and is linked to mapping artifacts (op_table, tag_layouts, anchors).
+    - `status: ok` for this host. Ingestion of `sample.sb` and system profiles works and is linked to mapping artifacts (op_table, tag_layouts, anchors).
   - Vocabulary and Mapping:
-    - Operation/Filter vocab tables are harvested and aligned; runtime usage is still blocked (no trusted runtime IDs).
+    - Vocab tables are harvested and aligned (`status: ok`); runtime usage remains `status: blocked` (no trusted runtime IDs).
   - Semantic Graph and Evaluation:
-    - Harness is present and runs exist, but evidence is not yet trusted:
+    - Cluster is `status: blocked`: harness is present and runs exist, but evidence is not yet trusted:
       - SBPL microprofiles show mismatches between expected and actual behavior.
       - Bucket/system runtime-checks runs are dominated by apply failures.
   - Runtime Lifecycle and Extension:
-    - Partial: entitlements-evolution probes exist; extension/container/platform-policy probes are either not rerun or blocked by the same apply gate.
+    - Cluster is `status: partial`: entitlements-evolution probes exist; extension/container/platform-policy probes are either not rerun or are blocked by the same apply gate.
 
 ---
 
-## 4. Tooling and datasets treated as reliable
+## Tooling and datasets
 
-### 4.1 Tooling (`book/api/`)
+### Tooling
 
-This section covers the core tools under `book/api/` that agents and humans can call directly: used to decode profiles, apply SBPL/blobs at runtime, drive Ghidra, and run simple probes. These tools underpin both the experiments and the validation harness and are the main way to regenerate or extend evidence for the concept inventory.
+This section summarizes the core tools under `book/api/` that are used to decode profiles, apply SBPL/blobs at runtime, drive Ghidra, and run simple probes. These tools underpin both the experiments and the validation harness and are the primary mechanisms for regenerating or extending the evidence recorded in this repo.
 
 - **Decoder (`book.api.decoder`)**
   - Python module that decodes modern compiled profiles into a `DecodedProfile`:
@@ -262,9 +269,9 @@ This section covers the core tools under `book/api/` that agents and humans can 
     - Emits JSON lines with `op`, `path`, `rc`, and `errno`.
   - Used together with the SBPL wrapper in `sbpl-graph-runtime` and some validation runs.
 
-### 4.2 Mapping (`book/graph/mappings/`)
+### Mapping datasets
 
-This section covers the stable, host-specific mapping datasets under `book/graph/mappings/`: they are the “knowledge base” for this Sonoma build, capturing Operation/Filter vocabularies, op-table bucket behavior, tag layouts, anchor bindings, and system-profile digests. Experiments and chapters should treat these files as the canonical bridge between substrate concepts (Operation, Filter, PolicyGraph, etc.) and concrete IDs, offsets, and strings on this host.
+This section covers the host-specific mapping datasets under `book/graph/mappings/`: they act as a knowledge base for this Sonoma build, capturing Operation/Filter vocabularies, op-table bucket behavior, tag layouts, anchor bindings, and system-profile digests. These files are stable in shape and provenance, with tests enforcing basic guardrails, but they are not exhaustive: some relationships, especially `field2` ↔ Filter correspondences and anchor coverage, remain partial and are documented as such in the experiments.
 
 - **Graph/mapping artifacts (`book/graph/mappings/`)**
   - Vocab:
@@ -283,7 +290,7 @@ This section covers the stable, host-specific mapping datasets under `book/graph
 
 ---
 
-## 5. Gaps and suggested next actions
+## Gaps and suggested next actions
 
 From a book perspective, the most important next steps are the ones that turn today’s solid static story into trustworthy dynamic evidence. The Static-Format and Vocabulary/Mapping clusters already provide a stable language for talking about compiled profiles, Operations, Filters, and PolicyGraphs on this host; what is missing is a small set of “golden” runtime examples and lifecycle case studies that can be cited confidently in chapters without hand-waving. That suggests prioritizing work that either repairs the existing runtime harnesses or moves them to a friendlier environment so they can produce reliable Decisions for a few carefully chosen profiles.
 
@@ -291,37 +298,39 @@ The second priority is to complete the bridge from high-level metadata to effect
 
 Finally, there is a structural frontier that supports both of those stories: finishing `field2`/tag-aware decoding and locating the kernel dispatcher. A sharper `field2` map and better tag layouts would clean up the remaining ambiguities in how Filters and branches are encoded, while the kernel work would give low-level witnesses for PolicyGraph evaluation and operation dispatch. Those are longer-horizon tasks, but even partial progress—better `field2` guardrails, a few well-understood dispatcher candidates—would tighten the feedback loop between the substrate, the concept inventory, and the experiments below.
 
-The high-value open areas are:
+High-value open areas are:
 
-- **Semantic validation of PolicyGraph behavior**
-  - Problem:
-    - Platform blobs (`airlock`, `bsd`) are gated by `sandbox_apply` / `sandbox_init` on this host.
-    - SBPL microprofiles (`sbpl-graph-runtime`) currently disagree with their expected denies, even though they apply.
-  - Next steps:
-    - Run the same profiles on a more permissive host or under different credentials.
-    - Simplify or adjust profiles and harness to isolate where expectations diverge from Seatbelt behavior.
-    - Once stable, feed “golden triples” back into the concept inventory as semantic witnesses.
+### Semantic validation of PolicyGraph behavior
 
-- **Completing `field2` and tag-aware node decoding**
-  - Problem:
-    - `field2` is clearly a key for filters/branches, but we do not yet have a direct `field2` ↔ Filter ID map.
-    - Tail layout and some tags are still opaque.
-  - Next steps:
-    - Extend tag-aware node decoding using `tag_layouts` and system-profile anchors.
-    - Rerun `probe-op-structure` and `field2-filters` to bind anchors → nodes → Filter IDs with confidence and guardrails.
+- Problem:
+  - Platform blobs (`airlock`, `bsd`) are gated by `sandbox_apply` / `sandbox_init` on this host.
+  - SBPL microprofiles (`sbpl-graph-runtime`) currently disagree with their expected denies, even though they apply.
+- Next steps:
+  - Run the same profiles on a more permissive host or under different credentials.
+  - Simplify or adjust profiles and harness to isolate where expectations diverge from Seatbelt behavior.
+  - Once stable, feed “golden triples” back into the concept inventory as semantic witnesses.
 
-- **Entitlement-driven profile derivation and probes**
-  - Problem:
-    - We know how to extract entitlement sets and have sample binaries, but do not yet have a pipeline from entitlements → App Sandbox SBPL → compiled profile → runtime probes.
-  - Next steps:
-    - Derive or synthesize App Sandbox SBPL per entitlement variant and exercise them via the SBPL wrapper.
-    - Record how specific entitlements change Operations, Filters, and Decisions in compiled profiles and in runtime behavior.
+### Completing `field2` and tag-aware node decoding
 
-- **Kernel dispatcher and low-level PolicyGraph evaluation**
-  - Problem:
-    - The in-kernel dispatcher that walks PolicyGraphs is not yet located on this host; AppleMatch interactions and MACF hook linkages are still hypotheses.
-  - Next steps:
-    - Continue the symbol-search work: mac_policy_ops pivot, improved ARM64 ADRP/ADD scanning, and profile-anchored signature searches for embedded graphs.
-    - Once found, use it to cross-check assumptions about op-table indices, node semantics, and action modifiers.
+- Problem:
+  - `field2` is clearly a key for filters/branches, but there is not yet a direct `field2` ↔ Filter ID map.
+  - Tail layout and some tags are still opaque.
+- Next steps:
+  - Extend tag-aware node decoding using `tag_layouts` and system-profile anchors.
+  - Rerun `probe-op-structure` and `field2-filters` to bind anchors → nodes → Filter IDs with confidence and guardrails.
 
-These gaps are deliberate: the project’s design is to make missing pieces visible and local, not to pretend the model is already complete. The artifacts listed above provide a stable base from which to push the frontier.***
+### Entitlement-driven profile derivation and probes
+
+- Problem:
+  - Entitlement sets can be extracted and sample binaries exist, but there is not yet a pipeline from entitlements → App Sandbox SBPL → compiled profile → runtime probes.
+- Next steps:
+  - Derive or synthesize App Sandbox SBPL per entitlement variant and exercise them via the SBPL wrapper.
+  - Record how specific entitlements change Operations, Filters, and Decisions in compiled profiles and in runtime behavior.
+
+### Kernel dispatcher and low-level PolicyGraph evaluation
+
+- Problem:
+  - The in-kernel dispatcher that walks PolicyGraphs is not yet located on this host; AppleMatch interactions and MACF hook linkages are still hypotheses.
+- Next steps:
+  - Continue the symbol-search work: mac_policy_ops pivot, improved ARM64 ADRP/ADD scanning, and profile-anchored signature searches for embedded graphs.
+  - Once found, use it to cross-check assumptions about op-table indices, node semantics, and action modifiers.

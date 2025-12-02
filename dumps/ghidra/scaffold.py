@@ -156,6 +156,7 @@ def build_headless_command(
     no_analysis: bool,
     script_args: List[str],
     processor: str | None,
+    analysis_properties: str | None,
     project_name: str,
 ) -> Tuple[List[str], Path]:
     import_path = getattr(build, task.import_target)
@@ -173,6 +174,8 @@ def build_headless_command(
         cmd.extend(["-processor", processor])
     if no_analysis:
         cmd.append("-noanalysis")
+    if analysis_properties:
+        cmd.extend(["-analysisProperties", str(analysis_properties)])
     cmd.extend(
         [
             "-import",
@@ -200,6 +203,7 @@ def build_process_command(
     vm_path: Path | None,
     no_analysis: bool,
     script_args: List[str],
+    analysis_properties: str | None,
     project_name: str,
 ) -> Tuple[List[str], Path]:
     import_path = getattr(build, task.import_target)
@@ -214,6 +218,8 @@ def build_process_command(
     ]
     if no_analysis:
         cmd.append("-noanalysis")
+    if analysis_properties:
+        cmd.extend(["-analysisProperties", str(analysis_properties)])
     cmd.extend(
         [
             "-process",
@@ -265,6 +271,10 @@ def parse_args(argv: List[str]) -> argparse.Namespace:
         help="Use an existing analyzed project (no import/overwrite) and run the script via -process.",
     )
     parser.add_argument(
+        "--analysis-properties",
+        help="analysisProperties string or file (e.g., Analysis.X86 Constant Reference Analyzer.enabled=false).",
+    )
+    parser.add_argument(
         "--script-args",
         nargs="*",
         default=[],
@@ -298,11 +308,26 @@ def main(argv: List[str] | None = None) -> int:
             sys.stderr.write(f"Missing project for --process-existing: {project_file}\n")
             return 1
         cmd, out_dir = build_process_command(
-            task, build, args.ghidra_headless, vm_path, args.no_analysis, args.script_args, project_name
+            task,
+            build,
+            args.ghidra_headless,
+            vm_path,
+            args.no_analysis,
+            args.script_args,
+            args.analysis_properties,
+            project_name,
         )
     else:
         cmd, out_dir = build_headless_command(
-            task, build, args.ghidra_headless, vm_path, args.no_analysis, args.script_args, args.processor, project_name
+            task,
+            build,
+            args.ghidra_headless,
+            vm_path,
+            args.no_analysis,
+            args.script_args,
+            args.processor,
+            args.analysis_properties,
+            project_name,
         )
     shell_cmd = render_shell_command(cmd)
     print(f"[task {task.name}] output dir: {out_dir}")

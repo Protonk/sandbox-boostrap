@@ -1,12 +1,12 @@
 """
 Helper to run the Ghidra headless kernel-data-define task via the connector.
 
-Example:
+Example (reuses existing project, script-only pass):
   GHIDRA_HEADLESS=/opt/homebrew/opt/ghidra/libexec/support/analyzeHeadless \
   JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home \
   PYTHONPATH=$PWD \
   python3 book/api/ghidra/run_data_define.py \
-    --address 0x-7fffdf10f0 \
+    --address addr:0xffffff800020ef10 \
     --process-existing --no-analysis --timeout 900
 """
 

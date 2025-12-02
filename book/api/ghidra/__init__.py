@@ -3,6 +3,7 @@ Public surface for the book/api Ghidra connector.
 """
 
 from .connector import (
+    ARM64_ANALYSIS_PROPERTIES,
     HeadlessConnector,
     HeadlessInvocation,
     HeadlessResult,
@@ -18,4 +19,5 @@ __all__ = [
     "TaskRegistry",
     "TaskSpec",
     "run_data_define",
+    "ARM64_ANALYSIS_PROPERTIES",
 ]

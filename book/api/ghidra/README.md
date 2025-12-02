@@ -40,3 +40,11 @@ Design notes:
 - This connector intentionally wraps the existing `dumps/ghidra/scaffold.py` helpers to avoid duplicating path rules and to keep safety checks (`ensure_under`, output layout) consistent.
 - The connector is version-aware via `build_id` and accepts `project_name`, `processor`, and `process_existing` to reuse analyzed projects, mirroring the scaffold’s knobs.
 - Future consolidation (single “ghidra-tool” front-end) can swap task scripts behind the registry entries without changing the agent-facing API in `book/api/ghidra`.
+
+Addressing and script-only passes:
+- The `kernel_data_define_and_refs.py` script expects each target as `addr:<hex>` using unsigned hex (for example, `addr:0xffffff800020ef10`). Passing `0x-...` or omitting the `addr:` prefix will result in “processed 0 targets.”
+- To avoid repeating long analysis, run `--process-existing --no-analysis` once a project is fully analyzed; this skips analyzers and only executes the script against the saved project.
+- Outputs for data-define land at `dumps/ghidra/out/<build>/kernel-data-define/data_refs.json` with the per-address data type/value and callers.
+
+Analysis properties:
+- To skip x86-only analyzers on ARM64 images, pass `--analysis-properties book/api/ghidra/analysis_arm64.properties` (or an equivalent property string with escaped spaces) via the scaffold CLI, or set `analysis_properties` when building a connector invocation. The file is also available as `book.api.ghidra.connector.ARM64_ANALYSIS_PROPERTIES`. This sets `Analysis.X86 Constant Reference Analyzer.enabled=false` and `Analysis.X86 Emulate Instruction Analyzer.enabled=false` and trims >5 minutes from KC analysis runs.

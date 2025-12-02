@@ -27,6 +27,7 @@ class ScaffoldCommandTests(unittest.TestCase):
             no_analysis=True,
             script_args=["all", "symsub=match"],
             processor=None,
+            analysis_properties=None,
             project_name="unit_project",
         )
         self.assertIn("-noanalysis", cmd)
@@ -49,6 +50,7 @@ class ScaffoldCommandTests(unittest.TestCase):
             vm_path=None,
             no_analysis=False,
             script_args=[],
+            analysis_properties=None,
             project_name="unit_project",
         )
         self.assertIn("-process", cmd)

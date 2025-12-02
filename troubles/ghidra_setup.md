@@ -11,6 +11,8 @@ Context: headless runs against `dumps/Sandbox-private/14.4.1-23E224/` via `dumps
 - **Signed-pointer interpretation**: raw pointer reads in the KC can be negative; initial pointer-table scan tried to feed unsigned values to `getAddress` and crashed.
 - **Functionless tag-switch search**: when running with `-noanalysis`, functions are not recovered, so computed-jump counting returned zero candidates.
 - **Full-analysis timeout**: a headless full-analysis run on BootKernelExtensions.kc timed out after 40 minutes (2400s) with analysis still in progress; heavy analysis and script runtime compete for the same wallclock.
+- **Data-define post-script processed 0 targets**: `kernel_data_define_and_refs.py` ignored inputs when passed `0x-...` signed addresses or bare hex without the `addr:` prefix, so no data was defined even though analysis finished.
+- **x86 analyzers running on ARM64 KC**: default analyzer set included `x86 Constant Reference Analyzer`, burning ~5 minutes on an ARM64 kernelcache with no useful output.
 
 ## Mitigations applied
 - **Force Java selection non-interactively**: run headless with `--java-home /Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home` and pass `-vmPath .../bin/java`. Scaffold exports `JAVA_HOME` and injects `JAVA_TOOL_OPTIONS=-Duser.home=<repo>/dumps/ghidra/user` so LaunchSupport finds a writable home and skips prompting.
@@ -23,13 +25,17 @@ Context: headless runs against `dumps/Sandbox-private/14.4.1-23E224/` via `dumps
   - `kernel_op_table.py`: sign-extend pointer values before `getAddress`; add error logging and run guard.
   - `kernel_tag_switch.py`: add error logging, run guard; note that it needs functions present (skip `--no-analysis` if you want candidates).
 - **Long analysis mitigation**: split heavy runs into two phases—first run `analyzeHeadless` with a generous timeout and no postScript to populate functions/xrefs, then run a short postScript-only pass against the analyzed project to avoid timing out while analysis and script compete.
+- **Data-define input format**: for `kernel-data-define`, feed targets as `addr:<unsigned hex>` (for example, `addr:0xffffff800020ef10`). Using `0x-...` or dropping the prefix yields zero processed targets. Use `--process-existing --no-analysis` to run the script against an already analyzed project.
+- **Disable x86 analyzers**: add `-analysisProperties book/api/ghidra/analysis_arm64.properties` (sets `Analysis.X86 Constant Reference Analyzer.enabled=false` and `Analysis.X86 Emulate Instruction Analyzer.enabled=false`; escape spaces if you inline the string) to skip x86-only passes on ARM64 images.
 
 ## Current working recipe
 - Env: `GHIDRA_HEADLESS=/opt/homebrew/opt/ghidra/libexec/support/analyzeHeadless`, `JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home`.
 - Command examples:
-  - Symbols/strings (fast): `python3 dumps/ghidra/scaffold.py kernel-symbols --java-home $JAVA_HOME --no-analysis --exec`
-  - Pointer tables: `python3 dumps/ghidra/scaffold.py kernel-op-table --java-home $JAVA_HOME --no-analysis --exec`
-  - Tag switch (needs functions): drop `--no-analysis` for a slower but populated run.
+- Symbols/strings (fast): `python3 dumps/ghidra/scaffold.py kernel-symbols --java-home $JAVA_HOME --no-analysis --exec`
+- Pointer tables: `python3 dumps/ghidra/scaffold.py kernel-op-table --java-home $JAVA_HOME --no-analysis --exec`
+- Tag switch (needs functions): drop `--no-analysis` for a slower but populated run.
+- Data define (script-only against existing project): `PYTHONPATH=$PWD GHIDRA_HEADLESS=$GHIDRA_HEADLESS JAVA_HOME=$JAVA_HOME python3 book/api/ghidra/run_data_define.py --address addr:0xffffff800020ef10 --process-existing --no-analysis --timeout 900`
+- Full analysis with x86 analyzers disabled: add `--analysis-properties book/api/ghidra/analysis_arm64.properties` to the scaffold invocation (import or process) to trim ~5 minutes on ARM64 kernelcaches.
 - Outputs land under `dumps/ghidra/out/14.4.1-23E224/<task>/`; project at `dumps/ghidra/projects/sandbox_14.4.1-23E224`; user config at `dumps/ghidra/user/`.
 
 ## Remaining cautions

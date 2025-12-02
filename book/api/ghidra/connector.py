@@ -24,6 +24,7 @@ from dumps.ghidra import scaffold as gh_scaffold
 
 ROOT = Path(__file__).resolve().parents[3]
 DUMPS_ROOT = ROOT / "dumps"
+ARM64_ANALYSIS_PROPERTIES = Path(__file__).resolve().parent / "analysis_arm64.properties"
 
 
 def _ensure_under(child: Path, parent: Path) -> None:
@@ -140,6 +141,7 @@ class HeadlessConnector:
         user_dir: Optional[Path] = None,
         temp_dir: Optional[Path] = None,
         extra_env: Optional[Mapping[str, str]] = None,
+        analysis_properties: Optional[str] = None,
     ):
         self.registry = registry or TaskRegistry.default()
         self.ghidra_headless = ghidra_headless
@@ -149,6 +151,7 @@ class HeadlessConnector:
         self.temp_dir = temp_dir if temp_dir else gh_scaffold.HERE / "tmp"
         _ensure_under(self.temp_dir, gh_scaffold.HERE)
         self.extra_env = dict(extra_env) if extra_env else {}
+        self.analysis_properties = analysis_properties
 
     def build(
         self,
@@ -162,6 +165,7 @@ class HeadlessConnector:
         ghidra_headless: Optional[str] = None,
         java_home: Optional[str] = None,
         vm_path: Optional[str] = None,
+        analysis_properties: Optional[str] = None,
     ) -> HeadlessInvocation:
         task_spec = self.registry.get(task_name)
         task_cfg = gh_scaffold.TASKS[task_name]
@@ -182,6 +186,7 @@ class HeadlessConnector:
             raise FileNotFoundError(f"Missing project for --process-existing: {project_file}")
 
         args = list(script_args) if script_args else []
+        analysis_props_value = analysis_properties or self.analysis_properties
         if process_existing:
             cmd, out_dir = gh_scaffold.build_process_command(
                 task_cfg,
@@ -190,6 +195,7 @@ class HeadlessConnector:
                 vm_path_path,
                 no_analysis,
                 args,
+                analysis_props_value,
                 project,
             )
             mode = "process"
@@ -202,6 +208,7 @@ class HeadlessConnector:
                 no_analysis,
                 args,
                 processor,
+                analysis_props_value,
                 project,
             )
             mode = "import"
