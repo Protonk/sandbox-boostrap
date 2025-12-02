@@ -9,6 +9,7 @@ from .connector import (
     TaskRegistry,
     TaskSpec,
 )
+from . import run_data_define
 
 __all__ = [
     "HeadlessConnector",
@@ -16,4 +17,5 @@ __all__ = [
     "HeadlessResult",
     "TaskRegistry",
     "TaskSpec",
+    "run_data_define",
 ]
