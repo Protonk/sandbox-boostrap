@@ -26,6 +26,8 @@ class ScaffoldCommandTests(unittest.TestCase):
             Path("/usr/bin/java"),
             no_analysis=True,
             script_args=["all", "symsub=match"],
+            processor=None,
+            project_name="unit_project",
         )
         self.assertIn("-noanalysis", cmd)
         self.assertIn("-import", cmd)
@@ -47,6 +49,7 @@ class ScaffoldCommandTests(unittest.TestCase):
             vm_path=None,
             no_analysis=False,
             script_args=[],
+            project_name="unit_project",
         )
         self.assertIn("-process", cmd)
         self.assertNotIn("-import", cmd)
