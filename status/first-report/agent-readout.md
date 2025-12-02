@@ -1,6 +1,6 @@
 # Agent readout — repo status (Sonoma host, macOS 14.4.1 / 23E224)
 
-This report is for a human or agent arriving “cold” at the Seatbelt textbook repo. It explains what has been established so far, what artifacts you can rely on, and where the open problems still are.
+This report summarizes the current state of the Seatbelt textbook repo: what has been established so far, which artifacts are currently considered reliable, and where the open problems still are.
 
 All vocabulary is aligned to the substrate (`substrate/Orientation.md`, `substrate/Concepts.md`, `substrate/State.md`): **Operation**, **Filter**, **PolicyGraph**, **Profile Layer**, **Sandbox Extension**, etc. The current host baseline for most artifacts is:
 
@@ -21,7 +21,7 @@ Roughly, the project is now at the stage where:
 - The concept inventory and validation harness are in place; static-format and vocabulary clusters are backed by real artifacts, while semantic and lifecycle clusters remain provisional.
 - Kernel dispatcher reverse-engineering is underway in Ghidra; candidate structures and signatures exist, but the concrete PolicyGraph dispatcher has not yet been pinned down.
 
-The rest of this document gives you a more detailed map: what each experiment proved, how the concept inventory and validation wiring look, and which tools and mappings you can safely treat as “reference”.
+The rest of this document provides a more detailed map: what each experiment proved, how the concept inventory and validation wiring look, and which tools and mappings are treated as “reference”.
 
 ---
 
@@ -227,7 +227,7 @@ The conceptual “truth” lives under `book/graph/concepts/`, with the substrat
 
 ---
 
-## 4. Tooling and datasets you can rely on
+## 4. Tooling and datasets treated as reliable
 
 ### 4.1 Tooling (`book/api/`)
 
@@ -285,13 +285,13 @@ This section covers the stable, host-specific mapping datasets under `book/graph
 
 ## 5. Gaps and suggested next actions
 
-From a book perspective, the most important next steps are the ones that turn today’s solid static story into trustworthy dynamic evidence. The Static-Format and Vocabulary/Mapping clusters already give you a stable language for talking about compiled profiles, Operations, Filters, and PolicyGraphs on this host; what is missing is a small set of “golden” runtime examples and lifecycle case studies that can be cited confidently in chapters without hand-waving. That means prioritizing work that either repairs the existing runtime harnesses or moves them to a friendlier environment so they can produce reliable Decisions for a few carefully chosen profiles.
+From a book perspective, the most important next steps are the ones that turn today’s solid static story into trustworthy dynamic evidence. The Static-Format and Vocabulary/Mapping clusters already provide a stable language for talking about compiled profiles, Operations, Filters, and PolicyGraphs on this host; what is missing is a small set of “golden” runtime examples and lifecycle case studies that can be cited confidently in chapters without hand-waving. That suggests prioritizing work that either repairs the existing runtime harnesses or moves them to a friendlier environment so they can produce reliable Decisions for a few carefully chosen profiles.
 
 The second priority is to complete the bridge from high-level metadata to effective policy. The entitlement experiments and lifecycle cluster sketch how a binary’s entitlements should feed into App Sandbox profiles and, eventually, profile layers and extensions in the running system, but they stop short of a full end-to-end pipeline. Wiring up “entitlements → SBPL → compiled PolicyGraph → observed runtime Decisions” for even one or two realistic cases would unlock a whole chapter’s worth of concrete narrative about Profile Layers, Sandbox Extensions, and Runtime Lifecycle, anchored in the same artifacts the inventory already tracks.
 
 Finally, there is a structural frontier that supports both of those stories: finishing `field2`/tag-aware decoding and locating the kernel dispatcher. A sharper `field2` map and better tag layouts would clean up the remaining ambiguities in how Filters and branches are encoded, while the kernel work would give low-level witnesses for PolicyGraph evaluation and operation dispatch. Those are longer-horizon tasks, but even partial progress—better `field2` guardrails, a few well-understood dispatcher candidates—would tighten the feedback loop between the substrate, the concept inventory, and the experiments below.
 
-The high-value open areas, if you are picking up this work, are:
+The high-value open areas are:
 
 - **Semantic validation of PolicyGraph behavior**
   - Problem:
@@ -324,4 +324,4 @@ The high-value open areas, if you are picking up this work, are:
     - Continue the symbol-search work: mac_policy_ops pivot, improved ARM64 ADRP/ADD scanning, and profile-anchored signature searches for embedded graphs.
     - Once found, use it to cross-check assumptions about op-table indices, node semantics, and action modifiers.
 
-These gaps are deliberate: the project’s design is to make missing pieces visible and local, not to pretend the model is already complete. The artifacts listed above give you a stable base from which to push the frontier.***
+These gaps are deliberate: the project’s design is to make missing pieces visible and local, not to pretend the model is already complete. The artifacts listed above provide a stable base from which to push the frontier.***
