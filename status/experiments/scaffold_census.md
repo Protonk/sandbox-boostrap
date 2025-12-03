@@ -1,0 +1,148 @@
+# Experiment scaffold census
+
+- Experiments scanned: 14
+- Baseline status counts: {'recorded': 11, 'partial': 3}
+- Deliverable kind counts: {'out-json': 10, 'sbpl/profile': 2, 'guardrail': 1, 'kernel-facing': 1, 'runtime': 1}
+
+## Common Plan.md headings
+- 1) Scope and setup — 7
+- 1. Setup and scope — 2
+- 4) Synthesis and guardrails — 2
+- Done criteria — 2
+- Goal — 2
+- Scope — 2
+- Steps — 2
+- 1) Setup and scope — 1
+- 1. Baseline ingestion and heuristics — 1
+- 1.5) Per-tag inventory (sanity pass) — 1
+- 2) Baseline data pass — 1
+- 2) Baseline decode and tag histogram — 1
+- 2) Baseline inventory — 1
+- 2) Cache extraction — 1
+- 2) Decode and summarize — 1
+- 2) Define probes and expectations — 1
+- 2) Expand symbol and string pivots — 1
+- 2) Improve slicing/decoding — 1
+- 2. Data collection and correlation — 1
+- 2. Synthetic SBPL variants — 1
+- 2. Vocabulary extraction hookup — 1
+- 3) Anchor-based traversal — 1
+- 3) AppleMatch import pivot — 1
+- 3) Name harvesting — 1
+- 3) Publish stable artifact — 1
+- 3) Run runtime checks — 1
+- 3) Synthetic single-filter probes — 1
+- 3) Tag layout reconstruction — 1
+- 3) Targeted probes (if needed) — 1
+- 3. Alignment of synthetic profiles with vocab — 1
+- 3. Cross-check with semantic probes (optional stretch) — 1
+- 3. Stride and tail behavior — 1
+- 4) Compare and guardrail — 1
+- 4) Cross-op consistency checks — 1
+- 4) Guardrails — 1
+- 4) ID alignment — 1
+- 4) MACF hook and mac_policy_ops pivot — 1
+- 4) Probe design (anchor-aware) — 1
+- 4. Documentation and reporting — 1
+- 4. Interpretation and limits — 1
+- 4. Literal pools, field2, and node fields — 1
+- 5) Alignment and propagation — 1
+- 5) Compilation and decoding — 1
+- 5) Profile structure pivot — 1
+- 5) System profile cross-check — 1
+- 5. Op-table anchoring — 1
+- 5. Open questions to resolve — 1
+- 5. Turnover and integration — 1
+- 6) Analysis and mapping — 1
+- 6) Open questions / risks — 1
+- 6) Synthesis and guardrails — 1
+- 6) Synthesis and stop condition — 1
+- 6. Tooling and artifacts — 1
+- 7) Guardrails and reuse — 1
+- 7. Remaining questions and follow-on work — 1
+- Anchor ↔ Filter ID Mapping — 1
+- Current pushes (2026-02-11) — 1
+- Entitlement-Driven Profile Differences — 1
+- Field2 ↔ Filter Mapping Experiment (Sonoma host) — 1
+- Follow-on after this run — 1
+- Kernel symbols experiment — Plan — 1
+- Next steps (2026-02-11) — 1
+- Node Layout Experiment Plan (Sonoma host) — 1
+- Op-table vs Operation Mapping Experiment (Sonoma host) — 1
+- Op-table ↔ Operation Vocabulary Alignment Experiment (Sonoma host) — 1
+- Probe Op Structure Experiment (Sonoma host) — 1
+- Runtime Checks (bucket-level behavior) — 1
+- SBPL ↔ Graph ↔ Runtime Triples — 1
+- Symbol Search (sandbox dispatcher and regex callers) — 1
+- System Profile Digest — 1
+- Tag Layout Decode (literal/regex operands) — 1
+- Vocab from Cache Experiment (Sonoma host) — 1
+
+## Common ResearchReport.md headings
+- Purpose — 10
+- Baseline and scope — 7
+- Current status — 7
+- Expected outcomes — 7
+- Plan (summary) — 6
+- 2. Environment, tools, and artifacts — 2
+- Baseline — 2
+- Status — 2
+- Status summary (2025-12-09) — 2
+- 1. Motivation and scope — 1
+- 1. Purpose and conceptual frame — 1
+- 1. Purpose and context — 1
+- 10. How this experiment feeds the larger project — 1
+- 2. Environment and dependencies — 1
+- 3. SBPL probes and compiled profiles — 1
+- 3. SBPL profiles and method — 1
+- 3. Vocabulary artifacts: expected contracts — 1
+- 4. Alignment artifact: shape and current status — 1
+- 4. Structural findings: buckets and operations — 1
+- 4. Structural layout of modern profiles — 1
+- 4.1 Uniform op-tables without filters — 1
+- 4.2 Filters move reads between buckets — 1
+- 4.3 Non-uniform op-tables: `[6,6,6,6,6,6,5]` — 1
+- 5. Decoder-backed entry signatures — 1
+- 5. Literal pools and content vs structure — 1
+- 5. Updated findings (with vocab present) — 1
+- 6. Candidate node fields for filters and branches — 1
+- 6. Limits and open questions — 1
+- 6. What remains to be done — 1
+- 7. Mixed operations and op-table behavior (high-level tie-in) — 1
+- 7. Practical guidance for future agents — 1
+- 7. Recommended next steps (for future agents) — 1
+- 8. Role in the broader project — 1
+- 8. Role in the larger project — 1
+- 8. What we do **not** know yet — 1
+- 9. Recommended next steps (for future agents) — 1
+- Anchor ↔ Filter ID Mapping – Research Report (Sonoma / macOS 14.4.1) — 1
+- Current observations — 1
+- Current state — 1
+- Current wrinkle: synthetic profiles and field2 skew — 1
+- Entitlement Diff – Research Report — 1
+- Field2 ↔ Filter Mapping – Research Report (Sonoma / macOS 14.4.1) — 1
+- Hi/lo census refresh (probe-op inclusion) — 1
+- Next decoding steps (focused) — 1
+- Next pivots — 1
+- Node Layout Experiment – Research Report (Sonoma / macOS 14.4.1) — 1
+- Op-table vs Operation Mapping – Research Report (Sonoma / macOS 14.4.1) — 1
+- Op-table ↔ Operation Vocabulary Alignment – Research Report (Sonoma / macOS 14.4.1) — 1
+- Open questions — 1
+- Plan (revised) — 1
+- Planned pivots — 1
+- Probe Op Structure – Research Report (Sonoma / macOS 14.4.1) — 1
+- Recent probes and focused census (2026-02-11) — 1
+- Recent update (tag-aware scan) — 1
+- Reporting — 1
+- Research Report — 1
+- Runtime Checks – Research Report (Sonoma / macOS 14.4.1) — 1
+- SBPL ↔ Graph ↔ Runtime – Research Report — 1
+- Scope — 1
+- Scope and baseline — 1
+- Status summary (2026-01-XX) — 1
+- Symbol Search – Research Report (BootKernelExtensions.kc, 14.4.1 / 23E224) — 1
+- System Profile Digest – Research Report (Sonoma / macOS 14.4.1) — 1
+- Tag Layout Decode – Research Report (Sonoma / macOS 14.4.1) — 1
+- Updates (2025-12-12) — 1
+- Vocab from Cache – Research Report (Sonoma / macOS 14.4.1) — 1
+- What we tried and why it fell short — 1

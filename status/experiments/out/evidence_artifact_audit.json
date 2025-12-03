@@ -1,0 +1,718 @@
+{
+  "experiment_count": 14,
+  "experiments": [
+    {
+      "inputs": [
+        {
+          "kind": "other",
+          "path": "/etc/hosts"
+        },
+        {
+          "kind": "other",
+          "path": "/tmp/foo"
+        },
+        {
+          "kind": "other",
+          "path": "/var/log"
+        },
+        {
+          "kind": "other",
+          "path": "out/anchor_filter_candidates.json"
+        },
+        {
+          "kind": "other",
+          "path": "preferences/logging"
+        },
+        {
+          "kind": "other",
+          "path": "tests/test_mappings_guardrail.py"
+        }
+      ],
+      "name": "anchor-filter-map",
+      "outputs_fs": [
+        "book/experiments/anchor-filter-map/out/anchor_filter_candidates.json"
+      ],
+      "outputs_reported": [
+        {
+          "kind": "experiment_out",
+          "path": "book/experiments/field2-filters/out/field2_inventory.json"
+        },
+        {
+          "kind": "experiment_out",
+          "path": "book/experiments/probe-op-structure/out/anchor_hits.json"
+        },
+        {
+          "kind": "mapping",
+          "path": "book/graph/mappings/anchors/anchor_field2_map.json"
+        },
+        {
+          "kind": "mapping",
+          "path": "book/graph/mappings/anchors/anchor_filter_map.json"
+        },
+        {
+          "kind": "mapping",
+          "path": "book/graph/mappings/vocab/filters.json"
+        }
+      ],
+      "outputs_unmentioned": []
+    },
+    {
+      "inputs": [
+        {
+          "kind": "other",
+          "path": "out/entitlement_sample.entitlements.plist"
+        }
+      ],
+      "name": "entitlement-diff",
+      "outputs_fs": [
+        "book/experiments/entitlement-diff/out/entitlement_manifest.json",
+        "book/experiments/entitlement-diff/out/entitlement_sample.entitlements.plist",
+        "book/experiments/entitlement-diff/out/entitlement_sample_unsigned.entitlements.plist"
+      ],
+      "outputs_reported": [],
+      "outputs_unmentioned": [
+        "book/experiments/entitlement-diff/out/entitlement_manifest.json",
+        "book/experiments/entitlement-diff/out/entitlement_sample_unsigned.entitlements.plist"
+      ]
+    },
+    {
+      "inputs": [
+        {
+          "kind": "other",
+          "path": "/dev/dtracehelper"
+        },
+        {
+          "kind": "other",
+          "path": "/etc/hosts"
+        },
+        {
+          "kind": "other",
+          "path": "G/system/"
+        },
+        {
+          "kind": "compiled_profile_or_example",
+          "path": "book/examples/extract_sbs/build/profiles/airlock.sb.bin"
+        },
+        {
+          "kind": "other",
+          "path": "book/experiments/probe-op-structure/sb/build"
+        },
+        {
+          "kind": "other",
+          "path": "out/field2_inventory.json"
+        },
+        {
+          "kind": "other",
+          "path": "out/unknown_nodes.json"
+        },
+        {
+          "kind": "other",
+          "path": "preferences/logging"
+        }
+      ],
+      "name": "field2-filters",
+      "outputs_fs": [
+        "book/experiments/field2-filters/out/field2_inventory.json",
+        "book/experiments/field2-filters/out/unknown_nodes.json"
+      ],
+      "outputs_reported": [
+        {
+          "kind": "mapping",
+          "path": "book/graph/mappings/vocab/filters.json"
+        }
+      ],
+      "outputs_unmentioned": []
+    },
+    {
+      "inputs": [
+        {
+          "kind": "other",
+          "path": "out/14.4.1-23E224/kernel-string-refs/string_references.json"
+        },
+        {
+          "kind": "other",
+          "path": "out/14.4.1-23E224/kernel-symbols/"
+        },
+        {
+          "kind": "other",
+          "path": "out/14.4.1-23E224/op_table_candidates.json"
+        },
+        {
+          "kind": "other",
+          "path": "out/<build>/kernel-symbols/"
+        }
+      ],
+      "name": "kernel-symbols",
+      "outputs_fs": [
+        "book/experiments/kernel-symbols/out/14.4.1-23E224/kernel-string-refs/string_references.json",
+        "book/experiments/kernel-symbols/out/14.4.1-23E224/kernel-symbols/script.log",
+        "book/experiments/kernel-symbols/out/14.4.1-23E224/kernel-symbols/strings.json",
+        "book/experiments/kernel-symbols/out/14.4.1-23E224/kernel-symbols/symbols.json",
+        "book/experiments/kernel-symbols/out/14.4.1-23E224/kernel-symbols/targets.json",
+        "book/experiments/kernel-symbols/out/14.4.1-23E224/kernel-symbols/trace.log",
+        "book/experiments/kernel-symbols/out/14.4.1-23E224/op_table_candidates.json"
+      ],
+      "outputs_reported": [],
+      "outputs_unmentioned": [
+        "book/experiments/kernel-symbols/out/14.4.1-23E224/kernel-symbols/script.log",
+        "book/experiments/kernel-symbols/out/14.4.1-23E224/kernel-symbols/targets.json",
+        "book/experiments/kernel-symbols/out/14.4.1-23E224/kernel-symbols/trace.log"
+      ]
+    },
+    {
+      "inputs": [
+        {
+          "kind": "other",
+          "path": "\"/dev\""
+        },
+        {
+          "kind": "other",
+          "path": "\"/etc/hosts\""
+        },
+        {
+          "kind": "other",
+          "path": "\"/tmp/bar\""
+        },
+        {
+          "kind": "other",
+          "path": "\"/tmp/foo\""
+        },
+        {
+          "kind": "other",
+          "path": "\"/usr/bin/yes\""
+        },
+        {
+          "kind": "other",
+          "path": "(literal \"/etc/hosts\")"
+        },
+        {
+          "kind": "other",
+          "path": "(subpath \"/tmp/foo\")"
+        },
+        {
+          "kind": "other",
+          "path": "/tmp/bar"
+        },
+        {
+          "kind": "other",
+          "path": "/tmp/foo"
+        },
+        {
+          "kind": "other",
+          "path": "D/tmp/"
+        },
+        {
+          "kind": "other",
+          "path": "G/tmp/bar"
+        },
+        {
+          "kind": "other",
+          "path": "G/tmp/foo"
+        },
+        {
+          "kind": "other",
+          "path": "I/etc/hosts"
+        },
+        {
+          "kind": "other",
+          "path": "['G/tmp/bar']"
+        },
+        {
+          "kind": "other",
+          "path": "['G/tmp/foo']"
+        },
+        {
+          "kind": "other",
+          "path": "['I/etc/hosts']"
+        },
+        {
+          "kind": "other",
+          "path": "\\nHetc/hosts"
+        },
+        {
+          "kind": "other",
+          "path": "book/experiments/node-layout/"
+        },
+        {
+          "kind": "other",
+          "path": "book/graph/concepts/validation"
+        },
+        {
+          "kind": "other",
+          "path": "literal \"/etc/hosts\""
+        },
+        {
+          "kind": "other",
+          "path": "out/summary.json"
+        },
+        {
+          "kind": "other",
+          "path": "sb/"
+        },
+        {
+          "kind": "other",
+          "path": "sb/*.sb"
+        },
+        {
+          "kind": "other",
+          "path": "sb/build/*.sb.bin"
+        },
+        {
+          "kind": "other",
+          "path": "subpath \"/tmp/foo\""
+        }
+      ],
+      "name": "node-layout",
+      "outputs_fs": [
+        "book/experiments/node-layout/out/summary.json"
+      ],
+      "outputs_reported": [
+        {
+          "kind": "mapping",
+          "path": "book/graph/mappings/vocab/ops.json"
+        }
+      ],
+      "outputs_unmentioned": []
+    },
+    {
+      "inputs": [
+        {
+          "kind": "other",
+          "path": "(literal \"/etc/hosts\")"
+        },
+        {
+          "kind": "other",
+          "path": "(subpath \"/tmp/foo\")"
+        },
+        {
+          "kind": "other",
+          "path": "/tmp"
+        },
+        {
+          "kind": "other",
+          "path": "book/api/SBPL-wrapper/wrapper"
+        },
+        {
+          "kind": "other",
+          "path": "book/experiments/op-table-operation/"
+        },
+        {
+          "kind": "other",
+          "path": "book/graph/concepts/validation"
+        },
+        {
+          "kind": "other",
+          "path": "book/tests/test_experiments.py"
+        },
+        {
+          "kind": "other",
+          "path": "graph/mappings/vocab/ops.json"
+        },
+        {
+          "kind": "other",
+          "path": "out/op_table_map.json"
+        },
+        {
+          "kind": "other",
+          "path": "out/op_table_signatures.json"
+        },
+        {
+          "kind": "other",
+          "path": "out/summary.json"
+        },
+        {
+          "kind": "other",
+          "path": "pytest book/tests"
+        },
+        {
+          "kind": "other",
+          "path": "sb/"
+        },
+        {
+          "kind": "other",
+          "path": "sb/*.sb"
+        },
+        {
+          "kind": "other",
+          "path": "sb/build/*.sb.bin"
+        }
+      ],
+      "name": "op-table-operation",
+      "outputs_fs": [
+        "book/experiments/op-table-operation/out/op_table_map.json",
+        "book/experiments/op-table-operation/out/op_table_signatures.json",
+        "book/experiments/op-table-operation/out/summary.json"
+      ],
+      "outputs_reported": [],
+      "outputs_unmentioned": []
+    },
+    {
+      "inputs": [
+        {
+          "kind": "other",
+          "path": "book/experiments/node-layout/"
+        },
+        {
+          "kind": "other",
+          "path": "book/experiments/node-layout/ResearchReport.md"
+        },
+        {
+          "kind": "other",
+          "path": "book/experiments/op-table-operation/"
+        },
+        {
+          "kind": "other",
+          "path": "book/experiments/op-table-operation/ResearchReport.md"
+        },
+        {
+          "kind": "other",
+          "path": "book/experiments/op-table-vocab-alignment/"
+        },
+        {
+          "kind": "other",
+          "path": "book/graph/concepts/EXPERIMENT_FEEDBACK.md"
+        },
+        {
+          "kind": "other",
+          "path": "book/graph/concepts/validation/profile_ingestion"
+        },
+        {
+          "kind": "other",
+          "path": "out/op_table_map.json"
+        },
+        {
+          "kind": "other",
+          "path": "out/op_table_signatures.json"
+        },
+        {
+          "kind": "other",
+          "path": "out/summary.json"
+        },
+        {
+          "kind": "other",
+          "path": "out/vocab/ops.json"
+        },
+        {
+          "kind": "other",
+          "path": "pytest book/tests"
+        }
+      ],
+      "name": "op-table-vocab-alignment",
+      "outputs_fs": [
+        "book/experiments/op-table-vocab-alignment/out/op_table_vocab_alignment.json"
+      ],
+      "outputs_reported": [
+        {
+          "kind": "experiment_out",
+          "path": "book/experiments/op-table-vocab-alignment/out/op_table_vocab_alignment.json"
+        },
+        {
+          "kind": "experiment_out",
+          "path": "book/graph/concepts/validation/out/metadata.json"
+        },
+        {
+          "kind": "mapping",
+          "path": "book/graph/mappings/vocab/"
+        },
+        {
+          "kind": "experiment_out",
+          "path": "op-table-operation/out/summary.json"
+        }
+      ],
+      "outputs_unmentioned": []
+    },
+    {
+      "inputs": [
+        {
+          "kind": "other",
+          "path": "/etc/hosts"
+        },
+        {
+          "kind": "other",
+          "path": "/tmp/foo"
+        },
+        {
+          "kind": "other",
+          "path": "Ftmp/foo"
+        },
+        {
+          "kind": "other",
+          "path": "out/tag_layout_assumptions.json"
+        }
+      ],
+      "name": "probe-op-structure",
+      "outputs_fs": [
+        "book/experiments/probe-op-structure/out/analysis.json",
+        "book/experiments/probe-op-structure/out/anchor_hits.json",
+        "book/experiments/probe-op-structure/out/literal_scan.json",
+        "book/experiments/probe-op-structure/out/summary.json",
+        "book/experiments/probe-op-structure/out/tag_bytes.json",
+        "book/experiments/probe-op-structure/out/tag_inventory.json",
+        "book/experiments/probe-op-structure/out/tag_layout_assumptions.json",
+        "book/experiments/probe-op-structure/out/tag_layout_hypotheses.json"
+      ],
+      "outputs_reported": [
+        {
+          "kind": "mapping",
+          "path": "book/graph/mappings/vocab/ops.json"
+        }
+      ],
+      "outputs_unmentioned": [
+        "book/experiments/probe-op-structure/out/analysis.json",
+        "book/experiments/probe-op-structure/out/literal_scan.json",
+        "book/experiments/probe-op-structure/out/summary.json",
+        "book/experiments/probe-op-structure/out/tag_bytes.json"
+      ]
+    },
+    {
+      "inputs": [
+        {
+          "kind": "other",
+          "path": "/private/tmp"
+        },
+        {
+          "kind": "other",
+          "path": "out/expected_matrix.json"
+        }
+      ],
+      "name": "runtime-checks",
+      "outputs_fs": [
+        "book/experiments/runtime-checks/out/expected_matrix.json",
+        "book/experiments/runtime-checks/out/recompiled/airlock.recompiled.sb.bin",
+        "book/experiments/runtime-checks/out/recompiled/bsd.recompiled.sb.bin",
+        "book/experiments/runtime-checks/out/runtime_profiles/airlock.sys_airlock.runtime.sb",
+        "book/experiments/runtime-checks/out/runtime_profiles/allow_all.runtime_allow_all.runtime.sb",
+        "book/experiments/runtime-checks/out/runtime_profiles/bsd.sys_bsd.runtime.sb",
+        "book/experiments/runtime-checks/out/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
+        "book/experiments/runtime-checks/out/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
+        "book/experiments/runtime-checks/out/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
+        "book/experiments/runtime-checks/out/runtime_results.json"
+      ],
+      "outputs_reported": [
+        {
+          "kind": "mapping",
+          "path": "book/graph/mappings/"
+        },
+        {
+          "kind": "mapping",
+          "path": "book/graph/mappings/runtime/"
+        }
+      ],
+      "outputs_unmentioned": [
+        "book/experiments/runtime-checks/out/recompiled/airlock.recompiled.sb.bin",
+        "book/experiments/runtime-checks/out/recompiled/bsd.recompiled.sb.bin",
+        "book/experiments/runtime-checks/out/runtime_profiles/airlock.sys_airlock.runtime.sb",
+        "book/experiments/runtime-checks/out/runtime_profiles/allow_all.runtime_allow_all.runtime.sb",
+        "book/experiments/runtime-checks/out/runtime_profiles/bsd.sys_bsd.runtime.sb",
+        "book/experiments/runtime-checks/out/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
+        "book/experiments/runtime-checks/out/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
+        "book/experiments/runtime-checks/out/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
+        "book/experiments/runtime-checks/out/runtime_results.json"
+      ]
+    },
+    {
+      "inputs": [
+        {
+          "kind": "other",
+          "path": "book/api/SBPL-wrapper/wrapper --sbpl"
+        },
+        {
+          "kind": "other",
+          "path": "book/api/file_probe/file_probe"
+        },
+        {
+          "kind": "other",
+          "path": "out/ingested.json"
+        }
+      ],
+      "name": "sbpl-graph-runtime",
+      "outputs_fs": [
+        "book/experiments/sbpl-graph-runtime/out/allow_all.sb.bin",
+        "book/experiments/sbpl-graph-runtime/out/deny_all.sb.bin",
+        "book/experiments/sbpl-graph-runtime/out/deny_except_tmp.sb.bin",
+        "book/experiments/sbpl-graph-runtime/out/ingested.json",
+        "book/experiments/sbpl-graph-runtime/out/metafilter_any.sb.bin",
+        "book/experiments/sbpl-graph-runtime/out/triples_manifest.json"
+      ],
+      "outputs_reported": [],
+      "outputs_unmentioned": [
+        "book/experiments/sbpl-graph-runtime/out/allow_all.sb.bin",
+        "book/experiments/sbpl-graph-runtime/out/deny_all.sb.bin",
+        "book/experiments/sbpl-graph-runtime/out/deny_except_tmp.sb.bin",
+        "book/experiments/sbpl-graph-runtime/out/metafilter_any.sb.bin",
+        "book/experiments/sbpl-graph-runtime/out/triples_manifest.json"
+      ]
+    },
+    {
+      "inputs": [
+        {
+          "kind": "dump_or_kernel",
+          "path": "JAVA_TOOL_OPTIONS=-Duser.home=$PWD/dumps/ghidra/home"
+        },
+        {
+          "kind": "other",
+          "path": "book/api/ghidra/scripts/"
+        },
+        {
+          "kind": "dump_or_kernel",
+          "path": "dumps/Sandbox-private/14.4.1-23E224/kernel/BootKernelExtensions.kc"
+        },
+        {
+          "kind": "dump_or_kernel",
+          "path": "dumps/ghidra/projects/sandbox_14.4.1-23E224"
+        },
+        {
+          "kind": "other",
+          "path": "~/Library/ghidra/"
+        }
+      ],
+      "name": "symbol-search",
+      "outputs_fs": [],
+      "outputs_reported": [],
+      "outputs_unmentioned": []
+    },
+    {
+      "inputs": [
+        {
+          "kind": "compiled_profile_or_example",
+          "path": "book/examples/extract_sbs/build/profiles/{airlock,bsd,sample}.sb.bin"
+        },
+        {
+          "kind": "other",
+          "path": "out/digests.json"
+        },
+        {
+          "kind": "other",
+          "path": "tests/test_mappings_guardrail.py"
+        }
+      ],
+      "name": "system-profile-digest",
+      "outputs_fs": [
+        "book/experiments/system-profile-digest/out/digests.json"
+      ],
+      "outputs_reported": [
+        {
+          "kind": "mapping",
+          "path": "book/graph/mappings/"
+        },
+        {
+          "kind": "mapping",
+          "path": "book/graph/mappings/system_profiles/"
+        },
+        {
+          "kind": "mapping",
+          "path": "book/graph/mappings/system_profiles/digests.json"
+        }
+      ],
+      "outputs_unmentioned": []
+    },
+    {
+      "inputs": [
+        {
+          "kind": "compiled_profile_or_example",
+          "path": "book/examples/extract_sbs/build/profiles/{airlock,bsd,sample}.sb.bin"
+        },
+        {
+          "kind": "compiled_profile_or_example",
+          "path": "book/examples/extract_sbs/build/profiles/{airlock,bsd}.sb.bin"
+        },
+        {
+          "kind": "compiled_profile_or_example",
+          "path": "book/examples/sb/build/sample.sb.bin"
+        },
+        {
+          "kind": "other",
+          "path": "out/tag_histogram.json"
+        },
+        {
+          "kind": "other",
+          "path": "out/tag_literal_nodes.json"
+        },
+        {
+          "kind": "other",
+          "path": "tests/test_mappings_guardrail.py"
+        }
+      ],
+      "name": "tag-layout-decode",
+      "outputs_fs": [
+        "book/experiments/tag-layout-decode/out/tag_histogram.json",
+        "book/experiments/tag-layout-decode/out/tag_literal_nodes.json"
+      ],
+      "outputs_reported": [
+        {
+          "kind": "mapping",
+          "path": "book/graph/mappings/"
+        },
+        {
+          "kind": "mapping",
+          "path": "book/graph/mappings/anchors/anchor_field2_map.json"
+        },
+        {
+          "kind": "mapping",
+          "path": "book/graph/mappings/tag_layouts/tag_layouts.json"
+        }
+      ],
+      "outputs_unmentioned": []
+    },
+    {
+      "inputs": [
+        {
+          "kind": "dyld_or_shared_cache",
+          "path": "/System/Volumes/Preboot/Cryptexes/OS/System/Library/dyld/dyld_shared_cache_arm64e"
+        },
+        {
+          "kind": "dyld_or_shared_cache",
+          "path": "/usr/lib/dsc_extractor.bundle"
+        },
+        {
+          "kind": "compiled_profile_or_example",
+          "path": "book/examples/extract_sbs/build/profiles/airlock.sb.bin"
+        },
+        {
+          "kind": "compiled_profile_or_example",
+          "path": "book/examples/extract_sbs/build/profiles/bsd.sb.bin"
+        },
+        {
+          "kind": "compiled_profile_or_example",
+          "path": "book/examples/sb/build/sample.sb.bin"
+        },
+        {
+          "kind": "other",
+          "path": "book/experiments/vocab-from-cache/extracted/"
+        },
+        {
+          "kind": "other",
+          "path": "graph/mappings/vocab/ops.json"
+        },
+        {
+          "kind": "other",
+          "path": "out/filter_names.json"
+        },
+        {
+          "kind": "other",
+          "path": "out/operation_names.json"
+        }
+      ],
+      "name": "vocab-from-cache",
+      "outputs_fs": [
+        "book/experiments/vocab-from-cache/out/filter_names.json",
+        "book/experiments/vocab-from-cache/out/operation_names.json"
+      ],
+      "outputs_reported": [
+        {
+          "kind": "experiment_out",
+          "path": "book/experiments/op-table-operation/out/*"
+        },
+        {
+          "kind": "mapping",
+          "path": "book/graph/mappings/dyld-libs/"
+        },
+        {
+          "kind": "mapping",
+          "path": "book/graph/mappings/vocab/ops.json"
+        }
+      ],
+      "outputs_unmentioned": []
+    }
+  ]
+}

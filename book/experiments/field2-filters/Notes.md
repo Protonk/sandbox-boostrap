@@ -82,6 +82,13 @@ Use this file for dated, concise notes on progress, commands, and intermediate f
 - Kernel path not executed in this session: Ghidra is available, but the evaluator/mask hunt remains to be done; kept as the next high-value action.
 - No further probe variants attempted beyond `flow_divert_variant` and `bsd_broader`; if future mixed-network perturbations also collapse to low IDs, stop that branch and move kernel-side.
 
+### Kernel mask and immediate scans (2026-02-11)
+
+- Ran `kernel_field2_mask_scan` twice on the 14.4.1 project:
+  - Sandbox blocks only (default masks 0x3fff/0x4000/0xc000): no hits.
+  - Full-program with masks 0x3fff/0x4000/0xc000/0x00ff/0xff00: no hits. Output at `dumps/ghidra/out/14.4.1-23E224/kernel-field2-mask-scan/mask_scan.json`.
+- Ran `kernel_imm_search` on key field2 constants across the full KC: 0xa00 (flow-divert 2560), 0x4114 (bsd tail hi-bit), and 0x2a00 (airlock high). All returned zero hits. Outputs under `dumps/ghidra/out/14.4.1-23E224/kernel-imm-search/`. These negatives suggest the constants are not present as plain immediates; evaluator likely derives flags via other arithmetic or indirect tables.
+
 ## Ghidra pointer
 
 - Target binary: `Sandbox.kext` on 14.4.1 (Apple Silicon), load the kext’s main binary in Ghidra (ARM64).

@@ -114,3 +114,13 @@ Deliverables:
 - Primary next action: run the Ghidra pass on `Sandbox.kext` to find the node evaluator and any masks/shifts on the third 16-bit field; update this plan and `Notes.md` with any masks found, even if partial.
 - Secondary: only if kernel masks remain unknown, consider one last mixed-network perturbation to probe the 2560 signal; abort if it collapses again.
 - Keep high/unknown values in the `UnknownFilterArg` bucket until kernel semantics are known; add a lightweight warning in future inventories when `hi != 0` appears (currently only bsd’s 16660).
+
+## Current kernel recon state (2026-02-11)
+
+- Automated scans:
+  - `kernel_field2_mask_scan` (sandbox blocks and full KC; masks 0x3fff/0x4000/0xc000/0x00ff/0xff00) → no hits.
+  - `kernel_imm_search` for 0xa00, 0x4114, 0x2a00 across full KC → 0 hits each.
+- Next manual pass (pending):
+  - Use tag-switch candidates and sandbox-related functions to locate the evaluator in Ghidra.
+  - Within those functions, look for loads of three u16 fields per node and any masking/shifting of the third payload; if found, dump disassembly and record masks/usage.
+  - If still no masks, note functions inspected and pivot to other structural clues (op-table usage, node size arithmetic).

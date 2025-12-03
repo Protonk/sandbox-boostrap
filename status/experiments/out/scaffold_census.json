@@ -1,0 +1,723 @@
+{
+  "experiments": [
+    {
+      "baseline": {
+        "markers": [
+          "macos\\s+14\\.4\\.1",
+          "\\b23e224\\b",
+          "sip enabled",
+          "apple silicon",
+          "host:"
+        ],
+        "status": "recorded"
+      },
+      "deliverables_kinds": [
+        "out-json"
+      ],
+      "deliverables_lines": [
+        "Deliverables: plan/notes/report here; `out/` for intermediate mappings.",
+        "Deliverables: `out/anchor_filter_candidates.json` with evidence pointers.",
+        "Deliverables: additional probe blobs (if created) and refreshed candidates."
+      ],
+      "has_deliverables": true,
+      "name": "anchor-filter-map",
+      "plan_headings": [
+        "Anchor \u2194 Filter ID Mapping",
+        "1) Scope and setup",
+        "2) Baseline data pass",
+        "3) Targeted probes (if needed)",
+        "4) Synthesis and guardrails"
+      ],
+      "report_headings": [
+        "Anchor \u2194 Filter ID Mapping \u2013 Research Report (Sonoma / macOS 14.4.1)",
+        "Purpose",
+        "Baseline and scope",
+        "Plan (summary)",
+        "Current status",
+        "Expected outcomes"
+      ]
+    },
+    {
+      "baseline": {
+        "markers": [
+          "host:",
+          "host:tbd/tdb"
+        ],
+        "status": "partial"
+      },
+      "deliverables_kinds": [],
+      "deliverables_lines": [],
+      "has_deliverables": false,
+      "name": "entitlement-diff",
+      "plan_headings": [
+        "Entitlement-Driven Profile Differences",
+        "Goal",
+        "Scope",
+        "Steps",
+        "Done criteria"
+      ],
+      "report_headings": [
+        "Entitlement Diff \u2013 Research Report",
+        "Purpose",
+        "Baseline",
+        "Status"
+      ]
+    },
+    {
+      "baseline": {
+        "markers": [
+          "macos\\s+14\\.4\\.1",
+          "\\b23e224\\b",
+          "sip enabled",
+          "apple silicon",
+          "host:"
+        ],
+        "status": "recorded"
+      },
+      "deliverables_kinds": [
+        "guardrail",
+        "out-json"
+      ],
+      "deliverables_lines": [
+        "Deliverables:",
+        "- `Plan.md`, `Notes.md`, `ResearchReport.md` in this directory.",
+        "- A small helper script to collect `field2` values from decoded profiles.",
+        "Deliverables:",
+        "- Intermediate JSON/notes summarizing `field2` histograms and per-op reachable values.",
+        "Deliverables:",
+        "- `sb/` variants + compiled blobs under `sb/build/`.",
+        "- Notes mapping filter name \u2192 observed `field2` value(s) with provenance.",
+        "Deliverables:",
+        "- Table of filter \u2192 `field2` with cross-op status (consistent/inconsistent).",
+        "Deliverables:",
+        "- Notes tying system-profile nodes to the inferred mapping.",
+        "Deliverables:",
+        "- Updated `ResearchReport.md` and `Notes.md`.",
+        "- Guardrail test/script to prevent regressions."
+      ],
+      "has_deliverables": true,
+      "name": "field2-filters",
+      "plan_headings": [
+        "Field2 \u2194 Filter Mapping Experiment (Sonoma host)",
+        "1) Scope and setup",
+        "2) Baseline inventory",
+        "3) Synthetic single-filter probes",
+        "4) Cross-op consistency checks",
+        "5) System profile cross-check",
+        "6) Synthesis and guardrails",
+        "Current pushes (2026-02-11)",
+        "Next steps (2026-02-11)",
+        "Follow-on after this run"
+      ],
+      "report_headings": [
+        "Field2 \u2194 Filter Mapping \u2013 Research Report (Sonoma / macOS 14.4.1)",
+        "Purpose",
+        "Baseline and scope",
+        "Plan (summary)",
+        "Current status",
+        "Expected outcomes",
+        "Current wrinkle: synthetic profiles and field2 skew",
+        "Updates (2025-12-12)",
+        "Recent update (tag-aware scan)",
+        "Hi/lo census refresh (probe-op inclusion)",
+        "Recent probes and focused census (2026-02-11)",
+        "Open questions"
+      ]
+    },
+    {
+      "baseline": {
+        "markers": [
+          "\\b23e224\\b"
+        ],
+        "status": "partial"
+      },
+      "deliverables_kinds": [],
+      "deliverables_lines": [],
+      "has_deliverables": false,
+      "name": "kernel-symbols",
+      "plan_headings": [
+        "Kernel symbols experiment \u2014 Plan"
+      ],
+      "report_headings": [
+        "Research Report",
+        "Scope",
+        "Current state",
+        "Next pivots"
+      ]
+    },
+    {
+      "baseline": {
+        "markers": [
+          "macos\\s+14\\.4\\.1",
+          "\\b23e224\\b",
+          "sip enabled",
+          "apple silicon"
+        ],
+        "status": "recorded"
+      },
+      "deliverables_kinds": [],
+      "deliverables_lines": [],
+      "has_deliverables": false,
+      "name": "node-layout",
+      "plan_headings": [
+        "Node Layout Experiment Plan (Sonoma host)",
+        "1. Baseline ingestion and heuristics",
+        "2. Synthetic SBPL variants",
+        "3. Stride and tail behavior",
+        "4. Literal pools, field2, and node fields",
+        "5. Op-table anchoring",
+        "6. Tooling and artifacts",
+        "7. Remaining questions and follow-on work"
+      ],
+      "report_headings": [
+        "Node Layout Experiment \u2013 Research Report (Sonoma / macOS 14.4.1)",
+        "1. Purpose and context",
+        "2. Environment, tools, and artifacts",
+        "3. SBPL probes and compiled profiles",
+        "4. Structural layout of modern profiles",
+        "5. Literal pools and content vs structure",
+        "6. Candidate node fields for filters and branches",
+        "7. Mixed operations and op-table behavior (high-level tie-in)",
+        "8. What we do **not** know yet",
+        "9. Recommended next steps (for future agents)",
+        "10. How this experiment feeds the larger project"
+      ]
+    },
+    {
+      "baseline": {
+        "markers": [
+          "macos\\s+14\\.4\\.1",
+          "\\b23e224\\b",
+          "sip enabled",
+          "apple silicon",
+          "host:"
+        ],
+        "status": "recorded"
+      },
+      "deliverables_kinds": [
+        "out-json",
+        "sbpl/profile"
+      ],
+      "deliverables_lines": [
+        "Deliverables:",
+        "- `sb/*.sb` variants + compiled blobs under `sb/build/`.",
+        "- `out/summary.json` (per-variant structured data).",
+        "- A correlation artifact `out/op_table_map.json` that attempts to map op names \u2192 op-table index guess."
+      ],
+      "has_deliverables": true,
+      "name": "op-table-operation",
+      "plan_headings": [
+        "Op-table vs Operation Mapping Experiment (Sonoma host)",
+        "1. Setup and scope",
+        "2. Data collection and correlation",
+        "3. Cross-check with semantic probes (optional stretch)",
+        "4. Documentation and reporting",
+        "5. Open questions to resolve"
+      ],
+      "report_headings": [
+        "Op-table vs Operation Mapping \u2013 Research Report (Sonoma / macOS 14.4.1)",
+        "1. Purpose and conceptual frame",
+        "2. Environment, tools, and artifacts",
+        "3. SBPL profiles and method",
+        "4. Structural findings: buckets and operations",
+        "4.1 Uniform op-tables without filters",
+        "4.2 Filters move reads between buckets",
+        "4.3 Non-uniform op-tables: `[6,6,6,6,6,6,5]`",
+        "5. Decoder-backed entry signatures",
+        "6. Limits and open questions",
+        "7. Recommended next steps (for future agents)",
+        "8. Role in the broader project",
+        "Status summary (2026-01-XX)"
+      ]
+    },
+    {
+      "baseline": {
+        "markers": [
+          "macos\\s+14\\.4\\.1",
+          "\\b23e224\\b",
+          "sip enabled",
+          "apple silicon"
+        ],
+        "status": "recorded"
+      },
+      "deliverables_kinds": [
+        "out-json"
+      ],
+      "deliverables_lines": [
+        "Deliverables for this phase:",
+        "- Clear note in `ResearchReport.md` describing the host baseline and which vocab artifacts (if any) are already available.",
+        "Deliverables for this phase:",
+        "- A stable description in `ResearchReport.md` of how vocabulary artifacts will be consumed, without overloading this experiment with full vocab extraction responsibilities.",
+        "Deliverables for this phase:",
+        "- Alignment JSON artifact (even if operation IDs are still placeholders).",
+        "- Updated sections in `ResearchReport.md` explaining alignment logic and limitations.",
+        "- Status update (2025-11-28): partial vocab scaffold added (`vocab_extraction.py`) that emits decoder-derived `ops.json`/`filters.json` with `status: partial`; alignment refreshed to carry the new vocab version while keeping `operation_ids=null`.",
+        "Deliverables for this phase:",
+        "- Textual interpretation in `ResearchReport.md` framed in terms of the Operation, Operation Pointer Table, and Operation Vocabulary Map concepts."
+      ],
+      "has_deliverables": true,
+      "name": "op-table-vocab-alignment",
+      "plan_headings": [
+        "Op-table \u2194 Operation Vocabulary Alignment Experiment (Sonoma host)",
+        "1. Setup and scope",
+        "2. Vocabulary extraction hookup",
+        "3. Alignment of synthetic profiles with vocab",
+        "4. Interpretation and limits",
+        "5. Turnover and integration"
+      ],
+      "report_headings": [
+        "Op-table \u2194 Operation Vocabulary Alignment \u2013 Research Report (Sonoma / macOS 14.4.1)",
+        "1. Motivation and scope",
+        "2. Environment and dependencies",
+        "3. Vocabulary artifacts: expected contracts",
+        "4. Alignment artifact: shape and current status",
+        "5. Updated findings (with vocab present)",
+        "Status summary (2025-12-09)",
+        "6. What remains to be done",
+        "7. Practical guidance for future agents",
+        "8. Role in the larger project"
+      ]
+    },
+    {
+      "baseline": {
+        "markers": [
+          "macos\\s+14\\.4\\.1",
+          "\\b23e224\\b",
+          "sip enabled",
+          "apple silicon",
+          "host:"
+        ],
+        "status": "recorded"
+      },
+      "deliverables_kinds": [
+        "out-json",
+        "sbpl/profile"
+      ],
+      "deliverables_lines": [
+        "Deliverables:",
+        "- `Plan.md`, `Notes.md`, `ResearchReport.md` in this directory.",
+        "- A structured probe matrix describing intended SBPL variants.",
+        "Deliverables:",
+        "- Notes on tag byte counts/stride candidates in `Notes.md`; brief summary in `ResearchReport.md`.",
+        "Deliverables:",
+        "- Updated helper script(s) for slicing/decoding richer profiles; note usage in `Notes.md`.",
+        "Deliverables:",
+        "- JSON or notes tying anchor literals \u2192 node indices \u2192 `field2` \u2192 inferred filter.",
+        "Deliverables:",
+        "- Updated probe matrix in `Notes.md` reflecting anchor choices.",
+        "Deliverables:",
+        "- `sb/` sources and compiled blobs; updated summaries including anchor-based findings.",
+        "Deliverables:",
+        "- Updated `ResearchReport.md` with provisional mappings, evidence tiers, and structural notes."
+      ],
+      "has_deliverables": true,
+      "name": "probe-op-structure",
+      "plan_headings": [
+        "Probe Op Structure Experiment (Sonoma host)",
+        "1) Scope and setup",
+        "1.5) Per-tag inventory (sanity pass)",
+        "2) Improve slicing/decoding",
+        "3) Anchor-based traversal",
+        "4) Probe design (anchor-aware)",
+        "5) Compilation and decoding",
+        "6) Analysis and mapping",
+        "7) Guardrails and reuse"
+      ],
+      "report_headings": [
+        "Probe Op Structure \u2013 Research Report (Sonoma / macOS 14.4.1)",
+        "Purpose",
+        "Baseline and scope",
+        "What we tried and why it fell short",
+        "Plan (revised)",
+        "Current status",
+        "Expected outcomes",
+        "Status summary (2025-12-09)",
+        "Expected outcomes",
+        "Next decoding steps (focused)"
+      ]
+    },
+    {
+      "baseline": {
+        "markers": [
+          "macos\\s+14\\.4\\.1",
+          "\\b23e224\\b",
+          "sip enabled",
+          "apple silicon",
+          "host:"
+        ],
+        "status": "recorded"
+      },
+      "deliverables_kinds": [
+        "out-json",
+        "runtime"
+      ],
+      "deliverables_lines": [
+        "Deliverables: plan/notes/report in this directory; `out/` for raw traces/logs.",
+        "Deliverables: `out/expected_matrix.json` (profile \u00d7 probe \u2192 expected verdict).",
+        "Deliverables: `out/runtime_results.json` plus brief Notes."
+      ],
+      "has_deliverables": true,
+      "name": "runtime-checks",
+      "plan_headings": [
+        "Runtime Checks (bucket-level behavior)",
+        "1) Scope and setup",
+        "2) Define probes and expectations",
+        "3) Run runtime checks",
+        "4) Compare and guardrail"
+      ],
+      "report_headings": [
+        "Runtime Checks \u2013 Research Report (Sonoma / macOS 14.4.1)",
+        "Purpose",
+        "Baseline and scope",
+        "Plan (summary)",
+        "Current status",
+        "Expected outcomes"
+      ]
+    },
+    {
+      "baseline": {
+        "markers": [
+          "host:",
+          "host:tbd/tdb"
+        ],
+        "status": "partial"
+      },
+      "deliverables_kinds": [],
+      "deliverables_lines": [],
+      "has_deliverables": false,
+      "name": "sbpl-graph-runtime",
+      "plan_headings": [
+        "SBPL \u2194 Graph \u2194 Runtime Triples",
+        "Goal",
+        "Scope",
+        "Steps",
+        "Done criteria"
+      ],
+      "report_headings": [
+        "SBPL \u2194 Graph \u2194 Runtime \u2013 Research Report",
+        "Purpose",
+        "Baseline",
+        "Status"
+      ]
+    },
+    {
+      "baseline": {
+        "markers": [
+          "macos\\s+14\\.4\\.1",
+          "\\b23e224\\b",
+          "sip enabled",
+          "apple silicon"
+        ],
+        "status": "recorded"
+      },
+      "deliverables_kinds": [
+        "kernel-facing",
+        "out-json"
+      ],
+      "deliverables_lines": [
+        "Deliverables: this plan, `Notes.md`, `ResearchReport.md`; `out/` for scratch JSON listings if needed.",
+        "Deliverables: refreshed headless outputs under `dumps/ghidra/out/.../kernel-string-refs` (or a new task) with expanded queries and caller counts.",
+        "Deliverables: shortlists of AppleMatch callers plus addresses/functions, with notes in `Notes.md`.",
+        "Deliverables: function addresses and linkage notes tying MACF hooks to the dispatcher, logged in `Notes.md`.",
+        "Deliverables: signature JSON in `out/` if needed, plus scan results with candidate addresses.",
+        "Deliverables: summary in `ResearchReport.md` of evidence-backed dispatcher candidates and recommended next probes."
+      ],
+      "has_deliverables": true,
+      "name": "symbol-search",
+      "plan_headings": [
+        "Symbol Search (sandbox dispatcher and regex callers)",
+        "1) Scope and setup",
+        "2) Expand symbol and string pivots",
+        "3) AppleMatch import pivot",
+        "4) MACF hook and mac_policy_ops pivot",
+        "5) Profile structure pivot",
+        "6) Synthesis and stop condition"
+      ],
+      "report_headings": [
+        "Symbol Search \u2013 Research Report (BootKernelExtensions.kc, 14.4.1 / 23E224)",
+        "Purpose",
+        "Baseline and scope",
+        "Planned pivots",
+        "Current observations",
+        "Reporting"
+      ]
+    },
+    {
+      "baseline": {
+        "markers": [
+          "macos\\s+14\\.4\\.1",
+          "\\b23e224\\b",
+          "sip enabled",
+          "apple silicon",
+          "host:"
+        ],
+        "status": "recorded"
+      },
+      "deliverables_kinds": [
+        "out-json"
+      ],
+      "deliverables_lines": [
+        "Deliverables: plan/notes/report here; `out/` for scratch outputs.",
+        "Deliverables: `out/digests.json` (intermediate) with per-profile summaries."
+      ],
+      "has_deliverables": true,
+      "name": "system-profile-digest",
+      "plan_headings": [
+        "System Profile Digest",
+        "1) Scope and setup",
+        "2) Decode and summarize",
+        "3) Publish stable artifact",
+        "4) Guardrails"
+      ],
+      "report_headings": [
+        "System Profile Digest \u2013 Research Report (Sonoma / macOS 14.4.1)",
+        "Purpose",
+        "Baseline and scope",
+        "Plan (summary)",
+        "Current status",
+        "Expected outcomes"
+      ]
+    },
+    {
+      "baseline": {
+        "markers": [
+          "macos\\s+14\\.4\\.1",
+          "\\b23e224\\b",
+          "sip enabled",
+          "apple silicon",
+          "host:"
+        ],
+        "status": "recorded"
+      },
+      "deliverables_kinds": [
+        "out-json"
+      ],
+      "deliverables_lines": [
+        "Deliverables: `Plan.md`, `Notes.md`, `ResearchReport.md` in this directory; `out/` folder for scratch JSON/histograms.",
+        "Deliverables: `out/tag_histogram.json` (or similar) with tag \u2192 counts, literal/regex usage.",
+        "Deliverables: draft `tag_layouts.json` (per-tag layout description) plus short notes on evidence."
+      ],
+      "has_deliverables": true,
+      "name": "tag-layout-decode",
+      "plan_headings": [
+        "Tag Layout Decode (literal/regex operands)",
+        "1) Scope and setup",
+        "2) Baseline decode and tag histogram",
+        "3) Tag layout reconstruction",
+        "4) Synthesis and guardrails"
+      ],
+      "report_headings": [
+        "Tag Layout Decode \u2013 Research Report (Sonoma / macOS 14.4.1)",
+        "Purpose",
+        "Baseline and scope",
+        "Plan (summary)",
+        "Current status",
+        "Expected outcomes"
+      ]
+    },
+    {
+      "baseline": {
+        "markers": [
+          "macos\\s+14\\.4\\.1",
+          "\\b23e224\\b",
+          "sip enabled",
+          "host:"
+        ],
+        "status": "recorded"
+      },
+      "deliverables_kinds": [
+        "out-json"
+      ],
+      "deliverables_lines": [
+        "Deliverables:",
+        "- `Plan.md`, `Notes.md`, `ResearchReport.md` in this directory.",
+        "- A script to extract Sandbox-related binaries from the dyld shared cache.",
+        "Deliverables:",
+        "- Extracted binaries and a short note in `Notes.md` describing commands used and any issues.",
+        "Deliverables:",
+        "- `harvest.py` (or similar) that emits candidate name lists with offsets/order.",
+        "- Intermediate JSON with recovered names and inferred ordering.",
+        "Deliverables:",
+        "- Updated vocab artifacts with real entries and provenance.",
+        "Deliverables:",
+        "- Updated alignment file with IDs and vocab hash/version.",
+        "- Notes/report entries summarizing bucket-to-ID findings (scoped to this host)."
+      ],
+      "has_deliverables": true,
+      "name": "vocab-from-cache",
+      "plan_headings": [
+        "Vocab from Cache Experiment (Sonoma host)",
+        "1) Setup and scope",
+        "2) Cache extraction",
+        "3) Name harvesting",
+        "4) ID alignment",
+        "5) Alignment and propagation",
+        "6) Open questions / risks"
+      ],
+      "report_headings": [
+        "Vocab from Cache \u2013 Research Report (Sonoma / macOS 14.4.1)",
+        "Purpose",
+        "Scope and baseline",
+        "Plan (summary)",
+        "Current status"
+      ]
+    }
+  ],
+  "summary": {
+    "baseline_status_counts": {
+      "partial": 3,
+      "recorded": 11
+    },
+    "deliverables_kind_counts": {
+      "guardrail": 1,
+      "kernel-facing": 1,
+      "out-json": 10,
+      "runtime": 1,
+      "sbpl/profile": 2
+    },
+    "experiment_count": 14,
+    "plan_heading_counts": {
+      "1) Scope and setup": 7,
+      "1) Setup and scope": 1,
+      "1. Baseline ingestion and heuristics": 1,
+      "1. Setup and scope": 2,
+      "1.5) Per-tag inventory (sanity pass)": 1,
+      "2) Baseline data pass": 1,
+      "2) Baseline decode and tag histogram": 1,
+      "2) Baseline inventory": 1,
+      "2) Cache extraction": 1,
+      "2) Decode and summarize": 1,
+      "2) Define probes and expectations": 1,
+      "2) Expand symbol and string pivots": 1,
+      "2) Improve slicing/decoding": 1,
+      "2. Data collection and correlation": 1,
+      "2. Synthetic SBPL variants": 1,
+      "2. Vocabulary extraction hookup": 1,
+      "3) Anchor-based traversal": 1,
+      "3) AppleMatch import pivot": 1,
+      "3) Name harvesting": 1,
+      "3) Publish stable artifact": 1,
+      "3) Run runtime checks": 1,
+      "3) Synthetic single-filter probes": 1,
+      "3) Tag layout reconstruction": 1,
+      "3) Targeted probes (if needed)": 1,
+      "3. Alignment of synthetic profiles with vocab": 1,
+      "3. Cross-check with semantic probes (optional stretch)": 1,
+      "3. Stride and tail behavior": 1,
+      "4) Compare and guardrail": 1,
+      "4) Cross-op consistency checks": 1,
+      "4) Guardrails": 1,
+      "4) ID alignment": 1,
+      "4) MACF hook and mac_policy_ops pivot": 1,
+      "4) Probe design (anchor-aware)": 1,
+      "4) Synthesis and guardrails": 2,
+      "4. Documentation and reporting": 1,
+      "4. Interpretation and limits": 1,
+      "4. Literal pools, field2, and node fields": 1,
+      "5) Alignment and propagation": 1,
+      "5) Compilation and decoding": 1,
+      "5) Profile structure pivot": 1,
+      "5) System profile cross-check": 1,
+      "5. Op-table anchoring": 1,
+      "5. Open questions to resolve": 1,
+      "5. Turnover and integration": 1,
+      "6) Analysis and mapping": 1,
+      "6) Open questions / risks": 1,
+      "6) Synthesis and guardrails": 1,
+      "6) Synthesis and stop condition": 1,
+      "6. Tooling and artifacts": 1,
+      "7) Guardrails and reuse": 1,
+      "7. Remaining questions and follow-on work": 1,
+      "Anchor \u2194 Filter ID Mapping": 1,
+      "Current pushes (2026-02-11)": 1,
+      "Done criteria": 2,
+      "Entitlement-Driven Profile Differences": 1,
+      "Field2 \u2194 Filter Mapping Experiment (Sonoma host)": 1,
+      "Follow-on after this run": 1,
+      "Goal": 2,
+      "Kernel symbols experiment \u2014 Plan": 1,
+      "Next steps (2026-02-11)": 1,
+      "Node Layout Experiment Plan (Sonoma host)": 1,
+      "Op-table vs Operation Mapping Experiment (Sonoma host)": 1,
+      "Op-table \u2194 Operation Vocabulary Alignment Experiment (Sonoma host)": 1,
+      "Probe Op Structure Experiment (Sonoma host)": 1,
+      "Runtime Checks (bucket-level behavior)": 1,
+      "SBPL \u2194 Graph \u2194 Runtime Triples": 1,
+      "Scope": 2,
+      "Steps": 2,
+      "Symbol Search (sandbox dispatcher and regex callers)": 1,
+      "System Profile Digest": 1,
+      "Tag Layout Decode (literal/regex operands)": 1,
+      "Vocab from Cache Experiment (Sonoma host)": 1
+    },
+    "report_heading_counts": {
+      "1. Motivation and scope": 1,
+      "1. Purpose and conceptual frame": 1,
+      "1. Purpose and context": 1,
+      "10. How this experiment feeds the larger project": 1,
+      "2. Environment and dependencies": 1,
+      "2. Environment, tools, and artifacts": 2,
+      "3. SBPL probes and compiled profiles": 1,
+      "3. SBPL profiles and method": 1,
+      "3. Vocabulary artifacts: expected contracts": 1,
+      "4. Alignment artifact: shape and current status": 1,
+      "4. Structural findings: buckets and operations": 1,
+      "4. Structural layout of modern profiles": 1,
+      "4.1 Uniform op-tables without filters": 1,
+      "4.2 Filters move reads between buckets": 1,
+      "4.3 Non-uniform op-tables: `[6,6,6,6,6,6,5]`": 1,
+      "5. Decoder-backed entry signatures": 1,
+      "5. Literal pools and content vs structure": 1,
+      "5. Updated findings (with vocab present)": 1,
+      "6. Candidate node fields for filters and branches": 1,
+      "6. Limits and open questions": 1,
+      "6. What remains to be done": 1,
+      "7. Mixed operations and op-table behavior (high-level tie-in)": 1,
+      "7. Practical guidance for future agents": 1,
+      "7. Recommended next steps (for future agents)": 1,
+      "8. Role in the broader project": 1,
+      "8. Role in the larger project": 1,
+      "8. What we do **not** know yet": 1,
+      "9. Recommended next steps (for future agents)": 1,
+      "Anchor \u2194 Filter ID Mapping \u2013 Research Report (Sonoma / macOS 14.4.1)": 1,
+      "Baseline": 2,
+      "Baseline and scope": 7,
+      "Current observations": 1,
+      "Current state": 1,
+      "Current status": 7,
+      "Current wrinkle: synthetic profiles and field2 skew": 1,
+      "Entitlement Diff \u2013 Research Report": 1,
+      "Expected outcomes": 7,
+      "Field2 \u2194 Filter Mapping \u2013 Research Report (Sonoma / macOS 14.4.1)": 1,
+      "Hi/lo census refresh (probe-op inclusion)": 1,
+      "Next decoding steps (focused)": 1,
+      "Next pivots": 1,
+      "Node Layout Experiment \u2013 Research Report (Sonoma / macOS 14.4.1)": 1,
+      "Op-table vs Operation Mapping \u2013 Research Report (Sonoma / macOS 14.4.1)": 1,
+      "Op-table \u2194 Operation Vocabulary Alignment \u2013 Research Report (Sonoma / macOS 14.4.1)": 1,
+      "Open questions": 1,
+      "Plan (revised)": 1,
+      "Plan (summary)": 6,
+      "Planned pivots": 1,
+      "Probe Op Structure \u2013 Research Report (Sonoma / macOS 14.4.1)": 1,
+      "Purpose": 10,
+      "Recent probes and focused census (2026-02-11)": 1,
+      "Recent update (tag-aware scan)": 1,
+      "Reporting": 1,
+      "Research Report": 1,
+      "Runtime Checks \u2013 Research Report (Sonoma / macOS 14.4.1)": 1,
+      "SBPL \u2194 Graph \u2194 Runtime \u2013 Research Report": 1,
+      "Scope": 1,
+      "Scope and baseline": 1,
+      "Status": 2,
+      "Status summary (2025-12-09)": 2,
+      "Status summary (2026-01-XX)": 1,
+      "Symbol Search \u2013 Research Report (BootKernelExtensions.kc, 14.4.1 / 23E224)": 1,
+      "System Profile Digest \u2013 Research Report (Sonoma / macOS 14.4.1)": 1,
+      "Tag Layout Decode \u2013 Research Report (Sonoma / macOS 14.4.1)": 1,
+      "Updates (2025-12-12)": 1,
+      "Vocab from Cache \u2013 Research Report (Sonoma / macOS 14.4.1)": 1,
+      "What we tried and why it fell short": 1
+    }
+  }
+}

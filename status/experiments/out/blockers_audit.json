@@ -1,0 +1,490 @@
+{
+  "blocker_type_counts": {
+    "decoder_limit": 6,
+    "generic_blocker": 10,
+    "kernel_or_ghidra_limit": 31,
+    "runtime_apply_gate": 16,
+    "tooling_gap": 17
+  },
+  "experiment_count": 14,
+  "experiments": [
+    {
+      "blockers": [],
+      "has_blockers": false,
+      "name": "anchor-filter-map"
+    },
+    {
+      "blockers": [
+        {
+          "pattern": "\\bcurrent blocker\\b",
+          "snippet": "Blob wrapper once profiles exist to avoid the earlier `sandbox-exec` roadblock. Current blocker: generating per-entitlement profiles. - Updated harness plan: compile App Sandb",
+          "type": "generic_blocker"
+        },
+        {
+          "pattern": "\\broadblock\\b",
+          "snippet": "e the SBPL/Blob wrapper once profiles exist to avoid the earlier `sandbox-exec` roadblock. Current blocker: generating per-entitlement profiles. - Updated harness plan: ",
+          "type": "generic_blocker"
+        },
+        {
+          "pattern": "sandbox-exec",
+          "snippet": "d blobs) for the signed variants, we can run runtime probes without relying on `sandbox-exec`. - Next action: pick an App Sandbox template, inject entitlements/params to pr",
+          "type": "tooling_gap"
+        },
+        {
+          "pattern": "sandbox-exec",
+          "snippet": "e network/mach probes to capture entitlement-driven deltas. Wrapper path avoids sandbox-exec issues.  # Entitlement Diff \u2013 Research Report  ## Purpose  Trace how selected e",
+          "type": "tooling_gap"
+        },
+        {
+          "pattern": "sandbox-exec",
+          "snippet": "ral deltas; use the SBPL/Blob wrapper once profiles exist to avoid the earlier `sandbox-exec` roadblock. Current blocker: generating per-entitlement profiles. - Updated har",
+          "type": "tooling_gap"
+        },
+        {
+          "pattern": "sandbox-exec",
+          "snippet": "and apply via wrapper for runtime probes (network/mach). SBPL path should avoid sandbox-exec issues; need to produce the per-entitlement SBPL first.",
+          "type": "tooling_gap"
+        }
+      ],
+      "has_blockers": true,
+      "name": "entitlement-diff"
+    },
+    {
+      "blockers": [
+        {
+          "pattern": "node_count=0",
+          "snippet": "which collapse to low IDs). - Negative notes: `v8_all_combo.sb.bin` decodes to `node_count=0` in this pass; `flow_divert_mixed.sb.bin` continues to collapse to a single low",
+          "type": "decoder_limit"
+        },
+        {
+          "pattern": "node_count=0",
+          "snippet": "ent from simplified `flow_divert_*` variants. `v8_all_combo.sb.bin` decodes to `node_count=0` in this pass; `flow_divert_mixed.sb.bin` still collapses to a single low-ID (`",
+          "type": "decoder_limit"
+        },
+        {
+          "pattern": "\\bblocked\\b",
+          "snippet": " sample\u2019s 3584). No graph-walk or predecessor counts yet; edge layout ambiguity blocked that for now.  ### Focused unknown-node census and new probes (2026-02-11)  - A",
+          "type": "generic_blocker"
+        },
+        {
+          "pattern": "\\bblocked\\b",
+          "snippet": "and-walking the graphs. No predecessor/fan-in counts yet; edge layout ambiguity blocked graph-walk classifiers in this pass.  ## Recent probes and focused census (2026",
+          "type": "generic_blocker"
+        },
+        {
+          "pattern": "Ghidra",
+          "snippet": ".  ### Execution note (2026-02-11)  - Kernel path not executed in this session: Ghidra is available, but the evaluator/mask hunt remains to be done; kept as the next ",
+          "type": "kernel_or_ghidra_limit"
+        },
+        {
+          "pattern": "Ghidra",
+          "snippet": "rogram with masks 0x3fff/0x4000/0xc000/0x00ff/0xff00: no hits. Output at `dumps/ghidra/out/14.4.1-23E224/kernel-field2-mask-scan/mask_scan.json`. - Ran `kernel_imm_se",
+          "type": "kernel_or_ghidra_limit"
+        },
+        {
+          "pattern": "Ghidra",
+          "snippet": "i-bit), and 0x2a00 (airlock high). All returned zero hits. Outputs under `dumps/ghidra/out/14.4.1-23E224/kernel-imm-search/`. These negatives suggest the constants ar",
+          "type": "kernel_or_ghidra_limit"
+        },
+        {
+          "pattern": "Ghidra",
+          "snippet": "es; evaluator likely derives flags via other arithmetic or indirect tables.  ## Ghidra pointer  - Target binary: `Sandbox.kext` on 14.4.1 (Apple Silicon), load the ke",
+          "type": "kernel_or_ghidra_limit"
+        },
+        {
+          "pattern": "Ghidra",
+          "snippet": "inary: `Sandbox.kext` on 14.4.1 (Apple Silicon), load the kext\u2019s main binary in Ghidra (ARM64). - Goal: find the policy graph evaluator that walks node records and co",
+          "type": "kernel_or_ghidra_limit"
+        }
+      ],
+      "has_blockers": true,
+      "name": "field2-filters"
+    },
+    {
+      "blockers": [
+        {
+          "pattern": "\\bno callers\\b",
+          "snippet": "est `data_refs.json` shows `com.apple.security.sandbox` at `0x-7ffd22d6e0` with no callers (overwrites per run). - Op-table refresh (Dec 3, no-analysis, process-existing)",
+          "type": "kernel_or_ghidra_limit"
+        },
+        {
+          "pattern": "Ghidra",
+          "snippet": "# Notes  - Ghidra outputs for kernel symbols/strings are relocated to `book/experiments/kernel-sy",
+          "type": "kernel_or_ghidra_limit"
+        }
+      ],
+      "has_blockers": true,
+      "name": "kernel-symbols"
+    },
+    {
+      "blockers": [],
+      "has_blockers": false,
+      "name": "node-layout"
+    },
+    {
+      "blockers": [
+        {
+          "pattern": "sandbox-exec",
+          "snippet": "(SBPL and blob) plus the runtime-checks harness can drive these probes without `sandbox-exec`.      - When probing file-read/write behavior, create fixtures in `/tmp` first",
+          "type": "tooling_gap"
+        }
+      ],
+      "has_blockers": true,
+      "name": "op-table-operation"
+    },
+    {
+      "blockers": [],
+      "has_blockers": false,
+      "name": "op-table-vocab-alignment"
+    },
+    {
+      "blockers": [
+        {
+          "pattern": "node_count=0",
+          "snippet": "traversal and improved slicing:   - Add segment-aware slicing fallback to avoid node_count=0 on complex profiles.   - Use literal anchors (unique paths, mach names, iokit c",
+          "type": "decoder_limit"
+        },
+        {
+          "pattern": "node_count=0",
+          "snippet": "nt-aware slicing fallback (Mach-O offsets for node/literal boundaries) to avoid node_count=0 cases like `v8_all_combo`; record when fallback is used.   - Enforce anchor uni",
+          "type": "decoder_limit"
+        },
+        {
+          "pattern": "node_count=0",
+          "snippet": "iles (better literal/pool detection; fallback to segment-aware slicing to avoid node_count=0). 2. Anchor traversal on literals: scan decoded literals for strong anchors (pa",
+          "type": "decoder_limit"
+        },
+        {
+          "pattern": "node_count=0",
+          "snippet": ".py`), which recovers node regions for complex profiles that previously yielded node_count=0 (e.g., `v8_all_combo`). - Anchor maps and an `anchor_scan` tool are in place. E",
+          "type": "decoder_limit"
+        }
+      ],
+      "has_blockers": true,
+      "name": "probe-op-structure"
+    },
+    {
+      "blockers": [
+        {
+          "pattern": "\\bEPERM\\b",
+          "snippet": " to prefer it over `sandbox-exec`. On this host, `sandbox_init` also fails with EPERM (\u201cOperation not permitted\u201d), so probes still show `deny` from apply failure. Co",
+          "type": "runtime_apply_gate"
+        },
+        {
+          "pattern": "\\bEPERM\\b",
+          "snippet": "literals; runtime probes now pass: foo/bar allowed (exit 0), other denied (open EPERM). Crash resolved. - System profiles still skipped (no SBPL wrapper).  ## 2026-0",
+          "type": "runtime_apply_gate"
+        },
+        {
+          "pattern": "\\bEPERM\\b",
+          "snippet": " still pass; system profiles now apply via wrapper but `sandbox_apply` returns `EPERM` on this host, so all sys probes record deny (wrapper commands succeed, apply f",
+          "type": "runtime_apply_gate"
+        },
+        {
+          "pattern": "\\bEPERM\\b",
+          "snippet": " recorded in `out/runtime_results.json`.  ## 2026-01-XX (platform blob gate)  - EPERM applies only to platform system blobs (`airlock`, `bsd`) when using blob mode; ",
+          "type": "runtime_apply_gate"
+        },
+        {
+          "pattern": "\\bEPERM\\b",
+          "snippet": "rivate/tmp` literals and reader mode. - `sys:airlock`/`bsd`: `airlock` returns `EPERM` even when recompiled from SBPL; `bsd` applies via SBPL/compiled blob (wrapper ",
+          "type": "runtime_apply_gate"
+        },
+        {
+          "pattern": "\\bsandbox_(init|apply)\\b",
+          "snippet": " - On this host, `sandbox-exec` failed to apply both profiles (`exit_code=71`, `sandbox_apply: Operation not permitted`), so all probes show sandbox-apply failure. System pr",
+          "type": "runtime_apply_gate"
+        },
+        {
+          "pattern": "\\bsandbox_(init|apply)\\b",
+          "snippet": "on this host; `sandbox-exec` now fails to apply both bucket profiles (exit 71, `sandbox_apply: Operation not permitted`) despite the shims. All probes record `deny` due to a",
+          "type": "runtime_apply_gate"
+        },
+        {
+          "pattern": "\\bsandbox_(init|apply)\\b",
+          "snippet": "laxed environment to proceed. - Added a local `sandbox_runner` (C shim calling `sandbox_init` on SBPL text, then `execvp`) and teach `run_probes.py` to prefer it over `sand",
+          "type": "runtime_apply_gate"
+        },
+        {
+          "pattern": "\\bsandbox_(init|apply)\\b",
+          "snippet": "vp`) and teach `run_probes.py` to prefer it over `sandbox-exec`. On this host, `sandbox_init` also fails with EPERM (\u201cOperation not permitted\u201d), so probes still show `deny`",
+          "type": "runtime_apply_gate"
+        },
+        {
+          "pattern": "\\bsandbox_(init|apply)\\b",
+          "snippet": "om apply failure. Conclusion: SIP/entitlement gate blocks both sandbox-exec and sandbox_init here; need a different environment or privileges to get runtime traces.  ## 202",
+          "type": "runtime_apply_gate"
+        },
+        {
+          "pattern": "\\bsandbox_(init|apply)\\b",
+          "snippet": "X (after reader switch)  - Added `sandbox_reader` (no exec; applies profile via sandbox_init and reads target). `run_probes.py` uses reader for `file-read*`. - Extended `me",
+          "type": "runtime_apply_gate"
+        },
+        {
+          "pattern": "\\bsandbox_(init|apply)\\b",
+          "snippet": "files and runtime shapes still pass; system profiles now apply via wrapper but `sandbox_apply` returns `EPERM` on this host, so all sys probes record deny (wrapper commands ",
+          "type": "runtime_apply_gate"
+        },
+        {
+          "pattern": "\\bsandbox_(init|apply)\\b",
+          "snippet": "gs/profile_class heuristic). - `wrapper --blob` apply results: `airlock` still `sandbox_apply: Operation not permitted`; `bsd` failed with `execvp` on `/bin/true` in this ru",
+          "type": "runtime_apply_gate"
+        },
+        {
+          "pattern": "\\bsandbox_(init|apply)\\b",
+          "snippet": "ith `execvp` on `/bin/true` in this run (needs a simpler apply-only check), but sandbox_apply via ctypes returned rc=0 earlier. - `sandbox_init` on SBPL text: `bsd` applies ",
+          "type": "runtime_apply_gate"
+        },
+        {
+          "pattern": "\\bsandbox_(init|apply)\\b",
+          "snippet": "mpler apply-only check), but sandbox_apply via ctypes returned rc=0 earlier. - `sandbox_init` on SBPL text: `bsd` applies cleanly; `airlock` fails with `Operation not permi",
+          "type": "runtime_apply_gate"
+        },
+        {
+          "pattern": "\\bblocked\\b",
+          "snippet": "profiles remain skipped (no paths provided). Effective runtime tracing is still blocked.  ## 2025-11-28 (later)  - Added a harness shim in `run_probes.py` to emit runt",
+          "type": "generic_blocker"
+        },
+        {
+          "pattern": "\\bcrash\\b",
+          "snippet": " System profiles still skipped (no SBPL form). Need to debug metafilter profile crash and add SBPL/wrapper for system profiles. - Reworked `metafilter_any` profile t",
+          "type": "generic_blocker"
+        },
+        {
+          "pattern": "\\bcrash\\b",
+          "snippet": "; runtime probes now pass: foo/bar allowed (exit 0), other denied (open EPERM). Crash resolved. - System profiles still skipped (no SBPL wrapper).  ## 2026-01-XX (bl",
+          "type": "generic_blocker"
+        },
+        {
+          "pattern": "sandbox-exec",
+          "snippet": "the matrix.  ## 2025-12-12  - Implemented simple `run_probes.py` harness using `sandbox-exec` against SBPL profiles (`v1_read.sb`, `v11_read_subpath.sb`); creates `/tmp/foo",
+          "type": "tooling_gap"
+        },
+        {
+          "pattern": "sandbox-exec",
+          "snippet": "at/echo probes. Results written to `out/runtime_results.json`. - On this host, `sandbox-exec` failed to apply both profiles (`exit_code=71`, `sandbox_apply: Operation not p",
+          "type": "tooling_gap"
+        },
+        {
+          "pattern": "sandbox-exec",
+          "snippet": "s remain skipped (no SBPL form). Need alternative harness or entitlement to run sandbox-exec under SIP.  ## 2025-11-28  - Re-ran `run_probes.py` under updated Codex permiss",
+          "type": "tooling_gap"
+        },
+        {
+          "pattern": "sandbox-exec",
+          "snippet": "Re-ran `run_probes.py` under updated Codex permissions (full access) to see if `sandbox-exec` could apply profiles. Results still fail at launch: `sandbox-exec` cannot `exe",
+          "type": "tooling_gap"
+        },
+        {
+          "pattern": "sandbox-exec",
+          "snippet": ") to see if `sandbox-exec` could apply profiles. Results still fail at launch: `sandbox-exec` cannot `execvp` the wrapped commands (`cat`, `sh`) with exit 71. For `v1_read`",
+          "type": "tooling_gap"
+        },
+        {
+          "pattern": "sandbox-exec",
+          "snippet": " denies for `/private/tmp/bar` reads and `/tmp/foo` writes to avoid the earlier sandbox-exec abort. - Re-ran `run_probes.py`. Bucket-4 (`v1_read`) now executes: `/etc/hosts",
+          "type": "tooling_gap"
+        },
+        {
+          "pattern": "sandbox-exec",
+          "snippet": "mparison to `out/expected_matrix.json`. - Re-ran `run_probes.py` on this host; `sandbox-exec` now fails to apply both bucket profiles (exit 71, `sandbox_apply: Operation no",
+          "type": "tooling_gap"
+        },
+        {
+          "pattern": "sandbox-exec",
+          "snippet": "init` on SBPL text, then `execvp`) and teach `run_probes.py` to prefer it over `sandbox-exec`. On this host, `sandbox_init` also fails with EPERM (\u201cOperation not permitted\u201d",
+          "type": "tooling_gap"
+        },
+        {
+          "pattern": "sandbox-exec",
+          "snippet": "ll show `deny` from apply failure. Conclusion: SIP/entitlement gate blocks both sandbox-exec and sandbox_init here; need a different environment or privileges to get runtim",
+          "type": "tooling_gap"
+        },
+        {
+          "pattern": "sandbox-exec",
+          "snippet": "tures) and vocab mappings in `book/graph/mappings/`. - Harness: planned use of `sandbox-exec` (SBPL source or compiled blobs) with small driver scripts for filesystem, mach",
+          "type": "tooling_gap"
+        }
+      ],
+      "has_blockers": true,
+      "name": "runtime-checks"
+    },
+    {
+      "blockers": [
+        {
+          "pattern": "\\bEPERM\\b",
+          "snippet": "ptures instead of relying on `sandbox-exec`. - System profiles: airlock remains EPERM on this host; bsd SBPL/compiled blob applies. Consider adding a `bsd`-like prof",
+          "type": "runtime_apply_gate"
+        },
+        {
+          "pattern": "sandbox-exec",
+          "snippet": "pper --blob`; reuse that path for future triple captures instead of relying on `sandbox-exec`. - System profiles: airlock remains EPERM on this host; bsd SBPL/compiled blob",
+          "type": "tooling_gap"
+        },
+        {
+          "pattern": "sandbox-exec",
+          "snippet": "ng: reuse `profile_ingestion.py` for decoding; use a lightweight probe harness (sandbox-exec or local runner) for runtime checks. - Profiles: allow-all/deny-all, deny-excep",
+          "type": "tooling_gap"
+        }
+      ],
+      "has_blockers": true,
+      "name": "sbpl-graph-runtime"
+    },
+    {
+      "blockers": [
+        {
+          "pattern": "\\bno callers\\b",
+          "snippet": "80015ff7a8` (no instruction bytes retrieved yet; likely need disassembly pass). No callers recorded. - Pointer table deep-dive: 512-entry table at `__const` start `0x-7ff",
+          "type": "kernel_or_ghidra_limit"
+        },
+        {
+          "pattern": "\\bno callers\\b",
+          "snippet": "occurrence at file offset `0x52978` (address `0xffffff8000152978` in `__desc`); no callers/xrefs recorded because the data is undefined in Ghidra. Page start (`0xffffff80",
+          "type": "kernel_or_ghidra_limit"
+        },
+        {
+          "pattern": "\\bno references\\b",
+          "snippet": "l extlib=match symsub=match` \u2192 same 3 strings, still 0 symbol hits / externals. No references recorded to those strings. - External library summary is empty (Ghidra reports ",
+          "type": "kernel_or_ghidra_limit"
+        },
+        {
+          "pattern": "\\bno references\\b",
+          "snippet": "ks, customizable queries) surface only the known sandbox/AppleMatch strings and no references or external symbols so far, suggesting AppleMatch imports may use different lib",
+          "type": "kernel_or_ghidra_limit"
+        },
+        {
+          "pattern": "\\bblocked\\b",
+          "snippet": "idra/home` (plus `GHIDRA_JAVA_HOME`) to avoid writing under `~/Library/ghidra` (blocked by the workspace sandbox). - Added `kernel_page_ref_scan.py` (ADRPs/refs into a",
+          "type": "generic_blocker"
+        },
+        {
+          "pattern": "\\bblocked\\b",
+          "snippet": " symbols. No in-text/function refs surfaced, so AppleMatch import pivot remains blocked without deeper GOT/stub analysis. - Tried `kernel_imm_search.py` for `com.apple",
+          "type": "generic_blocker"
+        },
+        {
+          "pattern": "\\bblocked\\b",
+          "snippet": "DRA_JAVA_HOME`), otherwise it tries to write under `~/Library/ghidra/` which is blocked by the workspace sandbox.  ## Planned pivots  - String/import searches for Appl",
+          "type": "generic_blocker"
+        },
+        {
+          "pattern": "Ghidra",
+          "snippet": "nd pivots.  ## 2025-12-30  - Scaffolded experiment (Plan/Notes/ResearchReport). Ghidra inputs: analyzed project `dumps/ghidra/projects/sandbox_14.4.1-23E224`, headles",
+          "type": "kernel_or_ghidra_limit"
+        },
+        {
+          "pattern": "Ghidra",
+          "snippet": " experiment (Plan/Notes/ResearchReport). Ghidra inputs: analyzed project `dumps/ghidra/projects/sandbox_14.4.1-23E224`, headless scripts in `book/api/ghidra/scripts/`",
+          "type": "kernel_or_ghidra_limit"
+        },
+        {
+          "pattern": "Ghidra",
+          "snippet": "ct `dumps/ghidra/projects/sandbox_14.4.1-23E224`, headless scripts in `book/api/ghidra/scripts/`. Next actions: widen string/import queries and collect caller maps.  ",
+          "type": "kernel_or_ghidra_limit"
+        },
+        {
+          "pattern": "Ghidra",
+          "snippet": ". No references recorded to those strings. - External library summary is empty (Ghidra reports no external symbols in the KC import table), so the AppleMatch-import p",
+          "type": "kernel_or_ghidra_limit"
+        },
+        {
+          "pattern": "Ghidra",
+          "snippet": "rofile-parsing paths rather than embedded profile data; need address mapping in Ghidra to inspect callers.  ## 2026-01-01  - Added headless `kernel_addr_lookup.py` to",
+          "type": "kernel_or_ghidra_limit"
+        },
+        {
+          "pattern": "Ghidra",
+          "snippet": "dless needed a writable home dir; set `JAVA_TOOL_OPTIONS=-Duser.home=$PWD/dumps/ghidra/home` (plus `GHIDRA_JAVA_HOME`) to avoid writing under `~/Library/ghidra` (bloc",
+          "type": "kernel_or_ghidra_limit"
+        },
+        {
+          "pattern": "Ghidra",
+          "snippet": "ble home dir; set `JAVA_TOOL_OPTIONS=-Duser.home=$PWD/dumps/ghidra/home` (plus `GHIDRA_JAVA_HOME`) to avoid writing under `~/Library/ghidra` (blocked by the workspace",
+          "type": "kernel_or_ghidra_limit"
+        },
+        {
+          "pattern": "Ghidra",
+          "snippet": "/dumps/ghidra/home` (plus `GHIDRA_JAVA_HOME`) to avoid writing under `~/Library/ghidra` (blocked by the workspace sandbox). - Added `kernel_page_ref_scan.py` (ADRPs/r",
+          "type": "kernel_or_ghidra_limit"
+        },
+        {
+          "pattern": "Ghidra",
+          "snippet": "52978` in `__desc`); no callers/xrefs recorded because the data is undefined in Ghidra. Page start (`0xffffff8000251000`) not found. Next: define that data in Ghidra ",
+          "type": "kernel_or_ghidra_limit"
+        },
+        {
+          "pattern": "Ghidra",
+          "snippet": " Ghidra. Page start (`0xffffff8000251000`) not found. Next: define that data in Ghidra and chase any refs, or search for nearby ADRP/ADD in ARM64 text.  ## 2026-01-03",
+          "type": "kernel_or_ghidra_limit"
+        },
+        {
+          "pattern": "Ghidra",
+          "snippet": "licy_ops via direct table refs.  ## 2026-01-04  - Migrated scripts to `book/api/ghidra/scripts/`; reran `kernel_string_refs.py` via scaffold (`--process-existing --no",
+          "type": "kernel_or_ghidra_limit"
+        },
+        {
+          "pattern": "Ghidra",
+          "snippet": "rget: macOS 14.4.1 (23E224), Apple Silicon, SIP enabled (same baseline as other Ghidra experiments). - Artifacts: `dumps/Sandbox-private/14.4.1-23E224/kernel/BootKern",
+          "type": "kernel_or_ghidra_limit"
+        },
+        {
+          "pattern": "Ghidra",
+          "snippet": "rtifacts: `dumps/Sandbox-private/14.4.1-23E224/kernel/BootKernelExtensions.kc`, Ghidra project `dumps/ghidra/projects/sandbox_14.4.1-23E224`. - Tooling: headless Ghid",
+          "type": "kernel_or_ghidra_limit"
+        },
+        {
+          "pattern": "Ghidra",
+          "snippet": "ox-private/14.4.1-23E224/kernel/BootKernelExtensions.kc`, Ghidra project `dumps/ghidra/projects/sandbox_14.4.1-23E224`. - Tooling: headless Ghidra scripts in `book/ap",
+          "type": "kernel_or_ghidra_limit"
+        },
+        {
+          "pattern": "Ghidra",
+          "snippet": "idra project `dumps/ghidra/projects/sandbox_14.4.1-23E224`. - Tooling: headless Ghidra scripts in `book/api/ghidra/scripts/` (string refs, tag switch, op-table), `sca",
+          "type": "kernel_or_ghidra_limit"
+        },
+        {
+          "pattern": "Ghidra",
+          "snippet": "rojects/sandbox_14.4.1-23E224`. - Tooling: headless Ghidra scripts in `book/api/ghidra/scripts/` (string refs, tag switch, op-table), `scaffold.py` with `--process-ex",
+          "type": "kernel_or_ghidra_limit"
+        },
+        {
+          "pattern": "Ghidra",
+          "snippet": "lue. - Practical note: headless needs `JAVA_TOOL_OPTIONS=-Duser.home=$PWD/dumps/ghidra/home` (plus `GHIDRA_JAVA_HOME`), otherwise it tries to write under `~/Library/g",
+          "type": "kernel_or_ghidra_limit"
+        },
+        {
+          "pattern": "Ghidra",
+          "snippet": "e: headless needs `JAVA_TOOL_OPTIONS=-Duser.home=$PWD/dumps/ghidra/home` (plus `GHIDRA_JAVA_HOME`), otherwise it tries to write under `~/Library/ghidra/` which is blo",
+          "type": "kernel_or_ghidra_limit"
+        },
+        {
+          "pattern": "Ghidra",
+          "snippet": "a/home` (plus `GHIDRA_JAVA_HOME`), otherwise it tries to write under `~/Library/ghidra/` which is blocked by the workspace sandbox.  ## Planned pivots  - String/impor",
+          "type": "kernel_or_ghidra_limit"
+        },
+        {
+          "pattern": "Ghidra",
+          "snippet": "as immediates in code rather than as embedded profile headers; mapping these to Ghidra addresses may reveal profile parsing paths. - Offset\u2192address lookup shows those",
+          "type": "kernel_or_ghidra_limit"
+        }
+      ],
+      "has_blockers": true,
+      "name": "symbol-search"
+    },
+    {
+      "blockers": [],
+      "has_blockers": false,
+      "name": "system-profile-digest"
+    },
+    {
+      "blockers": [],
+      "has_blockers": false,
+      "name": "tag-layout-decode"
+    },
+    {
+      "blockers": [],
+      "has_blockers": false,
+      "name": "vocab-from-cache"
+    }
+  ]
+}

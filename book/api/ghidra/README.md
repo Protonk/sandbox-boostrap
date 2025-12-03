@@ -45,6 +45,7 @@ Addressing and script-only passes:
 - The `kernel_data_define_and_refs.py` script expects each target as `addr:<hex>` using unsigned hex (for example, `addr:0xffffff800020ef10`). Passing `0x-...` or omitting the `addr:` prefix will result in “processed 0 targets.”
 - To avoid repeating long analysis, run `--process-existing --no-analysis` once a project is fully analyzed; this skips analyzers and only executes the script against the saved project.
 - Outputs for data-define land at `dumps/ghidra/out/<build>/kernel-data-define/data_refs.json` with the per-address data type/value and callers.
+- `kernel_field2_mask_scan.py` searches sandbox code for mask immediates (defaults: 0x3fff, 0x4000, 0xc000) to surface potential filter_arg/field2 flag handling. Args: `<out_dir> <build_id> [mask_hex ...] [all]`.
 
 Analyzer trimming and pre-scripts:
 - `analyzeHeadless` 11.4.2 does not accept `-analysisProperties`; instead use a pre-script. A helper `disable_x86_analyzers.py` lives in `book/api/ghidra/scripts/`—run it via `--pre-script disable_x86_analyzers.py` (scaffold/connector) to turn off the x86-only analyzers before analysis begins.

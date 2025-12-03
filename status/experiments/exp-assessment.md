@@ -1,0 +1,34 @@
+## Observed traits
+
+- Experiments are organized as small, self-contained research clusters, each with a `Plan.md`, `Notes.md`, and `ResearchReport.md` that state purpose, scope, baseline, and current status.
+- Nearly all experiments emit machine-readable artifacts in an `out/` directory (typically JSON) that capture inventories, histograms, summaries, or manifests derived from compiled profiles, vocab tables, or kernel/dyld analysis.
+- The collective baseline is explicitly host-bound: macOS 14.4.1 (23E224), Apple Silicon, SIP enabled; experiments frame their findings as specific to this PolicyGraph and vocabulary snapshot rather than as cross-version lore.
+- Static decoding dominates: most experiments focus on SBPL→compiled profile structure, operation pointer tables, node tags, `field2`, and vocab extraction, treating those as primary evidence and leaving dynamic semantics and lifecycle claims clearly marked as partial or brittle.
+- Experiments are tightly coupled to shared mappings under `book/graph/mappings/*` (vocab, op-table, tag layouts, anchors, system-profile digests) and either consume or produce these artifacts as part of a larger static atlas.
+- Guardrails are a recurring pattern: many experiments add tests or check scripts (for example under `tests/test_mappings_guardrail.py` or local helpers like `check_vocab.py`) that assert the presence and basic shape of their derived mappings on this host.
+- Cross-experiment reuse is intentional: outputs from one cluster (e.g., `probe-op-structure`, `field2-filters`, `node-layout`, `op-table-operation`, `vocab-from-cache`) are used as inputs by others (`anchor-filter-map`, `op-table-vocab-alignment`, `system-profile-digest`, runtime harnesses), forming a shared evidence pipeline.
+- Only a minority of experiments are runtime-heavy (`runtime-checks`, `sbpl-graph-runtime`, early `entitlement-diff`); even there, runtime behavior is treated as fragile and carefully scoped, with apply failures and mismatches recorded as environment facts rather than ignored.
+- Kernel and entitlement/lifecycle work appear, but consistently labeled as provisional: symbol-search and kernel-symbols runs inventory candidates and string/symbol pivots without upgrading any one function to “the” PolicyGraph dispatcher, and entitlement-driven behavior remains an open pipeline rather than an assumed mapping.
+
+## Goals
+
+The following are project-level goals for experiment guidance—areas where we want clearer expectations, and which can be turned into concrete questions to ask of every experiment:
+
+- **Experiment lifecycle and maturity model** – Make explicit the phases an experiment is expected to move through (scaffolded → data pass → mapping published under `book/graph/mappings/*` → guardrail in `tests/` → referenced in chapters/addendum), and define criteria for “done for now” vs “exploratory.”
+- **Evidence levels and validation policy** – Tie experiments to the project’s evidence levels (empirically anchored / literature-based / model-only) and to mapping `status` fields (`ok`, `partial`, `blocked`, `brittle`), so that experiments clearly advertise what kind of evidence they provide and how firm it is.
+- **Concept inventory coverage expectations** – Map experiments to concept clusters (Operations, Filters, PolicyGraph structure, Profile Layers, Runtime Lifecycle, Kernel Dispatch, etc.) and set expectations that each experiment declares which concepts it is trying to witness and how.
+- **Integration with chapters and addendum** – Clarify how and when experiments are expected to feed into narrative chapters and the planned “Experiment and Probe Index,” including naming and stability expectations once an experiment is treated as a canonical example.
+- **Guardrail and test conventions** – Establish norms that publishing a mapping or runtime artifact implies adding guardrail tests of a particular kind (presence, shape, or value checks), and make current patterns in `tests/` explicit.
+- **Role boundaries vs `examples/` and `api/`** – Define how `book/experiments/` should differ from `book/examples/` and `book/api/`, including when experiments may introduce local harness code vs when they should rely on shared APIs (decoder, SBPL wrapper, Ghidra connector).
+- **Runtime vs static vs kernel experiment expectations** – Articulate different success criteria and caution language for static mapping experiments, runtime behavior experiments, and kernel/Ghidra experiments, reflecting the current reality that static mappings can often reach `status: ok` while runtime/kernel work may remain partial.
+- **Agent behavior and logging norms** – Encode expectations that agents log dead ends, environment blockers, and negative results in `Notes.md` / `ResearchReport.md` rather than erasing them, and that updates to existing experiments preserve provenance and host metadata.
+
+## Perceived goal
+
+Taken together, the experiments appear to be building a host-specific, evidence-backed atlas that ties the substrate’s Seatbelt concepts to concrete artifacts on this Sonoma baseline, from SBPL text through compiled PolicyGraphs and op/Filter vocabularies down to limited runtime observations.
+
+- At the static layer, clusters like `vocab-from-cache`, `node-layout`, `op-table-operation`, `op-table-vocab-alignment`, `tag-layout-decode`, `field2-filters`, `anchor-filter-map`, `probe-op-structure`, and `system-profile-digest` collectively aim to fix the shape of compiled profiles on this host: the operation and filter vocabularies, op-table indexing, node tag layouts, `field2` roles, anchor semantics, and canonical system-profile digests.
+- At the runtime and lifecycle edge, experiments such as `runtime-checks`, `sbpl-graph-runtime`, and `entitlement-diff` are trying to turn a small, curated subset of those static profiles into “golden” SBPL ↔ graph ↔ runtime triples and entitlement-driven deltas, while explicitly documenting where apply gates and environment quirks block clean stories.
+- Kernel-facing work (`kernel-symbols`, `symbol-search`) appears aimed at eventually anchoring the PolicyGraph evaluator and related helpers inside `BootKernelExtensions.kc`, so that static graphs and vocab mappings can be connected to concrete dispatcher and AppleMatch call sites without overclaiming before the evidence is there.
+- Across the suite, a common goal is to produce reusable, versioned mappings under `book/graph/mappings/*` plus lightweight guardrail tests, so that the textbook can rely on a small set of stable artifacts (vocab maps, tag layouts, anchor maps, system-profile digests, runtime traces) instead of ad-hoc reverse-engineering notes.
+- In aggregate, the experiments are trying to compress the high-churn details of this one host into a disciplined set of structural facts and cautiously labeled dynamic examples that can serve as the backbone for SANDBOX_LORE’s eventual “golden” case studies and capability catalogs.

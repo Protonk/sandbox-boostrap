@@ -1,0 +1,160 @@
+{
+  "experiment_count": 14,
+  "experiments": [
+    {
+      "doc_run_instructions": false,
+      "entry_scripts": [],
+      "external_deps": [],
+      "has_entry_scripts": false,
+      "name": "anchor-filter-map",
+      "shell_commands": []
+    },
+    {
+      "doc_run_instructions": false,
+      "entry_scripts": [],
+      "external_deps": [
+        "codesign",
+        "sandbox-exec",
+        "sbpl-wrapper"
+      ],
+      "has_entry_scripts": false,
+      "name": "entitlement-diff",
+      "shell_commands": []
+    },
+    {
+      "doc_run_instructions": false,
+      "entry_scripts": [
+        "harvest_field2.py",
+        "unknown_focus.py"
+      ],
+      "external_deps": [
+        "ghidra"
+      ],
+      "has_entry_scripts": true,
+      "name": "field2-filters",
+      "shell_commands": []
+    },
+    {
+      "doc_run_instructions": false,
+      "entry_scripts": [],
+      "external_deps": [
+        "ghidra"
+      ],
+      "has_entry_scripts": false,
+      "name": "kernel-symbols",
+      "shell_commands": []
+    },
+    {
+      "doc_run_instructions": false,
+      "entry_scripts": [
+        "analyze.py"
+      ],
+      "external_deps": [],
+      "has_entry_scripts": true,
+      "name": "node-layout",
+      "shell_commands": []
+    },
+    {
+      "doc_run_instructions": true,
+      "entry_scripts": [
+        "analyze.py"
+      ],
+      "external_deps": [
+        "sandbox-exec",
+        "sbpl-wrapper"
+      ],
+      "has_entry_scripts": true,
+      "name": "op-table-operation",
+      "shell_commands": []
+    },
+    {
+      "doc_run_instructions": false,
+      "entry_scripts": [
+        "update_alignment.py"
+      ],
+      "external_deps": [],
+      "has_entry_scripts": true,
+      "name": "op-table-vocab-alignment",
+      "shell_commands": []
+    },
+    {
+      "doc_run_instructions": false,
+      "entry_scripts": [
+        "analyze_profiles.py",
+        "anchor_scan.py",
+        "map_literal_refs.py",
+        "tag_inventory.py",
+        "tag_layout_hypotheses.py"
+      ],
+      "external_deps": [],
+      "has_entry_scripts": true,
+      "name": "probe-op-structure",
+      "shell_commands": []
+    },
+    {
+      "doc_run_instructions": false,
+      "entry_scripts": [
+        "run_probes.py"
+      ],
+      "external_deps": [
+        "sandbox-exec",
+        "sbpl-wrapper"
+      ],
+      "has_entry_scripts": true,
+      "name": "runtime-checks",
+      "shell_commands": []
+    },
+    {
+      "doc_run_instructions": false,
+      "entry_scripts": [],
+      "external_deps": [
+        "file_probe",
+        "sandbox-exec",
+        "sbpl-wrapper"
+      ],
+      "has_entry_scripts": false,
+      "name": "sbpl-graph-runtime",
+      "shell_commands": []
+    },
+    {
+      "doc_run_instructions": false,
+      "entry_scripts": [],
+      "external_deps": [
+        "ghidra"
+      ],
+      "has_entry_scripts": false,
+      "name": "symbol-search",
+      "shell_commands": []
+    },
+    {
+      "doc_run_instructions": false,
+      "entry_scripts": [],
+      "external_deps": [],
+      "has_entry_scripts": false,
+      "name": "system-profile-digest",
+      "shell_commands": []
+    },
+    {
+      "doc_run_instructions": false,
+      "entry_scripts": [],
+      "external_deps": [],
+      "has_entry_scripts": false,
+      "name": "tag-layout-decode",
+      "shell_commands": []
+    },
+    {
+      "doc_run_instructions": true,
+      "entry_scripts": [
+        "check_vocab.py",
+        "harvest_filters.py",
+        "harvest_ops.py"
+      ],
+      "external_deps": [
+        "dsc_extractor"
+      ],
+      "has_entry_scripts": true,
+      "name": "vocab-from-cache",
+      "shell_commands": []
+    }
+  ]
+}

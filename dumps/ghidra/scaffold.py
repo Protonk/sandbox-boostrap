@@ -122,6 +122,12 @@ TASKS: Dict[str, TaskConfig] = {
         import_target="kernel",
         description="Search instructions for a given immediate (scalar) value.",
     ),
+    "kernel-field2-mask-scan": TaskConfig(
+        name="kernel-field2-mask-scan",
+        script="kernel_field2_mask_scan.py",
+        import_target="kernel",
+        description="Search sandbox code for mask immediates (field2/filter_arg flags).",
+    ),
     "kernel-data-define": TaskConfig(
         name="kernel-data-define",
         script="kernel_data_define_and_refs.py",
