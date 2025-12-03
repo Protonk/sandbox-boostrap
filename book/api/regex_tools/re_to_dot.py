@@ -107,7 +107,8 @@ def parse_re(blob: bytes) -> Graph:
 
 def graph_to_dot(g: Graph) -> str:
     lines = ["digraph regex {", '  rankdir=LR;', '  node [shape=box, fontname="Menlo"];']
-    for node in sorted(g.edges.keys()):
+    nodes = set(g.edges.keys()) | set(g.tags.keys())
+    for node in sorted(nodes):
         tag = g.tags.get(node, ("?", None))
         label = tag[0]
         if tag[1]:

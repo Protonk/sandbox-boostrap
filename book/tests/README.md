@@ -13,6 +13,7 @@ We use pytest for lightweight sanity checks across the examples, validation util
 - `test_examples.py`: wraps example demos (compile sample profiles, extract system profiles) and asserts outputs exist. Marks system-dependent tests.
 - `test_validation.py`: structural checks using curated fixtures (op_table length, section sizes) via the validation decoder/fixtures.
 - `test_experiments.py`: sanity checks over experiment outputs (e.g., JSON artifacts exist and contain expected keys).
+- `test_op_table_api.py`: op_table CLI/system smoke plus alignment builder unit check.
 
 ## Notes for contributors
 

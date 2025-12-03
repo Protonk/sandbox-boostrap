@@ -26,6 +26,7 @@ This experiment focuses on that gap:
 - Treat raw op-table entries as **opaque bucket labels**, not Operation IDs.
 - Use decoder-backed per-entry “signatures” (tag/literal patterns) as structural fingerprints.
 - Prepare the ground for later vocabulary-mapping work that will supply real Operation IDs.
+- Shared tooling: for new blob summaries (op_table entries, tag counts, literals, entry signatures), prefer `book/api/op_table` (CLI or Python) over extending `analyze.py`.
 
 We intentionally avoid guessing a full Operation Vocabulary Map; that belongs to `book/graph/concepts/validation` once canonical artifacts exist.
 

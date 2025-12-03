@@ -8,5 +8,7 @@ You are in `book/api/`, the API/tooling layer for the Seatbelt textbook. This fi
 - `ghidra/` — connector for Seatbelt-focused Ghidra headless tasks (wraps `dumps/ghidra` scripts with a registry and runner).
 - `sbpl_compile/` — canonical libsandbox compile helpers (Python CLI + C reference) used by examples and experiments to emit `.sb.bin` blobs.
 - `regex_tools/` — legacy AppleMatch extract/visualize helpers (`extract_legacy.py`, `re_to_dot.py`) for decision-tree profiles.
+- `inspect_profile/` — read-only blob inspector (section sizes, op table entries, stride/tag stats, literals, decoder echo), CLI + Python.
+- `op_table/` — op-table analysis helpers (ops/filters parsing, entry signatures, vocab alignment) with CLI.
 
 For vocabulary, lifecycle, and concept discipline, step up to `substrate/AGENTS.md`.

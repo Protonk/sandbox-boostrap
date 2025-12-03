@@ -87,8 +87,9 @@ These tools give us a consistent “slice + decode” view of modern profiles th
   - Recorded, for the baseline blob:
   - `operation_count` from the heuristic header and approximate op-table length (`op_count * 2` bytes).
   - Node and literal region lengths.
-  - Stride scans (8/12/16 bytes) with tag sets and in-bounds edge rates.
-  - Persisted these observations via `analyze.py` and `out/summary.json`, with narrative in `Notes.md`.
+- Stride scans (8/12/16 bytes) with tag sets and in-bounds edge rates.
+- Persisted these observations via `analyze.py` and `out/summary.json`, with narrative in `Notes.md`.
+- For ad hoc blob snapshots (section sizes, op-table entries, stride/tag stats, literals), prefer the shared `book/api/inspect_profile` CLI/Python helper over re-implementing parsers here.
 - **2. Synthetic SBPL variants**
   - Added a family of variants under `sb/`:
   - Baseline `file-read*` profile.

@@ -14,11 +14,7 @@ def iter_instructions(listing, func):
     return listing.getInstructions(func.getBody(), True)
 
 
-def looks_like_reader(listing, func):
-    # Heuristic: small helper containing ldrb+ldrh and no masking/bit-tests.
-    body_size = func.getBody().getNumAddresses()
-    if body_size > 128:
-        return False
+def analyze_function(listing, func):
     has_ldrb = False
     has_ldrh = False
     has_mask = False
@@ -30,13 +26,13 @@ def looks_like_reader(listing, func):
             has_ldrh = True
         elif m.startswith("and") or m.startswith("tst") or m.startswith("ubfx"):
             has_mask = True
-    return has_ldrb and has_ldrh and not has_mask
+    return has_ldrb, has_ldrh, has_mask
 
 
 def dump_instructions(listing, func):
     lines = []
     for instr in iter_instructions(listing, func):
-        lines.append(f"{instr.getAddress()}: {instr}")
+        lines.append("%s: %s" % (instr.getAddress(), instr))
     return lines
 
 
@@ -52,13 +48,70 @@ def run():
 
     listing = currentProgram.getListing()
 
-    helper = None
-    for func in listing.getFunctions(True):
-        if looks_like_reader(listing, func):
-            helper = func
-            break
+    instr_iter = listing.getInstructions(True)
+    instr_count = 0
+    for _ in instr_iter:
+        instr_count += 1
 
-    summary = {"build_id": build_id, "helper": None, "evaluator": None, "callers": []}
+    func_iter = listing.getFunctions(True)
+    funcs = []
+    while func_iter.hasNext():
+        funcs.append(func_iter.next())
+
+    candidates = []
+    ref_mgr = currentProgram.getReferenceManager()
+    func_mgr = currentProgram.getFunctionManager()
+
+    for func in funcs:
+        has_ldrb, has_ldrh, has_mask = analyze_function(listing, func)
+        if has_ldrb and has_ldrh:
+            size = func.getBody().getNumAddresses()
+            caller_funcs = set()
+            for ref in ref_mgr.getReferencesTo(func.getEntryPoint()):
+                caller = func_mgr.getFunctionContaining(ref.getFromAddress())
+                if caller:
+                    caller_funcs.add(caller)
+            candidates.append(
+                {
+                    "func": func,
+                    "size": size,
+                    "has_mask": has_mask,
+                    "caller_count": len(caller_funcs),
+                }
+            )
+
+    summary = {
+        "build_id": build_id,
+        "helper": None,
+        "evaluator": None,
+        "callers": [],
+        "candidates": [],
+        "function_count": len(funcs),
+        "instruction_count": instr_count,
+    }
+
+    candidates_sorted = sorted(candidates, key=lambda c: (c["has_mask"], c["size"]))
+    for cand in candidates_sorted[:5]:
+        summary["candidates"].append(
+            {
+                "name": cand["func"].getName(),
+                "address": str(cand["func"].getEntryPoint()),
+                "size": cand["size"],
+                "has_mask": cand["has_mask"],
+                "caller_count": cand["caller_count"],
+            }
+        )
+
+    helper = None
+    # Prefer widely-used small helpers with no masking.
+    widest = sorted(
+        [c for c in candidates if not c["has_mask"] and c["size"] <= 256],
+        key=lambda c: (-c["caller_count"], c["size"]),
+    )
+    if widest:
+        helper = widest[0]["func"]
+    elif candidates_sorted:
+        helper = candidates_sorted[0]["func"]  # fallback to smallest candidate
 
     if helper:
         helper_path = os.path.join(out_dir, "helper.txt")
@@ -99,7 +152,7 @@ def run():
     out_path = os.path.join(out_dir, "field2_evaluator.json")
     with open(out_path, "w") as fh:
         json.dump(summary, fh, indent=2)
-    print(f"[+] wrote {out_path}")
+    print("[+] wrote %s" % out_path)
 
 
 if __name__ == "__main__":

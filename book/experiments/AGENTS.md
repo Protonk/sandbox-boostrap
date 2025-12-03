@@ -28,6 +28,9 @@ Each subdirectory under `book/experiments/` is a host-specific experiment. They 
 
 New experiments should follow the same pattern: a dedicated directory with its own `Report.md`, `Notes.md`, and local `out/` for artifacts, plugged into the shared mapping layer under `book/graph/mappings/` once results are stable.
 
+Shared tooling tip:
+- For quick blob snapshots (section sizes, op-table entries, stride/tag stats, literals), use `book/api/inspect_profile` (CLI or Python) instead of duplicating parsers.
+
 ## What makes a good experiment here
 
 A good experiment is:
@@ -81,4 +84,3 @@ When working under `book/experiments/`, agents should avoid:
 
 - **Timestamps/dates in `Notes.md`**
   - When appending new notes, avoid including explicit timestamps or dates in `Notes.md`.
-
