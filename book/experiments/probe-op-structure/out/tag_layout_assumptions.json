@@ -5,7 +5,7 @@
       "record_size_bytes": 12,
       "edge_fields": [0, 1],
       "payload_fields": [2],
-      "status": "hypothesis",
+      "status": "partial",
       "evidence": "Edges fully in-bounds at stride 12/16 across probes; field2 hist stable (values 5/6) regardless of stride. No literal/regex linkage yet.",
       "notes": "Treat fields[0] and fields[1] as edges, fields[2] as field2 key. Pending literal/regex operand mapping."
     },
@@ -14,18 +14,18 @@
       "record_size_bytes": 12,
       "edge_fields": [0, 1],
       "payload_fields": [2],
-      "status": "hypothesis",
+      "status": "partial",
       "evidence": "Edges fully in-bounds at stride 12/16 across probes; field2 hist skewed to 5/6 with occasional 0/3. No literal/regex linkage yet.",
       "notes": "Same layout as tag5 for now; treat fields[2] as field2 key. Pending literal/regex operand mapping."
     },
     {
       "tag": 26,
-      "status": "pending",
+      "status": "blocked",
       "notes": "High-tag system nodes; stride-12 yields more records with partial in-bounds edges; stride-16 yields fewer records with edges in-bounds. Layout unresolved."
     },
     {
       "tag": 27,
-      "status": "pending",
+      "status": "blocked",
       "notes": "High-tag system nodes; stride ambiguity similar to tag26. Layout unresolved."
     }
   ],

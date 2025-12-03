@@ -1,6 +1,6 @@
 {
   "bucket4:v1_read": {
-    "status": "completed",
+    "status": "blocked",
     "profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
     "base_profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/op-table-operation/sb/v1_read.sb",
     "probes": [
@@ -49,10 +49,11 @@
         "stdout": "",
         "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n"
       }
-    ]
+    ],
+    "notes": "sandbox_init/sandbox_apply returned EPERM"
   },
   "bucket5:v11_read_subpath": {
-    "status": "completed",
+    "status": "blocked",
     "profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
     "base_profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/op-table-operation/sb/v11_read_subpath.sb",
     "probes": [
@@ -101,10 +102,11 @@
         "stdout": "",
         "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n"
       }
-    ]
+    ],
+    "notes": "sandbox_init/sandbox_apply returned EPERM"
   },
   "sys:bsd": {
-    "status": "completed",
+    "status": "blocked",
     "profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/examples/extract_sbs/build/profiles/bsd.sb.bin",
     "base_profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/examples/extract_sbs/build/profiles/bsd.sb.bin",
     "probes": [
@@ -180,10 +182,11 @@
         "stdout": "",
         "stderr": "sandbox_apply: Operation not permitted\n"
       }
-    ]
+    ],
+    "notes": "sandbox_init/sandbox_apply returned EPERM"
   },
   "sys:airlock": {
-    "status": "completed",
+    "status": "blocked",
     "profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/examples/extract_sbs/build/profiles/airlock.sb.bin",
     "base_profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/examples/extract_sbs/build/profiles/airlock.sb.bin",
     "probes": [
@@ -259,14 +262,15 @@
         "stdout": "",
         "stderr": "sandbox_apply: Operation not permitted\n"
       }
-    ]
+    ],
+    "notes": "sandbox_init/sandbox_apply returned EPERM"
   },
   "sys:sample": {
-    "status": "skipped",
-    "reason": "no profile path"
+    "status": "blocked",
+    "notes": "no profile path"
   },
   "runtime:allow_all": {
-    "status": "completed",
+    "status": "blocked",
     "profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/allow_all.runtime_allow_all.runtime.sb",
     "base_profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/sbpl-graph-runtime/profiles/allow_all.sb",
     "probes": [
@@ -329,10 +333,11 @@
         "stdout": "",
         "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n"
       }
-    ]
+    ],
+    "notes": "sandbox_init/sandbox_apply returned EPERM"
   },
   "runtime:metafilter_any": {
-    "status": "completed",
+    "status": "blocked",
     "profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
     "base_profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/sbpl-graph-runtime/profiles/metafilter_any.sb",
     "probes": [
@@ -378,6 +383,7 @@
         "stdout": "",
         "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n"
       }
-    ]
+    ],
+    "notes": "sandbox_init/sandbox_apply returned EPERM"
   }
 }

@@ -39,7 +39,7 @@ Context: headless runs against `dumps/Sandbox-private/14.4.1-23E224/` via `dumps
 - Pointer tables: `python3 dumps/ghidra/scaffold.py kernel-op-table --java-home $JAVA_HOME --no-analysis --exec`
 - Tag switch (needs functions): drop `--no-analysis` for a slower but populated run.
 - Data define (script-only against existing project): `PYTHONPATH=$PWD GHIDRA_HEADLESS=$GHIDRA_HEADLESS JAVA_HOME=$JAVA_HOME python3 book/api/ghidra/run_data_define.py --address addr:0xffffff800020ef10 --process-existing --no-analysis --timeout 900`
-- Full analysis with x86 analyzers disabled: add `--pre-script disable_x86_analyzers.py` and explicitly set `--processor` to the ARM64 language for the KC (for example, `AARCH64:LE:64:AppleSilicon`) to skip x86-only passes on Apple Silicon.
+- Full analysis with x86 analyzers disabled: add `--pre-script disable_x86_analyzers.py` and explicitly set `--processor` to the ARM64 language for the KC (for example, `AARCH64:LE:64:AppleSilicon`) to skip x86-only passes on Apple Silicon. The convenience wrapper `python3 book/api/ghidra/run_task.py <task> --exec` applies these defaults unless overridden.
 - Outputs land under `dumps/ghidra/out/14.4.1-23E224/<task>/`; project at `dumps/ghidra/projects/sandbox_14.4.1-23E224`; user config at `dumps/ghidra/user/`.
 
 ## Remaining cautions

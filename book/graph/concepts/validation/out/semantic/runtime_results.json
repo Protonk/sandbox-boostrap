@@ -1,6 +1,6 @@
 {
   "allow_all.sb": {
-    "status": "completed",
+    "status": "partial",
     "profile": "book/experiments/sbpl-graph-runtime/profiles/allow_all.sb",
     "probes": [
       {
@@ -57,10 +57,11 @@
           "/etc/hosts"
         ]
       }
-    ]
+    ],
+    "notes": "Runtime probes matched expectations; harness still provisional for semantic validation."
   },
   "deny_all.sb": {
-    "status": "completed",
+    "status": "partial",
     "profile": "book/experiments/sbpl-graph-runtime/profiles/deny_all.sb",
     "probes": [
       {
@@ -99,10 +100,11 @@
           "/tmp/sbpl_rt/write.txt"
         ]
       }
-    ]
+    ],
+    "notes": "Expected denies returned allow; runtime harness not trusted for strict semantics."
   },
   "deny_except_tmp.sb": {
-    "status": "completed",
+    "status": "partial",
     "profile": "book/experiments/sbpl-graph-runtime/profiles/deny_except_tmp.sb",
     "probes": [
       {
@@ -177,10 +179,11 @@
           "/tmp/deny.txt"
         ]
       }
-    ]
+    ],
+    "notes": "Mixed allow/deny results; runtime harness provisional."
   },
   "metafilter_any.sb": {
-    "status": "completed",
+    "status": "partial",
     "profile": "book/experiments/sbpl-graph-runtime/profiles/metafilter_any.sb",
     "probes": [
       {
@@ -237,10 +240,11 @@
           "/tmp/baz.txt"
         ]
       }
-    ]
+    ],
+    "notes": "Metafilter probes partly matched; runtime harness provisional."
   },
   "param_path.sb": {
-    "status": "skipped",
+    "status": "blocked",
     "reason": "probe lacks param injection"
   }
 }

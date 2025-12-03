@@ -48,4 +48,14 @@ Addressing and script-only passes:
 
 Analyzer trimming and pre-scripts:
 - `analyzeHeadless` 11.4.2 does not accept `-analysisProperties`; instead use a pre-script. A helper `disable_x86_analyzers.py` lives in `book/api/ghidra/scripts/`—run it via `--pre-script disable_x86_analyzers.py` (scaffold/connector) to turn off the x86-only analyzers before analysis begins.
-- For Apple Silicon KC imports, explicitly set the processor (for example, `--processor AARCH64:LE:64:AppleSilicon` if available in your Ghidra build) to avoid x86-language auto-detection and keep x86 analyzers from running.
+- For Apple Silicon KC imports, explicitly set the processor (for example, `--processor AARCH64:LE:64:AppleSilicon` if available in your Ghidra build) to avoid x86-language auto-detection and keep x86 analyzers from running. The `run_task.py` helper defaults to this processor and adds the disable-x86 pre-script unless you opt out.
+
+Convenience runner:
+- `book/api/ghidra/run_task.py` wraps `HeadlessConnector` with repo defaults (ARM64 processor + disable_x86 pre-script). Example:
+  ```
+  GHIDRA_HEADLESS=/opt/homebrew/opt/ghidra/libexec/support/analyzeHeadless \
+  JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home \
+  PYTHONPATH=$PWD \
+  python3 book/api/ghidra/run_task.py kernel-symbols --exec
+  ```
+  Use `--process-existing --no-analysis` to reuse an analyzed project, `--no-pre-scripts` to skip the x86-disabling helper, and `--pre-script`/`--processor` to override defaults.

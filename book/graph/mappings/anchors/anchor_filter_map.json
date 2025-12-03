@@ -7,7 +7,7 @@
       "machine": "arm64"
     },
     "generated": "manual-2025-12-11",
-    "notes": "First-pass anchor → filter map using probe-op-structure anchor hits and filter vocab. Ambiguous anchors are conservatively pinned when used as path literals."
+    "notes": "First-pass anchor \u2192 filter map using probe-op-structure anchor hits and filter vocab. Ambiguous anchors are conservatively pinned when used as path literals."
   },
   "/tmp/foo": {
     "filter_name": "path",
@@ -22,7 +22,7 @@
       "probe:v1_file_require_any",
       "probe:v2_file_three_filters_any"
     ],
-    "status": "mapped",
+    "status": "partial",
     "notes": "Conservatively pinned to path for file-read probes despite mixed candidates."
   },
   "/etc/hosts": {
@@ -41,7 +41,7 @@
       "probe:v2_file_three_filters_any",
       "sys:sample"
     ],
-    "status": "mapped",
+    "status": "partial",
     "notes": "Pinned to path for host path probes; other candidates remain possible."
   },
   "/var/log": {
@@ -53,7 +53,7 @@
     "field2_values": [
       4
     ],
-    "status": "mapped"
+    "status": "partial"
   },
   "com.apple.cfprefsd.agent": {
     "candidates": [
@@ -72,7 +72,7 @@
       "probe:v3_mach_global_local",
       "probe:v6_file_mach_combo"
     ],
-    "status": "ambiguous"
+    "status": "blocked"
   },
   "flow-divert": {
     "candidates": [
@@ -88,7 +88,7 @@
       "probe:v4_network_socket_require_all",
       "probe:v7_file_network_combo"
     ],
-    "status": "ambiguous"
+    "status": "blocked"
   },
   "IOUSBHostInterface": {
     "candidates": [
@@ -104,7 +104,7 @@
     "sources": [
       "probe:v5_iokit_class_property"
     ],
-    "status": "ambiguous"
+    "status": "blocked"
   },
   "idVendor": {
     "filter_name": "local-name",
@@ -115,7 +115,7 @@
     "field2_values": [
       6
     ],
-    "status": "mapped"
+    "status": "partial"
   },
   "preferences/logging": {
     "filter_name": "global-name",
@@ -126,6 +126,6 @@
     "field2_values": [
       5
     ],
-    "status": "mapped"
+    "status": "partial"
   }
 }

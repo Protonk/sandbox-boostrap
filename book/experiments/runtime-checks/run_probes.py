@@ -89,6 +89,25 @@ def ensure_tmp_files():
         p.write_text(f"runtime-checks {name}\n")
 
 
+def classify_status(probes: list[dict[str, Any]], skipped_reason: str | None = None) -> tuple[str, str | None]:
+    """
+    Map probe outcomes into the project-wide validation status vocabulary.
+    """
+    if skipped_reason:
+        return "blocked", skipped_reason
+    if not probes:
+        return "blocked", "no probes executed"
+    if any(p.get("error") for p in probes):
+        return "blocked", "probe execution error"
+    stderr_blob = " ".join((p.get("stderr") or "") for p in probes)
+    if "Operation not permitted" in stderr_blob:
+        return "blocked", "sandbox_init/sandbox_apply returned EPERM"
+    all_match = all(p.get("match") is True for p in probes)
+    if all_match:
+        return "ok", None
+    return "partial", "runtime results diverged from expected allow/deny matrix"
+
+
 def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None) -> Dict[str, Any]:
     target = probe.get("target")
     op = probe.get("operation")
@@ -166,7 +185,10 @@ def main():
     for key, rec in profiles.items():
         profile_path = PROFILE_PATHS.get(key)
         if not profile_path or not profile_path.exists():
-            results[key] = {"status": "skipped", "reason": "no profile path"}
+            status, note = classify_status([], skipped_reason="no profile path")
+            results[key] = {"status": status}
+            if note:
+                results[key]["notes"] = note
             continue
         runtime_profile = prepare_runtime_profile(profile_path, key)
         profile_mode = rec.get("mode")
@@ -186,12 +208,16 @@ def main():
                     **raw,
                 }
             )
-        results[key] = {
-            "status": "completed",
+        status, note = classify_status(probe_results)
+        entry = {
+            "status": status,
             "profile_path": str(runtime_profile),
             "base_profile_path": str(profile_path),
             "probes": probe_results,
         }
+        if note:
+            entry["notes"] = note
+        results[key] = entry
 
     out_path = OUT / "runtime_results.json"
     out_path.write_text(json.dumps(results, indent=2))
