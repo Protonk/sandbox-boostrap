@@ -1,0 +1,5 @@
+(version 1)
+(deny default)
+;; Focus on literals seen in bsd tail to chase high field2 values
+(allow file-read* (literal "/dev/dtracehelper"))
+(allow file-read* (literal "/usr/share/posix_spawn_filtering_rules"))

@@ -43,7 +43,7 @@ Deliverables:
 
 **Upcoming**
 
-- Design additional probes that reduce generic path/name scaffolding (e.g., richer operations or more complex metafilters) if needed to surface filter-specific `field2` values; focus on network/flow-divert and other non-file ops to break out of the common path/name filters.
+- Design additional probes that reduce or alter generic path/name scaffolding (e.g., richer operations or more complex metafilters) to surface filter-specific `field2` values; keep richer network shapes when chasing flow-divert (minimal profile collapsed field2 to {1,2} and lost 2560).
 
 Deliverables:
 - `sb/` variants + compiled blobs under `sb/build/`.
@@ -58,7 +58,7 @@ Deliverables:
 
 **Upcoming**
 
-- Perform focused cross-op checks for less common filters once better probes or anchors are available; chase the new flow-divert-specific field2 (2560) and any other high/unknown values by varying operations.
+- Perform focused cross-op checks for less common filters once better probes or anchors are available; chase the flow-divert-specific field2 (2560) using richer network mixes, and any other high/unknown values by varying operations.
 - Flag and investigate any inconsistencies that appear as decoding improves.
 
 Deliverables:
@@ -72,7 +72,7 @@ Deliverables:
 
 **Upcoming**
 
-- Use anchor mappings and updated tag layouts to deepen system-profile cross-checks, especially for high, currently-unknown `field2` values in `airlock` and the `bsd` tail (e.g., 170/174/115/109/16660 tied to dtracehelper/posix_spawn literals).
+- Use anchor mappings and updated tag layouts to deepen system-profile cross-checks, especially for high, currently-unknown `field2` values in `airlock` and the `bsd` tail (e.g., 170/174/115/109/16660 tied to dtracehelper/posix_spawn literals that did not reappear in isolated probes).
 
 Deliverables:
 - Notes tying system-profile nodes to the inferred mapping.

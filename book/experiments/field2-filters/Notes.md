@@ -37,3 +37,9 @@ Use this file for dated, concise notes on progress, commands, and intermediate f
 - Network/flow-divert probes surfaced a repeatable but unmapped field2: nodes tied to literal `com.apple.flow-divert` carry field2 7 (`local`), 2 (`xattr`), and an unknown 2560 (tag 0, edges 0/0, payload 2560). The 2560 node appears in both `v4_network_socket_require_all` and `v7_file_network_combo`, suggesting a flow-divert-specific filter or branch.
 - System profiles recap: `bsd.sb.bin` still shows high, unmapped field2 values (170/174/115/109/16660) on tag-26/0 nodes linked to literals such as `/dev/dtracehelper` and `posix_spawn_filtering_rules`; `airlock` remains high-valued only (165/166/10752) with sparse literals.
 - Proposed probes: a minimal flow-divert SBPL to isolate 2560 without file scaffolding; a small dtracehelper/posix_spawn-focused profile to chase the `bsd` high field2 values under simpler graphs.
+
+### 2026-01 follow-up probes
+
+- `flow_divert_only.sb` (network-only, flow-divert literal) compiled via `sbsnarf.py`: op_count=3, node_count=28, tag 2 only, field2 values {2×26, 1×2}; the unknown 2560 did not appear. Literal refs still show `com.apple.flow-divert`, but simplifying the profile collapsed the field2 space to {1,2}.
+- `dtracehelper_posixspawn.sb` (literals `/dev/dtracehelper`, `/usr/share/posix_spawn_filtering_rules`) compiled via `sbsnarf.py`: op_count=6, node_count=30, tags {0,1,4,5}, field2 {5×20, 4×9, 3×1}; only generic path/name-style IDs, no high values (170/174/115/109/16660) surfaced.
+- No guardrails added; both probes failed to surface the earlier unknowns. Next attempt would need a richer network profile to preserve the flow-divert 2560 node, or a different angle on the bsd tail values.

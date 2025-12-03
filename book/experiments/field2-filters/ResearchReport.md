@@ -71,11 +71,11 @@ Next steps (conceptual, without changing code yet):
 ## Recent update (tag-aware scan)
 
 - Re-ran tag-aware decoding on existing single-filter probes and anchor-heavy probes (`probe-op-structure` builds). Single-filter probes remain dominated by generic path/name filters: field2 stays in {0,3,4,5,6,7,8} with no new signal.
-- Network/flow-divert probes surfaced a distinct but still-unmapped field2 value: nodes linked to the literal `com.apple.flow-divert` carry field2 values 7 (`local`), 2 (`xattr`), and an unknown 2560 on tag 0 (edges 0,0, payload 2560). The same 2560 node appears in both `v4_network_socket_require_all` and `v7_file_network_combo`, suggesting 2560 is tied to flow-divert-specific logic rather than generic path/name scaffolding.
+- Network/flow-divert probes surfaced a distinct but still-unmapped field2 value: nodes linked to the literal `com.apple.flow-divert` carry field2 values 7 (`local`), 2 (`xattr`), and an unknown 2560 on tag 0 (edges 0,0, payload 2560). The same 2560 node appears in both `v4_network_socket_require_all` and `v7_file_network_combo`, suggesting 2560 is tied to flow-divert-specific logic rather than generic path/name scaffolding. A minimal flow-divert-only profile collapsed field2 to {1,2}, so the 2560 signal seems to require the richer mixed-profile shape.
 - System profiles:
-  - `bsd.sb.bin` shows high field2 values (174, 170, 115, 109, 16660) on tag-26/0 nodes tied to literals like `/dev/dtracehelper` and `posix_spawn_filtering_rules`; still unmapped.
+  - `bsd.sb.bin` shows high field2 values (174, 170, 115, 109, 16660) on tag-26/0 nodes tied to literals like `/dev/dtracehelper` and `posix_spawn_filtering_rules`; still unmapped. A targeted dtracehelper/posix_spawn probe only produced generic field2 {3,4,5}, so the high values remain elusive outside the full profile.
   - `airlock.sb.bin` remains high-value only (165/166/10752) with sparse literals (`G/system/`, `IOMediaIcon`), no new mapping.
-- No guardrails added; ambiguity persists for the new high/unknown field2 values. Proposed next probes: isolate flow-divert in a minimal network profile to pin down 2560, and craft a small dtracehelper/posix_spawn probe to chase the `bsd` high field2 values under simpler graphs.
+- No guardrails added; ambiguity persists for the new high/unknown field2 values. Next probes should retain the richer network profile shape to keep 2560 visible, or find a different angle on the bsd tail values if single-literal probes continue to collapse to generic IDs.
 ## Open questions
 
 - Are any `field2` values context-dependent (e.g., change with meta-filters or op class)?

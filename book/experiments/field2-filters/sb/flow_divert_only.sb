@@ -1,0 +1,7 @@
+(version 1)
+(allow default)
+;; Minimal network profile to surface flow-divert branches
+(allow network-outbound)
+(allow network-inbound)
+;; Anchor literal to trace in decoding
+(deny network-inbound (literal "com.apple.flow-divert"))
