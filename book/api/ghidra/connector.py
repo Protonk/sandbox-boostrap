@@ -8,7 +8,7 @@ Why this exists:
 - Offer a dry-run path (render shell) and an execution path with consistent HOME/TMPDIR/JAVA settings.
 
 Safety/assumptions:
-- Baseline: macOS 14.4.1 (23E224), Apple Silicon, SIP enabled; inputs must already exist under Sandbox-private.
+- Baseline: see `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`; inputs must already exist under Sandbox-private.
 - `JAVA_TOOL_OPTIONS` is forced to a repo-local home/temp to dodge seatbelt prompts and permission errors.
 - `analysis_properties` is accepted for parity but ignored by Ghidra 11.4.2 (use pre-scripts instead).
 """

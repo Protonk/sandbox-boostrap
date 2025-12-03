@@ -1,4 +1,4 @@
-# API Tooling (Sonoma 14.4.1)
+# API Tooling (Sonoma baseline)
 
 This directory is the shared toolbox for the sandbox textbook. It collects small, composable helpers for:
 
@@ -8,7 +8,7 @@ This directory is the shared toolbox for the sandbox textbook. It collects small
 - driving selected runtime experiments,
 - and exporting artifacts for external tools (e.g. Ghidra, Graphviz).
 
-All code here assumes the fixed host baseline (macOS 14.4.1, Apple Silicon, SIP enabled) and the vocab/format mappings under `book/graph/mappings/`.
+All code here assumes the fixed host baseline recorded in `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json` and the vocab/format mappings under `book/graph/mappings/`.
 
 ## Modules and when to use them
 
@@ -105,7 +105,7 @@ Run these from the repo root so relative paths and imports resolve correctly.
 
 ## Host assumptions and invariants
 
-- Baseline: macOS Sonoma 14.4.1 (23E224), Apple Silicon, SIP enabled.
+- Baseline: see `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`.
 - `libsandbox.dylib` is present and usable on this host (for `sbpl_compile` and runtime helpers).
 - Operation/Filter vocabularies come from `book/graph/mappings/vocab/{ops,filters}.json` with `status: ok`.
 - Tools here are **static-first**: they lean on decoded headers, op-tables, and vocab mappings; anything about runtime behaviour must flow through experiments and carry validation status (`ok`, `partial`, `brittle`, `blocked`).

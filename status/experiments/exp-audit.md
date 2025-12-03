@@ -43,7 +43,7 @@ From both the assessment and the scaffold census:
   - histograms and summaries,
   - manifests of vocab, alignments, or system-profile structure.
 - The baseline is explicitly **host-bound**:
-  - macOS 14.4.1 (23E224), Apple Silicon, SIP enabled.
+  - See `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json` (macOS 14.4.1 / 23E224, Apple Silicon, SIP enabled).
   - Experiments treat their findings as specific to this PolicyGraph + vocabulary snapshot, not as cross-version lore.
 - **Static decoding dominates**:
   - SBPL → compiled profile format,

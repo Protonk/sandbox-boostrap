@@ -9,5 +9,6 @@ Contents:
 - `op_table_operation_summary.json` – Decoder-backed summaries from `op-table-operation` (per-profile op-count, buckets, and operation sets).
 - `op_table_signatures.json` – Structural signatures per op-table entry (tag counts, field2 distributions, reachable nodes). These are fingerprints for how a bucket “looks” in the graph.
 - `op_table_map.json` – Bucket map hints from `op-table-operation` describing how buckets change as operations/filters are added.
+- `metadata.json` – Host/build and vocab stamps (23E224, ops=196/filters=93, status ok) plus canonical filenames for this mapping set.
 
 Source: `book/experiments/op-table-operation/` and `op-table-vocab-alignment/` on this Sonoma host. Treat these as read-only snapshots when reasoning about which Operation entries a profile actually uses.

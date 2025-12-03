@@ -4,7 +4,7 @@ Role: minimal C helper that performs a single `open` + `read` or `open` + `write
 
 Use when: you need a deterministic, low-noise file access to test allow/deny outcomes under a sandbox profile.
 
-Host baseline: macOS 14.4.1 (23E224), Apple Silicon, SIP enabled.
+Host baseline: see `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`.
 
 Build:
 

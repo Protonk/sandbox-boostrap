@@ -1,5 +1,5 @@
 """
-Canonical headless-command builder for Ghidra tasks on the Sonoma baseline.
+Canonical headless-command builder for Ghidra tasks on the Sonoma baseline (`book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`).
 
 Intent:
 - Build (and optionally run) `analyzeHeadless` invocations against the extracted host artifacts in

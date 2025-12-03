@@ -2,7 +2,7 @@
 Helpers to compile SBPL into binary sandbox profile blobs via libsandbox.
 
 Scope:
-- macOS Sonoma 14.4.1 on Apple Silicon with SIP enabled.
+- Baseline: see `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`.
 - Uses the private `sandbox_compile_*` entry points exposed by
   `libsandbox.dylib` to produce the modern graph-based binary format
   described in substrate/Appendix.md.

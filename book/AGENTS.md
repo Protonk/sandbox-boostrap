@@ -1,6 +1,6 @@
 # Agents in `book/`
 
-This is the textbook workspace. Use it with the substrate vocabulary (`substrate/`) and the host baseline (Sonoma 14.4.1, Apple Silicon, SIP on). Everything here should stay grounded in the mappings and concepts defined for this host.
+This is the textbook workspace. Use it with the substrate vocabulary (`substrate/`) and the fixed host baseline recorded in `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`. Everything here should stay grounded in the mappings and concepts defined for this host.
 
 ## Router
 

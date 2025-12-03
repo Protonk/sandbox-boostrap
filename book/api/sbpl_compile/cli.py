@@ -9,7 +9,7 @@ Defaults:
 - OUT (single input): <input>.sb.bin next to the source.
 - OUT-DIR (multiple inputs): writes <stem>.sb.bin under DIR.
 
-Host assumptions: macOS Sonoma 14.4.1, libsandbox.dylib present.
+Host assumptions: see `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`; libsandbox.dylib present.
 """
 
 from __future__ import annotations

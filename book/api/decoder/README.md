@@ -4,7 +4,7 @@ Role: decode compiled sandbox blobs (`*.sb.bin`) into a structured, tag-aware sn
 
 Use when: you need a programmatic view of a profile’s PolicyGraph (op-table, nodes, literal pool) for experiments such as `node-layout`, `op-table-operation`, `field2-filters`, or for refreshing mappings under `book/graph/mappings/`.
 
-Host baseline: macOS 14.4.1 (23E224), Apple Silicon, SIP enabled; Operation/Filter vocabularies come from `book/graph/mappings/vocab/{ops,filters}.json`.
+Host baseline: see `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`; Operation/Filter vocabularies come from `book/graph/mappings/vocab/{ops,filters}.json`.
 
 Status: **heuristic**. Unknown tags fall back to a 12-byte stride; the decoder keeps buffers intact rather than guessing. Treat outputs as structural orientation, not ground-truth SBPL semantics.
 

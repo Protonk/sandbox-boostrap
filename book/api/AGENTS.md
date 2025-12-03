@@ -41,6 +41,6 @@ You are in `book/api/`, the API/tooling layer for the Seatbelt textbook. This fi
 
 For vocabulary, lifecycle, and concept discipline, step up to `substrate/AGENTS.md`. All new tooling here should:
 
-- target the fixed Sonoma 14.4.1 baseline,
+- target the fixed baseline from `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`,
 - consume existing mappings and validation artifacts where possible,
 - and publish enough structure that tests under `book/tests/` can keep it honest.

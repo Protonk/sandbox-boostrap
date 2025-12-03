@@ -162,3 +162,37 @@ Next steps: If needed, scan the main evaluator (FUN_ffffff8002d8547a in arm64e) 
 
 - Tried to dump `__read16` callers directly from the carved sandbox kext using `llvm-objdump` on slices around their VM addresses. Both Mach-O and raw-binary modes failed: the extracted binary still trips `truncated or malformed object` for whole-file disassembly, and per-slice disasm reports “is not an object file.”
 - Approach to unblock: lean on Ghidra (existing `sandbox_field2_sbx` project) to emit disassembly for the caller set. Next run should add a simple headless script to print instructions for the known callers (`_populate_syscall_mask`, `_variables_populate`, `_match_network`, `_check_syscall_mask_composable`, `_iterate_sandbox_state_flags`, `_re_cache_init`, `_match_integer_object`, `___collection_init_block_invoke`, `_match_pattern`, `__readstr`, `__readaddr`) and capture how the `__read16` return register is used (compare vs table index). Whole-file objdump is not viable on this carved binary without repairing headers further.
+
+## 2026-02-13 (evening) – Headless Ghidra caller dump attempt
+
+- Attempted to run a headless Ghidra script (`dump_read16_callers.py`) against project `sandbox_field2_sbx` to dump the caller set. Command failed early with:
+  - `/Users/achyland/Library/ghidra/ghidra_11.4.2_PUBLIC/java_home.save (Operation not permitted)`
+  - `ERROR: Unable to prompt user for JDK path, no TTY detected.`
+- This is the familiar “JDK prompt in headless” issue noted in `ghidra_setup.md`. Resolution: rerun with `JAVA_HOME` and `-vmPath` set, and `HOME`/`GHIDRA_USER_HOME` pointing to the repo-local sandbox (`dumps/ghidra/user`). The existing scaffold does this; the ad hoc call here lacked the env. Next action: rerun the caller dump via `book/api/ghidra/run_task.py` or with explicit env (`JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home`, `HOME=.../dumps/ghidra/user`, `GHIDRA_USER_HOME=.../dumps/ghidra/user`, `-vmPath $JAVA_HOME/bin/java`), then collect the disassembly into `dumps/ghidra/out/14.4.1-23E224/find-field2-evaluator/callers/read16_callers.txt`.
+
+## 2026-02-14 – Headless retry still blocked
+
+- Retried the caller dump with explicit env (`JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home`, `HOME`/`GHIDRA_USER_HOME` to `dumps/ghidra/user`, `-vmPath` set). The headless run still failed with the same prompt errors (`java_home.save` EPERM / “Unable to prompt user for JDK path, no TTY”).
+- This matches the `ghidra_setup.md` caution: ad hoc headless invocations that don’t set `JAVA_TOOL_OPTIONS=-Duser.home=<repo>/dumps/ghidra/user` or don’t run through the scaffold continue to hit the prompt.
+- Next possible solutions:
+  - Use the repo’s `book/api/ghidra/run_task.py` (which wires env and `--java-home/-vmPath`) to invoke a small script that dumps the caller set, instead of hand-rolling `analyzeHeadless`.
+  - Alternatively, set `JAVA_TOOL_OPTIONS=-Duser.home=$PWD/dumps/ghidra/user` alongside `JAVA_HOME`/`-vmPath` before calling headless directly.
+  - If headless continues to balk, fall back to an interactive Ghidra session to export caller disassembly, then park the dumps under `dumps/ghidra/out/14.4.1-23E224/find-field2-evaluator/callers/`.
+
+## 2026-02-14 (success) – Headless caller dump via settingsdir override
+
+- Applied the settingsdir guidance: seeded a repo-local settings dir (`.ghidra-user/ghidra/ghidra_11.4.2_PUBLIC/java_home.save`) and invoked `analyzeHeadless` with `JAVA_TOOL_OPTIONS="-Dapplication.settingsdir=$PWD/.ghidra-user -Duser.home=$PWD/dumps/ghidra/user"` plus HOME/GHIDRA_USER_HOME pointing to `dumps/ghidra/user`. Dropped unsupported flags (`-vmPath`, `-logFile`).
+- Headless run succeeded; dumped caller disassembly to `dumps/ghidra/out/14.4.1-23E224/find-field2-evaluator/read16_callers.txt` using a Jython script (`/tmp/dump_read16_callers.py`) that iterates functions by name.
+- Quick scan findings (no deep analysis yet):
+  - Callers (`__readaddr`, `__readstr`, `_check_syscall_mask_composable`, `_iterate_sandbox_state_flags`, etc.) call `__read16` early and then perform range/size checks; several mask the payload with `#0xffff` (e.g., `and x?, #0xffff`, `tst w?, #0xffff`), but no immediates matching our unknowns (0xa00/0x4114/0x2a00/0xffff/0xe00) appear.
+  - No direct comparisons against the high field2 constants in these snippets; paths mostly dispatch to error/log helpers (`...f78c`) on failure.
+- Next: mine `read16_callers.txt` for exact mask patterns and, if useful, extend the script to capture basic-block context around the `0xffff` tests. The new env wiring should keep headless stable for further passes.
+
+### Mask contexts pulled from `read16_callers.txt`
+
+- Parsed `read16_callers.txt` for `#0xffff` uses; hits clustered in four functions:
+  - `_check_syscall_mask_composable`: multiple `tst w24,#0xffff` / `and x8,x24,#0xffff` and `and w9,w24,#0xffff` sequences guarding control flow before further helper calls; no high-constant compares.
+  - `_iterate_sandbox_state_flags`: `tst w8,#0xffff` followed by `and x8,x8,#0xffff` and `and w2,w22,#0xffff`; used as bounds/mask checks, no high constants.
+  - `_match_network`: single `tst w10,#0xffff` gate after a protocol/domain compare.
+  - `_variables_populate`: `tst w9,#0xffff` then `and x9,x9,#0xffff` prior to address arithmetic; again just masking, no high-constant compares.
+- No occurrences of 0xa00/0x4114/0x2a00/0xe00/0xffff as immediates in these callers. Suggests `filter_arg_raw` is masked to 16 bits in places but not compared against our unknown constants here. Next refinement would be to correlate these mask sites with the node fields they read (e.g., which node/tag they’re decoding) or widen context to nearby table lookups.

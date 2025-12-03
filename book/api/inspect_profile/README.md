@@ -13,4 +13,4 @@ Surfaces:
 
 Dependencies: `book.api.decoder`, `book.graph.concepts.validation.profile_ingestion`, optional `book.api.sbpl_compile` when compiling SBPL first.
 
-Host: macOS 14.4.1 (23E224), Apple Silicon, SIP enabled.
+Host: see `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`.

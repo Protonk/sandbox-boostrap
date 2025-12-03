@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Private libsandbox interfaces on macOS Sonoma 14.4.1.
+// Private libsandbox interfaces for the baseline in book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json.
 struct sandbox_profile {
   uint32_t profile_type;
   uint32_t reserved;
