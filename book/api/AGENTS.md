@@ -6,5 +6,7 @@ You are in `book/api/`, the API/tooling layer for the Seatbelt textbook. This fi
 - `decoder/` — Python decoder package (`book.api.decoder`) for compiled sandbox profile blobs. See `decoder/README.md` for usage and JSON fields.
 - `SBPL-wrapper/` — helper that applies SBPL text or compiled blobs to a process (`wrapper.c`, `README.md`, `extract_cache.sh`). Used by runtime experiments to exercise profiles.
 - `ghidra/` — connector for Seatbelt-focused Ghidra headless tasks (wraps `dumps/ghidra` scripts with a registry and runner).
+- `sbpl_compile/` — canonical libsandbox compile helpers (Python CLI + C reference) used by examples and experiments to emit `.sb.bin` blobs.
+- `regex_tools/` — legacy AppleMatch extract/visualize helpers (`extract_legacy.py`, `re_to_dot.py`) for decision-tree profiles.
 
 For vocabulary, lifecycle, and concept discipline, step up to `substrate/AGENTS.md`.

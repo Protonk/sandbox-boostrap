@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, List, Set
 
 import sys
 ROOT = Path(__file__).resolve().parents[3]
@@ -30,9 +30,33 @@ def edge_fields_for(tag: int, layouts: Dict[int, Dict[str, Any]]) -> List[int]:
     return rec.get("edge_fields", [])
 
 
-def summarize_profile(path: Path, filter_names: Dict[int, str], layouts: Dict[int, Dict[str, Any]]) -> Dict[str, Any]:
+def build_reachability(nodes: List[Dict[str, Any]], layouts: Dict[int, Dict[str, Any]], op_table: List[int]) -> List[Set[int]]:
+    adjacency: Dict[int, List[int]] = {}
+    for idx, node in enumerate(nodes):
+        fields = node.get("fields", [])
+        edges = [fields[i] for i in edge_fields_for(node.get("tag", -1), layouts) if i < len(fields)]
+        adjacency[idx] = [e for e in edges if isinstance(e, int) and 0 <= e < len(nodes)]
+
+    reach: List[Set[int]] = [set() for _ in nodes]
+    for op_id, entry in enumerate(op_table or []):
+        if not isinstance(entry, int) or entry < 0 or entry >= len(nodes):
+            continue
+        stack = [entry]
+        seen: Set[int] = set()
+        while stack:
+            node_idx = stack.pop()
+            if node_idx in seen:
+                continue
+            seen.add(node_idx)
+            reach[node_idx].add(op_id)
+            stack.extend(adjacency.get(node_idx, []))
+    return reach
+
+
+def summarize_profile(path: Path, filter_names: Dict[int, str], op_names: Dict[int, str], layouts: Dict[int, Dict[str, Any]]) -> Dict[str, Any]:
     prof = decoder.decode_profile_dict(path.read_bytes())
     nodes = prof.get("nodes") or []
+    op_table: List[int] = prof.get("op_table") or []
     # Build fan-in counts
     fan_in: Dict[int, int] = {}
     for idx, node in enumerate(nodes):
@@ -40,6 +64,8 @@ def summarize_profile(path: Path, filter_names: Dict[int, str], layouts: Dict[in
         edges = [fields[i] for i in edge_fields_for(node.get("tag", -1), layouts) if i < len(fields)]
         for e in edges:
             fan_in[e] = fan_in.get(e, 0) + 1
+
+    reach = build_reachability(nodes, layouts, op_table)
 
     unknowns: List[Dict[str, Any]] = []
     for idx, node in enumerate(nodes):
@@ -60,6 +86,10 @@ def summarize_profile(path: Path, filter_names: Dict[int, str], layouts: Dict[in
                     "edges": edges,
                     "fan_out": len([e for e in edges if 0 <= e < len(nodes)]),
                     "fan_in": fan_in.get(idx, 0),
+                    "ops": [
+                        {"id": op_id, "name": op_names.get(op_id)}
+                        for op_id in sorted(reach[idx])
+                    ],
                     "raw": raw,
                     "raw_hex": hex(raw),
                     "hi": hi,
@@ -73,20 +103,31 @@ def summarize_profile(path: Path, filter_names: Dict[int, str], layouts: Dict[in
 
 def main() -> None:
     filter_names = {entry["id"]: entry["name"] for entry in json.loads(Path("book/graph/mappings/vocab/filters.json").read_text()).get("filters", [])}
+    op_names = {entry["id"]: entry["name"] for entry in json.loads(Path("book/graph/mappings/vocab/ops.json").read_text()).get("ops", [])}
     layouts = load_layouts()
-    profiles = [
-        Path("book/examples/extract_sbs/build/profiles/bsd.sb.bin"),
-        Path("book/examples/extract_sbs/build/profiles/airlock.sb.bin"),
-        Path("book/examples/sb/build/sample.sb.bin"),
-        Path("book/experiments/probe-op-structure/sb/build/v4_network_socket_require_all.sb.bin"),
-        Path("book/experiments/probe-op-structure/sb/build/v7_file_network_combo.sb.bin"),
-    ]
+
+    profiles: Dict[str, Path] = {
+        "sys:bsd": Path("book/examples/extract_sbs/build/profiles/bsd.sb.bin"),
+        "sys:airlock": Path("book/examples/extract_sbs/build/profiles/airlock.sb.bin"),
+        "sys:sample": Path("book/examples/sb/build/sample.sb.bin"),
+    }
+
+    probes_dir = Path("book/experiments/field2-filters/sb/build")
+    if probes_dir.exists():
+        for p in sorted(probes_dir.glob("*.sb.bin")):
+            profiles[f"probe:{p.stem}"] = p
+
+    probe_op_dir = Path("book/experiments/probe-op-structure/sb/build")
+    if probe_op_dir.exists():
+        for p in sorted(probe_op_dir.glob("*.sb.bin")):
+            profiles[f"probe-op:{p.stem}"] = p
+
     out: Dict[str, Any] = {}
-    for p in profiles:
+    for name, p in profiles.items():
         if not p.exists():
             continue
-        rec = summarize_profile(p, filter_names, layouts)
-        out[p.stem] = rec["unknown_nodes"]
+        rec = summarize_profile(p, filter_names, op_names, layouts)
+        out[name] = rec["unknown_nodes"]
     out_dir = Path("book/experiments/field2-filters/out")
     out_dir.mkdir(exist_ok=True)
     out_path = out_dir / "unknown_nodes.json"

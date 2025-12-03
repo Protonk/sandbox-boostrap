@@ -48,6 +48,9 @@ Decode the meaning of `field2` values in decoded PolicyGraph nodes by aligning t
 - **6) Synthesis and guardrails**
   - Summarized current understanding of `field2` behavior (generic path/name dominance, confirmed mappings for common filters, persistence of unknowns) in `ResearchReport.md` and `Notes.md`.
   - Regenerated `out/field2_inventory.json` using shared tag layouts and anchor/filter mappings to keep inventories aligned with the global IR.
+  - Added arm64e helper scan: field2 reader and wrappers return raw u16 with no masking; `objdump` scan for `0x3fff/0x4000` in `__TEXT_EXEC` only hits `_syscall_extension_issue`, not the graph evaluator. `_sb_evaluate_internal` disassembly shows no bit tests on node payloads.
+  - Probed flow-divert shape by peeling socket predicates: new `net_require_all_*` variants show 2560 only when `(socket-domain AF_INET) + (socket-type SOCK_STREAM) + (socket-protocol IPPROTO_TCP)` are required together; any pair drops back to low IDs. The `com.apple.flow-divert` literal stays attached to the 2560 node in the triple.
+  - Refreshed `unknown_focus.py` to include op-table reachability across all probes. `unknown_nodes.json` now shows bsd’s 16660 tail reachable from op IDs 0–27 (default/file* cluster), bsd’s 170/174/115/109 still op-empty, airlock’s 165/166/10752 attached to op 162 (`system-fcntl`), and flow-divert 2560 nodes op-empty.
 
 ### Planned
 - 1. **Baseline inventory**: Decode canonical blobs, tally `field2` values per node tag, and see which op-table entries reach which values.
@@ -92,9 +95,9 @@ Decode the meaning of `field2` values in decoded PolicyGraph nodes by aligning t
 - Tag layouts (especially for higher tags such as 26/27) are still partially understood, so misinterpreting payload fields versus edge fields remains a risk when inferring semantics.
 
 ## Next steps
-- Design additional mixed-operation probes that preserve flow-divert and other high-value signals without collapsing back to generic path/name-only `field2` distributions.
-- Use the tag-layout map from `tag-layout-decode` and anchor hits from `probe-op-structure` to better constrain which node fields encode `field2` versus literal/regex indices.
-- Extend or refine `unknown_focus.py` to include more graph context (predecessors/successors) for high/unknown nodes across profiles.
+- Capture a clean dump of the arm64e evaluator function (the loop calling the field2 reader) for provenance, and continue scanning its surroundings for any non-literal bitfield handling if new evidence appears.
+- For flow-divert, try minor perturbations of the triple-socket profile (e.g., reorder filters, add/remove default deny/allow clauses) to see if op-table reachability for the 2560 node can be surfaced; record the minimal op/graph context that still carries the literal and payload.
+- Use the updated `unknown_nodes.json` (with op reach) to design bsd/airlock probes that mirror the originating ops: bsd tail is reachable from the default/file* cluster (ops 0–27), airlock unknowns from op 162 (`system-fcntl`). Target those ops explicitly rather than only literals to chase the high field2 values outside the full profiles.
 - Once a small set of mappings is stable, promote them into a shared `field2` mapping artifact and add guardrails that assert those mappings on curated reference blobs.
 
 ## Appendix

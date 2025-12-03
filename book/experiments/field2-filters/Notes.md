@@ -121,3 +121,9 @@ Status: On arm64e (the actual Apple Silicon KC), the helper that reads field2 re
 Notes/Report updated: recorded that ipsw extraction works, the arm64e helpers show raw field2 (no masks), and the previous x86_64-only caveat is resolved.
 
 Next steps: If needed, scan the main evaluator (FUN_ffffff8002d8547a in arm64e) for any downstream bit tests on the register loaded by 2d87d4a; based on helper behavior, it likely also consumes field2 raw.
+
+## Recent updates
+
+- Arm64e scan: disassembled `__TEXT_EXEC.__text` for mask constants; only `0x3fff` uses live in `_syscall_extension_issue`, not in the graph evaluator. `_sb_evaluate_internal` shows no masking/shifting of node payloads, consistent with the helper returning a raw u16.
+- Flow-divert peel: added `net_require_all_*` variants. `field2_inventory.json` shows 2560 only when `(socket-domain AF_INET) + (socket-type SOCK_STREAM) + (socket-protocol IPPROTO_TCP)` are required together; any pair of predicates drops 2560 and collapses to low IDs. Literal `com.apple.flow-divert` stays attached to the 2560 node in the triple.
+- Unknown-focus rev: script now adds op-table reachability and sweeps all probes. `unknown_nodes.json` shows `bsd`’s 16660 tail reachable from op IDs 0–27 (default/file* cluster); other bsd highs remain op-empty. Airlock’s 165/166/10752 nodes hang off op 162 (`system-fcntl`). Flow-divert 2560 nodes remain op-empty.

@@ -1,5 +1,5 @@
 {
-  "bsd.sb": [
+  "sys:bsd": [
     {
       "idx": 27,
       "tag": 0,
@@ -16,6 +16,120 @@
       ],
       "fan_out": 1,
       "fan_in": 33,
+      "ops": [
+        {
+          "id": 0,
+          "name": "default"
+        },
+        {
+          "id": 1,
+          "name": "appleevent-send"
+        },
+        {
+          "id": 2,
+          "name": "authorization-right-obtain"
+        },
+        {
+          "id": 3,
+          "name": "boot-arg-set"
+        },
+        {
+          "id": 4,
+          "name": "device*"
+        },
+        {
+          "id": 5,
+          "name": "device-camera"
+        },
+        {
+          "id": 6,
+          "name": "device-microphone"
+        },
+        {
+          "id": 7,
+          "name": "darwin-notification-post"
+        },
+        {
+          "id": 8,
+          "name": "distributed-notification-post"
+        },
+        {
+          "id": 9,
+          "name": "dynamic-code-generation"
+        },
+        {
+          "id": 10,
+          "name": "file*"
+        },
+        {
+          "id": 11,
+          "name": "file-chroot"
+        },
+        {
+          "id": 12,
+          "name": "file-clone"
+        },
+        {
+          "id": 13,
+          "name": "file-ioctl"
+        },
+        {
+          "id": 14,
+          "name": "file-issue-extension"
+        },
+        {
+          "id": 15,
+          "name": "file-link"
+        },
+        {
+          "id": 16,
+          "name": "file-lock"
+        },
+        {
+          "id": 17,
+          "name": "file-map-executable"
+        },
+        {
+          "id": 18,
+          "name": "file-mknod"
+        },
+        {
+          "id": 19,
+          "name": "file-mount"
+        },
+        {
+          "id": 20,
+          "name": "file-mount-update"
+        },
+        {
+          "id": 21,
+          "name": "file-read*"
+        },
+        {
+          "id": 22,
+          "name": "file-read-data"
+        },
+        {
+          "id": 23,
+          "name": "file-read-metadata"
+        },
+        {
+          "id": 24,
+          "name": "file-read-xattr"
+        },
+        {
+          "id": 25,
+          "name": "file-revoke"
+        },
+        {
+          "id": 26,
+          "name": "file-search"
+        },
+        {
+          "id": 27,
+          "name": "file-test-existence"
+        }
+      ],
       "raw": 16660,
       "raw_hex": "0x4114",
       "hi": 16384,
@@ -43,6 +157,7 @@
       ],
       "fan_out": 1,
       "fan_in": 0,
+      "ops": [],
       "raw": 174,
       "raw_hex": "0xae",
       "hi": 0,
@@ -72,6 +187,7 @@
       ],
       "fan_out": 1,
       "fan_in": 0,
+      "ops": [],
       "raw": 109,
       "raw_hex": "0x6d",
       "hi": 0,
@@ -102,6 +218,7 @@
       ],
       "fan_out": 1,
       "fan_in": 0,
+      "ops": [],
       "raw": 170,
       "raw_hex": "0xaa",
       "hi": 0,
@@ -130,6 +247,7 @@
       ],
       "fan_out": 1,
       "fan_in": 0,
+      "ops": [],
       "raw": 115,
       "raw_hex": "0x73",
       "hi": 0,
@@ -143,7 +261,7 @@
       ]
     }
   ],
-  "airlock.sb": [
+  "sys:airlock": [
     {
       "idx": 0,
       "tag": 166,
@@ -160,6 +278,12 @@
       ],
       "fan_out": 1,
       "fan_in": 2,
+      "ops": [
+        {
+          "id": 162,
+          "name": "system-fcntl"
+        }
+      ],
       "raw": 166,
       "raw_hex": "0xa6",
       "hi": 0,
@@ -185,6 +309,7 @@
       ],
       "fan_out": 0,
       "fan_in": 0,
+      "ops": [],
       "raw": 166,
       "raw_hex": "0xa6",
       "hi": 0,
@@ -208,6 +333,7 @@
       ],
       "fan_out": 0,
       "fan_in": 0,
+      "ops": [],
       "raw": 166,
       "raw_hex": "0xa6",
       "hi": 0,
@@ -234,6 +360,12 @@
       ],
       "fan_out": 0,
       "fan_in": 1,
+      "ops": [
+        {
+          "id": 162,
+          "name": "system-fcntl"
+        }
+      ],
       "raw": 166,
       "raw_hex": "0xa6",
       "hi": 0,
@@ -257,6 +389,7 @@
       ],
       "fan_out": 0,
       "fan_in": 0,
+      "ops": [],
       "raw": 166,
       "raw_hex": "0xa6",
       "hi": 0,
@@ -280,6 +413,12 @@
       ],
       "fan_out": 2,
       "fan_in": 0,
+      "ops": [
+        {
+          "id": 162,
+          "name": "system-fcntl"
+        }
+      ],
       "raw": 10752,
       "raw_hex": "0x2a00",
       "hi": 0,
@@ -306,6 +445,7 @@
       ],
       "fan_out": 0,
       "fan_in": 0,
+      "ops": [],
       "raw": 165,
       "raw_hex": "0xa5",
       "hi": 0,
@@ -317,7 +457,7 @@
       ]
     }
   ],
-  "sample.sb": [
+  "sys:sample": [
     {
       "idx": 30,
       "tag": 0,
@@ -334,6 +474,7 @@
       ],
       "fan_out": 2,
       "fan_in": 0,
+      "ops": [],
       "raw": 3584,
       "raw_hex": "0xe00",
       "hi": 0,
@@ -345,7 +486,15 @@
       ]
     }
   ],
-  "v4_network_socket_require_all.sb": [
+  "probe:bsd_broader.sb": [],
+  "probe:bsd_tail_context.sb": [],
+  "probe:dtracehelper_posixspawn.sb": [],
+  "probe:flow_divert_mixed.sb": [],
+  "probe:flow_divert_only.sb": [],
+  "probe:flow_divert_variant.sb": [],
+  "probe:net_require_all_domain_proto.sb": [],
+  "probe:net_require_all_domain_type.sb": [],
+  "probe:net_require_all_domain_type_proto.sb": [
     {
       "idx": 30,
       "tag": 0,
@@ -362,6 +511,7 @@
       ],
       "fan_out": 2,
       "fan_in": 0,
+      "ops": [],
       "raw": 2560,
       "raw_hex": "0xa00",
       "hi": 0,
@@ -372,7 +522,20 @@
       ]
     }
   ],
-  "v7_file_network_combo.sb": [
+  "probe:net_require_all_type_proto.sb": [],
+  "probe:v0_subpath.sb": [],
+  "probe:v1_literal.sb": [],
+  "probe:v2_global_name.sb": [],
+  "probe:v3_local_name.sb": [],
+  "probe:v4_vnode_type.sb": [],
+  "probe:v5_socket_domain.sb": [],
+  "probe:v6_iokit_registry_class.sb": [],
+  "probe:v7_require_any_subpath_literal.sb": [],
+  "probe-op:v0_file_require_all.sb": [],
+  "probe-op:v1_file_require_any.sb": [],
+  "probe-op:v2_file_three_filters_any.sb": [],
+  "probe-op:v3_mach_global_local.sb": [],
+  "probe-op:v4_network_socket_require_all.sb": [
     {
       "idx": 30,
       "tag": 0,
@@ -389,6 +552,7 @@
       ],
       "fan_out": 2,
       "fan_in": 0,
+      "ops": [],
       "raw": 2560,
       "raw_hex": "0xa00",
       "hi": 0,
@@ -398,5 +562,36 @@
         "Tcom.apple.flow-divert"
       ]
     }
-  ]
+  ],
+  "probe-op:v5_iokit_class_property.sb": [],
+  "probe-op:v6_file_mach_combo.sb": [],
+  "probe-op:v7_file_network_combo.sb": [
+    {
+      "idx": 30,
+      "tag": 0,
+      "fields": [
+        0,
+        0,
+        2560,
+        0,
+        7
+      ],
+      "edges": [
+        0,
+        0
+      ],
+      "fan_out": 2,
+      "fan_in": 0,
+      "ops": [],
+      "raw": 2560,
+      "raw_hex": "0xa00",
+      "hi": 0,
+      "lo": 2560,
+      "name_lo": null,
+      "literal_refs": [
+        "Tcom.apple.flow-divert"
+      ]
+    }
+  ],
+  "probe-op:v8_all_combo.sb": []
 }
