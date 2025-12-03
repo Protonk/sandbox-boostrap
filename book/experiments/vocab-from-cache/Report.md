@@ -1,17 +1,16 @@
-# Vocab from Cache – Research Report (Sonoma / macOS 14.4.1)
+# Vocab from Cache – Research Report (Sonoma baseline)
 
 ## Purpose
-Extract Operation/Filter vocab tables (name ↔ ID) from the macOS dyld shared cache (Sandbox.framework/libsandbox payloads) and align them with decoder-derived op_count/op_table data from canonical blobs, producing real `ops.json` / `filters.json` for this host.
+Extract Operation/Filter vocab tables (name ↔ ID) from the macOS dyld shared cache (Sandbox.framework / libsandbox payloads) and align them with decoder‑derived `op_count` / op‑table data from canonical blobs, producing real `ops.json` / `filters.json` for this host.
 
 ## Baseline & scope
-- Host: macOS 14.4.1 (23E224), kernel 23.4.0, arm64, SIP enabled.
+- Host: Sonoma baseline from `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json` (macOS 14.4.1 / 23E224, arm64, SIP enabled).
 - Canonical blobs for alignment:
-- `book/examples/extract_sbs/build/profiles/airlock.sb.bin`
-- `book/examples/extract_sbs/build/profiles/bsd.sb.bin`
-- `book/examples/sb/build/sample.sb.bin`
-- Current vocab artifacts (`graph/mappings/vocab/ops.json` / `filters.json`) are `status: ok` (196 ops, 93 filters) harvested from the dyld cache.
+  - `book/examples/extract_sbs/build/profiles/airlock.sb.bin`
+  - `book/examples/extract_sbs/build/profiles/bsd.sb.bin`
+  - `book/examples/sb/build/sample.sb.bin`
+- Current vocab artifacts (`book/graph/mappings/vocab/ops.json` / `filters.json`) are `status: ok` (196 ops, 93 filters) harvested from the dyld cache.
 
-## Deliverables / expected outcomes
 ## Deliverables / expected outcomes
 - `book/graph/mappings/vocab/ops.json` and `filters.json` for this Sonoma host, with operation and filter IDs, names, metadata, and provenance.
 - Intermediate name lists in `book/experiments/vocab-from-cache/out/operation_names.json` and `out/filter_names.json`.
@@ -29,7 +28,7 @@ Extract Operation/Filter vocab tables (name ↔ ID) from the macOS dyld shared c
   - Added `check_vocab.py`, a guardrail script that asserts vocab status is `ok` and counts are ops=196, filters=93 for this host.
   - Experiment marked complete; raw cache extraction under `book/experiments/vocab-from-cache/extracted/` removed after harvesting, with trimmed copies retained in `book/graph/mappings/dyld-libs/`.
 - **1) Setup and scope**
-  - Recorded host baseline (OS/build, kernel, SIP) in `ResearchReport.md`.
+  - Recorded host baseline (OS/build, kernel, SIP) in this Report and in `Notes.md`.
   - Inventoried canonical blobs for alignment (system profiles plus `sample.sb.bin`).
   - Confirmed vocab artifacts and static metadata under `book/graph/mappings/vocab` and `validation/out/metadata.json`.
 - **2) Cache extraction**
@@ -45,27 +44,21 @@ Extract Operation/Filter vocab tables (name ↔ ID) from the macOS dyld shared c
   - Reran `op-table-vocab-alignment` to fill `operation_ids` and `vocab_version`, then updated alignment artifacts.
   - Added a lightweight sanity check (`check_vocab.py`) to assert vocab status and counts.
   - Noted key bucket↔Operation ID relationships (e.g., mach-lookup in buckets {5,6}) in this ResearchReport and in the op-table experiments.
+### Maintenance / rerun plan
+If vocab artifacts ever need to be regenerated (for a new host or a changed decoder), reuse this outline:
 
-### Planned
-- 1. Extract Sandbox-related binaries from the dyld shared cache.
-  2. Harvest operation/filter name tables from the extracted binaries.
-  3. Align harvested names with decoder op_count/op_table from canonical blobs; emit real vocab artifacts.
-  4. Rerun op-table alignment to fill operation IDs and record bucket↔ID relationships.
-- **1) Setup and scope**
-  - None for this section.
-  - `Plan.md`, `Notes.md`, `ResearchReport.md` in this directory.
-  - A script to extract Sandbox-related binaries from the dyld shared cache.
-- **2) Cache extraction**
-  - None for this section.
-  - Extracted binaries and a short note in `Notes.md` describing commands used and any issues.
-- **3) Name harvesting**
-  - None for this section.
-  - `harvest.py` (or similar) that emits candidate name lists with offsets/order.
-  - Intermediate JSON with recovered names and inferred ordering.
-- **5) Alignment and propagation**
-  - Refresh alignment and bucket snapshots only if vocab artifacts are regenerated for a new host/build.
-  - Updated alignment file with IDs and vocab hash/version.
-  - Notes/report entries summarizing bucket-to-ID findings (scoped to this host).
+1. **Setup and scope**
+   - Confirm the active baseline (OS/build, kernel, SIP) and record it in `book/world/.../world-baseline.json`, this Report, and `Notes.md`.
+   - List the canonical blobs for alignment (system profiles plus `sample.sb.bin`).
+2. **Cache extraction**
+   - Extract Sandbox-related binaries (Sandbox.framework, libsandbox) from the dyld shared cache into a local `extracted/` directory.
+   - Record commands and any issues in `Notes.md`.
+3. **Name harvesting**
+   - Run harvesters to recover ordered operation and filter name tables from the extracted binaries.
+   - Emit intermediate JSON (`operation_names.json`, `filter_names.json`) with recovered names and inferred ordering.
+4. **ID alignment and propagation**
+   - Align harvested names with decoder `op_count`/op_table from canonical blobs; emit updated `ops.json` / `filters.json` with host metadata and `status`.
+   - Refresh op-table alignment artifacts and sanity checks only when vocab artifacts change.
 
 ## Evidence & artifacts
 - Extracted Sandbox.framework/libsandbox slices from the dyld shared cache under `book/experiments/vocab-from-cache/extracted/` (transient) and trimmed copies in `book/graph/mappings/dyld-libs/`.

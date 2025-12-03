@@ -1283,3 +1283,721 @@ Fixed up 914488 chained pointers.
 2025-12-03 11:17:29 INFO  (HeadlessAnalyzer) REPORT: Processing project file: /BootKernelCollection.kc  
 2025-12-03 11:17:29 INFO  (HeadlessAnalyzer) SCRIPT: /private/tmp/eval_node_layout.py  
 2025-12-03 11:17:32 INFO  (HeadlessAnalyzer) REPORT: Save succeeded for processed file: /BootKernelCollection.kc  
+2025-12-03 11:18:12 INFO  (LoggingInitialization) Using log config file: jar:file:/opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml  
+2025-12-03 11:18:12 INFO  (LoggingInitialization) Using log file: /Users/achyland/Desktop/SANDBOX_LORE/.ghidra-user/achyland-ghidra/ghidra_11.4.2_PUBLIC/application.log  
+2025-12-03 11:18:12 INFO  (Preferences) Loading user preferences: /Users/achyland/Desktop/SANDBOX_LORE/.ghidra-user/achyland-ghidra/ghidra_11.4.2_PUBLIC/preferences  
+2025-12-03 11:18:12 INFO  (ClassSearcher) Searching for classes...  
+2025-12-03 11:18:14 INFO  (ClassSearcher) Class search complete (1256 ms)  
+2025-12-03 11:18:14 INFO  (SSLContextInitializer) Initializing SSL Context  
+2025-12-03 11:18:14 INFO  (SecureRandomFactory) Initializing Random Number Generator...  
+2025-12-03 11:18:14 INFO  (SecureRandomFactory) Random Number Generator initialization complete: NativePRNGNonBlocking  
+2025-12-03 11:18:14 INFO  (ApplicationTrustManagerFactory) Trust manager disabled, cacerts have not been set  
+2025-12-03 11:18:14 INFO  (AnalyzeHeadless) Headless startup complete (2260 ms)  
+2025-12-03 11:18:14 INFO  (ClassSearcher) Class searcher loaded 58 extension points (18 false positives)  
+2025-12-03 11:18:14 INFO  (HeadlessAnalyzer) HEADLESS Script Paths:
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/VersionTracking/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Jython/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Debug/Debugger/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/Atmel/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/PIC/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/PyGhidra/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/SwiftDemangler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/PDB/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/BytePatterns/ghidra_scripts
+    /tmp
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/SystemEmulation/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/JVM/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/MicrosoftCodeAnalyzer/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/FunctionID/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/WildcardAssembler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/BSim/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/FileFormats/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/DecompilerDependent/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Debug/Debugger-rmi-trace/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Decompiler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/DATA/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/8051/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Base/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/GnuDemangler/ghidra_scripts  
+2025-12-03 11:18:14 INFO  (HeadlessAnalyzer) HEADLESS: execution starts  
+2025-12-03 11:18:14 INFO  (HeadlessAnalyzer) Opening existing project: /Users/achyland/Desktop/SANDBOX_LORE/dumps/ghidra/tmp/field2_eval_tmp  
+2025-12-03 11:18:14 INFO  (HeadlessProject) Opening project: /Users/achyland/Desktop/SANDBOX_LORE/dumps/ghidra/tmp/field2_eval_tmp  
+2025-12-03 11:18:16 INFO  (HeadlessAnalyzer) REPORT: Processing project file: /BootKernelCollection.kc  
+2025-12-03 11:18:16 INFO  (HeadlessAnalyzer) SCRIPT: /private/tmp/eval_node_layout.py  
+2025-12-03 11:18:19 INFO  (HeadlessAnalyzer) REPORT: Save succeeded for processed file: /BootKernelCollection.kc  
+2025-12-03 11:19:11 INFO  (LoggingInitialization) Using log config file: jar:file:/opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml  
+2025-12-03 11:19:11 INFO  (LoggingInitialization) Using log file: /Users/achyland/Desktop/SANDBOX_LORE/.ghidra-user/achyland-ghidra/ghidra_11.4.2_PUBLIC/application.log  
+2025-12-03 11:19:11 INFO  (Preferences) Loading user preferences: /Users/achyland/Desktop/SANDBOX_LORE/.ghidra-user/achyland-ghidra/ghidra_11.4.2_PUBLIC/preferences  
+2025-12-03 11:19:11 INFO  (ClassSearcher) Searching for classes...  
+2025-12-03 11:19:13 INFO  (ClassSearcher) Class search complete (1257 ms)  
+2025-12-03 11:19:13 INFO  (SSLContextInitializer) Initializing SSL Context  
+2025-12-03 11:19:13 INFO  (SecureRandomFactory) Initializing Random Number Generator...  
+2025-12-03 11:19:13 INFO  (SecureRandomFactory) Random Number Generator initialization complete: NativePRNGNonBlocking  
+2025-12-03 11:19:13 INFO  (ApplicationTrustManagerFactory) Trust manager disabled, cacerts have not been set  
+2025-12-03 11:19:13 INFO  (AnalyzeHeadless) Headless startup complete (2202 ms)  
+2025-12-03 11:19:13 INFO  (ClassSearcher) Class searcher loaded 58 extension points (18 false positives)  
+2025-12-03 11:19:13 INFO  (HeadlessAnalyzer) HEADLESS Script Paths:
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/VersionTracking/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Jython/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Debug/Debugger/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/Atmel/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/PIC/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/PyGhidra/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/SwiftDemangler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/PDB/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/BytePatterns/ghidra_scripts
+    /tmp
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/SystemEmulation/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/JVM/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/MicrosoftCodeAnalyzer/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/FunctionID/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/WildcardAssembler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/BSim/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/FileFormats/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/DecompilerDependent/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Debug/Debugger-rmi-trace/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Decompiler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/DATA/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/8051/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Base/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/GnuDemangler/ghidra_scripts  
+2025-12-03 11:19:13 INFO  (HeadlessAnalyzer) HEADLESS: execution starts  
+2025-12-03 11:19:13 INFO  (HeadlessAnalyzer) Opening existing project: /Users/achyland/Desktop/SANDBOX_LORE/dumps/ghidra/tmp/field2_eval_tmp  
+2025-12-03 11:19:13 INFO  (HeadlessProject) Opening project: /Users/achyland/Desktop/SANDBOX_LORE/dumps/ghidra/tmp/field2_eval_tmp  
+2025-12-03 11:19:15 INFO  (HeadlessAnalyzer) REPORT: Processing project file: /BootKernelCollection.kc  
+2025-12-03 11:19:15 INFO  (HeadlessAnalyzer) SCRIPT: /private/tmp/dump_instr.py  
+2025-12-03 11:19:17 INFO  (HeadlessAnalyzer) REPORT: Save succeeded for processed file: /BootKernelCollection.kc  
+2025-12-03 11:20:04 INFO  (LoggingInitialization) Using log config file: jar:file:/opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml  
+2025-12-03 11:20:04 INFO  (LoggingInitialization) Using log file: /Users/achyland/Desktop/SANDBOX_LORE/.ghidra-user/achyland-ghidra/ghidra_11.4.2_PUBLIC/application.log  
+2025-12-03 11:20:04 INFO  (Preferences) Loading user preferences: /Users/achyland/Desktop/SANDBOX_LORE/.ghidra-user/achyland-ghidra/ghidra_11.4.2_PUBLIC/preferences  
+2025-12-03 11:20:04 INFO  (ClassSearcher) Searching for classes...  
+2025-12-03 11:20:06 INFO  (ClassSearcher) Class search complete (1256 ms)  
+2025-12-03 11:20:06 INFO  (SSLContextInitializer) Initializing SSL Context  
+2025-12-03 11:20:06 INFO  (SecureRandomFactory) Initializing Random Number Generator...  
+2025-12-03 11:20:06 INFO  (SecureRandomFactory) Random Number Generator initialization complete: NativePRNGNonBlocking  
+2025-12-03 11:20:06 INFO  (ApplicationTrustManagerFactory) Trust manager disabled, cacerts have not been set  
+2025-12-03 11:20:06 INFO  (AnalyzeHeadless) Headless startup complete (2213 ms)  
+2025-12-03 11:20:06 INFO  (ClassSearcher) Class searcher loaded 58 extension points (18 false positives)  
+2025-12-03 11:20:06 INFO  (HeadlessAnalyzer) HEADLESS Script Paths:
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/VersionTracking/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Jython/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Debug/Debugger/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/Atmel/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/PIC/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/PyGhidra/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/SwiftDemangler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/PDB/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/BytePatterns/ghidra_scripts
+    /tmp
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/SystemEmulation/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/JVM/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/MicrosoftCodeAnalyzer/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/FunctionID/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/WildcardAssembler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/BSim/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/FileFormats/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/DecompilerDependent/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Debug/Debugger-rmi-trace/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Decompiler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/DATA/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/8051/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Base/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/GnuDemangler/ghidra_scripts  
+2025-12-03 11:20:06 INFO  (HeadlessAnalyzer) HEADLESS: execution starts  
+2025-12-03 11:20:06 INFO  (HeadlessAnalyzer) Opening existing project: /Users/achyland/Desktop/SANDBOX_LORE/dumps/ghidra/tmp/field2_eval_tmp  
+2025-12-03 11:20:06 INFO  (HeadlessProject) Opening project: /Users/achyland/Desktop/SANDBOX_LORE/dumps/ghidra/tmp/field2_eval_tmp  
+2025-12-03 11:20:08 INFO  (HeadlessAnalyzer) REPORT: Processing project file: /BootKernelCollection.kc  
+2025-12-03 11:20:08 INFO  (HeadlessAnalyzer) SCRIPT: /private/tmp/eval_node_layout.py  
+2025-12-03 11:20:10 INFO  (HeadlessAnalyzer) REPORT: Save succeeded for processed file: /BootKernelCollection.kc  
+2025-12-03 11:21:28 INFO  (LoggingInitialization) Using log config file: jar:file:/opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml  
+2025-12-03 11:21:28 INFO  (LoggingInitialization) Using log file: /Users/achyland/Desktop/SANDBOX_LORE/.ghidra-user/achyland-ghidra/ghidra_11.4.2_PUBLIC/application.log  
+2025-12-03 11:21:28 INFO  (Preferences) Loading user preferences: /Users/achyland/Desktop/SANDBOX_LORE/.ghidra-user/achyland-ghidra/ghidra_11.4.2_PUBLIC/preferences  
+2025-12-03 11:21:28 INFO  (ClassSearcher) Searching for classes...  
+2025-12-03 11:21:30 INFO  (ClassSearcher) Class search complete (1256 ms)  
+2025-12-03 11:21:30 INFO  (SSLContextInitializer) Initializing SSL Context  
+2025-12-03 11:21:30 INFO  (SecureRandomFactory) Initializing Random Number Generator...  
+2025-12-03 11:21:30 INFO  (SecureRandomFactory) Random Number Generator initialization complete: NativePRNGNonBlocking  
+2025-12-03 11:21:30 INFO  (ApplicationTrustManagerFactory) Trust manager disabled, cacerts have not been set  
+2025-12-03 11:21:30 INFO  (AnalyzeHeadless) Headless startup complete (2214 ms)  
+2025-12-03 11:21:30 INFO  (ClassSearcher) Class searcher loaded 58 extension points (18 false positives)  
+2025-12-03 11:21:30 INFO  (HeadlessAnalyzer) HEADLESS Script Paths:
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/VersionTracking/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Jython/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Debug/Debugger/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/Atmel/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/PIC/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/PyGhidra/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/SwiftDemangler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/PDB/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/BytePatterns/ghidra_scripts
+    /tmp
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/SystemEmulation/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/JVM/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/MicrosoftCodeAnalyzer/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/FunctionID/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/WildcardAssembler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/BSim/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/FileFormats/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/DecompilerDependent/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Debug/Debugger-rmi-trace/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Decompiler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/DATA/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/8051/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Base/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/GnuDemangler/ghidra_scripts  
+2025-12-03 11:21:30 INFO  (HeadlessAnalyzer) HEADLESS: execution starts  
+2025-12-03 11:21:30 INFO  (HeadlessAnalyzer) Opening existing project: /Users/achyland/Desktop/SANDBOX_LORE/dumps/ghidra/tmp/field2_eval_tmp  
+2025-12-03 11:21:30 INFO  (HeadlessProject) Opening project: /Users/achyland/Desktop/SANDBOX_LORE/dumps/ghidra/tmp/field2_eval_tmp  
+2025-12-03 11:21:32 INFO  (HeadlessAnalyzer) REPORT: Processing project file: /BootKernelCollection.kc  
+2025-12-03 11:21:32 INFO  (HeadlessAnalyzer) SCRIPT: /private/tmp/eval_node_layout.py  
+2025-12-03 11:21:34 INFO  (HeadlessAnalyzer) REPORT: Save succeeded for processed file: /BootKernelCollection.kc  
+2025-12-03 11:22:24 INFO  (LoggingInitialization) Using log config file: jar:file:/opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml  
+2025-12-03 11:22:24 INFO  (LoggingInitialization) Using log file: /Users/achyland/Desktop/SANDBOX_LORE/.ghidra-user/achyland-ghidra/ghidra_11.4.2_PUBLIC/application.log  
+2025-12-03 11:22:24 INFO  (Preferences) Loading user preferences: /Users/achyland/Desktop/SANDBOX_LORE/.ghidra-user/achyland-ghidra/ghidra_11.4.2_PUBLIC/preferences  
+2025-12-03 11:22:24 INFO  (ClassSearcher) Searching for classes...  
+2025-12-03 11:22:25 INFO  (ClassSearcher) Class search complete (1262 ms)  
+2025-12-03 11:22:25 INFO  (SSLContextInitializer) Initializing SSL Context  
+2025-12-03 11:22:25 INFO  (SecureRandomFactory) Initializing Random Number Generator...  
+2025-12-03 11:22:25 INFO  (SecureRandomFactory) Random Number Generator initialization complete: NativePRNGNonBlocking  
+2025-12-03 11:22:25 INFO  (ApplicationTrustManagerFactory) Trust manager disabled, cacerts have not been set  
+2025-12-03 11:22:25 INFO  (AnalyzeHeadless) Headless startup complete (2224 ms)  
+2025-12-03 11:22:25 INFO  (ClassSearcher) Class searcher loaded 58 extension points (18 false positives)  
+2025-12-03 11:22:26 INFO  (HeadlessAnalyzer) HEADLESS Script Paths:
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/VersionTracking/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Jython/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Debug/Debugger/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/Atmel/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/PIC/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/PyGhidra/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/SwiftDemangler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/PDB/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/BytePatterns/ghidra_scripts
+    /tmp
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/SystemEmulation/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/JVM/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/MicrosoftCodeAnalyzer/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/FunctionID/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/WildcardAssembler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/BSim/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/FileFormats/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/DecompilerDependent/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Debug/Debugger-rmi-trace/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Decompiler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/DATA/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/8051/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Base/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/GnuDemangler/ghidra_scripts  
+2025-12-03 11:22:26 INFO  (HeadlessAnalyzer) HEADLESS: execution starts  
+2025-12-03 11:22:26 INFO  (HeadlessAnalyzer) Opening existing project: /Users/achyland/Desktop/SANDBOX_LORE/dumps/ghidra/tmp/field2_eval_tmp  
+2025-12-03 11:22:26 INFO  (HeadlessProject) Opening project: /Users/achyland/Desktop/SANDBOX_LORE/dumps/ghidra/tmp/field2_eval_tmp  
+2025-12-03 11:22:27 INFO  (HeadlessAnalyzer) REPORT: Processing project file: /BootKernelCollection.kc  
+2025-12-03 11:22:27 INFO  (HeadlessAnalyzer) SCRIPT: /private/tmp/eval_node_layout.py  
+2025-12-03 11:22:30 INFO  (HeadlessAnalyzer) REPORT: Save succeeded for processed file: /BootKernelCollection.kc  
+2025-12-03 11:23:45 INFO  (LoggingInitialization) Using log config file: jar:file:/opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml  
+2025-12-03 11:23:45 INFO  (LoggingInitialization) Using log file: /Users/achyland/Desktop/SANDBOX_LORE/.ghidra-user/achyland-ghidra/ghidra_11.4.2_PUBLIC/application.log  
+2025-12-03 11:23:45 INFO  (Preferences) Loading user preferences: /Users/achyland/Desktop/SANDBOX_LORE/.ghidra-user/achyland-ghidra/ghidra_11.4.2_PUBLIC/preferences  
+2025-12-03 11:23:45 INFO  (ClassSearcher) Searching for classes...  
+2025-12-03 11:23:46 INFO  (ClassSearcher) Class search complete (1258 ms)  
+2025-12-03 11:23:46 INFO  (SSLContextInitializer) Initializing SSL Context  
+2025-12-03 11:23:46 INFO  (SecureRandomFactory) Initializing Random Number Generator...  
+2025-12-03 11:23:46 INFO  (SecureRandomFactory) Random Number Generator initialization complete: NativePRNGNonBlocking  
+2025-12-03 11:23:46 INFO  (ApplicationTrustManagerFactory) Trust manager disabled, cacerts have not been set  
+2025-12-03 11:23:46 INFO  (AnalyzeHeadless) Headless startup complete (2258 ms)  
+2025-12-03 11:23:46 INFO  (ClassSearcher) Class searcher loaded 58 extension points (18 false positives)  
+2025-12-03 11:23:46 INFO  (HeadlessAnalyzer) HEADLESS Script Paths:
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/VersionTracking/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Jython/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Debug/Debugger/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/Atmel/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/PIC/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/PyGhidra/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/SwiftDemangler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/PDB/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/BytePatterns/ghidra_scripts
+    /tmp
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/SystemEmulation/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/JVM/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/MicrosoftCodeAnalyzer/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/FunctionID/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/WildcardAssembler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/BSim/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/FileFormats/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/DecompilerDependent/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Debug/Debugger-rmi-trace/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Decompiler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/DATA/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/8051/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Base/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/GnuDemangler/ghidra_scripts  
+2025-12-03 11:23:46 INFO  (HeadlessAnalyzer) HEADLESS: execution starts  
+2025-12-03 11:23:46 INFO  (HeadlessAnalyzer) Opening existing project: /Users/achyland/Desktop/SANDBOX_LORE/dumps/ghidra/tmp/field2_eval_tmp  
+2025-12-03 11:23:47 INFO  (HeadlessProject) Opening project: /Users/achyland/Desktop/SANDBOX_LORE/dumps/ghidra/tmp/field2_eval_tmp  
+2025-12-03 11:23:48 INFO  (HeadlessAnalyzer) REPORT: Processing project file: /BootKernelCollection.kc  
+2025-12-03 11:23:48 INFO  (HeadlessAnalyzer) SCRIPT: /private/tmp/inspect_loads.py  
+2025-12-03 11:23:51 INFO  (HeadlessAnalyzer) REPORT: Save succeeded for processed file: /BootKernelCollection.kc  
+2025-12-03 11:24:24 INFO  (LoggingInitialization) Using log config file: jar:file:/opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml  
+2025-12-03 11:24:24 INFO  (LoggingInitialization) Using log file: /Users/achyland/Desktop/SANDBOX_LORE/.ghidra-user/achyland-ghidra/ghidra_11.4.2_PUBLIC/application.log  
+2025-12-03 11:24:24 INFO  (Preferences) Loading user preferences: /Users/achyland/Desktop/SANDBOX_LORE/.ghidra-user/achyland-ghidra/ghidra_11.4.2_PUBLIC/preferences  
+2025-12-03 11:24:24 INFO  (ClassSearcher) Searching for classes...  
+2025-12-03 11:24:26 INFO  (ClassSearcher) Class search complete (1255 ms)  
+2025-12-03 11:24:26 INFO  (SSLContextInitializer) Initializing SSL Context  
+2025-12-03 11:24:26 INFO  (SecureRandomFactory) Initializing Random Number Generator...  
+2025-12-03 11:24:26 INFO  (SecureRandomFactory) Random Number Generator initialization complete: NativePRNGNonBlocking  
+2025-12-03 11:24:26 INFO  (ApplicationTrustManagerFactory) Trust manager disabled, cacerts have not been set  
+2025-12-03 11:24:26 INFO  (AnalyzeHeadless) Headless startup complete (2203 ms)  
+2025-12-03 11:24:26 INFO  (ClassSearcher) Class searcher loaded 58 extension points (18 false positives)  
+2025-12-03 11:24:26 INFO  (HeadlessAnalyzer) HEADLESS Script Paths:
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/VersionTracking/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Jython/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Debug/Debugger/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/Atmel/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/PIC/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/PyGhidra/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/SwiftDemangler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/PDB/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/BytePatterns/ghidra_scripts
+    /tmp
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/SystemEmulation/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/JVM/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/MicrosoftCodeAnalyzer/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/FunctionID/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/WildcardAssembler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/BSim/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/FileFormats/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/DecompilerDependent/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Debug/Debugger-rmi-trace/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Decompiler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/DATA/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/8051/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Base/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/GnuDemangler/ghidra_scripts  
+2025-12-03 11:24:26 INFO  (HeadlessAnalyzer) HEADLESS: execution starts  
+2025-12-03 11:24:26 INFO  (HeadlessAnalyzer) Opening existing project: /Users/achyland/Desktop/SANDBOX_LORE/dumps/ghidra/tmp/field2_eval_tmp  
+2025-12-03 11:24:26 INFO  (HeadlessProject) Opening project: /Users/achyland/Desktop/SANDBOX_LORE/dumps/ghidra/tmp/field2_eval_tmp  
+2025-12-03 11:24:28 INFO  (HeadlessAnalyzer) REPORT: Processing project file: /BootKernelCollection.kc  
+2025-12-03 11:24:28 INFO  (HeadlessAnalyzer) SCRIPT: /private/tmp/inspect_loads.py  
+2025-12-03 11:24:30 INFO  (HeadlessAnalyzer) REPORT: Save succeeded for processed file: /BootKernelCollection.kc  
+2025-12-03 11:25:46 INFO  (LoggingInitialization) Using log config file: jar:file:/opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml  
+2025-12-03 11:25:46 INFO  (LoggingInitialization) Using log file: /Users/achyland/Desktop/SANDBOX_LORE/.ghidra-user/achyland-ghidra/ghidra_11.4.2_PUBLIC/application.log  
+2025-12-03 11:25:46 INFO  (Preferences) Loading user preferences: /Users/achyland/Desktop/SANDBOX_LORE/.ghidra-user/achyland-ghidra/ghidra_11.4.2_PUBLIC/preferences  
+2025-12-03 11:25:46 INFO  (ClassSearcher) Searching for classes...  
+2025-12-03 11:25:47 INFO  (ClassSearcher) Class search complete (1264 ms)  
+2025-12-03 11:25:47 INFO  (SSLContextInitializer) Initializing SSL Context  
+2025-12-03 11:25:47 INFO  (SecureRandomFactory) Initializing Random Number Generator...  
+2025-12-03 11:25:47 INFO  (SecureRandomFactory) Random Number Generator initialization complete: NativePRNGNonBlocking  
+2025-12-03 11:25:47 INFO  (ApplicationTrustManagerFactory) Trust manager disabled, cacerts have not been set  
+2025-12-03 11:25:48 INFO  (AnalyzeHeadless) Headless startup complete (2297 ms)  
+2025-12-03 11:25:48 INFO  (ClassSearcher) Class searcher loaded 58 extension points (18 false positives)  
+2025-12-03 11:25:48 INFO  (HeadlessAnalyzer) HEADLESS Script Paths:
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/VersionTracking/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Jython/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Debug/Debugger/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/Atmel/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/PIC/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/PyGhidra/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/SwiftDemangler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/PDB/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/BytePatterns/ghidra_scripts
+    /tmp
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/SystemEmulation/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/JVM/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/MicrosoftCodeAnalyzer/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/FunctionID/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/WildcardAssembler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/BSim/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/FileFormats/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/DecompilerDependent/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Debug/Debugger-rmi-trace/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Decompiler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/DATA/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/8051/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Base/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/GnuDemangler/ghidra_scripts  
+2025-12-03 11:25:48 INFO  (HeadlessAnalyzer) HEADLESS: execution starts  
+2025-12-03 11:25:48 INFO  (HeadlessAnalyzer) Opening existing project: /Users/achyland/Desktop/SANDBOX_LORE/dumps/ghidra/tmp/field2_eval_tmp  
+2025-12-03 11:25:48 INFO  (HeadlessProject) Opening project: /Users/achyland/Desktop/SANDBOX_LORE/dumps/ghidra/tmp/field2_eval_tmp  
+2025-12-03 11:25:49 INFO  (HeadlessAnalyzer) REPORT: Processing project file: /BootKernelCollection.kc  
+2025-12-03 11:25:50 INFO  (HeadlessAnalyzer) SCRIPT: /private/tmp/eval_node_layout.py  
+2025-12-03 11:25:52 INFO  (HeadlessAnalyzer) REPORT: Save succeeded for processed file: /BootKernelCollection.kc  
+2025-12-03 11:27:26 INFO  (LoggingInitialization) Using log config file: jar:file:/opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml  
+2025-12-03 11:27:26 INFO  (LoggingInitialization) Using log file: /Users/achyland/Desktop/SANDBOX_LORE/.ghidra-user/achyland-ghidra/ghidra_11.4.2_PUBLIC/application.log  
+2025-12-03 11:27:26 INFO  (Preferences) Loading user preferences: /Users/achyland/Desktop/SANDBOX_LORE/.ghidra-user/achyland-ghidra/ghidra_11.4.2_PUBLIC/preferences  
+2025-12-03 11:27:26 INFO  (ClassSearcher) Searching for classes...  
+2025-12-03 11:27:27 INFO  (ClassSearcher) Class search complete (1254 ms)  
+2025-12-03 11:27:27 INFO  (SSLContextInitializer) Initializing SSL Context  
+2025-12-03 11:27:27 INFO  (SecureRandomFactory) Initializing Random Number Generator...  
+2025-12-03 11:27:27 INFO  (SecureRandomFactory) Random Number Generator initialization complete: NativePRNGNonBlocking  
+2025-12-03 11:27:27 INFO  (ApplicationTrustManagerFactory) Trust manager disabled, cacerts have not been set  
+2025-12-03 11:27:27 INFO  (AnalyzeHeadless) Headless startup complete (2202 ms)  
+2025-12-03 11:27:27 INFO  (ClassSearcher) Class searcher loaded 58 extension points (18 false positives)  
+2025-12-03 11:27:27 INFO  (HeadlessAnalyzer) HEADLESS Script Paths:
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/VersionTracking/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Jython/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Debug/Debugger/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/Atmel/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/PIC/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/PyGhidra/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/SwiftDemangler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/PDB/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/BytePatterns/ghidra_scripts
+    /tmp
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/SystemEmulation/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/JVM/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/MicrosoftCodeAnalyzer/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/FunctionID/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/WildcardAssembler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/BSim/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/FileFormats/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/DecompilerDependent/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Debug/Debugger-rmi-trace/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Decompiler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/DATA/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/8051/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Base/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/GnuDemangler/ghidra_scripts  
+2025-12-03 11:27:27 INFO  (HeadlessAnalyzer) HEADLESS: execution starts  
+2025-12-03 11:27:27 INFO  (HeadlessAnalyzer) Opening existing project: /Users/achyland/Desktop/SANDBOX_LORE/dumps/ghidra/tmp/field2_eval_tmp  
+2025-12-03 11:27:28 INFO  (HeadlessProject) Opening project: /Users/achyland/Desktop/SANDBOX_LORE/dumps/ghidra/tmp/field2_eval_tmp  
+2025-12-03 11:27:29 INFO  (HeadlessAnalyzer) REPORT: Processing project file: /BootKernelCollection.kc  
+2025-12-03 11:27:29 INFO  (HeadlessAnalyzer) SCRIPT: /private/tmp/eval_node_layout.py  
+2025-12-03 11:27:32 INFO  (HeadlessAnalyzer) REPORT: Save succeeded for processed file: /BootKernelCollection.kc  
+2025-12-03 11:28:17 INFO  (LoggingInitialization) Using log config file: jar:file:/opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml  
+2025-12-03 11:28:17 INFO  (LoggingInitialization) Using log file: /Users/achyland/Desktop/SANDBOX_LORE/.ghidra-user/achyland-ghidra/ghidra_11.4.2_PUBLIC/application.log  
+2025-12-03 11:28:17 INFO  (Preferences) Loading user preferences: /Users/achyland/Desktop/SANDBOX_LORE/.ghidra-user/achyland-ghidra/ghidra_11.4.2_PUBLIC/preferences  
+2025-12-03 11:28:17 INFO  (ClassSearcher) Searching for classes...  
+2025-12-03 11:28:19 INFO  (ClassSearcher) Class search complete (1254 ms)  
+2025-12-03 11:28:19 INFO  (SSLContextInitializer) Initializing SSL Context  
+2025-12-03 11:28:19 INFO  (SecureRandomFactory) Initializing Random Number Generator...  
+2025-12-03 11:28:19 INFO  (SecureRandomFactory) Random Number Generator initialization complete: NativePRNGNonBlocking  
+2025-12-03 11:28:19 INFO  (ApplicationTrustManagerFactory) Trust manager disabled, cacerts have not been set  
+2025-12-03 11:28:19 INFO  (AnalyzeHeadless) Headless startup complete (2191 ms)  
+2025-12-03 11:28:19 INFO  (ClassSearcher) Class searcher loaded 58 extension points (18 false positives)  
+2025-12-03 11:28:19 INFO  (HeadlessAnalyzer) HEADLESS Script Paths:
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/VersionTracking/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Jython/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Debug/Debugger/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/Atmel/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/PIC/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/PyGhidra/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/SwiftDemangler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/PDB/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/BytePatterns/ghidra_scripts
+    /tmp
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/SystemEmulation/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/JVM/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/MicrosoftCodeAnalyzer/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/FunctionID/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/WildcardAssembler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/BSim/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/FileFormats/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/DecompilerDependent/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Debug/Debugger-rmi-trace/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Decompiler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/DATA/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/8051/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Base/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/GnuDemangler/ghidra_scripts  
+2025-12-03 11:28:19 INFO  (HeadlessAnalyzer) HEADLESS: execution starts  
+2025-12-03 11:28:19 INFO  (HeadlessAnalyzer) Opening existing project: /Users/achyland/Desktop/SANDBOX_LORE/dumps/ghidra/tmp/field2_eval_tmp  
+2025-12-03 11:28:19 INFO  (HeadlessProject) Opening project: /Users/achyland/Desktop/SANDBOX_LORE/dumps/ghidra/tmp/field2_eval_tmp  
+2025-12-03 11:28:21 INFO  (HeadlessAnalyzer) REPORT: Processing project file: /BootKernelCollection.kc  
+2025-12-03 11:28:21 INFO  (HeadlessAnalyzer) SCRIPT: /private/tmp/eval_node_layout.py  
+2025-12-03 11:28:23 INFO  (HeadlessAnalyzer) REPORT: Save succeeded for processed file: /BootKernelCollection.kc  
+2025-12-03 11:29:07 INFO  (LoggingInitialization) Using log config file: jar:file:/opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml  
+2025-12-03 11:29:07 INFO  (LoggingInitialization) Using log file: /Users/achyland/Desktop/SANDBOX_LORE/.ghidra-user/achyland-ghidra/ghidra_11.4.2_PUBLIC/application.log  
+2025-12-03 11:29:07 INFO  (Preferences) Loading user preferences: /Users/achyland/Desktop/SANDBOX_LORE/.ghidra-user/achyland-ghidra/ghidra_11.4.2_PUBLIC/preferences  
+2025-12-03 11:29:07 INFO  (ClassSearcher) Searching for classes...  
+2025-12-03 11:29:09 INFO  (ClassSearcher) Class search complete (1254 ms)  
+2025-12-03 11:29:09 INFO  (SSLContextInitializer) Initializing SSL Context  
+2025-12-03 11:29:09 INFO  (SecureRandomFactory) Initializing Random Number Generator...  
+2025-12-03 11:29:09 INFO  (SecureRandomFactory) Random Number Generator initialization complete: NativePRNGNonBlocking  
+2025-12-03 11:29:09 INFO  (ApplicationTrustManagerFactory) Trust manager disabled, cacerts have not been set  
+2025-12-03 11:29:09 INFO  (AnalyzeHeadless) Headless startup complete (2200 ms)  
+2025-12-03 11:29:09 INFO  (ClassSearcher) Class searcher loaded 58 extension points (18 false positives)  
+2025-12-03 11:29:09 INFO  (HeadlessAnalyzer) HEADLESS Script Paths:
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/VersionTracking/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Jython/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Debug/Debugger/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/Atmel/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/PIC/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/PyGhidra/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/SwiftDemangler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/PDB/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/BytePatterns/ghidra_scripts
+    /tmp
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/SystemEmulation/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/JVM/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/MicrosoftCodeAnalyzer/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/FunctionID/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/WildcardAssembler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/BSim/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/FileFormats/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/DecompilerDependent/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Debug/Debugger-rmi-trace/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Decompiler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/DATA/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/8051/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Base/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/GnuDemangler/ghidra_scripts  
+2025-12-03 11:29:09 INFO  (HeadlessAnalyzer) HEADLESS: execution starts  
+2025-12-03 11:29:09 INFO  (HeadlessAnalyzer) Opening existing project: /Users/achyland/Desktop/SANDBOX_LORE/dumps/ghidra/tmp/field2_eval_tmp  
+2025-12-03 11:29:09 INFO  (HeadlessProject) Opening project: /Users/achyland/Desktop/SANDBOX_LORE/dumps/ghidra/tmp/field2_eval_tmp  
+2025-12-03 11:29:11 INFO  (HeadlessAnalyzer) REPORT: Processing project file: /BootKernelCollection.kc  
+2025-12-03 11:29:11 INFO  (HeadlessAnalyzer) SCRIPT: /private/tmp/eval_node_layout.py  
+2025-12-03 11:29:13 INFO  (HeadlessAnalyzer) REPORT: Save succeeded for processed file: /BootKernelCollection.kc  
+2025-12-03 11:30:33 INFO  (LoggingInitialization) Using log config file: jar:file:/opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml  
+2025-12-03 11:30:33 INFO  (LoggingInitialization) Using log file: /Users/achyland/Desktop/SANDBOX_LORE/.ghidra-user/achyland-ghidra/ghidra_11.4.2_PUBLIC/application.log  
+2025-12-03 11:30:33 INFO  (Preferences) Loading user preferences: /Users/achyland/Desktop/SANDBOX_LORE/.ghidra-user/achyland-ghidra/ghidra_11.4.2_PUBLIC/preferences  
+2025-12-03 11:30:33 INFO  (ClassSearcher) Searching for classes...  
+2025-12-03 11:30:34 INFO  (ClassSearcher) Class search complete (1260 ms)  
+2025-12-03 11:30:35 INFO  (SSLContextInitializer) Initializing SSL Context  
+2025-12-03 11:30:35 INFO  (SecureRandomFactory) Initializing Random Number Generator...  
+2025-12-03 11:30:35 INFO  (SecureRandomFactory) Random Number Generator initialization complete: NativePRNGNonBlocking  
+2025-12-03 11:30:35 INFO  (ApplicationTrustManagerFactory) Trust manager disabled, cacerts have not been set  
+2025-12-03 11:30:35 INFO  (AnalyzeHeadless) Headless startup complete (2196 ms)  
+2025-12-03 11:30:35 INFO  (ClassSearcher) Class searcher loaded 58 extension points (18 false positives)  
+2025-12-03 11:30:35 INFO  (HeadlessAnalyzer) HEADLESS Script Paths:
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/VersionTracking/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Jython/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Debug/Debugger/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/Atmel/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/PIC/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/PyGhidra/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/SwiftDemangler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/PDB/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/BytePatterns/ghidra_scripts
+    /tmp
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/SystemEmulation/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/JVM/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/MicrosoftCodeAnalyzer/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/FunctionID/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/WildcardAssembler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/BSim/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/FileFormats/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/DecompilerDependent/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Debug/Debugger-rmi-trace/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Decompiler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/DATA/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/8051/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Base/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/GnuDemangler/ghidra_scripts  
+2025-12-03 11:30:35 INFO  (HeadlessAnalyzer) HEADLESS: execution starts  
+2025-12-03 11:30:35 INFO  (HeadlessAnalyzer) Opening existing project: /Users/achyland/Desktop/SANDBOX_LORE/dumps/ghidra/tmp/field2_eval_tmp  
+2025-12-03 11:30:35 INFO  (HeadlessProject) Opening project: /Users/achyland/Desktop/SANDBOX_LORE/dumps/ghidra/tmp/field2_eval_tmp  
+2025-12-03 11:30:36 INFO  (HeadlessAnalyzer) REPORT: Processing project file: /BootKernelCollection.kc  
+2025-12-03 11:30:37 INFO  (HeadlessAnalyzer) SCRIPT: /private/tmp/eval_node_layout.py  
+2025-12-03 11:30:39 INFO  (HeadlessAnalyzer) REPORT: Save succeeded for processed file: /BootKernelCollection.kc  
+2025-12-03 11:33:34 INFO  (LoggingInitialization) Using log config file: jar:file:/opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml  
+2025-12-03 11:33:34 INFO  (LoggingInitialization) Using log file: /Users/achyland/Desktop/SANDBOX_LORE/.ghidra-user/achyland-ghidra/ghidra_11.4.2_PUBLIC/application.log  
+2025-12-03 11:33:34 INFO  (Preferences) Loading user preferences: /Users/achyland/Desktop/SANDBOX_LORE/.ghidra-user/achyland-ghidra/ghidra_11.4.2_PUBLIC/preferences  
+2025-12-03 11:33:34 INFO  (ClassSearcher) Searching for classes...  
+2025-12-03 11:33:35 INFO  (ClassSearcher) Class search complete (1262 ms)  
+2025-12-03 11:33:35 INFO  (SSLContextInitializer) Initializing SSL Context  
+2025-12-03 11:33:35 INFO  (SecureRandomFactory) Initializing Random Number Generator...  
+2025-12-03 11:33:35 INFO  (SecureRandomFactory) Random Number Generator initialization complete: NativePRNGNonBlocking  
+2025-12-03 11:33:35 INFO  (ApplicationTrustManagerFactory) Trust manager disabled, cacerts have not been set  
+2025-12-03 11:33:35 INFO  (AnalyzeHeadless) Headless startup complete (2219 ms)  
+2025-12-03 11:33:35 INFO  (ClassSearcher) Class searcher loaded 58 extension points (18 false positives)  
+2025-12-03 11:33:36 INFO  (HeadlessAnalyzer) HEADLESS Script Paths:
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/VersionTracking/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Jython/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Debug/Debugger/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/Atmel/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/PIC/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/PyGhidra/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/SwiftDemangler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/PDB/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/BytePatterns/ghidra_scripts
+    /tmp
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/SystemEmulation/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/JVM/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/MicrosoftCodeAnalyzer/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/FunctionID/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/WildcardAssembler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/BSim/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/FileFormats/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/DecompilerDependent/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Debug/Debugger-rmi-trace/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Decompiler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/DATA/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/8051/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Base/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/GnuDemangler/ghidra_scripts  
+2025-12-03 11:33:36 INFO  (HeadlessAnalyzer) HEADLESS: execution starts  
+2025-12-03 11:33:36 INFO  (HeadlessAnalyzer) Opening existing project: /Users/achyland/Desktop/SANDBOX_LORE/dumps/ghidra/tmp/field2_eval_tmp  
+2025-12-03 11:33:36 INFO  (HeadlessProject) Opening project: /Users/achyland/Desktop/SANDBOX_LORE/dumps/ghidra/tmp/field2_eval_tmp  
+2025-12-03 11:33:37 INFO  (HeadlessAnalyzer) REPORT: Processing project file: /BootKernelCollection.kc  
+2025-12-03 11:33:37 INFO  (HeadlessAnalyzer) SCRIPT: /private/tmp/eval_node_layout.py  
+2025-12-03 11:33:40 INFO  (HeadlessAnalyzer) REPORT: Save succeeded for processed file: /BootKernelCollection.kc  
+2025-12-03 11:35:04 INFO  (LoggingInitialization) Using log config file: jar:file:/opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml  
+2025-12-03 11:35:04 INFO  (LoggingInitialization) Using log file: /Users/achyland/Desktop/SANDBOX_LORE/.ghidra-user/achyland-ghidra/ghidra_11.4.2_PUBLIC/application.log  
+2025-12-03 11:35:04 INFO  (Preferences) Loading user preferences: /Users/achyland/Desktop/SANDBOX_LORE/.ghidra-user/achyland-ghidra/ghidra_11.4.2_PUBLIC/preferences  
+2025-12-03 11:35:04 INFO  (ClassSearcher) Searching for classes...  
+2025-12-03 11:35:05 INFO  (ClassSearcher) Class search complete (1257 ms)  
+2025-12-03 11:35:05 INFO  (SSLContextInitializer) Initializing SSL Context  
+2025-12-03 11:35:05 INFO  (SecureRandomFactory) Initializing Random Number Generator...  
+2025-12-03 11:35:05 INFO  (SecureRandomFactory) Random Number Generator initialization complete: NativePRNGNonBlocking  
+2025-12-03 11:35:05 INFO  (ApplicationTrustManagerFactory) Trust manager disabled, cacerts have not been set  
+2025-12-03 11:35:06 INFO  (AnalyzeHeadless) Headless startup complete (2209 ms)  
+2025-12-03 11:35:06 INFO  (ClassSearcher) Class searcher loaded 58 extension points (18 false positives)  
+2025-12-03 11:35:06 INFO  (HeadlessAnalyzer) HEADLESS Script Paths:
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/VersionTracking/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Jython/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Debug/Debugger/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/Atmel/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/PIC/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/PyGhidra/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/SwiftDemangler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/PDB/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/BytePatterns/ghidra_scripts
+    /tmp
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/SystemEmulation/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/JVM/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/MicrosoftCodeAnalyzer/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/FunctionID/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/WildcardAssembler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/BSim/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/FileFormats/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/DecompilerDependent/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Debug/Debugger-rmi-trace/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Decompiler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/DATA/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/8051/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Base/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/GnuDemangler/ghidra_scripts  
+2025-12-03 11:35:06 INFO  (HeadlessAnalyzer) HEADLESS: execution starts  
+2025-12-03 11:35:06 INFO  (HeadlessAnalyzer) Opening existing project: /Users/achyland/Desktop/SANDBOX_LORE/dumps/ghidra/tmp/field2_eval_tmp  
+2025-12-03 11:35:06 INFO  (HeadlessProject) Opening project: /Users/achyland/Desktop/SANDBOX_LORE/dumps/ghidra/tmp/field2_eval_tmp  
+2025-12-03 11:35:07 INFO  (HeadlessAnalyzer) REPORT: Processing project file: /BootKernelCollection.kc  
+2025-12-03 11:35:08 INFO  (HeadlessAnalyzer) SCRIPT: /private/tmp/eval_node_layout.py  
+2025-12-03 11:35:10 INFO  (HeadlessAnalyzer) REPORT: Save succeeded for processed file: /BootKernelCollection.kc  
+2025-12-03 11:36:07 INFO  (LoggingInitialization) Using log config file: jar:file:/opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml  
+2025-12-03 11:36:07 INFO  (LoggingInitialization) Using log file: /Users/achyland/Desktop/SANDBOX_LORE/.ghidra-user/achyland-ghidra/ghidra_11.4.2_PUBLIC/application.log  
+2025-12-03 11:36:07 INFO  (Preferences) Loading user preferences: /Users/achyland/Desktop/SANDBOX_LORE/.ghidra-user/achyland-ghidra/ghidra_11.4.2_PUBLIC/preferences  
+2025-12-03 11:36:07 INFO  (ClassSearcher) Searching for classes...  
+2025-12-03 11:36:08 INFO  (ClassSearcher) Class search complete (1258 ms)  
+2025-12-03 11:36:08 INFO  (SSLContextInitializer) Initializing SSL Context  
+2025-12-03 11:36:08 INFO  (SecureRandomFactory) Initializing Random Number Generator...  
+2025-12-03 11:36:08 INFO  (SecureRandomFactory) Random Number Generator initialization complete: NativePRNGNonBlocking  
+2025-12-03 11:36:08 INFO  (ApplicationTrustManagerFactory) Trust manager disabled, cacerts have not been set  
+2025-12-03 11:36:09 INFO  (AnalyzeHeadless) Headless startup complete (2201 ms)  
+2025-12-03 11:36:09 INFO  (ClassSearcher) Class searcher loaded 58 extension points (18 false positives)  
+2025-12-03 11:36:09 INFO  (HeadlessAnalyzer) HEADLESS Script Paths:
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/VersionTracking/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Jython/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Debug/Debugger/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/Atmel/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/PIC/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/PyGhidra/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/SwiftDemangler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/PDB/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/BytePatterns/ghidra_scripts
+    /tmp
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/SystemEmulation/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/JVM/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/MicrosoftCodeAnalyzer/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/FunctionID/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/WildcardAssembler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/BSim/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/FileFormats/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/DecompilerDependent/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Debug/Debugger-rmi-trace/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Decompiler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/DATA/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/8051/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Base/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/GnuDemangler/ghidra_scripts  
+2025-12-03 11:36:09 INFO  (HeadlessAnalyzer) HEADLESS: execution starts  
+2025-12-03 11:36:09 INFO  (HeadlessAnalyzer) Opening existing project: /Users/achyland/Desktop/SANDBOX_LORE/dumps/ghidra/tmp/field2_eval_tmp  
+2025-12-03 11:36:09 INFO  (HeadlessProject) Opening project: /Users/achyland/Desktop/SANDBOX_LORE/dumps/ghidra/tmp/field2_eval_tmp  
+2025-12-03 11:36:10 INFO  (HeadlessAnalyzer) REPORT: Processing project file: /BootKernelCollection.kc  
+2025-12-03 11:36:11 INFO  (HeadlessAnalyzer) SCRIPT: /private/tmp/eval_node_layout.py  
+2025-12-03 11:36:13 INFO  (HeadlessAnalyzer) REPORT: Save succeeded for processed file: /BootKernelCollection.kc  
+2025-12-03 11:37:30 INFO  (LoggingInitialization) Using log config file: jar:file:/opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml  
+2025-12-03 11:37:30 INFO  (LoggingInitialization) Using log file: /Users/achyland/Desktop/SANDBOX_LORE/.ghidra-user/achyland-ghidra/ghidra_11.4.2_PUBLIC/application.log  
+2025-12-03 11:37:30 INFO  (Preferences) Loading user preferences: /Users/achyland/Desktop/SANDBOX_LORE/.ghidra-user/achyland-ghidra/ghidra_11.4.2_PUBLIC/preferences  
+2025-12-03 11:37:30 INFO  (ClassSearcher) Searching for classes...  
+2025-12-03 11:37:31 INFO  (ClassSearcher) Class search complete (1257 ms)  
+2025-12-03 11:37:31 INFO  (SSLContextInitializer) Initializing SSL Context  
+2025-12-03 11:37:31 INFO  (SecureRandomFactory) Initializing Random Number Generator...  
+2025-12-03 11:37:31 INFO  (SecureRandomFactory) Random Number Generator initialization complete: NativePRNGNonBlocking  
+2025-12-03 11:37:31 INFO  (ApplicationTrustManagerFactory) Trust manager disabled, cacerts have not been set  
+2025-12-03 11:37:32 INFO  (AnalyzeHeadless) Headless startup complete (2221 ms)  
+2025-12-03 11:37:32 INFO  (ClassSearcher) Class searcher loaded 58 extension points (18 false positives)  
+2025-12-03 11:37:32 INFO  (HeadlessAnalyzer) HEADLESS Script Paths:
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/VersionTracking/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Jython/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Debug/Debugger/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/Atmel/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/PIC/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/PyGhidra/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/SwiftDemangler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/PDB/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/BytePatterns/ghidra_scripts
+    /tmp
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/SystemEmulation/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/JVM/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/MicrosoftCodeAnalyzer/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/FunctionID/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/WildcardAssembler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/BSim/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/FileFormats/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/DecompilerDependent/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Debug/Debugger-rmi-trace/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Decompiler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/DATA/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/8051/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Base/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/GnuDemangler/ghidra_scripts  
+2025-12-03 11:37:32 INFO  (HeadlessAnalyzer) HEADLESS: execution starts  
+2025-12-03 11:37:32 INFO  (HeadlessAnalyzer) Opening existing project: /Users/achyland/Desktop/SANDBOX_LORE/dumps/ghidra/tmp/field2_eval_tmp  
+2025-12-03 11:37:32 INFO  (HeadlessProject) Opening project: /Users/achyland/Desktop/SANDBOX_LORE/dumps/ghidra/tmp/field2_eval_tmp  
+2025-12-03 11:37:33 INFO  (HeadlessAnalyzer) REPORT: Processing project file: /BootKernelCollection.kc  
+2025-12-03 11:37:33 INFO  (HeadlessAnalyzer) SCRIPT: /private/tmp/eval_node_layout.py  
+2025-12-03 11:37:36 INFO  (HeadlessAnalyzer) REPORT: Save succeeded for processed file: /BootKernelCollection.kc  
+2025-12-03 11:54:39 INFO  (LoggingInitialization) Using log config file: jar:file:/opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml  
+2025-12-03 11:54:39 INFO  (LoggingInitialization) Using log file: /Users/achyland/Desktop/SANDBOX_LORE/.ghidra-user/achyland-ghidra/ghidra_11.4.2_PUBLIC/application.log  
+2025-12-03 11:54:39 INFO  (Preferences) Loading user preferences: /Users/achyland/Desktop/SANDBOX_LORE/.ghidra-user/achyland-ghidra/ghidra_11.4.2_PUBLIC/preferences  
+2025-12-03 11:54:39 INFO  (ClassSearcher) Searching for classes...  
+2025-12-03 11:54:40 INFO  (ClassSearcher) Class search complete (1257 ms)  
+2025-12-03 11:54:40 INFO  (SSLContextInitializer) Initializing SSL Context  
+2025-12-03 11:54:40 INFO  (SecureRandomFactory) Initializing Random Number Generator...  
+2025-12-03 11:54:40 INFO  (SecureRandomFactory) Random Number Generator initialization complete: NativePRNGNonBlocking  
+2025-12-03 11:54:40 INFO  (ApplicationTrustManagerFactory) Trust manager disabled, cacerts have not been set  
+2025-12-03 11:54:41 INFO  (AnalyzeHeadless) Headless startup complete (2246 ms)  
+2025-12-03 11:54:41 INFO  (ClassSearcher) Class searcher loaded 58 extension points (18 false positives)  
+2025-12-03 11:54:41 INFO  (HeadlessAnalyzer) HEADLESS Script Paths:
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/VersionTracking/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Jython/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Debug/Debugger/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/Atmel/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/PIC/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/PyGhidra/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/SwiftDemangler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/PDB/ghidra_scripts
+    /Users/achyland/Desktop/SANDBOX_LORE/book/api/ghidra/scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/BytePatterns/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/SystemEmulation/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/JVM/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/MicrosoftCodeAnalyzer/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/FunctionID/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/WildcardAssembler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/BSim/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/FileFormats/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/DecompilerDependent/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Debug/Debugger-rmi-trace/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Decompiler/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/DATA/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Processors/8051/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/Base/ghidra_scripts
+    /opt/homebrew/Cellar/ghidra/11.4.2/libexec/Ghidra/Features/GnuDemangler/ghidra_scripts  
+2025-12-03 11:54:41 INFO  (HeadlessAnalyzer) HEADLESS: execution starts  
+2025-12-03 11:54:41 INFO  (HeadlessAnalyzer) Opening existing project: /Users/achyland/Desktop/SANDBOX_LORE/dumps/ghidra/tmp/field2_eval_tmp  
+2025-12-03 11:54:41 INFO  (HeadlessProject) Opening project: /Users/achyland/Desktop/SANDBOX_LORE/dumps/ghidra/tmp/field2_eval_tmp  
+2025-12-03 11:54:41 ERROR (HeadlessAnalyzer) Abort due to Headless analyzer error: Requested project program file(s) not found: BootKernelCollection java.io.IOException: Requested project program file(s) not found: BootKernelCollection
+	at ghidra.app.util.headless.HeadlessAnalyzer.processNoImport(HeadlessAnalyzer.java:1381)
+	at ghidra.app.util.headless.HeadlessAnalyzer.processLocal(HeadlessAnalyzer.java:454)
+	at ghidra.app.util.headless.AnalyzeHeadless.launch(AnalyzeHeadless.java:198)
+	at ghidra.GhidraLauncher.launch(GhidraLauncher.java:81)
+	at ghidra.Ghidra.main(Ghidra.java:54)
+ 
