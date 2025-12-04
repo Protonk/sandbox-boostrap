@@ -1,29 +1,5 @@
 {
   "profiles": {
-    "bucket4:v1_read": {
-      "blob": "book/experiments/op-table-operation/sb/build/v1_read.sb.bin",
-      "probes": [
-        {
-          "name": "read_/etc/hosts",
-          "operation": "file-read*",
-          "target": "/etc/hosts",
-          "expected": "allow"
-        },
-        {
-          "name": "write_/etc/hosts",
-          "operation": "file-write*",
-          "target": "/etc/hosts",
-          "expected": "deny"
-        },
-        {
-          "name": "read_/tmp/foo",
-          "operation": "file-read*",
-          "target": "/tmp/foo",
-          "expected": "allow"
-        }
-      ],
-      "notes": "Baseline bucket-4 profile: allow file-read* only."
-    },
     "runtime:allow_all": {
       "blob": "book/profiles/golden-triple/allow_all.sb.bin",
       "probes": [
@@ -77,6 +53,32 @@
         }
       ],
       "notes": "require-any literal foo/bar"
+    },
+    "bucket4:v1_read": {
+      "blob": "book/profiles/golden-triple/bucket4_v1_read.sb.bin",
+      "probes": [
+        {
+          "name": "read_/etc/hosts",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "allow",
+          "expectation_id": "bucket4:v1_read|file-read*|/etc/hosts"
+        },
+        {
+          "name": "write_/etc/hosts",
+          "operation": "file-write*",
+          "target": "/etc/hosts",
+          "expected": "deny"
+        },
+        {
+          "name": "read_/tmp/foo",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "expectation_id": "bucket4:v1_read|file-read*|/tmp/foo"
+        }
+      ],
+      "notes": "Baseline bucket-4 profile: allow file-read* only."
     }
   }
 }

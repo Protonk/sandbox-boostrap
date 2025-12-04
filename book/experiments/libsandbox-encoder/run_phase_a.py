@@ -207,10 +207,13 @@ def build_matrix(sb_path: Path, out_blob: Path, out_json: Path) -> None:
 
 
 def main() -> None:
-    sb_path = ROOT / "book/experiments/libsandbox-encoder/sb/matrix_v1.sb"
-    out_blob = ROOT / "book/experiments/libsandbox-encoder/out/matrix_v1.sb.bin"
-    out_json = ROOT / "book/experiments/libsandbox-encoder/out/field2_encoder_matrix.json"
-    build_matrix(sb_path, out_blob, out_json)
+    for stem in ["matrix_v1", "matrix_v2"]:
+        sb_path = ROOT / f"book/experiments/libsandbox-encoder/sb/{stem}.sb"
+        if not sb_path.exists():
+            continue
+        out_blob = ROOT / f"book/experiments/libsandbox-encoder/out/{stem}.sb.bin"
+        out_json = ROOT / f"book/experiments/libsandbox-encoder/out/{stem}_field2_encoder_matrix.json"
+        build_matrix(sb_path, out_blob, out_json)
 
 
 if __name__ == "__main__":

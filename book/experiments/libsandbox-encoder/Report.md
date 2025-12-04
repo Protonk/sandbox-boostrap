@@ -10,14 +10,15 @@ Map how this host’s `libsandbox` encodes filter arguments into the `field2` u1
 
 ## Plan & execution log
 
-- Phase A — SBPL→blob matrix (encoder output view): matrix v1 (regex-free) compiled via `sbpl_compile`; nodes parsed via `profile_ingestion` + custom helper; table emitted to `out/field2_encoder_matrix.json`.
-- Phase B — libsandbox internals (encoder implementation view): not started (heuristics collected in Notes).
+- Phase A — SBPL→blob matrix (encoder output view): matrix v1 (regex-free) compiled via `sbpl_compile`; nodes parsed via `profile_ingestion` + custom helper with local tag overrides; table emitted to `out/matrix_v1_field2_encoder_matrix.json`. Tag2/tag3 treated as meta/no payload; tag10 field[2] = filter ID, payload slot remains ambiguous (field[3]/[4]).
+- Phase B — libsandbox internals (encoder implementation view): not started (next step; proceed to serializer/encoder site identification).
 
 ## Evidence & artifacts
 
-- `sb/matrix_v1.sb` (regex-free baseline).
+- `sb/matrix_v1.sb` (regex-free baseline); `sb/matrix_v2.sb` (arg-variance probe; decode pending infra fixes).
 - `out/tag_layout_overrides.json` (local, staged) for tags 2/3/8/10.
-- `out/matrix_v1.sb.bin` (compiled blob), `out/matrix_v1.inspect.json` (inspect_profile snapshot), `out/matrix_v1.op_table.json` (op_table summary), `out/field2_encoder_matrix.json` (Phase A table generated with local tag layouts; tag2/tag3 treated as meta/no payload).
+- `out/matrix_v1.sb.bin`, `out/matrix_v1.inspect.json`, `out/matrix_v1.op_table.json`, `out/matrix_v1_field2_encoder_matrix.json` (Phase A table with tag2/3 excluded).
+- `out/matrix_v2.sb.bin`, `out/matrix_v2.inspect.json`, `out/matrix_v2_field2_encoder_matrix.json` (decode currently skewed to tag6/5; not relied on).
 - Pending: `out/encoder_sites.json`.
 
 ## Blockers / risks
@@ -28,3 +29,9 @@ Map how this host’s `libsandbox` encodes filter arguments into the `field2` u1
 
 - Stand up Phase A probes and capture the matrix.
 - Begin Phase B disassembly once Phase A is stable.
+- ### Phase A v1 Status (frozen)
+
+- Tag roles: tag2/tag3 are classified as meta/header (no payload) and are excluded from the encoder matrix. Payload-bearing tags in scope are currently {10,8,6,9}.
+- Tag10 layout: field[2] is confirmed as the filter ID slot (values {6,8,9,10} matching the Filter Vocabulary Map). The payload slot for tag10 remains ambiguous between field[3] and field[4] based on matrix_v1; Phase A does not resolve this.
+- Matrices: `matrix_v1_field2_encoder_matrix.json` provides a clean, vocab-aligned baseline; `matrix_v2` exists but its decode is skewed (tag6/5 only) and is not used for conclusions.
+- Next step: Phase B will inspect libsandbox’s profile serializer to identify the per-tag10 store pattern, resolve the payload offset, and feed that back into tag_layout_overrides and future Phase A matrices.

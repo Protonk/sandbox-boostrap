@@ -1,0 +1,227 @@
+{
+  "runtime:allow_all": {
+    "status": "ok",
+    "profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/profiles/golden-triple/runtime_profiles/allow_all.runtime_allow_all.runtime.sb",
+    "base_profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/sbpl-graph-runtime/profiles/allow_all.sb",
+    "probes": [
+      {
+        "name": "read_/etc/hosts",
+        "expectation_id": "allow_all|file-read*|/etc/hosts",
+        "operation": "file-read*",
+        "path": "/etc/hosts",
+        "expected": "allow",
+        "actual": "allow",
+        "match": true,
+        "runtime_result": {
+          "status": "success",
+          "errno": null
+        },
+        "violation_summary": null,
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_reader",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/profiles/golden-triple/runtime_profiles/allow_all.runtime_allow_all.runtime.sb",
+          "/etc/hosts"
+        ],
+        "exit_code": 0,
+        "stdout": "##\n# Host Database\n#\n# localhost is used to configure the loopback interface\n# when the system is booting.  Do not change this entry.\n##\n127.0.0.1\tlocalhost\n255.255.255.255\tbroadcasthost\n::1             localhost\n",
+        "stderr": ""
+      },
+      {
+        "name": "read_/tmp/sbpl_rt/read.txt",
+        "expectation_id": "allow_all|file-read*|/tmp/sbpl_rt/read.txt",
+        "operation": "file-read*",
+        "path": "/tmp/sbpl_rt/read.txt",
+        "expected": "allow",
+        "actual": "allow",
+        "match": true,
+        "runtime_result": {
+          "status": "success",
+          "errno": null
+        },
+        "violation_summary": null,
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_reader",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/profiles/golden-triple/runtime_profiles/allow_all.runtime_allow_all.runtime.sb",
+          "/tmp/sbpl_rt/read.txt"
+        ],
+        "exit_code": 0,
+        "stdout": "runtime-checks read\n",
+        "stderr": ""
+      },
+      {
+        "name": "write_/tmp/sbpl_rt/write.txt",
+        "expectation_id": "allow_all|file-write*|/tmp/sbpl_rt/write.txt",
+        "operation": "file-write*",
+        "path": "/tmp/sbpl_rt/write.txt",
+        "expected": "allow",
+        "actual": "allow",
+        "match": true,
+        "runtime_result": {
+          "status": "success",
+          "errno": null
+        },
+        "violation_summary": null,
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_runner",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/profiles/golden-triple/runtime_profiles/allow_all.runtime_allow_all.runtime.sb",
+          "--",
+          "/bin/sh",
+          "-c",
+          "echo runtime-check >> '/tmp/sbpl_rt/write.txt'"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    ]
+  },
+  "runtime:metafilter_any": {
+    "status": "ok",
+    "profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/profiles/golden-triple/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
+    "base_profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/sbpl-graph-runtime/profiles/metafilter_any.sb",
+    "probes": [
+      {
+        "name": "read_foo",
+        "expectation_id": "metafilter_any|file-read*|/tmp/foo.txt",
+        "operation": "file-read*",
+        "path": "/tmp/foo.txt",
+        "expected": "allow",
+        "actual": "allow",
+        "match": true,
+        "runtime_result": {
+          "status": "success",
+          "errno": null
+        },
+        "violation_summary": null,
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_reader",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/profiles/golden-triple/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
+          "/tmp/foo.txt"
+        ],
+        "exit_code": 0,
+        "stdout": "foo\n",
+        "stderr": ""
+      },
+      {
+        "name": "read_bar",
+        "expectation_id": "metafilter_any|file-read*|/tmp/bar.txt",
+        "operation": "file-read*",
+        "path": "/tmp/bar.txt",
+        "expected": "allow",
+        "actual": "allow",
+        "match": true,
+        "runtime_result": {
+          "status": "success",
+          "errno": null
+        },
+        "violation_summary": null,
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_reader",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/profiles/golden-triple/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
+          "/tmp/bar.txt"
+        ],
+        "exit_code": 0,
+        "stdout": "bar\n",
+        "stderr": ""
+      },
+      {
+        "name": "read_other",
+        "expectation_id": "metafilter_any|file-read*|/tmp/qux.txt",
+        "operation": "file-read*",
+        "path": "/tmp/qux.txt",
+        "expected": "allow",
+        "actual": "allow",
+        "match": true,
+        "runtime_result": {
+          "status": "success",
+          "errno": null
+        },
+        "violation_summary": null,
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_reader",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/profiles/golden-triple/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
+          "/tmp/qux.txt"
+        ],
+        "exit_code": 0,
+        "stdout": "qux\n",
+        "stderr": ""
+      }
+    ]
+  },
+  "bucket4:v1_read": {
+    "status": "ok",
+    "profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/profiles/golden-triple/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
+    "base_profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/op-table-operation/sb/v1_read.sb",
+    "probes": [
+      {
+        "name": "read_/etc/hosts",
+        "expectation_id": "bucket4:v1_read|file-read*|/etc/hosts",
+        "operation": "file-read*",
+        "path": "/etc/hosts",
+        "expected": "allow",
+        "actual": "allow",
+        "match": true,
+        "runtime_result": {
+          "status": "success",
+          "errno": null
+        },
+        "violation_summary": null,
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_reader",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/profiles/golden-triple/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
+          "/etc/hosts"
+        ],
+        "exit_code": 0,
+        "stdout": "##\n# Host Database\n#\n# localhost is used to configure the loopback interface\n# when the system is booting.  Do not change this entry.\n##\n127.0.0.1\tlocalhost\n255.255.255.255\tbroadcasthost\n::1             localhost\n",
+        "stderr": ""
+      },
+      {
+        "name": "write_/etc/hosts",
+        "expectation_id": null,
+        "operation": "file-write*",
+        "path": "/etc/hosts",
+        "expected": "deny",
+        "actual": "deny",
+        "match": true,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1
+        },
+        "violation_summary": null,
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_runner",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/profiles/golden-triple/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
+          "--",
+          "/bin/sh",
+          "-c",
+          "echo runtime-check >> '/etc/hosts'"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "/bin/sh: /etc/hosts: Permission denied\n"
+      },
+      {
+        "name": "read_/tmp/foo",
+        "expectation_id": "bucket4:v1_read|file-read*|/tmp/foo",
+        "operation": "file-read*",
+        "path": "/tmp/foo",
+        "expected": "allow",
+        "actual": "allow",
+        "match": true,
+        "runtime_result": {
+          "status": "success",
+          "errno": null
+        },
+        "violation_summary": null,
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_reader",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/profiles/golden-triple/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
+          "/tmp/foo"
+        ],
+        "exit_code": 0,
+        "stdout": "runtime-checks foo\n",
+        "stderr": ""
+      }
+    ]
+  }
+}

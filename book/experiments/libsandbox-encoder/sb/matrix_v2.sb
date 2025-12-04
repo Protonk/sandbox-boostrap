@@ -1,0 +1,18 @@
+;; Phase A matrix v2: vary arguments per filter to surface payload slot
+;; Host: macOS 14.4.1 (23E224) Apple Silicon, SIP enabled
+;; Focus: tag10 filters (socket-domain, remote/control/local names) with multiple arguments
+
+(version 1)
+(allow default)
+
+;; network-outbound with multiple socket-domain values (same op, different args)
+(deny network-outbound (socket-domain 2))   ; AF_INET
+(deny network-outbound (socket-domain 30))  ; AF_SYSTEM
+
+;; network-outbound with multiple control-name values (same op, different args)
+(deny network-outbound (control-name "com.apple.test.encoder.controlA"))
+(deny network-outbound (control-name "com.apple.test.encoder.controlB"))
+
+;; mach-lookup with multiple local-name values (same op, different args)
+(deny mach-lookup (local-name "com.apple.test.encoder.localA"))
+(deny mach-lookup (local-name "com.apple.test.encoder.localB"))

@@ -1,12 +1,12 @@
 {
-  "schema_version": "v0.1",
+  "schema_version": "provisional",
   "join_key": "expectation_id",
   "fields": [
     {
       "name": "expectation_id",
       "type": "string",
       "required": true,
-      "notes": "Matches static expectations (v0.1) expectation_id = profile_id|op|path."
+      "notes": "Matches static expectations (provisional) expectation_id = profile_id|op|path."
     },
     {
       "name": "profile_id",
@@ -51,7 +51,7 @@
       "name": "entrypoint_op_index",
       "type": "integer",
       "required": false,
-      "notes": "Runtime-visible op index if observable; may remain null in v0.1."
+      "notes": "Runtime-visible op index if observable; may remain null in this provisional cut."
     },
     {
       "name": "violation_summary",
@@ -60,5 +60,5 @@
       "notes": "Short structured hint (e.g., EPERM) if sandbox error surfaced."
     }
   ],
-  "notes": "Aligns runtime probes with static_expectations v0.1; unresolved entrypoints and heuristic terminals remain explicit."
+  "notes": "Aligns runtime probes with static_expectations (schema: provisional); unresolved entrypoints and heuristic terminals remain explicit."
 }

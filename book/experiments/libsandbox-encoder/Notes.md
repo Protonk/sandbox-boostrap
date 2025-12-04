@@ -12,3 +12,20 @@
 - Slicing sanity via inspect_profile: tiny profiles (`single_file_literal/subpath`, `single_network_domain`) have nodes_start/literal_start aligned (e.g., nodes_start=22, literal_start=369 for single_file_literal). Despite correct slicing, tag2/tag3 dominate those tiny profiles with constant field values, suggesting meta/scaffolding rather than filter nodes.
 - Quick tag inventory check (existing `tag_inventory.json` + tiny blobs): tag2 and tag3 appear in many profiles with counts fixed per stride (often 1 per op or header-like) and fields stable; no evidence they vary with SBPL args. Leaning toward marking tag2/tag3 as meta (no payload) in local overrides and excluding them from the encoder matrix; tag10/8/6/9 remain the active filter-bearing tags.
 - Updated local overrides to mark tag2/tag3 as meta/no payload, reran Phase A: `field2_encoder_matrix.json` now only includes tags with payloads (10/8/6/9). Next focus: differentiate filter-ID vs payload fields for tags 10/8/6/9 across existing profiles without adding new probes.
+- Added `build_tag_field_summary.py` to summarize payload-bearing tags from the encoder matrix. Current summary (matrix v1):
+  - tag10: field[2] is vocab ID {6,8,9,10}; other fields vary across rows (field0/1 ∈ {9,10}, field3/4 ∈ {0,8,10}). Per-filter buckets show all fields constant for a given filter/literal in this matrix, so payload location still ambiguous without more arg variance.
+  - tag8: single row, all fields fixed at 10 (socket-domain) -> likely scaffolding/sibling in this profile.
+  - tag0: single row with fields [2560,21,10,1,3328], literal_refs present; could encode arg/index in non-field2 slots; excluded from payload inference for now.
+- Attempted `matrix_v2` (arg variance for socket-domain/control-name/local-name); decode currently skewed to tag6/tag5 only (no tag10 rows) due to op/layout issues. To avoid churn, freezing Phase A with v1 matrix; payload slot for tag10 remains ambiguous (field[3]/[4]) until Phase B disassembly clarifies serializer stores.
+
+### Phase A v1 Status (frozen)
+
+- Tag roles: tag2/tag3 are classified as meta/header (no payload) and are excluded from the encoder matrix. Payload-bearing tags in scope are currently {10,8,6,9}.
+- Tag10 layout: field[2] is confirmed as the filter ID slot (values {6,8,9,10} matching the Filter Vocabulary Map). The payload slot for tag10 remains ambiguous between field[3] and field[4] based on matrix_v1; Phase A does not resolve this.
+- Matrices: `matrix_v1_field2_encoder_matrix.json` provides a clean, vocab-aligned baseline; `matrix_v2` exists but its decode is skewed (tag6/5 only) and is not used for conclusions.
+- Next step: Phase B will inspect libsandbox’s profile serializer to identify the per-tag10 store pattern, resolve the payload offset, and feed that back into tag_layout_overrides and future Phase A matrices.
+
+### Phase B kick-off
+
+- libsandbox slice: `book/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib` (arm64e, ~512KB). `nm -gU` shows exported compile/apply symbols (`_sandbox_compile_*`, `_sandbox_apply`, `_sandbox_apply_container`) plus profile-related helpers (`___emit_profile_block_invoke`, `__populate_atom_tables_profile`, etc.).
+- Need to identify the profile serializer path (buffer allocator → node emission loop) and map halfword stores for tag10. Initial `otool -p` lookup for `_populate_atom_tables_profile` failed (likely non-external symbol lookup); next steps: disassemble via address/symbol table or Ghidra to find the serializer and the `__mac_syscall` call site.
