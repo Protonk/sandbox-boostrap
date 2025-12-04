@@ -493,41 +493,6 @@ func exampleEntries(base: URL) -> [ExampleCode] {
     return entries.sorted(by: { $0.id < $1.id })
 }
 
-// MARK: - Text regions
-
-func textRegions(base: URL) -> [TextRegion] {
-    let chaptersDir = base.appendingPathComponent("book/chapters")
-    guard let items = try? FileManager.default.contentsOfDirectory(at: chaptersDir, includingPropertiesForKeys: [.isDirectoryKey], options: [.skipsHiddenFiles]) else {
-        return []
-    }
-    var regions: [TextRegion] = []
-    for dir in items {
-        let values = try? dir.resourceValues(forKeys: [.isDirectoryKey])
-        guard values?.isDirectory == true else { continue }
-        let name = dir.lastPathComponent
-        guard name.lowercased().hasPrefix("chapter") else { continue }
-        let parts = name.split(separator: "-")
-        guard let numPart = parts.first else { continue }
-        let digits = numPart.drop { !$0.isNumber }
-        let chapterNumber = Int(digits) ?? 0
-        let title = parts.dropFirst().joined(separator: " ")
-        let regionTitle = title.isEmpty ? "Chapter \(chapterNumber)" : "Chapter \(chapterNumber) \(title)"
-        let mdFiles = collectFiles(in: dir, base: base).filter { $0.hasSuffix(".md") }
-        guard let firstFile = mdFiles.first else { continue }
-        regions.append(
-            TextRegion(
-                id: String(format: "ch%02d.0", chapterNumber),
-                chapterNumber: chapterNumber,
-                subchapterNumber: 0,
-                title: regionTitle,
-                file: firstFile,
-                anchorID: slugify(regionTitle)
-            )
-        )
-    }
-    return regions.sorted(by: { $0.id < $1.id })
-}
-
 // MARK: - Binding stub
 
 func conceptTextBindings() -> [ConceptTextBinding] {
@@ -581,7 +546,6 @@ func main() {
     )
     let strategyList = strategies(concepts: concepts)
     let examples = exampleEntries(base: root)
-    let regions = textRegions(base: root)
     let bindings = conceptTextBindings()
 
     // Emit core JSON artifacts
@@ -589,7 +553,6 @@ func main() {
     writeJSON(conceptDetails, to: root.appendingPathComponent("book/graph/concepts/concept_map.json").path)
     writeJSON(strategyList, to: root.appendingPathComponent("book/graph/concepts/validation/strategies.json").path)
     writeJSON(examples, to: root.appendingPathComponent("book/examples/examples.json").path)
-    writeJSON(regions, to: root.appendingPathComponent("book/graph/regions/text_regions.json").path)
     writeJSON(bindings, to: root.appendingPathComponent("book/graph/concepts/concept_text_map.json").path)
 
     // Lightweight validation report (non-fatal)
