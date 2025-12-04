@@ -1,5 +1,5 @@
 # Zero knowledge macOS Reverse Engineering 
-> Validating policy graphs from scratch through pair programming
+> Experimental validation from scratch
 
 ## Summary
 
@@ -13,7 +13,7 @@ The most important outcome is that this experiment, and this report, now stand a
 
 ## Report
 
-We investigated, starting from the project’s substrate (a commitment to a small core of knowledge) and mappings but no pre-baked reversing lore, to validate a very specific question about the Sonoma sandbox: what the third node slot (“field2”) actually does in practice on macOS 14.4.1 (23E224, Apple Silicon, SIP enabled).
+We attempted, starting from the project’s substrate (a commitment to a small core of knowledge), to validate a very specific question about the Sonoma sandbox: what does the third node slot (“field2”) actually do in practice on macOS 14.4.1 (23E224, Apple Silicon, SIP enabled)?
 
 ### Background and early suspicion
 
