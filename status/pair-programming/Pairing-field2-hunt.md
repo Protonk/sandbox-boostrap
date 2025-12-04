@@ -170,7 +170,7 @@ That division of labour mattered because the main outcome was “no, but not in 
 
 ## Conclusion
 
-Our outcome is that on this host, the third node slot is best described as `filter_arg_raw`: a plain u16 payload whose high values are rare, structurally bounded, and still semantically unmapped, with new tooling in place to keep future work grounded. We also learned the web agent <-> codex agent loop works even when web search is exhausted. We quickly moved past what exists in published work the model searched and the benefits of a partner did not drop. This suggests that the value is not only in the web search, but in the dyadic exchange.
+Our outcome is that on this host, the third node slot is best described as `filter_arg_raw`: a plain u16 payload whose high values are rare, structurally bounded, and still semantically unmapped, with new tooling in place to keep future work grounded. We also learned the web agent <-> codex agent loop works even when web search is exhausted. We quickly moved past what exists in published work returned in the model's search: the benefits of a partner did not drop. This suggests that the value is not only in the web search, but in dyadic exchange.
 
 Beyond that, this work nudges the project into better long-term habits: it treats negative results as first-class artifacts rather than private hunches, reinforces the practice of threading validation status and inventories into every claim, and exercises the shared Ghidra and decoder APIs in a way that will make future experiments easier to compare and audit. Even if `field2` itself remains only partially understood, the investigation tightened the feedback loop between substrate concepts, mapping datasets, and reverse-engineering tools on this host.
 
