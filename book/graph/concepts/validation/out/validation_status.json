@@ -1,0 +1,95 @@
+{
+  "generated_at": "2025-12-04T19:41:58Z",
+  "jobs": [
+    {
+      "id": "vocab:stub-harvest",
+      "status": "ok",
+      "tags": [
+        "vocab",
+        "graph"
+      ],
+      "inputs": [
+        "book/examples/extract_sbs/build/profiles/*.sb.bin",
+        "book/examples/sb/build/*.sb.bin"
+      ],
+      "outputs": [
+        "/Users/achyland/Desktop/SANDBOX_LORE/book/graph/concepts/validation/out/vocab/ops.json",
+        "/Users/achyland/Desktop/SANDBOX_LORE/book/graph/concepts/validation/out/vocab/filters.json"
+      ],
+      "metadata": {}
+    },
+    {
+      "id": "graph:fixtures",
+      "status": "ok",
+      "tags": [
+        "graph",
+        "fixtures"
+      ],
+      "inputs": [
+        "/Users/achyland/Desktop/SANDBOX_LORE/book/graph/concepts/validation/fixtures/fixtures.json"
+      ],
+      "outputs": [
+        "/Users/achyland/Desktop/SANDBOX_LORE/book/graph/concepts/validation/out/fixtures_status.json"
+      ],
+      "metadata": {
+        "generated_at": "2025-12-04T19:41:58Z",
+        "entries": [
+          {
+            "path": "/Users/achyland/Desktop/SANDBOX_LORE/book/examples/extract_sbs/build/profiles/airlock.sb.bin",
+            "exists": true,
+            "status": "ok",
+            "node_count": 7,
+            "op_count": 167,
+            "format_variant": "modern-heuristic",
+            "error": null
+          },
+          {
+            "path": "/Users/achyland/Desktop/SANDBOX_LORE/book/examples/extract_sbs/build/profiles/bsd.sb.bin",
+            "exists": true,
+            "status": "ok",
+            "node_count": 41,
+            "op_count": 28,
+            "format_variant": "modern-heuristic",
+            "error": null
+          },
+          {
+            "path": "/Users/achyland/Desktop/SANDBOX_LORE/book/examples/sb/build/sample.sb.bin",
+            "exists": true,
+            "status": "ok",
+            "node_count": 32,
+            "op_count": 9,
+            "format_variant": "modern-heuristic",
+            "error": null
+          },
+          {
+            "path": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/op-table-operation/sb/build/v1_read.sb.bin",
+            "exists": true,
+            "status": "ok",
+            "node_count": 32,
+            "op_count": 5,
+            "format_variant": "modern-heuristic",
+            "error": null
+          },
+          {
+            "path": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/op-table-operation/sb/build/v3_mach.sb.bin",
+            "exists": true,
+            "status": "ok",
+            "node_count": 30,
+            "op_count": 6,
+            "format_variant": "modern-heuristic",
+            "error": null
+          },
+          {
+            "path": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/op-table-operation/sb/build/v11_read_subpath.sb.bin",
+            "exists": true,
+            "status": "ok",
+            "node_count": 30,
+            "op_count": 6,
+            "format_variant": "modern-heuristic",
+            "error": null
+          }
+        ]
+      }
+    }
+  ]
+}

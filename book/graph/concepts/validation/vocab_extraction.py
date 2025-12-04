@@ -21,9 +21,12 @@ import time
 from dataclasses import dataclass, asdict
 from pathlib import Path
 from typing import Any, Dict, List
+import sys
 
 import book.api.decoder as decoder
 from book.graph.concepts.validation import profile_ingestion as pi
+from book.graph.concepts.validation import registry
+from book.graph.concepts.validation.registry import ValidationJob
 
 
 @dataclass
@@ -109,13 +112,44 @@ def write_vocab_stub(out_dir: Path, kind: str, host_meta: Dict[str, Any], source
 
 
 def main() -> None:
-    base = Path("book/graph/concepts/validation")
+    base = Path(__file__).resolve().parent
     out_dir = base / "out" / "vocab"
     out_dir.mkdir(parents=True, exist_ok=True)
     host_meta = load_host_metadata(base / "out")
     sources = collect_sources()
     write_vocab_stub(out_dir, "ops", host_meta, sources)
     write_vocab_stub(out_dir, "filters", host_meta, sources)
+
+
+def run_vocab_job():
+    # Ensure repo root on sys.path when invoked via the validation driver.
+    root = Path(__file__).resolve().parents[4]
+    if str(root) not in sys.path:
+        sys.path.insert(0, str(root))
+    main()
+    out_dir = Path(__file__).resolve().parent / "out" / "vocab"
+    return {
+        "status": "ok",
+        "outputs": [str(out_dir / "ops.json"), str(out_dir / "filters.json")],
+    }
+
+
+registry.register(
+    ValidationJob(
+        id="vocab:stub-harvest",
+        inputs=[
+            "book/examples/extract_sbs/build/profiles/*.sb.bin",
+            "book/examples/sb/build/*.sb.bin",
+        ],
+        outputs=[
+            "book/graph/concepts/validation/out/vocab/ops.json",
+            "book/graph/concepts/validation/out/vocab/filters.json",
+        ],
+        tags=["vocab", "graph"],
+        description="Stub vocabulary extraction using decoder-derived metadata.",
+        runner=run_vocab_job,
+    )
+)
 
 
 if __name__ == "__main__":

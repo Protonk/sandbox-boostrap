@@ -4,12 +4,25 @@ This directory holds the code/metadata for validating the concept clusters again
 
 Current status: sandbox-exec-based semantic and lifecycle runs are deferred while the harness is being repaired; static ingestion and vocab mapping are current.
 
+Validation units (use these tags/IDs when adding jobs):
+- `vocab:*` — libsandbox/dyld-cache vocab ingestion (ops/filters).
+- `op-table:*` — op-table decoding/alignment runs.
+- `runtime:*` — runtime trace decoding against expectations.
+- `experiment:<name>` — validations whose inputs live under `book/experiments/<name>/out`.
+- `graph:*` — consistency checks for artifacts under `book/graph/mappings/*`.
+
 The Swift `book/graph` generator also writes a lightweight validation report here as `validation_report.json`, capturing schema/ID checks (e.g., concept IDs referenced by strategies and runtime expectations). Run it via:
 
 ```
 cd book/graph
 swift run
 ```
+
+Python validation driver (single entrypoint):
+- List jobs: `python -m book.graph.concepts.validation --list`
+- Run everything: `python -m book.graph.concepts.validation --all`
+- Run by tag/experiment: `python -m book.graph.concepts.validation --tag vocab` or `--experiment field2`
+Jobs are registered in `registry.py`; add new ones next to the decode/ingestion logic they exercise.
 
 Keep Swift-side validation non-fatal: extend the report rather than blocking generation when checks fail.
 
