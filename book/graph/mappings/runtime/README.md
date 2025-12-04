@@ -6,6 +6,9 @@ Current artifacts:
 - `expectations.json` — manifest keyed by `profile_id` with host/build/SIP metadata, blob path + SHA256, status (`ok`/`partial`/`blocked`), probe count, and the trace file path.
 - `traces/*.jsonl` — normalized per-profile probe rows (`profile_id`, `probe_name`, operation name/id, inputs, expected vs actual, match/status, command, exit code) with vocab IDs attached. Sources point back to the validation log for provenance.
 - `lifecycle.json` + `lifecycle_traces/*.jsonl` — normalized lifecycle probes (entitlements, extensions) with status per scenario, host/build metadata, and source log pointers.
+- `golden_expectations.json` — golden runtime profile manifest (bucket4, bucket5, metafilter_any, strict_1, sys:bsd deny-only, sys:airlock EPERM) with blob hashes and modes.
+- `traces/golden_traces.jsonl` — normalized probe rows for the golden set from runtime-checks.
+- `golden_decodes.json` + `decoded_blobs/` — compiled blobs and slim decode summaries (node_count, op_count, tag_counts, literal_strings) for the same golden set.
 
 Role in the substrate:
 - Adds the enforcement layer to the static mappings: which Operations (by vocab ID) and inputs were allowed/denied under specific compiled profiles on this host.

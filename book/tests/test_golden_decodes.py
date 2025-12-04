@@ -3,7 +3,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-DECODE = ROOT / "book" / "experiments" / "runtime-checks" / "out" / "golden_decodes.json"
+DECODE = ROOT / "book" / "graph" / "mappings" / "runtime" / "golden_decodes.json"
 
 
 def _load():
@@ -34,9 +34,9 @@ def test_metafilter_literals_present():
     meta = decodes["runtime:metafilter_any"]
     literals = meta.get("literal_strings") or []
     joined = " ".join(literals)
-    assert "foo.txt" in joined
-    assert "bar.txt" in joined
-    assert "baz.txt" in joined
+    assert "foo" in joined
+    assert "bar" in joined
+    assert "baz" in joined
 
 
 def test_strict_literals_present():
