@@ -115,6 +115,16 @@ These concepts describe how the sandbox decides what to allow or deny: operation
 
 A single well-designed microprofile can often witness multiple concepts at once (operation, filter, decision, action modifier, policy node shape).
 
+**Current experiment status**
+
+- **Runtime-checks (golden triple)**
+  - Wrapper-based probes for `allow_all`, `metafilter_any`, and bucket4 profiles succeed and are captured under `book/graph/mappings/runtime/{expectations.json,traces/*}` with `status: ok`. Bucket5 `v11_read_subpath` is `partial` (mismatch vs expected allow), and platform blobs are still skipped due to apply gates.
+  - These runs are the primary semantic witnesses; each probe row carries vocab IDs and commands for reproducibility.
+- **Legacy sandbox-exec traces**
+  - Older logs in `book/graph/concepts/validation/out/semantic/*.jsonl` remain `brittle` (sandbox-exec harness) but can provide shape hints until replaced by wrapper-based runs.
+- **Regeneration**
+  - Use `book/experiments/runtime-checks/run_probes.py` or `book/api/golden_runner` to refresh `runtime_results.json`, then normalize into `book/graph/mappings/runtime/` for mapping-grade consumption.
+
 ---
 
 ### Vocabulary and Mapping Cluster
@@ -165,6 +175,7 @@ This cluster ensures that when we say “operation X” or “filter Y,” we ca
   - Recommended next steps: summarise which operation IDs appear in each observed bucket (4/5/6), thread filter IDs into bucket shifts observed in filtered profiles, keep vocab guardrails in CI, and feed stable findings back into the versioned vocab tables and concept docs.
 - **Stable vocab artifacts**
   - Canonical vocab tables live under `book/graph/mappings/vocab/` (`ops.json`, `filters.json`, name lists) and are mirrored into `book/graph/concepts/validation/out/vocab/`. Op-table ↔ vocab alignment for this host is published at `book/graph/mappings/op_table/op_table_vocab_alignment.json` and listed in `validation/out/static/mappings.json` for reuse.
+  - Runtime vocab usage remains `blocked` when `sandbox_init`/apply gates prevent observing live IDs; see `book/graph/mappings/runtime/expectations.json` for the current runtime coverage and `status` fields.
 - **Link back to op-table experiments**
   - Once the vocab tables are in place for a given OS/build, the op-table buckets from the static-format experiments can be re-interpreted in terms of concrete operation IDs rather than opaque indices, tying the Operation, Operation Pointer Table, and Operation Vocabulary Map concepts together across SBPL, binary structure, and runtime behavior.
 
@@ -210,6 +221,12 @@ These concepts concern when and how profiles apply over a process lifetime, how 
 
 This cluster is more “macro” than the others, but aligning it with shared ingestion and probe tooling keeps it from becoming a separate universe.
 
+**Current experiment status**
+
+- **Runtime expectations (golden triple)** — `book/graph/mappings/runtime/expectations.json` captures wrapper-based probes for selected profiles with `status` per profile/operation; bucket5 remains `partial`, platform blobs are still gated.
+- **Lifecycle probes** — `entitlements-evolution` runs (unsigned baseline) and emits `validation/out/lifecycle/entitlements.json`; `extensions-dynamic` currently crashes/returns NULL tokens (see `extensions_dynamic.md`); platform/containers probes not rerun yet.
+- **Apply gates** — `sandbox_init`/`sandbox_apply` still return `EPERM` for platform blobs on this host; treat apply failures as data points, not absence of policy.
+
 ## Process
 
 The validation plan ties the examples in `book/examples/` to the four clusters. All harness code and task metadata live under `book/concepts/validation/` (see `validation/README.md` and `validation/tasks.py`). Each run should record OS/build and profile format variant so evidence stays versioned.
@@ -224,9 +241,8 @@ The validation plan ties the examples in `book/examples/` to the four clusters. 
 - Assert structural invariants (offsets/lengths, table indices) via ingestion; failures get logged alongside the artifact.
 
 **Stage 2 — Semantic Graph and Evaluation**
-- Run microprofiles/probes: `metafilter-tests`, `sbpl-params`, `network-filters`, `mach-services` (server+client). For each, capture inputs (profile text/params), attempted operations, resolved paths/addresses, and allow/deny outcomes in JSONL under `validation/out/semantic/`.
-- After each run, map outcomes back to ingested PolicyGraph node IDs/paths where possible (using the ingestion output) to show which filters/decisions fired.
-- Annotate any TCC/SIP/platform interference explicitly so Seatbelt graph evidence is not polluted by adjacent controls.
+- Prefer wrapper-based `runtime-checks` runs (golden triple) and normalize results into `book/graph/mappings/runtime/` for reuse. Legacy sandbox-exec probes (`metafilter-tests`, `sbpl-params`, `network-filters`, `mach-services`) remain available but are `brittle`.
+- For each run, capture inputs (profile text/params), attempted operations, resolved paths/addresses, allow/deny outcomes, and map outcomes back to ingested PolicyGraph nodes where possible. Annotate TCC/SIP/platform interference explicitly.
 
 **Stage 3 — Vocabulary and Mapping**
 - From Stage 1 blobs, extract operation/filter vocab (name↔ID↔arg schema) into versioned tables under `graph/mappings/vocab/ops.json` and `.../filters.json`.
@@ -234,9 +250,9 @@ The validation plan ties the examples in `book/examples/` to the four clusters. 
 - Each vocab entry should carry provenance (which blob/log) and OS/build/variant.
 
 **Stage 4 — Runtime Lifecycle and Extension**
-- Run scenario probes: `entitlements-evolution` (signed variants), `platform-policy-checks`, `containers-and-redirects`, `extensions-dynamic`, and `libsandcall` apply attempts.
-- Capture entitlements/signing IDs, container roots and symlinks, extension issuance/consumption results, and apply failures with error codes. Log under `validation/out/lifecycle/` with OS/build and profile sources (platform/app/custom).
-- Where possible, correlate observed behavior with attached profiles/extensions (e.g., via ingestion of compiled profiles used in the scenario) and note adjacent control involvement (TCC prompts, SIP denial).
+- Run scenario probes: `entitlements-evolution` (signed variants), `platform-policy-checks`, `containers-and-redirects`, `extensions-dynamic`, and `libsandcall` apply attempts. Expect apply gates (`EPERM`) on platform blobs.
+- Capture entitlements/signing IDs, container roots and symlinks, extension issuance/consumption results, and apply failures with error codes. Log under `validation/out/lifecycle/` with OS/build and profile sources (platform/app/custom); promote stable results into `book/graph/mappings/runtime/` when they reach “golden” status.
+- Correlate observed behavior with attached profiles/extensions (e.g., via ingestion or `system_profiles/attestations`) and note adjacent control involvement (TCC prompts, SIP denial).
 
 **Stage 5 — Evidence index**
 - Summarize produced artifacts per cluster in a machine-readable index (e.g., JSON manifest under `validation/out/index.json`) pointing to the static/semantic/vocab/lifecycle outputs and their provenance.
