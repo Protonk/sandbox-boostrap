@@ -86,6 +86,8 @@ We intentionally avoid guessing a full Operation Vocabulary Map; that belongs to
 - **3. Cross-check with semantic probes (optional stretch)**
   - Reused the shared decoder to walk from each op-table entrypoint and record per-entry signatures (tag_counts, field2 distributions, reachable literals), stored in `out/op_table_signatures.json`.
   - Added an in-process runtime spot-check for the `[6,…,5]` profile (`v12_read_subpath_mach`) via `runtime_probe.c`: `sandbox_init` succeeded; `mach-lookup` (`com.apple.cfprefsd.agent`) returned `kr=0`; file reads of both the allowed subpath and `/etc/hosts` returned `EPERM`. Runtime results recorded in `out/runtime_signatures.json` (schema `provisional`).
+  - Added a control runtime probe for `v11_read_subpath` (bucket {5}): `sandbox_init` succeeded; both reads returned `EPERM`; `mach_lookup` returned `kr=1100`. Also recorded as provisional in `out/runtime_signatures.json`.
+  - Consolidated static data plus provisional runtime hints into `out/op_table_catalog_v1.json` via `build_catalog.py`. Each record includes bucket pattern, op entries, ops/filters, decoder signatures, and optional `runtime_signature` flagged as provisional for future `ops.json` joins.
 - **4. Documentation and reporting**
   - Kept dated notes in `Notes.md`.
   - Summarized findings and open questions in `ResearchReport.md`.
@@ -96,7 +98,7 @@ We intentionally avoid guessing a full Operation Vocabulary Map; that belongs to
 - The `Plan.md` file contains an up-to-date checklist; this section highlights the most important actions for continuing the experiment.
   
   1. **Maintain bucket-level discipline**
-     - Treat `op_entries` values (4, 5, 6, …) as **opaque buckets** until a versioned Operation Vocabulary Map exists.
+    - Treat `op_entries` values (4, 5, 6, …) as **opaque buckets** until a versioned Operation Vocabulary Map exists.
      - Update this report, `Plan.md`, and `Notes.md` if new buckets appear (e.g., 7, 8, …), making clear how they arise and in which SBPL patterns.
   
   2. **Targeted deltas around mach and literals**
@@ -168,6 +170,7 @@ We intentionally avoid guessing a full Operation Vocabulary Map; that belongs to
 - SBPL variants under `sb/` and compiled profiles in `sb/build/*.sb.bin`.
 - Analyzer script `book/experiments/op-table-operation/analyze.py`.
 - `out/summary.json`, `out/op_table_map.json`, and `out/op_table_signatures.json` as described above.
+- Consolidated catalog: `out/op_table_catalog_v1.json` (schema `op_table_catalog_v1`) with bucket patterns, ops/filters, decoder signatures, and provisional runtime hints.
 - Shared decoder/ingestion helpers under `book/graph/concepts/validation/` used to derive op_count, sections, and node lists.
 
 ## Blockers / risks
@@ -194,10 +197,7 @@ Despite the structural progress, several key questions are still open:
    - We do not yet have a principled explanation (per-profile or per-format-variant) of **why** these buckets shift, beyond “compiled profile structure changes”.
 
 4. **Connection to Operation Vocabulary Map**
-   - There is no `graph/mappings/vocab/ops.json` yet for this host.
-   - As a result, we cannot:
-     - label bucket 4/5/6 with concrete Operation IDs,
-     - or verify our bucket observations against canonical Operation Vocabulary Maps.
+   - There is no `graph/mappings/vocab/ops.json` yet for this host. This is the blocking element for promotion: without it we cannot label bucket 4/5/6 with concrete Operation IDs or verify bucket observations against a canonical vocabulary.
 
 5. **Runtime cross-check**
    - No semantic probes (`network-filters`, `mach-services`) have been run under these synthetic profiles to connect buckets to runtime behavior. A minimal next step would be to run a tiny harness under a “mach bucket” profile vs a “network bucket” profile to confirm the expected allow/deny patterns.

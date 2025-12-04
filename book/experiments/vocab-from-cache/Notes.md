@@ -28,3 +28,9 @@ Use this file for concise notes on progress, issues, and commands used. Keep it 
 ## Cleanup and completion
 
 - Marked experiment complete and deleted the raw cache extraction at `book/experiments/vocab-from-cache/extracted` to reclaim space; retained trimmed libs at `book/graph/mappings/dyld-libs/` for future harvest reruns.
+
+## Cross-checks against public headers/clients (provisional)
+
+- Verified OSS operation coverage: common names used in launchd/WebKit/Chromium/Darling/etc. are present with expected IDs (e.g., `mach-lookup` 96, `file-read*` 21, `file-write*` 29, `file-mount` 19, `job-creation` 85, `appleevent-send` 1, `xpc-message-send` 195). Naming deltas only: `device*`/`device-camera`/`device-microphone` cover “device-config”; `iokit-open*`/`iokit-open-user-client`/`iokit-open-service` cover “iokit-open”; there is no separate `xpc-service` op entry. Total ops=196 as harvested.
+- Filter IDs align with the public `sandbox_filter_type` enum and SANDBOX_CHECK flags: `path` id 0, `xattr` id 2, `global-name` id 5, `local-name` id 6, `device-major`/`device-minor` ids 19/20, `appleevent-destination` id 24, `right-name` id 26, `xpc-service-name` id 49, `sysctl-name` id 37. Naming deltas only: `iokit-user-client-type` in place of “class”, `ioctl-command` covers file-ioctl, `nvram-variable` covers nvram name. Total filters=93 as harvested.
+- External hook count (Worm’s Look macOS 14.6.1) cites ~159 MACF hooks; our 196-entry userland list should be treated as a superset (MACF-backed + userland/meta ops). No contradiction found; MACF subset classification remains future work.

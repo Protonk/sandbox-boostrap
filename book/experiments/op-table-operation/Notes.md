@@ -95,3 +95,8 @@
 
 - Ran the control profile `v11_read_subpath` (bucket {5} only) through `runtime_probe` with the same fixtures. `sandbox_init` succeeded, but both reads returned `EPERM`; `mach_lookup` (not allowed by the profile) returned `kr=1100`. Added this signature to `out/runtime_signatures.json`.
 - Quick sandbox-exec sanity with a minimal process-exec shim still failed (signal 6), so the harness denial likely reflects missing bootstrap allowances rather than a regression in `runtime_probe`. Treat both runtime signatures as provisional context for later ops.json joins, not as promoted behavior.
+
+## Pass 12
+
+- Added `build_catalog.py` to consolidate static artifacts plus provisional runtime hints into `out/op_table_catalog_v1.json` (schema `op_table_catalog_v1`). Each record captures profile_id, bucket_pattern, op_entries, ops/filters, decoder signatures, and (if present) a `runtime_signature` flagged `runtime_provisional: true`.
+- This catalog is intended as the join point once `ops.json` exists; runtime anomalies remain explicitly provisional and are not promoted beyond this experiment.

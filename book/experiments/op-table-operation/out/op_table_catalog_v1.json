@@ -1,0 +1,702 @@
+{
+  "records": [
+    {
+      "bucket_pattern": [
+        4
+      ],
+      "decoder_signatures": {
+        "4": {
+          "entry": 4,
+          "literals": [
+            4
+          ],
+          "reachable": 1,
+          "tags": [
+            4
+          ],
+          "truncated": false
+        }
+      },
+      "filters": [],
+      "op_count": 5,
+      "op_entries": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "profile_id": "v0_empty",
+      "profile_path": "sb/v0_empty.sb",
+      "sbpl_ops": []
+    },
+    {
+      "bucket_pattern": [
+        5
+      ],
+      "decoder_signatures": {
+        "5": {
+          "entry": 5,
+          "literals": [
+            5
+          ],
+          "reachable": 1,
+          "tags": [
+            5
+          ],
+          "truncated": false
+        }
+      },
+      "filters": [],
+      "op_count": 6,
+      "op_entries": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "profile_id": "v10_mach_network",
+      "profile_path": "sb/v10_mach_network.sb",
+      "sbpl_ops": [
+        "mach-lookup",
+        "network-outbound"
+      ]
+    },
+    {
+      "bucket_pattern": [
+        5
+      ],
+      "decoder_signatures": {
+        "5": {
+          "entry": 5,
+          "literals": [
+            5
+          ],
+          "reachable": 1,
+          "tags": [
+            5
+          ],
+          "truncated": false
+        }
+      },
+      "filters": [],
+      "op_count": 6,
+      "op_entries": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "profile_id": "v11_read_subpath",
+      "profile_path": "sb/v11_read_subpath.sb",
+      "runtime_provisional": true,
+      "runtime_signature": {
+        "file_read_allow": {
+          "errno": 1,
+          "path": "/tmp/foo/allowed.txt",
+          "rc": -1
+        },
+        "file_read_deny": {
+          "errno": 1,
+          "path": "/etc/hosts",
+          "rc": -1
+        },
+        "mach_lookup": {
+          "kr": 1100,
+          "service": "com.apple.cfprefsd.agent"
+        }
+      },
+      "sbpl_ops": [
+        "file-read*"
+      ]
+    },
+    {
+      "bucket_pattern": [
+        5,
+        6
+      ],
+      "decoder_signatures": {
+        "5": {
+          "entry": 5,
+          "literals": [
+            5
+          ],
+          "reachable": 2,
+          "tags": [
+            5,
+            6
+          ],
+          "truncated": false
+        },
+        "6": {
+          "entry": 6,
+          "literals": [
+            5
+          ],
+          "reachable": 2,
+          "tags": [
+            5,
+            6
+          ],
+          "truncated": false
+        }
+      },
+      "filters": [],
+      "op_count": 7,
+      "op_entries": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        5
+      ],
+      "profile_id": "v12_read_subpath_mach",
+      "profile_path": "sb/v12_read_subpath_mach.sb",
+      "runtime_provisional": true,
+      "runtime_signature": {
+        "file_read_allow": {
+          "errno": 1,
+          "path": "/tmp/foo/allowed.txt",
+          "rc": -1
+        },
+        "file_read_deny": {
+          "errno": 1,
+          "path": "/etc/hosts",
+          "rc": -1
+        },
+        "mach_lookup": {
+          "kr": 0,
+          "service": "com.apple.cfprefsd.agent"
+        }
+      },
+      "sbpl_ops": [
+        "file-read*",
+        "mach-lookup"
+      ]
+    },
+    {
+      "bucket_pattern": [
+        6,
+        7
+      ],
+      "decoder_signatures": {
+        "6": {
+          "entry": 6,
+          "literals": [
+            6
+          ],
+          "reachable": 1,
+          "tags": [
+            6
+          ],
+          "truncated": false
+        },
+        "7": {
+          "entry": 7,
+          "literals": [
+            6
+          ],
+          "reachable": 1,
+          "tags": [
+            7
+          ],
+          "truncated": false
+        }
+      },
+      "filters": [],
+      "op_count": 8,
+      "op_entries": [
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        6,
+        7
+      ],
+      "profile_id": "v12_runtime_probe",
+      "profile_path": "sb/v12_runtime_probe.sb",
+      "sbpl_ops": [
+        "file-read*",
+        "mach-lookup",
+        "process-exec",
+        "process-exec"
+      ]
+    },
+    {
+      "bucket_pattern": [
+        5
+      ],
+      "decoder_signatures": {
+        "5": {
+          "entry": 5,
+          "literals": [
+            4
+          ],
+          "reachable": 2,
+          "tags": [
+            4,
+            5
+          ],
+          "truncated": false
+        }
+      },
+      "filters": [],
+      "op_count": 6,
+      "op_entries": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "profile_id": "v13_read_subpath_write",
+      "profile_path": "sb/v13_read_subpath_write.sb",
+      "sbpl_ops": [
+        "file-read*",
+        "file-write*"
+      ]
+    },
+    {
+      "bucket_pattern": [
+        5
+      ],
+      "decoder_signatures": {
+        "5": {
+          "entry": 5,
+          "literals": [
+            5
+          ],
+          "reachable": 1,
+          "tags": [
+            5
+          ],
+          "truncated": false
+        }
+      },
+      "filters": [],
+      "op_count": 6,
+      "op_entries": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "profile_id": "v14_read_subpath_network",
+      "profile_path": "sb/v14_read_subpath_network.sb",
+      "sbpl_ops": [
+        "file-read*",
+        "network-outbound"
+      ]
+    },
+    {
+      "bucket_pattern": [
+        5,
+        6
+      ],
+      "decoder_signatures": {
+        "5": {
+          "entry": 5,
+          "literals": [
+            5
+          ],
+          "reachable": 2,
+          "tags": [
+            5,
+            6
+          ],
+          "truncated": false
+        },
+        "6": {
+          "entry": 6,
+          "literals": [
+            5
+          ],
+          "reachable": 2,
+          "tags": [
+            5,
+            6
+          ],
+          "truncated": false
+        }
+      },
+      "filters": [],
+      "op_count": 7,
+      "op_entries": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        5
+      ],
+      "profile_id": "v15_mach_literal",
+      "profile_path": "sb/v15_mach_literal.sb",
+      "sbpl_ops": [
+        "mach-lookup",
+        "file-read*"
+      ]
+    },
+    {
+      "bucket_pattern": [
+        5,
+        6
+      ],
+      "decoder_signatures": {
+        "5": {
+          "entry": 5,
+          "literals": [
+            5
+          ],
+          "reachable": 2,
+          "tags": [
+            5,
+            6
+          ],
+          "truncated": false
+        },
+        "6": {
+          "entry": 6,
+          "literals": [
+            5
+          ],
+          "reachable": 2,
+          "tags": [
+            5,
+            6
+          ],
+          "truncated": false
+        }
+      },
+      "filters": [],
+      "op_count": 7,
+      "op_entries": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        5
+      ],
+      "profile_id": "v16_subpath_mach_literal",
+      "profile_path": "sb/v16_subpath_mach_literal.sb",
+      "sbpl_ops": [
+        "file-read*",
+        "mach-lookup",
+        "file-read*"
+      ]
+    },
+    {
+      "bucket_pattern": [
+        4
+      ],
+      "decoder_signatures": {
+        "4": {
+          "entry": 4,
+          "literals": [
+            4
+          ],
+          "reachable": 1,
+          "tags": [
+            4
+          ],
+          "truncated": false
+        }
+      },
+      "filters": [],
+      "op_count": 5,
+      "op_entries": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "profile_id": "v1_read",
+      "profile_path": "sb/v1_read.sb",
+      "sbpl_ops": [
+        "file-read*"
+      ]
+    },
+    {
+      "bucket_pattern": [
+        4
+      ],
+      "decoder_signatures": {
+        "4": {
+          "entry": 4,
+          "literals": [
+            3
+          ],
+          "reachable": 2,
+          "tags": [
+            3,
+            4
+          ],
+          "truncated": false
+        }
+      },
+      "filters": [],
+      "op_count": 5,
+      "op_entries": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "profile_id": "v2_write",
+      "profile_path": "sb/v2_write.sb",
+      "sbpl_ops": [
+        "file-write*"
+      ]
+    },
+    {
+      "bucket_pattern": [
+        5
+      ],
+      "decoder_signatures": {
+        "5": {
+          "entry": 5,
+          "literals": [
+            5
+          ],
+          "reachable": 1,
+          "tags": [
+            5
+          ],
+          "truncated": false
+        }
+      },
+      "filters": [],
+      "op_count": 6,
+      "op_entries": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "profile_id": "v3_mach",
+      "profile_path": "sb/v3_mach.sb",
+      "sbpl_ops": [
+        "mach-lookup"
+      ]
+    },
+    {
+      "bucket_pattern": [
+        4
+      ],
+      "decoder_signatures": {
+        "4": {
+          "entry": 4,
+          "literals": [
+            4
+          ],
+          "reachable": 1,
+          "tags": [
+            4
+          ],
+          "truncated": false
+        }
+      },
+      "filters": [],
+      "op_count": 5,
+      "op_entries": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "profile_id": "v4_network",
+      "profile_path": "sb/v4_network.sb",
+      "sbpl_ops": [
+        "network-outbound"
+      ]
+    },
+    {
+      "bucket_pattern": [
+        4
+      ],
+      "decoder_signatures": {
+        "4": {
+          "entry": 4,
+          "literals": [
+            3
+          ],
+          "reachable": 2,
+          "tags": [
+            3
+          ],
+          "truncated": false
+        }
+      },
+      "filters": [],
+      "op_count": 5,
+      "op_entries": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "profile_id": "v5_read_write",
+      "profile_path": "sb/v5_read_write.sb",
+      "sbpl_ops": [
+        "file-read*",
+        "file-write*"
+      ]
+    },
+    {
+      "bucket_pattern": [
+        5
+      ],
+      "decoder_signatures": {
+        "5": {
+          "entry": 5,
+          "literals": [
+            5
+          ],
+          "reachable": 1,
+          "tags": [
+            5
+          ],
+          "truncated": false
+        }
+      },
+      "filters": [],
+      "op_count": 6,
+      "op_entries": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "profile_id": "v6_read_mach",
+      "profile_path": "sb/v6_read_mach.sb",
+      "sbpl_ops": [
+        "file-read*",
+        "mach-lookup"
+      ]
+    },
+    {
+      "bucket_pattern": [
+        4
+      ],
+      "decoder_signatures": {
+        "4": {
+          "entry": 4,
+          "literals": [
+            4
+          ],
+          "reachable": 1,
+          "tags": [
+            4
+          ],
+          "truncated": false
+        }
+      },
+      "filters": [],
+      "op_count": 5,
+      "op_entries": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "profile_id": "v7_read_network",
+      "profile_path": "sb/v7_read_network.sb",
+      "sbpl_ops": [
+        "file-read*",
+        "network-outbound"
+      ]
+    },
+    {
+      "bucket_pattern": [
+        5
+      ],
+      "decoder_signatures": {
+        "5": {
+          "entry": 5,
+          "literals": [
+            4
+          ],
+          "reachable": 2,
+          "tags": [
+            4,
+            5
+          ],
+          "truncated": false
+        }
+      },
+      "filters": [],
+      "op_count": 6,
+      "op_entries": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "profile_id": "v8_write_mach",
+      "profile_path": "sb/v8_write_mach.sb",
+      "sbpl_ops": [
+        "file-write*",
+        "mach-lookup"
+      ]
+    },
+    {
+      "bucket_pattern": [
+        4
+      ],
+      "decoder_signatures": {
+        "4": {
+          "entry": 4,
+          "literals": [
+            3
+          ],
+          "reachable": 2,
+          "tags": [
+            3,
+            4
+          ],
+          "truncated": false
+        }
+      },
+      "filters": [],
+      "op_count": 5,
+      "op_entries": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "profile_id": "v9_write_network",
+      "profile_path": "sb/v9_write_network.sb",
+      "sbpl_ops": [
+        "file-write*",
+        "network-outbound"
+      ]
+    }
+  ],
+  "schema": "op_table_catalog_v1"
+}
