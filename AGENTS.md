@@ -4,6 +4,8 @@ This repo defines a fixed, opinionated “world” for the macOS Seatbelt sandbo
 
 Use this file as the root-level contract for agents. The root `README.md` gives a human-facing overview; directory-specific norms and workflows always live in the nearest `AGENTS.md` inside each subtree.
 
+If you stay within this world—substrate definitions, host-specific artifacts, and the existing concept inventory—your changes and explanations will fit cleanly into SANDBOX_LORE’s model of the macOS sandbox. When in doubt about local norms or workflows, stop and read the closest `AGENTS.md` and README in the subtree you are about to change. 
+
 ## The most important rule
 
 When the simplest honest answer is “we don’t know yet” or “current evidence is inconsistent,” say that explicitly and point to the experiments or mappings that bound that ignorance.
@@ -58,4 +60,13 @@ Unless directed otherwise, work only in `book/`, following the layered guidance 
   - Hand-edit stable mapping JSONs under `book/graph/mappings/`; extend or add generators (for example under `book/graph/mappings/*/`) and regenerate from experiments or validation outputs instead.
   - Hide harness failures, decoder errors, or apply gates (e.g., `sandbox_apply` returning `EPERM`); record them in the relevant `Report.md` / `Notes.md`.
 
-If you stay within this world—substrate definitions, host-specific artifacts, and the existing concept inventory—your changes and explanations will fit cleanly into SANDBOX_LORE’s model of the macOS sandbox. When in doubt about local norms or workflows, stop and read the closest `AGENTS.md` and README in the subtree you are about to change. 
+## Testing loop
+
+Your primary test loop is:
+
+```
+source .venv/bin/activate
+make -C book test
+```
+
+This single entrypoint runs the Python sanity harness and builds the Swift graph tools. Do not use other runners (e.g., direct `pytest`) as the default path.

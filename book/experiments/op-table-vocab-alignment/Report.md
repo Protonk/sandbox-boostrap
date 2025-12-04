@@ -273,7 +273,7 @@ If you pick up this experiment, the recommended workflow is:
    - When you adjust alignment logic or vocab contracts:
      - capture the rationale in `Notes.md`,
      - keep this report and `Plan.md` in sync,
-     - run `pytest book/tests` to ensure the experiment’s sanity checks remain green.
+     - run `make -C book test` to ensure the experiment’s sanity checks remain green.
 
 ---
 

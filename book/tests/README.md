@@ -1,12 +1,10 @@
 # Testing in `book/`
 
-We use pytest for lightweight sanity checks across the examples, validation utilities, and experiment artifacts. These tests are meant to catch import/path regressions and obvious structural issues; they are not full behavioral coverage of sandbox semantics.
+We use lightweight sanity checks across the examples, validation utilities, and experiment artifacts. These tests are meant to catch import/path regressions and obvious structural issues; they are not full behavioral coverage of sandbox semantics.
 
 ## Running tests
 
-- Unified target (Python harness + Swift build): `make -C book test`
-- Direct pytest (if available): `pytest book/tests`
-- To skip macOS/system-dependent tests under pytest: `pytest book/tests -m "not system"`
+- Single entrypoint: `make -C book test` (Python harness + Swift build). This is the only supported runner.
 
 ## Structure
 
@@ -18,7 +16,7 @@ We use pytest for lightweight sanity checks across the examples, validation util
 
 ## Notes for contributors
 
-- `book/tests/run_all.py` mirrors pytest collection without invoking pytest (used by `make test` when the runner is unavailable). It still requires the `pytest` package for fixtures like `monkeypatch` but does not use pytest’s test runner.
+- `book/tests/run_all.py` mirrors pytest collection without invoking pytest. It still requires the `pytest` package for fixtures like `monkeypatch` but does not use pytest’s test runner.
 - Keep tests fast and deterministic; avoid long-running or networked steps.
 - Mark any test that shells out or depends on macOS/Apple libs as `@pytest.mark.system`.
 - If adding new example/utility tests, prefer calling underlying Python helpers rather than shelling out when feasible.

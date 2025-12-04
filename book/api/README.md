@@ -123,4 +123,4 @@ When adding new API modules here, mirror this pattern:
 
 - keep them small and host-specific,
 - wire them to existing mappings/validation where possible,
-- and add at least a minimal pytest guard in `book/tests/`.
+- and add at least a minimal guard exercised via `make -C book test`.

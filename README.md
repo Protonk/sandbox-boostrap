@@ -65,7 +65,7 @@ This section sketches the main pieces of the repo; detailed navigation and norms
   - Examples and experiments that serve as runnable labs and probes.
   - API tooling (e.g., decoder, SBPL compiler, op-table helpers, golden-runner harness) for working with compiled profiles and runtime checks.
   - A graph layer (`book/graph/`) that holds the concept inventory, validation harness, Swift generator, and stable host-specific mappings (vocab tables, op-table alignment, tag layouts, anchor maps, system-profile digests, runtime expectations, lifecycle manifests).
-  - A pytest harness (`book/tests/`) that provides sanity checks for mappings, experiments, and API tools.
+  - A unified test harness (`make -C book test`) that runs Python unit checks and builds the Swift graph tools to enforce compile-time contracts.
 
 - `dumps/`  
   Reverse-engineering artifacts for this macOS build. Some subtrees (e.g., `Sandbox-private/`) contain local-only host data. See `dumps/AGENTS.md` before running tools or adding files here.
@@ -77,3 +77,14 @@ This section sketches the main pieces of the repo; detailed navigation and norms
   Records of crashes, decoding problems, runtime failures, and other issues that need follow-up rather than being hidden or papered over.
 
 When in doubt about how to extend or use any part of the tree, consult the nearest `AGENTS.md` file; those layered guides are the authoritative “map” for both humans and agents. 
+
+## Testing
+
+Use the single entrypoint to exercise both Python tests and Swift build checks:
+
+```
+source .venv/bin/activate
+make -C book test
+```
+
+The Python harness mirrors the pytest suite without invoking pytest; the Swift step builds `book/graph` to surface compile-time contract issues. There is no alternative test runner.

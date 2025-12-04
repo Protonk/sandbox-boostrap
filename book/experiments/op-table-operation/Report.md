@@ -144,7 +144,7 @@ We intentionally avoid guessing a full Operation Vocabulary Map; that belongs to
      - Whenever you add or modify SBPL variants:
        - describe the intent in `Notes.md`,
        - ensure `analyze.py` still compiles everything and updates all three outputs,
-       - run `pytest book/tests` to keep the experiment’s tests green.
+      - run `make -C book test` to keep the experiment’s tests green.
      - If you add new buckets or signatures, consider extending `book/tests/test_experiments.py` with sanity checks (e.g., verifying that specific profiles still have expected bucket shapes).
   
   ---

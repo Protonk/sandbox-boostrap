@@ -13,7 +13,7 @@ This is the textbook workspace. Use it with the substrate vocabulary (`substrate
 - `examples/` – runnable SBPL/demo bundles and extraction helpers used by chapters and experiments.
 - `profiles/` – SBPL/profile sources shared across the book.
 - `api/` – shared tooling (decoder, SBPL/blob wrapper, Ghidra helpers); see `book/api/AGENTS.md`.
-- `tests/` – guardrails for book artifacts and experiment outputs (`pytest book/tests`).
+- `tests/` – guardrails for book artifacts and experiment outputs (run via `make -C book test`).
 
 When in doubt, start with the AGENTS/README in the relevant subdirectory.
 
