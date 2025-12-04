@@ -14,6 +14,9 @@ Does three things:
   3) Emits a summary (txt + json) with the inferred stride, offsets, and light
      usage hints (bit tests, bitfield ops, masked AND/TST, index uses) for the
      loaded fields.
+
+See also: book/api/ghidra/README.md (node struct/evaluator tooling) and
+book/api/ghidra/ghidra_lib/README.md (helper schema/usage).
 """
 
 import json
