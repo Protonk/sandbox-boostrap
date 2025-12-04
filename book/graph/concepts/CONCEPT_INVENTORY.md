@@ -234,7 +234,10 @@ The validation plan ties the examples in `book/examples/` to the four clusters. 
 Current manifests to consult:
 - `book/graph/concepts/validation/out/index.json` – cluster-level summary of produced evidence (static/semantic/vocab/lifecycle) for the Sonoma baseline.
 - `book/graph/mappings/runtime/expectations.json` – runtime probe expectations/traces normalized for mapping use.
+- `book/graph/mappings/runtime/lifecycle.json` – normalized lifecycle probe manifest (entitlements, extensions) with status per scenario.
 - `book/graph/mappings/system_profiles/attestations.json` – compiled-profile attestations (blob hashes, tag layout/vocab versions, anchor hits, runtime links).
+- `book/graph/mappings/vocab/attestations.json` – vocab attestation (counts, dyld source slices, hashes) for Operation/Filter vocab tables on this host/build.
+- `book/graph/mappings/system_profiles/static_checks.json` – decoder-backed structural checks (op_count, section sizes, tag_layout hash) for canonical blobs.
 
 **Stage 0 — Setup and metadata**
 - Record host OS/build, hardware, SIP/TCC state, and profile format variant cues before collecting evidence.

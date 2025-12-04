@@ -9,3 +9,4 @@ Subdirectories:
 - `tag_layouts/` – Tag-level PolicyGraph layouts describing how node tags map to record sizes, edge fields, and payload fields (literal/regex operands). This is the binary counterpart to “filter/metafilter node” structure in Concepts.
 - `system_profiles/` – Canonical decoded digests for selected system profiles on this host (e.g., `airlock`, `bsd`, `sample`) plus attestations tying blob hashes, op-table entries, tag counts, literal/anchor hits, and vocab/tag-layout/runtime links together. These ground the abstract concepts in real PolicyGraphs and keep them reproducible.
 - `runtime/` – Runtime probe expectations and (when possible) traces from running profiles under Seatbelt. This connects decoder-level predictions to observed allow/deny decisions in the live sandbox.
+- `vocab/` – Operation/Filter vocabulary maps with attestations linking the tables to dyld slices and reference blobs for this host/build.

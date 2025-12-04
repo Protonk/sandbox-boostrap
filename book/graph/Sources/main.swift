@@ -75,6 +75,23 @@ public struct ConceptTextBinding: Codable {
     public let regions: [TextRegionID]
 }
 
+public struct RuntimeProfile: Codable {
+    public let profile_id: String
+    public let status: String
+    public let profile_path: String?
+    public let trace_path: String?
+}
+
+public struct RuntimeExpectations: Codable {
+    public let profiles: [RuntimeProfile]
+}
+
+public struct ValidationReport: Codable {
+    public let errors: [String]
+    public let warnings: [String]
+    public let checked: [String]
+}
+
 public struct ConceptDetail: Codable {
     public let id: ConceptID
     public let definition: String
@@ -523,6 +540,16 @@ func conceptTextBindings() -> [ConceptTextBinding] {
     return []
 }
 
+func loadRuntimeExpectations(at path: String) -> RuntimeExpectations? {
+    let url = URL(fileURLWithPath: path)
+    guard let data = try? Data(contentsOf: url) else { return nil }
+    return try? JSONDecoder().decode(RuntimeExpectations.self, from: data)
+}
+
+func writeValidationReport(_ report: ValidationReport, to path: String) {
+    writeJSON(report, to: path)
+}
+
 // MARK: - Write JSON
 
 func writeJSON<T: Encodable>(_ value: T, to path: String) {
@@ -560,6 +587,34 @@ func main() {
     writeJSON(examples, to: root.appendingPathComponent("book/examples/examples.json").path)
     writeJSON(regions, to: root.appendingPathComponent("book/graph/regions/text_regions.json").path)
     writeJSON(bindings, to: root.appendingPathComponent("book/graph/concepts/concept_text_map.json").path)
+
+    // Lightweight validation report
+    var errors: [String] = []
+    var warnings: [String] = []
+    let conceptIDs = Set(concepts.map { $0.id })
+    for strat in strategyList {
+        for cid in strat.primaryConcepts + strat.secondaryConcepts {
+            if conceptIDs.contains(cid) == false {
+                errors.append("strategy \(strat.id) references missing concept \(cid)")
+            }
+        }
+    }
+    if let runtimeExp = loadRuntimeExpectations(at: root.appendingPathComponent("book/graph/mappings/runtime/expectations.json").path) {
+        for prof in runtimeExp.profiles {
+            if prof.status.isEmpty {
+                warnings.append("runtime profile \(prof.profile_id) has empty status")
+            }
+        }
+    } else {
+        warnings.append("runtime expectations not found or unreadable")
+    }
+    let report = ValidationReport(
+        errors: errors,
+        warnings: warnings,
+        checked: ["concepts", "strategies", "runtime_expectations"]
+    )
+    ensureDirectory(for: root.appendingPathComponent("book/graph/validation/validation_report.json").path)
+    writeValidationReport(report, to: root.appendingPathComponent("book/graph/validation/validation_report.json").path)
 }
 
 main()

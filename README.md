@@ -42,9 +42,7 @@ High-level map of the root and `book/`:
   - `profiles/` – SBPL/profile sources used in the book.
   - `examples/` – runnable labs and probes (each subdirectory is a self-contained example).
   - `experiments/` – cross-cutting experiments that validate and refine concepts on modern macOS.
-    - `book/experiments/AGENTS.md` – what an experiment is, how `Report.md`/`Notes.md`/`out/` work, and what to avoid.
   - `graph/` – shared graph IR and mappings:
-    - `book/graph/AGENTS.md` – norms for concept inventory, ingestion, and mappings.
     - `graph/concepts/` – concept inventory, conceptual docs, and validation tooling (`validation/`).
     - `graph/mappings/` – stable mapping artifacts (vocab tables, op-table alignment, anchor maps, tag layouts, system-profile digests, runtime traces).
   - `tests/` – pytest harness and guardrails for mappings, experiments, and examples.

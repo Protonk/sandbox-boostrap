@@ -33,6 +33,15 @@ When in doubt:
 - New *stable mappings* or “IR” that other code depends on → `mappings/` (with metadata and schema).
 - Experiment-specific scratch outputs stay under `book/experiments/*/out`, not here.
 
+## Swift generator loop (for agents)
+
+Use this pattern to extend the Swift generator/validator:
+- Pick one schema slice to cover (e.g., runtime expectations, vocab attestations, concept→text bindings).
+- Add Swift types that mirror the JSON shape and small validators (status enums, required IDs).
+- Parse inputs, reuse generated `concepts.json` for ID checks, and emit a report under `book/graph/validation/` instead of failing silently.
+- Document the new coverage in `book/graph/README.md` (inputs/outputs, how to run).
+- Run `swift run` to regenerate outputs and the validation report; review before committing.
+
 ---
 
 ## Concept and validation code
@@ -108,4 +117,3 @@ When working in `book/graph/`, agents should avoid:
   - If a mapping is based on brittle or partial decoding, mark it clearly (`status: partial`/`brittle`) and document the limitations in both the mapping file and any relevant conceptual documentation.
 
 This directory is where the project’s “graph view of Seatbelt” becomes a shared, versioned IR. Keep it small, traceable, and tightly aligned with the concept inventory and the Sonoma host baseline.
-

@@ -1,0 +1,30 @@
+{
+  "generated_at": "manual",
+  "host": {
+    "build": "23E224",
+    "kernel": "23.4.0",
+    "machine": "arm64",
+    "product": "macOS",
+    "version": "14.4.1"
+  },
+  "profile_format_variant": "modern-heuristic",
+  "scenarios": [
+    {
+      "notes": "Unsigned/unsandboxed build; rerun with signed binaries to compare entitlement payloads.",
+      "scenario_id": "entitlements-evolution",
+      "source_log": "book/graph/concepts/validation/out/lifecycle/entitlements.json",
+      "status": "partial",
+      "trace_count": 1,
+      "trace_path": "book/graph/mappings/runtime/lifecycle_traces/entitlements-evolution.jsonl"
+    },
+    {
+      "notes": "extensions demo crashes / NULL tokens (see source_log)",
+      "scenario_id": "extensions-dynamic",
+      "source_log": "book/graph/concepts/validation/out/lifecycle/extensions_dynamic.md",
+      "status": "blocked",
+      "trace_count": 1,
+      "trace_path": "book/graph/mappings/runtime/lifecycle_traces/extensions-dynamic.jsonl"
+    }
+  ],
+  "sip_status": "enabled"
+}

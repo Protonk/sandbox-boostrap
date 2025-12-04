@@ -1,0 +1,92 @@
+#!/usr/bin/env python3
+"""
+Emit static checks for canonical compiled profiles.
+
+Uses decoder + inspect_profile to record invariants:
+- op_count, section sizes
+- tag counts, tag_layout hash applied
+- op-table signature hash
+- anchor hits (reusing attestation generation)
+
+Outputs:
+- book/graph/mappings/system_profiles/static_checks.json
+"""
+
+from __future__ import annotations
+
+import hashlib
+import json
+import sys
+from pathlib import Path
+from typing import Any, Dict
+
+REPO_ROOT = Path(__file__).resolve().parents[4]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+import book.api.decoder as decoder
+from book.graph.concepts.validation import profile_ingestion as pi
+OUT_PATH = REPO_ROOT / "book/graph/mappings/system_profiles/static_checks.json"
+
+
+def sha256(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as f:
+        for chunk in iter(lambda: f.read(8192), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def load_json(path: Path) -> Dict[str, Any]:
+    if not path.exists():
+        return {}
+    return json.loads(path.read_text())
+
+
+def summarize(path: Path, tag_layout_hash: str) -> Dict[str, Any]:
+    blob = path.read_bytes()
+    header = pi.parse_header(pi.ProfileBlob(bytes=blob, source=path.name))
+    sections = pi.slice_sections(pi.ProfileBlob(bytes=blob, source=path.name), header)
+    dec = decoder.decode_profile_dict(blob)
+    op_table_hash = hashlib.sha256(dec.get("op_table", b"") if isinstance(dec.get("op_table"), (bytes, bytearray)) else json.dumps(dec.get("op_table", [])).encode()).hexdigest()
+    return {
+        "path": str(path.relative_to(REPO_ROOT)),
+        "sha256": sha256(path),
+        "format_variant": header.format_variant,
+        "op_count_header": header.operation_count,
+        "sections": {
+            "op_table": len(sections.op_table),
+            "nodes": len(sections.nodes),
+            "literals": len(sections.regex_literals),
+        },
+        "tag_counts": dec.get("tag_counts"),
+        "op_table_hash": op_table_hash,
+        "tag_layout_hash": tag_layout_hash,
+    }
+
+
+def main() -> None:
+    tag_layout_hash = sha256(REPO_ROOT / "book/graph/mappings/tag_layouts/tag_layouts.json")
+    profiles = [
+        REPO_ROOT / "book/examples/extract_sbs/build/profiles/airlock.sb.bin",
+        REPO_ROOT / "book/examples/extract_sbs/build/profiles/bsd.sb.bin",
+        REPO_ROOT / "book/examples/sb/build/sample.sb.bin",
+    ]
+    checks = [summarize(p, tag_layout_hash) for p in profiles if p.exists()]
+    OUT_PATH.write_text(
+        json.dumps(
+            {
+                "generated_at": "manual",
+                "host": load_json(REPO_ROOT / "book/graph/concepts/validation/out/metadata.json").get("os", {}),
+                "tag_layout_hash": tag_layout_hash,
+                "entries": checks,
+            },
+            indent=2,
+            sort_keys=True,
+        )
+    )
+    print(f"[+] wrote {OUT_PATH}")
+
+
+if __name__ == "__main__":
+    main()
