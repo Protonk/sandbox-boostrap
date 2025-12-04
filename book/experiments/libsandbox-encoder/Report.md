@@ -45,6 +45,52 @@ Map how this host’s `libsandbox` encodes filter arguments into the `field2` u1
 - Encoder sites logged in `out/encoder_sites.json`: `_emit` (bytes→mutable buffer via `_sb_mutable_buffer_write`), `_emit_network` (domain/type/proto via three `_emit` calls), `_record_condition_data` (stores data_ptr/len/index into per-op list), and the mutable buffer handle at builder+0xe98 (partial).
 - Finalize path: `_compile` calls `_sb_mutable_buffer_make_immutable` on the builder’s mutable buffer (builder+0xe98) at 0x183ced36c and stores the resulting `sb_buffer*`; explicit handoff of that immutable buffer to `__sandbox_ms` remains to be traced.
 
+## Experiment Status
+
+This experiment is now **CLOSED**.
+
+- AIM achieved for this iteration: mapped libsandbox’s encoding of filter arguments into the PolicyGraph u16 payload (“field2”) on Sonoma 14.4.1, aligned tag10 with the Filter Vocabulary Map, and validated the layout via header-aligned decoding and targeted SBPL probes.
+- Phase A: frozen with header-aligned parsing; tag2/tag3 classified as meta/no-payload; tag10 resolved (tag = h0.low, filter_id = halfword1, payload = halfword2); `matrix_v1_field2_encoder_matrix.json` exposes both `filter_id_raw` and `payload_raw` for payload-bearing tags. Tag8 is intentionally left filter-id-only.
+- Phase B: inside `libsandbox.1.dylib`, encoder sites identified (`_emit`, `_emit_network`, `_record_condition_data`, builder+0xe98 mutable buffer, `_sb_mutable_buffer_make_immutable` in `_compile`). It is architecturally established that `libsystem_sandbox` compiles via `libsandbox` and then calls `__sandbox_ms`; the detailed function-pointer wiring and sb_buffer→(ptr,len)→syscall glue are deferred.
+- Any further work on `libsystem_sandbox` glue (dynamic resolution in `sandbox_init*`, sb_buffer unpacking, syscall argument packing) is explicitly **out of scope** for `libsandbox-encoder` and will be handled in a follow-on experiment.
+
+## Artifacts and Tooling Persistence Plan
+
+The `libsandbox-encoder` experiment is CLOSED, but several artifacts and tools are promoted as reusable infrastructure and canonical references for Sonoma 14.4.1:
+
+- **Tag layouts and encoder mapping**
+  - `book/experiments/libsandbox-encoder/out/tag_layout_overrides.json`:
+    - Source of truth for tag10 layout on this host (tag = h0.low, filter_id = halfword1, payload = halfword2, stride 12).
+    - Tag2/tag3 explicitly marked meta/no-payload.
+    - Tag8 currently filter-id-only (payload unresolved by design).
+  - `book/experiments/libsandbox-encoder/out/matrix_v1_field2_encoder_matrix.json`:
+    - Baseline SBPL→PolicyGraph encoder matrix for this host, exposing both `filter_id_raw` and `payload_raw` for payload-bearing tags.
+
+- **Tools**
+  - `book/experiments/libsandbox-encoder/run_phase_a.py`:
+    - Reference implementation for compiling SBPL, decoding PolicyGraph nodes, and emitting encoder matrices using tag-specific layouts.
+  - `book/experiments/libsandbox-encoder/build_tag_field_summary.py`:
+    - Helper for summarizing tag roles and field usage across matrices.
+  - `book/experiments/libsandbox-encoder/dump_raw_nodes.py`:
+    - Header-aligned node dumper using `nodes_raw` (record size × count); canonical way to inspect raw 12-byte PolicyGraph records for this baseline.
+  - `book/api/inspect_profile` (modified for this experiment):
+    - Emits `nodes_raw` and trims the +3-byte tail for Sonoma 14.4.1 profiles; this behavior should be treated as the baseline for future experiments relying on PolicyGraph decoding.
+
+- **Encoder site mapping**
+  - `book/experiments/libsandbox-encoder/out/encoder_sites.json`:
+    - Catalog of encoder-related functions in `libsandbox.1.dylib`:
+      - `_emit`, `_emit_network`, `_record_condition_data`, builder+0xe98 mutable buffer, `_sb_mutable_buffer_make_immutable` in `_compile`.
+    - Serves as the starting point for follow-on experiments (e.g., `sandbox-init-params`) that need to reason about how compiled profiles are formed before being handed to `libsystem_sandbox` and `__sandbox_ms`.
+
+### Usage in future work
+
+- Future experiments (including `book/experiments/sandbox-init-params/`) SHOULD:
+  - Treat `tag_layout_overrides.json` and `matrix_v1_field2_encoder_matrix.json` as **read-only baselines** for Sonoma 14.4.1 field2 behavior.
+  - Reuse `inspect_profile` and `dump_raw_nodes.py` for header-aligned node inspection, rather than re-inventing slicing heuristics.
+  - Reference `encoder_sites.json` when mapping higher-level control flows (e.g., `sandbox_init_with_parameters` paths) back to `libsandbox` encoder internals.
+
+- Any changes to these artifacts should be made via new experiments or versioned copies, not by mutating the closed `libsandbox-encoder` outputs.
+
 ## Next steps
 
 - Continue Phase B disassembly: confirm buffer finalize path into `__sandbox_ms`; tie `_emit_network`/`_record_condition_data` offsets to the tag10 payload slot for a code-level provenance.
