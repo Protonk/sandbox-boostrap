@@ -1,0 +1,388 @@
+{
+  "profiles": {
+    "allow_all": {
+      "sbpl": "book/experiments/sbpl-graph-runtime/profiles/allow_all.sb",
+      "blob": "book/experiments/sbpl-graph-runtime/out/allow_all.sb.bin",
+      "op_table_raw": [
+        1,
+        1
+      ],
+      "expectations": [
+        {
+          "profile_id": "allow_all",
+          "op": "file-read*",
+          "path": "/etc/hosts",
+          "expected_decision": "allow",
+          "entrypoint_node_id": null,
+          "entrypoint_candidates": [
+            1,
+            1
+          ],
+          "terminal_node_id": null,
+          "terminal_tag": null,
+          "terminal_note": "no literal-matching node found"
+        },
+        {
+          "profile_id": "allow_all",
+          "op": "file-read*",
+          "path": "/tmp/sbpl_rt/read.txt",
+          "expected_decision": "allow",
+          "entrypoint_node_id": null,
+          "entrypoint_candidates": [
+            1,
+            1
+          ],
+          "terminal_node_id": null,
+          "terminal_tag": null,
+          "terminal_note": "no literal-matching node found"
+        },
+        {
+          "profile_id": "allow_all",
+          "op": "file-write*",
+          "path": "/tmp/sbpl_rt/write.txt",
+          "expected_decision": "allow",
+          "entrypoint_node_id": null,
+          "entrypoint_candidates": [
+            1,
+            1
+          ],
+          "terminal_node_id": null,
+          "terminal_tag": null,
+          "terminal_note": "no literal-matching node found"
+        }
+      ]
+    },
+    "deny_all": {
+      "sbpl": "book/experiments/sbpl-graph-runtime/profiles/deny_all.sb",
+      "blob": "book/experiments/sbpl-graph-runtime/out/deny_all.sb.bin",
+      "op_table_raw": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "expectations": [
+        {
+          "profile_id": "deny_all",
+          "op": "file-read*",
+          "path": "/tmp/sbpl_rt/read.txt",
+          "expected_decision": "deny",
+          "entrypoint_node_id": null,
+          "entrypoint_candidates": [
+            3,
+            3,
+            3,
+            3
+          ],
+          "terminal_node_id": null,
+          "terminal_tag": null,
+          "terminal_note": "no literal-matching node found"
+        },
+        {
+          "profile_id": "deny_all",
+          "op": "file-write*",
+          "path": "/tmp/sbpl_rt/write.txt",
+          "expected_decision": "deny",
+          "entrypoint_node_id": null,
+          "entrypoint_candidates": [
+            3,
+            3,
+            3,
+            3
+          ],
+          "terminal_node_id": null,
+          "terminal_tag": null,
+          "terminal_note": "no literal-matching node found"
+        },
+        {
+          "profile_id": "deny_all",
+          "op": "file-read*",
+          "path": "/etc/hosts",
+          "expected_decision": "allow",
+          "entrypoint_node_id": null,
+          "entrypoint_candidates": [
+            3,
+            3,
+            3,
+            3
+          ],
+          "terminal_node_id": null,
+          "terminal_tag": null,
+          "terminal_note": "no literal-matching node found"
+        }
+      ]
+    },
+    "deny_except_tmp": {
+      "sbpl": "book/experiments/sbpl-graph-runtime/profiles/deny_except_tmp.sb",
+      "blob": "book/experiments/sbpl-graph-runtime/out/deny_except_tmp.sb.bin",
+      "op_table_raw": [
+        2,
+        2,
+        2
+      ],
+      "expectations": [
+        {
+          "profile_id": "deny_except_tmp",
+          "op": "file-read*",
+          "path": "/tmp/deny.txt",
+          "expected_decision": "deny",
+          "entrypoint_node_id": null,
+          "entrypoint_candidates": [
+            2,
+            2,
+            2
+          ],
+          "terminal_node_id": null,
+          "terminal_tag": null,
+          "terminal_note": "no literal-matching node found"
+        },
+        {
+          "profile_id": "deny_except_tmp",
+          "op": "file-write*",
+          "path": "/tmp/deny.txt",
+          "expected_decision": "deny",
+          "entrypoint_node_id": null,
+          "entrypoint_candidates": [
+            2,
+            2,
+            2
+          ],
+          "terminal_node_id": null,
+          "terminal_tag": null,
+          "terminal_note": "no literal-matching node found"
+        },
+        {
+          "profile_id": "deny_except_tmp",
+          "op": "file-read*",
+          "path": "/tmp/allow/foo",
+          "expected_decision": "allow",
+          "entrypoint_node_id": null,
+          "entrypoint_candidates": [
+            2,
+            2,
+            2
+          ],
+          "terminal_node_id": null,
+          "terminal_tag": null,
+          "terminal_note": "no literal-matching node found"
+        },
+        {
+          "profile_id": "deny_except_tmp",
+          "op": "file-write*",
+          "path": "/tmp/allow/foo",
+          "expected_decision": "allow",
+          "entrypoint_node_id": null,
+          "entrypoint_candidates": [
+            2,
+            2,
+            2
+          ],
+          "terminal_node_id": null,
+          "terminal_tag": null,
+          "terminal_note": "no literal-matching node found"
+        },
+        {
+          "profile_id": "deny_except_tmp",
+          "op": "file-read*",
+          "path": "/etc/hosts",
+          "expected_decision": "allow",
+          "entrypoint_node_id": null,
+          "entrypoint_candidates": [
+            2,
+            2,
+            2
+          ],
+          "terminal_node_id": null,
+          "terminal_tag": null,
+          "terminal_note": "no literal-matching node found"
+        }
+      ]
+    },
+    "metafilter_any": {
+      "sbpl": "book/experiments/sbpl-graph-runtime/profiles/metafilter_any.sb",
+      "blob": "book/experiments/sbpl-graph-runtime/out/metafilter_any.sb.bin",
+      "op_table_raw": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "expectations": [
+        {
+          "profile_id": "metafilter_any",
+          "op": "file-read*",
+          "path": "/tmp/foo.txt",
+          "expected_decision": "allow",
+          "entrypoint_node_id": null,
+          "entrypoint_candidates": [
+            3,
+            3,
+            3,
+            3
+          ],
+          "terminal_node_id": null,
+          "terminal_tag": null,
+          "terminal_note": "no literal-matching node found"
+        },
+        {
+          "profile_id": "metafilter_any",
+          "op": "file-read*",
+          "path": "/tmp/bar.txt",
+          "expected_decision": "allow",
+          "entrypoint_node_id": null,
+          "entrypoint_candidates": [
+            3,
+            3,
+            3,
+            3
+          ],
+          "terminal_node_id": null,
+          "terminal_tag": null,
+          "terminal_note": "no literal-matching node found"
+        },
+        {
+          "profile_id": "metafilter_any",
+          "op": "file-read*",
+          "path": "/tmp/baz.txt",
+          "expected_decision": "deny",
+          "entrypoint_node_id": null,
+          "entrypoint_candidates": [
+            3,
+            3,
+            3,
+            3
+          ],
+          "terminal_node_id": null,
+          "terminal_tag": null,
+          "terminal_note": "no literal-matching node found"
+        },
+        {
+          "profile_id": "metafilter_any",
+          "op": "file-write*",
+          "path": "/tmp/baz.txt",
+          "expected_decision": "deny",
+          "entrypoint_node_id": null,
+          "entrypoint_candidates": [
+            3,
+            3,
+            3,
+            3
+          ],
+          "terminal_node_id": null,
+          "terminal_tag": null,
+          "terminal_note": "no literal-matching node found"
+        },
+        {
+          "profile_id": "metafilter_any",
+          "op": "file-read*",
+          "path": "/tmp/qux.txt",
+          "expected_decision": "allow",
+          "entrypoint_node_id": null,
+          "entrypoint_candidates": [
+            3,
+            3,
+            3,
+            3
+          ],
+          "terminal_node_id": null,
+          "terminal_tag": null,
+          "terminal_note": "no literal-matching node found"
+        }
+      ]
+    },
+    "param_path_concrete": {
+      "sbpl": "book/experiments/sbpl-graph-runtime/profiles/param_path_concrete.sb",
+      "blob": "book/experiments/sbpl-graph-runtime/out/param_path_concrete.sb.bin",
+      "op_table_raw": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        5
+      ],
+      "expectations": [
+        {
+          "profile_id": "param_path_concrete",
+          "op": "process-exec",
+          "path": "/Users/achyland/Desktop/SANDBOX_LORE/book/api/file_probe/file_probe",
+          "expected_decision": "allow",
+          "entrypoint_node_id": null,
+          "entrypoint_candidates": [
+            6,
+            6,
+            6,
+            6,
+            6,
+            6,
+            5
+          ],
+          "terminal_node_id": 16,
+          "terminal_tag": 1,
+          "terminal_note": null
+        },
+        {
+          "profile_id": "param_path_concrete",
+          "op": "file-read*",
+          "path": "/tmp/sbpl_rt/param_root/foo",
+          "expected_decision": "allow",
+          "entrypoint_node_id": null,
+          "entrypoint_candidates": [
+            6,
+            6,
+            6,
+            6,
+            6,
+            6,
+            5
+          ],
+          "terminal_node_id": 18,
+          "terminal_tag": 5,
+          "terminal_note": null
+        },
+        {
+          "profile_id": "param_path_concrete",
+          "op": "file-read*",
+          "path": "/etc/hosts",
+          "expected_decision": "deny",
+          "entrypoint_node_id": null,
+          "entrypoint_candidates": [
+            6,
+            6,
+            6,
+            6,
+            6,
+            6,
+            5
+          ],
+          "terminal_node_id": null,
+          "terminal_tag": null,
+          "terminal_note": "no literal-matching node found"
+        },
+        {
+          "profile_id": "param_path_concrete",
+          "op": "file-write*",
+          "path": "/tmp/sbpl_rt/param_root/foo",
+          "expected_decision": "deny",
+          "entrypoint_node_id": null,
+          "entrypoint_candidates": [
+            6,
+            6,
+            6,
+            6,
+            6,
+            6,
+            5
+          ],
+          "terminal_node_id": 18,
+          "terminal_tag": 5,
+          "terminal_note": null
+        }
+      ],
+      "template_of": "book/experiments/sbpl-graph-runtime/profiles/param_path.sb"
+    }
+  },
+  "status": "static",
+  "validation": "SBPL-level expectations; best-effort node references from decoder (tag-aware, heuristic)."
+}

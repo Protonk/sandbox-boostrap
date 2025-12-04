@@ -15,9 +15,9 @@
 (deny mach-lookup (local-name "com.apple.test.encoder.local"))
 
 ;; network-outbound probes with socket domain/type/proto
-(deny network-outbound (socket-domain "AF_INET"))
-(deny network-outbound (socket-type "SOCK_STREAM"))
-(deny network-outbound (socket-protocol "IPPROTO_TCP"))
+(deny network-outbound (socket-domain 2)) ; AF_INET
+(deny network-outbound (socket-type 1))   ; SOCK_STREAM
+(deny network-outbound (socket-protocol 6)) ; IPPROTO_TCP
 
 ;; iokit class/property probes
 (deny iokit-open (iokit-registry-entry-class "IOUserClient"))

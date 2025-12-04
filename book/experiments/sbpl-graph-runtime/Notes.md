@@ -15,3 +15,8 @@ Use this file for concise notes on commands, hurdles, and intermediate results.
 
 - Added a literal-filtered `(allow process-exec ...)` for `book/api/file_probe/file_probe` inside `profiles/param_path.sb` to keep a `(deny default)` helper alive during file probes.
 - Recompiled the existing profiles with `python -m book.api.sbpl_compile.cli book/experiments/sbpl-graph-runtime/profiles/*.sb --out-dir book/experiments/sbpl-graph-runtime/out --no-preview`; `param_path.sb` failed with `invalid data type of path filter; expected pattern, got boolean`, likely because `(param "ROOT")` is unresolved in the current compiler wrapper. Other profiles compiled and were re-ingested into `out/ingested.json`.
+
+## Concrete param profile + static expectations
+
+- Added `profiles/param_path_concrete.sb` as a temporary instantiation with a literal ROOT at `/tmp/sbpl_rt/param_root` plus the process-exec escape hatch; compiled successfully to `out/param_path_concrete.sb.bin` and re-ingested into `out/ingested.json`.
+- Created `out/static_expectations.json` capturing SBPL-level allow/deny expectations for the synthetic profiles (allow_all, deny_all, deny_except_tmp, metafilter_any, param_path_concrete) to serve as a machine-readable contract for upcoming runtime probes.
