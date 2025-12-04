@@ -10,12 +10,12 @@ Map how this host’s `libsandbox` encodes filter arguments into the `field2` u1
 
 ## Plan & execution log
 
-- Phase A — SBPL→blob matrix (encoder output view): not started.
-- Phase B — libsandbox internals (encoder implementation view): not started.
+- Phase A — SBPL→blob matrix (encoder output view): scoped ops/filters/args captured in Notes; matrix and probes to be authored next.
+- Phase B — libsandbox internals (encoder implementation view): not started (heuristics collected in Notes).
 
 ## Evidence & artifacts
 
-- Pending: `out/field2_encoder_matrix.json`, `out/encoder_sites.json`, SBPL probes under `sb/`.
+- Pending: `out/field2_encoder_matrix.json`, `out/encoder_sites.json`; initial probes under `sb/matrix_v1.sb` (regex-free).
 
 ## Blockers / risks
 

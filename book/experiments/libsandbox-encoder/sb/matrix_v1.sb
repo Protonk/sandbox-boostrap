@@ -1,0 +1,24 @@
+;; Phase A matrix v1 (regex-free)
+;; Host: macOS 14.4.1 (23E224) Apple Silicon, SIP enabled
+;; Operations: file-read*, mach-lookup, network-outbound
+;; Filters/args: literal path, subpath, socket domain/type/proto, mach names/anchors, iokit class/property
+
+(version 1)
+(allow default)
+
+;; file-read* literal and subpath probes
+(deny file-read* (literal "/tmp/encoder/lit"))
+(deny file-read* (subpath "/tmp/encoder/sub"))
+
+;; mach-lookup probes (simple names)
+(deny mach-lookup (global-name "com.apple.test.encoder.global"))
+(deny mach-lookup (local-name "com.apple.test.encoder.local"))
+
+;; network-outbound probes with socket domain/type/proto
+(deny network-outbound (socket-domain "AF_INET"))
+(deny network-outbound (socket-type "SOCK_STREAM"))
+(deny network-outbound (socket-protocol "IPPROTO_TCP"))
+
+;; iokit class/property probes
+(deny iokit-open (iokit-registry-entry-class "IOUserClient"))
+(deny iokit-open (iokit-property "IOCFPlugInTypes"))

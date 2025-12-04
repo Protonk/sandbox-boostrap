@@ -3,7 +3,7 @@
 
 ## Summary
 
-This report describes what happened when we asked two cooperating AI agents to answer a very specific question about a modern system: what a particular “third field” in its internal rules actually does. Older systems were often modeled as simple tables of rules, each with a type, two “next rule” pointers, and a small integer payload that tweaked behavior. The natural idea was to reuse that model: search for those tables, analyze the payloads and strides, and infer structure. We suspected that this might no longer hold on current systems, but until we checked, that was just an educated guess.
+This report describes what happened when we asked two cooperating AI agents to answer a very specific question about modern macOS: what a particular “third field” in its internal rules actually does. Older systems were modeled as simple tables of rules, each with a type, two “next rule” pointers, and a small integer payload that tweaked behavior. The natural idea was to reuse that model: search for those tables, analyze the payloads and infer structure. We suspected that this might no longer hold on current systems, but until we checked, that was just an educated guess.
 
 To investigate, we split the work between two agents. One had web access and broad background knowledge; it knew the public papers and folklore, and could propose strategies, pitfalls, and stopping rules. The other had no web access at all, but could see the actual project, the decoded rule graphs, and the disassembled binaries from a single real machine. That “codex” agent wrote and ran scripts, scanned the binaries, and analyzed the graphs, then reported findings back. The human role was mostly to define the question, wire up the environment, and let this loop run.
 

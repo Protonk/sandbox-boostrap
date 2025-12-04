@@ -10,3 +10,8 @@ Use this file for concise notes on commands, hurdles, and intermediate results.
 - Runtime probes: now running via `sandbox_runner`/`sandbox_reader`. allow_all runs (OS perms still deny `/etc/hosts` write); deny_all/deny_except_tmp align through runtime-checks. `metafilter_any` now passes (allow foo/bar, deny other) after adding `/private/tmp` literals and using reader to avoid exec overhead.
 - Wrapper available: runtime-checks harness can exercise these compiled blobs via `book/api/SBPL-wrapper/wrapper --blob`; reuse that path for future triple captures instead of relying on `sandbox-exec`.
 - System profiles: airlock remains EPERM on this host; bsd SBPL/compiled blob applies. Consider adding a `bsd`-like profile as a “system-style” triple if needed; otherwise keep the synthetic set as the runtime focus here.
+
+## Param path adjustments (current run)
+
+- Added a literal-filtered `(allow process-exec ...)` for `book/api/file_probe/file_probe` inside `profiles/param_path.sb` to keep a `(deny default)` helper alive during file probes.
+- Recompiled the existing profiles with `python -m book.api.sbpl_compile.cli book/experiments/sbpl-graph-runtime/profiles/*.sb --out-dir book/experiments/sbpl-graph-runtime/out --no-preview`; `param_path.sb` failed with `invalid data type of path filter; expected pattern, got boolean`, likely because `(param "ROOT")` is unresolved in the current compiler wrapper. Other profiles compiled and were re-ingested into `out/ingested.json`.

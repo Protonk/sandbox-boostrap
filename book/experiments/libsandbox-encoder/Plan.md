@@ -7,6 +7,7 @@ Establish how this host’s `libsandbox` encodes filter arguments into the `fiel
 - **Phase A — SBPL→blob matrix (encoder output view)**
   - Use `book/api/sbpl_compile` + `book/api/decoder` as a black-box compiler/decoder pair.
   - Build a small SBPL matrix over a few operations (`file-read*`, `mach-lookup`, `network-outbound`) crossed with filter/argument shapes (literal path, regex path, socket family/type/proto, iokit class/property, mach anchors).
+  - First pass: regex-free (literal/subpath for paths, socket/iokit/mach shapes only); defer regex to a follow-up matrix to reduce confounders.
   - Record per probe: operation, filter name, SBPL argument text, filter_id from `filters.json`, tag, raw `field2`.
   - Confirm `field2 == filter_id` where expected; flag any “weird” encodings and check against high/unknown codes observed in `field2-filters` (16660, 2560, 0xffff, 3584, 10752, etc.).
 
@@ -23,5 +24,5 @@ Establish how this host’s `libsandbox` encodes filter arguments into the `fiel
 
 ## Status
 
-- Phase A: not started.
-- Phase B: not started.
+- Phase A: scoped (ops/filters/args selected); probes and matrix output pending.
+- Phase B: not started (heuristics gathered; disassembly pending).
