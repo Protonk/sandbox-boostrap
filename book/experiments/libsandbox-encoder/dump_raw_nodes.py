@@ -14,6 +14,7 @@ tag10 layouts in `matrix_v1.sb.bin`.
 
 import argparse
 import re
+import json
 from pathlib import Path
 
 
@@ -57,21 +58,40 @@ def dump_records(blob: bytes, start: int, end: int, stride: int = 12) -> list[di
 def main() -> None:
     ap = argparse.ArgumentParser(description="Dump raw 12-byte node records for a compiled profile blob")
     ap.add_argument("blob", type=Path, help="Path to .sb.bin blob")
+    ap.add_argument("--header", action="store_true", help="Use header-derived nodes_start/nodes_len from inspect_profile summary")
+    ap.add_argument("--stride", type=int, help="Override stride (bytes) instead of assuming 12 or inferring")
     args = ap.parse_args()
 
     blob = args.blob.read_bytes()
-    literal_start = find_literal_start(blob)
-    node_start, node_end = find_node_block(blob, literal_start)
-    if not (0 <= node_start < node_end <= literal_start <= len(blob)):
-        raise SystemExit(f"[error] bad slice: nodes [{node_start},{node_end}), literal_start={literal_start}, blob_len={len(blob)}")
-    if (node_end - node_start) % 12 != 0:
-        raise SystemExit(f"[error] node block size {(node_end - node_start)} not divisible by 12 (start={node_start}, end={node_end})")
+    if args.header:
+        # load inspect_profile JSON sitting next to blob if present
+        insp_path = args.blob.with_suffix(".inspect.json")
+        if not insp_path.exists():
+            raise SystemExit(f"[error] --header set but no {insp_path} found")
+        data = json.loads(insp_path.read_text())
+        sections = data.get("decoder", {}).get("sections", {})
+        nodes_start = sections.get("nodes_start")
+        nodes_raw = data.get("nodes_raw") or []
+        if nodes_start is None or not nodes_raw:
+            raise SystemExit(f"[error] missing nodes_start or nodes_raw in {insp_path}; re-run inspect_profile first")
+        record_size = len(bytes.fromhex(nodes_raw[0]["bytes"]))
+        node_count = len(nodes_raw)
+        nodes_len = record_size * node_count
+        node_start, node_end = nodes_start, nodes_start + nodes_len
+        args.stride = args.stride or record_size
+    else:
+        literal_start = find_literal_start(blob)
+        node_start, node_end = find_node_block(blob, literal_start)
+        if not (0 <= node_start < node_end <= literal_start <= len(blob)):
+            raise SystemExit(f"[error] bad slice: nodes [{node_start},{node_end}), literal_start={literal_start}, blob_len={len(blob)}")
+    stride = args.stride or 12
+    if (node_end - node_start) % stride != 0:
+        raise SystemExit(f"[error] node block size {(node_end - node_start)} not divisible by stride {stride} (start={node_start}, end={node_end})")
 
-    recs = dump_records(blob, node_start, node_end)
+    recs = dump_records(blob, node_start, node_end, stride=stride)
 
     print(f"blob: {args.blob} (len={len(blob)})")
-    print(f"literal_start guess: {literal_start}")
-    print(f"node block: [{node_start}, {node_end}) stride=12 -> {len(recs)} records")
+    print(f"node block: [{node_start}, {node_end}) stride={stride} -> {len(recs)} records")
     for r in recs:
         hw = " ".join(f"{x:04x}" for x in r["halfwords"])
         print(f"{r['offset']:4d}: {hw}")

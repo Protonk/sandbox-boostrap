@@ -30,12 +30,12 @@ def load_filters() -> Dict[int, str]:
     data = json.loads(path.read_text())
     return {entry["id"]: entry["name"] for entry in data.get("filters", [])}
 
-def load_tag_layouts() -> Dict[int, Tuple[int, Tuple[int, ...], Tuple[int, ...]]]:
+def load_tag_layouts() -> Dict[int, Dict[str, Any]]:
     """
     Merge base tag layouts with local overrides. Shapes mirror decoder.DEFAULT_TAG_LAYOUTS:
-    tag -> (record_size_bytes, edge_fields, payload_fields)
+    tag -> {record_size_bytes, edge_fields, payload_fields, filter_id_field?}
     """
-    layouts: Dict[int, Tuple[int, Tuple[int, ...], Tuple[int, ...]]] = {}
+    layouts: Dict[int, Dict[str, Any]] = {}
     # base mapping from published tag_layouts.json
     base = ROOT / "book/graph/mappings/tag_layouts/tag_layouts.json"
     for path in [base, ROOT / "book/experiments/libsandbox-encoder/out/tag_layout_overrides.json"]:
@@ -53,7 +53,13 @@ def load_tag_layouts() -> Dict[int, Tuple[int, Tuple[int, ...], Tuple[int, ...]]
             rec_size = int(entry.get("record_size_bytes", 12))
             edges = tuple(entry.get("edge_fields", []))
             payloads = tuple(entry.get("payload_fields", []))
-            layouts[tag] = (rec_size, edges, payloads)
+            filter_id_field = entry.get("filter_id_field")
+            layouts[tag] = {
+                "record_size_bytes": rec_size,
+                "edge_fields": edges,
+                "payload_fields": payloads,
+                "filter_id_field": filter_id_field,
+            }
     return layouts
 
 
@@ -109,7 +115,7 @@ def attach_literal_refs(nodes: List[Dict[str, Any]], nodes_bytes: bytes, literal
         node["literal_refs"] = sorted(set(matches))
 
 
-def parse_nodes_with_layout(nodes_bytes: bytes, layouts: Dict[int, Tuple[int, Tuple[int, ...], Tuple[int, ...]]]) -> Tuple[List[Dict[str, Any]], Dict[int, int], int]:
+def parse_nodes_with_layout(nodes_bytes: bytes, layouts: Dict[int, Dict[str, Any]]) -> Tuple[List[Dict[str, Any]], Dict[int, int], int]:
     """
     Parse nodes using per-tag record sizes when available (override if present),
     defaulting to 12-byte records. Returns (nodes, tag_counts, remainder_bytes).
@@ -119,7 +125,8 @@ def parse_nodes_with_layout(nodes_bytes: bytes, layouts: Dict[int, Tuple[int, Tu
     offset = 0
     while offset + 1 <= len(nodes_bytes):
         tag = nodes_bytes[offset]
-        rec_size, _, _ = layouts.get(tag, (12, (0, 1), ()))
+        layout = layouts.get(tag, {})
+        rec_size = layout.get("record_size_bytes", 12)
         chunk = nodes_bytes[offset : offset + rec_size]
         if len(chunk) < rec_size:
             break
@@ -163,17 +170,28 @@ def build_matrix(sb_path: Path, out_blob: Path, out_json: Path) -> None:
         if len(fields) < 3:
             continue
         tag = node.get("tag")
-        rec_size, edge_idx, payload_idx = layouts.get(tag, (12, (0, 1), ()))
-        if not payload_idx:
-            continue  # meta/header nodes (no payload)
+        layout = layouts.get(tag, {})
+        rec_size = layout.get("record_size_bytes", 12)
+        edge_idx = tuple(layout.get("edge_fields", (0, 1)))
+        payload_idx = tuple(layout.get("payload_fields", ()))
+        filter_id_field = layout.get("filter_id_field")
+        # skip meta/header nodes (no payload and no filter id)
+        if not payload_idx and filter_id_field is None:
+            continue
         # For now, assume single payload slot; if multiple, take first
         payload_field_index = payload_idx[0] if payload_idx else None
         if payload_field_index is None or payload_field_index >= len(fields):
-            continue
-        raw = fields[payload_field_index]
-        hi = raw & 0xC000
-        lo = raw & 0x3FFF
-        filter_name = filters.get(lo)
+            payload_raw = None
+            payload_hi = payload_lo = None
+        else:
+            payload_raw = fields[payload_field_index]
+            payload_hi = payload_raw & 0xC000
+            payload_lo = payload_raw & 0x3FFF
+        # filter_id may come from a dedicated field or from payload_lo if no hi bits
+        fid_idx = filter_id_field if filter_id_field is not None else payload_field_index
+        filter_id_raw = fields[fid_idx] if fid_idx is not None and fid_idx < len(fields) else None
+        filter_id_lo = filter_id_raw & 0x3FFF if filter_id_raw is not None else None
+        filter_name = filters.get(filter_id_lo) if filter_id_lo is not None else None
         rows.append(
             {
                 "node_offset": node.get("offset"),
@@ -181,11 +199,12 @@ def build_matrix(sb_path: Path, out_blob: Path, out_json: Path) -> None:
                 "record_size": rec_size,
                 "fields": fields,
                 "op_hint": op_hint_for_filter(filter_name),
-                "filter_id": lo if hi == 0 else None,
+                "filter_id_raw": filter_id_raw,
+                "filter_id": filter_id_lo if (filter_id_raw is not None) else None,
                 "filter_name": filter_name,
-                "field2_raw": raw,
-                "field2_hi": hi,
-                "field2_lo": lo,
+                "payload_raw": payload_raw,
+                "payload_hi": payload_hi,
+                "payload_lo": payload_lo,
                 "literal_refs": node.get("literal_refs", []),
             }
         )

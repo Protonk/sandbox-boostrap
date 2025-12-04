@@ -108,6 +108,16 @@ def summarize_blob(blob: bytes, strides: Sequence[int] = (8, 12, 16)) -> Summary
     op_count = header.operation_count or 0
     op_entries = _op_entries(blob, op_count) if op_count else []
     decoded = decoder.decode_profile_dict(blob)
+    # Guarded fallback: if decoder emitted empty nodes, but slice_sections found a nonzero nodes range, overwrite.
+    dec_sections = decoded.get("sections") or {}
+    nodes_len_dec = dec_sections.get("nodes")
+    nodes_len_dec = nodes_len_dec.get("length") if isinstance(nodes_len_dec, dict) else nodes_len_dec
+    if nodes_len_dec in (None, 0) and sections.nodes:
+        # Prefer the header-derived slice (heuristic: nodes start immediately after op_table)
+        dec_sections = dict(dec_sections)
+        dec_sections["nodes_start"] = 16 + (header.operation_count or 0) * 2
+        dec_sections["nodes"] = len(sections.nodes)
+        decoded["sections"] = dec_sections
     # Emit raw nodes for debugging/layout work: tag byte + halfwords
     nodes_raw: List[Dict[str, Any]] | None = None
     if sections.nodes:
@@ -124,6 +134,17 @@ def summarize_blob(blob: bytes, strides: Sequence[int] = (8, 12, 16)) -> Summary
                     "halfwords": [int.from_bytes(rec[i : i + 2], "little") for i in range(0, stride, 2)],
                 }
             )
+        # Normalize nodes length by stripping trailing padding if present (common +3 byte tail).
+        if recs > 0:
+            canonical_len = recs * stride
+            if len(sections.nodes) - canonical_len == 3:
+                sections = pi.Sections(op_table=sections.op_table, nodes=sections.nodes[:canonical_len], regex_literals=sections.regex_literals)
+                # also normalize the decoded sections lengths to match the trimmed nodes
+                dec_sections = decoded.get("sections") or {}
+                dec_sections = dict(dec_sections)
+                dec_sections["nodes"] = canonical_len
+                dec_sections["literal_start"] = dec_sections.get("nodes_start", 16 + (header.operation_count or 0) * 2) + canonical_len
+                decoded["sections"] = dec_sections
     stride_stats = [_stride_stats(sections.nodes, s) for s in strides]
     return Summary(
         format_variant=header.format_variant,
