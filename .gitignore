@@ -1,16 +1,17 @@
+# the mac
 .DS_Store
-.pytest_cache/
-.venv/
 .swift-module-cache/
 
 # Do not commit Apple binaries
-dumps/Sandbox-private/*
+dumps/Sandbox-private/
 
-# ghidra
-dumps/ghidra/tmp/*
-dumps/ghidra/__pycache__
-book/api/ghidra/__pycache__
-book/api/ghidra/__pycache__/__init__.cpython-314.pyc
-/book/api/ghidra/scripts/__pycache__
-/tests/__pycache__
-/book/tests/__pycache__
+# do not commit my business
+dumps/ghidra/tmp/
+.ghidra-user/
+
+# what even is python
+__pycache__/
+.pytest_cache/
+.venv/
+
+
