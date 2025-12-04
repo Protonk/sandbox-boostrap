@@ -67,4 +67,3 @@ Outputs: `.../node_struct_scan.txt` and `.../node_struct_scan.json` (includes sc
 
 Related notes:
 - Troubleshooting and mitigations: `troubles/ghidra_setup.md` (now points back here for commands/env).
-- Historical plan: `dumps/RE_Plan.md` is kept for context but treated as historical; new runs should follow this README.
