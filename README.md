@@ -41,7 +41,6 @@ The project deliberately fixes a narrow but detailed world:
 
 For a compact narrative of these assumptions and the surrounding ecosystem (TCC, hardened runtime, SIP), see:
 
-- `Preamble.md` – short, agent-friendly summary of the substrate and invariants.
 - `substrate/Orientation.md` – architecture and policy lifecycle.
 - `substrate/Concepts.md` – core Seatbelt concepts and definitions.
 
