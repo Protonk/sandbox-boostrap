@@ -308,3 +308,21 @@ def block_name(func):
         pass
     return None
 
+
+def validate_candidate_schema(cand):
+    required = [
+        "function",
+        "entry",
+        "index_reg",
+        "stride",
+        "base_reg",
+        "byte_offsets",
+        "half_offsets",
+        "loads",
+        "usage",
+        "instruction_count",
+    ]
+    for k in required:
+        if k not in cand:
+            return False
+    return True

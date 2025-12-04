@@ -18,19 +18,29 @@ Does three things:
 
 import json
 import os
-import re
-from collections import defaultdict
-from ghidra.program.model.address import AddressSet
-from ghidra.program.model.scalar import Scalar
+import sys
+
+try:
+    # Ghidra provides getSourceFile in the script namespace.
+    SCRIPT_DIR = os.path.dirname(getSourceFile().getAbsolutePath())
+except Exception:
+    SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__)) if "__file__" in globals() else os.getcwd()
+candidate_paths = [
+    os.path.abspath(os.path.join(SCRIPT_DIR, "..")),  # .../book/api/ghidra
+    os.path.abspath(os.path.join(os.getcwd(), "book", "api", "ghidra")),  # repo root fallback
+]
+for _p in candidate_paths:
+    if _p not in sys.path:
+        sys.path.insert(0, _p)
 
 from ghidra_lib.node_scan_utils import (
     SCHEMA_VERSION,
-    Expr,
     analyze_usage,
     block_name,
     choose_index_and_base,
     collect_loads,
     filter_loads,
+    validate_candidate_schema,
 )
 
 DEFAULT_EVAL = "fffffe000b40d698"
@@ -64,68 +74,8 @@ def build_reachable_from_eval(eval_entry):
     return reachable
 
 
-def analyze_usage(func, base_reg, index_reg, stride, loads):
-    """Lightweight usage scan for loaded fields."""
-    reg_by_offset = {}
-    for l in loads:
-        if l["dest"]:
-            reg_by_offset.setdefault(l["dest"], set()).add(l["offset"])
-    interesting = []
-    listing = currentProgram.getListing()
-    for instr in listing.getInstructions(func.getBody(), True):
-        mnemonic = instr.getMnemonicString().lower()
-        text = instr.toString()
-        regs = []
-        try:
-            for obj in instr.getOpObjects(0):
-                if isinstance(obj, Register):
-                    regs.append(obj.getName().upper())
-        except Exception:
-            pass
-        try:
-            for obj in instr.getOpObjects(1):
-                if isinstance(obj, Register):
-                    regs.append(obj.getName().upper())
-        except Exception:
-            pass
-        try:
-            for obj in instr.getOpObjects(2):
-                if isinstance(obj, Register):
-                    regs.append(obj.getName().upper())
-        except Exception:
-            pass
-        flags = []
-        imm = None
-        if mnemonic in ("and", "ands", "tst"):
-            m = re.search(r"#0x([0-9a-fA-F]+)", text)
-            if m:
-                try:
-                    imm = int(m.group(1), 16)
-                except Exception:
-                    imm = None
-        if mnemonic in ("tbz", "tbnz", "ubfx", "lsr", "lsrs", "asr", "lsls"):
-            flags.append(mnemonic)
-        if mnemonic in ("and", "ands", "tst") and imm is not None and imm != 0xFFFF:
-            flags.append("%s imm=0x%x" % (mnemonic, imm))
-        if mnemonic == "add" and "uxtw" in text.lower():
-            flags.append("index_add")
-        if not flags:
-            continue
-        for r in regs:
-            if r in reg_by_offset:
-                interesting.append(
-                    {
-                        "insn": str(instr.getAddress()),
-                        "disasm": text,
-                        "reg": r,
-                        "flags": flags,
-                    }
-                )
-    return interesting
-
-
 def scan_function(func):
-    load_records, instr_count = collect_loads(func)
+    load_records = collect_loads(func, currentProgram)
     index_reg, stride, base_reg = choose_index_and_base(load_records)
     if not index_reg or not base_reg:
         return None
@@ -134,7 +84,7 @@ def scan_function(func):
     half_offs = [l["offset"] for l in filtered if l["width"] == 2]
     if len(byte_offs) < 1 or len(half_offs) < 2:
         return None
-    usage = analyze_usage(func, base_reg, index_reg, stride, filtered)
+    usage = analyze_usage(func, filtered)
     return {
         "function": func.getName(),
         "entry": str(func.getEntryPoint()),
@@ -146,7 +96,7 @@ def scan_function(func):
         "half_offsets": sorted(list(set(half_offs))),
         "loads": filtered,
         "usage": usage,
-        "instruction_count": instr_count,
+        "instruction_count": len(list(currentProgram.getListing().getInstructions(func.getBody(), True))),
     }
 
 
@@ -162,7 +112,7 @@ def parse_eval(arg):
     return None
 
 
-def write_reports(out_dir, candidates, scanned_count):
+def write_reports(out_dir, candidates, scanned_count, eval_entry):
     if not os.path.isdir(out_dir):
         os.makedirs(out_dir)
     txt_path = os.path.join(out_dir, "node_struct_scan.txt")
@@ -190,8 +140,14 @@ def write_reports(out_dir, candidates, scanned_count):
                 lines.append("    %s %s flags=%s" % (u["insn"], u["disasm"], ",".join(u["flags"])))
     with open(txt_path, "w") as fh:
         fh.write("\n".join(lines))
+    payload = {
+        "schema_version": SCHEMA_VERSION,
+        "eval_entry": str(eval_entry),
+        "functions_scanned": scanned_count,
+        "candidates": [c for c in candidates if validate_candidate_schema(c)],
+    }
     with open(json_path, "w") as fh:
-        json.dump(candidates, fh, indent=2)
+        json.dump(payload, fh, indent=2)
     print("[+] wrote reports to %s and %s" % (txt_path, json_path))
 
 
@@ -217,7 +173,7 @@ def run():
         if res:
             candidates.append(res)
     candidates.sort(key=lambda c: (-len(c["half_offsets"]), c["function"]))
-    write_reports(out_dir, candidates, reachable_count)
+    write_reports(out_dir, candidates, reachable_count, eval_entry)
 
 
 run()

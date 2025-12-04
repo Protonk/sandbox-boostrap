@@ -44,6 +44,27 @@ result = runner.run(inv, execute=True)
 print(result.returncode, result.out_dir)
 ```
 
+### Node struct/evaluator tooling
+
+Reusable helpers live in `book/api/ghidra/ghidra_lib/node_scan_utils.py` (expr handling, index/base inference, load filtering, usage tagging; JSON schema_version is `1.0`). Scripts can import this module via the path bootstrap included at the top of each script.
+
+To scan for “small struct” patterns under `_eval` (default addr fffffe000b40d698) in `BootKernelCollection.kc`:
+
+```bash
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home
+export JAVA_TOOL_OPTIONS="-Dapplication.settingsdir=$PWD/.ghidra-user -Duser.home=$PWD/dumps/ghidra/user"
+export HOME="$PWD/dumps/ghidra/home"
+export GHIDRA_USER_HOME="$PWD/dumps/ghidra/user"
+/opt/homebrew/opt/ghidra/libexec/support/analyzeHeadless \
+  dumps/ghidra/tmp field2_eval_tmp \
+  -process BootKernelCollection.kc \
+  -noanalysis \
+  -scriptPath book/api/ghidra/scripts \
+  -postScript kernel_node_struct_scan.py scan dumps/ghidra/out/14.4.1-23E224/find-field2-evaluator
+```
+
+Outputs: `.../node_struct_scan.txt` and `.../node_struct_scan.json` (includes schema_version, eval_entry, functions_scanned, candidates). Adjust the eval address or process binary as needed.
+
 Related notes:
 - Troubleshooting and mitigations: `troubles/ghidra_setup.md` (now points back here for commands/env).
 - Historical plan: `dumps/RE_Plan.md` is kept for context but treated as historical; new runs should follow this README.
