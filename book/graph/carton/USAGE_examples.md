@@ -1,6 +1,6 @@
 # CARTON usage examples (Sonoma 14.4.1)
 
-These snippets show how to lean on CARTON instead of raw experiment outputs. All paths are stable as long as `book/graph/carton/CARTON.json` is unchanged.
+These snippets show how to lean on CARTON instead of raw experiment outputs. All paths are stable as long as `book/graph/carton/CARTON.json` is unchanged. The API raises `UnknownOperationError` for op names outside the CARTON vocab and `CartonDataError` if a mapping is missing or out of sync with the manifest; catch those when probing.
 
 - **Runtime signature → probes + profile path**
   ```python
