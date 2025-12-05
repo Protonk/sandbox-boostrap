@@ -6,6 +6,7 @@ What it does (current):
 - Parses `substrate/Concepts.md` + `book/graph/concepts/CONCEPT_INVENTORY.md` + `book/graph/concepts/validation/Concept_map.md`.
 - Emits JSON: `book/graph/concepts/{concepts.json,concept_map.json,concept_text_map.json}`, `book/graph/concepts/validation/{strategies.json,validation_report.json}`, `book/examples/examples.json`.
 - Runs light validation (concept IDs referenced by strategies and runtime expectations exist) and writes `book/graph/concepts/validation/validation_report.json`.
+- Feeds stable mappings into CARTON (see `book/graph/carton/CARTON.json`), which is the frozen IR/mapping set that the textbook and API layer query.
 
 How to run:
 ```
@@ -22,5 +23,6 @@ Extending it:
 Directory map (agent quick reference):
 - `sources/` – Swift generator/validator (see `main.swift`).
 - `concepts/` – Concept inventory source (markdown), generated JSON, validation metadata, and Swift validation reports.
-- `mappings/` – Stable host-specific IR (vocab, op_table, anchors, tag_layouts, system_profiles, runtime).
+- `mappings/` – Stable host-specific IR (vocab, op_table, anchors, tag_layouts, system_profiles, runtime) that mapping generators normalize into CARTON-facing artifacts.
+- `carton/` – CARTON manifest and helpers that declare which mappings/IR files are treated as the frozen set for this host.
 - `regions/` – Generated chapter/section map for the textbook.

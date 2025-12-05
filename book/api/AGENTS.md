@@ -39,6 +39,10 @@ You are in `book/api/`, the API/tooling layer for the Seatbelt textbook. This fi
   - Use when: driving reverse-engineering workflows under `dumps/` and kernel/entitlement experiments.
   - Notes: this is the canonical scaffold; `dumps/ghidra/` keeps the runtime workspace and a compatibility shim.
 
+- `carton/`
+  - Role: API surface for CARTON, the frozen IR/mapping set rooted at `book/graph/carton/CARTON.json`.
+  - Use when: you want stable information about operations, system profiles, or runtime signatures. Prefer `book.api.carton.carton_query` over reading mapping JSONs by hand.
+
 For vocabulary, lifecycle, and concept discipline, step up to `substrate/AGENTS.md`. All new tooling here should:
 
 - target the fixed baseline from `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`,

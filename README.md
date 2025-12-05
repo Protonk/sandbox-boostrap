@@ -8,15 +8,14 @@ The project is designed for both humans and agents:
 - Capture a stable vocabulary and concept graph tied to real artifacts.
 - Provide runnable, inspectable labs and experiments that can be regenerated locally.
 
-
 ## 1. What SANDBOX_LORE Is
 
-At a high level, SANDBOX_LORE is a frozen atlas of Seatbelt for a single macOS Sonoma machine:
+At a high level, SANDBOX_LORE is a host-specific description of Seatbelt for a single macOS Sonoma machine, built in layers:
 
-- The **substrate** (Orientation, Concepts, Appendix, Environment, State) defines the world and the vocabulary the project is allowed to use.
+- The **substrate** (Orientation, Concepts, Appendix, Environment, State) defines the world and the vocabulary the project is allowed to use; it is the implementation-shaped theory of Seatbelt for this host.
 - A **concept inventory** and validation harness sit between theory and artifacts, tracking which ideas are backed by strong evidence and which remain partial or speculative.
-- A **graph/mapping layer** publishes machine-readable IR for this host: operation/filter vocabularies, op-tables, tag layouts, system-profile digests, and selected runtime/lifecycle manifests.
-- A **textbook-like book** (chapters + examples) walks through Seatbelt using only this fixed world and these mappings.
+- **CARTON** – a host-specific, frozen set of IR and mappings rooted at `book/graph/carton/CARTON.json` – collects the concrete, machine-readable artifacts that other code and chapters read: vocabularies, op-tables, tag layouts, system-profile digests, and selected runtime/lifecycle manifests.
+- A **textbook-like book** (chapters + examples) walks through Seatbelt using this fixed world and CARTON-backed mappings, plus a small API layer for querying them.
 
 Everything here is meant to be regenerable from two inputs: this repo and the fixed host baseline. Whenever static structure, runtime experiments, and canonical sources disagree, that disagreement is treated as an open modeling or tooling bug, not something to smooth over.
 
@@ -62,8 +61,8 @@ This section sketches the main pieces of the repo; detailed navigation and norms
   Textbook, labs, and tooling:
   - Chapters and profiles that tell the sandbox story in human-readable form.
   - Examples and experiments that serve as runnable labs and probes.
-  - API tooling (e.g., decoder, SBPL compiler, op-table helpers, golden-runner harness) for working with compiled profiles and runtime checks.
-  - A graph layer (`book/graph/`) that holds the concept inventory, validation harness, Swift generator, and stable host-specific mappings (vocab tables, op-table alignment, tag layouts, anchor maps, system-profile digests, runtime expectations, lifecycle manifests).
+  - API tooling (e.g., decoder, SBPL compiler, op-table helpers, golden-runner harness, CARTON query helpers) for working with compiled profiles, runtime checks, and CARTON-backed mappings.
+  - A graph layer (`book/graph/`) that holds the concept inventory, validation harness, Swift generator, and stable host-specific mappings (vocab tables, op-table alignment, tag layouts, anchor maps, system-profile digests, runtime expectations, lifecycle manifests) that feed into CARTON.
   - A unified test harness (`make -C book test`) that runs Python unit checks and builds the Swift graph tools to enforce compile-time contracts.
 
 - `dumps/`  

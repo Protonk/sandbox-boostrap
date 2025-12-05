@@ -7,7 +7,7 @@ Make the core Seatbelt concepts explicit and enumerable. Provide one canonical �
 - Evidence
 - Shared abstractions
 
-The inventory is a *spec for validation*, not a replacement for the substrate docs or mapping JSONs. Every important concept should have:
+The inventory is a *spec for validation*, not a replacement for the substrate docs, mapping JSONs, or CARTON. Every important concept should have:
 - A definition in substrate vocabulary.
 - One or more concrete witnesses on this host.
 - A clear path from concept → example → artifact → mapping.
@@ -26,9 +26,9 @@ Concretely, “success” means that each concept has:
    - Cross-references (how names and IDs line up across sources).
 
 3. **Stable and tractable mappings**  
-   We can fix in a machine-readable form:
-   - How concepts map to example code.
-   - How concepts map to shared abstractions and mapping JSONs.
+  We can fix in a machine-readable form:
+  - How concepts map to example code.
+  - How concepts map to shared abstractions and mapping JSONs, and (when frozen) how they surface in CARTON as part of the host’s canonical IR web.
 
 ## How to read this file
 

@@ -4,7 +4,7 @@ Host baseline: `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`
 
 Purpose
 - Canonical home for golden SBPL → PolicyGraph → runtime triples on this host.
-- Golden criteria: simple SBPL, decoded graphs matching intent, static expectations (schema: provisional, `expectation_id` join key), runtime results aligned via `sandbox_init` from an unsandboxed caller.
+- Golden criteria: simple SBPL, decoded graphs matching intent, static expectations (schema: provisional, `expectation_id` join key), runtime results aligned via `sandbox_init` from an unsandboxed caller, and (when promoted) linkage into CARTON mappings (e.g., runtime signatures and system-profile coverage).
 
 Profiles included
 - `runtime:allow_all`

@@ -21,7 +21,7 @@ We explicitly do **not** attempt a full reverse-engineering of modern node forma
 **Host / baseline**
 
 - Sonoma baseline from `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json` (macOS 14.4.1 / 23E224, Apple Silicon, SIP enabled).
-- Profiles compiled locally via `libsandbox.dylib` on this host; results are host-specific but conceptually aligned with `SUBSTRATE_2025-frozen`.
+- Profiles compiled locally via `libsandbox.dylib` on this host; results are host-specific and aligned with the substrate definitions, and their decoded structure ultimately feeds the static mappings that CARTON freezes for this host.
 
 **Directory contents**
 

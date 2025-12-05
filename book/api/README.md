@@ -6,7 +6,8 @@ This directory is the shared toolbox for the sandbox textbook. It collects small
 - decoding and inspecting compiled blobs,
 - analysing op-tables and node structure,
 - driving selected runtime experiments,
-- and exporting artifacts for external tools (e.g. Ghidra, Graphviz).
+- querying the frozen CARTON IR/mappings, and
+- exporting artifacts for external tools (e.g. Ghidra, Graphviz).
 
 All code here assumes the fixed host baseline recorded in `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json` and the vocab/format mappings under `book/graph/mappings/`.
 
@@ -66,6 +67,12 @@ All code here assumes the fixed host baseline recorded in `book/world/sonoma-14.
   - Role: Provide hooks for Seatbelt-focused Ghidra analysis (kernel/op-table symbol work).
   - Use when: driving reverse-engineering tasks under `dumps/` or the kernel/entitlement experiments.
   - Notes: canonical scaffold/CLI lives here; `dumps/ghidra/` remains the runtime workspace plus a compatibility shim.
+
+- `carton/`
+  - Role: Public query surface for CARTON – the frozen IR/mapping set rooted at `book/graph/carton/CARTON.json`.
+  - Surfaces:
+    - Python: `book.api.carton.carton_query` helpers (`profiles_with_operation`, `runtime_signature_info`, `ops_with_low_coverage`, etc.).
+  - Use when: you need stable facts about vocab, system profiles, or runtime signatures. Prefer this over reading mapping JSONs directly.
 
 See `AGENTS.md` for a concise router view.
 

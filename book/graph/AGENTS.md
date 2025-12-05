@@ -1,6 +1,6 @@
 # Agents in `book/graph/`
 
-These instructions apply to the entire `book/graph/` tree. Treat this directory as the shared “graph IR + concept inventory” layer that sits between experiments and the textbook: it defines concepts, ingests compiled profiles, and publishes stable mappings for this Sonoma host.
+These instructions apply to the entire `book/graph/` tree. Treat this directory as the shared “graph IR + concept inventory” layer that sits between experiments and the textbook: it defines concepts, ingests compiled profiles, and publishes stable mappings for this Sonoma host. Those mappings are then normalized into CARTON, the frozen IR/mapping set that the textbook and API layer read from.
 
 ## Scope and router
 
@@ -19,7 +19,7 @@ High-level layout:
     - This is the only place new ingestion/decoder logic should live.
 
 - `mappings/`
-  - Stable host-specific mapping artifacts used across the repo (see `book/graph/mappings/README.md`):
+  - Stable host-specific mapping artifacts used across the repo (see `book/graph/mappings/README.md`); mapping generators read validation IR and write these before they are folded into CARTON:
     - `vocab/` – Operation/Filter Vocabulary Maps.
     - `op_table/` – op-table buckets, signatures, and vocab alignment.
     - `anchors/` – anchor ↔ filter/field2 mappings.
@@ -32,7 +32,7 @@ When in doubt:
 - New *code* that ingests or validates compiled profiles → `concepts/validation/`.
 - New *stable mappings* or “IR” that other code depends on → `mappings/` (with metadata and schema).
 - Experiment-specific scratch outputs stay under `book/experiments/*/out`, not here.
-- CARTON is the frozen API surface for this host; see `book/graph/carton/API.md` and prefer `book/api/carton/carton_query.py` (plus the coverage mapping it reads) over ad-hoc JSON spelunking.
+- CARTON is the frozen, host-specific IR/mapping set exposed via an API; see `book/graph/carton/API.md` and prefer `book/api/carton/carton_query.py` (plus the coverage mapping it reads) over ad-hoc JSON spelunking.
 
 ## Swift generator loop (for agents)
 
