@@ -16,7 +16,6 @@ When the simplest honest answer is “we don’t know yet” or “current evide
   - macOS Sonoma 14.4.1 (23E224), Apple Silicon, SIP enabled.
 - All architectural and behavioral claims are about this host unless explicitly labeled otherwise.
 - A pre-set understanding of the world is committed to, provisionally, in `substrate/`. Read `substrate/Canon.md` to understand its warp and weft.
- - A compact narrative of this world also exists in `Preamble.md`; it is primarily meant as a system prompt. Agents invoked by a harness can assume its content is already reflected in their instructions and should not reread it.
 
 ## Substrate and vocabulary discipline
 
