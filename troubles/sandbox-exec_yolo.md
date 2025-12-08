@@ -2,7 +2,7 @@
 
 ## Context
 
-- Host: Sonoma baseline (see `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`), Apple Silicon, SIP enabled.
+- Host: Sonoma baseline (see `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json)`), Apple Silicon, SIP enabled.
 - Experiment: `book/experiments/runtime-checks/`.
 - Goal: run the bucket-4 (`v1_read`) and bucket-5 (`v11_read_subpath`) SBPL profiles via `sandbox-exec` to collect runtime allow/deny traces.
 - Harness: `run_probes.py` driving `sandbox-exec` with SBPL source (not the compiled `.sb.bin`), writing `out/runtime_results.json`.

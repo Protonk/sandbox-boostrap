@@ -4,7 +4,7 @@ Role: minimal C helper that performs a single `open` + `read` or `open` + `write
 
 Use when: you need a deterministic, low-noise file access to test allow/deny outcomes under a sandbox profile.
 
-Host baseline: see `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`.
+Host baseline: see `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json)`.
 
 Build:
 

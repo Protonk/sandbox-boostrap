@@ -26,7 +26,7 @@ Python validation driver (single entrypoint):
 Jobs are registered in `registry.py`; add new ones next to the decode/ingestion logic they exercise.
 
 Status schema (applies to `validation_status.json` and per-experiment status files):
-- `job_id` (string), `status` (`ok[-unchanged|-changed]|partial|brittle|blocked|skipped`), `host` (object), `inputs` (list of paths), `outputs` (list of paths), `timestamp` (RFC3339), `tags` (list of strings), optional `notes`, `metrics`, `hashes`, `change`.
+- `job_id` (string), `status` (`ok[-unchanged|-changed]|partial|brittle|blocked|skipped`), `host` (object), `inputs` (list of paths), `outputs` (list of paths), `tags` (list of strings), optional `notes`, `metrics`, `hashes`, `change`.
 - Meta check: `python -m book.graph.concepts.validation --tag meta` runs `validation:schema-check` to assert status files follow this schema.
 
 Smoke tag:

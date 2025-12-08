@@ -3,7 +3,7 @@
 Role: stable, host-specific connector for running Seatbelt-focused Ghidra headless tasks. This is the canonical scaffold; `dumps/ghidra/scaffold.py` is now a shim.
 
 Baseline and safety:
-- Host: see `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`.
+- Host: see `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json)`.
 - Inputs live in `dumps/Sandbox-private/<build>/...` (KC, libsystem_sandbox, profiles); never copy them into tracked trees.
 - Outputs stay under `dumps/ghidra/out/<build>/<task>/`; projects under `dumps/ghidra/projects/`; user/temp under `dumps/ghidra/user` and `dumps/ghidra/tmp` (git-ignored).
 - `HOME`/`GHIDRA_USER_HOME` and `JAVA_TOOL_OPTIONS=-Duser.home=... -Djava.io.tmpdir=...` are set to the sandboxed dirs to avoid leakage or prompts.

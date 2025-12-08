@@ -4,7 +4,7 @@ Map how this host’s `libsandbox` encodes filter arguments into the `field2` u1
 
 ## Baseline & scope
 
-- Host: macOS 14.4.1 (23E224), Apple Silicon, SIP enabled (`book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`).
+- Host: macOS 14.4.1 (23E224), Apple Silicon, SIP enabled (`world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json)`).
 - Inputs: `book/api/sbpl_compile`, `book/api/decoder`, trimmed `libsandbox` slice under `book/graph/mappings/dyld-libs/`.
 - Out of scope: runtime `sandbox_apply` or kernel-side interpretation (covered by `field2-filters`).
 

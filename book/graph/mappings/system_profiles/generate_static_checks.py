@@ -31,6 +31,20 @@ BASELINE_REF = "book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json"
 BASELINE_PATH = REPO_ROOT / BASELINE_REF
 
 
+def load_baseline() -> Dict[str, Any]:
+    if not BASELINE_PATH.exists():
+        raise FileNotFoundError(f"missing baseline: {BASELINE_PATH}")
+    return json.loads(BASELINE_PATH.read_text())
+
+
+def baseline_world_id() -> str:
+    data = load_baseline()
+    world_id = data.get("world_id")
+    if not world_id:
+        raise RuntimeError("world_id missing from baseline")
+    return world_id
+
+
 def sha256(path: Path) -> str:
     h = hashlib.sha256()
     with path.open("rb") as f:
@@ -68,8 +82,7 @@ def summarize(path: Path, tag_layout_hash: str) -> Dict[str, Any]:
 
 
 def main() -> None:
-    if not BASELINE_PATH.exists():
-        raise FileNotFoundError(f"missing baseline: {BASELINE_PATH}")
+    world_id = baseline_world_id()
     tag_layout_hash = sha256(REPO_ROOT / "book/graph/mappings/tag_layouts/tag_layouts.json")
     profiles = [
         REPO_ROOT / "book/examples/extract_sbs/build/profiles/airlock.sb.bin",
@@ -80,7 +93,7 @@ def main() -> None:
     OUT_PATH.write_text(
         json.dumps(
             {
-                "host": BASELINE_REF,
+                "world_id": world_id,
                 "tag_layout_hash": tag_layout_hash,
                 "entries": checks,
             },

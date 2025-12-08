@@ -4,7 +4,7 @@ These files are the “shared IR” that tie together experiments, the decoder, 
 
 Metadata conventions:
 - Top-level shape is `{"metadata": {...}, <payload_key>: ...}`. Payload keys name the data (`ops`, `filters`, `profiles`, `records`, `tags`, `entries`, etc.) and avoid mixing metadata with data rows.
-- `host` fields reference the world baseline by path (`book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`) instead of inlining host traits.
+- `host` fields reference the world baseline by path (`world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json)`) instead of inlining host traits.
 - Timestamps are intentionally omitted; provenance lives in `inputs` / `source_jobs` and content hashes.
 
 Subdirectories:

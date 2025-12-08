@@ -394,5 +394,115 @@
         "stderr": ""
       }
     ]
+  },
+  "adv:mach_local_literal": {
+    "status": "ok",
+    "profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/mach_local_literal.adv_mach_local_literal.runtime.sb",
+    "base_profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/mach_local_literal.sb",
+    "probes": [
+      {
+        "name": "allow-cfprefsd-local",
+        "expectation_id": "adv:mach_local_literal:allow-cfprefsd-local",
+        "operation": "mach-lookup",
+        "path": "com.apple.cfprefsd.agent",
+        "expected": "allow",
+        "actual": "allow",
+        "match": true,
+        "runtime_result": {
+          "status": "success",
+          "errno": null
+        },
+        "violation_summary": null,
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_runner",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/mach_local_literal.adv_mach_local_literal.runtime.sb",
+          "--",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/mach_probe",
+          "com.apple.cfprefsd.agent"
+        ],
+        "exit_code": 0,
+        "stdout": "{\"kr\":0}\n",
+        "stderr": ""
+      },
+      {
+        "name": "deny-bogus-local",
+        "expectation_id": "adv:mach_local_literal:deny-bogus-local",
+        "operation": "mach-lookup",
+        "path": "com.apple.sandboxadversarial.fake",
+        "expected": "deny",
+        "actual": "deny",
+        "match": true,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1
+        },
+        "violation_summary": null,
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_runner",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/mach_local_literal.adv_mach_local_literal.runtime.sb",
+          "--",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/mach_probe",
+          "com.apple.sandboxadversarial.fake"
+        ],
+        "exit_code": 1,
+        "stdout": "{\"kr\":1102}\n",
+        "stderr": ""
+      }
+    ]
+  },
+  "adv:mach_local_regex": {
+    "status": "ok",
+    "profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/mach_local_regex.adv_mach_local_regex.runtime.sb",
+    "base_profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/mach_local_regex.sb",
+    "probes": [
+      {
+        "name": "allow-cfprefsd-local",
+        "expectation_id": "adv:mach_local_regex:allow-cfprefsd-local",
+        "operation": "mach-lookup",
+        "path": "com.apple.cfprefsd.agent",
+        "expected": "allow",
+        "actual": "allow",
+        "match": true,
+        "runtime_result": {
+          "status": "success",
+          "errno": null
+        },
+        "violation_summary": null,
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_runner",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/mach_local_regex.adv_mach_local_regex.runtime.sb",
+          "--",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/mach_probe",
+          "com.apple.cfprefsd.agent"
+        ],
+        "exit_code": 0,
+        "stdout": "{\"kr\":0}\n",
+        "stderr": ""
+      },
+      {
+        "name": "deny-bogus-local",
+        "expectation_id": "adv:mach_local_regex:deny-bogus-local",
+        "operation": "mach-lookup",
+        "path": "com.apple.sandboxadversarial.fake",
+        "expected": "deny",
+        "actual": "deny",
+        "match": true,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1
+        },
+        "violation_summary": null,
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_runner",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/mach_local_regex.adv_mach_local_regex.runtime.sb",
+          "--",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/mach_probe",
+          "com.apple.sandboxadversarial.fake"
+        ],
+        "exit_code": 1,
+        "stdout": "{\"kr\":1102}\n",
+        "stderr": ""
+      }
+    ]
   }
 }

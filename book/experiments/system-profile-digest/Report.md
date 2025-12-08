@@ -4,7 +4,7 @@
 Produce stable digests for curated system profile blobs (for example, `airlock`, `bsd`, `sample`) using the current decoder. Each digest captures op-table buckets, tag counts, literal samples, and basic section info, and is published at `book/graph/mappings/system_profiles/digests.json` for reuse across the book.
 
 ## Baseline & scope
-- Host: Sonoma baseline from `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`.
+- Host: Sonoma baseline from `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json)`.
 - Inputs: `book/examples/extract_sbs/build/profiles/{airlock,bsd,sample}.sb.bin` (plus any other stable system blobs added later).
 - Tooling: `book.api.decoder`; shared vocab and op-table mappings in `book/graph/mappings/`.
 - Output: digest JSON at `book/graph/mappings/system_profiles/digests.json` with build metadata and provenance notes.

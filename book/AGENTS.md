@@ -1,6 +1,6 @@
 # Agents in `book/`
 
-This is the textbook workspace. Use it with the substrate vocabulary (`substrate/`) and the fixed host baseline recorded in `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`. Everything here should stay grounded in the mappings and concepts defined for this host.
+This is the textbook workspace. Use it with the substrate vocabulary (`substrate/`) and the fixed host baseline recorded in `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json)`. Everything here should stay grounded in the mappings and concepts defined for this host.
 
 ## Router
 
@@ -21,6 +21,7 @@ When in doubt, start with the AGENTS/README in the relevant subdirectory.
 
 - Stay within the host baseline and substrate vocabulary; don’t import generic macOS lore.
 - Use the stable mappings under `book/graph/mappings/` (vocab, op-table, tag layouts, system digests, runtime) as the backbone for explanations and code, and treat CARTON as the frozen, API-backed web built from those mappings.
+- Use `book/graph/mappings/vocab/ops_coverage.json` to distinguish operations with runtime evidence from vocab-only coverage. Today `file-read*`, `file-write*`, and `mach-lookup` have both structural and runtime backing (runtime-checks + runtime-adversarial); when relying on other ops, design new probes or treat claims as tentative until runtime evidence exists.
 - Experiments publish stable outputs into `book/graph/mappings/` only when they are reusable and versioned; scratch lives in `book/experiments/*/out`.
 - Keep `Report.md`/`Notes.md` up to date when touching experiments; keep chapter text aligned with the current mappings and concept inventory.
 - For validations, prefer the driver: `python -m book.graph.concepts.validation --list|--all|--tag <tag>`. For vocab on this host, run `--tag vocab` (or `--id vocab:sonoma-14.4.1`) and consume `book/graph/mappings/vocab/*.json`. For field2 work, run `--experiment field2` to refresh/verify `book/experiments/field2-filters` outputs before promotion. For a quick pre-promotion sweep, run `--tag smoke` (vocab + field2 + runtime-checks).

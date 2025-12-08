@@ -6,7 +6,6 @@ into shared IR and records status.
 from __future__ import annotations
 
 import json
-import time
 from pathlib import Path
 
 from book.graph.concepts.validation import registry
@@ -32,11 +31,8 @@ def run_runtime_job():
     STATUS_PATH.parent.mkdir(parents=True, exist_ok=True)
     IR_PATH.write_text(json.dumps({"host": meta.get("os", {}), "results": results, "expected_matrix": expected_matrix}, indent=2))
 
-    now = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     payload = {
         "job_id": "experiment:runtime-checks",
-        "generated_at": now,
-        "timestamp": now,
         "status": "ok",
         "host": meta.get("os", {}),
         "inputs": [str(RUNTIME_RESULTS)],

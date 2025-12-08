@@ -38,10 +38,21 @@ ALLOWED_STATUS = {
 def load_host_meta() -> Dict:
     if METADATA_PATH.exists():
         try:
-            return json.loads(METADATA_PATH.read_text()).get("os", {})
+            data = json.loads(METADATA_PATH.read_text())
+            return data.get("os", {})
         except Exception:
             return {}
     return {}
+
+
+def load_world_id() -> str | None:
+    if METADATA_PATH.exists():
+        try:
+            data = json.loads(METADATA_PATH.read_text())
+            return data.get("world_id")
+        except Exception:
+            return None
+    return None
 
 
 def load_prev_status() -> Dict[str, Dict]:
@@ -95,8 +106,6 @@ def select_jobs(
 
 
 def normalize_record(job: registry.ValidationJob, result: Dict, host_meta: Dict, prev_record: Dict | None) -> Dict:
-    prev_ts = (prev_record or {}).get("timestamp")
-    ts = prev_ts or "manual"
     status = result.get("status", "ok")
     outputs = result.get("outputs", job.outputs)
     hashes = compute_hashes(outputs)
@@ -117,7 +126,6 @@ def normalize_record(job: registry.ValidationJob, result: Dict, host_meta: Dict,
         "host": result.get("host") or host_meta,
         "inputs": job.inputs,
         "outputs": outputs,
-        "timestamp": ts,
         "tags": job.tags,
         "hashes": hashes,
     }
@@ -188,22 +196,22 @@ def main() -> None:
         sys.exit(1)
 
     host_meta = load_host_meta()
+    world_id = load_world_id()
     results = [run_job(job, args.skip_missing_inputs, host_meta, prev_status.get(job.id)) for job in selected]
     STATUS_PATH.parent.mkdir(parents=True, exist_ok=True)
     payload = {
-        "generated_at": "manual",
         "schema": {
             "job_id": "string",
             "status": "ok|partial|brittle|blocked|skipped",
             "host": "object",
             "inputs": "list[str]",
             "outputs": "list[str]",
-            "timestamp": "rfc3339",
             "tags": "list[str]",
             "notes": "string?",
             "metrics": "object?",
             "error": "string?",
         },
+        "world_id": world_id,
         "jobs": results,
     }
     STATUS_PATH.write_text(json.dumps(payload, indent=2))

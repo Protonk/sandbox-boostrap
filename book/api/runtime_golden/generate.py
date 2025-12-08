@@ -20,6 +20,7 @@ import json
 from pathlib import Path
 
 from book.api.runtime_golden import (
+    load_baseline,
     GOLDEN_KEYS,
     compile_profile,
     decode_profile,
@@ -45,6 +46,7 @@ TRACES = MAP_ROOT / "traces" / "golden_traces.jsonl"
 
 
 def main() -> int:
+    baseline = load_baseline(BASELINE_REF)
     profiles = load_matrix(MATRIX)
     decodes = []
     for key, prof in profiles.items():
@@ -54,11 +56,11 @@ def main() -> int:
         out_blob.write_bytes(blob)
         decoded = decode_profile(blob)
         decodes.append(summarize_decode(key, prof.path, blob, decoded))
-    write_json(DECODE_SUMMARY, {"metadata": {"host": BASELINE_REF}, "decodes": decodes})
+    write_json(DECODE_SUMMARY, {"metadata": {"world_id": baseline.world_id}, "decodes": decodes})
 
     # expectations manifest
     expectations_payload = {
-        "metadata": {"host": BASELINE_REF},
+        "metadata": {"world_id": baseline.world_id},
         "profiles": {
             key: {
                 "blob": str(prof.path),

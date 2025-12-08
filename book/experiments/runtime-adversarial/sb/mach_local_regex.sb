@@ -1,0 +1,9 @@
+(version 1)
+(allow default)
+
+;; Same intent as mach_local_literal but via regex/nested structure.
+(allow mach-lookup
+  (require-any
+    (local-name "com.apple.cfprefsd.agent")
+    (local-name-regex #"^com\\.apple\\.cfprefsd\\.agent$")))
+(deny mach-lookup (local-name "com.apple.sandboxadversarial.fake"))

@@ -4,7 +4,7 @@
 Design and run richer SBPL probes to surface filter-specific nodes and `field2` values by varying operations, filters, and metafilters. The goal is to overcome the “generic path/name dominance” seen in minimal profiles and extract clearer `field2` ↔ filter-ID signals and structural patterns that other experiments can reuse.
 
 ## Baseline & scope
-- Host: Sonoma baseline from `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json` (shared baseline).
+- Host: Sonoma baseline from `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json)` (shared baseline).
 - Vocab artifacts: `book/graph/mappings/vocab/ops.json` (196 entries, status: ok) and `filters.json` (93 entries, status: ok).
 - Related work:
   - `field2-filters`: tiny single-filter profiles mostly surfaced generic path/name `field2` values.

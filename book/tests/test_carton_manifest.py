@@ -53,7 +53,6 @@ def test_carton_manifest_hashes():
 
 def test_carton_manifest_host():
     data = json.loads(MANIFEST.read_text())
-    host = data.get("host")
-    assert host == BASELINE_REF
-    baseline = json.loads((ROOT / BASELINE_REF).read_text()).get("host") or {}
-    assert baseline.get("build") == "23E224"
+    world_id = data.get("world_id")
+    baseline_world = json.loads((ROOT / BASELINE_REF).read_text()).get("world_id")
+    assert world_id == baseline_world

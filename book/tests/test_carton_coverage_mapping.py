@@ -11,17 +11,15 @@ def load() -> dict:
     return json.loads(COVERAGE_PATH.read_text())
 
 
-def baseline_host():
-    return json.loads((ROOT / BASELINE_REF).read_text()).get("host") or {}
+def baseline_world():
+    return json.loads((ROOT / BASELINE_REF).read_text()).get("world_id")
 
 
 def test_coverage_metadata():
     data = load()
     meta = data.get("metadata") or {}
     assert "generated_at" not in meta
-    host = meta.get("host")
-    assert host == BASELINE_REF
-    assert baseline_host().get("build") == "23E224"
+    assert meta.get("world_id") == baseline_world()
     assert meta.get("source_jobs"), "source_jobs missing from coverage metadata"
     assert meta.get("inputs"), "inputs missing from coverage metadata"
 

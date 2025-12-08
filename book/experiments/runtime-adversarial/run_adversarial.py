@@ -141,6 +141,22 @@ def build_expected_matrix(world_id: str, specs: List[ProfileSpec], blobs: Dict[s
             "expected": "deny",
         },
     ]
+    probes_mach_local = [
+        {
+            "name": "allow-cfprefsd-local",
+            "operation": "mach-lookup",
+            "target": "com.apple.cfprefsd.agent",
+            "expected": "allow",
+            "mode": "local",
+        },
+        {
+            "name": "deny-bogus-local",
+            "operation": "mach-lookup",
+            "target": "com.apple.sandboxadversarial.fake",
+            "expected": "deny",
+            "mode": "local",
+        },
+    ]
 
     matrix: Dict[str, Any] = {"world": world_id, "profiles": {}}
     for spec in specs:
@@ -150,6 +166,8 @@ def build_expected_matrix(world_id: str, specs: List[ProfileSpec], blobs: Dict[s
             probes = probes_edges
         elif spec.family == "mach_variants":
             probes = probes_mach
+        elif spec.family == "mach_local":
+            probes = probes_mach_local
         else:
             probes = []
         profile_entry = {
@@ -214,6 +232,17 @@ def static_prediction_for(profile_id: str, expected_probe: Dict[str, Any]) -> Di
             return {
                 "static_filters": ["mach-lookup default deny"],
                 "static_reason": "bogus service should be denied by default",
+            }
+    if profile_id.startswith("adv:mach_local"):
+        if name == "allow-cfprefsd-local":
+            return {
+                "static_filters": ["mach-lookup:local-name com.apple.cfprefsd.agent"],
+                "static_reason": "allow specific mach local-name, default deny others",
+            }
+        if name == "deny-bogus-local":
+            return {
+                "static_filters": ["mach-lookup default deny"],
+                "static_reason": "bogus local service should be denied by default",
             }
     return {}
 
@@ -306,6 +335,18 @@ def main() -> int:
             sbpl=SB_DIR / "mach_simple_variants.sb",
             family="mach_variants",
             semantic_group="mach:global-name-allow",
+        ),
+        ProfileSpec(
+            key="adv:mach_local_literal",
+            sbpl=SB_DIR / "mach_local_literal.sb",
+            family="mach_local",
+            semantic_group="mach:local-name-allow",
+        ),
+        ProfileSpec(
+            key="adv:mach_local_regex",
+            sbpl=SB_DIR / "mach_local_regex.sb",
+            family="mach_local",
+            semantic_group="mach:local-name-allow",
         ),
     ]
 

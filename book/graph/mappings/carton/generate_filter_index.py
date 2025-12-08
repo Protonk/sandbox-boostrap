@@ -35,22 +35,30 @@ def load_json(path: Path) -> dict:
     return json.loads(path.read_text())
 
 
-def baseline_ref() -> str:
+def baseline_ref() -> dict:
     if not BASELINE.exists():
         raise FileNotFoundError(f"missing baseline: {BASELINE}")
-    return str(BASELINE.relative_to(ROOT))
+    data = json.loads(BASELINE.read_text())
+    world_id = data.get("world_id")
+    if not world_id:
+        raise RuntimeError("world_id missing from baseline")
+    return {"host": str(BASELINE.relative_to(ROOT)), "world_id": world_id}
 
 
-def assert_host_compatible(baseline: str, other: dict | str | None, label: str) -> None:
-    if other and other != baseline:
-        raise RuntimeError(f"host metadata mismatch for {label}: baseline {baseline} vs {other}")
+def assert_world_compatible(baseline_world: str, other: dict | str | None, label: str) -> None:
+    if not other:
+        return
+    other_world = other.get("world_id") if isinstance(other, dict) else other
+    if other_world and other_world != baseline_world:
+        raise RuntimeError(f"world_id mismatch for {label}: baseline {baseline_world} vs {other_world}")
 
 
 def build_index() -> dict:
     filters = load_json(FILTERS)
     digests = load_json(DIGESTS)
-    host = baseline_ref()
-    assert_host_compatible(host, (digests.get("metadata") or {}).get("host"), "system_digests")
+    baseline = baseline_ref()
+    world_id = baseline["world_id"]
+    assert_world_compatible(world_id, digests.get("metadata"), "system_digests")
 
     allowed_status = {"unknown", "present-in-vocab-only", "referenced-in-profiles", "referenced-in-runtime"}
     entries: Dict[str, dict] = {}
@@ -72,12 +80,11 @@ def build_index() -> dict:
         "book/graph/mappings/vocab/filters.json",
         "book/graph/mappings/system_profiles/digests.json",
         "book/api/carton/CARTON.json",
-        str(BASELINE.relative_to(ROOT)),
     ]
 
     return {
         "metadata": {
-            "host": host,
+            "world_id": world_id,
             "inputs": inputs,
             "source_jobs": digests.get("metadata", {}).get("source_jobs") or [],
             "status": "ok",

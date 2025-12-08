@@ -4,7 +4,7 @@
 Bind anchor labels emitted by `probe-op-structure` to concrete Filter IDs, using anchor hits, `field2` inventories, and vocab artifacts. The resulting map (`book/graph/mappings/anchors/anchor_filter_map.json`) lets other tools interpret anchors in terms of filter semantics on this host.
 
 ## Baseline & scope
-- Host: Sonoma baseline from `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`.
+- Host: Sonoma baseline from `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json)`.
 - Inputs:
   - Anchor hits from `book/experiments/probe-op-structure/out/anchor_hits.json`.
   - Field2 inventory (with anchors) from `book/experiments/field2-filters/out/field2_inventory.json`.

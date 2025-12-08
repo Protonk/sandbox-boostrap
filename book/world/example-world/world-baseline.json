@@ -1,0 +1,18 @@
+{
+  "id": "example-world",
+  "world_id": "<compute-from-dyld-manifest-sha>",
+  "capture_reason": "<manual|automated|rebaseline>",
+  "host": {
+    "product": "<macOS>",
+    "version": "<14.x.y>",
+    "build": "<build>",
+    "kernel": "<kernel-version>",
+    "machine": "<arm64|x86_64>",
+    "sip": "<enabled|disabled>"
+  },
+  "dyld_manifest": "book/world/example-world/dyld-manifest.json",
+  "tcc_state": "<not_collected|captured|unknown>",
+  "profile_format_variant": "<modern-heuristic|...>",
+  "apply_gates": "<notes on sandbox_apply/init behavior for this host>",
+  "notes": "Template baseline; copy and fill for a new host world."
+}

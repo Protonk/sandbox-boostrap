@@ -4,7 +4,7 @@
 
 In this project, an experiment is a small, concrete unit of work that ties claims about the macOS sandbox on this host to observable behavior.
 
-Experiments exist to test specific questions or tensions, produce rerunnable interactions with the host, and leave behind evidence that can be checked, decoded, and reused. They are the bridge between the textbook’s concepts and what actually happens on the fixed Sonoma machine captured in `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json` (single source of truth for host metadata).
+Experiments exist to test specific questions or tensions, produce rerunnable interactions with the host, and leave behind evidence that can be checked, decoded, and reused. They are the bridge between the textbook’s concepts and what actually happens on the fixed Sonoma machine captured in `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json)` (single source of truth for host metadata).
 
 An experiment is not just a code snippet, a story, or a design sketch. It is a defined question, a way of exercising the system, and a record of what happened.
 
@@ -41,7 +41,7 @@ Each experiment should capture, somewhere:
   What the experiment is trying to find out, and why this question matters (for example, a confusion or gap in the existing concepts or state).
 
 * **Context and environment**
-  The host and OS context the experiment is intended for (reference `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`), and any key preconditions that affect behavior.
+  The host and OS context the experiment is intended for (reference `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json)`), and any key preconditions that affect behavior.
 
 * **What was done**
   The essential steps: what was run or changed, in what order, and with what key parameters or inputs.

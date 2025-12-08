@@ -6,7 +6,6 @@ Normalizes digests into shared IR and records status.
 from __future__ import annotations
 
 import json
-import time
 from pathlib import Path
 
 from book.graph.concepts.validation import registry
@@ -49,11 +48,8 @@ def run_system_profiles_job():
     }
     IR_PATH.write_text(json.dumps(ir_payload, indent=2))
 
-    now = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     status_payload = {
         "job_id": "experiment:system-profile-digest",
-        "generated_at": now,
-        "timestamp": now,
         "status": "ok",
         "host": host,
         "inputs": [str(EXP_DIGESTS)],

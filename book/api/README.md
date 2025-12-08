@@ -1,6 +1,6 @@
 # API tooling (Sonoma baseline)
 
-This directory collects host-specific helpers for working with Seatbelt on the fixed baseline in `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`. Use the sections below as a router; each module has a focused role, a short definition, and a minimal usage example. If a module has its own README, follow that link for deeper guidance.
+This directory collects host-specific helpers for working with Seatbelt on the fixed baseline in `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json)`. Use the sections below as a router; each module has a focused role, a short definition, and a minimal usage example. If a module has its own README, follow that link for deeper guidance.
 
 ### decoder
 

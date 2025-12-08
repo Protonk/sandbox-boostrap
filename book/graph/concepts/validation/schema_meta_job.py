@@ -6,7 +6,6 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-import time
 
 from book.graph.concepts.validation import registry
 from book.graph.concepts.validation.registry import ValidationJob
@@ -24,7 +23,7 @@ MAPPING_CHECKS = [
 ]
 META_PATH = ROOT / "book" / "graph" / "concepts" / "validation" / "out" / "metadata.json"
 
-REQUIRED_FIELDS = {"job_id", "status", "host", "inputs", "outputs", "timestamp", "tags"}
+REQUIRED_FIELDS = {"job_id", "status", "host", "inputs", "outputs", "tags"}
 ALLOWED_STATUS = {"ok", "ok-unchanged", "ok-changed", "partial", "brittle", "blocked", "skipped"}
 
 
@@ -76,9 +75,9 @@ def run_schema_job():
             continue
         data = json.loads(mapping_path.read_text())
         meta = data.get("metadata") or {}
-        host = meta.get("host") or data.get("host")
-        if not host or not host.get("build"):
-            errors.append(f"{mapping_path} missing host/build metadata")
+        world_id = meta.get("world_id") or data.get("world_id")
+        if not world_id:
+            errors.append(f"{mapping_path} missing world_id metadata")
         source_jobs = meta.get("source_jobs")
         if not source_jobs and "vocab" in str(mapping_path):
             source_jobs = ["vocab:sonoma-14.4.1"]
@@ -89,11 +88,8 @@ def run_schema_job():
         errors.append(f"missing CARTON manifest: {CARTON_MANIFEST}")
 
     status = "ok" if not errors else "blocked"
-    now = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     payload = {
         "job_id": "validation:schema-check",
-        "generated_at": now,
-        "timestamp": now,
         "status": status,
         "host": host,
         "inputs": [str(STATUS_PATH), str(EXPERIMENT_STATUS_DIR / '*/status.json')],

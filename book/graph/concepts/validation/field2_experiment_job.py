@@ -6,7 +6,6 @@ and records status in the shared validation status log.
 from __future__ import annotations
 
 import json
-import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[4]
@@ -40,11 +39,8 @@ def run_field2_job():
     STATUS_PATH.parent.mkdir(parents=True, exist_ok=True)
     IR_PATH.write_text(json.dumps(ir, indent=2))
 
-    now = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     payload = {
         "job_id": "experiment:field2",
-        "generated_at": now,
-        "timestamp": now,
         "status": "ok",
         "host": meta.get("os", {}),
         "inputs": [str(FIELD2_INV), str(UNKNOWN_NODES)],

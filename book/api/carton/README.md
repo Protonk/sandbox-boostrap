@@ -2,7 +2,7 @@
 
 CARTON is the frozen, host-bound IR layer for this project. It records what is currently known about the sandbox on a single world baseline, backed by concrete mappings and a manifest, and exposes that state through a small Python API.
 
-- **Host binding** – CARTON is tied to the Sonoma world baseline recorded in `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`. All CARTON artifacts are generated for that baseline and checked against it.
+- **Host binding** – CARTON is tied to the Sonoma world baseline recorded in `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json)`. All CARTON artifacts are generated for that baseline and checked against it.
 - **Manifest-driven** – `book/api/carton/CARTON.json` lists the CARTON-facing JSON files and their SHA-256 hashes. Callers reach the data only through this manifest; the API verifies paths and hashes before answering queries.
 - **Frozen surface** – Files listed in the manifest do not change except via the validation → mapping → promotion pipeline. CARTON JSONs and the manifest contain no timestamps so they can be regenerated bit-for-bit.
 

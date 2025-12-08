@@ -2,7 +2,7 @@
 
 ## Context
 
-- Host: Sonoma baseline (see `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`), SIP enabled.
+- Host: Sonoma baseline (see `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json)`), SIP enabled.
 - Demo: `book/examples/mach-services/mach_server` and `mach_client`.
 - Goal: obtain a clean, empirical witness of the `mach-lookup` operation as Seatbelt sees it by probing a small demo service (`com.example.xnusandbox.demo`) and a couple of system services.
 

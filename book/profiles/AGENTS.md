@@ -2,7 +2,7 @@
 
 Scope and host
 - This tree holds host-specific profile material for SANDBOX_LORE.
-- Host baseline: see `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`.
+- Host baseline: see `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json)`.
 
 Golden triple rules
 - Golden profiles must have: SBPL source, decoded PolicyGraph linkage, static expectations (schema: provisional, `expectation_id` join key), and runtime results that align on this host from an unsandboxed caller.

@@ -44,6 +44,21 @@ OUT_DIR = REPO_ROOT / "book/graph/mappings/system_profiles/attestations"
 BASELINE_REF = "book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json"
 
 
+def load_baseline() -> Dict[str, Any]:
+    baseline_path = REPO_ROOT / BASELINE_REF
+    if not baseline_path.exists():
+        raise FileNotFoundError(f"missing baseline: {baseline_path}")
+    return json.loads(baseline_path.read_text())
+
+
+def baseline_world_id() -> str:
+    data = load_baseline()
+    world_id = data.get("world_id")
+    if not world_id:
+        raise RuntimeError("world_id missing from baseline")
+    return world_id
+
+
 def sha256(path: Path) -> str:
     h = hashlib.sha256()
     with path.open("rb") as f:
@@ -189,9 +204,7 @@ def make_attestation(
 
 def main() -> None:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    baseline_path = REPO_ROOT / BASELINE_REF
-    if not baseline_path.exists():
-        raise FileNotFoundError(f"missing baseline: {baseline_path}")
+    world_id = baseline_world_id()
     anchor_map = load_json(REPO_ROOT / "book/graph/mappings/anchors/anchor_filter_map.json")
     tag_layout_hash = sha256(REPO_ROOT / "book/graph/mappings/tag_layouts/tag_layouts.json")
     vocab_ops = load_json(REPO_ROOT / "book/graph/mappings/vocab/ops.json")
@@ -225,12 +238,12 @@ def main() -> None:
         out_trace.write_text(json.dumps(asdict(att), indent=2, sort_keys=True))
 
     OUT_JSON.write_text(
-        json.dumps(
-            {
-                "host": BASELINE_REF,
-                "attestation_count": len(attestations),
-                "tag_layout_hash": tag_layout_hash,
-                "vocab_versions": vocab_versions,
+            json.dumps(
+                {
+                    "world_id": world_id,
+                    "attestation_count": len(attestations),
+                    "tag_layout_hash": tag_layout_hash,
+                    "vocab_versions": vocab_versions,
                 "runtime_manifest": str(
                     (Path("book/graph/mappings/runtime/expectations.json")).as_posix()
                 )

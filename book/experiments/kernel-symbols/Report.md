@@ -4,7 +4,7 @@
 Track kernel symbol and string extraction runs for the 14.4.1-23E224 kernelcache and related builds, with a focus on sandbox/AppleMatch/mac_policy anchors that could support later PolicyGraph dispatcher searches. Keep outputs organized so other experiments can reuse them without re-running Ghidra.
 
 ## Baseline & scope
-- Host/build: Sonoma baseline from `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json` (14.4.1-23E224 kernelcache, arm64).
+- Host/build: Sonoma baseline from `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json)` (14.4.1-23E224 kernelcache, arm64).
 - Outputs live under `out/<build>/kernel-symbols/` for reuse and comparison across runs.
 
 ## Deliverables / expected outcomes

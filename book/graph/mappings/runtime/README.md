@@ -12,6 +12,11 @@ Current artifacts:
 - `runtime_signatures.json` — small IR derived from validation outputs (`field2_ir.json` + normalized runtime results) summarizing probe outcomes by profile plus a field2 summary; regenerated via `book/graph/mappings/runtime/generate_runtime_signatures.py` (which runs the validation driver `--tag smoke`) and folded into CARTON.
 - CARTON: see `book/api/carton/CARTON.json` for frozen hashes/paths of the runtime mappings/IR that are included in CARTON for Sonoma 14.4.1.
 
+Claims and limits (current host cut):
+- For the operations that have both runtime-checks and runtime-adversarial coverage today—file-read*, file-write*, and mach-lookup—the decoded PolicyGraph IR (vocab, op-table, tag layouts where used, and graphs) agrees with kernel enforcement even under adversarial SBPL constructions (structural/metafilter variants and mach global/local literal/regex probes).
+- The one systematic divergence observed so far is `/tmp` → `/private/tmp` behavior in a synthetic path profile, attributed to VFS canonicalization outside the PolicyGraph model and recorded as such; it is not treated as a decoder bug.
+- This justifies treating the static IR as a dependable stand-in for kernel behavior for those covered ops on this host, but not as a universal theorem over all 196 operations; use `book/graph/mappings/vocab/ops_coverage.json` to see which ops have runtime evidence, and extend `runtime-adversarial` when you need similar backing for others.
+
 Role in the substrate:
 - Adds the enforcement layer to the static mappings: which Operations (by vocab ID) and inputs were allowed/denied under specific compiled profiles on this host.
 - Lets consumers mechanically join runtime outcomes to static structure (op-table vocab, digests, tag layouts) without re-parsing validation logs.

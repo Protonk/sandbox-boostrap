@@ -8,7 +8,6 @@ from __future__ import annotations
 import json
 from pathlib import Path
 import sys
-import time
 
 # Ensure repo root on sys.path for book.* imports.
 ROOT = Path(__file__).resolve().parents[4]
@@ -40,11 +39,8 @@ def run_fixtures_job():
     host = load_host()
     if not FIXTURES_PATH.exists():
         status = "blocked"
-        now = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
         payload = {
             "job_id": "graph:fixtures",
-            "generated_at": now,
-            "timestamp": now,
             "status": status,
             "host": host,
             "error": f"missing fixtures file: {FIXTURES_PATH}",
@@ -59,11 +55,8 @@ def run_fixtures_job():
         fixtures = json.loads(FIXTURES_PATH.read_text()).get("blobs", [])
     except Exception as exc:  # pragma: no cover
         status = "blocked"
-        now = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
         payload = {
             "job_id": "graph:fixtures",
-            "generated_at": now,
-            "timestamp": now,
             "status": status,
             "host": host,
             "error": f"failed to parse fixtures: {exc}",
@@ -101,11 +94,8 @@ def run_fixtures_job():
                 status = "partial"
         entries.append(rec)
 
-    now = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     payload = {
         "job_id": "graph:fixtures",
-        "generated_at": now,
-        "timestamp": now,
         "status": status,
         "host": host,
         "inputs": [str(FIXTURES_PATH)],

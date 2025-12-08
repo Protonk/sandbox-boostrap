@@ -30,6 +30,17 @@ BASELINE_REF = "book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json"
 BASELINE_PATH = REPO_ROOT / BASELINE_REF
 
 
+def load_baseline() -> Dict[str, Any]:
+    if not BASELINE_PATH.exists():
+        raise SystemExit(f"missing baseline: {BASELINE_PATH}")
+    data = json.loads(BASELINE_PATH.read_text())
+    world_id = data.get("world_id")
+    if not world_id:
+        raise SystemExit("world_id missing from baseline")
+    data["host_ref"] = str(BASELINE_PATH.relative_to(REPO_ROOT))
+    return data
+
+
 def sha256(path: Path) -> str:
     h = hashlib.sha256()
     with path.open("rb") as f:
@@ -75,8 +86,7 @@ def run_validation_job(job_id: str) -> None:
 
 def main() -> None:
     run_validation_job(VALIDATION_JOB_ID)
-    if not BASELINE_PATH.exists():
-        raise SystemExit(f"missing baseline: {BASELINE_PATH}")
+    baseline = load_baseline()
     meta = load_json(REPO_ROOT / "book/graph/concepts/validation/out/metadata.json")
     ops = load_json(REPO_ROOT / "book/graph/mappings/vocab/ops.json")
     filters = load_json(REPO_ROOT / "book/graph/mappings/vocab/filters.json")
@@ -103,7 +113,7 @@ def main() -> None:
 
     manifest = {
         "metadata": {
-            "host": BASELINE_REF,
+            "world_id": baseline["world_id"],
             "sip_status": meta.get("sip_status"),
             "notes": "Attestation links vocab tables to dyld slices and reference blobs for this host/build.",
         },

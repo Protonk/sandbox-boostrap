@@ -6,8 +6,8 @@ ROOT = Path(__file__).resolve().parents[2]
 BASELINE_REF = "book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json"
 
 
-def baseline_host():
-    return json.loads((ROOT / BASELINE_REF).read_text()).get("host") or {}
+def baseline_world():
+    return json.loads((ROOT / BASELINE_REF).read_text()).get("world_id")
 
 
 def load_json(path: Path):
@@ -21,8 +21,7 @@ def test_system_profile_digests_present():
     for key in ["sys:airlock", "sys:bsd", "sys:sample"]:
         assert key in profiles, f"missing digest for {key}"
     meta = digests.get("metadata", {})
-    assert meta.get("host") == BASELINE_REF
-    assert baseline_host().get("build") == "23E224"
+    assert meta.get("world_id") == baseline_world()
 
 
 def test_anchor_filter_map_present():
@@ -52,9 +51,8 @@ def test_field2_inventory_present():
 def test_op_table_mappings_and_metadata():
     meta_path = ROOT / "book" / "graph" / "mappings" / "op_table" / "metadata.json"
     meta = load_json(meta_path)
-    host = meta.get("host")
-    assert host == BASELINE_REF, "op_table metadata host build mismatch"
-    assert baseline_host().get("build") == "23E224"
+    world_id = (meta.get("metadata") or {}).get("world_id") or meta.get("world_id")
+    assert world_id == baseline_world(), "op_table metadata world mismatch"
     vocab = meta.get("vocab", {})
     assert vocab.get("status") == "ok"
     assert vocab.get("ops_count") == 196 and vocab.get("filters_count") == 93

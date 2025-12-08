@@ -4,7 +4,7 @@
 Anchor the third node slot (`filter_arg_raw` / “field2”) in compiled PolicyGraphs to concrete Filter vocabulary entries on this host. Use static decoding plus SBPL probes to turn unknown/high values into evidence-backed mappings and to bound what we do **not** know yet. This experiment is now **closed**: we have exhausted SBPL probing and kernel struct hunting on this host without finding a kernel-side hi/lo split or a Blazakis-style `[tag, filter, u16 arg, u16 edge0, u16 edge1]` node array. `filter_arg_raw` is read as a plain u16 in the kernel VM; the remaining unknowns stay unmapped.
 
 ## Baseline & evidence backbone
-- Host: Sonoma baseline from `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`.
+- Host: Sonoma baseline from `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json)`.
 - Canonical vocab: `book/graph/mappings/vocab/{filters,ops}.json` (status: ok).
 - Canonical profiles: `book/examples/extract_sbs/build/profiles/{bsd,airlock,sample}.sb.bin`.
 - Core outputs: `out/field2_inventory.json` (histograms + hi/lo/tag counts) and `out/unknown_nodes.json` (hi/unknown nodes with fan-in/out and op reach).

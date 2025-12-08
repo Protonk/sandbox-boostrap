@@ -11,4 +11,4 @@ Surfaces:
 - Python: `parse_ops`, `parse_filters`, `summarize_profile`, `entry_signature`, `build_alignment`.
 - CLI: `python -m book.api.op_table.cli <blob|sb> [--compile] [--op-count N] [--vocab ops.json --filters filters.json] [--json OUT]`.
 
-Host: see `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`.
+Host: see `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json)`.

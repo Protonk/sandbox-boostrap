@@ -35,7 +35,7 @@ We intentionally avoid guessing a full Operation Vocabulary Map; that belongs to
 ## Baseline & scope
 **Host / baseline**
 
-- Sonoma baseline from `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json` (macOS 14.4.1 / 23E224), Apple Silicon, SIP enabled.
+- Sonoma baseline from `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json)` (macOS 14.4.1 / 23E224), Apple Silicon, SIP enabled.
 
 **Directory contents**
 

@@ -1,6 +1,6 @@
 # Golden Triple Profiles (provisional)
 
-Host baseline: `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`
+Host baseline: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json)`
 
 Purpose
 - Canonical home for golden SBPL → PolicyGraph → runtime triples on this host.

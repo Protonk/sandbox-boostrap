@@ -26,11 +26,24 @@ Deliberately stress static↔runtime alignment for this host using adversarial S
 - Runtime: with baseline allows added for process exec and system reads, both profiles now allow the target service and deny the bogus one; no mismatches recorded. `impact_map.json` marks these expectation_ids as reinforcing the mach-lookup vocab/op-table assumptions (op ID 96).
 - Conclusion: mach runtime coverage is now `ok` for this allow/deny pair; further mach/XPC variants can extend coverage.
 
+## Case study – mach_local (local-name literal vs regex)
+- Static intent: `mach_local_literal` and `mach_local_regex` both allow `mach-lookup` on local-name `com.apple.cfprefsd.agent` and deny a bogus `com.apple.sandboxadversarial.fake`; regex variant mirrors the literal intent via `local-name-regex`.
+- Runtime: allows for the real service and denies for the bogus name match static expectations for both profiles.
+- Impact: reinforces bedrock assumptions that `mach-lookup` maps to op ID 96 and that current tag/layout + op-table decoding for mach filters aligns with kernel behavior across literal and regex local-name variants. (Path_edges remains the lone mismatch, scoped to `/tmp` → `/private/tmp` VFS canonicalization out of PolicyGraph scope.)
+
 ## Evidence & artifacts
 - SBPL sources: `book/experiments/runtime-adversarial/sb/*.sb`.
 - Expected/runtime outputs: `book/experiments/runtime-adversarial/out/{expected_matrix.json,runtime_results.json,mismatch_summary.json,impact_map.json}`.
 - Mapping stub: `book/graph/mappings/runtime/adversarial_summary.json` (world-level counts).
 - Guardrails: `book/tests/test_runtime_adversarial.py` plus dyld slice manifest/checker `book/graph/mappings/dyld-libs/{manifest.json,check_manifest.py}` enforced by `book/tests/test_dyld_libs_manifest.py`.
+- Runtime-backed ops: `ops_coverage.json` marks `file-read*`, `file-write*`, and `mach-lookup` as having runtime evidence via runtime-checks and runtime-adversarial families; use it to decide when new probes are needed for other ops.
+
+## Claims and limits
+- Covered ops/shapes: Phase 1 adversarial probes cover file-read*/file-write* (bucket-4/bucket-5 filesystem profiles and structural/metafilter variants) and `mach-lookup` (global-name and local-name, literal and regex, simple vs nested forms).
+- Static↔runtime alignment: for these ops and shapes, decoded PolicyGraph IR (vocab, tag layouts where used, op-tables, and graphs) matches kernel behavior even under deliberately adversarial constructions; structural variants and mach families all agree with static expectations.
+- Bounded mismatch: the only systematic divergence observed is the `/tmp` → `/private/tmp` behavior in `path_edges`, explicitly classified as VFS canonicalization outside the PolicyGraph model and recorded in `impact_map.json` as out-of-scope, not as a decoder bug.
+- Scope of claims: this justifies treating the static PolicyGraph IR as a bedrock stand-in for kernel enforcement for the covered ops on this host, but it is not a universal theorem over all 196 operations; for ops without `runtime_evidence: true` in `ops_coverage.json`, agents should design new probes or treat claims as more tentative.
+- Routing: when you need empirically grounded behavior for file-read*, file-write*, or mach-lookup on this world, treat the existing IR plus `runtime-adversarial` outputs (`expected_matrix.json`, `runtime_results.json`, `mismatch_summary.json`, `impact_map.json`) as canonical; when stepping outside those ops, consult `ops_coverage.json` and extend `runtime-adversarial` first.
 
 ## Next steps
 - Run `run_adversarial.py` to regenerate artifacts; inspect `mismatch_summary.json` and annotate `impact_map.json` for any mismatches.

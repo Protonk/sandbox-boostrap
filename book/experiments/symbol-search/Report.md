@@ -4,7 +4,7 @@
 Recover the sandbox PolicyGraph dispatcher and adjacent helpers by leveraging symbol/string pivots (AppleMatch imports, sandbox strings, MACF hook tables) and structural signatures, rather than relying on computed-jump density.
 
 ## Baseline & scope
-- Host target: Sonoma baseline from `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json` (same baseline as other Ghidra experiments).
+- Host target: Sonoma baseline from `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json)` (same baseline as other Ghidra experiments).
 - Artifacts: `dumps/Sandbox-private/14.4.1-23E224/kernel/BootKernelExtensions.kc`, Ghidra project `dumps/ghidra/projects/sandbox_14.4.1-23E224`.
 - Tooling: headless Ghidra scripts in `book/api/ghidra/scripts/` (string refs, tag switch, op-table), `scaffold.py` with `--process-existing` to reuse the analyzed project.
 - Concept anchors: dispatcher should walk compiled PolicyGraph nodes (two successors, action terminals), consult operation→entry tables, call AppleMatch for regex filters, and sit downstream of MACF hook glue.

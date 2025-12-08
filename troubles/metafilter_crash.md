@@ -2,7 +2,7 @@
 
 ## Context
 
-- Host: Sonoma baseline (see `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`).
+- Host: Sonoma baseline (see `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json)`).
 - Experiment: `book/experiments/sbpl-graph-runtime` (profile `profiles/metafilter_any.sb`).
 - Harness: `sandbox_runner` driven by `book/experiments/runtime-checks/run_probes.py`.
 - Probes: read `/tmp/foo.txt`, `/tmp/bar.txt` (expected allow), `/tmp/other.txt` (expected deny).

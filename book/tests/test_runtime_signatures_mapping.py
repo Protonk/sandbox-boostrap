@@ -13,8 +13,8 @@ def load_signatures():
     return data
 
 
-def baseline_host():
-    return json.loads((ROOT / BASELINE_REF).read_text()).get("host") or {}
+def baseline_world():
+    return json.loads((ROOT / BASELINE_REF).read_text()).get("world_id")
 
 
 def test_signatures_present_and_host():
@@ -22,9 +22,7 @@ def test_signatures_present_and_host():
     meta = data.get("metadata") or {}
     assert meta.get("status") == "ok"
     assert "generated_at" not in meta
-    host = meta.get("host")
-    assert host == BASELINE_REF
-    assert baseline_host().get("build") == "23E224"
+    assert meta.get("world_id") == baseline_world()
     sigs = data.get("signatures") or {}
     for key in GOLDEN:
         assert key in sigs, f"missing signature for {key}"

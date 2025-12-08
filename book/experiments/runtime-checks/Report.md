@@ -4,7 +4,7 @@
 Validate that runtime allow/deny behavior for selected profiles matches decoder-derived expectations, especially around bucket‑4 vs bucket‑5 distinctions and canonical system profiles. Capture reproducible traces under `book/graph/mappings/runtime/` and add guardrails.
 
 ## Baseline & scope
-- Host: Sonoma baseline from `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`.
+- Host: Sonoma baseline from `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json)`.
 - Target profiles:
   - Canonical system blobs (`airlock.sb.bin`, `bsd.sb.bin`, `sample.sb.bin`).
   - Representative bucket-4 and bucket-5 synthetic profiles from `op-table-operation`.

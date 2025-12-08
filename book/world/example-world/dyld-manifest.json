@@ -1,0 +1,26 @@
+{
+  "world_id": "<world-id-derived-from-this-manifest>",
+  "description": "Template manifest for trimmed dyld libraries used to derive vocab and encoders.",
+  "libs": [
+    {
+      "path": "book/world/example-world/usr/lib/libsandbox.1.dylib",
+      "size": "<bytes>",
+      "sha256": "<sha256>",
+      "symbols": {
+        "_filter_info": "<address>",
+        "_operation_info": "<address>",
+        "_operation_names": "<address>",
+        "_sbpl_operation_eqv": "<address>"
+      }
+    },
+    {
+      "path": "book/world/example-world/usr/lib/system/libsystem_sandbox.dylib",
+      "size": "<bytes>",
+      "sha256": "<sha256>",
+      "symbols": {
+        "_sandbox_check": "<address>",
+        "_sandbox_operation_fixup": "<address>"
+      }
+    }
+  ]
+}

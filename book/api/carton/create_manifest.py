@@ -45,7 +45,18 @@ def sha256(path: Path) -> str:
     return h.hexdigest()
 
 
+def load_baseline() -> Dict[str, str]:
+    if not BASELINE.exists():
+        raise SystemExit(f"missing baseline: {BASELINE}")
+    data = json.loads(BASELINE.read_text())
+    world_id = data.get("world_id")
+    if not world_id:
+        raise SystemExit("world_id missing from baseline")
+    return {"host": BASELINE_REF, "world_id": world_id}
+
+
 def main() -> None:
+    baseline = load_baseline()
     rows: List[Dict[str, str]] = []
     for rel in FILES:
         p = ROOT / rel
@@ -53,7 +64,7 @@ def main() -> None:
 
     manifest = {
         "name": "CARTON",
-        "host": BASELINE_REF,
+        "world_id": baseline["world_id"],
         "files": rows,
     }
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)

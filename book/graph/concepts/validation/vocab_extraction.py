@@ -17,7 +17,6 @@ provenance and a stable place to plug in real vocab data later.
 from __future__ import annotations
 
 import json
-import time
 from dataclasses import dataclass, asdict
 from pathlib import Path
 from typing import Any, Dict, List
@@ -100,7 +99,6 @@ def write_vocab_stub(out_dir: Path, kind: str, host_meta: Dict[str, Any], source
     vocab_path = out_dir / f"{kind}.json"
     vocab = {
         "status": "partial",
-        "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "host": host_meta.get("os", {}),
         "profile_format_variant": host_meta.get("profile_format_variant", "unknown"),
         "sources": [asdict(s) for s in sources],

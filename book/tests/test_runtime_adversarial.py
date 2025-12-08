@@ -28,6 +28,8 @@ def test_adversarial_artifacts_present_and_annotated():
         "adv:path_edges",
         "adv:mach_simple_allow",
         "adv:mach_simple_variants",
+        "adv:mach_local_literal",
+        "adv:mach_local_regex",
     }
     # Shapes must stay aligned.
     assert set(runtime_results.keys()) == set(expected_matrix.get("profiles", {}).keys())

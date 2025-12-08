@@ -29,15 +29,22 @@ def load_json(path: Path) -> dict:
     return json.loads(path.read_text())
 
 
-def baseline_ref() -> str:
+def baseline_ref() -> dict:
     if not BASELINE.exists():
         raise FileNotFoundError(f"missing baseline: {BASELINE}")
-    return str(BASELINE.relative_to(ROOT))
+    data = json.loads(BASELINE.read_text())
+    world_id = data.get("world_id")
+    if not world_id:
+        raise RuntimeError("world_id missing from baseline")
+    return {"host": str(BASELINE.relative_to(ROOT)), "world_id": world_id}
 
 
-def assert_host_compatible(baseline: str, other: dict | str | None, label: str) -> None:
-    if other and other != baseline:
-        raise RuntimeError(f"host metadata mismatch for {label}: baseline {baseline} vs {other}")
+def assert_world_compatible(baseline_world: str, other: dict | str | None, label: str) -> None:
+    if not other:
+        return
+    other_world = other.get("world_id") if isinstance(other, dict) else other
+    if other_world and other_world != baseline_world:
+        raise RuntimeError(f"world_id mismatch for {label}: baseline {baseline_world} vs {other_world}")
 
 
 def build_index() -> dict:
@@ -45,9 +52,9 @@ def build_index() -> dict:
     coverage = load_json(COVERAGE)
     ops = vocab.get("ops") or []
     coverage_map: Dict[str, dict] = (coverage.get("coverage") or {})
-    host = baseline_ref()
-    coverage_host = (coverage.get("metadata") or {}).get("host")
-    assert_host_compatible(host, coverage_host, "coverage")
+    baseline = baseline_ref()
+    world_id = baseline["world_id"]
+    assert_world_compatible(world_id, coverage.get("metadata"), "coverage")
     source_jobs: List[str] = []
     inputs: List[str] = [
         "book/graph/mappings/vocab/ops.json",
@@ -55,7 +62,6 @@ def build_index() -> dict:
         "book/graph/mappings/runtime/runtime_signatures.json",
         "book/graph/mappings/carton/operation_coverage.json",
         "book/api/carton/CARTON.json",
-        str(BASELINE.relative_to(ROOT)),
     ]
     meta = coverage.get("metadata") or {}
     source_jobs = meta.get("source_jobs") or source_jobs
@@ -86,7 +92,7 @@ def build_index() -> dict:
 
     return {
         "metadata": {
-            "host": host,
+            "world_id": world_id,
             "inputs": inputs,
             "source_jobs": source_jobs,
             "status": "ok",

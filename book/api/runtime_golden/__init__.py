@@ -42,6 +42,22 @@ class GoldenProfile:
         return self.path.suffix == ".bin"
 
 
+@dataclass
+class BaselineInfo:
+    world_id: str
+    baseline_ref: str
+
+
+def load_baseline(baseline_ref: str) -> BaselineInfo:
+    """Load baseline metadata to pull world_id."""
+    path = Path(baseline_ref)
+    data = json.loads(path.read_text())
+    world_id = data.get("world_id")
+    if not world_id:
+        raise ValueError(f"world_id missing from baseline {baseline_ref}")
+    return BaselineInfo(world_id=world_id, baseline_ref=baseline_ref)
+
+
 def load_matrix(matrix_path: Path) -> Dict[str, GoldenProfile]:
     data = json.loads(matrix_path.read_text())
     profiles = data.get("profiles") or {}

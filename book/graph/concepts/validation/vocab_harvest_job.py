@@ -173,7 +173,6 @@ def run_vocab_harvest_job():
     meta = load_json(META_PATH) if META_PATH.exists() else {}
     payload = {
         "job_id": "vocab:sonoma-14.4.1",
-        "timestamp": "manual",
         "status": "ok",
         "host": meta.get("os", {}),
         "inputs": [str(LIB_PATH)],

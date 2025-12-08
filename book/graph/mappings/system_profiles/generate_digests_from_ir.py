@@ -50,22 +50,27 @@ def load_ir(path: Path) -> Dict[str, Any]:
     return json.loads(path.read_text())
 
 
-def baseline_ref() -> str:
+def load_baseline_world() -> str:
     if not BASELINE_PATH.exists():
         raise FileNotFoundError(f"missing baseline: {BASELINE_PATH}")
-    return str(BASELINE_PATH.relative_to(ROOT))
+    data = json.loads(BASELINE_PATH.read_text())
+    world_id = data.get("world_id")
+    if not world_id:
+        raise RuntimeError("world_id missing from baseline")
+    return world_id
 
 
 def main() -> None:
     run_validation()
     job = load_status(EXPECTED_JOB)
     ir = load_ir(IR_PATH)
+    world_id = load_baseline_world()
 
     profiles = ir.get("profiles") or {}
     mapping = {
         "metadata": {
-            "host": baseline_ref(),
-            "inputs": [str(IR_PATH.relative_to(ROOT)), str(BASELINE_PATH.relative_to(ROOT))],
+            "world_id": world_id,
+            "inputs": [str(IR_PATH.relative_to(ROOT))],
             "source_jobs": ir.get("source_jobs") or [EXPECTED_JOB],
             "decoder": "book.api.decoder",
         },

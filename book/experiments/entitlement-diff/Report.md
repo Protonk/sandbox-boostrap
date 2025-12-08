@@ -75,7 +75,7 @@ Trace how selected entitlements alter compiled sandbox profiles and the resultin
 Compare entitlements, derived App Sandbox SBPL, compiled profiles, and (eventually) runtime behavior for matched binaries on this host. The goal is to turn specific entitlement changes into observable differences in compiled policy and, where possible, runtime allow/deny behavior.
 
 ## Baseline & scope
-- Host: Sonoma baseline from `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`.
+- Host: Sonoma baseline from `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json)`.
 - Inputs: signed binaries with and without specific entitlements, their extracted entitlements plists, and any derived SBPL/profiles.
 - Tooling: codesign/entitlement extraction helpers, `book.api.sbpl_compile`, and decoder tooling where profile blobs are available.
 

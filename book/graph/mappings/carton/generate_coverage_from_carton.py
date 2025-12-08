@@ -68,15 +68,22 @@ def load_json(path: Path) -> Dict:
     return json.loads(path.read_text())
 
 
-def baseline_ref() -> str:
+def load_baseline_world() -> str:
     if not BASELINE_PATH.exists():
         raise FileNotFoundError(f"missing baseline: {BASELINE_PATH}")
-    return str(BASELINE_PATH.relative_to(ROOT))
+    data = json.loads(BASELINE_PATH.read_text())
+    world_id = data.get("world_id")
+    if not world_id:
+        raise RuntimeError("world_id missing from baseline")
+    return world_id
 
 
-def assert_host_compatible(baseline: str, other: dict | str | None, label: str) -> None:
-    if other and other != baseline:
-        raise RuntimeError(f"host metadata mismatch for {label}: baseline {baseline} vs {other}")
+def assert_world_compatible(baseline_world: str, other: dict | str | None, label: str) -> None:
+    if not other:
+        return
+    other_world = other.get("world_id") if isinstance(other, dict) else other
+    if other_world and other_world != baseline_world:
+        raise RuntimeError(f"world_id mismatch for {label}: baseline {baseline_world} vs {other_world}")
 
 
 def init_coverage(ops: List[Dict]) -> Dict[str, Dict]:
@@ -166,19 +173,18 @@ def main() -> None:
             "runtime_signatures": len(entry["runtime_signatures"]),
         }
 
-    host = baseline_ref()
-    assert_host_compatible(host, runtime_mapping.get("metadata", {}).get("host"), "runtime_signatures")
-    assert_host_compatible(host, digests.get("metadata", {}).get("host"), "system_digests")
+    world_id = load_baseline_world()
+    assert_world_compatible(world_id, runtime_mapping.get("metadata"), "runtime_signatures")
+    assert_world_compatible(world_id, digests.get("metadata"), "system_digests")
     inputs = [
         str(OPS_PATH.relative_to(ROOT)),
         str(DIGESTS_PATH.relative_to(ROOT)),
         str(RUNTIME_PATH.relative_to(ROOT)),
         str(CARTON_PATH.relative_to(ROOT)),
-        str(BASELINE_PATH.relative_to(ROOT)),
     ]
     mapping = {
         "metadata": {
-            "host": host,
+            "world_id": world_id,
             "inputs": inputs,
             "source_jobs": sorted(EXPECTED_JOBS),
             "status": "ok",

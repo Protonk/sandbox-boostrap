@@ -157,6 +157,56 @@
           "expectation_id": "adv:mach_simple_variants:deny-bogus"
         }
       ]
+    },
+    "adv:mach_local_literal": {
+      "mode": "sbpl",
+      "sbpl": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/mach_local_literal.sb",
+      "blob": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/build/mach_local_literal.sb.bin",
+      "family": "mach_local",
+      "semantic_group": "mach:local-name-allow",
+      "probes": [
+        {
+          "name": "allow-cfprefsd-local",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.agent",
+          "expected": "allow",
+          "mode": "local",
+          "expectation_id": "adv:mach_local_literal:allow-cfprefsd-local"
+        },
+        {
+          "name": "deny-bogus-local",
+          "operation": "mach-lookup",
+          "target": "com.apple.sandboxadversarial.fake",
+          "expected": "deny",
+          "mode": "local",
+          "expectation_id": "adv:mach_local_literal:deny-bogus-local"
+        }
+      ]
+    },
+    "adv:mach_local_regex": {
+      "mode": "sbpl",
+      "sbpl": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/mach_local_regex.sb",
+      "blob": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/build/mach_local_regex.sb.bin",
+      "family": "mach_local",
+      "semantic_group": "mach:local-name-allow",
+      "probes": [
+        {
+          "name": "allow-cfprefsd-local",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.agent",
+          "expected": "allow",
+          "mode": "local",
+          "expectation_id": "adv:mach_local_regex:allow-cfprefsd-local"
+        },
+        {
+          "name": "deny-bogus-local",
+          "operation": "mach-lookup",
+          "target": "com.apple.sandboxadversarial.fake",
+          "expected": "deny",
+          "mode": "local",
+          "expectation_id": "adv:mach_local_regex:deny-bogus-local"
+        }
+      ]
     }
   }
 }

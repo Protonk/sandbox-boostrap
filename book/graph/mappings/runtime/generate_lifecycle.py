@@ -33,6 +33,16 @@ def load_json(path: Path) -> Dict[str, Any]:
     return json.loads(path.read_text())
 
 
+def load_baseline_world() -> str:
+    if not BASELINE_PATH.exists():
+        raise FileNotFoundError(f"missing baseline: {BASELINE_PATH}")
+    data = json.loads(BASELINE_PATH.read_text())
+    world_id = data.get("world_id")
+    if not world_id:
+        raise RuntimeError("world_id missing from baseline")
+    return world_id
+
+
 def status_entry(scenario_id: str, status: str, notes: str, traces: List[str], source_log: Optional[str]) -> Dict[str, Any]:
     return {
         "scenario_id": scenario_id,
@@ -90,11 +100,10 @@ def normalize_extensions(meta: Dict[str, Any]) -> (Dict[str, Any], List[Dict[str
 
 
 def main() -> None:
-    if not BASELINE_PATH.exists():
-        raise FileNotFoundError(f"missing baseline: {BASELINE_PATH}")
+    world_id = load_baseline_world()
     meta = load_json(REPO_ROOT / "book/graph/concepts/validation/out/metadata.json")
     manifest = {
-        "host": BASELINE_REF,
+        "world_id": world_id,
         "sip_status": meta.get("sip_status"),
         "profile_format_variant": meta.get("profile_format_variant"),
         "scenarios": [],

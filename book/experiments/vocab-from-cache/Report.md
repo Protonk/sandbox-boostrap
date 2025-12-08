@@ -4,7 +4,7 @@
 Extract Operation/Filter vocab tables (name ↔ ID) from the macOS dyld shared cache (Sandbox.framework / libsandbox payloads) and align them with decoder‑derived `op_count` / op‑table data from canonical blobs, producing real `ops.json` / `filters.json` for this host.
 
 ## Baseline & scope
-- Host: Sonoma baseline from `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json` (macOS 14.4.1 / 23E224, arm64, SIP enabled).
+- Host: Sonoma baseline from `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json)` (macOS 14.4.1 / 23E224, arm64, SIP enabled).
 - Canonical blobs for alignment:
   - `book/examples/extract_sbs/build/profiles/airlock.sb.bin`
   - `book/examples/extract_sbs/build/profiles/bsd.sb.bin`
