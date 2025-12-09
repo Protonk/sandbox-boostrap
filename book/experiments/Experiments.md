@@ -76,3 +76,17 @@ Experiments move through a simple life-cycle as they are created, refined, and i
   Stable experiments often produce outputs (artifacts, tools, or distilled insights) that are useful beyond the experiment itself. When that happens, the experiment should clearly mark which outputs appear stable and broadly reusable, and suggest that they be used as shared references in the wider book. Any artifact promoted into `book/graph/mappings/*` must carry host metadata and have a guardrail test (e.g., in `book/tests/`). If a newer experiment replaces or sharpens an older one, that relationship should be noted so that readers can follow the chain.
 
 Across this life-cycle, experiments remain the primary link between the project’s claims and the fixed host. Their job is to accumulate reliable, inspectable evidence, not to disappear once a story has been written. Use shared tooling (`book/api/inspect_profile`, `book/api/op_table`, `book/api/decoder`) instead of reimplementing parsers.
+
+---
+
+## 5. Current experiment index (Sonoma baseline)
+
+This section summarizes selected experiments for this world. Status labels are **bedrock**, **mapped-but-partial**, **brittle**, or **blocked**, following the validation tiers in the root `AGENTS.md`.
+
+- **field2-filters** – **mapped-but-partial (structural, closed)**  
+  `book/experiments/field2-filters/`  
+  Maps `field2` usage across canonical system profiles and selected probes (`out/field2_inventory.json`, `out/unknown_nodes.json`). Concludes that `filter_arg_raw` is consumed as a raw u16 on this host and leaves high/unknown values unmapped but tightly bounded. Closed for now; further semantic work should happen in new experiments.
+
+- **probe-op-structure** – **mapped-but-partial (structural, no runtime)**  
+  `book/experiments/probe-op-structure/`  
+  Designs richer SBPL probes and decodes canonical/system profiles to surface tag- and anchor-aware `field2` structure (`out/analysis.json`, `out/anchor_hits.json`). Feeds the anchor mappings under `book/graph/mappings/anchors/` (`anchor_filter_map.json`) and is protected by `book/tests/test_anchor_filter_alignment.py` so mapped anchors always have concrete witnesses.

@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from book.api import sbpl_compile
+from book.api import profile_tools as pt
 
 ROOT = Path(__file__).resolve().parents[2]
 SAMPLE_SB = ROOT / "book" / "examples" / "sb" / "sample.sb"
@@ -13,14 +13,14 @@ SAMPLE_SB = ROOT / "book" / "examples" / "sb" / "sample.sb"
 def test_compile_sbpl_file_writes_blob(tmp_path):
     """Compile sample SBPL and ensure metadata matches the written blob."""
     out = tmp_path / "sample.sb.bin"
-    res = sbpl_compile.compile_sbpl_file(SAMPLE_SB, out)
+    res = pt.compile_sbpl_file(SAMPLE_SB, out)
     assert out.exists()
     blob = out.read_bytes()
     assert blob == res.blob
     assert res.length == len(blob)
     # profile_type is expected to be 0 on this host; tolerate nonzero but stable output
     assert res.profile_type in (0, 1)
-    assert sbpl_compile.hex_preview(blob).strip() != ""
+    assert pt.hex_preview(blob).strip() != ""
 
 
 @pytest.mark.system
@@ -30,7 +30,8 @@ def test_cli_compiles_to_specified_path(tmp_path):
     cmd = [
         "python3",
         "-m",
-        "book.api.sbpl_compile.cli",
+        "book.api.profile_tools.cli",
+        "compile",
         str(SAMPLE_SB),
         "--out",
         str(out),

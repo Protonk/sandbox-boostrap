@@ -51,6 +51,16 @@ Anchor the third node slot (`filter_arg_raw` / “field2”) in compiled PolicyG
 - Kernel-side struct search is complete: no fixed node array is visible; `_eval` + helpers read `filter_arg_raw` as a raw u16 without hi/lo masking.
 - Further progress would require new work *outside* this experiment scope (e.g., targeted helper-level compares/table lookups or userland `libsandbox` compiler analysis). Record any such follow-ups as new experiments or troubles, not here.
 
+## Anchor-aware structure (sibling experiment)
+
+High/unknown `field2` IDs on this host—such as 16660 (`bsd` tail), 165/166/10752 (`airlock`), 2560 (`flow-divert`), and 3584 (`sample`)—are **structurally situated** by `book/experiments/probe-op-structure` via anchors and tags, even though their semantics remain unmapped here. That experiment:
+
+- Provides `book/experiments/probe-op-structure/out/anchor_hits.json`, which binds concrete anchors (e.g., `/etc/hosts`, `/var/log`, `preferences/logging`, `flow-divert`, `IOUSBHostInterface`, `idVendor`) to node indices and `field2` values under the canonical tag layouts.
+- Summarizes, in `book/experiments/probe-op-structure/Report.md`, an **“Anchor status summary for this world”** table that distinguishes structurally solid anchors (pinned `filter_id` with guardrail-backed witnesses) from anchors that remain `status: "blocked"`.
+- Feeds the curated anchor layer in `book/graph/mappings/anchors/anchor_filter_map.json`, whose consistency with `anchor_hits.json` is enforced by `book/tests/test_anchor_filter_alignment.py`.
+
+**Usage rule for new agents:** when interpreting `out/field2_inventory.json` and `out/unknown_nodes.json` in this experiment, use the **solid anchors** from `probe-op-structure` (as listed in its Anchor status summary and in `anchor_filter_map.json`) as your safest examples of how specific anchors sit in the graph. Do **not** infer semantics for high/unknown `field2` values beyond what is explicitly recorded in the Limitations/Non-claims sections of both experiments; treat the high IDs in this report as structurally bounded but semantically opaque for this world.
+
 ## Artifacts index
 - Inventories: `book/experiments/field2-filters/out/field2_inventory.json`, `out/unknown_nodes.json`.
 - Probes: `sb/` sources and `sb/build/*.sb.bin` (including new `bsd_ops_default_file` and `airlock_system_fcntl`).

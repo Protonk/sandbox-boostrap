@@ -1,0 +1,44 @@
+[
+  {
+    "profile_id": "vfs_tmp_only",
+    "operation": "file-read*",
+    "requested_path": "/tmp/foo",
+    "expected_decision": "allow",
+    "notes": "literal /tmp/foo in tmp-only profile"
+  },
+  {
+    "profile_id": "vfs_tmp_only",
+    "operation": "file-read*",
+    "requested_path": "/private/tmp/foo",
+    "expected_decision": "deny",
+    "notes": "control for canonicalization"
+  },
+  {
+    "profile_id": "vfs_private_tmp_only",
+    "operation": "file-read*",
+    "requested_path": "/tmp/foo",
+    "expected_decision": "deny",
+    "notes": "control for canonicalization"
+  },
+  {
+    "profile_id": "vfs_private_tmp_only",
+    "operation": "file-read*",
+    "requested_path": "/private/tmp/foo",
+    "expected_decision": "allow",
+    "notes": "literal /private/tmp/foo in private-tmp-only profile"
+  },
+  {
+    "profile_id": "vfs_both_paths",
+    "operation": "file-read*",
+    "requested_path": "/tmp/foo",
+    "expected_decision": "allow",
+    "notes": "both tmp and private tmp allowed"
+  },
+  {
+    "profile_id": "vfs_both_paths",
+    "operation": "file-read*",
+    "requested_path": "/private/tmp/foo",
+    "expected_decision": "allow",
+    "notes": "both tmp and private tmp allowed"
+  }
+]

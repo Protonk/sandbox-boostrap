@@ -1,11 +1,7 @@
 """
-Runtime golden profile helper utilities.
+Generate promoted golden artifacts from runtime-checks outputs.
 
-Responsibilities:
-- Define the golden runtime profile set (aligned with runtime-checks).
-- Compile SBPL to blobs for those profiles.
-- Decode blobs to slim summaries.
-- Normalize runtime_results.json into mapping-friendly traces.
+This is the consolidated home for the former `runtime_golden.generate`.
 """
 
 from __future__ import annotations
@@ -14,11 +10,10 @@ import json
 import hashlib
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Optional
+from typing import Any, Dict, Iterable, List
 
 from book.api import decoder
-from book.api.sbpl_compile import compile_sbpl_string
-
+from book.api.profile_tools import compile as compile_mod
 
 # Golden profile keys (runtime-checks).
 GOLDEN_KEYS = [
@@ -49,7 +44,6 @@ class BaselineInfo:
 
 
 def load_baseline(baseline_ref: str) -> BaselineInfo:
-    """Load baseline metadata to pull world_id."""
     path = Path(baseline_ref)
     data = json.loads(path.read_text())
     world_id = data.get("world_id")
@@ -81,7 +75,7 @@ def sha256_bytes(buf: bytes) -> str:
 def compile_profile(profile: GoldenProfile) -> bytes:
     if profile.is_blob:
         return profile.path.read_bytes()
-    return compile_sbpl_string(profile.path.read_text()).blob
+    return compile_mod.compile_sbpl_string(profile.path.read_text()).blob
 
 
 def decode_profile(blob: bytes) -> Dict[str, Any]:

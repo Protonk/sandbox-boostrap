@@ -1,0 +1,7 @@
+(version 1)
+
+(deny default)
+
+;; Allow reads only for /private/tmp/foo
+(allow file-read* (literal "/private/tmp/foo"))
+

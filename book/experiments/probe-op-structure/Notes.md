@@ -96,3 +96,7 @@ Use this file for concise notes on probe designs, compile logs, and findings.
 - Extended decoder literal matching: `literal_refs` now also scan node chunks for u16/u32 patterns of literal offsets, absolute offsets, and literal indices. This surfaced node hits for anchors in simple probes (e.g., `/tmp/foo` in `v1_file_require_any` now maps to nodes [16,22,30]).
 - Updated `anchor_scan` to prefer decoded `literal_refs` (with normalized prefixes) over raw byte scans; anchor hits now include node indices where available.
 - Strengthened `tests/test_anchor_scan.py` to assert node_indices are populated for the anchored probe blob.
+
+## Decoder wiring and refresh
+
+- Adjusted `analyze_profiles.py` and `anchor_scan.py` to compute the repository root as three parents up from this experiment directory (so `book.*` imports resolve correctly), then reran both scripts from the repo root. `out/analysis.json` and `out/anchor_hits.json` are now refreshed under the current `book.api.decoder` (which prefers `book/graph/mappings/tag_layouts/tag_layouts.json` when present).

@@ -20,7 +20,7 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from book.api import golden_runner
+from book.api.runtime_harness import runner as golden_runner
 from book.api.sbpl_compile import compile_sbpl_string
 
 BASE_DIR = Path(__file__).resolve().parent

@@ -1,0 +1,157 @@
+{
+  "vfs_tmp_only": {
+    "status": "partial",
+    "profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_tmp_only.vfs_tmp_only.runtime.sb",
+    "base_profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/vfs-canonicalization/sb/vfs_tmp_only.sb",
+    "probes": [
+      {
+        "name": "/tmp/foo",
+        "expectation_id": "vfs_tmp_only:/tmp/foo",
+        "operation": "file-read*",
+        "path": "/tmp/foo",
+        "expected": "allow",
+        "actual": "deny",
+        "match": false,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 2
+        },
+        "violation_summary": "EPERM",
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_reader",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_tmp_only.vfs_tmp_only.runtime.sb",
+          "/tmp/foo"
+        ],
+        "exit_code": 2,
+        "stdout": "",
+        "stderr": "open target: Operation not permitted\n"
+      },
+      {
+        "name": "/private/tmp/foo",
+        "expectation_id": "vfs_tmp_only:/private/tmp/foo",
+        "operation": "file-read*",
+        "path": "/private/tmp/foo",
+        "expected": "deny",
+        "actual": "deny",
+        "match": true,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 2
+        },
+        "violation_summary": "EPERM",
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_reader",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_tmp_only.vfs_tmp_only.runtime.sb",
+          "/private/tmp/foo"
+        ],
+        "exit_code": 2,
+        "stdout": "",
+        "stderr": "open target: Operation not permitted\n"
+      }
+    ],
+    "notes": "runtime results diverged from expected allow/deny matrix"
+  },
+  "vfs_private_tmp_only": {
+    "status": "partial",
+    "profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
+    "base_profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/vfs-canonicalization/sb/vfs_private_tmp_only.sb",
+    "probes": [
+      {
+        "name": "/tmp/foo",
+        "expectation_id": "vfs_private_tmp_only:/tmp/foo",
+        "operation": "file-read*",
+        "path": "/tmp/foo",
+        "expected": "deny",
+        "actual": "allow",
+        "match": false,
+        "runtime_result": {
+          "status": "success",
+          "errno": null
+        },
+        "violation_summary": null,
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_reader",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
+          "/tmp/foo"
+        ],
+        "exit_code": 0,
+        "stdout": "runtime-checks foo\n",
+        "stderr": ""
+      },
+      {
+        "name": "/private/tmp/foo",
+        "expectation_id": "vfs_private_tmp_only:/private/tmp/foo",
+        "operation": "file-read*",
+        "path": "/private/tmp/foo",
+        "expected": "allow",
+        "actual": "allow",
+        "match": true,
+        "runtime_result": {
+          "status": "success",
+          "errno": null
+        },
+        "violation_summary": null,
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_reader",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
+          "/private/tmp/foo"
+        ],
+        "exit_code": 0,
+        "stdout": "runtime-checks foo\n",
+        "stderr": ""
+      }
+    ],
+    "notes": "runtime results diverged from expected allow/deny matrix"
+  },
+  "vfs_both_paths": {
+    "status": "ok",
+    "profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_both_paths.vfs_both_paths.runtime.sb",
+    "base_profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/vfs-canonicalization/sb/vfs_both_paths.sb",
+    "probes": [
+      {
+        "name": "/tmp/foo",
+        "expectation_id": "vfs_both_paths:/tmp/foo",
+        "operation": "file-read*",
+        "path": "/tmp/foo",
+        "expected": "allow",
+        "actual": "allow",
+        "match": true,
+        "runtime_result": {
+          "status": "success",
+          "errno": null
+        },
+        "violation_summary": null,
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_reader",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_both_paths.vfs_both_paths.runtime.sb",
+          "/tmp/foo"
+        ],
+        "exit_code": 0,
+        "stdout": "runtime-checks foo\n",
+        "stderr": ""
+      },
+      {
+        "name": "/private/tmp/foo",
+        "expectation_id": "vfs_both_paths:/private/tmp/foo",
+        "operation": "file-read*",
+        "path": "/private/tmp/foo",
+        "expected": "allow",
+        "actual": "allow",
+        "match": true,
+        "runtime_result": {
+          "status": "success",
+          "errno": null
+        },
+        "violation_summary": null,
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_reader",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_both_paths.vfs_both_paths.runtime.sb",
+          "/private/tmp/foo"
+        ],
+        "exit_code": 0,
+        "stdout": "runtime-checks foo\n",
+        "stderr": ""
+      }
+    ]
+  }
+}

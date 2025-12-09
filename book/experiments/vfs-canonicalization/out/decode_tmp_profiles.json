@@ -1,0 +1,90 @@
+{
+  "vfs_tmp_only": {
+    "anchors": [
+      {
+        "path": "/tmp/foo",
+        "present": true,
+        "tags": [
+          0,
+          1
+        ],
+        "field2_values": [
+          4
+        ]
+      },
+      {
+        "path": "/private/tmp/foo",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      }
+    ],
+    "node_count": 30,
+    "tag_counts": {
+      "4": 6,
+      "5": 22,
+      "1": 1,
+      "0": 1
+    }
+  },
+  "vfs_private_tmp_only": {
+    "anchors": [
+      {
+        "path": "/tmp/foo",
+        "present": true,
+        "tags": [
+          0,
+          1
+        ],
+        "field2_values": [
+          4
+        ]
+      },
+      {
+        "path": "/private/tmp/foo",
+        "present": true,
+        "tags": [
+          0,
+          1
+        ],
+        "field2_values": [
+          4
+        ]
+      }
+    ],
+    "node_count": 30,
+    "tag_counts": {
+      "4": 6,
+      "5": 22,
+      "1": 1,
+      "0": 1
+    }
+  },
+  "vfs_both_paths": {
+    "anchors": [
+      {
+        "path": "/tmp/foo",
+        "present": true,
+        "tags": [
+          1
+        ],
+        "field2_values": [
+          4
+        ]
+      },
+      {
+        "path": "/private/tmp/foo",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      }
+    ],
+    "node_count": 30,
+    "tag_counts": {
+      "4": 6,
+      "5": 22,
+      "1": 1,
+      "0": 1
+    }
+  }
+}

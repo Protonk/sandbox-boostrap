@@ -2,6 +2,19 @@
 
 This directory collects host-specific helpers for working with Seatbelt on the fixed baseline in `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`. Use the sections below as a router; each module has a focused role, a short definition, and a minimal usage example. If a module has its own README, follow that link for deeper guidance.
 
+### profile_tools
+
+Definition: Unified surface for SBPL compilation, compiled-blob inspection, and op-table summaries (replaces `sbpl_compile`, `inspect_profile`, `op_table`).
+
+Role: Provide a single Python/CLI entrypoint for compiling SBPL, inspecting compiled blobs, and summarizing op-table structure, with legacy modules left as shims.
+
+Example:
+```sh
+python -m book.api.profile_tools.cli compile book/examples/sb/sample.sb --out /tmp/sample.sb.bin
+python -m book.api.profile_tools.cli inspect /tmp/sample.sb.bin --json /tmp/summary.json
+python -m book.api.profile_tools.cli op-table book/experiments/op-table-operation/sb/v1_read.sb --compile --op-count 196
+```
+
 ### decoder
 
 Definition: Structured decoder for compiled sandbox blobs.
@@ -20,42 +33,7 @@ PY
 ```
 See `book/api/decoder/README.md` for field details and CLI usage.
 
-### sbpl_compile
-
-Definition: Thin wrapper over private `libsandbox` compile entry points.
-
-Role: Compile SBPL text into a compiled blob for use in decoding or experiments.
-
-Example:
-```sh
-python -m book.api.sbpl_compile.cli book/examples/sb/sample.sb --out /tmp/sample.sb.bin
-```
-
-### inspect_profile
-
-Definition: Quick, read-only summary of a compiled blob.
-
-Role: Produce a structural snapshot (format variant, op_count, section sizes, op entries, tag stats, literal runs) before deeper analysis.
-
-Example:
-```sh
-python -m book.api.inspect_profile.cli /tmp/sample.sb.bin --json /tmp/summary.json
-```
-
-### op_table
-
-Definition: Op-table–centric parser and analyzer.
-
-Role: Parse `(allow ...)` ops and filters from SBPL, compute op-table entries and per-entry signatures, and optionally align them to the vocab (`ops.json`, `filters.json`).
-
-Example:
-```sh
-python -m book.api.op_table.cli book/experiments/op-table-operation/sb/v1_read.sb \
-  --compile --op-count 196 \
-  --vocab book/graph/mappings/vocab/ops.json \
-  --filters book/graph/mappings/vocab/filters.json \
-  --json /tmp/op_summary.json
-```
+The legacy `sbpl_compile`, `inspect_profile`, and `op_table` modules remain as shims to `profile_tools`; prefer the unified package above.
 
 ### regex_tools
 
@@ -120,30 +98,20 @@ PY
 ```
 See `book/api/carton/README.md`, `AGENTS.md`, and `API.md` for design, routing, and function contracts.
 
-### runtime_golden
+### runtime_harness
 
-Definition: Helpers for the runtime-checks “golden” profile set.
+Definition: Unified runtime harness for golden profiles (replaces `runtime_golden` + `golden_runner`).
 
-Role: Compile and decode the golden runtime profiles, summarize decodes, and normalize runtime_results.json into mapping-friendly traces.
-
-Example:
-```sh
-python -m book.api.runtime_golden.generate
-```
-
-### golden_runner
-
-Definition: Harness for running the “golden triple” runtime probes.
-
-Role: Execute expectation-driven probes described in `expected_matrix.json` and emit `runtime_results.json` aligned with the provisional schema.
+Role: Generate golden decodes/expectations/traces and run expectation-driven probes to emit `runtime_results.json`.
 
 Example:
 ```sh
-python -m book.api.golden_runner.cli --matrix book/profiles/golden-triple/expected_matrix.json --out book/profiles/golden-triple/
+python -m book.api.runtime_harness.cli generate --matrix book/experiments/runtime-checks/out/expected_matrix.json
+python -m book.api.runtime_harness.cli run --matrix book/profiles/golden-triple/expected_matrix.json --out book/profiles/golden-triple/
 ```
 
 ## CARTON conversion assessment
 
 - **op_table**: could gain a CARTON-backed query layer if op-table fingerprints/alignments are ever promoted to CARTON mappings; today it is generator/inspection tooling, not CARTON IR.
-- **runtime_golden**: could be query-able if golden traces/expectations become CARTON mappings with a defined concept; currently generation-only.
-- **Others (decoder, sbpl_compile, inspect_profile, regex_tools, SBPL-wrapper, file_probe, golden_runner, ghidra)**: generation/inspection/harness tools, not CARTON concepts; poor fits for the CARTON query surface in their current form.
+- **runtime_harness**: could be query-able if golden traces/expectations become CARTON mappings with a defined concept; currently generation-only.
+- **Others (decoder, sbpl_compile, inspect_profile, regex_tools, SBPL-wrapper, file_probe, ghidra)**: generation/inspection/harness tools, not CARTON concepts; poor fits for the CARTON query surface in their current form.

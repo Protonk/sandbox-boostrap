@@ -21,3 +21,4 @@ We use lightweight sanity checks across the examples, validation utilities, and 
 - Mark any test that shells out or depends on macOS/Apple libs as `@pytest.mark.system`.
 - If adding new example/utility tests, prefer calling underlying Python helpers rather than shelling out when feasible.
 - Update fixture hashes when binaries change (see `book/graph/concepts/validation/fixtures/fixtures.json`).
+- On this host, the CI harness currently runs under `python@3.14` (see `ci.py`); if you see `pytest is required to import tests` when running `make -C book test`, install `pytest` into the Python 3.14 environment used by `book/tests/run_all.py`.***

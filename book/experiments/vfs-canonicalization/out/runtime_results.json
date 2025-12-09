@@ -1,0 +1,80 @@
+[
+  {
+    "profile_id": "vfs_tmp_only",
+    "operation": "file-read*",
+    "requested_path": "/tmp/foo",
+    "observed_path": "/tmp/foo",
+    "decision": "deny",
+    "errno": 2,
+    "raw_log": {
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "open target: Operation not permitted\n"
+    }
+  },
+  {
+    "profile_id": "vfs_tmp_only",
+    "operation": "file-read*",
+    "requested_path": "/private/tmp/foo",
+    "observed_path": "/private/tmp/foo",
+    "decision": "deny",
+    "errno": 2,
+    "raw_log": {
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "open target: Operation not permitted\n"
+    }
+  },
+  {
+    "profile_id": "vfs_private_tmp_only",
+    "operation": "file-read*",
+    "requested_path": "/tmp/foo",
+    "observed_path": "/tmp/foo",
+    "decision": "allow",
+    "errno": null,
+    "raw_log": {
+      "exit_code": 0,
+      "stdout": "runtime-checks foo\n",
+      "stderr": ""
+    }
+  },
+  {
+    "profile_id": "vfs_private_tmp_only",
+    "operation": "file-read*",
+    "requested_path": "/private/tmp/foo",
+    "observed_path": "/private/tmp/foo",
+    "decision": "allow",
+    "errno": null,
+    "raw_log": {
+      "exit_code": 0,
+      "stdout": "runtime-checks foo\n",
+      "stderr": ""
+    }
+  },
+  {
+    "profile_id": "vfs_both_paths",
+    "operation": "file-read*",
+    "requested_path": "/tmp/foo",
+    "observed_path": "/tmp/foo",
+    "decision": "allow",
+    "errno": null,
+    "raw_log": {
+      "exit_code": 0,
+      "stdout": "runtime-checks foo\n",
+      "stderr": ""
+    }
+  },
+  {
+    "profile_id": "vfs_both_paths",
+    "operation": "file-read*",
+    "requested_path": "/private/tmp/foo",
+    "observed_path": "/private/tmp/foo",
+    "decision": "allow",
+    "errno": null,
+    "raw_log": {
+      "exit_code": 0,
+      "stdout": "runtime-checks foo\n",
+      "stderr": ""
+    }
+  }
+]

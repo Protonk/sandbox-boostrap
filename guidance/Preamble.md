@@ -100,7 +100,7 @@ Below CARTON, the API layer in `book/api/` provides reusable tools for this base
 - `inspect_profile/` — produce structural summaries of compiled blobs.
 - `op_table/` — parse SBPL, compute op-table entries and signatures, and align them to vocab.
 - `SBPL-wrapper/` and `file_probe/` — drive runtime probes; `EPERM` apply gates on this host are treated as `blocked` outcomes, not “profile does not exist.”
-- `runtime_golden/` and `golden_runner/` — manage golden runtime profiles, expected matrices, and normalized runtime results.
+- `runtime_harness/` — unified golden runtime generation and probe runner (replaces runtime_golden + golden_runner).
 - `ghidra/` — support kernel and op-table symbol work in a controlled workspace.
 
 These tools assume the mappings and world baseline are correct for this host; their job is to make it easy to move between SBPL, compiled profiles, decoded graphs, runtime probes, and CARTON without re-implementing infrastructure.

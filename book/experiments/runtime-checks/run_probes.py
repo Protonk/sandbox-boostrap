@@ -8,7 +8,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from book.api.golden_runner import run_expected_matrix
+from book.api.runtime_harness.runner import run_expected_matrix
 
 
 ROOT = Path(__file__).resolve().parent

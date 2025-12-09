@@ -1,11 +1,7 @@
 """
-Golden triple runtime harness helpers.
+Runtime execution harness for expected matrices.
 
-Purpose: run expectation-driven probes for SBPL profiles and emit runtime_results.json
-aligned with the provisional schema (expectation_id join key, structured runtime_result).
-
-Default output location: book/profiles/golden-triple
-Host baseline: book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json
+Consolidated home for the former `golden_runner`.
 """
 
 from __future__ import annotations
@@ -13,7 +9,7 @@ from __future__ import annotations
 import json
 import subprocess
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
 DEFAULT_OUT = Path(__file__).resolve().parents[2] / "profiles" / "golden-triple"
 DEFAULT_RUNTIME_PROFILE_DIR = DEFAULT_OUT / "runtime_profiles"
@@ -26,7 +22,6 @@ MACH_PROBE = Path(__file__).resolve().parents[2] / "experiments" / "runtime-chec
 CAT = "/bin/cat"
 SH = "/bin/sh"
 
-# Harness shims needed to let probes start while keeping file policy intact.
 RUNTIME_SHIM_RULES = [
     "(allow process-exec*)",
     '(allow file-read* (subpath "/System"))',
@@ -41,9 +36,6 @@ RUNTIME_SHIM_RULES = [
 
 
 def ensure_tmp_files(fixture_root: Path = Path("/tmp")) -> None:
-    """
-    Create fixture files under fixture_root for read/write probes.
-    """
     for name in ["foo", "bar"]:
         p = fixture_root / name
         p.write_text(f"runtime-checks {name}\n")
@@ -62,9 +54,6 @@ def ensure_tmp_files(fixture_root: Path = Path("/tmp")) -> None:
 
 
 def classify_status(probes: List[Dict[str, Any]], skipped_reason: str | None = None) -> tuple[str, str | None]:
-    """
-    Map probe outcomes into the project-wide validation status vocabulary.
-    """
     if skipped_reason:
         return "blocked", skipped_reason
     if not probes:
@@ -85,10 +74,6 @@ def prepare_runtime_profile(
     shim_rules: List[str] | None = None,
     profile_mode: str | None = None,
 ) -> Path:
-    """
-    Create a runtime-ready SBPL profile that preserves the file policy but
-    adds minimal shims (process-exec, core system file reads) so sandbox-exec can launch probe binaries.
-    """
     runtime_profile_dir.mkdir(parents=True, exist_ok=True)
     if base.suffix == ".bin":
         return base
@@ -130,7 +115,6 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None) ->
         else:
             host, port = hostport, "80"
         nc = Path("/usr/bin/nc")
-        # -z: just probe, -w 2: timeout
         cmd = [str(nc), "-z", "-w", "2", host, port]
     elif op == "process-exec":
         cmd = ["true"]
@@ -138,7 +122,6 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None) ->
         cmd = ["true"]
 
     blob_mode = (probe.get("mode") == "blob") or (profile_mode == "blob")
-    # If the profile is a compiled blob, force blob mode when the wrapper exists.
     if profile.suffix == ".bin" and WRAPPER.exists():
         blob_mode = True
 
@@ -179,9 +162,6 @@ def run_expected_matrix(
     profile_paths: Dict[str, Path] | None = None,
     key_specific_rules: Dict[str, List[str]] | None = None,
 ) -> Path:
-    """
-    Run probes described in an expected_matrix.json and write runtime_results.json to out_dir.
-    """
     matrix_path = Path(matrix_path)
     out_dir = Path(out_dir) if out_dir else DEFAULT_OUT
     runtime_profile_dir = Path(runtime_profile_dir) if runtime_profile_dir else out_dir / "runtime_profiles"

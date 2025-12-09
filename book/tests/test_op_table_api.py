@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from book.api import op_table
+from book.api import profile_tools as pt
 
 ROOT = Path(__file__).resolve().parents[2]
 SAMPLE_SB = ROOT / "book" / "experiments" / "op-table-operation" / "sb" / "v1_read.sb"
@@ -18,7 +18,8 @@ def test_op_table_cli_with_compile(tmp_path):
     cmd = [
         "python3",
         "-m",
-        "book.api.op_table.cli",
+        "book.api.profile_tools.cli",
+        "op-table",
         str(SAMPLE_SB),
         "--compile",
         "--op-count",
@@ -37,7 +38,7 @@ def test_op_table_cli_with_compile(tmp_path):
 def test_build_alignment_stub():
     vocab_ops = {"ops": [{"name": "file-read*", "id": 10}]}
     vocab_filters = {"filters": [{"name": "literal", "id": 1}]}
-    summary = op_table.Summary(
+    summary = pt.OpTableSummary(
         name="stub",
         ops=["file-read*"],
         filters=["literal"],
@@ -54,6 +55,6 @@ def test_build_alignment_stub():
         decoder={},
         entry_signatures={},
     )
-    alignment = op_table.build_alignment([summary], vocab_ops, vocab_filters)
+    alignment = pt.build_alignment([summary], vocab_ops, vocab_filters)
     assert alignment["records"][0]["operation_ids"] == [10]
     assert alignment["records"][0]["filter_ids"] == [1]

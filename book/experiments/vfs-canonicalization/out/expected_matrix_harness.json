@@ -1,0 +1,74 @@
+{
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "profiles": {
+    "vfs_tmp_only": {
+      "mode": "sbpl",
+      "sbpl": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/vfs-canonicalization/sb/vfs_tmp_only.sb",
+      "blob": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/vfs-canonicalization/sb/build/vfs_tmp_only.sb.bin",
+      "family": "vfs",
+      "semantic_group": "vfs:tmp-vs-private-tmp",
+      "probes": [
+        {
+          "name": "/tmp/foo",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "expectation_id": "vfs_tmp_only:/tmp/foo"
+        },
+        {
+          "name": "/private/tmp/foo",
+          "operation": "file-read*",
+          "target": "/private/tmp/foo",
+          "expected": "deny",
+          "expectation_id": "vfs_tmp_only:/private/tmp/foo"
+        }
+      ]
+    },
+    "vfs_private_tmp_only": {
+      "mode": "sbpl",
+      "sbpl": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/vfs-canonicalization/sb/vfs_private_tmp_only.sb",
+      "blob": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/vfs-canonicalization/sb/build/vfs_private_tmp_only.sb.bin",
+      "family": "vfs",
+      "semantic_group": "vfs:tmp-vs-private-tmp",
+      "probes": [
+        {
+          "name": "/tmp/foo",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "deny",
+          "expectation_id": "vfs_private_tmp_only:/tmp/foo"
+        },
+        {
+          "name": "/private/tmp/foo",
+          "operation": "file-read*",
+          "target": "/private/tmp/foo",
+          "expected": "allow",
+          "expectation_id": "vfs_private_tmp_only:/private/tmp/foo"
+        }
+      ]
+    },
+    "vfs_both_paths": {
+      "mode": "sbpl",
+      "sbpl": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/vfs-canonicalization/sb/vfs_both_paths.sb",
+      "blob": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/vfs-canonicalization/sb/build/vfs_both_paths.sb.bin",
+      "family": "vfs",
+      "semantic_group": "vfs:tmp-vs-private-tmp",
+      "probes": [
+        {
+          "name": "/tmp/foo",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "expectation_id": "vfs_both_paths:/tmp/foo"
+        },
+        {
+          "name": "/private/tmp/foo",
+          "operation": "file-read*",
+          "target": "/private/tmp/foo",
+          "expected": "allow",
+          "expectation_id": "vfs_both_paths:/private/tmp/foo"
+        }
+      ]
+    }
+  }
+}
