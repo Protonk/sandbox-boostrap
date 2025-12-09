@@ -38,6 +38,7 @@ OUT_PATH = ROOT / "book/api/carton/CARTON.json"
 
 
 def sha256(path: Path) -> str:
+    """Stream a file to avoid huge reads and return its sha256 hex digest."""
     h = hashlib.sha256()
     with path.open("rb") as f:
         for chunk in iter(lambda: f.read(8192), b""):
@@ -46,6 +47,10 @@ def sha256(path: Path) -> str:
 
 
 def load_baseline() -> Dict[str, str]:
+    """
+    Pull the world baseline for this host so the manifest is anchored to the
+    same world_id the mappings were validated against.
+    """
     if not BASELINE.exists():
         raise SystemExit(f"missing baseline: {BASELINE}")
     data = json.loads(BASELINE.read_text())
@@ -56,6 +61,11 @@ def load_baseline() -> Dict[str, str]:
 
 
 def main() -> None:
+    """
+    Build the manifest by hashing the vetted mapping/validation outputs and
+    pairing them with the host world_id. Consumers (carton_query, agents) treat
+    this as the canonical contract for the Sonoma 14.4.1 CARTON bundle.
+    """
     baseline = load_baseline()
     rows: List[Dict[str, str]] = []
     for rel in FILES:

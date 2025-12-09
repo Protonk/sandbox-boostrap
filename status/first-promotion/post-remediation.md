@@ -8,6 +8,8 @@ This document makes a scoped, post-remediation argument that three specific stru
 2. The “modern-heuristic” compiled profile format, together with per-tag layouts for the literal/regex-bearing tags we currently cover.
 3. The decoded structure of three curated system profiles: `sys:airlock`, `sys:bsd`, and `sys:sample`.
 
+This note is a snapshot and justification for the first promotion decision. The live registry of which surfaces are currently bedrock lives in [`book/graph/concepts/BEDROCK_SURFACES.json`](../book/graph/concepts/BEDROCK_SURFACES.json); check that file (and its mirrors) for the authoritative set as the world evolves.
+
 Earlier, these were already important ingredients in the project’s story, but the supporting machinery around them was thinner and more informal. Since then, the repo has gained dyld slice manifests, adversarial runtime experiments, per-op coverage tracking, canonical contract generation with tested demotion, and explicit “Claims and limits” texts tying all of this together. The question here is not whether these concepts are “true for all time,” but whether, for this specific world, they can safely be treated as fixed inputs to downstream tools and explanations, with clear evidence and a path for demotion if the world shifts.
 
 The sections that follow describe, for each concept, what the claim actually is, how it is represented and used, what now backs it, and where its boundaries lie. The aim is to surface the reasoning and the operational story, not only the file paths.

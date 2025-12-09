@@ -35,6 +35,34 @@
           "target": "/tmp/runtime-adv/struct/outside.txt",
           "expected": "deny",
           "expectation_id": "adv:struct_flat:deny-outside"
+        },
+        {
+          "name": "write-ok-root",
+          "operation": "file-write*",
+          "target": "/tmp/runtime-adv/struct/ok/allowed.txt",
+          "expected": "allow",
+          "expectation_id": "adv:struct_flat:write-ok-root"
+        },
+        {
+          "name": "write-ok-deep",
+          "operation": "file-write*",
+          "target": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
+          "expected": "allow",
+          "expectation_id": "adv:struct_flat:write-ok-deep"
+        },
+        {
+          "name": "write-blocked",
+          "operation": "file-write*",
+          "target": "/tmp/runtime-adv/struct/blocked.txt",
+          "expected": "deny",
+          "expectation_id": "adv:struct_flat:write-blocked"
+        },
+        {
+          "name": "write-outside",
+          "operation": "file-write*",
+          "target": "/tmp/runtime-adv/struct/outside.txt",
+          "expected": "deny",
+          "expectation_id": "adv:struct_flat:write-outside"
         }
       ]
     },
@@ -72,6 +100,34 @@
           "target": "/tmp/runtime-adv/struct/outside.txt",
           "expected": "deny",
           "expectation_id": "adv:struct_nested:deny-outside"
+        },
+        {
+          "name": "write-ok-root",
+          "operation": "file-write*",
+          "target": "/tmp/runtime-adv/struct/ok/allowed.txt",
+          "expected": "allow",
+          "expectation_id": "adv:struct_nested:write-ok-root"
+        },
+        {
+          "name": "write-ok-deep",
+          "operation": "file-write*",
+          "target": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
+          "expected": "allow",
+          "expectation_id": "adv:struct_nested:write-ok-deep"
+        },
+        {
+          "name": "write-blocked",
+          "operation": "file-write*",
+          "target": "/tmp/runtime-adv/struct/blocked.txt",
+          "expected": "deny",
+          "expectation_id": "adv:struct_nested:write-blocked"
+        },
+        {
+          "name": "write-outside",
+          "operation": "file-write*",
+          "target": "/tmp/runtime-adv/struct/outside.txt",
+          "expected": "deny",
+          "expectation_id": "adv:struct_nested:write-outside"
         }
       ]
     },
@@ -109,6 +165,34 @@
           "target": "/tmp/runtime-adv/edges/okdir/../blocked.txt",
           "expected": "deny",
           "expectation_id": "adv:path_edges:deny-dotdot"
+        },
+        {
+          "name": "write-tmp",
+          "operation": "file-write*",
+          "target": "/tmp/runtime-adv/edges/a",
+          "expected": "allow",
+          "expectation_id": "adv:path_edges:write-tmp"
+        },
+        {
+          "name": "write-private",
+          "operation": "file-write*",
+          "target": "/private/tmp/runtime-adv/edges/a",
+          "expected": "deny",
+          "expectation_id": "adv:path_edges:write-private"
+        },
+        {
+          "name": "write-subpath",
+          "operation": "file-write*",
+          "target": "/tmp/runtime-adv/edges/okdir/item.txt",
+          "expected": "allow",
+          "expectation_id": "adv:path_edges:write-subpath"
+        },
+        {
+          "name": "write-dotdot",
+          "operation": "file-write*",
+          "target": "/tmp/runtime-adv/edges/okdir/../blocked.txt",
+          "expected": "deny",
+          "expectation_id": "adv:path_edges:write-dotdot"
         }
       ]
     },
@@ -205,6 +289,38 @@
           "expected": "deny",
           "mode": "local",
           "expectation_id": "adv:mach_local_regex:deny-bogus-local"
+        }
+      ]
+    },
+    "adv:net_outbound_allow": {
+      "mode": "sbpl",
+      "sbpl": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/net_outbound_allow.sb",
+      "blob": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/build/net_outbound_allow.sb.bin",
+      "family": "network",
+      "semantic_group": "network:outbound-allow",
+      "probes": [
+        {
+          "name": "ping-loopback",
+          "operation": "network-outbound",
+          "target": "127.0.0.1",
+          "expected": "allow",
+          "expectation_id": "adv:net_outbound_allow:ping-loopback"
+        }
+      ]
+    },
+    "adv:net_outbound_deny": {
+      "mode": "sbpl",
+      "sbpl": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/net_outbound_deny.sb",
+      "blob": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/build/net_outbound_deny.sb.bin",
+      "family": "network",
+      "semantic_group": "network:outbound-deny",
+      "probes": [
+        {
+          "name": "ping-loopback",
+          "operation": "network-outbound",
+          "target": "127.0.0.1",
+          "expected": "deny",
+          "expectation_id": "adv:net_outbound_deny:ping-loopback"
         }
       ]
     }

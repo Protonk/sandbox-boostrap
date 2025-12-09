@@ -16,6 +16,11 @@ from book.api import decoder
 
 
 def dump_blobs(paths: list[Path], byte_window: int, summary: bool) -> list[dict]:
+    """
+    Decode one or more compiled profiles and emit either full header+section
+    info or a compact summary. Used for quick inspections without touching the
+    mapping generators.
+    """
     out: list[dict] = []
     for path in paths:
         data = path.read_bytes()

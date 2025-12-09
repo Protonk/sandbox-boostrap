@@ -79,6 +79,11 @@ def _compute_sha256(path: Path) -> str:
 
 
 def _load_json_from_manifest(logical_name: str, required_keys: Optional[List[str]] = None) -> dict:
+    """
+    Load a CARTON-mapped JSON by logical name, enforcing manifest hashes and
+    presence of expected top-level keys so callers get consistent failures
+    rather than partial data.
+    """
     path, expected_hash = _manifest_entry(logical_name)
     try:
         data = json.loads(path.read_text())
@@ -100,6 +105,7 @@ def _load_json_from_manifest(logical_name: str, required_keys: Optional[List[str
 
 
 def _load_vocab() -> Tuple[Dict[str, int], Dict[int, str]]:
+    """Return both name->id and id->name maps from the CARTON ops vocab."""
     vocab = _load_json_from_manifest("vocab.ops", required_keys=["ops"])
     ops = vocab.get("ops") or []
     name_to_id = {entry["name"]: entry["id"] for entry in ops if "name" in entry and "id" in entry}
@@ -108,6 +114,7 @@ def _load_vocab() -> Tuple[Dict[str, int], Dict[int, str]]:
 
 
 def _load_coverage() -> dict:
+    """Minimal coverage load that keeps a small surface for low-level queries."""
     coverage = _load_json_from_manifest("carton.coverage", required_keys=["coverage"])
     cov = coverage.get("coverage")
     if not isinstance(cov, dict):
@@ -116,10 +123,12 @@ def _load_coverage() -> dict:
 
 
 def _load_coverage_full() -> dict:
+    """Full coverage record including metadata/canonical profile health."""
     return _load_json_from_manifest("carton.coverage", required_keys=["coverage"])
 
 
 def _lookup_op_id(op_name: str) -> int:
+    """Resolve op name to id with a clear error when vocab is stale."""
     name_to_id, _ = _load_vocab()
     op_id = name_to_id.get(op_name)
     if op_id is None:
@@ -128,6 +137,10 @@ def _lookup_op_id(op_name: str) -> int:
 
 
 def profiles_with_operation(op_name: str) -> List[str]:
+    """
+    System profile ids that carry the given op. Falls back to digests when
+    coverage lacks explicit profile lists.
+    """
     op_id = _lookup_op_id(op_name)
     coverage = _load_coverage()
     if op_name not in coverage:
@@ -150,6 +163,11 @@ def profiles_with_operation(op_name: str) -> List[str]:
 
 
 def profiles_and_signatures_for_operation(op_name: str) -> Dict[str, Any]:
+    """
+    Combine coverage entries for an op into a single record, keeping coverage
+    health visible so callers can distinguish “known but degraded” from fully
+    backed mappings.
+    """
     op_id = _lookup_op_id(op_name)
     coverage_full = _load_coverage_full()
     coverage = coverage_full.get("coverage") or {}
@@ -178,6 +196,7 @@ def profiles_and_signatures_for_operation(op_name: str) -> Dict[str, Any]:
 
 
 def runtime_signature_info(sig_id: str) -> Dict[str, object]:
+    """Fetch probe list, runtime profile, and expectation matrix for a runtime signature id."""
     sigs = _load_json_from_manifest("runtime.signatures", required_keys=["signatures"])
     signatures = sigs.get("signatures") or {}
     meta = sigs.get("profiles_metadata") or {}
@@ -190,6 +209,10 @@ def runtime_signature_info(sig_id: str) -> Dict[str, object]:
 
 
 def ops_with_low_coverage(threshold: int = 0) -> List[Dict[str, object]]:
+    """
+    Return ops whose combined system-profile + runtime-signature coverage is at
+    or below the threshold. Coverage metadata is preserved for upstream sorting.
+    """
     coverage = _load_coverage()
     low = []
     for name, entry in coverage.items():
@@ -235,6 +258,7 @@ def list_filters() -> List[str]:
 
 
 def filter_story(filter_name: str) -> Dict[str, Any]:
+    """Small story for a filter: ids plus where it appears across layers."""
     filters = _load_filter_index().get("filters") or {}
     entry = filters.get(filter_name)
     if entry is None:
@@ -267,6 +291,7 @@ def list_carton_paths() -> Dict[str, str]:
 
 
 def operation_story(op_name: str) -> Dict[str, Any]:
+    """Narrative view for an op: ids plus linkage to profiles/signatures and health fields."""
     op_info = profiles_and_signatures_for_operation(op_name)
     coverage_full = _load_coverage_full()
     coverage = coverage_full.get("coverage") or {}
@@ -288,6 +313,7 @@ def operation_story(op_name: str) -> Dict[str, Any]:
 
 
 def profile_story(profile_id: str) -> Dict[str, Any]:
+    """Narrative view for a system profile, keeping canonical/coverage status visible."""
     digests = _load_json_from_manifest("system.digests")
     meta = digests.get("metadata") or {}
     profiles = digests.get("profiles") or {k: v for k, v in digests.items() if k != "metadata"}

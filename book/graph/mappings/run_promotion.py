@@ -33,6 +33,11 @@ GENERATOR_CMDS = {
 
 
 def run_validation(tags):
+    """
+    Run the validation harness with the requested tags before promotion.
+    This keeps promotion tied to the same evidence tiers used to vet the
+    mappings (smoke/system-profiles/etc.).
+    """
     cmd = [sys.executable, "-m", "book.graph.concepts.validation"]
     for tag in tags:
         cmd.extend(["--tag", tag])
@@ -40,6 +45,11 @@ def run_validation(tags):
 
 
 def main():
+    """
+    Dispatch generator scripts after a minimal validation pass. The default set
+    refreshes runtime signatures, system profile digests, and CARTON coverage +
+    indices in a single run.
+    """
     ap = argparse.ArgumentParser()
     ap.add_argument(
         "--generators",

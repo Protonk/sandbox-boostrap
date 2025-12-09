@@ -1,0 +1,40 @@
+{
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "version": 1,
+  "surfaces": [
+    {
+      "id": "bedrock:operation-vocabulary",
+      "name": "Operation and Filter vocabularies",
+      "status": "ok",
+      "mapping_paths": [
+        "book/graph/mappings/vocab/ops.json",
+        "book/graph/mappings/vocab/filters.json",
+        "book/graph/mappings/vocab/ops_coverage.json"
+      ],
+      "claims": "196 Operations and 93 Filters harvested from this host's libsandbox; IDs and names are fixed for this world.",
+      "limits": "Runtime coverage today is concentrated on file-read*, file-write*, and mach-lookup; other ops are vocab-only until probed."
+    },
+    {
+      "id": "bedrock:modern-tag-layouts",
+      "name": "Modern format/tag-layout subset",
+      "status": "ok",
+      "mapping_paths": [
+        "book/graph/mappings/tag_layouts/tag_layouts.json"
+      ],
+      "claims": "Modern compiled profile format with tag layouts for the literal/regex-bearing tags exercised by canonical system profiles.",
+      "limits": "Unmodeled tags and non-literal/regex payloads remain heuristic; covered layouts are bounded to the subset used in canonical profiles."
+    },
+    {
+      "id": "bedrock:canonical-system-profiles",
+      "name": "Canonical system profiles",
+      "status": "ok",
+      "mapping_paths": [
+        "book/graph/mappings/system_profiles/digests.json",
+        "book/graph/mappings/system_profiles/static_checks.json",
+        "book/graph/mappings/system_profiles/attestations.json"
+      ],
+      "claims": "Compiled blobs for sys:airlock, sys:bsd, and sys:sample with digests, static checks, and attestations tied to this world.",
+      "limits": "Apply gates limit end-to-end runtime on this host; drift demotes status until regenerated."
+    }
+  ]
+}

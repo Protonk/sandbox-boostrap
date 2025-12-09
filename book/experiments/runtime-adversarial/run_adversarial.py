@@ -74,7 +74,7 @@ def compile_profiles(specs: List[ProfileSpec]) -> Dict[str, Path]:
 
 def build_expected_matrix(world_id: str, specs: List[ProfileSpec], blobs: Dict[str, Path]) -> Dict[str, Any]:
     """Construct expected_matrix.json payload."""
-    probes_common = [
+    probes_common_read = [
         {
             "name": "allow-ok-root",
             "operation": "file-read*",
@@ -100,7 +100,33 @@ def build_expected_matrix(world_id: str, specs: List[ProfileSpec], blobs: Dict[s
             "expected": "deny",
         },
     ]
-    probes_edges = [
+    probes_common_write = [
+        {
+            "name": "write-ok-root",
+            "operation": "file-write*",
+            "target": "/tmp/runtime-adv/struct/ok/allowed.txt",
+            "expected": "allow",
+        },
+        {
+            "name": "write-ok-deep",
+            "operation": "file-write*",
+            "target": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
+            "expected": "allow",
+        },
+        {
+            "name": "write-blocked",
+            "operation": "file-write*",
+            "target": "/tmp/runtime-adv/struct/blocked.txt",
+            "expected": "deny",
+        },
+        {
+            "name": "write-outside",
+            "operation": "file-write*",
+            "target": "/tmp/runtime-adv/struct/outside.txt",
+            "expected": "deny",
+        },
+    ]
+    probes_edges_read = [
         {
             "name": "allow-tmp",
             "operation": "file-read*",
@@ -122,6 +148,32 @@ def build_expected_matrix(world_id: str, specs: List[ProfileSpec], blobs: Dict[s
         {
             "name": "deny-dotdot",
             "operation": "file-read*",
+            "target": "/tmp/runtime-adv/edges/okdir/../blocked.txt",
+            "expected": "deny",
+        },
+    ]
+    probes_edges_write = [
+        {
+            "name": "write-tmp",
+            "operation": "file-write*",
+            "target": "/tmp/runtime-adv/edges/a",
+            "expected": "allow",
+        },
+        {
+            "name": "write-private",
+            "operation": "file-write*",
+            "target": "/private/tmp/runtime-adv/edges/a",
+            "expected": "deny",
+        },
+        {
+            "name": "write-subpath",
+            "operation": "file-write*",
+            "target": "/tmp/runtime-adv/edges/okdir/item.txt",
+            "expected": "allow",
+        },
+        {
+            "name": "write-dotdot",
+            "operation": "file-write*",
             "target": "/tmp/runtime-adv/edges/okdir/../blocked.txt",
             "expected": "deny",
         },
@@ -161,13 +213,23 @@ def build_expected_matrix(world_id: str, specs: List[ProfileSpec], blobs: Dict[s
     matrix: Dict[str, Any] = {"world_id": world_id, "profiles": {}}
     for spec in specs:
         if spec.family == "structural_variants":
-            probes = probes_common
+            probes = probes_common_read + probes_common_write
         elif spec.family == "path_edges":
-            probes = probes_edges
+            probes = probes_edges_read + probes_edges_write
         elif spec.family == "mach_variants":
             probes = probes_mach
         elif spec.family == "mach_local":
             probes = probes_mach_local
+        elif spec.family == "network":
+            allow_expected = "allow" if "allow" in spec.key else "deny"
+            probes = [
+                {
+                    "name": "ping-loopback",
+                    "operation": "network-outbound",
+                    "target": "127.0.0.1",
+                    "expected": allow_expected,
+                }
+            ]
         else:
             probes = []
         profile_entry = {
@@ -347,6 +409,18 @@ def main() -> int:
             sbpl=SB_DIR / "mach_local_regex.sb",
             family="mach_local",
             semantic_group="mach:local-name-allow",
+        ),
+        ProfileSpec(
+            key="adv:net_outbound_allow",
+            sbpl=SB_DIR / "net_outbound_allow.sb",
+            family="network",
+            semantic_group="network:outbound-allow",
+        ),
+        ProfileSpec(
+            key="adv:net_outbound_deny",
+            sbpl=SB_DIR / "net_outbound_deny.sb",
+            family="network",
+            semantic_group="network:outbound-deny",
         ),
     ]
 

@@ -30,6 +30,15 @@ Concretely, “success” means that each concept has:
   - How concepts map to example code.
   - How concepts map to shared abstractions and mapping JSONs, and (when frozen) how they surface in CARTON as part of the host’s canonical IR web.
 
+### Current bedrock surfaces (navigation)
+
+This list mirrors the registry in `book/graph/concepts/BEDROCK_SURFACES.json`; that file is the source of truth for bedrock in this world. For navigation, the current set is:
+- Operation and Filter vocabularies in `book/graph/mappings/vocab/{ops.json,filters.json}`.
+- Modern format/tag-layout subset in `book/graph/mappings/tag_layouts/tag_layouts.json`.
+- Canonical system profiles (`sys:airlock`, `sys:bsd`, `sys:sample`) in `book/graph/mappings/system_profiles/{digests.json,static_checks.json,attestations.json}`.
+
+When you start a new concept cluster, add a 3–5 sentence “claims and limits” block near the top of its primary README/Report and keep it in sync with the actual witnesses and validation status.
+
 ## How to read this file
 
 - Use the **cluster overview** to see which evidence clusters are strong vs partial vs blocked.

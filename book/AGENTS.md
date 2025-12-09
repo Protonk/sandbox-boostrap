@@ -33,8 +33,12 @@ When in doubt, start with the AGENTS/README in the relevant subdirectory.
   - “What do we know about filter F?” → `filter_story(filter_name)` (usage_status marks current knowledge).
   - Errors: `UnknownOperationError` = typo/unknown op; `CartonDataError` = manifest/hash/mapping drift.
 
- Routing cheat-sheet:
+Routing cheat-sheet:
 - Runtime behavior: `python -m book.graph.concepts.validation --tag smoke` → consume `book/graph/mappings/runtime/runtime_signatures.json`.
 - Vocab: `python -m book.graph.concepts.validation --tag vocab` (or smoke) → consume `book/graph/mappings/vocab/{ops,filters}.json`.
 - System profiles: `python -m book.graph.concepts.validation --tag system-profiles` → consume `book/graph/mappings/system_profiles/digests.json`.
 - CARTON (frozen IR/mapping set): use `book/api/carton/CARTON.json` for stable Sonoma 14.4.1 IR/mappings; do not mutate listed files—add new experiments/IR/mappings separately. Prefer `book/api/carton/carton_query.py` (backed by the CARTON coverage and index mappings) for lookups; see `book/api/carton/README.md`, `AGENTS.md`, and `API.md`.
+
+## Validation tiers
+
+Treat every claim as belonging to a tier: **bedrock** (name it as bedrock and cite its mapping path; check `book/graph/concepts/BEDROCK_SURFACES.json` for the current set), **mapped-but-partial** (carry words like “partial”, “brittle”, or “under exploration” in prose/comments), or **substrate-only** (say there is no host witness yet and that the claim is substrate theory). If you make a claim that sounds global (“the sandbox does X”), also state which tier it is in; do not silently upgrade partial/brittle or substrate-only statements to bedrock.

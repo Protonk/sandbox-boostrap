@@ -1,0 +1,190 @@
+{
+  "file-read*": {
+    "probes": 12,
+    "matches": 10,
+    "mismatches": 2,
+    "examples": [
+      {
+        "profile": "adv:struct_flat",
+        "expectation_id": "adv:struct_flat:allow-ok-root",
+        "expected": "allow",
+        "actual": "allow",
+        "match": true
+      },
+      {
+        "profile": "adv:struct_flat",
+        "expectation_id": "adv:struct_flat:allow-ok-deep",
+        "expected": "allow",
+        "actual": "allow",
+        "match": true
+      },
+      {
+        "profile": "adv:struct_flat",
+        "expectation_id": "adv:struct_flat:deny-blocked",
+        "expected": "deny",
+        "actual": "deny",
+        "match": true
+      },
+      {
+        "profile": "adv:struct_flat",
+        "expectation_id": "adv:struct_flat:deny-outside",
+        "expected": "deny",
+        "actual": "deny",
+        "match": true
+      },
+      {
+        "profile": "adv:struct_nested",
+        "expectation_id": "adv:struct_nested:allow-ok-root",
+        "expected": "allow",
+        "actual": "allow",
+        "match": true
+      }
+    ],
+    "mismatch_details": [
+      {
+        "profile": "adv:path_edges",
+        "expectation_id": "adv:path_edges:allow-tmp",
+        "expected": "allow",
+        "actual": "deny",
+        "path": "/tmp/runtime-adv/edges/a"
+      },
+      {
+        "profile": "adv:path_edges",
+        "expectation_id": "adv:path_edges:allow-subpath",
+        "expected": "allow",
+        "actual": "deny",
+        "path": "/tmp/runtime-adv/edges/okdir/item.txt"
+      }
+    ]
+  },
+  "file-write*": {
+    "probes": 12,
+    "matches": 10,
+    "mismatches": 2,
+    "examples": [
+      {
+        "profile": "adv:struct_flat",
+        "expectation_id": "adv:struct_flat:write-ok-root",
+        "expected": "allow",
+        "actual": "allow",
+        "match": true
+      },
+      {
+        "profile": "adv:struct_flat",
+        "expectation_id": "adv:struct_flat:write-ok-deep",
+        "expected": "allow",
+        "actual": "allow",
+        "match": true
+      },
+      {
+        "profile": "adv:struct_flat",
+        "expectation_id": "adv:struct_flat:write-blocked",
+        "expected": "deny",
+        "actual": "deny",
+        "match": true
+      },
+      {
+        "profile": "adv:struct_flat",
+        "expectation_id": "adv:struct_flat:write-outside",
+        "expected": "deny",
+        "actual": "deny",
+        "match": true
+      },
+      {
+        "profile": "adv:struct_nested",
+        "expectation_id": "adv:struct_nested:write-ok-root",
+        "expected": "allow",
+        "actual": "allow",
+        "match": true
+      }
+    ],
+    "mismatch_details": [
+      {
+        "profile": "adv:path_edges",
+        "expectation_id": "adv:path_edges:write-tmp",
+        "expected": "allow",
+        "actual": "deny",
+        "path": "/tmp/runtime-adv/edges/a"
+      },
+      {
+        "profile": "adv:path_edges",
+        "expectation_id": "adv:path_edges:write-subpath",
+        "expected": "allow",
+        "actual": "deny",
+        "path": "/tmp/runtime-adv/edges/okdir/item.txt"
+      }
+    ]
+  },
+  "mach-lookup": {
+    "probes": 8,
+    "matches": 8,
+    "mismatches": 0,
+    "examples": [
+      {
+        "profile": "adv:mach_simple_allow",
+        "expectation_id": "adv:mach_simple_allow:allow-cfprefsd",
+        "expected": "allow",
+        "actual": "allow",
+        "match": true
+      },
+      {
+        "profile": "adv:mach_simple_allow",
+        "expectation_id": "adv:mach_simple_allow:deny-bogus",
+        "expected": "deny",
+        "actual": "deny",
+        "match": true
+      },
+      {
+        "profile": "adv:mach_simple_variants",
+        "expectation_id": "adv:mach_simple_variants:allow-cfprefsd",
+        "expected": "allow",
+        "actual": "allow",
+        "match": true
+      },
+      {
+        "profile": "adv:mach_simple_variants",
+        "expectation_id": "adv:mach_simple_variants:deny-bogus",
+        "expected": "deny",
+        "actual": "deny",
+        "match": true
+      },
+      {
+        "profile": "adv:mach_local_literal",
+        "expectation_id": "adv:mach_local_literal:allow-cfprefsd-local",
+        "expected": "allow",
+        "actual": "allow",
+        "match": true
+      }
+    ]
+  },
+  "network-outbound": {
+    "probes": 2,
+    "matches": 1,
+    "mismatches": 1,
+    "examples": [
+      {
+        "profile": "adv:net_outbound_allow",
+        "expectation_id": "adv:net_outbound_allow:ping-loopback",
+        "expected": "allow",
+        "actual": "deny",
+        "match": false
+      },
+      {
+        "profile": "adv:net_outbound_deny",
+        "expectation_id": "adv:net_outbound_deny:ping-loopback",
+        "expected": "deny",
+        "actual": "deny",
+        "match": true
+      }
+    ],
+    "mismatch_details": [
+      {
+        "profile": "adv:net_outbound_allow",
+        "expectation_id": "adv:net_outbound_allow:ping-loopback",
+        "expected": "allow",
+        "actual": "deny",
+        "path": "127.0.0.1"
+      }
+    ]
+  }
+}

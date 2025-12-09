@@ -166,6 +166,15 @@ def _extract_strings_with_offsets(buf: bytes, min_len: int = 4) -> List[Tuple[in
 
 
 def decode_profile(data: bytes, header_window: int = 128) -> DecodedProfile:
+    """
+    Heuristic decoder for modern compiled sandbox blobs: slices the preamble,
+    op-table, node region, and literal pool, then annotates nodes using any
+    known tag layouts (mappings/experiments) to give a PolicyGraph-shaped view.
+
+    Returns a DecodedProfile that mirrors the substrate story (preamble fields,
+    op_table entries, node tags/edges/payloads, literal pool slices) without
+    asserting correctness beyond the light validation included here.
+    """
     preamble = _read_words(data, 16)
     preamble_full = _read_words(data, header_window)
     header_bytes = data[:header_window]
@@ -313,7 +322,10 @@ def decode_profile(data: bytes, header_window: int = 128) -> DecodedProfile:
 
 
 def decode_profile_dict(data: bytes) -> Dict[str, Any]:
-    """Dict wrapper for JSON serialization."""
+    """
+    Dict wrapper for JSON serialization and downstream tooling that expects a
+    JSON-safe structure instead of DecodedProfile objects.
+    """
     d = decode_profile(data)
     return {
         "format_variant": d.format_variant,

@@ -45,6 +45,14 @@ Deliberately stress static↔runtime alignment for this host using adversarial S
 - Scope of claims: this justifies treating the static PolicyGraph IR as a bedrock stand-in for kernel enforcement for the covered ops on this host, but it is not a universal theorem over all 196 operations; for ops without `runtime_evidence: true` in `ops_coverage.json`, agents should design new probes or treat claims as more tentative.
 - Routing: when you need empirically grounded behavior for file-read*, file-write*, or mach-lookup on this world, treat the existing IR plus `runtime-adversarial` outputs (`expected_matrix.json`, `runtime_results.json`, `mismatch_summary.json`, `impact_map.json`) as canonical; when stepping outside those ops, consult `ops_coverage.json` and extend `runtime-adversarial` first.
 
+### Network-outbound (new family)
+- Added two simple profiles: `adv:net_outbound_allow` (deny default + allow network-outbound) and `adv:net_outbound_deny` (deny default).
+- Probe: `ping-loopback` (`network-outbound`, target 127.0.0.1) executed via `sandbox_runner` + `/sbin/ping`.
+- Results:
+  - `adv:net_outbound_allow`: expected `allow`, observed `deny` with `errno: -6`, match=false.
+  - `adv:net_outbound_deny`: expected `deny`, observed `deny` with `errno: -6`, match=true.
+- Interpretation: current ping-based probe is inconclusive for “allow” because the failure could be sandbox network gating or raw-socket requirements rather than a policy deny. Treat network-outbound coverage as `partial` until a better probe (e.g., TCP connect to a controlled listener) replaces ping.
+
 ## Next steps
 - Run `run_adversarial.py` to regenerate artifacts; inspect `mismatch_summary.json` and annotate `impact_map.json` for any mismatches.
 - Extend families (header/format toggles, field2/tag ambiguity, additional non-filesystem ops) once current cases are stable.

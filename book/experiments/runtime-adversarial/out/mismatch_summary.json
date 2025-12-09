@@ -31,9 +31,43 @@
         "subpath:/tmp/runtime-adv/edges/okdir"
       ],
       "static_reason": "subpath allow under /tmp/.../okdir; deny literal on .. sibling intended to catch traversal"
+    },
+    {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:path_edges",
+      "expectation_id": "adv:path_edges:write-tmp",
+      "operation": "file-write*",
+      "path": "/tmp/runtime-adv/edges/a",
+      "expected": "allow",
+      "actual": "deny",
+      "mismatch_type": "unexpected_deny",
+      "notes": "open target: Operation not permitted\n"
+    },
+    {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:path_edges",
+      "expectation_id": "adv:path_edges:write-subpath",
+      "operation": "file-write*",
+      "path": "/tmp/runtime-adv/edges/okdir/item.txt",
+      "expected": "allow",
+      "actual": "deny",
+      "mismatch_type": "unexpected_deny",
+      "notes": "open target: Operation not permitted\n"
+    },
+    {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:net_outbound_allow",
+      "expectation_id": "adv:net_outbound_allow:ping-loopback",
+      "operation": "network-outbound",
+      "path": "127.0.0.1",
+      "expected": "allow",
+      "actual": "deny",
+      "mismatch_type": "unexpected_deny",
+      "notes": ""
     }
   ],
   "counts": {
-    "path_normalization": 2
+    "path_normalization": 2,
+    "unexpected_deny": 3
   }
 }

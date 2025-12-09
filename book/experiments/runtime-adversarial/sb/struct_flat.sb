@@ -6,3 +6,9 @@
 (allow file-read* (subpath "/private/tmp/runtime-adv/struct/ok"))
 (deny file-read* (literal "/tmp/runtime-adv/struct/blocked.txt"))
 (deny file-read* (literal "/private/tmp/runtime-adv/struct/blocked.txt"))
+
+;; Mirror read semantics for writes so file-write* probes can share intent.
+(allow file-write* (subpath "/tmp/runtime-adv/struct/ok"))
+(allow file-write* (subpath "/private/tmp/runtime-adv/struct/ok"))
+(deny file-write* (literal "/tmp/runtime-adv/struct/blocked.txt"))
+(deny file-write* (literal "/private/tmp/runtime-adv/struct/blocked.txt"))

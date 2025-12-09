@@ -18,3 +18,20 @@
       (literal "/private/tmp/runtime-adv/struct/blocked.txt")
       (require-all (literal "/tmp/runtime-adv/struct/blocked.txt"))
       (require-all (literal "/private/tmp/runtime-adv/struct/blocked.txt")))))
+
+;; Mirror read semantics for writes using the same nested structure.
+(allow file-write*
+  (require-any
+    (require-all (subpath "/tmp/runtime-adv/struct/ok"))
+    (require-all (literal "/tmp/runtime-adv/struct/ok"))
+    (require-all (require-any (subpath "/tmp/runtime-adv/struct/ok")))
+    (require-all (subpath "/private/tmp/runtime-adv/struct/ok"))
+    (require-all (literal "/private/tmp/runtime-adv/struct/ok"))))
+
+(deny file-write*
+  (require-all
+    (require-any
+      (literal "/tmp/runtime-adv/struct/blocked.txt")
+      (literal "/private/tmp/runtime-adv/struct/blocked.txt")
+      (require-all (literal "/tmp/runtime-adv/struct/blocked.txt"))
+      (require-all (literal "/private/tmp/runtime-adv/struct/blocked.txt")))))

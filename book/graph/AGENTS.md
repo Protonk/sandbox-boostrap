@@ -28,6 +28,10 @@ High-level layout:
     - `runtime/` – runtime expectations/traces that are “golden” enough to depend on.
     - `dyld-libs/` – trimmed dyld slices used to derive vocab.
 
+## Bedrock navigation
+
+The current bedrock surfaces for this world are recorded in `book/graph/concepts/BEDROCK_SURFACES.json`; use that as the registry and cite mapping paths when you rely on them. The promotion narrative in `status/first-promotion/post-remediation.md` explains the initial justification.
+
 When in doubt:
 - New *code* that ingests or validates compiled profiles → `concepts/validation/`.
 - New *stable mappings* or “IR” that other code depends on → `mappings/` (with metadata and schema).

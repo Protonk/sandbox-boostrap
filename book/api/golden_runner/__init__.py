@@ -123,6 +123,11 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None) ->
             cmd = [str(MACH_PROBE), target]
         else:
             cmd = ["true"]
+    elif op == "network-outbound":
+        ping = Path("/sbin/ping")
+        if not ping.exists():
+            ping = Path("/bin/ping")
+        cmd = [str(ping), "-c", "1", target or "127.0.0.1"]
     elif op == "process-exec":
         cmd = ["true"]
     else:

@@ -91,6 +91,94 @@
         "exit_code": 2,
         "stdout": "",
         "stderr": "open target: Operation not permitted\n"
+      },
+      {
+        "name": "write-ok-root",
+        "expectation_id": "adv:struct_flat:write-ok-root",
+        "operation": "file-write*",
+        "path": "/tmp/runtime-adv/struct/ok/allowed.txt",
+        "expected": "allow",
+        "actual": "allow",
+        "match": true,
+        "runtime_result": {
+          "status": "success",
+          "errno": null
+        },
+        "violation_summary": null,
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_writer",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/struct_flat.adv_struct_flat.runtime.sb",
+          "/tmp/runtime-adv/struct/ok/allowed.txt"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "name": "write-ok-deep",
+        "expectation_id": "adv:struct_flat:write-ok-deep",
+        "operation": "file-write*",
+        "path": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
+        "expected": "allow",
+        "actual": "allow",
+        "match": true,
+        "runtime_result": {
+          "status": "success",
+          "errno": null
+        },
+        "violation_summary": null,
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_writer",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/struct_flat.adv_struct_flat.runtime.sb",
+          "/tmp/runtime-adv/struct/ok/deep/nested.txt"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "name": "write-blocked",
+        "expectation_id": "adv:struct_flat:write-blocked",
+        "operation": "file-write*",
+        "path": "/tmp/runtime-adv/struct/blocked.txt",
+        "expected": "deny",
+        "actual": "deny",
+        "match": true,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 2
+        },
+        "violation_summary": "EPERM",
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_writer",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/struct_flat.adv_struct_flat.runtime.sb",
+          "/tmp/runtime-adv/struct/blocked.txt"
+        ],
+        "exit_code": 2,
+        "stdout": "",
+        "stderr": "open target: Operation not permitted\n"
+      },
+      {
+        "name": "write-outside",
+        "expectation_id": "adv:struct_flat:write-outside",
+        "operation": "file-write*",
+        "path": "/tmp/runtime-adv/struct/outside.txt",
+        "expected": "deny",
+        "actual": "deny",
+        "match": true,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 2
+        },
+        "violation_summary": "EPERM",
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_writer",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/struct_flat.adv_struct_flat.runtime.sb",
+          "/tmp/runtime-adv/struct/outside.txt"
+        ],
+        "exit_code": 2,
+        "stdout": "",
+        "stderr": "open target: Operation not permitted\n"
       }
     ]
   },
@@ -118,7 +206,7 @@
           "/tmp/runtime-adv/struct/ok/allowed.txt"
         ],
         "exit_code": 0,
-        "stdout": "runtime-adv fixture for /tmp/runtime-adv/struct/ok/allowed.txt\n",
+        "stdout": "runtime-adv fixture for /tmp/runtime-adv/struct/ok/allowed.txt\nruntime-check\n",
         "stderr": ""
       },
       {
@@ -140,7 +228,7 @@
           "/tmp/runtime-adv/struct/ok/deep/nested.txt"
         ],
         "exit_code": 0,
-        "stdout": "runtime-adv fixture for /tmp/runtime-adv/struct/ok/deep/nested.txt\n",
+        "stdout": "runtime-adv fixture for /tmp/runtime-adv/struct/ok/deep/nested.txt\nruntime-check\n",
         "stderr": ""
       },
       {
@@ -180,6 +268,94 @@
         "violation_summary": "EPERM",
         "command": [
           "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_reader",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/struct_nested.adv_struct_nested.runtime.sb",
+          "/tmp/runtime-adv/struct/outside.txt"
+        ],
+        "exit_code": 2,
+        "stdout": "",
+        "stderr": "open target: Operation not permitted\n"
+      },
+      {
+        "name": "write-ok-root",
+        "expectation_id": "adv:struct_nested:write-ok-root",
+        "operation": "file-write*",
+        "path": "/tmp/runtime-adv/struct/ok/allowed.txt",
+        "expected": "allow",
+        "actual": "allow",
+        "match": true,
+        "runtime_result": {
+          "status": "success",
+          "errno": null
+        },
+        "violation_summary": null,
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_writer",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/struct_nested.adv_struct_nested.runtime.sb",
+          "/tmp/runtime-adv/struct/ok/allowed.txt"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "name": "write-ok-deep",
+        "expectation_id": "adv:struct_nested:write-ok-deep",
+        "operation": "file-write*",
+        "path": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
+        "expected": "allow",
+        "actual": "allow",
+        "match": true,
+        "runtime_result": {
+          "status": "success",
+          "errno": null
+        },
+        "violation_summary": null,
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_writer",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/struct_nested.adv_struct_nested.runtime.sb",
+          "/tmp/runtime-adv/struct/ok/deep/nested.txt"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "name": "write-blocked",
+        "expectation_id": "adv:struct_nested:write-blocked",
+        "operation": "file-write*",
+        "path": "/tmp/runtime-adv/struct/blocked.txt",
+        "expected": "deny",
+        "actual": "deny",
+        "match": true,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 2
+        },
+        "violation_summary": "EPERM",
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_writer",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/struct_nested.adv_struct_nested.runtime.sb",
+          "/tmp/runtime-adv/struct/blocked.txt"
+        ],
+        "exit_code": 2,
+        "stdout": "",
+        "stderr": "open target: Operation not permitted\n"
+      },
+      {
+        "name": "write-outside",
+        "expectation_id": "adv:struct_nested:write-outside",
+        "operation": "file-write*",
+        "path": "/tmp/runtime-adv/struct/outside.txt",
+        "expected": "deny",
+        "actual": "deny",
+        "match": true,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 2
+        },
+        "violation_summary": "EPERM",
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_writer",
           "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/struct_nested.adv_struct_nested.runtime.sb",
           "/tmp/runtime-adv/struct/outside.txt"
         ],
@@ -275,6 +451,94 @@
         "violation_summary": "EPERM",
         "command": [
           "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_reader",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/path_edges.adv_path_edges.runtime.sb",
+          "/tmp/runtime-adv/edges/okdir/../blocked.txt"
+        ],
+        "exit_code": 2,
+        "stdout": "",
+        "stderr": "open target: Operation not permitted\n"
+      },
+      {
+        "name": "write-tmp",
+        "expectation_id": "adv:path_edges:write-tmp",
+        "operation": "file-write*",
+        "path": "/tmp/runtime-adv/edges/a",
+        "expected": "allow",
+        "actual": "deny",
+        "match": false,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 2
+        },
+        "violation_summary": "EPERM",
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_writer",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/path_edges.adv_path_edges.runtime.sb",
+          "/tmp/runtime-adv/edges/a"
+        ],
+        "exit_code": 2,
+        "stdout": "",
+        "stderr": "open target: Operation not permitted\n"
+      },
+      {
+        "name": "write-private",
+        "expectation_id": "adv:path_edges:write-private",
+        "operation": "file-write*",
+        "path": "/private/tmp/runtime-adv/edges/a",
+        "expected": "deny",
+        "actual": "deny",
+        "match": true,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 2
+        },
+        "violation_summary": "EPERM",
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_writer",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/path_edges.adv_path_edges.runtime.sb",
+          "/private/tmp/runtime-adv/edges/a"
+        ],
+        "exit_code": 2,
+        "stdout": "",
+        "stderr": "open target: Operation not permitted\n"
+      },
+      {
+        "name": "write-subpath",
+        "expectation_id": "adv:path_edges:write-subpath",
+        "operation": "file-write*",
+        "path": "/tmp/runtime-adv/edges/okdir/item.txt",
+        "expected": "allow",
+        "actual": "deny",
+        "match": false,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 2
+        },
+        "violation_summary": "EPERM",
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_writer",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/path_edges.adv_path_edges.runtime.sb",
+          "/tmp/runtime-adv/edges/okdir/item.txt"
+        ],
+        "exit_code": 2,
+        "stdout": "",
+        "stderr": "open target: Operation not permitted\n"
+      },
+      {
+        "name": "write-dotdot",
+        "expectation_id": "adv:path_edges:write-dotdot",
+        "operation": "file-write*",
+        "path": "/tmp/runtime-adv/edges/okdir/../blocked.txt",
+        "expected": "deny",
+        "actual": "deny",
+        "match": true,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 2
+        },
+        "violation_summary": "EPERM",
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_writer",
           "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/path_edges.adv_path_edges.runtime.sb",
           "/tmp/runtime-adv/edges/okdir/../blocked.txt"
         ],
@@ -501,6 +765,73 @@
         ],
         "exit_code": 1,
         "stdout": "{\"kr\":1102}\n",
+        "stderr": ""
+      }
+    ]
+  },
+  "adv:net_outbound_allow": {
+    "status": "partial",
+    "profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/net_outbound_allow.adv_net_outbound_allow.runtime.sb",
+    "base_profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/net_outbound_allow.sb",
+    "probes": [
+      {
+        "name": "ping-loopback",
+        "expectation_id": "adv:net_outbound_allow:ping-loopback",
+        "operation": "network-outbound",
+        "path": "127.0.0.1",
+        "expected": "allow",
+        "actual": "deny",
+        "match": false,
+        "runtime_result": {
+          "status": "errno",
+          "errno": -6
+        },
+        "violation_summary": null,
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_runner",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/net_outbound_allow.adv_net_outbound_allow.runtime.sb",
+          "--",
+          "/sbin/ping",
+          "-c",
+          "1",
+          "127.0.0.1"
+        ],
+        "exit_code": -6,
+        "stdout": "",
+        "stderr": ""
+      }
+    ],
+    "notes": "runtime results diverged from expected allow/deny matrix"
+  },
+  "adv:net_outbound_deny": {
+    "status": "ok",
+    "profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/net_outbound_deny.adv_net_outbound_deny.runtime.sb",
+    "base_profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/net_outbound_deny.sb",
+    "probes": [
+      {
+        "name": "ping-loopback",
+        "expectation_id": "adv:net_outbound_deny:ping-loopback",
+        "operation": "network-outbound",
+        "path": "127.0.0.1",
+        "expected": "deny",
+        "actual": "deny",
+        "match": true,
+        "runtime_result": {
+          "status": "errno",
+          "errno": -6
+        },
+        "violation_summary": null,
+        "command": [
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/sandbox_runner",
+          "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/net_outbound_deny.adv_net_outbound_deny.runtime.sb",
+          "--",
+          "/sbin/ping",
+          "-c",
+          "1",
+          "127.0.0.1"
+        ],
+        "exit_code": -6,
+        "stdout": "",
         "stderr": ""
       }
     ]

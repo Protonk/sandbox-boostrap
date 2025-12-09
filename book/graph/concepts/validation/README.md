@@ -28,6 +28,7 @@ Jobs are registered in `registry.py`; add new ones next to the decode/ingestion 
 Status schema (applies to `validation_status.json` and per-experiment status files):
 - `job_id` (string), `status` (`ok[-unchanged|-changed]|partial|brittle|blocked|skipped`), `host` (object), `inputs` (list of paths), `outputs` (list of paths), `tags` (list of strings), optional `notes`, `metrics`, `hashes`, `change`.
 - Meta check: `python -m book.graph.concepts.validation --tag meta` runs `validation:schema-check` to assert status files follow this schema.
+- If a job downgrades from `ok` to `partial`/`brittle`, note it in the job’s README/Report and scan for mappings that consume it; regenerate or explicitly tolerate the downgrade rather than silently continuing to trust `ok`.
 
 Smoke tag:
 - `python -m book.graph.concepts.validation --tag smoke` runs the core fast jobs (vocab:sonoma-14.4.1 + experiment:field2 + experiment:runtime-checks) as a default pre-promotion gate. `tag:golden` marks canonical jobs.

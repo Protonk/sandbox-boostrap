@@ -37,6 +37,9 @@ This loop repeats. Do not treat “one run” as complete. Prefer several small 
 * Respect the substrate and invariants  
   Use the Concepts and State documents as constraints. If an experiment appears to contradict an invariant, treat that as a tension to investigate, not something to be patched over. Do not rewrite definitions to fit your latest result.
 
+* Require a witness before leaning on a concept  
+  Before treating a concept cluster as more than substrate theory, make sure there is at least one host-specific witness artifact (mapping, decoded profile, experiment report, runtime trace). Example: for the Operation vocabulary, the witness is the harvested name table under `book/experiments/vocab-from-cache/out/` paired with the promoted `book/graph/mappings/vocab/ops.json`.
+
 * Maintain validation status honestly  
   Each experiment has a validation status (`ok`, `partial`, `blocked`, `brittle`). Update this based on actual runs, not on how convincing the narrative feels. Do not silently upgrade `partial` or `brittle` results to `ok` without new evidence.
 

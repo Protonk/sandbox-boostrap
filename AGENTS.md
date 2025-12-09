@@ -10,6 +10,10 @@ If you stay within this world—substrate definitions, host-specific artifacts, 
 
 When the simplest honest answer is “we don’t know yet” or “current evidence is inconsistent,” say that explicitly and point to the experiments or mappings that bound that ignorance.
 
+## Validation tiers
+
+Every claim belongs to a tier: **bedrock** (call it bedrock and cite the mapping path; see `book/graph/concepts/BEDROCK_SURFACES.json` for the current set), **mapped-but-partial** (label it “partial”, “brittle”, or “under exploration” in text/comments), or **substrate-only** (state that there is no host witness yet and this is a substrate hypothesis). If you quote a claim that sounds global (“the sandbox does X”), also say which tier it is in; do not silently upgrade partial/brittle or substrate-only statements to bedrock.
+
 ## World and scope
 
 - The world is a single host baseline:

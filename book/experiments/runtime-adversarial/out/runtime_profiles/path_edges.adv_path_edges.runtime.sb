@@ -6,6 +6,12 @@
 (deny file-read* (literal "/private/tmp/runtime-adv/edges/a"))
 (allow file-read* (subpath "/tmp/runtime-adv/edges/okdir"))
 (deny file-read* (literal "/tmp/runtime-adv/edges/okdir/../blocked.txt"))
+
+;; Mirror read rules for writes so file-write* probes can reuse the same edges.
+(allow file-write* (literal "/tmp/runtime-adv/edges/a"))
+(deny file-write* (literal "/private/tmp/runtime-adv/edges/a"))
+(allow file-write* (subpath "/tmp/runtime-adv/edges/okdir"))
+(deny file-write* (literal "/tmp/runtime-adv/edges/okdir/../blocked.txt"))
 (allow process-exec*)
 (allow file-read* (subpath "/System"))
 (allow file-read* (subpath "/usr"))
