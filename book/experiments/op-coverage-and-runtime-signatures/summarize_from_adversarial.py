@@ -3,11 +3,20 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
-RUNTIME_RESULTS = ROOT / "book" / "experiments" / "runtime-adversarial" / "out" / "runtime_results.json"
 OUT_DIR = Path(__file__).resolve().parent / "out"
 OUT_DIR.mkdir(exist_ok=True)
 
-with RUNTIME_RESULTS.open() as f:
+LOCAL_RESULTS = OUT_DIR / "runtime_results.json"
+RUNTIME_RESULTS_SRC = ROOT / "book" / "experiments" / "runtime-adversarial" / "out" / "runtime_results.json"
+
+if LOCAL_RESULTS.exists():
+    runtime_results_path = LOCAL_RESULTS
+elif RUNTIME_RESULTS_SRC.exists():
+    runtime_results_path = RUNTIME_RESULTS_SRC
+else:
+    raise FileNotFoundError("No runtime_results.json found in local out/ or runtime-adversarial/out/. Run harvest_runtime_artifacts.py after runtime-adversarial.")
+
+with runtime_results_path.open() as f:
     data = json.load(f)
 
 summary = {}

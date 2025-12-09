@@ -59,11 +59,11 @@
       "profile_id": "adv:net_outbound_allow",
       "expectation_id": "adv:net_outbound_allow:tcp-loopback",
       "operation": "network-outbound",
-      "path": "127.0.0.1:63251",
+      "path": "127.0.0.1:62510",
       "expected": "allow",
       "actual": "deny",
       "mismatch_type": "unexpected_deny",
-      "notes": "Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n  File \"<frozen importlib._bootstrap>\", line 1007, in _find_and_load\n  File \"<frozen importlib._bootstrap>\", line 982, in _find_and_load_unlocked\n  File \"<frozen importlib._bootstrap>\", line 925, in _find_spec\n  File \"<frozen importlib._bootstrap_external>\", line 1414, in find_spec\n  File \"<frozen importlib._bootstrap_external>\", line 1383, in _get_spec\n  File \"<frozen importlib._bootstrap_external>\", line 1347, in _path_importer_cache\nPermissionError: [Errno 1] Operation not permitted\n"
+      "notes": "xcode-select: error: unable to read data link at '/var/select/developer_dir', expected symbolic link (Operation not permitted)\nxcode-select: error: No developer tools were found and no install could be requested (possibly because there is no active GUI session).\nIf developer tools are located at a non-default location on disk, use `sudo xcode-select --switch path/to/Xcode.app` to specify the Xcode that you wish to use for command line developer tools.\nUse `xcode-select --install` to install the standalone command line developer tools, or visit http://adc.apple.com to download Xcode or the standalone command line tools installation package.\nSee `man xcode-select` for more details.\n"
     }
   ],
   "counts": {

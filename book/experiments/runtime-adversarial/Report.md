@@ -46,12 +46,12 @@ Deliberately stress static↔runtime alignment for this host using adversarial S
 - Routing: when you need empirically grounded behavior for file-read*, file-write*, or mach-lookup on this world, treat the existing IR plus `runtime-adversarial` outputs (`expected_matrix.json`, `runtime_results.json`, `mismatch_summary.json`, `impact_map.json`) as canonical; when stepping outside those ops, consult `ops_coverage.json` and extend `runtime-adversarial` first.
 
 ### Network-outbound (new family)
-- Added two simple profiles: `adv:net_outbound_allow` (deny default + allow network-outbound) and `adv:net_outbound_deny` (deny default).
-- Probe: `ping-loopback` (`network-outbound`, target 127.0.0.1) executed via `sandbox_runner` + `/sbin/ping`.
+- Profiles: `adv:net_outbound_allow` (deny default + allow network-outbound) and `adv:net_outbound_deny` (deny default).
+- Probe: TCP loopback connect to a harness-started listener on 127.0.0.1 (replaced earlier ping probe to avoid raw-socket requirements).
 - Results:
-  - `adv:net_outbound_allow`: expected `allow`, observed `deny` with `errno: -6`, match=false.
-  - `adv:net_outbound_deny`: expected `deny`, observed `deny` with `errno: -6`, match=true.
-- Interpretation: current ping-based probe is inconclusive for “allow” because the failure could be sandbox network gating or raw-socket requirements rather than a policy deny. Treat network-outbound coverage as `partial` until a better probe (e.g., TCP connect to a controlled listener) replaces ping.
+  - `adv:net_outbound_allow`: expected `allow`, observed `deny` (unexpected_deny) on TCP connect.
+  - `adv:net_outbound_deny`: expected `deny`, observed `deny` (match).
+- Interpretation: even with a TCP probe the allow profile denies; likely due to sandboxed client lacking ancillary allows rather than a decoded-policy deny. Network-outbound remains `partial`; needs a clearer allow-path probe (e.g., dedicated client binary or adjusted harness shims) before treating this op as runtime-backed.
 
 ## Next steps
 - Run `run_adversarial.py` to regenerate artifacts; inspect `mismatch_summary.json` and annotate `impact_map.json` for any mismatches.

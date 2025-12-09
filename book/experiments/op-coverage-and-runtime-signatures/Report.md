@@ -19,6 +19,7 @@ Future work can extend this pattern to more operations and tie it directly into 
   - `adv:struct_flat`, `adv:struct_nested`, `adv:path_edges` (filesystem).
   - `adv:mach_simple_allow`, `adv:mach_simple_variants`, `adv:mach_local_literal`, `adv:mach_local_regex` (mach).
 - Inputs: expected/runtime matrices in `book/experiments/runtime-adversarial/out/{expected_matrix.json,runtime_results.json}`.
+- Local copies: `harvest_runtime_artifacts.py` copies `runtime_results.json`, `expected_matrix.json`, `mismatch_summary.json`, and `impact_map.json` into this suite’s `out/` for downstream summarization.
 - Outputs (this suite): aggregated per-op summary in `book/experiments/op-coverage-and-runtime-signatures/out/op_runtime_summary.json`.
 
 Scope today: only `file-read*` and `mach-lookup`, because that is what the upstream adversarial suite currently probes.
@@ -29,9 +30,13 @@ Scope today: only `file-read*` and `mach-lookup`, because that is what the upstr
    - Command: `python book/experiments/runtime-adversarial/run_adversarial.py`.
    - This compiles SBPL profiles, runs them under `sandbox_reader`/`sandbox_runner`, and writes detailed results to `runtime_results.json` (per profile, per probe: operation, path/name, expected vs actual verdict, errno, stdout/stderr).
 
-2. **Summarize by operation**
+2. **Harvest runtime outputs locally**
+   - Command: `python book/experiments/op-coverage-and-runtime-signatures/harvest_runtime_artifacts.py`.
+   - Copies `runtime_results.json` (and expected/mismatch JSONs) from `runtime-adversarial/out/` into this suite’s `out/` to make the per-op summary independent of the sibling directory.
+
+3. **Summarize by operation**
    - Command: `python book/experiments/op-coverage-and-runtime-signatures/summarize_from_adversarial.py`.
-   - This script reads `runtime_results.json`, groups probes by the `"operation"` field, and counts for each op:
+   - This script reads the local `out/runtime_results.json`, groups probes by the `"operation"` field, and counts for each op:
      - total probes,
      - how many matched expectations (`expected == actual` and `match: true`),
      - how many mismatched, with a small list of example probes and a richer `mismatch_details` block.
@@ -64,9 +69,9 @@ From the latest run described in `Notes.md`:
 
 - `network-outbound`
   - 2 probes (one per network profile).
-  - `adv:net_outbound_allow`: expected allow, observed deny (`errno: -6` from `/sbin/ping` under sandbox_runner), mismatch.
-  - `adv:net_outbound_deny`: expected deny, observed deny (`errno: -6`), match.
-  - Interpretation: ping-based probe is inconclusive for “allow”; likely blocked by sandbox or raw-socket requirements rather than a decoder/runtime mismatch. Network-outbound remains `partial` until a better probe (e.g., TCP connect to a controlled listener) is added.
+  - `adv:net_outbound_allow`: expected allow, observed deny on TCP connect to a harness-started loopback listener (mismatch; stderr now shows xcode-select path denial, suggesting harness/client constraints).
+  - `adv:net_outbound_deny`: expected deny, observed deny (match).
+  - Interpretation: even the TCP probe denies under the allow profile, suggesting harness/client constraints rather than a clear PolicyGraph deny. Network-outbound remains `partial` until a clearer allow-path probe (e.g., dedicated client binary or adjusted shims) is added.
 
 These counts and examples are reflected directly in `out/op_runtime_summary.json`.
 

@@ -6,8 +6,8 @@ These instructions apply to the entire `book/graph/` tree. Treat this directory 
 
 High-level layout:
 
-- `Package.swift`, `sources/`
-  - Swift entrypoint(s) for graph-related tooling. Keep these thin wrappers over the Python/JSON IR: they should orchestrate, not re-implement, ingestion or mapping logic.
+- `Package.swift`, `swift/`
+  - Swift entrypoint(s) for graph-related tooling. Keep these thin wrappers over the Python/JSON IR: they should orchestrate, not re-implement, ingestion or mapping logic. Encode “always enforced” mapping invariants as Swift data structures here so drift is caught by the Swift build.
 
 - `concepts/`
   - `CONCEPT_INVENTORY.md`, `concepts.json`, `concept_map.json`, `concept_text_map.json`:
@@ -44,8 +44,8 @@ Use this pattern to extend the Swift generator/validator:
 - Pick one schema slice to cover (e.g., runtime expectations, vocab attestations, concept→text bindings).
 - Add Swift types that mirror the JSON shape and small validators (status enums, required IDs).
 - Parse inputs, reuse generated `concepts.json` for ID checks, and emit a report under `book/graph/concepts/validation/` instead of failing silently.
-- Document the new coverage in `book/graph/README.md` (inputs/outputs, how to run).
-- Run `swift run` to regenerate outputs and the validation report; review before committing.
+- Document the new coverage in `book/graph/README.md` and `book/graph/swift/README.md` (inputs/outputs, how to run).
+- Run `swift run` (or `make -C book test`, which calls the Swift build; `make -C book build` does the same with a pinned module cache). `make -C book clean` wipes SwiftPM/.build/module caches and CI stamps if you need a fresh start.
 
 ---
 

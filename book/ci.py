@@ -82,7 +82,7 @@ def run_python_harness() -> None:
 def run_swift_build() -> None:
     inputs = [
         ROOT / "graph" / "Package.swift",
-        ROOT / "graph" / "sources",
+        ROOT / "graph" / "swift",
     ]
     env = os.environ.copy()
     env["SWIFT_BIN"] = env.get("SWIFT", "swift")

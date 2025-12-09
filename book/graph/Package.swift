@@ -10,8 +10,8 @@ let package = Package(
         // Targets can depend on other targets in this package and products from dependencies.
         .executableTarget(
             name: "BookGraph",
-            path: "sources",
-            exclude: ["AGENTS.md"]
+            path: "swift",
+            exclude: ["AGENTS.md", "README.md"]
         ),
     ]
 )

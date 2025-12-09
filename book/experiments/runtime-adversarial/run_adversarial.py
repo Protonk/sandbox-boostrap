@@ -8,7 +8,9 @@ compiles SBPL → blob, runs runtime probes via golden_runner, and emits mismatc
 from __future__ import annotations
 
 import json
+import socketserver
 import sys
+import threading
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
@@ -60,6 +62,26 @@ def ensure_fixture_files() -> None:
         path.write_text(f"runtime-adv fixture for {path}\n")
 
 
+def start_loopback_server() -> Tuple[socketserver.TCPServer, int]:
+    """Start a simple TCP listener on 127.0.0.1 that accepts and replies."""
+
+    class Handler(socketserver.BaseRequestHandler):
+        def handle(self) -> None:
+            try:
+                _ = self.request.recv(16)
+                self.request.sendall(b"ok")
+            except Exception:
+                pass
+
+    class ReusableTCPServer(socketserver.TCPServer):
+        allow_reuse_address = True
+
+    srv: socketserver.TCPServer = ReusableTCPServer(("127.0.0.1", 0), Handler)
+    thread = threading.Thread(target=srv.serve_forever, daemon=True)
+    thread.start()
+    return srv, srv.server_address[1]
+
+
 def compile_profiles(specs: List[ProfileSpec]) -> Dict[str, Path]:
     """Compile SBPL profiles to blobs under sb/build and return a map of key -> blob path."""
     BUILD_DIR.mkdir(parents=True, exist_ok=True)
@@ -72,7 +94,9 @@ def compile_profiles(specs: List[ProfileSpec]) -> Dict[str, Path]:
     return blob_paths
 
 
-def build_expected_matrix(world_id: str, specs: List[ProfileSpec], blobs: Dict[str, Path]) -> Dict[str, Any]:
+def build_expected_matrix(
+    world_id: str, specs: List[ProfileSpec], blobs: Dict[str, Path], network_target: str | None = None
+) -> Dict[str, Any]:
     """Construct expected_matrix.json payload."""
     probes_common_read = [
         {
@@ -224,9 +248,9 @@ def build_expected_matrix(world_id: str, specs: List[ProfileSpec], blobs: Dict[s
             allow_expected = "allow" if "allow" in spec.key else "deny"
             probes = [
                 {
-                    "name": "ping-loopback",
+                    "name": "tcp-loopback",
                     "operation": "network-outbound",
-                    "target": "127.0.0.1",
+                    "target": network_target or "127.0.0.1",
                     "expected": allow_expected,
                 }
             ]
@@ -367,6 +391,14 @@ def update_adversarial_summary(world_id: str, matrix: Dict[str, Any], summary: D
 def main() -> int:
     world_id = load_world_id()
     ensure_fixture_files()
+    loopback_srv = None
+    loopback_target = None
+    try:
+        loopback_srv, loopback_port = start_loopback_server()
+        loopback_target = f"127.0.0.1:{loopback_port}"
+    except Exception:
+        loopback_srv = None
+        loopback_target = None
     specs = [
         ProfileSpec(
             key="adv:struct_flat",
@@ -425,11 +457,12 @@ def main() -> int:
     ]
 
     blobs = compile_profiles(specs)
-    matrix = build_expected_matrix(world_id, specs, blobs)
+    matrix = build_expected_matrix(world_id, specs, blobs, network_target=loopback_target)
     matrix_path = OUT_DIR / "expected_matrix.json"
     write_json(matrix_path, matrix)
 
     profile_paths = {spec.key: spec.sbpl for spec in specs}
+    # No extra key-specific rules here; allow/deny profiles bake their own process-exec pins.
     runtime_out = golden_runner.run_expected_matrix(matrix_path, out_dir=OUT_DIR, profile_paths=profile_paths)
     summary = compare_results(matrix_path, runtime_out, world_id)
 
@@ -438,6 +471,9 @@ def main() -> int:
         write_json(impact_map, {})
 
     update_adversarial_summary(world_id, matrix, summary)
+    if loopback_srv:
+        loopback_srv.shutdown()
+        loopback_srv.server_close()
     return 0
 
 

@@ -7,6 +7,7 @@ What it does (current):
 - Emits JSON: `book/graph/concepts/{concepts.json,concept_map.json,concept_text_map.json}`, `book/graph/concepts/validation/{strategies.json,validation_report.json}`, `book/examples/examples.json`.
 - Runs light validation (concept IDs referenced by strategies and runtime expectations exist) and writes `book/graph/concepts/validation/validation_report.json`.
 - Feeds stable mappings into CARTON (see `book/api/carton/CARTON.json`), which is the frozen IR/mapping set that the textbook and API layer query.
+- Encodes “always enforced” mapping invariants as Swift data structures; the Swift build fails if the host mappings drift (see `swift/`).
 
 How to run:
 ```
@@ -19,9 +20,10 @@ Extending it:
 - Add new Swift types for the JSON slice you want to validate (e.g., attestations, runtime manifests).
 - Parse and validate against the generated `concepts.json` and host manifests.
 - Emit a small report under `book/graph/concepts/validation/` rather than failing silently.
+ - Keep static mapping invariants (vocab/coverage/digests/tag layouts/manifest/literal expectations) in Swift so drift is caught by `make -C book test`.
 
 Directory map (agent quick reference):
-- `sources/` – Swift generator/validator (see `main.swift`).
+- `swift/` – Swift generator/validator, split by concern (types/utils, concept parsing, strategies, examples, bindings, entrypoint).
 - `concepts/` – Concept inventory source (markdown), generated JSON, validation metadata, and Swift validation reports.
 - `mappings/` – Stable host-specific IR (vocab, op_table, anchors, tag_layouts, system_profiles, runtime) that mapping generators normalize into CARTON-facing artifacts.
 - `carton/` – CARTON manifest and helpers that declare which mappings/IR files are treated as the frozen set for this host.

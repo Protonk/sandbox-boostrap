@@ -31,6 +31,8 @@ def test_adversarial_artifacts_present_and_annotated():
         "adv:mach_simple_variants",
         "adv:mach_local_literal",
         "adv:mach_local_regex",
+        "adv:net_outbound_allow",
+        "adv:net_outbound_deny",
     }
     # Shapes must stay aligned.
     assert set(runtime_results.keys()) == set(expected_matrix.get("profiles", {}).keys())

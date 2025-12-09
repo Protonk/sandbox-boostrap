@@ -1,4 +1,28 @@
 (version 1)
 (deny default)
 
-;; Explicitly deny outbound network (no allow rules).
+;; Generic OS plumbing expected by CLI tools.
+(allow iokit-open)
+(allow mach* sysctl-read)
+(allow file-ioctl)
+(allow file-read-metadata)
+
+;; Minimal file access so binaries can launch and load dylibs/config.
+(allow file-read-data
+  (literal "/")
+  (subpath "/System")
+  (subpath "/usr")
+  (subpath "/Library")
+  (subpath "/private")
+  (subpath "/dev")
+)
+
+;; Pin the client we intend to exec.
+(allow process-exec
+  (literal "/usr/bin/nc")
+)
+
+;; Optional temp writes for symmetry with allow profile; no network allows.
+(allow file-write*
+  (subpath "/private/tmp")
+)

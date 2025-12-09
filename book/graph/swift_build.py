@@ -11,7 +11,7 @@ import sys
 
 
 def main() -> int:
-    cmd = [os.environ.get("SWIFT_BIN", "swift"), "build"]
+    cmd = [os.environ.get("SWIFT_BIN", "swift"), "build", "--disable-sandbox"]
     proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     out, err = proc.communicate()
 

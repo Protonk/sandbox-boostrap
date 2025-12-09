@@ -164,14 +164,14 @@
     "examples": [
       {
         "profile": "adv:net_outbound_allow",
-        "expectation_id": "adv:net_outbound_allow:ping-loopback",
+        "expectation_id": "adv:net_outbound_allow:tcp-loopback",
         "expected": "allow",
         "actual": "deny",
         "match": false
       },
       {
         "profile": "adv:net_outbound_deny",
-        "expectation_id": "adv:net_outbound_deny:ping-loopback",
+        "expectation_id": "adv:net_outbound_deny:tcp-loopback",
         "expected": "deny",
         "actual": "deny",
         "match": true
@@ -180,10 +180,10 @@
     "mismatch_details": [
       {
         "profile": "adv:net_outbound_allow",
-        "expectation_id": "adv:net_outbound_allow:ping-loopback",
+        "expectation_id": "adv:net_outbound_allow:tcp-loopback",
         "expected": "allow",
         "actual": "deny",
-        "path": "127.0.0.1"
+        "path": "127.0.0.1:62510"
       }
     ]
   }

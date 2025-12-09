@@ -1,5 +1,32 @@
 (version 1)
 (deny default)
 
-;; Allow outbound network probes (ping localhost as a cheap reachability test).
+;; Generic OS plumbing expected by CLI tools.
+(allow iokit-open)
+(allow mach* sysctl-read)
+(allow file-ioctl)
+(allow file-read-metadata)
+
+;; Minimal file access so binaries can launch and load dylibs/config.
+(allow file-read-data
+  (literal "/")
+  (subpath "/System")
+  (subpath "/usr")
+  (subpath "/Library")
+  (subpath "/private")
+  (subpath "/dev")
+)
+
+;; Allow system socket plumbing and outbound network to loopback.
+(allow system-socket)
 (allow network-outbound)
+
+;; Pin the client we intend to exec.
+(allow process-exec
+  (literal "/usr/bin/nc")
+)
+
+;; Optional temp writes for well-behaved CLIs.
+(allow file-write*
+  (subpath "/private/tmp")
+)
