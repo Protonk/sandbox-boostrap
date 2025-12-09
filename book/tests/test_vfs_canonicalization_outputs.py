@@ -32,3 +32,29 @@ def test_vfs_expected_and_runtime_shapes():
     # Ensure we have runtime observations for all profiles we planned for.
     assert expected_profiles.issubset(result_profiles), "missing runtime results for some profiles in expected_matrix"
 
+
+def test_vfs_semantic_pattern():
+    """Semantic guardrail: coarse allow/deny pattern per profile should remain stable on this world."""
+    res_path = ROOT / "book" / "experiments" / "vfs-canonicalization" / "out" / "runtime_results.json"
+    results = load_json(res_path)
+
+    def decisions_for(profile_id: str):
+        return {
+            (row["requested_path"], row["decision"])
+            for row in results
+            if row.get("profile_id") == profile_id
+        }
+
+    tmp_only = decisions_for("vfs_tmp_only")
+    priv_only = decisions_for("vfs_private_tmp_only")
+    both = decisions_for("vfs_both_paths")
+
+    assert ("/tmp/foo", "deny") in tmp_only and ("/private/tmp/foo", "deny") in tmp_only, (
+        "vfs_tmp_only should deny both /tmp/foo and /private/tmp/foo on this world"
+    )
+    assert ("/tmp/foo", "allow") in priv_only and ("/private/tmp/foo", "allow") in priv_only, (
+        "vfs_private_tmp_only should allow both /tmp/foo and /private/tmp/foo on this world"
+    )
+    assert ("/tmp/foo", "allow") in both and ("/private/tmp/foo", "allow") in both, (
+        "vfs_both_paths should allow both /tmp/foo and /private/tmp/foo on this world"
+    )

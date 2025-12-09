@@ -75,10 +75,11 @@ IR path:
 - `Plan.md` (this file) encodes the question, design, and JSON shapes.
 - `run_vfs.py` (harness script) will:
   - compile profiles,
-  - emit `out/expected_matrix.json` (simple expectations),
+  - emit `out/expected_matrix.json` (simple, pre-run expectations scoped to this experiment),
   - build a harness-specific matrix and call `book.api.runtime_harness.runner.run_expected_matrix`,
-  - down-convert the harness runtime results into `out/runtime_results.json`,
-  - emit `out/decode_tmp_profiles.json` via `book/api/decoder`.
+  - down-convert the harness runtime results into `out/runtime_results.json` (authoritative runtime behavior for this suite on this world),
+  - emit `out/decode_tmp_profiles.json` via `book/api/decoder` (structural view),
+  - emit a small `out/mismatch_summary.json` that classifies each profile’s behavior (“canonicalization” vs “control”) for downstream readers.
 
 ## JSON schema sketches
 
@@ -145,6 +146,28 @@ These sketches are informal; tests will check that the actual JSONs obey the sam
           "field2_values": []
         }
       ]
+    }
+  }
+  ```
+
+- `out/mismatch_summary.json` – coarse classification:
+
+  ```jsonc
+  {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "profiles": {
+      "vfs_tmp_only": {
+        "kind": "canonicalization",
+        "note": "Profile mentions only /tmp/foo; both /tmp/foo and /private/tmp/foo are denied; interpreted as canonicalization-before-enforcement, literal /tmp/foo ineffective."
+      },
+      "vfs_private_tmp_only": {
+        "kind": "canonicalization",
+        "note": "Profile mentions only /private/tmp/foo; both requests allowed; literal on canonical path effective."
+      },
+      "vfs_both_paths": {
+        "kind": "control",
+        "note": "Profile mentions both paths; both requests allowed; control confirming canonical behavior."
+      }
     }
   }
   ```

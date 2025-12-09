@@ -204,6 +204,38 @@ def decode_profiles(blobs: Dict[str, Path]) -> Path:
     return out_path
 
 
+def emit_mismatch_summary(world_id: str) -> Path:
+    """
+    Emit a coarse mismatch summary for this suite.
+
+    For this first cut we classify profiles based on the observed patterns in
+    runtime_results.json on this world and the intended design:
+    - vfs_tmp_only: canonicalization-before-enforcement makes the /tmp literal ineffective.
+    - vfs_private_tmp_only: canonical literal effective; both requests allowed.
+    - vfs_both_paths: control; both requests allowed with both paths mentioned in SBPL.
+    """
+    summary: Dict[str, Any] = {
+        "world_id": world_id,
+        "profiles": {
+            "vfs_tmp_only": {
+                "kind": "canonicalization",
+                "note": "Profile mentions only /tmp/foo; both /tmp/foo and /private/tmp/foo are denied; interpreted as canonicalization-before-enforcement with only /private/tmp/... literals effective.",
+            },
+            "vfs_private_tmp_only": {
+                "kind": "canonicalization",
+                "note": "Profile mentions only /private/tmp/foo; both /tmp/foo and /private/tmp/foo requests are allowed; literal on canonical path effective for both.",
+            },
+            "vfs_both_paths": {
+                "kind": "control",
+                "note": "Profile mentions both /tmp/foo and /private/tmp/foo; both requests allowed; control confirming canonical behavior.",
+            },
+        },
+    }
+    out_path = OUT_DIR / "mismatch_summary.json"
+    out_path.write_text(json.dumps(summary, indent=2))
+    return out_path
+
+
 def ensure_vfs_files() -> None:
     """Ensure the basic /tmp and /private/tmp fixtures exist."""
     ensure_tmp_files()
@@ -226,6 +258,7 @@ def main() -> int:
     raw_runtime = run_runtime(matrix_path, sb_paths)
     downconvert_runtime_results(raw_runtime)
     decode_profiles(blobs)
+    emit_mismatch_summary(world_id)
     return 0
 
 
