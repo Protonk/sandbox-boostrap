@@ -1,22 +1,22 @@
-# the mac
+# macOS cruft
 .DS_Store
+
+# Swift build caches
 .swift-module-cache/
 
-# Do not commit Apple binaries
+# Local dumps and Ghidra scratch
 dumps/Sandbox-private/
-
-# do not commit my business
 dumps/ghidra/tmp/
 .ghidra-user/
 
-# what even is python
-__pycache__/
+# Python env and bytecode
+.venv/
 **/__pycache__/
 .pytest_cache/
-.venv/
+*.pyc
+
+# CI stamps produced by book/ci.py
 book/out/ci-stamps/
 
-# vscode
+# Editor settings
 .vscode/
-*.pyc
-/book/tests/__pycache__
