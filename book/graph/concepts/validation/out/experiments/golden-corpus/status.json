@@ -1,12 +1,19 @@
 {
   "job_id": "experiment:golden-corpus",
   "status": "ok",
+  "host": {
+    "product": "macOS",
+    "version": "14.4.1",
+    "build": "23E224",
+    "kernel": "23.4.0",
+    "machine": "arm64"
+  },
   "inputs": [
-    "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/golden-corpus/out/corpus_manifest.json",
-    "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/golden-corpus/out/corpus_summary.json"
+    "book/experiments/golden-corpus/out/corpus_manifest.json",
+    "book/experiments/golden-corpus/out/corpus_summary.json"
   ],
   "outputs": [
-    "/Users/achyland/Desktop/SANDBOX_LORE/book/graph/concepts/validation/out/experiments/golden-corpus/rerun_summary.json"
+    "book/graph/concepts/validation/out/experiments/golden-corpus/rerun_summary.json"
   ],
   "metrics": {
     "entries": 8,

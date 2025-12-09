@@ -11,7 +11,9 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List
 
-ROOT = Path(__file__).resolve().parents[4]
+from book.api.path_utils import find_repo_root, to_repo_relative
+
+ROOT = find_repo_root(Path(__file__))
 LIB_PATH = ROOT / "book/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib"
 OPS_MAP = ROOT / "book/graph/mappings/vocab/ops.json"
 FILTERS_MAP = ROOT / "book/graph/mappings/vocab/filters.json"
@@ -148,22 +150,22 @@ def load_json(path: Path) -> Dict:
 
 def ensure_mapping(names: List[str], mapping_path: Path, key: str) -> None:
     if not mapping_path.exists():
-        raise FileNotFoundError(f"missing mapping file: {mapping_path}")
+        raise FileNotFoundError(f"missing mapping file: {to_repo_relative(mapping_path, ROOT)}")
     mapping = load_json(mapping_path)
     if mapping.get("status") != "ok":
-        raise ValueError(f"{mapping_path} not ok: {mapping.get('status')}")
+        raise ValueError(f"{to_repo_relative(mapping_path, ROOT)} not ok: {mapping.get('status')}")
     entries = mapping.get(key) or []
     if len(entries) != len(names):
-        raise ValueError(f"{mapping_path} count mismatch: {len(entries)} vs extracted {len(names)}")
+        raise ValueError(f"{to_repo_relative(mapping_path, ROOT)} count mismatch: {len(entries)} vs extracted {len(names)}")
     entry_names = [e["name"] for e in entries]
     if entry_names != names:
-        raise ValueError(f"{mapping_path} names diverge from extracted vocab")
+        raise ValueError(f"{to_repo_relative(mapping_path, ROOT)} names diverge from extracted vocab")
 
 
 def run_vocab_harvest_job():
     for required in [LIB_PATH, META_PATH, OPS_MAP, FILTERS_MAP]:
         if not required.exists():
-            raise FileNotFoundError(f"missing required input: {required}")
+            raise FileNotFoundError(f"missing required input: {to_repo_relative(required, ROOT)}")
 
     op_names = harvest_operation_names(LIB_PATH)
     filter_names = harvest_filter_names(LIB_PATH)
@@ -175,8 +177,8 @@ def run_vocab_harvest_job():
         "job_id": "vocab:sonoma-14.4.1",
         "status": "ok",
         "host": meta.get("os", {}),
-        "inputs": [str(LIB_PATH)],
-        "outputs": [str(OPS_MAP), str(FILTERS_MAP)],
+        "inputs": [to_repo_relative(LIB_PATH, ROOT)],
+        "outputs": [to_repo_relative(OPS_MAP, ROOT), to_repo_relative(FILTERS_MAP, ROOT)],
         "counts": {"ops": len(op_names), "filters": len(filter_names)},
         "tags": ["vocab", "host:sonoma-14.4.1", "smoke"],
     }
@@ -184,7 +186,11 @@ def run_vocab_harvest_job():
     STATUS_PATH.write_text(json.dumps(payload, indent=2))
     return {
         "status": "ok",
-        "outputs": [str(OPS_MAP), str(FILTERS_MAP), str(STATUS_PATH)],
+        "outputs": [
+            to_repo_relative(OPS_MAP, ROOT),
+            to_repo_relative(FILTERS_MAP, ROOT),
+            to_repo_relative(STATUS_PATH, ROOT),
+        ],
         "metrics": payload["counts"],
         "host": payload["host"],
         "notes": "Verified libsandbox vocab against canonical mappings.",
@@ -194,8 +200,8 @@ def run_vocab_harvest_job():
 registry.register(
     ValidationJob(
         id="vocab:sonoma-14.4.1",
-        inputs=[str(LIB_PATH)],
-        outputs=[str(OPS_MAP), str(FILTERS_MAP), str(STATUS_PATH)],
+        inputs=[to_repo_relative(LIB_PATH, ROOT)],
+        outputs=[to_repo_relative(OPS_MAP, ROOT), to_repo_relative(FILTERS_MAP, ROOT), to_repo_relative(STATUS_PATH, ROOT)],
         tags=["vocab", "host:sonoma-14.4.1", "smoke", "golden"],
         description="Harvest and verify libsandbox vocab against canonical mappings.",
         example_command="python -m book.graph.concepts.validation --id vocab:sonoma-14.4.1",

@@ -20,8 +20,11 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
+from book.api.path_utils import ensure_absolute, find_repo_root, to_repo_relative
 from book.api.runtime_harness import runner as golden_runner
 from book.api.sbpl_compile import compile_sbpl_string
+
+REPO_ROOT = find_repo_root(Path(__file__))
 
 BASE_DIR = Path(__file__).resolve().parent
 SB_DIR = BASE_DIR / "sb"
@@ -42,6 +45,10 @@ class ProfileSpec:
 def load_world_id() -> str:
     data = json.loads(WORLD_PATH.read_text())
     return data.get("world_id") or data.get("id", "unknown-world")
+
+
+def rel(path: Path) -> str:
+    return to_repo_relative(path, REPO_ROOT)
 
 
 def ensure_fixture_files() -> None:
@@ -260,8 +267,8 @@ def build_expected_matrix(
             probes = []
         profile_entry = {
             "mode": "sbpl",
-            "sbpl": str(spec.sbpl),
-            "blob": str(blobs[spec.key]),
+            "sbpl": rel(spec.sbpl),
+            "blob": rel(blobs[spec.key]),
             "family": spec.family,
             "semantic_group": spec.semantic_group,
             "probes": [],
@@ -467,7 +474,7 @@ def main() -> int:
     matrix_path = OUT_DIR / "expected_matrix.json"
     write_json(matrix_path, matrix)
 
-    profile_paths = {spec.key: spec.sbpl for spec in specs}
+    profile_paths = {spec.key: ensure_absolute(spec.sbpl, REPO_ROOT) for spec in specs}
     # No extra key-specific rules here; allow/deny profiles bake their own process-exec pins.
     runtime_out = golden_runner.run_expected_matrix(matrix_path, out_dir=OUT_DIR, profile_paths=profile_paths)
     summary = compare_results(matrix_path, runtime_out, world_id)

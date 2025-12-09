@@ -7,6 +7,11 @@ Defaults to writing artifacts into book/profiles/golden-triple/.
 from __future__ import annotations
 
 from pathlib import Path
+import sys
+
+ROOT = Path(__file__).resolve().parents[3]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 from book.api.runtime_harness.runner import run_expected_matrix
 

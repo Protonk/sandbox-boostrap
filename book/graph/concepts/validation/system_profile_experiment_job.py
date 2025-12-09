@@ -8,14 +8,19 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from book.api.path_utils import find_repo_root, to_repo_relative
 from book.graph.concepts.validation import registry
 from book.graph.concepts.validation.registry import ValidationJob
 
-ROOT = Path(__file__).resolve().parents[4]
+ROOT = find_repo_root(Path(__file__))
 EXP_DIGESTS = ROOT / "book" / "experiments" / "system-profile-digest" / "out" / "digests.json"
 META_PATH = ROOT / "book" / "graph" / "concepts" / "validation" / "out" / "metadata.json"
 STATUS_PATH = ROOT / "book" / "graph" / "concepts" / "validation" / "out" / "experiments" / "system-profile-digest" / "status.json"
 IR_PATH = ROOT / "book" / "graph" / "concepts" / "validation" / "out" / "experiments" / "system-profile-digest" / "digests_ir.json"
+
+
+def rel(path: Path) -> str:
+    return to_repo_relative(path, ROOT)
 
 
 def _load_host():
@@ -52,8 +57,8 @@ def run_system_profiles_job():
         "job_id": "experiment:system-profile-digest",
         "status": "ok",
         "host": host,
-        "inputs": [str(EXP_DIGESTS)],
-        "outputs": [str(IR_PATH)],
+        "inputs": [rel(EXP_DIGESTS)],
+        "outputs": [rel(IR_PATH)],
         "metrics": {"profiles": len(profiles)},
         "notes": "Normalized system profile digests into IR.",
         "tags": ["experiment:system-profile-digest", "experiment", "system-profiles", "golden"],
@@ -61,7 +66,8 @@ def run_system_profiles_job():
     STATUS_PATH.write_text(json.dumps(status_payload, indent=2))
     return {
         "status": "ok",
-        "outputs": [str(IR_PATH), str(STATUS_PATH)],
+        "inputs": status_payload["inputs"],
+        "outputs": [rel(IR_PATH), rel(STATUS_PATH)],
         "metrics": status_payload["metrics"],
         "host": host,
         "notes": status_payload["notes"],
@@ -72,8 +78,8 @@ def run_system_profiles_job():
 registry.register(
     ValidationJob(
         id="experiment:system-profile-digest",
-        inputs=[str(EXP_DIGESTS)],
-        outputs=[str(IR_PATH), str(STATUS_PATH)],
+        inputs=[rel(EXP_DIGESTS)],
+        outputs=[rel(IR_PATH), rel(STATUS_PATH)],
         tags=["experiment:system-profile-digest", "experiment", "system-profiles", "golden"],
         description="Normalize system-profile-digest outputs into shared IR for mappings.",
         example_command="python -m book.graph.concepts.validation --experiment system-profile-digest",

@@ -3,8 +3,8 @@
   "profiles": {
     "adv:struct_flat": {
       "mode": "sbpl",
-      "sbpl": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/struct_flat.sb",
-      "blob": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/build/struct_flat.sb.bin",
+      "sbpl": "book/experiments/runtime-adversarial/sb/struct_flat.sb",
+      "blob": "book/experiments/runtime-adversarial/sb/build/struct_flat.sb.bin",
       "family": "structural_variants",
       "semantic_group": "structural:file-read-subpath",
       "probes": [
@@ -68,8 +68,8 @@
     },
     "adv:struct_nested": {
       "mode": "sbpl",
-      "sbpl": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/struct_nested.sb",
-      "blob": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/build/struct_nested.sb.bin",
+      "sbpl": "book/experiments/runtime-adversarial/sb/struct_nested.sb",
+      "blob": "book/experiments/runtime-adversarial/sb/build/struct_nested.sb.bin",
       "family": "structural_variants",
       "semantic_group": "structural:file-read-subpath",
       "probes": [
@@ -133,8 +133,8 @@
     },
     "adv:path_edges": {
       "mode": "sbpl",
-      "sbpl": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/path_edges.sb",
-      "blob": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/build/path_edges.sb.bin",
+      "sbpl": "book/experiments/runtime-adversarial/sb/path_edges.sb",
+      "blob": "book/experiments/runtime-adversarial/sb/build/path_edges.sb.bin",
       "family": "path_edges",
       "semantic_group": "paths:literal-vs-normalized",
       "probes": [
@@ -198,8 +198,8 @@
     },
     "adv:mach_simple_allow": {
       "mode": "sbpl",
-      "sbpl": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/mach_simple_allow.sb",
-      "blob": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/build/mach_simple_allow.sb.bin",
+      "sbpl": "book/experiments/runtime-adversarial/sb/mach_simple_allow.sb",
+      "blob": "book/experiments/runtime-adversarial/sb/build/mach_simple_allow.sb.bin",
       "family": "mach_variants",
       "semantic_group": "mach:global-name-allow",
       "probes": [
@@ -221,8 +221,8 @@
     },
     "adv:mach_simple_variants": {
       "mode": "sbpl",
-      "sbpl": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/mach_simple_variants.sb",
-      "blob": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/build/mach_simple_variants.sb.bin",
+      "sbpl": "book/experiments/runtime-adversarial/sb/mach_simple_variants.sb",
+      "blob": "book/experiments/runtime-adversarial/sb/build/mach_simple_variants.sb.bin",
       "family": "mach_variants",
       "semantic_group": "mach:global-name-allow",
       "probes": [
@@ -244,8 +244,8 @@
     },
     "adv:mach_local_literal": {
       "mode": "sbpl",
-      "sbpl": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/mach_local_literal.sb",
-      "blob": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/build/mach_local_literal.sb.bin",
+      "sbpl": "book/experiments/runtime-adversarial/sb/mach_local_literal.sb",
+      "blob": "book/experiments/runtime-adversarial/sb/build/mach_local_literal.sb.bin",
       "family": "mach_local",
       "semantic_group": "mach:local-name-allow",
       "probes": [
@@ -269,8 +269,8 @@
     },
     "adv:mach_local_regex": {
       "mode": "sbpl",
-      "sbpl": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/mach_local_regex.sb",
-      "blob": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/build/mach_local_regex.sb.bin",
+      "sbpl": "book/experiments/runtime-adversarial/sb/mach_local_regex.sb",
+      "blob": "book/experiments/runtime-adversarial/sb/build/mach_local_regex.sb.bin",
       "family": "mach_local",
       "semantic_group": "mach:local-name-allow",
       "probes": [
@@ -294,22 +294,22 @@
     },
     "adv:net_outbound_allow": {
       "mode": "sbpl",
-      "sbpl": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/net_outbound_allow.sb",
-      "blob": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/build/net_outbound_allow.sb.bin",
+      "sbpl": "book/experiments/runtime-adversarial/sb/net_outbound_allow.sb",
+      "blob": "book/experiments/runtime-adversarial/sb/build/net_outbound_allow.sb.bin",
       "family": "network",
       "semantic_group": "network:outbound-allow",
       "probes": [
         {
           "name": "tcp-loopback",
           "operation": "network-outbound",
-          "target": "127.0.0.1:64671",
+          "target": "127.0.0.1:53653",
           "expected": "allow",
           "expectation_id": "adv:net_outbound_allow:tcp-loopback"
         },
         {
           "name": "tcp-loopback-2",
           "operation": "network-outbound",
-          "target": "127.0.0.1:64672",
+          "target": "127.0.0.1:53654",
           "expected": "allow",
           "expectation_id": "adv:net_outbound_allow:tcp-loopback-2"
         }
@@ -317,22 +317,22 @@
     },
     "adv:net_outbound_deny": {
       "mode": "sbpl",
-      "sbpl": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/net_outbound_deny.sb",
-      "blob": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/build/net_outbound_deny.sb.bin",
+      "sbpl": "book/experiments/runtime-adversarial/sb/net_outbound_deny.sb",
+      "blob": "book/experiments/runtime-adversarial/sb/build/net_outbound_deny.sb.bin",
       "family": "network",
       "semantic_group": "network:outbound-deny",
       "probes": [
         {
           "name": "tcp-loopback",
           "operation": "network-outbound",
-          "target": "127.0.0.1:64671",
+          "target": "127.0.0.1:53653",
           "expected": "deny",
           "expectation_id": "adv:net_outbound_deny:tcp-loopback"
         },
         {
           "name": "tcp-loopback-2",
           "operation": "network-outbound",
-          "target": "127.0.0.1:64672",
+          "target": "127.0.0.1:53654",
           "expected": "deny",
           "expectation_id": "adv:net_outbound_deny:tcp-loopback-2"
         }

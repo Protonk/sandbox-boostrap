@@ -22,6 +22,9 @@
   (literal "/usr/bin/nc")
 )
 
+;; Allow system socket plumbing (no network-outbound allow here).
+(allow system-socket)
+
 ;; Optional temp writes for symmetry with allow profile; no network allows.
 (allow file-write*
   (subpath "/private/tmp")

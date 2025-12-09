@@ -2,7 +2,7 @@
   "expected_matrix": {
     "profiles": {
       "adv:mach_local_literal": {
-        "blob": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/build/mach_local_literal.sb.bin",
+        "blob": "book/experiments/runtime-adversarial/sb/build/mach_local_literal.sb.bin",
         "family": "mach_local",
         "mode": "sbpl",
         "probes": [
@@ -23,11 +23,11 @@
             "target": "com.apple.sandboxadversarial.fake"
           }
         ],
-        "sbpl": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/mach_local_literal.sb",
+        "sbpl": "book/experiments/runtime-adversarial/sb/mach_local_literal.sb",
         "semantic_group": "mach:local-name-allow"
       },
       "adv:mach_local_regex": {
-        "blob": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/build/mach_local_regex.sb.bin",
+        "blob": "book/experiments/runtime-adversarial/sb/build/mach_local_regex.sb.bin",
         "family": "mach_local",
         "mode": "sbpl",
         "probes": [
@@ -48,11 +48,11 @@
             "target": "com.apple.sandboxadversarial.fake"
           }
         ],
-        "sbpl": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/mach_local_regex.sb",
+        "sbpl": "book/experiments/runtime-adversarial/sb/mach_local_regex.sb",
         "semantic_group": "mach:local-name-allow"
       },
       "adv:mach_simple_allow": {
-        "blob": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/build/mach_simple_allow.sb.bin",
+        "blob": "book/experiments/runtime-adversarial/sb/build/mach_simple_allow.sb.bin",
         "family": "mach_variants",
         "mode": "sbpl",
         "probes": [
@@ -71,11 +71,11 @@
             "target": "com.apple.sandboxadversarial.fake"
           }
         ],
-        "sbpl": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/mach_simple_allow.sb",
+        "sbpl": "book/experiments/runtime-adversarial/sb/mach_simple_allow.sb",
         "semantic_group": "mach:global-name-allow"
       },
       "adv:mach_simple_variants": {
-        "blob": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/build/mach_simple_variants.sb.bin",
+        "blob": "book/experiments/runtime-adversarial/sb/build/mach_simple_variants.sb.bin",
         "family": "mach_variants",
         "mode": "sbpl",
         "probes": [
@@ -94,11 +94,11 @@
             "target": "com.apple.sandboxadversarial.fake"
           }
         ],
-        "sbpl": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/mach_simple_variants.sb",
+        "sbpl": "book/experiments/runtime-adversarial/sb/mach_simple_variants.sb",
         "semantic_group": "mach:global-name-allow"
       },
       "adv:net_outbound_allow": {
-        "blob": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/build/net_outbound_allow.sb.bin",
+        "blob": "book/experiments/runtime-adversarial/sb/build/net_outbound_allow.sb.bin",
         "family": "network",
         "mode": "sbpl",
         "probes": [
@@ -107,21 +107,21 @@
             "expected": "allow",
             "name": "tcp-loopback",
             "operation": "network-outbound",
-            "target": "127.0.0.1:64671"
+            "target": "127.0.0.1:53653"
           },
           {
             "expectation_id": "adv:net_outbound_allow:tcp-loopback-2",
             "expected": "allow",
             "name": "tcp-loopback-2",
             "operation": "network-outbound",
-            "target": "127.0.0.1:64672"
+            "target": "127.0.0.1:53654"
           }
         ],
-        "sbpl": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/net_outbound_allow.sb",
+        "sbpl": "book/experiments/runtime-adversarial/sb/net_outbound_allow.sb",
         "semantic_group": "network:outbound-allow"
       },
       "adv:net_outbound_deny": {
-        "blob": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/build/net_outbound_deny.sb.bin",
+        "blob": "book/experiments/runtime-adversarial/sb/build/net_outbound_deny.sb.bin",
         "family": "network",
         "mode": "sbpl",
         "probes": [
@@ -130,21 +130,21 @@
             "expected": "deny",
             "name": "tcp-loopback",
             "operation": "network-outbound",
-            "target": "127.0.0.1:64671"
+            "target": "127.0.0.1:53653"
           },
           {
             "expectation_id": "adv:net_outbound_deny:tcp-loopback-2",
             "expected": "deny",
             "name": "tcp-loopback-2",
             "operation": "network-outbound",
-            "target": "127.0.0.1:64672"
+            "target": "127.0.0.1:53654"
           }
         ],
-        "sbpl": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/net_outbound_deny.sb",
+        "sbpl": "book/experiments/runtime-adversarial/sb/net_outbound_deny.sb",
         "semantic_group": "network:outbound-deny"
       },
       "adv:path_edges": {
-        "blob": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/build/path_edges.sb.bin",
+        "blob": "book/experiments/runtime-adversarial/sb/build/path_edges.sb.bin",
         "family": "path_edges",
         "mode": "sbpl",
         "probes": [
@@ -205,11 +205,11 @@
             "target": "/tmp/runtime-adv/edges/okdir/../blocked.txt"
           }
         ],
-        "sbpl": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/path_edges.sb",
+        "sbpl": "book/experiments/runtime-adversarial/sb/path_edges.sb",
         "semantic_group": "paths:literal-vs-normalized"
       },
       "adv:struct_flat": {
-        "blob": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/build/struct_flat.sb.bin",
+        "blob": "book/experiments/runtime-adversarial/sb/build/struct_flat.sb.bin",
         "family": "structural_variants",
         "mode": "sbpl",
         "probes": [
@@ -270,11 +270,11 @@
             "target": "/tmp/runtime-adv/struct/outside.txt"
           }
         ],
-        "sbpl": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/struct_flat.sb",
+        "sbpl": "book/experiments/runtime-adversarial/sb/struct_flat.sb",
         "semantic_group": "structural:file-read-subpath"
       },
       "adv:struct_nested": {
-        "blob": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/build/struct_nested.sb.bin",
+        "blob": "book/experiments/runtime-adversarial/sb/build/struct_nested.sb.bin",
         "family": "structural_variants",
         "mode": "sbpl",
         "probes": [
@@ -335,7 +335,7 @@
             "target": "/tmp/runtime-adv/struct/outside.txt"
           }
         ],
-        "sbpl": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/sb/struct_nested.sb",
+        "sbpl": "book/experiments/runtime-adversarial/sb/struct_nested.sb",
         "semantic_group": "structural:file-read-subpath"
       },
       "bucket4:v1_read": {
@@ -1354,52 +1354,52 @@
   },
   "profiles_metadata": {
     "adv:mach_local_literal": {
-      "runtime_profile": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/mach_local_literal.adv_mach_local_literal.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/runtime_profiles/mach_local_literal.adv_mach_local_literal.runtime.sb"
     },
     "adv:mach_local_regex": {
-      "runtime_profile": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/mach_local_regex.adv_mach_local_regex.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/runtime_profiles/mach_local_regex.adv_mach_local_regex.runtime.sb"
     },
     "adv:mach_simple_allow": {
-      "runtime_profile": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/mach_simple_allow.adv_mach_simple_allow.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/runtime_profiles/mach_simple_allow.adv_mach_simple_allow.runtime.sb"
     },
     "adv:mach_simple_variants": {
-      "runtime_profile": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/mach_simple_variants.adv_mach_simple_variants.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/runtime_profiles/mach_simple_variants.adv_mach_simple_variants.runtime.sb"
     },
     "adv:net_outbound_allow": {
-      "runtime_profile": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/net_outbound_allow.adv_net_outbound_allow.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/runtime_profiles/net_outbound_allow.adv_net_outbound_allow.runtime.sb"
     },
     "adv:net_outbound_deny": {
-      "runtime_profile": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/net_outbound_deny.adv_net_outbound_deny.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/runtime_profiles/net_outbound_deny.adv_net_outbound_deny.runtime.sb"
     },
     "adv:path_edges": {
-      "runtime_profile": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/path_edges.adv_path_edges.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/runtime_profiles/path_edges.adv_path_edges.runtime.sb"
     },
     "adv:struct_flat": {
-      "runtime_profile": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/struct_flat.adv_struct_flat.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/runtime_profiles/struct_flat.adv_struct_flat.runtime.sb"
     },
     "adv:struct_nested": {
-      "runtime_profile": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/struct_nested.adv_struct_nested.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/runtime_profiles/struct_nested.adv_struct_nested.runtime.sb"
     },
     "bucket4:v1_read": {
-      "runtime_profile": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-checks/out/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb"
     },
     "bucket5:v11_read_subpath": {
-      "runtime_profile": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-checks/out/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb"
     },
     "runtime:allow_all": {
       "runtime_profile": "--blob"
     },
     "runtime:metafilter_any": {
-      "runtime_profile": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-checks/out/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb"
     },
     "runtime:strict_1": {
-      "runtime_profile": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/strict_1.runtime_strict_1.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-checks/out/runtime_profiles/strict_1.runtime_strict_1.runtime.sb"
     },
     "sys:airlock": {
-      "runtime_profile": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/airlock.sys_airlock.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-checks/out/runtime_profiles/airlock.sys_airlock.runtime.sb"
     },
     "sys:bsd": {
-      "runtime_profile": "/Users/achyland/Desktop/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/bsd.sys_bsd.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-checks/out/runtime_profiles/bsd.sys_bsd.runtime.sb"
     }
   },
   "signatures": {

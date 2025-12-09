@@ -7,13 +7,14 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from book.api.path_utils import find_repo_root, to_repo_relative
 from book.graph.concepts.validation import registry
 from book.graph.concepts.validation.registry import ValidationJob
 
-ROOT = Path(__file__).resolve().parents[4]
+ROOT = find_repo_root(Path(__file__))
 STATUS_PATH = ROOT / "book" / "graph" / "concepts" / "validation" / "out" / "validation_status.json"
 EXPERIMENT_STATUS_DIR = ROOT / "book" / "graph" / "concepts" / "validation" / "out" / "experiments"
-CARTON_MANIFEST = ROOT / "book" / "graph" / "carton" / "CARTON.json"
+CARTON_MANIFEST = ROOT / "book" / "api" / "carton" / "CARTON.json"
 MAPPING_CHECKS = [
     ROOT / "book" / "graph" / "mappings" / "runtime" / "runtime_signatures.json",
     ROOT / "book" / "graph" / "mappings" / "system_profiles" / "digests.json",
@@ -27,16 +28,21 @@ REQUIRED_FIELDS = {"job_id", "status", "host", "inputs", "outputs", "tags"}
 ALLOWED_STATUS = {"ok", "ok-unchanged", "ok-changed", "partial", "brittle", "blocked", "skipped"}
 
 
+def rel(path: Path) -> str:
+    return to_repo_relative(path, ROOT)
+
+
 def check_record(rec: dict, source: Path) -> None:
+    src = rel(source)
     missing = REQUIRED_FIELDS - set(rec.keys())
     if missing:
-        raise ValueError(f"{source} missing fields: {missing}")
+        raise ValueError(f"{src} missing fields: {missing}")
     if rec.get("status") not in ALLOWED_STATUS:
-        raise ValueError(f"{source} has invalid status: {rec.get('status')}")
+        raise ValueError(f"{src} has invalid status: {rec.get('status')}")
     if not isinstance(rec.get("inputs"), list) or not isinstance(rec.get("outputs"), list):
-        raise ValueError(f"{source} inputs/outputs must be lists")
+        raise ValueError(f"{src} inputs/outputs must be lists")
     if not isinstance(rec.get("tags"), list):
-        raise ValueError(f"{source} tags must be a list")
+        raise ValueError(f"{src} tags must be a list")
 
 
 def run_schema_job():
@@ -55,7 +61,7 @@ def run_schema_job():
         for rec in data.get("jobs", []):
             try:
                 check_record(rec, STATUS_PATH)
-                sources.append(str(STATUS_PATH))
+                sources.append(rel(STATUS_PATH))
             except Exception as exc:
                 errors.append(str(exc))
 
@@ -64,35 +70,35 @@ def run_schema_job():
             try:
                 rec = json.loads(status_file.read_text())
                 check_record(rec, status_file)
-                sources.append(str(status_file))
+                sources.append(rel(status_file))
             except Exception as exc:
                 errors.append(str(exc))
 
     # Mapping provenance checks
     for mapping_path in MAPPING_CHECKS:
         if not mapping_path.exists():
-            errors.append(f"missing mapping for provenance check: {mapping_path}")
+            errors.append(f"missing mapping for provenance check: {rel(mapping_path)}")
             continue
         data = json.loads(mapping_path.read_text())
         meta = data.get("metadata") or {}
         world_id = meta.get("world_id") or data.get("world_id")
         if not world_id:
-            errors.append(f"{mapping_path} missing world_id metadata")
+            errors.append(f"{rel(mapping_path)} missing world_id metadata")
         source_jobs = meta.get("source_jobs")
         if not source_jobs and "vocab" in str(mapping_path):
             source_jobs = ["vocab:sonoma-14.4.1"]
         if not source_jobs:
-            errors.append(f"{mapping_path} missing source_jobs metadata")
+            errors.append(f"{rel(mapping_path)} missing source_jobs metadata")
     # CARTON manifest presence
     if not CARTON_MANIFEST.exists():
-        errors.append(f"missing CARTON manifest: {CARTON_MANIFEST}")
+        errors.append(f"missing CARTON manifest: {rel(CARTON_MANIFEST)}")
 
     status = "ok" if not errors else "blocked"
     payload = {
         "job_id": "validation:schema-check",
         "status": status,
         "host": host,
-        "inputs": [str(STATUS_PATH), str(EXPERIMENT_STATUS_DIR / '*/status.json')],
+        "inputs": [rel(STATUS_PATH), "book/graph/concepts/validation/out/experiments/*/status.json"],
         "outputs": [],
         "notes": "; ".join(errors) if errors else "status files conform to schema",
         "metrics": {"checked": len(sources), "errors": len(errors)},
@@ -103,7 +109,7 @@ def run_schema_job():
 registry.register(
     ValidationJob(
         id="validation:schema-check",
-        inputs=[str(STATUS_PATH)],
+        inputs=[rel(STATUS_PATH)],
         outputs=[],
         tags=["meta", "schema"],
         description="Sanity-check validation status files for schema compliance.",

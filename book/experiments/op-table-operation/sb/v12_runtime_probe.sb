@@ -10,6 +10,6 @@
 ;; Runtime harness needs to exec the probes themselves.
 ;; Narrow process-exec allowances to the specific helpers used below.
 (allow process-exec
-  (literal "/Users/achyland/Desktop/SANDBOX_LORE/book/api/file_probe/file_probe"))
+  (literal "/bin/echo"))
 (allow process-exec
   (literal "/usr/bin/python3"))

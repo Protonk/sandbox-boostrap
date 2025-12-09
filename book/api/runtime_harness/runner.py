@@ -11,13 +11,16 @@ import subprocess
 from pathlib import Path
 from typing import Any, Dict, List
 
-DEFAULT_OUT = Path(__file__).resolve().parents[2] / "profiles" / "golden-triple"
+from book.api.path_utils import ensure_absolute, find_repo_root, relativize_command, to_repo_relative
+
+REPO_ROOT = find_repo_root(Path(__file__))
+DEFAULT_OUT = REPO_ROOT / "book" / "profiles" / "golden-triple"
 DEFAULT_RUNTIME_PROFILE_DIR = DEFAULT_OUT / "runtime_profiles"
-RUNNER = Path(__file__).resolve().parents[2] / "experiments" / "runtime-checks" / "sandbox_runner"
-READER = Path(__file__).resolve().parents[2] / "experiments" / "runtime-checks" / "sandbox_reader"
-WRITER = Path(__file__).resolve().parents[2] / "experiments" / "runtime-checks" / "sandbox_writer"
-WRAPPER = Path(__file__).resolve().parents[2] / "api" / "SBPL-wrapper" / "wrapper"
-MACH_PROBE = Path(__file__).resolve().parents[2] / "experiments" / "runtime-checks" / "mach_probe"
+RUNNER = REPO_ROOT / "book" / "experiments" / "runtime-checks" / "sandbox_runner"
+READER = REPO_ROOT / "book" / "experiments" / "runtime-checks" / "sandbox_reader"
+WRITER = REPO_ROOT / "book" / "experiments" / "runtime-checks" / "sandbox_writer"
+WRAPPER = REPO_ROOT / "book" / "api" / "SBPL-wrapper" / "wrapper"
+MACH_PROBE = REPO_ROOT / "book" / "experiments" / "runtime-checks" / "mach_probe"
 
 CAT = "/bin/cat"
 SH = "/bin/sh"
@@ -74,6 +77,7 @@ def prepare_runtime_profile(
     shim_rules: List[str] | None = None,
     profile_mode: str | None = None,
 ) -> Path:
+    base = ensure_absolute(base, REPO_ROOT)
     runtime_profile_dir.mkdir(parents=True, exist_ok=True)
     if base.suffix == ".bin":
         return base
@@ -162,14 +166,14 @@ def run_expected_matrix(
     profile_paths: Dict[str, Path] | None = None,
     key_specific_rules: Dict[str, List[str]] | None = None,
 ) -> Path:
-    matrix_path = Path(matrix_path)
-    out_dir = Path(out_dir) if out_dir else DEFAULT_OUT
-    runtime_profile_dir = Path(runtime_profile_dir) if runtime_profile_dir else out_dir / "runtime_profiles"
+    matrix_path = ensure_absolute(matrix_path, REPO_ROOT)
+    out_dir = ensure_absolute(out_dir, REPO_ROOT) if out_dir else DEFAULT_OUT
+    runtime_profile_dir = ensure_absolute(runtime_profile_dir, REPO_ROOT) if runtime_profile_dir else out_dir / "runtime_profiles"
     ensure_tmp_files()
     assert matrix_path.exists(), f"missing expected matrix: {matrix_path}"
     matrix = json.loads(matrix_path.read_text())
     profiles = matrix.get("profiles") or {}
-    profile_paths = profile_paths or {}
+    profile_paths = {k: ensure_absolute(v, REPO_ROOT) for k, v in (profile_paths or {}).items()}
     key_specific_rules = key_specific_rules or {}
 
     results: Dict[str, Any] = {}
@@ -178,7 +182,7 @@ def run_expected_matrix(
         if not profile_path:
             blob = rec.get("blob")
             if blob:
-                profile_path = Path(blob)
+                profile_path = ensure_absolute(blob, REPO_ROOT)
         if not profile_path or not profile_path.exists():
             status, note = classify_status([], skipped_reason="no profile path")
             entry: Dict[str, Any] = {"status": status}
@@ -218,14 +222,14 @@ def run_expected_matrix(
                     "match": expected == actual,
                     "runtime_result": runtime_result,
                     "violation_summary": violation_summary,
-                    **raw,
+                    **{**raw, "command": relativize_command(raw.get("command") or [], REPO_ROOT)},
                 }
             )
         status, note = classify_status(probe_results)
         entry = {
             "status": status,
-            "profile_path": str(runtime_profile),
-            "base_profile_path": str(profile_path),
+            "profile_path": to_repo_relative(runtime_profile, REPO_ROOT),
+            "base_profile_path": to_repo_relative(profile_path, REPO_ROOT),
             "probes": probe_results,
         }
         if note:

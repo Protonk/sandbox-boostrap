@@ -61,6 +61,12 @@ This loop repeats. Do not treat “one run” as complete. Prefer several small 
 * Propose promotion, do not self-authorize it  
   When an experiment produces artifacts or tools that are stable and reusable, identify them and propose promotion: point to the files, explain why they are stable, and suggest where they should live in shared artifacts or tools. Do not assume experiment-local results are automatically canonical. Any artifact promoted into `book/graph/mappings/*` must carry host metadata and have a guardrail test (e.g., in `book/tests/`) to prevent silent drift.
 
+### Path handling
+
+* Treat repo paths as repo-relative in all emitted JSON/IR. Avoid baking absolute checkouts or `~/...` strings into SBPL, expected matrices, runtime logs, or status files.
+* When writing scripts/harnesses, resolve inputs with `book.api.path_utils.ensure_absolute/find_repo_root` for execution, and serialize paths with `to_repo_relative/relativize_command` to keep outputs portable.
+* Run experiments from the repo root (or pass an explicit repo_root) so the path helpers can strip the prefix cleanly. If you change an SBPL helper path, regenerate any compiled blobs/decodes so decoded literals don’t capture an old checkout path.
+
 Aim to leave each experiment in a clearer, better-documented state than you found it, with sharper questions, cleaner artifacts, and an honest account of what is known, what is fragile, and what is still unknown.
 
 ## Router: what lives here

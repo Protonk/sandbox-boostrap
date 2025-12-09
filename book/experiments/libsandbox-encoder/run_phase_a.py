@@ -20,6 +20,12 @@ ROOT = Path(__file__).resolve().parents[3]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from book.api.path_utils import find_repo_root, to_repo_relative
+
+ROOT = find_repo_root(Path(__file__))
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
 import book.api.decoder as decoder
 from book.api import sbpl_compile
 from book.graph.concepts.validation import profile_ingestion as pi
@@ -61,6 +67,10 @@ def load_tag_layouts() -> Dict[int, Dict[str, Any]]:
                 "filter_id_field": filter_id_field,
             }
     return layouts
+
+
+def rel(path: Path) -> str:
+    return to_repo_relative(path, ROOT)
 
 
 def op_hint_for_filter(filter_name: str | None) -> str | None:
@@ -211,7 +221,7 @@ def build_matrix(sb_path: Path, out_blob: Path, out_json: Path) -> None:
 
     out = {
         "source": sb_path.name,
-        "blob": str(out_blob),
+        "blob": rel(out_blob),
         "host": {
             "product": "macOS",
             "version": "14.4.1",

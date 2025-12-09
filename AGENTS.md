@@ -54,6 +54,10 @@ When artifacts, runtime behavior, and substrate texts disagree, treat that as an
 
 Unless directed otherwise, work only in `book/`, following the layered guidance there.
 
+## Paths
+
+- Emit repo-relative paths for any artifact inside this repo. Avoid hardcoding home directories or absolute checkouts; use helpers (e.g., `book.api.path_utils`) to resolve paths for execution and to serialize outputs as repo-relative strings.
+
 ## Things to avoid
 
 - Do not:

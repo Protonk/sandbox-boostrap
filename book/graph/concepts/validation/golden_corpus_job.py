@@ -12,17 +12,23 @@ import json
 from pathlib import Path
 from typing import Dict, Any, List
 
+from book.api.path_utils import find_repo_root, to_repo_relative
 from book.api.decoder import decode_profile_dict
 from book.api.profile_tools.inspect import summarize_blob
 
 from book.graph.concepts.validation import registry
 from book.graph.concepts.validation.registry import ValidationJob
 
-ROOT = Path(__file__).resolve().parents[4]
+ROOT = find_repo_root(Path(__file__))
 MANIFEST_PATH = ROOT / "book/experiments/golden-corpus/out/corpus_manifest.json"
 SUMMARY_PATH = ROOT / "book/experiments/golden-corpus/out/corpus_summary.json"
 STATUS_PATH = ROOT / "book/graph/concepts/validation/out/experiments/golden-corpus/status.json"
 IR_PATH = ROOT / "book/graph/concepts/validation/out/experiments/golden-corpus/rerun_summary.json"
+META_PATH = ROOT / "book/graph/concepts/validation/out/metadata.json"
+
+
+def rel(path: Path) -> str:
+    return to_repo_relative(path, ROOT)
 
 
 def _load_json(path: Path) -> Dict[str, Any]:
@@ -41,6 +47,7 @@ def _resolve_path(path_str: str) -> Path:
 def run_golden_corpus_job() -> Dict[str, Any]:
     manifest = _load_json(MANIFEST_PATH)
     summary = _load_json(SUMMARY_PATH)
+    host = json.loads(META_PATH.read_text()).get("os", {}) if META_PATH.exists() else {}
     entries: List[Dict[str, Any]] = manifest.get("entries", [])
     recorded = {rec["id"]: rec for rec in summary.get("records", [])}
     mismatches: List[str] = []
@@ -54,7 +61,7 @@ def run_golden_corpus_job() -> Dict[str, Any]:
             continue
         blob_path = _resolve_path(compiled_path)
         if not blob_path.exists():
-            mismatches.append(f"{rec_id}: blob missing at {blob_path}")
+            mismatches.append(f"{rec_id}: blob missing at {rel(blob_path)}")
             continue
         data = blob_path.read_bytes()
 
@@ -108,8 +115,9 @@ def run_golden_corpus_job() -> Dict[str, Any]:
     payload = {
         "job_id": "experiment:golden-corpus",
         "status": status,
-        "inputs": [str(MANIFEST_PATH), str(SUMMARY_PATH)],
-        "outputs": [str(IR_PATH)],
+        "host": host,
+        "inputs": [rel(MANIFEST_PATH), rel(SUMMARY_PATH)],
+        "outputs": [rel(IR_PATH)],
         "metrics": {"entries": len(entries), "mismatches": len(mismatches)},
         "notes": "Replayed decoder/profile_tools against golden-corpus manifest; mismatches mark brittleness.",
         "tags": ["experiment:golden-corpus", "experiment", "static-format", "golden"],
@@ -123,8 +131,8 @@ def run_golden_corpus_job() -> Dict[str, Any]:
 registry.register(
     ValidationJob(
         id="experiment:golden-corpus",
-        inputs=[str(MANIFEST_PATH), str(SUMMARY_PATH)],
-        outputs=[str(IR_PATH), str(STATUS_PATH)],
+        inputs=[rel(MANIFEST_PATH), rel(SUMMARY_PATH)],
+        outputs=[rel(IR_PATH), rel(STATUS_PATH)],
         tags=["experiment:golden-corpus", "experiment", "static-format", "golden"],
         description="Re-run decoder/profile_tools on the golden corpus manifest and compare to recorded summary.",
         example_command="python -m book.graph.concepts.validation --experiment golden-corpus",

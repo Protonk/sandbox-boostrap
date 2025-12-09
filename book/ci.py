@@ -45,11 +45,18 @@ def _fingerprint(paths: Iterable[Path]) -> str:
     return sha256("\n".join(entries).encode("utf-8")).hexdigest()
 
 
-def _run_step(name: str, inputs: Iterable[Path], cmd: List[str], cwd: Path | None = None, env: dict | None = None) -> None:
+def _run_step(
+    name: str,
+    inputs: Iterable[Path],
+    cmd: List[str],
+    cwd: Path | None = None,
+    env: dict | None = None,
+    always_run: bool = False,
+) -> None:
     stamp = STAMP_DIR / f"{name}.json"
     fingerprint = _fingerprint(inputs)
 
-    if stamp.exists():
+    if stamp.exists() and not always_run:
         prev = json.loads(stamp.read_text())
         if prev.get("fingerprint") == fingerprint:
             print(f"[ci] {name}: up-to-date", flush=True)
@@ -76,6 +83,7 @@ def run_python_harness() -> None:
         [sys.executable, "-m", "book.tests.run_all"],
         cwd=ROOT,
         env=env,
+        always_run=True,
     )
 
 

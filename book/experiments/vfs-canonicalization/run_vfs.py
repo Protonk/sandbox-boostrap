@@ -18,15 +18,19 @@ from typing import Any, Dict, List
 
 import sys
 
-
 REPO_ROOT = Path(__file__).resolve().parents[3]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
+from book.api.path_utils import ensure_absolute, find_repo_root, to_repo_relative
 import book.api.decoder as decoder  # type: ignore
 from book.api.runtime_harness.runner import ensure_tmp_files, run_expected_matrix  # type: ignore
 from book.api.sbpl_compile import compile_sbpl_string  # type: ignore
 
+
+REPO_ROOT = find_repo_root(Path(__file__))
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 
 BASE_DIR = Path(__file__).resolve().parent
 SB_DIR = BASE_DIR / "sb"
@@ -39,6 +43,10 @@ PATH_PAIRS = [
     ("/tmp/nested/child", "/private/tmp/nested/child"),
     ("/var/tmp/canon", "/private/var/tmp/canon"),
 ]
+
+
+def rel(path: Path) -> str:
+    return to_repo_relative(path, REPO_ROOT)
 
 
 def load_world_id() -> str:
@@ -121,8 +129,8 @@ def build_harness_matrix(world_id: str, blobs: Dict[str, Path], simple_matrix: L
             profile_id,
             {
                 "mode": "sbpl",
-                "sbpl": str(sb_paths[profile_id]),
-                "blob": str(blobs[profile_id]),
+                "sbpl": rel(sb_paths[profile_id]),
+                "blob": rel(blobs[profile_id]),
                 "family": "vfs",
                 "semantic_group": "vfs:tmp-vs-private-tmp",
                 "probes": [],
@@ -150,7 +158,7 @@ def run_runtime(matrix_path: Path, sb_paths: Dict[str, Path]) -> Path:
     runtime_out = run_expected_matrix(
         matrix_path=matrix_path,
         out_dir=harness_out,
-        profile_paths=sb_paths,
+        profile_paths={k: ensure_absolute(v, REPO_ROOT) for k, v in sb_paths.items()},
     )
     return runtime_out
 

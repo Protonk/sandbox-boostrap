@@ -10,7 +10,9 @@ from pathlib import Path
 import sys
 
 # Ensure repo root on sys.path for book.* imports.
-ROOT = Path(__file__).resolve().parents[4]
+from book.api.path_utils import find_repo_root, to_repo_relative
+
+ROOT = find_repo_root(Path(__file__))
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
@@ -21,6 +23,10 @@ from book.graph.concepts.validation.registry import ValidationJob
 FIXTURES_PATH = ROOT / "book" / "graph" / "concepts" / "validation" / "fixtures" / "fixtures.json"
 OUT_PATH = ROOT / "book" / "graph" / "concepts" / "validation" / "out" / "fixtures_status.json"
 META_PATH = ROOT / "book" / "graph" / "concepts" / "validation" / "out" / "metadata.json"
+
+
+def rel(path: Path) -> str:
+    return to_repo_relative(path, ROOT)
 
 
 def load_host():
@@ -43,13 +49,13 @@ def run_fixtures_job():
             "job_id": "graph:fixtures",
             "status": status,
             "host": host,
-            "error": f"missing fixtures file: {FIXTURES_PATH}",
+            "error": f"missing fixtures file: {rel(FIXTURES_PATH)}",
             "entries": [],
-            "inputs": [str(FIXTURES_PATH)],
-            "outputs": [str(OUT_PATH)],
+            "inputs": [rel(FIXTURES_PATH)],
+            "outputs": [rel(OUT_PATH)],
         }
         OUT_PATH.write_text(json.dumps(payload, indent=2))
-        return {"status": status, "outputs": [str(OUT_PATH)], "notes": payload.get("error")}
+        return {"status": status, "outputs": [rel(OUT_PATH)], "notes": payload.get("error")}
 
     try:
         fixtures = json.loads(FIXTURES_PATH.read_text()).get("blobs", [])
@@ -61,16 +67,16 @@ def run_fixtures_job():
             "host": host,
             "error": f"failed to parse fixtures: {exc}",
             "entries": [],
-            "inputs": [str(FIXTURES_PATH)],
-            "outputs": [str(OUT_PATH)],
+            "inputs": [rel(FIXTURES_PATH)],
+            "outputs": [rel(OUT_PATH)],
         }
         OUT_PATH.write_text(json.dumps(payload, indent=2))
-        return {"status": status, "outputs": [str(OUT_PATH)], "notes": payload.get("error")}
+        return {"status": status, "outputs": [rel(OUT_PATH)], "notes": payload.get("error")}
 
     for entry in fixtures:
         path = ROOT / entry["path"]
         rec = {
-            "path": str(path),
+            "path": rel(path),
             "exists": path.exists(),
             "status": "ok",
             "node_count": None,
@@ -98,19 +104,19 @@ def run_fixtures_job():
         "job_id": "graph:fixtures",
         "status": status,
         "host": host,
-        "inputs": [str(FIXTURES_PATH)],
-        "outputs": [str(OUT_PATH)],
+        "inputs": [rel(FIXTURES_PATH)],
+        "outputs": [rel(OUT_PATH)],
         "entries": entries,
     }
     OUT_PATH.write_text(json.dumps(payload, indent=2))
-    return {"status": status, "outputs": [str(OUT_PATH)], "metrics": {"entries": len(entries)}, "host": host}
+    return {"status": status, "outputs": [rel(OUT_PATH)], "metrics": {"entries": len(entries)}, "host": host}
 
 
 registry.register(
     ValidationJob(
         id="graph:fixtures",
-        inputs=[str(FIXTURES_PATH)],
-        outputs=[str(OUT_PATH)],
+        inputs=[rel(FIXTURES_PATH)],
+        outputs=[rel(OUT_PATH)],
         tags=["graph", "fixtures"],
         description="Decode curated fixtures to ensure decoder stays in sync with known blobs.",
         example_command="python -m book.graph.concepts.validation --id graph:fixtures",

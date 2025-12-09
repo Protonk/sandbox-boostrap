@@ -1,6 +1,6 @@
 {
   "runtime:allow_all": {
-    "status": "ok",
+    "status": "partial",
     "profile_path": "book/profiles/golden-triple/allow_all.sb.bin",
     "base_profile_path": "book/profiles/golden-triple/allow_all.sb.bin",
     "probes": [
@@ -10,24 +10,25 @@
         "operation": "file-read*",
         "path": "/etc/hosts",
         "expected": "allow",
-        "actual": "allow",
-        "match": true,
+        "actual": "deny",
+        "match": false,
         "runtime_result": {
-          "status": "success",
-          "errno": null
+          "status": "errno",
+          "errno": 1
         },
         "violation_summary": null,
         "command": [
-          "/Users/achyland/Desktop/SANDBOX_LORE/book/api/SBPL-wrapper/wrapper",
+          "book/api/SBPL-wrapper/wrapper",
           "--blob",
           "book/profiles/golden-triple/allow_all.sb.bin",
           "--",
-          "/bin/cat",
-          "/etc/hosts"
+          "book/experiments/runtime-checks/sandbox_reader",
+          "book/profiles/golden-triple/allow_all.sb.bin",
+          "/private/etc/hosts"
         ],
-        "exit_code": 0,
-        "stdout": "##\n# Host Database\n#\n# localhost is used to configure the loopback interface\n# when the system is booting.  Do not change this entry.\n##\n127.0.0.1\tlocalhost\n255.255.255.255\tbroadcasthost\n::1             localhost\n",
-        "stderr": ""
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox initialization failed: no version specified\n\nBacktrace: \n<implicit policy library>:239:33:\n\t(target self)\n\nsandbox_init failed: no version specified\n\nBacktrace: \n<implicit policy library>:239:33:\n\t(target self)\n\n"
       },
       {
         "name": "read_/tmp/sbpl_rt/read.txt",
@@ -35,24 +36,25 @@
         "operation": "file-read*",
         "path": "/tmp/sbpl_rt/read.txt",
         "expected": "allow",
-        "actual": "allow",
-        "match": true,
+        "actual": "deny",
+        "match": false,
         "runtime_result": {
-          "status": "success",
-          "errno": null
+          "status": "errno",
+          "errno": 1
         },
         "violation_summary": null,
         "command": [
-          "/Users/achyland/Desktop/SANDBOX_LORE/book/api/SBPL-wrapper/wrapper",
+          "book/api/SBPL-wrapper/wrapper",
           "--blob",
           "book/profiles/golden-triple/allow_all.sb.bin",
           "--",
-          "/bin/cat",
-          "/tmp/sbpl_rt/read.txt"
+          "book/experiments/runtime-checks/sandbox_reader",
+          "book/profiles/golden-triple/allow_all.sb.bin",
+          "/private/tmp/sbpl_rt/read.txt"
         ],
-        "exit_code": 0,
-        "stdout": "runtime-checks read\n",
-        "stderr": ""
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox initialization failed: no version specified\n\nBacktrace: \n<implicit policy library>:239:33:\n\t(target self)\n\nsandbox_init failed: no version specified\n\nBacktrace: \n<implicit policy library>:239:33:\n\t(target self)\n\n"
       },
       {
         "name": "write_/tmp/sbpl_rt/write.txt",
@@ -60,30 +62,31 @@
         "operation": "file-write*",
         "path": "/tmp/sbpl_rt/write.txt",
         "expected": "allow",
-        "actual": "allow",
-        "match": true,
+        "actual": "deny",
+        "match": false,
         "runtime_result": {
-          "status": "success",
-          "errno": null
+          "status": "errno",
+          "errno": 1
         },
         "violation_summary": null,
         "command": [
-          "/Users/achyland/Desktop/SANDBOX_LORE/book/api/SBPL-wrapper/wrapper",
+          "book/api/SBPL-wrapper/wrapper",
           "--blob",
           "book/profiles/golden-triple/allow_all.sb.bin",
           "--",
-          "/bin/sh",
-          "-c",
-          "echo runtime-check >> '/tmp/sbpl_rt/write.txt'"
+          "book/experiments/runtime-checks/sandbox_writer",
+          "book/profiles/golden-triple/allow_all.sb.bin",
+          "/private/tmp/sbpl_rt/write.txt"
         ],
-        "exit_code": 0,
+        "exit_code": 1,
         "stdout": "",
-        "stderr": ""
+        "stderr": "sandbox initialization failed: no version specified\n\nBacktrace: \n<implicit policy library>:239:33:\n\t(target self)\n\nsandbox_init failed: no version specified\n\nBacktrace: \n<implicit policy library>:239:33:\n\t(target self)\n\n"
       }
-    ]
+    ],
+    "notes": "runtime results diverged from expected allow/deny matrix"
   },
   "runtime:metafilter_any": {
-    "status": "ok",
+    "status": "partial",
     "profile_path": "book/profiles/golden-triple/metafilter_any.sb.bin",
     "base_profile_path": "book/profiles/golden-triple/metafilter_any.sb.bin",
     "probes": [
@@ -93,24 +96,25 @@
         "operation": "file-read*",
         "path": "/tmp/foo.txt",
         "expected": "allow",
-        "actual": "allow",
-        "match": true,
+        "actual": "deny",
+        "match": false,
         "runtime_result": {
-          "status": "success",
-          "errno": null
+          "status": "errno",
+          "errno": 1
         },
         "violation_summary": null,
         "command": [
-          "/Users/achyland/Desktop/SANDBOX_LORE/book/api/SBPL-wrapper/wrapper",
+          "book/api/SBPL-wrapper/wrapper",
           "--blob",
           "book/profiles/golden-triple/metafilter_any.sb.bin",
           "--",
-          "/bin/cat",
-          "/tmp/foo.txt"
+          "book/experiments/runtime-checks/sandbox_reader",
+          "book/profiles/golden-triple/metafilter_any.sb.bin",
+          "/private/tmp/foo.txt"
         ],
-        "exit_code": 0,
-        "stdout": "foo\n",
-        "stderr": ""
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox initialization failed: no version specified\n\nBacktrace: \n<implicit policy library>:239:33:\n\t(target self)\n\nsandbox_init failed: no version specified\n\nBacktrace: \n<implicit policy library>:239:33:\n\t(target self)\n\n"
       },
       {
         "name": "read_bar",
@@ -118,24 +122,25 @@
         "operation": "file-read*",
         "path": "/tmp/bar.txt",
         "expected": "allow",
-        "actual": "allow",
-        "match": true,
+        "actual": "deny",
+        "match": false,
         "runtime_result": {
-          "status": "success",
-          "errno": null
+          "status": "errno",
+          "errno": 1
         },
         "violation_summary": null,
         "command": [
-          "/Users/achyland/Desktop/SANDBOX_LORE/book/api/SBPL-wrapper/wrapper",
+          "book/api/SBPL-wrapper/wrapper",
           "--blob",
           "book/profiles/golden-triple/metafilter_any.sb.bin",
           "--",
-          "/bin/cat",
-          "/tmp/bar.txt"
+          "book/experiments/runtime-checks/sandbox_reader",
+          "book/profiles/golden-triple/metafilter_any.sb.bin",
+          "/private/tmp/bar.txt"
         ],
-        "exit_code": 0,
-        "stdout": "bar\n",
-        "stderr": ""
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox initialization failed: no version specified\n\nBacktrace: \n<implicit policy library>:239:33:\n\t(target self)\n\nsandbox_init failed: no version specified\n\nBacktrace: \n<implicit policy library>:239:33:\n\t(target self)\n\n"
       },
       {
         "name": "read_other",
@@ -143,30 +148,32 @@
         "operation": "file-read*",
         "path": "/tmp/qux.txt",
         "expected": "allow",
-        "actual": "allow",
-        "match": true,
+        "actual": "deny",
+        "match": false,
         "runtime_result": {
-          "status": "success",
-          "errno": null
+          "status": "errno",
+          "errno": 1
         },
         "violation_summary": null,
         "command": [
-          "/Users/achyland/Desktop/SANDBOX_LORE/book/api/SBPL-wrapper/wrapper",
+          "book/api/SBPL-wrapper/wrapper",
           "--blob",
           "book/profiles/golden-triple/metafilter_any.sb.bin",
           "--",
-          "/bin/cat",
-          "/tmp/qux.txt"
+          "book/experiments/runtime-checks/sandbox_reader",
+          "book/profiles/golden-triple/metafilter_any.sb.bin",
+          "/private/tmp/qux.txt"
         ],
-        "exit_code": 0,
-        "stdout": "qux\n",
-        "stderr": ""
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox initialization failed: no version specified\n\nBacktrace: \n<implicit policy library>:239:33:\n\t(target self)\n\nsandbox_init failed: no version specified\n\nBacktrace: \n<implicit policy library>:239:33:\n\t(target self)\n\n"
       }
-    ]
+    ],
+    "notes": "runtime results diverged from expected allow/deny matrix"
   },
   "bucket4:v1_read": {
     "status": "ok",
-    "profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/profiles/golden-triple/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
+    "profile_path": "book/profiles/golden-triple/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
     "base_profile_path": "book/experiments/op-table-operation/sb/v1_read.sb",
     "probes": [
       {
@@ -183,12 +190,9 @@
         },
         "violation_summary": null,
         "command": [
-          "sandbox-exec",
-          "-f",
-          "/Users/achyland/Desktop/SANDBOX_LORE/book/profiles/golden-triple/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
-          "--",
-          "/bin/cat",
-          "/etc/hosts"
+          "book/experiments/runtime-checks/sandbox_reader",
+          "book/profiles/golden-triple/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
+          "/private/etc/hosts"
         ],
         "exit_code": 0,
         "stdout": "##\n# Host Database\n#\n# localhost is used to configure the loopback interface\n# when the system is booting.  Do not change this entry.\n##\n127.0.0.1\tlocalhost\n255.255.255.255\tbroadcasthost\n::1             localhost\n",
@@ -204,21 +208,17 @@
         "match": true,
         "runtime_result": {
           "status": "errno",
-          "errno": 1
+          "errno": 2
         },
         "violation_summary": "EPERM",
         "command": [
-          "sandbox-exec",
-          "-f",
-          "/Users/achyland/Desktop/SANDBOX_LORE/book/profiles/golden-triple/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
-          "--",
-          "/bin/sh",
-          "-c",
-          "echo runtime-check >> '/etc/hosts'"
+          "book/experiments/runtime-checks/sandbox_writer",
+          "book/profiles/golden-triple/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
+          "/private/etc/hosts"
         ],
-        "exit_code": 1,
+        "exit_code": 2,
         "stdout": "",
-        "stderr": "/bin/sh: /etc/hosts: Operation not permitted\n"
+        "stderr": "open target: Operation not permitted\n"
       },
       {
         "name": "read_/tmp/foo",
@@ -234,12 +234,9 @@
         },
         "violation_summary": null,
         "command": [
-          "sandbox-exec",
-          "-f",
-          "/Users/achyland/Desktop/SANDBOX_LORE/book/profiles/golden-triple/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
-          "--",
-          "/bin/cat",
-          "/tmp/foo"
+          "book/experiments/runtime-checks/sandbox_reader",
+          "book/profiles/golden-triple/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
+          "/private/tmp/foo"
         ],
         "exit_code": 0,
         "stdout": "runtime-checks foo\n",
@@ -249,7 +246,7 @@
   },
   "bucket5:v11_read_subpath": {
     "status": "partial",
-    "profile_path": "/Users/achyland/Desktop/SANDBOX_LORE/book/profiles/golden-triple/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
+    "profile_path": "book/profiles/golden-triple/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
     "base_profile_path": "book/experiments/op-table-operation/sb/v11_read_subpath.sb",
     "probes": [
       {
@@ -262,20 +259,17 @@
         "match": false,
         "runtime_result": {
           "status": "errno",
-          "errno": -6
+          "errno": 2
         },
-        "violation_summary": null,
+        "violation_summary": "EPERM",
         "command": [
-          "sandbox-exec",
-          "-f",
-          "/Users/achyland/Desktop/SANDBOX_LORE/book/profiles/golden-triple/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
-          "--",
-          "/bin/cat",
-          "/tmp/foo"
+          "book/experiments/runtime-checks/sandbox_reader",
+          "book/profiles/golden-triple/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
+          "/private/tmp/foo"
         ],
-        "exit_code": -6,
+        "exit_code": 2,
         "stdout": "",
-        "stderr": ""
+        "stderr": "open target: Operation not permitted\n"
       },
       {
         "name": "read_/tmp/bar",
@@ -287,20 +281,17 @@
         "match": true,
         "runtime_result": {
           "status": "errno",
-          "errno": -6
+          "errno": 2
         },
-        "violation_summary": null,
+        "violation_summary": "EPERM",
         "command": [
-          "sandbox-exec",
-          "-f",
-          "/Users/achyland/Desktop/SANDBOX_LORE/book/profiles/golden-triple/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
-          "--",
-          "/bin/cat",
-          "/tmp/bar"
+          "book/experiments/runtime-checks/sandbox_reader",
+          "book/profiles/golden-triple/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
+          "/private/tmp/bar"
         ],
-        "exit_code": -6,
+        "exit_code": 2,
         "stdout": "",
-        "stderr": ""
+        "stderr": "open target: Operation not permitted\n"
       },
       {
         "name": "write_/tmp/foo",
@@ -312,21 +303,17 @@
         "match": true,
         "runtime_result": {
           "status": "errno",
-          "errno": -6
+          "errno": 2
         },
-        "violation_summary": null,
+        "violation_summary": "EPERM",
         "command": [
-          "sandbox-exec",
-          "-f",
-          "/Users/achyland/Desktop/SANDBOX_LORE/book/profiles/golden-triple/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
-          "--",
-          "/bin/sh",
-          "-c",
-          "echo runtime-check >> '/tmp/foo'"
+          "book/experiments/runtime-checks/sandbox_writer",
+          "book/profiles/golden-triple/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
+          "/private/tmp/foo"
         ],
-        "exit_code": -6,
+        "exit_code": 2,
         "stdout": "",
-        "stderr": ""
+        "stderr": "open target: Operation not permitted\n"
       }
     ],
     "notes": "runtime results diverged from expected allow/deny matrix"

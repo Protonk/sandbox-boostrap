@@ -16,7 +16,9 @@ from pathlib import Path
 from typing import Dict, List
 
 # Ensure repo root on sys.path for book.* imports.
-ROOT = Path(__file__).resolve().parents[4]
+from book.api.path_utils import ensure_absolute, find_repo_root, to_repo_relative
+
+ROOT = find_repo_root(Path(__file__))
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
@@ -70,14 +72,14 @@ def compute_hashes(paths: List[str]) -> Dict[str, str]:
 
     hashes: Dict[str, str] = {}
     for p in paths or []:
-        path = Path(p)
+        path = ensure_absolute(p, ROOT)
         if not path.exists():
             continue
         h = hashlib.sha256()
         with path.open("rb") as f:
             for chunk in iter(lambda: f.read(8192), b""):
                 h.update(chunk)
-        hashes[str(path)] = h.hexdigest()
+        hashes[to_repo_relative(path, ROOT)] = h.hexdigest()
     return hashes
 
 
@@ -107,8 +109,9 @@ def select_jobs(
 
 def normalize_record(job: registry.ValidationJob, result: Dict, host_meta: Dict, prev_record: Dict | None) -> Dict:
     status = result.get("status", "ok")
-    outputs = result.get("outputs", job.outputs)
-    hashes = compute_hashes(outputs)
+    raw_outputs = result.get("outputs", job.outputs)
+    raw_inputs = result.get("inputs", job.inputs)
+    hashes = compute_hashes(raw_outputs)
     change = "unknown"
     if prev_record and prev_record.get("hashes"):
         if hashes == prev_record.get("hashes"):
@@ -120,11 +123,14 @@ def normalize_record(job: registry.ValidationJob, result: Dict, host_meta: Dict,
     if status not in ALLOWED_STATUS:
         status = "blocked"
 
+    inputs = [to_repo_relative(p, ROOT) for p in raw_inputs]
+    outputs = [to_repo_relative(p, ROOT) for p in raw_outputs]
+
     record = {
         "job_id": job.id,
         "status": status,
         "host": result.get("host") or host_meta,
-        "inputs": job.inputs,
+        "inputs": inputs,
         "outputs": outputs,
         "tags": job.tags,
         "hashes": hashes,
