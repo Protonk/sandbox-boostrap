@@ -43,10 +43,27 @@
 
 ## Run: init_params_probe (host witness)
 - Command (repo root): `INIT_PARAMS_PROBE_OUT=book/experiments/sandbox-init-params/out/init_params_probe.sb.bin sb/build/init_params_probe`.
-- Output (process-local addresses):
-  - handle words: `[0, 0x12c808200, 0x1a0]` (handle[0]==0 triggers fallback branch in `_sandbox_apply`).
-  - blob pointer/len inferred: `ptr=0x12c808200`, `len=416`; copied to `out/init_params_probe.sb.bin`.
-  - arg block to `__sandbox_ms` (w1=0): `{q0=0x12c808200, q1=416, q2=0}` (container NULL).
+- Output (process-local addresses; JSON in `out/init_params_probe_run.json`):
+  - handle words: `[0, 0x146809600, 0x1a0]` (handle[0]==0 triggers fallback branch in `_sandbox_apply`).
+  - blob pointer/len inferred: `ptr=0x146809600`, `len=416`; copied to `out/init_params_probe.sb.bin`.
+  - arg block to `__sandbox_ms` (w1=0): `{q0=0x146809600, q1=416, q2=0}` (container NULL).
   - `sandbox_apply` return: 0.
 - Inspect: `python -m book.api.inspect_profile.cli out/init_params_probe.sb.bin --json out/init_params_probe.inspect.json` → length 416, op_entries `[1,1]`, modern-heuristic format.
 - Interpretation: the canonical inline profile flows through the handle[0]==0 path, passing (ptr,len) directly in the arg block; matches the fallback branch in `_sandbox_apply`.
+
+## Run: init_params_probe (container variant)
+- Command: `INIT_PARAMS_PROBE_CONTAINER=/tmp/init_params_container INIT_PARAMS_PROBE_OUT=.../out/init_params_probe_container.sb.bin INIT_PARAMS_PROBE_RUN_JSON=.../out/init_params_probe_container_run.json sb/build/init_params_probe`.
+- Output:
+  - handle words: `[0, 0x152009200, 0x1a0]` (same branch, handle[0]==0).
+  - blob pointer/len: `ptr=0x152009200`, `len=416`; copied to `out/init_params_probe_container.sb.bin` (identical bytes to non-container run; sha256 `19832e...3c92`).
+  - arg block (w1=0): `{q0=0x152009200, q1=416, q2=0}`; container_len=26 ("/tmp/init_params_container").
+  - `sandbox_apply` return: 0.
+
+## Validation snapshot
+- `validate_runs.py` checks all `_run.json` files vs blobs:
+  - Ensures blob length matches recorded `blob.len`.
+  - Ensures `call_code` matches `handle_words[0]!=0`.
+  - Emits `out/validation_summary.json` with length/call_code/sha256 per run.
+- Current runs:
+  - `init_params_probe`: len 416, call_code 0, sha256 `19832eb9716a32459bee8398c8977fd1dfd575fa26606928f95728462a833c92`.
+  - `init_params_probe_container`: same len/hash, call_code 0.

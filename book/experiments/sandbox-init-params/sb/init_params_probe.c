@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
 
 typedef void *(*sandbox_compile_string_fn)(const char *profile, void *params, char **errorbuf);
 typedef int (*sandbox_apply_fn)(void *compiled, const char *container);
@@ -18,6 +19,13 @@ static void dump_qwords(const char *label, const uint64_t *ptr, size_t count) {
 
 int main(void) {
     const char *profile = "(version 1)\n(allow default)";
+    const char *profile_json = "(version 1)\\n(allow default)";
+    const char *container = getenv("INIT_PARAMS_PROBE_CONTAINER");
+    const char *run_json = getenv("INIT_PARAMS_PROBE_RUN_JSON");
+    size_t container_len = 0;
+    if (container && container[0]) {
+        container_len = strlen(container);
+    }
     char *err = NULL;
 
     void *lib = dlopen("/usr/lib/libsandbox.1.dylib", RTLD_LAZY);
@@ -74,8 +82,34 @@ int main(void) {
         }
     }
 
-    int apply_rv = apply_fn(handle, NULL);
-    printf("sandbox_apply returned %d\n", apply_rv);
+    int apply_rv = apply_fn(handle, container && container[0] ? container : NULL);
+    printf("sandbox_apply returned %d (container=%s)\n", apply_rv, container && container[0] ? container : "NULL");
+
+    int call_code = handle_q[0] ? 1 : 0;
+
+    if (run_json && *run_json) {
+        FILE *r = fopen(run_json, "w");
+        if (!r) {
+            perror("fopen run_json");
+        } else {
+            fprintf(r, "{\n");
+            fprintf(r, "  \"world_id\": \"sonoma-14.4.1-23E224-arm64-dyld-2c0602c5\",\n");
+            fprintf(r, "  \"profile\": \"%s\",\n", profile_json);
+            fprintf(r, "  \"container\": \"%s\",\n", container && container[0] ? container : "");
+            fprintf(r, "  \"container_len\": %zu,\n", container_len);
+            fprintf(r, "  \"handle_ptr_hex\": \"%p\",\n", handle);
+            fprintf(r, "  \"handle_words\": [%" PRIu64 ", %" PRIu64 ", %" PRIu64 "],\n", handle_q[0], handle_q[1], handle_q[2]);
+            fprintf(r, "  \"handle_words_hex\": [\"0x%016" PRIx64 "\", \"0x%016" PRIx64 "\", \"0x%016" PRIx64 "\"],\n",
+                    handle_q[0], handle_q[1], handle_q[2]);
+            fprintf(r, "  \"call_code\": %d,\n", call_code);
+            fprintf(r, "  \"blob\": {\"ptr_hex\": \"%p\", \"len\": %zu, \"file\": \"%s\"},\n",
+                    blob_ptr, blob_len, out_path ? out_path : "");
+            fprintf(r, "  \"apply_return\": %d\n", apply_rv);
+            fprintf(r, "}\n");
+            fclose(r);
+            printf("wrote run json to %s\n", run_json);
+        }
+    }
 
     if (free_fn) {
         free_fn(handle);

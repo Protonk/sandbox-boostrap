@@ -37,13 +37,18 @@ This experiment starts where `libsandbox-encoder` stopped: it treats the compile
   - Caller-supplied container pointer/length are appended in the arg block; `strlen` computes length when the pointer is non-null.
 - Handoff snapshot: `__sandbox_ms` receives x0="Sandbox", w1=1 when `handle[0]!=0` (else 0), x2=arg block built from the handle and optional container. Arg block layout and call graph recorded in `out/`.
 - Host witness run (`init_params_probe`):
-  - Profile `(version 1)\n(allow default)` compiled via `sandbox_compile_string` → handle words `[0, 0x12c808200, 0x1a0]` (process-local addresses; handle[0]==0 branch).
-  - Arg block to `__sandbox_ms` (call_code w1=0): `{q0=0x12c808200, q1=416, q2=0}`; `sandbox_apply` returned 0.
+  - Profile `(version 1)\n(allow default)` compiled via `sandbox_compile_string` → handle words `[0, 0x146809600, 0x1a0]` (process-local; handle[0]==0 branch).
+  - Arg block to `__sandbox_ms` (call_code w1=0): `{q0=0x146809600, q1=416, q2=0}`; `sandbox_apply` returned 0.
   - Compiled blob captured at `out/init_params_probe.sb.bin` (416 bytes), inspected via `book.api.inspect_profile.cli` → format `modern-heuristic`, op_entries `[1,1]`.
+- Container variant (`INIT_PARAMS_PROBE_CONTAINER=/tmp/init_params_container`):
+  - Handle words `[0, 0x152009200, 0x1a0]`, call_code 0 (same branch).
+  - Arg block `{q0=0x152009200, q1=416, q2=0}`, container_len 26, `sandbox_apply` returned 0.
+  - Blob identical to baseline (sha256 `19832eb9716a32459bee8398c8977fd1dfd575fa26606928f95728462a833c92`).
+- Validation: `validate_runs.py` (added) recomputes length/call_code/sha256 for all runs and writes `out/validation_summary.json`; current runs both len 416, call_code 0, sha256 `19832e...3c92`.
 - Artifacts emitted:
   - `Plan.md` (canonical scenario and steps).
   - `Notes.md` (call graph, layout snapshot, handoff snapshot, run log).
-  - `out/call_graph.json`, `out/layout_snapshot.json`, `out/handoff_snapshot.json`, `out/init_params_probe.sb.bin`, `out/init_params_probe.inspect.json`, `out/init_params_probe_run.json`.
+  - `out/call_graph.json`, `out/layout_snapshot.json`, `out/handoff_snapshot.json`, `out/init_params_probe*.sb.bin`, `out/init_params_probe*.inspect.json`, `out/init_params_probe*_run.json`, `out/validation_summary.json`, `validate_runs.py`.
 
 ## Planned guardrails (not yet implemented)
 - For `init_params_probe`, the `(ptr,len)` passed to `__sandbox_ms` should match the sb_buffer produced by `sandbox_compile_string` for the inline profile.
