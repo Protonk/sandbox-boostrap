@@ -51,7 +51,9 @@ def test_node_layout_literal_probe_shapes():
     assert "v20_read_literal" in summary and "v21_two_literals_require_any" in summary
     v20 = summary["v20_read_literal"]
     v21 = summary["v21_two_literals_require_any"]
-    # Decoder tag counts should show the require-any profile adding at least one tag5 node.
+    # Decoder tag counts should show the require-any profile adding at least one tag0 node.
+    # (Under the current stride=8 framing, tag5 counts are stable across these probes while
+    # the number of literal-bearing tag0 nodes grows with the literal set.)
     v20_tags = {int(k): v for k, v in v20["decoder"]["tag_counts"].items()}
     v21_tags = {int(k): v for k, v in v21["decoder"]["tag_counts"].items()}
-    assert v21_tags.get(5, 0) >= v20_tags.get(5, 0) + 1
+    assert v21_tags.get(0, 0) >= v20_tags.get(0, 0) + 1

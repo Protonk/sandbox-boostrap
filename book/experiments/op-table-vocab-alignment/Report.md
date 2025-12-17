@@ -184,35 +184,33 @@ This experiment sits between the structural experiments and the validation tooli
 
 ## Appendix
 ### 5. Updated findings (with vocab present)
-With the Sonoma vocab harvested (`ops.json`/`filters.json` status: ok), we can now anchor bucket patterns to concrete Operation IDs:
+With the Sonoma vocab harvested (`book/graph/mappings/vocab/ops.json` / `filters.json`, status: ok), we can attach numeric Operation IDs to the SBPL operation names present in the synthetic profiles from `op-table-operation`.
 
-- Operation IDs (selected):
+This does **not** imply that op-table slot indices correspond to operation IDs in these blobs: the synthetic profiles’ op tables are small (typically `op_count` 5–7), and slot semantics remain under exploration. This experiment therefore treats the vocab as an annotation layer (SBPL op name → op ID) and treats `op_entries` patterns as the bucket evidence.
+
+Static facts for this host (from vocab + `op-table-operation` outputs):
+
+- Operation IDs (selected, from vocab):
   - `file-read*` → 21, `file-write*` → 29, `mach-lookup` → 96, `network-outbound` → 112.
-- Single-op profiles (op_table length 196):
-  - `v1_read` (file-read*) uses bucket 3 at index 21.
-  - `v2_write` (file-write*) uses bucket 3 at index 29.
-  - `v3_mach` (mach-lookup) uses bucket 5 at index 96.
-  - `v4_network` (network-outbound) uses bucket 3 at index 112.
-  - `v0_empty` remains uniform bucket 4.
-- Mixed profiles:
-  - Unfiltered mixes (`v5_read_write`, `v7_read_network`) keep bucket 3 for file/net ops.
-- Mach-inclusive mixes (`v6_read_mach`, `v8_write_mach`, `v10_mach_network`) show buckets {3,5} depending on op: mach stays 5; file/net stay 3.
-- Filtered read variants (subpath/literal) elevate file-read* to bucket 5 in these synthetic profiles, indicating filter-driven bucket changes.
-- Filter IDs are available and recorded per profile; correlating bucket shifts with specific filter IDs remains open analysis work.
+- Bucket patterns by profile family (from `op-table-operation`):
+  - Unfiltered single-op reads/writes/network (`v1_read`, `v2_write`, `v4_network`) and the deny-default baseline (`v0_empty`) use `op_entries == [4,4,4,4,4]` (`op_count=5`).
+  - Mach-only (`v3_mach`) uses `op_entries == [5,5,5,5,5,5]` (`op_count=6`).
+  - Filtered read-only (`v11_read_subpath`) also uses `op_entries == [5,5,5,5,5,5]` (`op_count=6`), so bucket 5 is not “mach-only”.
+  - Mixed mach + filtered read (`v12_read_subpath_mach`, `v16_subpath_mach_literal`) use the non-uniform pattern `[6,6,6,6,6,6,5]` (`op_count=7`); bucket 6 appears only in these mixed profiles in the current suite.
 
-Bucket→ID summary (from alignment artifact on this host, vocab version `1ea1be04243c2d229f71ba12562e7c826ef6a15bcbccbd0b8f1d469cbe5d7b8e`):
+Bucket→Operation-ID summary (coarse; profile-scoped, not per-slot):
 
-- `file-read*` (ID 21), `file-write*` (ID 29), and `network-outbound` (ID 112) appear in buckets {3,4} across the synthetic profiles (unfiltered vs filtered/mach mixes).
-- `mach-lookup` (ID 96) appears in buckets {5,6}, with bucket 6 showing up only in the complex mach+filtered-read mixes.
-- No other operations are exercised here; treat these as host/profile-scoped observations, not universal rules.
+- Bucket 4 appears in profiles whose SBPL op sets include file read/write/network without the “mach + filtered read” combination.
+- Bucket 5 appears in mach-only profiles and in filtered-read-only profiles.
+- Bucket 6 appears only in profiles that combine `mach-lookup` with a filtered `file-read*` in this synthetic suite.
 
-### Status summary (2025-12-09)
-- Vocab artifacts are `status: ok` (ops=196, filters=93); alignment regenerated after decoder updates with no bucket changes. For this host, op-table bucket↔operation ID mapping is up to date. Further changes would come only if vocab hashes change or new profile variants are added.
+### Status summary
+- Vocab artifacts are `status: ok` (ops=196, filters=93); alignment regenerates cleanly after decoder updates. What remains is a witness-backed model for op-table slot semantics in these synthetic blobs (i.e., how slots relate to Operation IDs, if at all).
 
 ---
 
 ### 6. What remains to be done
-This experiment can now close the Operation-ID alignment; the remaining work is filter-aware annotation and cross-linking:
+This experiment can treat “SBPL op name → Operation ID” as complete for the synthetic suite; the remaining work is slot-semantics and filter-aware annotation:
 
 1. **Filter-level alignment (new)**
    - Correlate bucket changes and decoder `field2` values with filter IDs from `filters.json` (e.g., `subpath`, `literal`) using the filtered variants.
@@ -227,7 +225,7 @@ This experiment can now close the Operation-ID alignment; the remaining work is 
 
    With IDs in hand, we can perform checks like:
 
-   - “Across all synthetic profiles, which Operation IDs appear in bucket 4 vs 5 vs 6?”
+	   - “Across all synthetic profiles, which SBPL ops (and their IDs) co-occur with bucket 6, and what filter structures are shared?”
    - “Does the ID for `mach-lookup` always appear in bucket 5 in these datasets?”
    - “Do Operation IDs for filtered read variants appear in both bucket 5 and 6, or is 6 reserved for certain combinations?”
 

@@ -3,7 +3,7 @@
 Phase A helper for libsandbox-encoder: compile/ingest matrix_v1 and emit a field2 table.
 
 - Uses sbpl_compile + profile_ingestion to stay aligned with existing API surfaces.
-- Parses nodes directly from the sliced node region (stride 12) to avoid the literal-start
+- Parses nodes directly from the sliced node region (stride=8 for this world baseline) to avoid the literal-start
   heuristic that can collapse nodes when literals look printable.
 - Emits rows with op hints, filter names/IDs, tags, field2 raw/hi/lo, and literal_refs.
 """
@@ -56,7 +56,7 @@ def load_tag_layouts() -> Dict[int, Dict[str, Any]]:
                 tag = int(entry["tag"])
             except Exception:
                 continue
-            rec_size = int(entry.get("record_size_bytes", 12))
+            rec_size = int(entry.get("record_size_bytes", 8))
             edges = tuple(entry.get("edge_fields", []))
             payloads = tuple(entry.get("payload_fields", []))
             filter_id_field = entry.get("filter_id_field")
@@ -128,7 +128,7 @@ def attach_literal_refs(nodes: List[Dict[str, Any]], nodes_bytes: bytes, literal
 def parse_nodes_with_layout(nodes_bytes: bytes, layouts: Dict[int, Dict[str, Any]]) -> Tuple[List[Dict[str, Any]], Dict[int, int], int]:
     """
     Parse nodes using per-tag record sizes when available (override if present),
-    defaulting to 12-byte records. Returns (nodes, tag_counts, remainder_bytes).
+    defaulting to 8-byte records. Returns (nodes, tag_counts, remainder_bytes).
     """
     nodes: List[Dict[str, Any]] = []
     tag_counts: Dict[int, int] = {}
@@ -136,7 +136,7 @@ def parse_nodes_with_layout(nodes_bytes: bytes, layouts: Dict[int, Dict[str, Any
     while offset + 1 <= len(nodes_bytes):
         tag = nodes_bytes[offset]
         layout = layouts.get(tag, {})
-        rec_size = layout.get("record_size_bytes", 12)
+        rec_size = layout.get("record_size_bytes", 8)
         chunk = nodes_bytes[offset : offset + rec_size]
         if len(chunk) < rec_size:
             break
@@ -191,12 +191,12 @@ def build_matrix(sb_path: Path, out_blob: Path, out_json: Path) -> None:
         # For now, assume single payload slot; if multiple, take first
         payload_field_index = payload_idx[0] if payload_idx else None
         if payload_field_index is None or payload_field_index >= len(fields):
-            payload_raw = None
-            payload_hi = payload_lo = None
+            field2_raw = None
+            field2_hi = field2_lo = None
         else:
-            payload_raw = fields[payload_field_index]
-            payload_hi = payload_raw & 0xC000
-            payload_lo = payload_raw & 0x3FFF
+            field2_raw = fields[payload_field_index]
+            field2_hi = field2_raw & 0xC000
+            field2_lo = field2_raw & 0x3FFF
         # filter_id may come from a dedicated field or from payload_lo if no hi bits
         fid_idx = filter_id_field if filter_id_field is not None else payload_field_index
         filter_id_raw = fields[fid_idx] if fid_idx is not None and fid_idx < len(fields) else None
@@ -212,9 +212,9 @@ def build_matrix(sb_path: Path, out_blob: Path, out_json: Path) -> None:
                 "filter_id_raw": filter_id_raw,
                 "filter_id": filter_id_lo if (filter_id_raw is not None) else None,
                 "filter_name": filter_name,
-                "payload_raw": payload_raw,
-                "payload_hi": payload_hi,
-                "payload_lo": payload_lo,
+                "field2_raw": field2_raw,
+                "field2_hi": field2_hi,
+                "field2_lo": field2_lo,
                 "literal_refs": node.get("literal_refs", []),
             }
         )

@@ -2,7 +2,7 @@
   "tags": [
     {
       "tag": 2,
-      "record_size_bytes": 12,
+      "record_size_bytes": 8,
       "edge_fields": [0, 1],
       "payload_fields": [],
       "role": "meta",
@@ -11,7 +11,7 @@
     },
     {
       "tag": 3,
-      "record_size_bytes": 12,
+      "record_size_bytes": 8,
       "edge_fields": [0, 1],
       "payload_fields": [],
       "role": "meta",
@@ -20,7 +20,7 @@
     },
     {
       "tag": 8,
-      "record_size_bytes": 12,
+      "record_size_bytes": 8,
       "edge_fields": [0, 1],
       "payload_fields": [2],
       "filter_id_field": 2,
@@ -29,12 +29,12 @@
     },
     {
       "tag": 10,
-      "record_size_bytes": 12,
+      "record_size_bytes": 8,
       "edge_fields": [0, 1],
       "payload_fields": [2],
       "filter_id_field": 1,
-      "status": "ok",
-      "notes": "Header-aligned layout from matrix_v1_domain2/30: tag=h0.low, filter_id=h1 (values {6,8,9,10}), payload=h2 (arg value/index)."
+      "status": "partial",
+      "notes": "Stride=8 record hypothesis: treat fields as u16[0..2] and interpret u16[1] as filter_id (vocab ID), u16[2] as payload. Historical stride=12 notes are superseded by the world-scoped stride=8 framing."
     }
   ],
   "host": {

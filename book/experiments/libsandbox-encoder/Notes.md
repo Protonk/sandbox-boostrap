@@ -29,3 +29,9 @@
 
 - libsandbox slice: `book/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib` (arm64e, ~512KB). `nm -gU` shows exported compile/apply symbols (`_sandbox_compile_*`, `_sandbox_apply`, `_sandbox_apply_container`) plus profile-related helpers (`___emit_profile_block_invoke`, `__populate_atom_tables_profile`, etc.).
 - Need to identify the profile serializer path (buffer allocator → node emission loop) and map halfword stores for tag10. Initial `otool -p` lookup for `_populate_atom_tables_profile` failed (likely non-external symbol lookup); next steps: disassemble via address/symbol table or Ghidra to find the serializer and the `__mac_syscall` call site.
+
+## Updated
+
+- Updated: refreshed Phase A artifacts under the world-scoped stride=8 framing (tag layouts now record `record_size_bytes=8`). `run_phase_a.py` now emits `field2_raw/hi/lo` using 8-byte records and regenerates `out/matrix_v1_field2_encoder_matrix.json` and `out/matrix_v2_field2_encoder_matrix.json`.
+- Updated: local `out/tag_layout_overrides.json` record sizes are now stride=8; historical stride=12 interpretations should be treated as superseded by the promoted stride=8 framing.
+- Updated: rewrote `Report.md` to remove the historical stride=12 “closed” posture; Phase A matrices are treated as descriptive under stride=8, and any per-tag field semantics in `out/tag_layout_overrides.json` remain `partial`/experiment-local until independently witnessed and promoted.

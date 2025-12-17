@@ -32,7 +32,7 @@ We explicitly do **not** attempt a full reverse-engineering of modern node forma
 - `analyze.py` – main tooling for this experiment:
   - compiles `sb/*.sb` via `sandbox_compile_string`,
   - slices blobs with `book.graph.concepts.validation.profile_ingestion`,
-  - calls `book.graph.concepts.validation.decoder.decode_profile_dict`,
+  - calls `book.api.decoder.decode_profile_dict` (world-scoped stride selection),
   - emits `out/summary.json`.
 - `out/summary.json` – machine-readable per-variant summary, including:
   - blob length, heuristic `operation_count`,
@@ -40,7 +40,7 @@ We explicitly do **not** attempt a full reverse-engineering of modern node forma
   - node region length,
   - literal/regex pool length,
   - stride-based stats for the node region (8/12/16),
-  - full stride=12 record dump (for historical reference),
+  - full stride=8 record dump (world-scoped framing) plus a stride=12 dump (historical reference),
   - literal strings extracted heuristically,
   - **decoder** snapshot:
     - `format_variant`,
@@ -49,24 +49,24 @@ We explicitly do **not** attempt a full reverse-engineering of modern node forma
     - `node_count`,
     - decoder `tag_counts`,
     - decoder `literal_strings`,
-    - decoder `sections` lengths.
+    - decoder `sections` lengths,
+    - decoder `validation` (stride selection + scaling witnesses).
 
-**Shared tooling from `book/graph/concepts/validation`**
+**Shared tooling from `book/graph/concepts/validation` and `book/api`**
 
 - `profile_ingestion.py` – slices blobs into:
   - 16‑byte preamble,
   - **Operation Pointer Table** bytes,
   - node region bytes,
   - literal/regex pool bytes.
-- `decoder.py` – **heuristic modern-profile decoder** that:
-  - guesses `op_count` from the preamble,
-  - infers the op-table region,
-  - treats nodes as 12‑byte records,
+- `book/api/decoder` – **heuristic modern-profile decoder** that:
+  - uses op-table word-offset scaling evidence to select a fixed node stride for this world (stride=8 on the Sonoma baseline),
+  - slices the node/literal boundary using an op-table-derived lower bound (to avoid ASCII mis-framing),
   - returns a JSON-friendly dict with:
     - per-node `tag` and `fields`,
-    - `node_count`,
-    - stringified `tag_counts`,
-    - printable strings from the literal/regex pool.
+    - `node_count` and `tag_counts`,
+    - printable strings (with offsets) from the literal/regex pool,
+    - `validation` witnesses (stride selection and scaling-pathology scoring).
 
 These tools give us a consistent “slice + decode” view of modern profiles that we use in this experiment and others.
 
@@ -106,7 +106,7 @@ These tools give us a consistent “slice + decode” view of modern profiles th
   - Inspected the last few stride-aligned records and remainder bytes (e.g., v1 vs v4) to identify “tail-only” structure.
   - Established that:
   - no stride yields a remainder-free node region,
-  - stride 12 gives a clean front tag set, but tails carry extra records with odd edges (e.g., 3584) and non-zero remainders.
+  - stride 8 is the decoder-selected framing for this world; other strides are kept as comparative probes and historical context.
 - **4. Literal pools, field2, and node fields**
   - Inspected literal/regex pools to confirm expected strings across variants (e.g., `/tmp/foo`, `/tmp/bar`, `/etc/hosts`).
   - Compared node regions for key variant pairs:
@@ -126,7 +126,7 @@ These tools give us a consistent “slice + decode” view of modern profiles th
   - compile all `sb/*.sb` into `sb/build/*.sb.bin`,
   - slice blobs into sections,
   - run stride/tail analysis,
-  - call the shared decoder to capture `node_count`, tag counts, op_table offsets, literals, and section lengths,
+  - call the shared decoder to capture `node_count`, tag counts, op_table offsets, literals, section lengths, and stride-selection witnesses,
   - write `out/summary.json` for use by other experiments.
   - Ensured `Notes.md` references `analyze.py`, `out/summary.json`, and key observations.
 - **7. Remaining questions and follow-on work**
@@ -285,23 +285,20 @@ Across all variants on this host, we see the following structural invariants:
 
 The node region behaves like:
 
-- a mostly-regular array of 12‑byte records (stride‑12) at the **front**,
-- a more irregular **tail** where stride‑12 still works as an approximation, but:
-  - there are remainders (non-multiple-of-12 lengths),
-  - some interpreted “edges” go out of bounds,
-  - additional structure appears (especially when metafilters or more complex combinations are present).
+- a fixed-size record stream under the decoder-selected stride for this world (stride=8 via the op-table word-offset witness),
+- plus a small remainder (node region lengths are often not exact multiples of 8),
+- with other stride views (12/16) retained in `out/summary.json` as comparative probes and historical context.
 
 The decoder formalizes this view:
 
-- Treats every 12‑byte chunk as a node:
-  - first 2 bytes → `tag` (node type),
-  - next 5 words → `fields` (opaque 16‑bit values),
+- Treats every 8‑byte chunk as a node:
+  - first 2 bytes → `(tag, kind)` bytes (the decoder currently surfaces `tag` directly and carries the full record hex for inspection),
+  - next 3 u16 words → `fields` (opaque 16‑bit values, `fields[0..2]`),
   - exposes per-node hex plus `tag_counts`.
-- Reports `node_count` in the low 30s for all variants:
-  - `v0_baseline`: 32 nodes,
-  - `v1_subpath_foo`: 30 nodes,
-  - `v4_any_two_literals`: 31 nodes,
-  - `v8_read_write_dual_subpath`, `v9_read_subpath_mach_name`, `v10_read_literal_write_subpath`: ~31–32 nodes.
+- Reports `node_count` in a narrow band for this probe set (48–53 nodes), for example:
+  - `v0_baseline`: 48 nodes,
+  - `v1_subpath_foo` / `v2_subpath_bar`: 52 nodes,
+  - `v8_read_write_dual_subpath` / `v9_read_subpath_mach_name` / `v10_read_literal_write_subpath`: 53 nodes.
 
 We retain stride-based views in `summary.json` for historical comparison, but the decoder is the primary structural lens going forward.
 
@@ -324,9 +321,9 @@ However:
     - node regions are bit-identical (same `nodes` list from the decoder),
     - only the literal pools differ (one contains `/tmp/foo`, the other `/tmp/bar`).
 - Adding or removing **filters** does change the node region:
-  - Adding a single subpath (v1) vs baseline (v0) changes many nodes and reduces `node_count` (32→30).
-  - Adding a second subpath under `require-any` (v4) adds exactly one new node at the **tail** (offset 360) without changing the shared prefix.
-  - Adding a literal filter alongside a subpath (v5) reshapes many nodes, increasing `node_count` and changing the front of the array.
+  - Adding a single subpath (v1) vs baseline (v0) changes many nodes and increases `node_count` under the stride=8 decoder framing (48→52).
+  - Adding a second subpath under `require-any` (v4) does not change the decoded node records vs v1 under the current decoder; it changes the literal pool (adds a second anchor) without perturbing the node region bytes.
+  - Adding a literal filter alongside a subpath (v5) changes node bytes while keeping `node_count` baseline-like (48); this is a good “same size, different structure” specimen for future layout work.
 
 Literal byte offsets in the pool (as measured by naive substring search) vary per profile and do **not** line up with any simple node field; this strongly suggests an indirection rather than “node field = literal offset”.
 
@@ -336,49 +333,37 @@ Literal byte offsets in the pool (as measured by naive substring search) vary pe
 The key structural observation from decoder output is that the **third 16‑bit field** in each node (bytes 6–7, `fields[2]`) changes in a way that tracks **filter presence and branching**, not literal content:
 
 - **Baseline (`v0_baseline`)**:
-  - `field2` values `{3, 4}`, with counts `{3:12, 4:20}`.
-  - No literals in the decoder’s `literal_strings`.
+  - `fields[2]` values `{0, 3, 4, 3584}`, with counts `{0:1, 3:16, 4:29, 3584:2}`.
+  - Decoder literals: none (empty `literal_strings`) as expected for a no-literal profile.
 
-- **Single subpath filter (`v1_subpath_foo` / `v2_subpath_bar`)**:
-  - `field2` moves to `{3:1, 4:9, 5:20}`.
-  - Decoder literals: `['G/tmp/foo']` or `['G/tmp/bar']`.
+- **Single-filter profiles (`v1_subpath_foo` / `v2_subpath_bar` / `v20_read_literal`)**:
+  - `fields[2]` values `{0, 1, 2, 3, 4, 5}`, with counts `{0:4, 1:3, 2:1, 3:1, 4:11, 5:32}`.
+  - Decoder literals vary by profile (`['G/tmp/foo']` vs `['G/tmp/bar']` vs `['I/etc/hosts']`), but the decoded node records stay identical across foo→bar.
   - Node bytes are identical across foo→bar; `field2` reacts to the presence of a `subpath` Filter, not to which path is chosen.
 
-- **Two subpaths under `require-any` (`v4_any_two_literals`)**:
-  - `field2` counts `{0:1, 3:1, 4:9, 5:20}`.
-  - A single new node at offset 360: `tag=5`, `fields=[5,4,0,0,0]` – the only node with `field2=0`.
-  - Interpretation: `field2=0` marks the *second branch* of a `require-any` Metafilter; the rest of the graph shares the `field2` pattern with the single-subpath case.
+- **`require-any` over multiple literals (`v21`/`v24`/`v25`/`v29`/`v30`/`v31`/`v32`)**:
+  - Under the current decoder framing, these all share the same `fields[2]` multiset:
+    - `{0:4, 1:3, 2:1, 3:1, 4:11, 5:32, 12096:1}`
+  - This introduces one consistent “extra” value (`12096`) relative to the single-filter profiles; it also pushes `node_count` to 53 for these specimens.
 
-- **Literal-only and literal-branch probes (`v20`, `v21`)**:
-  - `v20_read_literal` (single literal on `file-read*`):
-    - `field2` counts `{3:1, 4:9, 5:20}`,
-    - decoder literals: `['I/etc/hosts']`.
-    - No `field2=0` or `field2=6`; field2=5 behaves like “one filtered op” just as with subpath.
-  - `v21_two_literals_require_any` (two literals under `require-any`):
-    - `field2` counts `{0:1, 3:1, 4:9, 5:20}`,
-    - adds exactly one `field2=0` node and one extra `tag5` node,
-    - mirrors the dual-subpath `require-any` shape.
-  - This strongly reinforces the idea that `field2=0` encodes “additional branch under require-any” independent of filter type (subpath vs literal).
+- **Mach-only (`v11_mach_only`)**:
+  - `fields[2]` values `{0, 1, 2, 4, 5}`, with counts `{0:4, 1:3, 2:1, 4:11, 5:33}`.
+  - This is structurally close to the single-filter family but lacks `fields[2]=3` in this probe set.
 
-- **Mach and operation-mix profiles**:
-  - Mach-only (`v11_mach_only`) and mach+network/write (`v14`, `v18`, `v19`) cluster `field2` in `{4, 5}`, with decoder literals like `['Wcom.apple.cfprefsd.agent']`.
-  - Write-only and network-only profiles stay at `{3, 4}` (no 5/0/6).
-  - Mixed, tag6-heavy profiles (`v8_read_write_dual_subpath`, `v9_read_subpath_mach_name`, `v10_read_literal_write_subpath`) introduce `field2` values `{0, 3, 4, 5, 6}` with counts resembling `{0:1, 3:2, 4:1, 5:12, 6:15}` and many nodes of `tag6`.
-  - Nodes with `field2=6` predominantly appear on `tag6` nodes, often at the front of the array and in the tail.
-  - Mach + literal-only probes (`v22_mach_literal`, `v23_mach_two_literals_require_any`) land on the same pattern as `v9`: op-table `[6,…,5]`, tag counts {0:1,5:5,6:25}, `field2` histogram {6:17,5:12,4:1,0:1}. Decoder `nodes` are identical across `v22`/`v23`/`v9`; differences are confined to node-region remainders and literal pools. Require-any over literals under mach does not introduce new `field2` values beyond the existing {0,4,5,6}.
-  - Three-literal require-any without mach (`v24_three_literals_require_any`) drops `field2=0` entirely (histogram {5:20,4:9,3:1}, node_count=30) and removes the extra `tag5` node seen in the two-literal require-any (`v21`). This suggests `require-any` may compile differently once there are more than two branches (balanced/folded) rather than emitting an explicit “second branch” marker.
-  - Four-literal require-any (v25/v26, reordered) keeps the same pattern as v24: field2 {5:20,4:9,3:1}, node_count=30, op-table `[5,…]`, decoder nodes identical across orderings. Literal order and count ≥3 do not reintroduce `field2=0`.
-  - Five-literal require-any (v29) remains identical to v25/v26 (field2 {5,4,3}, node_count=30, no `field2=0`); six-literal require-any (v30) reintroduces a single `field2=0` `tag5` node (node_count=31) and matches the earlier two-literal branch-marker pattern. Tail words flip alongside this change (see below).
-  - Seven- and eight-literal require-any (v31/v32) stay in the six-literal mode: field2 {5,4,3,0}, node_count=31, op-table `[5,…]`, decoder nodes identical to v30; branch marker persists and tails remain in the “long” pattern.
-  - Require-all over literals (v27/v28) reverts to the baseline-like field2 set {3,4} with op-table `[4,…]`, node_count=32, and decoder literal_strings empty despite a non-zero literal pool. Two vs four literals produce identical decoded nodes and tails.
+- **Write-only and network-only (`v12_write_only`, `v13_network_outbound`)**:
+  - Both retain the baseline-like `fields[2]` set `{0, 3, 4, 3584}` (with slightly different 3/4 counts depending on op).
+
+- **Mach + filtered mixes (`v8`/`v9`/`v10` and `v22`/`v23`)**:
+  - These specimens introduce a stable `fields[2]=6` family alongside `{0,1,4,5}` (and keep `node_count` at 53):
+    - `v9_read_subpath_mach_name`: `{0:3, 1:1, 4:1, 5:17, 6:31}`
+    - `v22_mach_literal` and `v23_mach_two_literals_require_any` match v9’s `fields[2]` multiset and keep identical decoded node records (differences confined to literal pools).
 
 **Working hypothesis**
 
 - The third word (`fields[2]`) is a **compact key** that:
-  - distinguishes “plain” nodes (values 3/4),
-  - encodes the presence of a single filter on an operation (value 5),
-  - marks extra branches created by `require-any` (value 0),
-  - and, in more complex mixes, may mark a separate family of filter/operation branches (value 6) associated with tag6-heavy regions.
+  - varies systematically with operation/filter/metafilter structure in these probes,
+  - includes a few “sentinel-like” stable values on this host baseline (notably `3584` in baseline-like profiles and `12096` in the `require-any` multi-literal family),
+  - and, in mixed mach+filtered profiles, includes a distinct stable `6` family.
 - It does **not** directly encode literal pool offsets; literal byte positions vary across profiles while the `field2` sets stay stable for a given filter structure.
 
 We still lack a mapping from these numeric keys to the **Filter Vocabulary Map**, but we now have repeatable structural differences tied to precise SBPL edits.

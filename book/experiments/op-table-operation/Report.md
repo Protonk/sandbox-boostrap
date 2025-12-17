@@ -11,7 +11,7 @@ The **node-layout** experiment established that modern profiles have:
 
 - a 16‑byte preamble,
 - an Operation Pointer Table section,
-- a node region (12‑byte nodes at the front),
+- a node region (decoder-selected stride=8 records on this world baseline),
 - and a literal/regex pool.
 
 However, it did not answer:
@@ -28,7 +28,7 @@ This experiment focuses on that gap:
 - Prepare the ground for later vocabulary-mapping work that will supply real Operation IDs.
 - Shared tooling: for new blob summaries (op_table entries, tag counts, literals, entry signatures), prefer `book/api/op_table` (CLI or Python) over extending `analyze.py`.
 
-We intentionally avoid guessing a full Operation Vocabulary Map; that belongs to `book/graph/concepts/validation` once canonical artifacts exist.
+We intentionally avoid guessing op-table slot ordering or Operation↔bucket semantics without a witness. The Operation Vocabulary Map exists for this host (`book/graph/mappings/vocab/ops.json`, status: ok), but connecting these synthetic profiles’ op-table slots/buckets to numeric Operation IDs remains under exploration.
 
 ---
 
@@ -48,9 +48,9 @@ We intentionally avoid guessing a full Operation Vocabulary Map; that belongs to
   - parses SBPL to recover the list of allowed operation symbols per profile,
   - tokenizes SBPL to recover filter symbols and map them to filter vocab IDs,
   - uses `profile_ingestion.parse_header` and `slice_sections` to recover `operation_count` and section boundaries,
-  - calls `decoder.decode_profile_dict` to get node counts, tag counts, literal strings, and sections,
+  - calls `book.api.decoder.decode_profile_dict` to get node counts, tag counts, literal strings, sections, and stride-selection witnesses,
   - extracts op-table entries from the blob,
-  - computes simple tag counts over the node region (stride‑12),
+  - computes simple tag counts over the node region (stride=8, plus a stride=12 historical view),
   - derives per-entry structural **signatures** by walking from each unique op-table index over the decoder node list,
   - writes:
     - `out/summary.json` – per-profile details,
@@ -60,7 +60,7 @@ We intentionally avoid guessing a full Operation Vocabulary Map; that belongs to
 **Shared dependencies**
 
 - `book.graph.concepts.validation.profile_ingestion` – header parsing, section slicing.
-- `book.graph.concepts.validation.decoder` – modern-profile decoder (preamble, op-table, nodes, literal pool).
+- `book.api.decoder` – modern-profile decoder (op-table scaling witness + stride selection, nodes, literal pool).
 
 ---
 
@@ -74,12 +74,12 @@ We intentionally avoid guessing a full Operation Vocabulary Map; that belongs to
 ## Plan & execution log
 ### Completed
 - **Current status**
-  - Bucket behavior and vocab alignment are stable on this host: unfiltered read/write/network live in buckets {3,4}; mach lives in {5,6}; bucket 6 appears only in mach+filtered-read mixes. Alignment artifacts and summaries are current.
+  - Bucket behavior is stable on this host for this synthetic family: unfiltered read/write/network live in bucket {4}; mach-only lives in bucket {5}; bucket 6 appears only in mach+filtered-read mixes (`[6,…,5]` patterns).
   - Remaining work is optional: runtime probes or filter-level annotation once field2 decoding matures. Runtime spot-checks are now feasible via the SBPL wrapper if we want to add behavioral evidence.
 - **1. Setup and scope**
   - Defined the core operation set to probe (file-read*, file-write*, mach-lookup, network-outbound, and a baseline profile).
   - Created single-op and paired-op SBPL profiles under `sb/` covering these operations.
-  - Added `analyze.py` to compile all variants and emit op_count, op_entries, stride-12 tag counts, remainders, and literal summaries.
+  - Added `analyze.py` to compile all variants and emit op_count, op_entries, stride=8 tag counts (plus a stride=12 historical view), remainders, and literal summaries.
 - **2. Data collection and correlation**
   - Compiled all `sb/*.sb` variants and produced `out/summary.json`.
   - Built `out/op_table_map.json` capturing op_entries, unique buckets, and operation sets per profile, including filter annotations.
@@ -98,7 +98,7 @@ We intentionally avoid guessing a full Operation Vocabulary Map; that belongs to
 - The `Plan.md` file contains an up-to-date checklist; this section highlights the most important actions for continuing the experiment.
   
   1. **Maintain bucket-level discipline**
-    - Treat `op_entries` values (4, 5, 6, …) as **opaque buckets** until a versioned Operation Vocabulary Map exists.
+    - Treat `op_entries` values (4, 5, 6, …) as **opaque buckets** until there is a well-witnessed mapping from op-table slots to Operation IDs.
      - Update this report, `Plan.md`, and `Notes.md` if new buckets appear (e.g., 7, 8, …), making clear how they arise and in which SBPL patterns.
   
   2. **Targeted deltas around mach and literals**
@@ -111,12 +111,10 @@ We intentionally avoid guessing a full Operation Vocabulary Map; that belongs to
        - record observations in `Notes.md`,
        - extend this report if a new pattern emerges.
   
-  3. **Integrate with vocabulary-mapping once available**
-     - Once `graph/mappings/vocab/ops.json` exists:
-       - write a small script (either here or in `validation`) that:
-         - reads `summary.json` and `op_table_signatures.json`,
-         - maps SBPL operation names to numeric Operation IDs via the vocabulary file,
-         - annotates each bucket (4/5/6) with the set of Operation IDs that ever use it in these synthetic profiles.
+  3. **Integrate with vocabulary-mapping (now available)**
+     - `book/graph/mappings/vocab/ops.json` exists for this host (`status: ok`), so we can map SBPL operation names to numeric Operation IDs.
+     - However, we do **not** yet have a witness that the synthetic profiles’ small op-table slot indices correspond to operation IDs; do not treat “op-table index == op_id” as bedrock.
+     - A safe integration step is to annotate the per-profile SBPL `ops` set with their numeric IDs (for joins/search), while keeping bucket claims keyed on the observed `op_entries` patterns.
        - explicitly distinguish:
          - facts (IDs and table entries from canonical vocab + blobs),
          - hypotheses (patterns that might not generalize beyond these profiles).
@@ -197,7 +195,8 @@ Despite the structural progress, several key questions are still open:
    - We do not yet have a principled explanation (per-profile or per-format-variant) of **why** these buckets shift, beyond “compiled profile structure changes”.
 
 4. **Connection to Operation Vocabulary Map**
-   - There is no `graph/mappings/vocab/ops.json` yet for this host. This is the blocking element for promotion: without it we cannot label bucket 4/5/6 with concrete Operation IDs or verify bucket observations against a canonical vocabulary.
+   - `book/graph/mappings/vocab/ops.json` exists for this host (`status: ok`), so we can map SBPL operation names to numeric Operation IDs.
+   - The remaining blocker is slot semantics: we do not yet have a witness that op-table slot indices in these synthetic profiles correspond to operation IDs, so we cannot responsibly label bucket 4/5/6 with “Operation ID sets” without additional evidence.
 
 5. **Runtime cross-check**
    - No semantic probes (`network-filters`, `mach-services`) have been run under these synthetic profiles to connect buckets to runtime behavior. A minimal next step would be to run a tiny harness under a “mach bucket” profile vs a “network bucket” profile to confirm the expected allow/deny patterns.
@@ -205,7 +204,7 @@ Despite the structural progress, several key questions are still open:
 ---
 
 ## Next steps
-- Maintain bucket-level discipline by treating op-table entries as opaque bucket labels until Operation IDs are supplied by vocabulary artifacts.
+- Maintain bucket-level discipline by treating op-table entries as opaque bucket labels; use `book/graph/mappings/vocab/ops.json` to label SBPL op names with IDs, but do not assume op-table slot indices correspond to operation IDs without a witness.
 - Refresh analyzer outputs only when the decoder, vocab, or SBPL variants change in ways that affect op-table structure.
 - (Optional) add runtime spot-checks via the SBPL wrapper for a few “mach bucket” and “read/write bucket” profiles once a harness is stable.
 - Coordinate with `op-table-vocab-alignment` and `vocab-from-cache` as Operation Vocabulary Maps evolve, so bucket observations can be anchored to concrete Operation IDs where justified.

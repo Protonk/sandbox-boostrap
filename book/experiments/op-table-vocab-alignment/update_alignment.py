@@ -16,12 +16,17 @@ from __future__ import annotations
 import json
 import hashlib
 from pathlib import Path
+import sys
 
 
-SUMMARY_PATH = Path("book/experiments/op-table-operation/out/summary.json")
-OPS_VOCAB_PATH = Path("book/graph/mappings/vocab/ops.json")
-FILTERS_VOCAB_PATH = Path("book/graph/mappings/vocab/filters.json")
-OUT_PATH = Path("book/experiments/op-table-vocab-alignment/out/op_table_vocab_alignment.json")
+ROOT = Path(__file__).resolve().parents[3]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+SUMMARY_PATH = ROOT / "book/experiments/op-table-operation/out/summary.json"
+OPS_VOCAB_PATH = ROOT / "book/graph/mappings/vocab/ops.json"
+FILTERS_VOCAB_PATH = ROOT / "book/graph/mappings/vocab/filters.json"
+OUT_PATH = ROOT / "book/experiments/op-table-vocab-alignment/out/op_table_vocab_alignment.json"
 
 
 def main() -> None:

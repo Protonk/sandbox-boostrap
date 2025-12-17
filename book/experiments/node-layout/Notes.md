@@ -359,3 +359,7 @@ The final notes for 2025-11-28 push further into mixed-op probes explicitly targ
 ## Pass 25
 
 - Refreshed the canonical node-remainder contract under the stride=8 decoder framing (op-table witness) using `generate_node_remainders_contract.py`. Updated `book/graph/concepts/validation/out/static/node_remainders.json` to record `record_size_bytes=8`, new node-region byte lengths, and the new remainder bytes for `sys:airlock`/`sys:bsd`/`sys:sample`.
+
+## Updated
+
+- Updated: reran `analyze.py` under the current world-scoped stride=8 framing and refreshed `out/summary.json`. The summary now includes `records_stride8`/`tail_stride8` alongside the historical `stride=12` dump, and it captures the decoder’s stride-selection witnesses under `decoder.validation`.

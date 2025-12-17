@@ -56,3 +56,8 @@
   - Added `stride8_decoder_crosscheck.py` and ran it to produce `out/stride8_decoder_crosscheck.json`.
   - bsd spillover witness (aligned under both 8- and 12-byte framings) at `abs_off=360` (`rel_off=288` from `nodes_base=72`): under an 8-byte record view the current record is `tag=26 kind=0 fields=[26,27,27]`, the next record begins at `abs_off+8` with `tag=26 kind=0 fields=[27,27,27]`, and the 12-byte view at `abs_off` necessarily consumes 4 bytes from that next record (`fields[3]=26` == next record (tag,kind) as u16; `fields[4]=27` == next record’s first u16).
   - airlock op_table scaling witness: scoring `op_table[i]` as offsets under scale=8 vs scale=12 shows scale=12 dominated by ASCII tag/kind pairs (top `(108,116)` = “lt”), while scale=8 lands on mostly non-ASCII `kind=0` headers (top `(159,0)`, `(157,0)`, …). This is a strong witness that op_table entries are offsets in 8-byte words (and the 12-byte node framing produces false “literal start” / truncation artifacts).
+
+## Updated
+
+- Updated: reran the stride/scale cross-check scripts (`stride8_decoder_crosscheck.py`, `airlock_subgraph.py`, `stride_offset_scan.py`, `canonical_slot_hist.py`) to refresh `out/*` under the current decoder framing. The core witnesses still hold.
+- Updated: with the stride=8 framing promoted into shared tooling, the `sys:bsd` “high field2” cluster is treated as resolved-by-framing (those values were decode artifacts under the old 12-byte approximation). Remaining work here is now strictly about the `sys:airlock` survivors from `field2-filters`’ unknown census (currently `165` and `49171`) and any probe-only sentinels.

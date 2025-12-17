@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Track and retire the remaining high/opaque `field2` payload clusters tied to platform profiles: the `sys:bsd` tag 26 payloads (`174/170/115/109`) plus the tag-0 hi-bit tail (`16660`), and the `sys:airlock` highs (`165/166/10752`) and sentinel-like values (`65535/3584`). The goal is to turn these from “opaque payloads in static decodes” into characterized or anchored mappings that can feed atlas/carton and guardrails without destabilizing validated mappings.
+Track and retire the remaining high/opaque `field2` payloads tied to platform profiles now that the world-scoped stride framing is better understood. The `sys:bsd` “high” cluster is treated as resolved-by-framing (decode artifacts under the earlier 12-byte approximation); the remaining open work is the `sys:airlock` survivors from the current `field2-filters` unknown census (notably `165` and `49171`) plus any probe-only sentinel-like payloads that recur under controlled compilation.
 
 ## Baseline & scope
 
@@ -20,9 +20,9 @@ Track and retire the remaining high/opaque `field2` payload clusters tied to pla
 ## Prior attempts and dead ends
 
 - Targeted SBPL probes aimed at `bsd` literals failed to surface the high payloads outside the full profile: [../field2-filters/sb/bsd_tail_context.sb](../field2-filters/sb/bsd_tail_context.sb), [../field2-filters/sb/dtracehelper_posixspawn.sb](../field2-filters/sb/dtracehelper_posixspawn.sb) (with and without extra mach rules). Decodes showed only low vocab IDs.
-- `field2-filters` hi/lo census shows `16660` (`0x4114`) as hi-bit (`0x4000`) tail on tag 0 with broad op reach (ops 0–27), and tag-26 highs `174/170/115/109` as op-empty leaves. Airlock highs stay confined to ops around `system-fcntl` (e.g., sentinel `0xffff` in `airlock_system_fcntl`), with no anchor binding.
+- `field2-filters` now records the stride=8 framing update explicitly: the canonical `sys:bsd` “tail” and tag-26 highs disappear under the promoted framing and are treated as decode artifacts. `sys:airlock` still contains a small out-of-vocab set (currently `165` and `49171`) with no anchor binding.
 - Kernel immediate searches for key constants (0xa00, 0x4114, 0x2a00) returned zero hits: see `kernel_imm_search` notes in [../field2-filters/Notes.md](../field2-filters/Notes.md).
-- Tag-26 stride remains ambiguous between 12 and 16 bytes; high payloads appear under both assumptions but layout is unresolved: [../probe-op-structure/Notes.md](../probe-op-structure/Notes.md).
+  - This remains negative evidence only; it does not by itself rule out encoded semantics.
 
 ## Deliverables / expected outcomes
 
@@ -106,8 +106,9 @@ Key witnesses:
     - scale=12 lands overwhelmingly on ASCII pairs, dominated by `(108,116)` (“lt”) and `(80,73)` (“PI”).
   - This is a strong static witness that the op-table entries are offsets in 8-byte words, and that the current 12-byte framing/graph-walk is mis-scaling those targets, producing “ASCII starts” and truncation artifacts.
 
-Implication (still **partial** until promoted into shared tooling and validated broadly):
-- Treat the current `book/api/decoder` “modern-heuristic” record framing and the published `record_size_bytes: 12` assumptions for tags {0,1,26,27,166} as suspect for canonical platform blobs; use the stride=8/offset8 interpretation as the leading candidate when reasoning about reachability and “op-empty leaves” in these profiles.
+Implication:
+- The stride=8/offset8 interpretation is now promoted into shared tooling for this world baseline (decoder stride selection + published tag layouts). This resolves the `sys:bsd` “high field2” cluster as a decode artifact of the earlier 12-byte approximation.
+- Remaining unknown/high work is now scoped to `sys:airlock`’s out-of-vocab payloads that survive under the promoted framing (currently `165` and `49171` in `field2-filters/out/unknown_nodes.json`).
 
 ## Evidence & artifacts
 
@@ -122,11 +123,9 @@ Implication (still **partial** until promoted into shared tooling and validated 
 ## Blockers / risks
 
 - `sys:airlock` apply/runtime gates limit runtime witnesses; static-only paths must suffice.
-- Tag-26 layout ambiguity (stride 12 vs 16) can distort edge/fan-out interpretation until resolved.
 - High payloads may be tightly coupled to full platform profiles; simplified SBPL may fail to reproduce them, risking false negatives.
 
 ## Next steps
 
-- For `airlock`: analyze the canonical `sys:airlock` high nodes (165/166/10752) and compare them structurally against the probe-only sentinels (`0xffff`, `0xce00`) to identify stable node-shape invariants that could support characterization.
-- For `bsd`: analyze the canonical `sys:bsd` tag-26 nodes and the tag-0 tail (16660) as a structure problem (which fields are real edges vs payload, and whether the hi-bit looks like a flag/namespace) rather than trying to reproduce via SBPL.
+- For `airlock`: analyze the canonical `sys:airlock` unknown/high nodes (`165`, `49171`) and compare them structurally against probe-only sentinels (notably the `0xce00` hi-bit instance) to identify stable node-shape invariants that could support characterization.
 - If characterization becomes stable, propose promotion through atlas/guardrails; otherwise record the bounded unknowns and blockers explicitly.

@@ -13,9 +13,14 @@ from __future__ import annotations
 import ctypes
 import json
 import re
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List, Any
+
+ROOT = Path(__file__).resolve().parents[3]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 import book.api.decoder as decoder
 from book.graph.concepts.validation import profile_ingestion as pi
@@ -93,7 +98,7 @@ def op_entries(blob: bytes, op_count: int) -> List[int]:
     return [int.from_bytes(ops[i : i + 2], "little") for i in range(0, len(ops), 2)]
 
 
-def tag_counts(nodes: bytes, stride: int = 12) -> Dict[int, int]:
+def tag_counts(nodes: bytes, stride: int) -> Dict[int, int]:
     counts: Dict[int, int] = {}
     recs = len(nodes) // stride
     for idx in range(recs):
@@ -126,7 +131,8 @@ def entry_signature(decoded: Dict[str, Any], entry: int, max_visits: int = 256) 
     """
     Walk the graph from a given op-table entry index and collect a small
     structural signature (tags, literal-ish field values, visited count).
-    Edges are interpreted as the first two fields in each 12-byte node record.
+    Edges are interpreted as the first two u16 fields (`fields[0..1]`) in each
+    decoded node record (decoder-selected stride for this world).
     """
     nodes = decoded.get("nodes") or []
     if entry >= len(nodes):
@@ -167,14 +173,11 @@ def entry_signature(decoded: Dict[str, Any], entry: int, max_visits: int = 256) 
 def summarize_variant(
     src: Path,
     blob: bytes,
-    op_count_override: int | None = None,
     filter_map: Dict[str, int] | None = None,
 ) -> Dict[str, Any]:
     ops = parse_ops(src)
     filters = parse_filters(src, set(filter_map.keys()) if filter_map else set())
     header = pi.parse_header(pi.ProfileBlob(bytes=blob, source=src.stem))
-    if op_count_override:
-        header.operation_count = op_count_override
     sections = pi.slice_sections(pi.ProfileBlob(bytes=blob, source=src.stem), header)
     op_count = header.operation_count or 0
     entries = op_entries(blob, op_count)
@@ -182,6 +185,8 @@ def summarize_variant(
     entry_sigs = {
         str(e): entry_signature(decoded, e) for e in sorted(set(entries))
     }
+    records8 = len(sections.nodes) // 8
+    records12 = len(sections.nodes) // 12
     summary = {
         "name": src.stem,
         "ops": ops,
@@ -190,15 +195,17 @@ def summarize_variant(
         "length": len(blob),
         "format_variant": header.format_variant,
         "op_count": op_count,
-        "op_count_source": "override" if op_count_override else "header",
+        "op_count_source": "header",
         "op_entries": entries,
         "section_lengths": {
             "op_table": len(sections.op_table),
             "nodes": len(sections.nodes),
             "literals": len(sections.regex_literals),
         },
-        "tag_counts_stride12": {str(k): v for k, v in tag_counts(sections.nodes).items()},
-        "remainder_stride12_hex": sections.nodes[(len(sections.nodes) // 12) * 12 :].hex(),
+        "tag_counts_stride8": {str(k): v for k, v in tag_counts(sections.nodes, 8).items()},
+        "remainder_stride8_hex": sections.nodes[records8 * 8 :].hex(),
+        "tag_counts_stride12": {str(k): v for k, v in tag_counts(sections.nodes, 12).items()},
+        "remainder_stride12_hex": sections.nodes[records12 * 12 :].hex(),
         "literal_strings": ascii_strings(sections.regex_literals),
         "decoder": {
             "format_variant": decoded["format_variant"],
@@ -208,6 +215,7 @@ def summarize_variant(
             "tag_counts": decoded["tag_counts"],
             "literal_strings": decoded["literal_strings"],
             "sections": decoded["sections"],
+            "validation": decoded.get("validation", {}),
         },
         "entry_signatures": entry_sigs,
     }
@@ -237,16 +245,8 @@ def main() -> None:
     out_dir = root / "out"
     out_dir.mkdir(exist_ok=True)
 
-    vocab_path = Path("book/graph/mappings/vocab/ops.json")
-    filter_vocab_path = Path("book/graph/mappings/vocab/filters.json")
-    vocab_len = None
+    filter_vocab_path = ROOT / "book/graph/mappings/vocab/filters.json"
     filter_map: Dict[str, int] = {}
-    if vocab_path.exists():
-        try:
-            vocab = json.loads(vocab_path.read_text())
-            vocab_len = len(vocab.get("ops") or [])
-        except Exception:
-            vocab_len = None
     if filter_vocab_path.exists():
         try:
             filter_vocab = json.loads(filter_vocab_path.read_text())
@@ -261,7 +261,6 @@ def main() -> None:
             summarize_variant(
                 sb,
                 blob,
-                op_count_override=vocab_len,
                 filter_map=filter_map,
             )
         )

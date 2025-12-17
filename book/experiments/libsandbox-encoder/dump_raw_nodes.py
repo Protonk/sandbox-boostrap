@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-Quick-and-dirty helper to eyeball raw 12-byte node records in a compiled profile.
+Quick-and-dirty helper to eyeball raw node records in a compiled profile.
 
 This is purposely heuristic and scoped to the libsandbox-encoder experiment:
 - Finds the first plausible literal/string run to guess the start of the literal pool.
-- Walks backwards in 12-byte strides from that point to locate the contiguous node block.
+- Walks backwards in stride-sized chunks (default stride=8 for this world baseline) from that point to locate the contiguous node block.
 - Dumps halfword values for each record so we can spot payload bytes (e.g., socket domain/type/proto)
   before we go spelunking in the libsandbox serializer.
 
@@ -24,7 +24,7 @@ def find_literal_start(blob: bytes) -> int:
     return m.start() if m else len(blob)
 
 
-def find_node_block(blob: bytes, literal_start: int, stride: int = 12) -> tuple[int, int]:
+def find_node_block(blob: bytes, literal_start: int, stride: int = 8) -> tuple[int, int]:
     """
     Heuristically locate the contiguous node block immediately before the literal pool.
     We walk backward from literal_start in stride-sized chunks until we see two consecutive
@@ -46,7 +46,7 @@ def find_node_block(blob: bytes, literal_start: int, stride: int = 12) -> tuple[
     return start, end
 
 
-def dump_records(blob: bytes, start: int, end: int, stride: int = 12) -> list[dict]:
+def dump_records(blob: bytes, start: int, end: int, stride: int = 8) -> list[dict]:
     records = []
     for off in range(start, end, stride):
         chunk = blob[off : off + stride]
@@ -56,10 +56,10 @@ def dump_records(blob: bytes, start: int, end: int, stride: int = 12) -> list[di
 
 
 def main() -> None:
-    ap = argparse.ArgumentParser(description="Dump raw 12-byte node records for a compiled profile blob")
+    ap = argparse.ArgumentParser(description="Dump raw node records for a compiled profile blob")
     ap.add_argument("blob", type=Path, help="Path to .sb.bin blob")
     ap.add_argument("--header", action="store_true", help="Use header-derived nodes_start/nodes_len from inspect_profile summary")
-    ap.add_argument("--stride", type=int, help="Override stride (bytes) instead of assuming 12 or inferring")
+    ap.add_argument("--stride", type=int, help="Override stride (bytes) instead of assuming 8 or inferring")
     args = ap.parse_args()
 
     blob = args.blob.read_bytes()
@@ -84,7 +84,7 @@ def main() -> None:
         node_start, node_end = find_node_block(blob, literal_start)
         if not (0 <= node_start < node_end <= literal_start <= len(blob)):
             raise SystemExit(f"[error] bad slice: nodes [{node_start},{node_end}), literal_start={literal_start}, blob_len={len(blob)}")
-    stride = args.stride or 12
+    stride = args.stride or 8
     if (node_end - node_start) % stride != 0:
         raise SystemExit(f"[error] node block size {(node_end - node_start)} not divisible by stride {stride} (start={node_start}, end={node_end})")
 

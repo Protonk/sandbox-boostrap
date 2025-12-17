@@ -24,7 +24,7 @@ Map node tags that reference literal or regex pools to interpretable layouts (ed
   - Experiment scaffolded (this Report, Plan, Notes).
   - Baseline decode complete for canonical system profiles (`airlock`, `bsd`, `sample`); tag counts and literal counts recorded in `out/tag_histogram.json`. Decoder inputs: `book/examples/extract_sbs/build/profiles/{airlock,bsd}.sb.bin`, `book/examples/sb/build/sample.sb.bin`.
   - Sample literal-bearing nodes grouped by tag captured in `out/tag_literal_nodes.json` to support layout interpretation.
-  - Best-effort tag layouts published at `book/graph/mappings/tag_layouts/tag_layouts.json` (record_size=12). Payload-bearing tags now include literal/regex tags 0,1,3,5,7,8,10,17,26,27,166; tags 2 and 3 are explicitly marked edge-only (no payload). Decoder now prefers this mapping when present. Guardrail test added (`tests/test_mappings_guardrail.py`) to ensure the mapping persists.
+  - Canonical tag layouts published at `book/graph/mappings/tag_layouts/tag_layouts.json` (record_size_bytes=8) and enforced by a guardrail (`book/tests/test_mappings_guardrail.py`). The decoder selects stride=8 for this world using op-table word-offset alignment evidence and exposes that witness under `validation.node_stride_selection`.
 - **1) Scope and setup**
   - Identified reference blobs: canonical system profiles (`airlock.sb.bin`, `bsd.sb.bin`, `sample.sb.bin`) and shared mappings needed for decoding.
   - Confirmed decoder path (`book.api.decoder`) and access to `book/graph/mappings/vocab` and `book/graph/mappings/op_table`.

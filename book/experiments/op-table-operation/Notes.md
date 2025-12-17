@@ -100,3 +100,9 @@
 
 - Added `build_catalog.py` to consolidate static artifacts plus provisional runtime hints into `out/op_table_catalog_v1.json` (schema `op_table_catalog_v1`). Each record captures profile_id, bucket_pattern, op_entries, ops/filters, decoder signatures, and (if present) a `runtime_signature` flagged `runtime_provisional: true`.
 - This catalog is intended as the join point once `ops.json` exists; runtime anomalies remain explicitly provisional and are not promoted beyond this experiment.
+
+## Updated
+
+- Updated: reran `analyze.py` after the stride=8 framing work landed (decoder now records stride-selection witnesses under `decoder.validation`). `out/summary.json` now includes both `tag_counts_stride8` and the historical `tag_counts_stride12`.
+- Updated: removed the earlier (incorrect) `op_count` override to “vocab length”; these synthetic blobs carry a small, per-profile op-table length in their header (typically 5–7), and treating the node region as part of the op-table was a slicing artifact.
+- Note: earlier Notes/Report entries that tie bucket patterns to specific numeric Operation IDs via “index == op_id” should be treated as historical/optimistic; with the corrected framing, we can map SBPL op names to IDs via `book/graph/mappings/vocab/ops.json`, but we do not yet have a witness that op-table slot indices correspond to operation IDs in these synthetic profiles.

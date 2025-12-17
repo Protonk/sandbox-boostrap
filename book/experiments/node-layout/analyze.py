@@ -8,9 +8,10 @@ Outputs:
   - blob length, op_count, op_table entries
   - section lengths (op_table, nodes, literals/regex)
   - stride stats (tags, remainder, edge in-bounds counts) for strides 8/12/16
+  - full stride=8 record dump (world-scoped framing)
   - full stride=12 record dump (tags, edges, literal-ish field, extra bytes) and per-tag counts
   - literal pool ASCII slices (offset + string)
-  - tail records (last 3 full records at stride=12 plus remainder bytes)
+  - tail records (last 3 full records at stride=8/12 plus remainder bytes)
 """
 
 from __future__ import annotations
@@ -126,7 +127,7 @@ def tail_records(nodes: bytes, stride: int, count: int = 3) -> Dict[str, Any]:
                 "edge1": e1,
                 "edge2": e2,
                 "lit": lit,
-                "extra": rec[8:12].hex(),
+                "extra": rec[8:min(stride, 12)].hex(),
             }
         )
     remainder = nodes[recs * stride :]
@@ -154,7 +155,7 @@ def record_dump(nodes: bytes, stride: int) -> Dict[str, Any]:
                 "edge1": int.from_bytes(rec[2:4], "little"),
                 "edge2": int.from_bytes(rec[4:6], "little"),
                 "lit": int.from_bytes(rec[6:8], "little"),
-                "extra": rec[8:12].hex(),
+                "extra": rec[8:min(stride, 12)].hex(),
             }
         )
     remainder = nodes[full * stride :]
@@ -204,6 +205,7 @@ def summarize_variant(src: Path, blob: bytes) -> Dict[str, Any]:
     sections = pi.slice_sections(pi.ProfileBlob(bytes=blob, source=src.stem), header)
     op_count = header.operation_count or 0
     decoded = decoder.decode_profile_dict(blob)
+    records8 = record_dump(sections.nodes, stride=8)
     records12 = record_dump(sections.nodes, stride=12)
     summary = {
         "name": src.stem,
@@ -217,11 +219,15 @@ def summarize_variant(src: Path, blob: bytes) -> Dict[str, Any]:
             "literals": len(sections.regex_literals),
         },
         "stride_stats": [],
+        "records_stride8": records8["records"],
         "records_stride12": records12["records"],
+        "tag_counts_stride8": tag_counts(records8["records"]),
         "tag_counts_stride12": tag_counts(records12["records"]),
+        "remainder_stride8_hex": records8["remainder_hex"],
         "remainder_stride12_hex": records12["remainder_hex"],
         "literal_strings": ascii_strings(sections.regex_literals),
-        "tail": tail_records(sections.nodes, stride=12),
+        "tail_stride8": tail_records(sections.nodes, stride=8),
+        "tail_stride12": tail_records(sections.nodes, stride=12),
         "decoder": {
             "format_variant": decoded["format_variant"],
             "op_count": decoded["op_count"],
@@ -230,6 +236,7 @@ def summarize_variant(src: Path, blob: bytes) -> Dict[str, Any]:
             "tag_counts": decoded["tag_counts"],
             "literal_strings": decoded["literal_strings"],
             "sections": decoded["sections"],
+            "validation": decoded.get("validation", {}),
         },
     }
     for stride in (8, 12, 16):

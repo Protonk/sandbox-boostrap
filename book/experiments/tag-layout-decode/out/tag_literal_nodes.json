@@ -1,352 +1,4037 @@
 {
-  "166": {
+  "0": {
     "examples": [
       {
-        "profile": "sys:airlock",
         "fields": [
-          166,
-          3,
-          166,
-          166,
-          166
+          10752,
+          1002,
+          39
         ],
+        "filter_arg_raw": 39,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": "rootless-boot-device-filter",
+        "hex": "0000002aea032700",
+        "idx": 8,
         "literal_refs": [
-          "G/system/"
-        ],
-        "hex": "a600a6000300a600a600a600"
-      },
-      {
-        "profile": "sys:airlock",
-        "fields": [
-          20736,
-          355,
-          165,
-          2,
-          32769
-        ],
-        "literal_refs": [
-          "\nFusr/lib",
+          "JIOMediaIcon",
           "P/dev/dtracehelper"
         ],
-        "hex": "a60000516301a50002000180"
+        "offset": 64,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 0,
+        "u16_role": "filter_vocab_id"
+      },
+      {
+        "fields": [
+          9728,
+          330,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": true,
+        "filter_vocab_ref": null,
+        "hex": "000000264a01a500",
+        "idx": 13,
+        "literal_refs": [
+          "P/dev/dtracehelper"
+        ],
+        "offset": 104,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 0,
+        "u16_role": "filter_vocab_id"
+      },
+      {
+        "fields": [
+          52224,
+          321,
+          16
+        ],
+        "filter_arg_raw": 16,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": "iokit-registry-entry-class",
+        "hex": "000000cc41011000",
+        "idx": 15,
+        "literal_refs": [
+          "D/dev/",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 120,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 0,
+        "u16_role": "filter_vocab_id"
       }
     ]
   },
   "1": {
     "examples": [
       {
-        "profile": "sys:airlock",
         "fields": [
           165,
           165,
-          166,
-          166,
-          0
+          166
         ],
+        "filter_arg_raw": 166,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "0100a500a500a600",
+        "idx": 3,
         "literal_refs": [
+          "Msystem/library"
+        ],
+        "offset": 24,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 1,
+        "u16_role": "arg_u16"
+      },
+      {
+        "fields": [
+          18688,
+          14,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "010000490e00a500",
+        "idx": 108,
+        "literal_refs": [
+          "\nBlib",
           "Msystem/library",
           "P/dev/dtracehelper"
         ],
-        "hex": "0100a500a500a600a6000000"
-      }
-    ]
-  },
-  "0": {
-    "examples": [
-      {
+        "offset": 864,
         "profile": "sys:airlock",
-        "fields": [
-          0,
-          0,
-          10752,
-          1002,
-          39
-        ],
-        "literal_refs": [
-          "JIOMediaIcon",
-          "P/dev/dtracehelper"
-        ],
-        "hex": "000000000000002aea032700"
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 1,
+        "u16_role": "arg_u16"
       },
       {
-        "profile": "sys:bsd",
         "fields": [
           0,
-          3840,
-          16660,
-          26,
-          27
+          0,
+          0
         ],
+        "filter_arg_raw": 0,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "0100000000000000",
+        "idx": 67,
         "literal_refs": [
-          "\n[appleinternal/lib/sanitizers",
-          "\n`share/posix_spawn_filtering_rules",
+          "Esystem",
           "P/dev/dtracehelper"
         ],
-        "hex": "00000000000f14411a001b00"
-      },
-      {
+        "offset": 536,
         "profile": "sys:bsd",
-        "fields": [
-          4,
-          26,
-          27,
-          9728,
-          182
-        ],
-        "literal_refs": [
-          "\nDshare",
-          "\n[appleinternal/lib/sanitizers",
-          "\n`share/posix_spawn_filtering_rules",
-          "P/dev/dtracehelper"
-        ],
-        "hex": "002b04001a001b000026b600"
+        "profile_short": "bsd",
+        "record_size": 8,
+        "tag": 1,
+        "u16_role": "arg_u16"
       }
     ]
   },
-  "27": {
+  "10": {
     "examples": [
       {
-        "profile": "sys:bsd",
         "fields": [
-          27,
-          19,
-          18,
-          27,
-          27
+          19456,
+          248,
+          165
         ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "0a00004cf800a500",
+        "idx": 18,
         "literal_refs": [
-          "\nCnull",
+          "P/dev/dtracehelper",
+          "com.apple.app-sandbox.read-write"
+        ],
+        "offset": 144,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 10,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "101": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          11,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "650000490b00a500",
+        "idx": 109,
+        "literal_refs": [
+          "Esystem",
+          "MIOAccelDevice2",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 872,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 101,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "102": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          27,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "660000491b00a500",
+        "idx": 110,
+        "literal_refs": [
+          "F/cores/",
+          "Msystem/library",
+          "P/dev/dtracehelper",
+          "RIOAccelCommandQueue"
+        ],
+        "offset": 880,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 102,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "103": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          20,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "670000491400a500",
+        "idx": 111,
+        "literal_refs": [
+          "\nFurandom",
+          "NAGXAcceleratorG",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 888,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 103,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "104": {
+    "examples": [
+      {
+        "fields": [
+          52736,
+          352,
+          4
+        ],
+        "filter_arg_raw": 4,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "680100ce60010400",
+        "idx": 11,
+        "literal_refs": [
           "\nErandom",
-          "\n[appleinternal/lib/sanitizers"
+          "Icryptexes/",
+          "Msystem/library"
         ],
-        "hex": "1b001b00130012001b001b00"
+        "offset": 88,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 104,
+        "u16_role": "arg_u16"
       },
       {
-        "profile": "sys:bsd",
         "fields": [
-          27,
-          27,
-          27,
-          27,
-          27
+          18688,
+          1,
+          165
         ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "680000490100a500",
+        "idx": 112,
         "literal_refs": [
-          "\n[appleinternal/lib/sanitizers"
+          "KOSurfaceRoot",
+          "Msystem/library",
+          "P/dev/dtracehelper"
         ],
-        "hex": "1b001b001b001b001b001b00"
-      },
-      {
-        "profile": "sys:bsd",
-        "fields": [
-          26,
-          27,
-          27,
-          27,
-          27
-        ],
-        "literal_refs": [
-          "\n[appleinternal/lib/sanitizers",
-          "\n`share/posix_spawn_filtering_rules"
-        ],
-        "hex": "1b001a001b001b001b001b00"
+        "offset": 896,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 104,
+        "u16_role": "arg_u16"
       }
     ]
   },
-  "26": {
+  "105": {
     "examples": [
       {
-        "profile": "sys:bsd",
         "fields": [
-          26,
-          26,
-          26,
-          26,
-          26
+          18688,
+          2,
+          165
         ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "690000490200a500",
+        "idx": 113,
         "literal_refs": [
-          "\n`share/posix_spawn_filtering_rules"
+          "\nAos",
+          "\nFusr/lib",
+          "\nNntelAccelerator",
+          "P/dev/dtracehelper"
         ],
-        "hex": "1a001a001a001a001a001a00"
+        "offset": 904,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 105,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "106": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          34,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "6a0000492200a500",
+        "idx": 114,
+        "literal_refs": [
+          "88289132-iokit-open-service",
+          "Gocket ID",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 912,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 106,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "107": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          15,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "6b0000490f00a500",
+        "idx": 115,
+        "literal_refs": [
+          "\nRprivate/var/db/dyld",
+          "Icom.apple.",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 920,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 107,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "108": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          3,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "6c0000490300a500",
+        "idx": 116,
+        "literal_refs": [
+          "G/system/",
+          "Ktrustd.agent",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 928,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 108,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "109": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          35,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "6d0000492300a500",
+        "idx": 117,
+        "literal_refs": [
+          "\nEaudio.",
+          "\nMupported Link ",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 936,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 109,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "11": {
+    "examples": [
+      {
+        "fields": [
+          19456,
+          157,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "0b00004c9d00a500",
+        "idx": 19,
+        "literal_refs": [
+          "Esystem",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 152,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 11,
+        "u16_role": "arg_u16"
       },
       {
-        "profile": "sys:bsd",
         "fields": [
-          26,
-          26,
-          27,
-          27,
-          27
+          7,
+          8,
+          256
         ],
+        "filter_arg_raw": 256,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "0b00070008000001",
+        "idx": 50,
         "literal_refs": [
-          "\n[appleinternal/lib/sanitizers",
-          "\n`share/posix_spawn_filtering_rules"
+          "I/etc/hosts"
         ],
-        "hex": "1a001a001a001b001b001b00"
+        "offset": 400,
+        "profile": "sys:sample",
+        "profile_short": "sample",
+        "record_size": 8,
+        "tag": 11,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "110": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          12,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "6e0000490c00a500",
+        "idx": 118,
+        "literal_refs": [
+          "\nCusr/",
+          "LSandboxHelper",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 944,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 110,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "111": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          44,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "6f0000492c00a500",
+        "idx": 119,
+        "literal_refs": [
+          "\nVAudioComponentRegistrar",
+          "FIOMedia",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 952,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 111,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "112": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          9,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "700000490900a500",
+        "idx": 120,
+        "literal_refs": [
+          "P/dev/dtracehelper",
+          "Tcom.apple.diagnosticd",
+          "com.apple.app-sandbox.read"
+        ],
+        "offset": 960,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 112,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "113": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          10,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "710000490a00a500",
+        "idx": 121,
+        "literal_refs": [
+          "Icom.apple.",
+          "P/dev/dtracehelper",
+          "com.apple.app-sandbox.read-write"
+        ],
+        "offset": 968,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 113,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "114": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          23,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "720000491700a500",
+        "idx": 122,
+        "literal_refs": [
+          "\nFvolumes",
+          "Clogd",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 976,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 114,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "115": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          0,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "730000490000a500",
+        "idx": 123,
+        "literal_refs": [
+          "\nFsystem.",
+          "\nIHEVCDecode",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 984,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 115,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "116": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          32,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "740000492000a500",
+        "idx": 124,
+        "literal_refs": [
+          "\nRIOClassNameOverride",
+          "\nYvolumes/preboot/cryptexes/",
+          "Elogger",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 992,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 116,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "117": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          13,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "750000490d00a500",
+        "idx": 125,
+        "literal_refs": [
+          "\nRnotification_center",
+          "Dshare",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 1000,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 117,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "12": {
+    "examples": [
+      {
+        "fields": [
+          19456,
+          316,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "0c00004c3c01a500",
+        "idx": 20,
+        "literal_refs": [
+          "\nCusr/",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 160,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 12,
+        "u16_role": "arg_u16"
       },
       {
-        "profile": "sys:bsd",
         "fields": [
-          26,
-          27,
-          27,
-          27,
-          27
+          4352,
+          234,
+          118
         ],
+        "filter_arg_raw": 118,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "0c010011ea007600",
+        "idx": 57,
         "literal_refs": [
-          "\n[appleinternal/lib/sanitizers",
-          "\n`share/posix_spawn_filtering_rules"
+          "73669976",
+          "Msystem/library"
         ],
-        "hex": "1a001a001b001b001b001b00"
+        "offset": 456,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 12,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "120": {
+    "examples": [
+      {
+        "fields": [
+          4352,
+          72,
+          121
+        ],
+        "filter_arg_raw": 121,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "7800001148007900",
+        "idx": 128,
+        "literal_refs": [
+          "88289132-syscall-mig",
+          "DCodec",
+          "G/system/",
+          "P/dev/dtracehelper",
+          "syscall-mach-denied"
+        ],
+        "offset": 1024,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 120,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "122": {
+    "examples": [
+      {
+        "fields": [
+          4608,
+          75,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "7a0000124b00a500",
+        "idx": 129,
+        "literal_refs": [
+          "P/dev/dtracehelper",
+          "Tkern.osproductversion",
+          "cIOSurfaceAcceleratorCapabilitiesDict"
+        ],
+        "offset": 1032,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 122,
+        "u16_role": "arg_u16"
+      },
+      {
+        "fields": [
+          4352,
+          82,
+          123
+        ],
+        "filter_arg_raw": 123,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "7a00001152007b00",
+        "idx": 130,
+        "literal_refs": [
+          "\nBhw.",
+          "Icryptexes/",
+          "P/dev/dtracehelper",
+          "SAGXFamilyAccelerator",
+          "Tkern.osproductversion"
+        ],
+        "offset": 1040,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 122,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "124": {
+    "examples": [
+      {
+        "fields": [
+          4608,
+          86,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "7c0000125600a500",
+        "idx": 131,
+        "literal_refs": [
+          "CName",
+          "Ivectorunit",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 1048,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 124,
+        "u16_role": "arg_u16"
+      },
+      {
+        "fields": [
+          4608,
+          92,
+          145
+        ],
+        "filter_arg_raw": 145,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "7c0000125c009100",
+        "idx": 132,
+        "literal_refs": [
+          "DCodec",
+          "Ivectorunit",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 1056,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 124,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "125": {
+    "examples": [
+      {
+        "fields": [
+          4352,
+          102,
+          126
+        ],
+        "filter_arg_raw": 126,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "7d00001166007e00",
+        "idx": 133,
+        "literal_refs": [
+          "\nLcachelinesize",
+          "\nPoptional.avx512bw",
+          "P/dev/dtracehelper",
+          "RIOAccelCommandQueue"
+        ],
+        "offset": 1064,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 125,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "127": {
+    "examples": [
+      {
+        "fields": [
+          4608,
+          104,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "7f0000126800a500",
+        "idx": 134,
+        "literal_refs": [
+          "\nIlogicalcpu",
+          "KOSurfaceRoot",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 1072,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 127,
+        "u16_role": "arg_u16"
+      },
+      {
+        "fields": [
+          4352,
+          108,
+          128
+        ],
+        "filter_arg_raw": 128,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "7f0000116c008000",
+        "idx": 135,
+        "literal_refs": [
+          "\nC_max",
+          "\nIlogicalcpu",
+          "Ktrustd.agent",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 1080,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 127,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "129": {
+    "examples": [
+      {
+        "fields": [
+          4608,
+          111,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "810000126f00a500",
+        "idx": 136,
+        "literal_refs": [
+          "\nVAudioComponentRegistrar",
+          "Eroduct",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 1088,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 129,
+        "u16_role": "arg_u16"
+      },
+      {
+        "fields": [
+          4608,
+          126,
+          144
+        ],
+        "filter_arg_raw": 144,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "810000127e009000",
+        "idx": 137,
+        "literal_refs": [
+          "\nPoptional.avx512bw",
+          "Eroduct",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 1096,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 129,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "13": {
+    "examples": [
+      {
+        "fields": [
+          19456,
+          243,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "0d00004cf300a500",
+        "idx": 21,
+        "literal_refs": [
+          "Dshare",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 168,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 13,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "130": {
+    "examples": [
+      {
+        "fields": [
+          4352,
+          132,
+          131
+        ],
+        "filter_arg_raw": 131,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "8200001184008300",
+        "idx": 138,
+        "literal_refs": [
+          "\nC_max",
+          "\nIhysicalcpu",
+          "\nMagesize_compat",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 1104,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 130,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "132": {
+    "examples": [
+      {
+        "fields": [
+          4608,
+          138,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "840000128a00a500",
+        "idx": 139,
+        "literal_refs": [
+          "\nMagesize_compat",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 1112,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 132,
+        "u16_role": "arg_u16"
+      },
+      {
+        "fields": [
+          4352,
+          144,
+          135
+        ],
+        "filter_arg_raw": 135,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "8400001190008700",
+        "idx": 140,
+        "literal_refs": [
+          "\nIQuarantine",
+          "\nMagesize_compat",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 1120,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 132,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "133": {
+    "examples": [
+      {
+        "fields": [
+          4608,
+          221,
+          134
+        ],
+        "filter_arg_raw": 134,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "85000012dd008600",
+        "idx": 141,
+        "literal_refs": [
+          "\nFSandbox",
+          "CAMFI",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 1128,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 133,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "136": {
+    "examples": [
+      {
+        "fields": [
+          4352,
+          230,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "88000011e600a500",
+        "idx": 142,
+        "literal_refs": [
+          "88289132-system-mac-syscall",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 1136,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 136,
+        "u16_role": "arg_u16"
+      },
+      {
+        "fields": [
+          4608,
+          174,
+          143
+        ],
+        "filter_arg_raw": 143,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "88000012ae008f00",
+        "idx": 144,
+        "literal_refs": [
+          "88289132-system-mac-syscall",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 1152,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 136,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "137": {
+    "examples": [
+      {
+        "fields": [
+          4608,
+          184,
+          142
+        ],
+        "filter_arg_raw": 142,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "89000012b8008e00",
+        "idx": 145,
+        "literal_refs": [
+          "P/dev/dtracehelper",
+          "com.apple.app-sandbox.read"
+        ],
+        "offset": 1160,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 137,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "138": {
+    "examples": [
+      {
+        "fields": [
+          4608,
+          148,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "8a0000129400a500",
+        "idx": 143,
+        "literal_refs": [
+          "P/dev/dtracehelper"
+        ],
+        "offset": 1144,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 138,
+        "u16_role": "arg_u16"
+      },
+      {
+        "fields": [
+          4608,
+          191,
+          140
+        ],
+        "filter_arg_raw": 140,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "8a000012bf008c00",
+        "idx": 146,
+        "literal_refs": [
+          "P/dev/dtracehelper"
+        ],
+        "offset": 1168,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 138,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "139": {
+    "examples": [
+      {
+        "fields": [
+          4608,
+          204,
+          141
+        ],
+        "filter_arg_raw": 141,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "8b000012cc008d00",
+        "idx": 147,
+        "literal_refs": [
+          "P/dev/dtracehelper"
+        ],
+        "offset": 1176,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 139,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "14": {
+    "examples": [
+      {
+        "fields": [
+          19456,
+          249,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "0e00004cf900a500",
+        "idx": 22,
+        "literal_refs": [
+          "\nBlib",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 176,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 14,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "141": {
+    "examples": [
+      {
+        "fields": [
+          4352,
+          200,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "8d000011c800a500",
+        "idx": 149,
+        "literal_refs": [
+          "P/dev/dtracehelper"
+        ],
+        "offset": 1192,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 141,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "146": {
+    "examples": [
+      {
+        "fields": [
+          4352,
+          198,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "92000011c600a500",
+        "idx": 148,
+        "literal_refs": [
+          "P/dev/dtracehelper"
+        ],
+        "offset": 1184,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 146,
+        "u16_role": "arg_u16"
+      },
+      {
+        "fields": [
+          4352,
+          187,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "92000011bb00a500",
+        "idx": 150,
+        "literal_refs": [
+          "P/dev/dtracehelper"
+        ],
+        "offset": 1200,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 146,
+        "u16_role": "arg_u16"
+      },
+      {
+        "fields": [
+          4352,
+          180,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "92000011b400a500",
+        "idx": 151,
+        "literal_refs": [
+          "P/dev/dtracehelper"
+        ],
+        "offset": 1208,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 146,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "148": {
+    "examples": [
+      {
+        "fields": [
+          256,
+          63,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "940000013f00a500",
+        "idx": 156,
+        "literal_refs": [
+          "\nQSafeEjectRequested",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 1248,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 148,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "15": {
+    "examples": [
+      {
+        "fields": [
+          19456,
+          194,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "0f00004cc200a500",
+        "idx": 17,
+        "literal_refs": [
+          "\nRprivate/var/db/dyld",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 136,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 15,
+        "u16_role": "arg_u16"
+      },
+      {
+        "fields": [
+          32769,
+          32768,
+          10
+        ],
+        "filter_arg_raw": 10,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "0f00018000800a00",
+        "idx": 23,
+        "literal_refs": [
+          "\nC_max",
+          "\nRprivate/var/db/dyld",
+          "com.apple.app-sandbox.read-write"
+        ],
+        "offset": 184,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 15,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "150": {
+    "examples": [
+      {
+        "fields": [
+          6656,
+          0,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "9600001a0000a500",
+        "idx": 157,
+        "literal_refs": [
+          "\nC/app",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 1256,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 150,
+        "u16_role": "arg_u16"
+      },
+      {
+        "fields": [
+          5888,
+          28,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "960000171c00a500",
+        "idx": 158,
+        "literal_refs": [
+          "D/dev/",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 1264,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 150,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "151": {
+    "examples": [
+      {
+        "fields": [
+          1024,
+          0,
+          166
+        ],
+        "filter_arg_raw": 166,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "970000040000a600",
+        "idx": 159,
+        "literal_refs": [
+          "Icryptexes/",
+          "LIOHDIXHDDrive",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 1272,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 151,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "152": {
+    "examples": [
+      {
+        "fields": [
+          256,
+          61,
+          164
+        ],
+        "filter_arg_raw": 164,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "980000013d00a400",
+        "idx": 160,
+        "literal_refs": [
+          "P/dev/dtracehelper",
+          "UIOGraphicsAccelerator2"
+        ],
+        "offset": 1280,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 152,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "154": {
+    "examples": [
+      {
+        "fields": [
+          5888,
+          28,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "9a0000171c00a500",
+        "idx": 162,
+        "literal_refs": [
+          "D/dev/",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 1296,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 154,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "155": {
+    "examples": [
+      {
+        "fields": [
+          256,
+          1,
+          158
+        ],
+        "filter_arg_raw": 158,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "9b00000101009e00",
+        "idx": 163,
+        "literal_refs": [
+          "\nIapp/system",
+          "Msystem/library",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 1304,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 155,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "156": {
+    "examples": [
+      {
+        "fields": [
+          256,
+          43,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "9c0000012b00a500",
+        "idx": 164,
+        "literal_refs": [
+          "75105696-iokit-properties",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 1312,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 156,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "157": {
+    "examples": [
+      {
+        "fields": [
+          256,
+          50,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "9d0000013200a500",
+        "idx": 165,
+        "literal_refs": [
+          "\nUIOPCIExpressLinkStatus",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 1320,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 157,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "159": {
+    "examples": [
+      {
+        "fields": [
+          6656,
+          0,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "9f00001a0000a500",
+        "idx": 166,
+        "literal_refs": [
+          "\nC/app",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 1328,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 159,
+        "u16_role": "arg_u16"
+      },
+      {
+        "fields": [
+          1024,
+          4,
+          160
+        ],
+        "filter_arg_raw": 160,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "9f0000040400a000",
+        "idx": 167,
+        "literal_refs": [
+          "Icryptexes/",
+          "LIOHDIXHDDrive",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 1336,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 159,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "162": {
+    "examples": [
+      {
+        "fields": [
+          256,
+          33,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "a20000012100a500",
+        "idx": 168,
+        "literal_refs": [
+          "P/dev/dtracehelper",
+          "PIOThunderboltPort"
+        ],
+        "offset": 1344,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 162,
+        "u16_role": "arg_u16"
+      },
+      {
+        "fields": [
+          256,
+          10,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "a20000010a00a500",
+        "idx": 170,
+        "literal_refs": [
+          "P/dev/dtracehelper",
+          "com.apple.app-sandbox.read-write"
+        ],
+        "offset": 1360,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 162,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "166": {
+    "examples": [
+      {
+        "fields": [
+          166,
+          3,
+          166
+        ],
+        "filter_arg_raw": 166,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "a600a6000300a600",
+        "idx": 0,
+        "literal_refs": [
+          "G/system/"
+        ],
+        "offset": 0,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 166,
+        "u16_role": "arg_u16"
+      },
+      {
+        "fields": [
+          0,
+          166,
+          166
+        ],
+        "filter_arg_raw": 166,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "a6000000a600a600",
+        "idx": 4,
+        "literal_refs": [
+          "P/dev/dtracehelper"
+        ],
+        "offset": 32,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 166,
+        "u16_role": "arg_u16"
+      },
+      {
+        "fields": [
+          165,
+          0,
+          0
+        ],
+        "filter_arg_raw": 0,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "a600a50000000000",
+        "idx": 7,
+        "literal_refs": [
+          "P/dev/dtracehelper"
+        ],
+        "offset": 56,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 166,
+        "u16_role": "arg_u16"
       }
     ]
   },
   "17": {
     "examples": [
       {
-        "profile": "sys:bsd",
         "fields": [
           17,
           17,
-          17,
-          27,
-          27
+          17
         ],
+        "filter_arg_raw": 17,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "1100110011001100",
+        "idx": 12,
         "literal_refs": [
-          "\n[appleinternal/lib/sanitizers",
           "Czero"
         ],
-        "hex": "11001100110011001b001b00"
+        "offset": 96,
+        "profile": "sys:bsd",
+        "profile_short": "bsd",
+        "record_size": 8,
+        "tag": 17,
+        "u16_role": "arg_u16"
       }
     ]
   },
-  "7": {
+  "18": {
     "examples": [
       {
-        "profile": "sys:sample",
         "fields": [
-          7,
-          8,
-          8,
-          8,
-          5
+          19200,
+          70,
+          34
         ],
+        "filter_arg_raw": 34,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "1200004b46002200",
+        "idx": 26,
         "literal_refs": [
-          "K/tmp/sb-demo"
+          "\nCnull",
+          "\nSPCIExpressLinkStatus",
+          "Gocket ID",
+          "P/dev/dtracehelper"
         ],
-        "hex": "070007000800080008000500"
+        "offset": 208,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 18,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "19": {
+    "examples": [
+      {
+        "fields": [
+          19200,
+          22,
+          34
+        ],
+        "filter_arg_raw": 34,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "1300004b16002200",
+        "idx": 27,
+        "literal_refs": [
+          "\nErandom",
+          "Gocket ID",
+          "Hcryptexes",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 216,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 19,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "2": {
+    "examples": [
+      {
+        "fields": [
+          32769,
+          32768,
+          10
+        ],
+        "filter_arg_raw": 10,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "0200018000800a00",
+        "idx": 10,
+        "literal_refs": [
+          "\nC_max",
+          "\nFusr/lib",
+          "com.apple.app-sandbox.read-write"
+        ],
+        "offset": 80,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 2,
+        "u16_role": "arg_u16"
       },
       {
-        "profile": "sys:sample",
         "fields": [
-          7,
-          8,
-          0,
-          7,
-          8
+          18688,
+          4,
+          165
         ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "020000490400a500",
+        "idx": 98,
         "literal_refs": [
-          "I/etc/hosts"
+          "\nFusr/lib",
+          "Icryptexes/",
+          "P/dev/dtracehelper"
         ],
-        "hex": "070007000800000007000800"
-      }
-    ]
-  },
-  "5": {
-    "examples": [
-      {
-        "profile": "sys:sample",
-        "fields": [
-          5,
-          5,
-          8,
-          8,
-          7
-        ],
-        "literal_refs": [
-          "K/tmp/sb-demo"
-        ],
-        "hex": "050005000500080008000700"
-      }
-    ]
-  },
-  "8": {
-    "examples": [
-      {
-        "profile": "sys:sample",
-        "fields": [
-          3,
-          3,
-          3,
-          3,
-          3
-        ],
-        "literal_refs": [
-          "\nEsystem"
-        ],
-        "hex": "080003000300030003000300"
+        "offset": 784,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 2,
+        "u16_role": "arg_u16"
       },
       {
-        "profile": "sys:sample",
         "fields": [
-          8,
-          2,
           1,
           0,
           7
         ],
+        "filter_arg_raw": 7,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "0200010000000700",
+        "idx": 23,
         "literal_refs": [
           "\nBdev",
           "Busr",
           "I/etc/hosts"
         ],
-        "hex": "080008000200010000000700"
+        "offset": 184,
+        "profile": "sys:sample",
+        "profile_short": "sample",
+        "record_size": 8,
+        "tag": 2,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "20": {
+    "examples": [
+      {
+        "fields": [
+          19200,
+          32,
+          34
+        ],
+        "filter_arg_raw": 34,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "1400004b20002200",
+        "idx": 28,
+        "literal_refs": [
+          "\nFurandom",
+          "\nRIOClassNameOverride",
+          "Gocket ID",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 224,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 20,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "21": {
+    "examples": [
+      {
+        "fields": [
+          19200,
+          46,
+          34
+        ],
+        "filter_arg_raw": 34,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "1500004b2e002200",
+        "idx": 29,
+        "literal_refs": [
+          "\nEsystem",
+          "\nHEjectable",
+          "Gocket ID",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 232,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 21,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "22": {
+    "examples": [
+      {
+        "fields": [
+          19200,
+          91,
+          34
+        ],
+        "filter_arg_raw": 34,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "1600004b5b002200",
+        "idx": 30,
+        "literal_refs": [
+          "BGVA",
+          "Gocket ID",
+          "Hcryptexes",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 240,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 22,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "23": {
+    "examples": [
+      {
+        "fields": [
+          19200,
+          27,
+          34
+        ],
+        "filter_arg_raw": 34,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "1700004b1b002200",
+        "idx": 31,
+        "literal_refs": [
+          "\nFvolumes",
+          "F/cores/",
+          "Gocket ID",
+          "Msystem/library",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 248,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 23,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "24": {
+    "examples": [
+      {
+        "fields": [
+          19200,
+          72,
+          34
+        ],
+        "filter_arg_raw": 34,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "1800004b48002200",
+        "idx": 32,
+        "literal_refs": [
+          "\nG/preboot",
+          "DCodec",
+          "G/system/",
+          "Gocket ID",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 256,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 24,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "25": {
+    "examples": [
+      {
+        "fields": [
+          19200,
+          40,
+          34
+        ],
+        "filter_arg_raw": 34,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "1900004b28002200",
+        "idx": 33,
+        "literal_refs": [
+          "\nI/cryptexes",
+          "\nUProduct Identification",
+          "Gocket ID",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 264,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 25,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "26": {
+    "examples": [
+      {
+        "fields": [
+          19200,
+          31,
+          34
+        ],
+        "filter_arg_raw": 34,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": "notification-name",
+        "hex": "1a00004b1f002200",
+        "idx": 34,
+        "literal_refs": [
+          "\nC/app",
+          "Gboard-id",
+          "Gocket ID",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 272,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 26,
+        "u16_role": "filter_vocab_id"
       },
       {
-        "profile": "sys:sample",
         "fields": [
-          3584,
-          1,
-          7,
-          8,
-          3584
+          26,
+          26,
+          26
         ],
+        "filter_arg_raw": 26,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": "right-name",
+        "hex": "1a001a001a001a00",
+        "idx": 3,
         "literal_refs": [
-          "Busr",
-          "I/etc/hosts"
+          "\n`share/posix_spawn_filtering_rules"
         ],
-        "hex": "0800000e010007000800000e"
+        "offset": 24,
+        "profile": "sys:bsd",
+        "profile_short": "bsd",
+        "record_size": 8,
+        "tag": 26,
+        "u16_role": "filter_vocab_id"
+      },
+      {
+        "fields": [
+          26,
+          26,
+          26
+        ],
+        "filter_arg_raw": 26,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": "right-name",
+        "hex": "1a001a001a001a00",
+        "idx": 4,
+        "literal_refs": [
+          "\n`share/posix_spawn_filtering_rules"
+        ],
+        "offset": 32,
+        "profile": "sys:bsd",
+        "profile_short": "bsd",
+        "record_size": 8,
+        "tag": 26,
+        "u16_role": "filter_vocab_id"
+      }
+    ]
+  },
+  "27": {
+    "examples": [
+      {
+        "fields": [
+          19200,
+          76,
+          34
+        ],
+        "filter_arg_raw": 34,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": "notification-name",
+        "hex": "1b00004b4c002200",
+        "idx": 35,
+        "literal_refs": [
+          "F/cores/",
+          "Gocket ID",
+          "Msystem/library",
+          "P/dev/dtracehelper",
+          "UAppleM2ScalerCSCDriver"
+        ],
+        "offset": 280,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 27,
+        "u16_role": "filter_vocab_id"
+      },
+      {
+        "fields": [
+          27,
+          19,
+          18
+        ],
+        "filter_arg_raw": 18,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": "iokit-connection",
+        "hex": "1b001b0013001200",
+        "idx": 0,
+        "literal_refs": [
+          "\nCnull",
+          "\nErandom",
+          "\n[appleinternal/lib/sanitizers",
+          "Esystem"
+        ],
+        "offset": 0,
+        "profile": "sys:bsd",
+        "profile_short": "bsd",
+        "record_size": 8,
+        "tag": 27,
+        "u16_role": "filter_vocab_id"
+      },
+      {
+        "fields": [
+          27,
+          27,
+          27
+        ],
+        "filter_arg_raw": 27,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": "preference-domain",
+        "hex": "1b001b001b001b00",
+        "idx": 1,
+        "literal_refs": [
+          "\n[appleinternal/lib/sanitizers",
+          "Esystem"
+        ],
+        "offset": 8,
+        "profile": "sys:bsd",
+        "profile_short": "bsd",
+        "record_size": 8,
+        "tag": 27,
+        "u16_role": "filter_vocab_id"
+      }
+    ]
+  },
+  "28": {
+    "examples": [
+      {
+        "fields": [
+          19200,
+          92,
+          34
+        ],
+        "filter_arg_raw": 34,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "1c00004b5c002200",
+        "idx": 36,
+        "literal_refs": [
+          "D/dev/",
+          "DCodec",
+          "Gocket ID",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 288,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 28,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "29": {
+    "examples": [
+      {
+        "fields": [
+          19200,
+          28,
+          34
+        ],
+        "filter_arg_raw": 34,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "1d00004b1c002200",
+        "idx": 37,
+        "literal_refs": [
+          "Cnull",
+          "D/dev/",
+          "Gocket ID",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 296,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 29,
+        "u16_role": "arg_u16"
       }
     ]
   },
   "3": {
     "examples": [
       {
-        "profile": "sys:sample",
+        "fields": [
+          18688,
+          11,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": true,
+        "filter_vocab_ref": null,
+        "hex": "030000490b00a500",
+        "idx": 88,
+        "literal_refs": [
+          "Esystem",
+          "G/system/",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 704,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 3,
+        "u16_role": "filter_vocab_id"
+      },
+      {
         "fields": [
           3,
-          3,
-          8,
           3,
           3
         ],
+        "filter_arg_raw": 3,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": "file-mode",
+        "hex": "0300030003000300",
+        "idx": 5,
         "literal_refs": [
           "\nEsystem"
         ],
-        "hex": "030003000300080003000300"
+        "offset": 40,
+        "profile": "sys:sample",
+        "profile_short": "sample",
+        "record_size": 8,
+        "tag": 3,
+        "u16_role": "filter_vocab_id"
       },
       {
-        "profile": "sys:sample",
         "fields": [
-          7,
-          7,
-          7,
-          7,
-          7
+          3,
+          3,
+          8
         ],
+        "filter_arg_raw": 8,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": "remote",
+        "hex": "0300030003000800",
+        "idx": 6,
         "literal_refs": [
           "\nEsystem"
         ],
-        "hex": "030007000700070007000700"
+        "offset": 48,
+        "profile": "sys:sample",
+        "profile_short": "sample",
+        "record_size": 8,
+        "tag": 3,
+        "u16_role": "filter_vocab_id"
+      }
+    ]
+  },
+  "30": {
+    "examples": [
+      {
+        "fields": [
+          19200,
+          89,
+          34
+        ],
+        "filter_arg_raw": 34,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "1e00004b59002200",
+        "idx": 38,
+        "literal_refs": [
+          "\nCzero",
+          "Gocket ID",
+          "LGVAHEVCDecode",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 304,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 30,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "31": {
+    "examples": [
+      {
+        "fields": [
+          6656,
+          0,
+          32
+        ],
+        "filter_arg_raw": 32,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "1f00001a00002000",
+        "idx": 39,
+        "literal_refs": [
+          "\nC/app",
+          "\nRIOClassNameOverride",
+          "Gboard-id",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 312,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 31,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "33": {
+    "examples": [
+      {
+        "fields": [
+          19200,
+          13,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "2100004b0d00a500",
+        "idx": 40,
+        "literal_refs": [
+          "Dshare",
+          "P/dev/dtracehelper",
+          "PIOThunderboltPort"
+        ],
+        "offset": 320,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 33,
+        "u16_role": "arg_u16"
+      },
+      {
+        "fields": [
+          1281,
+          32768,
+          10
+        ],
+        "filter_arg_raw": 10,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "2100010500800a00",
+        "idx": 41,
+        "literal_refs": [
+          "Bapp",
+          "PIOThunderboltPort",
+          "com.apple.app-sandbox.read-write"
+        ],
+        "offset": 328,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 33,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "37": {
+    "examples": [
+      {
+        "fields": [
+          34049,
+          32768,
+          10
+        ],
+        "filter_arg_raw": 10,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "2500018500800a00",
+        "idx": 45,
+        "literal_refs": [
+          "\nDSpeed",
+          "CAMFI",
+          "com.apple.app-sandbox.read-write"
+        ],
+        "offset": 360,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 37,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "4": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          0,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "040000490000a500",
+        "idx": 86,
+        "literal_refs": [
+          "\nIHEVCDecode",
+          "Icryptexes/",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 688,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 4,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "44": {
+    "examples": [
+      {
+        "fields": [
+          45568,
+          0,
+          166
+        ],
+        "filter_arg_raw": 166,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "2c0000b20000a600",
+        "idx": 52,
+        "literal_refs": [
+          "FIOMedia",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 416,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 44,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "45": {
+    "examples": [
+      {
+        "fields": [
+          1536,
+          286,
+          164
+        ],
+        "filter_arg_raw": 164,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "2d0000061e01a400",
+        "idx": 53,
+        "literal_refs": [
+          "HRemovable",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 424,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 45,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "46": {
+    "examples": [
+      {
+        "fields": [
+          1536,
+          290,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "2e0000062201a500",
+        "idx": 54,
+        "literal_refs": [
+          "\nHEjectable",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 432,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 46,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "48": {
+    "examples": [
+      {
+        "fields": [
+          32769,
+          32768,
+          10
+        ],
+        "filter_arg_raw": 10,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "3000018000800a00",
+        "idx": 56,
+        "literal_refs": [
+          "\nC_max",
+          "Gbuilt-in",
+          "com.apple.app-sandbox.read-write"
+        ],
+        "offset": 448,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 48,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "5": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          4,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "050000490400a500",
+        "idx": 75,
+        "literal_refs": [
+          "Bapp",
+          "Icryptexes/",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 600,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 5,
+        "u16_role": "arg_u16"
+      },
+      {
+        "fields": [
+          26,
+          27,
+          26
+        ],
+        "filter_arg_raw": 26,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "05001a001b001a00",
+        "idx": 29,
+        "literal_refs": [
+          "\nGlibrary/",
+          "\n[appleinternal/lib/sanitizers",
+          "\n`share/posix_spawn_filtering_rules",
+          "Esystem"
+        ],
+        "offset": 232,
+        "profile": "sys:bsd",
+        "profile_short": "bsd",
+        "record_size": 8,
+        "tag": 5,
+        "u16_role": "arg_u16"
+      },
+      {
+        "fields": [
+          5,
+          5,
+          8
+        ],
+        "filter_arg_raw": 8,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "0500050005000800",
+        "idx": 3,
+        "literal_refs": [
+          "K/tmp/sb-demo"
+        ],
+        "offset": 24,
+        "profile": "sys:sample",
+        "profile_short": "sample",
+        "record_size": 8,
+        "tag": 5,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "50": {
+    "examples": [
+      {
+        "fields": [
+          4352,
+          238,
+          99
+        ],
+        "filter_arg_raw": 99,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "32000011ee006300",
+        "idx": 58,
+        "literal_refs": [
+          "\nUIOPCIExpressLinkStatus",
+          "P/dev/dtracehelper",
+          "RIGAccelCommandQueue"
+        ],
+        "offset": 464,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 50,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "51": {
+    "examples": [
+      {
+        "fields": [
+          4352,
+          242,
+          89
+        ],
+        "filter_arg_raw": 89,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "33000011f2005900",
+        "idx": 59,
+        "literal_refs": [
+          "BTY,",
+          "LGVAHEVCDecode",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 472,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 51,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "52": {
+    "examples": [
+      {
+        "fields": [
+          4352,
+          245,
+          79
+        ],
+        "filter_arg_raw": 79,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "34000011f5004f00",
+        "idx": 60,
+        "literal_refs": [
+          "IDeviceName",
+          "LGVAHEVCDecode",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 480,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 52,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "53": {
+    "examples": [
+      {
+        "fields": [
+          1,
+          0,
+          0
+        ],
+        "filter_arg_raw": 0,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "3501010000000000",
+        "idx": 46,
+        "literal_refs": [
+          "Msystem/library",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 368,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 53,
+        "u16_role": "arg_u16"
+      },
+      {
+        "fields": [
+          4352,
+          249,
+          77
+        ],
+        "filter_arg_raw": 77,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "35000011f9004d00",
+        "idx": 61,
+        "literal_refs": [
+          "\nIFamilyName",
+          "KDiskImageURL",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 488,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 53,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "54": {
+    "examples": [
+      {
+        "fields": [
+          4352,
+          253,
+          66
+        ],
+        "filter_arg_raw": 66,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "36000011fd004200",
+        "idx": 62,
+        "literal_refs": [
+          "\nHClassName",
+          "\nLAPL,slot-name",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 496,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 54,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "55": {
+    "examples": [
+      {
+        "fields": [
+          4352,
+          256,
+          59
+        ],
+        "filter_arg_raw": 59,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "3700001100013b00",
+        "idx": 63,
+        "literal_refs": [
+          "Czero",
+          "Iimage-path",
+          "JIOMediaIcon",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 504,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 55,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "57": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          2,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "390000490200a500",
+        "idx": 65,
+        "literal_refs": [
+          "\nFusr/lib",
+          "FStorage",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 520,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 57,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "58": {
+    "examples": [
+      {
+        "fields": [
+          1,
+          0,
+          0
+        ],
+        "filter_arg_raw": 0,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "3a01010000000000",
+        "idx": 43,
+        "literal_refs": [
+          "Msystem/library",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 344,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 58,
+        "u16_role": "arg_u16"
+      },
+      {
+        "fields": [
+          18688,
+          5,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "3a0000490500a500",
+        "idx": 66,
+        "literal_refs": [
+          "\nQBlockStorageDevice",
+          "Bapp",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 528,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 58,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "6": {
+    "examples": [
+      {
+        "fields": [
+          32769,
+          0,
+          0
+        ],
+        "filter_arg_raw": 0,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "0600018000000000",
+        "idx": 14,
+        "literal_refs": [
+          "\nAos",
+          "\nC_max",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 112,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 6,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "61": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          2,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "3d0000490200a500",
+        "idx": 69,
+        "literal_refs": [
+          "\nFusr/lib",
+          "P/dev/dtracehelper",
+          "UIOGraphicsAccelerator2"
+        ],
+        "offset": 552,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 61,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "62": {
+    "examples": [
+      {
+        "fields": [
+          32769,
+          32768,
+          10
+        ],
+        "filter_arg_raw": 10,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "3e01018000800a00",
+        "idx": 42,
+        "literal_refs": [
+          "\nC_max",
+          "com.apple.app-sandbox.read-write"
+        ],
+        "offset": 336,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 62,
+        "u16_role": "arg_u16"
+      },
+      {
+        "fields": [
+          18688,
+          8,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "3e0000490800a500",
+        "idx": 70,
+        "literal_refs": [
+          "\nIapp/system",
+          "MAAPL,slot-name",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 560,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 62,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "63": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          9,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "3f0000490900a500",
+        "idx": 71,
+        "literal_refs": [
+          "\nQSafeEjectRequested",
+          "P/dev/dtracehelper",
+          "com.apple.app-sandbox.read"
+        ],
+        "offset": 568,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 63,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "64": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          7,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "400000490700a500",
+        "idx": 72,
+        "literal_refs": [
+          "\nJMetalPlugin",
+          "\nYvolumes/preboot/cryptexes/",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 576,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 64,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "65": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          0,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "410000490000a500",
+        "idx": 73,
+        "literal_refs": [
+          "\nIHEVCDecode",
+          "CName",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 584,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 65,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "68": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          1,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "440000490100a500",
+        "idx": 76,
+        "literal_refs": [
+          "KVARendererID",
+          "Msystem/library",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 608,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 68,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "69": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          259,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "450000490301a500",
+        "idx": 77,
+        "literal_refs": [
+          "\nLDVDBundleName",
+          "Esystem",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 616,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 69,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "7": {
+    "examples": [
+      {
+        "fields": [
+          7,
+          8,
+          0
+        ],
+        "filter_arg_raw": 0,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": "path",
+        "hex": "0700070008000000",
+        "idx": 33,
+        "literal_refs": [
+          "I/etc/hosts"
+        ],
+        "offset": 264,
+        "profile": "sys:sample",
+        "profile_short": "sample",
+        "record_size": 8,
+        "tag": 7,
+        "u16_role": "filter_vocab_id"
+      }
+    ]
+  },
+  "70": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          8,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "460000490800a500",
+        "idx": 78,
+        "literal_refs": [
+          "\nIapp/system",
+          "\nSPCIExpressLinkStatus",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 624,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 70,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "71": {
+    "examples": [
+      {
+        "fields": [
+          1,
+          0,
+          0
+        ],
+        "filter_arg_raw": 0,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "4701010000000000",
+        "idx": 24,
+        "literal_refs": [
+          "Msystem/library",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 192,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 71,
+        "u16_role": "arg_u16"
+      },
+      {
+        "fields": [
+          18688,
+          12,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "470000490c00a500",
+        "idx": 79,
+        "literal_refs": [
+          "\nBGVA",
+          "\nCusr/",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 632,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 71,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "72": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          9,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "480000490900a500",
+        "idx": 80,
+        "literal_refs": [
+          "DCodec",
+          "G/system/",
+          "P/dev/dtracehelper",
+          "com.apple.app-sandbox.read"
+        ],
+        "offset": 640,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 72,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "73": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          10,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "490000490a00a500",
+        "idx": 81,
+        "literal_refs": [
+          "\nIHEVCDecode",
+          "P/dev/dtracehelper",
+          "com.apple.app-sandbox.read-write"
+        ],
+        "offset": 648,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 73,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "74": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          7,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "4a0000490700a500",
+        "idx": 82,
+        "literal_refs": [
+          "\nXAVDHEVCDecodeCapabilities",
+          "\nYvolumes/preboot/cryptexes/",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 656,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 74,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "75": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          268,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "4b0000490c01a500",
+        "idx": 83,
+        "literal_refs": [
+          "P/dev/dtracehelper",
+          "cIOSurfaceAcceleratorCapabilitiesDict"
+        ],
+        "offset": 664,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 75,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "76": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          0,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "4c0000490000a500",
+        "idx": 84,
+        "literal_refs": [
+          "\nIHEVCDecode",
+          "P/dev/dtracehelper",
+          "UAppleM2ScalerCSCDriver"
+        ],
+        "offset": 672,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 76,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "8": {
+    "examples": [
+      {
+        "fields": [
+          6656,
+          0,
+          9
+        ],
+        "filter_arg_raw": 9,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": "control-name",
+        "hex": "0800001a00000900",
+        "idx": 16,
+        "literal_refs": [
+          "\nC/app",
+          "\nIapp/system",
+          "P/dev/dtracehelper",
+          "com.apple.app-sandbox.read"
+        ],
+        "offset": 128,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 8,
+        "u16_role": "filter_vocab_id"
+      },
+      {
+        "fields": [
+          8,
+          8,
+          5
+        ],
+        "filter_arg_raw": 5,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": "global-name",
+        "hex": "0800080008000500",
+        "idx": 2,
+        "literal_refs": [
+          "K/tmp/sb-demo"
+        ],
+        "offset": 16,
+        "profile": "sys:sample",
+        "profile_short": "sample",
+        "record_size": 8,
+        "tag": 8,
+        "u16_role": "filter_vocab_id"
+      },
+      {
+        "fields": [
+          7,
+          8,
+          3
+        ],
+        "filter_arg_raw": 3,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": "file-mode",
+        "hex": "0800070008000300",
+        "idx": 4,
+        "literal_refs": [
+          "\nEsystem"
+        ],
+        "offset": 32,
+        "profile": "sys:sample",
+        "profile_short": "sample",
+        "record_size": 8,
+        "tag": 8,
+        "u16_role": "filter_vocab_id"
+      }
+    ]
+  },
+  "81": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          2,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "510000490200a500",
+        "idx": 89,
+        "literal_refs": [
+          "\nFusr/lib",
+          "GAppleAVD",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 712,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 81,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "82": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          8,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "520000490800a500",
+        "idx": 90,
+        "literal_refs": [
+          "\nIapp/system",
+          "Icryptexes/",
+          "P/dev/dtracehelper",
+          "SAGXFamilyAccelerator"
+        ],
+        "offset": 720,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 82,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "83": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          24,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "530000491800a500",
+        "idx": 91,
+        "literal_refs": [
+          "\nG/preboot",
+          "MAAPL,slot-name",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 728,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 83,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "84": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          12,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "540000490c00a500",
+        "idx": 92,
+        "literal_refs": [
+          "\nCusr/",
+          "\nQSafeEjectRequested",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 736,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 84,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "85": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          9,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "550000490900a500",
+        "idx": 93,
+        "literal_refs": [
+          "\nJMetalPlugin",
+          "P/dev/dtracehelper",
+          "com.apple.app-sandbox.read"
+        ],
+        "offset": 744,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 85,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "86": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          10,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "560000490a00a500",
+        "idx": 94,
+        "literal_refs": [
+          "CName",
+          "P/dev/dtracehelper",
+          "com.apple.app-sandbox.read-write"
+        ],
+        "offset": 752,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 86,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "87": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          7,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "570000490700a500",
+        "idx": 95,
+        "literal_refs": [
+          "\nHClassName",
+          "\nYvolumes/preboot/cryptexes/",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 760,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 87,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "88": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          0,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "580000490000a500",
+        "idx": 96,
+        "literal_refs": [
+          "\nAIO",
+          "\nIHEVCDecode",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 768,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 88,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "91": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          1,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "5b0000490100a500",
+        "idx": 99,
+        "literal_refs": [
+          "BGVA",
+          "Msystem/library",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 792,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 91,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "92": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          8,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "5c0000490800a500",
+        "idx": 100,
+        "literal_refs": [
+          "\nIapp/system",
+          "DCodec",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 800,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 92,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "93": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          21,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "5d0000491500a500",
+        "idx": 101,
+        "literal_refs": [
+          "\nEsystem",
+          "\nIHEVCDecode",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 808,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 93,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "94": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          22,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "5e0000491600a500",
+        "idx": 102,
+        "literal_refs": [
+          "\nXAVDHEVCDecodeCapabilities",
+          "Bapp",
+          "Hcryptexes",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 816,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 94,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "95": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          9,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "5f0000490900a500",
+        "idx": 103,
+        "literal_refs": [
+          "P/dev/dtracehelper",
+          "QIOBufferCopyEngine",
+          "com.apple.app-sandbox.read"
+        ],
+        "offset": 824,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 95,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "96": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          10,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "600000490a00a500",
+        "idx": 104,
+        "literal_refs": [
+          "P/dev/dtracehelper",
+          "VIOSurfaceRootUserClient",
+          "com.apple.app-sandbox.read-write"
+        ],
+        "offset": 832,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 96,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "97": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          7,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "610000490700a500",
+        "idx": 105,
+        "literal_refs": [
+          "\nYvolumes/preboot/cryptexes/",
+          "P/dev/dtracehelper",
+          "VIGAccelSharedUserClient"
+        ],
+        "offset": 840,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 97,
+        "u16_role": "arg_u16"
+      }
+    ]
+  },
+  "98": {
+    "examples": [
+      {
+        "fields": [
+          18688,
+          0,
+          165
+        ],
+        "filter_arg_raw": 165,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "620000490000a500",
+        "idx": 106,
+        "literal_refs": [
+          "\nIHEVCDecode",
+          "LIGAccelDevice",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 848,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 98,
+        "u16_role": "arg_u16"
+      },
+      {
+        "fields": [
+          256,
+          1,
+          149
+        ],
+        "filter_arg_raw": 149,
+        "filter_out_of_vocab": false,
+        "filter_vocab_ref": null,
+        "hex": "6200000101009500",
+        "idx": 155,
+        "literal_refs": [
+          "LIGAccelDevice",
+          "Msystem/library",
+          "P/dev/dtracehelper"
+        ],
+        "offset": 1240,
+        "profile": "sys:airlock",
+        "profile_short": "airlock",
+        "record_size": 8,
+        "tag": 98,
+        "u16_role": "arg_u16"
       }
     ]
   }
