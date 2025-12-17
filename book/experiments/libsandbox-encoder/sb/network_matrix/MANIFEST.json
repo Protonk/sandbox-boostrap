@@ -1,0 +1,88 @@
+{
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "purpose": "Small SBPL specimen set to create byte-level witnesses for libsandbox network argument emission (domain/type/proto) without relying on kernel semantics.",
+  "cases": [
+    {
+      "spec_id": "domain_af_inet",
+      "sbpl_file": "domain_af_inet.sb",
+      "vary": "socket-domain"
+    },
+    {
+      "spec_id": "domain_af_system",
+      "sbpl_file": "domain_af_system.sb",
+      "vary": "socket-domain"
+    },
+    {
+      "spec_id": "type_sock_stream",
+      "sbpl_file": "type_sock_stream.sb",
+      "vary": "socket-type"
+    },
+    {
+      "spec_id": "type_sock_dgram",
+      "sbpl_file": "type_sock_dgram.sb",
+      "vary": "socket-type"
+    },
+    {
+      "spec_id": "proto_tcp",
+      "sbpl_file": "proto_tcp.sb",
+      "vary": "socket-protocol"
+    },
+    {
+      "spec_id": "proto_udp",
+      "sbpl_file": "proto_udp.sb",
+      "vary": "socket-protocol"
+    },
+    {
+      "spec_id": "triple_all_tcp",
+      "sbpl_file": "triple_all_tcp.sb",
+      "vary": "socket-domain+type+proto"
+    },
+    {
+      "spec_id": "triple_all_udp",
+      "sbpl_file": "triple_all_udp.sb",
+      "vary": "socket-domain+type+proto"
+    },
+    {
+      "spec_id": "triple_any_tcp",
+      "sbpl_file": "triple_any_tcp.sb",
+      "vary": "socket-domain+type+proto"
+    },
+    {
+      "spec_id": "triple_all_tcp_order2",
+      "sbpl_file": "triple_all_tcp_order2.sb",
+      "vary": "socket-domain+type+proto"
+    },
+    {
+      "spec_id": "triple_nested_tcp",
+      "sbpl_file": "triple_nested_tcp.sb",
+      "vary": "socket-domain+type+proto"
+    }
+  ],
+  "diff_pairs": [
+    {
+      "pair_id": "domain_af_inet_vs_af_system",
+      "a": "domain_af_inet",
+      "b": "domain_af_system",
+      "intent": "Isolate socket-domain argument bytes."
+    },
+    {
+      "pair_id": "type_sock_stream_vs_sock_dgram",
+      "a": "type_sock_stream",
+      "b": "type_sock_dgram",
+      "intent": "Isolate socket-type argument bytes."
+    },
+    {
+      "pair_id": "proto_tcp_vs_udp",
+      "a": "proto_tcp",
+      "b": "proto_udp",
+      "intent": "Isolate socket-protocol argument bytes."
+    },
+    {
+      "pair_id": "triple_all_tcp_vs_udp",
+      "a": "triple_all_tcp",
+      "b": "triple_all_udp",
+      "intent": "Isolate combined triple argument bytes (domain/type/proto) under require-all."
+    }
+  ]
+}
+

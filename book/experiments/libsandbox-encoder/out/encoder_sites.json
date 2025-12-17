@@ -12,7 +12,7 @@
       "address": "0x183d0f694",
       "role": "filter data emitter (network)",
       "status": "ok",
-      "details": "Pads mutable buffer to 8-byte boundary if needed, calls _get_current_data_address, then emits three fields via _emit in order: domain (ldrb [arg+1], len=1), type (ldrb [arg+0], len=1), proto (ldrh [arg+2], len=2). All writes go through ctx->mutable_buffer via _emit/_sb_mutable_buffer_write."
+      "details": "Pads mutable buffer to 8-byte boundary if needed, calls _get_current_data_address, then emits three fields via _emit in order: domain (ldrb [arg+1], len=1), type (ldrb [arg+0], len=1), proto (ldrh [arg+2], len=2). All writes go through ctx->mutable_buffer via _emit/_sb_mutable_buffer_write. Disassembly excerpt: book/experiments/libsandbox-encoder/out/static_re/emit_network.otool.txt. Phase A join (partial): book/experiments/libsandbox-encoder/out/network_matrix/blob_diffs.json shows single-arg SBPL deltas (AF_INET↔AF_SYSTEM, SOCK_STREAM↔SOCK_DGRAM, TCP↔UDP) manifest as a single changed byte in the compiled blob’s nodes region for the minimal single-filter specimens; this is a blob-level witness for “network arg bytes are serialized into the blob” but does not, by itself, prove how those bytes are threaded through any higher-level table/record structure."
     },
     {
       "function": "_record_condition_data",
@@ -34,6 +34,13 @@
       "role": "finalize mutable buffer",
       "status": "partial",
       "details": "Calls _sb_mutable_buffer_make_immutable on the builder’s mutable buffer (builder+0xe98) once parsing completes; stores resulting sb_buffer* at sp+0x60/0x96. Caller of this finalize is expected to carry the immutable buffer into the registration/apply path; explicit handoff to __sandbox_ms still to be confirmed."
+    },
+    {
+      "function": "(Phase A) network matrix blob witness",
+      "address": null,
+      "role": "compile-blob diff witness",
+      "status": "ok",
+      "details": "See book/experiments/libsandbox-encoder/out/network_matrix/index.json (section boundaries, op_table entries, tag counts) and book/experiments/libsandbox-encoder/out/network_matrix/blob_diffs.json (byte diffs + node-record annotations) for a small, controlled SBPL specimen set that isolates per-argument deltas in compiled blobs."
     }
   ]
 }
