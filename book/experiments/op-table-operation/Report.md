@@ -26,7 +26,7 @@ This experiment focuses on that gap:
 - Treat raw op-table entries as **opaque bucket labels**, not Operation IDs.
 - Use decoder-backed per-entry “signatures” (tag/literal patterns) as structural fingerprints.
 - Prepare the ground for later vocabulary-mapping work that will supply real Operation IDs.
-- Shared tooling: for new blob summaries (op_table entries, tag counts, literals, entry signatures), prefer `book/api/op_table` (CLI or Python) over extending `analyze.py`.
+- Shared tooling: for new blob summaries (op_table entries, tag counts, literals, entry signatures), prefer `book/api/profile_tools` (CLI or Python) over extending `analyze.py`.
 
 We intentionally avoid guessing op-table slot ordering or Operation↔bucket semantics without a witness. The Operation Vocabulary Map exists for this host (`book/graph/mappings/vocab/ops.json`, status: ok), but connecting these synthetic profiles’ op-table slots/buckets to numeric Operation IDs remains under exploration.
 
@@ -69,6 +69,7 @@ We intentionally avoid guessing op-table slot ordering or Operation↔bucket sem
 - `book/experiments/op-table-operation/out/summary.json` with per-profile op-table entries, decoder snapshots, and structural statistics.
 - `book/experiments/op-table-operation/out/op_table_map.json` recording op_entries, unique buckets, and operation sets (plus filter annotations) per profile.
 - `book/experiments/op-table-operation/out/op_table_signatures.json` capturing per-entry structural signatures (tags, `field2` distributions, reachable literals).
+- Promoted mapping snapshots under `book/graph/mappings/op_table/` regenerated via `book/graph/mappings/op_table/generate_op_table_mappings.py` (curated set excludes `v12_runtime_probe`, which remains experiment-local).
 - Narrative notes and this report summarizing bucket behavior and remaining unknowns on this host.
 
 ## Plan & execution log
@@ -169,6 +170,7 @@ We intentionally avoid guessing op-table slot ordering or Operation↔bucket sem
 - Analyzer script `book/experiments/op-table-operation/analyze.py`.
 - `out/summary.json`, `out/op_table_map.json`, and `out/op_table_signatures.json` as described above.
 - Consolidated catalog: `out/op_table_catalog_v1.json` (schema `op_table_catalog_v1`) with bucket patterns, ops/filters, decoder signatures, and provisional runtime hints.
+- Promoted op-table mappings: `book/graph/mappings/op_table/` (regenerate after refreshing experiment outputs via `book/graph/mappings/op_table/generate_op_table_mappings.py`).
 - Shared decoder/ingestion helpers under `book/graph/concepts/validation/` used to derive op_count, sections, and node lists.
 
 ## Blockers / risks
@@ -292,11 +294,11 @@ All interpretations treat op-table entries (4, 5, 6, …) as opaque bucket label
 ### 4.1 Uniform op-tables without filters
 From the baseline and unfiltered profiles:
 
-- `v0_empty`, `v1_read`, `v2_write`, `v4_network`, and multi-op mixes **without** mach (`v5_read_write`, `v7_read_network`, `v9_write_network`, `v16_read_and_network`, `v17_read_write_network`) all show:
+- `v0_empty`, `v1_read`, `v2_write`, `v4_network`, and unfiltered mixes **without** mach (`v5_read_write`, `v7_read_network`, `v9_write_network`) all show:
   - `operation_count = 5`,
   - `op_entries = [4,4,4,4,4]`.
 
-- `v3_mach` (mach-only) and any unfiltered mixes **with** mach (`v6_read_mach`, `v8_write_mach`, `v10_mach_network`, `v14_mach_and_network`, `v18_read_mach_network`, `v19_mach_write_network`) show:
+- `v3_mach` (mach-only) and unfiltered mixes **with** mach (`v6_read_mach`, `v8_write_mach`, `v10_mach_network`) show:
   - `operation_count = 6`,
   - `op_entries = [5,5,5,5,5,5]`.
 
@@ -310,10 +312,15 @@ Interpretation:
 ### 4.2 Filters move reads between buckets
 Introducing Filters on `file-read*`:
 
-- `v11_read_subpath` (read with `(subpath "/tmp/foo")`), `v20_read_literal` (read with a single literal, from node-layout), and similar filtered read-only profiles:
+- `v11_read_subpath` (read with `(subpath "/tmp/foo")`):
   - `operation_count = 6`,
   - `op_entries = [5,5,5,5,5,5]`,
   - decoder tag counts align with other “bucket 5” profiles (tags {0,1,4,5}).
+
+Filtered read in non-mach mixes also stays in bucket 5:
+
+- `v13_read_subpath_write` (filtered read + write) and `v14_read_subpath_network` (filtered read + network) remain uniform `[5,…]`.
+- For literal-only read probes with the same “filtered read shifts buckets” shape, see the [node-layout experiment](../node-layout/Report.md).
 
 Key contrast:
 
@@ -387,10 +394,9 @@ Early observations:
   - both see `field2` values that include 5 and 6,
   - walks are shallow (often just 1–2 nodes), reflecting both the limited depth of the heuristic and the small profiles.
 
-Bucket→operation IDs (with vocab from `vocab-from-cache`):
+Operation IDs (annotation-only):
 
-- `file-read*` (ID 21), `file-write*` (ID 29), and `network-outbound` (ID 112) land in buckets {3,4} across these profiles (unfiltered vs filtered/mach mixes).
-- `mach-lookup` (ID 96) lands in buckets {5,6}, with bucket 6 appearing only in the mach+filtered-read mixes that produce the `[6,…,5]` op-table.
+Operation IDs are available for this host via `book/graph/mappings/vocab/ops.json` (`status: ok`). The `op-table-vocab-alignment` experiment annotates each profile’s SBPL `ops` set with those IDs for joins/search, but it does not assert that op-table slot indices correspond to numeric Operation IDs in these synthetic profiles.
 
 These signatures:
 
