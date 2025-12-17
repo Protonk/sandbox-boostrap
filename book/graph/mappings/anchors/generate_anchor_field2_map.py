@@ -1,0 +1,82 @@
+#!/usr/bin/env python3
+"""
+Regenerate `anchor_field2_map.json` from `probe-op-structure` anchor hits.
+
+This mapping is a structural index (anchor -> per-profile node indices + field2
+payloads) and is guarded for coherence against `anchor_hits.json`.
+
+Do not hand-edit `anchor_field2_map.json`; rerun this generator instead.
+"""
+
+from __future__ import annotations
+
+import json
+import sys
+from pathlib import Path
+from typing import Any, Dict, Tuple
+
+REPO_ROOT = Path(__file__).resolve().parents[4]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from book.api import path_utils  # type: ignore
+BASELINE_PATH = REPO_ROOT / "book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json"
+HITS_PATH = REPO_ROOT / "book/experiments/probe-op-structure/out/anchor_hits.json"
+OUT_PATH = REPO_ROOT / "book/graph/mappings/anchors/anchor_field2_map.json"
+
+
+def load_existing_roles() -> Dict[str, Tuple[str, str]]:
+    if not OUT_PATH.exists():
+        return {}
+    data = json.loads(OUT_PATH.read_text())
+    roles: Dict[str, Tuple[str, str]] = {}
+    for anchor, entry in data.items():
+        if anchor == "metadata" or not isinstance(entry, dict):
+            continue
+        roles[anchor] = (entry.get("role", "exploratory"), entry.get("status", "partial"))
+    return roles
+
+
+def main() -> None:
+    world_id = json.loads(BASELINE_PATH.read_text()).get("world_id")
+    if not world_id:
+        raise RuntimeError("missing world_id in baseline")
+    hits_doc = json.loads(HITS_PATH.read_text())
+    existing_roles = load_existing_roles()
+
+    per_anchor: Dict[str, Dict[str, Any]] = {}
+    for profile_name, payload in hits_doc.items():
+        for anchor_entry in payload.get("anchors") or []:
+            anchor = anchor_entry.get("anchor")
+            if not anchor:
+                continue
+            obs = {
+                "node_indices": anchor_entry.get("node_indices") or [],
+                "field2_values": anchor_entry.get("field2_values") or [],
+                "field2_names": anchor_entry.get("field2_names") or [],
+            }
+            per_anchor.setdefault(anchor, {}).setdefault("profiles", {}).setdefault(profile_name, []).append(obs)
+
+    out: Dict[str, Any] = {
+        "metadata": {
+            "world_id": world_id,
+            "status": "partial",
+            "inputs": [path_utils.to_repo_relative(HITS_PATH, REPO_ROOT)],
+            "source_jobs": ["experiment:probe-op-structure"],
+            "notes": "Structural anchor -> field2 hints derived from probe-op-structure anchor_hits; exploratory, not semantic bindings.",
+        }
+    }
+
+    for anchor in sorted(per_anchor.keys()):
+        role, status = existing_roles.get(anchor, ("exploratory", "partial"))
+        entry = per_anchor[anchor]
+        entry["role"] = role
+        entry["status"] = status
+        out[anchor] = entry
+
+    OUT_PATH.write_text(json.dumps(out, indent=2, sort_keys=True))
+    print(f"[+] wrote {path_utils.to_repo_relative(OUT_PATH, REPO_ROOT)}")
+
+
+if __name__ == "__main__":
+    main()

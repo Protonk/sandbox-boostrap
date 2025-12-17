@@ -130,34 +130,51 @@ def slice_sections(blob: ProfileBlob, header: Header) -> Sections:
     op_table_end = min(len(data), op_table_start + op_table_len)
     op_table = data[op_table_start:op_table_end]
 
-    # Attempt to split node area vs literal/regex pool:
-    # 1) Use Mach-O segment info if available (prefer __TEXT.__cstring start).
-    # 2) Fall back to heuristic printable-run detection.
-    def find_literal_start(buf: bytes) -> int:
+    # Attempt to split node area vs literal/regex pool.
+    #
+    # For this Sonoma baseline, op_table entries behave like u16 word offsets
+    # (8-byte units) into the node stream. Use the maximum op_table target as a
+    # hard lower bound for where the literal pool may begin, to avoid the common
+    # failure mode where printable-run heuristics "find" ASCII-looking bytes
+    # inside the node stream and truncate the node region.
+    nodes_start = op_table_end
+    op_entries = [int.from_bytes(op_table[i : i + 2], "little") for i in range(0, len(op_table), 2)]
+    lower_bound = nodes_start
+    if op_entries:
+        lower_bound = nodes_start + (max(op_entries) + 1) * 8
+        if lower_bound < nodes_start:
+            lower_bound = nodes_start
+        if lower_bound > len(data):
+            lower_bound = len(data)
+
+    def find_literal_start(buf: bytes, start: int) -> int:
         segments = _parse_macho_segments(buf)
         for seg in segments:
             if seg["name"] == "__TEXT":
-                # assume __cstring follows __const within __TEXT
-                # find the earliest offset beyond op_table_end within __TEXT
-                cstring = seg["fileoff"] + seg["filesize"] - 0  # crude upper bound
-                if cstring > op_table_end:
+                cstring = seg["fileoff"] + seg["filesize"]  # crude upper bound
+                if cstring >= start:
                     return cstring
+        # Prefer a short run of non-NUL printable characters starting at the lower bound.
+        min_run = 4
+        for i in range(start, len(buf) - min_run):
+            j = i
+            while j < len(buf) and buf[j] != 0x00 and 32 <= buf[j] <= 126:
+                j += 1
+            if j - i >= min_run:
+                return i
+        # Fallback: ratio-based scan, still starting at the lower bound.
         window = 64
         threshold = 0.7
-        for i in range(op_table_end, len(buf)):
+        for i in range(start, len(buf)):
             chunk = buf[i : min(len(buf), i + window)]
             if not chunk:
                 continue
-            printable = sum(
-                1
-                for b in chunk
-                if b == 0x00 or 32 <= b <= 126
-            )
+            printable = sum(1 for b in chunk if b == 0x00 or 32 <= b <= 126)
             if printable / len(chunk) >= threshold:
                 return i
         return len(buf)
 
-    literal_start = find_literal_start(data)
-    nodes = data[op_table_end:literal_start]
+    literal_start = find_literal_start(data, lower_bound)
+    nodes = data[nodes_start:literal_start]
     regex_literals = data[literal_start:]
     return Sections(op_table=op_table, nodes=nodes, regex_literals=regex_literals)

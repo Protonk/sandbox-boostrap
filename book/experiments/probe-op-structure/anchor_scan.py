@@ -50,24 +50,38 @@ def find_anchor_offsets(buf: bytes, anchor: bytes) -> List[int]:
     return offsets
 
 
-def nodes_touching_bytes(nodes_bytes: bytes, anchor_offsets: List[int], literal_start: int, strides: List[int]) -> List[int]:
-    """Search raw node bytes for little-endian representations of anchor offsets."""
-    hits: List[int] = []
-    patterns: List[Tuple[int, bytes]] = []
+def nodes_touching_u16_offsets(nodes_bytes: bytes, anchor_offsets: List[int], literal_start: int, stride: int = 8) -> List[int]:
+    """
+    Search raw node bytes for u16 fields that match known literal offsets.
+
+    This stays deliberately conservative:
+    - only checks u16-aligned slots within each stride-sized record
+    - skips relative offset 0 (too ambiguous; many records contain 0-valued u16s)
+    """
+    targets: set[int] = set()
     for off in anchor_offsets:
-        # relative offset into literal pool
-        patterns.append((off, off.to_bytes(2, "little")))
-        # absolute offset into blob (literal_start + off)
+        if off != 0:
+            targets.add(off)
         abs_off = literal_start + off
-        patterns.append((abs_off, abs_off.to_bytes(2, "little")))
-    for stride in strides:
-        for idx in range(0, len(nodes_bytes), stride):
-            chunk = nodes_bytes[idx : idx + stride]
-            for _, pat in patterns:
-                if pat in chunk:
-                    hits.append(idx // stride)
-                    break
-    return sorted(set(hits))
+        if 0 < abs_off < 0x1_0000:
+            targets.add(abs_off)
+
+    if not targets:
+        return []
+
+    hits: List[int] = []
+    full = len(nodes_bytes) // stride
+    for idx in range(full):
+        chunk = nodes_bytes[idx * stride : (idx + 1) * stride]
+        # record prefix is tag/kind; u16 fields follow at offsets 2/4/6
+        if len(chunk) < 8:
+            continue
+        f0 = int.from_bytes(chunk[2:4], "little")
+        f1 = int.from_bytes(chunk[4:6], "little")
+        f2 = int.from_bytes(chunk[6:8], "little")
+        if f0 in targets or f1 in targets or f2 in targets:
+            hits.append(idx)
+    return hits
 
 
 def extract_strings(buf: bytes, min_len: int = 4) -> List[Tuple[int, str]]:
@@ -97,13 +111,35 @@ def _strip_prefix(s: str) -> str:
     return s
 
 
+def _strip_sbpl_literal_prefix(s: str) -> str:
+    """
+    SBPL literal strings in compiled blobs often carry a single leading tag byte
+    rendered as an ASCII letter (e.g. `Ftmp/foo`, `Hetc/hosts`, `QIOUSB…`).
+
+    Drop that single-letter prefix for matching, while keeping the original
+    string available for debugging/output.
+    """
+    if len(s) >= 2 and s[0].isalpha() and s[0].isupper() and (s[1].isalnum() or s[1] in ("/", ".")):
+        return s[1:]
+    return s
+
+
 def _matches_anchor(anchor: str, literal: str) -> bool:
     """Heuristic match between anchor (often absolute) and prefixed literal."""
     anchor_no_slash = anchor.lstrip("/")
     if anchor in literal:
         return True
-    stripped = _strip_prefix(literal)
-    return (anchor in stripped) or (anchor_no_slash and anchor_no_slash in stripped)
+    stripped = _strip_sbpl_literal_prefix(_strip_prefix(literal))
+    if (anchor in stripped) or (anchor_no_slash and anchor_no_slash in stripped):
+        return True
+    # Path anchors are sometimes stored as segmented literals (e.g. `tmp/` + `foo`).
+    if anchor.startswith("/") and anchor_no_slash and "/" in anchor_no_slash:
+        parts = [p for p in anchor_no_slash.split("/") if p]
+        tokens = set(parts)
+        tokens.update(f"{p}/" for p in parts)
+        if stripped in tokens:
+            return True
+    return False
 
 
 def summarize(profile_path: Path, anchors: List[str], filter_names: Dict[int, str]) -> Dict[str, Any]:
@@ -132,7 +168,7 @@ def summarize(profile_path: Path, anchors: List[str], filter_names: Dict[int, st
             if _matches_anchor(anchor, s):
                 if off not in offsets_lit:
                     offsets_lit.append(off)
-        byte_hits = nodes_touching_bytes(nodes_bytes, offsets_lit, literal_start, strides=[12, 16])
+        byte_hits = nodes_touching_u16_offsets(nodes_bytes, offsets_lit, literal_start, stride=8)
         # also try matching by string index in literal_strings list
         string_index = None
         for idx, (off, s) in enumerate(literal_strings):
@@ -146,7 +182,16 @@ def summarize(profile_path: Path, anchors: List[str], filter_names: Dict[int, st
                 if _matches_anchor(anchor, ref):
                     ref_hits.append(idx)
                     break
-        node_idxs = sorted(set(ref_hits if ref_hits else byte_hits))
+        # Prefer decoded literal_refs when the anchor has non-zero offsets; fall back
+        # to byte-level u16 offset scans for offset-0 (ambiguous) anchors.
+        if ref_hits and (0 not in offsets_lit):
+            node_idxs = sorted(set(ref_hits))
+        elif ref_hits and byte_hits:
+            node_idxs = sorted(set(ref_hits) & set(byte_hits))
+        elif byte_hits:
+            node_idxs = sorted(set(byte_hits))
+        else:
+            node_idxs = sorted(set(ref_hits))
         field2_vals = []
         for idx in node_idxs:
             if idx < len(nodes_decoded):

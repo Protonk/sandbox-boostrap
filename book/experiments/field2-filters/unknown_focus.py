@@ -20,6 +20,7 @@ import book.api.decoder as decoder  # type: ignore
 # be treated as "unknown" in this inventory.
 CHARACTERIZED_FIELD2 = {
     2560,  # flow-divert triple-only token (tag0, literal com.apple.flow-divert)
+    2816,  # flow-divert triple-only token (appears alongside 2560 in the matrix)
 }
 
 
@@ -75,6 +76,8 @@ def summarize_profile(path: Path, filter_names: Dict[int, str], op_names: Dict[i
 
     unknowns: List[Dict[str, Any]] = []
     for idx, node in enumerate(nodes):
+        if node.get("u16_role") != "filter_vocab_id":
+            continue
         fields = node.get("fields", [])
         if len(fields) < 3:
             continue
@@ -82,7 +85,7 @@ def summarize_profile(path: Path, filter_names: Dict[int, str], op_names: Dict[i
         hi = raw & 0xC000
         lo = raw & 0x3FFF
         name = filter_names.get(lo) if hi == 0 else None
-        if hi != 0 or name is None:
+        if node.get("filter_out_of_vocab") or hi != 0 or name is None:
             # Skip payloads we have characterized elsewhere to avoid re-classifying them as unknown.
             if raw in CHARACTERIZED_FIELD2:
                 continue

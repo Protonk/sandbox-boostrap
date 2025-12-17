@@ -1,0 +1,7 @@
+(version 1)
+
+;; Single system-fcntl allow to see if collapsing occurs.
+
+(deny default)
+
+(allow system-fcntl (fcntl-command 0))

@@ -1,0 +1,10 @@
+(version 1)
+
+;; Gate system-fcntl behind a mach-lookup literal to perturb graph shape.
+
+(deny default)
+
+(allow mach-lookup (global-name "com.apple.airlock.gate"))
+(allow system-fcntl (fcntl-command 0))
+(allow system-fcntl (fcntl-command 1))
+(deny system-fcntl)

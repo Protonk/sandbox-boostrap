@@ -1,0 +1,20 @@
+(version 1)
+
+;; Probe bsd-style tag26/tail behaviors with right-name/preference-domain/mac-policy literals.
+
+(deny default)
+
+;; Known tag26-friendly filters (right-name, preference-domain) with varied literals.
+(allow authorization-right-obtain (right-name "system.preferences"))
+(allow authorization-right-obtain (right-name "system.services.systemconfiguration.network"))
+(allow authorization-right-obtain (preference-domain "com.apple.TimeMachine"))
+(allow authorization-right-obtain (preference-domain "com.apple.networkextension"))
+
+;; Literals seen near the bsd tail in system profiles.
+(allow file-read* (literal "/dev/dtracehelper"))
+(allow file-read* (literal "/usr/share/posix_spawn_filtering_rules"))
+
+;; Broader ops to mimic default/file reach.
+(allow file-read*)
+(allow file-write*)
+(allow process-info*)

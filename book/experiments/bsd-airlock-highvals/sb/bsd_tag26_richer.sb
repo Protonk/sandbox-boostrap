@@ -1,0 +1,26 @@
+(version 1)
+
+;; Broader bsd-style probe to try to surface tag26 highs and the tag0 tail.
+
+(deny default)
+
+;; Right/preference combinations with varied allow/deny to perturb graph shape.
+(allow authorization-right-obtain (right-name "system.preferences"))
+(deny authorization-right-obtain (right-name "system.preferences.privacy"))
+(allow authorization-right-obtain (right-name "system.services.systemconfiguration.network"))
+(allow authorization-right-obtain (preference-domain "com.apple.TimeMachine"))
+(deny authorization-right-obtain (preference-domain "com.apple.mcx"))
+(allow authorization-right-obtain (preference-domain "com.apple.networkextension"))
+
+;; Literals seen near the tail in the bsd profile.
+(allow file-read* (literal "/dev/dtracehelper"))
+(allow file-read* (literal "/usr/share/posix_spawn_filtering_rules"))
+(allow file-write* (literal "/usr/share/posix_spawn_filtering_rules"))
+
+;; Broader ops to mirror bsd reach.
+(allow file-read*)
+(allow file-write*)
+(allow process-info*)
+(allow sysctl-read)
+(allow sysctl-write)
+(allow mach-lookup)

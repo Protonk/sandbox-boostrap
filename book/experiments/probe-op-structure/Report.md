@@ -76,7 +76,7 @@ The scope here is **structural**: we do not run runtime probes; we map compiled 
 
 - Added segment‑aware slicing in `profile_ingestion.py` and re‑used it in the decoder so that complex profiles (`v8_all_combo`) now yield node chunks even when naive literal-start detection fails.
 - Built coarse tag inventories in `out/tag_inventory.json` using `tag_inventory.py`:
-  - Confirmed stride‑dependent tag sets (e.g., `sys:bsd` high tags {26,27} only stabilize at strides 12/16).
+  - Historical note: earlier stride‑sweep work treated 12/16 as “stable”; the current decoder+canonical tag layouts now treat node records as 8‑byte fixed‑stride for this world baseline.
   - Used `tag_layout_hypotheses.py` + `out/tag_layout_hypotheses.json` to sketch early layout hypotheses for tags 0,5,6,17,26,27 (edges vs payload fields) as a **sanity check**, not a final map.
 - These exploratory layouts were captured in `out/tag_layout_assumptions.json` and later **superseded** for tags that appear in `book/graph/mappings/tag_layouts/tag_layouts.json` (0,1,3,5,7,8,17,26,27,166).
 
@@ -85,9 +85,9 @@ The scope here is **structural**: we do not run runtime probes; we map compiled 
 - `book/api/decoder` now merges:
   - built‑in defaults for tags 5/6, and
   - external layouts from `book/graph/mappings/tag_layouts/tag_layouts.json` (preferred when present),
-  falling back to 12‑byte records only for tags without a published layout.
+  with a host‑scoped node framing selector that prefers an 8‑byte record stride based on op‑table alignment witnesses.
 - With this in place:
-  - All literal‑bearing tags in the mapping (0,1,3,5,7,8,17,26,27,166) are decoded with **record_size=12, fields[0..1] as edges, field[2] as payload**.
+  - Canonical tags are decoded with **record_size=8, fields[0..1] as edges, field[2] as payload**.
   - High system tags 26 and 27 in `sys:bsd` are no longer structurally “blocked”; their records are parsed with the same edge/payload split used by downstream experiments and mappings.
 - `analysis.json` was regenerated via `analyze_profiles.py` under this decoder:
   - Probes still show generic filter dominance in `field2` (see Findings).
@@ -139,16 +139,13 @@ These patterns confirm the original observation: for small probe profiles, **sha
 Under the canonical tag layouts (`book/graph/mappings/tag_layouts/tag_layouts.json`) and `analysis.json`:
 
 - `sys:bsd`:
-  - Tags 26 and 27 are decoded with `record_size=12`, two edge fields, and `field2` as the payload slot.
-  - `field2` values include:
-    - `preference-domain` (27), `right-name` (26), `iokit-property` (17), `iokit-connection` (18), `mac-policy-name` (80),
-    - plus high/unknown values such as 16660, 174, 170, 115, 109.
-  - The anchor `preferences/logging` binds to a node with `field2 = 5` (`global-name`), not to the high 16660 cluster; this is captured in `anchor_filter_map.json` with `status: partial`.
+  - Tags 26 and 27 are decoded with `record_size=8`, two edge fields, and `field2` as the payload slot.
+  - Under the stride=8 framing, `sys:bsd`’s `field2` payloads align fully with the host filter vocabulary (no out-of-vocab payloads in the canonical `bsd` profile); the earlier “bsd tail/high” set was a decode-framing artifact from the stride=12 approximation.
 - `sys:airlock`:
-  - Nodes with tag 166 (layout from `tag_layouts.json`) carry high `field2` values {166,165,10752} seen in `field2-filters` as unmapped.
+  - `airlock` still carries out-of-vocab `field2` payloads in some tags; the current unknown census is intentionally scoped to tags with `u16_role=filter_vocab_id` (see `book/experiments/field2-filters/out/unknown_nodes.json`).
   - The `app-sandbox.*` anchors appear in the literal pool; `anchor_hits.json` shows limited node bindings (field2 empty at the node index chosen by current heuristics), so semantic interpretation remains **blocked**.
 - `sys:sample`:
-  - Shows a mix of `remote` (8), `local` (7), `file-mode` (3), `mount-relative-path` (1), `path` (0), and a single 3584 sentinel, matching the `field2-filters` story for `sample`.
+  - Shows a mix of `remote` (8), `local` (7), `file-mode` (3), `mount-relative-path` (1), `path` (0), plus a small set of out-of-vocab payloads (notably 256/1281/3584), matching the `field2-filters` story for `sample`.
   - The `/etc/hosts` anchor binds to nodes whose `field2` set includes {`mount-relative-path` (1), `path` (0), 3584, `local` (7)}; this mixture is reflected in `anchor_filter_map.json` and kept `status: partial`.
 
 Together, these observations show that the **structural layout of high tags (including 26/27/166) is now understood** for this world, but the semantics of several high `field2` values remain unmapped or fragile. This experiment provides the structural evidence; `field2-filters` and future work must refine the semantic interpretation.

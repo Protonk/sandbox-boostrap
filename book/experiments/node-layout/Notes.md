@@ -355,3 +355,7 @@ The final notes for 2025-11-28 push further into mixed-op probes explicitly targ
 ## Pass 24
 
 - Captured node-region lengths and remainder bytes (stride 12) for canonical profiles via `profile_ingestion`; recorded in `book/graph/concepts/validation/out/static/node_remainders.json` with a guardrail test. This bounds the current modern slice and tail bytes for airlock/bsd/sample while tail semantics remain heuristic.
+
+## Pass 25
+
+- Refreshed the canonical node-remainder contract under the stride=8 decoder framing (op-table witness) using `generate_node_remainders_contract.py`. Updated `book/graph/concepts/validation/out/static/node_remainders.json` to record `record_size_bytes=8`, new node-region byte lengths, and the new remainder bytes for `sys:airlock`/`sys:bsd`/`sys:sample`.

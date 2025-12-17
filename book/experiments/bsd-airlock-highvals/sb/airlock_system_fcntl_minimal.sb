@@ -1,0 +1,12 @@
+(version 1)
+
+;; Minimal system-fcntl-only profile to see if removing scaffolding surfaces highs.
+
+(deny default)
+
+(allow system-fcntl (fcntl-command 0))
+(allow system-fcntl (fcntl-command 1))
+(allow system-fcntl (fcntl-command 2))
+(allow system-fcntl (fcntl-command 3))
+
+;; No additional ops.

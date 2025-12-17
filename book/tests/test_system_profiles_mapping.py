@@ -42,7 +42,7 @@ def test_digests_mapping_shape():
         assert body.get("world_id") == baseline_world()
         assert body.get("status") == "ok"
         contract = body.get("contract") or {}
-        assert contract.get("contract_version") == 1
+        assert contract.get("contract_version") == 2
         for field in meta.get("contract_fields") or []:
             assert field in contract, f"missing contract field {field} for {key}"
         assert contract.get("world_id") == baseline_world()

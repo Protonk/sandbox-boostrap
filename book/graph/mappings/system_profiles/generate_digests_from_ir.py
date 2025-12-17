@@ -31,7 +31,11 @@ EXPECTED_JOB = "experiment:system-profile-digest"
 # Canonical profiles are the bedrock policy layers for this host. They are not a
 # mutable set: each entry pins a specific profile id, its descriptive role, and
 # (optionally) the SBPL source used to sanity-check the blob when present.
-CONTRACT_VERSION = 1
+#
+# Contract version bumps are used when a deliberate decoder framing change
+# (e.g. node slicing / tag layout hash) invalidates previously published
+# expectations for the canonical trio on this world baseline.
+CONTRACT_VERSION = 2
 CANONICAL_PROFILES: Dict[str, Dict[str, Optional[str]]] = {
     "sys:airlock": {"role": "canonical-system-profile", "description": "Platform airlock baseline", "sbpl_path": None},
     "sys:bsd": {"role": "canonical-system-profile", "description": "Platform bsd baseline", "sbpl_path": None},

@@ -1,30 +1,30 @@
 {
   "metadata": {
-    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
-    "status": "partial",
-    "notes": "Node-region length and remainder bytes for canonical profiles using modern-heuristic slicing (record_size_bytes=12)."
+    "notes": "Node-region length and remainder bytes for canonical profiles using modern-heuristic slicing (record_size_bytes=8).",
+    "status": "ok",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
   },
   "profiles": {
     "sys:airlock": {
-      "source": "book/examples/extract_sbs/build/profiles/airlock.sb.bin",
-      "record_size_bytes": 12,
-      "nodes_length": 167,
-      "canonical_nodes_length": 156,
-      "remainder_hex": "9d00a5000c00004c3c01a5"
+      "canonical_nodes_length": 1408,
+      "nodes_length": 1412,
+      "record_size_bytes": 8,
+      "remainder_hex": "06001600",
+      "source": "book/examples/extract_sbs/build/profiles/airlock.sb.bin"
     },
     "sys:bsd": {
-      "source": "book/examples/extract_sbs/build/profiles/bsd.sb.bin",
-      "record_size_bytes": 12,
-      "nodes_length": 498,
-      "canonical_nodes_length": 492,
-      "remainder_hex": "1a001b000001"
+      "canonical_nodes_length": 552,
+      "nodes_length": 554,
+      "record_size_bytes": 8,
+      "remainder_hex": "1600",
+      "source": "book/examples/extract_sbs/build/profiles/bsd.sb.bin"
     },
     "sys:sample": {
-      "source": "book/examples/sb/build/sample.sb.bin",
-      "record_size_bytes": 12,
-      "nodes_length": 395,
-      "canonical_nodes_length": 384,
-      "remainder_hex": "010007000800001d050008"
+      "canonical_nodes_length": 440,
+      "nodes_length": 440,
+      "record_size_bytes": 8,
+      "remainder_hex": "",
+      "source": "book/examples/sb/build/sample.sb.bin"
     }
   }
 }

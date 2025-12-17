@@ -19,51 +19,53 @@
   ],
   "section_lengths": {
     "op_table": 6,
-    "nodes": 347,
-    "literals": 87
+    "nodes": 404,
+    "literals": 30
   },
   "stride_stats": [
     {
       "stride": 8,
-      "records": 43,
-      "remainder": 3,
+      "records": 50,
+      "remainder": 4,
       "tags": [
         0,
+        1,
         2
       ],
-      "edges_in_bounds": 86,
-      "edges_total": 86
+      "edges_in_bounds": 98,
+      "edges_total": 100
     },
     {
       "stride": 12,
-      "records": 28,
-      "remainder": 11,
+      "records": 33,
+      "remainder": 8,
       "tags": [
         0,
         2
       ],
-      "edges_in_bounds": 56,
-      "edges_total": 56
+      "edges_in_bounds": 65,
+      "edges_total": 66
     },
     {
       "stride": 16,
-      "records": 21,
-      "remainder": 11,
+      "records": 25,
+      "remainder": 4,
       "tags": [
+        1,
         2
       ],
-      "edges_in_bounds": 42,
-      "edges_total": 42
+      "edges_in_bounds": 49,
+      "edges_total": 50
     }
   ],
   "tag_counts_stride12": {
-    "2": 27,
-    "0": 1
+    "2": 31,
+    "0": 2
   },
-  "remainder_stride12_hex": "0200020002000200020002",
+  "remainder_stride12_hex": "0000000000001e00",
   "literal_strings": [
     {
-      "offset": 57,
+      "offset": 0,
       "string": "T/tmp/encoder/sub_only"
     }
   ],
@@ -71,20 +73,21 @@
     "format_variant": "modern-heuristic",
     "op_count": 3,
     "op_table_offset": 16,
-    "node_count": 28,
+    "node_count": 50,
     "tag_counts": {
-      "2": 27,
-      "0": 1
+      "2": 46,
+      "0": 3,
+      "1": 1
     },
     "literal_strings": [
       "T/tmp/encoder/sub_only"
     ],
     "sections": {
       "op_table": 6,
-      "nodes": 347,
-      "literal_pool": 87,
+      "nodes": 404,
+      "literal_pool": 30,
       "nodes_start": 22,
-      "literal_start": 369
+      "literal_start": 426
     }
   },
   "nodes_raw": [
@@ -450,6 +453,71 @@
         2,
         2,
         2
+      ]
+    },
+    {
+      "offset": 336,
+      "tag": 2,
+      "bytes": "020002000200020002000200",
+      "halfwords": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ]
+    },
+    {
+      "offset": 348,
+      "tag": 2,
+      "bytes": "020002000200020002000200",
+      "halfwords": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ]
+    },
+    {
+      "offset": 360,
+      "tag": 2,
+      "bytes": "020002000200020001000200",
+      "halfwords": [
+        2,
+        2,
+        2,
+        2,
+        1,
+        2
+      ]
+    },
+    {
+      "offset": 372,
+      "tag": 0,
+      "bytes": "000000000000000100000100",
+      "halfwords": [
+        0,
+        0,
+        0,
+        256,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 384,
+      "tag": 2,
+      "bytes": "020001050000000000000100",
+      "halfwords": [
+        2,
+        1281,
+        0,
+        0,
+        0,
+        1
       ]
     }
   ]

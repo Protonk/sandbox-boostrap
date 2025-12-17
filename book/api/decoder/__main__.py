@@ -15,7 +15,9 @@ from pathlib import Path
 from book.api import decoder
 
 
-def dump_blobs(paths: list[Path], byte_window: int, summary: bool) -> list[dict]:
+def dump_blobs(
+    paths: list[Path], byte_window: int, summary: bool, node_stride_bytes: int | None
+) -> list[dict]:
     """
     Decode one or more compiled profiles and emit either full header+section
     info or a compact summary. Used for quick inspections without touching the
@@ -24,7 +26,7 @@ def dump_blobs(paths: list[Path], byte_window: int, summary: bool) -> list[dict]
     out: list[dict] = []
     for path in paths:
         data = path.read_bytes()
-        prof = decoder.decode_profile(data)
+        prof = decoder.decode_profile(data, header_window=byte_window, node_stride_bytes=node_stride_bytes)
         header_bytes = prof.header_bytes.hex()
         entry = {
             "path": str(path),
@@ -57,12 +59,18 @@ def main(argv: list[str] | None = None) -> int:
     dump_p.add_argument("--bytes", type=int, default=128, help="Header byte window to capture (default 128)")
     dump_p.add_argument("--summary", action="store_true", help="Emit a compact summary instead of full header dump")
     dump_p.add_argument("--out", type=Path, help="Write JSON to this path instead of stdout")
+    dump_p.add_argument(
+        "--node-stride",
+        type=int,
+        choices=[8, 12, 16],
+        help="Force a fixed node record stride (expert / cross-check use)",
+    )
 
     args = parser.parse_args(argv)
 
     if args.cmd == "dump":
         paths = [Path(p) for p in args.blobs]
-        results = dump_blobs(paths, args.bytes, args.summary)
+        results = dump_blobs(paths, args.bytes, args.summary, args.node_stride)
         serialized = json.dumps(results, indent=None if args.summary else 2)
 
         if args.out:

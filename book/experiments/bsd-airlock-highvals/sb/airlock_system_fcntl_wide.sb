@@ -1,0 +1,24 @@
+(version 1)
+
+;; Wider sweep of system-fcntl arguments and shapes to chase airlock highs.
+
+(deny default)
+
+;; Specific fcntl-command values, including larger numbers.
+(allow system-fcntl (fcntl-command 0))
+(allow system-fcntl (fcntl-command 1))
+(allow system-fcntl (fcntl-command 2))
+(allow system-fcntl (fcntl-command 3))
+(allow system-fcntl (fcntl-command 4))
+(allow system-fcntl (fcntl-command 5))
+(allow system-fcntl (fcntl-command 1024))
+(allow system-fcntl (fcntl-command 2048))
+
+;; Alternate shapes: deny branch and catch-all.
+(deny system-fcntl (fcntl-command 0))
+(deny system-fcntl)
+(allow system-fcntl)
+
+;; Lightweight scaffolding to perturb graph without pulling full profile.
+(allow file-read-data (literal "/tmp/airlock_probe_wide"))
+(allow mach-lookup (global-name "com.apple.airlock.probe.wide"))

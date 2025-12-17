@@ -1,7 +1,7 @@
 {
   "probe:v0_file_require_all": {
     "op_count": 5,
-    "node_count": 32,
+    "node_count": 48,
     "anchors": [
       {
         "anchor": "/tmp/foo",
@@ -26,289 +26,432 @@
   },
   "probe:v1_file_require_any": {
     "op_count": 7,
-    "node_count": 31,
+    "node_count": 53,
     "anchors": [
       {
         "anchor": "/tmp/foo",
         "offsets": [
-          50
+          13,
+          20
         ],
         "literal_offsets": [
-          50
+          13,
+          20
         ],
         "literal_string_index": null,
         "node_indices": [
-          16,
-          22,
-          30
+          23,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51
         ],
         "field2_values": [
+          1,
           5,
-          6,
+          5,
+          5,
+          5,
+          5,
           0
         ],
         "field2_names": [
+          "mount-relative-path",
           "global-name",
-          "local-name",
+          "global-name",
+          "global-name",
+          "global-name",
+          "global-name",
           "path"
         ]
       },
       {
         "anchor": "/etc/hosts",
         "offsets": [
-          65
+          0
         ],
         "literal_offsets": [
-          65
+          0
         ],
         "literal_string_index": null,
         "node_indices": [
-          15
+          24,
+          34,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52
         ],
         "field2_values": [
-          6
+          5,
+          6,
+          0,
+          5,
+          5,
+          5,
+          5,
+          5,
+          0,
+          0
         ],
         "field2_names": [
-          "local-name"
+          "global-name",
+          "local-name",
+          "path",
+          "global-name",
+          "global-name",
+          "global-name",
+          "global-name",
+          "global-name",
+          "path",
+          "path"
         ]
       }
     ],
     "literal_strings_sample": [
       [
-        43,
-        "Ftmp/foo"
+        0,
+        "Hetc/hosts"
       ],
       [
-        59,
-        "Hetc/hosts"
+        14,
+        "Ctmp/"
+      ],
+      [
+        20,
+        "Bfoo"
+      ],
+      [
+        32,
+        "Nanchor-scan-pad"
       ]
     ]
   },
   "probe:v2_file_three_filters_any": {
     "op_count": 6,
-    "node_count": 30,
+    "node_count": 53,
     "anchors": [
       {
         "anchor": "/tmp/foo",
         "offsets": [
-          60
+          29,
+          36
         ],
         "literal_offsets": [
-          60
+          29,
+          36
         ],
         "literal_string_index": null,
         "node_indices": [
-          16,
+          3,
+          4,
           23
         ],
         "field2_values": [
-          4,
-          4
+          3,
+          5,
+          2
         ],
         "field2_names": [
-          "ipc-posix-name",
-          "ipc-posix-name"
+          "file-mode",
+          "global-name",
+          "xattr"
         ]
       },
       {
         "anchor": "/var/log",
         "offsets": [
-          75
+          0
         ],
         "literal_offsets": [
-          75
+          0
         ],
         "literal_string_index": null,
         "node_indices": [
-          16
+          24,
+          34,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52
         ],
         "field2_values": [
-          4
+          4,
+          4,
+          0,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          12096
         ],
         "field2_names": [
-          "ipc-posix-name"
+          "ipc-posix-name",
+          "ipc-posix-name",
+          "path",
+          "mount-relative-path",
+          "mount-relative-path",
+          "mount-relative-path",
+          "path",
+          "path",
+          "path",
+          null
         ]
       },
       {
         "anchor": "/etc/hosts",
         "offsets": [
-          91
+          15
         ],
         "literal_offsets": [
-          91
+          15
         ],
         "literal_string_index": null,
         "node_indices": [
-          15
+          24,
+          46,
+          47,
+          48,
+          49,
+          50
         ],
         "field2_values": [
-          5
-        ],
-        "field2_names": [
-          "global-name"
-        ]
-      }
-    ],
-    "literal_strings_sample": [
-      [
-        60,
-        "Ftmp/foo"
-      ],
-      [
-        76,
-        "Fvar/log"
-      ],
-      [
-        92,
-        "Hetc/hosts"
-      ]
-    ]
-  },
-  "probe:v3_mach_global_local": {
-    "op_count": 7,
-    "node_count": 31,
-    "anchors": [
-      {
-        "anchor": "com.apple.cfprefsd.agent",
-        "offsets": [
-          54,
-          53
-        ],
-        "literal_offsets": [
-          54,
-          53
-        ],
-        "literal_string_index": 0,
-        "node_indices": [
-          16,
-          22,
-          30
-        ],
-        "field2_values": [
-          5,
-          6,
+          4,
+          1,
+          1,
+          1,
+          0,
           0
         ],
         "field2_names": [
-          "global-name",
-          "local-name",
+          "ipc-posix-name",
+          "mount-relative-path",
+          "mount-relative-path",
+          "mount-relative-path",
+          "path",
           "path"
         ]
       }
     ],
     "literal_strings_sample": [
       [
-        53,
+        0,
+        "Fvar/log"
+      ],
+      [
+        16,
+        "Hetc/hosts"
+      ],
+      [
+        30,
+        "Ctmp/"
+      ],
+      [
+        36,
+        "Bfoo"
+      ],
+      [
+        48,
+        "Nanchor-scan-pad"
+      ]
+    ]
+  },
+  "probe:v3_mach_global_local": {
+    "op_count": 7,
+    "node_count": 53,
+    "anchors": [
+      {
+        "anchor": "com.apple.cfprefsd.agent",
+        "offsets": [
+          1,
+          0
+        ],
+        "literal_offsets": [
+          1,
+          0
+        ],
+        "literal_string_index": 0,
+        "node_indices": [
+          46,
+          47,
+          48,
+          51
+        ],
+        "field2_values": [
+          5,
+          5,
+          5,
+          0
+        ],
+        "field2_names": [
+          "global-name",
+          "global-name",
+          "global-name",
+          "path"
+        ]
+      }
+    ],
+    "literal_strings_sample": [
+      [
+        0,
         "Wcom.apple.cfprefsd.agent"
       ]
     ]
   },
   "probe:v4_network_socket_require_all": {
     "op_count": 9,
-    "node_count": 32,
+    "node_count": 55,
     "anchors": [
       {
         "anchor": "flow-divert",
         "offsets": [
-          59,
-          51
+          11,
+          0
         ],
         "literal_offsets": [
-          59,
-          51
+          11,
+          0
         ],
         "literal_string_index": 0,
         "node_indices": [
-          17,
-          30,
-          31
+          25,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          53,
+          54
         ],
         "field2_values": [
           7,
           2560,
-          2
+          2816,
+          3072,
+          3328,
+          3584,
+          3584,
+          3584,
+          1281,
+          26
         ],
         "field2_names": [
           "local",
           null,
-          "xattr"
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "right-name"
         ]
       }
     ],
     "literal_strings_sample": [
       [
-        48,
+        0,
         "Tcom.apple.flow-divert"
       ]
     ]
   },
   "probe:v5_iokit_class_property": {
     "op_count": 7,
-    "node_count": 31,
+    "node_count": 53,
     "anchors": [
       {
         "anchor": "IOUSBHostInterface",
         "offsets": [
-          52,
-          51
+          1,
+          0
         ],
         "literal_offsets": [
-          52,
-          51
+          1,
+          0
         ],
         "literal_string_index": 0,
         "node_indices": [
-          16,
-          22,
-          30
+          46,
+          47,
+          48,
+          51
         ],
         "field2_values": [
           5,
-          6,
+          5,
+          5,
           0
         ],
         "field2_names": [
           "global-name",
-          "local-name",
+          "global-name",
+          "global-name",
           "path"
         ]
       },
       {
         "anchor": "idVendor",
         "offsets": [
-          84,
-          83
+          33,
+          32
         ],
         "literal_offsets": [
-          84,
-          83
+          33,
+          32
         ],
         "literal_string_index": 1,
         "node_indices": [
-          15
+          23,
+          46,
+          47,
+          48,
+          51
         ],
         "field2_values": [
-          6
+          1,
+          5,
+          5,
+          5,
+          0
         ],
         "field2_names": [
-          "local-name"
+          "mount-relative-path",
+          "global-name",
+          "global-name",
+          "global-name",
+          "path"
         ]
       }
     ],
     "literal_strings_sample": [
       [
-        51,
+        0,
         "QIOUSBHostInterface"
       ],
       [
-        83,
+        32,
         "GidVendor"
       ]
     ]
   },
   "probe:v6_file_mach_combo": {
     "op_count": 6,
-    "node_count": 30,
+    "node_count": 52,
     "anchors": [
       {
         "anchor": "/tmp/foo",
@@ -331,38 +474,44 @@
       {
         "anchor": "com.apple.cfprefsd.agent",
         "offsets": [
-          58,
-          57
+          1,
+          0
         ],
         "literal_offsets": [
-          58,
-          57
+          1,
+          0
         ],
         "literal_string_index": 0,
         "node_indices": [
-          16,
-          23
+          46,
+          47,
+          48,
+          50
         ],
         "field2_values": [
-          4,
-          4
+          1,
+          1,
+          1,
+          0
         ],
         "field2_names": [
-          "ipc-posix-name",
-          "ipc-posix-name"
+          "mount-relative-path",
+          "mount-relative-path",
+          "mount-relative-path",
+          "path"
         ]
       }
     ],
     "literal_strings_sample": [
       [
-        57,
+        0,
         "Wcom.apple.cfprefsd.agent"
       ]
     ]
   },
   "probe:v7_file_network_combo": {
     "op_count": 9,
-    "node_count": 32,
+    "node_count": 55,
     "anchors": [
       {
         "anchor": "/tmp/foo",
@@ -385,227 +534,418 @@
       {
         "anchor": "flow-divert",
         "offsets": [
-          59,
-          51
+          11,
+          0
         ],
         "literal_offsets": [
-          59,
-          51
+          11,
+          0
         ],
         "literal_string_index": 0,
         "node_indices": [
-          17,
-          30,
-          31
+          25,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          53,
+          54
         ],
         "field2_values": [
           7,
           2560,
-          2
+          2816,
+          3072,
+          3328,
+          3584,
+          3584,
+          3584,
+          1281,
+          26
         ],
         "field2_names": [
           "local",
           null,
-          "xattr"
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "right-name"
         ]
       }
     ],
     "literal_strings_sample": [
       [
-        48,
+        0,
         "Tcom.apple.flow-divert"
       ]
     ]
   },
   "probe:v8_all_combo": {
     "op_count": 13,
-    "node_count": 0,
+    "node_count": 58,
     "anchors": [
       {
         "anchor": "/tmp/foo",
         "offsets": [
-          467
+          13,
+          20
         ],
         "literal_offsets": [
-          467
+          13,
+          20
         ],
         "literal_string_index": null,
-        "node_indices": [],
-        "field2_values": [],
-        "field2_names": []
+        "node_indices": [
+          45,
+          46,
+          47,
+          49,
+          50,
+          51,
+          54,
+          55
+        ],
+        "field2_values": [
+          2816,
+          3072,
+          3328,
+          3584,
+          3584,
+          1536,
+          256,
+          1
+        ],
+        "field2_names": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "mount-relative-path"
+        ]
       },
       {
         "anchor": "/etc/hosts",
         "offsets": [
-          482
+          0
         ],
         "literal_offsets": [
-          482
+          0
         ],
         "literal_string_index": null,
-        "node_indices": [],
-        "field2_values": [],
-        "field2_names": []
+        "node_indices": [
+          24,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57
+        ],
+        "field2_values": [
+          11,
+          2560,
+          2816,
+          3072,
+          3328,
+          3584,
+          3584,
+          3584,
+          1536,
+          4352,
+          7424,
+          256,
+          1,
+          1281,
+          59
+        ],
+        "field2_names": [
+          "socket-type",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "mount-relative-path",
+          null,
+          "iokit-usb-interface-class"
+        ]
       },
       {
         "anchor": "IOUSBHostInterface",
         "offsets": [
-          81,
-          504
+          62,
+          61
         ],
         "literal_offsets": [
-          81,
-          504
+          62,
+          61
         ],
-        "literal_string_index": 2,
-        "node_indices": [],
-        "field2_values": [],
-        "field2_names": []
+        "literal_string_index": 4,
+        "node_indices": [
+          22,
+          32
+        ],
+        "field2_values": [
+          11,
+          4
+        ],
+        "field2_names": [
+          "socket-type",
+          "ipc-posix-name"
+        ]
       },
       {
         "anchor": "com.apple.cfprefsd.agent",
         "offsets": [
-          113,
-          536
+          94,
+          93
         ],
         "literal_offsets": [
-          113,
-          536
+          94,
+          93
         ],
-        "literal_string_index": 3,
-        "node_indices": [],
-        "field2_values": [],
-        "field2_names": []
+        "literal_string_index": 5,
+        "node_indices": [
+          22
+        ],
+        "field2_values": [
+          11
+        ],
+        "field2_names": [
+          "socket-type"
+        ]
       },
       {
         "anchor": "flow-divert",
         "offsets": [
-          155,
-          568
+          136,
+          125
         ],
         "literal_offsets": [
-          155,
-          568
+          136,
+          125
         ],
-        "literal_string_index": 4,
-        "node_indices": [],
-        "field2_values": [],
-        "field2_names": []
+        "literal_string_index": 6,
+        "node_indices": [
+          22,
+          48
+        ],
+        "field2_values": [
+          11,
+          3584
+        ],
+        "field2_names": [
+          "socket-type",
+          null
+        ]
       }
     ],
     "literal_strings_sample": [
       [
-        43,
-        "Ftmp/foo"
-      ],
-      [
-        59,
+        0,
         "Hetc/hosts"
       ],
       [
-        80,
+        14,
+        "Ctmp/"
+      ],
+      [
+        20,
+        "Bfoo"
+      ],
+      [
+        32,
+        "Nanchor-scan-pad"
+      ],
+      [
+        61,
         "QIOUSBHostInterface"
       ],
       [
-        112,
+        93,
         "Wcom.apple.cfprefsd.agent"
       ],
       [
-        144,
+        125,
         "Tcom.apple.flow-divert"
       ]
     ]
   },
   "sys:airlock": {
     "op_count": 167,
-    "node_count": 7,
+    "node_count": 176,
     "anchors": [
       {
         "anchor": "app-sandbox.read",
         "offsets": [
-          1439,
-          1471,
-          1504,
-          1536
+          194,
+          226,
+          184,
+          216
         ],
         "literal_offsets": [
-          1439,
-          1471,
-          1504,
-          1536
+          194,
+          226,
+          184,
+          216
         ],
         "literal_string_index": 8,
         "node_indices": [
-          9
+          10,
+          16,
+          18,
+          23,
+          41,
+          42,
+          45,
+          56,
+          71,
+          80,
+          81,
+          93,
+          94,
+          103,
+          104,
+          120,
+          121,
+          145,
+          154,
+          170
         ],
-        "field2_values": [],
-        "field2_names": []
+        "field2_values": [
+          10,
+          9,
+          165,
+          10,
+          10,
+          10,
+          10,
+          10,
+          165,
+          165,
+          165,
+          165,
+          165,
+          165,
+          165,
+          165,
+          165,
+          142,
+          10,
+          165
+        ],
+        "field2_names": [
+          "socket-domain",
+          "control-name",
+          null,
+          "socket-domain",
+          "socket-domain",
+          "socket-domain",
+          "socket-domain",
+          "socket-domain",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "socket-domain",
+          null
+        ]
       }
     ],
     "literal_strings_sample": [
       [
-        1245,
+        0,
         "P/dev/dtracehelper"
       ],
       [
-        1272,
+        27,
         "Msystem/library"
       ],
       [
-        1295,
+        50,
         "Fusr/lib"
       ],
       [
-        1317,
+        72,
         "G/system/"
       ],
       [
-        1327,
+        82,
         "Icryptexes/"
       ],
       [
-        1339,
+        94,
         "Bapp"
       ],
       [
-        1362,
+        117,
         "Yvolumes/preboot/cryptexes/"
       ],
       [
-        1401,
+        156,
         "Iapp/system"
       ],
       [
-        1429,
+        184,
         "com.apple.app-sandbox.read"
       ],
       [
-        1461,
+        216,
         "com.apple.app-sandbox.read-write"
       ]
     ]
   },
   "sys:bsd": {
     "op_count": 28,
-    "node_count": 41,
+    "node_count": 69,
     "anchors": [
       {
         "anchor": "preferences/logging",
         "offsets": [
-          158,
-          552,
-          156,
-          550
+          102,
+          496,
+          100,
+          494
         ],
         "literal_offsets": [
-          158,
-          552,
-          156,
-          550
+          102,
+          496,
+          100,
+          494
         ],
         "literal_string_index": 7,
         "node_indices": [
-          12
+          18
         ],
         "field2_values": [
           5
@@ -617,105 +957,96 @@
     ],
     "literal_strings_sample": [
       [
-        56,
+        0,
         "P/dev/dtracehelper"
       ],
       [
-        83,
+        27,
         "Esystem"
       ],
       [
-        101,
+        45,
         "Cusr/"
       ],
       [
-        107,
+        51,
         "Blib"
       ],
       [
-        119,
+        63,
         "Dshare"
       ],
       [
-        133,
+        77,
         "Glibrary/"
       ],
       [
-        143,
+        87,
         "Dapple"
       ],
       [
-        157,
+        101,
         "Rpreferences/logging"
       ],
       [
-        185,
+        129,
         "Wfilesystems/netfsplugins"
       ],
       [
-        218,
+        162,
         "Gprivate/"
       ]
     ]
   },
   "sys:sample": {
     "op_count": 9,
-    "node_count": 32,
+    "node_count": 55,
     "anchors": [
       {
         "anchor": "/etc/hosts",
         "offsets": [
-          46,
-          53
+          1,
+          0
         ],
         "literal_offsets": [
-          46,
-          53
+          1,
+          0
         ],
         "literal_string_index": 0,
         "node_indices": [
-          15,
-          22,
-          30,
-          31
+          23
         ],
         "field2_values": [
-          1,
-          0,
-          3584,
           7
         ],
         "field2_names": [
-          "mount-relative-path",
-          "path",
-          null,
           "local"
         ]
       }
     ],
     "literal_strings_sample": [
       [
-        45,
+        0,
         "I/etc/hosts"
       ],
       [
-        72,
+        27,
         "Busr"
       ],
       [
-        84,
+        39,
         "Bdev"
       ],
       [
-        96,
+        51,
         "Esystem"
       ],
       [
-        111,
+        66,
         "Jtmp/sb-demo"
       ],
       [
-        133,
+        88,
         "K/tmp/sb-demo"
       ]
     ]

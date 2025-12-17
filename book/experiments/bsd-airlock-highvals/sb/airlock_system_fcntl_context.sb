@@ -1,0 +1,18 @@
+(version 1)
+
+;; Vary surrounding context for system-fcntl to chase airlock highs.
+
+(deny default)
+
+;; Core system-fcntl statements with mixed allow/deny.
+(allow system-fcntl (fcntl-command 0))
+(deny system-fcntl (fcntl-command 1))
+(allow system-fcntl (fcntl-command 1024))
+(deny system-fcntl)
+
+;; Add neighboring ops to perturb graph shape without pulling full airlock.
+(allow file-read-data (literal "/tmp/airlock_ctx"))
+(allow file-write-data (literal "/tmp/airlock_ctx"))
+(allow mach-lookup (global-name "com.apple.airlock.ctx"))
+(allow process-info*)
+(allow sysctl-read)

@@ -214,3 +214,14 @@ Next steps: If needed, scan the main evaluator (FUN_ffffff8002d8547a in arm64e) 
 - Added `right_and_preference_names.sb` (right-name/preference-domain literals) to see if tag26/27 highs map to literal arguments. Decode shows only path/name scaffolding; no high/unknown `field2` values and no tag26/27 payloads beyond vocab IDs.
 - Reran `harvest_field2.py` and `unknown_focus.py` to fold in the new profiles. Unknowns remain limited to the existing clusters: flow-divert `field2=2560` on tag0 nodes with edges →0, bsd tail `field2=0x4114` and tag26 payloads, airlock highs {165,166,0x2a00}, and the probe-only 0xffff sentinel on `airlock_system_fcntl`.
 - Added guardrail `book/tests/test_field2_unknowns.py` to pin the current unknown/high `field2` set; adjust `EXPECTED_UNKNOWN_RAW` deliberately if future probes surface new unknowns.
+
+- Decoder framing update: the decoder now selects an 8-byte node record framing for this world based on op-table alignment evidence, and `profile_ingestion.slice_sections` now uses the same lower-bound witness to avoid truncating the node region.
+- Reran `harvest_field2.py` and `unknown_focus.py` under the updated framing and regenerated `out/field2_inventory.json` and `out/unknown_nodes.json`.
+- `sys:bsd` “unknown/high” payloads (prior bsd tail `0x4114` and tag26 highs 170/174/115/109) disappear under the stride=8 framing; they were decode artifacts from the earlier stride=12 approximation.
+- `unknown_focus.py` now scopes `unknown_nodes.json` to nodes with `u16_role=filter_vocab_id` to avoid inflating the unknown set with tags whose u16[2] slot is treated as `arg_u16` on this host baseline.
+- Current out-of-vocab field2 set (excluding the characterized flow-divert 2560): `{165, 256, 1281, 2816, 3584, 12096, 49171}`.
+
+## Retire flow-divert 2816 from the unknown census
+
+- Treated `filter_arg_raw=2816` (`0x0b00`) as characterized (triple-only alongside `2560`) using the same flow-divert matrix witness, and excluded it from `unknown_focus.py`’s unknown census (`CHARACTERIZED_FIELD2`).
+- Reran `unknown_focus.py` and regenerated `out/unknown_nodes.json`; current unknown/high set (scoped to `u16_role=filter_vocab_id` and excluding 2560/2816) is now `{165, 256, 1281, 3584, 12096, 49171}`.

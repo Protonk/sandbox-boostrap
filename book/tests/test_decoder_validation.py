@@ -48,3 +48,35 @@ def test_decoder_literals_and_refs():
     nodes = dec.get("nodes") or []
     if nodes:
         assert "literal_refs" in nodes[0]
+
+
+def test_decoder_op_table_scaling_witness_present():
+    """Guardrail: decoder emits op-table scaling witness data to catch mis-scaling."""
+    airlock = ROOT / "book" / "examples" / "extract_sbs" / "build" / "profiles" / "airlock.sb.bin"
+    if not airlock.exists():
+        return
+    dec = decoder.decode_profile_dict(airlock.read_bytes())
+    validation = dec.get("validation") or {}
+    witness = validation.get("op_table_scaling_witness") or {}
+    assert "scale8" in witness and "scale12" in witness
+    s8 = witness["scale8"]
+    s12 = witness["scale12"]
+    for key in ("ascii_pair_count", "in_range", "total"):
+        assert key in s8 and key in s12
+    # On canonical sys:airlock, scale=12 produces many ASCII-looking starts, while scale=8 does not.
+    assert s12["ascii_pair_count"] > 20
+    assert s8["ascii_pair_count"] < s12["ascii_pair_count"]
+
+
+def test_decoder_stride8_mode_covers_op_table_targets():
+    """Guardrail: fixed stride=8 mode slices enough nodes to cover op-table roots."""
+    airlock = ROOT / "book" / "examples" / "extract_sbs" / "build" / "profiles" / "airlock.sb.bin"
+    bsd = ROOT / "book" / "examples" / "extract_sbs" / "build" / "profiles" / "bsd.sb.bin"
+    for path in (airlock, bsd):
+        if not path.exists():
+            continue
+        dec = decoder.decode_profile_dict(path.read_bytes(), node_stride_bytes=8)
+        op_table = dec.get("op_table") or []
+        if not op_table:
+            continue
+        assert max(op_table) < dec.get("node_count", 0)

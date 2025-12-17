@@ -1,0 +1,19 @@
+(version 1)
+
+;; Probe airlock-linked high payloads under system-fcntl with varied command filters.
+
+(deny default)
+
+;; Mix of allow/deny with specific fcntl-command arguments.
+(allow system-fcntl (fcntl-command 0))
+(deny system-fcntl (fcntl-command 1))
+(allow system-fcntl (fcntl-command 2))
+(deny system-fcntl (fcntl-command 3))
+
+;; Catch-all variants to see if scaffolding matters.
+(allow system-fcntl)
+(deny system-fcntl)
+
+;; Minimal extra ops to provide graph context without pulling in full airlock.
+(allow file-read-data (literal "/tmp/airlock_probe"))
+(allow mach-lookup (global-name "com.apple.airlock.probe"))

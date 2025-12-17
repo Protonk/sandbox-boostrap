@@ -1,53 +1,72 @@
 {
-  "metadata": {
-    "notes": "First-pass anchor \u2192 filter map using probe-op-structure anchor hits and filter vocab. Ambiguous anchors are conservatively pinned when used as path literals.",
-    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
-  },
-  "/tmp/foo": {
-    "filter_name": "path",
-    "filter_id": 0,
-    "field2_values": [
-      0,
-      4,
-      5,
-      6
-    ],
-    "sources": [
-      "probe:v1_file_require_any",
-      "probe:v2_file_three_filters_any"
-    ],
-    "status": "partial",
-    "notes": "Conservatively pinned to path for file-read probes despite mixed candidates."
-  },
   "/etc/hosts": {
-    "filter_name": "path",
-    "filter_id": 0,
     "field2_values": [
       0,
       1,
+      4,
       5,
       6,
       7,
       3584
     ],
+    "filter_id": 0,
+    "filter_name": "path",
+    "notes": "Pinned to path for host path probes; other candidates remain possible.",
     "sources": [
       "probe:v1_file_require_any",
       "probe:v2_file_three_filters_any",
       "sys:sample"
     ],
-    "status": "partial",
-    "notes": "Pinned to path for host path probes; other candidates remain possible."
+    "status": "partial"
+  },
+  "/tmp/foo": {
+    "field2_values": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "filter_id": 0,
+    "filter_name": "path",
+    "notes": "Conservatively pinned to path for file-read probes despite mixed candidates.",
+    "sources": [
+      "probe:v1_file_require_any",
+      "probe:v2_file_three_filters_any"
+    ],
+    "status": "partial"
   },
   "/var/log": {
-    "filter_name": "ipc-posix-name",
+    "field2_values": [
+      0,
+      1,
+      4,
+      12096
+    ],
     "filter_id": 4,
+    "filter_name": "ipc-posix-name",
     "sources": [
       "probe:v2_file_three_filters_any"
     ],
-    "field2_values": [
-      4
-    ],
     "status": "partial"
+  },
+  "IOUSBHostInterface": {
+    "candidates": [
+      "global-name",
+      "local-name",
+      "path"
+    ],
+    "field2_values": [
+      0,
+      5,
+      6
+    ],
+    "sources": [
+      "probe:v5_iokit_class_property"
+    ],
+    "status": "blocked"
   },
   "com.apple.cfprefsd.agent": {
     "candidates": [
@@ -69,7 +88,6 @@
     "status": "blocked"
   },
   "flow-divert": {
-    "filter_name": "local",
     "candidates": [
       "local",
       "xattr"
@@ -79,48 +97,36 @@
       7,
       2560
     ],
+    "filter_name": "local",
+    "notes": "Characterized triple-only token (domain+type+proto) with tag0/u16_role=filter_vocab_id and literal com.apple.flow-divert; static witness from flow-divert-2560 matrix.",
     "sources": [
       "probe:v4_network_socket_require_all",
       "probe:v7_file_network_combo"
     ],
-    "status": "blocked",
-    "notes": "Characterized triple-only token (domain+type+proto) with tag0/u16_role=filter_vocab_id and literal com.apple.flow-divert; static witness from flow-divert-2560 matrix."
+    "status": "blocked"
   },
-  "IOUSBHostInterface": {
-    "candidates": [
-      "global-name",
-      "local-name",
-      "path"
-    ],
+  "idVendor": {
     "field2_values": [
-      0,
-      5,
       6
     ],
+    "notes": " (demoted: pinned filter_id not witnessed in anchor_hits)",
     "sources": [
       "probe:v5_iokit_class_property"
     ],
     "status": "blocked"
   },
-  "idVendor": {
-    "filter_name": "local-name",
-    "filter_id": 6,
-    "sources": [
-      "probe:v5_iokit_class_property"
-    ],
-    "field2_values": [
-      6
-    ],
-    "status": "partial"
+  "metadata": {
+    "notes": "First-pass anchor \u2192 filter map using probe-op-structure anchor hits and filter vocab. Ambiguous anchors are conservatively pinned when used as path literals.",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
   },
   "preferences/logging": {
-    "filter_name": "global-name",
-    "filter_id": 5,
-    "sources": [
-      "sys:bsd"
-    ],
     "field2_values": [
       5
+    ],
+    "filter_id": 5,
+    "filter_name": "global-name",
+    "sources": [
+      "sys:bsd"
     ],
     "status": "partial"
   }

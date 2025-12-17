@@ -1,9 +1,697 @@
 {
   "airlock": {
-    "source": "book/examples/extract_sbs/build/profiles/airlock.sb.bin",
     "format_variant": "modern-heuristic",
+    "literal_strings": [
+      "P/dev/dtracehelper",
+      "Msystem/library",
+      "\nFusr/lib",
+      "G/system/",
+      "Icryptexes/",
+      "Bapp",
+      "\nAos",
+      "\nYvolumes/preboot/cryptexes/",
+      "\nIapp/system",
+      "com.apple.app-sandbox.read",
+      "com.apple.app-sandbox.read-write",
+      "Esystem",
+      "\nCusr/",
+      "Dshare",
+      "\nBlib",
+      "\nRprivate/var/db/dyld",
+      "D/dev/",
+      "Czero",
+      "\nCnull",
+      "\nErandom",
+      "\nFurandom",
+      "\nEsystem",
+      "Hcryptexes",
+      "\nFvolumes",
+      "\nG/preboot",
+      "\nI/cryptexes",
+      "\nC/app",
+      "F/cores/",
+      "D/dev/",
+      "Cnull",
+      "\nCzero",
+      "Gboard-id",
+      "\nRIOClassNameOverride",
+      "PIOThunderboltPort",
+      "Gocket ID",
+      "\nMupported Link ",
+      "DWidth",
+      "\nDSpeed",
+      "VIOSCSIProtocolInterface",
+      "JIOMediaIcon",
+      "\nUProduct Identification",
+      "Msoc-generation",
+      "OIOPlatformDevice",
+      "75105696-iokit-properties",
+      "FIOMedia",
+      "HRemovable",
+      "\nHEjectable",
+      "JIOPCIDevice",
+      "Gbuilt-in",
+      "\nOThunderbolt Path",
+      "\nUIOPCIExpressLinkStatus",
+      "BTY,",
+      "IDeviceName",
+      "\nIFamilyName",
+      "\nLAPL,slot-name",
+      "Iimage-path",
+      "LIOHDIXHDDrive",
+      "FStorage",
+      "\nQBlockStorageDevice",
+      "JIOMediaIcon",
+      "\nWProtocol Characteristics",
+      "UIOGraphicsAccelerator2",
+      "MAAPL,slot-name",
+      "\nQSafeEjectRequested",
+      "\nJMetalPlugin",
+      "CName",
+      "\nHClassName",
+      "\nAIO",
+      "KVARendererID",
+      "\nLDVDBundleName",
+      "\nSPCIExpressLinkStatus",
+      "\nBGVA",
+      "DCodec",
+      "\nIHEVCDecode",
+      "\nXAVDHEVCDecodeCapabilities",
+      "cIOSurfaceAcceleratorCapabilitiesDict",
+      "UAppleM2ScalerCSCDriver",
+      "KDiskImageURL",
+      "SAppleDiskImageDevice",
+      "LGVAHEVCDecode",
+      "\nXAVDHEVCDecodeCapabilities",
+      "GAppleAVD",
+      "SAGXFamilyAccelerator",
+      "MAAPL,slot-name",
+      "\nQSafeEjectRequested",
+      "\nJMetalPlugin",
+      "CName",
+      "\nHClassName",
+      "\nAIO",
+      "LGVAHEVCDecode",
+      "\nXAVDHEVCDecodeCapabilities",
+      "BGVA",
+      "DCodec",
+      "\nIHEVCDecode",
+      "\nXAVDHEVCDecodeCapabilities",
+      "QIOBufferCopyEngine",
+      "VIOSurfaceRootUserClient",
+      "VIGAccelSharedUserClient",
+      "LIGAccelDevice",
+      "RIGAccelCommandQueue",
+      "WIOAccelSharedUserClient2",
+      "MIOAccelDevice2",
+      "RIOAccelCommandQueue",
+      "NAGXAcceleratorG",
+      "KOSurfaceRoot",
+      "\nNntelAccelerator",
+      "88289132-iokit-open-service",
+      "Icom.apple.",
+      "Ktrustd.agent",
+      "\nEaudio.",
+      "LSandboxHelper",
+      "\nVAudioComponentRegistrar",
+      "Tcom.apple.diagnosticd",
+      "Icom.apple.",
+      "Clogd",
+      "\nFsystem.",
+      "Elogger",
+      "\nRnotification_center",
+      "73669976",
+      "blastdoor-messages-reduction",
+      "syscall-mach-denied",
+      "88289132-syscall-mig",
+      "Tkern.osproductversion",
+      "\nBhw.",
+      "Ivectorunit",
+      "\nLcachelinesize",
+      "\nPoptional.avx512bw",
+      "\nIlogicalcpu",
+      "\nC_max",
+      "Eroduct",
+      "\nIhysicalcpu",
+      "\nC_max",
+      "\nMagesize_compat",
+      "CAMFI",
+      "\nFSandbox",
+      "\nIQuarantine",
+      "88289132-system-mac-syscall"
+    ],
+    "literal_strings_with_offsets": [
+      [
+        0,
+        "P/dev/dtracehelper"
+      ],
+      [
+        27,
+        "Msystem/library"
+      ],
+      [
+        49,
+        "\nFusr/lib"
+      ],
+      [
+        72,
+        "G/system/"
+      ],
+      [
+        82,
+        "Icryptexes/"
+      ],
+      [
+        94,
+        "Bapp"
+      ],
+      [
+        105,
+        "\nAos"
+      ],
+      [
+        116,
+        "\nYvolumes/preboot/cryptexes/"
+      ],
+      [
+        155,
+        "\nIapp/system"
+      ],
+      [
+        184,
+        "com.apple.app-sandbox.read"
+      ],
+      [
+        216,
+        "com.apple.app-sandbox.read-write"
+      ],
+      [
+        259,
+        "Esystem"
+      ],
+      [
+        273,
+        "\nCusr/"
+      ],
+      [
+        280,
+        "Dshare"
+      ],
+      [
+        293,
+        "\nBlib"
+      ],
+      [
+        305,
+        "\nRprivate/var/db/dyld"
+      ],
+      [
+        336,
+        "D/dev/"
+      ],
+      [
+        343,
+        "Czero"
+      ],
+      [
+        351,
+        "\nCnull"
+      ],
+      [
+        360,
+        "\nErandom"
+      ],
+      [
+        371,
+        "\nFurandom"
+      ],
+      [
+        397,
+        "\nEsystem"
+      ],
+      [
+        412,
+        "Hcryptexes"
+      ],
+      [
+        425,
+        "\nFvolumes"
+      ],
+      [
+        437,
+        "\nG/preboot"
+      ],
+      [
+        450,
+        "\nI/cryptexes"
+      ],
+      [
+        465,
+        "\nC/app"
+      ],
+      [
+        480,
+        "F/cores/"
+      ],
+      [
+        496,
+        "D/dev/"
+      ],
+      [
+        503,
+        "Cnull"
+      ],
+      [
+        511,
+        "\nCzero"
+      ],
+      [
+        528,
+        "Gboard-id"
+      ],
+      [
+        540,
+        "\nRIOClassNameOverride"
+      ],
+      [
+        568,
+        "PIOThunderboltPort"
+      ],
+      [
+        595,
+        "Gocket ID"
+      ],
+      [
+        607,
+        "\nMupported Link "
+      ],
+      [
+        624,
+        "DWidth"
+      ],
+      [
+        633,
+        "\nDSpeed"
+      ],
+      [
+        648,
+        "VIOSCSIProtocolInterface"
+      ],
+      [
+        680,
+        "JIOMediaIcon"
+      ],
+      [
+        695,
+        "\nUProduct Identification"
+      ],
+      [
+        728,
+        "Msoc-generation"
+      ],
+      [
+        752,
+        "OIOPlatformDevice"
+      ],
+      [
+        776,
+        "75105696-iokit-properties"
+      ],
+      [
+        808,
+        "FIOMedia"
+      ],
+      [
+        824,
+        "HRemovable"
+      ],
+      [
+        837,
+        "\nHEjectable"
+      ],
+      [
+        856,
+        "JIOPCIDevice"
+      ],
+      [
+        880,
+        "Gbuilt-in"
+      ],
+      [
+        892,
+        "\nOThunderbolt Path"
+      ],
+      [
+        913,
+        "\nUIOPCIExpressLinkStatus"
+      ],
+      [
+        944,
+        "BTY,"
+      ],
+      [
+        949,
+        "IDeviceName"
+      ],
+      [
+        963,
+        "\nIFamilyName"
+      ],
+      [
+        978,
+        "\nLAPL,slot-name"
+      ],
+      [
+        1000,
+        "Iimage-path"
+      ],
+      [
+        1024,
+        "LIOHDIXHDDrive"
+      ],
+      [
+        1052,
+        "FStorage"
+      ],
+      [
+        1063,
+        "\nQBlockStorageDevice"
+      ],
+      [
+        1096,
+        "JIOMediaIcon"
+      ],
+      [
+        1111,
+        "\nWProtocol Characteristics"
+      ],
+      [
+        1144,
+        "UIOGraphicsAccelerator2"
+      ],
+      [
+        1176,
+        "MAAPL,slot-name"
+      ],
+      [
+        1194,
+        "\nQSafeEjectRequested"
+      ],
+      [
+        1217,
+        "\nJMetalPlugin"
+      ],
+      [
+        1231,
+        "CName"
+      ],
+      [
+        1239,
+        "\nHClassName"
+      ],
+      [
+        1253,
+        "\nAIO"
+      ],
+      [
+        1258,
+        "KVARendererID"
+      ],
+      [
+        1274,
+        "\nLDVDBundleName"
+      ],
+      [
+        1292,
+        "\nSPCIExpressLinkStatus"
+      ],
+      [
+        1317,
+        "\nBGVA"
+      ],
+      [
+        1323,
+        "DCodec"
+      ],
+      [
+        1332,
+        "\nIHEVCDecode"
+      ],
+      [
+        1347,
+        "\nXAVDHEVCDecodeCapabilities"
+      ],
+      [
+        1384,
+        "cIOSurfaceAcceleratorCapabilitiesDict"
+      ],
+      [
+        1432,
+        "UAppleM2ScalerCSCDriver"
+      ],
+      [
+        1464,
+        "KDiskImageURL"
+      ],
+      [
+        1488,
+        "SAppleDiskImageDevice"
+      ],
+      [
+        1524,
+        "LGVAHEVCDecode"
+      ],
+      [
+        1541,
+        "\nXAVDHEVCDecodeCapabilities"
+      ],
+      [
+        1576,
+        "GAppleAVD"
+      ],
+      [
+        1592,
+        "SAGXFamilyAccelerator"
+      ],
+      [
+        1624,
+        "MAAPL,slot-name"
+      ],
+      [
+        1642,
+        "\nQSafeEjectRequested"
+      ],
+      [
+        1665,
+        "\nJMetalPlugin"
+      ],
+      [
+        1679,
+        "CName"
+      ],
+      [
+        1687,
+        "\nHClassName"
+      ],
+      [
+        1701,
+        "\nAIO"
+      ],
+      [
+        1706,
+        "LGVAHEVCDecode"
+      ],
+      [
+        1723,
+        "\nXAVDHEVCDecodeCapabilities"
+      ],
+      [
+        1764,
+        "BGVA"
+      ],
+      [
+        1769,
+        "DCodec"
+      ],
+      [
+        1778,
+        "\nIHEVCDecode"
+      ],
+      [
+        1793,
+        "\nXAVDHEVCDecodeCapabilities"
+      ],
+      [
+        1832,
+        "QIOBufferCopyEngine"
+      ],
+      [
+        1864,
+        "VIOSurfaceRootUserClient"
+      ],
+      [
+        1896,
+        "VIGAccelSharedUserClient"
+      ],
+      [
+        1928,
+        "LIGAccelDevice"
+      ],
+      [
+        1952,
+        "RIGAccelCommandQueue"
+      ],
+      [
+        1984,
+        "WIOAccelSharedUserClient2"
+      ],
+      [
+        2016,
+        "MIOAccelDevice2"
+      ],
+      [
+        2040,
+        "RIOAccelCommandQueue"
+      ],
+      [
+        2072,
+        "NAGXAcceleratorG"
+      ],
+      [
+        2093,
+        "KOSurfaceRoot"
+      ],
+      [
+        2109,
+        "\nNntelAccelerator"
+      ],
+      [
+        2136,
+        "88289132-iokit-open-service"
+      ],
+      [
+        2168,
+        "Icom.apple."
+      ],
+      [
+        2180,
+        "Ktrustd.agent"
+      ],
+      [
+        2196,
+        "\nEaudio."
+      ],
+      [
+        2205,
+        "LSandboxHelper"
+      ],
+      [
+        2222,
+        "\nVAudioComponentRegistrar"
+      ],
+      [
+        2280,
+        "Tcom.apple.diagnosticd"
+      ],
+      [
+        2312,
+        "Icom.apple."
+      ],
+      [
+        2324,
+        "Clogd"
+      ],
+      [
+        2332,
+        "\nFsystem."
+      ],
+      [
+        2342,
+        "Elogger"
+      ],
+      [
+        2352,
+        "\nRnotification_center"
+      ],
+      [
+        2464,
+        "73669976"
+      ],
+      [
+        2504,
+        "blastdoor-messages-reduction"
+      ],
+      [
+        2536,
+        "syscall-mach-denied"
+      ],
+      [
+        2608,
+        "88289132-syscall-mig"
+      ],
+      [
+        2632,
+        "Tkern.osproductversion"
+      ],
+      [
+        2657,
+        "\nBhw."
+      ],
+      [
+        2663,
+        "Ivectorunit"
+      ],
+      [
+        2677,
+        "\nLcachelinesize"
+      ],
+      [
+        2695,
+        "\nPoptional.avx512bw"
+      ],
+      [
+        2717,
+        "\nIlogicalcpu"
+      ],
+      [
+        2732,
+        "\nC_max"
+      ],
+      [
+        2745,
+        "Eroduct"
+      ],
+      [
+        2755,
+        "\nIhysicalcpu"
+      ],
+      [
+        2770,
+        "\nC_max"
+      ],
+      [
+        2779,
+        "\nMagesize_compat"
+      ],
+      [
+        2832,
+        "CAMFI"
+      ],
+      [
+        2840,
+        "\nFSandbox"
+      ],
+      [
+        2852,
+        "\nIQuarantine"
+      ],
+      [
+        2872,
+        "88289132-system-mac-syscall"
+      ]
+    ],
+    "node_count": 176,
     "op_count": 167,
-    "op_table_offset": 16,
     "op_table": [
       100,
       90,
@@ -173,1611 +861,1234 @@
       166,
       166
     ],
-    "node_count": 7,
-    "tag_counts": {
-      "166": 5,
-      "1": 1,
-      "0": 1
-    },
-    "nodes": [
-      {
-        "offset": 0,
-        "tag": 166,
-        "fields": [
-          166,
-          3,
-          166,
-          166,
-          166
-        ],
-        "record_size": 12,
-        "hex": "a600a6000300a600a600a600",
-        "literal_refs": [
-          "G/system/"
-        ]
-      },
-      {
-        "offset": 12,
-        "tag": 166,
-        "fields": [
-          166,
-          166,
-          166,
-          166,
-          166
-        ],
-        "record_size": 12,
-        "hex": "a600a600a600a600a600a600",
-        "literal_refs": []
-      },
-      {
-        "offset": 24,
-        "tag": 1,
-        "fields": [
-          165,
-          165,
-          166,
-          166,
-          0
-        ],
-        "record_size": 12,
-        "hex": "0100a500a500a600a6000000",
-        "literal_refs": [
-          "Msystem/library",
-          "P/dev/dtracehelper"
-        ]
-      },
-      {
-        "offset": 36,
-        "tag": 166,
-        "fields": [
-          166,
-          166,
-          166,
-          166,
-          166
-        ],
-        "record_size": 12,
-        "hex": "a600a600a600a600a600a600",
-        "literal_refs": []
-      },
-      {
-        "offset": 48,
-        "tag": 166,
-        "fields": [
-          166,
-          166,
-          166,
-          166,
-          165
-        ],
-        "record_size": 12,
-        "hex": "a600a600a600a600a600a500",
-        "literal_refs": []
-      },
-      {
-        "offset": 60,
-        "tag": 0,
-        "fields": [
-          0,
-          0,
-          10752,
-          1002,
-          39
-        ],
-        "record_size": 12,
-        "hex": "000000000000002aea032700",
-        "literal_refs": [
-          "JIOMediaIcon",
-          "P/dev/dtracehelper"
-        ]
-      },
-      {
-        "offset": 72,
-        "tag": 166,
-        "fields": [
-          20736,
-          355,
-          165,
-          2,
-          32769
-        ],
-        "record_size": 12,
-        "hex": "a60000516301a50002000180",
-        "literal_refs": [
-          "\nFusr/lib",
-          "P/dev/dtracehelper"
-        ]
-      }
-    ],
-    "literal_strings": [
-      "P/dev/dtracehelper",
-      "Msystem/library",
-      "\nFusr/lib",
-      "G/system/",
-      "Icryptexes/",
-      "Bapp",
-      "\nAos",
-      "\nYvolumes/preboot/cryptexes/",
-      "\nIapp/system",
-      "com.apple.app-sandbox.read",
-      "com.apple.app-sandbox.read-write",
-      "Esystem",
-      "\nCusr/",
-      "Dshare",
-      "\nBlib",
-      "\nRprivate/var/db/dyld",
-      "D/dev/",
-      "Czero",
-      "\nCnull",
-      "\nErandom",
-      "\nFurandom",
-      "\nEsystem",
-      "Hcryptexes",
-      "\nFvolumes",
-      "\nG/preboot",
-      "\nI/cryptexes",
-      "\nC/app",
-      "F/cores/",
-      "D/dev/",
-      "Cnull",
-      "\nCzero",
-      "Gboard-id",
-      "\nRIOClassNameOverride",
-      "PIOThunderboltPort",
-      "Gocket ID",
-      "\nMupported Link ",
-      "DWidth",
-      "\nDSpeed",
-      "VIOSCSIProtocolInterface",
-      "JIOMediaIcon",
-      "\nUProduct Identification",
-      "Msoc-generation",
-      "OIOPlatformDevice",
-      "75105696-iokit-properties",
-      "FIOMedia",
-      "HRemovable",
-      "\nHEjectable",
-      "JIOPCIDevice",
-      "Gbuilt-in",
-      "\nOThunderbolt Path",
-      "\nUIOPCIExpressLinkStatus",
-      "BTY,",
-      "IDeviceName",
-      "\nIFamilyName",
-      "\nLAPL,slot-name",
-      "Iimage-path",
-      "LIOHDIXHDDrive",
-      "FStorage",
-      "\nQBlockStorageDevice",
-      "JIOMediaIcon",
-      "\nWProtocol Characteristics",
-      "UIOGraphicsAccelerator2",
-      "MAAPL,slot-name",
-      "\nQSafeEjectRequested",
-      "\nJMetalPlugin",
-      "CName",
-      "\nHClassName",
-      "\nAIO",
-      "KVARendererID",
-      "\nLDVDBundleName",
-      "\nSPCIExpressLinkStatus",
-      "\nBGVA",
-      "DCodec",
-      "\nIHEVCDecode",
-      "\nXAVDHEVCDecodeCapabilities",
-      "cIOSurfaceAcceleratorCapabilitiesDict",
-      "UAppleM2ScalerCSCDriver",
-      "KDiskImageURL",
-      "SAppleDiskImageDevice",
-      "LGVAHEVCDecode",
-      "\nXAVDHEVCDecodeCapabilities",
-      "GAppleAVD",
-      "SAGXFamilyAccelerator",
-      "MAAPL,slot-name",
-      "\nQSafeEjectRequested",
-      "\nJMetalPlugin",
-      "CName",
-      "\nHClassName",
-      "\nAIO",
-      "LGVAHEVCDecode",
-      "\nXAVDHEVCDecodeCapabilities",
-      "BGVA",
-      "DCodec",
-      "\nIHEVCDecode",
-      "\nXAVDHEVCDecodeCapabilities",
-      "QIOBufferCopyEngine",
-      "VIOSurfaceRootUserClient",
-      "VIGAccelSharedUserClient",
-      "LIGAccelDevice",
-      "RIGAccelCommandQueue",
-      "WIOAccelSharedUserClient2",
-      "MIOAccelDevice2",
-      "RIOAccelCommandQueue",
-      "NAGXAcceleratorG",
-      "KOSurfaceRoot",
-      "\nNntelAccelerator",
-      "88289132-iokit-open-service",
-      "Icom.apple.",
-      "Ktrustd.agent",
-      "\nEaudio.",
-      "LSandboxHelper",
-      "\nVAudioComponentRegistrar",
-      "Tcom.apple.diagnosticd",
-      "Icom.apple.",
-      "Clogd",
-      "\nFsystem.",
-      "Elogger",
-      "\nRnotification_center",
-      "73669976",
-      "blastdoor-messages-reduction",
-      "syscall-mach-denied",
-      "88289132-syscall-mig",
-      "Tkern.osproductversion",
-      "\nBhw.",
-      "Ivectorunit",
-      "\nLcachelinesize",
-      "\nPoptional.avx512bw",
-      "\nIlogicalcpu",
-      "\nC_max",
-      "Eroduct",
-      "\nIhysicalcpu",
-      "\nC_max",
-      "\nMagesize_compat",
-      "CAMFI",
-      "\nFSandbox",
-      "\nIQuarantine",
-      "88289132-system-mac-syscall"
-    ],
-    "literal_strings_with_offsets": [
-      [
-        1320,
-        "P/dev/dtracehelper"
-      ],
-      [
-        1347,
-        "Msystem/library"
-      ],
-      [
-        1369,
-        "\nFusr/lib"
-      ],
-      [
-        1392,
-        "G/system/"
-      ],
-      [
-        1402,
-        "Icryptexes/"
-      ],
-      [
-        1414,
-        "Bapp"
-      ],
-      [
-        1425,
-        "\nAos"
-      ],
-      [
-        1436,
-        "\nYvolumes/preboot/cryptexes/"
-      ],
-      [
-        1475,
-        "\nIapp/system"
-      ],
-      [
-        1504,
-        "com.apple.app-sandbox.read"
-      ],
-      [
-        1536,
-        "com.apple.app-sandbox.read-write"
-      ],
-      [
-        1579,
-        "Esystem"
-      ],
-      [
-        1593,
-        "\nCusr/"
-      ],
-      [
-        1600,
-        "Dshare"
-      ],
-      [
-        1613,
-        "\nBlib"
-      ],
-      [
-        1625,
-        "\nRprivate/var/db/dyld"
-      ],
-      [
-        1656,
-        "D/dev/"
-      ],
-      [
-        1663,
-        "Czero"
-      ],
-      [
-        1671,
-        "\nCnull"
-      ],
-      [
-        1680,
-        "\nErandom"
-      ],
-      [
-        1691,
-        "\nFurandom"
-      ],
-      [
-        1717,
-        "\nEsystem"
-      ],
-      [
-        1732,
-        "Hcryptexes"
-      ],
-      [
-        1745,
-        "\nFvolumes"
-      ],
-      [
-        1757,
-        "\nG/preboot"
-      ],
-      [
-        1770,
-        "\nI/cryptexes"
-      ],
-      [
-        1785,
-        "\nC/app"
-      ],
-      [
-        1800,
-        "F/cores/"
-      ],
-      [
-        1816,
-        "D/dev/"
-      ],
-      [
-        1823,
-        "Cnull"
-      ],
-      [
-        1831,
-        "\nCzero"
-      ],
-      [
-        1848,
-        "Gboard-id"
-      ],
-      [
-        1860,
-        "\nRIOClassNameOverride"
-      ],
-      [
-        1888,
-        "PIOThunderboltPort"
-      ],
-      [
-        1915,
-        "Gocket ID"
-      ],
-      [
-        1927,
-        "\nMupported Link "
-      ],
-      [
-        1944,
-        "DWidth"
-      ],
-      [
-        1953,
-        "\nDSpeed"
-      ],
-      [
-        1968,
-        "VIOSCSIProtocolInterface"
-      ],
-      [
-        2000,
-        "JIOMediaIcon"
-      ],
-      [
-        2015,
-        "\nUProduct Identification"
-      ],
-      [
-        2048,
-        "Msoc-generation"
-      ],
-      [
-        2072,
-        "OIOPlatformDevice"
-      ],
-      [
-        2096,
-        "75105696-iokit-properties"
-      ],
-      [
-        2128,
-        "FIOMedia"
-      ],
-      [
-        2144,
-        "HRemovable"
-      ],
-      [
-        2157,
-        "\nHEjectable"
-      ],
-      [
-        2176,
-        "JIOPCIDevice"
-      ],
-      [
-        2200,
-        "Gbuilt-in"
-      ],
-      [
-        2212,
-        "\nOThunderbolt Path"
-      ],
-      [
-        2233,
-        "\nUIOPCIExpressLinkStatus"
-      ],
-      [
-        2264,
-        "BTY,"
-      ],
-      [
-        2269,
-        "IDeviceName"
-      ],
-      [
-        2283,
-        "\nIFamilyName"
-      ],
-      [
-        2298,
-        "\nLAPL,slot-name"
-      ],
-      [
-        2320,
-        "Iimage-path"
-      ],
-      [
-        2344,
-        "LIOHDIXHDDrive"
-      ],
-      [
-        2372,
-        "FStorage"
-      ],
-      [
-        2383,
-        "\nQBlockStorageDevice"
-      ],
-      [
-        2416,
-        "JIOMediaIcon"
-      ],
-      [
-        2431,
-        "\nWProtocol Characteristics"
-      ],
-      [
-        2464,
-        "UIOGraphicsAccelerator2"
-      ],
-      [
-        2496,
-        "MAAPL,slot-name"
-      ],
-      [
-        2514,
-        "\nQSafeEjectRequested"
-      ],
-      [
-        2537,
-        "\nJMetalPlugin"
-      ],
-      [
-        2551,
-        "CName"
-      ],
-      [
-        2559,
-        "\nHClassName"
-      ],
-      [
-        2573,
-        "\nAIO"
-      ],
-      [
-        2578,
-        "KVARendererID"
-      ],
-      [
-        2594,
-        "\nLDVDBundleName"
-      ],
-      [
-        2612,
-        "\nSPCIExpressLinkStatus"
-      ],
-      [
-        2637,
-        "\nBGVA"
-      ],
-      [
-        2643,
-        "DCodec"
-      ],
-      [
-        2652,
-        "\nIHEVCDecode"
-      ],
-      [
-        2667,
-        "\nXAVDHEVCDecodeCapabilities"
-      ],
-      [
-        2704,
-        "cIOSurfaceAcceleratorCapabilitiesDict"
-      ],
-      [
-        2752,
-        "UAppleM2ScalerCSCDriver"
-      ],
-      [
-        2784,
-        "KDiskImageURL"
-      ],
-      [
-        2808,
-        "SAppleDiskImageDevice"
-      ],
-      [
-        2844,
-        "LGVAHEVCDecode"
-      ],
-      [
-        2861,
-        "\nXAVDHEVCDecodeCapabilities"
-      ],
-      [
-        2896,
-        "GAppleAVD"
-      ],
-      [
-        2912,
-        "SAGXFamilyAccelerator"
-      ],
-      [
-        2944,
-        "MAAPL,slot-name"
-      ],
-      [
-        2962,
-        "\nQSafeEjectRequested"
-      ],
-      [
-        2985,
-        "\nJMetalPlugin"
-      ],
-      [
-        2999,
-        "CName"
-      ],
-      [
-        3007,
-        "\nHClassName"
-      ],
-      [
-        3021,
-        "\nAIO"
-      ],
-      [
-        3026,
-        "LGVAHEVCDecode"
-      ],
-      [
-        3043,
-        "\nXAVDHEVCDecodeCapabilities"
-      ],
-      [
-        3084,
-        "BGVA"
-      ],
-      [
-        3089,
-        "DCodec"
-      ],
-      [
-        3098,
-        "\nIHEVCDecode"
-      ],
-      [
-        3113,
-        "\nXAVDHEVCDecodeCapabilities"
-      ],
-      [
-        3152,
-        "QIOBufferCopyEngine"
-      ],
-      [
-        3184,
-        "VIOSurfaceRootUserClient"
-      ],
-      [
-        3216,
-        "VIGAccelSharedUserClient"
-      ],
-      [
-        3248,
-        "LIGAccelDevice"
-      ],
-      [
-        3272,
-        "RIGAccelCommandQueue"
-      ],
-      [
-        3304,
-        "WIOAccelSharedUserClient2"
-      ],
-      [
-        3336,
-        "MIOAccelDevice2"
-      ],
-      [
-        3360,
-        "RIOAccelCommandQueue"
-      ],
-      [
-        3392,
-        "NAGXAcceleratorG"
-      ],
-      [
-        3413,
-        "KOSurfaceRoot"
-      ],
-      [
-        3429,
-        "\nNntelAccelerator"
-      ],
-      [
-        3456,
-        "88289132-iokit-open-service"
-      ],
-      [
-        3488,
-        "Icom.apple."
-      ],
-      [
-        3500,
-        "Ktrustd.agent"
-      ],
-      [
-        3516,
-        "\nEaudio."
-      ],
-      [
-        3525,
-        "LSandboxHelper"
-      ],
-      [
-        3542,
-        "\nVAudioComponentRegistrar"
-      ],
-      [
-        3600,
-        "Tcom.apple.diagnosticd"
-      ],
-      [
-        3632,
-        "Icom.apple."
-      ],
-      [
-        3644,
-        "Clogd"
-      ],
-      [
-        3652,
-        "\nFsystem."
-      ],
-      [
-        3662,
-        "Elogger"
-      ],
-      [
-        3672,
-        "\nRnotification_center"
-      ],
-      [
-        3784,
-        "73669976"
-      ],
-      [
-        3824,
-        "blastdoor-messages-reduction"
-      ],
-      [
-        3856,
-        "syscall-mach-denied"
-      ],
-      [
-        3928,
-        "88289132-syscall-mig"
-      ],
-      [
-        3952,
-        "Tkern.osproductversion"
-      ],
-      [
-        3977,
-        "\nBhw."
-      ],
-      [
-        3983,
-        "Ivectorunit"
-      ],
-      [
-        3997,
-        "\nLcachelinesize"
-      ],
-      [
-        4015,
-        "\nPoptional.avx512bw"
-      ],
-      [
-        4037,
-        "\nIlogicalcpu"
-      ],
-      [
-        4052,
-        "\nC_max"
-      ],
-      [
-        4065,
-        "Eroduct"
-      ],
-      [
-        4075,
-        "\nIhysicalcpu"
-      ],
-      [
-        4090,
-        "\nC_max"
-      ],
-      [
-        4099,
-        "\nMagesize_compat"
-      ],
-      [
-        4152,
-        "CAMFI"
-      ],
-      [
-        4160,
-        "\nFSandbox"
-      ],
-      [
-        4172,
-        "\nIQuarantine"
-      ],
-      [
-        4192,
-        "88289132-system-mac-syscall"
-      ]
-    ],
+    "op_table_offset": 16,
     "sections": {
-      "op_table": 334,
-      "nodes": 92,
-      "literal_pool": 4220,
+      "literal_pool": 2900,
+      "literal_start": 1762,
+      "nodes": 1412,
       "nodes_start": 350,
-      "literal_start": 442
+      "op_table": 334
+    },
+    "source": "book/examples/extract_sbs/build/profiles/airlock.sb.bin",
+    "tag_counts": {
+      "0": 11,
+      "1": 2,
+      "10": 1,
+      "101": 1,
+      "102": 1,
+      "103": 1,
+      "104": 2,
+      "105": 1,
+      "106": 1,
+      "107": 1,
+      "108": 1,
+      "109": 1,
+      "11": 1,
+      "110": 1,
+      "111": 1,
+      "112": 1,
+      "113": 1,
+      "114": 1,
+      "115": 1,
+      "116": 1,
+      "117": 1,
+      "12": 2,
+      "120": 1,
+      "122": 2,
+      "124": 2,
+      "125": 1,
+      "127": 2,
+      "129": 2,
+      "13": 1,
+      "130": 1,
+      "132": 2,
+      "133": 1,
+      "136": 2,
+      "137": 1,
+      "138": 2,
+      "139": 1,
+      "14": 1,
+      "141": 1,
+      "146": 6,
+      "148": 1,
+      "15": 2,
+      "150": 2,
+      "151": 1,
+      "152": 1,
+      "154": 1,
+      "155": 1,
+      "156": 1,
+      "157": 1,
+      "159": 2,
+      "162": 2,
+      "166": 26,
+      "18": 1,
+      "19": 1,
+      "2": 2,
+      "20": 1,
+      "21": 1,
+      "22": 1,
+      "23": 1,
+      "24": 1,
+      "25": 1,
+      "26": 1,
+      "27": 1,
+      "28": 1,
+      "29": 1,
+      "3": 1,
+      "30": 1,
+      "31": 1,
+      "33": 2,
+      "37": 1,
+      "4": 1,
+      "44": 1,
+      "45": 1,
+      "46": 1,
+      "48": 1,
+      "5": 1,
+      "50": 1,
+      "51": 1,
+      "52": 1,
+      "53": 2,
+      "54": 1,
+      "55": 1,
+      "57": 1,
+      "58": 2,
+      "6": 1,
+      "61": 1,
+      "62": 2,
+      "63": 1,
+      "64": 1,
+      "65": 1,
+      "68": 1,
+      "69": 1,
+      "70": 1,
+      "71": 2,
+      "72": 1,
+      "73": 1,
+      "74": 1,
+      "75": 1,
+      "76": 1,
+      "8": 1,
+      "81": 1,
+      "82": 1,
+      "83": 1,
+      "84": 1,
+      "85": 1,
+      "86": 1,
+      "87": 1,
+      "88": 1,
+      "91": 1,
+      "92": 1,
+      "93": 1,
+      "94": 1,
+      "95": 1,
+      "96": 1,
+      "97": 1,
+      "98": 2
     },
     "validation": {
-      "node_remainder_bytes": 8,
-      "edge_fields_in_bounds": 3,
-      "edge_fields_total": 14,
+      "edge_fields_in_bounds": 148,
+      "edge_fields_total": 352,
+      "literal_start": 1762,
+      "node_remainder_bytes": 4,
+      "node_stride_bytes": 8,
+      "node_stride_selection": {
+        "metrics": {
+          "12": {
+            "misaligned_targets": 133,
+            "op_table_entries": 167,
+            "stride_bytes": 12
+          },
+          "8": {
+            "misaligned_targets": 0,
+            "op_table_entries": 167,
+            "stride_bytes": 8
+          }
+        },
+        "mode": "auto",
+        "selected": 8
+      },
       "nodes_start": 350,
-      "literal_start": 442,
-      "tag_validation": {}
+      "op_table_scaling_witness": {
+        "notes": "Scores op_table entries as offsets into the node stream under different scale factors; ASCII-heavy scale12 is a strong sign of mis-scaling.",
+        "scale12": {
+          "ascii_pair_count": 132,
+          "in_range": 167,
+          "kind0_count": 30,
+          "plausible_known_kind0_count": 28,
+          "plausible_non_ascii_kind0_count": 20,
+          "scale_bytes": 12,
+          "top_tag_kind_pairs": [
+            {
+              "count": 115,
+              "key": "(108, 116)"
+            },
+            {
+              "count": 14,
+              "key": "(80, 73)"
+            },
+            {
+              "count": 12,
+              "key": "(0, 0)"
+            },
+            {
+              "count": 4,
+              "key": "(52, 0)"
+            },
+            {
+              "count": 3,
+              "key": "(15, 10)"
+            },
+            {
+              "count": 2,
+              "key": "(8, 0)"
+            },
+            {
+              "count": 1,
+              "key": "(0, 128)"
+            },
+            {
+              "count": 1,
+              "key": "(1, 0)"
+            },
+            {
+              "count": 1,
+              "key": "(10, 0)"
+            },
+            {
+              "count": 1,
+              "key": "(101, 114)"
+            },
+            {
+              "count": 1,
+              "key": "(109, 0)"
+            },
+            {
+              "count": 1,
+              "key": "(112, 0)"
+            }
+          ],
+          "total": 167
+        },
+        "scale8": {
+          "ascii_pair_count": 0,
+          "in_range": 167,
+          "kind0_count": 165,
+          "plausible_known_kind0_count": 165,
+          "plausible_non_ascii_kind0_count": 153,
+          "scale_bytes": 8,
+          "top_tag_kind_pairs": [
+            {
+              "count": 115,
+              "key": "(159, 0)"
+            },
+            {
+              "count": 14,
+              "key": "(157, 0)"
+            },
+            {
+              "count": 13,
+              "key": "(146, 0)"
+            },
+            {
+              "count": 5,
+              "key": "(166, 0)"
+            },
+            {
+              "count": 5,
+              "key": "(33, 0)"
+            },
+            {
+              "count": 1,
+              "key": "(0, 0)"
+            },
+            {
+              "count": 1,
+              "key": "(111, 0)"
+            },
+            {
+              "count": 1,
+              "key": "(139, 0)"
+            },
+            {
+              "count": 1,
+              "key": "(15, 0)"
+            },
+            {
+              "count": 1,
+              "key": "(155, 0)"
+            },
+            {
+              "count": 1,
+              "key": "(28, 0)"
+            },
+            {
+              "count": 1,
+              "key": "(31, 0)"
+            }
+          ],
+          "total": 167
+        }
+      },
+      "tag_validation": {
+        "0": {
+          "edge_in_bounds": 5,
+          "edge_total": 22,
+          "payloads": {
+            "0": 2,
+            "16": 1,
+            "165": 4,
+            "35": 1,
+            "38": 1,
+            "39": 1,
+            "49171": 1
+          },
+          "record_size": 8
+        },
+        "1": {
+          "edge_in_bounds": 3,
+          "edge_total": 4,
+          "payloads": {
+            "165": 1,
+            "166": 1
+          },
+          "record_size": 8
+        },
+        "10": {
+          "edge_in_bounds": 0,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "101": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "102": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "103": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "104": {
+          "edge_in_bounds": 1,
+          "edge_total": 4,
+          "payloads": {
+            "165": 1,
+            "4": 1
+          },
+          "record_size": 8
+        },
+        "105": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "106": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "107": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "108": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "109": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "11": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "110": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "111": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "112": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "113": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "114": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "115": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "116": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "117": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "12": {
+          "edge_in_bounds": 0,
+          "edge_total": 4,
+          "payloads": {
+            "118": 1,
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "120": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "121": 1
+          },
+          "record_size": 8
+        },
+        "122": {
+          "edge_in_bounds": 2,
+          "edge_total": 4,
+          "payloads": {
+            "123": 1,
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "124": {
+          "edge_in_bounds": 2,
+          "edge_total": 4,
+          "payloads": {
+            "145": 1,
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "125": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "126": 1
+          },
+          "record_size": 8
+        },
+        "127": {
+          "edge_in_bounds": 2,
+          "edge_total": 4,
+          "payloads": {
+            "128": 1,
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "129": {
+          "edge_in_bounds": 2,
+          "edge_total": 4,
+          "payloads": {
+            "144": 1,
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "13": {
+          "edge_in_bounds": 0,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "130": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "131": 1
+          },
+          "record_size": 8
+        },
+        "132": {
+          "edge_in_bounds": 2,
+          "edge_total": 4,
+          "payloads": {
+            "135": 1,
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "133": {
+          "edge_in_bounds": 0,
+          "edge_total": 2,
+          "payloads": {
+            "134": 1
+          },
+          "record_size": 8
+        },
+        "136": {
+          "edge_in_bounds": 1,
+          "edge_total": 4,
+          "payloads": {
+            "143": 1,
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "137": {
+          "edge_in_bounds": 0,
+          "edge_total": 2,
+          "payloads": {
+            "142": 1
+          },
+          "record_size": 8
+        },
+        "138": {
+          "edge_in_bounds": 1,
+          "edge_total": 4,
+          "payloads": {
+            "140": 1,
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "139": {
+          "edge_in_bounds": 0,
+          "edge_total": 2,
+          "payloads": {
+            "141": 1
+          },
+          "record_size": 8
+        },
+        "14": {
+          "edge_in_bounds": 0,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "141": {
+          "edge_in_bounds": 0,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "146": {
+          "edge_in_bounds": 2,
+          "edge_total": 12,
+          "payloads": {
+            "10": 1,
+            "165": 5
+          },
+          "record_size": 8
+        },
+        "148": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "15": {
+          "edge_in_bounds": 0,
+          "edge_total": 4,
+          "payloads": {
+            "10": 1,
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "150": {
+          "edge_in_bounds": 2,
+          "edge_total": 4,
+          "payloads": {
+            "165": 2
+          },
+          "record_size": 8
+        },
+        "151": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "166": 1
+          },
+          "record_size": 8
+        },
+        "152": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "164": 1
+          },
+          "record_size": 8
+        },
+        "154": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "155": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "158": 1
+          },
+          "record_size": 8
+        },
+        "156": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "157": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "159": {
+          "edge_in_bounds": 2,
+          "edge_total": 4,
+          "payloads": {
+            "160": 1,
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "162": {
+          "edge_in_bounds": 2,
+          "edge_total": 4,
+          "payloads": {
+            "165": 2
+          },
+          "record_size": 8
+        },
+        "166": {
+          "edge_in_bounds": 33,
+          "edge_total": 52,
+          "payloads": {
+            "0": 3,
+            "164": 1,
+            "165": 9,
+            "166": 6,
+            "2": 1,
+            "48915": 1,
+            "49171": 5
+          },
+          "record_size": 8
+        },
+        "18": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "34": 1
+          },
+          "record_size": 8
+        },
+        "19": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "34": 1
+          },
+          "record_size": 8
+        },
+        "2": {
+          "edge_in_bounds": 1,
+          "edge_total": 4,
+          "payloads": {
+            "10": 1,
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "20": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "34": 1
+          },
+          "record_size": 8
+        },
+        "21": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "34": 1
+          },
+          "record_size": 8
+        },
+        "22": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "34": 1
+          },
+          "record_size": 8
+        },
+        "23": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "34": 1
+          },
+          "record_size": 8
+        },
+        "24": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "34": 1
+          },
+          "record_size": 8
+        },
+        "25": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "34": 1
+          },
+          "record_size": 8
+        },
+        "26": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "34": 1
+          },
+          "record_size": 8
+        },
+        "27": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "34": 1
+          },
+          "record_size": 8
+        },
+        "28": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "34": 1
+          },
+          "record_size": 8
+        },
+        "29": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "34": 1
+          },
+          "record_size": 8
+        },
+        "3": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "30": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "34": 1
+          },
+          "record_size": 8
+        },
+        "31": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "32": 1
+          },
+          "record_size": 8
+        },
+        "33": {
+          "edge_in_bounds": 1,
+          "edge_total": 4,
+          "payloads": {
+            "10": 1,
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "37": {
+          "edge_in_bounds": 0,
+          "edge_total": 2,
+          "payloads": {
+            "10": 1
+          },
+          "record_size": 8
+        },
+        "4": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "44": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "166": 1
+          },
+          "record_size": 8
+        },
+        "45": {
+          "edge_in_bounds": 0,
+          "edge_total": 2,
+          "payloads": {
+            "164": 1
+          },
+          "record_size": 8
+        },
+        "46": {
+          "edge_in_bounds": 0,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "48": {
+          "edge_in_bounds": 0,
+          "edge_total": 2,
+          "payloads": {
+            "10": 1
+          },
+          "record_size": 8
+        },
+        "5": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "50": {
+          "edge_in_bounds": 0,
+          "edge_total": 2,
+          "payloads": {
+            "99": 1
+          },
+          "record_size": 8
+        },
+        "51": {
+          "edge_in_bounds": 0,
+          "edge_total": 2,
+          "payloads": {
+            "89": 1
+          },
+          "record_size": 8
+        },
+        "52": {
+          "edge_in_bounds": 0,
+          "edge_total": 2,
+          "payloads": {
+            "79": 1
+          },
+          "record_size": 8
+        },
+        "53": {
+          "edge_in_bounds": 2,
+          "edge_total": 4,
+          "payloads": {
+            "0": 1,
+            "77": 1
+          },
+          "record_size": 8
+        },
+        "54": {
+          "edge_in_bounds": 0,
+          "edge_total": 2,
+          "payloads": {
+            "66": 1
+          },
+          "record_size": 8
+        },
+        "55": {
+          "edge_in_bounds": 0,
+          "edge_total": 2,
+          "payloads": {
+            "59": 1
+          },
+          "record_size": 8
+        },
+        "57": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "58": {
+          "edge_in_bounds": 3,
+          "edge_total": 4,
+          "payloads": {
+            "0": 1,
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "6": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "0": 1
+          },
+          "record_size": 8
+        },
+        "61": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "62": {
+          "edge_in_bounds": 1,
+          "edge_total": 4,
+          "payloads": {
+            "10": 1,
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "63": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "64": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "65": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "68": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "69": {
+          "edge_in_bounds": 0,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "70": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "71": {
+          "edge_in_bounds": 3,
+          "edge_total": 4,
+          "payloads": {
+            "0": 1,
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "72": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "73": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "74": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "75": {
+          "edge_in_bounds": 0,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "76": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "8": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "9": 1
+          },
+          "record_size": 8
+        },
+        "81": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "82": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "83": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "84": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "85": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "86": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "87": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "88": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "91": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "92": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "93": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "94": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "95": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "96": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "97": {
+          "edge_in_bounds": 1,
+          "edge_total": 2,
+          "payloads": {
+            "165": 1
+          },
+          "record_size": 8
+        },
+        "98": {
+          "edge_in_bounds": 2,
+          "edge_total": 4,
+          "payloads": {
+            "149": 1,
+            "165": 1
+          },
+          "record_size": 8
+        }
+      }
     }
   },
   "bsd": {
-    "source": "book/examples/extract_sbs/build/profiles/bsd.sb.bin",
     "format_variant": "modern-heuristic",
-    "op_count": 28,
-    "op_table_offset": 16,
-    "op_table": [
-      27,
-      27,
-      27,
-      27,
-      27,
-      27,
-      26,
-      27,
-      26,
-      27,
-      27,
-      26,
-      25,
-      27,
-      26,
-      26,
-      26,
-      27,
-      27,
-      27,
-      22,
-      21,
-      26,
-      22,
-      27,
-      27,
-      26,
-      27
-    ],
-    "node_count": 41,
-    "tag_counts": {
-      "27": 14,
-      "26": 18,
-      "17": 1,
-      "0": 8
-    },
-    "nodes": [
-      {
-        "offset": 0,
-        "tag": 27,
-        "fields": [
-          27,
-          19,
-          18,
-          27,
-          27
-        ],
-        "record_size": 12,
-        "hex": "1b001b00130012001b001b00",
-        "literal_refs": [
-          "\nCnull",
-          "\nErandom",
-          "\n[appleinternal/lib/sanitizers"
-        ]
-      },
-      {
-        "offset": 12,
-        "tag": 27,
-        "fields": [
-          27,
-          27,
-          27,
-          27,
-          27
-        ],
-        "record_size": 12,
-        "hex": "1b001b001b001b001b001b00",
-        "literal_refs": [
-          "\n[appleinternal/lib/sanitizers"
-        ]
-      },
-      {
-        "offset": 24,
-        "tag": 26,
-        "fields": [
-          26,
-          26,
-          26,
-          26,
-          26
-        ],
-        "record_size": 12,
-        "hex": "1a001a001a001a001a001a00",
-        "literal_refs": [
-          "\n`share/posix_spawn_filtering_rules"
-        ]
-      },
-      {
-        "offset": 36,
-        "tag": 26,
-        "fields": [
-          26,
-          26,
-          27,
-          27,
-          27
-        ],
-        "record_size": 12,
-        "hex": "1a001a001a001b001b001b00",
-        "literal_refs": [
-          "\n[appleinternal/lib/sanitizers",
-          "\n`share/posix_spawn_filtering_rules"
-        ]
-      },
-      {
-        "offset": 48,
-        "tag": 27,
-        "fields": [
-          26,
-          27,
-          27,
-          27,
-          27
-        ],
-        "record_size": 12,
-        "hex": "1b001a001b001b001b001b00",
-        "literal_refs": [
-          "\n[appleinternal/lib/sanitizers",
-          "\n`share/posix_spawn_filtering_rules"
-        ]
-      },
-      {
-        "offset": 60,
-        "tag": 27,
-        "fields": [
-          26,
-          27,
-          27,
-          27,
-          26
-        ],
-        "record_size": 12,
-        "hex": "1b001a001b001b001b001a00",
-        "literal_refs": [
-          "\n[appleinternal/lib/sanitizers",
-          "\n`share/posix_spawn_filtering_rules"
-        ]
-      },
-      {
-        "offset": 72,
-        "tag": 27,
-        "fields": [
-          27,
-          27,
-          27,
-          27,
-          27
-        ],
-        "record_size": 12,
-        "hex": "1b001b001b001b001b001b00",
-        "literal_refs": [
-          "\n[appleinternal/lib/sanitizers"
-        ]
-      },
-      {
-        "offset": 84,
-        "tag": 27,
-        "fields": [
-          27,
-          27,
-          27,
-          17,
-          16
-        ],
-        "record_size": 12,
-        "hex": "1b001b001b001b0011001000",
-        "literal_refs": [
-          "\nCdev/",
-          "\n[appleinternal/lib/sanitizers",
-          "Czero"
-        ]
-      },
-      {
-        "offset": 96,
-        "tag": 17,
-        "fields": [
-          17,
-          17,
-          17,
-          27,
-          27
-        ],
-        "record_size": 12,
-        "hex": "11001100110011001b001b00",
-        "literal_refs": [
-          "\n[appleinternal/lib/sanitizers",
-          "Czero"
-        ]
-      },
-      {
-        "offset": 108,
-        "tag": 27,
-        "fields": [
-          27,
-          27,
-          27,
-          27,
-          26
-        ],
-        "record_size": 12,
-        "hex": "1b001b001b001b001b001a00",
-        "literal_refs": [
-          "\n[appleinternal/lib/sanitizers",
-          "\n`share/posix_spawn_filtering_rules"
-        ]
-      },
-      {
-        "offset": 120,
-        "tag": 26,
-        "fields": [
-          26,
-          27,
-          27,
-          27,
-          27
-        ],
-        "record_size": 12,
-        "hex": "1a001a001b001b001b001b00",
-        "literal_refs": [
-          "\n[appleinternal/lib/sanitizers",
-          "\n`share/posix_spawn_filtering_rules"
-        ]
-      },
-      {
-        "offset": 132,
-        "tag": 26,
-        "fields": [
-          9,
-          27,
-          27,
-          27,
-          8
-        ],
-        "record_size": 12,
-        "hex": "1a0009001b001b001b000800",
-        "literal_refs": [
-          "\nGprivate/",
-          "\nWfilesystems/netfsplugins",
-          "\n[appleinternal/lib/sanitizers",
-          "\n`share/posix_spawn_filtering_rules"
-        ]
-      },
-      {
-        "offset": 144,
-        "tag": 27,
-        "fields": [
-          7,
-          6,
-          5,
-          26,
-          26
-        ],
-        "record_size": 12,
-        "hex": "1b000700060005001a001a00",
-        "literal_refs": [
-          "\nGlibrary/",
-          "\nRpreferences/logging",
-          "\n[appleinternal/lib/sanitizers",
-          "\n[wq_limit_cooperative_threads",
-          "\n`share/posix_spawn_filtering_rules",
-          "Dapple"
-        ]
-      },
-      {
-        "offset": 156,
-        "tag": 26,
-        "fields": [
-          26,
-          27,
-          27,
-          27,
-          3
-        ],
-        "record_size": 12,
-        "hex": "1a001a001b001b001b000300",
-        "literal_refs": [
-          "\n[appleinternal/lib/sanitizers",
-          "\n`share/posix_spawn_filtering_rules",
-          "Blib"
-        ]
-      },
-      {
-        "offset": 168,
-        "tag": 26,
-        "fields": [
-          26,
-          26,
-          26,
-          27,
-          27
-        ],
-        "record_size": 12,
-        "hex": "1a001a001a001a001b001b00",
-        "literal_refs": [
-          "\n[appleinternal/lib/sanitizers",
-          "\n`share/posix_spawn_filtering_rules"
-        ]
-      },
-      {
-        "offset": 180,
-        "tag": 26,
-        "fields": [
-          27,
-          27,
-          27,
-          26,
-          26
-        ],
-        "record_size": 12,
-        "hex": "1a001b001b001b001a001a00",
-        "literal_refs": [
-          "\n[appleinternal/lib/sanitizers",
-          "\n`share/posix_spawn_filtering_rules"
-        ]
-      },
-      {
-        "offset": 192,
-        "tag": 26,
-        "fields": [
-          26,
-          26,
-          26,
-          26,
-          26
-        ],
-        "record_size": 12,
-        "hex": "1a001a001a001a001a001a00",
-        "literal_refs": [
-          "\n`share/posix_spawn_filtering_rules"
-        ]
-      },
-      {
-        "offset": 204,
-        "tag": 26,
-        "fields": [
-          26,
-          27,
-          27,
-          27,
-          27
-        ],
-        "record_size": 12,
-        "hex": "1a001a001b001b001b001b00",
-        "literal_refs": [
-          "\n[appleinternal/lib/sanitizers",
-          "\n`share/posix_spawn_filtering_rules"
-        ]
-      },
-      {
-        "offset": 216,
-        "tag": 27,
-        "fields": [
-          27,
-          27,
-          27,
-          27,
-          27
-        ],
-        "record_size": 12,
-        "hex": "1b001b001b001b001b001b00",
-        "literal_refs": [
-          "\n[appleinternal/lib/sanitizers"
-        ]
-      },
-      {
-        "offset": 228,
-        "tag": 27,
-        "fields": [
-          27,
-          5,
-          26,
-          27,
-          26
-        ],
-        "record_size": 12,
-        "hex": "1b001b0005001a001b001a00",
-        "literal_refs": [
-          "\nGlibrary/",
-          "\n[appleinternal/lib/sanitizers",
-          "\n`share/posix_spawn_filtering_rules"
-        ]
-      },
-      {
-        "offset": 240,
-        "tag": 26,
-        "fields": [
-          27,
-          26,
-          26,
-          26,
-          2
-        ],
-        "record_size": 12,
-        "hex": "1a001b001a001a001a000200",
-        "literal_refs": [
-          "\nCusr/",
-          "\n[appleinternal/lib/sanitizers",
-          "\n`share/posix_spawn_filtering_rules"
-        ]
-      },
-      {
-        "offset": 252,
-        "tag": 26,
-        "fields": [
-          2,
-          27,
-          27,
-          27,
-          1
-        ],
-        "record_size": 12,
-        "hex": "1a0002001b001b001b000100",
-        "literal_refs": [
-          "\nCusr/",
-          "\n[appleinternal/lib/sanitizers",
-          "\n`share/posix_spawn_filtering_rules",
-          "Esystem"
-        ]
-      },
-      {
-        "offset": 264,
-        "tag": 27,
-        "fields": [
-          26,
-          0,
-          27,
-          27,
-          27
-        ],
-        "record_size": 12,
-        "hex": "1b001a0000001b001b001b00",
-        "literal_refs": [
-          "\n[appleinternal/lib/sanitizers",
-          "\n`share/posix_spawn_filtering_rules",
-          "P/dev/dtracehelper"
-        ]
-      },
-      {
-        "offset": 276,
-        "tag": 27,
-        "fields": [
-          27,
-          27,
-          27,
-          27,
-          26
-        ],
-        "record_size": 12,
-        "hex": "1b001b001b001b001b001a00",
-        "literal_refs": [
-          "\n[appleinternal/lib/sanitizers",
-          "\n`share/posix_spawn_filtering_rules"
-        ]
-      },
-      {
-        "offset": 288,
-        "tag": 26,
-        "fields": [
-          26,
-          27,
-          27,
-          26,
-          27
-        ],
-        "record_size": 12,
-        "hex": "1a001a001b001b001a001b00",
-        "literal_refs": [
-          "\n[appleinternal/lib/sanitizers",
-          "\n`share/posix_spawn_filtering_rules"
-        ]
-      },
-      {
-        "offset": 300,
-        "tag": 27,
-        "fields": [
-          27,
-          27,
-          27,
-          27,
-          27
-        ],
-        "record_size": 12,
-        "hex": "1b001b001b001b001b001b00",
-        "literal_refs": [
-          "\n[appleinternal/lib/sanitizers"
-        ]
-      },
-      {
-        "offset": 312,
-        "tag": 27,
-        "fields": [
-          27,
-          27,
-          27,
-          26,
-          0
-        ],
-        "record_size": 12,
-        "hex": "1b001b001b001b001a000000",
-        "literal_refs": [
-          "\n[appleinternal/lib/sanitizers",
-          "\n`share/posix_spawn_filtering_rules",
-          "P/dev/dtracehelper"
-        ]
-      },
-      {
-        "offset": 324,
-        "tag": 0,
-        "fields": [
-          0,
-          3840,
-          16660,
-          26,
-          27
-        ],
-        "record_size": 12,
-        "hex": "00000000000f14411a001b00",
-        "literal_refs": [
-          "\n[appleinternal/lib/sanitizers",
-          "\n`share/posix_spawn_filtering_rules",
-          "P/dev/dtracehelper"
-        ]
-      },
-      {
-        "offset": 336,
-        "tag": 0,
-        "fields": [
-          4,
-          26,
-          27,
-          9728,
-          182
-        ],
-        "record_size": 12,
-        "hex": "002b04001a001b000026b600",
-        "literal_refs": [
-          "\nDshare",
-          "\n[appleinternal/lib/sanitizers",
-          "\n`share/posix_spawn_filtering_rules",
-          "P/dev/dtracehelper"
-        ]
-      },
-      {
-        "offset": 348,
-        "tag": 26,
-        "fields": [
-          27,
-          2560,
-          174,
-          26,
-          4
-        ],
-        "record_size": 12,
-        "hex": "1a001b00000aae001a000400",
-        "literal_refs": [
-          "\nDshare",
-          "\n[appleinternal/lib/sanitizers",
-          "\n`share/posix_spawn_filtering_rules",
-          "Icom.apple.",
-          "P/dev/dtracehelper"
-        ]
-      },
-      {
-        "offset": 360,
-        "tag": 0,
-        "fields": [
-          178,
-          26,
-          27,
-          3584,
-          1
-        ],
-        "record_size": 12,
-        "hex": "0001b2001a001b00000e0100",
-        "literal_refs": [
-          "\nLmaster.passwd",
-          "\n[appleinternal/lib/sanitizers",
-          "\n`share/posix_spawn_filtering_rules",
-          "Esystem",
-          "P/dev/dtracehelper"
-        ]
-      },
-      {
-        "offset": 372,
-        "tag": 26,
-        "fields": [
-          27,
-          3584,
-          1,
-          26,
-          27
-        ],
-        "record_size": 12,
-        "hex": "1a001b00000e01001a001b00",
-        "literal_refs": [
-          "\nLmaster.passwd",
-          "\n[appleinternal/lib/sanitizers",
-          "\n`share/posix_spawn_filtering_rules",
-          "Esystem",
-          "P/dev/dtracehelper"
-        ]
-      },
-      {
-        "offset": 384,
-        "tag": 0,
-        "fields": [
-          1,
-          26,
-          27,
-          1792,
-          115
-        ],
-        "record_size": 12,
-        "hex": "000e01001a001b0000077300",
-        "literal_refs": [
-          "\nLmaster.passwd",
-          "\n[appleinternal/lib/sanitizers",
-          "\n`share/posix_spawn_filtering_rules",
-          "Esystem",
-          "P/dev/dtracehelper"
-        ]
-      },
-      {
-        "offset": 396,
-        "tag": 26,
-        "fields": [
-          27,
-          1536,
-          109,
-          14,
-          10
-        ],
-        "record_size": 12,
-        "hex": "1a001b0000066d000e000a00",
-        "literal_refs": [
-          "\n[appleinternal/lib/sanitizers",
-          "\n[wq_limit_cooperative_threads",
-          "\n`share/posix_spawn_filtering_rules",
-          "Dasswd",
-          "Nvar/db/timezone",
-          "P/dev/dtracehelper"
-        ]
-      },
-      {
-        "offset": 408,
-        "tag": 0,
-        "fields": [
-          116,
-          13,
-          11,
-          1536,
-          121
-        ],
-        "record_size": 12,
-        "hex": "000674000d000b0000067900",
-        "literal_refs": [
-          "\nCetc/",
-          "\nLmaster.passwd",
-          "\n[wq_limit_cooperative_threads",
-          "P/dev/dtracehelper"
-        ]
-      },
-      {
-        "offset": 420,
-        "tag": 26,
-        "fields": [
-          12,
-          1792,
-          170,
-          26,
-          15
-        ],
-        "record_size": 12,
-        "hex": "1a000c000007aa001a000f00",
-        "literal_refs": [
-          "\nGrotocols",
-          "\n`share/posix_spawn_filtering_rules",
-          "Gservices",
-          "P/dev/dtracehelper"
-        ]
-      },
-      {
-        "offset": 432,
-        "tag": 0,
-        "fields": [
-          0,
-          26,
-          15,
-          11008,
-          4
-        ],
-        "record_size": 12,
-        "hex": "001a00001a000f00002b0400",
-        "literal_refs": [
-          "\nDshare",
-          "\nGrotocols",
-          "\n`share/posix_spawn_filtering_rules",
-          "P/dev/dtracehelper"
-        ]
-      },
-      {
-        "offset": 444,
-        "tag": 26,
-        "fields": [
-          15,
-          12800,
-          115,
-          26,
-          27
-        ],
-        "record_size": 12,
-        "hex": "1a000f00003273001a001b00",
-        "literal_refs": [
-          "\nGrotocols",
-          "\n[appleinternal/lib/sanitizers",
-          "\n`share/posix_spawn_filtering_rules",
-          "P/dev/dtracehelper"
-        ]
-      },
-      {
-        "offset": 456,
-        "tag": 0,
-        "fields": [
-          102,
-          26,
-          27,
-          1280,
-          97
-        ],
-        "record_size": 12,
-        "hex": "000566001a001b0000056100",
-        "literal_refs": [
-          "\n[appleinternal/lib/sanitizers",
-          "\n`share/posix_spawn_filtering_rules",
-          "P/dev/dtracehelper"
-        ]
-      },
-      {
-        "offset": 468,
-        "tag": 26,
-        "fields": [
-          27,
-          256,
-          80,
-          26,
-          27
-        ],
-        "record_size": 12,
-        "hex": "1a001b00000150001a001b00",
-        "literal_refs": [
-          "\n[appleinternal/lib/sanitizers",
-          "\n[wq_limit_cooperative_threads",
-          "\n`share/posix_spawn_filtering_rules",
-          "P/dev/dtracehelper"
-        ]
-      },
-      {
-        "offset": 480,
-        "tag": 0,
-        "fields": [
-          1,
-          20,
-          27,
-          256,
-          78
-        ],
-        "record_size": 12,
-        "hex": "001d010014001b0000014e00",
-        "literal_refs": [
-          "\nFurandom",
-          "\n[appleinternal/lib/sanitizers",
-          "Dkern.",
-          "Esystem",
-          "P/dev/dtracehelper"
-        ]
-      }
-    ],
     "literal_strings": [
       "P/dev/dtracehelper",
       "Esystem",
@@ -1863,364 +2174,555 @@
     ],
     "literal_strings_with_offsets": [
       [
-        56,
+        0,
         "P/dev/dtracehelper"
       ],
       [
-        83,
+        27,
         "Esystem"
       ],
       [
-        100,
+        44,
         "\nCusr/"
       ],
       [
-        107,
+        51,
         "Blib"
       ],
       [
-        118,
+        62,
         "\nDshare"
       ],
       [
-        132,
+        76,
         "\nGlibrary/"
       ],
       [
-        143,
+        87,
         "Dapple"
       ],
       [
-        156,
+        100,
         "\nRpreferences/logging"
       ],
       [
-        184,
+        128,
         "\nWfilesystems/netfsplugins"
       ],
       [
-        217,
+        161,
         "\nGprivate/"
       ],
       [
-        228,
+        172,
         "Nvar/db/timezone"
       ],
       [
-        251,
+        195,
         "\nCetc/"
       ],
       [
-        258,
+        202,
         "Gservices"
       ],
       [
-        270,
+        214,
         "\nLmaster.passwd"
       ],
       [
-        292,
+        236,
         "Dasswd"
       ],
       [
-        301,
+        245,
         "\nGrotocols"
       ],
       [
-        314,
+        258,
         "\nCdev/"
       ],
       [
-        321,
+        265,
         "Czero"
       ],
       [
-        329,
+        273,
         "\nCnull"
       ],
       [
-        338,
+        282,
         "\nErandom"
       ],
       [
-        349,
+        293,
         "\nFurandom"
       ],
       [
-        361,
+        305,
         "\nKdtracehelper"
       ],
       [
-        378,
+        322,
         "\nLautofs_nowait"
       ],
       [
-        403,
+        347,
         "Cusr/"
       ],
       [
-        409,
+        353,
         "Elocal/"
       ],
       [
-        417,
+        361,
         "Flib/log"
       ],
       [
-        432,
+        376,
         "\n`share/posix_spawn_filtering_rules"
       ],
       [
-        470,
+        414,
         "\n[appleinternal/lib/sanitizers"
       ],
       [
-        507,
+        451,
         "\nUappleinternal/library/"
       ],
       [
-        532,
+        476,
         "Iframeworks"
       ],
       [
-        550,
+        494,
         "\nRpreferences/logging"
       ],
       [
-        585,
+        529,
         "J/usr/share/"
       ],
       [
-        598,
+        542,
         "Cnls/"
       ],
       [
-        604,
+        548,
         "\nbzoneinfo /var/db/timezone/zoneinfo/"
       ],
       [
-        647,
+        591,
         "R.cfusertextencoding"
       ],
       [
-        680,
+        624,
         "F/cores/"
       ],
       [
-        700,
+        644,
         "Iusr/share/"
       ],
       [
-        712,
+        656,
         "Cnls/"
       ],
       [
-        718,
+        662,
         "\nbzoneinfo /var/db/timezone/zoneinfo/"
       ],
       [
-        756,
+        700,
         "\nCdev/"
       ],
       [
-        763,
+        707,
         "Czero"
       ],
       [
-        771,
+        715,
         "\nCnull"
       ],
       [
-        780,
+        724,
         "\nKdtracehelper"
       ],
       [
-        802,
+        746,
         "R.cfusertextencoding"
       ],
       [
-        832,
+        776,
         "\\apple.shm.notification_center"
       ],
       [
-        872,
+        816,
         "Eapple."
       ],
       [
-        880,
+        824,
         "Gcfprefs."
       ],
       [
-        890,
+        834,
         "\nVshm.notification_center"
       ],
       [
-        928,
+        872,
         "fcom.apple.osanalytics.osanalyticshelper"
       ],
       [
-        984,
+        928,
         "\\com.apple.internal.objc_trace"
       ],
       [
-        1024,
+        968,
         "Icom.apple."
       ],
       [
-        1036,
+        980,
         "Clogd"
       ],
       [
-        1044,
+        988,
         "\nF.events"
       ],
       [
-        1056,
+        1000,
         "\nCespd"
       ],
       [
-        1065,
+        1009,
         "\nKrunningboard"
       ],
       [
-        1082,
+        1026,
         "\nLbsd.dirhelper"
       ],
       [
-        1100,
+        1044,
         "\nEtrustd"
       ],
       [
-        1111,
+        1055,
         "\nE.agent"
       ],
       [
-        1122,
+        1066,
         "\nUxpc.activity.unmanaged"
       ],
       [
-        1149,
+        1093,
         "\nHcfprefsd."
       ],
       [
-        1161,
+        1105,
         "Dagent"
       ],
       [
-        1170,
+        1114,
         "\nEdaemon"
       ],
       [
-        1185,
+        1129,
         "Fppsleep"
       ],
       [
-        1196,
+        1140,
         "\nHnalyticsd"
       ],
       [
-        1210,
+        1154,
         "\nM.messagetracer"
       ],
       [
-        1233,
+        1177,
         "Iiagnosticd"
       ],
       [
-        1247,
+        1191,
         "\nVt.automationmode.reader"
       ],
       [
-        1279,
+        1223,
         "Fecinitd"
       ],
       [
-        1290,
+        1234,
         "\nEystem."
       ],
       [
-        1299,
+        1243,
         "Elogger"
       ],
       [
-        1309,
+        1253,
         "\nRnotification_center"
       ],
       [
-        1333,
+        1277,
         "\nZDirectoryService.libinfo_v1"
       ],
       [
-        1365,
+        1309,
         "\nNopendirectoryd."
       ],
       [
-        1383,
+        1327,
         "Flibinfo"
       ],
       [
-        1394,
+        1338,
         "\nImembership"
       ],
       [
-        1416,
+        1360,
         "Wcom.apple.cfprefsd.agent"
       ],
       [
-        1448,
+        1392,
         "Tcom.apple.flow-divert"
       ],
       [
-        1480,
+        1424,
         "V/private/var/run/syslog"
       ],
       [
-        1512,
+        1456,
         "Dkern."
       ],
       [
-        1519,
+        1463,
         "Lgrade_cputype"
       ],
       [
-        1536,
+        1480,
         "\n[wq_limit_cooperative_threads"
       ]
     ],
+    "node_count": 69,
+    "op_count": 28,
+    "op_table": [
+      27,
+      27,
+      27,
+      27,
+      27,
+      27,
+      26,
+      27,
+      26,
+      27,
+      27,
+      26,
+      25,
+      27,
+      26,
+      26,
+      26,
+      27,
+      27,
+      27,
+      22,
+      21,
+      26,
+      22,
+      27,
+      27,
+      26,
+      27
+    ],
+    "op_table_offset": 16,
     "sections": {
-      "op_table": 56,
-      "nodes": 498,
-      "literal_pool": 1570,
+      "literal_pool": 1514,
+      "literal_start": 626,
+      "nodes": 554,
       "nodes_start": 72,
-      "literal_start": 570
+      "op_table": 56
+    },
+    "source": "book/examples/extract_sbs/build/profiles/bsd.sb.bin",
+    "tag_counts": {
+      "0": 26,
+      "1": 2,
+      "17": 1,
+      "26": 13,
+      "27": 26,
+      "5": 1
     },
     "validation": {
-      "node_remainder_bytes": 6,
-      "edge_fields_in_bounds": 72,
-      "edge_fields_total": 82,
+      "edge_fields_in_bounds": 124,
+      "edge_fields_total": 138,
+      "literal_start": 626,
+      "node_remainder_bytes": 2,
+      "node_stride_bytes": 8,
+      "node_stride_selection": {
+        "metrics": {
+          "12": {
+            "misaligned_targets": 11,
+            "op_table_entries": 28,
+            "stride_bytes": 12
+          },
+          "8": {
+            "misaligned_targets": 0,
+            "op_table_entries": 28,
+            "stride_bytes": 8
+          }
+        },
+        "mode": "auto",
+        "selected": 8
+      },
       "nodes_start": 72,
-      "literal_start": 570,
+      "op_table_scaling_witness": {
+        "notes": "Scores op_table entries as offsets into the node stream under different scale factors; ASCII-heavy scale12 is a strong sign of mis-scaling.",
+        "scale12": {
+          "ascii_pair_count": 0,
+          "in_range": 28,
+          "kind0_count": 28,
+          "plausible_known_kind0_count": 28,
+          "plausible_non_ascii_kind0_count": 28,
+          "scale_bytes": 12,
+          "top_tag_kind_pairs": [
+            {
+              "count": 16,
+              "key": "(0, 0)"
+            },
+            {
+              "count": 11,
+              "key": "(27, 0)"
+            },
+            {
+              "count": 1,
+              "key": "(26, 0)"
+            }
+          ],
+          "total": 28
+        },
+        "scale8": {
+          "ascii_pair_count": 0,
+          "in_range": 28,
+          "kind0_count": 28,
+          "plausible_known_kind0_count": 28,
+          "plausible_non_ascii_kind0_count": 28,
+          "scale_bytes": 8,
+          "top_tag_kind_pairs": [
+            {
+              "count": 26,
+              "key": "(27, 0)"
+            },
+            {
+              "count": 2,
+              "key": "(26, 0)"
+            }
+          ],
+          "total": 28
+        }
+      },
       "tag_validation": {
-        "27": {
-          "edge_in_bounds": 0,
-          "edge_total": 0,
-          "payloads": {},
-          "record_size": 12
+        "0": {
+          "edge_in_bounds": 38,
+          "edge_total": 52,
+          "payloads": {
+            "10": 1,
+            "11": 1,
+            "12": 1,
+            "15": 3,
+            "22": 1,
+            "23": 1,
+            "27": 17,
+            "4": 1
+          },
+          "record_size": 8
+        },
+        "1": {
+          "edge_in_bounds": 4,
+          "edge_total": 4,
+          "payloads": {
+            "0": 2
+          },
+          "record_size": 8
+        },
+        "17": {
+          "edge_in_bounds": 2,
+          "edge_total": 2,
+          "payloads": {
+            "17": 1
+          },
+          "record_size": 8
         },
         "26": {
-          "edge_in_bounds": 0,
-          "edge_total": 0,
-          "payloads": {},
-          "record_size": 12
+          "edge_in_bounds": 26,
+          "edge_total": 26,
+          "payloads": {
+            "0": 1,
+            "2": 1,
+            "26": 7,
+            "27": 4
+          },
+          "record_size": 8
+        },
+        "27": {
+          "edge_in_bounds": 52,
+          "edge_total": 52,
+          "payloads": {
+            "1": 1,
+            "16": 1,
+            "18": 1,
+            "26": 5,
+            "27": 14,
+            "3": 1,
+            "5": 1,
+            "8": 1,
+            "9": 1
+          },
+          "record_size": 8
+        },
+        "5": {
+          "edge_in_bounds": 2,
+          "edge_total": 2,
+          "payloads": {
+            "26": 1
+          },
+          "record_size": 8
         }
       }
     }
   },
   "sample": {
-    "source": "book/examples/sb/build/sample.sb.bin",
     "format_variant": "modern-heuristic",
+    "literal_strings": [
+      "I/etc/hosts",
+      "Busr",
+      "\nBdev",
+      "\nEsystem",
+      "\nJtmp/sb-demo",
+      "K/tmp/sb-demo"
+    ],
+    "literal_strings_with_offsets": [
+      [
+        0,
+        "I/etc/hosts"
+      ],
+      [
+        27,
+        "Busr"
+      ],
+      [
+        38,
+        "\nBdev"
+      ],
+      [
+        50,
+        "\nEsystem"
+      ],
+      [
+        65,
+        "\nJtmp/sb-demo"
+      ],
+      [
+        88,
+        "K/tmp/sb-demo"
+      ]
+    ],
+    "node_count": 55,
     "op_count": 9,
-    "op_table_offset": 16,
     "op_table": [
       8,
       8,
@@ -2232,541 +2734,162 @@
       8,
       7
     ],
-    "node_count": 32,
-    "tag_counts": {
-      "8": 16,
-      "7": 12,
-      "5": 1,
-      "3": 2,
-      "0": 1
-    },
-    "nodes": [
-      {
-        "offset": 0,
-        "tag": 8,
-        "fields": [
-          8,
-          7,
-          8,
-          8,
-          7
-        ],
-        "record_size": 12,
-        "hex": "080008000700080008000700",
-        "literal_refs": []
-      },
-      {
-        "offset": 12,
-        "tag": 7,
-        "fields": [
-          7,
-          8,
-          8,
-          8,
-          5
-        ],
-        "record_size": 12,
-        "hex": "070007000800080008000500",
-        "literal_refs": [
-          "K/tmp/sb-demo"
-        ]
-      },
-      {
-        "offset": 24,
-        "tag": 5,
-        "fields": [
-          5,
-          5,
-          8,
-          8,
-          7
-        ],
-        "record_size": 12,
-        "hex": "050005000500080008000700",
-        "literal_refs": [
-          "K/tmp/sb-demo"
-        ]
-      },
-      {
-        "offset": 36,
-        "tag": 8,
-        "fields": [
-          3,
-          3,
-          3,
-          3,
-          3
-        ],
-        "record_size": 12,
-        "hex": "080003000300030003000300",
-        "literal_refs": [
-          "\nEsystem"
-        ]
-      },
-      {
-        "offset": 48,
-        "tag": 3,
-        "fields": [
-          3,
-          3,
-          8,
-          3,
-          3
-        ],
-        "record_size": 12,
-        "hex": "030003000300080003000300",
-        "literal_refs": [
-          "\nEsystem"
-        ]
-      },
-      {
-        "offset": 60,
-        "tag": 3,
-        "fields": [
-          7,
-          7,
-          7,
-          7,
-          7
-        ],
-        "record_size": 12,
-        "hex": "030007000700070007000700",
-        "literal_refs": [
-          "\nEsystem"
-        ]
-      },
-      {
-        "offset": 72,
-        "tag": 7,
-        "fields": [
-          7,
-          7,
-          7,
-          8,
-          8
-        ],
-        "record_size": 12,
-        "hex": "070007000700070008000800",
-        "literal_refs": []
-      },
-      {
-        "offset": 84,
-        "tag": 8,
-        "fields": [
-          8,
-          7,
-          8,
-          8,
-          8
-        ],
-        "record_size": 12,
-        "hex": "080008000700080008000800",
-        "literal_refs": []
-      },
-      {
-        "offset": 96,
-        "tag": 8,
-        "fields": [
-          8,
-          7,
-          8,
-          8,
-          8
-        ],
-        "record_size": 12,
-        "hex": "080008000700080008000800",
-        "literal_refs": []
-      },
-      {
-        "offset": 108,
-        "tag": 7,
-        "fields": [
-          8,
-          8,
-          8,
-          8,
-          8
-        ],
-        "record_size": 12,
-        "hex": "070008000800080008000800",
-        "literal_refs": []
-      },
-      {
-        "offset": 120,
-        "tag": 8,
-        "fields": [
-          8,
-          8,
-          8,
-          8,
-          8
-        ],
-        "record_size": 12,
-        "hex": "080008000800080008000800",
-        "literal_refs": []
-      },
-      {
-        "offset": 132,
-        "tag": 8,
-        "fields": [
-          8,
-          8,
-          8,
-          8,
-          8
-        ],
-        "record_size": 12,
-        "hex": "080008000800080008000800",
-        "literal_refs": []
-      },
-      {
-        "offset": 144,
-        "tag": 8,
-        "fields": [
-          8,
-          8,
-          8,
-          8,
-          8
-        ],
-        "record_size": 12,
-        "hex": "080008000800080008000800",
-        "literal_refs": []
-      },
-      {
-        "offset": 156,
-        "tag": 7,
-        "fields": [
-          7,
-          7,
-          8,
-          8,
-          8
-        ],
-        "record_size": 12,
-        "hex": "070007000700080008000800",
-        "literal_refs": []
-      },
-      {
-        "offset": 168,
-        "tag": 8,
-        "fields": [
-          7,
-          8,
-          8,
-          8,
-          8
-        ],
-        "record_size": 12,
-        "hex": "080007000800080008000800",
-        "literal_refs": []
-      },
-      {
-        "offset": 180,
-        "tag": 8,
-        "fields": [
-          8,
-          2,
-          1,
-          0,
-          7
-        ],
-        "record_size": 12,
-        "hex": "080008000200010000000700",
-        "literal_refs": [
-          "\nBdev",
-          "Busr",
-          "I/etc/hosts"
-        ]
-      },
-      {
-        "offset": 192,
-        "tag": 7,
-        "fields": [
-          7,
-          7,
-          8,
-          8,
-          8
-        ],
-        "record_size": 12,
-        "hex": "070007000700080008000800",
-        "literal_refs": []
-      },
-      {
-        "offset": 204,
-        "tag": 8,
-        "fields": [
-          7,
-          7,
-          7,
-          7,
-          8
-        ],
-        "record_size": 12,
-        "hex": "080007000700070007000800",
-        "literal_refs": []
-      },
-      {
-        "offset": 216,
-        "tag": 7,
-        "fields": [
-          7,
-          7,
-          7,
-          7,
-          7
-        ],
-        "record_size": 12,
-        "hex": "070007000700070007000700",
-        "literal_refs": []
-      },
-      {
-        "offset": 228,
-        "tag": 7,
-        "fields": [
-          7,
-          7,
-          7,
-          7,
-          7
-        ],
-        "record_size": 12,
-        "hex": "070007000700070007000700",
-        "literal_refs": []
-      },
-      {
-        "offset": 240,
-        "tag": 7,
-        "fields": [
-          7,
-          7,
-          7,
-          7,
-          7
-        ],
-        "record_size": 12,
-        "hex": "070007000700070007000700",
-        "literal_refs": []
-      },
-      {
-        "offset": 252,
-        "tag": 7,
-        "fields": [
-          7,
-          7,
-          7,
-          7,
-          7
-        ],
-        "record_size": 12,
-        "hex": "070007000700070007000700",
-        "literal_refs": []
-      },
-      {
-        "offset": 264,
-        "tag": 7,
-        "fields": [
-          7,
-          8,
-          0,
-          7,
-          8
-        ],
-        "record_size": 12,
-        "hex": "070007000800000007000800",
-        "literal_refs": [
-          "I/etc/hosts"
-        ]
-      },
-      {
-        "offset": 276,
-        "tag": 7,
-        "fields": [
-          7,
-          8,
-          7,
-          7,
-          7
-        ],
-        "record_size": 12,
-        "hex": "070007000800070007000700",
-        "literal_refs": []
-      },
-      {
-        "offset": 288,
-        "tag": 8,
-        "fields": [
-          8,
-          8,
-          8,
-          8,
-          8
-        ],
-        "record_size": 12,
-        "hex": "080008000800080008000800",
-        "literal_refs": []
-      },
-      {
-        "offset": 300,
-        "tag": 8,
-        "fields": [
-          8,
-          7,
-          8,
-          8,
-          8
-        ],
-        "record_size": 12,
-        "hex": "080008000700080008000800",
-        "literal_refs": []
-      },
-      {
-        "offset": 312,
-        "tag": 8,
-        "fields": [
-          8,
-          8,
-          8,
-          8,
-          8
-        ],
-        "record_size": 12,
-        "hex": "080008000800080008000800",
-        "literal_refs": []
-      },
-      {
-        "offset": 324,
-        "tag": 7,
-        "fields": [
-          7,
-          7,
-          8,
-          8,
-          7
-        ],
-        "record_size": 12,
-        "hex": "070007000700080008000700",
-        "literal_refs": []
-      },
-      {
-        "offset": 336,
-        "tag": 8,
-        "fields": [
-          8,
-          8,
-          8,
-          8,
-          8
-        ],
-        "record_size": 12,
-        "hex": "080008000800080008000800",
-        "literal_refs": []
-      },
-      {
-        "offset": 348,
-        "tag": 8,
-        "fields": [
-          8,
-          8,
-          8,
-          8,
-          7
-        ],
-        "record_size": 12,
-        "hex": "080008000800080008000700",
-        "literal_refs": []
-      },
-      {
-        "offset": 360,
-        "tag": 0,
-        "fields": [
-          0,
-          0,
-          3584,
-          1,
-          7
-        ],
-        "record_size": 12,
-        "hex": "000000000000000e01000700",
-        "literal_refs": [
-          "Busr",
-          "I/etc/hosts"
-        ]
-      },
-      {
-        "offset": 372,
-        "tag": 8,
-        "fields": [
-          3584,
-          1,
-          7,
-          8,
-          3584
-        ],
-        "record_size": 12,
-        "hex": "0800000e010007000800000e",
-        "literal_refs": [
-          "Busr",
-          "I/etc/hosts"
-        ]
-      }
-    ],
-    "literal_strings": [
-      "I/etc/hosts",
-      "Busr",
-      "\nBdev",
-      "\nEsystem",
-      "\nJtmp/sb-demo",
-      "K/tmp/sb-demo"
-    ],
-    "literal_strings_with_offsets": [
-      [
-        53,
-        "I/etc/hosts"
-      ],
-      [
-        80,
-        "Busr"
-      ],
-      [
-        91,
-        "\nBdev"
-      ],
-      [
-        103,
-        "\nEsystem"
-      ],
-      [
-        118,
-        "\nJtmp/sb-demo"
-      ],
-      [
-        141,
-        "K/tmp/sb-demo"
-      ]
-    ],
+    "op_table_offset": 16,
     "sections": {
-      "op_table": 18,
-      "nodes": 387,
-      "literal_pool": 162,
+      "literal_pool": 109,
+      "literal_start": 474,
+      "nodes": 440,
       "nodes_start": 34,
-      "literal_start": 421
+      "op_table": 18
+    },
+    "source": "book/examples/sb/build/sample.sb.bin",
+    "tag_counts": {
+      "0": 4,
+      "1": 3,
+      "11": 1,
+      "2": 1,
+      "3": 4,
+      "5": 2,
+      "7": 16,
+      "8": 24
     },
     "validation": {
-      "node_remainder_bytes": 3,
-      "edge_fields_in_bounds": 63,
-      "edge_fields_total": 64,
+      "edge_fields_in_bounds": 110,
+      "edge_fields_total": 110,
+      "literal_start": 474,
+      "node_remainder_bytes": 0,
+      "node_stride_bytes": 8,
+      "node_stride_selection": {
+        "metrics": {
+          "12": {
+            "misaligned_targets": 9,
+            "op_table_entries": 9,
+            "stride_bytes": 12
+          },
+          "8": {
+            "misaligned_targets": 0,
+            "op_table_entries": 9,
+            "stride_bytes": 8
+          }
+        },
+        "mode": "auto",
+        "selected": 8
+      },
       "nodes_start": 34,
-      "literal_start": 421,
+      "op_table_scaling_witness": {
+        "notes": "Scores op_table entries as offsets into the node stream under different scale factors; ASCII-heavy scale12 is a strong sign of mis-scaling.",
+        "scale12": {
+          "ascii_pair_count": 0,
+          "in_range": 9,
+          "kind0_count": 9,
+          "plausible_known_kind0_count": 9,
+          "plausible_non_ascii_kind0_count": 9,
+          "scale_bytes": 12,
+          "top_tag_kind_pairs": [
+            {
+              "count": 9,
+              "key": "(8, 0)"
+            }
+          ],
+          "total": 9
+        },
+        "scale8": {
+          "ascii_pair_count": 0,
+          "in_range": 9,
+          "kind0_count": 9,
+          "plausible_known_kind0_count": 9,
+          "plausible_non_ascii_kind0_count": 9,
+          "scale_bytes": 8,
+          "top_tag_kind_pairs": [
+            {
+              "count": 7,
+              "key": "(7, 0)"
+            },
+            {
+              "count": 2,
+              "key": "(3, 0)"
+            }
+          ],
+          "total": 9
+        }
+      },
       "tag_validation": {
-        "5": {
+        "0": {
+          "edge_in_bounds": 8,
+          "edge_total": 8,
+          "payloads": {
+            "1281": 1,
+            "15": 1,
+            "256": 1,
+            "3584": 1
+          },
+          "record_size": 8
+        },
+        "1": {
+          "edge_in_bounds": 6,
+          "edge_total": 6,
+          "payloads": {
+            "3584": 2,
+            "7424": 1
+          },
+          "record_size": 8
+        },
+        "11": {
           "edge_in_bounds": 2,
           "edge_total": 2,
           "payloads": {
+            "256": 1
+          },
+          "record_size": 8
+        },
+        "2": {
+          "edge_in_bounds": 2,
+          "edge_total": 2,
+          "payloads": {
+            "7": 1
+          },
+          "record_size": 8
+        },
+        "3": {
+          "edge_in_bounds": 8,
+          "edge_total": 8,
+          "payloads": {
+            "1": 1,
+            "3": 1,
+            "7": 1,
             "8": 1
           },
-          "record_size": 12
+          "record_size": 8
+        },
+        "5": {
+          "edge_in_bounds": 4,
+          "edge_total": 4,
+          "payloads": {
+            "256": 1,
+            "8": 1
+          },
+          "record_size": 8
+        },
+        "7": {
+          "edge_in_bounds": 32,
+          "edge_total": 32,
+          "payloads": {
+            "0": 1,
+            "7": 10,
+            "8": 5
+          },
+          "record_size": 8
+        },
+        "8": {
+          "edge_in_bounds": 48,
+          "edge_total": 48,
+          "payloads": {
+            "3": 1,
+            "5": 1,
+            "7": 6,
+            "8": 16
+          },
+          "record_size": 8
         }
       }
     }

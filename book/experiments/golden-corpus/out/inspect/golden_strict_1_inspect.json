@@ -23,64 +23,68 @@
   ],
   "section_lengths": {
     "op_table": 14,
-    "nodes": 383,
-    "literals": 100
+    "nodes": 428,
+    "literals": 55
   },
   "stride_stats": [
     {
       "stride": 8,
-      "records": 47,
-      "remainder": 7,
+      "records": 53,
+      "remainder": 4,
       "tags": [
         0,
         3,
+        4,
         5,
         6
       ],
-      "edges_in_bounds": 93,
-      "edges_total": 94
+      "edges_in_bounds": 100,
+      "edges_total": 106
     },
     {
       "stride": 12,
-      "records": 31,
-      "remainder": 11,
+      "records": 35,
+      "remainder": 8,
       "tags": [
         0,
+        1,
         3,
         5,
         6
       ],
-      "edges_in_bounds": 62,
-      "edges_total": 62
+      "edges_in_bounds": 69,
+      "edges_total": 70
     },
     {
       "stride": 16,
-      "records": 23,
-      "remainder": 15,
+      "records": 26,
+      "remainder": 12,
       "tags": [
         0,
         3,
+        4,
         5,
         6
       ],
-      "edges_in_bounds": 46,
-      "edges_total": 46
+      "edges_in_bounds": 49,
+      "edges_total": 52
     }
   ],
   "tag_counts_stride12": {
-    "6": 23,
+    "6": 25,
     "3": 2,
     "5": 5,
-    "0": 1
+    "0": 2,
+    "1": 1
   },
-  "remainder_stride12_hex": "010005000600000e010005",
+  "remainder_stride12_hex": "0000000000000f00",
   "literal_strings": [
     {
-      "offset": 45,
+      "offset": 0,
       "string": "I/etc/hosts"
     },
     {
-      "offset": 69,
+      "offset": 24,
       "string": "U/private/tmp/strict_ok"
     }
   ],
@@ -88,12 +92,13 @@
     "format_variant": "modern-heuristic",
     "op_count": 7,
     "op_table_offset": 16,
-    "node_count": 31,
+    "node_count": 53,
     "tag_counts": {
-      "6": 23,
-      "3": 2,
-      "5": 5,
-      "0": 1
+      "6": 30,
+      "5": 15,
+      "3": 4,
+      "0": 3,
+      "4": 1
     },
     "literal_strings": [
       "I/etc/hosts",
@@ -101,10 +106,10 @@
     ],
     "sections": {
       "op_table": 14,
-      "nodes": 381,
-      "literal_pool": 102,
+      "nodes": 428,
+      "literal_pool": 55,
       "nodes_start": 30,
-      "literal_start": 411
+      "literal_start": 458
     }
   },
   "nodes_raw": [
@@ -509,6 +514,58 @@
         0,
         0,
         3584
+      ]
+    },
+    {
+      "offset": 372,
+      "tag": 1,
+      "bytes": "010005000600000e01000500",
+      "halfwords": [
+        1,
+        5,
+        6,
+        3584,
+        1,
+        5
+      ]
+    },
+    {
+      "offset": 384,
+      "tag": 6,
+      "bytes": "0600000e0100050006000001",
+      "halfwords": [
+        6,
+        3584,
+        1,
+        5,
+        6,
+        256
+      ]
+    },
+    {
+      "offset": 396,
+      "tag": 0,
+      "bytes": "000006000400000103000500",
+      "halfwords": [
+        0,
+        6,
+        4,
+        256,
+        3,
+        5
+      ]
+    },
+    {
+      "offset": 408,
+      "tag": 6,
+      "bytes": "060001000000000000000105",
+      "halfwords": [
+        6,
+        1,
+        0,
+        0,
+        0,
+        1281
       ]
     }
   ]

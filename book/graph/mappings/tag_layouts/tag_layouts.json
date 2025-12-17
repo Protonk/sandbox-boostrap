@@ -1,27 +1,9 @@
 {
-  "notes": "Best-effort tag layouts derived from literal-bearing nodes in canonical profiles (airlock, bsd, sample). Edges assumed in fields[0..1]; payloads carry literal/regex operands in field[2].",
+  "notes": "Canonical tag layouts for this world baseline: nodes are parsed as fixed-size records, with two edge fields (u16[0..1]) and a payload slot (u16[2]) used as the project\u2019s `field2` surface.",
   "tags": [
     {
-      "tag": 2,
-      "record_size_bytes": 12,
-      "edge_fields": [
-        0,
-        1
-      ],
-      "payload_fields": []
-    },
-    {
-      "tag": 3,
-      "record_size_bytes": 12,
-      "edge_fields": [
-        0,
-        1
-      ],
-      "payload_fields": []
-    },
-    {
       "tag": 0,
-      "record_size_bytes": 12,
+      "record_size_bytes": 8,
       "edge_fields": [
         0,
         1
@@ -32,7 +14,18 @@
     },
     {
       "tag": 1,
-      "record_size_bytes": 12,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 2,
+      "record_size_bytes": 8,
       "edge_fields": [
         0,
         1
@@ -43,7 +36,18 @@
     },
     {
       "tag": 3,
-      "record_size_bytes": 12,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 4,
+      "record_size_bytes": 8,
       "edge_fields": [
         0,
         1
@@ -54,7 +58,18 @@
     },
     {
       "tag": 5,
-      "record_size_bytes": 12,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 6,
+      "record_size_bytes": 8,
       "edge_fields": [
         0,
         1
@@ -65,7 +80,7 @@
     },
     {
       "tag": 7,
-      "record_size_bytes": 12,
+      "record_size_bytes": 8,
       "edge_fields": [
         0,
         1
@@ -76,7 +91,7 @@
     },
     {
       "tag": 8,
-      "record_size_bytes": 12,
+      "record_size_bytes": 8,
       "edge_fields": [
         0,
         1
@@ -87,7 +102,62 @@
     },
     {
       "tag": 10,
-      "record_size_bytes": 12,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 11,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 12,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 13,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 14,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 15,
+      "record_size_bytes": 8,
       "edge_fields": [
         0,
         1
@@ -98,7 +168,95 @@
     },
     {
       "tag": 17,
-      "record_size_bytes": 12,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 18,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 19,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 20,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 21,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 22,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 23,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 24,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 25,
+      "record_size_bytes": 8,
       "edge_fields": [
         0,
         1
@@ -109,7 +267,7 @@
     },
     {
       "tag": 26,
-      "record_size_bytes": 12,
+      "record_size_bytes": 8,
       "edge_fields": [
         0,
         1
@@ -120,7 +278,997 @@
     },
     {
       "tag": 27,
-      "record_size_bytes": 12,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 28,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 29,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 30,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 31,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 33,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 37,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 44,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 45,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 46,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 48,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 50,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 51,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 52,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 53,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 54,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 55,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 57,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 58,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 61,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 62,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 63,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 64,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 65,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 68,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 69,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 70,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 71,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 72,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 73,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 74,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 75,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 76,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 81,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 82,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 83,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 84,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 85,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 86,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 87,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 88,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 91,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 92,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 93,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 94,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 95,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 96,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 97,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 98,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 101,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 102,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 103,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 104,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 105,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 106,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 107,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 108,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 109,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 110,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 111,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 112,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 113,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 114,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 115,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 116,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 117,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 120,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 122,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 124,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 125,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 127,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 129,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 130,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 132,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 133,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 136,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 137,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 138,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 139,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 141,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 146,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 148,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 150,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 151,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 152,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 154,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 155,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 156,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 157,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 159,
+      "record_size_bytes": 8,
+      "edge_fields": [
+        0,
+        1
+      ],
+      "payload_fields": [
+        2
+      ]
+    },
+    {
+      "tag": 162,
+      "record_size_bytes": 8,
       "edge_fields": [
         0,
         1
@@ -131,7 +1279,7 @@
     },
     {
       "tag": 166,
-      "record_size_bytes": 12,
+      "record_size_bytes": 8,
       "edge_fields": [
         0,
         1

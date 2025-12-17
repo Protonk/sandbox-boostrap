@@ -23,13 +23,13 @@
   ],
   "section_lengths": {
     "op_table": 14,
-    "nodes": 372,
-    "literals": 114
+    "nodes": 428,
+    "literals": 61
   },
   "stride_stats": [
     {
       "stride": 8,
-      "records": 46,
+      "records": 53,
       "remainder": 4,
       "tags": [
         0,
@@ -38,25 +38,25 @@
         5,
         6
       ],
-      "edges_in_bounds": 92,
-      "edges_total": 92
+      "edges_in_bounds": 100,
+      "edges_total": 106
     },
     {
       "stride": 12,
-      "records": 31,
-      "remainder": 0,
+      "records": 35,
+      "remainder": 8,
       "tags": [
         1,
         5,
         6
       ],
-      "edges_in_bounds": 62,
-      "edges_total": 62
+      "edges_in_bounds": 69,
+      "edges_total": 70
     },
     {
       "stride": 16,
-      "records": 23,
-      "remainder": 4,
+      "records": 26,
+      "remainder": 12,
       "tags": [
         0,
         1,
@@ -64,23 +64,23 @@
         5,
         6
       ],
-      "edges_in_bounds": 46,
-      "edges_total": 46
+      "edges_in_bounds": 49,
+      "edges_total": 52
     }
   ],
   "tag_counts_stride12": {
-    "6": 25,
-    "5": 5,
-    "1": 1
+    "6": 27,
+    "5": 6,
+    "1": 2
   },
-  "remainder_stride12_hex": "",
+  "remainder_stride12_hex": "0000000000002000",
   "literal_strings": [
     {
-      "offset": 53,
+      "offset": 0,
       "string": "V/tmp/sbpl_rt/param_root"
     },
     {
-      "offset": 93,
+      "offset": 40,
       "string": "O/usr/bin/python3"
     }
   ],
@@ -88,11 +88,13 @@
     "format_variant": "modern-heuristic",
     "op_count": 7,
     "op_table_offset": 16,
-    "node_count": 31,
+    "node_count": 53,
     "tag_counts": {
-      "6": 25,
-      "5": 5,
-      "1": 1
+      "6": 33,
+      "5": 15,
+      "4": 1,
+      "1": 1,
+      "0": 3
     },
     "literal_strings": [
       "V/tmp/sbpl_rt/param_root",
@@ -100,10 +102,10 @@
     ],
     "sections": {
       "op_table": 14,
-      "nodes": 372,
-      "literal_pool": 114,
+      "nodes": 428,
+      "literal_pool": 61,
       "nodes_start": 30,
-      "literal_start": 402
+      "literal_start": 458
     }
   },
   "nodes_raw": [
@@ -508,6 +510,58 @@
         0,
         0,
         256
+      ]
+    },
+    {
+      "offset": 372,
+      "tag": 5,
+      "bytes": "050005000600000e01000500",
+      "halfwords": [
+        5,
+        5,
+        6,
+        3584,
+        1,
+        5
+      ]
+    },
+    {
+      "offset": 384,
+      "tag": 6,
+      "bytes": "0600000e010005000600000e",
+      "halfwords": [
+        6,
+        3584,
+        1,
+        5,
+        6,
+        3584
+      ]
+    },
+    {
+      "offset": 396,
+      "tag": 1,
+      "bytes": "010005000600000100000500",
+      "halfwords": [
+        1,
+        5,
+        6,
+        256,
+        0,
+        5
+      ]
+    },
+    {
+      "offset": 408,
+      "tag": 6,
+      "bytes": "060001000000000000000105",
+      "halfwords": [
+        6,
+        1,
+        0,
+        0,
+        0,
+        1281
       ]
     }
   ]

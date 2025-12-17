@@ -8,16 +8,12 @@ MATRIX_RECORDS_PATH = ROOT / "book/experiments/flow-divert-2560/out/matrix_recor
 
 # Stable set of high/unknown field2 payloads on this host baseline.
 EXPECTED_UNKNOWN_RAW = {
-    3584,   # sample/bsd sentinel tag0
-    65535,  # airlock_system_fcntl probe sentinel
-    10752,  # airlock tag0 payload
-    16660,  # bsd tail tag0
-    166,    # airlock tag166/tag1 payload
-    165,    # airlock tag166 payload
-    174,    # bsd tag26 payload
-    170,    # bsd tag26 payload
-    115,    # bsd tag26 payload
-    109,    # bsd tag26 payload
+    165,    # opaque out-of-vocab payload in filter_vocab_id role
+    256,    # composite/opaque payload surfaced in sample + probes
+    1281,   # composite/opaque payload surfaced in sample + probes
+    3584,   # composite/opaque payload surfaced in sample + probes
+    12096,  # composite/opaque payload surfaced in network probes
+    49171,  # hi-bit / composite payload surfaced in airlock
 }
 
 FLOW_DIVERT_TRIPLE_SPECS = {
@@ -69,3 +65,22 @@ def test_flow_divert_2560_is_triple_only_with_expected_shape():
             assert 2560 in payloads, f"missing 2560 in triple spec {spec}"
         else:
             assert 2560 not in payloads, f"2560 leaked into non-triple spec {spec}"
+
+
+def test_flow_divert_2816_is_triple_only():
+    seen: dict[str, set[int]] = {}
+    with MATRIX_RECORDS_PATH.open() as fh:
+        for line in fh:
+            rec = json.loads(line)
+            spec = rec["spec_id"]
+            raw = rec.get("field2_raw")
+            seen.setdefault(spec, set()).add(raw)
+
+    specs_with_2816 = {spec for spec, payloads in seen.items() if 2816 in payloads}
+    assert specs_with_2816 == FLOW_DIVERT_TRIPLE_SPECS, f"unexpected specs with 2816: {sorted(specs_with_2816)}"
+
+    for spec, payloads in seen.items():
+        if spec in FLOW_DIVERT_TRIPLE_SPECS:
+            assert 2816 in payloads, f"missing 2816 in triple spec {spec}"
+        else:
+            assert 2816 not in payloads, f"2816 leaked into non-triple spec {spec}"

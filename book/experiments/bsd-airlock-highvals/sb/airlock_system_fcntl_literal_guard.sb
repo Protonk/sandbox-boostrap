@@ -1,0 +1,8 @@
+(version 1)
+
+;; System-fcntl with a single literal guard to perturb graph lightly.
+
+(deny default)
+
+(allow file-read-data (literal "/tmp/airlock_literal_guard"))
+(allow system-fcntl (fcntl-command 0))

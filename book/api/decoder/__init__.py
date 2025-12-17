@@ -1,8 +1,9 @@
 """
 Best-effort decoder for modern sandbox profile blobs.
 
-Focuses on structure: header preamble, op-table entries, node chunks (stride 12),
-and literal/regex pool slices. This is heuristic and intended to be version-tolerant.
+Focuses on structure: header preamble, op-table entries, node chunks (auto-selected
+framing on this host baseline), and literal/regex pool slices. This is heuristic
+and intended to be version-tolerant.
 """
 
 from __future__ import annotations
@@ -11,10 +12,14 @@ import json
 import string
 from dataclasses import dataclass
 from pathlib import Path
-from typing import List, Dict, Any, Optional, Tuple
+from typing import List, Dict, Any, Optional, Tuple, Sequence
 
 
 PRINTABLE = set(bytes(string.printable, "ascii"))
+# Heuristic: op_table and branch offsets are stored as u16 word offsets
+# (8-byte units) into the node stream on this host baseline. This is treated
+# as format evidence, not a cross-version guarantee.
+WORD_OFFSET_BYTES = 8
 # tag: (record_size_bytes, edge_field_indices, payload_field_indices)
 DEFAULT_TAG_LAYOUTS: Dict[int, Tuple[int, Tuple[int, ...], Tuple[int, ...]]] = {
     # Tentative assumptions; a richer decoder should update these.
@@ -23,6 +28,69 @@ DEFAULT_TAG_LAYOUTS: Dict[int, Tuple[int, Tuple[int, ...], Tuple[int, ...]]] = {
 }
 
 ROLE_UNKNOWN = "unknown_role"
+
+
+def _ascii_byte(b: int) -> bool:
+    return 32 <= b <= 126
+
+
+def _score_scaled_targets_as_headers(
+    data: bytes,
+    nodes_start: int,
+    u16_values: Sequence[int],
+    *,
+    scale_bytes: int,
+    known_tags: set[int],
+) -> Dict[str, Any]:
+    """
+    Score u16 values as potential offsets into the node stream.
+
+    This is format-heuristic evidence, not a proof: it is intended to catch
+    obvious mis-scaling (e.g., treating u16 offsets as 12-byte record indices,
+    leading to ASCII-looking starts like 'lt').
+    """
+    total = 0
+    in_range = 0
+    ascii_pairs = 0
+    kind0 = 0
+    plausible_non_ascii_kind0 = 0
+    plausible_known_kind0 = 0
+    pair_hist: Dict[str, int] = {}
+
+    for v in u16_values:
+        total += 1
+        abs_off = nodes_start + int(v) * scale_bytes
+        if abs_off + 2 > len(data):
+            continue
+        in_range += 1
+        tag = data[abs_off]
+        kind = data[abs_off + 1]
+        pair_hist[str((tag, kind))] = pair_hist.get(str((tag, kind)), 0) + 1
+        ascii_tag = _ascii_byte(tag)
+        ascii_kind = _ascii_byte(kind)
+        if ascii_tag and ascii_kind:
+            ascii_pairs += 1
+        if kind == 0:
+            kind0 += 1
+            if not ascii_tag:
+                plausible_non_ascii_kind0 += 1
+            if tag in known_tags:
+                plausible_known_kind0 += 1
+
+    top_pairs = [
+        {"key": k, "count": v}
+        for k, v in sorted(pair_hist.items(), key=lambda kv: (-kv[1], kv[0]))[:12]
+    ]
+    return {
+        "scale_bytes": scale_bytes,
+        "total": total,
+        "in_range": in_range,
+        "ascii_pair_count": ascii_pairs,
+        "kind0_count": kind0,
+        "plausible_non_ascii_kind0_count": plausible_non_ascii_kind0,
+        "plausible_known_kind0_count": plausible_known_kind0,
+        "top_tag_kind_pairs": top_pairs,
+    }
 
 
 def _load_filter_vocab() -> Dict[int, str]:
@@ -35,7 +103,8 @@ def _load_filter_vocab() -> Dict[int, str]:
     except Exception:
         return {}
     out: Dict[int, str] = {}
-    for entry in data:
+    entries = data.get("filters", []) if isinstance(data, dict) else data
+    for entry in entries or []:
         try:
             out[int(entry["id"])] = str(entry["name"])
         except Exception:
@@ -108,6 +177,67 @@ def _scan_literal_start(data: bytes, start: int) -> int:
         if printable / len(chunk) >= threshold:
             return i
     return len(data)
+
+
+def _scan_literal_start_from_lower_bound(data: bytes, start: int) -> int:
+    """
+    Conservative literal-pool onset finder starting at a computed lower bound.
+
+    For this host baseline, the op-table carries u16 word offsets (8-byte units)
+    into the node stream. Using that as a lower bound avoids the common failure
+    mode where the ratio-based scan latches onto ASCII-looking bytes produced by
+    a mis-framed node walk.
+    """
+    start = max(0, min(len(data), start))
+    min_run = 4
+    for i in range(start, len(data) - min_run):
+        j = i
+        while j < len(data) and (data[j] in PRINTABLE) and data[j] != 0x00:
+            j += 1
+        if j - i >= min_run:
+            return i
+    return _scan_literal_start(data, start)
+
+
+def _node_stride_alignment_metrics(op_table: Sequence[int], stride_bytes: int) -> Dict[str, Any]:
+    """
+    Score whether op_table targets (treated as WORD_OFFSET_BYTES offsets) align
+    to candidate node record boundaries.
+    """
+    total = len(op_table)
+    misaligned = 0
+    for v in op_table:
+        try:
+            off = int(v) * WORD_OFFSET_BYTES
+        except Exception:
+            continue
+        if stride_bytes <= 0:
+            misaligned += 1
+            continue
+        if off % stride_bytes != 0:
+            misaligned += 1
+    return {"stride_bytes": stride_bytes, "op_table_entries": total, "misaligned_targets": misaligned}
+
+
+def _select_node_stride_bytes(op_table: Sequence[int]) -> Tuple[Optional[int], Dict[str, Any]]:
+    """
+    Select a node record stride for this blob from format-local evidence.
+
+    The primary witness is op-table alignment under the assumption that op_table
+    entries are WORD_OFFSET_BYTES word offsets into the node stream. For this
+    Sonoma world, stride=8 is the best-supported framing; when evidence is
+    ambiguous, we fall back to the historical tag-layout-driven parse.
+    """
+    if not op_table:
+        return None, {"mode": "tag-layout", "reason": "empty op_table"}
+
+    candidates = [8, 12]
+    metrics = {str(s): _node_stride_alignment_metrics(op_table, s) for s in candidates}
+    best = min(candidates, key=lambda s: (metrics[str(s)]["misaligned_targets"], s))
+    if metrics[str(best)]["misaligned_targets"] == 0:
+        return best, {"mode": "auto", "selected": best, "metrics": metrics}
+    # If nothing aligns cleanly, do not guess: keep the historical path.
+    return None, {"mode": "tag-layout", "reason": "no clean alignment", "metrics": metrics}
 
 
 def _parse_op_table(data: bytes) -> List[int]:
@@ -208,6 +338,72 @@ def _parse_nodes_tagged(data: bytes) -> Tuple[List[Dict[str, Any]], Dict[int, in
     return nodes, tag_counts, remainder
 
 
+def _parse_nodes_fixed_stride(
+    data: bytes, stride_bytes: int
+) -> Tuple[List[Dict[str, Any]], Dict[int, int], int]:
+    """
+    Parse nodes as fixed-size records (e.g., 8-byte records: tag,u8 + 3*u16).
+
+    This mode ignores per-tag record_size_bytes from mappings; it still consumes
+    edge/payload indices from the tag-layout mapping when available so that
+    payload/u16-role annotations remain consistent.
+    """
+    if stride_bytes < 4 or stride_bytes % 2 != 0:
+        raise ValueError(f"invalid node stride {stride_bytes} (expected even >=4)")
+
+    tag_layouts = {**DEFAULT_TAG_LAYOUTS, **_load_external_tag_layouts()}
+    tag_roles = _load_tag_u16_roles()
+    filter_vocab = _load_filter_vocab()
+    nodes: List[Dict[str, Any]] = []
+    tag_counts: Dict[int, int] = {}
+
+    offset = 0
+    while offset + stride_bytes <= len(data):
+        tag = data[offset]
+        layout_source = "mapping" if tag in tag_layouts else "default"
+        _mapped_size, edge_idx, payload_idx = tag_layouts.get(tag, (stride_bytes, (0, 1), (2,)))
+        chunk = data[offset : offset + stride_bytes]
+        fields = [
+            int.from_bytes(chunk[i : i + 2], "little") for i in range(2, stride_bytes, 2)
+        ]
+        tag_counts[tag] = tag_counts.get(tag, 0) + 1
+
+        payload_values = [fields[i] for i in payload_idx if i < len(fields)] if payload_idx else []
+        filter_arg_raw: Optional[int | List[int]] = None
+        if payload_values:
+            filter_arg_raw = payload_values[0] if len(payload_values) == 1 else payload_values
+
+        u16_role = tag_roles.get(tag, ROLE_UNKNOWN)
+        filter_vocab_ref: Optional[str] = None
+        out_of_vocab = False
+        if u16_role == "filter_vocab_id" and payload_values:
+            val = payload_values[0]
+            if val in filter_vocab:
+                filter_vocab_ref = filter_vocab[val]
+            else:
+                out_of_vocab = True
+
+        nodes.append(
+            {
+                "offset": offset,
+                "tag": tag,
+                "fields": fields,
+                "record_size": stride_bytes,
+                "hex": chunk.hex(),
+                "layout_provenance": layout_source,
+                "payload_indices": payload_idx,
+                "filter_arg_raw": filter_arg_raw,
+                "u16_role": u16_role,
+                "filter_vocab_ref": filter_vocab_ref,
+                "filter_out_of_vocab": out_of_vocab,
+            }
+        )
+        offset += stride_bytes
+
+    remainder = len(data) - offset
+    return nodes, tag_counts, remainder
+
+
 def _extract_strings_with_offsets(buf: bytes, min_len: int = 4) -> List[Tuple[int, str]]:
     """Pull out printable runs with offsets; simple heuristic to aid orientation."""
     out: List[Tuple[int, str]] = []
@@ -228,7 +424,9 @@ def _extract_strings_with_offsets(buf: bytes, min_len: int = 4) -> List[Tuple[in
     return out
 
 
-def decode_profile(data: bytes, header_window: int = 128) -> DecodedProfile:
+def decode_profile(
+    data: bytes, header_window: int = 128, node_stride_bytes: Optional[int] = None
+) -> DecodedProfile:
     """
     Heuristic decoder for modern compiled sandbox blobs: slices the preamble,
     op-table, node region, and literal pool, then annotates nodes using any
@@ -246,13 +444,40 @@ def decode_profile(data: bytes, header_window: int = 128) -> DecodedProfile:
     op_table_start = 16
     op_table_end = min(len(data), op_table_start + op_table_len)
     op_table_bytes = data[op_table_start:op_table_end]
+    op_table = _parse_op_table(op_table_bytes)
 
     nodes_start = op_table_end
-    literal_start = _scan_literal_start(data, nodes_start)
+    stride_selection: Dict[str, Any] = {}
+    selected_stride = node_stride_bytes
+    if selected_stride is None:
+        selected_stride, stride_selection = _select_node_stride_bytes(op_table)
+    else:
+        stride_selection = {"mode": "forced", "selected": selected_stride}
+
+    if op_table:
+        nodes_lower_bound = nodes_start + (max(int(v) for v in op_table) + 1) * WORD_OFFSET_BYTES
+    else:
+        nodes_lower_bound = nodes_start
+    literal_start = _scan_literal_start_from_lower_bound(data, nodes_lower_bound)
     nodes_bytes = data[nodes_start:literal_start]
     literal_pool = data[literal_start:]
 
-    nodes, tag_counts, node_remainder = _parse_nodes_tagged(nodes_bytes)
+    merged_layouts = {**DEFAULT_TAG_LAYOUTS, **_load_external_tag_layouts()}
+    known_tags = set(merged_layouts.keys())
+    op_table_scaling_witness = {
+        "scale8": _score_scaled_targets_as_headers(
+            data, nodes_start, op_table, scale_bytes=8, known_tags=known_tags
+        ),
+        "scale12": _score_scaled_targets_as_headers(
+            data, nodes_start, op_table, scale_bytes=12, known_tags=known_tags
+        ),
+        "notes": "Scores op_table entries as offsets into the node stream under different scale factors; ASCII-heavy scale12 is a strong sign of mis-scaling.",
+    }
+
+    if selected_stride is None:
+        nodes, tag_counts, node_remainder = _parse_nodes_tagged(nodes_bytes)
+    else:
+        nodes, tag_counts, node_remainder = _parse_nodes_fixed_stride(nodes_bytes, selected_stride)
 
     # Sanity: treat first two fields as edges and count in-bounds hits.
     edge_total = 0
@@ -267,7 +492,6 @@ def decode_profile(data: bytes, header_window: int = 128) -> DecodedProfile:
     literal_count = len(literal_strings_with_offsets)
     tag_validation: Dict[str, Any] = {}
     # Tag-aware validation based on merged layouts
-    merged_layouts = {**DEFAULT_TAG_LAYOUTS, **_load_external_tag_layouts()}
     for node in nodes:
         tag = node.get("tag")
         if tag not in merged_layouts:
@@ -357,7 +581,7 @@ def decode_profile(data: bytes, header_window: int = 128) -> DecodedProfile:
         header_bytes=header_bytes,
         op_count=op_count,
         op_table_offset=op_table_start,
-        op_table=_parse_op_table(op_table_bytes),
+        op_table=op_table,
         nodes=nodes,
         node_count=len(nodes),
         tag_counts={str(k): v for k, v in tag_counts.items()},
@@ -376,7 +600,10 @@ def decode_profile(data: bytes, header_window: int = 128) -> DecodedProfile:
             "edge_fields_total": edge_total,
             "nodes_start": nodes_start,
             "literal_start": literal_start,
+            "node_stride_bytes": selected_stride,
+            "node_stride_selection": stride_selection,
             "tag_validation": tag_validation,
+            "op_table_scaling_witness": op_table_scaling_witness,
         },
         header_fields=header_fields,
     )
@@ -385,12 +612,12 @@ def decode_profile(data: bytes, header_window: int = 128) -> DecodedProfile:
     return decoded
 
 
-def decode_profile_dict(data: bytes) -> Dict[str, Any]:
+def decode_profile_dict(data: bytes, node_stride_bytes: Optional[int] = None) -> Dict[str, Any]:
     """
     Dict wrapper for JSON serialization and downstream tooling that expects a
     JSON-safe structure instead of DecodedProfile objects.
     """
-    d = decode_profile(data)
+    d = decode_profile(data, node_stride_bytes=node_stride_bytes)
     return {
         "format_variant": d.format_variant,
         "preamble_words": d.preamble_words,

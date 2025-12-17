@@ -1,0 +1,9 @@
+(version 1)
+
+;; Split system-fcntl into separate profiles to see if collapse is avoided.
+
+(deny default)
+
+(allow system-fcntl (fcntl-command 0))
+(allow system-fcntl (fcntl-command 1024))
+(deny system-fcntl)

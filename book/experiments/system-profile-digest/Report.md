@@ -21,10 +21,10 @@ Produce stable digests for curated system profile blobs (for example, `airlock`,
 ### Completed
 - **Current status**
   - Experiment scaffolded (this Report, Plan, Notes).
-  - Baseline decode complete for canonical profiles; interim digest at `out/digests.json`.
+  - Baseline decode complete for canonical profiles; interim digest at `out/digests.json` (regenerated via `run.py`).
   - Normalized digest published to `book/graph/mappings/system_profiles/digests.json` with host metadata, op-table entries, node/tag counts, literal sample, sections, and validation flags for `airlock`, `bsd`, and `sample`.
   - Guardrail added (`tests/test_mappings_guardrail.py`) to ensure digests remain present and version-tagged.
-  - Digests refreshed after tag-layout update (meta tags 2/3, payload tag10); contracts now carry tag_layout_hash `4dd3a3…fc219` with canonical statuses `ok`.
+  - Digests refreshed under the current decoder framing (stride=8 node records selected via op-table witness); contract/tag-layout hashes and canonical status are expected to stay `ok` once the mapping generator is rerun.
 - **1) Scope and setup**
   - Identified input blobs: `book/examples/extract_sbs/build/profiles/{airlock,bsd,sample}.sb.bin` on this Sonoma host.
   - Confirmed decoder path (`book.api.decoder`) and shared mappings (`book/graph/mappings/vocab`, `book/graph/mappings/op_table`) are available and in use.

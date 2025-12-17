@@ -20,62 +20,62 @@
   ],
   "section_lengths": {
     "op_table": 8,
-    "nodes": 353,
-    "literals": 116
+    "nodes": 410,
+    "literals": 59
   },
   "stride_stats": [
     {
       "stride": 8,
-      "records": 44,
-      "remainder": 1,
+      "records": 51,
+      "remainder": 2,
       "tags": [
         0,
         1,
         2,
         3
       ],
-      "edges_in_bounds": 88,
-      "edges_total": 88
+      "edges_in_bounds": 102,
+      "edges_total": 102
     },
     {
       "stride": 12,
-      "records": 29,
-      "remainder": 5,
+      "records": 34,
+      "remainder": 2,
       "tags": [
         0,
         1,
         3
       ],
-      "edges_in_bounds": 58,
-      "edges_total": 58
+      "edges_in_bounds": 67,
+      "edges_total": 68
     },
     {
       "stride": 16,
-      "records": 22,
-      "remainder": 1,
+      "records": 25,
+      "remainder": 10,
       "tags": [
         0,
         1,
         2,
         3
       ],
-      "edges_in_bounds": 44,
-      "edges_total": 44
+      "edges_in_bounds": 50,
+      "edges_total": 50
     }
   ],
   "tag_counts_stride12": {
-    "3": 26,
+    "3": 28,
     "1": 1,
-    "0": 2
+    "0": 5
   },
-  "remainder_stride12_hex": "0300030003",
+  "remainder_stride12_hex": "1a00",
   "literal_strings": [
     {
-      "offset": 57,
+      "offset": 0,
       "string": "T/tmp/sbpl_rt/read.txt"
     },
     {
-      "offset": 89,
+      "offset": 32,
       "string": "U/tmp/sbpl_rt/write.txt"
     }
   ],
@@ -83,11 +83,12 @@
     "format_variant": "modern-heuristic",
     "op_count": 4,
     "op_table_offset": 16,
-    "node_count": 29,
+    "node_count": 51,
     "tag_counts": {
-      "3": 26,
-      "1": 1,
-      "0": 2
+      "3": 41,
+      "1": 3,
+      "0": 4,
+      "2": 3
     },
     "literal_strings": [
       "T/tmp/sbpl_rt/read.txt",
@@ -95,10 +96,10 @@
     ],
     "sections": {
       "op_table": 8,
-      "nodes": 353,
-      "literal_pool": 116,
+      "nodes": 410,
+      "literal_pool": 59,
       "nodes_start": 24,
-      "literal_start": 377
+      "literal_start": 434
     }
   },
   "nodes_raw": [
@@ -477,6 +478,71 @@
         3,
         3,
         3
+      ]
+    },
+    {
+      "offset": 348,
+      "tag": 3,
+      "bytes": "030003000300030003000300",
+      "halfwords": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "offset": 360,
+      "tag": 3,
+      "bytes": "030003000300020003000000",
+      "halfwords": [
+        3,
+        3,
+        3,
+        2,
+        3,
+        0
+      ]
+    },
+    {
+      "offset": 372,
+      "tag": 0,
+      "bytes": "000000000001040002000300",
+      "halfwords": [
+        0,
+        0,
+        256,
+        4,
+        2,
+        3
+      ]
+    },
+    {
+      "offset": 384,
+      "tag": 0,
+      "bytes": "000100000200030001050000",
+      "halfwords": [
+        256,
+        0,
+        2,
+        3,
+        1281,
+        0
+      ]
+    },
+    {
+      "offset": 396,
+      "tag": 0,
+      "bytes": "000000000100000000000000",
+      "halfwords": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
       ]
     }
   ]

@@ -15,6 +15,7 @@ Surfaces:
   - `nodes`, `tag_counts`, `node_count`
   - `literal_pool`, `literal_strings`
   - `sections`, `header_fields`, `validation`
+- Optional decode knob: `decode_profile(..., node_stride_bytes=8)` (or `decode_profile_dict(..., node_stride_bytes=8)`) to force a fixed-size node framing for cross-checks.
 - CLI: `python -m book.api.decoder dump <blob...> [--bytes 128] [--summary] [--out path]` for JSON snapshots (header bytes, preamble, sections, tag histogram).
 
 Tag layouts: merged automatically from `book/graph/mappings/tag_layouts/tag_layouts.json` and probe outputs. Extend that mapping (`record_size_bytes`, `edge_fields`, `payload_fields`) to refine parsing; rerun dependent experiments after changes.
