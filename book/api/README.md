@@ -86,6 +86,21 @@ PY
 ```
 See `book/api/carton/README.md`, `AGENTS.md`, and `API.md` for design, routing, and function contracts.
 
+### sbpl_oracle
+
+Definition: Structural SBPL↔compiled profile “oracle” helpers.
+
+Role: Provide falsifiable, byte-level extraction of SBPL-visible argument structure from compiled blobs (no kernel semantics), backed by experiment corpora.
+
+Example:
+```sh
+python -m book.api.sbpl_oracle.cli network-matrix \
+  --manifest book/experiments/libsandbox-encoder/sb/network_matrix/MANIFEST.json \
+  --blob-dir book/experiments/libsandbox-encoder/out/network_matrix \
+  --out /tmp/network_oracle.json
+```
+See `book/api/sbpl_oracle/README.md` for scope and schemas.
+
 ### runtime_harness
 
 Definition: Unified runtime harness for golden profiles (replaces `runtime_golden` + `golden_runner`).

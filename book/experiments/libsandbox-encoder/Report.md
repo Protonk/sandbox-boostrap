@@ -62,6 +62,10 @@ Phase A also carries experiment-local tag-layout overrides at `out/tag_layout_ov
   - `out/network_matrix/blob_diffs.json` (byte diffs + record annotations)
   - `out/network_matrix/join_records.jsonl` (diff offsets normalized into 8-byte record context for both sides of each pair)
   - `out/network_matrix/join_summary.json` (rollups keyed by `pair_id`)
+  - `out/network_matrix/oracle_tuples.json` (experiment-local extractor output for `(domain,type,proto)`)
+- Oracle extractor:
+  - `oracle_network_matrix.py` (HISTORICAL; original experiment-local oracle)
+  - Maintained oracle: `book/api/sbpl_oracle/` (guarded by parity tests against this corpus)
 - Legacy (kept for historical continuity; prefer the `matrix_v*` outputs):
   - `out/field2_encoder_matrix.json`
 
@@ -81,7 +85,8 @@ Current strongest witnesses live in `out/network_matrix/blob_diffs.json`:
   - `proto_tcp` ↔ `proto_udp`: `6` ↔ `17`.
   - `proto_tcp` ↔ `proto_256`: two-byte span witness for the proto u16 (TCP `0x0006` ↔ numeric `0x0100`).
 - Pairwise combined forms (domain+type / domain+proto / type+proto; both `require-all` and `require-any`) show argument deltas in a different structural role: the varying arg lands in `u16_index=0` for a `tag=0` record whose kind byte matches the argument family (`0x0b`/`0x0c`/`0x0d` for domain/type/proto); see the `pair_*` diff pairs in `out/network_matrix/blob_diffs.json` and the rollups in `out/network_matrix/join_summary.json`.
-- For the witnessed triple `require-all` forms, the in-range argument deltas for domain/type/proto land in the record tag byte (`within_record_offset=0`) for the exercised values (e.g., TCP `6`, UDP `17`, SOCK_STREAM `1`, SOCK_DGRAM `2`). Domain AF_SYSTEM (`32`) yields an unknown tag byte (not present in `tag_layouts.json`) but remains structurally consistent under fixed 8-byte framing; see `triple_all_tcp_vs_*` pairs and `out/network_matrix/join_summary.json`.
+- Pairwise combined proto high-byte witness: the `pair_*_tcp_vs_*_256` pairs flip both bytes of the same `u16_index=0` slot (`within_record_offset=2/3`), matching a 16-bit proto value.
+- For the witnessed triple forms, domain/type/proto values live in the record header bytes: interpret `(tag,kind)` as a little-endian u16 value. Small values change only the tag byte (`within_record_offset=0`) because kind stays `0`; the proto 256 witness also flips the kind byte (`within_record_offset=1`) to carry the high byte; see `triple_*_tcp_vs_*_256` and `out/network_matrix/join_summary.json`.
 
 This is sufficient to treat “network arg bytes are serialized into the compiled blob (nodes section)” as an experiment-local, world-scoped fact, and it provides a concrete join point for Phase B’s `_emit_network` disassembly.
 
@@ -101,6 +106,11 @@ For this branch, the compiled profile blob is the oracle: SBPL→compile→blob 
 - Whether those bytes appear as a contiguous sequence (as suggested by `_emit_network`) or are threaded through multiple records/structures.
 - Which record boundaries (8-byte framing) and which u16 slots are the structural “roles” for these bytes (arg u16 vs vocab-like u16), so Phase B can be expressed as a concrete mapping instead of a guess.
 
+The matrix now has explicit high-byte witnesses for proto in:
+- minimal single-arg form (`proto_tcp_vs_256`),
+- pairwise combined forms (`pair_*_tcp_vs_*_256`), and
+- triple combined forms (`triple_*_tcp_vs_*_256`).
+
 ### How we plan to do it (static-first)
 
 - Re-run the Phase A network matrix pipeline to keep `out/network_matrix/*` current and to protect against accidental drift in probes/layout assumptions.
@@ -112,6 +122,7 @@ For this branch, the compiled profile blob is the oracle: SBPL→compile→blob 
 - Use the analyzer output to evaluate a small set of structural hypotheses across the whole matrix and select the *single* hypothesis that predicts all observed deltas without special-casing.
 - Once the mapping is stable, update `out/encoder_sites.json` so `_emit_network` has an evidence-backed, byte-level join to the compiled blob.
 - Gate the join with a guardrail test so future decoder/layout changes cannot silently break the mapping.
+- Keep the experiment-local blob oracle (`oracle_network_matrix.py`) in sync with the matrix and guard it with tests (so Phase B work can treat it as a reliable check).
 
 ## Phase B — artifacts and partial findings
 
@@ -140,8 +151,10 @@ These are **static** witnesses from the dyld slice for this world; they do not e
   - `python3 book/experiments/libsandbox-encoder/run_network_matrix.py`
   - `python3 book/experiments/libsandbox-encoder/diff_network_matrix.py`
   - `python3 book/experiments/libsandbox-encoder/join_network_matrix.py`
+  - `python3 book/experiments/libsandbox-encoder/oracle_network_matrix.py` (HISTORICAL)
+  - `python -m book.api.sbpl_oracle.cli network-matrix --manifest book/experiments/libsandbox-encoder/sb/network_matrix/MANIFEST.json --blob-dir book/experiments/libsandbox-encoder/out/network_matrix` (maintained oracle)
 
 ## Next steps
 
-- Execute the remaining “byte-level structural join” work by extending the proto high-byte witness into combined forms (especially the triple `require-all` encoding) so we can confirm where the proto high byte lands outside the single-filter specimens.
-- Once the join exists for single, pairwise, and triple forms, revisit Phase B conclusions and only then propose minimal shared decode/mapping changes (role assignment, record boundaries) backed by byte-level witnesses.
+- Use the oracle output (`out/network_matrix/oracle_tuples.json`) and join artifacts (`out/network_matrix/join_records.jsonl`) as the acceptance criteria for any new Phase B “encoder-side structure” claim about where the `{1,1,2}` bytes land.
+- With a stable join for single, pairwise, and triple forms (including proto high byte), revisit Phase B conclusions and only then propose minimal shared decode/mapping changes (role assignment, record boundaries) backed by these byte-level witnesses.

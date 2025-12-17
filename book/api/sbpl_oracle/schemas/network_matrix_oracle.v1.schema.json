@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SBPL Oracle Network Matrix Output (v1)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["world_id", "oracle_id", "entries"],
+  "properties": {
+    "world_id": { "type": "string" },
+    "oracle_id": { "type": "string" },
+    "purpose": { "type": "string" },
+    "inputs": { "type": "object" },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["spec_id", "blob", "domain", "type", "proto", "sources", "conflicts"],
+        "properties": {
+          "spec_id": { "type": "string" },
+          "blob": { "type": "string" },
+          "domain": { "type": ["integer", "null"] },
+          "type": { "type": ["integer", "null"] },
+          "proto": { "type": ["integer", "null"] },
+          "header": {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+              "format_variant": { "type": ["string", "null"] },
+              "op_count": { "type": ["integer", "null"] }
+            }
+          },
+          "sources": { "type": "object" },
+          "conflicts": { "type": "array" }
+        }
+      }
+    }
+  }
+}
+

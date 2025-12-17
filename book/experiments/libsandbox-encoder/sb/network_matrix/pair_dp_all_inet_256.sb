@@ -1,0 +1,11 @@
+;; libsandbox-encoder Phase A: network arg matrix (socket domain+proto numeric 256, require-all)
+;; World: sonoma-14.4.1-23E224-arm64-dyld-2c0602c5
+
+(version 1)
+(deny default)
+
+(allow network-outbound
+  (require-all
+    (socket-domain AF_INET)
+    (socket-protocol 256)))
+

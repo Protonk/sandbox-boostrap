@@ -49,6 +49,26 @@
         "2": 51
       }
     },
+    "pair_dp_all_inet_tcp_vs_inet_256": {
+      "a": "pair_dp_all_inet_tcp",
+      "b": "pair_dp_all_inet_256",
+      "diff_byte_count": 2,
+      "diff_counts_by_section": {
+        "nodes:records": 2
+      },
+      "intent": "Attempt to witness a non-zero high byte for proto inside a (domain+proto) require-all form (TCP vs numeric 256).",
+      "pair_id": "pair_dp_all_inet_tcp_vs_inet_256",
+      "structural_role_counts": {
+        "u16_field_byte": 2
+      },
+      "tag_known_counts": {
+        "a_known": 2,
+        "b_known": 2
+      },
+      "u16_index_counts": {
+        "0": 2
+      }
+    },
     "pair_dp_all_inet_tcp_vs_inet_udp": {
       "a": "pair_dp_all_inet_tcp",
       "b": "pair_dp_all_inet_udp",
@@ -87,6 +107,26 @@
       },
       "u16_index_counts": {
         "0": 1
+      }
+    },
+    "pair_dp_any_inet_tcp_vs_inet_256": {
+      "a": "pair_dp_any_inet_tcp",
+      "b": "pair_dp_any_inet_256",
+      "diff_byte_count": 2,
+      "diff_counts_by_section": {
+        "nodes:records": 2
+      },
+      "intent": "Attempt to witness a non-zero high byte for proto inside a (domain+proto) require-any form (TCP vs numeric 256).",
+      "pair_id": "pair_dp_any_inet_tcp_vs_inet_256",
+      "structural_role_counts": {
+        "u16_field_byte": 2
+      },
+      "tag_known_counts": {
+        "a_known": 2,
+        "b_known": 2
+      },
+      "u16_index_counts": {
+        "0": 2
       }
     },
     "pair_dp_any_inet_tcp_vs_inet_udp": {
@@ -258,6 +298,26 @@
         "0": 1
       }
     },
+    "pair_tp_all_stream_tcp_vs_stream_256": {
+      "a": "pair_tp_all_stream_tcp",
+      "b": "pair_tp_all_stream_256",
+      "diff_byte_count": 2,
+      "diff_counts_by_section": {
+        "nodes:records": 2
+      },
+      "intent": "Attempt to witness a non-zero high byte for proto inside a (type+proto) require-all form (TCP vs numeric 256).",
+      "pair_id": "pair_tp_all_stream_tcp_vs_stream_256",
+      "structural_role_counts": {
+        "u16_field_byte": 2
+      },
+      "tag_known_counts": {
+        "a_known": 2,
+        "b_known": 2
+      },
+      "u16_index_counts": {
+        "0": 2
+      }
+    },
     "pair_tp_all_stream_tcp_vs_stream_udp": {
       "a": "pair_tp_all_stream_tcp",
       "b": "pair_tp_all_stream_udp",
@@ -296,6 +356,26 @@
       },
       "u16_index_counts": {
         "0": 1
+      }
+    },
+    "pair_tp_any_stream_tcp_vs_stream_256": {
+      "a": "pair_tp_any_stream_tcp",
+      "b": "pair_tp_any_stream_256",
+      "diff_byte_count": 2,
+      "diff_counts_by_section": {
+        "nodes:records": 2
+      },
+      "intent": "Attempt to witness a non-zero high byte for proto inside a (type+proto) require-any form (TCP vs numeric 256).",
+      "pair_id": "pair_tp_any_stream_tcp_vs_stream_256",
+      "structural_role_counts": {
+        "u16_field_byte": 2
+      },
+      "tag_known_counts": {
+        "a_known": 2,
+        "b_known": 2
+      },
+      "u16_index_counts": {
+        "0": 2
       }
     },
     "pair_tp_any_stream_tcp_vs_stream_udp": {
@@ -434,6 +514,24 @@
       },
       "u16_index_counts": {}
     },
+    "triple_all_tcp_vs_inet_stream_256": {
+      "a": "triple_all_tcp",
+      "b": "triple_all_inet_stream_256",
+      "diff_byte_count": 2,
+      "diff_counts_by_section": {
+        "nodes:records": 2
+      },
+      "intent": "Attempt to witness a non-zero high byte for proto inside a (domain+type+proto) require-all form (TCP vs numeric 256).",
+      "pair_id": "triple_all_tcp_vs_inet_stream_256",
+      "structural_role_counts": {
+        "record_header_byte": 2
+      },
+      "tag_known_counts": {
+        "a_known": 2,
+        "b_known": 2
+      },
+      "u16_index_counts": {}
+    },
     "triple_all_tcp_vs_inet_stream_udp": {
       "a": "triple_all_tcp",
       "b": "triple_all_inet_stream_udp",
@@ -479,6 +577,42 @@
       },
       "intent": "Isolate combined triple argument bytes (domain/type/proto) under require-all.",
       "pair_id": "triple_all_tcp_vs_udp",
+      "structural_role_counts": {
+        "record_header_byte": 2
+      },
+      "tag_known_counts": {
+        "a_known": 2,
+        "b_known": 2
+      },
+      "u16_index_counts": {}
+    },
+    "triple_any_tcp_vs_256": {
+      "a": "triple_any_tcp",
+      "b": "triple_any_256",
+      "diff_byte_count": 2,
+      "diff_counts_by_section": {
+        "nodes:records": 2
+      },
+      "intent": "Attempt to witness a non-zero high byte for proto inside a (domain+type+proto) require-any form (TCP vs numeric 256).",
+      "pair_id": "triple_any_tcp_vs_256",
+      "structural_role_counts": {
+        "record_header_byte": 2
+      },
+      "tag_known_counts": {
+        "a_known": 2,
+        "b_known": 2
+      },
+      "u16_index_counts": {}
+    },
+    "triple_nested_tcp_vs_256": {
+      "a": "triple_nested_tcp",
+      "b": "triple_nested_256",
+      "diff_byte_count": 2,
+      "diff_counts_by_section": {
+        "nodes:records": 2
+      },
+      "intent": "Attempt to witness a non-zero high byte for proto inside a nested require-all triple form (TCP vs numeric 256).",
+      "pair_id": "triple_nested_tcp_vs_256",
       "structural_role_counts": {
         "record_header_byte": 2
       },
@@ -549,8 +683,8 @@
   },
   "totals": {
     "outside_nodes": 216,
-    "record_header_byte": 257,
-    "u16_field_byte": 769
+    "record_header_byte": 263,
+    "u16_field_byte": 777
   },
   "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
 }

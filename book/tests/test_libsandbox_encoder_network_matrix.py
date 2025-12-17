@@ -87,6 +87,21 @@ def test_libsandbox_encoder_network_matrix_blob_diffs():
     assert dp_proto["a_byte"] == 6
     assert dp_proto["b_byte"] == 17
 
+    # Combined (pairwise) proto high-byte witness: TCP (0x0006) ↔ numeric 256
+    # (0x0100) must flip both bytes in the same u16[0] slot for the pairwise form.
+    dp_hi = by_pair["pair_dp_all_inet_tcp_vs_inet_256"]
+    assert dp_hi["diff_byte_count"] == 2
+    assert dp_hi["diff_counts_by_section"] == {"nodes:records": 2}
+    assert dp_hi["diffs"][0]["record"]["tag"] == 0
+    assert dp_hi["diffs"][0]["record"]["kind"] == 13
+    assert dp_hi["diffs"][0]["record"]["u16_index"] == 0
+    assert dp_hi["diffs"][0]["record"]["within_record_offset"] == 2
+    assert dp_hi["diffs"][1]["record"]["within_record_offset"] == 3
+    assert dp_hi["diffs"][0]["a_byte"] == 6
+    assert dp_hi["diffs"][0]["b_byte"] == 0
+    assert dp_hi["diffs"][1]["a_byte"] == 0
+    assert dp_hi["diffs"][1]["b_byte"] == 1
+
     # Triple (require-all) form: the argument deltas for the witnessed small values
     # land in the record tag byte (within_record_offset==0), not the u16 payload slots.
     tri_domain = by_pair["triple_all_tcp_vs_system_stream_tcp"]["diffs"][0]
@@ -109,3 +124,15 @@ def test_libsandbox_encoder_network_matrix_blob_diffs():
     assert tri_proto["a_byte"] == 6
     assert tri_proto["b_byte"] == 17
     assert tri_proto["record"]["tag"] == tri_proto["a_byte"]
+
+    # Triple proto high-byte witness: numeric 256 (0x0100) is encoded in the record
+    # header bytes (tag=lo, kind=hi) for the triple form.
+    tri_hi = by_pair["triple_all_tcp_vs_inet_stream_256"]
+    assert tri_hi["diff_byte_count"] == 2
+    assert tri_hi["diff_counts_by_section"] == {"nodes:records": 2}
+    assert tri_hi["diffs"][0]["record"]["within_record_offset"] == 0
+    assert tri_hi["diffs"][1]["record"]["within_record_offset"] == 1
+    assert tri_hi["diffs"][0]["a_byte"] == 6
+    assert tri_hi["diffs"][0]["b_byte"] == 0
+    assert tri_hi["diffs"][1]["a_byte"] == 0
+    assert tri_hi["diffs"][1]["b_byte"] == 1

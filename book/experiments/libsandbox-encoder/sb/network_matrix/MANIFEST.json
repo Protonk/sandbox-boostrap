@@ -43,6 +43,11 @@
       "vary": "socket-domain+type+proto"
     },
     {
+      "spec_id": "triple_all_inet_stream_256",
+      "sbpl_file": "triple_all_inet_stream_256.sb",
+      "vary": "socket-domain+type+proto"
+    },
+    {
       "spec_id": "triple_all_udp",
       "sbpl_file": "triple_all_udp.sb",
       "vary": "socket-domain+type+proto"
@@ -53,6 +58,11 @@
       "vary": "socket-domain+type+proto"
     },
     {
+      "spec_id": "triple_any_256",
+      "sbpl_file": "triple_any_256.sb",
+      "vary": "socket-domain+type+proto"
+    },
+    {
       "spec_id": "triple_all_tcp_order2",
       "sbpl_file": "triple_all_tcp_order2.sb",
       "vary": "socket-domain+type+proto"
@@ -60,6 +70,11 @@
     {
       "spec_id": "triple_nested_tcp",
       "sbpl_file": "triple_nested_tcp.sb",
+      "vary": "socket-domain+type+proto"
+    },
+    {
+      "spec_id": "triple_nested_256",
+      "sbpl_file": "triple_nested_256.sb",
       "vary": "socket-domain+type+proto"
     },
     {
@@ -98,6 +113,11 @@
       "vary": "socket-domain+proto"
     },
     {
+      "spec_id": "pair_dp_all_inet_256",
+      "sbpl_file": "pair_dp_all_inet_256.sb",
+      "vary": "socket-domain+proto"
+    },
+    {
       "spec_id": "pair_dp_all_system_tcp",
       "sbpl_file": "pair_dp_all_system_tcp.sb",
       "vary": "socket-domain+proto"
@@ -110,6 +130,11 @@
     {
       "spec_id": "pair_dp_any_inet_tcp",
       "sbpl_file": "pair_dp_any_inet_tcp.sb",
+      "vary": "socket-domain+proto"
+    },
+    {
+      "spec_id": "pair_dp_any_inet_256",
+      "sbpl_file": "pair_dp_any_inet_256.sb",
       "vary": "socket-domain+proto"
     },
     {
@@ -128,6 +153,11 @@
       "vary": "socket-type+proto"
     },
     {
+      "spec_id": "pair_tp_all_stream_256",
+      "sbpl_file": "pair_tp_all_stream_256.sb",
+      "vary": "socket-type+proto"
+    },
+    {
       "spec_id": "pair_tp_all_dgram_tcp",
       "sbpl_file": "pair_tp_all_dgram_tcp.sb",
       "vary": "socket-type+proto"
@@ -140,6 +170,11 @@
     {
       "spec_id": "pair_tp_any_stream_tcp",
       "sbpl_file": "pair_tp_any_stream_tcp.sb",
+      "vary": "socket-type+proto"
+    },
+    {
+      "spec_id": "pair_tp_any_stream_256",
+      "sbpl_file": "pair_tp_any_stream_256.sb",
       "vary": "socket-type+proto"
     },
     {
@@ -236,6 +271,12 @@
       "intent": "Proto delta inside a (domain+proto) require-all form."
     },
     {
+      "pair_id": "pair_dp_all_inet_tcp_vs_inet_256",
+      "a": "pair_dp_all_inet_tcp",
+      "b": "pair_dp_all_inet_256",
+      "intent": "Attempt to witness a non-zero high byte for proto inside a (domain+proto) require-all form (TCP vs numeric 256)."
+    },
+    {
       "pair_id": "pair_dp_any_inet_tcp_vs_system_tcp",
       "a": "pair_dp_any_inet_tcp",
       "b": "pair_dp_any_system_tcp",
@@ -246,6 +287,12 @@
       "a": "pair_dp_any_inet_tcp",
       "b": "pair_dp_any_inet_udp",
       "intent": "Proto delta inside a (domain+proto) require-any form."
+    },
+    {
+      "pair_id": "pair_dp_any_inet_tcp_vs_inet_256",
+      "a": "pair_dp_any_inet_tcp",
+      "b": "pair_dp_any_inet_256",
+      "intent": "Attempt to witness a non-zero high byte for proto inside a (domain+proto) require-any form (TCP vs numeric 256)."
     },
     {
       "pair_id": "pair_tp_all_stream_tcp_vs_dgram_tcp",
@@ -260,6 +307,12 @@
       "intent": "Proto delta inside a (type+proto) require-all form."
     },
     {
+      "pair_id": "pair_tp_all_stream_tcp_vs_stream_256",
+      "a": "pair_tp_all_stream_tcp",
+      "b": "pair_tp_all_stream_256",
+      "intent": "Attempt to witness a non-zero high byte for proto inside a (type+proto) require-all form (TCP vs numeric 256)."
+    },
+    {
       "pair_id": "pair_tp_any_stream_tcp_vs_dgram_tcp",
       "a": "pair_tp_any_stream_tcp",
       "b": "pair_tp_any_dgram_tcp",
@@ -270,6 +323,12 @@
       "a": "pair_tp_any_stream_tcp",
       "b": "pair_tp_any_stream_udp",
       "intent": "Proto delta inside a (type+proto) require-any form."
+    },
+    {
+      "pair_id": "pair_tp_any_stream_tcp_vs_stream_256",
+      "a": "pair_tp_any_stream_tcp",
+      "b": "pair_tp_any_stream_256",
+      "intent": "Attempt to witness a non-zero high byte for proto inside a (type+proto) require-any form (TCP vs numeric 256)."
     },
     {
       "pair_id": "triple_all_tcp_vs_system_stream_tcp",
@@ -288,6 +347,12 @@
       "a": "triple_all_tcp",
       "b": "triple_all_inet_stream_udp",
       "intent": "Proto delta inside a (domain+type+proto) require-all form."
+    },
+    {
+      "pair_id": "triple_all_tcp_vs_inet_stream_256",
+      "a": "triple_all_tcp",
+      "b": "triple_all_inet_stream_256",
+      "intent": "Attempt to witness a non-zero high byte for proto inside a (domain+type+proto) require-all form (TCP vs numeric 256)."
     },
     {
       "pair_id": "domain_only_vs_pair_dp_all_inet_tcp",
@@ -318,6 +383,18 @@
       "a": "pair_dt_all_inet_stream",
       "b": "triple_all_tcp",
       "intent": "Combined-form vs combined-form: add proto to a (domain+type) require-all form."
+    },
+    {
+      "pair_id": "triple_any_tcp_vs_256",
+      "a": "triple_any_tcp",
+      "b": "triple_any_256",
+      "intent": "Attempt to witness a non-zero high byte for proto inside a (domain+type+proto) require-any form (TCP vs numeric 256)."
+    },
+    {
+      "pair_id": "triple_nested_tcp_vs_256",
+      "a": "triple_nested_tcp",
+      "b": "triple_nested_256",
+      "intent": "Attempt to witness a non-zero high byte for proto inside a nested require-all triple form (TCP vs numeric 256)."
     }
   ]
 }
