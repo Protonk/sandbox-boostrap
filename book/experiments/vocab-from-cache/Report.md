@@ -6,9 +6,9 @@ Extract Operation/Filter vocab tables (name ↔ ID) from the macOS dyld shared c
 ## Baseline & scope
 - World: Sonoma baseline from `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (macOS 14.4.1 / 23E224, arm64, SIP enabled).
 - Canonical blobs for alignment:
-  - `book/examples/extract_sbs/build/profiles/airlock.sb.bin`
-  - `book/examples/extract_sbs/build/profiles/bsd.sb.bin`
-  - `book/examples/sb/build/sample.sb.bin`
+  - `book/graph/concepts/validation/fixtures/blobs/airlock.sb.bin`
+  - `book/graph/concepts/validation/fixtures/blobs/bsd.sb.bin`
+  - `book/graph/concepts/validation/fixtures/blobs/sample.sb.bin`
 - Current vocab artifacts (`book/graph/mappings/vocab/ops.json` / `filters.json`) are `status: ok` (196 ops, 93 filters) harvested from the dyld cache.
 
 ## Deliverables / expected outcomes

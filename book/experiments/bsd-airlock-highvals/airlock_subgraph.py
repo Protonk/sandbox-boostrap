@@ -21,6 +21,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from book.api import path_utils  # type: ignore
+from book.api.profile_tools import digests as digests_mod  # type: ignore
 
 
 TAGS_FOCUS = {0, 1, 26, 27, 166}
@@ -121,7 +122,7 @@ def summarize(records: Sequence[Record], reachable: Sequence[int]) -> Dict[str, 
 
 def main(argv: Sequence[str]) -> None:
     repo_root = ROOT
-    path = repo_root / "book/examples/extract_sbs/build/profiles/airlock.sb.bin"
+    path = digests_mod.canonical_system_profile_blobs(repo_root)["airlock"]
     blob = path.read_bytes()
 
     op_count = _u16(blob, 2)
@@ -164,4 +165,3 @@ def main(argv: Sequence[str]) -> None:
 
 if __name__ == "__main__":
     main(sys.argv)
-

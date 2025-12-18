@@ -21,6 +21,7 @@ if str(ROOT) not in sys.path:
 
 from book.api import path_utils  # type: ignore
 from book.api.profile_tools import decoder  # type: ignore
+from book.api.profile_tools import digests as digests_mod  # type: ignore
 
 
 def _hist_top(counter: Dict[int, int], limit: int = 20) -> List[Dict[str, int]]:
@@ -66,8 +67,9 @@ def main() -> None:
     out_dir = repo_root / "book/experiments/bsd-airlock-highvals/out"
     out_dir.mkdir(exist_ok=True)
 
-    bsd = repo_root / "book/examples/extract_sbs/build/profiles/bsd.sb.bin"
-    airlock = repo_root / "book/examples/extract_sbs/build/profiles/airlock.sb.bin"
+    canonical = digests_mod.canonical_system_profile_blobs(repo_root)
+    bsd = canonical["bsd"]
+    airlock = canonical["airlock"]
 
     payload = {
         "bsd": _histogram_for_profile(bsd),

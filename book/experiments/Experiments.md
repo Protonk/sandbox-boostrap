@@ -75,7 +75,7 @@ Experiments move through a simple life-cycle as they are created, refined, and i
 * **Promotion or supersession**
   Stable experiments often produce outputs (artifacts, tools, or distilled insights) that are useful beyond the experiment itself. When that happens, the experiment should clearly mark which outputs appear stable and broadly reusable, and suggest that they be used as shared references in the wider book. Any artifact promoted into `book/graph/mappings/*` must carry host metadata and have a guardrail test (e.g., in `book/tests/`). If a newer experiment replaces or sharpens an older one, that relationship should be noted so that readers can follow the chain.
 
-Across this life-cycle, experiments remain the primary link between the project’s claims and the fixed host. Their job is to accumulate reliable, inspectable evidence, not to disappear once a story has been written. Use shared tooling (`book/api/inspect_profile`, `book/api/op_table`, `book/api/profile_tools/decoder.py`) instead of reimplementing parsers.
+Across this life-cycle, experiments remain the primary link between the project’s claims and the fixed host. Their job is to accumulate reliable, inspectable evidence, not to disappear once a story has been written. Use shared tooling (`book/api/profile_tools/`) instead of reimplementing parsers.
 
 ---
 

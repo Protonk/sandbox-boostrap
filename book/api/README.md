@@ -6,7 +6,7 @@ This directory collects host-specific helpers for working with Seatbelt on the f
 
 Definition: Unified surface for SBPL compilation, compiled-blob decoding/inspection, op-table summaries, and structural oracles (replaces `sbpl_compile`, `inspect_profile`, `op_table`, and the former standalone `decoder`/`sbpl_oracle` modules).
 
-Role: Provide a single Python/CLI entrypoint for compiling SBPL, decoding/inspecting compiled blobs, summarizing op-table structure, and running structural oracles, with legacy modules left as shims.
+Role: Provide a single Python/CLI entrypoint for compiling SBPL, decoding/inspecting compiled blobs, summarizing op-table structure, and running structural oracles.
 
 Example:
 ```sh
@@ -20,7 +20,7 @@ python -m book.api.profile_tools oracle network-matrix \
   --out /tmp/network_oracle.json
 ```
 
-The legacy `sbpl_compile`, `inspect_profile`, and `op_table` modules remain as shims to `profile_tools`; prefer the unified package above.
+Legacy packages (`book.api.sbpl_compile`, `book.api.inspect_profile`, `book.api.op_table`) have been removed; prefer the unified package above.
 
 ### SBPL-wrapper
 
@@ -43,7 +43,7 @@ Role: Provide a deterministic target for runtime allow/deny checks when paired w
 Example:
 ```sh
 gcc book/api/file_probe/file_probe.c -o /tmp/file_probe
-/tmp/file_probe /etc/hosts
+/tmp/file_probe read /etc/hosts
 ```
 
 ### ghidra
@@ -87,6 +87,6 @@ python -m book.api.runtime_harness.cli run --matrix book/profiles/golden-triple/
 
 ## CARTON conversion assessment
 
-- **op_table**: could gain a CARTON-backed query layer if op-table fingerprints/alignments are ever promoted to CARTON mappings; today it is generator/inspection tooling, not CARTON IR.
+- **op_table**: could gain a CARTON-backed query layer if op-table fingerprints/alignments are ever promoted to CARTON mappings; today it is generator/inspection tooling (see `book.api.profile_tools.op_table`), not CARTON IR.
 - **runtime_harness**: could be query-able if golden traces/expectations become CARTON mappings with a defined concept; currently generation-only.
-- **Others (sbpl_compile, inspect_profile, regex_tools, SBPL-wrapper, file_probe, ghidra)**: generation/inspection/harness tools, not CARTON concepts; poor fits for the CARTON query surface in their current form.
+- **Others (regex_tools, SBPL-wrapper, file_probe, ghidra)**: generation/inspection/harness tools, not CARTON concepts; poor fits for the CARTON query surface in their current form.

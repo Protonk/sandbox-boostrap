@@ -29,6 +29,7 @@ ROOT = Path(__file__).resolve().parents[3]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 from book.api.profile_tools import decoder  # type: ignore
+from book.api.profile_tools import digests as digests_mod  # type: ignore
 from book.api.profile_tools import ingestion as pi  # type: ignore
 
 
@@ -222,11 +223,8 @@ def main() -> None:
     filter_names = load_filter_names()
     anchors_map = json.loads(Path("book/experiments/probe-op-structure/anchor_map.json").read_text())
     profiles_dir = Path("book/experiments/probe-op-structure/sb/build")
-    sys_profiles = {
-        "sys:airlock": Path("book/examples/extract_sbs/build/profiles/airlock.sb.bin"),
-        "sys:bsd": Path("book/examples/extract_sbs/build/profiles/bsd.sb.bin"),
-        "sys:sample": Path("book/examples/sb/build/sample.sb.bin"),
-    }
+    canonical = digests_mod.canonical_system_profile_blobs(ROOT)
+    sys_profiles = {"sys:airlock": canonical["airlock"], "sys:bsd": canonical["bsd"], "sys:sample": canonical["sample"]}
     outputs: Dict[str, Any] = {}
 
     for name, anchors in anchors_map.items():

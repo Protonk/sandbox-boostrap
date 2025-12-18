@@ -31,6 +31,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from book.api import path_utils  # type: ignore
+from book.api.profile_tools import digests as digests_mod  # type: ignore
 
 
 FOCUS_TAGS: Tuple[int, ...] = (0, 1, 26, 27, 166)
@@ -374,8 +375,9 @@ def main(argv: Sequence[str]) -> None:
     out_dir = ROOT / "book/experiments/bsd-airlock-highvals/out"
     out_dir.mkdir(exist_ok=True)
 
-    bsd = ROOT / "book/examples/extract_sbs/build/profiles/bsd.sb.bin"
-    airlock = ROOT / "book/examples/extract_sbs/build/profiles/airlock.sb.bin"
+    canonical = digests_mod.canonical_system_profile_blobs(ROOT)
+    bsd = canonical["bsd"]
+    airlock = canonical["airlock"]
 
     payload: Dict[str, Any] = {
         "notes": "Experiment-local stride=8 framing cross-check; does not mutate mappings.",

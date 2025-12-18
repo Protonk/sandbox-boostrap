@@ -35,7 +35,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from book.api.profile_tools import decoder
-from book.api.op_table import op_entries
+from book.api.profile_tools.op_table import op_entries
 from book.graph.concepts.validation import profile_ingestion as pi
 
 
@@ -97,11 +97,14 @@ def load_json(path: Path) -> Dict[str, Any]:
 def gather_profile_paths() -> Set[Path]:
     paths: Set[Path] = set()
     digests = load_json(REPO_ROOT / "book/graph/mappings/system_profiles/digests.json")
-    for rec in digests.values():
-        if not isinstance(rec, dict):
-            continue
-        src = rec.get("source")
-        if src:
+    profiles = digests.get("profiles") if isinstance(digests, dict) else None
+    if isinstance(profiles, dict):
+        for rec in profiles.values():
+            if not isinstance(rec, dict):
+                continue
+            src = rec.get("source")
+            if not src:
+                continue
             p = (REPO_ROOT / src).resolve()
             if p.exists():
                 paths.add(p)

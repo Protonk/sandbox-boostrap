@@ -35,7 +35,7 @@ into a reusable picture of how compiled PolicyGraphs encode filter arguments. Al
 - **Vocab:** `book/graph/mappings/vocab/ops.json` and `filters.json` (both `status: ok` from `vocab-from-cache`).
 - **Profiles:**
   - Probe SBPL variants under `book/experiments/probe-op-structure/sb/` with compiled blobs in `sb/build/`.
-  - Canonical system blobs: `book/examples/extract_sbs/build/profiles/{airlock,bsd}.sb.bin`, `book/examples/sb/build/sample.sb.bin`.
+  - Canonical system blobs: `book/graph/concepts/validation/fixtures/blobs/{airlock,bsd,sample}.sb.bin`.
 - **Decoder & layouts (shared backbone):**
   - `book/api/profile_tools/decoder.py` (modern-heuristic decoder) with tag layouts from `book/graph/mappings/tag_layouts/tag_layouts.json` (`status: ok` from `tag-layout-decode`).
   - Segment-aware slicing and header parsing from `book/graph/concepts/validation/profile_ingestion.py`.

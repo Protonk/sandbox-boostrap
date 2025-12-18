@@ -191,13 +191,17 @@ Use these when you need to **compile, extract, disassemble, or visualize profile
 
 ### `extract_sbs/`
 
-* **Role:** Python tool that compiles selected installed SBPL profiles (from `/System/Library/Sandbox/Profiles` by default) using `libsandbox` and writes `.sb.bin` blobs.
+* **Role:** Docs-only pointer for compiling selected installed SBPL profiles (from `/System/Library/Sandbox/Profiles`) into `.sb.bin` blobs using `book/api/profile_tools`.
 * **Run:**
 
   ```sh
-  ./run-demo.sh
+  python -m book.api.profile_tools compile \
+    /System/Library/Sandbox/Profiles/airlock.sb \
+    /System/Library/Sandbox/Profiles/bsd.sb \
+    --out-dir book/graph/concepts/validation/fixtures/blobs \
+    --no-preview
   ```
-* **Concept:** Harvesting system profiles for decoding. Use when you need ground-truth compiled blobs for `sbdis`, regex tools, or ingestion tests.
+* **Concept:** Harvesting system profiles for decoding. Canonical blobs for this host are tracked at `book/graph/concepts/validation/fixtures/blobs/{airlock,bsd}.sb.bin`.
 
 ---
 
@@ -239,13 +243,15 @@ Use these when you need to **compile, extract, disassemble, or visualize profile
 
 ### `sb/`
 
-* **Role:** Sample SBPL (`sample.sb`) plus a Python helper that compiles it with `libsandbox`, writes `build/sample.sb.bin`, and parses it via the shared profile ingestion layer.
+* **Role:** Docs-only pointer for the sample SBPL (`sample.sb`) used as a small modern-graph witness on this host.
 * **Run:**
 
   ```sh
-  ./run-demo.sh
+  python -m book.api.profile_tools compile book/examples/sb/sample.sb \
+    --out book/graph/concepts/validation/fixtures/blobs/sample.sb.bin \
+    --no-preview
   ```
-* **Concept:** Small end-to-end **SBPL → binary → header/sections** sample for the modern graph-based format. Use as a canonical test blob for ingestion-based tooling.
+* **Concept:** Small end-to-end **SBPL → binary → header/sections** sample for the modern graph-based format. Canonical compiled blob: `book/graph/concepts/validation/fixtures/blobs/sample.sb.bin`.
 
 ---
 

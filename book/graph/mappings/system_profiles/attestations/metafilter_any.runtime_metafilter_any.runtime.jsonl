@@ -8,10 +8,16 @@
     }
   ],
   "format_variant": "modern-heuristic",
-  "length": 417,
+  "length": 622,
   "literal_strings": [
-    "y default)",
-    "(allow file-read* (subpath \"/tmp/foo\"))",
+    "ow default)",
+    "(deny file-read* (literal \"/tmp/baz.txt\"))",
+    "(deny file-write* (literal \"/tmp/baz.txt\"))",
+    "(allow file-read* (require-any",
+    "  (literal \"/tmp/foo.txt\")",
+    "  (literal \"/tmp/bar.txt\")",
+    "  (literal \"/private/tmp/foo.txt\")",
+    "  (literal \"/private/tmp/bar.txt\")))",
     "(allow process-exec*)",
     "(allow file-read* (subpath \"/System\"))",
     "(allow file-read* (subpath \"/usr\"))",
@@ -24,19 +30,19 @@
   ],
   "op_count": null,
   "op_entries": [],
-  "profile_id": "v11_read_subpath.bucket5_v11_read_subpath.runtime",
+  "profile_id": "metafilter_any.runtime_metafilter_any.runtime",
   "runtime_link": {
-    "profile_id": "bucket5:v11_read_subpath",
+    "profile_id": "runtime:metafilter_any",
     "status": "ok",
-    "trace_path": "book/graph/mappings/runtime/traces/bucket5_v11_read_subpath.jsonl"
+    "trace_path": "book/graph/mappings/runtime/traces/runtime_metafilter_any.jsonl"
   },
   "sections": {
-    "literals": 401,
+    "literals": 606,
     "nodes": 0,
     "op_table": 0
   },
-  "sha256": "172766f1897fb960eaf6bf32f25a7335419934ce39184b4426b57103a62cb8ad",
-  "source": "book/profiles/golden-triple/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
+  "sha256": "e104bdc074ffc6dfbe9bdfeb309ca5275c043d946a797287fc9a9965e39845f7",
+  "source": "book/profiles/golden-triple/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
   "tag_counts": {},
   "tag_layout_version": "eb3b1cfefae0aaf7260ac017b52fddd38b375922514468b4071f72281af6b2ac",
   "vocab_versions": {

@@ -22,11 +22,20 @@ from pathlib import Path
 from typing import Any, Dict, List
 import sys
 
+from book.api.path_utils import find_repo_root, to_repo_relative
 from book.api.profile_tools import decoder
+from book.api.profile_tools import digests as digests_mod
 from book.graph.concepts.validation import profile_ingestion as pi
 from book.graph.concepts.validation import registry
 from book.graph.concepts.validation.registry import ValidationJob
 
+ROOT = find_repo_root(Path(__file__))
+_CANONICAL = digests_mod.canonical_system_profile_blobs(ROOT)
+_CANONICAL_INPUTS = [
+    to_repo_relative(_CANONICAL["airlock"], ROOT),
+    to_repo_relative(_CANONICAL["bsd"], ROOT),
+    to_repo_relative(_CANONICAL["sample"], ROOT),
+]
 
 @dataclass
 class SourceRecord:
@@ -58,7 +67,7 @@ def decode_blob(path: Path) -> SourceRecord:
     op_table_offset = dec.get("op_table_offset") or 0
     entries = dec.get("op_table") or []
     return SourceRecord(
-        source=str(path),
+        source=to_repo_relative(path, ROOT),
         length=len(data),
         format_variant=dec.get("format_variant") or header.format_variant or "unknown",
         op_count=op_count,
@@ -69,29 +78,24 @@ def decode_blob(path: Path) -> SourceRecord:
 
 
 def collect_sources() -> List[SourceRecord]:
-    roots = [
-        Path("book/examples/extract_sbs/build/profiles"),
-        Path("book/examples/sb/build"),
-    ]
     blobs: List[SourceRecord] = []
-    for root in roots:
-        if not root.exists():
+    for path in (_CANONICAL["airlock"], _CANONICAL["bsd"], _CANONICAL["sample"]):
+        if not path.exists():
             continue
-        for binpath in sorted(root.glob("*.sb.bin")):
-            try:
-                blobs.append(decode_blob(binpath))
-            except Exception as exc:  # pragma: no cover
-                blobs.append(
-                    SourceRecord(
-                        source=str(binpath),
-                        length=binpath.stat().st_size,
-                        format_variant="unknown",
-                        op_count=0,
-                        op_table_offset=0,
-                        op_table_entries=[],
-                        notes=f"decode failed: {exc}",
-                    )
+        try:
+            blobs.append(decode_blob(path))
+        except Exception as exc:  # pragma: no cover
+            blobs.append(
+                SourceRecord(
+                    source=to_repo_relative(path, ROOT),
+                    length=path.stat().st_size,
+                    format_variant="unknown",
+                    op_count=0,
+                    op_table_offset=0,
+                    op_table_entries=[],
+                    notes=f"decode failed: {exc}",
                 )
+            )
     return blobs
 
 
@@ -135,10 +139,7 @@ def run_vocab_job():
 registry.register(
     ValidationJob(
         id="vocab:stub-harvest",
-        inputs=[
-            "book/examples/extract_sbs/build/profiles/*.sb.bin",
-            "book/examples/sb/build/*.sb.bin",
-        ],
+        inputs=_CANONICAL_INPUTS,
         outputs=[
             "book/graph/concepts/validation/out/vocab/ops.json",
             "book/graph/concepts/validation/out/vocab/filters.json",

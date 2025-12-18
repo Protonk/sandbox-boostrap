@@ -82,14 +82,14 @@ These tools give us a consistent “slice + decode” view of modern profiles th
 ### Completed
 - **1. Baseline ingestion and heuristics**
   - Used the shared ingestion helpers (`book/graph/concepts/validation/profile_ingestion.py`) to:
-  - Classify `book/examples/sb/build/sample.sb.bin` as a modern graph-based blob.
+  - Classify `book/graph/concepts/validation/fixtures/blobs/sample.sb.bin` as a modern graph-based blob.
   - Slice it into a small preamble/op-table area, a “nodes” region, and a literal/regex tail with human-readable strings.
   - Recorded, for the baseline blob:
   - `operation_count` from the heuristic header and approximate op-table length (`op_count * 2` bytes).
   - Node and literal region lengths.
 - Stride scans (8/12/16 bytes) with tag sets and in-bounds edge rates.
 - Persisted these observations via `analyze.py` and `out/summary.json`, with narrative in `Notes.md`.
-- For ad hoc blob snapshots (section sizes, op-table entries, stride/tag stats, literals), prefer the shared `book/api/inspect_profile` CLI/Python helper over re-implementing parsers here.
+- For ad hoc blob snapshots (section sizes, op-table entries, stride/tag stats, literals), prefer `book/api/profile_tools/` (`inspect` / `decode`) over re-implementing parsers here.
 - **2. Synthetic SBPL variants**
   - Added a family of variants under `sb/`:
   - Baseline `file-read*` profile.

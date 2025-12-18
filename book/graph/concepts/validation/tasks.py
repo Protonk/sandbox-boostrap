@@ -10,14 +10,14 @@ PLAN = {
         {
             "name": "modern-sb-sample",
             "example": "sb",
-            "run": "book/examples/sb/run-demo.sh",
+            "run": "python -m book.api.profile_tools compile book/examples/sb/sample.sb --out book/graph/concepts/validation/fixtures/blobs/sample.sb.bin --no-preview",
             "artifacts": ["out/static/sb-sample.json"],
             "notes": "Compile sample.sb (modern graph format) and emit parsed header/op-table/node/regex/literal JSON via shared ingestion.",
         },
         {
             "name": "system-profiles-airlock-bsd",
             "example": "extract_sbs",
-            "run": "book/examples/extract_sbs/run-demo.sh",
+            "run": "python -m book.api.profile_tools compile /System/Library/Sandbox/Profiles/airlock.sb /System/Library/Sandbox/Profiles/bsd.sb --out-dir book/graph/concepts/validation/fixtures/blobs --no-preview",
             "artifacts": [
                 "out/static/airlock.sb.bin.json",
                 "out/static/bsd.sb.bin.json",

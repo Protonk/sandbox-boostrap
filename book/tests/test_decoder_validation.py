@@ -6,9 +6,11 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
 from book.api.profile_tools import decoder  # type: ignore
+from book.api.profile_tools import digests as digests_mod  # type: ignore
 
 
-SAMPLE = ROOT / "book" / "examples" / "sb" / "build" / "sample.sb.bin"
+_CANONICAL = digests_mod.canonical_system_profile_blobs(ROOT)
+SAMPLE = _CANONICAL["sample"]
 
 
 def test_decoder_emits_validation_fields():
@@ -52,7 +54,7 @@ def test_decoder_literals_and_refs():
 
 def test_decoder_op_table_scaling_witness_present():
     """Guardrail: decoder emits op-table scaling witness data to catch mis-scaling."""
-    airlock = ROOT / "book" / "examples" / "extract_sbs" / "build" / "profiles" / "airlock.sb.bin"
+    airlock = _CANONICAL["airlock"]
     if not airlock.exists():
         return
     dec = decoder.decode_profile_dict(airlock.read_bytes())
@@ -70,8 +72,8 @@ def test_decoder_op_table_scaling_witness_present():
 
 def test_decoder_stride8_mode_covers_op_table_targets():
     """Guardrail: fixed stride=8 mode slices enough nodes to cover op-table roots."""
-    airlock = ROOT / "book" / "examples" / "extract_sbs" / "build" / "profiles" / "airlock.sb.bin"
-    bsd = ROOT / "book" / "examples" / "extract_sbs" / "build" / "profiles" / "bsd.sb.bin"
+    airlock = _CANONICAL["airlock"]
+    bsd = _CANONICAL["bsd"]
     for path in (airlock, bsd):
         if not path.exists():
             continue

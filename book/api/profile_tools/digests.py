@@ -39,9 +39,9 @@ def canonical_system_profile_blobs(repo_root: Path | None = None) -> dict[str, P
     """
     root = repo_root or find_repo_root()
     return {
-        "airlock": root / "book/examples/extract_sbs/build/profiles/airlock.sb.bin",
-        "bsd": root / "book/examples/extract_sbs/build/profiles/bsd.sb.bin",
-        "sample": root / "book/examples/sb/build/sample.sb.bin",
+        "airlock": root / "book/graph/concepts/validation/fixtures/blobs/airlock.sb.bin",
+        "bsd": root / "book/graph/concepts/validation/fixtures/blobs/bsd.sb.bin",
+        "sample": root / "book/graph/concepts/validation/fixtures/blobs/sample.sb.bin",
     }
 
 
@@ -77,4 +77,3 @@ def digest_named_blobs(blobs: Mapping[str, Path], *, repo_root: Path | None = No
 def write_digests_json(payload: Mapping[str, Any], out_path: Path) -> None:
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(payload, indent=2, sort_keys=True))
-

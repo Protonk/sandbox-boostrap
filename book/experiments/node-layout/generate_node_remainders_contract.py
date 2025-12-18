@@ -22,13 +22,15 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from book.api.path_utils import to_repo_relative  # type: ignore
+from book.api.profile_tools import digests as digests_mod  # type: ignore
 from book.api.profile_tools import ingestion as pi  # type: ignore
 
 
+_CANONICAL = digests_mod.canonical_system_profile_blobs(ROOT)
 CANONICAL: Dict[str, Path] = {
-    "sys:airlock": ROOT / "book/examples/extract_sbs/build/profiles/airlock.sb.bin",
-    "sys:bsd": ROOT / "book/examples/extract_sbs/build/profiles/bsd.sb.bin",
-    "sys:sample": ROOT / "book/examples/sb/build/sample.sb.bin",
+    "sys:airlock": _CANONICAL["airlock"],
+    "sys:bsd": _CANONICAL["bsd"],
+    "sys:sample": _CANONICAL["sample"],
 }
 
 OUT_PATH = ROOT / "book/graph/concepts/validation/out/static/node_remainders.json"

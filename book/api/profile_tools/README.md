@@ -8,6 +8,8 @@ Unified API/CLI for SBPL compilation, compiled-blob ingestion/decoding, inspecti
 - **C (reference):** `make -C book/api/profile_tools/c` builds `build/compile_profile` (SBPL file → compiled blob via `sandbox_compile_file`).
 - **Parameterized SBPL (compile-time):** `python -m book.api.profile_tools compile <profile.sb> --param ROOT=/private/tmp` (repeatable `--param KEY=VALUE`; see `profile_tools/libsandbox.py` for the params-handle interface).
 
+Legacy packages (`book.api.sbpl_compile`, `book.api.inspect_profile`, `book.api.op_table`) have been removed; route all profile-byte work through `book.api.profile_tools`.
+
 See `book/api/README.md` for routing and deprecation notes.
 
 ## Routing

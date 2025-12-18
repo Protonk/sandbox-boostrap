@@ -222,11 +222,11 @@ Standard `if __name__ == "__main__": main()` at the end makes it directly execut
 
 Compared with other examples:
 
-* `compile_sample.py` (in `sb/`):
+* `book.api.profile_tools`:
 
-  * Compiles a specific sample SBPL.
-  * Immediately passes the blob through the shared ingestion layer and prints header/section info.
-* `extract_sbs`, `sbdis`, `re2dot`, `resnarf`:
+  * Compiles SBPL (including the small sample under `book/examples/sb/sample.sb`).
+  * Provides decoding/inspection helpers so you can quickly summarize headers, op-tables, and section boundaries.
+* `sbdis`, `re2dot`, `resnarf`:
 
   * Operate on **compiled blobs** and reverse-engineer structure (decision trees, NFAs, headers, etc.).
 

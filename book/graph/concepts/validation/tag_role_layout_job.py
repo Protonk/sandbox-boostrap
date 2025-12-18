@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import Dict, List, Any
 
 from book.api.profile_tools import decoder
+from book.api.profile_tools import digests as digests_mod
 from book.api.path_utils import find_repo_root, to_repo_relative
 from book.graph.concepts.validation import registry
 from book.graph.concepts.validation.registry import ValidationJob
@@ -26,10 +27,11 @@ STATUS_PATH = ROOT / "book/graph/concepts/validation/out/tag_roles/status.json"
 IR_PATH = ROOT / "book/graph/concepts/validation/out/tag_roles/ir.json"
 
 # Canonical corpus for this host.
+_CANONICAL = digests_mod.canonical_system_profile_blobs(ROOT)
 CANONICAL_BLOBS = [
-    ("sys:airlock", ROOT / "book/examples/extract_sbs/build/profiles/airlock.sb.bin"),
-    ("sys:bsd", ROOT / "book/examples/extract_sbs/build/profiles/bsd.sb.bin"),
-    ("sample", ROOT / "book/examples/sb/build/sample.sb.bin"),
+    ("sys:airlock", _CANONICAL["airlock"]),
+    ("sys:bsd", _CANONICAL["bsd"]),
+    ("sample", _CANONICAL["sample"]),
 ]
 
 

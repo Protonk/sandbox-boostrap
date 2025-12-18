@@ -50,7 +50,7 @@ Key steps:
      * filter shapes: literal/subpath path filters, socket domain/type/proto, iokit class/property, mach names.
    * Implemented `run_phase_a.py` ([book/experiments/libsandbox-encoder/run_phase_a.py](book/experiments/libsandbox-encoder/run_phase_a.py)) to:
 
-     * compile SBPL with `sbpl_compile`,
+     * compile SBPL with `book.api.profile_tools compile`,
      * decode compiled blobs via the project’s profile decoder,
      * emit a per-node table keyed by tag-specific layouts: `(op, filter_name, SBPL arg, tag, filter_id_raw, payload_raw)` for payload-bearing tags (tag10), and filter-id-only rows for others. Tag2/tag3 were excluded as meta. See [book/experiments/libsandbox-encoder/out/matrix_v1_field2_encoder_matrix.json](book/experiments/libsandbox-encoder/out/matrix_v1_field2_encoder_matrix.json).
 
@@ -58,9 +58,9 @@ Key steps:
 
 2. **Header-aligned node slicing and tag roles**
 
-   The agents hardened the decoding pipeline, using the project’s PolicyGraph decoder ([book/api/inspect_profile](book/api/inspect_profile)) as the ground truth:
+   The agents hardened the decoding pipeline, using the project’s profile inspection/decoder tooling (now under `book/api/profile_tools/`) as the ground truth:
 
-   * **inspect_profile** ([book/api/inspect_profile](book/api/inspect_profile)) was extended to:
+   * **profile_tools inspect/decoder** (formerly `inspect_profile`) was extended to:
 
      * emit `nodes_raw` (offset, tag byte, raw bytes, halfwords),
      * normalize the nodes section by trimming a consistent +3-byte tail and using `record_size × node_count` as the canonical `nodes_len` (12-byte records on this host). Example: [book/experiments/libsandbox-encoder/out/matrix_v1.inspect.json](book/experiments/libsandbox-encoder/out/matrix_v1.inspect.json).
@@ -161,7 +161,7 @@ Key findings in `libsandbox.1.dylib` ([book/graph/mappings/dyld-libs/usr/lib/lib
 
 ### Closure and follow-on
 
-By the end of this run, the `libsandbox-encoder` experiment had achieved its AIM on this host: it established a concrete, header-aligned record layout for tag10 (including filter ID and payload slots), verified that this layout matches libsandbox’s behavior under controlled SBPL arg variation, and catalogued encoder and serializer sites in libsandbox and the builder→immutable `sb_buffer*` path. Along the way it hardened shared tooling—`inspect_profile`, `dump_raw_nodes.py`, `run_phase_a.py`, `build_tag_field_summary.py`, and the baseline artifacts under `book/experiments/libsandbox-encoder/out/`—and drew a clean boundary to a new experiment for `libsystem_sandbox` glue.
+By the end of this run, the `libsandbox-encoder` experiment had achieved its AIM on this host: it established a concrete, header-aligned record layout for tag10 (including filter ID and payload slots), verified that this layout matches libsandbox’s behavior under controlled SBPL arg variation, and catalogued encoder and serializer sites in libsandbox and the builder→immutable `sb_buffer*` path. Along the way it hardened shared tooling—profile inspection/decoder tooling (now `book/api/profile_tools/`), `dump_raw_nodes.py`, `run_phase_a.py`, `build_tag_field_summary.py`, and the baseline artifacts under `book/experiments/libsandbox-encoder/out/`—and drew a clean boundary to a new experiment for `libsystem_sandbox` glue.
 
 Compared to the earlier “zero-knowledge field2” run, which established a negative result in the kernel (“no hidden node arrays, no hi/lo bitfields”), this experiment gives a positive compiler-side map: how libsandbox actually lays down filter IDs and arguments in the node records we decode. Together, they narrow the search space for any future attempts to explain the remaining “mystery” field2 values on this Sonoma host, and they do so with reusable code, artifacts, and explicit stopping rules rather than just an evolving folk story.
 

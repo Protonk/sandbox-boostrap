@@ -5,7 +5,7 @@ Produce stable digests for curated system profile blobs (for example, `airlock`,
 
 ## Baseline & scope
 - World: Sonoma baseline from `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
-- Inputs: `book/examples/extract_sbs/build/profiles/{airlock,bsd,sample}.sb.bin` (plus any other stable system blobs added later).
+- Inputs: `book/graph/concepts/validation/fixtures/blobs/{airlock,bsd,sample}.sb.bin` (plus any other stable system blobs added later).
 - Tooling: `book.api.profile_tools.digests` (decoder-backed); shared vocab and op-table mappings in `book/graph/mappings/`.
 - Output: digest JSON at `book/graph/mappings/system_profiles/digests.json` with build metadata and provenance notes.
 
@@ -26,7 +26,7 @@ Produce stable digests for curated system profile blobs (for example, `airlock`,
   - Guardrail added (`tests/test_mappings_guardrail.py`) to ensure digests remain present and version-tagged.
   - Digests refreshed under the current decoder framing (stride=8 node records selected via op-table witness); contract/tag-layout hashes and canonical status are expected to stay `ok` once the mapping generator is rerun.
 - **1) Scope and setup**
-  - Identified input blobs: `book/examples/extract_sbs/build/profiles/{airlock,bsd,sample}.sb.bin` on this Sonoma host.
+  - Identified input blobs: `book/graph/concepts/validation/fixtures/blobs/{airlock,bsd,sample}.sb.bin` on this Sonoma host.
   - Confirmed digest tooling (`book.api.profile_tools.digests`, decoder-backed) and shared mappings (`book/graph/mappings/vocab`, `book/graph/mappings/op_table`) are available and in use.
 - **2) Decode and summarize**
   - Decoded each curated system profile and captured op-table entries, node/tag counts, literal strings, and section offsets into `out/digests.json`.
@@ -51,7 +51,7 @@ If the digest set needs to be updated (for example, new system profiles or decod
    - Extend the guardrail test to cover any new curated profiles while keeping existing checks intact.
 
 ## Evidence & artifacts
-- Canonical system profiles at `book/examples/extract_sbs/build/profiles/{airlock,bsd,sample}.sb.bin` for this host.
+- Canonical system profiles at `book/graph/concepts/validation/fixtures/blobs/{airlock,bsd,sample}.sb.bin` for this host.
 - Intermediate digest output `book/experiments/system-profile-digest/out/digests.json`.
 - Published digest `book/graph/mappings/system_profiles/digests.json` with host metadata, op-table entries, node/tag counts, literal samples, and section offsets.
 - Guardrail coverage in `tests/test_mappings_guardrail.py` asserting presence and basic shape of the digests.

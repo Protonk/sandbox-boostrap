@@ -21,6 +21,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from book.api import path_utils  # type: ignore
+from book.api.profile_tools import digests as digests_mod  # type: ignore
 
 
 TAGS_FOCUS: Tuple[int, ...] = (0, 1, 26, 27, 166)
@@ -302,10 +303,8 @@ def analyze_blob(blob: bytes, source_path: Path) -> Dict[str, object]:
 
 def main(argv: Sequence[str]) -> None:
     repo_root = ROOT
-    blobs = [
-        repo_root / "book/examples/extract_sbs/build/profiles/bsd.sb.bin",
-        repo_root / "book/examples/extract_sbs/build/profiles/airlock.sb.bin",
-    ]
+    canonical = digests_mod.canonical_system_profile_blobs(repo_root)
+    blobs = [canonical["bsd"], canonical["airlock"]]
     out_dir = repo_root / "book/experiments/bsd-airlock-highvals/out"
     out_dir.mkdir(exist_ok=True)
 

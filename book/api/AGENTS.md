@@ -9,7 +9,8 @@ This directory is the API/tooling layer for the Seatbelt textbook. All tools ass
   - Use `book.api.carton.carton_query` for stable facts about operations, filters, system profiles/profile layers, and runtime signatures. Handle `UnknownOperationError` (unknown op) vs `CartonDataError` (manifest/hash/mapping drift).
   - First moves: `list_operations`, `list_profiles`, `list_filters`, then `operation_story`, `profile_story`, `filter_story`, `runtime_signature_info`, `ops_with_low_coverage`.
 
-- `profile_tools/` – Unified surface for SBPL compilation, blob decoding/inspection, op-table summaries, and structural oracles (replaces `sbpl_compile`, `inspect_profile`, `op_table`, and the former standalone `decoder`/`sbpl_oracle` modules).
+- `profile_tools/` – Canonical surface for profile-byte work: SBPL compilation, blob decoding/inspection, op-table summaries, digests, and structural oracles (replaces `sbpl_compile`, `inspect_profile`, `op_table`, and the former standalone `decoder`/`sbpl_oracle` modules).
+  - Legacy packages (`book.api.sbpl_compile`, `book.api.inspect_profile`, `book.api.op_table`) have been removed; route callers here.
 - `SBPL-wrapper/` – Runtime harness for applying SBPL/compiled blobs; treats `EPERM` apply gates as `blocked` on this host.
 - `file_probe/` – Minimal JSON-emitting read/write probe to pair with SBPL-wrapper.
 - `runtime_harness/` – Unified runtime generation + probe runner (replaces `runtime_golden` and `golden_runner` shims).

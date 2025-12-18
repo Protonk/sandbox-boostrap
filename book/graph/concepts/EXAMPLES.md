@@ -44,7 +44,7 @@ Static-format examples produce compiled blobs and structural views that feed dec
   - **P:** Static-Format (captured compiled profiles, format variants, system profile layers).  
   - **S:** Runtime Lifecycle and Extension (Compiled Profile Source: system templates).
 - **Feeds:**
-  - `book/examples/extract_sbs/build/profiles/*.sb.bin` (raw blobs).  
+  - `book/graph/concepts/validation/fixtures/blobs/*.sb.bin` (canonical raw blobs).  
   - `validation/out/static/system_profiles.json` (ingestion summaries).  
   - `mappings/system_profiles/{digests.json,attestations.json,static_checks.json}`.
 
@@ -145,7 +145,7 @@ Vocabulary/mapping is mostly driven by dyld cache extraction and op-table experi
   - `mappings/op_table/op_table_vocab_alignment.json` (op-table alignment for synthetic/sample profiles).  
   - `validation/out/vocab/*` (mirrored vocab tables and future runtime usage summaries).
 
-Vocabulary extraction itself is driven by `book/experiments/vocab-from-cache/` and `book/api/op_table`, not by a single `book/examples/` directory, but the examples above provide the concrete blobs needed to sanity check op-table/vocab alignment.
+Vocabulary extraction itself is driven by `book/experiments/vocab-from-cache/` and `book/api/profile_tools/` (op-table tooling), not by a single `book/examples/` directory, but the examples above provide the concrete blobs needed to sanity check op-table/vocab alignment.
 
 ---
 

@@ -19,6 +19,7 @@ ROOT = Path(__file__).resolve().parents[3]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 from book.api.profile_tools import decoder  # type: ignore
+from book.api.profile_tools import digests as digests_mod  # type: ignore
 
 
 def load_filters() -> Dict[int, str]:
@@ -84,10 +85,11 @@ def summarize_profile(path: Path, filter_names: Dict[int, str], anchors: Dict[st
 
 def main() -> None:
     filter_names = load_filters()
+    canonical = digests_mod.canonical_system_profile_blobs(ROOT)
     profiles: Dict[str, Path] = {
-        "sys:airlock": Path("book/examples/extract_sbs/build/profiles/airlock.sb.bin"),
-        "sys:bsd": Path("book/examples/extract_sbs/build/profiles/bsd.sb.bin"),
-        "sys:sample": Path("book/examples/sb/build/sample.sb.bin"),
+        "sys:airlock": canonical["airlock"],
+        "sys:bsd": canonical["bsd"],
+        "sys:sample": canonical["sample"],
     }
 
     # Pull in the single-filter probes for this experiment

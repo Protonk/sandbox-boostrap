@@ -21,8 +21,11 @@ from typing import Any, Dict, List
 import subprocess
 import sys
 
-
 REPO_ROOT = Path(__file__).resolve().parents[4]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from book.api.profile_tools import digests as digests_mod  # type: ignore
 OUT_PATH = REPO_ROOT / "book/graph/mappings/vocab/attestations.json"
 VALIDATION_STATUS = REPO_ROOT / "book/graph/concepts/validation/out/validation_status.json"
 VALIDATION_JOB_ID = "vocab:sonoma-14.4.1"
@@ -103,12 +106,9 @@ def main() -> None:
             REPO_ROOT / "book/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib",
         ]
     )
+    canonical = digests_mod.canonical_system_profile_blobs(REPO_ROOT)
     compiled_refs = blob_hashes(
-        [
-            REPO_ROOT / "book/examples/extract_sbs/build/profiles/airlock.sb.bin",
-            REPO_ROOT / "book/examples/extract_sbs/build/profiles/bsd.sb.bin",
-            REPO_ROOT / "book/examples/sb/build/sample.sb.bin",
-        ]
+        [canonical["airlock"], canonical["bsd"], canonical["sample"]]
     )
 
     manifest = {

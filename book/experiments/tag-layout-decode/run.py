@@ -19,13 +19,16 @@ ROOT = Path(__file__).resolve().parents[3]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from book.api.path_utils import to_repo_relative
 from book.api.profile_tools import decoder
+from book.api.profile_tools import digests as digests_mod
 
 
-PROFILES: List[Tuple[str, str]] = [
-    ("sys:airlock", "book/examples/extract_sbs/build/profiles/airlock.sb.bin"),
-    ("sys:bsd", "book/examples/extract_sbs/build/profiles/bsd.sb.bin"),
-    ("sys:sample", "book/examples/sb/build/sample.sb.bin"),
+_CANONICAL = digests_mod.canonical_system_profile_blobs(ROOT)
+PROFILES: List[Tuple[str, Path]] = [
+    ("sys:airlock", _CANONICAL["airlock"]),
+    ("sys:bsd", _CANONICAL["bsd"]),
+    ("sys:sample", _CANONICAL["sample"]),
 ]
 
 
@@ -43,14 +46,13 @@ def main() -> None:
     tag_histogram: Dict[str, Any] = {}
     literal_nodes: List[Dict[str, Any]] = []
 
-    for profile, rel_path in PROFILES:
-        blob_path = ROOT / rel_path
+    for profile, blob_path in PROFILES:
         data = blob_path.read_bytes()
         decoded = decoder.decode_profile_dict(data)
         validation = decoded.get("validation", {})
         tag_histogram[_profile_short_name(profile)] = {
             "profile": profile,
-            "blob_path": rel_path,
+            "blob_path": to_repo_relative(blob_path, ROOT),
             "node_count": decoded.get("node_count"),
             "tag_counts": decoded.get("tag_counts"),
             "literal_count": len(decoded.get("literal_strings_with_offsets") or []),

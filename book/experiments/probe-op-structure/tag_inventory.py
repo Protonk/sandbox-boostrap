@@ -23,6 +23,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from book.api.profile_tools import ingestion as pi  # type: ignore
+from book.api.profile_tools import digests as digests_mod  # type: ignore
 
 
 STRIDES = [6, 8, 10, 12, 16]
@@ -59,6 +60,7 @@ def summarize(path: Path) -> Dict[str, Any]:
 
 
 def main() -> None:
+    canonical = digests_mod.canonical_system_profile_blobs(ROOT)
     profiles = {
         "probe:v0_file_require_all": Path("book/experiments/probe-op-structure/sb/build/v0_file_require_all.sb.bin"),
         "probe:v1_file_require_any": Path("book/experiments/probe-op-structure/sb/build/v1_file_require_any.sb.bin"),
@@ -69,9 +71,9 @@ def main() -> None:
         "probe:v6_file_mach_combo": Path("book/experiments/probe-op-structure/sb/build/v6_file_mach_combo.sb.bin"),
         "probe:v7_file_network_combo": Path("book/experiments/probe-op-structure/sb/build/v7_file_network_combo.sb.bin"),
         "probe:v8_all_combo": Path("book/experiments/probe-op-structure/sb/build/v8_all_combo.sb.bin"),
-        "sys:airlock": Path("book/examples/extract_sbs/build/profiles/airlock.sb.bin"),
-        "sys:bsd": Path("book/examples/extract_sbs/build/profiles/bsd.sb.bin"),
-        "sys:sample": Path("book/examples/sb/build/sample.sb.bin"),
+        "sys:airlock": canonical["airlock"],
+        "sys:bsd": canonical["bsd"],
+        "sys:sample": canonical["sample"],
     }
     out: Dict[str, Any] = {}
     for name, path in profiles.items():

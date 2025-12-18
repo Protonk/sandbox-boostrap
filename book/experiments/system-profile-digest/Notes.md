@@ -8,7 +8,7 @@ Use this file for concise notes on progress, commands, and intermediate findings
 
 ## Baseline decode and digest publish
 
-- Generated digests for canonical system profiles (`airlock`, `bsd`, `sample`) with `book.api.profile_tools.digests` (decoder-backed); wrote interim digest to `out/digests.json` (op-table, node/tag counts, literals, sections, validation) sourced from `book/examples/extract_sbs/build/profiles/{airlock,bsd}.sb.bin` and `book/examples/sb/build/sample.sb.bin`.
+- Generated digests for canonical system profiles (`airlock`, `bsd`, `sample`) with `book.api.profile_tools.digests` (decoder-backed); wrote interim digest to `out/digests.json` (op-table, node/tag counts, literals, sections, validation) sourced from `book/graph/concepts/validation/fixtures/blobs/{airlock,bsd,sample}.sb.bin`.
 - Published normalized digest to `book/graph/mappings/system_profiles/digests.json` (includes host metadata, op-table, tag counts, literal sample, sections, validation) as the reusable artifact.
 - Guardrail added via `tests/test_mappings_guardrail.py` to assert digest presence and host metadata.
 - Regenerated static checks + digests after tag-layout update (meta tags 2/3, payload tag10); contracts now carry tag_layout_hash `4dd3a3…fc219` and canonical statuses back to `ok`.

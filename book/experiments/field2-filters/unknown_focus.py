@@ -15,6 +15,7 @@ ROOT = Path(__file__).resolve().parents[3]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 from book.api.profile_tools import decoder  # type: ignore
+from book.api.profile_tools import digests as digests_mod  # type: ignore
 
 # Field2 payloads that are intentionally characterized elsewhere and should not
 # be treated as "unknown" in this inventory.
@@ -118,10 +119,11 @@ def main() -> None:
     op_names = {entry["id"]: entry["name"] for entry in json.loads(Path("book/graph/mappings/vocab/ops.json").read_text()).get("ops", [])}
     layouts = load_layouts()
 
+    canonical = digests_mod.canonical_system_profile_blobs(ROOT)
     profiles: Dict[str, Path] = {
-        "sys:bsd": Path("book/examples/extract_sbs/build/profiles/bsd.sb.bin"),
-        "sys:airlock": Path("book/examples/extract_sbs/build/profiles/airlock.sb.bin"),
-        "sys:sample": Path("book/examples/sb/build/sample.sb.bin"),
+        "sys:bsd": canonical["bsd"],
+        "sys:airlock": canonical["airlock"],
+        "sys:sample": canonical["sample"],
     }
 
     probes_dir = Path("book/experiments/field2-filters/sb/build")
