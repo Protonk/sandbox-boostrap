@@ -7,7 +7,7 @@ Tasks:
 - Emit a simple expected_matrix.json (profile_id, operation, requested_path, expected_decision).
 - Build a harness matrix and run it via book.api.runtime_harness.runner.run_expected_matrix.
 - Down-convert the harness runtime_results.json into a simple runtime_results.json array.
-- Decode the VFS blobs via book.api.decoder and emit decode_tmp_profiles.json
+- Decode the VFS blobs via book.api.profile_tools.decoder and emit decode_tmp_profiles.json
   (anchors, tags, and field2 values for `/tmp/foo` and `/private/tmp/foo`).
 """
 from __future__ import annotations
@@ -23,7 +23,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from book.api.path_utils import ensure_absolute, find_repo_root, to_repo_relative
-import book.api.decoder as decoder  # type: ignore
+from book.api.profile_tools import decoder  # type: ignore
 from book.api.runtime_harness.runner import ensure_tmp_files, run_expected_matrix  # type: ignore
 from book.api.profile_tools import compile_sbpl_string  # type: ignore
 

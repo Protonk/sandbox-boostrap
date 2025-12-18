@@ -1,7 +1,7 @@
 - world_id: sonoma-14.4.1-23E224-arm64-dyld-2c0602c5
 - status: mapped-but-partial (structural, no runtime)
 - primary outputs: out/analysis.json; out/anchor_hits.json; out/tag_inventory.json; out/tag_layout_hypotheses.json; out/literal_scan.json; out/tag_bytes.json
-- upstream IR: book/api/decoder; book/graph/mappings/tag_layouts/tag_layouts.json; book/graph/mappings/vocab/filters.json
+- upstream IR: book/api/profile_tools/decoder.py; book/graph/mappings/tag_layouts/tag_layouts.json; book/graph/mappings/vocab/filters.json
 - downstream mappings: book/graph/mappings/anchors/anchor_filter_map.json; book/experiments/field2-filters/out/*
 - guardrails: book/tests/test_anchor_filter_alignment.py; book/tests/test_mappings_guardrail.py
 
@@ -11,7 +11,7 @@
 
 This experiment walks a small matrix of probe profiles plus canonical system profiles and asks: **“Which Filters show up in `field2` on which nodes/tags, especially for concrete anchors like `/etc/hosts`, `/var/log`, `flow-divert`, and `IOUSBHostInterface`?”** It builds structural JSON views of op counts, tags, and `field2` histograms, and then a per-anchor map from literals → node indices → `field2` values using the shared decoder and tag layouts for this world.
 
-You can **trust** the structural backbone: tag layouts for tags 0,1,3,5,7,8,17,26,27,166 come from `book/graph/mappings/tag_layouts/tag_layouts.json` (`status: ok`); `out/anchor_hits.json` is derived via `book/api/decoder` under those layouts; and mapped anchors in `book/graph/mappings/anchors/anchor_filter_map.json` are now enforced by a guardrail (`book/tests/test_anchor_filter_alignment.py`) that requires concrete witnesses in `anchor_hits.json`. What remains **partial** is the semantic meaning of many high `field2` values, several anchors that stay `status: "blocked"`, and any attempt to read deep semantics into generic scaffolding filters (`path`, `global-name`, `local-name`, `ipc-posix-name`, `remote`, `local`) from this experiment alone.
+You can **trust** the structural backbone: tag layouts for tags 0,1,3,5,7,8,17,26,27,166 come from `book/graph/mappings/tag_layouts/tag_layouts.json` (`status: ok`); `out/anchor_hits.json` is derived via `book/api/profile_tools/decoder.py` under those layouts; and mapped anchors in `book/graph/mappings/anchors/anchor_filter_map.json` are now enforced by a guardrail (`book/tests/test_anchor_filter_alignment.py`) that requires concrete witnesses in `anchor_hits.json`. What remains **partial** is the semantic meaning of many high `field2` values, several anchors that stay `status: "blocked"`, and any attempt to read deep semantics into generic scaffolding filters (`path`, `global-name`, `local-name`, `ipc-posix-name`, `remote`, `local`) from this experiment alone.
 
 If you only look at three files to get oriented, start with:
 
@@ -37,7 +37,7 @@ into a reusable picture of how compiled PolicyGraphs encode filter arguments. Al
   - Probe SBPL variants under `book/experiments/probe-op-structure/sb/` with compiled blobs in `sb/build/`.
   - Canonical system blobs: `book/examples/extract_sbs/build/profiles/{airlock,bsd}.sb.bin`, `book/examples/sb/build/sample.sb.bin`.
 - **Decoder & layouts (shared backbone):**
-  - `book/api/decoder` (modern-heuristic decoder) with tag layouts from `book/graph/mappings/tag_layouts/tag_layouts.json` (`status: ok` from `tag-layout-decode`).
+  - `book/api/profile_tools/decoder.py` (modern-heuristic decoder) with tag layouts from `book/graph/mappings/tag_layouts/tag_layouts.json` (`status: ok` from `tag-layout-decode`).
   - Segment-aware slicing and header parsing from `book/graph/concepts/validation/profile_ingestion.py`.
 - **Related experiments:**
   - `field2-filters` – `field2` inventories and unknown/high clusters.
@@ -82,7 +82,7 @@ The scope here is **structural**: we do not run runtime probes; we map compiled 
 
 ### 3. Tag-aware decoding under the canonical layouts
 
-- `book/api/decoder` now merges:
+- `book/api/profile_tools/decoder.py` now merges:
   - built‑in defaults for tags 5/6, and
   - external layouts from `book/graph/mappings/tag_layouts/tag_layouts.json` (preferred when present),
   with a host‑scoped node framing selector that prefers an 8‑byte record stride based on op‑table alignment witnesses.
@@ -96,7 +96,7 @@ The scope here is **structural**: we do not run runtime probes; we map compiled 
 ### 4. Anchor‑aware mapping: anchors → nodes → `field2`
 
 - Introduced `anchor_map.json` (per‑profile anchor strings) and `anchor_scan.py`, then:
-  - Decoded each profile via `book/api/decoder.decode_profile_dict`.
+  - Decoded each profile via `book.api.profile_tools.decoder.decode_profile_dict`.
   - Used `profile_ingestion` to slice node and literal sections.
   - Matched anchors to literals (including prefixed forms like `Ftmp/foo`) via:
     - `literal_strings_with_offsets` from the decoder, and
@@ -209,7 +209,7 @@ This table summarizes the anchors that this experiment **actively touches** (i.e
 - **Regenerating local outputs:**
   - `python3 book/experiments/probe-op-structure/analyze_profiles.py`
   - `python3 book/experiments/probe-op-structure/anchor_scan.py`
-- Both scripts compute `ROOT = Path(__file__).resolve().parents[3]` and import `book.api.decoder`, so they expect to run from anywhere with the repo root on `sys.path` (running them from the repo root is the simplest path).
+- Both scripts compute `ROOT = Path(__file__).resolve().parents[3]` and import `book.api.profile_tools.decoder`, so they expect to run from anywhere with the repo root on `sys.path` (running them from the repo root is the simplest path).
 - Outputs are current with the trimmed node-region remainder contract and tag-layout mapping (meta tags 2/3 and payload-bearing tag10). Rerun after decoder/tag-layout changes to keep `analysis.json` and `anchor_hits.json` aligned.
 - **Running tests / guardrails:**
   - The unified harness is `make -C book test`, which runs `python3 ci.py` and, in turn, `python -m book.tests.run_all`.
@@ -265,7 +265,7 @@ These guardrails make `anchor_filter_map.json` and `out/anchor_hits.json` move t
 ## How this experiment fits into the larger picture
 
 - **Tag-layout decode (`book/experiments/tag-layout-decode/`):**
-  - Defines the canonical tag layouts in `book/graph/mappings/tag_layouts/tag_layouts.json`. This experiment consumes those layouts via `book/api/decoder` to interpret node tags and payload positions.
+  - Defines the canonical tag layouts in `book/graph/mappings/tag_layouts/tag_layouts.json`. This experiment consumes those layouts via `book/api/profile_tools/decoder.py` to interpret node tags and payload positions.
 - **Field2-filters (`book/experiments/field2-filters/`):**
   - Enumerates `field2` usage across canonical system profiles and selected probes, and captures unknown/high values in `field2_inventory.json` and `unknown_nodes.json`. This experiment provides **anchor-aware structure** (`anchor_hits.json`) that helps tie specific anchors to those `field2` values.
 - **Anchor-filter map (`book/experiments/anchor-filter-map/`):**

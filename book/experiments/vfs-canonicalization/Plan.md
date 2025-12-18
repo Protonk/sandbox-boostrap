@@ -78,7 +78,7 @@ IR path:
   - emit `out/expected_matrix.json` (simple, pre-run expectations scoped to this experiment),
   - build a harness-specific matrix and call `book.api.runtime_harness.runner.run_expected_matrix`,
   - down-convert the harness runtime results into `out/runtime_results.json` (authoritative runtime behavior for this suite on this world),
-  - emit `out/decode_tmp_profiles.json` via `book/api/decoder` (structural view),
+  - emit `out/decode_tmp_profiles.json` via `book/api/profile_tools/decoder.py` (structural view),
   - emit a small `out/mismatch_summary.json` that classifies each profile’s behavior (“canonicalization” vs “control”) for downstream readers.
 
 ## JSON schema sketches

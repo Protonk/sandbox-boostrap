@@ -1,3 +1,7 @@
+"""
+Data model for structural oracles over compiled profiles (Sonoma baseline).
+"""
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -64,4 +68,3 @@ class NetworkTupleResult:
             "sources": dict(self.sources),
             "conflicts": list(self.conflicts),
         }
-

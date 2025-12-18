@@ -1,3 +1,8 @@
+> NOTE (docs-only)
+>
+> The runnable probe source has moved to `book/api/lifecycle_probes/c/entitlements_example.c`. This example directory is documentation only.
+> Use `python -m book.api.lifecycle_probes entitlements` to build/run the probe and (optionally) write `validation/out/lifecycle/entitlements.json`.
+
 ## 1. What this example is about
 
 This example shows how **code-signing metadata** (signing identifier + entitlements) is exposed at runtime and how it relates to Seatbelt’s filters:
@@ -18,21 +23,35 @@ You can use this as a lab tool: build once, then run different signed variants a
 
 ## 2. How to build and run
 
-There is one C source file:
+Runnnable probe source:
 
-* `entitlements_example.c`
+* `book/api/lifecycle_probes/c/entitlements_example.c`
 
-You can compile it like:
+You can build it like:
 
 ```sh
-clang entitlements_example.c -o entitlements_example \
+clang book/api/lifecycle_probes/c/entitlements_example.c \
+  -o book/api/lifecycle_probes/build/entitlements_example \
   -framework Security -framework CoreFoundation
 ```
 
 Then run:
 
 ```sh
-./entitlements_example
+book/api/lifecycle_probes/build/entitlements_example
+```
+
+To emit a machine-readable summary (JSON on stdout):
+
+```sh
+book/api/lifecycle_probes/build/entitlements_example --json
+```
+
+To write the canonical validation output:
+
+```sh
+python -m book.api.lifecycle_probes entitlements \
+  --out book/graph/concepts/validation/out/lifecycle/entitlements.json
 ```
 
 On an unsigned build, you will typically see:
@@ -340,7 +359,7 @@ A practical sequence:
 
    * Sign the binary with a development certificate but no special entitlements:
 
-     * `codesign -s "Developer ID Application: ..." ./entitlements_example`
+     * `codesign -s "Developer ID Application: ..." book/api/lifecycle_probes/build/entitlements_example`
    * Run again.
    * Note:
 
@@ -352,7 +371,7 @@ A practical sequence:
    * Create a small entitlements plist (e.g., request a specific sandbox exemption).
    * Sign with `--entitlements`:
 
-     * `codesign -s "..." --entitlements my.entitlements.plist ./entitlements_example`
+     * `codesign -s "..." --entitlements my.entitlements.plist book/api/lifecycle_probes/build/entitlements_example`
    * Run again.
    * Compare:
 
@@ -395,4 +414,4 @@ The example code provides the runnable demonstration behind each bullet:
      * and empirically measure how Seatbelt’s behavior changes with entitlements held constant vs changed.
    * This is a clean probe pattern: **fix the code, vary the entitlements**, and watch the effect on sandbox outcomes.
 
-Reading `entitlements_example.c` alongside `lessons.md` lets you connect abstract language about “entitlement-driven behavior” with concrete handles and output that you can manipulate on your own system.
+Reading `book/api/lifecycle_probes/c/entitlements_example.c` alongside `lessons.md` lets you connect abstract language about “entitlement-driven behavior” with concrete handles and output that you can manipulate on your own system.

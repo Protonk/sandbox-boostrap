@@ -4,7 +4,7 @@ Falsifiable SBPL ↔ compiled profile oracle (experiment-local).
 
 HISTORICAL: This script is preserved as the original experiment-local oracle used
 to generate `out/network_matrix/oracle_tuples.json`. The maintained oracle now
-lives in `book/api/sbpl_oracle/` and is guarded by parity tests against this
+lives in `book/api/profile_tools/oracles/` and is guarded by parity tests against this
 experiment’s checked-in corpus.
 
 This script extracts the socket (domain,type,proto) tuple from the compiled blobs
@@ -27,7 +27,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from book.api.path_utils import find_repo_root, to_repo_relative
-from book.graph.concepts.validation import profile_ingestion as pi
+from book.api.profile_tools import ingestion as pi
 
 ROOT = find_repo_root(Path(__file__))
 if str(ROOT) not in sys.path:

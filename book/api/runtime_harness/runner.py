@@ -54,6 +54,9 @@ def ensure_tmp_files(fixture_root: Path = Path("/tmp")) -> None:
     strict_dir = Path("/private/tmp/strict_ok")
     strict_dir.mkdir(parents=True, exist_ok=True)
     (strict_dir / "allow.txt").write_text("strict allow\n")
+    ok_dir = Path("/private/tmp/ok")
+    ok_dir.mkdir(parents=True, exist_ok=True)
+    (ok_dir / "allow.txt").write_text("param ok allow\n")
 
 
 def classify_status(probes: List[Dict[str, Any]], skipped_reason: str | None = None) -> tuple[str, str | None]:
@@ -93,16 +96,24 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None) ->
     target = probe.get("target")
     op = probe.get("operation")
     cmd: List[str]
+    blob_mode = (probe.get("mode") == "blob") or (profile_mode == "blob")
+    if profile.suffix == ".bin" and WRAPPER.exists():
+        blob_mode = True
+
     reader_mode = False
     writer_mode = False
     if op == "file-read*":
-        if READER.exists():
+        # In blob mode, the wrapper applies the compiled profile; use /bin/cat
+        # as the in-sandbox probe so we don't re-run sandbox_init on a .sb.bin.
+        if not blob_mode and READER.exists():
             cmd = [str(READER), str(profile), target]
             reader_mode = True
         else:
             cmd = [CAT, target]
     elif op == "file-write*":
-        if WRITER.exists():
+        # Same rule as file-read*: avoid sandbox_init-on-binary by using /bin/sh
+        # inside the blob-applied wrapper process.
+        if not blob_mode and WRITER.exists():
             cmd = [str(WRITER), str(profile), target]
             writer_mode = True
         else:
@@ -124,10 +135,6 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None) ->
         cmd = ["true"]
     else:
         cmd = ["true"]
-
-    blob_mode = (probe.get("mode") == "blob") or (profile_mode == "blob")
-    if profile.suffix == ".bin" and WRAPPER.exists():
-        blob_mode = True
 
     if blob_mode and WRAPPER.exists():
         full_cmd = [str(WRAPPER), "--blob", str(profile), "--"] + cmd

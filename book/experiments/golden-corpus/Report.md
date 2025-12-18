@@ -6,7 +6,7 @@ Create a stable decoder regression corpus for the Sonoma baseline so structural 
 ## Baseline & scope
 - Host: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
 - Inputs: compiled SBPL blobs already in-repo (golden-triple and probe outputs). System platform blobs are out of scope until apply gates are solved.
-- Tools: `book.api.decoder`, `book.api.profile_tools.inspect`, `book.api.profile_tools.op_table`.
+- Tools: `book.api.profile_tools.decoder`, `book.api.profile_tools.inspect`, `book.api.profile_tools.op_table`.
 
 ## Deliverables / expected outcomes
 - `out/corpus_manifest.json` – blob IDs, source paths, SHA-256, size, and category.

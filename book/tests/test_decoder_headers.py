@@ -2,7 +2,7 @@ import json
 import subprocess
 from pathlib import Path
 
-from book.api import decoder
+from book.api.profile_tools import decoder
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -44,7 +44,7 @@ def test_decode_profile_dict_serialization_keys():
 
 def test_decoder_cli_dump_and_summary(tmp_path):
     # Full dump
-    cmd = ["python3", "-m", "book.api.decoder", "dump", str(FIXTURE), "--bytes", "32"]
+    cmd = ["python3", "-m", "book.api.profile_tools", "decode", "dump", str(FIXTURE), "--bytes", "32"]
     res = subprocess.run(cmd, capture_output=True, text=True, check=True)
     items = json.loads(res.stdout)
     assert isinstance(items, list) and items
@@ -52,7 +52,7 @@ def test_decoder_cli_dump_and_summary(tmp_path):
     assert "path" in entry and "op_count" in entry and "preamble_words_full" in entry
 
     # Summary mode
-    cmd_summary = ["python3", "-m", "book.api.decoder", "dump", str(FIXTURE), "--summary"]
+    cmd_summary = ["python3", "-m", "book.api.profile_tools", "decode", "dump", str(FIXTURE), "--summary"]
     res_sum = subprocess.run(cmd_summary, capture_output=True, text=True, check=True)
     items_sum = json.loads(res_sum.stdout)
     assert "maybe_flags" in items_sum[0]

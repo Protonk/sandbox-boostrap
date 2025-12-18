@@ -5,7 +5,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
-import book.api.decoder as decoder  # type: ignore
+from book.api.profile_tools import decoder  # type: ignore
 
 
 SAMPLE = ROOT / "book" / "examples" / "sb" / "build" / "sample.sb.bin"

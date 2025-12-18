@@ -81,7 +81,7 @@ This cluster answers the question “What does a modern compiled sandbox profile
   * Output: `book/graph/mappings/tag_layouts/tag_layouts.json`, with entries such as:
 
     * `record_size_bytes = 12`, `edge_fields = [0,1]`, `payload_fields = [2]` for tags `0,1,3,5,7,8,17,26,27,166`.
-  * The decoder (`book.api.decoder`) uses these tag layouts to parse node arrays correctly. Tests assert that the file is present and that key fields exist, acting as a guardrail against accidental format drift.
+  * The decoder (`book.api.profile_tools.decoder`) uses these tag layouts to parse node arrays correctly. Tests assert that the file is present and that key fields exist, acting as a guardrail against accidental format drift.
 
 * **`vocab-from-cache`**
   This experiment extracts the Operation and Filter vocabulary tables (name ↔ ID) from the dyld shared cache (Sandbox.framework / libsandbox) for this host.
@@ -303,7 +303,7 @@ The conceptual “truth” lives under `book/graph/concepts/`, with the substrat
 
 This section summarizes the core tools under `book/api/` that decode profiles, apply SBPL and blobs at runtime, drive Ghidra, and run simple probes. These tools support both the experiments and the validation harness and are the main mechanisms for regenerating or extending the evidence recorded in the repo.
 
-* **Decoder (`book.api.decoder`)**
+* **Decoder (`book.api.profile_tools.decoder`)**
 
   * A Python module that decodes modern compiled profiles into a `DecodedProfile` structure, including:
 
@@ -312,7 +312,7 @@ This section summarizes the core tools under `book/api/` that decode profiles, a
     * A node list with tags and fields, using tag layouts from `tag_layouts/tag_layouts.json`.
     * Literal-pool bytes and printable `literal_strings`.
     * Section offsets and basic edge sanity checks.
-  * CLI helper: `python -m book.api.decoder dump <blob>` to inspect profiles from the command line.
+  * CLI helper: `python -m book.api.profile_tools decode dump <blob>` to inspect profiles from the command line.
 
 * **SBPL wrapper (`book/api/SBPL-wrapper/wrapper`)**
 

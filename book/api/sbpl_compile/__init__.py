@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Optional
 
 from book.api.profile_tools import compile as compile_mod
-from book.api.profile_tools import CompileResult, compile_sbpl_file, compile_sbpl_string, default_output_for, hex_preview
+from book.api.profile_tools.compile import CompileResult
 
 
 def _warn() -> None:

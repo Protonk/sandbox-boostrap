@@ -26,9 +26,9 @@ ROOT = find_repo_root(Path(__file__))
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-import book.api.decoder as decoder
+from book.api.profile_tools import decoder
 from book.api import profile_tools
-from book.graph.concepts.validation import profile_ingestion as pi
+from book.api.profile_tools import ingestion as pi
 
 
 def load_filters() -> Dict[int, str]:

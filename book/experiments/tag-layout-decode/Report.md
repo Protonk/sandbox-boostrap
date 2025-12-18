@@ -6,7 +6,7 @@ Map node tags that reference literal or regex pools to interpretable layouts (ed
 ## Baseline & scope
 - World: Sonoma baseline from `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
 - Inputs: canonical system profiles (`book/examples/extract_sbs/build/profiles/{airlock,bsd,sample}.sb.bin`), probe outputs from `probe-op-structure`, and shared vocab/op-table mappings in `book/graph/mappings/`.
-- Tooling: `book.api.decoder` for profile decoding; anchor hints from `book/graph/mappings/anchors/anchor_field2_map.json`.
+- Tooling: `book.api.profile_tools.decoder` for profile decoding; anchor hints from `book/graph/mappings/anchors/anchor_field2_map.json`.
 - Target artifact: `book/graph/mappings/tag_layouts/tag_layouts.json` (per-tag layout with operand interpretation and provenance).
 
 ## Deliverables / expected outcomes
@@ -27,7 +27,7 @@ Map node tags that reference literal or regex pools to interpretable layouts (ed
   - Canonical tag layouts published at `book/graph/mappings/tag_layouts/tag_layouts.json` (record_size_bytes=8) and enforced by a guardrail (`book/tests/test_mappings_guardrail.py`). The decoder selects stride=8 for this world using op-table word-offset alignment evidence and exposes that witness under `validation.node_stride_selection`.
 - **1) Scope and setup**
   - Identified reference blobs: canonical system profiles (`airlock.sb.bin`, `bsd.sb.bin`, `sample.sb.bin`) and shared mappings needed for decoding.
-  - Confirmed decoder path (`book.api.decoder`) and access to `book/graph/mappings/vocab` and `book/graph/mappings/op_table`.
+  - Confirmed decoder path (`book.api.profile_tools.decoder`) and access to `book/graph/mappings/vocab` and `book/graph/mappings/op_table`.
 - **2) Baseline decode and tag histogram**
   - Decoded reference blobs; captured node tag histograms, literal pool offsets, and basic section information in `out/tag_histogram.json`.
 - **3) Tag layout reconstruction**
@@ -53,7 +53,7 @@ If tag layouts need to be extended or revised, reuse this outline:
    - Keep guardrail tests in `tests/test_mappings_guardrail.py` in sync so they continue to assert presence and basic shape of the mapping.
 
 ## Evidence & artifacts
-- Reference blobs `airlock.sb.bin`, `bsd.sb.bin`, and `sample.sb.bin` decoded via `book.api.decoder`.
+- Reference blobs `airlock.sb.bin`, `bsd.sb.bin`, and `sample.sb.bin` decoded via `book.api.profile_tools.decoder`.
 - `book/experiments/tag-layout-decode/out/tag_histogram.json` with tag counts and literal usage across these profiles.
 - `book/experiments/tag-layout-decode/out/tag_literal_nodes.json` capturing sample literal-bearing nodes grouped by tag.
 - Published tag-layout map `book/graph/mappings/tag_layouts/tag_layouts.json` plus associated guardrail tests in `tests/test_mappings_guardrail.py`.

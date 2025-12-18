@@ -386,5 +386,62 @@
         "stderr": "open target: Operation not permitted\n"
       }
     ]
+  },
+  "runtime:param_deny_root_ok": {
+    "status": "ok",
+    "profile_path": "book/profiles/golden-triple/param_deny_root_allow_default_ROOT_private_tmp_ok.sb.bin",
+    "base_profile_path": "book/profiles/golden-triple/param_deny_root_allow_default_ROOT_private_tmp_ok.sb.bin",
+    "probes": [
+      {
+        "name": "read_/private/tmp/sbpl_rt/read.txt",
+        "expectation_id": "runtime:param_deny_root_ok|file-read*|/private/tmp/sbpl_rt/read.txt",
+        "operation": "file-read*",
+        "path": "/private/tmp/sbpl_rt/read.txt",
+        "expected": "allow",
+        "actual": "allow",
+        "match": true,
+        "runtime_result": {
+          "status": "success",
+          "errno": null
+        },
+        "violation_summary": null,
+        "command": [
+          "book/api/SBPL-wrapper/wrapper",
+          "--blob",
+          "book/profiles/golden-triple/param_deny_root_allow_default_ROOT_private_tmp_ok.sb.bin",
+          "--",
+          "/bin/cat",
+          "/private/tmp/sbpl_rt/read.txt"
+        ],
+        "exit_code": 0,
+        "stdout": "runtime-checks read\n",
+        "stderr": ""
+      },
+      {
+        "name": "read_/private/tmp/ok/allow.txt",
+        "expectation_id": "runtime:param_deny_root_ok|file-read*|/private/tmp/ok/allow.txt",
+        "operation": "file-read*",
+        "path": "/private/tmp/ok/allow.txt",
+        "expected": "deny",
+        "actual": "deny",
+        "match": true,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1
+        },
+        "violation_summary": "EPERM",
+        "command": [
+          "book/api/SBPL-wrapper/wrapper",
+          "--blob",
+          "book/profiles/golden-triple/param_deny_root_allow_default_ROOT_private_tmp_ok.sb.bin",
+          "--",
+          "/bin/cat",
+          "/private/tmp/ok/allow.txt"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "cat: /private/tmp/ok/allow.txt: Operation not permitted\n"
+      }
+    ]
   }
 }

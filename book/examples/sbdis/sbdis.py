@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
 
+"""
+HISTORICAL EXAMPLE (legacy decision-tree profiles)
+
+`sbdis` targets the early “decision-tree” compiled profile format and is kept for historical inspection.
+It is not a decoder for the modern graph-based compiled profile format used on this host baseline.
+"""
+
 import binascii
 import pprint
 import struct
@@ -10,7 +17,7 @@ from pathlib import Path
 import redis
 import find_operations
 sys.path.append(str(Path(__file__).resolve().parents[3]))
-from book.concepts.validation import profile_ingestion as ingestion  # noqa: E402
+from book.api.profile_tools import ingestion as ingestion  # noqa: E402
 # Header/section parsing now flows through the shared Axis 4.1 ingestion layer.
 
 # u2 re_table_offset (8-byte words from start of sb)
@@ -67,9 +74,10 @@ elif mode == 'osx':
 else:
   usage()
 
-blob = ingestion.ProfileBlob.from_path(sys.argv[2], source="sbdis")
+path = Path(sys.argv[2])
+blob = ingestion.ProfileBlob(bytes=path.read_bytes(), source="sbdis")
 header = ingestion.parse_header(blob)
-if header.format_variant != ingestion.FORMAT_LEGACY_V1:
+if header.format_variant != "legacy-decision-tree":
   print(f"unsupported profile format: {header.format_variant} (expected legacy decision-tree)")
   sys.exit(1)
 sections = ingestion.slice_sections(blob, header)

@@ -1,0 +1,9 @@
+(version 1)
+(allow default)
+
+;; Parameterized deny: ROOT must resolve to a pattern at compile time.
+;;
+;; Compilation without parameters should fail (param resolves to a boolean),
+;; while compilation with ROOT="<path>" should materialize the value into the
+;; blob and deny reads under that subtree at runtime.
+(deny file-read* (subpath (param "ROOT")))

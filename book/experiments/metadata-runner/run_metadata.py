@@ -19,7 +19,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from book.api.path_utils import find_repo_root  # type: ignore
-import book.api.decoder as decoder  # type: ignore
+from book.api.profile_tools import decoder  # type: ignore
 from book.api.profile_tools import compile_sbpl_string  # type: ignore
 
 BASE_DIR = Path(__file__).resolve().parent

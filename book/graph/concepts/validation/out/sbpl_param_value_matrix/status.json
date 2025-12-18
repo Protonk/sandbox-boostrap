@@ -1,0 +1,88 @@
+{
+  "job_id": "structure:sbpl-param-value-matrix",
+  "status": "ok",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "inputs": [
+    "book/experiments/sbpl-graph-runtime/profiles/param_write_gate.sb"
+  ],
+  "outputs": [
+    "book/graph/concepts/validation/out/sbpl_param_value_matrix/status.json"
+  ],
+  "tags": [
+    "structure",
+    "sbpl",
+    "sbpl-parameterization",
+    "static-format"
+  ],
+  "metrics": {
+    "cases": 7,
+    "no_params_sha256": "392f6d06f094a0934029f8aca2699542f4e7296978640278d0fd6c5612a48b09",
+    "with_params_sha256": "d72ebe099c25e7ff247b5c0cfef5c4b2c6f348e30da85e25a93fcd406b5faf2f",
+    "with_params_len": 618
+  },
+  "results": [
+    {
+      "params": null,
+      "compiled_len": 562,
+      "compiled_sha256": "392f6d06f094a0934029f8aca2699542f4e7296978640278d0fd6c5612a48b09",
+      "literal_strings_count": 8,
+      "has_param_root_literal": false
+    },
+    {
+      "params": {
+        "ALLOW_DOWNLOADS": "1"
+      },
+      "compiled_len": 618,
+      "compiled_sha256": "d72ebe099c25e7ff247b5c0cfef5c4b2c6f348e30da85e25a93fcd406b5faf2f",
+      "literal_strings_count": 9,
+      "has_param_root_literal": true
+    },
+    {
+      "params": {
+        "ALLOW_DOWNLOADS": "0"
+      },
+      "compiled_len": 618,
+      "compiled_sha256": "d72ebe099c25e7ff247b5c0cfef5c4b2c6f348e30da85e25a93fcd406b5faf2f",
+      "literal_strings_count": 9,
+      "has_param_root_literal": true
+    },
+    {
+      "params": {
+        "ALLOW_DOWNLOADS": ""
+      },
+      "compiled_len": 618,
+      "compiled_sha256": "d72ebe099c25e7ff247b5c0cfef5c4b2c6f348e30da85e25a93fcd406b5faf2f",
+      "literal_strings_count": 9,
+      "has_param_root_literal": true
+    },
+    {
+      "params": {
+        "ALLOW_DOWNLOADS": "#t"
+      },
+      "compiled_len": 618,
+      "compiled_sha256": "d72ebe099c25e7ff247b5c0cfef5c4b2c6f348e30da85e25a93fcd406b5faf2f",
+      "literal_strings_count": 9,
+      "has_param_root_literal": true
+    },
+    {
+      "params": {
+        "ALLOW_DOWNLOADS": "#f"
+      },
+      "compiled_len": 618,
+      "compiled_sha256": "d72ebe099c25e7ff247b5c0cfef5c4b2c6f348e30da85e25a93fcd406b5faf2f",
+      "literal_strings_count": 9,
+      "has_param_root_literal": true
+    },
+    {
+      "params": {
+        "ALLOW_DOWNLOADS": "/private/tmp"
+      },
+      "compiled_len": 618,
+      "compiled_sha256": "d72ebe099c25e7ff247b5c0cfef5c4b2c6f348e30da85e25a93fcd406b5faf2f",
+      "literal_strings_count": 9,
+      "has_param_root_literal": true
+    }
+  ],
+  "mismatches": [],
+  "notes": "On this world baseline, `(when (param KEY) ...)` is gated by param presence: any provided value compiles to the same blob; missing param compiles to a distinct blob without the gated rule."
+}

@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 """
+HISTORICAL EXAMPLE (legacy decision-tree profiles)
+
 Extract compiled AppleMatch regex blobs from legacy decision-tree sandbox profiles.
+
+This is a helper for historical inspection of legacy-format blobs. It is not a modern graph-based profile extractor
+for this host baseline.
 """
 
 from __future__ import annotations

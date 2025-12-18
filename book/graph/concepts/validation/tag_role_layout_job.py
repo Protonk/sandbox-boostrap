@@ -12,7 +12,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List, Any
 
-from book.api import decoder
+from book.api.profile_tools import decoder
 from book.api.path_utils import find_repo_root, to_repo_relative
 from book.graph.concepts.validation import registry
 from book.graph.concepts.validation.registry import ValidationJob

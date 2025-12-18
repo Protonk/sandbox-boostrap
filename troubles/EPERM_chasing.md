@@ -24,7 +24,7 @@
 ## Steps taken
 
 - Wired `run_probes.py` to route blob-mode profiles through `book/api/SBPL-wrapper/wrapper --blob`, so all blob applies go through the same path.
-- Used `book.api.decoder` (with header exposure) to dump preamble words:
+- Used `book.api.profile_tools.decoder` (with header exposure) to dump preamble words:
   - `airlock`: `maybe_flags=0x4000`, `op_count=167`, `magic=0x00be`.
   - `bsd`: `maybe_flags=0x0000`, `op_count=28`, `magic=0x00be`.
   - `allow_all` (custom): `maybe_flags=0x0000`, `op_count=2`, `magic=0x00be`.

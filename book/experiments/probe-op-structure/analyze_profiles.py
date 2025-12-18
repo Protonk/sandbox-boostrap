@@ -22,7 +22,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[3]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
-import book.api.decoder as decoder  # type: ignore
+from book.api.profile_tools import decoder  # type: ignore
 
 
 def load_vocab() -> Dict[str, Any]:

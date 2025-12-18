@@ -9,6 +9,7 @@ Produce SBPL → PolicyGraph → runtime “golden triples” on the Sonoma host
 - Platform-only apply-gated: `sys:bsd`, `sys:airlock`, `sys:sample` return EPERM/execvp at apply even unsandboxed; treated as platform-only, not harness bugs.
 - Custom outlier: `bucket5:v11_read_subpath` still returns `EPERM` on the expected-allow probe (`/tmp/foo`), so status stays `partial`/non-golden.
 - Strict/apply-gate notes: legacy strict candidates (`runtime:param_path_concrete`, `runtime:param_path_bsd_bootstrap`) remain blocked; a minimal strict profile (`runtime:strict_1`) now runs cleanly in SBPL mode.
+- Parameterized SBPL (mapped-but-partial): compile-time params-handle compilation is now validated for a minimal `(param ...)` profile, and the golden-triple matrix includes a blob-mode runtime witness (`runtime:param_deny_root_ok`) that denies `file-read*` under a parameterized ROOT. Deny-default + exec-based blob probes remain brittle (SIGABRT) for now, so blob-mode parameterization uses `allow default` as the stable carrier.
 
 ### Bucket5 divergence (tied to VFS canonicalization)
 

@@ -22,7 +22,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from book.api.path_utils import to_repo_relative  # type: ignore
-from book.graph.concepts.validation import profile_ingestion as pi  # type: ignore
+from book.api.profile_tools import ingestion as pi  # type: ignore
 
 
 CANONICAL: Dict[str, Path] = {
@@ -73,4 +73,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

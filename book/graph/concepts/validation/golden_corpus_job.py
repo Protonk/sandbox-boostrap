@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import Dict, Any, List
 
 from book.api.path_utils import find_repo_root, to_repo_relative
-from book.api.decoder import decode_profile_dict
+from book.api.profile_tools import decode_profile_dict
 from book.api.profile_tools.inspect import summarize_blob
 
 from book.graph.concepts.validation import registry

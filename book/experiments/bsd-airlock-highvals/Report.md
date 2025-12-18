@@ -34,7 +34,7 @@ Track and retire the remaining high/opaque `field2` payloads tied to platform pr
 ## Plan & execution log
 
 - ✅ Initialize experiment scaffold.
-- ✅ First probe pass: compiled/decoded two probes via `run_probes.py` (compiled with `book.api.profile_tools`, decoded with `book.api.decoder` into `out/decode_records.jsonl` / `out/field2_summary.json`).
+- ✅ First probe pass: compiled/decoded two probes via `run_probes.py` (compiled with `book.api.profile_tools`, decoded with `book.api.profile_tools.decoder` into `out/decode_records.jsonl` / `out/field2_summary.json`).
   - `sb/bsd_tag26_matrix.sb` (right-name + preference-domain + bsd-tail literals + file/process ops) yielded only low/vocab field2 payloads {6,5,0} across tags {5,6}; none of the bsd highs (170/174/115/109/16660) reproduced.
   - `sb/airlock_system_fcntl_variants.sb` (system-fcntl allow/deny matrix + minimal scaffolding) produced low IDs {8,7,3,2,0} and a single hi-bit payload `0xce00` (hi=0xc000, lo=3584) on tag 0; did not reproduce airlock highs 165/166/10752 or sentinel 0xffff. The 0xce00 instance needs follow-up to decide if it is a stable sentinel or incidental node.
 - ➖ Second probe pass: added `sb/bsd_tag26_richer.sb` (more right/preference variants, bsd literals, broader ops) and `sb/airlock_system_fcntl_wide.sb` (larger fcntl-command sweep). Both compiled but decode to zero nodes (node_count=0), contributing no records; negative/empty result that likely indicates the compiler collapsed these shapes. No new sightings beyond the earlier 0xce00 payload.

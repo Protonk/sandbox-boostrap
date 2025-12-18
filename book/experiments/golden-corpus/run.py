@@ -19,7 +19,7 @@ BOOK_ROOT = REPO_ROOT / "book"
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from book.api.decoder import decode_profile_dict
+from book.api.profile_tools import decode_profile_dict
 from book.api.profile_tools.inspect import summarize_blob
 from book.api.profile_tools import op_table as op_table_mod
 from book.api.profile_tools import compile as compile_mod

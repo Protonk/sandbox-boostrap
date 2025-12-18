@@ -1,5 +1,7 @@
 # Regex Tools (legacy AppleMatch)
 
+**HISTORICAL EXAMPLE.** This directory is maintained for historical inspection of legacy decision-tree sandbox profiles and their embedded AppleMatch regex tables. It is not a model of the modern graph-based compiled profile format used on this host baseline.
+
 Legacy helpers for decision-tree sandbox profiles that embed AppleMatch regex tables. Modern graph-based profiles use different storage; these scripts are for historical inspection only.
 
 - `extract_legacy.py` – extract compiled AppleMatch blobs (`.re`) from legacy profiles using the header’s `re_table_offset`/`re_table_count`.

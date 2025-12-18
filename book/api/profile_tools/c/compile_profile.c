@@ -18,7 +18,7 @@ struct sandbox_profile {
 };
 
 extern struct sandbox_profile *sandbox_compile_file(const char *path,
-                                                    uint64_t flags,
+                                                    void *params,
                                                     char **errorbuf);
 extern void sandbox_free_profile(struct sandbox_profile *profile);
 
@@ -67,7 +67,7 @@ int main(int argc, char *argv[]) {
   if (argc >= 3) out = argv[2];
 
   char *error = NULL;
-  struct sandbox_profile *p = sandbox_compile_file(in, 0, &error);
+  struct sandbox_profile *p = sandbox_compile_file(in, NULL, &error);
   if (p == NULL) {
     fprintf(stderr, "[-] sandbox_compile_file failed: %s\n",
             error ? error : "unknown error");

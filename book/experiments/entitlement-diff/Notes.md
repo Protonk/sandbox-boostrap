@@ -22,7 +22,7 @@ Use this file for concise notes on signing, profile extraction, and probe runs.
 ## SBPL variants, decode, and runtime probes
 
 - Added App Sandbox stubs under `sb/` with pinned params and *entitlements* for two variants: `appsandbox-baseline.sb` (no network.server, no mach-lookup allowlist) and `appsandbox-network-mach.sb` (network.server plus `com.apple.cfprefsd.agent` mach-lookup). Params use neutral placeholders (e.g., `/private/tmp/entitlement-diff/...`, `_HOME=/Users/entitlement-diff`).
-- `build_profiles.py` inlines `book/profiles/textedit/application.sb`, substitutes params/entitlements, writes expanded SBPL to `sb/build/*.expanded.sb`, and compiles to `sb/build/*.sb.bin`.
+- `build_profiles.py` inlines `book/profiles/textedit/application.sb` and compiles the stub directly (no string rewrite of `(param ...)` / `(entitlement ...)` because the stubs already pin those via Scheme definitions); writes expanded SBPL to `sb/build/*.expanded.sb` and blobs to `sb/build/*.sb.bin`.
 - `diff_profiles.py` decodes both blobs with `decoder.decode_profile_dict` and emits `out/decoded_profiles.json` plus `out/profile_diffs.json` (ops present via op_table indices, literal/literal_ref deltas, tag count and tag_literal_ref deltas).
 - `run_probes.py` stages `entitlement_sample`, `mach_probe`, and `file_probe` into `/private/tmp/entitlement-diff/app_bundle/` (matching `application_bundle`), with container paths under `/private/tmp/entitlement-diff/container/`. Wrapper probes:
   - baseline: network bind denied (`bind: Operation not permitted`); mach-lookup `com.apple.cfprefsd.agent` allowed; file read/write to container allowed.

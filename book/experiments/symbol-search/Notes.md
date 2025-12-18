@@ -17,7 +17,7 @@ Use this file for concise notes on commands, findings, and pivots.
 
 ## Broader scan adjustments
 
-- Parsed TextEdit `.sb.bin` via `book.api.decoder.decode_profile`: op_count=266 (0x10a), magic word=0x1be, early header words `[0, 266, 446, 0, 0, 6, 0, 36, 398, 1113, 1070, ...]`, nodes_start=548, literal_start=1132. Raw 32-byte header signature (little endian) not found in `BootKernelExtensions.kc` via direct byte search.
+- Parsed TextEdit `.sb.bin` via `book.api.profile_tools.decoder.decode_profile`: op_count=266 (0x10a), magic word=0x1be, early header words `[0, 266, 446, 0, 0, 6, 0, 36, 398, 1113, 1070, ...]`, nodes_start=548, literal_start=1132. Raw 32-byte header signature (little endian) not found in `BootKernelExtensions.kc` via direct byte search.
 - Expanded `kernel_op_table.py` to allow `all` blocks; reran headless with `--process-existing --script-args all`. Found 224 pointer-table candidates; largest runs length=512 at `__desc` and multiple `__const` offsets (e.g., start 0x-7fffef5000). First entries point to functions like `FUN_ffffff80003be400`, `FUN_ffffff8000102800`, with many null/unknown targets, suggesting generic function-pointer tables (possible mac_policy_ops candidate to inspect).
 - Searched KC bytes for adjacent little-endian words `0x10a, 0x1be`; found three code sites at file offsets 0x1466090, 0x148fa37, 0x14ffa9f (surrounding bytes look like instructions). These constants might appear in profile-parsing paths rather than embedded profile data; need address mapping in Ghidra to inspect callers.
 

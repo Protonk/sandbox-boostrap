@@ -93,7 +93,7 @@ PLAN = {
         {
             "name": "entitlements-diff",
             "example": "entitlements-evolution",
-            "run": "book/examples/entitlements-evolution/entitlements_example.c",
+            "run": "python -m book.api.lifecycle_probes entitlements --out book/graph/concepts/validation/out/lifecycle/entitlements.json",
             "artifacts": ["out/lifecycle/entitlements.json"],
             "notes": "Capture signing identifier and entitlement sets for differently signed builds; correlate with filters in platform/app profiles.",
         },
@@ -114,8 +114,8 @@ PLAN = {
         {
             "name": "extension-issuance",
             "example": "extensions-dynamic",
-            "run": "book/examples/extensions-dynamic/extensions_demo.c",
-            "artifacts": ["out/lifecycle/extensions.jsonl"],
+            "run": "python -m book.api.lifecycle_probes extensions --out book/graph/concepts/validation/out/lifecycle/extensions_dynamic.md",
+            "artifacts": ["out/lifecycle/extensions_dynamic.md"],
             "notes": "Attempt to issue/consume/release extensions; log token issuance success/failure and any changed access. Note expected EPERM without entitlements.",
         },
         {

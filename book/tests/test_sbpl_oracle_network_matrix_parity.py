@@ -1,8 +1,7 @@
 import json
 from pathlib import Path
 
-from book.api.sbpl_oracle.model import WORLD_ID
-from book.api.sbpl_oracle.network import extract_network_tuple, run_network_matrix
+from book.api.profile_tools.oracles import WORLD_ID, extract_network_tuple, run_network_matrix
 
 
 def test_sbpl_oracle_network_matrix_matches_experiment_oracle_values():
@@ -39,4 +38,3 @@ def test_sbpl_oracle_network_matrix_runner_parity():
         assert got["domain"] == entry["domain"]
         assert got["type"] == entry["type"]
         assert got["proto"] == entry["proto"]
-

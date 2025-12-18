@@ -4,7 +4,7 @@ from pathlib import Path
 import pytest
 
 from book.api import profile_tools as pt
-from book.graph.concepts.validation import profile_ingestion as pi
+from book.api.profile_tools import ingestion as pi
 
 ROOT = Path(__file__).resolve().parents[2]
 SAMPLE_SB = ROOT / "book" / "examples" / "sb" / "sample.sb"

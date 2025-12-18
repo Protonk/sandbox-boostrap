@@ -12,7 +12,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from book.api.profile_tools import compile_sbpl_file, hex_preview  # noqa: E402
-from book.graph.concepts.validation import profile_ingestion as ingestion  # noqa: E402
+from book.api.profile_tools import ingestion as ingestion  # noqa: E402
 
 
 def main(argv: list[str] | None = None) -> int:

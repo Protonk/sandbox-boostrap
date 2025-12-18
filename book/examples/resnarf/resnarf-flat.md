@@ -1,3 +1,7 @@
+> HISTORICAL EXAMPLE (legacy decision-tree profiles)
+>
+> This example targets the early “decision-tree” compiled profile format and is kept for historical inspection. It does not describe the modern graph-based compiled profile format used on this host baseline.
+
 ## 1. What this example is about
 
 This example is a **regex extractor** for early-format sandbox profiles:

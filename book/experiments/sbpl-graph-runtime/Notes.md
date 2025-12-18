@@ -49,3 +49,13 @@ Use this file for concise notes on commands, hurdles, and intermediate results.
   - `bucket5`: node 16 (tag 0) and node 22 (tag 6) reference literal `Ftmp/foo`; no nodes reference `/private/tmp/foo`. Other literal refs are shim paths (System/usr/bin/dev/tmp/private).
   - `strict_1`: literal pool includes `U/private/tmp/strict_ok` even though literal_refs show only shim anchors; the canonical literal is present in the pool.
   - `bucket4`: path-agnostic, no path literals in pool.
+
+## Parameterized SBPL (compile + runtime witness)
+
+- Added parameterized specimens:
+  - `profiles/param_root_shim.sb` (deny-default allow-root; intended for blob apply, but exec-based probes are brittle).
+  - `profiles/param_write_gate.sb` (boolean-gated write allow via `(when (param "ALLOW_DOWNLOADS") ...)`).
+  - `profiles/param_deny_root_allow_default.sb` (allow-default deny-root; stable carrier for blob-mode runtime probes).
+- Compile-time observation: for `(when (param "ALLOW_DOWNLOADS") ...)`, parameter *presence* gates compilation; different provided values compile to the same blob (mapped-but-partial; guarded by validation).
+- Runtime harness: deny-default + exec-based blob probes can die with SIGABRT when the wrapped helper (`/bin/cat`) cannot fully bootstrap under the applied policy; for a stable blob-mode parameterization witness, use allow-default + parameterized deny-root.
+- Promoted a blob-mode witness into `book/profiles/golden-triple/` as `runtime:param_deny_root_ok` (compiled with `ROOT=/private/tmp/ok`) and recorded aligned runtime results in `book/profiles/golden-triple/runtime_results.json`.

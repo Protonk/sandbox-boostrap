@@ -46,7 +46,11 @@ def compile_sbpl_file(
     Returns CompileResult with blob bytes and metadata.
     """
     lib = lib or libsandbox.load_libsandbox()
-    blob, profile_type, length = libsandbox.compile_file(lib, str(src).encode(), params=params)
+    # libsandbox resolves `sandbox_compile_file` paths relative to its own search
+    # roots; passing an absolute path is the most reliable way to compile a repo
+    # SBPL file on this host.
+    src_abs = src.resolve()
+    blob, profile_type, length = libsandbox.compile_file(lib, str(src_abs).encode(), params=params)
     result = CompileResult(blob=blob, profile_type=profile_type, length=length)
     if dst:
         dst.parent.mkdir(parents=True, exist_ok=True)

@@ -12,7 +12,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, Iterable, List
 
-from book.api import decoder
+from book.api.profile_tools import decoder
 from book.api.profile_tools import compile as compile_mod
 
 # Golden profile keys (runtime-checks).

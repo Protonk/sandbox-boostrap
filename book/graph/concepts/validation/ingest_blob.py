@@ -17,7 +17,7 @@ import sys
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from book.concepts.validation import profile_ingestion as ingestion
+from book.graph.concepts.validation import profile_ingestion as ingestion
 
 
 def ingest_one(path: Path):

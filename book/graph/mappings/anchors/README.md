@@ -15,7 +15,7 @@ Role in the substrate:
 
 These mappings are **not** free-floating. They are driven by, and constrained by, the `book/experiments/probe-op-structure` experiment:
 
-- `anchor_field2_map.json` and the `field2_values` in `anchor_filter_map.json` are derived from `book/experiments/probe-op-structure/out/anchor_hits.json`, which is produced by decoding probe and system profiles via `book/api/decoder` under the canonical tag layouts (`book/graph/mappings/tag_layouts/tag_layouts.json`).
+- `anchor_field2_map.json` and the `field2_values` in `anchor_filter_map.json` are derived from `book/experiments/probe-op-structure/out/anchor_hits.json`, which is produced by decoding probe and system profiles via `book/api/profile_tools/decoder.py` under the canonical tag layouts (`book/graph/mappings/tag_layouts/tag_layouts.json`).
 - `book/tests/test_anchor_filter_alignment.py` enforces that every mapped, non‑blocked anchor in `anchor_filter_map.json` (an entry with a `filter_id` and `sources`, `status != "blocked"`) is backed by concrete witnesses in `anchor_hits.json`:
   - there must be at least one observation for that anchor under the listed `sources`,
   - the pinned `filter_id` must appear among the observed `field2_values`, and

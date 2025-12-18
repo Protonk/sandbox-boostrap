@@ -4,34 +4,21 @@ This directory collects host-specific helpers for working with Seatbelt on the f
 
 ### profile_tools
 
-Definition: Unified surface for SBPL compilation, compiled-blob inspection, and op-table summaries (replaces `sbpl_compile`, `inspect_profile`, `op_table`).
+Definition: Unified surface for SBPL compilation, compiled-blob decoding/inspection, op-table summaries, and structural oracles (replaces `sbpl_compile`, `inspect_profile`, `op_table`, and the former standalone `decoder`/`sbpl_oracle` modules).
 
-Role: Provide a single Python/CLI entrypoint for compiling SBPL, inspecting compiled blobs, and summarizing op-table structure, with legacy modules left as shims.
+Role: Provide a single Python/CLI entrypoint for compiling SBPL, decoding/inspecting compiled blobs, summarizing op-table structure, and running structural oracles, with legacy modules left as shims.
 
 Example:
 ```sh
 python -m book.api.profile_tools compile book/examples/sb/sample.sb --out /tmp/sample.sb.bin
-python -m book.api.profile_tools inspect /tmp/sample.sb.bin --json /tmp/summary.json
+python -m book.api.profile_tools decode dump /tmp/sample.sb.bin --summary
+python -m book.api.profile_tools inspect /tmp/sample.sb.bin --out /tmp/summary.json
 python -m book.api.profile_tools op-table book/experiments/op-table-operation/sb/v1_read.sb --compile --op-count 196
+python -m book.api.profile_tools oracle network-matrix \
+  --manifest book/experiments/libsandbox-encoder/sb/network_matrix/MANIFEST.json \
+  --blob-dir book/experiments/libsandbox-encoder/out/network_matrix \
+  --out /tmp/network_oracle.json
 ```
-
-### decoder
-
-Definition: Structured decoder for compiled sandbox blobs.
-
-Role: Turn a compiled profile into Python dictionaries (format variant, op_table, nodes, literal pool, tag counts) using the vocab/tag-layout mappings.
-
-Example:
-```sh
-python - <<'PY'
-from pathlib import Path
-from book.api import decoder
-blob = Path("book/examples/sb/sample.sb.bin").read_bytes()
-decoded = decoder.decode_profile_dict(blob)
-print(decoded["format_variant"], decoded["op_count"])
-PY
-```
-See `book/api/decoder/README.md` for field details and CLI usage.
 
 The legacy `sbpl_compile`, `inspect_profile`, and `op_table` modules remain as shims to `profile_tools`; prefer the unified package above.
 
@@ -86,21 +73,6 @@ PY
 ```
 See `book/api/carton/README.md`, `AGENTS.md`, and `API.md` for design, routing, and function contracts.
 
-### sbpl_oracle
-
-Definition: Structural SBPL↔compiled profile “oracle” helpers.
-
-Role: Provide falsifiable, byte-level extraction of SBPL-visible argument structure from compiled blobs (no kernel semantics), backed by experiment corpora.
-
-Example:
-```sh
-python -m book.api.sbpl_oracle.cli network-matrix \
-  --manifest book/experiments/libsandbox-encoder/sb/network_matrix/MANIFEST.json \
-  --blob-dir book/experiments/libsandbox-encoder/out/network_matrix \
-  --out /tmp/network_oracle.json
-```
-See `book/api/sbpl_oracle/README.md` for scope and schemas.
-
 ### runtime_harness
 
 Definition: Unified runtime harness for golden profiles (replaces `runtime_golden` + `golden_runner`).
@@ -117,4 +89,4 @@ python -m book.api.runtime_harness.cli run --matrix book/profiles/golden-triple/
 
 - **op_table**: could gain a CARTON-backed query layer if op-table fingerprints/alignments are ever promoted to CARTON mappings; today it is generator/inspection tooling, not CARTON IR.
 - **runtime_harness**: could be query-able if golden traces/expectations become CARTON mappings with a defined concept; currently generation-only.
-- **Others (decoder, sbpl_compile, inspect_profile, regex_tools, SBPL-wrapper, file_probe, ghidra)**: generation/inspection/harness tools, not CARTON concepts; poor fits for the CARTON query surface in their current form.
+- **Others (sbpl_compile, inspect_profile, regex_tools, SBPL-wrapper, file_probe, ghidra)**: generation/inspection/harness tools, not CARTON concepts; poor fits for the CARTON query surface in their current form.

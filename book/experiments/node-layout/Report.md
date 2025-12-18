@@ -32,7 +32,7 @@ We explicitly do **not** attempt a full reverse-engineering of modern node forma
 - `analyze.py` – main tooling for this experiment:
   - compiles `sb/*.sb` via `sandbox_compile_string`,
   - slices blobs with `book.graph.concepts.validation.profile_ingestion`,
-  - calls `book.api.decoder.decode_profile_dict` (world-scoped stride selection),
+  - calls `book.api.profile_tools.decoder.decode_profile_dict` (world-scoped stride selection),
   - emits `out/summary.json`.
 - `out/summary.json` – machine-readable per-variant summary, including:
   - blob length, heuristic `operation_count`,
@@ -59,7 +59,7 @@ We explicitly do **not** attempt a full reverse-engineering of modern node forma
   - **Operation Pointer Table** bytes,
   - node region bytes,
   - literal/regex pool bytes.
-- `book/api/decoder` – **heuristic modern-profile decoder** that:
+- `book/api/profile_tools/decoder.py` – **heuristic modern-profile decoder** that:
   - uses op-table word-offset scaling evidence to select a fixed node stride for this world (stride=8 on the Sonoma baseline),
   - slices the node/literal boundary using an op-table-derived lower bound (to avoid ASCII mis-framing),
   - returns a JSON-friendly dict with:

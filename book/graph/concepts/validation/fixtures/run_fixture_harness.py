@@ -19,7 +19,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 # Best-effort decoder; returns structural fields without guessing semantics.
-import book.api.decoder as decoder
+from book.api.profile_tools import decoder
 
 
 def main() -> None:

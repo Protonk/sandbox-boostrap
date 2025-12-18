@@ -1,3 +1,7 @@
+"""
+Structural oracle: extract the socket tuple (domain/type/proto) from a blob.
+"""
+
 from __future__ import annotations
 
 import json
@@ -5,7 +9,7 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 from book.api.path_utils import find_repo_root, to_repo_relative
-from book.graph.concepts.validation import profile_ingestion as pi
+from .. import ingestion as pi
 
 from .model import Conflict, NetworkTupleResult, Record8, WORLD_ID, Witness
 
@@ -142,4 +146,3 @@ def run_network_matrix(manifest_path: Path, blob_dir: Path) -> Dict[str, Any]:
         },
         "entries": entries,
     }
-

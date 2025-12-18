@@ -9,7 +9,7 @@ import json
 from pathlib import Path
 from typing import Dict, Iterable, List, Set
 
-from book.api import decoder
+from book.api.profile_tools import decoder
 from book.api.path_utils import find_repo_root, to_repo_relative
 
 REPO_ROOT = find_repo_root(Path(__file__))

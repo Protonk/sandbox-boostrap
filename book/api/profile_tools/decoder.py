@@ -1,5 +1,7 @@
 """
-Best-effort decoder for modern sandbox profile blobs.
+Best-effort decoder for modern sandbox profile blobs (Sonoma baseline).
+
+Formerly exposed as `book.api.decoder`; promoted into `book.api.profile_tools`.
 
 Focuses on structure: header preamble, op-table entries, node chunks (auto-selected
 framing on this host baseline), and literal/regex pool slices. This is heuristic
@@ -14,6 +16,9 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import List, Dict, Any, Optional, Tuple, Sequence
 
+from book.api.path_utils import find_repo_root
+
+from . import ingestion as pi
 
 PRINTABLE = set(bytes(string.printable, "ascii"))
 # Heuristic: op_table and branch offsets are stored as u16 word offsets
@@ -95,7 +100,11 @@ def _score_scaled_targets_as_headers(
 
 def _load_filter_vocab() -> Dict[int, str]:
     """Load filter vocabulary id->name from the published mapping if present."""
-    path = Path("book/graph/mappings/vocab/filters.json")
+    try:
+        root = find_repo_root(Path(__file__))
+    except Exception:
+        return {}
+    path = root / "book" / "graph" / "mappings" / "vocab" / "filters.json"
     if not path.exists():
         return {}
     try:
@@ -114,7 +123,11 @@ def _load_filter_vocab() -> Dict[int, str]:
 
 def _load_tag_u16_roles() -> Dict[int, str]:
     """Load per-tag u16 role mapping if available."""
-    path = Path("book/graph/mappings/tag_layouts/tag_u16_roles.json")
+    try:
+        root = find_repo_root(Path(__file__))
+    except Exception:
+        return {}
+    path = root / "book" / "graph" / "mappings" / "tag_layouts" / "tag_u16_roles.json"
     if not path.exists():
         return {}
     try:
@@ -144,6 +157,7 @@ class DecodedProfile:
     tag_counts: Dict[str, int]
     literal_pool: bytes
     literal_strings: List[str]
+    literal_strings_with_offsets: List[Tuple[int, str]]
     sections: Dict[str, int]
     validation: Dict[str, Any]
     header_fields: Dict[str, Any]
@@ -163,40 +177,6 @@ def _guess_op_count(words: List[int]) -> Optional[int]:
     if 0 < maybe < 4096:
         return maybe
     return None
-
-
-def _scan_literal_start(data: bytes, start: int) -> int:
-    """Find onset of mostly-printable tail; conservative if none found."""
-    window = 64
-    threshold = 0.7
-    for i in range(start, len(data)):
-        chunk = data[i : min(len(data), i + window)]
-        if not chunk:
-            continue
-        printable = sum(1 for b in chunk if b in PRINTABLE or b == 0x00)
-        if printable / len(chunk) >= threshold:
-            return i
-    return len(data)
-
-
-def _scan_literal_start_from_lower_bound(data: bytes, start: int) -> int:
-    """
-    Conservative literal-pool onset finder starting at a computed lower bound.
-
-    For this host baseline, the op-table carries u16 word offsets (8-byte units)
-    into the node stream. Using that as a lower bound avoids the common failure
-    mode where the ratio-based scan latches onto ASCII-looking bytes produced by
-    a mis-framed node walk.
-    """
-    start = max(0, min(len(data), start))
-    min_run = 4
-    for i in range(start, len(data) - min_run):
-        j = i
-        while j < len(data) and (data[j] in PRINTABLE) and data[j] != 0x00:
-            j += 1
-        if j - i >= min_run:
-            return i
-    return _scan_literal_start(data, start)
 
 
 def _node_stride_alignment_metrics(op_table: Sequence[int], stride_bytes: int) -> Dict[str, Any]:
@@ -252,9 +232,13 @@ def _load_external_tag_layouts() -> Dict[int, Tuple[int, Tuple[int, ...], Tuple[
     then experimental assumptions under probe-op-structure. If none found, fall
     back to the built-in defaults. Keys are tag ints; values mirror DEFAULT_TAG_LAYOUTS.
     """
+    try:
+        root = find_repo_root(Path(__file__))
+    except Exception:
+        return {}
     candidates = [
-        Path("book/graph/mappings/tag_layouts/tag_layouts.json"),
-        Path("book/experiments/probe-op-structure/out/tag_layout_assumptions.json"),
+        root / "book" / "graph" / "mappings" / "tag_layouts" / "tag_layouts.json",
+        root / "book" / "experiments" / "probe-op-structure" / "out" / "tag_layout_assumptions.json",
     ]
     data = None
     for path in candidates:
@@ -440,13 +424,17 @@ def decode_profile(
     preamble_full = _read_words(data, header_window)
     header_bytes = data[:header_window]
     op_count = _guess_op_count(preamble)
-    op_table_len = (op_count or 0) * 2
-    op_table_start = 16
-    op_table_end = min(len(data), op_table_start + op_table_len)
-    op_table_bytes = data[op_table_start:op_table_end]
+
+    profile = pi.ProfileBlob(bytes=data, source="decoder")
+    header = pi.parse_header(profile)
+    if header.format_variant != "legacy-decision-tree":
+        header.operation_count = op_count
+    sections, offsets = pi.slice_sections_with_offsets(profile, header)
+
+    op_table_bytes = sections.op_table
     op_table = _parse_op_table(op_table_bytes)
 
-    nodes_start = op_table_end
+    nodes_start = offsets.nodes_start
     stride_selection: Dict[str, Any] = {}
     selected_stride = node_stride_bytes
     if selected_stride is None:
@@ -454,13 +442,9 @@ def decode_profile(
     else:
         stride_selection = {"mode": "forced", "selected": selected_stride}
 
-    if op_table:
-        nodes_lower_bound = nodes_start + (max(int(v) for v in op_table) + 1) * WORD_OFFSET_BYTES
-    else:
-        nodes_lower_bound = nodes_start
-    literal_start = _scan_literal_start_from_lower_bound(data, nodes_lower_bound)
-    nodes_bytes = data[nodes_start:literal_start]
-    literal_pool = data[literal_start:]
+    literal_start = offsets.literal_start
+    nodes_bytes = sections.nodes
+    literal_pool = sections.regex_literals
 
     merged_layouts = {**DEFAULT_TAG_LAYOUTS, **_load_external_tag_layouts()}
     known_tags = set(merged_layouts.keys())
@@ -575,31 +559,32 @@ def decode_profile(
         header_fields = {}
 
     decoded = DecodedProfile(
-        format_variant="modern-heuristic",
+        format_variant=header.format_variant,
         preamble_words=preamble,
         preamble_words_full=preamble_full,
         header_bytes=header_bytes,
         op_count=op_count,
-        op_table_offset=op_table_start,
+        op_table_offset=offsets.op_table_start,
         op_table=op_table,
         nodes=nodes,
         node_count=len(nodes),
         tag_counts={str(k): v for k, v in tag_counts.items()},
         literal_pool=literal_pool,
         literal_strings=[s for _, s in literal_strings_with_offsets],
+        literal_strings_with_offsets=literal_strings_with_offsets,
         sections={
             "op_table": len(op_table_bytes),
             "nodes": len(nodes_bytes),
             "literal_pool": len(literal_pool),
-            "nodes_start": nodes_start,
-            "literal_start": literal_start,
+            "nodes_start": offsets.nodes_start,
+            "literal_start": offsets.literal_start,
         },
         validation={
             "node_remainder_bytes": node_remainder,
             "edge_fields_in_bounds": edge_in_bounds,
             "edge_fields_total": edge_total,
-            "nodes_start": nodes_start,
-            "literal_start": literal_start,
+            "nodes_start": offsets.nodes_start,
+            "literal_start": offsets.literal_start,
             "node_stride_bytes": selected_stride,
             "node_stride_selection": stride_selection,
             "tag_validation": tag_validation,
@@ -607,8 +592,6 @@ def decode_profile(
         },
         header_fields=header_fields,
     )
-    decoded.literal_strings_with_offsets = literal_strings_with_offsets  # type: ignore[attr-defined]
-
     return decoded
 
 
@@ -630,9 +613,7 @@ def decode_profile_dict(data: bytes, node_stride_bytes: Optional[int] = None) ->
         "node_count": d.node_count,
         "tag_counts": d.tag_counts,
         "literal_strings": d.literal_strings,
-        "literal_strings_with_offsets": getattr(
-            d, "literal_strings_with_offsets", [(i, s) for i, s in enumerate(d.literal_strings)]
-        ),
+        "literal_strings_with_offsets": d.literal_strings_with_offsets,
         "sections": d.sections,
         "validation": getattr(d, "validation", {}),
         "header_fields": getattr(d, "header_fields", {}),

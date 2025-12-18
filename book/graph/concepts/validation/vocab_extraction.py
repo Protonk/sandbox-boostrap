@@ -22,7 +22,7 @@ from pathlib import Path
 from typing import Any, Dict, List
 import sys
 
-import book.api.decoder as decoder
+from book.api.profile_tools import decoder
 from book.graph.concepts.validation import profile_ingestion as pi
 from book.graph.concepts.validation import registry
 from book.graph.concepts.validation.registry import ValidationJob

@@ -3,7 +3,7 @@
 Regenerate the tag layout mapping for the canonical system-profile corpus.
 
 This generator is intentionally structural and world-scoped:
-- It decodes the canonical compiled blobs via `book.api.decoder` (which selects
+- It decodes the canonical compiled blobs via `book.api.profile_tools.decoder` (which selects
   the framing for this host baseline).
 - It unions all observed tag bytes.
 - It emits a conservative per-tag layout record (record size + edge/payload
@@ -24,7 +24,7 @@ REPO_ROOT = Path(__file__).resolve().parents[4]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from book.api import decoder  # type: ignore
+from book.api.profile_tools import decoder  # type: ignore
 from book.graph.mappings.tag_layouts import annotate_metadata  # type: ignore
 
 
@@ -115,4 +115,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

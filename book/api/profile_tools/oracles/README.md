@@ -1,9 +1,9 @@
-# sbpl_oracle
+# profile_tools.oracles
 
 Host-scoped “oracle” helpers that map SBPL-visible structure to compiled profile bytes for the fixed Sonoma baseline (`world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`).
 
-This module is intentionally **structural**:
-- Inputs are compiled profile blobs (and optionally SBPL sources via the compiler).
+This surface is intentionally **structural**:
+- Inputs are compiled profile blobs.
 - Outputs are extracted values plus explicit byte-level witnesses (record offsets and record headers).
 - It does **not** claim kernel semantics; it is a way to make SBPL↔blob structure falsifiable.
 
@@ -11,23 +11,23 @@ This module is intentionally **structural**:
 
 ### Network tuple oracle (`domain`, `type`, `proto`)
 
-`book.api.sbpl_oracle.network` implements an extractor for the socket argument tuple using only structural witnesses established by the `libsandbox-encoder` experiment’s network matrix corpus.
+`book.api.profile_tools.oracles.network` implements an extractor for the socket argument tuple using only structural witnesses established by the `libsandbox-encoder` experiment’s network matrix corpus.
 
 - Python:
-  - `from book.api.sbpl_oracle.network import extract_network_tuple`
+  - `from book.api.profile_tools.oracles import extract_network_tuple`
   - `result = extract_network_tuple(blob_bytes)`
   - `result.domain`, `result.type`, `result.proto`
   - `result.sources` and `result.conflicts` carry the byte-level witnesses.
 
 - CLI (dataset runner; does not compile SBPL):
-  - `python -m book.api.sbpl_oracle.cli network-matrix --manifest <MANIFEST.json> --blob-dir <dir> --out <out.json>`
+  - `python -m book.api.profile_tools oracle network-matrix --manifest <MANIFEST.json> --blob-dir <dir> --out <out.json>`
 
-The dataset output schema is recorded at `book/api/sbpl_oracle/schemas/network_matrix_oracle.v1.schema.json`.
+The dataset output schema is recorded at `book/api/profile_tools/oracles/schemas/network_matrix_oracle.v1.schema.json`.
 
 ## Relationship to experiments
 
 The initial witness corpus and the first oracle implementation were developed under:
 - `book/experiments/libsandbox-encoder/`
 
-The experiment retains the SBPL specimens and compiled blobs as provenance and as a stable test corpus. The API oracle is the maintained surface for reuse across tooling and validation.
+The experiment retains the SBPL specimens and compiled blobs as provenance and as a stable test corpus. `profile_tools.oracles` is the maintained surface for reuse across tooling and validation.
 

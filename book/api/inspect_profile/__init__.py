@@ -10,8 +10,8 @@ from __future__ import annotations
 import warnings
 from typing import Sequence
 
-from book.api.profile_tools import InspectSummary
 from book.api.profile_tools import inspect as _profile_inspect
+from book.api.profile_tools.inspect import Summary as InspectSummary
 
 
 def _warn() -> None:

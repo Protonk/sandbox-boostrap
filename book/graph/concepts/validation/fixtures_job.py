@@ -16,7 +16,7 @@ ROOT = find_repo_root(Path(__file__))
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-import book.api.decoder as decoder
+from book.api.profile_tools import decoder
 from book.graph.concepts.validation import registry
 from book.graph.concepts.validation.registry import ValidationJob
 

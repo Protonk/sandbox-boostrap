@@ -19,7 +19,7 @@ ROOT = Path(__file__).resolve().parents[3]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-import book.api.decoder as decoder
+from book.api.profile_tools import decoder
 
 
 PROFILES: List[Tuple[str, str]] = [
@@ -105,4 +105,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

@@ -1,3 +1,8 @@
+> NOTE (docs-only)
+>
+> The runnable probe source has moved to `book/api/lifecycle_probes/c/extensions_demo.c`. This example directory is documentation only.
+> Use `python -m book.api.lifecycle_probes extensions` to build/run the probe and (optionally) write `validation/out/lifecycle/extensions_dynamic.md`.
+
 ## 1. What this example is about
 
 This example demonstrates the **sandbox extension** mechanism as exposed by `libsandbox`:
@@ -17,12 +22,14 @@ The key mapping is: **extensions → `(extension ...)` filters in SBPL**, which 
 
 Single source file:
 
-* `extensions_demo.c`
+* `book/api/lifecycle_probes/c/extensions_demo.c`
 
 Typical build:
 
 ```sh
-clang extensions_demo.c -o extensions_demo -ldl
+clang book/api/lifecycle_probes/c/extensions_demo.c \
+  -o book/api/lifecycle_probes/build/extensions_demo \
+  -ldl
 ```
 
 (Depending on your SDK/headers, `-ldl` may not be needed, but the code uses `dlopen`/`dlsym`.)
@@ -30,7 +37,14 @@ clang extensions_demo.c -o extensions_demo -ldl
 Then run:
 
 ```sh
-./extensions_demo
+book/api/lifecycle_probes/build/extensions_demo
+```
+
+To write the canonical validation output:
+
+```sh
+python -m book.api.lifecycle_probes extensions \
+  --out book/graph/concepts/validation/out/lifecycle/extensions_dynamic.md
 ```
 
 You should expect:
@@ -340,4 +354,3 @@ Because issuance is expected to fail on a stock, unentitled CLI, you can treat t
      * selecting photos, contacts, or similar sensitive content,
      * cross-process handoffs via Launch Services.
    * The static sandbox profile remains tight; extensions allow **specific, time-bound** exceptions.
-

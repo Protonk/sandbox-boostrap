@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 """
+HISTORICAL EXAMPLE (legacy decision-tree profiles)
+
 Render a compiled AppleMatch regex blob (.re) to Graphviz .dot.
+
+This script is maintained as part of the legacy profile/regex inspection toolchain; it is not wired into modern
+graph-based profile extraction/decoding in SANDBOX_LORE.
 """
 
 from __future__ import annotations

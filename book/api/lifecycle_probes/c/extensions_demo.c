@@ -10,6 +10,11 @@
 // build this program will likely fail to issue anything meaningful. The point
 // is to show how SBPL’s `(extension ...)` filters map to tokens that widen a
 // sandbox dynamically (substrate/Appendix.md §5).
+//
+// Host baseline: world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5.
+// On this host, extension issuance/consume is expected to be blocked for
+// unentitled callers; treat failures/crashes as lifecycle evidence, not as
+// proof the mechanism is absent.
 
 typedef char *(*issue_fn)(const char *ext, const char *path, unsigned long long flags);
 typedef int (*consume_fn)(const char *token);

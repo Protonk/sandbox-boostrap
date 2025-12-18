@@ -4,7 +4,7 @@ This example is a **mini end-to-end pipeline** for a sandbox profile:
 
 * Author SBPL in `sample.sb`.
 * Compile it to a binary policy blob using `libsandbox` in `compile_sample.py`.
-* Immediately hand that blob to the **shared profile ingestion layer** (`book/concepts/validation/profile_ingestion.py`) instead of doing ad-hoc parsing.
+* Immediately hand that blob to the **shared profile ingestion layer** (`book/api/profile_tools/ingestion.py`) instead of doing ad-hoc parsing.
 * Produce `build/sample.sb.bin`, which you can then decode with `sbdis`, `resnarf`, `re2dot`, etc.
 
 It’s the “hello world” for your **modern graph-based profile format** and the Axis 4.1 ingestion code.
@@ -54,11 +54,11 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 if str(REPO_ROOT) not in sys.path:
     sys.path.append(str(REPO_ROOT))
 
-from book.concepts.validation import profile_ingestion as ingestion
+from book.api.profile_tools import ingestion as ingestion
 ```
 
 * Walks up to the repo root.
-* Appends that to `sys.path` so it can import the shared `profile_ingestion` module.
+* Appends that to `sys.path` so it can import `book.api.profile_tools.ingestion`.
 * This is how the example hooks into the shared ingestion layer instead of re-implementing header parsing locally.
 
 The `SandboxProfile` struct mirrors the `libsandbox` C struct:

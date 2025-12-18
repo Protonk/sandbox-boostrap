@@ -97,7 +97,7 @@ New experiments should follow the same pattern: a dedicated directory with its o
 
 Shared tooling tip:
 - For quick blob snapshots (section sizes, op-table entries, stride/tag stats, literals), use `book/api/inspect_profile` (CLI or Python) instead of duplicating parsers.
-- For op-table and vocab alignment, prefer `book/api/op_table`. For decoding, use `book/api/decoder`.
+- For op-table and vocab alignment, prefer `book/api/op_table`. For decoding, use `book/api/profile_tools/decoder.py` (or import `book.api.profile_tools.decoder`).
 
 ## What makes a good experiment here
 

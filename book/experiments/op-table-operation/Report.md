@@ -48,7 +48,7 @@ We intentionally avoid guessing op-table slot ordering or Operation↔bucket sem
   - parses SBPL to recover the list of allowed operation symbols per profile,
   - tokenizes SBPL to recover filter symbols and map them to filter vocab IDs,
   - uses `profile_ingestion.parse_header` and `slice_sections` to recover `operation_count` and section boundaries,
-  - calls `book.api.decoder.decode_profile_dict` to get node counts, tag counts, literal strings, sections, and stride-selection witnesses,
+  - calls `book.api.profile_tools.decoder.decode_profile_dict` to get node counts, tag counts, literal strings, sections, and stride-selection witnesses,
   - extracts op-table entries from the blob,
   - computes simple tag counts over the node region (stride=8, plus a stride=12 historical view),
   - derives per-entry structural **signatures** by walking from each unique op-table index over the decoder node list,
@@ -60,7 +60,7 @@ We intentionally avoid guessing op-table slot ordering or Operation↔bucket sem
 **Shared dependencies**
 
 - `book.graph.concepts.validation.profile_ingestion` – header parsing, section slicing.
-- `book.api.decoder` – modern-profile decoder (op-table scaling witness + stride selection, nodes, literal pool).
+- `book.api.profile_tools.decoder` – modern-profile decoder (op-table scaling witness + stride selection, nodes, literal pool).
 
 ---
 

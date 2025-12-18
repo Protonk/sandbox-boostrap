@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 """
+HISTORICAL EXAMPLE (legacy decision-tree profiles)
+
 Shim to book/examples/regex_tools/extract_legacy.py.
+
+This tool extracts AppleMatch regex blobs from the legacy decision-tree profile format and is kept for historical
+inspection. It is not a modern graph-based profile extractor for this host baseline.
 """
 
 import sys

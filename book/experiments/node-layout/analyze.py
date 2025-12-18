@@ -20,9 +20,9 @@ import json
 from pathlib import Path
 from typing import List, Dict, Any
 
-import book.api.decoder as decoder
+from book.api.profile_tools import decoder
 from book.api.profile_tools import compile as profile_compile
-from book.graph.concepts.validation import profile_ingestion as pi
+from book.api.profile_tools import ingestion as pi
 
 
 def compile_sbpl(src: Path, out: Path) -> bytes:

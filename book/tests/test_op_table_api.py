@@ -24,7 +24,7 @@ def test_op_table_cli_with_compile(tmp_path):
         "--compile",
         "--op-count",
         "196",
-        "--json",
+        "--out",
         str(out),
     ]
     res = subprocess.run(cmd, capture_output=True, text=True)
@@ -38,7 +38,7 @@ def test_op_table_cli_with_compile(tmp_path):
 def test_build_alignment_stub():
     vocab_ops = {"ops": [{"name": "file-read*", "id": 10}]}
     vocab_filters = {"filters": [{"name": "literal", "id": 1}]}
-    summary = pt.OpTableSummary(
+    summary = pt.op_table.Summary(
         name="stub",
         ops=["file-read*"],
         filters=["literal"],
@@ -56,6 +56,6 @@ def test_build_alignment_stub():
         decoder={},
         entry_signatures={},
     )
-    alignment = pt.build_alignment([summary], vocab_ops, vocab_filters)
+    alignment = pt.op_table.build_alignment([summary], vocab_ops, vocab_filters)
     assert alignment["records"][0]["operation_ids"] == [10]
     assert alignment["records"][0]["filter_ids"] == [1]

@@ -13,8 +13,9 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence
 
-import book.api.decoder as decoder
-from book.graph.concepts.validation import profile_ingestion as pi
+from . import bytes_util as bu
+from . import decoder as decoder
+from . import ingestion as pi
 
 
 ALLOW_RE = re.compile(r"^\(allow\s+([^\s)]+)")
@@ -43,38 +44,9 @@ def parse_filters(sb_path: Path, filter_names: set[str]) -> List[str]:
     return sorted(tokens)
 
 
-def op_entries(blob: bytes, op_count: int) -> List[int]:
-    ops = blob[16 : 16 + op_count * 2]
-    return [int.from_bytes(ops[i : i + 2], "little") for i in range(0, len(ops), 2)]
-
-
-def tag_counts(nodes: bytes, stride: int = 12) -> Dict[int, int]:
-    counts: Dict[int, int] = {}
-    recs = len(nodes) // stride
-    for idx in range(recs):
-        rec = nodes[idx * stride : (idx + 1) * stride]
-        tag = rec[0]
-        counts[tag] = counts.get(tag, 0) + 1
-    return counts
-
-
-def ascii_strings(buf: bytes, min_len: int = 4) -> List[Dict[str, Any]]:
-    runs: List[Dict[str, Any]] = []
-    start = None
-    current: List[str] = []
-    for idx, byte in enumerate(buf):
-        if 0x20 <= byte < 0x7F:
-            if start is None:
-                start = idx
-            current.append(chr(byte))
-        else:
-            if current and len(current) >= min_len and start is not None:
-                runs.append({"offset": start, "string": "".join(current)})
-            start = None
-            current = []
-    if current and len(current) >= min_len and start is not None:
-        runs.append({"offset": start, "string": "".join(current)})
-    return runs
+op_entries = bu.op_entries
+tag_counts = bu.tag_counts
+ascii_strings = bu.ascii_strings
 
 
 def entry_signature(decoded: Dict[str, Any], entry: int, max_visits: int = 256) -> Dict[str, Any]:
@@ -147,7 +119,7 @@ def summarize_profile(
         header.operation_count = op_count_override
     sections = pi.slice_sections(pi.ProfileBlob(bytes=blob, source=name), header)
     op_count = header.operation_count or 0
-    entries = op_entries(blob, op_count) if op_count else []
+    entries = bu.op_entries(blob, op_count) if op_count else []
     decoded = decoder.decode_profile_dict(blob)
     header_words = [int.from_bytes(blob[i : i + 2], "little") for i in range(0, min(len(blob), 16), 2)]
     entry_sigs = {str(e): entry_signature(decoded, e) for e in sorted(set(entries))}
@@ -167,9 +139,9 @@ def summarize_profile(
             "nodes": len(sections.nodes),
             "literals": len(sections.regex_literals),
         },
-        tag_counts_stride12={str(k): v for k, v in tag_counts(sections.nodes).items()},
+        tag_counts_stride12={str(k): v for k, v in bu.tag_counts(sections.nodes).items()},
         remainder_stride12_hex=sections.nodes[(len(sections.nodes) // 12) * 12 :].hex(),
-        literal_strings=ascii_strings(sections.regex_literals),
+        literal_strings=bu.ascii_strings(sections.regex_literals),
         decoder={
             "format_variant": decoded.get("format_variant"),
             "op_count": decoded.get("op_count"),

@@ -16,7 +16,7 @@ This experiment checks how `/tmp/foo` and `/private/tmp/foo` behave structurally
   - `/var/tmp/canon` ↔ `/private/var/tmp/canon` (control outside `/tmp`)
 - **Harness:**
   - Entry: `book/experiments/vfs-canonicalization/run_vfs.py`.
-  - Structural decode via `book/api/decoder` using `book/graph/mappings/tag_layouts/tag_layouts.json`.
+  - Structural decode via `book/api/profile_tools/decoder.py` using `book/graph/mappings/tag_layouts/tag_layouts.json`.
   - Runtime harness via `book.api.runtime_harness.runner.run_expected_matrix`, reusing the same shims as `runtime-checks` / `runtime-adversarial`.
 - **Outputs:**
   - `sb/build/*.sb.bin` – compiled VFS profiles.

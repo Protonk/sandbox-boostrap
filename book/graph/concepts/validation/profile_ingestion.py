@@ -13,6 +13,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Optional, List, Dict, Any
 import struct
+import string
+
+PRINTABLE = set(bytes(string.printable, "ascii"))
 
 # Minimal Mach-O segment parser for slicing fallbacks
 def _parse_macho_segments(data: bytes) -> List[Dict[str, Any]]:
@@ -67,6 +70,16 @@ class Sections:
     regex_literals: bytes
 
 
+@dataclass(frozen=True)
+class SectionOffsets:
+    op_table_start: int
+    op_table_end: int
+    nodes_start: int
+    nodes_end: int
+    literal_start: int
+    literal_end: int
+
+
 def _is_legacy_decision_tree(blob: bytes) -> bool:
     """Heuristic: early format uses u16 re_table_offset (8-byte words) + u8 count."""
     if len(blob) < 4:
@@ -115,13 +128,32 @@ def parse_header(blob: ProfileBlob) -> Header:
 
 
 def slice_sections(blob: ProfileBlob, header: Header) -> Sections:
+    sections, _offsets = slice_sections_with_offsets(blob, header)
+    return sections
+
+
+def slice_sections_with_offsets(blob: ProfileBlob, header: Header) -> tuple[Sections, SectionOffsets]:
     data = blob.bytes
     if header.format_variant == "legacy-decision-tree":
         re_offset_bytes = int.from_bytes(data[0:2], "little") * 8
-        op_table = data[4:re_offset_bytes]
+        op_table_start = 4
+        op_table_end = re_offset_bytes
+        literal_start = re_offset_bytes
+        literal_end = len(data)
+        op_table = data[op_table_start:op_table_end]
         nodes = b""  # legacy handlers are embedded; keep them in regex_literals below
-        regex_literals = data[re_offset_bytes:]
-        return Sections(op_table=op_table, nodes=nodes, regex_literals=regex_literals)
+        regex_literals = data[literal_start:]
+        return (
+            Sections(op_table=op_table, nodes=nodes, regex_literals=regex_literals),
+            SectionOffsets(
+                op_table_start=op_table_start,
+                op_table_end=op_table_end,
+                nodes_start=literal_start,
+                nodes_end=literal_start,
+                literal_start=literal_start,
+                literal_end=literal_end,
+            ),
+        )
     # Modern heuristic: treat bytes 0x10..(0x10 + op_count*2) as op-table.
     op_table_len = 0
     if header.operation_count:
@@ -158,7 +190,7 @@ def slice_sections(blob: ProfileBlob, header: Header) -> Sections:
         min_run = 4
         for i in range(start, len(buf) - min_run):
             j = i
-            while j < len(buf) and buf[j] != 0x00 and 32 <= buf[j] <= 126:
+            while j < len(buf) and buf[j] != 0x00 and buf[j] in PRINTABLE:
                 j += 1
             if j - i >= min_run:
                 return i
@@ -169,12 +201,24 @@ def slice_sections(blob: ProfileBlob, header: Header) -> Sections:
             chunk = buf[i : min(len(buf), i + window)]
             if not chunk:
                 continue
-            printable = sum(1 for b in chunk if b == 0x00 or 32 <= b <= 126)
+            printable = sum(1 for b in chunk if b == 0x00 or b in PRINTABLE)
             if printable / len(chunk) >= threshold:
                 return i
         return len(buf)
 
     literal_start = find_literal_start(data, lower_bound)
-    nodes = data[nodes_start:literal_start]
-    regex_literals = data[literal_start:]
-    return Sections(op_table=op_table, nodes=nodes, regex_literals=regex_literals)
+    literal_end = len(data)
+    nodes_end = literal_start
+    nodes = data[nodes_start:nodes_end]
+    regex_literals = data[literal_start:literal_end]
+    return (
+        Sections(op_table=op_table, nodes=nodes, regex_literals=regex_literals),
+        SectionOffsets(
+            op_table_start=op_table_start,
+            op_table_end=op_table_end,
+            nodes_start=nodes_start,
+            nodes_end=nodes_end,
+            literal_start=literal_start,
+            literal_end=literal_end,
+        ),
+    )

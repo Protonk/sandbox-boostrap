@@ -252,7 +252,7 @@ def main() -> None:
             "world_id": world_id,
             "inputs": [str(IR_PATH.relative_to(ROOT)), str(STATIC_CHECKS_PATH.relative_to(ROOT))],
             "source_jobs": (ir.get("source_jobs") or []) + ["generator:system_profiles:static_checks"],
-            "decoder": "book.api.decoder",
+            "decoder": "book.api.profile_tools.decoder",
             "status": aggregate_status,
             "canonical_profiles": canonical_statuses,
             "contract_fields": CONTRACT_FIELDS,

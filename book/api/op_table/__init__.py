@@ -10,18 +10,16 @@ from __future__ import annotations
 import warnings
 
 from book.api.profile_tools import op_table as _profile_op
-from book.api.profile_tools import (
-    OpTableSummary as Summary,
-    ascii_strings,
-    build_alignment,
-    entry_signature,
-    load_vocab,
-    op_entries,
-    parse_filters,
-    parse_ops,
-    summarize_profile,
-    tag_counts,
-)
+
+Summary = _profile_op.Summary
+parse_ops = _profile_op.parse_ops
+parse_filters = _profile_op.parse_filters
+op_entries = _profile_op.op_entries
+tag_counts = _profile_op.tag_counts
+ascii_strings = _profile_op.ascii_strings
+entry_signature = _profile_op.entry_signature
+build_alignment = _profile_op.build_alignment
+load_vocab = _profile_op.load_vocab
 
 
 def _warn() -> None:

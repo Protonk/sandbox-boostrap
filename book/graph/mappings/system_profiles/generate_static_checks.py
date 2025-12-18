@@ -24,7 +24,7 @@ REPO_ROOT = Path(__file__).resolve().parents[4]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-import book.api.decoder as decoder
+from book.api.profile_tools import decoder
 from book.graph.concepts.validation import profile_ingestion as pi
 OUT_PATH = REPO_ROOT / "book/graph/mappings/system_profiles/static_checks.json"
 BASELINE_REF = "book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json"

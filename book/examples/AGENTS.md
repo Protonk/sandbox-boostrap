@@ -56,8 +56,9 @@ These examples assume a macOS system with:
 - **Role:** Show how signing identifiers and entitlements appear at runtime and how they feed SBPL predicates like `(entitlement-is-present ...)` and `(signing-identifier ...)`.
 - **Run:**
   ```sh
-  clang entitlements_example.c -framework Security -framework CoreFoundation -o entitlements_example
-  ./entitlements_example
+  # Note: example dir is docs-only; runnable probe lives under book/api/.
+  python -m book.api.lifecycle_probes entitlements \
+    --out book/graph/concepts/validation/out/lifecycle/entitlements.json
 ```
 
 * **Concept:** Entitlements as sandbox inputs. Same binary, different signatures/entitlements → different sandbox outcomes.
@@ -83,8 +84,9 @@ These examples assume a macOS system with:
 * **Run:**
 
   ```sh
-  clang extensions_demo.c -o extensions_demo -ldl
-  ./extensions_demo
+  # Note: example dir is docs-only; runnable probe lives under book/api/.
+  python -m book.api.lifecycle_probes extensions \
+    --out book/graph/concepts/validation/out/lifecycle/extensions_dynamic.md
   ```
 * **Concept:** Sandbox extensions as **dynamic capabilities** stacked on top of platform and per-process policy. Expected to fail issuance on unentitled CLIs; focus is on the API pattern.
 
@@ -171,7 +173,7 @@ Other examples focus on the **artifacts** around Seatbelt rather than the live s
   - Extractors that snarf compiled regex blobs (`.re`) from legacy profiles.
   - Converters that turn AppleMatch NFAs into Graphviz `.dot` graphs or approximate textual regexes.
 - **Modern graph-based ingestion**
-  - Examples that compile a sample SBPL and then immediately pass the resulting blob through the shared `book/concepts/validation/profile_ingestion.py` layer to parse headers and slice sections (op table, node array, regex/literal tables).
+  - Examples that compile a sample SBPL and then immediately pass the resulting blob through the shared `book/api/profile_tools/ingestion.py` layer to parse headers and slice sections (op table, node array, regex/literal tables).
 Use these when you need to **compile, extract, disassemble, or visualize profiles and AppleMatch regex blobs**, not run live sandboxed workloads.
 
 

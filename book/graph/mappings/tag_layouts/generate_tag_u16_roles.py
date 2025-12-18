@@ -23,7 +23,7 @@ REPO_ROOT = Path(__file__).resolve().parents[4]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from book.api import decoder  # type: ignore
+from book.api.profile_tools import decoder  # type: ignore
 
 
 BASELINE_PATH = REPO_ROOT / "book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json"
@@ -137,4 +137,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

@@ -141,6 +141,27 @@
         }
       ],
       "notes": "Minimal strict profile: only /private/tmp/strict_ok should be reachable."
+    },
+    "runtime:param_deny_root_ok": {
+      "blob": "book/profiles/golden-triple/param_deny_root_allow_default_ROOT_private_tmp_ok.sb.bin",
+      "mode": "blob",
+      "probes": [
+        {
+          "name": "read_/private/tmp/sbpl_rt/read.txt",
+          "operation": "file-read*",
+          "target": "/private/tmp/sbpl_rt/read.txt",
+          "expected": "allow",
+          "expectation_id": "runtime:param_deny_root_ok|file-read*|/private/tmp/sbpl_rt/read.txt"
+        },
+        {
+          "name": "read_/private/tmp/ok/allow.txt",
+          "operation": "file-read*",
+          "target": "/private/tmp/ok/allow.txt",
+          "expected": "deny",
+          "expectation_id": "runtime:param_deny_root_ok|file-read*|/private/tmp/ok/allow.txt"
+        }
+      ],
+      "notes": "Parameterized SBPL compiled with ROOT=/private/tmp/ok; allow-default plus deny file-read* under ROOT (blob mode)."
     }
   }
 }

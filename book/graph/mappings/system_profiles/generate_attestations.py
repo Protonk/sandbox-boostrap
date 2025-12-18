@@ -34,7 +34,7 @@ REPO_ROOT = Path(__file__).resolve().parents[4]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-import book.api.decoder as decoder
+from book.api.profile_tools import decoder
 from book.api.op_table import op_entries
 from book.graph.concepts.validation import profile_ingestion as pi
 
