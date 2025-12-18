@@ -1,11 +1,13 @@
-# SBPL Compile Helpers
+# sbpl_compile (deprecated)
 
-Canonical wrappers for the private `sandbox_compile_*` APIs on the Sonoma baseline.
+Backward-compatibility shims for the former SBPL compiler helpers.
 
-- `__init__.py` – Python helpers (`compile_sbpl_file`, `compile_sbpl_string`, `hex_preview`).
-- `cli.py` – CLI entrypoint (`python -m book.api.sbpl_compile.cli input.sb ...`).
-- `c/compile_profile.c` – minimal C reference for parity with the Python path.
+The canonical profile tooling surface is `book/api/profile_tools/`.
+
+- `__init__.py` – shim exports (`compile_sbpl_file`, `compile_sbpl_string`, `hex_preview`) forwarding to `book.api.profile_tools`.
+- `cli.py` – shim CLI entrypoint forwarding to `book.api.profile_tools.cli`.
+- `c/compile_profile.c` – deprecated wrapper; canonical C reference lives at `book/api/profile_tools/c/compile_profile.c`.
 
 Assumptions: baseline from `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`; `libsandbox.dylib` present. Outputs are the modern graph-based binary blobs described in `substrate/Appendix.md`.
 
-These helpers supersede the ad-hoc compilers in `book/examples/sbsnarf`, `book/examples/sb/compile_sample.py`, and `book/examples/extract_sbs/compile_profiles.py`. The original example scripts now shim into this module.
+New code should import from `book.api.profile_tools` instead of `book.api.sbpl_compile`.

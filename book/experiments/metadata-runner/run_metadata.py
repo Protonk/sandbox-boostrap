@@ -20,7 +20,7 @@ if str(REPO_ROOT) not in sys.path:
 
 from book.api.path_utils import find_repo_root  # type: ignore
 import book.api.decoder as decoder  # type: ignore
-from book.api.sbpl_compile import compile_sbpl_string  # type: ignore
+from book.api.profile_tools import compile_sbpl_string  # type: ignore
 
 BASE_DIR = Path(__file__).resolve().parent
 SB_DIR = BASE_DIR / "sb"

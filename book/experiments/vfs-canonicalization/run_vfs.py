@@ -25,7 +25,7 @@ if str(REPO_ROOT) not in sys.path:
 from book.api.path_utils import ensure_absolute, find_repo_root, to_repo_relative
 import book.api.decoder as decoder  # type: ignore
 from book.api.runtime_harness.runner import ensure_tmp_files, run_expected_matrix  # type: ignore
-from book.api.sbpl_compile import compile_sbpl_string  # type: ignore
+from book.api.profile_tools import compile_sbpl_string  # type: ignore
 
 
 REPO_ROOT = find_repo_root(Path(__file__))

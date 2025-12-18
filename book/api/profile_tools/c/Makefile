@@ -4,7 +4,6 @@ LDFLAGS := -lsandbox
 
 BUILD_DIR := build
 BIN := $(BUILD_DIR)/compile_profile
-SRC := ../../profile_tools/c/compile_profile.c
 
 .PHONY: all clean
 
@@ -13,7 +12,7 @@ all: $(BIN)
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
 
-$(BIN): $(SRC) | $(BUILD_DIR)
+$(BIN): compile_profile.c | $(BUILD_DIR)
 	$(CC) $(CFLAGS) $< -o $@ $(LDFLAGS)
 
 clean:

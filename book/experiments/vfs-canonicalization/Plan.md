@@ -37,7 +37,7 @@ Profiles live under `book/experiments/vfs-canonicalization/sb/`:
     - `(allow file-read* (literal "/tmp/foo"))`
     - `(allow file-read* (literal "/private/tmp/foo"))`.
 
-Compiled blobs will be written to `sb/build/<stem>.sb.bin` using `book.api.sbpl_compile.compile_sbpl_string`.
+Compiled blobs will be written to `sb/build/<stem>.sb.bin` using `book.api.profile_tools.compile_sbpl_string`.
 
 Scenarios:
 

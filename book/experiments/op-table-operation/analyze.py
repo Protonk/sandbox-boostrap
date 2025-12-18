@@ -10,11 +10,9 @@ Outputs:
 
 from __future__ import annotations
 
-import ctypes
 import json
 import re
 import sys
-from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List, Any
 
@@ -23,45 +21,13 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 import book.api.decoder as decoder
+from book.api.profile_tools import compile as profile_compile
 from book.graph.concepts.validation import profile_ingestion as pi
-
-
-@dataclass
-class SandboxProfile(ctypes.Structure):
-    _fields_ = [
-        ("profile_type", ctypes.c_uint32),
-        ("reserved", ctypes.c_uint32),
-        ("bytecode", ctypes.c_void_p),
-        ("bytecode_length", ctypes.c_size_t),
-    ]
 
 
 def compile_sbpl(src: Path, out: Path) -> bytes:
     """Compile SBPL via libsandbox and write the blob."""
-    lib = ctypes.CDLL("libsandbox.dylib")
-    lib.sandbox_compile_string.argtypes = [
-        ctypes.c_char_p,
-        ctypes.c_uint64,
-        ctypes.POINTER(ctypes.c_char_p),
-    ]
-    lib.sandbox_compile_string.restype = ctypes.POINTER(SandboxProfile)
-    lib.sandbox_free_profile.argtypes = [ctypes.POINTER(SandboxProfile)]
-
-    text = src.read_text().encode()
-    err = ctypes.c_char_p()
-    prof = lib.sandbox_compile_string(text, 0, ctypes.byref(err))
-    if not prof:
-        detail = err.value.decode() if err.value else "unknown"
-        raise RuntimeError(f"compile failed for {src}: {detail}")
-
-    blob = ctypes.string_at(prof.contents.bytecode, prof.contents.bytecode_length)
-    out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_bytes(blob)
-
-    lib.sandbox_free_profile(prof)
-    if err:
-        ctypes.CDLL(None).free(err)
-    return blob
+    return profile_compile.compile_sbpl_file(src, dst=out).blob
 
 
 def parse_ops(src: Path) -> List[str]:

@@ -4,6 +4,7 @@ from pathlib import Path
 import pytest
 
 from book.api import profile_tools as pt
+from book.graph.concepts.validation import profile_ingestion as pi
 
 ROOT = Path(__file__).resolve().parents[2]
 SAMPLE_SB = ROOT / "book" / "examples" / "sb" / "sample.sb"
@@ -41,3 +42,25 @@ def test_cli_compiles_to_specified_path(tmp_path):
     assert out.exists()
     blob = out.read_bytes()
     assert len(blob) > 0
+
+
+@pytest.mark.system
+def test_compile_string_matches_compile_file_header():
+    """
+    SBPL compilation has two entry points:
+    - SBPL text via `sandbox_compile_string`
+    - SBPL file via `sandbox_compile_file`
+
+    For a simple SBPL specimen without imports/params, both should produce
+    structurally identical headers (format/op_count/node_count).
+    """
+    text = SAMPLE_SB.read_text()
+    res_string = pt.compile_sbpl_string(text)
+    res_file = pt.compile_sbpl_file(SAMPLE_SB)
+
+    header_string = pi.parse_header(pi.ProfileBlob(bytes=res_string.blob, source="test:string"))
+    header_file = pi.parse_header(pi.ProfileBlob(bytes=res_file.blob, source="test:file"))
+
+    assert header_string.format_variant == header_file.format_variant
+    assert header_string.operation_count == header_file.operation_count
+    assert header_string.node_count == header_file.node_count

@@ -4,7 +4,7 @@
 - Added initial probes and harness:
   - `sb/bsd_tag26_matrix.sb` (right-name/preference-domain/literal mix + basic file/process ops).
   - `sb/airlock_system_fcntl_variants.sb` (system-fcntl allow/deny matrix plus minimal scaffolding).
-  - `run_probes.py` compiles all `sb/*.sb` via `book.api.sbpl_compile` and decodes to `out/decode_records.jsonl` and `out/field2_summary.json`.
+  - `run_probes.py` compiles all `sb/*.sb` via `book.api.profile_tools` and decodes to `out/decode_records.jsonl` and `out/field2_summary.json`.
 - Run result (negative for target highs): `out/field2_summary.json` shows only low/vocab values in the bsd probe ({6,5,0}) and no appearance of the bsd highs (170/174/115/109/16660). Airlock probe did not surface 165/166/10752; instead it shows low IDs {8,7,3,2,0} plus a single hi-bit payload `0xce00` (hi=0xc000, lo=3584) on tag 0. Pending follow-up to see if 0xce00 is reproducible or incidental; main targets remain unreproduced.
 - Added two richer probes:
   - `sb/bsd_tag26_richer.sb` (more right/preference variants, bsd literals, broader ops including sysctl and mach-lookup).

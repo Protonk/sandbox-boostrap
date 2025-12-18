@@ -10,9 +10,9 @@ Role: Provide a single Python/CLI entrypoint for compiling SBPL, inspecting comp
 
 Example:
 ```sh
-python -m book.api.profile_tools.cli compile book/examples/sb/sample.sb --out /tmp/sample.sb.bin
-python -m book.api.profile_tools.cli inspect /tmp/sample.sb.bin --json /tmp/summary.json
-python -m book.api.profile_tools.cli op-table book/experiments/op-table-operation/sb/v1_read.sb --compile --op-count 196
+python -m book.api.profile_tools compile book/examples/sb/sample.sb --out /tmp/sample.sb.bin
+python -m book.api.profile_tools inspect /tmp/sample.sb.bin --json /tmp/summary.json
+python -m book.api.profile_tools op-table book/experiments/op-table-operation/sb/v1_read.sb --compile --op-count 196
 ```
 
 ### decoder

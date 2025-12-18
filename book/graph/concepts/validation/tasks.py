@@ -27,7 +27,7 @@ PLAN = {
         {
             "name": "user-supplied-sbpl",
             "example": "sbsnarf",
-            "run": "book/examples/sbsnarf/sbsnarf.py <input.sb> out/static/custom.sb.bin",
+            "run": "python -m book.api.profile_tools compile <input.sb> --out out/static/custom.sb.bin --no-preview",
             "artifacts": ["out/static/custom.sb.bin.json"],
             "notes": "Compile arbitrary SBPL, then parse via ingestion; captures parameterization/literal tables for bespoke cases.",
         },

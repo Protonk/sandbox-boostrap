@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Shim to the canonical compiler in book/api/sbpl_compile.
+Shim to the canonical compiler in book/api/profile_tools.
 """
 
 import argparse
@@ -11,7 +11,7 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from book.api.sbpl_compile import compile_sbpl_file, hex_preview  # noqa: E402
+from book.api.profile_tools import compile_sbpl_file, hex_preview  # noqa: E402
 
 
 def main(argv: list[str] | None = None) -> int:

@@ -29,7 +29,7 @@ ROOT = find_repo_root(Path(__file__))
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from book.api import sbpl_compile
+from book.api import profile_tools
 from book.graph.concepts.validation import profile_ingestion as pi
 
 
@@ -140,7 +140,7 @@ def main() -> None:
 
     for case in cases:
         out_blob = out_dir / f"{case.spec_id}.sb.bin"
-        res = sbpl_compile.compile_sbpl_file(case.sbpl_file, out_blob)
+        res = profile_tools.compile_sbpl_file(case.sbpl_file, out_blob)
 
         blob = pi.ProfileBlob(bytes=out_blob.read_bytes(), source=case.sbpl_file.name)
         header = pi.parse_header(blob)

@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[3]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from book.api import decoder, path_utils, sbpl_compile  # type: ignore
+from book.api import decoder, path_utils, profile_tools  # type: ignore
 
 
 def compile_probes(sb_dir: Path, build_dir: Path) -> List[Path]:
@@ -25,7 +25,7 @@ def compile_probes(sb_dir: Path, build_dir: Path) -> List[Path]:
         if sb.name == ".gitkeep":
             continue
         out = build_dir / f"{sb.stem}.sb.bin"
-        sbpl_compile.compile_sbpl_file(sb, out)
+        profile_tools.compile_sbpl_file(sb, out)
         compiled.append(out)
     return compiled
 

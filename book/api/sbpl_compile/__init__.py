@@ -23,14 +23,20 @@ def _warn() -> None:
     )
 
 
-def compile_sbpl_string(text: str, lib: Optional[object] = None) -> CompileResult:
+def compile_sbpl_string(text: str, lib: Optional[object] = None, *, params: Optional[object] = None) -> CompileResult:
     _warn()
-    return compile_mod.compile_sbpl_string(text, lib=lib)
+    return compile_mod.compile_sbpl_string(text, lib=lib, params=params)  # type: ignore[arg-type]
 
 
-def compile_sbpl_file(src: Path, dst: Optional[Path] = None, lib: Optional[object] = None) -> CompileResult:
+def compile_sbpl_file(
+    src: Path,
+    dst: Optional[Path] = None,
+    lib: Optional[object] = None,
+    *,
+    params: Optional[object] = None,
+) -> CompileResult:
     _warn()
-    return compile_mod.compile_sbpl_file(src, dst=dst, lib=lib)
+    return compile_mod.compile_sbpl_file(src, dst=dst, lib=lib, params=params)  # type: ignore[arg-type]
 
 
 def hex_preview(blob: bytes, count: int = 32) -> str:

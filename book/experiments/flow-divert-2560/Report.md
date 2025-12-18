@@ -16,7 +16,7 @@
 
 ## Plan & execution log
 - **Done**: Built compile matrix in `sb/` (singles, pairs, triples; ordering permutations; `require-all`/`require-any`; nested triple; TCP/UDP variants; negative controls on `mach-lookup`).
-  - Compiled via `python -m book.api.sbpl_compile.cli book/experiments/flow-divert-2560/sb/*.sb --out-dir book/experiments/flow-divert-2560/sb/build`.
+  - Compiled via `python -m book.api.profile_tools compile book/experiments/flow-divert-2560/sb/*.sb --out-dir book/experiments/flow-divert-2560/sb/build`.
 - **Done**: Decoded with `harvest_matrix.py`, emitting joinable records (`out/matrix_records.jsonl`) and per-spec summaries (`out/field2_summary.json`).
 - **Observations**: The matrix yields a stable “flow-divert triple” cluster: `2560` (`0x0a00`) and `1281` (`0x0501`) appear only in the triple specs (both TCP/UDP, any ordering, `require-all`/`require-any`, nested) as tag `0` nodes with `u16_role: filter_vocab_id` and literal `com.apple.flow-divert`. `2816` (`0x0b00`) is also triple-only in this matrix but surfaces in mixed tag/role contexts (sometimes as `arg_u16`), so treat it as a triple-only token without overfitting on a single node shape. Singles and pairs stay on low vocab IDs; negative controls remain low and never produce the triple-only tokens. `anchor_filter_map.json` already lists `flow-divert` (candidates `local`/`xattr`, field2 `[2, 7, 2560]`, status `blocked`), and field2-atlas static records for field2=7 carry the same seed anchor/status. The matrix evidence is consistent and strengthens the `local` interpretation, but no mapping changes made yet.
 - **Done**: Baseline against `field2-filters`/`unknown_focus` and `probe-op-structure` outputs; no residual contexts beyond the triple cases.

@@ -20,7 +20,7 @@ from book.api import path_utils
 from book.api.runtime import events as runtime_events
 from book.api.runtime import mappings as rt_map
 from book.api.runtime_harness import runner as runtime_harness
-from book.api.sbpl_compile import compile_sbpl_string
+from book.api.profile_tools import compile_sbpl_string
 
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))
 RUNTIME_CUTS_ROOT = REPO_ROOT / "book" / "graph" / "mappings" / "runtime_cuts"

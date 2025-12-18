@@ -2,7 +2,7 @@
 """
 Phase A helper for libsandbox-encoder: compile/ingest matrix_v1 and emit a field2 table.
 
-- Uses sbpl_compile + profile_ingestion to stay aligned with existing API surfaces.
+- Uses profile_tools + profile_ingestion to stay aligned with existing API surfaces.
 - Parses nodes directly from the sliced node region (stride=8 for this world baseline) to avoid the literal-start
   heuristic that can collapse nodes when literals look printable.
 - Emits rows with op hints, filter names/IDs, tags, field2 raw/hi/lo, and literal_refs.
@@ -27,7 +27,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 import book.api.decoder as decoder
-from book.api import sbpl_compile
+from book.api import profile_tools
 from book.graph.concepts.validation import profile_ingestion as pi
 
 
@@ -158,7 +158,7 @@ def parse_nodes_with_layout(nodes_bytes: bytes, layouts: Dict[int, Dict[str, Any
 
 def build_matrix(sb_path: Path, out_blob: Path, out_json: Path) -> None:
     # Compile SBPL to blob
-    res = sbpl_compile.compile_sbpl_file(sb_path, out_blob)
+    res = profile_tools.compile_sbpl_file(sb_path, out_blob)
     print(f"[+] compiled {sb_path} -> {out_blob} (len={res.length}, type={res.profile_type})")
 
     # Slice sections conservatively

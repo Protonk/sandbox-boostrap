@@ -9,7 +9,7 @@ Outputs: expected/runtime matrices, mismatch summaries, and impact hooks to down
 
 ## Baseline & scope
 - World: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (`book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`).
-- Harness: `book.api.runtime_harness.runner.run_expected_matrix` + runtime-checks shims; compile/decode via `book.api.sbpl_compile` and `book.api.decoder`.
+- Harness: `book.api.runtime_harness.runner.run_expected_matrix` + runtime-checks shims; compile/decode via `book.api.profile_tools` and `book.api.decoder`.
 - Profiles: `struct_flat`, `struct_nested` (structural variants); `path_edges` (path/literal edge stress); `mach_simple_allow`, `mach_simple_variants`, `mach_local_literal`, `mach_local_regex` (mach-lookup variants); `net_outbound_allow`, `net_outbound_deny` (network-outbound variants). Custom SBPL only; no platform blobs.
 - Outputs live in `sb/`, `sb/build/`, and `out/`.
 

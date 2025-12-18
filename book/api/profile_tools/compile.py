@@ -8,19 +8,11 @@ graph-based sandbox blobs. Exposed via `profile_tools` and shims in
 
 from __future__ import annotations
 
-import ctypes
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional
 
-
-class SandboxProfile(ctypes.Structure):
-    _fields_ = [
-        ("profile_type", ctypes.c_uint32),
-        ("reserved", ctypes.c_uint32),
-        ("bytecode", ctypes.c_void_p),
-        ("bytecode_length", ctypes.c_size_t),
-    ]
+from . import libsandbox
 
 
 @dataclass
@@ -30,60 +22,32 @@ class CompileResult:
     length: int
 
 
-def _load_libsandbox() -> ctypes.CDLL:
-    try:
-        return ctypes.CDLL("libsandbox.dylib")
-    except OSError as exc:
-        raise RuntimeError(f"failed to load libsandbox.dylib: {exc}") from exc
-
-
-def _free_error(err_ptr: Optional[ctypes.c_char_p]) -> None:
-    if err_ptr and err_ptr.value:
-        ctypes.CDLL(None).free(err_ptr)
-
-
-def _compile_bytes(lib: ctypes.CDLL, data: bytes) -> CompileResult:
-    lib.sandbox_compile_string.argtypes = [
-        ctypes.c_char_p,
-        ctypes.c_uint64,
-        ctypes.POINTER(ctypes.c_char_p),
-    ]
-    lib.sandbox_compile_string.restype = ctypes.POINTER(SandboxProfile)
-    lib.sandbox_free_profile.argtypes = [ctypes.POINTER(SandboxProfile)]
-    lib.sandbox_free_profile.restype = None
-
-    err = ctypes.c_char_p()
-    prof = lib.sandbox_compile_string(data, 0, ctypes.byref(err))
-    if not prof:
-        detail = err.value.decode() if err.value else "unknown error"
-        _free_error(err)
-        raise RuntimeError(f"compile failed: {detail}")
-
-    blob = ctypes.string_at(prof.contents.bytecode, prof.contents.bytecode_length)
-    result = CompileResult(
-        blob=blob,
-        profile_type=int(prof.contents.profile_type),
-        length=int(prof.contents.bytecode_length),
-    )
-    lib.sandbox_free_profile(prof)
-    _free_error(err)
-    return result
-
-
-def compile_sbpl_string(text: str, lib: Optional[ctypes.CDLL] = None) -> CompileResult:
+def compile_sbpl_string(
+    text: str,
+    lib: Optional[object] = None,
+    *,
+    params: Optional[libsandbox.ParamsInput] = None,
+) -> CompileResult:
     """Compile SBPL source text into a compiled blob."""
-    lib = lib or _load_libsandbox()
-    return _compile_bytes(lib, text.encode())
+    lib = lib or libsandbox.load_libsandbox()
+    blob, profile_type, length = libsandbox.compile_string(lib, text.encode(), params=params)
+    return CompileResult(blob=blob, profile_type=profile_type, length=length)
 
 
-def compile_sbpl_file(src: Path, dst: Optional[Path] = None, lib: Optional[ctypes.CDLL] = None) -> CompileResult:
+def compile_sbpl_file(
+    src: Path,
+    dst: Optional[Path] = None,
+    lib: Optional[object] = None,
+    *,
+    params: Optional[libsandbox.ParamsInput] = None,
+) -> CompileResult:
     """
     Compile an SBPL file. If dst is provided, writes the compiled blob there.
     Returns CompileResult with blob bytes and metadata.
     """
-    lib = lib or _load_libsandbox()
-    text = src.read_text().encode()
-    result = _compile_bytes(lib, text)
+    lib = lib or libsandbox.load_libsandbox()
+    blob, profile_type, length = libsandbox.compile_file(lib, str(src).encode(), params=params)
+    result = CompileResult(blob=blob, profile_type=profile_type, length=length)
     if dst:
         dst.parent.mkdir(parents=True, exist_ok=True)
         dst.write_bytes(result.blob)

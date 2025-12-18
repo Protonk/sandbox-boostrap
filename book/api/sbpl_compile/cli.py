@@ -5,6 +5,9 @@ CLI wrapper for book.api.sbpl_compile.
 Usage:
   python -m book.api.sbpl_compile.cli path1.sb [path2.sb ...] [--out OUT] [--out-dir DIR] [--no-preview]
 
+Preferred entrypoint:
+  python -m book.api.profile_tools compile path1.sb [path2.sb ...] [--out OUT] [--out-dir DIR] [--no-preview]
+
 Defaults:
 - OUT (single input): <input>.sb.bin next to the source.
 - OUT-DIR (multiple inputs): writes <stem>.sb.bin under DIR.
