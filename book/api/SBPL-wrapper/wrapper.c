@@ -1,5 +1,8 @@
 #include "../runtime/tool_markers.h"
 
+#include <CoreFoundation/CoreFoundation.h>
+#include <Security/SecTask.h>
+
 /*
  * SBPL wrapper: apply an SBPL profile to the current process and exec a command.
  *
@@ -11,6 +14,47 @@
  *   wrapper --blob <profile.sb.bin> -- <cmd> [args...]
  *   wrapper --compile <profile.sb> [--out <profile.sb.bin>]
  */
+
+static void emit_message_filter_entitlement_check_marker(const char *stage) {
+    const char *entitlement = "com.apple.private.security.message-filter";
+
+    SecTaskRef task = SecTaskCreateFromSelf(kCFAllocatorDefault);
+    if (!task) {
+        sbl_emit_entitlement_check_marker(stage, entitlement, -1, -1, -1, "error", "SecTaskCreateFromSelf returned NULL");
+        return;
+    }
+
+    CFStringRef key = CFStringCreateWithCString(kCFAllocatorDefault, entitlement, kCFStringEncodingUTF8);
+    if (!key) {
+        CFRelease(task);
+        sbl_emit_entitlement_check_marker(stage, entitlement, -1, -1, -1, "error", "CFStringCreateWithCString failed");
+        return;
+    }
+
+    CFErrorRef error = NULL;
+    CFTypeRef value = SecTaskCopyValueForEntitlement(task, key, &error);
+    if (error) {
+        CFRelease(error);
+        if (value) CFRelease(value);
+        CFRelease(key);
+        CFRelease(task);
+        sbl_emit_entitlement_check_marker(stage, entitlement, -1, -1, -1, "error", "SecTaskCopyValueForEntitlement error");
+        return;
+    }
+
+    if (!value) {
+        sbl_emit_entitlement_check_marker(stage, entitlement, 0, 0, -1, "absent", NULL);
+    } else if (CFGetTypeID(value) == CFBooleanGetTypeID()) {
+        int b = CFBooleanGetValue((CFBooleanRef)value) ? 1 : 0;
+        sbl_emit_entitlement_check_marker(stage, entitlement, 0, 1, b, "bool", NULL);
+    } else {
+        sbl_emit_entitlement_check_marker(stage, entitlement, 0, 1, -1, "non_bool", NULL);
+    }
+
+    if (value) CFRelease(value);
+    CFRelease(key);
+    CFRelease(task);
+}
 
 static void usage(const char *prog) {
     fprintf(stderr, "Usage:\n");
@@ -55,6 +99,10 @@ int main(int argc, char *argv[]) {
     if (!mode || !profile_path) {
         usage(argv[0]);
         return 64;
+    }
+
+    if (strcmp(mode, "compile") != 0) {
+        emit_message_filter_entitlement_check_marker("pre_apply");
     }
 
     if (strcmp(mode, "compile") == 0) {

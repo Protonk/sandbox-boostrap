@@ -76,7 +76,7 @@ To make this classification mechanically robust (not substring-fragile), the wra
 These are *classification* repros: the point is to see whether the failure is apply-stage (`sandbox_init`/`sandbox_apply`) or later (decision/harness).
 
 - Build the wrapper once (see [`book/api/SBPL-wrapper/README.md`](book/api/SBPL-wrapper/README.md)):
-  - `cd book/api/SBPL-wrapper && clang -Wall -Wextra -o wrapper wrapper.c -lsandbox`
+  - `cd book/api/SBPL-wrapper && clang -Wall -Wextra -o wrapper wrapper.c -lsandbox -framework Security -framework CoreFoundation`
 - Control: a known-good custom blob should apply and then `execvp`:
   - `book/api/SBPL-wrapper/wrapper --blob book/profiles/golden-triple/allow_all.sb.bin -- /usr/bin/true`
 - Apply-stage EPERM (profile-specific gate witness): `airlock` SBPL text:
@@ -92,6 +92,48 @@ These are *classification* repros: the point is to see whether the failure is ap
   - Canonical blob sources are under `book/graph/concepts/validation/fixtures/blobs/` (e.g., `.../airlock.sb.bin`, `.../bsd.sb.bin`) as recorded by the `source` fields in the digests mapping.
 - **Mapped-but-partial (runtime semantics)**: golden runtime scenarios, VFS canonicalization, and some adversarial families are backed by runtime artifacts, but scope is narrow and some runs carry known environment caveats (see [`status/second-report/test-coverage.md`](status/second-report/test-coverage.md)).
 - **Blocked**: any “runtime story” inferred from an apply-stage EPERM is blocked by definition; the profile did not install, so the would-be PolicyGraph was not evaluated for that probe.
+
+## Apply-gate: deny-style message filtering (current evidence)
+
+This repo now has a small, mechanical witness corpus that ties a common apply-stage EPERM to deny-style message filtering, and it includes a direct, host-grounded “why” trace from the unified log.
+
+- **Minimized witnesses (blocked, but confirmed)**: `book/experiments/gate-witnesses/` produces regression-checked witness pairs for three system profiles (`airlock`, `blastdoor`, `com.apple.CoreGraphics.CGPDFService`). All three minimize to the same failing SBPL shape:
+  - `(allow iokit-open-user-client (apply-message-filter (deny iokit-external-method)))`
+  - Example: [`book/experiments/gate-witnesses/out/witnesses/airlock/minimal_failing.sb`](book/experiments/gate-witnesses/out/witnesses/airlock/minimal_failing.sb)
+  - Confirmation distributions (e.g. `--confirm 10`) are recorded per target in the checked-in `run.json` (example: [`book/experiments/gate-witnesses/out/witnesses/airlock/run.json`](book/experiments/gate-witnesses/out/witnesses/airlock/run.json)).
+  - Status: these are “blocked evidence” about runtime semantics (the Profile never attaches), but they are durable boundary objects.
+- **Compile-vs-apply split (partial)**: `book/experiments/gate-witnesses/out/compile_vs_apply.json` shows the failing witnesses compile successfully (via `sandbox_compile_file`) but fail at apply time (`sandbox_apply` returns `EPERM`). On this host, this is evidence that the gate is enforced at apply/attach time, not as a compiler rejection.
+- **Unified log enforcement trace (partial, high-signal)**: the gate-witnesses validation job captures a kernel log line that directly states the failure reason for the wrapper process:
+  - Example: [`book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_primary.minimal_failing.txt`](book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_primary.minimal_failing.txt) contains `missing message filter entitlement`.
+  - This is host-grounded runtime evidence that the apply-stage EPERM is an entitlement-gated capability, not a generic “sandbox denied operation X” outcome.
+- **Non-IOKit scope witness (blocked, confirmed)**: `book/experiments/gate-witnesses/` includes a minimized, confirmed witness pair demonstrating that deny-style message filtering gates outside IOKit as well (under `mach-bootstrap`):
+  - Minimal failing SBPL: [`book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/minimal_failing.sb`](book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/minimal_failing.sb)
+  - Passing neighbor: [`book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/passing_neighbor.sb`](book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/passing_neighbor.sb)
+  - Confirm distribution: [`book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/run.json`](book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/run.json)
+
+## Operational guidance (avoid dead-end applies)
+
+These are practical “don’t waste cycles” constraints derived from the current witnesses on this world.
+
+- Treat any apply-stage `EPERM` (`sandbox_init`/`sandbox_apply` failing) as **blocked**: do not write probes that interpret it as an Operation+Filter denial. In normalized runtime IR, it should be a `failure_stage:"apply"` outcome with an `apply_report` (this prevents downstream “deny inflation”).
+- When you can choose profile shapes, avoid deny-style message filtering under `apply-message-filter` in harness-applied profiles. Today the smallest known triggers include deny payloads for:
+  - `iokit-external-method` / `iokit-async-external-method` / `iokit-external-trap` (minimized witnesses), and
+  - `mach-message-send` (minimized non-IOKit scope witness).
+- If apply succeeds but `execvp` fails with `EPERM`, classify it as a bootstrap failure *under the applied policy* (not as “environment weirdness”): it may reflect a `process-exec*` deny preventing the probe from ever running.
+- Before attempting to apply a profile from a runner/tool, use the static preflight tool:
+  - `python3 book/tools/preflight/preflight.py scan <profile.sb>`
+  - If it reports `likely_apply_gated_for_harness_identity`, treat the profile as “not enterable by harness identity on this world” unless you are explicitly studying apply gates.
+  - This preflight is conservative and host-scoped (witness-backed but still “partial” as a universal rule); absence of a signature is not a guarantee that apply will succeed.
+
+## Tooling resolution (avoid re-learning apply gating)
+
+- `book/tools/preflight/` is the canonical operational avoidance tool for known apply-gate signatures (deny-style message filtering today).
+- `book/api/runtime_harness/runner.py` runs this preflight for SBPL inputs and, when blocked, emits `failure_stage:"preflight"` / `failure_kind:"preflight_apply_gate_signature"` instead of attempting an apply that would fail at `sandbox_init`/`sandbox_apply`.
+- This is a tooling choice to preserve the repo’s evidence discipline: it prevents accidental “EPERM means deny” stories when a Profile never attached.
+
+## Evidencing gaps (what a reasonable critic could demand)
+
+- Extend the preflight scanner beyond SBPL by recognizing known apply-gated compiled-blob digests (`.sb.bin`) as a host-bound, witness-backed avoidance rule.
 
 ## Drift / inconsistencies to record (do not resolve by “averaging stories”)
 

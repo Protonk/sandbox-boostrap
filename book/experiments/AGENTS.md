@@ -98,6 +98,7 @@ New experiments should follow the same pattern: a dedicated directory with its o
 Shared tooling tip:
 - For quick blob snapshots (section sizes, op-table entries, stride/tag stats, literals), use `book/api/profile_tools/` (`inspect` / `decode`) instead of duplicating parsers.
 - For op-table and vocab alignment, use `book/api/profile_tools/` (`op-table` CLI or `book.api.profile_tools.op_table` in Python).
+- For runtime probes that apply SBPL, run `python3 book/tools/preflight/preflight.py scan <profile.sb>` first to avoid known apply-gated shapes on this world; see `troubles/EPERMx2.md`.
 
 ## What makes a good experiment here
 

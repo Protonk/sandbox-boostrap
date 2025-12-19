@@ -8,11 +8,19 @@ World: see `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`; requires `libsan
 
 Status: SBPL mode works; compiled-blob mode relies on `sandbox_apply` and routinely hits apply gates (`EPERM`) for platform blobs. Treat apply failures as `blocked`, not as evidence that a profile is absent.
 
+Operational preflight (apply-gate avoidance):
+
+```sh
+python3 book/tools/preflight/preflight.py scan path/to/profile.sb
+```
+
+If preflight reports `likely_apply_gated_for_harness_identity`, treat it as an environment constraint on this host (blocked evidence), not as a policy decision; see `troubles/EPERMx2.md`.
+
 Build:
 
 ```sh
 cd book/api/SBPL-wrapper
-clang -Wall -Wextra -o wrapper wrapper.c -lsandbox
+clang -Wall -Wextra -o wrapper wrapper.c -lsandbox -framework Security -framework CoreFoundation
 ```
 
 Run:

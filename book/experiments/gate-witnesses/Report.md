@@ -38,10 +38,15 @@ The current witness corpus includes:
 - `airlock` (source: `/System/Library/Sandbox/Profiles/airlock.sb`)
 - `blastdoor` (source: `/System/Library/Sandbox/Profiles/blastdoor.sb`)
 - `com.apple.CoreGraphics.CGPDFService` (source: `/System/Library/Sandbox/Profiles/com.apple.CoreGraphics.CGPDFService.sb`)
+- `mach_bootstrap_deny_message_send` (source: `out/micro_variants/base_v2_mach_bootstrap_deny_message_send.sb`)
 
-All three delta-debug down to the same minimal failing construct:
+The system-profile cluster delta-debug down to the same minimal failing construct:
 
 - `(allow iokit-open-user-client (apply-message-filter (deny iokit-external-method)))`
+
+The non-IOKit witness delta-debugs down to:
+
+- `(allow mach-bootstrap (apply-message-filter (deny mach-message-send)))`
 
 The `--confirm 10` runs (recorded in each `run.json`) show:
 - minimal failing stays `failure_stage=="apply"` with `errno==EPERM`
@@ -77,6 +82,26 @@ Key observations from that matrix:
 - The requested “swap outer op to `iokit-open`” is only meaningful for the `(version 1)` variant: in `(version 2)` it is a compiler error (`unbound variable: iokit-open`), consistent with the Operation vocabulary map for this world (`book/graph/mappings/vocab/ops.json` includes `iokit-open*` but not `iokit-open`).
 
 Taken together, these micro-variants suggest the gate is more tightly keyed than “`apply-message-filter` exists”: on this host, “message filter that denies external-method/trap operations” appears sufficient to trigger the apply-stage gate, while “message filter that allows” does not.
+
+## Unified log enforcement trace (runtime witness; partial)
+
+The gate-witnesses validation job (`experiment:gate-witnesses`) captures unified logs around the explicit blob apply (`sandbox_apply`) of both the minimal failing and passing neighbor blobs.
+
+On this world, for all current witnesses (including the non-IOKit `mach-bootstrap` deny witness), the minimal failing blob apply emits a kernel sandbox log line with a direct reason:
+
+- `missing message filter entitlement`
+
+Example forensics artifacts:
+- minimal failing: `book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_primary.minimal_failing.txt`
+- passing neighbor (control window; empty): `book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_primary.passing_neighbor.txt`
+
+This is a host-grounded runtime witness: it does not rely on substring inference from wrapper stderr, and it is correlated to the wrapper PID and a bounded log window.
+
+## Effective entitlement check marker (runtime correlation; partial)
+
+`book/api/SBPL-wrapper/wrapper` emits a `tool:"entitlement-check"` marker before attempting any apply, recording the runtime-effective value of `com.apple.private.security.message-filter` for the applying process.
+
+In the gate-witnesses validation output, the blob-apply records show `present:false` for this entitlement on the wrapper process, aligning with the unified-log message above (see `entitlement_checks` in `book/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json`).
 
 ## Supporting (brittle) static clue
 

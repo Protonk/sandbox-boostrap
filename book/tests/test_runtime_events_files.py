@@ -33,7 +33,7 @@ def test_normalized_runtime_event_files_marker_free_and_world_stamped():
             if row.get("runtime_status") != "success":
                 stage = row.get("failure_stage")
                 kind = row.get("failure_kind")
-                assert stage in {"apply", "bootstrap", "probe"}, f"{path} missing/invalid failure_stage"
+                assert stage in {"apply", "bootstrap", "preflight", "probe"}, f"{path} missing/invalid failure_stage"
                 assert isinstance(kind, str) and kind, f"{path} missing failure_kind"
                 if stage == "apply":
                     report = row.get("apply_report") or {}

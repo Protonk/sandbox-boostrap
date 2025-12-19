@@ -25,6 +25,7 @@ from . import inspect as inspect  # noqa: F401
 from . import libsandbox as libsandbox  # noqa: F401
 from . import op_table as op_table  # noqa: F401
 from . import oracles as oracles  # noqa: F401
+from . import sbpl_scan as sbpl_scan  # noqa: F401
 
 # Small stable convenience surface (keep this list intentionally short).
 from .compile import CompileResult, compile_sbpl_file, compile_sbpl_string, hex_preview  # noqa: F401
@@ -52,6 +53,7 @@ __all__ = [
     "libsandbox",
     "op_table",
     "oracles",
+    "sbpl_scan",
     # compile
     "CompileResult",
     "compile_sbpl_file",

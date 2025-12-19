@@ -48,8 +48,10 @@ class RuntimeObservation:
     failure_stage: Optional[str] = None
     failure_kind: Optional[str] = None
     apply_report: Optional[Dict[str, Any]] = None
+    preflight: Optional[Dict[str, Any]] = None
     runner_info: Optional[Dict[str, Any]] = None
     seatbelt_callouts: Optional[List[Dict[str, Any]]] = None
+    entitlement_checks: Optional[List[Dict[str, Any]]] = None
     violation_summary: Optional[str] = None
     command: Optional[List[str]] = None
     stdout: Optional[str] = None
@@ -81,6 +83,7 @@ def _validate_probe_contract(
 
     sbpl_markers = rt_contract.extract_sbpl_apply_markers(stderr_raw)
     seatbelt_markers = rt_contract.extract_seatbelt_callout_markers(stderr_raw)
+    entitlement_markers = rt_contract.extract_entitlement_check_markers(stderr_raw)
 
     rr_ver = runtime_result.get("runtime_result_schema_version", 0)
     if rr_ver not in rt_contract.SUPPORTED_RUNTIME_RESULT_SCHEMA_VERSIONS:
@@ -97,6 +100,10 @@ def _validate_probe_contract(
         ver = marker.get("marker_schema_version", 0)
         if ver not in rt_contract.SUPPORTED_SEATBELT_CALLOUT_MARKER_SCHEMA_VERSIONS:
             raise AssertionError(f"unsupported seatbelt-callout marker_schema_version: {ver}")
+    for marker in entitlement_markers:
+        ver = marker.get("marker_schema_version", 0)
+        if ver not in rt_contract.SUPPORTED_ENTITLEMENT_CHECK_MARKER_SCHEMA_VERSIONS:
+            raise AssertionError(f"unsupported entitlement-check marker_schema_version: {ver}")
 
     stages = [m.get("stage") for m in sbpl_markers]
     if "applied" in stages and "apply" not in stages:
@@ -231,6 +238,7 @@ def normalize_runtime_results(
 
     observations: List[RuntimeObservation] = []
     for profile_id, profile_result in (runtime_results or {}).items():
+        preflight = profile_result.get("preflight")
         probes = profile_result.get("probes") or []
         for probe in probes:
             probe_name = probe.get("name")
@@ -278,8 +286,10 @@ def normalize_runtime_results(
                     failure_stage=runtime_result.get("failure_stage"),
                     failure_kind=runtime_result.get("failure_kind"),
                     apply_report=apply_report,
+                    preflight=preflight if isinstance(preflight, Mapping) else None,
                     runner_info=runtime_result.get("runner_info"),
                     seatbelt_callouts=runtime_result.get("seatbelt_callouts"),
+                    entitlement_checks=runtime_result.get("entitlement_checks"),
                     violation_summary=probe.get("violation_summary"),
                     command=probe.get("command"),
                     stdout=probe.get("stdout"),

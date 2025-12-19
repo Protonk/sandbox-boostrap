@@ -12,6 +12,7 @@ Tool marker families currently recognized:
 - tool:"sbpl-apply" (apply/applied/exec)
 - tool:"sbpl-compile" (compile-only)
 - tool:"seatbelt-callout" (optional additive evidence)
+- tool:"entitlement-check" (optional additive evidence)
 """
 
 from __future__ import annotations
@@ -28,15 +29,18 @@ SUPPORTED_TOOL_MARKER_SCHEMA_VERSIONS = {0, 1, 2}
 SBPL_APPLY_TOOL = "sbpl-apply"
 SEATBELT_CALLOUT_TOOL = "seatbelt-callout"
 SBPL_COMPILE_TOOL = "sbpl-compile"
+ENTITLEMENT_CHECK_TOOL = "entitlement-check"
 SBPL_APPLY_STAGES = {"apply", "applied", "exec"}
 SBPL_COMPILE_STAGES = {"compile"}
 
 CURRENT_SBPL_APPLY_MARKER_SCHEMA_VERSION = 1
 CURRENT_SEATBELT_CALLOUT_MARKER_SCHEMA_VERSION = 2
 CURRENT_SBPL_COMPILE_MARKER_SCHEMA_VERSION = 1
+CURRENT_ENTITLEMENT_CHECK_MARKER_SCHEMA_VERSION = 1
 SUPPORTED_SBPL_APPLY_MARKER_SCHEMA_VERSIONS = {0, 1}
 SUPPORTED_SEATBELT_CALLOUT_MARKER_SCHEMA_VERSIONS = {0, 1, 2}
 SUPPORTED_SBPL_COMPILE_MARKER_SCHEMA_VERSIONS = {0, 1}
+SUPPORTED_ENTITLEMENT_CHECK_MARKER_SCHEMA_VERSIONS = {0, 1}
 
 _FILTER_TYPE_NAMES = {
     0: "path",
@@ -176,6 +180,22 @@ def extract_seatbelt_callout_markers(stderr_raw: Optional[str]) -> List[Dict[str
     return markers
 
 
+def extract_entitlement_check_markers(stderr_raw: Optional[str]) -> List[Dict[str, Any]]:
+    markers: List[Dict[str, Any]] = []
+    for line in (stderr_raw or "").splitlines():
+        payload = _parse_json_object(line)
+        if not payload:
+            continue
+        if payload.get("tool") != ENTITLEMENT_CHECK_TOOL:
+            continue
+        ver = payload.get("marker_schema_version")
+        normalized = dict(payload)
+        if not isinstance(ver, int):
+            normalized["marker_schema_version"] = 0
+        markers.append(normalized)
+    return markers
+
+
 def strip_tool_markers(stderr_raw: Optional[str]) -> Optional[str]:
     """
     Remove tool JSONL markers from stderr.
@@ -195,6 +215,8 @@ def strip_tool_markers(stderr_raw: Optional[str]) -> Optional[str]:
         if payload and payload.get("tool") == SBPL_APPLY_TOOL and payload.get("stage") in SBPL_APPLY_STAGES:
             continue
         if payload and payload.get("tool") == SEATBELT_CALLOUT_TOOL:
+            continue
+        if payload and payload.get("tool") == ENTITLEMENT_CHECK_TOOL:
             continue
         if payload and payload.get("tool") == SBPL_COMPILE_TOOL and payload.get("stage") in SBPL_COMPILE_STAGES:
             continue
@@ -344,6 +366,7 @@ def upgrade_runtime_result(runtime_result: Mapping[str, Any], stderr_raw: Option
 
     sbpl_markers = extract_sbpl_apply_markers(stderr_raw)
     seatbelt_markers = extract_seatbelt_callout_markers(stderr_raw)
+    entitlement_markers = extract_entitlement_check_markers(stderr_raw)
 
     # v0 -> v1 is additive: add explicit schema_version and normalize the optional attachments.
     upgraded: Dict[str, Any] = dict(incoming)
@@ -402,6 +425,17 @@ def upgrade_runtime_result(runtime_result: Mapping[str, Any], stderr_raw: Option
     if upgraded.get("seatbelt_callouts") is None and seatbelt_markers:
         upgraded["seatbelt_callouts"] = seatbelt_markers
 
+    existing_entitlements = upgraded.get("entitlement_checks")
+    if isinstance(existing_entitlements, list):
+        normalized_entitlements: List[Dict[str, Any]] = []
+        for entry in existing_entitlements:
+            if isinstance(entry, Mapping):
+                normalized_entitlements.append(dict(entry))
+        upgraded["entitlement_checks"] = normalized_entitlements or None
+
+    if upgraded.get("entitlement_checks") is None and entitlement_markers:
+        upgraded["entitlement_checks"] = entitlement_markers
+
     return upgraded
 
 
@@ -415,5 +449,5 @@ def assert_no_tool_markers_in_stderr(stderr_canonical: Optional[str]) -> None:
         if not payload:
             continue
         tool = payload.get("tool")
-        if tool in {SBPL_APPLY_TOOL, SEATBELT_CALLOUT_TOOL, SBPL_COMPILE_TOOL}:
+        if tool in {SBPL_APPLY_TOOL, SEATBELT_CALLOUT_TOOL, SBPL_COMPILE_TOOL, ENTITLEMENT_CHECK_TOOL}:
             raise AssertionError(f"canonical stderr contains tool marker: {tool}")

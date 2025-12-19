@@ -7,6 +7,7 @@ Unified API/CLI for SBPL compilation, compiled-blob ingestion/decoding, inspecti
 - **Python (preferred):** import submodules from `book.api.profile_tools` (`compile`, `ingestion`, `decoder`, `inspect`, `op_table`, `digests`, `oracles`) and call functions on those modules.
 - **C (reference):** `make -C book/api/profile_tools/c` builds `build/compile_profile` (SBPL file → compiled blob via `sandbox_compile_file`).
 - **Parameterized SBPL (compile-time):** `python -m book.api.profile_tools compile <profile.sb> --param ROOT=/private/tmp` (repeatable `--param KEY=VALUE`; see `profile_tools/libsandbox.py` for the params-handle interface).
+- **Operational preflight (apply-gate signature):** `python3 book/tools/preflight/preflight.py scan <profile.sb> ...` flags deny-style `apply-message-filter` constructs that are currently apply-gated for the harness identity on this world (see `troubles/EPERMx2.md` and `book/experiments/gate-witnesses/Report.md` for witnesses).
 
 See `book/api/README.md` for routing and deprecation notes.
 
@@ -21,3 +22,4 @@ Pick the most direct tool for the job:
 - **Op-table:** `book/api/profile_tools/op_table.py` – op-table centric summaries and vocab alignment helpers.
 - **Digest:** `book/api/profile_tools/digests.py` – stable “digest” JSONs derived from the decoder (system-profile-digest and similar).
 - **Oracles:** `book/api/profile_tools/oracles/` – structural “argument shape” extractors with explicit witnesses (e.g. network tuple).
+- **Scan (engine):** `book/api/profile_tools/sbpl_scan.py` – conservative SBPL-only scanners for operational constraints (used by `book/tools/preflight`).

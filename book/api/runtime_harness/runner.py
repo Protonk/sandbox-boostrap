@@ -89,6 +89,15 @@ def classify_status(probes: List[Dict[str, Any]], skipped_reason: str | None = N
         return "blocked", "no probes executed"
     if any(p.get("error") for p in probes):
         return "blocked", "probe execution error"
+    blocked_stages = {"apply", "bootstrap", "preflight"}
+    stages = []
+    for probe in probes:
+        rr = probe.get("runtime_result") or {}
+        stage = rr.get("failure_stage")
+        if stage:
+            stages.append(stage)
+    if stages and all(stage in blocked_stages for stage in stages):
+        return "blocked", "all probes blocked before policy evaluation"
     all_match = all(p.get("match") is True for p in probes)
     if all_match:
         return "ok", None
@@ -225,6 +234,8 @@ def run_expected_matrix(
     key_specific_rules = key_specific_rules or {}
 
     results: Dict[str, Any] = {}
+    preflight_enabled = os.environ.get("SANDBOX_LORE_PREFLIGHT") != "0"
+    preflight_force = os.environ.get("SANDBOX_LORE_PREFLIGHT_FORCE") == "1"
     for key, rec in profiles.items():
         profile_path = profile_paths.get(key)
         if not profile_path:
@@ -246,11 +257,31 @@ def run_expected_matrix(
             profile_mode=rec.get("mode"),
         )
         profile_mode = rec.get("mode")
+        preflight_record: Optional[Dict[str, Any]] = None
+        preflight_blocked = False
+        if preflight_enabled and runtime_profile.suffix == ".sb":
+            try:
+                from book.tools.preflight import preflight as preflight_mod  # type: ignore
+
+                rec_obj = preflight_mod.preflight_path(runtime_profile)
+                preflight_record = rec_obj.to_json()
+                if (
+                    preflight_record.get("classification") == "likely_apply_gated_for_harness_identity"
+                    and not preflight_force
+                ):
+                    preflight_blocked = True
+            except Exception:
+                preflight_record = None
+                preflight_blocked = False
         probes = rec.get("probes") or []
         probe_results = []
         for probe in probes:
-            raw = run_probe(runtime_profile, probe, profile_mode)
-            actual = "allow" if raw.get("exit_code") == 0 else "deny"
+            if preflight_blocked:
+                actual = None
+                raw = {"command": [], "exit_code": None, "stdout": "", "stderr": ""}
+            else:
+                raw = run_probe(runtime_profile, probe, profile_mode)
+                actual = "allow" if raw.get("exit_code") == 0 else "deny"
             expected = probe.get("expected")
 
             stderr = raw.get("stderr") or ""
@@ -265,6 +296,9 @@ def run_expected_matrix(
             observed_errno: Optional[int] = None
             apply_report: Optional[Dict[str, Any]] = None
 
+            if preflight_blocked:
+                failure_stage = "preflight"
+                failure_kind = "preflight_apply_gate_signature"
             apply_rc = apply_marker.get("rc") if apply_marker else None
             if isinstance(apply_rc, int) and apply_rc != 0:
                 failure_stage = "apply"
@@ -333,8 +367,8 @@ def run_expected_matrix(
                 runner_info["tool_build_id"] = runner_info["entrypoint_sha256"]
 
             runtime_result = {
-                "status": "success" if raw.get("exit_code") == 0 else "errno",
-                "errno": None if raw.get("exit_code") == 0 else observed_errno,
+                "status": "blocked" if preflight_blocked else ("success" if raw.get("exit_code") == 0 else "errno"),
+                "errno": None if preflight_blocked or raw.get("exit_code") == 0 else observed_errno,
                 "runtime_result_schema_version": rt_contract.CURRENT_RUNTIME_RESULT_SCHEMA_VERSION,
                 "tool_marker_schema_version": rt_contract.CURRENT_TOOL_MARKER_SCHEMA_VERSION,
                 "failure_stage": failure_stage,
@@ -362,10 +396,15 @@ def run_expected_matrix(
                     "path": probe.get("target"),
                     "expected": expected,
                     "actual": actual,
-                    "match": expected == actual,
+                    "match": (expected == actual) if actual is not None else None,
                     "runtime_result": runtime_result,
                     "violation_summary": violation_summary,
                     **{**raw, "command": relativize_command(raw.get("command") or [], REPO_ROOT)},
+                    **(
+                        {"notes": "preflight blocked: known apply-gate signature"}
+                        if preflight_blocked
+                        else {}
+                    ),
                 }
             )
         status, note = classify_status(probe_results)
@@ -373,6 +412,7 @@ def run_expected_matrix(
             "status": status,
             "profile_path": to_repo_relative(runtime_profile, REPO_ROOT),
             "base_profile_path": to_repo_relative(profile_path, REPO_ROOT),
+            "preflight": preflight_record,
             "probes": probe_results,
         }
         if note:

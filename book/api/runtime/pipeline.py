@@ -167,6 +167,8 @@ def classify_mismatches(
         runtime_result = rt_contract.upgrade_runtime_result(probe.get("runtime_result") or {}, probe.get("stderr"))
         failure_stage = runtime_result.get("failure_stage")
         failure_kind = runtime_result.get("failure_kind")
+        if failure_stage == "preflight":
+            return "preflight_blocked"
         if failure_stage == "apply":
             return "apply_gate"
         if failure_stage == "bootstrap" and failure_kind == "bootstrap_deny_process_exec":

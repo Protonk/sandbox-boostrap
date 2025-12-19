@@ -10,6 +10,7 @@
  * Marker families:
  * - tool:"sbpl-apply" with stage apply|applied|exec
  * - tool:"seatbelt-callout" for optional sandbox_check_by_audit_token callouts
+ * - tool:"entitlement-check" for optional runtime-effective entitlement probes
  *
  * NOTE: This header is intentionally header-only with static helpers to keep
  * build integration minimal across ad-hoc experiment binaries.
@@ -30,10 +31,12 @@
 #define SANDBOX_LORE_SBPL_APPLY_MARKER_SCHEMA_VERSION 1
 #define SANDBOX_LORE_SEATBELT_CALLOUT_MARKER_SCHEMA_VERSION 2
 #define SANDBOX_LORE_SBPL_COMPILE_MARKER_SCHEMA_VERSION 1
+#define SANDBOX_LORE_ENTITLEMENT_CHECK_MARKER_SCHEMA_VERSION 1
 
 #define SANDBOX_LORE_SBPL_APPLY_TOOL "sbpl-apply"
 #define SANDBOX_LORE_SEATBELT_CALLOUT_TOOL "seatbelt-callout"
 #define SANDBOX_LORE_SBPL_COMPILE_TOOL "sbpl-compile"
+#define SANDBOX_LORE_ENTITLEMENT_CHECK_TOOL "entitlement-check"
 
 #define SANDBOX_LORE_ENV_SEATBELT_CALLOUT "SANDBOX_LORE_SEATBELT_CALLOUT"
 #define SANDBOX_LORE_ENV_SEATBELT_OP "SANDBOX_LORE_SEATBELT_OP"
@@ -328,6 +331,46 @@ static void sbl_emit_sbpl_exec_marker(int rc, int err, const char *argv0) {
     sbl_json_emit_kv_int(out, &first, "errno", err);
     sbl_json_emit_kv_string(out, &first, "argv0", argv0);
     sbl_json_emit_kv_int(out, &first, "pid", (long)getpid());
+    fputs("}\n", out);
+    fflush(out);
+}
+
+/*
+ * Emit a marker for runtime-effective entitlement checks performed by tools.
+ *
+ * This is intended as correlation evidence (e.g., "does this applying process
+ * have the message-filter entitlement?") and is not used for classification.
+ *
+ * - rc: 0 for "query performed", nonzero for tool-side failure to query.
+ * - present: 0/1 when rc==0, or -1 to omit.
+ * - value_bool: 0/1 when the entitlement value is boolean, or -1 to omit.
+ */
+static void sbl_emit_entitlement_check_marker(
+    const char *stage,
+    const char *entitlement,
+    int rc,
+    int present,
+    int value_bool,
+    const char *value_type,
+    const char *error
+) {
+    FILE *out = stderr;
+    int first = 1;
+    fputc('{', out);
+    sbl_json_emit_kv_string(out, &first, "tool", SANDBOX_LORE_ENTITLEMENT_CHECK_TOOL);
+    sbl_json_emit_kv_int(out, &first, "marker_schema_version", SANDBOX_LORE_ENTITLEMENT_CHECK_MARKER_SCHEMA_VERSION);
+    sbl_json_emit_kv_string(out, &first, "stage", stage);
+    sbl_json_emit_kv_string(out, &first, "entitlement", entitlement);
+    sbl_json_emit_kv_int(out, &first, "pid", (long)getpid());
+    sbl_json_emit_kv_int(out, &first, "rc", rc);
+    if (present != -1) {
+        sbl_json_emit_kv_bool(out, &first, "present", present ? 1 : 0);
+    }
+    if (value_bool != -1) {
+        sbl_json_emit_kv_bool(out, &first, "value_bool", value_bool ? 1 : 0);
+    }
+    sbl_json_emit_kv_string(out, &first, "value_type", value_type);
+    sbl_json_emit_kv_string(out, &first, "error", error);
     fputs("}\n", out);
     fflush(out);
 }

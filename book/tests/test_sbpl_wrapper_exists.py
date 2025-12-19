@@ -6,7 +6,7 @@ ROOT = Path(__file__).resolve().parents[2]
 
 def test_sbpl_wrapper_built():
     wrapper = ROOT / "book" / "api" / "SBPL-wrapper" / "wrapper"
-    assert wrapper.exists(), "wrapper binary is missing; build with clang -o wrapper wrapper.c -lsandbox"
+    assert wrapper.exists(), "wrapper binary is missing; build with clang -o wrapper wrapper.c -lsandbox -framework Security -framework CoreFoundation"
     assert wrapper.is_file()
 
 

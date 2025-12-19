@@ -34,6 +34,11 @@ Example:
 book/api/SBPL-wrapper/wrapper --blob /tmp/sample.sb.bin -- /bin/true
 ```
 
+Operational preflight (apply-gate avoidance):
+```sh
+python3 book/tools/preflight/preflight.py scan path/to/profile.sb
+```
+
 ### file_probe
 
 Definition: Minimal JSON-emitting read/write probe binary.

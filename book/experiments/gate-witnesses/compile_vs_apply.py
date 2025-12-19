@@ -130,6 +130,15 @@ def _write_variant_files(out_dir: Path) -> List[Dict[str, Any]]:
 
     base_v2 = "(version 2)\n(allow iokit-open-user-client (apply-message-filter (deny iokit-external-method)))\n"
     base_v1 = "(version 1)\n(allow iokit-open-user-client (apply-message-filter (deny iokit-external-method)))\n"
+    base_v2_mach_bootstrap = (
+        "(version 2)\n"
+        "(allow mach-bootstrap\n"
+        "    (apply-message-filter (with report)\n"
+        "        (deny mach-message-send)\n"
+        "        (allow mach-message-send (message-number 207))\n"
+        "    )\n"
+        ")\n"
+    )
 
     candidates = [
         ("base_v2", base_v2, "baseline (matches airlock/cgpdfservice witness form)"),
@@ -137,6 +146,21 @@ def _write_variant_files(out_dir: Path) -> List[Dict[str, Any]]:
         ("base_v2_inner_allow_external_method", base_v2.replace("(deny iokit-external-method)", "(allow iokit-external-method)", 1), "swap inner deny->allow"),
         ("base_v2_inner_deny_async_external_method", base_v2.replace("iokit-external-method", "iokit-async-external-method", 1), "swap inner op"),
         ("base_v2_inner_deny_external_trap", base_v2.replace("iokit-external-method", "iokit-external-trap", 1), "swap inner op"),
+        (
+            "base_v2_mach_bootstrap_deny_message_send",
+            base_v2_mach_bootstrap,
+            "scope: mach-bootstrap message filter with deny",
+        ),
+        (
+            "base_v2_mach_bootstrap_allow_only",
+            base_v2_mach_bootstrap.replace("(deny mach-message-send)\n", ""),
+            "scope: mach-bootstrap message filter allow-only",
+        ),
+        (
+            "base_v2_mach_bootstrap_allow_only_with_file_write",
+            base_v2_mach_bootstrap.replace("(deny mach-message-send)\n", "") + "(allow file-write*)\n",
+            "scope: mach-bootstrap allow-only + allow file-write* (so markers survive post-apply)",
+        ),
         ("base_v1", base_v1, "baseline (matches blastdoor witness version)"),
         ("base_v1_outer_iokit_open", base_v1.replace("iokit-open-user-client", "iokit-open", 1), "swap outer op"),
         ("base_v1_inner_allow_external_method", base_v1.replace("(deny iokit-external-method)", "(allow iokit-external-method)", 1), "swap inner deny->allow"),

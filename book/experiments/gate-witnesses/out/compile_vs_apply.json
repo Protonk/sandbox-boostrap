@@ -26,14 +26,13 @@
           "marker": {
             "api": "sandbox_compile_file",
             "bytecode_length": 513,
+            "errbuf": null,
             "errno": 0,
             "marker_schema_version": 1,
-            "pid": 71552,
             "profile": "book/experiments/gate-witnesses/out/micro_variants/base_v2.sb",
             "profile_type": 0,
             "rc": 0,
-            "stage": "compile",
-            "tool": "sbpl-compile"
+            "stage": "compile"
           },
           "marker_count": 1,
           "profile_type": 0,
@@ -56,14 +55,14 @@
           "errno": 0,
           "marker": {
             "api": "sandbox_compile_file",
+            "bytecode_length": null,
             "errbuf": "unbound variable: iokit-open at book/experiments/gate-witnesses/out/micro_variants/base_v2_outer_iokit_open.sb, line 2, column 8\n\nBacktrace: \nbook/experiments/gate-witnesses/out/micro_variants/base_v2_outer_iokit_open.sb:2:8:\n\tiokit-open\n",
             "errno": 0,
             "marker_schema_version": 1,
-            "pid": 71554,
             "profile": "book/experiments/gate-witnesses/out/micro_variants/base_v2_outer_iokit_open.sb",
+            "profile_type": null,
             "rc": -1,
-            "stage": "compile",
-            "tool": "sbpl-compile"
+            "stage": "compile"
           },
           "marker_count": 1,
           "profile_type": null,
@@ -95,14 +94,13 @@
           "marker": {
             "api": "sandbox_compile_file",
             "bytecode_length": 513,
+            "errbuf": null,
             "errno": 0,
             "marker_schema_version": 1,
-            "pid": 71555,
             "profile": "book/experiments/gate-witnesses/out/micro_variants/base_v2_inner_allow_external_method.sb",
             "profile_type": 0,
             "rc": 0,
-            "stage": "compile",
-            "tool": "sbpl-compile"
+            "stage": "compile"
           },
           "marker_count": 1,
           "profile_type": 0,
@@ -141,14 +139,13 @@
           "marker": {
             "api": "sandbox_compile_file",
             "bytecode_length": 513,
+            "errbuf": null,
             "errno": 0,
             "marker_schema_version": 1,
-            "pid": 71557,
             "profile": "book/experiments/gate-witnesses/out/micro_variants/base_v2_inner_deny_async_external_method.sb",
             "profile_type": 0,
             "rc": 0,
-            "stage": "compile",
-            "tool": "sbpl-compile"
+            "stage": "compile"
           },
           "marker_count": 1,
           "profile_type": 0,
@@ -187,14 +184,13 @@
           "marker": {
             "api": "sandbox_compile_file",
             "bytecode_length": 513,
+            "errbuf": null,
             "errno": 0,
             "marker_schema_version": 1,
-            "pid": 71559,
             "profile": "book/experiments/gate-witnesses/out/micro_variants/base_v2_inner_deny_external_trap.sb",
             "profile_type": 0,
             "rc": 0,
-            "stage": "compile",
-            "tool": "sbpl-compile"
+            "stage": "compile"
           },
           "marker_count": 1,
           "profile_type": 0,
@@ -225,6 +221,134 @@
         "wrapper_rc": 1
       },
       "compile": {
+        "blob": "book/experiments/gate-witnesses/out/micro_variants/base_v2_mach_bootstrap_deny_message_send.sb.bin",
+        "report": {
+          "bytecode_length": 481,
+          "errbuf": null,
+          "errno": 0,
+          "marker": {
+            "api": "sandbox_compile_file",
+            "bytecode_length": 481,
+            "errbuf": null,
+            "errno": 0,
+            "marker_schema_version": 1,
+            "profile": "book/experiments/gate-witnesses/out/micro_variants/base_v2_mach_bootstrap_deny_message_send.sb",
+            "profile_type": 0,
+            "rc": 0,
+            "stage": "compile"
+          },
+          "marker_count": 1,
+          "profile_type": 0,
+          "rc": 0
+        },
+        "stderr": "",
+        "wrapper_rc": 0
+      },
+      "id": "base_v2_mach_bootstrap_deny_message_send",
+      "note": "scope: mach-bootstrap message filter with deny",
+      "sbpl": "book/experiments/gate-witnesses/out/micro_variants/base_v2_mach_bootstrap_deny_message_send.sb"
+    },
+    {
+      "apply_blob": {
+        "report": {
+          "apply_report": null,
+          "failure_kind": null,
+          "failure_stage": null
+        },
+        "stderr": "",
+        "wrapper_rc": 127
+      },
+      "compile": {
+        "blob": "book/experiments/gate-witnesses/out/micro_variants/base_v2_mach_bootstrap_allow_only.sb.bin",
+        "report": {
+          "bytecode_length": 473,
+          "errbuf": null,
+          "errno": 0,
+          "marker": {
+            "api": "sandbox_compile_file",
+            "bytecode_length": 473,
+            "errbuf": null,
+            "errno": 0,
+            "marker_schema_version": 1,
+            "profile": "book/experiments/gate-witnesses/out/micro_variants/base_v2_mach_bootstrap_allow_only.sb",
+            "profile_type": 0,
+            "rc": 0,
+            "stage": "compile"
+          },
+          "marker_count": 1,
+          "profile_type": 0,
+          "rc": 0
+        },
+        "stderr": "",
+        "wrapper_rc": 0
+      },
+      "id": "base_v2_mach_bootstrap_allow_only",
+      "note": "scope: mach-bootstrap message filter allow-only",
+      "sbpl": "book/experiments/gate-witnesses/out/micro_variants/base_v2_mach_bootstrap_allow_only.sb"
+    },
+    {
+      "apply_blob": {
+        "report": {
+          "apply_report": {
+            "api": "sandbox_apply",
+            "err_class": "ok",
+            "err_class_source": "none",
+            "errbuf": null,
+            "errno": 0,
+            "rc": 0
+          },
+          "failure_kind": "bootstrap_deny_process_exec",
+          "failure_stage": "bootstrap"
+        },
+        "stderr": "execvp: Operation not permitted\n",
+        "wrapper_rc": 127
+      },
+      "compile": {
+        "blob": "book/experiments/gate-witnesses/out/micro_variants/base_v2_mach_bootstrap_allow_only_with_file_write.sb.bin",
+        "report": {
+          "bytecode_length": 528,
+          "errbuf": null,
+          "errno": 0,
+          "marker": {
+            "api": "sandbox_compile_file",
+            "bytecode_length": 528,
+            "errbuf": null,
+            "errno": 0,
+            "marker_schema_version": 1,
+            "profile": "book/experiments/gate-witnesses/out/micro_variants/base_v2_mach_bootstrap_allow_only_with_file_write.sb",
+            "profile_type": 0,
+            "rc": 0,
+            "stage": "compile"
+          },
+          "marker_count": 1,
+          "profile_type": 0,
+          "rc": 0
+        },
+        "stderr": "",
+        "wrapper_rc": 0
+      },
+      "id": "base_v2_mach_bootstrap_allow_only_with_file_write",
+      "note": "scope: mach-bootstrap allow-only + allow file-write* (so markers survive post-apply)",
+      "sbpl": "book/experiments/gate-witnesses/out/micro_variants/base_v2_mach_bootstrap_allow_only_with_file_write.sb"
+    },
+    {
+      "apply_blob": {
+        "report": {
+          "apply_report": {
+            "api": "sandbox_apply",
+            "err_class": "errno_eperm",
+            "err_class_source": "errno_only",
+            "errbuf": "Operation not permitted",
+            "errno": 1,
+            "rc": -1
+          },
+          "failure_kind": "sandbox_apply_failed",
+          "failure_stage": "apply"
+        },
+        "stderr": "sandbox_apply: Operation not permitted\n",
+        "wrapper_rc": 1
+      },
+      "compile": {
         "blob": "book/experiments/gate-witnesses/out/micro_variants/base_v1.sb.bin",
         "report": {
           "bytecode_length": 448,
@@ -233,14 +357,13 @@
           "marker": {
             "api": "sandbox_compile_file",
             "bytecode_length": 448,
+            "errbuf": null,
             "errno": 0,
             "marker_schema_version": 1,
-            "pid": 71561,
             "profile": "book/experiments/gate-witnesses/out/micro_variants/base_v1.sb",
             "profile_type": 0,
             "rc": 0,
-            "stage": "compile",
-            "tool": "sbpl-compile"
+            "stage": "compile"
           },
           "marker_count": 1,
           "profile_type": 0,
@@ -279,14 +402,13 @@
           "marker": {
             "api": "sandbox_compile_file",
             "bytecode_length": 448,
+            "errbuf": null,
             "errno": 0,
             "marker_schema_version": 1,
-            "pid": 71563,
             "profile": "book/experiments/gate-witnesses/out/micro_variants/base_v1_outer_iokit_open.sb",
             "profile_type": 0,
             "rc": 0,
-            "stage": "compile",
-            "tool": "sbpl-compile"
+            "stage": "compile"
           },
           "marker_count": 1,
           "profile_type": 0,
@@ -325,14 +447,13 @@
           "marker": {
             "api": "sandbox_compile_file",
             "bytecode_length": 448,
+            "errbuf": null,
             "errno": 0,
             "marker_schema_version": 1,
-            "pid": 71565,
             "profile": "book/experiments/gate-witnesses/out/micro_variants/base_v1_inner_allow_external_method.sb",
             "profile_type": 0,
             "rc": 0,
-            "stage": "compile",
-            "tool": "sbpl-compile"
+            "stage": "compile"
           },
           "marker_count": 1,
           "profile_type": 0,
@@ -371,14 +492,13 @@
           "marker": {
             "api": "sandbox_compile_file",
             "bytecode_length": 448,
+            "errbuf": null,
             "errno": 0,
             "marker_schema_version": 1,
-            "pid": 71567,
             "profile": "book/experiments/gate-witnesses/out/micro_variants/base_v1_inner_deny_async_external_method.sb",
             "profile_type": 0,
             "rc": 0,
-            "stage": "compile",
-            "tool": "sbpl-compile"
+            "stage": "compile"
           },
           "marker_count": 1,
           "profile_type": 0,
@@ -417,14 +537,13 @@
           "marker": {
             "api": "sandbox_compile_file",
             "bytecode_length": 448,
+            "errbuf": null,
             "errno": 0,
             "marker_schema_version": 1,
-            "pid": 71569,
             "profile": "book/experiments/gate-witnesses/out/micro_variants/base_v1_inner_deny_external_trap.sb",
             "profile_type": 0,
             "rc": 0,
-            "stage": "compile",
-            "tool": "sbpl-compile"
+            "stage": "compile"
           },
           "marker_count": 1,
           "profile_type": 0,
@@ -486,14 +605,13 @@
             "marker": {
               "api": "sandbox_compile_file",
               "bytecode_length": 513,
+              "errbuf": null,
               "errno": 0,
               "marker_schema_version": 1,
-              "pid": 71534,
               "profile": "book/experiments/gate-witnesses/out/witnesses/airlock/minimal_failing.sb",
               "profile_type": 0,
               "rc": 0,
-              "stage": "compile",
-              "tool": "sbpl-compile"
+              "stage": "compile"
             },
             "marker_count": 1,
             "profile_type": 0,
@@ -532,14 +650,13 @@
             "marker": {
               "api": "sandbox_compile_file",
               "bytecode_length": 465,
+              "errbuf": null,
               "errno": 0,
               "marker_schema_version": 1,
-              "pid": 71535,
               "profile": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
               "profile_type": 0,
               "rc": 0,
-              "stage": "compile",
-              "tool": "sbpl-compile"
+              "stage": "compile"
             },
             "marker_count": 1,
             "profile_type": 0,
@@ -599,14 +716,13 @@
             "marker": {
               "api": "sandbox_compile_file",
               "bytecode_length": 448,
+              "errbuf": null,
               "errno": 0,
               "marker_schema_version": 1,
-              "pid": 71540,
               "profile": "book/experiments/gate-witnesses/out/witnesses/blastdoor/minimal_failing.sb",
               "profile_type": 0,
               "rc": 0,
-              "stage": "compile",
-              "tool": "sbpl-compile"
+              "stage": "compile"
             },
             "marker_count": 1,
             "profile_type": 0,
@@ -659,14 +775,13 @@
             "marker": {
               "api": "sandbox_compile_file",
               "bytecode_length": 440,
+              "errbuf": null,
               "errno": 0,
               "marker_schema_version": 1,
-              "pid": 71541,
               "profile": "book/experiments/gate-witnesses/out/witnesses/blastdoor/passing_neighbor.sb",
               "profile_type": 0,
               "rc": 0,
-              "stage": "compile",
-              "tool": "sbpl-compile"
+              "stage": "compile"
             },
             "marker_count": 1,
             "profile_type": 0,
@@ -726,14 +841,13 @@
             "marker": {
               "api": "sandbox_compile_file",
               "bytecode_length": 513,
+              "errbuf": null,
               "errno": 0,
               "marker_schema_version": 1,
-              "pid": 71546,
               "profile": "book/experiments/gate-witnesses/out/witnesses/com.apple.CoreGraphics.CGPDFService/minimal_failing.sb",
               "profile_type": 0,
               "rc": 0,
-              "stage": "compile",
-              "tool": "sbpl-compile"
+              "stage": "compile"
             },
             "marker_count": 1,
             "profile_type": 0,
@@ -772,14 +886,13 @@
             "marker": {
               "api": "sandbox_compile_file",
               "bytecode_length": 465,
+              "errbuf": null,
               "errno": 0,
               "marker_schema_version": 1,
-              "pid": 71547,
               "profile": "book/experiments/gate-witnesses/out/witnesses/com.apple.CoreGraphics.CGPDFService/passing_neighbor.sb",
               "profile_type": 0,
               "rc": 0,
-              "stage": "compile",
-              "tool": "sbpl-compile"
+              "stage": "compile"
             },
             "marker_count": 1,
             "profile_type": 0,

@@ -150,7 +150,7 @@ def build_scenario_summaries(
     scenarios: Dict[str, Dict[str, Any]] = {}
     hist_overall = {
         "total": 0,
-        "stages": {"apply": 0, "bootstrap": 0, "probe": 0},
+        "stages": {"apply": 0, "bootstrap": 0, "preflight": 0, "probe": 0},
         "blocked": {"total": 0, "by_stage": {}, "by_kind": {}},
         "probe": {"total": 0, "allow": 0, "deny": 0, "mismatches": 0},
     }
@@ -161,7 +161,7 @@ def build_scenario_summaries(
             family,
             {
                 "total": 0,
-                "stages": {"apply": 0, "bootstrap": 0, "probe": 0},
+                "stages": {"apply": 0, "bootstrap": 0, "preflight": 0, "probe": 0},
                 "blocked": {"total": 0, "by_stage": {}, "by_kind": {}},
                 "probe": {"total": 0, "allow": 0, "deny": 0, "mismatches": 0},
             },
@@ -177,11 +177,11 @@ def build_scenario_summaries(
             hist["total"] += 1
 
             stage = obs.failure_stage or "probe"
-            if stage not in {"apply", "bootstrap", "probe"}:
+            if stage not in {"apply", "bootstrap", "preflight", "probe"}:
                 stage = "probe"
             hist["stages"][stage] = int(hist["stages"].get(stage, 0)) + 1
 
-            if stage in {"apply", "bootstrap"}:
+            if stage in {"apply", "bootstrap", "preflight"}:
                 blocked = hist["blocked"]
                 blocked["total"] += 1
                 _bump(blocked["by_stage"], stage)
@@ -218,7 +218,7 @@ def build_scenario_summaries(
         scenario["results"]["total_including_blocked"] += 1
 
         failure_stage = obs.failure_stage or "probe"
-        if failure_stage in {"apply", "bootstrap"}:
+        if failure_stage in {"apply", "bootstrap", "preflight"}:
             blocked = scenario["results"]["blocked"]
             blocked["total"] += 1
             by_stage = blocked["by_stage"]
@@ -237,6 +237,8 @@ def build_scenario_summaries(
             mismatch_type = "filter_diff"
             if failure_stage == "apply":
                 mismatch_type = "apply_gate"
+            elif failure_stage == "preflight":
+                mismatch_type = "preflight_blocked"
             elif failure_stage == "bootstrap" and obs.failure_kind == "bootstrap_deny_process_exec":
                 mismatch_type = "bootstrap_deny_process_exec"
             elif failure_stage == "bootstrap":
@@ -323,7 +325,7 @@ def build_op_summaries(
         )
         entry["probes_including_blocked"] += 1
         entry["scenarios"].add(obs.scenario_id)
-        if (obs.failure_stage or "probe") in {"apply", "bootstrap"}:
+        if (obs.failure_stage or "probe") in {"apply", "bootstrap", "preflight"}:
             blocked = entry["blocked"]
             blocked["total"] += 1
             stage = obs.failure_stage or "unknown"
