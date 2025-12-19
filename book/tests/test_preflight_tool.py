@@ -42,3 +42,30 @@ def test_preflight_missing_path_is_invalid():
     rec = preflight_mod.preflight_path(Path("does_not_exist.sb"))
     assert rec.classification == "invalid"
     assert rec.error == "missing"
+
+
+def test_preflight_sbpl_blob_digest_can_flag_apply_gated_blob():
+    blob = Path(
+        "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/"
+        "mach_bootstrap_deny_message_send/minimal_failing.sb.bin"
+    )
+    rec = preflight_mod.preflight_path(blob)
+    assert rec.classification == "likely_apply_gated_for_harness_identity"
+    assert rec.signature == "apply_gate_blob_digest"
+    assert rec.findings and rec.findings[0]["matched"] is True
+
+
+def test_preflight_sbpl_blob_digest_unknown_is_not_a_gate_signal():
+    blob = Path("book/graph/concepts/validation/fixtures/blobs/sample.sb.bin")
+    rec = preflight_mod.preflight_path(blob)
+    assert rec.classification == "no_known_apply_gate_signature"
+    assert rec.signature is None
+    assert rec.findings and rec.findings[0]["matched"] is False
+
+
+def test_preflight_sbpl_blob_digest_flags_sys_airlock_fixture():
+    blob = Path("book/graph/concepts/validation/fixtures/blobs/airlock.sb.bin")
+    rec = preflight_mod.preflight_path(blob)
+    assert rec.classification == "likely_apply_gated_for_harness_identity"
+    assert rec.signature == "apply_gate_blob_digest"
+    assert rec.findings and rec.findings[0]["matched"] is True

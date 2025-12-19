@@ -10,7 +10,11 @@ The intent is to stop agents and runners from learning about apply gating by rep
 
 ## What it does
 
-Given SBPL source text (`.sb`), it performs a conservative structural scan and emits a JSON record per input with a classification:
+Given either:
+- SBPL source text (`.sb`)
+- a compiled profile blob (`.sb.bin`)
+
+it performs a conservative preflight and emits a JSON record per input with a classification:
 
 - `likely_apply_gated_for_harness_identity` – a **known apply-gate signature** is present (currently: deny-style message filtering).
 - `no_known_apply_gate_signature` – no known signature was found (this is **not** a guarantee that apply will succeed).
@@ -25,6 +29,12 @@ Current signature (witness-backed on this world, but still “partial” for glo
     - `book/experiments/gate-witnesses/Report.md`
     - `book/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json`
 
+Digest signature (exact-match; host-scoped list):
+
+- `apply_gate_blob_digest` – the `.sb.bin` file’s `sha256` matches a known apply-gated blob digest from:
+  - `book/graph/concepts/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json`
+  - `book/experiments/preflight-blob-digests/Report.md`
+
 ## Usage
 
 From repo root:
@@ -32,6 +42,7 @@ From repo root:
 ```sh
 python3 book/tools/preflight/preflight.py scan book/examples/sb/sample.sb
 python3 book/tools/preflight/preflight.py scan book/experiments/gate-witnesses/out/witnesses/*/minimal_failing.sb
+python3 book/tools/preflight/preflight.py scan book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/*/*.sb.bin
 ```
 
 Output is a JSON array by default. Use `--jsonl` for one JSON object per line.
@@ -47,4 +58,3 @@ Exit codes:
 - This tool is intentionally **static**: it does not compile or apply profiles.
 - This tool is intentionally **conservative**: it prefers “avoid dead ends” over “explain why”.
 - Apply gating is “blocked” evidence for runtime semantics on this host; see `troubles/EPERMx2.md` for the repo’s phase discipline.
-

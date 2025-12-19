@@ -1,0 +1,387 @@
+{
+  "control": {
+    "blob": "book/experiments/op-table-operation/sb/build/v0_empty.sb.bin",
+    "blob_sha256": "0b491b96b6e101f53cd12081c41af87e31caaedec3344e11960018f25f6f4eda",
+    "classification": "not_apply_gated",
+    "result": {
+      "apply_report": {
+        "api": "sandbox_apply",
+        "err_class": "ok",
+        "err_class_source": "none",
+        "errbuf": null,
+        "errno": 0,
+        "rc": 0
+      },
+      "cmd": [
+        "book/api/SBPL-wrapper/wrapper",
+        "--blob",
+        "book/experiments/op-table-operation/sb/build/v0_empty.sb.bin",
+        "--",
+        "/usr/bin/true"
+      ],
+      "end_unix": 1766187775.585114,
+      "entitlement_checks": [
+        {
+          "entitlement": "com.apple.private.security.message-filter",
+          "marker_schema_version": 1,
+          "pid": 55802,
+          "present": false,
+          "rc": 0,
+          "stage": "pre_apply",
+          "tool": "entitlement-check",
+          "value_type": "absent"
+        }
+      ],
+      "failure_kind": "bootstrap_deny_process_exec",
+      "failure_stage": "bootstrap",
+      "pid": 55802,
+      "start_unix": 1766187775.578412,
+      "stderr": "execvp: Operation not permitted\n",
+      "timed_out": false,
+      "wrapper_rc": 127
+    }
+  },
+  "control_ok": true,
+  "label": "structural_validation_batch2",
+  "rows": [
+    {
+      "blob": "book/experiments/gate-witnesses/out/micro_variants/base_v1_inner_allow_external_method.sb.bin",
+      "blob_sha256": "a719e4984993099ece41feb62bd3d10d026bda230327672903576c7f9f230b8d",
+      "classification": "not_apply_gated",
+      "result": {
+        "apply_report": {
+          "api": "sandbox_apply",
+          "err_class": "ok",
+          "err_class_source": "none",
+          "errbuf": null,
+          "errno": 0,
+          "rc": 0
+        },
+        "cmd": [
+          "book/api/SBPL-wrapper/wrapper",
+          "--blob",
+          "book/experiments/gate-witnesses/out/micro_variants/base_v1_inner_allow_external_method.sb.bin",
+          "--",
+          "/usr/bin/true"
+        ],
+        "end_unix": 1766187775.591784,
+        "entitlement_checks": [
+          {
+            "entitlement": "com.apple.private.security.message-filter",
+            "marker_schema_version": 1,
+            "pid": 55803,
+            "present": false,
+            "rc": 0,
+            "stage": "pre_apply",
+            "tool": "entitlement-check",
+            "value_type": "absent"
+          }
+        ],
+        "failure_kind": "bootstrap_deny_process_exec",
+        "failure_stage": "bootstrap",
+        "pid": 55803,
+        "start_unix": 1766187775.586089,
+        "stderr": "execvp: Operation not permitted\n",
+        "timed_out": false,
+        "wrapper_rc": 127
+      }
+    },
+    {
+      "blob": "book/experiments/gate-witnesses/out/micro_variants/base_v1_inner_deny_async_external_method.sb.bin",
+      "blob_sha256": "d39f451bbb79c5fa82849de633d23406122c2273565bf8f38876a7006fb0d1b5",
+      "classification": "apply_gated_eperm",
+      "result": {
+        "apply_report": {
+          "api": "sandbox_apply",
+          "err_class": "errno_eperm",
+          "err_class_source": "errno_only",
+          "errbuf": "Operation not permitted",
+          "errno": 1,
+          "rc": -1
+        },
+        "cmd": [
+          "book/api/SBPL-wrapper/wrapper",
+          "--blob",
+          "book/experiments/gate-witnesses/out/micro_variants/base_v1_inner_deny_async_external_method.sb.bin",
+          "--",
+          "/usr/bin/true"
+        ],
+        "end_unix": 1766187775.597536,
+        "entitlement_checks": [
+          {
+            "entitlement": "com.apple.private.security.message-filter",
+            "marker_schema_version": 1,
+            "pid": 55804,
+            "present": false,
+            "rc": 0,
+            "stage": "pre_apply",
+            "tool": "entitlement-check",
+            "value_type": "absent"
+          }
+        ],
+        "failure_kind": "sandbox_apply_failed",
+        "failure_stage": "apply",
+        "pid": 55804,
+        "start_unix": 1766187775.592973,
+        "stderr": "sandbox_apply: Operation not permitted\n",
+        "timed_out": false,
+        "wrapper_rc": 1
+      }
+    },
+    {
+      "blob": "book/experiments/gate-witnesses/out/micro_variants/base_v1_inner_deny_external_trap.sb.bin",
+      "blob_sha256": "62d86920498488311168176f88787232b6de3510a9e5d0f9aba32554b6c3edb3",
+      "classification": "apply_gated_eperm",
+      "result": {
+        "apply_report": {
+          "api": "sandbox_apply",
+          "err_class": "errno_eperm",
+          "err_class_source": "errno_only",
+          "errbuf": "Operation not permitted",
+          "errno": 1,
+          "rc": -1
+        },
+        "cmd": [
+          "book/api/SBPL-wrapper/wrapper",
+          "--blob",
+          "book/experiments/gate-witnesses/out/micro_variants/base_v1_inner_deny_external_trap.sb.bin",
+          "--",
+          "/usr/bin/true"
+        ],
+        "end_unix": 1766187775.6029031,
+        "entitlement_checks": [
+          {
+            "entitlement": "com.apple.private.security.message-filter",
+            "marker_schema_version": 1,
+            "pid": 55805,
+            "present": false,
+            "rc": 0,
+            "stage": "pre_apply",
+            "tool": "entitlement-check",
+            "value_type": "absent"
+          }
+        ],
+        "failure_kind": "sandbox_apply_failed",
+        "failure_stage": "apply",
+        "pid": 55805,
+        "start_unix": 1766187775.5984142,
+        "stderr": "sandbox_apply: Operation not permitted\n",
+        "timed_out": false,
+        "wrapper_rc": 1
+      }
+    },
+    {
+      "blob": "book/experiments/gate-witnesses/out/micro_variants/base_v2_mach_bootstrap_deny_message_send.sb.bin",
+      "blob_sha256": "67871c25c8938eb9002e6201e231a65bfc3557f8068873a5f6ecbfd339d0fabf",
+      "classification": "apply_gated_eperm",
+      "result": {
+        "apply_report": {
+          "api": "sandbox_apply",
+          "err_class": "errno_eperm",
+          "err_class_source": "errno_only",
+          "errbuf": "Operation not permitted",
+          "errno": 1,
+          "rc": -1
+        },
+        "cmd": [
+          "book/api/SBPL-wrapper/wrapper",
+          "--blob",
+          "book/experiments/gate-witnesses/out/micro_variants/base_v2_mach_bootstrap_deny_message_send.sb.bin",
+          "--",
+          "/usr/bin/true"
+        ],
+        "end_unix": 1766187775.6081338,
+        "entitlement_checks": [
+          {
+            "entitlement": "com.apple.private.security.message-filter",
+            "marker_schema_version": 1,
+            "pid": 55806,
+            "present": false,
+            "rc": 0,
+            "stage": "pre_apply",
+            "tool": "entitlement-check",
+            "value_type": "absent"
+          }
+        ],
+        "failure_kind": "sandbox_apply_failed",
+        "failure_stage": "apply",
+        "pid": 55806,
+        "start_unix": 1766187775.6037362,
+        "stderr": "sandbox_apply: Operation not permitted\n",
+        "timed_out": false,
+        "wrapper_rc": 1
+      }
+    },
+    {
+      "blob": "book/experiments/entitlement-diff/sb/build/appsandbox-baseline.sb.bin",
+      "blob_sha256": "555bb1dffffecbc5708a10b4378d556dd1dc6660581dd0caa7539e7809397cbd",
+      "classification": "not_apply_gated",
+      "result": {
+        "apply_report": {
+          "api": "sandbox_apply",
+          "err_class": "ok",
+          "err_class_source": "none",
+          "errbuf": null,
+          "errno": 0,
+          "rc": 0
+        },
+        "cmd": [
+          "book/api/SBPL-wrapper/wrapper",
+          "--blob",
+          "book/experiments/entitlement-diff/sb/build/appsandbox-baseline.sb.bin",
+          "--",
+          "/usr/bin/true"
+        ],
+        "end_unix": 1766187775.61594,
+        "entitlement_checks": [
+          {
+            "entitlement": "com.apple.private.security.message-filter",
+            "marker_schema_version": 1,
+            "pid": 55807,
+            "present": false,
+            "rc": 0,
+            "stage": "pre_apply",
+            "tool": "entitlement-check",
+            "value_type": "absent"
+          }
+        ],
+        "failure_kind": null,
+        "failure_stage": null,
+        "pid": 55807,
+        "start_unix": 1766187775.6091259,
+        "stderr": "",
+        "timed_out": false,
+        "wrapper_rc": 0
+      }
+    },
+    {
+      "blob": "book/experiments/entitlement-diff/sb/build/appsandbox-network-mach.sb.bin",
+      "blob_sha256": "38b26b165e4bd0f61302d8a65367322ccfdaa22c40ffd583528c888f8205a020",
+      "classification": "not_apply_gated",
+      "result": {
+        "apply_report": {
+          "api": "sandbox_apply",
+          "err_class": "ok",
+          "err_class_source": "none",
+          "errbuf": null,
+          "errno": 0,
+          "rc": 0
+        },
+        "cmd": [
+          "book/api/SBPL-wrapper/wrapper",
+          "--blob",
+          "book/experiments/entitlement-diff/sb/build/appsandbox-network-mach.sb.bin",
+          "--",
+          "/usr/bin/true"
+        ],
+        "end_unix": 1766187775.622777,
+        "entitlement_checks": [
+          {
+            "entitlement": "com.apple.private.security.message-filter",
+            "marker_schema_version": 1,
+            "pid": 55808,
+            "present": false,
+            "rc": 0,
+            "stage": "pre_apply",
+            "tool": "entitlement-check",
+            "value_type": "absent"
+          }
+        ],
+        "failure_kind": null,
+        "failure_stage": null,
+        "pid": 55808,
+        "start_unix": 1766187775.616894,
+        "stderr": "",
+        "timed_out": false,
+        "wrapper_rc": 0
+      }
+    },
+    {
+      "blob": "book/experiments/probe-op-structure/sb/build/v8_all_combo.sb.bin",
+      "blob_sha256": "32306bbba824add4f3f0bf66fe74d219181b33f9958d68afe906380770fa9082",
+      "classification": "not_apply_gated",
+      "result": {
+        "apply_report": {
+          "api": "sandbox_apply",
+          "err_class": "ok",
+          "err_class_source": "none",
+          "errbuf": null,
+          "errno": 0,
+          "rc": 0
+        },
+        "cmd": [
+          "book/api/SBPL-wrapper/wrapper",
+          "--blob",
+          "book/experiments/probe-op-structure/sb/build/v8_all_combo.sb.bin",
+          "--",
+          "/usr/bin/true"
+        ],
+        "end_unix": 1766187775.628899,
+        "entitlement_checks": [
+          {
+            "entitlement": "com.apple.private.security.message-filter",
+            "marker_schema_version": 1,
+            "pid": 55809,
+            "present": false,
+            "rc": 0,
+            "stage": "pre_apply",
+            "tool": "entitlement-check",
+            "value_type": "absent"
+          }
+        ],
+        "failure_kind": "bootstrap_deny_process_exec",
+        "failure_stage": "bootstrap",
+        "pid": 55809,
+        "start_unix": 1766187775.623688,
+        "stderr": "execvp: Operation not permitted\n",
+        "timed_out": false,
+        "wrapper_rc": 127
+      }
+    },
+    {
+      "blob": "book/experiments/libsandbox-encoder/out/matrix_v2.sb.bin",
+      "blob_sha256": "2d95e9424782d203e4450ec2273534e1db35a1eb7ec285a0f54a906258a461fd",
+      "classification": "not_apply_gated",
+      "result": {
+        "apply_report": {
+          "api": "sandbox_apply",
+          "err_class": "ok",
+          "err_class_source": "none",
+          "errbuf": null,
+          "errno": 0,
+          "rc": 0
+        },
+        "cmd": [
+          "book/api/SBPL-wrapper/wrapper",
+          "--blob",
+          "book/experiments/libsandbox-encoder/out/matrix_v2.sb.bin",
+          "--",
+          "/usr/bin/true"
+        ],
+        "end_unix": 1766187775.6354702,
+        "entitlement_checks": [
+          {
+            "entitlement": "com.apple.private.security.message-filter",
+            "marker_schema_version": 1,
+            "pid": 55810,
+            "present": false,
+            "rc": 0,
+            "stage": "pre_apply",
+            "tool": "entitlement-check",
+            "value_type": "absent"
+          }
+        ],
+        "failure_kind": null,
+        "failure_stage": null,
+        "pid": 55810,
+        "start_unix": 1766187775.6298282,
+        "stderr": "",
+        "timed_out": false,
+        "wrapper_rc": 0
+      }
+    }
+  ],
+  "schema_version": 1,
+  "tool": "book/experiments/preflight-blob-digests",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

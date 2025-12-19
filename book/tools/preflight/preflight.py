@@ -10,6 +10,7 @@ for the harness identity on this host baseline.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import sys
 from dataclasses import dataclass
@@ -27,6 +28,18 @@ from book.api.profile_tools import sbpl_scan  # type: ignore
 
 PREFLIGHT_SCHEMA_VERSION = 1
 
+_BLOB_DIGESTS_IR_PATH = (
+    REPO_ROOT
+    / "book"
+    / "graph"
+    / "concepts"
+    / "validation"
+    / "out"
+    / "experiments"
+    / "preflight-blob-digests"
+    / "blob_digests_ir.json"
+)
+
 _SIGNATURE_POINTERS: Dict[str, Dict[str, Any]] = {
     "deny_message_filter": {
         "status": "partial",
@@ -35,8 +48,19 @@ _SIGNATURE_POINTERS: Dict[str, Dict[str, Any]] = {
             "book/experiments/gate-witnesses/Report.md",
             "book/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json",
         ],
-    }
+    },
+    "apply_gate_blob_digest": {
+        "status": "ok",
+        "pointers": [
+            "troubles/EPERMx2.md",
+            "book/experiments/preflight-blob-digests/Report.md",
+            "book/graph/concepts/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json",
+        ],
+    },
 }
+
+_APPLY_GATE_BLOB_DIGEST_CACHE: Optional[set[str]] = None
+_APPLY_GATE_BLOB_DIGEST_CACHE_ERROR: Optional[str] = None
 
 
 @dataclass(frozen=True)
@@ -98,6 +122,120 @@ def preflight_sbpl_text(sbpl_text: str, *, input_ref: str = "<sbpl_text>") -> Pr
     )
 
 
+def _sha256_file(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as f:
+        while True:
+            chunk = f.read(1024 * 1024)
+            if not chunk:
+                break
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def _load_apply_gate_blob_digests() -> set[str]:
+    global _APPLY_GATE_BLOB_DIGEST_CACHE, _APPLY_GATE_BLOB_DIGEST_CACHE_ERROR
+    if _APPLY_GATE_BLOB_DIGEST_CACHE is not None:
+        return _APPLY_GATE_BLOB_DIGEST_CACHE
+
+    if not _BLOB_DIGESTS_IR_PATH.exists():
+        _APPLY_GATE_BLOB_DIGEST_CACHE = set()
+        _APPLY_GATE_BLOB_DIGEST_CACHE_ERROR = (
+            f"missing digest corpus: {to_repo_relative(_BLOB_DIGESTS_IR_PATH, REPO_ROOT)}"
+        )
+        return _APPLY_GATE_BLOB_DIGEST_CACHE
+
+    try:
+        payload = json.loads(_BLOB_DIGESTS_IR_PATH.read_text())
+    except Exception as exc:
+        _APPLY_GATE_BLOB_DIGEST_CACHE = set()
+        _APPLY_GATE_BLOB_DIGEST_CACHE_ERROR = f"failed to read digest corpus: {exc}"
+        return _APPLY_GATE_BLOB_DIGEST_CACHE
+
+    baseline_world = identity_mod.baseline_world_id()
+    if payload.get("world_id") != baseline_world:
+        _APPLY_GATE_BLOB_DIGEST_CACHE = set()
+        _APPLY_GATE_BLOB_DIGEST_CACHE_ERROR = "digest corpus world_id mismatch"
+        return _APPLY_GATE_BLOB_DIGEST_CACHE
+
+    digests: set[str] = set()
+    for entry in payload.get("apply_gate_digests") or []:
+        if isinstance(entry, dict) and isinstance(entry.get("blob_sha256"), str):
+            digests.add(entry["blob_sha256"])
+
+    _APPLY_GATE_BLOB_DIGEST_CACHE = digests
+    _APPLY_GATE_BLOB_DIGEST_CACHE_ERROR = None
+    return digests
+
+
+def preflight_sbpl_blob(path: Path) -> PreflightRecord:
+    world_id = identity_mod.baseline_world_id()
+    ref = to_repo_relative(path, REPO_ROOT)
+    if not path.exists():
+        return PreflightRecord(
+            world_id=world_id,
+            input_kind="path",
+            input_ref=ref,
+            classification="invalid",
+            signature=None,
+            findings=[],
+            signature_meta=None,
+            error="missing",
+        )
+
+    try:
+        blob_sha256 = _sha256_file(path)
+    except Exception as exc:
+        return PreflightRecord(
+            world_id=world_id,
+            input_kind="sbpl_blob_path",
+            input_ref=ref,
+            classification="invalid",
+            signature=None,
+            findings=[],
+            signature_meta=None,
+            error=f"failed to read: {exc}",
+        )
+
+    digests = _load_apply_gate_blob_digests()
+    if _APPLY_GATE_BLOB_DIGEST_CACHE_ERROR is not None:
+        return PreflightRecord(
+            world_id=world_id,
+            input_kind="sbpl_blob_path",
+            input_ref=ref,
+            classification="unsupported",
+            signature=None,
+            findings=[{"blob_sha256": blob_sha256}],
+            signature_meta=None,
+            error=_APPLY_GATE_BLOB_DIGEST_CACHE_ERROR,
+        )
+
+    if blob_sha256 in digests:
+        signature = "apply_gate_blob_digest"
+        sig_meta = _SIGNATURE_POINTERS.get(signature)
+        return PreflightRecord(
+            world_id=world_id,
+            input_kind="sbpl_blob_path",
+            input_ref=ref,
+            classification="likely_apply_gated_for_harness_identity",
+            signature=signature,
+            findings=[{"blob_sha256": blob_sha256, "matched": True}],
+            signature_meta=dict(sig_meta) if sig_meta else None,
+            error=None,
+        )
+
+    return PreflightRecord(
+        world_id=world_id,
+        input_kind="sbpl_blob_path",
+        input_ref=ref,
+        classification="no_known_apply_gate_signature",
+        signature=None,
+        findings=[{"blob_sha256": blob_sha256, "matched": False}],
+        signature_meta=None,
+        error=None,
+    )
+
+
 def preflight_path(path: Path) -> PreflightRecord:
     world_id = identity_mod.baseline_world_id()
     ref = to_repo_relative(path, REPO_ROOT)
@@ -112,6 +250,8 @@ def preflight_path(path: Path) -> PreflightRecord:
             signature_meta=None,
             error="missing",
         )
+    if path.suffixes[-2:] == [".sb", ".bin"]:
+        return preflight_sbpl_blob(path)
     if path.suffix != ".sb":
         return PreflightRecord(
             world_id=world_id,
@@ -121,7 +261,7 @@ def preflight_path(path: Path) -> PreflightRecord:
             signature=None,
             findings=[],
             signature_meta=None,
-            error="only .sb inputs are supported (SBPL text)",
+            error="only .sb and .sb.bin inputs are supported",
         )
 
     try:
@@ -156,9 +296,10 @@ def expand_paths(paths: Sequence[Path]) -> List[Path]:
     for p in paths:
         if p.is_dir():
             out.extend(sorted(p.rglob("*.sb")))
+            out.extend(sorted(p.rglob("*.sb.bin")))
         else:
             out.append(p)
-    return out
+    return sorted(set(out))
 
 
 def scan_paths(paths: Sequence[Path]) -> List[PreflightRecord]:
@@ -203,8 +344,12 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     ap = argparse.ArgumentParser(prog="preflight")
     sub = ap.add_subparsers(dest="cmd", required=True)
 
-    scan = sub.add_parser("scan", help="scan SBPL inputs for known apply-gate signatures")
-    scan.add_argument("paths", nargs="+", help="SBPL .sb files and/or directories (directories scanned recursively)")
+    scan = sub.add_parser("scan", help="scan profile inputs for known apply-gate signatures")
+    scan.add_argument(
+        "paths",
+        nargs="+",
+        help="SBPL .sb / .sb.bin files and/or directories (directories scanned recursively)",
+    )
     scan.add_argument("--jsonl", action="store_true", help="emit JSONL (one record per line)")
     scan.add_argument("--out", type=Path, help="write output JSON to path instead of stdout")
     scan.set_defaults(func=_scan_cmd)

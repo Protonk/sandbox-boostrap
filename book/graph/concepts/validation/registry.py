@@ -58,6 +58,7 @@ JOB_MODULES = [
     "book.graph.concepts.validation.runtime_checks_experiment_job",
     "book.graph.concepts.validation.metadata_runner_experiment_job",
     "book.graph.concepts.validation.gate_witnesses_experiment_job",
+    "book.graph.concepts.validation.preflight_blob_digests_experiment_job",
     "book.graph.concepts.validation.system_profile_experiment_job",
     "book.graph.concepts.validation.fixtures_job",
     "book.graph.concepts.validation.schema_meta_job",

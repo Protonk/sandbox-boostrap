@@ -1,0 +1,95 @@
+{
+  "apply_gate_digest_hits": [
+    {
+      "blob_sha256": "1c810afb4859beba5ea31eece812cdd3548ea575500a1063dc8eeaa11a8e3f60",
+      "repo_paths": [
+        "book/experiments/gate-witnesses/out/micro_variants/base_v1.sb.bin",
+        "book/experiments/gate-witnesses/out/micro_variants/base_v1_outer_iokit_open.sb.bin",
+        "book/experiments/gate-witnesses/out/witnesses/blastdoor/compile_vs_apply/minimal_failing.sb.bin",
+        "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/blastdoor/minimal_failing.sb.bin"
+      ]
+    },
+    {
+      "blob_sha256": "33d1a72e709f86f7827cb6e5a919a30cc86a3d0ea6e048b2117d0240a923467e",
+      "repo_paths": [
+        "book/experiments/golden-corpus/out/blobs/platform_airlock.sb.bin",
+        "book/experiments/runtime-checks/out/decoded_blobs/sys_airlock.sb.bin",
+        "book/experiments/runtime-checks/out/recompiled/airlock.recompiled.sb.bin",
+        "book/experiments/runtime-checks/out/sb_build/airlock.sb.bin",
+        "book/graph/concepts/validation/fixtures/blobs/airlock.sb.bin",
+        "book/graph/mappings/runtime/decoded_blobs/sys_airlock.sb.bin"
+      ]
+    },
+    {
+      "blob_sha256": "f3a3e64095c59d7d33f63573a875b62bbcdd3a58054da6c0366d2512f1c87b7c",
+      "repo_paths": [
+        "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/minimal_failing.sb.bin"
+      ]
+    },
+    {
+      "blob_sha256": "f8aaa1deb5becd33659daca06a4b15df2238f8b912c65c24a8e43b40c61b6640",
+      "repo_paths": [
+        "book/experiments/gate-witnesses/out/micro_variants/base_v2.sb.bin",
+        "book/experiments/gate-witnesses/out/witnesses/airlock/compile_vs_apply/minimal_failing.sb.bin",
+        "book/experiments/gate-witnesses/out/witnesses/com.apple.CoreGraphics.CGPDFService/compile_vs_apply/minimal_failing.sb.bin",
+        "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/minimal_failing.sb.bin",
+        "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/minimal_failing.sb.bin"
+      ]
+    }
+  ],
+  "inputs": {
+    "inventory": "book/experiments/preflight-blob-digests/out/repo_sb_bin_inventory.json",
+    "preflight_blob_digests_ir": "book/graph/concepts/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json",
+    "system_profiles_digests": "book/graph/mappings/system_profiles/digests.json"
+  },
+  "metrics": {
+    "apply_gate_digests": 4,
+    "inventory_files": 257,
+    "inventory_unique_digests": 149,
+    "inventory_unique_digests_marked_apply_gated": 4,
+    "sys_profiles": 3,
+    "sys_profiles_marked_apply_gated_by_digest": 1,
+    "sys_profiles_with_digest_in_repo": 3
+  },
+  "schema_version": 1,
+  "sys_profiles": [
+    {
+      "blob_sha256": "33d1a72e709f86f7827cb6e5a919a30cc86a3d0ea6e048b2117d0240a923467e",
+      "preflight_digest_classification": "apply_gated_for_harness_identity",
+      "present_in_repo": true,
+      "profile_id": "sys:airlock",
+      "repo_paths": [
+        "book/experiments/golden-corpus/out/blobs/platform_airlock.sb.bin",
+        "book/experiments/runtime-checks/out/decoded_blobs/sys_airlock.sb.bin",
+        "book/experiments/runtime-checks/out/recompiled/airlock.recompiled.sb.bin",
+        "book/experiments/runtime-checks/out/sb_build/airlock.sb.bin",
+        "book/graph/concepts/validation/fixtures/blobs/airlock.sb.bin",
+        "book/graph/mappings/runtime/decoded_blobs/sys_airlock.sb.bin"
+      ]
+    },
+    {
+      "blob_sha256": "c6fe205fe002bcb0e094419e149d5f1a8a49517d034033fe5bec52ef8e75a179",
+      "preflight_digest_classification": "unknown",
+      "present_in_repo": true,
+      "profile_id": "sys:bsd",
+      "repo_paths": [
+        "book/experiments/runtime-checks/out/decoded_blobs/sys_bsd.sb.bin",
+        "book/experiments/runtime-checks/out/recompiled/bsd.recompiled.sb.bin",
+        "book/experiments/runtime-checks/out/sb_build/bsd.sb.bin",
+        "book/graph/concepts/validation/fixtures/blobs/bsd.sb.bin",
+        "book/graph/mappings/runtime/decoded_blobs/sys_bsd.sb.bin"
+      ]
+    },
+    {
+      "blob_sha256": "a82e5aa81c57e46988a3bbf96880e9131e01f9e0ac19939b6ea7b645753fbaac",
+      "preflight_digest_classification": "unknown",
+      "present_in_repo": true,
+      "profile_id": "sys:sample",
+      "repo_paths": [
+        "book/graph/concepts/validation/fixtures/blobs/sample.sb.bin"
+      ]
+    }
+  ],
+  "tool": "book/experiments/preflight-blob-digests",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}
