@@ -23773,7 +23773,7 @@
   "metrics": {
     "candidates": 189,
     "digests": 149,
-    "high_precision_threshold": 1.0,
+    "high_precision_threshold": 0.75,
     "labels": {
       "apply_gated": 9,
       "control": 20,
@@ -23792,7 +23792,8 @@
       "best_precision": 1.0,
       "blob_sha256": "125a3268e75de5b105b00cec56ad220a33ff62a6e00f32162f75aa2b6ea96508",
       "matches": [
-        "node_count_eq_op_count"
+        "node_count_eq_op_count",
+        "tags_present_count_eq:1"
       ],
       "paths_count": 1,
       "representative_path": "book/experiments/gate-witnesses/out/micro_variants/base_v2_inner_allow_external_method.sb.bin"

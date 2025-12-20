@@ -7,9 +7,9 @@
   - (see output list in the shell history; current witness set uses `airlock.sb`, `blastdoor.sb`, `com.apple.CoreGraphics.CGPDFService.sb`)
 
 - Witness generation (outside harness sandbox):
-  - `python3 book/tools/gate-minimizer/gate_minimizer.py --input /System/Library/Sandbox/Profiles/airlock.sb --out-dir book/experiments/gate-witnesses/out/witnesses/airlock --confirm 10`
-  - `python3 book/tools/gate-minimizer/gate_minimizer.py --input /System/Library/Sandbox/Profiles/blastdoor.sb --out-dir book/experiments/gate-witnesses/out/witnesses/blastdoor --confirm 10`
-  - `python3 book/tools/gate-minimizer/gate_minimizer.py --input /System/Library/Sandbox/Profiles/com.apple.CoreGraphics.CGPDFService.sb --out-dir book/experiments/gate-witnesses/out/witnesses/com.apple.CoreGraphics.CGPDFService --confirm 10`
+  - `python3 book/tools/preflight/preflight.py minimize-gate --input /System/Library/Sandbox/Profiles/airlock.sb --out-dir book/experiments/gate-witnesses/out/witnesses/airlock --confirm 10`
+  - `python3 book/tools/preflight/preflight.py minimize-gate --input /System/Library/Sandbox/Profiles/blastdoor.sb --out-dir book/experiments/gate-witnesses/out/witnesses/blastdoor --confirm 10`
+  - `python3 book/tools/preflight/preflight.py minimize-gate --input /System/Library/Sandbox/Profiles/com.apple.CoreGraphics.CGPDFService.sb --out-dir book/experiments/gate-witnesses/out/witnesses/com.apple.CoreGraphics.CGPDFService --confirm 10`
 
 - Derived-only summaries:
   - `python3 book/experiments/gate-witnesses/summarize_features.py`

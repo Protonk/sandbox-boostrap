@@ -55,6 +55,19 @@
           "blob": "book/experiments/op-table-operation/sb/build/v0_empty.sb.bin",
           "label": "structural_validation_batch2",
           "source": "preflight-blob-digests"
+        },
+        {
+          "apply_report": {
+            "api": "sandbox_apply",
+            "err_class": "ok",
+            "err_class_source": "none",
+            "errbuf": null,
+            "errno": 0,
+            "rc": 0
+          },
+          "blob": "book/experiments/op-table-operation/sb/build/v0_empty.sb.bin",
+          "label": "structural_validation_batch3_scan_shortlist",
+          "source": "preflight-blob-digests"
         }
       ]
     },
@@ -75,6 +88,27 @@
           "failure_kind": null,
           "failure_stage": null,
           "label": "structural_validation_batch1",
+          "source": "preflight-blob-digests"
+        }
+      ]
+    },
+    {
+      "blob_sha256": "28eb2060b0b13a7cbb010ccd25e587fcdb6f49c17a21a560df2574063f3026db",
+      "classification": "known_not_apply_gated_control",
+      "evidence": [
+        {
+          "apply_report": {
+            "api": "sandbox_apply",
+            "err_class": "ok",
+            "err_class_source": "none",
+            "errbuf": null,
+            "errno": 0,
+            "rc": 0
+          },
+          "blob": "book/experiments/field2-filters/sb/build/bsd_tail_context.sb.bin",
+          "failure_kind": null,
+          "failure_stage": null,
+          "label": "structural_validation_batch3_scan_shortlist",
           "source": "preflight-blob-digests"
         }
       ]
@@ -122,6 +156,27 @@
       ]
     },
     {
+      "blob_sha256": "3899f0bdbaa09f813c09a67d7f953a4b66cdaff46164a91bf5f1d62d5a1de196",
+      "classification": "known_not_apply_gated_control",
+      "evidence": [
+        {
+          "apply_report": {
+            "api": "sandbox_apply",
+            "err_class": "ok",
+            "err_class_source": "none",
+            "errbuf": null,
+            "errno": 0,
+            "rc": 0
+          },
+          "blob": "book/experiments/bsd-airlock-highvals/sb/build/airlock_system_fcntl_literal_guard.sb.bin",
+          "failure_kind": "bootstrap_deny_process_exec",
+          "failure_stage": "bootstrap",
+          "label": "structural_validation_batch3_scan_shortlist",
+          "source": "preflight-blob-digests"
+        }
+      ]
+    },
+    {
       "blob_sha256": "38b26b165e4bd0f61302d8a65367322ccfdaa22c40ffd583528c888f8205a020",
       "classification": "known_not_apply_gated_control",
       "evidence": [
@@ -159,6 +214,132 @@
           "failure_kind": null,
           "failure_stage": null,
           "label": "structural_validation_batch2",
+          "source": "preflight-blob-digests"
+        }
+      ]
+    },
+    {
+      "blob_sha256": "72c7588bd349c9aff96169a4b7f9676c3558779589833083dc74ca7c0f80bf55",
+      "classification": "known_not_apply_gated_control",
+      "evidence": [
+        {
+          "apply_report": {
+            "api": "sandbox_apply",
+            "err_class": "ok",
+            "err_class_source": "none",
+            "errbuf": null,
+            "errno": 0,
+            "rc": 0
+          },
+          "blob": "book/experiments/sandbox-init-params/out/named_mDNSResponder.sb.bin",
+          "failure_kind": "bootstrap_deny_process_exec",
+          "failure_stage": "bootstrap",
+          "label": "structural_validation_batch3_scan_shortlist",
+          "source": "preflight-blob-digests"
+        }
+      ]
+    },
+    {
+      "blob_sha256": "73080caead97f66892f3082ca7eae37a62d813d1c77e498fb0d4729d75693713",
+      "classification": "known_not_apply_gated_control",
+      "evidence": [
+        {
+          "apply_report": {
+            "api": "sandbox_apply",
+            "err_class": "ok",
+            "err_class_source": "none",
+            "errbuf": null,
+            "errno": 0,
+            "rc": 0
+          },
+          "blob": "book/experiments/runtime-adversarial/out/sb_build/net_outbound_deny.sb.bin",
+          "failure_kind": "bootstrap_deny_process_exec",
+          "failure_stage": "bootstrap",
+          "label": "structural_validation_batch3_scan_shortlist",
+          "source": "preflight-blob-digests"
+        }
+      ]
+    },
+    {
+      "blob_sha256": "8b85f18017bd8c363cc47ba094e0aed2440ce69ffd2b6eb5640cc87a024198ac",
+      "classification": "known_not_apply_gated_control",
+      "evidence": [
+        {
+          "apply_report": {
+            "api": "sandbox_apply",
+            "err_class": "ok",
+            "err_class_source": "none",
+            "errbuf": null,
+            "errno": 0,
+            "rc": 0
+          },
+          "blob": "book/experiments/libsandbox-encoder/out/matrix_v1.sb.bin",
+          "failure_kind": null,
+          "failure_stage": null,
+          "label": "structural_validation_batch3_scan_shortlist",
+          "source": "preflight-blob-digests"
+        }
+      ]
+    },
+    {
+      "blob_sha256": "8d616ac17fc5a17cfd9fa203114120e9648c418e30abdc0f885cedcb577537c1",
+      "classification": "known_not_apply_gated_control",
+      "evidence": [
+        {
+          "apply_report": {
+            "api": "sandbox_apply",
+            "err_class": "ok",
+            "err_class_source": "none",
+            "errbuf": null,
+            "errno": 0,
+            "rc": 0
+          },
+          "blob": "book/experiments/sbpl-graph-runtime/out/deny_all.sb.bin",
+          "failure_kind": null,
+          "failure_stage": null,
+          "label": "structural_validation_batch3_scan_shortlist",
+          "source": "preflight-blob-digests"
+        }
+      ]
+    },
+    {
+      "blob_sha256": "92249fc1125d3d0bc4af81b2824677dcb682afe715abd5f12deae0701dfb5d3d",
+      "classification": "known_not_apply_gated_control",
+      "evidence": [
+        {
+          "apply_report": {
+            "api": "sandbox_apply",
+            "err_class": "ok",
+            "err_class_source": "none",
+            "errbuf": null,
+            "errno": 0,
+            "rc": 0
+          },
+          "blob": "book/experiments/bsd-airlock-highvals/sb/build/bsd_tag26_matrix.sb.bin",
+          "failure_kind": "bootstrap_deny_process_exec",
+          "failure_stage": "bootstrap",
+          "label": "structural_validation_batch3_scan_shortlist",
+          "source": "preflight-blob-digests"
+        }
+      ]
+    },
+    {
+      "blob_sha256": "9255585db74668cd72e7c9ca6aa08fac2dd313d4200de5271f73715246d82ad0",
+      "classification": "known_not_apply_gated_control",
+      "evidence": [
+        {
+          "apply_report": {
+            "api": "sandbox_apply",
+            "err_class": "ok",
+            "err_class_source": "none",
+            "errbuf": null,
+            "errno": 0,
+            "rc": 0
+          },
+          "blob": "book/experiments/sandbox-init-params/out/file_ftp_proxy.sb.bin",
+          "failure_kind": "bootstrap_deny_process_exec",
+          "failure_stage": "bootstrap",
+          "label": "structural_validation_batch3_scan_shortlist",
           "source": "preflight-blob-digests"
         }
       ]
@@ -248,6 +429,27 @@
       ]
     },
     {
+      "blob_sha256": "d56b643d115c56f05aef55895c23139c8ddffece42a2c73037f58c9d487534d0",
+      "classification": "known_not_apply_gated_control",
+      "evidence": [
+        {
+          "apply_report": {
+            "api": "sandbox_apply",
+            "err_class": "ok",
+            "err_class_source": "none",
+            "errbuf": null,
+            "errno": 0,
+            "rc": 0
+          },
+          "blob": "book/experiments/libsandbox-encoder/sb/matrix_v1_domain30.sb.bin",
+          "failure_kind": null,
+          "failure_stage": null,
+          "label": "structural_validation_batch3_scan_shortlist",
+          "source": "preflight-blob-digests"
+        }
+      ]
+    },
+    {
       "blob_sha256": "da2a673796dc884cda387dbad5e0e82a3412f803af5ed28c750158c7d42bea0b",
       "classification": "known_not_apply_gated_control",
       "evidence": [
@@ -274,12 +476,13 @@
       "book/experiments/preflight-blob-digests/out/blob_apply_matrix.in_harness.json",
       "book/experiments/preflight-blob-digests/out/blob_apply_matrix.outside_harness.json",
       "book/experiments/preflight-blob-digests/out/blob_apply_matrix.structural_validation_batch1.json",
-      "book/experiments/preflight-blob-digests/out/blob_apply_matrix.structural_validation_batch2.json"
+      "book/experiments/preflight-blob-digests/out/blob_apply_matrix.structural_validation_batch2.json",
+      "book/experiments/preflight-blob-digests/out/blob_apply_matrix.structural_validation_batch3_scan_shortlist.json"
     ],
     "gate_witnesses": "book/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json"
   },
   "metrics": {
-    "controls": 11
+    "controls": 20
   },
   "schema_version": 1,
   "tool": "book/experiments/preflight-blob-digests",

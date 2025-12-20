@@ -27,17 +27,21 @@ SUPPORTED_RUNTIME_RESULT_SCHEMA_VERSIONS = {0, 1}
 SUPPORTED_TOOL_MARKER_SCHEMA_VERSIONS = {0, 1, 2}
 
 SBPL_APPLY_TOOL = "sbpl-apply"
+SBPL_PREFLIGHT_TOOL = "sbpl-preflight"
 SEATBELT_CALLOUT_TOOL = "seatbelt-callout"
 SBPL_COMPILE_TOOL = "sbpl-compile"
 ENTITLEMENT_CHECK_TOOL = "entitlement-check"
 SBPL_APPLY_STAGES = {"apply", "applied", "exec"}
+SBPL_PREFLIGHT_STAGES = {"preflight"}
 SBPL_COMPILE_STAGES = {"compile"}
 
 CURRENT_SBPL_APPLY_MARKER_SCHEMA_VERSION = 1
+CURRENT_SBPL_PREFLIGHT_MARKER_SCHEMA_VERSION = 1
 CURRENT_SEATBELT_CALLOUT_MARKER_SCHEMA_VERSION = 2
 CURRENT_SBPL_COMPILE_MARKER_SCHEMA_VERSION = 1
 CURRENT_ENTITLEMENT_CHECK_MARKER_SCHEMA_VERSION = 1
 SUPPORTED_SBPL_APPLY_MARKER_SCHEMA_VERSIONS = {0, 1}
+SUPPORTED_SBPL_PREFLIGHT_MARKER_SCHEMA_VERSIONS = {0, 1}
 SUPPORTED_SEATBELT_CALLOUT_MARKER_SCHEMA_VERSIONS = {0, 1, 2}
 SUPPORTED_SBPL_COMPILE_MARKER_SCHEMA_VERSIONS = {0, 1}
 SUPPORTED_ENTITLEMENT_CHECK_MARKER_SCHEMA_VERSIONS = {0, 1}
@@ -77,6 +81,25 @@ def extract_sbpl_apply_markers(stderr_raw: Optional[str]) -> List[Dict[str, Any]
             continue
         stage = payload.get("stage")
         if stage not in SBPL_APPLY_STAGES:
+            continue
+        ver = payload.get("marker_schema_version")
+        normalized = dict(payload)
+        if not isinstance(ver, int):
+            normalized["marker_schema_version"] = 0
+        markers.append(normalized)
+    return markers
+
+
+def extract_sbpl_preflight_markers(stderr_raw: Optional[str]) -> List[Dict[str, Any]]:
+    markers: List[Dict[str, Any]] = []
+    for line in (stderr_raw or "").splitlines():
+        payload = _parse_json_object(line)
+        if not payload:
+            continue
+        if payload.get("tool") != SBPL_PREFLIGHT_TOOL:
+            continue
+        stage = payload.get("stage")
+        if stage not in SBPL_PREFLIGHT_STAGES:
             continue
         ver = payload.get("marker_schema_version")
         normalized = dict(payload)
@@ -213,6 +236,8 @@ def strip_tool_markers(stderr_raw: Optional[str]) -> Optional[str]:
     for line in stderr_raw.splitlines():
         payload = _parse_json_object(line)
         if payload and payload.get("tool") == SBPL_APPLY_TOOL and payload.get("stage") in SBPL_APPLY_STAGES:
+            continue
+        if payload and payload.get("tool") == SBPL_PREFLIGHT_TOOL and payload.get("stage") in SBPL_PREFLIGHT_STAGES:
             continue
         if payload and payload.get("tool") == SEATBELT_CALLOUT_TOOL:
             continue
@@ -449,5 +474,5 @@ def assert_no_tool_markers_in_stderr(stderr_canonical: Optional[str]) -> None:
         if not payload:
             continue
         tool = payload.get("tool")
-        if tool in {SBPL_APPLY_TOOL, SEATBELT_CALLOUT_TOOL, SBPL_COMPILE_TOOL, ENTITLEMENT_CHECK_TOOL}:
+        if tool in {SBPL_APPLY_TOOL, SBPL_PREFLIGHT_TOOL, SEATBELT_CALLOUT_TOOL, SBPL_COMPILE_TOOL, ENTITLEMENT_CHECK_TOOL}:
             raise AssertionError(f"canonical stderr contains tool marker: {tool}")

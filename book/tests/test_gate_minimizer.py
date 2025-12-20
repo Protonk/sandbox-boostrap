@@ -4,7 +4,7 @@ import sys
 
 
 ROOT = Path(__file__).resolve().parents[2]
-TOOL = ROOT / "book" / "tools" / "gate-minimizer" / "gate_minimizer.py"
+TOOL = ROOT / "book" / "tools" / "preflight" / "gate_minimizer.py"
 
 
 def _load_tool_module():

@@ -149,10 +149,13 @@ This work is explicitly **partial/brittle** until expanded and regression-tested
 - Frozen labeled sets (positive + controls): `out/structural_signal_sets.json`
 - Decoded structural features (149/149 digests): `out/blob_structural_features.json`
 - Candidate signature set (labeled-set only): `out/structural_signature_candidates.json`
-- Candidate scan across the in-repo digest corpus: `out/structural_signature_scan.json`
+- Candidate scans across the in-repo digest corpus:
+  - `out/structural_signature_scan.json` (high-precision threshold, default)
+  - `out/structural_signature_scan.p75.json` (relaxed threshold for validation planning)
 - Apply-validation batches (control_ok context):
   - `out/blob_apply_matrix.structural_validation_batch1.json`
   - `out/blob_apply_matrix.structural_validation_batch2.json`
+  - `out/blob_apply_matrix.structural_validation_batch3_scan_shortlist.json`
 
 ### Early candidates
 
@@ -161,6 +164,7 @@ From `out/structural_signature_candidates.json` (derived from a small but still-
 - A small “core tag” set emerged for OR/AND exploration (see `core_tags` in `out/structural_signature_candidates.json`).
 - The strongest “rare predicate” candidate so far is `node_count_eq_op_count` (perfect precision on the current labeled set, but low recall), which isolates the “tag 9 only” micro-variant family.
 - Tag 9 presence is no longer a high-precision signal after adding broader controls that also contain tag 9 (for example, App Sandbox templates); it remains useful only as a coarse ranking feature.
+- A “density/ratio” feature family (literal-pool bytes ratio, op-table uniqueness ratio) produced plausible high-precision candidates on a smaller control set, but batch3 validation added new non-gated controls that match those ratios, reducing them to low/medium precision. This is expected and is treated as a **useful falsification**: these ratios are not (yet) durable apply-gate predictors.
 
 These are **not** promoted to a classifier: they are triage signals only until expanded and regression-checked.
 
@@ -182,5 +186,13 @@ In `out/blob_apply_matrix.structural_validation_batch2.json` (run with `control_
   - `62d86920…` (`base_v1_inner_deny_external_trap.sb.bin`)
   - `67871c25…` (`base_v2_mach_bootstrap_deny_message_send.sb.bin`)
 - Several broader corpus blobs applied successfully (apply-report `rc==0`) and now serve as additional “not apply-gated” controls on this world.
+
+### Apply-validation (batch3; scan-shortlisted)
+
+In `out/blob_apply_matrix.structural_validation_batch3_scan_shortlist.json` (run with `control_ok=true`):
+
+- No new apply-gated digests were discovered: all tested blobs except the lingering “unknown” case applied successfully (`sandbox_apply rc==0`).
+- Several scan-shortlisted blobs that initially looked “high-risk” by structural ratio (for example, `named_mDNSResponder.sb.bin` and `file_ftp_proxy.sb.bin`) are confirmed **not apply-gated** and are now part of the control set.
+- The `base_v2_inner_allow_external_method.sb.bin` micro-variant (`125a3268…`) remains “unknown” due to suppressed post-apply reporting (wrapper exits `127` after emitting only the pre-apply entitlement marker). This remains a measurement limitation, not apply-gate evidence.
 
 Planning notes and next validation targets live in `Plan.md`, and all structural-signal artifacts stay under `book/experiments/preflight-blob-digests/out/` until/unless we decide to promote any of them.

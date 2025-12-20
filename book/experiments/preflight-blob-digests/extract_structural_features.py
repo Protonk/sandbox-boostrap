@@ -26,7 +26,14 @@ from book.api.profile_tools import identity as identity_mod  # type: ignore
 from book.api.profile_tools import ingestion as pt_ingestion  # type: ignore
 
 
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
+
+
+def _ratio(numer: Optional[int], denom: Optional[int]) -> Optional[float]:
+    if not isinstance(numer, int) or not isinstance(denom, int) or denom <= 0:
+        return None
+    # Keep a small, stable precision so JSON artifacts are diff-friendly.
+    return round(numer / denom, 6)
 
 
 def _rel(path: Path) -> str:
@@ -84,6 +91,21 @@ def _decode_features(blob: bytes) -> Dict[str, Any]:
     sections = decoded.get("sections") if isinstance(decoded.get("sections"), dict) else {}
     validation = decoded.get("validation") if isinstance(decoded.get("validation"), dict) else {}
 
+    blob_size = len(blob)
+    nodes_bytes = sections.get("nodes") if isinstance(sections, dict) else None
+    literal_pool_bytes = sections.get("literal_pool") if isinstance(sections, dict) else None
+
+    derived = {
+        "op_table_unique_ratio": _ratio(len(set(op_table_list)), len(op_table_list)) if op_table_list else None,
+        "nodes_bytes_ratio": _ratio(nodes_bytes, blob_size),
+        "literal_pool_bytes_ratio": _ratio(literal_pool_bytes, blob_size),
+        "literal_pool_bytes_per_node": _ratio(literal_pool_bytes, decoded.get("node_count") if isinstance(decoded.get("node_count"), int) else None),
+        "literal_strings_per_node": _ratio(
+            (literal_string_count if isinstance(literal_string_count, int) else None),
+            (decoded.get("node_count") if isinstance(decoded.get("node_count"), int) else None),
+        ),
+    }
+
     return {
         "format_variant": decoded.get("format_variant"),
         "op_count": decoded.get("op_count"),
@@ -98,6 +120,7 @@ def _decode_features(blob: bytes) -> Dict[str, Any]:
         "tags_present_count": len(tags_present),
         "tag_total_count": sum(tag_counts.values()),
         "literal_string_count": literal_string_count,
+        "derived": derived,
         "sections": {
             "op_table": sections.get("op_table"),
             "nodes": sections.get("nodes"),
@@ -249,4 +272,3 @@ def main(argv: List[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

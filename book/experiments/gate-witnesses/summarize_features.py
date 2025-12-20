@@ -24,7 +24,7 @@ if str(ROOT) not in sys.path:
 from book.api.runtime import events as runtime_events  # type: ignore
 
 
-TOOL_PATH = ROOT / "book" / "tools" / "gate-minimizer" / "gate_minimizer.py"
+TOOL_PATH = ROOT / "book" / "tools" / "preflight" / "gate_minimizer.py"
 OUT_ROOT = ROOT / "book" / "experiments" / "gate-witnesses" / "out"
 WITNESS_ROOT = OUT_ROOT / "witnesses"
 
@@ -148,4 +148,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

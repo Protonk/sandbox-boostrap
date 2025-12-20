@@ -12,6 +12,7 @@ Operational preflight (apply-gate avoidance):
 
 ```sh
 python3 book/tools/preflight/preflight.py scan path/to/profile.sb
+python3 book/tools/preflight/preflight.py scan path/to/profile.sb.bin
 ```
 
 If preflight reports `likely_apply_gated_for_harness_identity`, treat it as an environment constraint on this host (blocked evidence), not as a policy decision; see `troubles/EPERMx2.md`.
@@ -32,6 +33,11 @@ Run:
 # Compiled blob
 ./wrapper --blob path/to/profile.sb.bin -- <cmd> [args...]
 
+# Preflight policy (default: enforce)
+./wrapper --preflight enforce --sbpl path/to/profile.sb -- <cmd> [args...]
+./wrapper --preflight off --blob path/to/profile.sb.bin -- <cmd> [args...]
+./wrapper --preflight force --sbpl path/to/profile.sb -- <cmd> [args...]
+
 # Compile-only (no apply): SBPL -> .sb.bin
 ./wrapper --compile path/to/profile.sb --out path/to/profile.sb.bin
 ```
@@ -42,3 +48,4 @@ It emits one JSONL marker per phase on stderr so runners can classify failures m
 
 - `tool:"sbpl-apply"` with `stage:{apply,applied,exec}` for the apply/exec phases
 - `tool:"sbpl-compile"` with `stage:"compile"` for compile-only runs (`--compile`)
+- `tool:"sbpl-preflight"` with `stage:"preflight"` for wrapper-side static preflight (apply-gate avoidance)

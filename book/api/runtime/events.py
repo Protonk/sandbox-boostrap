@@ -82,6 +82,7 @@ def _validate_probe_contract(
     """
 
     sbpl_markers = rt_contract.extract_sbpl_apply_markers(stderr_raw)
+    preflight_markers = rt_contract.extract_sbpl_preflight_markers(stderr_raw)
     seatbelt_markers = rt_contract.extract_seatbelt_callout_markers(stderr_raw)
     entitlement_markers = rt_contract.extract_entitlement_check_markers(stderr_raw)
 
@@ -96,6 +97,10 @@ def _validate_probe_contract(
         ver = marker.get("marker_schema_version", 0)
         if ver not in rt_contract.SUPPORTED_SBPL_APPLY_MARKER_SCHEMA_VERSIONS:
             raise AssertionError(f"unsupported sbpl-apply marker_schema_version: {ver}")
+    for marker in preflight_markers:
+        ver = marker.get("marker_schema_version", 0)
+        if ver not in rt_contract.SUPPORTED_SBPL_PREFLIGHT_MARKER_SCHEMA_VERSIONS:
+            raise AssertionError(f"unsupported sbpl-preflight marker_schema_version: {ver}")
     for marker in seatbelt_markers:
         ver = marker.get("marker_schema_version", 0)
         if ver not in rt_contract.SUPPORTED_SEATBELT_CALLOUT_MARKER_SCHEMA_VERSIONS:
@@ -141,6 +146,15 @@ def _validate_probe_contract(
                 raise AssertionError("runner_info missing tool_build_id")
             if tool_build != entry_sha:
                 raise AssertionError("runner_info.tool_build_id does not match entrypoint_sha256")
+
+    failure_stage = runtime_result.get("failure_stage")
+    if failure_stage == "preflight":
+        if runtime_result.get("status") != "blocked":
+            raise AssertionError("failure_stage=preflight but status!=blocked")
+        if runtime_result.get("apply_report") is not None:
+            raise AssertionError("failure_stage=preflight but apply_report is present")
+        if sbpl_markers:
+            raise AssertionError("failure_stage=preflight but sbpl-apply markers are present")
 
 def derive_expectation_id(profile_id: str, operation: Optional[str], target: Optional[str]) -> str:
     """
@@ -387,6 +401,8 @@ def normalize_metadata_runner_results(
         if not profile_id:
             continue
 
+        preflight = row.get("preflight") if isinstance(row.get("preflight"), Mapping) else None
+
         op = row.get("operation") or row.get("op") or ""
         op = str(op) if op is not None else ""
         target = row.get("requested_path") or row.get("path")
@@ -420,50 +436,69 @@ def normalize_metadata_runner_results(
         sbpl_markers = rt_contract.extract_sbpl_apply_markers(stderr_raw)
         seatbelt_markers = rt_contract.extract_seatbelt_callout_markers(stderr_raw)
 
-        apply_report = rt_contract.derive_apply_report_from_markers(sbpl_markers) if sbpl_markers else None
-        if apply_report is None:
-            apply_mode = row.get("apply_mode")
-            apply_rc = row.get("apply_rc")
-            api = None
-            if apply_mode == "sbpl":
-                api = "sandbox_init"
-            elif apply_mode == "blob":
-                api = "sandbox_apply"
-            if api and isinstance(apply_rc, int):
-                err = row.get("apply_errno") if isinstance(row.get("apply_errno"), int) else (0 if apply_rc == 0 else None)
-                errbuf = row.get("apply_errbuf") if isinstance(row.get("apply_errbuf"), str) else None
-                err_class, source = rt_contract.classify_apply_err_class(api, apply_rc, err, errbuf)
-                apply_report = {
-                    "api": api,
-                    "rc": apply_rc,
-                    "errno": err,
-                    "errbuf": errbuf,
-                    "err_class": err_class,
-                    "err_class_source": source,
-                }
-
         status = row.get("status")
-        runtime_status = "success" if status == "ok" else "errno"
-        syscall_errno = row.get("errno") if isinstance(row.get("errno"), int) else None
-        observed_errno = None if status == "ok" else syscall_errno
-
         failure_stage: Optional[str] = None
         failure_kind: Optional[str] = None
-        if isinstance(apply_report, dict) and isinstance(apply_report.get("rc"), int) and apply_report.get("rc") != 0:
-            failure_stage = "apply"
-            api = apply_report.get("api")
-            err_class = apply_report.get("err_class")
-            if err_class == "already_sandboxed":
-                failure_kind = "apply_already_sandboxed"
-            else:
-                failure_kind = f"{api}_failed" if isinstance(api, str) and api else "apply_failed"
-            observed_errno = apply_report.get("errno") if isinstance(apply_report.get("errno"), int) else observed_errno
-        elif status != "ok":
-            failure_stage = "probe"
-            failure_kind = "probe_syscall_errno"
+        apply_report = None
+        runtime_status: str
+        observed_errno: Optional[int] = None
+        actual: Optional[str]
+        violation_summary: Optional[str]
 
-        actual = "allow" if status == "ok" else "deny"
-        violation_summary = "EPERM" if (status != "ok" and observed_errno == 1) else None
+        row_failure_stage = row.get("failure_stage")
+        row_failure_kind = row.get("failure_kind")
+        if row_failure_stage == "preflight" or status == "blocked":
+            runtime_status = "blocked"
+            failure_stage = "preflight"
+            failure_kind = (
+                str(row_failure_kind)
+                if isinstance(row_failure_kind, str) and row_failure_kind
+                else "preflight_apply_gate_signature"
+            )
+            actual = None
+            violation_summary = None
+        else:
+            apply_report = rt_contract.derive_apply_report_from_markers(sbpl_markers) if sbpl_markers else None
+            if apply_report is None:
+                apply_mode = row.get("apply_mode")
+                apply_rc = row.get("apply_rc")
+                api = None
+                if apply_mode == "sbpl":
+                    api = "sandbox_init"
+                elif apply_mode == "blob":
+                    api = "sandbox_apply"
+                if api and isinstance(apply_rc, int):
+                    err = row.get("apply_errno") if isinstance(row.get("apply_errno"), int) else (0 if apply_rc == 0 else None)
+                    errbuf = row.get("apply_errbuf") if isinstance(row.get("apply_errbuf"), str) else None
+                    err_class, source = rt_contract.classify_apply_err_class(api, apply_rc, err, errbuf)
+                    apply_report = {
+                        "api": api,
+                        "rc": apply_rc,
+                        "errno": err,
+                        "errbuf": errbuf,
+                        "err_class": err_class,
+                        "err_class_source": source,
+                    }
+
+            runtime_status = "success" if status == "ok" else "errno"
+            syscall_errno = row.get("errno") if isinstance(row.get("errno"), int) else None
+            observed_errno = None if status == "ok" else syscall_errno
+
+            if isinstance(apply_report, dict) and isinstance(apply_report.get("rc"), int) and apply_report.get("rc") != 0:
+                failure_stage = "apply"
+                api = apply_report.get("api")
+                err_class = apply_report.get("err_class")
+                if err_class == "already_sandboxed":
+                    failure_kind = "apply_already_sandboxed"
+                else:
+                    failure_kind = f"{api}_failed" if isinstance(api, str) and api else "apply_failed"
+                observed_errno = apply_report.get("errno") if isinstance(apply_report.get("errno"), int) else observed_errno
+            elif status != "ok":
+                failure_stage = "probe"
+                failure_kind = "probe_syscall_errno"
+
+            actual = "allow" if status == "ok" else "deny"
+            violation_summary = "EPERM" if (status != "ok" and observed_errno == 1) else None
 
         runtime_result = {
             "status": runtime_status,
@@ -507,6 +542,7 @@ def normalize_metadata_runner_results(
                 failure_stage=failure_stage,
                 failure_kind=failure_kind,
                 apply_report=apply_report,
+                preflight=dict(preflight) if preflight is not None else None,
                 runner_info=base_runner_info,
                 seatbelt_callouts=seatbelt_markers or None,
                 violation_summary=violation_summary,

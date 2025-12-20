@@ -1,18 +1,17 @@
 # SBPL Wrapper – Plan
 
-Goal: provide a tiny helper that can apply an SBPL text file or a compiled `.sb.bin` to the current process (or a child) and run a command, so runtime-checks can exercise system profiles (airlock/bsd) and other compiled policies.
+Goal: provide a tiny harness for applying SBPL text or compiled `.sb.bin` blobs to a process and running a command, with mechanically classifiable phase markers for the runtime contract layer.
 
-Approach: SBPL text application via `sandbox_init` is implemented in `wrapper.c` (`--sbpl <profile> -- <cmd>`). Binary-apply mode remains TODO.
+Status (current)
 
-Steps
-1) **Binary mode (TODO)**
-   - Add a `--blob <profile.sb.bin>` path that loads the compiled blob and applies it (via `sandbox_apply` or similar) before exec.
-   - Handle errors and keep the CLI consistent with SBPL mode.
+- Apply surfaces:
+  - `--sbpl <profile.sb> -- <cmd>…` uses `sandbox_init`.
+  - `--blob <profile.sb.bin> -- <cmd>…` uses `sandbox_apply`.
+  - `--compile <profile.sb> [--out <path>]` compiles only (no apply).
+- Marker contract: emits JSONL `tool:"sbpl-apply"` / `tool:"sbpl-compile"` markers on stderr so runners can classify failures without substring heuristics.
+- Operational preflight: `--preflight {off|enforce|force}` runs `book/tools/preflight` on the input profile before attempting apply and emits a `tool:"sbpl-preflight"` marker. In `enforce` mode, known apply-gate signatures short-circuit before apply (blocked evidence). This is an operational guardrail, not a semantic claim; see `troubles/EPERMx2.md`.
 
-2) **Wire into runtime-checks**
-   - Point `runtime-checks/run_probes.py` (or a sibling helper) at this wrapper for `sys:airlock`/`sys:bsd` entries in `expected_matrix.json`.
-   - If using SBPL text from `sbdis`, keep shims minimal. If using blobs, ensure the apply path works on this host.
+Near-term guardrails
 
-3) **Tests/Docs**
-   - Keep the guardrail test (`tests/test_sbpl_wrapper_exists.py`) in sync.
-   - Update README once blob mode lands and integration is done.
+- Keep `make -C book test` green (tests cover wrapper existence and preflight behavior).
+- Keep wrapper stderr marker-free after normalization: markers must be stripped by `book/api/runtime/contract.py`.

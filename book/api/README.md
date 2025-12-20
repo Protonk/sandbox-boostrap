@@ -32,6 +32,9 @@ Example:
 ```sh
 # build the wrapper per book/api/SBPL-wrapper/README
 book/api/SBPL-wrapper/wrapper --blob /tmp/sample.sb.bin -- /bin/true
+
+# force apply even if preflight flags a known apply-gate signature
+book/api/SBPL-wrapper/wrapper --preflight force --sbpl /System/Library/Sandbox/Profiles/airlock.sb -- /usr/bin/true
 ```
 
 Operational preflight (apply-gate avoidance):
@@ -89,6 +92,13 @@ Example:
 python -m book.api.runtime_harness.cli generate --matrix book/experiments/runtime-checks/out/expected_matrix.json
 python -m book.api.runtime_harness.cli run --matrix book/profiles/golden-triple/expected_matrix.json --out book/profiles/golden-triple/
 ```
+
+Preflight (apply-gate avoidance):
+- By default, the runtime harness runs `book/tools/preflight` for SBPL (`.sb`) and compiled SBPL blobs (`.sb.bin`); on a known apply-gate signature it emits `failure_stage:"preflight"` without attempting apply.
+- Override knobs:
+  - Disable globally: `SANDBOX_LORE_PREFLIGHT=0`
+  - Force apply even if preflight flags a signature: `SANDBOX_LORE_PREFLIGHT_FORCE=1`
+  - Per-profile override in `expected_matrix.json`: `"preflight": {"mode": "off"|"force"|"enforce"}`
 
 ## CARTON conversion assessment
 

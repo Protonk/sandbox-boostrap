@@ -9,6 +9,7 @@
  *
  * Marker families:
  * - tool:"sbpl-apply" with stage apply|applied|exec
+ * - tool:"sbpl-preflight" with stage preflight (static apply-gate avoidance)
  * - tool:"seatbelt-callout" for optional sandbox_check_by_audit_token callouts
  * - tool:"entitlement-check" for optional runtime-effective entitlement probes
  *
@@ -31,9 +32,11 @@
 #define SANDBOX_LORE_SBPL_APPLY_MARKER_SCHEMA_VERSION 1
 #define SANDBOX_LORE_SEATBELT_CALLOUT_MARKER_SCHEMA_VERSION 2
 #define SANDBOX_LORE_SBPL_COMPILE_MARKER_SCHEMA_VERSION 1
+#define SANDBOX_LORE_SBPL_PREFLIGHT_MARKER_SCHEMA_VERSION 1
 #define SANDBOX_LORE_ENTITLEMENT_CHECK_MARKER_SCHEMA_VERSION 1
 
 #define SANDBOX_LORE_SBPL_APPLY_TOOL "sbpl-apply"
+#define SANDBOX_LORE_SBPL_PREFLIGHT_TOOL "sbpl-preflight"
 #define SANDBOX_LORE_SEATBELT_CALLOUT_TOOL "seatbelt-callout"
 #define SANDBOX_LORE_SBPL_COMPILE_TOOL "sbpl-compile"
 #define SANDBOX_LORE_ENTITLEMENT_CHECK_TOOL "entitlement-check"
@@ -330,6 +333,38 @@ static void sbl_emit_sbpl_exec_marker(int rc, int err, const char *argv0) {
     sbl_json_emit_kv_int(out, &first, "rc", rc);
     sbl_json_emit_kv_int(out, &first, "errno", err);
     sbl_json_emit_kv_string(out, &first, "argv0", argv0);
+    sbl_json_emit_kv_int(out, &first, "pid", (long)getpid());
+    fputs("}\n", out);
+    fflush(out);
+}
+
+/*
+ * Emit a marker for wrapper-side static preflight checks.
+ *
+ * This marker is intended as an input to normalization (and is stripped from
+ * canonical stderr). It records whether preflight ran, what policy was in
+ * effect, and the preflight tool's exit code.
+ */
+static void sbl_emit_sbpl_preflight_marker(
+    const char *mode,
+    const char *policy,
+    const char *profile_path,
+    int rc,
+    const char *record_json,
+    const char *error
+) {
+    FILE *out = stderr;
+    int first = 1;
+    fputc('{', out);
+    sbl_json_emit_kv_string(out, &first, "tool", SANDBOX_LORE_SBPL_PREFLIGHT_TOOL);
+    sbl_json_emit_kv_int(out, &first, "marker_schema_version", SANDBOX_LORE_SBPL_PREFLIGHT_MARKER_SCHEMA_VERSION);
+    sbl_json_emit_kv_string(out, &first, "stage", "preflight");
+    sbl_json_emit_kv_string(out, &first, "mode", mode);
+    sbl_json_emit_kv_string(out, &first, "policy", policy);
+    sbl_json_emit_kv_string(out, &first, "profile", profile_path);
+    sbl_json_emit_kv_int(out, &first, "rc", rc);
+    sbl_json_emit_kv_string(out, &first, "record_json", record_json);
+    sbl_json_emit_kv_string(out, &first, "error", error);
     sbl_json_emit_kv_int(out, &first, "pid", (long)getpid());
     fputs("}\n", out);
     fflush(out);

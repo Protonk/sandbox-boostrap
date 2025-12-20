@@ -1,14 +1,21 @@
 # Preflight (profile enterability guardrail)
 
-This tool is a **cheap, static preflight** for runtime sandbox work on the fixed SANDBOX_LORE baseline (`world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`).
+This directory houses two related apply-gate tools for runtime sandbox work on the fixed SANDBOX_LORE baseline (`world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`):
 
-It answers one operational question:
+- `scan` (static): conservative apply-gate avoidance.
+- `minimize-gate` (dynamic): delta-debugger that shrinks apply-gated SBPL into a minimal failing + passing neighbor.
+
+The intent is to stop agents and runners from learning about apply gating by repeatedly crashing into it and then narrating `EPERM` as a policy decision.
+
+## `scan`: what it does
+
+`scan` answers one operational question:
 
 > “Is this profile shape known to be **apply-gated** for the harness identity on this world, such that attempts to `sandbox_init` / `sandbox_apply` will predictably fail with `EPERM` (apply-stage)?”
 
 The intent is to stop agents and runners from learning about apply gating by repeatedly crashing into it and then narrating `EPERM` as a policy decision.
 
-## What it does
+### What it does
 
 Given either:
 - SBPL source text (`.sb`)
@@ -35,7 +42,7 @@ Digest signature (exact-match; host-scoped list):
   - `book/graph/concepts/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json`
   - `book/experiments/preflight-blob-digests/Report.md`
 
-## Usage
+### Usage
 
 From repo root:
 
@@ -53,8 +60,33 @@ Exit codes:
 - `2` – at least one input is `likely_apply_gated_for_harness_identity`
 - `1` – at least one input is `invalid` or `unsupported`
 
+## `minimize-gate`: delta-debug apply gating
+
+`minimize-gate` turns “apply-stage `EPERM`” into a shrinkable boundary object by repeatedly deleting SBPL structure while preserving the predicate:
+
+- `failure_stage == "apply"`
+- `apply_report.errno == EPERM` (1)
+
+It produces:
+
+- `minimal_failing.sb` (still apply-gated with `EPERM`)
+- `passing_neighbor.sb` (one-deletion neighbor that is not apply-gated; may still fail at bootstrap and that is recorded)
+
+Usage:
+
+```sh
+python3 book/tools/preflight/preflight.py minimize-gate \
+  --input /System/Library/Sandbox/Profiles/airlock.sb \
+  --out-dir book/experiments/gate-witnesses/out/witnesses/airlock \
+  --confirm 10
+```
+
+`minimize-gate` is contract-driven: it executes candidates via `book/api/SBPL-wrapper/wrapper` and classifies outcomes using tool markers parsed by `book/api/runtime/contract.py` (not stderr substrings).
+
 ## Notes
 
-- This tool is intentionally **static**: it does not compile or apply profiles.
+- `scan` is intentionally **static**: it does not compile or apply profiles.
+- `minimize-gate` is intentionally **dynamic**: it compiles/applies profiles via SBPL-wrapper to witness apply-stage outcomes mechanically.
 - This tool is intentionally **conservative**: it prefers “avoid dead ends” over “explain why”.
 - Apply gating is “blocked” evidence for runtime semantics on this host; see `troubles/EPERMx2.md` for the repo’s phase discipline.
+- For a repo-wide, checked-in inventory of this tool’s classifications over in-repo profile inputs, see `book/experiments/preflight-index/out/preflight_enterability_manifest.json` and `book/experiments/preflight-index/out/summary.json`.

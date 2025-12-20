@@ -31,10 +31,13 @@ The target is not “explain why” or “generalize across macOS”; it’s to 
 - Frozen labeled sets: `out/structural_signal_sets.json`
 - Structural features per digest: `out/blob_structural_features.json`
 - Candidate signatures (labeled-set only): `out/structural_signature_candidates.json`
-- Candidate scan across the corpus: `out/structural_signature_scan.json`
+- Candidate scans across the corpus:
+  - `out/structural_signature_scan.json` (high-precision threshold)
+  - `out/structural_signature_scan.p75.json` (relaxed threshold for planning)
 - Apply-validation batches:
   - `out/blob_apply_matrix.structural_validation_batch1.json`
   - `out/blob_apply_matrix.structural_validation_batch2.json`
+  - `out/blob_apply_matrix.structural_validation_batch3_scan_shortlist.json`
 
 ### Next steps (structural signal listening)
 
@@ -42,4 +45,4 @@ The target is not “explain why” or “generalize across macOS”; it’s to 
 - Expand the control (known-not-apply-gated) set by applying a few structurally diverse, non-gated blobs in control_ok contexts.
 - Validate a small number of *unknown* digests chosen by rare predicates (e.g., `node_count_eq_op_count`) rather than broad tag ORs.
 - Treat “post-apply reporting suppressed” outcomes (wrapper emits pre-apply markers but no post-apply markers/stderr) as a distinct measurement limitation and keep them out of the apply-gate witness set.
-- Add one additional “structure-only” feature family if needed (for example: tag-count ratios, op-table entry uniqueness, literal-pool density), but keep any derived signatures explicitly partial/brittle until validated.
+- Add one additional “structure-only” feature family if needed (for example: tag-count ratios, op-table entry uniqueness, literal-pool density), but keep any derived signatures explicitly partial/brittle until validated. (Current: derived ratio scalars are implemented and already show false positives once controls expand.)

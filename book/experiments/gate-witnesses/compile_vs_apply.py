@@ -211,11 +211,11 @@ def main() -> int:
         failing_compile = _run([str(wrapper), "--compile", str(failing_sb), "--out", str(failing_blob)])
         neighbor_compile = _run([str(wrapper), "--compile", str(neighbor_sb), "--out", str(neighbor_blob)])
 
-        failing_apply_blob = _run([str(wrapper), "--blob", str(failing_blob), "--", "/usr/bin/true"])
-        neighbor_apply_blob = _run([str(wrapper), "--blob", str(neighbor_blob), "--", "/usr/bin/true"])
+        failing_apply_blob = _run([str(wrapper), "--preflight", "force", "--blob", str(failing_blob), "--", "/usr/bin/true"])
+        neighbor_apply_blob = _run([str(wrapper), "--preflight", "force", "--blob", str(neighbor_blob), "--", "/usr/bin/true"])
 
-        failing_apply_sbpl = _run([str(wrapper), "--sbpl", str(failing_sb), "--", "/usr/bin/true"])
-        neighbor_apply_sbpl = _run([str(wrapper), "--sbpl", str(neighbor_sb), "--", "/usr/bin/true"])
+        failing_apply_sbpl = _run([str(wrapper), "--preflight", "force", "--sbpl", str(failing_sb), "--", "/usr/bin/true"])
+        neighbor_apply_sbpl = _run([str(wrapper), "--preflight", "force", "--sbpl", str(neighbor_sb), "--", "/usr/bin/true"])
 
         failing_compile_report = _compile_report(failing_compile.stderr_raw)
         neighbor_compile_report = _compile_report(neighbor_compile.stderr_raw)
@@ -278,7 +278,7 @@ def main() -> int:
         sb_path = v["path"]
         blob_path = sb_path.with_suffix(".sb.bin")
         compile_run = _run([str(wrapper), "--compile", str(sb_path), "--out", str(blob_path)])
-        apply_run = _run([str(wrapper), "--blob", str(blob_path), "--", "/usr/bin/true"]) if blob_path.exists() else None
+        apply_run = _run([str(wrapper), "--preflight", "force", "--blob", str(blob_path), "--", "/usr/bin/true"]) if blob_path.exists() else None
         compile_report = _compile_report(compile_run.stderr_raw)
         apply_report = None if apply_run is None else _apply_report(apply_run.stderr_raw)
 

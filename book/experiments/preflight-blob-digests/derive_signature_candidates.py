@@ -24,7 +24,7 @@ if str(REPO_ROOT) not in sys.path:
 from book.api.path_utils import to_repo_relative  # type: ignore
 from book.api.profile_tools import identity as identity_mod  # type: ignore
 
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
 
 DEFAULT_FEATURES = REPO_ROOT / "book/experiments/preflight-blob-digests/out/blob_structural_features.json"
 
@@ -53,6 +53,16 @@ def _int_field(features: Dict[str, Any], field: str) -> Optional[int]:
     v = features.get(field)
     if isinstance(v, int):
         return v
+    return None
+
+
+def _derived_float(features: Dict[str, Any], key: str) -> Optional[float]:
+    derived = features.get("derived")
+    if not isinstance(derived, dict):
+        return None
+    v = derived.get(key)
+    if isinstance(v, (int, float)):
+        return float(v)
     return None
 
 
@@ -152,6 +162,32 @@ def _candidate_node_count_eq_op_count() -> Tuple[Dict[str, Any], Callable[[Dict[
     return cand, pred
 
 
+def _candidate_literal_pool_ratio_ge(threshold: float) -> Tuple[Dict[str, Any], Callable[[Dict[str, Any]], bool]]:
+    cand = {"kind": "literal_pool_bytes_ratio_ge", "threshold": float(threshold)}
+
+    def pred(row: Dict[str, Any]) -> bool:
+        feats = row.get("features") or {}
+        if not isinstance(feats, dict):
+            return False
+        ratio = _derived_float(feats, "literal_pool_bytes_ratio")
+        return ratio is not None and ratio >= float(threshold)
+
+    return cand, pred
+
+
+def _candidate_op_table_unique_ratio_le(threshold: float) -> Tuple[Dict[str, Any], Callable[[Dict[str, Any]], bool]]:
+    cand = {"kind": "op_table_unique_ratio_le", "threshold": float(threshold)}
+
+    def pred(row: Dict[str, Any]) -> bool:
+        feats = row.get("features") or {}
+        if not isinstance(feats, dict):
+            return False
+        ratio = _derived_float(feats, "op_table_unique_ratio")
+        return ratio is not None and ratio <= float(threshold)
+
+    return cand, pred
+
+
 def _candidate_id(cand: Dict[str, Any]) -> str:
     kind = str(cand.get("kind"))
     if kind == "tag_present":
@@ -163,6 +199,10 @@ def _candidate_id(cand: Dict[str, Any]) -> str:
         return f"tags_present_count_eq:{cand.get('n')}"
     if kind == "node_count_eq_op_count":
         return "node_count_eq_op_count"
+    if kind == "literal_pool_bytes_ratio_ge":
+        return f"literal_pool_bytes_ratio_ge:{cand.get('threshold')}"
+    if kind == "op_table_unique_ratio_le":
+        return f"op_table_unique_ratio_le:{cand.get('threshold')}"
     return kind
 
 
@@ -232,6 +272,17 @@ def main(argv: List[str] | None = None) -> int:
         cand, pred = _candidate_tags_present_count_eq(n)
         candidates.append({"id": _candidate_id(cand), **cand, "labeled_metrics": _metrics(positives, negatives, pred)})
 
+    # Derived "density/ratio" candidates (new; still structural-only).
+    literal_pool_ratio_thresholds = [0.05, 0.1, 0.25, 0.5, 0.75]
+    for t in literal_pool_ratio_thresholds:
+        cand, pred = _candidate_literal_pool_ratio_ge(t)
+        candidates.append({"id": _candidate_id(cand), **cand, "labeled_metrics": _metrics(positives, negatives, pred)})
+
+    op_table_unique_ratio_thresholds = [0.1, 0.2, 0.25, 0.5]
+    for t in op_table_unique_ratio_thresholds:
+        cand, pred = _candidate_op_table_unique_ratio_le(t)
+        candidates.append({"id": _candidate_id(cand), **cand, "labeled_metrics": _metrics(positives, negatives, pred)})
+
     # Single-tag predicates on core_tags.
     for t in core_tags:
         cand, pred = _candidate_tag_present(t)
@@ -263,6 +314,7 @@ def main(argv: List[str] | None = None) -> int:
         "notes": [
             "These are *candidate* structural signatures derived from a very small labeled set.",
             "Treat any correlation as partial/brittle until expanded and regression-checked.",
+            "The derived ratio candidates (literal-pool density, op-table uniqueness ratio) are structural-only and do not imply anything about semantics.",
         ],
     }
     args.out.parent.mkdir(parents=True, exist_ok=True)
@@ -272,4 +324,3 @@ def main(argv: List[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

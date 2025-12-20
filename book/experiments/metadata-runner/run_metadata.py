@@ -217,8 +217,33 @@ def run_probe(binary: Path, sb_path: Path, op: str, syscall: str, attr_payload: 
 def run_matrix(binary: Path, blobs: Dict[str, Path]) -> Path:
     results: List[Dict[str, Any]] = []
     repo_root = find_repo_root(Path(__file__))
+    preflight_enabled = os.environ.get("SANDBOX_LORE_PREFLIGHT") != "0"
+    preflight_force = os.environ.get("SANDBOX_LORE_PREFLIGHT_FORCE") == "1"
+    preflight_cache: Dict[str, Dict[str, Any] | None] = {}
+    preflight_blocked: Dict[str, bool] = {}
+
+    if preflight_enabled:
+        try:
+            from book.tools.preflight import preflight as preflight_mod  # type: ignore
+
+            for profile_id, sb_path in PROFILE_SOURCES.items():
+                try:
+                    rec_obj = preflight_mod.preflight_path(sb_path)
+                    preflight_cache[profile_id] = rec_obj.to_json()
+                    preflight_blocked[profile_id] = (
+                        rec_obj.classification == "likely_apply_gated_for_harness_identity" and not preflight_force
+                    )
+                except Exception:
+                    preflight_cache[profile_id] = None
+                    preflight_blocked[profile_id] = False
+        except Exception:
+            preflight_cache = {}
+            preflight_blocked = {}
+
     for profile_id, blob in blobs.items():
         sb_path = PROFILE_SOURCES[profile_id]
+        preflight_record = preflight_cache.get(profile_id)
+        is_blocked = preflight_blocked.get(profile_id, False)
         for op in OPS:
             syscalls = READ_SYSCALLS if op == "file-read-metadata" else WRITE_SYSCALLS
             for alias, canonical in PATH_PAIRS:
@@ -226,7 +251,21 @@ def run_matrix(binary: Path, blobs: Dict[str, Path]) -> Path:
                     for syscall in syscalls:
                         payloads = READ_ATTR_PAYLOADS if (op == "file-read-metadata" and syscall in ("getattrlist", "setattrlist")) else ["cmn"]
                         for payload in payloads:
-                            rec = run_probe(binary, sb_path, op, syscall, payload, target)
+                            if is_blocked:
+                                rec: Dict[str, Any] = {
+                                    "stdout": "",
+                                    "stderr": "",
+                                    "returncode": None,
+                                    "status": "blocked",
+                                    "failure_stage": "preflight",
+                                    "failure_kind": "preflight_apply_gate_signature",
+                                    "preflight": preflight_record,
+                                    "message": "preflight blocked: known apply-gate signature",
+                                }
+                            else:
+                                rec = run_probe(binary, sb_path, op, syscall, payload, target)
+                                if preflight_record is not None:
+                                    rec["preflight"] = preflight_record
                             rec.update(
                                 {
                                     "profile_id": profile_id,

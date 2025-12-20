@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
 """
-Static preflight for profile enterability (apply-gate avoidance).
+Preflight tooling for profile enterability (apply-gate discipline).
 
 This tool exists to prevent agents from repeatedly rediscovering that certain
 SBPL profile shapes are apply-gated (sandbox_init/sandbox_apply fail with EPERM)
 for the harness identity on this host baseline.
+
+Subcommands:
+- `scan`: cheap, static apply-gate avoidance (used by SBPL-wrapper).
+- `minimize-gate`: delta-debug an apply-gated SBPL into a minimal failing + passing neighbor.
 """
 
 from __future__ import annotations
@@ -341,7 +345,16 @@ def _scan_cmd(argv: argparse.Namespace) -> int:
 
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
-    ap = argparse.ArgumentParser(prog="preflight")
+    argv_list = list(sys.argv[1:] if argv is None else argv)
+    if argv_list and argv_list[0] == "minimize-gate":
+        from book.tools.preflight import gate_minimizer  # type: ignore
+
+        return int(gate_minimizer.main(argv_list[1:]))
+
+    ap = argparse.ArgumentParser(
+        prog="preflight",
+        epilog="Other command: minimize-gate (delta-debug apply gating). Run: preflight minimize-gate --help",
+    )
     sub = ap.add_subparsers(dest="cmd", required=True)
 
     scan = sub.add_parser("scan", help="scan profile inputs for known apply-gate signatures")

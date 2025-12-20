@@ -128,12 +128,13 @@ These are practical “don’t waste cycles” constraints derived from the curr
 ## Tooling resolution (avoid re-learning apply gating)
 
 - `book/tools/preflight/` is the canonical operational avoidance tool for known apply-gate signatures (deny-style message filtering today).
-- `book/api/runtime_harness/runner.py` runs this preflight for SBPL inputs and, when blocked, emits `failure_stage:"preflight"` / `failure_kind:"preflight_apply_gate_signature"` instead of attempting an apply that would fail at `sandbox_init`/`sandbox_apply`.
+- `book/experiments/preflight-index/out/preflight_enterability_manifest.json` is a checked-in, repo-wide inventory of preflight classifications over in-repo profile inputs (use it as an artifact-driven “pick from the no-known-signature set” aid).
+- `book/api/runtime_harness/runner.py` runs this preflight for SBPL (`.sb`) and compiled SBPL blobs (`.sb.bin`) and, when blocked, emits `failure_stage:"preflight"` / `failure_kind:"preflight_apply_gate_signature"` instead of attempting an apply that would fail at `sandbox_init`/`sandbox_apply`.
 - This is a tooling choice to preserve the repo’s evidence discipline: it prevents accidental “EPERM means deny” stories when a Profile never attached.
 
 ## Evidencing gaps (what a reasonable critic could demand)
 
-- Extend the preflight scanner beyond SBPL by recognizing known apply-gated compiled-blob digests (`.sb.bin`) as a host-bound, witness-backed avoidance rule.
+- Beyond exact digest match: discover a structural signal (if one exists) that correlates with the current apply-gate witness set, so preflight can be extended without growing an unbounded digest list.
 
 ## Drift / inconsistencies to record (do not resolve by “averaging stories”)
 

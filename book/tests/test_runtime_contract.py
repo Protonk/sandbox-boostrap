@@ -50,6 +50,7 @@ def test_strip_tool_markers_removes_only_tool_lines():
     stderr_raw = "\n".join(
         [
             "human error line",
+            '{"tool":"sbpl-preflight","marker_schema_version":1,"stage":"preflight","mode":"sbpl","policy":"enforce","profile":"p.sb","rc":0,"pid":123}',
             '{"tool":"sbpl-compile","marker_schema_version":1,"stage":"compile","api":"sandbox_compile_file","rc":0,"errno":0,"profile":"p.sb","profile_type":0,"bytecode_length":123}',
             '{"tool":"sbpl-apply","marker_schema_version":1,"stage":"apply","api":"sandbox_init","rc":-1,"errno":1,"errbuf":"Operation not permitted","err_class":"errno_eperm","err_class_source":"errno_only"}',
             '{"tool":"seatbelt-callout","marker_schema_version":2,"stage":"preflight","api":"sandbox_check_by_audit_token","operation":"file-read*","filter_type":0,"filter_type_name":"path","check_type":0,"varargs_count":1,"argument":"/tmp/foo","no_report":true,"token_status":"ok","token_mach_kr":0,"rc":1,"errno":0,"decision":"deny"}',
@@ -88,6 +89,10 @@ def test_assert_no_tool_markers_in_stderr_rejects_markers():
         rt_contract.assert_no_tool_markers_in_stderr(
             '{"tool":"sbpl-compile","marker_schema_version":1,"stage":"compile","api":"sandbox_compile_file","rc":0,"errno":0}\n'
         )
+    with pytest.raises(AssertionError):
+        rt_contract.assert_no_tool_markers_in_stderr(
+            '{"tool":"sbpl-preflight","marker_schema_version":1,"stage":"preflight","mode":"sbpl","policy":"enforce","profile":"p.sb","rc":2}\n'
+        )
 
 
 def test_normalize_runtime_results_strips_markers_and_derives_apply_report():
@@ -122,6 +127,19 @@ def test_normalize_runtime_results_rejects_out_of_order_markers():
 def test_normalize_runtime_results_rejects_unsupported_marker_schema_version():
     stderr_raw = '{"tool":"sbpl-apply","marker_schema_version":99,"stage":"apply","api":"sandbox_init","rc":0,"errno":0}\n'
     expected_matrix, runtime_results = _matrix_and_results_with_probe(stderr_raw)
+    with pytest.raises(AssertionError):
+        rt_events.normalize_runtime_results(expected_matrix, runtime_results)
+
+
+def test_normalize_runtime_results_rejects_preflight_stage_with_apply_markers():
+    stderr_raw = '{"tool":"sbpl-apply","marker_schema_version":1,"stage":"apply","api":"sandbox_init","rc":-1,"errno":1}\n'
+    runtime_result = {
+        "status": "blocked",
+        "errno": None,
+        "failure_stage": "preflight",
+        "failure_kind": "preflight_apply_gate_signature",
+    }
+    expected_matrix, runtime_results = _matrix_and_results_with_probe(stderr_raw, runtime_result=runtime_result)
     with pytest.raises(AssertionError):
         rt_events.normalize_runtime_results(expected_matrix, runtime_results)
 

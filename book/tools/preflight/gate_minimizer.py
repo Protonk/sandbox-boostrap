@@ -2,6 +2,10 @@
 """
 SBPL apply-gate delta-debug minimizer.
 
+This tool lives alongside the static preflight scanner in `book/tools/preflight/`.
+Invoke it via `python3 book/tools/preflight/preflight.py minimize-gate ...` so
+apply-gate tooling stays discoverable in one place.
+
 Given a starting SBPL profile that is apply-gated on this host
 (sandbox_init fails with EPERM), shrink it by deleting structure while
 preserving the predicate:
@@ -322,9 +326,11 @@ class ApplyProbe:
             tmp.write(sbpl_text)
             tmp_path = Path(tmp.name)
 
-        full_cmd = [str(self.wrapper_path), "--sbpl", str(tmp_path), "--"] + list(self.command)
+        full_cmd = [str(self.wrapper_path), "--preflight", "force", "--sbpl", str(tmp_path), "--"] + list(self.command)
         recorded_cmd = [
             path_utils.to_repo_relative(self.wrapper_path, REPO_ROOT),
+            "--preflight",
+            "force",
             "--sbpl",
             "<tmp_sbpl>",
             "--",

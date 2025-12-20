@@ -1640,7 +1640,10 @@
       "sys:airlock": {
         "blob": "/System/Library/Sandbox/Profiles/airlock.sb",
         "mode": "sbpl",
-        "notes": "Platform-only profile expected to fail apply on this host.",
+        "notes": "Platform-only profile expected to fail apply on this host; preflight is enforced so runners do not attempt apply under a generic harness identity.",
+        "preflight": {
+          "mode": "enforce"
+        },
         "probes": [
           {
             "expected": "deny",

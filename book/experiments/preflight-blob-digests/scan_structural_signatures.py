@@ -24,7 +24,7 @@ if str(REPO_ROOT) not in sys.path:
 from book.api.path_utils import to_repo_relative  # type: ignore
 from book.api.profile_tools import identity as identity_mod  # type: ignore
 
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
 
 DEFAULT_FEATURES = REPO_ROOT / "book/experiments/preflight-blob-digests/out/blob_structural_features.json"
 
@@ -53,6 +53,16 @@ def _int_field(features: Dict[str, Any], field: str) -> Optional[int]:
     v = features.get(field)
     if isinstance(v, int):
         return v
+    return None
+
+
+def _derived_float(features: Dict[str, Any], key: str) -> Optional[float]:
+    derived = features.get("derived")
+    if not isinstance(derived, dict):
+        return None
+    v = derived.get(key)
+    if isinstance(v, (int, float)):
+        return float(v)
     return None
 
 
@@ -88,6 +98,18 @@ def _eval_candidate(cand: Dict[str, Any], row: Dict[str, Any]) -> bool:
         node_count = _int_field(feats, "node_count")
         op_count = _int_field(feats, "op_count")
         return node_count is not None and op_count is not None and node_count == op_count
+    if kind == "literal_pool_bytes_ratio_ge":
+        threshold = cand.get("threshold")
+        if not isinstance(threshold, (int, float)):
+            return False
+        ratio = _derived_float(feats, "literal_pool_bytes_ratio")
+        return ratio is not None and ratio >= float(threshold)
+    if kind == "op_table_unique_ratio_le":
+        threshold = cand.get("threshold")
+        if not isinstance(threshold, (int, float)):
+            return False
+        ratio = _derived_float(feats, "op_table_unique_ratio")
+        return ratio is not None and ratio <= float(threshold)
 
     return False
 
@@ -211,4 +233,3 @@ def main(argv: List[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

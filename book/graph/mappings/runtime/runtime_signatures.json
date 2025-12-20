@@ -565,7 +565,10 @@
       "sys:airlock": {
         "blob": "/System/Library/Sandbox/Profiles/airlock.sb",
         "mode": "sbpl",
-        "notes": "Platform-only profile expected to fail apply on this host.",
+        "notes": "Platform-only profile expected to fail apply on this host; preflight is enforced so runners do not attempt apply under a generic harness identity.",
+        "preflight": {
+          "mode": "enforce"
+        },
         "probes": [
           {
             "classification": "uncovered",
@@ -879,30 +882,6 @@
       "probe-op:v4_network_socket_require_all.sb": [
         {
           "edges": [
-            7,
-            1
-          ],
-          "fan_in": 0,
-          "fan_out": 2,
-          "fields": [
-            7,
-            1,
-            2816
-          ],
-          "hi": 0,
-          "idx": 46,
-          "literal_refs": [
-            "Tcom.apple.flow-divert"
-          ],
-          "lo": 2816,
-          "name_lo": null,
-          "ops": [],
-          "raw": 2816,
-          "raw_hex": "0xb00",
-          "tag": 0
-        },
-        {
-          "edges": [
             0,
             0
           ],
@@ -929,30 +908,6 @@
       "probe-op:v5_iokit_class_property.sb": [],
       "probe-op:v6_file_mach_combo.sb": [],
       "probe-op:v7_file_network_combo.sb": [
-        {
-          "edges": [
-            7,
-            1
-          ],
-          "fan_in": 0,
-          "fan_out": 2,
-          "fields": [
-            7,
-            1,
-            2816
-          ],
-          "hi": 0,
-          "idx": 46,
-          "literal_refs": [
-            "Tcom.apple.flow-divert"
-          ],
-          "lo": 2816,
-          "name_lo": null,
-          "ops": [],
-          "raw": 2816,
-          "raw_hex": "0xb00",
-          "tag": 0
-        },
         {
           "edges": [
             0,
@@ -1139,30 +1094,6 @@
       "probe:net_require_all_domain_type_proto.sb": [
         {
           "edges": [
-            7,
-            1
-          ],
-          "fan_in": 0,
-          "fan_out": 2,
-          "fields": [
-            7,
-            1,
-            2816
-          ],
-          "hi": 0,
-          "idx": 46,
-          "literal_refs": [
-            "Tcom.apple.flow-divert"
-          ],
-          "lo": 2816,
-          "name_lo": null,
-          "ops": [],
-          "raw": 2816,
-          "raw_hex": "0xb00",
-          "tag": 0
-        },
-        {
-          "edges": [
             0,
             0
           ],
@@ -1187,30 +1118,6 @@
         }
       ],
       "probe:net_require_all_domain_type_proto_udp.sb": [
-        {
-          "edges": [
-            7,
-            1
-          ],
-          "fan_in": 0,
-          "fan_out": 2,
-          "fields": [
-            7,
-            1,
-            2816
-          ],
-          "hi": 0,
-          "idx": 46,
-          "literal_refs": [
-            "Tcom.apple.flow-divert"
-          ],
-          "lo": 2816,
-          "name_lo": null,
-          "ops": [],
-          "raw": 2816,
-          "raw_hex": "0xb00",
-          "tag": 0
-        },
         {
           "edges": [
             0,
@@ -1519,7 +1426,7 @@
   },
   "metadata": {
     "input_hashes": {
-      "expected_matrix": "69991c746a5a8882c4b7569f57b97b518e74840eb682b7c76d16bff64f937389"
+      "expected_matrix": "ef121c0ef3ff106ce0f94c87df5218958d0f8612f804261645793d2129548767"
     },
     "inputs": [
       "book/graph/mappings/runtime_cuts/runtime_story.json",
@@ -1604,31 +1511,31 @@
   "mismatches": [],
   "profiles_metadata": {
     "adv:mach_local_literal": {
-      "runtime_profile": "--blob"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/sb_build/mach_local_literal.sb.bin"
     },
     "adv:mach_local_regex": {
-      "runtime_profile": "--blob"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/sb_build/mach_local_regex.sb.bin"
     },
     "adv:mach_simple_allow": {
-      "runtime_profile": "--blob"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/sb_build/mach_simple_allow.sb.bin"
     },
     "adv:mach_simple_variants": {
-      "runtime_profile": "--blob"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/sb_build/mach_simple_variants.sb.bin"
     },
     "adv:net_outbound_allow": {
-      "runtime_profile": "--blob"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/sb_build/net_outbound_allow.sb.bin"
     },
     "adv:net_outbound_deny": {
-      "runtime_profile": "--blob"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/sb_build/net_outbound_deny.sb.bin"
     },
     "adv:path_edges": {
-      "runtime_profile": "--blob"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/sb_build/path_edges.sb.bin"
     },
     "adv:struct_flat": {
-      "runtime_profile": "--blob"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/sb_build/struct_flat.sb.bin"
     },
     "adv:struct_nested": {
-      "runtime_profile": "--blob"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/sb_build/struct_nested.sb.bin"
     },
     "bucket4:v1_read": {
       "runtime_profile": "book/experiments/runtime-checks/out/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb"
@@ -1637,7 +1544,7 @@
       "runtime_profile": "book/experiments/runtime-checks/out/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb"
     },
     "runtime:allow_all": {
-      "runtime_profile": "--blob"
+      "runtime_profile": "book/profiles/golden-triple/allow_all.sb.bin"
     },
     "runtime:metafilter_any": {
       "runtime_profile": "book/experiments/runtime-checks/out/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb"

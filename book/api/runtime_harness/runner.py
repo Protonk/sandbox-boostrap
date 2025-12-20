@@ -124,7 +124,7 @@ def prepare_runtime_profile(
     return runtime_path
 
 
-def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None) -> Dict[str, Any]:
+def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None, wrapper_preflight: str | None) -> Dict[str, Any]:
     target = probe.get("target")
     op = probe.get("operation")
     cmd: List[str]
@@ -169,7 +169,10 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None) ->
         cmd = ["true"]
 
     if blob_mode and WRAPPER.exists():
-        full_cmd = [str(WRAPPER), "--blob", str(profile), "--"] + cmd
+        full_cmd = [str(WRAPPER)]
+        if wrapper_preflight:
+            full_cmd += ["--preflight", wrapper_preflight]
+        full_cmd += ["--blob", str(profile), "--"] + cmd
     elif reader_mode:
         full_cmd = cmd
     elif writer_mode:
@@ -259,7 +262,27 @@ def run_expected_matrix(
         profile_mode = rec.get("mode")
         preflight_record: Optional[Dict[str, Any]] = None
         preflight_blocked = False
-        if preflight_enabled and runtime_profile.suffix == ".sb":
+        profile_preflight_mode = rec.get("preflight")
+        if isinstance(profile_preflight_mode, dict):
+            profile_preflight_mode = profile_preflight_mode.get("mode")
+        if isinstance(profile_preflight_mode, str):
+            profile_preflight_mode = profile_preflight_mode.strip().lower()
+        else:
+            profile_preflight_mode = None
+
+        profile_preflight_enabled = preflight_enabled
+        profile_preflight_force = preflight_force
+        if profile_preflight_mode == "off":
+            profile_preflight_enabled = False
+        elif profile_preflight_mode == "force":
+            profile_preflight_enabled = True
+            profile_preflight_force = True
+        elif profile_preflight_mode == "enforce":
+            profile_preflight_enabled = True
+            profile_preflight_force = False
+
+        supported_preflight_input = runtime_profile.suffix == ".sb" or runtime_profile.suffixes[-2:] == [".sb", ".bin"]
+        if profile_preflight_enabled and supported_preflight_input:
             try:
                 from book.tools.preflight import preflight as preflight_mod  # type: ignore
 
@@ -267,7 +290,7 @@ def run_expected_matrix(
                 preflight_record = rec_obj.to_json()
                 if (
                     preflight_record.get("classification") == "likely_apply_gated_for_harness_identity"
-                    and not preflight_force
+                    and not profile_preflight_force
                 ):
                     preflight_blocked = True
             except Exception:
@@ -280,7 +303,14 @@ def run_expected_matrix(
                 actual = None
                 raw = {"command": [], "exit_code": None, "stdout": "", "stderr": ""}
             else:
-                raw = run_probe(runtime_profile, probe, profile_mode)
+                wrapper_preflight = None
+                if not profile_preflight_enabled:
+                    wrapper_preflight = "off"
+                elif profile_preflight_force:
+                    wrapper_preflight = "force"
+                else:
+                    wrapper_preflight = "enforce"
+                raw = run_probe(runtime_profile, probe, profile_mode, wrapper_preflight)
                 actual = "allow" if raw.get("exit_code") == 0 else "deny"
             expected = probe.get("expected")
 

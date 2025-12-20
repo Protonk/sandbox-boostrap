@@ -24,7 +24,7 @@ In SANDBOX_LORE terms, an apply-stage `EPERM` is **blocked evidence**: the Profi
 ## Execution sketch
 
 1. Select 2–3 “apply-gated” targets (start with `/System/Library/Sandbox/Profiles/airlock.sb`) plus 1–2 “applies cleanly” controls.
-2. Run `book/tools/gate-minimizer/gate_minimizer.py` with `--confirm N` and check in outputs under `out/witnesses/<target>/`.
+2. Run `python3 book/tools/preflight/preflight.py minimize-gate ...` with `--confirm N` and check in outputs under `out/witnesses/<target>/`.
 3. Generate `out/feature_summary.json` and `out/clusters.json` from the checked-in witness pairs.
 4. Add a validation job (under `book/graph/concepts/validation/`) that asserts:
    - failing stays `failure_stage=="apply"` with `errno==EPERM`

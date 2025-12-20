@@ -54,8 +54,8 @@ def sha256_file(path: Path) -> str:
 
 
 def _run_wrapper(sbpl_path: Path, timeout_sec: int = 5) -> Dict[str, Any]:
-    cmd_exec = [str(WRAPPER), "--sbpl", str(sbpl_path), "--", "/usr/bin/true"]
-    cmd = [rel(WRAPPER), "--sbpl", rel(sbpl_path), "--", "/usr/bin/true"]
+    cmd_exec = [str(WRAPPER), "--preflight", "force", "--sbpl", str(sbpl_path), "--", "/usr/bin/true"]
+    cmd = [rel(WRAPPER), "--preflight", "force", "--sbpl", rel(sbpl_path), "--", "/usr/bin/true"]
     start_unix = time.time()
     proc = subprocess.Popen(cmd_exec, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     try:
@@ -125,8 +125,8 @@ def _run_wrapper_compile(sbpl_path: Path, out_blob: Path, timeout_sec: int = 10)
 
 
 def _run_wrapper_blob(blob_path: Path, timeout_sec: int = 5) -> Dict[str, Any]:
-    cmd_exec = [str(WRAPPER), "--blob", str(blob_path), "--", "/usr/bin/true"]
-    cmd = [rel(WRAPPER), "--blob", rel(blob_path), "--", "/usr/bin/true"]
+    cmd_exec = [str(WRAPPER), "--preflight", "force", "--blob", str(blob_path), "--", "/usr/bin/true"]
+    cmd = [rel(WRAPPER), "--preflight", "force", "--blob", rel(blob_path), "--", "/usr/bin/true"]
     start_unix = time.time()
     proc = subprocess.Popen(cmd_exec, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     try:
