@@ -1,12 +1,12 @@
-# Apply-gate (`EPERM`) on this world: consolidated investigation record
+# Apply-gate (`EPERM`): consolidated investigation record
 
-This report is the consolidated narrative record for the “apply gate” issue on the fixed SANDBOX_LORE host baseline:
+On `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`, you will sometimes see `EPERM` because a sandbox profile failed to attach at apply time (“apply gate”), not because the sandbox denied a specific operation. Treat any apply-stage `EPERM` as **blocked** evidence: the profile never became part of the process label, so no PolicyGraph decision for the intended probe could have occurred. Always triage `EPERM` by inspecting normalized runtime fields (`failure_stage`, `failure_kind`, `apply_report`) rather than reading raw stderr.
 
-- World: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (baseline: [`book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`](../../book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json)).
+A validated witness corpus makes this behavior mechanically reproducible on this world under the same harness identity. Across four witnesses, compilation succeeds while `sandbox_apply` fails with `EPERM`, and the minimal failing profiles share deny-style `apply-message-filter` structure; micro-variants show that `apply-message-filter` alone is not sufficient because some allow-style variants successfully apply and then fail later at bootstrap. During the failing apply window, bounded unified-log captures include the reason string “missing message filter entitlement,” while the applying process’s entitlement check reports `com.apple.private.security.message-filter` absent; treat this as strong correlation evidence, not a sufficiency proof.
 
-It is written so that the older trouble notes ([`troubles/EPERM_chasing.md`](../../troubles/EPERM_chasing.md), [`troubles/EPERMx2.md`](../../troubles/EPERMx2.md)) could be deleted without losing the investigation history, evidence boundaries, and operational conclusions.
+Operationally, we avoid re-learning this failure mode by relying on guardrails rather than memory. SBPL-wrapper emits structured JSONL markers and defaults to preflight enforcement, so known apply-gate signatures short-circuit to `failure_stage:"preflight"` instead of producing misleading apply-stage `EPERM` records. When we need an enterable profile, consult preflight (and the repo-wide enterability manifest) and prefer profiles with no known apply-gate signature; when we need to study the gate, use the witness bundles and their passing-neighbor controls as the auditable boundary objects.
 
-## How to read this report
+## How to read
 
 Evidence tiers used here (SANDBOX_LORE discipline):
 
@@ -27,15 +27,13 @@ If you read only three artifacts, read these (linear, mechanical):
 2. [`book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_primary.minimal_failing.txt`](../../book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_primary.minimal_failing.txt)
 3. [`book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_primary.passing_neighbor.txt`](../../book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_primary.passing_neighbor.txt)
 
-## Why you care (operational)
+## Why you care
 
-- If you treat apply-stage `EPERM` as a denial, you launder **blocked** evidence into “the sandbox denied X” stories and poison any aggregation or coverage summary.
-- It blocks a common workflow on this world: using canonical `sys:*` profiles (notably `sys:airlock`) as runnable probes under the generic harness identity.
-- The durable outcome here is mechanical, not narrative: tool markers → normalized `failure_stage`/`failure_kind` → witness corpus + controls + guardrails.
-- In under five minutes, this report lets you triage an `EPERM` by stage, select an enterable profile via preflight, and find the exact witness artifacts that justify our current “why” hypothesis.
-- It also documents the regression guardrails that must remain in place so future tooling does not slide back into ad‑hoc stderr substring inference.
+If you treat apply-stage `EPERM` as a denial, you launder **blocked** evidence into “the sandbox denied X” stories and poison any aggregation or coverage summary. This also blocks a common workflow on this world: using canonical `sys:*` profiles (notably `sys:airlock`) as runnable probes under the generic harness identity.
 
-## Glossary (one-line)
+The durable outcome here is mechanical, not narrative: tool markers → normalized `failure_stage`/`failure_kind` → witness corpus + controls + guardrails. In under five minutes, this report should let you triage an `EPERM` by stage, pick an enterable profile via preflight, and find the exact witness artifacts that justify our current “why” hypothesis. It should also make the regression guardrails visible so future tooling doesn’t slide back into substring inference.
+
+## Glossary
 
 - **Profile lifecycle**: the sequence “compile → apply/attach → (optional) exec probe → probe actions,” where failures have distinct evidentiary meaning.
 - **Process label**: the effective sandbox label/stack for a process after successful apply; apply-gated failures never reach this state.
@@ -47,19 +45,11 @@ If you read only three artifacts, read these (linear, mechanical):
 
 ## Problem statement (what “apply gate” means here)
 
-“Apply gate” is SANDBOX_LORE’s name for **apply-stage** failures where a Profile never becomes part of the process label because the attempt to install it fails at:
-
-- `sandbox_init` (SBPL text apply), or
-- `sandbox_apply` (compiled `.sb.bin` apply),
-
-with `errno == EPERM` (“Operation not permitted”).
+“Apply gate” is SANDBOX_LORE’s name for **apply-stage** failures where a Profile never becomes part of the process label because the attempt to install it fails at `sandbox_init` (SBPL text apply) or `sandbox_apply` (compiled `.sb.bin` apply), with `errno == EPERM` (“Operation not permitted”).
 
 In substrate terms, this is a **Profile lifecycle** failure prior to PolicyGraph evaluation. It is treated as **blocked** evidence: when apply fails, no PolicyGraph decision for the intended probe can have occurred.
 
-The repository-wide phase discipline lives in [`troubles/EPERMx2.md`](../../troubles/EPERMx2.md), but the key idea is simple:
-
-- Apply-stage `EPERM` is **not** a “sandbox denied operation X” statement.
-- Only **decision-stage** failures (after successful apply) are eligible to support semantic claims, and even then only within the repo’s status-tagged runtime coverage.
+The repository-wide phase discipline lives in [`troubles/EPERMx2.md`](../../troubles/EPERMx2.md), but the key idea is simple: apply-stage `EPERM` is **not** a “sandbox denied operation X” statement, and only decision-stage failures (after successful apply) are eligible to support semantic claims (and only within the repo’s status-tagged runtime coverage).
 
 ## Triage decision tree (if you saw `EPERM`)
 
@@ -80,59 +70,32 @@ The repository-wide phase discipline lives in [`troubles/EPERMx2.md`](../../trou
 
 ## Project impact
 
-- **False semantic inference**: apply-gate `EPERM` can masquerade as “the sandbox denied X” and contaminate any aggregation that treats “EPERM anywhere” as a decision-stage deny; guardrail: normalized IR stage/kind + explicit `apply_report`.
-- **Blocked experimentation**: some canonical system profiles are not enterable as runnable probes on this world under the generic harness identity; guardrail: witness corpus + preflight + preflight-index manifest (avoid known dead ends by default).
-- **Regression risk**: without a stable contract, future tooling changes can reintroduce substring inference and silently collapse phase meaning; guardrail: wrapper markers + contract upgrader + tests that enforce marker/phase invariants.
+**False semantic inference** is the main failure mode: apply-gate `EPERM` can masquerade as “the sandbox denied X” and contaminate any aggregation that treats “EPERM anywhere” as a decision-stage deny (guardrail: normalized stage/kind + explicit `apply_report`). **Blocked experimentation** is the practical cost: some canonical system profiles are not enterable as runnable probes on this world under the generic harness identity (guardrail: witness corpus + preflight + preflight-index manifest). **Regression risk** is the long tail: without a stable contract, future tooling changes can reintroduce substring inference and silently collapse phase meaning (guardrail: wrapper markers + contract upgrader + tests enforcing marker/phase invariants).
 
 ## The core confusion we had to eliminate (EPERM is not one signal)
 
-Early on, multiple harnesses and tools surfaced `EPERM` in different places, and it was easy to accidentally collapse them into a single story (“the sandbox denied X”). The EPERMx2 framing is the explicit correction: the same string can arise in different phases.
-
-SANDBOX_LORE now keeps these mechanically distinct in normalized runtime IR (and does not infer from human stderr substrings):
+Early on, multiple harnesses and tools surfaced `EPERM` in different places, and we repeatedly collapsed those distinct signals into a single story (“the sandbox denied X”). SANDBOX_LORE now keeps phase meaning mechanically distinct in normalized runtime IR derived from tool markers (no stderr substring inference). The core code surfaces are SBPL-wrapper ([`book/api/SBPL-wrapper/wrapper.c`](../../book/api/SBPL-wrapper/wrapper.c)), the runtime contract ([`book/api/runtime/contract.py`](../../book/api/runtime/contract.py)), and the harness runner/normalizer ([`book/api/runtime_harness/runner.py`](../../book/api/runtime_harness/runner.py)).
 
 - **apply**: `sandbox_init` / `sandbox_apply` fails → Profile never attaches (blocked evidence).
 - **bootstrap**: apply succeeded, but the probe cannot start (e.g., `execvp` fails, sometimes plausibly due to `process-exec*` denial).
 - **probe**: the probe ran and returned nonzero (may or may not reflect a sandbox decision).
 - **decision-stage** denials: syscall-level `EPERM` after apply success (mapped-but-partial evidence; scenario-scoped).
 
-The concrete mechanism for this separation is a tool-marker contract (JSONL markers on stderr) + a normalizer that strips markers from canonical stderr and derives `failure_stage`/`failure_kind`/`apply_report`. See:
-
-- SBPL-wrapper: [`book/api/SBPL-wrapper/wrapper.c`](../../book/api/SBPL-wrapper/wrapper.c), [`book/api/SBPL-wrapper/README.md`](../../book/api/SBPL-wrapper/README.md)
-- Runtime contract: [`book/api/runtime/contract.py`](../../book/api/runtime/contract.py)
-- Harness normalizer: [`book/api/runtime_harness/runner.py`](../../book/api/runtime_harness/runner.py)
-
-## Investigation chronology (how we got from “mysterious EPERM” to a stable boundary object)
+## Investigation chronology
 
 ### 1) Initial symptom: system profile blobs failing apply
 
-The first recurring apply-stage failure was observed when trying to apply canonical system blobs via `sandbox_apply`, especially `sys:airlock`. This was recorded early in [`troubles/EPERM_chasing.md`](../../troubles/EPERM_chasing.md) and expanded in [`troubles/profile_blobs.md`](../../troubles/profile_blobs.md):
+The first recurring apply-stage failure was observed when trying to apply canonical system blobs via `sandbox_apply`, especially `sys:airlock`. This was recorded early in [`troubles/EPERM_chasing.md`](../../troubles/EPERM_chasing.md) and expanded in [`troubles/profile_blobs.md`](../../troubles/profile_blobs.md).
 
-- Custom/synthetic blobs applied cleanly.
-- Some system profiles (notably `airlock`) failed to apply with `EPERM`.
+Custom/synthetic blobs applied cleanly while some system profiles (notably `airlock`) failed to apply with `EPERM`, which quickly became a practical blocker for runtime harness work (notably the `runtime-checks` corpus trying to treat canonical `sys:*` blobs as runnable probes on this world). See [`book/experiments/runtime-checks/Report.md`](../../book/experiments/runtime-checks/Report.md) for the “blocked by apply-stage EPERM” framing in that experiment’s own vocabulary.
 
-This surfaced first as a practical blocker in runtime harness work (notably the `runtime-checks` corpus trying to treat canonical `sys:*` blobs as runnable probes on this world). See [`book/experiments/runtime-checks/Report.md`](../../book/experiments/runtime-checks/Report.md) for the “blocked by apply-stage EPERM” framing in that experiment’s own vocabulary.
-
-At this point, our framing was still narrow (“platform/system profiles are gated”) and mixed together:
-
-- uncertainty about whether we were even calling the right apply API (dyld cache extraction work),
-- structural observations about blob headers (e.g., `maybe_flags=0x4000` on `airlock`),
-- and a plausible but unproven provenance/credential gate story.
+At this point, our framing was still narrow (“platform/system profiles are gated”) and confounded by three factors we later had to eliminate: uncertainty about whether we were even calling the right apply API, structural observations about blob headers (e.g., `maybe_flags=0x4000` on `airlock`), and a plausible but unproven provenance/credential gate story.
 
 Those notes are valuable history, but they did not yet yield a stable, testable boundary object.
 
 ### 2) Make failure classification mechanical (stop reading tea leaves in stderr)
 
-The turning point was treating the apply gate as a *classification problem* rather than a one-off failure:
-
-- Standardize the apply surface behind one tool (`SBPL-wrapper`) so all applies go through one choke point.
-- Emit structured markers per phase (apply/applied/exec; plus entitlement and preflight markers) so downstream code never has to infer “did apply happen?” from stderr strings.
-- Normalize into a stable runtime-result shape with `failure_stage`/`failure_kind` and explicit `apply_report`.
-
-This work is distributed across:
-
-- Wrapper/tool marker emitters: [`book/api/runtime/tool_markers.h`](../../book/api/runtime/tool_markers.h), [`book/api/SBPL-wrapper/wrapper.c`](../../book/api/SBPL-wrapper/wrapper.c)
-- Normalization: [`book/api/runtime/contract.py`](../../book/api/runtime/contract.py), [`book/api/runtime/events.py`](../../book/api/runtime/events.py)
-- Runner usage: [`book/api/runtime_harness/runner.py`](../../book/api/runtime_harness/runner.py)
+The turning point was treating the apply gate as a classification problem rather than a one-off failure: we standardized the apply surface behind a single choke point (`SBPL-wrapper`), emitted structured markers per phase (apply/applied/exec; plus entitlement and preflight markers), and normalized into stable runtime fields (`failure_stage`, `failure_kind`, `apply_report`) so downstream code never has to infer “did apply happen?” from stderr strings. This is implemented across the wrapper/marker emitters ([`book/api/runtime/tool_markers.h`](../../book/api/runtime/tool_markers.h), [`book/api/SBPL-wrapper/wrapper.c`](../../book/api/SBPL-wrapper/wrapper.c)), normalization ([`book/api/runtime/contract.py`](../../book/api/runtime/contract.py), [`book/api/runtime/events.py`](../../book/api/runtime/events.py)), and harness runner usage ([`book/api/runtime_harness/runner.py`](../../book/api/runtime_harness/runner.py)).
 
 The outcome is that “apply gate” became an explicit, regression-testable predicate: `failure_stage=="apply"` with `apply_report.errno==EPERM`.
 
@@ -187,13 +150,6 @@ The current witness corpus is described in [`book/experiments/gate-witnesses/Rep
 - [`book/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json`](../../book/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json)
 - Forensics directory with compiled blobs + unified-log capture: [`book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/`](../../book/graph/concepts/validation/out/experiments/gate-witnesses/forensics)
 
-Validated witness IDs on this world (each is a mechanically checkable boundary object):
-
-- `airlock`
-- `blastdoor`
-- `com.apple.CoreGraphics.CGPDFService`
-- `mach_bootstrap_deny_message_send`
-
 Notation used below:
 
 - `[airlock]` means: the `airlock` witness entry in `R`, plus its forensics bundle `F/airlock/`.
@@ -206,6 +162,8 @@ Path stems used below (to keep this report readable without losing auditability)
 - `F = book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/<id>/`
 
 #### Witness Summary Table (validated)
+
+The table below is the validated witness set on this world (`airlock`, `blastdoor`, `com.apple.CoreGraphics.CGPDFService`, `mach_bootstrap_deny_message_send`).
 
 Field source conventions (so every cell is checkable by linear reading):
 
@@ -221,7 +179,7 @@ Field source conventions (so every cell is checkable by linear reading):
 | `com.apple.CoreGraphics.CGPDFService` | `/System/Library/Sandbox/Profiles/com.apple.CoreGraphics.CGPDFService.sb` | `W/com.apple.CoreGraphics.CGPDFService/minimal_failing.sb` | `W/com.apple.CoreGraphics.CGPDFService/passing_neighbor.sb` | 0 | 1 | yes (mf) / no (pn): `F/com.apple.CoreGraphics.CGPDFService/log_show_primary.*.txt` | yes (`present:false`) |
 | `mach_bootstrap_deny_message_send` | `book/experiments/gate-witnesses/out/micro_variants/base_v2_mach_bootstrap_deny_message_send.sb` | `W/mach_bootstrap_deny_message_send/minimal_failing.sb` | `W/mach_bootstrap_deny_message_send/passing_neighbor.sb` | 0 | 1 | yes (mf) / no (pn): `F/mach_bootstrap_deny_message_send/log_show_primary.*.txt` | yes (`present:false`) |
 
-#### End-to-end example (one witness, fully grounded)
+#### End-to-end witness example
 
 Example witness: `airlock` ([airlock]).
 
@@ -278,9 +236,11 @@ The key value of the witness corpus is that later work can cite specific witness
 
 Clarification: “message filter” in this report means **sandbox message filtering rules** expressed via SBPL `apply-message-filter` (Mach / IOKit message filtering), not any kind of email/SMS/content filtering.
 
+Scope note: everything in this section is **mapped-but-partial** and scoped to this world + harness identity + the validated witness set and micro-variant matrix. We treat it as a trigger-shape story for “what reliably predicts apply-gating here,” not as a general statement about message filtering across macOS versions or signing contexts.
+
 #### System-profile witnesses (IOKit)
 
-In the validated witness corpus, three independent system-profile origins reduce to a closely related core pattern: the same `allow` form, with only the SBPL `version` form differing (`version 1` vs `version 2`). (`[airlock]`, `[blastdoor]`, `[com.apple.CoreGraphics.CGPDFService]`.)
+Across the three system-profile witnesses in the validated set, the minimal failing SBPL reduces to a closely related core pattern: the same `allow` form, with only the SBPL `version` form differing (`version 1` vs `version 2`).
 
 Concrete excerpts (from each witness’s `minimal_failing.sb`):
 
@@ -298,11 +258,9 @@ com.apple.CoreGraphics.CGPDFService:
   (allow iokit-open-user-client (apply-message-filter (deny iokit-external-method)))
 ```
 
-This is intentionally narrower than “different profiles converge down to the same minimal failing construct”: the evidence supports “the same allow-form core pattern across three system-profile origins” (count = 3), not universal equivalence across arbitrary profiles.
-
 #### Non-IOKit witness (Mach)
 
-To scope whether this gate was IOKit-specific vs message-filtering-gated more generally, we also built and minimized a non-IOKit witness that triggers the same apply-stage EPERM boundary under the same harness identity. (`[mach_bootstrap_deny_message_send]`.)
+To scope whether this gate was IOKit-specific vs message-filtering-gated more generally, we also built and minimized a non-IOKit witness that triggers the same apply-stage EPERM boundary under the same harness identity.
 
 Concrete excerpt (from `book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/minimal_failing.sb`):
 
@@ -312,9 +270,7 @@ Concrete excerpt (from `book/experiments/gate-witnesses/out/witnesses/mach_boots
 
 #### Micro-variants: “deny-style” vs “allow-style” message filtering
 
-The gate-witnesses micro-variant matrix records a small set of one-edit variants with explicit compile and blob-apply results in:
-
-- [`book/experiments/gate-witnesses/out/compile_vs_apply.json`](../../book/experiments/gate-witnesses/out/compile_vs_apply.json)
+The gate-witnesses micro-variant matrix (`book/experiments/gate-witnesses/out/compile_vs_apply.json`) records a small set of one-edit variants with explicit compile and blob-apply results.
 
 The table below is a derived view that turns those JSON records into a readable contrast. “Filter shape” is an SBPL-shape label (“does the `apply-message-filter` payload contain a `deny` form?”), not a semantic claim.
 
@@ -416,7 +372,7 @@ On this world, for the confirmed witnesses:
 - compilation succeeds (`rc==0`), but
 - apply fails at `sandbox_apply` with apply-stage `EPERM`.
 
-This supports the narrow statement: **on this world and under this harness identity, for the confirmed witnesses, compilation succeeded and `sandbox_apply` failed with `EPERM`.** (`[airlock]`, `[blastdoor]`, `[com.apple.CoreGraphics.CGPDFService]`, `[mach_bootstrap_deny_message_send]`.)
+This supports the narrow statement: **on this world and under this harness identity, across the validated witness set, compilation succeeded and `sandbox_apply` failed with `EPERM`.**
 
 It does not prove that “no compile-time rejection exists” in general; it only bounds what we observed for this witness set on this host.
 
@@ -424,9 +380,7 @@ It does not prove that “no compile-time rejection exists” in general; it onl
 
 The strongest move from “correlated hypothesis” toward “mechanically grounded claim” was capturing a direct enforcement trace via unified logs during the apply failure.
 
-For the minimal failing blob applies, the unified-log capture (from `/usr/bin/log show --style syslog` in the validation job) contains a single Sandbox line emitted by `kernel[0]` that includes the wrapper PID and the reason string “missing message filter entitlement”. This line is present in the failing window and absent in the passing-neighbor control window for all current witness IDs. (`[airlock]`, `[blastdoor]`, `[com.apple.CoreGraphics.CGPDFService]`, `[mach_bootstrap_deny_message_send]`.)
-
-Note: the `kernel[0]` sender shown below is the `--style syslog` rendering from `log show`; we treat it as log provenance (bounded by PID + time window controls), not as a blanket claim about where the enforcement logic “lives”.
+For the minimal failing blob applies, the unified-log capture (from `/usr/bin/log show --style syslog` in the validation job) contains a single Sandbox line (rendered as `kernel[0]` in syslog style) that includes the wrapper PID and the reason string “missing message filter entitlement”. We treat this as bounded log provenance (PID- and timestamp-scoped, with a passing-neighbor control window), not as a blanket claim about where the enforcement logic “lives”.
 
 Reproducible log capture (example: `airlock` minimal-failing window; from `R`, `…forensics.unified_log.minimal_failing.primary.cmd`):
 
@@ -443,11 +397,9 @@ com.apple.CoreGraphics.CGPDFService: 2025-12-19 11:06:55.200211-0800  localhost 
 mach_bootstrap_deny_message_send: 2025-12-19 11:06:55.686235-0800  localhost kernel[0]: (Sandbox) wrapper[3363]: missing message filter entitlement
 ```
 
-Each witness also carries a passing-neighbor log window file (`F/<id>/log_show_primary.passing_neighbor.txt`) that contains only the header line (no matching events), and `R` records the wrapper PID + bounded timestamps + the exact `log show` predicate used for capture.
+Each witness also carries the corresponding passing-neighbor log window (`F/<id>/log_show_primary.passing_neighbor.txt`), and `R` records the wrapper PID + bounded timestamps + the exact `log show` predicate used for capture.
 
-In parallel, SBPL-wrapper emits an **effective entitlement** marker prior to apply:
-
-- `tool:"entitlement-check"` for `com.apple.private.security.message-filter`.
+In parallel, SBPL-wrapper emits an **effective entitlement** marker prior to apply (`tool:"entitlement-check"` for `com.apple.private.security.message-filter`).
 
 In witness validation records, the entitlement marker is emitted by the same PID that attempts blob apply, and it reports `present:false` for the entitlement key. (See Appendix witness bundles; each includes the exact marker object.)
 
@@ -522,12 +474,9 @@ Once we had a stable witness predicate and a scoped trigger signature, we turned
 
 ### What changed in the repo because of this
 
-- Before: ad‑hoc stderr substring inference (“EPERM means deny”) and inconsistent apply entrypoints (`sandbox-exec`, direct `sandbox_apply`, example scripts) made phase meaning easy to lose.
-- Before: apply-gated failures could leak into semantic tallies as if they were decision-stage denies.
-- After: one choke point for applies (SBPL-wrapper) that emits structured markers for apply/applied/exec + entitlement + preflight.
-- After: a normalized runtime contract (`failure_stage`, `failure_kind`, `apply_report`) so downstream code never has to infer “did we attach?” from raw stderr.
-- After: a validated witness corpus + bounded forensics controls, so “apply gate exists” is a regression-tested boundary object rather than a remembered narrative.
-- After: conservative preflight + digest/manifest guardrails so agents can avoid known dead ends by default.
+Previously, apply-stage `EPERM` surfaced through ad‑hoc stderr substring inference (“EPERM means deny”) and inconsistent apply entrypoints (`sandbox-exec`, direct `sandbox_apply`, example scripts), which made phase meaning easy to lose. This let apply-gated failures leak into semantic tallies as if they were decision-stage denies.
+
+Now, SBPL-wrapper is the choke point for applies and emits structured markers for apply/applied/exec plus entitlement and preflight, and a normalized runtime contract (`failure_stage`, `failure_kind`, `apply_report`) makes downstream consumers stop inferring “did we attach?” from raw stderr. A validated witness corpus with bounded forensics controls makes “apply gate exists” a regression-tested boundary object, and conservative preflight + digest/manifest guardrails keep agents away from known dead ends by default.
 
 ### Preflight guardrail (static, conservative)
 
@@ -618,7 +567,7 @@ Operational invariant for agents:
 
 This is intentionally phrased as “avoid known dead ends,” not “guarantee success.”
 
-### Reusable pattern (for future lifecycle gates)
+### Reusable pattern
 
 - Make phase classification mechanical (markers + normalizer), so “EPERM” can’t collapse into a single meaning.
 - Delta-debug to a minimal failing/passing neighbor pair, so the gate is a boundary object rather than a story.
@@ -626,9 +575,9 @@ This is intentionally phrased as “avoid known dead ends,” not “guarantee s
 - Add conservative preflight/digest guardrails, so agents avoid known dead ends by default.
 - Add regression tests so the phase meaning and guardrails cannot silently regress.
 
-## Where this resolution is enforced (consumers and guardrails)
+## Enforcement
 
-The apply-gate work moved from “a narrative we remember” to “a constraint the repo enforces” in three places:
+This resolution is enforced in three places:
 
 - **Wrapper-level default**: SBPL-wrapper’s default `--preflight enforce` makes “don’t attempt known-gated applies” the default behavior, and `--preflight force` makes “I am intentionally studying the gate” an explicit choice (see [`book/api/SBPL-wrapper/README.md`](../../book/api/SBPL-wrapper/README.md)).
 - **Normalized runtime IR**: the runtime harness emits `failure_stage:"preflight"` / `failure_kind:"preflight_apply_gate_signature"` instead of generating an apply-stage EPERM record when it is knowingly entering a blocked category (see [`book/api/runtime_harness/runner.py`](../../book/api/runtime_harness/runner.py)). This protects semantic tallies from being polluted by blocked evidence.
@@ -641,9 +590,9 @@ The apply-gate work moved from “a narrative we remember” to “a constraint 
 **What we consider settled enough to operationalize (mapped-but-partial / ok where noted)**
 
 - Apply-stage `EPERM` is a Profile lifecycle failure (blocked evidence), and our tooling keeps it mechanically distinct from policy decisions.
-- Within the validated witness corpus, the minimal failing SBPLs all contain deny-style `apply-message-filter` rules, and the micro-variant matrix shows deny-style variants apply-gate while (at least some) allow-style variants successfully apply; this supports the narrow trigger story “deny-style message filtering is gated for this harness identity on this world.” (`[airlock]`, `[blastdoor]`, `[com.apple.CoreGraphics.CGPDFService]`, `[mach_bootstrap_deny_message_send]`, plus micro-variant excerpts in section 4).
-- For the confirmed witnesses, compilation succeeds and `sandbox_apply` is the failing step observed (`errno==EPERM` at apply stage) on this world and under this harness identity. (`[airlock]`, `[blastdoor]`, `[com.apple.CoreGraphics.CGPDFService]`, `[mach_bootstrap_deny_message_send]`; see section 5 + Witness Summary Table).
-- During each failing apply window, the unified log emits the reason string “missing message filter entitlement”, and the applying process’s effective entitlement marker reports `com.apple.private.security.message-filter` absent; this is correlation evidence, not a sufficiency proof without a positive control. (`[airlock]`, `[blastdoor]`, `[com.apple.CoreGraphics.CGPDFService]`, `[mach_bootstrap_deny_message_send]`; see section 6).
+- Across the validated witness set, the minimal failing SBPLs all contain deny-style `apply-message-filter` rules, and the micro-variant matrix shows deny-style variants apply-gate while at least some allow-style variants successfully apply; this supports the narrow trigger story “deny-style message filtering is gated for this harness identity on this world” (see section 4 + the Witness Summary Table + Appendix witness bundles).
+- Across the validated witness set, compilation succeeds and `sandbox_apply` is the failing step observed (`errno==EPERM` at apply stage) on this world and under this harness identity (see section 5 + the Witness Summary Table + Appendix witness bundles).
+- Across the validated witness set, the unified log includes the reason string “missing message filter entitlement” during the bounded failing-apply window while the applying process’s effective entitlement marker reports `com.apple.private.security.message-filter` absent; this is correlation evidence, not a sufficiency proof without a positive control (see section 6 + Appendix witness bundles).
 - We have durable guardrails (preflight + wrapper integration + digest corpus + index manifest) that prevent accidental re-learning.
 
 **What remains intentionally not closed (still unknown / not upgraded to bedrock)**
@@ -652,7 +601,7 @@ The apply-gate work moved from “a narrative we remember” to “a constraint 
 - We have not promoted a general structural classifier for `.sb.bin` beyond exact digest match; “structural signal listening” remains explicitly partial/brittle in [`book/experiments/preflight-blob-digests/Report.md`](../../book/experiments/preflight-blob-digests/Report.md).
 - We have not fully localized the kernel-side enforcement logic beyond xref-level static hints; the runtime claim is grounded in the log trace + entitlement markers, not in a blessed “this is the one validator” reverse-engineering result.
 
-## Pointers (quick map of relevant code and artifacts)
+## Pointers
 
 ### Primary “apply gate” explanation surfaces
 
