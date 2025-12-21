@@ -49,3 +49,5 @@
   - `got_entries` captured for `__auth_got` with pointer values but no symbol names (`registration_sites.json`).
 - Added `sandbox-kext-adrp-ldr-got-scan` for ADRP+LDR hits into `__auth_got`; ran:
   - `python3 book/api/ghidra/run_task.py sandbox-kext-adrp-ldr-got-scan --process-existing --project-name sandbox_kext_14.4.1-23E224 --exec --script-args auth_got 32 all` → `0` matches (`dumps/ghidra/out/14.4.1-23E224/sandbox-kext-adrp-ldr-got-scan/adrp_ldr_scan.json`).
+- Normalized address values to signed 64-bit when calling `toAddr` in `kernel_adrp_ldr_scan.py`; reran `sandbox-kext-adrp-ldr-got-scan` with `auth_got 32 all` and still saw `0` matches (`adrp_seen: 3452`, `ldr_literal_seen: 0`, `truncated_bases: 1508`, `got_block_mode: auth_got`).
+- Reran `sandbox-kext-mac-policy-register` with `flow indirect-all all`: `target_count: 4`, `call_site_count: 0`, `indirect_call_sites: 0`, `got_block_mode: auth_got+auth_ptr+got`, `got_entries: 332`.

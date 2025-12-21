@@ -6,7 +6,7 @@ recover argument pointers for static registration-site recovery.
 Args: <out_dir> [build_id] [query substrings...]
 Flags:
   flow | scan-flows          scan call flows in addition to references
-  indirect | scan-indirect   scan BLR/BLRAA call sites via __auth_got
+  indirect | scan-indirect   scan BLR/BLRAA call sites via __auth_got/__auth_ptr/__got
   indirect-all               include all indirect call sites (ignore query filter)
   all | scan-all             scan all blocks (skip sandbox-only filtering)
 Defaults:
@@ -72,18 +72,27 @@ def _block_set(blocks):
 def _find_got_blocks():
     mem = currentProgram.getMemory()
     blocks = []
+    kinds = []
+    seen = set()
     for blk in mem.getBlocks():
         name = (blk.getName() or "").lower()
+        kind = None
         if "auth_got" in name:
-            blocks.append(blk)
-    if blocks:
-        return blocks, "auth_got"
-    fallback = []
-    for blk in mem.getBlocks():
-        name = (blk.getName() or "").lower()
-        if "got" in name:
-            fallback.append(blk)
-    return fallback, "got"
+            kind = "auth_got"
+        elif "auth_ptr" in name:
+            kind = "auth_ptr"
+        elif "got" in name:
+            kind = "got"
+        if not kind:
+            continue
+        key = (blk.getName(), blk.getStart().getOffset())
+        if key in seen:
+            continue
+        seen.add(key)
+        blocks.append(blk)
+        kinds.append(kind)
+    mode = "+".join(sorted(set(kinds))) if kinds else None
+    return blocks, mode
 
 
 def _first_address_operand(instr):

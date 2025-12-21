@@ -96,10 +96,11 @@ Recover the sandbox/mac_policy_conf and mac_policy_ops (plus registration site) 
 - Claim: For `world_id = sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`, there is no static `mac_policy_conf`-shaped structure in sandbox/seatbelt fileset kext data. Static kext scanning for `mac_policy_conf`/`mac_policy_ops` is status: ok-negative. Registration-site recovery is still blocked in static analysis because the authenticated GOT/stub references are not yet mapped to call sites; runtime evidence is a separate (out-of-scope) path.
 
 ### Registration-site recovery (static, blocked)
-- Symbol/XREF scan inside `sandbox_kext.bin` surfaces `_mac_policy_register`/`_amfi_register_mac_policy` as external labels but yields `call_site_count: 0` (`registration_sites.json`, `flow_scan: true`).
+- Expanded `sandbox_kext.bin` scan with `flow indirect-all all` surfaces `_mac_policy_register`/`_amfi_register_mac_policy` as external labels (`target_count: 4`) but still yields `call_site_count: 0` and `indirect_call_sites: 0` (`registration_sites.json`).
 - BootKernelCollection has no mac_policy symbol names; `target_count: 0` in `kernel-mac-policy-register` output.
 - `otool -Iv` shows the authenticated GOT entries for `_amfi_register_mac_policy` (`0xfffffe00084c7ea8`) and `_mac_policy_register` (`0xfffffe00084c80a0`) inside `__DATA_CONST,__auth_got`, but ADRP+ADD/ADRP+LDR scans and data-define/XREF checks report no callers.
-- The indirect-call scan now dumps `__auth_got` entries (pointer values only; no symbol names in Ghidra) and still reports `indirect_call_sites: 0`, while the ADRP+LDR auth_got sweep reports `0` hits.
+- The indirect-call scan now dumps `auth_got+auth_ptr+got` entries (332 total; no mac_policy symbol names) and still reports `indirect_call_sites: 0`.
+- Signed-address normalization in the ADRP+LDR auth_got sweep still yields `0` hits (`adrp_seen: 3452`, `ldr_literal_seen: 0`, `truncated_bases: 1508`).
 - Status: `blocked` for static-only registration-site recovery until stub/GOT resolution (or authenticated indirect-call tracing) is implemented.
 
 ## Runbook (registration-site scan, static)
@@ -109,7 +110,7 @@ export JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home
 export PYTHONPATH=$PWD
 
 python3 book/api/ghidra/run_task.py sandbox-kext-mac-policy-register \
-  --process-existing --project-name sandbox_kext_14.4.1-23E224 --exec --script-args flow indirect
+  --process-existing --project-name sandbox_kext_14.4.1-23E224 --exec --script-args flow indirect-all all
 python3 book/api/ghidra/run_task.py kernel-mac-policy-register \
   --process-existing --project-name sandbox_14.4.1-23E224_kc --no-analysis --exec
 
