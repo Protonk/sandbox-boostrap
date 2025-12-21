@@ -5,7 +5,7 @@ Recover the sandbox/mac_policy_conf and mac_policy_ops (plus registration site) 
 
 ## Baseline & scope
 - Host: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (Apple Silicon, SIP on).
-- Inputs: kernelcache (`dumps/Sandbox-private/14.4.1-23E224/kernel/BootKernelCollection.kc`) with sandbox fileset entry rebuilt to `dumps/Sandbox-private/14.4.1-23E224/kernel/sandbox_kext.bin` (arm64e); analyzed Ghidra project `dumps/ghidra/projects/sandbox_14.4.1-23E224`.
+- Inputs: kernelcache (`dumps/Sandbox-private/14.4.1-23E224/kernel/BootKernelCollection.kc`) with sandbox fileset entry rebuilt to `dumps/Sandbox-private/14.4.1-23E224/kernel/sandbox_kext.bin` (arm64e) and AMFI fileset entry rebuilt to `dumps/Sandbox-private/14.4.1-23E224/kernel/sandbox_kext_com_apple_driver_AppleMobileFileIntegrity.bin`; analyzed Ghidra projects `dumps/ghidra/projects/sandbox_14.4.1-23E224` and `dumps/ghidra/projects/amfi_kext_14.4.1-23E224`.
 - Out of scope: generic/macOS-cross-version claims; focus only on this world.
 
 ## Model (public anchor)
@@ -69,9 +69,12 @@ Recover the sandbox/mac_policy_conf and mac_policy_ops (plus registration site) 
 
 ## Evidence & artifacts
 - Ghidra project: `dumps/ghidra/projects/sandbox_14.4.1-23E224`.
+- AMFI Ghidra project: `dumps/ghidra/projects/amfi_kext_14.4.1-23E224`.
+- BootKernelExtensions Ghidra project: `dumps/ghidra/projects/sandbox_14.4.1-23E224_extensions`.
 - Registration-site scans:
   - `dumps/ghidra/out/14.4.1-23E224/sandbox-kext-mac-policy-register/registration_sites.json`
   - `dumps/ghidra/out/14.4.1-23E224/kernel-mac-policy-register/registration_sites.json`
+  - `dumps/ghidra/out/14.4.1-23E224/amfi-kext-mac-policy-register/registration_sites.json`
   - `dumps/ghidra/out/14.4.1-23E224/sandbox-kext-adrp-add-scan/adrp_add_scan.json`
 - `dumps/ghidra/out/14.4.1-23E224/sandbox-kext-adrp-ldr-scan/adrp_ldr_scan.json`
   - `dumps/ghidra/out/14.4.1-23E224/sandbox-kext-adrp-ldr-got-scan/adrp_ldr_scan.json`
@@ -81,7 +84,18 @@ Recover the sandbox/mac_policy_conf and mac_policy_ops (plus registration site) 
   - `dumps/ghidra/out/14.4.1-23E224/sandbox-kext-arm-const-base-scan/arm_const_base_scan.json`
   - `dumps/ghidra/out/14.4.1-23E224/sandbox-kext-got-ref-sweep/got_ref_sweep.json`
   - `dumps/ghidra/out/14.4.1-23E224/sandbox-kext-got-load-sweep/got_load_sweep.json`
+  - `dumps/ghidra/out/14.4.1-23E224/amfi-kext-block-disasm/disasm_report.json`
+  - `dumps/ghidra/out/14.4.1-23E224/amfi-kext-function-dump/function_dump.json`
+  - `dumps/ghidra/out/14.4.1-23E224/amfi-kext-got-ref-sweep/got_ref_sweep.json`
+  - `dumps/ghidra/out/14.4.1-23E224/amfi-kext-got-load-sweep/got_load_sweep.json`
+  - `dumps/ghidra/out/14.4.1-23E224/kernel-imports/external_symbols.json`
+  - `dumps/ghidra/out/14.4.1-23E224/kernel-collection-imports/external_symbols.json`
+  - `dumps/ghidra/out/14.4.1-23E224/kernel-string-refs/string_references.json`
+  - `dumps/ghidra/out/14.4.1-23E224/kernel-adrp-add-scan/adrp_add_scan.json`
+  - `dumps/ghidra/out/14.4.1-23E224/kernel-adrp-ldr-scan/adrp_ldr_scan.json`
+  - `dumps/ghidra/out/14.4.1-23E224/kernel-imm-search/imm_search.json`
   - `book/experiments/mac-policy-registration/out/otool_indirect_symbols.txt`
+  - `book/experiments/mac-policy-registration/out/otool_indirect_symbols_amfi.txt`
   - `book/experiments/mac-policy-registration/out/stub_targets.json`
 
 ## Status
@@ -114,6 +128,23 @@ Recover the sandbox/mac_policy_conf and mac_policy_ops (plus registration site) 
 - GOT load sweep (`sandbox-kext-got-load-sweep`) finds zero direct refs or computed loads to the target auth_got entries, even with lookback 32 (`got_load_sweep.json`, `total_hits: 0` for the target-only scan).
 - A full GOT load sweep (no target filter) yields 766 direct refs, all into `__got`/`__auth_ptr` and none into `__auth_got` (`__got: 765`, `__auth_ptr: 1`, `__auth_got: 0`), so the target auth_got entries remain unreferenced.
 - Status: `blocked` for static-only registration-site recovery until stub/GOT resolution (or authenticated indirect-call tracing) is implemented.
+
+### AMFI pivot (static, blocked)
+- Rebuilt `com.apple.driver.AppleMobileFileIntegrity` into `sandbox_kext_com_apple_driver_AppleMobileFileIntegrity.bin` and imported into `amfi_kext_14.4.1-23E224` (block disasm over `__TEXT` matched 1 executable block).
+- `amfi-kext-mac-policy-register` reports `target_count: 6` but `call_site_count: 0` and `indirect_call_sites: 0` (`registration_sites.json`); targets include `_mac_policy_register`, `_amfi_register_mac_policy`, and `__ZL15_policy_initbsdP15mac_policy_conf`, but no call-site edges are recovered.
+- `otool -Iv` on AMFI shows `_mac_policy_register` in `__DATA_CONST,__auth_got` at `0xfffffe0007e5c290` (signed `0x-1fff81a3d70`); no `_amfi_register_mac_policy` GOT entry appears (function is internal in `__text`).
+- GOT ref sweep (`amfi-kext-got-ref-sweep`) defines 329 entries with 47 refs; the `_mac_policy_register` entry has `ref_count: 0` (`got_ref_sweep.json`).
+- GOT load sweep (`amfi-kext-got-load-sweep`) finds zero hits for the target auth_got entry; a full sweep yields 314 direct refs (`__got: 300`, `__auth_ptr: 14`, `__auth_got: 0`), so AMFI has no observable auth_got loads despite the mac_policy entry being present.
+- Status: still `blocked` for static registration-site recovery; AMFI mirrors the sandbox-kext auth_got blind spot.
+
+### KC pivot (strings/const, blocked)
+- `amfi-kext-function-dump` shows no `_mac_policy_register` call inside `_amfi_register_mac_policy`; `__ZL15_policy_initbsdP15mac_policy_conf` was not recovered as a function in the AMFI project (`function_dump.json`).
+- `kernel-imports` with substrings (`mac_policy`, `amfi`, `sandbox`, `seatbelt`, `AppleMobileFileIntegrity`) reports `symbol_count: 0` in BootKernelExtensions (no external imports with those names).
+- `kernel-collection-imports` with the same substrings reports `symbol_count: 0` in BootKernelCollection.
+- BootKernelExtensions import (`sandbox_14.4.1-23E224_extensions`) + `kernel-string-refs` returns 433 string hits for the mac_policy/amfi/sandbox queries, but all mac_policy-related entries resolve only to `__LINKEDIT` data refs (no executable callers in the string reference list).
+- `kernel-adrp-add-scan` for `__ZL10mac_policy` address (`-0x1fff819a290`) and `kernel-adrp-ldr-scan` for the AMFI `_mac_policy_register` auth_got address (`-0x1fff81a3d70`) both report zero matches (ADRPs seen: 60), so no KC materialization is visible in BootKernelExtensions.
+- `kernel-imm-search` for AMFI `_mac_policy_register` GOT address (`0xfffffe0007e5c290`) returns `hit_count: 0`.
+- Status: `blocked` for static KC-level pivots; no call-site or pointer materialization surfaced via strings or ADRP scans.
 
 ## Runbook (registration-site scan, static)
 ```sh
@@ -158,8 +189,30 @@ python3 book/api/ghidra/run_task.py sandbox-kext-got-load-sweep \
 python3 book/api/ghidra/run_task.py kernel-mac-policy-register \
   --process-existing --project-name sandbox_14.4.1-23E224_kc --no-analysis --exec
 
+python3 book/api/ghidra/run_task.py kernel-imports \
+  --process-existing --project-name sandbox_14.4.1-23E224_extensions --no-analysis --exec \
+  --script-args mac_policy amfi sandbox seatbelt AppleMobileFileIntegrity
+python3 book/api/ghidra/run_task.py kernel-collection-imports \
+  --process-existing --project-name sandbox_14.4.1-23E224_kc --no-analysis --exec \
+  --script-args mac_policy amfi sandbox seatbelt AppleMobileFileIntegrity
+python3 book/api/ghidra/run_task.py kernel-string-refs \
+  --project-name sandbox_14.4.1-23E224_extensions --exec \
+  --script-args all mac_policy mac_policy_register mac_policy_conf policy_initbsd AppleMobileFileIntegrity amfi sandbox seatbelt
+python3 book/api/ghidra/run_task.py kernel-adrp-add-scan \
+  --process-existing --project-name sandbox_14.4.1-23E224_extensions --no-analysis --exec \
+  --script-args -0x1fff819a290 all
+python3 book/api/ghidra/run_task.py kernel-adrp-ldr-scan \
+  --process-existing --project-name sandbox_14.4.1-23E224_extensions --no-analysis --exec \
+  --script-args -0x1fff81a3d70 all
+python3 book/api/ghidra/run_task.py kernel-imm-search \
+  --process-existing --project-name sandbox_14.4.1-23E224_extensions --no-analysis --exec \
+  --script-args 0xfffffe0007e5c290 all
+
 otool -Iv dumps/Sandbox-private/14.4.1-23E224/kernel/sandbox_kext.bin \
   > book/experiments/mac-policy-registration/out/otool_indirect_symbols.txt
+
+otool -Iv dumps/Sandbox-private/14.4.1-23E224/kernel/sandbox_kext_com_apple_driver_AppleMobileFileIntegrity.bin \
+  > book/experiments/mac-policy-registration/out/otool_indirect_symbols_amfi.txt
 
 python3 book/api/ghidra/run_task.py sandbox-kext-adrp-add-scan \
   --process-existing --project-name sandbox_kext_14.4.1-23E224 --exec \
@@ -173,4 +226,22 @@ python3 book/api/ghidra/run_task.py sandbox-kext-adrp-ldr-got-scan \
 python3 book/api/ghidra/run_task.py sandbox-kext-data-define \
   --process-existing --project-name sandbox_kext_14.4.1-23E224 --exec \
   --script-args addr:0xfffffe00084c80a0 addr:0xfffffe00084c7ea8
+
+python3 book/api/ghidra/run_task.py amfi-kext-block-disasm \
+  --project-name amfi_kext_14.4.1-23E224 --exec --script-args text 4 0 1
+python3 book/api/ghidra/run_task.py amfi-kext-mac-policy-register \
+  --process-existing --project-name amfi_kext_14.4.1-23E224 --no-analysis --exec \
+  --script-args flow indirect-all all
+python3 book/api/ghidra/run_task.py amfi-kext-function-dump \
+  --process-existing --project-name amfi_kext_14.4.1-23E224 --no-analysis --exec \
+  --script-args _amfi_register_mac_policy __ZL15_policy_initbsdP15mac_policy_conf
+python3 book/api/ghidra/run_task.py amfi-kext-got-ref-sweep \
+  --process-existing --project-name amfi_kext_14.4.1-23E224 --no-analysis --exec \
+  --script-args all
+python3 book/api/ghidra/run_task.py amfi-kext-got-load-sweep \
+  --process-existing --project-name amfi_kext_14.4.1-23E224 --no-analysis --exec \
+  --script-args 32 all target_only=0x-1fff81a3d70
+python3 book/api/ghidra/run_task.py amfi-kext-got-load-sweep \
+  --process-existing --project-name amfi_kext_14.4.1-23E224 --no-analysis --exec \
+  --script-args 32 all
 ```

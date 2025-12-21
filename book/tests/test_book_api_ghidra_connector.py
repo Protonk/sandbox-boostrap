@@ -11,12 +11,13 @@ def _stub_build(tmp_dir: Path, build_id: str = "unit") -> scaffold.BuildPaths:
     kernel = tmp_dir / "kernel.kc"
     kernel_collection = tmp_dir / "kernel_collection.kc"
     sandbox_kext = tmp_dir / "sandbox.kext"
+    amfi_kext = tmp_dir / "amfi.kext"
     userland = tmp_dir / "userland.dylib"
     profiles = tmp_dir / "profiles"
     compiled = tmp_dir / "compiled.sb.bin"
     system_version = tmp_dir / "SYSTEM_VERSION.txt"
     profiles.mkdir(parents=True, exist_ok=True)
-    for path in [kernel, kernel_collection, sandbox_kext, userland, compiled, system_version]:
+    for path in [kernel, kernel_collection, sandbox_kext, amfi_kext, userland, compiled, system_version]:
         path.parent.mkdir(parents=True, exist_ok=True)
         path.touch()
     return scaffold.BuildPaths(
@@ -25,6 +26,7 @@ def _stub_build(tmp_dir: Path, build_id: str = "unit") -> scaffold.BuildPaths:
         kernel=kernel,
         kernel_collection=kernel_collection,
         sandbox_kext=sandbox_kext,
+        amfi_kext=amfi_kext,
         userland=userland,
         profiles_dir=profiles,
         compiled_textedit=compiled,

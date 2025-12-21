@@ -49,6 +49,7 @@ class BuildPaths:
     kernel: Path
     kernel_collection: Path
     sandbox_kext: Path
+    amfi_kext: Path
     userland: Path
     profiles_dir: Path
     compiled_textedit: Path
@@ -63,13 +64,16 @@ class BuildPaths:
             kernel=base / "kernel" / "BootKernelExtensions.kc",
             kernel_collection=base / "kernel" / "BootKernelCollection.kc",
             sandbox_kext=base / "kernel" / "sandbox_kext.bin",
+            amfi_kext=base
+            / "kernel"
+            / "sandbox_kext_com_apple_driver_AppleMobileFileIntegrity.bin",
             userland=base / "userland" / "libsystem_sandbox.dylib",
             profiles_dir=base / "profiles" / "Profiles",
             compiled_textedit=base / "profiles" / "compiled" / "com.apple.TextEdit.sandbox.sb.bin",
             system_version=base / "SYSTEM_VERSION.txt",
         )
 
-    def missing(self) -> List[Path]:
+    def missing(self, import_target: str | None = None) -> List[Path]:
         paths = [
             self.kernel,
             self.kernel_collection,
@@ -79,6 +83,8 @@ class BuildPaths:
             self.compiled_textedit,
             self.system_version,
         ]
+        if import_target == "amfi_kext":
+            paths.append(self.amfi_kext)
         return [p for p in paths if not p.exists()]
 
 
@@ -132,6 +138,12 @@ TASKS: Dict[str, TaskConfig] = {
         script="kernel_imports_scan.py",
         import_target="kernel",
         description="Enumerate external symbols/imports and their references.",
+    ),
+    "kernel-collection-imports": TaskConfig(
+        name="kernel-collection-imports",
+        script="kernel_imports_scan.py",
+        import_target="kernel_collection",
+        description="Enumerate external symbols/imports and their references in the KC.",
     ),
     "kernel-mac-policy-register": TaskConfig(
         name="kernel-mac-policy-register",
@@ -264,6 +276,36 @@ TASKS: Dict[str, TaskConfig] = {
         script="kernel_string_refs.py",
         import_target="sandbox_kext",
         description="Resolve references to key sandbox strings inside sandbox_kext.bin.",
+    ),
+    "amfi-kext-block-disasm": TaskConfig(
+        name="amfi-kext-block-disasm",
+        script="kernel_block_disasm.py",
+        import_target="amfi_kext",
+        description="Disassemble across matching AMFI kext blocks (prepares follow-on scans).",
+    ),
+    "amfi-kext-mac-policy-register": TaskConfig(
+        name="amfi-kext-mac-policy-register",
+        script="mac_policy_register_scan.py",
+        import_target="amfi_kext",
+        description="Locate mac_policy_register call sites inside AMFI kext slice.",
+    ),
+    "amfi-kext-got-ref-sweep": TaskConfig(
+        name="amfi-kext-got-ref-sweep",
+        script="kernel_got_ref_sweep.py",
+        import_target="amfi_kext",
+        description="Define GOT entries and collect references in AMFI kext slice.",
+    ),
+    "amfi-kext-got-load-sweep": TaskConfig(
+        name="amfi-kext-got-load-sweep",
+        script="kernel_got_load_sweep.py",
+        import_target="amfi_kext",
+        description="Scan code for GOT loads or direct refs in AMFI kext slice.",
+    ),
+    "amfi-kext-function-dump": TaskConfig(
+        name="amfi-kext-function-dump",
+        script="kernel_function_dump.py",
+        import_target="amfi_kext",
+        description="Dump disassembly for specified AMFI kext functions/addresses.",
     ),
 }
 
@@ -437,7 +479,7 @@ def main(argv: List[str] | None = None) -> int:
     args = parse_args(argv or sys.argv[1:])
     task = TASKS[args.task]
     build = BuildPaths.from_build(args.build_id)
-    missing = build.missing()
+    missing = build.missing(task.import_target)
     if missing:
         for path in missing:
             sys.stderr.write(f"Missing input: {path}\n")

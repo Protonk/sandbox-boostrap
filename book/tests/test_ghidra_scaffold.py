@@ -13,6 +13,7 @@ class ScaffoldCommandTests(unittest.TestCase):
             kernel=Path("/tmp/unit_base/kernel.kc"),
             kernel_collection=Path("/tmp/unit_base/kernel_collection.kc"),
             sandbox_kext=Path("/tmp/unit_base/sandbox.kext"),
+            amfi_kext=Path("/tmp/unit_base/amfi.kext"),
             userland=Path("/tmp/unit_base/userland.dylib"),
             profiles_dir=Path("/tmp/unit_base/profiles"),
             compiled_textedit=Path("/tmp/unit_base/compiled.sb.bin"),

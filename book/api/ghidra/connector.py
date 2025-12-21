@@ -174,7 +174,7 @@ class HeadlessConnector:
         task_spec = self.registry.get(task_name)
         task_cfg = gh_scaffold.TASKS[task_name]
         build = gh_scaffold.BuildPaths.from_build(build_id or gh_scaffold.DEFAULT_BUILD_ID)
-        missing = build.missing()
+        missing = build.missing(task_cfg.import_target)
         if missing:
             missing_str = ", ".join(str(p) for p in missing)
             raise FileNotFoundError(f"Missing inputs for build {build.build_id}: {missing_str}")

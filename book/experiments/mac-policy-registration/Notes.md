@@ -71,3 +71,30 @@
   - Track A (refs-only, target_only set): `hits=0` (`ref_hits: 0`, `literal_hits: 0`, `computed_hits: 0`) for the target auth_got entries.
   - Track B (lookback 32, target_only set): still `hits=0` across 65,548 instructions scanned (`got_load_sweep.json`).
 - Full sweep (no target_only filter) yields `total_hits: 766` (all direct refs; `computed_hits: 0`, `literal_hits: 0`), almost entirely in `__got` (`__got: 765`, `__auth_ptr: 1`, `__auth_got: 0`).
+
+## AMFI pivot (AppleMobileFileIntegrity)
+
+- Listed LC_FILESET_ENTRY names with `PYTHONPATH=$PWD python3 book/experiments/mac-policy-registration/rebuild_sandbox_kext.py --list`; AMFI is `com.apple.driver.AppleMobileFileIntegrity` (offset `0x48d3f0`). First rebuild attempt used the offset (`--entry-id 0x48d3f0`) and failed because `--entry-id` expects the entry name, not the offset.
+- Rebuilt AMFI slice: `PYTHONPATH=$PWD python3 book/experiments/mac-policy-registration/rebuild_sandbox_kext.py --entry-id com.apple.driver.AppleMobileFileIntegrity`, output `dumps/Sandbox-private/14.4.1-23E224/kernel/sandbox_kext_com_apple_driver_AppleMobileFileIntegrity.bin`.
+- Imported AMFI into `amfi_kext_14.4.1-23E224` via `amfi-kext-block-disasm` (`text 4 0 1`); disasm report shows 1 executable block (`dumps/ghidra/out/14.4.1-23E224/amfi-kext-block-disasm/disasm_report.json`).
+- `amfi-kext-mac-policy-register` with `flow indirect-all all` wrote `registration_sites.json` with `target_count: 6`, `call_site_count: 0`, `indirect_call_sites: 0`; targets include `_mac_policy_register`, `_amfi_register_mac_policy`, and `__ZL15_policy_initbsdP15mac_policy_conf`.
+- `otool -Iv` on AMFI saved to `book/experiments/mac-policy-registration/out/otool_indirect_symbols_amfi.txt`; `_mac_policy_register` entry at `0xfffffe0007e5c290` (signed `0x-1fff81a3d70`) in `__auth_got`.
+- `amfi-kext-got-ref-sweep`: `entries=329`, `with_refs=47`; `_mac_policy_register` GOT entry has `ref_count: 0`.
+- `amfi-kext-got-load-sweep` target-only (`target_only=0x-1fff81a3d70`) returns `hits: 0`; full sweep returns `hits: 314` with counts `__got: 300`, `__auth_ptr: 14`, `__auth_got: 0`.
+
+## AMFI function dump + KC pivots
+
+- Added `amfi-kext-function-dump` task and ran:
+  - `python3 book/api/ghidra/run_task.py amfi-kext-function-dump --process-existing --project-name amfi_kext_14.4.1-23E224 --no-analysis --exec --script-args _amfi_register_mac_policy __ZL15_policy_initbsdP15mac_policy_conf`
+  - Output `function_dump.json` shows `_amfi_register_mac_policy` contains no `mac_policy_register` call; `__ZL15_policy_initbsdP15mac_policy_conf` was not found as a function.
+- First attempt to use `kernel-string-refs` with `--process-existing --project-name sandbox_14.4.1-23E224_kc` failed (`Requested project program file(s) not found: BootKernelExtensions.kc`); the KC project contains `BootKernelCollection.kc`, not the extensions slice.
+- Imported BootKernelExtensions into `sandbox_14.4.1-23E224_extensions` and reran:
+  - `python3 book/api/ghidra/run_task.py kernel-string-refs --project-name sandbox_14.4.1-23E224_extensions --exec --script-args all mac_policy mac_policy_register mac_policy_conf policy_initbsd AppleMobileFileIntegrity amfi sandbox seatbelt`
+  - Result: `string_hits: 433`, but mac_policy-related hits resolve to `__LINKEDIT` data refs only (no executable references in `string_references.json`).
+  - Ghidra analysis logged pcode errors during BootKernelExtensions import, but the run completed and wrote output.
+- `kernel-imports` on BootKernelExtensions with substrings (`mac_policy`, `amfi`, `sandbox`, `seatbelt`, `AppleMobileFileIntegrity`) returned `symbol_count: 0` (`external_symbols.json`).
+- `kernel-collection-imports` on BootKernelCollection with the same substrings returned `symbol_count: 0`.
+- KC constant scans (BootKernelExtensions project):
+  - `kernel-adrp-add-scan` for `-0x1fff819a290` (`__ZL10mac_policy` in AMFI) -> `0` matches (`adrp_seen: 60`).
+  - `kernel-adrp-ldr-scan` for `-0x1fff81a3d70` (AMFI `_mac_policy_register` auth_got) -> `0` matches (`adrp_seen: 60`).
+  - `kernel-imm-search` for `0xfffffe0007e5c290` -> `0` hits.
