@@ -1,0 +1,82 @@
+{
+  "argv": [
+    "--input",
+    "/System/Library/Sandbox/Profiles/airlock.sb",
+    "--out-dir",
+    "book/experiments/gate-witnesses/out/witnesses/airlock",
+    "--confirm",
+    "10"
+  ],
+  "command": [
+    "/usr/bin/true"
+  ],
+  "confirm": {
+    "minimal_failing": {
+      "apply_gate_eperm": 10,
+      "bootstrap_deny_process_exec": 0,
+      "distribution": [
+        {
+          "count": 10,
+          "errno": 1,
+          "failure_stage": "apply"
+        }
+      ],
+      "invalid": 0,
+      "not_apply_gate": 0,
+      "runs": 10
+    },
+    "passing_neighbor": null
+  },
+  "confirm_runs": 10,
+  "initial_outcome": {
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "failure_kind": "sandbox_init_failed",
+    "failure_stage": "apply",
+    "raw_stderr": "{\"tool\":\"sbpl-preflight\",\"marker_schema_version\":1,\"stage\":\"preflight\",\"mode\":\"sbpl\",\"policy\":\"force\",\"profile\":\"/var/folders/ff/qyyjgwss7m110t6fnj2qtpjr0000gn/T/tmpoqwwzq1_.sb\",\"rc\":2,\"record_json\":\"{\\\"classification\\\": \\\"likely_apply_gated_for_harness_identity\\\", \\\"findings\\\": [{\\\"denied_operation\\\": \\\"iokit-async-external-method\\\", \\\"outer_action\\\": \\\"allow\\\", \\\"outer_operation\\\": \\\"iokit-open-user-client\\\"}, {\\\"denied_operation\\\": \\\"iokit-external-method\\\", \\\"outer_action\\\": \\\"allow\\\", \\\"outer_operation\\\": \\\"iokit-open-user-client\\\"}, {\\\"denied_operation\\\": \\\"iokit-external-method\\\", \\\"outer_action\\\": \\\"allow\\\", \\\"outer_operation\\\": \\\"iokit-open-user-client\\\"}, {\\\"denied_operation\\\": \\\"iokit-external-method\\\", \\\"outer_action\\\": \\\"allow\\\", \\\"outer_operation\\\": \\\"iokit-open-user-client\\\"}, {\\\"denied_operation\\\": \\\"iokit-async-external-method\\\", \\\"outer_action\\\": \\\"allow\\\", \\\"outer_operation\\\": \\\"iokit-open-user-client\\\"}, {\\\"denied_operation\\\": \\\"iokit-external-method\\\", \\\"outer_action\\\": \\\"allow\\\", \\\"outer_operation\\\": \\\"iokit-open-user-client\\\"}, {\\\"denied_operation\\\": \\\"iokit-external-method\\\", \\\"outer_action\\\": \\\"allow\\\", \\\"outer_operation\\\": \\\"iokit-open-user-client\\\"}, {\\\"denied_operation\\\": \\\"iokit-external-method\\\", \\\"outer_action\\\": \\\"allow\\\", \\\"outer_operation\\\": \\\"iokit-open-user-client\\\"}], \\\"input_kind\\\": \\\"sbpl_path\\\", \\\"input_ref\\\": \\\"/private/var/folders/ff/qyyjgwss7m110t6fnj2qtpjr0000gn/T/tmpoqwwzq1_.sb\\\", \\\"preflight_schema_version\\\": 1, \\\"signature\\\": \\\"deny_message_filter\\\", \\\"signature_meta\\\": {\\\"pointers\\\": [\\\"troubles/EPERMx2.md\\\", \\\"book/experiments/gate-witnesses/Report.md\\\", \\\"book/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json\\\"], \\\"status\\\": \\\"partial\\\"}, \\\"tool\\\": \\\"book/tools/preflight\\\", \\\"world_id\\\": \\\"sonoma-14.4.1-23E224-arm64-dyld-2c0602c5\\\"}\",\"pid\":32022}\n{\"tool\":\"entitlement-check\",\"marker_schema_version\":1,\"stage\":\"pre_apply\",\"entitlement\":\"com.apple.private.security.message-filter\",\"pid\":32022,\"rc\":0,\"present\":false,\"value_type\":\"absent\"}\nsandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/var/folders/ff/qyyjgwss7m110t6fnj2qtpjr0000gn/T/tmpoqwwzq1_.sb\",\"pid\":32022}\nsandbox_init failed: Operation not permitted\n",
+    "sbpl_sha256": "93af972c64734e8f05415aeb45e3db416ef918f7b7d8a029ac5e2a73f5bd4f2e",
+    "stderr_canonical": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
+    "wrapper_rc": 1
+  },
+  "input": "/System/Library/Sandbox/Profiles/airlock.sb",
+  "input_sha256": "d95b6e7f4f583646eeb4948ffa3a8383128fd32eb67939570fc99861d6c04e03",
+  "max_tests": null,
+  "minimal_failing_outcome": {
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "failure_kind": "sandbox_init_failed",
+    "failure_stage": "apply",
+    "raw_stderr": "{\"tool\":\"sbpl-preflight\",\"marker_schema_version\":1,\"stage\":\"preflight\",\"mode\":\"sbpl\",\"policy\":\"force\",\"profile\":\"/var/folders/ff/qyyjgwss7m110t6fnj2qtpjr0000gn/T/tmpik3fpe5g.sb\",\"rc\":0,\"record_json\":\"{\\\"classification\\\": \\\"no_known_apply_gate_signature\\\", \\\"findings\\\": [], \\\"input_kind\\\": \\\"sbpl_path\\\", \\\"input_ref\\\": \\\"/private/var/folders/ff/qyyjgwss7m110t6fnj2qtpjr0000gn/T/tmpik3fpe5g.sb\\\", \\\"preflight_schema_version\\\": 1, \\\"signature\\\": null, \\\"tool\\\": \\\"book/tools/preflight\\\", \\\"world_id\\\": \\\"sonoma-14.4.1-23E224-arm64-dyld-2c0602c5\\\"}\",\"pid\":32046}\n{\"tool\":\"entitlement-check\",\"marker_schema_version\":1,\"stage\":\"pre_apply\",\"entitlement\":\"com.apple.private.security.message-filter\",\"pid\":32046,\"rc\":0,\"present\":false,\"value_type\":\"absent\"}\nsandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/var/folders/ff/qyyjgwss7m110t6fnj2qtpjr0000gn/T/tmpik3fpe5g.sb\",\"pid\":32046}\nsandbox_init failed: Operation not permitted\n",
+    "sbpl_sha256": "8ff9f71a2c808f9856e10b8327703b62ad065ef68a92360cc990acaedd734fc8",
+    "stderr_canonical": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
+    "wrapper_rc": 1
+  },
+  "passing_neighbor": null,
+  "runtime_contract": {
+    "runtime_result_schema_version": 1,
+    "sbpl_apply_marker_schema_version": 1,
+    "seatbelt_callout_marker_schema_version": 2,
+    "tool_marker_schema_version": 2
+  },
+  "tests_run": 28,
+  "timeout_sec": 5,
+  "tool": {
+    "path": "book/tools/preflight/gate_minimizer.py",
+    "sha256": "326820811330d445301807e00611cbd07fb63766b8c81205b79ab3ca599344cf"
+  },
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "wrapper": "book/api/SBPL-wrapper/wrapper",
+  "wrapper_sha256": "528ba6c6a4fdec1e149f2730ad2161e230247bd22f7842545152555a0bec9e7a"
+}

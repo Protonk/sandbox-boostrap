@@ -10,17 +10,19 @@
     },
     "cmd": [
       "book/api/SBPL-wrapper/wrapper",
+      "--preflight",
+      "force",
       "--sbpl",
       "book/experiments/op-table-operation/sb/v0_empty.sb",
       "--",
       "/usr/bin/true"
     ],
-    "end_unix": 1766171213.646231,
+    "end_unix": 1766296655.718045,
     "entitlement_checks": [
       {
         "entitlement": "com.apple.private.security.message-filter",
         "marker_schema_version": 1,
-        "pid": 3326,
+        "pid": 33732,
         "present": false,
         "rc": 0,
         "stage": "pre_apply",
@@ -30,252 +32,15 @@
     ],
     "failure_kind": "bootstrap_deny_process_exec",
     "failure_stage": "bootstrap",
-    "pid": 3326,
-    "start_unix": 1766171213.636393,
+    "pid": 33732,
+    "start_unix": 1766296655.661283,
     "stderr": "execvp: Operation not permitted\n",
     "timed_out": false,
     "wrapper_rc": 127
   },
   "witnesses": [
     {
-      "forensics": {
-        "blob_apply": {
-          "minimal_failing": {
-            "apply_report": {
-              "api": "sandbox_apply",
-              "err_class": "errno_eperm",
-              "err_class_source": "errno_only",
-              "errbuf": "Operation not permitted",
-              "errno": 1,
-              "rc": -1
-            },
-            "blob": "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/minimal_failing.sb.bin",
-            "blob_sha256": "f8aaa1deb5becd33659daca06a4b15df2238f8b912c65c24a8e43b40c61b6640",
-            "cmd": [
-              "book/api/SBPL-wrapper/wrapper",
-              "--blob",
-              "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/minimal_failing.sb.bin",
-              "--",
-              "/usr/bin/true"
-            ],
-            "end_unix": 1766171213.6806982,
-            "entitlement_checks": [
-              {
-                "entitlement": "com.apple.private.security.message-filter",
-                "marker_schema_version": 1,
-                "pid": 3331,
-                "present": false,
-                "rc": 0,
-                "stage": "pre_apply",
-                "tool": "entitlement-check",
-                "value_type": "absent"
-              }
-            ],
-            "failure_kind": "sandbox_apply_failed",
-            "failure_stage": "apply",
-            "pid": 3331,
-            "start_unix": 1766171213.6777458,
-            "stderr": "sandbox_apply: Operation not permitted\n",
-            "timed_out": false,
-            "wrapper_rc": 1
-          },
-          "passing_neighbor": {
-            "apply_report": null,
-            "blob": "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/passing_neighbor.sb.bin",
-            "blob_sha256": "06162de74997b5641b60cca5b68bfb2e36e62652dc8ed9dd26af7e69a4ad6068",
-            "cmd": [
-              "book/api/SBPL-wrapper/wrapper",
-              "--blob",
-              "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/passing_neighbor.sb.bin",
-              "--",
-              "/usr/bin/true"
-            ],
-            "end_unix": 1766171213.683915,
-            "entitlement_checks": [
-              {
-                "entitlement": "com.apple.private.security.message-filter",
-                "marker_schema_version": 1,
-                "pid": 3332,
-                "present": false,
-                "rc": 0,
-                "stage": "pre_apply",
-                "tool": "entitlement-check",
-                "value_type": "absent"
-              }
-            ],
-            "failure_kind": null,
-            "failure_stage": null,
-            "pid": 3332,
-            "start_unix": 1766171213.6811259,
-            "stderr": "",
-            "timed_out": false,
-            "wrapper_rc": 127
-          }
-        },
-        "capture_unified_log": true,
-        "compile": {
-          "minimal_failing": {
-            "blob": "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/minimal_failing.sb.bin",
-            "blob_sha256": "f8aaa1deb5becd33659daca06a4b15df2238f8b912c65c24a8e43b40c61b6640",
-            "cmd": [
-              "book/api/SBPL-wrapper/wrapper",
-              "--compile",
-              "book/experiments/gate-witnesses/out/witnesses/airlock/minimal_failing.sb",
-              "--out",
-              "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/minimal_failing.sb.bin"
-            ],
-            "end_unix": 1766171213.670033,
-            "marker": {
-              "bytecode_length": 513,
-              "errbuf": null,
-              "errno": 0,
-              "marker_schema_version": 1,
-              "profile_type": 0,
-              "rc": 0
-            },
-            "marker_count": 1,
-            "pid": 3329,
-            "start_unix": 1766171213.662389,
-            "stderr": "",
-            "timed_out": false,
-            "wrapper_rc": 0
-          },
-          "passing_neighbor": {
-            "blob": "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/passing_neighbor.sb.bin",
-            "blob_sha256": "06162de74997b5641b60cca5b68bfb2e36e62652dc8ed9dd26af7e69a4ad6068",
-            "cmd": [
-              "book/api/SBPL-wrapper/wrapper",
-              "--compile",
-              "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
-              "--out",
-              "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/passing_neighbor.sb.bin"
-            ],
-            "end_unix": 1766171213.67732,
-            "marker": {
-              "bytecode_length": 465,
-              "errbuf": null,
-              "errno": 0,
-              "marker_schema_version": 1,
-              "profile_type": 0,
-              "rc": 0
-            },
-            "marker_count": 1,
-            "pid": 3330,
-            "start_unix": 1766171213.6705642,
-            "stderr": "",
-            "timed_out": false,
-            "wrapper_rc": 0
-          }
-        },
-        "unified_log": {
-          "minimal_failing": {
-            "fallback": {
-              "cmd": [
-                "/usr/bin/log",
-                "show",
-                "--style",
-                "syslog",
-                "--start",
-                "@1766171211",
-                "--end",
-                "@1766171215",
-                "--predicate",
-                "((eventMessage CONTAINS[c] \"message filter\") OR (eventMessage CONTAINS[c] \"message-filter\") OR (eventMessage CONTAINS[c] \"entitlement\")) AND (eventMessage CONTAINS[c] \"wrapper[3331]\")"
-              ],
-              "end": "@1766171215",
-              "end_unix": 1766171215,
-              "out_path": "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_fallback.minimal_failing.txt",
-              "predicate": "((eventMessage CONTAINS[c] \"message filter\") OR (eventMessage CONTAINS[c] \"message-filter\") OR (eventMessage CONTAINS[c] \"entitlement\")) AND (eventMessage CONTAINS[c] \"wrapper[3331]\")",
-              "rc": 0,
-              "run_end_unix": 1766171213.6806982,
-              "run_start_unix": 1766171213.6777458,
-              "start": "@1766171211",
-              "start_unix": 1766171211,
-              "stderr": null,
-              "stdout_bytes": 165
-            },
-            "pid": 3331,
-            "primary": {
-              "cmd": [
-                "/usr/bin/log",
-                "show",
-                "--style",
-                "syslog",
-                "--start",
-                "@1766171211",
-                "--end",
-                "@1766171215",
-                "--predicate",
-                "(((subsystem == \"com.apple.sandbox.reporting\") OR (senderImagePath CONTAINS[c] \"/Sandbox\")) AND ((eventMessage CONTAINS[c] \"message filter\") OR (eventMessage CONTAINS[c] \"message-filter\") OR (eventMessage CONTAINS[c] \"entitlement\"))) AND (eventMessage CONTAINS[c] \"wrapper[3331]\")"
-              ],
-              "end": "@1766171215",
-              "end_unix": 1766171215,
-              "out_path": "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_primary.minimal_failing.txt",
-              "predicate": "(((subsystem == \"com.apple.sandbox.reporting\") OR (senderImagePath CONTAINS[c] \"/Sandbox\")) AND ((eventMessage CONTAINS[c] \"message filter\") OR (eventMessage CONTAINS[c] \"message-filter\") OR (eventMessage CONTAINS[c] \"entitlement\"))) AND (eventMessage CONTAINS[c] \"wrapper[3331]\")",
-              "rc": 0,
-              "run_end_unix": 1766171213.6806982,
-              "run_start_unix": 1766171213.6777458,
-              "start": "@1766171211",
-              "start_unix": 1766171211,
-              "stderr": null,
-              "stdout_bytes": 165
-            }
-          },
-          "passing_neighbor": {
-            "fallback": {
-              "cmd": [
-                "/usr/bin/log",
-                "show",
-                "--style",
-                "syslog",
-                "--start",
-                "@1766171211",
-                "--end",
-                "@1766171215",
-                "--predicate",
-                "((eventMessage CONTAINS[c] \"message filter\") OR (eventMessage CONTAINS[c] \"message-filter\") OR (eventMessage CONTAINS[c] \"entitlement\")) AND (eventMessage CONTAINS[c] \"wrapper[3332]\")"
-              ],
-              "end": "@1766171215",
-              "end_unix": 1766171215,
-              "out_path": "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_fallback.passing_neighbor.txt",
-              "predicate": "((eventMessage CONTAINS[c] \"message filter\") OR (eventMessage CONTAINS[c] \"message-filter\") OR (eventMessage CONTAINS[c] \"entitlement\")) AND (eventMessage CONTAINS[c] \"wrapper[3332]\")",
-              "rc": 0,
-              "run_end_unix": 1766171213.683915,
-              "run_start_unix": 1766171213.6811259,
-              "start": "@1766171211",
-              "start_unix": 1766171211,
-              "stderr": null,
-              "stdout_bytes": 51
-            },
-            "pid": 3332,
-            "primary": {
-              "cmd": [
-                "/usr/bin/log",
-                "show",
-                "--style",
-                "syslog",
-                "--start",
-                "@1766171211",
-                "--end",
-                "@1766171215",
-                "--predicate",
-                "(((subsystem == \"com.apple.sandbox.reporting\") OR (senderImagePath CONTAINS[c] \"/Sandbox\")) AND ((eventMessage CONTAINS[c] \"message filter\") OR (eventMessage CONTAINS[c] \"message-filter\") OR (eventMessage CONTAINS[c] \"entitlement\"))) AND (eventMessage CONTAINS[c] \"wrapper[3332]\")"
-              ],
-              "end": "@1766171215",
-              "end_unix": 1766171215,
-              "out_path": "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_primary.passing_neighbor.txt",
-              "predicate": "(((subsystem == \"com.apple.sandbox.reporting\") OR (senderImagePath CONTAINS[c] \"/Sandbox\")) AND ((eventMessage CONTAINS[c] \"message filter\") OR (eventMessage CONTAINS[c] \"message-filter\") OR (eventMessage CONTAINS[c] \"entitlement\"))) AND (eventMessage CONTAINS[c] \"wrapper[3332]\")",
-              "rc": 0,
-              "run_end_unix": 1766171213.683915,
-              "run_start_unix": 1766171213.6811259,
-              "start": "@1766171211",
-              "start_unix": 1766171211,
-              "stderr": null,
-              "stdout_bytes": 51
-            }
-          }
-        }
-      },
+      "forensics": null,
       "minimal_failing": {
         "path": "book/experiments/gate-witnesses/out/witnesses/airlock/minimal_failing.sb",
         "result": {
@@ -289,17 +54,19 @@
           },
           "cmd": [
             "book/api/SBPL-wrapper/wrapper",
+            "--preflight",
+            "force",
             "--sbpl",
             "book/experiments/gate-witnesses/out/witnesses/airlock/minimal_failing.sb",
             "--",
             "/usr/bin/true"
           ],
-          "end_unix": 1766171213.653928,
+          "end_unix": 1766296655.7721758,
           "entitlement_checks": [
             {
               "entitlement": "com.apple.private.security.message-filter",
               "marker_schema_version": 1,
-              "pid": 3327,
+              "pid": 33734,
               "present": false,
               "rc": 0,
               "stage": "pre_apply",
@@ -309,8 +76,8 @@
           ],
           "failure_kind": "sandbox_init_failed",
           "failure_stage": "apply",
-          "pid": 3327,
-          "start_unix": 1766171213.6467168,
+          "pid": 33734,
+          "start_unix": 1766296655.718511,
           "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
           "timed_out": false,
           "wrapper_rc": 1
@@ -323,17 +90,19 @@
           "apply_report": null,
           "cmd": [
             "book/api/SBPL-wrapper/wrapper",
+            "--preflight",
+            "force",
             "--sbpl",
             "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
             "--",
             "/usr/bin/true"
           ],
-          "end_unix": 1766171213.66188,
+          "end_unix": 1766296655.828659,
           "entitlement_checks": [
             {
               "entitlement": "com.apple.private.security.message-filter",
               "marker_schema_version": 1,
-              "pid": 3328,
+              "pid": 33736,
               "present": false,
               "rc": 0,
               "stage": "pre_apply",
@@ -343,8 +112,8 @@
           ],
           "failure_kind": null,
           "failure_stage": null,
-          "pid": 3328,
-          "start_unix": 1766171213.6542668,
+          "pid": 33736,
+          "start_unix": 1766296655.772513,
           "stderr": "",
           "timed_out": false,
           "wrapper_rc": 127
@@ -353,251 +122,7 @@
       "target": "airlock"
     },
     {
-      "forensics": {
-        "blob_apply": {
-          "minimal_failing": {
-            "apply_report": {
-              "api": "sandbox_apply",
-              "err_class": "errno_eperm",
-              "err_class_source": "errno_only",
-              "errbuf": "Operation not permitted",
-              "errno": 1,
-              "rc": -1
-            },
-            "blob": "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/blastdoor/minimal_failing.sb.bin",
-            "blob_sha256": "1c810afb4859beba5ea31eece812cdd3548ea575500a1063dc8eeaa11a8e3f60",
-            "cmd": [
-              "book/api/SBPL-wrapper/wrapper",
-              "--blob",
-              "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/blastdoor/minimal_failing.sb.bin",
-              "--",
-              "/usr/bin/true"
-            ],
-            "end_unix": 1766171214.6257138,
-            "entitlement_checks": [
-              {
-                "entitlement": "com.apple.private.security.message-filter",
-                "marker_schema_version": 1,
-                "pid": 3341,
-                "present": false,
-                "rc": 0,
-                "stage": "pre_apply",
-                "tool": "entitlement-check",
-                "value_type": "absent"
-              }
-            ],
-            "failure_kind": "sandbox_apply_failed",
-            "failure_stage": "apply",
-            "pid": 3341,
-            "start_unix": 1766171214.6229088,
-            "stderr": "sandbox_apply: Operation not permitted\n",
-            "timed_out": false,
-            "wrapper_rc": 1
-          },
-          "passing_neighbor": {
-            "apply_report": {
-              "api": "sandbox_apply",
-              "err_class": "ok",
-              "err_class_source": "none",
-              "errbuf": null,
-              "errno": 0,
-              "rc": 0
-            },
-            "blob": "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/blastdoor/passing_neighbor.sb.bin",
-            "blob_sha256": "0b491b96b6e101f53cd12081c41af87e31caaedec3344e11960018f25f6f4eda",
-            "cmd": [
-              "book/api/SBPL-wrapper/wrapper",
-              "--blob",
-              "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/blastdoor/passing_neighbor.sb.bin",
-              "--",
-              "/usr/bin/true"
-            ],
-            "end_unix": 1766171214.62909,
-            "entitlement_checks": [
-              {
-                "entitlement": "com.apple.private.security.message-filter",
-                "marker_schema_version": 1,
-                "pid": 3342,
-                "present": false,
-                "rc": 0,
-                "stage": "pre_apply",
-                "tool": "entitlement-check",
-                "value_type": "absent"
-              }
-            ],
-            "failure_kind": "bootstrap_deny_process_exec",
-            "failure_stage": "bootstrap",
-            "pid": 3342,
-            "start_unix": 1766171214.626135,
-            "stderr": "execvp: Operation not permitted\n",
-            "timed_out": false,
-            "wrapper_rc": 127
-          }
-        },
-        "capture_unified_log": true,
-        "compile": {
-          "minimal_failing": {
-            "blob": "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/blastdoor/minimal_failing.sb.bin",
-            "blob_sha256": "1c810afb4859beba5ea31eece812cdd3548ea575500a1063dc8eeaa11a8e3f60",
-            "cmd": [
-              "book/api/SBPL-wrapper/wrapper",
-              "--compile",
-              "book/experiments/gate-witnesses/out/witnesses/blastdoor/minimal_failing.sb",
-              "--out",
-              "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/blastdoor/minimal_failing.sb.bin"
-            ],
-            "end_unix": 1766171214.6148312,
-            "marker": {
-              "bytecode_length": 448,
-              "errbuf": null,
-              "errno": 0,
-              "marker_schema_version": 1,
-              "profile_type": 0,
-              "rc": 0
-            },
-            "marker_count": 1,
-            "pid": 3339,
-            "start_unix": 1766171214.607883,
-            "stderr": "",
-            "timed_out": false,
-            "wrapper_rc": 0
-          },
-          "passing_neighbor": {
-            "blob": "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/blastdoor/passing_neighbor.sb.bin",
-            "blob_sha256": "0b491b96b6e101f53cd12081c41af87e31caaedec3344e11960018f25f6f4eda",
-            "cmd": [
-              "book/api/SBPL-wrapper/wrapper",
-              "--compile",
-              "book/experiments/gate-witnesses/out/witnesses/blastdoor/passing_neighbor.sb",
-              "--out",
-              "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/blastdoor/passing_neighbor.sb.bin"
-            ],
-            "end_unix": 1766171214.6224582,
-            "marker": {
-              "bytecode_length": 440,
-              "errbuf": null,
-              "errno": 0,
-              "marker_schema_version": 1,
-              "profile_type": 0,
-              "rc": 0
-            },
-            "marker_count": 1,
-            "pid": 3340,
-            "start_unix": 1766171214.61534,
-            "stderr": "",
-            "timed_out": false,
-            "wrapper_rc": 0
-          }
-        },
-        "unified_log": {
-          "minimal_failing": {
-            "fallback": {
-              "cmd": [
-                "/usr/bin/log",
-                "show",
-                "--style",
-                "syslog",
-                "--start",
-                "@1766171212",
-                "--end",
-                "@1766171216",
-                "--predicate",
-                "((eventMessage CONTAINS[c] \"message filter\") OR (eventMessage CONTAINS[c] \"message-filter\") OR (eventMessage CONTAINS[c] \"entitlement\")) AND (eventMessage CONTAINS[c] \"wrapper[3341]\")"
-              ],
-              "end": "@1766171216",
-              "end_unix": 1766171216,
-              "out_path": "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/blastdoor/log_show_fallback.minimal_failing.txt",
-              "predicate": "((eventMessage CONTAINS[c] \"message filter\") OR (eventMessage CONTAINS[c] \"message-filter\") OR (eventMessage CONTAINS[c] \"entitlement\")) AND (eventMessage CONTAINS[c] \"wrapper[3341]\")",
-              "rc": 0,
-              "run_end_unix": 1766171214.6257138,
-              "run_start_unix": 1766171214.6229088,
-              "start": "@1766171212",
-              "start_unix": 1766171212,
-              "stderr": null,
-              "stdout_bytes": 165
-            },
-            "pid": 3341,
-            "primary": {
-              "cmd": [
-                "/usr/bin/log",
-                "show",
-                "--style",
-                "syslog",
-                "--start",
-                "@1766171212",
-                "--end",
-                "@1766171216",
-                "--predicate",
-                "(((subsystem == \"com.apple.sandbox.reporting\") OR (senderImagePath CONTAINS[c] \"/Sandbox\")) AND ((eventMessage CONTAINS[c] \"message filter\") OR (eventMessage CONTAINS[c] \"message-filter\") OR (eventMessage CONTAINS[c] \"entitlement\"))) AND (eventMessage CONTAINS[c] \"wrapper[3341]\")"
-              ],
-              "end": "@1766171216",
-              "end_unix": 1766171216,
-              "out_path": "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/blastdoor/log_show_primary.minimal_failing.txt",
-              "predicate": "(((subsystem == \"com.apple.sandbox.reporting\") OR (senderImagePath CONTAINS[c] \"/Sandbox\")) AND ((eventMessage CONTAINS[c] \"message filter\") OR (eventMessage CONTAINS[c] \"message-filter\") OR (eventMessage CONTAINS[c] \"entitlement\"))) AND (eventMessage CONTAINS[c] \"wrapper[3341]\")",
-              "rc": 0,
-              "run_end_unix": 1766171214.6257138,
-              "run_start_unix": 1766171214.6229088,
-              "start": "@1766171212",
-              "start_unix": 1766171212,
-              "stderr": null,
-              "stdout_bytes": 165
-            }
-          },
-          "passing_neighbor": {
-            "fallback": {
-              "cmd": [
-                "/usr/bin/log",
-                "show",
-                "--style",
-                "syslog",
-                "--start",
-                "@1766171212",
-                "--end",
-                "@1766171216",
-                "--predicate",
-                "((eventMessage CONTAINS[c] \"message filter\") OR (eventMessage CONTAINS[c] \"message-filter\") OR (eventMessage CONTAINS[c] \"entitlement\")) AND (eventMessage CONTAINS[c] \"wrapper[3342]\")"
-              ],
-              "end": "@1766171216",
-              "end_unix": 1766171216,
-              "out_path": "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/blastdoor/log_show_fallback.passing_neighbor.txt",
-              "predicate": "((eventMessage CONTAINS[c] \"message filter\") OR (eventMessage CONTAINS[c] \"message-filter\") OR (eventMessage CONTAINS[c] \"entitlement\")) AND (eventMessage CONTAINS[c] \"wrapper[3342]\")",
-              "rc": 0,
-              "run_end_unix": 1766171214.62909,
-              "run_start_unix": 1766171214.626135,
-              "start": "@1766171212",
-              "start_unix": 1766171212,
-              "stderr": null,
-              "stdout_bytes": 51
-            },
-            "pid": 3342,
-            "primary": {
-              "cmd": [
-                "/usr/bin/log",
-                "show",
-                "--style",
-                "syslog",
-                "--start",
-                "@1766171212",
-                "--end",
-                "@1766171216",
-                "--predicate",
-                "(((subsystem == \"com.apple.sandbox.reporting\") OR (senderImagePath CONTAINS[c] \"/Sandbox\")) AND ((eventMessage CONTAINS[c] \"message filter\") OR (eventMessage CONTAINS[c] \"message-filter\") OR (eventMessage CONTAINS[c] \"entitlement\"))) AND (eventMessage CONTAINS[c] \"wrapper[3342]\")"
-              ],
-              "end": "@1766171216",
-              "end_unix": 1766171216,
-              "out_path": "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/blastdoor/log_show_primary.passing_neighbor.txt",
-              "predicate": "(((subsystem == \"com.apple.sandbox.reporting\") OR (senderImagePath CONTAINS[c] \"/Sandbox\")) AND ((eventMessage CONTAINS[c] \"message filter\") OR (eventMessage CONTAINS[c] \"message-filter\") OR (eventMessage CONTAINS[c] \"entitlement\"))) AND (eventMessage CONTAINS[c] \"wrapper[3342]\")",
-              "rc": 0,
-              "run_end_unix": 1766171214.62909,
-              "run_start_unix": 1766171214.626135,
-              "start": "@1766171212",
-              "start_unix": 1766171212,
-              "stderr": null,
-              "stdout_bytes": 51
-            }
-          }
-        }
-      },
+      "forensics": null,
       "minimal_failing": {
         "path": "book/experiments/gate-witnesses/out/witnesses/blastdoor/minimal_failing.sb",
         "result": {
@@ -611,17 +136,19 @@
           },
           "cmd": [
             "book/api/SBPL-wrapper/wrapper",
+            "--preflight",
+            "force",
             "--sbpl",
             "book/experiments/gate-witnesses/out/witnesses/blastdoor/minimal_failing.sb",
             "--",
             "/usr/bin/true"
           ],
-          "end_unix": 1766171214.5999,
+          "end_unix": 1766296655.886127,
           "entitlement_checks": [
             {
               "entitlement": "com.apple.private.security.message-filter",
               "marker_schema_version": 1,
-              "pid": 3337,
+              "pid": 33738,
               "present": false,
               "rc": 0,
               "stage": "pre_apply",
@@ -631,8 +158,8 @@
           ],
           "failure_kind": "sandbox_init_failed",
           "failure_stage": "apply",
-          "pid": 3337,
-          "start_unix": 1766171214.592423,
+          "pid": 33738,
+          "start_unix": 1766296655.829115,
           "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
           "timed_out": false,
           "wrapper_rc": 1
@@ -652,17 +179,19 @@
           },
           "cmd": [
             "book/api/SBPL-wrapper/wrapper",
+            "--preflight",
+            "force",
             "--sbpl",
             "book/experiments/gate-witnesses/out/witnesses/blastdoor/passing_neighbor.sb",
             "--",
             "/usr/bin/true"
           ],
-          "end_unix": 1766171214.607465,
+          "end_unix": 1766296655.942848,
           "entitlement_checks": [
             {
               "entitlement": "com.apple.private.security.message-filter",
               "marker_schema_version": 1,
-              "pid": 3338,
+              "pid": 33740,
               "present": false,
               "rc": 0,
               "stage": "pre_apply",
@@ -672,8 +201,8 @@
           ],
           "failure_kind": "bootstrap_deny_process_exec",
           "failure_stage": "bootstrap",
-          "pid": 3338,
-          "start_unix": 1766171214.600197,
+          "pid": 33740,
+          "start_unix": 1766296655.8864682,
           "stderr": "execvp: Operation not permitted\n",
           "timed_out": false,
           "wrapper_rc": 127
@@ -682,244 +211,7 @@
       "target": "blastdoor"
     },
     {
-      "forensics": {
-        "blob_apply": {
-          "minimal_failing": {
-            "apply_report": {
-              "api": "sandbox_apply",
-              "err_class": "errno_eperm",
-              "err_class_source": "errno_only",
-              "errbuf": "Operation not permitted",
-              "errno": 1,
-              "rc": -1
-            },
-            "blob": "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/minimal_failing.sb.bin",
-            "blob_sha256": "f8aaa1deb5becd33659daca06a4b15df2238f8b912c65c24a8e43b40c61b6640",
-            "cmd": [
-              "book/api/SBPL-wrapper/wrapper",
-              "--blob",
-              "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/minimal_failing.sb.bin",
-              "--",
-              "/usr/bin/true"
-            ],
-            "end_unix": 1766171215.152981,
-            "entitlement_checks": [
-              {
-                "entitlement": "com.apple.private.security.message-filter",
-                "marker_schema_version": 1,
-                "pid": 3353,
-                "present": false,
-                "rc": 0,
-                "stage": "pre_apply",
-                "tool": "entitlement-check",
-                "value_type": "absent"
-              }
-            ],
-            "failure_kind": "sandbox_apply_failed",
-            "failure_stage": "apply",
-            "pid": 3353,
-            "start_unix": 1766171215.150056,
-            "stderr": "sandbox_apply: Operation not permitted\n",
-            "timed_out": false,
-            "wrapper_rc": 1
-          },
-          "passing_neighbor": {
-            "apply_report": null,
-            "blob": "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/passing_neighbor.sb.bin",
-            "blob_sha256": "06162de74997b5641b60cca5b68bfb2e36e62652dc8ed9dd26af7e69a4ad6068",
-            "cmd": [
-              "book/api/SBPL-wrapper/wrapper",
-              "--blob",
-              "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/passing_neighbor.sb.bin",
-              "--",
-              "/usr/bin/true"
-            ],
-            "end_unix": 1766171215.15629,
-            "entitlement_checks": [
-              {
-                "entitlement": "com.apple.private.security.message-filter",
-                "marker_schema_version": 1,
-                "pid": 3354,
-                "present": false,
-                "rc": 0,
-                "stage": "pre_apply",
-                "tool": "entitlement-check",
-                "value_type": "absent"
-              }
-            ],
-            "failure_kind": null,
-            "failure_stage": null,
-            "pid": 3354,
-            "start_unix": 1766171215.153383,
-            "stderr": "",
-            "timed_out": false,
-            "wrapper_rc": 127
-          }
-        },
-        "capture_unified_log": true,
-        "compile": {
-          "minimal_failing": {
-            "blob": "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/minimal_failing.sb.bin",
-            "blob_sha256": "f8aaa1deb5becd33659daca06a4b15df2238f8b912c65c24a8e43b40c61b6640",
-            "cmd": [
-              "book/api/SBPL-wrapper/wrapper",
-              "--compile",
-              "book/experiments/gate-witnesses/out/witnesses/com.apple.CoreGraphics.CGPDFService/minimal_failing.sb",
-              "--out",
-              "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/minimal_failing.sb.bin"
-            ],
-            "end_unix": 1766171215.142213,
-            "marker": {
-              "bytecode_length": 513,
-              "errbuf": null,
-              "errno": 0,
-              "marker_schema_version": 1,
-              "profile_type": 0,
-              "rc": 0
-            },
-            "marker_count": 1,
-            "pid": 3351,
-            "start_unix": 1766171215.1351209,
-            "stderr": "",
-            "timed_out": false,
-            "wrapper_rc": 0
-          },
-          "passing_neighbor": {
-            "blob": "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/passing_neighbor.sb.bin",
-            "blob_sha256": "06162de74997b5641b60cca5b68bfb2e36e62652dc8ed9dd26af7e69a4ad6068",
-            "cmd": [
-              "book/api/SBPL-wrapper/wrapper",
-              "--compile",
-              "book/experiments/gate-witnesses/out/witnesses/com.apple.CoreGraphics.CGPDFService/passing_neighbor.sb",
-              "--out",
-              "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/passing_neighbor.sb.bin"
-            ],
-            "end_unix": 1766171215.149622,
-            "marker": {
-              "bytecode_length": 465,
-              "errbuf": null,
-              "errno": 0,
-              "marker_schema_version": 1,
-              "profile_type": 0,
-              "rc": 0
-            },
-            "marker_count": 1,
-            "pid": 3352,
-            "start_unix": 1766171215.142726,
-            "stderr": "",
-            "timed_out": false,
-            "wrapper_rc": 0
-          }
-        },
-        "unified_log": {
-          "minimal_failing": {
-            "fallback": {
-              "cmd": [
-                "/usr/bin/log",
-                "show",
-                "--style",
-                "syslog",
-                "--start",
-                "@1766171213",
-                "--end",
-                "@1766171217",
-                "--predicate",
-                "((eventMessage CONTAINS[c] \"message filter\") OR (eventMessage CONTAINS[c] \"message-filter\") OR (eventMessage CONTAINS[c] \"entitlement\")) AND (eventMessage CONTAINS[c] \"wrapper[3353]\")"
-              ],
-              "end": "@1766171217",
-              "end_unix": 1766171217,
-              "out_path": "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/log_show_fallback.minimal_failing.txt",
-              "predicate": "((eventMessage CONTAINS[c] \"message filter\") OR (eventMessage CONTAINS[c] \"message-filter\") OR (eventMessage CONTAINS[c] \"entitlement\")) AND (eventMessage CONTAINS[c] \"wrapper[3353]\")",
-              "rc": 0,
-              "run_end_unix": 1766171215.152981,
-              "run_start_unix": 1766171215.150056,
-              "start": "@1766171213",
-              "start_unix": 1766171213,
-              "stderr": null,
-              "stdout_bytes": 165
-            },
-            "pid": 3353,
-            "primary": {
-              "cmd": [
-                "/usr/bin/log",
-                "show",
-                "--style",
-                "syslog",
-                "--start",
-                "@1766171213",
-                "--end",
-                "@1766171217",
-                "--predicate",
-                "(((subsystem == \"com.apple.sandbox.reporting\") OR (senderImagePath CONTAINS[c] \"/Sandbox\")) AND ((eventMessage CONTAINS[c] \"message filter\") OR (eventMessage CONTAINS[c] \"message-filter\") OR (eventMessage CONTAINS[c] \"entitlement\"))) AND (eventMessage CONTAINS[c] \"wrapper[3353]\")"
-              ],
-              "end": "@1766171217",
-              "end_unix": 1766171217,
-              "out_path": "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/log_show_primary.minimal_failing.txt",
-              "predicate": "(((subsystem == \"com.apple.sandbox.reporting\") OR (senderImagePath CONTAINS[c] \"/Sandbox\")) AND ((eventMessage CONTAINS[c] \"message filter\") OR (eventMessage CONTAINS[c] \"message-filter\") OR (eventMessage CONTAINS[c] \"entitlement\"))) AND (eventMessage CONTAINS[c] \"wrapper[3353]\")",
-              "rc": 0,
-              "run_end_unix": 1766171215.152981,
-              "run_start_unix": 1766171215.150056,
-              "start": "@1766171213",
-              "start_unix": 1766171213,
-              "stderr": null,
-              "stdout_bytes": 165
-            }
-          },
-          "passing_neighbor": {
-            "fallback": {
-              "cmd": [
-                "/usr/bin/log",
-                "show",
-                "--style",
-                "syslog",
-                "--start",
-                "@1766171213",
-                "--end",
-                "@1766171217",
-                "--predicate",
-                "((eventMessage CONTAINS[c] \"message filter\") OR (eventMessage CONTAINS[c] \"message-filter\") OR (eventMessage CONTAINS[c] \"entitlement\")) AND (eventMessage CONTAINS[c] \"wrapper[3354]\")"
-              ],
-              "end": "@1766171217",
-              "end_unix": 1766171217,
-              "out_path": "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/log_show_fallback.passing_neighbor.txt",
-              "predicate": "((eventMessage CONTAINS[c] \"message filter\") OR (eventMessage CONTAINS[c] \"message-filter\") OR (eventMessage CONTAINS[c] \"entitlement\")) AND (eventMessage CONTAINS[c] \"wrapper[3354]\")",
-              "rc": 0,
-              "run_end_unix": 1766171215.15629,
-              "run_start_unix": 1766171215.153383,
-              "start": "@1766171213",
-              "start_unix": 1766171213,
-              "stderr": null,
-              "stdout_bytes": 51
-            },
-            "pid": 3354,
-            "primary": {
-              "cmd": [
-                "/usr/bin/log",
-                "show",
-                "--style",
-                "syslog",
-                "--start",
-                "@1766171213",
-                "--end",
-                "@1766171217",
-                "--predicate",
-                "(((subsystem == \"com.apple.sandbox.reporting\") OR (senderImagePath CONTAINS[c] \"/Sandbox\")) AND ((eventMessage CONTAINS[c] \"message filter\") OR (eventMessage CONTAINS[c] \"message-filter\") OR (eventMessage CONTAINS[c] \"entitlement\"))) AND (eventMessage CONTAINS[c] \"wrapper[3354]\")"
-              ],
-              "end": "@1766171217",
-              "end_unix": 1766171217,
-              "out_path": "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/log_show_primary.passing_neighbor.txt",
-              "predicate": "(((subsystem == \"com.apple.sandbox.reporting\") OR (senderImagePath CONTAINS[c] \"/Sandbox\")) AND ((eventMessage CONTAINS[c] \"message filter\") OR (eventMessage CONTAINS[c] \"message-filter\") OR (eventMessage CONTAINS[c] \"entitlement\"))) AND (eventMessage CONTAINS[c] \"wrapper[3354]\")",
-              "rc": 0,
-              "run_end_unix": 1766171215.15629,
-              "run_start_unix": 1766171215.153383,
-              "start": "@1766171213",
-              "start_unix": 1766171213,
-              "stderr": null,
-              "stdout_bytes": 51
-            }
-          }
-        }
-      },
+      "forensics": null,
       "minimal_failing": {
         "path": "book/experiments/gate-witnesses/out/witnesses/com.apple.CoreGraphics.CGPDFService/minimal_failing.sb",
         "result": {
@@ -933,17 +225,19 @@
           },
           "cmd": [
             "book/api/SBPL-wrapper/wrapper",
+            "--preflight",
+            "force",
             "--sbpl",
             "book/experiments/gate-witnesses/out/witnesses/com.apple.CoreGraphics.CGPDFService/minimal_failing.sb",
             "--",
             "/usr/bin/true"
           ],
-          "end_unix": 1766171215.1263611,
+          "end_unix": 1766296655.9994318,
           "entitlement_checks": [
             {
               "entitlement": "com.apple.private.security.message-filter",
               "marker_schema_version": 1,
-              "pid": 3349,
+              "pid": 33742,
               "present": false,
               "rc": 0,
               "stage": "pre_apply",
@@ -953,8 +247,8 @@
           ],
           "failure_kind": "sandbox_init_failed",
           "failure_stage": "apply",
-          "pid": 3349,
-          "start_unix": 1766171215.1188989,
+          "pid": 33742,
+          "start_unix": 1766296655.94336,
           "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
           "timed_out": false,
           "wrapper_rc": 1
@@ -967,17 +261,19 @@
           "apply_report": null,
           "cmd": [
             "book/api/SBPL-wrapper/wrapper",
+            "--preflight",
+            "force",
             "--sbpl",
             "book/experiments/gate-witnesses/out/witnesses/com.apple.CoreGraphics.CGPDFService/passing_neighbor.sb",
             "--",
             "/usr/bin/true"
           ],
-          "end_unix": 1766171215.1346729,
+          "end_unix": 1766296656.054902,
           "entitlement_checks": [
             {
               "entitlement": "com.apple.private.security.message-filter",
               "marker_schema_version": 1,
-              "pid": 3350,
+              "pid": 33744,
               "present": false,
               "rc": 0,
               "stage": "pre_apply",
@@ -987,8 +283,8 @@
           ],
           "failure_kind": null,
           "failure_stage": null,
-          "pid": 3350,
-          "start_unix": 1766171215.1266959,
+          "pid": 33744,
+          "start_unix": 1766296655.9998279,
           "stderr": "",
           "timed_out": false,
           "wrapper_rc": 127
@@ -997,244 +293,7 @@
       "target": "com.apple.CoreGraphics.CGPDFService"
     },
     {
-      "forensics": {
-        "blob_apply": {
-          "minimal_failing": {
-            "apply_report": {
-              "api": "sandbox_apply",
-              "err_class": "errno_eperm",
-              "err_class_source": "errno_only",
-              "errbuf": "Operation not permitted",
-              "errno": 1,
-              "rc": -1
-            },
-            "blob": "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/minimal_failing.sb.bin",
-            "blob_sha256": "f3a3e64095c59d7d33f63573a875b62bbcdd3a58054da6c0366d2512f1c87b7c",
-            "cmd": [
-              "book/api/SBPL-wrapper/wrapper",
-              "--blob",
-              "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/minimal_failing.sb.bin",
-              "--",
-              "/usr/bin/true"
-            ],
-            "end_unix": 1766171215.639022,
-            "entitlement_checks": [
-              {
-                "entitlement": "com.apple.private.security.message-filter",
-                "marker_schema_version": 1,
-                "pid": 3363,
-                "present": false,
-                "rc": 0,
-                "stage": "pre_apply",
-                "tool": "entitlement-check",
-                "value_type": "absent"
-              }
-            ],
-            "failure_kind": "sandbox_apply_failed",
-            "failure_stage": "apply",
-            "pid": 3363,
-            "start_unix": 1766171215.636066,
-            "stderr": "sandbox_apply: Operation not permitted\n",
-            "timed_out": false,
-            "wrapper_rc": 1
-          },
-          "passing_neighbor": {
-            "apply_report": null,
-            "blob": "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/passing_neighbor.sb.bin",
-            "blob_sha256": "06162de74997b5641b60cca5b68bfb2e36e62652dc8ed9dd26af7e69a4ad6068",
-            "cmd": [
-              "book/api/SBPL-wrapper/wrapper",
-              "--blob",
-              "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/passing_neighbor.sb.bin",
-              "--",
-              "/usr/bin/true"
-            ],
-            "end_unix": 1766171215.6425989,
-            "entitlement_checks": [
-              {
-                "entitlement": "com.apple.private.security.message-filter",
-                "marker_schema_version": 1,
-                "pid": 3364,
-                "present": false,
-                "rc": 0,
-                "stage": "pre_apply",
-                "tool": "entitlement-check",
-                "value_type": "absent"
-              }
-            ],
-            "failure_kind": null,
-            "failure_stage": null,
-            "pid": 3364,
-            "start_unix": 1766171215.639499,
-            "stderr": "",
-            "timed_out": false,
-            "wrapper_rc": 127
-          }
-        },
-        "capture_unified_log": true,
-        "compile": {
-          "minimal_failing": {
-            "blob": "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/minimal_failing.sb.bin",
-            "blob_sha256": "f3a3e64095c59d7d33f63573a875b62bbcdd3a58054da6c0366d2512f1c87b7c",
-            "cmd": [
-              "book/api/SBPL-wrapper/wrapper",
-              "--compile",
-              "book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/minimal_failing.sb",
-              "--out",
-              "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/minimal_failing.sb.bin"
-            ],
-            "end_unix": 1766171215.628169,
-            "marker": {
-              "bytecode_length": 473,
-              "errbuf": null,
-              "errno": 0,
-              "marker_schema_version": 1,
-              "profile_type": 0,
-              "rc": 0
-            },
-            "marker_count": 1,
-            "pid": 3361,
-            "start_unix": 1766171215.621263,
-            "stderr": "",
-            "timed_out": false,
-            "wrapper_rc": 0
-          },
-          "passing_neighbor": {
-            "blob": "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/passing_neighbor.sb.bin",
-            "blob_sha256": "06162de74997b5641b60cca5b68bfb2e36e62652dc8ed9dd26af7e69a4ad6068",
-            "cmd": [
-              "book/api/SBPL-wrapper/wrapper",
-              "--compile",
-              "book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/passing_neighbor.sb",
-              "--out",
-              "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/passing_neighbor.sb.bin"
-            ],
-            "end_unix": 1766171215.6356359,
-            "marker": {
-              "bytecode_length": 465,
-              "errbuf": null,
-              "errno": 0,
-              "marker_schema_version": 1,
-              "profile_type": 0,
-              "rc": 0
-            },
-            "marker_count": 1,
-            "pid": 3362,
-            "start_unix": 1766171215.628717,
-            "stderr": "",
-            "timed_out": false,
-            "wrapper_rc": 0
-          }
-        },
-        "unified_log": {
-          "minimal_failing": {
-            "fallback": {
-              "cmd": [
-                "/usr/bin/log",
-                "show",
-                "--style",
-                "syslog",
-                "--start",
-                "@1766171213",
-                "--end",
-                "@1766171217",
-                "--predicate",
-                "((eventMessage CONTAINS[c] \"message filter\") OR (eventMessage CONTAINS[c] \"message-filter\") OR (eventMessage CONTAINS[c] \"entitlement\")) AND (eventMessage CONTAINS[c] \"wrapper[3363]\")"
-              ],
-              "end": "@1766171217",
-              "end_unix": 1766171217,
-              "out_path": "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/log_show_fallback.minimal_failing.txt",
-              "predicate": "((eventMessage CONTAINS[c] \"message filter\") OR (eventMessage CONTAINS[c] \"message-filter\") OR (eventMessage CONTAINS[c] \"entitlement\")) AND (eventMessage CONTAINS[c] \"wrapper[3363]\")",
-              "rc": 0,
-              "run_end_unix": 1766171215.639022,
-              "run_start_unix": 1766171215.636066,
-              "start": "@1766171213",
-              "start_unix": 1766171213,
-              "stderr": null,
-              "stdout_bytes": 165
-            },
-            "pid": 3363,
-            "primary": {
-              "cmd": [
-                "/usr/bin/log",
-                "show",
-                "--style",
-                "syslog",
-                "--start",
-                "@1766171213",
-                "--end",
-                "@1766171217",
-                "--predicate",
-                "(((subsystem == \"com.apple.sandbox.reporting\") OR (senderImagePath CONTAINS[c] \"/Sandbox\")) AND ((eventMessage CONTAINS[c] \"message filter\") OR (eventMessage CONTAINS[c] \"message-filter\") OR (eventMessage CONTAINS[c] \"entitlement\"))) AND (eventMessage CONTAINS[c] \"wrapper[3363]\")"
-              ],
-              "end": "@1766171217",
-              "end_unix": 1766171217,
-              "out_path": "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/log_show_primary.minimal_failing.txt",
-              "predicate": "(((subsystem == \"com.apple.sandbox.reporting\") OR (senderImagePath CONTAINS[c] \"/Sandbox\")) AND ((eventMessage CONTAINS[c] \"message filter\") OR (eventMessage CONTAINS[c] \"message-filter\") OR (eventMessage CONTAINS[c] \"entitlement\"))) AND (eventMessage CONTAINS[c] \"wrapper[3363]\")",
-              "rc": 0,
-              "run_end_unix": 1766171215.639022,
-              "run_start_unix": 1766171215.636066,
-              "start": "@1766171213",
-              "start_unix": 1766171213,
-              "stderr": null,
-              "stdout_bytes": 165
-            }
-          },
-          "passing_neighbor": {
-            "fallback": {
-              "cmd": [
-                "/usr/bin/log",
-                "show",
-                "--style",
-                "syslog",
-                "--start",
-                "@1766171213",
-                "--end",
-                "@1766171217",
-                "--predicate",
-                "((eventMessage CONTAINS[c] \"message filter\") OR (eventMessage CONTAINS[c] \"message-filter\") OR (eventMessage CONTAINS[c] \"entitlement\")) AND (eventMessage CONTAINS[c] \"wrapper[3364]\")"
-              ],
-              "end": "@1766171217",
-              "end_unix": 1766171217,
-              "out_path": "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/log_show_fallback.passing_neighbor.txt",
-              "predicate": "((eventMessage CONTAINS[c] \"message filter\") OR (eventMessage CONTAINS[c] \"message-filter\") OR (eventMessage CONTAINS[c] \"entitlement\")) AND (eventMessage CONTAINS[c] \"wrapper[3364]\")",
-              "rc": 0,
-              "run_end_unix": 1766171215.6425989,
-              "run_start_unix": 1766171215.639499,
-              "start": "@1766171213",
-              "start_unix": 1766171213,
-              "stderr": null,
-              "stdout_bytes": 51
-            },
-            "pid": 3364,
-            "primary": {
-              "cmd": [
-                "/usr/bin/log",
-                "show",
-                "--style",
-                "syslog",
-                "--start",
-                "@1766171213",
-                "--end",
-                "@1766171217",
-                "--predicate",
-                "(((subsystem == \"com.apple.sandbox.reporting\") OR (senderImagePath CONTAINS[c] \"/Sandbox\")) AND ((eventMessage CONTAINS[c] \"message filter\") OR (eventMessage CONTAINS[c] \"message-filter\") OR (eventMessage CONTAINS[c] \"entitlement\"))) AND (eventMessage CONTAINS[c] \"wrapper[3364]\")"
-              ],
-              "end": "@1766171217",
-              "end_unix": 1766171217,
-              "out_path": "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/log_show_primary.passing_neighbor.txt",
-              "predicate": "(((subsystem == \"com.apple.sandbox.reporting\") OR (senderImagePath CONTAINS[c] \"/Sandbox\")) AND ((eventMessage CONTAINS[c] \"message filter\") OR (eventMessage CONTAINS[c] \"message-filter\") OR (eventMessage CONTAINS[c] \"entitlement\"))) AND (eventMessage CONTAINS[c] \"wrapper[3364]\")",
-              "rc": 0,
-              "run_end_unix": 1766171215.6425989,
-              "run_start_unix": 1766171215.639499,
-              "start": "@1766171213",
-              "start_unix": 1766171213,
-              "stderr": null,
-              "stdout_bytes": 51
-            }
-          }
-        }
-      },
+      "forensics": null,
       "minimal_failing": {
         "path": "book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/minimal_failing.sb",
         "result": {
@@ -1248,17 +307,19 @@
           },
           "cmd": [
             "book/api/SBPL-wrapper/wrapper",
+            "--preflight",
+            "force",
             "--sbpl",
             "book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/minimal_failing.sb",
             "--",
             "/usr/bin/true"
           ],
-          "end_unix": 1766171215.612898,
+          "end_unix": 1766296656.113204,
           "entitlement_checks": [
             {
               "entitlement": "com.apple.private.security.message-filter",
               "marker_schema_version": 1,
-              "pid": 3359,
+              "pid": 33746,
               "present": false,
               "rc": 0,
               "stage": "pre_apply",
@@ -1268,8 +329,8 @@
           ],
           "failure_kind": "sandbox_init_failed",
           "failure_stage": "apply",
-          "pid": 3359,
-          "start_unix": 1766171215.605161,
+          "pid": 33746,
+          "start_unix": 1766296656.055347,
           "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
           "timed_out": false,
           "wrapper_rc": 1
@@ -1282,17 +343,19 @@
           "apply_report": null,
           "cmd": [
             "book/api/SBPL-wrapper/wrapper",
+            "--preflight",
+            "force",
             "--sbpl",
             "book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/passing_neighbor.sb",
             "--",
             "/usr/bin/true"
           ],
-          "end_unix": 1766171215.620854,
+          "end_unix": 1766296656.170871,
           "entitlement_checks": [
             {
               "entitlement": "com.apple.private.security.message-filter",
               "marker_schema_version": 1,
-              "pid": 3360,
+              "pid": 33748,
               "present": false,
               "rc": 0,
               "stage": "pre_apply",
@@ -1302,8 +365,8 @@
           ],
           "failure_kind": null,
           "failure_stage": null,
-          "pid": 3360,
-          "start_unix": 1766171215.6132412,
+          "pid": 33748,
+          "start_unix": 1766296656.113748,
           "stderr": "",
           "timed_out": false,
           "wrapper_rc": 127

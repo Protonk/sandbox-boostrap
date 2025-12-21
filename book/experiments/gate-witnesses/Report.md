@@ -13,6 +13,7 @@ This experiment is intentionally narrow:
 - World: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`
 - Apply surface: `book/api/SBPL-wrapper/wrapper --sbpl … -- /usr/bin/true`
 - Classification: runtime contract layer (`book/api/runtime_tools/runtime_contract.py`) + `sbpl-apply` tool markers (no stderr substring inference)
+- Recent witness refresh runs were executed on both a permissive host configuration (`--yolo`) and a less permissive control pass; the snapshots are preserved as `out/witnesses/airlock/run.yolo.json` and `out/witnesses/airlock/run.non_yolo.json` (current `run.json` matches the permissive run).
 
 ## Artifacts
 
@@ -21,6 +22,7 @@ Checked-in outputs live under:
 - `out/witnesses/<target>/minimal_failing.sb`
 - `out/witnesses/<target>/passing_neighbor.sb`
 - `out/witnesses/<target>/run.json`
+- `out/witnesses/<target>/run.yolo.json` and `out/witnesses/<target>/run.non_yolo.json` (context snapshots)
 - `out/witnesses/<target>/trace.jsonl`
 
 Derived-only summaries:
@@ -48,9 +50,11 @@ The non-IOKit witness delta-debugs down to:
 
 - `(allow mach-bootstrap (apply-message-filter (deny mach-message-send)))`
 
-The `--confirm 10` runs (recorded in each `run.json`) show:
-- minimal failing stays `failure_stage=="apply"` with `errno==EPERM`
-- passing neighbor stays `failure_stage!="apply"` (bootstrap failures are possible; `blastdoor`’s neighbor consistently lands in `bootstrap_deny_process_exec`)
+The `--confirm 10` runs are now split by host context:
+- Permissive host (`--yolo`): `airlock` confirms apply-stage `EPERM` and a passing neighbor (`confirm.passing_neighbor` present). See `book/experiments/gate-witnesses/out/witnesses/airlock/run.yolo.json` (current `run.json`).
+- Less permissive control pass: `airlock` still confirms apply-stage `EPERM`, but the minimizer could not confirm a passing neighbor (`confirm.passing_neighbor` is null). See `book/experiments/gate-witnesses/out/witnesses/airlock/run.non_yolo.json`.
+
+We don’t know yet whether the passing neighbor remains non-gated outside this global-gate context; treat the discrepancy as bounded by the artifacts above.
 
 ## Compile-vs-apply fork (where is the gate enforced?)
 
@@ -67,6 +71,7 @@ Results (see `out/compile_vs_apply.json`):
 - Therefore, **on this world**, the observed gate is **not** enforced by the user-space compiler rejecting the SBPL form at compile time; it is enforced at **apply time** (the attach/validation step reached by `sandbox_apply`).
 
 This is still “mapped-but-partial” runtime evidence: it is a repeated, mechanical observation on this host baseline, but it does not yet identify the specific kernel-side validator or process attribute gate responsible.
+The compile→apply split is re-verified in the permissive (`--yolo`) context, but not in the less permissive control context.
 
 ## Micro-variant matrix (tightening the trigger within the minimized form)
 
@@ -132,14 +137,15 @@ The same summary also records a small userland cross-check: the trimmed dyld sli
 
 ## Validation
 
-A validation job asserts the witness predicate on this world:
-- failing stays `failure_stage=="apply"` with `errno==EPERM`
-- neighbor stays `failure_stage!="apply"` (bootstrap failures allowed/recorded)
+The validation job now reports `ok` in the permissive (`--yolo`) context and emits witness results. See:
+- `book/graph/concepts/validation/out/experiments/gate-witnesses/status.json`
+- `book/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json`
 
-Job id: `experiment:gate-witnesses` (see `python -m book.graph.concepts.validation --describe experiment:gate-witnesses`).
+The less permissive control pass was not re-run through validation; its snapshot is preserved in `book/experiments/gate-witnesses/out/witnesses/airlock/run.non_yolo.json`.
 
 ## Status
 
 - Status: **partial**.
   - The witness corpus itself is confirmed and small (structural boundary object).
   - The *meaning* of the triggering construct (“why this causes an apply gate on this world”) remains open and is not inferred from these witnesses alone.
+  - Less permissive control pass: we don’t know yet whether the passing neighbor remains non-gated outside that context; the snapshot shows `confirm.passing_neighbor` is null. See `book/experiments/gate-witnesses/out/witnesses/airlock/run.non_yolo.json`.

@@ -904,6 +904,117 @@
         "sbpl": "book/experiments/gate-witnesses/out/witnesses/com.apple.CoreGraphics.CGPDFService/passing_neighbor.sb"
       },
       "target": "com.apple.CoreGraphics.CGPDFService"
+    },
+    {
+      "fork": {
+        "apply_gate_eperm": true,
+        "compile_gate_eperm": false
+      },
+      "minimal_failing": {
+        "apply_blob": {
+          "report": {
+            "apply_report": {
+              "api": "sandbox_apply",
+              "err_class": "errno_eperm",
+              "err_class_source": "errno_only",
+              "errbuf": "Operation not permitted",
+              "errno": 1,
+              "rc": -1
+            },
+            "failure_kind": "sandbox_apply_failed",
+            "failure_stage": "apply"
+          },
+          "stderr": "sandbox_apply: Operation not permitted\n",
+          "wrapper_rc": 1
+        },
+        "apply_sbpl": {
+          "report": {
+            "apply_report": {
+              "api": "sandbox_init",
+              "err_class": "errno_eperm",
+              "err_class_source": "errno_only",
+              "errbuf": "Operation not permitted",
+              "errno": 1,
+              "rc": -1
+            },
+            "failure_kind": "sandbox_init_failed",
+            "failure_stage": "apply"
+          },
+          "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
+          "wrapper_rc": 1
+        },
+        "compile": {
+          "blob": "book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/compile_vs_apply/minimal_failing.sb.bin",
+          "report": {
+            "bytecode_length": 473,
+            "errbuf": null,
+            "errno": 0,
+            "marker": {
+              "api": "sandbox_compile_file",
+              "bytecode_length": 473,
+              "errbuf": null,
+              "errno": 0,
+              "marker_schema_version": 1,
+              "profile": "book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/minimal_failing.sb",
+              "profile_type": 0,
+              "rc": 0,
+              "stage": "compile"
+            },
+            "marker_count": 1,
+            "profile_type": 0,
+            "rc": 0
+          },
+          "stderr": "",
+          "wrapper_rc": 0
+        },
+        "sbpl": "book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/minimal_failing.sb"
+      },
+      "passing_neighbor": {
+        "apply_blob": {
+          "report": {
+            "apply_report": null,
+            "failure_kind": null,
+            "failure_stage": null
+          },
+          "stderr": "",
+          "wrapper_rc": 127
+        },
+        "apply_sbpl": {
+          "report": {
+            "apply_report": null,
+            "failure_kind": null,
+            "failure_stage": null
+          },
+          "stderr": "",
+          "wrapper_rc": 127
+        },
+        "compile": {
+          "blob": "book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/compile_vs_apply/passing_neighbor.sb.bin",
+          "report": {
+            "bytecode_length": 465,
+            "errbuf": null,
+            "errno": 0,
+            "marker": {
+              "api": "sandbox_compile_file",
+              "bytecode_length": 465,
+              "errbuf": null,
+              "errno": 0,
+              "marker_schema_version": 1,
+              "profile": "book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/passing_neighbor.sb",
+              "profile_type": 0,
+              "rc": 0,
+              "stage": "compile"
+            },
+            "marker_count": 1,
+            "profile_type": 0,
+            "rc": 0
+          },
+          "stderr": "",
+          "wrapper_rc": 0
+        },
+        "sbpl": "book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/passing_neighbor.sb"
+      },
+      "target": "mach_bootstrap_deny_message_send"
     }
   ],
   "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",

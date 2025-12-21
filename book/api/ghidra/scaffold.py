@@ -47,6 +47,7 @@ class BuildPaths:
     build_id: str
     base: Path
     kernel: Path
+    kernel_collection: Path
     sandbox_kext: Path
     userland: Path
     profiles_dir: Path
@@ -60,6 +61,7 @@ class BuildPaths:
             build_id=build_id,
             base=base,
             kernel=base / "kernel" / "BootKernelExtensions.kc",
+            kernel_collection=base / "kernel" / "BootKernelCollection.kc",
             sandbox_kext=base / "kernel" / "sandbox_kext.bin",
             userland=base / "userland" / "libsystem_sandbox.dylib",
             profiles_dir=base / "profiles" / "Profiles",
@@ -70,6 +72,7 @@ class BuildPaths:
     def missing(self) -> List[Path]:
         paths = [
             self.kernel,
+            self.kernel_collection,
             self.sandbox_kext,
             self.userland,
             self.profiles_dir,
@@ -130,6 +133,12 @@ TASKS: Dict[str, TaskConfig] = {
         import_target="kernel",
         description="Enumerate external symbols/imports and their references.",
     ),
+    "kernel-mac-policy-register": TaskConfig(
+        name="kernel-mac-policy-register",
+        script="mac_policy_register_scan.py",
+        import_target="kernel_collection",
+        description="Locate mac_policy_register call sites and recover arg pointers in the KC.",
+    ),
     "kernel-addr-lookup": TaskConfig(
         name="kernel-addr-lookup",
         script="kernel_addr_lookup.py",
@@ -142,6 +151,30 @@ TASKS: Dict[str, TaskConfig] = {
         import_target="kernel",
         description="Locate ADRP+ADD/SUB sequences that materialize a target address.",
     ),
+    "kernel-adrp-ldr-scan": TaskConfig(
+        name="kernel-adrp-ldr-scan",
+        script="kernel_adrp_ldr_scan.py",
+        import_target="kernel",
+        description="Locate ADRP+LDR sequences that load a target address.",
+    ),
+    "sandbox-kext-adrp-add-scan": TaskConfig(
+        name="sandbox-kext-adrp-add-scan",
+        script="kernel_adrp_add_scan.py",
+        import_target="sandbox_kext",
+        description="Locate ADRP+ADD/SUB sequences in sandbox_kext for a target address.",
+    ),
+    "sandbox-kext-adrp-ldr-scan": TaskConfig(
+        name="sandbox-kext-adrp-ldr-scan",
+        script="kernel_adrp_ldr_scan.py",
+        import_target="sandbox_kext",
+        description="Locate ADRP+LDR sequences in sandbox_kext for a target address.",
+    ),
+    "sandbox-kext-adrp-ldr-got-scan": TaskConfig(
+        name="sandbox-kext-adrp-ldr-got-scan",
+        script="kernel_adrp_ldr_scan.py",
+        import_target="sandbox_kext",
+        description="Locate ADRP+LDR sequences in sandbox_kext that land in __auth_got.",
+    ),
     "kernel-function-info": TaskConfig(
         name="kernel-function-info",
         script="kernel_function_info.py",
@@ -153,6 +186,12 @@ TASKS: Dict[str, TaskConfig] = {
         script="sandbox_kext_conf_scan.py",
         import_target="sandbox_kext",
         description="Scan sandbox kext data segments for mac_policy_conf candidates.",
+    ),
+    "sandbox-kext-mac-policy-register": TaskConfig(
+        name="sandbox-kext-mac-policy-register",
+        script="mac_policy_register_scan.py",
+        import_target="sandbox_kext",
+        description="Locate mac_policy_register call sites inside sandbox_kext.bin.",
     ),
     "kernel-imm-search": TaskConfig(
         name="kernel-imm-search",
@@ -177,6 +216,12 @@ TASKS: Dict[str, TaskConfig] = {
         script="kernel_data_define_and_refs.py",
         import_target="kernel",
         description="Define data at given addresses and dump references (for pointer/table pivots).",
+    ),
+    "sandbox-kext-data-define": TaskConfig(
+        name="sandbox-kext-data-define",
+        script="kernel_data_define_and_refs.py",
+        import_target="sandbox_kext",
+        description="Define data at given addresses in sandbox_kext and dump references.",
     ),
     "sandbox-kext-string-refs": TaskConfig(
         name="sandbox-kext-string-refs",

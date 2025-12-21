@@ -2828,6 +2828,60 @@
       ]
     },
     {
+      "file_sha256": "f3a3e64095c59d7d33f63573a875b62bbcdd3a58054da6c0366d2512f1c87b7c",
+      "file_size": 473,
+      "path": "book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/compile_vs_apply/minimal_failing.sb.bin",
+      "preflight": {
+        "classification": "likely_apply_gated_for_harness_identity",
+        "findings": [
+          {
+            "blob_sha256": "f3a3e64095c59d7d33f63573a875b62bbcdd3a58054da6c0366d2512f1c87b7c",
+            "matched": true
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/compile_vs_apply/minimal_failing.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": "apply_gate_blob_digest",
+        "signature_meta": {
+          "pointers": [
+            "troubles/EPERMx2.md",
+            "book/experiments/preflight-blob-digests/Report.md",
+            "book/graph/concepts/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
+          ],
+          "status": "ok"
+        },
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "06162de74997b5641b60cca5b68bfb2e36e62652dc8ed9dd26af7e69a4ad6068",
+      "file_size": 465,
+      "path": "book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/compile_vs_apply/passing_neighbor.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "06162de74997b5641b60cca5b68bfb2e36e62652dc8ed9dd26af7e69a4ad6068",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/compile_vs_apply/passing_neighbor.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
       "file_sha256": "33d1a72e709f86f7827cb6e5a919a30cc86a3d0ea6e048b2117d0240a923467e",
       "file_size": 4662,
       "path": "book/experiments/golden-corpus/out/blobs/platform_airlock.sb.bin",

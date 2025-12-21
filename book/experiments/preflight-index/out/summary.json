@@ -1,21 +1,21 @@
 {
   "counts": {
     "by_classification": {
-      "likely_apply_gated_for_harness_identity": 21,
-      "no_known_apply_gate_signature": 451
+      "likely_apply_gated_for_harness_identity": 22,
+      "no_known_apply_gate_signature": 452
     },
     "by_input_kind": {
-      "sbpl_blob_path": 260,
+      "sbpl_blob_path": 262,
       "sbpl_path": 212
     },
     "by_signature": {
-      "apply_gate_blob_digest": 21,
-      "null": 451
+      "apply_gate_blob_digest": 22,
+      "null": 452
     },
     "by_source": {
       "book_blobs": {
-        "likely_apply_gated_for_harness_identity": 21,
-        "no_known_apply_gate_signature": 239
+        "likely_apply_gated_for_harness_identity": 22,
+        "no_known_apply_gate_signature": 240
       },
       "examples_sbpl": {
         "no_known_apply_gate_signature": 3
@@ -27,7 +27,7 @@
         "no_known_apply_gate_signature": 11
       }
     },
-    "total_records": 472
+    "total_records": 474
   },
   "digest_groups": {
     "apply_gate_blob_digest": [
@@ -65,6 +65,14 @@
         ]
       },
       {
+        "blob_sha256": "f3a3e64095c59d7d33f63573a875b62bbcdd3a58054da6c0366d2512f1c87b7c",
+        "count": 2,
+        "paths": [
+          "book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/compile_vs_apply/minimal_failing.sb.bin",
+          "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/minimal_failing.sb.bin"
+        ]
+      },
+      {
         "blob_sha256": "4043e71fc6b82c9077cab5f0de5587ab71342e7f5afcbab8bd4d41b134e87125",
         "count": 1,
         "paths": [
@@ -98,13 +106,6 @@
         "paths": [
           "book/experiments/gate-witnesses/out/micro_variants/base_v1_inner_deny_async_external_method.sb.bin"
         ]
-      },
-      {
-        "blob_sha256": "f3a3e64095c59d7d33f63573a875b62bbcdd3a58054da6c0366d2512f1c87b7c",
-        "count": 1,
-        "paths": [
-          "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/minimal_failing.sb.bin"
-        ]
       }
     ]
   },
@@ -127,6 +128,7 @@
       "book/experiments/gate-witnesses/out/witnesses/airlock/compile_vs_apply/minimal_failing.sb.bin",
       "book/experiments/gate-witnesses/out/witnesses/blastdoor/compile_vs_apply/minimal_failing.sb.bin",
       "book/experiments/gate-witnesses/out/witnesses/com.apple.CoreGraphics.CGPDFService/compile_vs_apply/minimal_failing.sb.bin",
+      "book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/compile_vs_apply/minimal_failing.sb.bin",
       "book/experiments/golden-corpus/out/blobs/platform_airlock.sb.bin",
       "book/experiments/runtime-checks/out/decoded_blobs/sys_airlock.sb.bin",
       "book/experiments/runtime-checks/out/recompiled/airlock.recompiled.sb.bin",
@@ -260,6 +262,7 @@
       "book/experiments/gate-witnesses/out/witnesses/airlock/compile_vs_apply/passing_neighbor.sb.bin",
       "book/experiments/gate-witnesses/out/witnesses/blastdoor/compile_vs_apply/passing_neighbor.sb.bin",
       "book/experiments/gate-witnesses/out/witnesses/com.apple.CoreGraphics.CGPDFService/compile_vs_apply/passing_neighbor.sb.bin",
+      "book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/compile_vs_apply/passing_neighbor.sb.bin",
       "book/experiments/libsandbox-encoder/out/matrix_v1.sb.bin",
       "book/experiments/libsandbox-encoder/out/matrix_v2.sb.bin",
       "book/experiments/libsandbox-encoder/out/network_matrix/domain_af_inet.sb.bin",

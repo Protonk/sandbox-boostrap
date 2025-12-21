@@ -31,3 +31,21 @@
     - `0x-1fff7b34130`: all pointer slots 0 except `extra1=0x20`, flags 0.
     - `0x-1fff7b36a98`: all pointers 0, `runtime_flags=0x93dd5e`.
   - Pattern: even with unconstrained pointer ranges, no printable strings and no obvious ops/labelnames; values look like PAC’d or unrelated constants, not a populated mac_policy_conf. These snapshots are anchors supporting the ok-negative claim in Report.md, not candidates to pursue.
+
+## Registration-site recovery (symbol + GOT pivots)
+
+- Added `mac_policy_register_scan.py` plus scaffold tasks `kernel-mac-policy-register` (BootKernelCollection) and `sandbox-kext-mac-policy-register` (sandbox kext) to search for mac_policy_register call sites with light arg recovery.
+- `python3 book/api/ghidra/run_task.py sandbox-kext-mac-policy-register --process-existing --project-name sandbox_kext_14.4.1-23E224 --exec --script-args flow` reports `target_count: 4` (external `_mac_policy_register` + `_amfi_register_mac_policy`) but `call_site_count: 0` (`dumps/ghidra/out/14.4.1-23E224/sandbox-kext-mac-policy-register/registration_sites.json`).
+- `python3 book/api/ghidra/run_task.py kernel-mac-policy-register --process-existing --project-name sandbox_14.4.1-23E224_kc --no-analysis --exec` reports `target_count: 0`, `call_site_count: 0` (no mac_policy symbol names in BootKernelCollection).
+- `otool -Iv dumps/Sandbox-private/14.4.1-23E224/kernel/sandbox_kext.bin` shows `__DATA_CONST,__auth_got` entries for `_amfi_register_mac_policy` (`0xfffffe00084c7ea8`) and `_mac_policy_register` (`0xfffffe00084c80a0`); full output saved to `book/experiments/mac-policy-registration/out/otool_indirect_symbols.txt`.
+- Added `kernel_adrp_ldr_scan.py` and sandbox-kext variants of ADRP scans/data-define; ran:
+  - `python3 book/api/ghidra/run_task.py sandbox-kext-adrp-add-scan --process-existing --project-name sandbox_kext_14.4.1-23E224 --exec --script-args 0xfffffe00084c80a0 all` → `0` matches.
+  - `python3 book/api/ghidra/run_task.py sandbox-kext-adrp-ldr-scan --process-existing --project-name sandbox_kext_14.4.1-23E224 --exec --script-args 0xfffffe00084c80a0 all` → `0` matches.
+  - `python3 book/api/ghidra/run_task.py sandbox-kext-data-define --process-existing --project-name sandbox_kext_14.4.1-23E224 --exec --script-args addr:0xfffffe00084c80a0 addr:0xfffffe00084c7ea8` → data values recorded but no callers (`dumps/ghidra/out/14.4.1-23E224/sandbox-kext-data-define/data_refs.json`).
+
+- Extended `mac_policy_register_scan.py` to scan authenticated GOT for indirect BLR/BLRAA call sites and dump the `__auth_got` table.
+- `python3 book/api/ghidra/run_task.py sandbox-kext-mac-policy-register --process-existing --project-name sandbox_kext_14.4.1-23E224 --exec --script-args flow indirect`:
+  - `indirect_call_sites: 0` and `call_site_count: 0` (no mac_policy call sites found).
+  - `got_entries` captured for `__auth_got` with pointer values but no symbol names (`registration_sites.json`).
+- Added `sandbox-kext-adrp-ldr-got-scan` for ADRP+LDR hits into `__auth_got`; ran:
+  - `python3 book/api/ghidra/run_task.py sandbox-kext-adrp-ldr-got-scan --process-existing --project-name sandbox_kext_14.4.1-23E224 --exec --script-args auth_got 32 all` → `0` matches (`dumps/ghidra/out/14.4.1-23E224/sandbox-kext-adrp-ldr-got-scan/adrp_ldr_scan.json`).
