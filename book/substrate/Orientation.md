@@ -33,7 +33,7 @@ It is deliberately light on:
 
 ## 2. Core Concepts
 
-A comprehensive concept list is available at `substrate/Concept.md`.
+A comprehensive concept list is available at `book/substrate/Concepts.md`.
 
 1. **Operation**
 

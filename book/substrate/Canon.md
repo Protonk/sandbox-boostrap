@@ -74,7 +74,7 @@ Mark Rowe. “Sandboxing on macOS.” bdash.net blog, 2024. Practitioner-level e
 [https://bdash.net.nz/posts/sandboxing-on-macos/](https://bdash.net.nz/posts/sandboxing-on-macos/)
 
 **Local summaries**
-`substrate/exegesis/ROWESANDBOXING.md`
+`book/substrate/exegesis/ROWESANDBOXING.md`
 
 **Version / platform window**
 Targets modern macOS as of 2024, with emphasis on contemporary App Sandbox behaviour, entitlements, and filesystem constraints seen by third-party applications.
@@ -98,7 +98,7 @@ HackTricks contributors. “macOS Sandbox.” HackTricks, last updated 2024. Pra
 [https://book.hacktricks.xyz/macos-hardening/macos-security-and-privilege-escalation/macos-security-protections/macos-sandbox](https://book.hacktricks.xyz/macos-hardening/macos-security-and-privilege-escalation/macos-security-protections/macos-sandbox)
 
 **Local summaries**
-`substrate/exegesis/HACKTRICKS_MACOSSANDBOX.md`
+`book/substrate/exegesis/HACKTRICKS_MACOSSANDBOX.md`
 
 **Version / platform window**
 Targets modern macOS releases as of 2024, with emphasis on how sandboxing appears and behaves on current desktop systems rather than historical OS X or iOS variants.
@@ -121,7 +121,7 @@ Răzvan Deaconescu, Luke Deshotels, Mihai Bucicoiu, William Enck, Lucas Davi, an
 [https://arxiv.org/abs/1608.04303](https://arxiv.org/abs/1608.04303)
 
 **Local summaries**
-`substrate/exegesis/SANDBLASTER2016.md`
+`book/substrate/exegesis/SANDBLASTER2016.md`
 
 **Version / platform window**
 Focuses primarily on iOS profiles up through iOS 9.x, with attention to multiple binary profile formats (separated profiles, bundled profiles) across those releases; macOS is referenced mainly where formats or behaviour overlap.
@@ -145,7 +145,7 @@ fG!. “Apple Sandbox Guide v1.0.” reverse.put.as, 2011. Practitioner-focused 
 [https://reverse.put.as/wp-content/uploads/2011/09/Apple-Sandbox-Guide-v1.0.pdf](https://reverse.put.as/wp-content/uploads/2011/09/Apple-Sandbox-Guide-v1.0.pdf)
 
 **Local summaries**
-`substrate/exegesis/APPLESANDBOXGUIDE.md`
+`book/substrate/exegesis/APPLESANDBOXGUIDE.md`
 
 **Version / platform window**
 Targets OS X 10.6/10.7 (Snow Leopard / Lion) era behaviour and SBPL, with examples and tooling usage grounded in those releases.
@@ -168,7 +168,7 @@ Osama Alhour. “A Worm’s Look Inside: Apple’s Sandboxing security measures 
 [https://nsantoine.dev/SandboxPaper.pdf](https://nsantoine.dev/SandboxPaper.pdf)
 
 **Local summaries**
-`substrate/exegesis/WORMSLOOK2024_exegesis.md`, `substrate/exegesis/WORMSLOOK2024_probe-ideas.md`
+`book/substrate/exegesis/WORMSLOOK2024_exegesis.md`, `book/substrate/exegesis/WORMSLOOK2024_probe-ideas.md`
 
 **Version / platform window**
 Focuses on contemporary macOS and iOS releases as of 2024, with particular attention to current container layouts, launch-time behaviour, and system daemons involved in sandboxing on those platforms.
@@ -193,7 +193,7 @@ Dionysus Blazakis. “The Apple Sandbox.” Black Hat DC, 2011. Reverse-engineer
 [https://www.ise.io/wp-content/uploads/2017/07/apple-sandbox.pdf](https://www.ise.io/wp-content/uploads/2017/07/apple-sandbox.pdf)
 
 **Local summaries**
-`substrate/exegesis/BLAZAKIS2011_exegesis.md`, `substrate/exegesis/BLAZAKIS2011_launchpad.md`
+`book/substrate/exegesis/BLAZAKIS2011_exegesis.md`, `book/substrate/exegesis/BLAZAKIS2011_launchpad.md`
 
 **Version / platform window**
 Primarily OS X 10.6.x (Snow Leopard), with partial applicability to nearby 10.5/10.7 systems using the same basic Seatbelt design.
@@ -219,7 +219,7 @@ Maximilian Blochberger, Jakob Rieck, Christian Burkert, Tobias Mueller, and Hann
 [https://svs.informatik.uni-hamburg.de/publications/2019/2019-11-Blochberger-State-of-the-Sandbox.pdf](https://svs.informatik.uni-hamburg.de/publications/2019/2019-11-Blochberger-State-of-the-Sandbox.pdf)
 
 **Local summaries**
-`substrate/exegesis/STATEOFTHESANDBOX2019.md`
+`book/substrate/exegesis/STATEOFTHESANDBOX2019.md`
 
 **Version / platform window**
 Focuses on macOS around 2018–2019, with measurements and case studies drawn from then-current macOS releases, Mac App Store (MAS) apps, and third-party macOS software obtained from MacUpdate.
