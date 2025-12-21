@@ -1,135 +1,67 @@
-SANDBOX_LORE is a host-specific, local-only universe for the macOS Seatbelt sandbox on a single baseline associated with the `world_id` `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`. The substrate under `substrate/` defines the world and vocabulary you are allowed to use; validated mappings, CARTON, and experiments/validation IR extend that world with host-specific facts that you may treat as true at their recorded status. Your job as an embedded agent is to stay inside that world and treat compiled profiles, Operation/Filter vocabularies, PolicyGraphs, node tags, and repository mappings as primary evidence, not decoration.
+>This document is a compressed context bundle, not a router or API manual. It exists to keep you inside the repo's world model, evidence tiers, and toolchain without over-claiming.
 
-This document is a compact context bundle, not a router or API manual. It is meant to give you immediate traction on three things: (1) what this project believes about Seatbelt on this host, (2) how that belief is encoded in IR and mappings, and (3) how experiments, validation, and tools hang off that IR. When you need detailed workflow or path-level instructions, defer to the layered `AGENTS.md` files and module READMEs; when you need high-level bearings and invariants, start here and in the substrate.
+SANDBOX_LORE is a host-bound, local-only universe for the macOS Seatbelt sandbox. The repo now holds multiple world baselines under `book/world/`, but the published mappings and CARTON are pinned to the Sonoma 14.4.1 baseline with `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (`book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`). The substrate under `book/substrate/` defines the allowed vocabulary; validation IR, mappings, and CARTON record host-specific evidence with explicit status.
 
+# Invariants (non-negotiable)
+
+- **World scoping**: every emitted artifact (validation IR, mappings, CARTON) is keyed to exactly one `world_id`. A mismatch means you are mixing worlds or pointing at the wrong baseline; stop and fix world selection. Only mint a new `world_id` by following the rebaseline process in `book/world/README.md`.
+- **Vocabulary**: operation and filter names come only from `book/graph/mappings/vocab/ops.json` and `book/graph/mappings/vocab/filters.json`. Unknowns stay unknown; do not name ops/filters by guesswork.
+- **Status monotonicity**: statuses only upgrade via new host evidence plus the corresponding validation/mapping update. When claiming `ok`, `partial`, `brittle`, or `blocked`, cite the mapping file; when citing validation job results, cite `book/graph/concepts/validation/out/validation_status.json` or `book/graph/concepts/validation/out/index.json`.
+- **Apply-stage gating**: apply-stage `EPERM` is blocked evidence, not policy semantics. Preflight before runtime probes that could hit known gates (see `book/tools/preflight/README.md`).
+- **CARTON integrity**: files listed in `book/api/carton/CARTON.json` are manifest-verified; do not hand-edit them. Use validation -> mappings -> manifest refresh instead.
 
 # Operating contract
 
-Before you start reasoning in this world, keep these constraints in mind:
+- Stay within the Sonoma baseline unless explicitly rebaselining; other world directories exist, but mappings/CARTON are keyed to the active baseline.
+- Use substrate vocabulary (`book/substrate/Concepts.md` and friends) and treat pretraining as subordinate to repo artifacts.
+- Use repo-relative paths in outputs; resolve with `book.api.path_utils`.
+- When evidence conflicts or is missing, say "we don't know yet" and point to the bounding artifacts.
+- When in doubt, stop and read the nearest `AGENTS.md` and README in the subtree you touch.
 
-- The world is fixed to the single host baseline identified by `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`; do not generalize across OS versions.
-- Static structure and vocab (profile formats, op-table shape, tag layouts where known, Operation/Filter tables) are reliable; semantics and lifecycle are status-tagged (`ok/partial/brittle/blocked`) and must not be silently upgraded to `ok`.
-- Use the substrate vocabulary and the vocab mappings under `book/graph/mappings/vocab/`; do not invent new operations, filters, or core concept names.
-- When substrate, mappings, validation IR, or CARTON disagree with your pretraining or generic macOS knowledge, treat pretraining as wrong for this world and trust the repo and host baseline instead.
-- Only make claims that could, in principle, be regenerated from the repo plus this host baseline; opaque prior knowledge is not authoritative here.
-- When the simplest honest answer is “we don’t know yet” or “current evidence is inconsistent,” say so and, where possible, point to the experiments, validation artifacts, or mappings that bound that ignorance.
+# World model and world_id selection
 
+- World baselines live in `book/world/*`; `world_id` is derived from the dyld manifest hash (see `book/world/README.md`) and stored in each baseline file.
+- The active baseline is `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`; most generators and tools hardcode this baseline ref.
+- The runtime harness accepts an explicit baseline override (`--baseline`) for debug VM work in `book/api/runtime_harness/cli.py`; otherwise baseline selection is not automatic.
 
-# World and evidence model
+# Evidence layers and pipeline
 
-The project deliberately fixes a narrow but detailed world:
+- **Substrate + concepts**: `book/substrate/` defines the vocabulary; the concept inventory is in `book/graph/concepts/CONCEPT_INVENTORY.md` and generated JSON in `book/graph/concepts/` comes from `swift run` in `book/graph`.
+- **Experiments -> validation IR**: experiments write to `book/experiments/*/out`; the validation driver (`python -m book.graph.concepts.validation`) normalizes into `book/graph/concepts/validation/out/` and records status.
+- **Validation IR -> mappings**: generators under `book/graph/mappings/*/generate_*.py` read validation outputs and emit host mappings; the supported entrypoint is `book/graph/mappings/run_promotion.py`.
+- **Mappings -> CARTON**: CARTON overlays live in `book/graph/mappings/carton/`; refresh the manifest with `book/api/carton/create_manifest.py`. Query via `book.api.carton.carton_query`.
 
-- A host baseline captured in `book/world/*` and identified by the the unique `world_id` carried into mappings and CARTON.
-- Static artifacts: compiled profiles, trimmed dyld slices, decoded PolicyGraphs, vocab tables, and mapping JSONs under `book/graph/mappings/`—are the primary external reality. Explanations should lean on them, not on generic macOS lore.
-- If your pretraining or external knowledge conflicts with the substrate, mappings, validation IR, or CARTON for this host, treat pretraining as wrong for this world and prefer the repo and host baseline.
-- The substrate (`Orientation`, `Concepts`, `Appendix`, `Environment`, `State`, `Canon`) is the project’s normative theory for this host. The concept inventory and validation harness turn that theory into explicit concepts, evidence types, and checks against real artifacts.
+# Status sources
 
-Static structure is the backbone. Profile formats, op-table shape, tag layouts where known, and Operation/Filter vocabularies have been decoded for this host, wired into `book/graph/mappings/*`, and guarded by tests and validation status. These give you a stable view of “what the sandbox looks like” in binary form. By contrast, semantic and lifecycle claims (runtime allow/deny behavior, entitlement-driven differences, extensions, kernel dispatch) are still being nailed down; validation and experiments mark them with `status: ok/partial/brittle/blocked`. When you rely on those areas, carry the status into your reasoning instead of silently upgrading provisional evidence to fact.
+Do not copy status details from memory. Use these sources as the current cut:
 
+- Bedrock surfaces and their mapping paths: `book/graph/concepts/BEDROCK_SURFACES.json`.
+- Validation summary and job status: `book/graph/concepts/validation/out/README.md`, `book/graph/concepts/validation/out/validation_status.json`, `book/graph/concepts/validation/out/index.json`.
+- Runtime coverage and signatures: `book/graph/mappings/runtime/runtime_coverage.json`, `book/graph/mappings/vocab/ops_coverage.json`, `book/graph/mappings/runtime/runtime_signatures.json`, `book/graph/mappings/runtime/README.md`.
+- Lifecycle probes: `book/graph/mappings/runtime/lifecycle.json`.
+- Anchors/field2 status: `book/graph/mappings/anchors/anchor_field2_map.json`.
+- Apply-gate witness and preflight corpora: `book/tools/preflight/README.md`, `book/experiments/gate-witnesses/Report.md`, `book/experiments/preflight-blob-digests/Report.md`, `book/experiments/preflight-index/Report.md`.
 
-# Substrate, concepts, and IR
+# High-leverage capabilities
 
-The substrate documents define the concept set and language this project is allowed to use: SBPL profiles and parameterization, operations, filters and metafilters, decisions, policy nodes and PolicyGraphs, profile layers, compiled profile sources, containers, entitlements, extensions, and the broader environment (TCC, hardened runtime, SIP, real-world application of Seatbelt). `book/graph/concepts/CONCEPT_INVENTORY.md` and the generated JSON in `book/graph/concepts/` mirror this inventory in a machine-readable way. The Swift generator in `book/graph/` reads substrate text and validation metadata and emits `concepts.json`, `concept_map.json`, `concept_text_map.json`, and a lightweight validation report.
-
-You should use this vocabulary when naming things in code and prose. In particular:
-
-- **Operation** and **Filter** are versioned, host-bound vocabularies, instantiated for this world in `book/graph/mappings/vocab/{ops.json,filters.json}`. These files implement the Operation Vocabulary Map and Filter Vocabulary Map; do not invent new names or IDs.
-- **PolicyGraph** is the compiled graph for a profile, with **policy nodes** tagged and laid out according to `tag_layouts/tag_layouts.json` and decoded via shared tools.
-- **Profile layer** and **Compiled Profile Source** describe where a profile comes from and which role it plays in the stack (platform/system profiles such as `sys:airlock` and `sys:bsd`, app/App Sandbox templates, golden experimental profiles).
-
-The mapping layer under `book/graph/mappings/` is the shared IR that ties these concepts to concrete data for this host:
-
-- `vocab/` — Operation/Filter vocabulary (plus attestations) harvested from dyld/`libsandbox`.
-- `op_table/` — Operation Pointer Table mappings: bucket maps, structural signatures, and vocab alignment.
-- `tag_layouts/` — per-tag node layouts (record size, edge fields, literal/regex payload fields).
-- `anchors/` — anchor ↔ field2 ↔ Filter mappings for literal strings (paths, Mach names, etc.).
-- `system_profiles/` — digests, static checks, and attestations for curated system profiles.
-- `runtime/` — expectations, normalized traces, lifecycle traces, golden runtime profiles, and `runtime_signatures.json`.
-- `dyld-libs/` — dyld manifest for the slices used by vocab/encoder work, with its own checker.
-- `carton/` — CARTON-derived overlays (coverage and indices) built from the frozen CARTON surface.
-
-Every mapping JSON is host-bound, carries metadata (including `world_id`, inputs, `source_jobs`, and `status`), and is intended to be regenerated from experiments and validation IR, not hand-edited.
-
-
-# Experiments, validation, and promotion
-
-Experiments under `book/experiments/` are small, host-specific probes that tie questions about this world to observable behavior. They fall into three broad families:
-
-- Static structure and vocab (node layout, op-table behavior and alignment, vocab-from-cache, tag layouts, system profile digests, anchor/field2 work).
-- Runtime behavior and semantic alignment (runtime-checks, runtime-adversarial, sbpl-graph-runtime).
-- Entitlements, kernel, and symbol work (entitlement-driven profile differences, kernel symbols, symbol-search, libsandbox encoder).
-
-Experiment subdirectories share a scaffold (`Plan.md`, `Report.md`, `Notes.md`, `out/` for artifacts). They publish raw and normalized IR under their own `out/` trees; promotion into shared mappings happens only after validation.
-
-The validation harness in `book/graph/concepts/validation/` is the bridge between experiment outputs and mappings. It:
-
-- Registers jobs and tags (for example `vocab:*`, `op-table:*`, `experiment:<name>`, `runtime:*`, `graph:*`) and runs them via a single driver (`python -m book.graph.concepts.validation`).
-- Normalizes experiment outputs into `validation/out/` (static-format, semantic, vocab, lifecycle IR) and records status in `validation_status.json` using a common schema (`ok[-changed/-unchanged]`, `partial`, `brittle`, `blocked`, `skipped`).
-- Documents the current cut: static-format and vocab are `ok`, runtime and lifecycle coverage are partial and explicitly bounded.
-
-Mapping generators under `book/graph/mappings/*/generate_*.py` are the only supported path from validation IR to shared mappings. They are expected to:
-
-- Run the relevant validation jobs (often via a shared promotion helper in `book/graph/mappings/run_promotion.py`).
-- Require that those jobs be `status: ok` before proceeding.
-- Read only normalized IR under `validation/out/`, not raw experiment scratch.
-- Emit host-bound mapping JSON with metadata and status fields.
-
-This pipeline (experiments → validation IR → mapping generators → `book/graph/mappings/*`) is the backbone that keeps theory, experiments, and IR aligned.
-
-
-# CARTON and shared tooling
-
-CARTON is the frozen IR/mapping layer that the textbook and API clients read. Its manifest, `book/api/carton/CARTON.json`, lists the CARTON-facing JSON files (vocab, runtime signatures, system profile digests, coverage and index overlays) and their SHA-256 hashes, tied to the world baseline. The only supported way to change what CARTON knows is:
-
-1. Extend experiments and validation so that new IR exists under `validation/out/`.
-2. Regenerate mappings via the generators and promotion helper under `book/graph/mappings/`.
-3. Refresh the manifest with `book/api/carton/create_manifest.py`.
-
-Callers do not reach these files directly; they go through the Python API in `book.api.carton.carton_query`, which:
-
-- Loads the manifest, verifies file paths and hashes, and enforces basic schema.
-- Exposes concept-shaped helpers such as `list_operations`, `list_profiles`, `list_filters`, `ops_with_low_coverage`, `operation_story`, `profile_story`, `filter_story`, and `runtime_signature_info`.
-- Separates “unknown concept” (`UnknownOperationError`) from “CARTON is out of sync” (`CartonDataError`).
-
-Agents should treat CARTON as the default surface for questions like “what do we know about operation X?” or “which runtime signatures touch profile Y?” and fall back to mappings or validation IR only when they are extending the IR itself.
-
-Below CARTON, the API layer in `book/api/` provides reusable tools for this baseline:
-
-- `decoder/` — decode compiled blobs into dicts using vocab and tag-layout mappings.
-- `sbpl_compile/` — wrap private `libsandbox` compile entry points.
-- `inspect_profile/` — produce structural summaries of compiled blobs.
-- `op_table/` — parse SBPL, compute op-table entries and signatures, and align them to vocab.
-- `SBPL-wrapper/` and `file_probe/` — drive runtime probes; `EPERM` apply gates on this host are treated as `blocked` outcomes, not “profile does not exist.”
-- `runtime_harness/` — unified golden runtime generation and probe runner (replaces runtime_golden + golden_runner).
-- `ghidra/` — support kernel and op-table symbol work in a controlled workspace.
-
-These tools assume the mappings and world baseline are correct for this host; their job is to make it easy to move between SBPL, compiled profiles, decoded graphs, runtime probes, and CARTON without re-implementing infrastructure.
-
-
-# Invariants and open areas
-
-Across all of this, a handful of project-wide invariants and cautions shape how you should reason:
-
-- The world is a single, frozen host baseline; all architectural and behavioral claims are about this world unless explicitly labeled otherwise.
-- Static-format and vocab/mapping clusters (profile layout, op-table structure, tag layouts where known, Operation/Filter vocabularies, dyld manifest) are treated as structurally reliable on this host and form the default backbone for explanations.
-- Semantic and lifecycle clusters (runtime allow/deny behavior, entitlement-driven differences, profile-layer semantics, extensions, kernel dispatch) are in progress. Many claims in these areas are supported only for a subset of operations (notably `file-read*`, `file-write*`, and `mach-lookup`) and may be `partial` or `brittle`. Use `book/graph/mappings/runtime/` and vocab coverage files to see where runtime backing exists.
-- Operation and Filter vocabularies are defined by `book/graph/mappings/vocab/{ops.json,filters.json}` and their attestations; do not invent new names or assume cross-version stability without an explicit mapping.
-- Platform profile blobs such as `airlock` and `bsd` are real policies even when apply gates prevent applying them on this host; those failures are part of the environment, not evidence that the profiles are fictional.
-- Entitlements, containers, and sandbox extensions are inputs that select and parameterize policy stacks and labels; they should be explained in terms of their impact on compiled profiles, labels, and PolicyGraphs, not as free-floating permissions.
-- Kernel reverse engineering is explicitly unfinished. Candidate dispatcher sites exist, but none has been blessed as “the” PolicyGraph evaluator; treat them as hypotheses.
-- When runtime harnesses, decoded structure, and canonical texts disagree, treat that as an open modeling or tooling bug. Record and bound the discrepancy instead of averaging stories.
-- The goal of the runtime work is a small set of “golden” scenarios where structure, entitlements, and runtime behavior are all well understood and reproducible; explanations should be phrased so they could, in principle, be checked against such examples.
-- All code and prose should be regenerable from the repo plus the fixed host baseline. If you rely on knowledge that cannot be regenerated (for example, opaque model weights), do not present it as authoritative.
-- When the simplest honest answer is “we don’t know yet” or “current evidence is inconsistent,” say that explicitly and, where possible, point to the experiments, validation IR, or mappings that bound that ignorance.
-
+- **Profile structure**: `book.api.profile_tools` (CLI: `python -m book.api.profile_tools`) for SBPL compile/ingest/decode/inspect/op-table/digests/oracles.
+- **Runtime probes**: `book.api.runtime_harness` (CLI: `python -m book.api.runtime_harness.cli`) plus `book.api.runtime` for normalization and runtime cuts.
+- **Apply-gate guardrails**: `book/tools/preflight/preflight.py` for scan + minimize-gate.
+- **Apply/probe pair**: `book/api/SBPL-wrapper/` (wrapper binary) + `book/api/file_probe/file_probe.c` (probe target).
+- **Lifecycle probes**: `book.api.lifecycle_probes` (CLI: `python -m book.api.lifecycle_probes`).
+- **Entitlements witness**: `book/tools/entitlement/EntitlementJail.app` (see `book/tools/entitlement/EntitlementJail.md`).
+- **Kernel/symbol work**: `book.api.ghidra` (CLI: `python -m book.api.ghidra.cli`).
 
 # Minimal routing
 
-For deeper detail:
+- Start with `README.md` and `AGENTS.md`, then the nearest `AGENTS.md` in the subtree you touch.
+- For graph IR/mappings: `book/graph/AGENTS.md`, `book/graph/mappings/README.md`, `book/graph/mappings/AGENTS.md`.
+- For experiments: `book/experiments/AGENTS.md` and `book/experiments/Experiments.md`.
+- For API/CARTON: `book/api/AGENTS.md`, `book/api/README.md`, `book/api/carton/README.md`, `book/api/carton/API.md`.
+- Single entrance test runner: `make -C book test`.
 
-- For human overview and repository layout, read `README.md` and the root `AGENTS.md`.
-- For textbook structure and graph IR, see `book/Outline.md`, `book/AGENTS.md`, and `book/graph/README.md`.
-- For experiments and their roles, see `book/experiments/AGENTS.md` and `book/experiments/Experiments.md`.
-- For API surfaces and CARTON, see `book/api/README.md`, `book/api/carton/README.md`, `book/api/carton/API.md`, and `book/api/carton/AGENTS.md`.
+# Welcome aboard
 
-Use this Preamble and the substrate as your conceptual anchor; use the layered AGENTS/README files and CARTON as your operational and data anchors. Together they define the world you are allowed to talk about and the evidence you are allowed to claim.
+You are not being asked to “explain macOS security in the abstract.” You are participating in a proposal-and-verification loop that is meant to turn local, host-bound observations into fixed understandings: concepts that actually line up with binaries and decoded tables, mappings that can be regenerated, and examples that a reader can rerun and inspect. Treat every step as work on the wiring diagram between theory and evidence: when you clarify something, the goal is to make it harder for the repo to drift back into self-consistent but ungrounded stories.
+
+As you work, actively look for the promotion path from what you learned into durable repo structure: an experiment that produces a stable witness; validation IR that makes the observation queryable and statused; a mapping generator or mapping file that encodes the relationship; a CARTON refresh that makes it consumable; and an API surface that lets other agents retrieve it without re-deriving it. Prefer changes that reduce future discretion (compile-time relationships, schema-enforced records, guardrail tests, preflight checks) over changes that merely add prose. If something is blocked or inconsistent, that is still a useful result: record the boundary precisely (world_id, harness identity, minimal failing shape, where the evidence lives) so the ignorance is bounded and portable rather than implicit.

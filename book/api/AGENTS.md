@@ -13,7 +13,7 @@ This directory is the API/tooling layer for the Seatbelt textbook. All tools ass
   - Legacy packages (`book.api.sbpl_compile`, `book.api.inspect_profile`, `book.api.op_table`) have been removed; route callers here.
 - `SBPL-wrapper/` – Runtime harness for applying SBPL/compiled blobs; treats `EPERM` apply gates as `blocked` on this host.
 - `file_probe/` – Minimal JSON-emitting read/write probe to pair with SBPL-wrapper.
-- `runtime_harness/` – Unified runtime generation + probe runner (replaces `runtime_golden` and `golden_runner` shims).
+- `runtime_tools/` – Unified runtime observations + mappings + harness runner/generator (replaces `runtime` + `runtime_harness`).
 - `ghidra/` – Seatbelt-focused Ghidra scaffold/CLI for kernel/op-table symbol work; see `ghidra/README.md` for workspace norms.
 
 ## Expectations

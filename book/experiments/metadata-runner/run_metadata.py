@@ -23,7 +23,7 @@ if str(REPO_ROOT) not in sys.path:
 from book.api.path_utils import find_repo_root, to_repo_relative  # type: ignore
 from book.api.profile_tools import decoder  # type: ignore
 from book.api.profile_tools import compile_sbpl_string  # type: ignore
-from book.api.runtime import write_metadata_runner_normalized_events  # type: ignore
+from book.api.runtime_tools.observations import write_metadata_runner_normalized_events  # type: ignore
 
 BASE_DIR = Path(__file__).resolve().parent
 SB_DIR = BASE_DIR / "sb"
@@ -31,8 +31,8 @@ BUILD_DIR = SB_DIR / "build"
 RUNNER_SRC = BASE_DIR / "metadata_runner.swift"
 RUNNER_BUILD_DIR = BASE_DIR / "build"
 RUNNER_BIN = RUNNER_BUILD_DIR / "metadata_runner"
-TOOL_MARKERS_SWIFT = REPO_ROOT / "book" / "api" / "runtime" / "ToolMarkers.swift"
-SEATBELT_CALLOUT_SHIM_C = REPO_ROOT / "book" / "api" / "runtime" / "seatbelt_callout_shim.c"
+TOOL_MARKERS_SWIFT = REPO_ROOT / "book" / "api" / "runtime_tools" / "native" / "ToolMarkers.swift"
+SEATBELT_CALLOUT_SHIM_C = REPO_ROOT / "book" / "api" / "runtime_tools" / "native" / "seatbelt_callout_shim.c"
 OUT_DIR = BASE_DIR / "out"
 WORLD_PATH = find_repo_root(Path(__file__)) / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world-baseline.json"
 

@@ -82,7 +82,7 @@ int main(int argc, char **argv) {
     // Seatbelt and SBPL can test entitlements/signing metadata via filters
     // like (entitlement-is-present ...) or (signing-identifier ...).
     // Those predicates are evaluated against the code signature, not against
-    // anything this process does at runtime (see substrate/Appendix.md).
+    // anything this process does at runtime (see book/substrate/Appendix.md).
 
     SecCodeRef self_code = NULL;
     OSStatus status = SecCodeCopySelf(kSecCSDefaultFlags, &self_code);

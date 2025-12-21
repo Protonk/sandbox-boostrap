@@ -20,7 +20,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from book.api import path_utils
-from book.api.runtime import story as rt_story
+from book.api.runtime_tools import runtime_story as rt_story
 
 CUT_ROOT = ROOT / "book" / "graph" / "mappings" / "runtime_cuts"
 

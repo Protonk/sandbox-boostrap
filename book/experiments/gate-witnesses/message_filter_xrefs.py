@@ -30,7 +30,7 @@ if str(REPO_ROOT) not in sys.path:
 
 from book.api.ghidra import connector as gh_connector
 from book.api.path_utils import to_repo_relative
-from book.api.runtime.events import WORLD_ID
+from book.api.runtime_tools.observations import WORLD_ID
 
 
 BUILD_ID = "14.4.1-23E224"

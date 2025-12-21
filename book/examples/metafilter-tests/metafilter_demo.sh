@@ -2,7 +2,7 @@
 
 # Demonstrates SBPL metafilters (`require-any/all/not`) using sandbox-exec.
 # Each profile is tiny and focused on file-read*, so you can match the boolean
-# structure to the graph patterns described in substrate/Appendix.md (metafilters
+# structure to the graph patterns described in book/substrate/Appendix.md (metafilters
 # disappear in the compiled graph but their logic remains).
 
 if ! command -v sandbox-exec >/dev/null 2>&1; then
@@ -90,5 +90,5 @@ Metafilter takeaway:
 - require-any: matching any child filter triggers the branch (OR).
 - require-all: every child must match to hit the deny branch (AND).
 - require-not: flips the sense of the nested filter; in compiled graphs this is
-  just control-flow structure, not an explicit NOT opcode (see substrate/Appendix.md).
+  just control-flow structure, not an explicit NOT opcode (see book/substrate/Appendix.md).
 "

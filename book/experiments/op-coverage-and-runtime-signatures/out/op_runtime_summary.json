@@ -3,6 +3,12 @@
     "probes": 12,
     "matches": 10,
     "mismatches": 2,
+    "probes_including_blocked": 12,
+    "blocked": {
+      "total": 0,
+      "by_stage": {},
+      "by_kind": {}
+    },
     "examples": [
       {
         "profile": "adv:struct_flat",
@@ -61,6 +67,12 @@
     "probes": 12,
     "matches": 10,
     "mismatches": 2,
+    "probes_including_blocked": 12,
+    "blocked": {
+      "total": 0,
+      "by_stage": {},
+      "by_kind": {}
+    },
     "examples": [
       {
         "profile": "adv:struct_flat",
@@ -119,6 +131,12 @@
     "probes": 8,
     "matches": 8,
     "mismatches": 0,
+    "probes_including_blocked": 8,
+    "blocked": {
+      "total": 0,
+      "by_stage": {},
+      "by_kind": {}
+    },
     "examples": [
       {
         "profile": "adv:mach_simple_allow",
@@ -155,12 +173,19 @@
         "actual": "allow",
         "match": true
       }
-    ]
+    ],
+    "mismatch_details": []
   },
   "network-outbound": {
     "probes": 4,
     "matches": 4,
     "mismatches": 0,
+    "probes_including_blocked": 4,
+    "blocked": {
+      "total": 0,
+      "by_stage": {},
+      "by_kind": {}
+    },
     "examples": [
       {
         "profile": "adv:net_outbound_allow",
@@ -190,6 +215,7 @@
         "actual": "deny",
         "match": true
       }
-    ]
+    ],
+    "mismatch_details": []
   }
 }

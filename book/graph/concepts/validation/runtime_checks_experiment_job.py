@@ -9,7 +9,7 @@ import json
 from pathlib import Path
 
 from book.api.path_utils import find_repo_root, to_repo_relative
-from book.api.runtime import events as runtime_events
+from book.api.runtime_tools import observations as runtime_observations
 from book.graph.concepts.validation import registry
 from book.graph.concepts.validation.registry import ValidationJob
 
@@ -35,15 +35,15 @@ def run_runtime_job():
     expected_matrix = json.loads(EXPECTED_MATRIX.read_text()) if EXPECTED_MATRIX.exists() else {}
 
     STATUS_PATH.parent.mkdir(parents=True, exist_ok=True)
-    observations = runtime_events.normalize_runtime_results(expected_matrix, results)
+    observations = runtime_observations.normalize_runtime_results(expected_matrix, results)
     IR_PATH.write_text(
         json.dumps(
             {
-                "world_id": expected_matrix.get("world_id") or runtime_events.WORLD_ID,
+                "world_id": expected_matrix.get("world_id") or runtime_observations.WORLD_ID,
                 "host": meta.get("os", {}),
                 "expected_matrix": expected_matrix,
                 "raw_results": results,
-                "events": [runtime_events.serialize_observation(o) for o in observations],
+                "events": [runtime_observations.serialize_observation(o) for o in observations],
             },
             indent=2,
             sort_keys=True,

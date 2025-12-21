@@ -7,9 +7,9 @@ struct GraphChecks {
     static func main() {
         let root = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
 
-        // Parse concept sources from substrate + inventory markdown
+        // Parse concept sources from book/substrate + inventory markdown
         let concepts = parseConcepts(
-            conceptsPath: root.appendingPathComponent("substrate/Concepts.md").path,
+            conceptsPath: root.appendingPathComponent("book/substrate/Concepts.md").path,
             inventoryPath: root.appendingPathComponent("book/graph/concepts/CONCEPT_INVENTORY.md").path
         )
         // Enrich with validation-friendly detail blocks

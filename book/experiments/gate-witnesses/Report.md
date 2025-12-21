@@ -12,7 +12,7 @@ This experiment is intentionally narrow:
 
 - World: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`
 - Apply surface: `book/api/SBPL-wrapper/wrapper --sbpl … -- /usr/bin/true`
-- Classification: runtime contract layer (`book/api/runtime/contract.py`) + `sbpl-apply` tool markers (no stderr substring inference)
+- Classification: runtime contract layer (`book/api/runtime_tools/runtime_contract.py`) + `sbpl-apply` tool markers (no stderr substring inference)
 
 ## Artifacts
 

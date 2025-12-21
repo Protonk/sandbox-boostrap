@@ -31,10 +31,10 @@ Use this file for concise notes on commands, hurdles, and intermediate results.
 - Custom apply-gate outlier: `bucket5:v11_read_subpath` still blocked with EPERM on deny probes; keep non-golden.
 - Strict profiles (quarantined): `runtime:param_path_concrete` (deny-default + process-exec) and `runtime:param_path_bsd_bootstrap` (deny-default + import bsd.sb) both remain blocked at runtime (exec -6 or EPERM on subpath I/O). Conclusion: on this host, a viable deny-default helper needs broader bootstrap allowances; no strict profile is promoted in this provisional cut.
 
-## Latest harness rerun (runtime_harness, SBPL mode)
+## Latest harness rerun (runtime_tools, SBPL mode)
 
 - Switched `book/profiles/golden-triple/expected_matrix.json` to SBPL inputs for `allow_all` / `metafilter_any` to avoid wrapper `sandbox_init` errors (“no version specified”) on blobs. Added a minimal strict profile (`runtime:strict_1`) to the matrix.
-- Command: `python -m book.api.runtime_harness.cli run --matrix book/profiles/golden-triple/expected_matrix.json --out book/profiles/golden-triple`.
+- Command: `python -m book.api.runtime_tools run --matrix book/profiles/golden-triple/expected_matrix.json --out book/profiles/golden-triple`.
 - Results: `runtime:allow_all`, `runtime:metafilter_any`, `bucket4:v1_read`, and new `runtime:strict_1` all `status: ok` in `book/profiles/golden-triple/runtime_results.json`. `bucket5:v11_read_subpath` remains `partial` (read on `/tmp/foo` still returns `EPERM` despite subpath allow). Wrapper “no version specified” errors cleared by SBPL mode; blob apply remains avoided for these runs.
 
 ## Bucket5 vs bucket4/strict_1 literals (decoded)

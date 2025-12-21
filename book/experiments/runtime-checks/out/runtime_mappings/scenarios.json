@@ -11,17 +11,18 @@
     "overall": {
       "total": 26,
       "stages": {
-        "apply": 4,
+        "apply": 0,
         "bootstrap": 0,
+        "preflight": 4,
         "probe": 22
       },
       "blocked": {
         "total": 4,
         "by_stage": {
-          "apply": 4
+          "preflight": 4
         },
         "by_kind": {
-          "sandbox_init_failed": 4
+          "preflight_apply_gate_signature": 4
         }
       },
       "probe": {
@@ -37,6 +38,7 @@
         "stages": {
           "apply": 0,
           "bootstrap": 0,
+          "preflight": 0,
           "probe": 3
         },
         "blocked": {
@@ -56,6 +58,7 @@
         "stages": {
           "apply": 0,
           "bootstrap": 0,
+          "preflight": 0,
           "probe": 3
         },
         "blocked": {
@@ -75,6 +78,7 @@
         "stages": {
           "apply": 0,
           "bootstrap": 0,
+          "preflight": 0,
           "probe": 12
         },
         "blocked": {
@@ -92,17 +96,18 @@
       "sys": {
         "total": 8,
         "stages": {
-          "apply": 4,
+          "apply": 0,
           "bootstrap": 0,
+          "preflight": 4,
           "probe": 4
         },
         "blocked": {
           "total": 4,
           "by_stage": {
-            "apply": 4
+            "preflight": 4
           },
           "by_kind": {
-            "sandbox_init_failed": 4
+            "preflight_apply_gate_signature": 4
           }
         },
         "probe": {
@@ -658,15 +663,28 @@
         "blocked": {
           "total": 1,
           "by_stage": {
-            "apply": 1
+            "preflight": 1
           },
           "by_kind": {
-            "sandbox_init_failed": 1
+            "preflight_apply_gate_signature": 1
           }
         },
         "status": "blocked"
       },
-      "mismatches": [],
+      "mismatches": [
+        {
+          "expectation_id": "sys:airlock:read_/etc/hosts",
+          "expected": "deny",
+          "actual": null,
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "failure_stage": "preflight",
+          "failure_kind": "preflight_apply_gate_signature",
+          "mismatch_type": "preflight_blocked",
+          "violation_summary": null,
+          "stderr": ""
+        }
+      ],
       "impact": null,
       "scenario_id": "sys:airlock:read_/etc/hosts"
     },
@@ -691,15 +709,28 @@
         "blocked": {
           "total": 1,
           "by_stage": {
-            "apply": 1
+            "preflight": 1
           },
           "by_kind": {
-            "sandbox_init_failed": 1
+            "preflight_apply_gate_signature": 1
           }
         },
         "status": "blocked"
       },
-      "mismatches": [],
+      "mismatches": [
+        {
+          "expectation_id": "sys:airlock:write_/etc/hosts",
+          "expected": "deny",
+          "actual": null,
+          "operation": "file-write*",
+          "target": "/etc/hosts",
+          "failure_stage": "preflight",
+          "failure_kind": "preflight_apply_gate_signature",
+          "mismatch_type": "preflight_blocked",
+          "violation_summary": null,
+          "stderr": ""
+        }
+      ],
       "impact": null,
       "scenario_id": "sys:airlock:write_/etc/hosts"
     },
@@ -724,15 +755,28 @@
         "blocked": {
           "total": 1,
           "by_stage": {
-            "apply": 1
+            "preflight": 1
           },
           "by_kind": {
-            "sandbox_init_failed": 1
+            "preflight_apply_gate_signature": 1
           }
         },
         "status": "blocked"
       },
-      "mismatches": [],
+      "mismatches": [
+        {
+          "expectation_id": "sys:airlock:read_/tmp/foo",
+          "expected": "deny",
+          "actual": null,
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "failure_stage": "preflight",
+          "failure_kind": "preflight_apply_gate_signature",
+          "mismatch_type": "preflight_blocked",
+          "violation_summary": null,
+          "stderr": ""
+        }
+      ],
       "impact": null,
       "scenario_id": "sys:airlock:read_/tmp/foo"
     },
@@ -757,15 +801,28 @@
         "blocked": {
           "total": 1,
           "by_stage": {
-            "apply": 1
+            "preflight": 1
           },
           "by_kind": {
-            "sandbox_init_failed": 1
+            "preflight_apply_gate_signature": 1
           }
         },
         "status": "blocked"
       },
-      "mismatches": [],
+      "mismatches": [
+        {
+          "expectation_id": "sys:airlock:write_/tmp/foo",
+          "expected": "deny",
+          "actual": null,
+          "operation": "file-write*",
+          "target": "/tmp/foo",
+          "failure_stage": "preflight",
+          "failure_kind": "preflight_apply_gate_signature",
+          "mismatch_type": "preflight_blocked",
+          "violation_summary": null,
+          "stderr": ""
+        }
+      ],
       "impact": null,
       "scenario_id": "sys:airlock:write_/tmp/foo"
     },

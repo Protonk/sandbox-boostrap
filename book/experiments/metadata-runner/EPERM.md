@@ -17,8 +17,8 @@
    - `python3 book/experiments/metadata-runner/run_metadata.py`
    - Inspect `out/runtime_results.json` for `status`/`errno` and `out/decode_profiles.json` for anchor presence.
 3) Quick single-probe repro:  
-   - `clang -c book/api/runtime/seatbelt_callout_shim.c -o /tmp/seatbelt_callout_shim.o`  
-   - `swiftc book/experiments/metadata-runner/metadata_runner.swift book/api/runtime/ToolMarkers.swift /tmp/seatbelt_callout_shim.o -o /tmp/metadata_runner_test`  
+   - `clang -c book/api/runtime_tools/native/seatbelt_callout_shim.c -o /tmp/seatbelt_callout_shim.o`  
+   - `swiftc book/experiments/metadata-runner/metadata_runner.swift book/api/runtime_tools/native/ToolMarkers.swift /tmp/seatbelt_callout_shim.o -o /tmp/metadata_runner_test`  
    - `cat > /tmp/simple_meta.sb <<'EOF'\n(version 1)\n(deny default)\n(allow file-read* (literal "/private/tmp/foo"))\n(allow file-read-metadata (literal "/private/tmp/foo"))\nEOF`  
    - `/tmp/metadata_runner_test --sbpl /tmp/simple_meta.sb --op file-read-metadata --path /private/tmp/foo` → `OK`  
    - `/tmp/metadata_runner_test --sbpl /tmp/simple_meta.sb --op file-read-metadata --path /tmp/foo` → `EPERM`

@@ -18,7 +18,7 @@ Outputs:
 
 This tool is intentionally contract-driven: it runs candidates through
 book/api/SBPL-wrapper/wrapper and parses JSONL tool markers via
-book.api.runtime.contract, rather than inferring from stderr strings.
+book.api.runtime_tools.runtime_contract, rather than inferring from stderr strings.
 """
 
 from __future__ import annotations
@@ -41,8 +41,8 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from book.api import path_utils  # type: ignore
-from book.api.runtime import contract as rt_contract  # type: ignore
-from book.api.runtime import events as rt_events  # type: ignore
+from book.api.runtime_tools import runtime_contract as rt_contract  # type: ignore
+from book.api.runtime_tools import observations as runtime_observations  # type: ignore
 
 
 EPERM = 1
@@ -829,7 +829,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                 {
                     "error": "input profile is not apply-gated EPERM (cannot minimize)",
                     "input": path_utils.to_repo_relative(in_path, repo_root),
-                    "world_id": rt_events.WORLD_ID,
+                    "world_id": runtime_observations.WORLD_ID,
                     "outcome": dataclasses.asdict(initial_outcome),
                 },
                 indent=2,
@@ -854,7 +854,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         }
 
     run_doc = {
-        "world_id": rt_events.WORLD_ID,
+        "world_id": runtime_observations.WORLD_ID,
         "argv": argv_effective,
         "runtime_contract": {
             "runtime_result_schema_version": rt_contract.CURRENT_RUNTIME_RESULT_SCHEMA_VERSION,

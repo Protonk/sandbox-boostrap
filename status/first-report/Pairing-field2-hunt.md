@@ -40,7 +40,7 @@ For example, the inventory records the `bsd` tail node like this:
 }
 ```
 
-Given Blazakis-era layouts, the natural instinct was to treat `field2` as `filter_arg`, assume a struct like `[byte tag, byte filter, u16 arg, u16 edge0, u16 edge1]`, and go hunting for that pattern in the kernel: fixed stride arrays, base+index addressing, hi/lo bitfields for flags. The initial suspicion was that Sonoma’s kernel might have moved past that simple representation, but this was only a suspicion; nothing in the codebase or public sources had yet forced the issue, and those older layouts were treated—as `substrate/Canon.md` explicitly insists—as hypotheses to test, not as ground truth for this host.
+Given Blazakis-era layouts, the natural instinct was to treat `field2` as `filter_arg`, assume a struct like `[byte tag, byte filter, u16 arg, u16 edge0, u16 edge1]`, and go hunting for that pattern in the kernel: fixed stride arrays, base+index addressing, hi/lo bitfields for flags. The initial suspicion was that Sonoma’s kernel might have moved past that simple representation, but this was only a suspicion; nothing in the codebase or public sources had yet forced the issue, and those older layouts were treated—as `book/substrate/Canon.md` explicitly insists—as hypotheses to test, not as ground truth for this host.
 
 ### Bringing the web agent into the loop
 

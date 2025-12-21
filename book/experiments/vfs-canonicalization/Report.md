@@ -17,7 +17,7 @@ This experiment checks how `/tmp/foo` and `/private/tmp/foo` behave structurally
 - **Harness:**
   - Entry: `book/experiments/vfs-canonicalization/run_vfs.py`.
   - Structural decode via `book/api/profile_tools/decoder.py` using `book/graph/mappings/tag_layouts/tag_layouts.json`.
-  - Runtime harness via `book.api.runtime_harness.runner.run_expected_matrix`, reusing the same shims as `runtime-checks` / `runtime-adversarial`.
+  - Runtime harness via `book.api.runtime_tools.harness_runner.run_expected_matrix`, reusing the same shims as `runtime-checks` / `runtime-adversarial`.
 - **Outputs:**
   - `sb/build/*.sb.bin` – compiled VFS profiles.
   - `out/expected_matrix.json` – human expectations for `(profile_id, requested_path, expected_decision)`.

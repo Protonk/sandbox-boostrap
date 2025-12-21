@@ -26,7 +26,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from book.api.path_utils import find_repo_root, to_repo_relative
-from book.api.runtime.events import WORLD_ID
+from book.api.runtime_tools.observations import WORLD_ID
 
 ENTITLEMENT_MESSAGE_FILTER = "com.apple.private.security.message-filter"
 ENTITLEMENT_MESSAGE_FILTER_MANAGER = "com.apple.private.security.message-filter-manager"

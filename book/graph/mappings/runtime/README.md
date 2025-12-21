@@ -12,6 +12,10 @@ Current artifacts:
 - `runtime_signatures.json` — small IR derived from validation outputs (`field2_ir.json` + normalized runtime results) summarizing probe outcomes by profile plus a field2 summary; regenerated via `book/graph/mappings/runtime/generate_runtime_signatures.py` (which runs the validation driver `--tag smoke`) and folded into CARTON.
 - CARTON: see `book/api/carton/CARTON.json` for frozen hashes/paths of the runtime mappings/IR that are included in CARTON for Sonoma 14.4.1.
 
+Status update (permissive host):
+- Latest refresh ran under the permissive host context (`--yolo`), so apply-stage EPERM cleared for runtime-checks and runtime-adversarial probes.
+- `runtime_signatures.json`, `runtime_coverage.json`, and `expectations.json` now reflect decision-stage outcomes again; `sys:airlock` remains preflight-blocked and `path_edges` mismatches persist as the known VFS-canonicalization boundary.
+
 Claims and limits (current host cut):
 - For the operations that have both runtime-checks and runtime-adversarial coverage today—file-read*, file-write*, and mach-lookup—the decoded PolicyGraph IR (vocab, op-table, tag layouts where used, and graphs) agrees with kernel enforcement even under adversarial SBPL constructions (structural/metafilter variants and mach global/local literal/regex probes).
 - The one systematic divergence observed so far is `/tmp` → `/private/tmp` behavior in a synthetic path profile, attributed to VFS canonicalization outside the PolicyGraph model and recorded as such; it is not treated as a decoder bug.

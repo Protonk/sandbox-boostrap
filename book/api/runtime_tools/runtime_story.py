@@ -14,8 +14,8 @@ from pathlib import Path
 from typing import Any, Dict, Mapping, Optional
 
 from book.api import path_utils
-from book.api.runtime import mappings as rt_map
-from book.api.runtime import events as runtime_events
+from book.api.runtime_tools import mapping_builders
+from book.api.runtime_tools import observations as runtime_observations
 
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))
 OPS_VOCAB = REPO_ROOT / "book" / "graph" / "mappings" / "vocab" / "ops.json"
@@ -89,7 +89,10 @@ def build_runtime_story(
             "static": {"vocab_entry": vocab_entry},
         }
 
-    meta = rt_map.make_metadata(resolved_world or runtime_events.WORLD_ID, notes="joined runtime story")
+    meta = mapping_builders.make_metadata(
+        resolved_world or runtime_observations.WORLD_ID,
+        notes="joined runtime story",
+    )
     return {"meta": meta, "ops": story_ops}
 
 

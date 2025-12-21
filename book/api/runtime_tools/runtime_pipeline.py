@@ -17,10 +17,10 @@ from pathlib import Path
 from typing import Dict, Iterable, List, Mapping, Optional, Callable, Any, Tuple
 
 from book.api import path_utils
-from book.api.runtime import events as runtime_events
-from book.api.runtime import contract as rt_contract
-from book.api.runtime import mappings as rt_map
-from book.api.runtime_harness import runner as runtime_harness
+from book.api.runtime_tools import observations as runtime_observations
+from book.api.runtime_tools import runtime_contract as rt_contract
+from book.api.runtime_tools import mapping_builders
+from book.api.runtime_tools import harness_runner
 from book.api.profile_tools import compile_sbpl_string
 
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))
@@ -123,7 +123,7 @@ def build_expected_matrix_from_families(world_id: str, families: List[FamilySpec
     return {"world_id": world_id, "profiles": profiles}
 
 
-def load_events_from_index(events_index_path: Path) -> Iterable[runtime_events.RuntimeObservation]:
+def load_events_from_index(events_index_path: Path) -> Iterable[runtime_observations.RuntimeObservation]:
     """
     Stream observations from a per-scenario events index.
     """
@@ -140,7 +140,7 @@ def load_events_from_index(events_index_path: Path) -> Iterable[runtime_events.R
                     payload = json.loads(line)
                     # Ensure scenario_id is present even if the line is missing it.
                     payload.setdefault("scenario_id", scenario_id)
-                    yield runtime_events.RuntimeObservation(**payload)
+                    yield runtime_observations.RuntimeObservation(**payload)
 
 
 def build_op_summary_from_index(events_index_path: Path, world_id: Optional[str] = None) -> Dict[str, any]:
@@ -149,7 +149,7 @@ def build_op_summary_from_index(events_index_path: Path, world_id: Optional[str]
     """
 
     observations = list(load_events_from_index(events_index_path))
-    op_doc = rt_map.build_op_summaries(observations, world_id=world_id)
+    op_doc = mapping_builders.build_op_summaries(observations, world_id=world_id)
     return op_doc
 
 
@@ -222,7 +222,7 @@ def classify_mismatches(
 
     return {
         "world_id": world_id,
-        "generated_by": "book/api/runtime/pipeline.py",
+        "generated_by": "book/api/runtime_tools/runtime_pipeline.py",
         "mismatches": mismatches,
         "counts": counts,
     }
@@ -248,34 +248,34 @@ def generate_runtime_cut(
     staging_root = path_utils.ensure_absolute(staging_root, REPO_ROOT)
     staging_root.mkdir(parents=True, exist_ok=True)
 
-    observations = runtime_events.normalize_from_paths(expected_matrix_path, runtime_results_path, world_id=world_id)
+    observations = runtime_observations.normalize_from_paths(expected_matrix_path, runtime_results_path, world_id=world_id)
     expected_doc = _load_json(path_utils.ensure_absolute(expected_matrix_path, REPO_ROOT))
 
     traces_dir = staging_root / "traces"
-    events_index, _ = rt_map.write_per_scenario_traces(observations, traces_dir, world_id=world_id)
+    events_index, _ = mapping_builders.write_per_scenario_traces(observations, traces_dir, world_id=world_id)
     events_index_path = staging_root / "events_index.json"
-    rt_map.write_events_index(events_index, events_index_path)
+    mapping_builders.write_events_index(events_index, events_index_path)
 
-    scenario_doc = rt_map.build_scenario_summaries(observations, expected_doc, world_id=world_id)
+    scenario_doc = mapping_builders.build_scenario_summaries(observations, expected_doc, world_id=world_id)
     scenario_path = staging_root / "scenarios.json"
-    rt_map.write_scenario_mapping(scenario_doc, scenario_path)
+    mapping_builders.write_scenario_mapping(scenario_doc, scenario_path)
 
-    op_doc = rt_map.build_op_summaries(observations, world_id=world_id)
+    op_doc = mapping_builders.build_op_summaries(observations, world_id=world_id)
     op_path = staging_root / "ops.json"
-    rt_map.write_op_mapping(op_doc, op_path)
+    mapping_builders.write_op_mapping(op_doc, op_path)
 
-    idx_doc = rt_map.build_indexes(scenario_doc, events_index)
+    idx_doc = mapping_builders.build_indexes(scenario_doc, events_index)
     idx_path = staging_root / "runtime_indexes.json"
-    rt_map.write_index_mapping(idx_doc, idx_path)
+    mapping_builders.write_index_mapping(idx_doc, idx_path)
 
-    manifest = rt_map.build_manifest(
-        world_id or runtime_events.WORLD_ID,
+    manifest = mapping_builders.build_manifest(
+        world_id or runtime_observations.WORLD_ID,
         events_index_path,
         scenario_path,
         op_path,
     )
     manifest_path = staging_root / "runtime_manifest.json"
-    rt_map.write_manifest(manifest, manifest_path)
+    mapping_builders.write_manifest(manifest, manifest_path)
 
     return {
         "events_index": events_index_path,
@@ -326,7 +326,7 @@ def run_family_specs(
 
     out_dir = path_utils.ensure_absolute(out_dir, REPO_ROOT)
     out_dir.mkdir(parents=True, exist_ok=True)
-    world = world_id or runtime_events.WORLD_ID
+    world = world_id or runtime_observations.WORLD_ID
     build_dir = out_dir / "sb_build"
 
     matrix_doc = build_expected_matrix_from_families(world, families, build_dir)
@@ -345,7 +345,7 @@ def run_family_specs(
         if spec.key_specific_rules:
             key_rules.setdefault(spec.profile_id, []).extend(spec.key_specific_rules)
 
-    runtime_results_path = runtime_harness.run_expected_matrix(
+    runtime_results_path = harness_runner.run_expected_matrix(
         matrix_path,
         out_dir=out_dir,
         runtime_profile_dir=out_dir / "runtime_profiles",

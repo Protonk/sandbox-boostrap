@@ -6,7 +6,7 @@
 // Attempts mach-lookup against a demo service (if the server is running) and a
 // couple of system services. `mach-lookup` is a sandbox-controlled operation;
 // SBPL filters on `(global-name ...)` decide which services a process may talk
-// to (see substrate/Appendix.md filter list).
+// to (see book/substrate/Appendix.md filter list).
 
 static void lookup(const char *service) {
     mach_port_t bootstrap = MACH_PORT_NULL;

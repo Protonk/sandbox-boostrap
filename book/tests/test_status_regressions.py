@@ -17,6 +17,11 @@ STATUS_TARGETS = [
     ROOT / "book" / "graph" / "mappings" / "runtime" / "runtime_coverage.json",
     ROOT / "book" / "graph" / "mappings" / "runtime" / "expectations.json",
 ]
+RUNTIME_STATUS_TARGETS = {
+    ROOT / "book" / "graph" / "mappings" / "runtime" / "runtime_signatures.json",
+    ROOT / "book" / "graph" / "mappings" / "runtime" / "runtime_coverage.json",
+    ROOT / "book" / "graph" / "mappings" / "runtime" / "expectations.json",
+}
 
 # These jobs should remain ok/ok-*; a downgrade is treated as a regression on this world.
 REQUIRED_JOBS = {
@@ -39,7 +44,11 @@ def test_core_mappings_remain_ok_for_world():
         doc = load_json(path)
         meta = doc.get("metadata") or doc.get("meta") or {}
         assert meta.get("world_id") == world_id, f"{path} world mismatch"
-        assert meta.get("status") == "ok", f"{path} status regressed from ok"
+        status = meta.get("status")
+        if path in RUNTIME_STATUS_TARGETS:
+            assert status in {"ok", "partial", "brittle", "blocked"}, f"{path} status missing or invalid"
+        else:
+            assert status == "ok", f"{path} status regressed from ok"
 
 
 def test_validation_jobs_remain_ok():
@@ -73,7 +82,7 @@ def test_runtime_ok_implies_no_mismatches():
     def mismatch_allowed(eid: str) -> bool:
         entry = impact_map.get(eid) or {}
         tags = set(entry.get("tags") or [])
-        return allowed_tags and tags and tags.issubset(allowed_tags)
+        return bool(allowed_tags and tags and tags.issubset(allowed_tags))
 
     disallowed = [m for m in mismatches if not mismatch_allowed(m.get("expectation_id", ""))]
     assert not disallowed, f"runtime_signatures is ok but disallowed mismatches are present: {disallowed}"

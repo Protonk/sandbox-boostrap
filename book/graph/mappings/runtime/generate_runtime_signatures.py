@@ -21,7 +21,7 @@ import sys
 from pathlib import Path
 from typing import Dict, Any, Tuple
 
-from book.api.runtime import events as runtime_events
+from book.api.runtime_tools import observations as runtime_observations
 
 ROOT = Path(__file__).resolve().parents[4]
 RUNTIME_IR = ROOT / "book/graph/concepts/validation/out/experiments/runtime-checks/runtime_results.normalized.json"
@@ -82,7 +82,7 @@ def mismatch_allowed(expectation_id: str, impact_map: Dict[str, Any]) -> bool:
     allowed_tags = set((impact_map.get("metadata") or {}).get("allowed_tags") or [])
     entry = impact_map.get(expectation_id) or {}
     tags = set(entry.get("tags") or [])
-    return allowed_tags and tags and tags.issubset(allowed_tags)
+    return bool(allowed_tags and tags and tags.issubset(allowed_tags))
 
 
 def mismatch_tags(expectation_id: str, impact_map: Dict[str, Any]) -> set[str]:
@@ -294,8 +294,12 @@ def main() -> None:
         adv_expected = load_json(ADV_EXPECTED)
         expected_matrix_doc.setdefault("profiles", {}).update((adv_expected.get("profiles") or {}))
     if ADV_RESULTS.exists():
-        adv_obs = runtime_events.normalize_from_paths(ADV_EXPECTED, ADV_RESULTS, world_id=world_id) if ADV_EXPECTED.exists() else []
-        events.extend([runtime_events.serialize_observation(o) for o in adv_obs])
+        adv_obs = (
+            runtime_observations.normalize_from_paths(ADV_EXPECTED, ADV_RESULTS, world_id=world_id)
+            if ADV_EXPECTED.exists()
+            else []
+        )
+        events.extend([runtime_observations.serialize_observation(o) for o in adv_obs])
 
     extra_jobs = set()
     if ADV_EXPECTED.exists() or ADV_RESULTS.exists() or ADV_MISMATCH.exists():

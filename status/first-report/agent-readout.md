@@ -30,7 +30,7 @@ This report was assembled through several passes by different agents over the sa
 
 The text here includes that cross-check loop and aims to stand on its own. Descriptions of experiments, mappings, and validation state are grounded in `book/experiments/*/Plan.md` and `ResearchReport.md`, in the mapping files under `book/graph/mappings/*`, and in the validation outputs under `book/graph/concepts/validation/out/*`, rather than inferred from code alone. Machine-generated drafts and human edits have been interleaved to make the prose smoother while keeping every status claim tied to an explicit artifact. All status statements are specific to the Sonoma baseline recorded in `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json)` (macOS 14.4.1 / 23E224 on Apple Silicon with SIP enabled), and to the profile-format variant recorded in `book/graph/concepts/validation/out/metadata.json`.
 
-The vocabulary throughout matches the substrate (`substrate/Orientation.md`, `substrate/Concepts.md`, `substrate/State.md`): terms like **Operation**, **Filter**, **PolicyGraph**, **Profile Layer**, and **Sandbox Extension** are used with those definitions. The host baseline for almost all artifacts is:
+The vocabulary throughout matches the substrate (`book/substrate/Orientation.md`, `book/substrate/Concepts.md`, `book/substrate/State.md`): terms like **Operation**, **Filter**, **PolicyGraph**, **Profile Layer**, and **Sandbox Extension** are used with those definitions. The host baseline for almost all artifacts is:
 
 * macOS 14.4.1 (23E224), kernel 23.4.0
 * Apple Silicon, SIP enabled

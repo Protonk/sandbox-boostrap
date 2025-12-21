@@ -22,7 +22,11 @@ Future work can extend this pattern to more operations and tie it directly into 
 - Local copies: `harvest_runtime_artifacts.py` copies `runtime_results.json`, `expected_matrix.json`, `mismatch_summary.json`, and `impact_map.json` into this suite’s `out/` for downstream summarization.
 - Outputs (this suite): aggregated per-op summary in `book/experiments/op-coverage-and-runtime-signatures/out/op_runtime_summary.json`.
 
-Scope today: only `file-read*` and `mach-lookup`, because that is what the upstream adversarial suite currently probes.
+Scope today: `file-read*`, `file-write*`, `mach-lookup`, and `network-outbound`, matching the current adversarial probe families.
+
+## Status update (permissive host)
+
+The latest refresh ran under the permissive host context (`--yolo`), so apply-stage EPERM is cleared for adversarial probes. `out/op_runtime_summary.json` now records decision-stage outcomes again, with only the expected `path_edges` mismatches.
 
 ## Mechanism
 

@@ -1,196 +1,34 @@
 {
-  "metadata": {
-    "allowed_tags": [
-      "apply_gate",
-      "path_normalization",
-      "out_of_scope:VFS_canonicalization"
-    ]
-  },
-  "adv:struct_flat:allow-ok-root": {
-    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
-    "profile_id": "adv:struct_flat",
-    "operation": "file-read*",
-    "mismatch_type": "unexpected_deny",
-    "notes": "sandbox_apply: Operation not permitted\n",
-    "path": "/tmp/runtime-adv/struct/ok/allowed.txt",
-    "tags": [
-      "apply_gate"
-    ]
-  },
-  "adv:struct_flat:allow-ok-deep": {
-    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
-    "profile_id": "adv:struct_flat",
-    "operation": "file-read*",
-    "mismatch_type": "unexpected_deny",
-    "notes": "sandbox_apply: Operation not permitted\n",
-    "path": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
-    "tags": [
-      "apply_gate"
-    ]
-  },
-  "adv:struct_flat:write-ok-root": {
-    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
-    "profile_id": "adv:struct_flat",
-    "operation": "file-write*",
-    "mismatch_type": "unexpected_deny",
-    "notes": "sandbox_apply: Operation not permitted\n",
-    "path": "/tmp/runtime-adv/struct/ok/allowed.txt",
-    "tags": [
-      "apply_gate"
-    ]
-  },
-  "adv:struct_flat:write-ok-deep": {
-    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
-    "profile_id": "adv:struct_flat",
-    "operation": "file-write*",
-    "mismatch_type": "unexpected_deny",
-    "notes": "sandbox_apply: Operation not permitted\n",
-    "path": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
-    "tags": [
-      "apply_gate"
-    ]
-  },
-  "adv:struct_nested:allow-ok-root": {
-    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
-    "profile_id": "adv:struct_nested",
-    "operation": "file-read*",
-    "mismatch_type": "unexpected_deny",
-    "notes": "sandbox_apply: Operation not permitted\n",
-    "path": "/tmp/runtime-adv/struct/ok/allowed.txt",
-    "tags": [
-      "apply_gate"
-    ]
-  },
-  "adv:struct_nested:allow-ok-deep": {
-    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
-    "profile_id": "adv:struct_nested",
-    "operation": "file-read*",
-    "mismatch_type": "unexpected_deny",
-    "notes": "sandbox_apply: Operation not permitted\n",
-    "path": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
-    "tags": [
-      "apply_gate"
-    ]
-  },
-  "adv:struct_nested:write-ok-root": {
-    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
-    "profile_id": "adv:struct_nested",
-    "operation": "file-write*",
-    "mismatch_type": "unexpected_deny",
-    "notes": "sandbox_apply: Operation not permitted\n",
-    "path": "/tmp/runtime-adv/struct/ok/allowed.txt",
-    "tags": [
-      "apply_gate"
-    ]
-  },
-  "adv:struct_nested:write-ok-deep": {
-    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
-    "profile_id": "adv:struct_nested",
-    "operation": "file-write*",
-    "mismatch_type": "unexpected_deny",
-    "notes": "sandbox_apply: Operation not permitted\n",
-    "path": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
-    "tags": [
-      "apply_gate"
-    ]
-  },
   "adv:path_edges:allow-tmp": {
     "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
     "profile_id": "adv:path_edges",
     "operation": "file-read*",
     "mismatch_type": "path_normalization",
-    "notes": "sandbox_apply: Operation not permitted\n",
-    "path": "/tmp/runtime-adv/edges/a",
-    "tags": [
-      "apply_gate"
-    ]
+    "notes": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/path_edges.adv_path_edges.runtime.sb\",\"pid\":26699}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/path_edges.adv_path_edges.runtime.sb\",\"pid\":26699}\nopen target: Operation not permitted\n",
+    "path": "/tmp/runtime-adv/edges/a"
   },
   "adv:path_edges:allow-subpath": {
     "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
     "profile_id": "adv:path_edges",
     "operation": "file-read*",
     "mismatch_type": "path_normalization",
-    "notes": "sandbox_apply: Operation not permitted\n",
-    "path": "/tmp/runtime-adv/edges/okdir/item.txt",
-    "tags": [
-      "apply_gate"
-    ]
+    "notes": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/path_edges.adv_path_edges.runtime.sb\",\"pid\":26701}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/path_edges.adv_path_edges.runtime.sb\",\"pid\":26701}\nopen target: Operation not permitted\n",
+    "path": "/tmp/runtime-adv/edges/okdir/item.txt"
   },
   "adv:path_edges:write-tmp": {
     "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
     "profile_id": "adv:path_edges",
     "operation": "file-write*",
     "mismatch_type": "unexpected_deny",
-    "notes": "sandbox_apply: Operation not permitted\n",
-    "path": "/tmp/runtime-adv/edges/a",
-    "tags": [
-      "apply_gate"
-    ]
+    "notes": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/path_edges.adv_path_edges.runtime.sb\",\"pid\":26703}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/path_edges.adv_path_edges.runtime.sb\",\"pid\":26703}\nopen target: Operation not permitted\n",
+    "path": "/tmp/runtime-adv/edges/a"
   },
   "adv:path_edges:write-subpath": {
     "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
     "profile_id": "adv:path_edges",
     "operation": "file-write*",
     "mismatch_type": "unexpected_deny",
-    "notes": "sandbox_apply: Operation not permitted\n",
-    "path": "/tmp/runtime-adv/edges/okdir/item.txt",
-    "tags": [
-      "apply_gate"
-    ]
-  },
-  "adv:mach_simple_allow:allow-cfprefsd": {
-    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
-    "profile_id": "adv:mach_simple_allow",
-    "operation": "mach-lookup",
-    "mismatch_type": "unexpected_deny",
-    "notes": "sandbox_apply: Operation not permitted\n",
-    "path": "com.apple.cfprefsd.agent",
-    "tags": [
-      "apply_gate"
-    ]
-  },
-  "adv:mach_simple_variants:allow-cfprefsd": {
-    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
-    "profile_id": "adv:mach_simple_variants",
-    "operation": "mach-lookup",
-    "mismatch_type": "unexpected_deny",
-    "notes": "sandbox_apply: Operation not permitted\n",
-    "path": "com.apple.cfprefsd.agent",
-    "tags": [
-      "apply_gate"
-    ]
-  },
-  "adv:mach_local_literal:allow-cfprefsd-local": {
-    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
-    "profile_id": "adv:mach_local_literal",
-    "operation": "mach-lookup",
-    "mismatch_type": "unexpected_deny",
-    "notes": "sandbox_apply: Operation not permitted\n",
-    "path": "com.apple.cfprefsd.agent",
-    "tags": [
-      "apply_gate"
-    ]
-  },
-  "adv:mach_local_regex:allow-cfprefsd-local": {
-    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
-    "profile_id": "adv:mach_local_regex",
-    "operation": "mach-lookup",
-    "mismatch_type": "unexpected_deny",
-    "notes": "sandbox_apply: Operation not permitted\n",
-    "path": "com.apple.cfprefsd.agent",
-    "tags": [
-      "apply_gate"
-    ]
-  },
-  "adv:net_outbound_allow:tcp-loopback": {
-    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
-    "profile_id": "adv:net_outbound_allow",
-    "operation": "network-outbound",
-    "mismatch_type": "unexpected_deny",
-    "notes": "sandbox_apply: Operation not permitted\n",
-    "path": "127.0.0.1",
-    "tags": [
-      "apply_gate"
-    ]
+    "notes": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/path_edges.adv_path_edges.runtime.sb\",\"pid\":26705}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/path_edges.adv_path_edges.runtime.sb\",\"pid\":26705}\nopen target: Operation not permitted\n",
+    "path": "/tmp/runtime-adv/edges/okdir/item.txt"
   }
 }

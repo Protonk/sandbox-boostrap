@@ -1,11 +1,11 @@
 from __future__ import annotations
 
-from book.api.runtime import events as runtime_events
+from book.api.runtime_tools import observations as runtime_observations
 
 
 def test_metadata_runner_preflight_blocked_row_normalizes_into_contract_shape():
     runtime_doc = {
-        "world_id": runtime_events.WORLD_ID,
+        "world_id": runtime_observations.WORLD_ID,
         "runner_info": {"entrypoint": "metadata_runner"},
         "results": [
             {
@@ -26,7 +26,7 @@ def test_metadata_runner_preflight_blocked_row_normalizes_into_contract_shape():
         ],
     }
 
-    observations = runtime_events.normalize_metadata_runner_results(runtime_doc)
+    observations = runtime_observations.normalize_metadata_runner_results(runtime_doc)
     assert len(observations) == 1
     obs = observations[0]
     assert obs.runtime_status == "blocked"
@@ -35,4 +35,3 @@ def test_metadata_runner_preflight_blocked_row_normalizes_into_contract_shape():
     assert obs.actual is None
     assert isinstance(obs.preflight, dict)
     assert obs.preflight.get("classification") == "likely_apply_gated_for_harness_identity"
-

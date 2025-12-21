@@ -17,7 +17,30 @@ OUT_DIR = REPO_ROOT / "book" / "experiments" / "entitlement-diff" / "out"
 OPS_VOCAB_PATH = REPO_ROOT / "book" / "graph" / "mappings" / "vocab" / "ops.json"
 
 BASELINE = REPO_ROOT / "book" / "experiments" / "entitlement-diff" / "sb" / "build" / "appsandbox-baseline.sb.bin"
-VARIANT = REPO_ROOT / "book" / "experiments" / "entitlement-diff" / "sb" / "build" / "appsandbox-network-mach.sb.bin"
+VARIANTS = {
+    "network_mach": REPO_ROOT
+    / "book"
+    / "experiments"
+    / "entitlement-diff"
+    / "sb"
+    / "build"
+    / "appsandbox-network-mach.sb.bin",
+    "net_client": REPO_ROOT / "book" / "experiments" / "entitlement-diff" / "sb" / "build" / "appsandbox-net-client.sb.bin",
+    "downloads_rw": REPO_ROOT
+    / "book"
+    / "experiments"
+    / "entitlement-diff"
+    / "sb"
+    / "build"
+    / "appsandbox-downloads-rw.sb.bin",
+    "bookmarks_app_scope": REPO_ROOT
+    / "book"
+    / "experiments"
+    / "entitlement-diff"
+    / "sb"
+    / "build"
+    / "appsandbox-bookmarks-app-scope.sb.bin",
+}
 
 
 def load_ops_vocab() -> Dict[int, str]:
@@ -70,16 +93,18 @@ def describe_ops(ids: Iterable[int], vocab: Dict[int, str]) -> List[Dict[str, ob
     return out
 
 
-def write_json(path: Path, payload: object) -> None:
-    path.write_text(json.dumps(payload, indent=2) + "\n")
-    print(f"[+] wrote {to_repo_relative(path, REPO_ROOT)}")
+def summarize_profile(dec: Dict) -> Dict[str, object]:
+    literals = literal_set(dec)
+    return {
+        "path": dec.get("path"),
+        "op_count": dec.get("op_count"),
+        "node_count": dec.get("node_count"),
+        "literal_count": len(literals),
+        "tag_counts": tag_counts(dec),
+    }
 
 
-def main() -> int:
-    vocab = load_ops_vocab()
-    baseline = decode_profile(BASELINE)
-    variant = decode_profile(VARIANT)
-
+def build_diff(baseline: Dict, variant: Dict, vocab: Dict[int, str]) -> Dict[str, object]:
     base_ops = set(op_ids(baseline))
     var_ops = set(op_ids(variant))
     base_literals = literal_set(baseline)
@@ -91,23 +116,8 @@ def main() -> int:
     base_tag_lit_refs = tag_literal_refs(baseline)
     var_tag_lit_refs = tag_literal_refs(variant)
 
-    diff = {
-        "profiles": {
-            "baseline": {
-                "path": baseline["path"],
-                "op_count": baseline.get("op_count"),
-                "node_count": baseline.get("node_count"),
-                "literal_count": len(base_literals),
-                "tag_counts": base_tags,
-            },
-            "variant": {
-                "path": variant["path"],
-                "op_count": variant.get("op_count"),
-                "node_count": variant.get("node_count"),
-                "literal_count": len(var_literals),
-                "tag_counts": var_tags,
-            },
-        },
+    return {
+        "summary": summarize_profile(variant),
         "ops": {
             "added": describe_ops(var_ops - base_ops, vocab),
             "removed": describe_ops(base_ops - var_ops, vocab),
@@ -137,9 +147,24 @@ def main() -> int:
         },
     }
 
+
+def write_json(path: Path, payload: object) -> None:
+    path.write_text(json.dumps(payload, indent=2) + "\n")
+    print(f"[+] wrote {to_repo_relative(path, REPO_ROOT)}")
+
+
+def main() -> int:
+    vocab = load_ops_vocab()
+    baseline = decode_profile(BASELINE)
+    variants = {name: decode_profile(path) for name, path in VARIANTS.items()}
+    diffs = {name: build_diff(baseline, variant, vocab) for name, variant in variants.items()}
+
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    write_json(OUT_DIR / "decoded_profiles.json", {"baseline": baseline, "variant": variant})
-    write_json(OUT_DIR / "profile_diffs.json", diff)
+    write_json(OUT_DIR / "decoded_profiles.json", {"baseline": baseline, "variants": variants})
+    write_json(
+        OUT_DIR / "profile_diffs.json",
+        {"baseline": summarize_profile(baseline), "variants": diffs},
+    )
     return 0
 
 

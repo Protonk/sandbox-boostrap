@@ -2,14 +2,14 @@ from __future__ import annotations
 
 import pytest
 
-from book.api.runtime import contract as rt_contract
-from book.api.runtime import events as rt_events
-from book.api.runtime import callout_vs_syscall_comparison
+from book.api.runtime_tools import runtime_contract as rt_contract
+from book.api.runtime_tools import observations
+from book.api.runtime_tools.derived_views import callout_vs_syscall_comparison
 
 
 def _matrix_and_results_with_probe(stderr: str, runtime_result=None):
     expected_matrix = {
-        "world_id": rt_events.WORLD_ID,
+        "world_id": observations.WORLD_ID,
         "profiles": {
             "p": {
                 "probes": [
@@ -105,9 +105,9 @@ def test_normalize_runtime_results_strips_markers_and_derives_apply_report():
         ]
     )
     expected_matrix, runtime_results = _matrix_and_results_with_probe(stderr_raw, runtime_result={"status": "success", "errno": None})
-    obs = rt_events.normalize_runtime_results(expected_matrix, runtime_results)
+    obs = observations.normalize_runtime_results(expected_matrix, runtime_results)
     assert len(obs) == 1
-    rec = rt_events.serialize_observation(obs[0])
+    rec = observations.serialize_observation(obs[0])
     assert "tool" not in (rec.get("stderr") or "")
     assert rec.get("stderr") == "human stderr line\n"
     report = rec.get("apply_report") or {}
@@ -121,14 +121,14 @@ def test_normalize_runtime_results_rejects_out_of_order_markers():
     stderr_raw = '{"tool":"sbpl-apply","marker_schema_version":1,"stage":"applied","api":"sandbox_init","rc":0}\n'
     expected_matrix, runtime_results = _matrix_and_results_with_probe(stderr_raw)
     with pytest.raises(AssertionError):
-        rt_events.normalize_runtime_results(expected_matrix, runtime_results)
+        observations.normalize_runtime_results(expected_matrix, runtime_results)
 
 
 def test_normalize_runtime_results_rejects_unsupported_marker_schema_version():
     stderr_raw = '{"tool":"sbpl-apply","marker_schema_version":99,"stage":"apply","api":"sandbox_init","rc":0,"errno":0}\n'
     expected_matrix, runtime_results = _matrix_and_results_with_probe(stderr_raw)
     with pytest.raises(AssertionError):
-        rt_events.normalize_runtime_results(expected_matrix, runtime_results)
+        observations.normalize_runtime_results(expected_matrix, runtime_results)
 
 
 def test_normalize_runtime_results_rejects_preflight_stage_with_apply_markers():
@@ -141,7 +141,7 @@ def test_normalize_runtime_results_rejects_preflight_stage_with_apply_markers():
     }
     expected_matrix, runtime_results = _matrix_and_results_with_probe(stderr_raw, runtime_result=runtime_result)
     with pytest.raises(AssertionError):
-        rt_events.normalize_runtime_results(expected_matrix, runtime_results)
+        observations.normalize_runtime_results(expected_matrix, runtime_results)
 
 def test_seatbelt_callout_marker_requires_no_report_fields_and_is_non_classifying():
     # Contract tripwire: seatbelt-callout markers must carry explicit no_report
@@ -164,8 +164,8 @@ def test_seatbelt_callout_marker_requires_no_report_fields_and_is_non_classifyin
     if marker.get("no_report") is False:
         assert isinstance(marker.get("no_report_reason"), str) and marker.get("no_report_reason")
 
-    obs = rt_events.normalize_runtime_results(expected_matrix, runtime_results)
-    rec = rt_events.serialize_observation(obs[0])
+    obs = observations.normalize_runtime_results(expected_matrix, runtime_results)
+    rec = observations.serialize_observation(obs[0])
     assert rec.get("failure_stage") == "probe"
     assert rec.get("failure_kind") == "probe_syscall_errno"
 
@@ -197,7 +197,7 @@ def test_callout_vs_syscall_projection_is_derived_only():
         ]
     )
     expected_matrix = {
-        "world_id": rt_events.WORLD_ID,
+        "world_id": observations.WORLD_ID,
         "profiles": {
             "p": {
                 "probes": [
@@ -232,7 +232,7 @@ def test_callout_vs_syscall_projection_is_derived_only():
         }
     }
 
-    obs = rt_events.normalize_runtime_results(expected_matrix, runtime_results)
+    obs = observations.normalize_runtime_results(expected_matrix, runtime_results)
     table = callout_vs_syscall_comparison(obs)
     assert (table.get("counts") or {}).get("callout_deny_syscall_ok") == 1
     row = (table.get("rows") or [])[0]
@@ -244,7 +244,7 @@ def test_normalized_event_runner_info_tool_build_id_matches_sha256():
     stderr_raw = ""
     runner_info = {"entrypoint": "SBPL-wrapper", "entrypoint_sha256": "deadbeef", "tool_build_id": "deadbeef"}
     expected_matrix, runtime_results = _matrix_and_results_with_probe(stderr_raw, runtime_result={"status": "errno", "errno": 1, "runner_info": runner_info})
-    obs = rt_events.normalize_runtime_results(expected_matrix, runtime_results)
-    rec = rt_events.serialize_observation(obs[0])
+    obs = observations.normalize_runtime_results(expected_matrix, runtime_results)
+    rec = observations.serialize_observation(obs[0])
     info = rec.get("runner_info") or {}
     assert info.get("tool_build_id") == info.get("entrypoint_sha256")

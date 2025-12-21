@@ -1,11 +1,11 @@
 import json
 from pathlib import Path
 
-from book.api.runtime import pipeline, events as runtime_events, story as runtime_story
+from book.api.runtime_tools import observations, runtime_pipeline, runtime_story
 
 
 def _write_fixture(matrix_path: Path, results_path: Path) -> None:
-    world = runtime_events.WORLD_ID
+    world = observations.WORLD_ID
     expected_matrix = {
         "world_id": world,
         "profiles": {
@@ -50,7 +50,7 @@ def test_generate_runtime_cut_and_indexes(tmp_path: Path) -> None:
     _write_fixture(matrix_path, results_path)
 
     staging_root = tmp_path / "runtime_mappings"
-    artifacts = pipeline.generate_runtime_cut(matrix_path, results_path, staging_root)
+    artifacts = runtime_pipeline.generate_runtime_cut(matrix_path, results_path, staging_root)
 
     events_index = (artifacts["events_index"]).read_text()
     scenarios_doc = __import__("json").loads((artifacts["scenarios"]).read_text())
@@ -75,7 +75,7 @@ def test_generate_runtime_cut_and_indexes(tmp_path: Path) -> None:
     # metadata envelope invariants
     for doc in [index_data, scenarios_doc, ops_doc]:
         meta = doc.get("meta") or {}
-        assert meta.get("world_id") == runtime_events.WORLD_ID
+        assert meta.get("world_id") == observations.WORLD_ID
         assert meta.get("schema_version")
         assert meta.get("runtime_log_schema")
 
@@ -86,11 +86,11 @@ def test_promote_runtime_cut(tmp_path: Path) -> None:
     _write_fixture(matrix_path, results_path)
 
     staging_root = tmp_path / "runtime_mappings"
-    artifacts = pipeline.generate_runtime_cut(matrix_path, results_path, staging_root)
-    promoted = pipeline.promote_runtime_cut(staging_root, tmp_path / "runtime_cuts")
+    artifacts = runtime_pipeline.generate_runtime_cut(matrix_path, results_path, staging_root)
+    promoted = runtime_pipeline.promote_runtime_cut(staging_root, tmp_path / "runtime_cuts")
 
     # ensure promoted artifacts are readable via loaders
-    events = list(pipeline.load_events_from_index(promoted["events_index"]))
+    events = list(runtime_pipeline.load_events_from_index(promoted["events_index"]))
     assert events and events[0].scenario_id
     assert promoted["scenarios"].exists()
     assert promoted["ops"].exists()
@@ -102,8 +102,8 @@ def test_full_cut_lifecycle_and_story(tmp_path: Path) -> None:
     _write_fixture(matrix_path, results_path)
 
     staging_root = tmp_path / "runtime_mappings"
-    artifacts = pipeline.generate_runtime_cut(matrix_path, results_path, staging_root)
-    promoted = pipeline.promote_runtime_cut(staging_root, tmp_path / "runtime_cuts")
+    artifacts = runtime_pipeline.generate_runtime_cut(matrix_path, results_path, staging_root)
+    promoted = runtime_pipeline.promote_runtime_cut(staging_root, tmp_path / "runtime_cuts")
 
     story = runtime_story.build_runtime_story(promoted["ops"], promoted["scenarios"])
     coverage_view = runtime_story.story_to_coverage(story)
@@ -115,14 +115,14 @@ def test_full_cut_lifecycle_and_story(tmp_path: Path) -> None:
     assert set(idx_doc.get("scenario_to_traces", {}).keys()) == set((scenarios_doc.get("scenarios") or {}).keys())
 
     # metadata invariants
-    assert (story.get("meta") or {}).get("world_id") == runtime_events.WORLD_ID
+    assert (story.get("meta") or {}).get("world_id") == observations.WORLD_ID
     for meta in [coverage_view.get("metadata"), signatures_view.get("metadata")]:
-        assert meta.get("world_id") == runtime_events.WORLD_ID
+        assert meta.get("world_id") == observations.WORLD_ID
 
     # events stream aligns with scenario/op mappings
     ops_doc = json.loads(promoted["ops"].read_text())
     op_names = set((ops_doc.get("ops") or {}).keys())
-    events = list(pipeline.load_events_from_index(promoted["events_index"]))
+    events = list(runtime_pipeline.load_events_from_index(promoted["events_index"]))
     assert events, "expected promoted events to stream"
     assert any(ev.operation in op_names for ev in events)
     assert all(ev.scenario_id in idx_doc.get("scenario_to_traces", {}) for ev in events)

@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from book.api.runtime import contract as rt_contract
+from book.api.runtime_tools import runtime_contract as rt_contract
 
 
 ROOT = Path(__file__).resolve().parents[2]

@@ -2,9 +2,8 @@
   "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
   "profiles": {
     "adv:struct_flat": {
+      "blob": "book/experiments/runtime-adversarial/sb/struct_flat.sb",
       "mode": "sbpl",
-      "sbpl": "book/experiments/runtime-adversarial/sb/struct_flat.sb",
-      "blob": "book/experiments/runtime-adversarial/sb/build/struct_flat.sb.bin",
       "family": "structural_variants",
       "semantic_group": "structural:file-read-subpath",
       "probes": [
@@ -67,9 +66,8 @@
       ]
     },
     "adv:struct_nested": {
+      "blob": "book/experiments/runtime-adversarial/sb/struct_nested.sb",
       "mode": "sbpl",
-      "sbpl": "book/experiments/runtime-adversarial/sb/struct_nested.sb",
-      "blob": "book/experiments/runtime-adversarial/sb/build/struct_nested.sb.bin",
       "family": "structural_variants",
       "semantic_group": "structural:file-read-subpath",
       "probes": [
@@ -132,9 +130,8 @@
       ]
     },
     "adv:path_edges": {
+      "blob": "book/experiments/runtime-adversarial/sb/path_edges.sb",
       "mode": "sbpl",
-      "sbpl": "book/experiments/runtime-adversarial/sb/path_edges.sb",
-      "blob": "book/experiments/runtime-adversarial/sb/build/path_edges.sb.bin",
       "family": "path_edges",
       "semantic_group": "paths:literal-vs-normalized",
       "probes": [
@@ -197,9 +194,8 @@
       ]
     },
     "adv:mach_simple_allow": {
+      "blob": "book/experiments/runtime-adversarial/sb/mach_simple_allow.sb",
       "mode": "sbpl",
-      "sbpl": "book/experiments/runtime-adversarial/sb/mach_simple_allow.sb",
-      "blob": "book/experiments/runtime-adversarial/sb/build/mach_simple_allow.sb.bin",
       "family": "mach_variants",
       "semantic_group": "mach:global-name-allow",
       "probes": [
@@ -220,9 +216,8 @@
       ]
     },
     "adv:mach_simple_variants": {
+      "blob": "book/experiments/runtime-adversarial/sb/mach_simple_variants.sb",
       "mode": "sbpl",
-      "sbpl": "book/experiments/runtime-adversarial/sb/mach_simple_variants.sb",
-      "blob": "book/experiments/runtime-adversarial/sb/build/mach_simple_variants.sb.bin",
       "family": "mach_variants",
       "semantic_group": "mach:global-name-allow",
       "probes": [
@@ -243,9 +238,8 @@
       ]
     },
     "adv:mach_local_literal": {
+      "blob": "book/experiments/runtime-adversarial/sb/mach_local_literal.sb",
       "mode": "sbpl",
-      "sbpl": "book/experiments/runtime-adversarial/sb/mach_local_literal.sb",
-      "blob": "book/experiments/runtime-adversarial/sb/build/mach_local_literal.sb.bin",
       "family": "mach_local",
       "semantic_group": "mach:local-name-allow",
       "probes": [
@@ -268,9 +262,8 @@
       ]
     },
     "adv:mach_local_regex": {
+      "blob": "book/experiments/runtime-adversarial/sb/mach_local_regex.sb",
       "mode": "sbpl",
-      "sbpl": "book/experiments/runtime-adversarial/sb/mach_local_regex.sb",
-      "blob": "book/experiments/runtime-adversarial/sb/build/mach_local_regex.sb.bin",
       "family": "mach_local",
       "semantic_group": "mach:local-name-allow",
       "probes": [
@@ -293,46 +286,44 @@
       ]
     },
     "adv:net_outbound_allow": {
+      "blob": "book/experiments/runtime-adversarial/sb/net_outbound_allow.sb",
       "mode": "sbpl",
-      "sbpl": "book/experiments/runtime-adversarial/sb/net_outbound_allow.sb",
-      "blob": "book/experiments/runtime-adversarial/sb/build/net_outbound_allow.sb.bin",
       "family": "network",
       "semantic_group": "network:outbound-allow",
       "probes": [
         {
           "name": "tcp-loopback",
           "operation": "network-outbound",
-          "target": "127.0.0.1:64671",
+          "target": "127.0.0.1:63953",
           "expected": "allow",
           "expectation_id": "adv:net_outbound_allow:tcp-loopback"
         },
         {
           "name": "tcp-loopback-2",
           "operation": "network-outbound",
-          "target": "127.0.0.1:64672",
+          "target": "127.0.0.1:63954",
           "expected": "allow",
           "expectation_id": "adv:net_outbound_allow:tcp-loopback-2"
         }
       ]
     },
     "adv:net_outbound_deny": {
+      "blob": "book/experiments/runtime-adversarial/sb/net_outbound_deny.sb",
       "mode": "sbpl",
-      "sbpl": "book/experiments/runtime-adversarial/sb/net_outbound_deny.sb",
-      "blob": "book/experiments/runtime-adversarial/sb/build/net_outbound_deny.sb.bin",
       "family": "network",
       "semantic_group": "network:outbound-deny",
       "probes": [
         {
           "name": "tcp-loopback",
           "operation": "network-outbound",
-          "target": "127.0.0.1:64671",
+          "target": "127.0.0.1:63953",
           "expected": "deny",
           "expectation_id": "adv:net_outbound_deny:tcp-loopback"
         },
         {
           "name": "tcp-loopback-2",
           "operation": "network-outbound",
-          "target": "127.0.0.1:64672",
+          "target": "127.0.0.1:63954",
           "expected": "deny",
           "expectation_id": "adv:net_outbound_deny:tcp-loopback-2"
         }

@@ -5,7 +5,7 @@
 
 // Registers a simple Mach service so the client can exercise mach-lookup. In
 // SBPL, mach services are controlled via operations like `mach-lookup` and
-// filters such as `(global-name "...")` (see substrate/Appendix.md). Platform
+// filters such as `(global-name "...")` (see book/substrate/Appendix.md). Platform
 // policy may still deny registration/lookup even for ad-hoc services.
 
 static const char *kServiceName = "com.example.xnusandbox.demo";

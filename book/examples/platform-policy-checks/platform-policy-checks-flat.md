@@ -274,7 +274,7 @@ int main(void) {
     try_mach_lookup("com.apple.cfprefsd.daemon");
     try_mach_lookup("com.apple.securityd");
 
-    printf("\nRemember: platform policy runs before any per-process sandbox (substrate/Orientation.md §2),\n");
+    printf("\nRemember: platform policy runs before any per-process sandbox (book/substrate/Orientation.md §2),\n");
     printf("so failures here can come from global rules even if a custom SBPL profile looks permissive.\n");
     return 0;
 }

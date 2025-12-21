@@ -28,7 +28,7 @@ The project deliberately fixes a narrow but detailed world:
 
 - **Evidence priorities**
   - Static artifacts on this host—compiled profiles, dyld cache slices, decoded PolicyGraphs, vocab tables, and mapping JSONs—are the primary external reality.
-  - The substrate docs under `substrate/` are assumed correct for this host unless the repo explicitly revises them.
+  - The substrate docs under `book/substrate/` are assumed correct for this host unless the repo explicitly revises them.
   - Runtime behavior, entitlements, extensions, and kernel-dispatch work are in progress and must carry explicit status: `ok`, `partial`, `brittle`, or `blocked`, never silently upgraded to fact.
 
 - **Two views of policy**
@@ -37,8 +37,8 @@ The project deliberately fixes a narrow but detailed world:
 
 For a compact narrative of these assumptions and the surrounding ecosystem (TCC, hardened runtime, SIP), see:
 
-- `substrate/Orientation.md` – architecture and policy lifecycle.
-- `substrate/Concepts.md` – core Seatbelt concepts and definitions.
+- `book/substrate/Orientation.md` – architecture and policy lifecycle.
+- `book/substrate/Concepts.md` – core Seatbelt concepts and definitions.
 
 ## Repository Layout
 
@@ -57,7 +57,7 @@ Detailed navigation and norms live in layered `AGENTS.md` files in each subtree.
 - `AGENTS.md`  
   Project-wide guardrails for agents: host baseline, evidence priorities, and modeling constraints.
 
-- `substrate/`  
+- `book/substrate/`  
   Orientation, Concepts, Appendix, Environment, and State; frozen theory of Seatbelt and its environment for this host.
 
 - `guidance/`  

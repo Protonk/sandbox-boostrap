@@ -1,6 +1,6 @@
 # Agents in `book/graph/swift/`
 
-Purpose: Swift generator/validator for graph-level artifacts. It parses substrate + inventory markdown, emits JSON used by the textbook and CARTON, and hosts static enforcement for stable mappings encoded as Swift data structures.
+Purpose: Swift generator/validator for graph-level artifacts. It parses `book/substrate/Concepts.md` + inventory markdown, emits JSON used by the textbook and CARTON, and hosts static enforcement for stable mappings encoded as Swift data structures.
 
 Run: `make -C book test` (preferred) or `swift run` from `book/graph/` after sourcing the repo venv. The CI driver (`book/ci.py`) invokes this target automatically.
 

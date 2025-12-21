@@ -1,53 +1,34 @@
 {
   "adv:path_edges:allow-tmp": {
-    "bedrock_refs": [
-      "out_of_scope:VFS_canonicalization"
-    ],
-    "suggested_status": "ok",
-    "notes": "Runtime deny likely due to /tmp → /private/tmp canonicalization before PolicyGraph; not modeling VFS symlink resolution in static IR."
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "profile_id": "adv:path_edges",
+    "operation": "file-read*",
+    "mismatch_type": "path_normalization",
+    "notes": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/path_edges.adv_path_edges.runtime.sb\",\"pid\":26699}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/path_edges.adv_path_edges.runtime.sb\",\"pid\":26699}\nopen target: Operation not permitted\n",
+    "path": "/tmp/runtime-adv/edges/a"
   },
   "adv:path_edges:allow-subpath": {
-    "bedrock_refs": [
-      "out_of_scope:VFS_canonicalization"
-    ],
-    "suggested_status": "ok",
-    "notes": "Runtime deny likely due to /tmp → /private/tmp canonicalization dominating subpath match; treated as VFS behavior outside PolicyGraph modeling."
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "profile_id": "adv:path_edges",
+    "operation": "file-read*",
+    "mismatch_type": "path_normalization",
+    "notes": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/path_edges.adv_path_edges.runtime.sb\",\"pid\":26701}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/path_edges.adv_path_edges.runtime.sb\",\"pid\":26701}\nopen target: Operation not permitted\n",
+    "path": "/tmp/runtime-adv/edges/okdir/item.txt"
   },
   "adv:path_edges:write-tmp": {
-    "bedrock_refs": [
-      "out_of_scope:VFS_canonicalization"
-    ],
-    "suggested_status": "ok",
-    "notes": "Write-side allow on /tmp path denied at runtime; mirrors read-side /tmp → /private/tmp canonicalization and treated as VFS behavior outside PolicyGraph modeling."
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "profile_id": "adv:path_edges",
+    "operation": "file-write*",
+    "mismatch_type": "unexpected_deny",
+    "notes": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/path_edges.adv_path_edges.runtime.sb\",\"pid\":26703}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/path_edges.adv_path_edges.runtime.sb\",\"pid\":26703}\nopen target: Operation not permitted\n",
+    "path": "/tmp/runtime-adv/edges/a"
   },
   "adv:path_edges:write-subpath": {
-    "bedrock_refs": [
-      "out_of_scope:VFS_canonicalization"
-    ],
-    "suggested_status": "ok",
-    "notes": "Write-side subpath allow under /tmp denied at runtime; consistent with VFS canonicalization of /tmp → /private/tmp rather than PolicyGraph mismatch."
-  },
-  "adv:mach_simple_allow:allow-cfprefsd": {
-    "bedrock_refs": [
-      "vocab:mach-lookup",
-      "op_table:mach-lookup-id-96"
-    ],
-    "suggested_status": "ok",
-    "notes": "mach-lookup for com.apple.cfprefsd.agent now matches runtime; supports mach vocab/op-table alignment for op ID 96."
-  },
-  "adv:mach_simple_variants:allow-cfprefsd": {
-    "bedrock_refs": [
-      "vocab:mach-lookup",
-      "op_table:mach-lookup-id-96"
-    ],
-    "suggested_status": "ok",
-    "notes": "Regex/nested variant also matches runtime; reinforces mach-lookup allow/deny semantics."
-  },
-  "adv:net_outbound_allow:tcp-loopback": {
-    "bedrock_refs": [
-      "probe:network-outbound"
-    ],
-    "suggested_status": "ok",
-    "notes": "TCP loopback connect succeeds under allow profile after switching to /usr/bin/nc client with startup shims; deny profile still denies. Network-outbound probe now isolates PolicyGraph decision."
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "profile_id": "adv:path_edges",
+    "operation": "file-write*",
+    "mismatch_type": "unexpected_deny",
+    "notes": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/path_edges.adv_path_edges.runtime.sb\",\"pid\":26705}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-adversarial/out/runtime_profiles/path_edges.adv_path_edges.runtime.sb\",\"pid\":26705}\nopen target: Operation not permitted\n",
+    "path": "/tmp/runtime-adv/edges/okdir/item.txt"
   }
 }

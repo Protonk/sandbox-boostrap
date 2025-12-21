@@ -1,6 +1,6 @@
 # Concept Map (verbatim definitions + clusters)
 
-Verbatim concept entries from `substrate/Concepts.md`, with associated validation clusters noted per entry.
+Verbatim concept entries from `book/substrate/Concepts.md`, with associated validation clusters noted per entry.
 
 ---
 

@@ -16,7 +16,7 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List, Mapping, Optional
 
 from book.api import path_utils
-from book.api.runtime import contract as rt_contract
+from book.api.runtime_tools import runtime_contract as rt_contract
 
 # Fixed world for this repository.
 WORLD_ID = "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"

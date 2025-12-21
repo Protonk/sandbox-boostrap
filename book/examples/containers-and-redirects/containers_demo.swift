@@ -2,7 +2,7 @@ import Foundation
 import Darwin
 
 // Containers reshape where app data lives. Seatbelt’s path-based filters
-// (`subpath`, `literal`, `regex` in substrate/Appendix.md) see the resolved
+// (`subpath`, `literal`, `regex` in book/substrate/Appendix.md) see the resolved
 // filesystem path, not the human-facing alias, so understanding redirects and
 // symlinks is key when reasoning about sandboxed file I/O.
 

@@ -21,7 +21,7 @@ ROOT = Path(__file__).resolve().parents[3]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from book.api.runtime import events as runtime_events  # type: ignore
+from book.api.runtime_tools import observations as runtime_observations  # type: ignore
 
 
 TOOL_PATH = ROOT / "book" / "tools" / "preflight" / "gate_minimizer.py"
@@ -129,11 +129,11 @@ def main() -> int:
         clusters.setdefault(w["signature"], []).append(w["target"])
 
     feature_summary = {
-        "world_id": runtime_events.WORLD_ID,
+        "world_id": runtime_observations.WORLD_ID,
         "witnesses": witnesses,
     }
     clusters_doc = {
-        "world_id": runtime_events.WORLD_ID,
+        "world_id": runtime_observations.WORLD_ID,
         "clusters": [{"signature": sig, "targets": sorted(targets)} for sig, targets in sorted(clusters.items())],
     }
 

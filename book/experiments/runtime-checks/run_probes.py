@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Thin wrapper to run runtime probes using book.api.golden_runner.
+Thin wrapper to run runtime probes using book.api.runtime_tools.
 Defaults to writing artifacts into book/profiles/golden-triple/.
 """
 
@@ -14,7 +14,8 @@ ROOT = Path(__file__).resolve().parents[3]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from book.api.runtime import WORLD_ID, run_from_expected_matrix, write_normalized_events
+from book.api.runtime_tools.observations import WORLD_ID, write_normalized_events
+from book.api.runtime_tools.runtime_pipeline import run_from_expected_matrix
 
 
 ROOT = Path(__file__).resolve().parent

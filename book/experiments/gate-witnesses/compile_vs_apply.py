@@ -25,8 +25,8 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from book.api import path_utils
-from book.api.runtime import contract as rt_contract
-from book.api.runtime import events as rt_events
+from book.api.runtime_tools import runtime_contract as rt_contract
+from book.api.runtime_tools import observations as rt_observations
 
 
 EPERM = 1
@@ -189,7 +189,7 @@ def main() -> int:
         raise SystemExit(f"missing witness root: {witness_root}")
 
     results: Dict[str, Any] = {
-        "world_id": rt_events.WORLD_ID,
+        "world_id": rt_observations.WORLD_ID,
         "wrapper": _rel(wrapper, root),
         "witnesses": [],
         "micro_variants": [],

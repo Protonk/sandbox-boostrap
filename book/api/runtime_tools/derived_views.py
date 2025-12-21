@@ -11,7 +11,7 @@ import hashlib
 from dataclasses import asdict, dataclass
 from typing import Any, Dict, Iterable, List, Mapping, Optional, Tuple
 
-from book.api.runtime import events as rt_events
+from book.api.runtime_tools import observations as runtime_observations
 
 
 @dataclass
@@ -70,7 +70,7 @@ def _syscall_category(syscall_status: Optional[str], errno: Optional[int]) -> Tu
 
 
 def callout_vs_syscall_comparison(
-    observations: Iterable[rt_events.RuntimeObservation],
+    observations: Iterable[runtime_observations.RuntimeObservation],
     stage_preference: Optional[List[str]] = None,
     include_non_probe: bool = False,
 ) -> Dict[str, Any]:
@@ -163,9 +163,8 @@ def callout_vs_syscall_comparison(
         counts[category] = counts.get(category, 0) + 1
 
     meta = {
-        "world_id": rt_events.WORLD_ID,
-        "generated_by": "book/api/runtime/projections.py",
+        "world_id": runtime_observations.WORLD_ID,
+        "generated_by": "book/api/runtime_tools/derived_views.py",
         "notes": "Derived view: compares seatbelt-callout markers with syscall outcomes without promoting callouts into semantics.",
     }
     return {"meta": meta, "counts": counts, "rows": [asdict(r) for r in rows]}
-

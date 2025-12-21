@@ -25,7 +25,7 @@ Build a field2-centric experiment that follows selected field2 IDs end-to-end ac
 2. **Static join builder**  
    Implement `atlas_static.py` to emit `out/static/field2_records.jsonl` keyed by field2, joining tag IDs (from tag layouts + field2-filters inventory), filter metadata (vocab), anchors (anchor_filter_map + probe-op-structure hits), and system profile counts (field2-filters inventory). Mark coverage as `ok`/`partial` per source status.
 3. **Runtime harness (field2-first)**  
-   Extend a thin wrapper around `book/api/runtime_harness` that, for each seed with a runtime candidate, runs exactly one probe (path literal or mach name) and records the profile/operation/outcome in `out/runtime/field2_runtime_results.json`. If no plausible probe, record `runtime_candidate: none`. Treat EPERM/apply gates as `blocked` outcomes, not absence.
+   Extend a thin wrapper around `book/api/runtime_tools` that, for each seed with a runtime candidate, runs exactly one probe (path literal or mach name) and records the profile/operation/outcome in `out/runtime/field2_runtime_results.json`. If no plausible probe, record `runtime_candidate: none`. Treat EPERM/apply gates as `blocked` outcomes, not absence.
 4. **Atlas synthesis**  
    Merge static + runtime layers into `out/atlas/field2_atlas.json` and `out/atlas/summary.json`, one row per seed. Compute a coarse status (`runtime_backed`, `static_only`, `no_runtime_candidate`, `blocked`). Keep repo-relative paths to all contributing artifacts.
 5. **Guardrails**  

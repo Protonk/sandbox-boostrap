@@ -58,7 +58,7 @@ If your bundle does not contain any helpers under `Contents/Helpers/`, this comm
 This is the core “entitlements as the variable” mode.
 
 ```sh
-$EJ run-xpc <xpc-service-bundle-id> <probe-id> [probe-args...]
+$EJ run-xpc [--log-sandbox <path>|--log-stream <path>] [--log-predicate <predicate>] <xpc-service-bundle-id> <probe-id> [probe-args...]
 ```
 
 The probe executes **in-process inside the XPC service** (no child-process exec), and returns a JSON result on stdout; the CLI exits with the returned `rc`.
@@ -68,6 +68,18 @@ Example:
 ```sh
 $EJ run-xpc com.yourteam.entitlement-jail.ProbeService_minimal capabilities_snapshot
 ```
+
+Optional: capture a PID-scoped `Sandbox:` unified log excerpt (best-effort; uses `log show`):
+
+```sh
+$EJ run-xpc --log-sandbox /tmp/ej-sandbox.log com.yourteam.entitlement-jail.ProbeService_minimal fs_op --op stat --path-class downloads
+```
+
+Rule: deny attribution is only valid when produced by **host-side** log capture (outside `EntitlementJail.app`); in-app log capture is diagnostic only and may be blocked by the app sandbox.
+
+Note: client flags (`--log-sandbox`, `--log-predicate`) must appear before `<xpc-service-bundle-id>`.
+
+`--log-predicate` overrides the default `log show` predicate (pass a full predicate string).
 
 ### 4) `quarantine-lab` — write/open/copy files and report `com.apple.quarantine` deltas (no execution)
 
@@ -109,12 +121,14 @@ Probe ids are stable identifiers (not paths). Each returns JSON with fields like
 
 Common probes:
 
+- `probe_catalog` — emits a JSON catalog; use `<probe-id> --help` for per-probe usage
 - `capabilities_snapshot` — reports entitlements and resolved standard directories for the current service
 - `world_shape` — reports “world shape” (for example, containerized `HOME`) as an explicit dimension
-- `fs_op` — parameterized filesystem operations (`--op stat|open_read|...`); destructive direct-path ops are refused unless `--allow-unsafe-path` is provided
+- `fs_op` — parameterized filesystem operations (`--op stat|open_read|...`); destructive direct-path ops are refused unless `--allow-unsafe-path` is provided (prefer `--path-class`)
 - `net_op` — parameterized networking (`--op getaddrinfo|tcp_connect|udp_send`)
 - `downloads_rw` — best-effort read/write/remove under Downloads (for the Downloads entitlement)
 - `bookmark_make` / `bookmark_op` — bookmark token generation and bookmark-driven `fs_op` (security-scoped bookmarks require the bookmarks/user-selected entitlement boundary)
+- `bookmark_roundtrip` — create a bookmark token and immediately resolve + run a bookmark-scoped `fs_op`
 - `userdefaults_op` — read/write/remove/sync a `UserDefaults` key (useful for containerization evidence)
 - `fs_xattr` — read/list/set/remove xattrs (xattr writes are refused outside harness paths unless explicitly allowed)
 - `fs_coordinated_op` — NSFileCoordinator mediated read/write
@@ -137,4 +151,3 @@ If you need Seatbelt-level attribution, inspect unified logs for `Sandbox:` line
 - `run-xpc` runs probes **in-process** and does not execute arbitrary binaries.
 - `quarantine-lab` does **not** execute artifacts.
 - `run-system` and `run-embedded` *do* execute processes by design; use them deliberately.
-

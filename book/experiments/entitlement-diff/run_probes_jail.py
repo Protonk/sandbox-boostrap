@@ -17,6 +17,7 @@ Outputs:
 from __future__ import annotations
 
 import hashlib
+import importlib.util
 import json
 import os
 import shutil
@@ -27,12 +28,19 @@ from typing import Any, Callable, Dict, List, Mapping, Optional, Tuple
 
 from book.api.path_utils import find_repo_root, relativize_command, to_repo_relative
 from book.api.profile_tools.identity import baseline_world_id
-from book.experiments.entitlement_diff_probe_plan import (
-    build_probe_matrix,
-    probe_ids,
-    staged_binary_specs,
-    staged_destinations,
-)
+
+
+def _load_probe_plan():
+    here = Path(__file__).resolve().parent
+    spec = importlib.util.spec_from_file_location("entitlement_diff.probe_plan", here / "probe_plan.py")
+    if spec is None or spec.loader is None:
+        raise ImportError("Failed to load probe_plan.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)  # type: ignore[attr-defined]
+    return module
+
+
+probe_plan = _load_probe_plan()
 
 
 REPO_ROOT = find_repo_root(Path(__file__))
@@ -154,7 +162,7 @@ def _parse_env_block(env_stdout: str) -> Dict[str, str]:
 
 def _deterministic_run_id() -> str:
     parts: List[str] = [WORLD_ID, _sha256_path(ENTITLEMENT_JAIL)]
-    for spec in staged_binary_specs(REPO_ROOT):
+    for spec in probe_plan.staged_binary_specs(REPO_ROOT):
         parts.append(f"{spec.id}:{_sha256_path(spec.src_path)}")
     digest = hashlib.sha256("\n".join(parts).encode("utf-8")).hexdigest()
     return digest[:16]
@@ -411,7 +419,7 @@ def _parse_codesign_kv(stderr_text: Optional[str]) -> Dict[str, str]:
 
 
 def _extract_parent_and_child_entitlements(stage_root: Path) -> Dict[str, Any]:
-    staged = staged_destinations(stage_root, REPO_ROOT)
+    staged = probe_plan.staged_destinations(stage_root, REPO_ROOT)
     binaries: Dict[str, Path] = {
         "parent_entitlement_jail": ENTITLEMENT_JAIL,
         "child_entitlement_sample": staged["entitlement_sample"],
@@ -444,7 +452,7 @@ def _extract_parent_and_child_entitlements(stage_root: Path) -> Dict[str, Any]:
 def _normalize_wrapper_results(wrapper_results: Mapping[str, Any], profile_key: str) -> Dict[str, Any]:
     profile = wrapper_results.get(profile_key) or {}
     out: Dict[str, Any] = {}
-    for pid in probe_ids():
+    for pid in probe_plan.probe_ids():
         wrapper_block = ((profile.get(pid) or {}).get("wrapper")) if isinstance(profile.get(pid), dict) else None
         if not isinstance(wrapper_block, dict):
             out[pid] = {"classification": "harness_error", "failure_kind": "MISSING_WRAPPER_RESULT"}
@@ -528,7 +536,7 @@ def _build_parity_summary(
         summary["error"] = f"missing jail variant: {jail_variant}"
         return summary
 
-    for pid in probe_ids():
+    for pid in probe_plan.probe_ids():
         w = wrapper_norm.get(pid) or {}
         j = jail_variant_block.get(pid) or {}
         w_norm = (w.get("normalized") if isinstance(w, dict) else None) or {}
@@ -563,7 +571,7 @@ def _stage_binaries(stage_root: Path) -> Dict[str, Any]:
     if mkdir_error is not None:
         return staged
 
-    for spec in staged_binary_specs(REPO_ROOT):
+    for spec in probe_plan.staged_binary_specs(REPO_ROOT):
         dest = stage_root / spec.dest_name
         entry: Dict[str, Any] = {
             "id": spec.id,
@@ -1039,7 +1047,7 @@ def main() -> int:
         return 2
 
     stage_info = _stage_binaries(stage_root)
-    staged = staged_destinations(stage_root, REPO_ROOT)
+    staged = probe_plan.staged_destinations(stage_root, REPO_ROOT)
     capture_root = stage_root / "jail_out" / session_id
     env_probe_doc["exec_gate"] = _exec_gate_matrix(stage_root=stage_root, capture_root=capture_root, run_id=run_id, staged=staged)
     env_probe_doc["stage_discovery"] = _stage_discovery_matrix(stage_root=stage_root, capture_root=capture_root, run_id=run_id)
@@ -1111,11 +1119,11 @@ def main() -> int:
                     "raw": {"classification": "blocked", "failure_kind": "DEPENDENCY_EXEC_SMOKE_FAILED"},
                     "normalized": {"probe_id": pid, "classification": "blocked", "decision": None},
                 }
-                for pid in probe_ids()
+                for pid in probe_plan.probe_ids()
             }
     else:
         for variant, bind_id in variant_map.items():
-            tests = build_probe_matrix(stage_dir=stage_root, container_dir=container_dir, network_bind_binary_id=bind_id, repo_root=REPO_ROOT)
+            tests = probe_plan.build_probe_matrix(stage_dir=stage_root, container_dir=container_dir, network_bind_binary_id=bind_id, repo_root=REPO_ROOT)
             variant_results: Dict[str, Any] = {}
             for test in tests:
                 pid = str(test["id"])

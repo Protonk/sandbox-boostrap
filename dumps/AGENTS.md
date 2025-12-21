@@ -12,5 +12,5 @@ Routing:
 - Need analysis outputs? They should land under `dumps/ghidra/out/` (git-ignored) and projects under `dumps/ghidra/projects/`.
 
 Rules:
-- Do **not** check in new code, docs, or tooling here. Keep tracked sources under `book/`/`substrate/`; use `dumps/` only for git-ignored artifacts and runtime outputs.
+- Do **not** check in new code, docs, or tooling here. Keep tracked sources under `book/` (including `book/substrate/`); use `dumps/` only for git-ignored artifacts and runtime outputs.
 - Keep artifacts contained: work in place under `dumps/`, prefer git-ignored subdirs, and never move `Sandbox-private` contents into tracked paths.

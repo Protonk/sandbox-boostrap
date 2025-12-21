@@ -78,3 +78,33 @@ Use this file for concise notes on commands, findings, and pivots.
 - `kernel_imm_search` for mac_policy_init string address `0xffffff8000c335f4`: 0 instruction hits.
 - `kernel_imm_search` for `_mac_policy_register` string address `0xffffff8003c03208`: 0 instruction hits.
 - No code refs surfaced from these anchors; registration path remains unresolved and needs a different approach (e.g., decomp from nearby functions or symbol-guided search).
+
+## Dispatcher search and KC disassembly checks
+
+- Re-ran `kernel_tag_switch` against `BootKernelExtensions.kc` (analysis + `--process-existing --no-analysis`): `switch_candidates.json` has `candidate_count: 0`. `kernel_function_dump` and `kernel_function_info` against previously cited `FUN_...` names and `entry` produced no instructions, suggesting the current KC import is not yielding ARM64 disassembly or functions.
+- Added `kernel_arm_const_base_scan.py` to scan ADRP bases across a target range; running it on `BootKernelExtensions.kc` for `0xffffff8002650000–0xffffff8002750000` (`all` blocks) reported `adrp_seen: 0`, reinforcing that instruction iteration is empty in this project.
+
+## BootKernelCollection import attempt (tag-switch)
+
+- Attempted to import `BootKernelCollection.kc` into a new Ghidra project (`dumps/ghidra/projects/sandbox_14.4.1-23E224_kc`) and run `kernel_tag_switch.py` in the same pass (manual `analyzeHeadless`, ARM64 processor, `disable_x86_analyzers.py`). The run did not finish within 10 minutes or 30 minutes; `dumps/ghidra/out/14.4.1-23E224/kernel-tag-switch-kc/` contains only an empty `script.log` and no `switch_candidates.json`.
+- The log shows KC import and analysis start (chained pointer fixups, analysis warnings), so the blocker is wallclock analysis time rather than missing inputs. Next step is the two-phase workflow from `troubles/ghidra_setup.md` (analysis-only run with a generous timeout, then a postScript-only pass) or an analyzer-disabling pre-script to shorten the analysis window.
+- Completed the analysis-only run for `BootKernelCollection.kc` using the two-phase approach; analysis succeeded and the project saved (`sandbox_14.4.1-23E224_kc`). Next: run postScript passes (block disassembly + tag-switch).
+- PostScript runs on the analyzed KC:
+  - `kernel_block_disasm.py` with `block_substr=sandbox` scanned 0 blocks (no sandbox-named memory blocks in BootKernelCollection). The report lists block names like `__TEXT`, `__TEXT_EXEC`, `__text`, `__const`, `__cstring`, etc.
+  - `kernel_tag_switch.py` (all blocks) produced 43,722 candidates in `kernel-tag-switch-kc/switch_candidates.json`.
+  - `kernel_string_refs.py` (all blocks) returned 3 string hits (AppleMatch + two Sandbox strings) with 0 references.
+  - `kernel_adrp_add_scan.py` against the two `com.apple.security.sandbox` addresses and the AppleMatch string address found 0 matches (ADRPs seen ~718,925 each).
+- Triaged top tag-switch candidates (size <= 8000, highest computed-jumps) with `kernel_function_dump.py`. `FUN_fffffe00092fb9e0` stands out: repeated ADRP+ADD+LDRSW+ADR+ADD+BR sequences keyed off `w22`, with multiple case-range compares (e.g., `cmp w22,#0x199`, `sub w16,w22,#0x150`, `cmp w16,#0x3d`). This looks like a multi-level jump-table dispatcher, but its role is still under exploration.
+- `kernel_function_info.py` shows `FUN_fffffe00092fb9e0` has no code callers and a single data reference from `0xfffffe0007ca4040` (`__const`). `kernel_addr_lookup.py` shows that address contains a pointer to the function, implying it sits in a pointer table.
+- Jump-table details for `FUN_fffffe00092fb9e0` (from `kernel_function_dump.py`):
+  - Repeated pattern: `cmp w22,#...`, `sub w16,w22,#...`, `cmp w16,#...`, `csel`, `adrp+add` table, `ldrsw`, `adr` base, `br x16`.
+  - Table bases observed: `0xfffffe0009300f00`, `0xfffffe00093009f0`, `0xfffffe0009300b88`, `0xfffffe0009300cf8`, `0xfffffe0009300ae8`, `0xfffffe0009300e5c`, `0xfffffe0009301028`, `0xfffffe0009300a64`, `0xfffffe0009300e34`, `0xfffffe0009300acc`, `0xfffffe0009300ff8`.
+  - Range gates include comparisons like `cmp w22,#0x199`, `#0x2e`, `#0x172`, `#0x66`, `#0xd7`, `#0x1b7`, `#0x45`, `#0xce`, `#0xbf`, `#0x1a7`. This looks like an op-id range dispatcher but remains unconfirmed.
+
+## Jump-table dump + pointer-table window (KC)
+
+- Added `kernel_jump_table_dump.py` to extract ADRP+ADD+LDRSW jump tables from a function. Running it on `FUN_fffffe00092fb9e0` produced 11 tables with explicit ranges:
+  - Example table: `table_addr=0xfffffe0009300f00`, `index_base=0x150` (336), `index_cmp=0x3d` (61), `source_cmp=0x199` (409). Entries resolve to offsets inside `FUN_fffffe00092fb9e0` (case labels), not external functions.
+  - Table addresses match the manual ADRP+ADD scan; each table has 7–92 entries depending on the range gate.
+- Added `kernel_pointer_table_window.py` to dump pointer windows. The window centered on `0xfffffe0007ca4040` (the sole data ref to `FUN_fffffe00092fb9e0`) shows a dense pointer table with neighboring function pointers (`FUN_fffffe00092fb818`, `FUN_fffffe00092ae994`, `FUN_fffffe000a5db4b0`, etc.). This suggests `FUN_fffffe00092fb9e0` is one entry in a broader dispatch table, but the table is not yet anchored to a sandbox witness.
+- Extended `kernel_pointer_table_window.py` with `mode=auto` to expand until non-pointers or block changes. Auto mode finds a 709-entry table spanning `0xfffffe0007ca3360–0xfffffe0007ca4980` in `__const`, with targets in `__text` and `stop_back/stop_forward` both `null_value`. The `FUN_fffffe00092fb9e0` entry sits inside this table (index 412 in the auto dump).

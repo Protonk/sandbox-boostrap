@@ -1,7 +1,7 @@
 #include <errno.h>
 #include <mach/mach.h>
 #include <servers/bootstrap.h>
-#include "../../api/runtime/tool_markers.h"
+#include "../../api/runtime_tools/native/tool_markers.h"
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>

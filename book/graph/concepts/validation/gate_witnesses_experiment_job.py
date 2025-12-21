@@ -22,8 +22,8 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from book.api.path_utils import find_repo_root, to_repo_relative
-from book.api.runtime import contract as rt_contract
-from book.api.runtime import events as runtime_events
+from book.api.runtime_tools import runtime_contract as rt_contract
+from book.api.runtime_tools import observations as runtime_observations
 from book.graph.concepts.validation import registry
 from book.graph.concepts.validation.registry import ValidationJob
 
@@ -244,7 +244,7 @@ def run_gate_witnesses_job() -> Dict[str, Any]:
         RESULTS_PATH.write_text(
             json.dumps(
                 {
-                    "world_id": runtime_events.WORLD_ID,
+                    "world_id": runtime_observations.WORLD_ID,
                     "control": control,
                     "witnesses": [],
                 },
@@ -364,7 +364,7 @@ def run_gate_witnesses_job() -> Dict[str, Any]:
     RESULTS_PATH.write_text(
         json.dumps(
             {
-                "world_id": runtime_events.WORLD_ID,
+                "world_id": runtime_observations.WORLD_ID,
                 "control": control,
                 "witnesses": results,
             },

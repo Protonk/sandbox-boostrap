@@ -19,18 +19,18 @@ Every claim belongs to a tier: **bedrock** (call it bedrock and cite the mapping
 - The world is a single host baseline:
   - macOS Sonoma 14.4.1 (23E224), Apple Silicon, SIP enabled.
 - All architectural and behavioral claims are about this host unless explicitly labeled otherwise.
-- A pre-set understanding of the world is committed to, provisionally, in `substrate/`. Read `substrate/Canon.md` to understand its warp and weft.
+- A pre-set understanding of the world is committed to, provisionally, in `book/substrate/`. Read `book/substrate/Canon.md` to understand its warp and weft.
 
 ## Substrate and vocabulary discipline
 
-- Treat `substrate/` as the normative theory of Seatbelt for this host:
+- Treat `book/substrate/` as the normative theory of Seatbelt for this host:
   - `Orientation.md` – lifecycle/story and high-level architecture.
   - `Concepts.md` – exact definitions (Operation, Filter, PolicyGraph, Profile Layer, etc.).
   - `Appendix.md` – SBPL, compiled formats, node structure, entitlements.
   - `Environment.md` – containers, neighboring systems (TCC, hardened runtime, SIP).
   - `State.md` – how the sandbox shows up on macOS 13–14 in practice.
   - `Canon.md` - how the substrate was constructed and is bounded.
-- Answer questions and draft text using the project’s own vocabulary, not generic OS-security jargon. When you need a concept choose existing names from `substrate/Concepts.md`
+- Answer questions and draft text using the project’s own vocabulary, not generic OS-security jargon. When you need a concept choose existing names from `book/substrate/Concepts.md`
 
 ## Evidence model and mappings
 

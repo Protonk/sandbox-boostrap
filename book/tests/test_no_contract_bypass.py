@@ -23,20 +23,20 @@ FORBIDDEN_PATTERNS = {
 }
 
 ALLOWLIST = {
-    "sandbox_init": {Path("book/api/runtime/tool_markers.h")},
+    "sandbox_init": {Path("book/api/runtime_tools/native/tool_markers.h")},
     "sandbox_apply": set(),
     "sandbox_compile_file": {
-        Path("book/api/runtime/tool_markers.h"),
+        Path("book/api/runtime_tools/native/tool_markers.h"),
         Path("book/api/profile_tools/c/compile_profile.c"),
         Path("book/api/profile_tools/libsandbox.py"),
     },
     "sandbox_compile_string": {
-        Path("book/api/runtime/tool_markers.h"),
+        Path("book/api/runtime_tools/native/tool_markers.h"),
         Path("book/api/profile_tools/libsandbox.py"),
     },
     "sandbox_exec": {
         Path("book/api/profile_tools/libsandbox.py"),
-        Path("book/api/runtime_harness/runner.py"),
+        Path("book/api/runtime_tools/harness_runner.py"),
         Path("book/graph/mappings/runtime/generate_runtime_signatures.py"),
     },
 }

@@ -3,6 +3,16 @@
     "status": "ok",
     "profile_path": "book/experiments/runtime-checks/out/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
     "base_profile_path": "book/experiments/op-table-operation/sb/v1_read.sb",
+    "preflight": {
+      "tool": "book/tools/preflight",
+      "preflight_schema_version": 1,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "input_kind": "sbpl_path",
+      "input_ref": "book/experiments/runtime-checks/out/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
+      "classification": "no_known_apply_gate_signature",
+      "signature": null,
+      "findings": []
+    },
     "probes": [
       {
         "name": "read_/etc/hosts",
@@ -36,27 +46,7 @@
             "entrypoint_sha256": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e",
             "tool_build_id": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e"
           },
-          "seatbelt_callouts": [
-            {
-              "tool": "seatbelt-callout",
-              "marker_schema_version": 2,
-              "stage": "pre_syscall",
-              "api": "sandbox_check_by_audit_token",
-              "operation": "file-read*",
-              "filter_type": 0,
-              "filter_type_name": "path",
-              "check_type": 1073741824,
-              "varargs_count": 1,
-              "argument": "/etc/hosts",
-              "no_report": true,
-              "token_status": "ok",
-              "token_mach_kr": 0,
-              "rc": 0,
-              "errno": 0,
-              "decision": "allow",
-              "no_report_reason": null
-            }
-          ]
+          "seatbelt_callouts": null
         },
         "violation_summary": null,
         "command": [
@@ -66,7 +56,7 @@
         ],
         "exit_code": 0,
         "stdout": "##\n# Host Database\n#\n# localhost is used to configure the loopback interface\n# when the system is booting.  Do not change this entry.\n##\n127.0.0.1\tlocalhost\n255.255.255.255\tbroadcasthost\n::1             localhost\n",
-        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb\",\"pid\":45853}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb\",\"pid\":45853}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"pre_syscall\",\"api\":\"sandbox_check_by_audit_token\",\"operation\":\"file-read*\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1073741824,\"varargs_count\":1,\"argument\":\"/etc/hosts\",\"no_report\":true,\"token_status\":\"ok\",\"token_mach_kr\":0,\"rc\":0,\"errno\":0,\"decision\":\"allow\"}\n"
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb\",\"pid\":25676}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb\",\"pid\":25676}\n"
       },
       {
         "name": "write_/etc/hosts",
@@ -100,27 +90,7 @@
             "entrypoint_sha256": "ec8330a5bf28154c20e9dd645b319a546712bee28a5ace7a92b56ad2e32485b1",
             "tool_build_id": "ec8330a5bf28154c20e9dd645b319a546712bee28a5ace7a92b56ad2e32485b1"
           },
-          "seatbelt_callouts": [
-            {
-              "tool": "seatbelt-callout",
-              "marker_schema_version": 2,
-              "stage": "pre_syscall",
-              "api": "sandbox_check_by_audit_token",
-              "operation": "file-write*",
-              "filter_type": 0,
-              "filter_type_name": "path",
-              "check_type": 1073741824,
-              "varargs_count": 1,
-              "argument": "/etc/hosts",
-              "no_report": true,
-              "token_status": "ok",
-              "token_mach_kr": 0,
-              "rc": 1,
-              "errno": 0,
-              "decision": "deny",
-              "no_report_reason": null
-            }
-          ]
+          "seatbelt_callouts": null
         },
         "violation_summary": null,
         "command": [
@@ -130,7 +100,7 @@
         ],
         "exit_code": 2,
         "stdout": "",
-        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb\",\"pid\":45854}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb\",\"pid\":45854}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"pre_syscall\",\"api\":\"sandbox_check_by_audit_token\",\"operation\":\"file-write*\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1073741824,\"varargs_count\":1,\"argument\":\"/etc/hosts\",\"no_report\":true,\"token_status\":\"ok\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\nopen target: Operation not permitted\n"
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb\",\"pid\":25677}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb\",\"pid\":25677}\nopen target: Operation not permitted\n"
       },
       {
         "name": "read_/tmp/foo",
@@ -164,27 +134,7 @@
             "entrypoint_sha256": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e",
             "tool_build_id": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e"
           },
-          "seatbelt_callouts": [
-            {
-              "tool": "seatbelt-callout",
-              "marker_schema_version": 2,
-              "stage": "pre_syscall",
-              "api": "sandbox_check_by_audit_token",
-              "operation": "file-read*",
-              "filter_type": 0,
-              "filter_type_name": "path",
-              "check_type": 1073741824,
-              "varargs_count": 1,
-              "argument": "/tmp/foo",
-              "no_report": true,
-              "token_status": "ok",
-              "token_mach_kr": 0,
-              "rc": 0,
-              "errno": 0,
-              "decision": "allow",
-              "no_report_reason": null
-            }
-          ]
+          "seatbelt_callouts": null
         },
         "violation_summary": null,
         "command": [
@@ -194,7 +144,7 @@
         ],
         "exit_code": 0,
         "stdout": "runtime-checks foo\n",
-        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb\",\"pid\":45855}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb\",\"pid\":45855}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"pre_syscall\",\"api\":\"sandbox_check_by_audit_token\",\"operation\":\"file-read*\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1073741824,\"varargs_count\":1,\"argument\":\"/tmp/foo\",\"no_report\":true,\"token_status\":\"ok\",\"token_mach_kr\":0,\"rc\":0,\"errno\":0,\"decision\":\"allow\"}\n"
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb\",\"pid\":25678}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb\",\"pid\":25678}\n"
       }
     ]
   },
@@ -202,6 +152,16 @@
     "status": "ok",
     "profile_path": "book/experiments/runtime-checks/out/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
     "base_profile_path": "book/experiments/op-table-operation/sb/v11_read_subpath.sb",
+    "preflight": {
+      "tool": "book/tools/preflight",
+      "preflight_schema_version": 1,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "input_kind": "sbpl_path",
+      "input_ref": "book/experiments/runtime-checks/out/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
+      "classification": "no_known_apply_gate_signature",
+      "signature": null,
+      "findings": []
+    },
     "probes": [
       {
         "name": "read_/tmp/foo",
@@ -235,27 +195,7 @@
             "entrypoint_sha256": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e",
             "tool_build_id": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e"
           },
-          "seatbelt_callouts": [
-            {
-              "tool": "seatbelt-callout",
-              "marker_schema_version": 2,
-              "stage": "pre_syscall",
-              "api": "sandbox_check_by_audit_token",
-              "operation": "file-read*",
-              "filter_type": 0,
-              "filter_type_name": "path",
-              "check_type": 1073741824,
-              "varargs_count": 1,
-              "argument": "/tmp/foo",
-              "no_report": true,
-              "token_status": "ok",
-              "token_mach_kr": 0,
-              "rc": 1,
-              "errno": 0,
-              "decision": "deny",
-              "no_report_reason": null
-            }
-          ]
+          "seatbelt_callouts": null
         },
         "violation_summary": null,
         "command": [
@@ -265,7 +205,7 @@
         ],
         "exit_code": 0,
         "stdout": "runtime-checks foo\n",
-        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb\",\"pid\":45856}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb\",\"pid\":45856}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"pre_syscall\",\"api\":\"sandbox_check_by_audit_token\",\"operation\":\"file-read*\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1073741824,\"varargs_count\":1,\"argument\":\"/tmp/foo\",\"no_report\":true,\"token_status\":\"ok\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\n"
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb\",\"pid\":25679}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb\",\"pid\":25679}\n"
       },
       {
         "name": "read_/tmp/bar",
@@ -299,27 +239,7 @@
             "entrypoint_sha256": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e",
             "tool_build_id": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e"
           },
-          "seatbelt_callouts": [
-            {
-              "tool": "seatbelt-callout",
-              "marker_schema_version": 2,
-              "stage": "pre_syscall",
-              "api": "sandbox_check_by_audit_token",
-              "operation": "file-read*",
-              "filter_type": 0,
-              "filter_type_name": "path",
-              "check_type": 1073741824,
-              "varargs_count": 1,
-              "argument": "/tmp/bar",
-              "no_report": true,
-              "token_status": "ok",
-              "token_mach_kr": 0,
-              "rc": 1,
-              "errno": 0,
-              "decision": "deny",
-              "no_report_reason": null
-            }
-          ]
+          "seatbelt_callouts": null
         },
         "violation_summary": null,
         "command": [
@@ -329,7 +249,7 @@
         ],
         "exit_code": 2,
         "stdout": "",
-        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb\",\"pid\":45857}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb\",\"pid\":45857}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"pre_syscall\",\"api\":\"sandbox_check_by_audit_token\",\"operation\":\"file-read*\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1073741824,\"varargs_count\":1,\"argument\":\"/tmp/bar\",\"no_report\":true,\"token_status\":\"ok\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\nopen target: Operation not permitted\n"
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb\",\"pid\":25680}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb\",\"pid\":25680}\nopen target: Operation not permitted\n"
       },
       {
         "name": "write_/tmp/foo",
@@ -363,27 +283,7 @@
             "entrypoint_sha256": "ec8330a5bf28154c20e9dd645b319a546712bee28a5ace7a92b56ad2e32485b1",
             "tool_build_id": "ec8330a5bf28154c20e9dd645b319a546712bee28a5ace7a92b56ad2e32485b1"
           },
-          "seatbelt_callouts": [
-            {
-              "tool": "seatbelt-callout",
-              "marker_schema_version": 2,
-              "stage": "pre_syscall",
-              "api": "sandbox_check_by_audit_token",
-              "operation": "file-write*",
-              "filter_type": 0,
-              "filter_type_name": "path",
-              "check_type": 1073741824,
-              "varargs_count": 1,
-              "argument": "/tmp/foo",
-              "no_report": true,
-              "token_status": "ok",
-              "token_mach_kr": 0,
-              "rc": 1,
-              "errno": 0,
-              "decision": "deny",
-              "no_report_reason": null
-            }
-          ]
+          "seatbelt_callouts": null
         },
         "violation_summary": null,
         "command": [
@@ -393,7 +293,7 @@
         ],
         "exit_code": 2,
         "stdout": "",
-        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb\",\"pid\":45858}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb\",\"pid\":45858}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"pre_syscall\",\"api\":\"sandbox_check_by_audit_token\",\"operation\":\"file-write*\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1073741824,\"varargs_count\":1,\"argument\":\"/tmp/foo\",\"no_report\":true,\"token_status\":\"ok\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\nopen target: Operation not permitted\n"
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb\",\"pid\":25681}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb\",\"pid\":25681}\nopen target: Operation not permitted\n"
       }
     ]
   },
@@ -401,6 +301,21 @@
     "status": "ok",
     "profile_path": "book/profiles/golden-triple/allow_all.sb.bin",
     "base_profile_path": "book/profiles/golden-triple/allow_all.sb.bin",
+    "preflight": {
+      "tool": "book/tools/preflight",
+      "preflight_schema_version": 1,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "input_kind": "sbpl_blob_path",
+      "input_ref": "book/profiles/golden-triple/allow_all.sb.bin",
+      "classification": "no_known_apply_gate_signature",
+      "signature": null,
+      "findings": [
+        {
+          "blob_sha256": "19832eb9716a32459bee8398c8977fd1dfd575fa26606928f95728462a833c92",
+          "matched": false
+        }
+      ]
+    },
     "probes": [
       {
         "name": "read_/etc/hosts",
@@ -431,34 +346,16 @@
             "apply_timing": "pre_exec",
             "preexisting_sandbox_suspected": false,
             "entrypoint_path": "book/api/SBPL-wrapper/wrapper",
-            "entrypoint_sha256": "c1ffe9850ddda7a29caf46f0e7b721556bc7db7bdcedcf57d9f70901c3a5a280",
-            "tool_build_id": "c1ffe9850ddda7a29caf46f0e7b721556bc7db7bdcedcf57d9f70901c3a5a280"
+            "entrypoint_sha256": "528ba6c6a4fdec1e149f2730ad2161e230247bd22f7842545152555a0bec9e7a",
+            "tool_build_id": "528ba6c6a4fdec1e149f2730ad2161e230247bd22f7842545152555a0bec9e7a"
           },
-          "seatbelt_callouts": [
-            {
-              "tool": "seatbelt-callout",
-              "marker_schema_version": 2,
-              "stage": "preflight",
-              "api": "sandbox_check_by_audit_token",
-              "operation": "file-read*",
-              "filter_type": 0,
-              "filter_type_name": "path",
-              "check_type": 1073741824,
-              "varargs_count": 1,
-              "argument": "/etc/hosts",
-              "no_report": true,
-              "token_status": "ok",
-              "token_mach_kr": 0,
-              "rc": 0,
-              "errno": 0,
-              "decision": "allow",
-              "no_report_reason": null
-            }
-          ]
+          "seatbelt_callouts": null
         },
         "violation_summary": null,
         "command": [
           "book/api/SBPL-wrapper/wrapper",
+          "--preflight",
+          "enforce",
           "--blob",
           "book/profiles/golden-triple/allow_all.sb.bin",
           "--",
@@ -467,7 +364,7 @@
         ],
         "exit_code": 0,
         "stdout": "##\n# Host Database\n#\n# localhost is used to configure the loopback interface\n# when the system is booting.  Do not change this entry.\n##\n127.0.0.1\tlocalhost\n255.255.255.255\tbroadcasthost\n::1             localhost\n",
-        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"blob\",\"api\":\"sandbox_apply\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/profiles/golden-triple/allow_all.sb.bin\",\"pid\":45859}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"blob\",\"api\":\"sandbox_apply\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/profiles/golden-triple/allow_all.sb.bin\",\"pid\":45859}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"preflight\",\"api\":\"sandbox_check_by_audit_token\",\"operation\":\"file-read*\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1073741824,\"varargs_count\":1,\"argument\":\"/etc/hosts\",\"no_report\":true,\"token_status\":\"ok\",\"token_mach_kr\":0,\"rc\":0,\"errno\":0,\"decision\":\"allow\"}\n"
+        "stderr": "{\"tool\":\"sbpl-preflight\",\"marker_schema_version\":1,\"stage\":\"preflight\",\"mode\":\"blob\",\"policy\":\"enforce\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/profiles/golden-triple/allow_all.sb.bin\",\"rc\":0,\"record_json\":\"{\\\"classification\\\": \\\"no_known_apply_gate_signature\\\", \\\"findings\\\": [{\\\"blob_sha256\\\": \\\"19832eb9716a32459bee8398c8977fd1dfd575fa26606928f95728462a833c92\\\", \\\"matched\\\": false}], \\\"input_kind\\\": \\\"sbpl_blob_path\\\", \\\"input_ref\\\": \\\"book/profiles/golden-triple/allow_all.sb.bin\\\", \\\"preflight_schema_version\\\": 1, \\\"signature\\\": null, \\\"tool\\\": \\\"book/tools/preflight\\\", \\\"world_id\\\": \\\"sonoma-14.4.1-23E224-arm64-dyld-2c0602c5\\\"}\",\"pid\":25682}\n{\"tool\":\"entitlement-check\",\"marker_schema_version\":1,\"stage\":\"pre_apply\",\"entitlement\":\"com.apple.private.security.message-filter\",\"pid\":25682,\"rc\":0,\"present\":false,\"value_type\":\"absent\"}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"blob\",\"api\":\"sandbox_apply\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/profiles/golden-triple/allow_all.sb.bin\",\"pid\":25682}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"blob\",\"api\":\"sandbox_apply\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/profiles/golden-triple/allow_all.sb.bin\",\"pid\":25682}\n"
       },
       {
         "name": "read_/tmp/sbpl_rt/read.txt",
@@ -498,34 +395,16 @@
             "apply_timing": "pre_exec",
             "preexisting_sandbox_suspected": false,
             "entrypoint_path": "book/api/SBPL-wrapper/wrapper",
-            "entrypoint_sha256": "c1ffe9850ddda7a29caf46f0e7b721556bc7db7bdcedcf57d9f70901c3a5a280",
-            "tool_build_id": "c1ffe9850ddda7a29caf46f0e7b721556bc7db7bdcedcf57d9f70901c3a5a280"
+            "entrypoint_sha256": "528ba6c6a4fdec1e149f2730ad2161e230247bd22f7842545152555a0bec9e7a",
+            "tool_build_id": "528ba6c6a4fdec1e149f2730ad2161e230247bd22f7842545152555a0bec9e7a"
           },
-          "seatbelt_callouts": [
-            {
-              "tool": "seatbelt-callout",
-              "marker_schema_version": 2,
-              "stage": "preflight",
-              "api": "sandbox_check_by_audit_token",
-              "operation": "file-read*",
-              "filter_type": 0,
-              "filter_type_name": "path",
-              "check_type": 1073741824,
-              "varargs_count": 1,
-              "argument": "/tmp/sbpl_rt/read.txt",
-              "no_report": true,
-              "token_status": "ok",
-              "token_mach_kr": 0,
-              "rc": 0,
-              "errno": 0,
-              "decision": "allow",
-              "no_report_reason": null
-            }
-          ]
+          "seatbelt_callouts": null
         },
         "violation_summary": null,
         "command": [
           "book/api/SBPL-wrapper/wrapper",
+          "--preflight",
+          "enforce",
           "--blob",
           "book/profiles/golden-triple/allow_all.sb.bin",
           "--",
@@ -534,7 +413,7 @@
         ],
         "exit_code": 0,
         "stdout": "runtime-checks read\n",
-        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"blob\",\"api\":\"sandbox_apply\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/profiles/golden-triple/allow_all.sb.bin\",\"pid\":45860}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"blob\",\"api\":\"sandbox_apply\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/profiles/golden-triple/allow_all.sb.bin\",\"pid\":45860}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"preflight\",\"api\":\"sandbox_check_by_audit_token\",\"operation\":\"file-read*\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1073741824,\"varargs_count\":1,\"argument\":\"/tmp/sbpl_rt/read.txt\",\"no_report\":true,\"token_status\":\"ok\",\"token_mach_kr\":0,\"rc\":0,\"errno\":0,\"decision\":\"allow\"}\n"
+        "stderr": "{\"tool\":\"sbpl-preflight\",\"marker_schema_version\":1,\"stage\":\"preflight\",\"mode\":\"blob\",\"policy\":\"enforce\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/profiles/golden-triple/allow_all.sb.bin\",\"rc\":0,\"record_json\":\"{\\\"classification\\\": \\\"no_known_apply_gate_signature\\\", \\\"findings\\\": [{\\\"blob_sha256\\\": \\\"19832eb9716a32459bee8398c8977fd1dfd575fa26606928f95728462a833c92\\\", \\\"matched\\\": false}], \\\"input_kind\\\": \\\"sbpl_blob_path\\\", \\\"input_ref\\\": \\\"book/profiles/golden-triple/allow_all.sb.bin\\\", \\\"preflight_schema_version\\\": 1, \\\"signature\\\": null, \\\"tool\\\": \\\"book/tools/preflight\\\", \\\"world_id\\\": \\\"sonoma-14.4.1-23E224-arm64-dyld-2c0602c5\\\"}\",\"pid\":25684}\n{\"tool\":\"entitlement-check\",\"marker_schema_version\":1,\"stage\":\"pre_apply\",\"entitlement\":\"com.apple.private.security.message-filter\",\"pid\":25684,\"rc\":0,\"present\":false,\"value_type\":\"absent\"}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"blob\",\"api\":\"sandbox_apply\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/profiles/golden-triple/allow_all.sb.bin\",\"pid\":25684}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"blob\",\"api\":\"sandbox_apply\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/profiles/golden-triple/allow_all.sb.bin\",\"pid\":25684}\n"
       },
       {
         "name": "write_/tmp/sbpl_rt/write.txt",
@@ -565,34 +444,16 @@
             "apply_timing": "pre_exec",
             "preexisting_sandbox_suspected": false,
             "entrypoint_path": "book/api/SBPL-wrapper/wrapper",
-            "entrypoint_sha256": "c1ffe9850ddda7a29caf46f0e7b721556bc7db7bdcedcf57d9f70901c3a5a280",
-            "tool_build_id": "c1ffe9850ddda7a29caf46f0e7b721556bc7db7bdcedcf57d9f70901c3a5a280"
+            "entrypoint_sha256": "528ba6c6a4fdec1e149f2730ad2161e230247bd22f7842545152555a0bec9e7a",
+            "tool_build_id": "528ba6c6a4fdec1e149f2730ad2161e230247bd22f7842545152555a0bec9e7a"
           },
-          "seatbelt_callouts": [
-            {
-              "tool": "seatbelt-callout",
-              "marker_schema_version": 2,
-              "stage": "preflight",
-              "api": "sandbox_check_by_audit_token",
-              "operation": "file-write*",
-              "filter_type": 0,
-              "filter_type_name": "path",
-              "check_type": 1073741824,
-              "varargs_count": 1,
-              "argument": "/tmp/sbpl_rt/write.txt",
-              "no_report": true,
-              "token_status": "ok",
-              "token_mach_kr": 0,
-              "rc": 0,
-              "errno": 0,
-              "decision": "allow",
-              "no_report_reason": null
-            }
-          ]
+          "seatbelt_callouts": null
         },
         "violation_summary": null,
         "command": [
           "book/api/SBPL-wrapper/wrapper",
+          "--preflight",
+          "enforce",
           "--blob",
           "book/profiles/golden-triple/allow_all.sb.bin",
           "--",
@@ -602,7 +463,7 @@
         ],
         "exit_code": 0,
         "stdout": "",
-        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"blob\",\"api\":\"sandbox_apply\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/profiles/golden-triple/allow_all.sb.bin\",\"pid\":45861}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"blob\",\"api\":\"sandbox_apply\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/profiles/golden-triple/allow_all.sb.bin\",\"pid\":45861}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"preflight\",\"api\":\"sandbox_check_by_audit_token\",\"operation\":\"file-write*\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1073741824,\"varargs_count\":1,\"argument\":\"/tmp/sbpl_rt/write.txt\",\"no_report\":true,\"token_status\":\"ok\",\"token_mach_kr\":0,\"rc\":0,\"errno\":0,\"decision\":\"allow\"}\n"
+        "stderr": "{\"tool\":\"sbpl-preflight\",\"marker_schema_version\":1,\"stage\":\"preflight\",\"mode\":\"blob\",\"policy\":\"enforce\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/profiles/golden-triple/allow_all.sb.bin\",\"rc\":0,\"record_json\":\"{\\\"classification\\\": \\\"no_known_apply_gate_signature\\\", \\\"findings\\\": [{\\\"blob_sha256\\\": \\\"19832eb9716a32459bee8398c8977fd1dfd575fa26606928f95728462a833c92\\\", \\\"matched\\\": false}], \\\"input_kind\\\": \\\"sbpl_blob_path\\\", \\\"input_ref\\\": \\\"book/profiles/golden-triple/allow_all.sb.bin\\\", \\\"preflight_schema_version\\\": 1, \\\"signature\\\": null, \\\"tool\\\": \\\"book/tools/preflight\\\", \\\"world_id\\\": \\\"sonoma-14.4.1-23E224-arm64-dyld-2c0602c5\\\"}\",\"pid\":25686}\n{\"tool\":\"entitlement-check\",\"marker_schema_version\":1,\"stage\":\"pre_apply\",\"entitlement\":\"com.apple.private.security.message-filter\",\"pid\":25686,\"rc\":0,\"present\":false,\"value_type\":\"absent\"}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"blob\",\"api\":\"sandbox_apply\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/profiles/golden-triple/allow_all.sb.bin\",\"pid\":25686}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"blob\",\"api\":\"sandbox_apply\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/profiles/golden-triple/allow_all.sb.bin\",\"pid\":25686}\n"
       }
     ]
   },
@@ -610,6 +471,16 @@
     "status": "ok",
     "profile_path": "book/experiments/runtime-checks/out/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
     "base_profile_path": "book/experiments/sbpl-graph-runtime/profiles/metafilter_any.sb",
+    "preflight": {
+      "tool": "book/tools/preflight",
+      "preflight_schema_version": 1,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "input_kind": "sbpl_path",
+      "input_ref": "book/experiments/runtime-checks/out/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
+      "classification": "no_known_apply_gate_signature",
+      "signature": null,
+      "findings": []
+    },
     "probes": [
       {
         "name": "read_foo",
@@ -643,27 +514,7 @@
             "entrypoint_sha256": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e",
             "tool_build_id": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e"
           },
-          "seatbelt_callouts": [
-            {
-              "tool": "seatbelt-callout",
-              "marker_schema_version": 2,
-              "stage": "pre_syscall",
-              "api": "sandbox_check_by_audit_token",
-              "operation": "file-read*",
-              "filter_type": 0,
-              "filter_type_name": "path",
-              "check_type": 1073741824,
-              "varargs_count": 1,
-              "argument": "/tmp/foo.txt",
-              "no_report": true,
-              "token_status": "ok",
-              "token_mach_kr": 0,
-              "rc": 0,
-              "errno": 0,
-              "decision": "allow",
-              "no_report_reason": null
-            }
-          ]
+          "seatbelt_callouts": null
         },
         "violation_summary": null,
         "command": [
@@ -673,7 +524,7 @@
         ],
         "exit_code": 0,
         "stdout": "foo\n",
-        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb\",\"pid\":45862}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb\",\"pid\":45862}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"pre_syscall\",\"api\":\"sandbox_check_by_audit_token\",\"operation\":\"file-read*\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1073741824,\"varargs_count\":1,\"argument\":\"/tmp/foo.txt\",\"no_report\":true,\"token_status\":\"ok\",\"token_mach_kr\":0,\"rc\":0,\"errno\":0,\"decision\":\"allow\"}\n"
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb\",\"pid\":25688}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb\",\"pid\":25688}\n"
       },
       {
         "name": "read_bar",
@@ -707,27 +558,7 @@
             "entrypoint_sha256": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e",
             "tool_build_id": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e"
           },
-          "seatbelt_callouts": [
-            {
-              "tool": "seatbelt-callout",
-              "marker_schema_version": 2,
-              "stage": "pre_syscall",
-              "api": "sandbox_check_by_audit_token",
-              "operation": "file-read*",
-              "filter_type": 0,
-              "filter_type_name": "path",
-              "check_type": 1073741824,
-              "varargs_count": 1,
-              "argument": "/tmp/bar.txt",
-              "no_report": true,
-              "token_status": "ok",
-              "token_mach_kr": 0,
-              "rc": 0,
-              "errno": 0,
-              "decision": "allow",
-              "no_report_reason": null
-            }
-          ]
+          "seatbelt_callouts": null
         },
         "violation_summary": null,
         "command": [
@@ -737,7 +568,7 @@
         ],
         "exit_code": 0,
         "stdout": "bar\n",
-        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb\",\"pid\":45863}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb\",\"pid\":45863}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"pre_syscall\",\"api\":\"sandbox_check_by_audit_token\",\"operation\":\"file-read*\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1073741824,\"varargs_count\":1,\"argument\":\"/tmp/bar.txt\",\"no_report\":true,\"token_status\":\"ok\",\"token_mach_kr\":0,\"rc\":0,\"errno\":0,\"decision\":\"allow\"}\n"
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb\",\"pid\":25689}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb\",\"pid\":25689}\n"
       },
       {
         "name": "read_other",
@@ -771,27 +602,7 @@
             "entrypoint_sha256": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e",
             "tool_build_id": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e"
           },
-          "seatbelt_callouts": [
-            {
-              "tool": "seatbelt-callout",
-              "marker_schema_version": 2,
-              "stage": "pre_syscall",
-              "api": "sandbox_check_by_audit_token",
-              "operation": "file-read*",
-              "filter_type": 0,
-              "filter_type_name": "path",
-              "check_type": 1073741824,
-              "varargs_count": 1,
-              "argument": "/tmp/qux.txt",
-              "no_report": true,
-              "token_status": "ok",
-              "token_mach_kr": 0,
-              "rc": 0,
-              "errno": 0,
-              "decision": "allow",
-              "no_report_reason": null
-            }
-          ]
+          "seatbelt_callouts": null
         },
         "violation_summary": null,
         "command": [
@@ -801,7 +612,7 @@
         ],
         "exit_code": 0,
         "stdout": "qux\n",
-        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb\",\"pid\":45864}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb\",\"pid\":45864}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"pre_syscall\",\"api\":\"sandbox_check_by_audit_token\",\"operation\":\"file-read*\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1073741824,\"varargs_count\":1,\"argument\":\"/tmp/qux.txt\",\"no_report\":true,\"token_status\":\"ok\",\"token_mach_kr\":0,\"rc\":0,\"errno\":0,\"decision\":\"allow\"}\n"
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb\",\"pid\":25690}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb\",\"pid\":25690}\n"
       },
       {
         "name": "read_baz",
@@ -835,27 +646,7 @@
             "entrypoint_sha256": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e",
             "tool_build_id": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e"
           },
-          "seatbelt_callouts": [
-            {
-              "tool": "seatbelt-callout",
-              "marker_schema_version": 2,
-              "stage": "pre_syscall",
-              "api": "sandbox_check_by_audit_token",
-              "operation": "file-read*",
-              "filter_type": 0,
-              "filter_type_name": "path",
-              "check_type": 1073741824,
-              "varargs_count": 1,
-              "argument": "/tmp/baz.txt",
-              "no_report": true,
-              "token_status": "ok",
-              "token_mach_kr": 0,
-              "rc": 0,
-              "errno": 0,
-              "decision": "allow",
-              "no_report_reason": null
-            }
-          ]
+          "seatbelt_callouts": null
         },
         "violation_summary": null,
         "command": [
@@ -865,7 +656,7 @@
         ],
         "exit_code": 2,
         "stdout": "",
-        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb\",\"pid\":45865}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb\",\"pid\":45865}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"pre_syscall\",\"api\":\"sandbox_check_by_audit_token\",\"operation\":\"file-read*\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1073741824,\"varargs_count\":1,\"argument\":\"/tmp/baz.txt\",\"no_report\":true,\"token_status\":\"ok\",\"token_mach_kr\":0,\"rc\":0,\"errno\":0,\"decision\":\"allow\"}\nopen target: Operation not permitted\n"
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb\",\"pid\":25691}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb\",\"pid\":25691}\nopen target: Operation not permitted\n"
       },
       {
         "name": "write_baz",
@@ -899,27 +690,7 @@
             "entrypoint_sha256": "ec8330a5bf28154c20e9dd645b319a546712bee28a5ace7a92b56ad2e32485b1",
             "tool_build_id": "ec8330a5bf28154c20e9dd645b319a546712bee28a5ace7a92b56ad2e32485b1"
           },
-          "seatbelt_callouts": [
-            {
-              "tool": "seatbelt-callout",
-              "marker_schema_version": 2,
-              "stage": "pre_syscall",
-              "api": "sandbox_check_by_audit_token",
-              "operation": "file-write*",
-              "filter_type": 0,
-              "filter_type_name": "path",
-              "check_type": 1073741824,
-              "varargs_count": 1,
-              "argument": "/tmp/baz.txt",
-              "no_report": true,
-              "token_status": "ok",
-              "token_mach_kr": 0,
-              "rc": 0,
-              "errno": 0,
-              "decision": "allow",
-              "no_report_reason": null
-            }
-          ]
+          "seatbelt_callouts": null
         },
         "violation_summary": null,
         "command": [
@@ -929,7 +700,7 @@
         ],
         "exit_code": 2,
         "stdout": "",
-        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb\",\"pid\":45866}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb\",\"pid\":45866}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"pre_syscall\",\"api\":\"sandbox_check_by_audit_token\",\"operation\":\"file-write*\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1073741824,\"varargs_count\":1,\"argument\":\"/tmp/baz.txt\",\"no_report\":true,\"token_status\":\"ok\",\"token_mach_kr\":0,\"rc\":0,\"errno\":0,\"decision\":\"allow\"}\nopen target: Operation not permitted\n"
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb\",\"pid\":25692}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb\",\"pid\":25692}\nopen target: Operation not permitted\n"
       }
     ]
   },
@@ -937,6 +708,16 @@
     "status": "ok",
     "profile_path": "book/experiments/runtime-checks/out/runtime_profiles/bsd.sys_bsd.runtime.sb",
     "base_profile_path": "/System/Library/Sandbox/Profiles/bsd.sb",
+    "preflight": {
+      "tool": "book/tools/preflight",
+      "preflight_schema_version": 1,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "input_kind": "sbpl_path",
+      "input_ref": "book/experiments/runtime-checks/out/runtime_profiles/bsd.sys_bsd.runtime.sb",
+      "classification": "no_known_apply_gate_signature",
+      "signature": null,
+      "findings": []
+    },
     "probes": [
       {
         "name": "read_/etc/hosts",
@@ -970,27 +751,7 @@
             "entrypoint_sha256": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e",
             "tool_build_id": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e"
           },
-          "seatbelt_callouts": [
-            {
-              "tool": "seatbelt-callout",
-              "marker_schema_version": 2,
-              "stage": "pre_syscall",
-              "api": "sandbox_check_by_audit_token",
-              "operation": "file-read*",
-              "filter_type": 0,
-              "filter_type_name": "path",
-              "check_type": 1073741824,
-              "varargs_count": 1,
-              "argument": "/etc/hosts",
-              "no_report": true,
-              "token_status": "ok",
-              "token_mach_kr": 0,
-              "rc": 1,
-              "errno": 0,
-              "decision": "deny",
-              "no_report_reason": null
-            }
-          ]
+          "seatbelt_callouts": null
         },
         "violation_summary": null,
         "command": [
@@ -1000,7 +761,7 @@
         ],
         "exit_code": 2,
         "stdout": "",
-        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/bsd.sys_bsd.runtime.sb\",\"pid\":45867}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/bsd.sys_bsd.runtime.sb\",\"pid\":45867}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"pre_syscall\",\"api\":\"sandbox_check_by_audit_token\",\"operation\":\"file-read*\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1073741824,\"varargs_count\":1,\"argument\":\"/etc/hosts\",\"no_report\":true,\"token_status\":\"ok\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\nopen target: Operation not permitted\n"
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/bsd.sys_bsd.runtime.sb\",\"pid\":25693}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/bsd.sys_bsd.runtime.sb\",\"pid\":25693}\nopen target: Operation not permitted\n"
       },
       {
         "name": "write_/etc/hosts",
@@ -1034,27 +795,7 @@
             "entrypoint_sha256": "ec8330a5bf28154c20e9dd645b319a546712bee28a5ace7a92b56ad2e32485b1",
             "tool_build_id": "ec8330a5bf28154c20e9dd645b319a546712bee28a5ace7a92b56ad2e32485b1"
           },
-          "seatbelt_callouts": [
-            {
-              "tool": "seatbelt-callout",
-              "marker_schema_version": 2,
-              "stage": "pre_syscall",
-              "api": "sandbox_check_by_audit_token",
-              "operation": "file-write*",
-              "filter_type": 0,
-              "filter_type_name": "path",
-              "check_type": 1073741824,
-              "varargs_count": 1,
-              "argument": "/etc/hosts",
-              "no_report": true,
-              "token_status": "ok",
-              "token_mach_kr": 0,
-              "rc": 1,
-              "errno": 0,
-              "decision": "deny",
-              "no_report_reason": null
-            }
-          ]
+          "seatbelt_callouts": null
         },
         "violation_summary": null,
         "command": [
@@ -1064,7 +805,7 @@
         ],
         "exit_code": 2,
         "stdout": "",
-        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/bsd.sys_bsd.runtime.sb\",\"pid\":45868}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/bsd.sys_bsd.runtime.sb\",\"pid\":45868}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"pre_syscall\",\"api\":\"sandbox_check_by_audit_token\",\"operation\":\"file-write*\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1073741824,\"varargs_count\":1,\"argument\":\"/etc/hosts\",\"no_report\":true,\"token_status\":\"ok\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\nopen target: Operation not permitted\n"
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/bsd.sys_bsd.runtime.sb\",\"pid\":25694}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/bsd.sys_bsd.runtime.sb\",\"pid\":25694}\nopen target: Operation not permitted\n"
       },
       {
         "name": "read_/tmp/foo",
@@ -1098,27 +839,7 @@
             "entrypoint_sha256": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e",
             "tool_build_id": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e"
           },
-          "seatbelt_callouts": [
-            {
-              "tool": "seatbelt-callout",
-              "marker_schema_version": 2,
-              "stage": "pre_syscall",
-              "api": "sandbox_check_by_audit_token",
-              "operation": "file-read*",
-              "filter_type": 0,
-              "filter_type_name": "path",
-              "check_type": 1073741824,
-              "varargs_count": 1,
-              "argument": "/tmp/foo",
-              "no_report": true,
-              "token_status": "ok",
-              "token_mach_kr": 0,
-              "rc": 1,
-              "errno": 0,
-              "decision": "deny",
-              "no_report_reason": null
-            }
-          ]
+          "seatbelt_callouts": null
         },
         "violation_summary": null,
         "command": [
@@ -1128,7 +849,7 @@
         ],
         "exit_code": 2,
         "stdout": "",
-        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/bsd.sys_bsd.runtime.sb\",\"pid\":45869}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/bsd.sys_bsd.runtime.sb\",\"pid\":45869}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"pre_syscall\",\"api\":\"sandbox_check_by_audit_token\",\"operation\":\"file-read*\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1073741824,\"varargs_count\":1,\"argument\":\"/tmp/foo\",\"no_report\":true,\"token_status\":\"ok\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\nopen target: Operation not permitted\n"
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/bsd.sys_bsd.runtime.sb\",\"pid\":25695}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/bsd.sys_bsd.runtime.sb\",\"pid\":25695}\nopen target: Operation not permitted\n"
       },
       {
         "name": "write_/tmp/foo",
@@ -1162,27 +883,7 @@
             "entrypoint_sha256": "ec8330a5bf28154c20e9dd645b319a546712bee28a5ace7a92b56ad2e32485b1",
             "tool_build_id": "ec8330a5bf28154c20e9dd645b319a546712bee28a5ace7a92b56ad2e32485b1"
           },
-          "seatbelt_callouts": [
-            {
-              "tool": "seatbelt-callout",
-              "marker_schema_version": 2,
-              "stage": "pre_syscall",
-              "api": "sandbox_check_by_audit_token",
-              "operation": "file-write*",
-              "filter_type": 0,
-              "filter_type_name": "path",
-              "check_type": 1073741824,
-              "varargs_count": 1,
-              "argument": "/tmp/foo",
-              "no_report": true,
-              "token_status": "ok",
-              "token_mach_kr": 0,
-              "rc": 1,
-              "errno": 0,
-              "decision": "deny",
-              "no_report_reason": null
-            }
-          ]
+          "seatbelt_callouts": null
         },
         "violation_summary": null,
         "command": [
@@ -1192,14 +893,73 @@
         ],
         "exit_code": 2,
         "stdout": "",
-        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/bsd.sys_bsd.runtime.sb\",\"pid\":45870}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/bsd.sys_bsd.runtime.sb\",\"pid\":45870}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"pre_syscall\",\"api\":\"sandbox_check_by_audit_token\",\"operation\":\"file-write*\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1073741824,\"varargs_count\":1,\"argument\":\"/tmp/foo\",\"no_report\":true,\"token_status\":\"ok\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\nopen target: Operation not permitted\n"
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/bsd.sys_bsd.runtime.sb\",\"pid\":25696}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/bsd.sys_bsd.runtime.sb\",\"pid\":25696}\nopen target: Operation not permitted\n"
       }
     ]
   },
   "sys:airlock": {
-    "status": "ok",
+    "status": "blocked",
     "profile_path": "book/experiments/runtime-checks/out/runtime_profiles/airlock.sys_airlock.runtime.sb",
     "base_profile_path": "/System/Library/Sandbox/Profiles/airlock.sb",
+    "preflight": {
+      "tool": "book/tools/preflight",
+      "preflight_schema_version": 1,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "input_kind": "sbpl_path",
+      "input_ref": "book/experiments/runtime-checks/out/runtime_profiles/airlock.sys_airlock.runtime.sb",
+      "classification": "likely_apply_gated_for_harness_identity",
+      "signature": "deny_message_filter",
+      "findings": [
+        {
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client",
+          "denied_operation": "iokit-async-external-method"
+        },
+        {
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client",
+          "denied_operation": "iokit-external-method"
+        },
+        {
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client",
+          "denied_operation": "iokit-external-method"
+        },
+        {
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client",
+          "denied_operation": "iokit-external-method"
+        },
+        {
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client",
+          "denied_operation": "iokit-async-external-method"
+        },
+        {
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client",
+          "denied_operation": "iokit-external-method"
+        },
+        {
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client",
+          "denied_operation": "iokit-external-method"
+        },
+        {
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client",
+          "denied_operation": "iokit-external-method"
+        }
+      ],
+      "signature_meta": {
+        "status": "partial",
+        "pointers": [
+          "troubles/EPERMx2.md",
+          "book/experiments/gate-witnesses/Report.md",
+          "book/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json"
+        ]
+      }
+    },
     "probes": [
       {
         "name": "read_/etc/hosts",
@@ -1207,43 +967,25 @@
         "operation": "file-read*",
         "path": "/etc/hosts",
         "expected": "deny",
-        "actual": "deny",
-        "match": true,
+        "actual": null,
+        "match": null,
         "runtime_result": {
-          "status": "errno",
-          "errno": 1,
+          "status": "blocked",
+          "errno": null,
           "runtime_result_schema_version": 1,
           "tool_marker_schema_version": 2,
-          "failure_stage": "apply",
-          "failure_kind": "sandbox_init_failed",
-          "apply_report": {
-            "api": "sandbox_init",
-            "rc": -1,
-            "errno": 1,
-            "errbuf": "Operation not permitted",
-            "err_class": "errno_eperm",
-            "err_class_source": "errno_only"
-          },
-          "runner_info": {
-            "entrypoint": "sandbox_reader",
-            "apply_model": "self_apply",
-            "apply_timing": "pre_syscall",
-            "preexisting_sandbox_suspected": false,
-            "entrypoint_path": "book/experiments/runtime-checks/sandbox_reader",
-            "entrypoint_sha256": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e",
-            "tool_build_id": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e"
-          },
+          "failure_stage": "preflight",
+          "failure_kind": "preflight_apply_gate_signature",
+          "apply_report": null,
+          "runner_info": null,
           "seatbelt_callouts": null
         },
-        "violation_summary": "EPERM",
-        "command": [
-          "book/experiments/runtime-checks/sandbox_reader",
-          "book/experiments/runtime-checks/out/runtime_profiles/airlock.sys_airlock.runtime.sb",
-          "/private/etc/hosts"
-        ],
-        "exit_code": 1,
+        "violation_summary": null,
+        "command": [],
+        "exit_code": null,
         "stdout": "",
-        "stderr": "sandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/airlock.sys_airlock.runtime.sb\",\"pid\":45871}\nsandbox_init failed: Operation not permitted\n"
+        "stderr": "",
+        "notes": "preflight blocked: known apply-gate signature"
       },
       {
         "name": "write_/etc/hosts",
@@ -1251,43 +993,25 @@
         "operation": "file-write*",
         "path": "/etc/hosts",
         "expected": "deny",
-        "actual": "deny",
-        "match": true,
+        "actual": null,
+        "match": null,
         "runtime_result": {
-          "status": "errno",
-          "errno": 1,
+          "status": "blocked",
+          "errno": null,
           "runtime_result_schema_version": 1,
           "tool_marker_schema_version": 2,
-          "failure_stage": "apply",
-          "failure_kind": "sandbox_init_failed",
-          "apply_report": {
-            "api": "sandbox_init",
-            "rc": -1,
-            "errno": 1,
-            "errbuf": "Operation not permitted",
-            "err_class": "errno_eperm",
-            "err_class_source": "errno_only"
-          },
-          "runner_info": {
-            "entrypoint": "sandbox_writer",
-            "apply_model": "self_apply",
-            "apply_timing": "pre_syscall",
-            "preexisting_sandbox_suspected": false,
-            "entrypoint_path": "book/experiments/runtime-checks/sandbox_writer",
-            "entrypoint_sha256": "ec8330a5bf28154c20e9dd645b319a546712bee28a5ace7a92b56ad2e32485b1",
-            "tool_build_id": "ec8330a5bf28154c20e9dd645b319a546712bee28a5ace7a92b56ad2e32485b1"
-          },
+          "failure_stage": "preflight",
+          "failure_kind": "preflight_apply_gate_signature",
+          "apply_report": null,
+          "runner_info": null,
           "seatbelt_callouts": null
         },
-        "violation_summary": "EPERM",
-        "command": [
-          "book/experiments/runtime-checks/sandbox_writer",
-          "book/experiments/runtime-checks/out/runtime_profiles/airlock.sys_airlock.runtime.sb",
-          "/private/etc/hosts"
-        ],
-        "exit_code": 1,
+        "violation_summary": null,
+        "command": [],
+        "exit_code": null,
         "stdout": "",
-        "stderr": "sandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/airlock.sys_airlock.runtime.sb\",\"pid\":45872}\nsandbox_init failed: Operation not permitted\n"
+        "stderr": "",
+        "notes": "preflight blocked: known apply-gate signature"
       },
       {
         "name": "read_/tmp/foo",
@@ -1295,43 +1019,25 @@
         "operation": "file-read*",
         "path": "/tmp/foo",
         "expected": "deny",
-        "actual": "deny",
-        "match": true,
+        "actual": null,
+        "match": null,
         "runtime_result": {
-          "status": "errno",
-          "errno": 1,
+          "status": "blocked",
+          "errno": null,
           "runtime_result_schema_version": 1,
           "tool_marker_schema_version": 2,
-          "failure_stage": "apply",
-          "failure_kind": "sandbox_init_failed",
-          "apply_report": {
-            "api": "sandbox_init",
-            "rc": -1,
-            "errno": 1,
-            "errbuf": "Operation not permitted",
-            "err_class": "errno_eperm",
-            "err_class_source": "errno_only"
-          },
-          "runner_info": {
-            "entrypoint": "sandbox_reader",
-            "apply_model": "self_apply",
-            "apply_timing": "pre_syscall",
-            "preexisting_sandbox_suspected": false,
-            "entrypoint_path": "book/experiments/runtime-checks/sandbox_reader",
-            "entrypoint_sha256": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e",
-            "tool_build_id": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e"
-          },
+          "failure_stage": "preflight",
+          "failure_kind": "preflight_apply_gate_signature",
+          "apply_report": null,
+          "runner_info": null,
           "seatbelt_callouts": null
         },
-        "violation_summary": "EPERM",
-        "command": [
-          "book/experiments/runtime-checks/sandbox_reader",
-          "book/experiments/runtime-checks/out/runtime_profiles/airlock.sys_airlock.runtime.sb",
-          "/private/tmp/foo"
-        ],
-        "exit_code": 1,
+        "violation_summary": null,
+        "command": [],
+        "exit_code": null,
         "stdout": "",
-        "stderr": "sandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/airlock.sys_airlock.runtime.sb\",\"pid\":45873}\nsandbox_init failed: Operation not permitted\n"
+        "stderr": "",
+        "notes": "preflight blocked: known apply-gate signature"
       },
       {
         "name": "write_/tmp/foo",
@@ -1339,50 +1045,43 @@
         "operation": "file-write*",
         "path": "/tmp/foo",
         "expected": "deny",
-        "actual": "deny",
-        "match": true,
+        "actual": null,
+        "match": null,
         "runtime_result": {
-          "status": "errno",
-          "errno": 1,
+          "status": "blocked",
+          "errno": null,
           "runtime_result_schema_version": 1,
           "tool_marker_schema_version": 2,
-          "failure_stage": "apply",
-          "failure_kind": "sandbox_init_failed",
-          "apply_report": {
-            "api": "sandbox_init",
-            "rc": -1,
-            "errno": 1,
-            "errbuf": "Operation not permitted",
-            "err_class": "errno_eperm",
-            "err_class_source": "errno_only"
-          },
-          "runner_info": {
-            "entrypoint": "sandbox_writer",
-            "apply_model": "self_apply",
-            "apply_timing": "pre_syscall",
-            "preexisting_sandbox_suspected": false,
-            "entrypoint_path": "book/experiments/runtime-checks/sandbox_writer",
-            "entrypoint_sha256": "ec8330a5bf28154c20e9dd645b319a546712bee28a5ace7a92b56ad2e32485b1",
-            "tool_build_id": "ec8330a5bf28154c20e9dd645b319a546712bee28a5ace7a92b56ad2e32485b1"
-          },
+          "failure_stage": "preflight",
+          "failure_kind": "preflight_apply_gate_signature",
+          "apply_report": null,
+          "runner_info": null,
           "seatbelt_callouts": null
         },
-        "violation_summary": "EPERM",
-        "command": [
-          "book/experiments/runtime-checks/sandbox_writer",
-          "book/experiments/runtime-checks/out/runtime_profiles/airlock.sys_airlock.runtime.sb",
-          "/private/tmp/foo"
-        ],
-        "exit_code": 1,
+        "violation_summary": null,
+        "command": [],
+        "exit_code": null,
         "stdout": "",
-        "stderr": "sandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/airlock.sys_airlock.runtime.sb\",\"pid\":45874}\nsandbox_init failed: Operation not permitted\n"
+        "stderr": "",
+        "notes": "preflight blocked: known apply-gate signature"
       }
-    ]
+    ],
+    "notes": "all probes blocked before policy evaluation"
   },
   "runtime:strict_1": {
     "status": "ok",
     "profile_path": "book/experiments/runtime-checks/out/runtime_profiles/strict_1.runtime_strict_1.runtime.sb",
     "base_profile_path": "book/experiments/runtime-checks/strict_1.sb",
+    "preflight": {
+      "tool": "book/tools/preflight",
+      "preflight_schema_version": 1,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "input_kind": "sbpl_path",
+      "input_ref": "book/experiments/runtime-checks/out/runtime_profiles/strict_1.runtime_strict_1.runtime.sb",
+      "classification": "no_known_apply_gate_signature",
+      "signature": null,
+      "findings": []
+    },
     "probes": [
       {
         "name": "read_ok",
@@ -1416,27 +1115,7 @@
             "entrypoint_sha256": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e",
             "tool_build_id": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e"
           },
-          "seatbelt_callouts": [
-            {
-              "tool": "seatbelt-callout",
-              "marker_schema_version": 2,
-              "stage": "pre_syscall",
-              "api": "sandbox_check_by_audit_token",
-              "operation": "file-read*",
-              "filter_type": 0,
-              "filter_type_name": "path",
-              "check_type": 1073741824,
-              "varargs_count": 1,
-              "argument": "/private/tmp/strict_ok/allow.txt",
-              "no_report": true,
-              "token_status": "ok",
-              "token_mach_kr": 0,
-              "rc": 1,
-              "errno": 0,
-              "decision": "deny",
-              "no_report_reason": null
-            }
-          ]
+          "seatbelt_callouts": null
         },
         "violation_summary": null,
         "command": [
@@ -1446,7 +1125,7 @@
         ],
         "exit_code": 0,
         "stdout": "strict allow\n",
-        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/strict_1.runtime_strict_1.runtime.sb\",\"pid\":45875}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/strict_1.runtime_strict_1.runtime.sb\",\"pid\":45875}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"pre_syscall\",\"api\":\"sandbox_check_by_audit_token\",\"operation\":\"file-read*\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1073741824,\"varargs_count\":1,\"argument\":\"/private/tmp/strict_ok/allow.txt\",\"no_report\":true,\"token_status\":\"ok\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\n"
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/strict_1.runtime_strict_1.runtime.sb\",\"pid\":25697}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/strict_1.runtime_strict_1.runtime.sb\",\"pid\":25697}\n"
       },
       {
         "name": "write_ok",
@@ -1480,27 +1159,7 @@
             "entrypoint_sha256": "ec8330a5bf28154c20e9dd645b319a546712bee28a5ace7a92b56ad2e32485b1",
             "tool_build_id": "ec8330a5bf28154c20e9dd645b319a546712bee28a5ace7a92b56ad2e32485b1"
           },
-          "seatbelt_callouts": [
-            {
-              "tool": "seatbelt-callout",
-              "marker_schema_version": 2,
-              "stage": "pre_syscall",
-              "api": "sandbox_check_by_audit_token",
-              "operation": "file-write*",
-              "filter_type": 0,
-              "filter_type_name": "path",
-              "check_type": 1073741824,
-              "varargs_count": 1,
-              "argument": "/private/tmp/strict_ok/allow.txt",
-              "no_report": true,
-              "token_status": "ok",
-              "token_mach_kr": 0,
-              "rc": 1,
-              "errno": 0,
-              "decision": "deny",
-              "no_report_reason": null
-            }
-          ]
+          "seatbelt_callouts": null
         },
         "violation_summary": null,
         "command": [
@@ -1510,7 +1169,7 @@
         ],
         "exit_code": 0,
         "stdout": "",
-        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/strict_1.runtime_strict_1.runtime.sb\",\"pid\":45876}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/strict_1.runtime_strict_1.runtime.sb\",\"pid\":45876}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"pre_syscall\",\"api\":\"sandbox_check_by_audit_token\",\"operation\":\"file-write*\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1073741824,\"varargs_count\":1,\"argument\":\"/private/tmp/strict_ok/allow.txt\",\"no_report\":true,\"token_status\":\"ok\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\n"
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/strict_1.runtime_strict_1.runtime.sb\",\"pid\":25698}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/strict_1.runtime_strict_1.runtime.sb\",\"pid\":25698}\n"
       },
       {
         "name": "read_hosts",
@@ -1544,27 +1203,7 @@
             "entrypoint_sha256": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e",
             "tool_build_id": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e"
           },
-          "seatbelt_callouts": [
-            {
-              "tool": "seatbelt-callout",
-              "marker_schema_version": 2,
-              "stage": "pre_syscall",
-              "api": "sandbox_check_by_audit_token",
-              "operation": "file-read*",
-              "filter_type": 0,
-              "filter_type_name": "path",
-              "check_type": 1073741824,
-              "varargs_count": 1,
-              "argument": "/etc/hosts",
-              "no_report": true,
-              "token_status": "ok",
-              "token_mach_kr": 0,
-              "rc": 1,
-              "errno": 0,
-              "decision": "deny",
-              "no_report_reason": null
-            }
-          ]
+          "seatbelt_callouts": null
         },
         "violation_summary": null,
         "command": [
@@ -1574,7 +1213,7 @@
         ],
         "exit_code": 2,
         "stdout": "",
-        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/strict_1.runtime_strict_1.runtime.sb\",\"pid\":45877}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/strict_1.runtime_strict_1.runtime.sb\",\"pid\":45877}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"pre_syscall\",\"api\":\"sandbox_check_by_audit_token\",\"operation\":\"file-read*\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1073741824,\"varargs_count\":1,\"argument\":\"/etc/hosts\",\"no_report\":true,\"token_status\":\"ok\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\nopen target: Operation not permitted\n"
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/strict_1.runtime_strict_1.runtime.sb\",\"pid\":25699}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/strict_1.runtime_strict_1.runtime.sb\",\"pid\":25699}\nopen target: Operation not permitted\n"
       },
       {
         "name": "write_hosts",
@@ -1608,27 +1247,7 @@
             "entrypoint_sha256": "ec8330a5bf28154c20e9dd645b319a546712bee28a5ace7a92b56ad2e32485b1",
             "tool_build_id": "ec8330a5bf28154c20e9dd645b319a546712bee28a5ace7a92b56ad2e32485b1"
           },
-          "seatbelt_callouts": [
-            {
-              "tool": "seatbelt-callout",
-              "marker_schema_version": 2,
-              "stage": "pre_syscall",
-              "api": "sandbox_check_by_audit_token",
-              "operation": "file-write*",
-              "filter_type": 0,
-              "filter_type_name": "path",
-              "check_type": 1073741824,
-              "varargs_count": 1,
-              "argument": "/etc/hosts",
-              "no_report": true,
-              "token_status": "ok",
-              "token_mach_kr": 0,
-              "rc": 1,
-              "errno": 0,
-              "decision": "deny",
-              "no_report_reason": null
-            }
-          ]
+          "seatbelt_callouts": null
         },
         "violation_summary": null,
         "command": [
@@ -1638,7 +1257,7 @@
         ],
         "exit_code": 2,
         "stdout": "",
-        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/strict_1.runtime_strict_1.runtime.sb\",\"pid\":45878}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/strict_1.runtime_strict_1.runtime.sb\",\"pid\":45878}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"pre_syscall\",\"api\":\"sandbox_check_by_audit_token\",\"operation\":\"file-write*\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1073741824,\"varargs_count\":1,\"argument\":\"/etc/hosts\",\"no_report\":true,\"token_status\":\"ok\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\nopen target: Operation not permitted\n"
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/strict_1.runtime_strict_1.runtime.sb\",\"pid\":25701}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/runtime-checks/out/runtime_profiles/strict_1.runtime_strict_1.runtime.sb\",\"pid\":25701}\nopen target: Operation not permitted\n"
       }
     ]
   }

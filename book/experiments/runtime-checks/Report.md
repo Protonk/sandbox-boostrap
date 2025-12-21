@@ -27,6 +27,7 @@ Validate that runtime allow/deny behavior for selected profiles matches decoder-
   - Expected probe matrix in `out/expected_matrix.json` covers bucket-4 (`v1_read`) and bucket-5 (`v11_read_subpath`) synthetic profiles, runtime shapes (`allow_all`, `metafilter_any`), and system blobs (`airlock`, `bsd`) flagged for blob mode (airlock marked expected-fail locally).
   - Harness now prefers local shims and wrapper: `sandbox_runner`/`sandbox_reader` succeed for bucket profiles and runtime shapes; metafilter_any stabilized by adding `/private/tmp` literals and reader mode.
   - `sys:airlock`/`bsd`: `airlock` is apply-gated on this host baseline and is preflight-blocked by default (treat as expected-fail); `bsd` applies via SBPL/compiled blob (wrapper run hit execvp noise once). Use SBPL/recompiled `bsd` for system probes on this host.
+  - Latest rerun executed under a more permissive host context (Codex harness `--yolo`); apply-stage EPERM cleared for the runtime-checks matrix and only `sys:airlock` remains preflight-blocked.
 - **1) Scope and setup**
   - Identified target profiles: canonical system blobs (`airlock`, `bsd`, `sample`) and representative bucket-4/bucket-5 synthetic profiles (`v1_read`, `v11_read_subpath`) from `op-table-operation`.
   - Harness in place: `run_probes.py` prefers local shims (`sandbox_runner` / `sandbox_reader`) and now uses `book/api/SBPL-wrapper/wrapper --blob` for compiled profiles.
@@ -65,6 +66,7 @@ If runtime checks are extended or revisited, reuse this outline:
 ## Blockers / risks
 - On this Sonoma host, `sandbox_apply` returns `EPERM` for `airlock` even when recompiled from SBPL, so platform profiles cannot yet be exercised directly in blob mode.
 - Harness behavior is still somewhat fragile (earlier `sandbox-exec` attempts failed under SIP; wrapper/harness plumbing has seen multiple revisions), so results need careful interpretation and may not generalize.
+- Even on the more permissive host context (`--yolo`), `sys:airlock` remains preflight-blocked, so airlock runtime evidence is still blocked on this world.
 
 ## Next steps
 - Re-run or refine runtime checks using the current wrapper-based harness, focusing on synthetic bucket-4/bucket-5 profiles and `bsd` rather than `airlock`.

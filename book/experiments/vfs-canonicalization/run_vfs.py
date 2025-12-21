@@ -5,7 +5,7 @@ VFS canonicalization harness for `/tmp/foo` ↔ `/private/tmp/foo` on Sonoma.
 Tasks:
 - Compile VFS SBPL profiles → blobs under sb/build.
 - Emit a simple expected_matrix.json (profile_id, operation, requested_path, expected_decision).
-- Build a harness matrix and run it via book.api.runtime_harness.runner.run_expected_matrix.
+- Build a harness matrix and run it via book.api.runtime_tools.harness_runner.run_expected_matrix.
 - Down-convert the harness runtime_results.json into a simple runtime_results.json array.
 - Decode the VFS blobs via book.api.profile_tools.decoder and emit decode_tmp_profiles.json
   (anchors, tags, and field2 values for `/tmp/foo` and `/private/tmp/foo`).
@@ -24,9 +24,9 @@ if str(REPO_ROOT) not in sys.path:
 
 from book.api.path_utils import ensure_absolute, find_repo_root, to_repo_relative
 from book.api.profile_tools import decoder  # type: ignore
-from book.api.runtime_harness.runner import ensure_tmp_files, run_expected_matrix  # type: ignore
+from book.api.runtime_tools.harness_runner import ensure_tmp_files, run_expected_matrix  # type: ignore
 from book.api.profile_tools import compile_sbpl_string  # type: ignore
-from book.api.runtime import write_normalized_events  # type: ignore
+from book.api.runtime_tools.observations import write_normalized_events  # type: ignore
 
 
 REPO_ROOT = find_repo_root(Path(__file__))
@@ -153,7 +153,7 @@ def build_harness_matrix(world_id: str, blobs: Dict[str, Path], simple_matrix: L
 
 
 def run_runtime(matrix_path: Path, sb_paths: Dict[str, Path]) -> Path:
-    """Run the harness matrix via runtime_harness and return path to raw runtime_results.json."""
+    """Run the harness matrix via runtime_tools and return path to raw runtime_results.json."""
     harness_out = OUT_DIR / "harness"
     harness_out.mkdir(parents=True, exist_ok=True)
     runtime_out = run_expected_matrix(

@@ -5,17 +5,30 @@ simple network/mach probes. Results are written to out/runtime_results.json.
 
 from __future__ import annotations
 
-import json
 import hashlib
+import importlib.util
+import json
 import os
-import subprocess
 import shutil
+import subprocess
 from pathlib import Path
 from typing import Dict, List
 
 from book.api.path_utils import find_repo_root, to_repo_relative
-from book.api.runtime import contract as rt_contract
-from book.experiments.entitlement_diff_probe_plan import build_probe_matrix, staged_binary_specs
+from book.api.runtime_tools import runtime_contract as rt_contract
+
+
+def _load_probe_plan():
+    here = Path(__file__).resolve().parent
+    spec = importlib.util.spec_from_file_location("entitlement_diff.probe_plan", here / "probe_plan.py")
+    if spec is None or spec.loader is None:
+        raise ImportError("Failed to load probe_plan.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)  # type: ignore[attr-defined]
+    return module
+
+
+probe_plan = _load_probe_plan()
 
 REPO_ROOT = find_repo_root(Path(__file__))
 WRAPPER = REPO_ROOT / "book" / "api" / "SBPL-wrapper" / "wrapper"
@@ -34,7 +47,7 @@ PROFILES: Dict[str, Dict[str, Path]] = {
     },
 }
 
-TESTS: List[Dict[str, object]] = build_probe_matrix(
+TESTS: List[Dict[str, object]] = probe_plan.build_probe_matrix(
     stage_dir=STAGE_DIR,
     container_dir=CONTAINER_DIR,
     repo_root=REPO_ROOT,
@@ -140,7 +153,7 @@ def run_probe(profile: Path, command: List[str]) -> Dict[str, object]:
 
 def main() -> int:
     STAGE_DIR.mkdir(parents=True, exist_ok=True)
-    for spec in staged_binary_specs(REPO_ROOT):
+    for spec in probe_plan.staged_binary_specs(REPO_ROOT):
         shutil.copy2(spec.src_path, STAGE_DIR / spec.dest_name)
     CONTAINER_DIR.mkdir(parents=True, exist_ok=True)
     FILE_PROBE_TARGET.write_text("entitlement-diff runtime file\n")

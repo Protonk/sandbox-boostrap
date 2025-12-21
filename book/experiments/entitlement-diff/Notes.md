@@ -28,3 +28,17 @@ Use this file for concise notes on signing, profile extraction, and probe runs.
   - baseline: network bind denied (`bind: Operation not permitted`); mach-lookup `com.apple.cfprefsd.agent` allowed; file read/write to container allowed.
   - network_mach: network bind allowed; mach-lookup allowed; file read/write allowed.
   Results captured in `out/runtime_results.json`.
+
+## EntitlementJail run-xpc (bookmarks witness)
+
+- Ran `EntitlementJail.app` `run-xpc` probes for `ProbeService_minimal` vs `ProbeService_bookmarks_app_scope`.
+- Created a container-local specimen file via `fs_op --op create --allow-unsafe-path`, then ran `bookmark_make` and `bookmark_op --op stat` (bookmarks app-scope succeeds; minimal fails).
+- Results recorded in `out/jail_xpc_bookmarks_witness.json`.
+
+## EntitlementJail run-xpc matrix (bookmarks, downloads, net client)
+
+- Added new App Sandbox stubs for `appsandbox-net-client.sb`, `appsandbox-downloads-rw.sb`, and `appsandbox-bookmarks-app-scope.sb`; rebuilt `sb/build/*.expanded.sb`/`.sb.bin` and refreshed `out/decoded_profiles.json` + `out/profile_diffs.json` for baseline + variants.
+- Added `run_xpc_matrix.py` to run `run-xpc` scenarios with log capture (`out/jail_xpc_logs/`).
+- `downloads_rw`: baseline fails with permission error; `ProbeService_downloads_rw` succeeds.
+- `net_op tcp_connect`: baseline denies (`Operation not permitted`); `ProbeService_net_client` succeeds when a local listener is active (listener accept recorded in the witness JSON).
+- Log capture now scopes to kernel `Sandbox:` lines that include the service process name (plus `ScopedBookmarkAgent` for bookmarks); some runs still emit empty log windows.

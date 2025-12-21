@@ -81,20 +81,20 @@ PY
 ```
 See `book/api/carton/README.md`, `AGENTS.md`, and `API.md` for design, routing, and function contracts.
 
-### runtime_harness
+### runtime_tools
 
-Definition: Unified runtime harness for golden profiles (replaces `runtime_golden` + `golden_runner`).
+Definition: Unified runtime tooling (observations, mappings, projections, and harness runner/generator).
 
-Role: Generate golden decodes/expectations/traces and run expectation-driven probes to emit `runtime_results.json`.
+Role: Normalize harness output into canonical runtime observations, build runtime mappings/stories, and run expectation-driven probes to emit `runtime_results.json`.
 
 Example:
 ```sh
-python -m book.api.runtime_harness.cli generate --matrix book/experiments/runtime-checks/out/expected_matrix.json
-python -m book.api.runtime_harness.cli run --matrix book/profiles/golden-triple/expected_matrix.json --out book/profiles/golden-triple/
+python -m book.api.runtime_tools generate --matrix book/experiments/runtime-checks/out/expected_matrix.json
+python -m book.api.runtime_tools run --matrix book/profiles/golden-triple/expected_matrix.json --out book/profiles/golden-triple/
 ```
 
 Preflight (apply-gate avoidance):
-- By default, the runtime harness runs `book/tools/preflight` for SBPL (`.sb`) and compiled SBPL blobs (`.sb.bin`); on a known apply-gate signature it emits `failure_stage:"preflight"` without attempting apply.
+- By default, the runtime harness runner runs `book/tools/preflight` for SBPL (`.sb`) and compiled SBPL blobs (`.sb.bin`); on a known apply-gate signature it emits `failure_stage:"preflight"` without attempting apply.
 - Override knobs:
   - Disable globally: `SANDBOX_LORE_PREFLIGHT=0`
   - Force apply even if preflight flags a signature: `SANDBOX_LORE_PREFLIGHT_FORCE=1`
@@ -103,5 +103,5 @@ Preflight (apply-gate avoidance):
 ## CARTON conversion assessment
 
 - **op_table**: could gain a CARTON-backed query layer if op-table fingerprints/alignments are ever promoted to CARTON mappings; today it is generator/inspection tooling (see `book.api.profile_tools.op_table`), not CARTON IR.
-- **runtime_harness**: could be query-able if golden traces/expectations become CARTON mappings with a defined concept; currently generation-only.
+- **runtime_tools**: the harness + mapping outputs could be query-able if golden traces/expectations become CARTON mappings with a defined concept; currently generation-only.
 - **Others (regex_tools, SBPL-wrapper, file_probe, ghidra)**: generation/inspection/harness tools, not CARTON concepts; poor fits for the CARTON query surface in their current form.

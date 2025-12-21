@@ -3,10 +3,10 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from book.api.runtime_harness import runner
+from book.api.runtime_tools import harness_runner as runner
 
 
-def test_runtime_harness_preflight_blocks_known_apply_gate_signature(tmp_path, monkeypatch):
+def test_runtime_tools_preflight_blocks_known_apply_gate_signature(tmp_path, monkeypatch):
     monkeypatch.setenv("SANDBOX_LORE_PREFLIGHT", "1")
     monkeypatch.delenv("SANDBOX_LORE_PREFLIGHT_FORCE", raising=False)
 
@@ -45,7 +45,7 @@ def test_runtime_harness_preflight_blocks_known_apply_gate_signature(tmp_path, m
     assert rr.get("failure_kind") == "preflight_apply_gate_signature"
 
 
-def test_runtime_harness_preflight_blocks_known_apply_gate_blob_digest(tmp_path, monkeypatch):
+def test_runtime_tools_preflight_blocks_known_apply_gate_blob_digest(tmp_path, monkeypatch):
     monkeypatch.setenv("SANDBOX_LORE_PREFLIGHT", "1")
     monkeypatch.delenv("SANDBOX_LORE_PREFLIGHT_FORCE", raising=False)
 
@@ -87,7 +87,7 @@ def test_runtime_harness_preflight_blocks_known_apply_gate_blob_digest(tmp_path,
     assert rr.get("failure_kind") == "preflight_apply_gate_signature"
 
 
-def test_runtime_harness_profile_can_force_apply_even_when_preflight_flags_signature(tmp_path, monkeypatch):
+def test_runtime_tools_profile_can_force_apply_even_when_preflight_flags_signature(tmp_path, monkeypatch):
     monkeypatch.setenv("SANDBOX_LORE_PREFLIGHT", "1")
     monkeypatch.delenv("SANDBOX_LORE_PREFLIGHT_FORCE", raising=False)
 

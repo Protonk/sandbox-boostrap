@@ -294,4 +294,4 @@ Treat these examples as **reference labs**:
 
 * Prefer to extend them with new probes and tests rather than rewriting core behavior.
 * Canonical SBPL compilation lives under `book/api/profile_tools` (compile subcommand). Legacy regex helpers have moved here under `book/examples/regex_tools`.
-* When in doubt about formats or semantics, cross-check with `substrate/Orientation.md`, `substrate/Appendix.md`, and `substrate/Concepts.md`.
+* When in doubt about formats or semantics, cross-check with `book/substrate/Orientation.md`, `book/substrate/Appendix.md`, and `book/substrate/Concepts.md`.

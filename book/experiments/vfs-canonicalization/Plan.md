@@ -18,7 +18,7 @@ Upstream inputs:
 - **Tag and layout bedrock:** `book/graph/mappings/tag_layouts/tag_layouts.json` (status: ok, from `tag-layout-decode`).
 - **Anchor/field2 structure:** `book/experiments/probe-op-structure/Report.md` + `out/anchor_hits.json`, plus curated anchors in `book/graph/mappings/anchors/anchor_filter_map.json` (guarded by `book/tests/test_anchor_filter_alignment.py`). In particular, `/tmp/foo` anchor placement and tag/field2 usage.
 - **Field2 inventories:** `book/experiments/field2-filters/Report.md` with `out/field2_inventory.json` and `out/unknown_nodes.json` for high/unknown field2 values.
-- **Runtime harness:** `book/api/runtime_harness.runner.run_expected_matrix` (same harness used by `runtime-checks` / `runtime-adversarial`).
+- **Runtime harness:** `book/api/runtime_tools.harness_runner.run_expected_matrix` (same harness used by `runtime-checks` / `runtime-adversarial`).
 
 Downstream use:
 
@@ -76,7 +76,7 @@ IR path:
 - `run_vfs.py` (harness script) will:
   - compile profiles,
   - emit `out/expected_matrix.json` (simple, pre-run expectations scoped to this experiment),
-  - build a harness-specific matrix and call `book.api.runtime_harness.runner.run_expected_matrix`,
+  - build a harness-specific matrix and call `book.api.runtime_tools.harness_runner.run_expected_matrix`,
   - down-convert the harness runtime results into `out/runtime_results.json` (authoritative runtime behavior for this suite on this world),
   - emit `out/decode_tmp_profiles.json` via `book/api/profile_tools/decoder.py` (structural view),
   - emit a small `out/mismatch_summary.json` that classifies each profile’s behavior (“canonicalization” vs “control”) for downstream readers.

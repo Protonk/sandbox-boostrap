@@ -14,4 +14,4 @@ Status (current)
 Near-term guardrails
 
 - Keep `make -C book test` green (tests cover wrapper existence and preflight behavior).
-- Keep wrapper stderr marker-free after normalization: markers must be stripped by `book/api/runtime/contract.py`.
+- Keep wrapper stderr marker-free after normalization: markers must be stripped by `book/api/runtime_tools/runtime_contract.py`.

@@ -205,7 +205,7 @@ This table summarizes the anchors that this experiment **actively touches** (i.e
 
 ## Running and refreshing this experiment
 
-- **Expected working directory:** repository root (`SANDBOX_LORE`), i.e. the directory that contains `book/`, `substrate/`, and `status/`.
+- **Expected working directory:** repository root (`SANDBOX_LORE`), i.e. the directory that contains `book/` (including `book/substrate/`) and `status/`.
 - **Regenerating local outputs:**
   - `python3 book/experiments/probe-op-structure/analyze_profiles.py`
   - `python3 book/experiments/probe-op-structure/anchor_scan.py`

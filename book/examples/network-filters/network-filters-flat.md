@@ -100,7 +100,7 @@ The comment ties it back to sandbox semantics:
 
 ```c
 // Network operations surface as sandbox operations like `network-outbound`
-// with filters on socket domain/type/remote (substrate/Appendix.md). This demo
+// with filters on socket domain/type/remote (book/substrate/Appendix.md). This demo
 // performs a few socket types so you can map process-side calls to sandbox
 // vocabulary when reasoning about profiles.
 ```
@@ -365,7 +365,7 @@ In short, `network_demo.c` is a minimal, repeatable client that touches three co
 
 ## Lessons
 
-- Network syscalls map to sandbox operations such as `network-outbound`, with filters for `socket-domain`, `socket-type`, and remote/local addresses (substrate/Appendix.md).
+- Network syscalls map to sandbox operations such as `network-outbound`, with filters for `socket-domain`, `socket-type`, and remote/local addresses (book/substrate/Appendix.md).
 - TCP, UDP, and AF_UNIX sockets exercise different combinations of those filters; the same code path looks different to the sandbox depending on domain/type/port/path.
 - Outside a sandbox these calls usually succeed (or fail with ECONNREFUSED), but under SBPL rules you can target very specific combinations, making network policy richer than early Seatbelt examples.
 - Running a consistent client while changing policy is a good way to see how the filter vocabulary translates to real syscalls.

@@ -18,6 +18,8 @@ Tasks (examples; see `TaskRegistry.default()` for the full set):
 - `kernel-symbols` (fast, `--no-analysis` OK): dump sandbox symbols/strings; outputs also mirrored to `book/experiments/kernel-symbols/out/<build>/...`.
 - `kernel-tag-switch` (needs full analysis): heuristic ranking of computed-jump functions to find the PolicyGraph dispatcher; output `dumps/ghidra/out/<build>/kernel-tag-switch/switch_candidates.json`.
 - `kernel-op-table`, `kernel-string-refs`, `kernel-imm-search`, `kernel-field2-mask-scan`: various scans over the KC for op-table candidates, strings/imports, immediates, and field2-like masks.
+- `kernel-adrp-add-scan` (best after analysis): locate ADRP+ADD/SUB sequences that materialize a specific target address.
+- `kernel-arm-const-base-scan` (best after analysis): scan ADRP bases into a target address range, even if the exact pointer is not emitted.
 - `kernel-data-define`: define data at `addr:<hex>` targets and dump refs; use `--process-existing --no-analysis` after a full analysis pass.
 
 Tag-switch triage (rolled up from the former `dumps/ghidra/Tag_triage.md`):

@@ -5,7 +5,7 @@ Probe for static↔runtime divergences by running deliberately adversarial SBPL 
 
 ## Infrastructure reuse
 - Compile/decode via `book.api.profile_tools` and `book.api.profile_tools.decoder`.
-- Runtime harness via `book.api.runtime_harness.runner.run_expected_matrix` (reusing `runtime-checks` shims).
+- Runtime harness via `book.api.runtime_tools.harness_runner.run_expected_matrix` (reusing `runtime-checks` shims).
 - Expectation wiring patterned after `book/experiments/sbpl-graph-runtime`.
 - Comparison and summaries live in this experiment’s `out/`.
 

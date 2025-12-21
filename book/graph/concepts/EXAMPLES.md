@@ -124,7 +124,7 @@ Semantic examples exercise operations, filters, and metafilters and (where possi
 
 ### Golden-triple harness (outside `book/examples/`)
 
-- **Location:** `book/profiles/golden-triple/` + `book/api/runtime_harness/`.  
+- **Location:** `book/profiles/golden-triple/` + `book/api/runtime_tools/`.  
 - **Role:** Provide “golden” SBPL/graph/runtime triples (e.g., `allow_all`, `metafilter_any`, bucket4/bucket5 profiles) used for semantic validation.  
 - **Feeds:** `mappings/runtime/expectations.json` + `mappings/runtime/traces/*` and `validation/out/semantic/runtime_results.json`.
 

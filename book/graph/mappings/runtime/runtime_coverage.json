@@ -7,22 +7,37 @@
       "book/experiments/runtime-adversarial/out/impact_map.json"
     ],
     "input_hashes": {
-      "book/graph/mappings/runtime_cuts/ops.json": "d63a29fe2820c5dda1ad3c17aaff36e21a76d84ea6de1f7dd44108419f862159",
-      "book/graph/mappings/runtime_cuts/scenarios.json": "c1c6c1691b8a0d3faf932946604bac48e95605403051951981864ee01a461d9e"
+      "book/graph/mappings/runtime_cuts/ops.json": "b00464ea35ef9fa9880a244afd6d7754bf7ebafa9353b3136386b56c8aff1341",
+      "book/graph/mappings/runtime_cuts/scenarios.json": "3c726c9e094c1703d024de171dbd84b6f1adc464520b724daca5877c06f60724"
     },
     "source_jobs": [
       "experiment:runtime-checks",
       "experiment:runtime-adversarial"
     ],
-    "status": "ok",
+    "status": "partial",
     "notes": "Runtime coverage derived from runtime_story; mismatches allowed only when tagged in impact_map.json.",
-    "mismatches": [],
-    "mismatch_summary": {
-      "total_mismatches": 17,
-      "total_disallowed_mismatches": 0,
-      "tags": {
-        "apply_gate": 17
+    "mismatches": [
+      {
+        "op_name": "file-read*",
+        "expectation_id": "adv:path_edges:allow-subpath"
+      },
+      {
+        "op_name": "file-read*",
+        "expectation_id": "adv:path_edges:allow-tmp"
+      },
+      {
+        "op_name": "file-write*",
+        "expectation_id": "adv:path_edges:write-subpath"
+      },
+      {
+        "op_name": "file-write*",
+        "expectation_id": "adv:path_edges:write-tmp"
       }
+    ],
+    "mismatch_summary": {
+      "total_mismatches": 4,
+      "total_disallowed_mismatches": 4,
+      "tags": {}
     },
     "provenance": {
       "runtime_story": {
@@ -37,8 +52,8 @@
           "book/graph/mappings/runtime_cuts/scenarios.json"
         ],
         "input_hashes": {
-          "book/graph/mappings/runtime_cuts/ops.json": "d63a29fe2820c5dda1ad3c17aaff36e21a76d84ea6de1f7dd44108419f862159",
-          "book/graph/mappings/runtime_cuts/scenarios.json": "c1c6c1691b8a0d3faf932946604bac48e95605403051951981864ee01a461d9e"
+          "book/graph/mappings/runtime_cuts/ops.json": "b00464ea35ef9fa9880a244afd6d7754bf7ebafa9353b3136386b56c8aff1341",
+          "book/graph/mappings/runtime_cuts/scenarios.json": "3c726c9e094c1703d024de171dbd84b6f1adc464520b724daca5877c06f60724"
         }
       }
     }
@@ -63,14 +78,15 @@
       "counts": {
         "runtime_signatures": 12
       },
-      "status": "ok",
-      "mismatches": [],
+      "status": "partial",
+      "mismatches": [
+        "adv:path_edges:allow-subpath",
+        "adv:path_edges:allow-tmp"
+      ],
       "mismatch_summary": {
-        "total_mismatches": 6,
-        "total_disallowed_mismatches": 0,
-        "tags": {
-          "apply_gate": 6
-        }
+        "total_mismatches": 2,
+        "total_disallowed_mismatches": 2,
+        "tags": {}
       }
     },
     "file-write*": {
@@ -92,14 +108,15 @@
       "counts": {
         "runtime_signatures": 12
       },
-      "status": "ok",
-      "mismatches": [],
+      "status": "partial",
+      "mismatches": [
+        "adv:path_edges:write-subpath",
+        "adv:path_edges:write-tmp"
+      ],
       "mismatch_summary": {
-        "total_mismatches": 6,
-        "total_disallowed_mismatches": 0,
-        "tags": {
-          "apply_gate": 6
-        }
+        "total_mismatches": 2,
+        "total_disallowed_mismatches": 2,
+        "tags": {}
       }
     },
     "mach-lookup": {
@@ -120,30 +137,28 @@
       "status": "ok",
       "mismatches": [],
       "mismatch_summary": {
-        "total_mismatches": 4,
+        "total_mismatches": 0,
         "total_disallowed_mismatches": 0,
-        "tags": {
-          "apply_gate": 4
-        }
+        "tags": {}
       }
     },
     "network-outbound": {
       "op_id": 112,
       "runtime_signatures": [
         "adv:net_outbound_allow:tcp-loopback",
-        "adv:net_outbound_deny:tcp-loopback"
+        "adv:net_outbound_allow:tcp-loopback-2",
+        "adv:net_outbound_deny:tcp-loopback",
+        "adv:net_outbound_deny:tcp-loopback-2"
       ],
       "counts": {
-        "runtime_signatures": 2
+        "runtime_signatures": 4
       },
       "status": "ok",
       "mismatches": [],
       "mismatch_summary": {
-        "total_mismatches": 1,
+        "total_mismatches": 0,
         "total_disallowed_mismatches": 0,
-        "tags": {
-          "apply_gate": 1
-        }
+        "tags": {}
       }
     }
   }

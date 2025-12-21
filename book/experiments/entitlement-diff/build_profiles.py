@@ -22,6 +22,9 @@ IMPORT_END = ";;;; end import application.sb"
 STUBS = [
     ("appsandbox-baseline", REPO_ROOT / "book" / "experiments" / "entitlement-diff" / "sb" / "appsandbox-baseline.sb"),
     ("appsandbox-network-mach", REPO_ROOT / "book" / "experiments" / "entitlement-diff" / "sb" / "appsandbox-network-mach.sb"),
+    ("appsandbox-net-client", REPO_ROOT / "book" / "experiments" / "entitlement-diff" / "sb" / "appsandbox-net-client.sb"),
+    ("appsandbox-downloads-rw", REPO_ROOT / "book" / "experiments" / "entitlement-diff" / "sb" / "appsandbox-downloads-rw.sb"),
+    ("appsandbox-bookmarks-app-scope", REPO_ROOT / "book" / "experiments" / "entitlement-diff" / "sb" / "appsandbox-bookmarks-app-scope.sb"),
 ]
 
 

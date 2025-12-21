@@ -22,7 +22,7 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List, Mapping, Optional, Tuple
 
 from book.api import path_utils
-from book.api.runtime import events as runtime_events
+from book.api.runtime_tools import observations as runtime_observations
 
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))
 OPS_VOCAB = REPO_ROOT / "book" / "graph" / "mappings" / "vocab" / "ops.json"
@@ -70,7 +70,7 @@ def _load_ops_vocab() -> Dict[str, Any]:
 
 
 def write_per_scenario_traces(
-    observations: Iterable[runtime_events.RuntimeObservation],
+    observations: Iterable[runtime_observations.RuntimeObservation],
     traces_root: Path,
     world_id: Optional[str] = None,
 ) -> Tuple[Dict[str, Any], Dict[str, Any]]:
@@ -96,11 +96,11 @@ def write_per_scenario_traces(
             trace_path.unlink()
         truncated.add(scenario_id)
         with trace_path.open("a", encoding="utf-8") as fh:
-            fh.write(json.dumps(runtime_events.serialize_observation(obs)) + "\n")
+            fh.write(json.dumps(runtime_observations.serialize_observation(obs)) + "\n")
         index[scenario_id].append(path_utils.to_repo_relative(trace_path, REPO_ROOT))
 
     events_index = {
-        "meta": make_metadata(resolved_world or runtime_events.WORLD_ID, status="partial", notes="per-scenario traces"),
+        "meta": make_metadata(resolved_world or runtime_observations.WORLD_ID, status="partial", notes="per-scenario traces"),
         "traces": index,
     }
     manifest_entry = {
@@ -118,7 +118,7 @@ def write_events_index(events_index: Mapping[str, Any], out_path: Path) -> Path:
 
 
 def build_scenario_summaries(
-    observations: Iterable[runtime_events.RuntimeObservation],
+    observations: Iterable[runtime_observations.RuntimeObservation],
     expectations: Mapping[str, Any],
     world_id: Optional[str] = None,
 ) -> Dict[str, Any]:
@@ -135,7 +135,7 @@ def build_scenario_summaries(
             family = profile_id.split(":", 1)[0]
         profile_family[profile_id] = family or "unknown"
         for probe in rec.get("probes") or []:
-            eid = probe.get("expectation_id") or runtime_events.derive_expectation_id(
+            eid = probe.get("expectation_id") or runtime_observations.derive_expectation_id(
                 profile_id, probe.get("operation"), probe.get("target")
             )
             expected_idx[eid] = {
@@ -280,7 +280,7 @@ def build_scenario_summaries(
             body["results"]["status"] = "brittle"
         body["scenario_id"] = scenario_id
 
-    meta = make_metadata(world_id or runtime_events.WORLD_ID, status="partial", notes="scenario-level runtime summaries")
+    meta = make_metadata(world_id or runtime_observations.WORLD_ID, status="partial", notes="scenario-level runtime summaries")
     return {
         "meta": meta,
         "phase_histograms": {"overall": hist_overall, "by_family": hist_by_family},
@@ -296,7 +296,7 @@ def write_scenario_mapping(doc: Mapping[str, Any], out_path: Path) -> Path:
 
 
 def build_op_summaries(
-    observations: Iterable[runtime_events.RuntimeObservation],
+    observations: Iterable[runtime_observations.RuntimeObservation],
     world_id: Optional[str] = None,
 ) -> Dict[str, Any]:
     """
@@ -369,7 +369,7 @@ def build_op_summaries(
         else:
             entry["coverage_status"] = "brittle"
 
-    meta = make_metadata(world_id or runtime_events.WORLD_ID, status="partial", notes="op-level runtime summary")
+    meta = make_metadata(world_id or runtime_observations.WORLD_ID, status="partial", notes="op-level runtime summary")
     return {"meta": meta, "ops": ops}
 
 
@@ -400,7 +400,7 @@ def build_indexes(
     for scenario_id, traces in (events_index.get("traces") or {}).items():
         scenario_to_traces[scenario_id] = traces
 
-    meta = scenario_summaries.get("meta") or make_metadata(runtime_events.WORLD_ID, status="partial")
+    meta = scenario_summaries.get("meta") or make_metadata(runtime_observations.WORLD_ID, status="partial")
     return {"meta": meta, "op_to_scenarios": op_to_scenarios, "scenario_to_traces": scenario_to_traces}
 
 

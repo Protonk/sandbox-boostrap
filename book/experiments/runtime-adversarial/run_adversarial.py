@@ -3,7 +3,7 @@
 Phase 1 adversarial runtime harness.
 
 Builds expected matrices for two families (structural variants, path/literal edges),
-compiles SBPL → blob, runs runtime probes via golden_runner, and emits mismatch summaries.
+compiles SBPL → blob, runs runtime probes via runtime_tools, and emits mismatch summaries.
 """
 from __future__ import annotations
 import json
@@ -20,8 +20,8 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from book.api.path_utils import find_repo_root
-from book.api.runtime.pipeline import FamilySpec, run_family_specs
-from book.api.runtime import WORLD_ID, generate_runtime_cut, write_normalized_events
+from book.api.runtime_tools.runtime_pipeline import FamilySpec, run_family_specs, generate_runtime_cut
+from book.api.runtime_tools.observations import WORLD_ID, write_normalized_events
 
 REPO_ROOT = find_repo_root(Path(__file__))
 

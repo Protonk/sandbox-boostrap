@@ -2,7 +2,7 @@
 
 # Demonstrates SBPL parameters via (param "..."). Parameters are evaluated at
 # compile/evaluation time and let one profile specialize behavior without
-# changing the text (see substrate/Appendix.md and Policy Stacking notes).
+# changing the text (see book/substrate/Appendix.md and Policy Stacking notes).
 
 PROFILE=$(mktemp /tmp/params-demo.XXXXXX.sb)
 TARGET_DIR="/tmp/params-allowed"

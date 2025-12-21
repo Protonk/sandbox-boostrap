@@ -9,7 +9,7 @@
 
 // This program runs unsandboxed but pokes operations that platform policy or SIP
 // commonly restricts. We log errno so you can reason about whether platform
-// policy (evaluated first per substrate/Orientation.md) likely short-circuited
+// policy (evaluated first per book/substrate/Orientation.md) likely short-circuited
 // the attempt before any per-process SBPL rules mattered.
 
 static void try_sysctl(const char *name) {
@@ -70,7 +70,7 @@ int main(void) {
     try_mach_lookup("com.apple.cfprefsd.daemon"); // likely succeeds
     try_mach_lookup("com.apple.securityd");       // often denied/not found
 
-    printf("\nRemember: platform policy runs before any per-process sandbox (substrate/Orientation.md §2),\n");
+    printf("\nRemember: platform policy runs before any per-process sandbox (book/substrate/Orientation.md §2),\n");
     printf("so failures here can come from global rules even if a custom SBPL profile looks permissive.\n");
     return 0;
 }

@@ -136,6 +136,12 @@ TASKS: Dict[str, TaskConfig] = {
         import_target="kernel",
         description="Lookup file offsets/constants to map to addresses/functions/callers.",
     ),
+    "kernel-adrp-add-scan": TaskConfig(
+        name="kernel-adrp-add-scan",
+        script="kernel_adrp_add_scan.py",
+        import_target="kernel",
+        description="Locate ADRP+ADD/SUB sequences that materialize a target address.",
+    ),
     "kernel-function-info": TaskConfig(
         name="kernel-function-info",
         script="kernel_function_info.py",
@@ -153,6 +159,12 @@ TASKS: Dict[str, TaskConfig] = {
         script="kernel_imm_search.py",
         import_target="kernel",
         description="Search instructions for a given immediate (scalar) value.",
+    ),
+    "kernel-arm-const-base-scan": TaskConfig(
+        name="kernel-arm-const-base-scan",
+        script="kernel_arm_const_base_scan.py",
+        import_target="kernel",
+        description="Scan ADRP base materializations into a target address range.",
     ),
     "kernel-field2-mask-scan": TaskConfig(
         name="kernel-field2-mask-scan",

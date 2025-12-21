@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Unified CLI for runtime harness (generate + run).
+Unified CLI for runtime tools (harness generate + run).
 """
 
 from __future__ import annotations
@@ -8,8 +8,8 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from . import generate as gen
-from . import runner
+from . import harness_generate as gen
+from . import harness_runner as runner
 
 
 def generate_command(args: argparse.Namespace) -> int:
@@ -64,7 +64,7 @@ def run_command(args: argparse.Namespace) -> int:
 
 
 def main(argv: list[str] | None = None) -> int:
-    ap = argparse.ArgumentParser(description="Runtime harness (generate mappings and run expected matrices).")
+    ap = argparse.ArgumentParser(description="Runtime tools (generate mappings and run expected matrices).")
     sub = ap.add_subparsers(dest="command", required=True)
 
     ap_gen = sub.add_parser("generate", help="Generate golden decodes/expectations/traces from runtime-checks outputs.")

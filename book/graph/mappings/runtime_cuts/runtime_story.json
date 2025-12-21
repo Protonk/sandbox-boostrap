@@ -11,8 +11,8 @@
       "book/graph/mappings/runtime_cuts/scenarios.json"
     ],
     "input_hashes": {
-      "book/graph/mappings/runtime_cuts/ops.json": "d63a29fe2820c5dda1ad3c17aaff36e21a76d84ea6de1f7dd44108419f862159",
-      "book/graph/mappings/runtime_cuts/scenarios.json": "c1c6c1691b8a0d3faf932946604bac48e95605403051951981864ee01a461d9e"
+      "book/graph/mappings/runtime_cuts/ops.json": "b00464ea35ef9fa9880a244afd6d7754bf7ebafa9353b3136386b56c8aff1341",
+      "book/graph/mappings/runtime_cuts/scenarios.json": "3c726c9e094c1703d024de171dbd84b6f1adc464520b724daca5877c06f60724"
     }
   },
   "ops": {
@@ -21,22 +21,22 @@
       "op_name": "file-read*",
       "coverage_status": "partial",
       "probes": 12,
-      "matches": 6,
-      "mismatches": 6,
+      "matches": 10,
+      "mismatches": 2,
       "examples": [
         {
           "scenario_id": "adv:struct_flat:allow-ok-root",
           "expectation_id": "adv:struct_flat:allow-ok-root",
           "expected": "allow",
-          "actual": "deny",
-          "match": false
+          "actual": "allow",
+          "match": true
         },
         {
           "scenario_id": "adv:struct_flat:allow-ok-deep",
           "expectation_id": "adv:struct_flat:allow-ok-deep",
           "expected": "allow",
-          "actual": "deny",
-          "match": false
+          "actual": "allow",
+          "match": true
         },
         {
           "scenario_id": "adv:struct_flat:deny-blocked",
@@ -56,8 +56,8 @@
           "scenario_id": "adv:struct_nested:allow-ok-root",
           "expectation_id": "adv:struct_nested:allow-ok-root",
           "expected": "allow",
-          "actual": "deny",
-          "match": false
+          "actual": "allow",
+          "match": true
         }
       ],
       "scenarios": [
@@ -69,6 +69,12 @@
             "total": 1,
             "matches": 0,
             "mismatches": 1,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
             "status": "brittle"
           },
           "expectations": [
@@ -88,8 +94,11 @@
               "actual": "deny",
               "operation": "file-read*",
               "target": "/tmp/runtime-adv/edges/okdir/item.txt",
-              "violation_summary": "EPERM",
-              "stderr": "sandbox_apply: Operation not permitted\n"
+              "failure_stage": "probe",
+              "failure_kind": "probe_nonzero_exit",
+              "mismatch_type": "unexpected_deny",
+              "violation_summary": null,
+              "stderr": "open target: Operation not permitted\n"
             }
           ]
         },
@@ -101,6 +110,12 @@
             "total": 1,
             "matches": 0,
             "mismatches": 1,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
             "status": "brittle"
           },
           "expectations": [
@@ -120,8 +135,11 @@
               "actual": "deny",
               "operation": "file-read*",
               "target": "/tmp/runtime-adv/edges/a",
-              "violation_summary": "EPERM",
-              "stderr": "sandbox_apply: Operation not permitted\n"
+              "failure_stage": "probe",
+              "failure_kind": "probe_nonzero_exit",
+              "mismatch_type": "unexpected_deny",
+              "violation_summary": null,
+              "stderr": "open target: Operation not permitted\n"
             }
           ]
         },
@@ -133,6 +151,12 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
             "status": "ok"
           },
           "expectations": [
@@ -155,6 +179,12 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
             "status": "ok"
           },
           "expectations": [
@@ -172,12 +202,18 @@
         {
           "scenario_id": "adv:struct_flat:allow-ok-deep",
           "profile_id": "adv:struct_flat",
-          "status": "brittle",
+          "status": "ok",
           "results": {
             "total": 1,
-            "matches": 0,
-            "mismatches": 1,
-            "status": "brittle"
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
           },
           "expectations": [
             {
@@ -189,27 +225,23 @@
               "probe_name": "allow-ok-deep"
             }
           ],
-          "mismatches": [
-            {
-              "expectation_id": "adv:struct_flat:allow-ok-deep",
-              "expected": "allow",
-              "actual": "deny",
-              "operation": "file-read*",
-              "target": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
-              "violation_summary": "EPERM",
-              "stderr": "sandbox_apply: Operation not permitted\n"
-            }
-          ]
+          "mismatches": []
         },
         {
           "scenario_id": "adv:struct_flat:allow-ok-root",
           "profile_id": "adv:struct_flat",
-          "status": "brittle",
+          "status": "ok",
           "results": {
             "total": 1,
-            "matches": 0,
-            "mismatches": 1,
-            "status": "brittle"
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
           },
           "expectations": [
             {
@@ -221,17 +253,7 @@
               "probe_name": "allow-ok-root"
             }
           ],
-          "mismatches": [
-            {
-              "expectation_id": "adv:struct_flat:allow-ok-root",
-              "expected": "allow",
-              "actual": "deny",
-              "operation": "file-read*",
-              "target": "/tmp/runtime-adv/struct/ok/allowed.txt",
-              "violation_summary": "EPERM",
-              "stderr": "sandbox_apply: Operation not permitted\n"
-            }
-          ]
+          "mismatches": []
         },
         {
           "scenario_id": "adv:struct_flat:deny-blocked",
@@ -241,6 +263,12 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
             "status": "ok"
           },
           "expectations": [
@@ -263,6 +291,12 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
             "status": "ok"
           },
           "expectations": [
@@ -280,12 +314,18 @@
         {
           "scenario_id": "adv:struct_nested:allow-ok-deep",
           "profile_id": "adv:struct_nested",
-          "status": "brittle",
+          "status": "ok",
           "results": {
             "total": 1,
-            "matches": 0,
-            "mismatches": 1,
-            "status": "brittle"
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
           },
           "expectations": [
             {
@@ -297,27 +337,23 @@
               "probe_name": "allow-ok-deep"
             }
           ],
-          "mismatches": [
-            {
-              "expectation_id": "adv:struct_nested:allow-ok-deep",
-              "expected": "allow",
-              "actual": "deny",
-              "operation": "file-read*",
-              "target": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
-              "violation_summary": "EPERM",
-              "stderr": "sandbox_apply: Operation not permitted\n"
-            }
-          ]
+          "mismatches": []
         },
         {
           "scenario_id": "adv:struct_nested:allow-ok-root",
           "profile_id": "adv:struct_nested",
-          "status": "brittle",
+          "status": "ok",
           "results": {
             "total": 1,
-            "matches": 0,
-            "mismatches": 1,
-            "status": "brittle"
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
           },
           "expectations": [
             {
@@ -329,17 +365,7 @@
               "probe_name": "allow-ok-root"
             }
           ],
-          "mismatches": [
-            {
-              "expectation_id": "adv:struct_nested:allow-ok-root",
-              "expected": "allow",
-              "actual": "deny",
-              "operation": "file-read*",
-              "target": "/tmp/runtime-adv/struct/ok/allowed.txt",
-              "violation_summary": "EPERM",
-              "stderr": "sandbox_apply: Operation not permitted\n"
-            }
-          ]
+          "mismatches": []
         },
         {
           "scenario_id": "adv:struct_nested:deny-blocked",
@@ -349,6 +375,12 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
             "status": "ok"
           },
           "expectations": [
@@ -371,6 +403,12 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
             "status": "ok"
           },
           "expectations": [
@@ -399,22 +437,22 @@
       "op_name": "file-write*",
       "coverage_status": "partial",
       "probes": 12,
-      "matches": 6,
-      "mismatches": 6,
+      "matches": 10,
+      "mismatches": 2,
       "examples": [
         {
           "scenario_id": "adv:struct_flat:write-ok-root",
           "expectation_id": "adv:struct_flat:write-ok-root",
           "expected": "allow",
-          "actual": "deny",
-          "match": false
+          "actual": "allow",
+          "match": true
         },
         {
           "scenario_id": "adv:struct_flat:write-ok-deep",
           "expectation_id": "adv:struct_flat:write-ok-deep",
           "expected": "allow",
-          "actual": "deny",
-          "match": false
+          "actual": "allow",
+          "match": true
         },
         {
           "scenario_id": "adv:struct_flat:write-blocked",
@@ -434,8 +472,8 @@
           "scenario_id": "adv:struct_nested:write-ok-root",
           "expectation_id": "adv:struct_nested:write-ok-root",
           "expected": "allow",
-          "actual": "deny",
-          "match": false
+          "actual": "allow",
+          "match": true
         }
       ],
       "scenarios": [
@@ -447,6 +485,12 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
             "status": "ok"
           },
           "expectations": [
@@ -469,6 +513,12 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
             "status": "ok"
           },
           "expectations": [
@@ -491,6 +541,12 @@
             "total": 1,
             "matches": 0,
             "mismatches": 1,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
             "status": "brittle"
           },
           "expectations": [
@@ -510,8 +566,11 @@
               "actual": "deny",
               "operation": "file-write*",
               "target": "/tmp/runtime-adv/edges/okdir/item.txt",
-              "violation_summary": "EPERM",
-              "stderr": "sandbox_apply: Operation not permitted\n"
+              "failure_stage": "probe",
+              "failure_kind": "probe_nonzero_exit",
+              "mismatch_type": "unexpected_deny",
+              "violation_summary": null,
+              "stderr": "open target: Operation not permitted\n"
             }
           ]
         },
@@ -523,6 +582,12 @@
             "total": 1,
             "matches": 0,
             "mismatches": 1,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
             "status": "brittle"
           },
           "expectations": [
@@ -542,8 +607,11 @@
               "actual": "deny",
               "operation": "file-write*",
               "target": "/tmp/runtime-adv/edges/a",
-              "violation_summary": "EPERM",
-              "stderr": "sandbox_apply: Operation not permitted\n"
+              "failure_stage": "probe",
+              "failure_kind": "probe_nonzero_exit",
+              "mismatch_type": "unexpected_deny",
+              "violation_summary": null,
+              "stderr": "open target: Operation not permitted\n"
             }
           ]
         },
@@ -555,6 +623,12 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
             "status": "ok"
           },
           "expectations": [
@@ -572,12 +646,18 @@
         {
           "scenario_id": "adv:struct_flat:write-ok-deep",
           "profile_id": "adv:struct_flat",
-          "status": "brittle",
+          "status": "ok",
           "results": {
             "total": 1,
-            "matches": 0,
-            "mismatches": 1,
-            "status": "brittle"
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
           },
           "expectations": [
             {
@@ -589,27 +669,23 @@
               "probe_name": "write-ok-deep"
             }
           ],
-          "mismatches": [
-            {
-              "expectation_id": "adv:struct_flat:write-ok-deep",
-              "expected": "allow",
-              "actual": "deny",
-              "operation": "file-write*",
-              "target": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
-              "violation_summary": "EPERM",
-              "stderr": "sandbox_apply: Operation not permitted\n"
-            }
-          ]
+          "mismatches": []
         },
         {
           "scenario_id": "adv:struct_flat:write-ok-root",
           "profile_id": "adv:struct_flat",
-          "status": "brittle",
+          "status": "ok",
           "results": {
             "total": 1,
-            "matches": 0,
-            "mismatches": 1,
-            "status": "brittle"
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
           },
           "expectations": [
             {
@@ -621,17 +697,7 @@
               "probe_name": "write-ok-root"
             }
           ],
-          "mismatches": [
-            {
-              "expectation_id": "adv:struct_flat:write-ok-root",
-              "expected": "allow",
-              "actual": "deny",
-              "operation": "file-write*",
-              "target": "/tmp/runtime-adv/struct/ok/allowed.txt",
-              "violation_summary": "EPERM",
-              "stderr": "sandbox_apply: Operation not permitted\n"
-            }
-          ]
+          "mismatches": []
         },
         {
           "scenario_id": "adv:struct_flat:write-outside",
@@ -641,6 +707,12 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
             "status": "ok"
           },
           "expectations": [
@@ -663,6 +735,12 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
             "status": "ok"
           },
           "expectations": [
@@ -680,12 +758,18 @@
         {
           "scenario_id": "adv:struct_nested:write-ok-deep",
           "profile_id": "adv:struct_nested",
-          "status": "brittle",
+          "status": "ok",
           "results": {
             "total": 1,
-            "matches": 0,
-            "mismatches": 1,
-            "status": "brittle"
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
           },
           "expectations": [
             {
@@ -697,27 +781,23 @@
               "probe_name": "write-ok-deep"
             }
           ],
-          "mismatches": [
-            {
-              "expectation_id": "adv:struct_nested:write-ok-deep",
-              "expected": "allow",
-              "actual": "deny",
-              "operation": "file-write*",
-              "target": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
-              "violation_summary": "EPERM",
-              "stderr": "sandbox_apply: Operation not permitted\n"
-            }
-          ]
+          "mismatches": []
         },
         {
           "scenario_id": "adv:struct_nested:write-ok-root",
           "profile_id": "adv:struct_nested",
-          "status": "brittle",
+          "status": "ok",
           "results": {
             "total": 1,
-            "matches": 0,
-            "mismatches": 1,
-            "status": "brittle"
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
           },
           "expectations": [
             {
@@ -729,17 +809,7 @@
               "probe_name": "write-ok-root"
             }
           ],
-          "mismatches": [
-            {
-              "expectation_id": "adv:struct_nested:write-ok-root",
-              "expected": "allow",
-              "actual": "deny",
-              "operation": "file-write*",
-              "target": "/tmp/runtime-adv/struct/ok/allowed.txt",
-              "violation_summary": "EPERM",
-              "stderr": "sandbox_apply: Operation not permitted\n"
-            }
-          ]
+          "mismatches": []
         },
         {
           "scenario_id": "adv:struct_nested:write-outside",
@@ -749,6 +819,12 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
             "status": "ok"
           },
           "expectations": [
@@ -775,17 +851,17 @@
     "96": {
       "op_id": 96,
       "op_name": "mach-lookup",
-      "coverage_status": "partial",
+      "coverage_status": "ok",
       "probes": 8,
-      "matches": 4,
-      "mismatches": 4,
+      "matches": 8,
+      "mismatches": 0,
       "examples": [
         {
           "scenario_id": "adv:mach_simple_allow:allow-cfprefsd",
           "expectation_id": "adv:mach_simple_allow:allow-cfprefsd",
           "expected": "allow",
-          "actual": "deny",
-          "match": false
+          "actual": "allow",
+          "match": true
         },
         {
           "scenario_id": "adv:mach_simple_allow:deny-bogus",
@@ -798,8 +874,8 @@
           "scenario_id": "adv:mach_simple_variants:allow-cfprefsd",
           "expectation_id": "adv:mach_simple_variants:allow-cfprefsd",
           "expected": "allow",
-          "actual": "deny",
-          "match": false
+          "actual": "allow",
+          "match": true
         },
         {
           "scenario_id": "adv:mach_simple_variants:deny-bogus",
@@ -812,20 +888,26 @@
           "scenario_id": "adv:mach_local_literal:allow-cfprefsd-local",
           "expectation_id": "adv:mach_local_literal:allow-cfprefsd-local",
           "expected": "allow",
-          "actual": "deny",
-          "match": false
+          "actual": "allow",
+          "match": true
         }
       ],
       "scenarios": [
         {
           "scenario_id": "adv:mach_local_literal:allow-cfprefsd-local",
           "profile_id": "adv:mach_local_literal",
-          "status": "brittle",
+          "status": "ok",
           "results": {
             "total": 1,
-            "matches": 0,
-            "mismatches": 1,
-            "status": "brittle"
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
           },
           "expectations": [
             {
@@ -837,17 +919,7 @@
               "probe_name": "allow-cfprefsd-local"
             }
           ],
-          "mismatches": [
-            {
-              "expectation_id": "adv:mach_local_literal:allow-cfprefsd-local",
-              "expected": "allow",
-              "actual": "deny",
-              "operation": "mach-lookup",
-              "target": "com.apple.cfprefsd.agent",
-              "violation_summary": "EPERM",
-              "stderr": "sandbox_apply: Operation not permitted\n"
-            }
-          ]
+          "mismatches": []
         },
         {
           "scenario_id": "adv:mach_local_literal:deny-bogus-local",
@@ -857,6 +929,12 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
             "status": "ok"
           },
           "expectations": [
@@ -874,12 +952,18 @@
         {
           "scenario_id": "adv:mach_local_regex:allow-cfprefsd-local",
           "profile_id": "adv:mach_local_regex",
-          "status": "brittle",
+          "status": "ok",
           "results": {
             "total": 1,
-            "matches": 0,
-            "mismatches": 1,
-            "status": "brittle"
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
           },
           "expectations": [
             {
@@ -891,17 +975,7 @@
               "probe_name": "allow-cfprefsd-local"
             }
           ],
-          "mismatches": [
-            {
-              "expectation_id": "adv:mach_local_regex:allow-cfprefsd-local",
-              "expected": "allow",
-              "actual": "deny",
-              "operation": "mach-lookup",
-              "target": "com.apple.cfprefsd.agent",
-              "violation_summary": "EPERM",
-              "stderr": "sandbox_apply: Operation not permitted\n"
-            }
-          ]
+          "mismatches": []
         },
         {
           "scenario_id": "adv:mach_local_regex:deny-bogus-local",
@@ -911,6 +985,12 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
             "status": "ok"
           },
           "expectations": [
@@ -928,12 +1008,18 @@
         {
           "scenario_id": "adv:mach_simple_allow:allow-cfprefsd",
           "profile_id": "adv:mach_simple_allow",
-          "status": "brittle",
+          "status": "ok",
           "results": {
             "total": 1,
-            "matches": 0,
-            "mismatches": 1,
-            "status": "brittle"
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
           },
           "expectations": [
             {
@@ -945,17 +1031,7 @@
               "probe_name": "allow-cfprefsd"
             }
           ],
-          "mismatches": [
-            {
-              "expectation_id": "adv:mach_simple_allow:allow-cfprefsd",
-              "expected": "allow",
-              "actual": "deny",
-              "operation": "mach-lookup",
-              "target": "com.apple.cfprefsd.agent",
-              "violation_summary": "EPERM",
-              "stderr": "sandbox_apply: Operation not permitted\n"
-            }
-          ]
+          "mismatches": []
         },
         {
           "scenario_id": "adv:mach_simple_allow:deny-bogus",
@@ -965,6 +1041,12 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
             "status": "ok"
           },
           "expectations": [
@@ -982,12 +1064,18 @@
         {
           "scenario_id": "adv:mach_simple_variants:allow-cfprefsd",
           "profile_id": "adv:mach_simple_variants",
-          "status": "brittle",
+          "status": "ok",
           "results": {
             "total": 1,
-            "matches": 0,
-            "mismatches": 1,
-            "status": "brittle"
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
           },
           "expectations": [
             {
@@ -999,17 +1087,7 @@
               "probe_name": "allow-cfprefsd"
             }
           ],
-          "mismatches": [
-            {
-              "expectation_id": "adv:mach_simple_variants:allow-cfprefsd",
-              "expected": "allow",
-              "actual": "deny",
-              "operation": "mach-lookup",
-              "target": "com.apple.cfprefsd.agent",
-              "violation_summary": "EPERM",
-              "stderr": "sandbox_apply: Operation not permitted\n"
-            }
-          ]
+          "mismatches": []
         },
         {
           "scenario_id": "adv:mach_simple_variants:deny-bogus",
@@ -1019,6 +1097,12 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
             "status": "ok"
           },
           "expectations": [
@@ -1045,21 +1129,35 @@
     "112": {
       "op_id": 112,
       "op_name": "network-outbound",
-      "coverage_status": "partial",
-      "probes": 2,
-      "matches": 1,
-      "mismatches": 1,
+      "coverage_status": "ok",
+      "probes": 4,
+      "matches": 4,
+      "mismatches": 0,
       "examples": [
         {
           "scenario_id": "adv:net_outbound_allow:tcp-loopback",
           "expectation_id": "adv:net_outbound_allow:tcp-loopback",
           "expected": "allow",
-          "actual": "deny",
-          "match": false
+          "actual": "allow",
+          "match": true
+        },
+        {
+          "scenario_id": "adv:net_outbound_allow:tcp-loopback-2",
+          "expectation_id": "adv:net_outbound_allow:tcp-loopback-2",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
         },
         {
           "scenario_id": "adv:net_outbound_deny:tcp-loopback",
           "expectation_id": "adv:net_outbound_deny:tcp-loopback",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        },
+        {
+          "scenario_id": "adv:net_outbound_deny:tcp-loopback-2",
+          "expectation_id": "adv:net_outbound_deny:tcp-loopback-2",
           "expected": "deny",
           "actual": "deny",
           "match": true
@@ -1069,34 +1167,58 @@
         {
           "scenario_id": "adv:net_outbound_allow:tcp-loopback",
           "profile_id": "adv:net_outbound_allow",
-          "status": "brittle",
+          "status": "ok",
           "results": {
             "total": 1,
-            "matches": 0,
-            "mismatches": 1,
-            "status": "brittle"
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
           },
           "expectations": [
             {
               "expectation_id": "adv:net_outbound_allow:tcp-loopback",
               "profile_id": "adv:net_outbound_allow",
               "operation": "network-outbound",
-              "target": "127.0.0.1",
+              "target": "127.0.0.1:63953",
               "expected": "allow",
               "probe_name": "tcp-loopback"
             }
           ],
-          "mismatches": [
+          "mismatches": []
+        },
+        {
+          "scenario_id": "adv:net_outbound_allow:tcp-loopback-2",
+          "profile_id": "adv:net_outbound_allow",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
             {
-              "expectation_id": "adv:net_outbound_allow:tcp-loopback",
-              "expected": "allow",
-              "actual": "deny",
+              "expectation_id": "adv:net_outbound_allow:tcp-loopback-2",
+              "profile_id": "adv:net_outbound_allow",
               "operation": "network-outbound",
-              "target": "127.0.0.1",
-              "violation_summary": "EPERM",
-              "stderr": "sandbox_apply: Operation not permitted\n"
+              "target": "127.0.0.1:63954",
+              "expected": "allow",
+              "probe_name": "tcp-loopback-2"
             }
-          ]
+          ],
+          "mismatches": []
         },
         {
           "scenario_id": "adv:net_outbound_deny:tcp-loopback",
@@ -1106,6 +1228,12 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
             "status": "ok"
           },
           "expectations": [
@@ -1113,9 +1241,37 @@
               "expectation_id": "adv:net_outbound_deny:tcp-loopback",
               "profile_id": "adv:net_outbound_deny",
               "operation": "network-outbound",
-              "target": "127.0.0.1",
+              "target": "127.0.0.1:63953",
               "expected": "deny",
               "probe_name": "tcp-loopback"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "adv:net_outbound_deny:tcp-loopback-2",
+          "profile_id": "adv:net_outbound_deny",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "adv:net_outbound_deny:tcp-loopback-2",
+              "profile_id": "adv:net_outbound_deny",
+              "operation": "network-outbound",
+              "target": "127.0.0.1:63954",
+              "expected": "deny",
+              "probe_name": "tcp-loopback-2"
             }
           ],
           "mismatches": []

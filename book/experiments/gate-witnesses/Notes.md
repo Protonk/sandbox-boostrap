@@ -24,3 +24,8 @@
   - `python3 book/experiments/gate-witnesses/message_filter_xrefs.py`
   - To refresh the underlying Ghidra output (requires existing sandbox_kext project):
     - `PYTHONPATH=$PWD python3 book/api/ghidra/run_task.py sandbox-kext-string-refs --build 14.4.1-23E224 --project-name sandbox_kext_14.4.1-23E224 --java-home /Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home --process-existing --exec --script-args "com.apple.private.security.message-filter" "com.apple.private.security.message-filter-manager" "missing message filter entitlement" "failed to associate message filter" "cannot apply mach message filtering"`
+
+- Apply-gate sanity check against witness controls (outside harness sandbox):
+  - `book/api/SBPL-wrapper/wrapper --preflight force --blob book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/minimal_failing.sb.bin -- /bin/true`
+  - `book/api/SBPL-wrapper/wrapper --preflight force --blob book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/passing_neighbor.sb.bin -- /bin/true`
+  - Result: both runs now fail at `failure_stage: apply` (`sandbox_apply` EPERM); indicates a likely global-gate context rather than a profile-specific gate on this host.

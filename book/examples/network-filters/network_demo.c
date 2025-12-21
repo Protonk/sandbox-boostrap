@@ -8,7 +8,7 @@
 #include <unistd.h>
 
 // Network operations surface as sandbox operations like `network-outbound`
-// with filters on socket domain/type/remote (substrate/Appendix.md). This demo
+// with filters on socket domain/type/remote (book/substrate/Appendix.md). This demo
 // performs a few socket types so you can map process-side calls to sandbox
 // vocabulary when reasoning about profiles.
 

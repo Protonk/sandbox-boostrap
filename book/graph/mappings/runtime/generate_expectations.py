@@ -72,7 +72,7 @@ def allowed_mismatch(expectation_id: str, impact_map: Dict[str, Any]) -> bool:
     allowed_tags = set((impact_map.get("metadata") or {}).get("allowed_tags") or [])
     entry = impact_map.get(expectation_id) or {}
     tags = set(entry.get("tags") or [])
-    return allowed_tags and tags and tags.issubset(allowed_tags)
+    return bool(allowed_tags and tags and tags.issubset(allowed_tags))
 
 
 def gather_profile_results(story: Dict[str, Any], impact_map: Dict[str, Any]) -> Dict[str, Dict[str, Any]]:
