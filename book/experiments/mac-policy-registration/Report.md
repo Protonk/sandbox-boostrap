@@ -102,13 +102,15 @@ Recover the sandbox/mac_policy_conf and mac_policy_ops (plus registration site) 
   - `dumps/ghidra/out/14.4.1-23E224/kernel-imm-search/imm_search.json`
   - `book/experiments/mac-policy-registration/out/otool_indirect_symbols.txt`
   - `book/experiments/mac-policy-registration/out/otool_indirect_symbols_amfi.txt`
-  - `book/experiments/mac-policy-registration/out/otool_indirect_symbols_kc.txt`
-  - `book/experiments/mac-policy-registration/out/stub_targets.json`
-  - `book/experiments/mac-policy-registration/out/stub_targets_kc.json`
-  - `book/experiments/mac-policy-registration/out/kc_fileset_index.json`
-  - `book/experiments/mac-policy-registration/out/kc_fixups_summary.json`
-  - `book/experiments/mac-policy-registration/out/kc_fixups.jsonl`
-  - `book/experiments/mac-policy-registration/out/mac_policy_register_call_sites.json`
+- `book/experiments/mac-policy-registration/out/otool_indirect_symbols_kc.txt`
+- `book/experiments/mac-policy-registration/out/stub_targets.json`
+- `book/experiments/mac-policy-registration/out/stub_targets_kc.json`
+- `book/experiments/mac-policy-registration/out/kc_fileset_index.json`
+- `book/experiments/mac-policy-registration/out/kc_fixups_summary.json`
+- `book/experiments/mac-policy-registration/out/kc_fixups.jsonl`
+- `book/experiments/mac-policy-registration/out/asp_conf_fixup_candidates.json`
+- `book/experiments/mac-policy-registration/out/asp_conf_fixup_candidates_full.json`
+- `book/experiments/mac-policy-registration/out/mac_policy_register_call_sites.json`
 
 ## Status
 - Rebuilt sandbox kext from `BootKernelCollection.kc` via `rebuild_sandbox_kext.py` (LC_FILESET_ENTRY `com.apple.security.sandbox`), fixing load-command offsets and producing an arm64e Mach-O (~90 MB) suitable for Ghidra import. Script now supports `--all-matching` (enumerate/rebuild fileset names containing sandbox/seatbelt); this world only exposes `com.apple.security.sandbox` (also emitted as `sandbox_kext_com_apple_security_sandbox.bin`).
@@ -148,7 +150,15 @@ Recover the sandbox/mac_policy_conf and mac_policy_ops (plus registration site) 
 - BootKernelCollection is `MH_FILESET` with 355 fileset entries and 7 top-level segments (`kc_fileset_index.json`), with a segment-interval map built from each entry’s `LC_SEGMENT_64` ranges (1440 intervals; `__LINKEDIT` excluded because it is a shared range across entries, overlap_total=0).
 - Top-level `LC_DYLD_CHAINED_FIXUPS` parsed (`fixups_version: 0`, `imports_count: 0`) with pointer_format `8` only; full chain walking (next*4) yields 914,488 fixups across `__DATA_CONST` (894,872) and `__DATA` (19,616), with max chain length 2048 and per-page coverage recorded (`kc_fixups_summary.json` + `kc_fixups.jsonl`). No `DYLD_CHAINED_PTR_START_MULTI` pages observed.
 - Fixup decoding now yields `cache_level_counts: {0: 914488}` with `resolved_in_entry_fraction: 1.0` and `resolved_outside_fraction: 0.0` (KC on-disk vmaddr space, slide=0), so no base-pointer inference beyond the seed is needed under the corrected decode.
+- Fixups audit run against the full fixups file (stored under `dumps/Sandbox-oversize/mac-policy-registration/`) confirms `cache_level_counts: {0: 914488}` and `next_out_of_page_fraction: {0: 0.0}` in `kc_fixups_audit.json`.
 - `kc_fixups.jsonl` is now emitted in **compact** mode by default to stay GitHub‑safe; use `kc_truth_layer.py --fixups-mode full` locally for full fixup records (required by `kc_fixups_audit.py`). Status remains **partial** because higher‑order semantics are still under exploration.
+- Full fixups are intentionally kept out of source control because the JSONL routinely exceeds 100 MB and contains host-specific pointer decode detail. They are still valuable for fixup audits and pointer-format debugging. Generate them locally into `dumps/Sandbox-oversize/mac-policy-registration/` (git-ignored) with:
+```sh
+PYTHONPATH=$PWD python3 book/experiments/mac-policy-registration/kc_truth_layer.py \
+  --build-id 14.4.1-23E224 \
+  --fixups-mode full \
+  --out-dir dumps/Sandbox-oversize/mac-policy-registration
+```
 
 ### String-anchored mac_policy_register hunt (partial)
 - `kernel-collection-string-call-sites` with queries `Security policy loaded` and `mac_policy_register failed` finds 4 string hits, 4 referencing functions, and 53 call sites (`string_call_sites.json`).
@@ -166,11 +176,14 @@ Recover the sandbox/mac_policy_conf and mac_policy_ops (plus registration site) 
 - Global-store fallback now recovers `mpc_ops` for AMFI and mcxalr when the static conf structs are zeroed (`mpc_ops_global_stores` recorded); `mpc_ops` for ASP remains unresolved (still `x0 + 0x98`, no dispatcher-context base recovered).
 - Dispatcher-context recovery now accepts read refs and runs a global BLR/BLRA sweep (backtrace depth capped at 60); no dispatcher-context matches surfaced for ASP, so `mpc_ops` is still unresolved.
 - Ops-owner attribution uses ops-table sampling with fixup-aware + PAC-canonicalized pointer handling and a 0x6000-byte window. Owners now map to distinct entries: AppleImage4 → `com.apple.security.AppleImage4`, Quarantine → `com.apple.security.quarantine`, Sandbox → `com.apple.security.sandbox`, EndpointSecurity → `com.apple.kernel`, AMFI → `com.apple.kernel`, mcxalr → `com.apple.filesystems.msdosfs`; ASP remains unresolved. Status remains **partial** because ASP ops base and some fixup base pointers are still under exploration.
-- ASP fixup signature scan (adjacent `mpc_name`/`mpc_fullname` fixup slots) yields `status: no_adjacent_fixup_slots` with zero matches under the corrected fixups decode; this is **partial** evidence that ASP’s `mac_policy_conf` is runtime-constructed or not statically materialized as adjacent name/fullname pointers.
-- Re-run with target-bit matching (`--allow-unresolved`) also yields zero adjacent matches (`status.target = no_adjacent_target_slots`), so there is no fixup-slot signature for ASP even without relying on resolved base pointers.
+- ASP fixup signature scan (adjacent `mpc_name`/`mpc_fullname` fixup slots) yields `status: no_adjacent_fixup_slots` with zero matches under the corrected fixups decode (`asp_conf_fixup_candidates.json`).
+- Re-run with target-bit matching on the full fixups file (`--allow-unresolved`) also yields zero adjacent matches (`status.target = no_adjacent_target_slots` in `asp_conf_fixup_candidates_full.json`). This is now treated as **positive evidence** that ASP’s `mac_policy_conf` is runtime‑initialized inside an object instance (not statically materialized as a fixup-backed `{name, fullname}` pointer pair) for this world.
 - Fixups decode audit (`kc_fixups_audit.py`) with corrected pointer_format 8 bit layout shows chain stepping stays within page boundaries (`next_out_of_page_fraction: 0.0` for cache_level 0). The corrected decode yields `cache_level_counts: {0: 914488}` and `resolved_in_entry_fraction: 1.0`, so the earlier cacheLevel skew and chain drift were decode artifacts. Status remains **partial** but the fixups layer is now internally consistent for BootKC.
 - ASP fixup signature scan re-run with the corrected fixups map still finds no adjacent `mpc_name`/`mpc_fullname` fixup slots (both resolved and target-bit modes report zero matches). This strengthens the static conclusion that ASP’s `mac_policy_conf` is not present as a static, fixup-addressable struct in BootKC data for this world, i.e., it is likely runtime-constructed; label remains **partial** until a runtime witness or additional static evidence is captured.
 - Added an interprocedural store trace (`asp_context_trace`) to look for writes to `x0/x19 + 0xb10/0xb18/0xb30` around the ASP registration call and its direct callers. With the full corrected fixups map, Ghidra headless OOMs; the trace was run with `fixups-mode=skip` (partial pointer resolution). The trace confirms the in-function stores and a single direct caller, but the caller’s `x0` is still unresolved (`func_boundary`), so no concrete ASP base/ops address emerges. Status remains **partial**.
+- Added ASP interprocedural object-relative store-chain collection (`asp_store_chain`) using the compact fixups map. The chain scans the ASP registration function and direct callees (depth ≤ 3) for stores into the ops (`this + 0x98 + window`) and conf (`this + 0xb10 + window`) regions. Results: 22 functions scanned, 22 stores in the ops/conf windows (12 ops, 10 conf), with 9 exec-pointer stores in the ops window; all 9 resolve into `com.apple.AppleSystemPolicy`. This gives owner attribution without resolving an absolute ASP base pointer.
+- Added bulk-init (memcpy/bcopy/bzero‑style) detection to the ASP store-chain collector. The detector looks for callsites with dst in the ops/conf windows and a large length argument, then treats direct exec-pointer STRs as patches over any template copy. The current run finds no bulk-init calls (`bulk_inits: 0`), so ASP remains a patch‑only ops map (`ops_template_slots: 0`, `ops_patch_slots: 9`, `ops_slots_merged: 9`). This is consistent with runtime initialization but does not yet surface a bulk template.
+- Added an external cross-check for ASP patch offsets: each merged ops slot now includes `absolute_this_offset = 0x98 + slot_offset`, and offsets `{0x128, 0x1b8, 0x298, 0x468}` are labeled against Objective‑See’s AppleSystemPolicy offsets (hook names: `file_check_mmap`, `file_check_library_validation`, `proc_notify_exec_complete`; `0x128` recorded as offset‑only). This is **external/brittle** alignment, not a host witness, but it strengthens the runtime‑init model without requiring an absolute object base.
 
 ### AMFI pivot (static, blocked)
 - Rebuilt `com.apple.driver.AppleMobileFileIntegrity` into `sandbox_kext_com_apple_driver_AppleMobileFileIntegrity.bin` and imported into `amfi_kext_14.4.1-23E224` (block disasm over `__TEXT` matched 1 executable block).

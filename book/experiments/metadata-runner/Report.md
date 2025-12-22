@@ -2,6 +2,7 @@
 
 ## Purpose
 - Capture a host witness for file metadata operations (stat/chmod/chown/utimes) across alias vs canonical paths, replacing the current harness gap for metadata-only ops.
+- This experiment is the canonical home for **metadata canonicalization** on this world; for read/write canonicalization see `book/experiments/vfs-canonicalization/Report.md`.
 
 ## Baseline & scope
 - Host baseline: sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 with SIP enabled, per `book/experiments/AGENTS.md`.

@@ -29,6 +29,12 @@ SIGN_BIT = 0x8000000000000000L
 _DECOMP = None
 _DECOMP_CACHE = {}
 _EXT_OPS = []
+_ASP_OFFSET_CROSSCHECK = {
+    0x468: {"hook_name": "proc_notify_exec_complete", "source": "objective_see_blog_0x6A"},
+    0x298: {"hook_name": "file_check_library_validation", "source": "objective_see_blog_0x6A"},
+    0x1B8: {"hook_name": "file_check_mmap", "source": "objective_see_blog_0x6A"},
+    0x128: {"hook_name": None, "source": "objective_see_blog_0x6A", "note": "offset-only in prompt"},
+}
 for _name in ("SIGNEXT", "INT_SEXT", "INT_ZEXT", "ZEXT"):
     if hasattr(PcodeOp, _name):
         _EXT_OPS.append(getattr(PcodeOp, _name))
@@ -1160,6 +1166,491 @@ def _scan_stores_before_call(call_instr, base_regs, offsets, memory, fixups_map,
     return results
 
 
+def _resolve_object_relative_offset(instr, store_base, store_off, base_regs, memory, func_body=None, max_back=60):
+    if not store_base:
+        return None
+    store_base_norm = _normalize_reg(store_base)
+    base_set = {_normalize_reg(reg) for reg in base_regs if reg}
+    if store_base_norm in base_set:
+        return {
+            "object_base": store_base_norm,
+            "object_offset": _s64(store_off),
+            "source": "direct",
+        }
+    res = _resolve_reg_value(
+        instr.getPrevious(), store_base_norm, memory, max_back=max_back, depth=2, func_body=func_body
+    )
+    base_reg = res.get("base_reg")
+    delta = res.get("delta")
+    if base_reg and _normalize_reg(base_reg) in base_set and delta is not None:
+        return {
+            "object_base": _normalize_reg(base_reg),
+            "object_offset": _s64(delta + store_off),
+            "source": res.get("source"),
+            "expr": {"base_reg": base_reg, "delta": delta, "source": res.get("source")},
+        }
+    return None
+
+
+def _resolve_object_relative_from_resolution(resolution, base_regs):
+    if not resolution:
+        return None
+    base_set = {_normalize_reg(reg) for reg in base_regs if reg}
+    base_reg = resolution.get("base_reg")
+    delta = resolution.get("delta")
+    if base_reg and _normalize_reg(base_reg) in base_set and delta is not None:
+        return {
+            "object_base": _normalize_reg(base_reg),
+            "object_offset": _s64(delta),
+            "source": resolution.get("source"),
+            "expr": {"base_reg": base_reg, "delta": delta, "source": resolution.get("source")},
+        }
+    return None
+
+
+def _store_region(offset, ops_base, ops_window, conf_base, conf_window):
+    if offset is None:
+        return None
+    if ops_base is not None and ops_base <= offset < (ops_base + ops_window):
+        return {"region": "ops", "relative": _s64(offset - ops_base)}
+    if conf_base is not None and conf_base <= offset < (conf_base + conf_window):
+        return {"region": "conf", "relative": _s64(offset - conf_base)}
+    return None
+
+
+def _direct_call_target(instr):
+    try:
+        flow = instr.getFlowType()
+        if not flow or not flow.isCall():
+            return None
+    except Exception:
+        pass
+    flows = instr.getFlows()
+    if flows and len(flows) == 1:
+        return flows[0]
+    return None
+
+
+def _detect_bulk_init_call(
+    instr,
+    func,
+    listing,
+    memory,
+    fixups_map,
+    base_regs,
+    ops_base,
+    ops_window,
+    conf_base,
+    conf_window,
+    min_size=0x100,
+    max_size=0x4000,
+):
+    if not func or not instr:
+        return None
+    call_addr = instr.getAddress()
+    dst_res = _resolve_callsite_argument(func, call_addr, 1, listing, memory, max_back=80)
+    dst_obj = _resolve_object_relative_from_resolution(dst_res, base_regs)
+    if not dst_obj:
+        return None
+    region_info = _store_region(
+        dst_obj.get("object_offset"), ops_base, ops_window, conf_base, conf_window
+    )
+    if not region_info:
+        return None
+    len_res = _resolve_callsite_argument(func, call_addr, 3, listing, memory, max_back=80)
+    length = None
+    if len_res:
+        length = len_res.get("value")
+        if length is None and len_res.get("loaded_value") is not None:
+            length = len_res.get("loaded_value")
+    if length is None:
+        return None
+    length = abs(long(length))
+    if length < min_size or length > max_size:
+        return None
+    src_res = _resolve_callsite_argument(func, call_addr, 2, listing, memory, max_back=80)
+    src_ptr, src_ptr_info = _resolve_arg_value(src_res, memory, fixups_map)
+    src_obj = _resolve_object_relative_from_resolution(src_res, base_regs)
+    zero_fill = False
+    src_val = src_res.get("value") if src_res else None
+    if src_val == 0 or (src_res and src_res.get("loaded_value") == 0) or src_ptr == 0:
+        zero_fill = True
+    kind = "copy"
+    src_block = None
+    if zero_fill:
+        kind = "zero_fill"
+    elif src_obj:
+        kind = "object_copy"
+    elif src_ptr is not None:
+        try:
+            blk = memory.getBlock(toAddr(_s64(src_ptr)))
+            if blk:
+                src_block = blk.getName()
+                kind = "template_copy_ro" if not blk.isWrite() else "template_copy_rw"
+            else:
+                kind = "template_copy_unknown"
+        except Exception:
+            kind = "template_copy_unknown"
+    return {
+        "call_site": _format_addr(_s64(call_addr.getOffset())),
+        "target": _format_addr(_s64(_direct_call_target(instr).getOffset())) if _direct_call_target(instr) else None,
+        "dst": {
+            "object_base": dst_obj.get("object_base"),
+            "object_offset": dst_obj.get("object_offset"),
+            "region": region_info.get("region"),
+            "region_offset": region_info.get("relative"),
+        },
+        "length": length,
+        "src": {
+            "resolved": _format_addr(src_ptr) if src_ptr is not None else None,
+            "object_offset": src_obj.get("object_offset") if src_obj else None,
+            "kind": kind,
+            "block": src_block,
+            "resolution": src_res,
+            "pointer": src_ptr_info,
+        },
+    }
+
+
+def _materialize_template_slots(
+    src_addr, length, dst_offset, ops_base_offset, memory, fixups_map, entries, max_slots=2048
+):
+    if src_addr is None or length is None:
+        return None
+    slots = []
+    exec_ptrs = 0
+    resolved_ptrs = 0
+    total_slots = 0
+    limit = min(int(length), max_slots * 8)
+    for off in range(0, limit, 8):
+        total_slots += 1
+        slot_addr = _s64(src_addr + off)
+        raw = _read_ptr(memory, slot_addr)
+        ptr_info = _resolve_pointer_at(slot_addr, raw, fixups_map, memory)
+        resolved = ptr_info.get("resolved")
+        if resolved is not None:
+            resolved_ptrs += 1
+        if resolved is None or not _is_exec_addr(memory, resolved):
+            continue
+        exec_ptrs += 1
+        slots.append(
+            {
+                "slot_offset": _s64((dst_offset - ops_base_offset) + off),
+                "slot_addr": _format_addr(slot_addr),
+                "resolved": _format_addr(resolved),
+                "owner_entry": _find_entry(entries, resolved),
+                "pointer": ptr_info,
+            }
+        )
+    return {
+        "slots": slots,
+        "total_slots": total_slots,
+        "resolved_ptrs": resolved_ptrs,
+        "exec_ptrs": exec_ptrs,
+    }
+
+
+def _scan_function_object_stores(
+    func,
+    limit_addr,
+    listing,
+    memory,
+    fixups_map,
+    entries,
+    base_regs,
+    ops_base,
+    ops_window,
+    conf_base,
+    conf_window,
+    max_stores=200,
+):
+    stores = []
+    calls = []
+    bulk_inits = []
+    if not func:
+        return {"stores": stores, "calls": calls, "bulk_inits": bulk_inits, "store_truncated": False}
+    limit_u = _u64(limit_addr.getOffset()) if limit_addr else None
+    instr_iter = listing.getInstructions(func.getBody(), True)
+    while instr_iter.hasNext() and not monitor.isCancelled():
+        instr = instr_iter.next()
+        if limit_u is not None:
+            if _u64(instr.getAddress().getOffset()) > limit_u:
+                break
+        for store in _store_operands(instr):
+            store_base = store.get("base")
+            store_off = store.get("offset") or 0
+            obj_rel = _resolve_object_relative_offset(
+                instr, store_base, store_off, base_regs, memory, func_body=func.getBody(), max_back=60
+            )
+            if not obj_rel:
+                continue
+            region_info = _store_region(
+                obj_rel.get("object_offset"), ops_base, ops_window, conf_base, conf_window
+            )
+            if not region_info:
+                continue
+            value_info = _resolve_store_value(instr, store.get("reg"), memory, fixups_map, max_back=80)
+            resolved = value_info.get("resolved")
+            stores.append(
+                {
+                    "instruction": instr.toString(),
+                    "store_base": store_base,
+                    "store_offset": store_off,
+                    "object_base": obj_rel.get("object_base"),
+                    "object_offset": obj_rel.get("object_offset"),
+                    "object_source": obj_rel.get("source"),
+                    "object_expr": obj_rel.get("expr"),
+                    "region": region_info.get("region"),
+                    "region_offset": region_info.get("relative"),
+                    "store_value": value_info,
+                    "resolved": _format_addr(resolved),
+                    "classification": _classify_addr(memory, resolved),
+                    "owner_entry": _find_entry(entries, resolved) if resolved is not None else None,
+                }
+            )
+            if len(stores) >= max_stores:
+                return {"stores": stores, "calls": calls, "store_truncated": True}
+        try:
+            flow = instr.getFlowType()
+            is_call = bool(flow and flow.isCall())
+        except Exception:
+            is_call = False
+        if not is_call:
+            continue
+        target_addr = _direct_call_target(instr)
+        calls.append(
+            {
+                "call_site": _format_addr(_s64(instr.getAddress().getOffset())),
+                "target": _format_addr(_s64(target_addr.getOffset())) if target_addr else None,
+            }
+        )
+        bulk = _detect_bulk_init_call(
+            instr,
+            func,
+            listing,
+            memory,
+            fixups_map,
+            base_regs,
+            ops_base,
+            ops_window,
+            conf_base,
+            conf_window,
+        )
+        if bulk:
+            bulk_inits.append(bulk)
+    return {"stores": stores, "calls": calls, "bulk_inits": bulk_inits, "store_truncated": False}
+
+
+def _collect_object_relative_store_chain(
+    root_func,
+    call_addr,
+    listing,
+    memory,
+    fixups_map,
+    entries,
+    mpc_offset,
+    ops_base_offset=0x98,
+    ops_window=0x800,
+    conf_window=0x80,
+    max_depth=3,
+    max_callees=40,
+):
+    if not root_func:
+        return None
+    func_mgr = currentProgram.getFunctionManager()
+    base_regs = ["x0", "x19"]
+    queue = [
+        {
+            "func": root_func,
+            "limit_addr": call_addr,
+            "depth": 0,
+            "from_call": None,
+        }
+    ]
+    visited = set()
+    results = []
+    callee_count = 0
+    all_bulk = []
+    while queue and not monitor.isCancelled():
+        item = queue.pop(0)
+        func = item.get("func")
+        if not func:
+            continue
+        entry_val = _s64(func.getEntryPoint().getOffset())
+        if entry_val in visited:
+            continue
+        visited.add(entry_val)
+        scan = _scan_function_object_stores(
+            func,
+            item.get("limit_addr"),
+            listing,
+            memory,
+            fixups_map,
+            entries,
+            base_regs,
+            ops_base_offset,
+            ops_window,
+            mpc_offset,
+            conf_window,
+        )
+        func_rec = {
+            "function": {
+                "name": func.getName(),
+                "entry": _format_addr(entry_val),
+                "depth": item.get("depth"),
+            },
+            "from_call": item.get("from_call"),
+            "stores": scan.get("stores"),
+            "store_truncated": scan.get("store_truncated"),
+            "calls_scanned": scan.get("calls"),
+            "bulk_inits": scan.get("bulk_inits"),
+        }
+        results.append(func_rec)
+        if scan.get("bulk_inits"):
+            all_bulk.extend(scan.get("bulk_inits"))
+        if item.get("depth") >= max_depth:
+            continue
+        for call in scan.get("calls") or []:
+            if callee_count >= max_callees:
+                break
+            target_text = call.get("target")
+            target_val = _parse_hex(target_text) if target_text else None
+            if target_val is None:
+                continue
+            callee = func_mgr.getFunctionAt(toAddr(_s64(target_val)))
+            if not callee:
+                continue
+            callee_count += 1
+            queue.append(
+                {
+                    "func": callee,
+                    "limit_addr": None,
+                    "depth": item.get("depth") + 1,
+                    "from_call": call,
+                }
+            )
+    if not results:
+        return None
+    owner_hist = {}
+    exec_ptrs = 0
+    patch_slots = []
+    for func_rec in results:
+        for store in func_rec.get("stores") or []:
+            resolved = _parse_hex(store.get("resolved")) if store.get("resolved") else None
+            if resolved is None or not _is_exec_addr(memory, resolved):
+                continue
+            exec_ptrs += 1
+            owner = store.get("owner_entry")
+            if owner:
+                owner_hist[owner] = owner_hist.get(owner, 0) + 1
+            if store.get("region") == "ops":
+                patch_slots.append(
+                    {
+                        "slot_offset": store.get("region_offset"),
+                        "resolved": store.get("resolved"),
+                        "owner_entry": owner,
+                        "source": "store_patch",
+                    }
+                )
+    top_owner = None
+    if owner_hist:
+        top_owner = max(owner_hist.items(), key=lambda item: item[1])[0]
+    template_slots = []
+    template_stats = []
+    for bulk in all_bulk:
+        dst = bulk.get("dst") or {}
+        if dst.get("region") != "ops":
+            continue
+        src_info = bulk.get("src") or {}
+        if not src_info.get("kind", "").startswith("template_copy"):
+            continue
+        src_ptr = _parse_hex(src_info.get("resolved")) if src_info.get("resolved") else None
+        dst_offset = dst.get("object_offset")
+        if src_ptr is None or dst_offset is None:
+            continue
+        materialized = _materialize_template_slots(
+            src_ptr,
+            bulk.get("length"),
+            dst_offset,
+            ops_base_offset,
+            memory,
+            fixups_map,
+            entries,
+        )
+        if materialized:
+            template_stats.append(
+                {
+                    "call_site": bulk.get("call_site"),
+                    "length": bulk.get("length"),
+                    "src": src_info.get("resolved"),
+                    "stats": {
+                        "total_slots": materialized.get("total_slots"),
+                        "resolved_ptrs": materialized.get("resolved_ptrs"),
+                        "exec_ptrs": materialized.get("exec_ptrs"),
+                    },
+                }
+            )
+            template_slots.extend(materialized.get("slots") or [])
+    merged = {}
+    for slot in template_slots:
+        off = slot.get("slot_offset")
+        if off is None:
+            continue
+        merged[int(off)] = {
+            "slot_offset": slot.get("slot_offset"),
+            "resolved": slot.get("resolved"),
+            "owner_entry": slot.get("owner_entry"),
+            "source": "template",
+        }
+    for patch in patch_slots:
+        off = patch.get("slot_offset")
+        if off is None:
+            continue
+        merged[int(off)] = patch
+    merged_slots = []
+    crosscheck = []
+    for key in sorted(merged.keys()):
+        slot = merged[key]
+        abs_off = _s64((ops_base_offset or 0) + int(key))
+        slot["absolute_this_offset"] = abs_off
+        ext = _ASP_OFFSET_CROSSCHECK.get(abs_off)
+        if ext:
+            slot["external_hook_name"] = ext.get("hook_name")
+            slot["external_source"] = ext.get("source")
+            slot["external_note"] = ext.get("note")
+            crosscheck.append(
+                {
+                    "absolute_this_offset": abs_off,
+                    "slot_offset": slot.get("slot_offset"),
+                    "hook_name": ext.get("hook_name"),
+                    "source": ext.get("source"),
+                    "note": ext.get("note"),
+                }
+            )
+        merged_slots.append(slot)
+    return {
+        "config": {
+            "mpc_offset": mpc_offset,
+            "ops_base_offset": ops_base_offset,
+            "ops_window": ops_window,
+            "conf_window": conf_window,
+            "base_regs": base_regs,
+            "max_depth": max_depth,
+            "max_callees": max_callees,
+        },
+        "functions": results,
+        "exec_pointer_count": exec_ptrs,
+        "owner_histogram": owner_hist,
+        "owner_top": top_owner,
+        "bulk_inits": all_bulk,
+        "ops_template_slots": template_slots,
+        "ops_template_stats": template_stats,
+        "ops_patch_slots": patch_slots,
+        "ops_slots_merged": merged_slots,
+        "offset_crosscheck": crosscheck,
+    }
+
+
 def _trace_asp_context(
     asp_func,
     call_addr,
@@ -2273,6 +2764,7 @@ def run():
             caller_entry = _find_entry(entries, _s64(call_addr_val))
 
             asp_trace = None
+            asp_store_chain = None
             if mpc_fields and (
                 mpc_fields.get("mpc_fullname") == "Apple System Policy" or mpc_fields.get("mpc_name") == "ASP"
             ):
@@ -2291,6 +2783,20 @@ def run():
                     memory,
                     fixups_map,
                     max_back=max_back,
+                )
+                asp_store_chain = _collect_object_relative_store_chain(
+                    caller_func,
+                    call_addr,
+                    listing,
+                    memory,
+                    fixups_map,
+                    entries,
+                    int(mpc_offset_val),
+                    ops_base_offset=0x98,
+                    ops_window=0x800,
+                    conf_window=0x80,
+                    max_depth=3,
+                    max_callees=40,
                 )
 
             results.append(
@@ -2311,6 +2817,7 @@ def run():
                     "ops_reconstructed": ops_reconstructed,
                     "ops_reconstructed_owner": ops_reconstructed_owner,
                     "asp_context_trace": asp_trace,
+                    "asp_store_chain": asp_store_chain,
                 }
             )
 

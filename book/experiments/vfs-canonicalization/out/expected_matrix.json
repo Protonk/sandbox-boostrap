@@ -4,671 +4,629 @@
     "operation": "file-read*",
     "requested_path": "/tmp/foo",
     "expected_decision": "deny",
-    "notes": "vfs_tmp_only against alias path /tmp/foo"
+    "notes": "vfs_tmp_only tmp/canonicalized_with_var_tmp_exception/first_only primary /tmp/foo"
   },
   {
     "profile_id": "vfs_tmp_only",
     "operation": "file-read*",
     "requested_path": "/private/tmp/foo",
     "expected_decision": "deny",
-    "notes": "vfs_tmp_only against canonical path /private/tmp/foo"
+    "notes": "vfs_tmp_only tmp/canonicalized_with_var_tmp_exception/first_only alternate /private/tmp/foo"
   },
   {
     "profile_id": "vfs_tmp_only",
     "operation": "file-write*",
     "requested_path": "/tmp/foo",
     "expected_decision": "deny",
-    "notes": "vfs_tmp_only against alias path /tmp/foo"
+    "notes": "vfs_tmp_only tmp/canonicalized_with_var_tmp_exception/first_only primary /tmp/foo"
   },
   {
     "profile_id": "vfs_tmp_only",
     "operation": "file-write*",
     "requested_path": "/private/tmp/foo",
     "expected_decision": "deny",
-    "notes": "vfs_tmp_only against canonical path /private/tmp/foo"
+    "notes": "vfs_tmp_only tmp/canonicalized_with_var_tmp_exception/first_only alternate /private/tmp/foo"
   },
   {
     "profile_id": "vfs_tmp_only",
-    "operation": "file-read-metadata",
-    "requested_path": "/tmp/foo",
-    "expected_decision": "deny",
-    "notes": "vfs_tmp_only against alias path /tmp/foo"
-  },
-  {
-    "profile_id": "vfs_tmp_only",
-    "operation": "file-read-metadata",
-    "requested_path": "/private/tmp/foo",
-    "expected_decision": "deny",
-    "notes": "vfs_tmp_only against canonical path /private/tmp/foo"
-  },
-  {
-    "profile_id": "vfs_tmp_only",
-    "operation": "file-write-metadata",
-    "requested_path": "/tmp/foo",
-    "expected_decision": "deny",
-    "notes": "vfs_tmp_only against alias path /tmp/foo"
-  },
-  {
-    "profile_id": "vfs_tmp_only",
-    "operation": "file-write-metadata",
-    "requested_path": "/private/tmp/foo",
-    "expected_decision": "deny",
-    "notes": "vfs_tmp_only against canonical path /private/tmp/foo"
-  },
-  {
-    "profile_id": "vfs_private_tmp_only",
     "operation": "file-read*",
-    "requested_path": "/tmp/foo",
-    "expected_decision": "allow",
-    "notes": "vfs_private_tmp_only against alias path /tmp/foo"
+    "requested_path": "/tmp/bar",
+    "expected_decision": "deny",
+    "notes": "vfs_tmp_only tmp/canonicalized_with_var_tmp_exception/first_only primary /tmp/bar"
   },
   {
-    "profile_id": "vfs_private_tmp_only",
+    "profile_id": "vfs_tmp_only",
     "operation": "file-read*",
-    "requested_path": "/private/tmp/foo",
-    "expected_decision": "allow",
-    "notes": "vfs_private_tmp_only against canonical path /private/tmp/foo"
+    "requested_path": "/private/tmp/bar",
+    "expected_decision": "deny",
+    "notes": "vfs_tmp_only tmp/canonicalized_with_var_tmp_exception/first_only alternate /private/tmp/bar"
   },
   {
-    "profile_id": "vfs_private_tmp_only",
+    "profile_id": "vfs_tmp_only",
     "operation": "file-write*",
-    "requested_path": "/tmp/foo",
-    "expected_decision": "allow",
-    "notes": "vfs_private_tmp_only against alias path /tmp/foo"
+    "requested_path": "/tmp/bar",
+    "expected_decision": "deny",
+    "notes": "vfs_tmp_only tmp/canonicalized_with_var_tmp_exception/first_only primary /tmp/bar"
   },
   {
-    "profile_id": "vfs_private_tmp_only",
+    "profile_id": "vfs_tmp_only",
     "operation": "file-write*",
-    "requested_path": "/private/tmp/foo",
-    "expected_decision": "allow",
-    "notes": "vfs_private_tmp_only against canonical path /private/tmp/foo"
+    "requested_path": "/private/tmp/bar",
+    "expected_decision": "deny",
+    "notes": "vfs_tmp_only tmp/canonicalized_with_var_tmp_exception/first_only alternate /private/tmp/bar"
   },
   {
-    "profile_id": "vfs_private_tmp_only",
-    "operation": "file-read-metadata",
-    "requested_path": "/tmp/foo",
-    "expected_decision": "allow",
-    "notes": "vfs_private_tmp_only against alias path /tmp/foo"
-  },
-  {
-    "profile_id": "vfs_private_tmp_only",
-    "operation": "file-read-metadata",
-    "requested_path": "/private/tmp/foo",
-    "expected_decision": "allow",
-    "notes": "vfs_private_tmp_only against canonical path /private/tmp/foo"
-  },
-  {
-    "profile_id": "vfs_private_tmp_only",
-    "operation": "file-write-metadata",
-    "requested_path": "/tmp/foo",
-    "expected_decision": "allow",
-    "notes": "vfs_private_tmp_only against alias path /tmp/foo"
-  },
-  {
-    "profile_id": "vfs_private_tmp_only",
-    "operation": "file-write-metadata",
-    "requested_path": "/private/tmp/foo",
-    "expected_decision": "allow",
-    "notes": "vfs_private_tmp_only against canonical path /private/tmp/foo"
-  },
-  {
-    "profile_id": "vfs_both_paths",
+    "profile_id": "vfs_tmp_only",
     "operation": "file-read*",
-    "requested_path": "/tmp/foo",
-    "expected_decision": "allow",
-    "notes": "vfs_both_paths against alias path /tmp/foo"
+    "requested_path": "/tmp/nested/child",
+    "expected_decision": "deny",
+    "notes": "vfs_tmp_only tmp/canonicalized_with_var_tmp_exception/first_only primary /tmp/nested/child"
   },
   {
-    "profile_id": "vfs_both_paths",
+    "profile_id": "vfs_tmp_only",
     "operation": "file-read*",
-    "requested_path": "/private/tmp/foo",
-    "expected_decision": "allow",
-    "notes": "vfs_both_paths against canonical path /private/tmp/foo"
+    "requested_path": "/private/tmp/nested/child",
+    "expected_decision": "deny",
+    "notes": "vfs_tmp_only tmp/canonicalized_with_var_tmp_exception/first_only alternate /private/tmp/nested/child"
   },
   {
-    "profile_id": "vfs_both_paths",
+    "profile_id": "vfs_tmp_only",
     "operation": "file-write*",
+    "requested_path": "/tmp/nested/child",
+    "expected_decision": "deny",
+    "notes": "vfs_tmp_only tmp/canonicalized_with_var_tmp_exception/first_only primary /tmp/nested/child"
+  },
+  {
+    "profile_id": "vfs_tmp_only",
+    "operation": "file-write*",
+    "requested_path": "/private/tmp/nested/child",
+    "expected_decision": "deny",
+    "notes": "vfs_tmp_only tmp/canonicalized_with_var_tmp_exception/first_only alternate /private/tmp/nested/child"
+  },
+  {
+    "profile_id": "vfs_tmp_only",
+    "operation": "file-read*",
+    "requested_path": "/var/tmp/canon",
+    "expected_decision": "deny",
+    "notes": "vfs_tmp_only tmp/canonicalized_with_var_tmp_exception/first_only primary /var/tmp/canon"
+  },
+  {
+    "profile_id": "vfs_tmp_only",
+    "operation": "file-read*",
+    "requested_path": "/private/var/tmp/canon",
+    "expected_decision": "deny",
+    "notes": "vfs_tmp_only tmp/canonicalized_with_var_tmp_exception/first_only alternate /private/var/tmp/canon"
+  },
+  {
+    "profile_id": "vfs_tmp_only",
+    "operation": "file-write*",
+    "requested_path": "/var/tmp/canon",
+    "expected_decision": "deny",
+    "notes": "vfs_tmp_only tmp/canonicalized_with_var_tmp_exception/first_only primary /var/tmp/canon"
+  },
+  {
+    "profile_id": "vfs_tmp_only",
+    "operation": "file-write*",
+    "requested_path": "/private/var/tmp/canon",
+    "expected_decision": "deny",
+    "notes": "vfs_tmp_only tmp/canonicalized_with_var_tmp_exception/first_only alternate /private/var/tmp/canon"
+  },
+  {
+    "profile_id": "vfs_private_tmp_only",
+    "operation": "file-read*",
     "requested_path": "/tmp/foo",
     "expected_decision": "allow",
-    "notes": "vfs_both_paths against alias path /tmp/foo"
+    "notes": "vfs_private_tmp_only tmp/canonicalized_with_var_tmp_exception/second_only primary /tmp/foo"
   },
   {
-    "profile_id": "vfs_both_paths",
-    "operation": "file-write*",
+    "profile_id": "vfs_private_tmp_only",
+    "operation": "file-read*",
     "requested_path": "/private/tmp/foo",
     "expected_decision": "allow",
-    "notes": "vfs_both_paths against canonical path /private/tmp/foo"
+    "notes": "vfs_private_tmp_only tmp/canonicalized_with_var_tmp_exception/second_only alternate /private/tmp/foo"
   },
   {
-    "profile_id": "vfs_both_paths",
-    "operation": "file-read-metadata",
+    "profile_id": "vfs_private_tmp_only",
+    "operation": "file-write*",
     "requested_path": "/tmp/foo",
     "expected_decision": "allow",
-    "notes": "vfs_both_paths against alias path /tmp/foo"
+    "notes": "vfs_private_tmp_only tmp/canonicalized_with_var_tmp_exception/second_only primary /tmp/foo"
   },
   {
-    "profile_id": "vfs_both_paths",
-    "operation": "file-read-metadata",
+    "profile_id": "vfs_private_tmp_only",
+    "operation": "file-write*",
     "requested_path": "/private/tmp/foo",
     "expected_decision": "allow",
-    "notes": "vfs_both_paths against canonical path /private/tmp/foo"
+    "notes": "vfs_private_tmp_only tmp/canonicalized_with_var_tmp_exception/second_only alternate /private/tmp/foo"
+  },
+  {
+    "profile_id": "vfs_private_tmp_only",
+    "operation": "file-read*",
+    "requested_path": "/tmp/bar",
+    "expected_decision": "allow",
+    "notes": "vfs_private_tmp_only tmp/canonicalized_with_var_tmp_exception/second_only primary /tmp/bar"
+  },
+  {
+    "profile_id": "vfs_private_tmp_only",
+    "operation": "file-read*",
+    "requested_path": "/private/tmp/bar",
+    "expected_decision": "allow",
+    "notes": "vfs_private_tmp_only tmp/canonicalized_with_var_tmp_exception/second_only alternate /private/tmp/bar"
+  },
+  {
+    "profile_id": "vfs_private_tmp_only",
+    "operation": "file-write*",
+    "requested_path": "/tmp/bar",
+    "expected_decision": "allow",
+    "notes": "vfs_private_tmp_only tmp/canonicalized_with_var_tmp_exception/second_only primary /tmp/bar"
+  },
+  {
+    "profile_id": "vfs_private_tmp_only",
+    "operation": "file-write*",
+    "requested_path": "/private/tmp/bar",
+    "expected_decision": "allow",
+    "notes": "vfs_private_tmp_only tmp/canonicalized_with_var_tmp_exception/second_only alternate /private/tmp/bar"
+  },
+  {
+    "profile_id": "vfs_private_tmp_only",
+    "operation": "file-read*",
+    "requested_path": "/tmp/nested/child",
+    "expected_decision": "allow",
+    "notes": "vfs_private_tmp_only tmp/canonicalized_with_var_tmp_exception/second_only primary /tmp/nested/child"
+  },
+  {
+    "profile_id": "vfs_private_tmp_only",
+    "operation": "file-read*",
+    "requested_path": "/private/tmp/nested/child",
+    "expected_decision": "allow",
+    "notes": "vfs_private_tmp_only tmp/canonicalized_with_var_tmp_exception/second_only alternate /private/tmp/nested/child"
+  },
+  {
+    "profile_id": "vfs_private_tmp_only",
+    "operation": "file-write*",
+    "requested_path": "/tmp/nested/child",
+    "expected_decision": "allow",
+    "notes": "vfs_private_tmp_only tmp/canonicalized_with_var_tmp_exception/second_only primary /tmp/nested/child"
+  },
+  {
+    "profile_id": "vfs_private_tmp_only",
+    "operation": "file-write*",
+    "requested_path": "/private/tmp/nested/child",
+    "expected_decision": "allow",
+    "notes": "vfs_private_tmp_only tmp/canonicalized_with_var_tmp_exception/second_only alternate /private/tmp/nested/child"
+  },
+  {
+    "profile_id": "vfs_private_tmp_only",
+    "operation": "file-read*",
+    "requested_path": "/var/tmp/canon",
+    "expected_decision": "deny",
+    "notes": "vfs_private_tmp_only tmp/canonicalized_with_var_tmp_exception/second_only primary /var/tmp/canon"
+  },
+  {
+    "profile_id": "vfs_private_tmp_only",
+    "operation": "file-read*",
+    "requested_path": "/private/var/tmp/canon",
+    "expected_decision": "allow",
+    "notes": "vfs_private_tmp_only tmp/canonicalized_with_var_tmp_exception/second_only alternate /private/var/tmp/canon"
+  },
+  {
+    "profile_id": "vfs_private_tmp_only",
+    "operation": "file-write*",
+    "requested_path": "/var/tmp/canon",
+    "expected_decision": "deny",
+    "notes": "vfs_private_tmp_only tmp/canonicalized_with_var_tmp_exception/second_only primary /var/tmp/canon"
+  },
+  {
+    "profile_id": "vfs_private_tmp_only",
+    "operation": "file-write*",
+    "requested_path": "/private/var/tmp/canon",
+    "expected_decision": "allow",
+    "notes": "vfs_private_tmp_only tmp/canonicalized_with_var_tmp_exception/second_only alternate /private/var/tmp/canon"
   },
   {
     "profile_id": "vfs_both_paths",
-    "operation": "file-write-metadata",
+    "operation": "file-read*",
     "requested_path": "/tmp/foo",
     "expected_decision": "allow",
-    "notes": "vfs_both_paths against alias path /tmp/foo"
+    "notes": "vfs_both_paths tmp/canonicalized_with_var_tmp_exception/both primary /tmp/foo"
   },
   {
     "profile_id": "vfs_both_paths",
-    "operation": "file-write-metadata",
+    "operation": "file-read*",
     "requested_path": "/private/tmp/foo",
     "expected_decision": "allow",
-    "notes": "vfs_both_paths against canonical path /private/tmp/foo"
+    "notes": "vfs_both_paths tmp/canonicalized_with_var_tmp_exception/both alternate /private/tmp/foo"
   },
   {
-    "profile_id": "vfs_tmp_only",
-    "operation": "file-read*",
-    "requested_path": "/tmp/bar",
-    "expected_decision": "deny",
-    "notes": "vfs_tmp_only against alias path /tmp/bar"
-  },
-  {
-    "profile_id": "vfs_tmp_only",
-    "operation": "file-read*",
-    "requested_path": "/private/tmp/bar",
-    "expected_decision": "deny",
-    "notes": "vfs_tmp_only against canonical path /private/tmp/bar"
-  },
-  {
-    "profile_id": "vfs_tmp_only",
+    "profile_id": "vfs_both_paths",
     "operation": "file-write*",
-    "requested_path": "/tmp/bar",
-    "expected_decision": "deny",
-    "notes": "vfs_tmp_only against alias path /tmp/bar"
+    "requested_path": "/tmp/foo",
+    "expected_decision": "allow",
+    "notes": "vfs_both_paths tmp/canonicalized_with_var_tmp_exception/both primary /tmp/foo"
   },
   {
-    "profile_id": "vfs_tmp_only",
+    "profile_id": "vfs_both_paths",
     "operation": "file-write*",
-    "requested_path": "/private/tmp/bar",
-    "expected_decision": "deny",
-    "notes": "vfs_tmp_only against canonical path /private/tmp/bar"
-  },
-  {
-    "profile_id": "vfs_tmp_only",
-    "operation": "file-read-metadata",
-    "requested_path": "/tmp/bar",
-    "expected_decision": "deny",
-    "notes": "vfs_tmp_only against alias path /tmp/bar"
-  },
-  {
-    "profile_id": "vfs_tmp_only",
-    "operation": "file-read-metadata",
-    "requested_path": "/private/tmp/bar",
-    "expected_decision": "deny",
-    "notes": "vfs_tmp_only against canonical path /private/tmp/bar"
-  },
-  {
-    "profile_id": "vfs_tmp_only",
-    "operation": "file-write-metadata",
-    "requested_path": "/tmp/bar",
-    "expected_decision": "deny",
-    "notes": "vfs_tmp_only against alias path /tmp/bar"
-  },
-  {
-    "profile_id": "vfs_tmp_only",
-    "operation": "file-write-metadata",
-    "requested_path": "/private/tmp/bar",
-    "expected_decision": "deny",
-    "notes": "vfs_tmp_only against canonical path /private/tmp/bar"
-  },
-  {
-    "profile_id": "vfs_private_tmp_only",
-    "operation": "file-read*",
-    "requested_path": "/tmp/bar",
+    "requested_path": "/private/tmp/foo",
     "expected_decision": "allow",
-    "notes": "vfs_private_tmp_only against alias path /tmp/bar"
-  },
-  {
-    "profile_id": "vfs_private_tmp_only",
-    "operation": "file-read*",
-    "requested_path": "/private/tmp/bar",
-    "expected_decision": "allow",
-    "notes": "vfs_private_tmp_only against canonical path /private/tmp/bar"
-  },
-  {
-    "profile_id": "vfs_private_tmp_only",
-    "operation": "file-write*",
-    "requested_path": "/tmp/bar",
-    "expected_decision": "allow",
-    "notes": "vfs_private_tmp_only against alias path /tmp/bar"
-  },
-  {
-    "profile_id": "vfs_private_tmp_only",
-    "operation": "file-write*",
-    "requested_path": "/private/tmp/bar",
-    "expected_decision": "allow",
-    "notes": "vfs_private_tmp_only against canonical path /private/tmp/bar"
-  },
-  {
-    "profile_id": "vfs_private_tmp_only",
-    "operation": "file-read-metadata",
-    "requested_path": "/tmp/bar",
-    "expected_decision": "allow",
-    "notes": "vfs_private_tmp_only against alias path /tmp/bar"
-  },
-  {
-    "profile_id": "vfs_private_tmp_only",
-    "operation": "file-read-metadata",
-    "requested_path": "/private/tmp/bar",
-    "expected_decision": "allow",
-    "notes": "vfs_private_tmp_only against canonical path /private/tmp/bar"
-  },
-  {
-    "profile_id": "vfs_private_tmp_only",
-    "operation": "file-write-metadata",
-    "requested_path": "/tmp/bar",
-    "expected_decision": "allow",
-    "notes": "vfs_private_tmp_only against alias path /tmp/bar"
-  },
-  {
-    "profile_id": "vfs_private_tmp_only",
-    "operation": "file-write-metadata",
-    "requested_path": "/private/tmp/bar",
-    "expected_decision": "allow",
-    "notes": "vfs_private_tmp_only against canonical path /private/tmp/bar"
+    "notes": "vfs_both_paths tmp/canonicalized_with_var_tmp_exception/both alternate /private/tmp/foo"
   },
   {
     "profile_id": "vfs_both_paths",
     "operation": "file-read*",
     "requested_path": "/tmp/bar",
     "expected_decision": "allow",
-    "notes": "vfs_both_paths against alias path /tmp/bar"
+    "notes": "vfs_both_paths tmp/canonicalized_with_var_tmp_exception/both primary /tmp/bar"
   },
   {
     "profile_id": "vfs_both_paths",
     "operation": "file-read*",
     "requested_path": "/private/tmp/bar",
     "expected_decision": "allow",
-    "notes": "vfs_both_paths against canonical path /private/tmp/bar"
+    "notes": "vfs_both_paths tmp/canonicalized_with_var_tmp_exception/both alternate /private/tmp/bar"
   },
   {
     "profile_id": "vfs_both_paths",
     "operation": "file-write*",
     "requested_path": "/tmp/bar",
     "expected_decision": "allow",
-    "notes": "vfs_both_paths against alias path /tmp/bar"
+    "notes": "vfs_both_paths tmp/canonicalized_with_var_tmp_exception/both primary /tmp/bar"
   },
   {
     "profile_id": "vfs_both_paths",
     "operation": "file-write*",
     "requested_path": "/private/tmp/bar",
     "expected_decision": "allow",
-    "notes": "vfs_both_paths against canonical path /private/tmp/bar"
-  },
-  {
-    "profile_id": "vfs_both_paths",
-    "operation": "file-read-metadata",
-    "requested_path": "/tmp/bar",
-    "expected_decision": "allow",
-    "notes": "vfs_both_paths against alias path /tmp/bar"
-  },
-  {
-    "profile_id": "vfs_both_paths",
-    "operation": "file-read-metadata",
-    "requested_path": "/private/tmp/bar",
-    "expected_decision": "allow",
-    "notes": "vfs_both_paths against canonical path /private/tmp/bar"
-  },
-  {
-    "profile_id": "vfs_both_paths",
-    "operation": "file-write-metadata",
-    "requested_path": "/tmp/bar",
-    "expected_decision": "allow",
-    "notes": "vfs_both_paths against alias path /tmp/bar"
-  },
-  {
-    "profile_id": "vfs_both_paths",
-    "operation": "file-write-metadata",
-    "requested_path": "/private/tmp/bar",
-    "expected_decision": "allow",
-    "notes": "vfs_both_paths against canonical path /private/tmp/bar"
-  },
-  {
-    "profile_id": "vfs_tmp_only",
-    "operation": "file-read*",
-    "requested_path": "/tmp/nested/child",
-    "expected_decision": "deny",
-    "notes": "vfs_tmp_only against alias path /tmp/nested/child"
-  },
-  {
-    "profile_id": "vfs_tmp_only",
-    "operation": "file-read*",
-    "requested_path": "/private/tmp/nested/child",
-    "expected_decision": "deny",
-    "notes": "vfs_tmp_only against canonical path /private/tmp/nested/child"
-  },
-  {
-    "profile_id": "vfs_tmp_only",
-    "operation": "file-write*",
-    "requested_path": "/tmp/nested/child",
-    "expected_decision": "deny",
-    "notes": "vfs_tmp_only against alias path /tmp/nested/child"
-  },
-  {
-    "profile_id": "vfs_tmp_only",
-    "operation": "file-write*",
-    "requested_path": "/private/tmp/nested/child",
-    "expected_decision": "deny",
-    "notes": "vfs_tmp_only against canonical path /private/tmp/nested/child"
-  },
-  {
-    "profile_id": "vfs_tmp_only",
-    "operation": "file-read-metadata",
-    "requested_path": "/tmp/nested/child",
-    "expected_decision": "deny",
-    "notes": "vfs_tmp_only against alias path /tmp/nested/child"
-  },
-  {
-    "profile_id": "vfs_tmp_only",
-    "operation": "file-read-metadata",
-    "requested_path": "/private/tmp/nested/child",
-    "expected_decision": "deny",
-    "notes": "vfs_tmp_only against canonical path /private/tmp/nested/child"
-  },
-  {
-    "profile_id": "vfs_tmp_only",
-    "operation": "file-write-metadata",
-    "requested_path": "/tmp/nested/child",
-    "expected_decision": "deny",
-    "notes": "vfs_tmp_only against alias path /tmp/nested/child"
-  },
-  {
-    "profile_id": "vfs_tmp_only",
-    "operation": "file-write-metadata",
-    "requested_path": "/private/tmp/nested/child",
-    "expected_decision": "deny",
-    "notes": "vfs_tmp_only against canonical path /private/tmp/nested/child"
-  },
-  {
-    "profile_id": "vfs_private_tmp_only",
-    "operation": "file-read*",
-    "requested_path": "/tmp/nested/child",
-    "expected_decision": "allow",
-    "notes": "vfs_private_tmp_only against alias path /tmp/nested/child"
-  },
-  {
-    "profile_id": "vfs_private_tmp_only",
-    "operation": "file-read*",
-    "requested_path": "/private/tmp/nested/child",
-    "expected_decision": "allow",
-    "notes": "vfs_private_tmp_only against canonical path /private/tmp/nested/child"
-  },
-  {
-    "profile_id": "vfs_private_tmp_only",
-    "operation": "file-write*",
-    "requested_path": "/tmp/nested/child",
-    "expected_decision": "allow",
-    "notes": "vfs_private_tmp_only against alias path /tmp/nested/child"
-  },
-  {
-    "profile_id": "vfs_private_tmp_only",
-    "operation": "file-write*",
-    "requested_path": "/private/tmp/nested/child",
-    "expected_decision": "allow",
-    "notes": "vfs_private_tmp_only against canonical path /private/tmp/nested/child"
-  },
-  {
-    "profile_id": "vfs_private_tmp_only",
-    "operation": "file-read-metadata",
-    "requested_path": "/tmp/nested/child",
-    "expected_decision": "allow",
-    "notes": "vfs_private_tmp_only against alias path /tmp/nested/child"
-  },
-  {
-    "profile_id": "vfs_private_tmp_only",
-    "operation": "file-read-metadata",
-    "requested_path": "/private/tmp/nested/child",
-    "expected_decision": "allow",
-    "notes": "vfs_private_tmp_only against canonical path /private/tmp/nested/child"
-  },
-  {
-    "profile_id": "vfs_private_tmp_only",
-    "operation": "file-write-metadata",
-    "requested_path": "/tmp/nested/child",
-    "expected_decision": "allow",
-    "notes": "vfs_private_tmp_only against alias path /tmp/nested/child"
-  },
-  {
-    "profile_id": "vfs_private_tmp_only",
-    "operation": "file-write-metadata",
-    "requested_path": "/private/tmp/nested/child",
-    "expected_decision": "allow",
-    "notes": "vfs_private_tmp_only against canonical path /private/tmp/nested/child"
+    "notes": "vfs_both_paths tmp/canonicalized_with_var_tmp_exception/both alternate /private/tmp/bar"
   },
   {
     "profile_id": "vfs_both_paths",
     "operation": "file-read*",
     "requested_path": "/tmp/nested/child",
     "expected_decision": "allow",
-    "notes": "vfs_both_paths against alias path /tmp/nested/child"
+    "notes": "vfs_both_paths tmp/canonicalized_with_var_tmp_exception/both primary /tmp/nested/child"
   },
   {
     "profile_id": "vfs_both_paths",
     "operation": "file-read*",
     "requested_path": "/private/tmp/nested/child",
     "expected_decision": "allow",
-    "notes": "vfs_both_paths against canonical path /private/tmp/nested/child"
+    "notes": "vfs_both_paths tmp/canonicalized_with_var_tmp_exception/both alternate /private/tmp/nested/child"
   },
   {
     "profile_id": "vfs_both_paths",
     "operation": "file-write*",
     "requested_path": "/tmp/nested/child",
     "expected_decision": "allow",
-    "notes": "vfs_both_paths against alias path /tmp/nested/child"
+    "notes": "vfs_both_paths tmp/canonicalized_with_var_tmp_exception/both primary /tmp/nested/child"
   },
   {
     "profile_id": "vfs_both_paths",
     "operation": "file-write*",
     "requested_path": "/private/tmp/nested/child",
     "expected_decision": "allow",
-    "notes": "vfs_both_paths against canonical path /private/tmp/nested/child"
-  },
-  {
-    "profile_id": "vfs_both_paths",
-    "operation": "file-read-metadata",
-    "requested_path": "/tmp/nested/child",
-    "expected_decision": "allow",
-    "notes": "vfs_both_paths against alias path /tmp/nested/child"
-  },
-  {
-    "profile_id": "vfs_both_paths",
-    "operation": "file-read-metadata",
-    "requested_path": "/private/tmp/nested/child",
-    "expected_decision": "allow",
-    "notes": "vfs_both_paths against canonical path /private/tmp/nested/child"
-  },
-  {
-    "profile_id": "vfs_both_paths",
-    "operation": "file-write-metadata",
-    "requested_path": "/tmp/nested/child",
-    "expected_decision": "allow",
-    "notes": "vfs_both_paths against alias path /tmp/nested/child"
-  },
-  {
-    "profile_id": "vfs_both_paths",
-    "operation": "file-write-metadata",
-    "requested_path": "/private/tmp/nested/child",
-    "expected_decision": "allow",
-    "notes": "vfs_both_paths against canonical path /private/tmp/nested/child"
-  },
-  {
-    "profile_id": "vfs_tmp_only",
-    "operation": "file-read*",
-    "requested_path": "/var/tmp/canon",
-    "expected_decision": "deny",
-    "notes": "vfs_tmp_only against alias path /var/tmp/canon"
-  },
-  {
-    "profile_id": "vfs_tmp_only",
-    "operation": "file-read*",
-    "requested_path": "/private/var/tmp/canon",
-    "expected_decision": "deny",
-    "notes": "vfs_tmp_only against canonical path /private/var/tmp/canon"
-  },
-  {
-    "profile_id": "vfs_tmp_only",
-    "operation": "file-write*",
-    "requested_path": "/var/tmp/canon",
-    "expected_decision": "deny",
-    "notes": "vfs_tmp_only against alias path /var/tmp/canon"
-  },
-  {
-    "profile_id": "vfs_tmp_only",
-    "operation": "file-write*",
-    "requested_path": "/private/var/tmp/canon",
-    "expected_decision": "deny",
-    "notes": "vfs_tmp_only against canonical path /private/var/tmp/canon"
-  },
-  {
-    "profile_id": "vfs_tmp_only",
-    "operation": "file-read-metadata",
-    "requested_path": "/var/tmp/canon",
-    "expected_decision": "deny",
-    "notes": "vfs_tmp_only against alias path /var/tmp/canon"
-  },
-  {
-    "profile_id": "vfs_tmp_only",
-    "operation": "file-read-metadata",
-    "requested_path": "/private/var/tmp/canon",
-    "expected_decision": "deny",
-    "notes": "vfs_tmp_only against canonical path /private/var/tmp/canon"
-  },
-  {
-    "profile_id": "vfs_tmp_only",
-    "operation": "file-write-metadata",
-    "requested_path": "/var/tmp/canon",
-    "expected_decision": "deny",
-    "notes": "vfs_tmp_only against alias path /var/tmp/canon"
-  },
-  {
-    "profile_id": "vfs_tmp_only",
-    "operation": "file-write-metadata",
-    "requested_path": "/private/var/tmp/canon",
-    "expected_decision": "deny",
-    "notes": "vfs_tmp_only against canonical path /private/var/tmp/canon"
-  },
-  {
-    "profile_id": "vfs_private_tmp_only",
-    "operation": "file-read*",
-    "requested_path": "/var/tmp/canon",
-    "expected_decision": "deny",
-    "notes": "vfs_private_tmp_only against alias path /var/tmp/canon"
-  },
-  {
-    "profile_id": "vfs_private_tmp_only",
-    "operation": "file-read*",
-    "requested_path": "/private/var/tmp/canon",
-    "expected_decision": "allow",
-    "notes": "vfs_private_tmp_only against canonical path /private/var/tmp/canon"
-  },
-  {
-    "profile_id": "vfs_private_tmp_only",
-    "operation": "file-write*",
-    "requested_path": "/var/tmp/canon",
-    "expected_decision": "deny",
-    "notes": "vfs_private_tmp_only against alias path /var/tmp/canon"
-  },
-  {
-    "profile_id": "vfs_private_tmp_only",
-    "operation": "file-write*",
-    "requested_path": "/private/var/tmp/canon",
-    "expected_decision": "allow",
-    "notes": "vfs_private_tmp_only against canonical path /private/var/tmp/canon"
-  },
-  {
-    "profile_id": "vfs_private_tmp_only",
-    "operation": "file-read-metadata",
-    "requested_path": "/var/tmp/canon",
-    "expected_decision": "deny",
-    "notes": "vfs_private_tmp_only against alias path /var/tmp/canon"
-  },
-  {
-    "profile_id": "vfs_private_tmp_only",
-    "operation": "file-read-metadata",
-    "requested_path": "/private/var/tmp/canon",
-    "expected_decision": "allow",
-    "notes": "vfs_private_tmp_only against canonical path /private/var/tmp/canon"
-  },
-  {
-    "profile_id": "vfs_private_tmp_only",
-    "operation": "file-write-metadata",
-    "requested_path": "/var/tmp/canon",
-    "expected_decision": "deny",
-    "notes": "vfs_private_tmp_only against alias path /var/tmp/canon"
-  },
-  {
-    "profile_id": "vfs_private_tmp_only",
-    "operation": "file-write-metadata",
-    "requested_path": "/private/var/tmp/canon",
-    "expected_decision": "allow",
-    "notes": "vfs_private_tmp_only against canonical path /private/var/tmp/canon"
+    "notes": "vfs_both_paths tmp/canonicalized_with_var_tmp_exception/both alternate /private/tmp/nested/child"
   },
   {
     "profile_id": "vfs_both_paths",
     "operation": "file-read*",
     "requested_path": "/var/tmp/canon",
     "expected_decision": "deny",
-    "notes": "vfs_both_paths against alias path /var/tmp/canon"
+    "notes": "vfs_both_paths tmp/canonicalized_with_var_tmp_exception/both primary /var/tmp/canon"
   },
   {
     "profile_id": "vfs_both_paths",
     "operation": "file-read*",
     "requested_path": "/private/var/tmp/canon",
     "expected_decision": "allow",
-    "notes": "vfs_both_paths against canonical path /private/var/tmp/canon"
+    "notes": "vfs_both_paths tmp/canonicalized_with_var_tmp_exception/both alternate /private/var/tmp/canon"
   },
   {
     "profile_id": "vfs_both_paths",
     "operation": "file-write*",
     "requested_path": "/var/tmp/canon",
     "expected_decision": "deny",
-    "notes": "vfs_both_paths against alias path /var/tmp/canon"
+    "notes": "vfs_both_paths tmp/canonicalized_with_var_tmp_exception/both primary /var/tmp/canon"
   },
   {
     "profile_id": "vfs_both_paths",
     "operation": "file-write*",
     "requested_path": "/private/var/tmp/canon",
     "expected_decision": "allow",
-    "notes": "vfs_both_paths against canonical path /private/var/tmp/canon"
+    "notes": "vfs_both_paths tmp/canonicalized_with_var_tmp_exception/both alternate /private/var/tmp/canon"
   },
   {
-    "profile_id": "vfs_both_paths",
-    "operation": "file-read-metadata",
-    "requested_path": "/var/tmp/canon",
-    "expected_decision": "deny",
-    "notes": "vfs_both_paths against alias path /var/tmp/canon"
-  },
-  {
-    "profile_id": "vfs_both_paths",
-    "operation": "file-read-metadata",
-    "requested_path": "/private/var/tmp/canon",
+    "profile_id": "vfs_var_tmp_alias_only",
+    "operation": "file-read*",
+    "requested_path": "/var/tmp/vfs_canon_probe",
     "expected_decision": "allow",
-    "notes": "vfs_both_paths against canonical path /private/var/tmp/canon"
+    "notes": "vfs_var_tmp_alias_only var_tmp/literal/first_only primary /var/tmp/vfs_canon_probe"
   },
   {
-    "profile_id": "vfs_both_paths",
-    "operation": "file-write-metadata",
-    "requested_path": "/var/tmp/canon",
+    "profile_id": "vfs_var_tmp_alias_only",
+    "operation": "file-read*",
+    "requested_path": "/private/var/tmp/vfs_canon_probe",
     "expected_decision": "deny",
-    "notes": "vfs_both_paths against alias path /var/tmp/canon"
+    "notes": "vfs_var_tmp_alias_only var_tmp/literal/first_only alternate /private/var/tmp/vfs_canon_probe"
   },
   {
-    "profile_id": "vfs_both_paths",
-    "operation": "file-write-metadata",
-    "requested_path": "/private/var/tmp/canon",
+    "profile_id": "vfs_var_tmp_alias_only",
+    "operation": "file-write*",
+    "requested_path": "/var/tmp/vfs_canon_probe",
     "expected_decision": "allow",
-    "notes": "vfs_both_paths against canonical path /private/var/tmp/canon"
+    "notes": "vfs_var_tmp_alias_only var_tmp/literal/first_only primary /var/tmp/vfs_canon_probe"
+  },
+  {
+    "profile_id": "vfs_var_tmp_alias_only",
+    "operation": "file-write*",
+    "requested_path": "/private/var/tmp/vfs_canon_probe",
+    "expected_decision": "deny",
+    "notes": "vfs_var_tmp_alias_only var_tmp/literal/first_only alternate /private/var/tmp/vfs_canon_probe"
+  },
+  {
+    "profile_id": "vfs_var_tmp_private_only",
+    "operation": "file-read*",
+    "requested_path": "/var/tmp/vfs_canon_probe",
+    "expected_decision": "deny",
+    "notes": "vfs_var_tmp_private_only var_tmp/literal/second_only primary /var/tmp/vfs_canon_probe"
+  },
+  {
+    "profile_id": "vfs_var_tmp_private_only",
+    "operation": "file-read*",
+    "requested_path": "/private/var/tmp/vfs_canon_probe",
+    "expected_decision": "allow",
+    "notes": "vfs_var_tmp_private_only var_tmp/literal/second_only alternate /private/var/tmp/vfs_canon_probe"
+  },
+  {
+    "profile_id": "vfs_var_tmp_private_only",
+    "operation": "file-write*",
+    "requested_path": "/var/tmp/vfs_canon_probe",
+    "expected_decision": "deny",
+    "notes": "vfs_var_tmp_private_only var_tmp/literal/second_only primary /var/tmp/vfs_canon_probe"
+  },
+  {
+    "profile_id": "vfs_var_tmp_private_only",
+    "operation": "file-write*",
+    "requested_path": "/private/var/tmp/vfs_canon_probe",
+    "expected_decision": "allow",
+    "notes": "vfs_var_tmp_private_only var_tmp/literal/second_only alternate /private/var/tmp/vfs_canon_probe"
+  },
+  {
+    "profile_id": "vfs_var_tmp_both",
+    "operation": "file-read*",
+    "requested_path": "/var/tmp/vfs_canon_probe",
+    "expected_decision": "allow",
+    "notes": "vfs_var_tmp_both var_tmp/literal/both primary /var/tmp/vfs_canon_probe"
+  },
+  {
+    "profile_id": "vfs_var_tmp_both",
+    "operation": "file-read*",
+    "requested_path": "/private/var/tmp/vfs_canon_probe",
+    "expected_decision": "allow",
+    "notes": "vfs_var_tmp_both var_tmp/literal/both alternate /private/var/tmp/vfs_canon_probe"
+  },
+  {
+    "profile_id": "vfs_var_tmp_both",
+    "operation": "file-write*",
+    "requested_path": "/var/tmp/vfs_canon_probe",
+    "expected_decision": "allow",
+    "notes": "vfs_var_tmp_both var_tmp/literal/both primary /var/tmp/vfs_canon_probe"
+  },
+  {
+    "profile_id": "vfs_var_tmp_both",
+    "operation": "file-write*",
+    "requested_path": "/private/var/tmp/vfs_canon_probe",
+    "expected_decision": "allow",
+    "notes": "vfs_var_tmp_both var_tmp/literal/both alternate /private/var/tmp/vfs_canon_probe"
+  },
+  {
+    "profile_id": "vfs_etc_alias_only",
+    "operation": "file-read*",
+    "requested_path": "/etc/hosts",
+    "expected_decision": "allow",
+    "notes": "vfs_etc_alias_only etc/literal/first_only primary /etc/hosts"
+  },
+  {
+    "profile_id": "vfs_etc_alias_only",
+    "operation": "file-read*",
+    "requested_path": "/private/etc/hosts",
+    "expected_decision": "deny",
+    "notes": "vfs_etc_alias_only etc/literal/first_only alternate /private/etc/hosts"
+  },
+  {
+    "profile_id": "vfs_etc_private_only",
+    "operation": "file-read*",
+    "requested_path": "/etc/hosts",
+    "expected_decision": "deny",
+    "notes": "vfs_etc_private_only etc/literal/second_only primary /etc/hosts"
+  },
+  {
+    "profile_id": "vfs_etc_private_only",
+    "operation": "file-read*",
+    "requested_path": "/private/etc/hosts",
+    "expected_decision": "allow",
+    "notes": "vfs_etc_private_only etc/literal/second_only alternate /private/etc/hosts"
+  },
+  {
+    "profile_id": "vfs_etc_both",
+    "operation": "file-read*",
+    "requested_path": "/etc/hosts",
+    "expected_decision": "allow",
+    "notes": "vfs_etc_both etc/literal/both primary /etc/hosts"
+  },
+  {
+    "profile_id": "vfs_etc_both",
+    "operation": "file-read*",
+    "requested_path": "/private/etc/hosts",
+    "expected_decision": "allow",
+    "notes": "vfs_etc_both etc/literal/both alternate /private/etc/hosts"
+  },
+  {
+    "profile_id": "vfs_firmlink_private_only",
+    "operation": "file-read*",
+    "requested_path": "/private/tmp/vfs_firmlink_probe",
+    "expected_decision": "allow",
+    "notes": "vfs_firmlink_private_only firmlink_tmp/literal/first_only primary /private/tmp/vfs_firmlink_probe"
+  },
+  {
+    "profile_id": "vfs_firmlink_private_only",
+    "operation": "file-read*",
+    "requested_path": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+    "expected_decision": "deny",
+    "notes": "vfs_firmlink_private_only firmlink_tmp/literal/first_only alternate /System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+  },
+  {
+    "profile_id": "vfs_firmlink_private_only",
+    "operation": "file-write*",
+    "requested_path": "/private/tmp/vfs_firmlink_probe",
+    "expected_decision": "allow",
+    "notes": "vfs_firmlink_private_only firmlink_tmp/literal/first_only primary /private/tmp/vfs_firmlink_probe"
+  },
+  {
+    "profile_id": "vfs_firmlink_private_only",
+    "operation": "file-write*",
+    "requested_path": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+    "expected_decision": "deny",
+    "notes": "vfs_firmlink_private_only firmlink_tmp/literal/first_only alternate /System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+  },
+  {
+    "profile_id": "vfs_firmlink_data_only",
+    "operation": "file-read*",
+    "requested_path": "/private/tmp/vfs_firmlink_probe",
+    "expected_decision": "deny",
+    "notes": "vfs_firmlink_data_only firmlink_tmp/literal/second_only primary /private/tmp/vfs_firmlink_probe"
+  },
+  {
+    "profile_id": "vfs_firmlink_data_only",
+    "operation": "file-read*",
+    "requested_path": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+    "expected_decision": "allow",
+    "notes": "vfs_firmlink_data_only firmlink_tmp/literal/second_only alternate /System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+  },
+  {
+    "profile_id": "vfs_firmlink_data_only",
+    "operation": "file-write*",
+    "requested_path": "/private/tmp/vfs_firmlink_probe",
+    "expected_decision": "deny",
+    "notes": "vfs_firmlink_data_only firmlink_tmp/literal/second_only primary /private/tmp/vfs_firmlink_probe"
+  },
+  {
+    "profile_id": "vfs_firmlink_data_only",
+    "operation": "file-write*",
+    "requested_path": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+    "expected_decision": "allow",
+    "notes": "vfs_firmlink_data_only firmlink_tmp/literal/second_only alternate /System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+  },
+  {
+    "profile_id": "vfs_firmlink_both",
+    "operation": "file-read*",
+    "requested_path": "/private/tmp/vfs_firmlink_probe",
+    "expected_decision": "allow",
+    "notes": "vfs_firmlink_both firmlink_tmp/literal/both primary /private/tmp/vfs_firmlink_probe"
+  },
+  {
+    "profile_id": "vfs_firmlink_both",
+    "operation": "file-read*",
+    "requested_path": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+    "expected_decision": "allow",
+    "notes": "vfs_firmlink_both firmlink_tmp/literal/both alternate /System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+  },
+  {
+    "profile_id": "vfs_firmlink_both",
+    "operation": "file-write*",
+    "requested_path": "/private/tmp/vfs_firmlink_probe",
+    "expected_decision": "allow",
+    "notes": "vfs_firmlink_both firmlink_tmp/literal/both primary /private/tmp/vfs_firmlink_probe"
+  },
+  {
+    "profile_id": "vfs_firmlink_both",
+    "operation": "file-write*",
+    "requested_path": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+    "expected_decision": "allow",
+    "notes": "vfs_firmlink_both firmlink_tmp/literal/both alternate /System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+  },
+  {
+    "profile_id": "vfs_link_var_tmp_only",
+    "operation": "file-read*",
+    "requested_path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+    "expected_decision": "deny",
+    "notes": "vfs_link_var_tmp_only link_path/literal/second_only primary /private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+  },
+  {
+    "profile_id": "vfs_link_var_tmp_only",
+    "operation": "file-read*",
+    "requested_path": "/private/var/tmp/vfs_link_probe",
+    "expected_decision": "allow",
+    "notes": "vfs_link_var_tmp_only link_path/literal/second_only alternate /private/var/tmp/vfs_link_probe"
+  },
+  {
+    "profile_id": "vfs_link_var_tmp_only",
+    "operation": "file-write*",
+    "requested_path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+    "expected_decision": "deny",
+    "notes": "vfs_link_var_tmp_only link_path/literal/second_only primary /private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+  },
+  {
+    "profile_id": "vfs_link_var_tmp_only",
+    "operation": "file-write*",
+    "requested_path": "/private/var/tmp/vfs_link_probe",
+    "expected_decision": "allow",
+    "notes": "vfs_link_var_tmp_only link_path/literal/second_only alternate /private/var/tmp/vfs_link_probe"
+  },
+  {
+    "profile_id": "vfs_link_private_tmp_only",
+    "operation": "file-read*",
+    "requested_path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+    "expected_decision": "allow",
+    "notes": "vfs_link_private_tmp_only link_path/literal/first_only primary /private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+  },
+  {
+    "profile_id": "vfs_link_private_tmp_only",
+    "operation": "file-read*",
+    "requested_path": "/private/var/tmp/vfs_link_probe",
+    "expected_decision": "deny",
+    "notes": "vfs_link_private_tmp_only link_path/literal/first_only alternate /private/var/tmp/vfs_link_probe"
+  },
+  {
+    "profile_id": "vfs_link_private_tmp_only",
+    "operation": "file-write*",
+    "requested_path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+    "expected_decision": "allow",
+    "notes": "vfs_link_private_tmp_only link_path/literal/first_only primary /private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+  },
+  {
+    "profile_id": "vfs_link_private_tmp_only",
+    "operation": "file-write*",
+    "requested_path": "/private/var/tmp/vfs_link_probe",
+    "expected_decision": "deny",
+    "notes": "vfs_link_private_tmp_only link_path/literal/first_only alternate /private/var/tmp/vfs_link_probe"
+  },
+  {
+    "profile_id": "vfs_link_both",
+    "operation": "file-read*",
+    "requested_path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+    "expected_decision": "allow",
+    "notes": "vfs_link_both link_path/literal/both primary /private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+  },
+  {
+    "profile_id": "vfs_link_both",
+    "operation": "file-read*",
+    "requested_path": "/private/var/tmp/vfs_link_probe",
+    "expected_decision": "allow",
+    "notes": "vfs_link_both link_path/literal/both alternate /private/var/tmp/vfs_link_probe"
+  },
+  {
+    "profile_id": "vfs_link_both",
+    "operation": "file-write*",
+    "requested_path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+    "expected_decision": "allow",
+    "notes": "vfs_link_both link_path/literal/both primary /private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+  },
+  {
+    "profile_id": "vfs_link_both",
+    "operation": "file-write*",
+    "requested_path": "/private/var/tmp/vfs_link_probe",
+    "expected_decision": "allow",
+    "notes": "vfs_link_both link_path/literal/both alternate /private/var/tmp/vfs_link_probe"
   }
 ]

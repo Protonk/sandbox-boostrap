@@ -37,6 +37,8 @@ def test_vfs_semantic_pattern():
     """Semantic guardrail: coarse allow/deny pattern per profile should remain stable on this world."""
     res_path = ROOT / "book" / "experiments" / "vfs-canonicalization" / "out" / "runtime_results.json"
     results = load_json(res_path)
+    ops = {row.get("operation") for row in results}
+    assert ops == {"file-read*", "file-write*"}, "unexpected operations in vfs-canonicalization runtime results"
 
     def decisions_for(profile_id: str):
         out = {}
@@ -72,10 +74,6 @@ def test_vfs_semantic_pattern():
         for path in read_write_deny:
             assert decisions.get(("file-read*", path)) == "deny", f"{label} should deny read {path}"
             assert decisions.get(("file-write*", path)) == "deny", f"{label} should deny write {path}"
-        # Metadata probes currently deny across the board (harness limitation)
-        for path in read_write_allow + read_write_deny:
-            assert decisions.get(("file-read-metadata", path)) == "deny", f"{label} metadata read should deny {path}"
-            assert decisions.get(("file-write-metadata", path)) == "deny", f"{label} metadata write should deny {path}"
 
     assert_decisions(priv_only, "vfs_private_tmp_only")
     assert_decisions(both, "vfs_both_paths")

@@ -2,14 +2,20 @@
 
 ## Purpose and question
 
-This experiment focuses on **VFS canonicalization between `/tmp` and `/private/tmp`** on the fixed Sonoma world (`world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`).
+This experiment focuses on **VFS canonicalization across classic aliases and related path spellings** on the fixed Sonoma world (`world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`).
 
 Core questions:
 
-- For simple, controlled SBPL profiles, how does PolicyGraph structure and runtime behavior differ when rules mention only `/tmp/foo` vs only `/private/tmp/foo` vs both?
-- Where do we see differences between what the SBPL “says” and what the runtime does that can be fairly attributed to VFS canonicalization (e.g., `/tmp` → `/private/tmp`), rather than to decoder bugs or policy differences?
+- For simple, controlled SBPL profiles, how does PolicyGraph structure and runtime behavior differ when rules mention only alias vs canonical spellings (e.g., `/tmp` vs `/private/tmp`, `/var/tmp` vs `/private/var/tmp`, `/etc` vs `/private/etc`)?
+- Where do we see differences between what the SBPL “says” and what the runtime does that can be fairly attributed to VFS canonicalization (symlink or firmlink resolution), rather than to decoder bugs or policy differences?
 
-Scope: file-read semantics only, for the path pairs `/tmp/foo` ↔ `/private/tmp/foo`, `/tmp/bar` ↔ `/private/tmp/bar`, `/tmp/nested/child` ↔ `/private/tmp/nested/child`, and a control `/var/tmp/canon` ↔ `/private/var/tmp/canon` on this host.
+Scope: file-read* and file-write* for:
+- `/tmp/*` ↔ `/private/tmp/*` (base family, plus `/var/tmp/canon` control).
+- `/var/tmp/vfs_canon_probe` ↔ `/private/var/tmp/vfs_canon_probe` (var/tmp discriminator).
+- `/etc/hosts` ↔ `/private/etc/hosts` (read-only).
+- `/private/tmp/vfs_firmlink_probe` ↔ `/System/Volumes/Data/private/tmp/vfs_firmlink_probe` (firmlink spelling).
+- `/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe` ↔ `/private/var/tmp/vfs_link_probe` (intermediate symlink).
+Metadata canonicalization is handled by `book/experiments/metadata-runner/`.
 
 ## Relationship to existing work
 
@@ -22,26 +28,28 @@ Upstream inputs:
 
 Downstream use:
 
-- Provide a small, well-documented set of structural and runtime examples for `/tmp` ↔ `/private/tmp` behavior that chapters, runtime experiments, and mappings can cite when they talk about path normalization and canonicalization on this world.
+- Provide a small, well-documented set of structural and runtime examples for alias/canonical path families that chapters, runtime experiments, and mappings can cite when they talk about path normalization and canonicalization on this world.
 
 ## Design and probes
 
-Profiles live under `book/experiments/vfs-canonicalization/sb/`:
+Profiles live under `book/experiments/vfs-canonicalization/sb/` and follow a tri-profile pattern (alias-only, canonical-only, both) per variant family:
 
-- `vfs_tmp_only.sb`:
-  - `(deny default)` plus `(allow file-read* (literal "/tmp/foo"))`.
-- `vfs_private_tmp_only.sb`:
-  - `(deny default)` plus `(allow file-read* (literal "/private/tmp/foo"))`.
-- `vfs_both_paths.sb`:
-  - `(deny default)` plus both allow rules:
-    - `(allow file-read* (literal "/tmp/foo"))`
-    - `(allow file-read* (literal "/private/tmp/foo"))`.
+- **Base `/tmp` family** (`vfs_tmp_only.sb`, `vfs_private_tmp_only.sb`, `vfs_both_paths.sb`):
+  - `file-read*` and `file-write*` over `/tmp/*`, `/private/tmp/*`, and the `/var/tmp/canon` control pair.
+- **`/var/tmp` discriminator** (`vfs_var_tmp_alias_only.sb`, `vfs_var_tmp_private_only.sb`, `vfs_var_tmp_both.sb`):
+  - `file-read*` and `file-write*` over `/var/tmp/vfs_canon_probe` ↔ `/private/var/tmp/vfs_canon_probe`.
+- **`/etc` read-only** (`vfs_etc_alias_only.sb`, `vfs_etc_private_only.sb`, `vfs_etc_both.sb`):
+  - `file-read*` only over `/etc/hosts` ↔ `/private/etc/hosts`.
+- **Firmlink spelling** (`vfs_firmlink_private_only.sb`, `vfs_firmlink_data_only.sb`, `vfs_firmlink_both.sb`):
+  - `file-read*` and `file-write*` over `/private/tmp/vfs_firmlink_probe` ↔ `/System/Volumes/Data/private/tmp/vfs_firmlink_probe`.
+- **Intermediate symlink** (`vfs_link_private_tmp_only.sb`, `vfs_link_var_tmp_only.sb`, `vfs_link_both.sb`):
+  - `file-read*` and `file-write*` over `/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe` ↔ `/private/var/tmp/vfs_link_probe`.
 
 Compiled blobs will be written to `sb/build/<stem>.sb.bin` using `book.api.profile_tools.compile_sbpl_string`.
 
 Scenarios:
 
-- For each profile, attempt `file-read*` on all alias/canonical pairs listed above.
+- For each profile, attempt `file-read*` and `file-write*` on its configured alias/canonical pairs (except `/etc`, which is read-only).
 - Observe:
   - Structural placement of the anchors and field2 values in the compiled graphs.
   - Runtime allow/deny behavior under an SBPL/ blob harness.
@@ -50,13 +58,13 @@ Scenarios:
 
 Claims we are probing:
 
-1. **Canonicalization claim:** For this world, `/tmp/foo` and `/private/tmp/foo` refer to the same effective path in the VFS layer; if they differ structurally or at runtime, we should be able to classify that difference as either canonicalization-only or as a true policy divergence.
+1. **Canonicalization claim:** For this world, certain alias/canonical pairs may resolve to the same effective path in the VFS layer; if they differ structurally or at runtime, we should be able to classify that difference as either canonicalization-only or as a true policy divergence.
 2. **Structural/runtime alignment claim:** For the simple VFS profiles above, structural expectations (anchors, tags, field2) match the runtime allow/deny behavior once canonicalization is taken into account.
 
 Signals:
 
 - **Structural (static) signals:**
-  - Decoded nodes and literal/anchor placement for `/tmp/foo` and `/private/tmp/foo` in each profile:
+  - Decoded nodes and literal/anchor placement for the configured alias/canonical pairs in each profile:
     - tags,
     - `field2` values,
     - whether the two paths share the same structural placement or not.
@@ -68,7 +76,7 @@ Signals:
     - command output (stdout/stderr).
   - Stored in `out/runtime_results.json` (simple array form) with `profile_id`, `operation`, `requested_path`, `observed_path`, `decision`, `errno`, `raw_log`.
 - **Logical expectations:**
-  - For each `(profile_id, requested_path)` we record our **initial expectation** (e.g., “allow only for the literal path mentioned in SBPL, deny the other”) in `out/expected_matrix.json`. Mismatches between `expected_decision` and `decision` in runtime are where canonicalization or divergences show up.
+  - For each `(profile_id, requested_path)` we record an initial expectation in `out/expected_matrix.json`. The base `/tmp` family encodes the observed canonicalization pattern (including the `/var/tmp` control), while the additional variants default to a literal-only baseline so mismatches are the signal.
 
 IR path:
 
@@ -106,6 +114,7 @@ These sketches are informal; tests will check that the actual JSONs obey the sam
     // ...
   ]
   ```
+  The generated matrix also includes `file-write*` entries.
 
 - `out/runtime_results.json` – array of entries:
 
@@ -150,7 +159,7 @@ These sketches are informal; tests will check that the actual JSONs obey the sam
   }
   ```
 
-- `out/mismatch_summary.json` – coarse classification:
+- `out/mismatch_summary.json` – coarse classification (base `/tmp` family only):
 
   ```jsonc
   {

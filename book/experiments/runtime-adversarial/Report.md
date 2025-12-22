@@ -27,7 +27,7 @@ Outputs: expected/runtime matrices, mismatch summaries, and impact hooks to down
 ### VFS edge cases (path_edges)
 - Static intent: allow literal `/tmp/runtime-adv/edges/a` and subpath `/tmp/runtime-adv/edges/okdir/*`, deny `/private/tmp/runtime-adv/edges/a` and the `..` literal to catch traversal. Decoder predicts allows on `/tmp/...` probes via literal/subpath filters.
 - Runtime: both `/tmp/...` allow probes return deny with `EPERM` (open target) despite static allow; `/private/tmp` deny and `..` deny align; write-side probes show the same pattern.
-- Interpretation: mismatch attributed to VFS canonicalization (`/tmp` → `/private/tmp`) prior to PolicyGraph evaluation rather than tag/layout divergence. Treated as out-of-scope for static IR; captured in `impact_map.json` with `out_of_scope:VFS_canonicalization` and no downgrade to bedrock mappings.
+- Interpretation: mismatch attributed to VFS canonicalization (`/tmp` → `/private/tmp`) prior to PolicyGraph evaluation rather than tag/layout divergence. Treated as out-of-scope for static IR; captured in `impact_map.json` with `out_of_scope:VFS_canonicalization` and no downgrade to bedrock mappings. See `book/experiments/vfs-canonicalization/Report.md` (mapped-but-partial) for the focused canonicalization witness and guardrails.
 
 ### Mach families (mach_simple_* / mach_local_*)
 - Static intent: allow `mach-lookup` for `com.apple.cfprefsd.agent` only; profiles use literal vs regex and global-name vs local-name encodings, but aim for the same allow/deny surface (explicit deny on a bogus service).
@@ -48,7 +48,7 @@ Outputs: expected/runtime matrices, mismatch summaries, and impact hooks to down
 ## Claims and limits
 - Covered ops/shapes: adversarial probes cover file-read*/file-write* (bucket-4/bucket-5 filesystem profiles and structural/metafilter variants), `mach-lookup` (global-name and local-name, literal and regex, simple vs nested forms), and `network-outbound` (loopback TCP via nc under deny-default + startup shims).
 - Static↔runtime alignment: for these ops and shapes, decoded PolicyGraph IR (vocab, tag layouts where used, op-tables, and graphs) matches kernel behavior even under deliberately adversarial constructions; structural variants, mach families, and the canonical network scenario all agree with static expectations.
-- Bounded mismatch: the only systematic divergence observed is the `/tmp` → `/private/tmp` behavior in `path_edges`, explicitly classified as VFS canonicalization outside the PolicyGraph model and recorded in `impact_map.json` as out-of-scope, not as a decoder bug.
+- Bounded mismatch: the only systematic divergence observed is the `/tmp` → `/private/tmp` behavior in `path_edges`, explicitly classified as VFS canonicalization outside the PolicyGraph model and recorded in `impact_map.json` as out-of-scope, not as a decoder bug. See `book/experiments/vfs-canonicalization/Report.md` (mapped-but-partial) for the focused canonicalization evidence.
 - Scope of claims: this justifies treating the static PolicyGraph IR as a bedrock stand-in for kernel enforcement for the covered ops on this host, but it is not a universal theorem over all 196 operations; for ops without `runtime_evidence: true` in `ops_coverage.json`, agents should design new probes or treat claims as more tentative.
 - Routing: when you need empirically grounded behavior for file-read*, file-write*, mach-lookup, or network-outbound on this world, treat the existing IR plus `runtime-adversarial` outputs (`expected_matrix.json`, `runtime_results.json`, `mismatch_summary.json`, `impact_map.json`) as canonical; when stepping outside those ops, consult `ops_coverage.json` and extend `runtime-adversarial` first.
 
@@ -82,9 +82,9 @@ Before refactoring the harness, a bespoke SBPL under `sandbox-exec -f … /usr/b
 ### Status and adjacent work
 - `network-outbound` is confirmed on this world by runtime via the canonical scenario and marked runtime-backed in coverage and CARTON.
 - Planned but non-blocking: add a small variant (alternate port or IPv6 loopback) using the same client/profiles; add a “negative harness” profile (remove `system-socket`) expected to fail as a harness/startup error rather than a policy decision.
-- Remaining runtime divergences: `/tmp`→`/private/tmp` VFS canonicalization in filesystem probes; to be addressed via a focused runtime-adversarial family and guardrails.
+- Remaining runtime divergences: `/tmp`→`/private/tmp` VFS canonicalization in filesystem probes; see `book/experiments/vfs-canonicalization/Report.md` for the focused canonicalization family and guardrails (mapped-but-partial).
 
 ## Next steps
 - Extend network coverage with a small variant (alternate port or IPv6 loopback) using the same client/profiles; add a “negative harness” profile (remove `system-socket`) expected to fail as a harness/startup error rather than a policy decision.
-- Design a focused VFS canonicalization family for `/tmp` → `/private/tmp` with its own guardrails so path_edges behavior is explicitly modeled and bounded.
+- Keep `path_edges` behavior aligned with `book/experiments/vfs-canonicalization/Report.md` so VFS canonicalization remains explicitly modeled and bounded.
 - Extend families (header/format toggles, field2/tag ambiguity, additional non-filesystem ops) once current cases are stable; wire additional validation selectors if promotion to shared runtime mappings is desired.

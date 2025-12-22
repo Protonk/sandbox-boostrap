@@ -520,6 +520,75 @@
       ]
     },
     {
+      "file_sha256": "19832eb9716a32459bee8398c8977fd1dfd575fa26606928f95728462a833c92",
+      "file_size": 416,
+      "path": "book/experiments/encoder-write-trace/out/blobs/baseline_allow_all_file.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "19832eb9716a32459bee8398c8977fd1dfd575fa26606928f95728462a833c92",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/encoder-write-trace/out/blobs/baseline_allow_all_file.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "19832eb9716a32459bee8398c8977fd1dfd575fa26606928f95728462a833c92",
+      "file_size": 416,
+      "path": "book/experiments/encoder-write-trace/out/blobs/baseline_allow_all_file_unused_param.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "19832eb9716a32459bee8398c8977fd1dfd575fa26606928f95728462a833c92",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/encoder-write-trace/out/blobs/baseline_allow_all_file_unused_param.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "19832eb9716a32459bee8398c8977fd1dfd575fa26606928f95728462a833c92",
+      "file_size": 416,
+      "path": "book/experiments/encoder-write-trace/out/blobs/baseline_allow_all_string.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "19832eb9716a32459bee8398c8977fd1dfd575fa26606928f95728462a833c92",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/encoder-write-trace/out/blobs/baseline_allow_all_string.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
       "file_sha256": "8d616ac17fc5a17cfd9fa203114120e9648c418e30abdc0f885cedcb577537c1",
       "file_size": 493,
       "path": "book/experiments/encoder-write-trace/out/blobs/baseline_deny_all.sb.bin",
@@ -589,6 +658,114 @@
       ]
     },
     {
+      "file_sha256": "f8aaa1deb5becd33659daca06a4b15df2238f8b912c65c24a8e43b40c61b6640",
+      "file_size": 513,
+      "path": "book/experiments/encoder-write-trace/out/blobs/gate_airlock_minimal_file.sb.bin",
+      "preflight": {
+        "classification": "likely_apply_gated_for_harness_identity",
+        "findings": [
+          {
+            "blob_sha256": "f8aaa1deb5becd33659daca06a4b15df2238f8b912c65c24a8e43b40c61b6640",
+            "matched": true
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/encoder-write-trace/out/blobs/gate_airlock_minimal_file.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": "apply_gate_blob_digest",
+        "signature_meta": {
+          "pointers": [
+            "troubles/EPERMx2.md",
+            "book/experiments/preflight-blob-digests/Report.md",
+            "book/graph/concepts/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
+          ],
+          "status": "ok"
+        },
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "f8aaa1deb5becd33659daca06a4b15df2238f8b912c65c24a8e43b40c61b6640",
+      "file_size": 513,
+      "path": "book/experiments/encoder-write-trace/out/blobs/gate_airlock_minimal_string.sb.bin",
+      "preflight": {
+        "classification": "likely_apply_gated_for_harness_identity",
+        "findings": [
+          {
+            "blob_sha256": "f8aaa1deb5becd33659daca06a4b15df2238f8b912c65c24a8e43b40c61b6640",
+            "matched": true
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/encoder-write-trace/out/blobs/gate_airlock_minimal_string.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": "apply_gate_blob_digest",
+        "signature_meta": {
+          "pointers": [
+            "troubles/EPERMx2.md",
+            "book/experiments/preflight-blob-digests/Report.md",
+            "book/graph/concepts/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
+          ],
+          "status": "ok"
+        },
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "1ceec65ff661d5d1050cf14dddb3b6607006a04f57086f1887520615ec094873",
+      "file_size": 513,
+      "path": "book/experiments/encoder-write-trace/out/blobs/golden_strict_1_file.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "1ceec65ff661d5d1050cf14dddb3b6607006a04f57086f1887520615ec094873",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/encoder-write-trace/out/blobs/golden_strict_1_file.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "c242965398582ea8507b87ecd2e6f37d23393eba5dc0cbee9c7e5321dfc92fe2",
+      "file_size": 492,
+      "path": "book/experiments/encoder-write-trace/out/blobs/pair_dp_all_inet_256.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "c242965398582ea8507b87ecd2e6f37d23393eba5dc0cbee9c7e5321dfc92fe2",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/encoder-write-trace/out/blobs/pair_dp_all_inet_256.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
       "file_sha256": "64b8b3eb9c1bdd1df1cc98f260e12bb04e7c477140935db6a45e1d8c864f49f8",
       "file_size": 492,
       "path": "book/experiments/encoder-write-trace/out/blobs/pair_dp_all_inet_tcp.sb.bin",
@@ -635,6 +812,167 @@
       ]
     },
     {
+      "file_sha256": "b7a73573969a51498a8445fb2cdbf67f3962646252e2176ebd32d093621c9ca6",
+      "file_size": 492,
+      "path": "book/experiments/encoder-write-trace/out/blobs/pair_dp_all_inet_udp.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "b7a73573969a51498a8445fb2cdbf67f3962646252e2176ebd32d093621c9ca6",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/encoder-write-trace/out/blobs/pair_dp_all_inet_udp.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "4450207c1e47f431e750608d011244b23a29746ed614ca763622040952dd8143",
+      "file_size": 492,
+      "path": "book/experiments/encoder-write-trace/out/blobs/pair_dp_all_system_tcp.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "4450207c1e47f431e750608d011244b23a29746ed614ca763622040952dd8143",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/encoder-write-trace/out/blobs/pair_dp_all_system_tcp.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "134989e182fdaac1c42091f4c91cc0ad6af208feaf3566c85bbe2a8466319934",
+      "file_size": 492,
+      "path": "book/experiments/encoder-write-trace/out/blobs/pair_dp_any_inet_256.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "134989e182fdaac1c42091f4c91cc0ad6af208feaf3566c85bbe2a8466319934",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/encoder-write-trace/out/blobs/pair_dp_any_inet_256.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "2c454ad43d786b73fe5499db9720ddfce3f9fc9ee80734536975adfbd1d6a94f",
+      "file_size": 492,
+      "path": "book/experiments/encoder-write-trace/out/blobs/pair_dp_any_inet_tcp.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "2c454ad43d786b73fe5499db9720ddfce3f9fc9ee80734536975adfbd1d6a94f",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/encoder-write-trace/out/blobs/pair_dp_any_inet_tcp.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "5a8d162bfc90ee39f8cb7f7c8747fc673c583d9551304eaf31f6a2f10834223e",
+      "file_size": 492,
+      "path": "book/experiments/encoder-write-trace/out/blobs/pair_dp_any_inet_udp.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "5a8d162bfc90ee39f8cb7f7c8747fc673c583d9551304eaf31f6a2f10834223e",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/encoder-write-trace/out/blobs/pair_dp_any_inet_udp.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "d18949a90b988318d970ee88ae55c38d3e65777abe6fd7ccdaade03418fdc78b",
+      "file_size": 492,
+      "path": "book/experiments/encoder-write-trace/out/blobs/pair_dp_any_system_tcp.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "d18949a90b988318d970ee88ae55c38d3e65777abe6fd7ccdaade03418fdc78b",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/encoder-write-trace/out/blobs/pair_dp_any_system_tcp.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "e1df3b3614e7cc6645e218339b147d2f28c4306e6425b361926474c932ca7520",
+      "file_size": 492,
+      "path": "book/experiments/encoder-write-trace/out/blobs/pair_dt_all_inet_dgram.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "e1df3b3614e7cc6645e218339b147d2f28c4306e6425b361926474c932ca7520",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/encoder-write-trace/out/blobs/pair_dt_all_inet_dgram.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
       "file_sha256": "874ef6d0c949f4e80e52b72deeec6956eee000f40d14ff427d46cff88028d08a",
       "file_size": 492,
       "path": "book/experiments/encoder-write-trace/out/blobs/pair_dt_all_inet_stream.sb.bin",
@@ -658,6 +996,29 @@
       ]
     },
     {
+      "file_sha256": "874ef6d0c949f4e80e52b72deeec6956eee000f40d14ff427d46cff88028d08a",
+      "file_size": 492,
+      "path": "book/experiments/encoder-write-trace/out/blobs/pair_dt_all_inet_stream_file.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "874ef6d0c949f4e80e52b72deeec6956eee000f40d14ff427d46cff88028d08a",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/encoder-write-trace/out/blobs/pair_dt_all_inet_stream_file.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
       "file_sha256": "bb62dc5971b06dd425dfd88a9faba94263bbf45b585853ee3f5667aac30e1aec",
       "file_size": 492,
       "path": "book/experiments/encoder-write-trace/out/blobs/pair_dt_all_inet_stream_order2.sb.bin",
@@ -671,6 +1032,167 @@
         ],
         "input_kind": "sbpl_blob_path",
         "input_ref": "book/experiments/encoder-write-trace/out/blobs/pair_dt_all_inet_stream_order2.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "874ef6d0c949f4e80e52b72deeec6956eee000f40d14ff427d46cff88028d08a",
+      "file_size": 492,
+      "path": "book/experiments/encoder-write-trace/out/blobs/pair_dt_all_inet_stream_string.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "874ef6d0c949f4e80e52b72deeec6956eee000f40d14ff427d46cff88028d08a",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/encoder-write-trace/out/blobs/pair_dt_all_inet_stream_string.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "eaa3d32548368a9bfe5e309274bb3583d2eb91e47ed1d667c712b30a876a1c6d",
+      "file_size": 492,
+      "path": "book/experiments/encoder-write-trace/out/blobs/pair_dt_all_system_stream.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "eaa3d32548368a9bfe5e309274bb3583d2eb91e47ed1d667c712b30a876a1c6d",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/encoder-write-trace/out/blobs/pair_dt_all_system_stream.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "642bd17afe21a78331c8f8fc162742f4bff940bcf061ce3c1468767b72f13957",
+      "file_size": 492,
+      "path": "book/experiments/encoder-write-trace/out/blobs/pair_dt_any_inet_dgram.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "642bd17afe21a78331c8f8fc162742f4bff940bcf061ce3c1468767b72f13957",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/encoder-write-trace/out/blobs/pair_dt_any_inet_dgram.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "94ac6fc041a52c40db0550c6f05f853fbb18263056f79a1cc5e40672f8868c55",
+      "file_size": 492,
+      "path": "book/experiments/encoder-write-trace/out/blobs/pair_dt_any_inet_stream.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "94ac6fc041a52c40db0550c6f05f853fbb18263056f79a1cc5e40672f8868c55",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/encoder-write-trace/out/blobs/pair_dt_any_inet_stream.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "4aadc29ce1733f284935512b6a4e5fb648543b9daf902c7cf512445bf42f904d",
+      "file_size": 492,
+      "path": "book/experiments/encoder-write-trace/out/blobs/pair_dt_any_system_stream.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "4aadc29ce1733f284935512b6a4e5fb648543b9daf902c7cf512445bf42f904d",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/encoder-write-trace/out/blobs/pair_dt_any_system_stream.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "eb6359c8b3ab27c3f05f036ab375e70096f5f4c15c640f80ca2dd671ec92dba3",
+      "file_size": 492,
+      "path": "book/experiments/encoder-write-trace/out/blobs/pair_tp_all_dgram_tcp.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "eb6359c8b3ab27c3f05f036ab375e70096f5f4c15c640f80ca2dd671ec92dba3",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/encoder-write-trace/out/blobs/pair_tp_all_dgram_tcp.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "603faee2d0a5b5c2c495dab6248baaa17c230cf85e2be0e148764558dd77e23f",
+      "file_size": 492,
+      "path": "book/experiments/encoder-write-trace/out/blobs/pair_tp_all_stream_256.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "603faee2d0a5b5c2c495dab6248baaa17c230cf85e2be0e148764558dd77e23f",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/encoder-write-trace/out/blobs/pair_tp_all_stream_256.sb.bin",
         "preflight_schema_version": 1,
         "signature": null,
         "tool": "book/tools/preflight",
@@ -717,6 +1239,213 @@
         ],
         "input_kind": "sbpl_blob_path",
         "input_ref": "book/experiments/encoder-write-trace/out/blobs/pair_tp_all_stream_tcp_order2.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "c59a3a2acd8b60f15c3dd535ba5c4c5dc61690dd9113b1ac657c13ec00485fb1",
+      "file_size": 492,
+      "path": "book/experiments/encoder-write-trace/out/blobs/pair_tp_all_stream_udp.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "c59a3a2acd8b60f15c3dd535ba5c4c5dc61690dd9113b1ac657c13ec00485fb1",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/encoder-write-trace/out/blobs/pair_tp_all_stream_udp.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "a94e22bf05204bd06f288a2f72858226989b8128d65e1f68535c45e037c7335d",
+      "file_size": 492,
+      "path": "book/experiments/encoder-write-trace/out/blobs/pair_tp_any_dgram_tcp.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "a94e22bf05204bd06f288a2f72858226989b8128d65e1f68535c45e037c7335d",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/encoder-write-trace/out/blobs/pair_tp_any_dgram_tcp.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "16cef742de09df28d96d13a11242ad4b6161fc3fb2c85bfcf6ba9113c6d7150a",
+      "file_size": 492,
+      "path": "book/experiments/encoder-write-trace/out/blobs/pair_tp_any_stream_256.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "16cef742de09df28d96d13a11242ad4b6161fc3fb2c85bfcf6ba9113c6d7150a",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/encoder-write-trace/out/blobs/pair_tp_any_stream_256.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "59e9bd3914fc6050043c6672e939fe40c0d90dd4787d17ee67b960216ef1746f",
+      "file_size": 492,
+      "path": "book/experiments/encoder-write-trace/out/blobs/pair_tp_any_stream_tcp.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "59e9bd3914fc6050043c6672e939fe40c0d90dd4787d17ee67b960216ef1746f",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/encoder-write-trace/out/blobs/pair_tp_any_stream_tcp.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "6f45df0fc01b59c0d06d9726ad6906d78173f01db0992cdd0c4cc35e4198b511",
+      "file_size": 492,
+      "path": "book/experiments/encoder-write-trace/out/blobs/pair_tp_any_stream_udp.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "6f45df0fc01b59c0d06d9726ad6906d78173f01db0992cdd0c4cc35e4198b511",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/encoder-write-trace/out/blobs/pair_tp_any_stream_udp.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "d126353bc1ff1de6ff9f826d83d4effb24ac51c8faff5a1b15a9449487a673a0",
+      "file_size": 503,
+      "path": "book/experiments/encoder-write-trace/out/blobs/param_path_file_with_params.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "d126353bc1ff1de6ff9f826d83d4effb24ac51c8faff5a1b15a9449487a673a0",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/encoder-write-trace/out/blobs/param_path_file_with_params.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "d498aab1969dad5e6cea8992fb43b7c4df6274b93fa3e7688016dd959de68631",
+      "file_size": 511,
+      "path": "book/experiments/encoder-write-trace/out/blobs/param_path_file_with_params_alt.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "d498aab1969dad5e6cea8992fb43b7c4df6274b93fa3e7688016dd959de68631",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/encoder-write-trace/out/blobs/param_path_file_with_params_alt.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "d126353bc1ff1de6ff9f826d83d4effb24ac51c8faff5a1b15a9449487a673a0",
+      "file_size": 503,
+      "path": "book/experiments/encoder-write-trace/out/blobs/param_path_string_with_params.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "d126353bc1ff1de6ff9f826d83d4effb24ac51c8faff5a1b15a9449487a673a0",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/encoder-write-trace/out/blobs/param_path_string_with_params.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "d498aab1969dad5e6cea8992fb43b7c4df6274b93fa3e7688016dd959de68631",
+      "file_size": 511,
+      "path": "book/experiments/encoder-write-trace/out/blobs/param_path_string_with_params_alt.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "d498aab1969dad5e6cea8992fb43b7c4df6274b93fa3e7688016dd959de68631",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/encoder-write-trace/out/blobs/param_path_string_with_params_alt.sb.bin",
         "preflight_schema_version": 1,
         "signature": null,
         "tool": "book/tools/preflight",
@@ -796,6 +1525,29 @@
       ]
     },
     {
+      "file_sha256": "c80051d30358a48476c7985a49f0af120901d28c8f00790ebd709556f29c149c",
+      "file_size": 500,
+      "path": "book/experiments/encoder-write-trace/out/blobs/triple_all_inet_dgram_tcp.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "c80051d30358a48476c7985a49f0af120901d28c8f00790ebd709556f29c149c",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/encoder-write-trace/out/blobs/triple_all_inet_dgram_tcp.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
       "file_sha256": "d32c94d51c93ae6b55c52b9ea2749e4b8180c2d143196663fd14706206669c40",
       "file_size": 500,
       "path": "book/experiments/encoder-write-trace/out/blobs/triple_all_inet_stream_256.sb.bin",
@@ -809,6 +1561,52 @@
         ],
         "input_kind": "sbpl_blob_path",
         "input_ref": "book/experiments/encoder-write-trace/out/blobs/triple_all_inet_stream_256.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "90da032b4ad23174e93abe419c3892d5bf9973f73c02a11761ef70e28465c74c",
+      "file_size": 500,
+      "path": "book/experiments/encoder-write-trace/out/blobs/triple_all_inet_stream_udp.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "90da032b4ad23174e93abe419c3892d5bf9973f73c02a11761ef70e28465c74c",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/encoder-write-trace/out/blobs/triple_all_inet_stream_udp.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "20f4321112ec016a46bb507ea12732e05c7139e0780b85b8971e52da4890ebaa",
+      "file_size": 500,
+      "path": "book/experiments/encoder-write-trace/out/blobs/triple_all_system_stream_tcp.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "20f4321112ec016a46bb507ea12732e05c7139e0780b85b8971e52da4890ebaa",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/encoder-write-trace/out/blobs/triple_all_system_stream_tcp.sb.bin",
         "preflight_schema_version": 1,
         "signature": null,
         "tool": "book/tools/preflight",
@@ -855,6 +1653,121 @@
         ],
         "input_kind": "sbpl_blob_path",
         "input_ref": "book/experiments/encoder-write-trace/out/blobs/triple_all_tcp_order2.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "fce8d1a2d85950204ed409e66ce82fbdcbcf2a84af95cfe6f2f8cea998c9b977",
+      "file_size": 500,
+      "path": "book/experiments/encoder-write-trace/out/blobs/triple_all_udp.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "fce8d1a2d85950204ed409e66ce82fbdcbcf2a84af95cfe6f2f8cea998c9b977",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/encoder-write-trace/out/blobs/triple_all_udp.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "180e281fda560fe65b8911c110492edfca1a4caf7658fa70dc929e9c8f4c2907",
+      "file_size": 500,
+      "path": "book/experiments/encoder-write-trace/out/blobs/triple_any_256.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "180e281fda560fe65b8911c110492edfca1a4caf7658fa70dc929e9c8f4c2907",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/encoder-write-trace/out/blobs/triple_any_256.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "5a8ab6df96e2108604b9c2949a3741621771db9b7203ff0e49cd7a3ca76420aa",
+      "file_size": 500,
+      "path": "book/experiments/encoder-write-trace/out/blobs/triple_any_tcp.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "5a8ab6df96e2108604b9c2949a3741621771db9b7203ff0e49cd7a3ca76420aa",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/encoder-write-trace/out/blobs/triple_any_tcp.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "d32c94d51c93ae6b55c52b9ea2749e4b8180c2d143196663fd14706206669c40",
+      "file_size": 500,
+      "path": "book/experiments/encoder-write-trace/out/blobs/triple_nested_256.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "d32c94d51c93ae6b55c52b9ea2749e4b8180c2d143196663fd14706206669c40",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/encoder-write-trace/out/blobs/triple_nested_256.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "13ac83c6ffea7232e86baff165f248f4314fd224ec1be863b7ca0d107e4a244b",
+      "file_size": 500,
+      "path": "book/experiments/encoder-write-trace/out/blobs/triple_nested_tcp.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "13ac83c6ffea7232e86baff165f248f4314fd224ec1be863b7ca0d107e4a244b",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/encoder-write-trace/out/blobs/triple_nested_tcp.sb.bin",
         "preflight_schema_version": 1,
         "signature": null,
         "tool": "book/tools/preflight",
@@ -9690,14 +10603,14 @@
       ]
     },
     {
-      "file_sha256": "c1ea11868d7d982369275b40a1d1b4e795a43aa4e5f76fe2dd18cffcdc48e31f",
-      "file_size": 585,
+      "file_sha256": "2d92121a53b511acaa158530c8155857fb78b2698f07ff7d3f28606a3fb4282e",
+      "file_size": 577,
       "path": "book/experiments/vfs-canonicalization/sb/build/vfs_both_paths.sb.bin",
       "preflight": {
         "classification": "no_known_apply_gate_signature",
         "findings": [
           {
-            "blob_sha256": "c1ea11868d7d982369275b40a1d1b4e795a43aa4e5f76fe2dd18cffcdc48e31f",
+            "blob_sha256": "2d92121a53b511acaa158530c8155857fb78b2698f07ff7d3f28606a3fb4282e",
             "matched": false
           }
         ],
@@ -9713,14 +10626,221 @@
       ]
     },
     {
-      "file_sha256": "43dfefea9f176742f62f11410449547f5c9889e8a4aa6d2fa4aa328be8a9c0c6",
-      "file_size": 526,
+      "file_sha256": "261399933bcf44dde7a7969448d571f0e807bc15f32abe4e11485a01fa03303e",
+      "file_size": 465,
+      "path": "book/experiments/vfs-canonicalization/sb/build/vfs_etc_alias_only.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "261399933bcf44dde7a7969448d571f0e807bc15f32abe4e11485a01fa03303e",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/vfs-canonicalization/sb/build/vfs_etc_alias_only.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "6dbca71c79357b08148385510b0932c9e13f14563f0ef1a26445e08b566829da",
+      "file_size": 489,
+      "path": "book/experiments/vfs-canonicalization/sb/build/vfs_etc_both.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "6dbca71c79357b08148385510b0932c9e13f14563f0ef1a26445e08b566829da",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/vfs-canonicalization/sb/build/vfs_etc_both.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "7e50b5bde88cca62900b5841b110f810c328fad2e93d72e865af9bbdbcb9fe51",
+      "file_size": 473,
+      "path": "book/experiments/vfs-canonicalization/sb/build/vfs_etc_private_only.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "7e50b5bde88cca62900b5841b110f810c328fad2e93d72e865af9bbdbcb9fe51",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/vfs-canonicalization/sb/build/vfs_etc_private_only.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "eb54f1498587751be2329bcd228e834e355eb469645a4084f8f3b7027f0b5fda",
+      "file_size": 543,
+      "path": "book/experiments/vfs-canonicalization/sb/build/vfs_firmlink_both.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "eb54f1498587751be2329bcd228e834e355eb469645a4084f8f3b7027f0b5fda",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/vfs-canonicalization/sb/build/vfs_firmlink_both.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "1b5984466dc175b5762cfb70d4f5877d4cb6d06926e4ad1037218518c31e2817",
+      "file_size": 506,
+      "path": "book/experiments/vfs-canonicalization/sb/build/vfs_firmlink_data_only.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "1b5984466dc175b5762cfb70d4f5877d4cb6d06926e4ad1037218518c31e2817",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/vfs-canonicalization/sb/build/vfs_firmlink_data_only.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "719aaf198b48ea15d30dffb4fbbabb3d7b9048fb9337cc8a11d6fe7a583aedb7",
+      "file_size": 486,
+      "path": "book/experiments/vfs-canonicalization/sb/build/vfs_firmlink_private_only.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "719aaf198b48ea15d30dffb4fbbabb3d7b9048fb9337cc8a11d6fe7a583aedb7",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/vfs-canonicalization/sb/build/vfs_firmlink_private_only.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "301effc2b71bada5c32debecdd12dfe70ec3571a5d6e9c349f7efb6f2d4f474e",
+      "file_size": 534,
+      "path": "book/experiments/vfs-canonicalization/sb/build/vfs_link_both.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "301effc2b71bada5c32debecdd12dfe70ec3571a5d6e9c349f7efb6f2d4f474e",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/vfs-canonicalization/sb/build/vfs_link_both.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "d974bc90cde76199e68500e81904bfad593cdb964fe55cc85dbc9c08dc301456",
+      "file_size": 505,
+      "path": "book/experiments/vfs-canonicalization/sb/build/vfs_link_private_tmp_only.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "d974bc90cde76199e68500e81904bfad593cdb964fe55cc85dbc9c08dc301456",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/vfs-canonicalization/sb/build/vfs_link_private_tmp_only.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "00d9eb1b3ffcb438407b8d78b8bae460961b0cfa514e2651cf285dc4e238261d",
+      "file_size": 486,
+      "path": "book/experiments/vfs-canonicalization/sb/build/vfs_link_var_tmp_only.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "00d9eb1b3ffcb438407b8d78b8bae460961b0cfa514e2651cf285dc4e238261d",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/vfs-canonicalization/sb/build/vfs_link_var_tmp_only.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "7cb0207521fe67ec3a592d1f0650fff1c959e905f12af69b55b44d5eb969dc76",
+      "file_size": 518,
       "path": "book/experiments/vfs-canonicalization/sb/build/vfs_private_tmp_only.sb.bin",
       "preflight": {
         "classification": "no_known_apply_gate_signature",
         "findings": [
           {
-            "blob_sha256": "43dfefea9f176742f62f11410449547f5c9889e8a4aa6d2fa4aa328be8a9c0c6",
+            "blob_sha256": "7cb0207521fe67ec3a592d1f0650fff1c959e905f12af69b55b44d5eb969dc76",
             "matched": false
           }
         ],
@@ -9736,14 +10856,14 @@
       ]
     },
     {
-      "file_sha256": "ce88096ad30ae017c660f96bca1d6e7b056f4395d3628e0aae44f67f1ce7fe5a",
-      "file_size": 518,
+      "file_sha256": "1edb89e797412c6703110836546ca885d6919d1167c3f2f17f68add8f18dd3e2",
+      "file_size": 510,
       "path": "book/experiments/vfs-canonicalization/sb/build/vfs_tmp_only.sb.bin",
       "preflight": {
         "classification": "no_known_apply_gate_signature",
         "findings": [
           {
-            "blob_sha256": "ce88096ad30ae017c660f96bca1d6e7b056f4395d3628e0aae44f67f1ce7fe5a",
+            "blob_sha256": "1edb89e797412c6703110836546ca885d6919d1167c3f2f17f68add8f18dd3e2",
             "matched": false
           }
         ],
@@ -9759,8 +10879,77 @@
       ]
     },
     {
-      "file_sha256": "0fc8d40d8de507b0ab0205d8a8ef22d89da135b2558b540484abeda98e2d1141",
-      "file_size": 1313,
+      "file_sha256": "f98701740da6ee870003bf0ee9a092bf99c8118c445401d2e7224d1b76f5ee58",
+      "file_size": 479,
+      "path": "book/experiments/vfs-canonicalization/sb/build/vfs_var_tmp_alias_only.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "f98701740da6ee870003bf0ee9a092bf99c8118c445401d2e7224d1b76f5ee58",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/vfs-canonicalization/sb/build/vfs_var_tmp_alias_only.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "f8a411cf76b7bc93e1d3b31e82ba08b4763e73cb3d6f5a646242bee68b9228d3",
+      "file_size": 517,
+      "path": "book/experiments/vfs-canonicalization/sb/build/vfs_var_tmp_both.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "f8a411cf76b7bc93e1d3b31e82ba08b4763e73cb3d6f5a646242bee68b9228d3",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/vfs-canonicalization/sb/build/vfs_var_tmp_both.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "a4d9694067a16364b0b7066838156c7f0d8d14a02b96eab5d4b4da8f4f89fd6e",
+      "file_size": 487,
+      "path": "book/experiments/vfs-canonicalization/sb/build/vfs_var_tmp_private_only.sb.bin",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [
+          {
+            "blob_sha256": "a4d9694067a16364b0b7066838156c7f0d8d14a02b96eab5d4b4da8f4f89fd6e",
+            "matched": false
+          }
+        ],
+        "input_kind": "sbpl_blob_path",
+        "input_ref": "book/experiments/vfs-canonicalization/sb/build/vfs_var_tmp_private_only.sb.bin",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "book_blobs"
+      ]
+    },
+    {
+      "file_sha256": "bc19caa3557f209efbf26bfe69b832892f47b3edc9b6f9d80542e34535701b72",
+      "file_size": 867,
       "path": "book/experiments/vfs-canonicalization/sb/vfs_both_paths.sb",
       "preflight": {
         "classification": "no_known_apply_gate_signature",
@@ -9777,8 +10966,170 @@
       ]
     },
     {
-      "file_sha256": "bfec9c3bfe48510411ea0918a01198e6a49f62a9d829543d9e96b95b9db27b40",
-      "file_size": 755,
+      "file_sha256": "95eba9d16b4886459d2bf8f1a7cc88214f10b07b5102ef0108164ca6a7bfd68d",
+      "file_size": 106,
+      "path": "book/experiments/vfs-canonicalization/sb/vfs_etc_alias_only.sb",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [],
+        "input_kind": "sbpl_path",
+        "input_ref": "book/experiments/vfs-canonicalization/sb/vfs_etc_alias_only.sb",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "experiments_sbpl"
+      ]
+    },
+    {
+      "file_sha256": "e37a0ad1690db408c378c726883778542145e85226a35592c8648f7c2f3a6c12",
+      "file_size": 179,
+      "path": "book/experiments/vfs-canonicalization/sb/vfs_etc_both.sb",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [],
+        "input_kind": "sbpl_path",
+        "input_ref": "book/experiments/vfs-canonicalization/sb/vfs_etc_both.sb",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "experiments_sbpl"
+      ]
+    },
+    {
+      "file_sha256": "7045f982eec8985d08a4affce496d1d07026ecc744ea18a0f9b4acec144dd6f6",
+      "file_size": 122,
+      "path": "book/experiments/vfs-canonicalization/sb/vfs_etc_private_only.sb",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [],
+        "input_kind": "sbpl_path",
+        "input_ref": "book/experiments/vfs-canonicalization/sb/vfs_etc_private_only.sb",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "experiments_sbpl"
+      ]
+    },
+    {
+      "file_sha256": "0721deb57fd79c40ba731ea860913c329c8caf9bb2ab30c4f2af08a33fca829a",
+      "file_size": 393,
+      "path": "book/experiments/vfs-canonicalization/sb/vfs_firmlink_both.sb",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [],
+        "input_kind": "sbpl_path",
+        "input_ref": "book/experiments/vfs-canonicalization/sb/vfs_firmlink_both.sb",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "experiments_sbpl"
+      ]
+    },
+    {
+      "file_sha256": "a283bd1fa95c20582a9cd86ee83a50905ae167d9afd4418e9c68f82b36bfb3f5",
+      "file_size": 279,
+      "path": "book/experiments/vfs-canonicalization/sb/vfs_firmlink_data_only.sb",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [],
+        "input_kind": "sbpl_path",
+        "input_ref": "book/experiments/vfs-canonicalization/sb/vfs_firmlink_data_only.sb",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "experiments_sbpl"
+      ]
+    },
+    {
+      "file_sha256": "318ed42e0af1423a78618b832cedab373c638cf8bf841f3d741e207b2ec8004f",
+      "file_size": 219,
+      "path": "book/experiments/vfs-canonicalization/sb/vfs_firmlink_private_only.sb",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [],
+        "input_kind": "sbpl_path",
+        "input_ref": "book/experiments/vfs-canonicalization/sb/vfs_firmlink_private_only.sb",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "experiments_sbpl"
+      ]
+    },
+    {
+      "file_sha256": "281eed49591c25f9a1404dcd6183a7ede083a6642ea3596f8d1aac6b57bd3e91",
+      "file_size": 387,
+      "path": "book/experiments/vfs-canonicalization/sb/vfs_link_both.sb",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [],
+        "input_kind": "sbpl_path",
+        "input_ref": "book/experiments/vfs-canonicalization/sb/vfs_link_both.sb",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "experiments_sbpl"
+      ]
+    },
+    {
+      "file_sha256": "b13b60c789a33d4e35b559bdecd9bd6b01a55fc53f94e8415137209816082d2d",
+      "file_size": 271,
+      "path": "book/experiments/vfs-canonicalization/sb/vfs_link_private_tmp_only.sb",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [],
+        "input_kind": "sbpl_path",
+        "input_ref": "book/experiments/vfs-canonicalization/sb/vfs_link_private_tmp_only.sb",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "experiments_sbpl"
+      ]
+    },
+    {
+      "file_sha256": "5a900c28ffe07bc992f32f7a7729935bc95618dd65e717397bd62b5468cb5056",
+      "file_size": 223,
+      "path": "book/experiments/vfs-canonicalization/sb/vfs_link_var_tmp_only.sb",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [],
+        "input_kind": "sbpl_path",
+        "input_ref": "book/experiments/vfs-canonicalization/sb/vfs_link_var_tmp_only.sb",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "experiments_sbpl"
+      ]
+    },
+    {
+      "file_sha256": "b9b3f144f82b7ba703c40295dabf51da908bb0d77f04a1056b6f1b5293622fa5",
+      "file_size": 516,
       "path": "book/experiments/vfs-canonicalization/sb/vfs_private_tmp_only.sb",
       "preflight": {
         "classification": "no_known_apply_gate_signature",
@@ -9795,14 +11146,68 @@
       ]
     },
     {
-      "file_sha256": "1cf64af930f5306a99156478cbb29a1114dca354bbc969255379b87308fbe927",
-      "file_size": 643,
+      "file_sha256": "5931fe891dd4578fe6db27e594f9f37af478f8328c1b35368cd834e22494ef44",
+      "file_size": 436,
       "path": "book/experiments/vfs-canonicalization/sb/vfs_tmp_only.sb",
       "preflight": {
         "classification": "no_known_apply_gate_signature",
         "findings": [],
         "input_kind": "sbpl_path",
         "input_ref": "book/experiments/vfs-canonicalization/sb/vfs_tmp_only.sb",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "experiments_sbpl"
+      ]
+    },
+    {
+      "file_sha256": "d40cf861a26ca31153881be69291b9a6886d4caf30b0d6a6064d48222613d4c1",
+      "file_size": 198,
+      "path": "book/experiments/vfs-canonicalization/sb/vfs_var_tmp_alias_only.sb",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [],
+        "input_kind": "sbpl_path",
+        "input_ref": "book/experiments/vfs-canonicalization/sb/vfs_var_tmp_alias_only.sb",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "experiments_sbpl"
+      ]
+    },
+    {
+      "file_sha256": "e440223cf559354f11b84b9dff6a8aa364cf4cd3368de1d04f3c88fdfdeb359f",
+      "file_size": 364,
+      "path": "book/experiments/vfs-canonicalization/sb/vfs_var_tmp_both.sb",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [],
+        "input_kind": "sbpl_path",
+        "input_ref": "book/experiments/vfs-canonicalization/sb/vfs_var_tmp_both.sb",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "experiments_sbpl"
+      ]
+    },
+    {
+      "file_sha256": "48b03d59f5fe01a67e2134998d9e1b233cf09ac8e0caf063198822db4ad26c72",
+      "file_size": 222,
+      "path": "book/experiments/vfs-canonicalization/sb/vfs_var_tmp_private_only.sb",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [],
+        "input_kind": "sbpl_path",
+        "input_ref": "book/experiments/vfs-canonicalization/sb/vfs_var_tmp_private_only.sb",
         "preflight_schema_version": 1,
         "signature": null,
         "tool": "book/tools/preflight",

@@ -2,6 +2,24 @@
   "vfs_tmp_only": {
     "anchors": [
       {
+        "path": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/etc/hosts",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/etc/hosts",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
         "path": "/private/tmp/bar",
         "present": false,
         "tags": [],
@@ -20,7 +38,31 @@
         "field2_values": []
       },
       {
+        "path": "/private/tmp/vfs_firmlink_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
         "path": "/private/var/tmp/canon",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/var/tmp/vfs_canon_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/var/tmp/vfs_link_probe",
         "present": false,
         "tags": [],
         "field2_values": []
@@ -28,12 +70,8 @@
       {
         "path": "/tmp/bar",
         "present": true,
-        "tags": [
-          6
-        ],
-        "field2_values": [
-          1
-        ]
+        "tags": [],
+        "field2_values": []
       },
       {
         "path": "/tmp/foo",
@@ -44,34 +82,69 @@
       {
         "path": "/tmp/nested/child",
         "present": true,
-        "tags": [],
-        "field2_values": []
+        "tags": [
+          1,
+          4
+        ],
+        "field2_values": [
+          0,
+          1,
+          4
+        ]
       },
       {
         "path": "/var/tmp/canon",
         "present": true,
         "tags": [
           0,
-          6
+          1,
+          4,
+          5
         ],
         "field2_values": [
           0,
-          5,
-          6
+          1,
+          4,
+          12096
         ]
+      },
+      {
+        "path": "/var/tmp/vfs_canon_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
       }
     ],
     "node_count": 53,
     "tag_counts": {
-      "6": 31,
-      "5": 15,
-      "4": 4,
+      "4": 17,
+      "5": 28,
+      "3": 4,
+      "1": 1,
       "0": 3
     }
   },
   "vfs_private_tmp_only": {
     "anchors": [
       {
+        "path": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/etc/hosts",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/etc/hosts",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
         "path": "/private/tmp/bar",
         "present": true,
         "tags": [],
@@ -90,16 +163,42 @@
         "field2_values": []
       },
       {
+        "path": "/private/tmp/vfs_firmlink_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
         "path": "/private/var/tmp/canon",
         "present": true,
         "tags": [
           0,
-          6
+          1,
+          4
         ],
         "field2_values": [
           0,
-          5
+          1,
+          4
         ]
+      },
+      {
+        "path": "/private/var/tmp/vfs_canon_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/var/tmp/vfs_link_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
       },
       {
         "path": "/tmp/bar",
@@ -116,34 +215,64 @@
       {
         "path": "/tmp/nested/child",
         "present": true,
-        "tags": [],
-        "field2_values": []
+        "tags": [
+          5
+        ],
+        "field2_values": [
+          2
+        ]
       },
       {
         "path": "/var/tmp/canon",
         "present": true,
         "tags": [
           0,
-          6
+          1,
+          4
         ],
         "field2_values": [
           0,
           1,
-          5
+          4
         ]
+      },
+      {
+        "path": "/var/tmp/vfs_canon_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
       }
     ],
-    "node_count": 53,
+    "node_count": 52,
     "tag_counts": {
-      "6": 31,
-      "5": 15,
-      "4": 4,
-      "0": 3
+      "4": 17,
+      "5": 28,
+      "3": 4,
+      "1": 1,
+      "0": 2
     }
   },
   "vfs_both_paths": {
     "anchors": [
       {
+        "path": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/etc/hosts",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/etc/hosts",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
         "path": "/private/tmp/bar",
         "present": true,
         "tags": [],
@@ -158,6 +287,23 @@
       {
         "path": "/private/tmp/nested/child",
         "present": true,
+        "tags": [
+          4
+        ],
+        "field2_values": [
+          0,
+          1
+        ]
+      },
+      {
+        "path": "/private/tmp/vfs_firmlink_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+        "present": false,
         "tags": [],
         "field2_values": []
       },
@@ -167,14 +313,25 @@
         "tags": [
           0,
           4,
-          5,
-          6
+          5
         ],
         "field2_values": [
           0,
-          5,
-          6
+          1,
+          4
         ]
+      },
+      {
+        "path": "/private/var/tmp/vfs_canon_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/var/tmp/vfs_link_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
       },
       {
         "path": "/tmp/bar",
@@ -185,44 +342,1465 @@
       {
         "path": "/tmp/foo",
         "present": true,
-        "tags": [
-          6
-        ],
-        "field2_values": [
-          1
-        ]
+        "tags": [],
+        "field2_values": []
       },
       {
         "path": "/tmp/nested/child",
         "present": true,
-        "tags": [],
-        "field2_values": []
+        "tags": [
+          1,
+          4
+        ],
+        "field2_values": [
+          0,
+          1,
+          4
+        ]
       },
       {
         "path": "/var/tmp/canon",
         "present": true,
         "tags": [
           0,
+          1,
           4,
-          5,
-          6
+          5
         ],
         "field2_values": [
           0,
           1,
-          3,
           4,
-          5,
-          6
+          12096
+        ]
+      },
+      {
+        "path": "/var/tmp/vfs_canon_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      }
+    ],
+    "node_count": 53,
+    "tag_counts": {
+      "4": 17,
+      "5": 28,
+      "3": 4,
+      "1": 1,
+      "0": 3
+    }
+  },
+  "vfs_var_tmp_alias_only": {
+    "anchors": [
+      {
+        "path": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/etc/hosts",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/etc/hosts",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/bar",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/foo",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/nested/child",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/vfs_firmlink_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/var/tmp/canon",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/var/tmp/vfs_canon_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/var/tmp/vfs_link_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/tmp/bar",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/tmp/foo",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/tmp/nested/child",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/var/tmp/canon",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/var/tmp/vfs_canon_probe",
+        "present": true,
+        "tags": [
+          0,
+          1,
+          4,
+          5
+        ],
+        "field2_values": [
+          0,
+          1,
+          4
+        ]
+      }
+    ],
+    "node_count": 52,
+    "tag_counts": {
+      "4": 17,
+      "5": 28,
+      "3": 4,
+      "1": 1,
+      "0": 2
+    }
+  },
+  "vfs_var_tmp_private_only": {
+    "anchors": [
+      {
+        "path": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/etc/hosts",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/etc/hosts",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/bar",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/foo",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/nested/child",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/vfs_firmlink_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/var/tmp/canon",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/var/tmp/vfs_canon_probe",
+        "present": true,
+        "tags": [
+          0,
+          1,
+          4,
+          5
+        ],
+        "field2_values": [
+          0,
+          1,
+          4
+        ]
+      },
+      {
+        "path": "/private/var/tmp/vfs_link_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/tmp/bar",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/tmp/foo",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/tmp/nested/child",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/var/tmp/canon",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/var/tmp/vfs_canon_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      }
+    ],
+    "node_count": 52,
+    "tag_counts": {
+      "4": 17,
+      "5": 28,
+      "3": 4,
+      "1": 1,
+      "0": 2
+    }
+  },
+  "vfs_var_tmp_both": {
+    "anchors": [
+      {
+        "path": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/etc/hosts",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/etc/hosts",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/bar",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/foo",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/nested/child",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/vfs_firmlink_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/var/tmp/canon",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/var/tmp/vfs_canon_probe",
+        "present": true,
+        "tags": [
+          0,
+          1,
+          4
+        ],
+        "field2_values": [
+          0,
+          1,
+          4
+        ]
+      },
+      {
+        "path": "/private/var/tmp/vfs_link_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/tmp/bar",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/tmp/foo",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/tmp/nested/child",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/var/tmp/canon",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/var/tmp/vfs_canon_probe",
+        "present": true,
+        "tags": [
+          0,
+          1,
+          4,
+          5
+        ],
+        "field2_values": [
+          0,
+          1,
+          4,
+          12096
         ]
       }
     ],
     "node_count": 53,
     "tag_counts": {
-      "6": 31,
-      "5": 15,
-      "4": 4,
+      "4": 17,
+      "5": 28,
+      "3": 4,
+      "1": 1,
       "0": 3
+    }
+  },
+  "vfs_etc_alias_only": {
+    "anchors": [
+      {
+        "path": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/etc/hosts",
+        "present": true,
+        "tags": [
+          0,
+          1,
+          4,
+          5
+        ],
+        "field2_values": [
+          0,
+          1,
+          4
+        ]
+      },
+      {
+        "path": "/private/etc/hosts",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/bar",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/foo",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/nested/child",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/vfs_firmlink_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/var/tmp/canon",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/var/tmp/vfs_canon_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/var/tmp/vfs_link_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/tmp/bar",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/tmp/foo",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/tmp/nested/child",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/var/tmp/canon",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/var/tmp/vfs_canon_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      }
+    ],
+    "node_count": 52,
+    "tag_counts": {
+      "4": 17,
+      "5": 31,
+      "3": 1,
+      "1": 1,
+      "0": 2
+    }
+  },
+  "vfs_etc_private_only": {
+    "anchors": [
+      {
+        "path": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/etc/hosts",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/etc/hosts",
+        "present": true,
+        "tags": [
+          0,
+          1,
+          4,
+          5
+        ],
+        "field2_values": [
+          0,
+          1,
+          4
+        ]
+      },
+      {
+        "path": "/private/tmp/bar",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/foo",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/nested/child",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/vfs_firmlink_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/var/tmp/canon",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/var/tmp/vfs_canon_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/var/tmp/vfs_link_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/tmp/bar",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/tmp/foo",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/tmp/nested/child",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/var/tmp/canon",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/var/tmp/vfs_canon_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      }
+    ],
+    "node_count": 52,
+    "tag_counts": {
+      "4": 17,
+      "5": 31,
+      "3": 1,
+      "1": 1,
+      "0": 2
+    }
+  },
+  "vfs_etc_both": {
+    "anchors": [
+      {
+        "path": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/etc/hosts",
+        "present": true,
+        "tags": [
+          0,
+          1,
+          4,
+          5
+        ],
+        "field2_values": [
+          0,
+          1,
+          4,
+          12096
+        ]
+      },
+      {
+        "path": "/private/etc/hosts",
+        "present": true,
+        "tags": [
+          0,
+          1,
+          4
+        ],
+        "field2_values": [
+          0,
+          1,
+          4
+        ]
+      },
+      {
+        "path": "/private/tmp/bar",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/foo",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/nested/child",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/vfs_firmlink_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/var/tmp/canon",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/var/tmp/vfs_canon_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/var/tmp/vfs_link_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/tmp/bar",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/tmp/foo",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/tmp/nested/child",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/var/tmp/canon",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/var/tmp/vfs_canon_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      }
+    ],
+    "node_count": 53,
+    "tag_counts": {
+      "4": 17,
+      "5": 31,
+      "3": 1,
+      "1": 1,
+      "0": 3
+    }
+  },
+  "vfs_firmlink_private_only": {
+    "anchors": [
+      {
+        "path": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/etc/hosts",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/etc/hosts",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/bar",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/foo",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/nested/child",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/vfs_firmlink_probe",
+        "present": true,
+        "tags": [
+          0,
+          1,
+          4,
+          5
+        ],
+        "field2_values": [
+          0,
+          1,
+          4
+        ]
+      },
+      {
+        "path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/var/tmp/canon",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/var/tmp/vfs_canon_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/var/tmp/vfs_link_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/tmp/bar",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/tmp/foo",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/tmp/nested/child",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/var/tmp/canon",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/var/tmp/vfs_canon_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      }
+    ],
+    "node_count": 52,
+    "tag_counts": {
+      "4": 17,
+      "5": 28,
+      "3": 4,
+      "1": 1,
+      "0": 2
+    }
+  },
+  "vfs_firmlink_data_only": {
+    "anchors": [
+      {
+        "path": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/etc/hosts",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/etc/hosts",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/bar",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/foo",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/nested/child",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/vfs_firmlink_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/var/tmp/canon",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/var/tmp/vfs_canon_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/var/tmp/vfs_link_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/tmp/bar",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/tmp/foo",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/tmp/nested/child",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/var/tmp/canon",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/var/tmp/vfs_canon_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      }
+    ],
+    "node_count": 52,
+    "tag_counts": {
+      "4": 17,
+      "5": 28,
+      "3": 4,
+      "1": 1,
+      "0": 2
+    }
+  },
+  "vfs_firmlink_both": {
+    "anchors": [
+      {
+        "path": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/etc/hosts",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/etc/hosts",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/bar",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/foo",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/nested/child",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/vfs_firmlink_probe",
+        "present": true,
+        "tags": [
+          0,
+          1,
+          4,
+          5
+        ],
+        "field2_values": [
+          0,
+          1,
+          4,
+          12096
+        ]
+      },
+      {
+        "path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/var/tmp/canon",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/var/tmp/vfs_canon_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/var/tmp/vfs_link_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/tmp/bar",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/tmp/foo",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/tmp/nested/child",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/var/tmp/canon",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/var/tmp/vfs_canon_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      }
+    ],
+    "node_count": 53,
+    "tag_counts": {
+      "4": 17,
+      "5": 28,
+      "3": 4,
+      "1": 1,
+      "0": 3
+    }
+  },
+  "vfs_link_var_tmp_only": {
+    "anchors": [
+      {
+        "path": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/etc/hosts",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/etc/hosts",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/bar",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/foo",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/nested/child",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/vfs_firmlink_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/var/tmp/canon",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/var/tmp/vfs_canon_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/var/tmp/vfs_link_probe",
+        "present": true,
+        "tags": [
+          0,
+          1,
+          4,
+          5
+        ],
+        "field2_values": [
+          0,
+          1,
+          4
+        ]
+      },
+      {
+        "path": "/tmp/bar",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/tmp/foo",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/tmp/nested/child",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/var/tmp/canon",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/var/tmp/vfs_canon_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      }
+    ],
+    "node_count": 52,
+    "tag_counts": {
+      "4": 17,
+      "5": 28,
+      "3": 4,
+      "1": 1,
+      "0": 2
+    }
+  },
+  "vfs_link_private_tmp_only": {
+    "anchors": [
+      {
+        "path": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/etc/hosts",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/etc/hosts",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/bar",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/foo",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/nested/child",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/vfs_firmlink_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+        "present": true,
+        "tags": [
+          0,
+          1,
+          4,
+          5
+        ],
+        "field2_values": [
+          0,
+          1,
+          4
+        ]
+      },
+      {
+        "path": "/private/var/tmp/canon",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/var/tmp/vfs_canon_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/var/tmp/vfs_link_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/tmp/bar",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/tmp/foo",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/tmp/nested/child",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/var/tmp/canon",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/var/tmp/vfs_canon_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      }
+    ],
+    "node_count": 52,
+    "tag_counts": {
+      "4": 17,
+      "5": 28,
+      "3": 4,
+      "1": 1,
+      "0": 2
+    }
+  },
+  "vfs_link_both": {
+    "anchors": [
+      {
+        "path": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/etc/hosts",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/etc/hosts",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/bar",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/foo",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/nested/child",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/vfs_firmlink_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+        "present": true,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/var/tmp/canon",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/var/tmp/vfs_canon_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/private/var/tmp/vfs_link_probe",
+        "present": true,
+        "tags": [
+          0,
+          1,
+          4
+        ],
+        "field2_values": [
+          0,
+          1,
+          4
+        ]
+      },
+      {
+        "path": "/tmp/bar",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/tmp/foo",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/tmp/nested/child",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/var/tmp/canon",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      },
+      {
+        "path": "/var/tmp/vfs_canon_probe",
+        "present": false,
+        "tags": [],
+        "field2_values": []
+      }
+    ],
+    "node_count": 52,
+    "tag_counts": {
+      "4": 17,
+      "5": 28,
+      "3": 4,
+      "1": 1,
+      "0": 2
     }
   }
 }

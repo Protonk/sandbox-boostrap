@@ -1,0 +1,7 @@
+(version 1)
+
+(deny default)
+
+;; Allow reads/writes only for /System/Volumes/Data/private/tmp/vfs_firmlink_probe
+(allow file-read* (literal "/System/Volumes/Data/private/tmp/vfs_firmlink_probe"))
+(allow file-write* (literal "/System/Volumes/Data/private/tmp/vfs_firmlink_probe"))

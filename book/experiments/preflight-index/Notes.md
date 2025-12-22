@@ -11,3 +11,7 @@
   - `python3 book/experiments/preflight-index/build_index.py`
 - Regenerated again after the permissive (`--yolo`) gate-witnesses refresh:
   - `python3 book/experiments/preflight-index/build_index.py`
+- Regenerated after encoder-write-trace blobs expanded inventory coverage:
+  - `python3 book/experiments/preflight-index/build_index.py`
+- Regenerated after adding vfs-canonicalization variant SBPLs:
+  - `python3 book/experiments/preflight-index/build_index.py`

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-VFS canonicalization harness for `/tmp/foo` ↔ `/private/tmp/foo` on Sonoma.
+VFS canonicalization harness for alias/canonical path families on Sonoma.
 
 Tasks:
 - Compile VFS SBPL profiles → blobs under sb/build.
@@ -8,7 +8,7 @@ Tasks:
 - Build a harness matrix and run it via book.api.runtime_tools.harness_runner.run_expected_matrix.
 - Down-convert the harness runtime_results.json into a simple runtime_results.json array.
 - Decode the VFS blobs via book.api.profile_tools.decoder and emit decode_tmp_profiles.json
-  (anchors, tags, and field2 values for `/tmp/foo` and `/private/tmp/foo`).
+  (anchors, tags, and field2 values for the configured path pairs).
 """
 from __future__ import annotations
 
@@ -38,12 +38,148 @@ SB_DIR = BASE_DIR / "sb"
 BUILD_DIR = SB_DIR / "build"
 OUT_DIR = BASE_DIR / "out"
 WORLD_PATH = REPO_ROOT / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world-baseline.json"
-PATH_PAIRS = [
+
+BASE_PATH_PAIRS = [
     ("/tmp/foo", "/private/tmp/foo"),
     ("/tmp/bar", "/private/tmp/bar"),
     ("/tmp/nested/child", "/private/tmp/nested/child"),
     ("/var/tmp/canon", "/private/var/tmp/canon"),
 ]
+VAR_TMP_PATH_PAIRS = [
+    ("/var/tmp/vfs_canon_probe", "/private/var/tmp/vfs_canon_probe"),
+]
+ETC_PATH_PAIRS = [
+    ("/etc/hosts", "/private/etc/hosts"),
+]
+FIRMLINK_PATH_PAIRS = [
+    ("/private/tmp/vfs_firmlink_probe", "/System/Volumes/Data/private/tmp/vfs_firmlink_probe"),
+]
+LINK_PATH_PAIRS = [
+    ("/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe", "/private/var/tmp/vfs_link_probe"),
+]
+
+PROFILE_CONFIGS: Dict[str, Dict[str, Any]] = {
+    "vfs_tmp_only": {
+        "sb": SB_DIR / "vfs_tmp_only.sb",
+        "path_pairs": BASE_PATH_PAIRS,
+        "ops": ["file-read*", "file-write*"],
+        "role": "first_only",
+        "policy": "canonicalized_with_var_tmp_exception",
+        "variant": "tmp",
+    },
+    "vfs_private_tmp_only": {
+        "sb": SB_DIR / "vfs_private_tmp_only.sb",
+        "path_pairs": BASE_PATH_PAIRS,
+        "ops": ["file-read*", "file-write*"],
+        "role": "second_only",
+        "policy": "canonicalized_with_var_tmp_exception",
+        "variant": "tmp",
+    },
+    "vfs_both_paths": {
+        "sb": SB_DIR / "vfs_both_paths.sb",
+        "path_pairs": BASE_PATH_PAIRS,
+        "ops": ["file-read*", "file-write*"],
+        "role": "both",
+        "policy": "canonicalized_with_var_tmp_exception",
+        "variant": "tmp",
+    },
+    "vfs_var_tmp_alias_only": {
+        "sb": SB_DIR / "vfs_var_tmp_alias_only.sb",
+        "path_pairs": VAR_TMP_PATH_PAIRS,
+        "ops": ["file-read*", "file-write*"],
+        "role": "first_only",
+        "policy": "literal",
+        "variant": "var_tmp",
+    },
+    "vfs_var_tmp_private_only": {
+        "sb": SB_DIR / "vfs_var_tmp_private_only.sb",
+        "path_pairs": VAR_TMP_PATH_PAIRS,
+        "ops": ["file-read*", "file-write*"],
+        "role": "second_only",
+        "policy": "literal",
+        "variant": "var_tmp",
+    },
+    "vfs_var_tmp_both": {
+        "sb": SB_DIR / "vfs_var_tmp_both.sb",
+        "path_pairs": VAR_TMP_PATH_PAIRS,
+        "ops": ["file-read*", "file-write*"],
+        "role": "both",
+        "policy": "literal",
+        "variant": "var_tmp",
+    },
+    "vfs_etc_alias_only": {
+        "sb": SB_DIR / "vfs_etc_alias_only.sb",
+        "path_pairs": ETC_PATH_PAIRS,
+        "ops": ["file-read*"],
+        "role": "first_only",
+        "policy": "literal",
+        "variant": "etc",
+    },
+    "vfs_etc_private_only": {
+        "sb": SB_DIR / "vfs_etc_private_only.sb",
+        "path_pairs": ETC_PATH_PAIRS,
+        "ops": ["file-read*"],
+        "role": "second_only",
+        "policy": "literal",
+        "variant": "etc",
+    },
+    "vfs_etc_both": {
+        "sb": SB_DIR / "vfs_etc_both.sb",
+        "path_pairs": ETC_PATH_PAIRS,
+        "ops": ["file-read*"],
+        "role": "both",
+        "policy": "literal",
+        "variant": "etc",
+    },
+    "vfs_firmlink_private_only": {
+        "sb": SB_DIR / "vfs_firmlink_private_only.sb",
+        "path_pairs": FIRMLINK_PATH_PAIRS,
+        "ops": ["file-read*", "file-write*"],
+        "role": "first_only",
+        "policy": "literal",
+        "variant": "firmlink_tmp",
+    },
+    "vfs_firmlink_data_only": {
+        "sb": SB_DIR / "vfs_firmlink_data_only.sb",
+        "path_pairs": FIRMLINK_PATH_PAIRS,
+        "ops": ["file-read*", "file-write*"],
+        "role": "second_only",
+        "policy": "literal",
+        "variant": "firmlink_tmp",
+    },
+    "vfs_firmlink_both": {
+        "sb": SB_DIR / "vfs_firmlink_both.sb",
+        "path_pairs": FIRMLINK_PATH_PAIRS,
+        "ops": ["file-read*", "file-write*"],
+        "role": "both",
+        "policy": "literal",
+        "variant": "firmlink_tmp",
+    },
+    "vfs_link_var_tmp_only": {
+        "sb": SB_DIR / "vfs_link_var_tmp_only.sb",
+        "path_pairs": LINK_PATH_PAIRS,
+        "ops": ["file-read*", "file-write*"],
+        "role": "second_only",
+        "policy": "literal",
+        "variant": "link_path",
+    },
+    "vfs_link_private_tmp_only": {
+        "sb": SB_DIR / "vfs_link_private_tmp_only.sb",
+        "path_pairs": LINK_PATH_PAIRS,
+        "ops": ["file-read*", "file-write*"],
+        "role": "first_only",
+        "policy": "literal",
+        "variant": "link_path",
+    },
+    "vfs_link_both": {
+        "sb": SB_DIR / "vfs_link_both.sb",
+        "path_pairs": LINK_PATH_PAIRS,
+        "ops": ["file-read*", "file-write*"],
+        "role": "both",
+        "policy": "literal",
+        "variant": "link_path",
+    },
+}
 
 
 def rel(path: Path) -> str:
@@ -58,52 +194,74 @@ def load_world_id() -> str:
 def compile_profiles() -> Dict[str, Path]:
     """Compile VFS SBPL profiles to blobs and return map profile_id -> blob path."""
     BUILD_DIR.mkdir(parents=True, exist_ok=True)
-    profiles = {
-        "vfs_tmp_only": SB_DIR / "vfs_tmp_only.sb",
-        "vfs_private_tmp_only": SB_DIR / "vfs_private_tmp_only.sb",
-        "vfs_both_paths": SB_DIR / "vfs_both_paths.sb",
-    }
     blobs: Dict[str, Path] = {}
-    for key, sb_path in profiles.items():
+    for profile_id, cfg in PROFILE_CONFIGS.items():
+        sb_path = cfg["sb"]
         blob_path = BUILD_DIR / f"{sb_path.stem}.sb.bin"
         blob = compile_sbpl_string(sb_path.read_text()).blob
         blob_path.write_bytes(blob)
-        blobs[key] = blob_path
+        blobs[profile_id] = blob_path
     return blobs
 
 
-def build_simple_expected_matrix() -> List[Dict[str, Any]]:
-    """Emit a simple expected matrix over three profiles and the path set."""
-    entries: List[Dict[str, Any]] = []
-    ops = ["file-read*", "file-write*", "file-read-metadata", "file-write-metadata"]
-    for alias_path, canonical_path in PATH_PAIRS:
-        # For /var/tmp, runtime shows alias requests are denied even with canonical literals.
-        alias_expected = "deny" if canonical_path.startswith("/private/var") else "allow"
-        canonical_expected = "allow"
-        for profile_id in ["vfs_tmp_only", "vfs_private_tmp_only", "vfs_both_paths"]:
-            if profile_id == "vfs_tmp_only":
-                alias_decision = "deny"
-                canonical_decision = "deny"
+def _expected_decisions(policy: str, role: str, primary_path: str, alternate_path: str) -> tuple[str, str]:
+    if policy == "literal":
+        if role == "first_only":
+            return "allow", "deny"
+        if role == "second_only":
+            return "deny", "allow"
+        if role == "both":
+            return "allow", "allow"
+        raise ValueError(f"unknown role {role}")
+
+    if policy in {"canonicalized", "canonicalized_with_var_tmp_exception"}:
+        if role == "first_only":
+            primary = "deny"
+            alternate = "deny"
+        elif role in {"second_only", "both"}:
+            primary = "allow"
+            alternate = "allow"
+        else:
+            raise ValueError(f"unknown role {role}")
+
+        if policy == "canonicalized_with_var_tmp_exception" and alternate_path.startswith("/private/var/"):
+            primary = "deny"
+            if role == "first_only":
+                alternate = "deny"
             else:
-                alias_decision = alias_expected
-                canonical_decision = canonical_expected
+                alternate = "allow"
+        return primary, alternate
+
+    raise ValueError(f"unknown policy {policy}")
+
+
+def build_simple_expected_matrix() -> List[Dict[str, Any]]:
+    """Emit a simple expected matrix across all profile configs and path sets."""
+    entries: List[Dict[str, Any]] = []
+    for profile_id, cfg in PROFILE_CONFIGS.items():
+        ops = cfg["ops"]
+        role = cfg["role"]
+        policy = cfg["policy"]
+        variant = cfg["variant"]
+        for primary_path, alternate_path in cfg["path_pairs"]:
+            primary_expected, alternate_expected = _expected_decisions(policy, role, primary_path, alternate_path)
             for op in ops:
                 entries.append(
                     {
                         "profile_id": profile_id,
                         "operation": op,
-                        "requested_path": alias_path,
-                        "expected_decision": alias_decision,
-                        "notes": f"{profile_id} against alias path {alias_path}",
+                        "requested_path": primary_path,
+                        "expected_decision": primary_expected,
+                        "notes": f"{profile_id} {variant}/{policy}/{role} primary {primary_path}",
                     }
                 )
                 entries.append(
                     {
                         "profile_id": profile_id,
                         "operation": op,
-                        "requested_path": canonical_path,
-                        "expected_decision": canonical_decision,
-                        "notes": f"{profile_id} against canonical path {canonical_path}",
+                        "requested_path": alternate_path,
+                        "expected_decision": alternate_expected,
+                        "notes": f"{profile_id} {variant}/{policy}/{role} alternate {alternate_path}",
                     }
                 )
     OUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -116,11 +274,7 @@ def build_harness_matrix(world_id: str, blobs: Dict[str, Path], simple_matrix: L
     """Translate the simple matrix into the harness-compatible expected matrix."""
     profiles: Dict[str, Any] = {}
     # Map from profile_id to sb path for runtime harness
-    sb_paths: Dict[str, Path] = {
-        "vfs_tmp_only": SB_DIR / "vfs_tmp_only.sb",
-        "vfs_private_tmp_only": SB_DIR / "vfs_private_tmp_only.sb",
-        "vfs_both_paths": SB_DIR / "vfs_both_paths.sb",
-    }
+    sb_paths: Dict[str, Path] = {profile_id: cfg["sb"] for profile_id, cfg in PROFILE_CONFIGS.items()}
     for entry in simple_matrix:
         profile_id = entry["profile_id"]
         path = entry["requested_path"]
@@ -133,7 +287,7 @@ def build_harness_matrix(world_id: str, blobs: Dict[str, Path], simple_matrix: L
                 "sbpl": rel(sb_paths[profile_id]),
                 "blob": rel(blobs[profile_id]),
                 "family": "vfs",
-                "semantic_group": "vfs:tmp-vs-private-tmp",
+                "semantic_group": "vfs:canonicalization",
                 "probes": [],
             },
         )
@@ -252,9 +406,17 @@ def anchor_present(anchor: str, literals: set[str]) -> bool:
     return False
 
 
+def all_anchor_paths() -> List[str]:
+    anchors: set[str] = set()
+    for cfg in PROFILE_CONFIGS.values():
+        for pair in cfg["path_pairs"]:
+            anchors.update(pair)
+    return sorted(anchors)
+
+
 def decode_profiles(blobs: Dict[str, Path]) -> Path:
-    """Decode the VFS blobs and extract anchor/tag/field2 structure for /tmp and /private/tmp."""
-    anchors = sorted({p for pair in PATH_PAIRS for p in pair})
+    """Decode the VFS blobs and extract anchor/tag/field2 structure for configured path pairs."""
+    anchors = all_anchor_paths()
     decode: Dict[str, Any] = {}
     for profile_id, blob_path in blobs.items():
         data = blob_path.read_bytes()
@@ -299,8 +461,8 @@ def emit_mismatch_summary(world_id: str) -> Path:
     """
     Emit a coarse mismatch summary for this suite.
 
-    For this first cut we classify profiles based on the observed patterns in
-    runtime_results.json on this world and the intended design:
+    For this cut we classify the base /tmp family profiles based on the observed
+    patterns in runtime_results.json on this world and the intended design:
     - vfs_tmp_only: canonicalization-before-enforcement makes the /tmp literal ineffective.
     - vfs_private_tmp_only: canonical literal effective; both requests allowed.
     - vfs_both_paths: control; both requests allowed with both paths mentioned in SBPL.
@@ -330,11 +492,25 @@ def emit_mismatch_summary(world_id: str) -> Path:
 def ensure_vfs_files() -> None:
     """Ensure the basic /tmp and /private/tmp fixtures exist."""
     ensure_tmp_files()
-    # Seed alias and canonical paths
-    for alias, canonical in PATH_PAIRS:
-        canonical_path = Path(canonical)
-        canonical_path.parent.mkdir(parents=True, exist_ok=True)
-        canonical_path.write_text(f"vfs-canonicalization {canonical_path.name}\n")
+    fixture_paths = [
+        Path("/private/tmp/foo"),
+        Path("/private/tmp/bar"),
+        Path("/private/tmp/nested/child"),
+        Path("/private/var/tmp/canon"),
+        Path("/private/var/tmp/vfs_canon_probe"),
+        Path("/private/tmp/vfs_firmlink_probe"),
+        Path("/private/var/tmp/vfs_link_probe"),
+    ]
+    for path in fixture_paths:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(f"vfs-canonicalization {path.name}\n")
+
+    link_dir = Path("/private/tmp/vfs_linkdir")
+    link_dir.mkdir(parents=True, exist_ok=True)
+    link_path = link_dir / "to_var_tmp"
+    if link_path.exists() or link_path.is_symlink():
+        link_path.unlink()
+    link_path.symlink_to("/private/var/tmp")
 
 
 def main() -> int:
@@ -343,11 +519,7 @@ def main() -> int:
     simple_matrix = build_simple_expected_matrix()
     matrix_path = build_harness_matrix(world_id, blobs, simple_matrix)
     ensure_vfs_files()
-    sb_paths = {
-        "vfs_tmp_only": SB_DIR / "vfs_tmp_only.sb",
-        "vfs_private_tmp_only": SB_DIR / "vfs_private_tmp_only.sb",
-        "vfs_both_paths": SB_DIR / "vfs_both_paths.sb",
-    }
+    sb_paths = {profile_id: cfg["sb"] for profile_id, cfg in PROFILE_CONFIGS.items()}
     raw_runtime = run_runtime(matrix_path, sb_paths)
     normalized_events = normalize_runtime_results(matrix_path, raw_runtime)
     downconvert_runtime_results(normalized_events)

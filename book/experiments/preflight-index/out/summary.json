@@ -1,28 +1,28 @@
 {
   "counts": {
     "by_classification": {
-      "likely_apply_gated_for_harness_identity": 26,
-      "no_known_apply_gate_signature": 532
+      "likely_apply_gated_for_harness_identity": 28,
+      "no_known_apply_gate_signature": 593
     },
     "by_input_kind": {
-      "sbpl_blob_path": 284,
-      "sbpl_path": 274
+      "sbpl_blob_path": 335,
+      "sbpl_path": 286
     },
     "by_signature": {
-      "apply_gate_blob_digest": 22,
+      "apply_gate_blob_digest": 24,
       "deny_message_filter": 4,
-      "null": 532
+      "null": 593
     },
     "by_source": {
       "book_blobs": {
-        "likely_apply_gated_for_harness_identity": 22,
-        "no_known_apply_gate_signature": 262
+        "likely_apply_gated_for_harness_identity": 24,
+        "no_known_apply_gate_signature": 311
       },
       "examples_sbpl": {
         "no_known_apply_gate_signature": 3
       },
       "experiments_sbpl": {
-        "no_known_apply_gate_signature": 201
+        "no_known_apply_gate_signature": 213
       },
       "profiles_sbpl": {
         "no_known_apply_gate_signature": 11
@@ -32,10 +32,23 @@
         "no_known_apply_gate_signature": 55
       }
     },
-    "total_records": 558
+    "total_records": 621
   },
   "digest_groups": {
     "apply_gate_blob_digest": [
+      {
+        "blob_sha256": "f8aaa1deb5becd33659daca06a4b15df2238f8b912c65c24a8e43b40c61b6640",
+        "count": 7,
+        "paths": [
+          "book/experiments/encoder-write-trace/out/blobs/gate_airlock_minimal_file.sb.bin",
+          "book/experiments/encoder-write-trace/out/blobs/gate_airlock_minimal_string.sb.bin",
+          "book/experiments/gate-witnesses/out/micro_variants/base_v2.sb.bin",
+          "book/experiments/gate-witnesses/out/witnesses/airlock/compile_vs_apply/minimal_failing.sb.bin",
+          "book/experiments/gate-witnesses/out/witnesses/com.apple.CoreGraphics.CGPDFService/compile_vs_apply/minimal_failing.sb.bin",
+          "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/minimal_failing.sb.bin",
+          "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/minimal_failing.sb.bin"
+        ]
+      },
       {
         "blob_sha256": "33d1a72e709f86f7827cb6e5a919a30cc86a3d0ea6e048b2117d0240a923467e",
         "count": 6,
@@ -46,17 +59,6 @@
           "book/experiments/runtime-checks/out/sb_build/airlock.sb.bin",
           "book/graph/concepts/validation/fixtures/blobs/airlock.sb.bin",
           "book/graph/mappings/runtime/decoded_blobs/sys_airlock.sb.bin"
-        ]
-      },
-      {
-        "blob_sha256": "f8aaa1deb5becd33659daca06a4b15df2238f8b912c65c24a8e43b40c61b6640",
-        "count": 5,
-        "paths": [
-          "book/experiments/gate-witnesses/out/micro_variants/base_v2.sb.bin",
-          "book/experiments/gate-witnesses/out/witnesses/airlock/compile_vs_apply/minimal_failing.sb.bin",
-          "book/experiments/gate-witnesses/out/witnesses/com.apple.CoreGraphics.CGPDFService/compile_vs_apply/minimal_failing.sb.bin",
-          "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/minimal_failing.sb.bin",
-          "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/minimal_failing.sb.bin"
         ]
       },
       {
@@ -122,6 +124,8 @@
   "preflight_schema_version": 1,
   "sets": {
     "likely_apply_gated_for_harness_identity": [
+      "book/experiments/encoder-write-trace/out/blobs/gate_airlock_minimal_file.sb.bin",
+      "book/experiments/encoder-write-trace/out/blobs/gate_airlock_minimal_string.sb.bin",
       "book/experiments/gate-witnesses/out/micro_variants/base_v1.sb.bin",
       "book/experiments/gate-witnesses/out/micro_variants/base_v1_inner_deny_async_external_method.sb.bin",
       "book/experiments/gate-witnesses/out/micro_variants/base_v1_inner_deny_external_trap.sb.bin",
@@ -175,21 +179,58 @@
       "book/experiments/bsd-airlock-highvals/sb/build/bsd_tag26_richer.sb.bin",
       "book/experiments/encoder-write-trace/out/blobs/_debug.sb.bin",
       "book/experiments/encoder-write-trace/out/blobs/baseline_allow_all.sb.bin",
+      "book/experiments/encoder-write-trace/out/blobs/baseline_allow_all_file.sb.bin",
+      "book/experiments/encoder-write-trace/out/blobs/baseline_allow_all_file_unused_param.sb.bin",
+      "book/experiments/encoder-write-trace/out/blobs/baseline_allow_all_string.sb.bin",
       "book/experiments/encoder-write-trace/out/blobs/baseline_deny_all.sb.bin",
       "book/experiments/encoder-write-trace/out/blobs/domain_af_inet.sb.bin",
       "book/experiments/encoder-write-trace/out/blobs/domain_af_system.sb.bin",
+      "book/experiments/encoder-write-trace/out/blobs/golden_strict_1_file.sb.bin",
+      "book/experiments/encoder-write-trace/out/blobs/pair_dp_all_inet_256.sb.bin",
       "book/experiments/encoder-write-trace/out/blobs/pair_dp_all_inet_tcp.sb.bin",
       "book/experiments/encoder-write-trace/out/blobs/pair_dp_all_inet_tcp_order2.sb.bin",
+      "book/experiments/encoder-write-trace/out/blobs/pair_dp_all_inet_udp.sb.bin",
+      "book/experiments/encoder-write-trace/out/blobs/pair_dp_all_system_tcp.sb.bin",
+      "book/experiments/encoder-write-trace/out/blobs/pair_dp_any_inet_256.sb.bin",
+      "book/experiments/encoder-write-trace/out/blobs/pair_dp_any_inet_tcp.sb.bin",
+      "book/experiments/encoder-write-trace/out/blobs/pair_dp_any_inet_udp.sb.bin",
+      "book/experiments/encoder-write-trace/out/blobs/pair_dp_any_system_tcp.sb.bin",
+      "book/experiments/encoder-write-trace/out/blobs/pair_dt_all_inet_dgram.sb.bin",
       "book/experiments/encoder-write-trace/out/blobs/pair_dt_all_inet_stream.sb.bin",
+      "book/experiments/encoder-write-trace/out/blobs/pair_dt_all_inet_stream_file.sb.bin",
       "book/experiments/encoder-write-trace/out/blobs/pair_dt_all_inet_stream_order2.sb.bin",
+      "book/experiments/encoder-write-trace/out/blobs/pair_dt_all_inet_stream_string.sb.bin",
+      "book/experiments/encoder-write-trace/out/blobs/pair_dt_all_system_stream.sb.bin",
+      "book/experiments/encoder-write-trace/out/blobs/pair_dt_any_inet_dgram.sb.bin",
+      "book/experiments/encoder-write-trace/out/blobs/pair_dt_any_inet_stream.sb.bin",
+      "book/experiments/encoder-write-trace/out/blobs/pair_dt_any_system_stream.sb.bin",
+      "book/experiments/encoder-write-trace/out/blobs/pair_tp_all_dgram_tcp.sb.bin",
+      "book/experiments/encoder-write-trace/out/blobs/pair_tp_all_stream_256.sb.bin",
       "book/experiments/encoder-write-trace/out/blobs/pair_tp_all_stream_tcp.sb.bin",
       "book/experiments/encoder-write-trace/out/blobs/pair_tp_all_stream_tcp_order2.sb.bin",
+      "book/experiments/encoder-write-trace/out/blobs/pair_tp_all_stream_udp.sb.bin",
+      "book/experiments/encoder-write-trace/out/blobs/pair_tp_any_dgram_tcp.sb.bin",
+      "book/experiments/encoder-write-trace/out/blobs/pair_tp_any_stream_256.sb.bin",
+      "book/experiments/encoder-write-trace/out/blobs/pair_tp_any_stream_tcp.sb.bin",
+      "book/experiments/encoder-write-trace/out/blobs/pair_tp_any_stream_udp.sb.bin",
+      "book/experiments/encoder-write-trace/out/blobs/param_path_file_with_params.sb.bin",
+      "book/experiments/encoder-write-trace/out/blobs/param_path_file_with_params_alt.sb.bin",
+      "book/experiments/encoder-write-trace/out/blobs/param_path_string_with_params.sb.bin",
+      "book/experiments/encoder-write-trace/out/blobs/param_path_string_with_params_alt.sb.bin",
       "book/experiments/encoder-write-trace/out/blobs/proto_256.sb.bin",
       "book/experiments/encoder-write-trace/out/blobs/proto_tcp.sb.bin",
       "book/experiments/encoder-write-trace/out/blobs/proto_udp.sb.bin",
+      "book/experiments/encoder-write-trace/out/blobs/triple_all_inet_dgram_tcp.sb.bin",
       "book/experiments/encoder-write-trace/out/blobs/triple_all_inet_stream_256.sb.bin",
+      "book/experiments/encoder-write-trace/out/blobs/triple_all_inet_stream_udp.sb.bin",
+      "book/experiments/encoder-write-trace/out/blobs/triple_all_system_stream_tcp.sb.bin",
       "book/experiments/encoder-write-trace/out/blobs/triple_all_tcp.sb.bin",
       "book/experiments/encoder-write-trace/out/blobs/triple_all_tcp_order2.sb.bin",
+      "book/experiments/encoder-write-trace/out/blobs/triple_all_udp.sb.bin",
+      "book/experiments/encoder-write-trace/out/blobs/triple_any_256.sb.bin",
+      "book/experiments/encoder-write-trace/out/blobs/triple_any_tcp.sb.bin",
+      "book/experiments/encoder-write-trace/out/blobs/triple_nested_256.sb.bin",
+      "book/experiments/encoder-write-trace/out/blobs/triple_nested_tcp.sb.bin",
       "book/experiments/encoder-write-trace/out/blobs/type_sock_dgram.sb.bin",
       "book/experiments/encoder-write-trace/out/blobs/type_sock_stream.sb.bin",
       "book/experiments/entitlement-diff/sb/appsandbox-baseline.sb",
@@ -594,11 +635,35 @@
       "book/experiments/sbpl-graph-runtime/profiles/param_root_shim.sb",
       "book/experiments/sbpl-graph-runtime/profiles/param_write_gate.sb",
       "book/experiments/vfs-canonicalization/sb/build/vfs_both_paths.sb.bin",
+      "book/experiments/vfs-canonicalization/sb/build/vfs_etc_alias_only.sb.bin",
+      "book/experiments/vfs-canonicalization/sb/build/vfs_etc_both.sb.bin",
+      "book/experiments/vfs-canonicalization/sb/build/vfs_etc_private_only.sb.bin",
+      "book/experiments/vfs-canonicalization/sb/build/vfs_firmlink_both.sb.bin",
+      "book/experiments/vfs-canonicalization/sb/build/vfs_firmlink_data_only.sb.bin",
+      "book/experiments/vfs-canonicalization/sb/build/vfs_firmlink_private_only.sb.bin",
+      "book/experiments/vfs-canonicalization/sb/build/vfs_link_both.sb.bin",
+      "book/experiments/vfs-canonicalization/sb/build/vfs_link_private_tmp_only.sb.bin",
+      "book/experiments/vfs-canonicalization/sb/build/vfs_link_var_tmp_only.sb.bin",
       "book/experiments/vfs-canonicalization/sb/build/vfs_private_tmp_only.sb.bin",
       "book/experiments/vfs-canonicalization/sb/build/vfs_tmp_only.sb.bin",
+      "book/experiments/vfs-canonicalization/sb/build/vfs_var_tmp_alias_only.sb.bin",
+      "book/experiments/vfs-canonicalization/sb/build/vfs_var_tmp_both.sb.bin",
+      "book/experiments/vfs-canonicalization/sb/build/vfs_var_tmp_private_only.sb.bin",
       "book/experiments/vfs-canonicalization/sb/vfs_both_paths.sb",
+      "book/experiments/vfs-canonicalization/sb/vfs_etc_alias_only.sb",
+      "book/experiments/vfs-canonicalization/sb/vfs_etc_both.sb",
+      "book/experiments/vfs-canonicalization/sb/vfs_etc_private_only.sb",
+      "book/experiments/vfs-canonicalization/sb/vfs_firmlink_both.sb",
+      "book/experiments/vfs-canonicalization/sb/vfs_firmlink_data_only.sb",
+      "book/experiments/vfs-canonicalization/sb/vfs_firmlink_private_only.sb",
+      "book/experiments/vfs-canonicalization/sb/vfs_link_both.sb",
+      "book/experiments/vfs-canonicalization/sb/vfs_link_private_tmp_only.sb",
+      "book/experiments/vfs-canonicalization/sb/vfs_link_var_tmp_only.sb",
       "book/experiments/vfs-canonicalization/sb/vfs_private_tmp_only.sb",
       "book/experiments/vfs-canonicalization/sb/vfs_tmp_only.sb",
+      "book/experiments/vfs-canonicalization/sb/vfs_var_tmp_alias_only.sb",
+      "book/experiments/vfs-canonicalization/sb/vfs_var_tmp_both.sb",
+      "book/experiments/vfs-canonicalization/sb/vfs_var_tmp_private_only.sb",
       "book/graph/concepts/validation/fixtures/blobs/bsd.sb.bin",
       "book/graph/concepts/validation/fixtures/blobs/sample.sb.bin",
       "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/passing_neighbor.sb.bin",

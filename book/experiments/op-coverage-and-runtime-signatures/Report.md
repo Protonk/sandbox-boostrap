@@ -26,7 +26,7 @@ Scope today: `file-read*`, `file-write*`, `mach-lookup`, and `network-outbound`,
 
 ## Status update (permissive host)
 
-The latest refresh ran under the permissive host context (`--yolo`), so apply-stage EPERM is cleared for adversarial probes. `out/op_runtime_summary.json` now records decision-stage outcomes again, with only the expected `path_edges` mismatches.
+The latest refresh ran under the permissive host context (`--yolo`), so apply-stage EPERM is cleared for adversarial probes. `out/op_runtime_summary.json` now records decision-stage outcomes again, with only the expected `path_edges` mismatches (see `book/experiments/vfs-canonicalization/Report.md`, mapped-but-partial).
 
 ## Mechanism
 
@@ -58,11 +58,11 @@ From the latest run described in `Notes.md`:
   - Both mismatches come from the `adv:path_edges` family and have:
     - expected `allow` on `/tmp/...` paths,
     - actual `deny` with `EPERM` and `open target: Operation not permitted`,
-    - consistent with `/tmp` being canonicalized to `/private/tmp` before evaluation.
+    - consistent with `/tmp` being canonicalized to `/private/tmp` before evaluation; see `book/experiments/vfs-canonicalization/Report.md` (mapped-but-partial).
 
 - `file-write*`
   - 12 probes (mirroring the read paths via `sandbox_writer`).
-  - 10 probes match expectations; 2 mismatches (`write-tmp`, `write-subpath`) mirror the read-side path_edges behavior: intended allows on `/tmp/...` become denies with `EPERM`, again consistent with `/tmp`→`/private/tmp` VFS canonicalization.
+  - 10 probes match expectations; 2 mismatches (`write-tmp`, `write-subpath`) mirror the read-side path_edges behavior: intended allows on `/tmp/...` become denies with `EPERM`, again consistent with `/tmp`→`/private/tmp` VFS canonicalization (see `book/experiments/vfs-canonicalization/Report.md`, mapped-but-partial).
 
 - `mach-lookup`
   - 8 probes across the mach families.
@@ -109,13 +109,13 @@ Before harness changes, a bespoke SBPL under `sandbox-exec -f tcp_loopback.sb /u
 ### Status and adjacent work
 - `network-outbound` is confirmed on this world by runtime via the canonical scenario and marked runtime-backed in coverage and CARTON.
 - Planned but non-blocking: add a small variant (alternate port or IPv6 loopback) using the same client/profiles; add a “negative harness” profile (remove `system-socket`) expected to fail as a harness/startup error rather than a policy decision.
-- Remaining runtime divergences: `/tmp`→`/private/tmp` VFS canonicalization in filesystem probes; to be addressed via a focused runtime-adversarial family and guardrails.
+- Remaining runtime divergences: `/tmp`→`/private/tmp` VFS canonicalization in filesystem probes; see `book/experiments/vfs-canonicalization/Report.md` for the focused canonicalization family and guardrails (mapped-but-partial).
 
 ## What system info and code we are using
 
 - **System behavior**
   - The results of real `sandbox` decisions for file reads and mach lookups on this host, as captured by the adversarial suite.
-  - VFS handling of `/tmp` vs `/private/tmp`, visible via the `EPERM` and path patterns in the path_edges mismatches.
+- VFS handling of `/tmp` vs `/private/tmp`, visible via the `EPERM` and path patterns in the path_edges mismatches (see `book/experiments/vfs-canonicalization/Report.md`, mapped-but-partial).
 
 - **Code paths**
   - `runtime-adversarial` defines the SBPL profiles, expected matrices, and runs that produce the raw evidence.
@@ -152,5 +152,5 @@ The existing mechanism could be extended in several useful directions:
 
 An agent reading this file and `Notes.md` should understand that:
 - This suite piggybacks on `runtime-adversarial` to provide a per-operation runtime scorecard.
-- For `file-read*` and `mach-lookup`, runtime behavior largely matches static expectations; the main systematic discrepancy is `/tmp`→`/private/tmp` canonicalization, which we treat as out-of-model for PolicyGraph.
+- For `file-read*` and `mach-lookup`, runtime behavior largely matches static expectations; the main systematic discrepancy is `/tmp`→`/private/tmp` canonicalization, which we treat as out-of-model for PolicyGraph (see `book/experiments/vfs-canonicalization/Report.md`, mapped-but-partial).
 - The same mechanism can be extended to more operations and richer signals (signatures, profile layers) when we are ready to deepen runtime coverage.***
