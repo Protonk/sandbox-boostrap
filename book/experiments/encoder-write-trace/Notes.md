@@ -4,3 +4,20 @@
 - Built the interposer dylib via `harness/build_interposer.sh`.
 - Interposer load failed: `dyld` aborts with `symbol not found in flat namespace '__sb_mutable_buffer_write'` when injecting into the compile process.
 - Verified baseline compilation without interposer: `out/blobs/_debug.sb.bin` from `baseline/allow_all.sb`.
+- Updated the interposer to record triage metadata and support dynamic/patch hook modes; `run_trace.py` now writes per-input triage output and accepts mode/address overrides.
+- `nm -m` on the extracted libsandbox image (`book/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib`) shows `_sb_mutable_buffer_write` as non-external; `otool -Iv` shows no indirect-symbol entry for it.
+- `xcrun dyld_info -exports /usr/lib/libsandbox.1.dylib` and `-imports` do not list `_sb_mutable_buffer_write` (no matches).
+- `xcrun dyld_info -exports book/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib` reports segment load commands out of order, so dyld_info evidence uses the `/usr/lib` image as a fallback.
+- Patch mode now accepts an unslid VM address and computes the runtime target using the dyld slide for the loaded libsandbox image.
+- Ran `run_trace.py --mode patch --only-id baseline_allow_all`; patch attempt failed with `mprotect failed: Permission denied` and produced no write records.
+- Ran `run_trace.py --mode patch --only-id baseline_allow_all --dyld-shared-region private`; patch still failed with `mprotect failed: Permission denied` despite a zero slide.
+- Ran `run_trace.py --mode patch --only-id baseline_allow_all --dyld-shared-region avoid`; compile process aborted because `/usr/lib/libSystem.B.dylib` is not on disk when the shared cache is avoided.
+- Adjusted the reachability gate so `mprotect failed` no longer raises; patch-mode run now completes and records `hook_failed` with `mprotect failed: Permission denied`.
+- Added a `mach_vm_protect(..., VM_PROT_COPY)` fallback for text patching; patch runs now record `vm_protect_copy failed: (os/kern) protection failure` when both protection paths are blocked.
+- Ran `run_trace.py --mode patch --only-id baseline_allow_all` and `--dyld-shared-region private`; both runs still failed with `mprotect failed: Permission denied; vm_protect_copy failed: (os/kern) protection failure` and produced no write records.
+- Switched the patcher to a W^X-correct flow (RW then RX, no RWX) and added Mach VM region metadata via `mach_vm_region_recurse`; triage now records protection and max-protection flags.
+- Patch-mode runs now show the target region as `r-x` with `max_protection` also `r-x` (`max_has_write: false`), which is consistent with an immutable `__TEXT` mapping on this host.
+- Patch-mode runs now skip patching when `max_has_write: false`, recording `hook_status: skipped_immutable` and `hook_error: region_max_protection_no_write` in triage.
+- Attempted a non-shared-cache helper by setting `SBPL_SANDBOX_PATH=book/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib`; `ctypes.CDLL` failed with a code-signature error ("Trying to load an unsigned library").
+- Extracted a fresh libsandbox with `extract_dsc.swift` into a temporary directory and copied it to `book/experiments/encoder-write-trace/out/libsandbox/libsandbox.1.dylib`; `codesign --sign -` failed with `main executable failed strict validation` (same with `--options=linker-signed`).
+- Attempted DTrace pid-provider tracing (`dtrace -n pid$target:libsandbox.1.dylib::_sb_mutable_buffer_write:entry ...`); SIP blocked it with "DTrace requires additional privileges".

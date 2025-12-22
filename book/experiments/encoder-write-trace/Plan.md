@@ -2,9 +2,9 @@
 
 ## Purpose
 
-Trace userland `_sb_mutable_buffer_write` emissions during SBPL compilation and
-join those bytes to the compiled blob structure. This experiment is static-only
-and does **not** interpret kernel semantics or runtime policy.
+Trace libsandbox encoder writes during SBPL compilation and join those bytes to
+the compiled blob structure. The hook must work even when the write routine is
+not exported or dyld-bindable.
 
 ## Baseline & scope
 
@@ -15,13 +15,19 @@ and does **not** interpret kernel semantics or runtime policy.
 
 ## Deliverables
 
-- Compile harness + interposer inside this experiment:
-  - C interposer for `_sb_mutable_buffer_write`.
-  - Runner that compiles SBPL under the interposer and writes trace logs.
+- Compile harness + hook strategies inside this experiment:
+  - Triage output (export/bind checks + image base).
+  - Callsite reachability classification (exported+bound vs stub vs internal/direct).
+  - dyld_info exports/imports presence as alternate evidence when available.
+  - Dynamic interpose attempt only when the symbol is exported/bindable.
+  - Entry-text patch hook for local symbols (unslid VM addr + runtime slide).
+  - UUID gate for unslid addresses and optional `DYLD_SHARED_REGION` overrides.
 - Outputs under `out/`:
+  - `triage/*.json` (hook triage per input)
   - `traces/*.jsonl` (write records)
   - `blobs/*.sb.bin` (compiled blobs)
   - `manifest.json` (inputs + outputs)
+  - `summary.json` (counts + world_id)
   - `trace_analysis.json` (join analysis)
   - `trace_join_check.json` (network-matrix cross-check)
 - Experiment-local guardrail scripts (not wired into `book/tests`).
@@ -29,6 +35,12 @@ and does **not** interpret kernel semantics or runtime policy.
 ## Steps
 
 1. Build the interposer dylib.
-2. Run the trace harness on the curated input subset.
-3. Analyze trace-to-blob joins and cross-check with network-matrix diffs.
-4. Update `Report.md` and `Notes.md` with results and limitations.
+2. Run the harness in triage mode to record export/bind status per input.
+3. Use indirect-symbol metadata for libsandbox to decide whether dyld can reach
+   the callsite (stub/bind vs internal/direct).
+4. If exported/bindable, try dynamic interpose; otherwise compute an address or
+   image-relative offset and run patch mode.
+5. If patching is blocked by memory protections, capture the failure and
+   consider a DTrace or breakpoint-based tracer (compile-only).
+6. Analyze trace-to-blob joins and cross-check with network-matrix diffs.
+7. Update `Report.md` and `Notes.md` with results and limitations.

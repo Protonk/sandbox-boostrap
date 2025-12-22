@@ -98,3 +98,90 @@
   - `kernel-adrp-add-scan` for `-0x1fff819a290` (`__ZL10mac_policy` in AMFI) -> `0` matches (`adrp_seen: 60`).
   - `kernel-adrp-ldr-scan` for `-0x1fff81a3d70` (AMFI `_mac_policy_register` auth_got) -> `0` matches (`adrp_seen: 60`).
   - `kernel-imm-search` for `0xfffffe0007e5c290` -> `0` hits.
+
+## KC stub/trampoline sweep (auth-stub pivot)
+
+- Added `kernel_stub_call_sites.py` and scaffold tasks `kernel-collection-stub-got-map` + `kernel-collection-stub-call-sites` to scan direct BL/B call sites into stub/trampoline ranges.
+- First `kernel-collection-stub-got-map` attempt failed using the default project (`sandbox_14.4.1-23E224`); BootKernelCollection.kc is only in `sandbox_14.4.1-23E224_kc`.
+- Reran with `--project-name sandbox_14.4.1-23E224_kc` and `block_substr=stub` (exec-only): `match_count: 0`, `adrp_seen: 30`, `block_filter: __stubs`, `got_block_mode: auth_got+auth_ptr+got`.
+- Attempted full exec-block sweep (`scan_all`) with default harness timeout; the run timed out. Reran with `--timeout 600` and completed: `match_count: 0`, `adrp_seen: 718925`, `scan_all_blocks: true`.
+- `otool -Iv` on BootKernelCollection emits only the file header line (no `Indirect symbols` table); saved to `book/experiments/mac-policy-registration/out/otool_indirect_symbols_kc.txt`.
+- `match_stub_got.py` against the KC stub map + `otool` output yields `stub_targets_kc.json` with `stub_count: 0`, `match_count: 0`, `target_count: 0`.
+- `kernel-collection-stub-call-sites` with `stub_targets_kc.json` reports `call_site_count: 0` (`stub_call_sites.json`).
+
+## KC truth layer (fileset + chained fixups)
+
+- First run of `kc_truth_layer.py` failed without `PYTHONPATH=$PWD` (`ModuleNotFoundError: No module named 'book'`); reran with PYTHONPATH and completed.
+- `kc_truth_layer.py` emits:
+  - `kc_fileset_index.json`: BootKernelCollection is `MH_FILESET` with 355 fileset entries and 7 top-level segments.
+  - `kc_fixups_summary.json` + `kc_fixups.jsonl`: top-level `LC_DYLD_CHAINED_FIXUPS` parsed (`fixups_version: 0`, `imports_count: 0`), pointer_format `8` only.
+  - Fixup counts: `total_fixups: 323` (`__DATA_CONST: 202`, `__DATA: 121`).
+  - Decode assumptions (under exploration): pointer_format 8 uses `target` (low 30 bits), `cache_level` (bits 30–31), `next_delta` (bits 32–43, scaled by 4). Base guess derived from the minimum KC segment vmaddr.
+
+## String-anchored mac_policy_register call-site hunt (KC)
+
+- Added `kernel_string_call_sites.py` + task `kernel-collection-string-call-sites`. First run crashed with a null address when parsing function entry addresses; fixed by parsing hex to signed addresses and reran successfully.
+- Ran `kernel-collection-string-call-sites` with query strings `Security policy loaded` and `mac_policy_register failed`:
+  - `string_hit_count: 4`, `function_hit_count: 4`, `call_site_count: 53`.
+  - Candidate function referencing `Security policy loaded: %s (%s)\n`: `FUN_fffffe0008d64498` (entry `0x-1fff729bb68`).
+  - 7 call sites to that function recorded in `string_call_sites.json`.
+- Added `derive_mac_policy_call_sites.py` to filter call sites for the `Security policy loaded` function and map them to fileset entries using `kc_fileset_index.json`.
+  - Output `mac_policy_register_call_sites.json` records 7 call sites; all map to `com.apple.driver.AppleTrustedAccessory`.
+
+## mac_policy_register instances (KC dataflow)
+
+- Extended `kernel_mac_policy_register_instances.py`:
+  - decompiler-based argument recovery (PcodeOp-based varnode evaluation),
+  - fixups lookup keyed by unsigned vmaddr,
+  - stack-slot backtrack for LDR/LDUR/LDP from `sp`/`x29`,
+  - `mpc_block` + `mpc_fileset_entry` + `mpc_ops_fileset_entry` fields in output,
+  - `arg_resolution` captures per-call-site resolution attempts.
+- Ran:
+  - `PYTHONPATH=$PWD python3 book/api/ghidra/run_task.py kernel-mac-policy-register-instances --build 14.4.1-23E224 --project-name sandbox_14.4.1-23E224_kc --process-existing --no-analysis --exec --script-args call-sites=book/experiments/mac-policy-registration/out/mac_policy_register_call_sites.json fixups=book/experiments/mac-policy-registration/out/kc_fixups.jsonl fileset-index=book/experiments/mac-policy-registration/out/kc_fileset_index.json mac-policy-register=0x-1fff729bb68 max-back=200`
+  - Output: `dumps/ghidra/out/14.4.1-23E224/kernel-mac-policy-register-instances/mac_policy_register_instances.json`.
+- Results: 7 call sites, 4 resolved names from decoded `mac_policy_conf` (`AppleImage4`, `Quarantine`, `EndpointSecurity`, `Sandbox`). All resolved structs/ops pointers map to `com.apple.driver.AppleTrustedAccessory`.
+- Unresolved cases:
+  - One call site resolves `x0 = x19 + 0xb10` with unresolved base (mpc_addr `0xb10`).
+  - One `mpc_addr` in `__const` with zeroed fields (name/fullname/ops raw 0).
+  - One `mpc_addr` in `__bss` with zeroed fields (likely runtime-initialized).
+
+## mac_policy_register instances (field-write reconstruction)
+
+- Extended `kernel_mac_policy_register_instances.py` with field-write reconstruction:
+  - backtracks STR/STP stores into `mpc_name`, `mpc_fullname`, `mpc_ops` slots (offsets 0x0/0x8/0x20),
+  - handles ADRP immediates as scalars for address recovery,
+  - improves stack-slot recovery for `ldp/str` pairs,
+  - adds `mpc_reconstructed` (base + per-field store evidence).
+- Added ops-offset inference in `mac_policy_register` (pcode + listing fallback); discovered `mpo_policy_init` offsets `0x398` and `0x3a0`.
+- Reran `kernel-mac-policy-register-instances` (same command as above).
+- Results after reconstruction:
+  - Newly recovered policy identities for the 3 formerly-unresolved call sites:
+    - `ASP` / `Apple System Policy` (from stores to `x19 + 0xb10/+0xb18`)
+    - `mcxalr` / `MCX App Launch` (from stores near the `__bss` conf)
+    - `Apple Mobile File Integrity` (fullname; `mpc_name` still unresolved via stack slot)
+  - `mpo_policy_init` offsets now populated; resolved init pointers for `Sandbox` and `Quarantine` (owner entry `com.apple.driver.AppleTrustedAccessory`), while other policies have NULL init pointers (raw 0) or unresolved ops pointers.
+
+## mac_policy_register instances (ops-owner attribution + remaining gaps)
+
+- Updated `kernel_mac_policy_register_instances.py`:
+  - pair-aware `LDP` offset handling and function-boundary limiting for register backtracking,
+  - call-site argument recovery now respects function bodies (avoid crossing into unrelated code),
+  - ops-owner sampling (`ops_owner_histogram` + `mpc_ops_owner`) emits the dominant fileset entry from ops-table pointers,
+  - call-chain fallback for ops pointer resolution (caller arg recovery + data-ref scan around indirect init tables).
+- Reran `kernel-mac-policy-register-instances` with the same command (output refreshed in `dumps/ghidra/out/14.4.1-23E224/kernel-mac-policy-register-instances/mac_policy_register_instances.json`).
+- `kernel-collection-function-dump` runs:
+  - `0xfffffe0009df4188` + `0xfffffe0009df43bc` to inspect the ASP registration chain.
+  - `0xfffffe0009af0930` to confirm AMFI store sequence (`stp x19,x9,[x0]` with `x0` materialized via ADRP+ADD).
+- `kernel-collection-function-info` shows `FUN_fffffe0009df43bc` has only a DATA ref from `0x-1fff80ded88` (no direct callers); `FUN_fffffe0009df4188` is called from `0x-1fff620bc28`.
+- AMFI `mpc_name` now resolves to `"AMFI"` via dominant stores (string fallback still used in the store trace).
+- ASP `mpc_ops` remains unresolved: x0 is passed through an indirect init entry and data-ref scans near `0x-1fff80ded88` surface only `__text` pointers (no writable base pointer to anchor x0), so ops pointer remains runtime-only.
+  - The reconstruction now records a symbolic ops expression (`x0 + 0x98`) plus `relative_to_mpc_base = -0xa78` for the ASP case.
+
+## KC fixups re-walk + ops attribution (fixups/PAC correctness)
+
+- Re-ran `kc_truth_layer.py` with full chain walking (next*4) and base_pointers:
+  - Fixups count now 4,319 (up from 323) across `__DATA_CONST` and `__DATA`; per-page coverage and max chain length recorded in `kc_fixups_summary.json`.
+  - Base pointer is set for cache_level 0 (min KC vmaddr); other cache levels remain unknown.
+- Re-ran `kernel-mac-policy-register-instances` with the refreshed fixups map.
+- Ops-owner sampling now uses fixup-aware + PAC-canonicalized pointer handling; results remain empty for `AMFI` and `mcxalr` ops tables (no executable targets in the first 0x800 bytes).
+- ASP ops reconstruction path is implemented but finds no dominating stores into the ops table region (no `x0 + 0x98 + off` stores before the registration call).

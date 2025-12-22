@@ -51,6 +51,7 @@ Recover the sandbox/mac_policy_conf and mac_policy_ops (plus registration site) 
 - `mac_policy_conf_candidates.json`: candidate structs (name/fullname/labelnames/ops pointers, segment/section, offsets).
 - `mac_policy_conf_candidates_ranked.json`: offline-ranked shortlist (string/flag/ops hints) derived from the raw candidates.
 - `registration_sites.json`: call sites (address, target, observed args) that appear to register sandbox/mac_policy_conf/mac_policy_ops.
+- `mac_policy_register_instances.json`: per-call-site `mac_policy_conf` decode (name/fullname/ops/flags), plus fileset entry attribution.
 - Notes on any linkage between mac_policy_ops and the op-table mapping for this world.
 
 ## Plan (initial)
@@ -81,6 +82,11 @@ Recover the sandbox/mac_policy_conf and mac_policy_ops (plus registration site) 
   - `dumps/ghidra/out/14.4.1-23E224/sandbox-kext-data-define/data_refs.json`
   - `dumps/ghidra/out/14.4.1-23E224/sandbox-kext-block-disasm/disasm_report.json`
   - `dumps/ghidra/out/14.4.1-23E224/sandbox-kext-stub-got-map/stub_got_map.json`
+  - `dumps/ghidra/out/14.4.1-23E224/kernel-collection-stub-got-map/stub_got_map.json`
+  - `dumps/ghidra/out/14.4.1-23E224/kernel-collection-stub-call-sites/stub_call_sites.json`
+  - `dumps/ghidra/out/14.4.1-23E224/kernel-collection-string-call-sites/string_call_sites.json`
+  - `dumps/ghidra/out/14.4.1-23E224/kernel-mac-policy-register-anchor/mac_policy_register_anchor.json`
+  - `dumps/ghidra/out/14.4.1-23E224/kernel-mac-policy-register-instances/mac_policy_register_instances.json`
   - `dumps/ghidra/out/14.4.1-23E224/sandbox-kext-arm-const-base-scan/arm_const_base_scan.json`
   - `dumps/ghidra/out/14.4.1-23E224/sandbox-kext-got-ref-sweep/got_ref_sweep.json`
   - `dumps/ghidra/out/14.4.1-23E224/sandbox-kext-got-load-sweep/got_load_sweep.json`
@@ -96,7 +102,13 @@ Recover the sandbox/mac_policy_conf and mac_policy_ops (plus registration site) 
   - `dumps/ghidra/out/14.4.1-23E224/kernel-imm-search/imm_search.json`
   - `book/experiments/mac-policy-registration/out/otool_indirect_symbols.txt`
   - `book/experiments/mac-policy-registration/out/otool_indirect_symbols_amfi.txt`
+  - `book/experiments/mac-policy-registration/out/otool_indirect_symbols_kc.txt`
   - `book/experiments/mac-policy-registration/out/stub_targets.json`
+  - `book/experiments/mac-policy-registration/out/stub_targets_kc.json`
+  - `book/experiments/mac-policy-registration/out/kc_fileset_index.json`
+  - `book/experiments/mac-policy-registration/out/kc_fixups_summary.json`
+  - `book/experiments/mac-policy-registration/out/kc_fixups.jsonl`
+  - `book/experiments/mac-policy-registration/out/mac_policy_register_call_sites.json`
 
 ## Status
 - Rebuilt sandbox kext from `BootKernelCollection.kc` via `rebuild_sandbox_kext.py` (LC_FILESET_ENTRY `com.apple.security.sandbox`), fixing load-command offsets and producing an arm64e Mach-O (~90 MB) suitable for Ghidra import. Script now supports `--all-matching` (enumerate/rebuild fileset names containing sandbox/seatbelt); this world only exposes `com.apple.security.sandbox` (also emitted as `sandbox_kext_com_apple_security_sandbox.bin`).
@@ -122,12 +134,40 @@ Recover the sandbox/mac_policy_conf and mac_policy_ops (plus registration site) 
 - The indirect-call scan now dumps `auth_got+auth_ptr+got` entries (332 total; no mac_policy symbol names) and still reports `indirect_call_sites: 0`.
 - Signed-address normalization in the ADRP+LDR auth_got sweep still yields `0` hits (`adrp_seen: 3452`, `ldr_literal_seen: 0`, `truncated_bases: 1508`).
 - A stub→GOT scan over exec blocks (no `__stubs` blocks present in this kext) reports `0` matches (`adrp_seen: 3648`, `branch_seen: 647`, `branch_hits: 0`), so no stub targets match the otool indirect symbols. The joined stub target list is empty (`stub_targets.json`, `target_count: 0`).
+- BootKernelCollection stub/trampoline sweep (`kernel-collection-stub-got-map`) finds only a `__stubs` block; a full exec-block sweep (`scan_all`) still reports `match_count: 0` (`adrp_seen: 718925`), so there is no stub→GOT mapping recovered from the KC.
+- `otool -Iv` against BootKernelCollection emits only the file header and no indirect symbol table lines (`otool_indirect_symbols_kc.txt`), so there is no KC indirect-symbol table to join against.
+- Stub-target join on the KC yields `stub_count: 0`, `match_count: 0`, `target_count: 0` (`stub_targets_kc.json`), and the BL/B call-site scan finds `call_site_count: 0` (`kernel-collection-stub-call-sites`).
 - The BLR/BR register-dataflow path (MOV/MOVK aliasing + signed address normalization) still yields `call_site_count: 0` and `indirect_call_sites: 0`.
 - ADRP base scan for the `__auth_got` range (`sandbox-kext-arm-const-base-scan`) reports no ADRP bases in that range (`adrp_seen: 0`, `matches add:0 ldr:0`).
 - GOT reference sweep over `__auth_got/__auth_ptr/__got` defines 332 entries and finds 32 with any refs; the auth_got entries for `_mac_policy_register` and `_amfi_register_mac_policy` have `ref_count: 0` (`got_ref_sweep.json`).
 - GOT load sweep (`sandbox-kext-got-load-sweep`) finds zero direct refs or computed loads to the target auth_got entries, even with lookback 32 (`got_load_sweep.json`, `total_hits: 0` for the target-only scan).
 - A full GOT load sweep (no target filter) yields 766 direct refs, all into `__got`/`__auth_ptr` and none into `__auth_got` (`__got: 765`, `__auth_ptr: 1`, `__auth_got: 0`), so the target auth_got entries remain unreferenced.
 - Status: `blocked` for static-only registration-site recovery until stub/GOT resolution (or authenticated indirect-call tracing) is implemented.
+
+### KC truth layer (fileset + chained fixups, partial)
+- BootKernelCollection is `MH_FILESET` with 355 fileset entries and 7 top-level segments (`kc_fileset_index.json`).
+- Top-level `LC_DYLD_CHAINED_FIXUPS` parsed (`fixups_version: 0`, `imports_count: 0`) with pointer_format `8` only; full chain walking (next*4) yields 4,319 fixups across `__DATA_CONST` (4,177) and `__DATA` (142), with max chain length 79 and per-page coverage recorded (`kc_fixups_summary.json` + `kc_fixups.jsonl`).
+- Fixup decoding now records `resolved_unsigned = base_pointers[cache_level] + target` when a base pointer is known. The base pointer for cache_level 0 is the KC min segment vmaddr; other cache levels remain unknown. Status: **under exploration** until base_pointers are validated against additional witnesses.
+
+### String-anchored mac_policy_register hunt (partial)
+- `kernel-collection-string-call-sites` with queries `Security policy loaded` and `mac_policy_register failed` finds 4 string hits, 4 referencing functions, and 53 call sites (`string_call_sites.json`).
+- The function referencing `Security policy loaded: %s (%s)\n` is `FUN_fffffe0008d64498` (entry `0x-1fff729bb68`), with 7 call sites in `__text`.
+- Filtering those call sites and mapping them to fileset entries yields `mac_policy_register_call_sites.json`: all 7 call sites map to `com.apple.driver.AppleTrustedAccessory`.
+- `kernel-mac-policy-register-instances` (decompiler-based argument recovery, plus fixups-assisted pointer decode) resolves 7 `mac_policy_register` call sites into 4 named policies with populated `mac_policy_conf` structs:
+  - `AppleImage4` / `AppleImage4 hooks`
+  - `Quarantine` / `Quarantine policy`
+  - `EndpointSecurity` / `Endpoint Security Kernel Extension`
+  - `Sandbox` / `Seatbelt sandbox policy`
+  - All resolved `mpc_addr` and `mpc_ops` pointers map to fileset entry `com.apple.driver.AppleTrustedAccessory`.
+- Field-write reconstruction (dominant stores to `mpc_name/mpc_fullname/mpc_ops`) makes all 7 call sites policy-identifiable:
+  - `ASP` / `Apple System Policy`
+  - `mcxalr` / `MCX App Launch`
+  - `Apple Mobile File Integrity` / `AMFI` (fullname + name recovered from dominant stores)
+- Inferred `mpo_policy_init` offsets in this build are `0x398` and `0x3a0`; init pointers resolve for `Sandbox` and `Quarantine` but are NULL or unresolved for the remaining policies.
+- `mpc_ops` remains unresolved for `ASP`: the ops pointer is derived as `x0 + 0x98` (`relative_to_mpc_base: -0xa78` recorded), and the only caller is an indirect init entry with a DATA ref to a function-pointer table in `__text`; no writable data pointers were found adjacent to that table, so the base address still appears runtime-only.
+- An ops-table reconstruction pass (stores to `[x0 + 0x98 + off]`) currently yields no entries for ASP, suggesting the ops table is populated elsewhere or via indirect calls.
+- Ops-owner attribution now uses ops-table sampling (`ops_owner_histogram` + `mpc_ops_owner`) rather than init-hook ownership, with fixup-aware + PAC-canonicalized pointer handling; for policies with resolved ops pointers, the sampled owners point to `com.apple.driver.AppleTrustedAccessory`. `AMFI` and `mcxalr` still have no executable pointers in the first 0x800 bytes of their ops tables (status: partial).
+- Status: **partial**; policy identity is now recovered for all sites, but some ops/init pointers remain unresolved and fixups coverage is still under exploration.
 
 ### AMFI pivot (static, blocked)
 - Rebuilt `com.apple.driver.AppleMobileFileIntegrity` into `sandbox_kext_com_apple_driver_AppleMobileFileIntegrity.bin` and imported into `amfi_kext_14.4.1-23E224` (block disasm over `__TEXT` matched 1 executable block).
@@ -188,6 +228,22 @@ python3 book/api/ghidra/run_task.py sandbox-kext-got-load-sweep \
   --script-args 32 all
 python3 book/api/ghidra/run_task.py kernel-mac-policy-register \
   --process-existing --project-name sandbox_14.4.1-23E224_kc --no-analysis --exec
+python3 book/api/ghidra/run_task.py kernel-collection-stub-got-map \
+  --process-existing --project-name sandbox_14.4.1-23E224_kc --no-analysis --exec \
+  --script-args stub 8 1 all
+PYTHONPATH=$PWD python3 book/experiments/mac-policy-registration/match_stub_got.py \
+  --stub-map dumps/ghidra/out/14.4.1-23E224/kernel-collection-stub-got-map/stub_got_map.json \
+  --otool book/experiments/mac-policy-registration/out/otool_indirect_symbols_kc.txt \
+  --out book/experiments/mac-policy-registration/out/stub_targets_kc.json
+python3 book/api/ghidra/run_task.py kernel-collection-stub-call-sites \
+  --process-existing --project-name sandbox_14.4.1-23E224_kc --no-analysis --exec \
+  --script-args stub-targets=book/experiments/mac-policy-registration/out/stub_targets_kc.json
+python3 book/experiments/mac-policy-registration/kc_truth_layer.py \
+  --build-id 14.4.1-23E224
+python3 book/api/ghidra/run_task.py kernel-collection-string-call-sites \
+  --process-existing --project-name sandbox_14.4.1-23E224_kc --no-analysis --exec \
+  --script-args all "Security policy loaded" "mac_policy_register failed"
+python3 book/experiments/mac-policy-registration/derive_mac_policy_call_sites.py
 
 python3 book/api/ghidra/run_task.py kernel-imports \
   --process-existing --project-name sandbox_14.4.1-23E224_extensions --no-analysis --exec \
@@ -213,6 +269,9 @@ otool -Iv dumps/Sandbox-private/14.4.1-23E224/kernel/sandbox_kext.bin \
 
 otool -Iv dumps/Sandbox-private/14.4.1-23E224/kernel/sandbox_kext_com_apple_driver_AppleMobileFileIntegrity.bin \
   > book/experiments/mac-policy-registration/out/otool_indirect_symbols_amfi.txt
+
+otool -Iv dumps/Sandbox-private/14.4.1-23E224/kernel/BootKernelCollection.kc \
+  > book/experiments/mac-policy-registration/out/otool_indirect_symbols_kc.txt
 
 python3 book/api/ghidra/run_task.py sandbox-kext-adrp-add-scan \
   --process-existing --project-name sandbox_kext_14.4.1-23E224 --exec \

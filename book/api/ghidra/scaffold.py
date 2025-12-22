@@ -133,6 +133,12 @@ TASKS: Dict[str, TaskConfig] = {
         import_target="kernel",
         description="Dump disassembly for specified functions/addresses.",
     ),
+    "kernel-collection-function-dump": TaskConfig(
+        name="kernel-collection-function-dump",
+        script="kernel_function_dump.py",
+        import_target="kernel_collection",
+        description="Dump disassembly for specified functions/addresses in the KC.",
+    ),
     "kernel-imports": TaskConfig(
         name="kernel-imports",
         script="kernel_imports_scan.py",
@@ -145,11 +151,41 @@ TASKS: Dict[str, TaskConfig] = {
         import_target="kernel_collection",
         description="Enumerate external symbols/imports and their references in the KC.",
     ),
+    "kernel-collection-stub-got-map": TaskConfig(
+        name="kernel-collection-stub-got-map",
+        script="kernel_stub_got_map.py",
+        import_target="kernel_collection",
+        description="Map KC stubs/trampolines to GOT entries (auth_got/auth_ptr/got).",
+    ),
+    "kernel-collection-stub-call-sites": TaskConfig(
+        name="kernel-collection-stub-call-sites",
+        script="kernel_stub_call_sites.py",
+        import_target="kernel_collection",
+        description="Scan KC for BL/B call sites targeting stub/trampoline addresses.",
+    ),
     "kernel-mac-policy-register": TaskConfig(
         name="kernel-mac-policy-register",
         script="mac_policy_register_scan.py",
         import_target="kernel_collection",
         description="Locate mac_policy_register call sites and recover arg pointers in the KC.",
+    ),
+    "kernel-collection-string-call-sites": TaskConfig(
+        name="kernel-collection-string-call-sites",
+        script="kernel_string_call_sites.py",
+        import_target="kernel_collection",
+        description="Find functions referencing strings and list call sites in the KC.",
+    ),
+    "kernel-mac-policy-register-anchor": TaskConfig(
+        name="kernel-mac-policy-register-anchor",
+        script="kernel_anchor_mac_policy_register.py",
+        import_target="kernel_collection",
+        description="Rename and apply signature to mac_policy_register anchor in the KC.",
+    ),
+    "kernel-mac-policy-register-instances": TaskConfig(
+        name="kernel-mac-policy-register-instances",
+        script="kernel_mac_policy_register_instances.py",
+        import_target="kernel_collection",
+        description="Recover mac_policy_register instances and decode mac_policy_conf fields.",
     ),
     "kernel-block-disasm": TaskConfig(
         name="kernel-block-disasm",
@@ -198,6 +234,12 @@ TASKS: Dict[str, TaskConfig] = {
         script="kernel_function_info.py",
         import_target="kernel",
         description="Emit metadata for specified functions (callers, callees, size).",
+    ),
+    "kernel-collection-function-info": TaskConfig(
+        name="kernel-collection-function-info",
+        script="kernel_function_info.py",
+        import_target="kernel_collection",
+        description="Emit metadata for specified functions in the KC (callers, callees, size).",
     ),
     "sandbox-kext-conf-scan": TaskConfig(
         name="sandbox-kext-conf-scan",

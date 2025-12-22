@@ -4,9 +4,11 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import sys
 from pathlib import Path
 from typing import Optional
+import ctypes
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 if str(REPO_ROOT) not in sys.path:
@@ -14,6 +16,8 @@ if str(REPO_ROOT) not in sys.path:
 
 from book.api.path_utils import ensure_absolute, find_repo_root, to_repo_relative  # type: ignore
 from book.api.profile_tools import compile as compile_mod  # type: ignore
+
+DEFAULT_SANDBOX_PATH = "/usr/lib/libsandbox.1.dylib"
 
 
 def _sha256_bytes(data: bytes) -> str:
@@ -40,7 +44,18 @@ def main() -> int:
     input_path = ensure_absolute(args.input, repo_root)
     out_blob = ensure_absolute(args.out_blob, repo_root)
 
-    result = compile_mod.compile_sbpl_file(input_path, out_blob)
+    sandbox_path = os.environ.get("SBPL_SANDBOX_PATH")
+    lib = None
+    if sandbox_path and sandbox_path != DEFAULT_SANDBOX_PATH:
+        sandbox_abs = ensure_absolute(Path(sandbox_path), repo_root)
+        if not sandbox_abs.exists():
+            raise RuntimeError(f"SBPL_SANDBOX_PATH does not exist: {sandbox_path}")
+        try:
+            lib = ctypes.CDLL(str(sandbox_abs))
+        except OSError as exc:
+            raise RuntimeError(f"failed to load libsandbox from {sandbox_path}: {exc}") from exc
+
+    result = compile_mod.compile_sbpl_file(input_path, out_blob, lib=lib)
     payload = {
         "input": to_repo_relative(input_path, repo_root),
         "out_blob": to_repo_relative(out_blob, repo_root),
