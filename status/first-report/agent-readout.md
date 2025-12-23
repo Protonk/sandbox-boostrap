@@ -180,7 +180,7 @@ This cluster attempts to connect SBPL and compiled **PolicyGraphs** to actual ru
     * System profiles (`airlock`, `bsd`, `sample`).
   * Harness:
 
-    * The machinery evolved from using `sandbox-exec` to local shims (`sandbox_runner`, `sandbox_reader`), and now centers on `book/api/SBPL-wrapper/wrapper` in both `--sbpl` and `--blob` modes.
+    * The machinery evolved from using `sandbox-exec` to local shims (`sandbox_runner`, `sandbox_reader`), and now centers on `book/tools/sbpl/wrapper/wrapper` in both `--sbpl` and `--blob` modes.
   * Current state:
 
     * For both bucket profiles and system profiles, runs are strongly affected by `sandbox_init` / `sandbox_apply` returning `EPERM` on this host, especially when attempting to apply platform blobs in blob mode.
@@ -198,7 +198,7 @@ This cluster attempts to connect SBPL and compiled **PolicyGraphs** to actual ru
     * Profiles are compiled via libsandbox and decoded through `profile_ingestion.py`; headers and sections are stored in `out/ingested.json`.
   * Runtime:
 
-    * Probes are run via `book/api/SBPL-wrapper/wrapper --sbpl` and `book/api/file_probe/file_probe`.
+    * Probes are run via `book/tools/sbpl/wrapper/wrapper --sbpl` and `book/api/file_probe/file_probe`.
     * The `allow_all` profile behaves as expected.
     * Strict `(deny default)` shapes currently do **not** behave as expected: probes that should be denied are instead succeeding.
   * Conclusion:
@@ -314,7 +314,7 @@ This section summarizes the core tools under `book/api/` that decode profiles, a
     * Section offsets and basic edge sanity checks.
   * CLI helper: `python -m book.api.profile_tools decode dump <blob>` to inspect profiles from the command line.
 
-* **SBPL wrapper (`book/api/SBPL-wrapper/wrapper`)**
+* **SBPL wrapper (`book/tools/sbpl/wrapper/wrapper`)**
 
   * A small C helper that applies SBPL or compiled blobs to a process:
 

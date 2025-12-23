@@ -18,7 +18,7 @@ Create a stable decoder regression corpus for the Sonoma baseline so structural 
 ## Plan & execution log
 - Seeded experiment scaffold and outlined corpus/outputs.
 - Ran `.venv/bin/python3 run.py` to collect the first corpus cut (7 blobs across golden-triple, sbpl-graph-runtime, libsandbox-encoder) and emit manifest/decodes/inspections.
-- Probed platform apply gate with `book/api/SBPL-wrapper/wrapper --sbpl /System/Library/Sandbox/Profiles/airlock.sb -- /usr/bin/true`; still returns `Operation not permitted` while custom blob apply succeeds (gate still present).
+- Probed platform apply gate with `book/tools/sbpl/wrapper/wrapper --sbpl /System/Library/Sandbox/Profiles/airlock.sb -- /usr/bin/true`; still returns `Operation not permitted` while custom blob apply succeeds (gate still present).
 - Expanded corpus with a static-only platform profile (`platform_airlock` compiled from `/System/Library/Sandbox/Profiles/airlock.sb`) and regenerated decodes/inspect snapshots.
 - Added validation job `experiment:golden-corpus` under `book/graph/concepts/validation/` to replay decoder/profile_tools against the manifest; current status `ok` after normalizing tag-count comparisons.
 - Refreshed `run.py` outputs after the tag-layout/contract update to bump `tag_layouts_sha256` in manifest/summary and keep decodes/inspect snapshots aligned with the current decoder.

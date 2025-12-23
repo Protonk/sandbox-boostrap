@@ -81,7 +81,7 @@ python3 book/tools/preflight/preflight.py minimize-gate \
   --confirm 10
 ```
 
-`minimize-gate` is contract-driven: it executes candidates via `book/api/SBPL-wrapper/wrapper` and classifies outcomes using tool markers parsed by `book/api/runtime_tools/core/contract.py` (not stderr substrings).
+`minimize-gate` is contract-driven: it executes candidates via `book/tools/sbpl/wrapper/wrapper` and classifies outcomes using tool markers parsed by `book/api/runtime_tools/core/contract.py` (not stderr substrings).
 
 ## Notes
 

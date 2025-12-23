@@ -27,7 +27,7 @@ from book.api.profile_tools import identity as identity_mod  # type: ignore
 
 
 SCHEMA_VERSION = 1
-WRAPPER = REPO_ROOT / "book" / "api" / "SBPL-wrapper" / "wrapper"
+WRAPPER = REPO_ROOT / "book" / "tools" / "sbpl" / "wrapper" / "wrapper"
 
 
 def _rel(path: Path) -> str:

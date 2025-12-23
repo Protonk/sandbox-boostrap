@@ -1,6 +1,6 @@
 # File Probe
 
-Role: minimal C helper that performs a single `open` + `read` or `open` + `write` and reports the result as JSON. Used by runtime probes (e.g., `sbpl-graph-runtime`) as the target process once a profile is applied by `SBPL-wrapper/wrapper`.
+Role: minimal C helper that performs a single `open` + `read` or `open` + `write` and reports the result as JSON. Used by runtime probes (e.g., `sbpl-graph-runtime`) as the target process once a profile is applied by `book/tools/sbpl/wrapper/wrapper`.
 
 Use when: you need a deterministic, low-noise file access to test allow/deny outcomes under a sandbox profile.
 

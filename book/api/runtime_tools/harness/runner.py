@@ -22,7 +22,7 @@ DEFAULT_RUNTIME_PROFILE_DIR = DEFAULT_OUT / "runtime_profiles"
 RUNNER = REPO_ROOT / "book" / "experiments" / "runtime-checks" / "sandbox_runner"
 READER = REPO_ROOT / "book" / "experiments" / "runtime-checks" / "sandbox_reader"
 WRITER = REPO_ROOT / "book" / "experiments" / "runtime-checks" / "sandbox_writer"
-WRAPPER = REPO_ROOT / "book" / "api" / "SBPL-wrapper" / "wrapper"
+WRAPPER = REPO_ROOT / "book" / "tools" / "sbpl" / "wrapper" / "wrapper"
 MACH_PROBE = REPO_ROOT / "book" / "experiments" / "runtime-checks" / "mach_probe"
 
 CAT = "/bin/cat"

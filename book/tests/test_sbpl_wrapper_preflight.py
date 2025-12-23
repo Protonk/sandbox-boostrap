@@ -9,7 +9,7 @@ from book.api.runtime_tools.core import contract as rt_contract
 
 
 ROOT = Path(__file__).resolve().parents[2]
-WRAPPER = ROOT / "book" / "api" / "SBPL-wrapper" / "wrapper"
+WRAPPER = ROOT / "book" / "tools" / "sbpl" / "wrapper" / "wrapper"
 
 
 def test_sbpl_wrapper_preflight_blocks_known_apply_gate_signature(tmp_path: Path):

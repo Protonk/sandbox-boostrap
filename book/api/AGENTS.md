@@ -11,7 +11,6 @@ This directory is the API/tooling layer for the Seatbelt textbook. All tools ass
 
 - `profile_tools/` – Canonical surface for profile-byte work: SBPL compilation, blob decoding/inspection, op-table summaries, digests, and structural oracles (replaces `sbpl_compile`, `inspect_profile`, `op_table`, and the former standalone `decoder`/`sbpl_oracle` modules).
   - Legacy packages (`book.api.sbpl_compile`, `book.api.inspect_profile`, `book.api.op_table`) have been removed; route callers here.
-- `SBPL-wrapper/` – Runtime harness for applying SBPL/compiled blobs; treats `EPERM` apply gates as `blocked` on this host.
 - `runtime_tools/` – Unified runtime observations + mappings + harness runner/generator (replaces `runtime` + `runtime_harness`).
   - Native helpers live under `runtime_tools/native/`, including `native/file_probe/` (minimal JSON-emitting read/write probe).
 - `ghidra/` – Seatbelt-focused Ghidra scaffold/CLI for kernel/op-table symbol work; see `ghidra/README.md` for workspace norms.

@@ -12,7 +12,7 @@ Use this file for concise notes on signing, profile extraction, and probe runs.
 
 ## Wrapper path
 
-- SBPL/Blob wrapper (`book/api/SBPL-wrapper/wrapper`) now available to apply compiled profiles directly. Once we derive App Sandbox SBPL (or compiled blobs) for the signed variants, we can run runtime probes without relying on `sandbox-exec`.
+- SBPL/Blob wrapper (`book/tools/sbpl/wrapper/wrapper`) now available to apply compiled profiles directly. Once we derive App Sandbox SBPL (or compiled blobs) for the signed variants, we can run runtime probes without relying on `sandbox-exec`.
 - Next action: pick an App Sandbox template, inject entitlements/params to produce per-variant SBPL, compile via `sandbox_compile_string`, and exercise via the wrapper to observe network server allow/deny deltas.
 
 ## Next steps

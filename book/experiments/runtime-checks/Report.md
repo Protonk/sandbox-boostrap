@@ -30,7 +30,7 @@ Validate that runtime allow/deny behavior for selected profiles matches decoder-
   - Latest rerun executed under a more permissive host context (Codex harness `--yolo`); apply-stage EPERM cleared for the runtime-checks matrix and only `sys:airlock` remains preflight-blocked.
 - **1) Scope and setup**
   - Identified target profiles: canonical system blobs (`airlock`, `bsd`, `sample`) and representative bucket-4/bucket-5 synthetic profiles (`v1_read`, `v11_read_subpath`) from `op-table-operation`.
-  - Harness in place: `run_probes.py` prefers local shims (`sandbox_runner` / `sandbox_reader`) and now uses `book/api/SBPL-wrapper/wrapper --blob` for compiled profiles.
+  - Harness in place: `run_probes.py` prefers local shims (`sandbox_runner` / `sandbox_reader`) and now uses `book/tools/sbpl/wrapper/wrapper --blob` for compiled profiles.
 - **2) Define probes and expectations**
   - Listed the operations and concrete probes for bucket-4 and bucket-5 profiles (e.g., `file-read*` on `/etc/hosts` and `/tmp/foo`, `file-write*` to `/etc/hosts` / `/tmp/foo`), captured in `out/expected_matrix.json`.
 - **3) Run runtime checks**
@@ -60,7 +60,7 @@ If runtime checks are extended or revisited, reuse this outline:
 ## Evidence & artifacts
 - Probe matrix in `book/experiments/runtime-checks/out/expected_matrix.json` describing profiles, probes, and expected outcomes.
 - Runtime results in `book/experiments/runtime-checks/out/runtime_results.json` from `run_probes.py` runs (where harnesses succeeded).
-- Harness scripts (`run_probes.py`, `sandbox_runner`, `sandbox_reader`, and SBPL wrapper integration) under this directory and `book/api/SBPL-wrapper`.
+- Harness scripts (`run_probes.py`, `sandbox_runner`, `sandbox_reader`, and SBPL wrapper integration) under this directory and `book/tools/sbpl/wrapper`.
 - Guardrail test `tests/test_runtime_matrix_shape.py` asserting the presence and shape of the expected matrix.
 
 ## Blockers / risks

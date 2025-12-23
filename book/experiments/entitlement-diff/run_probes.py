@@ -31,7 +31,7 @@ def _load_probe_plan():
 probe_plan = _load_probe_plan()
 
 REPO_ROOT = find_repo_root(Path(__file__))
-WRAPPER = REPO_ROOT / "book" / "api" / "SBPL-wrapper" / "wrapper"
+WRAPPER = REPO_ROOT / "book" / "tools" / "sbpl" / "wrapper" / "wrapper"
 STAGE_DIR = Path("/private/tmp/entitlement-diff/app_bundle")
 CONTAINER_DIR = Path("/private/tmp/entitlement-diff/container")
 FILE_PROBE_TARGET = CONTAINER_DIR / "runtime.txt"

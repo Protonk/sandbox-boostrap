@@ -45,7 +45,7 @@ Use this file for concise notes on progress, commands, and intermediate findings
 ## Blob wrapper path
 
 - Updated `out/expected_matrix.json` to point system profiles at compiled blobs and mark `mode: blob`.
-- Taught `run_probes.py` to honor profile-level `mode` so blob probes run through `book/api/SBPL-wrapper/wrapper --blob`.
+- Taught `run_probes.py` to honor profile-level `mode` so blob probes run through `book/tools/sbpl/wrapper/wrapper --blob`.
 - Reran probes: bucket profiles and runtime shapes still pass; system profiles now apply via wrapper but `sandbox_apply` returns `EPERM` on this host, so all sys probes record deny (wrapper commands succeed, apply fails). Results recorded in `out/runtime_results.json`.
 
 ## Platform blob gate
@@ -69,7 +69,7 @@ Use this file for concise notes on progress, commands, and intermediate findings
 
 ## Wrapper fix and SBPL mode (2025-12-04)
 
-- Fixed `book/api/golden_runner` wrapper path to `book/api/SBPL-wrapper/wrapper` and forced blob-mode for `.sb.bin`.
+- Fixed `book/api/golden_runner` wrapper path to `book/tools/sbpl/wrapper/wrapper` and forced blob-mode for `.sb.bin`.
 - Updated the golden expected matrix to run bucket4/bucket5 via SBPL (mode `sbpl`) so `sandbox_reader` applies them without process-exec allowances; added a bucket5 entry to the golden matrix.
 - Reran `run_probes.py` with PYTHONPATH set. Results: `runtime:allow_all` and `runtime:metafilter_any` = ok; bucket4 = ok; bucket5 = partial (one mismatch); platform blobs still skipped/untouched.
 

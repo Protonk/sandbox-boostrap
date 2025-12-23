@@ -22,31 +22,11 @@ python -m book.api.profile_tools oracle network-matrix \
 
 Legacy packages (`book.api.sbpl_compile`, `book.api.inspect_profile`, `book.api.op_table`) have been removed; prefer the unified package above.
 
-### SBPL-wrapper
-
-Definition: Runtime harness for applying SBPL or compiled blobs to processes.
-
-Role: Wrap `sandbox_init` / `sandbox_apply` to drive runtime probes; on this host, `EPERM` apply gates should be treated as `blocked`.
-
-Example:
-```sh
-# build the wrapper per book/api/SBPL-wrapper/README
-book/api/SBPL-wrapper/wrapper --blob /tmp/sample.sb.bin -- /bin/true
-
-# force apply even if preflight flags a known apply-gate signature
-book/api/SBPL-wrapper/wrapper --preflight force --sbpl /System/Library/Sandbox/Profiles/airlock.sb -- /usr/bin/true
-```
-
-Operational preflight (apply-gate avoidance):
-```sh
-python3 book/tools/preflight/preflight.py scan path/to/profile.sb
-```
-
 ### file_probe
 
 Definition: Minimal JSON-emitting read/write probe binary (under `book/api/runtime_tools/native/file_probe/`).
 
-Role: Provide a deterministic target for runtime allow/deny checks when paired with SBPL-wrapper.
+Role: Provide a deterministic target for runtime allow/deny checks once a profile is applied.
 
 Example:
 ```sh
@@ -105,4 +85,4 @@ Preflight (apply-gate avoidance):
 
 - **op_table**: could gain a CARTON-backed query layer if op-table fingerprints/alignments are ever promoted to CARTON mappings; today it is generator/inspection tooling (see `book.api.profile_tools.op_table`), not CARTON IR.
 - **runtime_tools**: the harness + mapping outputs could be query-able if golden traces/expectations become CARTON mappings with a defined concept; currently generation-only.
-- **Others (regex_tools, SBPL-wrapper, runtime_tools/native/file_probe, ghidra)**: generation/inspection/harness tools, not CARTON concepts; poor fits for the CARTON query surface in their current form.
+- **Others (regex_tools, runtime_tools/native/file_probe, ghidra)**: generation/inspection/harness tools, not CARTON concepts; poor fits for the CARTON query surface in their current form.

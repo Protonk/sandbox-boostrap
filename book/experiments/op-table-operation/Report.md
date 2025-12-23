@@ -126,7 +126,7 @@ We intentionally avoid guessing op-table slot ordering or Operation↔bucket sem
        - run a tiny app or harness under selected synthetic profiles (e.g., “bucket‑4 only”, “bucket‑5 only”, “[6,…,5]”),
        - exercise operations like `mach-lookup` and `network-outbound`,
        - log which SBPL operations and kernel operations appear in traces.
-       - The new `book/api/SBPL-wrapper/wrapper` (SBPL and blob) plus the runtime-checks harness can drive these probes without `sandbox-exec`.
+       - The new `book/tools/sbpl/wrapper/wrapper` (SBPL and blob) plus the runtime-checks harness can drive these probes without `sandbox-exec`.
        - When probing file-read/write behavior, create fixtures in `/tmp` first to avoid “No such file or directory” denials that mask policy decisions.
      - Use these logs to validate that:
        - “mach bucket” profiles really gate mach behavior as expected,
@@ -157,7 +157,7 @@ We intentionally avoid guessing op-table slot ordering or Operation↔bucket sem
   - Re-run the analyzer only when vocab or decoder behavior changes.
   ---
 - **3. Cross-check with semantic probes (optional stretch)**
-  - Optionally run existing semantic probes via `book/api/SBPL-wrapper/wrapper` (SBPL or blob) and annotate runtime traces with op-table slots and structural signatures, writing any such results to `out/runtime_usage.json`.
+  - Optionally run existing semantic probes via `book/tools/sbpl/wrapper/wrapper` (SBPL or blob) and annotate runtime traces with op-table slots and structural signatures, writing any such results to `out/runtime_usage.json`.
   - If running spot checks, ensure probe targets exist (e.g., create `/tmp/op_table_probe.txt`) so read/write paths exercise the allow/deny rules meaningfully.
   ---
 - **5. Open questions to resolve**

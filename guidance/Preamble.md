@@ -47,7 +47,7 @@ Do not copy status details from memory. Use these sources as the current cut:
 - **Profile structure**: `book.api.profile_tools` (CLI: `python -m book.api.profile_tools`) for SBPL compile/ingest/decode/inspect/op-table/digests/oracles.
 - **Runtime probes**: `book.api.runtime_harness` (CLI: `python -m book.api.runtime_harness.cli`) plus `book.api.runtime` for normalization and runtime cuts.
 - **Apply-gate guardrails**: `book/tools/preflight/preflight.py` for scan + minimize-gate.
-- **Apply/probe pair**: `book/api/SBPL-wrapper/` (wrapper binary) + `book/api/file_probe/file_probe.c` (probe target).
+- **Apply/probe pair**: `book/tools/sbpl/wrapper/` (wrapper binary) + `book/api/file_probe/file_probe.c` (probe target).
 - **Lifecycle probes**: `book.api.lifecycle_probes` (CLI: `python -m book.api.lifecycle_probes`).
 - **Entitlements witness**: `book/tools/entitlement/EntitlementJail.app` (see `book/tools/entitlement/EntitlementJail.md`).
 - **Kernel/symbol work**: `book.api.ghidra` (CLI: `python -m book.api.ghidra.cli`).

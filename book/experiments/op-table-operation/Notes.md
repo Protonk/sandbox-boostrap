@@ -81,7 +81,7 @@
 
 ## Pass 9
 
-- SBPL wrapper now available (`book/api/SBPL-wrapper/wrapper --sbpl/--blob`); runtime-checks harness can invoke compiled blobs via `run_probes.py`.
+- SBPL wrapper now available (`book/tools/sbpl/wrapper/wrapper --sbpl/--blob`); runtime-checks harness can invoke compiled blobs via `run_probes.py`.
 - Next actionable: reuse the wrapper to run a small runtime spot-check for representative profiles (e.g., `v1_read`, `v11_read_subpath`) and correlate observed allow/deny with the op-table buckets already mapped.
 - Quick spot-check (sandbox_reader without creating targets): `v1_read` denies missing file `/tmp/op_table_probe.txt` (expected once file exists); `v11_read_subpath` denies `/tmp/op_table_probe_denied.txt` as expected. For a meaningful probe, create fixtures in `/tmp` before running.
 

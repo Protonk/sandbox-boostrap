@@ -3,7 +3,7 @@
 ## Context
 
 - Host: Sonoma baseline (see `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json)`).
-- Surface: applying compiled system sandbox blobs (`airlock.sb.bin`, `bsd.sb.bin`) via `sandbox_apply` in `book/api/SBPL-wrapper/wrapper --blob`, under the `runtime-checks` harness.
+- Surface: applying compiled system sandbox blobs (`airlock.sb.bin`, `bsd.sb.bin`) via `sandbox_apply` in `book/tools/sbpl/wrapper/wrapper --blob`, under the `runtime-checks` harness.
 - Profiles: shipped blobs from `book/examples/extract_sbs/build/profiles/` (extracted from `/System/Library/Sandbox/Profiles/*.sb.bin` via the `extract_sbs` helper).
 
 ## Symptom
@@ -23,7 +23,7 @@
 
 ## Steps taken
 
-- Wired `run_probes.py` to route blob-mode profiles through `book/api/SBPL-wrapper/wrapper --blob`, so all blob applies go through the same path.
+- Wired `run_probes.py` to route blob-mode profiles through `book/tools/sbpl/wrapper/wrapper --blob`, so all blob applies go through the same path.
 - Used `book.api.profile_tools.decoder` (with header exposure) to dump preamble words:
   - `airlock`: `maybe_flags=0x4000`, `op_count=167`, `magic=0x00be`.
   - `bsd`: `maybe_flags=0x0000`, `op_count=28`, `magic=0x00be`.

@@ -178,7 +178,7 @@ def _write_variant_files(out_dir: Path) -> List[Dict[str, Any]]:
 
 def main() -> int:
     root = path_utils.find_repo_root(Path(__file__))
-    wrapper = root / "book/api/SBPL-wrapper/wrapper"
+    wrapper = root / "book/tools/sbpl/wrapper/wrapper"
     witness_root = root / "book/experiments/gate-witnesses/out/witnesses"
     out_dir = root / "book/experiments/gate-witnesses/out"
     variants_dir = out_dir / "micro_variants"

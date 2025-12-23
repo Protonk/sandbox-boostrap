@@ -11,7 +11,7 @@ This experiment is intentionally narrow:
 ## Baseline & scope
 
 - World: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`
-- Apply surface: `book/api/SBPL-wrapper/wrapper --sbpl … -- /usr/bin/true`
+- Apply surface: `book/tools/sbpl/wrapper/wrapper --sbpl … -- /usr/bin/true`
 - Classification: runtime contract layer (`book/api/runtime_tools/core/contract.py`) + `sbpl-apply` tool markers (no stderr substring inference)
 - Recent witness refresh runs were executed on both a permissive host configuration (`--yolo`) and a less permissive control pass; the snapshots are preserved as `out/witnesses/airlock/run.yolo.json` and `out/witnesses/airlock/run.non_yolo.json` (current `run.json` matches the permissive run).
 
@@ -104,7 +104,7 @@ This is a host-grounded runtime witness: it does not rely on substring inference
 
 ## Effective entitlement check marker (runtime correlation; partial)
 
-`book/api/SBPL-wrapper/wrapper` emits a `tool:"entitlement-check"` marker before attempting any apply, recording the runtime-effective value of `com.apple.private.security.message-filter` for the applying process.
+`book/tools/sbpl/wrapper/wrapper` emits a `tool:"entitlement-check"` marker before attempting any apply, recording the runtime-effective value of `com.apple.private.security.message-filter` for the applying process.
 
 In the gate-witnesses validation output, the blob-apply records show `present:false` for this entitlement on the wrapper process, aligning with the unified-log message above (see `entitlement_checks` in `book/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json`).
 
@@ -118,7 +118,7 @@ As a host-grounded corroboration point for the “entitlement-gated capability�
 
 - `com.apple.private.security.message-filter`
 
-Results are recorded in `out/entitlements_scan.json`. On this world baseline, multiple system services that are plausible users of message filtering carry the key (notably WebKit XPC services, BlastDoor services, and `CGPDFService`), while `book/api/SBPL-wrapper/wrapper` does not.
+Results are recorded in `out/entitlements_scan.json`. On this world baseline, multiple system services that are plausible users of message filtering carry the key (notably WebKit XPC services, BlastDoor services, and `CGPDFService`), while `book/tools/sbpl/wrapper/wrapper` does not.
 
 This is **mapped-but-partial** evidence: it establishes that the entitlement key exists on this host and is used by real, signed system processes, but it does not by itself prove that the apply-stage gate observed in this experiment is *caused* by entitlement enforcement.
 

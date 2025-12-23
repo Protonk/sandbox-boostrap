@@ -20,7 +20,7 @@ If preflight reports `likely_apply_gated_for_harness_identity`, treat it as an e
 Build:
 
 ```sh
-cd book/api/SBPL-wrapper
+cd book/tools/sbpl/wrapper
 clang -Wall -Wextra -o wrapper wrapper.c -lsandbox -framework Security -framework CoreFoundation
 ```
 

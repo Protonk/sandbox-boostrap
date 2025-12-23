@@ -17,7 +17,7 @@ Outputs:
 - minimal passing neighbor (one deletion away, apply succeeds)
 
 This tool is intentionally contract-driven: it runs candidates through
-book/api/SBPL-wrapper/wrapper and parses JSONL tool markers via
+book/tools/sbpl/wrapper/wrapper and parses JSONL tool markers via
 book.api.runtime_tools.core.contract, rather than inferring from stderr strings.
 """
 
@@ -792,7 +792,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     ap = argparse.ArgumentParser(description="Delta-debug SBPL apply gating (EPERM) into minimal failing + passing neighbor.")
     ap.add_argument("--input", required=True, type=Path, help="Path to starting SBPL profile (must be apply-gated EPERM).")
     ap.add_argument("--out-dir", required=True, type=Path, help="Output directory (repo-relative preferred).")
-    ap.add_argument("--wrapper", type=Path, default=Path("book/api/SBPL-wrapper/wrapper"), help="Path to SBPL-wrapper binary.")
+    ap.add_argument("--wrapper", type=Path, default=Path("book/tools/sbpl/wrapper/wrapper"), help="Path to SBPL-wrapper binary.")
     ap.add_argument("--command", nargs="+", default=["/usr/bin/true"], help="Command executed after apply (default: /usr/bin/true).")
     ap.add_argument("--timeout-sec", type=int, default=5, help="Per-run timeout in seconds.")
     ap.add_argument("--max-tests", type=int, default=None, help="Optional cap on apply tests to prevent runaway minimization.")

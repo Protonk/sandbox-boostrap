@@ -59,7 +59,7 @@ This audit treats that layering as given and focuses on how the current files ar
   - sbpl-params/ — md `sbpl-params-flat.md`; code `params_demo.sh`.
   - sbsnarf/ — md `sbsnarf-flat.md`; code `sbsnarf.py`.
 - book/api — md `AGENTS.md`, `README.md`; subdirs:
-  - SBPL-wrapper/ — md `Plan.md`, `README.md`; code `extract_cache.sh`, `wrapper.c`.
+  - book/tools/sbpl/wrapper/ — md `Plan.md`, `README.md`; code `extract_cache.sh`, `wrapper.c`.
   - carton/ — md `AGENTS.md`, `API.md`, `README.md`; code `__init__.py`, `carton_query.py`, `create_manifest.py`; data `CARTON.json`.
   - decoder/ — md `README.md`; code `__init__.py`, `__main__.py`.
   - file_probe/ — md `README.md`; code `file_probe.c`.

@@ -18,7 +18,7 @@ Harness-layer EPERM (and related abort-style outcomes) is treated as a separate 
 
 ## SBPL-wrapper as the classification anchor
 
-[`book/api/SBPL-wrapper/wrapper.c`](book/api/SBPL-wrapper/wrapper.c) is the repo’s smallest “apply surface” for runtime probes: it takes either SBPL text (`--sbpl <profile.sb>`) and calls `sandbox_init`, or a compiled blob (`--blob <profile.sb.bin>`) and calls `sandbox_apply`, applies that Profile to the current process, then `execvp`s the target command. This gives us a single choke-point where we can observe whether we ever reached the “policy installed” stage, separately from whether we successfully bootstrapped a probe process.
+[`book/tools/sbpl/wrapper/wrapper.c`](book/tools/sbpl/wrapper/wrapper.c) is the repo’s smallest “apply surface” for runtime probes: it takes either SBPL text (`--sbpl <profile.sb>`) and calls `sandbox_init`, or a compiled blob (`--blob <profile.sb.bin>`) and calls `sandbox_apply`, applies that Profile to the current process, then `execvp`s the target command. This gives us a single choke-point where we can observe whether we ever reached the “policy installed” stage, separately from whether we successfully bootstrapped a probe process.
 
 To make this classification mechanically robust (not substring-fragile), the wrapper now emits one JSONL marker per phase on stderr with `tool:"sbpl-apply"` and a `stage` such as `apply`, `applied`, or `exec` (alongside the existing human-readable stderr). Consumers should classify outcomes using these markers, not by matching localized error strings. In particular: an `apply` marker with `rc != 0` is an apply-stage failure (**blocked**); an `exec` marker after `applied` with `errno == EPERM` is best treated as a distinct “bootstrap deny” bucket (e.g. process-exec blocked under the applied policy stack), not as generic harness weirdness; and “no wrapper-stage failure marker” only means “the wrapper didn’t see a failure”. It does **not** by itself prove that any later syscall `EPERM` is a Seatbelt/PolicyGraph deny, since `EPERM` can also originate from adjacent layers or ordinary filesystem semantics.
 
@@ -35,7 +35,7 @@ To make this classification mechanically robust (not substring-fragile), the wra
 - In normalized IR, this often appears as a probe that is recorded as `deny` with notes/stderr containing the wrapper’s apply error.
 
 **Evidence / scope on this world (mapped-but-partial / blocked):**
-- Platform/system apply gates are a recurring constraint in docs and experiments; treat these outcomes as environment evidence, not as “missing profiles” (see [`guidance/Preamble.md`](guidance/Preamble.md) and [`book/api/SBPL-wrapper/README.md`](book/api/SBPL-wrapper/README.md)).
+- Platform/system apply gates are a recurring constraint in docs and experiments; treat these outcomes as environment evidence, not as “missing profiles” (see [`guidance/Preamble.md`](guidance/Preamble.md) and [`book/tools/sbpl/wrapper/README.md`](book/tools/sbpl/wrapper/README.md)).
 - There are *at least two shapes* of apply-stage EPERM in the repo today:
   1) **Profile-specific apply gate**: `airlock` fails apply on this host even when recompiled from SBPL (see [`troubles/EPERM_chasing.md`](troubles/EPERM_chasing.md), [`book/experiments/golden-corpus/Report.md`](book/experiments/golden-corpus/Report.md), and runtime-checks notes in [`book/experiments/runtime-checks/Notes.md`](book/experiments/runtime-checks/Notes.md)).
   2) **Environment/harness apply gate**: some historical runs record `sandbox_init` returning EPERM for *everything* (see “blocked runtime vocab usage” in [`book/graph/concepts/validation/out/vocab/runtime_usage.json`](book/graph/concepts/validation/out/vocab/runtime_usage.json) and the early runtime-checks chronology in [`book/experiments/runtime-checks/Notes.md`](book/experiments/runtime-checks/Notes.md)). It is not yet clear which parts of that story were host State vs harness context drift (see “Drift / inconsistencies” below).
@@ -75,15 +75,15 @@ To make this classification mechanically robust (not substring-fragile), the wra
 
 These are *classification* repros: the point is to see whether the failure is apply-stage (`sandbox_init`/`sandbox_apply`) or later (decision/harness).
 
-- Build the wrapper once (see [`book/api/SBPL-wrapper/README.md`](book/api/SBPL-wrapper/README.md)):
-  - `cd book/api/SBPL-wrapper && clang -Wall -Wextra -o wrapper wrapper.c -lsandbox -framework Security -framework CoreFoundation`
+- Build the wrapper once (see [`book/tools/sbpl/wrapper/README.md`](book/tools/sbpl/wrapper/README.md)):
+  - `cd book/tools/sbpl/wrapper && clang -Wall -Wextra -o wrapper wrapper.c -lsandbox -framework Security -framework CoreFoundation`
 - Control: a known-good custom blob should apply and then `execvp`:
-  - `book/api/SBPL-wrapper/wrapper --blob book/profiles/golden-triple/allow_all.sb.bin -- /usr/bin/true`
+  - `book/tools/sbpl/wrapper/wrapper --blob book/profiles/golden-triple/allow_all.sb.bin -- /usr/bin/true`
 - Apply-stage EPERM (profile-specific gate witness): `airlock` SBPL text:
-  - `book/api/SBPL-wrapper/wrapper --sbpl /System/Library/Sandbox/Profiles/airlock.sb -- /usr/bin/true`
+  - `book/tools/sbpl/wrapper/wrapper --sbpl /System/Library/Sandbox/Profiles/airlock.sb -- /usr/bin/true`
   - Expect: `sandbox_init failed: Operation not permitted`
 - Apply-stage EPERM (blob mode): canonical `airlock` blob from fixtures:
-  - `book/api/SBPL-wrapper/wrapper --blob book/graph/concepts/validation/fixtures/blobs/airlock.sb.bin -- /usr/bin/true`
+  - `book/tools/sbpl/wrapper/wrapper --blob book/graph/concepts/validation/fixtures/blobs/airlock.sb.bin -- /usr/bin/true`
   - Expect: `sandbox_apply: Operation not permitted`
 
 ## Bedrock vs partial vs blocked (so we don’t silently upgrade claims)
@@ -139,7 +139,7 @@ These are practical “don’t waste cycles” constraints derived from the curr
 ## Drift / inconsistencies to record (do not resolve by “averaging stories”)
 
 - [`troubles/EPERM_chasing.md`](troubles/EPERM_chasing.md) points at now-stale blob locations (`book/examples/extract_sbs/build/profiles/…`). Canonical system blobs are now referenced as `book/graph/concepts/validation/fixtures/blobs/{airlock,bsd,sample}.sb.bin` in [`book/graph/mappings/system_profiles/digests.json`](book/graph/mappings/system_profiles/digests.json).
-- [`book/api/SBPL-wrapper/Plan.md`](book/api/SBPL-wrapper/Plan.md) says blob-mode is TODO, but [`book/api/SBPL-wrapper/wrapper.c`](book/api/SBPL-wrapper/wrapper.c) already implements `--blob` via `sandbox_apply`.
+- [`book/tools/sbpl/wrapper/Plan.md`](book/tools/sbpl/wrapper/Plan.md) says blob-mode is TODO, but [`book/tools/sbpl/wrapper/wrapper.c`](book/tools/sbpl/wrapper/wrapper.c) already implements `--blob` via `sandbox_apply`.
 - Runtime-adversarial has internal tension between narrative and artifacts:
   - The report frames key mismatches as VFS canonicalization, but `out/mismatch_summary.json` contains many entries annotated with `notes: "sandbox_apply: Operation not permitted\n"` (apply-stage failure marker) (see [`book/experiments/runtime-adversarial/Report.md`](book/experiments/runtime-adversarial/Report.md) vs [`book/experiments/runtime-adversarial/out/mismatch_summary.json`](book/experiments/runtime-adversarial/out/mismatch_summary.json)).
 - VFS canonicalization runtime outputs include a note about being captured under a more permissive “Codex harness `--yolo`” environment to clear a prior apply gate (see [`book/experiments/vfs-canonicalization/Notes.md`](book/experiments/vfs-canonicalization/Notes.md) and [`book/experiments/vfs-canonicalization/Report.md`](book/experiments/vfs-canonicalization/Report.md)). This is a reminder that *harness context* can change whether apply succeeds, and should be recorded explicitly whenever it matters.
@@ -150,7 +150,7 @@ These are practical “don’t waste cycles” constraints derived from the curr
 
 - [`troubles/EPERM_chasing.md`](troubles/EPERM_chasing.md) — initial “system blobs fail apply” writeup (stale paths; narrow framing).
 - [`troubles/profile_blobs.md`](troubles/profile_blobs.md) — broader blob-apply history, wrapper wiring, and header observations (includes hypotheses; treat as partial).
-- [`book/api/SBPL-wrapper/README.md`](book/api/SBPL-wrapper/README.md) and [`book/api/SBPL-wrapper/wrapper.c`](book/api/SBPL-wrapper/wrapper.c) — the concrete apply surface (`sandbox_init` vs `sandbox_apply`) used by many runtime probes.
+- [`book/tools/sbpl/wrapper/README.md`](book/tools/sbpl/wrapper/README.md) and [`book/tools/sbpl/wrapper/wrapper.c`](book/tools/sbpl/wrapper/wrapper.c) — the concrete apply surface (`sandbox_init` vs `sandbox_apply`) used by many runtime probes.
 - [`book/experiments/runtime-checks/Notes.md`](book/experiments/runtime-checks/Notes.md) — chronology showing both “global apply gate” and “platform/profile apply gate” episodes.
 
 ### Places apply-stage EPERM is recorded in normalized IR/mappings

@@ -24,7 +24,7 @@ Trace how selected entitlements alter compiled sandbox profiles and the resultin
 - App Sandbox stubs derived from `book/profiles/textedit/application.sb` with pinned params/entitlements (`sb/appsandbox-*.sb`); `build_profiles.py` expands/compiles to `sb/build/*.expanded.sb` and `.sb.bin`.
 - Added App Sandbox stubs for `network.client`, downloads read-write, and bookmarks app-scope; rebuilt `sb/build/*.expanded.sb`/`.sb.bin` and refreshed `out/decoded_profiles.json` + `out/profile_diffs.json` to cover baseline + multiple variants.
 - Decoded both blobs and wrote structural deltas to `out/profile_diffs.json` (ops present via op_table indices, literal adds/removals, literal_refs deltas, tag deltas) alongside raw decodes in `out/decoded_profiles.json`.
-- Runtime probes via `book/api/SBPL-wrapper/wrapper --blob` with staged binaries under `/private/tmp/entitlement-diff/app_bundle/`:
+- Runtime probes via `book/tools/sbpl/wrapper/wrapper --blob` with staged binaries under `/private/tmp/entitlement-diff/app_bundle/`:
   - baseline (app sandbox only): `entitlement_sample` bind denied (`bind: Operation not permitted`), `mach_probe com.apple.cfprefsd.agent` allowed.
   - network_mach (network.server + mach allowlist): bind allowed, mach-lookup allowed.
   Results recorded in `out/runtime_results.json`.

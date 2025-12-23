@@ -7,7 +7,7 @@ SBPL profile shapes are apply-gated (sandbox_init/sandbox_apply fail with EPERM)
 for the harness identity on this host baseline.
 
 Subcommands:
-- `scan`: cheap, static apply-gate avoidance (used by SBPL-wrapper).
+- `scan`: cheap, static apply-gate avoidance (used by the SBPL wrapper in book/tools/sbpl/wrapper).
 - `minimize-gate`: delta-debug an apply-gated SBPL into a minimal failing + passing neighbor.
 """
 

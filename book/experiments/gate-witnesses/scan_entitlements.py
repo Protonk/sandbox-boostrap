@@ -40,7 +40,7 @@ class Target:
 
 def _default_targets() -> List[Target]:
     return [
-        Target("control:wrapper", "book/api/SBPL-wrapper/wrapper"),
+        Target("control:wrapper", "book/tools/sbpl/wrapper/wrapper"),
         Target("control:/usr/bin/true", "/usr/bin/true"),
         Target(
             "coregraphics:CGPDFService",

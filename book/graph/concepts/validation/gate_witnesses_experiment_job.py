@@ -33,7 +33,7 @@ OUT_DIR = ROOT / "book/graph/concepts/validation/out/experiments/gate-witnesses"
 STATUS_PATH = OUT_DIR / "status.json"
 RESULTS_PATH = OUT_DIR / "witness_results.json"
 
-WRAPPER = ROOT / "book/api/SBPL-wrapper/wrapper"
+WRAPPER = ROOT / "book/tools/sbpl/wrapper/wrapper"
 CONTROL_SBPL = ROOT / "book/experiments/op-table-operation/sb/v0_empty.sb"
 
 EPERM = 1
