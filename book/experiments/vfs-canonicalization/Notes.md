@@ -12,3 +12,6 @@ Use this file for concise notes on commands, runs, and observations for the `/tm
 - Added `F_GETPATH` emission to `sandbox_reader`/`sandbox_writer` and re-ran `run_vfs.py`. Successful `/tmp/*` and Data-volume `/System/Volumes/Data/private/tmp/*` opens report `observed_path` as `/private/tmp/*`; denied alias paths keep `observed_path` at the requested path because the FD never opens.
 - `decode_tmp_profiles.json` now records normalized `literal_candidates`; compiled blobs still carry the expected literal path strings for each profile family.
 - Preflight manifest already covers the new `vfs-canonicalization` SBPL sources and compiled blobs (no missing inputs for the added variants).
+- Added `F_GETPATH_NOFIRMLINK` emission to `sandbox_reader`/`sandbox_writer` and re-ran `run_vfs.py`. For successful `/tmp/*` and `/System/Volumes/Data/private/*` opens, `observed_path_nofirmlink` reports the Data-volume spelling while `observed_path` reports `/private/*`.
+- Added a `/var/tmp` data-spelling profile (`vfs_var_tmp_data_only`) and a third request path (`/System/Volumes/Data/private/var/tmp/...`). Canonical-only profiles allow the data spelling; the data-only profile denies all spellings; `/var/tmp` alias remains denied.
+- Captured host alias inventory in `out/host_alias_inventory.json` (firmlinks list, `synthetic.conf`, and `synthetic.d` presence/contents).

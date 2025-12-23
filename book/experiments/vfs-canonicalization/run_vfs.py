@@ -45,17 +45,22 @@ BASE_PATH_PAIRS = [
     ("/tmp/nested/child", "/private/tmp/nested/child"),
     ("/var/tmp/canon", "/private/var/tmp/canon"),
 ]
-VAR_TMP_PATH_PAIRS = [
-    ("/var/tmp/vfs_canon_probe", "/private/var/tmp/vfs_canon_probe"),
+VAR_TMP_REQUEST_PATHS = [
+    "/var/tmp/vfs_canon_probe",
+    "/private/var/tmp/vfs_canon_probe",
+    "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
 ]
-ETC_PATH_PAIRS = [
-    ("/etc/hosts", "/private/etc/hosts"),
+ETC_REQUEST_PATHS = [
+    "/etc/hosts",
+    "/private/etc/hosts",
 ]
-FIRMLINK_PATH_PAIRS = [
-    ("/private/tmp/vfs_firmlink_probe", "/System/Volumes/Data/private/tmp/vfs_firmlink_probe"),
+FIRMLINK_REQUEST_PATHS = [
+    "/private/tmp/vfs_firmlink_probe",
+    "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
 ]
-LINK_PATH_PAIRS = [
-    ("/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe", "/private/var/tmp/vfs_link_probe"),
+LINK_REQUEST_PATHS = [
+    "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+    "/private/var/tmp/vfs_link_probe",
 ]
 
 PROFILE_CONFIGS: Dict[str, Dict[str, Any]] = {
@@ -85,97 +90,108 @@ PROFILE_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
     "vfs_var_tmp_alias_only": {
         "sb": SB_DIR / "vfs_var_tmp_alias_only.sb",
-        "path_pairs": VAR_TMP_PATH_PAIRS,
+        "request_paths": VAR_TMP_REQUEST_PATHS,
+        "allowed_paths": ["/var/tmp/vfs_canon_probe"],
         "ops": ["file-read*", "file-write*"],
-        "role": "first_only",
         "policy": "literal",
         "variant": "var_tmp",
     },
     "vfs_var_tmp_private_only": {
         "sb": SB_DIR / "vfs_var_tmp_private_only.sb",
-        "path_pairs": VAR_TMP_PATH_PAIRS,
+        "request_paths": VAR_TMP_REQUEST_PATHS,
+        "allowed_paths": ["/private/var/tmp/vfs_canon_probe"],
         "ops": ["file-read*", "file-write*"],
-        "role": "second_only",
         "policy": "literal",
         "variant": "var_tmp",
     },
     "vfs_var_tmp_both": {
         "sb": SB_DIR / "vfs_var_tmp_both.sb",
-        "path_pairs": VAR_TMP_PATH_PAIRS,
+        "request_paths": VAR_TMP_REQUEST_PATHS,
+        "allowed_paths": ["/var/tmp/vfs_canon_probe", "/private/var/tmp/vfs_canon_probe"],
         "ops": ["file-read*", "file-write*"],
-        "role": "both",
+        "policy": "literal",
+        "variant": "var_tmp",
+    },
+    "vfs_var_tmp_data_only": {
+        "sb": SB_DIR / "vfs_var_tmp_data_only.sb",
+        "request_paths": VAR_TMP_REQUEST_PATHS,
+        "allowed_paths": ["/System/Volumes/Data/private/var/tmp/vfs_canon_probe"],
+        "ops": ["file-read*", "file-write*"],
         "policy": "literal",
         "variant": "var_tmp",
     },
     "vfs_etc_alias_only": {
         "sb": SB_DIR / "vfs_etc_alias_only.sb",
-        "path_pairs": ETC_PATH_PAIRS,
+        "request_paths": ETC_REQUEST_PATHS,
+        "allowed_paths": ["/etc/hosts"],
         "ops": ["file-read*"],
-        "role": "first_only",
         "policy": "literal",
         "variant": "etc",
     },
     "vfs_etc_private_only": {
         "sb": SB_DIR / "vfs_etc_private_only.sb",
-        "path_pairs": ETC_PATH_PAIRS,
+        "request_paths": ETC_REQUEST_PATHS,
+        "allowed_paths": ["/private/etc/hosts"],
         "ops": ["file-read*"],
-        "role": "second_only",
         "policy": "literal",
         "variant": "etc",
     },
     "vfs_etc_both": {
         "sb": SB_DIR / "vfs_etc_both.sb",
-        "path_pairs": ETC_PATH_PAIRS,
+        "request_paths": ETC_REQUEST_PATHS,
+        "allowed_paths": ["/etc/hosts", "/private/etc/hosts"],
         "ops": ["file-read*"],
-        "role": "both",
         "policy": "literal",
         "variant": "etc",
     },
     "vfs_firmlink_private_only": {
         "sb": SB_DIR / "vfs_firmlink_private_only.sb",
-        "path_pairs": FIRMLINK_PATH_PAIRS,
+        "request_paths": FIRMLINK_REQUEST_PATHS,
+        "allowed_paths": ["/private/tmp/vfs_firmlink_probe"],
         "ops": ["file-read*", "file-write*"],
-        "role": "first_only",
         "policy": "literal",
         "variant": "firmlink_tmp",
     },
     "vfs_firmlink_data_only": {
         "sb": SB_DIR / "vfs_firmlink_data_only.sb",
-        "path_pairs": FIRMLINK_PATH_PAIRS,
+        "request_paths": FIRMLINK_REQUEST_PATHS,
+        "allowed_paths": ["/System/Volumes/Data/private/tmp/vfs_firmlink_probe"],
         "ops": ["file-read*", "file-write*"],
-        "role": "second_only",
         "policy": "literal",
         "variant": "firmlink_tmp",
     },
     "vfs_firmlink_both": {
         "sb": SB_DIR / "vfs_firmlink_both.sb",
-        "path_pairs": FIRMLINK_PATH_PAIRS,
+        "request_paths": FIRMLINK_REQUEST_PATHS,
+        "allowed_paths": ["/private/tmp/vfs_firmlink_probe", "/System/Volumes/Data/private/tmp/vfs_firmlink_probe"],
         "ops": ["file-read*", "file-write*"],
-        "role": "both",
         "policy": "literal",
         "variant": "firmlink_tmp",
     },
     "vfs_link_var_tmp_only": {
         "sb": SB_DIR / "vfs_link_var_tmp_only.sb",
-        "path_pairs": LINK_PATH_PAIRS,
+        "request_paths": LINK_REQUEST_PATHS,
+        "allowed_paths": ["/private/var/tmp/vfs_link_probe"],
         "ops": ["file-read*", "file-write*"],
-        "role": "second_only",
         "policy": "literal",
         "variant": "link_path",
     },
     "vfs_link_private_tmp_only": {
         "sb": SB_DIR / "vfs_link_private_tmp_only.sb",
-        "path_pairs": LINK_PATH_PAIRS,
+        "request_paths": LINK_REQUEST_PATHS,
+        "allowed_paths": ["/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"],
         "ops": ["file-read*", "file-write*"],
-        "role": "first_only",
         "policy": "literal",
         "variant": "link_path",
     },
     "vfs_link_both": {
         "sb": SB_DIR / "vfs_link_both.sb",
-        "path_pairs": LINK_PATH_PAIRS,
+        "request_paths": LINK_REQUEST_PATHS,
+        "allowed_paths": [
+            "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+            "/private/var/tmp/vfs_link_probe",
+        ],
         "ops": ["file-read*", "file-write*"],
-        "role": "both",
         "policy": "literal",
         "variant": "link_path",
     },
@@ -240,9 +256,26 @@ def build_simple_expected_matrix() -> List[Dict[str, Any]]:
     entries: List[Dict[str, Any]] = []
     for profile_id, cfg in PROFILE_CONFIGS.items():
         ops = cfg["ops"]
-        role = cfg["role"]
         policy = cfg["policy"]
         variant = cfg["variant"]
+        if policy == "literal":
+            request_paths = cfg.get("request_paths") or [path for pair in cfg.get("path_pairs", []) for path in pair]
+            allowed_paths = set(cfg.get("allowed_paths") or [])
+            for path in request_paths:
+                expected = "allow" if path in allowed_paths else "deny"
+                for op in ops:
+                    entries.append(
+                        {
+                            "profile_id": profile_id,
+                            "operation": op,
+                            "requested_path": path,
+                            "expected_decision": expected,
+                            "notes": f"{profile_id} {variant}/{policy} {path}",
+                        }
+                    )
+            continue
+
+        role = cfg["role"]
         for primary_path, alternate_path in cfg["path_pairs"]:
             primary_expected, alternate_expected = _expected_decisions(policy, role, primary_path, alternate_path)
             for op in ops:
@@ -332,15 +365,21 @@ def downconvert_runtime_results(normalized_events_path: Path) -> Path:
     for event in events:
         requested_path = event.get("target")
         stderr = event.get("stderr")
-        fd_path = _extract_fd_path(stderr)
-        observed_path = fd_path or requested_path
+        fd_obs = _extract_path_observation(stderr, "F_GETPATH")
+        nofirmlink_obs = _extract_path_observation(stderr, "F_GETPATH_NOFIRMLINK")
+        observed_path = fd_obs["path"] or requested_path
+        observed_path_source = "fd_path" if fd_obs["path"] else "requested_path"
         simple.append(
             {
                 "profile_id": event.get("profile_id"),
                 "operation": event.get("operation"),
                 "requested_path": requested_path,
                 "observed_path": observed_path,
-                "observed_path_source": "fd_path" if fd_path else "requested_path",
+                "observed_path_source": observed_path_source,
+                "observed_path_nofirmlink": nofirmlink_obs["path"],
+                "observed_path_nofirmlink_source": nofirmlink_obs["source"],
+                "observed_path_nofirmlink_errno": nofirmlink_obs["errno"],
+                "observed_path_errno": fd_obs["errno"],
                 "decision": event.get("actual"),
                 "errno": event.get("errno"),
                 "failure_stage": event.get("failure_stage"),
@@ -383,13 +422,22 @@ def _literal_candidates(s: str) -> set[str]:
     return out
 
 
-def _extract_fd_path(stderr: str | None) -> str | None:
+def _extract_path_observation(stderr: str | None, label: str) -> Dict[str, Any]:
     if not stderr:
-        return None
+        return {"path": None, "source": "not_attempted", "errno": None}
     for line in stderr.splitlines():
-        if line.startswith("F_GETPATH:"):
-            return line.split(":", 1)[1].strip() or None
-    return None
+        if line.startswith(f"{label}:"):
+            return {"path": line.split(":", 1)[1].strip() or None, "source": "fd_path", "errno": None}
+        if line.startswith(f"{label}_ERROR:"):
+            err_raw = line.split(":", 1)[1].strip()
+            try:
+                err = int(err_raw)
+            except ValueError:
+                err = None
+            return {"path": None, "source": "error", "errno": err}
+        if line.startswith(f"{label}_UNAVAILABLE"):
+            return {"path": None, "source": "unavailable", "errno": None}
+    return {"path": None, "source": "not_attempted", "errno": None}
 
 
 def anchor_present(anchor: str, literals: set[str]) -> bool:
@@ -422,8 +470,10 @@ def anchor_present(anchor: str, literals: set[str]) -> bool:
 def all_anchor_paths() -> List[str]:
     anchors: set[str] = set()
     for cfg in PROFILE_CONFIGS.values():
-        for pair in cfg["path_pairs"]:
+        for pair in cfg.get("path_pairs", []):
             anchors.update(pair)
+        for path in cfg.get("request_paths", []):
+            anchors.add(path)
     return sorted(anchors)
 
 

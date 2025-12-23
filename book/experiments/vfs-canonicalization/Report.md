@@ -1,13 +1,13 @@
 # VFS Canonicalization – Research Report
 
-This experiment checks how alias/canonical path families behave structurally and at runtime on world `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`, using tri-profile variants (alias-only, canonical-only, both) and a minimal runtime harness that exercises file-read* and file-write*. It covers `/tmp` ↔ `/private/tmp`, a `/var/tmp` discriminator, `/etc` read-only, a firmlink spelling for `/private/tmp`, and an intermediate symlink-in-path probe. The goal is to bound canonicalization behavior for these path families on this host: structurally, alias and canonical spellings are distinct anchors in the compiled PolicyGraph, while runtime behavior shows where canonicalization does (and does not) make those literals effective.
+This experiment checks how alias/canonical path families behave structurally and at runtime on world `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`, using tri-profile variants (alias-only, canonical-only, both) plus a data-spelling-only variant for `/var/tmp`, and a minimal runtime harness that exercises file-read* and file-write*. It covers `/tmp` ↔ `/private/tmp`, a `/var/tmp` discriminator (including `/System/Volumes/Data/private/var/tmp`), `/etc` read-only, a firmlink spelling for `/private/tmp`, and an intermediate symlink-in-path probe. The goal is to bound canonicalization behavior for these path families on this host: structurally, alias and canonical spellings are distinct anchors in the compiled PolicyGraph, while runtime behavior shows where canonicalization does (and does not) make those literals effective.
 
 ## Setup
 
 - **World:** `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (Sonoma baseline).
-- **Profiles:** tri-profile variants per family (alias-only, canonical-only, both). Families covered:
+- **Profiles:** tri-profile variants per family (alias-only, canonical-only, both), plus a data-spelling-only variant for `/var/tmp`. Families covered:
   - `/tmp/*` ↔ `/private/tmp/*` (base family, plus `/var/tmp/canon` control).
-  - `/var/tmp/vfs_canon_probe` ↔ `/private/var/tmp/vfs_canon_probe` (var/tmp discriminator).
+  - `/var/tmp/vfs_canon_probe` ↔ `/private/var/tmp/vfs_canon_probe` plus `/System/Volumes/Data/private/var/tmp/vfs_canon_probe` (var/tmp discriminator + data spelling).
   - `/etc/hosts` ↔ `/private/etc/hosts` (read-only).
   - `/private/tmp/vfs_firmlink_probe` ↔ `/System/Volumes/Data/private/tmp/vfs_firmlink_probe` (firmlink spelling).
   - `/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe` ↔ `/private/var/tmp/vfs_link_probe` (intermediate symlink).
@@ -24,9 +24,11 @@ This experiment checks how alias/canonical path families behave structurally and
   - `out/runtime_results.json` – simplified array of runtime observations (per scenario).
   - `out/decode_tmp_profiles.json` – structural view of anchors/tags/field2 (plus literal candidates) for all configured path pairs in each profile.
   - `out/mismatch_summary.json` – coarse classification for the base `/tmp` family (canonicalization vs control).
+  - `out/host_alias_inventory.json` – host-local firmlinks and synthetic root config snapshots (presence + contents).
 - **Observed vs canonicalized paths:**
-  - The harness now emits `F_GETPATH` for successful opens; `observed_path` in `runtime_results.json` is sourced from that path string when available, and `observed_path_source` reports whether the value came from `fd_path` or from the `requested_path` fallback.
-  - For denied requests the FD never opens, so `F_GETPATH` is absent and `observed_path` remains the requested path; canonicalization for denied paths is still inferred from behavior.
+  - The harness now emits `F_GETPATH` and (when available) `F_GETPATH_NOFIRMLINK` for successful opens. `observed_path` is sourced from `F_GETPATH` when present, and `observed_path_nofirmlink` captures the alternate FD path spelling when available.
+  - For denied requests the FD never opens, so neither FD path exists; `observed_path` remains the requested path and canonicalization for denied paths is inferred from behavior.
+- **Host alias inventory:** `out/host_alias_inventory.json` captures `/usr/share/firmlinks`, `/etc/synthetic.conf`, and `/etc/synthetic.d` on this host. The firmlinks list exists but does not include `/private`; `synthetic.conf` and `synthetic.d` are absent. Treat this as a host-specific bound, not a general rule.
 
 ## Structural observations
 
@@ -62,14 +64,15 @@ From `out/runtime_results.json` (via `run_vfs.py` + `run_expected_matrix` on thi
   - `vfs_both_paths` matches `vfs_private_tmp_only`: all `/tmp/*` + `/private/tmp/*` allowed; `/var/tmp/canon` denied; `/private/var/tmp/canon` allowed.
 - **`/var/tmp` discriminator**
   - `vfs_var_tmp_alias_only` denies both `/var/tmp/vfs_canon_probe` and `/private/var/tmp/vfs_canon_probe`.
-  - `vfs_var_tmp_private_only` allows `/private/var/tmp/vfs_canon_probe` but denies `/var/tmp/vfs_canon_probe`.
-  - `vfs_var_tmp_both` allows `/private/var/tmp/vfs_canon_probe` but still denies `/var/tmp/vfs_canon_probe`. Denied alias requests never open, so `observed_path` stays at the requested path.
+  - `vfs_var_tmp_private_only` allows `/private/var/tmp/vfs_canon_probe` and `/System/Volumes/Data/private/var/tmp/vfs_canon_probe` but denies `/var/tmp/vfs_canon_probe`; the data spelling request yields `F_GETPATH=/private/var/tmp/...` and `F_GETPATH_NOFIRMLINK=/System/Volumes/Data/private/var/tmp/...`.
+  - `vfs_var_tmp_both` matches `vfs_var_tmp_private_only`: allows canonical + data spelling, still denies `/var/tmp/vfs_canon_probe`.
+  - `vfs_var_tmp_data_only` denies all three spellings; data spelling requests never open, so `observed_path` stays at the requested path.
 - **`/etc` read-only**
   - `vfs_etc_alias_only` denies both `/etc/hosts` and `/private/etc/hosts`.
   - `vfs_etc_private_only` allows `/private/etc/hosts` but denies `/etc/hosts`.
   - `vfs_etc_both` allows `/private/etc/hosts` but still denies `/etc/hosts`; alias requests never open, so `F_GETPATH` is unavailable there.
 - **Firmlink spelling (`/private/tmp` vs `/System/Volumes/Data/private/tmp`)**
-  - `vfs_firmlink_private_only` allows both spellings; when requesting the Data spelling, `F_GETPATH` reports the canonical `/private/tmp/...` path.
+  - `vfs_firmlink_private_only` allows both spellings; when requesting the Data spelling, `F_GETPATH` reports `/private/tmp/...` and `F_GETPATH_NOFIRMLINK` reports `/System/Volumes/Data/private/tmp/...`.
   - `vfs_firmlink_data_only` denies both spellings.
   - `vfs_firmlink_both` allows both spellings.
 - **Intermediate symlink path**
@@ -86,6 +89,7 @@ Within the scope of this experiment (file reads/writes on this host, these profi
 - **Effective enforcement path is `/private/tmp/...` for the `/tmp` path set.**
   - A profile that mentions only canonical `/private/tmp/*` paths (`vfs_private_tmp_only`) allows both `/tmp/*` and `/private/tmp/*` requests, and the harness reads the same contents in both cases.
   - `F_GETPATH` on successful `/tmp/*` opens reports `/private/tmp/*`, which is a direct witness that the FD resolves to the canonical path before policy evaluation (partial only for allowed cases).
+  - `F_GETPATH_NOFIRMLINK` reports `/System/Volumes/Data/private/tmp/*` for the same opens, so `F_GETPATH` is a firmlink-normalized rendering, not a proof of the literal Seatbelt matched on its own.
 
 - **A profile that mentions only `/tmp/*` does not match after canonicalization.**
   - `vfs_tmp_only` has evident `/tmp/*` anchors in the decoded graph, but both `/tmp/*` and `/private/tmp/*` requests are denied with `EPERM` from the helper.
@@ -97,11 +101,15 @@ Within the scope of this experiment (file reads/writes on this host, these profi
 
 - **`/var/tmp` and `/etc` behave differently from `/tmp`.**
   - For both `/var/tmp/vfs_canon_probe` and `/etc/hosts`, alias-only profiles deny both forms, and canonical-only profiles allow only the canonical `/private/...` form; even the both-paths profiles do not allow the alias form.
-  - This does **not** match the `/tmp` behavior and is still **partial**: we do not yet know whether the alias requests are being canonicalized to a different spelling (e.g., Data-volume paths) or are evaluated under a lookup-dependent path rendering.
+  - Adding the Data-volume spelling to the `/var/tmp` matrix shows that `/System/Volumes/Data/private/var/tmp/...` is allowed when canonical `/private/var/tmp/...` is allowed, and denied when only the Data spelling is allowed. This points to matching on `/private/var/tmp/...` rather than a third spelling, but alias `/var/tmp/...` remains **partial**.
 
 - **Firmlink spelling is normalized to `/private/tmp` in this suite.**
   - The Data-volume spelling (`/System/Volumes/Data/private/tmp/...`) is allowed when `/private/tmp/...` is allowed, and is denied when only the Data spelling is allowed.
-  - For successful opens of the Data spelling, `F_GETPATH` returns the `/private/tmp/...` path, which is a direct witness of normalization across the firmlink spelling boundary in this suite (still **partial**, single path family).
+  - For successful opens of the Data spelling, `F_GETPATH` returns `/private/tmp/...` while `F_GETPATH_NOFIRMLINK` returns the Data spelling; the allow/deny matrix still aligns with the canonical `/private/tmp/...` literal, so this remains **partial**, single path family.
+
+- **Data spelling collapse is both a rendering choice and a match boundary here.**
+  - `F_GETPATH` normalizes Data spellings to `/private/...` while `F_GETPATH_NOFIRMLINK` preserves the Data spelling, so the FD-path witness alone is a rendering signal.
+  - The allow/deny matrix for `/var/tmp` shows that a profile allowing only the Data spelling still denies the Data spelling, while a profile allowing `/private/var/tmp/...` allows it. That points to Seatbelt matching on the canonical `/private/...` spelling for this family on this host (still partial for `/var/tmp` alias requests).
 
 - **Intermediate symlink paths do not match either literal.**
   - Requests via `/private/tmp/vfs_linkdir/to_var_tmp/...` are denied even when the profile explicitly allows that literal or allows the canonical `/private/var/tmp/...` path.
@@ -128,7 +136,7 @@ Scope and constraints:
 - World: `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` only.
 - Operations: `file-read*` and `file-write*` via the existing runtime harness (plus `/etc/hosts` read-only).
 - Paths: base `/tmp/*` and `/private/tmp/*` set, `/var/tmp/canon` control, `/var/tmp/vfs_canon_probe`, `/etc/hosts`, `/System/Volumes/Data/private/tmp/vfs_firmlink_probe`, and the intermediate symlink path under `/private/tmp/vfs_linkdir/`.
-- Logging: the harness now captures `F_GETPATH` for successful opens; `observed_path` is the FD path and `observed_path_source` flags when that witness is available. Denied paths still lack canonicalized strings and remain inference-only.
+- Logging: the harness captures `F_GETPATH` and `F_GETPATH_NOFIRMLINK` for successful opens; `observed_path` is the firmlink-normalized FD path, and `observed_path_nofirmlink` records the alternate spelling when available. Denied paths still lack FD paths and remain inference-only.
 
 Non-claims and cautions:
 

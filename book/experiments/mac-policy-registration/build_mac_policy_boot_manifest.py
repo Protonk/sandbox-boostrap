@@ -36,6 +36,7 @@ def _normalize_slot(slot: Dict[str, object]) -> Dict[str, object]:
         "resolved",
         "owner_entry",
         "source",
+        "hook_field_name",
         "external_hook_name",
         "external_source",
         "external_note",
@@ -48,7 +49,13 @@ def _derive_ops_slots(inst: Dict[str, object]) -> Dict[str, object]:
     asp_chain = inst.get("asp_store_chain") or {}
     slots: List[Dict[str, object]] = []
     mode = None
-    if asp_chain.get("ops_slots_merged"):
+    layout_meta = None
+    layout_slots = (mpc.get("ops_layout_slots") or {}).get("hooks") or []
+    if layout_slots:
+        mode = "ops_layout"
+        slots = [_normalize_slot(slot) for slot in layout_slots]
+        layout_meta = (mpc.get("ops_layout_slots") or {}).get("layout_meta")
+    elif asp_chain.get("ops_slots_merged"):
         mode = "object_relative_store_chain"
         slots = [_normalize_slot(slot) for slot in asp_chain.get("ops_slots_merged") or []]
     else:
@@ -73,6 +80,7 @@ def _derive_ops_slots(inst: Dict[str, object]) -> Dict[str, object]:
         "slots": slots,
         "owner_histogram": hist,
         "owner_top": owner_top,
+        "layout_meta": layout_meta,
         "external_offset_crosscheck": asp_chain.get("offset_crosscheck") if asp_chain else None,
     }
 
@@ -98,6 +106,7 @@ def main() -> int:
         policy_fullname = mpc.get("mpc_fullname")
         mpc_provenance = "reconstructed_store" if inst.get("mpc_reconstructed") else "static_decode"
         ops_evidence = _derive_ops_slots(inst)
+        handlep = inst.get("handlep") or {}
         policies.append(
             {
                 "policy": {"name": policy_name, "fullname": policy_fullname},
@@ -108,6 +117,14 @@ def main() -> int:
                 },
                 "mpc_provenance": mpc_provenance,
                 "mpc_ops_ptr": (mpc.get("mpc_ops_ptr") or {}).get("resolved"),
+                "handlep": {
+                    "addr": handlep.get("handlep_addr"),
+                    "addr_is_offset": handlep.get("handlep_addr_is_offset"),
+                    "offset_from_mpc": handlep.get("handlep_offset_from_mpc"),
+                    "storage_kind": handlep.get("handlep_storage_kind"),
+                    "owner_entry": handlep.get("handlep_owner_entry"),
+                    "block": handlep.get("handlep_block"),
+                },
                 "ops_evidence": ops_evidence,
             }
         )

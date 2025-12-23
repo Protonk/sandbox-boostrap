@@ -159,6 +159,27 @@ def _load_entries(path):
     return sorted(intervals, key=lambda item: item["start"])
 
 
+def _load_ops_layout(path):
+    if not path:
+        return None
+    data = _load_json(path)
+    fields = []
+    for field in data.get("fields", []):
+        name = field.get("name")
+        offset = field.get("offset")
+        if name is None or offset is None:
+            continue
+        if isinstance(offset, basestring):
+            parsed = _parse_hex(offset)
+            if parsed is None:
+                continue
+            offset = parsed
+        fields.append({"name": name, "offset": _s64(long(offset))})
+    if not fields:
+        return None
+    return {"meta": data.get("meta") or {}, "fields": fields}
+
+
 def _find_entry(entries, vmaddr):
     if vmaddr is None:
         return None
@@ -1135,6 +1156,48 @@ def _resolve_arg_value(resolution, memory, fixups_map):
         ptr_info = _resolve_pointer_at(None, resolution.get("value"), fixups_map, memory)
         return ptr_info.get("resolved"), ptr_info
     return None, None
+
+
+def _classify_storage(resolution, addr, memory):
+    src = None
+    if resolution:
+        src = resolution.get("source")
+    if src and str(src).startswith("stack"):
+        return "stack"
+    base_reg = resolution.get("base_reg") if resolution else None
+    if base_reg in ("sp", "x29"):
+        return "stack"
+    if addr is None:
+        return "unknown"
+    try:
+        blk = memory.getBlock(toAddr(_s64(addr)))
+    except Exception:
+        blk = None
+    if not blk:
+        return "unknown"
+    if blk.isWrite():
+        return "data"
+    if blk.isExecute():
+        return "exec"
+    return "other"
+
+
+def _normalize_handlep_addr(handlep_addr, mpc_addr):
+    if handlep_addr is None or mpc_addr is None:
+        return handlep_addr
+    # If handlep looks like a small offset, treat it as an offset from mpc.
+    if abs(long(handlep_addr)) < 0x2000:
+        return _s64(mpc_addr + long(handlep_addr))
+    return handlep_addr
+
+
+def _addr_has_block(memory, addr):
+    if addr is None:
+        return False
+    try:
+        return memory.getBlock(toAddr(_s64(addr))) is not None
+    except Exception:
+        return False
 
 
 def _scan_stores_before_call(call_instr, base_regs, offsets, memory, fixups_map, max_back=120):
@@ -2453,6 +2516,54 @@ def _ops_exec_slots(ops_addr, memory, entries, fixups_map, max_scan_bytes=0x6000
     }
 
 
+def _ops_layout_slots(ops_addr, ops_layout, memory, entries, fixups_map):
+    if ops_addr is None or not ops_layout:
+        return None
+    hooks = []
+    nonnull = 0
+    for field in ops_layout.get("fields") or []:
+        offset = field.get("offset")
+        name = field.get("name")
+        if offset is None:
+            continue
+        slot_addr = _s64(ops_addr + int(offset))
+        try:
+            raw = _read_ptr(memory, slot_addr)
+        except Exception:
+            raw = None
+        ptr_info = _resolve_pointer_at(slot_addr, raw, fixups_map, memory)
+        resolved = ptr_info.get("resolved")
+        if raw not in (None, 0):
+            nonnull += 1
+        if resolved is None or not _is_exec_addr(memory, resolved):
+            continue
+        hooks.append(
+            {
+                "hook_field_name": name,
+                "slot_offset": int(offset),
+                "slot_addr": _format_addr(slot_addr),
+                "resolved": _format_addr(resolved),
+                "owner_entry": _find_entry(entries, resolved),
+                "pointer": ptr_info,
+                "source": "ops_layout",
+            }
+        )
+    hist = {}
+    for hook in hooks:
+        owner = hook.get("owner_entry")
+        if owner:
+            hist[owner] = hist.get(owner, 0) + 1
+    return {
+        "hooks": hooks,
+        "fields_total": len(ops_layout.get("fields") or []),
+        "fields_nonnull": nonnull,
+        "hooks_exec": len(hooks),
+        "owner_histogram": hist,
+        "owner_top": max(hist.items(), key=lambda item: item[1])[0] if hist else None,
+        "layout_meta": ops_layout.get("meta") or {},
+    }
+
+
 def _classify_addr(memory, addr):
     if addr is None:
         return "unknown"
@@ -2506,7 +2617,7 @@ def run():
     try:
         args = getScriptArgs()
         if len(args) < 4:
-            print("usage: kernel_mac_policy_register_instances.py <out_dir> <build_id> call-sites=<path> fixups=<path> [fileset-index=<path>] [mac-policy-register=<addr>] [max-back=<n>]")
+            print("usage: kernel_mac_policy_register_instances.py <out_dir> <build_id> call-sites=<path> fixups=<path> [fileset-index=<path>] [ops-layout=<path>] [mac-policy-register=<addr>] [max-back=<n>]")
             return
         out_dir = args[0]
         build_id = args[1]
@@ -2514,6 +2625,7 @@ def run():
         fixups_path = None
         fixups_mode = "full"
         fileset_index_path = None
+        ops_layout_path = None
         mac_policy_register_addr = None
         max_back = 40
         for arg in args[2:]:
@@ -2529,6 +2641,9 @@ def run():
                 continue
             if low.startswith("fileset-index=") or low.startswith("fileset_index="):
                 fileset_index_path = val.split("=", 1)[1]
+                continue
+            if low.startswith("ops-layout=") or low.startswith("ops_layout="):
+                ops_layout_path = val.split("=", 1)[1]
                 continue
             if low.startswith("mac-policy-register=") or low.startswith("mac_policy_register="):
                 mac_policy_register_addr = val.split("=", 1)[1]
@@ -2547,6 +2662,7 @@ def run():
         call_sites = _load_json(call_sites_path)
         fixups_map = _load_fixups_map(fixups_path, mode=fixups_mode)
         entries = _load_entries(fileset_index_path)
+        ops_layout = _load_ops_layout(ops_layout_path)
 
         memory = currentProgram.getMemory()
         listing = currentProgram.getListing()
@@ -2611,6 +2727,42 @@ def run():
             base_reg = resolved.get("base_reg")
             base_offset = resolved.get("delta") or 0
 
+            handle_attempts = {}
+            handle_resolved = None
+            if caller_func:
+                decomp = _resolve_call_arg_decomp(caller_func, call_addr, 2, memory)
+                handle_attempts["decompiler"] = decomp
+                if decomp and (decomp.get("value") is not None or decomp.get("mem_addr") is not None):
+                    handle_resolved = decomp
+            if handle_resolved is None:
+                backtrack = _resolve_reg_value(instr.getPrevious(), "x1", memory, max_back=max_back, depth=2)
+                handle_attempts["backtrack"] = backtrack
+                if backtrack.get("value") is not None or backtrack.get("mem_addr") is not None:
+                    handle_resolved = backtrack
+            if handle_resolved is None and caller_func:
+                sym_val = _resolve_reg_symbolic(caller_func, call_addr, "x1")
+                if sym_val is not None:
+                    handle_resolved = {
+                        "value": _s64(sym_val),
+                        "source": "symbolic",
+                        "instruction": None,
+                    }
+                    handle_attempts["symbolic"] = handle_resolved
+            if handle_resolved is None:
+                handle_resolved = {"value": None, "source": "unresolved"}
+                handle_attempts.setdefault("symbolic", {"value": None, "source": "unresolved"})
+
+            handlep_addr = None
+            handlep_ptr_info = None
+            handlep_mem_addr = handle_resolved.get("mem_addr")
+            handlep_loaded = handle_resolved.get("loaded_value")
+            if handlep_mem_addr is not None:
+                handlep_ptr_info = _resolve_pointer_at(handlep_mem_addr, handlep_loaded, fixups_map, memory)
+                handlep_addr = handlep_ptr_info.get("resolved")
+            else:
+                handlep_addr = handle_resolved.get("value")
+                handlep_ptr_info = _resolve_pointer_at(None, handlep_addr, fixups_map, memory)
+
             mpc_addr = None
             mpc_resolution = {}
             if mem_addr is not None:
@@ -2624,6 +2776,31 @@ def run():
             else:
                 mpc_addr = resolved.get("value")
                 mpc_resolution = {"mem_addr": None, "raw": _format_addr(mpc_addr), "resolution": {"status": "value"}}
+
+            mpc_has_block = _addr_has_block(memory, mpc_addr)
+            handlep_offset = None
+            handlep_is_offset = False
+            if handlep_addr is not None and abs(long(handlep_addr)) < 0x2000:
+                handlep_offset = _s64(handlep_addr)
+                handlep_is_offset = True
+            if mpc_has_block:
+                handlep_addr = _normalize_handlep_addr(handlep_addr, mpc_addr)
+            handlep_block = None
+            if handlep_addr is not None:
+                try:
+                    handlep_block = memory.getBlock(toAddr(_s64(handlep_addr)))
+                except Exception:
+                    handlep_block = None
+            handlep_info = {
+                "handlep_addr": _format_addr(handlep_addr),
+                "handlep_ptr": handlep_ptr_info,
+                "handlep_owner_entry": _find_entry(entries, handlep_addr) if handlep_addr is not None else None,
+                "handlep_block": handlep_block.getName() if handlep_block else None,
+                "handlep_storage_kind": _classify_storage(handle_resolved, handlep_addr, memory),
+                "handlep_offset_from_mpc": _format_addr(handlep_offset) if handlep_is_offset else None,
+                "handlep_addr_is_offset": True if handlep_is_offset and not mpc_has_block else False,
+                "handlep_resolution": handle_attempts,
+            }
 
             mpc_fields = {}
             if mpc_addr is not None:
@@ -2818,6 +2995,10 @@ def run():
                 hist = _ops_owner_histogram(ops_resolved, memory, entries, fixups_map)
                 mpc_fields["ops_owner_histogram"] = hist
                 mpc_fields["mpc_ops_owner"] = hist.get("owner_top") if hist else None
+                if ops_layout:
+                    ops_layout_slots = _ops_layout_slots(ops_resolved, ops_layout, memory, entries, fixups_map)
+                    if ops_layout_slots:
+                        mpc_fields["ops_layout_slots"] = ops_layout_slots
                 exec_slots = _ops_exec_slots(ops_resolved, memory, entries, fixups_map)
                 mpc_fields["ops_exec_slots"] = exec_slots
                 if mpc_fields.get("mpc_name") in ("AMFI", "mcxalr") or (hist and hist.get("exec_ptrs") == 0):
@@ -2846,6 +3027,18 @@ def run():
                     fixups_map,
                     max_back=max_back,
                 )
+                if ops_layout and asp_store_chain and asp_store_chain.get("ops_slots_merged"):
+                    layout_map = {}
+                    for field in ops_layout.get("fields") or []:
+                        if field.get("offset") is not None and field.get("name"):
+                            layout_map[int(field["offset"])] = field["name"]
+                    for slot in asp_store_chain.get("ops_slots_merged") or []:
+                        off = slot.get("slot_offset")
+                        if off is None:
+                            continue
+                        name = layout_map.get(int(off))
+                        if name:
+                            slot["hook_field_name"] = name
                 asp_store_chain = _collect_object_relative_store_chain(
                     caller_func,
                     call_addr,
@@ -2880,6 +3073,7 @@ def run():
                     "ops_reconstructed_owner": ops_reconstructed_owner,
                     "asp_context_trace": asp_trace,
                     "asp_store_chain": asp_store_chain,
+                    "handlep": handlep_info,
                 }
             )
 

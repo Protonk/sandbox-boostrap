@@ -16,13 +16,23 @@ static void usage(const char *prog) {
     fprintf(stderr, "Usage: %s <profile.sb> <path>\n", prog);
 }
 
-static void emit_fd_path(int fd) {
+static void emit_fd_paths(int fd) {
     char pathbuf[PATH_MAX];
     if (fcntl(fd, F_GETPATH, pathbuf) == 0) {
         fprintf(stderr, "F_GETPATH:%s\n", pathbuf);
     } else {
         fprintf(stderr, "F_GETPATH_ERROR:%d\n", errno);
     }
+#ifdef F_GETPATH_NOFIRMLINK
+    char nofirmlink_buf[PATH_MAX];
+    if (fcntl(fd, F_GETPATH_NOFIRMLINK, nofirmlink_buf) == 0) {
+        fprintf(stderr, "F_GETPATH_NOFIRMLINK:%s\n", nofirmlink_buf);
+    } else {
+        fprintf(stderr, "F_GETPATH_NOFIRMLINK_ERROR:%d\n", errno);
+    }
+#else
+    fprintf(stderr, "F_GETPATH_NOFIRMLINK_UNAVAILABLE\n");
+#endif
 }
 
 int main(int argc, char *argv[]) {
@@ -67,7 +77,7 @@ int main(int argc, char *argv[]) {
         perror("open target");
         return 2;
     }
-    emit_fd_path(fd);
+    emit_fd_paths(fd);
     char buf2[4096];
     ssize_t nr;
     while ((nr = read(fd, buf2, sizeof(buf2))) > 0) {

@@ -15,3 +15,5 @@
   - `python3 book/experiments/preflight-index/build_index.py`
 - Regenerated after adding vfs-canonicalization variant SBPLs:
   - `python3 book/experiments/preflight-index/build_index.py`
+- Regenerated after adding the vfs-canonicalization `/var/tmp` data-spelling profile:
+  - `python3 book/experiments/preflight-index/build_index.py`

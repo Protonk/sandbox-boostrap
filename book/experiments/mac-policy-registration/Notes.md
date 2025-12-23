@@ -270,3 +270,10 @@
 - Workaround: re-ran `kernel-mac-policy-register-instances` with `fixups-mode=skip` to avoid loading the fixups map (partial pointer resolution).
   - Command: `PYTHONPATH=$PWD python3 book/api/ghidra/run_task.py kernel-mac-policy-register-instances --build 14.4.1-23E224 --project-name sandbox_14.4.1-23E224_kc --process-existing --no-analysis --exec --script-args call-sites=book/experiments/mac-policy-registration/out/mac_policy_register_call_sites.json fixups=book/experiments/mac-policy-registration/out/kc_fixups.jsonl fixups-mode=skip fileset-index=book/experiments/mac-policy-registration/out/kc_fileset_index.json mac-policy-register=0x-1fff729bb68 max-back=200`
   - Result: `asp_context_trace` finds the same in-function stores (`str x8,[x19,#0xb10]`, `str x8,[x19,#0xb18]`, `str x20,[x19,#0xb30]` with `x20 = x0 + 0x98`) and a single direct caller with unresolved `x0` (source `func_boundary`), but still no concrete base value.
+
+## Handlep attribution + ops layout support
+
+- Added handlep storage capture in `kernel_mac_policy_register_instances.py` with offset-only handling when the `mpc` base is not backed by a memory block (e.g., ASP object-relative cases).
+- `build_mac_policy_boot_manifest.py` now includes handlep storage attribution (`addr`, `addr_is_offset`, `offset_from_mpc`, storage kind, owner entry, block).
+- Added optional ops layout map loading (`ops-layout=...`) in `kernel_mac_policy_register_instances.py` to bound and name hook extraction; layout generation is provided by `build_mac_policy_ops_layout.py` and requires a local/preprocessed `mac_policy.h` (no apple.com fetch path).
+- Re-ran `kernel-mac-policy-register-instances` with `fixups-mode=compact` after handlep normalization changes; ASP handlep now records as an offset-only address (`0xb60`) rather than a derived absolute. Manifest regenerated with the updated handlep fields.

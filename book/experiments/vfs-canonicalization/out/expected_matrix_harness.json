@@ -379,13 +379,6 @@
           "expectation_id": "vfs_var_tmp_alias_only:file-read*:/var/tmp/vfs_canon_probe"
         },
         {
-          "name": "file-read*:/private/var/tmp/vfs_canon_probe",
-          "operation": "file-read*",
-          "target": "/private/var/tmp/vfs_canon_probe",
-          "expected": "deny",
-          "expectation_id": "vfs_var_tmp_alias_only:file-read*:/private/var/tmp/vfs_canon_probe"
-        },
-        {
           "name": "file-write*:/var/tmp/vfs_canon_probe",
           "operation": "file-write*",
           "target": "/var/tmp/vfs_canon_probe",
@@ -393,11 +386,32 @@
           "expectation_id": "vfs_var_tmp_alias_only:file-write*:/var/tmp/vfs_canon_probe"
         },
         {
+          "name": "file-read*:/private/var/tmp/vfs_canon_probe",
+          "operation": "file-read*",
+          "target": "/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_var_tmp_alias_only:file-read*:/private/var/tmp/vfs_canon_probe"
+        },
+        {
           "name": "file-write*:/private/var/tmp/vfs_canon_probe",
           "operation": "file-write*",
           "target": "/private/var/tmp/vfs_canon_probe",
           "expected": "deny",
           "expectation_id": "vfs_var_tmp_alias_only:file-write*:/private/var/tmp/vfs_canon_probe"
+        },
+        {
+          "name": "file-read*:/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_var_tmp_alias_only:file-read*:/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+        },
+        {
+          "name": "file-write*:/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "operation": "file-write*",
+          "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_var_tmp_alias_only:file-write*:/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
         }
       ]
     },
@@ -416,13 +430,6 @@
           "expectation_id": "vfs_var_tmp_private_only:file-read*:/var/tmp/vfs_canon_probe"
         },
         {
-          "name": "file-read*:/private/var/tmp/vfs_canon_probe",
-          "operation": "file-read*",
-          "target": "/private/var/tmp/vfs_canon_probe",
-          "expected": "allow",
-          "expectation_id": "vfs_var_tmp_private_only:file-read*:/private/var/tmp/vfs_canon_probe"
-        },
-        {
           "name": "file-write*:/var/tmp/vfs_canon_probe",
           "operation": "file-write*",
           "target": "/var/tmp/vfs_canon_probe",
@@ -430,11 +437,32 @@
           "expectation_id": "vfs_var_tmp_private_only:file-write*:/var/tmp/vfs_canon_probe"
         },
         {
+          "name": "file-read*:/private/var/tmp/vfs_canon_probe",
+          "operation": "file-read*",
+          "target": "/private/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "expectation_id": "vfs_var_tmp_private_only:file-read*:/private/var/tmp/vfs_canon_probe"
+        },
+        {
           "name": "file-write*:/private/var/tmp/vfs_canon_probe",
           "operation": "file-write*",
           "target": "/private/var/tmp/vfs_canon_probe",
           "expected": "allow",
           "expectation_id": "vfs_var_tmp_private_only:file-write*:/private/var/tmp/vfs_canon_probe"
+        },
+        {
+          "name": "file-read*:/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_var_tmp_private_only:file-read*:/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+        },
+        {
+          "name": "file-write*:/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "operation": "file-write*",
+          "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_var_tmp_private_only:file-write*:/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
         }
       ]
     },
@@ -453,13 +481,6 @@
           "expectation_id": "vfs_var_tmp_both:file-read*:/var/tmp/vfs_canon_probe"
         },
         {
-          "name": "file-read*:/private/var/tmp/vfs_canon_probe",
-          "operation": "file-read*",
-          "target": "/private/var/tmp/vfs_canon_probe",
-          "expected": "allow",
-          "expectation_id": "vfs_var_tmp_both:file-read*:/private/var/tmp/vfs_canon_probe"
-        },
-        {
           "name": "file-write*:/var/tmp/vfs_canon_probe",
           "operation": "file-write*",
           "target": "/var/tmp/vfs_canon_probe",
@@ -467,11 +488,83 @@
           "expectation_id": "vfs_var_tmp_both:file-write*:/var/tmp/vfs_canon_probe"
         },
         {
+          "name": "file-read*:/private/var/tmp/vfs_canon_probe",
+          "operation": "file-read*",
+          "target": "/private/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "expectation_id": "vfs_var_tmp_both:file-read*:/private/var/tmp/vfs_canon_probe"
+        },
+        {
           "name": "file-write*:/private/var/tmp/vfs_canon_probe",
           "operation": "file-write*",
           "target": "/private/var/tmp/vfs_canon_probe",
           "expected": "allow",
           "expectation_id": "vfs_var_tmp_both:file-write*:/private/var/tmp/vfs_canon_probe"
+        },
+        {
+          "name": "file-read*:/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_var_tmp_both:file-read*:/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+        },
+        {
+          "name": "file-write*:/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "operation": "file-write*",
+          "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_var_tmp_both:file-write*:/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+        }
+      ]
+    },
+    "vfs_var_tmp_data_only": {
+      "mode": "sbpl",
+      "sbpl": "book/experiments/vfs-canonicalization/sb/vfs_var_tmp_data_only.sb",
+      "blob": "book/experiments/vfs-canonicalization/sb/build/vfs_var_tmp_data_only.sb.bin",
+      "family": "vfs",
+      "semantic_group": "vfs:canonicalization",
+      "probes": [
+        {
+          "name": "file-read*:/var/tmp/vfs_canon_probe",
+          "operation": "file-read*",
+          "target": "/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_var_tmp_data_only:file-read*:/var/tmp/vfs_canon_probe"
+        },
+        {
+          "name": "file-write*:/var/tmp/vfs_canon_probe",
+          "operation": "file-write*",
+          "target": "/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_var_tmp_data_only:file-write*:/var/tmp/vfs_canon_probe"
+        },
+        {
+          "name": "file-read*:/private/var/tmp/vfs_canon_probe",
+          "operation": "file-read*",
+          "target": "/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_var_tmp_data_only:file-read*:/private/var/tmp/vfs_canon_probe"
+        },
+        {
+          "name": "file-write*:/private/var/tmp/vfs_canon_probe",
+          "operation": "file-write*",
+          "target": "/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_var_tmp_data_only:file-write*:/private/var/tmp/vfs_canon_probe"
+        },
+        {
+          "name": "file-read*:/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "expectation_id": "vfs_var_tmp_data_only:file-read*:/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+        },
+        {
+          "name": "file-write*:/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "operation": "file-write*",
+          "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "expectation_id": "vfs_var_tmp_data_only:file-write*:/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
         }
       ]
     },
@@ -559,18 +652,18 @@
           "expectation_id": "vfs_firmlink_private_only:file-read*:/private/tmp/vfs_firmlink_probe"
         },
         {
-          "name": "file-read*:/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
-          "operation": "file-read*",
-          "target": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
-          "expected": "deny",
-          "expectation_id": "vfs_firmlink_private_only:file-read*:/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
-        },
-        {
           "name": "file-write*:/private/tmp/vfs_firmlink_probe",
           "operation": "file-write*",
           "target": "/private/tmp/vfs_firmlink_probe",
           "expected": "allow",
           "expectation_id": "vfs_firmlink_private_only:file-write*:/private/tmp/vfs_firmlink_probe"
+        },
+        {
+          "name": "file-read*:/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_firmlink_private_only:file-read*:/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
         },
         {
           "name": "file-write*:/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
@@ -596,18 +689,18 @@
           "expectation_id": "vfs_firmlink_data_only:file-read*:/private/tmp/vfs_firmlink_probe"
         },
         {
-          "name": "file-read*:/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
-          "operation": "file-read*",
-          "target": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
-          "expected": "allow",
-          "expectation_id": "vfs_firmlink_data_only:file-read*:/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
-        },
-        {
           "name": "file-write*:/private/tmp/vfs_firmlink_probe",
           "operation": "file-write*",
           "target": "/private/tmp/vfs_firmlink_probe",
           "expected": "deny",
           "expectation_id": "vfs_firmlink_data_only:file-write*:/private/tmp/vfs_firmlink_probe"
+        },
+        {
+          "name": "file-read*:/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "expected": "allow",
+          "expectation_id": "vfs_firmlink_data_only:file-read*:/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
         },
         {
           "name": "file-write*:/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
@@ -633,18 +726,18 @@
           "expectation_id": "vfs_firmlink_both:file-read*:/private/tmp/vfs_firmlink_probe"
         },
         {
-          "name": "file-read*:/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
-          "operation": "file-read*",
-          "target": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
-          "expected": "allow",
-          "expectation_id": "vfs_firmlink_both:file-read*:/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
-        },
-        {
           "name": "file-write*:/private/tmp/vfs_firmlink_probe",
           "operation": "file-write*",
           "target": "/private/tmp/vfs_firmlink_probe",
           "expected": "allow",
           "expectation_id": "vfs_firmlink_both:file-write*:/private/tmp/vfs_firmlink_probe"
+        },
+        {
+          "name": "file-read*:/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "expected": "allow",
+          "expectation_id": "vfs_firmlink_both:file-read*:/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
         },
         {
           "name": "file-write*:/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
@@ -670,18 +763,18 @@
           "expectation_id": "vfs_link_var_tmp_only:file-read*:/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
         },
         {
-          "name": "file-read*:/private/var/tmp/vfs_link_probe",
-          "operation": "file-read*",
-          "target": "/private/var/tmp/vfs_link_probe",
-          "expected": "allow",
-          "expectation_id": "vfs_link_var_tmp_only:file-read*:/private/var/tmp/vfs_link_probe"
-        },
-        {
           "name": "file-write*:/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
           "operation": "file-write*",
           "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
           "expected": "deny",
           "expectation_id": "vfs_link_var_tmp_only:file-write*:/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+        },
+        {
+          "name": "file-read*:/private/var/tmp/vfs_link_probe",
+          "operation": "file-read*",
+          "target": "/private/var/tmp/vfs_link_probe",
+          "expected": "allow",
+          "expectation_id": "vfs_link_var_tmp_only:file-read*:/private/var/tmp/vfs_link_probe"
         },
         {
           "name": "file-write*:/private/var/tmp/vfs_link_probe",
@@ -707,18 +800,18 @@
           "expectation_id": "vfs_link_private_tmp_only:file-read*:/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
         },
         {
-          "name": "file-read*:/private/var/tmp/vfs_link_probe",
-          "operation": "file-read*",
-          "target": "/private/var/tmp/vfs_link_probe",
-          "expected": "deny",
-          "expectation_id": "vfs_link_private_tmp_only:file-read*:/private/var/tmp/vfs_link_probe"
-        },
-        {
           "name": "file-write*:/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
           "operation": "file-write*",
           "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
           "expected": "allow",
           "expectation_id": "vfs_link_private_tmp_only:file-write*:/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+        },
+        {
+          "name": "file-read*:/private/var/tmp/vfs_link_probe",
+          "operation": "file-read*",
+          "target": "/private/var/tmp/vfs_link_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_link_private_tmp_only:file-read*:/private/var/tmp/vfs_link_probe"
         },
         {
           "name": "file-write*:/private/var/tmp/vfs_link_probe",
@@ -744,18 +837,18 @@
           "expectation_id": "vfs_link_both:file-read*:/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
         },
         {
-          "name": "file-read*:/private/var/tmp/vfs_link_probe",
-          "operation": "file-read*",
-          "target": "/private/var/tmp/vfs_link_probe",
-          "expected": "allow",
-          "expectation_id": "vfs_link_both:file-read*:/private/var/tmp/vfs_link_probe"
-        },
-        {
           "name": "file-write*:/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
           "operation": "file-write*",
           "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
           "expected": "allow",
           "expectation_id": "vfs_link_both:file-write*:/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+        },
+        {
+          "name": "file-read*:/private/var/tmp/vfs_link_probe",
+          "operation": "file-read*",
+          "target": "/private/var/tmp/vfs_link_probe",
+          "expected": "allow",
+          "expectation_id": "vfs_link_both:file-read*:/private/var/tmp/vfs_link_probe"
         },
         {
           "name": "file-write*:/private/var/tmp/vfs_link_probe",

@@ -36,8 +36,8 @@ Profiles live under `book/experiments/vfs-canonicalization/sb/` and follow a tri
 
 - **Base `/tmp` family** (`vfs_tmp_only.sb`, `vfs_private_tmp_only.sb`, `vfs_both_paths.sb`):
   - `file-read*` and `file-write*` over `/tmp/*`, `/private/tmp/*`, and the `/var/tmp/canon` control pair.
-- **`/var/tmp` discriminator** (`vfs_var_tmp_alias_only.sb`, `vfs_var_tmp_private_only.sb`, `vfs_var_tmp_both.sb`):
-  - `file-read*` and `file-write*` over `/var/tmp/vfs_canon_probe` ↔ `/private/var/tmp/vfs_canon_probe`.
+- **`/var/tmp` discriminator** (`vfs_var_tmp_alias_only.sb`, `vfs_var_tmp_private_only.sb`, `vfs_var_tmp_both.sb`, `vfs_var_tmp_data_only.sb`):
+  - `file-read*` and `file-write*` over `/var/tmp/vfs_canon_probe`, `/private/var/tmp/vfs_canon_probe`, and `/System/Volumes/Data/private/var/tmp/vfs_canon_probe`.
 - **`/etc` read-only** (`vfs_etc_alias_only.sb`, `vfs_etc_private_only.sb`, `vfs_etc_both.sb`):
   - `file-read*` only over `/etc/hosts` ↔ `/private/etc/hosts`.
 - **Firmlink spelling** (`vfs_firmlink_private_only.sb`, `vfs_firmlink_data_only.sb`, `vfs_firmlink_both.sb`):
@@ -74,7 +74,7 @@ Signals:
     - decision (`allow` / `deny` / `error`),
     - errno (if any),
     - command output (stdout/stderr).
-  - Stored in `out/runtime_results.json` (simple array form) with `profile_id`, `operation`, `requested_path`, `observed_path`, `observed_path_source`, `decision`, `errno`, `raw_log`.
+  - Stored in `out/runtime_results.json` (simple array form) with `profile_id`, `operation`, `requested_path`, `observed_path`, `observed_path_source`, `observed_path_nofirmlink`, `observed_path_nofirmlink_source`, `observed_path_nofirmlink_errno` (when available), `decision`, `errno`, `raw_log`.
 - **Logical expectations:**
   - For each `(profile_id, requested_path)` we record an initial expectation in `out/expected_matrix.json`. The base `/tmp` family encodes the observed canonicalization pattern (including the `/var/tmp` control), while the additional variants default to a literal-only baseline so mismatches are the signal.
 
@@ -126,6 +126,8 @@ These sketches are informal; tests will check that the actual JSONs obey the sam
       "requested_path": "/tmp/foo",
       "observed_path": "/private/tmp/foo", // from F_GETPATH if open succeeds
       "observed_path_source": "fd_path", // or "requested_path" fallback
+      "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/foo", // when available
+      "observed_path_nofirmlink_source": "fd_path", // or "unavailable"/"not_attempted"
       "decision": "allow",
       "errno": 0,
       "raw_log": {
