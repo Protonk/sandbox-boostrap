@@ -1,0 +1,9 @@
+{"t_ns":1766557180185081000,"pid":null,"msg":{"type":"runner","payload":{"kind":"runner-start"}}}
+{"t_ns":1766557180185112000,"pid":null,"msg":{"type":"runner","payload":{"kind":"stage","stage":"device"}}}
+{"t_ns":1766557180226002000,"pid":null,"msg":{"type":"runner","payload":{"kind":"stage","stage":"attach"}}}
+{"t_ns":1766557180872519000,"pid":96108,"msg":{"type":"runner","payload":{"kind":"stage","stage":"script-load"}}}
+{"t_ns":1766557180875136000,"pid":96108,"msg":{"type":"send","payload":{"kind":"interceptor-selftest","status":"hook-installed","symbol":"open","addr":"0x189d0dda8"}}}
+{"t_ns":1766557180875929000,"pid":96108,"msg":{"type":"send","payload":{"kind":"interceptor-selftest","status":"hook-fired","symbol":"open","path":"/tmp/frida_testing_noaccess","flags":0,"mode":0,"rv":-1,"errno":2}}}
+{"t_ns":1766557180875983000,"pid":96108,"msg":{"type":"send","payload":{"kind":"interceptor-selftest","status":"call-complete","symbol":"open","did_fire":true,"target_path":"/tmp/frida_testing_noaccess","rv":-1,"errno":2}}}
+{"t_ns":1766557180876023000,"pid":96108,"msg":{"type":"runner","payload":{"kind":"stage","stage":"attach-sleep"}}}
+{"t_ns":1766557183886784000,"pid":96108,"msg":{"type":"runner","payload":{"kind":"session-detached","reason":"application-requested"}}}

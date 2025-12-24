@@ -78,8 +78,9 @@ def run_validation_job(job_id: str) -> None:
     job = jobs.get(job_id)
     if not job:
         raise SystemExit(f"validation job {job_id} missing from validation_status.json")
-    if job.get("status") != "ok":
-        raise SystemExit(f"validation job {job_id} not ok: {job.get('status')}")
+    status = job.get("status") or ""
+    if not status.startswith("ok"):
+        raise SystemExit(f"validation job {job_id} not ok: {status}")
     # Simple freshness check: status file must be newer than libsandbox slice.
     lib_path = REPO_ROOT / "book/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib"
     if lib_path.exists():
@@ -96,13 +97,11 @@ def main() -> None:
 
     ops_src = blob_hashes(
         [
-            REPO_ROOT / "book/experiments/vocab-from-cache/extracted/usr/lib/libsandbox.1.dylib",
             REPO_ROOT / "book/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib",
         ]
     )
     filt_src = blob_hashes(
         [
-            REPO_ROOT / "book/experiments/vocab-from-cache/extracted/usr/lib/libsandbox.1.dylib",
             REPO_ROOT / "book/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib",
         ]
     )

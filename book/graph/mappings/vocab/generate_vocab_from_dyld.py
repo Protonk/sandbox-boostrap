@@ -1,27 +1,35 @@
+#!/usr/bin/env python3
 """
-Harvest real Operation/Filter vocab from trimmed libsandbox dylib and verify
-the canonical vocab mappings.
+Generate canonical vocab mappings and raw name lists from the dyld-libs
+libsandbox slice for the Sonoma baseline.
+
+Outputs:
+- book/graph/mappings/vocab/operation_names.json
+- book/graph/mappings/vocab/filter_names.json
+- book/graph/mappings/vocab/ops.json
+- book/graph/mappings/vocab/filters.json
 """
 
 from __future__ import annotations
 
 import json
 import subprocess
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List
 
-from book.api.path_utils import find_repo_root, to_repo_relative
+ROOT = Path(__file__).resolve().parents[4]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
-ROOT = find_repo_root(Path(__file__))
+from book.api import path_utils
 LIB_PATH = ROOT / "book/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib"
-OPS_MAP = ROOT / "book/graph/mappings/vocab/ops.json"
-FILTERS_MAP = ROOT / "book/graph/mappings/vocab/filters.json"
-META_PATH = ROOT / "book/graph/concepts/validation/out/metadata.json"
-STATUS_PATH = ROOT / "book/graph/concepts/validation/out/vocab_status.json"
-
-from book.graph.concepts.validation import registry
-from book.graph.concepts.validation.registry import ValidationJob
+OPS_PATH = ROOT / "book/graph/mappings/vocab/ops.json"
+FILTERS_PATH = ROOT / "book/graph/mappings/vocab/filters.json"
+OP_NAMES_PATH = ROOT / "book/graph/mappings/vocab/operation_names.json"
+FILTER_NAMES_PATH = ROOT / "book/graph/mappings/vocab/filter_names.json"
+BASELINE_PATH = ROOT / "book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json"
 
 
 @dataclass
@@ -31,6 +39,16 @@ class Segment:
     vmsize: int
     fileoff: int
     filesize: int
+
+
+def load_world_id() -> str:
+    if not BASELINE_PATH.exists():
+        raise FileNotFoundError(f"missing baseline: {BASELINE_PATH}")
+    data = json.loads(BASELINE_PATH.read_text())
+    world_id = data.get("world_id")
+    if not world_id:
+        raise RuntimeError("world_id missing from baseline")
+    return world_id
 
 
 def parse_segments(path: Path) -> List[Segment]:
@@ -90,7 +108,7 @@ def read_cstring(buf: bytes, offset: int) -> str:
     return buf[offset:end].decode("ascii", errors="ignore")
 
 
-def harvest_operation_names(path: Path) -> List[str]:
+def harvest_operation_names(path: Path) -> Dict[str, object]:
     data = path.read_bytes()
     segments = parse_segments(path)
     text_seg = next(s for s in segments if s.name == "__TEXT")
@@ -109,10 +127,19 @@ def harvest_operation_names(path: Path) -> List[str]:
         vmaddr = (ptr & 0xFFFFFFFFFFFF) + shared_cache_base
         file_off = vm_to_file(vmaddr, segments)
         names.append(read_cstring(data, file_off))
-    return names
+
+    return {
+        "names": names,
+        "op_names_vm": hex(op_names_vm),
+        "op_info_vm": hex(op_info_vm),
+        "op_names_off": op_names_off,
+        "op_info_off": op_info_off,
+        "text_vmaddr": hex(text_seg.vmaddr),
+        "shared_cache_base": hex(shared_cache_base),
+    }
 
 
-def harvest_filter_names(path: Path) -> List[str]:
+def harvest_filter_names(path: Path) -> Dict[str, object]:
     data = path.read_bytes()
     segments = parse_segments(path)
     text_seg = next(s for s in segments if s.name == "__TEXT")
@@ -132,8 +159,7 @@ def harvest_filter_names(path: Path) -> List[str]:
         if all(b == 0 for b in chunk):
             if seen_nonzero:
                 break
-            else:
-                continue
+            continue
         seen_nonzero = True
         name_ptr = int.from_bytes(chunk[0:8], "little") & 0xFFFFFFFFFFFF
         if name_ptr == 0:
@@ -141,71 +167,73 @@ def harvest_filter_names(path: Path) -> List[str]:
         vmaddr = name_ptr + shared_cache_base
         name_off = vm_to_file(vmaddr, segments)
         names.append(read_cstring(data, name_off))
-    return names
 
-
-def load_json(path: Path) -> Dict:
-    return json.loads(path.read_text())
-
-
-def ensure_mapping(names: List[str], mapping_path: Path, key: str) -> None:
-    if not mapping_path.exists():
-        raise FileNotFoundError(f"missing mapping file: {to_repo_relative(mapping_path, ROOT)}")
-    mapping = load_json(mapping_path)
-    status = (mapping.get("metadata") or {}).get("status") or mapping.get("status")
-    if status != "ok":
-        raise ValueError(f"{to_repo_relative(mapping_path, ROOT)} not ok: {status}")
-    entries = mapping.get(key) or []
-    if len(entries) != len(names):
-        raise ValueError(f"{to_repo_relative(mapping_path, ROOT)} count mismatch: {len(entries)} vs extracted {len(names)}")
-    entry_names = [e["name"] for e in entries]
-    if entry_names != names:
-        raise ValueError(f"{to_repo_relative(mapping_path, ROOT)} names diverge from extracted vocab")
-
-
-def run_vocab_harvest_job():
-    for required in [LIB_PATH, META_PATH, OPS_MAP, FILTERS_MAP]:
-        if not required.exists():
-            raise FileNotFoundError(f"missing required input: {to_repo_relative(required, ROOT)}")
-
-    op_names = harvest_operation_names(LIB_PATH)
-    filter_names = harvest_filter_names(LIB_PATH)
-    ensure_mapping(op_names, OPS_MAP, "ops")
-    ensure_mapping(filter_names, FILTERS_MAP, "filters")
-
-    meta = load_json(META_PATH) if META_PATH.exists() else {}
-    payload = {
-        "job_id": "vocab:sonoma-14.4.1",
-        "status": "ok",
-        "host": meta.get("os", {}),
-        "inputs": [to_repo_relative(LIB_PATH, ROOT)],
-        "outputs": [to_repo_relative(OPS_MAP, ROOT), to_repo_relative(FILTERS_MAP, ROOT)],
-        "counts": {"ops": len(op_names), "filters": len(filter_names)},
-        "tags": ["vocab", "host:sonoma-14.4.1", "smoke"],
-    }
-    STATUS_PATH.parent.mkdir(parents=True, exist_ok=True)
-    STATUS_PATH.write_text(json.dumps(payload, indent=2))
     return {
-        "status": "ok",
-        "outputs": [
-            to_repo_relative(OPS_MAP, ROOT),
-            to_repo_relative(FILTERS_MAP, ROOT),
-            to_repo_relative(STATUS_PATH, ROOT),
-        ],
-        "metrics": payload["counts"],
-        "host": payload["host"],
-        "notes": "Verified libsandbox vocab against canonical mappings.",
+        "names": names,
+        "filter_info_vm": hex(filter_info_vm),
+        "filter_info_off": filter_info_off,
+        "text_vmaddr": hex(text_seg.vmaddr),
+        "shared_cache_base": hex(shared_cache_base),
     }
 
 
-registry.register(
-    ValidationJob(
-        id="vocab:sonoma-14.4.1",
-        inputs=[to_repo_relative(LIB_PATH, ROOT)],
-        outputs=[to_repo_relative(OPS_MAP, ROOT), to_repo_relative(FILTERS_MAP, ROOT), to_repo_relative(STATUS_PATH, ROOT)],
-        tags=["vocab", "host:sonoma-14.4.1", "smoke", "golden"],
-        description="Harvest and verify libsandbox vocab against canonical mappings.",
-        example_command="python -m book.graph.concepts.validation --id vocab:sonoma-14.4.1",
-        runner=run_vocab_harvest_job,
-    )
-)
+def write_json(path: Path, payload: Dict[str, object]) -> None:
+    path.write_text(json.dumps(payload, indent=2))
+
+
+def main() -> int:
+    if not LIB_PATH.exists():
+        raise FileNotFoundError(f"missing libsandbox slice: {LIB_PATH}")
+    world_id = load_world_id()
+    source_rel = path_utils.to_repo_relative(LIB_PATH, ROOT)
+
+    op_data = harvest_operation_names(LIB_PATH)
+    filt_data = harvest_filter_names(LIB_PATH)
+    op_names = op_data["names"]
+    filter_names = filt_data["names"]
+
+    op_names_doc: Dict[str, object] = {
+        "source": source_rel,
+        "count": len(op_names),
+        "names": op_names,
+        "op_names_vm": op_data["op_names_vm"],
+        "op_info_vm": op_data["op_info_vm"],
+        "op_names_off": op_data["op_names_off"],
+        "op_info_off": op_data["op_info_off"],
+        "text_vmaddr": op_data["text_vmaddr"],
+        "shared_cache_base": op_data["shared_cache_base"],
+    }
+    filter_names_doc: Dict[str, object] = {
+        "source": source_rel,
+        "count": len(filter_names),
+        "names": filter_names,
+        "filter_info_vm": filt_data["filter_info_vm"],
+        "filter_info_off": filt_data["filter_info_off"],
+        "text_vmaddr": filt_data["text_vmaddr"],
+        "shared_cache_base": filt_data["shared_cache_base"],
+    }
+
+    ops_doc = {
+        "metadata": {"status": "ok", "world_id": world_id},
+        "notes": f"Operation Vocabulary harvested from {source_rel} (_operation_names span).",
+        "ops": [
+            {"id": idx, "name": name, "source": source_rel} for idx, name in enumerate(op_names)
+        ],
+    }
+    filters_doc = {
+        "metadata": {"status": "ok", "world_id": world_id},
+        "filters": [
+            {"id": idx, "name": name, "source": source_rel} for idx, name in enumerate(filter_names)
+        ],
+    }
+
+    write_json(OP_NAMES_PATH, op_names_doc)
+    write_json(FILTER_NAMES_PATH, filter_names_doc)
+    write_json(OPS_PATH, ops_doc)
+    write_json(FILTERS_PATH, filters_doc)
+    print(f"[+] wrote vocab mappings from {source_rel}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

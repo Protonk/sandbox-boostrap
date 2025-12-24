@@ -3,8 +3,8 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-VOCAB_CACHE_OUT = ROOT / "book" / "experiments" / "vocab-from-cache" / "out"
-VALIDATION_VOCAB_OUT = ROOT / "book" / "graph" / "mappings" / "vocab"
+VOCAB_MAPPINGS = ROOT / "book" / "graph" / "mappings" / "vocab"
+DYLD_LIB_SOURCE = "book/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib"
 
 
 def load_json(path: Path) -> dict:
@@ -13,10 +13,11 @@ def load_json(path: Path) -> dict:
 
 
 def test_operation_vocab_harvest_matches_validation():
-    harvested = load_json(VOCAB_CACHE_OUT / "operation_names.json")
-    ops_vocab = load_json(VALIDATION_VOCAB_OUT / "ops.json")
+    harvested = load_json(VOCAB_MAPPINGS / "operation_names.json")
+    ops_vocab = load_json(VOCAB_MAPPINGS / "ops.json")
 
     assert harvested["count"] == len(harvested["names"]) > 0
+    assert harvested["source"] == DYLD_LIB_SOURCE
     assert harvested["names"][0] == "default"
     assert harvested["names"][-1] == "xpc-message-send"
 
@@ -26,13 +27,15 @@ def test_operation_vocab_harvest_matches_validation():
     assert len(ops_entries) == len(harvested_names)
     assert [e["name"] for e in ops_entries] == harvested_names
     assert [e["id"] for e in ops_entries] == list(range(len(harvested_names)))
+    assert {e.get("source") for e in ops_entries} == {DYLD_LIB_SOURCE}
 
 
 def test_filter_vocab_harvest_matches_validation():
-    harvested = load_json(VOCAB_CACHE_OUT / "filter_names.json")
-    filters_vocab = load_json(VALIDATION_VOCAB_OUT / "filters.json")
+    harvested = load_json(VOCAB_MAPPINGS / "filter_names.json")
+    filters_vocab = load_json(VOCAB_MAPPINGS / "filters.json")
 
     assert harvested["count"] == len(harvested["names"]) > 0
+    assert harvested["source"] == DYLD_LIB_SOURCE
     assert harvested["names"][0] == "path"
     assert harvested["names"][-1] == "kas-info-selector"
 
@@ -42,3 +45,4 @@ def test_filter_vocab_harvest_matches_validation():
     assert len(filt_entries) == len(harvested_names)
     assert [e["name"] for e in filt_entries] == harvested_names
     assert [e["id"] for e in filt_entries] == list(range(len(harvested_names)))
+    assert {e.get("source") for e in filt_entries} == {DYLD_LIB_SOURCE}

@@ -33,69 +33,11 @@ function backtrace(ctx) {
 }
 
 function hookOpen() {
-  const symbol = 'open';
-  const addr = findGlobal(symbol);
-  if (!addr) return send({ kind: 'hook-missing', symbol });
-  send({ kind: 'hook-installed', symbol, addr: addr.toString() });
-
-  Interceptor.attach(addr, {
-    onEnter(args) {
-      this.tid = Process.getCurrentThreadId();
-      this.path = args[0].isNull() ? null : args[0].readUtf8String();
-      this.flags = args[1].toInt32();
-      this.mode = args[2].toInt32();
-      this.bt = backtrace(this.context);
-    },
-    onLeave(retval) {
-      const rv = retval.toInt32();
-      if (rv !== -1 && !LOG_SUCCESSES) return;
-      send({
-        kind: 'fs-open',
-        symbol,
-        tid: this.tid,
-        path: this.path,
-        flags: this.flags,
-        mode: this.mode,
-        rv,
-        errno: rv === -1 ? readErrno() : 0,
-        bt: this.bt
-      });
-    }
-  });
+  hookOpenSymbol('open');
 }
 
 function hookOpenat() {
-  const symbol = 'openat';
-  const addr = findGlobal(symbol);
-  if (!addr) return send({ kind: 'hook-missing', symbol });
-  send({ kind: 'hook-installed', symbol, addr: addr.toString() });
-
-  Interceptor.attach(addr, {
-    onEnter(args) {
-      this.tid = Process.getCurrentThreadId();
-      this.dirfd = args[0].toInt32();
-      this.path = args[1].isNull() ? null : args[1].readUtf8String();
-      this.flags = args[2].toInt32();
-      this.mode = args[3].toInt32();
-      this.bt = backtrace(this.context);
-    },
-    onLeave(retval) {
-      const rv = retval.toInt32();
-      if (rv !== -1 && !LOG_SUCCESSES) return;
-      send({
-        kind: 'fs-open',
-        symbol,
-        tid: this.tid,
-        dirfd: this.dirfd,
-        path: this.path,
-        flags: this.flags,
-        mode: this.mode,
-        rv,
-        errno: rv === -1 ? readErrno() : 0,
-        bt: this.bt
-      });
-    }
-  });
+  hookOpenatSymbol('openat');
 }
 
 function hookFopen() {
@@ -128,7 +70,77 @@ function hookFopen() {
   });
 }
 
+function hookOpenSymbol(symbol) {
+  const addr = findGlobal(symbol);
+  if (!addr) return send({ kind: 'hook-missing', symbol });
+  send({ kind: 'hook-installed', symbol, addr: addr.toString() });
+
+  Interceptor.attach(addr, {
+    onEnter(args) {
+      this.tid = Process.getCurrentThreadId();
+      this.path = args[0].isNull() ? null : args[0].readUtf8String();
+      this.flags = args[1].toInt32();
+      this.mode = args[2].toInt32();
+      this.bt = backtrace(this.context);
+    },
+    onLeave(retval) {
+      const rv = retval.toInt32();
+      if (rv !== -1 && !LOG_SUCCESSES) return;
+      send({
+        kind: 'fs-open',
+        symbol,
+        tid: this.tid,
+        path: this.path,
+        flags: this.flags,
+        mode: this.mode,
+        rv,
+        errno: rv === -1 ? readErrno() : 0,
+        bt: this.bt
+      });
+    }
+  });
+}
+
+function hookOpenatSymbol(symbol) {
+  const addr = findGlobal(symbol);
+  if (!addr) return send({ kind: 'hook-missing', symbol });
+  send({ kind: 'hook-installed', symbol, addr: addr.toString() });
+
+  Interceptor.attach(addr, {
+    onEnter(args) {
+      this.tid = Process.getCurrentThreadId();
+      this.dirfd = args[0].toInt32();
+      this.path = args[1].isNull() ? null : args[1].readUtf8String();
+      this.flags = args[2].toInt32();
+      this.mode = args[3].toInt32();
+      this.bt = backtrace(this.context);
+    },
+    onLeave(retval) {
+      const rv = retval.toInt32();
+      if (rv !== -1 && !LOG_SUCCESSES) return;
+      send({
+        kind: 'fs-open',
+        symbol,
+        tid: this.tid,
+        dirfd: this.dirfd,
+        path: this.path,
+        flags: this.flags,
+        mode: this.mode,
+        rv,
+        errno: rv === -1 ? readErrno() : 0,
+        bt: this.bt
+      });
+    }
+  });
+}
+
 // cover the common Darwin variants; whichever exist will hook
 hookOpen();
 hookOpenat();
 hookFopen();
+hookOpenSymbol('open$NOCANCEL');
+hookOpenatSymbol('openat$NOCANCEL');
+hookOpenSymbol('__open');
+hookOpenSymbol('__open_nocancel');
+hookOpenatSymbol('__openat');
+hookOpenatSymbol('__openat_nocancel');

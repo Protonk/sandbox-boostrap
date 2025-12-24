@@ -13,7 +13,7 @@ It is *not* a full “how to run” guide for each example (see `book/examples/A
   Examples: `metafilter-tests/`, `sbpl-params/`, `network-filters/`, `mach-services/`, plus the golden-triple harness under `book/profiles/golden-triple/` (not in `book/examples/`).
 
 - **Vocabulary and Mapping** – operation/filter vocab maps and name↔ID alignment.  
-  Examples: `sb/`, `extract_sbs/`, `sbdis/`, `re2dot/`, `resnarf/` (all indirectly), with vocab extraction driven by `book/experiments/vocab-from-cache/`.
+  Examples: `sb/`, `extract_sbs/`, `sbdis/`, `re2dot/`, `resnarf/` (all indirectly), with vocab extraction driven by `book/graph/mappings/vocab/generate_vocab_from_dyld.py` against `book/graph/mappings/dyld-libs/`.
 
 - **Runtime Lifecycle and Extension** – profile layers, stack evaluation order, compiled profile source, containers, entitlements, extensions, adjacent controls.  
   Examples: `entitlements-evolution/`, `platform-policy-checks/`, `extensions-dynamic/`, `containers-and-redirects/`, `libsandcall/`.
@@ -145,7 +145,7 @@ Vocabulary/mapping is mostly driven by dyld cache extraction and op-table experi
   - `mappings/op_table/op_table_vocab_alignment.json` (op-table alignment for synthetic/sample profiles).  
   - `validation/out/vocab/*` (mirrored vocab tables and future runtime usage summaries).
 
-Vocabulary extraction itself is driven by `book/experiments/vocab-from-cache/` and `book/api/profile_tools/` (op-table tooling), not by a single `book/examples/` directory, but the examples above provide the concrete blobs needed to sanity check op-table/vocab alignment.
+Vocabulary extraction itself is driven by `book/graph/mappings/vocab/generate_vocab_from_dyld.py` plus `book/api/profile_tools/` (op-table tooling), not by a single `book/examples/` directory, but the examples above provide the concrete blobs needed to sanity check op-table/vocab alignment.
 
 ---
 

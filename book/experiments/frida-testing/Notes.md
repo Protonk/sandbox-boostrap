@@ -145,6 +145,78 @@
 - Status: ok
 - Follow-up: keep fs_open_selftest for deterministic errno witnesses until an in-process `fs_op_wait` exists.
 
+- Command: entitlement-jail run-xpc --attach 30 --hold-open 30 com.yourteam.entitlement-jail.ProbeService_fully_injectable fs_op --op open_read --path-class tmp --name ej_noaccess (background; capture wait-ready path) + create ej_noaccess file in the wait path dir + ./.venv/bin/python book/experiments/frida-testing/run_frida.py --attach-pid <pid> --script book/experiments/frida-testing/hooks/fs_open.js --duration-s 5 + echo go > wait FIFO
+- Result: attach wait flow worked; run-xpc reported wait metadata (`wait_*` fields) and completed with normalized_outcome ok; fs_open hook installed but no fs-open events (open succeeded in harness path).
+- Artifacts: `book/experiments/frida-testing/out/cb34ec8c-6798-4811-9793-9b4c99efe912`; /tmp/ej_attach_wait.log; /tmp/ej_attach_out.log
+- Status: ok (attach + wait path validated)
+- Follow-up: use `--attach` with a direct path or `--allow-unsafe-path` if we need deterministic errno events from fs_op.
+
+- Command: entitlement-jail run-xpc com.yourteam.entitlement-jail.ProbeService_fully_injectable capabilities_snapshot
+- Result: captured containerized `tmp_dir` and entitlement flags for the fully_injectable service.
+- Artifacts: /tmp/ej_caps_snapshot.json
+- Status: ok
+- Follow-up: use the container tmp path for direct-path fs_op probes.
+
+- Command: entitlement-jail run-xpc --attach 30 --hold-open 30 com.yourteam.entitlement-jail.ProbeService_fully_injectable fs_op --op open_read --path <container tmp>/ej_noaccess --allow-unsafe-path (background; capture wait-ready path) + chmod 000 ej_noaccess + ./.venv/bin/python book/experiments/frida-testing/run_frida.py --attach-pid <pid> --script book/experiments/frida-testing/hooks/fs_open.js --duration-s 5 + echo go > wait FIFO
+- Result: run-xpc reported errno 13 with permission_error; fs_open hook installed but no fs-open events observed.
+- Artifacts: `book/experiments/frida-testing/out/690fb15e-6664-48eb-8031-54d6068f3206`; /tmp/ej_attach_wait2.log; /tmp/ej_attach_out2.log
+- Status: partial (fs_op errno witnessed; Frida hook did not see open)
+- Follow-up: extend fs_open hook coverage and retry.
+
+- Command: extend fs_open hook to include open$NOCANCEL, openat$NOCANCEL, __open, __open_nocancel, __openat, __openat_nocancel, then rerun the attach-wait fs_op direct-path probe
+- Result: fs_open still observed only hook-installed events (no fs-open payloads) while fs_op returned errno 13.
+- Artifacts: `book/experiments/frida-testing/out/bb6437a1-e7d8-4734-a4ee-a857b3762208`; /tmp/ej_attach_wait4.log; /tmp/ej_attach_out4.log
+- Status: partial (fs_op errno witnessed; Frida hook still missing the open path)
+- Follow-up: consider hooking open_dprotected_np/openat_dprotected_np or intercepting syscall-level open/openat.
+
+- Command: extracted Frida runner core into `book/api/frida/runner.py` and updated `book/experiments/frida-testing/run_frida.py` to call it.
+- Result: CLI wrapper now delegates to the API runner while preserving the meta.json + events.jsonl schema.
+- Artifacts: `book/api/frida/runner.py`; `book/experiments/frida-testing/run_frida.py`
+- Status: ok
+- Follow-up: keep runner changes in the API layer for future promotion to `book/api/frida`.
+
+- Command: attach `book/experiments/frida-testing/hooks/interceptor_selftest.js` to `ProbeService_fully_injectable` (initial version).
+- Result: script error `TypeError: not a function` due to missing `Process.enumerateEnvironment`.
+- Artifacts: `book/experiments/frida-testing/out/9bf3d548-783e-4d67-9ded-0699d2ec4050`
+- Status: blocked (script error before selftest emitted results)
+- Follow-up: guard `Process.enumerateEnvironment` and rerun.
+
+- Command: attach `book/experiments/frida-testing/hooks/interceptor_selftest.js` (guarded) to `ProbeService_fully_injectable`.
+- Result: hook installed and fired; selftest `open("/tmp/frida_testing_noaccess")` returned errno 2 (ENOENT).
+- Artifacts: `book/experiments/frida-testing/out/cdbf72da-d118-4875-babb-1498bc770e4a`
+- Status: ok (Interceptor works in-process)
+- Follow-up: use funnel hooks to discover the real fs_op open path.
+
+- Command: attach `book/experiments/frida-testing/hooks/fs_open_funnel.js` to `ProbeService_fully_injectable` during fs_op runs.
+- Result: funnel enumerated open/openat exports and installed hooks; no `funnel-hit` events observed (including the syscall-expanded run).
+- Artifacts: `book/experiments/frida-testing/out/c5b2484c-3e8d-4f26-9074-f59742f45e20`; `book/experiments/frida-testing/out/75b513c6-b674-4a04-8988-3cdc87874958`
+- Status: partial (Interceptor works, but fs_op path still not observed)
+- Follow-up: broaden funnel beyond libsystem_kernel and correlate with fs_op in the same PID.
+
+- Command: add `book/experiments/frida-testing/hooks/sandbox_trace.js` and `book/experiments/frida-testing/parse_sandbox_trace.py` for sandbox trace gating.
+- Result: new hook sets trace path and emits a single `sandbox-trace` payload; parser emits a JSON summary for the trace file (or a missing-trace witness).
+- Artifacts: `book/experiments/frida-testing/hooks/sandbox_trace.js`; `book/experiments/frida-testing/parse_sandbox_trace.py`
+- Status: ok
+- Follow-up: run sandbox_trace during fs_op and capture summary output.
+
+- Command: attach `sandbox_trace.js` to `ProbeService_fully_injectable` during fs_op (initial version).
+- Result: script error `TypeError: not a function` from `Module.findExportByName`.
+- Artifacts: `book/experiments/frida-testing/out/18ef5758-937a-4e9c-b54d-db999d23a270`
+- Status: blocked (script error)
+- Follow-up: add a fallback to `Module.getExportByName` and rerun.
+
+- Command: attach `sandbox_trace.js` (with export lookup fallback) to `ProbeService_fully_injectable` during fs_op, then parse the trace file.
+- Result: `sandbox_set_trace_path` reported missing in `libsystem_sandbox.dylib`; trace summary reports `trace_exists=false`.
+- Artifacts: `book/experiments/frida-testing/out/227d3232-9da5-463d-bab4-2f7bbbfc03ae`; `book/experiments/frida-testing/out/227d3232-9da5-463d-bab4-2f7bbbfc03ae/sandbox_trace_summary.json`
+- Status: partial (trace hook runs but trace path unavailable)
+- Follow-up: decide whether to load a different module or target for sandbox trace gating.
+
+- Command: attach the expanded file-decision funnel to `ProbeService_fully_injectable` during fs_op.
+- Result: funnel hits observed for `__open` and `open` with errno 13 on the deny path.
+- Artifacts: `book/experiments/frida-testing/out/0ee1b6e3-f000-4037-aaee-23ce3e7f0098`
+- Status: ok
+- Follow-up: update curated hooks to target `__open` and confirm with repeatable fs_op runs.
+
 ## Entry template
 - Command:
 - Result:
