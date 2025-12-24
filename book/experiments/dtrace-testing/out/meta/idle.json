@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/usr/sbin/dtrace",
+    "-q",
+    "-s",
+    "book/experiments/dtrace-testing/out/meta/dtrace_idle.d",
+    "-p",
+    "52508"
+  ],
+  "duration_s": 3.0,
+  "exit_code": 1,
+  "phase": "idle",
+  "raw_path": "book/experiments/dtrace-testing/out/raw/idle.jsonl",
+  "script_path": "book/experiments/dtrace-testing/out/meta/dtrace_idle.d",
+  "stderr_path": "book/experiments/dtrace-testing/out/meta/dtrace_idle.stderr",
+  "target_pid": 52508,
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

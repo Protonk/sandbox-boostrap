@@ -79,6 +79,72 @@
 - Status: ok
 - Follow-up: keep this deny-path pattern for validating future hook packs.
 
+- Command: EJ=book/tools/entitlement/EntitlementJail.app/Contents/MacOS/entitlement-jail; mkfifo $HOME/Library/Containers/com.yourteam.entitlement-jail.ProbeService_debuggable/Data/tmp/frida_hold_fifo; entitlement-jail run-xpc com.yourteam.entitlement-jail.ProbeService_debuggable fs_op --op open_read --path <fifo> --allow-unsafe-path (background) + pgrep -x ProbeService_debuggable + ./.venv/bin/python book/experiments/frida-testing/run_frida.py --attach-pid <pid> --script book/experiments/frida-testing/hooks/smoke.js --duration-s 2
+- Result: run-xpc reported NSCocoaErrorDomain Code 4097 (connection to service failed); frida attach raised ProcessNotRespondingError; events.jsonl contains only runner events.
+- Artifacts: `book/experiments/frida-testing/out/6bf9e68e-1984-410d-9c9d-bc7b4a0023b8`; ~/Library/Logs/DiagnosticReports/ProbeService_debuggable-2025-12-22-222958.ips; ~/Library/Logs/DiagnosticReports/frida-helper-2025-12-22-222957.ips
+- Status: blocked (target killed with CODESIGNING Invalid Page; frida-helper SIGILL)
+- Follow-up: treat as attach failure on the debug XPC service and consider other EntitlementJail service variants or alternate attach orchestration.
+
+- Command: codesign -d --entitlements :- EntitlementJail XPC targets (debuggable, fully_injectable)
+- Result: `ProbeService_fully_injectable` now includes `com.apple.security.get-task-allow` along with `disable-library-validation`, `allow-dyld-environment-variables`, `allow-jit`, and `allow-unsigned-executable-memory`.
+- Artifacts: none
+- Status: ok
+- Follow-up: target fully_injectable for attach-first attempts.
+
+- Command: entitlement-jail run-xpc --hold-open 15 com.yourteam.entitlement-jail.ProbeService_fully_injectable probe_catalog (background) + pgrep -x ProbeService_fully_injectable + ./.venv/bin/python book/experiments/frida-testing/run_frida.py --attach-pid <pid> --script book/experiments/frida-testing/hooks/smoke.js --duration-s 2
+- Result: attach succeeded; smoke payload emitted.
+- Artifacts: `book/experiments/frida-testing/out/539ea0e4-fd01-4b23-b698-17e5256afc3f`
+- Status: ok
+- Follow-up: use the same target for export inventory and fs_open attempts.
+
+- Command: entitlement-jail run-xpc --hold-open 15 com.yourteam.entitlement-jail.ProbeService_fully_injectable probe_catalog (background) + pgrep -x ProbeService_fully_injectable + ./.venv/bin/python book/experiments/frida-testing/run_frida.py --attach-pid <pid> --script book/experiments/frida-testing/hooks/discover_sandbox_exports.js --duration-s 2
+- Result: emits `kind=exports` with module `libsystem_sandbox.dylib`, count `87`, and the expected sandbox_* symbol list.
+- Artifacts: `book/experiments/frida-testing/out/9fc56e61-bd29-4e04-b2a8-c3497114d624`
+- Status: ok
+- Follow-up: treat as export-inventory witness only.
+
+- Command: entitlement-jail run-xpc --hold-open 20 com.yourteam.entitlement-jail.ProbeService_fully_injectable probe_catalog (background) + attach fs_open to that PID + entitlement-jail run-xpc com.yourteam.entitlement-jail.ProbeService_fully_injectable fs_op --op open_read --path <container tmp/ej_noaccess> --allow-unsafe-path
+- Result: frida hook installed but no `fs-open` events; fs_op executed in a different PID than the attached service (fs_op log shows `service_pid` 56652 vs attach PID 56639), so no open call observed in the hooked process.
+- Artifacts: `book/experiments/frida-testing/out/c014afa1-e042-4373-a69a-510be8632aca`; /tmp/ej_fs_op_fully_injectable.log
+- Status: partial (hooking works; fs_op open ran in a different process)
+- Follow-up: find an attach orchestration that keeps probe execution in the same XPC service PID.
+
+- Command: entitlement-jail run-xpc --hold-open 15 com.yourteam.entitlement-jail.ProbeService_debuggable probe_catalog (background) + pgrep -x ProbeService_debuggable + ./.venv/bin/python book/experiments/frida-testing/run_frida.py --attach-pid <pid> --script book/experiments/frida-testing/hooks/smoke.js --duration-s 2
+- Result: ProcessNotRespondingError; debug service killed with CODESIGNING Invalid Page and frida-helper crashed (SIGILL).
+- Artifacts: `book/experiments/frida-testing/out/fadc03b3-eaf8-4b4c-a8e0-176f476a31ce`; ~/Library/Logs/DiagnosticReports/ProbeService_debuggable-2025-12-23-085838.ips; ~/Library/Logs/DiagnosticReports/frida-helper-2025-12-23-085837.ips
+- Status: blocked
+- Follow-up: keep `ProbeService_fully_injectable` as the attach-first target; treat `ProbeService_debuggable` as currently non-attachable.
+
+- Command: add `book/experiments/frida-testing/hooks/fs_open_selftest.js` and update it to resolve a base path via getcwd for deterministic self-open.
+- Result: new self-open hook that attempts an open after attach and emits `self-open` + `fs-open` payloads.
+- Artifacts: `book/experiments/frida-testing/hooks/fs_open_selftest.js`
+- Status: ok
+- Follow-up: run against `ProbeService_fully_injectable` with a deterministic deny path.
+
+- Command: entitlement-jail run-xpc --hold-open 15 com.yourteam.entitlement-jail.ProbeService_fully_injectable probe_catalog (background) + pgrep -x ProbeService_fully_injectable + ./.venv/bin/python book/experiments/frida-testing/run_frida.py --attach-pid <pid> --script book/experiments/frida-testing/hooks/smoke.js --duration-s 2
+- Result: attach succeeded; smoke payload emitted.
+- Artifacts: `book/experiments/frida-testing/out/6d8f44e4-1fa0-4f99-bab6-bb13f6858257`
+- Status: ok
+- Follow-up: run export inventory on the same target.
+
+- Command: entitlement-jail run-xpc --hold-open 15 com.yourteam.entitlement-jail.ProbeService_fully_injectable probe_catalog (background) + pgrep -x ProbeService_fully_injectable + ./.venv/bin/python book/experiments/frida-testing/run_frida.py --attach-pid <pid> --script book/experiments/frida-testing/hooks/discover_sandbox_exports.js --duration-s 2
+- Result: emits `kind=exports` with module `libsystem_sandbox.dylib`, count `87`, and sandbox_* symbols.
+- Artifacts: `book/experiments/frida-testing/out/673e5a1e-1fab-4010-a74e-9a91b217f830`
+- Status: ok
+- Follow-up: run fs_open self-open witness.
+
+- Command: entitlement-jail run-xpc --hold-open 20 com.yourteam.entitlement-jail.ProbeService_fully_injectable probe_catalog (background) + attach fs_open_selftest.js (initial version) + create /tmp/ej_noaccess
+- Result: `self-open` targeted /tmp; `fs-open` emitted errno 2 (ENOENT) due to missing path in the target context.
+- Artifacts: `book/experiments/frida-testing/out/8c03be0d-465d-450b-a680-2d4860d1dc94`
+- Status: partial
+- Follow-up: update fs_open_selftest.js to derive a container path and rerun.
+
+- Command: entitlement-jail run-xpc --hold-open 20 com.yourteam.entitlement-jail.ProbeService_fully_injectable probe_catalog (background) + attach fs_open_selftest.js + create container tmp/ej_noaccess with chmod 000
+- Result: emits `self-open` + `fs-open` with errno 13 (EACCES) against the container tmp path.
+- Artifacts: `book/experiments/frida-testing/out/56577123-16b4-4335-be63-3478e63a7c88`
+- Status: ok
+- Follow-up: keep fs_open_selftest for deterministic errno witnesses until an in-process `fs_op_wait` exists.
+
 ## Entry template
 - Command:
 - Result:
