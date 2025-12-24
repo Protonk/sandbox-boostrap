@@ -15,7 +15,7 @@ This is the textbook workspace. Use it with the substrate vocabulary (`book/subs
 - `api/` – shared tooling (decoder, SBPL/blob wrapper, Ghidra helpers); see `book/api/AGENTS.md`.
 - `tools/` – host-local helper binaries/app bundles used by experiments (e.g., `tools/entitlement/EntitlementJail.app` for running probes under an App Sandbox parent).
 - `tests/` – guardrails for book artifacts and experiment outputs (run via `make -C book test`).
-- Platform/system sandbox profiles (e.g., `airlock.sb`) are included only as static decoder inputs via `book/experiments/golden-corpus/`; see its Report for the static-only stance.
+- Platform/system sandbox profiles (e.g., `airlock.sb`) are included only as static decoder inputs via `book/graph/concepts/validation/golden_corpus/`; see the golden-corpus Report for the static-only stance.
 
 When in doubt, start with the AGENTS/README in the relevant subdirectory.
 

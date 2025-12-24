@@ -1,0 +1,28 @@
+{
+  "cmd": [
+    "/usr/bin/log",
+    "stream",
+    "--level",
+    "debug",
+    "--color",
+    "none",
+    "--style",
+    "ndjson",
+    "--timeout",
+    "15s",
+    "--predicate",
+    "senderImagePath CONTAINS[c] \"Sandbox\" AND eventMessage CONTAINS[c] \"deny\" AND messageType == 16 AND eventMessage CONTAINS[c] \"ProbeService_fully_injectable\""
+  ],
+  "color": "none",
+  "deny_only": false,
+  "duration_s": 15.0,
+  "level": "debug",
+  "pid": null,
+  "predicate": "senderImagePath CONTAINS[c] \"Sandbox\" AND eventMessage CONTAINS[c] \"deny\" AND messageType == 16 AND eventMessage CONTAINS[c] \"ProbeService_fully_injectable\"",
+  "rc": -15,
+  "stderr": "",
+  "style": "ndjson",
+  "t0_ns": 1766564114720632000,
+  "t1_ns": 1766564129724890000,
+  "timeout": "15s"
+}

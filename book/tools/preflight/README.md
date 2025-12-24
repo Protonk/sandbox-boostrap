@@ -89,4 +89,4 @@ python3 book/tools/preflight/preflight.py minimize-gate \
 - `minimize-gate` is intentionally **dynamic**: it compiles/applies profiles via SBPL-wrapper to witness apply-stage outcomes mechanically.
 - This tool is intentionally **conservative**: it prefers “avoid dead ends” over “explain why”.
 - Apply gating is “blocked” evidence for runtime semantics on this host; see `troubles/EPERMx2.md` for the repo’s phase discipline.
-- For a repo-wide, checked-in inventory of this tool’s classifications over in-repo profile inputs, see `book/experiments/preflight-index/out/preflight_enterability_manifest.json` and `book/experiments/preflight-index/out/summary.json`.
+- For a repo-wide, checked-in inventory of this tool’s classifications over in-repo profile inputs, see `book/tools/preflight/index/preflight_enterability_manifest.json` and `book/tools/preflight/index/summary.json`.

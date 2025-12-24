@@ -558,8 +558,8 @@ Experiments that *must* observe apply-gated behavior explicitly opt out with `--
 To reduce future agent friction, we also check in a repo-wide “enterability manifest” derived from preflight scanning of in-repo profile inputs:
 
 - Experiment: [`book/experiments/preflight-index/`](../../book/experiments/preflight-index/)
-- Manifest: [`book/experiments/preflight-index/out/preflight_enterability_manifest.json`](../../book/experiments/preflight-index/out/preflight_enterability_manifest.json)
-- Summary: [`book/experiments/preflight-index/out/summary.json`](../../book/experiments/preflight-index/out/summary.json)
+- Manifest: [`book/tools/preflight/index/preflight_enterability_manifest.json`](../../book/tools/preflight/index/preflight_enterability_manifest.json)
+- Summary: [`book/tools/preflight/index/summary.json`](../../book/tools/preflight/index/summary.json)
 
 Operational invariant for agents:
 
@@ -626,7 +626,7 @@ This resolution is enforced in three places:
   - Validation IR: [`book/graph/concepts/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json`](../../book/graph/concepts/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json)
 - Repo-wide enterability manifest:
   - [`book/experiments/preflight-index/Report.md`](../../book/experiments/preflight-index/Report.md)
-  - Manifest: [`book/experiments/preflight-index/out/preflight_enterability_manifest.json`](../../book/experiments/preflight-index/out/preflight_enterability_manifest.json)
+  - Manifest: [`book/tools/preflight/index/preflight_enterability_manifest.json`](../../book/tools/preflight/index/preflight_enterability_manifest.json)
 
 ## Appendix: Witness bundles (per witness)
 

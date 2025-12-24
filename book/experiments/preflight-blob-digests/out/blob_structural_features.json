@@ -5,10 +5,67 @@
   },
   "metrics": {
     "decode_err": 0,
-    "decode_ok": 149,
-    "digests": 149
+    "decode_ok": 172,
+    "digests": 172
   },
   "rows": [
+    {
+      "blob_sha256": "00d9eb1b3ffcb438407b8d78b8bae460961b0cfa514e2651cf285dc4e238261d",
+      "features": {
+        "derived": {
+          "literal_pool_bytes_per_node": 0.692308,
+          "literal_pool_bytes_ratio": 0.074074,
+          "literal_strings_per_node": 0.019231,
+          "nodes_bytes_ratio": 0.868313,
+          "op_table_unique_ratio": 0.166667
+        },
+        "format_variant": "modern-heuristic",
+        "literal_string_count": 1,
+        "node_count": 52,
+        "op_count": 6,
+        "op_table_len": 6,
+        "op_table_max": 5,
+        "op_table_min": 5,
+        "op_table_offset": 16,
+        "op_table_unique": 1,
+        "sections": {
+          "literal_pool": 36,
+          "literal_start": 450,
+          "nodes": 422,
+          "nodes_start": 28,
+          "op_table": 12
+        },
+        "tag_counts": {
+          "0": 2,
+          "1": 1,
+          "3": 4,
+          "4": 17,
+          "5": 28
+        },
+        "tag_total_count": 52,
+        "tags_present": [
+          0,
+          1,
+          3,
+          4,
+          5
+        ],
+        "tags_present_count": 5,
+        "validation": {
+          "edge_fields_in_bounds": 99,
+          "edge_fields_total": 104,
+          "node_remainder_bytes": 6,
+          "node_stride_bytes": 8
+        }
+      },
+      "label": "unknown",
+      "paths_count": 1,
+      "paths_sample": [
+        "book/experiments/vfs-canonicalization/sb/build/vfs_link_var_tmp_only.sb.bin"
+      ],
+      "representative_path": "book/experiments/vfs-canonicalization/sb/build/vfs_link_var_tmp_only.sb.bin",
+      "size": 486
+    },
     {
       "blob_sha256": "04d550290675400c710960793244d9c00083018b48491d36e5f17530c26dab4f",
       "features": {
@@ -112,13 +169,13 @@
         }
       },
       "label": "unknown",
-      "paths_count": 5,
+      "paths_count": 6,
       "paths_sample": [
         "book/experiments/gate-witnesses/out/witnesses/airlock/compile_vs_apply/passing_neighbor.sb.bin",
         "book/experiments/gate-witnesses/out/witnesses/com.apple.CoreGraphics.CGPDFService/compile_vs_apply/passing_neighbor.sb.bin",
+        "book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/compile_vs_apply/passing_neighbor.sb.bin",
         "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/passing_neighbor.sb.bin",
-        "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/passing_neighbor.sb.bin",
-        "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/passing_neighbor.sb.bin"
+        "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/passing_neighbor.sb.bin"
       ],
       "representative_path": "book/experiments/gate-witnesses/out/witnesses/airlock/compile_vs_apply/passing_neighbor.sb.bin",
       "size": 465
@@ -739,11 +796,12 @@
         }
       },
       "label": "unknown",
-      "paths_count": 1,
+      "paths_count": 2,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/pair_dp_any_inet_256.sb.bin",
         "book/experiments/libsandbox-encoder/out/network_matrix/pair_dp_any_inet_256.sb.bin"
       ],
-      "representative_path": "book/experiments/libsandbox-encoder/out/network_matrix/pair_dp_any_inet_256.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/pair_dp_any_inet_256.sb.bin",
       "size": 492
     },
     {
@@ -798,15 +856,15 @@
         }
       },
       "label": "unknown",
-      "paths_count": 7,
+      "paths_count": 9,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/triple_all_tcp.sb.bin",
+        "book/experiments/encoder-write-trace/out/blobs/triple_nested_tcp.sb.bin",
         "book/experiments/field2-filters/sb/build/net_require_all_domain_type_proto.sb.bin",
         "book/experiments/flow-divert-2560/sb/build/fd_domain_type_proto_all_tcp_order1.sb.bin",
-        "book/experiments/flow-divert-2560/sb/build/fd_domain_type_proto_nested_tcp.sb.bin",
-        "book/experiments/libsandbox-encoder/out/network_matrix/triple_all_tcp.sb.bin",
-        "book/experiments/libsandbox-encoder/out/network_matrix/triple_nested_tcp.sb.bin"
+        "book/experiments/flow-divert-2560/sb/build/fd_domain_type_proto_nested_tcp.sb.bin"
       ],
-      "representative_path": "book/experiments/field2-filters/sb/build/net_require_all_domain_type_proto.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/triple_all_tcp.sb.bin",
       "size": 500
     },
     {
@@ -1082,11 +1140,12 @@
         }
       },
       "label": "unknown",
-      "paths_count": 1,
+      "paths_count": 2,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/pair_tp_any_stream_256.sb.bin",
         "book/experiments/libsandbox-encoder/out/network_matrix/pair_tp_any_stream_256.sb.bin"
       ],
-      "representative_path": "book/experiments/libsandbox-encoder/out/network_matrix/pair_tp_any_stream_256.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/pair_tp_any_stream_256.sb.bin",
       "size": 492
     },
     {
@@ -1198,11 +1257,12 @@
         }
       },
       "label": "unknown",
-      "paths_count": 1,
+      "paths_count": 2,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/triple_any_256.sb.bin",
         "book/experiments/libsandbox-encoder/out/network_matrix/triple_any_256.sb.bin"
       ],
-      "representative_path": "book/experiments/libsandbox-encoder/out/network_matrix/triple_any_256.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/triple_any_256.sb.bin",
       "size": 500
     },
     {
@@ -1247,15 +1307,15 @@
         }
       },
       "label": "control",
-      "paths_count": 8,
+      "paths_count": 13,
       "paths_sample": [
-        "book/experiments/field2-filters/sb/build/flow_divert_mixed.sb.bin",
-        "book/experiments/field2-filters/sb/build/flow_divert_variant.sb.bin",
-        "book/experiments/sandbox-init-params/out/file_simple.sb.bin",
-        "book/experiments/sandbox-init-params/out/init_params_probe.sb.bin",
-        "book/experiments/sandbox-init-params/out/init_params_probe_container.sb.bin"
+        "book/experiments/encoder-write-trace/out/blobs/_debug.sb.bin",
+        "book/experiments/encoder-write-trace/out/blobs/baseline_allow_all.sb.bin",
+        "book/experiments/encoder-write-trace/out/blobs/baseline_allow_all_file.sb.bin",
+        "book/experiments/encoder-write-trace/out/blobs/baseline_allow_all_file_unused_param.sb.bin",
+        "book/experiments/encoder-write-trace/out/blobs/baseline_allow_all_string.sb.bin"
       ],
-      "representative_path": "book/experiments/field2-filters/sb/build/flow_divert_mixed.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/_debug.sb.bin",
       "size": 416
     },
     {
@@ -1370,6 +1430,63 @@
       "size": 464
     },
     {
+      "blob_sha256": "1b5984466dc175b5762cfb70d4f5877d4cb6d06926e4ad1037218518c31e2817",
+      "features": {
+        "derived": {
+          "literal_pool_bytes_per_node": 1.076923,
+          "literal_pool_bytes_ratio": 0.110672,
+          "literal_strings_per_node": 0.019231,
+          "nodes_bytes_ratio": 0.833992,
+          "op_table_unique_ratio": 0.166667
+        },
+        "format_variant": "modern-heuristic",
+        "literal_string_count": 1,
+        "node_count": 52,
+        "op_count": 6,
+        "op_table_len": 6,
+        "op_table_max": 5,
+        "op_table_min": 5,
+        "op_table_offset": 16,
+        "op_table_unique": 1,
+        "sections": {
+          "literal_pool": 56,
+          "literal_start": 450,
+          "nodes": 422,
+          "nodes_start": 28,
+          "op_table": 12
+        },
+        "tag_counts": {
+          "0": 2,
+          "1": 1,
+          "3": 4,
+          "4": 17,
+          "5": 28
+        },
+        "tag_total_count": 52,
+        "tags_present": [
+          0,
+          1,
+          3,
+          4,
+          5
+        ],
+        "tags_present_count": 5,
+        "validation": {
+          "edge_fields_in_bounds": 99,
+          "edge_fields_total": 104,
+          "node_remainder_bytes": 6,
+          "node_stride_bytes": 8
+        }
+      },
+      "label": "unknown",
+      "paths_count": 1,
+      "paths_sample": [
+        "book/experiments/vfs-canonicalization/sb/build/vfs_firmlink_data_only.sb.bin"
+      ],
+      "representative_path": "book/experiments/vfs-canonicalization/sb/build/vfs_firmlink_data_only.sb.bin",
+      "size": 506
+    },
+    {
       "blob_sha256": "1b717a085947fd34abc0ab2b6a511d09d65f7544615c7535f5e8a1a06c205fc4",
       "features": {
         "derived": {
@@ -1419,11 +1536,12 @@
         }
       },
       "label": "unknown",
-      "paths_count": 1,
+      "paths_count": 2,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/domain_af_system.sb.bin",
         "book/experiments/libsandbox-encoder/out/network_matrix/domain_af_system.sb.bin"
       ],
-      "representative_path": "book/experiments/libsandbox-encoder/out/network_matrix/domain_af_system.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/domain_af_system.sb.bin",
       "size": 484
     },
     {
@@ -1589,15 +1707,73 @@
         }
       },
       "label": "unknown",
-      "paths_count": 4,
+      "paths_count": 5,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/golden_strict_1_file.sb.bin",
         "book/experiments/runtime-checks/out/decoded_blobs/runtime_strict_1.sb.bin",
         "book/experiments/runtime-checks/out/sb_build/strict_1.sb.bin",
         "book/graph/mappings/runtime/decoded_blobs/runtime_strict_1.sb.bin",
         "book/profiles/golden-triple/strict_1.sb.bin"
       ],
-      "representative_path": "book/experiments/runtime-checks/out/decoded_blobs/runtime_strict_1.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/golden_strict_1_file.sb.bin",
       "size": 513
+    },
+    {
+      "blob_sha256": "1edb89e797412c6703110836546ca885d6919d1167c3f2f17f68add8f18dd3e2",
+      "features": {
+        "derived": {
+          "literal_pool_bytes_per_node": 1.075472,
+          "literal_pool_bytes_ratio": 0.111765,
+          "literal_strings_per_node": 0.09434,
+          "nodes_bytes_ratio": 0.833333,
+          "op_table_unique_ratio": 0.166667
+        },
+        "format_variant": "modern-heuristic",
+        "literal_string_count": 5,
+        "node_count": 53,
+        "op_count": 6,
+        "op_table_len": 6,
+        "op_table_max": 5,
+        "op_table_min": 5,
+        "op_table_offset": 16,
+        "op_table_unique": 1,
+        "sections": {
+          "literal_pool": 57,
+          "literal_start": 453,
+          "nodes": 425,
+          "nodes_start": 28,
+          "op_table": 12
+        },
+        "tag_counts": {
+          "0": 3,
+          "1": 1,
+          "3": 4,
+          "4": 17,
+          "5": 28
+        },
+        "tag_total_count": 53,
+        "tags_present": [
+          0,
+          1,
+          3,
+          4,
+          5
+        ],
+        "tags_present_count": 5,
+        "validation": {
+          "edge_fields_in_bounds": 100,
+          "edge_fields_total": 106,
+          "node_remainder_bytes": 1,
+          "node_stride_bytes": 8
+        }
+      },
+      "label": "unknown",
+      "paths_count": 1,
+      "paths_sample": [
+        "book/experiments/vfs-canonicalization/sb/build/vfs_tmp_only.sb.bin"
+      ],
+      "representative_path": "book/experiments/vfs-canonicalization/sb/build/vfs_tmp_only.sb.bin",
+      "size": 510
     },
     {
       "blob_sha256": "20cd44377b78079f9c69cfb610e694b23683118e82080d315354aa648c613c70",
@@ -1708,11 +1884,12 @@
         }
       },
       "label": "unknown",
-      "paths_count": 1,
+      "paths_count": 2,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/triple_all_system_stream_tcp.sb.bin",
         "book/experiments/libsandbox-encoder/out/network_matrix/triple_all_system_stream_tcp.sb.bin"
       ],
-      "representative_path": "book/experiments/libsandbox-encoder/out/network_matrix/triple_all_system_stream_tcp.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/triple_all_system_stream_tcp.sb.bin",
       "size": 500
     },
     {
@@ -1823,10 +2000,11 @@
         }
       },
       "label": "unknown",
-      "paths_count": 2,
+      "paths_count": 3,
       "paths_sample": [
         "book/experiments/field2-filters/sb/build/v1_literal.sb.bin",
-        "book/experiments/node-layout/sb/build/v20_read_literal.sb.bin"
+        "book/experiments/node-layout/sb/build/v20_read_literal.sb.bin",
+        "book/experiments/vfs-canonicalization/sb/build/vfs_etc_alias_only.sb.bin"
       ],
       "representative_path": "book/experiments/field2-filters/sb/build/v1_literal.sb.bin",
       "size": 465
@@ -2050,12 +2228,70 @@
         }
       },
       "label": "unknown",
-      "paths_count": 1,
+      "paths_count": 2,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/pair_dp_any_inet_tcp.sb.bin",
         "book/experiments/libsandbox-encoder/out/network_matrix/pair_dp_any_inet_tcp.sb.bin"
       ],
-      "representative_path": "book/experiments/libsandbox-encoder/out/network_matrix/pair_dp_any_inet_tcp.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/pair_dp_any_inet_tcp.sb.bin",
       "size": 492
+    },
+    {
+      "blob_sha256": "2d92121a53b511acaa158530c8155857fb78b2698f07ff7d3f28606a3fb4282e",
+      "features": {
+        "derived": {
+          "literal_pool_bytes_per_node": 2.339623,
+          "literal_pool_bytes_ratio": 0.214905,
+          "literal_strings_per_node": 0.207547,
+          "nodes_bytes_ratio": 0.736568,
+          "op_table_unique_ratio": 0.166667
+        },
+        "format_variant": "modern-heuristic",
+        "literal_string_count": 11,
+        "node_count": 53,
+        "op_count": 6,
+        "op_table_len": 6,
+        "op_table_max": 5,
+        "op_table_min": 5,
+        "op_table_offset": 16,
+        "op_table_unique": 1,
+        "sections": {
+          "literal_pool": 124,
+          "literal_start": 453,
+          "nodes": 425,
+          "nodes_start": 28,
+          "op_table": 12
+        },
+        "tag_counts": {
+          "0": 3,
+          "1": 1,
+          "3": 4,
+          "4": 17,
+          "5": 28
+        },
+        "tag_total_count": 53,
+        "tags_present": [
+          0,
+          1,
+          3,
+          4,
+          5
+        ],
+        "tags_present_count": 5,
+        "validation": {
+          "edge_fields_in_bounds": 100,
+          "edge_fields_total": 106,
+          "node_remainder_bytes": 1,
+          "node_stride_bytes": 8
+        }
+      },
+      "label": "unknown",
+      "paths_count": 1,
+      "paths_sample": [
+        "book/experiments/vfs-canonicalization/sb/build/vfs_both_paths.sb.bin"
+      ],
+      "representative_path": "book/experiments/vfs-canonicalization/sb/build/vfs_both_paths.sb.bin",
+      "size": 577
     },
     {
       "blob_sha256": "2d95e9424782d203e4450ec2273534e1db35a1eb7ec285a0f54a906258a461fd",
@@ -2117,6 +2353,121 @@
       ],
       "representative_path": "book/experiments/libsandbox-encoder/out/matrix_v2.sb.bin",
       "size": 582
+    },
+    {
+      "blob_sha256": "2f0f0b7b89cdaeb7e80c405f7656001d9d241de7d03348398830a464b2be66c3",
+      "features": {
+        "derived": {
+          "literal_pool_bytes_per_node": 0.481481,
+          "literal_pool_bytes_ratio": 0.052846,
+          "literal_strings_per_node": 0.018519,
+          "nodes_bytes_ratio": 0.882114,
+          "op_table_unique_ratio": 0.25
+        },
+        "format_variant": "modern-heuristic",
+        "literal_string_count": 1,
+        "node_count": 54,
+        "op_count": 8,
+        "op_table_len": 8,
+        "op_table_max": 7,
+        "op_table_min": 6,
+        "op_table_offset": 16,
+        "op_table_unique": 2,
+        "sections": {
+          "literal_pool": 26,
+          "literal_start": 466,
+          "nodes": 434,
+          "nodes_start": 32,
+          "op_table": 16
+        },
+        "tag_counts": {
+          "0": 6,
+          "1": 2,
+          "3": 1,
+          "6": 15,
+          "7": 30
+        },
+        "tag_total_count": 54,
+        "tags_present": [
+          0,
+          1,
+          3,
+          6,
+          7
+        ],
+        "tags_present_count": 5,
+        "validation": {
+          "edge_fields_in_bounds": 108,
+          "edge_fields_total": 108,
+          "node_remainder_bytes": 2,
+          "node_stride_bytes": 8
+        }
+      },
+      "label": "unknown",
+      "paths_count": 2,
+      "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/pair_dp_all_inet_tcp_order2.sb.bin",
+        "book/experiments/libsandbox-encoder/out/network_matrix/pair_dp_all_inet_tcp_order2.sb.bin"
+      ],
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/pair_dp_all_inet_tcp_order2.sb.bin",
+      "size": 492
+    },
+    {
+      "blob_sha256": "301effc2b71bada5c32debecdd12dfe70ec3571a5d6e9c349f7efb6f2d4f474e",
+      "features": {
+        "derived": {
+          "literal_pool_bytes_per_node": 1.615385,
+          "literal_pool_bytes_ratio": 0.157303,
+          "literal_strings_per_node": 0.057692,
+          "nodes_bytes_ratio": 0.790262,
+          "op_table_unique_ratio": 0.166667
+        },
+        "format_variant": "modern-heuristic",
+        "literal_string_count": 3,
+        "node_count": 52,
+        "op_count": 6,
+        "op_table_len": 6,
+        "op_table_max": 5,
+        "op_table_min": 5,
+        "op_table_offset": 16,
+        "op_table_unique": 1,
+        "sections": {
+          "literal_pool": 84,
+          "literal_start": 450,
+          "nodes": 422,
+          "nodes_start": 28,
+          "op_table": 12
+        },
+        "tag_counts": {
+          "0": 2,
+          "1": 1,
+          "3": 4,
+          "4": 17,
+          "5": 28
+        },
+        "tag_total_count": 52,
+        "tags_present": [
+          0,
+          1,
+          3,
+          4,
+          5
+        ],
+        "tags_present_count": 5,
+        "validation": {
+          "edge_fields_in_bounds": 99,
+          "edge_fields_total": 104,
+          "node_remainder_bytes": 6,
+          "node_stride_bytes": 8
+        }
+      },
+      "label": "unknown",
+      "paths_count": 1,
+      "paths_sample": [
+        "book/experiments/vfs-canonicalization/sb/build/vfs_link_both.sb.bin"
+      ],
+      "representative_path": "book/experiments/vfs-canonicalization/sb/build/vfs_link_both.sb.bin",
+      "size": 534
     },
     {
       "blob_sha256": "32306bbba824add4f3f0bf66fe74d219181b33f9958d68afe906380770fa9082",
@@ -2453,15 +2804,15 @@
         }
       },
       "label": "apply_gated",
-      "paths_count": 6,
+      "paths_count": 5,
       "paths_sample": [
-        "book/experiments/golden-corpus/out/blobs/platform_airlock.sb.bin",
         "book/experiments/runtime-checks/out/decoded_blobs/sys_airlock.sb.bin",
         "book/experiments/runtime-checks/out/recompiled/airlock.recompiled.sb.bin",
         "book/experiments/runtime-checks/out/sb_build/airlock.sb.bin",
-        "book/graph/concepts/validation/fixtures/blobs/airlock.sb.bin"
+        "book/graph/concepts/validation/fixtures/blobs/airlock.sb.bin",
+        "book/graph/mappings/runtime/decoded_blobs/sys_airlock.sb.bin"
       ],
-      "representative_path": "book/experiments/golden-corpus/out/blobs/platform_airlock.sb.bin",
+      "representative_path": "book/experiments/runtime-checks/out/decoded_blobs/sys_airlock.sb.bin",
       "size": 4662
     },
     {
@@ -2954,13 +3305,14 @@
         }
       },
       "label": "unknown",
-      "paths_count": 3,
+      "paths_count": 4,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/domain_af_inet.sb.bin",
         "book/experiments/field2-filters/sb/build/v5_socket_domain.sb.bin",
         "book/experiments/flow-divert-2560/sb/build/fd_domain_only.sb.bin",
         "book/experiments/libsandbox-encoder/out/network_matrix/domain_af_inet.sb.bin"
       ],
-      "representative_path": "book/experiments/field2-filters/sb/build/v5_socket_domain.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/domain_af_inet.sb.bin",
       "size": 484
     },
     {
@@ -3173,10 +3525,9 @@
         }
       },
       "label": "unknown",
-      "paths_count": 2,
+      "paths_count": 1,
       "paths_sample": [
-        "book/experiments/metadata-runner/sb/build/metadata_canonical_only.sb.bin",
-        "book/experiments/vfs-canonicalization/sb/build/vfs_private_tmp_only.sb.bin"
+        "book/experiments/metadata-runner/sb/build/metadata_canonical_only.sb.bin"
       ],
       "representative_path": "book/experiments/metadata-runner/sb/build/metadata_canonical_only.sb.bin",
       "size": 526
@@ -3231,11 +3582,12 @@
         }
       },
       "label": "unknown",
-      "paths_count": 1,
+      "paths_count": 2,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/pair_dp_all_system_tcp.sb.bin",
         "book/experiments/libsandbox-encoder/out/network_matrix/pair_dp_all_system_tcp.sb.bin"
       ],
-      "representative_path": "book/experiments/libsandbox-encoder/out/network_matrix/pair_dp_all_system_tcp.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/pair_dp_all_system_tcp.sb.bin",
       "size": 492
     },
     {
@@ -3352,11 +3704,12 @@
         }
       },
       "label": "unknown",
-      "paths_count": 1,
+      "paths_count": 2,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/pair_dt_any_system_stream.sb.bin",
         "book/experiments/libsandbox-encoder/out/network_matrix/pair_dt_any_system_stream.sb.bin"
       ],
-      "representative_path": "book/experiments/libsandbox-encoder/out/network_matrix/pair_dt_any_system_stream.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/pair_dt_any_system_stream.sb.bin",
       "size": 492
     },
     {
@@ -4044,11 +4397,12 @@
         }
       },
       "label": "unknown",
-      "paths_count": 1,
+      "paths_count": 2,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/pair_tp_any_stream_tcp.sb.bin",
         "book/experiments/libsandbox-encoder/out/network_matrix/pair_tp_any_stream_tcp.sb.bin"
       ],
-      "representative_path": "book/experiments/libsandbox-encoder/out/network_matrix/pair_tp_any_stream_tcp.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/pair_tp_any_stream_tcp.sb.bin",
       "size": 492
     },
     {
@@ -4103,12 +4457,13 @@
         }
       },
       "label": "unknown",
-      "paths_count": 2,
+      "paths_count": 3,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/triple_any_tcp.sb.bin",
         "book/experiments/flow-divert-2560/sb/build/fd_domain_type_proto_any_tcp.sb.bin",
         "book/experiments/libsandbox-encoder/out/network_matrix/triple_any_tcp.sb.bin"
       ],
-      "representative_path": "book/experiments/flow-divert-2560/sb/build/fd_domain_type_proto_any_tcp.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/triple_any_tcp.sb.bin",
       "size": 500
     },
     {
@@ -4161,11 +4516,12 @@
         }
       },
       "label": "unknown",
-      "paths_count": 1,
+      "paths_count": 2,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/pair_dp_any_inet_udp.sb.bin",
         "book/experiments/libsandbox-encoder/out/network_matrix/pair_dp_any_inet_udp.sb.bin"
       ],
-      "representative_path": "book/experiments/libsandbox-encoder/out/network_matrix/pair_dp_any_inet_udp.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/pair_dp_any_inet_udp.sb.bin",
       "size": 492
     },
     {
@@ -4275,11 +4631,12 @@
         }
       },
       "label": "unknown",
-      "paths_count": 1,
+      "paths_count": 2,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/pair_tp_all_stream_256.sb.bin",
         "book/experiments/libsandbox-encoder/out/network_matrix/pair_tp_all_stream_256.sb.bin"
       ],
-      "representative_path": "book/experiments/libsandbox-encoder/out/network_matrix/pair_tp_all_stream_256.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/pair_tp_all_stream_256.sb.bin",
       "size": 492
     },
     {
@@ -4556,11 +4913,12 @@
         }
       },
       "label": "unknown",
-      "paths_count": 1,
+      "paths_count": 2,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/pair_dt_any_inet_dgram.sb.bin",
         "book/experiments/libsandbox-encoder/out/network_matrix/pair_dt_any_inet_dgram.sb.bin"
       ],
-      "representative_path": "book/experiments/libsandbox-encoder/out/network_matrix/pair_dt_any_inet_dgram.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/pair_dt_any_inet_dgram.sb.bin",
       "size": 492
     },
     {
@@ -4613,13 +4971,14 @@
         }
       },
       "label": "unknown",
-      "paths_count": 3,
+      "paths_count": 4,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/pair_dp_all_inet_tcp.sb.bin",
         "book/experiments/field2-filters/sb/build/net_require_all_domain_proto.sb.bin",
         "book/experiments/flow-divert-2560/sb/build/fd_domain_proto_all_tcp.sb.bin",
         "book/experiments/libsandbox-encoder/out/network_matrix/pair_dp_all_inet_tcp.sb.bin"
       ],
-      "representative_path": "book/experiments/field2-filters/sb/build/net_require_all_domain_proto.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/pair_dp_all_inet_tcp.sb.bin",
       "size": 492
     },
     {
@@ -4798,6 +5157,63 @@
       "size": 440
     },
     {
+      "blob_sha256": "6dbca71c79357b08148385510b0932c9e13f14563f0ef1a26445e08b566829da",
+      "features": {
+        "derived": {
+          "literal_pool_bytes_per_node": 0.679245,
+          "literal_pool_bytes_ratio": 0.07362,
+          "literal_strings_per_node": 0.037736,
+          "nodes_bytes_ratio": 0.869121,
+          "op_table_unique_ratio": 0.166667
+        },
+        "format_variant": "modern-heuristic",
+        "literal_string_count": 2,
+        "node_count": 53,
+        "op_count": 6,
+        "op_table_len": 6,
+        "op_table_max": 5,
+        "op_table_min": 5,
+        "op_table_offset": 16,
+        "op_table_unique": 1,
+        "sections": {
+          "literal_pool": 36,
+          "literal_start": 453,
+          "nodes": 425,
+          "nodes_start": 28,
+          "op_table": 12
+        },
+        "tag_counts": {
+          "0": 3,
+          "1": 1,
+          "3": 1,
+          "4": 17,
+          "5": 31
+        },
+        "tag_total_count": 53,
+        "tags_present": [
+          0,
+          1,
+          3,
+          4,
+          5
+        ],
+        "tags_present_count": 5,
+        "validation": {
+          "edge_fields_in_bounds": 101,
+          "edge_fields_total": 106,
+          "node_remainder_bytes": 1,
+          "node_stride_bytes": 8
+        }
+      },
+      "label": "unknown",
+      "paths_count": 1,
+      "paths_sample": [
+        "book/experiments/vfs-canonicalization/sb/build/vfs_etc_both.sb.bin"
+      ],
+      "representative_path": "book/experiments/vfs-canonicalization/sb/build/vfs_etc_both.sb.bin",
+      "size": 489
+    },
+    {
       "blob_sha256": "6f45df0fc01b59c0d06d9726ad6906d78173f01db0992cdd0c4cc35e4198b511",
       "features": {
         "derived": {
@@ -4847,11 +5263,12 @@
         }
       },
       "label": "unknown",
-      "paths_count": 1,
+      "paths_count": 2,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/pair_tp_any_stream_udp.sb.bin",
         "book/experiments/libsandbox-encoder/out/network_matrix/pair_tp_any_stream_udp.sb.bin"
       ],
-      "representative_path": "book/experiments/libsandbox-encoder/out/network_matrix/pair_tp_any_stream_udp.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/pair_tp_any_stream_udp.sb.bin",
       "size": 492
     },
     {
@@ -5058,6 +5475,63 @@
       ],
       "representative_path": "book/experiments/op-table-operation/sb/build/v16_subpath_mach_literal.sb.bin",
       "size": 527
+    },
+    {
+      "blob_sha256": "719aaf198b48ea15d30dffb4fbbabb3d7b9048fb9337cc8a11d6fe7a583aedb7",
+      "features": {
+        "derived": {
+          "literal_pool_bytes_per_node": 0.692308,
+          "literal_pool_bytes_ratio": 0.074074,
+          "literal_strings_per_node": 0.019231,
+          "nodes_bytes_ratio": 0.868313,
+          "op_table_unique_ratio": 0.166667
+        },
+        "format_variant": "modern-heuristic",
+        "literal_string_count": 1,
+        "node_count": 52,
+        "op_count": 6,
+        "op_table_len": 6,
+        "op_table_max": 5,
+        "op_table_min": 5,
+        "op_table_offset": 16,
+        "op_table_unique": 1,
+        "sections": {
+          "literal_pool": 36,
+          "literal_start": 450,
+          "nodes": 422,
+          "nodes_start": 28,
+          "op_table": 12
+        },
+        "tag_counts": {
+          "0": 2,
+          "1": 1,
+          "3": 4,
+          "4": 17,
+          "5": 28
+        },
+        "tag_total_count": 52,
+        "tags_present": [
+          0,
+          1,
+          3,
+          4,
+          5
+        ],
+        "tags_present_count": 5,
+        "validation": {
+          "edge_fields_in_bounds": 99,
+          "edge_fields_total": 104,
+          "node_remainder_bytes": 6,
+          "node_stride_bytes": 8
+        }
+      },
+      "label": "unknown",
+      "paths_count": 1,
+      "paths_sample": [
+        "book/experiments/vfs-canonicalization/sb/build/vfs_firmlink_private_only.sb.bin"
+      ],
+      "representative_path": "book/experiments/vfs-canonicalization/sb/build/vfs_firmlink_private_only.sb.bin",
+      "size": 486
     },
     {
       "blob_sha256": "72c7588bd349c9aff96169a4b7f9676c3558779589833083dc74ca7c0f80bf55",
@@ -5385,14 +5859,72 @@
         }
       },
       "label": "unknown",
-      "paths_count": 3,
+      "paths_count": 4,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/pair_tp_all_stream_tcp.sb.bin",
         "book/experiments/field2-filters/sb/build/net_require_all_type_proto.sb.bin",
         "book/experiments/flow-divert-2560/sb/build/fd_type_proto_all_tcp.sb.bin",
         "book/experiments/libsandbox-encoder/out/network_matrix/pair_tp_all_stream_tcp.sb.bin"
       ],
-      "representative_path": "book/experiments/field2-filters/sb/build/net_require_all_type_proto.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/pair_tp_all_stream_tcp.sb.bin",
       "size": 492
+    },
+    {
+      "blob_sha256": "7cb0207521fe67ec3a592d1f0650fff1c959e905f12af69b55b44d5eb969dc76",
+      "features": {
+        "derived": {
+          "literal_pool_bytes_per_node": 1.307692,
+          "literal_pool_bytes_ratio": 0.131274,
+          "literal_strings_per_node": 0.115385,
+          "nodes_bytes_ratio": 0.814672,
+          "op_table_unique_ratio": 0.166667
+        },
+        "format_variant": "modern-heuristic",
+        "literal_string_count": 6,
+        "node_count": 52,
+        "op_count": 6,
+        "op_table_len": 6,
+        "op_table_max": 5,
+        "op_table_min": 5,
+        "op_table_offset": 16,
+        "op_table_unique": 1,
+        "sections": {
+          "literal_pool": 68,
+          "literal_start": 450,
+          "nodes": 422,
+          "nodes_start": 28,
+          "op_table": 12
+        },
+        "tag_counts": {
+          "0": 2,
+          "1": 1,
+          "3": 4,
+          "4": 17,
+          "5": 28
+        },
+        "tag_total_count": 52,
+        "tags_present": [
+          0,
+          1,
+          3,
+          4,
+          5
+        ],
+        "tags_present_count": 5,
+        "validation": {
+          "edge_fields_in_bounds": 99,
+          "edge_fields_total": 104,
+          "node_remainder_bytes": 6,
+          "node_stride_bytes": 8
+        }
+      },
+      "label": "unknown",
+      "paths_count": 1,
+      "paths_sample": [
+        "book/experiments/vfs-canonicalization/sb/build/vfs_private_tmp_only.sb.bin"
+      ],
+      "representative_path": "book/experiments/vfs-canonicalization/sb/build/vfs_private_tmp_only.sb.bin",
+      "size": 518
     },
     {
       "blob_sha256": "7d12516180713d9725654d140dba0caad3e0bad303029f2a7ec1194dd6014766",
@@ -5508,6 +6040,63 @@
       ],
       "representative_path": "book/experiments/runtime-adversarial/out/sb_build/struct_flat.sb.bin",
       "size": 633
+    },
+    {
+      "blob_sha256": "7e50b5bde88cca62900b5841b110f810c328fad2e93d72e865af9bbdbcb9fe51",
+      "features": {
+        "derived": {
+          "literal_pool_bytes_per_node": 0.442308,
+          "literal_pool_bytes_ratio": 0.048626,
+          "literal_strings_per_node": 0.019231,
+          "nodes_bytes_ratio": 0.892178,
+          "op_table_unique_ratio": 0.166667
+        },
+        "format_variant": "modern-heuristic",
+        "literal_string_count": 1,
+        "node_count": 52,
+        "op_count": 6,
+        "op_table_len": 6,
+        "op_table_max": 5,
+        "op_table_min": 5,
+        "op_table_offset": 16,
+        "op_table_unique": 1,
+        "sections": {
+          "literal_pool": 23,
+          "literal_start": 450,
+          "nodes": 422,
+          "nodes_start": 28,
+          "op_table": 12
+        },
+        "tag_counts": {
+          "0": 2,
+          "1": 1,
+          "3": 1,
+          "4": 17,
+          "5": 31
+        },
+        "tag_total_count": 52,
+        "tags_present": [
+          0,
+          1,
+          3,
+          4,
+          5
+        ],
+        "tags_present_count": 5,
+        "validation": {
+          "edge_fields_in_bounds": 99,
+          "edge_fields_total": 104,
+          "node_remainder_bytes": 6,
+          "node_stride_bytes": 8
+        }
+      },
+      "label": "unknown",
+      "paths_count": 1,
+      "paths_sample": [
+        "book/experiments/vfs-canonicalization/sb/build/vfs_etc_private_only.sb.bin"
+      ],
+      "representative_path": "book/experiments/vfs-canonicalization/sb/build/vfs_etc_private_only.sb.bin",
+      "size": 473
     },
     {
       "blob_sha256": "807aca675a9078ef01f9e4545d6899c013b319757fca9f6550a79e03f461cecc",
@@ -5790,13 +6379,15 @@
         }
       },
       "label": "unknown",
-      "paths_count": 3,
+      "paths_count": 6,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/pair_dt_all_inet_stream.sb.bin",
+        "book/experiments/encoder-write-trace/out/blobs/pair_dt_all_inet_stream_file.sb.bin",
+        "book/experiments/encoder-write-trace/out/blobs/pair_dt_all_inet_stream_string.sb.bin",
         "book/experiments/field2-filters/sb/build/net_require_all_domain_type.sb.bin",
-        "book/experiments/flow-divert-2560/sb/build/fd_domain_type_all_tcp.sb.bin",
-        "book/experiments/libsandbox-encoder/out/network_matrix/pair_dt_all_inet_stream.sb.bin"
+        "book/experiments/flow-divert-2560/sb/build/fd_domain_type_all_tcp.sb.bin"
       ],
-      "representative_path": "book/experiments/field2-filters/sb/build/net_require_all_domain_type.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/pair_dt_all_inet_stream.sb.bin",
       "size": 492
     },
     {
@@ -6159,11 +6750,12 @@
         }
       },
       "label": "control",
-      "paths_count": 1,
+      "paths_count": 2,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/baseline_deny_all.sb.bin",
         "book/experiments/sbpl-graph-runtime/out/deny_all.sb.bin"
       ],
-      "representative_path": "book/experiments/sbpl-graph-runtime/out/deny_all.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/baseline_deny_all.sb.bin",
       "size": 493
     },
     {
@@ -6335,11 +6927,12 @@
         }
       },
       "label": "unknown",
-      "paths_count": 1,
+      "paths_count": 2,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/triple_all_inet_stream_udp.sb.bin",
         "book/experiments/libsandbox-encoder/out/network_matrix/triple_all_inet_stream_udp.sb.bin"
       ],
-      "representative_path": "book/experiments/libsandbox-encoder/out/network_matrix/triple_all_inet_stream_udp.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/triple_all_inet_stream_udp.sb.bin",
       "size": 500
     },
     {
@@ -6537,11 +7130,12 @@
         }
       },
       "label": "unknown",
-      "paths_count": 1,
+      "paths_count": 2,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/pair_dt_any_inet_stream.sb.bin",
         "book/experiments/libsandbox-encoder/out/network_matrix/pair_dt_any_inet_stream.sb.bin"
       ],
-      "representative_path": "book/experiments/libsandbox-encoder/out/network_matrix/pair_dt_any_inet_stream.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/pair_dt_any_inet_stream.sb.bin",
       "size": 492
     },
     {
@@ -6702,12 +7296,13 @@
         }
       },
       "label": "unknown",
-      "paths_count": 2,
+      "paths_count": 3,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/proto_tcp.sb.bin",
         "book/experiments/flow-divert-2560/sb/build/fd_proto_only_tcp.sb.bin",
         "book/experiments/libsandbox-encoder/out/network_matrix/proto_tcp.sb.bin"
       ],
-      "representative_path": "book/experiments/flow-divert-2560/sb/build/fd_proto_only_tcp.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/proto_tcp.sb.bin",
       "size": 484
     },
     {
@@ -6873,6 +7468,472 @@
       ],
       "representative_path": "book/experiments/gate-witnesses/out/micro_variants/base_v2_inner_deny_external_trap.sb.bin",
       "size": 513
+    },
+    {
+      "blob_sha256": "a4d9694067a16364b0b7066838156c7f0d8d14a02b96eab5d4b4da8f4f89fd6e",
+      "features": {
+        "derived": {
+          "literal_pool_bytes_per_node": 0.711538,
+          "literal_pool_bytes_ratio": 0.075975,
+          "literal_strings_per_node": 0.019231,
+          "nodes_bytes_ratio": 0.86653,
+          "op_table_unique_ratio": 0.166667
+        },
+        "format_variant": "modern-heuristic",
+        "literal_string_count": 1,
+        "node_count": 52,
+        "op_count": 6,
+        "op_table_len": 6,
+        "op_table_max": 5,
+        "op_table_min": 5,
+        "op_table_offset": 16,
+        "op_table_unique": 1,
+        "sections": {
+          "literal_pool": 37,
+          "literal_start": 450,
+          "nodes": 422,
+          "nodes_start": 28,
+          "op_table": 12
+        },
+        "tag_counts": {
+          "0": 2,
+          "1": 1,
+          "3": 4,
+          "4": 17,
+          "5": 28
+        },
+        "tag_total_count": 52,
+        "tags_present": [
+          0,
+          1,
+          3,
+          4,
+          5
+        ],
+        "tags_present_count": 5,
+        "validation": {
+          "edge_fields_in_bounds": 99,
+          "edge_fields_total": 104,
+          "node_remainder_bytes": 6,
+          "node_stride_bytes": 8
+        }
+      },
+      "label": "unknown",
+      "paths_count": 1,
+      "paths_sample": [
+        "book/experiments/vfs-canonicalization/sb/build/vfs_var_tmp_private_only.sb.bin"
+      ],
+      "representative_path": "book/experiments/vfs-canonicalization/sb/build/vfs_var_tmp_private_only.sb.bin",
+      "size": 487
+    },
+    {
+      "blob_sha256": "a5af6bc7385a55a22bf88b19535973e0bb245ea2531c47abdaa284548b97ba84",
+      "features": {
+        "derived": {
+          "literal_pool_bytes_per_node": 0.0,
+          "literal_pool_bytes_ratio": 0.0,
+          "literal_strings_per_node": 0.0,
+          "nodes_bytes_ratio": 0.972099,
+          "op_table_unique_ratio": 0.297297
+        },
+        "format_variant": "modern-heuristic",
+        "literal_string_count": 0,
+        "node_count": 2325,
+        "op_count": 259,
+        "op_table_len": 259,
+        "op_table_max": 31262,
+        "op_table_min": 0,
+        "op_table_offset": 16,
+        "op_table_unique": 77,
+        "sections": {
+          "literal_pool": 0,
+          "literal_start": 19139,
+          "nodes": 18605,
+          "nodes_start": 534,
+          "op_table": 518
+        },
+        "tag_counts": {
+          "0": 195,
+          "1": 10,
+          "10": 94,
+          "100": 51,
+          "101": 160,
+          "102": 33,
+          "103": 18,
+          "104": 19,
+          "105": 118,
+          "107": 7,
+          "108": 60,
+          "109": 35,
+          "11": 9,
+          "110": 91,
+          "111": 72,
+          "112": 68,
+          "113": 16,
+          "114": 89,
+          "115": 88,
+          "116": 90,
+          "117": 28,
+          "118": 21,
+          "119": 2,
+          "120": 17,
+          "121": 16,
+          "122": 2,
+          "123": 1,
+          "124": 1,
+          "125": 1,
+          "126": 1,
+          "128": 37,
+          "129": 1,
+          "130": 31,
+          "132": 3,
+          "134": 10,
+          "136": 1,
+          "138": 3,
+          "139": 1,
+          "140": 1,
+          "141": 1,
+          "145": 4,
+          "147": 2,
+          "148": 2,
+          "149": 1,
+          "15": 115,
+          "150": 2,
+          "151": 1,
+          "152": 1,
+          "153": 1,
+          "154": 2,
+          "155": 1,
+          "156": 1,
+          "157": 2,
+          "158": 1,
+          "159": 1,
+          "16": 1,
+          "160": 1,
+          "162": 2,
+          "163": 1,
+          "165": 1,
+          "166": 1,
+          "168": 3,
+          "169": 2,
+          "17": 1,
+          "170": 2,
+          "171": 1,
+          "173": 2,
+          "177": 1,
+          "180": 1,
+          "183": 1,
+          "185": 1,
+          "186": 1,
+          "188": 1,
+          "189": 2,
+          "19": 1,
+          "191": 3,
+          "194": 1,
+          "195": 1,
+          "196": 2,
+          "198": 2,
+          "2": 76,
+          "20": 1,
+          "201": 3,
+          "202": 1,
+          "203": 2,
+          "204": 1,
+          "205": 2,
+          "207": 1,
+          "208": 1,
+          "209": 1,
+          "21": 1,
+          "211": 3,
+          "212": 2,
+          "213": 1,
+          "214": 2,
+          "215": 2,
+          "216": 3,
+          "217": 1,
+          "22": 1,
+          "220": 3,
+          "222": 1,
+          "225": 4,
+          "227": 2,
+          "229": 2,
+          "230": 1,
+          "233": 1,
+          "234": 1,
+          "235": 1,
+          "238": 5,
+          "239": 1,
+          "241": 2,
+          "243": 2,
+          "246": 1,
+          "247": 1,
+          "249": 1,
+          "25": 1,
+          "250": 1,
+          "252": 2,
+          "253": 2,
+          "26": 1,
+          "27": 4,
+          "28": 1,
+          "29": 1,
+          "30": 1,
+          "31": 2,
+          "32": 3,
+          "35": 2,
+          "36": 1,
+          "39": 1,
+          "40": 1,
+          "41": 2,
+          "42": 1,
+          "43": 1,
+          "45": 9,
+          "46": 65,
+          "47": 49,
+          "48": 2,
+          "49": 1,
+          "50": 2,
+          "51": 1,
+          "52": 1,
+          "53": 1,
+          "57": 5,
+          "58": 1,
+          "61": 1,
+          "63": 5,
+          "64": 25,
+          "65": 2,
+          "66": 6,
+          "67": 14,
+          "68": 7,
+          "69": 5,
+          "70": 3,
+          "71": 7,
+          "72": 7,
+          "73": 9,
+          "74": 4,
+          "75": 8,
+          "76": 8,
+          "77": 6,
+          "78": 5,
+          "79": 4,
+          "8": 3,
+          "80": 5,
+          "81": 3,
+          "82": 1,
+          "83": 7,
+          "84": 2,
+          "85": 9,
+          "86": 1,
+          "87": 4,
+          "88": 1,
+          "9": 1,
+          "90": 2,
+          "91": 1,
+          "92": 3,
+          "93": 1,
+          "95": 8,
+          "97": 85,
+          "98": 27,
+          "99": 61
+        },
+        "tag_total_count": 2325,
+        "tags_present": [
+          0,
+          1,
+          2,
+          8,
+          9,
+          10,
+          11,
+          15,
+          16,
+          17,
+          19,
+          20,
+          21,
+          22,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          35,
+          36,
+          39,
+          40,
+          41,
+          42,
+          43,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52,
+          53,
+          57,
+          58,
+          61,
+          63,
+          64,
+          65,
+          66,
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          80,
+          81,
+          82,
+          83,
+          84,
+          85,
+          86,
+          87,
+          88,
+          90,
+          91,
+          92,
+          93,
+          95,
+          97,
+          98,
+          99,
+          100,
+          101,
+          102,
+          103,
+          104,
+          105,
+          107,
+          108,
+          109,
+          110,
+          111,
+          112,
+          113,
+          114,
+          115,
+          116,
+          117,
+          118,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          126,
+          128,
+          129,
+          130,
+          132,
+          134,
+          136,
+          138,
+          139,
+          140,
+          141,
+          145,
+          147,
+          148,
+          149,
+          150,
+          151,
+          152,
+          153,
+          154,
+          155,
+          156,
+          157,
+          158,
+          159,
+          160,
+          162,
+          163,
+          165,
+          166,
+          168,
+          169,
+          170,
+          171,
+          173,
+          177,
+          180,
+          183,
+          185,
+          186,
+          188,
+          189,
+          191,
+          194,
+          195,
+          196,
+          198,
+          201,
+          202,
+          203,
+          204,
+          205,
+          207,
+          208,
+          209,
+          211,
+          212,
+          213,
+          214,
+          215,
+          216,
+          217,
+          220,
+          222,
+          225,
+          227,
+          229,
+          230,
+          233,
+          234,
+          235,
+          238,
+          239,
+          241,
+          243,
+          246,
+          247,
+          249,
+          250,
+          252,
+          253
+        ],
+        "tags_present_count": 181,
+        "validation": {
+          "edge_fields_in_bounds": 880,
+          "edge_fields_total": 4650,
+          "node_remainder_bytes": 5,
+          "node_stride_bytes": 8
+        }
+      },
+      "label": "unknown",
+      "paths_count": 1,
+      "paths_sample": [
+        "book/experiments/entitlement-diff/sb/build/appsandbox-downloads-rw.sb.bin"
+      ],
+      "representative_path": "book/experiments/entitlement-diff/sb/build/appsandbox-downloads-rw.sb.bin",
+      "size": 19139
     },
     {
       "blob_sha256": "a719e4984993099ece41feb62bd3d10d026bda230327672903576c7f9f230b8d",
@@ -7042,11 +8103,12 @@
         }
       },
       "label": "unknown",
-      "paths_count": 1,
+      "paths_count": 2,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/pair_tp_any_dgram_tcp.sb.bin",
         "book/experiments/libsandbox-encoder/out/network_matrix/pair_tp_any_dgram_tcp.sb.bin"
       ],
-      "representative_path": "book/experiments/libsandbox-encoder/out/network_matrix/pair_tp_any_dgram_tcp.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/pair_tp_any_dgram_tcp.sb.bin",
       "size": 492
     },
     {
@@ -7101,12 +8163,13 @@
         }
       },
       "label": "unknown",
-      "paths_count": 2,
+      "paths_count": 3,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/triple_all_tcp_order2.sb.bin",
         "book/experiments/flow-divert-2560/sb/build/fd_domain_type_proto_all_tcp_order2.sb.bin",
         "book/experiments/libsandbox-encoder/out/network_matrix/triple_all_tcp_order2.sb.bin"
       ],
-      "representative_path": "book/experiments/flow-divert-2560/sb/build/fd_domain_type_proto_all_tcp_order2.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/triple_all_tcp_order2.sb.bin",
       "size": 500
     },
     {
@@ -7267,11 +8330,12 @@
         }
       },
       "label": "unknown",
-      "paths_count": 1,
+      "paths_count": 2,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/type_sock_dgram.sb.bin",
         "book/experiments/libsandbox-encoder/out/network_matrix/type_sock_dgram.sb.bin"
       ],
-      "representative_path": "book/experiments/libsandbox-encoder/out/network_matrix/type_sock_dgram.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/type_sock_dgram.sb.bin",
       "size": 484
     },
     {
@@ -7324,12 +8388,13 @@
         }
       },
       "label": "unknown",
-      "paths_count": 2,
+      "paths_count": 3,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/type_sock_stream.sb.bin",
         "book/experiments/flow-divert-2560/sb/build/fd_type_only.sb.bin",
         "book/experiments/libsandbox-encoder/out/network_matrix/type_sock_stream.sb.bin"
       ],
-      "representative_path": "book/experiments/flow-divert-2560/sb/build/fd_type_only.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/type_sock_stream.sb.bin",
       "size": 484
     },
     {
@@ -7382,11 +8447,70 @@
         }
       },
       "label": "unknown",
-      "paths_count": 1,
+      "paths_count": 2,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/pair_dp_all_inet_udp.sb.bin",
         "book/experiments/libsandbox-encoder/out/network_matrix/pair_dp_all_inet_udp.sb.bin"
       ],
-      "representative_path": "book/experiments/libsandbox-encoder/out/network_matrix/pair_dp_all_inet_udp.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/pair_dp_all_inet_udp.sb.bin",
+      "size": 492
+    },
+    {
+      "blob_sha256": "bb62dc5971b06dd425dfd88a9faba94263bbf45b585853ee3f5667aac30e1aec",
+      "features": {
+        "derived": {
+          "literal_pool_bytes_per_node": 0.481481,
+          "literal_pool_bytes_ratio": 0.052846,
+          "literal_strings_per_node": 0.018519,
+          "nodes_bytes_ratio": 0.882114,
+          "op_table_unique_ratio": 0.25
+        },
+        "format_variant": "modern-heuristic",
+        "literal_string_count": 1,
+        "node_count": 54,
+        "op_count": 8,
+        "op_table_len": 8,
+        "op_table_max": 7,
+        "op_table_min": 6,
+        "op_table_offset": 16,
+        "op_table_unique": 2,
+        "sections": {
+          "literal_pool": 26,
+          "literal_start": 466,
+          "nodes": 434,
+          "nodes_start": 32,
+          "op_table": 16
+        },
+        "tag_counts": {
+          "0": 6,
+          "1": 2,
+          "3": 1,
+          "6": 15,
+          "7": 30
+        },
+        "tag_total_count": 54,
+        "tags_present": [
+          0,
+          1,
+          3,
+          6,
+          7
+        ],
+        "tags_present_count": 5,
+        "validation": {
+          "edge_fields_in_bounds": 108,
+          "edge_fields_total": 108,
+          "node_remainder_bytes": 2,
+          "node_stride_bytes": 8
+        }
+      },
+      "label": "unknown",
+      "paths_count": 2,
+      "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/pair_dt_all_inet_stream_order2.sb.bin",
+        "book/experiments/libsandbox-encoder/out/network_matrix/pair_dt_all_inet_stream_order2.sb.bin"
+      ],
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/pair_dt_all_inet_stream_order2.sb.bin",
       "size": 492
     },
     {
@@ -7437,10 +8561,9 @@
         }
       },
       "label": "unknown",
-      "paths_count": 2,
+      "paths_count": 1,
       "paths_sample": [
-        "book/experiments/metadata-runner/sb/build/metadata_both_paths.sb.bin",
-        "book/experiments/vfs-canonicalization/sb/build/vfs_both_paths.sb.bin"
+        "book/experiments/metadata-runner/sb/build/metadata_both_paths.sb.bin"
       ],
       "representative_path": "book/experiments/metadata-runner/sb/build/metadata_both_paths.sb.bin",
       "size": 585
@@ -7495,11 +8618,12 @@
         }
       },
       "label": "unknown",
-      "paths_count": 1,
+      "paths_count": 2,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/pair_dp_all_inet_256.sb.bin",
         "book/experiments/libsandbox-encoder/out/network_matrix/pair_dp_all_inet_256.sb.bin"
       ],
-      "representative_path": "book/experiments/libsandbox-encoder/out/network_matrix/pair_dp_all_inet_256.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/pair_dp_all_inet_256.sb.bin",
       "size": 492
     },
     {
@@ -7668,12 +8792,13 @@
         }
       },
       "label": "unknown",
-      "paths_count": 2,
+      "paths_count": 3,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/proto_udp.sb.bin",
         "book/experiments/flow-divert-2560/sb/build/fd_proto_only_udp.sb.bin",
         "book/experiments/libsandbox-encoder/out/network_matrix/proto_udp.sb.bin"
       ],
-      "representative_path": "book/experiments/flow-divert-2560/sb/build/fd_proto_only_udp.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/proto_udp.sb.bin",
       "size": 484
     },
     {
@@ -7726,11 +8851,12 @@
         }
       },
       "label": "unknown",
-      "paths_count": 1,
+      "paths_count": 2,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/pair_tp_all_stream_udp.sb.bin",
         "book/experiments/libsandbox-encoder/out/network_matrix/pair_tp_all_stream_udp.sb.bin"
       ],
-      "representative_path": "book/experiments/libsandbox-encoder/out/network_matrix/pair_tp_all_stream_udp.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/pair_tp_all_stream_udp.sb.bin",
       "size": 492
     },
     {
@@ -7961,11 +9087,12 @@
         }
       },
       "label": "unknown",
-      "paths_count": 1,
+      "paths_count": 2,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/triple_all_inet_dgram_tcp.sb.bin",
         "book/experiments/libsandbox-encoder/out/network_matrix/triple_all_inet_dgram_tcp.sb.bin"
       ],
-      "representative_path": "book/experiments/libsandbox-encoder/out/network_matrix/triple_all_inet_dgram_tcp.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/triple_all_inet_dgram_tcp.sb.bin",
       "size": 500
     },
     {
@@ -8132,6 +9259,413 @@
       "size": 479
     },
     {
+      "blob_sha256": "cd0379c89a50d48e06320774c0d6f5109d39b363e160217045bffa83310c86d9",
+      "features": {
+        "derived": {
+          "literal_pool_bytes_per_node": 0.0,
+          "literal_pool_bytes_ratio": 0.0,
+          "literal_strings_per_node": 0.0,
+          "nodes_bytes_ratio": 0.97239,
+          "op_table_unique_ratio": 0.294118
+        },
+        "format_variant": "modern-heuristic",
+        "literal_string_count": 0,
+        "node_count": 2315,
+        "op_count": 255,
+        "op_table_len": 255,
+        "op_table_max": 31262,
+        "op_table_min": 0,
+        "op_table_offset": 16,
+        "op_table_unique": 75,
+        "sections": {
+          "literal_pool": 0,
+          "literal_start": 19051,
+          "nodes": 18525,
+          "nodes_start": 526,
+          "op_table": 510
+        },
+        "tag_counts": {
+          "0": 193,
+          "1": 7,
+          "10": 96,
+          "100": 49,
+          "101": 154,
+          "102": 34,
+          "103": 18,
+          "104": 20,
+          "105": 121,
+          "107": 7,
+          "108": 61,
+          "109": 37,
+          "11": 9,
+          "110": 92,
+          "111": 69,
+          "112": 73,
+          "113": 15,
+          "114": 90,
+          "115": 89,
+          "116": 91,
+          "117": 27,
+          "118": 21,
+          "119": 2,
+          "120": 16,
+          "121": 16,
+          "122": 2,
+          "123": 1,
+          "124": 1,
+          "125": 1,
+          "127": 2,
+          "128": 32,
+          "130": 31,
+          "131": 3,
+          "133": 1,
+          "134": 10,
+          "135": 1,
+          "137": 3,
+          "138": 1,
+          "139": 1,
+          "140": 1,
+          "144": 4,
+          "146": 2,
+          "147": 1,
+          "148": 2,
+          "149": 1,
+          "15": 115,
+          "150": 2,
+          "151": 1,
+          "153": 3,
+          "154": 1,
+          "155": 1,
+          "157": 2,
+          "158": 2,
+          "159": 1,
+          "16": 1,
+          "160": 1,
+          "161": 1,
+          "163": 1,
+          "164": 1,
+          "166": 3,
+          "167": 1,
+          "168": 1,
+          "169": 2,
+          "17": 1,
+          "170": 1,
+          "171": 2,
+          "175": 1,
+          "180": 1,
+          "183": 2,
+          "184": 1,
+          "186": 1,
+          "187": 2,
+          "189": 3,
+          "19": 1,
+          "194": 3,
+          "195": 1,
+          "196": 1,
+          "198": 1,
+          "199": 3,
+          "2": 40,
+          "20": 1,
+          "200": 1,
+          "201": 1,
+          "202": 1,
+          "203": 3,
+          "205": 1,
+          "206": 1,
+          "209": 4,
+          "21": 1,
+          "210": 1,
+          "212": 3,
+          "213": 2,
+          "214": 2,
+          "215": 1,
+          "216": 1,
+          "218": 3,
+          "22": 1,
+          "220": 1,
+          "223": 4,
+          "225": 2,
+          "226": 1,
+          "229": 1,
+          "230": 1,
+          "231": 1,
+          "234": 5,
+          "235": 1,
+          "237": 2,
+          "239": 2,
+          "242": 1,
+          "243": 1,
+          "244": 1,
+          "245": 1,
+          "246": 1,
+          "248": 2,
+          "249": 2,
+          "25": 1,
+          "253": 3,
+          "254": 37,
+          "26": 1,
+          "27": 4,
+          "28": 1,
+          "29": 1,
+          "30": 1,
+          "31": 2,
+          "32": 1,
+          "35": 2,
+          "36": 1,
+          "39": 1,
+          "40": 1,
+          "41": 2,
+          "42": 1,
+          "43": 1,
+          "45": 8,
+          "46": 63,
+          "47": 48,
+          "48": 2,
+          "49": 1,
+          "50": 2,
+          "51": 1,
+          "52": 1,
+          "53": 1,
+          "57": 5,
+          "58": 1,
+          "61": 1,
+          "63": 5,
+          "64": 23,
+          "65": 3,
+          "66": 6,
+          "67": 13,
+          "68": 6,
+          "69": 5,
+          "70": 3,
+          "71": 7,
+          "72": 7,
+          "73": 9,
+          "74": 5,
+          "75": 8,
+          "76": 8,
+          "77": 6,
+          "78": 5,
+          "79": 4,
+          "8": 2,
+          "80": 5,
+          "81": 3,
+          "82": 1,
+          "83": 7,
+          "84": 2,
+          "85": 9,
+          "86": 1,
+          "87": 4,
+          "88": 1,
+          "9": 1,
+          "90": 2,
+          "91": 1,
+          "92": 3,
+          "93": 1,
+          "95": 9,
+          "97": 84,
+          "98": 28,
+          "99": 62
+        },
+        "tag_total_count": 2315,
+        "tags_present": [
+          0,
+          1,
+          2,
+          8,
+          9,
+          10,
+          11,
+          15,
+          16,
+          17,
+          19,
+          20,
+          21,
+          22,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          35,
+          36,
+          39,
+          40,
+          41,
+          42,
+          43,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52,
+          53,
+          57,
+          58,
+          61,
+          63,
+          64,
+          65,
+          66,
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          80,
+          81,
+          82,
+          83,
+          84,
+          85,
+          86,
+          87,
+          88,
+          90,
+          91,
+          92,
+          93,
+          95,
+          97,
+          98,
+          99,
+          100,
+          101,
+          102,
+          103,
+          104,
+          105,
+          107,
+          108,
+          109,
+          110,
+          111,
+          112,
+          113,
+          114,
+          115,
+          116,
+          117,
+          118,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          127,
+          128,
+          130,
+          131,
+          133,
+          134,
+          135,
+          137,
+          138,
+          139,
+          140,
+          144,
+          146,
+          147,
+          148,
+          149,
+          150,
+          151,
+          153,
+          154,
+          155,
+          157,
+          158,
+          159,
+          160,
+          161,
+          163,
+          164,
+          166,
+          167,
+          168,
+          169,
+          170,
+          171,
+          175,
+          180,
+          183,
+          184,
+          186,
+          187,
+          189,
+          194,
+          195,
+          196,
+          198,
+          199,
+          200,
+          201,
+          202,
+          203,
+          205,
+          206,
+          209,
+          210,
+          212,
+          213,
+          214,
+          215,
+          216,
+          218,
+          220,
+          223,
+          225,
+          226,
+          229,
+          230,
+          231,
+          234,
+          235,
+          237,
+          239,
+          242,
+          243,
+          244,
+          245,
+          246,
+          248,
+          249,
+          253,
+          254
+        ],
+        "tags_present_count": 180,
+        "validation": {
+          "edge_fields_in_bounds": 877,
+          "edge_fields_total": 4630,
+          "node_remainder_bytes": 5,
+          "node_stride_bytes": 8
+        }
+      },
+      "label": "unknown",
+      "paths_count": 1,
+      "paths_sample": [
+        "book/experiments/entitlement-diff/sb/build/appsandbox-bookmarks-app-scope.sb.bin"
+      ],
+      "representative_path": "book/experiments/entitlement-diff/sb/build/appsandbox-bookmarks-app-scope.sb.bin",
+      "size": 19051
+    },
+    {
       "blob_sha256": "ce88096ad30ae017c660f96bca1d6e7b056f4395d3628e0aae44f67f1ce7fe5a",
       "features": {
         "derived": {
@@ -8179,13 +9713,70 @@
         }
       },
       "label": "unknown",
-      "paths_count": 2,
+      "paths_count": 1,
       "paths_sample": [
-        "book/experiments/metadata-runner/sb/build/metadata_alias_only.sb.bin",
-        "book/experiments/vfs-canonicalization/sb/build/vfs_tmp_only.sb.bin"
+        "book/experiments/metadata-runner/sb/build/metadata_alias_only.sb.bin"
       ],
       "representative_path": "book/experiments/metadata-runner/sb/build/metadata_alias_only.sb.bin",
       "size": 518
+    },
+    {
+      "blob_sha256": "d126353bc1ff1de6ff9f826d83d4effb24ac51c8faff5a1b15a9449487a673a0",
+      "features": {
+        "derived": {
+          "literal_pool_bytes_per_node": 0.849057,
+          "literal_pool_bytes_ratio": 0.089463,
+          "literal_strings_per_node": 0.037736,
+          "nodes_bytes_ratio": 0.850895,
+          "op_table_unique_ratio": 0.285714
+        },
+        "format_variant": "modern-heuristic",
+        "literal_string_count": 2,
+        "node_count": 53,
+        "op_count": 7,
+        "op_table_len": 7,
+        "op_table_max": 6,
+        "op_table_min": 5,
+        "op_table_offset": 16,
+        "op_table_unique": 2,
+        "sections": {
+          "literal_pool": 45,
+          "literal_start": 458,
+          "nodes": 428,
+          "nodes_start": 30,
+          "op_table": 14
+        },
+        "tag_counts": {
+          "0": 3,
+          "1": 1,
+          "4": 1,
+          "5": 15,
+          "6": 33
+        },
+        "tag_total_count": 53,
+        "tags_present": [
+          0,
+          1,
+          4,
+          5,
+          6
+        ],
+        "tags_present_count": 5,
+        "validation": {
+          "edge_fields_in_bounds": 100,
+          "edge_fields_total": 106,
+          "node_remainder_bytes": 4,
+          "node_stride_bytes": 8
+        }
+      },
+      "label": "unknown",
+      "paths_count": 2,
+      "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/param_path_file_with_params.sb.bin",
+        "book/experiments/encoder-write-trace/out/blobs/param_path_string_with_params.sb.bin"
+      ],
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/param_path_file_with_params.sb.bin",
+      "size": 503
     },
     {
       "blob_sha256": "d18949a90b988318d970ee88ae55c38d3e65777abe6fd7ccdaade03418fdc78b",
@@ -8237,11 +9828,12 @@
         }
       },
       "label": "unknown",
-      "paths_count": 1,
+      "paths_count": 2,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/pair_dp_any_system_tcp.sb.bin",
         "book/experiments/libsandbox-encoder/out/network_matrix/pair_dp_any_system_tcp.sb.bin"
       ],
-      "representative_path": "book/experiments/libsandbox-encoder/out/network_matrix/pair_dp_any_system_tcp.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/pair_dp_any_system_tcp.sb.bin",
       "size": 492
     },
     {
@@ -8296,12 +9888,14 @@
         }
       },
       "label": "unknown",
-      "paths_count": 2,
+      "paths_count": 4,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/triple_all_inet_stream_256.sb.bin",
+        "book/experiments/encoder-write-trace/out/blobs/triple_nested_256.sb.bin",
         "book/experiments/libsandbox-encoder/out/network_matrix/triple_all_inet_stream_256.sb.bin",
         "book/experiments/libsandbox-encoder/out/network_matrix/triple_nested_256.sb.bin"
       ],
-      "representative_path": "book/experiments/libsandbox-encoder/out/network_matrix/triple_all_inet_stream_256.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/triple_all_inet_stream_256.sb.bin",
       "size": 500
     },
     {
@@ -8358,6 +9952,64 @@
       ],
       "representative_path": "book/experiments/gate-witnesses/out/micro_variants/base_v1_inner_deny_async_external_method.sb.bin",
       "size": 448
+    },
+    {
+      "blob_sha256": "d498aab1969dad5e6cea8992fb43b7c4df6274b93fa3e7688016dd959de68631",
+      "features": {
+        "derived": {
+          "literal_pool_bytes_per_node": 1.0,
+          "literal_pool_bytes_ratio": 0.103718,
+          "literal_strings_per_node": 0.037736,
+          "nodes_bytes_ratio": 0.837573,
+          "op_table_unique_ratio": 0.285714
+        },
+        "format_variant": "modern-heuristic",
+        "literal_string_count": 2,
+        "node_count": 53,
+        "op_count": 7,
+        "op_table_len": 7,
+        "op_table_max": 6,
+        "op_table_min": 5,
+        "op_table_offset": 16,
+        "op_table_unique": 2,
+        "sections": {
+          "literal_pool": 53,
+          "literal_start": 458,
+          "nodes": 428,
+          "nodes_start": 30,
+          "op_table": 14
+        },
+        "tag_counts": {
+          "0": 3,
+          "1": 1,
+          "4": 1,
+          "5": 15,
+          "6": 33
+        },
+        "tag_total_count": 53,
+        "tags_present": [
+          0,
+          1,
+          4,
+          5,
+          6
+        ],
+        "tags_present_count": 5,
+        "validation": {
+          "edge_fields_in_bounds": 100,
+          "edge_fields_total": 106,
+          "node_remainder_bytes": 4,
+          "node_stride_bytes": 8
+        }
+      },
+      "label": "unknown",
+      "paths_count": 2,
+      "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/param_path_file_with_params_alt.sb.bin",
+        "book/experiments/encoder-write-trace/out/blobs/param_path_string_with_params_alt.sb.bin"
+      ],
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/param_path_file_with_params_alt.sb.bin",
+      "size": 511
     },
     {
       "blob_sha256": "d4eab8542b7ebe583593d4b12d2183b5fd3ce6472a68ebf4e4a4dd21590186ff",
@@ -8537,6 +10189,454 @@
       "size": 456
     },
     {
+      "blob_sha256": "d772eb6ddb2507118a928a0176a2b24d4d1e33c324769248ffeddecd885cdcde",
+      "features": {
+        "derived": {
+          "literal_pool_bytes_per_node": 0.0,
+          "literal_pool_bytes_ratio": 0.0,
+          "literal_strings_per_node": 0.0,
+          "nodes_bytes_ratio": 0.972878,
+          "op_table_unique_ratio": 0.30566
+        },
+        "format_variant": "modern-heuristic",
+        "literal_string_count": 0,
+        "node_count": 2448,
+        "op_count": 265,
+        "op_table_len": 265,
+        "op_table_max": 31262,
+        "op_table_min": 0,
+        "op_table_offset": 16,
+        "op_table_unique": 81,
+        "sections": {
+          "literal_pool": 0,
+          "literal_start": 20131,
+          "nodes": 19585,
+          "nodes_start": 546,
+          "op_table": 530
+        },
+        "tag_counts": {
+          "0": 130,
+          "1": 10,
+          "10": 105,
+          "100": 36,
+          "101": 211,
+          "102": 16,
+          "103": 22,
+          "104": 16,
+          "105": 88,
+          "106": 1,
+          "107": 13,
+          "108": 87,
+          "109": 28,
+          "11": 2,
+          "110": 87,
+          "111": 79,
+          "112": 56,
+          "113": 2,
+          "114": 104,
+          "115": 84,
+          "116": 114,
+          "117": 24,
+          "118": 32,
+          "119": 10,
+          "12": 4,
+          "120": 12,
+          "121": 24,
+          "122": 2,
+          "123": 4,
+          "125": 1,
+          "127": 1,
+          "128": 25,
+          "129": 1,
+          "13": 1,
+          "130": 30,
+          "131": 1,
+          "133": 1,
+          "134": 8,
+          "135": 2,
+          "136": 2,
+          "14": 1,
+          "140": 2,
+          "141": 1,
+          "142": 3,
+          "143": 1,
+          "144": 1,
+          "146": 1,
+          "148": 2,
+          "149": 2,
+          "15": 120,
+          "151": 1,
+          "152": 1,
+          "153": 2,
+          "154": 1,
+          "155": 1,
+          "157": 1,
+          "158": 1,
+          "16": 1,
+          "160": 1,
+          "162": 1,
+          "163": 3,
+          "165": 1,
+          "167": 2,
+          "168": 1,
+          "17": 1,
+          "173": 1,
+          "176": 1,
+          "178": 1,
+          "181": 6,
+          "185": 1,
+          "186": 2,
+          "187": 3,
+          "19": 1,
+          "192": 1,
+          "198": 1,
+          "199": 1,
+          "2": 39,
+          "20": 7,
+          "203": 1,
+          "204": 1,
+          "206": 1,
+          "209": 1,
+          "21": 1,
+          "210": 1,
+          "211": 1,
+          "215": 1,
+          "216": 2,
+          "22": 2,
+          "223": 1,
+          "226": 1,
+          "227": 2,
+          "229": 1,
+          "23": 2,
+          "232": 1,
+          "233": 2,
+          "234": 2,
+          "235": 2,
+          "239": 1,
+          "24": 1,
+          "241": 1,
+          "242": 1,
+          "243": 1,
+          "245": 1,
+          "247": 1,
+          "252": 1,
+          "253": 1,
+          "255": 7,
+          "26": 3,
+          "28": 4,
+          "3": 3,
+          "31": 2,
+          "32": 6,
+          "36": 2,
+          "39": 1,
+          "4": 7,
+          "40": 1,
+          "41": 2,
+          "42": 14,
+          "44": 2,
+          "45": 19,
+          "46": 50,
+          "47": 67,
+          "48": 5,
+          "49": 2,
+          "5": 6,
+          "53": 2,
+          "54": 13,
+          "55": 3,
+          "57": 3,
+          "58": 2,
+          "59": 1,
+          "6": 3,
+          "60": 2,
+          "62": 6,
+          "64": 44,
+          "65": 10,
+          "66": 10,
+          "67": 17,
+          "68": 16,
+          "69": 12,
+          "70": 8,
+          "71": 11,
+          "72": 14,
+          "73": 28,
+          "74": 2,
+          "75": 3,
+          "76": 9,
+          "77": 7,
+          "78": 2,
+          "79": 4,
+          "8": 2,
+          "80": 10,
+          "81": 4,
+          "82": 7,
+          "83": 9,
+          "84": 5,
+          "85": 10,
+          "86": 2,
+          "87": 6,
+          "88": 1,
+          "89": 1,
+          "9": 2,
+          "90": 5,
+          "91": 4,
+          "92": 3,
+          "93": 7,
+          "94": 3,
+          "95": 8,
+          "96": 3,
+          "97": 84,
+          "98": 20,
+          "99": 88
+        },
+        "tag_total_count": 2448,
+        "tags_present": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          26,
+          28,
+          31,
+          32,
+          36,
+          39,
+          40,
+          41,
+          42,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          53,
+          54,
+          55,
+          57,
+          58,
+          59,
+          60,
+          62,
+          64,
+          65,
+          66,
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          80,
+          81,
+          82,
+          83,
+          84,
+          85,
+          86,
+          87,
+          88,
+          89,
+          90,
+          91,
+          92,
+          93,
+          94,
+          95,
+          96,
+          97,
+          98,
+          99,
+          100,
+          101,
+          102,
+          103,
+          104,
+          105,
+          106,
+          107,
+          108,
+          109,
+          110,
+          111,
+          112,
+          113,
+          114,
+          115,
+          116,
+          117,
+          118,
+          119,
+          120,
+          121,
+          122,
+          123,
+          125,
+          127,
+          128,
+          129,
+          130,
+          131,
+          133,
+          134,
+          135,
+          136,
+          140,
+          141,
+          142,
+          143,
+          144,
+          146,
+          148,
+          149,
+          151,
+          152,
+          153,
+          154,
+          155,
+          157,
+          158,
+          160,
+          162,
+          163,
+          165,
+          167,
+          168,
+          173,
+          176,
+          178,
+          181,
+          185,
+          186,
+          187,
+          192,
+          198,
+          199,
+          203,
+          204,
+          206,
+          209,
+          210,
+          211,
+          215,
+          216,
+          223,
+          226,
+          227,
+          229,
+          232,
+          233,
+          234,
+          235,
+          239,
+          241,
+          242,
+          243,
+          245,
+          247,
+          252,
+          253,
+          255
+        ],
+        "tags_present_count": 172,
+        "validation": {
+          "edge_fields_in_bounds": 1040,
+          "edge_fields_total": 4896,
+          "node_remainder_bytes": 1,
+          "node_stride_bytes": 8
+        }
+      },
+      "label": "unknown",
+      "paths_count": 1,
+      "paths_sample": [
+        "book/experiments/entitlement-diff/sb/build/appsandbox-net-client.sb.bin"
+      ],
+      "representative_path": "book/experiments/entitlement-diff/sb/build/appsandbox-net-client.sb.bin",
+      "size": 20131
+    },
+    {
+      "blob_sha256": "d974bc90cde76199e68500e81904bfad593cdb964fe55cc85dbc9c08dc301456",
+      "features": {
+        "derived": {
+          "literal_pool_bytes_per_node": 1.057692,
+          "literal_pool_bytes_ratio": 0.108911,
+          "literal_strings_per_node": 0.019231,
+          "nodes_bytes_ratio": 0.835644,
+          "op_table_unique_ratio": 0.166667
+        },
+        "format_variant": "modern-heuristic",
+        "literal_string_count": 1,
+        "node_count": 52,
+        "op_count": 6,
+        "op_table_len": 6,
+        "op_table_max": 5,
+        "op_table_min": 5,
+        "op_table_offset": 16,
+        "op_table_unique": 1,
+        "sections": {
+          "literal_pool": 55,
+          "literal_start": 450,
+          "nodes": 422,
+          "nodes_start": 28,
+          "op_table": 12
+        },
+        "tag_counts": {
+          "0": 2,
+          "1": 1,
+          "3": 4,
+          "4": 17,
+          "5": 28
+        },
+        "tag_total_count": 52,
+        "tags_present": [
+          0,
+          1,
+          3,
+          4,
+          5
+        ],
+        "tags_present_count": 5,
+        "validation": {
+          "edge_fields_in_bounds": 99,
+          "edge_fields_total": 104,
+          "node_remainder_bytes": 6,
+          "node_stride_bytes": 8
+        }
+      },
+      "label": "unknown",
+      "paths_count": 1,
+      "paths_sample": [
+        "book/experiments/vfs-canonicalization/sb/build/vfs_link_private_tmp_only.sb.bin"
+      ],
+      "representative_path": "book/experiments/vfs-canonicalization/sb/build/vfs_link_private_tmp_only.sb.bin",
+      "size": 505
+    },
+    {
       "blob_sha256": "d9e10e81e6338f2dbc5c7bd61194af2f05b3fff021991f556b1ccf0255257d15",
       "features": {
         "derived": {
@@ -8702,6 +10802,64 @@
       "size": 558
     },
     {
+      "blob_sha256": "dfb6048158014d726526c688b296f273134aff013889ef9e02ded4e0eade3ad3",
+      "features": {
+        "derived": {
+          "literal_pool_bytes_per_node": 0.481481,
+          "literal_pool_bytes_ratio": 0.052846,
+          "literal_strings_per_node": 0.018519,
+          "nodes_bytes_ratio": 0.882114,
+          "op_table_unique_ratio": 0.25
+        },
+        "format_variant": "modern-heuristic",
+        "literal_string_count": 1,
+        "node_count": 54,
+        "op_count": 8,
+        "op_table_len": 8,
+        "op_table_max": 7,
+        "op_table_min": 6,
+        "op_table_offset": 16,
+        "op_table_unique": 2,
+        "sections": {
+          "literal_pool": 26,
+          "literal_start": 466,
+          "nodes": 434,
+          "nodes_start": 32,
+          "op_table": 16
+        },
+        "tag_counts": {
+          "0": 6,
+          "1": 2,
+          "3": 1,
+          "6": 15,
+          "7": 30
+        },
+        "tag_total_count": 54,
+        "tags_present": [
+          0,
+          1,
+          3,
+          6,
+          7
+        ],
+        "tags_present_count": 5,
+        "validation": {
+          "edge_fields_in_bounds": 108,
+          "edge_fields_total": 108,
+          "node_remainder_bytes": 2,
+          "node_stride_bytes": 8
+        }
+      },
+      "label": "unknown",
+      "paths_count": 2,
+      "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/pair_tp_all_stream_tcp_order2.sb.bin",
+        "book/experiments/libsandbox-encoder/out/network_matrix/pair_tp_all_stream_tcp_order2.sb.bin"
+      ],
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/pair_tp_all_stream_tcp_order2.sb.bin",
+      "size": 492
+    },
+    {
       "blob_sha256": "dfe2e0447f897500e011b9dffd035802f575b4b31f5d48519851198ffc00f1c1",
       "features": {
         "derived": {
@@ -8807,11 +10965,12 @@
         }
       },
       "label": "unknown",
-      "paths_count": 1,
+      "paths_count": 2,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/proto_256.sb.bin",
         "book/experiments/libsandbox-encoder/out/network_matrix/proto_256.sb.bin"
       ],
-      "representative_path": "book/experiments/libsandbox-encoder/out/network_matrix/proto_256.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/proto_256.sb.bin",
       "size": 484
     },
     {
@@ -8864,11 +11023,12 @@
         }
       },
       "label": "unknown",
-      "paths_count": 1,
+      "paths_count": 2,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/pair_dt_all_inet_dgram.sb.bin",
         "book/experiments/libsandbox-encoder/out/network_matrix/pair_dt_all_inet_dgram.sb.bin"
       ],
-      "representative_path": "book/experiments/libsandbox-encoder/out/network_matrix/pair_dt_all_inet_dgram.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/pair_dt_all_inet_dgram.sb.bin",
       "size": 492
     },
     {
@@ -9153,12 +11313,70 @@
         }
       },
       "label": "unknown",
-      "paths_count": 1,
+      "paths_count": 2,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/pair_dt_all_system_stream.sb.bin",
         "book/experiments/libsandbox-encoder/out/network_matrix/pair_dt_all_system_stream.sb.bin"
       ],
-      "representative_path": "book/experiments/libsandbox-encoder/out/network_matrix/pair_dt_all_system_stream.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/pair_dt_all_system_stream.sb.bin",
       "size": 492
+    },
+    {
+      "blob_sha256": "eb54f1498587751be2329bcd228e834e355eb469645a4084f8f3b7027f0b5fda",
+      "features": {
+        "derived": {
+          "literal_pool_bytes_per_node": 1.698113,
+          "literal_pool_bytes_ratio": 0.165746,
+          "literal_strings_per_node": 0.037736,
+          "nodes_bytes_ratio": 0.782689,
+          "op_table_unique_ratio": 0.166667
+        },
+        "format_variant": "modern-heuristic",
+        "literal_string_count": 2,
+        "node_count": 53,
+        "op_count": 6,
+        "op_table_len": 6,
+        "op_table_max": 5,
+        "op_table_min": 5,
+        "op_table_offset": 16,
+        "op_table_unique": 1,
+        "sections": {
+          "literal_pool": 90,
+          "literal_start": 453,
+          "nodes": 425,
+          "nodes_start": 28,
+          "op_table": 12
+        },
+        "tag_counts": {
+          "0": 3,
+          "1": 1,
+          "3": 4,
+          "4": 17,
+          "5": 28
+        },
+        "tag_total_count": 53,
+        "tags_present": [
+          0,
+          1,
+          3,
+          4,
+          5
+        ],
+        "tags_present_count": 5,
+        "validation": {
+          "edge_fields_in_bounds": 100,
+          "edge_fields_total": 106,
+          "node_remainder_bytes": 1,
+          "node_stride_bytes": 8
+        }
+      },
+      "label": "unknown",
+      "paths_count": 1,
+      "paths_sample": [
+        "book/experiments/vfs-canonicalization/sb/build/vfs_firmlink_both.sb.bin"
+      ],
+      "representative_path": "book/experiments/vfs-canonicalization/sb/build/vfs_firmlink_both.sb.bin",
+      "size": 543
     },
     {
       "blob_sha256": "eb6359c8b3ab27c3f05f036ab375e70096f5f4c15c640f80ca2dd671ec92dba3",
@@ -9210,11 +11428,12 @@
         }
       },
       "label": "unknown",
-      "paths_count": 1,
+      "paths_count": 2,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/pair_tp_all_dgram_tcp.sb.bin",
         "book/experiments/libsandbox-encoder/out/network_matrix/pair_tp_all_dgram_tcp.sb.bin"
       ],
-      "representative_path": "book/experiments/libsandbox-encoder/out/network_matrix/pair_tp_all_dgram_tcp.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/pair_tp_all_dgram_tcp.sb.bin",
       "size": 492
     },
     {
@@ -9326,12 +11545,70 @@
         }
       },
       "label": "apply_gated",
-      "paths_count": 1,
+      "paths_count": 2,
       "paths_sample": [
+        "book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/compile_vs_apply/minimal_failing.sb.bin",
         "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/minimal_failing.sb.bin"
       ],
-      "representative_path": "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/mach_bootstrap_deny_message_send/minimal_failing.sb.bin",
+      "representative_path": "book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/compile_vs_apply/minimal_failing.sb.bin",
       "size": 473
+    },
+    {
+      "blob_sha256": "f8a411cf76b7bc93e1d3b31e82ba08b4763e73cb3d6f5a646242bee68b9228d3",
+      "features": {
+        "derived": {
+          "literal_pool_bytes_per_node": 1.207547,
+          "literal_pool_bytes_ratio": 0.123791,
+          "literal_strings_per_node": 0.037736,
+          "nodes_bytes_ratio": 0.82205,
+          "op_table_unique_ratio": 0.166667
+        },
+        "format_variant": "modern-heuristic",
+        "literal_string_count": 2,
+        "node_count": 53,
+        "op_count": 6,
+        "op_table_len": 6,
+        "op_table_max": 5,
+        "op_table_min": 5,
+        "op_table_offset": 16,
+        "op_table_unique": 1,
+        "sections": {
+          "literal_pool": 64,
+          "literal_start": 453,
+          "nodes": 425,
+          "nodes_start": 28,
+          "op_table": 12
+        },
+        "tag_counts": {
+          "0": 3,
+          "1": 1,
+          "3": 4,
+          "4": 17,
+          "5": 28
+        },
+        "tag_total_count": 53,
+        "tags_present": [
+          0,
+          1,
+          3,
+          4,
+          5
+        ],
+        "tags_present_count": 5,
+        "validation": {
+          "edge_fields_in_bounds": 100,
+          "edge_fields_total": 106,
+          "node_remainder_bytes": 1,
+          "node_stride_bytes": 8
+        }
+      },
+      "label": "unknown",
+      "paths_count": 1,
+      "paths_sample": [
+        "book/experiments/vfs-canonicalization/sb/build/vfs_var_tmp_both.sb.bin"
+      ],
+      "representative_path": "book/experiments/vfs-canonicalization/sb/build/vfs_var_tmp_both.sb.bin",
+      "size": 517
     },
     {
       "blob_sha256": "f8aaa1deb5becd33659daca06a4b15df2238f8b912c65c24a8e43b40c61b6640",
@@ -9375,16 +11652,73 @@
         }
       },
       "label": "apply_gated",
-      "paths_count": 5,
+      "paths_count": 7,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/gate_airlock_minimal_file.sb.bin",
+        "book/experiments/encoder-write-trace/out/blobs/gate_airlock_minimal_string.sb.bin",
         "book/experiments/gate-witnesses/out/micro_variants/base_v2.sb.bin",
         "book/experiments/gate-witnesses/out/witnesses/airlock/compile_vs_apply/minimal_failing.sb.bin",
-        "book/experiments/gate-witnesses/out/witnesses/com.apple.CoreGraphics.CGPDFService/compile_vs_apply/minimal_failing.sb.bin",
-        "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/minimal_failing.sb.bin",
-        "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/com.apple.CoreGraphics.CGPDFService/minimal_failing.sb.bin"
+        "book/experiments/gate-witnesses/out/witnesses/com.apple.CoreGraphics.CGPDFService/compile_vs_apply/minimal_failing.sb.bin"
       ],
-      "representative_path": "book/experiments/gate-witnesses/out/micro_variants/base_v2.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/gate_airlock_minimal_file.sb.bin",
       "size": 513
+    },
+    {
+      "blob_sha256": "f98701740da6ee870003bf0ee9a092bf99c8118c445401d2e7224d1b76f5ee58",
+      "features": {
+        "derived": {
+          "literal_pool_bytes_per_node": 0.557692,
+          "literal_pool_bytes_ratio": 0.060543,
+          "literal_strings_per_node": 0.019231,
+          "nodes_bytes_ratio": 0.881002,
+          "op_table_unique_ratio": 0.166667
+        },
+        "format_variant": "modern-heuristic",
+        "literal_string_count": 1,
+        "node_count": 52,
+        "op_count": 6,
+        "op_table_len": 6,
+        "op_table_max": 5,
+        "op_table_min": 5,
+        "op_table_offset": 16,
+        "op_table_unique": 1,
+        "sections": {
+          "literal_pool": 29,
+          "literal_start": 450,
+          "nodes": 422,
+          "nodes_start": 28,
+          "op_table": 12
+        },
+        "tag_counts": {
+          "0": 2,
+          "1": 1,
+          "3": 4,
+          "4": 17,
+          "5": 28
+        },
+        "tag_total_count": 52,
+        "tags_present": [
+          0,
+          1,
+          3,
+          4,
+          5
+        ],
+        "tags_present_count": 5,
+        "validation": {
+          "edge_fields_in_bounds": 99,
+          "edge_fields_total": 104,
+          "node_remainder_bytes": 6,
+          "node_stride_bytes": 8
+        }
+      },
+      "label": "unknown",
+      "paths_count": 1,
+      "paths_sample": [
+        "book/experiments/vfs-canonicalization/sb/build/vfs_var_tmp_alias_only.sb.bin"
+      ],
+      "representative_path": "book/experiments/vfs-canonicalization/sb/build/vfs_var_tmp_alias_only.sb.bin",
+      "size": 479
     },
     {
       "blob_sha256": "fc9fecf726ce83277c592ddcc0d286cd0667b717478547734d171067e47fd14f",
@@ -9497,14 +11831,72 @@
         }
       },
       "label": "unknown",
-      "paths_count": 3,
+      "paths_count": 4,
       "paths_sample": [
+        "book/experiments/encoder-write-trace/out/blobs/triple_all_udp.sb.bin",
         "book/experiments/field2-filters/sb/build/net_require_all_domain_type_proto_udp.sb.bin",
         "book/experiments/flow-divert-2560/sb/build/fd_domain_type_proto_all_udp_order1.sb.bin",
         "book/experiments/libsandbox-encoder/out/network_matrix/triple_all_udp.sb.bin"
       ],
-      "representative_path": "book/experiments/field2-filters/sb/build/net_require_all_domain_type_proto_udp.sb.bin",
+      "representative_path": "book/experiments/encoder-write-trace/out/blobs/triple_all_udp.sb.bin",
       "size": 500
+    },
+    {
+      "blob_sha256": "fdd11c2e462df1312ab3218430eeafa205e8bafb5d35af88aaef7229cb94f2be",
+      "features": {
+        "derived": {
+          "literal_pool_bytes_per_node": 1.096154,
+          "literal_pool_bytes_ratio": 0.112426,
+          "literal_strings_per_node": 0.019231,
+          "nodes_bytes_ratio": 0.832347,
+          "op_table_unique_ratio": 0.166667
+        },
+        "format_variant": "modern-heuristic",
+        "literal_string_count": 1,
+        "node_count": 52,
+        "op_count": 6,
+        "op_table_len": 6,
+        "op_table_max": 5,
+        "op_table_min": 5,
+        "op_table_offset": 16,
+        "op_table_unique": 1,
+        "sections": {
+          "literal_pool": 57,
+          "literal_start": 450,
+          "nodes": 422,
+          "nodes_start": 28,
+          "op_table": 12
+        },
+        "tag_counts": {
+          "0": 2,
+          "1": 1,
+          "3": 4,
+          "4": 17,
+          "5": 28
+        },
+        "tag_total_count": 52,
+        "tags_present": [
+          0,
+          1,
+          3,
+          4,
+          5
+        ],
+        "tags_present_count": 5,
+        "validation": {
+          "edge_fields_in_bounds": 99,
+          "edge_fields_total": 104,
+          "node_remainder_bytes": 6,
+          "node_stride_bytes": 8
+        }
+      },
+      "label": "unknown",
+      "paths_count": 1,
+      "paths_sample": [
+        "book/experiments/vfs-canonicalization/sb/build/vfs_var_tmp_data_only.sb.bin"
+      ],
+      "representative_path": "book/experiments/vfs-canonicalization/sb/build/vfs_var_tmp_data_only.sb.bin",
+      "size": 507
     }
   ],
   "schema_version": 2,

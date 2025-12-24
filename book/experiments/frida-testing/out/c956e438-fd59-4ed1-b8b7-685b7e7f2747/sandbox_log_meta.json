@@ -1,0 +1,28 @@
+{
+  "cmd": [
+    "/usr/bin/log",
+    "stream",
+    "--level",
+    "debug",
+    "--color",
+    "none",
+    "--style",
+    "ndjson",
+    "--timeout",
+    "15s",
+    "--predicate",
+    "processImagePath CONTAINS[c] \"kernel\" AND senderImagePath CONTAINS[c] \"Sandbox\""
+  ],
+  "color": "none",
+  "deny_only": false,
+  "duration_s": 15.0,
+  "level": "debug",
+  "pid": null,
+  "predicate": "processImagePath CONTAINS[c] \"kernel\" AND senderImagePath CONTAINS[c] \"Sandbox\"",
+  "rc": -15,
+  "stderr": "",
+  "style": "ndjson",
+  "t0_ns": 1766562885616600000,
+  "t1_ns": 1766562900624143000,
+  "timeout": "15s"
+}

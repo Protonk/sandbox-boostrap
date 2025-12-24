@@ -39,7 +39,7 @@ This experiment proceeded in six steps (mirroring the “ideal sequence”):
 ## Observations (current cut)
 
 Static inventory (from `out/repo_sb_bin_inventory.json`):
-- In-repo `*.sb.bin`: 257 files, 149 unique digests (47 duplicate digests).
+- In-repo `*.sb.bin`: 335 files, 172 unique digests (77 duplicate digests).
 
 Canonical `sys:*` blobs (from `out/sys_digest_join.json`):
 - `sys:airlock` (`33d1a72e…`) is now in the apply-gate digest corpus (preflight blocks it by digest).

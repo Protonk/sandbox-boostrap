@@ -13,8 +13,8 @@ This is an operational guardrail for the fixed world baseline (`world_id sonoma-
 
 ## Deliverables
 
-- `out/preflight_enterability_manifest.json` — per-input preflight records + minimal file metadata.
-- `out/summary.json` — counts and convenience groupings.
+- `book/tools/preflight/index/preflight_enterability_manifest.json` — per-input preflight records + minimal file metadata.
+- `book/tools/preflight/index/summary.json` — counts and convenience groupings.
 - A guardrail test under `book/tests/` that ensures:
   - the manifest covers the current input inventory, and
   - checked-in classifications match current preflight behavior.
@@ -22,6 +22,6 @@ This is an operational guardrail for the fixed world baseline (`world_id sonoma-
 ## Execution steps
 
 1. Implement `build_index.py` to enumerate inputs deterministically and run `book/tools/preflight`.
-2. Generate `out/*.json` artifacts and check them in.
+2. Generate `book/tools/preflight/index/*.json` artifacts and check them in.
 3. Add a guardrail test to prevent drift.
-4. Add a minimal pointer from preflight docs to this experiment.
+4. Add a minimal pointer from preflight docs to the index artifacts.

@@ -40,6 +40,13 @@ Explore whether Frida-based instrumentation can provide host-bound runtime witne
 - Completed: upgraded sandbox trace to a capability ladder (set_trace, vtrace, unavailable).
 - Completed: added unified-log capture helpers for sandbox deny fallbacks.
 - Completed: collapsed `fs_open.js` to a minimal hook pack and revalidated fs_op observability.
+- Completed: unified-log capture alongside fs_op with summary output.
+- Completed: unified-log capture sanity run (no predicate) to validate NDJSON parsing.
+- Completed: sandbox-broad predicate capture alongside fs_op (parsed NDJSON records present).
+- Attempted: deny-focused predicate capture alongside fs_op (header-only capture).
+- Completed: no-predicate sanity run with updated capture helper (parsed NDJSON records present).
+- Attempted: sandbox-broad capture with service-name correlation (header-only capture).
+- Attempted: deny-focused capture with service-name correlation (header-only capture).
 
 ## Evidence & artifacts
 - Bootstrap target: `book/experiments/frida-testing/targets/open_loop.c`.
@@ -49,6 +56,11 @@ Explore whether Frida-based instrumentation can provide host-bound runtime witne
 - Runner: `book/api/frida/runner.py` (core) and `book/experiments/frida-testing/run_frida.py` (CLI wrapper).
 - Trace parser: `book/experiments/frida-testing/parse_sandbox_trace.py`.
 - Sandbox log capture: `book/experiments/frida-testing/capture_sandbox_log.py` and `book/experiments/frida-testing/parse_sandbox_log.py`.
+- Diagnostic-only: `book/experiments/frida-testing/hooks/fs_open_funnel.js` (use only when symbol paths regress).
+
+- Unified-log sanity run (no predicate):
+  - Run `book/experiments/frida-testing/out/8c89469f-5489-4285-b34e-a54e871625e5`: `sandbox_log_summary.json` reports `parsed_lines=5449` and `total_lines=5449`.
+  - Run `book/experiments/frida-testing/out/a987670e-67a4-458b-9e4a-8254e5e2ddcb`: `sandbox_log_summary.json` reports `parsed_lines=3980` and `total_lines=3980`.
 
 - Attach-first plumbing witness (baseline target `open_loop`):
   - Run `book/experiments/frida-testing/out/0bd798d6-5986-4a26-a19c-28f7d577f240` (smoke): script sha256 `d8711d9b959eb7a6275892f43b9130f3c825cbd15d8c0313fdc4a1a0e989b150`, event kinds `{"runner-start":1,"stage":4,"smoke":1,"session-detached":1}`.
@@ -84,6 +96,12 @@ Explore whether Frida-based instrumentation can provide host-bound runtime witne
 - Run `book/experiments/frida-testing/out/0ee1b6e3-f000-4037-aaee-23ce3e7f0098` (file-decision funnel on `ProbeService_fully_injectable`): script sha256 `43976ac03198182d3977e66631b3f2762eab4c72fd28db5a2dc4c67b246f17f0`, event kinds `{\"runner-start\":1,\"stage\":4,\"funnel-candidates\":3,\"funnel-hook\":41,\"funnel-hit\":2,\"session-detached\":1}`; `funnel-hit` events observed for `__open` and `open` with errno 13 on the deny path.
 - Run `book/experiments/frida-testing/out/218aba7d-9290-4955-b82a-11b40266be0f` (sandbox_trace capability ladder on `ProbeService_fully_injectable`): script sha256 `d535a5973d9e738dcc2c49885b29a356ca262ca0c3c9567839513b1f3627eacf`, event kinds `{\"runner-start\":1,\"stage\":4,\"sandbox-trace-capability\":1,\"sandbox-trace-unavailable\":1,\"session-detached\":1}`; vtrace and set_trace both unavailable.
 - Run `book/experiments/frida-testing/out/797832ba-a22c-41ba-8f2a-370f87f97713` (minimal fs_open on `ProbeService_fully_injectable`): script sha256 `743c172570ddcfd40f3a562978efbeeedd9de6c865cdfcd5d6b51c68444a98e5`, event kinds `{\"runner-start\":1,\"stage\":4,\"hook-installed\":4,\"hook-missing\":4,\"fs-open\":2,\"session-detached\":1}`; `fs-open` events observed for `__open` and `open` with errno 13 on the deny path.
+- Run `book/experiments/frida-testing/out/29f6de6c-7972-40ff-84e0-8b4a3e46c5b9` (fs_open + unified-log capture on `ProbeService_fully_injectable`): script sha256 `743c172570ddcfd40f3a562978efbeeedd9de6c865cdfcd5d6b51c68444a98e5`, event kinds `{\"runner-start\":1,\"stage\":4,\"hook-installed\":4,\"hook-missing\":4,\"session-detached\":1}`; sandbox log summary in `book/experiments/frida-testing/out/29f6de6c-7972-40ff-84e0-8b4a3e46c5b9/sandbox_log_summary.json` shows `parsed_lines=0` and `deny_events=0` (header-only capture).
+- Run `book/experiments/frida-testing/out/c956e438-fd59-4ed1-b8b7-685b7e7f2747` (fs_open + sandbox-broad unified-log capture on `ProbeService_fully_injectable`): script sha256 `743c172570ddcfd40f3a562978efbeeedd9de6c865cdfcd5d6b51c68444a98e5`, event kinds `{\"runner-start\":1,\"stage\":4,\"hook-installed\":4,\"hook-missing\":4,\"fs-open\":10,\"session-detached\":1}`; sandbox log summary shows `parsed_lines=11`, `deny_events=0`.
+- Run `book/experiments/frida-testing/out/b968dd05-c5f1-40c2-a8b1-f462711a3a78` (fs_open + deny-focused unified-log capture on `ProbeService_fully_injectable`): script sha256 `743c172570ddcfd40f3a562978efbeeedd9de6c865cdfcd5d6b51c68444a98e5`, event kinds `{\"runner-start\":1,\"stage\":4,\"hook-installed\":4,\"hook-missing\":4,\"fs-open\":10,\"session-detached\":1}`; sandbox log summary shows `parsed_lines=0`, `deny_events=0` (header-only capture).
+- Run `book/experiments/frida-testing/out/404b099b-6158-4278-8088-c8e191dd3ce7` (sandbox-broad capture with service-name correlation): script sha256 `743c172570ddcfd40f3a562978efbeeedd9de6c865cdfcd5d6b51c68444a98e5`, event kinds `{\"runner-start\":1,\"stage\":2,\"runner-exception\":1}`; runner error `helper exited during launch (status=9)`; sandbox log summary shows `parsed_lines=1` (header-only capture).
+- Run `book/experiments/frida-testing/out/a4c207ff-e0a9-43b1-ad70-18435bca2276` (sandbox-broad capture with service-name correlation): script sha256 `743c172570ddcfd40f3a562978efbeeedd9de6c865cdfcd5d6b51c68444a98e5`, event kinds `{\"runner-start\":1,\"stage\":4,\"hook-installed\":4,\"hook-missing\":4,\"fs-open\":10,\"session-detached\":1}`; sandbox log summary shows `parsed_lines=0`, `deny_events=0` (header-only capture).
+- Run `book/experiments/frida-testing/out/f5c538d6-89b0-4a92-9115-31229ce5252a` (deny-focused capture with service-name correlation): script sha256 `743c172570ddcfd40f3a562978efbeeedd9de6c865cdfcd5d6b51c68444a98e5`, event kinds `{\"runner-start\":1,\"stage\":4,\"hook-installed\":4,\"hook-missing\":4,\"session-detached\":1}`; sandbox log summary shows `parsed_lines=0`, `deny_events=0` (header-only capture).
 
 ## Blockers / risks
 - Spawn runs are terminating before any send() payloads are recorded; treat spawn as unstable on this host until proven otherwise.
@@ -92,9 +110,10 @@ Explore whether Frida-based instrumentation can provide host-bound runtime witne
 - `ProbeService_fully_injectable` is attachable (smoke + export inventory); `fs_open` events can be forced via self-open, but `fs_op` does not emit fs-open events even when run in the same PID via `--attach`.
 - `sandbox_set_trace_path` and vtrace exports are unavailable from `libsystem_sandbox.dylib` in `ProbeService_fully_injectable`, so in-process trace gating is blocked for this target.
 - File-decision funnel and the minimal fs_open pack now observe `__open` and `open` errno 13 hits in `libsystem_kernel.dylib` during fs_op; the open path is confirmed.
-- Unified-log capture fallback is implemented but not yet exercised alongside fs_op.
+- Unified-log capture works without predicates, but deny-focused predicates still yield header-only captures; the fallback stream remains partial for this target.
+- Running sudo log stream from this harness is not permitted, so root-level unified-log visibility is untested here.
 - Running Frida inside the Codex harness sandbox can produce misleading “plumbing” crashes (for example, `frida.get_local_device()` SIGSEGV); run `frida-testing` captures from a normal Terminal session.
 
 ## Next steps
-- Run unified-log capture alongside fs_op to build a fallback deny stream witness.
-- Keep the minimal fs_open pack as the default hook for fs_op, and retire the funnel to diagnostics-only.
+- If the unified-log stream stays empty, retry with a broader predicate (drop PID or deny-only) and compare summaries.
+- Keep the minimal fs_open pack as the default hook for fs_op, and treat the funnel as diagnostics-only.

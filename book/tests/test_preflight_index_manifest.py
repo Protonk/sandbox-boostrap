@@ -9,8 +9,9 @@ from book.tools.preflight import preflight as preflight_mod
 
 ROOT = Path(__file__).resolve().parents[2]
 BASELINE = ROOT / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world-baseline.json"
-MANIFEST_PATH = ROOT / "book" / "experiments" / "preflight-index" / "out" / "preflight_enterability_manifest.json"
-SUMMARY_PATH = ROOT / "book" / "experiments" / "preflight-index" / "out" / "summary.json"
+INDEX_DIR = ROOT / "book" / "tools" / "preflight" / "index"
+MANIFEST_PATH = INDEX_DIR / "preflight_enterability_manifest.json"
+SUMMARY_PATH = INDEX_DIR / "summary.json"
 
 
 def _sha256_file(path: Path) -> str:

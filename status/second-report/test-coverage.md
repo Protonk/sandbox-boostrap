@@ -48,7 +48,7 @@ In this band, tests mostly answer “are the mapping JSONs that everything else 
 
 - **Decoder structure and golden corpus**
   - `book/tests/test_decoder_headers.py`, `test_decoder_validation.py`, and `test_validation.py` sanity-check `book/api/profile_tools/decoder.py`: they decode fixtures and assert header shapes, section offsets, tag counts vs node counts, and CLI JSON dump/summary behavior. These tests treat decoder output as structurally reliable (bedrock) for the fixture set.
-  - `book/tests/test_golden_corpus.py` ties the golden-corpus manifest and summary (`book/experiments/golden-corpus/out/*`) to the Sonoma `world_id` and to the tag-layout hash, ensuring that the curated corpus of compiled profiles stays synchronized with the tag-layout mapping.
+  - `book/tests/test_golden_corpus.py` ties the golden-corpus manifest and summary (`book/graph/concepts/validation/golden_corpus/*`) to the Sonoma `world_id` and to the tag-layout hash, ensuring that the curated corpus of compiled profiles stays synchronized with the tag-layout mapping.
   - `book/tests/test_golden_decodes.py` validates the `book/graph/mappings/runtime/golden_decodes.json` summaries (node/op counts and literal strings) for the golden runtime set, providing a stable decode view for those profiles.
 
 Together, these tests say: if they pass, the project can treat vocab tables, canonical system digests, tag layouts, anchor mappings, and decoder output for golden fixtures as structurally trustworthy bedrock for this world.

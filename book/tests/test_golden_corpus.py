@@ -5,8 +5,8 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 BOOK_ROOT = Path(__file__).resolve().parents[1]
-MANIFEST_PATH = BOOK_ROOT / "experiments/golden-corpus/out/corpus_manifest.json"
-SUMMARY_PATH = BOOK_ROOT / "experiments/golden-corpus/out/corpus_summary.json"
+MANIFEST_PATH = BOOK_ROOT / "graph/concepts/validation/golden_corpus/corpus_manifest.json"
+SUMMARY_PATH = BOOK_ROOT / "graph/concepts/validation/golden_corpus/corpus_summary.json"
 TAG_LAYOUTS_PATH = BOOK_ROOT / "graph/mappings/tag_layouts/tag_layouts.json"
 WORLD_ID = "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
 
@@ -65,7 +65,7 @@ def test_platform_entries_are_static_only():
     for entry in static_only:
         rec_id = entry["id"]
         # Ensure decodes exist for static-only entries.
-        decode_path = BOOK_ROOT / f"experiments/golden-corpus/out/decodes/{rec_id}.json"
+        decode_path = BOOK_ROOT / f"graph/concepts/validation/golden_corpus/decodes/{rec_id}.json"
         assert decode_path.exists(), f"decode missing for static-only entry {rec_id}"
         # Ensure we are not silently treating static-only entries as runtime-capable.
         assert entry.get("mode") == "static-only", f"static-only mode not set for {rec_id}"

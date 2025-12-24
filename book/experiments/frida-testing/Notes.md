@@ -235,6 +235,66 @@
 - Status: ok
 - Follow-up: keep minimal fs_open pack as the stable hook for fs_op observability.
 
+- Command: run unified log capture alongside fs_op (deny-only + PID filter) while attaching minimal fs_open.
+- Result: log capture produced only the header line; summary reports `parsed_lines=0` and `deny_events=0`; fs_open run recorded hook installs but no fs-open events in this attempt.
+- Artifacts: `book/experiments/frida-testing/out/29f6de6c-7972-40ff-84e0-8b4a3e46c5b9/sandbox_log.ndjson`; `book/experiments/frida-testing/out/29f6de6c-7972-40ff-84e0-8b4a3e46c5b9/sandbox_log_meta.json`; `book/experiments/frida-testing/out/29f6de6c-7972-40ff-84e0-8b4a3e46c5b9/sandbox_log_summary.json`
+- Status: partial (fallback capture produced no parsed deny events)
+- Follow-up: consider a broader predicate if we need a non-empty deny stream.
+
+- Command: update `capture_sandbox_log.py` to support ndjson output, log levels, colors, timeouts, and optional predicates.
+- Result: capture helper now supports predicate-free sanity runs and broader capture settings.
+- Artifacts: `book/experiments/frida-testing/capture_sandbox_log.py`
+- Status: ok
+- Follow-up: run no-predicate sanity capture to validate parse pipeline.
+
+- Command: run unified-log capture with no predicate (sanity run) and parse output.
+- Result: `parsed_lines=5449` confirms NDJSON capture and parsing are working.
+- Artifacts: `book/experiments/frida-testing/out/8c89469f-5489-4285-b34e-a54e871625e5/sandbox_log.ndjson`; `book/experiments/frida-testing/out/8c89469f-5489-4285-b34e-a54e871625e5/sandbox_log_summary.json`
+- Status: ok
+- Follow-up: tighten predicates with sandbox-broad filters.
+
+- Command: run sandbox-broad unified-log capture (kernel + Sandbox sender) alongside fs_op with minimal fs_open hooks.
+- Result: parsed_lines nonzero (11) but no deny events; fs_open emitted events for `__open` and `open`.
+- Artifacts: `book/experiments/frida-testing/out/c956e438-fd59-4ed1-b8b7-685b7e7f2747/sandbox_log.ndjson`; `book/experiments/frida-testing/out/c956e438-fd59-4ed1-b8b7-685b7e7f2747/sandbox_log_summary.json`
+- Status: partial (capture works but denies not present under this predicate)
+- Follow-up: try deny-focused predicate or alternative correlation filters.
+
+- Command: run deny-focused unified-log capture (kernel + Sandbox sender + deny) alongside fs_op with minimal fs_open hooks.
+- Result: header-only capture; parsed_lines 0; fs_open emitted events for `__open` and `open`.
+- Artifacts: `book/experiments/frida-testing/out/b968dd05-c5f1-40c2-a8b1-f462711a3a78/sandbox_log.ndjson`; `book/experiments/frida-testing/out/b968dd05-c5f1-40c2-a8b1-f462711a3a78/sandbox_log_summary.json`
+- Status: partial (deny-focused predicate too strict)
+- Follow-up: use broader predicate or correlate via eventMessage text.
+
+- Command: unified-log sanity run with no predicate using the updated capture helper.
+- Result: parsed_lines=3980 confirms capture pipeline works (no predicate).
+- Artifacts: `book/experiments/frida-testing/out/a987670e-67a4-458b-9e4a-8254e5e2ddcb/sandbox_log_summary.json`
+- Status: ok
+- Follow-up: proceed with sandbox-broad and deny-focused predicates.
+
+- Command: fs_op on `~/Documents/frida_sandbox_deny.txt` (644) with sandbox-broad predicate + service-name correlation.
+- Result: fs_op returned errno 1 (operation not permitted); frida attach failed with helper exited (status 9); log summary parsed_lines=1 (header only).
+- Artifacts: `book/experiments/frida-testing/out/404b099b-6158-4278-8088-c8e191dd3ce7/sandbox_log_summary.json`
+- Status: partial (attach failure; capture header only)
+- Follow-up: rerun with the same predicate and confirm frida attach succeeds.
+
+- Command: rerun sandbox-broad predicate with service-name correlation during fs_op on `~/Documents/frida_sandbox_deny.txt`.
+- Result: fs_open emitted events for `__open` and `open` with errno 1; log summary parsed_lines=0 (header only).
+- Artifacts: `book/experiments/frida-testing/out/a4c207ff-e0a9-43b1-ad70-18435bca2276/sandbox_log_summary.json`
+- Status: partial (capture header only)
+- Follow-up: try deny-focused predicate or root-level capture.
+
+- Command: deny-focused predicate with service-name correlation during fs_op on `~/Documents/frida_sandbox_deny.txt`.
+- Result: fs_open hook installed but no fs-open events; log summary parsed_lines=0 (header only).
+- Artifacts: `book/experiments/frida-testing/out/f5c538d6-89b0-4a92-9115-31229ce5252a/sandbox_log_summary.json`
+- Status: partial (deny-focused capture too strict, and no fs-open events in this run)
+- Follow-up: broaden predicate or add explicit self-open inside the attached window.
+
+- Command: attempt sudo log stream for unified log capture.
+- Result: blocked by harness policy (no escalation permitted).
+- Artifacts: none
+- Status: blocked
+- Follow-up: run sudo log capture outside the harness if root-level visibility is required.
+
 ## Entry template
 - Command:
 - Result:

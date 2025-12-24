@@ -17,3 +17,4 @@
   - `python3 book/experiments/preflight-index/build_index.py`
 - Regenerated after adding the vfs-canonicalization `/var/tmp` data-spelling profile:
   - `python3 book/experiments/preflight-index/build_index.py`
+- Canonical artifacts now live under `book/tools/preflight/index/`; this experiment’s `build_index.py` is a wrapper over the tool entrypoint.

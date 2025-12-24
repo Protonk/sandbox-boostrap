@@ -14,7 +14,7 @@ Track and retire the remaining high/opaque `field2` payloads tied to platform pr
 - `field2-filters` census and reports contain the canonical sightings and context: [../field2-filters/Report.md](../field2-filters/Report.md), [../field2-filters/Notes.md](../field2-filters/Notes.md), [../field2-filters/Manual-Ghidra.md](../field2-filters/Manual-Ghidra.md), [../field2-filters/out/unknown_nodes.json](../field2-filters/out/unknown_nodes.json), and [../field2-filters/out/field2_inventory.json](../field2-filters/out/field2_inventory.json).
 - Tag-layout probing notes the same highs and stride ambiguity for tag 26: [../probe-op-structure/Report.md](../probe-op-structure/Report.md), [../probe-op-structure/out/tag_layout_assumptions.json](../probe-op-structure/out/tag_layout_assumptions.json).
 - Literal-bearing tag inventories include these payloads: [../tag-layout-decode/out/tag_literal_nodes.json](../tag-layout-decode/out/tag_literal_nodes.json).
-- System profile digests/decodes showing occurrences: [../system-profile-digest/out/digests.json](../system-profile-digest/out/digests.json), [../golden-corpus/out/decodes/platform_airlock.json](../golden-corpus/out/decodes/platform_airlock.json).
+- System profile digests/decodes showing occurrences: [../system-profile-digest/out/digests.json](../system-profile-digest/out/digests.json), [../../graph/concepts/validation/golden_corpus/decodes/platform_airlock.json](../../graph/concepts/validation/golden_corpus/decodes/platform_airlock.json).
 - Anchor map currently lacks bindings for these highs (or lists them as unknown): [../anchor-filter-map/Report.md](../anchor-filter-map/Report.md).
 
 ## Prior attempts and dead ends

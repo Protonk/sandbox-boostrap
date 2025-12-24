@@ -25,16 +25,17 @@ Create a small “preflight index” experiment that scans in-repo profile input
 
 ## Artifacts
 
-- Manifest: `out/preflight_enterability_manifest.json`
-- Summary: `out/summary.json`
+- Manifest: `book/tools/preflight/index/preflight_enterability_manifest.json`
+- Summary: `book/tools/preflight/index/summary.json`
+- Legacy snapshots: `out/preflight_enterability_manifest.json`, `out/summary.json` (provenance only)
 
 ## Current cut (checked-in)
 
-From `out/summary.json`:
+From `book/tools/preflight/index/summary.json`:
 
-- Total inputs scanned: 463
-- `likely_apply_gated_for_harness_identity`: 21
-- `no_known_apply_gate_signature`: 442
+- Total inputs scanned: 622
+- `likely_apply_gated_for_harness_identity`: 27
+- `no_known_apply_gate_signature`: 595
 
 ## Lessons (operational invariants for agents)
 

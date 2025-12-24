@@ -1,0 +1,18 @@
+{
+  "cmd": [
+    "/usr/bin/log",
+    "stream",
+    "--style",
+    "json",
+    "--predicate",
+    "((sender == \"Sandbox\") && processID == 24301) && eventMessage CONTAINS \"deny\""
+  ],
+  "deny_only": true,
+  "duration_s": 6.0,
+  "pid": 24301,
+  "predicate": "((sender == \"Sandbox\") && processID == 24301) && eventMessage CONTAINS \"deny\"",
+  "rc": -15,
+  "stderr": "",
+  "t0_ns": 1766561801097752000,
+  "t1_ns": 1766561807105532000
+}

@@ -9,10 +9,10 @@ Stand up a small, host-bound regression corpus for compiled sandbox blobs so dec
 - What minimal signals should be guarded (op_count, nodes length, literal start, tag histogram, layout digest)?
 
 ## Plan
-1. Select 4–6 existing blobs (golden-triple + representative probes) and record their hashes plus provenance in a manifest; include static-only platform/system profiles via compile-only paths (no runtime apply).
-2. Run decoder and profile_tools inspectors on each blob; store raw header/section slices and decoded JSON in `out/`.
+1. Select 4–6 existing blobs (golden-triple + representative probes) and record their hashes plus provenance in a manifest; include static-only platform/system profiles via the fixture blob set (no runtime apply).
+2. Run decoder and profile_tools inspectors on each blob; store raw header/section slices and decoded JSON in `book/graph/concepts/validation/golden_corpus/`.
 3. Build a consolidated `corpus_summary.json` with key signals and the tag-layout digest used.
-4. Wire a validation job sketch in Report/Notes for future guardrails (no promotion yet).
+4. Keep the validation job `experiment:golden-corpus` aligned with the manifest/summary under `book/graph/concepts/validation/golden_corpus/`.
 
 ## Out of scope
 - Regenerating system profile blobs (apply-gated here); note the gap as a future addition.
