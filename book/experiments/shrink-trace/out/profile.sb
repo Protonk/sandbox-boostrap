@@ -1,0 +1,16 @@
+(version 1)
+(debug deny)
+(deny default)
+(allow file-read*
+  (subpath "/System/Library/Frameworks")
+  (subpath "/System/Library/PrivateFrameworks")
+  (subpath "/usr/lib")
+)
+(allow file-read* file-map-executable
+  (subpath "/System/Cryptexes/App")
+  (subpath "/System/Cryptexes/OS")
+  (subpath "/System/Volumes/Preboot/Cryptexes/App/System")
+  (subpath "/System/Volumes/Preboot/Cryptexes/OS")
+)
+(allow file-read-metadata (subpath "/"))
+(allow process-exec* (literal "/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/shrink-trace/out/sandbox_target"))

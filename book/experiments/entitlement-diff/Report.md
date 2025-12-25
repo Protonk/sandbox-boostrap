@@ -13,6 +13,7 @@ Use EntitlementJail 1.x’s process zoo to compare entitlement deltas across pro
 ## Execution summary
 - Implemented EntitlementJail 1.x runner + scenario modules and ran all probes via `run_entitlementjail.py`.
 - Captured inventory, evidence bundle, matrix groups, and core probe scenarios (bookmarks, downloads_rw, net_client, probe_families, bookmark_roundtrip).
+- Ran net_op across all probe profiles (net_op_groups) to compare network-outbound denial evidence under varied entitlements.
 - Exercised wait/attach workflows (wait_attach, wait_timeout_matrix, wait_path_class, wait_multi_trigger, wait_probe_wait, wait_hold_open, wait_create, wait_interval, attach_holdopen_default).
 - Exercised additional API claims: health_check_profile, run_matrix_out, bundle_evidence_out, quarantine_lab.
 - Wait/attach workflow details live in `book/experiments/entitlement-diff/wait-attach-flow.md`.
@@ -36,13 +37,18 @@ Use EntitlementJail 1.x’s process zoo to compare entitlement deltas across pro
 - Inventory and discovery: `book/experiments/entitlement-diff/out/ej/inventory.json`.
 - Evidence bundle: `book/experiments/entitlement-diff/out/ej/evidence.json`, `book/experiments/entitlement-diff/out/ej/evidence/latest`.
 - Matrix groups: `book/experiments/entitlement-diff/out/ej/matrix.json`, `book/experiments/entitlement-diff/out/ej/matrix/<group>/run-matrix.*`.
-- Core scenarios: `book/experiments/entitlement-diff/out/ej/bookmarks.json`, `book/experiments/entitlement-diff/out/ej/downloads_rw.json`, `book/experiments/entitlement-diff/out/ej/net_client.json`, `book/experiments/entitlement-diff/out/ej/probes_userdefaults.json`, `book/experiments/entitlement-diff/out/ej/probes_filesystem.json`, `book/experiments/entitlement-diff/out/ej/bookmark_roundtrip.json`.
+- Core scenarios: `book/experiments/entitlement-diff/out/ej/bookmarks.json`, `book/experiments/entitlement-diff/out/ej/downloads_rw.json`, `book/experiments/entitlement-diff/out/ej/net_client.json`, `book/experiments/entitlement-diff/out/ej/net_op_groups.json`, `book/experiments/entitlement-diff/out/ej/probes_userdefaults.json`, `book/experiments/entitlement-diff/out/ej/probes_filesystem.json`, `book/experiments/entitlement-diff/out/ej/bookmark_roundtrip.json`.
 - Wait/attach outputs: `book/experiments/entitlement-diff/out/ej/wait_attach.json`, `book/experiments/entitlement-diff/out/ej/wait_timeout_matrix.json`, `book/experiments/entitlement-diff/out/ej/wait_path_class.json`, `book/experiments/entitlement-diff/out/ej/wait_multi_trigger.json`, `book/experiments/entitlement-diff/out/ej/wait_probe_wait.json`, `book/experiments/entitlement-diff/out/ej/wait_hold_open.json`, `book/experiments/entitlement-diff/out/ej/wait_create.json`, `book/experiments/entitlement-diff/out/ej/wait_interval.json`, `book/experiments/entitlement-diff/out/ej/attach_holdopen_default.json`.
 - API surface checks: `book/experiments/entitlement-diff/out/ej/health_check_profile.json`, `book/experiments/entitlement-diff/out/ej/run_matrix_out.json`, `book/experiments/entitlement-diff/out/ej/bundle_evidence_out.json`, `book/experiments/entitlement-diff/out/ej/quarantine_lab.json`.
+- Deny evidence logs (net_client minimal tcp_connect): `book/experiments/entitlement-diff/out/ej/logs/net_client.minimal.tcp_connect.log` (log stream), `book/experiments/entitlement-diff/out/ej/logs/observer/net_client.minimal.tcp_connect.log` (observer report).
+- Deny evidence logs (bookmarks minimal bookmark_make): `book/experiments/entitlement-diff/out/ej/logs/bookmarks.minimal.bookmark_make.log` (log stream), `book/experiments/entitlement-diff/out/ej/logs/observer/bookmarks.minimal.bookmark_make.log` (observer report).
+- Deny evidence logs (bookmark_roundtrip minimal roundtrip_stat): `book/experiments/entitlement-diff/out/ej/logs/bookmark_roundtrip.minimal.roundtrip_stat.log` (log stream), `book/experiments/entitlement-diff/out/ej/logs/observer/bookmark_roundtrip.minimal.roundtrip_stat.log` (observer report).
+- Deny evidence logs (net_op_groups): `book/experiments/entitlement-diff/out/ej/logs/net_op_groups.minimal.tcp_connect.log`, `book/experiments/entitlement-diff/out/ej/logs/net_op_groups.plugin_host_relaxed.tcp_connect.log`, `book/experiments/entitlement-diff/out/ej/logs/net_op_groups.user_selected_executable.tcp_connect.log` (log stream), with observer reports under `book/experiments/entitlement-diff/out/ej/logs/observer/net_op_groups.*.log`.
 - Workflow narrative: `book/experiments/entitlement-diff/wait-attach-flow.md`.
 
 ## Blockers / risks
-- Deny evidence is not captured: log capture writes fail with `write_failed` under the service tmp dir; runtime outcomes are partial until an out-of-sandbox log observer is used.
+- Deny evidence capture is partial: host-side `--log-stream` works and observer reports are emitted, but only some probes surface sandbox deny lines (for example, `net_client` minimal `tcp_connect`, `bookmarks` minimal `bookmark_make`, `bookmark_roundtrip` minimal `roundtrip_stat`); other probes report `not_found`, which should not be treated as denials.
+- Log predicates can surface unrelated lines (including Sandbox denials for other processes or non-Sandbox kernel logs); prefer the observer reports or confirm the `Sandbox:` line names the ProbeService PID before attributing denials.
 - Legacy SBPL diff artifacts were removed during the EntitlementJail 1.x reset; regenerate them if still needed for profile-level diffs.
 
 ## Next steps

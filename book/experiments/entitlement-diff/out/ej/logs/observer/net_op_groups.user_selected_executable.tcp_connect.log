@@ -1,0 +1,32 @@
+{
+  "data": {
+    "end": null,
+    "last": "10s",
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    \n2025-12-24 18:04:36.795348-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_user_selected_execu(43118) deny(1) network-outbound remote:*:55490\n2025-12-24 18:04:37.097106-0800  localhost log[43121]: [com.apple.log:] log run noninteractively, parent: 43120 (sandbox-log-observer), args: '/usr/bin/log' 'show' '--style' 'syslog' '--info' '--debug' '--last' '10s' '--predicate' '((eventMessage CONTAINS[c] \"Sandbox: ProbeService_user_selected_executable(43118)\") OR ((eventM",
+    "observed_deny": true,
+    "observed_lines": 3,
+    "pid": 43118,
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_user_selected_executable(43118)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"43118\")))",
+    "process_name": "ProbeService_user_selected_executable",
+    "start": null
+  },
+  "generated_at_unix_ms": 1766628277234,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

@@ -333,6 +333,61 @@ def scenario_net_client(*, ack_risk: Optional[str]) -> Dict[str, Dict[str, objec
     return {"net_client": payload}
 
 
+def _list_probe_profiles() -> Tuple[Dict[str, object], List[Dict[str, object]]]:
+    result = run_cmd([str(EJ), "list-profiles"])
+    stdout_json = maybe_parse_json(result.get("stdout", "").strip())
+    profiles: List[Dict[str, object]] = []
+    if isinstance(stdout_json, dict):
+        data = stdout_json.get("data")
+        if isinstance(data, dict):
+            for profile in data.get("profiles", []):
+                if isinstance(profile, dict) and profile.get("kind") == "probe":
+                    profiles.append(profile)
+    result["stdout_json"] = stdout_json
+    return result, profiles
+
+
+def scenario_net_op_groups(*, ack_risk: Optional[str]) -> Dict[str, Dict[str, object]]:
+    runs: List[Dict[str, object]] = []
+    host = "127.0.0.1"
+    list_profiles, profiles = _list_probe_profiles()
+
+    for profile in profiles:
+        profile_id = profile.get("profile_id")
+        bundle_id = profile.get("bundle_id")
+        if not isinstance(profile_id, str) or not isinstance(bundle_id, str):
+            continue
+        risk_tier = profile.get("risk_tier")
+        profile_ack = profile_id if risk_tier == 2 else ack_risk
+
+        listener_state, finish_listener = _run_tcp_listener(host=host, timeout_s=2.0)
+        record = run_xpc(
+            profile_id=profile_id,
+            service_id=bundle_id,
+            probe_id="net_op",
+            probe_args=["--op", "tcp_connect", "--host", host, "--port", str(listener_state["port"])],
+            log_path=_log_path("net_op_groups", profile_id, "tcp_connect"),
+            plan_id=PLAN_ID,
+            row_id=f"net_op_groups.{profile_id}.tcp_connect",
+            ack_risk=profile_ack,
+        )
+        record["listener"] = finish_listener()
+        record["profile_tags"] = profile.get("tags")
+        record["risk_tier"] = risk_tier
+        runs.append(record)
+
+    payload = {
+        "world_id": WORLD_ID,
+        "entrypoint": str(EJ.relative_to(REPO_ROOT)),
+        "scenario": "net_op_groups",
+        "net_op": {"op": "tcp_connect", "host": host, "port": "dynamic"},
+        "profiles": profiles,
+        "list_profiles": list_profiles,
+        "runs": runs,
+    }
+    return {"net_op_groups": payload}
+
+
 def _run_userdefaults(profile, *, ack_risk: Optional[str]) -> List[Dict[str, object]]:
     runs = []
     for op in ["write", "read", "remove"]:

@@ -16,6 +16,7 @@ from ej_scenarios import (
     scenario_health_check_profile,
     scenario_inventory,
     scenario_matrix_groups,
+    scenario_net_op_groups,
     scenario_net_client,
     scenario_probe_families,
     scenario_quarantine_lab,
@@ -50,6 +51,7 @@ def main() -> int:
             "bookmarks",
             "downloads_rw",
             "net_client",
+            "net_op_groups",
             "probe_families",
             "bookmark_roundtrip",
             "wait_attach",
@@ -97,6 +99,9 @@ def main() -> int:
 
     if args.scenario in {"net_client", "all"}:
         outputs.update(scenario_net_client(ack_risk=args.ack_risk))
+
+    if args.scenario in {"net_op_groups", "all"}:
+        outputs.update(scenario_net_op_groups(ack_risk=args.ack_risk))
 
     if args.scenario in {"probe_families", "all"}:
         outputs.update(scenario_probe_families(ack_risk=args.ack_risk))

@@ -1,0 +1,32 @@
+{
+  "data": {
+    "end": null,
+    "last": "10s",
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    \n2025-12-24 18:04:31.907502-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_minimal(43099) deny(1) network-outbound remote:*:55483\n2025-12-24 18:04:32.212134-0800  localhost log[43101]: [com.apple.log:] log run noninteractively, parent: 43100 (sandbox-log-observer), args: '/usr/bin/log' 'show' '--style' 'syslog' '--info' '--debug' '--last' '10s' '--predicate' '((eventMessage CONTAINS[c] \"Sandbox: ProbeService_minimal(43099)\") OR ((eventMessage CONTAINS[c",
+    "observed_deny": true,
+    "observed_lines": 3,
+    "pid": 43099,
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_minimal(43099)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"43099\")))",
+    "process_name": "ProbeService_minimal",
+    "start": null
+  },
+  "generated_at_unix_ms": 1766628272337,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

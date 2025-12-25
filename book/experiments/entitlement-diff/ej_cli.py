@@ -3,10 +3,11 @@
 from __future__ import annotations
 
 import json
+import os
 import shutil
 import subprocess
 from pathlib import Path
-from typing import Dict, Iterable, List, Optional, Sequence
+from typing import Dict, Iterable, List, Optional, Sequence, Tuple
 
 from book.api import path_utils
 from book.api.profile_tools.identity import baseline_world_id
@@ -15,16 +16,20 @@ from book.api.profile_tools.identity import baseline_world_id
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))
 WORLD_ID = baseline_world_id(REPO_ROOT)
 EJ = REPO_ROOT / "book" / "tools" / "entitlement" / "EntitlementJail.app" / "Contents" / "MacOS" / "entitlement-jail"
-
-LOG_CAPTURE_ROOT = (
-    Path.home()
-    / "Library"
-    / "Containers"
-    / "com.yourteam.entitlement-jail"
-    / "Data"
-    / "tmp"
-    / "entitlement-jail-logs"
+LOG_OBSERVER = (
+    REPO_ROOT
+    / "book"
+    / "tools"
+    / "entitlement"
+    / "EntitlementJail.app"
+    / "Contents"
+    / "MacOS"
+    / "sandbox-log-observer"
 )
+
+LOG_CAPTURE_MODE = os.environ.get("EJ_LOG_MODE", "stream").lower()
+LOG_OBSERVER_MODE = os.environ.get("EJ_LOG_OBSERVER", "fallback").lower()
+LOG_OBSERVER_LAST = os.environ.get("EJ_LOG_LAST", "10s")
 
 MATRIX_SOURCE_CANDIDATES = (
     Path.home()
@@ -57,6 +62,16 @@ EVIDENCE_SOURCE_CANDIDATES = (
 
 def _safe_tag(tag: str) -> str:
     return "".join(ch if ch.isalnum() or ch in "._-" else "_" for ch in tag)
+
+
+def _log_capture_args(log_path: Path) -> Tuple[str, List[str], Optional[str]]:
+    mode = LOG_CAPTURE_MODE
+    if mode == "sandbox":
+        return "sandbox", ["--log-sandbox", str(log_path)], None
+    if mode == "path_class":
+        log_name = _safe_tag(log_path.name)
+        return "path_class", ["--log-path-class", "tmp", "--log-name", log_name], log_name
+    return "stream", ["--log-stream", str(log_path)], None
 
 
 def write_json(path: Path, payload: Dict[str, object]) -> None:
@@ -157,6 +172,38 @@ def extract_log_capture_path(stdout_json: Optional[Dict[str, object]]) -> Option
     return None
 
 
+def extract_log_capture_status(stdout_json: Optional[Dict[str, object]]) -> Optional[str]:
+    if not isinstance(stdout_json, dict):
+        return None
+    data = stdout_json.get("data")
+    if isinstance(data, dict):
+        status = data.get("log_capture_status")
+        if isinstance(status, str):
+            return status
+    return None
+
+
+def extract_process_name(stdout_json: Optional[Dict[str, object]]) -> Optional[str]:
+    details = extract_details(stdout_json)
+    if details is None:
+        return None
+    process_name = details.get("process_name")
+    return process_name if isinstance(process_name, str) else None
+
+
+def extract_service_pid(stdout_json: Optional[Dict[str, object]]) -> Optional[str]:
+    details = extract_details(stdout_json)
+    if details is None:
+        return None
+    for key in ("service_pid", "probe_pid", "pid"):
+        value = details.get(key)
+        if isinstance(value, int):
+            return str(value)
+        if isinstance(value, str) and value:
+            return value
+    return None
+
+
 def extract_profile_bundle_id(stdout_json: Optional[Dict[str, object]]) -> Optional[str]:
     if not isinstance(stdout_json, dict):
         return None
@@ -220,6 +267,61 @@ def parse_probe_catalog(stdout_json: Optional[Dict[str, object]]) -> Optional[Li
     return out
 
 
+def _should_run_observer(stdout_json: Optional[Dict[str, object]]) -> bool:
+    if LOG_OBSERVER_MODE == "disabled":
+        return False
+    if LOG_OBSERVER_MODE == "always":
+        return True
+    status = extract_log_capture_status(stdout_json)
+    if status is None:
+        return True
+    return status != "captured"
+
+
+def run_sandbox_log_observer(
+    *,
+    pid: Optional[str],
+    process_name: Optional[str],
+    dest_path: Path,
+    last: str,
+) -> Dict[str, object]:
+    if pid is None or process_name is None:
+        return {"skipped": "missing_pid_or_process_name"}
+    if not LOG_OBSERVER.exists():
+        return {
+            "skipped": "observer_missing",
+            "observer_path": path_utils.to_repo_relative(LOG_OBSERVER, REPO_ROOT),
+        }
+
+    cmd = [str(LOG_OBSERVER), "--pid", str(pid), "--process-name", process_name, "--last", last]
+    try:
+        res = subprocess.run(cmd, capture_output=True, text=True, cwd=str(REPO_ROOT))
+    except Exception as exc:
+        return {
+            "command": path_utils.relativize_command(cmd, REPO_ROOT),
+            "error": f"{type(exc).__name__}: {exc}",
+        }
+
+    dest_path.parent.mkdir(parents=True, exist_ok=True)
+    write_error = None
+    try:
+        dest_path.write_text(res.stdout)
+    except Exception as exc:
+        write_error = f"{type(exc).__name__}: {exc}"
+
+    return {
+        "command": path_utils.relativize_command(cmd, REPO_ROOT),
+        "exit_code": res.returncode,
+        "stderr": res.stderr,
+        "log_path": path_utils.to_repo_relative(dest_path, REPO_ROOT),
+        "log_write_error": write_error,
+        "pid": str(pid),
+        "process_name": process_name,
+        "last": last,
+        "stdout_bytes": len(res.stdout),
+    }
+
+
 def run_xpc(
     *,
     profile_id: str,
@@ -238,9 +340,15 @@ def run_xpc(
 
     capture_path: Optional[Path] = None
     log_copy_error: Optional[str] = None
+    log_capture_mode: Optional[str] = None
+    log_capture_log_name: Optional[str] = None
     if log_path is not None:
-        log_name = _safe_tag(log_path.name)
-        cmd += ["--log-path-class", "tmp", "--log-name", log_name]
+        log_path.parent.mkdir(parents=True, exist_ok=True)
+        if log_path.exists():
+            log_path.unlink()
+        log_capture_mode, log_args, log_name = _log_capture_args(log_path)
+        log_capture_log_name = log_name
+        cmd += log_args
 
     cmd += ["--plan-id", plan_id, "--row-id", row_id]
     if use_profile:
@@ -256,9 +364,23 @@ def run_xpc(
         capture_source = extract_log_capture_path(stdout_json)
         if capture_source:
             capture_path = Path(capture_source)
+        if capture_path is None and log_path.exists():
+            capture_path = log_path
+        if capture_path and capture_path != log_path:
             log_copy_error = copy_file(capture_path, log_path)
+        elif log_path.exists():
+            log_copy_error = None
         else:
             log_copy_error = "log_capture_path_missing"
+
+    observer: Optional[Dict[str, object]] = None
+    if log_path is not None and _should_run_observer(stdout_json):
+        observer = run_sandbox_log_observer(
+            pid=extract_service_pid(stdout_json),
+            process_name=extract_process_name(stdout_json),
+            dest_path=log_path.parent / "observer" / log_path.name,
+            last=LOG_OBSERVER_LAST,
+        )
 
     record: Dict[str, object] = {
         "profile_id": profile_id,
@@ -267,9 +389,12 @@ def run_xpc(
         "probe_args": list(probe_args),
         "plan_id": plan_id,
         "row_id": row_id,
+        "log_capture_mode": log_capture_mode,
+        "log_capture_log_name": log_capture_log_name,
         "log_path": path_utils.to_repo_relative(log_path, REPO_ROOT) if log_path else None,
         "log_capture_source": home_hint(capture_path) if capture_path else None,
         "log_copy_error": log_copy_error,
+        "observer": observer,
         **res,
     }
     if stdout_text:

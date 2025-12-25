@@ -1,0 +1,78 @@
+{"app_name":"sandbox_target","timestamp":"2025-12-24 17:31:08.00 -0800","app_version":"","slice_uuid":"22f6598f-2699-3954-abdc-1f6913b6e2c7","build_version":"","platform":0,"share_with_app_devs":0,"is_first_party":1,"bug_type":"309","os_version":"macOS 14.4.1 (23E224)","roots_installed":0,"incident_id":"1ABB49F7-0DD5-4CDC-88B6-BE606CCA2AD2","name":"sandbox_target"}
+{
+  "uptime" : 1600000,
+  "procRole" : "Unspecified",
+  "version" : 2,
+  "userID" : 501,
+  "deployVersion" : 210,
+  "modelCode" : "MacBookAir10,1",
+  "coalitionID" : 687,
+  "osVersion" : {
+    "train" : "macOS 14.4.1",
+    "build" : "23E224",
+    "releaseType" : "User"
+  },
+  "captureTime" : "2025-12-24 17:31:01.5067 -0800",
+  "codeSigningMonitor" : 1,
+  "incident" : "1ABB49F7-0DD5-4CDC-88B6-BE606CCA2AD2",
+  "pid" : 38636,
+  "translated" : false,
+  "cpuType" : "ARM-64",
+  "roots_installed" : 0,
+  "bug_type" : "309",
+  "procLaunch" : "2025-12-24 17:31:01.5000 -0800",
+  "procStartAbsTime" : 40663471915504,
+  "procExitAbsTime" : 40663472070736,
+  "procName" : "sandbox_target",
+  "procPath" : "\/Users\/USER\/Desktop\/*\/sandbox_target",
+  "parentProc" : "Exited process",
+  "parentPid" : 38610,
+  "coalitionName" : "com.apple.Terminal",
+  "crashReporterKey" : "C888B562-AB45-C82A-8696-91373FFF8DCC",
+  "responsiblePid" : 56440,
+  "responsibleProc" : "Terminal",
+  "codeSigningID" : "sandbox_target",
+  "codeSigningTeamID" : "",
+  "codeSigningFlags" : 570556929,
+  "codeSigningValidationCategory" : 10,
+  "codeSigningTrustLevel" : 4294967295,
+  "wakeTime" : 12471,
+  "sleepWakeUUID" : "DD896CB9-00E2-402C-BE89-9FFB30AC0D93",
+  "sip" : "enabled",
+  "exception" : {"codes":"0x0000000000000000, 0x0000000000000000","rawCodes":[0,0],"type":"EXC_CRASH","signal":"SIGABRT"},
+  "termination" : {"namespace":"<0x23>","flags":582,"code":2},
+  "extMods" : {"caller":{"thread_create":0,"thread_set_state":0,"task_for_pid":0},"system":{"thread_create":40,"thread_set_state":0,"task_for_pid":161},"targeted":{"thread_create":0,"thread_set_state":0,"task_for_pid":0},"warnings":0},
+  "legacyInfo" : {
+  "threadHighlighted" : 0
+},
+  "trialInfo" : {
+  "rollouts" : [
+    {
+      "rolloutId" : "644114de41e7236e6177f9bd",
+      "factorPackIds" : {
+
+      },
+      "deploymentId" : 240000013
+    },
+    {
+      "rolloutId" : "6297d96be2c9387df974efa4",
+      "factorPackIds" : {
+
+      },
+      "deploymentId" : 240000032
+    }
+  ],
+  "experiments" : [
+
+  ]
+},
+  "reportNotes" : [
+  "_dyld_process_info_create failed with 19",
+  "dyld_process_snapshot_get_shared_cache failed",
+  "Corpse is incomplete (_dyld_process_info_create failed with 19)",
+  "Backtraces may be be unvailable or truncated to only leaf frames, and the binary image list may not be available",
+  "thread_get_state(PAGEIN) returned 0x10000003: (ipc\/send) invalid destination port",
+  "thread_get_state(EXCEPTION) returned 0x10000003: (ipc\/send) invalid destination port",
+  "thread_get_state(FLAVOR) returned 0x10000003: (ipc\/send) invalid destination port"
+]
+}

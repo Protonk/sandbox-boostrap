@@ -9,6 +9,7 @@
 - `python book/experiments/entitlement-diff/run_entitlementjail.py --scenario bookmarks`
 - `python book/experiments/entitlement-diff/run_entitlementjail.py --scenario downloads_rw`
 - `python book/experiments/entitlement-diff/run_entitlementjail.py --scenario net_client`
+- `python book/experiments/entitlement-diff/run_entitlementjail.py --scenario net_op_groups`
 
 ## Reminders
 - Use `probe_catalog` outputs to confirm probe availability (bookmark probes are not assumed).
@@ -118,6 +119,39 @@
 - Status: ok (partial runtime evidence; deny evidence depends on log capture)
 
 ## Log capture status for new scenarios
+- Runner updated to request `--log-stream` (host path) and capture observer output under `out/ej/logs/observer/`; rerun needed to see whether deny evidence is captured.
+- Command: PYTHONPATH=. python book/experiments/entitlement-diff/run_entitlementjail.py --scenario downloads_rw
+- Result: log stream files written under `book/experiments/entitlement-diff/out/ej/logs/`; observer reports written under `book/experiments/entitlement-diff/out/ej/logs/observer/`; no sandbox deny lines observed for downloads_rw runs.
+- Command: PYTHONPATH=. python book/experiments/entitlement-diff/run_entitlementjail.py --scenario net_client
+- Result: log stream captured a sandbox deny line for minimal tcp_connect (`net_client.minimal.tcp_connect.log`); observer report for the same run reports `observed_deny: true`.
+- Command: PYTHONPATH=. python book/experiments/entitlement-diff/run_entitlementjail.py --scenario bookmarks
+- Result: log stream captured a sandbox deny for minimal bookmark_make (`bookmarks.minimal.bookmark_make.log`); observer report for the same run reports `observed_deny: true`. Non-target processes also emitted sandbox logs in this capture; do not treat those as ProbeService denials.
+- Command: PYTHONPATH=. python book/experiments/entitlement-diff/run_entitlementjail.py --scenario probe_families
+- Result: log stream and observer reports captured; no sandbox deny lines observed for userdefaults/fs_xattr/fs_coord probes.
+- Command: PYTHONPATH=. python book/experiments/entitlement-diff/run_entitlementjail.py --scenario bookmark_roundtrip
+- Result: log stream captured a sandbox deny for minimal roundtrip_stat (`bookmark_roundtrip.minimal.roundtrip_stat.log`); observer report for the same run reports `observed_deny: true`.
+- Command: PYTHONPATH=. python book/experiments/entitlement-diff/run_entitlementjail.py --scenario wait_attach
+- Result: log stream + observer captured for capabilities_snapshot; no sandbox deny lines observed in wait_attach logs.
+- Command: PYTHONPATH=. python book/experiments/entitlement-diff/run_entitlementjail.py --scenario wait_timeout_matrix
+- Result: log stream captured; no sandbox deny lines observed in wait_timeout logs.
+- Command: PYTHONPATH=. python book/experiments/entitlement-diff/run_entitlementjail.py --scenario wait_path_class
+- Result: log stream + observer captured for capabilities_snapshot; no sandbox deny lines observed.
+- Command: PYTHONPATH=. python book/experiments/entitlement-diff/run_entitlementjail.py --scenario wait_multi_trigger
+- Result: log stream captured; no sandbox deny lines observed in wait_multi logs.
+- Command: PYTHONPATH=. python book/experiments/entitlement-diff/run_entitlementjail.py --scenario wait_probe_wait
+- Result: log stream captured; no sandbox deny lines observed in wait_probe logs.
+- Command: PYTHONPATH=. python book/experiments/entitlement-diff/run_entitlementjail.py --scenario wait_hold_open
+- Result: log stream + observer captured for capabilities_snapshot; no sandbox deny lines observed.
+- Command: PYTHONPATH=. python book/experiments/entitlement-diff/run_entitlementjail.py --scenario wait_create
+- Result: log stream + observer captured for capabilities_snapshot; no sandbox deny lines observed.
+- Command: PYTHONPATH=. python book/experiments/entitlement-diff/run_entitlementjail.py --scenario wait_interval
+- Result: log stream + observer captured for capabilities_snapshot; no sandbox deny lines observed.
+- Command: PYTHONPATH=. python book/experiments/entitlement-diff/run_entitlementjail.py --scenario attach_holdopen_default
+- Result: log stream + observer captured for capabilities_snapshot; no sandbox deny lines observed in attach_default logs.
+- Command: PYTHONPATH=. python book/experiments/entitlement-diff/run_entitlementjail.py --scenario matrix_groups --ack-risk fully_injectable
+- Result: matrix outputs refreshed under `book/experiments/entitlement-diff/out/ej/matrix/<group>/`; run-matrix does not request log capture, so no new deny evidence for this run.
+- Command: PYTHONPATH=. python book/experiments/entitlement-diff/run_entitlementjail.py --scenario net_op_groups
+- Result: log stream + observer captured for all probe profiles via net_op tcp_connect; observer reports `observed_deny: true` for `minimal`, `plugin_host_relaxed`, and `user_selected_executable`, and `observed_deny: false` for other probe profiles.
 - Observation: probe_families and bookmark_roundtrip runs report log_capture_status=requested_failed with `log: Cannot run while sandboxed` across all runs; deny evidence is not captured for these scenarios.
 - Status: partial (runtime outcomes recorded, log capture blocked by sandboxed log invocation)
 

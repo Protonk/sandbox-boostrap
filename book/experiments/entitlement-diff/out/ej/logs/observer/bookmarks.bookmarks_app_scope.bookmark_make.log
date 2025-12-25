@@ -1,0 +1,32 @@
+{
+  "data": {
+    "end": null,
+    "last": "10s",
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    \n2025-12-24 17:32:01.085408-0800  localhost log[39472]: [com.apple.log:] log run noninteractively, parent: 39471 (sandbox-log-observer), args: '/usr/bin/log' 'show' '--style' 'syslog' '--info' '--debug' '--last' '10s' '--predicate' '((eventMessage CONTAINS[c] \"Sandbox: ProbeService_bookmarks_app_scope(39470)\") OR ((eventMessag",
+    "observed_deny": false,
+    "observed_lines": 2,
+    "pid": 39470,
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_bookmarks_app_scope(39470)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"39470\")))",
+    "process_name": "ProbeService_bookmarks_app_scope",
+    "start": null
+  },
+  "generated_at_unix_ms": 1766626321305,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

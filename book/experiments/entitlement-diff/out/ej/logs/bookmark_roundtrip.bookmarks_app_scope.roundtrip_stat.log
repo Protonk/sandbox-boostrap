@@ -1,1 +1,5 @@
-log show error: log: Cannot run while sandboxed
+Filtering the log data using "composedMessage CONTAINS[c] "Sandbox:" OR composedMessage CONTAINS[c] "deny""
+Timestamp                       (process)[PID]    
+2025-12-24 17:32:43.599444-0800  localhost kernel[0]: (Sandbox) Sandbox: ScopedBookmarkAgent(77488) deny(1) file-read-data /Library/Preferences/com.apple.security.plist
+2025-12-24 17:32:43.756576-0800  localhost kernel[0]: (AppleBCMWLANCore) LQM-WIFI: Stats9: btDur=755ms(14%) status=0x190d reqTypeMap=0x300040 req=241 gnt=178 abort=7 rx1ovfl=6 latency=1 pmAttempt=0 sucPM=0 sucCTS2S=0 wlanTXPreempt=0 wlanRXPreempt=0 apTXafterPM=0 gntAudio=0 denyAudio=0 gntA2DP=0 denyA2DP=0
+2025-12-24 17:32:43.756600-0800  localhost kernel[0]: (AppleBCMWLANCore) LQM-WIFI: Stats9: CrtPriCnt=34 PriCnt=1 gntSniff=0 denySniff=0 antGrant0~10ms=75 antGrant10~30ms=32 antGrant30~60ms=3 antGrant>60ms=0 APLeakiness=0 rr_cnt=0 rr_succ_cnt=0 [5283ms]

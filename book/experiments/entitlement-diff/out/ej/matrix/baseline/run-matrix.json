@@ -1,7 +1,7 @@
 {
   "data": {
-    "generated_at_unix_ms": 1766618491470,
-    "group_id": "baseline",
+    "generated_at_unix_ms": 1766618491743,
+    "group_id": "jit",
     "output_dir": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail/Data/Library/Application Support/entitlement-jail/matrix/latest",
     "probe_argv": [
       "--ack-risk",
@@ -9,7 +9,9 @@
     ],
     "probe_id": "capabilities_snapshot",
     "profiles": [
-      "minimal"
+      "minimal",
+      "jit_map_jit",
+      "jit_rwx_legacy"
     ],
     "runs": [
       {
@@ -28,13 +30,13 @@
               "--ack-risk",
               "fully_injectable"
             ],
-            "correlation_id": "C4173B9E-7F4F-4F2F-8EBA-DBEBF508DE74",
+            "correlation_id": "DF0CF448-1909-4DED-A443-C29A2D4D059A",
             "deny_evidence": "not_captured",
             "details": {
               "app_support_dir": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_minimal/Data/Library/Application Support",
               "bundle_id": "com.yourteam.entitlement-jail.ProbeService_minimal",
               "caches_dir": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_minimal/Data/Library/Caches",
-              "correlation_id": "C4173B9E-7F4F-4F2F-8EBA-DBEBF508DE74",
+              "correlation_id": "DF0CF448-1909-4DED-A443-C29A2D4D059A",
               "cwd": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_minimal/Data",
               "desktop_dir": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_minimal/Data/Desktop",
               "documents_dir": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_minimal/Data/Documents",
@@ -53,15 +55,15 @@
               "has_user_selected_read_only": "false",
               "has_user_selected_read_write": "false",
               "home_dir": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_minimal/Data",
-              "pid": "7673",
+              "pid": "7686",
               "prefs_path_guess": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_minimal/Data/Library/Preferences/com.yourteam.entitlement-jail.ProbeService_minimal.plist",
               "probe_family": "capabilities_snapshot",
-              "probe_pid": "7673",
+              "probe_pid": "7686",
               "process_name": "ProbeService_minimal",
-              "service_pid": "7673",
+              "service_pid": "7686",
               "tmp_dir": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_minimal/Data/tmp/"
             },
-            "ended_at_iso8601": "2025-12-24T23:21:31.466Z",
+            "ended_at_iso8601": "2025-12-24T23:21:31.740Z",
             "layer_attribution": {
               "world_shape_change": "home_containerized"
             },
@@ -71,10 +73,10 @@
             "service_bundle_id": "com.yourteam.entitlement-jail.ProbeService_minimal",
             "service_name": "ProbeService_minimal",
             "service_version": "1.0",
-            "started_at_iso8601": "2025-12-24T23:21:31.466Z",
-            "thread_id": "3331"
+            "started_at_iso8601": "2025-12-24T23:21:31.739Z",
+            "thread_id": "4611"
           },
-          "generated_at_unix_ms": 1766618491469,
+          "generated_at_unix_ms": 1766618491743,
           "kind": "probe_response",
           "result": {
             "normalized_outcome": "ok",
@@ -89,9 +91,28 @@
         "risk_tier": 0
       }
     ],
-    "skipped": []
+    "skipped": [
+      {
+        "bundle_id": "com.yourteam.entitlement-jail.ProbeService_jit_map_jit",
+        "profile_id": "jit_map_jit",
+        "reason": "tier2_requires_ack",
+        "risk_reasons": [
+          "allow_jit"
+        ],
+        "risk_tier": 2
+      },
+      {
+        "bundle_id": "com.yourteam.entitlement-jail.ProbeService_jit_rwx_legacy",
+        "profile_id": "jit_rwx_legacy",
+        "reason": "tier2_requires_ack",
+        "risk_reasons": [
+          "allow_unsigned_exec_mem"
+        ],
+        "risk_tier": 2
+      }
+    ]
   },
-  "generated_at_unix_ms": 1766618491470,
+  "generated_at_unix_ms": 1766618491743,
   "kind": "run_matrix_report",
   "result": {
     "errno": null,

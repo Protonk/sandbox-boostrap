@@ -1,0 +1,32 @@
+{
+  "data": {
+    "end": null,
+    "last": "10s",
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    \n2025-12-24 17:32:32.002645-0800  localhost log[39912]: [com.apple.log:] log run noninteractively, parent: 39911 (sandbox-log-observer), args: '/usr/bin/log' 'show' '--style' 'syslog' '--info' '--debug' '--last' '10s' '--predicate' '((eventMessage CONTAINS[c] \"Sandbox: ProbeService_downloads_rw(39910)\") OR ((eventMessage CONTA",
+    "observed_deny": false,
+    "observed_lines": 2,
+    "pid": 39910,
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_downloads_rw(39910)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"39910\")))",
+    "process_name": "ProbeService_downloads_rw",
+    "start": null
+  },
+  "generated_at_unix_ms": 1766626352184,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

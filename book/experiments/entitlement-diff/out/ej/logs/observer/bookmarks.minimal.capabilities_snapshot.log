@@ -1,0 +1,32 @@
+{
+  "data": {
+    "end": null,
+    "last": "10s",
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    \n2025-12-24 17:31:53.865804-0800  localhost log[39360]: [com.apple.log:] log run noninteractively, parent: 39359 (sandbox-log-observer), args: '/usr/bin/log' 'show' '--style' 'syslog' '--info' '--debug' '--last' '10s' '--predicate' '((eventMessage CONTAINS[c] \"Sandbox: ProbeService_minimal(39291)\") OR ((eventMessage CONTAINS[c",
+    "observed_deny": false,
+    "observed_lines": 2,
+    "pid": 39291,
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_minimal(39291)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"39291\")))",
+    "process_name": "ProbeService_minimal",
+    "start": null
+  },
+  "generated_at_unix_ms": 1766626314245,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}
