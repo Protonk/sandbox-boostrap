@@ -6,6 +6,11 @@ OUT_DIR="${ROOT_DIR}/out"
 REPO_ROOT="$(cd "${ROOT_DIR}/../../.." && pwd)"
 PROFILE_REL="book/experiments/shrink-trace/out/profile.sb"
 SEED_DYLD="${SEED_DYLD:-1}"
+DENY_SIGSTOP="${DENY_SIGSTOP:-0}"
+IMPORT_DYLD_SUPPORT="${IMPORT_DYLD_SUPPORT:-1}"
+DYLD_LOG="${DYLD_LOG:-0}"
+ALLOW_FIXTURE_EXEC="${ALLOW_FIXTURE_EXEC:-1}"
+NETWORK_RULES="${NETWORK_RULES:-drop}"
 
 if [[ -d "${OUT_DIR}" ]]; then
   rm -rf "${OUT_DIR:?}"
@@ -21,6 +26,11 @@ echo "[*] Output dir: ${OUT_DIR}"
 # would match a process name. Here it also keeps command lines tidy.
 export PATH="${OUT_DIR}:${PATH}"
 export SEED_DYLD
+export DENY_SIGSTOP
+export IMPORT_DYLD_SUPPORT
+export DYLD_LOG
+export ALLOW_FIXTURE_EXEC
+export NETWORK_RULES
 
 PROFILE="${OUT_DIR}/profile.sb"
 TRACE_STATUS="${OUT_DIR}/trace_status.txt"
@@ -30,6 +40,25 @@ echo "[*] Tracing to build profile: ${PROFILE}"
   cd "${OUT_DIR}"
   "${ROOT_DIR}/scripts/trace_instrumented.sh" ./sandbox_target "${PROFILE}" | tee "${OUT_DIR}/trace_stdout.txt"
 )
+
+if [[ "${DENY_SIGSTOP}" -eq 1 ]]; then
+  echo "[*] DENY_SIGSTOP=1; skipping sandbox_min check to avoid SIGSTOP stalls."
+else
+  echo "[*] Sandbox-min check"
+  (
+    cd "${OUT_DIR}"
+    set +e
+    if [[ "${DYLD_LOG}" -eq 1 ]]; then
+      DYLD_PRINT_TO_FILE="${OUT_DIR}/dyld.log" \
+        DYLD_PRINT_LIBRARIES=1 \
+        DYLD_PRINT_INITIALIZERS=1 \
+        sandbox-exec -f "${PROFILE}" ./sandbox_min > "${OUT_DIR}/sandbox_min_stdout.txt" 2> "${OUT_DIR}/sandbox_min_stderr.txt"
+    else
+      sandbox-exec -f "${PROFILE}" ./sandbox_min > "${OUT_DIR}/sandbox_min_stdout.txt" 2> "${OUT_DIR}/sandbox_min_stderr.txt"
+    fi
+    echo $? > "${OUT_DIR}/sandbox_min_exitcode.txt"
+  )
+fi
 
 trace_status="unknown"
 stall_dir=""

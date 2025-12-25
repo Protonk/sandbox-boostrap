@@ -1,1 +1,6 @@
-sandbox-exec: execvp() of './sandbox_target' failed: Operation not permitted
+[required] open(/etc/hosts) FAILED: Operation not permitted
+[required] sysctlbyname(kern.ostype) FAILED: Operation not permitted
+[required] getpwuid(getuid()) FAILED: Operation not permitted
+[required] mkdir(out) FAILED: Operation not permitted
+[required] open(out/hello.txt for write) FAILED: No such file or directory
+[optional] connect(127.0.0.1:2000) failed (ignored): Operation not permitted

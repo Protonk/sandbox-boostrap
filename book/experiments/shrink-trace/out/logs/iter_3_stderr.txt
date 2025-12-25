@@ -4,5 +4,6 @@
 [required] getpwuid(getuid()) OK
 [required] username=achyland
 [required] mkdir(out) OK
-[required] open(out/hello.txt for write) FAILED: Operation not permitted
+[required] open(out/hello.txt for write) OK
+[required] write(out/hello.txt) OK
 [optional] connect(127.0.0.1:2000) failed (ignored): Operation not permitted

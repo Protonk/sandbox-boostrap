@@ -10,4 +10,14 @@
 - Updated trace parsing to use JSON-style logs with a `log show` fallback and added a dyld seed block.
 - Current run (`SEED_DYLD=1`) stalls on SIGABRT in iteration 2; stall bundle in `book/experiments/shrink-trace/out/stall_iter_2/`.
 - Manual abort capture saved to `book/experiments/shrink-trace/out/stdout.txt`, `book/experiments/shrink-trace/out/stderr.txt`, and `book/experiments/shrink-trace/out/exitcode.txt` (exit code 134).
-- Copied latest crash report to `book/experiments/shrink-trace/out/sandbox_target-2025-12-24-173108.ips`.
+- Copied latest crash report to `book/experiments/shrink-trace/out/sandbox_target-2025-12-24-181523.ips`.
+- Updated dyld seed to add `file-map-executable` for system paths, dev node allowances, and a DirectoryService mach-lookup allow.
+- Added optional `dyld-support.sb` import, fixture exec allowances for the output directory, and a `DYLD_LOG` mode to capture dyld output.
+- Latest run with `DYLD_LOG=1` imported `dyld-support.sb` and appended 11 rules, then hit a parse error (rc=65) from the invalid network rule; `dyld.log` was not created.
+- `sandbox_min_exitcode.txt` is 65 on the latest run (parse error).
+- Added `sandbox_min` diagnostic; latest `sandbox_min_exitcode.txt` is 71.
+- Re-ran `scripts/run_workflow.sh` with defaults after network rule handling changes; trace succeeded in 3 iterations (`metrics.tsv`) with no rc=65 parse failures.
+- `sandbox_min` exited 0 under the traced profile (`out/sandbox_min_exitcode.txt`).
+- Shrink failed the initial “full sandbox” check because `open(out/hello.txt)` was denied; traced profile only includes `file-write-create` for the file, not `file-write-data` (`out/shrink_stdout.txt`).
+- Network denies were dropped into `out/bad_rules.txt` under `NETWORK_RULES=drop`.
+- Output overwrites removed earlier `log_show_sandbox_exec.txt`; current `out/` no longer includes that capture.

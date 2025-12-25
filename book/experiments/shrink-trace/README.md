@@ -17,8 +17,10 @@ These references are external documentation and not host witnesses. Treat them a
 - `book/experiments/shrink-trace/upstream/shrink.sh` - upstream shrinker (verbatim).
 - `book/experiments/shrink-trace/upstream/readme.md` - upstream notes (verbatim).
 - `book/experiments/shrink-trace/fixtures/sandbox_target.c` - deterministic workload fixture.
+- `book/experiments/shrink-trace/fixtures/sandbox_min.c` - minimal fixture to test dyld/bootstrap.
 - `book/experiments/shrink-trace/scripts/build_fixture.sh` - build the fixture.
 - `book/experiments/shrink-trace/scripts/extract_denies.py` - parse JSON-style logs to extract deny lines by PID.
+- `book/experiments/shrink-trace/scripts/extract_sandbox_messages.py` - extract sandbox-related event messages from JSON logs.
 - `book/experiments/shrink-trace/scripts/trace_instrumented.sh` - instrumented tracer with metrics.
 - `book/experiments/shrink-trace/scripts/run_workflow.sh` - build, trace, shrink, verify.
 - `book/experiments/shrink-trace/scripts/summarize_metrics.sh` - summarize metrics from a run.
@@ -53,8 +55,16 @@ Each run writes to `book/experiments/shrink-trace/out/` (overwriting any previou
 - `trace_stdout.txt` - trace output.
 - `shrink_stdout.txt` - shrink output.
 - `preflight_scan.json` - preflight scan of the traced profile before shrink.
-- `trace_status.txt` - trace stop reason (`success`, `no_new_rules`, `stalled`, or `preflight_failed`).
+- `trace_status.txt` - trace stop reason (`success`, `no_new_rules`, `stalled`, `preflight_failed`, or `profile_invalid`).
 - `stall_iter_<n>/` - bundle created when the trace stalls on a signal with no observed denies (includes logs, stderr, and any crash report found).
+- `stall_iter_<n>/sandbox_messages.txt` - sandbox-related event messages collected from the stall logs.
+- `profile_invalid_iter_<n>/` - bundle created when `sandbox-exec` exits with rc=65 (parse failure); includes `bad_rules.txt` and `last_appended_rule.txt`.
+- `bad_rules.txt` - rules rejected because they broke profile parsing.
+- `last_appended_rule.txt` - last rule appended before a failure.
+- `dyld.log` - dyld debug log (when `DYLD_LOG=1`).
+- `sandbox_min_stdout.txt` - stdout from the minimal fixture check.
+- `sandbox_min_stderr.txt` - stderr from the minimal fixture check.
+- `sandbox_min_exitcode.txt` - exit code from the minimal fixture check.
 
 ## Interpreting results
 1) Trace convergence:
@@ -124,6 +134,11 @@ Each run writes to `book/experiments/shrink-trace/out/` (overwriting any previou
 ## Variants
 - `SEED_DYLD=1` (default) adds a small loader/dyld seed block to the initial profile to help the target reach deny emission.
 - `SEED_DYLD=0` disables the seed for the minimal `(version 1)` + `(deny default)` baseline.
+- `DENY_SIGSTOP=1` replaces `(deny default)` with `(deny default (with send-signal SIGSTOP))` to stop on first violation for debugger attach.
+- `IMPORT_DYLD_SUPPORT=1` (default) imports `dyld-support.sb` when present under `/System/Library/Sandbox/Profiles/`.
+- `DYLD_LOG=1` enables dyld logging to `dyld.log` in the output directory.
+- `ALLOW_FIXTURE_EXEC=1` (default) allows `process-exec*` and `file-read-metadata` for the output directory so `sandbox_min` is executable.
+- `NETWORK_RULES=drop` (default) drops network denies; `NETWORK_RULES=coarse` emits `(allow network-*)` without filters; `NETWORK_RULES=parsed` emits `(remote ip)` or `(local ip)` with normalization.
 
 [1]: https://man.freebsd.org/cgi/man.cgi?manpath=macOS+14.8&query=sandbox-exec&sektion=1 "sandbox-exec(1)"
 [2]: https://chromium.googlesource.com/chromium/src/%2B/8073c7e0afcb/docs/mac/sandbox_debugging.md "Sandbox Debugging"

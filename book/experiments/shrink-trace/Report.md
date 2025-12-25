@@ -14,26 +14,28 @@
 - A reproducible run path using `scripts/run_workflow.sh`.
 
 ## Plan & execution log
-- Ran `scripts/run_workflow.sh` with the dyld seed enabled (`SEED_DYLD=1`), JSON log capture, and per-iteration preflight.
-- Iteration 1 logged a deny for `process-exec*` on the fixture binary and appended the allow rule (profile now 16 lines including the seed block).
-- Iteration 2 aborted (`sandbox-exec` SIGABRT) with no new deny lines; the trace marked this as `stalled` and emitted a stall bundle.
-- Shrink is skipped when trace does not reach `rc==0` (current run stopped at `stalled`).
+- Ran `scripts/run_workflow.sh` with defaults (`SEED_DYLD=1`, `IMPORT_DYLD_SUPPORT=1`, `NETWORK_RULES=drop`).
+- Iteration counts: 3 total; iteration 1 added 12 rules, iteration 2 added 5 rules, iteration 3 returned `rc=0` with 0 new rules (`metrics.tsv`).
+- `sandbox_min` exited 0, so the profile parses and execs a trivial target when fixture execs are allowed.
+- Preflight scan for the traced profile completed successfully before shrink.
+- Shrink failed at the initial “full sandbox” check: `open(out/hello.txt)` was denied, so the shrink step did not proceed.
+- Network denies were dropped into `bad_rules.txt` rather than rewritten (avoids the earlier rc=65 parse failures).
 
 ## Evidence & artifacts
 - Current run outputs live under `book/experiments/shrink-trace/out/` (profile, logs, metrics, stdout captures).
 - Preflight scan output: `book/experiments/shrink-trace/out/preflight_scan.json`.
-- Supplemental `log show` capture for `sandbox-exec`: `book/experiments/shrink-trace/out/log_show_sandbox_exec.txt`.
 - Per-iteration preflight outputs are written alongside logs as `book/experiments/shrink-trace/out/logs/iter_<n>_preflight.json`.
-- Stall bundle (SIGABRT, no new denies): `book/experiments/shrink-trace/out/stall_iter_2/`.
-- Manual abort capture: `book/experiments/shrink-trace/out/stdout.txt`, `book/experiments/shrink-trace/out/stderr.txt`, `book/experiments/shrink-trace/out/exitcode.txt`.
-- Crash report (sandbox_target, SIGABRT): `book/experiments/shrink-trace/out/sandbox_target-2025-12-24-173108.ips`.
+- Trace status: `book/experiments/shrink-trace/out/trace_status.txt`.
+- `sandbox_min` diagnostic outputs: `book/experiments/shrink-trace/out/sandbox_min_stdout.txt`, `book/experiments/shrink-trace/out/sandbox_min_stderr.txt`, `book/experiments/shrink-trace/out/sandbox_min_exitcode.txt`.
+- Dropped network denies: `book/experiments/shrink-trace/out/bad_rules.txt`.
+- Shrink failure output: `book/experiments/shrink-trace/out/shrink_stdout.txt`.
 
 ## Blockers / risks
 - Unified log access may be restricted (Full Disk Access or admin context required).
 - The return-code stop condition can end tracing early if the target tolerates denies; the instrumented script now records non-zero return codes correctly.
-- On this host, `sandbox-exec` aborts (SIGABRT) after the initial allow rule is added, and no additional deny lines appear. This stalls the trace loop and prevents shrink from running successfully.
-- The captured crash report (`.ips`) is a SIGABRT for `sandbox_target` but lacks a usable backtrace; dyld process info is missing, so abort location is still unresolved.
+- Shrink fails because the traced profile allows `file-write-create` for `out/hello.txt` but not `file-write-data`, so a subsequent run on an existing file is denied.
+- Network denies are currently dropped by default (`NETWORK_RULES=drop`) to avoid malformed rules; enabling parsed network rules remains brittle and needs validation.
 
 ## Next steps
-- Run `scripts/run_workflow.sh` and capture outputs.
-- Summarize metrics and note any blocked or brittle behavior.
+- Decide whether to: (a) add a fixture step that forces `file-write-data` denials in trace, or (b) treat this as a known shrink confounder and document it explicitly.
+- Re-run with `NETWORK_RULES=parsed` once rule normalization is validated (optional).
