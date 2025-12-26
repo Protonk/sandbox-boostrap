@@ -4,45 +4,29 @@
   "runner": "book/experiments/runtime-checks/sandbox_runner",
   "parent_chain": [
     {
-      "pid": 10579,
+      "pid": 25110,
       "source": "libproc",
-      "ppid": 70907,
+      "ppid": 1,
       "comm": "Python",
       "name": "Python",
-      "path": "/opt/homebrew/Cellar/python@3.14/3.14.2/Frameworks/Python.framework/Versions/3.14/Resources/Python.app/Contents/MacOS/Python"
+      "path": "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/Resources/Python.app/Contents/MacOS/Python"
     },
     {
-      "pid": 70907,
-      "source": "libproc",
-      "ppid": 24218,
-      "comm": "codex-aarch64-a",
-      "name": "codex-aarch64-apple-darwin",
-      "path": "/opt/homebrew/Caskroom/codex/0.77.0/codex-aarch64-apple-darwin"
-    },
-    {
-      "pid": 24218,
-      "source": "libproc",
-      "ppid": 24217,
-      "comm": "zsh",
-      "name": "zsh",
-      "path": "/bin/zsh"
-    },
-    {
-      "pid": 24217,
+      "pid": 1,
       "source": "libproc",
       "error": "proc_pidinfo_failed",
       "errno": 1,
-      "path": "/usr/bin/login"
+      "path": "/sbin/launchd"
     }
   ],
   "parent_chain_source": "libproc",
   "procinfo": [
     {
-      "pid": 10579,
+      "pid": 25110,
       "command": [
         "/bin/launchctl",
         "procinfo",
-        "10579"
+        "25110"
       ],
       "status": "error",
       "returncode": 1,
@@ -51,37 +35,11 @@
       "parsed": {}
     },
     {
-      "pid": 70907,
+      "pid": 1,
       "command": [
         "/bin/launchctl",
         "procinfo",
-        "70907"
-      ],
-      "status": "error",
-      "returncode": 1,
-      "denied": false,
-      "raw": "This subcommand requires root privileges: procinfo\n",
-      "parsed": {}
-    },
-    {
-      "pid": 24218,
-      "command": [
-        "/bin/launchctl",
-        "procinfo",
-        "24218"
-      ],
-      "status": "error",
-      "returncode": 1,
-      "denied": false,
-      "raw": "This subcommand requires root privileges: procinfo\n",
-      "parsed": {}
-    },
-    {
-      "pid": 24217,
-      "command": [
-        "/bin/launchctl",
-        "procinfo",
-        "24217"
+        "1"
       ],
       "status": "error",
       "returncode": 1,
@@ -103,30 +61,30 @@
     "--",
     "/usr/bin/true"
   ],
-  "exit_code": 1,
+  "exit_code": 0,
   "stdout": "",
-  "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
+  "stderr": "",
   "apply_report": {
     "api": "sandbox_init",
-    "rc": -1,
-    "errno": 1,
-    "errbuf": "Operation not permitted",
-    "err_class": "errno_eperm",
-    "err_class_source": "errno_only"
+    "rc": 0,
+    "errno": 0,
+    "errbuf": null,
+    "err_class": "ok",
+    "err_class_source": "none"
   },
-  "apply_marker_pid": 10610,
-  "apply_ok": false,
-  "failure_stage": "apply",
-  "preexisting_sandbox_suspected": true,
-  "blocked_reason": "nested_sandbox_environment",
+  "apply_marker_pid": 25114,
+  "apply_ok": true,
+  "failure_stage": null,
+  "preexisting_sandbox_suspected": false,
+  "blocked_reason": "unknown",
   "outer_sandbox_attribution": {
     "status": "partial",
     "tier": "partial",
     "source": "libproc_parent_chain",
     "launcher": {
-      "pid": 70907,
-      "comm": "codex-aarch64-a",
-      "path": "/opt/homebrew/Caskroom/codex/0.77.0/codex-aarch64-apple-darwin"
+      "pid": 1,
+      "comm": null,
+      "path": "/sbin/launchd"
     },
     "notes": "launchctl procinfo unavailable; using parent chain only"
   },
@@ -147,17 +105,17 @@
         "--style",
         "syslog"
       ],
-      "status": "error",
-      "returncode": 64,
+      "status": "ok",
+      "returncode": 0,
       "denied": false,
-      "stderr": "log: Cannot run while sandboxed\n"
+      "stderr": ""
     },
     "proc_pidpath": {
       "self": {
-        "path": "/opt/homebrew/Cellar/python@3.14/3.14.2/Frameworks/Python.framework/Versions/3.14/Resources/Python.app/Contents/MacOS/Python"
+        "path": "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/Resources/Python.app/Contents/MacOS/Python"
       },
       "parent": {
-        "path": "/opt/homebrew/Caskroom/codex/0.77.0/codex-aarch64-apple-darwin"
+        "path": "/sbin/launchd"
       }
     }
   }

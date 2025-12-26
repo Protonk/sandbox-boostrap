@@ -1,0 +1,46 @@
+{
+  "label": "sandbox-lore.runtime-adversarial.clean2",
+  "target": "gui/501",
+  "plist": "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime-adversarial.clean2/book/experiments/runtime-adversarial/out/launchctl/sandbox-lore.runtime-adversarial.clean2.plist",
+  "stdout": "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime-adversarial.clean2/book/experiments/runtime-adversarial/out/launchctl/sandbox-lore.runtime-adversarial.clean2.stdout.txt",
+  "stderr": "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime-adversarial.clean2/book/experiments/runtime-adversarial/out/launchctl/sandbox-lore.runtime-adversarial.clean2.stderr.txt",
+  "seatbelt_callout": true,
+  "stage_used": true,
+  "stage_root": "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime-adversarial.clean2",
+  "commands": [
+    [
+      "/bin/launchctl",
+      "bootstrap",
+      "gui/501",
+      "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime-adversarial.clean2/book/experiments/runtime-adversarial/out/launchctl/sandbox-lore.runtime-adversarial.clean2.plist"
+    ],
+    [
+      "/bin/launchctl",
+      "kickstart",
+      "-k",
+      "gui/501/sandbox-lore.runtime-adversarial.clean2"
+    ],
+    [
+      "/bin/launchctl",
+      "bootout",
+      "gui/501",
+      "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime-adversarial.clean2/book/experiments/runtime-adversarial/out/launchctl/sandbox-lore.runtime-adversarial.clean2.plist"
+    ]
+  ],
+  "bootstrap": {
+    "rc": 0,
+    "stderr": "",
+    "stdout": ""
+  },
+  "kickstart": {
+    "rc": 0,
+    "stderr": "",
+    "stdout": ""
+  },
+  "waited": true,
+  "bootout": {
+    "rc": 0,
+    "stderr": "",
+    "stdout": ""
+  }
+}

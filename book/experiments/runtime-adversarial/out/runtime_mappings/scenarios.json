@@ -9,171 +9,143 @@
   },
   "phase_histograms": {
     "overall": {
-      "total": 37,
+      "total": 40,
       "stages": {
-        "apply": 37,
+        "apply": 0,
         "bootstrap": 0,
         "preflight": 0,
-        "probe": 0
+        "probe": 40
       },
       "blocked": {
-        "total": 37,
-        "by_stage": {
-          "apply": 37
-        },
-        "by_kind": {
-          "sandbox_init_failed": 37
-        }
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
       },
       "probe": {
-        "total": 0,
-        "allow": 0,
-        "deny": 0,
-        "mismatches": 0
+        "total": 40,
+        "allow": 8,
+        "deny": 32,
+        "mismatches": 14
       }
     },
     "by_family": {
       "structural_variants": {
         "total": 16,
         "stages": {
-          "apply": 16,
+          "apply": 0,
           "bootstrap": 0,
           "preflight": 0,
-          "probe": 0
+          "probe": 16
         },
         "blocked": {
-          "total": 16,
-          "by_stage": {
-            "apply": 16
-          },
-          "by_kind": {
-            "sandbox_init_failed": 16
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
         "probe": {
-          "total": 0,
+          "total": 16,
           "allow": 0,
-          "deny": 0,
-          "mismatches": 0
+          "deny": 16,
+          "mismatches": 8
         }
       },
       "path_edges": {
         "total": 8,
         "stages": {
-          "apply": 8,
+          "apply": 0,
           "bootstrap": 0,
           "preflight": 0,
-          "probe": 0
+          "probe": 8
         },
         "blocked": {
-          "total": 8,
-          "by_stage": {
-            "apply": 8
-          },
-          "by_kind": {
-            "sandbox_init_failed": 8
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
         "probe": {
-          "total": 0,
+          "total": 8,
           "allow": 0,
-          "deny": 0,
-          "mismatches": 0
+          "deny": 8,
+          "mismatches": 4
         }
       },
       "path_alias": {
         "total": 2,
         "stages": {
-          "apply": 2,
+          "apply": 0,
           "bootstrap": 0,
           "preflight": 0,
-          "probe": 0
+          "probe": 2
         },
         "blocked": {
-          "total": 2,
-          "by_stage": {
-            "apply": 2
-          },
-          "by_kind": {
-            "sandbox_init_failed": 2
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
         "probe": {
-          "total": 0,
+          "total": 2,
           "allow": 0,
-          "deny": 0,
-          "mismatches": 0
+          "deny": 2,
+          "mismatches": 2
         }
       },
       "mach_variants": {
         "total": 4,
         "stages": {
-          "apply": 4,
+          "apply": 0,
           "bootstrap": 0,
           "preflight": 0,
-          "probe": 0
+          "probe": 4
         },
         "blocked": {
-          "total": 4,
-          "by_stage": {
-            "apply": 4
-          },
-          "by_kind": {
-            "sandbox_init_failed": 4
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
         "probe": {
-          "total": 0,
-          "allow": 0,
-          "deny": 0,
+          "total": 4,
+          "allow": 2,
+          "deny": 2,
           "mismatches": 0
         }
       },
       "mach_local": {
         "total": 4,
         "stages": {
-          "apply": 4,
+          "apply": 0,
           "bootstrap": 0,
           "preflight": 0,
-          "probe": 0
+          "probe": 4
         },
         "blocked": {
-          "total": 4,
-          "by_stage": {
-            "apply": 4
-          },
-          "by_kind": {
-            "sandbox_init_failed": 4
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
         "probe": {
-          "total": 0,
-          "allow": 0,
-          "deny": 0,
+          "total": 4,
+          "allow": 2,
+          "deny": 2,
           "mismatches": 0
         }
       },
       "network": {
-        "total": 3,
+        "total": 6,
         "stages": {
-          "apply": 3,
+          "apply": 0,
           "bootstrap": 0,
           "preflight": 0,
-          "probe": 0
+          "probe": 6
         },
         "blocked": {
-          "total": 3,
-          "by_stage": {
-            "apply": 3
-          },
-          "by_kind": {
-            "sandbox_init_failed": 3
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
         "probe": {
-          "total": 0,
-          "allow": 0,
-          "deny": 0,
+          "total": 6,
+          "allow": 4,
+          "deny": 2,
           "mismatches": 0
         }
       }
@@ -194,20 +166,16 @@
         }
       ],
       "results": {
-        "total": 0,
+        "total": 1,
         "matches": 0,
-        "mismatches": 0,
+        "mismatches": 1,
         "total_including_blocked": 1,
         "blocked": {
-          "total": 1,
-          "by_stage": {
-            "apply": 1
-          },
-          "by_kind": {
-            "sandbox_init_failed": 1
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
-        "status": "blocked"
+        "status": "brittle"
       },
       "mismatches": [
         {
@@ -216,11 +184,11 @@
           "actual": "deny",
           "operation": "file-read*",
           "target": "/tmp/runtime-adv/struct/ok/allowed.txt",
-          "failure_stage": "apply",
-          "failure_kind": "sandbox_init_failed",
-          "mismatch_type": "apply_gate",
-          "violation_summary": "EPERM",
-          "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n"
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": ""
         }
       ],
       "impact": null,
@@ -240,20 +208,16 @@
         }
       ],
       "results": {
-        "total": 0,
+        "total": 1,
         "matches": 0,
-        "mismatches": 0,
+        "mismatches": 1,
         "total_including_blocked": 1,
         "blocked": {
-          "total": 1,
-          "by_stage": {
-            "apply": 1
-          },
-          "by_kind": {
-            "sandbox_init_failed": 1
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
-        "status": "blocked"
+        "status": "brittle"
       },
       "mismatches": [
         {
@@ -262,11 +226,11 @@
           "actual": "deny",
           "operation": "file-read*",
           "target": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
-          "failure_stage": "apply",
-          "failure_kind": "sandbox_init_failed",
-          "mismatch_type": "apply_gate",
-          "violation_summary": "EPERM",
-          "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n"
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": ""
         }
       ],
       "impact": null,
@@ -286,20 +250,16 @@
         }
       ],
       "results": {
-        "total": 0,
-        "matches": 0,
+        "total": 1,
+        "matches": 1,
         "mismatches": 0,
         "total_including_blocked": 1,
         "blocked": {
-          "total": 1,
-          "by_stage": {
-            "apply": 1
-          },
-          "by_kind": {
-            "sandbox_init_failed": 1
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
-        "status": "blocked"
+        "status": "ok"
       },
       "mismatches": [],
       "impact": null,
@@ -319,20 +279,16 @@
         }
       ],
       "results": {
-        "total": 0,
-        "matches": 0,
+        "total": 1,
+        "matches": 1,
         "mismatches": 0,
         "total_including_blocked": 1,
         "blocked": {
-          "total": 1,
-          "by_stage": {
-            "apply": 1
-          },
-          "by_kind": {
-            "sandbox_init_failed": 1
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
-        "status": "blocked"
+        "status": "ok"
       },
       "mismatches": [],
       "impact": null,
@@ -352,20 +308,16 @@
         }
       ],
       "results": {
-        "total": 0,
+        "total": 1,
         "matches": 0,
-        "mismatches": 0,
+        "mismatches": 1,
         "total_including_blocked": 1,
         "blocked": {
-          "total": 1,
-          "by_stage": {
-            "apply": 1
-          },
-          "by_kind": {
-            "sandbox_init_failed": 1
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
-        "status": "blocked"
+        "status": "brittle"
       },
       "mismatches": [
         {
@@ -374,11 +326,11 @@
           "actual": "deny",
           "operation": "file-write*",
           "target": "/tmp/runtime-adv/struct/ok/allowed.txt",
-          "failure_stage": "apply",
-          "failure_kind": "sandbox_init_failed",
-          "mismatch_type": "apply_gate",
-          "violation_summary": "EPERM",
-          "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n"
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": ""
         }
       ],
       "impact": null,
@@ -398,20 +350,16 @@
         }
       ],
       "results": {
-        "total": 0,
+        "total": 1,
         "matches": 0,
-        "mismatches": 0,
+        "mismatches": 1,
         "total_including_blocked": 1,
         "blocked": {
-          "total": 1,
-          "by_stage": {
-            "apply": 1
-          },
-          "by_kind": {
-            "sandbox_init_failed": 1
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
-        "status": "blocked"
+        "status": "brittle"
       },
       "mismatches": [
         {
@@ -420,11 +368,11 @@
           "actual": "deny",
           "operation": "file-write*",
           "target": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
-          "failure_stage": "apply",
-          "failure_kind": "sandbox_init_failed",
-          "mismatch_type": "apply_gate",
-          "violation_summary": "EPERM",
-          "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n"
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": ""
         }
       ],
       "impact": null,
@@ -444,20 +392,16 @@
         }
       ],
       "results": {
-        "total": 0,
-        "matches": 0,
+        "total": 1,
+        "matches": 1,
         "mismatches": 0,
         "total_including_blocked": 1,
         "blocked": {
-          "total": 1,
-          "by_stage": {
-            "apply": 1
-          },
-          "by_kind": {
-            "sandbox_init_failed": 1
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
-        "status": "blocked"
+        "status": "ok"
       },
       "mismatches": [],
       "impact": null,
@@ -477,20 +421,16 @@
         }
       ],
       "results": {
-        "total": 0,
-        "matches": 0,
+        "total": 1,
+        "matches": 1,
         "mismatches": 0,
         "total_including_blocked": 1,
         "blocked": {
-          "total": 1,
-          "by_stage": {
-            "apply": 1
-          },
-          "by_kind": {
-            "sandbox_init_failed": 1
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
-        "status": "blocked"
+        "status": "ok"
       },
       "mismatches": [],
       "impact": null,
@@ -510,20 +450,16 @@
         }
       ],
       "results": {
-        "total": 0,
+        "total": 1,
         "matches": 0,
-        "mismatches": 0,
+        "mismatches": 1,
         "total_including_blocked": 1,
         "blocked": {
-          "total": 1,
-          "by_stage": {
-            "apply": 1
-          },
-          "by_kind": {
-            "sandbox_init_failed": 1
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
-        "status": "blocked"
+        "status": "brittle"
       },
       "mismatches": [
         {
@@ -532,11 +468,11 @@
           "actual": "deny",
           "operation": "file-read*",
           "target": "/tmp/runtime-adv/struct/ok/allowed.txt",
-          "failure_stage": "apply",
-          "failure_kind": "sandbox_init_failed",
-          "mismatch_type": "apply_gate",
-          "violation_summary": "EPERM",
-          "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n"
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": ""
         }
       ],
       "impact": null,
@@ -556,20 +492,16 @@
         }
       ],
       "results": {
-        "total": 0,
+        "total": 1,
         "matches": 0,
-        "mismatches": 0,
+        "mismatches": 1,
         "total_including_blocked": 1,
         "blocked": {
-          "total": 1,
-          "by_stage": {
-            "apply": 1
-          },
-          "by_kind": {
-            "sandbox_init_failed": 1
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
-        "status": "blocked"
+        "status": "brittle"
       },
       "mismatches": [
         {
@@ -578,11 +510,11 @@
           "actual": "deny",
           "operation": "file-read*",
           "target": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
-          "failure_stage": "apply",
-          "failure_kind": "sandbox_init_failed",
-          "mismatch_type": "apply_gate",
-          "violation_summary": "EPERM",
-          "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n"
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": ""
         }
       ],
       "impact": null,
@@ -602,20 +534,16 @@
         }
       ],
       "results": {
-        "total": 0,
-        "matches": 0,
+        "total": 1,
+        "matches": 1,
         "mismatches": 0,
         "total_including_blocked": 1,
         "blocked": {
-          "total": 1,
-          "by_stage": {
-            "apply": 1
-          },
-          "by_kind": {
-            "sandbox_init_failed": 1
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
-        "status": "blocked"
+        "status": "ok"
       },
       "mismatches": [],
       "impact": null,
@@ -635,20 +563,16 @@
         }
       ],
       "results": {
-        "total": 0,
-        "matches": 0,
+        "total": 1,
+        "matches": 1,
         "mismatches": 0,
         "total_including_blocked": 1,
         "blocked": {
-          "total": 1,
-          "by_stage": {
-            "apply": 1
-          },
-          "by_kind": {
-            "sandbox_init_failed": 1
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
-        "status": "blocked"
+        "status": "ok"
       },
       "mismatches": [],
       "impact": null,
@@ -668,20 +592,16 @@
         }
       ],
       "results": {
-        "total": 0,
+        "total": 1,
         "matches": 0,
-        "mismatches": 0,
+        "mismatches": 1,
         "total_including_blocked": 1,
         "blocked": {
-          "total": 1,
-          "by_stage": {
-            "apply": 1
-          },
-          "by_kind": {
-            "sandbox_init_failed": 1
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
-        "status": "blocked"
+        "status": "brittle"
       },
       "mismatches": [
         {
@@ -690,11 +610,11 @@
           "actual": "deny",
           "operation": "file-write*",
           "target": "/tmp/runtime-adv/struct/ok/allowed.txt",
-          "failure_stage": "apply",
-          "failure_kind": "sandbox_init_failed",
-          "mismatch_type": "apply_gate",
-          "violation_summary": "EPERM",
-          "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n"
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": ""
         }
       ],
       "impact": null,
@@ -714,20 +634,16 @@
         }
       ],
       "results": {
-        "total": 0,
+        "total": 1,
         "matches": 0,
-        "mismatches": 0,
+        "mismatches": 1,
         "total_including_blocked": 1,
         "blocked": {
-          "total": 1,
-          "by_stage": {
-            "apply": 1
-          },
-          "by_kind": {
-            "sandbox_init_failed": 1
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
-        "status": "blocked"
+        "status": "brittle"
       },
       "mismatches": [
         {
@@ -736,11 +652,11 @@
           "actual": "deny",
           "operation": "file-write*",
           "target": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
-          "failure_stage": "apply",
-          "failure_kind": "sandbox_init_failed",
-          "mismatch_type": "apply_gate",
-          "violation_summary": "EPERM",
-          "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n"
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": ""
         }
       ],
       "impact": null,
@@ -760,20 +676,16 @@
         }
       ],
       "results": {
-        "total": 0,
-        "matches": 0,
+        "total": 1,
+        "matches": 1,
         "mismatches": 0,
         "total_including_blocked": 1,
         "blocked": {
-          "total": 1,
-          "by_stage": {
-            "apply": 1
-          },
-          "by_kind": {
-            "sandbox_init_failed": 1
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
-        "status": "blocked"
+        "status": "ok"
       },
       "mismatches": [],
       "impact": null,
@@ -793,20 +705,16 @@
         }
       ],
       "results": {
-        "total": 0,
-        "matches": 0,
+        "total": 1,
+        "matches": 1,
         "mismatches": 0,
         "total_including_blocked": 1,
         "blocked": {
-          "total": 1,
-          "by_stage": {
-            "apply": 1
-          },
-          "by_kind": {
-            "sandbox_init_failed": 1
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
-        "status": "blocked"
+        "status": "ok"
       },
       "mismatches": [],
       "impact": null,
@@ -826,20 +734,16 @@
         }
       ],
       "results": {
-        "total": 0,
+        "total": 1,
         "matches": 0,
-        "mismatches": 0,
+        "mismatches": 1,
         "total_including_blocked": 1,
         "blocked": {
-          "total": 1,
-          "by_stage": {
-            "apply": 1
-          },
-          "by_kind": {
-            "sandbox_init_failed": 1
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
-        "status": "blocked"
+        "status": "brittle"
       },
       "mismatches": [
         {
@@ -848,11 +752,11 @@
           "actual": "deny",
           "operation": "file-read*",
           "target": "/tmp/runtime-adv/edges/a",
-          "failure_stage": "apply",
-          "failure_kind": "sandbox_init_failed",
-          "mismatch_type": "apply_gate",
-          "violation_summary": "EPERM",
-          "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n"
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": ""
         }
       ],
       "impact": null,
@@ -872,20 +776,16 @@
         }
       ],
       "results": {
-        "total": 0,
-        "matches": 0,
+        "total": 1,
+        "matches": 1,
         "mismatches": 0,
         "total_including_blocked": 1,
         "blocked": {
-          "total": 1,
-          "by_stage": {
-            "apply": 1
-          },
-          "by_kind": {
-            "sandbox_init_failed": 1
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
-        "status": "blocked"
+        "status": "ok"
       },
       "mismatches": [],
       "impact": null,
@@ -905,20 +805,16 @@
         }
       ],
       "results": {
-        "total": 0,
+        "total": 1,
         "matches": 0,
-        "mismatches": 0,
+        "mismatches": 1,
         "total_including_blocked": 1,
         "blocked": {
-          "total": 1,
-          "by_stage": {
-            "apply": 1
-          },
-          "by_kind": {
-            "sandbox_init_failed": 1
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
-        "status": "blocked"
+        "status": "brittle"
       },
       "mismatches": [
         {
@@ -927,11 +823,11 @@
           "actual": "deny",
           "operation": "file-read*",
           "target": "/tmp/runtime-adv/edges/okdir/item.txt",
-          "failure_stage": "apply",
-          "failure_kind": "sandbox_init_failed",
-          "mismatch_type": "apply_gate",
-          "violation_summary": "EPERM",
-          "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n"
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": ""
         }
       ],
       "impact": null,
@@ -951,20 +847,16 @@
         }
       ],
       "results": {
-        "total": 0,
-        "matches": 0,
+        "total": 1,
+        "matches": 1,
         "mismatches": 0,
         "total_including_blocked": 1,
         "blocked": {
-          "total": 1,
-          "by_stage": {
-            "apply": 1
-          },
-          "by_kind": {
-            "sandbox_init_failed": 1
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
-        "status": "blocked"
+        "status": "ok"
       },
       "mismatches": [],
       "impact": null,
@@ -984,20 +876,16 @@
         }
       ],
       "results": {
-        "total": 0,
+        "total": 1,
         "matches": 0,
-        "mismatches": 0,
+        "mismatches": 1,
         "total_including_blocked": 1,
         "blocked": {
-          "total": 1,
-          "by_stage": {
-            "apply": 1
-          },
-          "by_kind": {
-            "sandbox_init_failed": 1
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
-        "status": "blocked"
+        "status": "brittle"
       },
       "mismatches": [
         {
@@ -1006,11 +894,11 @@
           "actual": "deny",
           "operation": "file-write*",
           "target": "/tmp/runtime-adv/edges/a",
-          "failure_stage": "apply",
-          "failure_kind": "sandbox_init_failed",
-          "mismatch_type": "apply_gate",
-          "violation_summary": "EPERM",
-          "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n"
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": ""
         }
       ],
       "impact": null,
@@ -1030,20 +918,16 @@
         }
       ],
       "results": {
-        "total": 0,
-        "matches": 0,
+        "total": 1,
+        "matches": 1,
         "mismatches": 0,
         "total_including_blocked": 1,
         "blocked": {
-          "total": 1,
-          "by_stage": {
-            "apply": 1
-          },
-          "by_kind": {
-            "sandbox_init_failed": 1
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
-        "status": "blocked"
+        "status": "ok"
       },
       "mismatches": [],
       "impact": null,
@@ -1063,20 +947,16 @@
         }
       ],
       "results": {
-        "total": 0,
+        "total": 1,
         "matches": 0,
-        "mismatches": 0,
+        "mismatches": 1,
         "total_including_blocked": 1,
         "blocked": {
-          "total": 1,
-          "by_stage": {
-            "apply": 1
-          },
-          "by_kind": {
-            "sandbox_init_failed": 1
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
-        "status": "blocked"
+        "status": "brittle"
       },
       "mismatches": [
         {
@@ -1085,11 +965,11 @@
           "actual": "deny",
           "operation": "file-write*",
           "target": "/tmp/runtime-adv/edges/okdir/item.txt",
-          "failure_stage": "apply",
-          "failure_kind": "sandbox_init_failed",
-          "mismatch_type": "apply_gate",
-          "violation_summary": "EPERM",
-          "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n"
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": ""
         }
       ],
       "impact": null,
@@ -1109,20 +989,16 @@
         }
       ],
       "results": {
-        "total": 0,
-        "matches": 0,
+        "total": 1,
+        "matches": 1,
         "mismatches": 0,
         "total_including_blocked": 1,
         "blocked": {
-          "total": 1,
-          "by_stage": {
-            "apply": 1
-          },
-          "by_kind": {
-            "sandbox_init_failed": 1
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
-        "status": "blocked"
+        "status": "ok"
       },
       "mismatches": [],
       "impact": null,
@@ -1142,20 +1018,16 @@
         }
       ],
       "results": {
-        "total": 0,
+        "total": 1,
         "matches": 0,
-        "mismatches": 0,
+        "mismatches": 1,
         "total_including_blocked": 1,
         "blocked": {
-          "total": 1,
-          "by_stage": {
-            "apply": 1
-          },
-          "by_kind": {
-            "sandbox_init_failed": 1
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
-        "status": "blocked"
+        "status": "brittle"
       },
       "mismatches": [
         {
@@ -1164,11 +1036,11 @@
           "actual": "deny",
           "operation": "file-read*",
           "target": "/tmp/runtime-adv/alias/allow.txt",
-          "failure_stage": "apply",
-          "failure_kind": "sandbox_init_failed",
-          "mismatch_type": "apply_gate",
-          "violation_summary": "EPERM",
-          "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n"
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": ""
         }
       ],
       "impact": null,
@@ -1188,20 +1060,16 @@
         }
       ],
       "results": {
-        "total": 0,
+        "total": 1,
         "matches": 0,
-        "mismatches": 0,
+        "mismatches": 1,
         "total_including_blocked": 1,
         "blocked": {
-          "total": 1,
-          "by_stage": {
-            "apply": 1
-          },
-          "by_kind": {
-            "sandbox_init_failed": 1
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
-        "status": "blocked"
+        "status": "brittle"
       },
       "mismatches": [
         {
@@ -1210,11 +1078,11 @@
           "actual": "deny",
           "operation": "file-read*",
           "target": "/private/tmp/runtime-adv/alias/allow.txt",
-          "failure_stage": "apply",
-          "failure_kind": "sandbox_init_failed",
-          "mismatch_type": "apply_gate",
-          "violation_summary": "EPERM",
-          "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n"
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": ""
         }
       ],
       "impact": null,
@@ -1234,35 +1102,18 @@
         }
       ],
       "results": {
-        "total": 0,
-        "matches": 0,
+        "total": 1,
+        "matches": 1,
         "mismatches": 0,
         "total_including_blocked": 1,
         "blocked": {
-          "total": 1,
-          "by_stage": {
-            "apply": 1
-          },
-          "by_kind": {
-            "sandbox_init_failed": 1
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
-        "status": "blocked"
+        "status": "ok"
       },
-      "mismatches": [
-        {
-          "expectation_id": "adv:mach_simple_allow:allow-cfprefsd",
-          "expected": "allow",
-          "actual": "deny",
-          "operation": "mach-lookup",
-          "target": "com.apple.cfprefsd.agent",
-          "failure_stage": "apply",
-          "failure_kind": "sandbox_init_failed",
-          "mismatch_type": "apply_gate",
-          "violation_summary": "EPERM",
-          "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n"
-        }
-      ],
+      "mismatches": [],
       "impact": null,
       "scenario_id": "adv:mach_simple_allow:allow-cfprefsd"
     },
@@ -1280,20 +1131,16 @@
         }
       ],
       "results": {
-        "total": 0,
-        "matches": 0,
+        "total": 1,
+        "matches": 1,
         "mismatches": 0,
         "total_including_blocked": 1,
         "blocked": {
-          "total": 1,
-          "by_stage": {
-            "apply": 1
-          },
-          "by_kind": {
-            "sandbox_init_failed": 1
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
-        "status": "blocked"
+        "status": "ok"
       },
       "mismatches": [],
       "impact": null,
@@ -1313,35 +1160,18 @@
         }
       ],
       "results": {
-        "total": 0,
-        "matches": 0,
+        "total": 1,
+        "matches": 1,
         "mismatches": 0,
         "total_including_blocked": 1,
         "blocked": {
-          "total": 1,
-          "by_stage": {
-            "apply": 1
-          },
-          "by_kind": {
-            "sandbox_init_failed": 1
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
-        "status": "blocked"
+        "status": "ok"
       },
-      "mismatches": [
-        {
-          "expectation_id": "adv:mach_simple_variants:allow-cfprefsd",
-          "expected": "allow",
-          "actual": "deny",
-          "operation": "mach-lookup",
-          "target": "com.apple.cfprefsd.agent",
-          "failure_stage": "apply",
-          "failure_kind": "sandbox_init_failed",
-          "mismatch_type": "apply_gate",
-          "violation_summary": "EPERM",
-          "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n"
-        }
-      ],
+      "mismatches": [],
       "impact": null,
       "scenario_id": "adv:mach_simple_variants:allow-cfprefsd"
     },
@@ -1359,20 +1189,16 @@
         }
       ],
       "results": {
-        "total": 0,
-        "matches": 0,
+        "total": 1,
+        "matches": 1,
         "mismatches": 0,
         "total_including_blocked": 1,
         "blocked": {
-          "total": 1,
-          "by_stage": {
-            "apply": 1
-          },
-          "by_kind": {
-            "sandbox_init_failed": 1
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
-        "status": "blocked"
+        "status": "ok"
       },
       "mismatches": [],
       "impact": null,
@@ -1392,35 +1218,18 @@
         }
       ],
       "results": {
-        "total": 0,
-        "matches": 0,
+        "total": 1,
+        "matches": 1,
         "mismatches": 0,
         "total_including_blocked": 1,
         "blocked": {
-          "total": 1,
-          "by_stage": {
-            "apply": 1
-          },
-          "by_kind": {
-            "sandbox_init_failed": 1
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
-        "status": "blocked"
+        "status": "ok"
       },
-      "mismatches": [
-        {
-          "expectation_id": "adv:mach_local_literal:allow-cfprefsd-local",
-          "expected": "allow",
-          "actual": "deny",
-          "operation": "mach-lookup",
-          "target": "com.apple.cfprefsd.agent",
-          "failure_stage": "apply",
-          "failure_kind": "sandbox_init_failed",
-          "mismatch_type": "apply_gate",
-          "violation_summary": "EPERM",
-          "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n"
-        }
-      ],
+      "mismatches": [],
       "impact": null,
       "scenario_id": "adv:mach_local_literal:allow-cfprefsd-local"
     },
@@ -1438,20 +1247,16 @@
         }
       ],
       "results": {
-        "total": 0,
-        "matches": 0,
+        "total": 1,
+        "matches": 1,
         "mismatches": 0,
         "total_including_blocked": 1,
         "blocked": {
-          "total": 1,
-          "by_stage": {
-            "apply": 1
-          },
-          "by_kind": {
-            "sandbox_init_failed": 1
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
-        "status": "blocked"
+        "status": "ok"
       },
       "mismatches": [],
       "impact": null,
@@ -1471,35 +1276,18 @@
         }
       ],
       "results": {
-        "total": 0,
-        "matches": 0,
+        "total": 1,
+        "matches": 1,
         "mismatches": 0,
         "total_including_blocked": 1,
         "blocked": {
-          "total": 1,
-          "by_stage": {
-            "apply": 1
-          },
-          "by_kind": {
-            "sandbox_init_failed": 1
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
-        "status": "blocked"
+        "status": "ok"
       },
-      "mismatches": [
-        {
-          "expectation_id": "adv:mach_local_regex:allow-cfprefsd-local",
-          "expected": "allow",
-          "actual": "deny",
-          "operation": "mach-lookup",
-          "target": "com.apple.cfprefsd.agent",
-          "failure_stage": "apply",
-          "failure_kind": "sandbox_init_failed",
-          "mismatch_type": "apply_gate",
-          "violation_summary": "EPERM",
-          "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n"
-        }
-      ],
+      "mismatches": [],
       "impact": null,
       "scenario_id": "adv:mach_local_regex:allow-cfprefsd-local"
     },
@@ -1517,20 +1305,16 @@
         }
       ],
       "results": {
-        "total": 0,
-        "matches": 0,
+        "total": 1,
+        "matches": 1,
         "mismatches": 0,
         "total_including_blocked": 1,
         "blocked": {
-          "total": 1,
-          "by_stage": {
-            "apply": 1
-          },
-          "by_kind": {
-            "sandbox_init_failed": 1
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
-        "status": "blocked"
+        "status": "ok"
       },
       "mismatches": [],
       "impact": null,
@@ -1544,43 +1328,55 @@
           "expectation_id": "adv:net_outbound_allow:tcp-loopback",
           "profile_id": "adv:net_outbound_allow",
           "operation": "network-outbound",
-          "target": "127.0.0.1",
+          "target": "127.0.0.1:54932",
           "expected": "allow",
           "probe_name": "tcp-loopback"
         }
       ],
       "results": {
-        "total": 0,
-        "matches": 0,
+        "total": 1,
+        "matches": 1,
         "mismatches": 0,
         "total_including_blocked": 1,
         "blocked": {
-          "total": 1,
-          "by_stage": {
-            "apply": 1
-          },
-          "by_kind": {
-            "sandbox_init_failed": 1
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
-        "status": "blocked"
+        "status": "ok"
       },
-      "mismatches": [
-        {
-          "expectation_id": "adv:net_outbound_allow:tcp-loopback",
-          "expected": "allow",
-          "actual": "deny",
-          "operation": "network-outbound",
-          "target": "127.0.0.1",
-          "failure_stage": "apply",
-          "failure_kind": "sandbox_init_failed",
-          "mismatch_type": "apply_gate",
-          "violation_summary": "EPERM",
-          "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n"
-        }
-      ],
+      "mismatches": [],
       "impact": null,
       "scenario_id": "adv:net_outbound_allow:tcp-loopback"
+    },
+    "adv:net_outbound_allow:tcp-loopback-2": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:net_outbound_allow",
+      "expectations": [
+        {
+          "expectation_id": "adv:net_outbound_allow:tcp-loopback-2",
+          "profile_id": "adv:net_outbound_allow",
+          "operation": "network-outbound",
+          "target": "127.0.0.1:54933",
+          "expected": "allow",
+          "probe_name": "tcp-loopback-2"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:net_outbound_allow:tcp-loopback-2"
     },
     "adv:net_outbound_deny:tcp-loopback": {
       "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
@@ -1590,30 +1386,55 @@
           "expectation_id": "adv:net_outbound_deny:tcp-loopback",
           "profile_id": "adv:net_outbound_deny",
           "operation": "network-outbound",
-          "target": "127.0.0.1",
+          "target": "127.0.0.1:54932",
           "expected": "deny",
           "probe_name": "tcp-loopback"
         }
       ],
       "results": {
-        "total": 0,
-        "matches": 0,
+        "total": 1,
+        "matches": 1,
         "mismatches": 0,
         "total_including_blocked": 1,
         "blocked": {
-          "total": 1,
-          "by_stage": {
-            "apply": 1
-          },
-          "by_kind": {
-            "sandbox_init_failed": 1
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
-        "status": "blocked"
+        "status": "ok"
       },
       "mismatches": [],
       "impact": null,
       "scenario_id": "adv:net_outbound_deny:tcp-loopback"
+    },
+    "adv:net_outbound_deny:tcp-loopback-2": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:net_outbound_deny",
+      "expectations": [
+        {
+          "expectation_id": "adv:net_outbound_deny:tcp-loopback-2",
+          "profile_id": "adv:net_outbound_deny",
+          "operation": "network-outbound",
+          "target": "127.0.0.1:54933",
+          "expected": "deny",
+          "probe_name": "tcp-loopback-2"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:net_outbound_deny:tcp-loopback-2"
     },
     "adv:flow_divert_require_all_tcp:tcp-loopback": {
       "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
@@ -1623,43 +1444,55 @@
           "expectation_id": "adv:flow_divert_require_all_tcp:tcp-loopback",
           "profile_id": "adv:flow_divert_require_all_tcp",
           "operation": "network-outbound",
-          "target": "127.0.0.1",
+          "target": "127.0.0.1:54932",
           "expected": "allow",
           "probe_name": "tcp-loopback"
         }
       ],
       "results": {
-        "total": 0,
-        "matches": 0,
+        "total": 1,
+        "matches": 1,
         "mismatches": 0,
         "total_including_blocked": 1,
         "blocked": {
-          "total": 1,
-          "by_stage": {
-            "apply": 1
-          },
-          "by_kind": {
-            "sandbox_init_failed": 1
-          }
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
         },
-        "status": "blocked"
+        "status": "ok"
       },
-      "mismatches": [
-        {
-          "expectation_id": "adv:flow_divert_require_all_tcp:tcp-loopback",
-          "expected": "allow",
-          "actual": "deny",
-          "operation": "network-outbound",
-          "target": "127.0.0.1",
-          "failure_stage": "apply",
-          "failure_kind": "sandbox_init_failed",
-          "mismatch_type": "apply_gate",
-          "violation_summary": "EPERM",
-          "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n"
-        }
-      ],
+      "mismatches": [],
       "impact": null,
       "scenario_id": "adv:flow_divert_require_all_tcp:tcp-loopback"
+    },
+    "adv:flow_divert_require_all_tcp:tcp-loopback-2": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:flow_divert_require_all_tcp",
+      "expectations": [
+        {
+          "expectation_id": "adv:flow_divert_require_all_tcp:tcp-loopback-2",
+          "profile_id": "adv:flow_divert_require_all_tcp",
+          "operation": "network-outbound",
+          "target": "127.0.0.1:54933",
+          "expected": "allow",
+          "probe_name": "tcp-loopback-2"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:flow_divert_require_all_tcp:tcp-loopback-2"
     }
   }
 }

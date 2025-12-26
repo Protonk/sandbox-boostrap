@@ -44,7 +44,12 @@ from .mapping.story import (  # noqa: F401
     story_to_signatures,
     write_story,
 )
-from .mapping.views import CalloutVsSyscallRow, build_callout_vs_syscall  # noqa: F401
+from .mapping.views import (  # noqa: F401
+    CalloutOracleRow,
+    CalloutVsSyscallRow,
+    build_callout_oracle,
+    build_callout_vs_syscall,
+)
 from .workflow import (  # noqa: F401
     build_cut,
     promote_cut,
@@ -73,7 +78,9 @@ __all__ = [
     "write_story",
     "story_to_coverage",
     "story_to_signatures",
+    "CalloutOracleRow",
     "CalloutVsSyscallRow",
+    "build_callout_oracle",
     "build_callout_vs_syscall",
     "build_cut",
     "promote_cut",

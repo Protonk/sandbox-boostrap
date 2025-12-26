@@ -1,9 +1,6 @@
 #!/usr/bin/env python3
 """
-Launch runtime-adversarial via launchctl to avoid inheriting a sandboxed parent.
-
-This runner bootstraps a transient LaunchAgent that executes run_adversarial.py
-with --require-clean. The job aborts if apply preflight fails.
+Launch runtime-checks via launchctl to avoid inheriting a sandboxed parent.
 """
 from __future__ import annotations
 
@@ -26,7 +23,7 @@ from book.api import path_utils
 
 LAUNCHCTL = Path("/bin/launchctl")
 PYTHON = Path("/usr/bin/python3")
-RUNNER = Path(__file__).with_name("run_adversarial.py")
+RUNNER = Path(__file__).with_name("run_probes.py")
 OUT_ROOT = Path(__file__).with_name("out")
 LAUNCHCTL_DIR = OUT_ROOT / "launchctl"
 STAGING_BASE = Path("/private/tmp/sandbox-lore-launchctl")
@@ -41,15 +38,12 @@ def build_plist(
     label: str,
     stdout_path: Path,
     stderr_path: Path,
-    require_clean: bool,
     seatbelt_callout: bool,
     repo_root: Path,
     runner_path: Path,
 ) -> Dict[str, Any]:
     program = str(PYTHON if PYTHON.exists() else sys.executable)
     args = [program, str(runner_path)]
-    if require_clean:
-        args.append("--require-clean")
     env = {"PYTHONPATH": str(repo_root)}
     if seatbelt_callout:
         env["SANDBOX_LORE_SEATBELT_CALLOUT"] = "1"
@@ -109,11 +103,10 @@ def sync_outputs(staged_out: Path, dest_out: Path, stdout_path: Path, stderr_pat
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Run runtime-adversarial via launchctl")
+    parser = argparse.ArgumentParser(description="Run runtime-checks via launchctl")
     parser.add_argument("--label", help="launchctl label override")
     parser.add_argument("--timeout", type=float, default=10.0, help="wait for output (seconds)")
     parser.add_argument("--keep-job", action="store_true", help="keep job loaded after run")
-    parser.add_argument("--no-require-clean", action="store_true", help="allow run even if apply preflight fails")
     parser.add_argument("--no-seatbelt-callout", action="store_true", help="disable sandbox_check callouts")
     parser.add_argument("--no-stage", action="store_true", help="run from the repo root instead of staging to /private/tmp")
     parser.add_argument("--keep-stage", action="store_true", help="retain staged copy after run")
@@ -126,17 +119,17 @@ def main() -> int:
         print("[!] launchctl missing")
         return 2
     if not RUNNER.exists():
-        print("[!] run_adversarial.py missing")
+        print("[!] run_probes.py missing")
         return 2
 
-    label = args.label or f"sandbox-lore.runtime-adversarial.{os.getpid()}"
+    label = args.label or f"sandbox-lore.runtime-checks.{os.getpid()}"
     stage_root: Path | None = None
     stage_used = not args.no_stage
     if stage_used:
         stage_root = stage_repo(label)
         repo_root = stage_root
-        runner_path = stage_root / "book/experiments/runtime-adversarial/run_adversarial.py"
-        job_out_dir = stage_root / "book/experiments/runtime-adversarial/out"
+        runner_path = stage_root / "book/experiments/runtime-checks/run_probes.py"
+        job_out_dir = stage_root / "book/experiments/runtime-checks/out"
     else:
         repo_root = REPO_ROOT
         runner_path = RUNNER
@@ -149,13 +142,11 @@ def main() -> int:
     plist_path = job_launchctl / f"{label}.plist"
     LAUNCHCTL_DIR.mkdir(parents=True, exist_ok=True)
 
-    require_clean = not args.no_require_clean
     seatbelt_callout = not args.no_seatbelt_callout
     plist = build_plist(
         label,
         stdout_path,
         stderr_path,
-        require_clean=require_clean,
         seatbelt_callout=seatbelt_callout,
         repo_root=repo_root,
         runner_path=runner_path,
@@ -172,6 +163,7 @@ def main() -> int:
         "seatbelt_callout": seatbelt_callout,
         "stage_used": stage_used,
         "stage_root": str(stage_root) if stage_root else None,
+        "runner": path_utils.to_repo_relative(RUNNER, repo_root=REPO_ROOT),
         "commands": [],
     }
 
