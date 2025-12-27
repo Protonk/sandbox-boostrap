@@ -1,0 +1,46 @@
+{
+  "entitlementjail": {
+    "capabilities_snapshot_path": "book/experiments/frida-testing/out/e92f950e-5186-44fb-8f02-ad5525a167c1/ej/capabilities_snapshot.json",
+    "log_path": "book/experiments/frida-testing/out/e92f950e-5186-44fb-8f02-ad5525a167c1/ej/logs/run_xpc.log",
+    "run_xpc_path": "book/experiments/frida-testing/out/e92f950e-5186-44fb-8f02-ad5525a167c1/ej/run_xpc.json"
+  },
+  "frida": {
+    "attach_error": null,
+    "attach_meta": {
+      "attach_stage": "wait",
+      "pid_candidates": [],
+      "pid_source": "pgrep",
+      "run_id": "e92f950e-5186-44fb-8f02-ad5525a167c1",
+      "t0_ns": 1766797507724946000
+    },
+    "events_path": null,
+    "meta_path": null
+  },
+  "out_dir": "book/experiments/frida-testing/out/e92f950e-5186-44fb-8f02-ad5525a167c1",
+  "plan_id": "frida-testing:ej-frida",
+  "probe": {
+    "ack_risk": "fully_injectable",
+    "probe_args": [
+      "--op",
+      "open_read",
+      "--path-class",
+      "tmp",
+      "--target",
+      "specimen_file"
+    ],
+    "probe_id": "fs_op",
+    "profile_id": "fully_injectable",
+    "service_id": "fully_injectable",
+    "use_profile": true
+  },
+  "row_id": "frida-testing:ej-frida.e92f950e-5186-44fb-8f02-ad5525a167c1",
+  "run_id": "e92f950e-5186-44fb-8f02-ad5525a167c1",
+  "schema_version": 1,
+  "selftest": {
+    "path": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_fully_injectable/Data/tmp/ej_noaccess",
+    "prepare_error": "PermissionError: [Errno 13] Permission denied: '/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_fully_injectable/Data/tmp/ej_noaccess'",
+    "prepared": false,
+    "source": "capabilities_snapshot"
+  },
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

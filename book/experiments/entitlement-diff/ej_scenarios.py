@@ -87,7 +87,6 @@ def _capture_tmp_dir(
 ) -> Optional[str]:
     snapshot = run_xpc(
         profile_id=profile.profile_id,
-        service_id=profile.service_id,
         probe_id="capabilities_snapshot",
         probe_args=[],
         log_path=_log_path(tag, profile.label, "capabilities_snapshot"),
@@ -168,7 +167,6 @@ def scenario_bookmarks(*, ack_risk: Optional[str]) -> Dict[str, Dict[str, object
         for probe_id in ["capabilities_snapshot", "world_shape", "probe_catalog"]:
             record = run_xpc(
                 profile_id=profile.profile_id,
-                service_id=profile.service_id,
                 probe_id=probe_id,
                 probe_args=[],
                 log_path=_log_path("bookmarks", profile.label, probe_id),
@@ -196,7 +194,6 @@ def scenario_bookmarks(*, ack_risk: Optional[str]) -> Dict[str, Dict[str, object
             runs.append(
                 run_xpc(
                     profile_id=profile.profile_id,
-                    service_id=profile.service_id,
                     probe_id="fs_op",
                     probe_args=["--op", "create", "--path", target_path, "--allow-unsafe-path"],
                     log_path=_log_path("bookmarks", profile.label, "fs_create"),
@@ -208,7 +205,6 @@ def scenario_bookmarks(*, ack_risk: Optional[str]) -> Dict[str, Dict[str, object
             runs.append(
                 run_xpc(
                     profile_id=profile.profile_id,
-                    service_id=profile.service_id,
                     probe_id="bookmark_make",
                     probe_args=["--path", target_path],
                     log_path=_log_path("bookmarks", profile.label, "bookmark_make"),
@@ -231,7 +227,6 @@ def scenario_bookmarks(*, ack_risk: Optional[str]) -> Dict[str, Dict[str, object
             runs.append(
                 run_xpc(
                     profile_id=PROFILES["bookmarks_app_scope"].profile_id,
-                    service_id=PROFILES["bookmarks_app_scope"].service_id,
                     probe_id="bookmark_op",
                     probe_args=["--bookmark-b64", bookmark_b64, "--op", "stat"],
                     log_path=_log_path("bookmarks", "bookmarks_app_scope", "bookmark_op_stat"),
@@ -259,7 +254,6 @@ def scenario_downloads_rw(*, ack_risk: Optional[str]) -> Dict[str, Dict[str, obj
             runs.append(
                 run_xpc(
                     profile_id=profile.profile_id,
-                    service_id=profile.service_id,
                     probe_id=probe_id,
                     probe_args=[],
                     log_path=_log_path("downloads", profile.label, probe_id),
@@ -271,7 +265,6 @@ def scenario_downloads_rw(*, ack_risk: Optional[str]) -> Dict[str, Dict[str, obj
         runs.append(
             run_xpc(
                 profile_id=profile.profile_id,
-                service_id=profile.service_id,
                 probe_id="fs_op",
                 probe_args=["--op", "listdir", "--path-class", "downloads"],
                 log_path=_log_path("downloads", profile.label, "fs_listdir"),
@@ -299,7 +292,6 @@ def scenario_net_client(*, ack_risk: Optional[str]) -> Dict[str, Dict[str, objec
             runs.append(
                 run_xpc(
                     profile_id=profile.profile_id,
-                    service_id=profile.service_id,
                     probe_id=probe_id,
                     probe_args=[],
                     log_path=_log_path("net_client", profile.label, probe_id),
@@ -312,7 +304,6 @@ def scenario_net_client(*, ack_risk: Optional[str]) -> Dict[str, Dict[str, objec
         listener_state, finish_listener = _run_tcp_listener(host=host, timeout_s=2.0)
         record = run_xpc(
             profile_id=profile.profile_id,
-            service_id=profile.service_id,
             probe_id="net_op",
             probe_args=["--op", "tcp_connect", "--host", host, "--port", str(listener_state["port"])],
             log_path=_log_path("net_client", profile.label, "tcp_connect"),
@@ -363,7 +354,6 @@ def scenario_net_op_groups(*, ack_risk: Optional[str]) -> Dict[str, Dict[str, ob
         listener_state, finish_listener = _run_tcp_listener(host=host, timeout_s=2.0)
         record = run_xpc(
             profile_id=profile_id,
-            service_id=bundle_id,
             probe_id="net_op",
             probe_args=["--op", "tcp_connect", "--host", host, "--port", str(listener_state["port"])],
             log_path=_log_path("net_op_groups", profile_id, "tcp_connect"),
@@ -397,7 +387,6 @@ def _run_userdefaults(profile, *, ack_risk: Optional[str]) -> List[Dict[str, obj
         runs.append(
             run_xpc(
                 profile_id=profile.profile_id,
-                service_id=profile.service_id,
                 probe_id="userdefaults_op",
                 probe_args=args,
                 log_path=_log_path("userdefaults", profile.label, op),
@@ -413,7 +402,6 @@ def _run_fs_xattr(profile, *, ack_risk: Optional[str]) -> Tuple[List[Dict[str, o
     runs: List[Dict[str, object]] = []
     snapshot = run_xpc(
         profile_id=profile.profile_id,
-        service_id=profile.service_id,
         probe_id="capabilities_snapshot",
         probe_args=[],
         log_path=_log_path("fs_xattr", profile.label, "capabilities_snapshot"),
@@ -429,7 +417,6 @@ def _run_fs_xattr(profile, *, ack_risk: Optional[str]) -> Tuple[List[Dict[str, o
     file_path = str(Path(tmp_dir) / "ej_xattr.txt")
     create = run_xpc(
         profile_id=profile.profile_id,
-        service_id=profile.service_id,
         probe_id="fs_op",
         probe_args=["--op", "create", "--path", file_path, "--allow-unsafe-path"],
         log_path=_log_path("fs_xattr", profile.label, "fs_create"),
@@ -461,7 +448,6 @@ def _run_fs_xattr(profile, *, ack_risk: Optional[str]) -> Tuple[List[Dict[str, o
         runs.append(
             run_xpc(
                 profile_id=profile.profile_id,
-                service_id=profile.service_id,
                 probe_id="fs_xattr",
                 probe_args=args,
                 log_path=_log_path("fs_xattr", profile.label, op),
@@ -480,7 +466,6 @@ def _run_fs_coordinated(profile, *, ack_risk: Optional[str]) -> List[Dict[str, o
         runs.append(
             run_xpc(
                 profile_id=profile.profile_id,
-                service_id=profile.service_id,
                 probe_id="fs_coordinated_op",
                 probe_args=["--op", op, "--path-class", "tmp", "--target", "run_dir"],
                 log_path=_log_path("fs_coord", profile.label, op),
@@ -533,7 +518,6 @@ def scenario_bookmark_roundtrip(*, ack_risk: Optional[str]) -> Dict[str, Dict[st
     for profile in [PROFILES["minimal"], PROFILES["bookmarks_app_scope"]]:
         record = run_xpc(
             profile_id=profile.profile_id,
-            service_id=profile.service_id,
             probe_id="capabilities_snapshot",
             probe_args=[],
             log_path=_log_path("bookmark_roundtrip", profile.label, "capabilities_snapshot"),
@@ -546,7 +530,6 @@ def scenario_bookmark_roundtrip(*, ack_risk: Optional[str]) -> Dict[str, Dict[st
 
         catalog = run_xpc(
             profile_id=profile.profile_id,
-            service_id=profile.service_id,
             probe_id="probe_catalog",
             probe_args=[],
             log_path=_log_path("bookmark_roundtrip", profile.label, "probe_catalog"),
@@ -574,7 +557,6 @@ def scenario_bookmark_roundtrip(*, ack_risk: Optional[str]) -> Dict[str, Dict[st
             runs.append(
                 run_xpc(
                     profile_id=profile.profile_id,
-                    service_id=profile.service_id,
                     probe_id="fs_op",
                     probe_args=["--op", "create", "--path", target_path, "--allow-unsafe-path"],
                     log_path=_log_path("bookmark_roundtrip", profile.label, "fs_create"),
@@ -586,7 +568,6 @@ def scenario_bookmark_roundtrip(*, ack_risk: Optional[str]) -> Dict[str, Dict[st
             runs.append(
                 run_xpc(
                     profile_id=profile.profile_id,
-                    service_id=profile.service_id,
                     probe_id="bookmark_roundtrip",
                     probe_args=["--path", target_path, "--op", "stat"],
                     log_path=_log_path("bookmark_roundtrip", profile.label, "roundtrip_stat"),
@@ -613,7 +594,6 @@ def scenario_wait_attach(*, ack_risk: Optional[str]) -> Dict[str, Dict[str, obje
 
     snapshot = run_xpc(
         profile_id=profile.profile_id,
-        service_id=profile.service_id,
         probe_id="capabilities_snapshot",
         probe_args=[],
         log_path=_log_path("wait_attach", profile.label, "capabilities_snapshot"),
@@ -627,13 +607,14 @@ def scenario_wait_attach(*, ack_risk: Optional[str]) -> Dict[str, Dict[str, obje
     runs.append(
         run_wait_xpc(
             profile_id=profile.profile_id,
-            service_id=profile.service_id,
             probe_id="probe_catalog",
             probe_args=[],
-            wait_args=["--attach", "5"],
+            wait_spec="fifo:auto",
+            wait_timeout_ms=15000,
             log_path=_log_path("wait_attach", profile.label, "attach_fifo"),
             plan_id=PLAN_ID,
             row_id="wait_attach.minimal.attach_fifo",
+            ack_risk=ack_risk,
         )
     )
 
@@ -661,13 +642,14 @@ def scenario_wait_attach(*, ack_risk: Optional[str]) -> Dict[str, Dict[str, obje
             runs.append(
                 run_wait_xpc(
                     profile_id=profile.profile_id,
-                    service_id=profile.service_id,
                     probe_id="fs_op",
                     probe_args=["--op", "stat", "--path-class", "tmp"],
-                    wait_args=["--wait-fifo", str(fifo_path), "--wait-timeout-ms", "15000"],
+                    wait_spec=f"fifo:{fifo_path}",
+                    wait_timeout_ms=15000,
                     log_path=_log_path("wait_attach", profile.label, "wait_fifo"),
                     plan_id=PLAN_ID,
                     row_id="wait_attach.minimal.wait_fifo",
+                    ack_risk=ack_risk,
                 )
             )
 
@@ -693,13 +675,14 @@ def scenario_wait_attach(*, ack_risk: Optional[str]) -> Dict[str, Dict[str, obje
             runs.append(
                 run_wait_xpc(
                     profile_id=profile.profile_id,
-                    service_id=profile.service_id,
                     probe_id="fs_op",
                     probe_args=["--op", "stat", "--path-class", "tmp"],
-                    wait_args=["--wait-exists", str(trigger_path), "--wait-timeout-ms", "15000"],
+                    wait_spec=f"exists:{trigger_path}",
+                    wait_timeout_ms=15000,
                     log_path=_log_path("wait_attach", profile.label, "wait_exists"),
                     plan_id=PLAN_ID,
                     row_id="wait_attach.minimal.wait_exists",
+                    ack_risk=ack_risk,
                 )
             )
 
@@ -747,20 +730,16 @@ def scenario_wait_timeout_matrix(*, ack_risk: Optional[str]) -> Dict[str, Dict[s
 
             record = run_wait_xpc(
                 profile_id=profile.profile_id,
-                service_id=profile.service_id,
                 probe_id="probe_catalog",
                 probe_args=[],
-                wait_args=[
-                    "--wait-exists",
-                    str(wait_path),
-                    "--wait-timeout-ms",
-                    str(case["wait_timeout_ms"]),
-                ],
+                wait_spec=f"exists:{wait_path}",
+                wait_timeout_ms=case["wait_timeout_ms"],
                 log_path=_log_path("wait_timeout", profile.label, case["case_id"]),
                 plan_id=PLAN_ID,
                 row_id=f"wait_timeout.{profile.label}.{case['case_id']}",
                 trigger_delay_s=case["trigger_delay_s"],
                 wait_ready_timeout_s=10.0,
+                ack_risk=ack_risk,
             )
             record["case_id"] = case["case_id"]
             record["case"] = case
@@ -782,27 +761,22 @@ def scenario_wait_path_class(*, ack_risk: Optional[str]) -> Dict[str, Dict[str, 
     runs: List[Dict[str, object]] = []
     tmp_dir = _capture_tmp_dir(profile, tag="wait_path_class", ack_risk=ack_risk, runs=runs)
 
-    wait_args = [
-        "--wait-path-class",
-        "tmp",
-        "--wait-name",
-        "ej_wait_path_class",
-        "--wait-timeout-ms",
-        "10000",
-    ]
+    wait_spec = "fifo:auto"
+    wait_timeout_ms = 10000
 
     runs.append(
         run_wait_xpc(
             profile_id=profile.profile_id,
-            service_id=profile.service_id,
             probe_id="probe_catalog",
             probe_args=[],
-            wait_args=wait_args,
+            wait_spec=wait_spec,
+            wait_timeout_ms=wait_timeout_ms,
             log_path=_log_path("wait_path_class", profile.label, "path_class"),
             plan_id=PLAN_ID,
             row_id="wait_path_class.minimal.path_class",
             trigger_delay_s=0.1,
             wait_ready_timeout_s=10.0,
+            ack_risk=ack_risk,
         )
     )
 
@@ -811,7 +785,8 @@ def scenario_wait_path_class(*, ack_risk: Optional[str]) -> Dict[str, Dict[str, 
         "entrypoint": str(EJ.relative_to(REPO_ROOT)),
         "scenario": "wait_path_class",
         "tmp_dir": tmp_dir,
-        "wait_args": wait_args,
+        "wait_spec": wait_spec,
+        "wait_timeout_ms": wait_timeout_ms,
         "runs": runs,
     }
     return {"wait_path_class": payload}
@@ -846,10 +821,10 @@ def scenario_wait_multi_trigger(*, ack_risk: Optional[str]) -> Dict[str, Dict[st
             runs.append(
                 run_wait_xpc(
                     profile_id=profile.profile_id,
-                    service_id=profile.service_id,
                     probe_id="probe_catalog",
                     probe_args=[],
-                    wait_args=["--wait-fifo", str(fifo_path), "--wait-timeout-ms", "15000"],
+                    wait_spec=f"fifo:{fifo_path}",
+                    wait_timeout_ms=15000,
                     log_path=_log_path("wait_multi", profile.label, "fifo"),
                     plan_id=PLAN_ID,
                     row_id="wait_multi.minimal.fifo",
@@ -857,6 +832,7 @@ def scenario_wait_multi_trigger(*, ack_risk: Optional[str]) -> Dict[str, Dict[st
                     post_trigger=True,
                     post_trigger_delay_s=0.2,
                     wait_ready_timeout_s=10.0,
+                    ack_risk=ack_risk,
                 )
             )
 
@@ -881,10 +857,10 @@ def scenario_wait_multi_trigger(*, ack_risk: Optional[str]) -> Dict[str, Dict[st
             runs.append(
                 run_wait_xpc(
                     profile_id=profile.profile_id,
-                    service_id=profile.service_id,
                     probe_id="probe_catalog",
                     probe_args=[],
-                    wait_args=["--wait-exists", str(exists_path), "--wait-timeout-ms", "15000"],
+                    wait_spec=f"exists:{exists_path}",
+                    wait_timeout_ms=15000,
                     log_path=_log_path("wait_multi", profile.label, "exists"),
                     plan_id=PLAN_ID,
                     row_id="wait_multi.minimal.exists",
@@ -892,6 +868,7 @@ def scenario_wait_multi_trigger(*, ack_risk: Optional[str]) -> Dict[str, Dict[st
                     post_trigger=True,
                     post_trigger_delay_s=0.2,
                     wait_ready_timeout_s=10.0,
+                    ack_risk=ack_risk,
                 )
             )
 
@@ -934,7 +911,6 @@ def scenario_wait_probe_wait(*, ack_risk: Optional[str]) -> Dict[str, Dict[str, 
             runs.append(
                 run_probe_wait(
                     profile_id=profile.profile_id,
-                    service_id=profile.service_id,
                     probe_id="fs_op_wait",
                     probe_args=[
                         "--op",
@@ -951,6 +927,7 @@ def scenario_wait_probe_wait(*, ack_risk: Optional[str]) -> Dict[str, Dict[str, 
                     row_id="wait_probe.minimal.fifo",
                     trigger_delay_s=0.1,
                     wait_ready_timeout_s=8.0,
+                    ack_risk=ack_risk,
                 )
             )
 
@@ -975,7 +952,6 @@ def scenario_wait_probe_wait(*, ack_risk: Optional[str]) -> Dict[str, Dict[str, 
             runs.append(
                 run_probe_wait(
                     profile_id=profile.profile_id,
-                    service_id=profile.service_id,
                     probe_id="fs_op_wait",
                     probe_args=[
                         "--op",
@@ -994,6 +970,7 @@ def scenario_wait_probe_wait(*, ack_risk: Optional[str]) -> Dict[str, Dict[str, 
                     row_id="wait_probe.minimal.exists",
                     trigger_delay_s=0.1,
                     wait_ready_timeout_s=8.0,
+                    ack_risk=ack_risk,
                 )
             )
 
@@ -1015,16 +992,17 @@ def scenario_wait_hold_open(*, ack_risk: Optional[str]) -> Dict[str, Dict[str, o
     runs.append(
         run_wait_xpc(
             profile_id=profile.profile_id,
-            service_id=profile.service_id,
             probe_id="probe_catalog",
             probe_args=[],
-            wait_args=["--attach", "5", "--hold-open", "3"],
+            wait_spec="fifo:auto",
+            wait_timeout_ms=15000,
             log_path=_log_path("wait_hold_open", profile.label, "attach_hold"),
             plan_id=PLAN_ID,
             row_id="wait_hold_open.minimal.attach_hold",
             trigger_delay_s=0.05,
             wait_ready_timeout_s=10.0,
             process_timeout_s=20.0,
+            ack_risk=ack_risk,
         )
     )
 
@@ -1067,15 +1045,16 @@ def scenario_wait_create(*, ack_risk: Optional[str]) -> Dict[str, Dict[str, obje
     else:
         record = run_wait_xpc(
             profile_id=profile.profile_id,
-            service_id=profile.service_id,
             probe_id="probe_catalog",
             probe_args=[],
-            wait_args=["--wait-fifo", str(fifo_path), "--wait-create", "--wait-timeout-ms", "15000"],
+            wait_spec=f"fifo:{fifo_path}",
+            wait_timeout_ms=15000,
             log_path=_log_path("wait_create", profile.label, "wait_create"),
             plan_id=PLAN_ID,
             row_id="wait_create.minimal.wait_create",
             trigger_delay_s=0.1,
             wait_ready_timeout_s=10.0,
+            ack_risk=ack_risk,
         )
         fifo_post_exists = False
         fifo_post_is_fifo = None
@@ -1134,22 +1113,17 @@ def scenario_wait_interval(*, ack_risk: Optional[str]) -> Dict[str, Dict[str, ob
 
             record = run_wait_xpc(
                 profile_id=profile.profile_id,
-                service_id=profile.service_id,
                 probe_id="probe_catalog",
                 probe_args=[],
-                wait_args=[
-                    "--wait-exists",
-                    str(wait_path),
-                    "--wait-timeout-ms",
-                    "2000",
-                    "--wait-interval-ms",
-                    str(case["interval_ms"]),
-                ],
+                wait_spec=f"exists:{wait_path}",
+                wait_timeout_ms=2000,
+                wait_interval_ms=case["interval_ms"],
                 log_path=_log_path("wait_interval", profile.label, case["case_id"]),
                 plan_id=PLAN_ID,
                 row_id=f"wait_interval.{profile.label}.{case['case_id']}",
                 trigger_delay_s=0.1,
                 wait_ready_timeout_s=10.0,
+                ack_risk=ack_risk,
             )
             record["case_id"] = case["case_id"]
             record["case"] = case
@@ -1174,31 +1148,33 @@ def scenario_attach_holdopen_default(*, ack_risk: Optional[str]) -> Dict[str, Di
     runs.append(
         run_wait_xpc(
             profile_id=profile.profile_id,
-            service_id=profile.service_id,
             probe_id="probe_catalog",
             probe_args=[],
-            wait_args=["--attach", "3"],
+            wait_spec="fifo:auto",
+            wait_timeout_ms=15000,
             log_path=_log_path("attach_default", profile.label, "attach_default"),
             plan_id=PLAN_ID,
             row_id="attach_default.minimal.attach_default",
             trigger_delay_s=0.1,
             wait_ready_timeout_s=10.0,
             process_timeout_s=15.0,
+            ack_risk=ack_risk,
         )
     )
     runs.append(
         run_wait_xpc(
             profile_id=profile.profile_id,
-            service_id=profile.service_id,
             probe_id="probe_catalog",
             probe_args=[],
-            wait_args=["--attach", "3", "--hold-open", "0"],
+            wait_spec="fifo:auto",
+            wait_timeout_ms=15000,
             log_path=_log_path("attach_default", profile.label, "attach_hold_open_zero"),
             plan_id=PLAN_ID,
             row_id="attach_default.minimal.attach_hold_open_zero",
             trigger_delay_s=0.1,
             wait_ready_timeout_s=10.0,
             process_timeout_s=15.0,
+            ack_risk=ack_risk,
         )
     )
 

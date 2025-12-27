@@ -1,0 +1,37 @@
+{
+  "schema_version": "runtime-tools.plan.v0.1",
+  "plan_id": "hardened-runtime.v1",
+  "registry_id": "hardened-runtime",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "profiles": [
+    "hardened:mach_lookup",
+    "hardened:mach_lookup_allow",
+    "hardened:notifications",
+    "hardened:notifications_allow",
+    "hardened:process_info_allow",
+    "hardened:process_info_allow_canary",
+    "hardened:process_info_deny",
+    "hardened:signal_self_allow",
+    "hardened:signal_self_deny",
+    "hardened:sysctl_read",
+    "hardened:sysctl_read_allow"
+  ],
+  "lanes": {
+    "baseline": true,
+    "scenario": true,
+    "oracle": true
+  },
+  "controls": {
+    "baseline": true
+  },
+  "apply_preflight_profile": "book/experiments/hardened-runtime/sb/apply_preflight_allow.sb",
+  "schema_versions": {
+    "summary": "hardened-runtime.summary.v0.2",
+    "runtime_results": "hardened-runtime.runtime_results.v0.2",
+    "run_manifest": "hardened-runtime.run_manifest.v0.2",
+    "artifact_index": "hardened-runtime.artifact_index.v0.1",
+    "oracle": "hardened-runtime.oracle_results.v0.2",
+    "baseline": "hardened-runtime.baseline_results.v0.2",
+    "mismatch_packet": "hardened-runtime-mismatch-packet.v0.1"
+  }
+}

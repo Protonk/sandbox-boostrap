@@ -18,8 +18,8 @@ import frida
 
 from book.api import path_utils
 from book.api.entitlementjail import cli as ej_cli
-from book.api.entitlementjail import wait as ej_wait
 from book.api.entitlementjail.logging import extract_details
+from book.api.entitlementjail.session import XpcSession
 from book.api.profile_tools.identity import baseline_world_id
 
 
@@ -239,8 +239,9 @@ def main() -> int:
     logs_dir.mkdir(parents=True, exist_ok=True)
     frida_dir.mkdir(parents=True, exist_ok=True)
 
-    service_id = args.service_id or args.profile_id
     use_profile = args.service_id is None
+    target_profile_id = args.profile_id if use_profile else None
+    target_service_id = args.service_id if not use_profile else None
 
     cap_record = None
     tmp_dir = None
@@ -248,15 +249,14 @@ def main() -> int:
     if not args.skip_capabilities:
         cap_log_path = logs_dir / "capabilities_snapshot.log"
         cap_record = ej_cli.run_xpc(
-            profile_id=args.profile_id,
-            service_id=service_id,
+            profile_id=target_profile_id,
+            service_id=target_service_id,
             probe_id="capabilities_snapshot",
             probe_args=[],
             log_path=cap_log_path,
             plan_id=args.plan_id,
             row_id=f"{row_id}.capabilities_snapshot",
             ack_risk=args.ack_risk,
-            use_profile=use_profile,
         )
         write_json(ej_dir / "capabilities_snapshot.json", cap_record)
         details = extract_details(cap_record.get("stdout_json"))
@@ -339,30 +339,98 @@ def main() -> int:
         if args.attach_stage == "post-trigger":
             attach_now("post-trigger", trigger_info)
 
-    wait_args: List[str] = [
-        "--attach",
-        str(args.attach_seconds),
-        "--hold-open",
-        str(args.hold_open_seconds),
-    ]
-    if args.ack_risk:
-        wait_args = ["--ack-risk", args.ack_risk] + wait_args
-
     log_path = logs_dir / "run_xpc.log"
-    record = ej_wait.run_wait_xpc(
-        profile_id=args.profile_id,
-        service_id=service_id,
-        probe_id=args.probe_id,
-        probe_args=args.probe_args,
-        wait_args=wait_args,
-        log_path=log_path,
+    wait_timeout_ms = max(max(args.attach_seconds, 0) * 1000, 15000)
+    session = XpcSession(
+        profile_id=target_profile_id,
+        service_id=target_service_id,
         plan_id=args.plan_id,
-        row_id=row_id,
-        trigger_delay_s=args.trigger_delay_s,
-        on_wait_ready=on_wait_ready,
-        on_trigger=on_trigger,
-        use_profile=use_profile,
+        correlation_id=row_id,
+        ack_risk=args.ack_risk,
+        wait_spec="fifo:auto",
+        wait_timeout_ms=wait_timeout_ms,
     )
+    trigger_events: List[Dict[str, object]] = []
+    probe_started_at_unix_s = None
+    probe_finished_at_unix_s = None
+    probe_response = None
+    session_error: Optional[str] = None
+    try:
+        try:
+            session.start(ready_timeout_s=max(args.attach_seconds, 15))
+            wait_info = {
+                "wait_path": session.wait_path(),
+                "wait_mode": session.wait_mode(),
+                "wait_timeout_ms": wait_timeout_ms,
+                "session_ready": session.session_ready.get("data") if isinstance(session.session_ready, dict) else None,
+                "wait_ready": session.wait_ready.get("data") if isinstance(session.wait_ready, dict) else None,
+            }
+            on_wait_ready(wait_info)
+            if args.trigger_delay_s > 0:
+                time.sleep(args.trigger_delay_s)
+            trigger_at = time.time()
+            trigger_error = session.trigger_wait(nonblocking=False, timeout_s=2.0)
+            trigger_events.append({"kind": "primary", "at_unix_s": trigger_at, "error": trigger_error})
+            on_trigger(
+                {
+                    "wait_path": wait_info["wait_path"],
+                    "wait_mode": wait_info["wait_mode"],
+                    "wait_timeout_ms": wait_timeout_ms,
+                    "trigger": trigger_events[-1],
+                    "trigger_events": list(trigger_events),
+                }
+            )
+            trigger_received = session.wait_for_trigger_received(timeout_s=2.0)
+            if trigger_received is None:
+                session_error = session_error or "trigger_received_timeout"
+            probe_started_at_unix_s = time.time()
+            probe_response = session.run_probe(probe_id=args.probe_id, argv=args.probe_args)
+            probe_finished_at_unix_s = time.time()
+            if args.hold_open_seconds > 0:
+                time.sleep(args.hold_open_seconds)
+        except Exception as exc:
+            session_error = f"{type(exc).__name__}: {exc}"
+    finally:
+        session.close()
+
+    stdout_text = "".join(session.stdout_lines).rstrip()
+    stderr_text = "".join(session.stderr_lines).rstrip()
+    log_write_error = None
+    if stdout_text:
+        try:
+            log_path.parent.mkdir(parents=True, exist_ok=True)
+            log_path.write_text(stdout_text + "\n")
+        except Exception as exc:
+            log_write_error = f"{type(exc).__name__}: {exc}"
+
+    record = {
+        "command": session.command(),
+        "exit_code": session.exit_code,
+        "stdout": stdout_text,
+        "stderr": stderr_text,
+        "error": session_error,
+        "plan_id": args.plan_id,
+        "row_id": row_id,
+        "correlation_id": row_id,
+        "wait_spec": "fifo:auto",
+        "wait_timeout_ms": wait_timeout_ms,
+        "trigger_delay_s": args.trigger_delay_s,
+        "trigger_events": trigger_events,
+        "probe_id": args.probe_id,
+        "probe_args": list(args.probe_args),
+        "probe_started_at_unix_s": probe_started_at_unix_s,
+        "probe_finished_at_unix_s": probe_finished_at_unix_s,
+        "hold_open_s": args.hold_open_seconds,
+        "log_path": path_utils.to_repo_relative(log_path, repo_root),
+        "log_write_error": log_write_error,
+        "session_ready": session.session_ready,
+        "wait_ready": session.wait_ready,
+        "stdout_json": probe_response,
+        "stdout_jsonl_kinds": {
+            k: sum(1 for o in session.stdout_jsonl if o.get("kind") == k)
+            for k in {o.get("kind") for o in session.stdout_jsonl if isinstance(o, dict)}
+        },
+    }
     write_json(ej_dir / "run_xpc.json", record)
 
     service_pid = None
@@ -388,7 +456,7 @@ def main() -> int:
         "out_dir": path_utils.to_repo_relative(out_root, repo_root),
         "probe": {
             "profile_id": args.profile_id,
-            "service_id": service_id,
+            "service_id": target_service_id,
             "use_profile": use_profile,
             "probe_id": args.probe_id,
             "probe_args": list(args.probe_args),

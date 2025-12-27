@@ -2,15 +2,16 @@
 
 Unified runtime tooling for the Sonoma baseline (`world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`). This package merges normalization, mapping builders, projections, workflow helpers, and the runtime harness runner/golden generator into one documented surface. It replaces `book/api/runtime` and `book/api/runtime_harness`.
 
-- **CLI:** `python -m book.api.runtime_tools <run|normalize|cut|story|golden|promote|mismatch|run-all> ...`
-- **Python (preferred):** import subpackages from `book.api.runtime_tools` (`core`, `mapping`, `harness`, `workflow`).
+- **Plan-based execution:** run plans through the shared `run_plan`/`run` entrypoint and the launchd clean channel.
+- **CLI:** `python -m book.api.runtime_tools <run|normalize|cut|story|golden|promote|mismatch|run-all|list-registries|list-probes|list-profiles|describe-probe|describe-profile|emit-promotion|validate-bundle> ...`
+- **Python (preferred):** import subpackages from `book.api.runtime_tools` (`core`, `mapping`, `harness`, `workflow`, `api`).
 - **Native markers:** C/Swift helpers live under `book/api/runtime_tools/native/`.
 
 See `book/api/README.md` for higher-level routing and deprecation notes.
 
 ## CLI
 
-Runtime harness commands:
+Runtime harness commands (matrix-based):
 
 ```sh
 # Generate golden decodes/expectations/traces from runtime-checks outputs.
@@ -28,6 +29,32 @@ python -m book.api.runtime_tools cut \
   --matrix book/experiments/runtime-checks/out/expected_matrix.json \
   --runtime-results book/experiments/runtime-checks/out/runtime_results.json \
   --out /tmp/runtime_cut
+```
+
+Plan-based run (recommended for experiments):
+
+```sh
+python -m book.api.runtime_tools run \
+  --plan book/experiments/hardened-runtime/plan.json \
+  --channel launchd_clean \
+  --out book/experiments/hardened-runtime/out
+```
+
+Registry helpers:
+
+```sh
+python -m book.api.runtime_tools list-registries
+python -m book.api.runtime_tools list-probes --registry hardened-runtime
+python -m book.api.runtime_tools describe-profile --registry hardened-runtime --profile hardened:sysctl_read
+```
+
+Bundle validation + promotion packet:
+
+```sh
+python -m book.api.runtime_tools validate-bundle --bundle book/experiments/hardened-runtime/out
+python -m book.api.runtime_tools emit-promotion \
+  --bundle book/experiments/hardened-runtime/out \
+  --out book/experiments/hardened-runtime/out/promotion_packet.json
 ```
 
 ## Routing (Python)
@@ -76,6 +103,18 @@ from book.api.runtime_tools.mapping import views
 
 comparison = views.build_callout_vs_syscall(observations)
 print(comparison["counts"])
+```
+
+```py
+from book.api.runtime_tools import api as runtime_api
+
+bundle = runtime_api.run_plan(
+    "book/experiments/hardened-runtime/plan.json",
+    "book/experiments/hardened-runtime/out",
+    channel="launchd_clean",
+)
+packet = runtime_api.emit_promotion_packet(bundle.out_dir, bundle.out_dir / "promotion_packet.json")
+print(packet["schema_version"])
 ```
 
 ## Native tool markers

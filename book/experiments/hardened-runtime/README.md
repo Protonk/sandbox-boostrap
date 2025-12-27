@@ -9,16 +9,13 @@
 - It does not use `sandbox-exec` (deprecated); all policy application uses `sandbox_init` via the shared `sandbox_runner`.
 
 ## How to run
-Use the clean launchd wrapper so policy application is not nested:
+Use the clean launchd channel so policy application is not nested:
 
 ```sh
-python book/experiments/hardened-runtime/run_via_launchctl.py
-```
-
-For CI-safe validation without running probes:
-
-```sh
-python book/experiments/hardened-runtime/run_hardened_runtime.py --dry
+python -m book.api.runtime_tools run \
+  --plan book/experiments/hardened-runtime/plan.json \
+  --channel launchd_clean \
+  --out book/experiments/hardened-runtime/out
 ```
 
 ## Outputs and how to read them
@@ -45,8 +42,8 @@ The signal canary uses a **same-sandbox child process** as the target. The profi
 1. Add SBPL profiles under `sb/`:
    - A strict profile (`deny default`) for negative controls.
    - A canary profile (`allow default`) with `(allow <op> (with report))` for positive evidence.
-2. Add probes under `probes/` and wire them into `probes/__init__.py`.
-3. Run `run_via_launchctl.py` to produce clean-channel artifacts.
+2. Add probes under `probes/` and register them in `registry/probes.json` + `registry/profiles.json`.
+3. Run the plan via the clean channel to produce artifacts.
 4. Refresh the preflight index: `python book/tools/preflight/build_index.py`.
 5. Update `Report.md` / `Notes.md` to record what changed and what remains partial.
 

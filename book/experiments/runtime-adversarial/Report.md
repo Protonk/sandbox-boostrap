@@ -14,7 +14,7 @@ Outputs: expected/runtime matrices, mismatch summaries, and impact hooks to down
 - Outputs live in `sb/`, `sb/build/`, and `out/`.
 
 ## Status update (launchd staged run)
-- Latest refresh ran via `book/experiments/runtime-adversarial/run_via_launchctl.py` with staging to `/private/tmp` to avoid Desktop TCC; apply preflight succeeded (`out/apply_preflight.json` shows `apply_ok: true`).
+- Latest refresh ran via `python -m book.api.runtime_tools run --plan book/experiments/runtime-adversarial/plan.json --channel launchd_clean` with staging to `/private/tmp` to avoid Desktop TCC; apply preflight succeeded (`out/apply_preflight.json` shows `apply_ok: true`).
 - Clean-channel runs now emit `out/run_manifest.json` with `run_id`, baseline host metadata, staging root, and the apply preflight + sandbox_check self check; mapping generators require `channel=launchd_clean` before promoting decision-stage artifacts.
 - Baseline comparator results now live in `out/baseline_results.json` (unsandboxed F_GETPATH path observations + loopback connect control for flow-divert probes).
 - Decision-stage outcomes are present in `out/runtime_results.json`; mismatches are restricted to the structural + path families (unexpected denies plus the known `/tmp`→`/private/tmp` normalization boundary).
@@ -49,6 +49,7 @@ Outputs: expected/runtime matrices, mismatch summaries, and impact hooks to down
 - Clean-channel manifest: `book/experiments/runtime-adversarial/out/run_manifest.json` (run_id + provenance bundle).
 - Baseline comparator: `book/experiments/runtime-adversarial/out/baseline_results.json` (unsandboxed path + loopback controls).
 - Mismatch packets: `book/experiments/runtime-adversarial/out/mismatch_packets.jsonl` (decision-stage mismatches with controls + enumerated reason).
+- Promotion packet: `book/experiments/runtime-adversarial/out/promotion_packet.json` (runtime_tools promotion input bundle).
 - Sandbox_check callouts: `out/runtime_results.json` now includes `seatbelt_callouts` markers for file/mach probes (oracle lane only).
 - Apply preflight: `book/experiments/runtime-adversarial/out/apply_preflight.json` (runner entitlements + apply markers + parent chain).
 - Historical runtime events: `book/experiments/runtime-adversarial/out/historical_runtime_events.json` (only refreshed when a decision-stage run succeeds).
@@ -96,4 +97,4 @@ Before refactoring the harness, a bespoke SBPL under `sandbox-exec -f … /usr/b
 - Keep `path_edges` behavior aligned with `book/experiments/vfs-canonicalization/Report.md` so VFS canonicalization remains explicitly modeled and bounded.
 - Investigate the unexpected deny cluster in `struct_*` and `path_*` profiles before any promotion; keep sandbox_check callouts as oracle-only evidence.
 - Extend families (header/format toggles, field2/tag ambiguity, additional non-filesystem ops) once current cases are stable; wire additional validation selectors if promotion to shared runtime mappings is desired.
-- When running from a sandboxed parent, use `book/experiments/runtime-adversarial/run_via_launchctl.py` (stages to `/private/tmp`) to get a clean decision-stage run.
+- When running from a sandboxed parent, use the runtime_tools clean channel (`--channel launchd_clean`) to get a clean decision-stage run.

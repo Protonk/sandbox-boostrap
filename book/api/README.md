@@ -63,15 +63,19 @@ See `book/api/carton/README.md`, `AGENTS.md`, and `API.md` for design, routing, 
 
 ### runtime_tools
 
-Definition: Unified runtime tooling (observations, mappings, projections, and harness runner/golden generator).
+Definition: Unified runtime tooling (observations, mappings, projections, plan-based execution, and harness runner/golden generator).
 
-Role: Normalize harness output into canonical runtime observations, build runtime mappings/stories, and run expectation-driven probes to emit `runtime_results.json`.
+Role: Normalize harness output into canonical runtime observations, build runtime mappings/stories, and run plan-based probes to emit promotable runtime bundles (`run_manifest.json`, `runtime_results.json`, `artifact_index.json`).
 
 Example:
 ```sh
-python -m book.api.runtime_tools golden --matrix book/experiments/runtime-checks/out/expected_matrix.json
-python -m book.api.runtime_tools run --matrix book/profiles/golden-triple/expected_matrix.json --out book/profiles/golden-triple/
-python -m book.api.runtime_tools cut --matrix book/experiments/runtime-checks/out/expected_matrix.json --out /tmp/runtime_cut
+python -m book.api.runtime_tools run \
+  --plan book/experiments/hardened-runtime/plan.json \
+  --channel launchd_clean \
+  --out book/experiments/hardened-runtime/out
+
+python -m book.api.runtime_tools golden \
+  --matrix book/experiments/runtime-checks/out/expected_matrix.json
 ```
 
 Preflight (apply-gate avoidance):
@@ -93,7 +97,6 @@ python - <<'PY'
 from book.api.entitlementjail import cli
 result = cli.run_xpc(
     profile_id="minimal",
-    service_id="com.yourteam.entitlement-jail.ProbeService_minimal",
     probe_id="capabilities_snapshot",
     probe_args=[],
     log_path=None,

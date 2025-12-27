@@ -1,11 +1,12 @@
 """
 Logging and observer helpers for EntitlementJail probes.
 
-This module translates environment defaults into run-xpc logging arguments,
-extracts observer/log metadata from probe JSON, and optionally runs the
-external sandbox-log-observer when the embedded observer report is missing.
-It intentionally treats observer capture as the primary deny evidence source,
-with stream capture retained as a raw feed.
+EntitlementJail v2 decouples probe execution (`entitlement-jail xpc ...`) from
+deny-evidence capture (`sandbox-log-observer`). This module:
+
+- extracts PID/process identity from probe/session JSON, and
+- runs the external observer (outside the sandbox boundary) with a stable
+  time window policy.
 """
 
 from __future__ import annotations
@@ -19,41 +20,19 @@ from typing import Dict, List, Optional, Tuple
 from book.api import path_utils
 from book.api.entitlementjail.paths import LOG_OBSERVER, REPO_ROOT
 
-# Environment-driven toggles for log capture and observer behavior.
-LOG_CAPTURE_REQUESTED_MODE = os.environ.get("EJ_LOG_MODE", "stream").lower()
-# "sandbox" is legacy; normalize it to the host-side stream capture.
-LOG_CAPTURE_MODE = "stream" if LOG_CAPTURE_REQUESTED_MODE == "sandbox" else LOG_CAPTURE_REQUESTED_MODE
-LOG_OBSERVER_MODE = os.environ.get("EJ_LOG_OBSERVER", "embedded").lower()
+# Environment-driven toggles for observer behavior.
+#
+# v1 supported embedded observer capture inside `run-xpc`; v2 runs the observer
+# out-of-process only. Keep the env var for compatibility.
+LOG_OBSERVER_MODE = os.environ.get("EJ_LOG_OBSERVER", "external").lower()
+if LOG_OBSERVER_MODE == "embedded":
+    LOG_OBSERVER_MODE = "external"
 LOG_OBSERVER_LAST = os.environ.get("EJ_LOG_LAST", "10s")
-
-LOG_OBSERVER_FORMAT = os.environ.get("EJ_LOG_OBSERVER_FORMAT", "json").lower()
-LOG_OBSERVER_OUTPUT = os.environ.get("EJ_LOG_OBSERVER_OUTPUT", "auto")
-LOG_OBSERVER_FOLLOW = os.environ.get("EJ_LOG_OBSERVER_FOLLOW") == "1"
-try:
-    duration_raw = os.environ.get("EJ_LOG_OBSERVER_DURATION_S", "2.0").strip()
-    LOG_OBSERVER_DURATION_S = float(duration_raw) if duration_raw else None
-except Exception:
-    LOG_OBSERVER_DURATION_S = None
 
 try:
     LOG_OBSERVER_PAD_S = float(os.environ.get("EJ_LOG_PAD_S", "2.0"))
 except Exception:
     LOG_OBSERVER_PAD_S = 2.0
-
-
-def _safe_tag(tag: str) -> str:
-    # log-name becomes part of a filename in EntitlementJail output paths.
-    return "".join(ch if ch.isalnum() or ch in "._-" else "_" for ch in tag)
-
-
-def log_capture_args(log_path: Path) -> Tuple[str, List[str], Optional[str]]:
-    """Choose stream vs legacy path-class capture args for run-xpc."""
-    mode = LOG_CAPTURE_MODE
-    if mode == "path_class":
-        # path-class capture writes inside the service container; we copy it back later.
-        log_name = _safe_tag(log_path.name)
-        return "path_class", ["--log-path-class", "tmp", "--log-name", log_name], log_name
-    return "stream", ["--log-stream", str(log_path)], None
 
 
 def extract_details(stdout_json: Optional[Dict[str, object]]) -> Optional[Dict[str, object]]:
@@ -68,58 +47,6 @@ def extract_details(stdout_json: Optional[Dict[str, object]]) -> Optional[Dict[s
     details = stdout_json.get("details")
     if isinstance(details, dict):
         return details
-    return None
-
-
-def extract_log_capture_path(stdout_json: Optional[Dict[str, object]]) -> Optional[str]:
-    if not isinstance(stdout_json, dict):
-        return None
-    data = stdout_json.get("data")
-    if isinstance(data, dict):
-        log_path = data.get("log_capture_path")
-        if isinstance(log_path, str):
-            return log_path
-    return None
-
-
-def extract_log_capture_status(stdout_json: Optional[Dict[str, object]]) -> Optional[str]:
-    if not isinstance(stdout_json, dict):
-        return None
-    data = stdout_json.get("data")
-    if isinstance(data, dict):
-        status = data.get("log_capture_status")
-        if isinstance(status, str):
-            return status
-    return None
-
-
-def extract_log_observer_report(stdout_json: Optional[Dict[str, object]]) -> Optional[Dict[str, object]]:
-    if not isinstance(stdout_json, dict):
-        return None
-    data = stdout_json.get("data")
-    if isinstance(data, dict):
-        report = data.get("log_observer_report")
-        return report if isinstance(report, dict) else None
-    return None
-
-
-def extract_log_observer_path(stdout_json: Optional[Dict[str, object]]) -> Optional[str]:
-    if not isinstance(stdout_json, dict):
-        return None
-    data = stdout_json.get("data")
-    if isinstance(data, dict):
-        path = data.get("log_observer_path")
-        return path if isinstance(path, str) else None
-    return None
-
-
-def extract_log_observer_status(stdout_json: Optional[Dict[str, object]]) -> Optional[str]:
-    if not isinstance(stdout_json, dict):
-        return None
-    data = stdout_json.get("data")
-    if isinstance(data, dict):
-        status = data.get("log_observer_status")
-        return status if isinstance(status, str) else None
     return None
 
 
@@ -153,26 +80,13 @@ def extract_correlation_id(stdout_json: Optional[Dict[str, object]]) -> Optional
     return correlation_id if isinstance(correlation_id, str) else None
 
 
-def should_run_observer(stdout_json: Optional[Dict[str, object]]) -> bool:
-    """Decide whether to invoke the external observer after run-xpc."""
-    # External observer is a host-side fallback when embedded capture is missing.
-    if LOG_OBSERVER_MODE in {"disabled", "embedded"}:
-        return False
-    if LOG_OBSERVER_MODE in {"external", "always"}:
-        return True
-    # Skip the external observer when the embedded report already exists.
-    if extract_log_observer_report(stdout_json) is not None:
-        return False
-    status = extract_log_capture_status(stdout_json)
-    if status is None:
-        return True
-    return status != "captured"
+def should_run_observer() -> bool:
+    """Return True when the external observer should be invoked."""
+    return LOG_OBSERVER_MODE not in {"disabled", "off", "0"}
 
 
-def observer_status(observer: Optional[Dict[str, object]], embedded_status: Optional[str]) -> str:
-    # Keep a compact status that distinguishes embedded reports from external runs.
-    if embedded_status:
-        return f"embedded:{embedded_status}"
+def observer_status(observer: Optional[Dict[str, object]]) -> str:
+    # Keep a compact status field for experiment records.
     if observer is None:
         return "not_requested"
     skipped = observer.get("skipped")
@@ -181,23 +95,6 @@ def observer_status(observer: Optional[Dict[str, object]], embedded_status: Opti
     if observer.get("exit_code") == 0:
         return "ok"
     return "error"
-
-
-def observer_args() -> List[str]:
-    """Return run-xpc observer flags based on environment defaults."""
-    if LOG_OBSERVER_MODE == "disabled":
-        return []
-    args: List[str] = ["--observe"]
-    if LOG_OBSERVER_FOLLOW:
-        # Follow mode implies a live stream; it supersedes any duration window.
-        args.append("--observer-follow")
-    elif LOG_OBSERVER_DURATION_S is not None and LOG_OBSERVER_DURATION_S > 0:
-        args += ["--observer-duration", f"{LOG_OBSERVER_DURATION_S:g}"]
-    if LOG_OBSERVER_FORMAT:
-        args += ["--observer-format", LOG_OBSERVER_FORMAT]
-    if LOG_OBSERVER_OUTPUT:
-        args += ["--observer-output", LOG_OBSERVER_OUTPUT]
-    return args
 
 
 def _format_time(ts: float) -> str:

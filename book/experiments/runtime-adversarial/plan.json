@@ -1,0 +1,29 @@
+{
+  "schema_version": "runtime-tools.plan.v0.1",
+  "plan_id": "runtime-adversarial.v1",
+  "registry_id": "runtime-adversarial",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "profiles": [
+    "adv:flow_divert_partial_tcp",
+    "adv:flow_divert_require_all_tcp",
+    "adv:mach_local_literal",
+    "adv:mach_local_regex",
+    "adv:mach_simple_allow",
+    "adv:mach_simple_variants",
+    "adv:net_outbound_allow",
+    "adv:net_outbound_deny",
+    "adv:path_alias",
+    "adv:path_edges",
+    "adv:struct_flat",
+    "adv:struct_nested"
+  ],
+  "lanes": {
+    "baseline": true,
+    "scenario": true,
+    "oracle": true
+  },
+  "controls": {
+    "baseline": true
+  },
+  "apply_preflight_profile": "book/experiments/runtime-adversarial/sb/apply_preflight_allow.sb"
+}

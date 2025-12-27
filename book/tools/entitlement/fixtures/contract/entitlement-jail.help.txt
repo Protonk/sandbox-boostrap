@@ -1,7 +1,8 @@
 usage:
   entitlement-jail run-system <absolute-platform-binary> [args...]
   entitlement-jail run-embedded <tool-name> [args...]
-  entitlement-jail run-xpc [--ack-risk <id|bundle-id>] [--log-stream <path|auto|stdout>|--log-path-class <class> --log-name <name>] [--log-predicate <predicate>] [--observe] [--observer-duration <seconds>] [--observer-format <json|jsonl>] [--observer-output <path|auto>] [--observer-follow] [--json-out <path>] [--plan-id <id>] [--row-id <id>] [--correlation-id <id>] [--expected-outcome <label>] [--wait-fifo <path>|--wait-exists <path>|--wait-path-class <class> --wait-name <name>] [--wait-timeout-ms <n>] [--wait-interval-ms <n>] [--wait-create] [--attach <seconds>] [--hold-open <seconds>] [--xpc-timeout-ms <n>] (--profile <id> | <xpc-service-bundle-id>) <probe-id> [probe-args...]
+  entitlement-jail xpc run (--profile <id> | --service <bundle-id>) [--ack-risk <id|bundle-id>] [--plan-id <id>] [--row-id <id>] [--correlation-id <id>] <probe-id> [probe-args...]
+  entitlement-jail xpc session (--profile <id> | --service <bundle-id>) [--ack-risk <id|bundle-id>] [--plan-id <id>] [--correlation-id <id>] [--wait <fifo:auto|fifo:/abs|exists:/abs>] [--wait-timeout-ms <n>] [--wait-interval-ms <n>] [--xpc-timeout-ms <n>]
   entitlement-jail quarantine-lab <xpc-service-bundle-id> <payload-class> [options...]
   entitlement-jail verify-evidence
   entitlement-jail inspect-macho <service-id|main|path>

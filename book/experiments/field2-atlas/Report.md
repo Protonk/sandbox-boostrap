@@ -9,7 +9,7 @@ This is the canonical example of a field2-first view. It is intentionally narrow
 ## Setup
 - World: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
 - Seed set: fixed in `field2_seeds.json` (0/5/7 with anchors + profile witnesses, 1 as nearby static neighbor, 2560 as characterized flow-divert triple-only token: tag0/u16_role=filter_vocab_id/literal `com.apple.flow-divert`).
-- Inputs: `book/graph/mappings/vocab/{ops.json,filters.json}`, `book/graph/mappings/tag_layouts/tag_layouts.json`, `book/graph/mappings/anchors/anchor_filter_map.json`, `book/graph/mappings/system_profiles/{digests.json,static_checks.json}`, `book/experiments/field2-filters/out/field2_inventory.json`, runtime signatures/traces under `book/graph/mappings/runtime/` (notably `runtime_signatures.json`).
+- Inputs: `book/graph/mappings/vocab/{ops.json,filters.json}`, `book/graph/mappings/tag_layouts/tag_layouts.json`, `book/graph/mappings/anchors/anchor_filter_map.json`, `book/graph/mappings/system_profiles/{digests.json,static_checks.json}`, `book/experiments/field2-filters/out/field2_inventory.json`, runtime signatures/traces under `book/graph/mappings/runtime/` (notably `runtime_signatures.json`). Runtime events/baseline/manifests are sourced from the runtime-adversarial promotion packet when present.
 - Deliverables: static records (`out/static/field2_records.jsonl`), runtime results (`out/runtime/field2_runtime_results.json`), and merged atlas (`out/atlas/field2_atlas.json`, `out/atlas/summary.json`).
 
 ## Outputs (current)
@@ -37,6 +37,7 @@ This is the canonical example of a field2-first view. It is intentionally narrow
 - Atlas: `book/experiments/field2-atlas/out/atlas/{field2_atlas.json,summary.json}`
 - Helpers: `atlas_static.py`, `atlas_runtime.py`, `atlas_build.py`; guardrail `book/tests/test_field2_atlas.py`.
 - Mismatch packets: `book/experiments/runtime-adversarial/out/mismatch_packets.jsonl` (decision-stage mismatch bundles).
+- Promotion packet: `book/experiments/runtime-adversarial/out/promotion_packet.json` (run manifest + runtime events + baseline results).
 
 ## Next steps
 - If the path-edge mismatch remains after normalization controls, tighten the expectation or anchor join for field2=1 and keep the mismatch packet updated with an explicit reason.

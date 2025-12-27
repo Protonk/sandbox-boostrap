@@ -6,26 +6,25 @@ ROOT = Path(__file__).resolve().parents[2]
 CONTRACT_DIR = ROOT / "book" / "tools" / "entitlement" / "fixtures" / "contract"
 
 
-def test_entitlementjail_run_xpc_help_contract():
-    help_path = CONTRACT_DIR / "run-xpc.help.txt"
-    assert help_path.exists(), "missing run-xpc help fixture"
+def test_entitlementjail_help_contract():
+    help_path = CONTRACT_DIR / "entitlement-jail.help.txt"
+    assert help_path.exists(), "missing entitlement-jail help fixture"
     text = help_path.read_text()
     for flag in [
-        "run-xpc",
-        "--log-stream",
-        "--log-path-class",
-        "--log-predicate",
-        "--observe",
-        "--observer-duration",
-        "--observer-format",
-        "--observer-output",
-        "--observer-follow",
-        "--json-out",
+        "xpc run",
+        "xpc session",
+        "--profile <id>",
+        "--service <bundle-id>",
+        "--ack-risk <id|bundle-id>",
         "--plan-id",
         "--row-id",
         "--correlation-id",
+        "--wait <fifo:auto|fifo:/abs|exists:/abs>",
+        "--wait-timeout-ms",
+        "--wait-interval-ms",
+        "--xpc-timeout-ms",
     ]:
-        assert flag in text, f"missing {flag} in run-xpc help"
+        assert flag in text, f"missing {flag} in entitlement-jail help"
 
 
 def test_entitlementjail_observer_help_contract():

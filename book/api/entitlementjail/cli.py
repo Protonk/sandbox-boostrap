@@ -2,9 +2,9 @@
 EntitlementJail CLI helpers.
 
 This module provides structured wrappers around the entitlement-jail CLI,
-including run-xpc probe execution, matrix group runs, and evidence bundling.
-It normalizes stdout/stderr into a consistent record, manages log capture
-paths, and preserves enough metadata to correlate observer output with probes.
+including `xpc run` probe execution, matrix group runs, and evidence bundling.
+It normalizes stdout/stderr into a consistent record and preserves enough
+metadata to correlate observer output with probes.
 """
 
 from __future__ import annotations
@@ -18,18 +18,11 @@ from typing import Dict, Iterable, List, Optional, Sequence, Tuple
 
 from book.api import path_utils
 from book.api.entitlementjail.logging import (
-    LOG_CAPTURE_REQUESTED_MODE,
     LOG_OBSERVER_LAST,
     extract_correlation_id,
     extract_details,
-    extract_log_capture_path,
-    extract_log_observer_path,
-    extract_log_observer_report,
-    extract_log_observer_status,
     extract_process_name,
     extract_service_pid,
-    log_capture_args,
-    observer_args,
     observer_status,
     run_sandbox_log_observer,
     should_run_observer,
@@ -39,38 +32,6 @@ from book.api.profile_tools.identity import baseline_world_id
 
 # Used to tag outputs with the fixed baseline world id.
 WORLD_ID = baseline_world_id(REPO_ROOT)
-
-# Default output locations for EntitlementJail CLI (sandboxed vs unsandboxed).
-# The sandboxed app writes under the container, while the unsandboxed build
-# uses $HOME/Library/Application Support.
-MATRIX_SOURCE_CANDIDATES = (
-    Path.home()
-    / "Library"
-    / "Containers"
-    / "com.yourteam.entitlement-jail"
-    / "Data"
-    / "Library"
-    / "Application Support"
-    / "entitlement-jail"
-    / "matrix"
-    / "latest",
-    Path.home() / "Library" / "Application Support" / "entitlement-jail" / "matrix" / "latest",
-)
-
-# Evidence bundle locations mirror the matrix output layout.
-EVIDENCE_SOURCE_CANDIDATES = (
-    Path.home()
-    / "Library"
-    / "Containers"
-    / "com.yourteam.entitlement-jail"
-    / "Data"
-    / "Library"
-    / "Application Support"
-    / "entitlement-jail"
-    / "evidence"
-    / "latest",
-    Path.home() / "Library" / "Application Support" / "entitlement-jail" / "evidence" / "latest",
-)
 
 
 def write_json(path: Path, payload: Dict[str, object]) -> None:
@@ -144,7 +105,7 @@ def resolve_first_existing(candidates: Iterable[Path]) -> Path:
 
 
 def maybe_parse_json(text: str) -> Optional[Dict[str, object]]:
-    # run-xpc generally returns JSON, but stderr/stdout can be non-JSON on error.
+    # EntitlementJail generally returns JSON, but stderr/stdout can be non-JSON on error.
     if not text:
         return None
     try:
@@ -223,42 +184,34 @@ def parse_probe_catalog(stdout_json: Optional[Dict[str, object]]) -> Optional[Li
 
 def run_xpc(
     *,
-    profile_id: str,
-    service_id: str,
+    profile_id: Optional[str] = None,
+    service_id: Optional[str] = None,
     probe_id: str,
-    probe_args: Sequence[str],
-    log_path: Optional[Path],
+    probe_args: Sequence[str] = (),
+    log_path: Optional[Path] = None,
     plan_id: str,
-    row_id: str,
-    ack_risk: Optional[str],
-    use_profile: bool = True,
+    row_id: Optional[str] = None,
+    correlation_id: Optional[str] = None,
+    ack_risk: Optional[str] = None,
 ) -> Dict[str, object]:
-    """Run a probe under a profile/service, capturing logs and observer output."""
-    cmd = [str(EJ), "run-xpc"]
+    """Run a probe under a profile/service, capturing observer output when configured."""
+    if (profile_id is None) == (service_id is None):
+        raise ValueError("Provide exactly one of profile_id or service_id")
+    cmd = [str(EJ), "xpc", "run"]
     if ack_risk:
         # Tier-2 profiles require an explicit acknowledgement token.
         cmd += ["--ack-risk", ack_risk]
 
-    capture_path: Optional[Path] = None
-    log_copy_error: Optional[str] = None
-    log_capture_mode: Optional[str] = None
-    log_capture_log_name: Optional[str] = None
-    if log_path is not None:
-        log_path.parent.mkdir(parents=True, exist_ok=True)
-        if log_path.exists():
-            # Avoid stale logs if the caller reuses the same path.
-            log_path.unlink()
-        log_capture_mode, log_args, log_name = log_capture_args(log_path)
-        log_capture_log_name = log_name
-        cmd += log_args
-    cmd += observer_args()
-
-    cmd += ["--plan-id", plan_id, "--row-id", row_id]
-    if use_profile:
+    cmd += ["--plan-id", plan_id]
+    if row_id:
+        cmd += ["--row-id", row_id]
+    if correlation_id:
+        cmd += ["--correlation-id", correlation_id]
+    if profile_id is not None:
         cmd += ["--profile", profile_id]
     else:
         # Caller can target a specific XPC bundle id instead of a profile.
-        cmd.append(service_id)
+        cmd += ["--service", service_id]
     cmd += [probe_id, *probe_args]
     started_at_unix_s = time.time()
     res = run_cmd(cmd)
@@ -266,45 +219,30 @@ def run_xpc(
 
     stdout_text = res.get("stdout", "").strip()
     stdout_json = maybe_parse_json(stdout_text)
-    if log_path is not None:
-        # log_capture_path can point into app-managed locations; copy into repo.
-        capture_source = extract_log_capture_path(stdout_json)
-        if capture_source:
-            capture_path = Path(capture_source)
-        if capture_path is None and log_path.exists():
-            capture_path = log_path
-        if capture_path and capture_path != log_path:
-            log_copy_error = copy_file(capture_path, log_path)
-        elif log_path.exists():
-            log_copy_error = None
-        else:
-            log_copy_error = "log_capture_path_missing"
-
-    # Prefer the embedded observer report; fall back to an external observer if needed.
-    embedded_observer_report = extract_log_observer_report(stdout_json)
-    embedded_observer_path = extract_log_observer_path(stdout_json)
-    embedded_observer_status = extract_log_observer_status(stdout_json)
-    embedded_observer_copy_error = None
-    embedded_observer_local_path = None
-    if log_path is not None and embedded_observer_path:
-        # Persist the embedded observer report alongside the stream log.
-        observer_dest = log_path.parent / "observer" / log_path.name
-        embedded_observer_local_path = path_utils.to_repo_relative(observer_dest, REPO_ROOT)
-        embedded_observer_copy_error = copy_file(Path(embedded_observer_path), observer_dest)
+    log_write_error = None
+    if log_path is not None and stdout_text:
+        try:
+            log_path.parent.mkdir(parents=True, exist_ok=True)
+            log_path.write_text(stdout_text + "\n")
+        except Exception as exc:
+            log_write_error = f"{type(exc).__name__}: {exc}"
 
     observer: Optional[Dict[str, object]] = None
-    if embedded_observer_report is None and log_path is not None and should_run_observer(stdout_json):
-        # External observer provides a host-side fallback when embed is missing.
+    observer_log_path = None
+    if log_path is not None and should_run_observer():
+        observer_dest = log_path.parent / "observer" / f"{log_path.name}.observer.json"
+        observer_log_path = path_utils.to_repo_relative(observer_dest, REPO_ROOT)
+        observer_correlation_id = extract_correlation_id(stdout_json) or correlation_id
         observer = run_sandbox_log_observer(
             pid=extract_service_pid(stdout_json),
             process_name=extract_process_name(stdout_json),
-            dest_path=log_path.parent / "observer" / log_path.name,
+            dest_path=observer_dest,
             last=LOG_OBSERVER_LAST,
             start_s=started_at_unix_s,
             end_s=finished_at_unix_s,
             plan_id=plan_id,
             row_id=row_id,
-            correlation_id=extract_correlation_id(stdout_json),
+            correlation_id=observer_correlation_id,
         )
 
     record: Dict[str, object] = {
@@ -314,21 +252,15 @@ def run_xpc(
         "probe_args": list(probe_args),
         "plan_id": plan_id,
         "row_id": row_id,
-        "log_capture_mode": log_capture_mode,
-        "log_capture_log_name": log_capture_log_name,
-        "log_capture_requested_mode": LOG_CAPTURE_REQUESTED_MODE,
+        "correlation_id": correlation_id,
         "started_at_unix_s": started_at_unix_s,
         "finished_at_unix_s": finished_at_unix_s,
         "duration_s": finished_at_unix_s - started_at_unix_s,
         "log_path": path_utils.to_repo_relative(log_path, REPO_ROOT) if log_path else None,
-        "log_capture_source": home_hint(capture_path) if capture_path else None,
-        "log_copy_error": log_copy_error,
-        "embedded_observer_source": home_hint(Path(embedded_observer_path)) if embedded_observer_path else None,
-        "embedded_observer_log_path": embedded_observer_local_path,
-        "embedded_observer_copy_error": embedded_observer_copy_error,
-        "embedded_observer_status": embedded_observer_status,
         "observer": observer,
-        "observer_status": observer_status(observer, embedded_observer_status),
+        "observer_log_path": observer_log_path,
+        "observer_status": observer_status(observer),
+        "log_write_error": log_write_error,
         **res,
     }
     if stdout_text:
@@ -342,39 +274,33 @@ def run_xpc(
 
 
 def run_matrix_group(group: str, *, ack_risk: Optional[str], dest_dir: Path) -> Dict[str, object]:
-    """Run a matrix group and copy the latest app output into the repo."""
-    cmd = [str(EJ), "run-matrix", "--group", group, "capabilities_snapshot"]
+    """Run a matrix group and write outputs into the repo."""
+    if dest_dir.exists():
+        shutil.rmtree(dest_dir, ignore_errors=True)
+    cmd = [str(EJ), "run-matrix", "--group", group, "--out", str(dest_dir), "capabilities_snapshot"]
     if ack_risk:
         cmd += ["--ack-risk", ack_risk]
     res = run_cmd(cmd)
-    source_dir = resolve_first_existing(MATRIX_SOURCE_CANDIDATES)
-    copy_error = copy_tree(source_dir, dest_dir)
     return {
         "world_id": WORLD_ID,
         "entrypoint": path_utils.to_repo_relative(EJ, REPO_ROOT),
         "group": group,
         "out_dir": path_utils.to_repo_relative(dest_dir, REPO_ROOT),
-        "source_out_dir_hint": home_hint(source_dir),
-        "source_candidates": [home_hint(candidate) for candidate in MATRIX_SOURCE_CANDIDATES],
-        "copy_error": copy_error,
         **res,
     }
 
 
 def bundle_evidence(*, ack_risk: Optional[str], dest_dir: Path) -> Dict[str, object]:
-    """Create a bundle-evidence snapshot and copy the latest output into the repo."""
-    cmd = [str(EJ), "bundle-evidence", "--include-health-check"]
+    """Create a bundle-evidence snapshot and write outputs into the repo."""
+    if dest_dir.exists():
+        shutil.rmtree(dest_dir, ignore_errors=True)
+    cmd = [str(EJ), "bundle-evidence", "--out", str(dest_dir), "--include-health-check"]
     if ack_risk:
         cmd += ["--ack-risk", ack_risk]
     res = run_cmd(cmd)
-    source_dir = resolve_first_existing(EVIDENCE_SOURCE_CANDIDATES)
-    copy_error = copy_tree(source_dir, dest_dir)
     return {
         "world_id": WORLD_ID,
         "entrypoint": path_utils.to_repo_relative(EJ, REPO_ROOT),
         "out_dir": path_utils.to_repo_relative(dest_dir, REPO_ROOT),
-        "source_out_dir_hint": home_hint(source_dir),
-        "source_candidates": [home_hint(candidate) for candidate in EVIDENCE_SOURCE_CANDIDATES],
-        "copy_error": copy_error,
         **res,
     }

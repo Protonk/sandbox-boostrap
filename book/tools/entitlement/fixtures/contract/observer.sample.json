@@ -1,28 +1,40 @@
 {
   "data": {
-    "correlation_id": "A1540EC3-BB77-47AF-B7E8-9BAA50A30595",
-    "deny_lines": [
-      "Filtering the log data using \"composedMessage CONTAINS[c] \"Sandbox: ProbeService_minimal(3581)\" OR (composedMessage CONTAINS[c] \"deny\" AND composedMessage CONTAINS[c] \"3581\")\""
-    ],
-    "duration_ms": 2000,
+    "correlation_id": "2DBE8BBC-0DCB-44EA-BA4F-D57A1C31B609",
+    "deny_lines": [],
+    "duration_ms": null,
+    "end": null,
+    "last": "10s",
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
     "log_stderr": "",
-    "log_stdout": "Filtering the log data using \"composedMessage CONTAINS[c] \"Sandbox: ProbeService_minimal(3581)\" OR (composedMessage CONTAINS[c] \"deny\" AND composedMessage CONTAINS[c] \"3581\")\"\n",
+    "log_stdout": "Timestamp                       (process)[PID]    \n2025-12-26 17:16:31.678995-0800  localhost log[67162]: [com.apple.log:] log run noninteractively, parent: 67161 (sandbox-log-observer), args: '/usr/bin/log' 'show' '--style' 'syslog' '--info' '--debug' '--last' '10s' '--predicate' '((eventMessage CONTAINS[c] \"Sandbox: ProbeService_minimal(67158)\") OR ((eventMessage CONTAINS[c",
     "log_truncated": false,
-    "mode": "stream",
-    "observed_deny": true,
-    "observed_lines": 1,
+    "mode": "show",
+    "observed_deny": false,
+    "observed_lines": 2,
     "observer_schema_version": 1,
-    "pid": 3581,
-    "plan_id": "entitlement-diff:ej",
-    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_minimal(3581)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"3581\")))",
+    "pid": 67158,
+    "plan_id": "contract",
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_minimal(67158)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"67158\")))",
     "process_name": "ProbeService_minimal",
-    "row_id": "observer_duration.minimal.tcp_connect"
+    "row_id": "observer.sample",
+    "start": null
   },
-  "generated_at_unix_ms": 1766642754721,
+  "generated_at_unix_ms": 1766798192084,
   "kind": "sandbox_log_observer_report",
   "result": {
+    "errno": null,
+    "error": null,
     "exit_code": 0,
-    "ok": true
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
   },
-  "schema_version": 1
+  "schema_version": 2
 }

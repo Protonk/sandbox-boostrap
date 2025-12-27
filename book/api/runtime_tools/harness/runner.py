@@ -162,6 +162,159 @@ def classify_profile_status(probes: List[Dict[str, Any]], skipped_reason: str | 
     return "partial", "runtime results diverged from expected allow/deny matrix"
 
 
+def build_probe_command(probe: Dict[str, Any]) -> List[str]:
+    """
+    Build an unsandboxed probe command for baseline execution.
+    """
+    target = probe.get("target")
+    op = probe.get("operation")
+    cmd: List[str]
+    if op == "file-read*":
+        use_file_probe = probe.get("driver") == "file_probe" and FILE_PROBE.exists() and target
+        if use_file_probe:
+            cmd = [str(FILE_PROBE), "read", target]
+        else:
+            cmd = [CAT, target] if target else ["true"]
+    elif op == "file-write*":
+        use_file_probe = probe.get("driver") == "file_probe" and FILE_PROBE.exists() and target
+        if use_file_probe:
+            cmd = [str(FILE_PROBE), "write", target]
+        else:
+            cmd = [SH, "-c", f"echo runtime-check >> '{target}'"] if target else ["true"]
+    elif op == "mach-lookup":
+        if MACH_PROBE.exists() and target:
+            cmd = [str(MACH_PROBE), target]
+        else:
+            cmd = ["true"]
+    elif op == "sysctl-read":
+        if target:
+            cmd = ["/usr/sbin/sysctl", "-n", target]
+        else:
+            cmd = ["true"]
+    elif op == "darwin-notification-post":
+        if target and Path(NOTIFYUTIL).exists():
+            cmd = [NOTIFYUTIL, "-p", target]
+        else:
+            cmd = ["true"]
+    elif op == "distributed-notification-post":
+        if target and Path(PYTHON).exists():
+            script = (
+                "import ctypes, sys\n"
+                "cf = ctypes.CDLL('/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation')\n"
+                "cf.CFNotificationCenterGetDistributedCenter.restype = ctypes.c_void_p\n"
+                "center = cf.CFNotificationCenterGetDistributedCenter()\n"
+                "cf.CFStringCreateWithCString.argtypes = [ctypes.c_void_p, ctypes.c_char_p, ctypes.c_int]\n"
+                "cf.CFStringCreateWithCString.restype = ctypes.c_void_p\n"
+                "kCFStringEncodingUTF8 = 0x08000100\n"
+                "name = sys.argv[1].encode('utf-8')\n"
+                "cfname = cf.CFStringCreateWithCString(None, name, kCFStringEncodingUTF8)\n"
+                "cf.CFNotificationCenterPostNotification.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_bool]\n"
+                "cf.CFNotificationCenterPostNotification(center, cfname, None, None, True)\n"
+            )
+            cmd = [PYTHON, "-c", script, target]
+        else:
+            cmd = ["true"]
+    elif op == "process-info-pidinfo":
+        if target and Path(PYTHON).exists():
+            script = (
+                "import ctypes, ctypes.util, os, sys\n"
+                "lib = ctypes.CDLL(ctypes.util.find_library('proc'))\n"
+                "lib.proc_pidinfo.argtypes = [ctypes.c_int, ctypes.c_int, ctypes.c_uint64, ctypes.c_void_p, ctypes.c_int]\n"
+                "lib.proc_pidinfo.restype = ctypes.c_int\n"
+                "PROC_PIDTBSDINFO = 3\n"
+                "pid_arg = sys.argv[1]\n"
+                "pid = os.getpid() if pid_arg == 'self' else int(pid_arg)\n"
+                "buf = ctypes.create_string_buffer(512)\n"
+                "rc = lib.proc_pidinfo(pid, PROC_PIDTBSDINFO, 0, buf, ctypes.sizeof(buf))\n"
+                "sys.exit(0 if rc > 0 else 1)\n"
+            )
+            cmd = [PYTHON, "-c", script, target]
+        else:
+            cmd = ["true"]
+    elif op == "signal":
+        if Path(PYTHON).exists():
+            script = (
+                "import json, os, signal, subprocess, sys\n"
+                "ready_r, ready_w = os.pipe()\n"
+                "result_r, result_w = os.pipe()\n"
+                "child_env = os.environ.copy()\n"
+                "child_env['SBL_READY_FD'] = str(ready_w)\n"
+                "child_env['SBL_RESULT_FD'] = str(result_w)\n"
+                "child_code = (\n"
+                "    \"import os, signal, sys\\n\"\n"
+                "    \"ready_fd = int(os.environ.get('SBL_READY_FD', '-1'))\\n\"\n"
+                "    \"result_fd = int(os.environ.get('SBL_RESULT_FD', '-1'))\\n\"\n"
+                "    \"def handler(signum, frame):\\n\"\n"
+                "    \"    try: os.write(result_fd, b'signal')\\n\"\n"
+                "    \"    except Exception: pass\\n\"\n"
+                "    \"    sys.exit(0)\\n\"\n"
+                "    \"signal.signal(signal.SIGUSR1, handler)\\n\"\n"
+                "    \"try: os.write(ready_fd, b'ready')\\n\"\n"
+                "    \"except Exception: pass\\n\"\n"
+                "    \"signal.pause()\\n\"\n"
+                "    \"sys.exit(2)\\n\"\n"
+                ")\n"
+                "child = subprocess.Popen([sys.executable, '-c', child_code], pass_fds=(ready_w, result_w), env=child_env)\n"
+                "os.close(ready_w)\n"
+                "os.close(result_w)\n"
+                "details = {\n"
+                "    'probe_schema_version': 'hardened-runtime.signal-probe.v0.2',\n"
+                "    'child_pid': child.pid,\n"
+                "    'child_spawn_method': 'subprocess.Popen',\n"
+                "    'handshake_ok': False,\n"
+                "    'signal_sent': False,\n"
+                "    'child_received_signal': False,\n"
+                "}\n"
+                "try:\n"
+                "    data = os.read(ready_r, 5)\n"
+                "    details['handshake_ok'] = data == b'ready'\n"
+                "except Exception as exc:\n"
+                "    details['handshake_error'] = str(exc)\n"
+                "if details['handshake_ok']:\n"
+                "    try:\n"
+                "        os.kill(child.pid, signal.SIGUSR1)\n"
+                "        details['signal_sent'] = True\n"
+                "    except Exception as exc:\n"
+                "        details['signal_error'] = str(exc)\n"
+                "try:\n"
+                "    import select\n"
+                "    rlist, _, _ = select.select([result_r], [], [], 1.0)\n"
+                "    if rlist:\n"
+                "        data = os.read(result_r, 16)\n"
+                "        if data.startswith(b'signal'):\n"
+                "            details['child_received_signal'] = True\n"
+                "except Exception as exc:\n"
+                "    details['result_error'] = str(exc)\n"
+                "try:\n"
+                "    child.wait(timeout=1.0)\n"
+                "    details['child_exit_code'] = child.returncode\n"
+                "    details['child_status'] = 'exited'\n"
+                "except Exception:\n"
+                "    child.kill()\n"
+                "    child.wait()\n"
+                "    details['child_exit_code'] = child.returncode\n"
+                "    details['child_status'] = 'killed'\n"
+                "print('SBL_PROBE_DETAILS ' + json.dumps(details))\n"
+                "sys.exit(0 if details['signal_sent'] and details['child_received_signal'] else 1)\n"
+            )
+            cmd = [PYTHON, "-c", script]
+        else:
+            cmd = ["true"]
+    elif op == "network-outbound":
+        hostport = target or "127.0.0.1"
+        if ":" in hostport:
+            host, port = hostport.split(":", 1)
+        else:
+            host, port = hostport, "80"
+        nc = Path("/usr/bin/nc")
+        cmd = [str(nc), "-z", "-w", "2", host, port]
+    elif op == "process-exec":
+        cmd = ["true"]
+    else:
+        cmd = ["true"]
+    return cmd
+
+
 def prepare_profile(
     base: Path,
     key: str,

@@ -1,0 +1,103 @@
+{
+  "schema_version": "runtime-tools.profile_registry.v0.1",
+  "registry_id": "runtime-checks",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "profiles": {
+    "bucket4:v1_read": {
+      "profile_id": "bucket4:v1_read",
+      "profile_path": "book/experiments/op-table-operation/sb/v1_read.sb",
+      "mode": "sbpl",
+      "family": null,
+      "semantic_group": null,
+      "probe_refs": [
+        "bucket4:v1_read:read_/etc/hosts",
+        "bucket4:v1_read:write_/etc/hosts",
+        "bucket4:v1_read:read_/tmp/foo"
+      ],
+      "notes": "Baseline bucket-4 profile: allow file-read* only."
+    },
+    "bucket5:v11_read_subpath": {
+      "profile_id": "bucket5:v11_read_subpath",
+      "profile_path": "book/experiments/op-table-operation/sb/v11_read_subpath.sb",
+      "mode": "sbpl",
+      "family": null,
+      "semantic_group": null,
+      "probe_refs": [
+        "bucket5:v11_read_subpath:read_/tmp/foo",
+        "bucket5:v11_read_subpath:read_/tmp/bar",
+        "bucket5:v11_read_subpath:write_/tmp/foo"
+      ],
+      "notes": "Bucket-5 subpath profile: allow read under /tmp/foo; deny other reads/writes."
+    },
+    "runtime:allow_all": {
+      "profile_id": "runtime:allow_all",
+      "profile_path": "book/profiles/golden-triple/allow_all.sb.bin",
+      "mode": "blob",
+      "family": null,
+      "semantic_group": null,
+      "probe_refs": [
+        "allow_all|file-read*|/etc/hosts",
+        "allow_all|file-read*|/tmp/sbpl_rt/read.txt",
+        "allow_all|file-write*|/tmp/sbpl_rt/write.txt"
+      ],
+      "notes": "allow default; should allow all file read/write"
+    },
+    "runtime:metafilter_any": {
+      "profile_id": "runtime:metafilter_any",
+      "profile_path": "book/experiments/sbpl-graph-runtime/profiles/metafilter_any.sb",
+      "mode": "sbpl",
+      "family": null,
+      "semantic_group": null,
+      "probe_refs": [
+        "metafilter_any|file-read*|/tmp/foo.txt",
+        "metafilter_any|file-read*|/tmp/bar.txt",
+        "metafilter_any|file-read*|/tmp/qux.txt",
+        "metafilter_any|file-read*|/tmp/baz.txt",
+        "metafilter_any|file-write*|/tmp/baz.txt"
+      ],
+      "notes": "require-any literal foo/bar; deny baz."
+    },
+    "sys:bsd": {
+      "profile_id": "sys:bsd",
+      "profile_path": "/System/Library/Sandbox/Profiles/bsd.sb",
+      "mode": "sbpl",
+      "family": null,
+      "semantic_group": null,
+      "probe_refs": [
+        "sys:bsd:read_/etc/hosts",
+        "sys:bsd:write_/etc/hosts",
+        "sys:bsd:read_/tmp/foo",
+        "sys:bsd:write_/tmp/foo"
+      ],
+      "notes": "System bsd profile via SBPL (no platform blob entitlements); observed denies on this host."
+    },
+    "sys:airlock": {
+      "profile_id": "sys:airlock",
+      "profile_path": "/System/Library/Sandbox/Profiles/airlock.sb",
+      "mode": "sbpl",
+      "family": null,
+      "semantic_group": null,
+      "probe_refs": [
+        "sys:airlock:read_/etc/hosts",
+        "sys:airlock:write_/etc/hosts",
+        "sys:airlock:read_/tmp/foo",
+        "sys:airlock:write_/tmp/foo"
+      ],
+      "notes": "Platform-only profile expected to fail apply on this host; preflight is enforced so runners do not attempt apply under a generic harness identity."
+    },
+    "runtime:strict_1": {
+      "profile_id": "runtime:strict_1",
+      "profile_path": "book/experiments/runtime-checks/strict_1.sb",
+      "mode": "sbpl",
+      "family": null,
+      "semantic_group": null,
+      "probe_refs": [
+        "runtime:strict_1:read_ok",
+        "runtime:strict_1:write_ok",
+        "runtime:strict_1:read_hosts",
+        "runtime:strict_1:write_hosts"
+      ],
+      "notes": "Strict deny-default profile with minimal allow-set for helper liveness."
+    }
+  }
+}

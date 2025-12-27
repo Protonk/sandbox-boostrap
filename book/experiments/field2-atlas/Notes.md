@@ -17,3 +17,4 @@
 - Added historical runtime witness carry-forward in `atlas_runtime.py` so apply-gated runs can still report last-known-good results as `runtime_backed_historical` when available.
 - Decoupled observed-path collection from sandbox apply by using unsandboxed F_GETPATH; path normalization evidence now survives apply-gated runs.
 - Refreshed via launchd clean channel; field2=1 mismatch now has a bounded packet in `book/experiments/runtime-adversarial/out/mismatch_packets.jsonl`, and field2=2560 carries a partial-triple control + baseline witness in `out/runtime/field2_runtime_results.json`.
+- `atlas_runtime.py` now prefers the runtime-adversarial promotion packet (`out/promotion_packet.json`) for runtime_events/baseline/run_manifest paths, falling back to direct `out/` paths when absent.

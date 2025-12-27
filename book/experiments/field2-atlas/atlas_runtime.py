@@ -24,6 +24,9 @@ from book.api import path_utils
 REPO_ROOT = path_utils.find_repo_root(Path(__file__).resolve())
 DEFAULT_SEEDS = Path(__file__).with_name("field2_seeds.json")
 DEFAULT_RUNTIME_SIGNATURES = REPO_ROOT / "book" / "graph" / "mappings" / "runtime" / "runtime_signatures.json"
+DEFAULT_PROMOTION_PACKET = (
+    REPO_ROOT / "book" / "experiments" / "runtime-adversarial" / "out" / "promotion_packet.json"
+)
 DEFAULT_RUNTIME_EVENTS = [
     REPO_ROOT / "book" / "experiments" / "runtime-adversarial" / "out" / "runtime_events.normalized.json",
 ]
@@ -74,6 +77,21 @@ def _load_runtime_events(paths: list[Path], tier: str) -> list[Dict[str, Any]]:
                 row["tier"] = tier
                 events.append(row)
     return events
+
+
+def _load_promotion_paths(packet_path: Path) -> Optional[Dict[str, Path]]:
+    if not packet_path.exists():
+        return None
+    doc = load_json(packet_path)
+    paths: Dict[str, Path] = {}
+    for key in ("runtime_events", "baseline_results", "run_manifest"):
+        value = doc.get(key)
+        if value:
+            paths[key] = path_utils.ensure_absolute(Path(value), repo_root=REPO_ROOT)
+    if not paths:
+        return None
+    paths["promotion_packet"] = packet_path
+    return paths
 
 
 def _load_baseline_results(path: Path) -> Dict[tuple[str, str], Dict[str, Any]]:
@@ -171,15 +189,30 @@ def _path_witness(events_by_key: Dict[tuple[str, str], Dict[str, Any]]) -> Optio
 def build_runtime_results(
     seeds_path: Path = DEFAULT_SEEDS,
     runtime_signatures_path: Path = DEFAULT_RUNTIME_SIGNATURES,
+    promotion_packet_path: Path = DEFAULT_PROMOTION_PACKET,
 ) -> Dict[str, Any]:
     seeds_doc = load_json(seeds_path)
     runtime_doc = load_json(runtime_signatures_path)
     anchor_map = load_json(DEFAULT_ANCHOR_MAP)
-    events = _load_runtime_events(DEFAULT_RUNTIME_EVENTS, tier="current")
+    promotion_paths = _load_promotion_paths(promotion_packet_path)
+    runtime_event_paths = list(DEFAULT_RUNTIME_EVENTS)
+    baseline_path = DEFAULT_BASELINE_RESULTS
+    run_manifest_path = DEFAULT_RUN_MANIFEST
+    if promotion_paths:
+        runtime_event = promotion_paths.get("runtime_events")
+        baseline = promotion_paths.get("baseline_results")
+        manifest = promotion_paths.get("run_manifest")
+        if runtime_event:
+            runtime_event_paths = [runtime_event]
+        if baseline:
+            baseline_path = baseline
+        if manifest:
+            run_manifest_path = manifest
+    events = _load_runtime_events(runtime_event_paths, tier="current")
     historical_events = _load_runtime_events([DEFAULT_HISTORICAL_EVENTS], tier="historical")
     events_by_key = _index_runtime_events(events)
     historical_by_key = _index_runtime_events(historical_events)
-    baseline_by_key = _load_baseline_results(DEFAULT_BASELINE_RESULTS)
+    baseline_by_key = _load_baseline_results(baseline_path)
     signatures = runtime_doc.get("signatures") or {}
     profiles_meta = runtime_doc.get("profiles_metadata") or {}
     mapping_status = (runtime_doc.get("metadata") or {}).get("status")
@@ -336,8 +369,8 @@ def build_runtime_results(
                     "source": control_event.get("source") if control_event else None,
                 },
                 "baseline": {
-                    "source": path_utils.to_repo_relative(DEFAULT_BASELINE_RESULTS, repo_root=REPO_ROOT)
-                    if DEFAULT_BASELINE_RESULTS.exists()
+                    "source": path_utils.to_repo_relative(baseline_path, repo_root=REPO_ROOT)
+                    if baseline_path.exists()
                     else None,
                     "record": baseline_by_key.get((profile_id, probe_name)),
                 },
@@ -365,14 +398,17 @@ def build_runtime_results(
             "runtime_signatures": path_utils.to_repo_relative(runtime_signatures_path, repo_root=REPO_ROOT),
             "runtime_events": [
                 path_utils.to_repo_relative(path, repo_root=REPO_ROOT)
-                for path in DEFAULT_RUNTIME_EVENTS
+                for path in runtime_event_paths
                 if path.exists()
             ],
-            "run_manifest": path_utils.to_repo_relative(DEFAULT_RUN_MANIFEST, repo_root=REPO_ROOT)
-            if DEFAULT_RUN_MANIFEST.exists()
+            "run_manifest": path_utils.to_repo_relative(run_manifest_path, repo_root=REPO_ROOT)
+            if run_manifest_path.exists()
             else None,
-            "baseline_results": path_utils.to_repo_relative(DEFAULT_BASELINE_RESULTS, repo_root=REPO_ROOT)
-            if DEFAULT_BASELINE_RESULTS.exists()
+            "baseline_results": path_utils.to_repo_relative(baseline_path, repo_root=REPO_ROOT)
+            if baseline_path.exists()
+            else None,
+            "promotion_packet": path_utils.to_repo_relative(promotion_paths["promotion_packet"], repo_root=REPO_ROOT)
+            if promotion_paths
             else None,
             "historical_runtime_events": [
                 path_utils.to_repo_relative(DEFAULT_HISTORICAL_EVENTS, repo_root=REPO_ROOT)

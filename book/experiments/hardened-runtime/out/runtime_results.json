@@ -146,7 +146,8 @@
         "stdout": "",
         "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.hardened-runtime.17668/book/experiments/hardened-runtime/out/runtime_profiles/mach_lookup.hardened_mach_lookup.runtime.sb\",\"pid\":17719}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.hardened-runtime.17668/book/experiments/hardened-runtime/out/runtime_profiles/mach_lookup.hardened_mach_lookup.runtime.sb\",\"pid\":17719}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"preflight\",\"api\":\"sandbox_check_by_audit_token\",\"operation\":\"mach-lookup\",\"filter_type\":5,\"filter_type_name\":\"global-name\",\"check_type\":1073741829,\"varargs_count\":1,\"argument\":\"com.apple.sandbox-lore.hardened-runtime.bogus\",\"no_report\":true,\"token_status\":\"ok\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\n"
       }
-    ]
+    ],
+    "schema_version": "hardened-runtime.runtime_results.v0.2"
   },
   "hardened:sysctl_read": {
     "status": "ok",
@@ -299,7 +300,8 @@
         "stdout": "",
         "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.hardened-runtime.17668/book/experiments/hardened-runtime/out/runtime_profiles/sysctl_read.hardened_sysctl_read.runtime.sb\",\"pid\":17721}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.hardened-runtime.17668/book/experiments/hardened-runtime/out/runtime_profiles/sysctl_read.hardened_sysctl_read.runtime.sb\",\"pid\":17721}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"preflight\",\"api\":\"sandbox_check_by_audit_token\",\"operation\":\"sysctl-read\",\"filter_type\":37,\"filter_type_name\":\"unknown\",\"check_type\":37,\"varargs_count\":1,\"argument\":\"kern.bootargs\",\"no_report\":false,\"no_report_reason\":\"unsupported_filter_type\",\"token_status\":\"ok\",\"token_mach_kr\":0,\"rc\":-2,\"errno\":45,\"decision\":\"error\",\"error\":\"unsupported filter type (string-arg only)\"}\n"
       }
-    ]
+    ],
+    "schema_version": "hardened-runtime.runtime_results.v0.2"
   },
   "hardened:process_info_allow": {
     "status": "ok",
@@ -412,7 +414,8 @@
         "stdout": "",
         "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.hardened-runtime.17668/book/experiments/hardened-runtime/out/runtime_profiles/process_info_allow.hardened_process_info_allow.runtime.sb\",\"pid\":17723}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.hardened-runtime.17668/book/experiments/hardened-runtime/out/runtime_profiles/process_info_allow.hardened_process_info_allow.runtime.sb\",\"pid\":17723}\n"
       }
-    ]
+    ],
+    "schema_version": "hardened-runtime.runtime_results.v0.2"
   },
   "hardened:process_info_deny": {
     "status": "ok",
@@ -525,7 +528,8 @@
         "stdout": "",
         "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.hardened-runtime.17668/book/experiments/hardened-runtime/out/runtime_profiles/process_info_deny.hardened_process_info_deny.runtime.sb\",\"pid\":17725}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.hardened-runtime.17668/book/experiments/hardened-runtime/out/runtime_profiles/process_info_deny.hardened_process_info_deny.runtime.sb\",\"pid\":17725}\n"
       }
-    ]
+    ],
+    "schema_version": "hardened-runtime.runtime_results.v0.2"
   },
   "hardened:notifications": {
     "status": "ok",
@@ -816,7 +820,8 @@
         "stdout": "",
         "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.hardened-runtime.17668/book/experiments/hardened-runtime/out/runtime_profiles/notifications.hardened_notifications.runtime.sb\",\"pid\":17729}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.hardened-runtime.17668/book/experiments/hardened-runtime/out/runtime_profiles/notifications.hardened_notifications.runtime.sb\",\"pid\":17729}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"preflight\",\"api\":\"sandbox_check_by_audit_token\",\"operation\":\"distributed-notification-post\",\"filter_type\":34,\"filter_type_name\":\"unknown\",\"check_type\":34,\"varargs_count\":1,\"argument\":\"com.sandboxlore.hardened_runtime.test2\",\"no_report\":false,\"no_report_reason\":\"unsupported_filter_type\",\"token_status\":\"ok\",\"token_mach_kr\":0,\"rc\":-2,\"errno\":45,\"decision\":\"error\",\"error\":\"unsupported filter type (string-arg only)\"}\n"
       }
-    ]
+    ],
+    "schema_version": "hardened-runtime.runtime_results.v0.2"
   },
   "hardened:signal_self_allow": {
     "status": "ok",
@@ -880,7 +885,8 @@
         "stdout": "",
         "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.hardened-runtime.17668/book/experiments/hardened-runtime/out/runtime_profiles/signal_self_allow.hardened_signal_self_allow.runtime.sb\",\"pid\":17730}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.hardened-runtime.17668/book/experiments/hardened-runtime/out/runtime_profiles/signal_self_allow.hardened_signal_self_allow.runtime.sb\",\"pid\":17730}\n"
       }
-    ]
+    ],
+    "schema_version": "hardened-runtime.runtime_results.v0.2"
   },
   "hardened:signal_self_deny": {
     "status": "ok",
@@ -944,6 +950,177 @@
         "stdout": "",
         "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.hardened-runtime.17668/book/experiments/hardened-runtime/out/runtime_profiles/signal_self_deny.hardened_signal_self_deny.runtime.sb\",\"pid\":17732}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.hardened-runtime.17668/book/experiments/hardened-runtime/out/runtime_profiles/signal_self_deny.hardened_signal_self_deny.runtime.sb\",\"pid\":17732}\n"
       }
-    ]
+    ],
+    "schema_version": "hardened-runtime.runtime_results.v0.2"
+  },
+  "hardened:mach_lookup_allow": {
+    "schema_version": "hardened-runtime.runtime_results.v0.2",
+    "status": "blocked",
+    "profile_path": "book/experiments/hardened-runtime/out/runtime_profiles/mach_lookup_allow.hardened_mach_lookup_allow.runtime.sb",
+    "base_profile_path": "book/experiments/hardened-runtime/sb/mach_lookup_allow.sb",
+    "preflight": null,
+    "probes": [
+      {
+        "name": "allow-cfprefsd",
+        "expectation_id": "hardened:mach_lookup_allow:allow-cfprefsd",
+        "operation": "mach-lookup",
+        "path": "com.apple.cfprefsd.agent",
+        "expected": "allow",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "blocked",
+          "errno": null,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "preflight",
+          "failure_kind": "profile_missing_from_run",
+          "apply_report": null,
+          "runner_info": null,
+          "seatbelt_callouts": null
+        },
+        "violation_summary": null,
+        "command": [],
+        "exit_code": null,
+        "stdout": "",
+        "stderr": "",
+        "notes": "profile missing from run bundle"
+      }
+    ],
+    "notes": "profile missing from run bundle; no probes executed"
+  },
+  "hardened:sysctl_read_allow": {
+    "schema_version": "hardened-runtime.runtime_results.v0.2",
+    "status": "blocked",
+    "profile_path": "book/experiments/hardened-runtime/out/runtime_profiles/sysctl_read_allow.hardened_sysctl_read_allow.runtime.sb",
+    "base_profile_path": "book/experiments/hardened-runtime/sb/sysctl_read_allow.sb",
+    "preflight": null,
+    "probes": [
+      {
+        "name": "allow-kern-ostype",
+        "expectation_id": "hardened:sysctl_read_allow:allow-kern-ostype",
+        "operation": "sysctl-read",
+        "path": "kern.ostype",
+        "expected": "allow",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "blocked",
+          "errno": null,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "preflight",
+          "failure_kind": "profile_missing_from_run",
+          "apply_report": null,
+          "runner_info": null,
+          "seatbelt_callouts": null
+        },
+        "violation_summary": null,
+        "command": [],
+        "exit_code": null,
+        "stdout": "",
+        "stderr": "",
+        "notes": "profile missing from run bundle"
+      }
+    ],
+    "notes": "profile missing from run bundle; no probes executed"
+  },
+  "hardened:process_info_allow_canary": {
+    "schema_version": "hardened-runtime.runtime_results.v0.2",
+    "status": "blocked",
+    "profile_path": "book/experiments/hardened-runtime/out/runtime_profiles/process_info_allow_canary.hardened_process_info_allow_canary.runtime.sb",
+    "base_profile_path": "book/experiments/hardened-runtime/sb/process_info_allow_canary.sb",
+    "preflight": null,
+    "probes": [
+      {
+        "name": "pidinfo-self",
+        "expectation_id": "hardened:process_info_allow_canary:pidinfo-self",
+        "operation": "process-info-pidinfo",
+        "path": "self",
+        "expected": "allow",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "blocked",
+          "errno": null,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "preflight",
+          "failure_kind": "profile_missing_from_run",
+          "apply_report": null,
+          "runner_info": null,
+          "seatbelt_callouts": null
+        },
+        "violation_summary": null,
+        "command": [],
+        "exit_code": null,
+        "stdout": "",
+        "stderr": "",
+        "notes": "profile missing from run bundle"
+      }
+    ],
+    "notes": "profile missing from run bundle; no probes executed"
+  },
+  "hardened:notifications_allow": {
+    "schema_version": "hardened-runtime.runtime_results.v0.2",
+    "status": "blocked",
+    "profile_path": "book/experiments/hardened-runtime/out/runtime_profiles/notifications_allow.hardened_notifications_allow.runtime.sb",
+    "base_profile_path": "book/experiments/hardened-runtime/sb/notifications_allow.sb",
+    "preflight": null,
+    "probes": [
+      {
+        "name": "allow-darwin",
+        "expectation_id": "hardened:notifications_allow:allow-darwin",
+        "operation": "darwin-notification-post",
+        "path": "com.sandboxlore.hardened_runtime.test1",
+        "expected": "allow",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "blocked",
+          "errno": null,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "preflight",
+          "failure_kind": "profile_missing_from_run",
+          "apply_report": null,
+          "runner_info": null,
+          "seatbelt_callouts": null
+        },
+        "violation_summary": null,
+        "command": [],
+        "exit_code": null,
+        "stdout": "",
+        "stderr": "",
+        "notes": "profile missing from run bundle"
+      },
+      {
+        "name": "allow-distributed",
+        "expectation_id": "hardened:notifications_allow:allow-distributed",
+        "operation": "distributed-notification-post",
+        "path": "com.sandboxlore.hardened_runtime.test1",
+        "expected": "allow",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "blocked",
+          "errno": null,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "preflight",
+          "failure_kind": "profile_missing_from_run",
+          "apply_report": null,
+          "runner_info": null,
+          "seatbelt_callouts": null
+        },
+        "violation_summary": null,
+        "command": [],
+        "exit_code": null,
+        "stdout": "",
+        "stderr": "",
+        "notes": "profile missing from run bundle"
+      }
+    ],
+    "notes": "profile missing from run bundle; no probes executed"
   }
 }

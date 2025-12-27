@@ -4,12 +4,17 @@
   "status": "ok",
   "expected_profiles": [
     "hardened:mach_lookup",
+    "hardened:mach_lookup_allow",
     "hardened:sysctl_read",
+    "hardened:sysctl_read_allow",
     "hardened:process_info_allow",
+    "hardened:process_info_allow_canary",
     "hardened:process_info_deny",
     "hardened:notifications",
+    "hardened:notifications_allow",
     "hardened:signal_self_allow",
     "hardened:signal_self_deny"
   ],
-  "mismatch_counts": {}
+  "mismatch_counts": {},
+  "schema_version": "hardened-runtime.summary.v0.2"
 }

@@ -14,6 +14,9 @@ from book.api.runtime_tools.core import normalize
 from book.api.runtime_tools.harness import runner as harness_runner
 from book.api.runtime_tools.mapping import story as runtime_story
 from book.api.runtime_tools import workflow
+from book.api.runtime_tools import api as runtime_api
+from book.api.runtime_tools.channels import ChannelSpec
+from book.api.runtime_tools import registry as runtime_registry
 
 
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))
@@ -29,7 +32,20 @@ def _default_runtime_results() -> Path:
 
 
 def run_command(args: argparse.Namespace) -> int:
-    out_path = harness_runner.run_matrix(args.matrix, out_dir=args.out)
+    if args.plan:
+        out_dir = args.out or args.plan.parent / "out"
+        channel = ChannelSpec(channel=args.channel, require_clean=(args.channel == "launchd_clean"))
+        runtime_api.run_plan(
+            args.plan,
+            out_dir,
+            channel=channel,
+            only_profiles=args.only_profile,
+            only_scenarios=args.only_scenario,
+        )
+        print(f"[+] wrote {out_dir}")
+        return 0
+    out_dir = args.out or (BOOK_ROOT / "profiles" / "golden-triple")
+    out_path = harness_runner.run_matrix(args.matrix, out_dir=out_dir)
     print(f"[+] wrote {out_path}")
     return 0
 
@@ -95,6 +111,61 @@ def mismatch_command(args: argparse.Namespace) -> int:
     return 0
 
 
+def list_registries_command(args: argparse.Namespace) -> int:
+    registries = runtime_registry.list_registries()
+    payload = [
+        {
+            "id": reg.registry_id,
+            "probes": str(path_utils.to_repo_relative(reg.probes, repo_root=REPO_ROOT)),
+            "profiles": str(path_utils.to_repo_relative(reg.profiles, repo_root=REPO_ROOT)),
+            "description": reg.description,
+        }
+        for reg in registries
+    ]
+    print(json.dumps(payload, indent=2))
+    return 0
+
+
+def list_probes_command(args: argparse.Namespace) -> int:
+    probes = runtime_registry.list_probes(args.registry)
+    print(json.dumps(probes, indent=2))
+    return 0
+
+
+def list_profiles_command(args: argparse.Namespace) -> int:
+    profiles = runtime_registry.list_profiles(args.registry)
+    print(json.dumps(profiles, indent=2))
+    return 0
+
+
+def describe_probe_command(args: argparse.Namespace) -> int:
+    probe = runtime_registry.resolve_probe(args.registry, args.probe)
+    print(json.dumps(probe, indent=2))
+    return 0
+
+
+def describe_profile_command(args: argparse.Namespace) -> int:
+    profile = runtime_registry.resolve_profile(args.registry, args.profile)
+    print(json.dumps(profile, indent=2))
+    return 0
+
+
+def emit_promotion_command(args: argparse.Namespace) -> int:
+    packet = runtime_api.emit_promotion_packet(args.bundle, args.out)
+    print(f"[+] wrote {args.out}")
+    return 0
+
+
+def validate_bundle_command(args: argparse.Namespace) -> int:
+    result = runtime_api.validate_bundle(args.bundle)
+    if not result.ok:
+        for err in result.errors:
+            print(f"[!] {err}")
+        return 1
+    print("[+] bundle ok")
+    return 0
+
+
 def run_all_command(args: argparse.Namespace) -> int:
     run = workflow.run_from_matrix(
         args.matrix,
@@ -112,9 +183,13 @@ def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description="Runtime tools (run, normalize, cut, story, promote).")
     sub = ap.add_subparsers(dest="command", required=True)
 
-    ap_run = sub.add_parser("run", help="Run runtime probes for an expected matrix (writes runtime_results.json).")
+    ap_run = sub.add_parser("run", help="Run a plan or expected matrix (writes runtime results).")
+    ap_run.add_argument("--plan", type=Path, help="Path to runtime_tools plan JSON")
     ap_run.add_argument("--matrix", type=Path, default=_default_matrix(), help="Path to expected_matrix.json")
-    ap_run.add_argument("--out", type=Path, default=BOOK_ROOT / "profiles" / "golden-triple", help="Output directory")
+    ap_run.add_argument("--out", type=Path, help="Output directory")
+    ap_run.add_argument("--channel", type=str, default="direct", help="Channel (launchd_clean|direct)")
+    ap_run.add_argument("--only-profile", action="append", default=[], help="Limit to a profile_id (plan mode)")
+    ap_run.add_argument("--only-scenario", action="append", default=[], help="Limit to an expectation_id (plan mode)")
     ap_run.set_defaults(func=run_command)
 
     ap_norm = sub.add_parser("normalize", help="Normalize expected_matrix + runtime_results into observations.")
@@ -163,6 +238,36 @@ def main(argv: list[str] | None = None) -> int:
     ap_all.add_argument("--out", type=Path, required=True, help="Output directory")
     ap_all.add_argument("--world-id", type=str, help="Override world_id")
     ap_all.set_defaults(func=run_all_command)
+
+    ap_list_reg = sub.add_parser("list-registries", help="List available runtime_tools registries.")
+    ap_list_reg.set_defaults(func=list_registries_command)
+
+    ap_list_probes = sub.add_parser("list-probes", help="List probes in a registry.")
+    ap_list_probes.add_argument("--registry", type=str, required=True, help="Registry id")
+    ap_list_probes.set_defaults(func=list_probes_command)
+
+    ap_list_profiles = sub.add_parser("list-profiles", help="List profiles in a registry.")
+    ap_list_profiles.add_argument("--registry", type=str, required=True, help="Registry id")
+    ap_list_profiles.set_defaults(func=list_profiles_command)
+
+    ap_desc_probe = sub.add_parser("describe-probe", help="Describe a probe by id.")
+    ap_desc_probe.add_argument("--registry", type=str, required=True, help="Registry id")
+    ap_desc_probe.add_argument("--probe", type=str, required=True, help="Probe id")
+    ap_desc_probe.set_defaults(func=describe_probe_command)
+
+    ap_desc_profile = sub.add_parser("describe-profile", help="Describe a profile by id.")
+    ap_desc_profile.add_argument("--registry", type=str, required=True, help="Registry id")
+    ap_desc_profile.add_argument("--profile", type=str, required=True, help="Profile id")
+    ap_desc_profile.set_defaults(func=describe_profile_command)
+
+    ap_emit = sub.add_parser("emit-promotion", help="Emit a promotion packet from a run bundle.")
+    ap_emit.add_argument("--bundle", type=Path, required=True, help="Run bundle output directory")
+    ap_emit.add_argument("--out", type=Path, required=True, help="Output path for promotion packet")
+    ap_emit.set_defaults(func=emit_promotion_command)
+
+    ap_validate = sub.add_parser("validate-bundle", help="Validate a run bundle artifact index.")
+    ap_validate.add_argument("--bundle", type=Path, required=True, help="Run bundle output directory")
+    ap_validate.set_defaults(func=validate_bundle_command)
 
     args = ap.parse_args(argv)
     return args.func(args)

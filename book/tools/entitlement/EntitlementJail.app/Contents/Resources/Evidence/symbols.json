@@ -17,6 +17,7 @@
         "ej_probe_jit_map_jit",
         "ej_probe_jit_rwx_legacy",
         "ej_probe_net_op",
+        "ej_probe_sandbox_check",
         "ej_sendto"
       ]
     },
@@ -37,6 +38,7 @@
         "ej_probe_jit_map_jit",
         "ej_probe_jit_rwx_legacy",
         "ej_probe_net_op",
+        "ej_probe_sandbox_check",
         "ej_sendto"
       ]
     },
@@ -57,6 +59,7 @@
         "ej_probe_jit_map_jit",
         "ej_probe_jit_rwx_legacy",
         "ej_probe_net_op",
+        "ej_probe_sandbox_check",
         "ej_sendto"
       ]
     },
@@ -77,6 +80,7 @@
         "ej_probe_jit_map_jit",
         "ej_probe_jit_rwx_legacy",
         "ej_probe_net_op",
+        "ej_probe_sandbox_check",
         "ej_sendto"
       ]
     },
@@ -97,6 +101,7 @@
         "ej_probe_jit_map_jit",
         "ej_probe_jit_rwx_legacy",
         "ej_probe_net_op",
+        "ej_probe_sandbox_check",
         "ej_sendto"
       ]
     },
@@ -117,6 +122,7 @@
         "ej_probe_jit_map_jit",
         "ej_probe_jit_rwx_legacy",
         "ej_probe_net_op",
+        "ej_probe_sandbox_check",
         "ej_sendto"
       ]
     },
@@ -137,109 +143,10 @@
         "ej_probe_jit_map_jit",
         "ej_probe_jit_rwx_legacy",
         "ej_probe_net_op",
-        "ej_sendto"
-      ]
-    },
-    {
-      "bundle_id": "com.yourteam.entitlement-jail.QuarantineLab_bookmarks_app_scope",
-      "id": "com.yourteam.entitlement-jail.QuarantineLab_bookmarks_app_scope",
-      "rel_path": "Contents/XPCServices/QuarantineLab_bookmarks_app_scope.xpc/Contents/MacOS/QuarantineLab_bookmarks_app_scope",
-      "symbols": [
-        "ej_connect",
-        "ej_dlopen",
-        "ej_getaddrinfo",
-        "ej_mmap",
-        "ej_munmap",
-        "ej_open",
-        "ej_probe_dlopen_external",
-        "ej_probe_fs_op",
-        "ej_probe_fs_op_wait",
-        "ej_probe_jit_map_jit",
-        "ej_probe_jit_rwx_legacy",
-        "ej_probe_net_op",
-        "ej_sendto"
-      ]
-    },
-    {
-      "bundle_id": "com.yourteam.entitlement-jail.QuarantineLab_default",
-      "id": "com.yourteam.entitlement-jail.QuarantineLab_default",
-      "rel_path": "Contents/XPCServices/QuarantineLab_default.xpc/Contents/MacOS/QuarantineLab_default",
-      "symbols": [
-        "ej_connect",
-        "ej_dlopen",
-        "ej_getaddrinfo",
-        "ej_mmap",
-        "ej_munmap",
-        "ej_open",
-        "ej_probe_dlopen_external",
-        "ej_probe_fs_op",
-        "ej_probe_fs_op_wait",
-        "ej_probe_jit_map_jit",
-        "ej_probe_jit_rwx_legacy",
-        "ej_probe_net_op",
-        "ej_sendto"
-      ]
-    },
-    {
-      "bundle_id": "com.yourteam.entitlement-jail.QuarantineLab_downloads_rw",
-      "id": "com.yourteam.entitlement-jail.QuarantineLab_downloads_rw",
-      "rel_path": "Contents/XPCServices/QuarantineLab_downloads_rw.xpc/Contents/MacOS/QuarantineLab_downloads_rw",
-      "symbols": [
-        "ej_connect",
-        "ej_dlopen",
-        "ej_getaddrinfo",
-        "ej_mmap",
-        "ej_munmap",
-        "ej_open",
-        "ej_probe_dlopen_external",
-        "ej_probe_fs_op",
-        "ej_probe_fs_op_wait",
-        "ej_probe_jit_map_jit",
-        "ej_probe_jit_rwx_legacy",
-        "ej_probe_net_op",
-        "ej_sendto"
-      ]
-    },
-    {
-      "bundle_id": "com.yourteam.entitlement-jail.QuarantineLab_net_client",
-      "id": "com.yourteam.entitlement-jail.QuarantineLab_net_client",
-      "rel_path": "Contents/XPCServices/QuarantineLab_net_client.xpc/Contents/MacOS/QuarantineLab_net_client",
-      "symbols": [
-        "ej_connect",
-        "ej_dlopen",
-        "ej_getaddrinfo",
-        "ej_mmap",
-        "ej_munmap",
-        "ej_open",
-        "ej_probe_dlopen_external",
-        "ej_probe_fs_op",
-        "ej_probe_fs_op_wait",
-        "ej_probe_jit_map_jit",
-        "ej_probe_jit_rwx_legacy",
-        "ej_probe_net_op",
-        "ej_sendto"
-      ]
-    },
-    {
-      "bundle_id": "com.yourteam.entitlement-jail.QuarantineLab_user_selected_executable",
-      "id": "com.yourteam.entitlement-jail.QuarantineLab_user_selected_executable",
-      "rel_path": "Contents/XPCServices/QuarantineLab_user_selected_executable.xpc/Contents/MacOS/QuarantineLab_user_selected_executable",
-      "symbols": [
-        "ej_connect",
-        "ej_dlopen",
-        "ej_getaddrinfo",
-        "ej_mmap",
-        "ej_munmap",
-        "ej_open",
-        "ej_probe_dlopen_external",
-        "ej_probe_fs_op",
-        "ej_probe_fs_op_wait",
-        "ej_probe_jit_map_jit",
-        "ej_probe_jit_rwx_legacy",
-        "ej_probe_net_op",
+        "ej_probe_sandbox_check",
         "ej_sendto"
       ]
     }
   ],
-  "generated_at": "2025-12-26T05:53:43Z"
+  "generated_at": "2025-12-27T00:25:12Z"
 }

@@ -13,8 +13,8 @@ Current artifacts:
 - `runtime_callout_oracle.json` — sandbox_check oracle lane derived from seatbelt-callout markers (decision-only; not syscall outcomes).
 - CARTON: see `book/api/carton/CARTON.json` for frozen hashes/paths of the runtime mappings/IR that are included in CARTON for Sonoma 14.4.1.
 
-Status update (launchd staged run):
-- Latest refresh ran via the launchd-staged path (`run_via_launchctl.py`), which avoids the Desktop TCC block by staging to `/private/tmp`; decision-stage outcomes are current for runtime-checks and runtime-adversarial.
+Status update (launchd clean run):
+- Latest refresh ran via the runtime_tools launchd-clean channel (`python -m book.api.runtime_tools run --plan ... --channel launchd_clean`), which avoids the Desktop TCC block by staging to `/private/tmp`; decision-stage outcomes are current for runtime-checks and runtime-adversarial.
 - Clean-channel runs now emit `book/experiments/runtime-checks/out/run_manifest.json` and `book/experiments/runtime-adversarial/out/run_manifest.json` and generators refuse to promote decision-stage artifacts unless `channel=launchd_clean`.
 - `sys:airlock` remains preflight-blocked on this host; treat that profile as blocked evidence.
 - `runtime_signatures.json` and `runtime_coverage.json` remain `partial` due to scoped mismatches (structural/path families), not due to apply gates.
@@ -32,7 +32,7 @@ Role in the substrate:
  - Lifecycle traces record higher-level policy inputs (entitlements/extension attempts) and their outcomes, grounding lifecycle concepts without rerunning brittle probes.
 
 Regeneration:
-- Rerun runtime-checks and runtime-adversarial via their `run_via_launchctl.py` wrappers so `run_manifest.json` is emitted; generators will refuse to promote decision-stage artifacts unless the run manifest says `channel=launchd_clean`.
+- Rerun runtime-checks and runtime-adversarial via the runtime_tools launchd-clean channel so `run_manifest.json` is emitted; generators will refuse to promote decision-stage artifacts unless the run manifest says `channel=launchd_clean`.
 - Rerun `book/graph/concepts/validation/out/semantic/runtime_results.json` (via `runtime-checks`) and normalize into this folder using the loader (see `expectations.json` for the expected shape). Keep host/build metadata aligned with `validation/out/metadata.json`.
 - Rerun `book/graph/mappings/runtime/generate_lifecycle.py` after updating lifecycle probes in `book/graph/concepts/validation/out/lifecycle/` to refresh `lifecycle.json` and `lifecycle_traces/`.
 - Rerun `book/graph/mappings/runtime/generate_runtime_callout_oracle.py` to refresh the sandbox_check oracle lane.
