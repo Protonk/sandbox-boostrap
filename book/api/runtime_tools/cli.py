@@ -40,6 +40,7 @@ from book.api.runtime_tools.channels import ChannelSpec
 from book.api.runtime_tools import registry as runtime_registry
 from book.api.runtime_tools import plan as runtime_plan
 from book.api.runtime_tools import plan_builder as runtime_plan_builder
+from book.api.runtime_tools import op_summary as runtime_op_summary
 
 
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))
@@ -256,6 +257,25 @@ def plan_build_command(args: argparse.Namespace) -> int:
     return 0
 
 
+def summarize_ops_command(args: argparse.Namespace) -> int:
+    if bool(args.bundle) == bool(args.packet):
+        raise SystemExit("must pass exactly one of --bundle or --packet")
+    if args.bundle:
+        runtime_op_summary.summarize_ops_from_bundle(
+            args.bundle,
+            out_path=args.out,
+            strict=not args.allow_unverified,
+        )
+    else:
+        runtime_op_summary.summarize_ops_from_packet(
+            args.packet,
+            out_path=args.out,
+            require_promotable=not args.allow_nonpromotable,
+        )
+    print(f"[+] wrote {args.out}")
+    return 0
+
+
 def registry_lint_command(args: argparse.Namespace) -> int:
     _doc, errors = runtime_registry.lint_registry(args.registry)
     if errors:
@@ -416,6 +436,22 @@ def main(argv: list[str] | None = None) -> int:
         help="Skip writing out/expected_matrix.json",
     )
     ap_plan_build.set_defaults(func=plan_build_command)
+
+    ap_op_summary = sub.add_parser("summarize-ops", help="Summarize op-level runtime results.")
+    ap_op_summary.add_argument("--bundle", type=Path, help="Runtime_tools bundle root")
+    ap_op_summary.add_argument("--packet", type=Path, help="Promotion packet path")
+    ap_op_summary.add_argument("--out", type=Path, required=True, help="Output path for op_runtime_summary.json")
+    ap_op_summary.add_argument(
+        "--allow-unverified",
+        action="store_true",
+        help="Allow unverified bundles (skips strict bundle validation)",
+    )
+    ap_op_summary.add_argument(
+        "--allow-nonpromotable",
+        action="store_true",
+        help="Allow non-promotable promotion packets",
+    )
+    ap_op_summary.set_defaults(func=summarize_ops_command)
 
     ap_reg_lint = sub.add_parser("registry-lint", help="Validate probe/profile registries.")
     ap_reg_lint.add_argument("--registry", type=str, help="Registry id (omit to lint all)")

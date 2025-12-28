@@ -28,6 +28,8 @@ import generate_runtime_story
 import generate_runtime_coverage
 import generate_runtime_callout_oracle
 import generate_runtime_signatures
+import generate_op_runtime_summary
+import generate_runtime_links
 
 RUNTIME_CUTS_ROOT = ROOT / "book" / "graph" / "mappings" / "runtime_cuts"
 DEFAULT_RECEIPT_PATH = ROOT / "book" / "graph" / "mappings" / "runtime" / "promotion_receipt.json"
@@ -233,6 +235,8 @@ def main() -> None:
     generate_runtime_coverage.generate(packet_paths=used_paths)
     generate_runtime_callout_oracle.generate(packet_paths=used_paths)
     generate_runtime_signatures.generate(packet_paths=used_paths)
+    generate_op_runtime_summary.generate(packet_paths=used_paths)
+    generate_runtime_links.generate(packet_paths=used_paths)
 
 
 if __name__ == "__main__":

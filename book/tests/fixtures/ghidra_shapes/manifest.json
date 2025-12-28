@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "build_id": "14.4.1-23E224",
+  "entries": [
+    {
+      "name": "kc-update-fileid-id-writer",
+      "task": "kernel-collection-addr-window-disasm",
+      "output_path": "dumps/ghidra/out/14.4.1-23E224/kernel-collection-addr-window-disasm/0xfffffe0008765fc4/addr_window_disasm.json",
+      "snapshot_path": "book/tests/fixtures/ghidra_shapes/addr_window_disasm_0xfffffe0008765fc4.shape.json",
+      "required": false,
+      "shape": {"list_length": true}
+    },
+    {
+      "name": "kc-update-fileid-lookup",
+      "task": "kernel-collection-addr-window-disasm",
+      "output_path": "dumps/ghidra/out/14.4.1-23E224/kernel-collection-addr-window-disasm/0xfffffe000876a30c/addr_window_disasm.json",
+      "snapshot_path": "book/tests/fixtures/ghidra_shapes/addr_window_disasm_0xfffffe000876a30c.shape.json",
+      "required": false,
+      "shape": {"list_length": true}
+    },
+    {
+      "name": "kc-addr-window-dump-helper",
+      "task": "kernel-collection-addr-window-dump",
+      "output_path": "dumps/ghidra/out/14.4.1-23E224/kernel-collection-addr-window-dump/addr_window_dump_0xfffffe0008757afc.json",
+      "snapshot_path": "book/tests/fixtures/ghidra_shapes/addr_window_dump_0xfffffe0008757afc.shape.json",
+      "required": false,
+      "shape": {"list_length": true}
+    },
+    {
+      "name": "kc-offset-scan-0xc0-write",
+      "task": "kernel-collection-offset-scan",
+      "output_path": "dumps/ghidra/out/14.4.1-23E224/kernel-collection-offset-scan-0xc0-write/offset_inst_scan.json",
+      "snapshot_path": "book/tests/fixtures/ghidra_shapes/offset_inst_scan_0xc0_write.shape.json",
+      "required": false,
+      "shape": {"list_length": true}
+    },
+    {
+      "name": "kc-addr-lookup-list-head",
+      "task": "kernel-collection-addr-lookup",
+      "output_path": "dumps/ghidra/out/14.4.1-23E224/kernel-collection-addr-lookup/addr_lookup.json",
+      "snapshot_path": "book/tests/fixtures/ghidra_shapes/addr_lookup_list_head.shape.json",
+      "required": false,
+      "shape": {"list_length": true}
+    },
+    {
+      "name": "kc-list-head-xref",
+      "task": "kernel-collection-list-head-xref",
+      "output_path": "dumps/ghidra/out/14.4.1-23E224/kernel-collection-list-head-xref/list_head_xref.json",
+      "snapshot_path": "book/tests/fixtures/ghidra_shapes/list_head_xref.shape.json",
+      "required": false,
+      "shape": {"list_length": true}
+    },
+    {
+      "name": "kc-store-provenance",
+      "task": "kernel-collection-store-provenance",
+      "output_path": "dumps/ghidra/out/14.4.1-23E224/kernel-collection-store-provenance/store_provenance.json",
+      "snapshot_path": "book/tests/fixtures/ghidra_shapes/store_provenance.shape.json",
+      "required": false,
+      "shape": {"list_length": true}
+    },
+    {
+      "name": "kc-offset-intersect",
+      "task": "kernel-offset-intersect",
+      "output_path": "dumps/ghidra/out/14.4.1-23E224/kernel-offset-intersect/offset_intersect.json",
+      "snapshot_path": "book/tests/fixtures/ghidra_shapes/offset_intersect.shape.json",
+      "required": false,
+      "shape": {"list_length": true}
+    },
+    {
+      "name": "kc-id-builder-trace",
+      "task": "kernel-collection-id-builder-trace",
+      "output_path": "dumps/ghidra/out/14.4.1-23E224/kernel-collection-id-builder-trace/id_builder_trace.json",
+      "snapshot_path": "book/tests/fixtures/ghidra_shapes/id_builder_trace.shape.json",
+      "required": false,
+      "shape": {"list_length": true}
+    }
+  ]
+}

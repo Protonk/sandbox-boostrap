@@ -12,6 +12,7 @@ Outputs: expected/runtime matrices, mismatch summaries, and impact hooks to down
 - Harness: `book.api.runtime_tools.harness.runner.run_matrix` + runtime-checks shims; file probes run via `sandbox_runner` + `file_probe` so each scenario applies exactly once inside a fresh worker; compile/decode via `book.api.profile_tools` and `book.api.profile_tools.decoder`.
 - Profiles: `struct_flat`, `struct_nested` (structural variants); `path_edges` + `path_alias` (path/literal edge stress + `/tmp` alias witness); `mach_simple_allow`, `mach_simple_variants`, `mach_local_literal`, `mach_local_regex` (mach-lookup variants); `net_outbound_allow`, `net_outbound_deny`, `flow_divert_require_all_tcp` (network-outbound variants including the flow-divert require-all triple). Custom SBPL only; no platform blobs.
 - Outputs live in `sb/`, `sb/build/`, and `out/`.
+- Plan/registry data is generated from the runtime_tools template (`python -m book.api.runtime_tools plan-build --template runtime-adversarial --out book/experiments/runtime-adversarial --overwrite`).
 
 ## Status update (launchd staged run)
 - Latest refresh ran via `python -m book.api.runtime_tools run --plan book/experiments/runtime-adversarial/plan.json --channel launchd_clean` with staging to `/private/tmp` to avoid Desktop TCC; apply preflight succeeded (`out/apply_preflight.json` shows `apply_ok: true`).

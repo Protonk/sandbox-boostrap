@@ -8,9 +8,24 @@ Outputs: <out_dir>/addr_window_dump.json
 
 import json
 import os
+import sys
 import traceback
 
 from ghidra.program.model.mem import MemoryAccessException
+
+try:
+    SCRIPT_DIR = os.path.dirname(getSourceFile().getAbsolutePath())
+except Exception:
+    SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__)) if "__file__" in globals() else os.getcwd()
+candidate_paths = [
+    os.path.abspath(os.path.join(SCRIPT_DIR, "..")),  # .../book/api/ghidra
+    os.path.abspath(os.path.join(os.getcwd(), "book", "api", "ghidra")),  # repo root fallback
+]
+for _p in candidate_paths:
+    if _p not in sys.path:
+        sys.path.insert(0, _p)
+
+from ghidra_lib import scan_utils
 
 _RUN_CALLED = False
 
@@ -28,15 +43,10 @@ def _parse_int(token, default=None):
 
 
 def _parse_hex_addr(token):
-    text = token.strip().lower()
-    if text.startswith("0x-"):
-        text = "-0x" + text[3:]
-    val = _parse_int(text)
-    if val is None:
+    try:
+        return scan_utils.parse_address(token)
+    except Exception:
         return None
-    if val < 0:
-        val = (1 << 64) + val
-    return val
 
 
 def _inst_entry(inst):
@@ -46,6 +56,7 @@ def _inst_entry(inst):
         "addr": "0x%x" % inst.getAddress().getOffset(),
         "mnemonic": inst.getMnemonicString(),
         "inst": str(inst),
+        "stack_access": scan_utils.is_stack_access(str(inst)),
     }
 
 

@@ -9,6 +9,15 @@ For agents, the two core ideas are:
 Reference contract/spec: `book/api/runtime_tools/SPEC.md`.
 Public API surface: `book/api/runtime_tools/PUBLIC_API.md`.
 
+## Runtime evidence contract (short form)
+
+Canonical artifacts and how they interlock:
+- **Bundles** (run-scoped): `out/<run_id>/expected_matrix.json`, `runtime_results.json`, `runtime_events.normalized.json`, plus lane-specific artifacts (baseline, oracle). Strictly gated by `artifact_index.json`.
+- **Promotion packets**: the only supported interface for runtime evidence promotion and downstream consumers (`promotion_packet.json`).
+- **Mapped outputs** (tier: mapped, not bedrock): `book/graph/mappings/runtime/runtime_signatures.json`, `book/graph/mappings/runtime/op_runtime_summary.json`, `book/graph/mappings/runtime/runtime_links.json` (cross-links runtime to ops vocab, system profile digests, and oracle lanes).
+
+Keep oracle-lane data (`runtime_callout_oracle.json`) segregated from decision-stage evidence; it is a side-channel, not a syscall witness.
+
 ## Common CLI commands (agent-friendly)
 
 ```sh
@@ -36,6 +45,11 @@ python -m book.api.runtime_tools emit-promotion \
   --bundle book/experiments/hardened-runtime/out \
   --out book/experiments/hardened-runtime/out/promotion_packet.json \
   --require-promotable
+
+# 3b) Summarize op-level runtime results (bundle or promotion packet).
+python -m book.api.runtime_tools summarize-ops \
+  --bundle book/experiments/runtime-adversarial/out \
+  --out book/graph/mappings/runtime/op_runtime_summary.json
 
 # 4) Promote into runtime mappings (mapping layer stays outside runtime_tools).
 python book/graph/mappings/runtime/promote_from_packets.py \

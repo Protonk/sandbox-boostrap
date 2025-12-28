@@ -24,6 +24,17 @@ EXPECTED_PUBLIC_EXPORTS = [
     "load_plan_template",
     "build_plan_from_template",
     "PlanBuildResult",
+    # Runtime links
+    "load_runtime_links",
+    "list_linked_profiles",
+    "list_linked_expectations",
+    "resolve_profile_link",
+    "resolve_expectation_link",
+    # Op summary helpers
+    "build_op_runtime_summary",
+    "summarize_ops_from_bundle",
+    "summarize_ops_from_packet",
+    "write_op_runtime_summary",
     # Execution + bundle lifecycle
     "RunBundle",
     "ValidationResult",

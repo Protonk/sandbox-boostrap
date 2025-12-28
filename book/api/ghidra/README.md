@@ -20,6 +20,12 @@ Tasks (examples; see `TaskRegistry.default()` for the full set):
 - `kernel-op-table`, `kernel-string-refs`, `kernel-imm-search`, `kernel-field2-mask-scan`: various scans over the KC for op-table candidates, strings/imports, immediates, and field2-like masks.
 - `kernel-collection-symbols`: dump symbols/strings for com.apple.security.sandbox in the KC.
 - `kernel-collection-addr-window-dump`: dump an instruction window around a KC address.
+- `kernel-collection-addr-window-disasm`: disassemble a fixed instruction window around a KC address.
+- `kernel-collection-offset-scan`: scan the KC for instructions referencing a specific immediate offset.
+- `kernel-collection-addr-lookup`: lookup KC addresses/offsets and report functions/callers.
+- `kernel-collection-list-head-xref`: xref a KC list-head address and group refs by function.
+- `kernel-collection-store-provenance`: summarize one-step register provenance for a store instruction.
+- `kernel-collection-id-builder-trace`: trace list-head and writer candidates for id builders.
 - `kernel-collection-jump-table-read`: read a signed-32 jump table and resolve targets in the KC.
 - `kernel-collection-syscall-code-scan`: scan the KC for compare-like uses of a syscall call code.
 - `kernel-adrp-add-scan` (best after analysis): locate ADRP+ADD/SUB sequences that materialize a specific target address.
@@ -35,6 +41,12 @@ Tasks (examples; see `TaskRegistry.default()` for the full set):
 - `sandbox-kext-jump-table-dump`: dump jump-table entries for sandbox_kext dispatcher candidates.
 - `sandbox-kext-jump-table-read`: read a signed-32 jump table and resolve targets in sandbox_kext.
 - `sandbox-kext-syscall-code-scan`: scan sandbox_kext for compare-like uses of a syscall call code.
+
+Workflow helpers (scripts in `book/api/ghidra/scripts/`):
+- `kernel_offset_intersect.py` – intersect multiple offset scan outputs by function.
+- `kernel_list_head_xref.py` – xref a list-head address and group refs by function.
+- `kernel_store_provenance.py` – one-step register-def provenance for a store instruction.
+- `kernel_id_builder_trace.py` – trace list-head and store candidates for id builders.
 
 Tag-switch triage (rolled up from the former `dumps/ghidra/Tag_triage.md`):
 - Run with full analysis (no `--no-analysis`) so functions/computed jumps exist.

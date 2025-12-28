@@ -43,3 +43,11 @@ Expected JSON schema (v1.0) for struct scans:
 ```
 
 Consumers should check `schema_version` before parsing and can use `validate_candidate_schema` as a minimal guard. Always include the schema/version field when emitting JSON from new scripts.
+
+## scan_utils.py
+
+Shared parsing helpers used by scan scripts:
+- `parse_address` / `format_address` – canonicalize signed hex addresses.
+- `exact_offset_match` – match `#0xc0` without false positives (`#0xc00`).
+- `is_stack_access` – basic stack-frame access detection (`sp`/`x29`/`fp`).
+- `classify_mnemonic` – lightweight load/store/other classification.

@@ -1,61 +1,33 @@
 from __future__ import annotations
 
-import json
 import shutil
+import sys
 from pathlib import Path
+
+REPO_ROOT = Path(__file__).resolve().parents[3]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 
 from book.api import path_utils
 
-ROOT = Path(__file__).resolve().parents[3]
-PROMOTION_PACKET = ROOT / "book" / "experiments" / "runtime-adversarial" / "out" / "promotion_packet.json"
-DST_DIR = Path(__file__).resolve().parent / "out"
-
-FILES_TO_COPY = [
-    "runtime_results",
-    "expected_matrix",
-    "mismatch_packets",
-    "impact_map",
-    "runtime_events",
-    "summary",
-]
+ROOT = REPO_ROOT
+OUT_DIR = Path(__file__).resolve().parent / "out"
+CANONICAL = ROOT / "book" / "graph" / "mappings" / "runtime" / "op_runtime_summary.json"
 
 
 def main() -> None:
-    DST_DIR.mkdir(exist_ok=True)
-    if not PROMOTION_PACKET.exists():
-        print(f"Missing promotion packet: {PROMOTION_PACKET}")
+    """
+    Deprecated wrapper: copy the canonical op runtime summary into this suite's out/ for convenience.
+    """
+    if not CANONICAL.exists():
+        print(f"Missing canonical summary: {path_utils.to_repo_relative(CANONICAL, repo_root=REPO_ROOT)}")
+        print("Regenerate via book/graph/mappings/runtime/promote_from_packets.py.")
         return
-    packet = json.loads(PROMOTION_PACKET.read_text())
-
-    copied = []
-    missing = []
-
-    for name in FILES_TO_COPY:
-        value = packet.get(name)
-        if not value:
-            missing.append(name)
-            continue
-        src = path_utils.ensure_absolute(Path(value), repo_root=ROOT)
-        dst = DST_DIR / src.name
-        if src.exists():
-            shutil.copy2(src, dst)
-            copied.append(dst)
-        else:
-            missing.append(name)
-
-    if copied:
-        print("Copied:")
-        for path in copied:
-            print(f"  {path}")
-    else:
-        print("No files copied; runtime-adversarial outputs not found.")
-
-    if missing:
-        print("Missing from source:")
-        for name in missing:
-            print(f"  {name}")
-
-    print(f"Promotion packet source: {PROMOTION_PACKET}")
+    OUT_DIR.mkdir(exist_ok=True)
+    dst = OUT_DIR / "op_runtime_summary.json"
+    shutil.copy2(CANONICAL, dst)
+    print(f"Copied canonical summary to {path_utils.to_repo_relative(dst, repo_root=REPO_ROOT)}")
+    print(f"Canonical source: {path_utils.to_repo_relative(CANONICAL, repo_root=REPO_ROOT)}")
 
 
 if __name__ == "__main__":

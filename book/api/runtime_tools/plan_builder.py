@@ -22,6 +22,12 @@ REPO_ROOT = path_utils.find_repo_root(Path(__file__))
 
 TEMPLATE_SCHEMA_VERSION = "runtime-tools.plan_template.v0.1"
 TEMPLATE_INDEX: Dict[str, Path] = {
+    "runtime-adversarial": REPO_ROOT
+    / "book"
+    / "api"
+    / "runtime_tools"
+    / "templates"
+    / "runtime_adversarial.json",
     "vfs-canonicalization": REPO_ROOT / "book" / "api" / "runtime_tools" / "templates" / "vfs_canonicalization.json",
 }
 
@@ -45,6 +51,60 @@ def _write_json(path: Path, payload: Dict[str, Any], *, overwrite: bool) -> None
         raise FileExistsError(f"refusing to overwrite existing file: {path}")
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2))
+
+
+def _require_schema(doc: Dict[str, Any], *, expected: str, label: str) -> None:
+    schema = doc.get("schema_version")
+    if schema != expected:
+        raise ValueError(f"{label} schema mismatch: {schema!r} != {expected!r}")
+
+
+def _build_static_template(
+    template: Dict[str, Any],
+    out_root: Path,
+    *,
+    overwrite: bool,
+    write_expected_matrix: bool,
+) -> PlanBuildResult:
+    plan_doc = template.get("plan")
+    probes_doc = template.get("probes")
+    profiles_doc = template.get("profiles")
+    if not isinstance(plan_doc, dict) or not isinstance(probes_doc, dict) or not isinstance(profiles_doc, dict):
+        raise ValueError("static templates must include plan/probes/profiles objects")
+
+    _require_schema(plan_doc, expected=runtime_plan.PLAN_SCHEMA_VERSION, label="plan")
+    _require_schema(probes_doc, expected=runtime_registry.PROBE_SCHEMA_VERSION, label="probes")
+    _require_schema(profiles_doc, expected=runtime_registry.PROFILE_SCHEMA_VERSION, label="profiles")
+
+    registry_id = template.get("registry_id") or plan_doc.get("registry_id")
+    if registry_id is None:
+        raise ValueError("static template missing registry_id")
+    for doc, label in [(plan_doc, "plan"), (probes_doc, "probes"), (profiles_doc, "profiles")]:
+        if doc.get("registry_id") != registry_id:
+            raise ValueError(f"{label} registry_id mismatch: {doc.get('registry_id')} != {registry_id}")
+
+    plan_path = out_root / "plan.json"
+    registry_dir = out_root / "registry"
+    probes_path = registry_dir / "probes.json"
+    profiles_path = registry_dir / "profiles.json"
+    _write_json(plan_path, plan_doc, overwrite=overwrite)
+    _write_json(probes_path, probes_doc, overwrite=overwrite)
+    _write_json(profiles_path, profiles_doc, overwrite=overwrite)
+
+    expected_matrix_path: Optional[Path] = None
+    if write_expected_matrix and isinstance(template.get("expected_matrix"), dict):
+        expected_matrix_path = out_root / "out" / "expected_matrix.json"
+        expected_matrix_path.parent.mkdir(parents=True, exist_ok=True)
+        expected_matrix_path.write_text(json.dumps(template["expected_matrix"], indent=2))
+
+    return PlanBuildResult(
+        template_id=template.get("template_id") or registry_id,
+        registry_id=registry_id,
+        plan_path=plan_path,
+        probes_path=probes_path,
+        profiles_path=profiles_path,
+        expected_matrix_path=expected_matrix_path,
+    )
 
 
 def list_plan_templates() -> List[Dict[str, Any]]:
@@ -318,6 +378,8 @@ def build_plan_from_template(
 ) -> PlanBuildResult:
     template = load_plan_template(template_id)
     out_root = path_utils.ensure_absolute(out_root, repo_root or REPO_ROOT)
-    if template_id != "vfs-canonicalization":
-        raise ValueError(f"no builder registered for template: {template_id}")
-    return _build_vfs(template, out_root, overwrite=overwrite, write_expected_matrix=write_expected_matrix)
+    if template_id == "vfs-canonicalization":
+        return _build_vfs(template, out_root, overwrite=overwrite, write_expected_matrix=write_expected_matrix)
+    if template_id == "runtime-adversarial":
+        return _build_static_template(template, out_root, overwrite=overwrite, write_expected_matrix=write_expected_matrix)
+    raise ValueError(f"no builder registered for template: {template_id}")

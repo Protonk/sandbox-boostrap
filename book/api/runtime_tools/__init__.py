@@ -28,6 +28,19 @@ from .api import (
 )
 from .channels.spec import ChannelName, ChannelSpec, LockMode
 from .inventory import build_runtime_inventory
+from .links import (
+    list_linked_expectations,
+    list_linked_profiles,
+    load_runtime_links,
+    resolve_expectation_link,
+    resolve_profile_link,
+)
+from .op_summary import (
+    build_op_runtime_summary,
+    summarize_ops_from_bundle,
+    summarize_ops_from_packet,
+    write_op_runtime_summary,
+)
 from .plan_builder import PlanBuildResult, build_plan_from_template, list_plan_templates, load_plan_template
 from .plan import lint_plan, list_plans, load_plan, plan_digest
 from .registry import (
@@ -60,6 +73,17 @@ __all__ = [
     "load_plan_template",
     "build_plan_from_template",
     "PlanBuildResult",
+    # Runtime links
+    "load_runtime_links",
+    "list_linked_profiles",
+    "list_linked_expectations",
+    "resolve_profile_link",
+    "resolve_expectation_link",
+    # Op summary helpers
+    "build_op_runtime_summary",
+    "summarize_ops_from_bundle",
+    "summarize_ops_from_packet",
+    "write_op_runtime_summary",
     # Execution + bundle lifecycle
     "RunBundle",
     "ValidationResult",

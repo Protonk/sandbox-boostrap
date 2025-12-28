@@ -4,15 +4,34 @@ Scan instruction text for a specific immediate offset (e.g., #0xc0).
 Args: <out_dir> <build_id> <offset_hex> [write] [all]
 
 Options:
-  write - include only store-like mnemonics (str/stur/stp).
-  all   - scan all blocks (default scans sandbox-named blocks if present).
+  write      - include only store-like mnemonics (str/stur/stp).
+  all        - scan all blocks (default scans sandbox-named blocks if present).
+  exact      - require exact offset matches (avoid #0xc00 when searching #0xc0).
+  canonical  - include canonical u64 address strings in hits.
+  classify   - include access classification (load/store/other).
+  skip-stack - skip stack-frame accesses ([sp]/[x29]/[fp]).
 
 Outputs: <out_dir>/offset_inst_scan.json
 """
 
 import json
 import os
+import sys
 import traceback
+
+try:
+    SCRIPT_DIR = os.path.dirname(getSourceFile().getAbsolutePath())
+except Exception:
+    SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__)) if "__file__" in globals() else os.getcwd()
+candidate_paths = [
+    os.path.abspath(os.path.join(SCRIPT_DIR, "..")),  # .../book/api/ghidra
+    os.path.abspath(os.path.join(os.getcwd(), "book", "api", "ghidra")),  # repo root fallback
+]
+for _p in candidate_paths:
+    if _p not in sys.path:
+        sys.path.insert(0, _p)
+
+from ghidra_lib import scan_utils
 
 from ghidra.program.model.address import AddressSet
 
@@ -63,12 +82,24 @@ def run():
 
         write_only = False
         scan_all = False
+        exact_match = False
+        include_canonical = False
+        include_access = False
+        skip_stack = False
         for token in args[3:]:
             tok = str(token).lower()
             if tok == "write":
                 write_only = True
             elif tok == "all":
                 scan_all = True
+            elif tok == "exact":
+                exact_match = True
+            elif tok == "canonical":
+                include_canonical = True
+            elif tok == "classify":
+                include_access = True
+            elif tok == "skip-stack":
+                skip_stack = True
 
         _ensure_out_dir(out_dir)
         listing = currentProgram.getListing()
@@ -81,21 +112,31 @@ def run():
         while instr_iter.hasNext() and not monitor.isCancelled():
             instr = instr_iter.next()
             inst_text = str(instr)
-            if needle_text not in inst_text:
+            if exact_match:
+                if not scan_utils.exact_offset_match(inst_text, needle):
+                    continue
+            else:
+                if needle_text not in inst_text:
+                    continue
+            if skip_stack and scan_utils.is_stack_access(inst_text):
                 continue
             mnemonic = instr.getMnemonicString().lower()
             if write_only and not (mnemonic.startswith("str") or mnemonic.startswith("stur") or mnemonic.startswith("stp")):
                 continue
             addr = instr.getAddress()
             func = func_mgr.getFunctionContaining(addr)
-            hits.append(
-                {
-                    "address": "0x%x" % addr.getOffset(),
-                    "function": func.getName() if func else None,
-                    "mnemonic": instr.getMnemonicString(),
-                    "inst": inst_text,
-                }
-            )
+            entry = {
+                "address": "0x%x" % addr.getOffset(),
+                "function": func.getName() if func else None,
+                "mnemonic": instr.getMnemonicString(),
+                "inst": inst_text,
+            }
+            if include_canonical:
+                entry["address_canon"] = scan_utils.format_address(addr.getOffset())
+            if include_access:
+                entry["access"] = scan_utils.classify_mnemonic(instr.getMnemonicString())
+            entry["stack_access"] = scan_utils.is_stack_access(inst_text)
+            hits.append(entry)
         block_meta = [{"name": b.getName(), "start": "0x%x" % b.getStart().getOffset(), "end": "0x%x" % b.getEnd().getOffset()} for b in blocks]
         meta = {
             "build_id": build_id,
@@ -104,6 +145,10 @@ def run():
             "hit_count": len(hits),
             "write_only": write_only,
             "scan_all_blocks": scan_all,
+            "exact_match": exact_match,
+            "include_canonical": include_canonical,
+            "include_access": include_access,
+            "skip_stack": skip_stack,
             "block_filter": block_meta,
         }
         with open(os.path.join(out_dir, "offset_inst_scan.json"), "w") as f:

@@ -8,6 +8,8 @@ Probe for static↔runtime divergences by running deliberately adversarial SBPL 
 - Runtime harness via `book.api.runtime_tools.harness.runner.run_matrix` (reusing `runtime-checks` shims).
 - Expectation wiring patterned after `book/experiments/sbpl-graph-runtime`.
 - Comparison and summaries live in this experiment’s `out/`.
+- Plan/registry files are generated from the runtime_tools template:
+  `python -m book.api.runtime_tools plan-build --template runtime-adversarial --out book/experiments/runtime-adversarial --overwrite`.
 
 ## Deliverables (Phase 1)
 - `out/expected_matrix.json`, `out/runtime_results.json`, `out/mismatch_summary.json`, `out/impact_map.json` (world_id-stamped).
@@ -23,7 +25,7 @@ Probe for static↔runtime divergences by running deliberately adversarial SBPL 
 - `mismatch_summary.json` aggregates mismatches + counts by type; `impact_map.json` hooks expectation_ids to bedrock claims/status suggestions.
 
 ## Sequencing
-1. Scaffold experiment + SBPL, compile to blobs, write expected matrix.
+1. Refresh plan/registry via runtime_tools template (see above).
 2. Run runtime harness to produce runtime_results; compute mismatch_summary.
 3. Add guardrail test and adversarial summary stub under `book/graph/mappings/runtime/`.
 4. Iterate by adding more families (header/format toggles, field2/tag ambiguity) after Phase 1 lands.

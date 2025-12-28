@@ -9,7 +9,24 @@ Outputs: <out_dir>/addr_window_disasm.json
 
 import json
 import os
+import sys
 import traceback
+
+from ghidra.program.model.lang import Register
+
+try:
+    SCRIPT_DIR = os.path.dirname(getSourceFile().getAbsolutePath())
+except Exception:
+    SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__)) if "__file__" in globals() else os.getcwd()
+candidate_paths = [
+    os.path.abspath(os.path.join(SCRIPT_DIR, "..")),  # .../book/api/ghidra
+    os.path.abspath(os.path.join(os.getcwd(), "book", "api", "ghidra")),  # repo root fallback
+]
+for _p in candidate_paths:
+    if _p not in sys.path:
+        sys.path.insert(0, _p)
+
+from ghidra_lib import scan_utils
 
 _RUN_CALLED = False
 
@@ -27,15 +44,10 @@ def _parse_int(token, default=None):
 
 
 def _parse_hex_addr(token):
-    text = token.strip().lower()
-    if text.startswith("0x-"):
-        text = "-0x" + text[3:]
-    val = _parse_int(text)
-    if val is None:
+    try:
+        return scan_utils.parse_address(token)
+    except Exception:
         return None
-    if val < 0:
-        val = (1 << 64) + val
-    return val
 
 
 def _inst_entry(inst):
@@ -45,6 +57,86 @@ def _inst_entry(inst):
         "addr": "0x%x" % inst.getAddress().getOffset(),
         "mnemonic": inst.getMnemonicString(),
         "inst": str(inst),
+    }
+
+
+def _collect_registers(objs):
+    regs = []
+    if objs is None:
+        return regs
+    for obj in objs:
+        if isinstance(obj, Register):
+            regs.append(obj)
+    return regs
+
+
+def _base_reg_name(reg):
+    if reg is None:
+        return None
+    base = reg.getBaseRegister() if reg.getBaseRegister() is not None else reg
+    return base.getName()
+
+
+def _target_context(listing, func_mgr, addr):
+    inst = listing.getInstructionAt(addr)
+    func = func_mgr.getFunctionContaining(addr)
+    block = currentProgram.getMemory().getBlock(addr)
+    if not inst:
+        return {
+            "address": "0x%x" % addr.getOffset(),
+            "function": func.getName() if func else None,
+            "block": block.getName() if block else None,
+            "instruction": None,
+            "mnemonic": None,
+            "input_registers": [],
+            "register_defs": [],
+            "stack_access": None,
+        }
+
+    try:
+        input_objs = inst.getInputObjects()
+    except Exception:
+        input_objs = []
+        for i in range(inst.getNumOperands()):
+            input_objs.extend(inst.getOpObjects(i))
+
+    input_regs = []
+    for reg in _collect_registers(input_objs):
+        name = _base_reg_name(reg)
+        if name and name not in input_regs:
+            input_regs.append(name)
+
+    defs = {}
+    max_back = 64
+    cur = listing.getInstructionBefore(addr)
+    steps = 0
+    while cur and steps < max_back and len(defs) < len(input_regs):
+        for reg in _collect_registers(cur.getResultObjects()):
+            name = _base_reg_name(reg)
+            if name in input_regs and name not in defs:
+                defs[name] = {
+                    "addr": "0x%x" % cur.getAddress().getOffset(),
+                    "inst": str(cur),
+                }
+        cur = listing.getInstructionBefore(cur.getAddress())
+        steps += 1
+
+    register_defs = []
+    for name in input_regs:
+        if name in defs:
+            entry = {"register": name}
+            entry.update(defs[name])
+            register_defs.append(entry)
+
+    return {
+        "address": "0x%x" % addr.getOffset(),
+        "function": func.getName() if func else None,
+        "block": block.getName() if block else None,
+        "instruction": str(inst),
+        "mnemonic": inst.getMnemonicString(),
+        "input_registers": input_regs,
+        "register_defs": register_defs,
+        "stack_access": scan_utils.is_stack_access(str(inst)),
     }
 
 
@@ -70,6 +162,7 @@ def run():
 
         _ensure_out_dir(out_dir)
         listing = currentProgram.getListing()
+        func_mgr = currentProgram.getFunctionManager()
         addr_factory = currentProgram.getAddressFactory()
         addr_space = addr_factory.getDefaultAddressSpace()
 
@@ -98,9 +191,11 @@ def run():
             entry = {"addr": "0x%x" % cur}
             if inst:
                 entry.update(_inst_entry(inst))
+                entry["stack_access"] = scan_utils.is_stack_access(str(inst))
             entries.append(entry)
             cur += step
 
+        target_addr = addr_space.getAddress("0x%x" % addr_val)
         out = {
             "build_id": build_id,
             "program": currentProgram.getName(),
@@ -108,6 +203,7 @@ def run():
             "before": before,
             "after": after,
             "step": step,
+            "target": _target_context(listing, func_mgr, target_addr),
             "instructions": entries,
         }
         with open(os.path.join(out_dir, "addr_window_disasm.json"), "w") as f:

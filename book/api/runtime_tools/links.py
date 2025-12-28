@@ -1,0 +1,45 @@
+"""Runtime links mapping loader and helpers."""
+
+from __future__ import annotations
+
+import json
+from pathlib import Path
+from typing import Any, Dict, Iterable, Optional
+
+from book.api import path_utils
+
+
+REPO_ROOT = path_utils.find_repo_root(Path(__file__))
+RUNTIME_LINKS_PATH = REPO_ROOT / "book" / "graph" / "mappings" / "runtime" / "runtime_links.json"
+
+
+def load_runtime_links(path: Optional[Path] = None) -> Dict[str, Any]:
+    """Load runtime_links.json (default: mapped runtime_links path)."""
+    path = path_utils.ensure_absolute(path or RUNTIME_LINKS_PATH, REPO_ROOT)
+    return json.loads(path.read_text())
+
+
+def list_linked_profiles(links_doc: Dict[str, Any]) -> list[str]:
+    profiles = links_doc.get("profiles") or {}
+    return sorted(profiles.keys())
+
+
+def list_linked_expectations(links_doc: Dict[str, Any]) -> list[str]:
+    expectations = links_doc.get("expectations") or {}
+    return sorted(expectations.keys())
+
+
+def resolve_profile_link(links_doc: Dict[str, Any], profile_id: str) -> Optional[Dict[str, Any]]:
+    profiles = links_doc.get("profiles") or {}
+    entry = profiles.get(profile_id)
+    if not isinstance(entry, dict):
+        return None
+    return entry
+
+
+def resolve_expectation_link(links_doc: Dict[str, Any], expectation_id: str) -> Optional[Dict[str, Any]]:
+    expectations = links_doc.get("expectations") or {}
+    entry = expectations.get(expectation_id)
+    if not isinstance(entry, dict):
+        return None
+    return entry

@@ -10,3 +10,7 @@ Suggested workflow:
 3) Copy `probes.json` + `profiles.json` into `book/experiments/<exp>/registry/`.
 4) Update the registry index (`book/api/runtime_tools/registry/index.json`) to point at the new registry.
 5) Run `python -m book.api.runtime_tools registry-lint --registry <id>` and `plan-lint` before running.
+
+Available templates:
+- `runtime-adversarial` (plan + registry for adversarial runtime probes).
+- `vfs-canonicalization` (path-family probes for VFS canonicalization).

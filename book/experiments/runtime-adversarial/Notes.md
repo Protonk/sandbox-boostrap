@@ -16,3 +16,4 @@
 - Clean-channel runs now emit `out/run_manifest.json` with run_id + baseline host metadata; runtime mapping generators refuse to promote decision-stage artifacts unless `channel=launchd_clean`.
 - Added unsandboxed baseline controls (`out/baseline_results.json`), a normalization control probe (`allow-subpath-normalized`), a flow-divert partial-triple profile (`flow_divert_partial_tcp`), and mismatch packets (`out/mismatch_packets.jsonl`) with enumerated mismatch reasons.
 - Emitted `out/promotion_packet.json` via `python -m book.api.runtime_tools emit-promotion` for plan-based consumers (field2-atlas/runtime mapping generators).
+- Plan/registry files are now generated from the runtime_tools template: `python -m book.api.runtime_tools plan-build --template runtime-adversarial --out book/experiments/runtime-adversarial --overwrite`.

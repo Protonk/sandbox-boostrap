@@ -151,6 +151,42 @@ TASKS: Dict[str, TaskConfig] = {
         import_target="kernel_collection",
         description="Dump an instruction window around a KC address.",
     ),
+    "kernel-collection-addr-window-disasm": TaskConfig(
+        name="kernel-collection-addr-window-disasm",
+        script="kernel_addr_window_disasm.py",
+        import_target="kernel_collection",
+        description="Disassemble a fixed instruction window around a KC address.",
+    ),
+    "kernel-collection-offset-scan": TaskConfig(
+        name="kernel-collection-offset-scan",
+        script="kernel_offset_inst_scan.py",
+        import_target="kernel_collection",
+        description="Scan the KC for instructions referencing a specific immediate offset.",
+    ),
+    "kernel-collection-addr-lookup": TaskConfig(
+        name="kernel-collection-addr-lookup",
+        script="kernel_addr_lookup.py",
+        import_target="kernel_collection",
+        description="Lookup KC addresses/offsets and report functions/callers.",
+    ),
+    "kernel-collection-list-head-xref": TaskConfig(
+        name="kernel-collection-list-head-xref",
+        script="kernel_list_head_xref.py",
+        import_target="kernel_collection",
+        description="Xref a KC list-head address and group refs by function.",
+    ),
+    "kernel-collection-store-provenance": TaskConfig(
+        name="kernel-collection-store-provenance",
+        script="kernel_store_provenance.py",
+        import_target="kernel_collection",
+        description="Summarize one-step register provenance for a store instruction.",
+    ),
+    "kernel-collection-id-builder-trace": TaskConfig(
+        name="kernel-collection-id-builder-trace",
+        script="kernel_id_builder_trace.py",
+        import_target="kernel_collection",
+        description="Trace list-head and writer candidates for id builders in the KC.",
+    ),
     "kernel-imports": TaskConfig(
         name="kernel-imports",
         script="kernel_imports_scan.py",

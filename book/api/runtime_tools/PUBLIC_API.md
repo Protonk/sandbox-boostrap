@@ -43,6 +43,21 @@ Callers should treat **only** the symbols exported in `rt.__all__` as stable. Su
 - `load_plan_template(template_id)`
 - `build_plan_from_template(template_id, out_root, *, overwrite=False, write_expected_matrix=True) -> PlanBuildResult`
 
+### Runtime links
+
+- `load_runtime_links(path=None) -> dict`
+- `list_linked_profiles(links_doc) -> list[str]`
+- `list_linked_expectations(links_doc) -> list[str]`
+- `resolve_profile_link(links_doc, profile_id) -> dict | None`
+- `resolve_expectation_link(links_doc, expectation_id) -> dict | None`
+
+### Op summary helpers
+
+- `build_op_runtime_summary(observations, *, world_id=None, inputs=None, input_hashes=None, source_jobs=None, notes=None) -> dict`
+- `summarize_ops_from_bundle(bundle_root, *, out_path=None, strict=True) -> dict`
+- `summarize_ops_from_packet(packet_path, *, out_path=None, require_promotable=True) -> dict`
+- `write_op_runtime_summary(summary_doc, out_path) -> Path`
+
 ### Execution and bundle lifecycle
 
 - `run_plan(plan_path, out_root, *, channel, only_profiles=None, only_scenarios=None, dry_run=False) -> RunBundle`
@@ -80,6 +95,7 @@ Supported commands (stable flags and output schemas):
 - `describe-probe`, `describe-profile`
 - `registry-lint`, `plan-lint`
 - `list-templates`, `plan-build`
+- `summarize-ops`
 
 Anything else exposed by the CLI (legacy matrix helpers) is treated as **compat** and may change as plan-data becomes the only supported runtime execution interface.
 

@@ -1,10 +1,10 @@
 # Plan
 
 ## Goal
-Document and run probes that link per-op vocab entries to profile coverage and runtime signatures for this world.
+Keep a per-operation runtime summary aligned with promotable runtime packets for this world.
 
 ## Tasks
-- Define per-op probe profiles/SBPL snippets and inputs needed to trigger target ops.
-- Decide logging/normalization format for runtime signatures and op coverage; place outputs in `out/` (keep local copies via `harvest_runtime_artifacts.py`).
-- Sketch validation job intent (runtime:op-signatures) before adding code.
-- Log runs and observations in `Notes.md`; summarize outcomes in `Report.md` once data exists.
+- Run runtime-checks and runtime-adversarial via runtime_tools (launchd_clean) and emit promotion packets.
+- Regenerate canonical runtime mappings with `book/graph/mappings/runtime/promote_from_packets.py` (includes `op_runtime_summary.json`).
+- Copy the canonical op summary into this suite's `out/` for convenience via `harvest_runtime_artifacts.py` (deprecated wrapper).
+- Expand adversarial probe families when new ops need runtime coverage; document new families and results in `Report.md`/`Notes.md`.
