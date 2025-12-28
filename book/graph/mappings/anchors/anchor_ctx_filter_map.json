@@ -1,0 +1,924 @@
+{
+  "entries": {
+    "ctx:066bdc9aaa221b55": {
+      "field2_values": [
+        0,
+        1
+      ],
+      "filter_id": null,
+      "filter_name": null,
+      "literal": "com.apple.cfprefsd.agent",
+      "sources": [
+        "probe:v6_file_mach_combo"
+      ],
+      "tag": 4,
+      "u16_role": "arg_u16",
+      "witnesses": {
+        "probe:v6_file_mach_combo": [
+          47,
+          48,
+          50
+        ]
+      }
+    },
+    "ctx:0de4cf2ba3973cf0": {
+      "field2_values": [
+        0,
+        5,
+        6,
+        3584
+      ],
+      "filter_id": null,
+      "filter_name": null,
+      "literal": "/etc/hosts",
+      "sources": [
+        "probe:v1_file_require_any",
+        "probe:v8_all_combo"
+      ],
+      "tag": 6,
+      "u16_role": "arg_u16",
+      "witnesses": {
+        "probe:v1_file_require_any": [
+          34,
+          45,
+          47,
+          48,
+          49,
+          51
+        ],
+        "probe:v8_all_combo": [
+          48
+        ]
+      }
+    },
+    "ctx:107c7e3e08ad2ad4": {
+      "field2_values": [
+        26
+      ],
+      "filter_id": 26,
+      "filter_name": "right-name",
+      "literal": "flow-divert",
+      "sources": [
+        "probe:v4_network_socket_require_all",
+        "probe:v7_file_network_combo"
+      ],
+      "tag": 0,
+      "u16_role": "filter_vocab_id",
+      "witnesses": {
+        "probe:v4_network_socket_require_all": [
+          54
+        ],
+        "probe:v7_file_network_combo": [
+          54
+        ]
+      }
+    },
+    "ctx:11497511940cb5df": {
+      "field2_values": [
+        59
+      ],
+      "filter_id": 59,
+      "filter_name": "iokit-usb-interface-class",
+      "literal": "/etc/hosts",
+      "sources": [
+        "probe:v8_all_combo"
+      ],
+      "tag": 0,
+      "u16_role": "filter_vocab_id",
+      "witnesses": {
+        "probe:v8_all_combo": [
+          57
+        ]
+      }
+    },
+    "ctx:2d096950d1183986": {
+      "field2_values": [
+        1281,
+        2560
+      ],
+      "filter_id": 2560,
+      "filter_name": null,
+      "literal": "/etc/hosts",
+      "sources": [
+        "probe:v8_all_combo"
+      ],
+      "tag": 0,
+      "u16_role": "filter_vocab_id",
+      "witnesses": {
+        "probe:v8_all_combo": [
+          44,
+          56
+        ]
+      }
+    },
+    "ctx:2dcd69e1a5c7e14c": {
+      "field2_values": [
+        5
+      ],
+      "filter_id": 5,
+      "filter_name": "global-name",
+      "literal": "IOUSBHostInterface",
+      "sources": [
+        "probe:v5_iokit_class_property"
+      ],
+      "tag": 0,
+      "u16_role": "filter_vocab_id",
+      "witnesses": {
+        "probe:v5_iokit_class_property": [
+          46
+        ]
+      }
+    },
+    "ctx:2fed57ff96186587": {
+      "field2_values": [
+        5
+      ],
+      "filter_id": null,
+      "filter_name": null,
+      "literal": "/tmp/foo",
+      "sources": [
+        "probe:v1_file_require_any"
+      ],
+      "tag": 4,
+      "u16_role": "arg_u16",
+      "witnesses": {
+        "probe:v1_file_require_any": [
+          50
+        ]
+      }
+    },
+    "ctx:326da461ebd64c0d": {
+      "field2_values": [
+        0,
+        1,
+        5
+      ],
+      "filter_id": null,
+      "filter_name": null,
+      "literal": "/tmp/foo",
+      "sources": [
+        "probe:v1_file_require_any"
+      ],
+      "tag": 6,
+      "u16_role": "arg_u16",
+      "witnesses": {
+        "probe:v1_file_require_any": [
+          23,
+          47,
+          48,
+          49,
+          51
+        ]
+      }
+    },
+    "ctx:3c147107a263acba": {
+      "field2_values": [
+        2816
+      ],
+      "filter_id": null,
+      "filter_name": null,
+      "literal": "/tmp/foo",
+      "sources": [
+        "probe:v8_all_combo"
+      ],
+      "tag": 16,
+      "u16_role": "unknown_role",
+      "witnesses": {
+        "probe:v8_all_combo": [
+          45
+        ]
+      }
+    },
+    "ctx:432da03ebd4431fb": {
+      "field2_values": [
+        4
+      ],
+      "filter_id": null,
+      "filter_name": null,
+      "literal": "/var/log",
+      "sources": [
+        "probe:v2_file_three_filters_any"
+      ],
+      "tag": 1,
+      "u16_role": "arg_u16",
+      "witnesses": {
+        "probe:v2_file_three_filters_any": [
+          24
+        ]
+      }
+    },
+    "ctx:449ae76e0090e8a0": {
+      "field2_values": [
+        3072
+      ],
+      "filter_id": null,
+      "filter_name": null,
+      "literal": "/tmp/foo",
+      "sources": [
+        "probe:v8_all_combo"
+      ],
+      "tag": 2,
+      "u16_role": "arg_u16",
+      "witnesses": {
+        "probe:v8_all_combo": [
+          46
+        ]
+      }
+    },
+    "ctx:4acb751639cc806d": {
+      "field2_values": [
+        0,
+        4
+      ],
+      "filter_id": null,
+      "filter_name": null,
+      "literal": "/var/log",
+      "sources": [
+        "probe:v2_file_three_filters_any"
+      ],
+      "tag": 5,
+      "u16_role": "arg_u16",
+      "witnesses": {
+        "probe:v2_file_three_filters_any": [
+          34,
+          45
+        ]
+      }
+    },
+    "ctx:5d6713cdb52f8f64": {
+      "field2_values": [
+        1
+      ],
+      "filter_id": 1,
+      "filter_name": "mount-relative-path",
+      "literal": "/tmp/foo",
+      "sources": [
+        "probe:v8_all_combo"
+      ],
+      "tag": 0,
+      "u16_role": "filter_vocab_id",
+      "witnesses": {
+        "probe:v8_all_combo": [
+          55
+        ]
+      }
+    },
+    "ctx:62884a0b8d6bd37f": {
+      "field2_values": [
+        0,
+        1,
+        5
+      ],
+      "filter_id": null,
+      "filter_name": null,
+      "literal": "idVendor",
+      "sources": [
+        "probe:v5_iokit_class_property"
+      ],
+      "tag": 6,
+      "u16_role": "arg_u16",
+      "witnesses": {
+        "probe:v5_iokit_class_property": [
+          23,
+          47,
+          48,
+          51
+        ]
+      }
+    },
+    "ctx:6dfb72dd573228bd": {
+      "field2_values": [
+        0,
+        1,
+        5
+      ],
+      "filter_id": null,
+      "filter_name": null,
+      "literal": "/etc/hosts",
+      "sources": [
+        "probe:v1_file_require_any",
+        "probe:v2_file_three_filters_any"
+      ],
+      "tag": 4,
+      "u16_role": "arg_u16",
+      "witnesses": {
+        "probe:v1_file_require_any": [
+          50
+        ],
+        "probe:v2_file_three_filters_any": [
+          47,
+          48,
+          49,
+          50
+        ]
+      }
+    },
+    "ctx:70628fdfa6fe2e13": {
+      "field2_values": [
+        0
+      ],
+      "filter_id": 0,
+      "filter_name": "path",
+      "literal": "/etc/hosts",
+      "sources": [
+        "probe:v1_file_require_any"
+      ],
+      "tag": 0,
+      "u16_role": "filter_vocab_id",
+      "witnesses": {
+        "probe:v1_file_require_any": [
+          52
+        ]
+      }
+    },
+    "ctx:7081712ffc79a77b": {
+      "field2_values": [
+        11,
+        3584
+      ],
+      "filter_id": null,
+      "filter_name": null,
+      "literal": "flow-divert",
+      "sources": [
+        "probe:v4_network_socket_require_all",
+        "probe:v7_file_network_combo",
+        "probe:v8_all_combo"
+      ],
+      "tag": 6,
+      "u16_role": "arg_u16",
+      "witnesses": {
+        "probe:v4_network_socket_require_all": [
+          49
+        ],
+        "probe:v7_file_network_combo": [
+          49
+        ],
+        "probe:v8_all_combo": [
+          22,
+          48
+        ]
+      }
+    },
+    "ctx:716642527f41e42a": {
+      "field2_values": [
+        0
+      ],
+      "filter_id": 0,
+      "filter_name": "path",
+      "literal": "/var/log",
+      "sources": [
+        "probe:v2_file_three_filters_any"
+      ],
+      "tag": 0,
+      "u16_role": "filter_vocab_id",
+      "witnesses": {
+        "probe:v2_file_three_filters_any": [
+          51
+        ]
+      }
+    },
+    "ctx:7c627581bd63274b": {
+      "field2_values": [
+        4,
+        256,
+        1536,
+        3328,
+        3584
+      ],
+      "filter_id": null,
+      "filter_name": null,
+      "literal": "/etc/hosts",
+      "sources": [
+        "probe:v2_file_three_filters_any",
+        "probe:v8_all_combo"
+      ],
+      "tag": 1,
+      "u16_role": "arg_u16",
+      "witnesses": {
+        "probe:v2_file_three_filters_any": [
+          24
+        ],
+        "probe:v8_all_combo": [
+          47,
+          49,
+          50,
+          51,
+          54
+        ]
+      }
+    },
+    "ctx:7d570f6247fd21c6": {
+      "field2_values": [
+        11,
+        4352
+      ],
+      "filter_id": null,
+      "filter_name": null,
+      "literal": "/etc/hosts",
+      "sources": [
+        "probe:v8_all_combo"
+      ],
+      "tag": 12,
+      "u16_role": "arg_u16",
+      "witnesses": {
+        "probe:v8_all_combo": [
+          24,
+          52
+        ]
+      }
+    },
+    "ctx:8324eafe88be81b8": {
+      "field2_values": [
+        1281,
+        2560,
+        2816
+      ],
+      "filter_id": 2560,
+      "filter_name": null,
+      "literal": "flow-divert",
+      "sources": [
+        "probe:v4_network_socket_require_all",
+        "probe:v7_file_network_combo"
+      ],
+      "tag": 0,
+      "u16_role": "filter_vocab_id",
+      "witnesses": {
+        "probe:v4_network_socket_require_all": [
+          45,
+          46,
+          53
+        ],
+        "probe:v7_file_network_combo": [
+          45,
+          46,
+          53
+        ]
+      }
+    },
+    "ctx:863c40d566b3e129": {
+      "field2_values": [
+        7,
+        3072
+      ],
+      "filter_id": null,
+      "filter_name": null,
+      "literal": "/etc/hosts",
+      "sources": [
+        "probe:v8_all_combo",
+        "sys:sample"
+      ],
+      "tag": 2,
+      "u16_role": "arg_u16",
+      "witnesses": {
+        "probe:v8_all_combo": [
+          46
+        ],
+        "sys:sample": [
+          23
+        ]
+      }
+    },
+    "ctx:913a0db463cd8a95": {
+      "field2_values": [
+        0,
+        1
+      ],
+      "filter_id": null,
+      "filter_name": null,
+      "literal": "/var/log",
+      "sources": [
+        "probe:v2_file_three_filters_any"
+      ],
+      "tag": 4,
+      "u16_role": "arg_u16",
+      "witnesses": {
+        "probe:v2_file_three_filters_any": [
+          47,
+          48,
+          49,
+          50
+        ]
+      }
+    },
+    "ctx:97b0be15903ff2e0": {
+      "field2_values": [
+        3072
+      ],
+      "filter_id": null,
+      "filter_name": null,
+      "literal": "flow-divert",
+      "sources": [
+        "probe:v4_network_socket_require_all",
+        "probe:v7_file_network_combo"
+      ],
+      "tag": 2,
+      "u16_role": "arg_u16",
+      "witnesses": {
+        "probe:v4_network_socket_require_all": [
+          47
+        ],
+        "probe:v7_file_network_combo": [
+          47
+        ]
+      }
+    },
+    "ctx:97bd8ddcd662c75b": {
+      "field2_values": [
+        4
+      ],
+      "filter_id": null,
+      "filter_name": null,
+      "literal": "IOUSBHostInterface",
+      "sources": [
+        "probe:v8_all_combo"
+      ],
+      "tag": 12,
+      "u16_role": "arg_u16",
+      "witnesses": {
+        "probe:v8_all_combo": [
+          32
+        ]
+      }
+    },
+    "ctx:9b5e21cd20400844": {
+      "field2_values": [
+        1
+      ],
+      "filter_id": 1,
+      "filter_name": "mount-relative-path",
+      "literal": "com.apple.cfprefsd.agent",
+      "sources": [
+        "probe:v6_file_mach_combo"
+      ],
+      "tag": 0,
+      "u16_role": "filter_vocab_id",
+      "witnesses": {
+        "probe:v6_file_mach_combo": [
+          46
+        ]
+      }
+    },
+    "ctx:a40e12993f1b5a56": {
+      "field2_values": [
+        5
+      ],
+      "filter_id": 5,
+      "filter_name": "global-name",
+      "literal": "preferences/logging",
+      "sources": [
+        "sys:bsd"
+      ],
+      "tag": 27,
+      "u16_role": "filter_vocab_id",
+      "witnesses": {
+        "sys:bsd": [
+          18
+        ]
+      }
+    },
+    "ctx:b1a657fd0647186d": {
+      "field2_values": [
+        5
+      ],
+      "filter_id": 5,
+      "filter_name": "global-name",
+      "literal": "/tmp/foo",
+      "sources": [
+        "probe:v2_file_three_filters_any"
+      ],
+      "tag": 3,
+      "u16_role": "filter_vocab_id",
+      "witnesses": {
+        "probe:v2_file_three_filters_any": [
+          4
+        ]
+      }
+    },
+    "ctx:b35627b6de92dd02": {
+      "field2_values": [
+        1
+      ],
+      "filter_id": 1,
+      "filter_name": "mount-relative-path",
+      "literal": "/var/log",
+      "sources": [
+        "probe:v2_file_three_filters_any"
+      ],
+      "tag": 0,
+      "u16_role": "filter_vocab_id",
+      "witnesses": {
+        "probe:v2_file_three_filters_any": [
+          46
+        ]
+      }
+    },
+    "ctx:bd2b79af19c45bf1": {
+      "field2_values": [
+        5
+      ],
+      "filter_id": 5,
+      "filter_name": "global-name",
+      "literal": "com.apple.cfprefsd.agent",
+      "sources": [
+        "probe:v3_mach_global_local"
+      ],
+      "tag": 0,
+      "u16_role": "filter_vocab_id",
+      "witnesses": {
+        "probe:v3_mach_global_local": [
+          46
+        ]
+      }
+    },
+    "ctx:bf642a21e01d7cac": {
+      "field2_values": [
+        12096
+      ],
+      "filter_id": 12096,
+      "filter_name": null,
+      "literal": "/var/log",
+      "sources": [
+        "probe:v2_file_three_filters_any"
+      ],
+      "tag": 0,
+      "u16_role": "filter_vocab_id",
+      "witnesses": {
+        "probe:v2_file_three_filters_any": [
+          52
+        ]
+      }
+    },
+    "ctx:c3f8c90f0c23ebb4": {
+      "field2_values": [
+        3328,
+        3584
+      ],
+      "filter_id": null,
+      "filter_name": null,
+      "literal": "flow-divert",
+      "sources": [
+        "probe:v4_network_socket_require_all",
+        "probe:v7_file_network_combo"
+      ],
+      "tag": 1,
+      "u16_role": "arg_u16",
+      "witnesses": {
+        "probe:v4_network_socket_require_all": [
+          48,
+          50,
+          51
+        ],
+        "probe:v7_file_network_combo": [
+          48,
+          50,
+          51
+        ]
+      }
+    },
+    "ctx:c85503244ce4417e": {
+      "field2_values": [
+        256,
+        1536,
+        3328,
+        3584
+      ],
+      "filter_id": null,
+      "filter_name": null,
+      "literal": "/tmp/foo",
+      "sources": [
+        "probe:v8_all_combo"
+      ],
+      "tag": 1,
+      "u16_role": "arg_u16",
+      "witnesses": {
+        "probe:v8_all_combo": [
+          47,
+          49,
+          50,
+          51,
+          54
+        ]
+      }
+    },
+    "ctx:ca14a2e5898d5973": {
+      "field2_values": [
+        7424
+      ],
+      "filter_id": 7424,
+      "filter_name": null,
+      "literal": "/etc/hosts",
+      "sources": [
+        "probe:v8_all_combo"
+      ],
+      "tag": 8,
+      "u16_role": "filter_vocab_id",
+      "witnesses": {
+        "probe:v8_all_combo": [
+          53
+        ]
+      }
+    },
+    "ctx:cc385c0bc50590eb": {
+      "field2_values": [
+        2,
+        3
+      ],
+      "filter_id": null,
+      "filter_name": null,
+      "literal": "/tmp/foo",
+      "sources": [
+        "probe:v2_file_three_filters_any"
+      ],
+      "tag": 5,
+      "u16_role": "arg_u16",
+      "witnesses": {
+        "probe:v2_file_three_filters_any": [
+          3,
+          23
+        ]
+      }
+    },
+    "ctx:cdb090b42e667fdf": {
+      "field2_values": [
+        0,
+        5,
+        11
+      ],
+      "filter_id": null,
+      "filter_name": null,
+      "literal": "IOUSBHostInterface",
+      "sources": [
+        "probe:v5_iokit_class_property",
+        "probe:v8_all_combo"
+      ],
+      "tag": 6,
+      "u16_role": "arg_u16",
+      "witnesses": {
+        "probe:v5_iokit_class_property": [
+          47,
+          48,
+          51
+        ],
+        "probe:v8_all_combo": [
+          22
+        ]
+      }
+    },
+    "ctx:cdb7208013945b4b": {
+      "field2_values": [
+        5
+      ],
+      "filter_id": 5,
+      "filter_name": "global-name",
+      "literal": "idVendor",
+      "sources": [
+        "probe:v5_iokit_class_property"
+      ],
+      "tag": 0,
+      "u16_role": "filter_vocab_id",
+      "witnesses": {
+        "probe:v5_iokit_class_property": [
+          46
+        ]
+      }
+    },
+    "ctx:d1e5d4c32d8e02f2": {
+      "field2_values": [
+        5
+      ],
+      "filter_id": 5,
+      "filter_name": "global-name",
+      "literal": "/etc/hosts",
+      "sources": [
+        "probe:v1_file_require_any"
+      ],
+      "tag": 0,
+      "u16_role": "filter_vocab_id",
+      "witnesses": {
+        "probe:v1_file_require_any": [
+          24,
+          46
+        ]
+      }
+    },
+    "ctx:e1bd5c8f86413bb6": {
+      "field2_values": [
+        5
+      ],
+      "filter_id": 5,
+      "filter_name": "global-name",
+      "literal": "/tmp/foo",
+      "sources": [
+        "probe:v1_file_require_any"
+      ],
+      "tag": 0,
+      "u16_role": "filter_vocab_id",
+      "witnesses": {
+        "probe:v1_file_require_any": [
+          46
+        ]
+      }
+    },
+    "ctx:f05b526248fd8fde": {
+      "field2_values": [
+        2816
+      ],
+      "filter_id": null,
+      "filter_name": null,
+      "literal": "/etc/hosts",
+      "sources": [
+        "probe:v8_all_combo"
+      ],
+      "tag": 16,
+      "u16_role": "unknown_role",
+      "witnesses": {
+        "probe:v8_all_combo": [
+          45
+        ]
+      }
+    },
+    "ctx:f20e5a0769958cd0": {
+      "field2_values": [
+        0,
+        5,
+        11
+      ],
+      "filter_id": null,
+      "filter_name": null,
+      "literal": "com.apple.cfprefsd.agent",
+      "sources": [
+        "probe:v3_mach_global_local",
+        "probe:v8_all_combo"
+      ],
+      "tag": 6,
+      "u16_role": "arg_u16",
+      "witnesses": {
+        "probe:v3_mach_global_local": [
+          47,
+          48,
+          51
+        ],
+        "probe:v8_all_combo": [
+          22
+        ]
+      }
+    },
+    "ctx:f2e4c309dd41887a": {
+      "field2_values": [
+        7
+      ],
+      "filter_id": 7,
+      "filter_name": "local",
+      "literal": "flow-divert",
+      "sources": [
+        "probe:v4_network_socket_require_all",
+        "probe:v7_file_network_combo"
+      ],
+      "tag": 8,
+      "u16_role": "filter_vocab_id",
+      "witnesses": {
+        "probe:v4_network_socket_require_all": [
+          25
+        ],
+        "probe:v7_file_network_combo": [
+          25
+        ]
+      }
+    },
+    "ctx:f4bf112cd087e3cd": {
+      "field2_values": [
+        1
+      ],
+      "filter_id": 1,
+      "filter_name": "mount-relative-path",
+      "literal": "/etc/hosts",
+      "sources": [
+        "probe:v2_file_three_filters_any",
+        "probe:v8_all_combo"
+      ],
+      "tag": 0,
+      "u16_role": "filter_vocab_id",
+      "witnesses": {
+        "probe:v2_file_three_filters_any": [
+          46
+        ],
+        "probe:v8_all_combo": [
+          55
+        ]
+      }
+    }
+  },
+  "metadata": {
+    "inputs": [
+      "book/graph/mappings/anchors/anchor_field2_map.json",
+      "book/graph/mappings/vocab/filters.json"
+    ],
+    "notes": "Canonical anchor_ctx-indexed anchor\u2192filter mapping; do not treat literal strings as type-safe.",
+    "schema_version": "anchors.anchor_ctx_filter_map.v0.1",
+    "source_jobs": [
+      "generator:anchors:anchor_ctx_filter_map"
+    ],
+    "tier": "mapped",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  }
+}

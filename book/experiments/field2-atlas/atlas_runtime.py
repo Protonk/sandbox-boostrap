@@ -34,6 +34,7 @@ DEFAULT_RUNTIME_EVENTS = [
 DEFAULT_HISTORICAL_EVENTS = REPO_ROOT / "book" / "experiments" / "runtime-adversarial" / "out" / "historical_runtime_events.json"
 DEFAULT_RUN_MANIFEST = REPO_ROOT / "book" / "experiments" / "runtime-adversarial" / "out" / "run_manifest.json"
 DEFAULT_BASELINE_RESULTS = REPO_ROOT / "book" / "experiments" / "runtime-adversarial" / "out" / "baseline_results.json"
+# Derived compatibility view; canonical anchor binding is ctx-indexed.
 DEFAULT_ANCHOR_MAP = REPO_ROOT / "book" / "graph" / "mappings" / "anchors" / "anchor_filter_map.json"
 DEFAULT_OUTPUT = Path(__file__).with_name("out") / "runtime" / "field2_runtime_results.json"
 

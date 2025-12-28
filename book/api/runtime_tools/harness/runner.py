@@ -125,22 +125,65 @@ def _observe_path_unsandboxed(path: Optional[str]) -> Optional[Dict[str, Any]]:
             "observed_path": None,
             "observed_path_source": "unsandboxed_error",
             "observed_path_errno": exc.errno,
+            "observed_path_nofirmlink": None,
+            "observed_path_nofirmlink_source": "unsandboxed_error",
+            "observed_path_nofirmlink_errno": exc.errno,
         }
     try:
         buf = fcntl.fcntl(fd, fcntl.F_GETPATH, b"\0" * 1024)
         observed = buf.split(b"\0", 1)[0].decode("utf-8", errors="replace")
-        return {"observed_path": observed, "observed_path_source": "unsandboxed_fd_path"}
+        doc: Dict[str, Any] = {
+            "observed_path": observed,
+            "observed_path_source": "unsandboxed_fd_path",
+            "observed_path_errno": None,
+        }
+        nofirmlink = getattr(fcntl, "F_GETPATH_NOFIRMLINK", None)
+        if nofirmlink is None:
+            doc.update(
+                {
+                    "observed_path_nofirmlink": None,
+                    "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+                    "observed_path_nofirmlink_errno": None,
+                }
+            )
+            return doc
+        try:
+            buf = fcntl.fcntl(fd, nofirmlink, b"\0" * 1024)
+            observed_nf = buf.split(b"\0", 1)[0].decode("utf-8", errors="replace")
+            doc.update(
+                {
+                    "observed_path_nofirmlink": observed_nf,
+                    "observed_path_nofirmlink_source": "unsandboxed_fd_path",
+                    "observed_path_nofirmlink_errno": None,
+                }
+            )
+        except OSError as exc:
+            doc.update(
+                {
+                    "observed_path_nofirmlink": None,
+                    "observed_path_nofirmlink_source": "unsandboxed_error",
+                    "observed_path_nofirmlink_errno": exc.errno,
+                }
+            )
+        return doc
     except OSError as exc:
         return {
             "observed_path": None,
             "observed_path_source": "unsandboxed_error",
             "observed_path_errno": exc.errno,
+            "observed_path_nofirmlink": None,
+            "observed_path_nofirmlink_source": "unsandboxed_error",
+            "observed_path_nofirmlink_errno": exc.errno,
         }
     finally:
         try:
             os.close(fd)
         except OSError:
             pass
+
+
+def _unsandboxed_path_observation(path: Optional[str]) -> Optional[Dict[str, Any]]:
+    return _observe_path_unsandboxed(path)
 
 
 def classify_profile_status(probes: List[Dict[str, Any]], skipped_reason: str | None = None) -> tuple[str, str | None]:
@@ -804,6 +847,7 @@ def run_matrix(
                 {
                     "name": probe.get("name"),
                     "expectation_id": probe.get("expectation_id"),
+                    **({"anchor_ctx_id": probe.get("anchor_ctx_id")} if probe.get("anchor_ctx_id") else {}),
                     "operation": probe.get("operation"),
                     "path": probe.get("target"),
                     "expected": expected,

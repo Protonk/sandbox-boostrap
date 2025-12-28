@@ -1,0 +1,367 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "tier": "mapped",
+    "source_jobs": [],
+    "notes": "op-level runtime summary"
+  },
+  "ops": {
+    "file-read*": {
+      "op_name": "file-read*",
+      "op_id": 21,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 54,
+      "matches": 43,
+      "mismatches": 11,
+      "probes_including_blocked": 54,
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "examples": [
+        {
+          "scenario_id": "vfs_tmp_only:read_/tmp/foo",
+          "expectation_id": "vfs_tmp_only:read_/tmp/foo",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        },
+        {
+          "scenario_id": "vfs_tmp_only:read_/private/tmp/foo",
+          "expectation_id": "vfs_tmp_only:read_/private/tmp/foo",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        },
+        {
+          "scenario_id": "vfs_tmp_only:read_/tmp/bar",
+          "expectation_id": "vfs_tmp_only:read_/tmp/bar",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        },
+        {
+          "scenario_id": "vfs_tmp_only:read_/private/tmp/bar",
+          "expectation_id": "vfs_tmp_only:read_/private/tmp/bar",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        },
+        {
+          "scenario_id": "vfs_tmp_only:read_/tmp/nested/child",
+          "expectation_id": "vfs_tmp_only:read_/tmp/nested/child",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        }
+      ],
+      "scenarios": [
+        "vfs_both_paths:read_/private/tmp/bar",
+        "vfs_both_paths:read_/private/tmp/foo",
+        "vfs_both_paths:read_/private/tmp/nested/child",
+        "vfs_both_paths:read_/private/var/tmp/canon",
+        "vfs_both_paths:read_/tmp/bar",
+        "vfs_both_paths:read_/tmp/foo",
+        "vfs_both_paths:read_/tmp/nested/child",
+        "vfs_both_paths:read_/var/tmp/canon",
+        "vfs_etc_alias_only:read_/etc/hosts",
+        "vfs_etc_alias_only:read_/private/etc/hosts",
+        "vfs_etc_both:read_/etc/hosts",
+        "vfs_etc_both:read_/private/etc/hosts",
+        "vfs_etc_private_only:read_/etc/hosts",
+        "vfs_etc_private_only:read_/private/etc/hosts",
+        "vfs_firmlink_both:read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+        "vfs_firmlink_both:read_/private/tmp/vfs_firmlink_probe",
+        "vfs_firmlink_data_only:read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+        "vfs_firmlink_data_only:read_/private/tmp/vfs_firmlink_probe",
+        "vfs_firmlink_private_only:read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+        "vfs_firmlink_private_only:read_/private/tmp/vfs_firmlink_probe",
+        "vfs_link_both:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+        "vfs_link_both:read_/private/var/tmp/vfs_link_probe",
+        "vfs_link_private_tmp_only:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+        "vfs_link_private_tmp_only:read_/private/var/tmp/vfs_link_probe",
+        "vfs_link_var_tmp_only:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+        "vfs_link_var_tmp_only:read_/private/var/tmp/vfs_link_probe",
+        "vfs_private_tmp_only:read_/private/tmp/bar",
+        "vfs_private_tmp_only:read_/private/tmp/foo",
+        "vfs_private_tmp_only:read_/private/tmp/nested/child",
+        "vfs_private_tmp_only:read_/private/var/tmp/canon",
+        "vfs_private_tmp_only:read_/tmp/bar",
+        "vfs_private_tmp_only:read_/tmp/foo",
+        "vfs_private_tmp_only:read_/tmp/nested/child",
+        "vfs_private_tmp_only:read_/var/tmp/canon",
+        "vfs_tmp_only:read_/private/tmp/bar",
+        "vfs_tmp_only:read_/private/tmp/foo",
+        "vfs_tmp_only:read_/private/tmp/nested/child",
+        "vfs_tmp_only:read_/private/var/tmp/canon",
+        "vfs_tmp_only:read_/tmp/bar",
+        "vfs_tmp_only:read_/tmp/foo",
+        "vfs_tmp_only:read_/tmp/nested/child",
+        "vfs_tmp_only:read_/var/tmp/canon",
+        "vfs_var_tmp_alias_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+        "vfs_var_tmp_alias_only:read_/private/var/tmp/vfs_canon_probe",
+        "vfs_var_tmp_alias_only:read_/var/tmp/vfs_canon_probe",
+        "vfs_var_tmp_both:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+        "vfs_var_tmp_both:read_/private/var/tmp/vfs_canon_probe",
+        "vfs_var_tmp_both:read_/var/tmp/vfs_canon_probe",
+        "vfs_var_tmp_data_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+        "vfs_var_tmp_data_only:read_/private/var/tmp/vfs_canon_probe",
+        "vfs_var_tmp_data_only:read_/var/tmp/vfs_canon_probe",
+        "vfs_var_tmp_private_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+        "vfs_var_tmp_private_only:read_/private/var/tmp/vfs_canon_probe",
+        "vfs_var_tmp_private_only:read_/var/tmp/vfs_canon_probe"
+      ],
+      "mismatch_details": [
+        {
+          "scenario_id": "vfs_var_tmp_alias_only:read_/var/tmp/vfs_canon_probe",
+          "expectation_id": "vfs_var_tmp_alias_only:read_/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/var/tmp/vfs_canon_probe"
+        },
+        {
+          "scenario_id": "vfs_var_tmp_private_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expectation_id": "vfs_var_tmp_private_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "actual": "allow",
+          "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+        },
+        {
+          "scenario_id": "vfs_var_tmp_both:read_/var/tmp/vfs_canon_probe",
+          "expectation_id": "vfs_var_tmp_both:read_/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/var/tmp/vfs_canon_probe"
+        },
+        {
+          "scenario_id": "vfs_var_tmp_both:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expectation_id": "vfs_var_tmp_both:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "actual": "allow",
+          "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+        },
+        {
+          "scenario_id": "vfs_var_tmp_data_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expectation_id": "vfs_var_tmp_data_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+        },
+        {
+          "scenario_id": "vfs_etc_alias_only:read_/etc/hosts",
+          "expectation_id": "vfs_etc_alias_only:read_/etc/hosts",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/etc/hosts"
+        },
+        {
+          "scenario_id": "vfs_etc_both:read_/etc/hosts",
+          "expectation_id": "vfs_etc_both:read_/etc/hosts",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/etc/hosts"
+        },
+        {
+          "scenario_id": "vfs_firmlink_private_only:read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "expectation_id": "vfs_firmlink_private_only:read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "expected": "deny",
+          "actual": "allow",
+          "target": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+        },
+        {
+          "scenario_id": "vfs_firmlink_data_only:read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "expectation_id": "vfs_firmlink_data_only:read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+        },
+        {
+          "scenario_id": "vfs_link_private_tmp_only:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "expectation_id": "vfs_link_private_tmp_only:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+        },
+        {
+          "scenario_id": "vfs_link_both:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "expectation_id": "vfs_link_both:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+        }
+      ],
+      "coverage_status": "partial"
+    },
+    "file-write*": {
+      "op_name": "file-write*",
+      "op_id": 29,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 48,
+      "matches": 39,
+      "mismatches": 9,
+      "probes_including_blocked": 48,
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "examples": [
+        {
+          "scenario_id": "vfs_tmp_only:write_/tmp/foo",
+          "expectation_id": "vfs_tmp_only:write_/tmp/foo",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        },
+        {
+          "scenario_id": "vfs_tmp_only:write_/private/tmp/foo",
+          "expectation_id": "vfs_tmp_only:write_/private/tmp/foo",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        },
+        {
+          "scenario_id": "vfs_tmp_only:write_/tmp/bar",
+          "expectation_id": "vfs_tmp_only:write_/tmp/bar",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        },
+        {
+          "scenario_id": "vfs_tmp_only:write_/private/tmp/bar",
+          "expectation_id": "vfs_tmp_only:write_/private/tmp/bar",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        },
+        {
+          "scenario_id": "vfs_tmp_only:write_/tmp/nested/child",
+          "expectation_id": "vfs_tmp_only:write_/tmp/nested/child",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        }
+      ],
+      "scenarios": [
+        "vfs_both_paths:write_/private/tmp/bar",
+        "vfs_both_paths:write_/private/tmp/foo",
+        "vfs_both_paths:write_/private/tmp/nested/child",
+        "vfs_both_paths:write_/private/var/tmp/canon",
+        "vfs_both_paths:write_/tmp/bar",
+        "vfs_both_paths:write_/tmp/foo",
+        "vfs_both_paths:write_/tmp/nested/child",
+        "vfs_both_paths:write_/var/tmp/canon",
+        "vfs_firmlink_both:write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+        "vfs_firmlink_both:write_/private/tmp/vfs_firmlink_probe",
+        "vfs_firmlink_data_only:write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+        "vfs_firmlink_data_only:write_/private/tmp/vfs_firmlink_probe",
+        "vfs_firmlink_private_only:write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+        "vfs_firmlink_private_only:write_/private/tmp/vfs_firmlink_probe",
+        "vfs_link_both:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+        "vfs_link_both:write_/private/var/tmp/vfs_link_probe",
+        "vfs_link_private_tmp_only:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+        "vfs_link_private_tmp_only:write_/private/var/tmp/vfs_link_probe",
+        "vfs_link_var_tmp_only:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+        "vfs_link_var_tmp_only:write_/private/var/tmp/vfs_link_probe",
+        "vfs_private_tmp_only:write_/private/tmp/bar",
+        "vfs_private_tmp_only:write_/private/tmp/foo",
+        "vfs_private_tmp_only:write_/private/tmp/nested/child",
+        "vfs_private_tmp_only:write_/private/var/tmp/canon",
+        "vfs_private_tmp_only:write_/tmp/bar",
+        "vfs_private_tmp_only:write_/tmp/foo",
+        "vfs_private_tmp_only:write_/tmp/nested/child",
+        "vfs_private_tmp_only:write_/var/tmp/canon",
+        "vfs_tmp_only:write_/private/tmp/bar",
+        "vfs_tmp_only:write_/private/tmp/foo",
+        "vfs_tmp_only:write_/private/tmp/nested/child",
+        "vfs_tmp_only:write_/private/var/tmp/canon",
+        "vfs_tmp_only:write_/tmp/bar",
+        "vfs_tmp_only:write_/tmp/foo",
+        "vfs_tmp_only:write_/tmp/nested/child",
+        "vfs_tmp_only:write_/var/tmp/canon",
+        "vfs_var_tmp_alias_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+        "vfs_var_tmp_alias_only:write_/private/var/tmp/vfs_canon_probe",
+        "vfs_var_tmp_alias_only:write_/var/tmp/vfs_canon_probe",
+        "vfs_var_tmp_both:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+        "vfs_var_tmp_both:write_/private/var/tmp/vfs_canon_probe",
+        "vfs_var_tmp_both:write_/var/tmp/vfs_canon_probe",
+        "vfs_var_tmp_data_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+        "vfs_var_tmp_data_only:write_/private/var/tmp/vfs_canon_probe",
+        "vfs_var_tmp_data_only:write_/var/tmp/vfs_canon_probe",
+        "vfs_var_tmp_private_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+        "vfs_var_tmp_private_only:write_/private/var/tmp/vfs_canon_probe",
+        "vfs_var_tmp_private_only:write_/var/tmp/vfs_canon_probe"
+      ],
+      "mismatch_details": [
+        {
+          "scenario_id": "vfs_var_tmp_alias_only:write_/var/tmp/vfs_canon_probe",
+          "expectation_id": "vfs_var_tmp_alias_only:write_/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/var/tmp/vfs_canon_probe"
+        },
+        {
+          "scenario_id": "vfs_var_tmp_private_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expectation_id": "vfs_var_tmp_private_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "actual": "allow",
+          "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+        },
+        {
+          "scenario_id": "vfs_var_tmp_both:write_/var/tmp/vfs_canon_probe",
+          "expectation_id": "vfs_var_tmp_both:write_/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/var/tmp/vfs_canon_probe"
+        },
+        {
+          "scenario_id": "vfs_var_tmp_both:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expectation_id": "vfs_var_tmp_both:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "actual": "allow",
+          "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+        },
+        {
+          "scenario_id": "vfs_var_tmp_data_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expectation_id": "vfs_var_tmp_data_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+        },
+        {
+          "scenario_id": "vfs_firmlink_private_only:write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "expectation_id": "vfs_firmlink_private_only:write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "expected": "deny",
+          "actual": "allow",
+          "target": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+        },
+        {
+          "scenario_id": "vfs_firmlink_data_only:write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "expectation_id": "vfs_firmlink_data_only:write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+        },
+        {
+          "scenario_id": "vfs_link_private_tmp_only:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "expectation_id": "vfs_link_private_tmp_only:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+        },
+        {
+          "scenario_id": "vfs_link_both:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "expectation_id": "vfs_link_both:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+        }
+      ],
+      "coverage_status": "partial"
+    }
+  }
+}

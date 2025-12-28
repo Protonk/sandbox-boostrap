@@ -1,0 +1,25 @@
+{
+  "schema_version": "runtime-tools.promotion_packet.v0.2",
+  "run_manifest": "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/run_manifest.json",
+  "expected_matrix": "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/expected_matrix.json",
+  "runtime_results": "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_results.json",
+  "runtime_events": "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_events.normalized.json",
+  "baseline_results": "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/baseline_results.json",
+  "oracle_results": "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/oracle_results.json",
+  "mismatch_packets": "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/mismatch_packets.jsonl",
+  "summary": "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/summary.json",
+  "promotability": {
+    "promotable_decision_stage": true,
+    "reasons": [],
+    "gating_inputs": {
+      "channel": "launchd_clean",
+      "apply_preflight_present": true,
+      "apply_ok": true,
+      "sandbox_check_self": {
+        "source": "sandbox_check",
+        "error": "libsystem_sandbox not found"
+      }
+    }
+  },
+  "path_witnesses": "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/path_witnesses.json"
+}

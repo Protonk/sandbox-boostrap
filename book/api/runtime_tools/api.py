@@ -40,6 +40,7 @@ from . import plan as plan_loader
 from . import preflight as apply_preflight
 from . import workflow
 from . import inventory as runtime_inventory
+from . import path_witnesses
 from .core import normalize
 from .core import models
 from .channels import ChannelSpec
@@ -63,6 +64,7 @@ ARTIFACT_INDEX_SCHEMA_VERSION = "runtime-tools.artifact_index.v0.1"
 MISMATCH_PACKET_SCHEMA_VERSION = "runtime-tools.mismatch_packet.v0.1"
 ORACLE_SCHEMA_VERSION = "runtime-tools.oracle_results.v0.1"
 BASELINE_SCHEMA_VERSION = "runtime-tools.baseline_results.v0.1"
+PATH_WITNESSES_SCHEMA_VERSION = "runtime-tools.path_witnesses.v0.1"
 STATUS_SCHEMA_VERSION = "runtime-tools.status.v0.1"
 
 CORE_ARTIFACTS = [
@@ -70,6 +72,7 @@ CORE_ARTIFACTS = [
     "run_manifest.json",
     "apply_preflight.json",
     "baseline_results.json",
+    "path_witnesses.json",
     "expected_matrix.generated.json",
     "expected_matrix.json",
     "runtime_results.json",
@@ -519,6 +522,7 @@ def run_plan(
         mismatch_schema = schema_versions.get("mismatch_packet", MISMATCH_PACKET_SCHEMA_VERSION)
         oracle_schema = schema_versions.get("oracle", ORACLE_SCHEMA_VERSION)
         baseline_schema = schema_versions.get("baseline", BASELINE_SCHEMA_VERSION)
+        path_witnesses_schema = schema_versions.get("path_witnesses", PATH_WITNESSES_SCHEMA_VERSION)
 
         lanes = plan_doc.get("lanes") or {}
         effective_lanes = dict(lanes)
@@ -617,6 +621,16 @@ def run_plan(
                 oracle_doc = json.loads((run_dir / "oracle_results.json").read_text())
                 oracle_doc["schema_version"] = oracle_schema
                 _write_json(run_dir / "oracle_results.json", oracle_doc)
+
+            if effective_lanes.get("scenario", True) or effective_lanes.get("baseline", True):
+                path_witnesses_doc = path_witnesses.build_path_witnesses_doc(
+                    run_dir,
+                    world_id=world_id,
+                    run_id=run_id,
+                    plan_id=plan_id,
+                )
+                path_witnesses_doc["schema_version"] = path_witnesses_schema
+                _write_json(run_dir / "path_witnesses.json", path_witnesses_doc)
 
             mismatch_packets = []
             if effective_lanes.get("scenario", True) and (run_dir / "mismatch_summary.json").exists():
@@ -718,6 +732,8 @@ def run_plan(
             expected_artifacts.append("apply_preflight.json")
         if effective_lanes.get("baseline", True):
             expected_artifacts.append("baseline_results.json")
+        if effective_lanes.get("scenario", True) or effective_lanes.get("baseline", True):
+            expected_artifacts.append("path_witnesses.json")
         if effective_lanes.get("oracle", True):
             expected_artifacts.append("oracle_results.json")
 

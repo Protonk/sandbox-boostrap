@@ -37,6 +37,12 @@ Callers should treat **only** the symbols exported in `rt.__all__` as stable. Su
 - `resolve_profile(registry_id, profile_id)`
 - `lint_registry(registry_id)`
 
+### Plan templates
+
+- `list_plan_templates()`
+- `load_plan_template(template_id)`
+- `build_plan_from_template(template_id, out_root, *, overwrite=False, write_expected_matrix=True) -> PlanBuildResult`
+
 ### Execution and bundle lifecycle
 
 - `run_plan(plan_path, out_root, *, channel, only_profiles=None, only_scenarios=None, dry_run=False) -> RunBundle`
@@ -73,6 +79,7 @@ Supported commands (stable flags and output schemas):
 - `list-registries`, `list-probes`, `list-profiles`
 - `describe-probe`, `describe-profile`
 - `registry-lint`, `plan-lint`
+- `list-templates`, `plan-build`
 
 Anything else exposed by the CLI (legacy matrix helpers) is treated as **compat** and may change as plan-data becomes the only supported runtime execution interface.
 
@@ -89,4 +96,3 @@ Anything else exposed by the CLI (legacy matrix helpers) is treated as **compat*
   - non-strict emission includes an explicit `promotability` block so ambiguity is bounded
 
 For the full reference contract, see `book/api/runtime_tools/SPEC.md`.
-

@@ -4,20 +4,48 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 
+CFPREFSD_SERVICE = "com.apple.cfprefsd.agent"
+BOGUS_SERVICE = "com.apple.sandbox-lore.anchor-filter-map.bogus"
+
 
 def load_json(path: Path):
     assert path.exists(), f"missing expected file: {path}"
     return json.loads(path.read_text())
 
 
-def test_cfprefsd_anchor_lift_is_backed_by_used_packet_and_matrix():
-    from book.graph.mappings.anchors import generate_anchor_filter_map as gen
+def parse_kr(stdout: str) -> int | None:
+    try:
+        obj = json.loads(stdout.strip())
+    except Exception:
+        return None
+    kr = obj.get("kr") if isinstance(obj, dict) else None
+    return int(kr) if isinstance(kr, int) else None
 
-    amap = load_json(ROOT / "book" / "graph" / "mappings" / "anchors" / "anchor_filter_map.json")
-    entry = amap.get("com.apple.cfprefsd.agent") or {}
-    assert entry.get("filter_id") == 5
-    assert entry.get("filter_name") == "global-name"
 
+def scenario_probe(runtime_results: dict, scenario_id: str) -> dict:
+    rec = runtime_results.get(scenario_id) or {}
+    probes = rec.get("probes") or []
+    assert isinstance(probes, list) and probes, f"missing probes for scenario {scenario_id}"
+    for probe in probes:
+        if isinstance(probe, dict) and probe.get("expectation_id") == scenario_id:
+            return probe
+    assert isinstance(probes[0], dict)
+    return probes[0]
+
+
+def kr_for_baseline_target(baseline_results: list[dict], *, target: str) -> int | None:
+    for result in baseline_results:
+        if not isinstance(result, dict):
+            continue
+        if result.get("operation") != "mach-lookup" or result.get("target") != target:
+            continue
+        kr = parse_kr(result.get("stdout") or "")
+        if kr is not None:
+            return kr
+    return None
+
+
+def test_cfprefsd_anchor_ctx_is_backed_by_used_packet_and_discriminating_matrix():
     receipt = load_json(ROOT / "book" / "graph" / "mappings" / "runtime" / "promotion_receipt.json")
     considered = ((receipt.get("packets") or {}).get("considered") or []) if isinstance(receipt, dict) else []
     want = "book/experiments/anchor-filter-map/out/promotion_packet.json"
@@ -29,65 +57,39 @@ def test_cfprefsd_anchor_lift_is_backed_by_used_packet_and_matrix():
     baseline = load_json(ROOT / packet["baseline_results"])
     runtime = load_json(ROOT / packet["runtime_results"])
 
-    filter_id, reason = gen._evaluate_cfprefsd_runtime_matrix(
-        baseline_results=baseline.get("results") or [],
-        runtime_results=runtime,
-    )
-    assert filter_id == 5 and reason is None
+    baseline_results = baseline.get("results") or []
+    assert isinstance(baseline_results, list)
+    assert kr_for_baseline_target(baseline_results, target=CFPREFSD_SERVICE) == 0
+    assert kr_for_baseline_target(baseline_results, target=BOGUS_SERVICE) == 1102
 
-    # Execution-shape guardrail: the runtime discriminator must use the in-process
-    # self-applying Mach probe (not apply-then-exec).
-    s0 = runtime.get("anchor-filter-map:cfprefsd:S0_allow_any") or {}
-    probes = s0.get("probes") or []
-    assert probes, "expected at least one runtime probe record for S0"
-    runner_info = ((probes[0].get("runtime_result") or {}).get("runner_info") or {}) if isinstance(probes[0], dict) else {}
+    s0 = scenario_probe(runtime, "anchor-filter-map:cfprefsd:S0_allow_any")
+    runner_info = ((s0.get("runtime_result") or {}).get("runner_info") or {}) if isinstance(s0, dict) else {}
     assert runner_info.get("entrypoint") == "sandbox_mach_probe"
     assert runner_info.get("apply_model") == "self_apply"
 
+    assert parse_kr(scenario_probe(runtime, "anchor-filter-map:cfprefsd:S0_allow_any").get("stdout") or "") == 0
+    assert parse_kr(scenario_probe(runtime, "anchor-filter-map:cfprefsd:S1_allow_global").get("stdout") or "") == 0
+    assert parse_kr(scenario_probe(runtime, "anchor-filter-map:cfprefsd:S2_allow_local").get("stdout") or "") == 1100
+    assert parse_kr(scenario_probe(runtime, "anchor-filter-map:cfprefsd:S3_allow_both").get("stdout") or "") == 0
+    assert parse_kr(scenario_probe(runtime, "anchor-filter-map:cfprefsd:N1_deny_default").get("stdout") or "") == 1100
+    assert parse_kr(scenario_probe(runtime, "anchor-filter-map:cfprefsd:C1_deny_global").get("stdout") or "") == 1100
+    assert parse_kr(scenario_probe(runtime, "anchor-filter-map:cfprefsd:C2_deny_local").get("stdout") or "") == 0
 
-def test_cfprefsd_matrix_refuses_when_baseline_service_unobservable():
-    from book.graph.mappings.anchors import generate_anchor_filter_map as gen
-
-    baseline_results = [
-        {"operation": "mach-lookup", "target": gen.CFPREFSD_SERVICE, "stdout": "{\"kr\":1102}\n"},
-        {"operation": "mach-lookup", "target": gen.CFPREFSD_BOGUS_SERVICE, "stdout": "{\"kr\":1102}\n"},
+    ctx_map = load_json(ROOT / "book" / "graph" / "mappings" / "anchors" / "anchor_ctx_filter_map.json")
+    entries = ctx_map.get("entries") or {}
+    assert isinstance(entries, dict)
+    global_ctx_ids = [
+        cid
+        for cid, ent in entries.items()
+        if isinstance(ent, dict)
+        and ent.get("literal") == CFPREFSD_SERVICE
+        and ent.get("filter_id") == 5
+        and ent.get("filter_name") == "global-name"
     ]
-    filter_id, reason = gen._evaluate_cfprefsd_runtime_matrix(baseline_results=baseline_results, runtime_results={})
-    assert filter_id is None
-    assert reason == gen.REASON_BASELINE_SERVICE_UNOBSERVABLE
+    assert global_ctx_ids, "expected at least one ctx entry for com.apple.cfprefsd.agent@global-name"
 
-
-def test_cfprefsd_matrix_refuses_when_predicate_not_discriminating():
-    from book.graph.mappings.anchors import generate_anchor_filter_map as gen
-
-    baseline_results = [
-        {"operation": "mach-lookup", "target": gen.CFPREFSD_SERVICE, "stdout": "{\"kr\":0}\n"},
-        {"operation": "mach-lookup", "target": gen.CFPREFSD_BOGUS_SERVICE, "stdout": "{\"kr\":1102}\n"},
-    ]
-    probes = [
-        {"expectation_id": "anchor-filter-map:cfprefsd:S0_allow_any", "stdout": "{\"kr\":0}\n"},
-        {"expectation_id": "anchor-filter-map:cfprefsd:S1_allow_global", "stdout": "{\"kr\":0}\n"},
-        {"expectation_id": "anchor-filter-map:cfprefsd:S2_allow_local", "stdout": "{\"kr\":0}\n"},
-        {"expectation_id": "anchor-filter-map:cfprefsd:S3_allow_both", "stdout": "{\"kr\":0}\n"},
-        {"expectation_id": "anchor-filter-map:cfprefsd:N1_deny_default", "stdout": "{\"kr\":1100}\n"},
-        {"expectation_id": "anchor-filter-map:cfprefsd:C1_deny_global", "stdout": "{\"kr\":1100}\n"},
-        {"expectation_id": "anchor-filter-map:cfprefsd:C2_deny_local", "stdout": "{\"kr\":0}\n"},
-    ]
-    runtime_results = {"dummy": {"probes": probes}}
-    filter_id, reason = gen._evaluate_cfprefsd_runtime_matrix(baseline_results=baseline_results, runtime_results=runtime_results)
-    assert filter_id is None
-    assert reason == gen.REASON_PREDICATE_NOT_DISCRIMINATING
-
-
-def test_cfprefsd_upgrade_requires_used_packet():
-    from book.graph.mappings.anchors import generate_anchor_filter_map as gen
-
-    original = gen._receipt_packet_used
-    try:
-        gen._receipt_packet_used = lambda: (False, gen.REASON_PACKET_NOT_USED)  # type: ignore[assignment]
-        upgraded, reason = gen._upgrade_cfprefsd_from_runtime({})
-        assert upgraded == {}
-        assert reason == gen.REASON_PACKET_NOT_USED
-    finally:
-        gen._receipt_packet_used = original  # type: ignore[assignment]
-
+    legacy = load_json(ROOT / "book" / "graph" / "mappings" / "anchors" / "anchor_filter_map.json")
+    legacy_ent = legacy.get(CFPREFSD_SERVICE) or {}
+    assert isinstance(legacy_ent, dict)
+    assert legacy_ent.get("status") == "blocked"
+    assert set(global_ctx_ids) <= set(legacy_ent.get("ctx_ids") or [])

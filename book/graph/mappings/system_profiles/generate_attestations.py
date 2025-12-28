@@ -216,6 +216,10 @@ def make_attestation(
 def main() -> None:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     world_id, world_path = baseline_world_info()
+    # Reporting-only: this generator records which known anchor literals appear in
+    # a profile's literal table. The literal-keyed anchor filter map is a derived,
+    # lossy compatibility view; do not treat it as a unique binding when making
+    # decisions (use the ctx-indexed canonical mapping instead).
     anchor_map = load_json(REPO_ROOT / "book/graph/mappings/anchors/anchor_filter_map.json")
     tag_layout_hash = tag_layout_tag_set_hash(TAG_LAYOUTS_PATH)
     tag_layouts_file_sha256 = sha256(TAG_LAYOUTS_PATH)

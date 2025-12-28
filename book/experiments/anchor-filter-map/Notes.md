@@ -9,12 +9,12 @@ Use this file for concise notes on progress, commands, and intermediate findings
 ## Second pass
 
 - Baseline data pass: loaded `probe-op-structure/out/anchor_hits.json` and harvested anchors with field2 hints; wrote initial candidates to `out/anchor_filter_candidates.json` (anchor → {field2_names, field2_values, sources}). Field2 inventory not yet merged; next step is disambiguation and mapping to filter IDs.
-- Produced first `anchor_filter_map.json` in `book/graph/mappings/anchors/` (now with host metadata). Mapped: `/tmp/foo` and `/etc/hosts` pinned to `path` (id 0) for file probes, `/var/log` → ipc-posix-name=4, `idVendor` → local-name=6, `preferences/logging` → global-name=5; others remain `status: ambiguous` with candidates noted. Guardrail `tests/test_mappings_guardrail.py` ensures map presence and at least one mapped entry.
+- Migrated anchor mapping semantics to a ctx-indexed canonical surface: `book/graph/mappings/anchors/anchor_ctx_filter_map.json` is the source of truth, and `book/graph/mappings/anchors/anchor_filter_map.json` is a conservative, derived compatibility view that remains blocked whenever a literal participates in multiple contexts.
 - Updated `flow-divert` anchor entry with `filter_name: local`, retained candidates, and added characterization note from flow-divert-2560 matrix (triple-only domain+type+proto, tag0/u16_role=filter_vocab_id, literal `com.apple.flow-divert`); status still `blocked`.
 
 ## Runtime discriminator (mach-lookup predicate kind) – `com.apple.cfprefsd.agent`
 
-Goal: lift the `com.apple.cfprefsd.agent` anchor out of `status: blocked` in `book/graph/mappings/anchors/anchor_filter_map.json` by producing a clean, promotable runtime discriminator matrix that distinguishes `global-name` vs `local-name` for `mach-lookup` on this host.
+Goal: produce a clean, promotable runtime discriminator matrix that distinguishes `global-name` vs `local-name` for `mach-lookup` on this host, and tie the result to the **canonical ctx entry** rather than treating the literal string as a unique binding.
 
 Run provenance:
 - `run_id`: `028d4d91-1c9e-4c2f-95da-7fc89ec3635a` (launchd clean channel)
@@ -33,7 +33,7 @@ Outcome summary (bounded; host-scoped):
 - Under `(deny default)`, S0 (allow `mach-lookup` unfiltered) allows; N1 (no allow for the target) denies (`kr=1100`).
 - Predicate discrimination under `(deny default)`: allowing `global-name` allows; allowing `local-name` denies (`kr=1100`); allowing both allows.
 - Mapping-fidelity controls under `(allow default)`: denying `global-name` denies; denying `local-name` does not.
-- Anchor map lifted: `book/graph/mappings/anchors/anchor_filter_map.json` now pins `com.apple.cfprefsd.agent` to `filter_id=5` / `filter_name=global-name` with runtime provenance in `notes` (tier `mapped`).
+- Canonical ctx map contains a `com.apple.cfprefsd.agent@global-name` ctx entry; the legacy literal-keyed view remains blocked (multiple contexts exist for the same literal).
 
 ## Runtime discriminator (iokit-open-service class) – `IOUSBHostInterface`
 
@@ -52,4 +52,4 @@ Commands:
 
 Outcome summary (bounded; host-scoped):
 - Baseline lane reports `found=false` for `IOUSBHostInterface` in this process context (unobservable), so the anchor remains `status: blocked`.
-- `book/graph/mappings/anchors/anchor_filter_map.json` records `runtime_validation_attempt.reason=baseline_service_unobservable` with the packet + receipt + run_id provenance.
+- The promotable packet/receipt captures the attempted discriminator run, but it does not provide evidence about which filter family is consulted when the acquisition path cannot be reached.

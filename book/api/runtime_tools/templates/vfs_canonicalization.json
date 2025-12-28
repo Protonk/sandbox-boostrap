@@ -1,0 +1,279 @@
+{
+  "schema_version": "runtime-tools.plan_template.v0.1",
+  "template_id": "vfs-canonicalization",
+  "description": "VFS canonicalization path-family probes (alias vs canonical spellings).",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "registry_id": "vfs-canonicalization",
+  "plan_id": "vfs-canonicalization.v1",
+  "apply_preflight_profile": "book/experiments/hardened-runtime/sb/apply_preflight_allow.sb",
+  "lanes": {
+    "baseline": true,
+    "scenario": true,
+    "oracle": true
+  },
+  "controls": {
+    "baseline": true
+  },
+  "family": "vfs",
+  "semantic_group": "vfs:canonicalization",
+  "path_sets": {
+    "base_pairs": [
+      [
+        "/tmp/foo",
+        "/private/tmp/foo"
+      ],
+      [
+        "/tmp/bar",
+        "/private/tmp/bar"
+      ],
+      [
+        "/tmp/nested/child",
+        "/private/tmp/nested/child"
+      ],
+      [
+        "/var/tmp/canon",
+        "/private/var/tmp/canon"
+      ]
+    ],
+    "var_tmp_requests": [
+      "/var/tmp/vfs_canon_probe",
+      "/private/var/tmp/vfs_canon_probe",
+      "/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+    ],
+    "etc_requests": [
+      "/etc/hosts",
+      "/private/etc/hosts"
+    ],
+    "firmlink_requests": [
+      "/private/tmp/vfs_firmlink_probe",
+      "/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+    ],
+    "link_requests": [
+      "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+      "/private/var/tmp/vfs_link_probe"
+    ]
+  },
+  "profile_order": [
+    "vfs_tmp_only",
+    "vfs_private_tmp_only",
+    "vfs_both_paths",
+    "vfs_var_tmp_alias_only",
+    "vfs_var_tmp_private_only",
+    "vfs_var_tmp_both",
+    "vfs_var_tmp_data_only",
+    "vfs_etc_alias_only",
+    "vfs_etc_private_only",
+    "vfs_etc_both",
+    "vfs_firmlink_private_only",
+    "vfs_firmlink_data_only",
+    "vfs_firmlink_both",
+    "vfs_link_var_tmp_only",
+    "vfs_link_private_tmp_only",
+    "vfs_link_both"
+  ],
+  "profiles": {
+    "vfs_tmp_only": {
+      "sbpl": "book/experiments/vfs-canonicalization/sb/vfs_tmp_only.sb",
+      "ops": [
+        "file-read*",
+        "file-write*"
+      ],
+      "policy": "canonicalized_with_var_tmp_exception",
+      "variant": "tmp",
+      "role": "first_only",
+      "path_pairs": "base_pairs"
+    },
+    "vfs_private_tmp_only": {
+      "sbpl": "book/experiments/vfs-canonicalization/sb/vfs_private_tmp_only.sb",
+      "ops": [
+        "file-read*",
+        "file-write*"
+      ],
+      "policy": "canonicalized_with_var_tmp_exception",
+      "variant": "tmp",
+      "role": "second_only",
+      "path_pairs": "base_pairs"
+    },
+    "vfs_both_paths": {
+      "sbpl": "book/experiments/vfs-canonicalization/sb/vfs_both_paths.sb",
+      "ops": [
+        "file-read*",
+        "file-write*"
+      ],
+      "policy": "canonicalized_with_var_tmp_exception",
+      "variant": "tmp",
+      "role": "both",
+      "path_pairs": "base_pairs"
+    },
+    "vfs_var_tmp_alias_only": {
+      "sbpl": "book/experiments/vfs-canonicalization/sb/vfs_var_tmp_alias_only.sb",
+      "ops": [
+        "file-read*",
+        "file-write*"
+      ],
+      "policy": "literal",
+      "variant": "var_tmp",
+      "request_paths": "var_tmp_requests",
+      "allowed_paths": [
+        "/var/tmp/vfs_canon_probe"
+      ]
+    },
+    "vfs_var_tmp_private_only": {
+      "sbpl": "book/experiments/vfs-canonicalization/sb/vfs_var_tmp_private_only.sb",
+      "ops": [
+        "file-read*",
+        "file-write*"
+      ],
+      "policy": "literal",
+      "variant": "var_tmp",
+      "request_paths": "var_tmp_requests",
+      "allowed_paths": [
+        "/private/var/tmp/vfs_canon_probe"
+      ]
+    },
+    "vfs_var_tmp_both": {
+      "sbpl": "book/experiments/vfs-canonicalization/sb/vfs_var_tmp_both.sb",
+      "ops": [
+        "file-read*",
+        "file-write*"
+      ],
+      "policy": "literal",
+      "variant": "var_tmp",
+      "request_paths": "var_tmp_requests",
+      "allowed_paths": [
+        "/var/tmp/vfs_canon_probe",
+        "/private/var/tmp/vfs_canon_probe"
+      ]
+    },
+    "vfs_var_tmp_data_only": {
+      "sbpl": "book/experiments/vfs-canonicalization/sb/vfs_var_tmp_data_only.sb",
+      "ops": [
+        "file-read*",
+        "file-write*"
+      ],
+      "policy": "literal",
+      "variant": "var_tmp",
+      "request_paths": "var_tmp_requests",
+      "allowed_paths": [
+        "/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+      ]
+    },
+    "vfs_etc_alias_only": {
+      "sbpl": "book/experiments/vfs-canonicalization/sb/vfs_etc_alias_only.sb",
+      "ops": [
+        "file-read*"
+      ],
+      "policy": "literal",
+      "variant": "etc",
+      "request_paths": "etc_requests",
+      "allowed_paths": [
+        "/etc/hosts"
+      ]
+    },
+    "vfs_etc_private_only": {
+      "sbpl": "book/experiments/vfs-canonicalization/sb/vfs_etc_private_only.sb",
+      "ops": [
+        "file-read*"
+      ],
+      "policy": "literal",
+      "variant": "etc",
+      "request_paths": "etc_requests",
+      "allowed_paths": [
+        "/private/etc/hosts"
+      ]
+    },
+    "vfs_etc_both": {
+      "sbpl": "book/experiments/vfs-canonicalization/sb/vfs_etc_both.sb",
+      "ops": [
+        "file-read*"
+      ],
+      "policy": "literal",
+      "variant": "etc",
+      "request_paths": "etc_requests",
+      "allowed_paths": [
+        "/etc/hosts",
+        "/private/etc/hosts"
+      ]
+    },
+    "vfs_firmlink_private_only": {
+      "sbpl": "book/experiments/vfs-canonicalization/sb/vfs_firmlink_private_only.sb",
+      "ops": [
+        "file-read*",
+        "file-write*"
+      ],
+      "policy": "literal",
+      "variant": "firmlink_tmp",
+      "request_paths": "firmlink_requests",
+      "allowed_paths": [
+        "/private/tmp/vfs_firmlink_probe"
+      ]
+    },
+    "vfs_firmlink_data_only": {
+      "sbpl": "book/experiments/vfs-canonicalization/sb/vfs_firmlink_data_only.sb",
+      "ops": [
+        "file-read*",
+        "file-write*"
+      ],
+      "policy": "literal",
+      "variant": "firmlink_tmp",
+      "request_paths": "firmlink_requests",
+      "allowed_paths": [
+        "/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+      ]
+    },
+    "vfs_firmlink_both": {
+      "sbpl": "book/experiments/vfs-canonicalization/sb/vfs_firmlink_both.sb",
+      "ops": [
+        "file-read*",
+        "file-write*"
+      ],
+      "policy": "literal",
+      "variant": "firmlink_tmp",
+      "request_paths": "firmlink_requests",
+      "allowed_paths": [
+        "/private/tmp/vfs_firmlink_probe",
+        "/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+      ]
+    },
+    "vfs_link_var_tmp_only": {
+      "sbpl": "book/experiments/vfs-canonicalization/sb/vfs_link_var_tmp_only.sb",
+      "ops": [
+        "file-read*",
+        "file-write*"
+      ],
+      "policy": "literal",
+      "variant": "link_path",
+      "request_paths": "link_requests",
+      "allowed_paths": [
+        "/private/var/tmp/vfs_link_probe"
+      ]
+    },
+    "vfs_link_private_tmp_only": {
+      "sbpl": "book/experiments/vfs-canonicalization/sb/vfs_link_private_tmp_only.sb",
+      "ops": [
+        "file-read*",
+        "file-write*"
+      ],
+      "policy": "literal",
+      "variant": "link_path",
+      "request_paths": "link_requests",
+      "allowed_paths": [
+        "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+      ]
+    },
+    "vfs_link_both": {
+      "sbpl": "book/experiments/vfs-canonicalization/sb/vfs_link_both.sb",
+      "ops": [
+        "file-read*",
+        "file-write*"
+      ],
+      "policy": "literal",
+      "variant": "link_path",
+      "request_paths": "link_requests",
+      "allowed_paths": [
+        "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+        "/private/var/tmp/vfs_link_probe"
+      ]
+    }
+  }
+}

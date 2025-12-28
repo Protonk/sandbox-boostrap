@@ -43,6 +43,17 @@ Two supported read modes exist:
 - `load_bundle()` (strict): resolves via `LATEST`, refuses `in_progress`, requires `artifact_index.json`, and verifies digests for indexed artifacts.
 - `open_bundle_unverified()` (debug): loads whatever is present and reports `missing` / `digest_mismatches`, but never implies completeness or promotability.
 
+### 1.5 Path-witness IR (`path_witnesses.json`)
+
+`path_witnesses.json` is a derived, run-scoped bundle artifact that records:
+
+- `requested_path` (what the probe asked for),
+- `observed_path` (kernel-reported FD spelling via `F_GETPATH`, when available),
+- `observed_path_nofirmlink` (alternate FD spelling via `F_GETPATH_NOFIRMLINK`, when available),
+- and `normalized_path` (a conservative join key derived from the fields above).
+
+This IR exists so VFS canonicalization work can be expressed as stable inputs/outputs without embedding ad-hoc stderr parsing in experiments.
+
 ## 2) Promotion packet contract
 
 ### 2.1 Schema and intent
@@ -53,6 +64,7 @@ Current schema:
 
 - `schema_version: runtime-tools.promotion_packet.v0.2`
 - `run_manifest`, `expected_matrix`, `runtime_results`, `runtime_events`, `baseline_results`, `oracle_results`, `mismatch_packets`, `summary`
+- optional `path_witnesses`
 - optional `impact_map`
 - `promotability`:
   - `promotable_decision_stage: bool`

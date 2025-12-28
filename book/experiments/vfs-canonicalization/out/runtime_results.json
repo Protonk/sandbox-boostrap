@@ -6,7 +6,7 @@
     "observed_path": "/tmp/foo",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -30,33 +30,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/tmp/foo",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_tmp_only.vfs_tmp_only.runtime.sb",
-        "/private/tmp/foo"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_tmp_only.vfs_tmp_only.runtime.sb",
+        "/tmp/foo"
       ],
       "stdout": "",
       "stderr": "open target: Operation not permitted\n"
@@ -69,7 +49,7 @@
     "observed_path": "/private/tmp/foo",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -93,32 +73,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/tmp/foo",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_tmp_only.vfs_tmp_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_tmp_only.vfs_tmp_only.runtime.sb",
         "/private/tmp/foo"
       ],
       "stdout": "",
@@ -132,7 +92,7 @@
     "observed_path": "/tmp/foo",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -156,33 +116,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/tmp/foo",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_tmp_only.vfs_tmp_only.runtime.sb",
-        "/private/tmp/foo"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_tmp_only.vfs_tmp_only.runtime.sb",
+        "/tmp/foo"
       ],
       "stdout": "",
       "stderr": "open target: Operation not permitted\n"
@@ -195,7 +135,7 @@
     "observed_path": "/private/tmp/foo",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -219,32 +159,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/tmp/foo",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_tmp_only.vfs_tmp_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_tmp_only.vfs_tmp_only.runtime.sb",
         "/private/tmp/foo"
       ],
       "stdout": "",
@@ -258,7 +178,7 @@
     "observed_path": "/tmp/bar",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -282,33 +202,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/tmp/bar",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_tmp_only.vfs_tmp_only.runtime.sb",
-        "/private/tmp/bar"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_tmp_only.vfs_tmp_only.runtime.sb",
+        "/tmp/bar"
       ],
       "stdout": "",
       "stderr": "open target: Operation not permitted\n"
@@ -321,7 +221,7 @@
     "observed_path": "/private/tmp/bar",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -345,32 +245,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/tmp/bar",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_tmp_only.vfs_tmp_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_tmp_only.vfs_tmp_only.runtime.sb",
         "/private/tmp/bar"
       ],
       "stdout": "",
@@ -384,7 +264,7 @@
     "observed_path": "/tmp/bar",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -408,33 +288,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/tmp/bar",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_tmp_only.vfs_tmp_only.runtime.sb",
-        "/private/tmp/bar"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_tmp_only.vfs_tmp_only.runtime.sb",
+        "/tmp/bar"
       ],
       "stdout": "",
       "stderr": "open target: Operation not permitted\n"
@@ -447,7 +307,7 @@
     "observed_path": "/private/tmp/bar",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -471,32 +331,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/tmp/bar",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_tmp_only.vfs_tmp_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_tmp_only.vfs_tmp_only.runtime.sb",
         "/private/tmp/bar"
       ],
       "stdout": "",
@@ -510,7 +350,7 @@
     "observed_path": "/tmp/nested/child",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -534,33 +374,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/tmp/nested/child",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_tmp_only.vfs_tmp_only.runtime.sb",
-        "/private/tmp/nested/child"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_tmp_only.vfs_tmp_only.runtime.sb",
+        "/tmp/nested/child"
       ],
       "stdout": "",
       "stderr": "open target: Operation not permitted\n"
@@ -573,7 +393,7 @@
     "observed_path": "/private/tmp/nested/child",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -597,32 +417,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/tmp/nested/child",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_tmp_only.vfs_tmp_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_tmp_only.vfs_tmp_only.runtime.sb",
         "/private/tmp/nested/child"
       ],
       "stdout": "",
@@ -636,7 +436,7 @@
     "observed_path": "/tmp/nested/child",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -660,33 +460,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/tmp/nested/child",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_tmp_only.vfs_tmp_only.runtime.sb",
-        "/private/tmp/nested/child"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_tmp_only.vfs_tmp_only.runtime.sb",
+        "/tmp/nested/child"
       ],
       "stdout": "",
       "stderr": "open target: Operation not permitted\n"
@@ -699,7 +479,7 @@
     "observed_path": "/private/tmp/nested/child",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -723,32 +503,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/tmp/nested/child",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_tmp_only.vfs_tmp_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_tmp_only.vfs_tmp_only.runtime.sb",
         "/private/tmp/nested/child"
       ],
       "stdout": "",
@@ -762,7 +522,7 @@
     "observed_path": "/var/tmp/canon",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -786,33 +546,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/var/tmp/canon",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_tmp_only.vfs_tmp_only.runtime.sb",
-        "/private/var/tmp/canon"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_tmp_only.vfs_tmp_only.runtime.sb",
+        "/var/tmp/canon"
       ],
       "stdout": "",
       "stderr": "open target: Operation not permitted\n"
@@ -825,7 +565,7 @@
     "observed_path": "/private/var/tmp/canon",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -849,32 +589,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/var/tmp/canon",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_tmp_only.vfs_tmp_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_tmp_only.vfs_tmp_only.runtime.sb",
         "/private/var/tmp/canon"
       ],
       "stdout": "",
@@ -888,7 +608,7 @@
     "observed_path": "/var/tmp/canon",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -912,33 +632,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/var/tmp/canon",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_tmp_only.vfs_tmp_only.runtime.sb",
-        "/private/var/tmp/canon"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_tmp_only.vfs_tmp_only.runtime.sb",
+        "/var/tmp/canon"
       ],
       "stdout": "",
       "stderr": "open target: Operation not permitted\n"
@@ -951,7 +651,7 @@
     "observed_path": "/private/var/tmp/canon",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -975,32 +675,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/var/tmp/canon",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_tmp_only.vfs_tmp_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_tmp_only.vfs_tmp_only.runtime.sb",
         "/private/var/tmp/canon"
       ],
       "stdout": "",
@@ -1014,7 +694,7 @@
     "observed_path": "/private/tmp/foo",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/foo",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -1038,33 +718,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/tmp/foo",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
-        "/private/tmp/foo"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
+        "/tmp/foo"
       ],
       "stdout": "runtime-checks foo\n",
       "stderr": "F_GETPATH:/private/tmp/foo\nF_GETPATH_NOFIRMLINK:/System/Volumes/Data/private/tmp/foo\n"
@@ -1077,7 +737,7 @@
     "observed_path": "/private/tmp/foo",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/foo",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -1101,32 +761,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/tmp/foo",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
         "/private/tmp/foo"
       ],
       "stdout": "runtime-checks foo\n",
@@ -1140,7 +780,7 @@
     "observed_path": "/private/tmp/foo",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/foo",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -1164,33 +804,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/tmp/foo",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
-        "/private/tmp/foo"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
+        "/tmp/foo"
       ],
       "stdout": "",
       "stderr": "F_GETPATH:/private/tmp/foo\nF_GETPATH_NOFIRMLINK:/System/Volumes/Data/private/tmp/foo\n"
@@ -1203,7 +823,7 @@
     "observed_path": "/private/tmp/foo",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/foo",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -1227,32 +847,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/tmp/foo",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
         "/private/tmp/foo"
       ],
       "stdout": "",
@@ -1266,7 +866,7 @@
     "observed_path": "/private/tmp/bar",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/bar",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -1290,33 +890,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/tmp/bar",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
-        "/private/tmp/bar"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
+        "/tmp/bar"
       ],
       "stdout": "runtime-checks bar\n",
       "stderr": "F_GETPATH:/private/tmp/bar\nF_GETPATH_NOFIRMLINK:/System/Volumes/Data/private/tmp/bar\n"
@@ -1329,7 +909,7 @@
     "observed_path": "/private/tmp/bar",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/bar",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -1353,32 +933,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/tmp/bar",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
         "/private/tmp/bar"
       ],
       "stdout": "runtime-checks bar\n",
@@ -1392,7 +952,7 @@
     "observed_path": "/private/tmp/bar",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/bar",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -1416,33 +976,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/tmp/bar",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
-        "/private/tmp/bar"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
+        "/tmp/bar"
       ],
       "stdout": "",
       "stderr": "F_GETPATH:/private/tmp/bar\nF_GETPATH_NOFIRMLINK:/System/Volumes/Data/private/tmp/bar\n"
@@ -1455,7 +995,7 @@
     "observed_path": "/private/tmp/bar",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/bar",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -1479,32 +1019,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/tmp/bar",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
         "/private/tmp/bar"
       ],
       "stdout": "",
@@ -1518,7 +1038,7 @@
     "observed_path": "/private/tmp/nested/child",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/nested/child",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -1542,33 +1062,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/tmp/nested/child",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
-        "/private/tmp/nested/child"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
+        "/tmp/nested/child"
       ],
       "stdout": "vfs-canonicalization child\n",
       "stderr": "F_GETPATH:/private/tmp/nested/child\nF_GETPATH_NOFIRMLINK:/System/Volumes/Data/private/tmp/nested/child\n"
@@ -1581,7 +1081,7 @@
     "observed_path": "/private/tmp/nested/child",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/nested/child",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -1605,32 +1105,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/tmp/nested/child",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
         "/private/tmp/nested/child"
       ],
       "stdout": "vfs-canonicalization child\n",
@@ -1644,7 +1124,7 @@
     "observed_path": "/private/tmp/nested/child",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/nested/child",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -1668,33 +1148,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/tmp/nested/child",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
-        "/private/tmp/nested/child"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
+        "/tmp/nested/child"
       ],
       "stdout": "",
       "stderr": "F_GETPATH:/private/tmp/nested/child\nF_GETPATH_NOFIRMLINK:/System/Volumes/Data/private/tmp/nested/child\n"
@@ -1707,7 +1167,7 @@
     "observed_path": "/private/tmp/nested/child",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/nested/child",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -1731,32 +1191,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/tmp/nested/child",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
         "/private/tmp/nested/child"
       ],
       "stdout": "",
@@ -1770,7 +1210,7 @@
     "observed_path": "/var/tmp/canon",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -1794,33 +1234,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/var/tmp/canon",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
-        "/private/var/tmp/canon"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
+        "/var/tmp/canon"
       ],
       "stdout": "",
       "stderr": "open target: Operation not permitted\n"
@@ -1833,7 +1253,7 @@
     "observed_path": "/private/var/tmp/canon",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/var/tmp/canon",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -1857,32 +1277,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/var/tmp/canon",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
         "/private/var/tmp/canon"
       ],
       "stdout": "vfs-canonicalization canon\n",
@@ -1896,7 +1296,7 @@
     "observed_path": "/var/tmp/canon",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -1920,33 +1320,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/var/tmp/canon",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
-        "/private/var/tmp/canon"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
+        "/var/tmp/canon"
       ],
       "stdout": "",
       "stderr": "open target: Operation not permitted\n"
@@ -1959,7 +1339,7 @@
     "observed_path": "/private/var/tmp/canon",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/var/tmp/canon",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -1983,32 +1363,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/var/tmp/canon",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
         "/private/var/tmp/canon"
       ],
       "stdout": "",
@@ -2022,7 +1382,7 @@
     "observed_path": "/private/tmp/foo",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/foo",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -2046,33 +1406,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/tmp/foo",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_both_paths.vfs_both_paths.runtime.sb",
-        "/private/tmp/foo"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_both_paths.vfs_both_paths.runtime.sb",
+        "/tmp/foo"
       ],
       "stdout": "runtime-checks foo\nruntime-check\nruntime-check\n",
       "stderr": "F_GETPATH:/private/tmp/foo\nF_GETPATH_NOFIRMLINK:/System/Volumes/Data/private/tmp/foo\n"
@@ -2085,7 +1425,7 @@
     "observed_path": "/private/tmp/foo",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/foo",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -2109,32 +1449,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/tmp/foo",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_both_paths.vfs_both_paths.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_both_paths.vfs_both_paths.runtime.sb",
         "/private/tmp/foo"
       ],
       "stdout": "runtime-checks foo\nruntime-check\nruntime-check\n",
@@ -2148,7 +1468,7 @@
     "observed_path": "/private/tmp/foo",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/foo",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -2172,33 +1492,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/tmp/foo",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_both_paths.vfs_both_paths.runtime.sb",
-        "/private/tmp/foo"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_both_paths.vfs_both_paths.runtime.sb",
+        "/tmp/foo"
       ],
       "stdout": "",
       "stderr": "F_GETPATH:/private/tmp/foo\nF_GETPATH_NOFIRMLINK:/System/Volumes/Data/private/tmp/foo\n"
@@ -2211,7 +1511,7 @@
     "observed_path": "/private/tmp/foo",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/foo",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -2235,32 +1535,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/tmp/foo",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_both_paths.vfs_both_paths.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_both_paths.vfs_both_paths.runtime.sb",
         "/private/tmp/foo"
       ],
       "stdout": "",
@@ -2274,7 +1554,7 @@
     "observed_path": "/private/tmp/bar",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/bar",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -2298,33 +1578,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/tmp/bar",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_both_paths.vfs_both_paths.runtime.sb",
-        "/private/tmp/bar"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_both_paths.vfs_both_paths.runtime.sb",
+        "/tmp/bar"
       ],
       "stdout": "runtime-checks bar\nruntime-check\nruntime-check\n",
       "stderr": "F_GETPATH:/private/tmp/bar\nF_GETPATH_NOFIRMLINK:/System/Volumes/Data/private/tmp/bar\n"
@@ -2337,7 +1597,7 @@
     "observed_path": "/private/tmp/bar",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/bar",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -2361,32 +1621,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/tmp/bar",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_both_paths.vfs_both_paths.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_both_paths.vfs_both_paths.runtime.sb",
         "/private/tmp/bar"
       ],
       "stdout": "runtime-checks bar\nruntime-check\nruntime-check\n",
@@ -2400,7 +1640,7 @@
     "observed_path": "/private/tmp/bar",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/bar",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -2424,33 +1664,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/tmp/bar",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_both_paths.vfs_both_paths.runtime.sb",
-        "/private/tmp/bar"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_both_paths.vfs_both_paths.runtime.sb",
+        "/tmp/bar"
       ],
       "stdout": "",
       "stderr": "F_GETPATH:/private/tmp/bar\nF_GETPATH_NOFIRMLINK:/System/Volumes/Data/private/tmp/bar\n"
@@ -2463,7 +1683,7 @@
     "observed_path": "/private/tmp/bar",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/bar",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -2487,32 +1707,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/tmp/bar",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_both_paths.vfs_both_paths.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_both_paths.vfs_both_paths.runtime.sb",
         "/private/tmp/bar"
       ],
       "stdout": "",
@@ -2526,7 +1726,7 @@
     "observed_path": "/private/tmp/nested/child",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/nested/child",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -2550,33 +1750,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/tmp/nested/child",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_both_paths.vfs_both_paths.runtime.sb",
-        "/private/tmp/nested/child"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_both_paths.vfs_both_paths.runtime.sb",
+        "/tmp/nested/child"
       ],
       "stdout": "vfs-canonicalization child\nruntime-check\nruntime-check\n",
       "stderr": "F_GETPATH:/private/tmp/nested/child\nF_GETPATH_NOFIRMLINK:/System/Volumes/Data/private/tmp/nested/child\n"
@@ -2589,7 +1769,7 @@
     "observed_path": "/private/tmp/nested/child",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/nested/child",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -2613,32 +1793,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/tmp/nested/child",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_both_paths.vfs_both_paths.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_both_paths.vfs_both_paths.runtime.sb",
         "/private/tmp/nested/child"
       ],
       "stdout": "vfs-canonicalization child\nruntime-check\nruntime-check\n",
@@ -2652,7 +1812,7 @@
     "observed_path": "/private/tmp/nested/child",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/nested/child",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -2676,33 +1836,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/tmp/nested/child",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_both_paths.vfs_both_paths.runtime.sb",
-        "/private/tmp/nested/child"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_both_paths.vfs_both_paths.runtime.sb",
+        "/tmp/nested/child"
       ],
       "stdout": "",
       "stderr": "F_GETPATH:/private/tmp/nested/child\nF_GETPATH_NOFIRMLINK:/System/Volumes/Data/private/tmp/nested/child\n"
@@ -2715,7 +1855,7 @@
     "observed_path": "/private/tmp/nested/child",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/nested/child",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -2739,32 +1879,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/tmp/nested/child",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_both_paths.vfs_both_paths.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_both_paths.vfs_both_paths.runtime.sb",
         "/private/tmp/nested/child"
       ],
       "stdout": "",
@@ -2778,7 +1898,7 @@
     "observed_path": "/var/tmp/canon",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -2802,33 +1922,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/var/tmp/canon",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_both_paths.vfs_both_paths.runtime.sb",
-        "/private/var/tmp/canon"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_both_paths.vfs_both_paths.runtime.sb",
+        "/var/tmp/canon"
       ],
       "stdout": "",
       "stderr": "open target: Operation not permitted\n"
@@ -2841,7 +1941,7 @@
     "observed_path": "/private/var/tmp/canon",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/var/tmp/canon",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -2865,32 +1965,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/var/tmp/canon",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_both_paths.vfs_both_paths.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_both_paths.vfs_both_paths.runtime.sb",
         "/private/var/tmp/canon"
       ],
       "stdout": "vfs-canonicalization canon\nruntime-check\n",
@@ -2904,7 +1984,7 @@
     "observed_path": "/var/tmp/canon",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -2928,33 +2008,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/var/tmp/canon",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_both_paths.vfs_both_paths.runtime.sb",
-        "/private/var/tmp/canon"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_both_paths.vfs_both_paths.runtime.sb",
+        "/var/tmp/canon"
       ],
       "stdout": "",
       "stderr": "open target: Operation not permitted\n"
@@ -2967,7 +2027,7 @@
     "observed_path": "/private/var/tmp/canon",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/var/tmp/canon",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -2991,32 +2051,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/var/tmp/canon",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_both_paths.vfs_both_paths.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_both_paths.vfs_both_paths.runtime.sb",
         "/private/var/tmp/canon"
       ],
       "stdout": "",
@@ -3030,7 +2070,7 @@
     "observed_path": "/var/tmp/vfs_canon_probe",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -3054,33 +2094,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/var/tmp/vfs_canon_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_var_tmp_alias_only.vfs_var_tmp_alias_only.runtime.sb",
-        "/private/var/tmp/vfs_canon_probe"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_var_tmp_alias_only.vfs_var_tmp_alias_only.runtime.sb",
+        "/var/tmp/vfs_canon_probe"
       ],
       "stdout": "",
       "stderr": "open target: Operation not permitted\n"
@@ -3093,7 +2113,7 @@
     "observed_path": "/var/tmp/vfs_canon_probe",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -3117,33 +2137,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/var/tmp/vfs_canon_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_var_tmp_alias_only.vfs_var_tmp_alias_only.runtime.sb",
-        "/private/var/tmp/vfs_canon_probe"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_var_tmp_alias_only.vfs_var_tmp_alias_only.runtime.sb",
+        "/var/tmp/vfs_canon_probe"
       ],
       "stdout": "",
       "stderr": "open target: Operation not permitted\n"
@@ -3156,7 +2156,7 @@
     "observed_path": "/private/var/tmp/vfs_canon_probe",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -3180,32 +2180,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/var/tmp/vfs_canon_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_var_tmp_alias_only.vfs_var_tmp_alias_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_var_tmp_alias_only.vfs_var_tmp_alias_only.runtime.sb",
         "/private/var/tmp/vfs_canon_probe"
       ],
       "stdout": "",
@@ -3219,7 +2199,7 @@
     "observed_path": "/private/var/tmp/vfs_canon_probe",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -3243,32 +2223,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/var/tmp/vfs_canon_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_var_tmp_alias_only.vfs_var_tmp_alias_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_var_tmp_alias_only.vfs_var_tmp_alias_only.runtime.sb",
         "/private/var/tmp/vfs_canon_probe"
       ],
       "stdout": "",
@@ -3282,7 +2242,7 @@
     "observed_path": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -3306,32 +2266,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_var_tmp_alias_only.vfs_var_tmp_alias_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_var_tmp_alias_only.vfs_var_tmp_alias_only.runtime.sb",
         "/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
       ],
       "stdout": "",
@@ -3345,7 +2285,7 @@
     "observed_path": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -3369,32 +2309,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_var_tmp_alias_only.vfs_var_tmp_alias_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_var_tmp_alias_only.vfs_var_tmp_alias_only.runtime.sb",
         "/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
       ],
       "stdout": "",
@@ -3408,7 +2328,7 @@
     "observed_path": "/var/tmp/vfs_canon_probe",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -3432,33 +2352,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/var/tmp/vfs_canon_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb",
-        "/private/var/tmp/vfs_canon_probe"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb",
+        "/var/tmp/vfs_canon_probe"
       ],
       "stdout": "",
       "stderr": "open target: Operation not permitted\n"
@@ -3471,7 +2371,7 @@
     "observed_path": "/var/tmp/vfs_canon_probe",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -3495,33 +2395,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/var/tmp/vfs_canon_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb",
-        "/private/var/tmp/vfs_canon_probe"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb",
+        "/var/tmp/vfs_canon_probe"
       ],
       "stdout": "",
       "stderr": "open target: Operation not permitted\n"
@@ -3534,7 +2414,7 @@
     "observed_path": "/private/var/tmp/vfs_canon_probe",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -3558,32 +2438,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/var/tmp/vfs_canon_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb",
         "/private/var/tmp/vfs_canon_probe"
       ],
       "stdout": "vfs-canonicalization vfs_canon_probe\n",
@@ -3597,7 +2457,7 @@
     "observed_path": "/private/var/tmp/vfs_canon_probe",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -3621,32 +2481,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/var/tmp/vfs_canon_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb",
         "/private/var/tmp/vfs_canon_probe"
       ],
       "stdout": "",
@@ -3660,7 +2500,7 @@
     "observed_path": "/private/var/tmp/vfs_canon_probe",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -3684,32 +2524,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb",
         "/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
       ],
       "stdout": "vfs-canonicalization vfs_canon_probe\nruntime-check\n",
@@ -3723,7 +2543,7 @@
     "observed_path": "/private/var/tmp/vfs_canon_probe",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -3747,32 +2567,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb",
         "/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
       ],
       "stdout": "",
@@ -3786,7 +2586,7 @@
     "observed_path": "/var/tmp/vfs_canon_probe",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -3810,33 +2610,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/var/tmp/vfs_canon_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_var_tmp_both.vfs_var_tmp_both.runtime.sb",
-        "/private/var/tmp/vfs_canon_probe"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_var_tmp_both.vfs_var_tmp_both.runtime.sb",
+        "/var/tmp/vfs_canon_probe"
       ],
       "stdout": "",
       "stderr": "open target: Operation not permitted\n"
@@ -3849,7 +2629,7 @@
     "observed_path": "/var/tmp/vfs_canon_probe",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -3873,33 +2653,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/var/tmp/vfs_canon_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_var_tmp_both.vfs_var_tmp_both.runtime.sb",
-        "/private/var/tmp/vfs_canon_probe"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_var_tmp_both.vfs_var_tmp_both.runtime.sb",
+        "/var/tmp/vfs_canon_probe"
       ],
       "stdout": "",
       "stderr": "open target: Operation not permitted\n"
@@ -3912,7 +2672,7 @@
     "observed_path": "/private/var/tmp/vfs_canon_probe",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -3936,32 +2696,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/var/tmp/vfs_canon_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_var_tmp_both.vfs_var_tmp_both.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_var_tmp_both.vfs_var_tmp_both.runtime.sb",
         "/private/var/tmp/vfs_canon_probe"
       ],
       "stdout": "vfs-canonicalization vfs_canon_probe\nruntime-check\nruntime-check\n",
@@ -3975,7 +2715,7 @@
     "observed_path": "/private/var/tmp/vfs_canon_probe",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -3999,32 +2739,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/var/tmp/vfs_canon_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_var_tmp_both.vfs_var_tmp_both.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_var_tmp_both.vfs_var_tmp_both.runtime.sb",
         "/private/var/tmp/vfs_canon_probe"
       ],
       "stdout": "",
@@ -4038,7 +2758,7 @@
     "observed_path": "/private/var/tmp/vfs_canon_probe",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -4062,32 +2782,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_var_tmp_both.vfs_var_tmp_both.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_var_tmp_both.vfs_var_tmp_both.runtime.sb",
         "/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
       ],
       "stdout": "vfs-canonicalization vfs_canon_probe\nruntime-check\nruntime-check\nruntime-check\n",
@@ -4101,7 +2801,7 @@
     "observed_path": "/private/var/tmp/vfs_canon_probe",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -4125,32 +2825,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_var_tmp_both.vfs_var_tmp_both.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_var_tmp_both.vfs_var_tmp_both.runtime.sb",
         "/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
       ],
       "stdout": "",
@@ -4164,7 +2844,7 @@
     "observed_path": "/var/tmp/vfs_canon_probe",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -4188,33 +2868,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/var/tmp/vfs_canon_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_var_tmp_data_only.vfs_var_tmp_data_only.runtime.sb",
-        "/private/var/tmp/vfs_canon_probe"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_var_tmp_data_only.vfs_var_tmp_data_only.runtime.sb",
+        "/var/tmp/vfs_canon_probe"
       ],
       "stdout": "",
       "stderr": "open target: Operation not permitted\n"
@@ -4227,7 +2887,7 @@
     "observed_path": "/var/tmp/vfs_canon_probe",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -4251,33 +2911,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/var/tmp/vfs_canon_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_var_tmp_data_only.vfs_var_tmp_data_only.runtime.sb",
-        "/private/var/tmp/vfs_canon_probe"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_var_tmp_data_only.vfs_var_tmp_data_only.runtime.sb",
+        "/var/tmp/vfs_canon_probe"
       ],
       "stdout": "",
       "stderr": "open target: Operation not permitted\n"
@@ -4290,7 +2930,7 @@
     "observed_path": "/private/var/tmp/vfs_canon_probe",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -4314,32 +2954,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/var/tmp/vfs_canon_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_var_tmp_data_only.vfs_var_tmp_data_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_var_tmp_data_only.vfs_var_tmp_data_only.runtime.sb",
         "/private/var/tmp/vfs_canon_probe"
       ],
       "stdout": "",
@@ -4353,7 +2973,7 @@
     "observed_path": "/private/var/tmp/vfs_canon_probe",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -4377,32 +2997,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/var/tmp/vfs_canon_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_var_tmp_data_only.vfs_var_tmp_data_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_var_tmp_data_only.vfs_var_tmp_data_only.runtime.sb",
         "/private/var/tmp/vfs_canon_probe"
       ],
       "stdout": "",
@@ -4416,7 +3016,7 @@
     "observed_path": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -4440,32 +3040,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_var_tmp_data_only.vfs_var_tmp_data_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_var_tmp_data_only.vfs_var_tmp_data_only.runtime.sb",
         "/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
       ],
       "stdout": "",
@@ -4479,7 +3059,7 @@
     "observed_path": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -4503,32 +3083,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_var_tmp_data_only.vfs_var_tmp_data_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_var_tmp_data_only.vfs_var_tmp_data_only.runtime.sb",
         "/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
       ],
       "stdout": "",
@@ -4542,7 +3102,7 @@
     "observed_path": "/etc/hosts",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -4566,33 +3126,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/etc/hosts",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_etc_alias_only.vfs_etc_alias_only.runtime.sb",
-        "/private/etc/hosts"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_etc_alias_only.vfs_etc_alias_only.runtime.sb",
+        "/etc/hosts"
       ],
       "stdout": "",
       "stderr": "open target: Operation not permitted\n"
@@ -4605,7 +3145,7 @@
     "observed_path": "/private/etc/hosts",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -4629,32 +3169,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/etc/hosts",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_etc_alias_only.vfs_etc_alias_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_etc_alias_only.vfs_etc_alias_only.runtime.sb",
         "/private/etc/hosts"
       ],
       "stdout": "",
@@ -4668,7 +3188,7 @@
     "observed_path": "/etc/hosts",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -4692,33 +3212,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/etc/hosts",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_etc_private_only.vfs_etc_private_only.runtime.sb",
-        "/private/etc/hosts"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_etc_private_only.vfs_etc_private_only.runtime.sb",
+        "/etc/hosts"
       ],
       "stdout": "",
       "stderr": "open target: Operation not permitted\n"
@@ -4731,7 +3231,7 @@
     "observed_path": "/private/etc/hosts",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/etc/hosts",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -4755,32 +3255,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/etc/hosts",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_etc_private_only.vfs_etc_private_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_etc_private_only.vfs_etc_private_only.runtime.sb",
         "/private/etc/hosts"
       ],
       "stdout": "##\n# Host Database\n#\n# localhost is used to configure the loopback interface\n# when the system is booting.  Do not change this entry.\n##\n127.0.0.1\tlocalhost\n255.255.255.255\tbroadcasthost\n::1             localhost\n",
@@ -4794,7 +3274,7 @@
     "observed_path": "/etc/hosts",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -4818,33 +3298,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/etc/hosts",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_etc_both.vfs_etc_both.runtime.sb",
-        "/private/etc/hosts"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_etc_both.vfs_etc_both.runtime.sb",
+        "/etc/hosts"
       ],
       "stdout": "",
       "stderr": "open target: Operation not permitted\n"
@@ -4857,7 +3317,7 @@
     "observed_path": "/private/etc/hosts",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/etc/hosts",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -4881,32 +3341,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/etc/hosts",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_etc_both.vfs_etc_both.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_etc_both.vfs_etc_both.runtime.sb",
         "/private/etc/hosts"
       ],
       "stdout": "##\n# Host Database\n#\n# localhost is used to configure the loopback interface\n# when the system is booting.  Do not change this entry.\n##\n127.0.0.1\tlocalhost\n255.255.255.255\tbroadcasthost\n::1             localhost\n",
@@ -4920,7 +3360,7 @@
     "observed_path": "/private/tmp/vfs_firmlink_probe",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -4944,32 +3384,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/tmp/vfs_firmlink_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_firmlink_private_only.vfs_firmlink_private_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_firmlink_private_only.vfs_firmlink_private_only.runtime.sb",
         "/private/tmp/vfs_firmlink_probe"
       ],
       "stdout": "vfs-canonicalization vfs_firmlink_probe\n",
@@ -4983,7 +3403,7 @@
     "observed_path": "/private/tmp/vfs_firmlink_probe",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -5007,32 +3427,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/tmp/vfs_firmlink_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_firmlink_private_only.vfs_firmlink_private_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_firmlink_private_only.vfs_firmlink_private_only.runtime.sb",
         "/private/tmp/vfs_firmlink_probe"
       ],
       "stdout": "",
@@ -5046,7 +3446,7 @@
     "observed_path": "/private/tmp/vfs_firmlink_probe",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -5070,32 +3470,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_firmlink_private_only.vfs_firmlink_private_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_firmlink_private_only.vfs_firmlink_private_only.runtime.sb",
         "/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
       ],
       "stdout": "vfs-canonicalization vfs_firmlink_probe\nruntime-check\n",
@@ -5109,7 +3489,7 @@
     "observed_path": "/private/tmp/vfs_firmlink_probe",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -5133,32 +3513,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_firmlink_private_only.vfs_firmlink_private_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_firmlink_private_only.vfs_firmlink_private_only.runtime.sb",
         "/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
       ],
       "stdout": "",
@@ -5172,7 +3532,7 @@
     "observed_path": "/private/tmp/vfs_firmlink_probe",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -5196,32 +3556,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/tmp/vfs_firmlink_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_firmlink_data_only.vfs_firmlink_data_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_firmlink_data_only.vfs_firmlink_data_only.runtime.sb",
         "/private/tmp/vfs_firmlink_probe"
       ],
       "stdout": "",
@@ -5235,7 +3575,7 @@
     "observed_path": "/private/tmp/vfs_firmlink_probe",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -5259,32 +3599,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/tmp/vfs_firmlink_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_firmlink_data_only.vfs_firmlink_data_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_firmlink_data_only.vfs_firmlink_data_only.runtime.sb",
         "/private/tmp/vfs_firmlink_probe"
       ],
       "stdout": "",
@@ -5298,7 +3618,7 @@
     "observed_path": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -5322,32 +3642,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_firmlink_data_only.vfs_firmlink_data_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_firmlink_data_only.vfs_firmlink_data_only.runtime.sb",
         "/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
       ],
       "stdout": "",
@@ -5361,7 +3661,7 @@
     "observed_path": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -5385,32 +3685,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_firmlink_data_only.vfs_firmlink_data_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_firmlink_data_only.vfs_firmlink_data_only.runtime.sb",
         "/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
       ],
       "stdout": "",
@@ -5424,7 +3704,7 @@
     "observed_path": "/private/tmp/vfs_firmlink_probe",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -5448,32 +3728,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/tmp/vfs_firmlink_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_firmlink_both.vfs_firmlink_both.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_firmlink_both.vfs_firmlink_both.runtime.sb",
         "/private/tmp/vfs_firmlink_probe"
       ],
       "stdout": "vfs-canonicalization vfs_firmlink_probe\nruntime-check\nruntime-check\n",
@@ -5487,7 +3747,7 @@
     "observed_path": "/private/tmp/vfs_firmlink_probe",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -5511,32 +3771,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/tmp/vfs_firmlink_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_firmlink_both.vfs_firmlink_both.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_firmlink_both.vfs_firmlink_both.runtime.sb",
         "/private/tmp/vfs_firmlink_probe"
       ],
       "stdout": "",
@@ -5550,7 +3790,7 @@
     "observed_path": "/private/tmp/vfs_firmlink_probe",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -5574,32 +3814,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_firmlink_both.vfs_firmlink_both.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_firmlink_both.vfs_firmlink_both.runtime.sb",
         "/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
       ],
       "stdout": "vfs-canonicalization vfs_firmlink_probe\nruntime-check\nruntime-check\nruntime-check\n",
@@ -5613,7 +3833,7 @@
     "observed_path": "/private/tmp/vfs_firmlink_probe",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -5637,32 +3857,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_firmlink_both.vfs_firmlink_both.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_firmlink_both.vfs_firmlink_both.runtime.sb",
         "/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
       ],
       "stdout": "",
@@ -5676,7 +3876,7 @@
     "observed_path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -5700,33 +3900,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_link_var_tmp_only.vfs_link_var_tmp_only.runtime.sb",
-        "/private/var/tmp/vfs_link_probe"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_link_var_tmp_only.vfs_link_var_tmp_only.runtime.sb",
+        "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
       ],
       "stdout": "",
       "stderr": "open target: Operation not permitted\n"
@@ -5739,7 +3919,7 @@
     "observed_path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -5763,33 +3943,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_link_var_tmp_only.vfs_link_var_tmp_only.runtime.sb",
-        "/private/var/tmp/vfs_link_probe"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_link_var_tmp_only.vfs_link_var_tmp_only.runtime.sb",
+        "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
       ],
       "stdout": "",
       "stderr": "open target: Operation not permitted\n"
@@ -5802,7 +3962,7 @@
     "observed_path": "/private/var/tmp/vfs_link_probe",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/var/tmp/vfs_link_probe",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -5826,32 +3986,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/var/tmp/vfs_link_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_link_var_tmp_only.vfs_link_var_tmp_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_link_var_tmp_only.vfs_link_var_tmp_only.runtime.sb",
         "/private/var/tmp/vfs_link_probe"
       ],
       "stdout": "vfs-canonicalization vfs_link_probe\n",
@@ -5865,7 +4005,7 @@
     "observed_path": "/private/var/tmp/vfs_link_probe",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/var/tmp/vfs_link_probe",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -5889,32 +4029,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/var/tmp/vfs_link_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_link_var_tmp_only.vfs_link_var_tmp_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_link_var_tmp_only.vfs_link_var_tmp_only.runtime.sb",
         "/private/var/tmp/vfs_link_probe"
       ],
       "stdout": "",
@@ -5928,7 +4048,7 @@
     "observed_path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -5952,33 +4072,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_link_private_tmp_only.vfs_link_private_tmp_only.runtime.sb",
-        "/private/var/tmp/vfs_link_probe"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_link_private_tmp_only.vfs_link_private_tmp_only.runtime.sb",
+        "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
       ],
       "stdout": "",
       "stderr": "open target: Operation not permitted\n"
@@ -5991,7 +4091,7 @@
     "observed_path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -6015,33 +4115,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_link_private_tmp_only.vfs_link_private_tmp_only.runtime.sb",
-        "/private/var/tmp/vfs_link_probe"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_link_private_tmp_only.vfs_link_private_tmp_only.runtime.sb",
+        "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
       ],
       "stdout": "",
       "stderr": "open target: Operation not permitted\n"
@@ -6054,7 +4134,7 @@
     "observed_path": "/private/var/tmp/vfs_link_probe",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -6078,32 +4158,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/var/tmp/vfs_link_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_link_private_tmp_only.vfs_link_private_tmp_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_link_private_tmp_only.vfs_link_private_tmp_only.runtime.sb",
         "/private/var/tmp/vfs_link_probe"
       ],
       "stdout": "",
@@ -6117,7 +4177,7 @@
     "observed_path": "/private/var/tmp/vfs_link_probe",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -6141,32 +4201,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/var/tmp/vfs_link_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_link_private_tmp_only.vfs_link_private_tmp_only.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_link_private_tmp_only.vfs_link_private_tmp_only.runtime.sb",
         "/private/var/tmp/vfs_link_probe"
       ],
       "stdout": "",
@@ -6180,7 +4220,7 @@
     "observed_path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -6204,33 +4244,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_link_both.vfs_link_both.runtime.sb",
-        "/private/var/tmp/vfs_link_probe"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_link_both.vfs_link_both.runtime.sb",
+        "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
       ],
       "stdout": "",
       "stderr": "open target: Operation not permitted\n"
@@ -6243,7 +4263,7 @@
     "observed_path": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
     "observed_path_source": "requested_path",
     "observed_path_nofirmlink": null,
-    "observed_path_nofirmlink_source": "not_attempted",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "deny",
@@ -6267,33 +4287,13 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_link_both.vfs_link_both.runtime.sb",
-        "/private/var/tmp/vfs_link_probe"
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_link_both.vfs_link_both.runtime.sb",
+        "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
       ],
       "stdout": "",
       "stderr": "open target: Operation not permitted\n"
@@ -6306,7 +4306,7 @@
     "observed_path": "/private/var/tmp/vfs_link_probe",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/var/tmp/vfs_link_probe",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -6330,32 +4330,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/var/tmp/vfs_link_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-read*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_reader",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_link_both.vfs_link_both.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_link_both.vfs_link_both.runtime.sb",
         "/private/var/tmp/vfs_link_probe"
       ],
       "stdout": "vfs-canonicalization vfs_link_probe\nruntime-check\n",
@@ -6369,7 +4349,7 @@
     "observed_path": "/private/var/tmp/vfs_link_probe",
     "observed_path_source": "fd_path",
     "observed_path_nofirmlink": "/System/Volumes/Data/private/var/tmp/vfs_link_probe",
-    "observed_path_nofirmlink_source": "fd_path",
+    "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
     "observed_path_nofirmlink_errno": null,
     "observed_path_errno": null,
     "decision": "allow",
@@ -6393,32 +4373,12 @@
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
     },
-    "seatbelt_callouts": [
-      {
-        "api": "sandbox_check_by_audit_token",
-        "argument": "/private/var/tmp/vfs_link_probe",
-        "check_type": 1073741824,
-        "decision": "deny",
-        "errno": 0,
-        "filter_type": 0,
-        "filter_type_name": "path",
-        "marker_schema_version": 2,
-        "no_report": true,
-        "no_report_reason": null,
-        "operation": "file-write*",
-        "rc": 1,
-        "stage": "pre_syscall",
-        "token_mach_kr": 0,
-        "token_status": "ok",
-        "tool": "seatbelt-callout",
-        "varargs_count": 1
-      }
-    ],
+    "seatbelt_callouts": null,
     "violation_summary": null,
     "raw_log": {
       "command": [
         "book/experiments/runtime-checks/sandbox_writer",
-        "book/experiments/vfs-canonicalization/out/harness/runtime_profiles/vfs_link_both.vfs_link_both.runtime.sb",
+        "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/runtime_profiles/vfs_link_both.vfs_link_both.runtime.sb",
         "/private/var/tmp/vfs_link_probe"
       ],
       "stdout": "",

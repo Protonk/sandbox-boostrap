@@ -28,6 +28,7 @@ from .api import (
 )
 from .channels.spec import ChannelName, ChannelSpec, LockMode
 from .inventory import build_runtime_inventory
+from .plan_builder import PlanBuildResult, build_plan_from_template, list_plan_templates, load_plan_template
 from .plan import lint_plan, list_plans, load_plan, plan_digest
 from .registry import (
     lint_registry,
@@ -54,6 +55,11 @@ __all__ = [
     "resolve_probe",
     "resolve_profile",
     "lint_registry",
+    # Plan templates
+    "list_plan_templates",
+    "load_plan_template",
+    "build_plan_from_template",
+    "PlanBuildResult",
     # Execution + bundle lifecycle
     "RunBundle",
     "ValidationResult",

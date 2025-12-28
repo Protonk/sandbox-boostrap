@@ -41,7 +41,9 @@ When in doubt:
 For **anchor/field2 structure** on this Sonoma world, use this stack as your entrypoint:
 - Structural source (anchors + tags + `field2` per profile): `book/experiments/probe-op-structure/Report.md` (tier: mapped, structural only).
 - `field2` inventory and unknowns: `book/experiments/field2-filters/Report.md` (bounded high/unknown IDs, experiment closed).
-- Curated anchors and their Filter mappings: `book/graph/mappings/anchors/anchor_filter_map.json`, with consistency guarded by `book/tests/test_anchor_filter_alignment.py`.
+- Curated anchors and their Filter mappings:
+  - Canonical (context-indexed): `book/graph/mappings/anchors/anchor_ctx_filter_map.json`
+  - Compatibility view (literal-keyed, conservative): `book/graph/mappings/anchors/anchor_filter_map.json` (guarded by `book/tests/test_anchor_filter_alignment.py`).
 
 ## Swift generator loop (for agents)
 

@@ -59,7 +59,7 @@ We group concepts by the kind of evidence that most naturally supports them. The
 - **Static-Format cluster** (status: strong)  
   - Concepts: Binary Profile Header, Operation Pointer Table, Regex/Literal Table, Profile Format Variant, PolicyGraph/Policy Node.  
   - Evidence: compiled profile blobs, decoder output, op-table experiments, tag layouts, anchors, system profile digests/attestations/static checks.  
-  - Manifests: `mappings/system_profiles/{digests,attestations,static_checks}.json`, `mappings/op_table/*`, `mappings/tag_layouts/tag_layouts.json`, `mappings/anchors/anchor_filter_map.json`, `validation/out/static/*`.
+  - Manifests: `mappings/system_profiles/{digests,attestations,static_checks}.json`, `mappings/op_table/*`, `mappings/tag_layouts/tag_layouts.json`, `mappings/anchors/{anchor_field2_map.json,anchor_ctx_filter_map.json,anchor_filter_map.json}`, `validation/out/static/*`.
 
 - **Semantic Graph and Evaluation cluster** (status: partial)  
   - Concepts: Operation, Filter, Metafilter, Decision, Action Modifier, Policy Node, PolicyGraph.  
@@ -114,7 +114,7 @@ A single “profile ingestion” spine (decoder + tag layouts) serves this clust
   - `book/graph/mappings/tag_layouts/tag_layouts.json` – per-tag node layouts for tags that carry literal/regex operands; used by the decoder.
 
 - **Anchors and field2**
-  - `book/graph/mappings/anchors/{anchor_field2_map.json,anchor_filter_map.json}` – anchor-derived mappings tying human-meaningful strings (paths, mach names, etc.) to field2 values and Filter IDs.
+- `book/graph/mappings/anchors/{anchor_field2_map.json,anchor_ctx_filter_map.json,anchor_filter_map.json}` – anchor-derived mappings: structural anchor hits (`anchor_field2_map.json`), canonical ctx-indexed anchor→Filter bindings (`anchor_ctx_filter_map.json`), and a conservative literal-keyed compatibility view (`anchor_filter_map.json`).
 
 - **Static ingestion outputs**
   - `book/graph/concepts/validation/out/static/*` – JSON summaries of modern and legacy blobs produced by ingestion tools (`profile_ingestion.py`, `decode_blob.py`).
@@ -289,7 +289,8 @@ The following manifests are the main entry points from concepts → examples →
 - `book/graph/mappings/tag_layouts/tag_layouts.json`  
   - Per-tag PolicyGraph layouts.
 
-- `book/graph/mappings/anchors/anchor_filter_map.json`  
+- `book/graph/mappings/anchors/anchor_ctx_filter_map.json` (canonical)  
+- `book/graph/mappings/anchors/anchor_filter_map.json` (compatibility view; derived)  
   - Anchor → filter-ID/name map with status per anchor.
 
 - `book/graph/mappings/vocab/{ops.json,filters.json,attestations.json}`  

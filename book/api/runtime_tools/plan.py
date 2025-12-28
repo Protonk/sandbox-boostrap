@@ -129,6 +129,8 @@ def _probe_to_row(probe: Dict[str, Any], profile_id: str) -> Dict[str, Any]:
         row["mode"] = probe.get("mode")
     if probe.get("driver"):
         row["driver"] = probe.get("driver")
+    if probe.get("anchor_ctx_id"):
+        row["anchor_ctx_id"] = probe.get("anchor_ctx_id")
     return row
 
 

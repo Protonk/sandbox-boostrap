@@ -39,6 +39,7 @@ from book.api.runtime_tools import api as runtime_api
 from book.api.runtime_tools.channels import ChannelSpec
 from book.api.runtime_tools import registry as runtime_registry
 from book.api.runtime_tools import plan as runtime_plan
+from book.api.runtime_tools import plan_builder as runtime_plan_builder
 
 
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))
@@ -234,6 +235,27 @@ def plan_lint_command(args: argparse.Namespace) -> int:
     return 0
 
 
+def list_templates_command(args: argparse.Namespace) -> int:
+    templates = runtime_plan_builder.list_plan_templates()
+    print(json.dumps(templates, indent=2))
+    return 0
+
+
+def plan_build_command(args: argparse.Namespace) -> int:
+    result = runtime_plan_builder.build_plan_from_template(
+        args.template,
+        args.out,
+        overwrite=args.overwrite,
+        write_expected_matrix=not args.skip_expected_matrix,
+    )
+    print(f"[+] wrote {result.plan_path}")
+    print(f"[+] wrote {result.probes_path}")
+    print(f"[+] wrote {result.profiles_path}")
+    if result.expected_matrix_path:
+        print(f"[+] wrote {result.expected_matrix_path}")
+    return 0
+
+
 def registry_lint_command(args: argparse.Namespace) -> int:
     _doc, errors = runtime_registry.lint_registry(args.registry)
     if errors:
@@ -380,6 +402,20 @@ def main(argv: list[str] | None = None) -> int:
     ap_plan_lint = sub.add_parser("plan-lint", help="Validate a plan.json against its registry.")
     ap_plan_lint.add_argument("--plan", type=Path, required=True, help="Path to plan.json")
     ap_plan_lint.set_defaults(func=plan_lint_command)
+
+    ap_list_templates = sub.add_parser("list-templates", help="List available plan templates.")
+    ap_list_templates.set_defaults(func=list_templates_command)
+
+    ap_plan_build = sub.add_parser("plan-build", help="Generate plan/registry data from a template.")
+    ap_plan_build.add_argument("--template", type=str, required=True, help="Template id")
+    ap_plan_build.add_argument("--out", type=Path, required=True, help="Experiment directory root")
+    ap_plan_build.add_argument("--overwrite", action="store_true", help="Overwrite existing plan/registry files")
+    ap_plan_build.add_argument(
+        "--skip-expected-matrix",
+        action="store_true",
+        help="Skip writing out/expected_matrix.json",
+    )
+    ap_plan_build.set_defaults(func=plan_build_command)
 
     ap_reg_lint = sub.add_parser("registry-lint", help="Validate probe/profile registries.")
     ap_reg_lint.add_argument("--registry", type=str, help="Registry id (omit to lint all)")

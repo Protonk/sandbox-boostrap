@@ -14,17 +14,21 @@ This experiment checks how alias/canonical path families behave structurally and
 - **Targets:** the path pairs above; each family is tested only against its own configured pair(s).
 - **Harness:**
   - Entry: `book/experiments/vfs-canonicalization/run_vfs.py`.
+  - Plan-data generated via `python -m book.api.runtime_tools plan-build --template vfs-canonicalization --out book/experiments/vfs-canonicalization --overwrite`.
+  - Runtime harness via `book.api.runtime_tools` plan execution, reusing the same shims as `runtime-checks` / `runtime-adversarial`.
   - Structural decode via `book/api/profile_tools/decoder.py` using `book/graph/mappings/tag_layouts/tag_layouts.json`.
-  - Runtime harness via `book.api.runtime_tools.harness.runner.run_matrix`, reusing the same shims as `runtime-checks` / `runtime-adversarial`.
 - **Outputs:**
-  - `sb/build/*.sb.bin` – compiled VFS profiles.
-  - `out/expected_matrix.json` – human expectations for `(profile_id, requested_path, expected_decision)`.
-  - `out/expected_matrix_harness.json` – harness-compatible expected matrix (internal).
-  - `out/harness/runtime_results.json` – raw runtime harness results (per-profile dict form).
+  - `plan.json` + `registry/{probes,profiles}.json` – plan/registry data generated from the runtime_tools template.
+  - `out/expected_matrix.json` – human expectations for `(profile_id, requested_path, expected_decision)` (template-derived).
+  - `out/<run_id>/expected_matrix.json` – runtime_tools expected matrix (plan-derived, harness-ready).
+  - `out/<run_id>/runtime_results.json` – raw runtime harness results (per-profile dict form).
+  - `out/<run_id>/runtime_events.normalized.json` – normalized runtime observations (per scenario).
+  - `out/promotion_packet.json` – promotion packet (preferred evidence interface) pointing to the committed run-scoped bundle.
   - `out/runtime_results.json` – simplified array of runtime observations (per scenario).
   - `out/decode_tmp_profiles.json` – structural view of anchors/tags/field2 (plus literal candidates) for all configured path pairs in each profile.
   - `out/mismatch_summary.json` – coarse classification for the base `/tmp` family (canonicalization vs control).
   - `out/host_alias_inventory.json` – host-local firmlinks and synthetic root config snapshots (presence + contents).
+  - `book/graph/mappings/vfs_canonicalization/path_canonicalization_map.json` – generated mapping slice derived from the promotion packet, with `book/graph/mappings/vfs_canonicalization/promotion_receipt.json` as the audit receipt.
 - **Observed vs canonicalized paths:**
   - The harness now emits `F_GETPATH` and (when available) `F_GETPATH_NOFIRMLINK` for successful opens. `observed_path` is sourced from `F_GETPATH` when present, and `observed_path_nofirmlink` captures the alternate FD path spelling when available.
   - For denied requests the FD never opens, so neither FD path exists; `observed_path` remains the requested path and canonicalization for denied paths is inferred from behavior.
@@ -56,7 +60,7 @@ These observations align with the broader structural story from `probe-op-struct
 
 ## Runtime observations
 
-From `out/runtime_results.json` (via `run_vfs.py` + `run_expected_matrix` on this world):
+From `out/runtime_results.json` (via `run_vfs.py` + runtime_tools plan execution on this world):
 
 - **Base `/tmp` family**
   - `vfs_tmp_only` denies all alias and canonical requests across the path set for file-read* and file-write*.

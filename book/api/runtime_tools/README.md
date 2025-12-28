@@ -12,6 +12,13 @@ Public API surface: `book/api/runtime_tools/PUBLIC_API.md`.
 ## Common CLI commands (agent-friendly)
 
 ```sh
+# 0) Generate plan/registry data from templates (host-neutral).
+python -m book.api.runtime_tools list-templates
+python -m book.api.runtime_tools plan-build \
+  --template vfs-canonicalization \
+  --out book/experiments/vfs-canonicalization \
+  --overwrite
+
 # 1) Discover and lint plan-data (no execution).
 python -m book.api.runtime_tools list-plans
 python -m book.api.runtime_tools plan-lint --plan book/experiments/hardened-runtime/plan.json

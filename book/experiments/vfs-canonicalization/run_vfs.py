@@ -3,370 +3,143 @@
 VFS canonicalization harness for alias/canonical path families on Sonoma.
 
 Tasks:
-- Compile VFS SBPL profiles → blobs under sb/build.
-- Emit a simple expected_matrix.json (profile_id, operation, requested_path, expected_decision).
-- Build a harness matrix and run it via book.api.runtime_tools.harness.runner.run_matrix.
-- Down-convert the harness runtime_results.json into a simple runtime_results.json array.
-- Decode the VFS blobs via book.api.profile_tools.decoder and emit decode_tmp_profiles.json
+- Ensure local fixtures for the VFS probes.
+- Run the plan-based runtime_tools harness.
+- Down-convert normalized runtime events into a simple runtime_results.json array.
+- Decode the compiled SBPL blobs and emit decode_tmp_profiles.json
   (anchors, tags, and field2 values for the configured path pairs).
 """
 from __future__ import annotations
 
+import argparse
 import json
+import shutil
 from pathlib import Path
 from typing import Any, Dict, List
-
 import sys
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from book.api.path_utils import ensure_absolute, find_repo_root, to_repo_relative
-from book.api.profile_tools import decoder  # type: ignore
-from book.api.runtime_tools.harness.runner import ensure_fixtures, run_matrix  # type: ignore
-from book.api.profile_tools import compile_sbpl_string  # type: ignore
-from book.api.runtime_tools.core.normalize import write_matrix_observations  # type: ignore
+from book.api import path_utils
+from book.api.profile_tools import compile_sbpl_string, decoder  # type: ignore
+from book.api.runtime_tools import api as runtime_api  # type: ignore
+from book.api.runtime_tools import plan_builder as runtime_plan_builder  # type: ignore
+from book.api.runtime_tools import registry as runtime_registry  # type: ignore
+from book.api.runtime_tools.channels import ChannelSpec  # type: ignore
+from book.api.runtime_tools.harness.runner import ensure_fixtures  # type: ignore
 
 
-REPO_ROOT = find_repo_root(Path(__file__))
-if str(REPO_ROOT) not in sys.path:
-    sys.path.insert(0, str(REPO_ROOT))
-
+REPO_ROOT = path_utils.find_repo_root(Path(__file__))
 BASE_DIR = Path(__file__).resolve().parent
-SB_DIR = BASE_DIR / "sb"
-BUILD_DIR = SB_DIR / "build"
 OUT_DIR = BASE_DIR / "out"
+PLAN_PATH = BASE_DIR / "plan.json"
+REGISTRY_ID = "vfs-canonicalization"
+TEMPLATE_ID = "vfs-canonicalization"
 WORLD_PATH = REPO_ROOT / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world.json"
 
-BASE_PATH_PAIRS = [
-    ("/tmp/foo", "/private/tmp/foo"),
-    ("/tmp/bar", "/private/tmp/bar"),
-    ("/tmp/nested/child", "/private/tmp/nested/child"),
-    ("/var/tmp/canon", "/private/var/tmp/canon"),
-]
-VAR_TMP_REQUEST_PATHS = [
-    "/var/tmp/vfs_canon_probe",
-    "/private/var/tmp/vfs_canon_probe",
-    "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
-]
-ETC_REQUEST_PATHS = [
-    "/etc/hosts",
-    "/private/etc/hosts",
-]
-FIRMLINK_REQUEST_PATHS = [
-    "/private/tmp/vfs_firmlink_probe",
-    "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
-]
-LINK_REQUEST_PATHS = [
-    "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
-    "/private/var/tmp/vfs_link_probe",
-]
 
-PROFILE_CONFIGS: Dict[str, Dict[str, Any]] = {
-    "vfs_tmp_only": {
-        "sb": SB_DIR / "vfs_tmp_only.sb",
-        "path_pairs": BASE_PATH_PAIRS,
-        "ops": ["file-read*", "file-write*"],
-        "role": "first_only",
-        "policy": "canonicalized_with_var_tmp_exception",
-        "variant": "tmp",
-    },
-    "vfs_private_tmp_only": {
-        "sb": SB_DIR / "vfs_private_tmp_only.sb",
-        "path_pairs": BASE_PATH_PAIRS,
-        "ops": ["file-read*", "file-write*"],
-        "role": "second_only",
-        "policy": "canonicalized_with_var_tmp_exception",
-        "variant": "tmp",
-    },
-    "vfs_both_paths": {
-        "sb": SB_DIR / "vfs_both_paths.sb",
-        "path_pairs": BASE_PATH_PAIRS,
-        "ops": ["file-read*", "file-write*"],
-        "role": "both",
-        "policy": "canonicalized_with_var_tmp_exception",
-        "variant": "tmp",
-    },
-    "vfs_var_tmp_alias_only": {
-        "sb": SB_DIR / "vfs_var_tmp_alias_only.sb",
-        "request_paths": VAR_TMP_REQUEST_PATHS,
-        "allowed_paths": ["/var/tmp/vfs_canon_probe"],
-        "ops": ["file-read*", "file-write*"],
-        "policy": "literal",
-        "variant": "var_tmp",
-    },
-    "vfs_var_tmp_private_only": {
-        "sb": SB_DIR / "vfs_var_tmp_private_only.sb",
-        "request_paths": VAR_TMP_REQUEST_PATHS,
-        "allowed_paths": ["/private/var/tmp/vfs_canon_probe"],
-        "ops": ["file-read*", "file-write*"],
-        "policy": "literal",
-        "variant": "var_tmp",
-    },
-    "vfs_var_tmp_both": {
-        "sb": SB_DIR / "vfs_var_tmp_both.sb",
-        "request_paths": VAR_TMP_REQUEST_PATHS,
-        "allowed_paths": ["/var/tmp/vfs_canon_probe", "/private/var/tmp/vfs_canon_probe"],
-        "ops": ["file-read*", "file-write*"],
-        "policy": "literal",
-        "variant": "var_tmp",
-    },
-    "vfs_var_tmp_data_only": {
-        "sb": SB_DIR / "vfs_var_tmp_data_only.sb",
-        "request_paths": VAR_TMP_REQUEST_PATHS,
-        "allowed_paths": ["/System/Volumes/Data/private/var/tmp/vfs_canon_probe"],
-        "ops": ["file-read*", "file-write*"],
-        "policy": "literal",
-        "variant": "var_tmp",
-    },
-    "vfs_etc_alias_only": {
-        "sb": SB_DIR / "vfs_etc_alias_only.sb",
-        "request_paths": ETC_REQUEST_PATHS,
-        "allowed_paths": ["/etc/hosts"],
-        "ops": ["file-read*"],
-        "policy": "literal",
-        "variant": "etc",
-    },
-    "vfs_etc_private_only": {
-        "sb": SB_DIR / "vfs_etc_private_only.sb",
-        "request_paths": ETC_REQUEST_PATHS,
-        "allowed_paths": ["/private/etc/hosts"],
-        "ops": ["file-read*"],
-        "policy": "literal",
-        "variant": "etc",
-    },
-    "vfs_etc_both": {
-        "sb": SB_DIR / "vfs_etc_both.sb",
-        "request_paths": ETC_REQUEST_PATHS,
-        "allowed_paths": ["/etc/hosts", "/private/etc/hosts"],
-        "ops": ["file-read*"],
-        "policy": "literal",
-        "variant": "etc",
-    },
-    "vfs_firmlink_private_only": {
-        "sb": SB_DIR / "vfs_firmlink_private_only.sb",
-        "request_paths": FIRMLINK_REQUEST_PATHS,
-        "allowed_paths": ["/private/tmp/vfs_firmlink_probe"],
-        "ops": ["file-read*", "file-write*"],
-        "policy": "literal",
-        "variant": "firmlink_tmp",
-    },
-    "vfs_firmlink_data_only": {
-        "sb": SB_DIR / "vfs_firmlink_data_only.sb",
-        "request_paths": FIRMLINK_REQUEST_PATHS,
-        "allowed_paths": ["/System/Volumes/Data/private/tmp/vfs_firmlink_probe"],
-        "ops": ["file-read*", "file-write*"],
-        "policy": "literal",
-        "variant": "firmlink_tmp",
-    },
-    "vfs_firmlink_both": {
-        "sb": SB_DIR / "vfs_firmlink_both.sb",
-        "request_paths": FIRMLINK_REQUEST_PATHS,
-        "allowed_paths": ["/private/tmp/vfs_firmlink_probe", "/System/Volumes/Data/private/tmp/vfs_firmlink_probe"],
-        "ops": ["file-read*", "file-write*"],
-        "policy": "literal",
-        "variant": "firmlink_tmp",
-    },
-    "vfs_link_var_tmp_only": {
-        "sb": SB_DIR / "vfs_link_var_tmp_only.sb",
-        "request_paths": LINK_REQUEST_PATHS,
-        "allowed_paths": ["/private/var/tmp/vfs_link_probe"],
-        "ops": ["file-read*", "file-write*"],
-        "policy": "literal",
-        "variant": "link_path",
-    },
-    "vfs_link_private_tmp_only": {
-        "sb": SB_DIR / "vfs_link_private_tmp_only.sb",
-        "request_paths": LINK_REQUEST_PATHS,
-        "allowed_paths": ["/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"],
-        "ops": ["file-read*", "file-write*"],
-        "policy": "literal",
-        "variant": "link_path",
-    },
-    "vfs_link_both": {
-        "sb": SB_DIR / "vfs_link_both.sb",
-        "request_paths": LINK_REQUEST_PATHS,
-        "allowed_paths": [
-            "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
-            "/private/var/tmp/vfs_link_probe",
-        ],
-        "ops": ["file-read*", "file-write*"],
-        "policy": "literal",
-        "variant": "link_path",
-    },
-}
-
-
-def rel(path: Path) -> str:
-    return to_repo_relative(path, REPO_ROOT)
+def _load_json(path: Path) -> Dict[str, Any]:
+    return json.loads(path.read_text())
 
 
 def load_world_id() -> str:
-    data = json.loads(WORLD_PATH.read_text())
+    data = _load_json(WORLD_PATH)
     return data.get("world_id") or data.get("id", "unknown-world")
 
 
-def compile_profiles() -> Dict[str, Path]:
-    """Compile VFS SBPL profiles to blobs and return map profile_id -> blob path."""
-    BUILD_DIR.mkdir(parents=True, exist_ok=True)
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Run VFS canonicalization via runtime_tools plan.")
+    parser.add_argument("--out", type=Path, default=OUT_DIR, help="Output directory")
+    parser.add_argument("--channel", type=str, default="launchd_clean", help="Channel (launchd_clean|direct)")
+    parser.add_argument(
+        "--require-promotable",
+        action="store_true",
+        help="Fail unless the resulting bundle is decision-stage promotable (recommended for launchd_clean).",
+    )
+    return parser.parse_args()
+
+
+def load_plan_doc() -> Dict[str, Any]:
+    if not PLAN_PATH.exists():
+        raise FileNotFoundError("missing plan.json; run runtime_tools plan-build first")
+    return _load_json(PLAN_PATH)
+
+
+def load_profile_paths(plan_doc: Dict[str, Any]) -> Dict[str, Path]:
+    registry = runtime_registry.load_registry(REGISTRY_ID)
+    profiles = registry.get("profiles") or {}
+    paths: Dict[str, Path] = {}
+    for profile_id in plan_doc.get("profiles") or []:
+        profile = profiles.get(profile_id)
+        if not profile:
+            raise KeyError(f"profile not found in registry: {REGISTRY_ID}:{profile_id}")
+        profile_path = profile.get("profile_path")
+        if not profile_path:
+            raise KeyError(f"profile missing profile_path: {REGISTRY_ID}:{profile_id}")
+        paths[profile_id] = path_utils.ensure_absolute(Path(profile_path), REPO_ROOT)
+    return paths
+
+
+def resolve_blob_paths(profile_paths: Dict[str, Path], bundle_dir: Path) -> Dict[str, Path]:
+    build_dir = bundle_dir / "sb_build"
+    build_dir.mkdir(parents=True, exist_ok=True)
     blobs: Dict[str, Path] = {}
-    for profile_id, cfg in PROFILE_CONFIGS.items():
-        sb_path = cfg["sb"]
-        blob_path = BUILD_DIR / f"{sb_path.stem}.sb.bin"
-        blob = compile_sbpl_string(sb_path.read_text()).blob
-        blob_path.write_bytes(blob)
+    for profile_id, sbpl_path in profile_paths.items():
+        blob_path = build_dir / f"{sbpl_path.stem}.sb.bin"
+        if not blob_path.exists():
+            blob = compile_sbpl_string(sbpl_path.read_text()).blob
+            blob_path.write_bytes(blob)
         blobs[profile_id] = blob_path
     return blobs
 
 
-def _expected_decisions(policy: str, role: str, primary_path: str, alternate_path: str) -> tuple[str, str]:
-    if policy == "literal":
-        if role == "first_only":
-            return "allow", "deny"
-        if role == "second_only":
-            return "deny", "allow"
-        if role == "both":
-            return "allow", "allow"
-        raise ValueError(f"unknown role {role}")
-
-    if policy in {"canonicalized", "canonicalized_with_var_tmp_exception"}:
-        if role == "first_only":
-            primary = "deny"
-            alternate = "deny"
-        elif role in {"second_only", "both"}:
-            primary = "allow"
-            alternate = "allow"
-        else:
-            raise ValueError(f"unknown role {role}")
-
-        if policy == "canonicalized_with_var_tmp_exception" and alternate_path.startswith("/private/var/"):
-            primary = "deny"
-            if role == "first_only":
-                alternate = "deny"
-            else:
-                alternate = "allow"
-        return primary, alternate
-
-    raise ValueError(f"unknown policy {policy}")
-
-
-def build_simple_expected_matrix() -> List[Dict[str, Any]]:
-    """Emit a simple expected matrix across all profile configs and path sets."""
-    entries: List[Dict[str, Any]] = []
-    for profile_id, cfg in PROFILE_CONFIGS.items():
-        ops = cfg["ops"]
-        policy = cfg["policy"]
-        variant = cfg["variant"]
-        if policy == "literal":
-            request_paths = cfg.get("request_paths") or [path for pair in cfg.get("path_pairs", []) for path in pair]
-            allowed_paths = set(cfg.get("allowed_paths") or [])
-            for path in request_paths:
-                expected = "allow" if path in allowed_paths else "deny"
-                for op in ops:
-                    entries.append(
-                        {
-                            "profile_id": profile_id,
-                            "operation": op,
-                            "requested_path": path,
-                            "expected_decision": expected,
-                            "notes": f"{profile_id} {variant}/{policy} {path}",
-                        }
-                    )
-            continue
-
-        role = cfg["role"]
-        for primary_path, alternate_path in cfg["path_pairs"]:
-            primary_expected, alternate_expected = _expected_decisions(policy, role, primary_path, alternate_path)
-            for op in ops:
-                entries.append(
-                    {
-                        "profile_id": profile_id,
-                        "operation": op,
-                        "requested_path": primary_path,
-                        "expected_decision": primary_expected,
-                        "notes": f"{profile_id} {variant}/{policy}/{role} primary {primary_path}",
-                    }
-                )
-                entries.append(
-                    {
-                        "profile_id": profile_id,
-                        "operation": op,
-                        "requested_path": alternate_path,
-                        "expected_decision": alternate_expected,
-                        "notes": f"{profile_id} {variant}/{policy}/{role} alternate {alternate_path}",
-                    }
-                )
-    OUT_DIR.mkdir(parents=True, exist_ok=True)
-    out_path = OUT_DIR / "expected_matrix.json"
-    out_path.write_text(json.dumps(entries, indent=2))
-    return entries
-
-
-def build_harness_matrix(world_id: str, blobs: Dict[str, Path], simple_matrix: List[Dict[str, Any]]) -> Path:
-    """Translate the simple matrix into the harness-compatible expected matrix."""
-    profiles: Dict[str, Any] = {}
-    # Map from profile_id to sb path for runtime harness
-    sb_paths: Dict[str, Path] = {profile_id: cfg["sb"] for profile_id, cfg in PROFILE_CONFIGS.items()}
-    for entry in simple_matrix:
-        profile_id = entry["profile_id"]
-        path = entry["requested_path"]
-        expected = entry["expected_decision"]
-        operation = entry["operation"]
-        rec = profiles.setdefault(
-            profile_id,
-            {
-                "mode": "sbpl",
-                "sbpl": rel(sb_paths[profile_id]),
-                "blob": rel(blobs[profile_id]),
-                "family": "vfs",
-                "semantic_group": "vfs:canonicalization",
-                "probes": [],
-            },
-        )
-        probe = {
-            "name": f"{operation}:{path}",
-            "operation": operation,
-            "target": path,
-            "expected": expected,
-        }
-        probe["expectation_id"] = f"{profile_id}:{operation}:{path}"
-        rec["probes"].append(probe)
-    matrix = {"world_id": world_id, "profiles": profiles}
-    OUT_DIR.mkdir(parents=True, exist_ok=True)
-    matrix_path = OUT_DIR / "expected_matrix_harness.json"
-    matrix_path.write_text(json.dumps(matrix, indent=2))
-    return matrix_path
-
-
-def run_runtime(matrix_path: Path, sb_paths: Dict[str, Path]) -> Path:
-    """Run the harness matrix via runtime_tools and return path to raw runtime_results.json."""
-    harness_out = OUT_DIR / "harness"
-    harness_out.mkdir(parents=True, exist_ok=True)
-    runtime_out = run_matrix(
-        matrix_path=matrix_path,
-        out_dir=harness_out,
-        profile_paths={k: ensure_absolute(v, REPO_ROOT) for k, v in sb_paths.items()},
-    )
-    return runtime_out
-
-
-def normalize_runtime_results(expected_matrix_path: Path, raw_runtime_results_path: Path) -> Path:
-    """Normalize runtime harness output into canonical runtime events for this suite."""
-    out_path = OUT_DIR / "runtime_events.normalized.json"
-    write_matrix_observations(expected_matrix_path, raw_runtime_results_path, out_path)
-    return out_path
+def run_runtime_plan(out_dir: Path, channel_name: str) -> Path:
+    channel = ChannelSpec(channel=channel_name, require_clean=(channel_name == "launchd_clean"))
+    bundle = runtime_api.run_plan(PLAN_PATH, out_dir, channel=channel)
+    if bundle.status == "failed":
+        raise RuntimeError(f"runtime plan failed; see {bundle.out_dir / 'run_status.json'}")
+    return bundle.out_dir
 
 
 def downconvert_runtime_results(normalized_events_path: Path) -> Path:
     """Down-convert normalized runtime events into the simple array format."""
     events = json.loads(normalized_events_path.read_text())
+    witness_map: Dict[tuple[str, str, str], Dict[str, Any]] = {}
+    witness_path = normalized_events_path.parent / "path_witnesses.json"
+    if witness_path.exists():
+        witness_doc = json.loads(witness_path.read_text())
+        for rec in witness_doc.get("records") or []:
+            if rec.get("lane") != "scenario":
+                continue
+            profile_id = rec.get("profile_id")
+            op = rec.get("operation")
+            requested = rec.get("requested_path")
+            if not profile_id or not op or not requested:
+                continue
+            witness_map[(profile_id, op, requested)] = rec
     simple: List[Dict[str, Any]] = []
     for event in events:
         requested_path = event.get("target")
         stderr = event.get("stderr")
-        fd_obs = _extract_path_observation(stderr, "F_GETPATH")
-        nofirmlink_obs = _extract_path_observation(stderr, "F_GETPATH_NOFIRMLINK")
+        witness = None
+        if event.get("profile_id") and event.get("operation") and requested_path:
+            witness = witness_map.get((event["profile_id"], event["operation"], requested_path))
+
+        if witness:
+            fd_path = witness.get("observed_path")
+            nofirmlink_path = witness.get("observed_path_nofirmlink")
+            fd_obs = {"path": fd_path, "source": witness.get("observed_path_source"), "errno": witness.get("observed_path_errno")}
+            nofirmlink_obs = {
+                "path": nofirmlink_path,
+                "source": witness.get("observed_path_nofirmlink_source"),
+                "errno": witness.get("observed_path_nofirmlink_errno"),
+            }
+        else:
+            fd_obs = _extract_path_observation(stderr, "F_GETPATH")
+            nofirmlink_obs = _extract_path_observation(stderr, "F_GETPATH_NOFIRMLINK")
+
         observed_path = fd_obs["path"] or requested_path
         observed_path_source = "fd_path" if fd_obs["path"] else "requested_path"
         simple.append(
@@ -467,19 +240,8 @@ def anchor_present(anchor: str, literals: set[str]) -> bool:
     return False
 
 
-def all_anchor_paths() -> List[str]:
-    anchors: set[str] = set()
-    for cfg in PROFILE_CONFIGS.values():
-        for pair in cfg.get("path_pairs", []):
-            anchors.update(pair)
-        for path in cfg.get("request_paths", []):
-            anchors.add(path)
-    return sorted(anchors)
-
-
-def decode_profiles(blobs: Dict[str, Path]) -> Path:
+def decode_profiles(blobs: Dict[str, Path], anchors: List[str]) -> Path:
     """Decode the VFS blobs and extract anchor/tag/field2 structure for configured path pairs."""
-    anchors = all_anchor_paths()
     decode: Dict[str, Any] = {}
     for profile_id, blob_path in blobs.items():
         data = blob_path.read_bytes()
@@ -578,16 +340,32 @@ def ensure_vfs_files() -> None:
 
 
 def main() -> int:
+    args = parse_args()
+    plan_doc = load_plan_doc()
     world_id = load_world_id()
-    blobs = compile_profiles()
-    simple_matrix = build_simple_expected_matrix()
-    matrix_path = build_harness_matrix(world_id, blobs, simple_matrix)
+
     ensure_vfs_files()
-    sb_paths = {profile_id: cfg["sb"] for profile_id, cfg in PROFILE_CONFIGS.items()}
-    raw_runtime = run_runtime(matrix_path, sb_paths)
-    normalized_events = normalize_runtime_results(matrix_path, raw_runtime)
+    bundle_dir = run_runtime_plan(args.out, args.channel)
+
+    normalized_events = bundle_dir / "runtime_events.normalized.json"
+    if not normalized_events.exists():
+        raise FileNotFoundError(f"missing runtime events: {normalized_events}")
+    shutil.copyfile(normalized_events, OUT_DIR / "runtime_events.normalized.json")
     downconvert_runtime_results(normalized_events)
-    decode_profiles(blobs)
+
+    packet_out = Path(args.out) / "promotion_packet.json"
+    runtime_api.emit_promotion_packet(
+        Path(args.out),
+        packet_out,
+        require_promotable=bool(args.require_promotable),
+    )
+
+    template = runtime_plan_builder.load_plan_template(TEMPLATE_ID)
+    anchors = runtime_plan_builder.collect_anchor_paths(template)
+    profile_paths = load_profile_paths(plan_doc)
+    blobs = resolve_blob_paths(profile_paths, bundle_dir)
+    decode_profiles(blobs, anchors)
+
     emit_mismatch_summary(world_id)
     return 0
 

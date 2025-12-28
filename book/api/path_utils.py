@@ -43,8 +43,13 @@ def ensure_absolute(path: Pathish, repo_root: Path | None = None) -> Path:
 
 def to_repo_relative(path: Pathish, repo_root: Path | None = None) -> str:
     """Return a repo-relative string if possible, otherwise the absolute string."""
-    p = Path(path).resolve()
     root = (repo_root or find_repo_root()).resolve()
+    p = Path(path)
+    # Only resolve relative paths against the repo root. For absolute paths
+    # outside the repo, preserve the spelling to avoid silently normalizing
+    # symlinked aliases like `/tmp -> /private/tmp` in recorded argv.
+    if not p.is_absolute():
+        p = (root / p).resolve()
     try:
         return str(p.relative_to(root))
     except ValueError:

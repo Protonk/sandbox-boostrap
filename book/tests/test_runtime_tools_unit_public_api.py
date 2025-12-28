@@ -19,6 +19,11 @@ EXPECTED_PUBLIC_EXPORTS = [
     "resolve_probe",
     "resolve_profile",
     "lint_registry",
+    # Plan templates
+    "list_plan_templates",
+    "load_plan_template",
+    "build_plan_from_template",
+    "PlanBuildResult",
     # Execution + bundle lifecycle
     "RunBundle",
     "ValidationResult",
@@ -41,4 +46,3 @@ def test_runtime_tools_public_api_exports_stable():
 def test_runtime_tools_public_api_exports_resolve():
     missing = [name for name in rt.__all__ if not hasattr(rt, name)]
     assert not missing, f"missing public exports: {missing}"
-
