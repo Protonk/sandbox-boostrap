@@ -26,21 +26,15 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from book.api.profile_tools import digests as digests_mod  # type: ignore
+from book.api import world as world_mod  # type: ignore
 OUT_PATH = REPO_ROOT / "book/graph/mappings/vocab/attestations.json"
 VALIDATION_STATUS = REPO_ROOT / "book/graph/concepts/validation/out/validation_status.json"
 VALIDATION_JOB_ID = "vocab:sonoma-14.4.1"
-BASELINE_REF = "book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json"
-BASELINE_PATH = REPO_ROOT / BASELINE_REF
-
-
 def load_baseline() -> Dict[str, Any]:
-    if not BASELINE_PATH.exists():
-        raise SystemExit(f"missing baseline: {BASELINE_PATH}")
-    data = json.loads(BASELINE_PATH.read_text())
-    world_id = data.get("world_id")
-    if not world_id:
-        raise SystemExit("world_id missing from baseline")
-    data["host_ref"] = str(BASELINE_PATH.relative_to(REPO_ROOT))
+    data, resolution = world_mod.load_world(repo_root=REPO_ROOT)
+    world_id = world_mod.require_world_id(data, world_path=resolution.entry.world_path)
+    data["world_id"] = world_id
+    data["host_ref"] = world_mod.world_path_for_metadata(resolution, repo_root=REPO_ROOT)
     return data
 
 
@@ -79,7 +73,7 @@ def run_validation_job(job_id: str) -> None:
     if not job:
         raise SystemExit(f"validation job {job_id} missing from validation_status.json")
     status = job.get("status") or ""
-    if not status.startswith("ok"):
+    if status != "ok":
         raise SystemExit(f"validation job {job_id} not ok: {status}")
     # Simple freshness check: status file must be newer than libsandbox slice.
     lib_path = REPO_ROOT / "book/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib"

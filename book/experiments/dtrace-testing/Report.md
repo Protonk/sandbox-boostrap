@@ -4,7 +4,7 @@
 Probe EntitlementJail’s runtime behavior with a SIP-compatible, PID-scoped DTrace program, capturing syscall denials and (when available) libsystem_sandbox API usage. The goal is to produce host-bound, JSONL raw traces and normalized deny signatures without upgrading runtime evidence to PolicyGraph semantics.
 
 ## Baseline & scope
-- world_id: sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (`book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`)
+- world_id: sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (`book/world/sonoma-14.4.1-23E224-arm64/world.json`)
 - Host: macOS 14.4.1 (23E224), kernel 23.4.0, arm64, SIP enabled.
 - Scope: syscall + pid providers only; filter to `pid == $target` and `errno == EPERM || errno == EACCES`.
 - Target: EntitlementJail debug XPC service `ProbeService_debuggable` (process name `ProbeService_debuggable`).

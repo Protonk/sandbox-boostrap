@@ -19,6 +19,7 @@ import os
 import traceback
 
 from ghidra.program.model.address import AddressSet
+from ghidra.program.model.mem import MemoryAccessException
 
 _RUN_CALLED = False
 
@@ -50,6 +51,8 @@ def _block_set(blocks):
 def _read_pointer(mem, addr, ptr_size, addr_factory):
     try:
         raw = mem.getLong(addr) if ptr_size == 8 else mem.getInt(addr)
+    except MemoryAccessException:
+        return None
     except Exception:
         return None
     mask = (1 << (ptr_size * 8)) - 1

@@ -24,12 +24,13 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from book.api import path_utils
+from book.api import evidence_tiers
+from book.api import world as world_mod
 LIB_PATH = ROOT / "book/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib"
 OPS_PATH = ROOT / "book/graph/mappings/vocab/ops.json"
 FILTERS_PATH = ROOT / "book/graph/mappings/vocab/filters.json"
 OP_NAMES_PATH = ROOT / "book/graph/mappings/vocab/operation_names.json"
 FILTER_NAMES_PATH = ROOT / "book/graph/mappings/vocab/filter_names.json"
-BASELINE_PATH = ROOT / "book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json"
 
 
 @dataclass
@@ -42,13 +43,8 @@ class Segment:
 
 
 def load_world_id() -> str:
-    if not BASELINE_PATH.exists():
-        raise FileNotFoundError(f"missing baseline: {BASELINE_PATH}")
-    data = json.loads(BASELINE_PATH.read_text())
-    world_id = data.get("world_id")
-    if not world_id:
-        raise RuntimeError("world_id missing from baseline")
-    return world_id
+    world_doc, resolution = world_mod.load_world(repo_root=ROOT)
+    return world_mod.require_world_id(world_doc, world_path=resolution.entry.world_path)
 
 
 def parse_segments(path: Path) -> List[Segment]:
@@ -191,6 +187,8 @@ def main() -> int:
     filt_data = harvest_filter_names(LIB_PATH)
     op_names = op_data["names"]
     filter_names = filt_data["names"]
+    ops_rel_path = path_utils.to_repo_relative(OPS_PATH, ROOT)
+    filters_rel_path = path_utils.to_repo_relative(FILTERS_PATH, ROOT)
 
     op_names_doc: Dict[str, object] = {
         "source": source_rel,
@@ -214,14 +212,22 @@ def main() -> int:
     }
 
     ops_doc = {
-        "metadata": {"status": "ok", "world_id": world_id},
+        "metadata": {
+            "status": "ok",
+            "tier": evidence_tiers.evidence_tier_for_artifact(path=ops_rel_path),
+            "world_id": world_id,
+        },
         "notes": f"Operation Vocabulary harvested from {source_rel} (_operation_names span).",
         "ops": [
             {"id": idx, "name": name, "source": source_rel} for idx, name in enumerate(op_names)
         ],
     }
     filters_doc = {
-        "metadata": {"status": "ok", "world_id": world_id},
+        "metadata": {
+            "status": "ok",
+            "tier": evidence_tiers.evidence_tier_for_artifact(path=filters_rel_path),
+            "world_id": world_id,
+        },
         "filters": [
             {"id": idx, "name": name, "source": source_rel} for idx, name in enumerate(filter_names)
         ],

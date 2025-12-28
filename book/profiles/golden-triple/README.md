@@ -10,7 +10,7 @@ Profiles included
 - `runtime:allow_all`
 - `runtime:metafilter_any`
 - `bucket4:v1_read`
-- `runtime:param_deny_root_ok` (parameterized SBPL witness; mapped-but-partial)
+- `runtime:param_deny_root_ok` (parameterized SBPL witness; mapped)
 
 Out of scope here
 - Platform profiles (`sys:*`) — apply-gated on this host.

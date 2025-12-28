@@ -44,7 +44,7 @@ Map node tags that reference literal or regex pools to interpretable layouts (ed
 If tag layouts need to be extended or revised, reuse this outline:
 
 1. **Scope and setup**
-   - Confirm the baseline (OS/build, SIP, decoder version) and record it in `book/world/.../world-baseline.json`, this Report, and `Notes.md` when layouts change.
+   - Confirm the baseline (OS/build, SIP, decoder version) and record it in `book/world/.../world.json`, this Report, and `Notes.md` when layouts change.
    - Identify additional reference blobs or probe outputs that should be included.
 2. **Baseline decode and tag histogram**
    - Decode reference blobs; refresh tag histograms, literal usage, and any sentinel/padding patterns into `out/tag_histogram.json`.

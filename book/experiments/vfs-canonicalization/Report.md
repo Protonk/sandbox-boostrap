@@ -128,7 +128,7 @@ This is a narrow, host-specific VFS story: for **read/write semantics in this su
 
 ## Status and limitations
 
-- **Status:** **mapped-but-partial (structural + runtime)** for the specific scenario covered here.
+- **Tier:** **mapped (structural + runtime)** for the specific scenario covered here.
   - Base `/tmp` canonicalization and the firmlink spelling results are runtime-backed; `/var/tmp`, `/etc`, and intermediate symlink outcomes remain **partial/under exploration**.
 
 Scope and constraints:

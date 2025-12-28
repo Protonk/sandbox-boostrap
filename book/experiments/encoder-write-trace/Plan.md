@@ -11,7 +11,7 @@ not exported or dyld-bindable.
 - World: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
 - Inputs: SBPL corpus under `book/tools/sbpl/corpus/`.
 - No `sandbox_apply` or runtime probes; compile-only.
-- Evidence tier: mapped-but-partial (experiment-local structural join).
+- Evidence tier: mapped (experiment-local structural join).
 
 ## Deliverables
 

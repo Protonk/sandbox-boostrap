@@ -120,6 +120,7 @@ def run_preflight_blob_digests_job() -> Dict[str, Any]:
     status_payload = {
         "job_id": "experiment:preflight-blob-digests",
         "status": "ok",
+        "tier": "mapped",
         "host": host,
         "inputs": [rel(EXP_OUT)],
         "outputs": [rel(IR_PATH)],
@@ -131,6 +132,7 @@ def run_preflight_blob_digests_job() -> Dict[str, Any]:
 
     return {
         "status": "ok",
+        "tier": "mapped",
         "inputs": status_payload["inputs"],
         "outputs": [rel(IR_PATH), rel(STATUS_PATH)],
         "metrics": status_payload["metrics"],
@@ -150,4 +152,3 @@ registry.register(
         runner=run_preflight_blob_digests_job,
     )
 )
-

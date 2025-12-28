@@ -29,6 +29,6 @@ Probe for static↔runtime divergences by running deliberately adversarial SBPL 
 4. Iterate by adding more families (header/format toggles, field2/tag ambiguity) after Phase 1 lands.
 
 ## Constraints / status markers
-- Host: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (from `book/world/.../world-baseline.json`).
+- Host: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (from `book/world/.../world.json`).
 - Platform blobs remain apply-gated; Phase 1 sticks to custom SBPL.
 - No new vocab/format assumptions; uses existing decoder and harness only.

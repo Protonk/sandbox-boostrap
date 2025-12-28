@@ -235,6 +235,7 @@ def run_gate_witnesses_job() -> Dict[str, Any]:
         payload = {
             "job_id": "experiment:gate-witnesses",
             "status": "blocked",
+            "tier": "mapped",
             "host": {},
             "inputs": [rel(CONTROL_SBPL)],
             "outputs": [rel(RESULTS_PATH), rel(STATUS_PATH)],
@@ -256,6 +257,7 @@ def run_gate_witnesses_job() -> Dict[str, Any]:
         STATUS_PATH.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
         return {
             "status": "blocked",
+            "tier": "mapped",
             "inputs": payload["inputs"],
             "outputs": payload["outputs"],
             "metrics": payload["metrics"],
@@ -382,6 +384,7 @@ def run_gate_witnesses_job() -> Dict[str, Any]:
     payload = {
         "job_id": "experiment:gate-witnesses",
         "status": status,
+        "tier": "mapped",
         "host": {},
         "inputs": [rel(WITNESS_ROOT)],
         "outputs": [rel(RESULTS_PATH), rel(STATUS_PATH)],
@@ -393,6 +396,7 @@ def run_gate_witnesses_job() -> Dict[str, Any]:
 
     return {
         "status": status,
+        "tier": "mapped",
         "inputs": payload["inputs"],
         "outputs": payload["outputs"],
         "metrics": payload["metrics"],

@@ -605,7 +605,7 @@ def run_shrink_phase(
 # CLI wiring; defaults honor env vars to ease integration with scripts/matrix runs.
 def parse_args(repo_root: Path) -> argparse.Namespace:
     default_out = repo_root / "book" / "experiments" / "shrink-trace" / "out"
-    default_world_baseline = repo_root / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world-baseline.json"
+    default_world_baseline = repo_root / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world.json"
 
     common = argparse.ArgumentParser(add_help=False)
     common.add_argument("--out-dir", default=os.environ.get("OUT_DIR", str(default_out)))

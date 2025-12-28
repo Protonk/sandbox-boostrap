@@ -39,7 +39,7 @@ When in doubt:
 - CARTON is the frozen, host-specific IR/mapping set exposed via an API; see `book/api/carton/API.md` and prefer `book/api/carton/carton_query.py` (plus the coverage mapping it reads) over ad-hoc JSON spelunking.
 
 For **anchor/field2 structure** on this Sonoma world, use this stack as your entrypoint:
-- Structural source (anchors + tags + `field2` per profile): `book/experiments/probe-op-structure/Report.md` (status: mapped-but-partial, structural only).
+- Structural source (anchors + tags + `field2` per profile): `book/experiments/probe-op-structure/Report.md` (tier: mapped, structural only).
 - `field2` inventory and unknowns: `book/experiments/field2-filters/Report.md` (bounded high/unknown IDs, experiment closed).
 - Curated anchors and their Filter mappings: `book/graph/mappings/anchors/anchor_filter_map.json`, with consistency guarded by `book/tests/test_anchor_filter_alignment.py`.
 

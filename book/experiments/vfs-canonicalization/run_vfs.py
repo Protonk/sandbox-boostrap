@@ -37,7 +37,7 @@ BASE_DIR = Path(__file__).resolve().parent
 SB_DIR = BASE_DIR / "sb"
 BUILD_DIR = SB_DIR / "build"
 OUT_DIR = BASE_DIR / "out"
-WORLD_PATH = REPO_ROOT / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world-baseline.json"
+WORLD_PATH = REPO_ROOT / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world.json"
 
 BASE_PATH_PAIRS = [
     ("/tmp/foo", "/private/tmp/foo"),

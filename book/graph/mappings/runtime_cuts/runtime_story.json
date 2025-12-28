@@ -4,36 +4,47 @@
     "schema_version": "runtime-mapping.v0.1",
     "runtime_log_schema": "runtime_log_schema.v0.1.json",
     "status": "partial",
+    "tier": "mapped",
     "source_jobs": [],
-    "notes": "joined runtime story Includes runtime-adversarial runtime_mappings.",
+    "notes": "joined runtime story Inputs derived from promotion packets.",
     "inputs": [
       "book/graph/mappings/runtime_cuts/ops.json",
       "book/graph/mappings/runtime_cuts/scenarios.json",
-      "book/experiments/runtime-adversarial/out/runtime_mappings/ops.json",
-      "book/experiments/runtime-adversarial/out/runtime_mappings/scenarios.json",
-      "book/experiments/runtime-checks/out/run_manifest.json",
-      "book/experiments/runtime-adversarial/out/run_manifest.json"
+      "book/experiments/runtime-checks/out/promotion_packet.json",
+      "book/experiments/runtime-adversarial/out/promotion_packet.json",
+      "book/experiments/anchor-filter-map/out/promotion_packet.json",
+      "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json"
     ],
     "input_hashes": {
-      "book/graph/mappings/runtime_cuts/ops.json": "03246be4b2a8744a329c9f70587d927bbdd897f46485bb79547c3c3648ef2650",
-      "book/graph/mappings/runtime_cuts/scenarios.json": "a5f5909d159a0132f70c013e449c2bae9a3c9181a97aeccf98dd404e3c5554d1",
-      "book/experiments/runtime-adversarial/out/runtime_mappings/ops.json": "4eb2a67dbda33406f4aae2cab6aa21b7e11c746b1d0305e18fa53a855ab6b43c",
-      "book/experiments/runtime-adversarial/out/runtime_mappings/scenarios.json": "171b5b74a4130fcee474c02d2d8d7eec0fecbc1bb21c1715aebbd54f61c8529c",
-      "book/experiments/runtime-checks/out/run_manifest.json": "c0ef597ec00e64bcb12e85ebbf234eea807dbb7b0aba5192d08b234a948ad22d",
-      "book/experiments/runtime-adversarial/out/run_manifest.json": "3e912202734c06d9f14a9816f7452bc871cc248088f4c71f76526b29ea3cd550"
+      "book/graph/mappings/runtime_cuts/ops.json": "7d6f41b635f8922dd2af50df1146f7cae07c224acad6dc912da953ba39b98954",
+      "book/graph/mappings/runtime_cuts/scenarios.json": "f0a1003c9b7c2cbe7f9a39b0303d6ac4d68376e3386d91b7102cbbda2b66769a",
+      "book/experiments/runtime-checks/out/promotion_packet.json": "98ee9c649c1926fa231bf1e14324fd3f9df0c6acd4345d5b2e02015339d46c7e",
+      "book/experiments/runtime-checks/out/run_manifest.json": "2b023453161c58f5540fe22dd9c75585a975262370fbfd9fc2f2ad1f352d20cf",
+      "book/experiments/runtime-adversarial/out/promotion_packet.json": "3b479d0a30a4e9105ca2ef0d18c015255f40cb6bf960c622915db02cc81bb823",
+      "book/experiments/runtime-adversarial/out/run_manifest.json": "17364fc9b9c0c215aa6703f3f6a5bb33685eadc8af836a592dd4ca6f01d7a775",
+      "book/experiments/anchor-filter-map/out/promotion_packet.json": "b0dc6ea4d240cf2a41c99cf9ecaf8c782b35c63b6e5f6f5503692bfbe48de178",
+      "book/experiments/anchor-filter-map/out/028d4d91-1c9e-4c2f-95da-7fc89ec3635a/run_manifest.json": "b2dfd462935fcc90d7d0a2ff601ec5b51aa5087130837f398ea500904f1b5a4e",
+      "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json": "6162982de26c10913bb1d0c5f7f34da46e0ef1b46ae919a48ff85ae95d523f9c",
+      "book/experiments/anchor-filter-map/iokit-class/out/bf80e47b-3020-4b13-bfa7-249cfcff8b52/run_manifest.json": "5dc19d6c4cfe20cfbc078ec76d1a050c5d10758efb3a7469b73ac427ddfbe2b9"
     },
     "run_provenance": {
       "run_ids": [
         "629a8948-b53b-4c7e-bbb4-d45dc7d01709",
-        "65312c5f-21dd-48c0-b980-c5c9487b3307"
+        "65312c5f-21dd-48c0-b980-c5c9487b3307",
+        "028d4d91-1c9e-4c2f-95da-7fc89ec3635a",
+        "bf80e47b-3020-4b13-bfa7-249cfcff8b52"
       ],
       "manifests": [
         "book/experiments/runtime-checks/out/run_manifest.json",
-        "book/experiments/runtime-adversarial/out/run_manifest.json"
+        "book/experiments/runtime-adversarial/out/run_manifest.json",
+        "book/experiments/anchor-filter-map/out/028d4d91-1c9e-4c2f-95da-7fc89ec3635a/run_manifest.json",
+        "book/experiments/anchor-filter-map/iokit-class/out/bf80e47b-3020-4b13-bfa7-249cfcff8b52/run_manifest.json"
       ],
       "repo_root_contexts": [
         "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime-checks.52386",
-        "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime-adversarial.63656"
+        "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime-adversarial.63656",
+        "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime-tools.028d4d91-1c9e-4c2f-95da-7fc89ec3635a",
+        "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime-tools.bf80e47b-3020-4b13-bfa7-249cfcff8b52"
       ]
     }
   },
@@ -41,10 +52,10 @@
     "21": {
       "op_id": 21,
       "op_name": "file-read*",
-      "coverage_status": "ok",
-      "probes": 14,
-      "matches": 14,
-      "mismatches": 0,
+      "coverage_status": "partial",
+      "probes": 29,
+      "matches": 21,
+      "mismatches": 8,
       "examples": [
         {
           "scenario_id": "bucket4:v1_read:read_/etc/hosts",
@@ -83,488 +94,6 @@
         }
       ],
       "scenarios": [
-        {
-          "scenario_id": "allow_all|file-read*|/etc/hosts",
-          "profile_id": "runtime:allow_all",
-          "status": "ok",
-          "results": {
-            "total": 1,
-            "matches": 1,
-            "mismatches": 0,
-            "total_including_blocked": 1,
-            "blocked": {
-              "total": 0,
-              "by_stage": {},
-              "by_kind": {}
-            },
-            "status": "ok"
-          },
-          "expectations": [
-            {
-              "expectation_id": "allow_all|file-read*|/etc/hosts",
-              "profile_id": "runtime:allow_all",
-              "operation": "file-read*",
-              "target": "/etc/hosts",
-              "expected": "allow",
-              "probe_name": "read_/etc/hosts"
-            }
-          ],
-          "mismatches": []
-        },
-        {
-          "scenario_id": "allow_all|file-read*|/tmp/sbpl_rt/read.txt",
-          "profile_id": "runtime:allow_all",
-          "status": "ok",
-          "results": {
-            "total": 1,
-            "matches": 1,
-            "mismatches": 0,
-            "total_including_blocked": 1,
-            "blocked": {
-              "total": 0,
-              "by_stage": {},
-              "by_kind": {}
-            },
-            "status": "ok"
-          },
-          "expectations": [
-            {
-              "expectation_id": "allow_all|file-read*|/tmp/sbpl_rt/read.txt",
-              "profile_id": "runtime:allow_all",
-              "operation": "file-read*",
-              "target": "/tmp/sbpl_rt/read.txt",
-              "expected": "allow",
-              "probe_name": "read_/tmp/sbpl_rt/read.txt"
-            }
-          ],
-          "mismatches": []
-        },
-        {
-          "scenario_id": "bucket4:v1_read:read_/etc/hosts",
-          "profile_id": "bucket4:v1_read",
-          "status": "ok",
-          "results": {
-            "total": 1,
-            "matches": 1,
-            "mismatches": 0,
-            "total_including_blocked": 1,
-            "blocked": {
-              "total": 0,
-              "by_stage": {},
-              "by_kind": {}
-            },
-            "status": "ok"
-          },
-          "expectations": [
-            {
-              "expectation_id": "bucket4:v1_read:read_/etc/hosts",
-              "profile_id": "bucket4:v1_read",
-              "operation": "file-read*",
-              "target": "/etc/hosts",
-              "expected": "allow",
-              "probe_name": "read_/etc/hosts"
-            }
-          ],
-          "mismatches": []
-        },
-        {
-          "scenario_id": "bucket4:v1_read:read_/tmp/foo",
-          "profile_id": "bucket4:v1_read",
-          "status": "ok",
-          "results": {
-            "total": 1,
-            "matches": 1,
-            "mismatches": 0,
-            "total_including_blocked": 1,
-            "blocked": {
-              "total": 0,
-              "by_stage": {},
-              "by_kind": {}
-            },
-            "status": "ok"
-          },
-          "expectations": [
-            {
-              "expectation_id": "bucket4:v1_read:read_/tmp/foo",
-              "profile_id": "bucket4:v1_read",
-              "operation": "file-read*",
-              "target": "/tmp/foo",
-              "expected": "allow",
-              "probe_name": "read_/tmp/foo"
-            }
-          ],
-          "mismatches": []
-        },
-        {
-          "scenario_id": "bucket5:v11_read_subpath:read_/tmp/bar",
-          "profile_id": "bucket5:v11_read_subpath",
-          "status": "ok",
-          "results": {
-            "total": 1,
-            "matches": 1,
-            "mismatches": 0,
-            "total_including_blocked": 1,
-            "blocked": {
-              "total": 0,
-              "by_stage": {},
-              "by_kind": {}
-            },
-            "status": "ok"
-          },
-          "expectations": [
-            {
-              "expectation_id": "bucket5:v11_read_subpath:read_/tmp/bar",
-              "profile_id": "bucket5:v11_read_subpath",
-              "operation": "file-read*",
-              "target": "/tmp/bar",
-              "expected": "deny",
-              "probe_name": "read_/tmp/bar"
-            }
-          ],
-          "mismatches": []
-        },
-        {
-          "scenario_id": "bucket5:v11_read_subpath:read_/tmp/foo",
-          "profile_id": "bucket5:v11_read_subpath",
-          "status": "ok",
-          "results": {
-            "total": 1,
-            "matches": 1,
-            "mismatches": 0,
-            "total_including_blocked": 1,
-            "blocked": {
-              "total": 0,
-              "by_stage": {},
-              "by_kind": {}
-            },
-            "status": "ok"
-          },
-          "expectations": [
-            {
-              "expectation_id": "bucket5:v11_read_subpath:read_/tmp/foo",
-              "profile_id": "bucket5:v11_read_subpath",
-              "operation": "file-read*",
-              "target": "/tmp/foo",
-              "expected": "allow",
-              "probe_name": "read_/tmp/foo"
-            }
-          ],
-          "mismatches": []
-        },
-        {
-          "scenario_id": "metafilter_any|file-read*|/tmp/bar.txt",
-          "profile_id": "runtime:metafilter_any",
-          "status": "ok",
-          "results": {
-            "total": 1,
-            "matches": 1,
-            "mismatches": 0,
-            "total_including_blocked": 1,
-            "blocked": {
-              "total": 0,
-              "by_stage": {},
-              "by_kind": {}
-            },
-            "status": "ok"
-          },
-          "expectations": [
-            {
-              "expectation_id": "metafilter_any|file-read*|/tmp/bar.txt",
-              "profile_id": "runtime:metafilter_any",
-              "operation": "file-read*",
-              "target": "/tmp/bar.txt",
-              "expected": "allow",
-              "probe_name": "read_bar"
-            }
-          ],
-          "mismatches": []
-        },
-        {
-          "scenario_id": "metafilter_any|file-read*|/tmp/baz.txt",
-          "profile_id": "runtime:metafilter_any",
-          "status": "ok",
-          "results": {
-            "total": 1,
-            "matches": 1,
-            "mismatches": 0,
-            "total_including_blocked": 1,
-            "blocked": {
-              "total": 0,
-              "by_stage": {},
-              "by_kind": {}
-            },
-            "status": "ok"
-          },
-          "expectations": [
-            {
-              "expectation_id": "metafilter_any|file-read*|/tmp/baz.txt",
-              "profile_id": "runtime:metafilter_any",
-              "operation": "file-read*",
-              "target": "/tmp/baz.txt",
-              "expected": "deny",
-              "probe_name": "read_baz"
-            }
-          ],
-          "mismatches": []
-        },
-        {
-          "scenario_id": "metafilter_any|file-read*|/tmp/foo.txt",
-          "profile_id": "runtime:metafilter_any",
-          "status": "ok",
-          "results": {
-            "total": 1,
-            "matches": 1,
-            "mismatches": 0,
-            "total_including_blocked": 1,
-            "blocked": {
-              "total": 0,
-              "by_stage": {},
-              "by_kind": {}
-            },
-            "status": "ok"
-          },
-          "expectations": [
-            {
-              "expectation_id": "metafilter_any|file-read*|/tmp/foo.txt",
-              "profile_id": "runtime:metafilter_any",
-              "operation": "file-read*",
-              "target": "/tmp/foo.txt",
-              "expected": "allow",
-              "probe_name": "read_foo"
-            }
-          ],
-          "mismatches": []
-        },
-        {
-          "scenario_id": "metafilter_any|file-read*|/tmp/qux.txt",
-          "profile_id": "runtime:metafilter_any",
-          "status": "ok",
-          "results": {
-            "total": 1,
-            "matches": 1,
-            "mismatches": 0,
-            "total_including_blocked": 1,
-            "blocked": {
-              "total": 0,
-              "by_stage": {},
-              "by_kind": {}
-            },
-            "status": "ok"
-          },
-          "expectations": [
-            {
-              "expectation_id": "metafilter_any|file-read*|/tmp/qux.txt",
-              "profile_id": "runtime:metafilter_any",
-              "operation": "file-read*",
-              "target": "/tmp/qux.txt",
-              "expected": "allow",
-              "probe_name": "read_other"
-            }
-          ],
-          "mismatches": []
-        },
-        {
-          "scenario_id": "runtime:strict_1:read_hosts",
-          "profile_id": "runtime:strict_1",
-          "status": "ok",
-          "results": {
-            "total": 1,
-            "matches": 1,
-            "mismatches": 0,
-            "total_including_blocked": 1,
-            "blocked": {
-              "total": 0,
-              "by_stage": {},
-              "by_kind": {}
-            },
-            "status": "ok"
-          },
-          "expectations": [
-            {
-              "expectation_id": "runtime:strict_1:read_hosts",
-              "profile_id": "runtime:strict_1",
-              "operation": "file-read*",
-              "target": "/etc/hosts",
-              "expected": "deny",
-              "probe_name": "read_hosts"
-            }
-          ],
-          "mismatches": []
-        },
-        {
-          "scenario_id": "runtime:strict_1:read_ok",
-          "profile_id": "runtime:strict_1",
-          "status": "ok",
-          "results": {
-            "total": 1,
-            "matches": 1,
-            "mismatches": 0,
-            "total_including_blocked": 1,
-            "blocked": {
-              "total": 0,
-              "by_stage": {},
-              "by_kind": {}
-            },
-            "status": "ok"
-          },
-          "expectations": [
-            {
-              "expectation_id": "runtime:strict_1:read_ok",
-              "profile_id": "runtime:strict_1",
-              "operation": "file-read*",
-              "target": "/private/tmp/strict_ok/allow.txt",
-              "expected": "allow",
-              "probe_name": "read_ok"
-            }
-          ],
-          "mismatches": []
-        },
-        {
-          "scenario_id": "sys:airlock:read_/etc/hosts",
-          "profile_id": "sys:airlock",
-          "status": "blocked",
-          "results": {
-            "total": 0,
-            "matches": 0,
-            "mismatches": 0,
-            "total_including_blocked": 1,
-            "blocked": {
-              "total": 1,
-              "by_stage": {
-                "preflight": 1
-              },
-              "by_kind": {
-                "preflight_apply_gate_signature": 1
-              }
-            },
-            "status": "blocked"
-          },
-          "expectations": [
-            {
-              "expectation_id": "sys:airlock:read_/etc/hosts",
-              "profile_id": "sys:airlock",
-              "operation": "file-read*",
-              "target": "/etc/hosts",
-              "expected": "deny",
-              "probe_name": "read_/etc/hosts"
-            }
-          ],
-          "mismatches": [
-            {
-              "expectation_id": "sys:airlock:read_/etc/hosts",
-              "expected": "deny",
-              "actual": null,
-              "operation": "file-read*",
-              "target": "/etc/hosts",
-              "failure_stage": "preflight",
-              "failure_kind": "preflight_apply_gate_signature",
-              "mismatch_type": "preflight_blocked",
-              "violation_summary": null,
-              "stderr": ""
-            }
-          ]
-        },
-        {
-          "scenario_id": "sys:airlock:read_/tmp/foo",
-          "profile_id": "sys:airlock",
-          "status": "blocked",
-          "results": {
-            "total": 0,
-            "matches": 0,
-            "mismatches": 0,
-            "total_including_blocked": 1,
-            "blocked": {
-              "total": 1,
-              "by_stage": {
-                "preflight": 1
-              },
-              "by_kind": {
-                "preflight_apply_gate_signature": 1
-              }
-            },
-            "status": "blocked"
-          },
-          "expectations": [
-            {
-              "expectation_id": "sys:airlock:read_/tmp/foo",
-              "profile_id": "sys:airlock",
-              "operation": "file-read*",
-              "target": "/tmp/foo",
-              "expected": "deny",
-              "probe_name": "read_/tmp/foo"
-            }
-          ],
-          "mismatches": [
-            {
-              "expectation_id": "sys:airlock:read_/tmp/foo",
-              "expected": "deny",
-              "actual": null,
-              "operation": "file-read*",
-              "target": "/tmp/foo",
-              "failure_stage": "preflight",
-              "failure_kind": "preflight_apply_gate_signature",
-              "mismatch_type": "preflight_blocked",
-              "violation_summary": null,
-              "stderr": ""
-            }
-          ]
-        },
-        {
-          "scenario_id": "sys:bsd:read_/etc/hosts",
-          "profile_id": "sys:bsd",
-          "status": "ok",
-          "results": {
-            "total": 1,
-            "matches": 1,
-            "mismatches": 0,
-            "total_including_blocked": 1,
-            "blocked": {
-              "total": 0,
-              "by_stage": {},
-              "by_kind": {}
-            },
-            "status": "ok"
-          },
-          "expectations": [
-            {
-              "expectation_id": "sys:bsd:read_/etc/hosts",
-              "profile_id": "sys:bsd",
-              "operation": "file-read*",
-              "target": "/etc/hosts",
-              "expected": "deny",
-              "probe_name": "read_/etc/hosts"
-            }
-          ],
-          "mismatches": []
-        },
-        {
-          "scenario_id": "sys:bsd:read_/tmp/foo",
-          "profile_id": "sys:bsd",
-          "status": "ok",
-          "results": {
-            "total": 1,
-            "matches": 1,
-            "mismatches": 0,
-            "total_including_blocked": 1,
-            "blocked": {
-              "total": 0,
-              "by_stage": {},
-              "by_kind": {}
-            },
-            "status": "ok"
-          },
-          "expectations": [
-            {
-              "expectation_id": "sys:bsd:read_/tmp/foo",
-              "profile_id": "sys:bsd",
-              "operation": "file-read*",
-              "target": "/tmp/foo",
-              "expected": "deny",
-              "probe_name": "read_/tmp/foo"
-            }
-          ],
-          "mismatches": []
-        },
         {
           "scenario_id": "adv:path_alias:alias-private",
           "profile_id": "adv:path_alias",
@@ -1088,6 +617,438 @@
             }
           ],
           "mismatches": []
+        },
+        {
+          "scenario_id": "allow_all|file-read*|/etc/hosts",
+          "profile_id": "runtime:allow_all",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "allow_all|file-read*|/etc/hosts",
+              "profile_id": "runtime:allow_all",
+              "operation": "file-read*",
+              "target": "/etc/hosts",
+              "expected": "allow",
+              "probe_name": "read_/etc/hosts"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "allow_all|file-read*|/tmp/sbpl_rt/read.txt",
+          "profile_id": "runtime:allow_all",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "allow_all|file-read*|/tmp/sbpl_rt/read.txt",
+              "profile_id": "runtime:allow_all",
+              "operation": "file-read*",
+              "target": "/tmp/sbpl_rt/read.txt",
+              "expected": "allow",
+              "probe_name": "read_/tmp/sbpl_rt/read.txt"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "bucket4:v1_read:read_/etc/hosts",
+          "profile_id": "bucket4:v1_read",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "bucket4:v1_read:read_/etc/hosts"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "bucket4:v1_read:read_/tmp/foo",
+          "profile_id": "bucket4:v1_read",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "bucket4:v1_read:read_/tmp/foo"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "bucket5:v11_read_subpath:read_/tmp/bar",
+          "profile_id": "bucket5:v11_read_subpath",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "bucket5:v11_read_subpath:read_/tmp/bar"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "bucket5:v11_read_subpath:read_/tmp/foo",
+          "profile_id": "bucket5:v11_read_subpath",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "bucket5:v11_read_subpath:read_/tmp/foo"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "metafilter_any|file-read*|/tmp/bar.txt",
+          "profile_id": "runtime:metafilter_any",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "metafilter_any|file-read*|/tmp/bar.txt",
+              "profile_id": "runtime:metafilter_any",
+              "operation": "file-read*",
+              "target": "/tmp/bar.txt",
+              "expected": "allow",
+              "probe_name": "read_bar"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "metafilter_any|file-read*|/tmp/baz.txt",
+          "profile_id": "runtime:metafilter_any",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "metafilter_any|file-read*|/tmp/baz.txt",
+              "profile_id": "runtime:metafilter_any",
+              "operation": "file-read*",
+              "target": "/tmp/baz.txt",
+              "expected": "deny",
+              "probe_name": "read_baz"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "metafilter_any|file-read*|/tmp/foo.txt",
+          "profile_id": "runtime:metafilter_any",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "metafilter_any|file-read*|/tmp/foo.txt",
+              "profile_id": "runtime:metafilter_any",
+              "operation": "file-read*",
+              "target": "/tmp/foo.txt",
+              "expected": "allow",
+              "probe_name": "read_foo"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "metafilter_any|file-read*|/tmp/qux.txt",
+          "profile_id": "runtime:metafilter_any",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "metafilter_any|file-read*|/tmp/qux.txt",
+              "profile_id": "runtime:metafilter_any",
+              "operation": "file-read*",
+              "target": "/tmp/qux.txt",
+              "expected": "allow",
+              "probe_name": "read_other"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "runtime:strict_1:read_hosts",
+          "profile_id": "runtime:strict_1",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "runtime:strict_1:read_hosts"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "runtime:strict_1:read_ok",
+          "profile_id": "runtime:strict_1",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "runtime:strict_1:read_ok"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "sys:airlock:read_/etc/hosts",
+          "profile_id": "sys:airlock",
+          "status": "blocked",
+          "results": {
+            "total": 0,
+            "matches": 0,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 1,
+              "by_stage": {
+                "preflight": 1
+              },
+              "by_kind": {
+                "preflight_apply_gate_signature": 1
+              }
+            },
+            "status": "blocked"
+          },
+          "expectations": [
+            {
+              "expectation_id": "sys:airlock:read_/etc/hosts"
+            }
+          ],
+          "mismatches": [
+            {
+              "expectation_id": "sys:airlock:read_/etc/hosts",
+              "expected": "deny",
+              "actual": null,
+              "operation": "file-read*",
+              "target": "/etc/hosts",
+              "failure_stage": "preflight",
+              "failure_kind": "preflight_apply_gate_signature",
+              "mismatch_type": "preflight_blocked",
+              "violation_summary": null,
+              "stderr": ""
+            }
+          ]
+        },
+        {
+          "scenario_id": "sys:airlock:read_/tmp/foo",
+          "profile_id": "sys:airlock",
+          "status": "blocked",
+          "results": {
+            "total": 0,
+            "matches": 0,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 1,
+              "by_stage": {
+                "preflight": 1
+              },
+              "by_kind": {
+                "preflight_apply_gate_signature": 1
+              }
+            },
+            "status": "blocked"
+          },
+          "expectations": [
+            {
+              "expectation_id": "sys:airlock:read_/tmp/foo"
+            }
+          ],
+          "mismatches": [
+            {
+              "expectation_id": "sys:airlock:read_/tmp/foo",
+              "expected": "deny",
+              "actual": null,
+              "operation": "file-read*",
+              "target": "/tmp/foo",
+              "failure_stage": "preflight",
+              "failure_kind": "preflight_apply_gate_signature",
+              "mismatch_type": "preflight_blocked",
+              "violation_summary": null,
+              "stderr": ""
+            }
+          ]
+        },
+        {
+          "scenario_id": "sys:bsd:read_/etc/hosts",
+          "profile_id": "sys:bsd",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "sys:bsd:read_/etc/hosts"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "sys:bsd:read_/tmp/foo",
+          "profile_id": "sys:bsd",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "sys:bsd:read_/tmp/foo"
+            }
+          ],
+          "mismatches": []
         }
       ],
       "static": {
@@ -1101,10 +1062,10 @@
     "29": {
       "op_id": 29,
       "op_name": "file-write*",
-      "coverage_status": "ok",
-      "probes": 8,
-      "matches": 8,
-      "mismatches": 0,
+      "coverage_status": "partial",
+      "probes": 20,
+      "matches": 14,
+      "mismatches": 6,
       "examples": [
         {
           "scenario_id": "bucket4:v1_read:write_/etc/hosts",
@@ -1143,320 +1104,6 @@
         }
       ],
       "scenarios": [
-        {
-          "scenario_id": "allow_all|file-write*|/tmp/sbpl_rt/write.txt",
-          "profile_id": "runtime:allow_all",
-          "status": "ok",
-          "results": {
-            "total": 1,
-            "matches": 1,
-            "mismatches": 0,
-            "total_including_blocked": 1,
-            "blocked": {
-              "total": 0,
-              "by_stage": {},
-              "by_kind": {}
-            },
-            "status": "ok"
-          },
-          "expectations": [
-            {
-              "expectation_id": "allow_all|file-write*|/tmp/sbpl_rt/write.txt",
-              "profile_id": "runtime:allow_all",
-              "operation": "file-write*",
-              "target": "/tmp/sbpl_rt/write.txt",
-              "expected": "allow",
-              "probe_name": "write_/tmp/sbpl_rt/write.txt"
-            }
-          ],
-          "mismatches": []
-        },
-        {
-          "scenario_id": "bucket4:v1_read:write_/etc/hosts",
-          "profile_id": "bucket4:v1_read",
-          "status": "ok",
-          "results": {
-            "total": 1,
-            "matches": 1,
-            "mismatches": 0,
-            "total_including_blocked": 1,
-            "blocked": {
-              "total": 0,
-              "by_stage": {},
-              "by_kind": {}
-            },
-            "status": "ok"
-          },
-          "expectations": [
-            {
-              "expectation_id": "bucket4:v1_read:write_/etc/hosts",
-              "profile_id": "bucket4:v1_read",
-              "operation": "file-write*",
-              "target": "/etc/hosts",
-              "expected": "deny",
-              "probe_name": "write_/etc/hosts"
-            }
-          ],
-          "mismatches": []
-        },
-        {
-          "scenario_id": "bucket5:v11_read_subpath:write_/tmp/foo",
-          "profile_id": "bucket5:v11_read_subpath",
-          "status": "ok",
-          "results": {
-            "total": 1,
-            "matches": 1,
-            "mismatches": 0,
-            "total_including_blocked": 1,
-            "blocked": {
-              "total": 0,
-              "by_stage": {},
-              "by_kind": {}
-            },
-            "status": "ok"
-          },
-          "expectations": [
-            {
-              "expectation_id": "bucket5:v11_read_subpath:write_/tmp/foo",
-              "profile_id": "bucket5:v11_read_subpath",
-              "operation": "file-write*",
-              "target": "/tmp/foo",
-              "expected": "deny",
-              "probe_name": "write_/tmp/foo"
-            }
-          ],
-          "mismatches": []
-        },
-        {
-          "scenario_id": "metafilter_any|file-write*|/tmp/baz.txt",
-          "profile_id": "runtime:metafilter_any",
-          "status": "ok",
-          "results": {
-            "total": 1,
-            "matches": 1,
-            "mismatches": 0,
-            "total_including_blocked": 1,
-            "blocked": {
-              "total": 0,
-              "by_stage": {},
-              "by_kind": {}
-            },
-            "status": "ok"
-          },
-          "expectations": [
-            {
-              "expectation_id": "metafilter_any|file-write*|/tmp/baz.txt",
-              "profile_id": "runtime:metafilter_any",
-              "operation": "file-write*",
-              "target": "/tmp/baz.txt",
-              "expected": "deny",
-              "probe_name": "write_baz"
-            }
-          ],
-          "mismatches": []
-        },
-        {
-          "scenario_id": "runtime:strict_1:write_hosts",
-          "profile_id": "runtime:strict_1",
-          "status": "ok",
-          "results": {
-            "total": 1,
-            "matches": 1,
-            "mismatches": 0,
-            "total_including_blocked": 1,
-            "blocked": {
-              "total": 0,
-              "by_stage": {},
-              "by_kind": {}
-            },
-            "status": "ok"
-          },
-          "expectations": [
-            {
-              "expectation_id": "runtime:strict_1:write_hosts",
-              "profile_id": "runtime:strict_1",
-              "operation": "file-write*",
-              "target": "/etc/hosts",
-              "expected": "deny",
-              "probe_name": "write_hosts"
-            }
-          ],
-          "mismatches": []
-        },
-        {
-          "scenario_id": "runtime:strict_1:write_ok",
-          "profile_id": "runtime:strict_1",
-          "status": "ok",
-          "results": {
-            "total": 1,
-            "matches": 1,
-            "mismatches": 0,
-            "total_including_blocked": 1,
-            "blocked": {
-              "total": 0,
-              "by_stage": {},
-              "by_kind": {}
-            },
-            "status": "ok"
-          },
-          "expectations": [
-            {
-              "expectation_id": "runtime:strict_1:write_ok",
-              "profile_id": "runtime:strict_1",
-              "operation": "file-write*",
-              "target": "/private/tmp/strict_ok/allow.txt",
-              "expected": "allow",
-              "probe_name": "write_ok"
-            }
-          ],
-          "mismatches": []
-        },
-        {
-          "scenario_id": "sys:airlock:write_/etc/hosts",
-          "profile_id": "sys:airlock",
-          "status": "blocked",
-          "results": {
-            "total": 0,
-            "matches": 0,
-            "mismatches": 0,
-            "total_including_blocked": 1,
-            "blocked": {
-              "total": 1,
-              "by_stage": {
-                "preflight": 1
-              },
-              "by_kind": {
-                "preflight_apply_gate_signature": 1
-              }
-            },
-            "status": "blocked"
-          },
-          "expectations": [
-            {
-              "expectation_id": "sys:airlock:write_/etc/hosts",
-              "profile_id": "sys:airlock",
-              "operation": "file-write*",
-              "target": "/etc/hosts",
-              "expected": "deny",
-              "probe_name": "write_/etc/hosts"
-            }
-          ],
-          "mismatches": [
-            {
-              "expectation_id": "sys:airlock:write_/etc/hosts",
-              "expected": "deny",
-              "actual": null,
-              "operation": "file-write*",
-              "target": "/etc/hosts",
-              "failure_stage": "preflight",
-              "failure_kind": "preflight_apply_gate_signature",
-              "mismatch_type": "preflight_blocked",
-              "violation_summary": null,
-              "stderr": ""
-            }
-          ]
-        },
-        {
-          "scenario_id": "sys:airlock:write_/tmp/foo",
-          "profile_id": "sys:airlock",
-          "status": "blocked",
-          "results": {
-            "total": 0,
-            "matches": 0,
-            "mismatches": 0,
-            "total_including_blocked": 1,
-            "blocked": {
-              "total": 1,
-              "by_stage": {
-                "preflight": 1
-              },
-              "by_kind": {
-                "preflight_apply_gate_signature": 1
-              }
-            },
-            "status": "blocked"
-          },
-          "expectations": [
-            {
-              "expectation_id": "sys:airlock:write_/tmp/foo",
-              "profile_id": "sys:airlock",
-              "operation": "file-write*",
-              "target": "/tmp/foo",
-              "expected": "deny",
-              "probe_name": "write_/tmp/foo"
-            }
-          ],
-          "mismatches": [
-            {
-              "expectation_id": "sys:airlock:write_/tmp/foo",
-              "expected": "deny",
-              "actual": null,
-              "operation": "file-write*",
-              "target": "/tmp/foo",
-              "failure_stage": "preflight",
-              "failure_kind": "preflight_apply_gate_signature",
-              "mismatch_type": "preflight_blocked",
-              "violation_summary": null,
-              "stderr": ""
-            }
-          ]
-        },
-        {
-          "scenario_id": "sys:bsd:write_/etc/hosts",
-          "profile_id": "sys:bsd",
-          "status": "ok",
-          "results": {
-            "total": 1,
-            "matches": 1,
-            "mismatches": 0,
-            "total_including_blocked": 1,
-            "blocked": {
-              "total": 0,
-              "by_stage": {},
-              "by_kind": {}
-            },
-            "status": "ok"
-          },
-          "expectations": [
-            {
-              "expectation_id": "sys:bsd:write_/etc/hosts",
-              "profile_id": "sys:bsd",
-              "operation": "file-write*",
-              "target": "/etc/hosts",
-              "expected": "deny",
-              "probe_name": "write_/etc/hosts"
-            }
-          ],
-          "mismatches": []
-        },
-        {
-          "scenario_id": "sys:bsd:write_/tmp/foo",
-          "profile_id": "sys:bsd",
-          "status": "ok",
-          "results": {
-            "total": 1,
-            "matches": 1,
-            "mismatches": 0,
-            "total_including_blocked": 1,
-            "blocked": {
-              "total": 0,
-              "by_stage": {},
-              "by_kind": {}
-            },
-            "status": "ok"
-          },
-          "expectations": [
-            {
-              "expectation_id": "sys:bsd:write_/tmp/foo",
-              "profile_id": "sys:bsd",
-              "operation": "file-write*",
-              "target": "/tmp/foo",
-              "expected": "deny",
-              "probe_name": "write_/tmp/foo"
-            }
-          ],
-          "mismatches": []
-        },
         {
           "scenario_id": "adv:path_edges:write-dotdot",
           "profile_id": "adv:path_edges",
@@ -1870,6 +1517,280 @@
             }
           ],
           "mismatches": []
+        },
+        {
+          "scenario_id": "allow_all|file-write*|/tmp/sbpl_rt/write.txt",
+          "profile_id": "runtime:allow_all",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "allow_all|file-write*|/tmp/sbpl_rt/write.txt",
+              "profile_id": "runtime:allow_all",
+              "operation": "file-write*",
+              "target": "/tmp/sbpl_rt/write.txt",
+              "expected": "allow",
+              "probe_name": "write_/tmp/sbpl_rt/write.txt"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "bucket4:v1_read:write_/etc/hosts",
+          "profile_id": "bucket4:v1_read",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "bucket4:v1_read:write_/etc/hosts"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "bucket5:v11_read_subpath:write_/tmp/foo",
+          "profile_id": "bucket5:v11_read_subpath",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "bucket5:v11_read_subpath:write_/tmp/foo"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "metafilter_any|file-write*|/tmp/baz.txt",
+          "profile_id": "runtime:metafilter_any",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "metafilter_any|file-write*|/tmp/baz.txt",
+              "profile_id": "runtime:metafilter_any",
+              "operation": "file-write*",
+              "target": "/tmp/baz.txt",
+              "expected": "deny",
+              "probe_name": "write_baz"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "runtime:strict_1:write_hosts",
+          "profile_id": "runtime:strict_1",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "runtime:strict_1:write_hosts"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "runtime:strict_1:write_ok",
+          "profile_id": "runtime:strict_1",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "runtime:strict_1:write_ok"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "sys:airlock:write_/etc/hosts",
+          "profile_id": "sys:airlock",
+          "status": "blocked",
+          "results": {
+            "total": 0,
+            "matches": 0,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 1,
+              "by_stage": {
+                "preflight": 1
+              },
+              "by_kind": {
+                "preflight_apply_gate_signature": 1
+              }
+            },
+            "status": "blocked"
+          },
+          "expectations": [
+            {
+              "expectation_id": "sys:airlock:write_/etc/hosts"
+            }
+          ],
+          "mismatches": [
+            {
+              "expectation_id": "sys:airlock:write_/etc/hosts",
+              "expected": "deny",
+              "actual": null,
+              "operation": "file-write*",
+              "target": "/etc/hosts",
+              "failure_stage": "preflight",
+              "failure_kind": "preflight_apply_gate_signature",
+              "mismatch_type": "preflight_blocked",
+              "violation_summary": null,
+              "stderr": ""
+            }
+          ]
+        },
+        {
+          "scenario_id": "sys:airlock:write_/tmp/foo",
+          "profile_id": "sys:airlock",
+          "status": "blocked",
+          "results": {
+            "total": 0,
+            "matches": 0,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 1,
+              "by_stage": {
+                "preflight": 1
+              },
+              "by_kind": {
+                "preflight_apply_gate_signature": 1
+              }
+            },
+            "status": "blocked"
+          },
+          "expectations": [
+            {
+              "expectation_id": "sys:airlock:write_/tmp/foo"
+            }
+          ],
+          "mismatches": [
+            {
+              "expectation_id": "sys:airlock:write_/tmp/foo",
+              "expected": "deny",
+              "actual": null,
+              "operation": "file-write*",
+              "target": "/tmp/foo",
+              "failure_stage": "preflight",
+              "failure_kind": "preflight_apply_gate_signature",
+              "mismatch_type": "preflight_blocked",
+              "violation_summary": null,
+              "stderr": ""
+            }
+          ]
+        },
+        {
+          "scenario_id": "sys:bsd:write_/etc/hosts",
+          "profile_id": "sys:bsd",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "sys:bsd:write_/etc/hosts"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "sys:bsd:write_/tmp/foo",
+          "profile_id": "sys:bsd",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "sys:bsd:write_/tmp/foo"
+            }
+          ],
+          "mismatches": []
         }
       ],
       "static": {
@@ -1883,10 +1804,10 @@
     "96": {
       "op_id": 96,
       "op_name": "mach-lookup",
-      "coverage_status": "ok",
-      "probes": 8,
-      "matches": 8,
-      "mismatches": 0,
+      "coverage_status": "partial",
+      "probes": 16,
+      "matches": 14,
+      "mismatches": 2,
       "examples": [
         {
           "scenario_id": "adv:mach_simple_allow:allow-cfprefsd",
@@ -2145,6 +2066,256 @@
               "target": "com.apple.sandboxadversarial.fake",
               "expected": "deny",
               "probe_name": "deny-bogus"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "anchor-filter-map:cfprefsd:C1_deny_global",
+          "profile_id": "anchor-filter-map:cfprefsd:C1_deny_global",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "anchor-filter-map:cfprefsd:C1_deny_global",
+              "profile_id": "anchor-filter-map:cfprefsd:C1_deny_global",
+              "operation": "mach-lookup",
+              "target": "com.apple.cfprefsd.agent",
+              "expected": "deny",
+              "probe_name": "C1_deny_global"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "anchor-filter-map:cfprefsd:C2_deny_local",
+          "profile_id": "anchor-filter-map:cfprefsd:C2_deny_local",
+          "status": "brittle",
+          "results": {
+            "total": 1,
+            "matches": 0,
+            "mismatches": 1,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "brittle"
+          },
+          "expectations": [
+            {
+              "expectation_id": "anchor-filter-map:cfprefsd:C2_deny_local",
+              "profile_id": "anchor-filter-map:cfprefsd:C2_deny_local",
+              "operation": "mach-lookup",
+              "target": "com.apple.cfprefsd.agent",
+              "expected": "deny",
+              "probe_name": "C2_deny_local"
+            }
+          ],
+          "mismatches": [
+            {
+              "expectation_id": "anchor-filter-map:cfprefsd:C2_deny_local",
+              "expected": "deny",
+              "actual": "allow",
+              "operation": "mach-lookup",
+              "target": "com.apple.cfprefsd.agent",
+              "failure_stage": null,
+              "failure_kind": null,
+              "mismatch_type": "unexpected_allow",
+              "violation_summary": null,
+              "stderr": ""
+            }
+          ]
+        },
+        {
+          "scenario_id": "anchor-filter-map:cfprefsd:N1_deny_default",
+          "profile_id": "anchor-filter-map:cfprefsd:N1_deny_default",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "anchor-filter-map:cfprefsd:N1_deny_default",
+              "profile_id": "anchor-filter-map:cfprefsd:N1_deny_default",
+              "operation": "mach-lookup",
+              "target": "com.apple.cfprefsd.agent",
+              "expected": "deny",
+              "probe_name": "N1_deny_default"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "anchor-filter-map:cfprefsd:S0_allow_any",
+          "profile_id": "anchor-filter-map:cfprefsd:S0_allow_any",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "anchor-filter-map:cfprefsd:S0_allow_any",
+              "profile_id": "anchor-filter-map:cfprefsd:S0_allow_any",
+              "operation": "mach-lookup",
+              "target": "com.apple.cfprefsd.agent",
+              "expected": "allow",
+              "probe_name": "S0_allow_any"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "anchor-filter-map:cfprefsd:S1_allow_global",
+          "profile_id": "anchor-filter-map:cfprefsd:S1_allow_global",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "anchor-filter-map:cfprefsd:S1_allow_global",
+              "profile_id": "anchor-filter-map:cfprefsd:S1_allow_global",
+              "operation": "mach-lookup",
+              "target": "com.apple.cfprefsd.agent",
+              "expected": "allow",
+              "probe_name": "S1_allow_global"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "anchor-filter-map:cfprefsd:S2_allow_local",
+          "profile_id": "anchor-filter-map:cfprefsd:S2_allow_local",
+          "status": "brittle",
+          "results": {
+            "total": 1,
+            "matches": 0,
+            "mismatches": 1,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "brittle"
+          },
+          "expectations": [
+            {
+              "expectation_id": "anchor-filter-map:cfprefsd:S2_allow_local",
+              "profile_id": "anchor-filter-map:cfprefsd:S2_allow_local",
+              "operation": "mach-lookup",
+              "target": "com.apple.cfprefsd.agent",
+              "expected": "allow",
+              "probe_name": "S2_allow_local"
+            }
+          ],
+          "mismatches": [
+            {
+              "expectation_id": "anchor-filter-map:cfprefsd:S2_allow_local",
+              "expected": "allow",
+              "actual": "deny",
+              "operation": "mach-lookup",
+              "target": "com.apple.cfprefsd.agent",
+              "failure_stage": "probe",
+              "failure_kind": "probe_nonzero_exit",
+              "mismatch_type": "unexpected_deny",
+              "violation_summary": null,
+              "stderr": ""
+            }
+          ]
+        },
+        {
+          "scenario_id": "anchor-filter-map:cfprefsd:S3_allow_both",
+          "profile_id": "anchor-filter-map:cfprefsd:S3_allow_both",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "anchor-filter-map:cfprefsd:S3_allow_both",
+              "profile_id": "anchor-filter-map:cfprefsd:S3_allow_both",
+              "operation": "mach-lookup",
+              "target": "com.apple.cfprefsd.agent",
+              "expected": "allow",
+              "probe_name": "S3_allow_both"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "anchor-filter-map:cfprefsd:bogus_baseline",
+          "profile_id": "anchor-filter-map:cfprefsd:N1_deny_default",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "anchor-filter-map:cfprefsd:bogus_baseline",
+              "profile_id": "anchor-filter-map:cfprefsd:N1_deny_default",
+              "operation": "mach-lookup",
+              "target": "com.apple.sandbox-lore.anchor-filter-map.bogus",
+              "expected": "deny",
+              "probe_name": "bogus_baseline"
             }
           ],
           "mismatches": []
@@ -2432,6 +2603,336 @@
         "vocab_entry": {
           "id": 112,
           "name": "network-outbound",
+          "source": "book/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib"
+        }
+      }
+    },
+    "64": {
+      "op_id": 64,
+      "op_name": "iokit-open-service",
+      "coverage_status": "partial",
+      "probes": 8,
+      "matches": 4,
+      "mismatches": 4,
+      "examples": [
+        {
+          "scenario_id": "anchor-filter-map:iokit_class:S0_allow_any",
+          "expectation_id": "anchor-filter-map:iokit_class:S0_allow_any",
+          "expected": "allow",
+          "actual": "deny",
+          "match": false
+        },
+        {
+          "scenario_id": "anchor-filter-map:iokit_class:S1_allow_class",
+          "expectation_id": "anchor-filter-map:iokit_class:S1_allow_class",
+          "expected": "allow",
+          "actual": "deny",
+          "match": false
+        },
+        {
+          "scenario_id": "anchor-filter-map:iokit_class:S2_allow_property_literal",
+          "expectation_id": "anchor-filter-map:iokit_class:S2_allow_property_literal",
+          "expected": "allow",
+          "actual": "deny",
+          "match": false
+        },
+        {
+          "scenario_id": "anchor-filter-map:iokit_class:S3_allow_both",
+          "expectation_id": "anchor-filter-map:iokit_class:S3_allow_both",
+          "expected": "allow",
+          "actual": "deny",
+          "match": false
+        },
+        {
+          "scenario_id": "anchor-filter-map:iokit_class:N1_deny_default",
+          "expectation_id": "anchor-filter-map:iokit_class:N1_deny_default",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        }
+      ],
+      "scenarios": [
+        {
+          "scenario_id": "anchor-filter-map:iokit_class:C1_deny_class",
+          "profile_id": "anchor-filter-map:iokit_class:C1_deny_class",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "anchor-filter-map:iokit_class:C1_deny_class",
+              "profile_id": "anchor-filter-map:iokit_class:C1_deny_class",
+              "operation": "iokit-open-service",
+              "target": "IOUSBHostInterface",
+              "expected": "deny",
+              "probe_name": "C1_deny_class"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "anchor-filter-map:iokit_class:C2_deny_property_literal",
+          "profile_id": "anchor-filter-map:iokit_class:C2_deny_property_literal",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "anchor-filter-map:iokit_class:C2_deny_property_literal",
+              "profile_id": "anchor-filter-map:iokit_class:C2_deny_property_literal",
+              "operation": "iokit-open-service",
+              "target": "IOUSBHostInterface",
+              "expected": "deny",
+              "probe_name": "C2_deny_property_literal"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "anchor-filter-map:iokit_class:N1_deny_default",
+          "profile_id": "anchor-filter-map:iokit_class:N1_deny_default",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "anchor-filter-map:iokit_class:N1_deny_default",
+              "profile_id": "anchor-filter-map:iokit_class:N1_deny_default",
+              "operation": "iokit-open-service",
+              "target": "IOUSBHostInterface",
+              "expected": "deny",
+              "probe_name": "N1_deny_default"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "anchor-filter-map:iokit_class:S0_allow_any",
+          "profile_id": "anchor-filter-map:iokit_class:S0_allow_any",
+          "status": "brittle",
+          "results": {
+            "total": 1,
+            "matches": 0,
+            "mismatches": 1,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "brittle"
+          },
+          "expectations": [
+            {
+              "expectation_id": "anchor-filter-map:iokit_class:S0_allow_any",
+              "profile_id": "anchor-filter-map:iokit_class:S0_allow_any",
+              "operation": "iokit-open-service",
+              "target": "IOUSBHostInterface",
+              "expected": "allow",
+              "probe_name": "S0_allow_any"
+            }
+          ],
+          "mismatches": [
+            {
+              "expectation_id": "anchor-filter-map:iokit_class:S0_allow_any",
+              "expected": "allow",
+              "actual": "deny",
+              "operation": "iokit-open-service",
+              "target": "IOUSBHostInterface",
+              "failure_stage": "probe",
+              "failure_kind": "probe_nonzero_exit",
+              "mismatch_type": "unexpected_deny",
+              "violation_summary": null,
+              "stderr": ""
+            }
+          ]
+        },
+        {
+          "scenario_id": "anchor-filter-map:iokit_class:S1_allow_class",
+          "profile_id": "anchor-filter-map:iokit_class:S1_allow_class",
+          "status": "brittle",
+          "results": {
+            "total": 1,
+            "matches": 0,
+            "mismatches": 1,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "brittle"
+          },
+          "expectations": [
+            {
+              "expectation_id": "anchor-filter-map:iokit_class:S1_allow_class",
+              "profile_id": "anchor-filter-map:iokit_class:S1_allow_class",
+              "operation": "iokit-open-service",
+              "target": "IOUSBHostInterface",
+              "expected": "allow",
+              "probe_name": "S1_allow_class"
+            }
+          ],
+          "mismatches": [
+            {
+              "expectation_id": "anchor-filter-map:iokit_class:S1_allow_class",
+              "expected": "allow",
+              "actual": "deny",
+              "operation": "iokit-open-service",
+              "target": "IOUSBHostInterface",
+              "failure_stage": "probe",
+              "failure_kind": "probe_nonzero_exit",
+              "mismatch_type": "unexpected_deny",
+              "violation_summary": null,
+              "stderr": ""
+            }
+          ]
+        },
+        {
+          "scenario_id": "anchor-filter-map:iokit_class:S2_allow_property_literal",
+          "profile_id": "anchor-filter-map:iokit_class:S2_allow_property_literal",
+          "status": "brittle",
+          "results": {
+            "total": 1,
+            "matches": 0,
+            "mismatches": 1,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "brittle"
+          },
+          "expectations": [
+            {
+              "expectation_id": "anchor-filter-map:iokit_class:S2_allow_property_literal",
+              "profile_id": "anchor-filter-map:iokit_class:S2_allow_property_literal",
+              "operation": "iokit-open-service",
+              "target": "IOUSBHostInterface",
+              "expected": "allow",
+              "probe_name": "S2_allow_property_literal"
+            }
+          ],
+          "mismatches": [
+            {
+              "expectation_id": "anchor-filter-map:iokit_class:S2_allow_property_literal",
+              "expected": "allow",
+              "actual": "deny",
+              "operation": "iokit-open-service",
+              "target": "IOUSBHostInterface",
+              "failure_stage": "probe",
+              "failure_kind": "probe_nonzero_exit",
+              "mismatch_type": "unexpected_deny",
+              "violation_summary": null,
+              "stderr": ""
+            }
+          ]
+        },
+        {
+          "scenario_id": "anchor-filter-map:iokit_class:S3_allow_both",
+          "profile_id": "anchor-filter-map:iokit_class:S3_allow_both",
+          "status": "brittle",
+          "results": {
+            "total": 1,
+            "matches": 0,
+            "mismatches": 1,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "brittle"
+          },
+          "expectations": [
+            {
+              "expectation_id": "anchor-filter-map:iokit_class:S3_allow_both",
+              "profile_id": "anchor-filter-map:iokit_class:S3_allow_both",
+              "operation": "iokit-open-service",
+              "target": "IOUSBHostInterface",
+              "expected": "allow",
+              "probe_name": "S3_allow_both"
+            }
+          ],
+          "mismatches": [
+            {
+              "expectation_id": "anchor-filter-map:iokit_class:S3_allow_both",
+              "expected": "allow",
+              "actual": "deny",
+              "operation": "iokit-open-service",
+              "target": "IOUSBHostInterface",
+              "failure_stage": "probe",
+              "failure_kind": "probe_nonzero_exit",
+              "mismatch_type": "unexpected_deny",
+              "violation_summary": null,
+              "stderr": ""
+            }
+          ]
+        },
+        {
+          "scenario_id": "anchor-filter-map:iokit_class:bogus_baseline",
+          "profile_id": "anchor-filter-map:iokit_class:N1_deny_default",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "anchor-filter-map:iokit_class:bogus_baseline",
+              "profile_id": "anchor-filter-map:iokit_class:N1_deny_default",
+              "operation": "iokit-open-service",
+              "target": "IOSandboxLoreAnchorFilterBogus",
+              "expected": "deny",
+              "probe_name": "bogus_baseline"
+            }
+          ],
+          "mismatches": []
+        }
+      ],
+      "static": {
+        "vocab_entry": {
+          "id": 64,
+          "name": "iokit-open-service",
           "source": "book/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib"
         }
       }

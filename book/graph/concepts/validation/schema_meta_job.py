@@ -7,6 +7,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from book.api import evidence_tiers
 from book.api.path_utils import find_repo_root, to_repo_relative
 from book.graph.concepts.validation import registry
 from book.graph.concepts.validation.registry import ValidationJob
@@ -26,8 +27,9 @@ MAPPING_CHECKS = [
 ]
 META_PATH = ROOT / "book" / "graph" / "concepts" / "validation" / "out" / "metadata.json"
 
-REQUIRED_FIELDS = {"job_id", "status", "host", "inputs", "outputs", "tags"}
-ALLOWED_STATUS = {"ok", "ok-unchanged", "ok-changed", "partial", "brittle", "blocked", "skipped"}
+REQUIRED_FIELDS = {"job_id", "status", "tier", "host", "inputs", "outputs", "tags"}
+ALLOWED_STATUS = {"ok", "partial", "brittle", "blocked", "skipped"}
+ALLOWED_TIERS = set(evidence_tiers.EVIDENCE_TIERS)
 
 
 def rel(path: Path) -> str:
@@ -41,6 +43,8 @@ def check_record(rec: dict, source: Path) -> None:
         raise ValueError(f"{src} missing fields: {missing}")
     if rec.get("status") not in ALLOWED_STATUS:
         raise ValueError(f"{src} has invalid status: {rec.get('status')}")
+    if rec.get("tier") not in ALLOWED_TIERS:
+        raise ValueError(f"{src} has invalid tier: {rec.get('tier')}")
     if not isinstance(rec.get("inputs"), list) or not isinstance(rec.get("outputs"), list):
         raise ValueError(f"{src} inputs/outputs must be lists")
     if not isinstance(rec.get("tags"), list):
@@ -83,6 +87,11 @@ def run_schema_job():
             continue
         data = json.loads(mapping_path.read_text())
         meta = data.get("metadata") or {}
+        tier = meta.get("tier")
+        if tier not in ALLOWED_TIERS:
+            errors.append(f"{rel(mapping_path)} missing/invalid tier metadata")
+        elif evidence_tiers.is_bedrock_mapping_path(rel(mapping_path)) and tier != "bedrock":
+            errors.append(f"{rel(mapping_path)} tier mismatch for bedrock mapping path (expected bedrock, got {tier})")
         world_id = meta.get("world_id") or data.get("world_id")
         if not world_id:
             errors.append(f"{rel(mapping_path)} missing world_id metadata")
@@ -99,6 +108,7 @@ def run_schema_job():
     payload = {
         "job_id": "validation:schema-check",
         "status": status,
+        "tier": "mapped",
         "host": host,
         "inputs": [rel(STATUS_PATH), "book/graph/concepts/validation/out/experiments/*/status.json"],
         "outputs": [],

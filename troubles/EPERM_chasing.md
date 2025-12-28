@@ -2,7 +2,7 @@
 
 ## Context
 
-- Host: Sonoma baseline (see `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json)`).
+- Host: Sonoma baseline (see `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world.json)`).
 - Surface: applying compiled system sandbox blobs (`airlock.sb.bin`, `bsd.sb.bin`) via `sandbox_apply` in `book/tools/sbpl/wrapper/wrapper --blob`, under the `runtime-checks` harness.
 - Profiles: shipped blobs from `book/examples/extract_sbs/build/profiles/` (extracted from `/System/Library/Sandbox/Profiles/*.sb.bin` via the `extract_sbs` helper).
 

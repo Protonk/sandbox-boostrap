@@ -22,19 +22,19 @@ ROOT = find_repo_root(Path(__file__))
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from book.api import evidence_tiers
 from book.graph.concepts.validation import registry
 
 METADATA_PATH = ROOT / "book" / "graph" / "concepts" / "validation" / "out" / "metadata.json"
 STATUS_PATH = ROOT / "book" / "graph" / "concepts" / "validation" / "out" / "validation_status.json"
 ALLOWED_STATUS = {
     "ok",
-    "ok-unchanged",
-    "ok-changed",
     "partial",
     "brittle",
     "blocked",
     "skipped",
 }
+ALLOWED_TIERS = set(evidence_tiers.EVIDENCE_TIERS)
 
 
 def load_host_meta() -> Dict:
@@ -108,7 +108,7 @@ def select_jobs(
 
 
 def normalize_record(job: registry.ValidationJob, result: Dict, host_meta: Dict, prev_record: Dict | None) -> Dict:
-    status = result.get("status", "ok")
+    status = str(result.get("status", "ok"))
     raw_outputs = result.get("outputs", job.outputs)
     raw_inputs = result.get("inputs", job.inputs)
     hashes = compute_hashes(raw_outputs)
@@ -118,10 +118,18 @@ def normalize_record(job: registry.ValidationJob, result: Dict, host_meta: Dict,
             change = "unchanged"
         else:
             change = "changed"
-    if status == "ok" and change in {"unchanged", "changed"}:
-        status = f"ok-{change}"
     if status not in ALLOWED_STATUS:
         status = "blocked"
+    error = result.get("error")
+    try:
+        tier = evidence_tiers.evidence_tier_for_artifact(tier=result.get("tier"))
+    except Exception as exc:
+        status = "blocked"
+        tier = "hypothesis"
+        if not error:
+            error = f"{exc}"
+    if tier not in ALLOWED_TIERS:
+        tier = "hypothesis"
 
     inputs = [to_repo_relative(p, ROOT) for p in raw_inputs]
     outputs = [to_repo_relative(p, ROOT) for p in raw_outputs]
@@ -129,6 +137,7 @@ def normalize_record(job: registry.ValidationJob, result: Dict, host_meta: Dict,
     record = {
         "job_id": job.id,
         "status": status,
+        "tier": tier,
         "host": result.get("host") or host_meta,
         "inputs": inputs,
         "outputs": outputs,
@@ -139,8 +148,8 @@ def normalize_record(job: registry.ValidationJob, result: Dict, host_meta: Dict,
         record["notes"] = result["notes"]
     if "metrics" in result:
         record["metrics"] = result["metrics"]
-    if "error" in result:
-        record["error"] = result["error"]
+    if error:
+        record["error"] = error
     if change in {"unchanged", "changed"}:
         record["change"] = change
     return record
@@ -209,6 +218,7 @@ def main() -> None:
         "schema": {
             "job_id": "string",
             "status": "ok|partial|brittle|blocked|skipped",
+            "tier": "bedrock|mapped|hypothesis",
             "host": "object",
             "inputs": "list[str]",
             "outputs": "list[str]",
@@ -216,6 +226,7 @@ def main() -> None:
             "notes": "string?",
             "metrics": "object?",
             "error": "string?",
+            "change": "changed|unchanged?",
         },
         "world_id": world_id,
         "jobs": results,

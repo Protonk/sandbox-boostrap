@@ -2,7 +2,7 @@
 
 ## Context
 
-- Host: Sonoma baseline (see `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json)`).
+- Host: Sonoma baseline (see `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world.json)`).
 - Demo: `book/examples/extensions-dynamic/extensions_demo.c`.
 - Goal: observe sandbox extensions as a “third dimension” in Seatbelt policy by issuing a `com.apple.app-sandbox.read` extension for a target path, consuming it into the Seatbelt label, and rerunning a `file-read*` operation.
 

@@ -132,6 +132,7 @@ def run_vocab_job():
     out_dir = Path(__file__).resolve().parent / "out" / "vocab"
     return {
         "status": "ok",
+        "tier": "mapped",
         "outputs": [str(out_dir / "ops.json"), str(out_dir / "filters.json")],
     }
 

@@ -20,7 +20,7 @@ Entries should stay minimal but actionable: what was run, what failed, what was 
 New notes do not have to be identical, but the following pattern keeps things easy to skim:
 
 - `# <Short, problem-shaped title>`
-- `## Context` – host (usually via `book/world/…/world-baseline.json`), experiment/tool path, and goal.
+- `## Context` – host (usually via `book/world/…/world.json`), experiment/tool path, and goal.
 - `## Symptom` – what broke, in a few bullets.
 - Optional `## Reproduction` – minimal commands/paths to trigger it.
 - `## Interpretation` – how we currently understand it, using the project’s vocabulary.

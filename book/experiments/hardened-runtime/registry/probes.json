@@ -9,6 +9,7 @@
       "operation": "mach-lookup",
       "target": "com.apple.cfprefsd.agent",
       "expected": "deny",
+      "driver": "sandbox_mach_probe",
       "supports_lanes": {
         "baseline": true,
         "scenario": true,
@@ -33,6 +34,7 @@
       "operation": "mach-lookup",
       "target": "com.apple.sandbox-lore.hardened-runtime.bogus",
       "expected": "deny",
+      "driver": "sandbox_mach_probe",
       "supports_lanes": {
         "baseline": true,
         "scenario": true,
@@ -57,6 +59,7 @@
       "operation": "mach-lookup",
       "target": "com.apple.cfprefsd.agent",
       "expected": "allow",
+      "driver": "sandbox_mach_probe",
       "supports_lanes": {
         "baseline": true,
         "scenario": true,

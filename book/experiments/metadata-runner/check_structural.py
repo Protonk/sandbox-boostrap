@@ -20,7 +20,7 @@ from book.api.profile_tools import decoder  # type: ignore
 BASE_DIR = Path(__file__).resolve().parent
 SB_BUILD = BASE_DIR / "sb" / "build"
 OUT_DIR = BASE_DIR / "out"
-WORLD_PATH = find_repo_root(Path(__file__)) / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world-baseline.json"
+WORLD_PATH = find_repo_root(Path(__file__)) / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world.json"
 ANCHOR_MAP_PATH = REPO_ROOT / "book" / "graph" / "mappings" / "anchors" / "anchor_filter_map.json"
 
 # Paths exercised by this experiment

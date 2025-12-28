@@ -21,11 +21,15 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
 ROOT = Path(__file__).resolve().parents[4]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from book.api import evidence_tiers  # noqa: E402
+from book.api import world as world_mod  # noqa: E402
+
 IR_PATH = ROOT / "book" / "graph" / "concepts" / "validation" / "out" / "experiments" / "system-profile-digest" / "digests_ir.json"
 STATUS_PATH = ROOT / "book" / "graph" / "concepts" / "validation" / "out" / "validation_status.json"
 OUT_PATH = ROOT / "book" / "graph" / "mappings" / "system_profiles" / "digests.json"
-BASELINE_REF = "book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json"
-BASELINE_PATH = ROOT / BASELINE_REF
 STATIC_CHECKS_PATH = ROOT / "book" / "graph" / "mappings" / "system_profiles" / "static_checks.json"
 EXPECTED_JOB = "experiment:system-profile-digest"
 # Canonical profiles are the bedrock policy layers for this host. They are not a
@@ -74,7 +78,7 @@ def load_status(job_id: str) -> Dict[str, Any]:
     job = jobs.get(job_id)
     if not job:
         raise RuntimeError(f"job {job_id} missing from validation_status.json")
-    if not str(job.get("status", "")).startswith("ok"):
+    if job.get("status") != "ok":
         raise RuntimeError(f"job {job_id} not ok: {job.get('status')}")
     return job
 
@@ -92,13 +96,8 @@ def load_existing_mapping() -> Dict[str, Any]:
 
 
 def load_baseline_world() -> str:
-    if not BASELINE_PATH.exists():
-        raise FileNotFoundError(f"missing baseline: {BASELINE_PATH}")
-    data = json.loads(BASELINE_PATH.read_text())
-    world_id = data.get("world_id")
-    if not world_id:
-        raise RuntimeError("world_id missing from baseline")
-    return world_id
+    data, resolution = world_mod.load_world(repo_root=ROOT)
+    return world_mod.require_world_id(data, world_path=resolution.entry.world_path)
 
 
 def sha256_path(path: Path) -> str:
@@ -247,6 +246,8 @@ def main() -> None:
     if any(entry["status"] != "ok" for entry in canonical_statuses.values()):
         aggregate_status = "brittle"
 
+    out_tier = "bedrock" if evidence_tiers.is_bedrock_mapping_path(OUT_PATH) else "mapped"
+
     mapping = {
         "metadata": {
             "world_id": world_id,
@@ -254,6 +255,10 @@ def main() -> None:
             "source_jobs": (ir.get("source_jobs") or []) + ["generator:system_profiles:static_checks"],
             "decoder": "book.api.profile_tools.decoder",
             "status": aggregate_status,
+            "tier": evidence_tiers.evidence_tier_for_artifact(
+                path=OUT_PATH,
+                tier=out_tier,
+            ),
             "canonical_profiles": canonical_statuses,
             "contract_fields": CONTRACT_FIELDS,
         },

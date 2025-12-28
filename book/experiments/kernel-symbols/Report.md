@@ -23,7 +23,7 @@ Track kernel symbol and string extraction runs for the 14.4.1-23E224 kernelcache
 If new dispatcher hypotheses appear or the kernelcache changes, reuse this outline:
 
 1. **Scope and setup**
-   - Confirm the target build ID and baseline in `book/world/.../world-baseline.json`, this Report, and `Notes.md`.
+   - Confirm the target build ID and baseline in `book/world/.../world.json`, this Report, and `Notes.md`.
    - Decide which additional addresses (strings or symbols) should be included in string-ref and data-define runs.
 2. **Symbol/string extraction**
    - Regenerate `kernel-symbols/strings.json` and `symbols.json` under `out/<build>/kernel-symbols/` if needed.

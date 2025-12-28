@@ -1,0 +1,106 @@
+{
+  "input_hashes": {
+    "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json": "6162982de26c10913bb1d0c5f7f34da46e0ef1b46ae919a48ff85ae95d523f9c",
+    "book/experiments/anchor-filter-map/out/promotion_packet.json": "b0dc6ea4d240cf2a41c99cf9ecaf8c782b35c63b6e5f6f5503692bfbe48de178",
+    "book/experiments/runtime-adversarial/out/promotion_packet.json": "3b479d0a30a4e9105ca2ef0d18c015255f40cb6bf960c622915db02cc81bb823",
+    "book/experiments/runtime-checks/out/promotion_packet.json": "98ee9c649c1926fa231bf1e14324fd3f9df0c6acd4345d5b2e02015339d46c7e",
+    "book/graph/mappings/runtime/packet_set.json": "17346d8c87616fc78353fe6ffb5bee8b5437fc8cccc171fbb436a3db98b7c6e3"
+  },
+  "inputs": [
+    "book/graph/mappings/runtime/packet_set.json",
+    "book/experiments/runtime-checks/out/promotion_packet.json",
+    "book/experiments/runtime-adversarial/out/promotion_packet.json",
+    "book/experiments/hardened-runtime/out/promotion_packet.json",
+    "book/experiments/anchor-filter-map/out/promotion_packet.json",
+    "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json"
+  ],
+  "notes": "Receipt for runtime mapping promotion inputs; used packets are decision-stage promotable per their manifests/promotability blocks.",
+  "packet_set": "book/graph/mappings/runtime/packet_set.json",
+  "packets": {
+    "considered": [
+      {
+        "channel": "launchd_clean",
+        "path": "book/experiments/runtime-checks/out/promotion_packet.json",
+        "promotability": null,
+        "reasons": [],
+        "run_id": "629a8948-b53b-4c7e-bbb4-d45dc7d01709",
+        "schema_version": "runtime-tools.promotion_packet.v0.1",
+        "status": "used"
+      },
+      {
+        "channel": "launchd_clean",
+        "path": "book/experiments/runtime-adversarial/out/promotion_packet.json",
+        "promotability": null,
+        "reasons": [],
+        "run_id": "65312c5f-21dd-48c0-b980-c5c9487b3307",
+        "schema_version": "runtime-tools.promotion_packet.v0.1",
+        "status": "used"
+      },
+      {
+        "path": "book/experiments/hardened-runtime/out/promotion_packet.json",
+        "reasons": [
+          "missing_packet"
+        ],
+        "status": "missing"
+      },
+      {
+        "channel": "launchd_clean",
+        "path": "book/experiments/anchor-filter-map/out/promotion_packet.json",
+        "promotability": {
+          "gating_inputs": {
+            "apply_ok": true,
+            "apply_preflight_present": true,
+            "channel": "launchd_clean",
+            "sandbox_check_self": {
+              "error": "libsystem_sandbox not found",
+              "source": "sandbox_check"
+            }
+          },
+          "promotable_decision_stage": true,
+          "reasons": []
+        },
+        "reasons": [],
+        "run_id": "028d4d91-1c9e-4c2f-95da-7fc89ec3635a",
+        "schema_version": "runtime-tools.promotion_packet.v0.2",
+        "status": "used"
+      },
+      {
+        "channel": "launchd_clean",
+        "path": "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json",
+        "promotability": {
+          "gating_inputs": {
+            "apply_ok": true,
+            "apply_preflight_present": true,
+            "channel": "launchd_clean",
+            "sandbox_check_self": {
+              "error": "libsystem_sandbox not found",
+              "source": "sandbox_check"
+            }
+          },
+          "promotable_decision_stage": true,
+          "reasons": []
+        },
+        "reasons": [],
+        "run_id": "bf80e47b-3020-4b13-bfa7-249cfcff8b52",
+        "schema_version": "runtime-tools.promotion_packet.v0.2",
+        "status": "used"
+      }
+    ],
+    "rejected": [
+      {
+        "path": "book/experiments/hardened-runtime/out/promotion_packet.json",
+        "reasons": [
+          "missing_packet"
+        ]
+      }
+    ],
+    "used": [
+      "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json",
+      "book/experiments/anchor-filter-map/out/promotion_packet.json",
+      "book/experiments/runtime-adversarial/out/promotion_packet.json",
+      "book/experiments/runtime-checks/out/promotion_packet.json"
+    ]
+  },
+  "schema_version": "runtime.promotion_receipt.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

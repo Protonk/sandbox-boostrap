@@ -1,0 +1,32 @@
+{
+  "schema_version": "runtime-tools.summary.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "run_id": "1ab3b83c-200c-4ade-a94b-52d92b4d8815",
+  "status": "failed",
+  "plan_id": "runtime-adversarial.v1",
+  "plan_digest": "1f8fdd50d4aa182853efe8eb4491c611dadf2ce02fd52637897f12f9fc352e48",
+  "channel": "launchd_clean",
+  "lanes": {
+    "baseline": true,
+    "scenario": true,
+    "oracle": true
+  },
+  "profile_count": 12,
+  "scenario_count": 43,
+  "expected_profiles": [
+    "adv:flow_divert_partial_tcp",
+    "adv:flow_divert_require_all_tcp",
+    "adv:mach_local_literal",
+    "adv:mach_local_regex",
+    "adv:mach_simple_allow",
+    "adv:mach_simple_variants",
+    "adv:net_outbound_allow",
+    "adv:net_outbound_deny",
+    "adv:path_alias",
+    "adv:path_edges",
+    "adv:struct_flat",
+    "adv:struct_nested"
+  ],
+  "mismatch_counts": {},
+  "dry_run": false
+}

@@ -4,7 +4,7 @@
 Provide a clean, provenance-stamped decision-stage runtime lane for non-VFS sandbox operations on this host. The experiment is built around two host-bound hypotheses: (1) policy evaluation is operation-based and filter-driven, and (2) acquisition timing (before vs after sandbox apply) shapes enforcement. Both are treated as hypotheses under exploration until host evidence is captured.
 
 ## Baseline & scope
-- World: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (`book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`).
+- World: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (`book/world/sonoma-14.4.1-23E224-arm64/world.json`).
 - Non-VFS operations only (mach/XPC, sysctl, IOKit, process-info, system-socket, notifications).
 - VFS canonicalization is out-of-scope except as a recorded observation field when present in runtime events.
 

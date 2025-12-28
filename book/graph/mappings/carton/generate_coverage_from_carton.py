@@ -8,7 +8,7 @@ Inputs (CARTON-exposed only):
 
 Flow:
 - Run the validation driver for smoke + system-profiles tags to refresh upstream IR/mappings.
-- Require the underlying jobs to be ok (or ok-unchanged/ok-changed) in validation_status.json.
+- Require the underlying jobs to be ok in validation_status.json.
 - Emit book/graph/mappings/carton/operation_coverage.json with host/provenance metadata.
 
 All inputs are already CARTON-facing mappings; no experiment out/ blobs are read here so
@@ -24,11 +24,15 @@ from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
 ROOT = Path(__file__).resolve().parents[4]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from book.api import evidence_tiers  # noqa: E402
+from book.api import world as world_mod  # noqa: E402
+
 OPS_PATH = ROOT / "book/graph/mappings/vocab/ops.json"
 DIGESTS_PATH = ROOT / "book/graph/mappings/system_profiles/digests.json"
 CARTON_PATH = ROOT / "book/api/carton/CARTON.json"
-BASELINE_REF = "book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json"
-BASELINE_PATH = ROOT / BASELINE_REF
 STATUS_PATH = ROOT / "book/graph/concepts/validation/out/validation_status.json"
 OUT_PATH = ROOT / "book/graph/mappings/carton/operation_coverage.json"
 EXPECTED_JOBS = {
@@ -54,7 +58,7 @@ def require_jobs(status: Dict[str, Dict]) -> None:
         rec = status.get(job_id)
         if not rec:
             raise RuntimeError(f"job {job_id} missing from validation_status.json")
-        if not str(rec.get("status", "")).startswith("ok"):
+        if rec.get("status") != "ok":
             raise RuntimeError(f"job {job_id} not ok: {rec.get('status')}")
 
 
@@ -65,13 +69,8 @@ def load_json(path: Path) -> Dict:
 
 
 def load_baseline_world() -> str:
-    if not BASELINE_PATH.exists():
-        raise FileNotFoundError(f"missing baseline: {BASELINE_PATH}")
-    data = json.loads(BASELINE_PATH.read_text())
-    world_id = data.get("world_id")
-    if not world_id:
-        raise RuntimeError("world_id missing from baseline")
-    return world_id
+    data, resolution = world_mod.load_world(repo_root=ROOT)
+    return world_mod.require_world_id(data, world_path=resolution.entry.world_path)
 
 
 def assert_world_compatible(baseline_world: str, other: dict | str | None, label: str) -> None:
@@ -177,6 +176,10 @@ def main() -> None:
             "inputs": inputs,
             "source_jobs": sorted(EXPECTED_JOBS),
             "status": coverage_status,
+            "tier": evidence_tiers.evidence_tier_for_artifact(
+                path=OUT_PATH,
+                tier="mapped",
+            ),
             "canonical_profile_status": canonical_per_profile,
             "notes": "Derived purely from CARTON mappings; locked to canonical system profile contract status.",
         },

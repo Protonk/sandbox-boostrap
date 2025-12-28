@@ -19,5 +19,6 @@ def test_runtime_promotion_packet_set_is_present_and_valid():
         "book/experiments/runtime-checks/out/promotion_packet.json",
         "book/experiments/runtime-adversarial/out/promotion_packet.json",
         "book/experiments/hardened-runtime/out/promotion_packet.json",
+        "book/experiments/anchor-filter-map/out/promotion_packet.json",
+        "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json",
     ]
-

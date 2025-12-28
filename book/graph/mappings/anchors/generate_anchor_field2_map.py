@@ -20,7 +20,8 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from book.api import path_utils  # type: ignore
-BASELINE_PATH = REPO_ROOT / "book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json"
+from book.api import evidence_tiers  # type: ignore
+from book.api import world as world_mod  # type: ignore
 HITS_PATH = REPO_ROOT / "book/experiments/probe-op-structure/out/anchor_hits.json"
 OUT_PATH = REPO_ROOT / "book/graph/mappings/anchors/anchor_field2_map.json"
 
@@ -38,9 +39,8 @@ def load_existing_roles() -> Dict[str, Tuple[str, str]]:
 
 
 def main() -> None:
-    world_id = json.loads(BASELINE_PATH.read_text()).get("world_id")
-    if not world_id:
-        raise RuntimeError("missing world_id in baseline")
+    world_doc, resolution = world_mod.load_world(repo_root=REPO_ROOT)
+    world_id = world_mod.require_world_id(world_doc, world_path=resolution.entry.world_path)
     hits_doc = json.loads(HITS_PATH.read_text())
     existing_roles = load_existing_roles()
 
@@ -61,6 +61,10 @@ def main() -> None:
         "metadata": {
             "world_id": world_id,
             "status": "partial",
+            "tier": evidence_tiers.evidence_tier_for_artifact(
+                path=path_utils.to_repo_relative(OUT_PATH, REPO_ROOT),
+                tier="mapped",
+            ),
             "inputs": [path_utils.to_repo_relative(HITS_PATH, REPO_ROOT)],
             "source_jobs": ["experiment:probe-op-structure"],
             "notes": "Structural anchor -> field2 hints derived from probe-op-structure anchor_hits; exploratory, not semantic bindings.",

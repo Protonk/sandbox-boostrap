@@ -5,7 +5,7 @@
 #include <string.h>
 
 // Private libsandbox interfaces for the fixed baseline recorded in:
-// book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json.
+// book/world/sonoma-14.4.1-23E224-arm64/world.json.
 //
 // This file is a minimal reference implementation for "SBPL file -> compiled
 // blob" using libsandbox’s private compiler entry points. The canonical Python

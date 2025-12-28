@@ -10,7 +10,7 @@ Inputs:
 - book/experiments/op-table-operation/out/{op_table_map.json,op_table_signatures.json}
 - book/experiments/op-table-vocab-alignment/out/op_table_vocab_alignment.json
 - book/graph/mappings/vocab/{ops.json,filters.json}
-- book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json
+- book/world/sonoma-14.4.1-23E224-arm64/world.json
 
 Outputs:
 - book/graph/mappings/op_table/{op_table_operation_summary.json,op_table_map.json,op_table_signatures.json,op_table_vocab_alignment.json}
@@ -33,6 +33,8 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from book.api.path_utils import ensure_absolute, find_repo_root, to_repo_relative
+from book.api import evidence_tiers
+from book.api import world as world_mod
 
 
 def _load_json(path: Path) -> Any:
@@ -57,12 +59,8 @@ def _is_promoted_profile_id(profile_id: str) -> bool:
 
 
 def _load_world_id(repo_root: Path) -> str:
-    baseline_path = repo_root / "book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json"
-    baseline = _load_json(baseline_path)
-    world_id = baseline.get("world_id")
-    if not world_id:
-        raise RuntimeError("world_id missing from baseline")
-    return str(world_id)
+    world_doc, resolution = world_mod.load_world(repo_root=repo_root)
+    return world_mod.require_world_id(world_doc, world_path=resolution.entry.world_path)
 
 
 def _vocab_versions(repo_root: Path) -> Dict[str, Any]:
@@ -76,8 +74,10 @@ def _vocab_versions(repo_root: Path) -> Dict[str, Any]:
     ops_rows = ops_rows or []
     filters_rows = filters_rows or []
 
+    ops_status = (ops.get("metadata") or {}).get("status") or ops.get("status")
+    filters_status = (filters.get("metadata") or {}).get("status") or filters.get("status")
     return {
-        "status": "ok" if ops.get("status") == "ok" and filters.get("status") == "ok" else "partial",
+        "status": "ok" if ops_status == "ok" and filters_status == "ok" else "partial",
         "ops_count": len(ops_rows),
         "filters_count": len(filters_rows),
         "ops_version": _sha256_json_rows(ops_rows),
@@ -132,6 +132,10 @@ def _promote_op_table_vocab_alignment(repo_root: Path, world_id: str, vocab_vers
             "world_id": world_id,
             "vocab_versions": vocab_versions,
             "status": "ok" if data.get("vocab_present") else "partial",
+            "tier": evidence_tiers.evidence_tier_for_artifact(
+                path=to_repo_relative(out, repo_root),
+                tier="mapped",
+            ),
             "vocab_present": bool(data.get("vocab_present")),
             "filter_vocab_present": bool(data.get("filter_vocab_present")),
             "source_summary": source_summary,

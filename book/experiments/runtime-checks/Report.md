@@ -48,7 +48,7 @@ Validate that runtime allow/deny behavior for selected profiles matches decoder-
 If runtime checks are extended or revisited, reuse this outline:
 
 1. **Scope and setup**
-   - Confirm the host baseline (OS/build, SIP) in `book/world/.../world-baseline.json`, this Report, and `Notes.md` if more runtime work resumes.
+   - Confirm the host baseline (OS/build, SIP) in `book/world/.../world.json`, this Report, and `Notes.md` if more runtime work resumes.
    - Decide which profiles (synthetic bucket‑4/bucket‑5, `bsd`, and any others) are in scope.
 2. **Define probes and expectations**
    - Refine expected allow/deny outcomes based on decoder bucket assignments and tag signatures; update `out/expected_matrix.json` as needed.

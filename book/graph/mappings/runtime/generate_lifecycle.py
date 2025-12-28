@@ -21,16 +21,21 @@ import json
 import hashlib
 from dataclasses import dataclass, asdict
 from pathlib import Path
+import sys
 from typing import Any, Dict, List, Optional
 
 
 REPO_ROOT = Path(__file__).resolve().parents[4]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from book.api import evidence_tiers  # noqa: E402
+from book.api import world as world_mod  # noqa: E402
+
 OUT_MANIFEST = REPO_ROOT / "book/graph/mappings/runtime/lifecycle.json"
 OUT_STORY = REPO_ROOT / "book/graph/mappings/runtime/lifecycle_story.json"
 OUT_COVERAGE = REPO_ROOT / "book/graph/mappings/runtime/lifecycle_coverage.json"
 OUT_TRACES = REPO_ROOT / "book/graph/mappings/runtime/lifecycle_traces"
-BASELINE_REF = "book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json"
-BASELINE_PATH = REPO_ROOT / BASELINE_REF
 ENTITLEMENTS_PATH = REPO_ROOT / "book/graph/concepts/validation/out/lifecycle/entitlements.json"
 EXTENSIONS_PATH = REPO_ROOT / "book/graph/concepts/validation/out/lifecycle/extensions_dynamic.md"
 
@@ -47,14 +52,11 @@ def sha256_path(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def load_baseline_world() -> str:
-    if not BASELINE_PATH.exists():
-        raise FileNotFoundError(f"missing baseline: {BASELINE_PATH}")
-    data = json.loads(BASELINE_PATH.read_text())
-    world_id = data.get("world_id")
-    if not world_id:
-        raise RuntimeError("world_id missing from baseline")
-    return world_id
+def load_baseline_world() -> tuple[str, str]:
+    data, resolution = world_mod.load_world(repo_root=REPO_ROOT)
+    world_id = world_mod.require_world_id(data, world_path=resolution.entry.world_path)
+    world_path = world_mod.world_path_for_metadata(resolution, repo_root=REPO_ROOT)
+    return world_id, world_path
 
 
 def status_entry(scenario_id: str, status: str, notes: str, traces: List[str], source_log: Optional[str]) -> Dict[str, Any]:
@@ -166,7 +168,7 @@ def normalize_extensions(meta: Dict[str, Any]) -> (Dict[str, Any], List[Dict[str
 
 
 def main() -> None:
-    world_id = load_baseline_world()
+    world_id, world_path = load_baseline_world()
     meta = load_json(REPO_ROOT / "book/graph/concepts/validation/out/metadata.json")
     manifest = {
         "world_id": world_id,
@@ -184,7 +186,9 @@ def main() -> None:
         str(ENTITLEMENTS_PATH.relative_to(REPO_ROOT)),
         str(EXTENSIONS_PATH.relative_to(REPO_ROOT)),
         "book/graph/concepts/validation/out/metadata.json",
+        world_path,
     ]
+    overall_status = "partial" if any(s.get("status") != "ok" for s in manifest["scenarios"]) else "ok"
     manifest["metadata"] = {
         "world_id": world_id,
         "inputs": inputs,
@@ -192,7 +196,11 @@ def main() -> None:
             str(ENTITLEMENTS_PATH.relative_to(REPO_ROOT)): sha256_path(ENTITLEMENTS_PATH),
             str(EXTENSIONS_PATH.relative_to(REPO_ROOT)): sha256_path(EXTENSIONS_PATH),
         },
-        "status": "partial" if any(s.get("status") != "ok" for s in manifest["scenarios"]) else "ok",
+        "status": overall_status,
+        "tier": evidence_tiers.evidence_tier_for_artifact(
+            path=OUT_MANIFEST,
+            tier="mapped",
+        ),
         "notes": "Lifecycle probes normalized; blocked/partial scenarios retained with source logs.",
     }
 
@@ -204,6 +212,10 @@ def main() -> None:
             "inputs": inputs,
             "input_hashes": manifest["metadata"]["input_hashes"],
             "status": manifest["metadata"]["status"],
+            "tier": evidence_tiers.evidence_tier_for_artifact(
+                path=OUT_STORY,
+                tier="mapped",
+            ),
             "notes": "Lifecycle story derived from validation outputs; expected vs observed per scenario.",
         },
         "scenarios": story_scenarios,
@@ -236,12 +248,17 @@ def main() -> None:
             "static_ref": scenario.get("static_ref"),
         }
 
+    coverage_status = "ok" if not disallowed else "partial"
     coverage = {
         "metadata": {
             "world_id": world_id,
             "inputs": inputs,
             "input_hashes": manifest["metadata"]["input_hashes"],
-            "status": "ok" if not disallowed else "partial",
+            "status": coverage_status,
+            "tier": evidence_tiers.evidence_tier_for_artifact(
+                path=OUT_COVERAGE,
+                tier="mapped",
+            ),
             "notes": "Lifecycle coverage derived from lifecycle_story; mismatches are not currently gated.",
             "mismatch_summary": {
                 "total_mismatches": sum((len(s.get("mismatches") or []) for s in story["scenarios"].values())),

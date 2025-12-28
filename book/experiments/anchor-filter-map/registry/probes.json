@@ -1,0 +1,407 @@
+{
+  "schema_version": "runtime-tools.probe_registry.v0.1",
+  "registry_id": "anchor-filter-map",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "probes": {
+    "anchor-filter-map:cfprefsd:S0_allow_any": {
+      "probe_id": "anchor-filter-map:cfprefsd:S0_allow_any",
+      "name": "S0_allow_any",
+      "operation": "mach-lookup",
+      "target": "com.apple.cfprefsd.agent",
+      "expected": "allow",
+      "driver": "sandbox_mach_probe",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "mach-lookup"
+      ],
+      "expected_predicates": [
+        "com.apple.cfprefsd.agent"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "anchor-filter-map:cfprefsd:S1_allow_global": {
+      "probe_id": "anchor-filter-map:cfprefsd:S1_allow_global",
+      "name": "S1_allow_global",
+      "operation": "mach-lookup",
+      "target": "com.apple.cfprefsd.agent",
+      "expected": "allow",
+      "driver": "sandbox_mach_probe",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "mach-lookup"
+      ],
+      "expected_predicates": [
+        "com.apple.cfprefsd.agent"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "anchor-filter-map:cfprefsd:S2_allow_local": {
+      "probe_id": "anchor-filter-map:cfprefsd:S2_allow_local",
+      "name": "S2_allow_local",
+      "operation": "mach-lookup",
+      "target": "com.apple.cfprefsd.agent",
+      "expected": "allow",
+      "driver": "sandbox_mach_probe",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "mach-lookup"
+      ],
+      "expected_predicates": [
+        "com.apple.cfprefsd.agent"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "anchor-filter-map:cfprefsd:S3_allow_both": {
+      "probe_id": "anchor-filter-map:cfprefsd:S3_allow_both",
+      "name": "S3_allow_both",
+      "operation": "mach-lookup",
+      "target": "com.apple.cfprefsd.agent",
+      "expected": "allow",
+      "driver": "sandbox_mach_probe",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "mach-lookup"
+      ],
+      "expected_predicates": [
+        "com.apple.cfprefsd.agent"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "anchor-filter-map:cfprefsd:N1_deny_default": {
+      "probe_id": "anchor-filter-map:cfprefsd:N1_deny_default",
+      "name": "N1_deny_default",
+      "operation": "mach-lookup",
+      "target": "com.apple.cfprefsd.agent",
+      "expected": "deny",
+      "driver": "sandbox_mach_probe",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "mach-lookup"
+      ],
+      "expected_predicates": [
+        "com.apple.cfprefsd.agent"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "anchor-filter-map:cfprefsd:bogus_baseline": {
+      "probe_id": "anchor-filter-map:cfprefsd:bogus_baseline",
+      "name": "bogus_baseline",
+      "operation": "mach-lookup",
+      "target": "com.apple.sandbox-lore.anchor-filter-map.bogus",
+      "expected": "deny",
+      "driver": "sandbox_mach_probe",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "mach-lookup"
+      ],
+      "expected_predicates": [
+        "com.apple.sandbox-lore.anchor-filter-map.bogus"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "anchor-filter-map:cfprefsd:C1_deny_global": {
+      "probe_id": "anchor-filter-map:cfprefsd:C1_deny_global",
+      "name": "C1_deny_global",
+      "operation": "mach-lookup",
+      "target": "com.apple.cfprefsd.agent",
+      "expected": "deny",
+      "driver": "sandbox_mach_probe",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "mach-lookup"
+      ],
+      "expected_predicates": [
+        "com.apple.cfprefsd.agent"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "anchor-filter-map:cfprefsd:C2_deny_local": {
+      "probe_id": "anchor-filter-map:cfprefsd:C2_deny_local",
+      "name": "C2_deny_local",
+      "operation": "mach-lookup",
+      "target": "com.apple.cfprefsd.agent",
+      "expected": "deny",
+      "driver": "sandbox_mach_probe",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "mach-lookup"
+      ],
+      "expected_predicates": [
+        "com.apple.cfprefsd.agent"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "anchor-filter-map:iokit_class:S0_allow_any": {
+      "probe_id": "anchor-filter-map:iokit_class:S0_allow_any",
+      "name": "S0_allow_any",
+      "operation": "iokit-open-service",
+      "target": "IOUSBHostInterface",
+      "expected": "allow",
+      "driver": "sandbox_iokit_probe",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "iokit-open-service"
+      ],
+      "expected_predicates": [
+        "IOUSBHostInterface"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "anchor-filter-map:iokit_class:S1_allow_class": {
+      "probe_id": "anchor-filter-map:iokit_class:S1_allow_class",
+      "name": "S1_allow_class",
+      "operation": "iokit-open-service",
+      "target": "IOUSBHostInterface",
+      "expected": "allow",
+      "driver": "sandbox_iokit_probe",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "iokit-open-service"
+      ],
+      "expected_predicates": [
+        "IOUSBHostInterface"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "anchor-filter-map:iokit_class:S2_allow_property_literal": {
+      "probe_id": "anchor-filter-map:iokit_class:S2_allow_property_literal",
+      "name": "S2_allow_property_literal",
+      "operation": "iokit-open-service",
+      "target": "IOUSBHostInterface",
+      "expected": "allow",
+      "driver": "sandbox_iokit_probe",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "iokit-open-service"
+      ],
+      "expected_predicates": [
+        "IOUSBHostInterface"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "anchor-filter-map:iokit_class:S3_allow_both": {
+      "probe_id": "anchor-filter-map:iokit_class:S3_allow_both",
+      "name": "S3_allow_both",
+      "operation": "iokit-open-service",
+      "target": "IOUSBHostInterface",
+      "expected": "allow",
+      "driver": "sandbox_iokit_probe",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "iokit-open-service"
+      ],
+      "expected_predicates": [
+        "IOUSBHostInterface"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "anchor-filter-map:iokit_class:N1_deny_default": {
+      "probe_id": "anchor-filter-map:iokit_class:N1_deny_default",
+      "name": "N1_deny_default",
+      "operation": "iokit-open-service",
+      "target": "IOUSBHostInterface",
+      "expected": "deny",
+      "driver": "sandbox_iokit_probe",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "iokit-open-service"
+      ],
+      "expected_predicates": [
+        "IOUSBHostInterface"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "anchor-filter-map:iokit_class:bogus_baseline": {
+      "probe_id": "anchor-filter-map:iokit_class:bogus_baseline",
+      "name": "bogus_baseline",
+      "operation": "iokit-open-service",
+      "target": "IOSandboxLoreAnchorFilterBogus",
+      "expected": "deny",
+      "driver": "sandbox_iokit_probe",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "iokit-open-service"
+      ],
+      "expected_predicates": [
+        "IOSandboxLoreAnchorFilterBogus"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "anchor-filter-map:iokit_class:C1_deny_class": {
+      "probe_id": "anchor-filter-map:iokit_class:C1_deny_class",
+      "name": "C1_deny_class",
+      "operation": "iokit-open-service",
+      "target": "IOUSBHostInterface",
+      "expected": "deny",
+      "driver": "sandbox_iokit_probe",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "iokit-open-service"
+      ],
+      "expected_predicates": [
+        "IOUSBHostInterface"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "anchor-filter-map:iokit_class:C2_deny_property_literal": {
+      "probe_id": "anchor-filter-map:iokit_class:C2_deny_property_literal",
+      "name": "C2_deny_property_literal",
+      "operation": "iokit-open-service",
+      "target": "IOUSBHostInterface",
+      "expected": "deny",
+      "driver": "sandbox_iokit_probe",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "iokit-open-service"
+      ],
+      "expected_predicates": [
+        "IOUSBHostInterface"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    }
+  }
+}

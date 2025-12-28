@@ -8,7 +8,7 @@ from book.tools.preflight import preflight as preflight_mod
 
 
 ROOT = Path(__file__).resolve().parents[2]
-BASELINE = ROOT / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world-baseline.json"
+BASELINE = ROOT / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world.json"
 INDEX_DIR = ROOT / "book" / "tools" / "preflight" / "index"
 MANIFEST_PATH = INDEX_DIR / "preflight_enterability_manifest.json"
 SUMMARY_PATH = INDEX_DIR / "summary.json"

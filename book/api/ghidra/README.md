@@ -18,9 +18,23 @@ Tasks (examples; see `TaskRegistry.default()` for the full set):
 - `kernel-symbols` (fast, `--no-analysis` OK): dump sandbox symbols/strings; outputs also mirrored to `book/experiments/kernel-symbols/out/<build>/...`.
 - `kernel-tag-switch` (needs full analysis): heuristic ranking of computed-jump functions to find the PolicyGraph dispatcher; output `dumps/ghidra/out/<build>/kernel-tag-switch/switch_candidates.json`.
 - `kernel-op-table`, `kernel-string-refs`, `kernel-imm-search`, `kernel-field2-mask-scan`: various scans over the KC for op-table candidates, strings/imports, immediates, and field2-like masks.
+- `kernel-collection-symbols`: dump symbols/strings for com.apple.security.sandbox in the KC.
+- `kernel-collection-addr-window-dump`: dump an instruction window around a KC address.
+- `kernel-collection-jump-table-read`: read a signed-32 jump table and resolve targets in the KC.
+- `kernel-collection-syscall-code-scan`: scan the KC for compare-like uses of a syscall call code.
 - `kernel-adrp-add-scan` (best after analysis): locate ADRP+ADD/SUB sequences that materialize a specific target address.
 - `kernel-arm-const-base-scan` (best after analysis): scan ADRP bases into a target address range, even if the exact pointer is not emitted.
 - `kernel-data-define`: define data at `addr:<hex>` targets and dump refs; use `--process-existing --no-analysis` after a full analysis pass.
+- `sandbox-kext-symbols`: dump sandbox_kext symbols/strings for symbol-name lookups and address pivots.
+- `sandbox-kext-function-dump`: dump disassembly for specified sandbox_kext functions/addresses.
+- `sandbox-kext-imm-search`: search sandbox_kext instructions for a given immediate value.
+- `sandbox-kext-op-table`: surface pointer-table candidates inside sandbox_kext segments.
+- `sandbox-kext-pointer-value-scan`: scan sandbox_kext memory for a specific pointer value.
+- `sandbox-kext-addr-window-dump`: dump an instruction window around a sandbox_kext address.
+- `sandbox-kext-addr-lookup`: lookup addresses/constants inside sandbox_kext.
+- `sandbox-kext-jump-table-dump`: dump jump-table entries for sandbox_kext dispatcher candidates.
+- `sandbox-kext-jump-table-read`: read a signed-32 jump table and resolve targets in sandbox_kext.
+- `sandbox-kext-syscall-code-scan`: scan sandbox_kext for compare-like uses of a syscall call code.
 
 Tag-switch triage (rolled up from the former `dumps/ghidra/Tag_triage.md`):
 - Run with full analysis (no `--no-analysis`) so functions/computed jumps exist.

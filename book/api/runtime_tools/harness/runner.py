@@ -25,6 +25,9 @@ READER = REPO_ROOT / "book" / "experiments" / "runtime-checks" / "sandbox_reader
 WRITER = REPO_ROOT / "book" / "experiments" / "runtime-checks" / "sandbox_writer"
 WRAPPER = REPO_ROOT / "book" / "tools" / "sbpl" / "wrapper" / "wrapper"
 MACH_PROBE = REPO_ROOT / "book" / "experiments" / "runtime-checks" / "mach_probe"
+SANDBOX_MACH_PROBE = REPO_ROOT / "book" / "experiments" / "runtime-checks" / "sandbox_mach_probe"
+IOKIT_PROBE = REPO_ROOT / "book" / "experiments" / "runtime-checks" / "iokit_probe"
+SANDBOX_IOKIT_PROBE = REPO_ROOT / "book" / "experiments" / "runtime-checks" / "sandbox_iokit_probe"
 FILE_PROBE = REPO_ROOT / "book" / "api" / "runtime_tools" / "native" / "file_probe" / "file_probe"
 
 CAT = "/bin/cat"
@@ -186,6 +189,11 @@ def build_probe_command(probe: Dict[str, Any]) -> List[str]:
             cmd = [str(MACH_PROBE), target]
         else:
             cmd = ["true"]
+    elif op == "iokit-open-service":
+        if IOKIT_PROBE.exists() and target:
+            cmd = [str(IOKIT_PROBE), target]
+        else:
+            cmd = ["true"]
     elif op == "sysctl-read":
         if target:
             cmd = ["/usr/sbin/sysctl", "-n", target]
@@ -345,6 +353,7 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None, wr
 
     reader_mode = False
     writer_mode = False
+    self_apply_mode = False
     if op == "file-read*":
         use_file_probe = probe.get("driver") == "file_probe" and FILE_PROBE.exists() and target
         if use_file_probe:
@@ -368,10 +377,33 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None, wr
         else:
             cmd = [SH, "-c", f"echo runtime-check >> '{target}'"]
     elif op == "mach-lookup":
-        if MACH_PROBE.exists():
-            cmd = [str(MACH_PROBE), target]
+        driver = probe.get("driver")
+        if driver == "sandbox_mach_probe":
+            if target and not blob_mode and SANDBOX_MACH_PROBE.exists():
+                cmd = [str(SANDBOX_MACH_PROBE), str(profile), target]
+                self_apply_mode = True
+            else:
+                return {"error": "sandbox_mach_probe missing or invalid target"}
+        elif driver == "mach_probe":
+            cmd = [str(MACH_PROBE), target] if (MACH_PROBE.exists() and target) else ["true"]
+        elif driver is None:
+            return {"error": "mach-lookup probe missing driver (expected sandbox_mach_probe or mach_probe)"}
         else:
-            cmd = ["true"]
+            return {"error": f"unsupported mach-lookup driver: {driver}"}
+    elif op == "iokit-open-service":
+        driver = probe.get("driver")
+        if driver == "sandbox_iokit_probe":
+            if target and not blob_mode and SANDBOX_IOKIT_PROBE.exists():
+                cmd = [str(SANDBOX_IOKIT_PROBE), str(profile), target]
+                self_apply_mode = True
+            else:
+                return {"error": "sandbox_iokit_probe missing or invalid target"}
+        elif driver == "iokit_probe":
+            cmd = [str(IOKIT_PROBE), target] if (IOKIT_PROBE.exists() and target) else ["true"]
+        elif driver is None:
+            return {"error": "iokit-open-service probe missing driver (expected sandbox_iokit_probe or iokit_probe)"}
+        else:
+            return {"error": f"unsupported iokit-open-service driver: {driver}"}
     elif op == "sysctl-read":
         if target:
             cmd = ["/usr/sbin/sysctl", "-n", target]
@@ -504,6 +536,8 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None, wr
         if wrapper_preflight:
             full_cmd += ["--preflight", wrapper_preflight]
         full_cmd += ["--blob", str(profile), "--"] + cmd
+    elif self_apply_mode:
+        full_cmd = cmd
     elif reader_mode:
         full_cmd = cmd
     elif writer_mode:
@@ -723,6 +757,8 @@ def run_matrix(
                 runner_info = {"entrypoint": "SBPL-wrapper", "apply_model": "exec_wrapper", "apply_timing": "pre_exec"}
             elif entrypoint == str(RUNNER):
                 runner_info = {"entrypoint": "sandbox_runner", "apply_model": "exec_wrapper", "apply_timing": "pre_exec"}
+            elif entrypoint == str(SANDBOX_MACH_PROBE):
+                runner_info = {"entrypoint": "sandbox_mach_probe", "apply_model": "self_apply", "apply_timing": "pre_syscall"}
             elif entrypoint == str(READER):
                 runner_info = {"entrypoint": "sandbox_reader", "apply_model": "self_apply", "apply_timing": "pre_syscall"}
             elif entrypoint == str(WRITER):

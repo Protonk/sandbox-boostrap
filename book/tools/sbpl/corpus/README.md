@@ -12,7 +12,7 @@ Role: minimal allow/deny and tiny example shapes used to sanity-check the
 toolchain (compile, decode, preflight classification) without relying on
 runtime behavior.
 
-Evidence tier: substrate-only. These inputs are utility probes; they do not
+Evidence tier: hypothesis. These inputs are utility probes; they do not
 carry runtime witnesses and should not be used to claim policy semantics.
 
 Pointers: `book/experiments/sbpl-graph-runtime/Report.md`.
@@ -24,7 +24,7 @@ inputs, decoded PolicyGraphs, and runtime results are aligned on this host.
 Use when you need stable, host-validated inputs for decoding or runtime harness
 work.
 
-Evidence tier: mapped-but-partial. Scope is narrow and some profiles are known
+Evidence tier: mapped. Scope is narrow and some profiles are known
 divergences (for example `bucket5:v11_read_subpath`); check the golden profile
 artifacts before treating a profile as runtime-aligned.
 
@@ -37,7 +37,7 @@ Role: libsandbox-encoder network argument matrix. These are controlled SBPL
 variants for socket domain/type/proto that produce byte-level diffs in compiled
 blobs, used to join encoder-side emission to blob structure (static-only).
 
-Evidence tier: partial (experiment-local). The witnesses are about userland
+Evidence tier: mapped (experiment-local). The witnesses are about userland
 emission and compiled-blob structure, not kernel semantics.
 
 Pointers: `book/experiments/libsandbox-encoder/Report.md`,
@@ -48,9 +48,9 @@ Pointers: `book/experiments/libsandbox-encoder/Report.md`,
 Role: minimal failing/passing neighbors for apply-stage EPERM gates. These are
 boundary objects for apply-gate detection and preflight guardrails.
 
-Evidence tier: partial; apply-stage EPERM is blocked evidence because the
-profile never attached. Use these to avoid apply-gated shapes, not to interpret
-policy decisions.
+Evidence tier: hypothesis. Apply-stage EPERM is a gate signal (profile never
+attached); use these to avoid apply-gated shapes, not to interpret policy
+decisions.
 
 Pointers: `book/experiments/gate-witnesses/Report.md`,
 `book/tools/preflight/README.md`.

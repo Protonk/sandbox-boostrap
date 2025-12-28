@@ -1,7 +1,7 @@
 # simbple Sonoma extraction (partial)
 
 ## Context
-- Host baseline: `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json` (Apple Silicon, SIP enabled).
+- Host baseline: `book/world/sonoma-14.4.1-23E224-arm64/world.json` (Apple Silicon, SIP enabled).
 - Tool: `book/tools/sbpl/simbple` (build via `book/tools/sbpl/simbple/build`).
 - Goal: evaluate a Sonoma system SBPL profile using container metadata.
 - Container metadata input: `~/Library/Containers/com.apple.AppStore/.com.apple.containermanagerd.metadata.plist`.
@@ -51,7 +51,7 @@ All three crash in the same place (`load-profile`, Signal 11).
 ## Current Blockers
 - `application.sb` imports `system.sb`, which declares `(version 3)` and triggers the v1-only abort path immediately; this is a hard stop for the default container metadata flow.
 - The snippet list includes `contacts.sb` (also `(version 3)`), which would also fail under strict v1-only enforcement even if `system.sb` were bypassed.
-- `*ios-sandbox-executable*` remains a placeholder; no host string evidence found yet (substrate-only).
+- `*ios-sandbox-executable*` remains a placeholder; no host string evidence found yet (hypothesis).
 - Extraction has only been validated with the v2/v3 compatibility shim; under v1-only semantics, baseline container metadata inputs fail early before any rule output is produced.
 
 ## Pointers
@@ -66,7 +66,7 @@ All three crash in the same place (`load-profile`, Signal 11).
   - `*ios-sandbox-system-container*` → `com.apple.sandbox.system-container`
   - `*ios-sandbox-system-group*` → `com.apple.sandbox.system-group`
   - `*sandbox-executable-bundle*` → `com.apple.sandbox.executable`
-- No string evidence yet for `*ios-sandbox-executable*` in libsandbox (substrate-only).
+- No string evidence yet for `*ios-sandbox-executable*` in libsandbox (hypothesis).
 - Host system profiles: `/System/Library/Sandbox/Profiles/system.sb` and `/System/Library/Sandbox/Profiles/contacts.sb` both declare `(version 3)` on this host baseline.
 
 ## Log (append-only)
@@ -85,4 +85,4 @@ All three crash in the same place (`load-profile`, Signal 11).
 - Added socket constants (`AF_INET=2`, `AF_SYSTEM=32`, `SOCK_STREAM=1`, `SOCK_DGRAM=2`, `IPPROTO_TCP=6`, `IPPROTO_UDP=17`) to `book/tools/sbpl/simbple/src/scm/sbpl_v1.scm` using the libsandbox-encoder network-matrix witness (`book/experiments/libsandbox-encoder/Notes.md`, partial) and rebuilt `simbple`; network-matrix v1 profiles now load under `SIMBPLE_PERMISSIVE=1` and `SIMBPLE_SKIP_SNIPPETS=1`.
 - Added `iokit-async-external-method`, `iokit-external-method`, and `iokit-external-trap` to `book/tools/sbpl/simbple/src/platform_data/catalina/operations.c` (mapped to `iokit*`) and introduced an `apply-message-filter` placeholder (`book/tools/sbpl/simbple/src/scm/sbpl_v1.scm` macro → `(with "apply-message-filter")`, `book/tools/sbpl/simbple/src/sb/modifiers.c` modifier); nested message-filter rules are ignored (partial) but the v1 gate-witness minimal profile now loads cleanly.
 - Re-ran the v1 corpus (`book/tools/sbpl/corpus`) with `SIMBPLE_PERMISSIVE=1` + `SIMBPLE_SKIP_SNIPPETS=1`; all v1 entries now exit cleanly.
-- Decision: keep the `apply-message-filter` placeholder path (flat modifier, ignore nested rules) because the early substrate sources describe modifiers as a flat list and do not mention message-filter nesting; this is a substrate-only inference with no host witness yet.
+- Decision: keep the `apply-message-filter` placeholder path (flat modifier, ignore nested rules) because the early substrate sources describe modifiers as a flat list and do not mention message-filter nesting; this is a hypothesis inference with no host witness yet.

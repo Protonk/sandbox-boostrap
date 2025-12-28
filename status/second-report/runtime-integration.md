@@ -17,7 +17,7 @@ Runtime work in this project is intentionally narrow and host-specific: it is ab
 
 This plan treats those experiments as phases of one runtime evidence pipeline. `runtime-checks` provides raw, schema-validated logs tied to expectations; `runtime-adversarial` adds curated probe families and mismatch/impact views; `op-coverage-and-runtime-signatures` aggregates those results into per-operation scorecards and signatures. The goal is to lift shared tooling and stabilized artifacts out of the experiments into `book/api` and `book/graph/mappings`, then refit the experiments to validate and extend that shared layer.
 
-Throughout, runtime evidence is treated as mapped-but-partial: useful and grounded on this host, but not silently upgraded to bedrock. Schemas, world identifiers, and traceability back to raw events are used to keep the runtime story reproducible and checkable over time.
+Throughout, runtime evidence is treated as mapped: useful and grounded on this host, but not silently upgraded to bedrock. Schemas, world identifiers, and traceability back to raw events are used to keep the runtime story reproducible and checkable over time.
 
 ## Pipeline Stages (raw → adversarial → op scorecards)
 - **Raw capture (runtime-checks)**: sandbox_runner/reader/writer shims + runtime_harness produce per-probe logs (`runtime_results.json`) against an `expected_matrix.json`, using `runtime_log_schema.v0.1.json`.

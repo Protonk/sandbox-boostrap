@@ -14,7 +14,6 @@ from typing import Dict, Any, List
 import sys
 
 ROOT = Path(__file__).resolve().parents[4]
-BASELINE = ROOT / "book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json"
 RUNTIME_STORY = ROOT / "book/graph/mappings/runtime_cuts/runtime_story.json"
 OUT = ROOT / "book/graph/mappings/runtime/runtime_coverage.json"
 
@@ -24,6 +23,8 @@ if str(SCRIPT_ROOT) not in sys.path:
 
 import promotion_packets
 from book.api import path_utils
+from book.api import evidence_tiers
+from book.api import world as world_mod
 
 
 def load_json(path: Path) -> Dict[str, Any]:
@@ -41,11 +42,8 @@ def sha256_path(path: Path) -> str:
 
 
 def baseline_world() -> str:
-    data = load_json(BASELINE)
-    world_id = data.get("world_id")
-    if not world_id:
-        raise RuntimeError("world_id missing from baseline")
-    return world_id
+    data, resolution = world_mod.load_world(repo_root=ROOT)
+    return world_mod.require_world_id(data, world_path=resolution.entry.world_path)
 
 
 def allowed_mismatch(expectation_id: str, impact_map: Dict[str, Any]) -> bool:
@@ -119,6 +117,10 @@ def build_coverage(
             "input_hashes": input_hashes,
             "source_jobs": source_jobs,
             "status": overall_status,
+            "tier": evidence_tiers.evidence_tier_for_artifact(
+                path=path_utils.to_repo_relative(OUT, ROOT),
+                tier="mapped",
+            ),
             "notes": "Runtime coverage derived from runtime_story; mismatches allowed only when tagged in impact_map.json.",
             "mismatches": disallowed,
             "mismatch_summary": {

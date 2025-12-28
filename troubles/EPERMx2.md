@@ -2,13 +2,13 @@
 
 ## Context
 
-- World: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (baseline: [`book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`](book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json)).
+- World: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (baseline: [`book/world/sonoma-14.4.1-23E224-arm64/world.json`](book/world/sonoma-14.4.1-23E224-arm64/world.json)).
 - This repo uses multiple runtime harnesses (`sandbox-exec`, SBPL-wrapper, Swift/Python runners). Across those, `EPERM` shows up in at least three different phases.
 - This note is a collector and a taxonomy: it tries to stop us from treating every `EPERM` as “the sandbox denied the operation”, when sometimes it means “the profile never installed” or “the harness never executed”.
 
 ## Broad summary
 
-On this host baseline (`world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`), “Operation not permitted” (`EPERM`) is not treated as a single semantic signal. In SANDBOX_LORE, the same string can arise in different phases of the profile lifecycle, and conflating them produces false “the sandbox denied X” stories. The EPERMx2 framing separates (a) apply-stage failures where a Profile never becomes part of the process label, (b) decision-stage denies where a PolicyGraph actually evaluates an Operation+Filter and returns a deny Decision, (c) harness/bootstrap failures where the probe never becomes a runnable process under the intended policy, and (d) libsandbox API/entitlement-layer failures that are not PolicyGraph decisions at all. This distinction is part of the repo’s evidence discipline: apply gates are “blocked” evidence, decision outcomes can be “mapped-but-partial”, and only static structure claims are candidates for bedrock status.
+On this host baseline (`world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`), “Operation not permitted” (`EPERM`) is not treated as a single semantic signal. In SANDBOX_LORE, the same string can arise in different phases of the profile lifecycle, and conflating them produces false “the sandbox denied X” stories. The EPERMx2 framing separates (a) apply-stage failures where a Profile never becomes part of the process label, (b) decision-stage denies where a PolicyGraph actually evaluates an Operation+Filter and returns a deny Decision, (c) harness/bootstrap failures where the probe never becomes a runnable process under the intended policy, and (d) libsandbox API/entitlement-layer failures that are not PolicyGraph decisions at all. This distinction is part of the repo’s evidence discipline: apply gates are hypothesis evidence, decision outcomes can be mapped evidence, and only static structure claims are candidates for bedrock status.
 
 Apply-stage EPERM (“apply gate”) means the attempt to install a profile fails at `sandbox_init` (SBPL text) or `sandbox_apply` (compiled blob), so no PolicyGraph evaluation for the intended probe can have occurred. This is visible in wrapper-level errors like `sandbox_init failed: Operation not permitted` or `sandbox_apply: Operation not permitted`, and it is treated as an environment constraint rather than a denial of any particular Operation. On this world, platform/system profiles (notably `sys:airlock`) repeatedly exhibit apply-stage EPERM even when sourced from SBPL, and this is recorded as a first-class limitation in the runtime-checks narrative and in mapping/validation summaries that label runtime slices “blocked” when applies fail. The key status point is that an apply-stage EPERM is not counted as runtime evidence about an Operation, Filter, or PolicyGraph path; it is evidence that the harness could not enter the intended policy state on this host.
 
@@ -34,13 +34,13 @@ To make this classification mechanically robust (not substring-fragile), the wra
   - `sandbox_apply: Operation not permitted`
 - In normalized IR, this often appears as a probe that is recorded as `deny` with notes/stderr containing the wrapper’s apply error.
 
-**Evidence / scope on this world (mapped-but-partial / blocked):**
+**Evidence / scope on this world (mapped / hypothesis):**
 - Platform/system apply gates are a recurring constraint in docs and experiments; treat these outcomes as environment evidence, not as “missing profiles” (see [`guidance/Preamble.md`](guidance/Preamble.md) and [`book/tools/sbpl/wrapper/README.md`](book/tools/sbpl/wrapper/README.md)).
 - There are *at least two shapes* of apply-stage EPERM in the repo today:
   1) **Profile-specific apply gate**: `airlock` fails apply on this host even when recompiled from SBPL (see [`troubles/EPERM_chasing.md`](troubles/EPERM_chasing.md), [`book/experiments/golden-corpus/Report.md`](book/experiments/golden-corpus/Report.md), and runtime-checks notes in [`book/experiments/runtime-checks/Notes.md`](book/experiments/runtime-checks/Notes.md)).
   2) **Environment/harness apply gate**: some historical runs record `sandbox_init` returning EPERM for *everything* (see “blocked runtime vocab usage” in [`book/graph/concepts/validation/out/vocab/runtime_usage.json`](book/graph/concepts/validation/out/vocab/runtime_usage.json) and the early runtime-checks chronology in [`book/experiments/runtime-checks/Notes.md`](book/experiments/runtime-checks/Notes.md)). It is not yet clear which parts of that story were host State vs harness context drift (see “Drift / inconsistencies” below).
 
-### 2) Decision-stage EPERM (“deny decision”) — **mapped-but-partial**
+### 2) Decision-stage EPERM (“deny decision”) — **mapped**
 
 **What it is:** the profile applied successfully; later, a probed operation is denied and the syscall returns `EPERM`.
 
@@ -86,27 +86,27 @@ These are *classification* repros: the point is to see whether the failure is ap
   - `book/tools/sbpl/wrapper/wrapper --blob book/graph/concepts/validation/fixtures/blobs/airlock.sb.bin -- /usr/bin/true`
   - Expect: `sandbox_apply: Operation not permitted`
 
-## Bedrock vs partial vs blocked (so we don’t silently upgrade claims)
+## Bedrock vs mapped vs hypothesis (so we don’t silently upgrade claims)
 
 - **Bedrock (static structure)**: canonical system profile blobs and their contracts are `status: ok` in [`book/graph/mappings/system_profiles/digests.json`](book/graph/mappings/system_profiles/digests.json). This is a claim about the blobs’ identity and decoded structure, not runtime behavior (see the “where the claim stops” discussion in [`status/first-promotion/post-remediation.md`](status/first-promotion/post-remediation.md)).
   - Canonical blob sources are under `book/graph/concepts/validation/fixtures/blobs/` (e.g., `.../airlock.sb.bin`, `.../bsd.sb.bin`) as recorded by the `source` fields in the digests mapping.
-- **Mapped-but-partial (runtime semantics)**: golden runtime scenarios, VFS canonicalization, and some adversarial families are backed by runtime artifacts, but scope is narrow and some runs carry known environment caveats (see [`status/second-report/test-coverage.md`](status/second-report/test-coverage.md)).
-- **Blocked**: any “runtime story” inferred from an apply-stage EPERM is blocked by definition; the profile did not install, so the would-be PolicyGraph was not evaluated for that probe.
+- **Mapped (runtime semantics)**: golden runtime scenarios, VFS canonicalization, and some adversarial families are backed by runtime artifacts, but scope is narrow and some runs carry known environment caveats (see [`status/second-report/test-coverage.md`](status/second-report/test-coverage.md)).
+- **Hypothesis**: any “runtime story” inferred from an apply-stage EPERM is hypothesis by definition; the profile did not install, so the would-be PolicyGraph was not evaluated for that probe.
 
 ## Apply-gate: deny-style message filtering (current evidence)
 
 This repo now has a small, mechanical witness corpus that ties a common apply-stage EPERM to deny-style message filtering, and it includes a direct, host-grounded “why” trace from the unified log.
 
-- **Minimized witnesses (blocked, but confirmed)**: `book/experiments/gate-witnesses/` produces regression-checked witness pairs for three system profiles (`airlock`, `blastdoor`, `com.apple.CoreGraphics.CGPDFService`). All three minimize to the same failing SBPL shape:
+- **Minimized witnesses (hypothesis, but confirmed)**: `book/experiments/gate-witnesses/` produces regression-checked witness pairs for three system profiles (`airlock`, `blastdoor`, `com.apple.CoreGraphics.CGPDFService`). All three minimize to the same failing SBPL shape:
   - `(allow iokit-open-user-client (apply-message-filter (deny iokit-external-method)))`
   - Example: [`book/experiments/gate-witnesses/out/witnesses/airlock/minimal_failing.sb`](book/experiments/gate-witnesses/out/witnesses/airlock/minimal_failing.sb)
   - Confirmation distributions (e.g. `--confirm 10`) are recorded per target in the checked-in `run.json` (example: [`book/experiments/gate-witnesses/out/witnesses/airlock/run.json`](book/experiments/gate-witnesses/out/witnesses/airlock/run.json)).
-  - Status: these are “blocked evidence” about runtime semantics (the Profile never attaches), but they are durable boundary objects.
+  - Status: these are “hypothesis evidence” about runtime semantics (the Profile never attaches), but they are durable boundary objects.
 - **Compile-vs-apply split (partial)**: `book/experiments/gate-witnesses/out/compile_vs_apply.json` shows the failing witnesses compile successfully (via `sandbox_compile_file`) but fail at apply time (`sandbox_apply` returns `EPERM`). On this host, this is evidence that the gate is enforced at apply/attach time, not as a compiler rejection.
 - **Unified log enforcement trace (partial, high-signal)**: the gate-witnesses validation job captures a kernel log line that directly states the failure reason for the wrapper process:
   - Example: [`book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_primary.minimal_failing.txt`](book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_primary.minimal_failing.txt) contains `missing message filter entitlement`.
   - This is host-grounded runtime evidence that the apply-stage EPERM is an entitlement-gated capability, not a generic “sandbox denied operation X” outcome.
-- **Non-IOKit scope witness (blocked, confirmed)**: `book/experiments/gate-witnesses/` includes a minimized, confirmed witness pair demonstrating that deny-style message filtering gates outside IOKit as well (under `mach-bootstrap`):
+- **Non-IOKit scope witness (hypothesis, confirmed)**: `book/experiments/gate-witnesses/` includes a minimized, confirmed witness pair demonstrating that deny-style message filtering gates outside IOKit as well (under `mach-bootstrap`):
   - Minimal failing SBPL: [`book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/minimal_failing.sb`](book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/minimal_failing.sb)
   - Passing neighbor: [`book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/passing_neighbor.sb`](book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/passing_neighbor.sb)
   - Confirm distribution: [`book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/run.json`](book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/run.json)

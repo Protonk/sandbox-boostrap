@@ -66,3 +66,16 @@ def test_agents_point_to_bedrock_registry():
             f"{path} should direct readers to book/graph/concepts/BEDROCK_SURFACES.json "
             "as the current bedrock registry"
         )
+
+
+def test_bedrock_mapping_paths_emit_bedrock_tier():
+    registry = json.loads(REGISTRY_PATH.read_text())
+    mapping_paths: list[str] = []
+    for surface in registry.get("surfaces", []) or []:
+        mapping_paths.extend(surface.get("mapping_paths", []) or [])
+
+    assert mapping_paths, f"no mapping_paths found in {REGISTRY_PATH}"
+    for rel in mapping_paths:
+        doc = json.loads((ROOT / rel).read_text())
+        meta = doc.get("metadata") or doc.get("meta") or {}
+        assert meta.get("tier") == "bedrock", f"{rel} should be tier=bedrock"

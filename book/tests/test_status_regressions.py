@@ -1,9 +1,11 @@
 import json
 from pathlib import Path
 
+from book.api import evidence_tiers
+
 
 ROOT = Path(__file__).resolve().parents[2]
-BASELINE = ROOT / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world-baseline.json"
+BASELINE = ROOT / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world.json"
 VALIDATION_STATUS = ROOT / "book" / "graph" / "concepts" / "validation" / "out" / "validation_status.json"
 
 STATUS_TARGETS = [
@@ -30,6 +32,7 @@ REQUIRED_JOBS = {
     "experiment:runtime-checks",
     "experiment:field2",
 }
+ALLOWED_TIERS = set(evidence_tiers.EVIDENCE_TIERS)
 
 
 def load_json(path: Path):
@@ -45,6 +48,11 @@ def test_core_mappings_remain_ok_for_world():
         meta = doc.get("metadata") or doc.get("meta") or {}
         assert meta.get("world_id") == world_id, f"{path} world mismatch"
         status = meta.get("status")
+        rel = str(path.relative_to(ROOT))
+        tier = meta.get("tier")
+        assert tier in evidence_tiers.EVIDENCE_TIERS, f"{rel} missing/invalid tier: {tier!r}"
+        expected_tier = evidence_tiers.evidence_tier_for_artifact(path=rel, tier=tier)
+        assert tier == expected_tier, f"{rel} tier mismatch (expected {expected_tier}, got {tier})"
         if path in RUNTIME_STATUS_TARGETS:
             assert status in {"ok", "partial", "brittle", "blocked"}, f"{path} status missing or invalid"
         else:
@@ -58,7 +66,8 @@ def test_validation_jobs_remain_ok():
         entry = jobs.get(job_id)
         assert entry, f"validation job missing: {job_id}"
         job_status = str(entry.get("status", ""))
-        assert job_status.startswith("ok"), f"validation job {job_id} not ok (status={job_status})"
+        assert job_status == "ok", f"validation job {job_id} not ok (status={job_status})"
+        assert entry.get("tier") in ALLOWED_TIERS, f"validation job {job_id} missing/invalid tier: {entry.get('tier')!r}"
 
 
 def test_runtime_ok_implies_no_mismatches():

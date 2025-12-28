@@ -1,5 +1,5 @@
 - world_id: sonoma-14.4.1-23E224-arm64-dyld-2c0602c5
-- status: mapped-but-partial (structural, no runtime)
+- tier: mapped (structural, no runtime)
 - primary outputs: out/analysis.json; out/anchor_hits.json; out/tag_inventory.json; out/tag_layout_hypotheses.json; out/literal_scan.json; out/tag_bytes.json
 - upstream IR: book/api/profile_tools/decoder.py; book/graph/mappings/tag_layouts/tag_layouts.json; book/graph/mappings/vocab/filters.json
 - downstream mappings: book/graph/mappings/anchors/anchor_filter_map.json; book/experiments/field2-filters/out/*
@@ -27,7 +27,7 @@ This experiment designs and decodes richer SBPL probe profiles to see how **`fie
 - decoded nodes (tags, edge wiring, `field2` payloads), and
 - Filter vocabulary entries
 
-into a reusable picture of how compiled PolicyGraphs encode filter arguments. All claims in this report are **mapped‑but‑partial**: they rely on concrete blobs and mappings, but the semantics of many high `field2` values and tags remain under exploration.
+into a reusable picture of how compiled PolicyGraphs encode filter arguments. All claims in this report are **mapped**: they rely on concrete blobs and mappings, but the semantics of many high `field2` values and tags remain under exploration.
 
 ## Baseline & scope
 

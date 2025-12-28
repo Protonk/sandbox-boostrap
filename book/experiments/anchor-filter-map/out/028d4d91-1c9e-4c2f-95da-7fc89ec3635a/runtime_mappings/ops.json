@@ -1,0 +1,91 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "tier": "mapped",
+    "source_jobs": [],
+    "notes": "op-level runtime summary"
+  },
+  "ops": {
+    "mach-lookup": {
+      "op_name": "mach-lookup",
+      "op_id": 96,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 8,
+      "matches": 6,
+      "mismatches": 2,
+      "probes_including_blocked": 8,
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "examples": [
+        {
+          "scenario_id": "anchor-filter-map:cfprefsd:S0_allow_any",
+          "expectation_id": "anchor-filter-map:cfprefsd:S0_allow_any",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        },
+        {
+          "scenario_id": "anchor-filter-map:cfprefsd:S1_allow_global",
+          "expectation_id": "anchor-filter-map:cfprefsd:S1_allow_global",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        },
+        {
+          "scenario_id": "anchor-filter-map:cfprefsd:S2_allow_local",
+          "expectation_id": "anchor-filter-map:cfprefsd:S2_allow_local",
+          "expected": "allow",
+          "actual": "deny",
+          "match": false
+        },
+        {
+          "scenario_id": "anchor-filter-map:cfprefsd:S3_allow_both",
+          "expectation_id": "anchor-filter-map:cfprefsd:S3_allow_both",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        },
+        {
+          "scenario_id": "anchor-filter-map:cfprefsd:N1_deny_default",
+          "expectation_id": "anchor-filter-map:cfprefsd:N1_deny_default",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        }
+      ],
+      "scenarios": [
+        "anchor-filter-map:cfprefsd:C1_deny_global",
+        "anchor-filter-map:cfprefsd:C2_deny_local",
+        "anchor-filter-map:cfprefsd:N1_deny_default",
+        "anchor-filter-map:cfprefsd:S0_allow_any",
+        "anchor-filter-map:cfprefsd:S1_allow_global",
+        "anchor-filter-map:cfprefsd:S2_allow_local",
+        "anchor-filter-map:cfprefsd:S3_allow_both",
+        "anchor-filter-map:cfprefsd:bogus_baseline"
+      ],
+      "mismatch_details": [
+        {
+          "scenario_id": "anchor-filter-map:cfprefsd:S2_allow_local",
+          "expectation_id": "anchor-filter-map:cfprefsd:S2_allow_local",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "com.apple.cfprefsd.agent"
+        },
+        {
+          "scenario_id": "anchor-filter-map:cfprefsd:C2_deny_local",
+          "expectation_id": "anchor-filter-map:cfprefsd:C2_deny_local",
+          "expected": "deny",
+          "actual": "allow",
+          "target": "com.apple.cfprefsd.agent"
+        }
+      ],
+      "coverage_status": "partial"
+    }
+  }
+}

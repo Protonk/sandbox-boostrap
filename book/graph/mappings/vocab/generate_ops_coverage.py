@@ -11,8 +11,15 @@ from __future__ import annotations
 import json
 from pathlib import Path
 from typing import Dict, Set
+import sys
 
 REPO_ROOT = Path(__file__).resolve().parents[4]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from book.api import evidence_tiers  # noqa: E402
+from book.api import world as world_mod  # noqa: E402
+
 OPS_JSON = REPO_ROOT / "book" / "graph" / "mappings" / "vocab" / "ops.json"
 OUT_JSON = REPO_ROOT / "book" / "graph" / "mappings" / "vocab" / "ops_coverage.json"
 RUNTIME_COVERAGE = REPO_ROOT / "book" / "graph" / "mappings" / "runtime" / "runtime_coverage.json"
@@ -22,7 +29,6 @@ RUNTIME_MATRICES = [
     REPO_ROOT / "book" / "experiments" / "runtime-adversarial" / "out" / "expected_matrix.json",
     REPO_ROOT / "book" / "profiles" / "golden-triple" / "expected_matrix.json",
 ]
-WORLD_BASELINE = REPO_ROOT / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world-baseline.json"
 
 
 def load_runtime_ops() -> Set[str]:
@@ -48,13 +54,8 @@ def load_world_id(vocab: Dict[str, object]) -> str:
     world_id = (vocab.get("metadata") or {}).get("world_id")
     if world_id:
         return world_id
-    if not WORLD_BASELINE.exists():
-        raise FileNotFoundError(f"missing baseline: {WORLD_BASELINE}")
-    data = json.loads(WORLD_BASELINE.read_text())
-    world_id = data.get("world_id")
-    if not world_id:
-        raise RuntimeError("world_id missing from baseline")
-    return world_id
+    world_doc, resolution = world_mod.load_world(repo_root=REPO_ROOT)
+    return world_mod.require_world_id(world_doc, world_path=resolution.entry.world_path)
 
 
 def main() -> int:
@@ -88,6 +89,9 @@ def main() -> int:
                     "world_id": world_id,
                     "inputs": inputs,
                     "status": "ok",
+                    "tier": evidence_tiers.evidence_tier_for_artifact(
+                        path=OUT_JSON,
+                    ),
                     "source_jobs": [
                         "vocab:sonoma-14.4.1",
                         "experiment:runtime-checks",

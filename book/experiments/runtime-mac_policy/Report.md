@@ -46,7 +46,7 @@ Trace sandbox/mac_policy registration at runtime and capture live `mac_policy_co
 ## Evidence & artifacts
 - Schema: `runtime_mac_policy_registration.schema.json`.
 - Tooling: `capture.py` (dynamic DTrace wrapper) and `normalize.py` (raw → schema JSON); covered by `test_normalize.py`.
-- Runtime world metadata: `book/world/runtime-mac-policy-dev/world-baseline.json` (macOS 14.6.1, build 23G93, SIP disabled; runtime-only host).
+- Runtime world metadata: `book/world/runtime-mac-policy-dev/world.json` (macOS 14.6.1, build 23G93, SIP disabled; runtime-only host).
 - Captures:
   - `out/raw/fbt_smoketest.log` and `out/fbt_smoketest.json` — single `fbt:mach_kernel:vnode_put:entry` event (pipeline proof).
   - `out/raw/mac_policy_register_min.log` and `out/mac_policy_register_min.json` — no events (ran with `/bin/ls /`).
@@ -76,7 +76,7 @@ Event object fields:
   - `notes`: freeform string for discrepancies or per-policy hints.
 
 ## Status
-- Runtime host prepared: SIP disabled (`csrutil status` → disabled); `fbt` probes usable. Host metadata recorded in `book/world/runtime-mac-policy-dev/world-baseline.json`.
+- Runtime host prepared: SIP disabled (`csrutil status` → disabled); `fbt` probes usable. Host metadata recorded in `book/world/runtime-mac-policy-dev/world.json`.
 - Pipeline proven with `fbt`: `fbt:mach_kernel:vnode_put:entry` probe produced one EVENT (`out/raw/fbt_smoketest.log`, `out/fbt_smoketest.json`).
 - Target discovery: `fbt:mach_kernel:mac_policy_register:{entry,return}` is present.
 - Outcome: no `mac_policy_register` events observed after attach (both `/bin/ls /` and 5s dwell captures produced zero events). Conclusion: built-in MACF policies, including sandbox, register before DTrace can attach on this host and no dynamic MACF policies register later.

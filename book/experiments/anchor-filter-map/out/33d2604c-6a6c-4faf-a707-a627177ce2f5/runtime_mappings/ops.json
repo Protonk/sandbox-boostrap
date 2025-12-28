@@ -1,0 +1,148 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "tier": "mapped",
+    "source_jobs": [],
+    "notes": "op-level runtime summary"
+  },
+  "ops": {
+    "process-exec": {
+      "op_name": "process-exec",
+      "op_id": null,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 1,
+      "matches": 0,
+      "mismatches": 1,
+      "probes_including_blocked": 1,
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "examples": [
+        {
+          "scenario_id": "anchor-filter-map:diagnostic:S0_exec_true",
+          "expectation_id": "anchor-filter-map:diagnostic:S0_exec_true",
+          "expected": "allow",
+          "actual": "deny",
+          "match": false
+        }
+      ],
+      "scenarios": [
+        "anchor-filter-map:diagnostic:S0_exec_true"
+      ],
+      "mismatch_details": [
+        {
+          "scenario_id": "anchor-filter-map:diagnostic:S0_exec_true",
+          "expectation_id": "anchor-filter-map:diagnostic:S0_exec_true",
+          "expected": "allow",
+          "actual": "deny",
+          "target": null
+        }
+      ],
+      "coverage_status": "partial"
+    },
+    "mach-lookup": {
+      "op_name": "mach-lookup",
+      "op_id": 96,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 8,
+      "matches": 3,
+      "mismatches": 5,
+      "probes_including_blocked": 8,
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "examples": [
+        {
+          "scenario_id": "anchor-filter-map:cfprefsd:S0_allow_any",
+          "expectation_id": "anchor-filter-map:cfprefsd:S0_allow_any",
+          "expected": "allow",
+          "actual": "deny",
+          "match": false
+        },
+        {
+          "scenario_id": "anchor-filter-map:cfprefsd:S1_allow_global",
+          "expectation_id": "anchor-filter-map:cfprefsd:S1_allow_global",
+          "expected": "allow",
+          "actual": "deny",
+          "match": false
+        },
+        {
+          "scenario_id": "anchor-filter-map:cfprefsd:S2_allow_local",
+          "expectation_id": "anchor-filter-map:cfprefsd:S2_allow_local",
+          "expected": "allow",
+          "actual": "deny",
+          "match": false
+        },
+        {
+          "scenario_id": "anchor-filter-map:cfprefsd:S3_allow_both",
+          "expectation_id": "anchor-filter-map:cfprefsd:S3_allow_both",
+          "expected": "allow",
+          "actual": "deny",
+          "match": false
+        },
+        {
+          "scenario_id": "anchor-filter-map:cfprefsd:N1_deny_default",
+          "expectation_id": "anchor-filter-map:cfprefsd:N1_deny_default",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        }
+      ],
+      "scenarios": [
+        "anchor-filter-map:cfprefsd:C1_deny_global",
+        "anchor-filter-map:cfprefsd:C2_deny_local",
+        "anchor-filter-map:cfprefsd:N1_deny_default",
+        "anchor-filter-map:cfprefsd:S0_allow_any",
+        "anchor-filter-map:cfprefsd:S1_allow_global",
+        "anchor-filter-map:cfprefsd:S2_allow_local",
+        "anchor-filter-map:cfprefsd:S3_allow_both",
+        "anchor-filter-map:cfprefsd:bogus_baseline"
+      ],
+      "mismatch_details": [
+        {
+          "scenario_id": "anchor-filter-map:cfprefsd:S0_allow_any",
+          "expectation_id": "anchor-filter-map:cfprefsd:S0_allow_any",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "com.apple.cfprefsd.agent"
+        },
+        {
+          "scenario_id": "anchor-filter-map:cfprefsd:S1_allow_global",
+          "expectation_id": "anchor-filter-map:cfprefsd:S1_allow_global",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "com.apple.cfprefsd.agent"
+        },
+        {
+          "scenario_id": "anchor-filter-map:cfprefsd:S2_allow_local",
+          "expectation_id": "anchor-filter-map:cfprefsd:S2_allow_local",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "com.apple.cfprefsd.agent"
+        },
+        {
+          "scenario_id": "anchor-filter-map:cfprefsd:S3_allow_both",
+          "expectation_id": "anchor-filter-map:cfprefsd:S3_allow_both",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "com.apple.cfprefsd.agent"
+        },
+        {
+          "scenario_id": "anchor-filter-map:cfprefsd:C2_deny_local",
+          "expectation_id": "anchor-filter-map:cfprefsd:C2_deny_local",
+          "expected": "deny",
+          "actual": "allow",
+          "target": "com.apple.cfprefsd.agent"
+        }
+      ],
+      "coverage_status": "partial"
+    }
+  }
+}

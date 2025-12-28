@@ -71,7 +71,7 @@ In other words, the vocab tables are not just one artifact among many; they are 
 
 On the validation side, the pipeline is now quite strict:
 
-* A dedicated validation job (`vocab:sonoma-14.4.1`) is recorded in `validation_status.json` as `ok-unchanged`, pointing to the trimmed `libsandbox.1.dylib` slice as input and to the vocab mappings as outputs. The job’s metrics explicitly record “196 Operations, 93 Filters,” so a change there is visible at the validation layer.
+* A dedicated validation job (`vocab:sonoma-14.4.1`) is recorded in `validation_status.json` as `ok`, pointing to the trimmed `libsandbox.1.dylib` slice as input and to the vocab mappings as outputs. The job’s metrics explicitly record “196 Operations, 93 Filters,” so a change there is visible at the validation layer.
 * A test ([`book/tests/test_vocab_harvest.py`](book/tests/test_vocab_harvest.py)) compares the raw harvested name lists from the dyld-driven `vocab-from-cache` experiment to the contents of `ops.json` and `filters.json`. It asserts that the names match, the counts match, the order matches, and that IDs are exactly `0..N-1` for the recovered lists. This guards against both accidental hand edits and subtle off-by-one errors in harvest.
 * Another test ([`book/tests/test_dyld_libs_manifest.py`](book/tests/test_dyld_libs_manifest.py)) checks that the trimmed dyld slices under `book/graph/mappings/dyld-libs/` still have the expected path, size, and SHA-256. This pins the binary source of the vocab tables themselves; if you silently swap in a different libsandbox slice, the manifest check will fail.
 

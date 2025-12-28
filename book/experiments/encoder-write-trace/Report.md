@@ -11,7 +11,7 @@ does **not** interpret kernel semantics or runtime policy decisions.
 - World: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
 - Inputs: SBPL corpus under `book/tools/sbpl/corpus/`.
 - Compile-only: no `sandbox_apply` runs.
-- Evidence tier: mapped-but-partial (experiment-local join).
+- Evidence tier: mapped (experiment-local join).
 
 ## Deliverables
 

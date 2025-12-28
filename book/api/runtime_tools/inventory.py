@@ -15,7 +15,7 @@ from book.api import path_utils
 
 
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))
-BASELINE = REPO_ROOT / "book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json"
+BASELINE = REPO_ROOT / "book/world/sonoma-14.4.1-23E224-arm64/world.json"
 SCHEMA_VERSION = "hardened-runtime.other-runtime-inventory.v0.1"
 
 KEYWORDS = [

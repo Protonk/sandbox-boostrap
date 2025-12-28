@@ -1,10 +1,11 @@
 import json
 from pathlib import Path
 
+from book.graph.mappings.runtime import promotion_packets
+
 
 ROOT = Path(__file__).resolve().parents[2]
 STORY = ROOT / "book" / "graph" / "mappings" / "runtime_cuts" / "runtime_story.json"
-PACKETS = ROOT / "book" / "experiments" / "runtime-adversarial" / "out" / "mismatch_packets.jsonl"
 ALLOWED_REASONS = {
     "ambient_platform_restriction",
     "path_normalization_sensitivity",
@@ -20,8 +21,9 @@ def load_json(path: Path):
 
 
 def load_jsonl(path: Path):
-    assert path.exists(), f"missing mismatch packets: {path}"
     rows = []
+    if not path.exists():
+        return rows
     for line in path.read_text().splitlines():
         if line.strip():
             rows.append(json.loads(line))
@@ -42,10 +44,20 @@ def _story_mismatches(story_doc):
 def test_mismatch_packets_cover_story_mismatches():
     story_doc = load_json(STORY)
     mismatch_ids = _story_mismatches(story_doc)
-    packets = load_jsonl(PACKETS)
-    packet_ids = {row.get("expectation_id") for row in packets if row.get("expectation_id")}
+
+    packets = promotion_packets.load_packets(
+        promotion_packets.DEFAULT_PACKET_PATHS,
+        allow_missing=True,
+    )
+    rows = []
+    for pkt in packets:
+        mismatch_path = pkt.paths.get("mismatch_packets")
+        if mismatch_path:
+            rows.extend(load_jsonl(mismatch_path))
+
+    packet_ids = {row.get("expectation_id") for row in rows if row.get("expectation_id")}
     missing = mismatch_ids - packet_ids
     assert not missing, f"missing mismatch packets for {len(missing)} expectations: {sorted(missing)[:5]}"
-    for row in packets:
+    for row in rows:
         reason = row.get("mismatch_reason")
         assert reason in ALLOWED_REASONS, f"unexpected mismatch_reason: {reason}"

@@ -177,6 +177,7 @@ def run_vocab_harvest_job():
     payload = {
         "job_id": "vocab:sonoma-14.4.1",
         "status": "ok",
+        "tier": "bedrock",
         "host": meta.get("os", {}),
         "inputs": [to_repo_relative(LIB_PATH, ROOT)],
         "outputs": [to_repo_relative(OPS_MAP, ROOT), to_repo_relative(FILTERS_MAP, ROOT)],
@@ -187,6 +188,7 @@ def run_vocab_harvest_job():
     STATUS_PATH.write_text(json.dumps(payload, indent=2))
     return {
         "status": "ok",
+        "tier": "bedrock",
         "outputs": [
             to_repo_relative(OPS_MAP, ROOT),
             to_repo_relative(FILTERS_MAP, ROOT),

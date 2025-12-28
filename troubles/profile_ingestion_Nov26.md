@@ -2,7 +2,7 @@
 
 ## Context
 
-- Host: Sonoma baseline (see `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json)`).
+- Host: Sonoma baseline (see `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world.json)`).
 - Script: `profile_ingestion.py`.
 - Goal: upgrade “unknown-modern” profile ingestion to a cautious graph-aware heuristic that can at least recover op-table and section boundaries for modern graph-based blobs.
 

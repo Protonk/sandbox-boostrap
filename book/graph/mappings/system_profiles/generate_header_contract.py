@@ -18,25 +18,15 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from book.api.path_utils import to_repo_relative  # type: ignore
+from book.api import evidence_tiers  # type: ignore
 from book.api.profile_tools import digests as digests_mod  # type: ignore
-
-BASELINE_REF = "book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json"
-BASELINE_PATH = REPO_ROOT / BASELINE_REF
+from book.api import world as world_mod  # type: ignore
 OUT_PATH = REPO_ROOT / "book/graph/mappings/system_profiles/header_contract.json"
 
 
-def load_baseline() -> Dict[str, Any]:
-    if not BASELINE_PATH.exists():
-        raise FileNotFoundError(f"missing baseline: {to_repo_relative(BASELINE_PATH, REPO_ROOT)}")
-    return json.loads(BASELINE_PATH.read_text())
-
-
 def baseline_world_id() -> str:
-    data = load_baseline()
-    world_id = data.get("world_id")
-    if not world_id:
-        raise RuntimeError(f"world_id missing from baseline: {to_repo_relative(BASELINE_PATH, REPO_ROOT)}")
-    return str(world_id)
+    data, resolution = world_mod.load_world(repo_root=REPO_ROOT)
+    return world_mod.require_world_id(data, world_path=resolution.entry.world_path)
 
 
 def header_words_u16(blob: bytes) -> list[int]:
@@ -67,6 +57,10 @@ def main() -> None:
         "metadata": {
             "world_id": world_id,
             "status": "ok",
+            "tier": evidence_tiers.evidence_tier_for_artifact(
+                path=OUT_PATH,
+                tier="mapped",
+            ),
             "inputs": [to_repo_relative(p, REPO_ROOT) for p in profiles.values()],
             "notes": "Preamble (first 16 bytes) contract for canonical system profiles on this host.",
             "source_jobs": ["generator:system_profiles:header_contract"],

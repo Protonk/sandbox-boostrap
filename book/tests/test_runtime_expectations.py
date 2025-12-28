@@ -3,7 +3,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 EXPECTATIONS = ROOT / "book" / "graph" / "mappings" / "runtime" / "expectations.json"
-BASELINE_REF = ROOT / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world-baseline.json"
+BASELINE_REF = ROOT / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world.json"
 
 
 def load(path: Path) -> dict:

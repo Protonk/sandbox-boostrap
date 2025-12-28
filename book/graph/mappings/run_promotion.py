@@ -28,6 +28,7 @@ GENERATOR_CMDS = {
         [sys.executable, str(ROOT / "graph" / "mappings" / "carton" / "generate_operation_index.py")],
         [sys.executable, str(ROOT / "graph" / "mappings" / "carton" / "generate_profile_layer_index.py")],
         [sys.executable, str(ROOT / "graph" / "mappings" / "carton" / "generate_filter_index.py")],
+        [sys.executable, str(ROOT / "graph" / "mappings" / "carton" / "generate_concept_index.py")],
     ],
 }
 

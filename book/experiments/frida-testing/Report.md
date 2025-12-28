@@ -4,7 +4,7 @@
 Establish attach-first Frida witnesses for in-process sandbox behavior using EntitlementJail's process zoo on the Sonoma baseline. This experiment is exploratory; it does not promote claims beyond substrate theory without fresh host evidence.
 
 ## Baseline & scope
-- world_id: sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json)
+- world_id: sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world.json)
 - Tools: EntitlementJail.app (book/tools/entitlement/EntitlementJail.app), Frida Python bindings, and book.api.entitlementjail.
 - Scope: attach-first instrumentation inside EntitlementJail XPC services, with observer-first deny evidence capture.
 - Out of scope: spawn-based Frida flows, new operation/filter names, or promotion to mappings/CARTON without validation outputs.
@@ -208,4 +208,4 @@ Example (per-export isolation hook):
 - If sandbox_check evidence is required, target a probe that explicitly uses libsystem_sandbox APIs or add a dedicated probe inside EntitlementJail to call sandbox_check under controlled inputs.
 
 ## Appendix: legacy runs
-Legacy run artifacts were removed from book/experiments/frida-testing/out/. No current host witness remains; treat any inference as substrate-only until new runs are captured.
+Legacy run artifacts were removed from book/experiments/frida-testing/out/. No current host witness remains; treat any inference as hypothesis until new runs are captured.

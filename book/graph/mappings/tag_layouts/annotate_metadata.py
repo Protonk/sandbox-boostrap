@@ -11,12 +11,17 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+import sys
 
 ROOT = Path(__file__).resolve().parents[4]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from book.api import evidence_tiers  # noqa: E402
+from book.api import world as world_mod  # noqa: E402
+
 TAG_LAYOUTS_PATH = ROOT / "book/graph/mappings/tag_layouts/tag_layouts.json"
 DIGESTS_PATH = ROOT / "book/graph/mappings/system_profiles/digests.json"
-BASELINE_REF = "book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json"
-BASELINE_PATH = ROOT / BASELINE_REF
 
 
 def load_json(path: Path) -> dict:
@@ -26,11 +31,8 @@ def load_json(path: Path) -> dict:
 
 
 def baseline_world_id() -> str:
-    data = load_json(BASELINE_PATH)
-    world_id = data.get("world_id")
-    if not world_id:
-        raise RuntimeError("world_id missing from baseline")
-    return world_id
+    data, resolution = world_mod.load_world(repo_root=ROOT)
+    return world_mod.require_world_id(data, world_path=resolution.entry.world_path)
 
 
 def main() -> None:
@@ -50,6 +52,10 @@ def main() -> None:
         {
             "world_id": world_id,
             "status": status,
+            "tier": evidence_tiers.evidence_tier_for_artifact(
+                path=TAG_LAYOUTS_PATH,
+                tier="bedrock" if evidence_tiers.is_bedrock_mapping_path(TAG_LAYOUTS_PATH) else "mapped",
+            ),
             "canonical_profiles": {
                 pid: (info.get("status") if isinstance(info, dict) else info) for pid, info in canonical_profiles.items()
             },

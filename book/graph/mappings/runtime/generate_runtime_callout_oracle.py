@@ -19,10 +19,10 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from book.api import path_utils
+from book.api import world as world_mod
 from book.api.runtime_tools.core import models
 from book.api.runtime_tools.mapping import views as runtime_views
 
-BASELINE = ROOT / "book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json"
 OUT = ROOT / "book/graph/mappings/runtime/runtime_callout_oracle.json"
 
 SCRIPT_ROOT = Path(__file__).resolve().parent
@@ -47,11 +47,8 @@ def sha256_path(path: Path) -> str:
 
 
 def baseline_world() -> str:
-    data = load_json(BASELINE)
-    world_id = data.get("world_id")
-    if not world_id:
-        raise RuntimeError("world_id missing from baseline")
-    return world_id
+    data, resolution = world_mod.load_world(repo_root=ROOT)
+    return world_mod.require_world_id(data, world_path=resolution.entry.world_path)
 
 
 def load_runtime_observations(packets: List[promotion_packets.PromotionPacket]) -> List[models.RuntimeObservation]:

@@ -1,6 +1,6 @@
 # Apply-gate (`EPERM`): consolidated investigation record
 
-On `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`, you will sometimes see `EPERM` because a sandbox profile failed to attach at apply time (“apply gate”), not because the sandbox denied a specific operation. Treat any apply-stage `EPERM` as **blocked** evidence: the profile never became part of the process label, so no PolicyGraph decision for the intended probe could have occurred. Always triage `EPERM` by inspecting normalized runtime fields (`failure_stage`, `failure_kind`, `apply_report`) rather than reading raw stderr.
+On `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`, you will sometimes see `EPERM` because a sandbox profile failed to attach at apply time (“apply gate”), not because the sandbox denied a specific operation. Treat any apply-stage `EPERM` as **hypothesis** evidence: the profile never became part of the process label, so no PolicyGraph decision for the intended probe could have occurred. Always triage `EPERM` by inspecting normalized runtime fields (`failure_stage`, `failure_kind`, `apply_report`) rather than reading raw stderr.
 
 A validated witness corpus makes this behavior mechanically reproducible on this world under the same harness identity. Across four witnesses, compilation succeeds while `sandbox_apply` fails with `EPERM`, and the minimal failing profiles share deny-style `apply-message-filter` structure; micro-variants show that `apply-message-filter` alone is not sufficient because some allow-style variants successfully apply and then fail later at bootstrap. During the failing apply window, bounded unified-log captures include the reason string “missing message filter entitlement,” while the applying process’s entitlement check reports `com.apple.private.security.message-filter` absent; treat this as strong correlation evidence, not a sufficiency proof.
 
@@ -10,14 +10,13 @@ Operationally, we avoid re-learning this failure mode by relying on guardrails r
 
 Evidence tiers used here (SANDBOX_LORE discipline):
 
-- **blocked**: apply-stage failures where the intended Profile never attached; not runtime evidence of any Operation+Filter decision.
-- **mapped-but-partial**: host-witnessed runtime behavior that is scenario-scoped and explicitly not generalized.
-- **ok**: mechanically checkable artifacts/joins (e.g., exact digest membership) that are safe to use operationally on this world.
+- **hypothesis**: apply-stage failures where the intended Profile never attached; not runtime evidence of any Operation+Filter decision.
+- **mapped**: host-witnessed runtime behavior that is scenario-scoped and explicitly not generalized.
 - **bedrock**: reserved for static structure claims that are explicitly surfaced as bedrock elsewhere; this report does not promote new bedrock surfaces.
 
 Single most important operational invariant:
 
-> apply-stage `EPERM` is **blocked** evidence (the Profile did not attach; no PolicyGraph decision for the intended probe can have occurred).
+> apply-stage `EPERM` is **hypothesis** evidence (the Profile did not attach; no PolicyGraph decision for the intended probe can have occurred).
 
 Definition (used throughout): **harness identity** means the applying binary **and** its signing/entitlements context, plus the surrounding execution context (notably: some in-harness contexts can be globally apply-gated, making “everything fails with EPERM” non-profile-specific).
 
@@ -29,7 +28,7 @@ If you read only three artifacts, read these (linear, mechanical):
 
 ## Why you care
 
-If you treat apply-stage `EPERM` as a denial, you launder **blocked** evidence into “the sandbox denied X” stories and poison any aggregation or coverage summary. This also blocks a common workflow on this world: using canonical `sys:*` profiles (notably `sys:airlock`) as runnable probes under the generic harness identity.
+If you treat apply-stage `EPERM` as a denial, you launder **hypothesis** evidence into “the sandbox denied X” stories and poison any aggregation or coverage summary. This also blocks a common workflow on this world: using canonical `sys:*` profiles (notably `sys:airlock`) as runnable probes under the generic harness identity.
 
 The durable outcome here is mechanical, not narrative: tool markers → normalized `failure_stage`/`failure_kind` → witness corpus + controls + guardrails. In under five minutes, this report should let you triage an `EPERM` by stage, pick an enterable profile via preflight, and find the exact witness artifacts that justify our current “why” hypothesis. It should also make the regression guardrails visible so future tooling doesn’t slide back into substring inference.
 
@@ -47,7 +46,7 @@ The durable outcome here is mechanical, not narrative: tool markers → normaliz
 
 “Apply gate” is SANDBOX_LORE’s name for **apply-stage** failures where a Profile never becomes part of the process label because the attempt to install it fails at `sandbox_init` (SBPL text apply) or `sandbox_apply` (compiled `.sb.bin` apply), with `errno == EPERM` (“Operation not permitted”).
 
-In substrate terms, this is a **Profile lifecycle** failure prior to PolicyGraph evaluation. It is treated as **blocked** evidence: when apply fails, no PolicyGraph decision for the intended probe can have occurred.
+In substrate terms, this is a **Profile lifecycle** failure prior to PolicyGraph evaluation. It is treated as **hypothesis** evidence: when apply fails, no PolicyGraph decision for the intended probe can have occurred.
 
 The repository-wide phase discipline lives in [`troubles/EPERMx2.md`](../../troubles/EPERMx2.md), but the key idea is simple: apply-stage `EPERM` is **not** a “sandbox denied operation X” statement, and only decision-stage failures (after successful apply) are eligible to support semantic claims (and only within the repo’s status-tagged runtime coverage).
 
@@ -59,14 +58,14 @@ The repository-wide phase discipline lives in [`troubles/EPERMx2.md`](../../trou
    - `apply_report` (`api`, `rc`, `errno`, `err_class`, `errbuf`)
    - marker presence in raw stderr (optional forensic): `tool:"sbpl-apply"` / `tool:"sbpl-preflight"` / `tool:"entitlement-check"`
 2. If `failure_stage == "apply"`:
-   - Treat as **blocked** evidence (Profile did not attach).
+   - Treat as **hypothesis** evidence (Profile did not attach).
    - Use preflight (and the preflight-index manifest) to choose a non-gated profile unless you are explicitly studying apply gates.
 3. If `failure_stage == "bootstrap"`:
    - Treat as “probe did not start” under an attached policy (often `process-exec*`-related) and keep it distinct from “the sandbox denied my file/mach op.”
 4. If `failure_stage` is empty/`null` but the tool did not run:
    - Treat as harness/tooling error (`invalid`), not sandbox evidence.
 5. If `failure_stage` indicates decision-stage/probe outcomes:
-   - Treat as **mapped-but-partial** runtime evidence and keep it scenario-scoped; do not generalize beyond the specific probe and inputs.
+   - Treat as **mapped** runtime evidence and keep it scenario-scoped; do not generalize beyond the specific probe and inputs.
 
 ## Project impact
 
@@ -76,10 +75,10 @@ The repository-wide phase discipline lives in [`troubles/EPERMx2.md`](../../trou
 
 Early on, multiple harnesses and tools surfaced `EPERM` in different places, and we repeatedly collapsed those distinct signals into a single story (“the sandbox denied X”). SANDBOX_LORE now keeps phase meaning mechanically distinct in normalized runtime IR derived from tool markers (no stderr substring inference). The core code surfaces are SBPL-wrapper ([`book/tools/sbpl/wrapper/wrapper.c`](../../book/tools/sbpl/wrapper/wrapper.c)), the runtime contract ([`book/api/runtime/contract.py`](../../book/api/runtime/contract.py)), and the harness runner/normalizer ([`book/api/runtime_harness/runner.py`](../../book/api/runtime_harness/runner.py)).
 
-- **apply**: `sandbox_init` / `sandbox_apply` fails → Profile never attaches (blocked evidence).
+- **apply**: `sandbox_init` / `sandbox_apply` fails → Profile never attaches (hypothesis evidence).
 - **bootstrap**: apply succeeded, but the probe cannot start (e.g., `execvp` fails, sometimes plausibly due to `process-exec*` denial).
 - **probe**: the probe ran and returned nonzero (may or may not reflect a sandbox decision).
-- **decision-stage** denials: syscall-level `EPERM` after apply success (mapped-but-partial evidence; scenario-scoped).
+- **decision-stage** denials: syscall-level `EPERM` after apply success (mapped evidence; scenario-scoped).
 
 ## Investigation chronology
 
@@ -236,7 +235,7 @@ The key value of the witness corpus is that later work can cite specific witness
 
 Clarification: “message filter” in this report means **sandbox message filtering rules** expressed via SBPL `apply-message-filter` (Mach / IOKit message filtering), not any kind of email/SMS/content filtering.
 
-Scope note: everything in this section is **mapped-but-partial** and scoped to this world + harness identity + the validated witness set and micro-variant matrix. We treat it as a trigger-shape story for “what reliably predicts apply-gating here,” not as a general statement about message filtering across macOS versions or signing contexts.
+Scope note: everything in this section is **mapped** and scoped to this world + harness identity + the validated witness set and micro-variant matrix. We treat it as a trigger-shape story for “what reliably predicts apply-gating here,” not as a general statement about message filtering across macOS versions or signing contexts.
 
 #### System-profile witnesses (IOKit)
 
@@ -345,7 +344,7 @@ Source: `book/experiments/gate-witnesses/out/compile_vs_apply.json` (see `micro_
 
 </details>
 
-These micro-variant results are **mapped-but-partial** evidence: they are host-witnessed on this world and under this harness identity, but they are not treated as a universal statement about all message filtering forms or all execution contexts.
+These micro-variant results are **mapped** evidence: they are host-witnessed on this world and under this harness identity, but they are not treated as a universal statement about all message filtering forms or all execution contexts.
 
 ### 5) Split compile vs apply (where the enforcement occurs)
 
@@ -403,7 +402,7 @@ In parallel, SBPL-wrapper emits an **effective entitlement** marker prior to app
 
 In witness validation records, the entitlement marker is emitted by the same PID that attempts blob apply, and it reports `present:false` for the entitlement key. (See Appendix witness bundles; each includes the exact marker object.)
 
-Taken together, the best current summary claim (still **mapped-but-partial**, but strongly corroborated on this world) is:
+Taken together, the best current summary claim (still **mapped**, but strongly corroborated on this world) is:
 
 > On this host baseline and for this harness identity, the unified log capture includes the reason string “missing message filter entitlement” during the bounded failing-apply window for each confirmed witness, while the applying wrapper process’s effective-entitlement marker reports `com.apple.private.security.message-filter` absent. This is strong correlation evidence for an entitlement gate on deny-style message filtering, but it is not a proof of sufficiency without a positive-control run.
 
@@ -418,7 +417,7 @@ We intentionally do **not** upgrade this to bedrock: we have not (and may not be
 
 Static corroboration exists but remains explicitly weaker than the log trace:
 
-- codesign “presence” scan for the entitlement key on a small set of system executables: [`book/experiments/gate-witnesses/out/entitlements_scan.json`](../../book/experiments/gate-witnesses/out/entitlements_scan.json) (mapped-but-partial; presence is not causality)
+- codesign “presence” scan for the entitlement key on a small set of system executables: [`book/experiments/gate-witnesses/out/entitlements_scan.json`](../../book/experiments/gate-witnesses/out/entitlements_scan.json) (mapped; presence is not causality)
 - kernel string presence + xrefs for related strings (brittle/partial, but helps locate likely call sites): [`book/experiments/gate-witnesses/out/message_filter_xrefs.json`](../../book/experiments/gate-witnesses/out/message_filter_xrefs.json)
 
 <details>
@@ -549,7 +548,7 @@ SBPL-wrapper now runs preflight as an operational guardrail by default and emits
 - Wrapper: [`book/tools/sbpl/wrapper/wrapper.c`](../../book/tools/sbpl/wrapper/wrapper.c)
 - Docs: [`book/tools/sbpl/wrapper/README.md`](../../book/tools/sbpl/wrapper/README.md)
 
-By default (`--preflight enforce`), the wrapper will short-circuit before attempting apply when preflight recognizes a known apply-gate signature. This prevents “blocked evidence” from being accidentally laundered into “deny evidence” by downstream tooling.
+By default (`--preflight enforce`), the wrapper will short-circuit before attempting apply when preflight recognizes a known apply-gate signature. This prevents “hypothesis evidence” from being accidentally laundered into “deny evidence” by downstream tooling.
 
 Experiments that *must* observe apply-gated behavior explicitly opt out with `--preflight force`.
 
@@ -580,16 +579,16 @@ This is intentionally phrased as “avoid known dead ends,” not “guarantee s
 This resolution is enforced in three places:
 
 - **Wrapper-level default**: SBPL-wrapper’s default `--preflight enforce` makes “don’t attempt known-gated applies” the default behavior, and `--preflight force` makes “I am intentionally studying the gate” an explicit choice (see [`book/tools/sbpl/wrapper/README.md`](../../book/tools/sbpl/wrapper/README.md)).
-- **Normalized runtime IR**: the runtime harness emits `failure_stage:"preflight"` / `failure_kind:"preflight_apply_gate_signature"` instead of generating an apply-stage EPERM record when it is knowingly entering a blocked category (see [`book/api/runtime_harness/runner.py`](../../book/api/runtime_harness/runner.py)). This protects semantic tallies from being polluted by blocked evidence.
+- **Normalized runtime IR**: the runtime harness emits `failure_stage:"preflight"` / `failure_kind:"preflight_apply_gate_signature"` instead of generating an apply-stage EPERM record when it is knowingly entering an apply-gated category (see [`book/api/runtime_harness/runner.py`](../../book/api/runtime_harness/runner.py)). This protects semantic tallies from being polluted by hypothesis evidence.
 - **Regression tests**: basic guardrails ensure that preflight + wrapper integration stays mechanically visible and doesn’t regress back into substring inference:
   - [`book/tests/test_sbpl_wrapper_preflight.py`](../../book/tests/test_sbpl_wrapper_preflight.py)
   - [`book/tests/test_runtime_harness_preflight_integration.py`](../../book/tests/test_runtime_harness_preflight_integration.py)
 
 ## Current status (what we know, what remains open)
 
-**What we consider settled enough to operationalize (mapped-but-partial / ok where noted)**
+**What we consider settled enough to operationalize (mapped / status ok where noted)**
 
-- Apply-stage `EPERM` is a Profile lifecycle failure (blocked evidence), and our tooling keeps it mechanically distinct from policy decisions.
+- Apply-stage `EPERM` is a Profile lifecycle failure (hypothesis evidence), and our tooling keeps it mechanically distinct from policy decisions.
 - Across the validated witness set, the minimal failing SBPLs all contain deny-style `apply-message-filter` rules, and the micro-variant matrix shows deny-style variants apply-gate while at least some allow-style variants successfully apply; this supports the narrow trigger story “deny-style message filtering is gated for this harness identity on this world” (see section 4 + the Witness Summary Table + Appendix witness bundles).
 - Across the validated witness set, compilation succeeds and `sandbox_apply` is the failing step observed (`errno==EPERM` at apply stage) on this world and under this harness identity (see section 5 + the Witness Summary Table + Appendix witness bundles).
 - Across the validated witness set, the unified log includes the reason string “missing message filter entitlement” during the bounded failing-apply window while the applying process’s effective entitlement marker reports `com.apple.private.security.message-filter` absent; this is correlation evidence, not a sufficiency proof without a positive control (see section 6 + Appendix witness bundles).

@@ -6,7 +6,7 @@ from book.api.profile_tools import identity as identity_mod
 
 
 ROOT = Path(__file__).resolve().parents[2]
-BASELINE = ROOT / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world-baseline.json"
+BASELINE = ROOT / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world.json"
 TAG_LAYOUTS = ROOT / "book" / "graph" / "mappings" / "tag_layouts" / "tag_layouts.json"
 DIGESTS = ROOT / "book" / "graph" / "mappings" / "system_profiles" / "digests.json"
 STATIC_CHECKS = ROOT / "book" / "graph" / "mappings" / "system_profiles" / "static_checks.json"

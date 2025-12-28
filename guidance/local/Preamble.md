@@ -1,6 +1,6 @@
 >This document is a compressed context bundle, not a router or API manual. It exists to keep you inside the repo's world model, evidence tiers, and toolchain without over-claiming.
 
-SANDBOX_LORE is a host-bound, local-only universe for the macOS Seatbelt sandbox. The repo now holds multiple world baselines under `book/world/`, but the published mappings and CARTON are pinned to the Sonoma 14.4.1 baseline with `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (`book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`). The substrate under `book/substrate/` defines the allowed vocabulary; validation IR, mappings, and CARTON record host-specific evidence with explicit status.
+SANDBOX_LORE is a host-bound, local-only universe for the macOS Seatbelt sandbox. The repo now holds multiple world baselines under `book/world/`, but the published mappings and CARTON are pinned to the Sonoma 14.4.1 baseline with `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (`book/world/sonoma-14.4.1-23E224-arm64/world.json`). The substrate under `book/substrate/` defines the allowed vocabulary; validation IR, mappings, and CARTON record host-specific evidence with explicit status.
 
 # Invariants (non-negotiable)
 
@@ -21,7 +21,7 @@ SANDBOX_LORE is a host-bound, local-only universe for the macOS Seatbelt sandbox
 # World model and world_id selection
 
 - World baselines live in `book/world/*`; `world_id` is derived from the dyld manifest hash (see `book/world/README.md`) and stored in each baseline file.
-- The active baseline is `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`; most generators and tools hardcode this baseline ref.
+- The active baseline is `book/world/sonoma-14.4.1-23E224-arm64/world.json`; generators and tools resolve it via `book/world/registry.json` or `book.api.world` unless explicitly overridden.
 - The runtime harness accepts an explicit baseline override (`--baseline`) for debug VM work in `book/api/runtime_harness/cli.py`; otherwise baseline selection is not automatic.
 
 # Evidence layers and pipeline

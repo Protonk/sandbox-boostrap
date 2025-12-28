@@ -44,7 +44,7 @@ Produce stable digests for curated system profile blobs (for example, `airlock`,
 If the digest set needs to be updated (for example, new system profiles or decoder changes), reuse this outline:
 
 1. **Scope and setup**
-   - Confirm the active baseline (OS/build, SIP) and record it in `book/world/.../world-baseline.json`, this Report, and `Notes.md` if the curated set expands.
+   - Confirm the active baseline (OS/build, SIP) and record it in `book/world/.../world.json`, this Report, and `Notes.md` if the curated set expands.
    - Decide which additional system profiles (if any) should join the curated set.
 2. **Decode and summarize**
    - Decode each curated profile and collect op-table entries, node/tag counts, literal samples, and section offsets into `out/digests.json`.

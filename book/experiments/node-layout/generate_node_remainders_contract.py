@@ -34,7 +34,7 @@ CANONICAL: Dict[str, Path] = {
 }
 
 OUT_PATH = ROOT / "book/graph/concepts/validation/out/static/node_remainders.json"
-BASELINE_PATH = ROOT / "book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json"
+BASELINE_PATH = ROOT / "book/world/sonoma-14.4.1-23E224-arm64/world.json"
 
 
 def compute(path: Path, record_size_bytes: int) -> dict:

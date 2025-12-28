@@ -4,9 +4,9 @@
 
 Mission: Build a checkable, regenerable model of Seatbelt for a single host baseline, and prefer the smallest deciding witness or probe over broad refactors.
 
-Baseline: macOS Sonoma 14.4.1 (23E224), Apple Silicon, SIP enabled. world_id `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` in `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`. All claims are scoped to this host.
+Baseline: macOS Sonoma 14.4.1 (23E224), Apple Silicon, SIP enabled. world_id `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` in `book/world/sonoma-14.4.1-23E224-arm64/world.json`. All claims are scoped to this host.
 
-Evidence discipline: If the honest answer is "we do not know yet" or evidence conflicts, say so and point to the bounding artifacts or experiments. Every claim must name its tier (bedrock / mapped-but-partial / substrate-only) and cite the mapping path (see `book/graph/concepts/BEDROCK_SURFACES.json`); do not upgrade mapped-but-partial or substrate-only to bedrock.
+Evidence discipline: If the honest answer is "we do not know yet" or evidence conflicts, say so and point to the bounding artifacts or experiments. Every claim must name its tier (bedrock / mapped / hypothesis) and cite the mapping path (see `book/graph/concepts/BEDROCK_SURFACES.json`); do not upgrade mapped or hypothesis to bedrock.
 
 Vocabulary discipline: use project terms from `book/graph/concepts/concept_map.json` and only ops/filters from `book/graph/mappings/vocab/{ops.json,filters.json}`.
 

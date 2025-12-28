@@ -4,7 +4,7 @@
 Can we capture SIP-compatible, PID-scoped DTrace witnesses for EntitlementJail’s runtime denials and sandbox API usage on the Sonoma 14.4.1 baseline, and normalize those events into stable deny signatures without over-claiming PolicyGraph paths?
 
 ## Baseline & scope
-- world_id: sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (`book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`)
+- world_id: sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (`book/world/sonoma-14.4.1-23E224-arm64/world.json`)
 - Host scope: macOS Sonoma 14.4.1 (23E224), Apple Silicon, SIP enabled.
 - Target: EntitlementJail.app (debuggable XPC service preferred).
 - Scope: DTrace syscall denials + libsystem_sandbox API calls, PID-scoped only.

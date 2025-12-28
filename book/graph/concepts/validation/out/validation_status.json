@@ -2,19 +2,22 @@
   "schema": {
     "job_id": "string",
     "status": "ok|partial|brittle|blocked|skipped",
+    "tier": "bedrock|mapped|hypothesis",
     "host": "object",
     "inputs": "list[str]",
     "outputs": "list[str]",
     "tags": "list[str]",
     "notes": "string?",
     "metrics": "object?",
-    "error": "string?"
+    "error": "string?",
+    "change": "changed|unchanged?"
   },
   "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
   "jobs": [
     {
       "job_id": "vocab:sonoma-14.4.1",
-      "status": "ok-unchanged",
+      "status": "ok",
+      "tier": "bedrock",
       "host": {
         "product": "macOS",
         "version": "14.4.1",
@@ -37,9 +40,9 @@
         "golden"
       ],
       "hashes": {
-        "book/graph/mappings/vocab/ops.json": "833064d94bbf0eb81e1204c0519ee327a5dc8996b3f16b9159dd784bf42d70ba",
-        "book/graph/mappings/vocab/filters.json": "3763dcce4234fad042ccf0f7b72133437b89dd8bf4d39a47c4c16684bbbabe2d",
-        "book/graph/concepts/validation/out/vocab_status.json": "91e0aee6a2f9e274fc23ed9a082a6691d42a1a6615d48a08d8da96cd4b9915a8"
+        "book/graph/mappings/vocab/ops.json": "027938879b913660bd4a8ba76faaff38fb2fcf3384710f8dc2ebbeae50766068",
+        "book/graph/mappings/vocab/filters.json": "a978af3fffd552faae0d825540541a49c3e2c49ea7b8191eaef19ee4c010cb99",
+        "book/graph/concepts/validation/out/vocab_status.json": "b32318d9297caac6837cff1e2279b0c5022c5427d5d38b1bee0336e6459c07f3"
       },
       "notes": "Verified libsandbox vocab against canonical mappings.",
       "metrics": {
@@ -50,7 +53,8 @@
     },
     {
       "job_id": "experiment:field2",
-      "status": "ok-unchanged",
+      "status": "ok",
+      "tier": "mapped",
       "host": {
         "product": "macOS",
         "version": "14.4.1",
@@ -74,7 +78,7 @@
       ],
       "hashes": {
         "book/graph/concepts/validation/out/experiments/field2/field2_ir.json": "17498be658bac148db6939d60c280c95ca18a3b1a2c0089da7443ee46af7f1fc",
-        "book/graph/concepts/validation/out/experiments/field2/status.json": "735410973d8935c6db258af6fc6125ae1cbd325dde847d1f875d6079454d0419"
+        "book/graph/concepts/validation/out/experiments/field2/status.json": "afd4ba2e011899f49273fcc0fee36b33f38c1515661a4189729d9d3628a8ede6"
       },
       "notes": "Normalized field2 inventory and unknown nodes into IR.",
       "metrics": {
@@ -85,7 +89,8 @@
     },
     {
       "job_id": "experiment:runtime-checks",
-      "status": "ok-unchanged",
+      "status": "ok",
+      "tier": "mapped",
       "host": {
         "product": "macOS",
         "version": "14.4.1",
@@ -109,7 +114,7 @@
       ],
       "hashes": {
         "book/graph/concepts/validation/out/experiments/runtime-checks/runtime_results.normalized.json": "115d28c05b535f37a5ba4e3fa7b4b19ffd07313f918afed98bdf8f0d59ec59e4",
-        "book/graph/concepts/validation/out/experiments/runtime-checks/status.json": "19567aab55a7d4453f30ea621b449d57267ad1ef4b3b26921cb70dff1bbfecc9"
+        "book/graph/concepts/validation/out/experiments/runtime-checks/status.json": "0ed9b03306277c93a0686df01a325c8dd80e1d6256ef1f881b0adb6b47e46e96"
       },
       "notes": "Normalized runtime_results into contract-shaped runtime events for this world.",
       "metrics": {
@@ -119,7 +124,8 @@
     },
     {
       "job_id": "experiment:system-profile-digest",
-      "status": "ok-unchanged",
+      "status": "ok",
+      "tier": "mapped",
       "host": {
         "product": "macOS",
         "version": "14.4.1",
@@ -144,7 +150,7 @@
       ],
       "hashes": {
         "book/graph/concepts/validation/out/experiments/system-profile-digest/digests_ir.json": "01f00abd66201bfcec8ee15c179f74b79fd119bf391f94969221e432ba01d186",
-        "book/graph/concepts/validation/out/experiments/system-profile-digest/status.json": "b8023845235b132f2f45a9643fa5dcf3f703caef49fb026444c2b12c536aded7"
+        "book/graph/concepts/validation/out/experiments/system-profile-digest/status.json": "498af79c4888404615c0eae473c2c4c5bfae2d324dc099ff24c36b90202c13c5"
       },
       "notes": "Normalized system profile digests into IR.",
       "metrics": {
@@ -154,7 +160,8 @@
     },
     {
       "job_id": "structure:tag_roles",
-      "status": "ok-unchanged",
+      "status": "ok",
+      "tier": "mapped",
       "host": {
         "product": "macOS",
         "version": "14.4.1",
@@ -182,7 +189,7 @@
       ],
       "hashes": {
         "book/graph/concepts/validation/out/tag_roles/ir.json": "054af45c1b17f003fce26d73bb73ab38ca7de817734ac1896379689267665403",
-        "book/graph/concepts/validation/out/tag_roles/status.json": "a893e648c3e228dc350e9ebded609fa9672fc25382be90f71a7e42bbccca4cf8"
+        "book/graph/concepts/validation/out/tag_roles/status.json": "baa7409d9b685c997650694544879595e3b04b1dbe87644ad9a518062c328452"
       },
       "metrics": {
         "profiles": 3,

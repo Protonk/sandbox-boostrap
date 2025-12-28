@@ -22,6 +22,8 @@ DEFAULT_PACKET_PATHS = [
     REPO_ROOT / "book/experiments/runtime-checks/out/promotion_packet.json",
     REPO_ROOT / "book/experiments/runtime-adversarial/out/promotion_packet.json",
     REPO_ROOT / "book/experiments/hardened-runtime/out/promotion_packet.json",
+    REPO_ROOT / "book/experiments/anchor-filter-map/out/promotion_packet.json",
+    REPO_ROOT / "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json",
 ]
 
 DEFAULT_PACKET_SET_PATH = REPO_ROOT / "book/graph/mappings/runtime/packet_set.json"

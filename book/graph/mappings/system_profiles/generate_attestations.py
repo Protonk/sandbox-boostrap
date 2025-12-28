@@ -36,29 +36,27 @@ if str(REPO_ROOT) not in sys.path:
 
 from book.api.profile_tools import decoder
 from book.api.profile_tools.op_table import op_entries
+from book.api import evidence_tiers
+from book.api import world as world_mod
 from book.graph.concepts.validation import profile_ingestion as pi
 
 
 OUT_JSON = REPO_ROOT / "book/graph/mappings/system_profiles/attestations.json"
 OUT_DIR = REPO_ROOT / "book/graph/mappings/system_profiles/attestations"
-BASELINE_REF = "book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json"
 TAG_LAYOUTS_PATH = REPO_ROOT / "book/graph/mappings/tag_layouts/tag_layouts.json"
 GOLDEN_TRIPLE_BLOBS_DIR = REPO_ROOT / "book/profiles/golden-triple"
 
 
 def load_baseline() -> Dict[str, Any]:
-    baseline_path = REPO_ROOT / BASELINE_REF
-    if not baseline_path.exists():
-        raise FileNotFoundError(f"missing baseline: {baseline_path}")
-    return json.loads(baseline_path.read_text())
+    data, _resolution = world_mod.load_world(repo_root=REPO_ROOT)
+    return data
 
 
-def baseline_world_id() -> str:
-    data = load_baseline()
-    world_id = data.get("world_id")
-    if not world_id:
-        raise RuntimeError("world_id missing from baseline")
-    return world_id
+def baseline_world_info() -> tuple[str, str]:
+    data, resolution = world_mod.load_world(repo_root=REPO_ROOT)
+    world_id = world_mod.require_world_id(data, world_path=resolution.entry.world_path)
+    world_path = world_mod.world_path_for_metadata(resolution, repo_root=REPO_ROOT)
+    return world_id, world_path
 
 
 def sha256(path: Path) -> str:
@@ -217,7 +215,7 @@ def make_attestation(
 
 def main() -> None:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    world_id = baseline_world_id()
+    world_id, world_path = baseline_world_info()
     anchor_map = load_json(REPO_ROOT / "book/graph/mappings/anchors/anchor_filter_map.json")
     tag_layout_hash = tag_layout_tag_set_hash(TAG_LAYOUTS_PATH)
     tag_layouts_file_sha256 = sha256(TAG_LAYOUTS_PATH)
@@ -276,7 +274,7 @@ def main() -> None:
         "runtime_manifest": str(Path("book/graph/mappings/runtime/expectations.json")) if runtime_manifest else None,
         "attestation_count": len(attestations),
         "inputs": [
-            str(Path(BASELINE_REF)),
+            world_path,
             str(Path("book/graph/mappings/system_profiles/digests.json")),
             str(Path("book/graph/mappings/anchors/anchor_filter_map.json")),
             str(Path("book/graph/mappings/tag_layouts/tag_layouts.json")),
@@ -287,6 +285,9 @@ def main() -> None:
         + [str(p.relative_to(REPO_ROOT)) for p in sorted(GOLDEN_TRIPLE_BLOBS_DIR.glob("*.sb.bin")) if p.exists()],
         "source_jobs": ["generator:system_profiles:attestations"],
         "status": "ok",
+        "tier": evidence_tiers.evidence_tier_for_artifact(
+            path=OUT_JSON,
+        ),
     }
 
     OUT_JSON.write_text(

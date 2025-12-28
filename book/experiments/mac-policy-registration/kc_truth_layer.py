@@ -182,7 +182,7 @@ def _compute_entry_bounds(cmds: bytes, ncmds: int) -> Tuple[int, int, int, int, 
 
 
 def _load_world_id(repo_root: Path) -> Optional[str]:
-    baseline = repo_root / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world-baseline.json"
+    baseline = repo_root / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world.json"
     if not baseline.exists():
         return None
     try:

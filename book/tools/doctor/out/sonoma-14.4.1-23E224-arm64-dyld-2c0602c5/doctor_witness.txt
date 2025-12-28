@@ -1,0 +1,18 @@
+doctor_witness:
+  world_id: sonoma-14.4.1-23E224-arm64-dyld-2c0602c5
+  baseline: book/world/sonoma-14.4.1-23E224-arm64/world.json
+  dyld_manifest: book/world/sonoma-14.4.1-23E224-arm64/dyld/manifest.json
+  manifest_sha8: 2c0602c5
+  world_id_suffix_match: True
+  version: expected=14.4.1 observed=14.4.1 status=match
+  build: expected=23E224 observed=23E224 status=match
+  kernel: expected=23.4.0 observed={'uname_r': '23.4.0', 'uname_v': 'Darwin Kernel Version 23.4.0: Fri Mar 15 00:12:41 PDT 2024; root:xnu-10063.101.17~1/RELEASE_ARM64_T8103'} status=match
+  machine: expected=arm64 observed=arm64 status=match
+  sip: expected=enabled observed=System Integrity Protection status: enabled. status=match
+  dyld_cache_path: /System/Volumes/Preboot/Cryptexes/OS/System/Library/dyld/dyld_shared_cache_arm64e
+  dyld_cache_uuid: a53b7d2f-a773-3524-8828-248b33ef0b4e
+  dyld_cache_uuid_sha8: 9e87778f
+  compile_smoke_status: ok
+  compile_smoke_blob_sha256: 6a939e69b3b90635a853f9a20e09abe5ec4ee4e3c1d7cd5fde8868524e4e0ec6
+  compile_smoke_op_count: 5
+  verdict: likely_match

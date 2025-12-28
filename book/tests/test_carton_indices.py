@@ -6,7 +6,7 @@ OP_INDEX = ROOT / "book" / "graph" / "mappings" / "carton" / "operation_index.js
 PROFILE_INDEX = ROOT / "book" / "graph" / "mappings" / "carton" / "profile_layer_index.json"
 FILTER_INDEX = ROOT / "book" / "graph" / "mappings" / "carton" / "filter_index.json"
 CONCEPT_INDEX = ROOT / "book" / "graph" / "mappings" / "carton" / "concept_index.json"
-BASELINE_REF = "book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json"
+BASELINE_REF = "book/world/sonoma-14.4.1-23E224-arm64/world.json"
 
 
 def load(path: Path) -> dict:

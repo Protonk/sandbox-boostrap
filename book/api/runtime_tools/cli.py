@@ -308,7 +308,7 @@ def main(argv: list[str] | None = None) -> int:
     ap_golden = sub.add_parser("golden", help="Generate golden decodes/expectations/traces from runtime-checks outputs.")
     ap_golden.add_argument("--matrix", type=Path, default=_default_matrix(), help="Path to expected_matrix.json")
     ap_golden.add_argument("--runtime-results", type=Path, default=_default_runtime_results(), help="Path to runtime_results.json")
-    ap_golden.add_argument("--baseline", type=Path, default=BOOK_ROOT / "world" / "sonoma-14.4.1-23E224-arm64" / "world-baseline.json", help="Path to world baseline JSON")
+    ap_golden.add_argument("--baseline", type=Path, default=BOOK_ROOT / "world" / "sonoma-14.4.1-23E224-arm64" / "world.json", help="Path to world baseline JSON")
     ap_golden.add_argument("--out", type=Path, default=BOOK_ROOT / "graph" / "mappings" / "runtime", help="Root output directory")
     ap_golden.set_defaults(func=golden_command)
 

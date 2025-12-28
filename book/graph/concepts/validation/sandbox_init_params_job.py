@@ -71,6 +71,7 @@ def run_sandbox_init_params_job() -> Dict[str, Any]:
     payload = {
         "job_id": "experiment:sandbox-init-params",
         "status": status,
+        "tier": "mapped",
         "world_id": WORLD_ID,
         "inputs": [rel(SUMMARY_PATH)],
         "outputs": [rel(STATUS_PATH)],

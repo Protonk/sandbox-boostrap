@@ -1,12 +1,30 @@
 import json
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[4]
-WORLD_ID = "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from book.api import evidence_tiers  # noqa: E402
+from book.api import world as world_mod  # noqa: E402
 
 
 def load_json(path: Path):
     return json.loads(path.read_text())
+
+
+def baseline_world_id() -> str:
+    data, resolution = world_mod.load_world(repo_root=ROOT)
+    return world_mod.require_world_id(data, world_path=resolution.entry.world_path)
+
+
+def assert_world_compatible(baseline_world: str, other: dict | str | None, label: str) -> None:
+    if not other:
+        return
+    other_world = other.get("world_id") if isinstance(other, dict) else other
+    if other_world and other_world != baseline_world:
+        raise RuntimeError(f"world_id mismatch for {label}: baseline {baseline_world} vs {other_world}")
 
 
 def main():
@@ -16,6 +34,8 @@ def main():
 
     anchors_doc = load_json(anchors_path)
     hits_doc = load_json(hits_path)
+    world_id = baseline_world_id()
+    assert_world_compatible(world_id, anchors_doc.get("metadata"), "anchor_field2_map")
 
     # Build a quick lookup of anchor -> observations from anchor_hits.
     anchor_hits = {}
@@ -53,8 +73,12 @@ def main():
 
     doc = {
         "metadata": {
-            "world_id": anchors_doc.get("metadata", {}).get("world_id", WORLD_ID),
+            "world_id": world_id,
             "status": anchors_doc.get("metadata", {}).get("status", "partial"),
+            "tier": evidence_tiers.evidence_tier_for_artifact(
+                path=out_path,
+                tier="mapped",
+            ),
             "inputs": [
                 "book/graph/mappings/anchors/anchor_field2_map.json",
                 "book/experiments/probe-op-structure/out/anchor_hits.json",

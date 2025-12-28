@@ -1,0 +1,18 @@
+{
+  "world_id": "runtime-mac-policy-dev",
+  "capture_reason": "runtime probe staging for mac_policy_register",
+  "host": {
+    "product": "macOS",
+    "version": "14.6.1",
+    "build": "23G93",
+    "kernel": "Darwin Kernel Version 23.6.0: Mon Jul 29 21:13:03 PDT 2024; root:xnu-10063.141.2~1/RELEASE_ARM64_VMAPPLE",
+    "machine": "arm64",
+    "sip": "disabled (csrutil status reports disabled; VM is a runtime-only sandbox for tracing)"
+  },
+  "dyld_manifest": null,
+  "dyld_manifest_hash": null,
+  "tcc_state": "not_collected",
+  "profile_format_variant": "modern-heuristic",
+  "apply_gates": "runtime world stub; fbt available after SIP disable; mac_policy_register events not observed (registration likely pre-attach on this host)",
+  "notes": "Runtime-only VM for mac_policy_register tracing. SIP disabled to allow fbt. Host build differs from static baseline; dyld manifest and BootKC/sandbox UUID/hash not recorded."
+}

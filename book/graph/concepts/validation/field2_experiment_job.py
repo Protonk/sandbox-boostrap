@@ -47,6 +47,7 @@ def run_field2_job():
     payload = {
         "job_id": "experiment:field2",
         "status": "ok",
+        "tier": "mapped",
         "host": meta.get("os", {}),
         "inputs": [rel(FIELD2_INV), rel(UNKNOWN_NODES)],
         "outputs": [rel(IR_PATH)],
@@ -60,6 +61,7 @@ def run_field2_job():
     STATUS_PATH.write_text(json.dumps(payload, indent=2))
     return {
         "status": "ok",
+        "tier": "mapped",
         "inputs": payload["inputs"],
         "outputs": [rel(IR_PATH), rel(STATUS_PATH)],
         "metrics": payload["metrics"],

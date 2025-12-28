@@ -8,7 +8,7 @@ Deliberately stress static↔runtime alignment for this host using adversarial S
 Outputs: expected/runtime matrices, mismatch summaries, and impact hooks to downgrade bedrock claims if mismatches appear.
 
 ## Baseline & scope
-- World: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (`book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`).
+- World: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (`book/world/sonoma-14.4.1-23E224-arm64/world.json`).
 - Harness: `book.api.runtime_tools.harness.runner.run_matrix` + runtime-checks shims; file probes run via `sandbox_runner` + `file_probe` so each scenario applies exactly once inside a fresh worker; compile/decode via `book.api.profile_tools` and `book.api.profile_tools.decoder`.
 - Profiles: `struct_flat`, `struct_nested` (structural variants); `path_edges` + `path_alias` (path/literal edge stress + `/tmp` alias witness); `mach_simple_allow`, `mach_simple_variants`, `mach_local_literal`, `mach_local_regex` (mach-lookup variants); `net_outbound_allow`, `net_outbound_deny`, `flow_divert_require_all_tcp` (network-outbound variants including the flow-divert require-all triple). Custom SBPL only; no platform blobs.
 - Outputs live in `sb/`, `sb/build/`, and `out/`.
@@ -31,7 +31,7 @@ Outputs: expected/runtime matrices, mismatch summaries, and impact hooks to down
 
 ### VFS edge cases (path_edges)
 - Static intent: allow literal `/tmp/runtime-adv/edges/a` and subpath `/tmp/runtime-adv/edges/okdir/*`, deny `/private/tmp/runtime-adv/edges/a` and the `..` literal to catch traversal. Decoder predicts allows on `/tmp/...` probes via literal/subpath filters.
-- Runtime: `/tmp` reads are denied and flagged as `path_normalization` mismatches; writes to the same paths are unexpected denies. The normalization control (`allow-subpath-normalized`) also denies, so the mismatch packet is labeled `path_normalization_sensitivity`. Canonicalization evidence remains anchored in `book/experiments/vfs-canonicalization/Report.md` (mapped-but-partial).
+- Runtime: `/tmp` reads are denied and flagged as `path_normalization` mismatches; writes to the same paths are unexpected denies. The normalization control (`allow-subpath-normalized`) also denies, so the mismatch packet is labeled `path_normalization_sensitivity`. Canonicalization evidence remains anchored in `book/experiments/vfs-canonicalization/Report.md` (mapped).
 
 ### Mach families (mach_simple_* / mach_local_*)
 - Static intent: allow `mach-lookup` for `com.apple.cfprefsd.agent` only; profiles use literal vs regex and global-name vs local-name encodings, but aim for the same allow/deny surface (explicit deny on a bogus service).
@@ -90,7 +90,7 @@ Before refactoring the harness, a bespoke SBPL under `sandbox-exec -f … /usr/b
 ### Status and adjacent work
 - `network-outbound` is confirmed on this world by runtime via the canonical scenario and marked runtime-backed in coverage and CARTON.
 - Planned but non-blocking: add a small variant (alternate port or IPv6 loopback) using the same client/profiles; add a “negative harness” profile (remove `system-socket`) expected to fail as a harness/startup error rather than a policy decision.
-- Remaining runtime divergences: `/tmp`→`/private/tmp` VFS canonicalization in filesystem probes; see `book/experiments/vfs-canonicalization/Report.md` for the focused canonicalization family and guardrails (mapped-but-partial).
+- Remaining runtime divergences: `/tmp`→`/private/tmp` VFS canonicalization in filesystem probes; see `book/experiments/vfs-canonicalization/Report.md` for the focused canonicalization family and guardrails (mapped).
 
 ## Next steps
 - Extend network coverage with a small variant (alternate port or IPv6 loopback) using the same client/profiles; add a “negative harness” profile (remove `system-socket`) expected to fail as a harness/startup error rather than a policy decision.

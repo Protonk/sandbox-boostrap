@@ -34,7 +34,7 @@ class BuildSpec:
 
 
 def _load_world_id(repo_root: Path) -> str:
-    baseline = repo_root / "book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json"
+    baseline = repo_root / "book/world/sonoma-14.4.1-23E224-arm64/world.json"
     try:
         doc = json.loads(baseline.read_text())
         return str(doc.get("world_id") or "")

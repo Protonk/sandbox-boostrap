@@ -34,7 +34,7 @@ RUNNER_BIN = RUNNER_BUILD_DIR / "metadata_runner"
 TOOL_MARKERS_SWIFT = REPO_ROOT / "book" / "api" / "runtime_tools" / "native" / "ToolMarkers.swift"
 SEATBELT_CALLOUT_SHIM_C = REPO_ROOT / "book" / "api" / "runtime_tools" / "native" / "seatbelt_callout_shim.c"
 OUT_DIR = BASE_DIR / "out"
-WORLD_PATH = find_repo_root(Path(__file__)) / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world-baseline.json"
+WORLD_PATH = find_repo_root(Path(__file__)) / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world.json"
 
 PROFILE_SOURCES = {
     "literal_alias_only": SB_DIR / "metadata_alias_only.sb",

@@ -15,11 +15,17 @@ from __future__ import annotations
 
 import hashlib
 import json
+import sys
 from pathlib import Path
 from typing import Dict, Any, List
 
 ROOT = Path(__file__).resolve().parents[4]
-BASELINE = ROOT / "book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json"
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from book.api import evidence_tiers  # noqa: E402
+from book.api import world as world_mod  # noqa: E402
+
 RUNTIME_STORY = ROOT / "book/graph/mappings/runtime_cuts/runtime_story.json"
 IMPACT_MAP = ROOT / "book/experiments/runtime-adversarial/out/impact_map.json"
 OUT = ROOT / "book/graph/mappings/runtime/expectations.json"
@@ -62,11 +68,8 @@ def sha256(path: Path) -> str:
 
 
 def baseline_world() -> str:
-    data = load_json(BASELINE)
-    world_id = data.get("world_id")
-    if not world_id:
-        raise RuntimeError("world_id missing from baseline")
-    return world_id
+    data, resolution = world_mod.load_world(repo_root=ROOT)
+    return world_mod.require_world_id(data, world_path=resolution.entry.world_path)
 
 
 def count_trace_rows(path: Path) -> int:
@@ -167,6 +170,10 @@ def main() -> None:
             "inputs": inputs,
             "source_jobs": ["experiment:runtime-checks", "experiment:runtime-adversarial"],
             "status": overall_status,
+            "tier": evidence_tiers.evidence_tier_for_artifact(
+                path=OUT,
+                tier="mapped",
+            ),
             "notes": "Runtime expectations summarized from runtime cuts and traces; mismatches are allowed only when tagged in impact_map.json.",
         },
         "profiles": profiles,

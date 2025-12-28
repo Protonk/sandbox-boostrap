@@ -1,5 +1,5 @@
 """
-Canonical headless-command builder for Ghidra tasks on the Sonoma baseline (`book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`).
+Canonical headless-command builder for Ghidra tasks on the Sonoma baseline (`book/world/sonoma-14.4.1-23E224-arm64/world.json`).
 
 Intent:
 - Build (and optionally run) `analyzeHeadless` invocations against the extracted host artifacts in
@@ -109,6 +109,12 @@ TASKS: Dict[str, TaskConfig] = {
         description="Import KC and dump symbols/strings for com.apple.security.sandbox.",
         out_root=KERNEL_SYMBOLS_OUT_ROOT,
     ),
+    "kernel-collection-symbols": TaskConfig(
+        name="kernel-collection-symbols",
+        script="kernel_symbols.py",
+        import_target="kernel_collection",
+        description="Dump symbols/strings for com.apple.security.sandbox in the KC.",
+    ),
     "kernel-tag-switch": TaskConfig(
         name="kernel-tag-switch",
         script="kernel_tag_switch.py",
@@ -138,6 +144,12 @@ TASKS: Dict[str, TaskConfig] = {
         script="kernel_function_dump.py",
         import_target="kernel_collection",
         description="Dump disassembly for specified functions/addresses in the KC.",
+    ),
+    "kernel-collection-addr-window-dump": TaskConfig(
+        name="kernel-collection-addr-window-dump",
+        script="kernel_addr_window_dump.py",
+        import_target="kernel_collection",
+        description="Dump an instruction window around a KC address.",
     ),
     "kernel-imports": TaskConfig(
         name="kernel-imports",
@@ -175,6 +187,18 @@ TASKS: Dict[str, TaskConfig] = {
         import_target="kernel_collection",
         description="Find functions referencing strings and list call sites in the KC.",
     ),
+    "kernel-collection-jump-table-read": TaskConfig(
+        name="kernel-collection-jump-table-read",
+        script="kernel_jump_table_read.py",
+        import_target="kernel_collection",
+        description="Read a signed-32 jump table and resolve targets in the KC.",
+    ),
+    "kernel-collection-syscall-code-scan": TaskConfig(
+        name="kernel-collection-syscall-code-scan",
+        script="sandbox_syscall_code_scan.py",
+        import_target="kernel_collection",
+        description="Scan the KC for compare-like uses of a syscall call code.",
+    ),
     "kernel-mac-policy-register-anchor": TaskConfig(
         name="kernel-mac-policy-register-anchor",
         script="kernel_anchor_mac_policy_register.py",
@@ -198,6 +222,18 @@ TASKS: Dict[str, TaskConfig] = {
         script="kernel_addr_lookup.py",
         import_target="kernel",
         description="Lookup file offsets/constants to map to addresses/functions/callers.",
+    ),
+    "sandbox-kext-addr-lookup": TaskConfig(
+        name="sandbox-kext-addr-lookup",
+        script="kernel_addr_lookup.py",
+        import_target="sandbox_kext",
+        description="Lookup addresses/constants inside sandbox_kext.",
+    ),
+    "sandbox-kext-addr-window-dump": TaskConfig(
+        name="sandbox-kext-addr-window-dump",
+        script="kernel_addr_window_dump.py",
+        import_target="sandbox_kext",
+        description="Dump an instruction window around a sandbox_kext address.",
     ),
     "kernel-adrp-add-scan": TaskConfig(
         name="kernel-adrp-add-scan",
@@ -247,6 +283,12 @@ TASKS: Dict[str, TaskConfig] = {
         import_target="sandbox_kext",
         description="Scan sandbox kext data segments for mac_policy_conf candidates.",
     ),
+    "sandbox-kext-symbols": TaskConfig(
+        name="sandbox-kext-symbols",
+        script="kernel_symbols.py",
+        import_target="sandbox_kext",
+        description="Emit symbol/string tables for sandbox_kext.",
+    ),
     "sandbox-kext-mac-policy-register": TaskConfig(
         name="sandbox-kext-mac-policy-register",
         script="mac_policy_register_scan.py",
@@ -258,6 +300,12 @@ TASKS: Dict[str, TaskConfig] = {
         script="kernel_block_disasm.py",
         import_target="sandbox_kext",
         description="Disassemble across matching sandbox kext blocks (e.g., __stubs).",
+    ),
+    "sandbox-kext-function-dump": TaskConfig(
+        name="sandbox-kext-function-dump",
+        script="kernel_function_dump.py",
+        import_target="sandbox_kext",
+        description="Dump disassembly for specified functions/addresses in sandbox_kext.",
     ),
     "sandbox-kext-stub-got-map": TaskConfig(
         name="sandbox-kext-stub-got-map",
@@ -276,6 +324,42 @@ TASKS: Dict[str, TaskConfig] = {
         script="kernel_got_load_sweep.py",
         import_target="sandbox_kext",
         description="Scan code for GOT loads or direct refs in sandbox_kext.",
+    ),
+    "sandbox-kext-imm-search": TaskConfig(
+        name="sandbox-kext-imm-search",
+        script="kernel_imm_search.py",
+        import_target="sandbox_kext",
+        description="Search sandbox_kext instructions for a given immediate value.",
+    ),
+    "sandbox-kext-op-table": TaskConfig(
+        name="sandbox-kext-op-table",
+        script="kernel_op_table.py",
+        import_target="sandbox_kext",
+        description="Surface pointer-table candidates inside sandbox_kext segments.",
+    ),
+    "sandbox-kext-pointer-value-scan": TaskConfig(
+        name="sandbox-kext-pointer-value-scan",
+        script="kernel_pointer_value_scan.py",
+        import_target="sandbox_kext",
+        description="Scan sandbox_kext memory for a specific pointer value.",
+    ),
+    "sandbox-kext-jump-table-dump": TaskConfig(
+        name="sandbox-kext-jump-table-dump",
+        script="kernel_jump_table_dump.py",
+        import_target="sandbox_kext",
+        description="Dump jump-table entries for sandbox_kext dispatcher candidates.",
+    ),
+    "sandbox-kext-jump-table-read": TaskConfig(
+        name="sandbox-kext-jump-table-read",
+        script="kernel_jump_table_read.py",
+        import_target="sandbox_kext",
+        description="Read a signed-32 jump table and resolve targets in sandbox_kext.",
+    ),
+    "sandbox-kext-syscall-code-scan": TaskConfig(
+        name="sandbox-kext-syscall-code-scan",
+        script="sandbox_syscall_code_scan.py",
+        import_target="sandbox_kext",
+        description="Scan sandbox_kext for compare-like uses of a syscall call code.",
     ),
     "kernel-imm-search": TaskConfig(
         name="kernel-imm-search",

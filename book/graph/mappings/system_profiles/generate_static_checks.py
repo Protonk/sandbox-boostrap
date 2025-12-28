@@ -26,24 +26,20 @@ if str(REPO_ROOT) not in sys.path:
 
 from book.api.profile_tools import decoder
 from book.api.profile_tools import digests as digests_mod
+from book.api import evidence_tiers
+from book.api import world as world_mod
 from book.graph.concepts.validation import profile_ingestion as pi
 OUT_PATH = REPO_ROOT / "book/graph/mappings/system_profiles/static_checks.json"
-BASELINE_REF = "book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json"
-BASELINE_PATH = REPO_ROOT / BASELINE_REF
 
 
 def load_baseline() -> Dict[str, Any]:
-    if not BASELINE_PATH.exists():
-        raise FileNotFoundError(f"missing baseline: {BASELINE_PATH}")
-    return json.loads(BASELINE_PATH.read_text())
+    data, _resolution = world_mod.load_world(repo_root=REPO_ROOT)
+    return data
 
 
 def baseline_world_id() -> str:
-    data = load_baseline()
-    world_id = data.get("world_id")
-    if not world_id:
-        raise RuntimeError("world_id missing from baseline")
-    return world_id
+    data, resolution = world_mod.load_world(repo_root=REPO_ROOT)
+    return world_mod.require_world_id(data, world_path=resolution.entry.world_path)
 
 
 def tag_layout_hash(path: Path) -> str:
@@ -92,7 +88,8 @@ def summarize(path: Path, tag_layout_hash: str) -> Dict[str, Any]:
 
 
 def main() -> None:
-    world_id = baseline_world_id()
+    world_doc, resolution = world_mod.load_world(repo_root=REPO_ROOT)
+    world_id = world_mod.require_world_id(world_doc, world_path=resolution.entry.world_path)
     tag_layouts_path = REPO_ROOT / "book/graph/mappings/tag_layouts/tag_layouts.json"
     tag_layout_hash_value = tag_layout_hash(tag_layouts_path)
     tag_layouts_file_sha256 = sha256(tag_layouts_path)
@@ -108,12 +105,15 @@ def main() -> None:
                     "tag_layout_hash_method": "tag_set",
                     "tag_layouts_file_sha256": tag_layouts_file_sha256,
                     "inputs": [
-                        str(Path(BASELINE_REF)),
-                        str(Path("book/graph/mappings/tag_layouts/tag_layouts.json")),
+                        world_mod.world_path_for_metadata(resolution, repo_root=REPO_ROOT),
+                        "book/graph/mappings/tag_layouts/tag_layouts.json",
                     ]
                     + [str(p.relative_to(REPO_ROOT)) for p in profiles if p.exists()],
                     "source_jobs": ["generator:system_profiles:static_checks"],
                     "status": "ok",
+                    "tier": evidence_tiers.evidence_tier_for_artifact(
+                        path=OUT_PATH,
+                    ),
                 },
                 "entries": checks,
             },

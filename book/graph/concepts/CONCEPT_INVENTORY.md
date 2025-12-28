@@ -399,11 +399,11 @@ The point of building a concept inventory and validation plan is straightforward
 
 That also means that coherent but wrong models are dangerous: they tend to generate plausible experiments and diagrams that reinforce the wrong picture. The examples below are “fair” misconceptions—plausible, technically informed ways to be wrong—and the kinds of errors they produce.
 
-These are substrate-only “plausible failure modes”: they are conceptual hygiene, not host-witnessed claims. Do not promote them to mapped/bedrock facts without a concrete witness (experiment output, validation IR, or a mapping).
+These are hypothesis “plausible failure modes”: they are conceptual hygiene, not host-witnessed claims. Do not promote them to mapped/bedrock facts without a concrete witness (experiment output, validation IR, or a mapping).
 
 ### SBPL Profile
 
-**Status:** substrate-only “plausible failure mode” (no host witness).
+**Tier:** hypothesis “plausible failure mode” (no host witness).
 
 **Misconception**
 
@@ -431,7 +431,7 @@ Your probe reports “denied,” and you incorrectly attribute that denial to a 
 
 ### Operation
 
-**Status:** substrate-only “plausible failure mode” (no host witness).
+**Tier:** hypothesis “plausible failure mode” (no host witness).
 
 **Misconception**
 
@@ -465,7 +465,7 @@ Your mapping from “observed syscall outcomes” to “operation-level policy�
 
 ### Filter
 
-**Status:** substrate-only “plausible failure mode” (no host witness).
+**Tier:** hypothesis “plausible failure mode” (no host witness).
 
 **Misconception**
 
@@ -497,7 +497,7 @@ when in reality the graph structure allows it via a non-obvious route.
 
 ### Profile Layer / Policy Stack Evaluation Order
 
-**Status:** substrate-only “plausible failure mode” (no host witness).
+**Tier:** hypothesis “plausible failure mode” (no host witness).
 
 **Misconception**
 
@@ -526,7 +526,7 @@ In practice, evaluation order or an extension changes the decision path so the d
 
 ### Sandbox Extension
 
-**Status:** substrate-only “plausible failure mode” (no host witness).
+**Tier:** hypothesis “plausible failure mode” (no host witness).
 
 **Misconception**
 

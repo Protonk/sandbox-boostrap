@@ -10,7 +10,7 @@
 - Python side: `book/ci.py` fingerprints `book/tests`, `book/api`, `book/graph/concepts/validation`, `book/examples`, and `book/experiments`, then invokes `python -m book.tests.run_all` as a lightweight stand-in for pytest.
 - Harness shape: `book/tests/run_all.py` discovers `book/tests/test_*.py` plus any `book/api/**/test_*.py` (today only `book/api/golden_runner/test_golden_runner.py`), supports a small fixture set (`tmp_path`, `monkeypatch`), and runs module-level `test_*` callables plus `unittest.TestCase` classes.
 - Expectations: `book/tests/README.md` frames this as a sanity suite—fast, deterministic, with `@pytest.mark.system` on tests that shell out or depend on macOS libs, and with all asserted paths normalized to repo-relative form.
-- Validation bridge: `book/graph/concepts/validation/out/validation_status.json` currently records four `ok-unchanged` jobs (`vocab:sonoma-14.4.1`, `experiment:field2`, `experiment:runtime-checks`, `experiment:system-profile-digest`), and several tests assume these jobs have run and produced their normalized IR.
+- Validation bridge: `book/graph/concepts/validation/out/validation_status.json` currently records four `ok` jobs (`vocab:sonoma-14.4.1`, `experiment:field2`, `experiment:runtime-checks`, `experiment:system-profile-digest`), and several tests assume these jobs have run and produced their normalized IR.
 
 ## High-Level Coverage Picture
 
@@ -19,7 +19,7 @@
 At a high level:
 - Structural/mapping tests aim at the **bedrock** tier: they assert file presence, schema, world pinning, and cross-file consistency for the shared IR in `book/graph/mappings/*` and golden-corpus outputs.
 - CARTON tests sit just above that, ensuring that the frozen IR (`CARTON.json` + indices) remains an accurate projection of the underlying mappings and validation IR for this world.
-- Runtime tests live in the **mapped-but-partial** tier: they provide detailed allow/deny expectations for a small set of profiles and operations (notably `file-read*`, `file-write*`, and `mach-lookup`) and treat VFS canonicalization quirks as environment facts rather than decoder bugs.
+- Runtime tests live in the **mapped** tier: they provide detailed allow/deny expectations for a small set of profiles and operations (notably `file-read*`, `file-write*`, and `mach-lookup`) and treat VFS canonicalization quirks as environment facts rather than decoder bugs.
 - Experiments/examples/tests treat their JSON artifacts and SBPL assets as **shape-guarded** but not deeply interpreted; many assertions are “does this JSON look like we expect?” rather than “does this SBPL profile enforce every substrate claim?”.
 
 The sections below expand each band and connect individual tests back to the concept inventory and mapping layers.
@@ -34,7 +34,7 @@ In this band, tests mostly answer “are the mapping JSONs that everything else 
   - `book/tests/test_bedrock_registry.py` keeps `book/graph/concepts/BEDROCK_SURFACES.json` in lockstep with the bedrock navigation bullets in `CONCEPT_INVENTORY.md` and asserts that root and graph-level `AGENTS.md` files direct readers to that registry. This ties the human-facing concept story to the machine-readable surface list.
 
 - **System profile digests, tag layouts, and world pinning**
-  - `book/tests/test_mappings_guardrail.py` and `test_system_profiles_mapping.py` guard `book/graph/mappings/system_profiles/digests.json`: they require the canonical trio (`sys:airlock`, `sys:bsd`, `sys:sample`) to exist, enforce `metadata.status == "ok"`, and insist that mapping- and contract-level `world_id` values both match the Sonoma baseline in `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`.
+  - `book/tests/test_mappings_guardrail.py` and `test_system_profiles_mapping.py` guard `book/graph/mappings/system_profiles/digests.json`: they require the canonical trio (`sys:airlock`, `sys:bsd`, `sys:sample`) to exist, enforce `metadata.status == "ok"`, and insist that mapping- and contract-level `world_id` values both match the Sonoma baseline in `book/world/sonoma-14.4.1-23E224-arm64/world.json`.
   - The same tests ensure that tag layouts (`book/graph/mappings/tag_layouts/tag_layouts.json`) and CARTON coverage metadata reflect any future status demotions, so drift in canonical digests cannot silently remain “ok” in downstream IR.
   - `book/tests/test_tag_layout_hash.py` asserts that the tag-layout hash function is sensitive to tag-set changes but insensitive to metadata-only churn, keeping the “contract” tied to structure, not comments or notes.
 
@@ -59,7 +59,7 @@ Together, these tests say: if they pass, the project can treat vocab tables, can
 
 - **Manifest and world pinning**
   - `book/tests/test_carton_manifest.py` regenerates `book/api/carton/CARTON.json` via `create_manifest.main()`, then asserts that the manifest’s file set is exactly the expected list (vocab, system digests, runtime signatures, CARTON overlays, and selected validation IR), that every path exists on disk, that SHA-256 hashes match the contents, and that no `generated_at` timestamp sneaks into the manifest.
-  - The same test verifies that `world_id` in the manifest matches the Sonoma baseline world in `book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json`.
+  - The same test verifies that `world_id` in the manifest matches the Sonoma baseline world in `book/world/sonoma-14.4.1-23E224-arm64/world.json`.
 
 - **Coverage, indices, and downgrade propagation**
   - `book/tests/test_mappings_guardrail.py` ensures that `book/graph/mappings/carton/operation_coverage.json` and `book/graph/mappings/tag_layouts/tag_layouts.json` carry the same metadata status as system digests and that canonical profile statuses are present for the canonical trio.
@@ -96,7 +96,7 @@ When these tests pass, the project can treat CARTON as a faithful, world-pinned 
   - `book/tests/test_runtime_signatures_mapping.py` checks `book/graph/mappings/runtime/runtime_signatures.json`: it requires `metadata.status == "ok"`, absence of timestamps, correct `world_id`, presence of signatures for the golden profiles, and structured field2 summaries for key system profiles.
   - `book/tests/test_golden_decodes.py` links these signatures back to `golden_decodes.json` by requiring non-zero node/op counts and expected literal strings for `runtime:metafilter_any` and `runtime:strict_1`, tying runtime expectations to static decode details.
 
-Collectively, these tests justify treating runtime behavior for `file-read*`, `file-write*`, `mach-lookup`, and the VFS canonicalization scenario as well-understood on this host (mapped-but-partial), while explicitly leaving most other operations and profiles in a structural-only tier.
+Collectively, these tests justify treating runtime behavior for `file-read*`, `file-write*`, `mach-lookup`, and the VFS canonicalization scenario as well-understood on this host (mapped), while explicitly leaving most other operations and profiles in a structural-only tier.
 
 ## Experiments, Examples, and Assets
 
@@ -123,18 +123,18 @@ These tests do not claim semantic completeness for the experiments or examples; 
 
 ## Evidence Tiers and Status
 
- Test coverage lines up cleanly with the project’s evidence tiers: structural and vocab clusters are treated as bedrock, runtime/lifecycle work as mapped-but-partial, and much of the narrative/experiment layer as substrate-only or shape-guarded.
+ Test coverage lines up cleanly with the project’s evidence tiers: structural and vocab clusters are treated as bedrock, runtime/lifecycle work as mapped, and much of the narrative/experiment layer as hypothesis or shape-guarded.
 
 - **Bedrock cluster**
-  - `book/graph/concepts/validation/out/validation_status.json` lists four jobs, all `ok-unchanged` for this world: vocab extraction (`vocab:sonoma-14.4.1`), field2 experiment normalization, runtime-checks normalization, and system-profile-digest IR. Many mapping tests (vocab, system digests, tag layouts, runtime signatures) implicitly assume these jobs have produced their outputs.
+  - `book/graph/concepts/validation/out/validation_status.json` lists four jobs, all `ok` for this world: vocab extraction (`vocab:sonoma-14.4.1`), field2 experiment normalization, runtime-checks normalization, and system-profile-digest IR. Many mapping tests (vocab, system digests, tag layouts, runtime signatures) implicitly assume these jobs have produced their outputs.
   - Bedrock surfaces in `book/graph/concepts/BEDROCK_SURFACES.json` are enforced via `test_bedrock_registry.py`; system digests in `book/graph/mappings/system_profiles/digests.json` and tag-layouts in `book/graph/mappings/tag_layouts/tag_layouts.json` are treated as `status: ok` and world-pinned unless an explicit drift scenario is staged.
 
-- **Mapped-but-partial cluster**
+- **Mapped cluster**
   - Runtime mappings in `book/graph/mappings/runtime/runtime_signatures.json` have `metadata.status == "ok"` but intentionally cover only the golden profile set and the operations exercised by runtime-checks and runtime-adversarial. Tests confirm this slice is consistent and well-formed; they do not claim coverage for all 196 operations.
   - `book/graph/mappings/vocab/ops_coverage.json` encodes structural vs runtime evidence flags per operation. `test_ops_coverage.py` asserts that `file-read*`, `file-write*`, and `mach-lookup` have both `structural_evidence` and `runtime_evidence` set to `True`, while leaving most other ops as structural-only by design.
   - Experiments like runtime-adversarial and vfs-canonicalization record EPERM apply gates and VFS quirks explicitly; tests enforce that these are captured and annotated (`status: ok/partial/blocked` at the profile or probe level) rather than silently normalized away.
 
-- **Substrate-only and shape-guarded areas**
+- **Hypothesis and shape-guarded areas**
   - System profiles that cannot be applied on this host (e.g., platform `airlock`) are still present in static mappings and golden-corpus decodes, and runtime tests treat their EPERM behavior as part of the environment rather than as missing profiles.
   - Many experiment Reports/Notes and chapter markdown files (including the TextEdit narrative) have no direct tests; their claims remain in the substrate or narrative tier, backed indirectly by the artifacts they reference rather than by automated assertions.
   - Shape tests over experiments (`test_experiments.py`, entitlement and kernel symbol checks) keep IR present and structurally coherent but do not upgrade the semantic content of those experiments to bedrock.
@@ -161,6 +161,6 @@ These tests do not claim semantic completeness for the experiments or examples; 
 
 - **Harness and environment assumptions**
   - The CI harness assumes `pytest` is importable (for fixtures) and that the Sonoma world baseline and dyld slices are present on disk. Tests do not currently guard against running in an environment where those assumptions fail (for example, missing dyld manifest, partial world checkout).
-  - Future work might add explicit “environment sanity” tests—checking for the presence and hash of `world-baseline.json`, dyld slices, and key mapping files before running more expensive tests—and surfacing clearer failure messages when the host state no longer matches the captured baseline.
+  - Future work might add explicit “environment sanity” tests—checking for the presence and hash of `world.json`, dyld slices, and key mapping files before running more expensive tests—and surfacing clearer failure messages when the host state no longer matches the captured baseline.
 
-These gaps are not failures of the current suite—they reflect an intentional focus on structural bedrock and a small, well-understood runtime slice. They mark the places where new experiments, validation jobs, and then tests would move more concepts from “substrate-only” or “mapped-but-partial” toward bedrock for this Sonoma world.
+These gaps are not failures of the current suite—they reflect an intentional focus on structural bedrock and a small, well-understood runtime slice. They mark the places where new experiments, validation jobs, and then tests would move more concepts from “hypothesis” or “mapped” toward bedrock for this Sonoma world.

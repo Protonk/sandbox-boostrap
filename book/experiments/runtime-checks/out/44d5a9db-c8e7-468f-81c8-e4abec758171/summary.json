@@ -1,0 +1,27 @@
+{
+  "schema_version": "runtime-tools.summary.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "run_id": "44d5a9db-c8e7-468f-81c8-e4abec758171",
+  "status": "failed",
+  "plan_id": "runtime-checks.v1",
+  "plan_digest": "1a83c9078d96e5cfe3a9696451dfd2984d93375ea0c7a2dea6079ff4d48f900f",
+  "channel": "launchd_clean",
+  "lanes": {
+    "baseline": true,
+    "scenario": true,
+    "oracle": true
+  },
+  "profile_count": 7,
+  "scenario_count": 26,
+  "expected_profiles": [
+    "bucket4:v1_read",
+    "bucket5:v11_read_subpath",
+    "runtime:allow_all",
+    "runtime:metafilter_any",
+    "runtime:strict_1",
+    "sys:airlock",
+    "sys:bsd"
+  ],
+  "mismatch_counts": {},
+  "dry_run": false
+}

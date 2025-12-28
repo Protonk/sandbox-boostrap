@@ -48,7 +48,7 @@ Extract Operation/Filter vocab tables (name ↔ ID) from the macOS dyld shared c
 If vocab artifacts ever need to be regenerated (for a new host or a changed decoder), reuse this outline:
 
 1. **Setup and scope**
-   - Confirm the active baseline (OS/build, kernel, SIP) and record it in `book/world/.../world-baseline.json`, this Report, and `Notes.md`.
+   - Confirm the active baseline (OS/build, kernel, SIP) and record it in `book/world/.../world.json`, this Report, and `Notes.md`.
    - List the canonical blobs for alignment (system profiles plus `sample.sb.bin`).
 2. **Cache extraction**
    - Extract Sandbox-related binaries (Sandbox.framework, libsandbox) from the dyld shared cache into a local `extracted/` directory.

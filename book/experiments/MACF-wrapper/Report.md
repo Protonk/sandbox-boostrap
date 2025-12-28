@@ -4,7 +4,7 @@
 - Capture runtime MACF wrapper calls (e.g., `mac_vnode_check_open`, `mac_vnop_setxattr`) on controlled processes, independent of `mac_policy_register`, and normalize them into JSON events for later correlation with static sandbox work.
 
 ## Setup
-- World: `sonoma-14.6.1-debug-vm` (macOS 14.6.1 23G93, SIP disabled, Developer Mode enabled, fbt/syscall providers available; runtime-only VM distinct from the static Sonoma 14.4.1 baseline; world metadata in `book/world/sonoma-14.6.1-debug-vm/world-baseline.json`).
+- World: `sonoma-14.6.1-debug-vm` (macOS 14.6.1 23G93, SIP disabled, Developer Mode enabled, fbt/syscall providers available; runtime-only VM distinct from the static Sonoma 14.4.1 baseline; world metadata in `book/world/sonoma-14.6.1-debug-vm/world.json`).
 - Hooks enumerated via `sb/list_macf_wrappers.sh` → `out/meta/macf_wrapper_probes.txt`; selected hooks recorded in `out/meta/selected_hooks.json` (starter set: `mac_vnode_check_open`, `mac_vnop_setxattr`).
 - Probes filter to a single traced process (`pid == $target`) using generated D scripts from `capture.py`; manual template in `sb/macf_wrappers.d` documents the format and includes syscall context probes (open*, setxattr/fsetxattr) to correlate hook events with userland paths/flags.
 - Capture pipeline: `capture.py` renders the D script, runs DTrace (`-c` command), normalizes via `normalize.py` (correlates hook events with nearby syscalls on the same pid/tid), and writes a run manifest under `out/meta/`.

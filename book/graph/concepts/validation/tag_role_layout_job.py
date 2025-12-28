@@ -157,6 +157,7 @@ def run_tag_role_layout_job():
     status_payload = {
         "job_id": "structure:tag_roles",
         "status": "ok" if (missing_roles_total == 0 and missing_layout_total == 0) else "partial",
+        "tier": "mapped",
         "host": meta.get("os", {}),
         "inputs": [rel(p) for _, p in CANONICAL_BLOBS] + [rel(TAG_LAYOUTS_PATH), rel(TAG_U16_ROLES_PATH)],
         "outputs": [rel(IR_PATH)],
@@ -174,6 +175,7 @@ def run_tag_role_layout_job():
     STATUS_PATH.write_text(json.dumps(status_payload, indent=2))
     return {
         "status": status_payload["status"],
+        "tier": "mapped",
         "metrics": status_payload["metrics"],
         "outputs": status_payload["outputs"] + [rel(STATUS_PATH)],
     }

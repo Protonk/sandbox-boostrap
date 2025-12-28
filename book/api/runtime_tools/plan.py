@@ -40,6 +40,30 @@ from book.api.runtime_tools.registry import load_registry, resolve_probe, resolv
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))
 PLAN_SCHEMA_VERSION = "runtime-tools.plan.v0.1"
 
+MACH_LOOKUP_SELF_APPLY_DRIVER = "sandbox_mach_probe"
+
+
+def _profile_is_deny_default(*, profile_path: Path, key_specific_rules: Sequence[str]) -> bool:
+    """
+    Heuristic guard for the deny-default execution footgun.
+
+    `runtime_tools` can apply SBPL either:
+    - in-process (probe self-applies via `sandbox_init` then performs the op), or
+    - via the `sandbox_runner` wrapper (apply, then exec probe).
+
+    On this host baseline, deny-default SBPL is brittle when combined with
+    post-apply exec for certain probe families (notably Mach bootstrap/lookup),
+    so plan linting enforces explicit in-process drivers where required.
+    """
+
+    try:
+        text = profile_path.read_text()
+    except Exception:
+        text = ""
+    if "(deny default)" in text:
+        return True
+    return any(rule.strip().startswith("(deny default") for rule in (key_specific_rules or ()))
+
 
 @dataclass(frozen=True)
 class PlanSpec:
@@ -190,6 +214,9 @@ def lint_plan(path: Path) -> Tuple[Optional[Dict[str, Any]], List[str]]:
     except Exception as exc:
         return None, [str(exc)]
 
+    lanes = doc.get("lanes") or {}
+    scenario_enabled = bool(lanes.get("scenario"))
+
     registry_id = doc.get("registry_id")
     if not registry_id:
         errors.append("missing registry_id")
@@ -211,6 +238,7 @@ def lint_plan(path: Path) -> Tuple[Optional[Dict[str, Any]], List[str]]:
         profile_path = profile.get("profile_path")
         if not profile_path:
             errors.append(f"profile missing profile_path: {registry_id}:{profile_id}")
+            abs_path = None
         else:
             abs_path = path_utils.ensure_absolute(Path(profile_path), REPO_ROOT)
             if not abs_path.exists():
@@ -221,6 +249,23 @@ def lint_plan(path: Path) -> Tuple[Optional[Dict[str, Any]], List[str]]:
         for probe_ref in probe_refs:
             if probe_ref not in probes:
                 errors.append(f"unknown probe_ref: {registry_id}:{profile_id}:{probe_ref}")
+                continue
+            probe = probes[probe_ref]
+            if not scenario_enabled:
+                continue
+            if probe.get("operation") != "mach-lookup":
+                continue
+            # Guardrail: deny-default Mach probes must be in-process (self-apply)
+            # rather than apply-then-exec via `sandbox_runner`.
+            if abs_path is not None and _profile_is_deny_default(
+                profile_path=abs_path,
+                key_specific_rules=profile.get("key_specific_rules") or [],
+            ):
+                if probe.get("driver") != MACH_LOOKUP_SELF_APPLY_DRIVER:
+                    errors.append(
+                        "deny-default mach-lookup requires in-process driver "
+                        f"({MACH_LOOKUP_SELF_APPLY_DRIVER}): {registry_id}:{profile_id}:{probe_ref}"
+                    )
 
     apply_preflight_profile = doc.get("apply_preflight_profile")
     if apply_preflight_profile:

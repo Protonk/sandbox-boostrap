@@ -32,6 +32,7 @@ def run_lifecycle_probes_job():
     if not _is_enabled():
         return {
             "status": "skipped",
+            "tier": "mapped",
             "notes": f"Set {ENV_ENABLE}=1 to build/run lifecycle probes on this host.",
             "inputs": [
                 "book/api/lifecycle_probes/c/entitlements_example.c",
@@ -57,6 +58,7 @@ def run_lifecycle_probes_job():
 
     return {
         "status": status,
+        "tier": "mapped",
         "inputs": [
             "book/api/lifecycle_probes/c/entitlements_example.c",
             "book/api/lifecycle_probes/c/extensions_demo.c",

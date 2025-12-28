@@ -1,0 +1,386 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "tier": "mapped",
+    "source_jobs": [],
+    "notes": "scenario-level runtime summaries"
+  },
+  "phase_histograms": {
+    "overall": {
+      "total": 8,
+      "stages": {
+        "apply": 6,
+        "bootstrap": 0,
+        "preflight": 0,
+        "probe": 2
+      },
+      "blocked": {
+        "total": 6,
+        "by_stage": {
+          "apply": 6
+        },
+        "by_kind": {
+          "sandbox_init_failed": 6
+        }
+      },
+      "probe": {
+        "total": 2,
+        "allow": 1,
+        "deny": 1,
+        "mismatches": 1
+      }
+    },
+    "by_family": {
+      "mach_lookup": {
+        "total": 8,
+        "stages": {
+          "apply": 6,
+          "bootstrap": 0,
+          "preflight": 0,
+          "probe": 2
+        },
+        "blocked": {
+          "total": 6,
+          "by_stage": {
+            "apply": 6
+          },
+          "by_kind": {
+            "sandbox_init_failed": 6
+          }
+        },
+        "probe": {
+          "total": 2,
+          "allow": 1,
+          "deny": 1,
+          "mismatches": 1
+        }
+      }
+    }
+  },
+  "scenarios": {
+    "anchor-filter-map:cfprefsd:S0_allow_any": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "anchor-filter-map:cfprefsd:S0_allow_any",
+      "expectations": [
+        {
+          "expectation_id": "anchor-filter-map:cfprefsd:S0_allow_any",
+          "profile_id": "anchor-filter-map:cfprefsd:S0_allow_any",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.agent",
+          "expected": "allow",
+          "probe_name": "S0_allow_any"
+        }
+      ],
+      "results": {
+        "total": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 1,
+          "by_stage": {
+            "apply": 1
+          },
+          "by_kind": {
+            "sandbox_init_failed": 1
+          }
+        },
+        "status": "blocked"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "anchor-filter-map:cfprefsd:S0_allow_any",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.agent",
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "mismatch_type": "apply_gate",
+          "violation_summary": null,
+          "stderr": "sandbox initialization failed: mach-message-send operation not applicable in this context\n\nBacktrace: \n<input string>:15:2:\n\t(allow mach-message-send)\n\nsandbox_init failed: mach-message-send operation not applicable in this context\n\nBacktrace: \n<input string>:15:2:\n\t(allow mach-message-send)\n\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "anchor-filter-map:cfprefsd:S0_allow_any"
+    },
+    "anchor-filter-map:cfprefsd:S1_allow_global": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "anchor-filter-map:cfprefsd:S1_allow_global",
+      "expectations": [
+        {
+          "expectation_id": "anchor-filter-map:cfprefsd:S1_allow_global",
+          "profile_id": "anchor-filter-map:cfprefsd:S1_allow_global",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.agent",
+          "expected": "allow",
+          "probe_name": "S1_allow_global"
+        }
+      ],
+      "results": {
+        "total": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 1,
+          "by_stage": {
+            "apply": 1
+          },
+          "by_kind": {
+            "sandbox_init_failed": 1
+          }
+        },
+        "status": "blocked"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "anchor-filter-map:cfprefsd:S1_allow_global",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.agent",
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "mismatch_type": "apply_gate",
+          "violation_summary": null,
+          "stderr": "sandbox initialization failed: mach-message-send operation not applicable in this context\n\nBacktrace: \n<input string>:15:2:\n\t(allow mach-message-send)\n\nsandbox_init failed: mach-message-send operation not applicable in this context\n\nBacktrace: \n<input string>:15:2:\n\t(allow mach-message-send)\n\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "anchor-filter-map:cfprefsd:S1_allow_global"
+    },
+    "anchor-filter-map:cfprefsd:S2_allow_local": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "anchor-filter-map:cfprefsd:S2_allow_local",
+      "expectations": [
+        {
+          "expectation_id": "anchor-filter-map:cfprefsd:S2_allow_local",
+          "profile_id": "anchor-filter-map:cfprefsd:S2_allow_local",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.agent",
+          "expected": "allow",
+          "probe_name": "S2_allow_local"
+        }
+      ],
+      "results": {
+        "total": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 1,
+          "by_stage": {
+            "apply": 1
+          },
+          "by_kind": {
+            "sandbox_init_failed": 1
+          }
+        },
+        "status": "blocked"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "anchor-filter-map:cfprefsd:S2_allow_local",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.agent",
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "mismatch_type": "apply_gate",
+          "violation_summary": null,
+          "stderr": "sandbox initialization failed: mach-message-send operation not applicable in this context\n\nBacktrace: \n<input string>:15:2:\n\t(allow mach-message-send)\n\nsandbox_init failed: mach-message-send operation not applicable in this context\n\nBacktrace: \n<input string>:15:2:\n\t(allow mach-message-send)\n\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "anchor-filter-map:cfprefsd:S2_allow_local"
+    },
+    "anchor-filter-map:cfprefsd:S3_allow_both": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "anchor-filter-map:cfprefsd:S3_allow_both",
+      "expectations": [
+        {
+          "expectation_id": "anchor-filter-map:cfprefsd:S3_allow_both",
+          "profile_id": "anchor-filter-map:cfprefsd:S3_allow_both",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.agent",
+          "expected": "allow",
+          "probe_name": "S3_allow_both"
+        }
+      ],
+      "results": {
+        "total": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 1,
+          "by_stage": {
+            "apply": 1
+          },
+          "by_kind": {
+            "sandbox_init_failed": 1
+          }
+        },
+        "status": "blocked"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "anchor-filter-map:cfprefsd:S3_allow_both",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.agent",
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "mismatch_type": "apply_gate",
+          "violation_summary": null,
+          "stderr": "sandbox initialization failed: mach-message-send operation not applicable in this context\n\nBacktrace: \n<input string>:15:2:\n\t(allow mach-message-send)\n\nsandbox_init failed: mach-message-send operation not applicable in this context\n\nBacktrace: \n<input string>:15:2:\n\t(allow mach-message-send)\n\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "anchor-filter-map:cfprefsd:S3_allow_both"
+    },
+    "anchor-filter-map:cfprefsd:N1_deny_default": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "anchor-filter-map:cfprefsd:N1_deny_default",
+      "expectations": [
+        {
+          "expectation_id": "anchor-filter-map:cfprefsd:N1_deny_default",
+          "profile_id": "anchor-filter-map:cfprefsd:N1_deny_default",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.agent",
+          "expected": "deny",
+          "probe_name": "N1_deny_default"
+        }
+      ],
+      "results": {
+        "total": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 1,
+          "by_stage": {
+            "apply": 1
+          },
+          "by_kind": {
+            "sandbox_init_failed": 1
+          }
+        },
+        "status": "blocked"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "anchor-filter-map:cfprefsd:N1_deny_default"
+    },
+    "anchor-filter-map:cfprefsd:bogus_baseline": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "anchor-filter-map:cfprefsd:N1_deny_default",
+      "expectations": [
+        {
+          "expectation_id": "anchor-filter-map:cfprefsd:bogus_baseline",
+          "profile_id": "anchor-filter-map:cfprefsd:N1_deny_default",
+          "operation": "mach-lookup",
+          "target": "com.apple.sandbox-lore.anchor-filter-map.bogus",
+          "expected": "deny",
+          "probe_name": "bogus_baseline"
+        }
+      ],
+      "results": {
+        "total": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 1,
+          "by_stage": {
+            "apply": 1
+          },
+          "by_kind": {
+            "sandbox_init_failed": 1
+          }
+        },
+        "status": "blocked"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "anchor-filter-map:cfprefsd:bogus_baseline"
+    },
+    "anchor-filter-map:cfprefsd:C1_deny_global": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "anchor-filter-map:cfprefsd:C1_deny_global",
+      "expectations": [
+        {
+          "expectation_id": "anchor-filter-map:cfprefsd:C1_deny_global",
+          "profile_id": "anchor-filter-map:cfprefsd:C1_deny_global",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.agent",
+          "expected": "deny",
+          "probe_name": "C1_deny_global"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "anchor-filter-map:cfprefsd:C1_deny_global"
+    },
+    "anchor-filter-map:cfprefsd:C2_deny_local": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "anchor-filter-map:cfprefsd:C2_deny_local",
+      "expectations": [
+        {
+          "expectation_id": "anchor-filter-map:cfprefsd:C2_deny_local",
+          "profile_id": "anchor-filter-map:cfprefsd:C2_deny_local",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.agent",
+          "expected": "deny",
+          "probe_name": "C2_deny_local"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "anchor-filter-map:cfprefsd:C2_deny_local",
+          "expected": "deny",
+          "actual": "allow",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.agent",
+          "failure_stage": null,
+          "failure_kind": null,
+          "mismatch_type": "unexpected_allow",
+          "violation_summary": null,
+          "stderr": ""
+        }
+      ],
+      "impact": null,
+      "scenario_id": "anchor-filter-map:cfprefsd:C2_deny_local"
+    }
+  }
+}

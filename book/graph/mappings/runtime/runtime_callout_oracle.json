@@ -22,24 +22,37 @@
   "meta": {
     "generated_by": "book/api/runtime_tools/mapping/views.py",
     "input_hashes": {
-      "book/experiments/runtime-adversarial/out/expected_matrix.json": "52b862109528afdb829f129ad09636e1c0d48502fea115dbf5fd6dacc166469e",
-      "book/experiments/runtime-adversarial/out/run_manifest.json": "3e912202734c06d9f14a9816f7452bc871cc248088f4c71f76526b29ea3cd550",
-      "book/experiments/runtime-adversarial/out/runtime_results.json": "10f31609832004183b4edb9e9478d7bd4e66e57e504edcb7833c671776c782d8",
-      "book/experiments/runtime-checks/out/run_manifest.json": "c0ef597ec00e64bcb12e85ebbf234eea807dbb7b0aba5192d08b234a948ad22d",
-      "book/graph/concepts/validation/out/experiments/runtime-checks/runtime_results.normalized.json": "115d28c05b535f37a5ba4e3fa7b4b19ffd07313f918afed98bdf8f0d59ec59e4"
+      "book/experiments/anchor-filter-map/iokit-class/out/bf80e47b-3020-4b13-bfa7-249cfcff8b52/run_manifest.json": "5dc19d6c4cfe20cfbc078ec76d1a050c5d10758efb3a7469b73ac427ddfbe2b9",
+      "book/experiments/anchor-filter-map/iokit-class/out/bf80e47b-3020-4b13-bfa7-249cfcff8b52/runtime_events.normalized.json": "a0781f6c440f086462638d940ec83308a2926cb2fbdcb8607c5836ab23a1e39a",
+      "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json": "6162982de26c10913bb1d0c5f7f34da46e0ef1b46ae919a48ff85ae95d523f9c",
+      "book/experiments/anchor-filter-map/out/028d4d91-1c9e-4c2f-95da-7fc89ec3635a/run_manifest.json": "b2dfd462935fcc90d7d0a2ff601ec5b51aa5087130837f398ea500904f1b5a4e",
+      "book/experiments/anchor-filter-map/out/028d4d91-1c9e-4c2f-95da-7fc89ec3635a/runtime_events.normalized.json": "89e0435f6f8aad437c527c89b57ab458e2ea56cd7d5fbf24c076a4ae711d8c19",
+      "book/experiments/anchor-filter-map/out/promotion_packet.json": "b0dc6ea4d240cf2a41c99cf9ecaf8c782b35c63b6e5f6f5503692bfbe48de178",
+      "book/experiments/runtime-adversarial/out/promotion_packet.json": "3b479d0a30a4e9105ca2ef0d18c015255f40cb6bf960c622915db02cc81bb823",
+      "book/experiments/runtime-adversarial/out/run_manifest.json": "17364fc9b9c0c215aa6703f3f6a5bb33685eadc8af836a592dd4ca6f01d7a775",
+      "book/experiments/runtime-adversarial/out/runtime_events.normalized.json": "92b6fa449d4884141b826a8b58c23b5e813190fd019221b873bd83bd0c865fa3",
+      "book/experiments/runtime-checks/out/promotion_packet.json": "98ee9c649c1926fa231bf1e14324fd3f9df0c6acd4345d5b2e02015339d46c7e",
+      "book/experiments/runtime-checks/out/run_manifest.json": "2b023453161c58f5540fe22dd9c75585a975262370fbfd9fc2f2ad1f352d20cf",
+      "book/experiments/runtime-checks/out/runtime_events.normalized.json": "48e2282416211c4e427fbe51cc58019e9eaa483d7e4a6a4799a2baac3f8129a3"
     },
     "inputs": [
-      "book/graph/concepts/validation/out/experiments/runtime-checks/runtime_results.normalized.json",
-      "book/experiments/runtime-adversarial/out/expected_matrix.json",
-      "book/experiments/runtime-adversarial/out/runtime_results.json",
+      "book/experiments/runtime-checks/out/promotion_packet.json",
+      "book/experiments/runtime-checks/out/runtime_events.normalized.json",
       "book/experiments/runtime-checks/out/run_manifest.json",
-      "book/experiments/runtime-adversarial/out/run_manifest.json"
+      "book/experiments/runtime-adversarial/out/promotion_packet.json",
+      "book/experiments/runtime-adversarial/out/runtime_events.normalized.json",
+      "book/experiments/runtime-adversarial/out/run_manifest.json",
+      "book/experiments/anchor-filter-map/out/promotion_packet.json",
+      "book/experiments/anchor-filter-map/out/028d4d91-1c9e-4c2f-95da-7fc89ec3635a/runtime_events.normalized.json",
+      "book/experiments/anchor-filter-map/out/028d4d91-1c9e-4c2f-95da-7fc89ec3635a/run_manifest.json",
+      "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json",
+      "book/experiments/anchor-filter-map/iokit-class/out/bf80e47b-3020-4b13-bfa7-249cfcff8b52/runtime_events.normalized.json",
+      "book/experiments/anchor-filter-map/iokit-class/out/bf80e47b-3020-4b13-bfa7-249cfcff8b52/run_manifest.json"
     ],
-    "notes": "Sandbox_check oracle lane derived from seatbelt-callout markers.",
+    "notes": "Seatbelt-callout markers derived from promotion packet runtime_events.",
     "schema_version": "runtime-callout-oracle.v0.1",
     "source_jobs": [
-      "experiment:runtime-checks",
-      "experiment:runtime-adversarial"
+      "promotion_packet"
     ],
     "status": "partial",
     "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"

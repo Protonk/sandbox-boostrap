@@ -5,7 +5,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 OPS = ROOT / "book" / "graph" / "mappings" / "vocab" / "ops.json"
 COVERAGE = ROOT / "book" / "graph" / "mappings" / "vocab" / "ops_coverage.json"
-BASELINE = ROOT / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world-baseline.json"
+BASELINE = ROOT / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world.json"
 
 
 def test_ops_coverage_has_all_ops():

@@ -45,7 +45,7 @@ from .spec import ChannelSpec
 
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))
 LAUNCHCTL = Path("/bin/launchctl")
-PYTHON = Path("/usr/bin/python3")
+VENV_PYTHON = Path(".venv/bin/python")
 
 
 def _write_json(path: Path, payload: dict) -> None:
@@ -65,7 +65,12 @@ def _build_plist(
     only_profiles: Optional[Iterable[str]],
     only_scenarios: Optional[Iterable[str]],
 ) -> dict:
-    program = str(PYTHON if PYTHON.exists() else sys.executable)
+    # launchd workers must run with a Python that matches the repo's runtime_tools
+    # contract. The host /usr/bin/python3 is not reliable for this repo (it may be
+    # an older toolchain python). Prefer the staged repo's venv python when present,
+    # else fall back to the caller's interpreter.
+    staged_venv_python = repo_root / VENV_PYTHON
+    program = str(staged_venv_python if staged_venv_python.exists() else sys.executable)
     args = [program, "-m", "book.api.runtime_tools", "run", "--plan", str(plan_path), "--out", str(out_dir)]
     args += ["--channel", "direct"]
     if only_profiles:
@@ -83,6 +88,17 @@ def _build_plist(
         "SANDBOX_LORE_STAGE_ROOT": str(repo_root),
         "SANDBOX_LORE_STAGE_OUTPUT_ROOT": str(out_dir),
     }
+    # Forward opt-in debug knobs to the staged worker. These must remain
+    # explicitly opt-in (unset by default) so promotability and lane semantics
+    # are not accidentally influenced by the parent shell environment.
+    for key in [
+        "SANDBOX_LORE_SEATBELT_CALLOUT",
+        "SANDBOX_LORE_PREFLIGHT",
+        "SANDBOX_LORE_PREFLIGHT_FORCE",
+    ]:
+        value = os.environ.get(key)
+        if value is not None:
+            env[key] = value
     return {
         "Label": label,
         "ProgramArguments": args,
@@ -124,7 +140,22 @@ def run_via_launchctl(
     if stage_root.exists():
         shutil.rmtree(stage_root)
 
-    ignore = shutil.ignore_patterns(".git", "__pycache__", "launchctl")
+    # Stage only what the worker needs. This must stay conservative, but we
+    # aggressively exclude large, non-essential trees to keep staging fast and
+    # avoid exhausting `/private/tmp`.
+    ignore = shutil.ignore_patterns(
+        ".git",
+        "__pycache__",
+        "launchctl",
+        "dumps",
+        ".venv",
+        ".pytest_cache",
+        ".tmp_pytest",
+        ".swift-module-cache",
+        ".module-cache",
+        ".ghidra-user",
+        ".DS_Store",
+    )
     shutil.copytree(REPO_ROOT, stage_root, symlinks=False, ignore=ignore)
 
     plan_rel = path_utils.to_repo_relative(plan_path, repo_root=REPO_ROOT)
@@ -175,3 +206,11 @@ def run_via_launchctl(
         launchctl_dest / "launchctl_last_run.json",
         {"label": label, "run_id": run_id, "stage_root": str(stage_root)},
     )
+
+    # Best-effort cleanup: staged repos are large and can exhaust /private/tmp
+    # quickly during iterative work. Keep the bundle in the repo; discard the
+    # staged tree after sync.
+    try:
+        shutil.rmtree(stage_root)
+    except Exception:
+        pass

@@ -515,6 +515,270 @@
         ],
         "semantic_group": "structural:file-read-subpath"
       },
+      "anchor-filter-map:cfprefsd:C1_deny_global": {
+        "blob": "book/experiments/anchor-filter-map/sb/mach_lookup_allow_default.sb",
+        "family": "mach_lookup",
+        "mode": "sbpl",
+        "probes": [
+          {
+            "classification": "covered_ok",
+            "expectation_id": "anchor-filter-map:cfprefsd:C1_deny_global",
+            "expected": "deny",
+            "name": "C1_deny_global",
+            "operation": "mach-lookup",
+            "scenario_id": "anchor-filter-map:cfprefsd:C1_deny_global",
+            "target": "com.apple.cfprefsd.agent"
+          }
+        ],
+        "semantic_group": "mach:mapping-fidelity"
+      },
+      "anchor-filter-map:cfprefsd:C2_deny_local": {
+        "blob": "book/experiments/anchor-filter-map/sb/mach_lookup_allow_default.sb",
+        "family": "mach_lookup",
+        "mode": "sbpl",
+        "probes": [
+          {
+            "classification": "covered_mismatch_disallowed",
+            "expectation_id": "anchor-filter-map:cfprefsd:C2_deny_local",
+            "expected": "deny",
+            "name": "C2_deny_local",
+            "operation": "mach-lookup",
+            "scenario_id": "anchor-filter-map:cfprefsd:C2_deny_local",
+            "target": "com.apple.cfprefsd.agent"
+          }
+        ],
+        "semantic_group": "mach:mapping-fidelity"
+      },
+      "anchor-filter-map:cfprefsd:N1_deny_default": {
+        "blob": "book/experiments/anchor-filter-map/sb/mach_lookup_deny_default.sb",
+        "family": "mach_lookup",
+        "mode": "sbpl",
+        "probes": [
+          {
+            "classification": "covered_ok",
+            "expectation_id": "anchor-filter-map:cfprefsd:N1_deny_default",
+            "expected": "deny",
+            "name": "N1_deny_default",
+            "operation": "mach-lookup",
+            "scenario_id": "anchor-filter-map:cfprefsd:N1_deny_default",
+            "target": "com.apple.cfprefsd.agent"
+          },
+          {
+            "classification": "covered_ok",
+            "expectation_id": "anchor-filter-map:cfprefsd:bogus_baseline",
+            "expected": "deny",
+            "name": "bogus_baseline",
+            "operation": "mach-lookup",
+            "scenario_id": "anchor-filter-map:cfprefsd:bogus_baseline",
+            "target": "com.apple.sandbox-lore.anchor-filter-map.bogus"
+          }
+        ],
+        "semantic_group": "mach:predicate-discriminator"
+      },
+      "anchor-filter-map:cfprefsd:S0_allow_any": {
+        "blob": "book/experiments/anchor-filter-map/sb/mach_lookup_deny_default.sb",
+        "family": "mach_lookup",
+        "mode": "sbpl",
+        "probes": [
+          {
+            "classification": "covered_ok",
+            "expectation_id": "anchor-filter-map:cfprefsd:S0_allow_any",
+            "expected": "allow",
+            "name": "S0_allow_any",
+            "operation": "mach-lookup",
+            "scenario_id": "anchor-filter-map:cfprefsd:S0_allow_any",
+            "target": "com.apple.cfprefsd.agent"
+          }
+        ],
+        "semantic_group": "mach:predicate-discriminator"
+      },
+      "anchor-filter-map:cfprefsd:S1_allow_global": {
+        "blob": "book/experiments/anchor-filter-map/sb/mach_lookup_deny_default.sb",
+        "family": "mach_lookup",
+        "mode": "sbpl",
+        "probes": [
+          {
+            "classification": "covered_ok",
+            "expectation_id": "anchor-filter-map:cfprefsd:S1_allow_global",
+            "expected": "allow",
+            "name": "S1_allow_global",
+            "operation": "mach-lookup",
+            "scenario_id": "anchor-filter-map:cfprefsd:S1_allow_global",
+            "target": "com.apple.cfprefsd.agent"
+          }
+        ],
+        "semantic_group": "mach:predicate-discriminator"
+      },
+      "anchor-filter-map:cfprefsd:S2_allow_local": {
+        "blob": "book/experiments/anchor-filter-map/sb/mach_lookup_deny_default.sb",
+        "family": "mach_lookup",
+        "mode": "sbpl",
+        "probes": [
+          {
+            "classification": "covered_mismatch_disallowed",
+            "expectation_id": "anchor-filter-map:cfprefsd:S2_allow_local",
+            "expected": "allow",
+            "name": "S2_allow_local",
+            "operation": "mach-lookup",
+            "scenario_id": "anchor-filter-map:cfprefsd:S2_allow_local",
+            "target": "com.apple.cfprefsd.agent"
+          }
+        ],
+        "semantic_group": "mach:predicate-discriminator"
+      },
+      "anchor-filter-map:cfprefsd:S3_allow_both": {
+        "blob": "book/experiments/anchor-filter-map/sb/mach_lookup_deny_default.sb",
+        "family": "mach_lookup",
+        "mode": "sbpl",
+        "probes": [
+          {
+            "classification": "covered_ok",
+            "expectation_id": "anchor-filter-map:cfprefsd:S3_allow_both",
+            "expected": "allow",
+            "name": "S3_allow_both",
+            "operation": "mach-lookup",
+            "scenario_id": "anchor-filter-map:cfprefsd:S3_allow_both",
+            "target": "com.apple.cfprefsd.agent"
+          }
+        ],
+        "semantic_group": "mach:predicate-discriminator"
+      },
+      "anchor-filter-map:iokit_class:C1_deny_class": {
+        "blob": "book/experiments/anchor-filter-map/sb/iokit_open_allow_default.sb",
+        "family": "iokit_open",
+        "mode": "sbpl",
+        "probes": [
+          {
+            "classification": "covered_ok",
+            "driver": "sandbox_iokit_probe",
+            "expectation_id": "anchor-filter-map:iokit_class:C1_deny_class",
+            "expected": "deny",
+            "name": "C1_deny_class",
+            "operation": "iokit-open-service",
+            "scenario_id": "anchor-filter-map:iokit_class:C1_deny_class",
+            "target": "IOUSBHostInterface"
+          }
+        ],
+        "semantic_group": "iokit:mapping-fidelity"
+      },
+      "anchor-filter-map:iokit_class:C2_deny_property_literal": {
+        "blob": "book/experiments/anchor-filter-map/sb/iokit_open_allow_default.sb",
+        "family": "iokit_open",
+        "mode": "sbpl",
+        "probes": [
+          {
+            "classification": "covered_ok",
+            "driver": "sandbox_iokit_probe",
+            "expectation_id": "anchor-filter-map:iokit_class:C2_deny_property_literal",
+            "expected": "deny",
+            "name": "C2_deny_property_literal",
+            "operation": "iokit-open-service",
+            "scenario_id": "anchor-filter-map:iokit_class:C2_deny_property_literal",
+            "target": "IOUSBHostInterface"
+          }
+        ],
+        "semantic_group": "iokit:mapping-fidelity"
+      },
+      "anchor-filter-map:iokit_class:N1_deny_default": {
+        "blob": "book/experiments/anchor-filter-map/sb/iokit_open_deny_default.sb",
+        "family": "iokit_open",
+        "mode": "sbpl",
+        "probes": [
+          {
+            "classification": "covered_ok",
+            "driver": "sandbox_iokit_probe",
+            "expectation_id": "anchor-filter-map:iokit_class:N1_deny_default",
+            "expected": "deny",
+            "name": "N1_deny_default",
+            "operation": "iokit-open-service",
+            "scenario_id": "anchor-filter-map:iokit_class:N1_deny_default",
+            "target": "IOUSBHostInterface"
+          },
+          {
+            "classification": "covered_ok",
+            "driver": "sandbox_iokit_probe",
+            "expectation_id": "anchor-filter-map:iokit_class:bogus_baseline",
+            "expected": "deny",
+            "name": "bogus_baseline",
+            "operation": "iokit-open-service",
+            "scenario_id": "anchor-filter-map:iokit_class:bogus_baseline",
+            "target": "IOSandboxLoreAnchorFilterBogus"
+          }
+        ],
+        "semantic_group": "iokit:predicate-discriminator"
+      },
+      "anchor-filter-map:iokit_class:S0_allow_any": {
+        "blob": "book/experiments/anchor-filter-map/sb/iokit_open_deny_default.sb",
+        "family": "iokit_open",
+        "mode": "sbpl",
+        "probes": [
+          {
+            "classification": "covered_mismatch_disallowed",
+            "driver": "sandbox_iokit_probe",
+            "expectation_id": "anchor-filter-map:iokit_class:S0_allow_any",
+            "expected": "allow",
+            "name": "S0_allow_any",
+            "operation": "iokit-open-service",
+            "scenario_id": "anchor-filter-map:iokit_class:S0_allow_any",
+            "target": "IOUSBHostInterface"
+          }
+        ],
+        "semantic_group": "iokit:predicate-discriminator"
+      },
+      "anchor-filter-map:iokit_class:S1_allow_class": {
+        "blob": "book/experiments/anchor-filter-map/sb/iokit_open_deny_default.sb",
+        "family": "iokit_open",
+        "mode": "sbpl",
+        "probes": [
+          {
+            "classification": "covered_mismatch_disallowed",
+            "driver": "sandbox_iokit_probe",
+            "expectation_id": "anchor-filter-map:iokit_class:S1_allow_class",
+            "expected": "allow",
+            "name": "S1_allow_class",
+            "operation": "iokit-open-service",
+            "scenario_id": "anchor-filter-map:iokit_class:S1_allow_class",
+            "target": "IOUSBHostInterface"
+          }
+        ],
+        "semantic_group": "iokit:predicate-discriminator"
+      },
+      "anchor-filter-map:iokit_class:S2_allow_property_literal": {
+        "blob": "book/experiments/anchor-filter-map/sb/iokit_open_deny_default.sb",
+        "family": "iokit_open",
+        "mode": "sbpl",
+        "probes": [
+          {
+            "classification": "covered_mismatch_disallowed",
+            "driver": "sandbox_iokit_probe",
+            "expectation_id": "anchor-filter-map:iokit_class:S2_allow_property_literal",
+            "expected": "allow",
+            "name": "S2_allow_property_literal",
+            "operation": "iokit-open-service",
+            "scenario_id": "anchor-filter-map:iokit_class:S2_allow_property_literal",
+            "target": "IOUSBHostInterface"
+          }
+        ],
+        "semantic_group": "iokit:predicate-discriminator"
+      },
+      "anchor-filter-map:iokit_class:S3_allow_both": {
+        "blob": "book/experiments/anchor-filter-map/sb/iokit_open_deny_default.sb",
+        "family": "iokit_open",
+        "mode": "sbpl",
+        "probes": [
+          {
+            "classification": "covered_mismatch_disallowed",
+            "driver": "sandbox_iokit_probe",
+            "expectation_id": "anchor-filter-map:iokit_class:S3_allow_both",
+            "expected": "allow",
+            "name": "S3_allow_both",
+            "operation": "iokit-open-service",
+            "scenario_id": "anchor-filter-map:iokit_class:S3_allow_both",
+            "target": "IOUSBHostInterface"
+          }
+        ],
+        "semantic_group": "iokit:predicate-discriminator"
+      },
       "bucket4:v1_read": {
         "blob": "book/experiments/op-table-operation/sb/v1_read.sb",
         "mode": "sbpl",
@@ -822,13 +1086,22 @@
       "total_expected_rows": 22,
       "uncovered": 0
     },
+    "iokit-open-service": {
+      "coverage_ratio": 1.0,
+      "covered_mismatch_allowed": 0,
+      "covered_mismatch_disallowed": 4,
+      "covered_ok": 4,
+      "covered_rows": 8,
+      "total_expected_rows": 8,
+      "uncovered": 0
+    },
     "mach-lookup": {
       "coverage_ratio": 1.0,
       "covered_mismatch_allowed": 0,
-      "covered_mismatch_disallowed": 0,
-      "covered_ok": 8,
-      "covered_rows": 8,
-      "total_expected_rows": 8,
+      "covered_mismatch_disallowed": 2,
+      "covered_ok": 14,
+      "covered_rows": 16,
+      "total_expected_rows": 16,
       "uncovered": 0
     },
     "network-outbound": {
@@ -1584,15 +1857,19 @@
   },
   "metadata": {
     "input_hashes": {
+      "book/experiments/anchor-filter-map/iokit-class/out/bf80e47b-3020-4b13-bfa7-249cfcff8b52/run_manifest.json": "5dc19d6c4cfe20cfbc078ec76d1a050c5d10758efb3a7469b73ac427ddfbe2b9",
+      "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json": "6162982de26c10913bb1d0c5f7f34da46e0ef1b46ae919a48ff85ae95d523f9c",
+      "book/experiments/anchor-filter-map/out/028d4d91-1c9e-4c2f-95da-7fc89ec3635a/run_manifest.json": "b2dfd462935fcc90d7d0a2ff601ec5b51aa5087130837f398ea500904f1b5a4e",
+      "book/experiments/anchor-filter-map/out/promotion_packet.json": "b0dc6ea4d240cf2a41c99cf9ecaf8c782b35c63b6e5f6f5503692bfbe48de178",
       "book/experiments/runtime-adversarial/out/impact_map.json": "f962ea8ae6da193f560086b084f98b1f2aa479b3f48cb20bf74fe55ee780b58a",
       "book/experiments/runtime-adversarial/out/promotion_packet.json": "3b479d0a30a4e9105ca2ef0d18c015255f40cb6bf960c622915db02cc81bb823",
-      "book/experiments/runtime-adversarial/out/run_manifest.json": "3e912202734c06d9f14a9816f7452bc871cc248088f4c71f76526b29ea3cd550",
+      "book/experiments/runtime-adversarial/out/run_manifest.json": "17364fc9b9c0c215aa6703f3f6a5bb33685eadc8af836a592dd4ca6f01d7a775",
       "book/experiments/runtime-checks/out/promotion_packet.json": "98ee9c649c1926fa231bf1e14324fd3f9df0c6acd4345d5b2e02015339d46c7e",
-      "book/experiments/runtime-checks/out/run_manifest.json": "c0ef597ec00e64bcb12e85ebbf234eea807dbb7b0aba5192d08b234a948ad22d",
+      "book/experiments/runtime-checks/out/run_manifest.json": "2b023453161c58f5540fe22dd9c75585a975262370fbfd9fc2f2ad1f352d20cf",
       "book/graph/concepts/validation/out/experiments/field2/field2_ir.json": "17498be658bac148db6939d60c280c95ca18a3b1a2c0089da7443ee46af7f1fc",
-      "book/graph/mappings/runtime/runtime_coverage.json": "a1589c7665dd999fa38cc7f32ce48bd9644d17be5be3469f772ab53cc30a83b7",
-      "book/graph/mappings/runtime_cuts/runtime_story.json": "447893263d5895fa81dfd84df1fff15fca6067c3cfd2b1c9df3b820d43280569",
-      "expected_matrix": "32acd46edf7ed21e279688fe6a041157a0147b7acfab02165642ab715eabf986"
+      "book/graph/mappings/runtime/runtime_coverage.json": "a18f830dc3e2341d82728489ae9d6ed72788f6210fef1c2f609173019a1d02ee",
+      "book/graph/mappings/runtime_cuts/runtime_story.json": "bcf21d9513ef85ba110632e5288c73beb741bfea0b214761d90c7105b8a77858",
+      "expected_matrix": "fdf5c782e7f084596c3ae8c063df30b408f3fbc94c7c03dc74e2a0bda3dab3d0"
     },
     "inputs": [
       "book/graph/mappings/runtime_cuts/runtime_story.json",
@@ -1600,42 +1877,45 @@
       "book/graph/concepts/validation/out/experiments/field2/field2_ir.json",
       "book/experiments/runtime-adversarial/out/impact_map.json",
       "book/experiments/runtime-checks/out/promotion_packet.json",
-      "book/experiments/runtime-adversarial/out/promotion_packet.json"
+      "book/experiments/runtime-adversarial/out/promotion_packet.json",
+      "book/experiments/anchor-filter-map/out/promotion_packet.json",
+      "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json"
     ],
-    "notes": "Derived from runtime_story with coverage gating; status cannot exceed runtime_coverage. Decision-stage inputs require launchd_clean run manifests. Disallowed mismatches present: 18.",
+    "notes": "Derived from runtime_story with coverage gating; status cannot exceed runtime_coverage. Decision-stage inputs require launchd_clean run manifests. Disallowed mismatches present: 24.",
     "provenance": {
       "runtime_coverage": {
         "input_hashes": {
-          "book/experiments/runtime-adversarial/out/run_manifest.json": "3e912202734c06d9f14a9816f7452bc871cc248088f4c71f76526b29ea3cd550",
-          "book/experiments/runtime-adversarial/out/runtime_mappings/ops.json": "4eb2a67dbda33406f4aae2cab6aa21b7e11c746b1d0305e18fa53a855ab6b43c",
-          "book/experiments/runtime-adversarial/out/runtime_mappings/scenarios.json": "171b5b74a4130fcee474c02d2d8d7eec0fecbc1bb21c1715aebbd54f61c8529c",
-          "book/experiments/runtime-checks/out/run_manifest.json": "c0ef597ec00e64bcb12e85ebbf234eea807dbb7b0aba5192d08b234a948ad22d",
-          "book/graph/mappings/runtime_cuts/ops.json": "03246be4b2a8744a329c9f70587d927bbdd897f46485bb79547c3c3648ef2650",
-          "book/graph/mappings/runtime_cuts/scenarios.json": "a5f5909d159a0132f70c013e449c2bae9a3c9181a97aeccf98dd404e3c5554d1"
+          "book/experiments/anchor-filter-map/iokit-class/out/bf80e47b-3020-4b13-bfa7-249cfcff8b52/run_manifest.json": "5dc19d6c4cfe20cfbc078ec76d1a050c5d10758efb3a7469b73ac427ddfbe2b9",
+          "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json": "6162982de26c10913bb1d0c5f7f34da46e0ef1b46ae919a48ff85ae95d523f9c",
+          "book/experiments/anchor-filter-map/out/028d4d91-1c9e-4c2f-95da-7fc89ec3635a/run_manifest.json": "b2dfd462935fcc90d7d0a2ff601ec5b51aa5087130837f398ea500904f1b5a4e",
+          "book/experiments/anchor-filter-map/out/promotion_packet.json": "b0dc6ea4d240cf2a41c99cf9ecaf8c782b35c63b6e5f6f5503692bfbe48de178",
+          "book/experiments/runtime-adversarial/out/impact_map.json": "f962ea8ae6da193f560086b084f98b1f2aa479b3f48cb20bf74fe55ee780b58a",
+          "book/experiments/runtime-adversarial/out/promotion_packet.json": "3b479d0a30a4e9105ca2ef0d18c015255f40cb6bf960c622915db02cc81bb823",
+          "book/experiments/runtime-adversarial/out/run_manifest.json": "17364fc9b9c0c215aa6703f3f6a5bb33685eadc8af836a592dd4ca6f01d7a775",
+          "book/experiments/runtime-checks/out/promotion_packet.json": "98ee9c649c1926fa231bf1e14324fd3f9df0c6acd4345d5b2e02015339d46c7e",
+          "book/experiments/runtime-checks/out/run_manifest.json": "2b023453161c58f5540fe22dd9c75585a975262370fbfd9fc2f2ad1f352d20cf",
+          "book/graph/mappings/runtime_cuts/ops.json": "7d6f41b635f8922dd2af50df1146f7cae07c224acad6dc912da953ba39b98954",
+          "book/graph/mappings/runtime_cuts/scenarios.json": "f0a1003c9b7c2cbe7f9a39b0303d6ac4d68376e3386d91b7102cbbda2b66769a"
         },
         "inputs": [
           "book/graph/mappings/runtime_cuts/ops.json",
           "book/graph/mappings/runtime_cuts/scenarios.json",
-          "book/experiments/runtime-adversarial/out/runtime_mappings/ops.json",
-          "book/experiments/runtime-adversarial/out/runtime_mappings/scenarios.json",
-          "book/experiments/runtime-checks/out/run_manifest.json",
-          "book/experiments/runtime-adversarial/out/run_manifest.json",
+          "book/experiments/runtime-checks/out/promotion_packet.json",
+          "book/experiments/runtime-adversarial/out/promotion_packet.json",
+          "book/experiments/anchor-filter-map/out/promotion_packet.json",
+          "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json",
+          "book/experiments/runtime-checks/out/promotion_packet.json",
+          "book/experiments/runtime-adversarial/out/promotion_packet.json",
+          "book/experiments/anchor-filter-map/out/promotion_packet.json",
+          "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json",
           "book/experiments/runtime-adversarial/out/impact_map.json"
         ],
         "mismatch_summary": {
           "tags": {},
-          "total_disallowed_mismatches": 18,
-          "total_mismatches": 18
+          "total_disallowed_mismatches": 24,
+          "total_mismatches": 24
         },
         "mismatches": [
-          {
-            "expectation_id": "sys:airlock:read_/etc/hosts",
-            "op_name": "file-read*"
-          },
-          {
-            "expectation_id": "sys:airlock:read_/tmp/foo",
-            "op_name": "file-read*"
-          },
           {
             "expectation_id": "adv:path_alias:alias-private",
             "op_name": "file-read*"
@@ -1669,12 +1949,12 @@
             "op_name": "file-read*"
           },
           {
-            "expectation_id": "sys:airlock:write_/etc/hosts",
-            "op_name": "file-write*"
+            "expectation_id": "sys:airlock:read_/etc/hosts",
+            "op_name": "file-read*"
           },
           {
-            "expectation_id": "sys:airlock:write_/tmp/foo",
-            "op_name": "file-write*"
+            "expectation_id": "sys:airlock:read_/tmp/foo",
+            "op_name": "file-read*"
           },
           {
             "expectation_id": "adv:path_edges:write-subpath",
@@ -1699,127 +1979,180 @@
           {
             "expectation_id": "adv:struct_nested:write-ok-root",
             "op_name": "file-write*"
+          },
+          {
+            "expectation_id": "sys:airlock:write_/etc/hosts",
+            "op_name": "file-write*"
+          },
+          {
+            "expectation_id": "sys:airlock:write_/tmp/foo",
+            "op_name": "file-write*"
+          },
+          {
+            "expectation_id": "anchor-filter-map:cfprefsd:C2_deny_local",
+            "op_name": "mach-lookup"
+          },
+          {
+            "expectation_id": "anchor-filter-map:cfprefsd:S2_allow_local",
+            "op_name": "mach-lookup"
+          },
+          {
+            "expectation_id": "anchor-filter-map:iokit_class:S0_allow_any",
+            "op_name": "iokit-open-service"
+          },
+          {
+            "expectation_id": "anchor-filter-map:iokit_class:S1_allow_class",
+            "op_name": "iokit-open-service"
+          },
+          {
+            "expectation_id": "anchor-filter-map:iokit_class:S2_allow_property_literal",
+            "op_name": "iokit-open-service"
+          },
+          {
+            "expectation_id": "anchor-filter-map:iokit_class:S3_allow_both",
+            "op_name": "iokit-open-service"
           }
         ],
         "notes": "Runtime coverage derived from runtime_story; mismatches allowed only when tagged in impact_map.json.",
         "provenance": {
           "runtime_story": {
             "input_hashes": {
-              "book/experiments/runtime-adversarial/out/run_manifest.json": "3e912202734c06d9f14a9816f7452bc871cc248088f4c71f76526b29ea3cd550",
-              "book/experiments/runtime-adversarial/out/runtime_mappings/ops.json": "4eb2a67dbda33406f4aae2cab6aa21b7e11c746b1d0305e18fa53a855ab6b43c",
-              "book/experiments/runtime-adversarial/out/runtime_mappings/scenarios.json": "171b5b74a4130fcee474c02d2d8d7eec0fecbc1bb21c1715aebbd54f61c8529c",
-              "book/experiments/runtime-checks/out/run_manifest.json": "c0ef597ec00e64bcb12e85ebbf234eea807dbb7b0aba5192d08b234a948ad22d",
-              "book/graph/mappings/runtime_cuts/ops.json": "03246be4b2a8744a329c9f70587d927bbdd897f46485bb79547c3c3648ef2650",
-              "book/graph/mappings/runtime_cuts/scenarios.json": "a5f5909d159a0132f70c013e449c2bae9a3c9181a97aeccf98dd404e3c5554d1"
+              "book/experiments/anchor-filter-map/iokit-class/out/bf80e47b-3020-4b13-bfa7-249cfcff8b52/run_manifest.json": "5dc19d6c4cfe20cfbc078ec76d1a050c5d10758efb3a7469b73ac427ddfbe2b9",
+              "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json": "6162982de26c10913bb1d0c5f7f34da46e0ef1b46ae919a48ff85ae95d523f9c",
+              "book/experiments/anchor-filter-map/out/028d4d91-1c9e-4c2f-95da-7fc89ec3635a/run_manifest.json": "b2dfd462935fcc90d7d0a2ff601ec5b51aa5087130837f398ea500904f1b5a4e",
+              "book/experiments/anchor-filter-map/out/promotion_packet.json": "b0dc6ea4d240cf2a41c99cf9ecaf8c782b35c63b6e5f6f5503692bfbe48de178",
+              "book/experiments/runtime-adversarial/out/promotion_packet.json": "3b479d0a30a4e9105ca2ef0d18c015255f40cb6bf960c622915db02cc81bb823",
+              "book/experiments/runtime-adversarial/out/run_manifest.json": "17364fc9b9c0c215aa6703f3f6a5bb33685eadc8af836a592dd4ca6f01d7a775",
+              "book/experiments/runtime-checks/out/promotion_packet.json": "98ee9c649c1926fa231bf1e14324fd3f9df0c6acd4345d5b2e02015339d46c7e",
+              "book/experiments/runtime-checks/out/run_manifest.json": "2b023453161c58f5540fe22dd9c75585a975262370fbfd9fc2f2ad1f352d20cf",
+              "book/graph/mappings/runtime_cuts/ops.json": "7d6f41b635f8922dd2af50df1146f7cae07c224acad6dc912da953ba39b98954",
+              "book/graph/mappings/runtime_cuts/scenarios.json": "f0a1003c9b7c2cbe7f9a39b0303d6ac4d68376e3386d91b7102cbbda2b66769a"
             },
             "inputs": [
               "book/graph/mappings/runtime_cuts/ops.json",
               "book/graph/mappings/runtime_cuts/scenarios.json",
-              "book/experiments/runtime-adversarial/out/runtime_mappings/ops.json",
-              "book/experiments/runtime-adversarial/out/runtime_mappings/scenarios.json",
-              "book/experiments/runtime-checks/out/run_manifest.json",
-              "book/experiments/runtime-adversarial/out/run_manifest.json"
+              "book/experiments/runtime-checks/out/promotion_packet.json",
+              "book/experiments/runtime-adversarial/out/promotion_packet.json",
+              "book/experiments/anchor-filter-map/out/promotion_packet.json",
+              "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json"
             ],
-            "notes": "joined runtime story Includes runtime-adversarial runtime_mappings.",
+            "notes": "joined runtime story Inputs derived from promotion packets.",
             "run_provenance": {
               "manifests": [
                 "book/experiments/runtime-checks/out/run_manifest.json",
-                "book/experiments/runtime-adversarial/out/run_manifest.json"
+                "book/experiments/runtime-adversarial/out/run_manifest.json",
+                "book/experiments/anchor-filter-map/out/028d4d91-1c9e-4c2f-95da-7fc89ec3635a/run_manifest.json",
+                "book/experiments/anchor-filter-map/iokit-class/out/bf80e47b-3020-4b13-bfa7-249cfcff8b52/run_manifest.json"
               ],
               "repo_root_contexts": [
                 "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime-checks.52386",
-                "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime-adversarial.63656"
+                "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime-adversarial.63656",
+                "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime-tools.028d4d91-1c9e-4c2f-95da-7fc89ec3635a",
+                "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime-tools.bf80e47b-3020-4b13-bfa7-249cfcff8b52"
               ],
               "run_ids": [
                 "629a8948-b53b-4c7e-bbb4-d45dc7d01709",
-                "65312c5f-21dd-48c0-b980-c5c9487b3307"
+                "65312c5f-21dd-48c0-b980-c5c9487b3307",
+                "028d4d91-1c9e-4c2f-95da-7fc89ec3635a",
+                "bf80e47b-3020-4b13-bfa7-249cfcff8b52"
               ]
             },
             "runtime_log_schema": "runtime_log_schema.v0.1.json",
             "schema_version": "runtime-mapping.v0.1",
             "source_jobs": [],
             "status": "partial",
+            "tier": "mapped",
             "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
           }
         },
         "source_jobs": [
-          "experiment:runtime-checks",
-          "experiment:runtime-adversarial"
+          "promotion_packet"
         ],
         "status": "partial",
+        "tier": "mapped",
         "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
       },
       "runtime_story": {
         "input_hashes": {
-          "book/experiments/runtime-adversarial/out/run_manifest.json": "3e912202734c06d9f14a9816f7452bc871cc248088f4c71f76526b29ea3cd550",
-          "book/experiments/runtime-adversarial/out/runtime_mappings/ops.json": "4eb2a67dbda33406f4aae2cab6aa21b7e11c746b1d0305e18fa53a855ab6b43c",
-          "book/experiments/runtime-adversarial/out/runtime_mappings/scenarios.json": "171b5b74a4130fcee474c02d2d8d7eec0fecbc1bb21c1715aebbd54f61c8529c",
-          "book/experiments/runtime-checks/out/run_manifest.json": "c0ef597ec00e64bcb12e85ebbf234eea807dbb7b0aba5192d08b234a948ad22d",
-          "book/graph/mappings/runtime_cuts/ops.json": "03246be4b2a8744a329c9f70587d927bbdd897f46485bb79547c3c3648ef2650",
-          "book/graph/mappings/runtime_cuts/scenarios.json": "a5f5909d159a0132f70c013e449c2bae9a3c9181a97aeccf98dd404e3c5554d1"
+          "book/experiments/anchor-filter-map/iokit-class/out/bf80e47b-3020-4b13-bfa7-249cfcff8b52/run_manifest.json": "5dc19d6c4cfe20cfbc078ec76d1a050c5d10758efb3a7469b73ac427ddfbe2b9",
+          "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json": "6162982de26c10913bb1d0c5f7f34da46e0ef1b46ae919a48ff85ae95d523f9c",
+          "book/experiments/anchor-filter-map/out/028d4d91-1c9e-4c2f-95da-7fc89ec3635a/run_manifest.json": "b2dfd462935fcc90d7d0a2ff601ec5b51aa5087130837f398ea500904f1b5a4e",
+          "book/experiments/anchor-filter-map/out/promotion_packet.json": "b0dc6ea4d240cf2a41c99cf9ecaf8c782b35c63b6e5f6f5503692bfbe48de178",
+          "book/experiments/runtime-adversarial/out/promotion_packet.json": "3b479d0a30a4e9105ca2ef0d18c015255f40cb6bf960c622915db02cc81bb823",
+          "book/experiments/runtime-adversarial/out/run_manifest.json": "17364fc9b9c0c215aa6703f3f6a5bb33685eadc8af836a592dd4ca6f01d7a775",
+          "book/experiments/runtime-checks/out/promotion_packet.json": "98ee9c649c1926fa231bf1e14324fd3f9df0c6acd4345d5b2e02015339d46c7e",
+          "book/experiments/runtime-checks/out/run_manifest.json": "2b023453161c58f5540fe22dd9c75585a975262370fbfd9fc2f2ad1f352d20cf",
+          "book/graph/mappings/runtime_cuts/ops.json": "7d6f41b635f8922dd2af50df1146f7cae07c224acad6dc912da953ba39b98954",
+          "book/graph/mappings/runtime_cuts/scenarios.json": "f0a1003c9b7c2cbe7f9a39b0303d6ac4d68376e3386d91b7102cbbda2b66769a"
         },
         "inputs": [
           "book/graph/mappings/runtime_cuts/ops.json",
           "book/graph/mappings/runtime_cuts/scenarios.json",
-          "book/experiments/runtime-adversarial/out/runtime_mappings/ops.json",
-          "book/experiments/runtime-adversarial/out/runtime_mappings/scenarios.json",
-          "book/experiments/runtime-checks/out/run_manifest.json",
-          "book/experiments/runtime-adversarial/out/run_manifest.json"
+          "book/experiments/runtime-checks/out/promotion_packet.json",
+          "book/experiments/runtime-adversarial/out/promotion_packet.json",
+          "book/experiments/anchor-filter-map/out/promotion_packet.json",
+          "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json"
         ],
-        "notes": "joined runtime story Includes runtime-adversarial runtime_mappings.",
+        "notes": "joined runtime story Inputs derived from promotion packets.",
         "run_provenance": {
           "manifests": [
             "book/experiments/runtime-checks/out/run_manifest.json",
-            "book/experiments/runtime-adversarial/out/run_manifest.json"
+            "book/experiments/runtime-adversarial/out/run_manifest.json",
+            "book/experiments/anchor-filter-map/out/028d4d91-1c9e-4c2f-95da-7fc89ec3635a/run_manifest.json",
+            "book/experiments/anchor-filter-map/iokit-class/out/bf80e47b-3020-4b13-bfa7-249cfcff8b52/run_manifest.json"
           ],
           "repo_root_contexts": [
             "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime-checks.52386",
-            "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime-adversarial.63656"
+            "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime-adversarial.63656",
+            "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime-tools.028d4d91-1c9e-4c2f-95da-7fc89ec3635a",
+            "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime-tools.bf80e47b-3020-4b13-bfa7-249cfcff8b52"
           ],
           "run_ids": [
             "629a8948-b53b-4c7e-bbb4-d45dc7d01709",
-            "65312c5f-21dd-48c0-b980-c5c9487b3307"
+            "65312c5f-21dd-48c0-b980-c5c9487b3307",
+            "028d4d91-1c9e-4c2f-95da-7fc89ec3635a",
+            "bf80e47b-3020-4b13-bfa7-249cfcff8b52"
           ]
         },
         "runtime_log_schema": "runtime_log_schema.v0.1.json",
         "schema_version": "runtime-mapping.v0.1",
         "source_jobs": [],
         "status": "partial",
+        "tier": "mapped",
         "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
       }
     },
     "run_provenance": {
       "manifests": [
         "book/experiments/runtime-checks/out/run_manifest.json",
-        "book/experiments/runtime-adversarial/out/run_manifest.json"
+        "book/experiments/runtime-adversarial/out/run_manifest.json",
+        "book/experiments/anchor-filter-map/out/028d4d91-1c9e-4c2f-95da-7fc89ec3635a/run_manifest.json",
+        "book/experiments/anchor-filter-map/iokit-class/out/bf80e47b-3020-4b13-bfa7-249cfcff8b52/run_manifest.json"
       ],
       "repo_root_contexts": [
         "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime-checks.52386",
-        "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime-adversarial.63656"
+        "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime-adversarial.63656",
+        "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime-tools.028d4d91-1c9e-4c2f-95da-7fc89ec3635a",
+        "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime-tools.bf80e47b-3020-4b13-bfa7-249cfcff8b52"
       ],
       "run_ids": [
         "629a8948-b53b-4c7e-bbb4-d45dc7d01709",
-        "65312c5f-21dd-48c0-b980-c5c9487b3307"
+        "65312c5f-21dd-48c0-b980-c5c9487b3307",
+        "028d4d91-1c9e-4c2f-95da-7fc89ec3635a",
+        "bf80e47b-3020-4b13-bfa7-249cfcff8b52"
       ]
     },
     "source_jobs": [
       "experiment:field2",
+      "plan:anchor-filter-map.cfprefsd.v1",
+      "plan:anchor-filter-map.iokit-class.IOUSBHostInterface.v1",
       "promotion_packet"
     ],
     "status": "partial",
+    "tier": "mapped",
     "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
   },
   "mismatches": [
-    {
-      "expectation_id": "sys:airlock:read_/etc/hosts",
-      "op_name": "file-read*",
-      "scenario_id": "sys:airlock:read_/etc/hosts"
-    },
-    {
-      "expectation_id": "sys:airlock:read_/tmp/foo",
-      "op_name": "file-read*",
-      "scenario_id": "sys:airlock:read_/tmp/foo"
-    },
     {
       "expectation_id": "adv:path_alias:alias-private",
       "op_name": "file-read*",
@@ -1861,14 +2194,14 @@
       "scenario_id": "adv:struct_nested:allow-ok-root"
     },
     {
-      "expectation_id": "sys:airlock:write_/etc/hosts",
-      "op_name": "file-write*",
-      "scenario_id": "sys:airlock:write_/etc/hosts"
+      "expectation_id": "sys:airlock:read_/etc/hosts",
+      "op_name": "file-read*",
+      "scenario_id": "sys:airlock:read_/etc/hosts"
     },
     {
-      "expectation_id": "sys:airlock:write_/tmp/foo",
-      "op_name": "file-write*",
-      "scenario_id": "sys:airlock:write_/tmp/foo"
+      "expectation_id": "sys:airlock:read_/tmp/foo",
+      "op_name": "file-read*",
+      "scenario_id": "sys:airlock:read_/tmp/foo"
     },
     {
       "expectation_id": "adv:path_edges:write-subpath",
@@ -1899,6 +2232,46 @@
       "expectation_id": "adv:struct_nested:write-ok-root",
       "op_name": "file-write*",
       "scenario_id": "adv:struct_nested:write-ok-root"
+    },
+    {
+      "expectation_id": "sys:airlock:write_/etc/hosts",
+      "op_name": "file-write*",
+      "scenario_id": "sys:airlock:write_/etc/hosts"
+    },
+    {
+      "expectation_id": "sys:airlock:write_/tmp/foo",
+      "op_name": "file-write*",
+      "scenario_id": "sys:airlock:write_/tmp/foo"
+    },
+    {
+      "expectation_id": "anchor-filter-map:cfprefsd:C2_deny_local",
+      "op_name": "mach-lookup",
+      "scenario_id": "anchor-filter-map:cfprefsd:C2_deny_local"
+    },
+    {
+      "expectation_id": "anchor-filter-map:cfprefsd:S2_allow_local",
+      "op_name": "mach-lookup",
+      "scenario_id": "anchor-filter-map:cfprefsd:S2_allow_local"
+    },
+    {
+      "expectation_id": "anchor-filter-map:iokit_class:S0_allow_any",
+      "op_name": "iokit-open-service",
+      "scenario_id": "anchor-filter-map:iokit_class:S0_allow_any"
+    },
+    {
+      "expectation_id": "anchor-filter-map:iokit_class:S1_allow_class",
+      "op_name": "iokit-open-service",
+      "scenario_id": "anchor-filter-map:iokit_class:S1_allow_class"
+    },
+    {
+      "expectation_id": "anchor-filter-map:iokit_class:S2_allow_property_literal",
+      "op_name": "iokit-open-service",
+      "scenario_id": "anchor-filter-map:iokit_class:S2_allow_property_literal"
+    },
+    {
+      "expectation_id": "anchor-filter-map:iokit_class:S3_allow_both",
+      "op_name": "iokit-open-service",
+      "scenario_id": "anchor-filter-map:iokit_class:S3_allow_both"
     }
   ],
   "profiles_metadata": {
@@ -2076,7 +2449,7 @@
       "status": "ok"
     },
     "adv:mach_local_literal:allow-cfprefsd-local": {
-      "coverage_status": "ok",
+      "coverage_status": "partial",
       "disallowed_mismatches": [],
       "expected_row_ids": [
         "adv:mach_local_literal:allow-cfprefsd-local"
@@ -2103,10 +2476,10 @@
       },
       "runtime_only": false,
       "scenario_id": "adv:mach_local_literal:allow-cfprefsd-local",
-      "status": "ok"
+      "status": "partial"
     },
     "adv:mach_local_literal:deny-bogus-local": {
-      "coverage_status": "ok",
+      "coverage_status": "partial",
       "disallowed_mismatches": [],
       "expected_row_ids": [
         "adv:mach_local_literal:deny-bogus-local"
@@ -2133,10 +2506,10 @@
       },
       "runtime_only": false,
       "scenario_id": "adv:mach_local_literal:deny-bogus-local",
-      "status": "ok"
+      "status": "partial"
     },
     "adv:mach_local_regex:allow-cfprefsd-local": {
-      "coverage_status": "ok",
+      "coverage_status": "partial",
       "disallowed_mismatches": [],
       "expected_row_ids": [
         "adv:mach_local_regex:allow-cfprefsd-local"
@@ -2163,10 +2536,10 @@
       },
       "runtime_only": false,
       "scenario_id": "adv:mach_local_regex:allow-cfprefsd-local",
-      "status": "ok"
+      "status": "partial"
     },
     "adv:mach_local_regex:deny-bogus-local": {
-      "coverage_status": "ok",
+      "coverage_status": "partial",
       "disallowed_mismatches": [],
       "expected_row_ids": [
         "adv:mach_local_regex:deny-bogus-local"
@@ -2193,10 +2566,10 @@
       },
       "runtime_only": false,
       "scenario_id": "adv:mach_local_regex:deny-bogus-local",
-      "status": "ok"
+      "status": "partial"
     },
     "adv:mach_simple_allow:allow-cfprefsd": {
-      "coverage_status": "ok",
+      "coverage_status": "partial",
       "disallowed_mismatches": [],
       "expected_row_ids": [
         "adv:mach_simple_allow:allow-cfprefsd"
@@ -2223,10 +2596,10 @@
       },
       "runtime_only": false,
       "scenario_id": "adv:mach_simple_allow:allow-cfprefsd",
-      "status": "ok"
+      "status": "partial"
     },
     "adv:mach_simple_allow:deny-bogus": {
-      "coverage_status": "ok",
+      "coverage_status": "partial",
       "disallowed_mismatches": [],
       "expected_row_ids": [
         "adv:mach_simple_allow:deny-bogus"
@@ -2253,10 +2626,10 @@
       },
       "runtime_only": false,
       "scenario_id": "adv:mach_simple_allow:deny-bogus",
-      "status": "ok"
+      "status": "partial"
     },
     "adv:mach_simple_variants:allow-cfprefsd": {
-      "coverage_status": "ok",
+      "coverage_status": "partial",
       "disallowed_mismatches": [],
       "expected_row_ids": [
         "adv:mach_simple_variants:allow-cfprefsd"
@@ -2283,10 +2656,10 @@
       },
       "runtime_only": false,
       "scenario_id": "adv:mach_simple_variants:allow-cfprefsd",
-      "status": "ok"
+      "status": "partial"
     },
     "adv:mach_simple_variants:deny-bogus": {
-      "coverage_status": "ok",
+      "coverage_status": "partial",
       "disallowed_mismatches": [],
       "expected_row_ids": [
         "adv:mach_simple_variants:deny-bogus"
@@ -2313,7 +2686,7 @@
       },
       "runtime_only": false,
       "scenario_id": "adv:mach_simple_variants:deny-bogus",
-      "status": "ok"
+      "status": "partial"
     },
     "adv:net_outbound_allow:tcp-loopback": {
       "coverage_status": "ok",
@@ -3573,6 +3946,588 @@
       "scenario_id": "allow_all|file-write*|/tmp/sbpl_rt/write.txt",
       "status": "partial"
     },
+    "anchor-filter-map:cfprefsd:C1_deny_global": {
+      "coverage_status": "partial",
+      "disallowed_mismatches": [],
+      "expected_row_ids": [
+        "anchor-filter-map:cfprefsd:C1_deny_global"
+      ],
+      "failed_probes": [],
+      "mismatches": [],
+      "op_id": 96,
+      "op_name": "mach-lookup",
+      "passed_probes": [
+        "anchor-filter-map:cfprefsd:C1_deny_global"
+      ],
+      "profile_id": "anchor-filter-map:cfprefsd:C1_deny_global",
+      "results": {
+        "blocked": {
+          "by_kind": {},
+          "by_stage": {},
+          "total": 0
+        },
+        "matches": 1,
+        "mismatches": 0,
+        "status": "ok",
+        "total": 1,
+        "total_including_blocked": 1
+      },
+      "runtime_only": false,
+      "scenario_id": "anchor-filter-map:cfprefsd:C1_deny_global",
+      "status": "partial"
+    },
+    "anchor-filter-map:cfprefsd:C2_deny_local": {
+      "coverage_status": "partial",
+      "disallowed_mismatches": [
+        "anchor-filter-map:cfprefsd:C2_deny_local"
+      ],
+      "expected_row_ids": [
+        "anchor-filter-map:cfprefsd:C2_deny_local"
+      ],
+      "failed_probes": [
+        {
+          "actual": "allow",
+          "allowed": false,
+          "expectation_id": "anchor-filter-map:cfprefsd:C2_deny_local",
+          "expected": "deny",
+          "failure_kind": null,
+          "failure_stage": null,
+          "mismatch_type": "unexpected_allow",
+          "operation": "mach-lookup",
+          "stderr": "",
+          "tags": [],
+          "target": "com.apple.cfprefsd.agent",
+          "violation_summary": null
+        }
+      ],
+      "mismatches": [
+        "anchor-filter-map:cfprefsd:C2_deny_local"
+      ],
+      "op_id": 96,
+      "op_name": "mach-lookup",
+      "passed_probes": [],
+      "profile_id": "anchor-filter-map:cfprefsd:C2_deny_local",
+      "results": {
+        "blocked": {
+          "by_kind": {},
+          "by_stage": {},
+          "total": 0
+        },
+        "matches": 0,
+        "mismatches": 1,
+        "status": "brittle",
+        "total": 1,
+        "total_including_blocked": 1
+      },
+      "runtime_only": false,
+      "scenario_id": "anchor-filter-map:cfprefsd:C2_deny_local",
+      "status": "partial"
+    },
+    "anchor-filter-map:cfprefsd:N1_deny_default": {
+      "coverage_status": "partial",
+      "disallowed_mismatches": [],
+      "expected_row_ids": [
+        "anchor-filter-map:cfprefsd:N1_deny_default"
+      ],
+      "failed_probes": [],
+      "mismatches": [],
+      "op_id": 96,
+      "op_name": "mach-lookup",
+      "passed_probes": [
+        "anchor-filter-map:cfprefsd:N1_deny_default"
+      ],
+      "profile_id": "anchor-filter-map:cfprefsd:N1_deny_default",
+      "results": {
+        "blocked": {
+          "by_kind": {},
+          "by_stage": {},
+          "total": 0
+        },
+        "matches": 1,
+        "mismatches": 0,
+        "status": "ok",
+        "total": 1,
+        "total_including_blocked": 1
+      },
+      "runtime_only": false,
+      "scenario_id": "anchor-filter-map:cfprefsd:N1_deny_default",
+      "status": "partial"
+    },
+    "anchor-filter-map:cfprefsd:S0_allow_any": {
+      "coverage_status": "partial",
+      "disallowed_mismatches": [],
+      "expected_row_ids": [
+        "anchor-filter-map:cfprefsd:S0_allow_any"
+      ],
+      "failed_probes": [],
+      "mismatches": [],
+      "op_id": 96,
+      "op_name": "mach-lookup",
+      "passed_probes": [
+        "anchor-filter-map:cfprefsd:S0_allow_any"
+      ],
+      "profile_id": "anchor-filter-map:cfprefsd:S0_allow_any",
+      "results": {
+        "blocked": {
+          "by_kind": {},
+          "by_stage": {},
+          "total": 0
+        },
+        "matches": 1,
+        "mismatches": 0,
+        "status": "ok",
+        "total": 1,
+        "total_including_blocked": 1
+      },
+      "runtime_only": false,
+      "scenario_id": "anchor-filter-map:cfprefsd:S0_allow_any",
+      "status": "partial"
+    },
+    "anchor-filter-map:cfprefsd:S1_allow_global": {
+      "coverage_status": "partial",
+      "disallowed_mismatches": [],
+      "expected_row_ids": [
+        "anchor-filter-map:cfprefsd:S1_allow_global"
+      ],
+      "failed_probes": [],
+      "mismatches": [],
+      "op_id": 96,
+      "op_name": "mach-lookup",
+      "passed_probes": [
+        "anchor-filter-map:cfprefsd:S1_allow_global"
+      ],
+      "profile_id": "anchor-filter-map:cfprefsd:S1_allow_global",
+      "results": {
+        "blocked": {
+          "by_kind": {},
+          "by_stage": {},
+          "total": 0
+        },
+        "matches": 1,
+        "mismatches": 0,
+        "status": "ok",
+        "total": 1,
+        "total_including_blocked": 1
+      },
+      "runtime_only": false,
+      "scenario_id": "anchor-filter-map:cfprefsd:S1_allow_global",
+      "status": "partial"
+    },
+    "anchor-filter-map:cfprefsd:S2_allow_local": {
+      "coverage_status": "partial",
+      "disallowed_mismatches": [
+        "anchor-filter-map:cfprefsd:S2_allow_local"
+      ],
+      "expected_row_ids": [
+        "anchor-filter-map:cfprefsd:S2_allow_local"
+      ],
+      "failed_probes": [
+        {
+          "actual": "deny",
+          "allowed": false,
+          "expectation_id": "anchor-filter-map:cfprefsd:S2_allow_local",
+          "expected": "allow",
+          "failure_kind": "probe_nonzero_exit",
+          "failure_stage": "probe",
+          "mismatch_type": "unexpected_deny",
+          "operation": "mach-lookup",
+          "stderr": "",
+          "tags": [],
+          "target": "com.apple.cfprefsd.agent",
+          "violation_summary": null
+        }
+      ],
+      "mismatches": [
+        "anchor-filter-map:cfprefsd:S2_allow_local"
+      ],
+      "op_id": 96,
+      "op_name": "mach-lookup",
+      "passed_probes": [],
+      "profile_id": "anchor-filter-map:cfprefsd:S2_allow_local",
+      "results": {
+        "blocked": {
+          "by_kind": {},
+          "by_stage": {},
+          "total": 0
+        },
+        "matches": 0,
+        "mismatches": 1,
+        "status": "brittle",
+        "total": 1,
+        "total_including_blocked": 1
+      },
+      "runtime_only": false,
+      "scenario_id": "anchor-filter-map:cfprefsd:S2_allow_local",
+      "status": "partial"
+    },
+    "anchor-filter-map:cfprefsd:S3_allow_both": {
+      "coverage_status": "partial",
+      "disallowed_mismatches": [],
+      "expected_row_ids": [
+        "anchor-filter-map:cfprefsd:S3_allow_both"
+      ],
+      "failed_probes": [],
+      "mismatches": [],
+      "op_id": 96,
+      "op_name": "mach-lookup",
+      "passed_probes": [
+        "anchor-filter-map:cfprefsd:S3_allow_both"
+      ],
+      "profile_id": "anchor-filter-map:cfprefsd:S3_allow_both",
+      "results": {
+        "blocked": {
+          "by_kind": {},
+          "by_stage": {},
+          "total": 0
+        },
+        "matches": 1,
+        "mismatches": 0,
+        "status": "ok",
+        "total": 1,
+        "total_including_blocked": 1
+      },
+      "runtime_only": false,
+      "scenario_id": "anchor-filter-map:cfprefsd:S3_allow_both",
+      "status": "partial"
+    },
+    "anchor-filter-map:cfprefsd:bogus_baseline": {
+      "coverage_status": "partial",
+      "disallowed_mismatches": [],
+      "expected_row_ids": [
+        "anchor-filter-map:cfprefsd:bogus_baseline"
+      ],
+      "failed_probes": [],
+      "mismatches": [],
+      "op_id": 96,
+      "op_name": "mach-lookup",
+      "passed_probes": [
+        "anchor-filter-map:cfprefsd:bogus_baseline"
+      ],
+      "profile_id": "anchor-filter-map:cfprefsd:N1_deny_default",
+      "results": {
+        "blocked": {
+          "by_kind": {},
+          "by_stage": {},
+          "total": 0
+        },
+        "matches": 1,
+        "mismatches": 0,
+        "status": "ok",
+        "total": 1,
+        "total_including_blocked": 1
+      },
+      "runtime_only": false,
+      "scenario_id": "anchor-filter-map:cfprefsd:bogus_baseline",
+      "status": "partial"
+    },
+    "anchor-filter-map:iokit_class:C1_deny_class": {
+      "coverage_status": "partial",
+      "disallowed_mismatches": [],
+      "expected_row_ids": [
+        "anchor-filter-map:iokit_class:C1_deny_class"
+      ],
+      "failed_probes": [],
+      "mismatches": [],
+      "op_id": 64,
+      "op_name": "iokit-open-service",
+      "passed_probes": [
+        "anchor-filter-map:iokit_class:C1_deny_class"
+      ],
+      "profile_id": "anchor-filter-map:iokit_class:C1_deny_class",
+      "results": {
+        "blocked": {
+          "by_kind": {},
+          "by_stage": {},
+          "total": 0
+        },
+        "matches": 1,
+        "mismatches": 0,
+        "status": "ok",
+        "total": 1,
+        "total_including_blocked": 1
+      },
+      "runtime_only": false,
+      "scenario_id": "anchor-filter-map:iokit_class:C1_deny_class",
+      "status": "partial"
+    },
+    "anchor-filter-map:iokit_class:C2_deny_property_literal": {
+      "coverage_status": "partial",
+      "disallowed_mismatches": [],
+      "expected_row_ids": [
+        "anchor-filter-map:iokit_class:C2_deny_property_literal"
+      ],
+      "failed_probes": [],
+      "mismatches": [],
+      "op_id": 64,
+      "op_name": "iokit-open-service",
+      "passed_probes": [
+        "anchor-filter-map:iokit_class:C2_deny_property_literal"
+      ],
+      "profile_id": "anchor-filter-map:iokit_class:C2_deny_property_literal",
+      "results": {
+        "blocked": {
+          "by_kind": {},
+          "by_stage": {},
+          "total": 0
+        },
+        "matches": 1,
+        "mismatches": 0,
+        "status": "ok",
+        "total": 1,
+        "total_including_blocked": 1
+      },
+      "runtime_only": false,
+      "scenario_id": "anchor-filter-map:iokit_class:C2_deny_property_literal",
+      "status": "partial"
+    },
+    "anchor-filter-map:iokit_class:N1_deny_default": {
+      "coverage_status": "partial",
+      "disallowed_mismatches": [],
+      "expected_row_ids": [
+        "anchor-filter-map:iokit_class:N1_deny_default"
+      ],
+      "failed_probes": [],
+      "mismatches": [],
+      "op_id": 64,
+      "op_name": "iokit-open-service",
+      "passed_probes": [
+        "anchor-filter-map:iokit_class:N1_deny_default"
+      ],
+      "profile_id": "anchor-filter-map:iokit_class:N1_deny_default",
+      "results": {
+        "blocked": {
+          "by_kind": {},
+          "by_stage": {},
+          "total": 0
+        },
+        "matches": 1,
+        "mismatches": 0,
+        "status": "ok",
+        "total": 1,
+        "total_including_blocked": 1
+      },
+      "runtime_only": false,
+      "scenario_id": "anchor-filter-map:iokit_class:N1_deny_default",
+      "status": "partial"
+    },
+    "anchor-filter-map:iokit_class:S0_allow_any": {
+      "coverage_status": "partial",
+      "disallowed_mismatches": [
+        "anchor-filter-map:iokit_class:S0_allow_any"
+      ],
+      "expected_row_ids": [
+        "anchor-filter-map:iokit_class:S0_allow_any"
+      ],
+      "failed_probes": [
+        {
+          "actual": "deny",
+          "allowed": false,
+          "expectation_id": "anchor-filter-map:iokit_class:S0_allow_any",
+          "expected": "allow",
+          "failure_kind": "probe_nonzero_exit",
+          "failure_stage": "probe",
+          "mismatch_type": "unexpected_deny",
+          "operation": "iokit-open-service",
+          "stderr": "",
+          "tags": [],
+          "target": "IOUSBHostInterface",
+          "violation_summary": null
+        }
+      ],
+      "mismatches": [
+        "anchor-filter-map:iokit_class:S0_allow_any"
+      ],
+      "op_id": 64,
+      "op_name": "iokit-open-service",
+      "passed_probes": [],
+      "profile_id": "anchor-filter-map:iokit_class:S0_allow_any",
+      "results": {
+        "blocked": {
+          "by_kind": {},
+          "by_stage": {},
+          "total": 0
+        },
+        "matches": 0,
+        "mismatches": 1,
+        "status": "brittle",
+        "total": 1,
+        "total_including_blocked": 1
+      },
+      "runtime_only": false,
+      "scenario_id": "anchor-filter-map:iokit_class:S0_allow_any",
+      "status": "partial"
+    },
+    "anchor-filter-map:iokit_class:S1_allow_class": {
+      "coverage_status": "partial",
+      "disallowed_mismatches": [
+        "anchor-filter-map:iokit_class:S1_allow_class"
+      ],
+      "expected_row_ids": [
+        "anchor-filter-map:iokit_class:S1_allow_class"
+      ],
+      "failed_probes": [
+        {
+          "actual": "deny",
+          "allowed": false,
+          "expectation_id": "anchor-filter-map:iokit_class:S1_allow_class",
+          "expected": "allow",
+          "failure_kind": "probe_nonzero_exit",
+          "failure_stage": "probe",
+          "mismatch_type": "unexpected_deny",
+          "operation": "iokit-open-service",
+          "stderr": "",
+          "tags": [],
+          "target": "IOUSBHostInterface",
+          "violation_summary": null
+        }
+      ],
+      "mismatches": [
+        "anchor-filter-map:iokit_class:S1_allow_class"
+      ],
+      "op_id": 64,
+      "op_name": "iokit-open-service",
+      "passed_probes": [],
+      "profile_id": "anchor-filter-map:iokit_class:S1_allow_class",
+      "results": {
+        "blocked": {
+          "by_kind": {},
+          "by_stage": {},
+          "total": 0
+        },
+        "matches": 0,
+        "mismatches": 1,
+        "status": "brittle",
+        "total": 1,
+        "total_including_blocked": 1
+      },
+      "runtime_only": false,
+      "scenario_id": "anchor-filter-map:iokit_class:S1_allow_class",
+      "status": "partial"
+    },
+    "anchor-filter-map:iokit_class:S2_allow_property_literal": {
+      "coverage_status": "partial",
+      "disallowed_mismatches": [
+        "anchor-filter-map:iokit_class:S2_allow_property_literal"
+      ],
+      "expected_row_ids": [
+        "anchor-filter-map:iokit_class:S2_allow_property_literal"
+      ],
+      "failed_probes": [
+        {
+          "actual": "deny",
+          "allowed": false,
+          "expectation_id": "anchor-filter-map:iokit_class:S2_allow_property_literal",
+          "expected": "allow",
+          "failure_kind": "probe_nonzero_exit",
+          "failure_stage": "probe",
+          "mismatch_type": "unexpected_deny",
+          "operation": "iokit-open-service",
+          "stderr": "",
+          "tags": [],
+          "target": "IOUSBHostInterface",
+          "violation_summary": null
+        }
+      ],
+      "mismatches": [
+        "anchor-filter-map:iokit_class:S2_allow_property_literal"
+      ],
+      "op_id": 64,
+      "op_name": "iokit-open-service",
+      "passed_probes": [],
+      "profile_id": "anchor-filter-map:iokit_class:S2_allow_property_literal",
+      "results": {
+        "blocked": {
+          "by_kind": {},
+          "by_stage": {},
+          "total": 0
+        },
+        "matches": 0,
+        "mismatches": 1,
+        "status": "brittle",
+        "total": 1,
+        "total_including_blocked": 1
+      },
+      "runtime_only": false,
+      "scenario_id": "anchor-filter-map:iokit_class:S2_allow_property_literal",
+      "status": "partial"
+    },
+    "anchor-filter-map:iokit_class:S3_allow_both": {
+      "coverage_status": "partial",
+      "disallowed_mismatches": [
+        "anchor-filter-map:iokit_class:S3_allow_both"
+      ],
+      "expected_row_ids": [
+        "anchor-filter-map:iokit_class:S3_allow_both"
+      ],
+      "failed_probes": [
+        {
+          "actual": "deny",
+          "allowed": false,
+          "expectation_id": "anchor-filter-map:iokit_class:S3_allow_both",
+          "expected": "allow",
+          "failure_kind": "probe_nonzero_exit",
+          "failure_stage": "probe",
+          "mismatch_type": "unexpected_deny",
+          "operation": "iokit-open-service",
+          "stderr": "",
+          "tags": [],
+          "target": "IOUSBHostInterface",
+          "violation_summary": null
+        }
+      ],
+      "mismatches": [
+        "anchor-filter-map:iokit_class:S3_allow_both"
+      ],
+      "op_id": 64,
+      "op_name": "iokit-open-service",
+      "passed_probes": [],
+      "profile_id": "anchor-filter-map:iokit_class:S3_allow_both",
+      "results": {
+        "blocked": {
+          "by_kind": {},
+          "by_stage": {},
+          "total": 0
+        },
+        "matches": 0,
+        "mismatches": 1,
+        "status": "brittle",
+        "total": 1,
+        "total_including_blocked": 1
+      },
+      "runtime_only": false,
+      "scenario_id": "anchor-filter-map:iokit_class:S3_allow_both",
+      "status": "partial"
+    },
+    "anchor-filter-map:iokit_class:bogus_baseline": {
+      "coverage_status": "partial",
+      "disallowed_mismatches": [],
+      "expected_row_ids": [
+        "anchor-filter-map:iokit_class:bogus_baseline"
+      ],
+      "failed_probes": [],
+      "mismatches": [],
+      "op_id": 64,
+      "op_name": "iokit-open-service",
+      "passed_probes": [
+        "anchor-filter-map:iokit_class:bogus_baseline"
+      ],
+      "profile_id": "anchor-filter-map:iokit_class:N1_deny_default",
+      "results": {
+        "blocked": {
+          "by_kind": {},
+          "by_stage": {},
+          "total": 0
+        },
+        "matches": 1,
+        "mismatches": 0,
+        "status": "ok",
+        "total": 1,
+        "total_including_blocked": 1
+      },
+      "runtime_only": false,
+      "scenario_id": "anchor-filter-map:iokit_class:bogus_baseline",
+      "status": "partial"
+    },
     "bucket4:v1_read:read_/etc/hosts": {
       "coverage_status": "partial",
       "disallowed_mismatches": [],
@@ -4416,15 +5371,49 @@
       "write-ok-root": "deny",
       "write-outside": "deny"
     },
-    "bucket4:v1_read": {
-      "read_/etc/hosts": "allow",
-      "read_/tmp/foo": "allow",
-      "write_/etc/hosts": "deny"
+    "anchor-filter-map:cfprefsd:C1_deny_global": {
+      "C1_deny_global": "deny"
     },
-    "bucket5:v11_read_subpath": {
-      "read_/tmp/bar": "deny",
-      "read_/tmp/foo": "allow",
-      "write_/tmp/foo": "deny"
+    "anchor-filter-map:cfprefsd:C2_deny_local": {
+      "C2_deny_local": "allow"
+    },
+    "anchor-filter-map:cfprefsd:N1_deny_default": {
+      "N1_deny_default": "deny",
+      "bogus_baseline": "deny"
+    },
+    "anchor-filter-map:cfprefsd:S0_allow_any": {
+      "S0_allow_any": "allow"
+    },
+    "anchor-filter-map:cfprefsd:S1_allow_global": {
+      "S1_allow_global": "allow"
+    },
+    "anchor-filter-map:cfprefsd:S2_allow_local": {
+      "S2_allow_local": "deny"
+    },
+    "anchor-filter-map:cfprefsd:S3_allow_both": {
+      "S3_allow_both": "allow"
+    },
+    "anchor-filter-map:iokit_class:C1_deny_class": {
+      "C1_deny_class": "deny"
+    },
+    "anchor-filter-map:iokit_class:C2_deny_property_literal": {
+      "C2_deny_property_literal": "deny"
+    },
+    "anchor-filter-map:iokit_class:N1_deny_default": {
+      "N1_deny_default": "deny",
+      "bogus_baseline": "deny"
+    },
+    "anchor-filter-map:iokit_class:S0_allow_any": {
+      "S0_allow_any": "deny"
+    },
+    "anchor-filter-map:iokit_class:S1_allow_class": {
+      "S1_allow_class": "deny"
+    },
+    "anchor-filter-map:iokit_class:S2_allow_property_literal": {
+      "S2_allow_property_literal": "deny"
+    },
+    "anchor-filter-map:iokit_class:S3_allow_both": {
+      "S3_allow_both": "deny"
     },
     "runtime:allow_all": {
       "read_/etc/hosts": "allow",
@@ -4437,24 +5426,6 @@
       "read_foo": "allow",
       "read_other": "allow",
       "write_baz": "deny"
-    },
-    "runtime:strict_1": {
-      "read_hosts": "deny",
-      "read_ok": "allow",
-      "write_hosts": "deny",
-      "write_ok": "allow"
-    },
-    "sys:airlock": {
-      "read_/etc/hosts": null,
-      "read_/tmp/foo": null,
-      "write_/etc/hosts": null,
-      "write_/tmp/foo": null
-    },
-    "sys:bsd": {
-      "read_/etc/hosts": "deny",
-      "read_/tmp/foo": "deny",
-      "write_/etc/hosts": "deny",
-      "write_/tmp/foo": "deny"
     }
   }
 }

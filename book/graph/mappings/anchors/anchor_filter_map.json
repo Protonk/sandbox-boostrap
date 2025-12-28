@@ -63,29 +63,34 @@
       5,
       6
     ],
+    "notes": " (runtime validation attempted: baseline_service_unobservable)",
+    "runtime_validation_attempt": {
+      "packet": "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json",
+      "reason": "baseline_service_unobservable",
+      "receipt": "book/graph/mappings/runtime/promotion_receipt.json",
+      "run_id": "bf80e47b-3020-4b13-bfa7-249cfcff8b52"
+    },
     "sources": [
       "probe:v5_iokit_class_property"
     ],
     "status": "blocked"
   },
   "com.apple.cfprefsd.agent": {
-    "candidates": [
-      "global-name",
-      "ipc-posix-name",
-      "local-name",
-      "path"
-    ],
     "field2_values": [
       0,
+      1,
       4,
       5,
       6
     ],
+    "filter_id": 5,
+    "filter_name": "global-name",
+    "notes": "runtime-validated mach-lookup predicate discriminator for com.apple.cfprefsd.agent; packet=book/experiments/anchor-filter-map/out/promotion_packet.json; receipt=book/graph/mappings/runtime/promotion_receipt.json; run_id=028d4d91-1c9e-4c2f-95da-7fc89ec3635a",
     "sources": [
       "probe:v3_mach_global_local",
       "probe:v6_file_mach_combo"
     ],
-    "status": "blocked"
+    "status": "partial"
   },
   "flow-divert": {
     "candidates": [
@@ -117,6 +122,7 @@
   },
   "metadata": {
     "notes": "First-pass anchor \u2192 filter map using probe-op-structure anchor hits and filter vocab. Ambiguous anchors are conservatively pinned when used as path literals.",
+    "tier": "mapped",
     "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
   },
   "preferences/logging": {

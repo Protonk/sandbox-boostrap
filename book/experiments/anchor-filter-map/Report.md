@@ -26,6 +26,24 @@ Bind anchor labels emitted by `probe-op-structure` to concrete Filter IDs, using
   - Baseline candidate extraction done: `out/anchor_filter_candidates.json` holds anchor → {field2_names, field2_values, sources}.
   - First pass map published at `book/graph/mappings/anchors/anchor_filter_map.json` (with host metadata): `/tmp/foo` and `/etc/hosts` pinned to `path` (id 0) for file probes; `/var/log` → ipc-posix-name=4; `idVendor` → local-name=6; `preferences/logging` → global-name=5; other anchors remain `status: ambiguous` with candidates noted. Guardrail added (`tests/test_mappings_guardrail.py`) to ensure map presence and mapped entries.
   - Flow-divert anchor updated with `filter_name: local`, explicit note that field2 values `{2,7,2560}` are triple-only (domain+type+proto) with tag0/u16_role=filter_vocab_id and literal `com.apple.flow-divert` per flow-divert-2560 matrix; status remains `blocked` pending runtime witness.
+  - Runtime discriminator run for `com.apple.cfprefsd.agent` (mach-lookup predicate kind):
+    - Result (tier `mapped`; host-scoped): `book/graph/mappings/anchors/anchor_filter_map.json` now pins `com.apple.cfprefsd.agent` to `filter_id=5` / `filter_name=global-name`, with runtime provenance in `notes`.
+    - Provenance:
+      - `run_id`: `028d4d91-1c9e-4c2f-95da-7fc89ec3635a`
+      - Promotion packet: `book/experiments/anchor-filter-map/out/promotion_packet.json`
+      - Promotion receipt: `book/graph/mappings/runtime/promotion_receipt.json` (packet `status: used`)
+    - Bounded witness summary:
+      - Baseline lane: `com.apple.cfprefsd.agent` is observable (`kr=0`), and a bogus name is unregistered (`kr=1102`).
+      - Under `(deny default)`: allowing `mach-lookup` unfiltered reaches/permits the lookup; denying by default yields `kr=1100`.
+      - Predicate discrimination: allowing `global-name` permits; allowing `local-name` yields `kr=1100`; allowing both permits.
+  - Runtime discriminator attempted for `IOUSBHostInterface` (iokit-open-service predicate kind):
+    - Result (tier `mapped`; host-scoped): anchor remains `status: blocked` because baseline lane reports `found=false` (unobservable in this process context).
+    - Provenance:
+      - `run_id`: `bf80e47b-3020-4b13-bfa7-249cfcff8b52`
+      - Promotion packet: `book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json`
+      - Promotion receipt: `book/graph/mappings/runtime/promotion_receipt.json` (packet `status: used`)
+    - Bounded witness summary:
+      - Baseline lane: `IOUSBHostInterface` not found (`found=false`), so the discriminator matrix cannot lift the anchor on this host baseline.
 - **1) Scope and setup**
   - Host baseline (OS/build, SIP) recorded in this Report and in `Notes.md`.
   - Inputs confirmed: `probe-op-structure/out/anchor_hits.json`, `field2-filters/out/field2_inventory.json`, vocab (`book/graph/mappings/vocab/filters.json`), anchor → field2 hints (`book/graph/mappings/anchors/anchor_field2_map.json`).
@@ -44,7 +62,7 @@ Bind anchor labels emitted by `probe-op-structure` to concrete Filter IDs, using
 If the anchor map needs to be updated (for example, new probes or improved decoding), reuse this outline:
 
 1. **Scope and setup**
-   - Confirm the baseline (OS/build, SIP) in `book/world/.../world-baseline.json`, this Report, and `Notes.md`.
+   - Confirm the baseline (OS/build, SIP) in `book/world/.../world.json`, this Report, and `Notes.md`.
    - Ensure upstream inputs (`probe-op-structure` and `field2-filters` outputs, vocab, anchor_field2 hints) are current.
 2. **Baseline data pass**
    - Rebuild `out/anchor_filter_candidates.json` from anchor hits and field2 inventory.

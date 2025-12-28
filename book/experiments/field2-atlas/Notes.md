@@ -7,7 +7,7 @@
 - Added seed `2560` for flow-divert triple-only token (tag0/u16_role=filter_vocab_id, literal `com.apple.flow-divert`, target op `network-outbound`); regenerated static/runtime/atlas outputs to include it (static ok, runtime marked `no_runtime_candidate`).
 - Refreshed static join with `PYTHONPATH=$PWD python3 book/experiments/field2-atlas/atlas_static.py`.
 - Ran runtime harness refreshes: `PYTHONPATH=$PWD python3 book/experiments/runtime-checks/run_probes.py` and `PYTHONPATH=$PWD python3 book/experiments/runtime-adversarial/run_adversarial.py`.
-- Regenerated runtime signatures via `PYTHONPATH=$PWD python3 book/graph/mappings/runtime/generate_runtime_signatures.py` (runtime-checks job marked `ok-changed`).
+- Regenerated runtime signatures via `PYTHONPATH=$PWD python3 book/graph/mappings/runtime/generate_runtime_signatures.py`.
 - Rebuilt runtime/atlas outputs: `PYTHONPATH=$PWD python3 book/experiments/field2-atlas/atlas_runtime.py` and `PYTHONPATH=$PWD python3 book/experiments/field2-atlas/atlas_build.py`.
 - Logging-channel hypothesis check: log stream capture exists in entitlement-diff and shrink-trace outputs, but runtime_tools harness does not currently ingest log stream artifacts; treat this as a candidate measurement channel to validate separately before using it for atlas status changes.
 - Added runtime-adversarial probes for path aliasing (`adv:path_alias`) and flow-divert require-all TCP (`adv:flow_divert_require_all_tcp`); ran `python3 book/experiments/runtime-adversarial/run_adversarial.py`, but all probes are apply-gated (`sandbox_init` EPERM), so seeds now record `runtime_attempted_blocked` with explicit failure_stage.

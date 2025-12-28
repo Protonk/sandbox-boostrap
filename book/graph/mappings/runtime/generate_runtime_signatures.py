@@ -19,6 +19,8 @@ if str(ROOT) not in sys.path:
 
 from book.api import path_utils
 from book.api.runtime_tools.core import normalize as runtime_normalize
+from book.api import evidence_tiers
+from book.api import world as world_mod
 
 SCRIPT_ROOT = Path(__file__).resolve().parent
 if str(SCRIPT_ROOT) not in sys.path:
@@ -28,8 +30,6 @@ import promotion_packets
 FIELD2_IR = ROOT / "book/graph/concepts/validation/out/experiments/field2/field2_ir.json"
 STATUS_PATH = ROOT / "book/graph/concepts/validation/out/validation_status.json"
 OUT_PATH = ROOT / "book/graph/mappings/runtime/runtime_signatures.json"
-BASELINE_REF = "book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json"
-BASELINE_PATH = ROOT / BASELINE_REF
 EXPECTED_JOBS = {"experiment:field2"}
 RUNTIME_STORY = ROOT / "book" / "graph" / "mappings" / "runtime_cuts" / "runtime_story.json"
 RUNTIME_COVERAGE = ROOT / "book" / "graph" / "mappings" / "runtime" / "runtime_coverage.json"
@@ -48,7 +48,7 @@ def load_status(job_id: str) -> Dict[str, Any]:
     job = jobs.get(job_id)
     if not job:
         raise RuntimeError(f"job {job_id} missing from validation_status.json")
-    if not str(job.get("status", "")).startswith("ok"):
+    if job.get("status") != "ok":
         raise RuntimeError(f"job {job_id} not ok: {job.get('status')}")
     return job
 
@@ -60,13 +60,8 @@ def load_json(path: Path) -> Dict[str, Any]:
 
 
 def load_baseline_world() -> str:
-    if not BASELINE_PATH.exists():
-        raise FileNotFoundError(f"missing baseline: {BASELINE_PATH}")
-    data = json.loads(BASELINE_PATH.read_text())
-    world_id = data.get("world_id")
-    if not world_id:
-        raise RuntimeError("world_id missing from baseline")
-    return world_id
+    data, resolution = world_mod.load_world(repo_root=ROOT)
+    return world_mod.require_world_id(data, world_path=resolution.entry.world_path)
 
 
 def hash_expected_matrix(matrix: Dict[str, Any]) -> str:
@@ -373,6 +368,10 @@ def generate(packet_paths: list[Path] | None = None) -> Path:
             "inputs": inputs,
             "source_jobs": sorted(source_jobs),
             "status": status,
+            "tier": evidence_tiers.evidence_tier_for_artifact(
+                path=OUT_PATH,
+                tier="mapped",
+            ),
             "notes": notes,
             "input_hashes": input_hashes,
             "provenance": {

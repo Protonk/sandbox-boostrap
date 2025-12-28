@@ -12,7 +12,7 @@ from book.api import path_utils
 
 
 def _load_world_id(repo_root: Path) -> Optional[str]:
-    baseline = repo_root / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world-baseline.json"
+    baseline = repo_root / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world.json"
     if not baseline.exists():
         return None
     try:

@@ -12,15 +12,20 @@ Inputs (all from CARTON):
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
 from typing import Dict, List
 
 ROOT = Path(__file__).resolve().parents[4]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from book.api import evidence_tiers  # noqa: E402
+from book.api import world as world_mod  # noqa: E402
+
 VOCAB = ROOT / "book/graph/mappings/vocab/ops.json"
 DIGESTS = ROOT / "book/graph/mappings/system_profiles/digests.json"
 COVERAGE = ROOT / "book/graph/mappings/carton/operation_coverage.json"
-BASELINE_REF = "book/world/sonoma-14.4.1-23E224-arm64/world-baseline.json"
-BASELINE = ROOT / BASELINE_REF
 OUT = ROOT / "book/graph/mappings/carton/operation_index.json"
 
 
@@ -29,13 +34,12 @@ def load_json(path: Path) -> dict:
 
 
 def baseline_ref() -> dict:
-    if not BASELINE.exists():
-        raise FileNotFoundError(f"missing baseline: {BASELINE}")
-    data = json.loads(BASELINE.read_text())
-    world_id = data.get("world_id")
-    if not world_id:
-        raise RuntimeError("world_id missing from baseline")
-    return {"host": str(BASELINE.relative_to(ROOT)), "world_id": world_id}
+    data, resolution = world_mod.load_world(repo_root=ROOT)
+    world_id = world_mod.require_world_id(data, world_path=resolution.entry.world_path)
+    return {
+        "host": world_mod.world_path_for_metadata(resolution, repo_root=ROOT),
+        "world_id": world_id,
+    }
 
 
 def assert_world_compatible(baseline_world: str, other: dict | str | None, label: str) -> None:
@@ -103,6 +107,10 @@ def build_index() -> dict:
             "inputs": inputs,
             "source_jobs": source_jobs,
             "status": coverage_status,
+            "tier": evidence_tiers.evidence_tier_for_artifact(
+                path=OUT,
+                tier="mapped",
+            ),
             "canonical_profile_status": canonical_status,
             "notes": "Derived from CARTON mappings; coverage drives counts and layer presence and inherits canonical profile status.",
         },
