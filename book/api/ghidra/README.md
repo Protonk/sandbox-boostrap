@@ -51,6 +51,10 @@ Workflow helpers (scripts in `book/api/ghidra/scripts/`):
 - `kernel_store_provenance.py` – one-step register-def provenance for a store instruction.
 - `kernel_id_builder_trace.py` – trace list-head and store candidates for id builders.
 
+Catalog maintenance:
+- `python -m book.api.ghidra.shape_catalog_hygiene` – report orphan snapshots, missing fixtures,
+  duplicate shapes, and family coverage (driven by `book/tests/fixtures/ghidra_shapes/families.json`).
+
 Tag-switch triage (rolled up from the former `dumps/ghidra/Tag_triage.md`):
 - Run with full analysis (no `--no-analysis`) so functions/computed jumps exist.
 - Inspect `switch_candidates.json`, sort by `computed_jumps` then `size`, and skim the top ~20; filter to sandbox.kext address ranges if noise is high.

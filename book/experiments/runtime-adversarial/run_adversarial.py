@@ -9,8 +9,8 @@ import argparse
 from pathlib import Path
 
 from book.api import path_utils
-from book.api.runtime import api as runtime_api
-from book.api.runtime.channels import ChannelSpec
+from book.api.runtime.execution import service as runtime_api
+from book.api.runtime.execution.channels import ChannelSpec
 
 
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))

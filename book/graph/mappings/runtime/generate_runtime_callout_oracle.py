@@ -20,8 +20,8 @@ if str(ROOT) not in sys.path:
 
 from book.api import path_utils
 from book.api import world as world_mod
-from book.api.runtime.core import models
-from book.api.runtime.mapping import views as runtime_views
+from book.api.runtime.contracts import models
+from book.api.runtime.analysis.mapping import views as runtime_views
 
 OUT = ROOT / "book/graph/mappings/runtime/runtime_callout_oracle.json"
 

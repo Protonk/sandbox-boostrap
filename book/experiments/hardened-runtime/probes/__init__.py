@@ -5,7 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import List
 
-from book.api.runtime import workflow
+from book.api.runtime.execution import workflow
 
 from .mach import build_profiles as build_mach_profiles
 from .sysctl import build_profiles as build_sysctl_profiles

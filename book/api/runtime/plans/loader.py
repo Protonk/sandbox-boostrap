@@ -13,7 +13,7 @@ Responsibilities:
 - Provide discovery (`list-plans`) and linting (`plan-lint`) helpers for agents.
 
 Assumptions / guarantees:
-- Registry data is loaded via `book.api.runtime.registry` and is expected
+- Registry data is loaded via `book.api.runtime.plans.registry` and is expected
   to be stable, data-driven JSON (probe/profile descriptors).
 - Compilation is deterministic: the same plan + registry inputs yield the same
   profile list and the same plan digest.
@@ -33,8 +33,8 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 
 from book.api import path_utils
-from book.api.runtime import workflow
-from book.api.runtime.registry import load_registry, resolve_probe, resolve_profile
+from book.api.runtime.execution import workflow
+from .registry import load_registry, resolve_probe, resolve_profile
 
 
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))

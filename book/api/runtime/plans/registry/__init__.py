@@ -32,7 +32,7 @@ from book.api import path_utils
 
 
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))
-REGISTRY_INDEX = REPO_ROOT / "book" / "api" / "runtime" / "registry" / "index.json"
+REGISTRY_INDEX = REPO_ROOT / "book" / "api" / "runtime" / "plans" / "registry" / "index.json"
 
 INDEX_SCHEMA_VERSION = "runtime-tools.registry_index.v0.1"
 PROBE_SCHEMA_VERSION = "runtime-tools.probe_registry.v0.1"

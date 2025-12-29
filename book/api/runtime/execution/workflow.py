@@ -20,12 +20,12 @@ from typing import Any, Callable, Dict, Iterable, List, Mapping, Optional
 
 from book.api import path_utils
 from book.api.profile_tools import compile_sbpl_string
-from book.api.runtime.core import contract
-from book.api.runtime.core import models
-from book.api.runtime.core import normalize
-from book.api.runtime.harness import golden as harness_golden
-from book.api.runtime.harness import runner as harness_runner
-from book.api.runtime.mapping import build as mapping_build
+from book.api.runtime.contracts import schema as contract
+from book.api.runtime.contracts import models
+from book.api.runtime.contracts import normalize
+from book.api.runtime.execution.harness import golden as harness_golden
+from book.api.runtime.execution.harness import runner as harness_runner
+from book.api.runtime.analysis.mapping import build as mapping_build
 
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))
 RUNTIME_CUTS_ROOT = REPO_ROOT / "book" / "graph" / "mappings" / "runtime_cuts"
@@ -233,7 +233,7 @@ def classify_mismatches(
 
     return {
         "world_id": world_id,
-        "generated_by": "book/api/runtime/workflow.py",
+        "generated_by": "book/api/runtime/execution/workflow.py",
         "mismatches": mismatches,
         "counts": counts,
     }

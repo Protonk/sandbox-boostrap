@@ -13,9 +13,9 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 from book.api import path_utils
-from book.api.runtime import plan as runtime_plan
-from book.api.runtime import registry as runtime_registry
-from book.api.runtime.core import models
+from book.api.runtime.plans import loader as runtime_plan
+from book.api.runtime.plans import registry as runtime_registry
+from book.api.runtime.contracts import models
 
 
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))
@@ -26,9 +26,16 @@ TEMPLATE_INDEX: Dict[str, Path] = {
     / "book"
     / "api"
     / "runtime"
+    / "plans"
     / "templates"
     / "runtime_adversarial.json",
-    "vfs-canonicalization": REPO_ROOT / "book" / "api" / "runtime" / "templates" / "vfs_canonicalization.json",
+    "vfs-canonicalization": REPO_ROOT
+    / "book"
+    / "api"
+    / "runtime"
+    / "plans"
+    / "templates"
+    / "vfs_canonicalization.json",
 }
 
 

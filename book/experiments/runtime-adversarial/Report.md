@@ -9,7 +9,7 @@ Outputs: expected/runtime matrices, mismatch summaries, and impact hooks to down
 
 ## Baseline & scope
 - World: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (`book/world/sonoma-14.4.1-23E224-arm64/world.json`).
-- Harness: `book.api.runtime.harness.runner.run_matrix` + runtime-checks shims; file probes run via `sandbox_runner` + `file_probe` so each scenario applies exactly once inside a fresh worker; compile/decode via `book.api.profile_tools` and `book.api.profile_tools.decoder`.
+- Harness: `book.api.runtime.execution.harness.runner.run_matrix` + runtime-checks shims; file probes run via `sandbox_runner` + `file_probe` so each scenario applies exactly once inside a fresh worker; compile/decode via `book.api.profile_tools` and `book.api.profile_tools.decoder`.
 - Profiles: `struct_flat`, `struct_nested` (structural variants); `path_edges` + `path_alias` (path/literal edge stress + `/tmp` alias witness); `mach_simple_allow`, `mach_simple_variants`, `mach_local_literal`, `mach_local_regex` (mach-lookup variants); `net_outbound_allow`, `net_outbound_deny`, `flow_divert_require_all_tcp` (network-outbound variants including the flow-divert require-all triple). Custom SBPL only; no platform blobs.
 - Outputs live in `sb/`, `sb/build/`, and `out/`.
 - Plan/registry data is generated from the runtime template (`python -m book.api.runtime plan-build --template runtime-adversarial --out book/experiments/runtime-adversarial --overwrite`).

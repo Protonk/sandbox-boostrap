@@ -16,8 +16,8 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List, Mapping, Optional
 
 from book.api import path_utils
-from book.api.runtime.core import contract as rt_contract
-from book.api.runtime.core import models
+from book.api.runtime.contracts import schema as rt_contract
+from book.api.runtime.contracts import models
 
 # Host-bound alias map derived from vfs-canonicalization (partial).
 _PATH_ALIAS_PREFIXES = (

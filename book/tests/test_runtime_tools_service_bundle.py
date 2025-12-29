@@ -8,8 +8,8 @@ from pathlib import Path
 
 import pytest
 
-from book.api.runtime import api as runtime_api
-from book.api.runtime.channels import ChannelSpec
+from book.api.runtime.execution import service as runtime_api
+from book.api.runtime.execution.channels import ChannelSpec
 
 
 REPO_ROOT = Path(__file__).resolve().parents[2]

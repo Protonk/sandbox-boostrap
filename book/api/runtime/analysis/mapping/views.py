@@ -11,7 +11,7 @@ import hashlib
 from dataclasses import asdict, dataclass
 from typing import Any, Dict, Iterable, List, Mapping, Optional, Tuple
 
-from book.api.runtime.core import models
+from book.api.runtime.contracts import models
 
 
 @dataclass
@@ -192,7 +192,7 @@ def build_callout_vs_syscall(
 
     meta = {
         "world_id": models.WORLD_ID,
-        "generated_by": "book/api/runtime/mapping/views.py",
+        "generated_by": "book/api/runtime/analysis/mapping/views.py",
         "notes": "Derived view: compares seatbelt-callout markers with syscall outcomes without promoting callouts into semantics.",
     }
     return {"meta": meta, "counts": counts, "rows": [asdict(r) for r in rows]}
@@ -292,7 +292,7 @@ def build_callout_oracle(
 
     meta = {
         "world_id": models.WORLD_ID,
-        "generated_by": "book/api/runtime/mapping/views.py",
+        "generated_by": "book/api/runtime/analysis/mapping/views.py",
         "schema_version": "runtime-callout-oracle.v0.1",
         "status": "partial",
         "notes": "Derived view: sandbox_check (seatbelt-callout) oracle lane; decisions are not syscall outcomes.",

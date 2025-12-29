@@ -15,7 +15,7 @@ Stability contract:
 
 from __future__ import annotations
 
-from .api import (
+from .execution.service import (
     RunBundle,
     ValidationResult,
     emit_promotion_packet,
@@ -26,24 +26,24 @@ from .api import (
     runtime_status,
     validate_bundle,
 )
-from .channels.spec import ChannelName, ChannelSpec, LockMode
-from .inventory import build_runtime_inventory
-from .links import (
+from .execution.channels.spec import ChannelName, ChannelSpec, LockMode
+from .analysis.inventory import build_runtime_inventory
+from .analysis.links import (
     list_linked_expectations,
     list_linked_profiles,
     load_runtime_links,
     resolve_expectation_link,
     resolve_profile_link,
 )
-from .op_summary import (
+from .analysis.op_summary import (
     build_op_runtime_summary,
     summarize_ops_from_bundle,
     summarize_ops_from_packet,
     write_op_runtime_summary,
 )
-from .plan_builder import PlanBuildResult, build_plan_from_template, list_plan_templates, load_plan_template
-from .plan import lint_plan, list_plans, load_plan, plan_digest
-from .registry import (
+from .plans.builder import PlanBuildResult, build_plan_from_template, list_plan_templates, load_plan_template
+from .plans.loader import lint_plan, list_plans, load_plan, plan_digest
+from .plans.registry import (
     lint_registry,
     list_profiles,
     list_probes,

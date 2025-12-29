@@ -27,8 +27,8 @@ from typing import Any, Dict, List, Optional
 
 from book.api import path_utils
 
-from .artifacts.reader import load_bundle_index_strict, resolve_bundle_dir
-from .artifacts.writer import write_json_atomic
+from .reader import load_bundle_index_strict, resolve_bundle_dir
+from .writer import write_json_atomic
 
 
 PROMOTION_PACKET_SCHEMA_VERSION = "runtime-tools.promotion_packet.v0.2"

@@ -14,7 +14,7 @@ from pathlib import Path
 from typing import Any, Dict, Optional
 
 from book.api import path_utils
-from book.api.runtime.harness import runner as harness_runner
+from book.api.runtime.execution.harness import runner as harness_runner
 
 
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))

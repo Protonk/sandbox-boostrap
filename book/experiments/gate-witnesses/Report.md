@@ -12,7 +12,7 @@ This experiment is intentionally narrow:
 
 - World: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`
 - Apply surface: `book/tools/sbpl/wrapper/wrapper --sbpl … -- /usr/bin/true`
-- Classification: runtime contract layer (`book/api/runtime/core/contract.py`) + `sbpl-apply` tool markers (no stderr substring inference)
+- Classification: runtime contract layer (`book/api/runtime/contracts/schema.py`) + `sbpl-apply` tool markers (no stderr substring inference)
 - Recent witness refresh runs were executed on both a permissive host configuration (`--yolo`) and a less permissive control pass; the snapshots are preserved as `out/witnesses/airlock/run.yolo.json` and `out/witnesses/airlock/run.non_yolo.json` (current `run.json` matches the permissive run).
 
 ## Artifacts

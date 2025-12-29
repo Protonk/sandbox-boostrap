@@ -22,8 +22,8 @@ from typing import Any, Dict, Iterable, List, Mapping, Optional, Tuple
 
 from book.api import path_utils
 from book.api import evidence_tiers
-from book.api.runtime.core import models
-from book.api.runtime.core import normalize
+from book.api.runtime.contracts import models
+from book.api.runtime.contracts import normalize
 
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))
 OPS_VOCAB = REPO_ROOT / "book" / "graph" / "mappings" / "vocab" / "ops.json"

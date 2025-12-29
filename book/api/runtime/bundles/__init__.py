@@ -5,7 +5,7 @@ This package exists to keep the runtime "bundle" contract enforceable:
 - writers are responsible for atomic, deterministic artifact writes
 - readers are responsible for strict integrity checks and safe fallbacks
 
-The orchestration logic and bundle lifecycle live in `book.api.runtime.api`.
+The orchestration logic and bundle lifecycle live in `book.api.runtime.execution.service`.
 """
 
 from __future__ import annotations

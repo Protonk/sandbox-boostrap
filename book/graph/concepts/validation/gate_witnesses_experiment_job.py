@@ -22,8 +22,8 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from book.api.path_utils import find_repo_root, to_repo_relative
-from book.api.runtime.core import contract as rt_contract
-from book.api.runtime.core import models as runtime_models
+from book.api.runtime.contracts import schema as rt_contract
+from book.api.runtime.contracts import models as runtime_models
 from book.graph.concepts.validation import registry
 from book.graph.concepts.validation.registry import ValidationJob
 

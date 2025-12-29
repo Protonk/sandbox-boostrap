@@ -24,11 +24,11 @@ if str(REPO_ROOT) not in sys.path:
 
 from book.api import path_utils
 from book.api.profile_tools import compile_sbpl_string, decoder  # type: ignore
-from book.api.runtime import api as runtime_api  # type: ignore
-from book.api.runtime import plan_builder as runtime_plan_builder  # type: ignore
-from book.api.runtime import registry as runtime_registry  # type: ignore
-from book.api.runtime.channels import ChannelSpec  # type: ignore
-from book.api.runtime.harness.runner import ensure_fixtures  # type: ignore
+from book.api.runtime.execution import service as runtime_api  # type: ignore
+from book.api.runtime.plans import builder as runtime_plan_builder  # type: ignore
+from book.api.runtime.plans import registry as runtime_registry  # type: ignore
+from book.api.runtime.execution.channels import ChannelSpec  # type: ignore
+from book.api.runtime.execution.harness.runner import ensure_fixtures  # type: ignore
 
 
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))

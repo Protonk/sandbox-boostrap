@@ -9,7 +9,7 @@ This CLI is the stable "human and agent" interface to runtime. It exposes:
 - Legacy matrix-based helpers (normalize/cut/story/golden) for existing runtime
   mapping workflows.
 
-The CLI delegates all plan execution and artifact IO to `book.api.runtime.api`.
+The CLI delegates all plan execution and artifact IO to `book.api.runtime.execution.service`.
 It does not implement channel logic, locking, or bundle writing itself; those
 contracts are enforced by the library layer so non-CLI callers get identical
 behavior.
@@ -31,16 +31,16 @@ import json
 from pathlib import Path
 
 from book.api import path_utils
-from book.api.runtime.core import normalize
-from book.api.runtime.harness import runner as harness_runner
-from book.api.runtime.mapping import story as runtime_story
-from book.api.runtime import workflow
-from book.api.runtime import api as runtime_api
-from book.api.runtime.channels import ChannelSpec
-from book.api.runtime import registry as runtime_registry
-from book.api.runtime import plan as runtime_plan
-from book.api.runtime import plan_builder as runtime_plan_builder
-from book.api.runtime import op_summary as runtime_op_summary
+from book.api.runtime.contracts import normalize
+from book.api.runtime.execution.harness import runner as harness_runner
+from book.api.runtime.analysis.mapping import story as runtime_story
+from book.api.runtime.execution import workflow
+from book.api.runtime.execution import service as runtime_api
+from book.api.runtime.execution.channels import ChannelSpec
+from book.api.runtime.plans import registry as runtime_registry
+from book.api.runtime.plans import loader as runtime_plan
+from book.api.runtime.plans import builder as runtime_plan_builder
+from book.api.runtime.analysis import op_summary as runtime_op_summary
 
 
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))

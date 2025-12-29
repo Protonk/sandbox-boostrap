@@ -13,10 +13,10 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 from book.api import path_utils
-from book.api.runtime import api as runtime_api
-from book.api.runtime.artifacts import reader as artifact_reader
-from book.api.runtime.core import models
-from book.api.runtime.mapping import build as mapping_build
+from book.api.runtime.execution import service as runtime_api
+from book.api.runtime.bundles import reader as artifact_reader
+from book.api.runtime.contracts import models
+from book.api.runtime.analysis.mapping import build as mapping_build
 
 
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))

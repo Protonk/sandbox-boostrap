@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from book.api import path_utils
-from book.api.runtime.mapping import build as mapping_build
+from book.api.runtime.analysis.mapping import build as mapping_build
 
 ROOT = Path(__file__).resolve().parents[4]
 if str(ROOT) not in sys.path:

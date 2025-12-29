@@ -18,7 +18,7 @@ if str(ROOT) not in sys.path:
 
 from book.api import path_utils
 from book.api import world as world_mod
-from book.api.runtime import op_summary as runtime_op_summary
+from book.api.runtime.analysis import op_summary as runtime_op_summary
 
 SCRIPT_ROOT = Path(__file__).resolve().parent
 if str(SCRIPT_ROOT) not in sys.path:

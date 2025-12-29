@@ -15,7 +15,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from book.api.path_utils import ensure_absolute, find_repo_root, relativize_command, to_repo_relative
-from book.api.runtime.core import contract as rt_contract
+from book.api.runtime.contracts import schema as rt_contract
 
 REPO_ROOT = find_repo_root(Path(__file__))
 DEFAULT_OUT = REPO_ROOT / "book" / "profiles" / "golden-triple"

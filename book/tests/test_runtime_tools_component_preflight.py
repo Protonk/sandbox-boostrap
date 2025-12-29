@@ -10,7 +10,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from book.api.runtime.harness import runner
+from book.api.runtime.execution.harness import runner
 
 
 def test_runtime_preflight_blocks_known_apply_gate_signature(tmp_path, monkeypatch):

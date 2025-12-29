@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Any, Dict, Optional
 
 from book.api import path_utils
-from book.api.runtime.core import contract as rt_contract
+from book.api.runtime.contracts import schema as rt_contract
 
 
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))

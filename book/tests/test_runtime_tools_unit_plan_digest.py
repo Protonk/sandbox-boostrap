@@ -3,7 +3,7 @@ from __future__ import annotations
 import copy
 from pathlib import Path
 
-from book.api.runtime import plan as runtime_plan
+from book.api.runtime.plans import loader as runtime_plan
 
 
 ROOT = Path(__file__).resolve().parents[2]

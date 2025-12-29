@@ -34,24 +34,24 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, Iterator, Optional, Tuple
 
 from book.api import path_utils
-from . import baseline as baseline_lane
-from . import mismatch as mismatch_lane
-from . import plan as plan_loader
+from .lanes import baseline as baseline_lane
+from .lanes import mismatch as mismatch_lane
+from ..plans import loader as plan_loader
 from . import preflight as apply_preflight
 from . import workflow
-from . import inventory as runtime_inventory
-from . import path_witnesses
-from .core import normalize
-from .core import models
+from ..analysis import inventory as runtime_inventory
+from .lanes import path_witnesses
+from ..contracts import normalize
+from ..contracts import models
 from .channels import ChannelSpec
 from .channels import launchd_clean
-from .artifacts.reader import load_bundle_index_strict as _load_bundle_index_strict
-from .artifacts.reader import open_bundle_unverified as _open_bundle_unverified
-from .artifacts.reader import resolve_bundle_dir as _resolve_bundle_dir_impl
-from .artifacts.writer import write_artifact_index as _write_artifact_index_impl
-from .artifacts.writer import write_json_atomic as _write_json_atomic
-from .artifacts.writer import write_text_atomic as _write_text_atomic
-from .promotion_packet import emit_promotion_packet as _emit_promotion_packet_impl
+from ..bundles.reader import load_bundle_index_strict as _load_bundle_index_strict
+from ..bundles.reader import open_bundle_unverified as _open_bundle_unverified
+from ..bundles.reader import resolve_bundle_dir as _resolve_bundle_dir_impl
+from ..bundles.writer import write_artifact_index as _write_artifact_index_impl
+from ..bundles.writer import write_json_atomic as _write_json_atomic
+from ..bundles.writer import write_text_atomic as _write_text_atomic
+from ..bundles.promotion import emit_promotion_packet as _emit_promotion_packet_impl
 
 
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))
@@ -658,7 +658,7 @@ def run_plan(
             else:
                 mismatch_summary_doc = {
                     "world_id": world_id,
-                    "generated_by": "book/api/runtime/api.py",
+                    "generated_by": "book/api/runtime/execution/service.py",
                     "mismatches": [],
                     "counts": {},
                 }
@@ -670,7 +670,7 @@ def run_plan(
             failure_stage = "exception"
             mismatch_summary_doc = {
                 "world_id": world_id,
-                "generated_by": "book/api/runtime/api.py",
+                "generated_by": "book/api/runtime/execution/service.py",
                 "mismatches": [],
                 "counts": {},
                 "error": error,

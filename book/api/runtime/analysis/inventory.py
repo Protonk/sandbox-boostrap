@@ -130,7 +130,7 @@ IN_REPO_ITEMS: List[Dict[str, Any]] = [
     },
     {
         "id": "runtime-tools-api",
-        "paths": ["book/api/runtime", "book/api/runtime_harness"],
+        "paths": ["book/api/runtime"],
         "category": "tooling",
         "description": "Shared runtime harness, normalization, and mapping tooling.",
         "privileges": "user",
@@ -329,7 +329,7 @@ def build_runtime_inventory(*, repo_root: Optional[Path], out_path: Path) -> Dic
     payload = {
         "schema_version": SCHEMA_VERSION,
         "world_id": load_world_id(),
-        "generated_by": "book/api/runtime/inventory.py",
+        "generated_by": "book/api/runtime/analysis/inventory.py",
         "keywords": KEYWORDS,
         "in_repo": assigned["items"],
         "unclassified_hits": assigned["unclassified"],
@@ -338,4 +338,3 @@ def build_runtime_inventory(*, repo_root: Optional[Path], out_path: Path) -> Dic
     out_path = path_utils.ensure_absolute(out_path, root)
     out_path.write_text(json.dumps(payload, indent=2))
     return payload
-

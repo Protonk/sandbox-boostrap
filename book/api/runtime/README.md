@@ -117,6 +117,15 @@ Anything else exposed by the CLI (legacy matrix helpers) is treated as compat an
   - strict promotion packet emission (`require_promotable=True`) refuses non-promotable bundles
   - non-strict emission includes an explicit `promotability` block so ambiguity is bounded
 
+## Module layout (functional)
+
+- `contracts/`: schemas, marker parsing, and normalization helpers.
+- `plans/`: plan loading, registry helpers, and templates.
+- `execution/`: channels, harness runners, lanes, and the service orchestrator.
+- `bundles/`: bundle readers/writers and promotion packet emission.
+- `analysis/`: runtime links, inventory, op summaries, and mapping views.
+- `native/`: low-level probe helpers and tool marker shims.
+
 ## Runtime evidence contract (short form)
 
 Canonical artifacts and how they interlock:
@@ -193,4 +202,4 @@ python -m book.api.runtime reindex-bundle --bundle book/experiments/hardened-run
 ## Notes
 
 - Matrix-based commands (`normalize`, `cut`, `story`, `golden`, `run-all`) remain for legacy workflows. For new runtime evidence, prefer plan-based runs + promotion packets.
-- Templates for new probe families/plans live under `book/api/runtime/templates/`.
+- Templates for new probe families/plans live under `book/api/runtime/plans/templates/`.
