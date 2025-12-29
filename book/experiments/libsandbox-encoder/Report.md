@@ -6,8 +6,8 @@ Map how this host’s `libsandbox` populates the per-node u16 payload slot (hist
 
 - World: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
 - Inputs:
-  - `book/api/profile_tools` (compile SBPL to a blob).
-  - `book/api/profile_tools/decoder/` + `book/graph/concepts/validation/profile_ingestion.py` (decode/slice compiled blobs).
+  - `book/api/profile` (compile SBPL to a blob).
+  - `book/api/profile/decoder/` + `book/graph/concepts/validation/profile_ingestion.py` (decode/slice compiled blobs).
   - Trimmed `libsandbox` slice under `book/graph/mappings/dyld-libs/` (static-only inspection for Phase B).
 - Structural backbone (world-scoped):
   - Tag layouts: `book/graph/mappings/tag_layouts/tag_layouts.json` (`status: ok`, record_size_bytes=8).
@@ -65,7 +65,7 @@ Phase A also carries experiment-local tag-layout overrides at `out/tag_layout_ov
   - `out/network_matrix/oracle_tuples.json` (experiment-local extractor output for `(domain,type,proto)`)
 - Oracle extractor:
   - `oracle_network_matrix.py` (HISTORICAL; original experiment-local oracle)
-  - Maintained oracle: `book/api/profile_tools/oracles/` (guarded by parity tests against this corpus)
+  - Maintained oracle: `book/api/profile/oracles/` (guarded by parity tests against this corpus)
 - Legacy (kept for historical continuity; prefer the `matrix_v*` outputs):
   - `out/field2_encoder_matrix.json`
 
@@ -186,7 +186,7 @@ These are **static** witnesses from the dyld slice for this world; they do not e
   - `python3 book/experiments/libsandbox-encoder/analyze_network_join.py`
   - `python3 book/experiments/libsandbox-encoder/check_network_join.py`
   - `python3 book/experiments/libsandbox-encoder/oracle_network_matrix.py` (HISTORICAL)
-  - `python -m book.api.profile_tools oracle network-matrix --manifest book/experiments/libsandbox-encoder/sb/network_matrix/MANIFEST.json --blob-dir book/experiments/libsandbox-encoder/out/network_matrix` (maintained oracle)
+  - `python -m book.api.profile oracle network-matrix --manifest book/experiments/libsandbox-encoder/sb/network_matrix/MANIFEST.json --blob-dir book/experiments/libsandbox-encoder/out/network_matrix` (maintained oracle)
 
 ## Next steps
 

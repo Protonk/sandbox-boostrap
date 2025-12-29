@@ -13,7 +13,7 @@ import time
 from typing import Optional
 
 from book.api import path_utils
-from book.api.profile_tools.identity import baseline_world_id
+from book.api.profile.identity import baseline_world_id
 
 DTRACE_BIN = "/usr/sbin/dtrace"
 

@@ -17,7 +17,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from book.api.path_utils import ensure_absolute, find_repo_root, relativize_command, to_repo_relative  # type: ignore
-from book.api.profile_tools.identity import baseline_world_id  # type: ignore
+from book.api.profile.identity import baseline_world_id  # type: ignore
 
 TARGET_SYMBOL = "_sb_mutable_buffer_write"
 SECONDARY_SYMBOL = "_sb_mutable_buffer_make_immutable"

@@ -48,7 +48,7 @@
   - blob pointer/len inferred: `ptr=0x127809600`, `len=416`; copied to `out/init_params_probe.sb.bin`.
   - arg block to `__sandbox_ms` (w1=0): `{q0=0x127809600, q1=416, q2=0}` (container NULL).
   - `sandbox_apply` return: 0.
-- Inspect: `python -m book.api.profile_tools inspect out/init_params_probe.sb.bin --out out/init_params_probe.inspect.json` → length 416, op_entries `[1,1]`, modern-heuristic format.
+- Inspect: `python -m book.api.profile inspect out/init_params_probe.sb.bin --out out/init_params_probe.inspect.json` → length 416, op_entries `[1,1]`, modern-heuristic format.
 - Interpretation: the canonical inline profile flows through the handle[0]==0 path, passing (ptr,len) directly in the arg block; matches the fallback branch in `_sandbox_apply`.
 
 ## Run: init_params_probe (container variant)

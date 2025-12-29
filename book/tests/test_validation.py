@@ -3,7 +3,7 @@ import pytest
 
 from pathlib import Path
 
-from book.api.profile_tools import decoder
+from book.api.profile import decoder
 
 # Repo root: tests/ -> book/ (parents[2])
 ROOT = Path(__file__).resolve().parents[2]

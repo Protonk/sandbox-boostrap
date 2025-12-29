@@ -30,4 +30,4 @@ Runner emits:
 All paths inside JSON are repo-relative via `book.api.path_utils`.
 
 ## Notes
-- The world baseline is resolved via `book.api.profile_tools.identity.baseline_world_id`.
+- The world baseline is resolved via `book.api.profile.identity.baseline_world_id`.

@@ -15,8 +15,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, Iterable, List
 
-from book.api.profile_tools import decoder
-from book.api.profile_tools import compile as compile_mod
+from book.api.profile import decoder
+from book.api.profile import compile as compile_mod
 
 # Golden profile keys (runtime-checks).
 # Keep ordering stable to produce deterministic summaries.

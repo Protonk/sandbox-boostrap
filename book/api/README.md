@@ -2,7 +2,7 @@
 
 This directory collects host-specific helpers for working with Seatbelt on the fixed baseline in `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`. Use the sections below as a router; each module has a focused role, a short definition, and a minimal usage example. If a module has its own README, follow that link for deeper guidance.
 
-### profile_tools
+### profile
 
 Definition: Unified surface for SBPL compilation, compiled-blob decoding/inspection, op-table summaries, and structural oracles (replaces `sbpl_compile`, `inspect_profile`, `op_table`, and the former standalone `decoder`/`sbpl_oracle` modules).
 
@@ -10,11 +10,11 @@ Role: Provide a single Python/CLI entrypoint for compiling SBPL, decoding/inspec
 
 Example:
 ```sh
-python -m book.api.profile_tools compile book/examples/sb/sample.sb --out /tmp/sample.sb.bin
-python -m book.api.profile_tools decode dump /tmp/sample.sb.bin --summary
-python -m book.api.profile_tools inspect /tmp/sample.sb.bin --out /tmp/summary.json
-python -m book.api.profile_tools op-table book/experiments/op-table-operation/sb/v1_read.sb --compile --op-count 196
-python -m book.api.profile_tools oracle network-matrix \
+python -m book.api.profile compile book/examples/sb/sample.sb --out /tmp/sample.sb.bin
+python -m book.api.profile decode dump /tmp/sample.sb.bin --summary
+python -m book.api.profile inspect /tmp/sample.sb.bin --out /tmp/summary.json
+python -m book.api.profile op-table book/experiments/op-table-operation/sb/v1_read.sb --compile --op-count 196
+python -m book.api.profile oracle network-matrix \
   --manifest book/experiments/libsandbox-encoder/sb/network_matrix/MANIFEST.json \
   --blob-dir book/experiments/libsandbox-encoder/out/network_matrix \
   --out /tmp/network_oracle.json
@@ -133,6 +133,6 @@ python -m book.api.frida.cli run --attach-pid 12345 --script book/api/frida/hook
 
 ## CARTON conversion assessment
 
-- **op_table**: could gain a CARTON-backed query layer if op-table fingerprints/alignments are ever promoted to CARTON mappings; today it is generator/inspection tooling (see `book.api.profile_tools.op_table`), not CARTON IR.
+- **op_table**: could gain a CARTON-backed query layer if op-table fingerprints/alignments are ever promoted to CARTON mappings; today it is generator/inspection tooling (see `book.api.profile.op_table`), not CARTON IR.
 - **runtime**: the harness + mapping outputs could be query-able if golden traces/expectations become CARTON mappings with a defined concept; currently generation-only.
 - **Others (regex_tools, runtime/native/file_probe, ghidra)**: generation/inspection/harness tools, not CARTON concepts; poor fits for the CARTON query surface in their current form.

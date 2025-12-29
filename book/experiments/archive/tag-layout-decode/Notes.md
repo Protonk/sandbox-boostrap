@@ -10,7 +10,7 @@ Archived: scratch `out/` artifacts and experiment-local helper scripts were remo
 
 ## Baseline decode and first layouts
 
-- Baseline decode of canonical system profiles (`airlock`, `bsd`, `sample`) via `book.api.profile_tools.decoder` to understand tag usage and literal-bearing node shapes. Source blobs: `book/graph/concepts/validation/fixtures/blobs/{airlock,bsd,sample}.sb.bin`.
+- Baseline decode of canonical system profiles (`airlock`, `bsd`, `sample`) via `book.api.profile.decoder` to understand tag usage and literal-bearing node shapes. Source blobs: `book/graph/concepts/validation/fixtures/blobs/{airlock,bsd,sample}.sb.bin`.
 - Published canonical tag layouts to `book/graph/mappings/tag_layouts/tag_layouts.json` (`metadata.status: ok`, `record_size_bytes: 8`, `edge_fields: [0,1]`, `payload_fields: [2]`) and added guardrail coverage in `book/tests/test_mappings_guardrail.py`.
 
 ## Updated

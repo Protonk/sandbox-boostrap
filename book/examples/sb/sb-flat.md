@@ -3,7 +3,7 @@
 This directory is **docs-only**.
 
 - SBPL source lives here (`sample.sb`, `variant1.sb`).
-- Compilation, decoding, and inspection are provided by `book/api/profile_tools/`.
+- Compilation, decoding, and inspection are provided by `book/api/profile/`.
 
 Canonical compiled blob (tracked for this host baseline):
 - `book/graph/concepts/validation/fixtures/blobs/sample.sb.bin`
@@ -15,7 +15,7 @@ Canonical compiled blob (tracked for this host baseline):
 From the repo root:
 
 ```sh
-python -m book.api.profile_tools compile book/examples/sb/sample.sb \
+python -m book.api.profile compile book/examples/sb/sample.sb \
   --out book/graph/concepts/validation/fixtures/blobs/sample.sb.bin \
   --no-preview
 ```
@@ -25,8 +25,8 @@ python -m book.api.profile_tools compile book/examples/sb/sample.sb \
 ## Decode / inspect
 
 ```sh
-python -m book.api.profile_tools inspect book/graph/concepts/validation/fixtures/blobs/sample.sb.bin
-python -m book.api.profile_tools decode dump book/graph/concepts/validation/fixtures/blobs/sample.sb.bin --summary
+python -m book.api.profile inspect book/graph/concepts/validation/fixtures/blobs/sample.sb.bin
+python -m book.api.profile decode dump book/graph/concepts/validation/fixtures/blobs/sample.sb.bin --summary
 ```
 
 ---

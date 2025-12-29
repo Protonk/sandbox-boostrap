@@ -18,11 +18,11 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from book.api.path_utils import find_repo_root, to_repo_relative  # type: ignore
-from book.api.profile_tools import decode_profile_dict  # type: ignore
-from book.api.profile_tools import compile as compile_mod  # type: ignore
-from book.api.profile_tools import op_table as op_table_mod  # type: ignore
-from book.api.profile_tools.identity import baseline_world_id  # type: ignore
-from book.api.profile_tools.inspect import summarize_blob  # type: ignore
+from book.api.profile import decode_profile_dict  # type: ignore
+from book.api.profile import compile as compile_mod  # type: ignore
+from book.api.profile import op_table as op_table_mod  # type: ignore
+from book.api.profile.identity import baseline_world_id  # type: ignore
+from book.api.profile.inspect import summarize_blob  # type: ignore
 
 
 REPO_ROOT = find_repo_root(Path(__file__))

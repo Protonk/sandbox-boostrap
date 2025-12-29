@@ -4,7 +4,7 @@
 Probe for static↔runtime divergences by running deliberately adversarial SBPL profiles through the existing golden_runner/runtime harness. Phase 1 covers two families: (1) structurally distinct but semantically equivalent profiles, and (2) path/literal edge cases that stress normalization and literal vs subpath handling. Outputs include expected/runtime matrices, mismatch summaries, and an impact map hook.
 
 ## Infrastructure reuse
-- Compile/decode via `book.api.profile_tools` and `book.api.profile_tools.decoder`.
+- Compile/decode via `book.api.profile` and `book.api.profile.decoder`.
 - Runtime harness via `book.api.runtime.execution.harness.runner.run_matrix` (reusing `runtime-checks` shims).
 - Expectation wiring patterned after `book/experiments/sbpl-graph-runtime`.
 - Comparison and summaries live in this experiment’s `out/`.

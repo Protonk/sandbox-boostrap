@@ -23,8 +23,8 @@ ROOT = Path(__file__).resolve().parents[3]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from book.api.profile_tools import ingestion as pi  # type: ignore
-from book.api.profile_tools import digests as digests_mod  # type: ignore
+from book.api.profile import ingestion as pi  # type: ignore
+from book.api.profile import digests as digests_mod  # type: ignore
 
 
 TARGET_TAGS = {0, 5, 6, 17, 26, 27}

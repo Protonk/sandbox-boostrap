@@ -24,8 +24,8 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from book.api import path_utils  # type: ignore
-from book.api.profile_tools import compile as compile_mod  # type: ignore
-from book.api.profile_tools import decoder as decoder_mod  # type: ignore
+from book.api.profile import compile as compile_mod  # type: ignore
+from book.api.profile import decoder as decoder_mod  # type: ignore
 
 
 SCHEMA_VERSION = 1

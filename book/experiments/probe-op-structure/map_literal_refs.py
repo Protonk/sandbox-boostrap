@@ -19,7 +19,7 @@ ROOT = Path(__file__).resolve().parents[3]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from book.api.profile_tools import ingestion as pi  # type: ignore
+from book.api.profile import ingestion as pi  # type: ignore
 from book.graph.concepts.validation import node_decoder  # type: ignore
 
 

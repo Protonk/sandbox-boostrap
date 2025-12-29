@@ -174,7 +174,7 @@ Other examples focus on the **artifacts** around Seatbelt rather than the live s
   - Extractors that snarf compiled regex blobs (`.re`) from legacy profiles.
   - Converters that turn AppleMatch NFAs into Graphviz `.dot` graphs or approximate textual regexes.
 - **Modern graph-based ingestion**
-  - Examples that compile a sample SBPL and then immediately pass the resulting blob through the shared `book/api/profile_tools/ingestion/` layer to parse headers and slice sections (op table, node array, regex/literal tables).
+  - Examples that compile a sample SBPL and then immediately pass the resulting blob through the shared `book/api/profile/ingestion/` layer to parse headers and slice sections (op table, node array, regex/literal tables).
 Use these when you need to **compile, extract, disassemble, or visualize profiles and AppleMatch regex blobs**, not run live sandboxed workloads.
 
 
@@ -192,11 +192,11 @@ Use these when you need to **compile, extract, disassemble, or visualize profile
 
 ### `extract_sbs/`
 
-* **Role:** Docs-only pointer for compiling selected installed SBPL profiles (from `/System/Library/Sandbox/Profiles`) into `.sb.bin` blobs using `book/api/profile_tools`.
+* **Role:** Docs-only pointer for compiling selected installed SBPL profiles (from `/System/Library/Sandbox/Profiles`) into `.sb.bin` blobs using `book/api/profile`.
 * **Run:**
 
   ```sh
-  python -m book.api.profile_tools compile \
+  python -m book.api.profile compile \
     /System/Library/Sandbox/Profiles/airlock.sb \
     /System/Library/Sandbox/Profiles/bsd.sb \
     --out-dir book/graph/concepts/validation/fixtures/blobs \
@@ -248,7 +248,7 @@ Use these when you need to **compile, extract, disassemble, or visualize profile
 * **Run:**
 
   ```sh
-  python -m book.api.profile_tools compile book/examples/sb/sample.sb \
+  python -m book.api.profile compile book/examples/sb/sample.sb \
     --out book/graph/concepts/validation/fixtures/blobs/sample.sb.bin \
     --no-preview
   ```
@@ -294,5 +294,5 @@ If you are an agent deciding where to work:
 Treat these examples as **reference labs**:
 
 * Prefer to extend them with new probes and tests rather than rewriting core behavior.
-* Canonical SBPL compilation lives under `book/api/profile_tools` (compile subcommand). Legacy regex helpers have moved here under `book/examples/regex_tools`.
+* Canonical SBPL compilation lives under `book/api/profile` (compile subcommand). Legacy regex helpers have moved here under `book/examples/regex_tools`.
 * When in doubt about formats or semantics, cross-check with `book/substrate/Orientation.md`, `book/substrate/Appendix.md`, and `book/substrate/Concepts.md`.

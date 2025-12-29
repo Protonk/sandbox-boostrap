@@ -3,8 +3,8 @@ from pathlib import Path
 
 import pytest
 
-from book.api import profile_tools as pt
-from book.api.profile_tools import ingestion as pi
+from book.api import profile as pt
+from book.api.profile import ingestion as pi
 
 ROOT = Path(__file__).resolve().parents[2]
 SAMPLE_SB = ROOT / "book" / "examples" / "sb" / "sample.sb"
@@ -31,7 +31,7 @@ def test_cli_compiles_to_specified_path(tmp_path):
     cmd = [
         "python3",
         "-m",
-        "book.api.profile_tools.cli",
+        "book.api.profile.cli",
         "compile",
         str(SAMPLE_SB),
         "--out",

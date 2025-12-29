@@ -26,8 +26,8 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from book.api.path_utils import to_repo_relative  # type: ignore
-from book.api.profile_tools import identity as identity_mod  # type: ignore
-from book.api.profile_tools import sbpl_scan  # type: ignore
+from book.api.profile import identity as identity_mod  # type: ignore
+from book.api.profile import sbpl_scan  # type: ignore
 
 
 PREFLIGHT_SCHEMA_VERSION = 1

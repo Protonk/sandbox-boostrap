@@ -145,7 +145,7 @@ Vocabulary/mapping is mostly driven by dyld cache extraction and op-table experi
   - `mappings/op_table/op_table_vocab_alignment.json` (op-table alignment for synthetic/sample profiles).  
   - `validation/out/vocab/*` (mirrored vocab tables and future runtime usage summaries).
 
-Vocabulary extraction itself is driven by `book/graph/mappings/vocab/generate_vocab_from_dyld.py` plus `book/api/profile_tools/` (op-table tooling), not by a single `book/examples/` directory, but the examples above provide the concrete blobs needed to sanity check op-table/vocab alignment.
+Vocabulary extraction itself is driven by `book/graph/mappings/vocab/generate_vocab_from_dyld.py` plus `book/api/profile/` (op-table tooling), not by a single `book/examples/` directory, but the examples above provide the concrete blobs needed to sanity check op-table/vocab alignment.
 
 ---
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Shim to the canonical compiler in book/api/profile_tools.
+Shim to the canonical compiler in book/api/profile.
 
 Usage remains:
   sbsnarf.py input.sb output.sb.bin
@@ -13,7 +13,7 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from book.api.profile_tools import compile_sbpl_file, hex_preview  # noqa: E402
+from book.api.profile import compile_sbpl_file, hex_preview  # noqa: E402
 
 
 def main(argv: list[str] | None = None) -> int:

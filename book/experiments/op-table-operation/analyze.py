@@ -20,9 +20,9 @@ ROOT = Path(__file__).resolve().parents[3]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from book.api.profile_tools import decoder
-from book.api.profile_tools import compile as profile_compile
-from book.api.profile_tools import ingestion as pi
+from book.api.profile import decoder
+from book.api.profile import compile as profile_compile
+from book.api.profile import ingestion as pi
 
 
 def compile_sbpl(src: Path, out: Path) -> bytes:

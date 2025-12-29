@@ -69,4 +69,4 @@ No tests or tooling depend on `PROVENANCE.json`; it exists for human context.
   specimen SBPL in experiment-local directories.
 - Use `book/tools/preflight/preflight.py` to classify corpus entries for
   apply-gate avoidance.
-- Use `book/api/profile_tools` to compile, decode, or diff these inputs.
+- Use `book/api/profile` to compile, decode, or diff these inputs.

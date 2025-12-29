@@ -2,7 +2,7 @@
 """
 Phase A helper for libsandbox-encoder: compile/ingest matrix_v1 and emit a field2 table.
 
-- Uses profile_tools + profile_ingestion to stay aligned with existing API surfaces.
+- Uses `book.api.profile` + profile_ingestion to stay aligned with existing API surfaces.
 - Parses nodes directly from the sliced node region (stride=8 for this world baseline) to avoid the literal-start
   heuristic that can collapse nodes when literals look printable.
 - Emits rows with op hints, filter names/IDs, tags, field2 raw/hi/lo, and literal_refs.
@@ -26,9 +26,9 @@ ROOT = find_repo_root(Path(__file__))
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from book.api.profile_tools import decoder
-from book.api import profile_tools
-from book.api.profile_tools import ingestion as pi
+from book.api.profile import decoder
+from book.api import profile as profile_tools
+from book.api.profile import ingestion as pi
 
 
 def load_filters() -> Dict[int, str]:

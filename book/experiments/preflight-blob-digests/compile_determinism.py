@@ -2,7 +2,7 @@
 """
 Check whether compiled blob digests are:
 - deterministic across repeated compiles on this world, and
-- consistent across compilation surfaces (Python profile_tools vs SBPL-wrapper).
+- consistent across compilation surfaces (Python `book.api.profile` vs SBPL-wrapper).
 """
 
 from __future__ import annotations
@@ -21,8 +21,8 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from book.api.path_utils import to_repo_relative  # type: ignore
-from book.api.profile_tools import compile as pt_compile  # type: ignore
-from book.api.profile_tools import identity as identity_mod  # type: ignore
+from book.api.profile import compile as pt_compile  # type: ignore
+from book.api.profile import identity as identity_mod  # type: ignore
 
 
 SCHEMA_VERSION = 1

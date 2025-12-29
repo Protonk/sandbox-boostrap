@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from book.api import profile_tools as pt
+from book.api import profile as pt
 
 ROOT = Path(__file__).resolve().parents[2]
 SAMPLE_SB = ROOT / "book" / "experiments" / "op-table-operation" / "sb" / "v1_read.sb"
@@ -18,7 +18,7 @@ def test_op_table_cli_with_compile(tmp_path):
     cmd = [
         "python3",
         "-m",
-        "book.api.profile_tools.cli",
+        "book.api.profile.cli",
         "op-table",
         str(SAMPLE_SB),
         "--compile",

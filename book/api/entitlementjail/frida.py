@@ -17,7 +17,7 @@ from book.api.entitlementjail.logging import extract_details
 from book.api.entitlementjail.session import XpcSession
 from book.api.frida.capture import FridaCapture, now_ns
 from book.api.frida.config import load_frida_config
-from book.api.profile_tools.identity import baseline_world_id
+from book.api.profile.identity import baseline_world_id
 
 
 def write_json(path: Path, payload: Dict[str, object]) -> None:

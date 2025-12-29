@@ -10,14 +10,14 @@ PLAN = {
         {
             "name": "modern-sb-sample",
             "example": "sb",
-            "run": "python -m book.api.profile_tools compile book/examples/sb/sample.sb --out book/graph/concepts/validation/fixtures/blobs/sample.sb.bin --no-preview",
+            "run": "python -m book.api.profile compile book/examples/sb/sample.sb --out book/graph/concepts/validation/fixtures/blobs/sample.sb.bin --no-preview",
             "artifacts": ["out/static/sb-sample.json"],
             "notes": "Compile sample.sb (modern graph format) and emit parsed header/op-table/node/regex/literal JSON via shared ingestion.",
         },
         {
             "name": "system-profiles-airlock-bsd",
             "example": "extract_sbs",
-            "run": "python -m book.api.profile_tools compile /System/Library/Sandbox/Profiles/airlock.sb /System/Library/Sandbox/Profiles/bsd.sb --out-dir book/graph/concepts/validation/fixtures/blobs --no-preview",
+            "run": "python -m book.api.profile compile /System/Library/Sandbox/Profiles/airlock.sb /System/Library/Sandbox/Profiles/bsd.sb --out-dir book/graph/concepts/validation/fixtures/blobs --no-preview",
             "artifacts": [
                 "out/static/airlock.sb.bin.json",
                 "out/static/bsd.sb.bin.json",
@@ -27,7 +27,7 @@ PLAN = {
         {
             "name": "user-supplied-sbpl",
             "example": "sbsnarf",
-            "run": "python -m book.api.profile_tools compile <input.sb> --out out/static/custom.sb.bin --no-preview",
+            "run": "python -m book.api.profile compile <input.sb> --out out/static/custom.sb.bin --no-preview",
             "artifacts": ["out/static/custom.sb.bin.json"],
             "notes": "Compile arbitrary SBPL, then parse via ingestion; captures parameterization/literal tables for bespoke cases.",
         },

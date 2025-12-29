@@ -222,7 +222,7 @@ Standard `if __name__ == "__main__": main()` at the end makes it directly execut
 
 Compared with other examples:
 
-* `book.api.profile_tools`:
+* `book.api.profile`:
 
   * Compiles SBPL (including the small sample under `book/examples/sb/sample.sb`).
   * Provides decoding/inspection helpers so you can quickly summarize headers, op-tables, and section boundaries.

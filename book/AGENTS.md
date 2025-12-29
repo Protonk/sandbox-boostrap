@@ -17,7 +17,7 @@ Safety and boundaries: never weaken the baseline (no disabling SIP, TCC, or hard
 Only supported repo-wide test runner is `make -C book test`.
 
 **Host required (Sonoma 14.4.1 baseline):**
-- `python -m book.api.profile_tools compile <profile.sb> --out <path>`
+- `python -m book.api.profile compile <profile.sb> --out <path>`
 - `python -m book.api.runtime run --plan <plan.json> --channel launchd_clean --out <out_dir>`
 - `python -m book.api.runtime emit-promotion --bundle <out_dir> --out <out_dir>/promotion_packet.json --require-promotable`
 - `python book/graph/mappings/runtime/promote_from_packets.py --packets <packet.json> --out book/graph/mappings/runtime`
@@ -25,8 +25,8 @@ Only supported repo-wide test runner is `make -C book test`.
 - `python -m book.graph.concepts.validation --tag vocab`
 
 **Host-neutral (no live sandbox; still host-scoped artifacts):**
-- `python -m book.api.profile_tools decode dump <blob.sb.bin> --summary`
-- `python -m book.api.profile_tools inspect <blob.sb.bin> --out <path>`
+- `python -m book.api.profile decode dump <blob.sb.bin> --summary`
+- `python -m book.api.profile inspect <blob.sb.bin> --out <path>`
 - `python -m book.graph.concepts.validation --tag meta`
 - `cd book/graph && swift run`
 
@@ -40,13 +40,13 @@ Only supported repo-wide test runner is `make -C book test`.
 - Compile SBPL -> blob:
   - Inputs `*.sb`
   - Outputs `*.sb.bin` under the owning experiment/profile
-  - Source of truth compiled blob plus `book/api/profile_tools/compile/`
-  - Regen `python -m book.api.profile_tools compile <profile.sb> --out <path>`.
+  - Source of truth compiled blob plus `book/api/profile/compile/`
+  - Regen `python -m book.api.profile compile <profile.sb> --out <path>`.
 - Decode blob -> graph/tags:
   - Inputs `*.sb.bin`
   - Outputs decode summaries plus `book/graph/mappings/tag_layouts/tag_layouts.json` and `book/graph/mappings/system_profiles/digests.json`
-  - Source of truth `book/api/profile_tools/decoder/` plus those mappings
-  - Regen `python -m book.api.profile_tools decode dump <blob.sb.bin> --summary`, `python book/graph/mappings/tag_layouts/generate_tag_layouts.py`, `python book/graph/mappings/system_profiles/generate_digests_from_ir.py`.
+  - Source of truth `book/api/profile/decoder/` plus those mappings
+  - Regen `python -m book.api.profile decode dump <blob.sb.bin> --summary`, `python book/graph/mappings/tag_layouts/generate_tag_layouts.py`, `python book/graph/mappings/system_profiles/generate_digests_from_ir.py`.
 - Runtime denial vs apply failure:
   - Inputs runtime plan data (for example `book/experiments/runtime-checks/plan.json`)
   - Outputs `runtime_results.json`, `runtime_events.normalized.json`, promotion packets, and `book/graph/mappings/runtime/runtime_signatures.json`

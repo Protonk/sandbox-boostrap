@@ -48,7 +48,7 @@ This experiment starts where `libsandbox-encoder` stopped: it treats the compile
 - Host witness run (`init_params_probe`):
   - Profile `(version 1)\n(allow default)` compiled via `sandbox_compile_string` → handle words `[0, 0x127809600, 0x1a0]` (process-local; handle[0]==0 branch).
   - Arg block to `__sandbox_ms` (call_code w1=0): `{q0=0x127809600, q1=416, q2=0}`; `sandbox_apply` returned 0.
-  - Compiled blob captured at `out/init_params_probe.sb.bin` (416 bytes), inspected via `book.api.profile_tools inspect` → format `modern-heuristic`, op_entries `[1,1]`.
+  - Compiled blob captured at `out/init_params_probe.sb.bin` (416 bytes), inspected via `book.api.profile inspect` → format `modern-heuristic`, op_entries `[1,1]`.
 - Container variant (`INIT_PARAMS_PROBE_CONTAINER=/tmp/init_params_container`):
   - Handle words `[0, 0x12f809200, 0x1a0]`, call_code 0 (same branch).
   - Arg block `{q0=0x12f809200, q1=416, q2=0}`, container_len 26, `sandbox_apply` returned 0.

@@ -23,7 +23,7 @@ Python validation driver (single entrypoint):
 - Run everything: `python -m book.graph.concepts.validation --all`
 - Run by tag/experiment: `python -m book.graph.concepts.validation --tag vocab` or `--experiment field2`
 - Describe a job: `python -m book.graph.concepts.validation --describe <job_id>`
-Jobs are registered in `registry.py`; add new ones next to the decode/ingestion logic they exercise. Notable jobs include vocab extraction, runtime-checks normalization, system-profile digests, field2 probes, fixtures/meta, and `experiment:golden-corpus` (replays decoder/profile_tools against the golden-corpus manifest, including static-only platform profiles such as `platform_airlock`, to keep structural signals aligned with on-disk blobs).
+Jobs are registered in `registry.py`; add new ones next to the decode/ingestion logic they exercise. Notable jobs include vocab extraction, runtime-checks normalization, system-profile digests, field2 probes, fixtures/meta, and `experiment:golden-corpus` (replays decoder/profile against the golden-corpus manifest, including static-only platform profiles such as `platform_airlock`, to keep structural signals aligned with on-disk blobs).
 
 Status schema (applies to `validation_status.json` and per-experiment status files):
 - `job_id` (string), `status` (`ok|partial|brittle|blocked|skipped`), `tier` (`bedrock|mapped|hypothesis`), `host` (object), `inputs` (list of paths), `outputs` (list of paths), `tags` (list of strings), optional `notes`, `metrics`, `hashes`, `change`.
@@ -43,12 +43,12 @@ Keep Swift-side validation non-fatal: extend the report rather than blocking gen
 
 - `tasks.py` – declarative mapping of validation tasks to examples, inputs, and expected artifacts. Used as the source of truth for which examples exercise which clusters.
 - (future) `out/` – drop-in location for captured evidence (JSON logs, parsed headers, vocab tables) keyed by cluster/run/OS version.
-- Decoder lives under `book/api/profile_tools/decoder/` (Python); import `book.api.profile_tools.decoder` (or `from book.api.profile_tools import decoder`) in validation tooling.
+- Decoder lives under `book/api/profile/decoder/` (Python); import `book.api.profile.decoder` (or `from book.api.profile import decoder`) in validation tooling.
 
 ## Usage model (planned)
 
 1. Use `tasks.py` to enumerate the validation tasks for a cluster.
-2. For Static-Format tasks, compile the SBPL inputs using `python -m book.api.profile_tools compile …` (see `tasks.py`) and feed the resulting `.sb.bin` blobs through the shared ingestion layer to emit JSON summaries under `out/static/`.
+2. For Static-Format tasks, compile the SBPL inputs using `python -m book.api.profile compile …` (see `tasks.py`) and feed the resulting `.sb.bin` blobs through the shared ingestion layer to emit JSON summaries under `out/static/`.
 3. For Semantic Graph tasks, run the microprofiles/probes (e.g., `metafilter-tests`, `sbpl-params`, `network-filters`) and capture structured outcomes under `out/semantic/`, making sure to annotate TCC/SIP involvement when observed.
 4. For Vocabulary tasks, extract operation/filter maps from compiled blobs (from Static-Format) and from runtime logs (from Semantic Graph), then normalize into versioned tables under `book/graph/mappings/vocab/` (a shared, stable location). Stable op-table artifacts live under `book/graph/mappings/op_table/`.
 5. For Runtime Lifecycle tasks, run the scenario probes (`entitlements-evolution`, `platform-policy-checks`, `containers-and-redirects`, `extensions-dynamic`, `libsandcall` apply attempts) and capture label/entitlement/container/extension evidence under `out/lifecycle/`.

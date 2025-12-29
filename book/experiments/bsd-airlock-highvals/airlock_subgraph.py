@@ -21,7 +21,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from book.api import path_utils  # type: ignore
-from book.api.profile_tools import digests as digests_mod  # type: ignore
+from book.api.profile import digests as digests_mod  # type: ignore
 
 
 TAGS_FOCUS = {0, 1, 26, 27, 166}

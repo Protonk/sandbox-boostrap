@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from book.api.profile_tools import sbpl_scan
+from book.api.profile import sbpl_scan
 
 
 def test_scan_apply_message_filter_deny_detects_signature():

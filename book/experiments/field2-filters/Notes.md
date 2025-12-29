@@ -145,7 +145,7 @@ Next steps: If needed, scan the main evaluator (FUN_ffffff8002d8547a in arm64e) 
 - Added probes:
   - `sb/bsd_ops_default_file.sb` (default/file* cluster with simple path literals).
   - `sb/airlock_system_fcntl.sb` (system-fcntl with `fcntl-command` filters).
-  Compiled via `python -m book.api.profile_tools compile ... --out sb/build/...`.
+  Compiled via `python -m book.api.profile compile ... --out sb/build/...`.
 - Refreshed `harvest_field2.py` and `unknown_focus.py` outputs. Highlights:
   - `airlock_system_fcntl` surfaces a new hi-bit sentinel `field2=0xffff` (hi=0xc000, lo=0x3fff) on tag 1, no literals; otherwise low path/socket IDs.
   - `bsd_ops_default_file` mirrors `sample` with low path/socket IDs and the existing sentinel 3584; no high bsd tail values surfaced.

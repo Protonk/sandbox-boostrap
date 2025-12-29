@@ -25,7 +25,7 @@ REPO_ROOT = Path(__file__).resolve().parents[4]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from book.api.profile_tools import digests as digests_mod  # type: ignore
+from book.api.profile import digests as digests_mod  # type: ignore
 from book.api import world as world_mod  # type: ignore
 OUT_PATH = REPO_ROOT / "book/graph/mappings/vocab/attestations.json"
 VALIDATION_STATUS = REPO_ROOT / "book/graph/concepts/validation/out/validation_status.json"

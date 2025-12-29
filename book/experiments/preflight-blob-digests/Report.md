@@ -31,7 +31,7 @@ This experiment proceeded in six steps (mirroring the “ideal sequence”):
 1. Static inventory of in-repo blobs (`out/repo_sb_bin_inventory.json`).
 2. Join inventory ↔ canonical `sys:*` digests ↔ preflight digest corpus (`out/sys_digest_join.json`).
 3. Confirm digest determinism (repeat compiles) and parity across compilation surfaces (`out/compile_determinism.json`).
-4. (Folded into step 3) Python profile_tools vs SBPL-wrapper parity.
+4. (Folded into step 3) Python `book.api.profile` vs SBPL-wrapper parity.
 5. Classify the canonical `sys:*` fixture blobs via `sandbox_apply` outside any globally gated context (`out/blob_apply_matrix.outside_harness.json`).
 6. Add control digests + a flip detector so “EPERM == apply gate” cannot be misread when the environment is globally gated (`out/control_digests.json`, `out/apply_matrix_comparison.json`).
 7. Expand the digest corpus from additional apply-validation batches and keep “structural signal” work as explicitly partial/brittle (`out/blob_apply_matrix.structural_validation_batch*.json`, `out/structural_signature_*.json`).
@@ -46,7 +46,7 @@ Canonical `sys:*` blobs (from `out/sys_digest_join.json`):
 - `sys:bsd` (`c6fe205f…`) and `sys:sample` (`a82e5aa8…`) are not blocked by digest (preflight remains conservative: “unknown” is not a success claim).
 
 Digest determinism/parity (from `out/compile_determinism.json`):
-- For two SBPL inputs (`v0_empty.sb` and the `mach_bootstrap` deny-message-filter witness), sha256 digests are stable across 5 repeated compiles, and Python profile_tools output matches SBPL-wrapper output byte-for-byte.
+- For two SBPL inputs (`v0_empty.sb` and the `mach_bootstrap` deny-message-filter witness), sha256 digests are stable across 5 repeated compiles, and Python `book.api.profile` output matches SBPL-wrapper output byte-for-byte.
 
 Blob apply matrix (from `out/blob_apply_matrix.*.json`):
 - In the harness context (`label: in_harness`), the control blob is apply-gated (`control_ok=false`) and all tested blobs fail `sandbox_apply` with apply-stage `EPERM` (global gating; not profile-specific evidence).
@@ -66,7 +66,7 @@ Blob apply matrix (from `out/blob_apply_matrix.*.json`):
   - `out/repo_sb_bin_inventory.json` — sha256 inventory for all in-repo `*.sb.bin` blobs.
   - `out/sys_digest_join.json` — canonical `sys:*` digests joined against the inventory and the digest corpus.
 - Determinism/parity
-  - `out/compile_determinism.json` — repeated compiles (Python profile_tools vs SBPL-wrapper) for two SBPL inputs.
+  - `out/compile_determinism.json` — repeated compiles (Python `book.api.profile` vs SBPL-wrapper) for two SBPL inputs.
 - Apply-stage evidence
   - `out/blob_apply_matrix.in_harness.json` — demonstrates global apply gating inside the harness context (`control_ok=false`).
   - `out/blob_apply_matrix.outside_harness.json` — `sys:*` fixture apply results in a control-ok context.
@@ -135,7 +135,7 @@ This experiment can also support broader, still-open (and largely static/unblock
 
 - What fraction of in-repo `*.sb.bin` blobs are currently covered by “apply-gated by digest” vs “unknown”?
 - Do any canonical `sys:*` blobs (as curated in `book/graph/mappings/system_profiles/digests.json`) overlap with the apply-gate digest corpus? (Answer so far: `sys:airlock` does; `sys:bsd` and `sys:sample` do not.)
-- Are compiled blob digests deterministic across repeated compiles on this world, and consistent across compilation surfaces? (Answer so far: yes for two SBPL inputs, across Python profile_tools and SBPL-wrapper, 5/5 runs each.)
+- Are compiled blob digests deterministic across repeated compiles on this world, and consistent across compilation surfaces? (Answer so far: yes for two SBPL inputs, across Python `book.api.profile` and SBPL-wrapper, 5/5 runs each.)
 - Can we maintain a small “known not-apply-gated” digest control set to detect environment-wide apply gating vs profile-specific gating?
 
 ## Structural signal listening (in progress; partial/brittle)

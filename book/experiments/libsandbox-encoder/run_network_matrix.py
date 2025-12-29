@@ -29,8 +29,8 @@ ROOT = find_repo_root(Path(__file__))
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from book.api import profile_tools
-from book.api.profile_tools import ingestion as pi
+from book.api import profile as profile_tools
+from book.api.profile import ingestion as pi
 
 
 @dataclass(frozen=True)

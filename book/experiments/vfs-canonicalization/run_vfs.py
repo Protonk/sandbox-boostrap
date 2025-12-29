@@ -23,7 +23,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from book.api import path_utils
-from book.api.profile_tools import compile_sbpl_string, decoder  # type: ignore
+from book.api.profile import compile_sbpl_string, decoder  # type: ignore
 from book.api.runtime.execution import service as runtime_api  # type: ignore
 from book.api.runtime.plans import builder as runtime_plan_builder  # type: ignore
 from book.api.runtime.plans import registry as runtime_registry  # type: ignore

@@ -47,7 +47,7 @@ This experiment sits between the structural experiments and the validation tooli
   - `out/summary.json` – per-profile operations, op-table entries, decoder snapshots.
   - `out/op_table_map.json` – per-profile op_entries plus single-op hints.
   - `out/op_table_signatures.json` – per-bucket structural signatures.
-- Shared tooling: when regenerating alignments, prefer `book/api/profile_tools/` (`op-table` CLI or `book.api.profile_tools.op_table` in Python) instead of extending `update_alignment.py`.
+- Shared tooling: when regenerating alignments, prefer `book/api/profile/` (`op-table` CLI or `book.api.profile.op_table` in Python) instead of extending `update_alignment.py`.
 
 **Validation tooling**
 

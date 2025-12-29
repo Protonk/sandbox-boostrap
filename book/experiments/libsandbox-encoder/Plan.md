@@ -5,7 +5,7 @@ Establish how this host’s `libsandbox` populates the per-node u16 payload slot
 ## Phases
 
 - **Phase A — SBPL→blob matrix (encoder output view)**
-  - Use `book/api/profile_tools` + `profile_ingestion` + stride=8 node parsing to produce a stable, reproducible “encoder matrix” over a small SBPL probe set.
+  - Use `book/api/profile` + `profile_ingestion` + stride=8 node parsing to produce a stable, reproducible “encoder matrix” over a small SBPL probe set.
   - Record per observed node: tag, raw u16 payload (`field2_raw`), hi/lo split (`field2_hi`/`field2_lo`), and any heuristic literal refs.
   - For tags whose payload role is `filter_vocab_id` (see `book/graph/mappings/tag_layouts/tag_u16_roles.json`), also attempt `filters.json` resolution and record `filter_name`. For tags whose role is `arg_u16`, keep the payload as opaque u16 (do not treat in-range values as proof of a vocab ID).
   - First pass stays regex-free to reduce confounders; follow-up matrices can add regex-bearing probes once the structural picture is stable.

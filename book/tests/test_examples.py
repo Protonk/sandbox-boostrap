@@ -11,7 +11,7 @@ def test_compile_sample_sb(tmp_path: Path):
     if not src.exists():
         pytest.skip("missing sample SBPL fixture")
     out = tmp_path / "sample.sb.bin"
-    cmd = [sys.executable, "-m", "book.api.profile_tools", "compile", str(src), "--out", str(out), "--no-preview"]
+    cmd = [sys.executable, "-m", "book.api.profile", "compile", str(src), "--out", str(out), "--no-preview"]
     result = subprocess.run(cmd, capture_output=True, text=True)
     assert result.returncode == 0, result.stderr
     assert out.exists(), "sample.sb.bin not generated"
@@ -30,7 +30,7 @@ def test_extract_system_profiles(tmp_path: Path):
     cmd = [
         sys.executable,
         "-m",
-        "book.api.profile_tools",
+        "book.api.profile",
         "compile",
         str(airlock),
         str(bsd),

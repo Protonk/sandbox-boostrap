@@ -15,8 +15,8 @@ ROOT = Path(__file__).resolve().parents[3]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from book.api import path_utils, profile_tools  # type: ignore
-from book.api.profile_tools import decoder  # type: ignore
+from book.api import path_utils, profile as profile_tools  # type: ignore
+from book.api.profile import decoder  # type: ignore
 
 
 def compile_probes(sb_dir: Path, build_dir: Path) -> List[Path]:

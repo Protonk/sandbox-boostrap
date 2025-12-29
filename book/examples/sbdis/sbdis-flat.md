@@ -14,7 +14,7 @@ This example is a **legacy sandbox profile disassembler** for the early “decis
   * Whether the eventual result is `allow`, `deny`, `deny-with-log`, etc.
 * It prints a **structured, human-readable representation** of “for operation X, here’s the if/else structure and outcomes.”
 
-It now uses the shared **Axis 4.1 profile ingestion layer** (`book.api.profile_tools.ingestion`) to slice the legacy blob into header + sections, but the actual decision-tree decoding (nodes/filters) remains local.
+It now uses the shared **Axis 4.1 profile ingestion layer** (`book.api.profile.ingestion`) to slice the legacy blob into header + sections, but the actual decision-tree decoding (nodes/filters) remains local.
 
 Modern graph-based profiles should be handled by newer tools; `sbdis` is explicitly for the **legacy, decision-tree format**.
 

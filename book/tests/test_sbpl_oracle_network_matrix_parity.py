@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from book.api.profile_tools.oracles import WORLD_ID, extract_network_tuple, run_network_matrix
+from book.api.profile.oracles import WORLD_ID, extract_network_tuple, run_network_matrix
 
 
 def test_sbpl_oracle_network_matrix_matches_experiment_oracle_values():

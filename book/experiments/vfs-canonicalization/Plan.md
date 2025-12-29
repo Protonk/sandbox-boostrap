@@ -45,7 +45,7 @@ Profiles live under `book/experiments/vfs-canonicalization/sb/` and follow a tri
 - **Intermediate symlink** (`vfs_link_private_tmp_only.sb`, `vfs_link_var_tmp_only.sb`, `vfs_link_both.sb`):
   - `file-read*` and `file-write*` over `/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe` ↔ `/private/var/tmp/vfs_link_probe`.
 
-Compiled blobs are emitted under `out/<run_id>/sb_build/` by runtime plan execution (with `book.api.profile_tools.compile_sbpl_string` as the compiler).
+Compiled blobs are emitted under `out/<run_id>/sb_build/` by runtime plan execution (with `book.api.profile.compile_sbpl_string` as the compiler).
 
 Scenarios:
 
@@ -86,7 +86,7 @@ IR path:
   - execute the runtime plan into a run-scoped bundle under `out/<run_id>/`,
   - emit `out/promotion_packet.json` pointing at the committed run-scoped bundle (preferred evidence interface for downstream mappings/consumers),
   - down-convert the harness runtime results into `out/runtime_results.json` (authoritative runtime behavior for this suite on this world),
-  - emit `out/decode_tmp_profiles.json` via `book/api/profile_tools/decoder/` (structural view, using blobs from `out/<run_id>/sb_build`),
+  - emit `out/decode_tmp_profiles.json` via `book/api/profile/decoder/` (structural view, using blobs from `out/<run_id>/sb_build`),
   - emit a small `out/mismatch_summary.json` that classifies each profile’s behavior (“canonicalization” vs “control”) for downstream readers.
 
 ## JSON schema sketches

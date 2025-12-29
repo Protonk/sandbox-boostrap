@@ -34,7 +34,7 @@ from book.api.entitlementjail.paths import (
     EJ_EVIDENCE_SYMBOLS,
     REPO_ROOT,
 )
-from book.api.profile_tools.identity import baseline_world_id
+from book.api.profile.identity import baseline_world_id
 
 # Used to tag outputs with the fixed baseline world id.
 WORLD_ID = baseline_world_id(REPO_ROOT)

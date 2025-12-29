@@ -12,7 +12,7 @@ from collections import Counter
 from typing import Any, Dict, List, Tuple
 
 from book.api import path_utils
-from book.api.profile_tools.identity import baseline_world_id
+from book.api.profile.identity import baseline_world_id
 
 USER_RE = re.compile(r"^/Users/[^/]+")
 

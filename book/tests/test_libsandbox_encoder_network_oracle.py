@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from book.api.profile_tools.oracles import extract_network_tuple
+from book.api.profile.oracles import extract_network_tuple
 
 def _load_blob(root: Path, spec_id: str) -> bytes:
     blob = root / "book/experiments/libsandbox-encoder/out/network_matrix" / f"{spec_id}.sb.bin"

@@ -20,8 +20,8 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from book.api import path_utils  # type: ignore
-from book.api.profile_tools import decoder  # type: ignore
-from book.api.profile_tools import digests as digests_mod  # type: ignore
+from book.api.profile import decoder  # type: ignore
+from book.api.profile import digests as digests_mod  # type: ignore
 
 
 def _hist_top(counter: Dict[int, int], limit: int = 20) -> List[Dict[str, int]]:

@@ -22,8 +22,8 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from book.api.path_utils import to_repo_relative  # type: ignore
-from book.api.profile_tools import digests as digests_mod  # type: ignore
-from book.api.profile_tools import ingestion as pi  # type: ignore
+from book.api.profile import digests as digests_mod  # type: ignore
+from book.api.profile import ingestion as pi  # type: ignore
 
 
 _CANONICAL = digests_mod.canonical_system_profile_blobs(ROOT)

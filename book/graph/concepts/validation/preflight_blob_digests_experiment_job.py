@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import Any, Dict, List
 
 from book.api.path_utils import find_repo_root, to_repo_relative
-from book.api.profile_tools import identity as identity_mod
+from book.api.profile import identity as identity_mod
 from book.graph.concepts.validation import registry
 from book.graph.concepts.validation.registry import ValidationJob
 

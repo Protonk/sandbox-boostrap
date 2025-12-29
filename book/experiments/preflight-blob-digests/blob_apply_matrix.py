@@ -23,7 +23,7 @@ if str(REPO_ROOT) not in sys.path:
 
 from book.api.path_utils import to_repo_relative  # type: ignore
 from book.api.runtime.contracts import schema as rt_contract  # type: ignore
-from book.api.profile_tools import identity as identity_mod  # type: ignore
+from book.api.profile import identity as identity_mod  # type: ignore
 
 
 SCHEMA_VERSION = 1

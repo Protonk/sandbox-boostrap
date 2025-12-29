@@ -2,7 +2,7 @@
 - Initialized experiment skeleton; no probes or runs yet. Paths: `sb/`, `sb/build/`, `out/`.
 - Plan refined to include explicit success criteria (characterized opaque vs anchored) and a compile matrix varying presence, combinator, ordering, and controls.
 - Added SBPL matrix under `sb/` covering singles/pairs/triples, ordering permutations, `require-all`/`require-any`, nested triple, TCP/UDP variants, plus negative controls on `mach-lookup`.
-- Compiled all probes to `sb/build/` via `python -m book.api.profile_tools compile book/experiments/flow-divert-2560/sb/*.sb --out-dir book/experiments/flow-divert-2560/sb/build`.
+- Compiled all probes to `sb/build/` via `python -m book.api.profile compile book/experiments/flow-divert-2560/sb/*.sb --out-dir book/experiments/flow-divert-2560/sb/build`.
 - Added `harvest_matrix.py` to decode and emit joinable records; ran it to produce `out/matrix_records.jsonl` and `out/field2_summary.json`.
 - Early take: payload `2560` surfaces only in triple specs (all TCP/UDP orders, all/any, nested) as a tag 0 node with `u16_role: filter_vocab_id` and literal `com.apple.flow-divert`; singles/pairs stay on low vocab IDs, negative controls remain low and never produce `2560`.
 - Alignment check: existing `anchor_filter_map.json` already has `flow-divert` with candidates `local/xattr`, field2 values `[2, 7, 2560]`, status `blocked`; field2-atlas static record for field2=7 carries `flow-divert` as a seed anchor with the same values/status. New matrix evidence is consistent and strengthens the `local` interpretation (tag 0 with literal `com.apple.flow-divert`), but anchor/mapping not updated yet.

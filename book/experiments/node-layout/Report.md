@@ -32,7 +32,7 @@ We explicitly do **not** attempt a full reverse-engineering of modern node forma
 - `analyze.py` – main tooling for this experiment:
   - compiles `sb/*.sb` via `sandbox_compile_string`,
   - slices blobs with `book.graph.concepts.validation.profile_ingestion`,
-  - calls `book.api.profile_tools.decoder.decode_profile_dict` (world-scoped stride selection),
+  - calls `book.api.profile.decoder.decode_profile_dict` (world-scoped stride selection),
   - emits `out/summary.json`.
 - `out/summary.json` – machine-readable per-variant summary, including:
   - blob length, heuristic `operation_count`,
@@ -59,7 +59,7 @@ We explicitly do **not** attempt a full reverse-engineering of modern node forma
   - **Operation Pointer Table** bytes,
   - node region bytes,
   - literal/regex pool bytes.
-- `book/api/profile_tools/decoder/` – **heuristic modern-profile decoder** that:
+- `book/api/profile/decoder/` – **heuristic modern-profile decoder** that:
   - uses op-table word-offset scaling evidence to select a fixed node stride for this world (stride=8 on the Sonoma baseline),
   - slices the node/literal boundary using an op-table-derived lower bound (to avoid ASCII mis-framing),
   - returns a JSON-friendly dict with:
@@ -89,7 +89,7 @@ These tools give us a consistent “slice + decode” view of modern profiles th
   - Node and literal region lengths.
 - Stride scans (8/12/16 bytes) with tag sets and in-bounds edge rates.
 - Persisted these observations via `analyze.py` and `out/summary.json`, with narrative in `Notes.md`.
-- For ad hoc blob snapshots (section sizes, op-table entries, stride/tag stats, literals), prefer `book/api/profile_tools/` (`inspect` / `decode`) over re-implementing parsers here.
+- For ad hoc blob snapshots (section sizes, op-table entries, stride/tag stats, literals), prefer `book/api/profile/` (`inspect` / `decode`) over re-implementing parsers here.
 - **2. Synthetic SBPL variants**
   - Added a family of variants under `sb/`:
   - Baseline `file-read*` profile.

@@ -1,6 +1,6 @@
 """
 Validation job for the golden-corpus experiment: re-runs decoder and
-profile_tools inspectors against the corpus manifest (including static-only
+profile inspectors against the corpus manifest (including static-only
 platform profiles such as platform_airlock) and checks that key structural
 signals match the recorded summary. Success means decoder/IR stay aligned
 with on-disk blobs; it does not validate runtime behavior or applyability.
@@ -13,8 +13,8 @@ from pathlib import Path
 from typing import Dict, Any, List
 
 from book.api.path_utils import find_repo_root, to_repo_relative
-from book.api.profile_tools import decode_profile_dict
-from book.api.profile_tools.inspect import summarize_blob
+from book.api.profile import decode_profile_dict
+from book.api.profile.inspect import summarize_blob
 
 from book.graph.concepts.validation import registry
 from book.graph.concepts.validation.registry import ValidationJob
@@ -120,7 +120,7 @@ def run_golden_corpus_job() -> Dict[str, Any]:
         "inputs": [rel(MANIFEST_PATH), rel(SUMMARY_PATH)],
         "outputs": [rel(IR_PATH)],
         "metrics": {"entries": len(entries), "mismatches": len(mismatches)},
-        "notes": "Replayed decoder/profile_tools against golden-corpus manifest; mismatches mark brittleness.",
+        "notes": "Replayed decoder/profile against golden-corpus manifest; mismatches mark brittleness.",
         "tags": ["experiment:golden-corpus", "experiment", "static-format", "golden"],
         "mismatches": mismatches,
     }
@@ -135,7 +135,7 @@ registry.register(
         inputs=[rel(MANIFEST_PATH), rel(SUMMARY_PATH)],
         outputs=[rel(IR_PATH), rel(STATUS_PATH)],
         tags=["experiment:golden-corpus", "experiment", "static-format", "golden"],
-        description="Re-run decoder/profile_tools on the golden corpus manifest and compare to recorded summary.",
+        description="Re-run decoder/profile on the golden corpus manifest and compare to recorded summary.",
         example_command="python -m book.graph.concepts.validation --experiment golden-corpus",
         runner=run_golden_corpus_job,
     )

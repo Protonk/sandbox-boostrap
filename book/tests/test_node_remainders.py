@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from book.api.profile_tools import ingestion as pi
+from book.api.profile import ingestion as pi
 
 ROOT = Path(__file__).resolve().parents[2]
 CONTRACT = ROOT / "book" / "graph" / "concepts" / "validation" / "out" / "static" / "node_remainders.json"

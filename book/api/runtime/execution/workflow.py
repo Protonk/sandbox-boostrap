@@ -21,7 +21,7 @@ from pathlib import Path
 from typing import Any, Callable, Dict, Iterable, List, Mapping, Optional
 
 from book.api import path_utils
-from book.api.profile_tools import compile_sbpl_string
+from book.api.profile import compile_sbpl_string
 from book.api.runtime.contracts import schema as contract
 from book.api.runtime.contracts import models
 from book.api.runtime.contracts import normalize

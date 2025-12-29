@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from book.api.profile_tools import identity as identity_mod
+from book.api.profile import identity as identity_mod
 from book.tools.preflight import preflight as preflight_mod
 
 

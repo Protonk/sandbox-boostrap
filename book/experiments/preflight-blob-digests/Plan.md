@@ -20,7 +20,7 @@ The target is not “explain why” or “generalize across macOS”; it’s to 
 
 ### Approach (sketch)
 
-1. Extract stable structural features per digest (op-table ids, tag histogram, section sizes, literal-string counts) using existing `book/api/profile_tools` helpers (avoid new parsers).
+1. Extract stable structural features per digest (op-table ids, tag histogram, section sizes, literal-string counts) using existing `book/api/profile` helpers (avoid new parsers).
 2. Identify small “rule-like” candidate signatures that separate the positive set from the control set.
 3. Scan the repo inventory to find additional digests matching each candidate signature (these are hypotheses only).
 4. Validate candidates by running `sandbox_apply` via SBPL-wrapper **outside any globally gated context**, always recording a non-apply-gated control digest in the same run.

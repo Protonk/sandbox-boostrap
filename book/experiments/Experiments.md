@@ -80,7 +80,7 @@ Experiments move through a simple life-cycle as they are created, refined, and i
 * **Archival**
   Once an experiment’s useful outputs have been promoted into shared artifacts (`book/graph/mappings/**`, `book/tools/**`, etc.) and the experiment directory is no longer a live dependency surface, the experiment may be migrated to `book/experiments/archive/`. Archived experiments are “dead”: keep only `Report.md`, `Notes.md` (optionally `Plan.md`) plus a curated `Examples.md` with small excerpts. Remove large dumps and runnable wrappers so agents do not treat `archive/` as a place to mine for live tooling. See `book/experiments/archive/AGENTS.md`.
 
-Across this life-cycle, experiments remain the primary link between the project’s claims and the fixed host. Their job is to accumulate reliable, inspectable evidence, not to disappear once a story has been written. Use shared tooling (`book/api/profile_tools/`) instead of reimplementing parsers.
+Across this life-cycle, experiments remain the primary link between the project’s claims and the fixed host. Their job is to accumulate reliable, inspectable evidence, not to disappear once a story has been written. Use shared tooling (`book/api/profile/`) instead of reimplementing parsers.
 
 ---
 

@@ -315,7 +315,7 @@ The validation plan ties `book/examples/` labs to the four clusters. Harness cod
 
 - **Stage 1 — Static-Format validation**
   - Produce compiled blobs via `sb`, `extract_sbs`, `sbsnarf`, etc.
-  - Ingest via shared ingestion (`profile_ingestion.py`, `book.api.profile_tools.decoder`) and write JSON under `validation/out/static/`.
+  - Ingest via shared ingestion (`profile_ingestion.py`, `book.api.profile.decoder`) and write JSON under `validation/out/static/`.
   - Update static mappings (`system_profiles/*`, `op_table/*`, `tag_layouts/*`, `anchors/*`) when evidence is strong enough to be reused.
 
 - **Stage 2 — Semantic Graph and Evaluation**

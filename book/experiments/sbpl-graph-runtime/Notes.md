@@ -14,7 +14,7 @@ Use this file for concise notes on commands, hurdles, and intermediate results.
 ## Param path adjustments (current run)
 
 - Added a literal-filtered `(allow process-exec ...)` for `book/api/file_probe/file_probe` inside `profiles/param_path.sb` to keep a `(deny default)` helper alive during file probes.
-- Recompiled the existing profiles with `python -m book.api.profile_tools compile book/experiments/sbpl-graph-runtime/profiles/*.sb --out-dir book/experiments/sbpl-graph-runtime/out --no-preview`; `param_path.sb` failed with `invalid data type of path filter; expected pattern, got boolean`, likely because `(param "ROOT")` is unresolved in the current compiler wrapper. Other profiles compiled and were re-ingested into `out/ingested.json`.
+- Recompiled the existing profiles with `python -m book.api.profile compile book/experiments/sbpl-graph-runtime/profiles/*.sb --out-dir book/experiments/sbpl-graph-runtime/out --no-preview`; `param_path.sb` failed with `invalid data type of path filter; expected pattern, got boolean`, likely because `(param "ROOT")` is unresolved in the current compiler wrapper. Other profiles compiled and were re-ingested into `out/ingested.json`.
 
 ## Concrete param profile + static expectations
 
@@ -39,7 +39,7 @@ Use this file for concise notes on commands, hurdles, and intermediate results.
 
 ## Bucket5 vs bucket4/strict_1 literals (decoded)
 
-- Compiled and decoded the SBPL runtime profiles with `profile_tools.compile_sbpl_file` + `decoder.decode_profile_dict`.
+- Compiled and decoded the SBPL runtime profiles with `book.api.profile.compile_sbpl_file` + `decoder.decode_profile_dict`.
 - Literal pools:
   - `bucket5:v11_read_subpath` carries `/tmp/foo` (and shim literals for `/System`, `/usr`, `/bin`, `/dev`, `/tmp`, `/private`, `/tmp`), **no `/private/tmp` literal**.
   - `runtime:strict_1` carries `/private/tmp/strict_ok` plus `/etc/hosts` denies and the same shim literals; canonical path `/private/tmp/strict_ok` is present.
