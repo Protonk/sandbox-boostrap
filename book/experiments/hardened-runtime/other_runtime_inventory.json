@@ -1,7 +1,7 @@
 {
   "schema_version": "hardened-runtime.other-runtime-inventory.v0.1",
   "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
-  "generated_by": "book/api/runtime/inventory.py",
+  "generated_by": "book/api/runtime/analysis/inventory.py",
   "keywords": [
     "sandbox_init",
     "sandbox_init_with_parameters",
@@ -421,15 +421,6 @@
       "status": "ongoing",
       "files": [
         {
-          "path": "book/experiments/frida-testing/Report.md",
-          "keywords": [
-            "sandbox_check",
-            "sandbox_extension_",
-            "frida",
-            "entitlementjail"
-          ]
-        },
-        {
           "path": "book/experiments/frida-testing/Notes.md",
           "keywords": [
             "sandbox_check",
@@ -449,6 +440,15 @@
           "path": "book/experiments/frida-testing/hooks/sandbox_check_minimal.js",
           "keywords": [
             "sandbox_check"
+          ]
+        },
+        {
+          "path": "book/experiments/frida-testing/Report.md",
+          "keywords": [
+            "sandbox_check",
+            "sandbox_extension_",
+            "frida",
+            "entitlementjail"
           ]
         },
         {
@@ -541,9 +541,7 @@
         {
           "path": "book/graph/mappings/runtime_cuts/traces/adv_struct_flat_deny-blocked.jsonl",
           "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
+            "sandbox_init"
           ]
         },
         {
@@ -553,103 +551,139 @@
           ]
         },
         {
+          "path": "book/graph/mappings/runtime_cuts/traces/hardened_process_info_allow_canary_pidinfo-self.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
           "path": "book/graph/mappings/runtime_cuts/traces/adv_path_alias_alias-tmp.jsonl",
           "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
+            "sandbox_init"
           ]
         },
         {
           "path": "book/graph/mappings/runtime_cuts/traces/sys_bsd_write__etc_hosts.jsonl",
           "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/hardened_sysctl_read_deny-kern-bootargs.jsonl",
+          "keywords": [
+            "sandbox_init"
           ]
         },
         {
           "path": "book/graph/mappings/runtime_cuts/traces/runtime_strict_1_write_hosts.jsonl",
           "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
+            "sandbox_init"
           ]
         },
         {
           "path": "book/graph/mappings/runtime_cuts/traces/bucket4_v1_read_write__etc_hosts.jsonl",
           "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
+            "sandbox_init"
           ]
         },
         {
           "path": "book/graph/mappings/runtime_cuts/traces/adv_mach_simple_allow_allow-cfprefsd.jsonl",
           "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/adv_path_edges_write-private.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/anchor-filter-map_cfprefsd_S3_allow_both.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/adv_path_edges_write-dotdot.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/hardened_notifications_deny-allowed-distributed.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/hardened_notifications_allow_allow-distributed.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/bucket4_v1_read_read__etc_hosts.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/adv_mach_local_literal_deny-bogus-local.jsonl",
+          "keywords": [
+            "sandbox_init"
           ]
         },
         {
           "path": "book/graph/mappings/runtime_cuts/traces/metafilter_any_file-read_tmp_baz.txt.jsonl",
           "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/hardened_signal_self_allow_signal-same-sandbox.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/adv_struct_flat_write-ok-deep.jsonl",
+          "keywords": [
+            "sandbox_init"
           ]
         },
         {
           "path": "book/graph/mappings/runtime_cuts/traces/adv_mach_local_regex_deny-bogus-local.jsonl",
           "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/hardened_sysctl_read_allow_allow-kern-ostype.jsonl",
+          "keywords": [
+            "sandbox_init"
           ]
         },
         {
           "path": "book/graph/mappings/runtime_cuts/traces/adv_path_edges_write-subpath.jsonl",
           "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
+            "sandbox_init"
           ]
         },
         {
-          "path": "book/graph/mappings/runtime_cuts/traces/metafilter_any_file-read_tmp_bar.txt.jsonl",
+          "path": "book/graph/mappings/runtime_cuts/traces/adv_struct_flat_allow-ok-root.jsonl",
           "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
+            "sandbox_init"
           ]
         },
         {
           "path": "book/graph/mappings/runtime_cuts/traces/adv_struct_nested_write-ok-deep.jsonl",
           "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
+            "sandbox_init"
           ]
         },
         {
-          "path": "book/graph/mappings/runtime_cuts/traces/adv_path_edges_write-tmp.jsonl",
-          "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
-          ]
-        },
-        {
-          "path": "book/graph/mappings/runtime_cuts/traces/adv_path_edges_allow-tmp.jsonl",
-          "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
-          ]
-        },
-        {
-          "path": "book/graph/mappings/runtime_cuts/traces/adv_flow_divert_require_all_tcp_tcp-loopback-2.jsonl",
+          "path": "book/graph/mappings/runtime_cuts/traces/adv_mach_simple_variants_allow-cfprefsd.jsonl",
           "keywords": [
             "sandbox_init"
           ]
@@ -661,83 +695,19 @@
           ]
         },
         {
-          "path": "book/graph/mappings/runtime_cuts/traces/anchor-filter-map_cfprefsd_bogus_baseline.jsonl",
-          "keywords": [
-            "sandbox_init"
-          ]
-        },
-        {
-          "path": "book/graph/mappings/runtime_cuts/traces/runtime_strict_1_read_ok.jsonl",
-          "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
-          ]
-        },
-        {
-          "path": "book/graph/mappings/runtime_cuts/traces/adv_path_edges_write-private.jsonl",
-          "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
-          ]
-        },
-        {
-          "path": "book/graph/mappings/runtime_cuts/traces/adv_mach_simple_variants_allow-cfprefsd.jsonl",
-          "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
-          ]
-        },
-        {
-          "path": "book/graph/mappings/runtime_cuts/traces/adv_struct_nested_deny-outside.jsonl",
-          "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
-          ]
-        },
-        {
           "path": "book/graph/mappings/runtime_cuts/traces/adv_struct_nested_allow-ok-root.jsonl",
           "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
-          ]
-        },
-        {
-          "path": "book/graph/mappings/runtime_cuts/traces/adv_struct_nested_write-ok-root.jsonl",
-          "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
-          ]
-        },
-        {
-          "path": "book/graph/mappings/runtime_cuts/traces/anchor-filter-map_cfprefsd_S3_allow_both.jsonl",
-          "keywords": [
             "sandbox_init"
           ]
         },
         {
-          "path": "book/graph/mappings/runtime_cuts/traces/adv_mach_simple_allow_deny-bogus.jsonl",
+          "path": "book/graph/mappings/runtime_cuts/traces/hardened_notifications_allow_allow-darwin.jsonl",
           "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
+            "sandbox_init"
           ]
         },
         {
           "path": "book/graph/mappings/runtime_cuts/traces/adv_path_alias_alias-private.jsonl",
-          "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
-          ]
-        },
-        {
-          "path": "book/graph/mappings/runtime_cuts/traces/adv_flow_divert_partial_tcp_tcp-loopback.jsonl",
           "keywords": [
             "sandbox_init"
           ]
@@ -745,61 +715,11 @@
         {
           "path": "book/graph/mappings/runtime_cuts/traces/adv_struct_flat_write-outside.jsonl",
           "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
-          ]
-        },
-        {
-          "path": "book/graph/mappings/runtime_cuts/traces/adv_mach_simple_variants_deny-bogus.jsonl",
-          "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
-          ]
-        },
-        {
-          "path": "book/graph/mappings/runtime_cuts/traces/adv_path_edges_write-dotdot.jsonl",
-          "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
-          ]
-        },
-        {
-          "path": "book/graph/mappings/runtime_cuts/traces/adv_struct_nested_allow-ok-deep.jsonl",
-          "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
+            "sandbox_init"
           ]
         },
         {
           "path": "book/graph/mappings/runtime_cuts/traces/bucket4_v1_read_read__tmp_foo.jsonl",
-          "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
-          ]
-        },
-        {
-          "path": "book/graph/mappings/runtime_cuts/traces/bucket4_v1_read_read__etc_hosts.jsonl",
-          "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
-          ]
-        },
-        {
-          "path": "book/graph/mappings/runtime_cuts/traces/adv_struct_flat_write-ok-deep.jsonl",
-          "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
-          ]
-        },
-        {
-          "path": "book/graph/mappings/runtime_cuts/traces/anchor-filter-map_iokit_class_C2_deny_property_literal.jsonl",
           "keywords": [
             "sandbox_init"
           ]
@@ -811,53 +731,85 @@
           ]
         },
         {
-          "path": "book/graph/mappings/runtime_cuts/traces/metafilter_any_file-read_tmp_qux.txt.jsonl",
-          "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
-          ]
-        },
-        {
-          "path": "book/graph/mappings/runtime_cuts/traces/adv_mach_local_literal_deny-bogus-local.jsonl",
-          "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
-          ]
-        },
-        {
           "path": "book/graph/mappings/runtime_cuts/traces/sys_bsd_write__tmp_foo.jsonl",
-          "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
-          ]
-        },
-        {
-          "path": "book/graph/mappings/runtime_cuts/traces/adv_struct_flat_allow-ok-root.jsonl",
-          "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
-          ]
-        },
-        {
-          "path": "book/graph/mappings/runtime_cuts/traces/adv_flow_divert_require_all_tcp_tcp-loopback.jsonl",
           "keywords": [
             "sandbox_init"
           ]
         },
         {
-          "path": "book/graph/mappings/runtime_cuts/traces/adv_struct_nested_write-blocked.jsonl",
+          "path": "book/graph/mappings/runtime_cuts/traces/metafilter_any_file-read_tmp_qux.txt.jsonl",
           "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/hardened_process_info_allow_pidinfo-self.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/adv_struct_nested_deny-outside.jsonl",
+          "keywords": [
+            "sandbox_init"
           ]
         },
         {
           "path": "book/graph/mappings/runtime_cuts/traces/adv_net_outbound_allow_tcp-loopback-2.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/adv_flow_divert_partial_tcp_tcp-loopback.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/sys_bsd_read__etc_hosts.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/adv_mach_simple_variants_deny-bogus.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/adv_path_edges_write-tmp.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/runtime_strict_1_read_ok.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/hardened_notifications_deny-allowed-darwin.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/adv_mach_simple_allow_deny-bogus.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/hardened_sysctl_read_deny-kern-osrelease.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/anchor-filter-map_cfprefsd_C2_deny_local.jsonl",
           "keywords": [
             "sandbox_init"
           ]
@@ -869,49 +821,63 @@
           ]
         },
         {
-          "path": "book/graph/mappings/runtime_cuts/traces/adv_mach_local_literal_allow-cfprefsd-local.jsonl",
-          "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
-          ]
-        },
-        {
-          "path": "book/graph/mappings/runtime_cuts/traces/adv_mach_local_regex_allow-cfprefsd-local.jsonl",
-          "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
-          ]
-        },
-        {
-          "path": "book/graph/mappings/runtime_cuts/traces/adv_path_edges_allow-subpath.jsonl",
-          "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
-          ]
-        },
-        {
-          "path": "book/graph/mappings/runtime_cuts/traces/sys_bsd_read__etc_hosts.jsonl",
-          "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
-          ]
-        },
-        {
-          "path": "book/graph/mappings/runtime_cuts/traces/adv_net_outbound_allow_tcp-loopback.jsonl",
+          "path": "book/graph/mappings/runtime_cuts/traces/metafilter_any_file-read_tmp_foo.txt.jsonl",
           "keywords": [
             "sandbox_init"
           ]
         },
         {
-          "path": "book/graph/mappings/runtime_cuts/traces/bucket5_v11_read_subpath_read__tmp_foo.jsonl",
+          "path": "book/graph/mappings/runtime_cuts/traces/adv_path_edges_allow-subpath.jsonl",
           "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/adv_path_edges_allow-subpath-normalized.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/adv_struct_flat_write-blocked.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/hardened_process_info_deny_pidinfo-self.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/anchor-filter-map_iokit_class_C1_deny_class.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/bucket5_v11_read_subpath_write__tmp_foo.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/hardened_mach_lookup_deny-cfprefsd.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/anchor-filter-map_cfprefsd_N1_deny_default.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/hardened_notifications_deny-darwin.jsonl",
+          "keywords": [
+            "sandbox_init"
           ]
         },
         {
@@ -921,37 +887,73 @@
           ]
         },
         {
-          "path": "book/graph/mappings/runtime_cuts/traces/runtime_strict_1_read_hosts.jsonl",
-          "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
-          ]
-        },
-        {
-          "path": "book/graph/mappings/runtime_cuts/traces/bucket5_v11_read_subpath_write__tmp_foo.jsonl",
-          "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
-          ]
-        },
-        {
-          "path": "book/graph/mappings/runtime_cuts/traces/anchor-filter-map_cfprefsd_C2_deny_local.jsonl",
+          "path": "book/graph/mappings/runtime_cuts/traces/adv_path_edges_deny-dotdot.jsonl",
           "keywords": [
             "sandbox_init"
           ]
         },
         {
-          "path": "book/graph/mappings/runtime_cuts/traces/adv_struct_flat_deny-outside.jsonl",
+          "path": "book/graph/mappings/runtime_cuts/traces/hardened_process_info_deny_pidinfo-init.jsonl",
           "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
+            "sandbox_init"
           ]
         },
         {
-          "path": "book/graph/mappings/runtime_cuts/traces/anchor-filter-map_cfprefsd_N1_deny_default.jsonl",
+          "path": "book/graph/mappings/runtime_cuts/traces/adv_mach_local_literal_allow-cfprefsd-local.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/bucket5_v11_read_subpath_read__tmp_foo.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/adv_struct_flat_write-ok-root.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/adv_struct_nested_write-blocked.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/adv_mach_local_regex_allow-cfprefsd-local.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/adv_struct_flat_allow-ok-deep.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/adv_flow_divert_require_all_tcp_tcp-loopback.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/adv_net_outbound_allow_tcp-loopback.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/runtime_strict_1_write_ok.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/runtime_strict_1_read_hosts.jsonl",
           "keywords": [
             "sandbox_init"
           ]
@@ -963,27 +965,9 @@
           ]
         },
         {
-          "path": "book/graph/mappings/runtime_cuts/traces/metafilter_any_file-read_tmp_foo.txt.jsonl",
-          "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
-          ]
-        },
-        {
-          "path": "book/graph/mappings/runtime_cuts/traces/runtime_strict_1_write_ok.jsonl",
-          "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
-          ]
-        },
-        {
           "path": "book/graph/mappings/runtime_cuts/traces/bucket5_v11_read_subpath_read__tmp_bar.jsonl",
           "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
+            "sandbox_init"
           ]
         },
         {
@@ -993,89 +977,63 @@
           ]
         },
         {
-          "path": "book/graph/mappings/runtime_cuts/traces/adv_struct_nested_deny-blocked.jsonl",
-          "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
-          ]
-        },
-        {
-          "path": "book/graph/mappings/runtime_cuts/traces/sys_bsd_read__tmp_foo.jsonl",
-          "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
-          ]
-        },
-        {
-          "path": "book/graph/mappings/runtime_cuts/traces/adv_path_edges_deny-dotdot.jsonl",
-          "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
-          ]
-        },
-        {
           "path": "book/graph/mappings/runtime_cuts/traces/metafilter_any_file-write_tmp_baz.txt.jsonl",
-          "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
-          ]
-        },
-        {
-          "path": "book/graph/mappings/runtime_cuts/traces/adv_path_edges_allow-subpath-normalized.jsonl",
-          "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
-          ]
-        },
-        {
-          "path": "book/graph/mappings/runtime_cuts/traces/adv_struct_flat_allow-ok-deep.jsonl",
-          "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
-          ]
-        },
-        {
-          "path": "book/graph/mappings/runtime_cuts/traces/anchor-filter-map_iokit_class_C1_deny_class.jsonl",
           "keywords": [
             "sandbox_init"
           ]
         },
         {
-          "path": "book/graph/mappings/runtime_cuts/traces/adv_struct_flat_write-ok-root.jsonl",
+          "path": "book/graph/mappings/runtime_cuts/traces/sys_bsd_read__tmp_foo.jsonl",
           "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
+            "sandbox_init"
           ]
         },
         {
-          "path": "book/graph/mappings/runtime_cuts/traces/adv_struct_flat_write-blocked.jsonl",
+          "path": "book/graph/mappings/runtime_cuts/traces/adv_struct_flat_deny-outside.jsonl",
           "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
+            "sandbox_init"
           ]
         },
         {
           "path": "book/graph/mappings/runtime_cuts/traces/adv_struct_nested_write-outside.jsonl",
           "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/hardened_process_info_allow_pidinfo-init.jsonl",
+          "keywords": [
+            "sandbox_init"
           ]
         },
         {
           "path": "book/graph/mappings/runtime_cuts/traces/adv_path_edges_deny-private.jsonl",
           "keywords": [
-            "sandbox_init",
-            "sandbox_check",
-            "seatbelt"
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/adv_struct_nested_deny-blocked.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/adv_path_edges_allow-tmp.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/hardened_notifications_deny-distributed.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/anchor-filter-map_cfprefsd_bogus_baseline.jsonl",
+          "keywords": [
+            "sandbox_init"
           ]
         },
         {
@@ -1085,11 +1043,51 @@
           ]
         },
         {
+          "path": "book/graph/mappings/runtime_cuts/traces/metafilter_any_file-read_tmp_bar.txt.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/hardened_mach_lookup_deny-bogus.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/adv_flow_divert_require_all_tcp_tcp-loopback-2.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/adv_struct_nested_write-ok-root.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/adv_struct_nested_allow-ok-deep.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/hardened_mach_lookup_allow_allow-cfprefsd.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
+          "path": "book/graph/mappings/runtime_cuts/traces/anchor-filter-map_iokit_class_C2_deny_property_literal.jsonl",
+          "keywords": [
+            "sandbox_init"
+          ]
+        },
+        {
           "path": "book/graph/mappings/runtime_cuts/traces/allow_all_file-read_etc_hosts.jsonl",
           "keywords": [
             "sandbox_apply",
-            "sandbox_check",
-            "seatbelt",
             "SBPL"
           ]
         },
@@ -1097,8 +1095,6 @@
           "path": "book/graph/mappings/runtime_cuts/traces/allow_all_file-write_tmp_sbpl_rt_write.txt.jsonl",
           "keywords": [
             "sandbox_apply",
-            "sandbox_check",
-            "seatbelt",
             "SBPL"
           ]
         },
@@ -1106,8 +1102,6 @@
           "path": "book/graph/mappings/runtime_cuts/traces/allow_all_file-read_tmp_sbpl_rt_read.txt.jsonl",
           "keywords": [
             "sandbox_apply",
-            "sandbox_check",
-            "seatbelt",
             "SBPL"
           ]
         },
@@ -1125,22 +1119,9 @@
           ]
         },
         {
-          "path": "book/graph/mappings/runtime/runtime_callout_oracle.json",
-          "keywords": [
-            "sandbox_check"
-          ]
-        },
-        {
           "path": "book/graph/mappings/runtime/generate_runtime_callout_oracle.py",
           "keywords": [
             "seatbelt"
-          ]
-        },
-        {
-          "path": "book/graph/mappings/runtime/runtime_signatures.json",
-          "keywords": [
-            "SBPL",
-            "dtrace"
           ]
         },
         {
@@ -1156,6 +1137,12 @@
           ]
         },
         {
+          "path": "book/graph/mappings/runtime/runtime_signatures.json",
+          "keywords": [
+            "dtrace"
+          ]
+        },
+        {
           "path": "book/graph/mappings/runtime/golden_decodes.json",
           "keywords": [
             "dtrace"
@@ -1166,8 +1153,7 @@
     {
       "id": "runtime-tools-api",
       "paths": [
-        "book/api/runtime",
-        "book/api/runtime_harness"
+        "book/api/runtime"
       ],
       "category": "tooling",
       "description": "Shared runtime harness, normalization, and mapping tooling.",
@@ -1176,31 +1162,35 @@
       "status": "active",
       "files": [
         {
-          "path": "book/api/runtime/inventory.py",
+          "path": "book/api/runtime/execution/harness/runner.py",
           "keywords": [
             "sandbox_init",
-            "sandbox_init_with_parameters",
-            "sandbox_apply",
-            "sandbox_check",
-            "sandbox_extension_",
             "seatbelt",
-            "SBPL",
-            "sandboxd",
-            "com.apple.sandbox.reporting",
-            "EndpointSecurity",
-            "es_subscribe",
-            "auditd",
-            "OpenBSM",
-            "dtrace",
-            "frida",
-            "entitlementjail"
+            "SBPL"
           ]
         },
         {
-          "path": "book/api/runtime/harness/runner.py",
+          "path": "book/api/runtime/contracts/schema.py",
           "keywords": [
             "sandbox_init",
+            "sandbox_apply",
             "seatbelt",
+            "SBPL"
+          ]
+        },
+        {
+          "path": "book/api/runtime/contracts/normalize.py",
+          "keywords": [
+            "sandbox_init",
+            "sandbox_apply",
+            "seatbelt",
+            "SBPL"
+          ]
+        },
+        {
+          "path": "book/api/runtime/plans/loader.py",
+          "keywords": [
+            "sandbox_init",
             "SBPL"
           ]
         },
@@ -1224,39 +1214,35 @@
           ]
         },
         {
-          "path": "book/api/runtime/core/contract.py",
+          "path": "book/api/runtime/analysis/inventory.py",
           "keywords": [
             "sandbox_init",
+            "sandbox_init_with_parameters",
             "sandbox_apply",
+            "sandbox_check",
+            "sandbox_extension_",
             "seatbelt",
-            "SBPL"
+            "SBPL",
+            "sandboxd",
+            "com.apple.sandbox.reporting",
+            "EndpointSecurity",
+            "es_subscribe",
+            "auditd",
+            "OpenBSM",
+            "dtrace",
+            "frida",
+            "entitlementjail"
           ]
         },
         {
-          "path": "book/api/runtime/core/normalize.py",
-          "keywords": [
-            "sandbox_init",
-            "sandbox_apply",
-            "seatbelt",
-            "SBPL"
-          ]
-        },
-        {
-          "path": "book/api/runtime/plan.py",
-          "keywords": [
-            "sandbox_init",
-            "SBPL"
-          ]
-        },
-        {
-          "path": "book/api/runtime/workflow.py",
+          "path": "book/api/runtime/execution/workflow.py",
           "keywords": [
             "sandbox_apply",
             "SBPL"
           ]
         },
         {
-          "path": "book/api/runtime/preflight.py",
+          "path": "book/api/runtime/bundles/promotion.py",
           "keywords": [
             "sandbox_check"
           ]
@@ -1268,13 +1254,13 @@
           ]
         },
         {
-          "path": "book/api/runtime/promotion_packet.py",
+          "path": "book/api/runtime/execution/preflight.py",
           "keywords": [
             "sandbox_check"
           ]
         },
         {
-          "path": "book/api/runtime/api.py",
+          "path": "book/api/runtime/execution/service.py",
           "keywords": [
             "sandbox_check",
             "seatbelt"
@@ -1288,20 +1274,20 @@
           ]
         },
         {
-          "path": "book/api/runtime/mapping/views.py",
+          "path": "book/api/runtime/analysis/mapping/views.py",
           "keywords": [
             "sandbox_check",
             "seatbelt"
           ]
         },
         {
-          "path": "book/api/runtime/mismatch.py",
+          "path": "book/api/runtime/execution/lanes/mismatch.py",
           "keywords": [
             "seatbelt"
           ]
         },
         {
-          "path": "book/api/runtime/core/models.py",
+          "path": "book/api/runtime/contracts/models.py",
           "keywords": [
             "seatbelt"
           ]
@@ -1313,7 +1299,7 @@
           ]
         },
         {
-          "path": "book/api/runtime/registry/__init__.py",
+          "path": "book/api/runtime/plans/registry/__init__.py",
           "keywords": [
             "SBPL"
           ]
@@ -1372,25 +1358,25 @@
           ]
         },
         {
-          "path": "book/experiments/preflight-blob-digests/blob_apply_matrix.py",
-          "keywords": [
-            "SBPL"
-          ]
-        },
-        {
           "path": "book/experiments/preflight-blob-digests/Notes.md",
           "keywords": [
             "SBPL"
           ]
         },
         {
-          "path": "book/experiments/preflight-blob-digests/compile_determinism.py",
+          "path": "book/experiments/preflight-index/Notes.md",
           "keywords": [
             "SBPL"
           ]
         },
         {
-          "path": "book/experiments/preflight-index/Notes.md",
+          "path": "book/experiments/preflight-blob-digests/blob_apply_matrix.py",
+          "keywords": [
+            "SBPL"
+          ]
+        },
+        {
+          "path": "book/experiments/preflight-blob-digests/compile_determinism.py",
           "keywords": [
             "SBPL"
           ]
@@ -1422,6 +1408,27 @@
       "status": "partial",
       "files": [
         {
+          "path": "book/tools/entitlement/EntitlementJail.app/Contents/XPCServices/ProbeService_bookmarks_app_scope.xpc/Contents/MacOS/ProbeService_bookmarks_app_scope.dSYM/Contents/Resources/Relocations/aarch64/ProbeService_bookmarks_app_scope.yml",
+          "keywords": [
+            "sandbox_check",
+            "sandbox_extension_",
+            "seatbelt"
+          ]
+        },
+        {
+          "path": "book/tools/entitlement/EntitlementJail.app/Contents/Resources/Evidence/symbols.json",
+          "keywords": [
+            "sandbox_check"
+          ]
+        },
+        {
+          "path": "book/tools/entitlement/EntitlementJail.md",
+          "keywords": [
+            "sandbox_check",
+            "dtrace"
+          ]
+        },
+        {
           "path": "book/tools/entitlement/EntitlementJail.app/Contents/XPCServices/ProbeService_net_client.xpc/Contents/MacOS/ProbeService_net_client.dSYM/Contents/Resources/Relocations/aarch64/ProbeService_net_client.yml",
           "keywords": [
             "sandbox_check",
@@ -1446,43 +1453,6 @@
           ]
         },
         {
-          "path": "book/tools/entitlement/EntitlementJail.app/Contents/XPCServices/ProbeService_user_selected_executable.xpc/Contents/MacOS/ProbeService_user_selected_executable.dSYM/Contents/Resources/Relocations/aarch64/ProbeService_user_selected_executable.yml",
-          "keywords": [
-            "sandbox_check",
-            "sandbox_extension_",
-            "seatbelt"
-          ]
-        },
-        {
-          "path": "book/tools/entitlement/EntitlementJail.app/Contents/XPCServices/ProbeService_downloads_rw.xpc/Contents/MacOS/ProbeService_downloads_rw.dSYM/Contents/Resources/Relocations/aarch64/ProbeService_downloads_rw.yml",
-          "keywords": [
-            "sandbox_check",
-            "sandbox_extension_",
-            "seatbelt"
-          ]
-        },
-        {
-          "path": "book/tools/entitlement/EntitlementJail.app/Contents/XPCServices/ProbeService_bookmarks_app_scope.xpc/Contents/MacOS/ProbeService_bookmarks_app_scope.dSYM/Contents/Resources/Relocations/aarch64/ProbeService_bookmarks_app_scope.yml",
-          "keywords": [
-            "sandbox_check",
-            "sandbox_extension_",
-            "seatbelt"
-          ]
-        },
-        {
-          "path": "book/tools/entitlement/EntitlementJail.app/Contents/Resources/Evidence/symbols.json",
-          "keywords": [
-            "sandbox_check"
-          ]
-        },
-        {
-          "path": "book/tools/entitlement/EntitlementJail.md",
-          "keywords": [
-            "sandbox_check",
-            "dtrace"
-          ]
-        },
-        {
           "path": "book/tools/entitlement/EntitlementJail.app/Contents/XPCServices/ProbeService_fully_injectable.xpc/Contents/MacOS/ProbeService_fully_injectable.dSYM/Contents/Resources/Relocations/aarch64/ProbeService_fully_injectable.yml",
           "keywords": [
             "sandbox_check",
@@ -1499,9 +1469,32 @@
           ]
         },
         {
+          "path": "book/tools/entitlement/EntitlementJail.app/Contents/XPCServices/ProbeService_downloads_rw.xpc/Contents/MacOS/ProbeService_downloads_rw.dSYM/Contents/Resources/Relocations/aarch64/ProbeService_downloads_rw.yml",
+          "keywords": [
+            "sandbox_check",
+            "sandbox_extension_",
+            "seatbelt"
+          ]
+        },
+        {
+          "path": "book/tools/entitlement/EntitlementJail.app/Contents/XPCServices/ProbeService_user_selected_executable.xpc/Contents/MacOS/ProbeService_user_selected_executable.dSYM/Contents/Resources/Relocations/aarch64/ProbeService_user_selected_executable.yml",
+          "keywords": [
+            "sandbox_check",
+            "sandbox_extension_",
+            "seatbelt"
+          ]
+        },
+        {
           "path": "book/tools/entitlement/fixtures/contract/observer.sample.json",
           "keywords": [
             "seatbelt"
+          ]
+        },
+        {
+          "path": "book/experiments/entitlement-diff/run_probes.py",
+          "keywords": [
+            "seatbelt",
+            "SBPL"
           ]
         },
         {
@@ -1523,18 +1516,6 @@
           ]
         },
         {
-          "path": "book/tools/entitlement/EntitlementJail.app/Contents/MacOS/xpc-quarantine-client.dSYM/Contents/Resources/Relocations/aarch64/xpc-quarantine-client.yml",
-          "keywords": [
-            "seatbelt"
-          ]
-        },
-        {
-          "path": "book/tools/entitlement/EntitlementJail.app/Contents/MacOS/xpc-probe-client.dSYM/Contents/Resources/Relocations/aarch64/xpc-probe-client.yml",
-          "keywords": [
-            "seatbelt"
-          ]
-        },
-        {
           "path": "book/tools/entitlement/EntitlementJail.app/Contents/XPCServices/QuarantineLab_user_selected_executable.xpc/Contents/MacOS/QuarantineLab_user_selected_executable.dSYM/Contents/Resources/Relocations/aarch64/QuarantineLab_user_selected_executable.yml",
           "keywords": [
             "seatbelt"
@@ -1547,10 +1528,15 @@
           ]
         },
         {
-          "path": "book/experiments/entitlement-diff/run_probes.py",
+          "path": "book/tools/entitlement/EntitlementJail.app/Contents/MacOS/xpc-quarantine-client.dSYM/Contents/Resources/Relocations/aarch64/xpc-quarantine-client.yml",
           "keywords": [
-            "seatbelt",
-            "SBPL"
+            "seatbelt"
+          ]
+        },
+        {
+          "path": "book/tools/entitlement/EntitlementJail.app/Contents/MacOS/xpc-probe-client.dSYM/Contents/Resources/Relocations/aarch64/xpc-probe-client.yml",
+          "keywords": [
+            "seatbelt"
           ]
         },
         {
@@ -1651,15 +1637,6 @@
       ]
     },
     {
-      "path": "troubles/EPERM_chasing.md",
-      "keywords": [
-        "sandbox_init",
-        "sandbox_apply",
-        "SBPL",
-        "sandboxd"
-      ]
-    },
-    {
       "path": "troubles/sandbox-exec_yolo.md",
       "keywords": [
         "sandbox_init",
@@ -1667,6 +1644,15 @@
         "SBPL",
         "sandboxd",
         "com.apple.sandbox.reporting"
+      ]
+    },
+    {
+      "path": "troubles/EPERM_chasing.md",
+      "keywords": [
+        "sandbox_init",
+        "sandbox_apply",
+        "SBPL",
+        "sandboxd"
       ]
     },
     {
@@ -1687,18 +1673,18 @@
       ]
     },
     {
-      "path": "status/first-report/agent-readout.md",
-      "keywords": [
-        "sandbox_init",
-        "sandbox_apply",
-        "SBPL"
-      ]
-    },
-    {
       "path": "status/first-report/experiment-2.md",
       "keywords": [
         "sandbox_init",
         "sandbox_init_with_parameters",
+        "SBPL"
+      ]
+    },
+    {
+      "path": "status/first-report/agent-readout.md",
+      "keywords": [
+        "sandbox_init",
+        "sandbox_apply",
         "SBPL"
       ]
     },
@@ -1716,17 +1702,19 @@
       ]
     },
     {
-      "path": "book/tests/test_runtime_results_outcomes.py",
+      "path": "book/api/profile_tools/libsandbox.py",
       "keywords": [
-        "sandbox_init"
+        "sandbox_init",
+        "sandbox_init_with_parameters",
+        "SBPL"
       ]
     },
     {
-      "path": "book/tests/test_runtime_events_files.py",
+      "path": "book/graph/concepts/CONCEPT_INVENTORY.md",
       "keywords": [
         "sandbox_init",
         "sandbox_apply",
-        "seatbelt"
+        "SBPL"
       ]
     },
     {
@@ -1739,19 +1727,15 @@
       ]
     },
     {
-      "path": "book/api/profile_tools/libsandbox.py",
+      "path": "book/graph/concepts/validation/registry.py",
       "keywords": [
-        "sandbox_init",
-        "sandbox_init_with_parameters",
-        "SBPL"
+        "sandbox_init"
       ]
     },
     {
-      "path": "book/tools/sbpl/wrapper/Plan.md",
+      "path": "book/graph/concepts/validation/sandbox_init_params_job.py",
       "keywords": [
-        "sandbox_init",
-        "sandbox_apply",
-        "SBPL"
+        "sandbox_init"
       ]
     },
     {
@@ -1776,11 +1760,11 @@
       ]
     },
     {
-      "path": "book/tools/sbpl/wrapper/README.md",
+      "path": "book/tests/test_runtime_events_files.py",
       "keywords": [
         "sandbox_init",
         "sandbox_apply",
-        "SBPL"
+        "seatbelt"
       ]
     },
     {
@@ -1788,6 +1772,22 @@
       "keywords": [
         "sandbox_init",
         "sandbox_check",
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/tools/sbpl/wrapper/Plan.md",
+      "keywords": [
+        "sandbox_init",
+        "sandbox_apply",
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/tools/sbpl/wrapper/README.md",
+      "keywords": [
+        "sandbox_init",
+        "sandbox_apply",
         "SBPL"
       ]
     },
@@ -1801,22 +1801,17 @@
       ]
     },
     {
-      "path": "book/substrate/Appendix.md",
+      "path": "book/tests/test_runtime_results_outcomes.py",
       "keywords": [
-        "sandbox_init",
-        "sandbox_init_with_parameters",
-        "sandbox_apply",
-        "SBPL",
-        "sandboxd"
+        "sandbox_init"
       ]
     },
     {
-      "path": "book/substrate/Canon.md",
+      "path": "book/graph/concepts/validation/gate_witnesses_experiment_job.py",
       "keywords": [
         "sandbox_init",
-        "seatbelt",
         "SBPL",
-        "sandboxd"
+        "com.apple.sandbox.reporting"
       ]
     },
     {
@@ -1842,6 +1837,32 @@
       ]
     },
     {
+      "path": "book/substrate/Appendix.md",
+      "keywords": [
+        "sandbox_init",
+        "sandbox_init_with_parameters",
+        "sandbox_apply",
+        "SBPL",
+        "sandboxd"
+      ]
+    },
+    {
+      "path": "book/substrate/Canon.md",
+      "keywords": [
+        "sandbox_init",
+        "seatbelt",
+        "SBPL",
+        "sandboxd"
+      ]
+    },
+    {
+      "path": "book/experiments/op-table-operation/Report.md",
+      "keywords": [
+        "sandbox_init",
+        "SBPL"
+      ]
+    },
+    {
       "path": "book/substrate/exegesis/ROWESANDBOXING.md",
       "keywords": [
         "sandbox_init",
@@ -1856,13 +1877,6 @@
       "keywords": [
         "sandbox_init",
         "sandbox_apply",
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/experiments/op-table-operation/Report.md",
-      "keywords": [
-        "sandbox_init",
         "SBPL"
       ]
     },
@@ -1908,34 +1922,6 @@
       ]
     },
     {
-      "path": "book/experiments/gate-witnesses/Report.md",
-      "keywords": [
-        "sandbox_init",
-        "sandbox_apply",
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/graph/concepts/validation/registry.py",
-      "keywords": [
-        "sandbox_init"
-      ]
-    },
-    {
-      "path": "book/graph/concepts/validation/sandbox_init_params_job.py",
-      "keywords": [
-        "sandbox_init"
-      ]
-    },
-    {
-      "path": "book/graph/concepts/CONCEPT_INVENTORY.md",
-      "keywords": [
-        "sandbox_init",
-        "sandbox_apply",
-        "SBPL"
-      ]
-    },
-    {
       "path": "book/experiments/golden-corpus/Report.md",
       "keywords": [
         "sandbox_init",
@@ -1944,71 +1930,15 @@
       ]
     },
     {
-      "path": "book/graph/concepts/validation/gate_witnesses_experiment_job.py",
+      "path": "book/experiments/gate-witnesses/Report.md",
       "keywords": [
         "sandbox_init",
-        "SBPL",
-        "com.apple.sandbox.reporting"
-      ]
-    },
-    {
-      "path": "book/examples/AGENTS.md",
-      "keywords": [
         "sandbox_apply",
-        "sandbox_extension_",
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/examples/libsandcall/src/sandbox_calls_demo.c",
-      "keywords": [
-        "sandbox_apply",
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/examples/libsandcall/libsandcall-flat.md",
-      "keywords": [
-        "sandbox_apply",
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/world/sonoma-14.4.1-23E224-arm64/world.json",
-      "keywords": [
-        "sandbox_apply"
-      ]
-    },
-    {
-      "path": "status/first-promotion/post-remediation.md",
-      "keywords": [
-        "sandbox_apply",
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/tests/test_sbpl_wrapper_exists.py",
-      "keywords": [
-        "sandbox_apply"
-      ]
-    },
-    {
-      "path": "book/graph/concepts/EXAMPLES.md",
-      "keywords": [
-        "sandbox_apply",
-        "sandbox_extension_",
         "SBPL"
       ]
     },
     {
       "path": "book/experiments/encoder-write-trace/Plan.md",
-      "keywords": [
-        "sandbox_apply",
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/experiments/encoder-write-trace/Report.md",
       "keywords": [
         "sandbox_apply",
         "SBPL"
@@ -2035,6 +1965,13 @@
       ]
     },
     {
+      "path": "book/experiments/encoder-write-trace/Report.md",
+      "keywords": [
+        "sandbox_apply",
+        "SBPL"
+      ]
+    },
+    {
       "path": "book/experiments/libsandbox-encoder/Notes.md",
       "keywords": [
         "sandbox_apply",
@@ -2049,9 +1986,80 @@
       ]
     },
     {
+      "path": "book/examples/AGENTS.md",
+      "keywords": [
+        "sandbox_apply",
+        "sandbox_extension_",
+        "SBPL"
+      ]
+    },
+    {
+      "path": "status/first-promotion/post-remediation.md",
+      "keywords": [
+        "sandbox_apply",
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/examples/libsandcall/src/sandbox_calls_demo.c",
+      "keywords": [
+        "sandbox_apply",
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/examples/libsandcall/libsandcall-flat.md",
+      "keywords": [
+        "sandbox_apply",
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/world/sonoma-14.4.1-23E224-arm64/world.json",
+      "keywords": [
+        "sandbox_apply"
+      ]
+    },
+    {
+      "path": "book/tests/test_sbpl_wrapper_exists.py",
+      "keywords": [
+        "sandbox_apply"
+      ]
+    },
+    {
+      "path": "book/graph/concepts/EXAMPLES.md",
+      "keywords": [
+        "sandbox_apply",
+        "sandbox_extension_",
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/experiments/hardened-runtime/Plan.md",
+      "keywords": [
+        "sandbox_check",
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/experiments/hardened-runtime/Report.md",
+      "keywords": [
+        "sandbox_check",
+        "SBPL"
+      ]
+    },
+    {
       "path": "book/world/sonoma-14.4.1-23E224-arm64/dyld/manifest.json",
       "keywords": [
         "sandbox_check"
+      ]
+    },
+    {
+      "path": "book/experiments/field2-filters/Notes.md",
+      "keywords": [
+        "sandbox_check",
+        "SBPL",
+        "dtrace"
       ]
     },
     {
@@ -2084,37 +2092,16 @@
       ]
     },
     {
-      "path": "book/experiments/hardened-runtime/Plan.md",
-      "keywords": [
-        "sandbox_check",
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/experiments/hardened-runtime/Report.md",
-      "keywords": [
-        "sandbox_check",
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/experiments/field2-filters/Notes.md",
-      "keywords": [
-        "sandbox_check",
-        "SBPL",
-        "dtrace"
-      ]
-    },
-    {
       "path": "troubles/extensions_demo_Nov26.md",
       "keywords": [
         "sandbox_extension_"
       ]
     },
     {
-      "path": "book/examples/extensions-dynamic/extensions-dynamic-flat.md",
+      "path": "book/substrate/exegesis/WORMSLOOK2024_exegesis.md",
       "keywords": [
         "sandbox_extension_",
+        "seatbelt",
         "SBPL"
       ]
     },
@@ -2126,10 +2113,9 @@
       ]
     },
     {
-      "path": "book/substrate/exegesis/WORMSLOOK2024_exegesis.md",
+      "path": "book/examples/extensions-dynamic/extensions-dynamic-flat.md",
       "keywords": [
         "sandbox_extension_",
-        "seatbelt",
         "SBPL"
       ]
     },
@@ -2147,18 +2133,6 @@
     },
     {
       "path": "book/api/ghidra/connector.py",
-      "keywords": [
-        "seatbelt"
-      ]
-    },
-    {
-      "path": "book/experiments/kernel-symbols/Notes.md",
-      "keywords": [
-        "seatbelt"
-      ]
-    },
-    {
-      "path": "book/experiments/kernel-symbols/Report.md",
       "keywords": [
         "seatbelt"
       ]
@@ -2200,6 +2174,18 @@
       ]
     },
     {
+      "path": "book/experiments/kernel-symbols/Notes.md",
+      "keywords": [
+        "seatbelt"
+      ]
+    },
+    {
+      "path": "book/experiments/kernel-symbols/Report.md",
+      "keywords": [
+        "seatbelt"
+      ]
+    },
+    {
       "path": "troubles/mach-services_Nov26.md",
       "keywords": [
         "SBPL"
@@ -2219,37 +2205,79 @@
       ]
     },
     {
+      "path": "book/Outline.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
       "path": "book/profiles/AGENTS.md",
       "keywords": [
         "SBPL"
       ]
     },
     {
-      "path": "book/profiles/textedit/notes/02.2-profiles-containers-entitlements.md",
+      "path": "book/examples/entitlements-evolution/entitlements-evolution-flat.md",
       "keywords": [
         "SBPL"
       ]
     },
     {
-      "path": "book/profiles/textedit/notes/02.3-tracing-real-operations.md",
+      "path": "book/tests/test_sbpl_compile_api.py",
       "keywords": [
         "SBPL"
       ]
     },
     {
-      "path": "book/profiles/textedit/README.md",
+      "path": "guidance/local/Preamble.md",
       "keywords": [
         "SBPL"
       ]
     },
     {
-      "path": "book/profiles/textedit/output/02.5_code_examples.md",
+      "path": "guidance/looking-glass/STRUGGLES.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "guidance/looking-glass/WITNESSES.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "guidance/looking-glass/SYSTEM.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/tests/test_examples.py",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "guidance/looking-glass/PROJECT.md",
       "keywords": [
         "SBPL"
       ]
     },
     {
       "path": "book/profiles/textedit/tools/02.1_capability_survey.py",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/examples/mach-services/mach_client.c",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "guidance/looking-glass/SANDBOX.md",
       "keywords": [
         "SBPL"
       ]
@@ -2267,6 +2295,30 @@
       ]
     },
     {
+      "path": "dumps/AGENTS.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/examples/mach-services/mach_server.c",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/profiles/textedit/notes/02.2-profiles-containers-entitlements.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/tools/doctor/doctor.py",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
       "path": "book/profiles/textedit/tools/02.2_profiles_and_containers.py",
       "keywords": [
         "SBPL"
@@ -2279,13 +2331,37 @@
       ]
     },
     {
+      "path": "book/examples/mach-services/mach-services-flat.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/profiles/textedit/notes/02.3-tracing-real-operations.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
       "path": "book/AGENTS.md",
       "keywords": [
         "SBPL"
       ]
     },
     {
-      "path": "README.md",
+      "path": "book/profiles/textedit/README.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/examples/metafilter-tests/metafilter-tests-flat.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/tools/sbpl/trace_shrink/README.md",
       "keywords": [
         "SBPL"
       ]
@@ -2297,7 +2373,103 @@
       ]
     },
     {
+      "path": "book/examples/metafilter-tests/metafilter_demo.sh",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/examples/apple-scheme/src/compile_profile.c",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
       "path": "book/api/AGENTS.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/profiles/textedit/output/02.5_code_examples.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/tools/sbpl/trace_shrink/trace_shrink.py",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/examples/apple-scheme/run-demo.sh",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/tools/sbpl/README.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/examples/apple-scheme/apple-scheme-flat.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/examples/sbpl-params/params_demo.sh",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/examples/sbpl-params/sbpl-params-flat.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/tools/sbpl/corpus/README.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/examples/platform-policy-checks/platform_policy.c",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/examples/platform-policy-checks/platform-policy-checks-flat.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "README.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/examples/sbsnarf/sbsnarf-flat.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/examples/containers-and-redirects/containers_demo.swift",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/examples/containers-and-redirects/containers-and-redirects-flat.md",
       "keywords": [
         "SBPL"
       ]
@@ -2309,25 +2481,13 @@
       ]
     },
     {
-      "path": "book/chapters/chapter03-TextEdit/content/02.2-final-pack.md",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
       "path": "status/second-report/test-coverage.md",
       "keywords": [
         "SBPL"
       ]
     },
     {
-      "path": "book/chapters/chapter03-TextEdit/content/02.1-final-pack.md",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/chapters/chapter03-TextEdit/content/02.5-final-pack.md",
+      "path": "book/examples/sb/sb-flat.md",
       "keywords": [
         "SBPL"
       ]
@@ -2339,85 +2499,32 @@
       ]
     },
     {
-      "path": "book/chapters/chapter03-TextEdit/content/02.3-final-pack.md",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
       "path": "status/first-promotion/promotion-proposal.md",
       "keywords": [
         "SBPL"
       ]
     },
     {
-      "path": "book/chapters/chapter06-Example.app/Plan.md",
+      "path": "book/examples/re2dot/re2dot-flat.md",
       "keywords": [
         "SBPL"
       ]
     },
     {
-      "path": "book/Outline.md",
+      "path": "status/first-report/Pairing-field2-hunt.md",
+      "keywords": [
+        "SBPL",
+        "dtrace"
+      ]
+    },
+    {
+      "path": "book/examples/network-filters/network-filters-flat.md",
       "keywords": [
         "SBPL"
       ]
     },
     {
-      "path": "dumps/AGENTS.md",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "guidance/looking-glass/STRUGGLES.md",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/tests/test_sbpl_compile_api.py",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "guidance/looking-glass/WITNESSES.md",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "guidance/local/Preamble.md",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/tests/test_examples.py",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "guidance/looking-glass/SYSTEM.md",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "guidance/looking-glass/PROJECT.md",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "guidance/looking-glass/SANDBOX.md",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/tools/doctor/doctor.py",
+      "path": "book/tests/test_runtime_tools_component_preflight.py",
       "keywords": [
         "SBPL"
       ]
@@ -2442,13 +2549,13 @@
       ]
     },
     {
-      "path": "book/tools/sbpl/trace_shrink/README.md",
+      "path": "book/api/profile_tools/c/compile_profile.c",
       "keywords": [
         "SBPL"
       ]
     },
     {
-      "path": "book/api/profile_tools/c/compile_profile.c",
+      "path": "book/graph/AGENTS.md",
       "keywords": [
         "SBPL"
       ]
@@ -2460,22 +2567,15 @@
       ]
     },
     {
+      "path": "book/api/profile_tools/oracles/README.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
       "path": "book/api/profile_tools/cli.py",
       "keywords": [
         "SBPL"
-      ]
-    },
-    {
-      "path": "book/tools/sbpl/trace_shrink/trace_shrink.py",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "status/first-report/Pairing-field2-hunt.md",
-      "keywords": [
-        "SBPL",
-        "dtrace"
       ]
     },
     {
@@ -2485,19 +2585,25 @@
       ]
     },
     {
-      "path": "book/tests/test_runtime_tools_component_preflight.py",
+      "path": "book/tests/test_sbpl_graph_runtime_strict_case.py",
       "keywords": [
         "SBPL"
       ]
     },
     {
-      "path": "book/tools/sbpl/README.md",
+      "path": "book/graph/mappings/anchors/generate_anchor_ctx_filter_map.py",
       "keywords": [
         "SBPL"
       ]
     },
     {
-      "path": "book/api/profile_tools/oracles/README.md",
+      "path": "book/graph/mappings/anchors/README.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/graph/mappings/anchors/generate_anchor_filter_map.py",
       "keywords": [
         "SBPL"
       ]
@@ -2515,13 +2621,67 @@
       ]
     },
     {
-      "path": "book/tools/sbpl/corpus/README.md",
+      "path": "book/graph/mappings/system_profiles/generate_digests_from_ir.py",
       "keywords": [
         "SBPL"
       ]
     },
     {
-      "path": "book/experiments/gate-witnesses/summarize_features.py",
+      "path": "book/graph/mappings/system_profiles/README.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/graph/mappings/README.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/chapters/chapter03-TextEdit/content/02.2-final-pack.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/chapters/chapter03-TextEdit/content/02.1-final-pack.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/chapters/chapter03-TextEdit/content/02.5-final-pack.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/graph/mappings/vocab/README.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/chapters/chapter03-TextEdit/content/02.3-final-pack.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/chapters/chapter06-Example.app/Plan.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/graph/mappings/op_table/README.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/graph/concepts/validation/sbpl_param_value_matrix_job.py",
       "keywords": [
         "SBPL"
       ]
@@ -2533,81 +2693,7 @@
       ]
     },
     {
-      "path": "book/tests/test_sbpl_graph_runtime_strict_case.py",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/experiments/golden-corpus/Notes.md",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/experiments/AGENTS.md",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/experiments/graph-shape-vs-semantics/README.md",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/experiments/graph-shape-vs-semantics/Report.md",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/experiments/probe-op-structure/anchor_scan.py",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/experiments/bsd-airlock-highvals/Notes.md",
-      "keywords": [
-        "SBPL",
-        "dtrace"
-      ]
-    },
-    {
-      "path": "book/experiments/probe-op-structure/Notes.md",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/experiments/bsd-airlock-highvals/Plan.md",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/experiments/op-table-operation/analyze.py",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/experiments/probe-op-structure/Report.md",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/experiments/bsd-airlock-highvals/Report.md",
-      "keywords": [
-        "SBPL",
-        "dtrace"
-      ]
-    },
-    {
-      "path": "book/experiments/bsd-airlock-highvals/run_probes.py",
+      "path": "book/graph/concepts/validation/README.md",
       "keywords": [
         "SBPL"
       ]
@@ -2619,176 +2705,122 @@
       ]
     },
     {
-      "path": "book/examples/entitlements-evolution/entitlements-evolution-flat.md",
+      "path": "book/graph/concepts/validation/strategies.json",
       "keywords": [
         "SBPL"
       ]
     },
     {
-      "path": "book/experiments/node-layout/analyze.py",
+      "path": "book/experiments/AGENTS.md",
       "keywords": [
         "SBPL"
       ]
     },
     {
-      "path": "book/experiments/encoder-write-trace/run_trace.py",
+      "path": "book/experiments/field2-filters/Manual-Ghidra.md",
       "keywords": [
         "SBPL"
       ]
     },
     {
-      "path": "book/experiments/encoder-write-trace/Notes.md",
+      "path": "book/experiments/probe-op-structure/anchor_scan.py",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/graph/concepts/validation/Concept_map.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/experiments/field2-filters/Report.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/experiments/probe-op-structure/Notes.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/graph/concepts/validation/tasks.py",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/experiments/probe-op-structure/Report.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/experiments/graph-shape-vs-semantics/README.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/graph/concepts/validation/sbpl_parameterization_job.py",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/experiments/graph-shape-vs-semantics/Report.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/graph/concepts/concept_map.json",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/experiments/op-table-operation/analyze.py",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/graph/concepts/concepts.json",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/graph/swift/Strategies.swift",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/experiments/vocab-from-cache/Notes.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/substrate/exegesis/SANDBLASTER2016.md",
       "keywords": [
         "SBPL",
-        "dtrace"
+        "sandboxd"
       ]
     },
     {
-      "path": "book/experiments/node-layout/Notes.md",
+      "path": "book/experiments/vocab-from-cache/Report.md",
       "keywords": [
         "SBPL"
       ]
     },
     {
-      "path": "book/experiments/node-layout/Report.md",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/graph/AGENTS.md",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/experiments/encoder-write-trace/compile_one.py",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/examples/apple-scheme/src/compile_profile.c",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/examples/apple-scheme/run-demo.sh",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/examples/apple-scheme/apple-scheme-flat.md",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/examples/sbsnarf/sbsnarf-flat.md",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/graph/mappings/anchors/generate_anchor_ctx_filter_map.py",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/experiments/flow-divert-2560/Notes.md",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/experiments/flow-divert-2560/Plan.md",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/experiments/flow-divert-2560/Report.md",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/graph/mappings/anchors/README.md",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/examples/network-filters/network-filters-flat.md",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/examples/mach-services/mach_client.c",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/examples/mach-services/mach_server.c",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/examples/mach-services/mach-services-flat.md",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/examples/metafilter-tests/metafilter-tests-flat.md",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/examples/metafilter-tests/metafilter_demo.sh",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/examples/sbpl-params/params_demo.sh",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/examples/sbpl-params/sbpl-params-flat.md",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/examples/platform-policy-checks/platform_policy.c",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/experiments/op-coverage-and-runtime-signatures/README.md",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/examples/platform-policy-checks/platform-policy-checks-flat.md",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/examples/containers-and-redirects/containers_demo.swift",
+      "path": "book/experiments/libsandbox-encoder/oracle_network_matrix.py",
       "keywords": [
         "SBPL"
       ]
@@ -2800,7 +2832,25 @@
       ]
     },
     {
-      "path": "book/examples/containers-and-redirects/containers-and-redirects-flat.md",
+      "path": "book/substrate/State.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/experiments/libsandbox-encoder/Plan.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/substrate/Concepts.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/experiments/node-layout/analyze.py",
       "keywords": [
         "SBPL"
       ]
@@ -2812,9 +2862,34 @@
       ]
     },
     {
-      "path": "book/examples/sb/sb-flat.md",
+      "path": "book/substrate/Environment.md",
       "keywords": [
         "SBPL"
+      ]
+    },
+    {
+      "path": "book/experiments/encoder-write-trace/run_trace.py",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/experiments/node-layout/Notes.md",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/experiments/libsandbox-encoder/run_phase_a.py",
+      "keywords": [
+        "SBPL"
+      ]
+    },
+    {
+      "path": "book/experiments/encoder-write-trace/Notes.md",
+      "keywords": [
+        "SBPL",
+        "dtrace"
       ]
     },
     {
@@ -2830,73 +2905,7 @@
       ]
     },
     {
-      "path": "book/examples/re2dot/re2dot-flat.md",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/graph/mappings/anchors/generate_anchor_filter_map.py",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
       "path": "book/experiments/Experiments.md",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/graph/mappings/system_profiles/generate_digests_from_ir.py",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/graph/mappings/system_profiles/README.md",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/experiments/vocab-from-cache/Notes.md",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/experiments/op-table-vocab-alignment/Notes.md",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/experiments/libsandbox-encoder/oracle_network_matrix.py",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/experiments/vocab-from-cache/Report.md",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/experiments/libsandbox-encoder/Plan.md",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/experiments/op-table-vocab-alignment/Report.md",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/graph/mappings/README.md",
       "keywords": [
         "SBPL"
       ]
@@ -2908,22 +2917,21 @@
       ]
     },
     {
-      "path": "book/experiments/libsandbox-encoder/run_phase_a.py",
+      "path": "book/experiments/encoder-write-trace/compile_one.py",
       "keywords": [
         "SBPL"
       ]
     },
     {
-      "path": "book/graph/mappings/op_table/README.md",
+      "path": "book/experiments/gate-witnesses/summarize_features.py",
       "keywords": [
         "SBPL"
       ]
     },
     {
-      "path": "book/substrate/exegesis/SANDBLASTER2016.md",
+      "path": "book/experiments/node-layout/Report.md",
       "keywords": [
-        "SBPL",
-        "sandboxd"
+        "SBPL"
       ]
     },
     {
@@ -2933,91 +2941,69 @@
       ]
     },
     {
-      "path": "book/graph/mappings/vocab/README.md",
+      "path": "book/experiments/op-table-vocab-alignment/Notes.md",
       "keywords": [
         "SBPL"
       ]
     },
     {
-      "path": "book/experiments/field2-filters/Manual-Ghidra.md",
+      "path": "book/experiments/op-table-vocab-alignment/Report.md",
       "keywords": [
         "SBPL"
       ]
     },
     {
-      "path": "book/graph/concepts/validation/strategies.json",
+      "path": "book/experiments/op-coverage-and-runtime-signatures/README.md",
       "keywords": [
         "SBPL"
       ]
     },
     {
-      "path": "book/substrate/State.md",
+      "path": "book/experiments/bsd-airlock-highvals/Notes.md",
+      "keywords": [
+        "SBPL",
+        "dtrace"
+      ]
+    },
+    {
+      "path": "book/experiments/bsd-airlock-highvals/Plan.md",
       "keywords": [
         "SBPL"
       ]
     },
     {
-      "path": "book/substrate/Concepts.md",
+      "path": "book/experiments/bsd-airlock-highvals/run_probes.py",
       "keywords": [
         "SBPL"
       ]
     },
     {
-      "path": "book/graph/concepts/validation/Concept_map.md",
+      "path": "book/experiments/flow-divert-2560/Notes.md",
       "keywords": [
         "SBPL"
       ]
     },
     {
-      "path": "book/substrate/Environment.md",
+      "path": "book/experiments/bsd-airlock-highvals/Report.md",
+      "keywords": [
+        "SBPL",
+        "dtrace"
+      ]
+    },
+    {
+      "path": "book/experiments/flow-divert-2560/Plan.md",
       "keywords": [
         "SBPL"
       ]
     },
     {
-      "path": "book/graph/concepts/validation/tasks.py",
+      "path": "book/experiments/golden-corpus/Notes.md",
       "keywords": [
         "SBPL"
       ]
     },
     {
-      "path": "book/graph/concepts/validation/sbpl_parameterization_job.py",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/experiments/field2-filters/Report.md",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/graph/concepts/concept_map.json",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/graph/concepts/concepts.json",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/graph/concepts/validation/sbpl_param_value_matrix_job.py",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/graph/swift/Strategies.swift",
-      "keywords": [
-        "SBPL"
-      ]
-    },
-    {
-      "path": "book/graph/concepts/validation/README.md",
+      "path": "book/experiments/flow-divert-2560/Report.md",
       "keywords": [
         "SBPL"
       ]
@@ -3029,65 +3015,9 @@
       ]
     },
     {
-      "path": "book/api/entitlementjail/session.py",
+      "path": "book/tests/fixtures/ghidra_shapes/kernel-mac-policy-register-instances__mac_policy_register_instances.shape.json",
       "keywords": [
-        "dtrace",
-        "frida",
-        "entitlementjail"
-      ]
-    },
-    {
-      "path": "book/graph/concepts/validation/golden_corpus/decodes/platform_airlock.json",
-      "keywords": [
-        "dtrace"
-      ]
-    },
-    {
-      "path": "book/graph/mappings/system_profiles/attestations.json",
-      "keywords": [
-        "dtrace"
-      ]
-    },
-    {
-      "path": "book/graph/concepts/validation/golden_corpus/inspect/platform_airlock_inspect.json",
-      "keywords": [
-        "dtrace"
-      ]
-    },
-    {
-      "path": "book/graph/concepts/validation/golden_corpus/inspect/platform_airlock_op_table.json",
-      "keywords": [
-        "dtrace"
-      ]
-    },
-    {
-      "path": "book/graph/mappings/system_profiles/digests.json",
-      "keywords": [
-        "dtrace"
-      ]
-    },
-    {
-      "path": "book/graph/mappings/system_profiles/attestations/bsd.sb.jsonl",
-      "keywords": [
-        "dtrace"
-      ]
-    },
-    {
-      "path": "book/graph/mappings/system_profiles/attestations/airlock.sb.jsonl",
-      "keywords": [
-        "dtrace"
-      ]
-    },
-    {
-      "path": "book/experiments/bsd-airlock-highvals/sb/bsd_tag26_richer.sb",
-      "keywords": [
-        "dtrace"
-      ]
-    },
-    {
-      "path": "book/experiments/bsd-airlock-highvals/sb/bsd_tag26_matrix.sb",
-      "keywords": [
-        "dtrace"
+        "EndpointSecurity"
       ]
     },
     {
@@ -3127,13 +3057,75 @@
       ]
     },
     {
+      "path": "book/experiments/field2-filters/sb/bsd_tail_context.sb",
+      "keywords": [
+        "dtrace"
+      ]
+    },
+    {
       "path": "book/experiments/field2-filters/sb/dtracehelper_posixspawn.sb",
       "keywords": [
         "dtrace"
       ]
     },
     {
-      "path": "book/experiments/field2-filters/sb/bsd_tail_context.sb",
+      "path": "book/api/entitlementjail/session.py",
+      "keywords": [
+        "dtrace",
+        "frida",
+        "entitlementjail"
+      ]
+    },
+    {
+      "path": "book/graph/mappings/system_profiles/attestations.json",
+      "keywords": [
+        "dtrace"
+      ]
+    },
+    {
+      "path": "book/graph/mappings/system_profiles/digests.json",
+      "keywords": [
+        "dtrace"
+      ]
+    },
+    {
+      "path": "book/graph/mappings/system_profiles/attestations/bsd.sb.jsonl",
+      "keywords": [
+        "dtrace"
+      ]
+    },
+    {
+      "path": "book/graph/mappings/system_profiles/attestations/airlock.sb.jsonl",
+      "keywords": [
+        "dtrace"
+      ]
+    },
+    {
+      "path": "book/graph/concepts/validation/golden_corpus/decodes/platform_airlock.json",
+      "keywords": [
+        "dtrace"
+      ]
+    },
+    {
+      "path": "book/graph/concepts/validation/golden_corpus/inspect/platform_airlock_inspect.json",
+      "keywords": [
+        "dtrace"
+      ]
+    },
+    {
+      "path": "book/graph/concepts/validation/golden_corpus/inspect/platform_airlock_op_table.json",
+      "keywords": [
+        "dtrace"
+      ]
+    },
+    {
+      "path": "book/experiments/bsd-airlock-highvals/sb/bsd_tag26_matrix.sb",
+      "keywords": [
+        "dtrace"
+      ]
+    },
+    {
+      "path": "book/experiments/bsd-airlock-highvals/sb/bsd_tag26_richer.sb",
       "keywords": [
         "dtrace"
       ]

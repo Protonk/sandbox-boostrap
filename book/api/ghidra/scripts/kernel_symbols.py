@@ -44,6 +44,92 @@ def _block_set(blocks):
     return aset
 
 
+def _collect_deps(repo_root):
+    deps = []
+    if not repo_root:
+        return deps
+    dep_paths = set()
+    dep_paths.add(os.path.join("book", "api", "ghidra", "scripts", "ghidra_bootstrap.py"))
+    ghidra_lib_dir = os.path.join(repo_root, "book", "api", "ghidra", "ghidra_lib")
+    if os.path.isdir(ghidra_lib_dir):
+        for root, dirs, files in os.walk(ghidra_lib_dir):
+            dirs[:] = [d for d in dirs if d != "__pycache__"]
+            for name in files:
+                if not name.endswith(".py"):
+                    continue
+                dep_paths.add(os.path.join(root, name))
+    for path in sorted(dep_paths):
+        dep_abs = path if os.path.isabs(path) else os.path.join(repo_root, path)
+        if not os.path.isfile(dep_abs):
+            continue
+        dep_rel = scan_utils.to_repo_relative(dep_abs, repo_root)
+        deps.append({"path": dep_rel, "sha256": scan_utils.sha256_path(dep_abs)})
+    return deps
+
+
+def _read_world_id(repo_root):
+    if not repo_root:
+        return None
+    world_path = os.path.join(repo_root, "book", "world", "sonoma-14.4.1-23E224-arm64", "world.json")
+    if not os.path.isfile(world_path):
+        return None
+    try:
+        with open(world_path, "r") as f:
+            data = json.load(f)
+        return data.get("world_id")
+    except Exception:
+        return None
+
+
+def _block_mode(blocks):
+    for blk in blocks:
+        name = blk.getName() or ""
+        if "sandbox" in name.lower():
+            return "sandbox"
+    return "all"
+
+
+def _build_provenance(build_id, block_mode, block_count):
+    script_path = os.path.realpath(__file__)
+    repo_root = scan_utils.find_repo_root(script_path)
+    script_rel = scan_utils.to_repo_relative(script_path, repo_root)
+    script_sha = scan_utils.sha256_path(script_path)
+
+    deps = _collect_deps(repo_root)
+
+    program_path = None
+    program_sha = None
+    try:
+        program_path = currentProgram.getExecutablePath()
+    except Exception:
+        program_path = None
+    if program_path and os.path.isfile(program_path):
+        program_sha = scan_utils.sha256_path(program_path)
+    program_rel = scan_utils.to_repo_relative(program_path, repo_root) if program_path else None
+
+    profile_id = os.environ.get("SANDBOX_LORE_GHIDRA_PROFILE_ID")
+    if not profile_id:
+        profile_id = "kernel_symbols:block_mode=%s:blocks=%d" % (block_mode, block_count)
+
+    return {
+        "schema_version": 1,
+        "world_id": _read_world_id(repo_root),
+        "generator": {
+            "script_path": script_rel,
+            "script_content_sha256": script_sha,
+            "deps": deps,
+        },
+        "input": {
+            "program_path": program_rel,
+            "program_sha256": program_sha,
+        },
+        "analysis": {
+            "profile_id": profile_id,
+        },
+        "build_id": build_id,
+    }
+
+
 def _collect_symbols(address_set):
     symtab = currentProgram.getSymbolTable()
     memory = currentProgram.getMemory()
@@ -126,6 +212,8 @@ def run():
             }
             for blk in blocks
         ]
+        block_mode = _block_mode(blocks)
+        provenance = _build_provenance(build_id, block_mode, len(blocks))
 
         symbols = _collect_symbols(addr_set)
         strings = _collect_strings(addr_set)
@@ -138,9 +226,9 @@ def run():
         }
 
         with open(os.path.join(out_dir, "symbols.json"), "w") as f:
-            json.dump({"meta": meta, "symbols": symbols}, f, indent=2, sort_keys=True)
+            json.dump({"_provenance": provenance, "meta": meta, "symbols": symbols}, f, indent=2, sort_keys=True)
         with open(os.path.join(out_dir, "strings.json"), "w") as f:
-            json.dump({"meta": meta, "strings": strings}, f, indent=2, sort_keys=True)
+            json.dump({"_provenance": provenance, "meta": meta, "strings": strings}, f, indent=2, sort_keys=True)
 
         print("kernel_symbols: wrote %d symbols and %d strings to %s" % (len(symbols), len(strings), out_dir))
         with open(trace_path, "a") as trace:

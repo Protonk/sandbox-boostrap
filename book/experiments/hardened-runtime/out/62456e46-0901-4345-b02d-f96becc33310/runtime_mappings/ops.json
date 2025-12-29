@@ -1,0 +1,288 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "tier": "mapped",
+    "source_jobs": [],
+    "notes": "op-level runtime summary"
+  },
+  "ops": {
+    "mach-lookup": {
+      "op_name": "mach-lookup",
+      "op_id": 96,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 3,
+      "matches": 2,
+      "mismatches": 1,
+      "probes_including_blocked": 3,
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "examples": [
+        {
+          "scenario_id": "hardened:mach_lookup:deny-cfprefsd",
+          "expectation_id": "hardened:mach_lookup:deny-cfprefsd",
+          "expected": "deny",
+          "actual": "allow",
+          "match": false
+        },
+        {
+          "scenario_id": "hardened:mach_lookup:deny-bogus",
+          "expectation_id": "hardened:mach_lookup:deny-bogus",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        },
+        {
+          "scenario_id": "hardened:mach_lookup_allow:allow-cfprefsd",
+          "expectation_id": "hardened:mach_lookup_allow:allow-cfprefsd",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        }
+      ],
+      "scenarios": [
+        "hardened:mach_lookup:deny-bogus",
+        "hardened:mach_lookup:deny-cfprefsd",
+        "hardened:mach_lookup_allow:allow-cfprefsd"
+      ],
+      "mismatch_details": [
+        {
+          "scenario_id": "hardened:mach_lookup:deny-cfprefsd",
+          "expectation_id": "hardened:mach_lookup:deny-cfprefsd",
+          "expected": "deny",
+          "actual": "allow",
+          "target": "com.apple.cfprefsd.agent"
+        }
+      ],
+      "coverage_status": "partial"
+    },
+    "darwin-notification-post": {
+      "op_name": "darwin-notification-post",
+      "op_id": 7,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 3,
+      "matches": 3,
+      "mismatches": 0,
+      "probes_including_blocked": 3,
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "examples": [
+        {
+          "scenario_id": "hardened:notifications:deny-allowed-darwin",
+          "expectation_id": "hardened:notifications:deny-allowed-darwin",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        },
+        {
+          "scenario_id": "hardened:notifications:deny-darwin",
+          "expectation_id": "hardened:notifications:deny-darwin",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        },
+        {
+          "scenario_id": "hardened:notifications_allow:allow-darwin",
+          "expectation_id": "hardened:notifications_allow:allow-darwin",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        }
+      ],
+      "scenarios": [
+        "hardened:notifications:deny-allowed-darwin",
+        "hardened:notifications:deny-darwin",
+        "hardened:notifications_allow:allow-darwin"
+      ],
+      "coverage_status": "ok"
+    },
+    "distributed-notification-post": {
+      "op_name": "distributed-notification-post",
+      "op_id": 8,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 3,
+      "matches": 3,
+      "mismatches": 0,
+      "probes_including_blocked": 3,
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "examples": [
+        {
+          "scenario_id": "hardened:notifications:deny-allowed-distributed",
+          "expectation_id": "hardened:notifications:deny-allowed-distributed",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        },
+        {
+          "scenario_id": "hardened:notifications:deny-distributed",
+          "expectation_id": "hardened:notifications:deny-distributed",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        },
+        {
+          "scenario_id": "hardened:notifications_allow:allow-distributed",
+          "expectation_id": "hardened:notifications_allow:allow-distributed",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        }
+      ],
+      "scenarios": [
+        "hardened:notifications:deny-allowed-distributed",
+        "hardened:notifications:deny-distributed",
+        "hardened:notifications_allow:allow-distributed"
+      ],
+      "coverage_status": "ok"
+    },
+    "process-info-pidinfo": {
+      "op_name": "process-info-pidinfo",
+      "op_id": 129,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 5,
+      "matches": 5,
+      "mismatches": 0,
+      "probes_including_blocked": 5,
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "examples": [
+        {
+          "scenario_id": "hardened:process_info_allow:pidinfo-self",
+          "expectation_id": "hardened:process_info_allow:pidinfo-self",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        },
+        {
+          "scenario_id": "hardened:process_info_allow:pidinfo-init",
+          "expectation_id": "hardened:process_info_allow:pidinfo-init",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        },
+        {
+          "scenario_id": "hardened:process_info_allow_canary:pidinfo-self",
+          "expectation_id": "hardened:process_info_allow_canary:pidinfo-self",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        },
+        {
+          "scenario_id": "hardened:process_info_deny:pidinfo-self",
+          "expectation_id": "hardened:process_info_deny:pidinfo-self",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        },
+        {
+          "scenario_id": "hardened:process_info_deny:pidinfo-init",
+          "expectation_id": "hardened:process_info_deny:pidinfo-init",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        }
+      ],
+      "scenarios": [
+        "hardened:process_info_allow:pidinfo-init",
+        "hardened:process_info_allow:pidinfo-self",
+        "hardened:process_info_allow_canary:pidinfo-self",
+        "hardened:process_info_deny:pidinfo-init",
+        "hardened:process_info_deny:pidinfo-self"
+      ],
+      "coverage_status": "ok"
+    },
+    "signal": {
+      "op_name": "signal",
+      "op_id": 145,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 2,
+      "matches": 2,
+      "mismatches": 0,
+      "probes_including_blocked": 2,
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "examples": [
+        {
+          "scenario_id": "hardened:signal_self_allow:signal-same-sandbox",
+          "expectation_id": "hardened:signal_self_allow:signal-same-sandbox",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        },
+        {
+          "scenario_id": "hardened:signal_self_deny:signal-same-sandbox",
+          "expectation_id": "hardened:signal_self_deny:signal-same-sandbox",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        }
+      ],
+      "scenarios": [
+        "hardened:signal_self_allow:signal-same-sandbox",
+        "hardened:signal_self_deny:signal-same-sandbox"
+      ],
+      "coverage_status": "ok"
+    },
+    "sysctl-read": {
+      "op_name": "sysctl-read",
+      "op_id": 155,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 3,
+      "matches": 3,
+      "mismatches": 0,
+      "probes_including_blocked": 3,
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "examples": [
+        {
+          "scenario_id": "hardened:sysctl_read:deny-kern-osrelease",
+          "expectation_id": "hardened:sysctl_read:deny-kern-osrelease",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        },
+        {
+          "scenario_id": "hardened:sysctl_read:deny-kern-bootargs",
+          "expectation_id": "hardened:sysctl_read:deny-kern-bootargs",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        },
+        {
+          "scenario_id": "hardened:sysctl_read_allow:allow-kern-ostype",
+          "expectation_id": "hardened:sysctl_read_allow:allow-kern-ostype",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        }
+      ],
+      "scenarios": [
+        "hardened:sysctl_read:deny-kern-bootargs",
+        "hardened:sysctl_read:deny-kern-osrelease",
+        "hardened:sysctl_read_allow:allow-kern-ostype"
+      ],
+      "coverage_status": "ok"
+    }
+  }
+}

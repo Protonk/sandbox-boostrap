@@ -24,6 +24,15 @@ SENTINELS = {
         "normalizer_id": "offset_inst_scan_normalizer_v1",
         "ghidra_version": "11.4.2",
     },
+    "kernel_collection_symbols_canary": {
+        "fixture_path": "book/tests/fixtures/ghidra_canonical/kernel_collection_symbols_canary.json",
+        "meta_path": "book/tests/fixtures/ghidra_canonical/kernel_collection_symbols_canary.meta.json",
+        "output_path": "dumps/ghidra/out/14.4.1-23E224/kernel-collection-symbols/symbols.json",
+        "script_path": "book/api/ghidra/scripts/kernel_symbols.py",
+        "program_path": "dumps/Sandbox-private/14.4.1-23E224/kernel/BootKernelCollection.kc",
+        "normalizer_id": "kernel_symbols_normalizer_v1",
+        "ghidra_version": "11.4.2",
+    },
 }
 
 
@@ -36,7 +45,12 @@ def _sha256_path(path: Path) -> str:
 
 
 def _hex_int(value: str) -> int:
-    return int(str(value), 16)
+    if value is None:
+        return 0
+    text = str(value).strip().lower()
+    if text.startswith("0x-"):
+        text = "-0x" + text[3:]
+    return int(text, 16)
 
 
 def _bool_str(value: bool) -> str:
@@ -66,6 +80,33 @@ def _normalize_offset_inst_scan(payload: dict) -> dict:
     return {"meta": meta, "hits": hits_sorted}
 
 
+def _normalize_kernel_symbols(payload: dict) -> dict:
+    meta = dict(payload.get("meta", {}))
+    symbols = list(payload.get("symbols", []))
+    block_filter = list(meta.get("block_filter") or [])
+
+    def block_key(entry: dict) -> tuple[int, int, str]:
+        start = entry.get("start")
+        end = entry.get("end")
+        name = entry.get("name") or ""
+        return (_hex_int(start) if start else 0, _hex_int(end) if end else 0, name)
+
+    meta["block_filter"] = sorted(block_filter, key=block_key)
+
+    def symbol_key(entry: dict) -> tuple[str, int, str, str, str, int]:
+        name = entry.get("name") or ""
+        addr = entry.get("address")
+        addr_val = _hex_int(addr) if addr else 0
+        namespace = entry.get("namespace") or ""
+        sym_type = entry.get("type") or ""
+        block = entry.get("block") or ""
+        size = entry.get("function_size") or 0
+        return (name, addr_val, namespace, sym_type, block, size)
+
+    symbols_sorted = sorted(symbols, key=symbol_key)
+    return {"meta": meta, "symbols": symbols_sorted}
+
+
 def _build_profile_id(meta: dict) -> str:
     return (
         "kernel_offset_inst_scan:offset=%s:write=%s:all=%s:exact=%s:canonical=%s:classify=%s:skip_stack=%s"
@@ -79,6 +120,17 @@ def _build_profile_id(meta: dict) -> str:
             _bool_str(bool(meta.get("skip_stack"))),
         )
     )
+
+
+def _build_symbols_profile_id(meta: dict) -> str:
+    blocks = meta.get("block_filter") or []
+    mode = "all"
+    for block in blocks:
+        name = block.get("name") or ""
+        if "sandbox" in name.lower():
+            mode = "sandbox"
+            break
+    return "kernel_symbols:block_mode=%s:blocks=%d" % (mode, len(blocks))
 
 
 def _load_json(path: Path) -> dict:
@@ -144,12 +196,25 @@ def refresh(name: str) -> None:
     if provenance.get("schema_version") != PROVENANCE_SCHEMA_VERSION:
         raise SystemExit("output provenance schema_version mismatch; re-run the Ghidra task first")
 
-    normalized = _normalize_offset_inst_scan(output_payload)
+    normalizer_id = entry.get("normalizer_id") or name
+    if normalizer_id == "offset_inst_scan_normalizer_v1":
+        normalized = _normalize_offset_inst_scan(output_payload)
+    elif normalizer_id == "kernel_symbols_normalizer_v1":
+        normalized = _normalize_kernel_symbols(output_payload)
+    else:
+        raise SystemExit(f"no normalizer registered for sentinel {name} (normalizer_id={normalizer_id})")
     _write_json(paths["fixture"], normalized)
 
     world_path = repo_root / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world.json"
     world = _load_json(world_path)
-    profile_id = provenance.get("analysis", {}).get("profile_id") or _build_profile_id(normalized["meta"])
+    profile_id = provenance.get("analysis", {}).get("profile_id")
+    if not profile_id:
+        if normalizer_id == "offset_inst_scan_normalizer_v1":
+            profile_id = _build_profile_id(normalized["meta"])
+        elif normalizer_id == "kernel_symbols_normalizer_v1":
+            profile_id = _build_symbols_profile_id(normalized["meta"])
+        else:
+            profile_id = "unknown"
 
     meta = {
         "meta_schema_version": META_SCHEMA_VERSION,

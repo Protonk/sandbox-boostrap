@@ -1,0 +1,341 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "tier": "mapped",
+    "source_jobs": [],
+    "notes": "scenario-level runtime summaries"
+  },
+  "phase_histograms": {
+    "overall": {
+      "total": 8,
+      "stages": {
+        "apply": 0,
+        "bootstrap": 0,
+        "preflight": 0,
+        "probe": 8
+      },
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "probe": {
+        "total": 8,
+        "allow": 0,
+        "deny": 8,
+        "mismatches": 4
+      }
+    },
+    "by_family": {
+      "iokit_open": {
+        "total": 8,
+        "stages": {
+          "apply": 0,
+          "bootstrap": 0,
+          "preflight": 0,
+          "probe": 8
+        },
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "probe": {
+          "total": 8,
+          "allow": 0,
+          "deny": 8,
+          "mismatches": 4
+        }
+      }
+    }
+  },
+  "scenarios": {
+    "anchor-filter-map:iokit_class:S0_allow_any": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "anchor-filter-map:iokit_class:S0_allow_any",
+      "expectations": [
+        {
+          "expectation_id": "anchor-filter-map:iokit_class:S0_allow_any",
+          "profile_id": "anchor-filter-map:iokit_class:S0_allow_any",
+          "operation": "iokit-open-service",
+          "target": "IOUSBHostInterface",
+          "expected": "allow",
+          "probe_name": "S0_allow_any"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "anchor-filter-map:iokit_class:S0_allow_any",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "iokit-open-service",
+          "target": "IOUSBHostInterface",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": ""
+        }
+      ],
+      "impact": null,
+      "scenario_id": "anchor-filter-map:iokit_class:S0_allow_any"
+    },
+    "anchor-filter-map:iokit_class:S1_allow_class": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "anchor-filter-map:iokit_class:S1_allow_class",
+      "expectations": [
+        {
+          "expectation_id": "anchor-filter-map:iokit_class:S1_allow_class",
+          "profile_id": "anchor-filter-map:iokit_class:S1_allow_class",
+          "operation": "iokit-open-service",
+          "target": "IOUSBHostInterface",
+          "expected": "allow",
+          "probe_name": "S1_allow_class"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "anchor-filter-map:iokit_class:S1_allow_class",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "iokit-open-service",
+          "target": "IOUSBHostInterface",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": ""
+        }
+      ],
+      "impact": null,
+      "scenario_id": "anchor-filter-map:iokit_class:S1_allow_class"
+    },
+    "anchor-filter-map:iokit_class:S2_allow_property_literal": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "anchor-filter-map:iokit_class:S2_allow_property_literal",
+      "expectations": [
+        {
+          "expectation_id": "anchor-filter-map:iokit_class:S2_allow_property_literal",
+          "profile_id": "anchor-filter-map:iokit_class:S2_allow_property_literal",
+          "operation": "iokit-open-service",
+          "target": "IOUSBHostInterface",
+          "expected": "allow",
+          "probe_name": "S2_allow_property_literal"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "anchor-filter-map:iokit_class:S2_allow_property_literal",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "iokit-open-service",
+          "target": "IOUSBHostInterface",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": ""
+        }
+      ],
+      "impact": null,
+      "scenario_id": "anchor-filter-map:iokit_class:S2_allow_property_literal"
+    },
+    "anchor-filter-map:iokit_class:S3_allow_both": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "anchor-filter-map:iokit_class:S3_allow_both",
+      "expectations": [
+        {
+          "expectation_id": "anchor-filter-map:iokit_class:S3_allow_both",
+          "profile_id": "anchor-filter-map:iokit_class:S3_allow_both",
+          "operation": "iokit-open-service",
+          "target": "IOUSBHostInterface",
+          "expected": "allow",
+          "probe_name": "S3_allow_both"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "anchor-filter-map:iokit_class:S3_allow_both",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "iokit-open-service",
+          "target": "IOUSBHostInterface",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": ""
+        }
+      ],
+      "impact": null,
+      "scenario_id": "anchor-filter-map:iokit_class:S3_allow_both"
+    },
+    "anchor-filter-map:iokit_class:N1_deny_default": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "anchor-filter-map:iokit_class:N1_deny_default",
+      "expectations": [
+        {
+          "expectation_id": "anchor-filter-map:iokit_class:N1_deny_default",
+          "profile_id": "anchor-filter-map:iokit_class:N1_deny_default",
+          "operation": "iokit-open-service",
+          "target": "IOUSBHostInterface",
+          "expected": "deny",
+          "probe_name": "N1_deny_default"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "anchor-filter-map:iokit_class:N1_deny_default"
+    },
+    "anchor-filter-map:iokit_class:bogus_baseline": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "anchor-filter-map:iokit_class:N1_deny_default",
+      "expectations": [
+        {
+          "expectation_id": "anchor-filter-map:iokit_class:bogus_baseline",
+          "profile_id": "anchor-filter-map:iokit_class:N1_deny_default",
+          "operation": "iokit-open-service",
+          "target": "IOSandboxLoreAnchorFilterBogus",
+          "expected": "deny",
+          "probe_name": "bogus_baseline"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "anchor-filter-map:iokit_class:bogus_baseline"
+    },
+    "anchor-filter-map:iokit_class:C1_deny_class": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "anchor-filter-map:iokit_class:C1_deny_class",
+      "expectations": [
+        {
+          "expectation_id": "anchor-filter-map:iokit_class:C1_deny_class",
+          "profile_id": "anchor-filter-map:iokit_class:C1_deny_class",
+          "operation": "iokit-open-service",
+          "target": "IOUSBHostInterface",
+          "expected": "deny",
+          "probe_name": "C1_deny_class"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "anchor-filter-map:iokit_class:C1_deny_class"
+    },
+    "anchor-filter-map:iokit_class:C2_deny_property_literal": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "anchor-filter-map:iokit_class:C2_deny_property_literal",
+      "expectations": [
+        {
+          "expectation_id": "anchor-filter-map:iokit_class:C2_deny_property_literal",
+          "profile_id": "anchor-filter-map:iokit_class:C2_deny_property_literal",
+          "operation": "iokit-open-service",
+          "target": "IOUSBHostInterface",
+          "expected": "deny",
+          "probe_name": "C2_deny_property_literal"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "anchor-filter-map:iokit_class:C2_deny_property_literal"
+    }
+  }
+}

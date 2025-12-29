@@ -28,6 +28,9 @@ The shape tests are best-effort: if the referenced output files are missing
 Strict shapes are enforced by `book/tests/test_ghidra_output_shapes_strict_gate.py`.
 Setting `GHIDRA_STRICT_SHAPES=1` additionally runs the optional strict test.
 
-Maintenance tooling:
-- `python -m book.api.ghidra.shape_catalog_hygiene --report book/tests/fixtures/ghidra_shapes/catalog_report.json`
-  (reports orphan snapshots, missing snapshots, duplicate shapes, and family coverage).
+## Workflow (single-path commands)
+
+- Run tests: `make -C book test`
+- Refresh canonical sentinel: `python -m book.api.ghidra.refresh_canonical --name offset_inst_scan_0xc0_write_classify`
+- Maintenance hygiene: `python -m book.api.ghidra.shape_catalog_hygiene --report book/tests/fixtures/ghidra_shapes/catalog_report.json`
+  - Add `--fail-on-issues` for a non-zero exit when issues are found.

@@ -1,0 +1,125 @@
+{
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "profiles": {
+    "anchor-filter-map:iokit_class:S0_allow_any": {
+      "blob": "book/experiments/anchor-filter-map/sb/iokit_open_deny_default.sb",
+      "mode": "sbpl",
+      "family": "iokit_open",
+      "semantic_group": "iokit:predicate-discriminator",
+      "probes": [
+        {
+          "name": "S0_allow_any",
+          "operation": "iokit-open-service",
+          "target": "IOUSBHostInterface",
+          "expected": "allow",
+          "expectation_id": "anchor-filter-map:iokit_class:S0_allow_any",
+          "driver": "sandbox_iokit_probe"
+        }
+      ]
+    },
+    "anchor-filter-map:iokit_class:S1_allow_class": {
+      "blob": "book/experiments/anchor-filter-map/sb/iokit_open_deny_default.sb",
+      "mode": "sbpl",
+      "family": "iokit_open",
+      "semantic_group": "iokit:predicate-discriminator",
+      "probes": [
+        {
+          "name": "S1_allow_class",
+          "operation": "iokit-open-service",
+          "target": "IOUSBHostInterface",
+          "expected": "allow",
+          "expectation_id": "anchor-filter-map:iokit_class:S1_allow_class",
+          "driver": "sandbox_iokit_probe"
+        }
+      ]
+    },
+    "anchor-filter-map:iokit_class:S2_allow_property_literal": {
+      "blob": "book/experiments/anchor-filter-map/sb/iokit_open_deny_default.sb",
+      "mode": "sbpl",
+      "family": "iokit_open",
+      "semantic_group": "iokit:predicate-discriminator",
+      "probes": [
+        {
+          "name": "S2_allow_property_literal",
+          "operation": "iokit-open-service",
+          "target": "IOUSBHostInterface",
+          "expected": "allow",
+          "expectation_id": "anchor-filter-map:iokit_class:S2_allow_property_literal",
+          "driver": "sandbox_iokit_probe"
+        }
+      ]
+    },
+    "anchor-filter-map:iokit_class:S3_allow_both": {
+      "blob": "book/experiments/anchor-filter-map/sb/iokit_open_deny_default.sb",
+      "mode": "sbpl",
+      "family": "iokit_open",
+      "semantic_group": "iokit:predicate-discriminator",
+      "probes": [
+        {
+          "name": "S3_allow_both",
+          "operation": "iokit-open-service",
+          "target": "IOUSBHostInterface",
+          "expected": "allow",
+          "expectation_id": "anchor-filter-map:iokit_class:S3_allow_both",
+          "driver": "sandbox_iokit_probe"
+        }
+      ]
+    },
+    "anchor-filter-map:iokit_class:N1_deny_default": {
+      "blob": "book/experiments/anchor-filter-map/sb/iokit_open_deny_default.sb",
+      "mode": "sbpl",
+      "family": "iokit_open",
+      "semantic_group": "iokit:predicate-discriminator",
+      "probes": [
+        {
+          "name": "N1_deny_default",
+          "operation": "iokit-open-service",
+          "target": "IOUSBHostInterface",
+          "expected": "deny",
+          "expectation_id": "anchor-filter-map:iokit_class:N1_deny_default",
+          "driver": "sandbox_iokit_probe"
+        },
+        {
+          "name": "bogus_baseline",
+          "operation": "iokit-open-service",
+          "target": "IOSandboxLoreAnchorFilterBogus",
+          "expected": "deny",
+          "expectation_id": "anchor-filter-map:iokit_class:bogus_baseline",
+          "driver": "sandbox_iokit_probe"
+        }
+      ]
+    },
+    "anchor-filter-map:iokit_class:C1_deny_class": {
+      "blob": "book/experiments/anchor-filter-map/sb/iokit_open_allow_default.sb",
+      "mode": "sbpl",
+      "family": "iokit_open",
+      "semantic_group": "iokit:mapping-fidelity",
+      "probes": [
+        {
+          "name": "C1_deny_class",
+          "operation": "iokit-open-service",
+          "target": "IOUSBHostInterface",
+          "expected": "deny",
+          "expectation_id": "anchor-filter-map:iokit_class:C1_deny_class",
+          "driver": "sandbox_iokit_probe"
+        }
+      ]
+    },
+    "anchor-filter-map:iokit_class:C2_deny_property_literal": {
+      "blob": "book/experiments/anchor-filter-map/sb/iokit_open_allow_default.sb",
+      "mode": "sbpl",
+      "family": "iokit_open",
+      "semantic_group": "iokit:mapping-fidelity",
+      "probes": [
+        {
+          "name": "C2_deny_property_literal",
+          "operation": "iokit-open-service",
+          "target": "IOUSBHostInterface",
+          "expected": "deny",
+          "expectation_id": "anchor-filter-map:iokit_class:C2_deny_property_literal",
+          "driver": "sandbox_iokit_probe"
+        }
+      ]
+    }
+  }
+}

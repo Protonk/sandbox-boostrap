@@ -1,0 +1,42 @@
+{
+  "analysis": {
+    "profile_id": "kernel_symbols:block_mode=all:blocks=5006"
+  },
+  "generator": {
+    "deps": [
+      {
+        "path": "book/api/ghidra/ghidra_lib/__init__.py",
+        "sha256": "370d9f181451a045c47be360e0b432cfe2132bc4e449a8ba5823a746fc2f16cc"
+      },
+      {
+        "path": "book/api/ghidra/ghidra_lib/node_scan_utils.py",
+        "sha256": "6d4a6b4805a05012ce10a892af9fe89068e105b21f3e31c9b1921346dd491ee6"
+      },
+      {
+        "path": "book/api/ghidra/ghidra_lib/scan_utils.py",
+        "sha256": "3d30421dfdcf1acd28f7d2c7f800e5c01938b248bec9cb92c4ff595e12a8ff8e"
+      },
+      {
+        "path": "book/api/ghidra/scripts/ghidra_bootstrap.py",
+        "sha256": "e06f33de471648fb124b74a6e4d98a779c7e0be265aaf1fba8f8b00a0f59a9a4"
+      }
+    ],
+    "runner_version": "book.api.ghidra.scaffold",
+    "script_content_sha256": "5ca594c4c5d0fac019f81a8a549331e57f4dc2cdba8df604ea5f842ffa2a9475",
+    "script_path": "book/api/ghidra/scripts/kernel_symbols.py"
+  },
+  "ghidra": {
+    "version": "11.4.2"
+  },
+  "input": {
+    "program_path": "dumps/Sandbox-private/14.4.1-23E224/kernel/BootKernelCollection.kc",
+    "program_sha256": "0a3f694514bb0accbc82c5b869bb6896a0fa4a09af1537e9d1ccf26350366b54"
+  },
+  "meta_schema_version": 1,
+  "normalizer_id": "kernel_symbols_normalizer_v1",
+  "output": {
+    "normalized_sha256": "b009b04c5afe0b447991bb691a48eab5417fe0abcb2607ebcc1de4a087196df8",
+    "path": "dumps/ghidra/out/14.4.1-23E224/kernel-collection-symbols/symbols.json"
+  },
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

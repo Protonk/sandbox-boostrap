@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
 from typing import Dict, List, Optional
 
@@ -185,6 +186,12 @@ def main(argv: Optional[List[str]] = None) -> int:
     issues = report.get("issues", {})
     has_issues = any(issues.get(key) for key in issues)
     if args.fail_on_issues and has_issues:
+        print(
+            "catalog issues detected; generate a baseline report with: "
+            "python -m book.api.ghidra.shape_catalog_hygiene "
+            "--report book/tests/fixtures/ghidra_shapes/catalog_report.json",
+            file=sys.stderr,
+        )
         return 1
     return 0
 

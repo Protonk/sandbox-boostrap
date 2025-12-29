@@ -7,6 +7,15 @@ We use lightweight sanity checks across the examples, validation utilities, and 
 - Single entrypoint: `make -C book test` (Python harness + Swift build). This is the only supported runner.
   - This run includes the Ghidra shape checks, the strict-gate, and the canonical sentinel.
 
+## Ghidra guardrails (single-path commands)
+
+- Run tests: `make -C book test`
+- Refresh canonical sentinel: `python -m book.api.ghidra.refresh_canonical --name <sentinel_name>`
+  - `offset_inst_scan_0xc0_write_classify`
+  - `kernel_collection_symbols_canary`
+- Maintenance hygiene: `python -m book.api.ghidra.shape_catalog_hygiene --report book/tests/fixtures/ghidra_shapes/catalog_report.json`
+  - Add `--fail-on-issues` for a non-zero exit when issues are found.
+
 ## Structure
 
 - `test_smoke.py`: import/sanity checks for core modules.

@@ -15,7 +15,8 @@ Interfaces:
 - Scripts live in `book/api/ghidra/scripts/`; `dumps/ghidra/scripts/` are redirectors only.
 - Import ghidra helpers via `from ghidra_bootstrap import scan_utils` (or `node_scan_utils`) to keep path wiring consistent.
 - Use `python -m book.api.ghidra.shape_manifest_prune --manifest book/tests/fixtures/ghidra_shapes/manifest.json --report book/tests/fixtures/ghidra_shapes/prune_report.json --write --expand` to prune and re-seed shape coverage from existing outputs.
-- Optional strict gating uses `book/tests/fixtures/ghidra_shapes/manifest.strict.json`; run with `GHIDRA_STRICT_SHAPES=1`.
+- Strict gating uses `book/tests/fixtures/ghidra_shapes/manifest.strict.json` via `book/tests/test_ghidra_output_shapes_strict_gate.py`.
+  Setting `GHIDRA_STRICT_SHAPES=1` additionally runs the optional strict test.
 
 Tasks (examples; see `TaskRegistry.default()` for the full set):
 - `kernel-symbols` (fast, `--no-analysis` OK): dump sandbox symbols/strings; outputs also mirrored to `book/experiments/kernel-symbols/out/<build>/...`.
@@ -54,6 +55,15 @@ Workflow helpers (scripts in `book/api/ghidra/scripts/`):
 Catalog maintenance:
 - `python -m book.api.ghidra.shape_catalog_hygiene` – report orphan snapshots, missing fixtures,
   duplicate shapes, and family coverage (driven by `book/tests/fixtures/ghidra_shapes/families.json`).
+
+## Workflow (single-path commands)
+
+- Run tests: `make -C book test`
+- Refresh canonical sentinel: `python -m book.api.ghidra.refresh_canonical --name <sentinel_name>`
+  - `offset_inst_scan_0xc0_write_classify`
+  - `kernel_collection_symbols_canary`
+- Maintenance hygiene: `python -m book.api.ghidra.shape_catalog_hygiene --report book/tests/fixtures/ghidra_shapes/catalog_report.json`
+  - Add `--fail-on-issues` for a non-zero exit when issues are found.
 
 Tag-switch triage (rolled up from the former `dumps/ghidra/Tag_triage.md`):
 - Run with full analysis (no `--no-analysis`) so functions/computed jumps exist.
