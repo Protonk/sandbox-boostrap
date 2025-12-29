@@ -34,7 +34,6 @@ from book.api.profile_tools import decoder  # type: ignore
 from book.api.profile_tools import digests as digests_mod  # type: ignore
 
 ANCHOR_FIELD2_MAP_PATH = REPO_ROOT / "book/graph/mappings/anchors/anchor_field2_map.json"
-LEGACY_ANCHOR_MAP_PATH = REPO_ROOT / "book/graph/mappings/anchors/anchor_filter_map.json"
 FILTER_VOCAB_PATH = REPO_ROOT / "book/graph/mappings/vocab/filters.json"
 OUT_PATH = REPO_ROOT / "book/graph/mappings/anchors/anchor_ctx_filter_map.json"
 
@@ -101,20 +100,24 @@ def _stable_ctx_id(
 
 def _iter_curated_literals(seed_doc: Dict[str, Any], field2_doc: Dict[str, Any]) -> Iterable[str]:
     """
-    During migration, prefer an existing ctx map's literal inventory if present.
-    Otherwise, seed from the legacy literal-keyed anchor map.
+    Prefer literals already present in the ctx map, but allow new anchors
+    from the anchor_field2_map to extend the curated set.
     """
 
+    seen: Set[str] = set()
     if seed_doc:
         for entry in (seed_doc.get("entries") or {}).values():
             if isinstance(entry, dict) and isinstance(entry.get("literal"), str):
-                yield entry["literal"]
-        return
+                literal = entry["literal"]
+                if literal not in seen:
+                    seen.add(literal)
+                    yield literal
 
     for literal, entry in field2_doc.items():
-        if literal == "metadata":
+        if literal == "metadata" or literal in seen:
             continue
         if isinstance(entry, dict):
+            seen.add(literal)
             yield literal
 
 
@@ -122,10 +125,8 @@ def main() -> None:
     baseline_world_id = _baseline_world_id()
     filter_names = _filter_id_to_name()
     anchor_field2_map = _load_json(ANCHOR_FIELD2_MAP_PATH)
-    legacy = _load_json(LEGACY_ANCHOR_MAP_PATH) if LEGACY_ANCHOR_MAP_PATH.exists() else {}
-
     existing_ctx: Dict[str, Any] = _load_json(OUT_PATH) if OUT_PATH.exists() else {}
-    curated_literals = sorted(set(_iter_curated_literals(existing_ctx, legacy)))
+    curated_literals = sorted(set(_iter_curated_literals(existing_ctx, anchor_field2_map)))
 
     # Decode each referenced profile once.
     decode_cache: Dict[str, Dict[str, Any]] = {}
@@ -245,4 +246,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

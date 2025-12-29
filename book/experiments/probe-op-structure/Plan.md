@@ -7,8 +7,8 @@ analysis produce the expected allow/deny outcomes under SBPL on this host.
 ## Baseline & scope
 - World: `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
 - Scope: file-read* (`/tmp/foo`, `/etc/hosts`), mach-lookup
-  (`com.apple.cfprefsd.agent`), and iokit-open-service
-  (`IOUSBHostInterface`).
+  (`com.apple.cfprefsd.agent`), and iokit-open* anchors
+  (`IOUSBHostInterface`, `IOSurfaceRootUserClient`).
 - Evidence tier: runtime results are hypothesis/partial unless clean,
   decision-stage outcomes are observed.
 
@@ -17,6 +17,7 @@ analysis produce the expected allow/deny outcomes under SBPL on this host.
   - `v1_file_require_any.sb`
   - `v3_mach_global_local.sb`
   - `v5_iokit_class_property.sb`
+  - `v9_iokit_user_client_only.sb`
 - Runtime harness: `python -m book.api.runtime run`.
 
 ## Outputs

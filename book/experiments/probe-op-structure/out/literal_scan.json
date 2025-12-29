@@ -25,9 +25,9 @@
   },
   "v1_file_require_any": {
     "op_count": 7,
-    "nodes_len": 388,
-    "literal_len": 73,
-    "literal_start": 418,
+    "nodes_len": 431,
+    "literal_len": 56,
+    "literal_start": 461,
     "anchors": [
       {
         "anchor": "/tmp/foo",
@@ -41,17 +41,17 @@
       }
     ],
     "tag_counts": {
-      "6": 25,
+      "6": 27,
       "5": 5,
       "0": 1,
-      "1": 1
+      "1": 2
     }
   },
   "v2_file_three_filters_any": {
     "op_count": 6,
-    "nodes_len": 365,
-    "literal_len": 106,
-    "literal_start": 393,
+    "nodes_len": 425,
+    "literal_len": 72,
+    "literal_start": 453,
     "anchors": [
       {
         "anchor": "/tmp/foo",
@@ -70,86 +70,127 @@
       }
     ],
     "tag_counts": {
-      "4": 6,
-      "5": 22,
+      "4": 7,
+      "5": 23,
       "1": 1,
-      "0": 1
+      "0": 4
     }
   },
   "v3_mach_global_local": {
     "op_count": 7,
-    "nodes_len": 375,
-    "literal_len": 82,
-    "literal_start": 405,
+    "nodes_len": 428,
+    "literal_len": 29,
+    "literal_start": 458,
     "anchors": [
       {
         "anchor": "com.apple.cfprefsd.agent",
         "offsets": [
-          54
+          1
         ],
-        "hits": []
+        "hits": [
+          95,
+          186,
+          190,
+          194,
+          205
+        ]
       }
     ],
     "tag_counts": {
-      "6": 25,
+      "6": 27,
       "5": 5,
-      "0": 1
+      "0": 2,
+      "1": 1
     }
   },
   "v4_network_socket_require_all": {
     "op_count": 9,
-    "nodes_len": 392,
-    "literal_len": 74,
-    "literal_start": 426,
+    "nodes_len": 440,
+    "literal_len": 26,
+    "literal_start": 474,
     "anchors": [
       {
         "anchor": "flow-divert",
         "offsets": [
-          59
+          11
         ],
         "hits": []
       }
     ],
     "tag_counts": {
-      "8": 20,
+      "8": 22,
       "7": 9,
       "0": 2,
-      "1": 1
+      "1": 3
     }
   },
   "v5_iokit_class_property": {
     "op_count": 7,
-    "nodes_len": 377,
-    "literal_len": 96,
-    "literal_start": 407,
+    "nodes_len": 428,
+    "literal_len": 45,
+    "literal_start": 458,
     "anchors": [
       {
         "anchor": "IOUSBHostInterface",
         "offsets": [
-          52
+          1
         ],
-        "hits": []
+        "hits": [
+          95,
+          186,
+          190,
+          194,
+          205
+        ]
       },
       {
         "anchor": "idVendor",
         "offsets": [
-          84
+          33
         ],
         "hits": []
       }
     ],
     "tag_counts": {
-      "6": 24,
+      "6": 26,
       "5": 5,
       "3": 1,
-      "0": 1
+      "0": 2,
+      "1": 1
+    }
+  },
+  "v9_iokit_user_client_only": {
+    "op_count": 6,
+    "nodes_len": 422,
+    "literal_len": 28,
+    "literal_start": 450,
+    "anchors": [
+      {
+        "anchor": "IOSurfaceRootUserClient",
+        "offsets": [
+          1
+        ],
+        "hits": [
+          96,
+          187,
+          191,
+          195,
+          202
+        ]
+      }
+    ],
+    "tag_counts": {
+      "4": 7,
+      "5": 23,
+      "1": 1,
+      "0": 4
     }
   },
   "v6_file_mach_combo": {
     "op_count": 6,
-    "nodes_len": 365,
-    "literal_len": 86,
-    "literal_start": 393,
+    "nodes_len": 422,
+    "literal_len": 29,
+    "literal_start": 450,
     "anchors": [
       {
         "anchor": "/tmp/foo",
@@ -164,23 +205,29 @@
       {
         "anchor": "com.apple.cfprefsd.agent",
         "offsets": [
-          58
+          1
         ],
-        "hits": []
+        "hits": [
+          96,
+          187,
+          191,
+          195,
+          202
+        ]
       }
     ],
     "tag_counts": {
-      "4": 6,
-      "5": 22,
+      "4": 7,
+      "5": 23,
       "1": 1,
-      "0": 1
+      "0": 4
     }
   },
   "v7_file_network_combo": {
     "op_count": 9,
-    "nodes_len": 392,
-    "literal_len": 74,
-    "literal_start": 426,
+    "nodes_len": 440,
+    "literal_len": 26,
+    "literal_start": 474,
     "anchors": [
       {
         "anchor": "/tmp/foo",
@@ -195,23 +242,23 @@
       {
         "anchor": "flow-divert",
         "offsets": [
-          59
+          11
         ],
         "hits": []
       }
     ],
     "tag_counts": {
-      "8": 20,
+      "8": 22,
       "7": 9,
       "0": 2,
-      "1": 1
+      "1": 3
     }
   },
   "v8_all_combo": {
     "op_count": 13,
-    "nodes_len": 424,
-    "literal_len": 170,
-    "literal_start": 466,
+    "nodes_len": 467,
+    "literal_len": 151,
+    "literal_start": 509,
     "anchors": [
       {
         "anchor": "/tmp/foo",
@@ -226,33 +273,33 @@
       {
         "anchor": "IOUSBHostInterface",
         "offsets": [
-          81
+          62
         ],
         "hits": []
       },
       {
         "anchor": "com.apple.cfprefsd.agent",
         "offsets": [
-          113
+          94
         ],
         "hits": []
       },
       {
         "anchor": "flow-divert",
         "offsets": [
-          155
+          136
         ],
         "hits": []
       }
     ],
     "tag_counts": {
-      "12": 25,
+      "12": 27,
       "11": 5,
       "8": 1,
       "4": 1,
-      "13": 1,
+      "16": 1,
       "6": 1,
-      "1": 1
+      "1": 2
     }
   }
 }

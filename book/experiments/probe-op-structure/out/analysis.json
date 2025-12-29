@@ -1,34 +1,49 @@
 {
   "probe:v0_file_require_all": {
     "op_count_decoded": 5,
-    "node_count": 32,
+    "node_count": 48,
     "field2": [
       {
         "value": 4,
-        "count": 21,
+        "count": 30,
         "name": "ipc-posix-name"
       },
       {
         "value": 3,
-        "count": 11,
+        "count": 15,
         "name": "file-mode"
+      },
+      {
+        "value": 3584,
+        "count": 2,
+        "name": null
+      },
+      {
+        "value": 0,
+        "count": 1,
+        "name": "path"
       }
     ],
     "literal_strings_sample": []
   },
   "probe:v1_file_require_any": {
     "op_count_decoded": 7,
-    "node_count": 31,
+    "node_count": 53,
     "field2": [
       {
         "value": 6,
-        "count": 17,
+        "count": 31,
         "name": "local-name"
       },
       {
         "value": 5,
-        "count": 12,
+        "count": 17,
         "name": "global-name"
+      },
+      {
+        "value": 0,
+        "count": 3,
+        "name": "path"
       },
       {
         "value": 3,
@@ -36,60 +51,89 @@
         "name": "file-mode"
       },
       {
-        "value": 0,
+        "value": 1,
         "count": 1,
-        "name": "path"
+        "name": "mount-relative-path"
       }
     ],
     "literal_strings_sample": [
-      "Ftmp/foo",
-      "\nHetc/hosts"
+      "Hetc/hosts",
+      "\nCtmp/",
+      "Bfoo",
+      "\nNanchor-scan-pad"
     ]
   },
   "probe:v2_file_three_filters_any": {
     "op_count_decoded": 6,
-    "node_count": 30,
+    "node_count": 53,
     "field2": [
       {
         "value": 5,
-        "count": 20,
+        "count": 32,
         "name": "global-name"
       },
       {
         "value": 4,
-        "count": 9,
+        "count": 11,
         "name": "ipc-posix-name"
+      },
+      {
+        "value": 0,
+        "count": 4,
+        "name": "path"
+      },
+      {
+        "value": 1,
+        "count": 3,
+        "name": "mount-relative-path"
       },
       {
         "value": 3,
         "count": 1,
         "name": "file-mode"
+      },
+      {
+        "value": 2,
+        "count": 1,
+        "name": "xattr"
+      },
+      {
+        "value": 12096,
+        "count": 1,
+        "name": null
       }
     ],
     "literal_strings_sample": [
-      "Ftmp/foo",
-      "\nFvar/log",
-      "\nHetc/hosts"
+      "Fvar/log",
+      "\nHetc/hosts",
+      "\nCtmp/",
+      "Bfoo",
+      "\nNanchor-scan-pad"
     ]
   },
   "probe:v3_mach_global_local": {
     "op_count_decoded": 7,
-    "node_count": 31,
+    "node_count": 53,
     "field2": [
       {
         "value": 6,
-        "count": 18,
+        "count": 32,
         "name": "local-name"
       },
       {
         "value": 5,
-        "count": 12,
+        "count": 17,
         "name": "global-name"
       },
       {
         "value": 0,
-        "count": 1,
+        "count": 3,
         "name": "path"
+      },
+      {
+        "value": 1,
+        "count": 1,
+        "name": "mount-relative-path"
       }
     ],
     "literal_strings_sample": [
@@ -98,22 +142,22 @@
   },
   "probe:v4_network_socket_require_all": {
     "op_count_decoded": 9,
-    "node_count": 32,
+    "node_count": 55,
     "field2": [
       {
         "value": 8,
-        "count": 23,
+        "count": 30,
         "name": "remote"
       },
       {
         "value": 7,
-        "count": 5,
+        "count": 14,
         "name": "local"
       },
       {
-        "value": 5,
-        "count": 1,
-        "name": "global-name"
+        "value": 3584,
+        "count": 3,
+        "name": null
       },
       {
         "value": 4,
@@ -126,9 +170,34 @@
         "name": null
       },
       {
-        "value": 2,
+        "value": 2816,
         "count": 1,
-        "name": "xattr"
+        "name": null
+      },
+      {
+        "value": 3072,
+        "count": 1,
+        "name": null
+      },
+      {
+        "value": 3328,
+        "count": 1,
+        "name": null
+      },
+      {
+        "value": 1,
+        "count": 1,
+        "name": "mount-relative-path"
+      },
+      {
+        "value": 1281,
+        "count": 1,
+        "name": null
+      },
+      {
+        "value": 26,
+        "count": 1,
+        "name": "right-name"
       }
     ],
     "literal_strings_sample": [
@@ -137,22 +206,37 @@
   },
   "probe:v5_iokit_class_property": {
     "op_count_decoded": 7,
-    "node_count": 31,
+    "node_count": 53,
     "field2": [
       {
         "value": 6,
-        "count": 18,
+        "count": 31,
         "name": "local-name"
       },
       {
         "value": 5,
-        "count": 12,
+        "count": 16,
         "name": "global-name"
       },
       {
         "value": 0,
-        "count": 1,
+        "count": 3,
         "name": "path"
+      },
+      {
+        "value": 3,
+        "count": 1,
+        "name": "file-mode"
+      },
+      {
+        "value": 1,
+        "count": 1,
+        "name": "mount-relative-path"
+      },
+      {
+        "value": 4,
+        "count": 1,
+        "name": "ipc-posix-name"
       }
     ],
     "literal_strings_sample": [
@@ -160,19 +244,68 @@
       "GidVendor"
     ]
   },
-  "probe:v6_file_mach_combo": {
+  "probe:v9_iokit_user_client_only": {
     "op_count_decoded": 6,
-    "node_count": 30,
+    "node_count": 52,
     "field2": [
       {
         "value": 5,
-        "count": 21,
+        "count": 33,
         "name": "global-name"
       },
       {
         "value": 4,
-        "count": 9,
+        "count": 11,
         "name": "ipc-posix-name"
+      },
+      {
+        "value": 0,
+        "count": 4,
+        "name": "path"
+      },
+      {
+        "value": 1,
+        "count": 3,
+        "name": "mount-relative-path"
+      },
+      {
+        "value": 2,
+        "count": 1,
+        "name": "xattr"
+      }
+    ],
+    "literal_strings_sample": [
+      "VIOSurfaceRootUserClient"
+    ]
+  },
+  "probe:v6_file_mach_combo": {
+    "op_count_decoded": 6,
+    "node_count": 52,
+    "field2": [
+      {
+        "value": 5,
+        "count": 33,
+        "name": "global-name"
+      },
+      {
+        "value": 4,
+        "count": 11,
+        "name": "ipc-posix-name"
+      },
+      {
+        "value": 0,
+        "count": 4,
+        "name": "path"
+      },
+      {
+        "value": 1,
+        "count": 3,
+        "name": "mount-relative-path"
+      },
+      {
+        "value": 2,
+        "count": 1,
+        "name": "xattr"
       }
     ],
     "literal_strings_sample": [
@@ -181,22 +314,22 @@
   },
   "probe:v7_file_network_combo": {
     "op_count_decoded": 9,
-    "node_count": 32,
+    "node_count": 55,
     "field2": [
       {
         "value": 8,
-        "count": 23,
+        "count": 30,
         "name": "remote"
       },
       {
         "value": 7,
-        "count": 5,
+        "count": 14,
         "name": "local"
       },
       {
-        "value": 5,
-        "count": 1,
-        "name": "global-name"
+        "value": 3584,
+        "count": 3,
+        "name": null
       },
       {
         "value": 4,
@@ -209,9 +342,34 @@
         "name": null
       },
       {
-        "value": 2,
+        "value": 2816,
         "count": 1,
-        "name": "xattr"
+        "name": null
+      },
+      {
+        "value": 3072,
+        "count": 1,
+        "name": null
+      },
+      {
+        "value": 3328,
+        "count": 1,
+        "name": null
+      },
+      {
+        "value": 1,
+        "count": 1,
+        "name": "mount-relative-path"
+      },
+      {
+        "value": 1281,
+        "count": 1,
+        "name": null
+      },
+      {
+        "value": 26,
+        "count": 1,
+        "name": "right-name"
       }
     ],
     "literal_strings_sample": [
@@ -220,11 +378,94 @@
   },
   "probe:v8_all_combo": {
     "op_count_decoded": 13,
-    "node_count": 0,
-    "field2": [],
+    "node_count": 58,
+    "field2": [
+      {
+        "value": 12,
+        "count": 28,
+        "name": "socket-protocol"
+      },
+      {
+        "value": 11,
+        "count": 14,
+        "name": "socket-type"
+      },
+      {
+        "value": 3584,
+        "count": 3,
+        "name": null
+      },
+      {
+        "value": 9,
+        "count": 1,
+        "name": "control-name"
+      },
+      {
+        "value": 4,
+        "count": 1,
+        "name": "ipc-posix-name"
+      },
+      {
+        "value": 2560,
+        "count": 1,
+        "name": null
+      },
+      {
+        "value": 2816,
+        "count": 1,
+        "name": null
+      },
+      {
+        "value": 3072,
+        "count": 1,
+        "name": null
+      },
+      {
+        "value": 3328,
+        "count": 1,
+        "name": null
+      },
+      {
+        "value": 1536,
+        "count": 1,
+        "name": null
+      },
+      {
+        "value": 4352,
+        "count": 1,
+        "name": null
+      },
+      {
+        "value": 7424,
+        "count": 1,
+        "name": null
+      },
+      {
+        "value": 256,
+        "count": 1,
+        "name": null
+      },
+      {
+        "value": 1,
+        "count": 1,
+        "name": "mount-relative-path"
+      },
+      {
+        "value": 1281,
+        "count": 1,
+        "name": null
+      },
+      {
+        "value": 59,
+        "count": 1,
+        "name": "iokit-usb-interface-class"
+      }
+    ],
     "literal_strings_sample": [
-      "Ftmp/foo",
-      "\nHetc/hosts",
+      "Hetc/hosts",
+      "\nCtmp/",
+      "Bfoo",
+      "\nNanchor-scan-pad",
       "QIOUSBHostInterface",
       "Wcom.apple.cfprefsd.agent",
       "Tcom.apple.flow-divert"
@@ -232,20 +473,200 @@
   },
   "sys:airlock": {
     "op_count_decoded": 167,
-    "node_count": 7,
+    "node_count": 176,
     "field2": [
       {
-        "value": 166,
-        "count": 5,
+        "value": 165,
+        "count": 97,
         "name": null
       },
       {
-        "value": 10752,
+        "value": 34,
+        "count": 13,
+        "name": "notification-name"
+      },
+      {
+        "value": 166,
+        "count": 9,
+        "name": null
+      },
+      {
+        "value": 0,
+        "count": 9,
+        "name": "path"
+      },
+      {
+        "value": 10,
+        "count": 7,
+        "name": "socket-domain"
+      },
+      {
+        "value": 49171,
+        "count": 6,
+        "name": null
+      },
+      {
+        "value": 164,
+        "count": 3,
+        "name": null
+      },
+      {
+        "value": 39,
+        "count": 1,
+        "name": "rootless-boot-device-filter"
+      },
+      {
+        "value": 4,
+        "count": 1,
+        "name": "ipc-posix-name"
+      },
+      {
+        "value": 16,
+        "count": 1,
+        "name": "iokit-registry-entry-class"
+      },
+      {
+        "value": 9,
+        "count": 1,
+        "name": "control-name"
+      },
+      {
+        "value": 35,
+        "count": 1,
+        "name": "notification-payload"
+      },
+      {
+        "value": 32,
+        "count": 1,
+        "name": "kext-bundle-id"
+      },
+      {
+        "value": 38,
+        "count": 1,
+        "name": "process-path"
+      },
+      {
+        "value": 118,
         "count": 1,
         "name": null
       },
       {
-        "value": 165,
+        "value": 99,
+        "count": 1,
+        "name": null
+      },
+      {
+        "value": 89,
+        "count": 1,
+        "name": "fileprovider-syncroot-path"
+      },
+      {
+        "value": 79,
+        "count": 1,
+        "name": "socket-option-name"
+      },
+      {
+        "value": 77,
+        "count": 1,
+        "name": "fcntl-command"
+      },
+      {
+        "value": 66,
+        "count": 1,
+        "name": "iokit-registry-entry-attribute"
+      },
+      {
+        "value": 59,
+        "count": 1,
+        "name": "iokit-usb-interface-class"
+      },
+      {
+        "value": 2,
+        "count": 1,
+        "name": "xattr"
+      },
+      {
+        "value": 48915,
+        "count": 1,
+        "name": null
+      },
+      {
+        "value": 121,
+        "count": 1,
+        "name": null
+      },
+      {
+        "value": 123,
+        "count": 1,
+        "name": null
+      },
+      {
+        "value": 145,
+        "count": 1,
+        "name": null
+      },
+      {
+        "value": 126,
+        "count": 1,
+        "name": null
+      },
+      {
+        "value": 128,
+        "count": 1,
+        "name": null
+      },
+      {
+        "value": 144,
+        "count": 1,
+        "name": null
+      },
+      {
+        "value": 131,
+        "count": 1,
+        "name": null
+      },
+      {
+        "value": 135,
+        "count": 1,
+        "name": null
+      },
+      {
+        "value": 134,
+        "count": 1,
+        "name": null
+      },
+      {
+        "value": 143,
+        "count": 1,
+        "name": null
+      },
+      {
+        "value": 142,
+        "count": 1,
+        "name": null
+      },
+      {
+        "value": 140,
+        "count": 1,
+        "name": null
+      },
+      {
+        "value": 141,
+        "count": 1,
+        "name": null
+      },
+      {
+        "value": 149,
+        "count": 1,
+        "name": null
+      },
+      {
+        "value": 158,
+        "count": 1,
+        "name": null
+      },
+      {
+        "value": 160,
         "count": 1,
         "name": null
       }
@@ -265,17 +686,27 @@
   },
   "sys:bsd": {
     "op_count_decoded": 28,
-    "node_count": 41,
+    "node_count": 69,
     "field2": [
       {
         "value": 27,
-        "count": 24,
+        "count": 35,
         "name": "preference-domain"
       },
       {
         "value": 26,
-        "count": 5,
+        "count": 13,
         "name": "right-name"
+      },
+      {
+        "value": 0,
+        "count": 3,
+        "name": "path"
+      },
+      {
+        "value": 15,
+        "count": 3,
+        "name": "ioctl-command"
       },
       {
         "value": 18,
@@ -283,9 +714,24 @@
         "name": "iokit-connection"
       },
       {
+        "value": 16,
+        "count": 1,
+        "name": "iokit-registry-entry-class"
+      },
+      {
         "value": 17,
         "count": 1,
         "name": "iokit-property"
+      },
+      {
+        "value": 9,
+        "count": 1,
+        "name": "control-name"
+      },
+      {
+        "value": 8,
+        "count": 1,
+        "name": "remote"
       },
       {
         "value": 5,
@@ -293,14 +739,14 @@
         "name": "global-name"
       },
       {
-        "value": 16660,
+        "value": 3,
         "count": 1,
-        "name": null
+        "name": "file-mode"
       },
       {
-        "value": 174,
+        "value": 2,
         "count": 1,
-        "name": null
+        "name": "xattr"
       },
       {
         "value": 1,
@@ -308,9 +754,14 @@
         "name": "mount-relative-path"
       },
       {
-        "value": 109,
+        "value": 4,
         "count": 1,
-        "name": null
+        "name": "ipc-posix-name"
+      },
+      {
+        "value": 10,
+        "count": 1,
+        "name": "socket-domain"
       },
       {
         "value": 11,
@@ -318,24 +769,19 @@
         "name": "socket-type"
       },
       {
-        "value": 170,
+        "value": 12,
         "count": 1,
-        "name": null
+        "name": "socket-protocol"
       },
       {
-        "value": 15,
+        "value": 22,
         "count": 1,
-        "name": "ioctl-command"
+        "name": "extension"
       },
       {
-        "value": 115,
+        "value": 23,
         "count": 1,
-        "name": null
-      },
-      {
-        "value": 80,
-        "count": 1,
-        "name": "mac-policy-name"
+        "name": "extension-class"
       }
     ],
     "literal_strings_sample": [
@@ -353,27 +799,37 @@
   },
   "sys:sample": {
     "op_count_decoded": 9,
-    "node_count": 32,
+    "node_count": 55,
     "field2": [
       {
         "value": 8,
-        "count": 19,
+        "count": 23,
         "name": "remote"
       },
       {
         "value": 7,
-        "count": 9,
+        "count": 18,
         "name": "local"
       },
       {
+        "value": 3584,
+        "count": 3,
+        "name": null
+      },
+      {
+        "value": 256,
+        "count": 3,
+        "name": null
+      },
+      {
         "value": 3,
-        "count": 1,
+        "count": 2,
         "name": "file-mode"
       },
       {
-        "value": 1,
+        "value": 5,
         "count": 1,
-        "name": "mount-relative-path"
+        "name": "global-name"
       },
       {
         "value": 0,
@@ -381,9 +837,24 @@
         "name": "path"
       },
       {
-        "value": 3584,
+        "value": 7424,
         "count": 1,
         "name": null
+      },
+      {
+        "value": 1,
+        "count": 1,
+        "name": "mount-relative-path"
+      },
+      {
+        "value": 1281,
+        "count": 1,
+        "name": null
+      },
+      {
+        "value": 15,
+        "count": 1,
+        "name": "ioctl-command"
       }
     ],
     "literal_strings_sample": [

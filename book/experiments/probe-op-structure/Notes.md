@@ -38,6 +38,12 @@ Use this file for concise notes on probe designs, compile logs, and findings.
   - Probes use low tag IDs (0–8, 11–13) with highly repetitive u16 patterns; no obvious literal offsets.
   - `bsd` profile shows higher tags (17,26,27) and tag0 chunks containing `0e01`-like sequences; still no direct literal matches, but suggests richer tag set in system profiles.
   - No anchor offsets appear in node bytes even with expanded tag sampling, reinforcing that literal references are encoded differently (likely outside the visible 16-bit operand slots).
+
+## IOSurface anchor addition
+
+- Added `v9_iokit_user_client_only.sb` with `(allow iokit-open-user-client (iokit-user-client-class "IOSurfaceRootUserClient"))` and compiled to `sb/build/v9_iokit_user_client_only.sb.bin`.
+- Updated `anchor_map.json` to include `IOSurfaceRootUserClient`; reran `analyze_profiles.py`, `anchor_scan.py`, `map_literal_refs.py`, `tag_inventory.py`, and `tag_layout_hypotheses.py`.
+- `anchor_hits.json` now reports IOSurfaceRootUserClient anchor hits (node indices 46/47/48/50) with field2 values {0,1}; `anchor_field2_map.json` and `anchor_ctx_filter_map.json` were regenerated, yielding a blocked literal entry in `anchor_filter_map.json` due to mixed contexts (filter_id 1 + arg_u16).
 - Additional structure poking:
   - Node region lengths vary and are not always multiples of 12; `bsd` nodes_len=498 (mod4=2), suggesting non-12-byte layouts.
   - Tag sets depend on stride: e.g., `bsd` shows tags {0,1,5,11,15,17,18,20,26,27} at stride=6, shrinking to {0,17,26,27} at stride=12; layout likely differs per tag/stride.
