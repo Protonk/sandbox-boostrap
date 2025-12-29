@@ -16,7 +16,6 @@ from book.api.entitlementjail import cli as ej_cli
 from book.api.entitlementjail.logging import extract_details
 from book.api.entitlementjail.session import XpcSession
 from book.api.frida.capture import FridaCapture, now_ns
-from book.api.frida.config import load_frida_config
 from book.api.profile.identity import baseline_world_id
 
 
@@ -115,11 +114,6 @@ def build_arg_parser() -> argparse.ArgumentParser:
 def run_from_args(args: argparse.Namespace) -> int:
     repo_root = path_utils.find_repo_root()
     world_id = baseline_world_id(repo_root)
-    base_frida_config = load_frida_config(
-        config_json=args.frida_config,
-        config_path=args.frida_config_path,
-        repo_root=repo_root,
-    )
 
     run_id = str(uuid.uuid4())
     row_id = args.row_id or f"{args.plan_id}.{run_id}"
@@ -205,18 +199,22 @@ def run_from_args(args: argparse.Namespace) -> int:
             attach_meta["pid_error"] = attach_meta.get("pid_error") or "pid_not_found"
             return
         attach_meta["pid"] = pid
-        config = dict(base_frida_config) if base_frida_config else {}
+        config_overlay: Dict[str, object] = {}
+        config_overlay_source: Dict[str, object] = {"kind": "overlay"}
         if selftest_path:
-            config["selftest_path"] = selftest_path
-        if not config:
-            config = None
+            config_overlay["selftest_path"] = selftest_path
+            if selftest_source:
+                config_overlay_source["source"] = selftest_source
         frida_capture = FridaCapture(
             run_id=run_id,
             pid=pid,
             script_path=script_path,
             events_path=frida_events_path,
             meta_path=frida_meta_path,
-            config=config,
+            config_json=args.frida_config,
+            config_path=args.frida_config_path,
+            config_overlay=config_overlay,
+            config_overlay_source=config_overlay_source,
             repo_root=repo_root,
         )
         frida_attach_error = frida_capture.attach()
@@ -380,7 +378,12 @@ def run_from_args(args: argparse.Namespace) -> int:
         },
     }
     write_json(out_root / "manifest.json", manifest)
-    if isinstance(frida_attach_error, str) and frida_attach_error.startswith("ManifestError:"):
+    if isinstance(frida_attach_error, str) and (
+        frida_attach_error.startswith("ManifestError:")
+        or frida_attach_error.startswith("ConfigError:")
+        or frida_attach_error.startswith("ConfigureError:")
+        or frida_attach_error.startswith("FridaImportError:")
+    ):
         return 1
     return 0
 

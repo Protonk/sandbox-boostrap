@@ -18,6 +18,8 @@ def _add_runner_args(ap: argparse.ArgumentParser) -> None:
     )
     ap.add_argument("--attach-pid", type=int, help="Attach to an existing pid")
     ap.add_argument("--script", required=True, help="Path to frida agent JS")
+    ap.add_argument("--frida-config", default=None, help="JSON object for script configure()")
+    ap.add_argument("--frida-config-path", default=None, help="Path to JSON file for script configure()")
     ap.add_argument(
         "--out-dir",
         default="book/api/frida/out",
@@ -38,6 +40,8 @@ def _run_runner(args: argparse.Namespace) -> int:
         spawn=args.spawn,
         attach_pid=args.attach_pid,
         script=args.script,
+        config_json=args.frida_config,
+        config_path=args.frida_config_path,
         out_dir=args.out_dir,
         duration_s=args.duration_s,
     )

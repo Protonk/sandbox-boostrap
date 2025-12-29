@@ -24,6 +24,8 @@ Example:
 - `hook.id`: stable identifier (string)
 - `hook.script_path`: repo-relative path to the hook script
 - `trace_event_schema`: the trace-event envelope schema this hook is intended to run under (today: trace v1)
+- `config.schema`: JSON Schema (object) describing the config object recorded in `meta.json` and passed to `rpc.exports.configure` when present
+- `rpc.configure.present`: boolean declaration of whether the hook exports `rpc.exports.configure` (must match runtime behavior)
 - `rpc_exports`: list of `rpc.exports` function names (strings)
 - `configure`: special-case declaration for `rpc.exports.configure`:
   - `supported`: boolean

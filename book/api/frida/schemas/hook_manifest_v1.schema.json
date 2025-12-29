@@ -18,6 +18,18 @@
       ],
       "type": "object"
     },
+    "config": {
+      "additionalProperties": false,
+      "properties": {
+        "schema": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "schema"
+      ],
+      "type": "object"
+    },
     "hook": {
       "additionalProperties": false,
       "properties": {
@@ -55,6 +67,27 @@
       },
       "type": "array"
     },
+    "rpc": {
+      "additionalProperties": false,
+      "properties": {
+        "configure": {
+          "additionalProperties": false,
+          "properties": {
+            "present": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "present"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "configure"
+      ],
+      "type": "object"
+    },
     "rpc_exports": {
       "items": {
         "type": "string"
@@ -83,6 +116,8 @@
     "schema_version",
     "hook",
     "trace_event_schema",
+    "config",
+    "rpc",
     "rpc_exports",
     "configure",
     "module_expectations"

@@ -124,6 +124,8 @@ def validate_hook_manifest_v1(manifest: Any) -> List[str]:
         "schema_version",
         "hook",
         "trace_event_schema",
+        "config",
+        "rpc",
         "rpc_exports",
         "configure",
         "module_expectations",
@@ -167,6 +169,42 @@ def validate_hook_manifest_v1(manifest: Any) -> List[str]:
         if tes.get("schema_version") != trace_v1.TRACE_EVENT_SCHEMA_VERSION:
             errors.append("trace_event_schema.schema_version mismatch")
 
+    config = manifest.get("config")
+    config_schema: Any = None
+    if not isinstance(config, dict):
+        errors.append("config must be an object")
+    else:
+        allowed_config_keys = {"schema"}
+        extra_config = sorted(set(config.keys()) - allowed_config_keys)
+        if extra_config:
+            errors.append(f"config has unexpected keys: {extra_config}")
+        config_schema = config.get("schema")
+        if not isinstance(config_schema, dict):
+            errors.append("config.schema must be an object (JSON Schema)")
+
+    rpc = manifest.get("rpc")
+    rpc_configure_present: Optional[bool] = None
+    if not isinstance(rpc, dict):
+        errors.append("rpc must be an object")
+    else:
+        allowed_rpc_keys = {"configure"}
+        extra_rpc = sorted(set(rpc.keys()) - allowed_rpc_keys)
+        if extra_rpc:
+            errors.append(f"rpc has unexpected keys: {extra_rpc}")
+        cfg = rpc.get("configure")
+        if not isinstance(cfg, dict):
+            errors.append("rpc.configure must be an object")
+        else:
+            allowed_cfg_keys = {"present"}
+            extra_cfg = sorted(set(cfg.keys()) - allowed_cfg_keys)
+            if extra_cfg:
+                errors.append(f"rpc.configure has unexpected keys: {extra_cfg}")
+            present = cfg.get("present")
+            if not isinstance(present, bool):
+                errors.append("rpc.configure.present must be boolean")
+            else:
+                rpc_configure_present = present
+
     rpc_exports = manifest.get("rpc_exports")
     if not isinstance(rpc_exports, list) or not all(isinstance(x, str) for x in rpc_exports):
         errors.append("rpc_exports must be a list of strings")
@@ -185,11 +223,20 @@ def validate_hook_manifest_v1(manifest: Any) -> List[str]:
         input_schema = configure.get("input_schema")
         if not isinstance(input_schema, dict):
             errors.append("configure.input_schema must be an object (JSON Schema)")
+        if isinstance(supported, bool) and rpc_configure_present is not None and supported != rpc_configure_present:
+            errors.append("configure.supported must match rpc.configure.present")
+        if supported and isinstance(config_schema, dict) and input_schema != config_schema:
+            errors.append("configure.input_schema must match config.schema when configure is supported")
         if isinstance(supported, bool) and isinstance(rpc_exports, list):
             if supported and "configure" not in rpc_exports:
                 errors.append("configure.supported true but rpc_exports missing 'configure'")
             if (not supported) and "configure" in rpc_exports:
                 errors.append("configure.supported false but rpc_exports includes 'configure'")
+        if rpc_configure_present is not None and isinstance(rpc_exports, list):
+            if rpc_configure_present and "configure" not in rpc_exports:
+                errors.append("rpc.configure.present true but rpc_exports missing 'configure'")
+            if (not rpc_configure_present) and "configure" in rpc_exports:
+                errors.append("rpc.configure.present false but rpc_exports includes 'configure'")
 
     module_expectations = manifest.get("module_expectations")
     if not isinstance(module_expectations, list):

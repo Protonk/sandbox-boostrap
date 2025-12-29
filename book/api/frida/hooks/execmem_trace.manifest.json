@@ -1,4 +1,10 @@
 {
+  "config": {
+    "schema": {
+      "additionalProperties": true,
+      "type": "object"
+    }
+  },
   "configure": {
     "input_schema": {
       "additionalProperties": false,
@@ -30,6 +36,11 @@
     }
   ],
   "rpc_exports": [],
+  "rpc": {
+    "configure": {
+      "present": false
+    }
+  },
   "schema_name": "book.api.frida.hook_manifest",
   "schema_version": 1,
   "send_payload_kinds": [

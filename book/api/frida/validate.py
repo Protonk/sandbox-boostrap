@@ -137,6 +137,107 @@ def _validate_manifest_snapshot(meta: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 
+def _find_first_runner_event(events: List[Dict[str, Any]], *, kind: str) -> Optional[Dict[str, Any]]:
+    for ev in events:
+        if ev.get("source") == "runner" and ev.get("kind") == kind:
+            return ev
+    return None
+
+
+def _validate_config_snapshot(meta: Dict[str, Any], events: List[Dict[str, Any]]) -> Dict[str, Any]:
+    errors: List[str] = []
+    script = meta.get("script")
+    if not isinstance(script, dict):
+        return {"ok": False, "status": "fail", "errors": ["meta.script missing/invalid"]}
+
+    config = script.get("config")
+    if not isinstance(config, dict):
+        errors.append("script.config missing/invalid (expected object)")
+    else:
+        if not isinstance(config.get("source"), dict):
+            errors.append("script.config.source missing/invalid (expected object)")
+        if not isinstance(config.get("value"), dict):
+            errors.append("script.config.value missing/invalid (expected object)")
+
+    config_validation = script.get("config_validation")
+    if not isinstance(config_validation, dict):
+        errors.append("script.config_validation missing/invalid (expected object)")
+        config_validation_status = None
+    else:
+        config_validation_status = config_validation.get("status")
+        if config_validation_status not in ("pass", "fail"):
+            errors.append("script.config_validation.status must be 'pass' or 'fail'")
+
+    configure = script.get("configure")
+    if not isinstance(configure, dict):
+        errors.append("script.configure missing/invalid (expected object)")
+        configure_status = None
+        configure_present = None
+    else:
+        configure_status = configure.get("status")
+        if configure_status not in ("absent", "pass", "fail", "skipped"):
+            errors.append("script.configure.status must be one of absent|pass|fail|skipped")
+        configure_present = configure.get("present")
+        if configure_present is not None and not isinstance(configure_present, bool):
+            errors.append("script.configure.present must be boolean or null")
+        result = configure.get("result")
+        if result is not None and not isinstance(result, dict):
+            errors.append("script.configure.result must be an object or null")
+        error = configure.get("error")
+        if error is not None and not isinstance(error, str):
+            errors.append("script.configure.error must be a string or null")
+
+    manifest = script.get("manifest")
+    expected_present: Optional[bool] = None
+    if not isinstance(manifest, dict):
+        errors.append("script.manifest missing/invalid")
+    else:
+        rpc = manifest.get("rpc")
+        if not isinstance(rpc, dict):
+            errors.append("script.manifest.rpc missing/invalid")
+        else:
+            cfg = rpc.get("configure")
+            if not isinstance(cfg, dict):
+                errors.append("script.manifest.rpc.configure missing/invalid")
+            else:
+                present = cfg.get("present")
+                if isinstance(present, bool):
+                    expected_present = present
+                else:
+                    errors.append("script.manifest.rpc.configure.present missing/invalid")
+
+    config_ev = _find_first_runner_event(events, kind="config-validation")
+    if not isinstance(config_ev, dict):
+        errors.append("missing runner event: kind=config-validation")
+    configure_ev = _find_first_runner_event(events, kind="configure")
+    if not isinstance(configure_ev, dict):
+        errors.append("missing runner event: kind=configure")
+
+    if config_validation_status == "fail":
+        errors.append("config validation failed")
+
+    if expected_present is True:
+        if configure_status != "pass":
+            errors.append("configure expected present but status != pass")
+        if configure_present is not True:
+            errors.append("configure expected present but present != true")
+    elif expected_present is False:
+        if configure_status != "absent":
+            errors.append("configure expected absent but status != absent")
+        if configure_present is not False:
+            errors.append("configure expected absent but present != false")
+
+    ok = not errors
+    return {
+        "ok": ok,
+        "status": "pass" if ok else "fail",
+        "errors": errors,
+        "expected_configure_present": expected_present,
+        "config_validation_status": config_validation_status,
+        "configure_status": configure_status,
+    }
+
+
 def validate_run_dir(run_dir: Path) -> Dict[str, Any]:
     repo_root = path_utils.find_repo_root()
     run_dir_abs = path_utils.ensure_absolute(run_dir, repo_root)
@@ -153,13 +254,21 @@ def validate_run_dir(run_dir: Path) -> Dict[str, Any]:
         raise SystemExit(f"meta.json missing run_id: {path_utils.to_repo_relative(meta_path, repo_root)}")
 
     manifest_snapshot = _validate_manifest_snapshot(meta)
+    config_snapshot = _validate_config_snapshot(meta, events)
 
     schema_report = schema_validate.validate_events_jsonl(events_path)
     seq_ok, seq_err = _check_seq(events)
     rid_ok, rid_err = _check_run_id(meta_run_id, events)
     ts_ok, ts_err = _check_non_decreasing_t_ns(events)
 
-    schema_invariants_ok = bool(schema_report.get("ok") and seq_ok and rid_ok and ts_ok and manifest_snapshot.get("ok"))
+    schema_invariants_ok = bool(
+        schema_report.get("ok")
+        and seq_ok
+        and rid_ok
+        and ts_ok
+        and manifest_snapshot.get("ok")
+        and config_snapshot.get("ok")
+    )
 
     # Query invariants: canned queries must match between direct JSONL and cached index.
     queries = _load_queries(repo_root)
@@ -215,6 +324,7 @@ def validate_run_dir(run_dir: Path) -> Dict[str, Any]:
             "t_ns_error": ts_err,
         },
         "manifest_snapshot": manifest_snapshot,
+        "config_snapshot": config_snapshot,
         "query": {
             "ok": query_invariants_ok,
             "index_build": index_build,

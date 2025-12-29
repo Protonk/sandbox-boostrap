@@ -41,5 +41,7 @@ Trace v1 envelope is documented in `book/api/frida/TRACE_SCHEMA_V1.md` and machi
 
 Hook manifests are specified in `book/api/frida/HOOK_MANIFEST_V1.md` and live next to hook scripts as `*.manifest.json`.
 
+The optional `rpc.exports.configure` surface is standardized by `book/api/frida/CONFIGURE_CONTRACT_V1.md`.
+
 ## Notes
 - The world baseline is resolved via `book.api.profile.identity.baseline_world_id`.

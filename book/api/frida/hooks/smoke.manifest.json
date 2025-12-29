@@ -1,10 +1,16 @@
 {
+  "config": {
+    "schema": {
+      "additionalProperties": true,
+      "type": "object"
+    }
+  },
   "configure": {
     "input_schema": {
-      "additionalProperties": false,
+      "additionalProperties": true,
       "type": "object"
     },
-    "supported": false
+    "supported": true
   },
   "hook": {
     "id": "smoke",
@@ -12,7 +18,14 @@
     "summary": "Emits basic Process metadata on load."
   },
   "module_expectations": [],
-  "rpc_exports": [],
+  "rpc_exports": [
+    "configure"
+  ],
+  "rpc": {
+    "configure": {
+      "present": true
+    }
+  },
   "schema_name": "book.api.frida.hook_manifest",
   "schema_version": 1,
   "send_payload_kinds": [

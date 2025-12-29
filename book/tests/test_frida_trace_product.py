@@ -6,6 +6,7 @@ from pathlib import Path
 
 from book.api import path_utils
 from book.api.frida import trace_v1
+from book.api.frida.config import load_and_validate_config
 from book.api.frida.validate import validate_run_dir
 
 
@@ -35,6 +36,18 @@ def test_frida_hook_manifests_are_present_and_well_formed() -> None:
         assert tes.get("schema_name") == trace_v1.TRACE_EVENT_SCHEMA_NAME
         assert tes.get("schema_version") == trace_v1.TRACE_EVENT_SCHEMA_VERSION
 
+        config = manifest.get("config")
+        assert isinstance(config, dict)
+        config_schema = config.get("schema")
+        assert isinstance(config_schema, dict)
+
+        rpc = manifest.get("rpc")
+        assert isinstance(rpc, dict)
+        rpc_configure = rpc.get("configure")
+        assert isinstance(rpc_configure, dict)
+        rpc_configure_present = rpc_configure.get("present")
+        assert isinstance(rpc_configure_present, bool)
+
         rpc_exports = manifest.get("rpc_exports")
         assert isinstance(rpc_exports, list)
         assert all(isinstance(x, str) for x in rpc_exports)
@@ -43,8 +56,10 @@ def test_frida_hook_manifests_are_present_and_well_formed() -> None:
         assert isinstance(configure, dict)
         supported = configure.get("supported")
         assert isinstance(supported, bool)
+        assert supported == rpc_configure_present
         if supported:
             assert "configure" in rpc_exports
+            assert configure.get("input_schema") == config_schema
         else:
             assert "configure" not in rpc_exports
 
@@ -135,3 +150,51 @@ def test_frida_fs_open_selftest_payload_fields_survive_normalization(tmp_path: P
     assert isinstance(self_open, dict)
     for field in ("status", "path", "source"):
         assert field in self_open
+
+
+def test_frida_config_loader_validation_is_deterministic() -> None:
+    repo_root = path_utils.find_repo_root()
+    schema_any_object = {"type": "object", "additionalProperties": True}
+
+    cfg, snapshot, validation = load_and_validate_config(
+        config_json=None,
+        config_path=None,
+        config_obj=None,
+        config_source=None,
+        config_schema=schema_any_object,
+        repo_root=repo_root,
+    )
+    assert cfg == {}
+    assert snapshot == {"source": {"kind": "none"}, "value": {}}
+    assert validation == {"status": "pass", "error": None, "violations": []}
+
+    _, _, bad_json = load_and_validate_config(
+        config_json="{",
+        config_path=None,
+        config_obj=None,
+        config_source=None,
+        config_schema=schema_any_object,
+        repo_root=repo_root,
+    )
+    assert bad_json.get("status") == "fail"
+    assert isinstance(bad_json.get("error"), str)
+    assert str(bad_json.get("error")).startswith("JSONDecodeError:")
+
+    schema_string_field = {
+        "type": "object",
+        "additionalProperties": False,
+        "properties": {"x": {"type": "string"}},
+    }
+    _, _, mismatch = load_and_validate_config(
+        config_json='{"x": 1}',
+        config_path=None,
+        config_obj=None,
+        config_source=None,
+        config_schema=schema_string_field,
+        repo_root=repo_root,
+    )
+    assert mismatch == {
+        "status": "fail",
+        "error": "ConfigSchemaMismatch: $.x: expected string, got int",
+        "violations": ["$.x: expected string, got int"],
+    }

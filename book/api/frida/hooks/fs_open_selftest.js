@@ -10,8 +10,14 @@ const SELFTEST_CONFIG = {
   source: null
 };
 
+let _configured = false;
+
 rpc.exports = {
   configure: function (opts) {
+    if (_configured) {
+      throw new Error('configure called twice');
+    }
+    _configured = true;
     if (opts && opts.selftest_path) {
       SELFTEST_CONFIG.path = String(opts.selftest_path);
       SELFTEST_CONFIG.source = 'rpc';

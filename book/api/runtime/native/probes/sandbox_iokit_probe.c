@@ -23,6 +23,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <sys/wait.h>
 #include <unistd.h>
 
@@ -130,28 +131,35 @@ int main(int argc, char *argv[]) {
     size_t call_output_struct_bytes = 0;
     bool surface_ok = false;
     int surface_signal = 0;
+    bool do_sweep = true;
     const uint32_t selectors[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    const char *skip_sweep_env = getenv("SBL_IKIT_SKIP_SWEEP");
+    if (skip_sweep_env && skip_sweep_env[0] != '\0' && skip_sweep_env[0] != '0') {
+        do_sweep = false;
+    }
     if (kr == KERN_SUCCESS && conn != IO_OBJECT_NULL) {
-        for (size_t i = 0; i < (sizeof(selectors) / sizeof(selectors[0])); i++) {
-            call_output_scalar_count = 0;
-            call_output_struct_bytes = 0;
-            call_attempted = true;
-            call_selector = selectors[i];
-            call_kr = IOConnectCallMethod(
-                conn,
-                selectors[i],
-                NULL,
-                call_input_scalar_count,
-                NULL,
-                call_input_struct_bytes,
-                NULL,
-                &call_output_scalar_count,
-                NULL,
-                &call_output_struct_bytes);
-            call_kr_string = mach_error_string(call_kr);
-            if (call_kr == KERN_SUCCESS) {
-                call_succeeded = true;
-                break;
+        if (do_sweep) {
+            for (size_t i = 0; i < (sizeof(selectors) / sizeof(selectors[0])); i++) {
+                call_output_scalar_count = 0;
+                call_output_struct_bytes = 0;
+                call_attempted = true;
+                call_selector = selectors[i];
+                call_kr = IOConnectCallMethod(
+                    conn,
+                    selectors[i],
+                    NULL,
+                    call_input_scalar_count,
+                    NULL,
+                    call_input_struct_bytes,
+                    NULL,
+                    &call_output_scalar_count,
+                    NULL,
+                    &call_output_struct_bytes);
+                call_kr_string = mach_error_string(call_kr);
+                if (call_kr == KERN_SUCCESS) {
+                    call_succeeded = true;
+                    break;
+                }
             }
         }
         surface_ok = attempt_surface_create(&surface_signal);
@@ -240,7 +248,7 @@ int main(int argc, char *argv[]) {
     if (kr != KERN_SUCCESS) {
         return 1;
     }
-    if (call_attempted && call_kr != KERN_SUCCESS) {
+    if (call_attempted && call_kr != KERN_SUCCESS && !surface_ok) {
         return 1;
     }
     return 0;
