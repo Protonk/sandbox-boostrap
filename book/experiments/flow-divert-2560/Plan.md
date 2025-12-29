@@ -17,7 +17,7 @@
    - Combinator: `require-all` vs `require-any`; nested vs flat triples.
    - Ordering: permute clause order to detect normalization vs ordering artifacts.
    - Negative controls: similar combinators on a different network-ish family; flow-divert pairs (no triple) to see if `2560` tracks “triple-ness.”
-   - Build each under `sb/`, compile to `sb/build/`, decode with `book/api/profile_tools/decoder.py`.
+   - Build each under `sb/`, compile to `sb/build/`, decode with `book/api/profile_tools/decoder/`.
 3) **Normalized decode records** – Emit joinable records per specimen (spec_id,node_id) with tag, raw field2 payload/u16_role, successors, literal refs; store under `out/` for matrix-wide queries.
 4) **Optional runtime/encoder trace** – Only if needed to distinguish competing explanations; record apply gates/EPERMs as evidence.
 5) **Cross-checks** – Compare to `anchor_filter_map`, field2 atlas, tag-layout contracts; ensure mapping is deterministic under the matrix.

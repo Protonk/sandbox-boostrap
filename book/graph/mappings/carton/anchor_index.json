@@ -149,23 +149,81 @@
         "probe:v2_file_three_filters_any"
       ]
     },
-    "IOSurfaceRootUserClient": {
+    "IOAccelerator": {
       "field2_values": [
         0,
-        1
+        1,
+        5
       ],
       "node_indices": [
+        23,
         46,
         47,
         48,
-        50
+        51
       ],
       "profiles": [
+        "probe:v11_iokit_user_client_connection"
+      ],
+      "status": "partial",
+      "role": "exploratory",
+      "sources": [
+        "probe:v11_iokit_user_client_connection"
+      ]
+    },
+    "IOHIDParamUserClient": {
+      "field2_values": [
+        0,
+        1,
+        4,
+        18753
+      ],
+      "node_indices": [
+        24,
+        34,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52
+      ],
+      "profiles": [
+        "probe:v10_iokit_user_client_pair"
+      ],
+      "status": "partial",
+      "role": "exploratory",
+      "sources": [
+        "probe:v10_iokit_user_client_pair"
+      ]
+    },
+    "IOSurfaceRootUserClient": {
+      "field2_values": [
+        0,
+        1,
+        4,
+        5
+      ],
+      "node_indices": [
+        24,
+        46,
+        47,
+        48,
+        50,
+        51
+      ],
+      "profiles": [
+        "probe:v10_iokit_user_client_pair",
+        "probe:v11_iokit_user_client_connection",
         "probe:v9_iokit_user_client_only"
       ],
       "status": "partial",
       "role": "exploratory",
       "sources": [
+        "probe:v10_iokit_user_client_pair",
+        "probe:v11_iokit_user_client_connection",
         "probe:v9_iokit_user_client_only"
       ]
     },

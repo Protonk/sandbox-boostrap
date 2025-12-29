@@ -491,6 +491,178 @@
       ]
     ]
   },
+  "probe:v10_iokit_user_client_pair": {
+    "op_count": 6,
+    "node_count": 53,
+    "anchors": [
+      {
+        "anchor": "IOSurfaceRootUserClient",
+        "offsets": [
+          22
+        ],
+        "literal_offsets": [
+          22
+        ],
+        "literal_string_index": null,
+        "node_indices": [
+          24,
+          46,
+          47,
+          48,
+          50
+        ],
+        "field2_values": [
+          4,
+          1,
+          1,
+          1,
+          0
+        ],
+        "field2_names": [
+          "ipc-posix-name",
+          "mount-relative-path",
+          "mount-relative-path",
+          "mount-relative-path",
+          "path"
+        ]
+      },
+      {
+        "anchor": "IOHIDParamUserClient",
+        "offsets": [
+          0
+        ],
+        "literal_offsets": [
+          0
+        ],
+        "literal_string_index": null,
+        "node_indices": [
+          24,
+          34,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52
+        ],
+        "field2_values": [
+          4,
+          4,
+          0,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          18753
+        ],
+        "field2_names": [
+          "ipc-posix-name",
+          "ipc-posix-name",
+          "path",
+          "mount-relative-path",
+          "mount-relative-path",
+          "mount-relative-path",
+          "path",
+          "path",
+          "path",
+          null
+        ]
+      }
+    ],
+    "literal_strings_sample": [
+      [
+        0,
+        "QHIDParamUserClient"
+      ],
+      [
+        23,
+        "TSurfaceRootUserClient"
+      ]
+    ]
+  },
+  "probe:v11_iokit_user_client_connection": {
+    "op_count": 7,
+    "node_count": 53,
+    "anchors": [
+      {
+        "anchor": "IOSurfaceRootUserClient",
+        "offsets": [
+          1,
+          0
+        ],
+        "literal_offsets": [
+          1,
+          0
+        ],
+        "literal_string_index": 0,
+        "node_indices": [
+          46,
+          47,
+          48,
+          51
+        ],
+        "field2_values": [
+          5,
+          5,
+          5,
+          0
+        ],
+        "field2_names": [
+          "global-name",
+          "global-name",
+          "global-name",
+          "path"
+        ]
+      },
+      {
+        "anchor": "IOAccelerator",
+        "offsets": [
+          33,
+          32
+        ],
+        "literal_offsets": [
+          33,
+          32
+        ],
+        "literal_string_index": 1,
+        "node_indices": [
+          23,
+          46,
+          47,
+          48,
+          51
+        ],
+        "field2_values": [
+          1,
+          5,
+          5,
+          5,
+          0
+        ],
+        "field2_names": [
+          "mount-relative-path",
+          "global-name",
+          "global-name",
+          "global-name",
+          "path"
+        ]
+      }
+    ],
+    "literal_strings_sample": [
+      [
+        0,
+        "VIOSurfaceRootUserClient"
+      ],
+      [
+        32,
+        "LIOAccelerator"
+      ]
+    ]
+  },
   "probe:v6_file_mach_combo": {
     "op_count": 6,
     "node_count": 52,

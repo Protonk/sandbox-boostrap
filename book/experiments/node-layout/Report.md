@@ -59,7 +59,7 @@ We explicitly do **not** attempt a full reverse-engineering of modern node forma
   - **Operation Pointer Table** bytes,
   - node region bytes,
   - literal/regex pool bytes.
-- `book/api/profile_tools/decoder.py` – **heuristic modern-profile decoder** that:
+- `book/api/profile_tools/decoder/` – **heuristic modern-profile decoder** that:
   - uses op-table word-offset scaling evidence to select a fixed node stride for this world (stride=8 on the Sonoma baseline),
   - slices the node/literal boundary using an op-table-derived lower bound (to avoid ASCII mis-framing),
   - returns a JSON-friendly dict with:

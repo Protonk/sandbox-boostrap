@@ -18,6 +18,8 @@ analysis produce the expected allow/deny outcomes under SBPL on this host.
   - `v3_mach_global_local.sb`
   - `v5_iokit_class_property.sb`
   - `v9_iokit_user_client_only.sb`
+  - `v10_iokit_user_client_pair.sb`
+  - `v11_iokit_user_client_connection.sb`
 - Runtime harness: `python -m book.api.runtime run`.
 
 ## Outputs

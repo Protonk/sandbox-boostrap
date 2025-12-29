@@ -44,6 +44,19 @@ Use this file for concise notes on probe designs, compile logs, and findings.
 - Added `v9_iokit_user_client_only.sb` with `(allow iokit-open-user-client (iokit-user-client-class "IOSurfaceRootUserClient"))` and compiled to `sb/build/v9_iokit_user_client_only.sb.bin`.
 - Updated `anchor_map.json` to include `IOSurfaceRootUserClient`; reran `analyze_profiles.py`, `anchor_scan.py`, `map_literal_refs.py`, `tag_inventory.py`, and `tag_layout_hypotheses.py`.
 - `anchor_hits.json` now reports IOSurfaceRootUserClient anchor hits (node indices 46/47/48/50) with field2 values {0,1}; `anchor_field2_map.json` and `anchor_ctx_filter_map.json` were regenerated, yielding a blocked literal entry in `anchor_filter_map.json` due to mixed contexts (filter_id 1 + arg_u16).
+
+## IOSurface anchor pair probe
+
+- Added `v10_iokit_user_client_pair.sb` with two allow rules for `IOSurfaceRootUserClient` and `IOHIDParamUserClient`; compiled to `sb/build/v10_iokit_user_client_pair.sb.bin`.
+- Updated `anchor_map.json` to include both anchors and reran `analyze_profiles.py`, `anchor_scan.py`, `map_literal_refs.py`, `tag_inventory.py`, and `tag_layout_hypotheses.py`.
+- Observed SBPL literal pool compression that drops the leading `IO` prefix (literal strings like `SurfaceRootUserClient`); updated `anchor_scan.py` to treat `IO*` anchors as matches when the stripped literal matches the anchor minus the `IO` prefix.
+- `anchor_hits.json` now reports IOSurfaceRootUserClient and IOHIDParamUserClient node hits in `probe:v10_iokit_user_client_pair`, with IOSurfaceRootUserClient carrying field2 values {0,1,4} and IOHIDParamUserClient carrying {0,1,4,18753}; anchor maps regenerated to include these observations as structural hints.
+
+## IOSurface connection co-anchor probe
+
+- Added `v11_iokit_user_client_connection.sb` with `(require-all (iokit-user-client-class "IOSurfaceRootUserClient") (iokit-connection "IOAccelerator"))`; compiled to `sb/build/v11_iokit_user_client_connection.sb.bin`.
+- Updated `anchor_map.json` and reran the structural pipeline (`analyze_profiles.py`, `anchor_scan.py`, `map_literal_refs.py`, `tag_inventory.py`, `tag_layout_hypotheses.py`).
+- `anchor_hits.json` now reports IOSurfaceRootUserClient with field2 values {0,5} (tag 0 `global-name` plus tag 6 `arg_u16` carrying 0/5) and IOAccelerator with {0,1,5}; both remain structurally blocked due to mixed contexts, but the co-anchor adds a distinct `global-name` context for IOSurface that was not visible in v9/v10.
 - Additional structure poking:
   - Node region lengths vary and are not always multiples of 12; `bsd` nodes_len=498 (mod4=2), suggesting non-12-byte layouts.
   - Tag sets depend on stride: e.g., `bsd` shows tags {0,1,5,11,15,17,18,20,26,27} at stride=6, shrinking to {0,17,26,27} at stride=12; layout likely differs per tag/stride.

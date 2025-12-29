@@ -9,7 +9,8 @@
 //
 // This file is a minimal reference implementation for "SBPL file -> compiled
 // blob" using libsandbox’s private compiler entry points. The canonical Python
-// binding lives in `book/api/profile_tools/compile.py`.
+// binding lives in `book/api/profile_tools/compile/` (public surface:
+// `book.api.profile_tools.compile`).
 struct sandbox_profile {
   uint32_t profile_type;
   uint32_t reserved;

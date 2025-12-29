@@ -21,6 +21,24 @@
         ]
       }
     },
+    "ctx:06b7d652fa227469": {
+      "field2_values": [
+        5
+      ],
+      "filter_id": 5,
+      "filter_name": "global-name",
+      "literal": "IOAccelerator",
+      "sources": [
+        "probe:v11_iokit_user_client_connection"
+      ],
+      "tag": 0,
+      "u16_role": "filter_vocab_id",
+      "witnesses": {
+        "probe:v11_iokit_user_client_connection": [
+          46
+        ]
+      }
+    },
     "ctx:0de4cf2ba3973cf0": {
       "field2_values": [
         0,
@@ -118,11 +136,17 @@
       "filter_name": null,
       "literal": "IOSurfaceRootUserClient",
       "sources": [
+        "probe:v10_iokit_user_client_pair",
         "probe:v9_iokit_user_client_only"
       ],
       "tag": 4,
       "u16_role": "arg_u16",
       "witnesses": {
+        "probe:v10_iokit_user_client_pair": [
+          47,
+          48,
+          50
+        ],
         "probe:v9_iokit_user_client_only": [
           47,
           48,
@@ -207,6 +231,28 @@
           48,
           49,
           51
+        ]
+      }
+    },
+    "ctx:362d38670a2b37f3": {
+      "field2_values": [
+        0,
+        1
+      ],
+      "filter_id": null,
+      "filter_name": null,
+      "literal": "IOHIDParamUserClient",
+      "sources": [
+        "probe:v10_iokit_user_client_pair"
+      ],
+      "tag": 4,
+      "u16_role": "arg_u16",
+      "witnesses": {
+        "probe:v10_iokit_user_client_pair": [
+          47,
+          48,
+          49,
+          50
         ]
       }
     },
@@ -300,6 +346,27 @@
         ]
       }
     },
+    "ctx:477935a78665368b": {
+      "field2_values": [
+        0,
+        5
+      ],
+      "filter_id": null,
+      "filter_name": null,
+      "literal": "IOSurfaceRootUserClient",
+      "sources": [
+        "probe:v11_iokit_user_client_connection"
+      ],
+      "tag": 6,
+      "u16_role": "arg_u16",
+      "witnesses": {
+        "probe:v11_iokit_user_client_connection": [
+          47,
+          48,
+          51
+        ]
+      }
+    },
     "ctx:4acb751639cc806d": {
       "field2_values": [
         0,
@@ -317,6 +384,65 @@
         "probe:v2_file_three_filters_any": [
           34,
           45
+        ]
+      }
+    },
+    "ctx:4af074603069dd1a": {
+      "field2_values": [
+        5
+      ],
+      "filter_id": 5,
+      "filter_name": "global-name",
+      "literal": "IOSurfaceRootUserClient",
+      "sources": [
+        "probe:v11_iokit_user_client_connection"
+      ],
+      "tag": 0,
+      "u16_role": "filter_vocab_id",
+      "witnesses": {
+        "probe:v11_iokit_user_client_connection": [
+          46
+        ]
+      }
+    },
+    "ctx:4e64a353043c7c92": {
+      "field2_values": [
+        4
+      ],
+      "filter_id": null,
+      "filter_name": null,
+      "literal": "IOHIDParamUserClient",
+      "sources": [
+        "probe:v10_iokit_user_client_pair"
+      ],
+      "tag": 1,
+      "u16_role": "arg_u16",
+      "witnesses": {
+        "probe:v10_iokit_user_client_pair": [
+          24
+        ]
+      }
+    },
+    "ctx:5179041214b7e8b2": {
+      "field2_values": [
+        0,
+        1,
+        5
+      ],
+      "filter_id": null,
+      "filter_name": null,
+      "literal": "IOAccelerator",
+      "sources": [
+        "probe:v11_iokit_user_client_connection"
+      ],
+      "tag": 6,
+      "u16_role": "arg_u16",
+      "witnesses": {
+        "probe:v11_iokit_user_client_connection": [
+          23,
+          47,
+          48,
+          51
         ]
       }
     },
@@ -392,6 +518,24 @@
         ]
       }
     },
+    "ctx:5f9bd44df45e3548": {
+      "field2_values": [
+        4
+      ],
+      "filter_id": null,
+      "filter_name": null,
+      "literal": "IOSurfaceRootUserClient",
+      "sources": [
+        "probe:v10_iokit_user_client_pair"
+      ],
+      "tag": 1,
+      "u16_role": "arg_u16",
+      "witnesses": {
+        "probe:v10_iokit_user_client_pair": [
+          24
+        ]
+      }
+    },
     "ctx:62884a0b8d6bd37f": {
       "field2_values": [
         0,
@@ -412,6 +556,26 @@
           47,
           48,
           51
+        ]
+      }
+    },
+    "ctx:683b6bdc7530b065": {
+      "field2_values": [
+        0,
+        4
+      ],
+      "filter_id": null,
+      "filter_name": null,
+      "literal": "IOHIDParamUserClient",
+      "sources": [
+        "probe:v10_iokit_user_client_pair"
+      ],
+      "tag": 5,
+      "u16_role": "arg_u16",
+      "witnesses": {
+        "probe:v10_iokit_user_client_pair": [
+          34,
+          45
         ]
       }
     },
@@ -475,6 +639,24 @@
           48,
           49,
           50
+        ]
+      }
+    },
+    "ctx:6e6e507f2917a414": {
+      "field2_values": [
+        1
+      ],
+      "filter_id": 1,
+      "filter_name": "mount-relative-path",
+      "literal": "IOHIDParamUserClient",
+      "sources": [
+        "probe:v10_iokit_user_client_pair"
+      ],
+      "tag": 0,
+      "u16_role": "filter_vocab_id",
+      "witnesses": {
+        "probe:v10_iokit_user_client_pair": [
+          46
         ]
       }
     },
@@ -586,11 +768,15 @@
       "filter_name": "mount-relative-path",
       "literal": "IOSurfaceRootUserClient",
       "sources": [
+        "probe:v10_iokit_user_client_pair",
         "probe:v9_iokit_user_client_only"
       ],
       "tag": 0,
       "u16_role": "filter_vocab_id",
       "witnesses": {
+        "probe:v10_iokit_user_client_pair": [
+          46
+        ],
         "probe:v9_iokit_user_client_only": [
           46
         ]
@@ -715,6 +901,24 @@
         ]
       }
     },
+    "ctx:8cc2eee7d110e4b4": {
+      "field2_values": [
+        18753
+      ],
+      "filter_id": 18753,
+      "filter_name": null,
+      "literal": "IOHIDParamUserClient",
+      "sources": [
+        "probe:v10_iokit_user_client_pair"
+      ],
+      "tag": 0,
+      "u16_role": "filter_vocab_id",
+      "witnesses": {
+        "probe:v10_iokit_user_client_pair": [
+          52
+        ]
+      }
+    },
     "ctx:913a0db463cd8a95": {
       "field2_values": [
         0,
@@ -828,6 +1032,24 @@
       "witnesses": {
         "sys:airlock": [
           170
+        ]
+      }
+    },
+    "ctx:ac9931e9c5673702": {
+      "field2_values": [
+        0
+      ],
+      "filter_id": 0,
+      "filter_name": "path",
+      "literal": "IOHIDParamUserClient",
+      "sources": [
+        "probe:v10_iokit_user_client_pair"
+      ],
+      "tag": 0,
+      "u16_role": "filter_vocab_id",
+      "witnesses": {
+        "probe:v10_iokit_user_client_pair": [
+          51
         ]
       }
     },

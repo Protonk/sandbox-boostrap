@@ -86,7 +86,7 @@ IR path:
   - execute the runtime plan into a run-scoped bundle under `out/<run_id>/`,
   - emit `out/promotion_packet.json` pointing at the committed run-scoped bundle (preferred evidence interface for downstream mappings/consumers),
   - down-convert the harness runtime results into `out/runtime_results.json` (authoritative runtime behavior for this suite on this world),
-  - emit `out/decode_tmp_profiles.json` via `book/api/profile_tools/decoder.py` (structural view, using blobs from `out/<run_id>/sb_build`),
+  - emit `out/decode_tmp_profiles.json` via `book/api/profile_tools/decoder/` (structural view, using blobs from `out/<run_id>/sb_build`),
   - emit a small `out/mismatch_summary.json` that classifies each profile’s behavior (“canonicalization” vs “control”) for downstream readers.
 
 ## JSON schema sketches

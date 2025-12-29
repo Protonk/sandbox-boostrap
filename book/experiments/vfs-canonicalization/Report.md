@@ -16,7 +16,7 @@ This experiment checks how alias/canonical path families behave structurally and
   - Entry: `book/experiments/vfs-canonicalization/run_vfs.py`.
   - Plan-data generated via `python -m book.api.runtime plan-build --template vfs-canonicalization --out book/experiments/vfs-canonicalization --overwrite`.
   - Runtime harness via `book.api.runtime` plan execution, reusing the same shims as `runtime-checks` / `runtime-adversarial`.
-  - Structural decode via `book/api/profile_tools/decoder.py` using `book/graph/mappings/tag_layouts/tag_layouts.json`.
+  - Structural decode via `book/api/profile_tools/decoder/` using `book/graph/mappings/tag_layouts/tag_layouts.json`.
 - **Outputs:**
   - `plan.json` + `registry/{probes,profiles}.json` – plan/registry data generated from the runtime template.
   - `out/expected_matrix.json` – human expectations for `(profile_id, requested_path, expected_decision)` (template-derived).

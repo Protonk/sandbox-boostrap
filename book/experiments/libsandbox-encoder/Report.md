@@ -7,7 +7,7 @@ Map how this host’s `libsandbox` populates the per-node u16 payload slot (hist
 - World: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
 - Inputs:
   - `book/api/profile_tools` (compile SBPL to a blob).
-  - `book/api/profile_tools/decoder.py` + `book/graph/concepts/validation/profile_ingestion.py` (decode/slice compiled blobs).
+  - `book/api/profile_tools/decoder/` + `book/graph/concepts/validation/profile_ingestion.py` (decode/slice compiled blobs).
   - Trimmed `libsandbox` slice under `book/graph/mappings/dyld-libs/` (static-only inspection for Phase B).
 - Structural backbone (world-scoped):
   - Tag layouts: `book/graph/mappings/tag_layouts/tag_layouts.json` (`status: ok`, record_size_bytes=8).

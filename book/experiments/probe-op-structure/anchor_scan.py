@@ -133,6 +133,10 @@ def _matches_anchor(anchor: str, literal: str) -> bool:
     stripped = _strip_sbpl_literal_prefix(_strip_prefix(literal))
     if (anchor in stripped) or (anchor_no_slash and anchor_no_slash in stripped):
         return True
+    # Some SBPL literal pools compress leading "IO" prefixes into control bytes,
+    # yielding strings like "SurfaceRootUserClient" for "IOSurfaceRootUserClient".
+    if anchor.startswith("IO") and anchor[2:] and anchor[2:] in stripped:
+        return True
     # Path anchors are sometimes stored as segmented literals (e.g. `tmp/` + `foo`).
     if anchor.startswith("/") and anchor_no_slash and "/" in anchor_no_slash:
         parts = [p for p in anchor_no_slash.split("/") if p]

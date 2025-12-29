@@ -97,6 +97,8 @@ def main() -> None:
         "probe:v4_network_socket_require_all": Path("book/experiments/probe-op-structure/sb/build/v4_network_socket_require_all.sb.bin"),
         "probe:v5_iokit_class_property": Path("book/experiments/probe-op-structure/sb/build/v5_iokit_class_property.sb.bin"),
         "probe:v9_iokit_user_client_only": Path("book/experiments/probe-op-structure/sb/build/v9_iokit_user_client_only.sb.bin"),
+        "probe:v10_iokit_user_client_pair": Path("book/experiments/probe-op-structure/sb/build/v10_iokit_user_client_pair.sb.bin"),
+        "probe:v11_iokit_user_client_connection": Path("book/experiments/probe-op-structure/sb/build/v11_iokit_user_client_connection.sb.bin"),
         "probe:v6_file_mach_combo": Path("book/experiments/probe-op-structure/sb/build/v6_file_mach_combo.sb.bin"),
         "probe:v7_file_network_combo": Path("book/experiments/probe-op-structure/sb/build/v7_file_network_combo.sb.bin"),
         "probe:v8_all_combo": Path("book/experiments/probe-op-structure/sb/build/v8_all_combo.sb.bin"),

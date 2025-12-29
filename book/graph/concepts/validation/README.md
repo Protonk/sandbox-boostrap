@@ -43,7 +43,7 @@ Keep Swift-side validation non-fatal: extend the report rather than blocking gen
 
 - `tasks.py` – declarative mapping of validation tasks to examples, inputs, and expected artifacts. Used as the source of truth for which examples exercise which clusters.
 - (future) `out/` – drop-in location for captured evidence (JSON logs, parsed headers, vocab tables) keyed by cluster/run/OS version.
-- Decoder lives at `book/api/profile_tools/decoder.py` (Python); import `book.api.profile_tools.decoder` (or `from book.api.profile_tools import decoder`) in validation tooling.
+- Decoder lives under `book/api/profile_tools/decoder/` (Python); import `book.api.profile_tools.decoder` (or `from book.api.profile_tools import decoder`) in validation tooling.
 
 ## Usage model (planned)
 

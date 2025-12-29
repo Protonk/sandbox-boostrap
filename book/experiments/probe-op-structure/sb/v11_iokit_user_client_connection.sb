@@ -1,0 +1,6 @@
+(version 1)
+(deny default)
+(allow iokit-open-user-client
+  (require-all
+    (iokit-user-client-class "IOSurfaceRootUserClient")
+    (iokit-connection "IOAccelerator")))

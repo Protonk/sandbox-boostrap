@@ -40,12 +40,12 @@ Only supported repo-wide test runner is `make -C book test`.
 - Compile SBPL -> blob:
   - Inputs `*.sb`
   - Outputs `*.sb.bin` under the owning experiment/profile
-  - Source of truth compiled blob plus `book/api/profile_tools/compile.py`
+  - Source of truth compiled blob plus `book/api/profile_tools/compile/`
   - Regen `python -m book.api.profile_tools compile <profile.sb> --out <path>`.
 - Decode blob -> graph/tags:
   - Inputs `*.sb.bin`
   - Outputs decode summaries plus `book/graph/mappings/tag_layouts/tag_layouts.json` and `book/graph/mappings/system_profiles/digests.json`
-  - Source of truth `book/api/profile_tools/decoder.py` plus those mappings
+  - Source of truth `book/api/profile_tools/decoder/` plus those mappings
   - Regen `python -m book.api.profile_tools decode dump <blob.sb.bin> --summary`, `python book/graph/mappings/tag_layouts/generate_tag_layouts.py`, `python book/graph/mappings/system_profiles/generate_digests_from_ir.py`.
 - Runtime denial vs apply failure:
   - Inputs runtime plan data (for example `book/experiments/runtime-checks/plan.json`)

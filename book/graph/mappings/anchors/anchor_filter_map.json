@@ -117,22 +117,78 @@
     ],
     "status": "blocked"
   },
-  "IOSurfaceRootUserClient": {
+  "IOAccelerator": {
     "candidates": [
-      "mount-relative-path"
+      "global-name"
     ],
     "ctx_ids": [
-      "ctx:2a3fe334cb3ec6cf",
-      "ctx:78322350c362c30c"
+      "ctx:06b7d652fa227469",
+      "ctx:5179041214b7e8b2"
     ],
     "field2_values": [
       0,
-      1
+      1,
+      5
     ],
     "filter_id": null,
     "filter_name": null,
     "notes": "Ambiguous across contexts; consult anchor_ctx_filter_map.json via ctx_ids.",
     "sources": [
+      "probe:v11_iokit_user_client_connection"
+    ],
+    "status": "blocked"
+  },
+  "IOHIDParamUserClient": {
+    "candidates": [
+      "mount-relative-path",
+      "path"
+    ],
+    "ctx_ids": [
+      "ctx:362d38670a2b37f3",
+      "ctx:4e64a353043c7c92",
+      "ctx:683b6bdc7530b065",
+      "ctx:6e6e507f2917a414",
+      "ctx:8cc2eee7d110e4b4",
+      "ctx:ac9931e9c5673702"
+    ],
+    "field2_values": [
+      0,
+      1,
+      4,
+      18753
+    ],
+    "filter_id": null,
+    "filter_name": null,
+    "notes": "Ambiguous across contexts; consult anchor_ctx_filter_map.json via ctx_ids.",
+    "sources": [
+      "probe:v10_iokit_user_client_pair"
+    ],
+    "status": "blocked"
+  },
+  "IOSurfaceRootUserClient": {
+    "candidates": [
+      "global-name",
+      "mount-relative-path"
+    ],
+    "ctx_ids": [
+      "ctx:2a3fe334cb3ec6cf",
+      "ctx:477935a78665368b",
+      "ctx:4af074603069dd1a",
+      "ctx:5f9bd44df45e3548",
+      "ctx:78322350c362c30c"
+    ],
+    "field2_values": [
+      0,
+      1,
+      4,
+      5
+    ],
+    "filter_id": null,
+    "filter_name": null,
+    "notes": "Ambiguous across contexts; consult anchor_ctx_filter_map.json via ctx_ids.",
+    "sources": [
+      "probe:v10_iokit_user_client_pair",
+      "probe:v11_iokit_user_client_connection",
       "probe:v9_iokit_user_client_only"
     ],
     "status": "blocked"
