@@ -1,0 +1,219 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "tier": "mapped",
+    "source_jobs": [],
+    "notes": "scenario-level runtime summaries"
+  },
+  "phase_histograms": {
+    "overall": {
+      "total": 3,
+      "stages": {
+        "apply": 0,
+        "bootstrap": 0,
+        "preflight": 2,
+        "probe": 1
+      },
+      "blocked": {
+        "total": 2,
+        "by_stage": {
+          "preflight": 2
+        },
+        "by_kind": {
+          "preflight_apply_gate_signature": 2
+        }
+      },
+      "probe": {
+        "total": 1,
+        "allow": 0,
+        "deny": 1,
+        "mismatches": 1
+      }
+    },
+    "by_family": {
+      "iokit-open-service": {
+        "total": 1,
+        "stages": {
+          "apply": 0,
+          "bootstrap": 0,
+          "preflight": 0,
+          "probe": 1
+        },
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "probe": {
+          "total": 1,
+          "allow": 0,
+          "deny": 1,
+          "mismatches": 1
+        }
+      },
+      "iokit-open": {
+        "total": 2,
+        "stages": {
+          "apply": 0,
+          "bootstrap": 0,
+          "preflight": 2,
+          "probe": 0
+        },
+        "blocked": {
+          "total": 2,
+          "by_stage": {
+            "preflight": 2
+          },
+          "by_kind": {
+            "preflight_apply_gate_signature": 2
+          }
+        },
+        "probe": {
+          "total": 0,
+          "allow": 0,
+          "deny": 0,
+          "mismatches": 0
+        }
+      }
+    }
+  },
+  "scenarios": {
+    "runtime-closure:iokit:v7_service_user_client_both:iosurface_root": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime-closure:iokit:v7_service_user_client_both",
+      "expectations": [
+        {
+          "expectation_id": "runtime-closure:iokit:v7_service_user_client_both:iosurface_root",
+          "profile_id": "runtime-closure:iokit:v7_service_user_client_both",
+          "operation": "iokit-open-service",
+          "target": "IOSurfaceRoot",
+          "expected": "allow",
+          "probe_name": "iosurface_root"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "runtime-closure:iokit:v7_service_user_client_both:iosurface_root",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "iokit-open-service",
+          "target": "IOSurfaceRoot",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": "EPERM",
+          "stderr": ""
+        }
+      ],
+      "impact": null,
+      "scenario_id": "runtime-closure:iokit:v7_service_user_client_both:iosurface_root"
+    },
+    "runtime-closure:iokit:v9_message_filter_deny:iosurface_root": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime-closure:iokit:v9_message_filter_deny",
+      "expectations": [
+        {
+          "expectation_id": "runtime-closure:iokit:v9_message_filter_deny:iosurface_root",
+          "profile_id": "runtime-closure:iokit:v9_message_filter_deny",
+          "operation": "iokit-open-service",
+          "target": "IOSurfaceRoot",
+          "expected": "allow",
+          "probe_name": "iosurface_root"
+        }
+      ],
+      "results": {
+        "total": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 1,
+          "by_stage": {
+            "preflight": 1
+          },
+          "by_kind": {
+            "preflight_apply_gate_signature": 1
+          }
+        },
+        "status": "blocked"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "runtime-closure:iokit:v9_message_filter_deny:iosurface_root",
+          "expected": "allow",
+          "actual": null,
+          "operation": "iokit-open-service",
+          "target": "IOSurfaceRoot",
+          "failure_stage": "preflight",
+          "failure_kind": "preflight_apply_gate_signature",
+          "mismatch_type": "preflight_blocked",
+          "violation_summary": null,
+          "stderr": ""
+        }
+      ],
+      "impact": null,
+      "scenario_id": "runtime-closure:iokit:v9_message_filter_deny:iosurface_root"
+    },
+    "runtime-closure:iokit:v10_message_filter_allow:iosurface_root": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime-closure:iokit:v10_message_filter_allow",
+      "expectations": [
+        {
+          "expectation_id": "runtime-closure:iokit:v10_message_filter_allow:iosurface_root",
+          "profile_id": "runtime-closure:iokit:v10_message_filter_allow",
+          "operation": "iokit-open-service",
+          "target": "IOSurfaceRoot",
+          "expected": "allow",
+          "probe_name": "iosurface_root"
+        }
+      ],
+      "results": {
+        "total": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 1,
+          "by_stage": {
+            "preflight": 1
+          },
+          "by_kind": {
+            "preflight_apply_gate_signature": 1
+          }
+        },
+        "status": "blocked"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "runtime-closure:iokit:v10_message_filter_allow:iosurface_root",
+          "expected": "allow",
+          "actual": null,
+          "operation": "iokit-open-service",
+          "target": "IOSurfaceRoot",
+          "failure_stage": "preflight",
+          "failure_kind": "preflight_apply_gate_signature",
+          "mismatch_type": "preflight_blocked",
+          "violation_summary": null,
+          "stderr": ""
+        }
+      ],
+      "impact": null,
+      "scenario_id": "runtime-closure:iokit:v10_message_filter_allow:iosurface_root"
+    }
+  }
+}

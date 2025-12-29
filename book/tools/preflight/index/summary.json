@@ -1,17 +1,17 @@
 {
   "counts": {
     "by_classification": {
-      "likely_apply_gated_for_harness_identity": 24,
-      "no_known_apply_gate_signature": 649
+      "likely_apply_gated_for_harness_identity": 26,
+      "no_known_apply_gate_signature": 650
     },
     "by_input_kind": {
       "sbpl_blob_path": 348,
-      "sbpl_path": 325
+      "sbpl_path": 328
     },
     "by_signature": {
       "apply_gate_blob_digest": 20,
-      "deny_message_filter": 4,
-      "null": 649
+      "deny_message_filter": 6,
+      "null": 650
     },
     "by_source": {
       "book_blobs": {
@@ -22,7 +22,8 @@
         "no_known_apply_gate_signature": 3
       },
       "experiments_sbpl": {
-        "no_known_apply_gate_signature": 252
+        "likely_apply_gated_for_harness_identity": 2,
+        "no_known_apply_gate_signature": 253
       },
       "profiles_sbpl": {
         "no_known_apply_gate_signature": 11
@@ -32,7 +33,7 @@
         "no_known_apply_gate_signature": 55
       }
     },
-    "total_records": 673
+    "total_records": 676
   },
   "digest_groups": {
     "apply_gate_blob_digest": [
@@ -134,6 +135,8 @@
       "book/experiments/gate-witnesses/out/witnesses/blastdoor/compile_vs_apply/minimal_failing.sb.bin",
       "book/experiments/gate-witnesses/out/witnesses/com.apple.CoreGraphics.CGPDFService/compile_vs_apply/minimal_failing.sb.bin",
       "book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/compile_vs_apply/minimal_failing.sb.bin",
+      "book/experiments/runtime-closure/sb/v10_iokit_message_filter_allow.sb",
+      "book/experiments/runtime-closure/sb/v9_iokit_message_filter_deny.sb",
       "book/graph/concepts/validation/fixtures/blobs/airlock.sb.bin",
       "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/minimal_failing.sb.bin",
       "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/blastdoor/minimal_failing.sb.bin",
@@ -623,6 +626,7 @@
       "book/experiments/runtime-closure/sb/v5_iokit_service_only.sb",
       "book/experiments/runtime-closure/sb/v6_iokit_user_client_only.sb",
       "book/experiments/runtime-closure/sb/v7_iokit_service_user_client_both.sb",
+      "book/experiments/runtime-closure/sb/v8_iokit_external_method.sb",
       "book/experiments/sandbox-init-params/out/file_ftp_proxy.sb.bin",
       "book/experiments/sandbox-init-params/out/file_simple.sb.bin",
       "book/experiments/sandbox-init-params/out/init_params_probe.sb.bin",

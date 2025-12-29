@@ -10023,6 +10023,38 @@
       ]
     },
     {
+      "file_sha256": "71c4ec641dc8789b87145939c4e5c82e2f87db6ce2b9ec310245a43def026dca",
+      "file_size": 399,
+      "path": "book/experiments/runtime-closure/sb/v10_iokit_message_filter_allow.sb",
+      "preflight": {
+        "classification": "likely_apply_gated_for_harness_identity",
+        "findings": [
+          {
+            "denied_operation": "iokit-external-method",
+            "outer_action": "allow",
+            "outer_operation": "iokit-open"
+          }
+        ],
+        "input_kind": "sbpl_path",
+        "input_ref": "book/experiments/runtime-closure/sb/v10_iokit_message_filter_allow.sb",
+        "preflight_schema_version": 1,
+        "signature": "deny_message_filter",
+        "signature_meta": {
+          "pointers": [
+            "troubles/EPERMx2.md",
+            "book/experiments/gate-witnesses/Report.md",
+            "book/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json"
+          ],
+          "status": "partial"
+        },
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "experiments_sbpl"
+      ]
+    },
+    {
       "file_sha256": "2fab373fe2edbadcc2a6b5ea99ae3ad7e654046b48280d07c2dcd895747a5333",
       "file_size": 109,
       "path": "book/experiments/runtime-closure/sb/v1_etc_alias_only.sb",
@@ -10267,6 +10299,56 @@
         "input_ref": "book/experiments/runtime-closure/sb/v7_iokit_service_user_client_both.sb",
         "preflight_schema_version": 1,
         "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "experiments_sbpl"
+      ]
+    },
+    {
+      "file_sha256": "c7873e1c1991a1d1df6181e325e1169d7126ec605197b2c6f9039399909f0b3b",
+      "file_size": 457,
+      "path": "book/experiments/runtime-closure/sb/v8_iokit_external_method.sb",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [],
+        "input_kind": "sbpl_path",
+        "input_ref": "book/experiments/runtime-closure/sb/v8_iokit_external_method.sb",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "experiments_sbpl"
+      ]
+    },
+    {
+      "file_sha256": "190d739d01c6e5790a99181a4ac2a445e6901b0edf267ca80aada88f2976060e",
+      "file_size": 317,
+      "path": "book/experiments/runtime-closure/sb/v9_iokit_message_filter_deny.sb",
+      "preflight": {
+        "classification": "likely_apply_gated_for_harness_identity",
+        "findings": [
+          {
+            "denied_operation": "iokit-external-method",
+            "outer_action": "allow",
+            "outer_operation": "iokit-open"
+          }
+        ],
+        "input_kind": "sbpl_path",
+        "input_ref": "book/experiments/runtime-closure/sb/v9_iokit_message_filter_deny.sb",
+        "preflight_schema_version": 1,
+        "signature": "deny_message_filter",
+        "signature_meta": {
+          "pointers": [
+            "troubles/EPERMx2.md",
+            "book/experiments/gate-witnesses/Report.md",
+            "book/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json"
+          ],
+          "status": "partial"
+        },
         "tool": "book/tools/preflight",
         "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
       },

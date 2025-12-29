@@ -1,0 +1,23 @@
+(version 2)
+(deny default)
+(allow iokit-open-service
+  (iokit-registry-entry-class "IOSurfaceRoot"))
+(allow iokit-open-user-client
+  (iokit-user-client-class "IOSurfaceRootUserClient"))
+(allow iokit-open
+  (iokit-user-client-class "IOSurfaceRootUserClient")
+  (apply-message-filter
+    (deny iokit-external-method)
+    (allow iokit-external-method
+      (iokit-method-number 0 1 2 3 4 5 6 7 8 9))))
+(allow process-exec*)
+(allow file-read* (subpath "/System"))
+(allow file-read* (subpath "/usr"))
+(allow file-read* (subpath "/bin"))
+(allow file-read* (subpath "/sbin"))
+(allow file-read* (subpath "/dev"))
+(allow file-read-metadata (literal "/private"))
+(allow file-read-metadata (literal "/private/tmp"))
+(allow file-read-metadata (literal "/tmp"))
+(allow mach-task-special-port-get)
+(allow mach-bootstrap)

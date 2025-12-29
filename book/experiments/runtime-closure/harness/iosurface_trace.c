@@ -239,9 +239,15 @@ static void install_interpose(void) {
         return;
     }
     Dl_info info;
+    Dl_info call_info;
     if (!dladdr((void *)IOSurfaceCreate, &info) || !info.dli_fbase) {
         fprintf(stderr, "SBL_IKIT_INTERPOSE {\"status\":\"missing_target\"}\n");
         return;
+    }
+    if (dladdr((void *)IOConnectCallMethod, &call_info)) {
+        fprintf(stderr, "SBL_IKIT_INTERPOSE {\"target_image\":\"%s\",\"call_image\":\"%s\"}\n", info.dli_fname, call_info.dli_fname);
+    } else {
+        fprintf(stderr, "SBL_IKIT_INTERPOSE {\"target_image\":\"%s\",\"call_image\":null}\n", info.dli_fname);
     }
     g_original_call = (IOConnectCallMethodFn)IOConnectCallMethod;
     g_original_async = (IOConnectCallAsyncMethodFn)IOConnectCallAsyncMethod;

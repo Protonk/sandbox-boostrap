@@ -15,6 +15,11 @@ to avoid extra syscalls that would confound sandbox decisions.
 - `sandbox_iokit_probe`: Applies SBPL via `sandbox_init`, then performs the same
   open + post-open calls (emits tool markers on stderr).
 
+## Probe env toggles
+
+- `SBL_IKIT_SKIP_SWEEP=1`: skip the IOConnectCallMethod selector sweep and only
+  run the IOSurfaceCreate post-open action.
+
 ## Build
 
 Use the local build script to refresh the binaries in-place:

@@ -225,6 +225,36 @@
         "(allow mach-task-special-port-get)",
         "(allow mach-bootstrap)"
       ]
+    },
+    "runtime-closure:iokit:v9_message_filter_deny": {
+      "profile_id": "runtime-closure:iokit:v9_message_filter_deny",
+      "profile_path": "book/experiments/runtime-closure/sb/v9_iokit_message_filter_deny.sb",
+      "mode": "sbpl",
+      "family": "iokit-open",
+      "semantic_group": "iokit:message-filter",
+      "probe_refs": [
+        "runtime-closure:iokit:v9_message_filter_deny:iosurface_root"
+      ],
+      "notes": "Apply-message-filter denies iokit-external-method for IOSurfaceRootUserClient on iokit-open.",
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ]
+    },
+    "runtime-closure:iokit:v10_message_filter_allow": {
+      "profile_id": "runtime-closure:iokit:v10_message_filter_allow",
+      "profile_path": "book/experiments/runtime-closure/sb/v10_iokit_message_filter_allow.sb",
+      "mode": "sbpl",
+      "family": "iokit-open",
+      "semantic_group": "iokit:message-filter",
+      "probe_refs": [
+        "runtime-closure:iokit:v10_message_filter_allow:iosurface_root"
+      ],
+      "notes": "Apply-message-filter allows iokit-external-method for method numbers 0-9 on iokit-open.",
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ]
     }
   }
 }

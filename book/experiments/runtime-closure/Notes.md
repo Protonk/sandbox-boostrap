@@ -46,4 +46,11 @@ Use this file for short, factual run notes and failures. Avoid timestamps.
 - IOKit external-method run `out/03aaad16-f06b-4ec7-a468-c6379abbeb4d/` (launchd_clean, iokit-only with v7 + v8).
   - `v7_service_user_client_both`: `open_kr=0`, `call_kr=-536870206`, `call_kr_string="(iokit/common) invalid argument"`, selector=9, call input/output sizes all zero, `surface_create_ok=false`.
   - `v8_external_method`: apply-stage failure (`sandbox_init` rc=-1) with errbuf `iokit-external-method operation not applicable in this context`; treated as blocked evidence.
+- IOSurface call-shape instrumentation:
+  - `book/experiments/runtime-closure/harness/iokit_call_interpose.c` via DYLD_INSERT_LIBRARIES caused a SIGSEGV when running `iokit_probe` and `iosurface_trace`; no output captured (`out/iosurface_call_trace/interpose_stderr.txt` empty).
+  - Switched to dynamic interpose in `iosurface_trace`; run in `out/iosurface_call_trace/iosurface_trace_stderr.txt` reports `SBL_IKIT_INTERPOSE` installed but emits no `SBL_IKIT_CALL` lines, suggesting IOSurfaceCreate does not call IOConnectCall* functions on this host or the call sites are not interposed.
+- Preflight scan (IOKit message-filter lane): `v9_iokit_message_filter_deny.sb` and `v10_iokit_message_filter_allow.sb` classified as `likely_apply_gated_for_harness_identity` (deny-style apply-message-filter).
+- IOKit message-filter run `out/ad767bba-9e59-40ff-b006-45fe911b2d02/` (launchd_clean, iokit-only with v7 + v9 + v10).
+  - `v7_service_user_client_both`: `open_kr=0`, `call_kr=-536870206`, `call_kr_string="(iokit/common) invalid argument"`, `surface_create_ok=false`.
+  - `v9_message_filter_deny` and `v10_message_filter_allow` blocked at preflight (apply gate signature); no runtime probe execution.
 - Emitted promotion packet for the file matrix run and refreshed VFS canonicalization mapping via `book/graph/mappings/vfs_canonicalization/generate_path_canonicalization_map.py` after updating `packet_set.json`.

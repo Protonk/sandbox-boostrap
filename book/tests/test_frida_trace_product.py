@@ -198,3 +198,32 @@ def test_frida_config_loader_validation_is_deterministic() -> None:
         "error": "ConfigSchemaMismatch: $.x: expected string, got int",
         "violations": ["$.x: expected string, got int"],
     }
+
+
+def test_frida_configure_fixture_run_is_headless_and_gated(tmp_path: Path) -> None:
+    repo_root = path_utils.find_repo_root()
+    src_dir = repo_root / "book/api/frida/fixtures/runs/00000000-0000-4000-8000-000000000003"
+    assert src_dir.is_dir()
+
+    dst_dir = tmp_path / "configure_fixture"
+    shutil.copytree(src_dir, dst_dir)
+
+    report = validate_run_dir(dst_dir)
+    assert report.get("ok") is True
+
+    meta = json.loads((dst_dir / "meta.json").read_text())
+    script = meta.get("script")
+    assert isinstance(script, dict)
+
+    cfg = script.get("config")
+    assert isinstance(cfg, dict)
+    assert cfg.get("value") == {"alpha": 1, "beta": 2}
+
+    configure = script.get("configure")
+    assert isinstance(configure, dict)
+    assert configure.get("status") == "pass"
+    assert configure.get("result") == {"received_keys": ["alpha", "beta"]}
+
+    events = [json.loads(line) for line in (dst_dir / "events.jsonl").read_text().splitlines() if line.strip()]
+    assert any(e.get("source") == "runner" and e.get("kind") == "config-validation" for e in events)
+    assert any(e.get("source") == "runner" and e.get("kind") == "configure" for e in events)

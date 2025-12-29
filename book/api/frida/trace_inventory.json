@@ -65,7 +65,7 @@
       "workflow": "generic_runner_spawn",
       "hook": {
         "script_path": "book/api/frida/hooks/smoke.js",
-        "script_sha256": "a76e314849e7fb0e1959c33097d5be30b7f1814d3e443f8a239c47e05fd9896e"
+        "script_sha256": "a895ae4d45380a42b6bfe0e0d34e26edd27d2271b46db36810d1e30245a55872"
       },
       "target": {
         "mode": "spawn",
@@ -89,7 +89,9 @@
           ],
           "runner_kinds": [
             "runner-start",
+            "config-validation",
             "stage",
+            "configure",
             "session-detached"
           ],
           "agent_msg_types": [
@@ -119,38 +121,44 @@
       "known_good": {
         "validate_expected_ok": true,
         "validate_digests": {
-          "events_jsonl_sha256": "5109e709180b12454151ae9b0251bbe69249d8268e53c6d80c2bbf6a395966ef",
-          "chrometrace_json_sha256": "03d9d7e07aecff6b000a3dab33e10c145406be58c76c0faae3656785d151f13e",
+          "events_jsonl_sha256": "871770bc2081bf6fdf9d53784c9f3fa24e934843248122fa8441925c74b7e153",
+          "chrometrace_json_sha256": "2f241eca00af163645683015349d5c94aa2b1d4f9b003c5948e60db2d6a0a8b8",
           "query_result_digests": {
             "hook_payload_kind_counts.sql": "98172529d1d84a31afe09df0bdea3a89a35482964f57c2eee6c4574650566afb",
             "runner_stage_timeline.sql": "58dd2d75ee7faea06fd86ecac2913ef5e25613f6c97402ac6e0710728f713869",
-            "send_events.sql": "d878b87915a94dda5c4d3db09b761c2842f6b27061b101c338f8635cfd175aa8"
+            "send_events.sql": "86168bd81236041bec70a07933627c3f949d16b126c71f34221c395b6ad6b30e"
           }
         }
       }
     },
     {
-      "id": "entitlementjail_attach_first_smoke_minimal_injectable",
-      "run_dir": "book/experiments/frida-testing/out/916d33bd-97fb-4cd1-9346-fe0c70faa542/frida",
-      "workflow": "entitlementjail_attach_first",
+      "id": "generic_runner_spawn_smoke_synthetic_configured_complete",
+      "run_dir": "book/api/frida/fixtures/runs/00000000-0000-4000-8000-000000000003",
+      "workflow": "generic_runner_spawn",
       "hook": {
-        "script_path": "book/experiments/frida-testing/hooks/smoke.js",
-        "script_sha256": "a76e314849e7fb0e1959c33097d5be30b7f1814d3e443f8a239c47e05fd9896e"
+        "script_path": "book/api/frida/hooks/smoke.js",
+        "script_sha256": "a895ae4d45380a42b6bfe0e0d34e26edd27d2271b46db36810d1e30245a55872"
       },
       "target": {
-        "mode": "attach",
-        "spawn_argv": null,
-        "attach_pid": 38503,
-        "pid_at_capture": 38503,
-        "process_name": "ProbeService_minimal__injectable",
-        "service_bundle_id": "com.yourteam.entitlement-jail.ProbeService_minimal.injectable"
+        "mode": "spawn",
+        "spawn_argv": [
+          "/bin/sleep",
+          "1"
+        ],
+        "attach_pid": null,
+        "pid_at_capture": 4242
       },
       "events_present": {
-        "legacy_record_shape": {
+        "trace_v1_record_shape": {
           "top_level_fields": [
+            "schema_name",
+            "schema_version",
+            "run_id",
+            "seq",
             "t_ns",
             "pid",
-            "msg"
+            "source",
+            "kind"
           ],
           "msg_types": [
             "runner",
@@ -158,8 +166,9 @@
           ],
           "runner_kinds": [
             "runner-start",
+            "config-validation",
             "stage",
-            "script-config-error",
+            "configure",
             "session-detached"
           ],
           "agent_msg_types": [
@@ -183,25 +192,87 @@
           "type": "int",
           "units": "ns",
           "where": "meta.json top-level",
-          "meaning": "wall clock sampled at attach start (time.time_ns)"
-        },
-        {
-          "field": "meta.attach.t0_ns",
-          "type": "int",
-          "units": "ns",
-          "where": "meta.json attach record",
-          "meaning": "wall clock sampled by EntitlementJail session controller (time.time_ns)"
+          "meaning": "wall clock sampled at run start (time.time_ns)"
         }
       ],
       "known_good": {
         "validate_expected_ok": true,
         "validate_digests": {
-          "events_jsonl_sha256": "6c30c2555941624b4c8c8f61284c5e51fd0eba2283b20ea8b7e646165bee0a4c",
-          "chrometrace_json_sha256": "9952825144dc26c1f34a96683c51e8b8bda59c1746545c96cfc36d5bc7e20093",
+          "events_jsonl_sha256": "bfc5f3e5a44476bdc9026cc1af51d93fab26361cec8c4df608dd9581c95ee43b",
+          "chrometrace_json_sha256": "4ccaeaea939cb3b9cd2cf8b2b1880b0c22bb9b99d874f2ede355b8e27c28ef72",
           "query_result_digests": {
             "hook_payload_kind_counts.sql": "98172529d1d84a31afe09df0bdea3a89a35482964f57c2eee6c4574650566afb",
-            "runner_stage_timeline.sql": "c5b14db732cfca48b344580107f69ca53b5f25a1330aaef5d7d613fabf3c7a2e",
-            "send_events.sql": "43f9b6a372697addf229b6628c8f54cf4d2aa56d200d5fb24c8827d7b4788398"
+            "runner_stage_timeline.sql": "61c50c58efdf92d34de123bccdbbc377b47abe46678950df5afd2f9c03646ee2",
+            "send_events.sql": "1c4188531d19a7da00a15d89e620bb9413259ce0011f9d517985083849dff5cc"
+          }
+        }
+      }
+    },
+    {
+      "id": "entitlementjail_attach_first_smoke_fixture_complete",
+      "run_dir": "book/api/frida/fixtures/runs/00000000-0000-4000-8000-000000000004",
+      "workflow": "entitlementjail_attach_first",
+      "hook": {
+        "script_path": "book/api/frida/hooks/smoke.js",
+        "script_sha256": "a895ae4d45380a42b6bfe0e0d34e26edd27d2271b46db36810d1e30245a55872"
+      },
+      "target": {
+        "mode": "attach",
+        "spawn_argv": null,
+        "attach_pid": 38503,
+        "pid_at_capture": 38503,
+        "process_name": "ProbeService_minimal__injectable",
+        "service_bundle_id": "com.yourteam.entitlement-jail.ProbeService_minimal.injectable"
+      },
+      "events_present": {
+        "trace_v1_record_shape": {
+          "top_level_fields": [
+            "schema_name",
+            "schema_version",
+            "run_id",
+            "seq",
+            "t_ns",
+            "pid",
+            "source",
+            "kind"
+          ],
+          "msg_types": [
+            "runner",
+            "send"
+          ],
+          "runner_kinds": [
+            "runner-start",
+            "config-validation",
+            "stage",
+            "configure",
+            "session-detached"
+          ],
+          "agent_msg_types": [
+            "send"
+          ],
+          "agent_payload_kinds": [
+            "smoke"
+          ]
+        }
+      },
+      "timestamps_present": [
+        {
+          "field": "events[].t_ns",
+          "type": "int",
+          "units": "ns",
+          "where": "events.jsonl top-level",
+          "meaning": "wall clock sampled at write (time.time_ns)"
+        }
+      ],
+      "known_good": {
+        "validate_expected_ok": true,
+        "validate_digests": {
+          "events_jsonl_sha256": "847aa2485e83770744f3549f84e117826cee2db8b21e6ea87bd02675edff99fc",
+          "chrometrace_json_sha256": "c6e43dd9dee45d8fe093aa3e2ec637d1324ac8d24e759d3de24a9a3e6b503253",
+          "query_result_digests": {
+            "hook_payload_kind_counts.sql": "98172529d1d84a31afe09df0bdea3a89a35482964f57c2eee6c4574650566afb",
+            "runner_stage_timeline.sql": "76a19ab10298dff1bdf1dcd33239bc9d6555668d22e0af8a10f15a465f4322ad",
+            "send_events.sql": "deca7a5a01d93528dfdc6c7ca27be8eed19e848632c387d9e390f6ff3affbe1f"
           }
         }
       }

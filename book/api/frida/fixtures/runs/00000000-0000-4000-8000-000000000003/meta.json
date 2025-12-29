@@ -4,22 +4,24 @@
   },
   "host": {
     "machine": "arm64",
-    "platform": "macOS-14.4.1-arm64-arm-64bit-Mach-O",
-    "python": "3.14.2",
-    "sw_vers": {
-      "buildVersion": "23E224",
-      "productVersion": "14.4.1"
-    }
+    "platform": "fixture",
+    "python": "3.14.2"
   },
   "mode": "spawn",
-  "out_dir": "book/api/frida/fixtures/runs/00000000-0000-4000-8000-000000000001",
-  "run_id": "00000000-0000-4000-8000-000000000001",
+  "out_dir": "book/api/frida/fixtures/runs/00000000-0000-4000-8000-000000000003",
+  "run_id": "00000000-0000-4000-8000-000000000003",
   "script": {
+    "assembled_sha256": "182ca54b569386e9a48516f943c97749f3ce0c95f1b6f7caa84b7124d6c94b5f",
+    "assembly_version": 1,
     "config": {
       "source": {
-        "kind": "none"
+        "kind": "inline",
+        "sha256": "955c071f4fbee40a01b9bc6e8fb3627e81bda84811ae9c29fcc5812ba3a45162"
       },
-      "value": {}
+      "value": {
+        "alpha": 1,
+        "beta": 2
+      }
     },
     "config_validation": {
       "error": null,
@@ -30,9 +32,16 @@
       "error": null,
       "present": true,
       "result": {
-        "received_keys": []
+        "received_keys": [
+          "alpha",
+          "beta"
+        ]
       },
       "status": "pass"
+    },
+    "helper": {
+      "path": "book/api/frida/hooks/_shared/trace_helper.js",
+      "sha256": "0a5d4b3ce69c6ae01ca2de5f073bd4085466e4acfb4e47f164411c10967bdb6f"
     },
     "manifest": {
       "config": {
@@ -81,7 +90,7 @@
     "resolved_path": "book/api/frida/hooks/smoke.js",
     "sha256": "a895ae4d45380a42b6bfe0e0d34e26edd27d2271b46db36810d1e30245a55872"
   },
-  "t0_ns": 1000000000,
+  "t0_ns": 3000000000,
   "target": {
     "attach_pid": null,
     "spawn_argv": [
