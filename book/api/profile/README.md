@@ -1,4 +1,4 @@
-# profile_tools
+# profile
 
 Unified profile-byte tooling for the Sonoma baseline (`world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`).
 
@@ -9,38 +9,38 @@ This package is intentionally **structural**:
 
 ## Public API (stable surface)
 
-This README defines the supported public surface for `book.api.profile_tools`.
+This README defines the supported public surface for `book.api.profile`.
 
 Supported import surface:
 - Import **from a surface package** (recommended):
-  - `from book.api.profile_tools.compile import compile_sbpl_file`
-  - `from book.api.profile_tools.decoder import decode_profile_dict`
-  - `from book.api.profile_tools.ingestion import slice_sections_with_offsets`
+  - `from book.api.profile.compile import compile_sbpl_file`
+  - `from book.api.profile.decoder import decode_profile_dict`
+  - `from book.api.profile.ingestion import slice_sections_with_offsets`
 - Import the namespace only to reach surfaces (discouraged for callables):
-  - `import book.api.profile_tools as pt` then `pt.compile`, `pt.decoder`, …
+  - `import book.api.profile as pt` then `pt.compile`, `pt.decoder`, …
 
 Callers should treat **only** the symbols exported in each surface package’s `__all__` as stable.
 
 Surfaces:
-- `book.api.profile_tools.compile`: SBPL → compiled blob via libsandbox’s private compiler entry points (supports compile-time params; see `book/api/profile_tools/compile/README.md`).
-- `book.api.profile_tools.ingestion`: header parsing + section slicing (`op_table`, `nodes`, `regex_literals`) with explicit offsets (see `book/api/profile_tools/ingestion/README.md`).
-- `book.api.profile_tools.decoder`: best-effort structural decoder for modern graph-based blobs (heuristic, mapping-assisted when available; see `book/api/profile_tools/decoder/README.md`).
-- `book.api.profile_tools.inspect`: read-only summaries for humans/guardrails (built on ingestion + decoder).
-- `book.api.profile_tools.op_table`: op-table-centric summaries + SBPL token hints + vocab alignment helpers.
-- `book.api.profile_tools.digests`: stable, decoder-backed digests for curated blobs (notably canonical system profiles).
-- `book.api.profile_tools.identity`: mapping join surface for canonical system profile ids ↔ blob paths ↔ sha256 ↔ attestations.
-- `book.api.profile_tools.sbpl_scan`: conservative SBPL-only scanners for operational constraints (used by `book/tools/preflight`; see `book/api/profile_tools/sbpl_scan/README.md`).
-- `book.api.profile_tools.oracles`: structural “argument shape” extractors with byte-level witnesses (see `book/api/profile_tools/oracles/README.md`).
+- `book.api.profile.compile`: SBPL → compiled blob via libsandbox’s private compiler entry points (supports compile-time params; see `book/api/profile/compile/README.md`).
+- `book.api.profile.ingestion`: header parsing + section slicing (`op_table`, `nodes`, `regex_literals`) with explicit offsets (see `book/api/profile/ingestion/README.md`).
+- `book.api.profile.decoder`: best-effort structural decoder for modern graph-based blobs (heuristic, mapping-assisted when available; see `book/api/profile/decoder/README.md`).
+- `book.api.profile.inspect`: read-only summaries for humans/guardrails (built on ingestion + decoder).
+- `book.api.profile.op_table`: op-table-centric summaries + SBPL token hints + vocab alignment helpers.
+- `book.api.profile.digests`: stable, decoder-backed digests for curated blobs (notably canonical system profiles).
+- `book.api.profile.identity`: mapping join surface for canonical system profile ids ↔ blob paths ↔ sha256 ↔ attestations.
+- `book.api.profile.sbpl_scan`: conservative SBPL-only scanners for operational constraints (used by `book/tools/preflight`; see `book/api/profile/sbpl_scan/README.md`).
+- `book.api.profile.oracles`: structural “argument shape” extractors with byte-level witnesses (see `book/api/profile/oracles/README.md`).
 
 Low-level reference:
-- `book/api/profile_tools/c/`: minimal C reference compiler (`sandbox_compile_file` → `.sb.bin`); Python is canonical.
+- `book/api/profile/c/`: minimal C reference compiler (`sandbox_compile_file` → `.sb.bin`); Python is canonical.
 
 ## CLI (stable surface)
 
 Canonical entrypoint:
 
 ```sh
-python -m book.api.profile_tools ...
+python -m book.api.profile ...
 ```
 
 Supported commands (stable flags and JSON output shapes):
@@ -55,29 +55,29 @@ Supported commands (stable flags and JSON output shapes):
 Examples:
 ```sh
 # Compile SBPL to a blob.
-python -m book.api.profile_tools compile book/examples/sb/sample.sb --out /tmp/sample.sb.bin
+python -m book.api.profile compile book/examples/sb/sample.sb --out /tmp/sample.sb.bin
 
 # Compile with compile-time params for `(param "ROOT")`.
-python -m book.api.profile_tools compile book/examples/sb/sample.sb \
+python -m book.api.profile compile book/examples/sb/sample.sb \
   --param ROOT=/private/tmp \
   --out /tmp/sample.sb.bin
 
 # Decode a blob header + section boundaries (machine output).
-python -m book.api.profile_tools decode dump /tmp/sample.sb.bin --summary
+python -m book.api.profile decode dump /tmp/sample.sb.bin --summary
 
 # Human inspection (machine output).
-python -m book.api.profile_tools inspect /tmp/sample.sb.bin --out /tmp/summary.json
+python -m book.api.profile inspect /tmp/sample.sb.bin --out /tmp/summary.json
 ```
 
-## Dataflow (where profile_tools fits)
+## Dataflow (where profile fits)
 
-`profile_tools` sits upstream of the validation → mappings → CARTON pipeline:
+`profile` sits upstream of the validation → mappings → CARTON pipeline:
 1. Compile SBPL (`compile/`) and slice/decode compiled blobs (`ingestion/`, `decoder/`).
 2. Normalize structural outputs into validation IR (`book/graph/concepts/validation/out/…`).
 3. Generate host mappings from validation IR (`book/graph/mappings/**`).
 4. Refresh CARTON’s manifest-verified query set (`book/api/carton/CARTON.json`).
 
-If you are trying to answer “what does this operation/filter mean?”, prefer CARTON. If you are trying to answer “what bytes did libsandbox emit for this SBPL input on this host?”, use `profile_tools`.
+If you are trying to answer “what does this operation/filter mean?”, prefer CARTON. If you are trying to answer “what bytes did libsandbox emit for this SBPL input on this host?”, use `profile`.
 
 ## Guardrails and boundaries
 
@@ -88,8 +88,8 @@ If you are trying to answer “what does this operation/filter mean?”, prefer 
 See also:
 - `book/api/README.md` (router)
 - `book/tools/preflight/README.md` (apply-gate avoidance)
-- `book/api/profile_tools/compile/README.md`
-- `book/api/profile_tools/ingestion/README.md`
-- `book/api/profile_tools/decoder/README.md`
-- `book/api/profile_tools/sbpl_scan/README.md`
-- `book/api/profile_tools/oracles/README.md`
+- `book/api/profile/compile/README.md`
+- `book/api/profile/ingestion/README.md`
+- `book/api/profile/decoder/README.md`
+- `book/api/profile/sbpl_scan/README.md`
+- `book/api/profile/oracles/README.md`

@@ -1,5 +1,5 @@
 """
-Data model for the minimal SBPL parser used by `book.api.profile_tools.sbpl_scan`.
+Data model for the minimal SBPL parser used by `book.api.profile.sbpl_scan`.
 """
 
 from __future__ import annotations

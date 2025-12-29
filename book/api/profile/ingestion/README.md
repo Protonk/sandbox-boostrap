@@ -1,4 +1,4 @@
-# profile_tools.ingestion
+# profile.ingestion
 
 Host-scoped profile ingestion helpers for the Sonoma baseline (`world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`).
 
@@ -11,8 +11,8 @@ This surface is intentionally **structural**:
 
 ### Library API (stable)
 
-- `from book.api.profile_tools.ingestion import ProfileBlob, Header, Sections, SectionOffsets`
-- `from book.api.profile_tools.ingestion import parse_header, slice_sections, slice_sections_with_offsets`
+- `from book.api.profile.ingestion import ProfileBlob, Header, Sections, SectionOffsets`
+- `from book.api.profile.ingestion import parse_header, slice_sections, slice_sections_with_offsets`
 
 Contract:
 - `parse_header(ProfileBlob) -> Header` classifies the blob as either:
@@ -49,11 +49,10 @@ These are structural guesses for this world baseline, not cross-version guarante
 
 ## Relationship to validation
 
-`book/api/profile_tools/ingestion/api.py` intentionally mirrors the ingestion helpers in `book/graph/concepts/validation/profile_ingestion.py` so that non-validation callers can import a stable API surface without reaching into the validation layer.
+`book/api/profile/ingestion/api.py` intentionally mirrors the ingestion helpers in `book/graph/concepts/validation/profile_ingestion.py` so that non-validation callers can import a stable API surface without reaching into the validation layer.
 
 If you change the ingestion contract or slicing heuristics, keep the two copies aligned and run `make -C book test`.
 
 ## Code layout
 
-- `book/api/profile_tools/ingestion/api.py`: implementation and dataclasses (`ProfileBlob`, `Header`, `Sections`, `SectionOffsets`).
-
+- `book/api/profile/ingestion/api.py`: implementation and dataclasses (`ProfileBlob`, `Header`, `Sections`, `SectionOffsets`).

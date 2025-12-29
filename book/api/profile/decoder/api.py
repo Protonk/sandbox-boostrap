@@ -1,7 +1,7 @@
 """
 Best-effort decoder for modern sandbox profile blobs (Sonoma baseline).
 
-Formerly exposed as `book.api.decoder`; promoted into `book.api.profile_tools`.
+Formerly exposed as `book.api.decoder`; promoted into `book.api.profile`.
 
 Focuses on structure: header preamble, op-table entries, node chunks (auto-selected
 framing on this host baseline), and literal/regex pool slices. This is heuristic

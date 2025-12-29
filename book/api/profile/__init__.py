@@ -5,10 +5,10 @@ This package folds the former `sbpl_compile`, `inspect_profile`, and `op_table`
 helpers into one surface.
 
 The standalone decoder/oracle endpoints (`book.api.decoder`,
-`book.api.sbpl_oracle`) have been removed; use `book.api.profile_tools`.
+`book.api.sbpl_oracle`) have been removed; use `book.api.profile`.
 
 Preferred imports:
-- `from book.api.profile_tools import compile, ingestion, decoder, inspect, op_table, digests, oracles`
+- `from book.api.profile import compile, ingestion, decoder, inspect, op_table, digests, oracles`
 - Keep top-level convenience imports (e.g. `compile_sbpl_file`, `decode_profile_dict`) to a minimum.
 """
 

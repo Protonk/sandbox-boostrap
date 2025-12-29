@@ -49,7 +49,7 @@ def digest_compiled_blob_bytes(blob: bytes, *, source: str | None = None) -> dic
     """
     Return a stable, JSON-serializable digest for a compiled profile blob.
 
-    Digest content is derived from `book.api.profile_tools.decoder` and is meant
+    Digest content is derived from `book.api.profile.decoder` and is meant
     to be stable across callers (experiments, validation, ad-hoc tooling).
     """
     decoded = decoder.decode_profile_dict(blob)

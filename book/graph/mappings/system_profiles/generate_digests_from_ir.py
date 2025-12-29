@@ -253,7 +253,7 @@ def main() -> None:
             "world_id": world_id,
             "inputs": [str(IR_PATH.relative_to(ROOT)), str(STATIC_CHECKS_PATH.relative_to(ROOT))],
             "source_jobs": (ir.get("source_jobs") or []) + ["generator:system_profiles:static_checks"],
-            "decoder": "book.api.profile_tools.decoder",
+            "decoder": "book.api.profile.decoder",
             "status": aggregate_status,
             "tier": evidence_tiers.evidence_tier_for_artifact(
                 path=OUT_PATH,

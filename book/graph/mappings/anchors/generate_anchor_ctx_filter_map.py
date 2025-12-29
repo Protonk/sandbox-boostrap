@@ -30,8 +30,8 @@ if str(REPO_ROOT) not in sys.path:
 
 from book.api import path_utils  # type: ignore
 from book.api import world as world_mod  # type: ignore
-from book.api.profile_tools import decoder  # type: ignore
-from book.api.profile_tools import digests as digests_mod  # type: ignore
+from book.api.profile import decoder  # type: ignore
+from book.api.profile import digests as digests_mod  # type: ignore
 
 ANCHOR_FIELD2_MAP_PATH = REPO_ROOT / "book/graph/mappings/anchors/anchor_field2_map.json"
 FILTER_VOCAB_PATH = REPO_ROOT / "book/graph/mappings/vocab/filters.json"

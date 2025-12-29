@@ -5,7 +5,7 @@ This module is a copy of the canonical ingestion helpers under:
 - `book/graph/concepts/validation/profile_ingestion.py`
 
 It exists so that callers outside the validation layer (examples, experiments,
-API tooling) have a stable import path under `book.api.profile_tools` without
+API tooling) have a stable import path under `book.api.profile` without
 reaching into `book/graph/concepts/validation/`.
 """
 

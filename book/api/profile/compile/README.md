@@ -1,4 +1,4 @@
-# profile_tools.compile
+# profile.compile
 
 Host-scoped SBPL compilation helpers for the Sonoma baseline (`world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`).
 
@@ -11,10 +11,10 @@ This surface is intentionally **structural**:
 
 ### Library API (stable)
 
-- `from book.api.profile_tools.compile import compile_sbpl_file, compile_sbpl_string`
-- `from book.api.profile_tools.compile import CompileResult, hex_preview`
+- `from book.api.profile.compile import compile_sbpl_file, compile_sbpl_string`
+- `from book.api.profile.compile import CompileResult, hex_preview`
 - Compile-time parameterization:
-  - `from book.api.profile_tools.compile import ParamsInput, ParamPairs`
+  - `from book.api.profile.compile import ParamsInput, ParamPairs`
   - Pass `params={...}` (mapping) or `params=[("KEY","VALUE"), ...]` (pairs) to `compile_sbpl_*`.
 
 `CompileResult` is a small dataclass carrying:
@@ -24,7 +24,7 @@ This surface is intentionally **structural**:
 
 ### CLI
 
-`python -m book.api.profile_tools compile <paths...> [--out PATH | --out-dir DIR] [--param KEY=VALUE] [--params-json PATH]`
+`python -m book.api.profile compile <paths...> [--out PATH | --out-dir DIR] [--param KEY=VALUE] [--params-json PATH]`
 
 ## Compile-time params (SBPL `(param "...")`)
 
@@ -35,10 +35,9 @@ On this baseline, compile-time parameterization is implemented via libsandbox’
 
 The resulting handle is passed as the second argument to `sandbox_compile_string` / `sandbox_compile_file`.
 
-This is intentionally separated from apply/runtime parameterization (for example argv-style `KEY VALUE ... NULL` vectors used by higher-level init/apply entry points); `profile_tools.compile` is only about producing compiled bytes.
+This is intentionally separated from apply/runtime parameterization (for example argv-style `KEY VALUE ... NULL` vectors used by higher-level init/apply entry points); `profile.compile` is only about producing compiled bytes.
 
 ## Code layout
 
-- `book/api/profile_tools/compile/api.py`: high-level wrappers (`compile_sbpl_file`, `compile_sbpl_string`).
-- `book/api/profile_tools/compile/libsandbox.py`: ctypes bindings for `sandbox_compile_*` and the compile-time params-handle interface.
-
+- `book/api/profile/compile/api.py`: high-level wrappers (`compile_sbpl_file`, `compile_sbpl_string`).
+- `book/api/profile/compile/libsandbox.py`: ctypes bindings for `sandbox_compile_*` and the compile-time params-handle interface.

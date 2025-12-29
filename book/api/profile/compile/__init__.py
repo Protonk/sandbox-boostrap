@@ -5,7 +5,7 @@ Public API:
 - `compile_sbpl_file`, `compile_sbpl_string`
 - `CompileResult`, `hex_preview`
 
-Low-level bindings live in `book.api.profile_tools.compile.libsandbox`.
+Low-level bindings live in `book.api.profile.compile.libsandbox`.
 """
 
 from __future__ import annotations

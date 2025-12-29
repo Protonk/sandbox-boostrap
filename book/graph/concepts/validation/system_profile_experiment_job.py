@@ -9,7 +9,7 @@ import json
 from pathlib import Path
 
 from book.api.path_utils import find_repo_root, to_repo_relative
-from book.api.profile_tools import digests
+from book.api.profile import digests
 from book.graph.concepts.validation import registry
 from book.graph.concepts.validation.registry import ValidationJob
 

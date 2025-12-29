@@ -1,5 +1,5 @@
 """
-Shared low-level helpers for `book.api.profile_tools`.
+Shared low-level helpers for `book.api.profile`.
 
 This package is internal: it exists to avoid circular imports and duplication
 across the profile tooling surfaces.

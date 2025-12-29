@@ -10,7 +10,7 @@ Produce stable digests for curated system profile blobs (for example, `airlock`,
 ## Baseline & scope
 - World: Sonoma baseline from `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
 - Inputs: `book/graph/concepts/validation/fixtures/blobs/{airlock,bsd,sample}.sb.bin` (plus any other stable system blobs added later).
-- Tooling: `book.api.profile_tools.digests` (decoder-backed); shared vocab and op-table mappings in `book/graph/mappings/`.
+- Tooling: `book.api.profile.digests` (decoder-backed); shared vocab and op-table mappings in `book/graph/mappings/`.
 - Output: digest JSON at `book/graph/mappings/system_profiles/digests.json` with build metadata and provenance notes.
 
 ## Deliverables / expected outcomes
@@ -32,7 +32,7 @@ Produce stable digests for curated system profile blobs (for example, `airlock`,
   - Canonical digests are now emitted by the validation job (`book/graph/concepts/validation/system_profile_experiment_job.py`) from the fixed canonical blobs; the experiment `out/` artifacts are retained for provenance only and are not consumed by mappings.
 - **1) Scope and setup**
   - Identified input blobs: `book/graph/concepts/validation/fixtures/blobs/{airlock,bsd,sample}.sb.bin` on this Sonoma host.
-  - Confirmed digest tooling (`book.api.profile_tools.digests`, decoder-backed) and shared mappings (`book/graph/mappings/vocab`, `book/graph/mappings/op_table`) are available and in use.
+  - Confirmed digest tooling (`book.api.profile.digests`, decoder-backed) and shared mappings (`book/graph/mappings/vocab`, `book/graph/mappings/op_table`) are available and in use.
 - **2) Decode and summarize**
   - Decoded each curated system profile and captured op-table entries, node/tag counts, literal strings, and section offsets into `out/digests.json`.
 - **3) Publish stable artifact**

@@ -11,7 +11,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from book.api.path_utils import find_repo_root, to_repo_relative
-from book.api.profile_tools import compile as compile_mod
+from book.api.profile import compile as compile_mod
 
 REPO_ROOT = find_repo_root(Path(__file__))
 APP_TEMPLATE = REPO_ROOT / "book" / "profiles" / "textedit" / "application.sb"

@@ -2,7 +2,7 @@ import hashlib
 import json
 from pathlib import Path
 
-from book.api.profile_tools import identity as identity_mod
+from book.api.profile import identity as identity_mod
 
 
 ROOT = Path(__file__).resolve().parents[2]

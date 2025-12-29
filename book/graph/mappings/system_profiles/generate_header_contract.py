@@ -19,7 +19,7 @@ if str(REPO_ROOT) not in sys.path:
 
 from book.api.path_utils import to_repo_relative  # type: ignore
 from book.api import evidence_tiers  # type: ignore
-from book.api.profile_tools import digests as digests_mod  # type: ignore
+from book.api.profile import digests as digests_mod  # type: ignore
 from book.api import world as world_mod  # type: ignore
 OUT_PATH = REPO_ROOT / "book/graph/mappings/system_profiles/header_contract.json"
 

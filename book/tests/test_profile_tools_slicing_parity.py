@@ -1,8 +1,8 @@
 import os
 from pathlib import Path
 
-from book.api.profile_tools import decoder
-from book.api.profile_tools import ingestion as pi
+from book.api.profile import decoder
+from book.api.profile import ingestion as pi
 
 ROOT = Path(__file__).resolve().parents[2]
 FIXTURE = ROOT / "book" / "experiments" / "sbpl-graph-runtime" / "out" / "allow_all.sb.bin"

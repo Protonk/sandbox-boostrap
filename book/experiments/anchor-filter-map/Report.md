@@ -10,7 +10,7 @@ Bind anchor labels emitted by `probe-op-structure` to concrete Filter IDs, while
   - Field2 inventory (with anchors) from `book/experiments/field2-filters/out/field2_inventory.json`.
   - Filter vocab from `book/graph/mappings/vocab/filters.json`.
   - Existing anchor → field2 hints from `book/graph/mappings/anchors/anchor_field2_map.json`.
-- Tooling: `book.api.profile_tools.decoder` for any new probes; existing probe outputs as primary evidence.
+- Tooling: `book.api.profile.decoder` for any new probes; existing probe outputs as primary evidence.
 - Target artifact: `book/graph/mappings/anchors/anchor_ctx_filter_map.json` (canonical), plus derived `book/graph/mappings/anchors/anchor_filter_map.json` (compatibility view).
 
 ## Deliverables / expected outcomes
@@ -47,7 +47,7 @@ Bind anchor labels emitted by `probe-op-structure` to concrete Filter IDs, while
 - **1) Scope and setup**
   - Host baseline (OS/build, SIP) recorded in this Report and in `Notes.md`.
   - Inputs confirmed: `probe-op-structure/out/anchor_hits.json`, `field2-filters/out/field2_inventory.json`, vocab (`book/graph/mappings/vocab/filters.json`), anchor → field2 hints (`book/graph/mappings/anchors/anchor_field2_map.json`).
-  - Decoder (`book.api.profile_tools.decoder`) validated via existing probes and inventories.
+  - Decoder (`book.api.profile.decoder`) validated via existing probes and inventories.
 - **2) Baseline data pass**
   - Loaded anchor hits and field2 inventory; identified anchors with clear filter context (paths, mach names, iokit symbols).
   - Built initial candidates for anchor → filter-ID mapping, including conflicting and ambiguous cases.

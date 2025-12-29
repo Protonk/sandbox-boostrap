@@ -8,7 +8,7 @@ EXPECTED_IR = ROOT / "book" / "graph" / "concepts" / "validation" / "out" / "exp
 
 def test_profile_tools_digest_system_profiles_matches_experiment(tmp_path):
     out_path = tmp_path / "digests.json"
-    cmd = ["python3", "-m", "book.api.profile_tools", "digest", "system-profiles", "--out", str(out_path)]
+    cmd = ["python3", "-m", "book.api.profile", "digest", "system-profiles", "--out", str(out_path)]
     subprocess.run(cmd, check=True, capture_output=True, text=True)
 
     ir = json.loads(EXPECTED_IR.read_text())

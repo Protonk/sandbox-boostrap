@@ -2,8 +2,7 @@
 SBPL compilation helpers (Sonoma baseline).
 
 These wrap the private libsandbox entry points to produce compiled
-graph-based sandbox blobs. Exposed via `profile_tools` and shims in
-`sbpl_compile`.
+graph-based sandbox blobs. Exposed via `book.api.profile`.
 """
 
 from __future__ import annotations

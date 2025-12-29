@@ -1,4 +1,4 @@
-# profile_tools.decoder
+# profile.decoder
 
 Host-scoped structural decoder for compiled sandbox profile blobs on the Sonoma baseline (`world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`).
 
@@ -11,15 +11,15 @@ This surface is intentionally **structural**:
 
 ### Library API (stable)
 
-- `from book.api.profile_tools.decoder import decode_profile, decode_profile_dict`
-- `from book.api.profile_tools.decoder import DecodedProfile`
+- `from book.api.profile.decoder import decode_profile, decode_profile_dict`
+- `from book.api.profile.decoder import DecodedProfile`
 - Heuristic constants used by downstream tooling:
   - `WORD_OFFSET_BYTES` (current scaling used for op-table alignment scoring)
   - `DEFAULT_TAG_LAYOUTS`
   - `ROLE_UNKNOWN`
 
 `decode_profile(data: bytes, *, node_stride_bytes: int | None = None) -> DecodedProfile` returns a dataclass that includes:
-- section boundaries and offsets (via `book.api.profile_tools.ingestion`),
+- section boundaries and offsets (via `book.api.profile.ingestion`),
 - parsed node records (either “tag-layout” mode or fixed-stride mode),
 - optional annotations from published mappings (when present),
 - a `validation` block containing stride-selection metrics and other structural witnesses.
@@ -28,7 +28,7 @@ This surface is intentionally **structural**:
 
 ### CLI
 
-`python -m book.api.profile_tools decode dump <blobs...> [--summary] [--bytes N] [--node-stride 8|12|16] [--out PATH]`
+`python -m book.api.profile decode dump <blobs...> [--summary] [--bytes N] [--node-stride 8|12|16] [--out PATH]`
 
 ## Annotations (mapping-assisted, optional)
 
@@ -49,5 +49,4 @@ The returned `DecodedProfile.validation.node_stride_selection` and `validation.o
 
 ## Code layout
 
-- `book/api/profile_tools/decoder/api.py`: decoder implementation and the `DecodedProfile` contract.
-
+- `book/api/profile/decoder/api.py`: decoder implementation and the `DecodedProfile` contract.

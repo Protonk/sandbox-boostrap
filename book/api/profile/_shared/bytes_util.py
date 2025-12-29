@@ -1,5 +1,5 @@
 """
-Small byte/record helpers shared across profile_tools modules (Sonoma baseline).
+Small byte/record helpers shared across profile modules (Sonoma baseline).
 
 These helpers are intentionally low-level and format-structural. They do not
 assert kernel semantics.

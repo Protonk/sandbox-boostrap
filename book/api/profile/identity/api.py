@@ -10,7 +10,7 @@ The repo has multiple, intentionally different identity surfaces for profiles:
 This module provides a small resolver that joins these surfaces mechanically,
 using the compiled-blob path and sha256 as the primary join keys.
 
-Public API is re-exported from `book.api.profile_tools.identity`.
+Public API is re-exported from `book.api.profile.identity`.
 """
 
 from __future__ import annotations

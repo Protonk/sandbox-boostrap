@@ -1,4 +1,4 @@
-# profile_tools.sbpl_scan
+# profile.sbpl_scan
 
 Host-scoped static SBPL scanners for the Sonoma baseline (`world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`).
 
@@ -12,12 +12,12 @@ This surface is intentionally **conservative** and **structural**:
 ### Library API (stable)
 
 Minimal parser/AST:
-- `from book.api.profile_tools.sbpl_scan import parse_sbpl`
-- `from book.api.profile_tools.sbpl_scan import Atom, ListExpr, Expr`
+- `from book.api.profile.sbpl_scan import parse_sbpl`
+- `from book.api.profile.sbpl_scan import Atom, ListExpr, Expr`
 
 Scanners:
-- `from book.api.profile_tools.sbpl_scan import find_deny_message_filters`
-- `from book.api.profile_tools.sbpl_scan import classify_enterability_for_harness_identity`
+- `from book.api.profile.sbpl_scan import find_deny_message_filters`
+- `from book.api.profile.sbpl_scan import classify_enterability_for_harness_identity`
 
 Outputs:
 - `find_deny_message_filters(sbpl_text) -> list[dict]` returns structural matches inside `(apply-message-filter ...)` forms.
@@ -43,11 +43,10 @@ The stable operational interface is the preflight tool:
   - parse-error handling (`invalid`),
   - additional signatures (for example blob digest matches from validation IR).
 
-`profile_tools.sbpl_scan` is the library surface used by preflight and other tooling that needs the same conservative structural scan.
+`profile.sbpl_scan` is the library surface used by preflight and other tooling that needs the same conservative structural scan.
 
 ## Code layout
 
-- `book/api/profile_tools/sbpl_scan/parser.py`: tokenizer + minimal SBPL list/atom parser (not a full SBPL implementation).
-- `book/api/profile_tools/sbpl_scan/model.py`: minimal AST types.
-- `book/api/profile_tools/sbpl_scan/scan.py`: scanners and classifier functions.
-
+- `book/api/profile/sbpl_scan/parser.py`: tokenizer + minimal SBPL list/atom parser (not a full SBPL implementation).
+- `book/api/profile/sbpl_scan/model.py`: minimal AST types.
+- `book/api/profile/sbpl_scan/scan.py`: scanners and classifier functions.

@@ -24,8 +24,8 @@ REPO_ROOT = Path(__file__).resolve().parents[4]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from book.api.profile_tools import decoder
-from book.api.profile_tools import digests as digests_mod
+from book.api.profile import decoder
+from book.api.profile import digests as digests_mod
 from book.api import evidence_tiers
 from book.api import world as world_mod
 from book.graph.concepts.validation import profile_ingestion as pi
