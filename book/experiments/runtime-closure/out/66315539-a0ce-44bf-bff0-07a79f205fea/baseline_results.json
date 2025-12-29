@@ -1,0 +1,53 @@
+{
+  "schema_version": "runtime-tools.baseline_results.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "run_id": "66315539-a0ce-44bf-bff0-07a79f205fea",
+  "results": [
+    {
+      "name": "baseline:runtime-closure:mach:v1_service_discriminator:cfprefsd_agent",
+      "profile_id": "runtime-closure:mach:v1_service_discriminator",
+      "probe_name": "cfprefsd_agent",
+      "operation": "mach-lookup",
+      "target": "com.apple.cfprefsd.agent",
+      "primary_intent": {
+        "operation": "mach-lookup",
+        "target": "com.apple.cfprefsd.agent",
+        "profile_id": "runtime-closure:mach:v1_service_discriminator",
+        "probe_name": "cfprefsd_agent"
+      },
+      "command": [
+        "book/api/runtime/native/probes/mach_probe",
+        "com.apple.cfprefsd.agent"
+      ],
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "{\"kr\":0}\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:runtime-closure:mach:v1_service_discriminator:missing_service",
+      "profile_id": "runtime-closure:mach:v1_service_discriminator",
+      "probe_name": "missing_service",
+      "operation": "mach-lookup",
+      "target": "com.apple.sandbox-lore.missing",
+      "primary_intent": {
+        "operation": "mach-lookup",
+        "target": "com.apple.sandbox-lore.missing",
+        "profile_id": "runtime-closure:mach:v1_service_discriminator",
+        "probe_name": "missing_service"
+      },
+      "command": [
+        "book/api/runtime/native/probes/mach_probe",
+        "com.apple.sandbox-lore.missing"
+      ],
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "{\"kr\":1102}\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    }
+  ]
+}

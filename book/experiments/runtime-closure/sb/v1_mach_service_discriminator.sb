@@ -1,0 +1,8 @@
+(version 1)
+(deny default)
+(allow mach-lookup
+  (require-any
+    (global-name "com.apple.cfprefsd.agent")
+    (local-name "com.apple.cfprefsd.agent")
+    (global-name "com.apple.sandbox-lore.missing")
+    (local-name "com.apple.sandbox-lore.missing")))

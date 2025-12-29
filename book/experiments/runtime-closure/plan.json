@@ -1,0 +1,23 @@
+{
+  "schema_version": "runtime-tools.plan.v0.1",
+  "plan_id": "runtime-closure.v1",
+  "registry_id": "runtime-closure",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "profiles": [
+    "runtime-closure:file:v1_etc_alias_only",
+    "runtime-closure:file:v1_etc_private_only",
+    "runtime-closure:file:v1_etc_both",
+    "runtime-closure:mach:v1_service_discriminator",
+    "runtime-closure:iokit:v1_class_only"
+  ],
+  "lanes": {
+    "baseline": true,
+    "scenario": true,
+    "oracle": true
+  },
+  "controls": {
+    "baseline": true
+  },
+  "apply_preflight_profile": "book/experiments/hardened-runtime/sb/apply_preflight_allow.sb",
+  "notes": "Runtime closure lanes for canonicalization, mach service discrimination, and IOKit class presence to support probe-op-structure."
+}

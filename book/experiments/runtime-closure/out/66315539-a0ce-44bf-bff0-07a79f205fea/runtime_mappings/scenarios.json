@@ -1,0 +1,115 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "tier": "mapped",
+    "source_jobs": [],
+    "notes": "scenario-level runtime summaries"
+  },
+  "phase_histograms": {
+    "overall": {
+      "total": 2,
+      "stages": {
+        "apply": 0,
+        "bootstrap": 0,
+        "preflight": 0,
+        "probe": 2
+      },
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "probe": {
+        "total": 2,
+        "allow": 1,
+        "deny": 1,
+        "mismatches": 0
+      }
+    },
+    "by_family": {
+      "mach-lookup": {
+        "total": 2,
+        "stages": {
+          "apply": 0,
+          "bootstrap": 0,
+          "preflight": 0,
+          "probe": 2
+        },
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "probe": {
+          "total": 2,
+          "allow": 1,
+          "deny": 1,
+          "mismatches": 0
+        }
+      }
+    }
+  },
+  "scenarios": {
+    "runtime-closure:mach:v1_service_discriminator:cfprefsd_agent": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime-closure:mach:v1_service_discriminator",
+      "expectations": [
+        {
+          "expectation_id": "runtime-closure:mach:v1_service_discriminator:cfprefsd_agent",
+          "profile_id": "runtime-closure:mach:v1_service_discriminator",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.agent",
+          "expected": "allow",
+          "probe_name": "cfprefsd_agent"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "runtime-closure:mach:v1_service_discriminator:cfprefsd_agent"
+    },
+    "runtime-closure:mach:v1_service_discriminator:missing_service": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime-closure:mach:v1_service_discriminator",
+      "expectations": [
+        {
+          "expectation_id": "runtime-closure:mach:v1_service_discriminator:missing_service",
+          "profile_id": "runtime-closure:mach:v1_service_discriminator",
+          "operation": "mach-lookup",
+          "target": "com.apple.sandbox-lore.missing",
+          "expected": "deny",
+          "probe_name": "missing_service"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "runtime-closure:mach:v1_service_discriminator:missing_service"
+    }
+  }
+}

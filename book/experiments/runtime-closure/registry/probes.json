@@ -1,0 +1,298 @@
+{
+  "schema_version": "runtime-tools.probe_registry.v0.1",
+  "registry_id": "runtime-closure",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "probes": {
+    "runtime-closure:file:v1_etc_alias_only:etc_hosts": {
+      "probe_id": "runtime-closure:file:v1_etc_alias_only:etc_hosts",
+      "name": "etc_hosts",
+      "operation": "file-read*",
+      "target": "/etc/hosts",
+      "expected": "allow",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "expected_predicates": [
+        "/etc/hosts"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "runtime-closure:file:v1_etc_alias_only:private_etc_hosts": {
+      "probe_id": "runtime-closure:file:v1_etc_alias_only:private_etc_hosts",
+      "name": "private_etc_hosts",
+      "operation": "file-read*",
+      "target": "/private/etc/hosts",
+      "expected": "deny",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "expected_predicates": [
+        "/private/etc/hosts"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "runtime-closure:file:v1_etc_alias_only:tmp_foo": {
+      "probe_id": "runtime-closure:file:v1_etc_alias_only:tmp_foo",
+      "name": "tmp_foo",
+      "operation": "file-read*",
+      "target": "/tmp/foo",
+      "expected": "allow",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "expected_predicates": [
+        "/tmp/foo"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "runtime-closure:file:v1_etc_private_only:etc_hosts": {
+      "probe_id": "runtime-closure:file:v1_etc_private_only:etc_hosts",
+      "name": "etc_hosts",
+      "operation": "file-read*",
+      "target": "/etc/hosts",
+      "expected": "deny",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "expected_predicates": [
+        "/etc/hosts"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "runtime-closure:file:v1_etc_private_only:private_etc_hosts": {
+      "probe_id": "runtime-closure:file:v1_etc_private_only:private_etc_hosts",
+      "name": "private_etc_hosts",
+      "operation": "file-read*",
+      "target": "/private/etc/hosts",
+      "expected": "allow",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "expected_predicates": [
+        "/private/etc/hosts"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "runtime-closure:file:v1_etc_private_only:tmp_foo": {
+      "probe_id": "runtime-closure:file:v1_etc_private_only:tmp_foo",
+      "name": "tmp_foo",
+      "operation": "file-read*",
+      "target": "/tmp/foo",
+      "expected": "allow",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "expected_predicates": [
+        "/tmp/foo"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "runtime-closure:file:v1_etc_both:etc_hosts": {
+      "probe_id": "runtime-closure:file:v1_etc_both:etc_hosts",
+      "name": "etc_hosts",
+      "operation": "file-read*",
+      "target": "/etc/hosts",
+      "expected": "allow",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "expected_predicates": [
+        "/etc/hosts"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "runtime-closure:file:v1_etc_both:private_etc_hosts": {
+      "probe_id": "runtime-closure:file:v1_etc_both:private_etc_hosts",
+      "name": "private_etc_hosts",
+      "operation": "file-read*",
+      "target": "/private/etc/hosts",
+      "expected": "allow",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "expected_predicates": [
+        "/private/etc/hosts"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "runtime-closure:file:v1_etc_both:tmp_foo": {
+      "probe_id": "runtime-closure:file:v1_etc_both:tmp_foo",
+      "name": "tmp_foo",
+      "operation": "file-read*",
+      "target": "/tmp/foo",
+      "expected": "allow",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "expected_predicates": [
+        "/tmp/foo"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "runtime-closure:mach:v1_service_discriminator:cfprefsd_agent": {
+      "probe_id": "runtime-closure:mach:v1_service_discriminator:cfprefsd_agent",
+      "name": "cfprefsd_agent",
+      "operation": "mach-lookup",
+      "target": "com.apple.cfprefsd.agent",
+      "expected": "allow",
+      "driver": "sandbox_mach_probe",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "mach-lookup"
+      ],
+      "expected_predicates": [
+        "com.apple.cfprefsd.agent"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "runtime-closure:mach:v1_service_discriminator:missing_service": {
+      "probe_id": "runtime-closure:mach:v1_service_discriminator:missing_service",
+      "name": "missing_service",
+      "operation": "mach-lookup",
+      "target": "com.apple.sandbox-lore.missing",
+      "expected": "deny",
+      "driver": "sandbox_mach_probe",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "mach-lookup"
+      ],
+      "expected_predicates": [
+        "com.apple.sandbox-lore.missing"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "runtime-closure:iokit:v1_class_only:iosurface_root": {
+      "probe_id": "runtime-closure:iokit:v1_class_only:iosurface_root",
+      "name": "iosurface_root",
+      "operation": "iokit-open-service",
+      "target": "IOSurfaceRoot",
+      "expected": "allow",
+      "driver": "sandbox_iokit_probe",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "iokit-open-service"
+      ],
+      "expected_predicates": [
+        "IOSurfaceRoot"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    }
+  }
+}

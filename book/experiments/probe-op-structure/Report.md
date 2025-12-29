@@ -70,6 +70,12 @@ A minimal runtime plan exists to test a few anchors under the shared runtime har
 
 This runtime slice is intentionally narrow and should be treated as hypothesis-level evidence unless additional controls are added.
 
+Additional runtime closure (file-only) lives in `book/experiments/runtime-closure/Report.md`. The file lane run `book/experiments/runtime-closure/out/5a8908d8-d626-4cac-8bdd-0f53c02af8fe/` denies `/etc/hosts` under alias-only, private-only, and both profiles while allowing `/private/etc/hosts` only when explicitly permitted; `/tmp/foo` is denied across all three profiles. `path_witnesses.json` in that run shows baseline `/etc/hosts` -> `/private/etc/hosts` and scenario `F_GETPATH_NOFIRMLINK:/System/Volumes/Data/private/etc/hosts` when `/private/etc/hosts` opens successfully, reinforcing the canonicalization mismatch hypothesis.
+
+The runtime-closure mach lane run `book/experiments/runtime-closure/out/66315539-a0ce-44bf-bff0-07a79f205fea/` confirms `com.apple.cfprefsd.agent` succeeds in baseline and scenario (`kr=0`), while the missing-service control returns `kr=1102` in both lanes, helping separate “missing service” from sandbox denial.
+
+The runtime-closure IOKit lane run `book/experiments/runtime-closure/out/48086066-bfa2-44bb-877c-62dd1dceca09/` uses the `IOSurfaceRoot` class: baseline `iokit_probe` opens successfully (`open_kr=0`), while the sandboxed probe reports `open_kr=-536870174` with `EPERM`, providing a discriminating IOKit signal that is not yet aligned with the allow expectation.
+
 ## Evidence & artifacts
 - Structural outputs: `book/experiments/probe-op-structure/out/{analysis.json,anchor_hits.json,tag_inventory.json,tag_layout_hypotheses.json,tag_bytes.json,literal_scan.json}`.
 - Runtime outputs: `book/experiments/probe-op-structure/out/39f84aa5-86b4-466d-b5d9-f510299bbd0a/{runtime_results.json,runtime_events.normalized.json,run_manifest.json}`.

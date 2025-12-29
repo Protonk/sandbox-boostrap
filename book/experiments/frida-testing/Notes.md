@@ -2,6 +2,8 @@
 
 ## Running log
 - Note: EntitlementJail v2.1.9 removes `--ack-risk` and the `fully_injectable` / `fully_injectable_extensions` profiles; use `profile@injectable` digital twins going forward.
+- Action: promoted stable Frida hooks to book/api/frida/hooks and linked the experiment hook paths to the API copies.
+- Action: moved the EntitlementJail Frida harness into book/api/frida/entitlementjail.py; book/experiments/frida-testing/run_ej_frida.py now delegates to the API entrypoint.
 - Action: added on_wait_ready callback support in book/api/entitlementjail/wait.py to enable pre-trigger Frida attach.
 - Action: added book/experiments/frida-testing/run_ej_frida.py harness (capabilities_snapshot + attach-first run-xpc + observer capture + manifest).
 - Action: updated book/experiments/frida-testing/hooks/fs_open_selftest.js to accept FRIDA_SELFTEST_PATH via RPC/config.
@@ -372,6 +374,66 @@
 - Artifacts: book/experiments/frida-testing/out/b03ad4a9-d2b3-438e-a71c-cab0ec92b0f3/manifest.json; book/experiments/frida-testing/out/b03ad4a9-d2b3-438e-a71c-cab0ec92b0f3/ej/run_xpc.json; book/experiments/frida-testing/out/b03ad4a9-d2b3-438e-a71c-cab0ec92b0f3/ej/capabilities_snapshot.json; book/experiments/frida-testing/out/b03ad4a9-d2b3-438e-a71c-cab0ec92b0f3/frida/events.jsonl; book/experiments/frida-testing/out/b03ad4a9-d2b3-438e-a71c-cab0ec92b0f3/frida/meta.json.
 - Status: ok (attach + probe_catalog succeeded).
 - Follow-up: investigate why selftest path preparation failed under minimal@injectable.
+
+- Command: ./.venv/bin/python book/experiments/frida-testing/run_ej_frida.py --profile-id minimal@injectable --probe-id probe_catalog --script book/experiments/frida-testing/hooks/smoke.js --no-prepare-selftest
+- Result: run-xpc ok; attach succeeded with pid_matches_service_pid true; wait/trigger events observed; selftest prep skipped.
+- Artifacts: book/experiments/frida-testing/out/916d33bd-97fb-4cd1-9346-fe0c70faa542/manifest.json; book/experiments/frida-testing/out/916d33bd-97fb-4cd1-9346-fe0c70faa542/ej/run_xpc.json; book/experiments/frida-testing/out/916d33bd-97fb-4cd1-9346-fe0c70faa542/frida/events.jsonl; book/experiments/frida-testing/out/916d33bd-97fb-4cd1-9346-fe0c70faa542/frida/meta.json.
+- Status: ok.
+- Follow-up: use this as the attach-first baseline for minimal@injectable.
+
+- Command: ./.venv/bin/python book/experiments/frida-testing/run_ej_frida.py --profile-id <profile@injectable> --probe-id probe_catalog --script book/experiments/frida-testing/hooks/smoke.js --no-prepare-selftest (profiles: minimal, net_client, downloads_rw, user_selected_executable, bookmarks_app_scope, temporary_exception)
+- Result: all six runs failed to open XPC session; run_xpc error NSCocoaErrorDomain Code 4099 (error 159 - Sandbox restriction); no session_ready, no Frida attach.
+- Artifacts: book/experiments/frida-testing/out/994d18ad-9656-4c07-952a-3cdeb5b8a2af/manifest.json (minimal@injectable); book/experiments/frida-testing/out/d30a92eb-4a42-49de-875d-747691edc42a/manifest.json (net_client@injectable); book/experiments/frida-testing/out/e3c2b193-59c8-4cd1-82cd-9475aff52238/manifest.json (downloads_rw@injectable); book/experiments/frida-testing/out/ad8a7d53-5e05-429e-995f-346a6068ef44/manifest.json (user_selected_executable@injectable); book/experiments/frida-testing/out/f32fa4ed-9eef-48f0-a76e-cad99c5d27fc/manifest.json (bookmarks_app_scope@injectable); book/experiments/frida-testing/out/bcf5e8b2-8c05-4932-93e0-61fdeb5ec42e/manifest.json (temporary_exception@injectable).
+- Status: blocked (XPC connection invalidated).
+- Follow-up: verify EntitlementJail XPC reachability for @injectable profiles before continuing sweep.
+
+- Command: ./.venv/bin/python book/experiments/frida-testing/run_ej_frida.py --profile-id temporary_exception@injectable --probe-id sandbox_extension --script book/experiments/frida-testing/hooks/sandbox_export_isolation.js --frida-config-path book/experiments/frida-testing/out/inputs/sandbox_export_isolation/sandbox_extension_issue_file.json --no-prepare-selftest --probe-args --op issue_file --class com.apple.app-sandbox.read --path-class tmp --target specimen_file --name ej_extension.txt --create
+- Result: XPC session not ready; run_xpc error NSCocoaErrorDomain Code 4099 (error 159 - Sandbox restriction); no token or Frida attach.
+- Artifacts: book/experiments/frida-testing/out/a066da1c-a9c5-4879-b8b5-ee91f745bee8/manifest.json; book/experiments/frida-testing/out/a066da1c-a9c5-4879-b8b5-ee91f745bee8/ej/run_xpc.json.
+- Status: blocked.
+- Follow-up: resolve XPC connection issue before attempting consume/release.
+
+- Command: book/tools/entitlement/EntitlementJail.app/Contents/MacOS/entitlement-jail xpc run --profile minimal@injectable probe_catalog
+- Result: xpc_error with NSCocoaErrorDomain Code 4099 (error 159 - Sandbox restriction); no probe output.
+- Artifacts: none (stdout-only JSON error).
+- Status: blocked.
+- Follow-up: confirm whether EntitlementJail requires a different launch or installation path for @injectable services.
+
+- Command: book/tools/entitlement/EntitlementJail.app/Contents/MacOS/entitlement-jail health-check --profile minimal@injectable (elevated)
+- Result: ok; capabilities_snapshot/world_shape/fs_op probes all returned normalized_outcome ok for minimal@injectable.
+- Artifacts: stdout-only JSON health_check_report.
+- Status: ok.
+- Follow-up: use elevated runs for XPC sessions when the harness sandbox blocks lookups.
+
+- Command: book/tools/entitlement/EntitlementJail.app/Contents/MacOS/entitlement-jail xpc run --profile minimal@injectable probe_catalog (elevated)
+- Result: run ok; service_pid reported; probe_catalog JSON returned (high concern warning only).
+- Artifacts: stdout-only JSON probe_response.
+- Status: ok.
+- Follow-up: rerun the @injectable sweep with elevated permissions.
+
+- Command: ./.venv/bin/python book/experiments/frida-testing/run_ej_frida.py --profile-id <profile@injectable> --probe-id probe_catalog --script book/experiments/frida-testing/hooks/smoke.js --no-prepare-selftest (profiles: minimal, net_client, downloads_rw, user_selected_executable, bookmarks_app_scope, temporary_exception) (elevated)
+- Result: all six runs succeeded; session_ready + probe_done recorded; Frida attach ok (pid_matches_service_pid true).
+- Artifacts: book/experiments/frida-testing/out/c474eb4e-57b9-4325-8e62-a140b4b14635/manifest.json (minimal@injectable); book/experiments/frida-testing/out/49e69f56-c29b-492e-acf7-7c3e12827de8/manifest.json (net_client@injectable); book/experiments/frida-testing/out/e3d62720-ce97-48b8-a243-62b1a067635e/manifest.json (downloads_rw@injectable); book/experiments/frida-testing/out/9917a124-ce0e-4809-9d83-87bb8a10d731/manifest.json (user_selected_executable@injectable); book/experiments/frida-testing/out/30c14e26-0f69-4d67-87e8-ca30cd01151a/manifest.json (bookmarks_app_scope@injectable); book/experiments/frida-testing/out/2d0dc547-22af-4305-9ba8-fecf2bc48cc1/manifest.json (temporary_exception@injectable).
+- Status: ok.
+- Follow-up: treat harness-only XPC restrictions as a sandbox artifact; continue future runs with elevated permissions.
+
+- Command: ./.venv/bin/python book/experiments/frida-testing/run_ej_frida.py --profile-id minimal@injectable --probe-id fs_op --script book/experiments/frida-testing/hooks/fs_open_selftest.js --no-prepare-selftest --probe-args --op open_read --path-class tmp --target specimen_file (elevated)
+- Result: run-xpc ok; attach succeeded; fs_open_selftest self-open attempted in tmp/ej_noaccess; fs-open event captured (errno 13) with backtrace.
+- Artifacts: book/experiments/frida-testing/out/1d996a72-4c75-4f43-bb71-639f445fd31d/manifest.json; book/experiments/frida-testing/out/1d996a72-4c75-4f43-bb71-639f445fd31d/ej/run_xpc.json; book/experiments/frida-testing/out/1d996a72-4c75-4f43-bb71-639f445fd31d/frida/events.jsonl.
+- Status: ok.
+- Follow-up: use elevated runs for fs_open_selftest + fs_op when the harness sandbox blocks XPC sessions.
+
+- Command: ./.venv/bin/python book/experiments/frida-testing/run_ej_frida.py --profile-id minimal@injectable --probe-id sandbox_check --script book/experiments/frida-testing/hooks/sandbox_check_trace.js --no-prepare-selftest --probe-args --operation file-read-data --path /etc/hosts (elevated)
+- Result: run-xpc ok; attach succeeded; hook candidates count 36; sandbox_check call observed with args ["file-read-data", "/etc/hosts"] and ret_i32 1.
+- Artifacts: book/experiments/frida-testing/out/265ebd80-5536-444d-aaf3-dea3cdf7bb16/manifest.json; book/experiments/frida-testing/out/265ebd80-5536-444d-aaf3-dea3cdf7bb16/ej/run_xpc.json; book/experiments/frida-testing/out/265ebd80-5536-444d-aaf3-dea3cdf7bb16/frida/events.jsonl.
+- Status: ok.
+- Follow-up: treat sandbox_check_trace as unblocked when running outside the harness sandbox.
+
+- Command: ./.venv/bin/python book/experiments/frida-testing/run_ej_frida.py --profile-id minimal@injectable --probe-id sandbox_check --script book/experiments/frida-testing/hooks/sandbox_check_minimal.js --no-prepare-selftest --probe-args --operation file-read-data --path /etc/hosts (elevated)
+- Result: run-xpc ok; attach succeeded; hook candidates count 2; sandbox_check call observed with args ["file-read-data"] and ret_i32 1.
+- Artifacts: book/experiments/frida-testing/out/ecb71fb6-3213-4285-978d-33583472ccbd/manifest.json; book/experiments/frida-testing/out/ecb71fb6-3213-4285-978d-33583472ccbd/ej/run_xpc.json; book/experiments/frida-testing/out/ecb71fb6-3213-4285-978d-33583472ccbd/frida/events.jsonl.
+- Status: ok.
+- Follow-up: use this minimal hook to avoid broader sandbox symbol interception when stability is required.
 
 ## Entry template
 - Command:

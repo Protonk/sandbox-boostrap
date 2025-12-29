@@ -10,9 +10,7 @@ from pathlib import Path
 import frida
 
 from book.api import path_utils
-
-# Fixed world for this repository baseline.
-WORLD_ID = "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+from book.api.profile_tools.identity import baseline_world_id
 
 
 def sha256_bytes(blob: bytes) -> str:
@@ -37,13 +35,14 @@ def run(
     spawn: list[str] | None,
     attach_pid: int | None,
     script: str,
-    out_dir: str = "book/experiments/frida-testing/out",
+    out_dir: str = "book/api/frida/out",
     duration_s: float | None = None,
 ) -> int:
     if (spawn is None) == (attach_pid is None):
         raise SystemExit("Specify exactly one of --spawn or --attach-pid")
 
     repo_root = path_utils.find_repo_root()
+    world_id = baseline_world_id(repo_root)
 
     run_id = str(uuid.uuid4())
     out_dir_abs = path_utils.ensure_absolute(out_dir, repo_root)
@@ -63,7 +62,7 @@ def run(
 
     meta = {
         "run_id": run_id,
-        "world_id": WORLD_ID,
+        "world_id": world_id,
         "t0_ns": now_ns(),
         "out_dir": path_utils.to_repo_relative(out_root, repo_root),
         "host": {

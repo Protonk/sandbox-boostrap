@@ -1,0 +1,77 @@
+{
+  "schema_version": "runtime-tools.profile_registry.v0.1",
+  "registry_id": "runtime-closure",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "profiles": {
+    "runtime-closure:file:v1_etc_alias_only": {
+      "profile_id": "runtime-closure:file:v1_etc_alias_only",
+      "profile_path": "book/experiments/runtime-closure/sb/v1_etc_alias_only.sb",
+      "mode": "sbpl",
+      "family": "file-read",
+      "semantic_group": "file-read:canonicalization",
+      "probe_refs": [
+        "runtime-closure:file:v1_etc_alias_only:etc_hosts",
+        "runtime-closure:file:v1_etc_alias_only:private_etc_hosts",
+        "runtime-closure:file:v1_etc_alias_only:tmp_foo"
+      ],
+      "notes": "Alias-only profile for /etc/hosts with /tmp/foo control."
+    },
+    "runtime-closure:file:v1_etc_private_only": {
+      "profile_id": "runtime-closure:file:v1_etc_private_only",
+      "profile_path": "book/experiments/runtime-closure/sb/v1_etc_private_only.sb",
+      "mode": "sbpl",
+      "family": "file-read",
+      "semantic_group": "file-read:canonicalization",
+      "probe_refs": [
+        "runtime-closure:file:v1_etc_private_only:etc_hosts",
+        "runtime-closure:file:v1_etc_private_only:private_etc_hosts",
+        "runtime-closure:file:v1_etc_private_only:tmp_foo"
+      ],
+      "notes": "Canonical-only profile for /private/etc/hosts with /tmp/foo control."
+    },
+    "runtime-closure:file:v1_etc_both": {
+      "profile_id": "runtime-closure:file:v1_etc_both",
+      "profile_path": "book/experiments/runtime-closure/sb/v1_etc_both.sb",
+      "mode": "sbpl",
+      "family": "file-read",
+      "semantic_group": "file-read:canonicalization",
+      "probe_refs": [
+        "runtime-closure:file:v1_etc_both:etc_hosts",
+        "runtime-closure:file:v1_etc_both:private_etc_hosts",
+        "runtime-closure:file:v1_etc_both:tmp_foo"
+      ],
+      "notes": "Both-paths profile for /etc/hosts and /private/etc/hosts with /tmp/foo control."
+    },
+    "runtime-closure:mach:v1_service_discriminator": {
+      "profile_id": "runtime-closure:mach:v1_service_discriminator",
+      "profile_path": "book/experiments/runtime-closure/sb/v1_mach_service_discriminator.sb",
+      "mode": "sbpl",
+      "family": "mach-lookup",
+      "semantic_group": "mach:service-discriminator",
+      "probe_refs": [
+        "runtime-closure:mach:v1_service_discriminator:cfprefsd_agent",
+        "runtime-closure:mach:v1_service_discriminator:missing_service"
+      ],
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ],
+      "notes": "Allow known service and missing-control name to split missing vs denied."
+    },
+    "runtime-closure:iokit:v1_class_only": {
+      "profile_id": "runtime-closure:iokit:v1_class_only",
+      "profile_path": "book/experiments/runtime-closure/sb/v1_iokit_class_only.sb",
+      "mode": "sbpl",
+      "family": "iokit-open-service",
+      "semantic_group": "iokit:class-discriminator",
+      "probe_refs": [
+        "runtime-closure:iokit:v1_class_only:iosurface_root"
+      ],
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ],
+      "notes": "Class-only IOKit probe for IOSurfaceRoot (baseline found + open ok)."
+    }
+  }
+}

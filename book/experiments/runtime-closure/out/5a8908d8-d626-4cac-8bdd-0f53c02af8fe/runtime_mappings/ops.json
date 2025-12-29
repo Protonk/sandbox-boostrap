@@ -1,0 +1,113 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "tier": "mapped",
+    "source_jobs": [],
+    "notes": "op-level runtime summary"
+  },
+  "ops": {
+    "file-read*": {
+      "op_name": "file-read*",
+      "op_id": 21,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 9,
+      "matches": 4,
+      "mismatches": 5,
+      "probes_including_blocked": 9,
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "examples": [
+        {
+          "scenario_id": "runtime-closure:file:v1_etc_alias_only:etc_hosts",
+          "expectation_id": "runtime-closure:file:v1_etc_alias_only:etc_hosts",
+          "expected": "allow",
+          "actual": "deny",
+          "match": false
+        },
+        {
+          "scenario_id": "runtime-closure:file:v1_etc_alias_only:private_etc_hosts",
+          "expectation_id": "runtime-closure:file:v1_etc_alias_only:private_etc_hosts",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        },
+        {
+          "scenario_id": "runtime-closure:file:v1_etc_alias_only:tmp_foo",
+          "expectation_id": "runtime-closure:file:v1_etc_alias_only:tmp_foo",
+          "expected": "allow",
+          "actual": "deny",
+          "match": false
+        },
+        {
+          "scenario_id": "runtime-closure:file:v1_etc_private_only:etc_hosts",
+          "expectation_id": "runtime-closure:file:v1_etc_private_only:etc_hosts",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        },
+        {
+          "scenario_id": "runtime-closure:file:v1_etc_private_only:private_etc_hosts",
+          "expectation_id": "runtime-closure:file:v1_etc_private_only:private_etc_hosts",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        }
+      ],
+      "scenarios": [
+        "runtime-closure:file:v1_etc_alias_only:etc_hosts",
+        "runtime-closure:file:v1_etc_alias_only:private_etc_hosts",
+        "runtime-closure:file:v1_etc_alias_only:tmp_foo",
+        "runtime-closure:file:v1_etc_both:etc_hosts",
+        "runtime-closure:file:v1_etc_both:private_etc_hosts",
+        "runtime-closure:file:v1_etc_both:tmp_foo",
+        "runtime-closure:file:v1_etc_private_only:etc_hosts",
+        "runtime-closure:file:v1_etc_private_only:private_etc_hosts",
+        "runtime-closure:file:v1_etc_private_only:tmp_foo"
+      ],
+      "mismatch_details": [
+        {
+          "scenario_id": "runtime-closure:file:v1_etc_alias_only:etc_hosts",
+          "expectation_id": "runtime-closure:file:v1_etc_alias_only:etc_hosts",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/etc/hosts"
+        },
+        {
+          "scenario_id": "runtime-closure:file:v1_etc_alias_only:tmp_foo",
+          "expectation_id": "runtime-closure:file:v1_etc_alias_only:tmp_foo",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/tmp/foo"
+        },
+        {
+          "scenario_id": "runtime-closure:file:v1_etc_private_only:tmp_foo",
+          "expectation_id": "runtime-closure:file:v1_etc_private_only:tmp_foo",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/tmp/foo"
+        },
+        {
+          "scenario_id": "runtime-closure:file:v1_etc_both:etc_hosts",
+          "expectation_id": "runtime-closure:file:v1_etc_both:etc_hosts",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/etc/hosts"
+        },
+        {
+          "scenario_id": "runtime-closure:file:v1_etc_both:tmp_foo",
+          "expectation_id": "runtime-closure:file:v1_etc_both:tmp_foo",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/tmp/foo"
+        }
+      ],
+      "coverage_status": "partial"
+    }
+  }
+}
