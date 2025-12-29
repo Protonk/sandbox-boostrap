@@ -17,6 +17,8 @@ Establish attach-first Frida witnesses for in-process sandbox behavior using Ent
 - Output layout with manifest and observer logs under book/experiments/frida-testing/out/<run_id>/.
 
 ## Plan & execution log
+- Note: EntitlementJail v2.1.9 removes `--ack-risk` and the `fully_injectable` / `fully_injectable_extensions` profiles. Use `profile@injectable` digital twins; pre-update runs below are legacy.
+- Completed: updated run_ej_frida.py to align with v2.1.9 (no --ack-risk, use profile@injectable).
 - Completed: added on_wait_ready callback support in book/api/entitlementjail/wait.py to attach Frida before FIFO trigger.
 - Completed: added run_ej_frida.py harness that runs capabilities_snapshot, attaches Frida, and captures EntitlementJail observer output.
 - Completed: updated fs_open_selftest.js to accept a container-correct selftest path via RPC (FRIDA_SELFTEST_PATH fallback).
@@ -84,6 +86,7 @@ Establish attach-first Frida witnesses for in-process sandbox behavior using Ent
 - Hooks: book/experiments/frida-testing/hooks/fs_open.js, book/experiments/frida-testing/hooks/fs_open_selftest.js, book/experiments/frida-testing/hooks/fs_open_funnel.js, book/experiments/frida-testing/hooks/fs_op_funnel.js, book/experiments/frida-testing/hooks/discover_sandbox_exports.js, book/experiments/frida-testing/hooks/sandbox_trace.js, book/experiments/frida-testing/hooks/sandbox_check_trace.js, book/experiments/frida-testing/hooks/execmem_trace.js, book/experiments/frida-testing/hooks/sandbox_check_minimal.js, book/experiments/frida-testing/hooks/sandbox_export_isolation.js, book/experiments/frida-testing/hooks/sandbox_extension_selftest.js.
 - Config inputs: book/experiments/frida-testing/out/inputs/sandbox_export_isolation/sandbox_check.json, book/experiments/frida-testing/out/inputs/sandbox_export_isolation/sandbox_check_bulk.json, book/experiments/frida-testing/out/inputs/sandbox_export_isolation/sandbox_extension_issue_file.json, book/experiments/frida-testing/out/inputs/sandbox_export_isolation/sandbox_extension_issue_mach.json, book/experiments/frida-testing/out/inputs/sandbox_export_isolation/sandbox_extension_consume.json, book/experiments/frida-testing/out/inputs/sandbox_export_isolation/sandbox_extension_release.json, book/experiments/frida-testing/out/inputs/sandbox_export_isolation/sandbox_extension_selftest.json.
 - EntitlementJail wait API: book/api/entitlementjail/wait.py (on_wait_ready callback).
+- Legacy note: runs that reference removed profiles are pre-v2.1.9 artifacts; refresh them under `profile@injectable` as needed.
 - Successful runs:
   - book/experiments/frida-testing/out/d8e2c72a-493d-4518-9dfa-b18b57a41e83/manifest.json (probe_catalog + smoke).
   - book/experiments/frida-testing/out/41d1a763-bfc3-4dbf-9920-0335d001383b/manifest.json (fs_op + smoke).
@@ -153,12 +156,11 @@ Establish attach-first Frida witnesses for in-process sandbox behavior using Ent
   - book/experiments/frida-testing/out/<run_id>/frida/events.jsonl
 
 ## Run recipe (attach-first)
-Example (Tier 2 profile requires --ack-risk):
+Example (attach via the @injectable digital twin):
 
 ```sh
 ./.venv/bin/python book/experiments/frida-testing/run_ej_frida.py \
-  --profile-id fully_injectable \
-  --ack-risk fully_injectable \
+  --profile-id minimal@injectable \
   --probe-id fs_op \
   --script book/experiments/frida-testing/hooks/fs_open_selftest.js \
   --probe-args --op open_read --path-class tmp --target specimen_file
@@ -169,45 +171,43 @@ Example (per-export isolation hook):
 
 ```sh
 ./.venv/bin/python book/experiments/frida-testing/run_ej_frida.py \
-  --profile-id fully_injectable \
-  --ack-risk fully_injectable \
+  --profile-id minimal@injectable \
   --probe-id probe_catalog \
   --script book/experiments/frida-testing/hooks/sandbox_export_isolation.js \
   --frida-config-path book/experiments/frida-testing/out/inputs/sandbox_export_isolation/sandbox_check.json
 ```
 
 ## Blockers / risks
+- Legacy runs use removed profiles (`fully_injectable`, `fully_injectable_extensions`, `get-task-allow`, `jit_map_jit`, `jit_rwx_legacy`, `dyld_env_enabled`, `plugin_host_relaxed`); treat those entries as historical and re-run under `profile@injectable` twins when needed.
 - Frida spawn remains unstable on this host; this experiment is attach-first only (partial, no current witness).
 - Attach-first fs_op runs with fs_open_selftest repeatedly failed with NSCocoaErrorDomain Code 4097 (XPC connection error); treat fs_open_selftest + fs_op as blocked until a new attach strategy is available.
 - Frida attach can crash inside the Codex harness sandbox; run captures from a normal Terminal session.
 - EntitlementJail XPC sessions from the Codex harness sandbox can fail with NSCocoaErrorDomain Code 4099 (error 159 - Sandbox restriction); treat harness runs as blocked for these probes, but external Terminal runs did succeed for sandbox_export_isolation.
-- sandbox_set_trace_path / vtrace exports were not present in libsystem_sandbox.dylib for fully_injectable (run_id 25d6ade2-0b08-40d2-b37c-fbcad882e11a); trace unavailable (blocked).
+- sandbox_set_trace_path / vtrace exports were not present in libsystem_sandbox.dylib for legacy fully_injectable (run_id 25d6ade2-0b08-40d2-b37c-fbcad882e11a); trace unavailable until revalidated under @injectable.
 - fs_op with downloads path-class produced permission_error without fs-open events; extended funnel captured mkdirat errno 1 during harness dir creation, indicating failure before open (partial).
-- Frida attach failed for get-task-allow (xpc_error), debuggable, plugin_host_relaxed, dyld_env_enabled, jit_map_jit, and jit_rwx_legacy (injection refused / permission denied), limiting profile coverage.
-- sandbox_check_trace.js caused XPC connection errors in fully_injectable runs; treat sandbox_check/extension tracing as blocked until a safer attach mode is found.
+- Frida attach failed for legacy profiles (get-task-allow, debuggable, plugin_host_relaxed, dyld_env_enabled, jit_map_jit, jit_rwx_legacy), limiting pre-update coverage.
+- sandbox_check_trace.js caused XPC connection errors in the legacy fully_injectable runs; treat sandbox_check/extension tracing as blocked until a safer attach mode is found.
 - sandbox_check_minimal.js (sandbox_check + sandbox_check_bulk only) still triggered XPC connection errors; libsystem_sandbox hooking appears destabilizing on this host.
-- sandbox_extension_selftest issue attempts failed with errno 1 under fully_injectable; extension issuance remains blocked for this caller (partial).
+- sandbox_extension_selftest issue attempts failed with errno 1 under legacy fully_injectable; re-run under `temporary_exception@injectable`.
 - sandbox_extension issue_file succeeds with --allow-unsafe-path, but consume/release return errno 17/22 even with the full token; treat consume/release as blocked until token semantics are clarified.
-- Minimal profile is not Frida-injectable (PermissionDeniedError), so consume/release hooks can only be captured under fully_injectable_extensions.
+- Base variants are not Frida-injectable (PermissionDeniedError); use `profile@injectable` twins for attach and `temporary_exception@injectable` for extension hooks.
 - fs_op target base/harness_dir ignore --name and return errno 21 (Is a directory); run_dir files are cleaned before follow-on extension issue.
 - EntitlementJail probes are defined inside the app bundle; sandbox_extension now exists, but probe source is still not in repo, so behavior is inferred from probe_catalog + run outputs.
-- jit_rwx_legacy under fully_injectable produced permission_error (errno 13) on RWX mmap despite allow-unsigned-executable-memory entitlement; treat RWX outcomes as partial until repeated.
+- jit_rwx_legacy under legacy fully_injectable produced permission_error (errno 13) on RWX mmap despite allow-unsigned-executable-memory entitlement; treat RWX outcomes as partial until repeated.
 - Post-trigger attach avoids XPC errors for sandbox_check_minimal.js, but no sandbox_check calls were observed even with gated fs_op_wait; userland sandbox_check may be unused by these probes (partial).
 - Direct-path readlink with chmod 000 parent returns EACCES and logs via fs_open_funnel.js; some runs report exit_code -15 from run_xpc (cause unknown).
 - If multiple service PIDs exist, the attach PID may not match data.details.service_pid; check manifest.json for pid_matches_service_pid.
 
 ## Next steps
+- Use the `profile@injectable` digital twin route to capture attach-first baselines for each active profile (minimal, net_client, downloads_rw, user_selected_executable, bookmarks_app_scope, temporary_exception) with `probe_catalog` and `capabilities_snapshot`, then compare to their base variants.
 - Use sandbox_export_isolation.js to hook one libsystem_sandbox export at a time and identify a safe subset that does not trigger XPC errors; sandbox_check and sandbox_check_bulk hooks installed cleanly, and sandbox_check call capture succeeded under the dedicated probe.
-- sandbox_extension now produces real issue/consume/release calls; next step is to resolve token semantics (why consume/release return errno 17/22) and determine whether a harness path can be used without --allow-unsafe-path.
-- If extension consumption evidence is required, try a path that minimal cannot already access (or confirm minimal’s baseline access) before/after consume to disambiguate EEXIST results.
+- Re-run sandbox_extension flows under `temporary_exception@injectable`, then test consume/release under `minimal@injectable` to resolve token semantics (errno 17/22) and whether a harness path can be used without --allow-unsafe-path.
 - For deterministic fs-open error events, use an explicit tmp_dir path (chmod 000) with fs_op --path --allow-unsafe-path; this yielded errno 13 events and deny evidence.
 - If fs-open events are still missing, use fs_open_funnel.js to widen symbol coverage before extending fs_open.js.
 - If downloads path-class attribution is required, use fs_op_funnel.js and focus on mkdirat/rename paths rather than open hooks.
-- If get-task-allow becomes attachable in future builds, rerun the smoke attach to verify Tier 1 support.
 - If a future EntitlementJail build reintroduces sandbox_set_trace_path or vtrace exports, rerun sandbox_trace.js and record the new status.
 - If deny evidence is needed, use EntitlementJail observer output and keep attribution explicit.
 - If an EACCES readlink witness is required, try a direct path outside the container with --allow-unsafe-path and compare to the ENOENT readlink capture.
-- If RWX success evidence is required, rerun jit_rwx_legacy (or a different profile) with execmem_trace.js to see whether any PROT_EXEC mmap succeeds.
 - If sandbox_check tracing is required, attempt a safer attach mode (for example, attach after run_xpc completes) and isolate which hooks trigger the XPC error.
 - If sandbox_check evidence is required, target a probe that explicitly uses libsystem_sandbox APIs or add a dedicated probe inside EntitlementJail to call sandbox_check under controlled inputs.
 

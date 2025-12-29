@@ -73,13 +73,13 @@ Aim to leave each experiment in a clearer, better-documented state than you foun
 
 Each subdirectory under `book/experiments/` is a host-specific experiment. They fall roughly into these families:
 
+- **Archive**
+  - `archive/` – archived experiment scaffolds (historical provenance). Experiments move here only after their useful outputs have been promoted elsewhere (typically into `book/graph/mappings/**` or `book/tools/**`), and the experiment directory is no longer treated as a live dependency surface. Do not edit anything under `archive/` unless expressly directed; see `book/experiments/archive/AGENTS.md`.
+
 - **Static structure & vocab**
   - `node-layout` – profile format, node region, literal/regex pools, stride/tag structure.
   - `op-table-operation` – op-table “bucket” behavior vs operations/filters.
   - `op-table-vocab-alignment` – bucket ↔ Operation Vocabulary alignment.
-  - `archive/vocab-from-cache` – (archived) provenance for dyld-harvested Operation/Filter vocab.
-  - `archive/tag-layout-decode` – (archived) provenance for canonical tag layouts.
-  - `archive/system-profile-digest` – (archived) provenance for curated system profile digests.
   - `anchor-filter-map` – anchors ↔ Filter IDs using `field2` and vocab.
   - `field2-filters` – `field2` behavior across filters, tags, and profiles.
   - `probe-op-structure` – richer SBPL probes to surface `field2` and tag patterns.
@@ -87,7 +87,6 @@ Each subdirectory under `book/experiments/` is a host-specific experiment. They 
 - **Runtime & semantic alignment**
   - `runtime-checks` – bucket-level runtime behavior vs decoder expectations.
   - `sbpl-graph-runtime` – SBPL ↔ graph ↔ runtime “golden” triples.
-  - `archive/op-coverage-and-runtime-signatures` – (archived) provenance for per-op runtime summaries (canonical mapping lives under `book/graph/mappings/runtime/`).
 
 - **Entitlements, kernel, and symbol work**
   - `entitlement-diff` – entitlement-driven profile/filter/runtime differences.

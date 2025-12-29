@@ -201,7 +201,6 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--profile-id", required=True, help="EntitlementJail profile id")
     ap.add_argument("--service-name", help="Override process name for attach")
-    ap.add_argument("--ack-risk", help="Tier-2 ack token for EntitlementJail")
     ap.add_argument("--probe-id", required=True, help="Probe id to run via xpc session")
     ap.add_argument(
         "--probe-args",
@@ -249,9 +248,6 @@ def main() -> int:
     world_id = baseline_world_id(repo_root)
     base_frida_config = load_frida_config(args, repo_root)
 
-    if args.profile_id == "fully_injectable" and not args.ack_risk:
-        raise SystemExit("fully_injectable requires --ack-risk fully_injectable")
-
     run_id = str(uuid.uuid4())
     row_id = args.row_id or f"{args.plan_id}.{run_id}"
     out_root = path_utils.ensure_absolute(args.out_dir, repo_root) / run_id
@@ -275,7 +271,6 @@ def main() -> int:
             log_path=cap_log_path,
             plan_id=args.plan_id,
             row_id=f"{row_id}.capabilities_snapshot",
-            ack_risk=args.ack_risk,
         )
         write_json(ej_dir / "capabilities_snapshot.json", cap_record)
         details = extract_details(cap_record.get("stdout_json"))
@@ -368,7 +363,6 @@ def main() -> int:
         profile_id=target_profile_id,
         plan_id=args.plan_id,
         correlation_id=row_id,
-        ack_risk=args.ack_risk,
         wait_spec="fifo:auto",
         wait_timeout_ms=wait_timeout_ms,
     )
@@ -480,7 +474,6 @@ def main() -> int:
             "profile_id": args.profile_id,
             "probe_id": args.probe_id,
             "probe_args": list(args.probe_args),
-            "ack_risk": args.ack_risk,
         },
         "entitlementjail": {
             "run_xpc_path": path_utils.to_repo_relative(ej_dir / "run_xpc.json", repo_root),

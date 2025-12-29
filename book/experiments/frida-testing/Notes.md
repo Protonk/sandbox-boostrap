@@ -1,6 +1,7 @@
 # frida-testing Notes
 
 ## Running log
+- Note: EntitlementJail v2.1.9 removes `--ack-risk` and the `fully_injectable` / `fully_injectable_extensions` profiles; use `profile@injectable` digital twins going forward.
 - Action: added on_wait_ready callback support in book/api/entitlementjail/wait.py to enable pre-trigger Frida attach.
 - Action: added book/experiments/frida-testing/run_ej_frida.py harness (capabilities_snapshot + attach-first run-xpc + observer capture + manifest).
 - Action: updated book/experiments/frida-testing/hooks/fs_open_selftest.js to accept FRIDA_SELFTEST_PATH via RPC/config.
