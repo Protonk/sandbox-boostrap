@@ -32,9 +32,9 @@ Every run is interpreted by stage:
    - Question: is a failure a true denial or a missing service (baseline vs scenario)?
 
 3) **IOKit op-identity lane**
-   - Profiles: `iokit-open-user-client` vs `iokit-open` for `IOSurfaceRootUserClient`.
-   - Probes: `IOSurfaceRoot` under each profile.
-   - Question: which IOKit operation is actually enforced for this open path on this host?
+   - Profiles: `iokit-open-service` only, `iokit-open-user-client` only, and both (deny-witness tri-matrix).
+   - Probes: `IOSurfaceRoot` with a post-open user-client call (IOConnectCallMethod).
+   - Question: which IOKit operation gates service open vs post-open user-client use on this host?
 
 ## Evidence and artifacts
 

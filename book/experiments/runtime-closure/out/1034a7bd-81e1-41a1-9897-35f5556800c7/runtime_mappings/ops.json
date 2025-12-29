@@ -1,0 +1,213 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "tier": "mapped",
+    "source_jobs": [],
+    "notes": "op-level runtime summary"
+  },
+  "ops": {
+    "file-read*": {
+      "op_name": "file-read*",
+      "op_id": 21,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 18,
+      "matches": 11,
+      "mismatches": 7,
+      "probes_including_blocked": 18,
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "examples": [
+        {
+          "scenario_id": "runtime-closure:file:v2_alias_literals:etc_hosts_alias",
+          "expectation_id": "runtime-closure:file:v2_alias_literals:etc_hosts_alias",
+          "expected": "allow",
+          "actual": "deny",
+          "match": false
+        },
+        {
+          "scenario_id": "runtime-closure:file:v2_alias_literals:etc_hosts_private",
+          "expectation_id": "runtime-closure:file:v2_alias_literals:etc_hosts_private",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        },
+        {
+          "scenario_id": "runtime-closure:file:v2_alias_literals:etc_hosts_data",
+          "expectation_id": "runtime-closure:file:v2_alias_literals:etc_hosts_data",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        },
+        {
+          "scenario_id": "runtime-closure:file:v2_alias_literals:tmp_alias",
+          "expectation_id": "runtime-closure:file:v2_alias_literals:tmp_alias",
+          "expected": "allow",
+          "actual": "deny",
+          "match": false
+        },
+        {
+          "scenario_id": "runtime-closure:file:v2_alias_literals:tmp_private",
+          "expectation_id": "runtime-closure:file:v2_alias_literals:tmp_private",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        }
+      ],
+      "scenarios": [
+        "runtime-closure:file:v2_alias_literals:etc_hosts_alias",
+        "runtime-closure:file:v2_alias_literals:etc_hosts_data",
+        "runtime-closure:file:v2_alias_literals:etc_hosts_private",
+        "runtime-closure:file:v2_alias_literals:tmp_alias",
+        "runtime-closure:file:v2_alias_literals:tmp_data",
+        "runtime-closure:file:v2_alias_literals:tmp_private",
+        "runtime-closure:file:v2_data_literals:etc_hosts_alias",
+        "runtime-closure:file:v2_data_literals:etc_hosts_data",
+        "runtime-closure:file:v2_data_literals:etc_hosts_private",
+        "runtime-closure:file:v2_data_literals:tmp_alias",
+        "runtime-closure:file:v2_data_literals:tmp_data",
+        "runtime-closure:file:v2_data_literals:tmp_private",
+        "runtime-closure:file:v2_private_literals:etc_hosts_alias",
+        "runtime-closure:file:v2_private_literals:etc_hosts_data",
+        "runtime-closure:file:v2_private_literals:etc_hosts_private",
+        "runtime-closure:file:v2_private_literals:tmp_alias",
+        "runtime-closure:file:v2_private_literals:tmp_data",
+        "runtime-closure:file:v2_private_literals:tmp_private"
+      ],
+      "mismatch_details": [
+        {
+          "scenario_id": "runtime-closure:file:v2_alias_literals:etc_hosts_alias",
+          "expectation_id": "runtime-closure:file:v2_alias_literals:etc_hosts_alias",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/etc/hosts"
+        },
+        {
+          "scenario_id": "runtime-closure:file:v2_alias_literals:tmp_alias",
+          "expectation_id": "runtime-closure:file:v2_alias_literals:tmp_alias",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/tmp/foo"
+        },
+        {
+          "scenario_id": "runtime-closure:file:v2_private_literals:etc_hosts_data",
+          "expectation_id": "runtime-closure:file:v2_private_literals:etc_hosts_data",
+          "expected": "deny",
+          "actual": "allow",
+          "target": "/System/Volumes/Data/private/etc/hosts"
+        },
+        {
+          "scenario_id": "runtime-closure:file:v2_private_literals:tmp_alias",
+          "expectation_id": "runtime-closure:file:v2_private_literals:tmp_alias",
+          "expected": "deny",
+          "actual": "allow",
+          "target": "/tmp/foo"
+        },
+        {
+          "scenario_id": "runtime-closure:file:v2_private_literals:tmp_data",
+          "expectation_id": "runtime-closure:file:v2_private_literals:tmp_data",
+          "expected": "deny",
+          "actual": "allow",
+          "target": "/System/Volumes/Data/private/tmp/foo"
+        },
+        {
+          "scenario_id": "runtime-closure:file:v2_data_literals:etc_hosts_data",
+          "expectation_id": "runtime-closure:file:v2_data_literals:etc_hosts_data",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/System/Volumes/Data/private/etc/hosts"
+        },
+        {
+          "scenario_id": "runtime-closure:file:v2_data_literals:tmp_data",
+          "expectation_id": "runtime-closure:file:v2_data_literals:tmp_data",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/System/Volumes/Data/private/tmp/foo"
+        }
+      ],
+      "coverage_status": "partial"
+    },
+    "mach-lookup": {
+      "op_name": "mach-lookup",
+      "op_id": 96,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 2,
+      "matches": 2,
+      "mismatches": 0,
+      "probes_including_blocked": 2,
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "examples": [
+        {
+          "scenario_id": "runtime-closure:mach:v1_service_discriminator:cfprefsd_agent",
+          "expectation_id": "runtime-closure:mach:v1_service_discriminator:cfprefsd_agent",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        },
+        {
+          "scenario_id": "runtime-closure:mach:v1_service_discriminator:missing_service",
+          "expectation_id": "runtime-closure:mach:v1_service_discriminator:missing_service",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        }
+      ],
+      "scenarios": [
+        "runtime-closure:mach:v1_service_discriminator:cfprefsd_agent",
+        "runtime-closure:mach:v1_service_discriminator:missing_service"
+      ],
+      "coverage_status": "ok"
+    },
+    "iokit-open-service": {
+      "op_name": "iokit-open-service",
+      "op_id": 64,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 1,
+      "matches": 0,
+      "mismatches": 1,
+      "probes_including_blocked": 3,
+      "blocked": {
+        "total": 2,
+        "by_stage": {
+          "apply": 2
+        },
+        "by_kind": {
+          "sandbox_init_failed": 2
+        }
+      },
+      "examples": [
+        {
+          "scenario_id": "runtime-closure:iokit:v7_service_user_client_both:iosurface_root",
+          "expectation_id": "runtime-closure:iokit:v7_service_user_client_both:iosurface_root",
+          "expected": "allow",
+          "actual": "deny",
+          "match": false
+        }
+      ],
+      "scenarios": [
+        "runtime-closure:iokit:v5_service_only:iosurface_root",
+        "runtime-closure:iokit:v6_user_client_only:iosurface_root",
+        "runtime-closure:iokit:v7_service_user_client_both:iosurface_root"
+      ],
+      "mismatch_details": [
+        {
+          "scenario_id": "runtime-closure:iokit:v7_service_user_client_both:iosurface_root",
+          "expectation_id": "runtime-closure:iokit:v7_service_user_client_both:iosurface_root",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "IOSurfaceRoot"
+        }
+      ],
+      "coverage_status": "partial"
+    }
+  }
+}

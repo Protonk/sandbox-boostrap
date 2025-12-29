@@ -186,7 +186,7 @@ These are **static** witnesses from the dyld slice for this world; they do not e
   - `python3 book/experiments/libsandbox-encoder/analyze_network_join.py`
   - `python3 book/experiments/libsandbox-encoder/check_network_join.py`
   - `python3 book/experiments/libsandbox-encoder/oracle_network_matrix.py` (HISTORICAL)
-  - `python -m book.api.profile oracle network-matrix --manifest book/experiments/libsandbox-encoder/sb/network_matrix/MANIFEST.json --blob-dir book/experiments/libsandbox-encoder/out/network_matrix` (maintained oracle)
+  - `python3 book/tools/sbpl/oracles/network_matrix.py --manifest book/experiments/libsandbox-encoder/sb/network_matrix/MANIFEST.json --blob-dir book/experiments/libsandbox-encoder/out/network_matrix --out book/experiments/libsandbox-encoder/out/network_matrix/oracle_tuples.json` (maintained oracle)
 
 ## Next steps
 

@@ -10,15 +10,15 @@ Inputs / assumptions:
 - The blob is a modern, graph-based compiled profile for the Sonoma baseline.
 - The node stream is interpreted in an 8-byte framing (`Record8`), because the
   witness patterns are defined over that framing.
+
+For the batch/dataset runner over a MANIFEST + blob directory, see:
+- `book/tools/sbpl/oracles/network_matrix.py`
 """
 
 from __future__ import annotations
 
-import json
-from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
-from book.api.path_utils import find_repo_root, to_repo_relative
 from .. import ingestion as pi
 
 from .model import Conflict, NetworkTupleResult, Record8, WORLD_ID, Witness
@@ -154,36 +154,3 @@ def extract_network_tuple(blob: bytes) -> NetworkTupleResult:
         sources=sources,
         conflicts=conflicts,
     )
-
-
-def run_network_matrix(manifest_path: Path, blob_dir: Path) -> Dict[str, Any]:
-    """
-    Run the network tuple oracle over an experiment-style MANIFEST + prebuilt blobs.
-
-    - `manifest_path` is expected to follow the shape used by
-      `book/experiments/libsandbox-encoder/sb/network_matrix/MANIFEST.json`.
-    - `blob_dir` must contain `spec_id.sb.bin` for every manifest case.
-    """
-    root = find_repo_root(manifest_path)
-    data = json.loads(manifest_path.read_text())
-    cases = data.get("cases", [])
-
-    entries: List[Dict[str, Any]] = []
-    for case in cases:
-        spec_id = case["spec_id"]
-        blob_path = blob_dir / f"{spec_id}.sb.bin"
-        result = extract_network_tuple(blob_path.read_bytes()).to_dict()
-        result["spec_id"] = spec_id
-        result["blob"] = to_repo_relative(blob_path, root)
-        entries.append(result)
-
-    return {
-        "world_id": WORLD_ID,
-        "oracle_id": "sbpl_oracle.network_tuple.v1",
-        "purpose": "Extract (domain,type,proto) tuples from compiled blobs using structural witnesses only.",
-        "inputs": {
-            "manifest": to_repo_relative(manifest_path, root),
-            "blob_dir": to_repo_relative(blob_dir, root),
-        },
-        "entries": entries,
-    }

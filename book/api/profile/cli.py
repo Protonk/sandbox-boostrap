@@ -267,15 +267,6 @@ def oracle_network_blob_command(args: argparse.Namespace) -> int:
     return 0
 
 
-def oracle_network_matrix_command(args: argparse.Namespace) -> int:
-    """`profile oracle network-matrix`: run the oracle over MANIFEST + blob dir."""
-    manifest = Path(args.manifest)
-    blob_dir = Path(args.blob_dir)
-    out = oracles_mod.run_network_matrix(manifest, blob_dir)
-    _write_json(Path(args.out) if args.out else None, out)
-    return 0
-
-
 def digest_system_profiles_command(args: argparse.Namespace) -> int:
     """`profile digest system-profiles`: digest the canonical system blob set."""
     blobs = digests_mod.canonical_system_profile_blobs()
@@ -356,14 +347,6 @@ def main(argv: list[str] | None = None) -> int:
     p_blob.add_argument("--blob", required=True, help="Path to a compiled profile blob (.sb.bin).")
     p_blob.add_argument("--out", help="Write JSON to this path (defaults to stdout).")
     p_blob.set_defaults(func=oracle_network_blob_command)
-
-    p_matrix = oracle_sub.add_parser(
-        "network-matrix", help="Run the oracle over an experiment-style network matrix manifest + blob dir."
-    )
-    p_matrix.add_argument("--manifest", required=True, help="Path to MANIFEST.json.")
-    p_matrix.add_argument("--blob-dir", required=True, help="Directory containing <spec_id>.sb.bin blobs.")
-    p_matrix.add_argument("--out", help="Write JSON to this path (defaults to stdout).")
-    p_matrix.set_defaults(func=oracle_network_matrix_command)
 
     args = ap.parse_args(argv)
     return args.func(args)

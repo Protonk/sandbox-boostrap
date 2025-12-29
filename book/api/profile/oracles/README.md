@@ -20,9 +20,9 @@ This surface is intentionally **structural**:
   - `result.sources` and `result.conflicts` carry the byte-level witnesses.
 
 - CLI (dataset runner; does not compile SBPL):
-  - `python -m book.api.profile oracle network-matrix --manifest <MANIFEST.json> --blob-dir <dir> --out <out.json>`
+  - `python3 book/tools/sbpl/oracles/network_matrix.py --manifest <MANIFEST.json> --blob-dir <dir> --out <out.json>`
 
-The dataset output schema is recorded at `book/api/profile/oracles/schemas/network_matrix_oracle.v1.schema.json`.
+The dataset output schema is recorded at `book/tools/sbpl/oracles/schemas/network_matrix_oracle.v1.schema.json`.
 
 ## Relationship to experiments
 

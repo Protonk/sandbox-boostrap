@@ -1,0 +1,8 @@
+(version 1)
+(deny default)
+(allow iokit-open-user-client
+  (with message "runtime-closure:iokit:allow-open-user-client")
+  (iokit-user-client-class "IOSurfaceRootUserClient"))
+(deny iokit-open-service
+  (with message "runtime-closure:iokit:deny-open-service")
+  (iokit-registry-entry-class "IOSurfaceRoot"))

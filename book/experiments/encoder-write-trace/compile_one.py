@@ -16,7 +16,7 @@ if str(REPO_ROOT) not in sys.path:
 
 from book.api.path_utils import ensure_absolute, find_repo_root, to_repo_relative  # type: ignore
 from book.api.profile import compile as compile_mod  # type: ignore
-from book.api.profile import libsandbox  # type: ignore
+from book.api.profile.compile import libsandbox  # type: ignore
 
 DEFAULT_SANDBOX_PATH = "/usr/lib/libsandbox.1.dylib"
 

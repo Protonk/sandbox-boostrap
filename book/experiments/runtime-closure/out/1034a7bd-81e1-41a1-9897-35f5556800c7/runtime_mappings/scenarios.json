@@ -1,0 +1,934 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "tier": "mapped",
+    "source_jobs": [],
+    "notes": "scenario-level runtime summaries"
+  },
+  "phase_histograms": {
+    "overall": {
+      "total": 23,
+      "stages": {
+        "apply": 2,
+        "bootstrap": 0,
+        "preflight": 0,
+        "probe": 21
+      },
+      "blocked": {
+        "total": 2,
+        "by_stage": {
+          "apply": 2
+        },
+        "by_kind": {
+          "sandbox_init_failed": 2
+        }
+      },
+      "probe": {
+        "total": 21,
+        "allow": 6,
+        "deny": 15,
+        "mismatches": 8
+      }
+    },
+    "by_family": {
+      "file-read": {
+        "total": 18,
+        "stages": {
+          "apply": 0,
+          "bootstrap": 0,
+          "preflight": 0,
+          "probe": 18
+        },
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "probe": {
+          "total": 18,
+          "allow": 5,
+          "deny": 13,
+          "mismatches": 7
+        }
+      },
+      "mach-lookup": {
+        "total": 2,
+        "stages": {
+          "apply": 0,
+          "bootstrap": 0,
+          "preflight": 0,
+          "probe": 2
+        },
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "probe": {
+          "total": 2,
+          "allow": 1,
+          "deny": 1,
+          "mismatches": 0
+        }
+      },
+      "iokit-open-service": {
+        "total": 2,
+        "stages": {
+          "apply": 1,
+          "bootstrap": 0,
+          "preflight": 0,
+          "probe": 1
+        },
+        "blocked": {
+          "total": 1,
+          "by_stage": {
+            "apply": 1
+          },
+          "by_kind": {
+            "sandbox_init_failed": 1
+          }
+        },
+        "probe": {
+          "total": 1,
+          "allow": 0,
+          "deny": 1,
+          "mismatches": 1
+        }
+      },
+      "iokit-open-user-client": {
+        "total": 1,
+        "stages": {
+          "apply": 1,
+          "bootstrap": 0,
+          "preflight": 0,
+          "probe": 0
+        },
+        "blocked": {
+          "total": 1,
+          "by_stage": {
+            "apply": 1
+          },
+          "by_kind": {
+            "sandbox_init_failed": 1
+          }
+        },
+        "probe": {
+          "total": 0,
+          "allow": 0,
+          "deny": 0,
+          "mismatches": 0
+        }
+      }
+    }
+  },
+  "scenarios": {
+    "runtime-closure:file:v2_alias_literals:etc_hosts_alias": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime-closure:file:v2_alias_literals",
+      "expectations": [
+        {
+          "expectation_id": "runtime-closure:file:v2_alias_literals:etc_hosts_alias",
+          "profile_id": "runtime-closure:file:v2_alias_literals",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "allow",
+          "probe_name": "etc_hosts_alias"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "runtime-closure:file:v2_alias_literals:etc_hosts_alias",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: Operation not permitted\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "runtime-closure:file:v2_alias_literals:etc_hosts_alias"
+    },
+    "runtime-closure:file:v2_alias_literals:etc_hosts_private": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime-closure:file:v2_alias_literals",
+      "expectations": [
+        {
+          "expectation_id": "runtime-closure:file:v2_alias_literals:etc_hosts_private",
+          "profile_id": "runtime-closure:file:v2_alias_literals",
+          "operation": "file-read*",
+          "target": "/private/etc/hosts",
+          "expected": "deny",
+          "probe_name": "etc_hosts_private"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "runtime-closure:file:v2_alias_literals:etc_hosts_private"
+    },
+    "runtime-closure:file:v2_alias_literals:etc_hosts_data": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime-closure:file:v2_alias_literals",
+      "expectations": [
+        {
+          "expectation_id": "runtime-closure:file:v2_alias_literals:etc_hosts_data",
+          "profile_id": "runtime-closure:file:v2_alias_literals",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/etc/hosts",
+          "expected": "deny",
+          "probe_name": "etc_hosts_data"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "runtime-closure:file:v2_alias_literals:etc_hosts_data"
+    },
+    "runtime-closure:file:v2_alias_literals:tmp_alias": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime-closure:file:v2_alias_literals",
+      "expectations": [
+        {
+          "expectation_id": "runtime-closure:file:v2_alias_literals:tmp_alias",
+          "profile_id": "runtime-closure:file:v2_alias_literals",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "probe_name": "tmp_alias"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "runtime-closure:file:v2_alias_literals:tmp_alias",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: Operation not permitted\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "runtime-closure:file:v2_alias_literals:tmp_alias"
+    },
+    "runtime-closure:file:v2_alias_literals:tmp_private": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime-closure:file:v2_alias_literals",
+      "expectations": [
+        {
+          "expectation_id": "runtime-closure:file:v2_alias_literals:tmp_private",
+          "profile_id": "runtime-closure:file:v2_alias_literals",
+          "operation": "file-read*",
+          "target": "/private/tmp/foo",
+          "expected": "deny",
+          "probe_name": "tmp_private"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "runtime-closure:file:v2_alias_literals:tmp_private"
+    },
+    "runtime-closure:file:v2_alias_literals:tmp_data": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime-closure:file:v2_alias_literals",
+      "expectations": [
+        {
+          "expectation_id": "runtime-closure:file:v2_alias_literals:tmp_data",
+          "profile_id": "runtime-closure:file:v2_alias_literals",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/tmp/foo",
+          "expected": "deny",
+          "probe_name": "tmp_data"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "runtime-closure:file:v2_alias_literals:tmp_data"
+    },
+    "runtime-closure:file:v2_private_literals:etc_hosts_alias": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime-closure:file:v2_private_literals",
+      "expectations": [
+        {
+          "expectation_id": "runtime-closure:file:v2_private_literals:etc_hosts_alias",
+          "profile_id": "runtime-closure:file:v2_private_literals",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "probe_name": "etc_hosts_alias"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "runtime-closure:file:v2_private_literals:etc_hosts_alias"
+    },
+    "runtime-closure:file:v2_private_literals:etc_hosts_private": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime-closure:file:v2_private_literals",
+      "expectations": [
+        {
+          "expectation_id": "runtime-closure:file:v2_private_literals:etc_hosts_private",
+          "profile_id": "runtime-closure:file:v2_private_literals",
+          "operation": "file-read*",
+          "target": "/private/etc/hosts",
+          "expected": "allow",
+          "probe_name": "etc_hosts_private"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "runtime-closure:file:v2_private_literals:etc_hosts_private"
+    },
+    "runtime-closure:file:v2_private_literals:etc_hosts_data": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime-closure:file:v2_private_literals",
+      "expectations": [
+        {
+          "expectation_id": "runtime-closure:file:v2_private_literals:etc_hosts_data",
+          "profile_id": "runtime-closure:file:v2_private_literals",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/etc/hosts",
+          "expected": "deny",
+          "probe_name": "etc_hosts_data"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "runtime-closure:file:v2_private_literals:etc_hosts_data",
+          "expected": "deny",
+          "actual": "allow",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/etc/hosts",
+          "failure_stage": null,
+          "failure_kind": null,
+          "mismatch_type": "unexpected_allow",
+          "violation_summary": null,
+          "stderr": "F_GETPATH:/private/etc/hosts\nF_GETPATH_NOFIRMLINK:/System/Volumes/Data/private/etc/hosts\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "runtime-closure:file:v2_private_literals:etc_hosts_data"
+    },
+    "runtime-closure:file:v2_private_literals:tmp_alias": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime-closure:file:v2_private_literals",
+      "expectations": [
+        {
+          "expectation_id": "runtime-closure:file:v2_private_literals:tmp_alias",
+          "profile_id": "runtime-closure:file:v2_private_literals",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "deny",
+          "probe_name": "tmp_alias"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "runtime-closure:file:v2_private_literals:tmp_alias",
+          "expected": "deny",
+          "actual": "allow",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "failure_stage": null,
+          "failure_kind": null,
+          "mismatch_type": "unexpected_allow",
+          "violation_summary": null,
+          "stderr": "F_GETPATH:/private/tmp/foo\nF_GETPATH_NOFIRMLINK:/System/Volumes/Data/private/tmp/foo\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "runtime-closure:file:v2_private_literals:tmp_alias"
+    },
+    "runtime-closure:file:v2_private_literals:tmp_private": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime-closure:file:v2_private_literals",
+      "expectations": [
+        {
+          "expectation_id": "runtime-closure:file:v2_private_literals:tmp_private",
+          "profile_id": "runtime-closure:file:v2_private_literals",
+          "operation": "file-read*",
+          "target": "/private/tmp/foo",
+          "expected": "allow",
+          "probe_name": "tmp_private"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "runtime-closure:file:v2_private_literals:tmp_private"
+    },
+    "runtime-closure:file:v2_private_literals:tmp_data": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime-closure:file:v2_private_literals",
+      "expectations": [
+        {
+          "expectation_id": "runtime-closure:file:v2_private_literals:tmp_data",
+          "profile_id": "runtime-closure:file:v2_private_literals",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/tmp/foo",
+          "expected": "deny",
+          "probe_name": "tmp_data"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "runtime-closure:file:v2_private_literals:tmp_data",
+          "expected": "deny",
+          "actual": "allow",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/tmp/foo",
+          "failure_stage": null,
+          "failure_kind": null,
+          "mismatch_type": "unexpected_allow",
+          "violation_summary": null,
+          "stderr": "F_GETPATH:/private/tmp/foo\nF_GETPATH_NOFIRMLINK:/System/Volumes/Data/private/tmp/foo\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "runtime-closure:file:v2_private_literals:tmp_data"
+    },
+    "runtime-closure:file:v2_data_literals:etc_hosts_alias": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime-closure:file:v2_data_literals",
+      "expectations": [
+        {
+          "expectation_id": "runtime-closure:file:v2_data_literals:etc_hosts_alias",
+          "profile_id": "runtime-closure:file:v2_data_literals",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "probe_name": "etc_hosts_alias"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "runtime-closure:file:v2_data_literals:etc_hosts_alias"
+    },
+    "runtime-closure:file:v2_data_literals:etc_hosts_private": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime-closure:file:v2_data_literals",
+      "expectations": [
+        {
+          "expectation_id": "runtime-closure:file:v2_data_literals:etc_hosts_private",
+          "profile_id": "runtime-closure:file:v2_data_literals",
+          "operation": "file-read*",
+          "target": "/private/etc/hosts",
+          "expected": "deny",
+          "probe_name": "etc_hosts_private"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "runtime-closure:file:v2_data_literals:etc_hosts_private"
+    },
+    "runtime-closure:file:v2_data_literals:etc_hosts_data": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime-closure:file:v2_data_literals",
+      "expectations": [
+        {
+          "expectation_id": "runtime-closure:file:v2_data_literals:etc_hosts_data",
+          "profile_id": "runtime-closure:file:v2_data_literals",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/etc/hosts",
+          "expected": "allow",
+          "probe_name": "etc_hosts_data"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "runtime-closure:file:v2_data_literals:etc_hosts_data",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/etc/hosts",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: Operation not permitted\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "runtime-closure:file:v2_data_literals:etc_hosts_data"
+    },
+    "runtime-closure:file:v2_data_literals:tmp_alias": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime-closure:file:v2_data_literals",
+      "expectations": [
+        {
+          "expectation_id": "runtime-closure:file:v2_data_literals:tmp_alias",
+          "profile_id": "runtime-closure:file:v2_data_literals",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "deny",
+          "probe_name": "tmp_alias"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "runtime-closure:file:v2_data_literals:tmp_alias"
+    },
+    "runtime-closure:file:v2_data_literals:tmp_private": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime-closure:file:v2_data_literals",
+      "expectations": [
+        {
+          "expectation_id": "runtime-closure:file:v2_data_literals:tmp_private",
+          "profile_id": "runtime-closure:file:v2_data_literals",
+          "operation": "file-read*",
+          "target": "/private/tmp/foo",
+          "expected": "deny",
+          "probe_name": "tmp_private"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "runtime-closure:file:v2_data_literals:tmp_private"
+    },
+    "runtime-closure:file:v2_data_literals:tmp_data": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime-closure:file:v2_data_literals",
+      "expectations": [
+        {
+          "expectation_id": "runtime-closure:file:v2_data_literals:tmp_data",
+          "profile_id": "runtime-closure:file:v2_data_literals",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/tmp/foo",
+          "expected": "allow",
+          "probe_name": "tmp_data"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "runtime-closure:file:v2_data_literals:tmp_data",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/tmp/foo",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: Operation not permitted\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "runtime-closure:file:v2_data_literals:tmp_data"
+    },
+    "runtime-closure:mach:v1_service_discriminator:cfprefsd_agent": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime-closure:mach:v1_service_discriminator",
+      "expectations": [
+        {
+          "expectation_id": "runtime-closure:mach:v1_service_discriminator:cfprefsd_agent",
+          "profile_id": "runtime-closure:mach:v1_service_discriminator",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.agent",
+          "expected": "allow",
+          "probe_name": "cfprefsd_agent"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "runtime-closure:mach:v1_service_discriminator:cfprefsd_agent"
+    },
+    "runtime-closure:mach:v1_service_discriminator:missing_service": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime-closure:mach:v1_service_discriminator",
+      "expectations": [
+        {
+          "expectation_id": "runtime-closure:mach:v1_service_discriminator:missing_service",
+          "profile_id": "runtime-closure:mach:v1_service_discriminator",
+          "operation": "mach-lookup",
+          "target": "com.apple.sandbox-lore.missing",
+          "expected": "deny",
+          "probe_name": "missing_service"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "runtime-closure:mach:v1_service_discriminator:missing_service"
+    },
+    "runtime-closure:iokit:v5_service_only:iosurface_root": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime-closure:iokit:v5_service_only",
+      "expectations": [
+        {
+          "expectation_id": "runtime-closure:iokit:v5_service_only:iosurface_root",
+          "profile_id": "runtime-closure:iokit:v5_service_only",
+          "operation": "iokit-open-service",
+          "target": "IOSurfaceRoot",
+          "expected": "allow",
+          "probe_name": "iosurface_root"
+        }
+      ],
+      "results": {
+        "total": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 1,
+          "by_stage": {
+            "apply": 1
+          },
+          "by_kind": {
+            "sandbox_init_failed": 1
+          }
+        },
+        "status": "blocked"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "runtime-closure:iokit:v5_service_only:iosurface_root",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "iokit-open-service",
+          "target": "IOSurfaceRoot",
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "mismatch_type": "apply_gate",
+          "violation_summary": null,
+          "stderr": "sandbox initialization failed: report modifier does not apply to deny action\n\nBacktrace: \n<input string>:9:4:\n\t(iokit-user-client-class \"IOSurfaceRootUserClient\")\n\nsandbox_init failed: report modifier does not apply to deny action\n\nBacktrace: \n<input string>:9:4:\n\t(iokit-user-client-class \"IOSurfaceRootUserClient\")\n\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "runtime-closure:iokit:v5_service_only:iosurface_root"
+    },
+    "runtime-closure:iokit:v6_user_client_only:iosurface_root": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime-closure:iokit:v6_user_client_only",
+      "expectations": [
+        {
+          "expectation_id": "runtime-closure:iokit:v6_user_client_only:iosurface_root",
+          "profile_id": "runtime-closure:iokit:v6_user_client_only",
+          "operation": "iokit-open-service",
+          "target": "IOSurfaceRoot",
+          "expected": "allow",
+          "probe_name": "iosurface_root"
+        }
+      ],
+      "results": {
+        "total": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 1,
+          "by_stage": {
+            "apply": 1
+          },
+          "by_kind": {
+            "sandbox_init_failed": 1
+          }
+        },
+        "status": "blocked"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "runtime-closure:iokit:v6_user_client_only:iosurface_root",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "iokit-open-service",
+          "target": "IOSurfaceRoot",
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "mismatch_type": "apply_gate",
+          "violation_summary": null,
+          "stderr": "sandbox initialization failed: report modifier does not apply to deny action\n\nBacktrace: \n<input string>:9:4:\n\t(iokit-registry-entry-class \"IOSurfaceRoot\")\n\nsandbox_init failed: report modifier does not apply to deny action\n\nBacktrace: \n<input string>:9:4:\n\t(iokit-registry-entry-class \"IOSurfaceRoot\")\n\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "runtime-closure:iokit:v6_user_client_only:iosurface_root"
+    },
+    "runtime-closure:iokit:v7_service_user_client_both:iosurface_root": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime-closure:iokit:v7_service_user_client_both",
+      "expectations": [
+        {
+          "expectation_id": "runtime-closure:iokit:v7_service_user_client_both:iosurface_root",
+          "profile_id": "runtime-closure:iokit:v7_service_user_client_both",
+          "operation": "iokit-open-service",
+          "target": "IOSurfaceRoot",
+          "expected": "allow",
+          "probe_name": "iosurface_root"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "runtime-closure:iokit:v7_service_user_client_both:iosurface_root",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "iokit-open-service",
+          "target": "IOSurfaceRoot",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": "EPERM",
+          "stderr": ""
+        }
+      ],
+      "impact": null,
+      "scenario_id": "runtime-closure:iokit:v7_service_user_client_both:iosurface_root"
+    }
+  }
+}

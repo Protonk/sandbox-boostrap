@@ -30,4 +30,11 @@ Use this file for short, factual run notes and failures. Avoid timestamps.
 - IOKit op-identity run: `out/08887f36-f87b-45ff-8e9e-6ee7eb9cb635/` (v2 user-client-only) and `out/33ff5a68-262a-4a8c-b427-c7cb923a3adc/` (v4 iokit-open).
   - Both profiles allow `IOSurfaceRoot` (`open_kr=0`) at operation stage.
   - Op identity remains ambiguous (both `iokit-open-user-client` and `iokit-open` allow for this probe).
+- Preflight scan (IOKit op-identity tri-matrix): `v5_iokit_service_only.sb`, `v6_iokit_user_client_only.sb`, `v7_iokit_service_user_client_both.sb` all `no_known_apply_gate_signature`.
+- IOKit op-identity tri-matrix run `out/1034a7bd-81e1-41a1-9897-35f5556800c7/` failed in apply stage for v5/v6 because `with report` is invalid on deny rules; removed the report modifier and reran.
+- IOKit op-identity tri-matrix run `out/fae371c2-f2f5-470f-b672-cf0c3e24d6c0/` (launchd_clean).
+  - `v5_service_only`: `open_kr=-536870174` (EPERM), call not attempted; failure at operation stage.
+  - `v6_user_client_only`: `open_kr=-536870174` (EPERM), call not attempted; failure at operation stage.
+  - `v7_service_user_client_both`: `open_kr=0` and `call_kr=-536870206`; failure at operation stage.
+  - Unsandboxed `book/api/runtime/native/probes/iokit_probe IOSurfaceRoot` returns `open_kr=0` with `call_kr=-536870206`, so the post-open call fails even without a sandbox.
 - Emitted promotion packet for the file matrix run and refreshed VFS canonicalization mapping via `book/graph/mappings/vfs_canonicalization/generate_path_canonicalization_map.py` after updating `packet_set.json`.

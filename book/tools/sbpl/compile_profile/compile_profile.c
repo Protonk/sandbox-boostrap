@@ -6,18 +6,18 @@
  *   using libsandbox’s private compiler entry point `sandbox_compile_file`.
  * - This is *structural tooling*, not a semantic policy interpreter.
  *
- * Preferred surface
- * - Most callers should use the Python API: `book.api.profile.compile`.
- * - This C program exists as a sanity probe and a second implementation of the
- *   same private interface for debugging.
+ * Why this lives under `book/tools/sbpl/`
+ * - It is a one-shot helper program (build + run) rather than a reusable API.
+ * - The canonical library surface for compilation is the Python API:
+ *   `book.api.profile.compile`.
  *
  * Baseline scoping
  * - This repo is host-bound. All assumptions here are scoped to:
  *   `book/world/sonoma-14.4.1-23E224-arm64/world.json`.
  *
- * Build/run
- * - `make -C book/api/profile/c`
- * - `book/api/profile/c/build/compile_profile <in.sb> <out.sb.bin>`
+ * Build/run (from repo root)
+ * - `make -C book/tools/sbpl/compile_profile`
+ * - `book/tools/sbpl/compile_profile/build/compile_profile <in.sb> <out.sb.bin>`
  */
 
 #include <errno.h>

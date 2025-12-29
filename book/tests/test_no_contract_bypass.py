@@ -27,17 +27,13 @@ ALLOWLIST = {
     "sandbox_apply": set(),
     "sandbox_compile_file": {
         Path("book/api/runtime/native/tool_markers.h"),
-        Path("book/api/profile/c/compile_profile.c"),
-        Path("book/api/profile/libsandbox.py"),
         Path("book/api/profile/compile/libsandbox.py"),
     },
     "sandbox_compile_string": {
         Path("book/api/runtime/native/tool_markers.h"),
-        Path("book/api/profile/libsandbox.py"),
         Path("book/api/profile/compile/libsandbox.py"),
     },
     "sandbox_exec": {
-        Path("book/api/profile/libsandbox.py"),
         Path("book/api/profile/compile/libsandbox.py"),
         Path("book/api/runtime/execution/harness/runner.py"),
         Path("book/graph/mappings/runtime/generate_runtime_signatures.py"),

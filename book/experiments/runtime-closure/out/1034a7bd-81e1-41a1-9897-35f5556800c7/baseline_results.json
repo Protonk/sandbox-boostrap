@@ -1,0 +1,665 @@
+{
+  "schema_version": "runtime-tools.baseline_results.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "run_id": "1034a7bd-81e1-41a1-9897-35f5556800c7",
+  "results": [
+    {
+      "name": "baseline:runtime-closure:file:v2_alias_literals:etc_hosts_alias",
+      "profile_id": "runtime-closure:file:v2_alias_literals",
+      "probe_name": "etc_hosts_alias",
+      "operation": "file-read*",
+      "target": "/etc/hosts",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/etc/hosts",
+        "profile_id": "runtime-closure:file:v2_alias_literals",
+        "probe_name": "etc_hosts_alias"
+      },
+      "command": [
+        "/bin/cat",
+        "/etc/hosts"
+      ],
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "##\n# Host Database\n#\n# localhost is used to configure the loopback interface\n# when the system is booting.  Do not change this entry.\n##\n127.0.0.1\tlocalhost\n255.255.255.255\tbroadcasthost\n::1          ",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:runtime-closure:file:v2_alias_literals:etc_hosts_private",
+      "profile_id": "runtime-closure:file:v2_alias_literals",
+      "probe_name": "etc_hosts_private",
+      "operation": "file-read*",
+      "target": "/private/etc/hosts",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/etc/hosts",
+        "profile_id": "runtime-closure:file:v2_alias_literals",
+        "probe_name": "etc_hosts_private"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/etc/hosts"
+      ],
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "##\n# Host Database\n#\n# localhost is used to configure the loopback interface\n# when the system is booting.  Do not change this entry.\n##\n127.0.0.1\tlocalhost\n255.255.255.255\tbroadcasthost\n::1          ",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:runtime-closure:file:v2_alias_literals:etc_hosts_data",
+      "profile_id": "runtime-closure:file:v2_alias_literals",
+      "probe_name": "etc_hosts_data",
+      "operation": "file-read*",
+      "target": "/System/Volumes/Data/private/etc/hosts",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/System/Volumes/Data/private/etc/hosts",
+        "profile_id": "runtime-closure:file:v2_alias_literals",
+        "probe_name": "etc_hosts_data"
+      },
+      "command": [
+        "/bin/cat",
+        "/System/Volumes/Data/private/etc/hosts"
+      ],
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "##\n# Host Database\n#\n# localhost is used to configure the loopback interface\n# when the system is booting.  Do not change this entry.\n##\n127.0.0.1\tlocalhost\n255.255.255.255\tbroadcasthost\n::1          ",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:runtime-closure:file:v2_alias_literals:tmp_alias",
+      "profile_id": "runtime-closure:file:v2_alias_literals",
+      "probe_name": "tmp_alias",
+      "operation": "file-read*",
+      "target": "/tmp/foo",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/tmp/foo",
+        "profile_id": "runtime-closure:file:v2_alias_literals",
+        "probe_name": "tmp_alias"
+      },
+      "command": [
+        "/bin/cat",
+        "/tmp/foo"
+      ],
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-checks foo\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:runtime-closure:file:v2_alias_literals:tmp_private",
+      "profile_id": "runtime-closure:file:v2_alias_literals",
+      "probe_name": "tmp_private",
+      "operation": "file-read*",
+      "target": "/private/tmp/foo",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/tmp/foo",
+        "profile_id": "runtime-closure:file:v2_alias_literals",
+        "probe_name": "tmp_private"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/tmp/foo"
+      ],
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-checks foo\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:runtime-closure:file:v2_alias_literals:tmp_data",
+      "profile_id": "runtime-closure:file:v2_alias_literals",
+      "probe_name": "tmp_data",
+      "operation": "file-read*",
+      "target": "/System/Volumes/Data/private/tmp/foo",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/System/Volumes/Data/private/tmp/foo",
+        "profile_id": "runtime-closure:file:v2_alias_literals",
+        "probe_name": "tmp_data"
+      },
+      "command": [
+        "/bin/cat",
+        "/System/Volumes/Data/private/tmp/foo"
+      ],
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-checks foo\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:runtime-closure:file:v2_private_literals:etc_hosts_alias",
+      "profile_id": "runtime-closure:file:v2_private_literals",
+      "probe_name": "etc_hosts_alias",
+      "operation": "file-read*",
+      "target": "/etc/hosts",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/etc/hosts",
+        "profile_id": "runtime-closure:file:v2_private_literals",
+        "probe_name": "etc_hosts_alias"
+      },
+      "command": [
+        "/bin/cat",
+        "/etc/hosts"
+      ],
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "##\n# Host Database\n#\n# localhost is used to configure the loopback interface\n# when the system is booting.  Do not change this entry.\n##\n127.0.0.1\tlocalhost\n255.255.255.255\tbroadcasthost\n::1          ",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:runtime-closure:file:v2_private_literals:etc_hosts_private",
+      "profile_id": "runtime-closure:file:v2_private_literals",
+      "probe_name": "etc_hosts_private",
+      "operation": "file-read*",
+      "target": "/private/etc/hosts",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/etc/hosts",
+        "profile_id": "runtime-closure:file:v2_private_literals",
+        "probe_name": "etc_hosts_private"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/etc/hosts"
+      ],
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "##\n# Host Database\n#\n# localhost is used to configure the loopback interface\n# when the system is booting.  Do not change this entry.\n##\n127.0.0.1\tlocalhost\n255.255.255.255\tbroadcasthost\n::1          ",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:runtime-closure:file:v2_private_literals:etc_hosts_data",
+      "profile_id": "runtime-closure:file:v2_private_literals",
+      "probe_name": "etc_hosts_data",
+      "operation": "file-read*",
+      "target": "/System/Volumes/Data/private/etc/hosts",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/System/Volumes/Data/private/etc/hosts",
+        "profile_id": "runtime-closure:file:v2_private_literals",
+        "probe_name": "etc_hosts_data"
+      },
+      "command": [
+        "/bin/cat",
+        "/System/Volumes/Data/private/etc/hosts"
+      ],
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "##\n# Host Database\n#\n# localhost is used to configure the loopback interface\n# when the system is booting.  Do not change this entry.\n##\n127.0.0.1\tlocalhost\n255.255.255.255\tbroadcasthost\n::1          ",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:runtime-closure:file:v2_private_literals:tmp_alias",
+      "profile_id": "runtime-closure:file:v2_private_literals",
+      "probe_name": "tmp_alias",
+      "operation": "file-read*",
+      "target": "/tmp/foo",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/tmp/foo",
+        "profile_id": "runtime-closure:file:v2_private_literals",
+        "probe_name": "tmp_alias"
+      },
+      "command": [
+        "/bin/cat",
+        "/tmp/foo"
+      ],
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-checks foo\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:runtime-closure:file:v2_private_literals:tmp_private",
+      "profile_id": "runtime-closure:file:v2_private_literals",
+      "probe_name": "tmp_private",
+      "operation": "file-read*",
+      "target": "/private/tmp/foo",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/tmp/foo",
+        "profile_id": "runtime-closure:file:v2_private_literals",
+        "probe_name": "tmp_private"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/tmp/foo"
+      ],
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-checks foo\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:runtime-closure:file:v2_private_literals:tmp_data",
+      "profile_id": "runtime-closure:file:v2_private_literals",
+      "probe_name": "tmp_data",
+      "operation": "file-read*",
+      "target": "/System/Volumes/Data/private/tmp/foo",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/System/Volumes/Data/private/tmp/foo",
+        "profile_id": "runtime-closure:file:v2_private_literals",
+        "probe_name": "tmp_data"
+      },
+      "command": [
+        "/bin/cat",
+        "/System/Volumes/Data/private/tmp/foo"
+      ],
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-checks foo\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:runtime-closure:file:v2_data_literals:etc_hosts_alias",
+      "profile_id": "runtime-closure:file:v2_data_literals",
+      "probe_name": "etc_hosts_alias",
+      "operation": "file-read*",
+      "target": "/etc/hosts",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/etc/hosts",
+        "profile_id": "runtime-closure:file:v2_data_literals",
+        "probe_name": "etc_hosts_alias"
+      },
+      "command": [
+        "/bin/cat",
+        "/etc/hosts"
+      ],
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "##\n# Host Database\n#\n# localhost is used to configure the loopback interface\n# when the system is booting.  Do not change this entry.\n##\n127.0.0.1\tlocalhost\n255.255.255.255\tbroadcasthost\n::1          ",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:runtime-closure:file:v2_data_literals:etc_hosts_private",
+      "profile_id": "runtime-closure:file:v2_data_literals",
+      "probe_name": "etc_hosts_private",
+      "operation": "file-read*",
+      "target": "/private/etc/hosts",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/etc/hosts",
+        "profile_id": "runtime-closure:file:v2_data_literals",
+        "probe_name": "etc_hosts_private"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/etc/hosts"
+      ],
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "##\n# Host Database\n#\n# localhost is used to configure the loopback interface\n# when the system is booting.  Do not change this entry.\n##\n127.0.0.1\tlocalhost\n255.255.255.255\tbroadcasthost\n::1          ",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:runtime-closure:file:v2_data_literals:etc_hosts_data",
+      "profile_id": "runtime-closure:file:v2_data_literals",
+      "probe_name": "etc_hosts_data",
+      "operation": "file-read*",
+      "target": "/System/Volumes/Data/private/etc/hosts",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/System/Volumes/Data/private/etc/hosts",
+        "profile_id": "runtime-closure:file:v2_data_literals",
+        "probe_name": "etc_hosts_data"
+      },
+      "command": [
+        "/bin/cat",
+        "/System/Volumes/Data/private/etc/hosts"
+      ],
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "##\n# Host Database\n#\n# localhost is used to configure the loopback interface\n# when the system is booting.  Do not change this entry.\n##\n127.0.0.1\tlocalhost\n255.255.255.255\tbroadcasthost\n::1          ",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:runtime-closure:file:v2_data_literals:tmp_alias",
+      "profile_id": "runtime-closure:file:v2_data_literals",
+      "probe_name": "tmp_alias",
+      "operation": "file-read*",
+      "target": "/tmp/foo",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/tmp/foo",
+        "profile_id": "runtime-closure:file:v2_data_literals",
+        "probe_name": "tmp_alias"
+      },
+      "command": [
+        "/bin/cat",
+        "/tmp/foo"
+      ],
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-checks foo\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:runtime-closure:file:v2_data_literals:tmp_private",
+      "profile_id": "runtime-closure:file:v2_data_literals",
+      "probe_name": "tmp_private",
+      "operation": "file-read*",
+      "target": "/private/tmp/foo",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/private/tmp/foo",
+        "profile_id": "runtime-closure:file:v2_data_literals",
+        "probe_name": "tmp_private"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/tmp/foo"
+      ],
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-checks foo\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:runtime-closure:file:v2_data_literals:tmp_data",
+      "profile_id": "runtime-closure:file:v2_data_literals",
+      "probe_name": "tmp_data",
+      "operation": "file-read*",
+      "target": "/System/Volumes/Data/private/tmp/foo",
+      "primary_intent": {
+        "operation": "file-read*",
+        "target": "/System/Volumes/Data/private/tmp/foo",
+        "profile_id": "runtime-closure:file:v2_data_literals",
+        "probe_name": "tmp_data"
+      },
+      "command": [
+        "/bin/cat",
+        "/System/Volumes/Data/private/tmp/foo"
+      ],
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "runtime-checks foo\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:runtime-closure:mach:v1_service_discriminator:cfprefsd_agent",
+      "profile_id": "runtime-closure:mach:v1_service_discriminator",
+      "probe_name": "cfprefsd_agent",
+      "operation": "mach-lookup",
+      "target": "com.apple.cfprefsd.agent",
+      "primary_intent": {
+        "operation": "mach-lookup",
+        "target": "com.apple.cfprefsd.agent",
+        "profile_id": "runtime-closure:mach:v1_service_discriminator",
+        "probe_name": "cfprefsd_agent"
+      },
+      "command": [
+        "book/api/runtime/native/probes/mach_probe",
+        "com.apple.cfprefsd.agent"
+      ],
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "{\"kr\":0}\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:runtime-closure:mach:v1_service_discriminator:missing_service",
+      "profile_id": "runtime-closure:mach:v1_service_discriminator",
+      "probe_name": "missing_service",
+      "operation": "mach-lookup",
+      "target": "com.apple.sandbox-lore.missing",
+      "primary_intent": {
+        "operation": "mach-lookup",
+        "target": "com.apple.sandbox-lore.missing",
+        "profile_id": "runtime-closure:mach:v1_service_discriminator",
+        "probe_name": "missing_service"
+      },
+      "command": [
+        "book/api/runtime/native/probes/mach_probe",
+        "com.apple.sandbox-lore.missing"
+      ],
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "{\"kr\":1102}\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:runtime-closure:iokit:v5_service_only:iosurface_root",
+      "profile_id": "runtime-closure:iokit:v5_service_only",
+      "probe_name": "iosurface_root",
+      "operation": "iokit-open-service",
+      "target": "IOSurfaceRoot",
+      "primary_intent": {
+        "operation": "iokit-open-service",
+        "target": "IOSurfaceRoot",
+        "profile_id": "runtime-closure:iokit:v5_service_only",
+        "probe_name": "iosurface_root"
+      },
+      "command": [
+        "book/api/runtime/native/probes/iokit_probe",
+        "IOSurfaceRoot"
+      ],
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "{\"found\":true,\"open_kr\":0,\"call_kr\":-536870206,\"call_selector\":0}\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline",
+      "probe_details": {
+        "found": true,
+        "open_kr": 0,
+        "call_kr": -536870206,
+        "call_selector": 0,
+        "call_kind": "IOConnectCallMethod"
+      }
+    },
+    {
+      "name": "baseline:runtime-closure:iokit:v6_user_client_only:iosurface_root",
+      "profile_id": "runtime-closure:iokit:v6_user_client_only",
+      "probe_name": "iosurface_root",
+      "operation": "iokit-open-service",
+      "target": "IOSurfaceRoot",
+      "primary_intent": {
+        "operation": "iokit-open-service",
+        "target": "IOSurfaceRoot",
+        "profile_id": "runtime-closure:iokit:v6_user_client_only",
+        "probe_name": "iosurface_root"
+      },
+      "command": [
+        "book/api/runtime/native/probes/iokit_probe",
+        "IOSurfaceRoot"
+      ],
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "{\"found\":true,\"open_kr\":0,\"call_kr\":-536870206,\"call_selector\":0}\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline",
+      "probe_details": {
+        "found": true,
+        "open_kr": 0,
+        "call_kr": -536870206,
+        "call_selector": 0,
+        "call_kind": "IOConnectCallMethod"
+      }
+    },
+    {
+      "name": "baseline:runtime-closure:iokit:v7_service_user_client_both:iosurface_root",
+      "profile_id": "runtime-closure:iokit:v7_service_user_client_both",
+      "probe_name": "iosurface_root",
+      "operation": "iokit-open-service",
+      "target": "IOSurfaceRoot",
+      "primary_intent": {
+        "operation": "iokit-open-service",
+        "target": "IOSurfaceRoot",
+        "profile_id": "runtime-closure:iokit:v7_service_user_client_both",
+        "probe_name": "iosurface_root"
+      },
+      "command": [
+        "book/api/runtime/native/probes/iokit_probe",
+        "IOSurfaceRoot"
+      ],
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "{\"found\":true,\"open_kr\":0,\"call_kr\":-536870206,\"call_selector\":0}\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline",
+      "probe_details": {
+        "found": true,
+        "open_kr": 0,
+        "call_kr": -536870206,
+        "call_selector": 0,
+        "call_kind": "IOConnectCallMethod"
+      }
+    }
+  ]
+}

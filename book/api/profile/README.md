@@ -33,7 +33,7 @@ Surfaces:
 - `book.api.profile.oracles`: structural “argument shape” extractors with byte-level witnesses (see `book/api/profile/oracles/README.md`).
 
 Low-level reference:
-- `book/api/profile/c/`: minimal C reference compiler (`sandbox_compile_file` → `.sb.bin`); Python is canonical.
+- `book/tools/sbpl/compile_profile/`: minimal C reference compiler (`sandbox_compile_file` → `.sb.bin`); Python is canonical.
 
 ## CLI (stable surface)
 
@@ -50,7 +50,6 @@ Supported commands (stable flags and JSON output shapes):
 - `op-table <path> [--compile] [--op-count N] [--vocab ops.json] [--filters filters.json] [--out PATH]`
 - `digest system-profiles [--out PATH]`
 - `oracle network-blob --blob PATH [--out PATH]`
-- `oracle network-matrix --manifest MANIFEST.json --blob-dir DIR [--out PATH]`
 
 Examples:
 ```sh

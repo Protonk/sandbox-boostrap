@@ -40,7 +40,6 @@ from . import digests as digests  # noqa: F401
 from . import ingestion as ingestion  # noqa: F401
 from . import identity as identity  # noqa: F401
 from . import inspect as inspect  # noqa: F401
-from . import libsandbox as libsandbox  # noqa: F401
 from . import op_table as op_table  # noqa: F401
 from . import oracles as oracles  # noqa: F401
 from . import sbpl_scan as sbpl_scan  # noqa: F401
@@ -68,7 +67,6 @@ __all__ = [
     "ingestion",
     "identity",
     "inspect",
-    "libsandbox",
     "op_table",
     "oracles",
     "sbpl_scan",

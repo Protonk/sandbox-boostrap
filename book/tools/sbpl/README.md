@@ -9,6 +9,8 @@ Current contents:
 
 - `corpus/` – curated SBPL specimen set with historical provenance.
 - `corpus/catalog.py` – quick summary of the corpus directory.
+- `compile_profile/` – minimal C reference compiler (`sandbox_compile_file` → `.sb.bin`) for debugging/cross-checks.
+- `oracles/` – dataset runners for structural SBPL↔blob oracles (e.g. network matrix runner).
 - `wrapper/` – SBPL apply harness for runtime probes (see `wrapper/README.md`).
 - `trace_shrink/` – SBPL trace + shrink tool built from the shrink-trace experiment.
 

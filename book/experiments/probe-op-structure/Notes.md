@@ -149,3 +149,7 @@ Use this file for concise notes on probe designs, compile logs, and findings.
   - Adding `IOAccelerator` connection constraint (`v3_connection_user_client`) returns `EPERM`.
 - Runtime-closure IOKit op-identity micro-matrix runs `book/experiments/runtime-closure/out/08887f36-f87b-45ff-8e9e-6ee7eb9cb635/` and `book/experiments/runtime-closure/out/33ff5a68-262a-4a8c-b427-c7cb923a3adc/`:
   - Both `iokit-open-user-client` (v2) and `iokit-open` (v4) allow `IOSurfaceRoot` at operation stage, so op identity remains ambiguous.
+- Runtime-closure IOKit op-identity tri-matrix run `book/experiments/runtime-closure/out/fae371c2-f2f5-470f-b672-cf0c3e24d6c0/`:
+  - `v5_service_only` and `v6_user_client_only` both deny `IOSurfaceRoot` with `open_kr=-536870174` (EPERM).
+  - `v7_service_user_client_both` allows `IOSurfaceRoot` (`open_kr=0`) but the post-open call fails (`call_kr=-536870206`).
+  - Unsandboxed `iokit_probe IOSurfaceRoot` also reports `call_kr=-536870206`, so the post-open action is not discriminating on this host.

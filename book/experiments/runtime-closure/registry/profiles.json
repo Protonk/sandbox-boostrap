@@ -165,6 +165,51 @@
         "(allow mach-task-special-port-get)",
         "(allow mach-bootstrap)"
       ]
+    },
+    "runtime-closure:iokit:v5_service_only": {
+      "profile_id": "runtime-closure:iokit:v5_service_only",
+      "profile_path": "book/experiments/runtime-closure/sb/v5_iokit_service_only.sb",
+      "mode": "sbpl",
+      "family": "iokit-open-service",
+      "semantic_group": "iokit:op-identity",
+      "probe_refs": [
+        "runtime-closure:iokit:v5_service_only:iosurface_root"
+      ],
+      "notes": "Allow iokit-open-service for IOSurfaceRoot and deny iokit-open-user-client with report.",
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ]
+    },
+    "runtime-closure:iokit:v6_user_client_only": {
+      "profile_id": "runtime-closure:iokit:v6_user_client_only",
+      "profile_path": "book/experiments/runtime-closure/sb/v6_iokit_user_client_only.sb",
+      "mode": "sbpl",
+      "family": "iokit-open-user-client",
+      "semantic_group": "iokit:op-identity",
+      "probe_refs": [
+        "runtime-closure:iokit:v6_user_client_only:iosurface_root"
+      ],
+      "notes": "Allow iokit-open-user-client for IOSurfaceRootUserClient and deny iokit-open-service with report.",
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ]
+    },
+    "runtime-closure:iokit:v7_service_user_client_both": {
+      "profile_id": "runtime-closure:iokit:v7_service_user_client_both",
+      "profile_path": "book/experiments/runtime-closure/sb/v7_iokit_service_user_client_both.sb",
+      "mode": "sbpl",
+      "family": "iokit-open-service",
+      "semantic_group": "iokit:op-identity",
+      "probe_refs": [
+        "runtime-closure:iokit:v7_service_user_client_both:iosurface_root"
+      ],
+      "notes": "Allow both iokit-open-service and iokit-open-user-client for IOSurfaceRoot.",
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ]
     }
   }
 }
