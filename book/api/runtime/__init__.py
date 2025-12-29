@@ -7,7 +7,7 @@ runtime evidence in a tier-disciplined way on this host baseline.
 Stability contract:
 - The supported import surface is this package (`book.api.runtime`).
 - The supported symbols are listed in `__all__` and documented in
-  `book/api/runtime/PUBLIC_API.md`.
+  `book/api/runtime/README.md`.
 - Submodules (e.g. `core/`, `harness/`, `mapping/`, `workflow.py`) exist for
   internal implementation and legacy helpers, but they are not part of the
   stable public API unless exported here.

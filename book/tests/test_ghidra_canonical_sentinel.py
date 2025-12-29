@@ -12,6 +12,11 @@ FIXTURE_PATH = CANONICAL_DIR / f"{FIXTURE_NAME}.json"
 META_PATH = CANONICAL_DIR / f"{FIXTURE_NAME}.meta.json"
 WORLD_PATH = Path("book/world/sonoma-14.4.1-23E224-arm64/world.json")
 NORMALIZER_ID = "offset_inst_scan_normalizer_v1"
+PROVENANCE_SCHEMA_VERSION = 1
+META_SCHEMA_VERSION = 1
+MAX_FIXTURE_BYTES = 1_000_000
+MAX_HITS = 1000
+MAX_BLOCKS = 10000
 REFRESH_CMD = "python -m book.api.ghidra.refresh_canonical --name offset_inst_scan_0xc0_write_classify"
 
 
@@ -50,6 +55,16 @@ def _normalize_offset_inst_scan(payload: dict) -> dict:
 
     hits_sorted = sorted(hits, key=hit_key)
     return {"meta": meta, "hits": hits_sorted}
+
+
+def _expected_dep_paths(repo_root: Path) -> list[str]:
+    dep_paths = set()
+    dep_paths.add("book/api/ghidra/scripts/ghidra_bootstrap.py")
+    ghidra_lib_dir = repo_root / "book" / "api" / "ghidra" / "ghidra_lib"
+    if ghidra_lib_dir.exists():
+        for path in ghidra_lib_dir.rglob("*.py"):
+            dep_paths.add(path_utils.to_repo_relative(path, repo_root))
+    return sorted(dep_paths)
 
 
 class GhidraCanonicalSentinelTests(unittest.TestCase):
@@ -95,6 +110,11 @@ class GhidraCanonicalSentinelTests(unittest.TestCase):
             f"world_id mismatch (run: {REFRESH_CMD})",
         )
         self.assertEqual(
+            meta.get("meta_schema_version"),
+            META_SCHEMA_VERSION,
+            f"meta schema mismatch; bump schema_version + refresh canonical (run: {REFRESH_CMD})",
+        )
+        self.assertEqual(
             meta.get("normalizer_id"),
             NORMALIZER_ID,
             f"normalizer_id mismatch (run: {REFRESH_CMD})",
@@ -119,6 +139,13 @@ class GhidraCanonicalSentinelTests(unittest.TestCase):
         self.assertTrue(meta.get("analysis", {}).get("profile_id"))
 
         deps = list(generator_meta.get("deps") or [])
+        meta_dep_paths = sorted(dep.get("path") for dep in deps if dep.get("path"))
+        expected_dep_paths = _expected_dep_paths(repo_root)
+        self.assertEqual(
+            meta_dep_paths,
+            expected_dep_paths,
+            f"dependency list incomplete; refresh canonical (run: {REFRESH_CMD})",
+        )
         for dep in deps:
             dep_path = dep.get("path")
             dep_sha = dep.get("sha256")
@@ -141,6 +168,11 @@ class GhidraCanonicalSentinelTests(unittest.TestCase):
             self.fail(f"canonical output missing _provenance (run: {REFRESH_CMD})")
         if not isinstance(provenance, dict):
             self.fail(f"canonical output _provenance must be an object (run: {REFRESH_CMD})")
+        self.assertEqual(
+            provenance.get("schema_version"),
+            PROVENANCE_SCHEMA_VERSION,
+            f"provenance schema mismatch; bump schema_version + refresh canonical (run: {REFRESH_CMD})",
+        )
 
         self.assertEqual(
             provenance.get("world_id"),
@@ -193,6 +225,21 @@ class GhidraCanonicalSentinelTests(unittest.TestCase):
 
         hits = norm_live.get("hits", [])
         meta_live = norm_live.get("meta", {})
+        self.assertLessEqual(
+            fixture_path.stat().st_size,
+            MAX_FIXTURE_BYTES,
+            f"fixture too large; refresh + re-evaluate budget (run: {REFRESH_CMD})",
+        )
+        self.assertLessEqual(
+            len(hits),
+            MAX_HITS,
+            f"hit count too large; refresh + re-evaluate budget (run: {REFRESH_CMD})",
+        )
+        self.assertLessEqual(
+            len(meta_live.get("block_filter") or []),
+            MAX_BLOCKS,
+            f"block_filter too large; refresh + re-evaluate budget (run: {REFRESH_CMD})",
+        )
         self.assertEqual(meta_live.get("hit_count"), len(hits))
         self.assertEqual(meta_live.get("offset"), "0xc0")
         self.assertTrue(meta_live.get("include_canonical"))

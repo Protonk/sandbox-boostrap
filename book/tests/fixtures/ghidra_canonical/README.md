@@ -4,8 +4,8 @@ These fixtures lock a single high-signal Ghidra output to guard freshness and
 semantic stability for the Sonoma 14.4.1 baseline.
 
 - `*.json` holds the normalized output used by the sentinel test.
-- `*.meta.json` records provenance (script path + hash, input path + hash,
-  Ghidra version, analysis profile, world_id, output path).
+- `*.meta.json` records provenance (schema version, script path + hash, input
+  path + hash, Ghidra version, analysis profile, world_id, output path).
 
 Update workflow:
 1. Re-run the underlying Ghidra task to refresh the output in `dumps/ghidra/out/`.

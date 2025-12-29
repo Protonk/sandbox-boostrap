@@ -5,6 +5,7 @@ We use lightweight sanity checks across the examples, validation utilities, and 
 ## Running tests
 
 - Single entrypoint: `make -C book test` (Python harness + Swift build). This is the only supported runner.
+  - This run includes the Ghidra shape checks, the strict-gate, and the canonical sentinel.
 
 ## Structure
 

@@ -53,6 +53,29 @@ def _bool_str(value):
     return "true" if value else "false"
 
 
+def _collect_deps(repo_root):
+    deps = []
+    if not repo_root:
+        return deps
+    dep_paths = set()
+    dep_paths.add(os.path.join("book", "api", "ghidra", "scripts", "ghidra_bootstrap.py"))
+    ghidra_lib_dir = os.path.join(repo_root, "book", "api", "ghidra", "ghidra_lib")
+    if os.path.isdir(ghidra_lib_dir):
+        for root, dirs, files in os.walk(ghidra_lib_dir):
+            dirs[:] = [d for d in dirs if d != "__pycache__"]
+            for name in files:
+                if not name.endswith(".py"):
+                    continue
+                dep_paths.add(os.path.join(root, name))
+    for path in sorted(dep_paths):
+        dep_abs = path if os.path.isabs(path) else os.path.join(repo_root, path)
+        if not os.path.isfile(dep_abs):
+            continue
+        dep_rel = scan_utils.to_repo_relative(dep_abs, repo_root)
+        deps.append({"path": dep_rel, "sha256": scan_utils.sha256_path(dep_abs)})
+    return deps
+
+
 def _read_world_id(repo_root):
     if not repo_root:
         return None
@@ -73,21 +96,7 @@ def _build_provenance(build_id, needle, write_only, scan_all, exact_match, inclu
     script_rel = scan_utils.to_repo_relative(script_path, repo_root)
     script_sha = scan_utils.sha256_path(script_path)
 
-    deps = []
-    if repo_root:
-        dep_paths = [
-            os.path.join("book", "api", "ghidra", "scripts", "ghidra_bootstrap.py"),
-            os.path.join("book", "api", "ghidra", "ghidra_lib", "scan_utils.py"),
-        ]
-        for dep_rel in dep_paths:
-            dep_abs = os.path.join(repo_root, dep_rel)
-            if os.path.isfile(dep_abs):
-                deps.append(
-                    {
-                        "path": dep_rel.replace(os.sep, "/"),
-                        "sha256": scan_utils.sha256_path(dep_abs),
-                    }
-                )
+    deps = _collect_deps(repo_root)
 
     program_path = None
     program_sha = None
@@ -116,6 +125,7 @@ def _build_provenance(build_id, needle, write_only, scan_all, exact_match, inclu
         )
 
     return {
+        "schema_version": 1,
         "world_id": _read_world_id(repo_root),
         "generator": {
             "script_path": script_rel,

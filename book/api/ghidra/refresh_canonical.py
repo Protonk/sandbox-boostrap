@@ -6,10 +6,13 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
-from typing import Dict, Iterable, List, Optional
+from typing import Dict, List, Optional, Sequence
 
 from book.api import path_utils
 
+
+PROVENANCE_SCHEMA_VERSION = 1
+META_SCHEMA_VERSION = 1
 
 SENTINELS = {
     "offset_inst_scan_0xc0_write_classify": {
@@ -17,10 +20,6 @@ SENTINELS = {
         "meta_path": "book/tests/fixtures/ghidra_canonical/offset_inst_scan_0xc0_write_classify.meta.json",
         "output_path": "dumps/ghidra/out/14.4.1-23E224/kernel-collection-offset-scan-0xc0-write-classify/offset_inst_scan.json",
         "script_path": "book/api/ghidra/scripts/kernel_offset_inst_scan.py",
-        "deps": [
-            "book/api/ghidra/scripts/ghidra_bootstrap.py",
-            "book/api/ghidra/ghidra_lib/scan_utils.py",
-        ],
         "program_path": "dumps/Sandbox-private/14.4.1-23E224/kernel/BootKernelCollection.kc",
         "normalizer_id": "offset_inst_scan_normalizer_v1",
         "ghidra_version": "11.4.2",
@@ -104,9 +103,23 @@ def _resolve_paths(entry: dict, repo_root: Path) -> Dict[str, Path]:
     }
 
 
-def _build_deps(entry: dict, repo_root: Path) -> List[dict]:
+def _expected_dep_paths(repo_root: Path) -> List[str]:
+    dep_paths = set()
+    dep_paths.add("book/api/ghidra/scripts/ghidra_bootstrap.py")
+    ghidra_lib_dir = repo_root / "book" / "api" / "ghidra" / "ghidra_lib"
+    if ghidra_lib_dir.exists():
+        for path in ghidra_lib_dir.rglob("*.py"):
+            rel = path_utils.to_repo_relative(path, repo_root)
+            dep_paths.add(rel)
+    return sorted(dep_paths)
+
+
+def _build_deps(repo_root: Path, extra_deps: Sequence[str] | None = None) -> List[dict]:
     deps = []
-    for dep_path in entry.get("deps", []):
+    dep_paths = set(_expected_dep_paths(repo_root))
+    if extra_deps:
+        dep_paths.update(extra_deps)
+    for dep_path in sorted(dep_paths):
         dep_abs = path_utils.ensure_absolute(dep_path, repo_root)
         deps.append(
             {
@@ -128,6 +141,8 @@ def refresh(name: str) -> None:
     provenance = output_payload.get("_provenance")
     if provenance is None:
         raise SystemExit("output is missing _provenance; re-run the Ghidra task first")
+    if provenance.get("schema_version") != PROVENANCE_SCHEMA_VERSION:
+        raise SystemExit("output provenance schema_version mismatch; re-run the Ghidra task first")
 
     normalized = _normalize_offset_inst_scan(output_payload)
     _write_json(paths["fixture"], normalized)
@@ -137,13 +152,14 @@ def refresh(name: str) -> None:
     profile_id = provenance.get("analysis", {}).get("profile_id") or _build_profile_id(normalized["meta"])
 
     meta = {
+        "meta_schema_version": META_SCHEMA_VERSION,
         "world_id": world.get("world_id"),
         "normalizer_id": entry.get("normalizer_id"),
         "generator": {
             "script_path": path_utils.to_repo_relative(paths["script"], repo_root),
             "script_content_sha256": _sha256_path(paths["script"]),
             "runner_version": "book.api.ghidra.scaffold",
-            "deps": _build_deps(entry, repo_root),
+            "deps": _build_deps(repo_root, entry.get("deps")),
         },
         "ghidra": {
             "version": entry.get("ghidra_version"),
