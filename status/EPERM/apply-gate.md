@@ -73,7 +73,7 @@ The repository-wide phase discipline lives in [`troubles/EPERMx2.md`](../../trou
 
 ## The core confusion we had to eliminate (EPERM is not one signal)
 
-Early on, multiple harnesses and tools surfaced `EPERM` in different places, and we repeatedly collapsed those distinct signals into a single story (“the sandbox denied X”). SANDBOX_LORE now keeps phase meaning mechanically distinct in normalized runtime IR derived from tool markers (no stderr substring inference). The core code surfaces are SBPL-wrapper ([`book/tools/sbpl/wrapper/wrapper.c`](../../book/tools/sbpl/wrapper/wrapper.c)), the runtime contract ([`book/api/runtime/contract.py`](../../book/api/runtime/contract.py)), and the harness runner/normalizer ([`book/api/runtime_harness/runner.py`](../../book/api/runtime_harness/runner.py)).
+Early on, multiple harnesses and tools surfaced `EPERM` in different places, and we repeatedly collapsed those distinct signals into a single story (“the sandbox denied X”). SANDBOX_LORE now keeps phase meaning mechanically distinct in normalized runtime IR derived from tool markers (no stderr substring inference). The core code surfaces are SBPL-wrapper ([`book/tools/sbpl/wrapper/wrapper.c`](../../book/tools/sbpl/wrapper/wrapper.c)), the runtime contract ([`book/api/runtime/SPEC.md`](../../book/api/runtime/SPEC.md)), and the harness runner/normalizer ([`book/api/runtime/execution/harness/runner.py`](../../book/api/runtime/execution/harness/runner.py), [`book/api/runtime/contracts/normalize.py`](../../book/api/runtime/contracts/normalize.py)).
 
 - **apply**: `sandbox_init` / `sandbox_apply` fails → Profile never attaches (hypothesis evidence).
 - **bootstrap**: apply succeeded, but the probe cannot start (e.g., `execvp` fails, sometimes plausibly due to `process-exec*` denial).
@@ -94,7 +94,7 @@ Those notes are valuable history, but they did not yet yield a stable, testable 
 
 ### 2) Make failure classification mechanical (stop reading tea leaves in stderr)
 
-The turning point was treating the apply gate as a classification problem rather than a one-off failure: we standardized the apply surface behind a single choke point (`SBPL-wrapper`), emitted structured markers per phase (apply/applied/exec; plus entitlement and preflight markers), and normalized into stable runtime fields (`failure_stage`, `failure_kind`, `apply_report`) so downstream code never has to infer “did apply happen?” from stderr strings. This is implemented across the wrapper/marker emitters ([`book/api/runtime/tool_markers.h`](../../book/api/runtime/tool_markers.h), [`book/tools/sbpl/wrapper/wrapper.c`](../../book/tools/sbpl/wrapper/wrapper.c)), normalization ([`book/api/runtime/contract.py`](../../book/api/runtime/contract.py), [`book/api/runtime/events.py`](../../book/api/runtime/events.py)), and harness runner usage ([`book/api/runtime_harness/runner.py`](../../book/api/runtime_harness/runner.py)).
+The turning point was treating the apply gate as a classification problem rather than a one-off failure: we standardized the apply surface behind a single choke point (`SBPL-wrapper`), emitted structured markers per phase (apply/applied/exec; plus entitlement and preflight markers), and normalized into stable runtime fields (`failure_stage`, `failure_kind`, `apply_report`) so downstream code never has to infer “did apply happen?” from stderr strings. This is implemented across the wrapper/marker emitters ([`book/api/runtime/native/tool_markers.h`](../../book/api/runtime/native/tool_markers.h), [`book/tools/sbpl/wrapper/wrapper.c`](../../book/tools/sbpl/wrapper/wrapper.c)), normalization ([`book/api/runtime/contracts/schema.py`](../../book/api/runtime/contracts/schema.py), [`book/api/runtime/contracts/normalize.py`](../../book/api/runtime/contracts/normalize.py)), and harness runner usage ([`book/api/runtime/execution/harness/runner.py`](../../book/api/runtime/execution/harness/runner.py)).
 
 The outcome is that “apply gate” became an explicit, regression-testable predicate: `failure_stage=="apply"` with `apply_report.errno==EPERM`.
 
@@ -442,7 +442,7 @@ static void emit_message_filter_entitlement_check_marker(const char *stage) {
 }
 ```
 
-Marker emission details (PID included; apply markers around `sandbox_apply`), from `book/api/runtime/tool_markers.h`:
+Marker emission details (PID included; apply markers around `sandbox_apply`), from `book/api/runtime/native/tool_markers.h`:
 
 ```c
 static void sbl_emit_entitlement_check_marker(/* ... */) {
@@ -556,7 +556,7 @@ Experiments that *must* observe apply-gated behavior explicitly opt out with `--
 
 To reduce future agent friction, we also check in a repo-wide “enterability manifest” derived from preflight scanning of in-repo profile inputs:
 
-- Experiment: [`book/experiments/preflight-index/`](../../book/experiments/preflight-index/)
+- Provenance (archived): [`book/experiments/archive/preflight-index/Report.md`](../../book/experiments/archive/preflight-index/Report.md)
 - Manifest: [`book/tools/preflight/index/preflight_enterability_manifest.json`](../../book/tools/preflight/index/preflight_enterability_manifest.json)
 - Summary: [`book/tools/preflight/index/summary.json`](../../book/tools/preflight/index/summary.json)
 
@@ -579,10 +579,10 @@ This is intentionally phrased as “avoid known dead ends,” not “guarantee s
 This resolution is enforced in three places:
 
 - **Wrapper-level default**: SBPL-wrapper’s default `--preflight enforce` makes “don’t attempt known-gated applies” the default behavior, and `--preflight force` makes “I am intentionally studying the gate” an explicit choice (see [`book/tools/sbpl/wrapper/README.md`](../../book/tools/sbpl/wrapper/README.md)).
-- **Normalized runtime IR**: the runtime harness emits `failure_stage:"preflight"` / `failure_kind:"preflight_apply_gate_signature"` instead of generating an apply-stage EPERM record when it is knowingly entering an apply-gated category (see [`book/api/runtime_harness/runner.py`](../../book/api/runtime_harness/runner.py)). This protects semantic tallies from being polluted by hypothesis evidence.
+- **Normalized runtime IR**: the runtime harness emits `failure_stage:"preflight"` / `failure_kind:"preflight_apply_gate_signature"` instead of generating an apply-stage EPERM record when it is knowingly entering an apply-gated category (see [`book/api/runtime/execution/harness/runner.py`](../../book/api/runtime/execution/harness/runner.py)). This protects semantic tallies from being polluted by hypothesis evidence.
 - **Regression tests**: basic guardrails ensure that preflight + wrapper integration stays mechanically visible and doesn’t regress back into substring inference:
   - [`book/tests/test_sbpl_wrapper_preflight.py`](../../book/tests/test_sbpl_wrapper_preflight.py)
-  - [`book/tests/test_runtime_harness_preflight_integration.py`](../../book/tests/test_runtime_harness_preflight_integration.py)
+  - [`book/tests/test_runtime_tools_component_preflight.py`](../../book/tests/test_runtime_tools_component_preflight.py)
 
 ## Current status (what we know, what remains open)
 
@@ -611,7 +611,7 @@ This resolution is enforced in three places:
 ### Tools / API surfaces
 
 - SBPL apply harness: [`book/tools/sbpl/wrapper/wrapper.c`](../../book/tools/sbpl/wrapper/wrapper.c), [`book/tools/sbpl/wrapper/README.md`](../../book/tools/sbpl/wrapper/README.md)
-- Runtime marker/contract layer: [`book/api/runtime/tool_markers.h`](../../book/api/runtime/tool_markers.h), [`book/api/runtime/contract.py`](../../book/api/runtime/contract.py)
+- Runtime marker/contract layer: [`book/api/runtime/native/tool_markers.h`](../../book/api/runtime/native/tool_markers.h), [`book/api/runtime/contracts/schema.py`](../../book/api/runtime/contracts/schema.py)
 - Preflight tooling: [`book/tools/preflight/`](../../book/tools/preflight/)
 
 ### Experiments that produced the current understanding
@@ -624,7 +624,7 @@ This resolution is enforced in three places:
   - [`book/experiments/preflight-blob-digests/Report.md`](../../book/experiments/preflight-blob-digests/Report.md)
   - Validation IR: [`book/graph/concepts/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json`](../../book/graph/concepts/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json)
 - Repo-wide enterability manifest:
-  - [`book/experiments/preflight-index/Report.md`](../../book/experiments/preflight-index/Report.md)
+  - [`book/experiments/archive/preflight-index/Report.md`](../../book/experiments/archive/preflight-index/Report.md)
   - Manifest: [`book/tools/preflight/index/preflight_enterability_manifest.json`](../../book/tools/preflight/index/preflight_enterability_manifest.json)
 
 ## Appendix: Witness bundles (per witness)

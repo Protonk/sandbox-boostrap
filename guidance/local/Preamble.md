@@ -1,13 +1,13 @@
 >This document is a compressed context bundle, not a router or API manual. It exists to keep you inside the repo's world model, evidence tiers, and toolchain without over-claiming.
 
-SANDBOX_LORE is a host-bound, local-only universe for the macOS Seatbelt sandbox. The repo now holds multiple world baselines under `book/world/`, but the published mappings and CARTON are pinned to the Sonoma 14.4.1 baseline with `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (`book/world/sonoma-14.4.1-23E224-arm64/world.json`). The substrate under `book/substrate/` defines the allowed vocabulary; validation IR, mappings, and CARTON record host-specific evidence with explicit status.
+SANDBOX_LORE is a host-bound, local-only universe for the macOS Seatbelt sandbox. The repo now holds multiple world baselines under `book/world/`, but the published mappings and CARTON are pinned to the Sonoma 14.4.1 baseline with `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (`book/world/sonoma-14.4.1-23E224-arm64/world.json`). The substrate under `book/substrate/` defines the allowed vocabulary; validation IR, mappings, and CARTON record host-specific evidence with explicit evidence tiering (`bedrock|mapped|hypothesis`) and optional per-artifact `status` signals.
 
 # Invariants (non-negotiable)
 
 - **World scoping**: every emitted artifact (validation IR, mappings, CARTON) is keyed to exactly one `world_id`. A mismatch means you are mixing worlds or pointing at the wrong baseline; stop and fix world selection. Only mint a new `world_id` by following the rebaseline process in `book/world/README.md`.
 - **Vocabulary**: operation and filter names come only from `book/graph/mappings/vocab/ops.json` and `book/graph/mappings/vocab/filters.json`. Unknowns stay unknown; do not name ops/filters by guesswork.
-- **Status monotonicity**: statuses only upgrade via new host evidence plus the corresponding validation/mapping update. When claiming `ok`, `partial`, `brittle`, or `blocked`, cite the mapping file; when citing validation job results, cite `book/graph/concepts/validation/out/validation_status.json` or `book/graph/concepts/validation/out/index.json`.
-- **Apply-stage gating**: apply-stage `EPERM` is blocked evidence, not policy semantics. Preflight before runtime probes that could hit known gates (see `book/tools/preflight/README.md`).
+- **Evidence tiering**: every claim names a tier: `bedrock`, `mapped`, or `hypothesis`. Bedrock surfaces are declared in `book/graph/concepts/BEDROCK_SURFACES.json`; do not upgrade mapped/hypothesis to bedrock. Many artifacts also carry a `status` field (`ok|partial|brittle|blocked`) as an operational health/detail signal; it is not a substitute for tier.
+- **Apply-stage gating**: apply-stage `EPERM` is **hypothesis** evidence, not policy semantics. Preflight before runtime probes that could hit known gates (see `book/tools/preflight/README.md`).
 - **CARTON integrity**: files listed in `book/api/carton/CARTON.json` are manifest-verified; do not hand-edit them. Use validation -> mappings -> manifest refresh instead.
 
 # Operating contract
@@ -22,7 +22,7 @@ SANDBOX_LORE is a host-bound, local-only universe for the macOS Seatbelt sandbox
 
 - World baselines live in `book/world/*`; `world_id` is derived from the dyld manifest hash (see `book/world/README.md`) and stored in each baseline file.
 - The active baseline is `book/world/sonoma-14.4.1-23E224-arm64/world.json`; generators and tools resolve it via `book/world/registry.json` or `book.api.world` unless explicitly overridden.
-- The runtime harness accepts an explicit baseline override (`--baseline`) for debug VM work in `book/api/runtime_harness/cli.py`; otherwise baseline selection is not automatic.
+- Baseline overrides (when a tool supports them) are explicit CLI flags; otherwise baseline selection is not automatic.
 
 # Evidence layers and pipeline
 
@@ -31,25 +31,25 @@ SANDBOX_LORE is a host-bound, local-only universe for the macOS Seatbelt sandbox
 - **Validation IR -> mappings**: generators under `book/graph/mappings/*/generate_*.py` read validation outputs and emit host mappings; the supported entrypoint is `book/graph/mappings/run_promotion.py`.
 - **Mappings -> CARTON**: CARTON overlays live in `book/graph/mappings/carton/`; refresh the manifest with `book/api/carton/create_manifest.py`. Query via `book.api.carton.carton_query`.
 
-# Status sources
+# Evidence sources
 
-Do not copy status details from memory. Use these sources as the current cut:
+Do not copy evidence details from memory. Use these sources as the current cut:
 
 - Bedrock surfaces and their mapping paths: `book/graph/concepts/BEDROCK_SURFACES.json`.
 - Validation summary and job status: `book/graph/concepts/validation/out/README.md`, `book/graph/concepts/validation/out/validation_status.json`, `book/graph/concepts/validation/out/index.json`.
 - Runtime coverage and signatures: `book/graph/mappings/runtime/runtime_coverage.json`, `book/graph/mappings/vocab/ops_coverage.json`, `book/graph/mappings/runtime/runtime_signatures.json`, `book/graph/mappings/runtime/README.md`.
 - Lifecycle probes: `book/graph/mappings/runtime/lifecycle.json`.
 - Anchors/field2 status: `book/graph/mappings/anchors/anchor_field2_map.json`.
-- Apply-gate witness and preflight corpora: `book/tools/preflight/README.md`, `book/experiments/gate-witnesses/Report.md`, `book/experiments/preflight-blob-digests/Report.md`, `book/experiments/preflight-index/Report.md`.
+- Apply-gate and preflight: `book/tools/preflight/README.md`.
 
 # High-leverage capabilities
 
 - **Profile structure**: `book.api.profile` (CLI: `python -m book.api.profile`) for SBPL compile/ingest/decode/inspect/op-table/digests/oracles.
-- **Runtime probes**: `book.api.runtime_harness` (CLI: `python -m book.api.runtime_harness.cli`) plus `book.api.runtime` for normalization and runtime cuts.
+- **Runtime probes**: `book.api.runtime` (CLI: `python -m book.api.runtime`) for plan-based runs, bundle validation, and promotion packets.
 - **Apply-gate guardrails**: `book/tools/preflight/preflight.py` for scan + minimize-gate.
-- **Apply/probe pair**: `book/tools/sbpl/wrapper/` (wrapper binary) + `book/api/file_probe/file_probe.c` (probe target).
+- **Apply/probe pair**: `book/tools/sbpl/wrapper/` (wrapper binary) + `book/api/runtime/native/file_probe/file_probe.c` (probe target).
 - **Lifecycle probes**: `book.api.lifecycle_probes` (CLI: `python -m book.api.lifecycle_probes`).
-- **Entitlements witness**: `book/tools/entitlement/EntitlementJail.app` (see `book/tools/entitlement/EntitlementJail.md`).
+- **Entitlements witness**: `book.api.entitlementjail` driving `book/tools/entitlement/EntitlementJail.app` (see `book/tools/entitlement/EntitlementJail.md`).
 - **Kernel/symbol work**: `book.api.ghidra` (CLI: `python -m book.api.ghidra.cli`).
 
 # Minimal routing

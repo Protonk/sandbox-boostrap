@@ -875,6 +875,31 @@
         "allow_default",
         "deny_default"
       ]
+    },
+    "runtime-closure:iokit:v8_external_method:iosurface_root": {
+      "probe_id": "runtime-closure:iokit:v8_external_method:iosurface_root",
+      "name": "iosurface_root",
+      "operation": "iokit-open-service",
+      "target": "IOSurfaceRoot",
+      "expected": "allow",
+      "driver": "sandbox_iokit_probe",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "iokit-open-service"
+      ],
+      "expected_predicates": [
+        "IOSurfaceRoot"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
     }
   }
 }

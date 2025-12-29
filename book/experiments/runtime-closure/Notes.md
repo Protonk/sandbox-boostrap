@@ -42,4 +42,8 @@ Use this file for short, factual run notes and failures. Avoid timestamps.
   - `v5_service_only` and `v6_user_client_only`: `open_kr=-536870174` (EPERM), `surface_create_ok=false`; failure at operation stage.
   - `v7_service_user_client_both`: `open_kr=0`, `call_kr=-536870206`, `surface_create_ok=false`; failure at operation stage.
   - Observer-lane capture: `out/bf996c2f-a265-4bb5-8c8a-105bd70af25a/observer/sandbox_log_stream_iokit.txt` and `observer/sandbox_log_show_iokit.txt` contain only the filter header (no sandbox deny lines with op names).
+- Preflight scan (IOKit external-method lane): `v8_iokit_external_method.sb` classified as `no_known_apply_gate_signature`.
+- IOKit external-method run `out/03aaad16-f06b-4ec7-a468-c6379abbeb4d/` (launchd_clean, iokit-only with v7 + v8).
+  - `v7_service_user_client_both`: `open_kr=0`, `call_kr=-536870206`, `call_kr_string="(iokit/common) invalid argument"`, selector=9, call input/output sizes all zero, `surface_create_ok=false`.
+  - `v8_external_method`: apply-stage failure (`sandbox_init` rc=-1) with errbuf `iokit-external-method operation not applicable in this context`; treated as blocked evidence.
 - Emitted promotion packet for the file matrix run and refreshed VFS canonicalization mapping via `book/graph/mappings/vfs_canonicalization/generate_path_canonicalization_map.py` after updating `packet_set.json`.

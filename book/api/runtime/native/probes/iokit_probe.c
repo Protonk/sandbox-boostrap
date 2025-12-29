@@ -16,6 +16,7 @@
 #include <CoreFoundation/CoreFoundation.h>
 #include <IOKit/IOKitLib.h>
 #include <IOSurface/IOSurface.h>
+#include <mach/error.h>
 #include <mach/mach.h>
 #include <stdbool.h>
 #include <stdint.h>
@@ -91,42 +92,48 @@ int main(int argc, char *argv[]) {
     const char *class_name = argv[1];
     CFMutableDictionaryRef matching = IOServiceMatching(class_name);
     if (!matching) {
-        printf("{\"found\":false,\"open_kr\":null,\"call_kr\":null,\"call_selector\":null,\"surface_create_ok\":null,\"surface_create_signal\":null}\n");
+        printf("{\"found\":false,\"open_kr\":null,\"call_kr\":null,\"call_kr_string\":null,\"call_selector\":null,\"call_input_scalar_count\":null,\"call_input_struct_bytes\":null,\"call_output_scalar_count\":null,\"call_output_struct_bytes\":null,\"surface_create_ok\":null,\"surface_create_signal\":null}\n");
         return 2;
     }
 
     io_service_t service = IOServiceGetMatchingService(kIOMainPortDefault, matching);
     if (service == IO_OBJECT_NULL) {
-        printf("{\"found\":false,\"open_kr\":null,\"call_kr\":null,\"call_selector\":null,\"surface_create_ok\":null,\"surface_create_signal\":null}\n");
+        printf("{\"found\":false,\"open_kr\":null,\"call_kr\":null,\"call_kr_string\":null,\"call_selector\":null,\"call_input_scalar_count\":null,\"call_input_struct_bytes\":null,\"call_output_scalar_count\":null,\"call_output_struct_bytes\":null,\"surface_create_ok\":null,\"surface_create_signal\":null}\n");
         return 2;
     }
 
     io_connect_t conn = IO_OBJECT_NULL;
     kern_return_t kr = IOServiceOpen(service, mach_task_self(), 0, &conn);
     kern_return_t call_kr = KERN_FAILURE;
+    const char *call_kr_string = NULL;
     bool call_attempted = false;
     bool call_succeeded = false;
     uint32_t call_selector = 0;
+    uint32_t call_input_scalar_count = 0;
+    size_t call_input_struct_bytes = 0;
+    uint32_t call_output_scalar_count = 0;
+    size_t call_output_struct_bytes = 0;
     bool surface_ok = false;
     int surface_signal = 0;
     const uint32_t selectors[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
     if (kr == KERN_SUCCESS && conn != IO_OBJECT_NULL) {
         for (size_t i = 0; i < (sizeof(selectors) / sizeof(selectors[0])); i++) {
-            uint32_t output_scalar_count = 0;
-            size_t output_struct_count = 0;
+            call_output_scalar_count = 0;
+            call_output_struct_bytes = 0;
             call_attempted = true;
             call_selector = selectors[i];
             call_kr = IOConnectCallMethod(
                 conn,
                 selectors[i],
                 NULL,
-                0,
+                call_input_scalar_count,
                 NULL,
-                0,
+                call_input_struct_bytes,
                 NULL,
-                &output_scalar_count,
+                &call_output_scalar_count,
                 NULL,
-                &output_struct_count);
+                &call_output_struct_bytes);
+            call_kr_string = mach_error_string(call_kr);
             if (call_kr == KERN_SUCCESS) {
                 call_succeeded = true;
                 break;
@@ -138,58 +145,79 @@ int main(int argc, char *argv[]) {
     IOObjectRelease(service);
 
     if (call_attempted) {
+        const char *call_kr_string_value = call_kr_string ? call_kr_string : "unknown";
         if (surface_signal) {
             printf(
-                "SBL_PROBE_DETAILS {\"found\":true,\"open_kr\":%d,\"call_kr\":%d,\"call_selector\":%u,\"call_kind\":\"IOConnectCallMethod\",\"call_succeeded\":%s,\"surface_create_ok\":%s,\"surface_create_signal\":%d}\n",
+                "SBL_PROBE_DETAILS {\"found\":true,\"open_kr\":%d,\"call_kr\":%d,\"call_kr_string\":\"%s\",\"call_selector\":%u,\"call_kind\":\"IOConnectCallMethod\",\"call_input_scalar_count\":%u,\"call_input_struct_bytes\":%zu,\"call_output_scalar_count\":%u,\"call_output_struct_bytes\":%zu,\"call_succeeded\":%s,\"surface_create_ok\":%s,\"surface_create_signal\":%d}\n",
                 kr,
                 call_kr,
+                call_kr_string_value,
                 call_selector,
+                call_input_scalar_count,
+                call_input_struct_bytes,
+                call_output_scalar_count,
+                call_output_struct_bytes,
                 call_succeeded ? "true" : "false",
                 surface_ok ? "true" : "false",
                 surface_signal);
             printf(
-                "{\"found\":true,\"open_kr\":%d,\"call_kr\":%d,\"call_selector\":%u,\"call_succeeded\":%s,\"surface_create_ok\":%s,\"surface_create_signal\":%d}\n",
+                "{\"found\":true,\"open_kr\":%d,\"call_kr\":%d,\"call_kr_string\":\"%s\",\"call_selector\":%u,\"call_input_scalar_count\":%u,\"call_input_struct_bytes\":%zu,\"call_output_scalar_count\":%u,\"call_output_struct_bytes\":%zu,\"call_succeeded\":%s,\"surface_create_ok\":%s,\"surface_create_signal\":%d}\n",
                 kr,
                 call_kr,
+                call_kr_string_value,
                 call_selector,
+                call_input_scalar_count,
+                call_input_struct_bytes,
+                call_output_scalar_count,
+                call_output_struct_bytes,
                 call_succeeded ? "true" : "false",
                 surface_ok ? "true" : "false",
                 surface_signal);
         } else {
             printf(
-                "SBL_PROBE_DETAILS {\"found\":true,\"open_kr\":%d,\"call_kr\":%d,\"call_selector\":%u,\"call_kind\":\"IOConnectCallMethod\",\"call_succeeded\":%s,\"surface_create_ok\":%s,\"surface_create_signal\":null}\n",
+                "SBL_PROBE_DETAILS {\"found\":true,\"open_kr\":%d,\"call_kr\":%d,\"call_kr_string\":\"%s\",\"call_selector\":%u,\"call_kind\":\"IOConnectCallMethod\",\"call_input_scalar_count\":%u,\"call_input_struct_bytes\":%zu,\"call_output_scalar_count\":%u,\"call_output_struct_bytes\":%zu,\"call_succeeded\":%s,\"surface_create_ok\":%s,\"surface_create_signal\":null}\n",
                 kr,
                 call_kr,
+                call_kr_string_value,
                 call_selector,
+                call_input_scalar_count,
+                call_input_struct_bytes,
+                call_output_scalar_count,
+                call_output_struct_bytes,
                 call_succeeded ? "true" : "false",
                 surface_ok ? "true" : "false");
             printf(
-                "{\"found\":true,\"open_kr\":%d,\"call_kr\":%d,\"call_selector\":%u,\"call_succeeded\":%s,\"surface_create_ok\":%s,\"surface_create_signal\":null}\n",
+                "{\"found\":true,\"open_kr\":%d,\"call_kr\":%d,\"call_kr_string\":\"%s\",\"call_selector\":%u,\"call_input_scalar_count\":%u,\"call_input_struct_bytes\":%zu,\"call_output_scalar_count\":%u,\"call_output_struct_bytes\":%zu,\"call_succeeded\":%s,\"surface_create_ok\":%s,\"surface_create_signal\":null}\n",
                 kr,
                 call_kr,
+                call_kr_string_value,
                 call_selector,
+                call_input_scalar_count,
+                call_input_struct_bytes,
+                call_output_scalar_count,
+                call_output_struct_bytes,
                 call_succeeded ? "true" : "false",
                 surface_ok ? "true" : "false");
         }
     } else {
         if (surface_signal) {
             printf(
-                "SBL_PROBE_DETAILS {\"found\":true,\"open_kr\":%d,\"call_kr\":null,\"call_selector\":null,\"call_kind\":\"IOConnectCallMethod\",\"surface_create_ok\":%s,\"surface_create_signal\":%d}\n",
+                "SBL_PROBE_DETAILS {\"found\":true,\"open_kr\":%d,\"call_kr\":null,\"call_kr_string\":null,\"call_selector\":null,\"call_kind\":\"IOConnectCallMethod\",\"call_input_scalar_count\":null,\"call_input_struct_bytes\":null,\"call_output_scalar_count\":null,\"call_output_struct_bytes\":null,\"surface_create_ok\":%s,\"surface_create_signal\":%d}\n",
                 kr,
                 surface_ok ? "true" : "false",
                 surface_signal);
             printf(
-                "{\"found\":true,\"open_kr\":%d,\"call_kr\":null,\"call_selector\":null,\"surface_create_ok\":%s,\"surface_create_signal\":%d}\n",
+                "{\"found\":true,\"open_kr\":%d,\"call_kr\":null,\"call_kr_string\":null,\"call_selector\":null,\"call_input_scalar_count\":null,\"call_input_struct_bytes\":null,\"call_output_scalar_count\":null,\"call_output_struct_bytes\":null,\"surface_create_ok\":%s,\"surface_create_signal\":%d}\n",
                 kr,
                 surface_ok ? "true" : "false",
                 surface_signal);
         } else {
             printf(
-                "SBL_PROBE_DETAILS {\"found\":true,\"open_kr\":%d,\"call_kr\":null,\"call_selector\":null,\"call_kind\":\"IOConnectCallMethod\",\"surface_create_ok\":%s,\"surface_create_signal\":null}\n",
+                "SBL_PROBE_DETAILS {\"found\":true,\"open_kr\":%d,\"call_kr\":null,\"call_kr_string\":null,\"call_selector\":null,\"call_kind\":\"IOConnectCallMethod\",\"call_input_scalar_count\":null,\"call_input_struct_bytes\":null,\"call_output_scalar_count\":null,\"call_output_struct_bytes\":null,\"surface_create_ok\":%s,\"surface_create_signal\":null}\n",
                 kr,
                 surface_ok ? "true" : "false");
             printf(
-                "{\"found\":true,\"open_kr\":%d,\"call_kr\":null,\"call_selector\":null,\"surface_create_ok\":%s,\"surface_create_signal\":null}\n",
+                "{\"found\":true,\"open_kr\":%d,\"call_kr\":null,\"call_kr_string\":null,\"call_selector\":null,\"call_input_scalar_count\":null,\"call_input_struct_bytes\":null,\"call_output_scalar_count\":null,\"call_output_struct_bytes\":null,\"surface_create_ok\":%s,\"surface_create_signal\":null}\n",
                 kr,
                 surface_ok ? "true" : "false");
         }

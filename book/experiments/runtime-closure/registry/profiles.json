@@ -210,6 +210,21 @@
         "(allow mach-task-special-port-get)",
         "(allow mach-bootstrap)"
       ]
+    },
+    "runtime-closure:iokit:v8_external_method": {
+      "profile_id": "runtime-closure:iokit:v8_external_method",
+      "profile_path": "book/experiments/runtime-closure/sb/v8_iokit_external_method.sb",
+      "mode": "sbpl",
+      "family": "iokit-external-method",
+      "semantic_group": "iokit:external-method-gating",
+      "probe_refs": [
+        "runtime-closure:iokit:v8_external_method:iosurface_root"
+      ],
+      "notes": "Allow iokit-open-service + iokit-open-user-client plus iokit-external-method for IOSurfaceRootUserClient.",
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ]
     }
   }
 }

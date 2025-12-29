@@ -1,0 +1,54 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "tier": "mapped",
+    "source_jobs": [],
+    "notes": "op-level runtime summary"
+  },
+  "ops": {
+    "iokit-open-service": {
+      "op_name": "iokit-open-service",
+      "op_id": 64,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 1,
+      "matches": 0,
+      "mismatches": 1,
+      "probes_including_blocked": 2,
+      "blocked": {
+        "total": 1,
+        "by_stage": {
+          "apply": 1
+        },
+        "by_kind": {
+          "sandbox_init_failed": 1
+        }
+      },
+      "examples": [
+        {
+          "scenario_id": "runtime-closure:iokit:v7_service_user_client_both:iosurface_root",
+          "expectation_id": "runtime-closure:iokit:v7_service_user_client_both:iosurface_root",
+          "expected": "allow",
+          "actual": "deny",
+          "match": false
+        }
+      ],
+      "scenarios": [
+        "runtime-closure:iokit:v7_service_user_client_both:iosurface_root",
+        "runtime-closure:iokit:v8_external_method:iosurface_root"
+      ],
+      "mismatch_details": [
+        {
+          "scenario_id": "runtime-closure:iokit:v7_service_user_client_both:iosurface_root",
+          "expectation_id": "runtime-closure:iokit:v7_service_user_client_both:iosurface_root",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "IOSurfaceRoot"
+        }
+      ],
+      "coverage_status": "partial"
+    }
+  }
+}

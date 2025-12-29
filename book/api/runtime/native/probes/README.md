@@ -11,7 +11,7 @@ to avoid extra syscalls that would confound sandbox decisions.
   lookup (emits tool markers on stderr).
 - `iokit_probe`: Unsandboxed `IOServiceMatching` + `IOServiceOpen` for a class,
   followed by minimal post-open calls (selector sweep + `IOSurfaceCreate`) to
-  exercise the user-client path.
+  exercise the user-client path. Emits call selector and input/output sizes.
 - `sandbox_iokit_probe`: Applies SBPL via `sandbox_init`, then performs the same
   open + post-open calls (emits tool markers on stderr).
 

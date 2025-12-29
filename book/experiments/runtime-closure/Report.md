@@ -18,7 +18,7 @@ Provide narrow, stage-labeled runtime evidence that helps close gaps in `probe-o
 ## Status
 - File canonicalization lane: partial (v2 spelling matrix run; `/etc` still unresolved).
 - Mach service discrimination lane: ok (baseline confirms missing control).
-- IOKit lane: partial (service-only and user-client-only deny open; both allow open but post-open call fails even in baseline).
+- IOKit lane: partial (service-only and user-client-only deny open; both allow open but post-open call fails; external-method allow is blocked at apply stage).
 
 ## Lanes
 
@@ -46,13 +46,14 @@ Observed (run: `out/66315539-a0ce-44bf-bff0-07a79f205fea/`):
 ### IOKit
 Profiles target IOSurfaceRoot via user-client-class filters to align with anchor-level structure.
 
-Observed (runs: `out/6ecc929d-fec5-4206-a85c-e3e265c349a7/`, `out/08887f36-f87b-45ff-8e9e-6ee7eb9cb635/`, `out/33ff5a68-262a-4a8c-b427-c7cb923a3adc/`, `out/fae371c2-f2f5-470f-b672-cf0c3e24d6c0/`, `out/bf996c2f-a265-4bb5-8c8a-105bd70af25a/`):
+Observed (runs: `out/6ecc929d-fec5-4206-a85c-e3e265c349a7/`, `out/08887f36-f87b-45ff-8e9e-6ee7eb9cb635/`, `out/33ff5a68-262a-4a8c-b427-c7cb923a3adc/`, `out/fae371c2-f2f5-470f-b672-cf0c3e24d6c0/`, `out/bf996c2f-a265-4bb5-8c8a-105bd70af25a/`, `out/03aaad16-f06b-4ec7-a468-c6379abbeb4d/`):
 - `v2_user_client_only` (`iokit-open-user-client`) allows `IOSurfaceRoot` (`open_kr=0`) at operation stage.
 - `v4_iokit_open_user_client` (`iokit-open`) allows `IOSurfaceRoot` (`open_kr=0`) at operation stage.
 - `v3_connection_user_client` denies with `open_kr=-536870174` and `EPERM` at operation stage.
 - `v5_service_only` (`iokit-open-service` allow + user-client deny) returns `open_kr=-536870174` (EPERM), `surface_create_ok=false`.
 - `v6_user_client_only` (`iokit-open-user-client` allow + service deny) returns `open_kr=-536870174` (EPERM), `surface_create_ok=false`.
-- `v7_service_user_client_both` (allow both ops) returns `open_kr=0` with `call_kr=-536870206` and `surface_create_ok=false`.
+- `v7_service_user_client_both` (allow both ops) returns `open_kr=0` with `call_kr=-536870206`, `call_kr_string="(iokit/common) invalid argument"`, selector=9, and all call input/output sizes zero; `surface_create_ok=false`.
+- `v8_external_method` (allow open + external-method) fails at apply stage with `sandbox_init` error `iokit-external-method operation not applicable in this context` and is treated as blocked evidence.
 All profiles apply successfully (`sandbox_init` rc=0). The post-open selector sweep still returns `call_kr=-536870206` under all scenarios, while `IOSurfaceCreate` succeeds unsandboxed (`surface_create_ok=true` in `book/api/runtime/native/probes/iokit_probe IOSurfaceRoot`) and fails under the sandbox, so Action B is now a discriminating failure signal but does not yet surface an op-name witness.
 
 This indicates the user-client-class filter is sufficient for the IOSurfaceRoot probe, while the IOAccelerator connection constraint is too narrow on this host.
@@ -63,7 +64,7 @@ This indicates the user-client-class filter is sufficient for the IOSurfaceRoot 
 - Run bundles: `book/experiments/runtime-closure/out/<run_id>/`.
   - File lane (v2 matrix): `book/experiments/runtime-closure/out/ea704c9c-5102-473a-b942-e24af4136cc8/` (includes `path_witnesses.json` and `promotion_packet.json`).
   - Mach lane: `book/experiments/runtime-closure/out/66315539-a0ce-44bf-bff0-07a79f205fea/`.
-  - IOKit op-identity lane: `book/experiments/runtime-closure/out/6ecc929d-fec5-4206-a85c-e3e265c349a7/`, `book/experiments/runtime-closure/out/08887f36-f87b-45ff-8e9e-6ee7eb9cb635/`, `book/experiments/runtime-closure/out/33ff5a68-262a-4a8c-b427-c7cb923a3adc/`, `book/experiments/runtime-closure/out/fae371c2-f2f5-470f-b672-cf0c3e24d6c0/`, `book/experiments/runtime-closure/out/bf996c2f-a265-4bb5-8c8a-105bd70af25a/`.
+  - IOKit op-identity lane: `book/experiments/runtime-closure/out/6ecc929d-fec5-4206-a85c-e3e265c349a7/`, `book/experiments/runtime-closure/out/08887f36-f87b-45ff-8e9e-6ee7eb9cb635/`, `book/experiments/runtime-closure/out/33ff5a68-262a-4a8c-b427-c7cb923a3adc/`, `book/experiments/runtime-closure/out/fae371c2-f2f5-470f-b672-cf0c3e24d6c0/`, `book/experiments/runtime-closure/out/bf996c2f-a265-4bb5-8c8a-105bd70af25a/`, `book/experiments/runtime-closure/out/03aaad16-f06b-4ec7-a468-c6379abbeb4d/`.
   - Observer-lane logs: `book/experiments/runtime-closure/out/bf996c2f-a265-4bb5-8c8a-105bd70af25a/observer/sandbox_log_stream_iokit.txt` and `book/experiments/runtime-closure/out/bf996c2f-a265-4bb5-8c8a-105bd70af25a/observer/sandbox_log_show_iokit.txt` (no iokit op lines observed).
   - Prior runs: `book/experiments/runtime-closure/out/5a8908d8-d626-4cac-8bdd-0f53c02af8fe/` (file v1) and `book/experiments/runtime-closure/out/48086066-bfa2-44bb-877c-62dd1dceca09/` (IOKit v1).
 - Mapped VFS update: `book/graph/mappings/vfs_canonicalization/path_canonicalization_map.json` (now includes the runtime-closure file matrix packet).
@@ -74,3 +75,4 @@ This indicates the user-client-class filter is sufficient for the IOSurfaceRoot 
 - `/etc/hosts` remains unresolved when spelled as `/etc/...` even when private and Data spellings are allowed.
 - Data-only literal rules do not allow Data spellings on this host, suggesting enforcement compares a different spelling; this remains hypothesis-level without a direct kernel witness at operation time.
 - `with report` is not accepted on deny rules in this harness, so the initial tri-matrix attempt (`out/1034a7bd-81e1-41a1-9897-35f5556800c7/`) failed at apply stage and is treated as blocked evidence.
+- `iokit-external-method` is rejected at apply stage for the IOSurface user-client rule in this harness (`out/03aaad16-f06b-4ec7-a468-c6379abbeb4d/`), so external-method gating remains blocked on this host.
