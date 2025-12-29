@@ -1,5 +1,7 @@
 # Golden Corpus – Report
 
+> Archived experiment scaffold. Canonical corpus + builders live under `book/graph/concepts/validation/golden_corpus/` (`*_build.py`, `*_job.py`).
+
 ## Purpose
 Create a stable decoder regression corpus for the Sonoma baseline so structural tooling (decoder, profile_tools inspect/op-table) can be checked against a fixed set of compiled blobs. The goal is to catch drift in tag layouts, header parsing, and literal offsets without guessing semantics.
 
@@ -17,14 +19,14 @@ Create a stable decoder regression corpus for the Sonoma baseline so structural 
 
 ## Plan & execution log
 - Seeded experiment scaffold and outlined corpus/outputs.
-- Ran `.venv/bin/python3 run.py` to collect the first corpus cut (7 blobs across golden-triple, sbpl-graph-runtime, libsandbox-encoder) and emit manifest/decodes/inspections.
+- Ran the canonical builder `book/graph/concepts/validation/golden_corpus_build.py` to collect the first corpus cut (7 blobs across golden-triple, sbpl-graph-runtime, libsandbox-encoder) and emit manifest/decodes/inspections.
 - Probed platform apply gate with `book/tools/sbpl/wrapper/wrapper --sbpl /System/Library/Sandbox/Profiles/airlock.sb -- /usr/bin/true`; still returns `Operation not permitted` while custom blob apply succeeds (gate still present).
 - Expanded corpus with a static-only platform profile (`platform_airlock` via the fixture blob compiled from `/System/Library/Sandbox/Profiles/airlock.sb`) and regenerated decodes/inspect snapshots.
 - Added validation job `experiment:golden-corpus` under `book/graph/concepts/validation/` to replay decoder/profile_tools against the manifest; current status `ok` after normalizing tag-count comparisons.
-- Canonical builder now lives at `book/graph/concepts/validation/golden_corpus_build.py`; `run.py` in this experiment is a wrapper.
+- Canonical builder now lives at `book/graph/concepts/validation/golden_corpus_build.py`; the experiment-local wrapper was deleted on archival.
 
 ## Evidence & artifacts
-- `book/graph/concepts/validation/golden_corpus/corpus_manifest.json` – blob inventory with SHA-256, size, and tag-layout digest (`eb3b1c…6b2ac`).
+- `book/graph/concepts/validation/golden_corpus/corpus_manifest.json` – blob inventory with SHA-256, size, and `tag_layouts_sha256`.
 - `book/graph/concepts/validation/golden_corpus/corpus_summary.json` – per-blob decoder vs profile_tools signals (op_count, node bytes, literal start, tag histograms).
 - `book/graph/concepts/validation/golden_corpus/raw/*.json` – header/preamble/section snapshots for each blob.
 - `book/graph/concepts/validation/golden_corpus/decodes/*.json` – `decode_profile_dict` outputs.

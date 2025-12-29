@@ -1,5 +1,7 @@
 # Golden Corpus – Plan
 
+> Archived experiment scaffold. Canonical corpus lives under `book/graph/concepts/validation/golden_corpus/`.
+
 ## Purpose
 Stand up a small, host-bound regression corpus for compiled sandbox blobs so decoder/op-table/inspection surfaces have a stable reference set. The corpus should capture header/section layout, tag histograms, literal offsets, and hashes to detect drift when tag layouts or decoder heuristics change.
 
