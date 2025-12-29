@@ -5,7 +5,7 @@ from __future__ import annotations
 import argparse
 from typing import Optional, Sequence
 
-from book.api.frida import entitlementjail, runner
+from book.api.frida import runner
 
 
 def _add_runner_args(ap: argparse.ArgumentParser) -> None:
@@ -46,10 +46,6 @@ def build_arg_parser() -> argparse.ArgumentParser:
     run_parser = sub.add_parser("run", help="Spawn/attach a process and run a Frida script")
     _add_runner_args(run_parser)
     run_parser.set_defaults(func=_run_runner)
-
-    ej_parser = sub.add_parser("ej-session", help="EntitlementJail xpc session + Frida attach")
-    entitlementjail.add_arguments(ej_parser)
-    ej_parser.set_defaults(func=entitlementjail.run_from_args)
 
     return ap
 

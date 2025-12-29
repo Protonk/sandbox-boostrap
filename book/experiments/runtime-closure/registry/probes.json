@@ -293,6 +293,488 @@
         "allow_default",
         "deny_default"
       ]
+    },
+    "runtime-closure:file:v2_alias_literals:etc_hosts_alias": {
+      "probe_id": "runtime-closure:file:v2_alias_literals:etc_hosts_alias",
+      "name": "etc_hosts_alias",
+      "operation": "file-read*",
+      "target": "/etc/hosts",
+      "expected": "allow",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "expected_predicates": [
+        "/etc/hosts"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "runtime-closure:file:v2_alias_literals:etc_hosts_private": {
+      "probe_id": "runtime-closure:file:v2_alias_literals:etc_hosts_private",
+      "name": "etc_hosts_private",
+      "operation": "file-read*",
+      "target": "/private/etc/hosts",
+      "expected": "deny",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "expected_predicates": [
+        "/private/etc/hosts"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "runtime-closure:file:v2_alias_literals:etc_hosts_data": {
+      "probe_id": "runtime-closure:file:v2_alias_literals:etc_hosts_data",
+      "name": "etc_hosts_data",
+      "operation": "file-read*",
+      "target": "/System/Volumes/Data/private/etc/hosts",
+      "expected": "deny",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "expected_predicates": [
+        "/System/Volumes/Data/private/etc/hosts"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "runtime-closure:file:v2_alias_literals:tmp_alias": {
+      "probe_id": "runtime-closure:file:v2_alias_literals:tmp_alias",
+      "name": "tmp_alias",
+      "operation": "file-read*",
+      "target": "/tmp/foo",
+      "expected": "allow",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "expected_predicates": [
+        "/tmp/foo"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "runtime-closure:file:v2_alias_literals:tmp_private": {
+      "probe_id": "runtime-closure:file:v2_alias_literals:tmp_private",
+      "name": "tmp_private",
+      "operation": "file-read*",
+      "target": "/private/tmp/foo",
+      "expected": "deny",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "expected_predicates": [
+        "/private/tmp/foo"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "runtime-closure:file:v2_alias_literals:tmp_data": {
+      "probe_id": "runtime-closure:file:v2_alias_literals:tmp_data",
+      "name": "tmp_data",
+      "operation": "file-read*",
+      "target": "/System/Volumes/Data/private/tmp/foo",
+      "expected": "deny",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "expected_predicates": [
+        "/System/Volumes/Data/private/tmp/foo"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "runtime-closure:file:v2_private_literals:etc_hosts_alias": {
+      "probe_id": "runtime-closure:file:v2_private_literals:etc_hosts_alias",
+      "name": "etc_hosts_alias",
+      "operation": "file-read*",
+      "target": "/etc/hosts",
+      "expected": "deny",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "expected_predicates": [
+        "/etc/hosts"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "runtime-closure:file:v2_private_literals:etc_hosts_private": {
+      "probe_id": "runtime-closure:file:v2_private_literals:etc_hosts_private",
+      "name": "etc_hosts_private",
+      "operation": "file-read*",
+      "target": "/private/etc/hosts",
+      "expected": "allow",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "expected_predicates": [
+        "/private/etc/hosts"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "runtime-closure:file:v2_private_literals:etc_hosts_data": {
+      "probe_id": "runtime-closure:file:v2_private_literals:etc_hosts_data",
+      "name": "etc_hosts_data",
+      "operation": "file-read*",
+      "target": "/System/Volumes/Data/private/etc/hosts",
+      "expected": "deny",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "expected_predicates": [
+        "/System/Volumes/Data/private/etc/hosts"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "runtime-closure:file:v2_private_literals:tmp_alias": {
+      "probe_id": "runtime-closure:file:v2_private_literals:tmp_alias",
+      "name": "tmp_alias",
+      "operation": "file-read*",
+      "target": "/tmp/foo",
+      "expected": "deny",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "expected_predicates": [
+        "/tmp/foo"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "runtime-closure:file:v2_private_literals:tmp_private": {
+      "probe_id": "runtime-closure:file:v2_private_literals:tmp_private",
+      "name": "tmp_private",
+      "operation": "file-read*",
+      "target": "/private/tmp/foo",
+      "expected": "allow",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "expected_predicates": [
+        "/private/tmp/foo"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "runtime-closure:file:v2_private_literals:tmp_data": {
+      "probe_id": "runtime-closure:file:v2_private_literals:tmp_data",
+      "name": "tmp_data",
+      "operation": "file-read*",
+      "target": "/System/Volumes/Data/private/tmp/foo",
+      "expected": "deny",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "expected_predicates": [
+        "/System/Volumes/Data/private/tmp/foo"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "runtime-closure:file:v2_data_literals:etc_hosts_alias": {
+      "probe_id": "runtime-closure:file:v2_data_literals:etc_hosts_alias",
+      "name": "etc_hosts_alias",
+      "operation": "file-read*",
+      "target": "/etc/hosts",
+      "expected": "deny",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "expected_predicates": [
+        "/etc/hosts"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "runtime-closure:file:v2_data_literals:etc_hosts_private": {
+      "probe_id": "runtime-closure:file:v2_data_literals:etc_hosts_private",
+      "name": "etc_hosts_private",
+      "operation": "file-read*",
+      "target": "/private/etc/hosts",
+      "expected": "deny",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "expected_predicates": [
+        "/private/etc/hosts"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "runtime-closure:file:v2_data_literals:etc_hosts_data": {
+      "probe_id": "runtime-closure:file:v2_data_literals:etc_hosts_data",
+      "name": "etc_hosts_data",
+      "operation": "file-read*",
+      "target": "/System/Volumes/Data/private/etc/hosts",
+      "expected": "allow",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "expected_predicates": [
+        "/System/Volumes/Data/private/etc/hosts"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "runtime-closure:file:v2_data_literals:tmp_alias": {
+      "probe_id": "runtime-closure:file:v2_data_literals:tmp_alias",
+      "name": "tmp_alias",
+      "operation": "file-read*",
+      "target": "/tmp/foo",
+      "expected": "deny",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "expected_predicates": [
+        "/tmp/foo"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "runtime-closure:file:v2_data_literals:tmp_private": {
+      "probe_id": "runtime-closure:file:v2_data_literals:tmp_private",
+      "name": "tmp_private",
+      "operation": "file-read*",
+      "target": "/private/tmp/foo",
+      "expected": "deny",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "expected_predicates": [
+        "/private/tmp/foo"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "runtime-closure:file:v2_data_literals:tmp_data": {
+      "probe_id": "runtime-closure:file:v2_data_literals:tmp_data",
+      "name": "tmp_data",
+      "operation": "file-read*",
+      "target": "/System/Volumes/Data/private/tmp/foo",
+      "expected": "allow",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "expected_predicates": [
+        "/System/Volumes/Data/private/tmp/foo"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "runtime-closure:iokit:v2_user_client_only:iosurface_root": {
+      "probe_id": "runtime-closure:iokit:v2_user_client_only:iosurface_root",
+      "name": "iosurface_root",
+      "operation": "iokit-open-service",
+      "target": "IOSurfaceRoot",
+      "expected": "allow",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "iokit-open-service"
+      ],
+      "expected_predicates": [
+        "IOSurfaceRoot"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "driver": "sandbox_iokit_probe"
+    },
+    "runtime-closure:iokit:v3_connection_user_client:iosurface_root": {
+      "probe_id": "runtime-closure:iokit:v3_connection_user_client:iosurface_root",
+      "name": "iosurface_root",
+      "operation": "iokit-open-service",
+      "target": "IOSurfaceRoot",
+      "expected": "allow",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "iokit-open-service"
+      ],
+      "expected_predicates": [
+        "IOSurfaceRoot"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "driver": "sandbox_iokit_probe"
     }
   }
 }

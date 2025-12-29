@@ -1,0 +1,155 @@
+{
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "profiles": {
+    "runtime-closure:file:v2_alias_literals": {
+      "blob": "book/experiments/runtime-closure/sb/v2_alias_literals.sb",
+      "mode": "sbpl",
+      "family": "file-read",
+      "semantic_group": "file-read:canonicalization-matrix",
+      "probes": [
+        {
+          "name": "etc_hosts_alias",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "allow",
+          "expectation_id": "runtime-closure:file:v2_alias_literals:etc_hosts_alias"
+        },
+        {
+          "name": "etc_hosts_private",
+          "operation": "file-read*",
+          "target": "/private/etc/hosts",
+          "expected": "deny",
+          "expectation_id": "runtime-closure:file:v2_alias_literals:etc_hosts_private"
+        },
+        {
+          "name": "etc_hosts_data",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/etc/hosts",
+          "expected": "deny",
+          "expectation_id": "runtime-closure:file:v2_alias_literals:etc_hosts_data"
+        },
+        {
+          "name": "tmp_alias",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "expectation_id": "runtime-closure:file:v2_alias_literals:tmp_alias"
+        },
+        {
+          "name": "tmp_private",
+          "operation": "file-read*",
+          "target": "/private/tmp/foo",
+          "expected": "deny",
+          "expectation_id": "runtime-closure:file:v2_alias_literals:tmp_private"
+        },
+        {
+          "name": "tmp_data",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/tmp/foo",
+          "expected": "deny",
+          "expectation_id": "runtime-closure:file:v2_alias_literals:tmp_data"
+        }
+      ]
+    },
+    "runtime-closure:file:v2_private_literals": {
+      "blob": "book/experiments/runtime-closure/sb/v2_private_literals.sb",
+      "mode": "sbpl",
+      "family": "file-read",
+      "semantic_group": "file-read:canonicalization-matrix",
+      "probes": [
+        {
+          "name": "etc_hosts_alias",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "expectation_id": "runtime-closure:file:v2_private_literals:etc_hosts_alias"
+        },
+        {
+          "name": "etc_hosts_private",
+          "operation": "file-read*",
+          "target": "/private/etc/hosts",
+          "expected": "allow",
+          "expectation_id": "runtime-closure:file:v2_private_literals:etc_hosts_private"
+        },
+        {
+          "name": "etc_hosts_data",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/etc/hosts",
+          "expected": "deny",
+          "expectation_id": "runtime-closure:file:v2_private_literals:etc_hosts_data"
+        },
+        {
+          "name": "tmp_alias",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "deny",
+          "expectation_id": "runtime-closure:file:v2_private_literals:tmp_alias"
+        },
+        {
+          "name": "tmp_private",
+          "operation": "file-read*",
+          "target": "/private/tmp/foo",
+          "expected": "allow",
+          "expectation_id": "runtime-closure:file:v2_private_literals:tmp_private"
+        },
+        {
+          "name": "tmp_data",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/tmp/foo",
+          "expected": "deny",
+          "expectation_id": "runtime-closure:file:v2_private_literals:tmp_data"
+        }
+      ]
+    },
+    "runtime-closure:file:v2_data_literals": {
+      "blob": "book/experiments/runtime-closure/sb/v2_data_literals.sb",
+      "mode": "sbpl",
+      "family": "file-read",
+      "semantic_group": "file-read:canonicalization-matrix",
+      "probes": [
+        {
+          "name": "etc_hosts_alias",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "expectation_id": "runtime-closure:file:v2_data_literals:etc_hosts_alias"
+        },
+        {
+          "name": "etc_hosts_private",
+          "operation": "file-read*",
+          "target": "/private/etc/hosts",
+          "expected": "deny",
+          "expectation_id": "runtime-closure:file:v2_data_literals:etc_hosts_private"
+        },
+        {
+          "name": "etc_hosts_data",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/etc/hosts",
+          "expected": "allow",
+          "expectation_id": "runtime-closure:file:v2_data_literals:etc_hosts_data"
+        },
+        {
+          "name": "tmp_alias",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "deny",
+          "expectation_id": "runtime-closure:file:v2_data_literals:tmp_alias"
+        },
+        {
+          "name": "tmp_private",
+          "operation": "file-read*",
+          "target": "/private/tmp/foo",
+          "expected": "deny",
+          "expectation_id": "runtime-closure:file:v2_data_literals:tmp_private"
+        },
+        {
+          "name": "tmp_data",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/tmp/foo",
+          "expected": "allow",
+          "expectation_id": "runtime-closure:file:v2_data_literals:tmp_data"
+        }
+      ]
+    }
+  }
+}

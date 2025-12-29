@@ -13,6 +13,7 @@ This API expects EntitlementJail.app at `book/tools/entitlement/EntitlementJail.
 - `book.api.entitlementjail.protocol.WaitSpec` (typed wait spec for `xpc session --wait`)
 - `book.api.entitlementjail.session.open_session` (start + return a ready session)
 - `book.api.entitlementjail.session.XpcSession` (multi-probe `xpc session` control plane; event iteration + observer helpers)
+- `book.api.entitlementjail.frida` (EntitlementJail xpc session + Frida attach harness)
 - `book.api.entitlementjail.cli.list_profiles` / `list_services` (profile/service inventory)
 - `book.api.entitlementjail.cli.show_profile` / `describe_service` / `health_check` (profile + service reports)
 - `book.api.entitlementjail.cli.run_matrix_group` (matrix group run via `--out`)
@@ -21,6 +22,20 @@ This API expects EntitlementJail.app at `book/tools/entitlement/EntitlementJail.
 - `book.api.entitlementjail.cli.verify_evidence` / `inspect_macho` (evidence inspection)
 - `book.api.entitlementjail.cli.load_evidence_manifest` / `load_evidence_profiles` / `load_evidence_symbols` (load bundled evidence JSON)
 - `book.api.entitlementjail.cli.quarantine_lab` (resolve bundle id from profile, run quarantine-lab)
+
+## Frida harness
+Attach-first Frida runs for EntitlementJail live in `book/api/entitlementjail/frida.py`.
+
+Example:
+```sh
+python -m book.api.entitlementjail.frida \
+  --profile-id minimal@injectable \
+  --probe-id probe_catalog \
+  --script book/api/frida/hooks/smoke.js
+```
+
+Notes:
+- EntitlementJail XPC sessions may require elevated permissions outside the harness sandbox.
 
 ## Observer defaults
 Observer capture is enabled by default when callers provide a `log_path`.

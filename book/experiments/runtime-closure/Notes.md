@@ -17,3 +17,13 @@ Use this file for short, factual run notes and failures. Avoid timestamps.
 - IOKit lane runtime run: `out/48086066-bfa2-44bb-877c-62dd1dceca09/` (launchd_clean, IOKit-only profile).
   - Baseline `iokit_probe` for `IOSurfaceRoot` returns `found=true` and `open_kr=0`.
   - Scenario `sandbox_iokit_probe` returns `found=true` with `open_kr=-536870174` and `EPERM` (deny at probe stage).
+- Preflight scan (v2 file + user-client IOKit): `v2_alias_literals.sb`, `v2_private_literals.sb`, `v2_data_literals.sb`, `v2_iokit_user_client_only.sb`, `v3_iokit_connection_user_client.sb` all `no_known_apply_gate_signature`.
+- File spelling matrix run: `out/ea704c9c-5102-473a-b942-e24af4136cc8/` (launchd_clean, v2 file profiles).
+  - Alias profile (`v2_alias_literals`) denies all six probes (`/etc`, `/private`, `/System/Volumes/Data` × `/etc/hosts` + `/tmp/foo`) at operation stage.
+  - Private profile (`v2_private_literals`) allows `/private/etc/hosts`, `/System/Volumes/Data/private/etc/hosts`, `/private/tmp/foo`, `/System/Volumes/Data/private/tmp/foo`, and `/tmp/foo`; `/etc/hosts` remains denied.
+  - Data profile (`v2_data_literals`) denies all six probes, including the Data spellings, at operation stage.
+  - `path_witnesses.json` shows baseline `/etc/hosts` -> `/private/etc/hosts` and `/tmp/foo` -> `/private/tmp/foo`; scenario successes report `F_GETPATH_NOFIRMLINK` with `/System/Volumes/Data/private/...` for the private profile.
+- IOKit user-client matrix run: `out/6ecc929d-fec5-4206-a85c-e3e265c349a7/` (launchd_clean).
+  - `v2_user_client_only` allows `IOSurfaceRoot` (`open_kr=0`) at operation stage.
+  - `v3_connection_user_client` denies with `open_kr=-536870174` and `EPERM` at operation stage.
+- Emitted promotion packet for the file matrix run and refreshed VFS canonicalization mapping via `book/graph/mappings/vfs_canonicalization/generate_path_canonicalization_map.py` after updating `packet_set.json`.

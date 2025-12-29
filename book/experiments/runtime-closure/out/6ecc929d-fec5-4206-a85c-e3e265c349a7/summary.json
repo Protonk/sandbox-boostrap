@@ -1,0 +1,24 @@
+{
+  "schema_version": "runtime-tools.summary.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "run_id": "6ecc929d-fec5-4206-a85c-e3e265c349a7",
+  "status": "partial",
+  "plan_id": "runtime-closure.v2",
+  "plan_digest": "b6f9d3b7acce3d8eab304f81ee868803dbeb506c6f40064736e5a2e3e0be14d9",
+  "channel": "launchd_clean",
+  "lanes": {
+    "baseline": true,
+    "scenario": true,
+    "oracle": true
+  },
+  "profile_count": 2,
+  "scenario_count": 2,
+  "expected_profiles": [
+    "runtime-closure:iokit:v2_user_client_only",
+    "runtime-closure:iokit:v3_connection_user_client"
+  ],
+  "mismatch_counts": {
+    "unexpected_deny": 1
+  },
+  "dry_run": false
+}

@@ -76,6 +76,8 @@ The runtime-closure mach lane run `book/experiments/runtime-closure/out/66315539
 
 The runtime-closure IOKit lane run `book/experiments/runtime-closure/out/48086066-bfa2-44bb-877c-62dd1dceca09/` uses the `IOSurfaceRoot` class: baseline `iokit_probe` opens successfully (`open_kr=0`), while the sandboxed probe reports `open_kr=-536870174` with `EPERM`, providing a discriminating IOKit signal that is not yet aligned with the allow expectation.
 
+The runtime-closure file spelling matrix run `book/experiments/runtime-closure/out/ea704c9c-5102-473a-b942-e24af4136cc8/` shows alias-only rules failing for both `/etc/hosts` and `/tmp/foo`, while private spelling rules allow `/private/...` and `/System/Volumes/Data/private/...` spellings (and `/tmp/foo`) at operation stage. `/etc/hosts` remains denied under the alias spelling even when private and Data spellings are allowed, so the `/etc` anchor is still unresolved. The same run shows `IOSurfaceRootUserClient` rules flipping `IOSurfaceRoot` to allow under the user-client-class profile (`v2_user_client_only`), while adding the `IOAccelerator` connection constraint returns `EPERM` (`v3_connection_user_client`).
+
 ## Evidence & artifacts
 - Structural outputs: `book/experiments/probe-op-structure/out/{analysis.json,anchor_hits.json,tag_inventory.json,tag_layout_hypotheses.json,tag_bytes.json,literal_scan.json}`.
 - Runtime outputs: `book/experiments/probe-op-structure/out/39f84aa5-86b4-466d-b5d9-f510299bbd0a/{runtime_results.json,runtime_events.normalized.json,run_manifest.json}`.

@@ -6,7 +6,7 @@ ROOT = Path(__file__).resolve().parents[3]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from book.api.frida import entitlementjail as ej_frida  # noqa: E402
+from book.api.entitlementjail import frida as ej_frida  # noqa: E402
 
 
 def main() -> int:

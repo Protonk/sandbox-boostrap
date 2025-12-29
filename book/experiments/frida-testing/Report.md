@@ -10,7 +10,7 @@ Establish attach-first Frida witnesses for in-process sandbox behavior using Ent
 - Out of scope: spawn-based Frida flows, new operation/filter names, or promotion to mappings/CARTON without validation outputs.
 
 ## Deliverables / expected outcomes
-- Attach-first harness (API): book/api/frida/entitlementjail.py (wrapper in book/experiments/frida-testing/run_ej_frida.py).
+- Attach-first harness (API): book/api/entitlementjail/frida.py (wrapper in book/experiments/frida-testing/run_ej_frida.py).
 - Hook scripts (API): book/api/frida/hooks/ (smoke, fs_open_selftest, sandbox_check_minimal, sandbox_check_trace, execmem_trace).
 - Experiment-only hooks: book/experiments/frida-testing/hooks/ (fs_open, sandbox_trace, sandbox_export_isolation, etc.).
 - Hook script for per-export isolation: book/experiments/frida-testing/hooks/sandbox_export_isolation.js.
@@ -92,7 +92,7 @@ Establish attach-first Frida witnesses for in-process sandbox behavior using Ent
 - Attempted: sandbox_extension release in fully_injectable_extensions with full token (run_id 335f82f3-3a70-4070-818d-22a7d3bfe3cd) failed (errno 22, Invalid argument); hook captured sandbox_extension_release call.
 
 ## Evidence & artifacts
-- Harness (API): book/api/frida/entitlementjail.py (wrapper: book/experiments/frida-testing/run_ej_frida.py).
+- Harness (API): book/api/entitlementjail/frida.py (wrapper: book/experiments/frida-testing/run_ej_frida.py).
 - Hooks (API): book/api/frida/hooks/smoke.js, book/api/frida/hooks/fs_open_selftest.js, book/api/frida/hooks/sandbox_check_minimal.js, book/api/frida/hooks/sandbox_check_trace.js, book/api/frida/hooks/execmem_trace.js (experiment paths are symlinks).
 - Hooks (experiment-only): book/experiments/frida-testing/hooks/fs_open.js, book/experiments/frida-testing/hooks/fs_open_funnel.js, book/experiments/frida-testing/hooks/fs_op_funnel.js, book/experiments/frida-testing/hooks/discover_sandbox_exports.js, book/experiments/frida-testing/hooks/sandbox_trace.js, book/experiments/frida-testing/hooks/sandbox_export_isolation.js, book/experiments/frida-testing/hooks/sandbox_extension_selftest.js.
 - Config inputs: book/experiments/frida-testing/out/inputs/sandbox_export_isolation/sandbox_check.json, book/experiments/frida-testing/out/inputs/sandbox_export_isolation/sandbox_check_bulk.json, book/experiments/frida-testing/out/inputs/sandbox_export_isolation/sandbox_extension_issue_file.json, book/experiments/frida-testing/out/inputs/sandbox_export_isolation/sandbox_extension_issue_mach.json, book/experiments/frida-testing/out/inputs/sandbox_export_isolation/sandbox_extension_consume.json, book/experiments/frida-testing/out/inputs/sandbox_export_isolation/sandbox_extension_release.json, book/experiments/frida-testing/out/inputs/sandbox_export_isolation/sandbox_extension_selftest.json.

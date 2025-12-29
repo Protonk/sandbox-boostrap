@@ -72,6 +72,84 @@
         "(allow mach-bootstrap)"
       ],
       "notes": "Class-only IOKit probe for IOSurfaceRoot (baseline found + open ok)."
+    },
+    "runtime-closure:file:v2_alias_literals": {
+      "profile_id": "runtime-closure:file:v2_alias_literals",
+      "profile_path": "book/experiments/runtime-closure/sb/v2_alias_literals.sb",
+      "mode": "sbpl",
+      "family": "file-read",
+      "semantic_group": "file-read:canonicalization-matrix",
+      "probe_refs": [
+        "runtime-closure:file:v2_alias_literals:etc_hosts_alias",
+        "runtime-closure:file:v2_alias_literals:etc_hosts_private",
+        "runtime-closure:file:v2_alias_literals:etc_hosts_data",
+        "runtime-closure:file:v2_alias_literals:tmp_alias",
+        "runtime-closure:file:v2_alias_literals:tmp_private",
+        "runtime-closure:file:v2_alias_literals:tmp_data"
+      ],
+      "notes": "Alias spelling profile for /etc/hosts and /tmp/foo (literal-only)."
+    },
+    "runtime-closure:file:v2_private_literals": {
+      "profile_id": "runtime-closure:file:v2_private_literals",
+      "profile_path": "book/experiments/runtime-closure/sb/v2_private_literals.sb",
+      "mode": "sbpl",
+      "family": "file-read",
+      "semantic_group": "file-read:canonicalization-matrix",
+      "probe_refs": [
+        "runtime-closure:file:v2_private_literals:etc_hosts_alias",
+        "runtime-closure:file:v2_private_literals:etc_hosts_private",
+        "runtime-closure:file:v2_private_literals:etc_hosts_data",
+        "runtime-closure:file:v2_private_literals:tmp_alias",
+        "runtime-closure:file:v2_private_literals:tmp_private",
+        "runtime-closure:file:v2_private_literals:tmp_data"
+      ],
+      "notes": "Private spelling profile for /private/etc/hosts and /private/tmp/foo (literal-only)."
+    },
+    "runtime-closure:file:v2_data_literals": {
+      "profile_id": "runtime-closure:file:v2_data_literals",
+      "profile_path": "book/experiments/runtime-closure/sb/v2_data_literals.sb",
+      "mode": "sbpl",
+      "family": "file-read",
+      "semantic_group": "file-read:canonicalization-matrix",
+      "probe_refs": [
+        "runtime-closure:file:v2_data_literals:etc_hosts_alias",
+        "runtime-closure:file:v2_data_literals:etc_hosts_private",
+        "runtime-closure:file:v2_data_literals:etc_hosts_data",
+        "runtime-closure:file:v2_data_literals:tmp_alias",
+        "runtime-closure:file:v2_data_literals:tmp_private",
+        "runtime-closure:file:v2_data_literals:tmp_data"
+      ],
+      "notes": "Data spelling profile for /System/Volumes/Data/private/etc/hosts and /System/Volumes/Data/private/tmp/foo (literal-only)."
+    },
+    "runtime-closure:iokit:v2_user_client_only": {
+      "profile_id": "runtime-closure:iokit:v2_user_client_only",
+      "profile_path": "book/experiments/runtime-closure/sb/v2_iokit_user_client_only.sb",
+      "mode": "sbpl",
+      "family": "iokit-open-user-client",
+      "semantic_group": "iokit:iosurface-user-client",
+      "probe_refs": [
+        "runtime-closure:iokit:v2_user_client_only:iosurface_root"
+      ],
+      "notes": "Allow IOSurfaceRootUserClient via iokit-open-user-client (class-only).",
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ]
+    },
+    "runtime-closure:iokit:v3_connection_user_client": {
+      "profile_id": "runtime-closure:iokit:v3_connection_user_client",
+      "profile_path": "book/experiments/runtime-closure/sb/v3_iokit_connection_user_client.sb",
+      "mode": "sbpl",
+      "family": "iokit-open-user-client",
+      "semantic_group": "iokit:iosurface-user-client",
+      "probe_refs": [
+        "runtime-closure:iokit:v3_connection_user_client:iosurface_root"
+      ],
+      "notes": "Allow IOSurfaceRootUserClient with IOAccelerator connection constraint.",
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ]
     }
   }
 }

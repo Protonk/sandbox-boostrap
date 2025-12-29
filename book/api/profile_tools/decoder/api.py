@@ -18,7 +18,7 @@ from typing import List, Dict, Any, Optional, Tuple, Sequence
 
 from book.api.path_utils import find_repo_root
 
-from . import ingestion as pi
+from .. import ingestion as pi
 
 PRINTABLE = set(bytes(string.printable, "ascii"))
 # Heuristic: op_table and branch offsets are stored as u16 word offsets

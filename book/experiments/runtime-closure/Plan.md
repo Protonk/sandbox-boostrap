@@ -22,9 +22,9 @@ Every run is interpreted by stage:
 ## Lanes and questions
 
 1) **File canonicalization lane**
-   - Profiles: alias-only (`/etc/hosts`), canonical-only (`/private/etc/hosts`), both.
-   - Probes: `/etc/hosts`, `/private/etc/hosts`, `/tmp/foo` control under each profile.
-   - Question: do `/etc` requests resolve to `/private/etc` prior to policy enforcement on this host?
+   - Profiles: alias-only, private-only, and data-only spellings (literal-only rules).
+   - Probes: `/etc/hosts`, `/private/etc/hosts`, `/System/Volumes/Data/private/etc/hosts`, plus the same three spellings for `/tmp/foo` under each profile.
+   - Question: which spelling is enforced at operation time for `/etc` and `/tmp` (alias vs `/private` vs Data firmlink)?
 
 2) **Mach service discrimination lane**
    - Profile: allow `mach-lookup` for one known service and one intentionally missing name.
@@ -32,9 +32,9 @@ Every run is interpreted by stage:
    - Question: is a failure a true denial or a missing service (baseline vs scenario)?
 
 3) **IOKit lane**
-   - Profile: allow `iokit-open-service` for a class verified as present in baseline (`IOSurfaceRoot`).
-   - Probes: class-only and class+property (if needed).
-   - Question: can we obtain a discriminating IOKit runtime signal on this host?
+   - Profiles: user-client-class only and connection+user-client variants (IOSurfaceRootUserClient).
+   - Probes: `IOSurfaceRoot` under each profile.
+   - Question: which IOKit rule flips `IOSurfaceRoot` from deny to allow?
 
 ## Evidence and artifacts
 

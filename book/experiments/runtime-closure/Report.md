@@ -16,22 +16,25 @@ Provide narrow, stage-labeled runtime evidence that helps close gaps in `probe-o
 - Profiles: minimal deny-default SBPL with explicit allow rules for the targeted anchors.
 
 ## Status
-- File canonicalization lane: partial (runtime run recorded; mismatches remain).
+- File canonicalization lane: partial (v2 spelling matrix run; `/etc` still unresolved).
 - Mach service discrimination lane: ok (baseline confirms missing control).
-- IOKit lane: partial (baseline open succeeds; sandboxed probe denied).
+- IOKit lane: partial (user-client-only allows; connection+user-client denies).
 
 ## Lanes
 
 ### File canonicalization
-Profiles test `/etc/hosts` vs `/private/etc/hosts` with a `/tmp/foo` control. The goal is to separate canonicalization effects from policy outcomes and feed the `/etc/hosts` anchor ambiguity in `probe-op-structure`.
+Profiles test alias (`/etc` + `/tmp`), private, and Data spellings as literal-only rules for `/etc/hosts` and `/tmp/foo`. The goal is to separate spelling and firmlink effects from policy outcomes.
 
-Observed (run: `out/5a8908d8-d626-4cac-8bdd-0f53c02af8fe/`):
-- `/etc/hosts` denied under all three profiles, including the both-paths profile.
-- `/private/etc/hosts` allowed under the private-only and both profiles; denied under alias-only.
-- `/tmp/foo` denied under all three profiles (baseline resolves `/tmp/foo` -> `/private/tmp/foo`).
-- `path_witnesses.json` baseline confirms `/etc/hosts` -> `/private/etc/hosts`. Scenario successes record `F_GETPATH_NOFIRMLINK:/System/Volumes/Data/private/etc/hosts` for the `/private/etc/hosts` allow path.
+Observed (run: `out/ea704c9c-5102-473a-b942-e24af4136cc8/`):
+- Alias profile (`v2_alias_literals`) denies all six probes at operation stage.
+- Private profile (`v2_private_literals`) allows `/private/etc/hosts`, `/System/Volumes/Data/private/etc/hosts`, `/private/tmp/foo`, `/System/Volumes/Data/private/tmp/foo`, and `/tmp/foo`; `/etc/hosts` remains denied.
+- Data profile (`v2_data_literals`) denies all six probes, including the Data spellings, at operation stage.
+- `path_witnesses.json` baseline shows `/etc/hosts` -> `/private/etc/hosts` and `/tmp/foo` -> `/private/tmp/foo`. Scenario successes report `F_GETPATH_NOFIRMLINK:/System/Volumes/Data/private/...` for the private profile.
+All three profiles compile and apply successfully (`sandbox_init` rc=0); failures are operation-stage (`failure_stage: probe`).
 
-This strengthens the canonicalization mismatch hypothesis and suggests that firmlink spelling may be relevant when `/etc/hosts` is requested under deny-default rules.
+Interpretation (bounded):
+- `/tmp/foo` fits the “alias fails, private succeeds” bucket: the private literal rule allows alias and Data spellings, suggesting canonicalization to `/private/tmp` at operation time.
+- `/etc/hosts` remains unresolved: private spelling allows `/private/etc/hosts` and Data spellings, but the alias spelling (`/etc/hosts`) still denies.
 
 ### Mach service discrimination
 One profile allows `mach-lookup` for a known service and a missing control name. Baseline vs scenario outcomes distinguish “missing service” from “sandbox denial.”
@@ -41,22 +44,27 @@ Observed (run: `out/66315539-a0ce-44bf-bff0-07a79f205fea/`):
 - `com.apple.sandbox-lore.missing` returns `kr=1102` in baseline and scenario (missing service), so the “deny” result is not a sandbox decision on this host.
 
 ### IOKit
-Profiles probe a class verified as present in baseline to avoid false “not found” results. The goal is a discriminating runtime signal for IOKit anchors.
+Profiles target IOSurfaceRoot via user-client-class filters to align with anchor-level structure.
 
-Observed (run: `out/48086066-bfa2-44bb-877c-62dd1dceca09/`):
-- Baseline `iokit_probe` for `IOSurfaceRoot` returns `found=true` and `open_kr=0`.
-- Scenario `sandbox_iokit_probe` returns `found=true` with `open_kr=-536870174` and `EPERM` (deny at probe stage), so the lane is discriminating but not yet aligned with the allow expectation.
+Observed (run: `out/6ecc929d-fec5-4206-a85c-e3e265c349a7/`):
+- `v2_user_client_only` allows `IOSurfaceRoot` (`open_kr=0`) at operation stage.
+- `v3_connection_user_client` denies with `open_kr=-536870174` and `EPERM` at operation stage.
+Both profiles apply successfully (`sandbox_init` rc=0); the divergence is at the operation stage.
+
+This indicates the user-client-class filter is sufficient for the IOSurfaceRoot probe, while the IOAccelerator connection constraint is too narrow on this host.
 
 ## Evidence & artifacts
 - Runtime plan/registry: `book/experiments/runtime-closure/plan.json` and `registry/{probes.json,profiles.json}`.
 - SBPL profiles: `book/experiments/runtime-closure/sb/*.sb`.
 - Run bundles: `book/experiments/runtime-closure/out/<run_id>/`.
-  - File lane: `book/experiments/runtime-closure/out/5a8908d8-d626-4cac-8bdd-0f53c02af8fe/` (includes `path_witnesses.json`).
+  - File lane (v2 matrix): `book/experiments/runtime-closure/out/ea704c9c-5102-473a-b942-e24af4136cc8/` (includes `path_witnesses.json` and `promotion_packet.json`).
   - Mach lane: `book/experiments/runtime-closure/out/66315539-a0ce-44bf-bff0-07a79f205fea/`.
-  - IOKit lane: `book/experiments/runtime-closure/out/48086066-bfa2-44bb-877c-62dd1dceca09/`.
+  - IOKit user-client lane: `book/experiments/runtime-closure/out/6ecc929d-fec5-4206-a85c-e3e265c349a7/`.
+  - Prior runs: `book/experiments/runtime-closure/out/5a8908d8-d626-4cac-8bdd-0f53c02af8fe/` (file v1) and `book/experiments/runtime-closure/out/48086066-bfa2-44bb-877c-62dd1dceca09/` (IOKit v1).
+- Mapped VFS update: `book/graph/mappings/vfs_canonicalization/path_canonicalization_map.json` (now includes the runtime-closure file matrix packet).
 
 ## Limitations
 - Apply-stage gating is blocked evidence; failures at apply/exec are not policy outcomes.
 - Missing services/classes are not denials and must be resolved via baseline lane.
-- `/etc/hosts` remains unresolved when spelled as `/etc/...` even in both-paths profiles; firmlink spellings may be required for a clean allow control.
-- The IOKit lane shows a baseline-open vs sandbox-deny split for `IOSurfaceRoot`, but the allow expectation is not yet satisfied; treat as hypothesis until reconciled.
+- `/etc/hosts` remains unresolved when spelled as `/etc/...` even when private and Data spellings are allowed.
+- Data-only literal rules do not allow Data spellings on this host, suggesting enforcement compares a different spelling; this remains hypothesis-level without a direct kernel witness at operation time.

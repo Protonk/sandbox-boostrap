@@ -14,7 +14,7 @@ from typing import Any, Mapping
 
 from book.api.path_utils import find_repo_root, to_repo_relative
 
-from . import decoder
+from .. import decoder
 
 _DEFAULT_DIGEST_KEYS = {
     "format_variant",

@@ -9,6 +9,8 @@ The repo has multiple, intentionally different identity surfaces for profiles:
 
 This module provides a small resolver that joins these surfaces mechanically,
 using the compiled-blob path and sha256 as the primary join keys.
+
+Public API is re-exported from `book.api.profile_tools.identity`.
 """
 
 from __future__ import annotations
@@ -200,4 +202,3 @@ def resolve_all_canonical_system_profiles(
             require_sha_match=require_sha_match,
         )
     return out
-

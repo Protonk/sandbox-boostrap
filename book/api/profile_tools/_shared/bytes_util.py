@@ -54,4 +54,3 @@ def ascii_strings(buf: bytes, *, min_len: int = 4) -> list[dict[str, Any]]:
     if current and len(current) >= min_len and start is not None:
         runs.append({"offset": start, "string": "".join(current)})
     return runs
-

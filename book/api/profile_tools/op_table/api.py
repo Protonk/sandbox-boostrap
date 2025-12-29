@@ -13,9 +13,9 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence
 
-from . import bytes_util as bu
-from . import decoder as decoder
-from . import ingestion as pi
+from .. import decoder as decoder
+from .. import ingestion as pi
+from .._shared import bytes_util as bu
 
 
 ALLOW_RE = re.compile(r"^\(allow\s+([^\s)]+)")

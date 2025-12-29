@@ -115,16 +115,20 @@ PY
 
 See `book/api/entitlementjail/README.md` (Contract section) for API usage and contract fixtures.
 
+Frida harness (EntitlementJail XPC session + attach):
+```sh
+python -m book.api.entitlementjail.frida --profile-id minimal@injectable --probe-id probe_catalog --script book/api/frida/hooks/smoke.js
+```
+
 ### frida
 
-Definition: Frida runners for spawn/attach and EntitlementJail XPC sessions, plus a curated hook catalog.
+Definition: Frida runners for spawn/attach, plus a curated hook catalog.
 
-Role: Provide a shared attach-first harness for experiments that need in-process instrumentation.
+Role: Provide a shared attach/spawn harness for experiments that need in-process instrumentation.
 
 Example:
 ```sh
 python -m book.api.frida.cli run --attach-pid 12345 --script book/api/frida/hooks/smoke.js
-python -m book.api.frida.cli ej-session --profile-id minimal@injectable --probe-id probe_catalog --script book/api/frida/hooks/smoke.js
 ```
 
 ## CARTON conversion assessment
