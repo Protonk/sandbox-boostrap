@@ -31,4 +31,3 @@ def test_decoder_does_not_depend_on_cwd(tmp_path):
     finally:
         os.chdir(old)
     assert decoded.get("op_table") is not None
-

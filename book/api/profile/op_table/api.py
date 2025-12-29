@@ -2,6 +2,15 @@
 Op-table centric helpers (Sonoma baseline).
 
 Consolidated home for the former `op_table` module.
+
+The op-table is the “dispatch table” at the front of a compiled profile:
+- It is indexed by operation id (vocab) and stores entrypoint offsets.
+- Those entrypoints lead into the PolicyGraph node stream.
+
+This module keeps op-table logic *structural*:
+- It can join against vocab mappings for convenience, but it does not claim
+  kernel semantics.
+- It provides cheap traversal signatures to help detect blob drift.
 """
 
 from __future__ import annotations
@@ -20,6 +29,9 @@ from .._shared import bytes_util as bu
 
 ALLOW_RE = re.compile(r"^\(allow\s+([^\s)]+)")
 TOKEN_RE = re.compile(r"\(([\w*-]+)")
+# Tokens in SBPL are not a regular language, so the “parse” helpers below are
+# intentionally shallow and conservative. They exist to extract a small set of
+# names from tiny probe SBPL files, not to interpret full policy.
 SKIP_TOKENS = {"allow", "deny", "version", "default", "param", "require-any", "require-all", "require-not"}
 
 
@@ -34,6 +46,16 @@ def parse_ops(sb_path: Path) -> List[str]:
 
 
 def parse_filters(sb_path: Path, filter_names: set[str]) -> List[str]:
+    """
+    Extract filter name tokens from a small SBPL file.
+
+    Args:
+        sb_path: SBPL source file.
+        filter_names: Set of known filter names (usually from `filters.json`).
+
+    Returns:
+        Sorted list of filter names that appear in the file.
+    """
     tokens = set()
     for line in sb_path.read_text().splitlines():
         for token in TOKEN_RE.findall(line):
@@ -50,6 +72,17 @@ ascii_strings = bu.ascii_strings
 
 
 def entry_signature(decoded: Dict[str, Any], entry: int, max_visits: int = 256) -> Dict[str, Any]:
+    """
+    Compute a cheap structural signature for one op-table entrypoint.
+
+    This performs a bounded graph walk from the entrypoint node index:
+    - Tags encountered (as a set)
+    - Literal-ish payload values encountered (best-effort)
+
+    The traversal interprets the first two node u16 fields as “edges” pointing
+    to other node indices. This is heuristic and meant for drift detection, not
+    a proof of semantic reachability.
+    """
     nodes = decoded.get("nodes") or []
     if entry >= len(nodes):
         return {"entry": entry, "error": "out_of_range", "reachable": 0}
@@ -114,6 +147,17 @@ def summarize_profile(
     op_count_override: Optional[int] = None,
     filter_map: Optional[Dict[str, int]] = None,
 ) -> Summary:
+    """
+    Summarize a compiled blob in op-table terms.
+
+    Args:
+        name: Human label for the profile (used in outputs).
+        blob: Compiled blob bytes.
+        ops: Optional list of operation names (from SBPL probes).
+        filters: Optional list of filter names (from SBPL probes).
+        op_count_override: Force op_count instead of using ingestion header guess.
+        filter_map: Optional `filter_name -> filter_id` mapping for convenience.
+    """
     header = pi.parse_header(pi.ProfileBlob(bytes=blob, source=name))
     if op_count_override:
         header.operation_count = op_count_override
@@ -160,10 +204,18 @@ def build_alignment(
     ops_vocab: Dict[str, Any],
     filters_vocab: Dict[str, Any],
 ) -> Dict[str, Any]:
+    """
+    Join one or more summaries against vocab mappings.
+
+    The returned structure is designed for “alignment reporting”: it helps
+    explain which op/filter names in a probe correspond to which vocab ids.
+    """
     ops_map = {entry["name"]: entry["id"] for entry in ops_vocab.get("ops", [])}
     filters_map = {entry["name"]: entry["id"] for entry in filters_vocab.get("filters", [])}
     vocab_version = None
     if ops_map:
+        # Hash the *payload* list rather than the whole file so callers can use
+        # this as a cheap “vocab changed” signal.
         payload = json.dumps(ops_vocab.get("ops", []), sort_keys=True).encode()
         vocab_version = hashlib.sha256(payload).hexdigest()
     records = []
@@ -193,4 +245,5 @@ def build_alignment(
 
 
 def load_vocab(path: Path) -> Dict[str, Any]:
+    """Load a vocab JSON file (`ops.json` or `filters.json`)."""
     return json.loads(path.read_text())

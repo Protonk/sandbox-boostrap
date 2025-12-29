@@ -1,0 +1,45 @@
+{
+  "configure": {
+    "input_schema": null,
+    "supported": false
+  },
+  "hook": {
+    "id": "execmem_trace",
+    "script_path": "book/api/frida/hooks/execmem_trace.js",
+    "summary": "Traces mmap/mprotect/dlopen and related exec/JIT-ish events (best-effort)."
+  },
+  "module_expectations": [
+    {
+      "name": "libsystem_kernel.dylib",
+      "required": false
+    },
+    {
+      "name": "libSystem.B.dylib",
+      "required": false
+    },
+    {
+      "name": "libsystem_pthread.dylib",
+      "required": false
+    },
+    {
+      "name": "libdyld.dylib",
+      "required": false
+    }
+  ],
+  "rpc_exports": [],
+  "schema_name": "book.api.frida.hook_manifest",
+  "schema_version": 1,
+  "send_payload_kinds": [
+    "execmem-call",
+    "execmem-candidates",
+    "execmem-error",
+    "execmem-hook"
+  ],
+  "trace_event_schema": {
+    "events_format": "jsonl",
+    "schema_name": "book.api.frida.trace_event",
+    "schema_path": "book/api/frida/schemas/trace_event_v1.schema.json",
+    "schema_version": 1
+  }
+}
+

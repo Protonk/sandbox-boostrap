@@ -57,6 +57,12 @@ Use this file for concise notes on probe designs, compile logs, and findings.
 - Added `v11_iokit_user_client_connection.sb` with `(require-all (iokit-user-client-class "IOSurfaceRootUserClient") (iokit-connection "IOAccelerator"))`; compiled to `sb/build/v11_iokit_user_client_connection.sb.bin`.
 - Updated `anchor_map.json` and reran the structural pipeline (`analyze_profiles.py`, `anchor_scan.py`, `map_literal_refs.py`, `tag_inventory.py`, `tag_layout_hypotheses.py`).
 - `anchor_hits.json` now reports IOSurfaceRootUserClient with field2 values {0,5} (tag 0 `global-name` plus tag 6 `arg_u16` carrying 0/5) and IOAccelerator with {0,1,5}; both remain structurally blocked due to mixed contexts, but the co-anchor adds a distinct `global-name` context for IOSurface that was not visible in v9/v10.
+
+## Delta attribution for IOSurfaceRootUserClient
+
+- Added control profile `v12_iokit_control.sb` (deny default only) and compiled to `sb/build/v12_iokit_control.sb.bin`.
+- Added `delta_attribution.py` to compare the v12 control blob against the v9 IOSurface variant and emit `out/anchor_hits_delta.json` with only `u16_role == filter_vocab_id` nodes. The delta run excludes the generic `path` filter context for IOSurface (filter_id 0).
+- `generate_anchor_field2_map.py` now prefers delta hits for IOSurfaceRootUserClient, yielding a single `mount-relative-path` structural binding in `anchor_ctx_filter_map.json` and an unblocked literal entry in `anchor_filter_map.json`.
 - Additional structure poking:
   - Node region lengths vary and are not always multiples of 12; `bsd` nodes_len=498 (mod4=2), suggesting non-12-byte layouts.
   - Tag sets depend on stride: e.g., `bsd` shows tags {0,1,5,11,15,17,18,20,26,27} at stride=6, shrinking to {0,17,26,27} at stride=12; layout likely differs per tag/stride.
@@ -141,3 +147,5 @@ Use this file for concise notes on probe designs, compile logs, and findings.
 - Runtime-closure IOKit user-client run `book/experiments/runtime-closure/out/6ecc929d-fec5-4206-a85c-e3e265c349a7/`:
   - `IOSurfaceRootUserClient` allow rule (`v2_user_client_only`) flips `IOSurfaceRoot` to allow (`open_kr=0`).
   - Adding `IOAccelerator` connection constraint (`v3_connection_user_client`) returns `EPERM`.
+- Runtime-closure IOKit op-identity micro-matrix runs `book/experiments/runtime-closure/out/08887f36-f87b-45ff-8e9e-6ee7eb9cb635/` and `book/experiments/runtime-closure/out/33ff5a68-262a-4a8c-b427-c7cb923a3adc/`:
+  - Both `iokit-open-user-client` (v2) and `iokit-open` (v4) allow `IOSurfaceRoot` at operation stage, so op identity remains ambiguous.

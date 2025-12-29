@@ -11,6 +11,11 @@ This module provides a small resolver that joins these surfaces mechanically,
 using the compiled-blob path and sha256 as the primary join keys.
 
 Public API is re-exported from `book.api.profile.identity`.
+
+This is intentionally *not* a policy-semantic identity:
+- It does not attempt to interpret what a profile “means”.
+- It only reconciles mapping records that are already world-scoped and
+  manifest-verified elsewhere.
 """
 
 from __future__ import annotations
@@ -62,6 +67,7 @@ class CanonicalSystemProfileIdentity:
 
 
 def _load_json(path: Path) -> Dict[str, Any]:
+    """Load JSON and raise identity-specific exceptions for common failure modes."""
     try:
         return json.loads(path.read_text())
     except FileNotFoundError as exc:
@@ -71,6 +77,11 @@ def _load_json(path: Path) -> Dict[str, Any]:
 
 
 def baseline_world_id(repo_root: Optional[Path] = None) -> str:
+    """
+    Return the baseline `world_id` for the current checkout.
+
+    This is the single source of truth for host scoping.
+    """
     root = repo_root or find_repo_root(Path(__file__))
     data = _load_json(root / BASELINE_REF)
     world_id = data.get("world_id")
@@ -80,6 +91,7 @@ def baseline_world_id(repo_root: Optional[Path] = None) -> str:
 
 
 def canonical_system_profile_ids(repo_root: Optional[Path] = None) -> Sequence[str]:
+    """List canonical system profile ids from `system_profiles/digests.json`."""
     root = repo_root or find_repo_root(Path(__file__))
     digests = _load_json(root / SYSTEM_DIGESTS_REF)
     meta = digests.get("metadata") or {}
@@ -88,6 +100,7 @@ def canonical_system_profile_ids(repo_root: Optional[Path] = None) -> Sequence[s
 
 
 def _index_static_checks(static_checks: Dict[str, Any]) -> Dict[str, Dict[str, Any]]:
+    """Index static-check entries by `path` (repo-relative)."""
     entries = static_checks.get("entries") or []
     by_path: Dict[str, Dict[str, Any]] = {}
     for entry in entries:
@@ -100,6 +113,7 @@ def _index_static_checks(static_checks: Dict[str, Any]) -> Dict[str, Dict[str, A
 
 
 def _index_attestations(attestations: Dict[str, Any]) -> Dict[str, Dict[str, Any]]:
+    """Index attestation entries by `source` (repo-relative blob path)."""
     entries = attestations.get("attestations") or []
     by_source: Dict[str, Dict[str, Any]] = {}
     for entry in entries:
@@ -118,12 +132,28 @@ def resolve_canonical_system_profile(
     require_world_match: bool = True,
     require_sha_match: bool = True,
 ) -> CanonicalSystemProfileIdentity:
+    """
+    Resolve one `sys:<name>` canonical system profile into a joined identity.
+
+    Args:
+        profile_id: Canonical id (e.g. `sys:bsd`).
+        repo_root: Optional repo root for callers running outside the checkout.
+        require_world_match: If true, ensure all involved mappings share the same
+            `world_id` as `book/world/.../world.json`.
+        require_sha_match: If true, ensure sha256 values agree across mappings.
+
+    Returns:
+        A `CanonicalSystemProfileIdentity` containing the original per-mapping
+        entries as well as the join keys (`blob_path`, `blob_sha256`).
+    """
     root = repo_root or find_repo_root(Path(__file__))
     digests = _load_json(root / SYSTEM_DIGESTS_REF)
     static_checks = _load_json(root / SYSTEM_STATIC_CHECKS_REF)
     attestations = _load_json(root / SYSTEM_ATTESTATIONS_REF)
 
     if require_world_match:
+        # World scoping is non-negotiable in this repo. If these drift, callers
+        # must treat the situation as “mixed baselines” and stop.
         world_id = baseline_world_id(root)
         for label, doc in [
             ("system_profiles/digests.json", digests),
@@ -192,6 +222,12 @@ def resolve_all_canonical_system_profiles(
     require_world_match: bool = True,
     require_sha_match: bool = True,
 ) -> Dict[str, CanonicalSystemProfileIdentity]:
+    """
+    Resolve all canonical system profiles into joined identities.
+
+    This is a convenience wrapper around `resolve_canonical_system_profile` that
+    preserves the canonical ids as keys.
+    """
     root = repo_root or find_repo_root(Path(__file__))
     out: Dict[str, CanonicalSystemProfileIdentity] = {}
     for pid in canonical_system_profile_ids(root):

@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "tier": "mapped",
+    "source_jobs": [],
+    "notes": "scenario-level runtime summaries"
+  },
+  "phase_histograms": {
+    "overall": {
+      "total": 1,
+      "stages": {
+        "apply": 0,
+        "bootstrap": 0,
+        "preflight": 0,
+        "probe": 1
+      },
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "probe": {
+        "total": 1,
+        "allow": 1,
+        "deny": 0,
+        "mismatches": 0
+      }
+    },
+    "by_family": {
+      "iokit-open": {
+        "total": 1,
+        "stages": {
+          "apply": 0,
+          "bootstrap": 0,
+          "preflight": 0,
+          "probe": 1
+        },
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "probe": {
+          "total": 1,
+          "allow": 1,
+          "deny": 0,
+          "mismatches": 0
+        }
+      }
+    }
+  },
+  "scenarios": {
+    "runtime-closure:iokit:v4_open_user_client:iosurface_root": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "runtime-closure:iokit:v4_open_user_client",
+      "expectations": [
+        {
+          "expectation_id": "runtime-closure:iokit:v4_open_user_client:iosurface_root",
+          "profile_id": "runtime-closure:iokit:v4_open_user_client",
+          "operation": "iokit-open-service",
+          "target": "IOSurfaceRoot",
+          "expected": "allow",
+          "probe_name": "iosurface_root"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "runtime-closure:iokit:v4_open_user_client:iosurface_root"
+    }
+  }
+}

@@ -4,6 +4,14 @@ Decoder-backed digest helpers for compiled sandbox blobs (Sonoma baseline).
 This module provides a reusable home for the digest logic originally implemented
 in the experiment:
 - `book/experiments/archive/system-profile-digest/`
+
+Digests are meant to be:
+- **stable** (shape and field meanings) on a fixed world baseline,
+- **structural** (byte-derived facts + decoder annotations),
+- **portable** across callers (experiments, validation, ad-hoc tooling).
+
+If a digest changes on the same baseline, treat that as a signal:
+either the decoder/ingestion heuristics changed or a canonical blob changed.
 """
 
 from __future__ import annotations
@@ -52,6 +60,9 @@ def digest_compiled_blob_bytes(blob: bytes, *, source: str | None = None) -> dic
     Digest content is derived from `book.api.profile.decoder` and is meant
     to be stable across callers (experiments, validation, ad-hoc tooling).
     """
+    # Decode once and then filter down to the stable key set. We keep the key
+    # set small on purpose; callers needing more should use the decoder
+    # directly (and accept that the output is more “hypothesis-heavy”).
     decoded = decoder.decode_profile_dict(blob)
     body = {k: decoded[k] for k in sorted(_DEFAULT_DIGEST_KEYS) if k in decoded}
     if source is not None:
@@ -60,6 +71,12 @@ def digest_compiled_blob_bytes(blob: bytes, *, source: str | None = None) -> dic
 
 
 def digest_compiled_blob_path(path: Path, *, repo_root: Path | None = None) -> dict[str, Any]:
+    """
+    Digest a compiled blob at `path` and include a repo-relative source label.
+
+    The `source` field is a repo-relative path to keep digests stable across
+    machines with different absolute checkout paths.
+    """
     root = repo_root or find_repo_root()
     if not path.exists():
         raise FileNotFoundError(f"missing compiled blob: {path}")
@@ -67,6 +84,12 @@ def digest_compiled_blob_path(path: Path, *, repo_root: Path | None = None) -> d
 
 
 def digest_named_blobs(blobs: Mapping[str, Path], *, repo_root: Path | None = None) -> dict[str, Any]:
+    """
+    Digest a named mapping of blobs.
+
+    This helper preserves keys (names) so downstream jobs can normalize them to
+    canonical ids (e.g. `sys:bsd`) without changing shape.
+    """
     root = repo_root or find_repo_root()
     payload: dict[str, Any] = {}
     for name, path in blobs.items():
@@ -75,5 +98,6 @@ def digest_named_blobs(blobs: Mapping[str, Path], *, repo_root: Path | None = No
 
 
 def write_digests_json(payload: Mapping[str, Any], out_path: Path) -> None:
+    """Write digests payload to disk as pretty-printed, stable JSON."""
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(payload, indent=2, sort_keys=True))

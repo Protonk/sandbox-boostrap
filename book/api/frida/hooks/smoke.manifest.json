@@ -1,0 +1,25 @@
+{
+  "configure": {
+    "input_schema": null,
+    "supported": false
+  },
+  "hook": {
+    "id": "smoke",
+    "script_path": "book/api/frida/hooks/smoke.js",
+    "summary": "Emits basic Process metadata on load."
+  },
+  "module_expectations": [],
+  "rpc_exports": [],
+  "schema_name": "book.api.frida.hook_manifest",
+  "schema_version": 1,
+  "send_payload_kinds": [
+    "smoke"
+  ],
+  "trace_event_schema": {
+    "events_format": "jsonl",
+    "schema_name": "book.api.frida.trace_event",
+    "schema_path": "book/api/frida/schemas/trace_event_v1.schema.json",
+    "schema_version": 1
+  }
+}
+

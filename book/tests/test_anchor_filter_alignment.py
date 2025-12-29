@@ -13,11 +13,23 @@ def load_json(path: Path):
 def test_anchor_filter_alignment_with_anchor_hits():
     """
     Guardrail: mapped anchors in anchor_filter_map.json must be backed by
-    anchor_hits.json for this world, and the pinned filter_id must appear
+    anchor_hits.json for this world (or anchor_hits_delta.json when the
+    delta attribution path is in use), and the pinned filter_id must appear
     among the observed field2 values for those anchors.
     """
     amap = load_json(ROOT / "book" / "graph" / "mappings" / "anchors" / "anchor_filter_map.json")
     hits = load_json(ROOT / "book" / "experiments" / "probe-op-structure" / "out" / "anchor_hits.json")
+    delta_path = ROOT / "book" / "experiments" / "probe-op-structure" / "out" / "anchor_hits_delta.json"
+    delta_hits = load_json(delta_path) if delta_path.exists() else {}
+    delta_targets = set()
+    delta_profiles = {}
+    if isinstance(delta_hits, dict):
+        meta = delta_hits.get("metadata")
+        if isinstance(meta, dict):
+            delta_targets.update([a for a in meta.get("anchors", []) if isinstance(a, str)])
+        profiles = delta_hits.get("profiles")
+        if isinstance(profiles, dict):
+            delta_profiles = profiles
 
     anchors_checked = 0
     for anchor, entry in amap.items():
@@ -33,7 +45,10 @@ def test_anchor_filter_alignment_with_anchor_hits():
         observed: set[int] = set()
         for src in sources:
             # anchor_hits keys are "probe:..." or "sys:...", matching the source ids.
-            profile_hits = hits.get(src)
+            if anchor in delta_targets and delta_profiles:
+                profile_hits = delta_profiles.get(src)
+            else:
+                profile_hits = hits.get(src)
             if not profile_hits:
                 continue
             for ah in profile_hits.get("anchors") or []:
@@ -61,4 +76,3 @@ def test_anchor_filter_alignment_with_anchor_hits():
         )
 
     assert anchors_checked > 0, "expected to check at least one mapped anchor"
-

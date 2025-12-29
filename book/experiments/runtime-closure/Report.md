@@ -18,7 +18,7 @@ Provide narrow, stage-labeled runtime evidence that helps close gaps in `probe-o
 ## Status
 - File canonicalization lane: partial (v2 spelling matrix run; `/etc` still unresolved).
 - Mach service discrimination lane: ok (baseline confirms missing control).
-- IOKit lane: partial (user-client-only allows; connection+user-client denies).
+- IOKit lane: partial (user-client-only and iokit-open allow; connection+user-client denies; op identity ambiguous).
 
 ## Lanes
 
@@ -46,10 +46,11 @@ Observed (run: `out/66315539-a0ce-44bf-bff0-07a79f205fea/`):
 ### IOKit
 Profiles target IOSurfaceRoot via user-client-class filters to align with anchor-level structure.
 
-Observed (run: `out/6ecc929d-fec5-4206-a85c-e3e265c349a7/`):
-- `v2_user_client_only` allows `IOSurfaceRoot` (`open_kr=0`) at operation stage.
+Observed (runs: `out/6ecc929d-fec5-4206-a85c-e3e265c349a7/`, `out/08887f36-f87b-45ff-8e9e-6ee7eb9cb635/`, `out/33ff5a68-262a-4a8c-b427-c7cb923a3adc/`):
+- `v2_user_client_only` (`iokit-open-user-client`) allows `IOSurfaceRoot` (`open_kr=0`) at operation stage.
+- `v4_iokit_open_user_client` (`iokit-open`) also allows `IOSurfaceRoot` (`open_kr=0`) at operation stage.
 - `v3_connection_user_client` denies with `open_kr=-536870174` and `EPERM` at operation stage.
-Both profiles apply successfully (`sandbox_init` rc=0); the divergence is at the operation stage.
+All profiles apply successfully (`sandbox_init` rc=0); op identity remains ambiguous because both `iokit-open-user-client` and `iokit-open` allow the probe on this host.
 
 This indicates the user-client-class filter is sufficient for the IOSurfaceRoot probe, while the IOAccelerator connection constraint is too narrow on this host.
 
@@ -59,7 +60,7 @@ This indicates the user-client-class filter is sufficient for the IOSurfaceRoot 
 - Run bundles: `book/experiments/runtime-closure/out/<run_id>/`.
   - File lane (v2 matrix): `book/experiments/runtime-closure/out/ea704c9c-5102-473a-b942-e24af4136cc8/` (includes `path_witnesses.json` and `promotion_packet.json`).
   - Mach lane: `book/experiments/runtime-closure/out/66315539-a0ce-44bf-bff0-07a79f205fea/`.
-  - IOKit user-client lane: `book/experiments/runtime-closure/out/6ecc929d-fec5-4206-a85c-e3e265c349a7/`.
+  - IOKit op-identity lane: `book/experiments/runtime-closure/out/6ecc929d-fec5-4206-a85c-e3e265c349a7/`, `book/experiments/runtime-closure/out/08887f36-f87b-45ff-8e9e-6ee7eb9cb635/`, `book/experiments/runtime-closure/out/33ff5a68-262a-4a8c-b427-c7cb923a3adc/`.
   - Prior runs: `book/experiments/runtime-closure/out/5a8908d8-d626-4cac-8bdd-0f53c02af8fe/` (file v1) and `book/experiments/runtime-closure/out/48086066-bfa2-44bb-877c-62dd1dceca09/` (IOKit v1).
 - Mapped VFS update: `book/graph/mappings/vfs_canonicalization/path_canonicalization_map.json` (now includes the runtime-closure file matrix packet).
 

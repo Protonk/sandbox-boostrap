@@ -211,6 +211,7 @@ def run_from_args(args: argparse.Namespace) -> int:
         if not config:
             config = None
         frida_capture = FridaCapture(
+            run_id=run_id,
             pid=pid,
             script_path=script_path,
             events_path=frida_events_path,

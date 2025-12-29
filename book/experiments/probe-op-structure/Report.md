@@ -1,6 +1,6 @@
 - world_id: sonoma-14.4.1-23E224-arm64-dyld-2c0602c5
 - tier: mapped (structural); runtime slice: partial (hypothesis)
-- primary outputs: out/analysis.json; out/anchor_hits.json; out/tag_inventory.json; out/tag_layout_hypotheses.json; out/literal_scan.json; out/tag_bytes.json
+- primary outputs: out/analysis.json; out/anchor_hits.json; out/anchor_hits_delta.json; out/tag_inventory.json; out/tag_layout_hypotheses.json; out/literal_scan.json; out/tag_bytes.json
 - runtime outputs: out/39f84aa5-86b4-466d-b5d9-f510299bbd0a/{runtime_results.json,runtime_events.normalized.json,run_manifest.json}
 - upstream IR: book/api/profile/decoder/; book/graph/mappings/tag_layouts/tag_layouts.json; book/graph/mappings/vocab/filters.json
 - downstream mappings: book/graph/mappings/anchors/anchor_filter_map.json; book/experiments/field2-filters/out/*
@@ -54,7 +54,7 @@ Build an anchor-aware structural view of `field2` usage across operations and fi
 | `com.apple.cfprefsd.agent`| blocked (candidates only)   | —         | —              | 0, 4, 5, 6                 |
 | `flow-divert`             | blocked (candidates only)   | —         | —              | 2, 7, 2560                 |
 | `IOUSBHostInterface`      | blocked (candidates only)   | —         | —              | 0, 5, 6                    |
-| `IOSurfaceRootUserClient` | blocked (candidates: mount-relative-path / global-name) | — | — | 0, 1, 4, 5               |
+| `IOSurfaceRootUserClient` | solid (partial)             | 1         | mount-relative-path | 1                      |
 | `IOHIDParamUserClient`    | blocked (candidates: path / mount-relative-path) | — | — | 0, 1, 4, 18753            |
 | `IOAccelerator`           | blocked (candidates: mount-relative-path / global-name / path) | — | — | 0, 1, 5                  |
 
@@ -78,18 +78,19 @@ Additional runtime closure (file-only) lives in `book/experiments/runtime-closur
 The runtime-closure mach lane run `book/experiments/runtime-closure/out/66315539-a0ce-44bf-bff0-07a79f205fea/` confirms `com.apple.cfprefsd.agent` succeeds in baseline and scenario (`kr=0`), while the missing-service control returns `kr=1102` in both lanes, helping separate “missing service” from sandbox denial.
 
 The runtime-closure IOKit lane run `book/experiments/runtime-closure/out/48086066-bfa2-44bb-877c-62dd1dceca09/` uses the `IOSurfaceRoot` class: baseline `iokit_probe` opens successfully (`open_kr=0`), while the sandboxed probe reports `open_kr=-536870174` with `EPERM`, providing a discriminating IOKit signal that is not yet aligned with the allow expectation.
-Structural anchor scans now include `IOSurfaceRootUserClient` from `v9_iokit_user_client_only`, `v10_iokit_user_client_pair`, and `v11_iokit_user_client_connection`. A literal-pool compression on this host drops leading `IO` prefixes for some IOKit strings, so `anchor_scan.py` treats `IO*` anchors as matches when the stripped literal matches the anchor minus the `IO` prefix. The IOSurface anchor still maps to mixed contexts (tag 0 `filter_id=1`, tag 4 `arg_u16`, tag 1 `arg_u16` in `v10`, and tag 0 `filter_id=5` plus tag 6 `arg_u16` in `v11`), so `anchor_filter_map.json` keeps it blocked while surfacing `mount-relative-path`/`global-name` candidates. The paired `IOHIDParamUserClient` anchor is also blocked with mixed `path`/`mount-relative-path` candidates plus a high unknown field2 (18753). The `IOAccelerator` co-anchor from `v11` adds a `global-name` context but remains blocked due to the additional arg‑u16 context.
+Structural anchor scans now include `IOSurfaceRootUserClient` from `v9_iokit_user_client_only`, `v10_iokit_user_client_pair`, and `v11_iokit_user_client_connection`. A literal-pool compression on this host drops leading `IO` prefixes for some IOKit strings, so `anchor_scan.py` treats `IO*` anchors as matches when the stripped literal matches the anchor minus the `IO` prefix. To avoid widening contexts, delta attribution now compares a deny-default control (`v12_iokit_control`) against the v9 IOSurface variant and emits `out/anchor_hits_delta.json`. The anchor generator uses this delta for IOSurfaceRootUserClient, restricting to filter-vocab nodes and excluding the generic `path` filter. As a result, `anchor_filter_map.json` now exposes a single `mount-relative-path` binding for IOSurfaceRootUserClient. The paired `IOHIDParamUserClient` anchor and the `IOAccelerator` co-anchor remain blocked due to mixed contexts and are kept as structural hints only.
+An op-identity micro-matrix under `book/experiments/runtime-closure/out/08887f36-f87b-45ff-8e9e-6ee7eb9cb635/` and `book/experiments/runtime-closure/out/33ff5a68-262a-4a8c-b427-c7cb923a3adc/` shows both `iokit-open-user-client` and `iokit-open` allow `IOSurfaceRoot` at operation stage on this host, so the enforced op identity remains ambiguous without an observer-lane witness.
 
 The runtime-closure file spelling matrix run `book/experiments/runtime-closure/out/ea704c9c-5102-473a-b942-e24af4136cc8/` shows alias-only rules failing for both `/etc/hosts` and `/tmp/foo`, while private spelling rules allow `/private/...` and `/System/Volumes/Data/private/...` spellings (and `/tmp/foo`) at operation stage. `/etc/hosts` remains denied under the alias spelling even when private and Data spellings are allowed, so the `/etc` anchor is still unresolved. The same run shows `IOSurfaceRootUserClient` rules flipping `IOSurfaceRoot` to allow under the user-client-class profile (`v2_user_client_only`), while adding the `IOAccelerator` connection constraint returns `EPERM` (`v3_connection_user_client`).
 
 ## Evidence & artifacts
-- Structural outputs: `book/experiments/probe-op-structure/out/{analysis.json,anchor_hits.json,tag_inventory.json,tag_layout_hypotheses.json,tag_bytes.json,literal_scan.json}`.
+- Structural outputs: `book/experiments/probe-op-structure/out/{analysis.json,anchor_hits.json,anchor_hits_delta.json,tag_inventory.json,tag_layout_hypotheses.json,tag_bytes.json,literal_scan.json}`.
 - Runtime outputs: `book/experiments/probe-op-structure/out/39f84aa5-86b4-466d-b5d9-f510299bbd0a/{runtime_results.json,runtime_events.normalized.json,run_manifest.json}`.
 - Shared mappings: `book/graph/mappings/tag_layouts/tag_layouts.json`, `book/graph/mappings/anchors/anchor_filter_map.json`.
 
 ## Guardrails
 - `book/tests/test_mappings_guardrail.py` ensures tag layouts and core mappings stay pinned to this world.
-- `book/tests/test_anchor_filter_alignment.py` enforces that `anchor_filter_map.json` stays aligned with `out/anchor_hits.json`.
+- `book/tests/test_anchor_filter_alignment.py` enforces that `anchor_filter_map.json` stays aligned with `out/anchor_hits.json` (or `out/anchor_hits_delta.json` for delta-attributed anchors).
 
 ## Running and refreshing
 - Structural refresh:
@@ -106,6 +107,6 @@ The runtime-closure file spelling matrix run `book/experiments/runtime-closure/o
 - Runtime results here are narrow and should not be treated as canonical policy semantics without broader runtime evidence.
 
 ## Next steps
-1) Add discriminating SBPL variants for blocked anchors (e.g., separate `global-name` vs `local-name` for `com.apple.cfprefsd.agent`).
-2) Disambiguate `IOSurfaceRootUserClient` contexts (e.g., a second IOKit probe with a unique co‑anchor to separate tag 0 filter‑id from tag 4 arg‑u16 contexts).
-3) Re-run the runtime slice after adding controls (or swap in the IOSurface user‑client probe) and note any changes in `runtime_results.json`.
+1) If IOSurface op identity remains ambiguous, add an observer-lane run (sandbox log capture) to disambiguate `iokit-open` vs `iokit-open-user-client` without adding more SBPL variants.
+2) Add discriminating SBPL variants for blocked anchors outside IOKit (e.g., separate `global-name` vs `local-name` for `com.apple.cfprefsd.agent`).
+3) Re-run the runtime slice after adding controls and note any changes in `runtime_results.json`.

@@ -166,32 +166,19 @@
     "status": "blocked"
   },
   "IOSurfaceRootUserClient": {
-    "candidates": [
-      "global-name",
-      "mount-relative-path"
-    ],
     "ctx_ids": [
-      "ctx:2a3fe334cb3ec6cf",
-      "ctx:477935a78665368b",
-      "ctx:4af074603069dd1a",
-      "ctx:5f9bd44df45e3548",
       "ctx:78322350c362c30c"
     ],
     "field2_values": [
-      0,
-      1,
-      4,
-      5
+      1
     ],
-    "filter_id": null,
-    "filter_name": null,
-    "notes": "Ambiguous across contexts; consult anchor_ctx_filter_map.json via ctx_ids.",
+    "filter_id": 1,
+    "filter_name": "mount-relative-path",
+    "notes": "Derived from anchor_ctx_filter_map.json: all observed contexts resolve to a single filter kind.",
     "sources": [
-      "probe:v10_iokit_user_client_pair",
-      "probe:v11_iokit_user_client_connection",
       "probe:v9_iokit_user_client_only"
     ],
-    "status": "blocked"
+    "status": "partial"
   },
   "IOUSBHostInterface": {
     "candidates": [

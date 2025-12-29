@@ -1,0 +1,41 @@
+{
+  "metadata": {
+    "control_profile": "probe:v12_iokit_control",
+    "variant_profile": "probe:v9_iokit_user_client_only",
+    "anchors": [
+      "IOSurfaceRootUserClient"
+    ],
+    "node_filter": "u16_role == filter_vocab_id",
+    "filter_exclude": {
+      "IOSurfaceRootUserClient": [
+        0
+      ]
+    },
+    "delta_node_count": 49,
+    "control_node_count": 48,
+    "variant_node_count": 52
+  },
+  "profiles": {
+    "probe:v9_iokit_user_client_only": {
+      "op_count": 6,
+      "node_count": 52,
+      "anchors": [
+        {
+          "anchor": "IOSurfaceRootUserClient",
+          "node_indices": [
+            46
+          ],
+          "field2_values": [
+            1
+          ],
+          "field2_names": [
+            "mount-relative-path"
+          ],
+          "literal_offsets": [],
+          "literal_string_index": null,
+          "offsets": []
+        }
+      ]
+    }
+  }
+}

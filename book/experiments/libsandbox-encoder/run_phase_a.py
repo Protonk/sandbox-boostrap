@@ -27,7 +27,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from book.api.profile import decoder
-from book.api import profile as profile_tools
+from book.api.profile import compile_sbpl_file
 from book.api.profile import ingestion as pi
 
 
@@ -158,7 +158,7 @@ def parse_nodes_with_layout(nodes_bytes: bytes, layouts: Dict[int, Dict[str, Any
 
 def build_matrix(sb_path: Path, out_blob: Path, out_json: Path) -> None:
     # Compile SBPL to blob
-    res = profile_tools.compile_sbpl_file(sb_path, out_blob)
+    res = compile_sbpl_file(sb_path, out_blob)
     print(f"[+] compiled {sb_path} -> {out_blob} (len={res.length}, type={res.profile_type})")
 
     # Slice sections conservatively

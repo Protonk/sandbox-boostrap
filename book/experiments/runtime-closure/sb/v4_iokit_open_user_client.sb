@@ -1,0 +1,5 @@
+(version 1)
+(deny default)
+(allow iokit-open
+  (require-all
+    (iokit-user-client-class "IOSurfaceRootUserClient")))

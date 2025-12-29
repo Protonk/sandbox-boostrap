@@ -1,0 +1,39 @@
+[
+  {
+    "schema_name": "book.api.frida.trace_event",
+    "schema_version": 1,
+    "run_id": "00000000-0000-0000-0000-000000000000",
+    "seq": 0,
+    "t_ns": 0,
+    "pid": null,
+    "source": "runner",
+    "kind": "stage",
+    "runner": {
+      "kind": "stage",
+      "stage": "device"
+    }
+  },
+  {
+    "schema_name": "book.api.frida.trace_event",
+    "schema_version": 1,
+    "run_id": "00000000-0000-0000-0000-000000000000",
+    "seq": 1,
+    "t_ns": 1,
+    "pid": 123,
+    "source": "agent",
+    "kind": "send",
+    "agent": {
+      "type": "send",
+      "payload": {
+        "kind": "smoke",
+        "pid": 123
+      }
+    },
+    "hook_payload": {
+      "kind": "smoke",
+      "pid": 123
+    },
+    "hook_payload_kind": "smoke"
+  }
+]
+

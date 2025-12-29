@@ -31,10 +31,10 @@ Every run is interpreted by stage:
    - Probes: existing service (`com.apple.cfprefsd.agent`) + missing control (`com.apple.sandbox-lore.missing`).
    - Question: is a failure a true denial or a missing service (baseline vs scenario)?
 
-3) **IOKit lane**
-   - Profiles: user-client-class only and connection+user-client variants (IOSurfaceRootUserClient).
+3) **IOKit op-identity lane**
+   - Profiles: `iokit-open-user-client` vs `iokit-open` for `IOSurfaceRootUserClient`.
    - Probes: `IOSurfaceRoot` under each profile.
-   - Question: which IOKit rule flips `IOSurfaceRoot` from deny to allow?
+   - Question: which IOKit operation is actually enforced for this open path on this host?
 
 ## Evidence and artifacts
 

@@ -2,6 +2,15 @@
 Read-only inspection helpers for compiled sandbox blobs (Sonoma baseline).
 
 This is the consolidated home for the former `inspect_profile` helpers.
+
+Use this module when you want a compact, human-friendly structural summary:
+- header words + op_count guess
+- op-table entries
+- section lengths (op-table / nodes / literal pool)
+- basic “does this stride look plausible?” stats for a few candidate strides
+
+If you need richer node annotations (tag layouts, literal refs, etc), use
+`book.api.profile.decoder`.
 """
 
 from __future__ import annotations
@@ -17,6 +26,13 @@ from .._shared import bytes_util as bu
 
 @dataclass
 class Summary:
+    """
+    Compact summary of a compiled profile blob.
+
+    This dataclass is designed to be JSON-serializable via `.__dict__` for use
+    in CLIs and quick experiments.
+    """
+
     format_variant: str | None
     op_count: int | None
     length: int
@@ -32,10 +48,21 @@ class Summary:
 
 
 def load_blob(path: Path) -> bytes:
+    """Read raw bytes from `path`."""
     return path.read_bytes()
 
 
 def _stride_stats(nodes: bytes, stride: int) -> Dict[str, Any]:
+    """
+    Compute cheap plausibility stats for a fixed record stride.
+
+    This treats each record as:
+    - byte0: tag
+    - bytes2..6: two u16 “edges”
+
+    The edge interpretation is heuristic: we only check that values would land
+    “in bounds” if they are interpreted as record indices.
+    """
     recs = len(nodes) // stride
     rem = len(nodes) % stride
     tags = set()
@@ -65,10 +92,21 @@ def _stride_stats(nodes: bytes, stride: int) -> Dict[str, Any]:
 
 
 def _tag_counts(nodes: bytes, stride: int = 12) -> Dict[int, int]:
+    """Convenience wrapper: count tags at a given stride."""
     return bu.tag_counts(nodes, stride=stride)
 
 
 def summarize_blob(blob: bytes, strides: Sequence[int] = (8, 12, 16)) -> Summary:
+    """
+    Summarize a compiled blob using ingestion + low-level helpers.
+
+    Args:
+        blob: Compiled profile blob bytes.
+        strides: Candidate node record strides to score.
+
+    Returns:
+        `Summary` with section sizes and stride plausibility stats.
+    """
     header_words = [int.from_bytes(blob[i : i + 2], "little") for i in range(0, min(len(blob), 16), 2)]
     header = pi.parse_header(pi.ProfileBlob(bytes=blob, source="inspect_profile"))
     sections = pi.slice_sections(pi.ProfileBlob(bytes=blob, source="inspect_profile"), header)
@@ -77,7 +115,10 @@ def summarize_blob(blob: bytes, strides: Sequence[int] = (8, 12, 16)) -> Summary
     decoded = decoder.decode_profile_dict(blob)
     nodes_raw: List[Dict[str, Any]] | None = None
     if sections.nodes:
-        stride = 12  # default modern stride for Sonoma baseline
+        # Default "human view" record size: 12 bytes (tag/kind + 5*u16).
+        # This is a common packing for modern blobs on this baseline, but it is
+        # not guaranteed; use the decoder when framing matters.
+        stride = 12
         recs = len(sections.nodes) // stride
         nodes_raw = []
         for idx in range(recs):

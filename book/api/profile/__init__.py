@@ -7,6 +7,24 @@ helpers into one surface.
 The standalone decoder/oracle endpoints (`book.api.decoder`,
 `book.api.sbpl_oracle`) have been removed; use `book.api.profile`.
 
+Scope / non-goals:
+- This is a *structural* toolkit for working with compiled sandbox profile bytes
+  on a pinned host baseline (`world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`).
+- It does not claim kernel policy semantics. For policy questions, consume the
+  mapped artifacts under `book/graph/mappings/` (and CARTON) and treat decoder
+  output as evidence-tiered (bedrock/mapped/hypothesis).
+
+Subpackages (functional groups):
+- `compile`: SBPL → compiled blob bytes (host-required; uses private libsandbox).
+- `ingestion`: header + section slicing contract (host-neutral).
+- `decoder`: best-effort node annotation for blobs (host-neutral).
+- `inspect`: compact blob summaries (host-neutral).
+- `op_table`: op-table summaries + vocab alignment helpers (host-neutral).
+- `digests`: stable digest emission for curated blobs (host-neutral).
+- `identity`: mapping-join helpers for canonical system profiles (host-neutral).
+- `oracles`: small structural oracles (currently network tuple) (host-neutral).
+- `sbpl_scan`: conservative SBPL scanners used by preflight tooling (host-neutral).
+
 Preferred imports:
 - `from book.api.profile import compile, ingestion, decoder, inspect, op_table, digests, oracles`
 - Keep top-level convenience imports (e.g. `compile_sbpl_file`, `decode_profile_dict`) to a minimum.

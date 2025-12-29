@@ -1,0 +1,33 @@
+{
+  "configure": {
+    "input_schema": null,
+    "supported": false
+  },
+  "hook": {
+    "id": "sandbox_check_trace",
+    "script_path": "book/api/frida/hooks/sandbox_check_trace.js",
+    "summary": "Enumerates and hooks sandbox_check-style exports and emits observed calls (best-effort)."
+  },
+  "module_expectations": [
+    {
+      "name": "libsystem_sandbox.dylib",
+      "required": true
+    }
+  ],
+  "rpc_exports": [],
+  "schema_name": "book.api.frida.hook_manifest",
+  "schema_version": 1,
+  "send_payload_kinds": [
+    "sandbox-call",
+    "sandbox-hook",
+    "sandbox-hook-candidates",
+    "sandbox-hook-error"
+  ],
+  "trace_event_schema": {
+    "events_format": "jsonl",
+    "schema_name": "book.api.frida.trace_event",
+    "schema_path": "book/api/frida/schemas/trace_event_v1.schema.json",
+    "schema_version": 1
+  }
+}
+

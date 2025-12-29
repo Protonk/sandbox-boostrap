@@ -398,72 +398,16 @@
   },
   "IOSurfaceRootUserClient": {
     "profiles": {
-      "probe:v10_iokit_user_client_pair": [
-        {
-          "field2_names": [
-            "ipc-posix-name",
-            "mount-relative-path",
-            "mount-relative-path",
-            "mount-relative-path",
-            "path"
-          ],
-          "field2_values": [
-            4,
-            1,
-            1,
-            1,
-            0
-          ],
-          "node_indices": [
-            24,
-            46,
-            47,
-            48,
-            50
-          ]
-        }
-      ],
-      "probe:v11_iokit_user_client_connection": [
-        {
-          "field2_names": [
-            "global-name",
-            "global-name",
-            "global-name",
-            "path"
-          ],
-          "field2_values": [
-            5,
-            5,
-            5,
-            0
-          ],
-          "node_indices": [
-            46,
-            47,
-            48,
-            51
-          ]
-        }
-      ],
       "probe:v9_iokit_user_client_only": [
         {
           "field2_names": [
-            "mount-relative-path",
-            "mount-relative-path",
-            "mount-relative-path",
-            "path"
+            "mount-relative-path"
           ],
           "field2_values": [
-            1,
-            1,
-            1,
-            0
+            1
           ],
           "node_indices": [
-            46,
-            47,
-            48,
-            50
+            46
           ]
         }
       ]
@@ -789,7 +733,8 @@
   },
   "metadata": {
     "inputs": [
-      "book/experiments/probe-op-structure/out/anchor_hits.json"
+      "book/experiments/probe-op-structure/out/anchor_hits.json",
+      "book/experiments/probe-op-structure/out/anchor_hits_delta.json"
     ],
     "notes": "Structural anchor -> field2 hints derived from probe-op-structure anchor_hits; exploratory, not semantic bindings.",
     "source_jobs": [

@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "book.api.frida.trace_event v1",
+  "type": "object",
+  "required": [
+    "schema_name",
+    "schema_version",
+    "run_id",
+    "seq",
+    "t_ns",
+    "pid",
+    "source",
+    "kind"
+  ],
+  "properties": {
+    "schema_name": { "const": "book.api.frida.trace_event" },
+    "schema_version": { "const": 1 },
+    "run_id": { "type": "string", "minLength": 1 },
+    "seq": { "type": "integer", "minimum": 0 },
+    "t_ns": { "type": "integer", "minimum": 0 },
+    "pid": {
+      "anyOf": [
+        { "type": "integer", "minimum": 0 },
+        { "type": "null" }
+      ]
+    },
+    "source": { "type": "string", "enum": ["runner", "agent"] },
+    "kind": { "type": "string", "minLength": 1 },
+    "runner": { "type": "object" },
+    "agent": { "type": "object" },
+    "hook_payload": {
+      "anyOf": [
+        { "type": "object" },
+        { "type": "array" },
+        { "type": "string" },
+        { "type": "number" },
+        { "type": "boolean" },
+        { "type": "null" }
+      ]
+    },
+    "hook_payload_kind": {
+      "anyOf": [
+        { "type": "string" },
+        { "type": "null" }
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "source": { "const": "runner" } } },
+      "then": { "required": ["runner"] },
+      "else": { "required": ["agent"] }
+    }
+  ],
+  "additionalProperties": true
+}

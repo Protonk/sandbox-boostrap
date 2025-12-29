@@ -10,17 +10,16 @@ from pathlib import Path
 import frida
 
 from book.api import path_utils
+from book.api.frida.hook_manifest import load_manifest_snapshot
+from book.api.frida.trace_writer import TraceWriterV1, now_ns
 from book.api.profile.identity import baseline_world_id
+from book.api.frida.trace_v1 import trace_event_schema_stamp
 
 
 def sha256_bytes(blob: bytes) -> str:
     h = hashlib.sha256()
     h.update(blob)
     return h.hexdigest()
-
-
-def now_ns() -> int:
-    return time.time_ns()
 
 
 def try_cmd(*cmd: str) -> str | None:
@@ -51,6 +50,10 @@ def run(
 
     js_path_abs = path_utils.ensure_absolute(script, repo_root)
     js_src = js_path_abs.read_bytes()
+    try:
+        js_path_resolved = js_path_abs.resolve()
+    except Exception:
+        js_path_resolved = js_path_abs
 
     spawn_exec_abs: Path | None = None
     spawn_argv: list[str] | None = None
@@ -63,6 +66,7 @@ def run(
     meta = {
         "run_id": run_id,
         "world_id": world_id,
+        "trace_event_schema": trace_event_schema_stamp(),
         "t0_ns": now_ns(),
         "out_dir": path_utils.to_repo_relative(out_root, repo_root),
         "host": {
@@ -79,7 +83,11 @@ def run(
         },
         "script": {
             "path": path_utils.to_repo_relative(js_path_abs, repo_root),
+            "resolved_path": (
+                path_utils.to_repo_relative(js_path_resolved, repo_root) if js_path_resolved != js_path_abs else None
+            ),
             "sha256": sha256_bytes(js_src),
+            "manifest": load_manifest_snapshot(script_path=js_path_abs, repo_root=repo_root),
         },
         "mode": "spawn" if spawn else "attach",
         "target": {
@@ -95,21 +103,14 @@ def run(
 
     jsonl = (out_root / "events.jsonl").open("w", encoding="utf-8")
 
-    pid: int | None = None
+    pid: int | None = attach_pid if attach_pid is not None else None
     session = None
     device = None
 
-    def write_event(msg):
-        rec = {
-            "t_ns": now_ns(),
-            "pid": pid,
-            "msg": msg,
-        }
-        jsonl.write(json.dumps(rec, separators=(",", ":")) + "\n")
-        jsonl.flush()
+    writer = TraceWriterV1(jsonl, run_id=run_id, pid=pid)
 
     def emit_runner(kind: str, **fields) -> None:
-        write_event({"type": "runner", "payload": {"kind": kind, **fields}})
+        writer.emit_runner({"kind": kind, **fields})
 
     emit_runner("runner-start")
 
@@ -122,9 +123,11 @@ def run(
         emit_runner("stage", stage=stage)
         if spawn_argv:
             pid = device.spawn(spawn_argv)
+            writer.set_pid(pid)
             session = device.attach(pid)
         else:
             pid = attach_pid
+            writer.set_pid(pid)
             session = device.attach(pid)
 
         def on_detached(reason, crash=None):
@@ -136,7 +139,7 @@ def run(
         session.on("detached", on_detached)
 
         def on_message(msg, data):
-            write_event(msg)
+            writer.emit_agent_message(msg)
 
         stage = "script-load"
         emit_runner("stage", stage=stage)

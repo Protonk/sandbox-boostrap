@@ -57,7 +57,7 @@ If blob mode remains unavailable, disassemble system blobs to SBPL (`sbdis`) and
 
 ## Header inspection (decoder)
 
-- Ran `book.api.profile_tools.decoder.decode_profile` on `airlock.sb.bin`, `bsd.sb.bin`, and a custom `allow_all.sb.bin`.
+- Ran `book.api.profile.decoder.decode_profile` on `airlock.sb.bin`, `bsd.sb.bin`, and a custom `allow_all.sb.bin`.
 - Preamble words (16-bit LE): `airlock=[16384,167,190,0,0,1,7,283]`, `bsd=[0,28,190,0,0,0,0,27]`, `allow_all=[0,2,190,0,0,0,0,1]`. Word0 differs: `airlock` carries `0x4000`, others `0x0000`. Word1 aligns with op_count (167/28/2).
 - Early 32-byte hex (LE pairs): `airlock` starts `0040 a700 be00 ...`, `bsd` starts `0000 1c00 be00 ...`, `allow_all` starts `0000 0200 be00 ...`. No explicit type field surfaced by the current decoder, but the `0x4000` word0 on `airlock` may mark platform provenance.
 - Sections: decoder still slices op-table at byte 16 for `op_count*2`; nodes/literal offsets differ due to size, not flags.
@@ -65,7 +65,7 @@ If blob mode remains unavailable, disassemble system blobs to SBPL (`sbdis`) and
 
 ### Header dump via CLI helper
 
-- Using `python -m book.api.profile_tools decode dump --summary`, outputs for key blobs:
+- Using `python -m book.api.profile decode dump --summary`, outputs for key blobs:
   - `airlock.sb.bin`: `op_count=167`, `maybe_flags=16384 (0x4000)`, `word0=16384`, `word2=190`, heuristic `profile_class=0` at word index 3.
   - `bsd.sb.bin`: `op_count=28`, `maybe_flags=0`, `word0=0`, `word2=190`, heuristic `profile_class=0` at word index 0.
   - `allow_all.sb.bin` (custom): `op_count=2`, `maybe_flags=0`, `word0=0`, `word2=190`, heuristic `profile_class=0` at word index 0.

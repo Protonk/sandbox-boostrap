@@ -26,4 +26,8 @@ Use this file for short, factual run notes and failures. Avoid timestamps.
 - IOKit user-client matrix run: `out/6ecc929d-fec5-4206-a85c-e3e265c349a7/` (launchd_clean).
   - `v2_user_client_only` allows `IOSurfaceRoot` (`open_kr=0`) at operation stage.
   - `v3_connection_user_client` denies with `open_kr=-536870174` and `EPERM` at operation stage.
+- Preflight scan (IOKit op-identity lane): `v4_iokit_open_user_client.sb` classified as `no_known_apply_gate_signature`.
+- IOKit op-identity run: `out/08887f36-f87b-45ff-8e9e-6ee7eb9cb635/` (v2 user-client-only) and `out/33ff5a68-262a-4a8c-b427-c7cb923a3adc/` (v4 iokit-open).
+  - Both profiles allow `IOSurfaceRoot` (`open_kr=0`) at operation stage.
+  - Op identity remains ambiguous (both `iokit-open-user-client` and `iokit-open` allow for this probe).
 - Emitted promotion packet for the file matrix run and refreshed VFS canonicalization mapping via `book/graph/mappings/vfs_canonicalization/generate_path_canonicalization_map.py` after updating `packet_set.json`.

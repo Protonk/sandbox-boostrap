@@ -1,6 +1,23 @@
 #!/usr/bin/env python3
 """
-Unified CLI for profile tooling (compile, decode, inspect, op-table, digest, oracles).
+`book.api.profile` command-line interface (Sonoma baseline).
+
+This CLI is deliberately *structural* rather than semantic:
+- Compile SBPL (`.sb`) to a compiled blob (`.sb.bin`) using libsandbox's private
+  compiler entry points (`sandbox_compile_*`).
+- Decode and inspect compiled blobs to reason about on-disk layout: header
+  words, op-table entries, node stream framing, and literal pool slices.
+- Summarize op-table structure (and optionally align against the published
+  vocab mappings under `book/graph/mappings/vocab/`).
+- Emit digests for canonical blobs and run small “structural oracles”.
+
+Non-goals:
+- Applying or executing profiles (runtime) — use `book.api.runtime` / the
+  runtime harness instead.
+- Kernel policy semantics — outputs are best-effort and must be interpreted
+  using the repo’s evidence tiers (bedrock/mapped/hypothesis) and mappings.
+
+This is the entrypoint for `python -m book.api.profile ...` (via `__main__.py`).
 """
 
 from __future__ import annotations
@@ -23,6 +40,14 @@ from . import oracles as oracles_mod
 
 
 def _choose_out(src: Path, out: Path | None, out_dir: Path | None) -> Path:
+    """
+    Choose an output path for a compiled blob.
+
+    CLI rules:
+    - If the caller provided an explicit `--out`, use it.
+    - Else if `--out-dir` is set, place `<stem>.sb.bin` under that directory.
+    - Else mirror input next to the SBPL file.
+    """
     if out:
         return out
     if out_dir:
@@ -33,6 +58,13 @@ def _choose_out(src: Path, out: Path | None, out_dir: Path | None) -> Path:
 
 
 def _load_params(args: argparse.Namespace) -> dict[str, str] | None:
+    """
+    Parse compile-time `(param "...")` values from CLI flags.
+
+    Important: these are *compile-time* parameters passed to libsandbox via the
+    params-handle interface (`sandbox_create_params` / `sandbox_set_param`), not
+    apply-time argv parameterization used by other sandbox entry points.
+    """
     params: dict[str, str] = {}
     if getattr(args, "params_json", None):
         doc = json.loads(args.params_json.read_text())
@@ -56,6 +88,11 @@ def compile_many(
     preview: bool = True,
     params: dict[str, str] | None = None,
 ) -> list[tuple[Path, compile_mod.CompileResult]]:
+    """
+    Compile a set of SBPL files and optionally print a short hex preview.
+
+    Returns a list of `(output_path, CompileResult)` for downstream scripting.
+    """
     results: list[tuple[Path, compile_mod.CompileResult]] = []
     for src in paths:
         target = _choose_out(src, out, out_dir)
@@ -69,6 +106,7 @@ def compile_many(
 
 
 def compile_command(args: argparse.Namespace) -> int:
+    """`profile compile`: SBPL → blob for one or more inputs."""
     if args.out and len(args.paths) != 1:
         raise SystemExit("--out is only valid with a single input")
     if args.out_dir:
@@ -79,6 +117,12 @@ def compile_command(args: argparse.Namespace) -> int:
 
 
 def inspect_command(args: argparse.Namespace) -> int:
+    """
+    `profile inspect`: summarize a compiled blob (or SBPL with `--compile`).
+
+    When `--compile` is used, we compile to a temporary `.sb.bin` to keep the
+    user's working tree clean; the inspection surface consumes blob bytes.
+    """
     blob_path = args.path
     tmp_dir = tempfile.TemporaryDirectory(prefix="inspect_profile_") if args.compile else None
     try:
@@ -103,6 +147,16 @@ def inspect_command(args: argparse.Namespace) -> int:
 
 
 def op_table_command(args: argparse.Namespace) -> int:
+    """
+    `profile op-table`: op-table summary and optional alignment.
+
+    Notes:
+    - When `--compile` is used, the SBPL file is parsed for operation/filter
+      *names* (the blob does not carry SBPL tokens), then compiled for the blob
+      bytes that back the op-table.
+    - Alignment is an optional join against vocab mappings; it is a “wiring”
+      helper, not a semantic claim.
+    """
     blob_path = args.path
     tmp_dir = tempfile.TemporaryDirectory(prefix="op_table_") if args.compile else None
     ops_list = []
@@ -154,6 +208,12 @@ def op_table_command(args: argparse.Namespace) -> int:
 
 
 def decode_dump_command(args: argparse.Namespace) -> int:
+    """
+    `profile decode dump`: dump header fields and quick heuristics for blobs.
+
+    This is intentionally “low ceremony”: it is a debugging aid for humans and
+    experiments. The canonical programmatic surface is `book.api.profile.decoder`.
+    """
     paths = [Path(p) for p in args.blobs]
     out: list[dict] = []
     for path in paths:
@@ -190,6 +250,7 @@ def decode_dump_command(args: argparse.Namespace) -> int:
 
 
 def _write_json(path: Path | None, payload: dict) -> None:
+    """Write JSON to `path` or stdout (used by oracle subcommands)."""
     text = json.dumps(payload, indent=2, sort_keys=True)
     if path is None:
         print(text)
@@ -199,6 +260,7 @@ def _write_json(path: Path | None, payload: dict) -> None:
 
 
 def oracle_network_blob_command(args: argparse.Namespace) -> int:
+    """`profile oracle network-blob`: run the socket tuple oracle on one blob."""
     blob = Path(args.blob).read_bytes()
     out = oracles_mod.extract_network_tuple(blob).to_dict()
     _write_json(Path(args.out) if args.out else None, out)
@@ -206,6 +268,7 @@ def oracle_network_blob_command(args: argparse.Namespace) -> int:
 
 
 def oracle_network_matrix_command(args: argparse.Namespace) -> int:
+    """`profile oracle network-matrix`: run the oracle over MANIFEST + blob dir."""
     manifest = Path(args.manifest)
     blob_dir = Path(args.blob_dir)
     out = oracles_mod.run_network_matrix(manifest, blob_dir)
@@ -214,6 +277,7 @@ def oracle_network_matrix_command(args: argparse.Namespace) -> int:
 
 
 def digest_system_profiles_command(args: argparse.Namespace) -> int:
+    """`profile digest system-profiles`: digest the canonical system blob set."""
     blobs = digests_mod.canonical_system_profile_blobs()
     payload = digests_mod.digest_named_blobs(blobs)
     if args.out:
@@ -226,6 +290,11 @@ def digest_system_profiles_command(args: argparse.Namespace) -> int:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """
+    Entrypoint for the `python -m book.api.profile` CLI.
+
+    Accepts an optional `argv` for unit tests and embedding.
+    """
     ap = argparse.ArgumentParser(
         description="Unified profile tooling (compile, decode, inspect, op-table, digest, oracles) for Sonoma Seatbelt."
     )

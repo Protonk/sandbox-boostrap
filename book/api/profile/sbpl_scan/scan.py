@@ -4,6 +4,10 @@ SBPL scanners for host-specific, operational constraints.
 These scanners are intentionally conservative and structural: they exist to
 avoid "dead-end" runtime probe plans where a profile cannot be applied by the
 current harness identity on this world.
+
+This module is used by preflight tooling (`book/tools/preflight/`) and by
+experiments that need a quick “is this shape likely apply-gated?” answer before
+attempting runtime execution.
 """
 
 from __future__ import annotations
@@ -32,11 +36,15 @@ def find_deny_message_filters(sbpl_text: str) -> List[Dict[str, Any]]:
         if op in {"allow", "deny"} and len(expr.items) >= 2 and isinstance(expr.items[1], Atom):
             action = op
             outer_op = expr.items[1].value
+            # The outer `(allow ...)` / `(deny ...)` form provides context for
+            # any nested `apply-message-filter` usage.
             for child in expr.items[2:]:
                 walk(child, action, outer_op)
             return
 
         if op == "apply-message-filter":
+            # The signature we care about is a nested `(deny <op> ...)` inside
+            # the apply-message-filter form.
             for child in expr.items[1:]:
                 if (
                     isinstance(child, ListExpr)
@@ -75,6 +83,8 @@ def classify_enterability_for_harness_identity(sbpl_text: str) -> Dict[str, Any]
     if findings:
         return {
             "classification": "likely_apply_gated_for_harness_identity",
+            # Signature ids are intentionally coarse; they are designed to be
+            # stable across time and referenced from preflight manifests.
             "signature": "deny_message_filter",
             "findings": findings,
         }

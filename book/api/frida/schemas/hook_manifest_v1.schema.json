@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "configure": {
+      "additionalProperties": false,
+      "properties": {
+        "input_schema": {
+          "oneOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "supported": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "supported",
+        "input_schema"
+      ],
+      "type": "object"
+    },
+    "hook": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "script_path": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "script_path"
+      ],
+      "type": "object"
+    },
+    "module_expectations": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "required": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "rpc_exports": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "schema_name": {
+      "const": "book.api.frida.hook_manifest"
+    },
+    "schema_version": {
+      "const": 1
+    },
+    "send_payload_kinds": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "trace_event_schema": {
+      "additionalProperties": true,
+      "type": "object"
+    }
+  },
+  "required": [
+    "schema_name",
+    "schema_version",
+    "hook",
+    "trace_event_schema",
+    "rpc_exports",
+    "configure",
+    "module_expectations"
+  ],
+  "type": "object"
+}
+

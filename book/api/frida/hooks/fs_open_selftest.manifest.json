@@ -1,0 +1,38 @@
+{
+  "configure": {
+    "input_schema": {
+      "additionalProperties": false,
+      "properties": {
+        "selftest_path": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "supported": true
+  },
+  "hook": {
+    "id": "fs_open_selftest",
+    "script_path": "book/api/frida/hooks/fs_open_selftest.js",
+    "summary": "Hooks open-like APIs and attempts a self-open to exercise sandbox denial paths."
+  },
+  "module_expectations": [],
+  "rpc_exports": [
+    "configure"
+  ],
+  "schema_name": "book.api.frida.hook_manifest",
+  "schema_version": 1,
+  "send_payload_kinds": [
+    "fs-open",
+    "hook-installed",
+    "hook-missing",
+    "self-open"
+  ],
+  "trace_event_schema": {
+    "events_format": "jsonl",
+    "schema_name": "book.api.frida.trace_event",
+    "schema_path": "book/api/frida/schemas/trace_event_v1.schema.json",
+    "schema_version": 1
+  }
+}
+

@@ -1,16 +1,37 @@
+/*
+ * compile_profile.c — libsandbox SBPL compiler probe (Sonoma baseline)
+ *
+ * Purpose
+ * - Minimal reference implementation for “SBPL file -> compiled blob bytes”
+ *   using libsandbox’s private compiler entry point `sandbox_compile_file`.
+ * - This is *structural tooling*, not a semantic policy interpreter.
+ *
+ * Preferred surface
+ * - Most callers should use the Python API: `book.api.profile.compile`.
+ * - This C program exists as a sanity probe and a second implementation of the
+ *   same private interface for debugging.
+ *
+ * Baseline scoping
+ * - This repo is host-bound. All assumptions here are scoped to:
+ *   `book/world/sonoma-14.4.1-23E224-arm64/world.json`.
+ *
+ * Build/run
+ * - `make -C book/api/profile/c`
+ * - `book/api/profile/c/build/compile_profile <in.sb> <out.sb.bin>`
+ */
+
 #include <errno.h>
 #include <inttypes.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-// Private libsandbox interfaces for the fixed baseline recorded in:
-// book/world/sonoma-14.4.1-23E224-arm64/world.json.
+// Private libsandbox interfaces.
 //
-// This file is a minimal reference implementation for "SBPL file -> compiled
-// blob" using libsandbox’s private compiler entry points. The canonical Python
-// binding lives in `book/api/profile/compile/` (public surface:
-// `book.api.profile.compile`).
+// `struct sandbox_profile` and the `sandbox_compile_*` APIs are not public macOS
+// SDK APIs. They are private entry points used by Apple’s tooling and are
+// expected to be stable only within the constraints of this repo’s pinned host
+// baseline.
 struct sandbox_profile {
   uint32_t profile_type;
   uint32_t reserved;
@@ -68,6 +89,8 @@ int main(int argc, char *argv[]) {
   if (argc >= 3) out = argv[2];
 
   char *error = NULL;
+  // `error` is a `char **` out-parameter; on failure libsandbox may set it to a
+  // malloc-owned string. We free it with `free(3)` below.
   struct sandbox_profile *p = sandbox_compile_file(in, NULL, &error);
   if (p == NULL) {
     fprintf(stderr, "[-] sandbox_compile_file failed: %s\n",
@@ -85,6 +108,7 @@ int main(int argc, char *argv[]) {
     printf("[+] wrote compiled profile to %s\n", out);
   }
 
+  // Ownership: always free the profile struct after copying/writing out bytes.
   sandbox_free_profile(p);
   free(error);
   return 0;

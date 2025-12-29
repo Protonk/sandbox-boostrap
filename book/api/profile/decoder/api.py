@@ -6,6 +6,21 @@ Formerly exposed as `book.api.decoder`; promoted into `book.api.profile`.
 Focuses on structure: header preamble, op-table entries, node chunks (auto-selected
 framing on this host baseline), and literal/regex pool slices. This is heuristic
 and intended to be version-tolerant.
+
+How to read this module:
+- `book.api.profile.ingestion` owns the *slice contract* (where op-table/nodes/literals live).
+- This decoder builds on that slicing to annotate the node stream with:
+  - record sizes (either forced, inferred, or tag-layout-driven),
+  - tag counts and simple edge sanity checks,
+  - “literal reference” hints by matching node fields against the literal pool.
+
+Evidence tiering (important):
+- The goal is to expose *structural evidence* from bytes, not kernel semantics.
+- When this decoder uses published mappings (e.g. `book/graph/mappings/tag_layouts/tag_layouts.json`,
+  `book/graph/mappings/tag_layouts/tag_u16_roles.json`, `book/graph/mappings/vocab/filters.json`),
+  treat those annotations as “mapped” evidence.
+- When it falls back to built-in defaults or heuristics (stride selection, literal refs),
+  treat output as “hypothesis” and corroborate with experiments / validation fixtures.
 """
 
 from __future__ import annotations
@@ -21,11 +36,22 @@ from book.api.path_utils import find_repo_root
 from .. import ingestion as pi
 
 PRINTABLE = set(bytes(string.printable, "ascii"))
+# `PRINTABLE` is used for *heuristic* string extraction only. The literal pool
+# contains binary regex programs as well as C-string-like tokens; we use
+# printable runs to help humans orient themselves.
+
 # Heuristic: op_table and branch offsets are stored as u16 word offsets
 # (8-byte units) into the node stream on this host baseline. This is treated
 # as format evidence, not a cross-version guarantee.
 WORD_OFFSET_BYTES = 8
-# tag: (record_size_bytes, edge_field_indices, payload_field_indices)
+# Built-in fallback tag layout hints.
+#
+# The authoritative tag layouts for this world live under:
+# `book/graph/mappings/tag_layouts/tag_layouts.json`.
+# These defaults exist to keep the decoder usable when mappings are absent or
+# when you're decoding a blob in isolation.
+#
+# Shape: tag -> (record_size_bytes, edge_field_indices, payload_field_indices)
 DEFAULT_TAG_LAYOUTS: Dict[int, Tuple[int, Tuple[int, ...], Tuple[int, ...]]] = {
     # Tentative assumptions; a richer decoder should update these.
     5: (12, (0, 1), (2,)),
@@ -145,6 +171,18 @@ def _load_tag_u16_roles() -> Dict[int, str]:
 
 @dataclass
 class DecodedProfile:
+    """
+    Best-effort decoded view of a compiled sandbox profile blob.
+
+    This object is intentionally “wide”:
+    - Some fields are direct byte-derived facts (e.g. `preamble_words_full`, `op_table`).
+    - Some fields are annotations derived from heuristics or mappings (e.g. per-node `u16_role`,
+      `literal_refs`, stride selection metadata).
+
+    If you need a JSON-only structure (for logs, IR, digests), use
+    `decode_profile_dict`.
+    """
+
     format_variant: str
     preamble_words: List[int]
     preamble_words_full: List[int]
@@ -164,6 +202,7 @@ class DecodedProfile:
 
 
 def _read_words(data: bytes, byte_len: int) -> List[int]:
+    """Read little-endian u16 words from the start of `data` up to `byte_len`."""
     words = []
     for i in range(0, min(len(data), byte_len), 2):
         words.append(int.from_bytes(data[i : i + 2], "little"))
@@ -171,6 +210,12 @@ def _read_words(data: bytes, byte_len: int) -> List[int]:
 
 
 def _guess_op_count(words: List[int]) -> Optional[int]:
+    """
+    Guess operation count from preamble words.
+
+    On this world baseline, the second u16 of the 16-byte preamble frequently
+    matches the op-table entry count.
+    """
     if len(words) < 2:
         return None
     maybe = words[1]
@@ -221,6 +266,7 @@ def _select_node_stride_bytes(op_table: Sequence[int]) -> Tuple[Optional[int], D
 
 
 def _parse_op_table(data: bytes) -> List[int]:
+    """Parse a u16 op-table byte region into integer entries."""
     return [int.from_bytes(data[i : i + 2], "little") for i in range(0, len(data), 2)]
 
 
@@ -416,9 +462,17 @@ def decode_profile(
     op-table, node region, and literal pool, then annotates nodes using any
     known tag layouts (mappings/experiments) to give a PolicyGraph-shaped view.
 
-    Returns a DecodedProfile that mirrors the substrate story (preamble fields,
-    op_table entries, node tags/edges/payloads, literal pool slices) without
-    asserting correctness beyond the light validation included here.
+    Args:
+        data: Compiled blob bytes (typically `.sb.bin`).
+        header_window: Number of bytes to capture as "header bytes" for debugging.
+        node_stride_bytes: Optional forced node record stride. When omitted, the
+            decoder will attempt to infer a stride from op-table alignment and
+            otherwise fall back to tag-layout parsing.
+
+    Returns:
+        A `DecodedProfile` that mirrors the substrate story (preamble fields,
+        op_table entries, node tags/edges/payloads, literal pool slices) without
+        asserting correctness beyond the light validation included here.
     """
     preamble = _read_words(data, 16)
     preamble_full = _read_words(data, header_window)
@@ -428,6 +482,9 @@ def decode_profile(
     profile = pi.ProfileBlob(bytes=data, source="decoder")
     header = pi.parse_header(profile)
     if header.format_variant != "legacy-decision-tree":
+        # For modern blobs, prefer the op_count guessed from the 16-byte preamble.
+        # This keeps decoder behavior consistent even when ingestion heuristics
+        # are conservative (e.g., when op_count is absent or implausible).
         header.operation_count = op_count
     sections, offsets = pi.slice_sections_with_offsets(profile, header)
 
@@ -440,6 +497,8 @@ def decode_profile(
     if selected_stride is None:
         selected_stride, stride_selection = _select_node_stride_bytes(op_table)
     else:
+        # Caller-forced stride is primarily used for cross-checking and when
+        # debugging framing mismatches between experiments and mappings.
         stride_selection = {"mode": "forced", "selected": selected_stride}
 
     literal_start = offsets.literal_start
@@ -459,8 +518,12 @@ def decode_profile(
     }
 
     if selected_stride is None:
+        # Tag-layout-driven parse: supports heterogeneous record sizes per tag.
         nodes, tag_counts, node_remainder = _parse_nodes_tagged(nodes_bytes)
     else:
+        # Fixed-stride parse: treat nodes as uniform record sizes. This is
+        # useful when we believe the blob is uniformly packed (common for
+        # record8-heavy specimens).
         nodes, tag_counts, node_remainder = _parse_nodes_fixed_stride(nodes_bytes, selected_stride)
 
     # Sanity: treat first two fields as edges and count in-bounds hits.
@@ -495,6 +558,11 @@ def decode_profile(
             tv["payloads"][str(p)] = tv["payloads"].get(str(p), 0) + 1
 
     # Heuristic literal references: match node fields to literal offsets, absolute offsets, or string indices.
+    #
+    # This is intentionally a “hint” layer. Many values in the node stream are
+    # small integers that can coincide with literal offsets by accident; treat
+    # results as hypothesis unless corroborated by an experiment that shows the
+    # same value influencing a literal under controlled SBPL variation.
     literal_refs_per_node: List[List[str]] = []
     literal_candidates: List[Tuple[str, List[bytes]]] = []
     for idx, (off, val) in enumerate(literal_strings_with_offsets):
@@ -597,8 +665,16 @@ def decode_profile(
 
 def decode_profile_dict(data: bytes, node_stride_bytes: Optional[int] = None) -> Dict[str, Any]:
     """
-    Dict wrapper for JSON serialization and downstream tooling that expects a
-    JSON-safe structure instead of DecodedProfile objects.
+    JSON-safe wrapper around `decode_profile`.
+
+    This function intentionally mirrors the historical `book.api.decoder` output
+    shape used by experiments and validation jobs:
+    - bytes are serialized as hex strings,
+    - dataclass objects are flattened to dicts/lists,
+    - only “portable” fields are included.
+
+    If you are building new code and do not need JSON, prefer `decode_profile`
+    and the `DecodedProfile` dataclass.
     """
     d = decode_profile(data, node_stride_bytes=node_stride_bytes)
     return {

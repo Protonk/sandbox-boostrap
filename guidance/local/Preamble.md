@@ -44,7 +44,7 @@ Do not copy status details from memory. Use these sources as the current cut:
 
 # High-leverage capabilities
 
-- **Profile structure**: `book.api.profile_tools` (CLI: `python -m book.api.profile_tools`) for SBPL compile/ingest/decode/inspect/op-table/digests/oracles.
+- **Profile structure**: `book.api.profile` (CLI: `python -m book.api.profile`) for SBPL compile/ingest/decode/inspect/op-table/digests/oracles.
 - **Runtime probes**: `book.api.runtime_harness` (CLI: `python -m book.api.runtime_harness.cli`) plus `book.api.runtime` for normalization and runtime cuts.
 - **Apply-gate guardrails**: `book/tools/preflight/preflight.py` for scan + minimize-gate.
 - **Apply/probe pair**: `book/tools/sbpl/wrapper/` (wrapper binary) + `book/api/file_probe/file_probe.c` (probe target).
