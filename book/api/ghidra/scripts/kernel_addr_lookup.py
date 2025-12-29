@@ -14,6 +14,8 @@ import json
 import os
 import traceback
 
+from ghidra_bootstrap import scan_utils
+
 _RUN_CALLED = False
 
 
@@ -33,14 +35,14 @@ def _lookup_offsets(offsets):
     img_base = img_base_addr.getOffset()
     for off, is_addr in offsets:
         if is_addr:
-            addr = addr_factory.getDefaultAddressSpace().getAddress("0x%x" % off)
+            addr = addr_factory.getDefaultAddressSpace().getAddress(scan_utils.format_address(off))
             file_offset = None
         else:
-            file_offset = "0x%x" % off
+            file_offset = scan_utils.format_address(off)
             try:
                 addr = img_base_addr.add(off)
             except Exception:
-                addr = addr_factory.getDefaultAddressSpace().getAddress("0x%x" % (img_base + off))
+                addr = addr_factory.getDefaultAddressSpace().getAddress(scan_utils.format_address(img_base + off))
         block = memory.getBlock(addr)
         data_entry = listing.getDataAt(addr)
         func = func_mgr.getFunctionContaining(addr)
@@ -51,7 +53,7 @@ def _lookup_offsets(offsets):
             caller = func_mgr.getFunctionContaining(from_addr)
             callers.append(
                 {
-                    "from": "0x%x" % from_addr.getOffset(),
+                    "from": scan_utils.format_address(from_addr.getOffset()),
                     "type": ref.getReferenceType().getName(),
                     "caller": caller.getName() if caller else None,
                 }
@@ -65,9 +67,9 @@ def _lookup_offsets(offsets):
                 bytes_at = None
         res.append(
             {
-                "input": file_offset or ("addr:0x%x" % off),
-                "address": "0x%x" % addr.getOffset(),
-                "image_base": "0x%x" % img_base,
+                "input": file_offset or ("addr:%s" % scan_utils.format_address(off)),
+                "address": scan_utils.format_address(addr.getOffset()),
+                "image_base": scan_utils.format_address(img_base),
                 "block": block.getName() if block else None,
                 "function": func.getName() if func else None,
                 "instruction": str(instr) if instr else None,
@@ -102,9 +104,9 @@ def run():
             try:
                 token = str(x)
                 if token.startswith("addr:"):
-                    offsets.append((int(token.split("addr:", 1)[1], 16), True))
+                    offsets.append((scan_utils.parse_hex(token.split("addr:", 1)[1]), True))
                 else:
-                    offsets.append((int(token, 16), False))
+                    offsets.append((scan_utils.parse_hex(token), False))
             except Exception:
                 print("skip arg %s (not an offset)" % x)
                 continue

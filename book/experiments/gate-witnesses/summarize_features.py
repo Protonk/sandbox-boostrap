@@ -21,7 +21,7 @@ ROOT = Path(__file__).resolve().parents[3]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from book.api.runtime_tools.core import models as runtime_models  # type: ignore
+from book.api.runtime.core import models as runtime_models  # type: ignore
 
 
 TOOL_PATH = ROOT / "book" / "tools" / "preflight" / "gate_minimizer.py"

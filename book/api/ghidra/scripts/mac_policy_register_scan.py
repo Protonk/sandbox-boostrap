@@ -21,13 +21,13 @@ import json
 import os
 import traceback
 
+from ghidra_bootstrap import scan_utils
+
 from ghidra.program.model.address import Address, AddressSet
 from ghidra.program.model.lang import Register
 from ghidra.program.model.mem import MemoryAccessException
 from ghidra.program.model.scalar import Scalar
 
-MASK64 = 0xFFFFFFFFFFFFFFFFL
-SIGN_BIT = 0x8000000000000000L
 _RUN = False
 
 
@@ -37,49 +37,19 @@ def _ensure_dir(path):
 
 
 def _u64(val):
-    try:
-        return long(val) & MASK64
-    except Exception:
-        return None
+    return scan_utils.to_unsigned(val)
 
 
 def _s64(val):
-    try:
-        v = long(val) & MASK64
-    except Exception:
-        return None
-    if v & SIGN_BIT:
-        return v - (1 << 64)
-    return v
+    return scan_utils.to_signed(val)
 
 
 def _format_addr(value):
-    if value is None:
-        return None
-    if value < 0:
-        return "0x-%x" % abs(value)
-    return "0x%x" % value
+    return scan_utils.format_signed_hex(value)
 
 
 def _parse_hex_address(value):
-    if value is None:
-        return None
-    if isinstance(value, (int, long)):
-        return int(value)
-    text = str(value).strip().lower()
-    if text.startswith("0x-"):
-        return -int(text[3:], 16)
-    if text.startswith("-0x"):
-        return -int(text[3:], 16)
-    if text.startswith("0x"):
-        value = int(text, 16)
-        if value & SIGN_BIT:
-            return value - (1 << 64)
-        return value
-    try:
-        return int(text, 0)
-    except Exception:
-        return None
+    return scan_utils.parse_signed_hex(value)
 
 
 def _normalize_reg(name):
@@ -495,7 +465,7 @@ def _collect_call_sites(targets, max_back, depth, flow_scan, addr_set):
                     args[reg] = _clean_result(res, memory)
             call_sites.append(
                 {
-                    "call_address": "0x%x" % call_addr.getOffset(),
+                    "call_address": scan_utils.format_address(call_addr.getOffset()),
                     "target_name": target["name"],
                     "target_address": target["address"],
                     "target_library": target.get("library"),
@@ -505,7 +475,7 @@ def _collect_call_sites(targets, max_back, depth, flow_scan, addr_set):
                     "reference_type": rtype.getName(),
                     "function": {
                         "name": func.getName() if func else None,
-                        "entry": "0x%x" % func.getEntryPoint().getOffset() if func else None,
+                        "entry": scan_utils.format_address(func.getEntryPoint().getOffset()) if func else None,
                         "size": func.getBody().getNumAddresses() if func else None,
                     },
                     "block": block.getName() if block else None,
@@ -540,7 +510,7 @@ def _collect_call_sites(targets, max_back, depth, flow_scan, addr_set):
                         args[reg] = _clean_result(res, memory)
                     call_sites.append(
                         {
-                            "call_address": "0x%x" % instr.getAddress().getOffset(),
+                            "call_address": scan_utils.format_address(instr.getAddress().getOffset()),
                             "target_name": target["name"],
                             "target_address": target["address"],
                             "target_library": target.get("library"),
@@ -550,7 +520,7 @@ def _collect_call_sites(targets, max_back, depth, flow_scan, addr_set):
                             "reference_type": "flow",
                             "function": {
                                 "name": func.getName() if func else None,
-                                "entry": "0x%x" % func.getEntryPoint().getOffset() if func else None,
+                                "entry": scan_utils.format_address(func.getEntryPoint().getOffset()) if func else None,
                                 "size": func.getBody().getNumAddresses() if func else None,
                             },
                             "block": block.getName() if block else None,
@@ -604,15 +574,15 @@ def _collect_indirect_calls(addr_set, got_blocks, substrings, max_back, depth, i
         call_block = memory.getBlock(instr.getAddress())
         call_sites.append(
             {
-                "call_address": "0x%x" % instr.getAddress().getOffset(),
+                "call_address": scan_utils.format_address(instr.getAddress().getOffset()),
                 "call_mnemonic": mnemonic,
                 "function": {
                     "name": func.getName() if func else None,
-                    "entry": "0x%x" % func.getEntryPoint().getOffset() if func else None,
+                    "entry": scan_utils.format_address(func.getEntryPoint().getOffset()) if func else None,
                     "size": func.getBody().getNumAddresses() if func else None,
                 },
                 "block": call_block.getName() if call_block else None,
-                "got_address": "0x%x" % mem_addr,
+                "got_address": scan_utils.format_address(mem_addr),
                 "got_block": block.getName(),
                 "got_symbols": names,
                 "got_libraries": libs,
@@ -726,8 +696,8 @@ def run():
                     "got_blocks": [
                         {
                             "name": b.getName(),
-                            "start": "0x%x" % b.getStart().getOffset(),
-                            "end": "0x%x" % b.getEnd().getOffset(),
+                            "start": scan_utils.format_address(b.getStart().getOffset()),
+                            "end": scan_utils.format_address(b.getEnd().getOffset()),
                         }
                         for b in got_blocks
                     ],

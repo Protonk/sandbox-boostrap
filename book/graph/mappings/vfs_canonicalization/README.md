@@ -4,7 +4,7 @@ This directory publishes a small, stable mapping slice for **VFS path canonicali
 
 Scope:
 - Host: `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`
-- Evidence: promotable **decision-stage** runtime bundles produced by `book/api/runtime_tools` (clean channel), plus their promotion receipts.
+- Evidence: promotable **decision-stage** runtime bundles produced by `book/api/runtime` (clean channel), plus their promotion receipts.
 - Domain: path spellings and kernel-reported FD paths (`F_GETPATH` and `F_GETPATH_NOFIRMLINK`) for the focused `book/experiments/vfs-canonicalization/` suite.
 
 Non-goals:

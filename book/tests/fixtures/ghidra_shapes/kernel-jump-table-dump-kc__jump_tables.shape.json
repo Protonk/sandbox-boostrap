@@ -1,0 +1,1319 @@
+{
+  "schema_version": "1.0",
+  "shape": {
+    "keys": {
+      "meta": {
+        "keys": {
+          "build_id": {
+            "type": "str"
+          },
+          "function": {
+            "type": "str"
+          },
+          "function_entry": {
+            "type": "str"
+          },
+          "max_back": {
+            "type": "int"
+          },
+          "max_entries": {
+            "type": "int"
+          },
+          "program": {
+            "type": "str"
+          },
+          "table_count": {
+            "type": "int"
+          },
+          "target": {
+            "type": "str"
+          }
+        },
+        "type": "dict"
+      },
+      "tables": {
+        "element_shapes": [
+          {
+            "keys": {
+              "br_addr": {
+                "type": "str"
+              },
+              "br_reg": {
+                "type": "str"
+              },
+              "entries": {
+                "element_shapes": [
+                  {
+                    "keys": {
+                      "entry_addr": {
+                        "type": "str"
+                      },
+                      "index": {
+                        "type": "int"
+                      },
+                      "offset": {
+                        "type": "int"
+                      },
+                      "target": {
+                        "type": "str"
+                      },
+                      "target_block": {
+                        "type": "str"
+                      },
+                      "target_function": {
+                        "type": "null"
+                      }
+                    },
+                    "type": "dict"
+                  },
+                  {
+                    "keys": {
+                      "entry_addr": {
+                        "type": "str"
+                      },
+                      "index": {
+                        "type": "int"
+                      },
+                      "offset": {
+                        "type": "int"
+                      },
+                      "target": {
+                        "type": "str"
+                      },
+                      "target_block": {
+                        "type": "str"
+                      },
+                      "target_function": {
+                        "type": "str"
+                      }
+                    },
+                    "type": "dict"
+                  }
+                ],
+                "length": 10,
+                "sampled": 10,
+                "type": "list"
+              },
+              "entry_count": {
+                "type": "int"
+              },
+              "index_base": {
+                "type": "int"
+              },
+              "index_cmp": {
+                "type": "int"
+              },
+              "index_cmp_reg": {
+                "type": "str"
+              },
+              "index_reg": {
+                "type": "str"
+              },
+              "ldrsw_addr": {
+                "type": "str"
+              },
+              "source_cmp": {
+                "type": "int"
+              },
+              "source_cmp_reg": {
+                "type": "str"
+              },
+              "table_add": {
+                "type": "str"
+              },
+              "table_add_addr": {
+                "type": "str"
+              },
+              "table_addr": {
+                "type": "str"
+              },
+              "table_adrp_addr": {
+                "type": "str"
+              },
+              "table_block": {
+                "type": "str"
+              },
+              "table_page": {
+                "type": "str"
+              },
+              "table_reg": {
+                "type": "str"
+              },
+              "target_adr_addr": {
+                "type": "str"
+              },
+              "target_base": {
+                "type": "str"
+              }
+            },
+            "type": "dict"
+          },
+          {
+            "keys": {
+              "br_addr": {
+                "type": "str"
+              },
+              "br_reg": {
+                "type": "str"
+              },
+              "entries": {
+                "element_shapes": [
+                  {
+                    "keys": {
+                      "entry_addr": {
+                        "type": "str"
+                      },
+                      "index": {
+                        "type": "int"
+                      },
+                      "offset": {
+                        "type": "int"
+                      },
+                      "target": {
+                        "type": "str"
+                      },
+                      "target_block": {
+                        "type": "str"
+                      },
+                      "target_function": {
+                        "type": "null"
+                      }
+                    },
+                    "type": "dict"
+                  },
+                  {
+                    "keys": {
+                      "entry_addr": {
+                        "type": "str"
+                      },
+                      "index": {
+                        "type": "int"
+                      },
+                      "offset": {
+                        "type": "int"
+                      },
+                      "target": {
+                        "type": "str"
+                      },
+                      "target_block": {
+                        "type": "str"
+                      },
+                      "target_function": {
+                        "type": "str"
+                      }
+                    },
+                    "type": "dict"
+                  }
+                ],
+                "length": 12,
+                "sampled": 12,
+                "type": "list"
+              },
+              "entry_count": {
+                "type": "int"
+              },
+              "index_base": {
+                "type": "int"
+              },
+              "index_cmp": {
+                "type": "int"
+              },
+              "index_cmp_reg": {
+                "type": "str"
+              },
+              "index_reg": {
+                "type": "str"
+              },
+              "ldrsw_addr": {
+                "type": "str"
+              },
+              "source_cmp": {
+                "type": "null"
+              },
+              "source_cmp_reg": {
+                "type": "null"
+              },
+              "table_add": {
+                "type": "str"
+              },
+              "table_add_addr": {
+                "type": "str"
+              },
+              "table_addr": {
+                "type": "str"
+              },
+              "table_adrp_addr": {
+                "type": "str"
+              },
+              "table_block": {
+                "type": "str"
+              },
+              "table_page": {
+                "type": "str"
+              },
+              "table_reg": {
+                "type": "str"
+              },
+              "target_adr_addr": {
+                "type": "str"
+              },
+              "target_base": {
+                "type": "str"
+              }
+            },
+            "type": "dict"
+          },
+          {
+            "keys": {
+              "br_addr": {
+                "type": "str"
+              },
+              "br_reg": {
+                "type": "str"
+              },
+              "entries": {
+                "element_shapes": [
+                  {
+                    "keys": {
+                      "entry_addr": {
+                        "type": "str"
+                      },
+                      "index": {
+                        "type": "int"
+                      },
+                      "offset": {
+                        "type": "int"
+                      },
+                      "target": {
+                        "type": "str"
+                      },
+                      "target_block": {
+                        "type": "str"
+                      },
+                      "target_function": {
+                        "type": "null"
+                      }
+                    },
+                    "type": "dict"
+                  },
+                  {
+                    "keys": {
+                      "entry_addr": {
+                        "type": "str"
+                      },
+                      "index": {
+                        "type": "int"
+                      },
+                      "offset": {
+                        "type": "int"
+                      },
+                      "target": {
+                        "type": "str"
+                      },
+                      "target_block": {
+                        "type": "str"
+                      },
+                      "target_function": {
+                        "type": "str"
+                      }
+                    },
+                    "type": "dict"
+                  }
+                ],
+                "length": 21,
+                "sampled": 21,
+                "type": "list"
+              },
+              "entry_count": {
+                "type": "int"
+              },
+              "index_base": {
+                "type": "int"
+              },
+              "index_cmp": {
+                "type": "int"
+              },
+              "index_cmp_reg": {
+                "type": "str"
+              },
+              "index_reg": {
+                "type": "str"
+              },
+              "ldrsw_addr": {
+                "type": "str"
+              },
+              "source_cmp": {
+                "type": "int"
+              },
+              "source_cmp_reg": {
+                "type": "str"
+              },
+              "table_add": {
+                "type": "str"
+              },
+              "table_add_addr": {
+                "type": "str"
+              },
+              "table_addr": {
+                "type": "str"
+              },
+              "table_adrp_addr": {
+                "type": "str"
+              },
+              "table_block": {
+                "type": "str"
+              },
+              "table_page": {
+                "type": "str"
+              },
+              "table_reg": {
+                "type": "str"
+              },
+              "target_adr_addr": {
+                "type": "str"
+              },
+              "target_base": {
+                "type": "str"
+              }
+            },
+            "type": "dict"
+          },
+          {
+            "keys": {
+              "br_addr": {
+                "type": "str"
+              },
+              "br_reg": {
+                "type": "str"
+              },
+              "entries": {
+                "element_shapes": [
+                  {
+                    "keys": {
+                      "entry_addr": {
+                        "type": "str"
+                      },
+                      "index": {
+                        "type": "int"
+                      },
+                      "offset": {
+                        "type": "int"
+                      },
+                      "target": {
+                        "type": "str"
+                      },
+                      "target_block": {
+                        "type": "str"
+                      },
+                      "target_function": {
+                        "type": "null"
+                      }
+                    },
+                    "type": "dict"
+                  },
+                  {
+                    "keys": {
+                      "entry_addr": {
+                        "type": "str"
+                      },
+                      "index": {
+                        "type": "int"
+                      },
+                      "offset": {
+                        "type": "int"
+                      },
+                      "target": {
+                        "type": "str"
+                      },
+                      "target_block": {
+                        "type": "str"
+                      },
+                      "target_function": {
+                        "type": "str"
+                      }
+                    },
+                    "type": "dict"
+                  }
+                ],
+                "length": 26,
+                "sampled": 26,
+                "type": "list"
+              },
+              "entry_count": {
+                "type": "int"
+              },
+              "index_base": {
+                "type": "int"
+              },
+              "index_cmp": {
+                "type": "int"
+              },
+              "index_cmp_reg": {
+                "type": "str"
+              },
+              "index_reg": {
+                "type": "str"
+              },
+              "ldrsw_addr": {
+                "type": "str"
+              },
+              "source_cmp": {
+                "type": "null"
+              },
+              "source_cmp_reg": {
+                "type": "null"
+              },
+              "table_add": {
+                "type": "str"
+              },
+              "table_add_addr": {
+                "type": "str"
+              },
+              "table_addr": {
+                "type": "str"
+              },
+              "table_adrp_addr": {
+                "type": "str"
+              },
+              "table_block": {
+                "type": "str"
+              },
+              "table_page": {
+                "type": "str"
+              },
+              "table_reg": {
+                "type": "str"
+              },
+              "target_adr_addr": {
+                "type": "str"
+              },
+              "target_base": {
+                "type": "str"
+              }
+            },
+            "type": "dict"
+          },
+          {
+            "keys": {
+              "br_addr": {
+                "type": "str"
+              },
+              "br_reg": {
+                "type": "str"
+              },
+              "entries": {
+                "element_shapes": [
+                  {
+                    "keys": {
+                      "entry_addr": {
+                        "type": "str"
+                      },
+                      "index": {
+                        "type": "int"
+                      },
+                      "offset": {
+                        "type": "int"
+                      },
+                      "target": {
+                        "type": "str"
+                      },
+                      "target_block": {
+                        "type": "str"
+                      },
+                      "target_function": {
+                        "type": "null"
+                      }
+                    },
+                    "type": "dict"
+                  },
+                  {
+                    "keys": {
+                      "entry_addr": {
+                        "type": "str"
+                      },
+                      "index": {
+                        "type": "int"
+                      },
+                      "offset": {
+                        "type": "int"
+                      },
+                      "target": {
+                        "type": "str"
+                      },
+                      "target_block": {
+                        "type": "str"
+                      },
+                      "target_function": {
+                        "type": "str"
+                      }
+                    },
+                    "type": "dict"
+                  }
+                ],
+                "length": 29,
+                "sampled": 29,
+                "type": "list"
+              },
+              "entry_count": {
+                "type": "int"
+              },
+              "index_base": {
+                "type": "int"
+              },
+              "index_cmp": {
+                "type": "int"
+              },
+              "index_cmp_reg": {
+                "type": "str"
+              },
+              "index_reg": {
+                "type": "str"
+              },
+              "ldrsw_addr": {
+                "type": "str"
+              },
+              "source_cmp": {
+                "type": "int"
+              },
+              "source_cmp_reg": {
+                "type": "str"
+              },
+              "table_add": {
+                "type": "str"
+              },
+              "table_add_addr": {
+                "type": "str"
+              },
+              "table_addr": {
+                "type": "str"
+              },
+              "table_adrp_addr": {
+                "type": "str"
+              },
+              "table_block": {
+                "type": "str"
+              },
+              "table_page": {
+                "type": "str"
+              },
+              "table_reg": {
+                "type": "str"
+              },
+              "target_adr_addr": {
+                "type": "str"
+              },
+              "target_base": {
+                "type": "str"
+              }
+            },
+            "type": "dict"
+          },
+          {
+            "keys": {
+              "br_addr": {
+                "type": "str"
+              },
+              "br_reg": {
+                "type": "str"
+              },
+              "entries": {
+                "element_shapes": [
+                  {
+                    "keys": {
+                      "entry_addr": {
+                        "type": "str"
+                      },
+                      "index": {
+                        "type": "int"
+                      },
+                      "offset": {
+                        "type": "int"
+                      },
+                      "target": {
+                        "type": "str"
+                      },
+                      "target_block": {
+                        "type": "str"
+                      },
+                      "target_function": {
+                        "type": "null"
+                      }
+                    },
+                    "type": "dict"
+                  },
+                  {
+                    "keys": {
+                      "entry_addr": {
+                        "type": "str"
+                      },
+                      "index": {
+                        "type": "int"
+                      },
+                      "offset": {
+                        "type": "int"
+                      },
+                      "target": {
+                        "type": "str"
+                      },
+                      "target_block": {
+                        "type": "str"
+                      },
+                      "target_function": {
+                        "type": "str"
+                      }
+                    },
+                    "type": "dict"
+                  }
+                ],
+                "length": 40,
+                "sampled": 40,
+                "type": "list"
+              },
+              "entry_count": {
+                "type": "int"
+              },
+              "index_base": {
+                "type": "int"
+              },
+              "index_cmp": {
+                "type": "int"
+              },
+              "index_cmp_reg": {
+                "type": "str"
+              },
+              "index_reg": {
+                "type": "str"
+              },
+              "ldrsw_addr": {
+                "type": "str"
+              },
+              "source_cmp": {
+                "type": "int"
+              },
+              "source_cmp_reg": {
+                "type": "str"
+              },
+              "table_add": {
+                "type": "str"
+              },
+              "table_add_addr": {
+                "type": "str"
+              },
+              "table_addr": {
+                "type": "str"
+              },
+              "table_adrp_addr": {
+                "type": "str"
+              },
+              "table_block": {
+                "type": "str"
+              },
+              "table_page": {
+                "type": "str"
+              },
+              "table_reg": {
+                "type": "str"
+              },
+              "target_adr_addr": {
+                "type": "str"
+              },
+              "target_base": {
+                "type": "str"
+              }
+            },
+            "type": "dict"
+          },
+          {
+            "keys": {
+              "br_addr": {
+                "type": "str"
+              },
+              "br_reg": {
+                "type": "str"
+              },
+              "entries": {
+                "element_shapes": [
+                  {
+                    "keys": {
+                      "entry_addr": {
+                        "type": "str"
+                      },
+                      "index": {
+                        "type": "int"
+                      },
+                      "offset": {
+                        "type": "int"
+                      },
+                      "target": {
+                        "type": "str"
+                      },
+                      "target_block": {
+                        "type": "str"
+                      },
+                      "target_function": {
+                        "type": "null"
+                      }
+                    },
+                    "type": "dict"
+                  },
+                  {
+                    "keys": {
+                      "entry_addr": {
+                        "type": "str"
+                      },
+                      "index": {
+                        "type": "int"
+                      },
+                      "offset": {
+                        "type": "int"
+                      },
+                      "target": {
+                        "type": "str"
+                      },
+                      "target_block": {
+                        "type": "str"
+                      },
+                      "target_function": {
+                        "type": "str"
+                      }
+                    },
+                    "type": "dict"
+                  }
+                ],
+                "length": 41,
+                "sampled": 41,
+                "type": "list"
+              },
+              "entry_count": {
+                "type": "int"
+              },
+              "index_base": {
+                "type": "int"
+              },
+              "index_cmp": {
+                "type": "int"
+              },
+              "index_cmp_reg": {
+                "type": "str"
+              },
+              "index_reg": {
+                "type": "str"
+              },
+              "ldrsw_addr": {
+                "type": "str"
+              },
+              "source_cmp": {
+                "type": "null"
+              },
+              "source_cmp_reg": {
+                "type": "null"
+              },
+              "table_add": {
+                "type": "str"
+              },
+              "table_add_addr": {
+                "type": "str"
+              },
+              "table_addr": {
+                "type": "str"
+              },
+              "table_adrp_addr": {
+                "type": "str"
+              },
+              "table_block": {
+                "type": "str"
+              },
+              "table_page": {
+                "type": "str"
+              },
+              "table_reg": {
+                "type": "str"
+              },
+              "target_adr_addr": {
+                "type": "str"
+              },
+              "target_base": {
+                "type": "str"
+              }
+            },
+            "type": "dict"
+          },
+          {
+            "keys": {
+              "br_addr": {
+                "type": "str"
+              },
+              "br_reg": {
+                "type": "str"
+              },
+              "entries": {
+                "element_shapes": [
+                  {
+                    "keys": {
+                      "entry_addr": {
+                        "type": "str"
+                      },
+                      "index": {
+                        "type": "int"
+                      },
+                      "offset": {
+                        "type": "int"
+                      },
+                      "target": {
+                        "type": "str"
+                      },
+                      "target_block": {
+                        "type": "str"
+                      },
+                      "target_function": {
+                        "type": "null"
+                      }
+                    },
+                    "type": "dict"
+                  },
+                  {
+                    "keys": {
+                      "entry_addr": {
+                        "type": "str"
+                      },
+                      "index": {
+                        "type": "int"
+                      },
+                      "offset": {
+                        "type": "int"
+                      },
+                      "target": {
+                        "type": "str"
+                      },
+                      "target_block": {
+                        "type": "str"
+                      },
+                      "target_function": {
+                        "type": "str"
+                      }
+                    },
+                    "type": "dict"
+                  }
+                ],
+                "length": 62,
+                "sampled": 62,
+                "type": "list"
+              },
+              "entry_count": {
+                "type": "int"
+              },
+              "index_base": {
+                "type": "int"
+              },
+              "index_cmp": {
+                "type": "int"
+              },
+              "index_cmp_reg": {
+                "type": "str"
+              },
+              "index_reg": {
+                "type": "str"
+              },
+              "ldrsw_addr": {
+                "type": "str"
+              },
+              "source_cmp": {
+                "type": "int"
+              },
+              "source_cmp_reg": {
+                "type": "str"
+              },
+              "table_add": {
+                "type": "str"
+              },
+              "table_add_addr": {
+                "type": "str"
+              },
+              "table_addr": {
+                "type": "str"
+              },
+              "table_adrp_addr": {
+                "type": "str"
+              },
+              "table_block": {
+                "type": "str"
+              },
+              "table_page": {
+                "type": "str"
+              },
+              "table_reg": {
+                "type": "str"
+              },
+              "target_adr_addr": {
+                "type": "str"
+              },
+              "target_base": {
+                "type": "str"
+              }
+            },
+            "type": "dict"
+          },
+          {
+            "keys": {
+              "br_addr": {
+                "type": "str"
+              },
+              "br_reg": {
+                "type": "str"
+              },
+              "entries": {
+                "element_shapes": [
+                  {
+                    "keys": {
+                      "entry_addr": {
+                        "type": "str"
+                      },
+                      "index": {
+                        "type": "int"
+                      },
+                      "offset": {
+                        "type": "int"
+                      },
+                      "target": {
+                        "type": "str"
+                      },
+                      "target_block": {
+                        "type": "str"
+                      },
+                      "target_function": {
+                        "type": "null"
+                      }
+                    },
+                    "type": "dict"
+                  },
+                  {
+                    "keys": {
+                      "entry_addr": {
+                        "type": "str"
+                      },
+                      "index": {
+                        "type": "int"
+                      },
+                      "offset": {
+                        "type": "int"
+                      },
+                      "target": {
+                        "type": "str"
+                      },
+                      "target_block": {
+                        "type": "str"
+                      },
+                      "target_function": {
+                        "type": "str"
+                      }
+                    },
+                    "type": "dict"
+                  }
+                ],
+                "length": 7,
+                "sampled": 7,
+                "type": "list"
+              },
+              "entry_count": {
+                "type": "int"
+              },
+              "index_base": {
+                "type": "int"
+              },
+              "index_cmp": {
+                "type": "int"
+              },
+              "index_cmp_reg": {
+                "type": "str"
+              },
+              "index_reg": {
+                "type": "str"
+              },
+              "ldrsw_addr": {
+                "type": "str"
+              },
+              "source_cmp": {
+                "type": "null"
+              },
+              "source_cmp_reg": {
+                "type": "null"
+              },
+              "table_add": {
+                "type": "str"
+              },
+              "table_add_addr": {
+                "type": "str"
+              },
+              "table_addr": {
+                "type": "str"
+              },
+              "table_adrp_addr": {
+                "type": "str"
+              },
+              "table_block": {
+                "type": "str"
+              },
+              "table_page": {
+                "type": "str"
+              },
+              "table_reg": {
+                "type": "str"
+              },
+              "target_adr_addr": {
+                "type": "str"
+              },
+              "target_base": {
+                "type": "str"
+              }
+            },
+            "type": "dict"
+          },
+          {
+            "keys": {
+              "br_addr": {
+                "type": "str"
+              },
+              "br_reg": {
+                "type": "str"
+              },
+              "entries": {
+                "element_shapes": [
+                  {
+                    "keys": {
+                      "entry_addr": {
+                        "type": "str"
+                      },
+                      "index": {
+                        "type": "int"
+                      },
+                      "offset": {
+                        "type": "int"
+                      },
+                      "target": {
+                        "type": "str"
+                      },
+                      "target_block": {
+                        "type": "str"
+                      },
+                      "target_function": {
+                        "type": "null"
+                      }
+                    },
+                    "type": "dict"
+                  },
+                  {
+                    "keys": {
+                      "entry_addr": {
+                        "type": "str"
+                      },
+                      "index": {
+                        "type": "int"
+                      },
+                      "offset": {
+                        "type": "int"
+                      },
+                      "target": {
+                        "type": "str"
+                      },
+                      "target_block": {
+                        "type": "str"
+                      },
+                      "target_function": {
+                        "type": "str"
+                      }
+                    },
+                    "type": "dict"
+                  }
+                ],
+                "length": 79,
+                "sampled": 79,
+                "type": "list"
+              },
+              "entry_count": {
+                "type": "int"
+              },
+              "index_base": {
+                "type": "int"
+              },
+              "index_cmp": {
+                "type": "int"
+              },
+              "index_cmp_reg": {
+                "type": "str"
+              },
+              "index_reg": {
+                "type": "str"
+              },
+              "ldrsw_addr": {
+                "type": "str"
+              },
+              "source_cmp": {
+                "type": "int"
+              },
+              "source_cmp_reg": {
+                "type": "str"
+              },
+              "table_add": {
+                "type": "str"
+              },
+              "table_add_addr": {
+                "type": "str"
+              },
+              "table_addr": {
+                "type": "str"
+              },
+              "table_adrp_addr": {
+                "type": "str"
+              },
+              "table_block": {
+                "type": "str"
+              },
+              "table_page": {
+                "type": "str"
+              },
+              "table_reg": {
+                "type": "str"
+              },
+              "target_adr_addr": {
+                "type": "str"
+              },
+              "target_base": {
+                "type": "str"
+              }
+            },
+            "type": "dict"
+          },
+          {
+            "keys": {
+              "br_addr": {
+                "type": "str"
+              },
+              "br_reg": {
+                "type": "str"
+              },
+              "entries": {
+                "element_shapes": [
+                  {
+                    "keys": {
+                      "entry_addr": {
+                        "type": "str"
+                      },
+                      "index": {
+                        "type": "int"
+                      },
+                      "offset": {
+                        "type": "int"
+                      },
+                      "target": {
+                        "type": "str"
+                      },
+                      "target_block": {
+                        "type": "str"
+                      },
+                      "target_function": {
+                        "type": "null"
+                      }
+                    },
+                    "type": "dict"
+                  },
+                  {
+                    "keys": {
+                      "entry_addr": {
+                        "type": "str"
+                      },
+                      "index": {
+                        "type": "int"
+                      },
+                      "offset": {
+                        "type": "int"
+                      },
+                      "target": {
+                        "type": "str"
+                      },
+                      "target_block": {
+                        "type": "str"
+                      },
+                      "target_function": {
+                        "type": "str"
+                      }
+                    },
+                    "type": "dict"
+                  }
+                ],
+                "length": 92,
+                "sampled": 92,
+                "type": "list"
+              },
+              "entry_count": {
+                "type": "int"
+              },
+              "index_base": {
+                "type": "int"
+              },
+              "index_cmp": {
+                "type": "int"
+              },
+              "index_cmp_reg": {
+                "type": "str"
+              },
+              "index_reg": {
+                "type": "str"
+              },
+              "ldrsw_addr": {
+                "type": "str"
+              },
+              "source_cmp": {
+                "type": "int"
+              },
+              "source_cmp_reg": {
+                "type": "str"
+              },
+              "table_add": {
+                "type": "str"
+              },
+              "table_add_addr": {
+                "type": "str"
+              },
+              "table_addr": {
+                "type": "str"
+              },
+              "table_adrp_addr": {
+                "type": "str"
+              },
+              "table_block": {
+                "type": "str"
+              },
+              "table_page": {
+                "type": "str"
+              },
+              "table_reg": {
+                "type": "str"
+              },
+              "target_adr_addr": {
+                "type": "str"
+              },
+              "target_base": {
+                "type": "str"
+              }
+            },
+            "type": "dict"
+          }
+        ],
+        "length": 11,
+        "sampled": 11,
+        "type": "list"
+      }
+    },
+    "type": "dict"
+  },
+  "source": {
+    "name": "kernel-jump-table-dump-kc__jump_tables",
+    "output_path": "dumps/ghidra/out/14.4.1-23E224/kernel-jump-table-dump-kc/jump_tables.json",
+    "shape_options": {
+      "list_length": true,
+      "max_list_items": null
+    },
+    "snapshot_path": "book/tests/fixtures/ghidra_shapes/kernel-jump-table-dump-kc__jump_tables.shape.json",
+    "task": "kernel-jump-table-dump-kc"
+  }
+}

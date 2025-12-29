@@ -117,7 +117,7 @@ def _discover_modules() -> List[str]:
     """
     Discover pytest-style modules:
     - `book/tests/test_*.py`
-    - any `test_*.py` under `book/api/**` (e.g., runtime_tools)
+    - any `test_*.py` under `book/api/**` (e.g., runtime)
     """
     modules: List[str] = []
 

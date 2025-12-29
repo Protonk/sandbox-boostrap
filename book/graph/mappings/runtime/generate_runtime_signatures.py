@@ -18,7 +18,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from book.api import path_utils
-from book.api.runtime_tools.core import normalize as runtime_normalize
+from book.api.runtime.core import normalize as runtime_normalize
 from book.api import evidence_tiers
 from book.api import world as world_mod
 

@@ -8,25 +8,11 @@ Outputs: <out_dir>/store_provenance.json
 
 import json
 import os
-import sys
 import traceback
 
 from ghidra.program.model.lang import OperandType, Register
 
-try:
-    SCRIPT_DIR = os.path.dirname(getSourceFile().getAbsolutePath())
-except Exception:
-    SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__)) if "__file__" in globals() else os.getcwd()
-
-candidate_paths = [
-    os.path.abspath(os.path.join(SCRIPT_DIR, "..")),
-    os.path.abspath(os.path.join(os.getcwd(), "book", "api", "ghidra")),
-]
-for _p in candidate_paths:
-    if _p not in sys.path:
-        sys.path.insert(0, _p)
-
-from ghidra_lib import scan_utils
+from ghidra_bootstrap import scan_utils
 
 
 _RUN_CALLED = False
@@ -69,7 +55,7 @@ def _collect_defs(listing, start_addr, target_regs, max_back):
             name = _base_reg_name(reg)
             if name in target_regs and name not in defs:
                 defs[name] = {
-                    "addr": "0x%x" % cur.getAddress().getOffset(),
+                    "addr": scan_utils.format_address(cur.getAddress().getOffset()),
                     "inst": str(cur),
                 }
         cur = listing.getInstructionBefore(cur.getAddress())
@@ -90,7 +76,7 @@ def run():
             return
         out_dir = args[0]
         build_id = args[1]
-        addr_val = scan_utils.parse_address(args[2])
+        addr_val = scan_utils.parse_hex(args[2])
         if addr_val is None:
             raise ValueError("Invalid address: %s" % args[2])
         max_back = int(args[3], 0) if len(args) > 3 else 64
@@ -98,7 +84,7 @@ def run():
         _ensure_out_dir(out_dir)
         addr_factory = currentProgram.getAddressFactory()
         addr_space = addr_factory.getDefaultAddressSpace()
-        addr = addr_space.getAddress("0x%x" % addr_val)
+        addr = addr_space.getAddress(scan_utils.format_address(addr_val))
         listing = currentProgram.getListing()
         instr = listing.getInstructionAt(addr)
         if not instr:
@@ -109,7 +95,7 @@ def run():
             instr = listing.getInstructionAt(addr)
 
         if not instr:
-            raise ValueError("No instruction at address: 0x%x" % addr_val)
+            raise ValueError("No instruction at address: %s" % scan_utils.format_address(addr_val))
 
         mnemonic = instr.getMnemonicString().lower()
         if not (mnemonic.startswith("str") or mnemonic.startswith("stp") or mnemonic.startswith("stur")):

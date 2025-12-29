@@ -1,9 +1,9 @@
 import json
 from pathlib import Path
 
-from book.api.runtime_tools.core import models
-from book.api.runtime_tools import workflow
-from book.api.runtime_tools.mapping import story as runtime_story
+from book.api.runtime.core import models
+from book.api.runtime import workflow
+from book.api.runtime.mapping import story as runtime_story
 
 
 def _write_fixture(matrix_path: Path, results_path: Path) -> None:

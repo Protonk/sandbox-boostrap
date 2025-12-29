@@ -18,8 +18,8 @@ Only supported repo-wide test runner is `make -C book test`.
 
 **Host required (Sonoma 14.4.1 baseline):**
 - `python -m book.api.profile_tools compile <profile.sb> --out <path>`
-- `python -m book.api.runtime_tools run --plan <plan.json> --channel launchd_clean --out <out_dir>`
-- `python -m book.api.runtime_tools emit-promotion --bundle <out_dir> --out <out_dir>/promotion_packet.json --require-promotable`
+- `python -m book.api.runtime run --plan <plan.json> --channel launchd_clean --out <out_dir>`
+- `python -m book.api.runtime emit-promotion --bundle <out_dir> --out <out_dir>/promotion_packet.json --require-promotable`
 - `python book/graph/mappings/runtime/promote_from_packets.py --packets <packet.json> --out book/graph/mappings/runtime`
 - `python book/graph/mappings/vocab/generate_vocab_from_dyld.py`
 - `python -m book.graph.concepts.validation --tag vocab`
@@ -48,10 +48,10 @@ Only supported repo-wide test runner is `make -C book test`.
   - Source of truth `book/api/profile_tools/decoder.py` plus those mappings
   - Regen `python -m book.api.profile_tools decode dump <blob.sb.bin> --summary`, `python book/graph/mappings/tag_layouts/generate_tag_layouts.py`, `python book/graph/mappings/system_profiles/generate_digests_from_ir.py`.
 - Runtime denial vs apply failure:
-  - Inputs runtime_tools plan data (for example `book/experiments/runtime-checks/plan.json`)
+  - Inputs runtime plan data (for example `book/experiments/runtime-checks/plan.json`)
   - Outputs `runtime_results.json`, `runtime_events.normalized.json`, promotion packets, and `book/graph/mappings/runtime/runtime_signatures.json`
   - Source of truth promotion packets and `book/graph/mappings/runtime/`
-  - Regen `python -m book.api.runtime_tools run --plan ... --channel launchd_clean --out ...` then `python -m book.api.runtime_tools emit-promotion ... --require-promotable` and `python book/graph/mappings/runtime/promote_from_packets.py ...`.
+  - Regen `python -m book.api.runtime run --plan ... --channel launchd_clean --out ...` then `python -m book.api.runtime emit-promotion ... --require-promotable` and `python book/graph/mappings/runtime/promote_from_packets.py ...`.
 - Extensions and layered policy behavior:
   - Inputs lifecycle probes and runtime bundles
   - Outputs `book/graph/mappings/runtime/lifecycle.json` and `book/graph/mappings/runtime/lifecycle_traces/*.jsonl`

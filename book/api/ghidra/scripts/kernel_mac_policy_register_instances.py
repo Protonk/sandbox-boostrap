@@ -14,6 +14,8 @@ import json
 import os
 import traceback
 
+from ghidra_bootstrap import scan_utils
+
 from ghidra.program.model.address import Address, AddressSet
 from ghidra.program.model.lang import Register
 from ghidra.program.model.mem import MemoryAccessException
@@ -24,8 +26,6 @@ from ghidra.program.model.pcode import PcodeOp
 from ghidra.program.util import SymbolicPropogator
 
 _RUN = False
-MASK64 = 0xFFFFFFFFFFFFFFFFL
-SIGN_BIT = 0x8000000000000000L
 _DECOMP = None
 _DECOMP_CACHE = {}
 _EXT_OPS = []
@@ -41,47 +41,19 @@ for _name in ("SIGNEXT", "INT_SEXT", "INT_ZEXT", "ZEXT"):
 
 
 def _u64(val):
-    try:
-        return long(val) & MASK64
-    except Exception:
-        return None
+    return scan_utils.to_unsigned(val)
 
 
 def _s64(val):
-    try:
-        v = long(val) & MASK64
-    except Exception:
-        return None
-    if v & SIGN_BIT:
-        return v - (1 << 64)
-    return v
+    return scan_utils.to_signed(val)
 
 
 def _format_addr(value):
-    if value is None:
-        return None
-    if value < 0:
-        return "0x-%x" % abs(value)
-    return "0x%x" % value
+    return scan_utils.format_signed_hex(value)
 
 
 def _parse_hex(text):
-    text = str(text).strip().lower()
-    if not text:
-        return None
-    if text.startswith("0x-"):
-        return -int(text[3:], 16)
-    if text.startswith("-0x"):
-        return -int(text[3:], 16)
-    if text.startswith("0x"):
-        value = int(text, 16)
-        if value & (1 << 63):
-            return value - (1 << 64)
-        return value
-    value = int(text, 0)
-    if value & (1 << 63):
-        return value - (1 << 64)
-    return value
+    return scan_utils.parse_signed_hex(text)
 
 
 def _ensure_out_dir(path):

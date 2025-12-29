@@ -16,22 +16,9 @@ Outputs: <out_dir>/offset_inst_scan.json
 
 import json
 import os
-import sys
 import traceback
 
-try:
-    SCRIPT_DIR = os.path.dirname(getSourceFile().getAbsolutePath())
-except Exception:
-    SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__)) if "__file__" in globals() else os.getcwd()
-candidate_paths = [
-    os.path.abspath(os.path.join(SCRIPT_DIR, "..")),  # .../book/api/ghidra
-    os.path.abspath(os.path.join(os.getcwd(), "book", "api", "ghidra")),  # repo root fallback
-]
-for _p in candidate_paths:
-    if _p not in sys.path:
-        sys.path.insert(0, _p)
-
-from ghidra_lib import scan_utils
+from ghidra_bootstrap import scan_utils
 
 from ghidra.program.model.address import AddressSet
 
@@ -126,7 +113,7 @@ def run():
             addr = instr.getAddress()
             func = func_mgr.getFunctionContaining(addr)
             entry = {
-                "address": "0x%x" % addr.getOffset(),
+                "address": scan_utils.format_address(addr.getOffset()),
                 "function": func.getName() if func else None,
                 "mnemonic": instr.getMnemonicString(),
                 "inst": inst_text,
@@ -137,7 +124,7 @@ def run():
                 entry["access"] = scan_utils.classify_mnemonic(instr.getMnemonicString())
             entry["stack_access"] = scan_utils.is_stack_access(inst_text)
             hits.append(entry)
-        block_meta = [{"name": b.getName(), "start": "0x%x" % b.getStart().getOffset(), "end": "0x%x" % b.getEnd().getOffset()} for b in blocks]
+        block_meta = [{"name": b.getName(), "start": scan_utils.format_address(b.getStart().getOffset()), "end": scan_utils.format_address(b.getEnd().getOffset())} for b in blocks]
         meta = {
             "build_id": build_id,
             "program": currentProgram.getName(),

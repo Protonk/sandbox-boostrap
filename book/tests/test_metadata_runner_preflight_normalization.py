@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from book.api.runtime_tools.core import models
-from book.api.runtime_tools.core import normalize as runtime_normalize
+from book.api.runtime.core import models
+from book.api.runtime.core import normalize as runtime_normalize
 
 
 def test_metadata_runner_preflight_blocked_row_normalizes_into_contract_shape():

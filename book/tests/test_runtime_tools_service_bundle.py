@@ -8,8 +8,8 @@ from pathlib import Path
 
 import pytest
 
-from book.api.runtime_tools import api as runtime_api
-from book.api.runtime_tools.channels import ChannelSpec
+from book.api.runtime import api as runtime_api
+from book.api.runtime.channels import ChannelSpec
 
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -43,7 +43,7 @@ def test_bundle_lock_fail_mode(tmp_path, monkeypatch):
     monkeypatch.setenv("SANDBOX_LORE_RUN_ID", "run-test-lock")
     bundle_root = (tmp_path / "bundle").resolve()
     bundle_root.mkdir(parents=True, exist_ok=True)
-    lock_path = bundle_root / ".runtime_tools.lock"
+    lock_path = bundle_root / ".runtime.lock"
 
     with lock_path.open("a+") as fh:
         fcntl.flock(fh, fcntl.LOCK_EX | fcntl.LOCK_NB)
@@ -57,7 +57,7 @@ def test_bundle_lock_wait_mode_eventually_acquires(tmp_path, monkeypatch):
     monkeypatch.setenv("SANDBOX_LORE_RUN_ID", "run-test-wait")
     bundle_root = (tmp_path / "bundle").resolve()
     bundle_root.mkdir(parents=True, exist_ok=True)
-    lock_path = bundle_root / ".runtime_tools.lock"
+    lock_path = bundle_root / ".runtime.lock"
 
     fh = lock_path.open("a+")
     fcntl.flock(fh, fcntl.LOCK_EX | fcntl.LOCK_NB)

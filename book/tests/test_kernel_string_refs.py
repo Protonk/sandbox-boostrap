@@ -32,8 +32,18 @@ def _install_ghidra_stubs():
     sys.modules["ghidra.program.model.data"] = data
 
 
+def _install_ghidra_bootstrap_stub():
+    from book.api.ghidra.ghidra_lib import scan_utils
+
+    bootstrap = types.ModuleType("ghidra_bootstrap")
+    bootstrap.scan_utils = scan_utils
+    bootstrap.node_scan_utils = types.ModuleType("node_scan_utils")
+    sys.modules["ghidra_bootstrap"] = bootstrap
+
+
 def test_safe_external_location_handles_missing_method(monkeypatch):
     _install_ghidra_stubs()
+    _install_ghidra_bootstrap_stub()
     monkeypatch.setenv("GHIDRA_SKIP_AUTORUN", "1")
     from book.api.ghidra.scripts import kernel_string_refs as mod
 

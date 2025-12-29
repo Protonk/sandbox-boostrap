@@ -18,7 +18,7 @@ Outputs:
 
 This tool is intentionally contract-driven: it runs candidates through
 book/tools/sbpl/wrapper/wrapper and parses JSONL tool markers via
-book.api.runtime_tools.core.contract, rather than inferring from stderr strings.
+book.api.runtime.core.contract, rather than inferring from stderr strings.
 """
 
 from __future__ import annotations
@@ -41,8 +41,8 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from book.api import path_utils  # type: ignore
-from book.api.runtime_tools.core import contract as rt_contract  # type: ignore
-from book.api.runtime_tools.core import models as runtime_models  # type: ignore
+from book.api.runtime.core import contract as rt_contract  # type: ignore
+from book.api.runtime.core import models as runtime_models  # type: ignore
 
 
 EPERM = 1

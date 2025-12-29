@@ -15,6 +15,8 @@ import os
 import re
 import traceback
 
+from ghidra_bootstrap import scan_utils
+
 from ghidra.program.model.address import Address
 
 _RUN_CALLED = False
@@ -41,24 +43,15 @@ def _parse_int(token, default=None):
 
 
 def _parse_signed_hex(token):
-    text = token.strip().lower()
-    if text.startswith("0x-"):
-        text = "-0x" + text[3:]
-    return _parse_int(text)
+    return scan_utils.parse_signed_hex(token)
 
 
 def _to_u64(value):
-    if value is None:
-        return None
-    if value < 0:
-        return (1 << 64) + value
-    return value
+    return scan_utils.to_unsigned(value)
 
 
 def _hex_u64(value):
-    if value is None:
-        return None
-    return "0x%x" % value
+    return scan_utils.format_address(value)
 
 
 def _find_function_by_name(name):
@@ -88,7 +81,7 @@ def _resolve_target(token):
         if addr_val is None:
             return None
         addr_val = _to_u64(addr_val)
-        addr = addr_space.getAddress("0x%x" % addr_val)
+        addr = addr_space.getAddress(scan_utils.format_address(addr_val))
         return func_mgr.getFunctionContaining(addr)
     func = _find_function_by_name(token)
     if func:
@@ -97,7 +90,7 @@ def _resolve_target(token):
     if raw is None:
         return None
     addr_val = _to_u64(raw)
-    addr = addr_space.getAddress("0x%x" % addr_val)
+    addr = addr_space.getAddress(scan_utils.format_address(addr_val))
     return func_mgr.getFunctionContaining(addr)
 
 
@@ -115,7 +108,7 @@ def _choose_adrp_page(instr_addr, imm_signed, memory):
     for cand in candidates:
         cand_u = _to_u64(cand)
         try:
-            addr = addr_space.getAddress("0x%x" % cand_u)
+            addr = addr_space.getAddress(scan_utils.format_address(cand_u))
             if memory.getBlock(addr):
                 return cand_u
         except Exception:
@@ -244,7 +237,7 @@ def _scan_jump_tables(func, max_back, max_entries):
         table_block = None
         if table_addr is not None:
             try:
-                table_addr_obj = addr_space.getAddress("0x%x" % table_addr)
+                table_addr_obj = addr_space.getAddress(scan_utils.format_address(table_addr))
                 table_block = memory.getBlock(table_addr_obj)
             except Exception:
                 table_block = None
@@ -252,7 +245,7 @@ def _scan_jump_tables(func, max_back, max_entries):
             for i in range(entry_limit):
                 try:
                     ent_addr = table_addr + (i * 4)
-                    ent_addr_obj = addr_space.getAddress("0x%x" % ent_addr)
+                    ent_addr_obj = addr_space.getAddress(scan_utils.format_address(ent_addr))
                     offset = memory.getInt(ent_addr_obj)
                     offset_val = int(offset)
                     target = None
@@ -261,7 +254,7 @@ def _scan_jump_tables(func, max_back, max_entries):
                     if target_base is not None:
                         target = _to_u64(target_base + offset_val)
                         try:
-                            tgt_addr = addr_space.getAddress("0x%x" % target)
+                            tgt_addr = addr_space.getAddress(scan_utils.format_address(target))
                             target_block = memory.getBlock(tgt_addr)
                             func = func_mgr.getFunctionContaining(tgt_addr)
                             target_func = func.getName() if func else None

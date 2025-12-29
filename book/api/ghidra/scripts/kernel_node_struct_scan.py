@@ -21,30 +21,16 @@ book/api/ghidra/ghidra_lib/README.md (helper schema/usage).
 
 import json
 import os
-import sys
 
-try:
-    # Ghidra provides getSourceFile in the script namespace.
-    SCRIPT_DIR = os.path.dirname(getSourceFile().getAbsolutePath())
-except Exception:
-    SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__)) if "__file__" in globals() else os.getcwd()
-candidate_paths = [
-    os.path.abspath(os.path.join(SCRIPT_DIR, "..")),  # .../book/api/ghidra
-    os.path.abspath(os.path.join(os.getcwd(), "book", "api", "ghidra")),  # repo root fallback
-]
-for _p in candidate_paths:
-    if _p not in sys.path:
-        sys.path.insert(0, _p)
+from ghidra_bootstrap import node_scan_utils
 
-from ghidra_lib.node_scan_utils import (
-    SCHEMA_VERSION,
-    analyze_usage,
-    block_name,
-    choose_index_and_base,
-    collect_loads,
-    filter_loads,
-    validate_candidate_schema,
-)
+SCHEMA_VERSION = node_scan_utils.SCHEMA_VERSION
+analyze_usage = node_scan_utils.analyze_usage
+block_name = node_scan_utils.block_name
+choose_index_and_base = node_scan_utils.choose_index_and_base
+collect_loads = node_scan_utils.collect_loads
+filter_loads = node_scan_utils.filter_loads
+validate_candidate_schema = node_scan_utils.validate_candidate_schema
 
 DEFAULT_EVAL = "fffffe000b40d698"
 

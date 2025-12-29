@@ -15,6 +15,8 @@ import json
 import os
 import traceback
 
+from ghidra_bootstrap import scan_utils
+
 
 _RUN_CALLED = False
 
@@ -32,25 +34,15 @@ def _parse_int(token, default=None):
 
 
 def _parse_hex_addr(token):
-    text = token.strip().lower()
-    if text.startswith("0x-"):
-        text = "-0x" + text[3:]
-    val = _parse_int(text)
-    if val is None:
-        return None
-    if val < 0:
-        val = (1 << 64) + val
-    return val
+    return scan_utils.parse_hex(token)
 
 
 def _hex_u64(value):
-    if value is None:
-        return None
-    return "0x%x" % value
+    return scan_utils.format_address(value)
 
 
 def _read_entry(entry_addr, memory, func_mgr, addr_space):
-    entry_addr_obj = addr_space.getAddress("0x%x" % entry_addr)
+    entry_addr_obj = addr_space.getAddress(scan_utils.format_address(entry_addr))
     entry_block = memory.getBlock(entry_addr_obj)
     if not entry_block:
         return None, None, None, None, "no_entry_block"
@@ -65,7 +57,7 @@ def _read_entry(entry_addr, memory, func_mgr, addr_space):
     target_block = None
     target_func = None
     try:
-        tgt_addr = addr_space.getAddress("0x%x" % value_u)
+        tgt_addr = addr_space.getAddress(scan_utils.format_address(value_u))
         target_block = memory.getBlock(tgt_addr)
         func = func_mgr.getFunctionContaining(tgt_addr)
         target_func = func.getName() if func else None

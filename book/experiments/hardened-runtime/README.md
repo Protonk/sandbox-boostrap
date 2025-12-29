@@ -12,9 +12,9 @@
 Use the clean launchd channel so policy application is not nested:
 
 ```sh
-python -m book.api.runtime_tools status
-python -m book.api.runtime_tools plan-lint --plan book/experiments/hardened-runtime/plan.json
-python -m book.api.runtime_tools run \
+python -m book.api.runtime status
+python -m book.api.runtime plan-lint --plan book/experiments/hardened-runtime/plan.json
+python -m book.api.runtime run \
   --plan book/experiments/hardened-runtime/plan.json \
   --channel launchd_clean \
   --out book/experiments/hardened-runtime/out

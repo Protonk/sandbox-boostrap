@@ -24,7 +24,7 @@ Upstream inputs:
 - **Tag and layout bedrock:** `book/graph/mappings/tag_layouts/tag_layouts.json` (status: ok, from `tag-layout-decode`).
 - **Anchor/field2 structure:** `book/experiments/probe-op-structure/Report.md` + `out/anchor_hits.json`, plus curated anchors in `book/graph/mappings/anchors/anchor_filter_map.json` (guarded by `book/tests/test_anchor_filter_alignment.py`). In particular, `/tmp/foo` anchor placement and tag/field2 usage.
 - **Field2 inventories:** `book/experiments/field2-filters/Report.md` with `out/field2_inventory.json` and `out/unknown_nodes.json` for high/unknown field2 values.
-- **Runtime harness:** `book/api/runtime_tools` plan execution (same shims as `runtime-checks` / `runtime-adversarial`).
+- **Runtime harness:** `book/api/runtime` plan execution (same shims as `runtime-checks` / `runtime-adversarial`).
 
 Downstream use:
 
@@ -45,7 +45,7 @@ Profiles live under `book/experiments/vfs-canonicalization/sb/` and follow a tri
 - **Intermediate symlink** (`vfs_link_private_tmp_only.sb`, `vfs_link_var_tmp_only.sb`, `vfs_link_both.sb`):
   - `file-read*` and `file-write*` over `/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe` ↔ `/private/var/tmp/vfs_link_probe`.
 
-Compiled blobs are emitted under `out/<run_id>/sb_build/` by runtime_tools plan execution (with `book.api.profile_tools.compile_sbpl_string` as the compiler).
+Compiled blobs are emitted under `out/<run_id>/sb_build/` by runtime plan execution (with `book.api.profile_tools.compile_sbpl_string` as the compiler).
 
 Scenarios:
 
@@ -76,14 +76,14 @@ Signals:
     - command output (stdout/stderr).
   - Stored in `out/runtime_results.json` (simple array form) with `profile_id`, `operation`, `requested_path`, `observed_path`, `observed_path_source`, `observed_path_nofirmlink`, `observed_path_nofirmlink_source`, `observed_path_nofirmlink_errno` (when available), `decision`, `errno`, `raw_log`.
 - **Logical expectations:**
-  - For each `(profile_id, requested_path)` we record an initial expectation in `out/expected_matrix.json`, generated from the runtime_tools plan template. The base `/tmp` family encodes the observed canonicalization pattern (including the `/var/tmp` control), while the additional variants default to a literal-only baseline so mismatches are the signal.
+  - For each `(profile_id, requested_path)` we record an initial expectation in `out/expected_matrix.json`, generated from the runtime plan template. The base `/tmp` family encodes the observed canonicalization pattern (including the `/var/tmp` control), while the additional variants default to a literal-only baseline so mismatches are the signal.
 
 IR path:
 
 - `Plan.md` (this file) encodes the question, design, and JSON shapes.
 - `run_vfs.py` (harness script) will:
-  - expects plan/registry data generated via the runtime_tools plan template (and keeps `out/expected_matrix.json` in sync via `plan-build`),
-  - execute the runtime_tools plan into a run-scoped bundle under `out/<run_id>/`,
+  - expects plan/registry data generated via the runtime plan template (and keeps `out/expected_matrix.json` in sync via `plan-build`),
+  - execute the runtime plan into a run-scoped bundle under `out/<run_id>/`,
   - emit `out/promotion_packet.json` pointing at the committed run-scoped bundle (preferred evidence interface for downstream mappings/consumers),
   - down-convert the harness runtime results into `out/runtime_results.json` (authoritative runtime behavior for this suite on this world),
   - emit `out/decode_tmp_profiles.json` via `book/api/profile_tools/decoder.py` (structural view, using blobs from `out/<run_id>/sb_build`),

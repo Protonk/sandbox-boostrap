@@ -11,6 +11,8 @@ import json
 import os
 import traceback
 
+from ghidra_bootstrap import scan_utils
+
 from ghidra.program.model.address import AddressSet
 from ghidra.program.model.data import StringDataInstance
 from ghidra.program.model.symbol import SymbolType
@@ -56,7 +58,7 @@ def _collect_symbols(address_set):
         entry = {
             "name": sym.getName(),
             "type": sym.getSymbolType().toString(),
-            "address": "0x%x" % addr.getOffset(),
+            "address": scan_utils.format_address(addr.getOffset()),
             "namespace": sym.getParentNamespace().getName(True),
             "block": block.getName() if block else None,
         }
@@ -86,7 +88,7 @@ def _collect_strings(address_set):
         block = memory.getBlock(addr)
         out.append(
             {
-                "address": "0x%x" % addr.getOffset(),
+                "address": scan_utils.format_address(addr.getOffset()),
                 "value": str(sval),
                 "block": block.getName() if block else None,
             }
@@ -119,8 +121,8 @@ def run():
         block_meta = [
             {
                 "name": blk.getName(),
-                "start": "0x%x" % blk.getStart().getOffset(),
-                "end": "0x%x" % blk.getEnd().getOffset(),
+                "start": scan_utils.format_address(blk.getStart().getOffset()),
+                "end": scan_utils.format_address(blk.getEnd().getOffset()),
             }
             for blk in blocks
         ]

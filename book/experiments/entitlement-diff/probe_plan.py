@@ -49,7 +49,7 @@ def staged_binary_specs(repo_root: Path | None = None) -> Sequence[StagedBinaryS
         ),
         StagedBinarySpec(
             id="file_probe",
-            src_path=root / "book" / "api" / "runtime_tools" / "native" / "file_probe" / "file_probe",
+            src_path=root / "book" / "api" / "runtime" / "native" / "file_probe" / "file_probe",
             dest_name="file_probe",
         ),
     )

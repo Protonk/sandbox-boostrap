@@ -13,6 +13,8 @@ import json
 import os
 import traceback
 
+from ghidra_bootstrap import scan_utils
+
 from ghidra.program.model.address import AddressSet
 
 _RUN_CALLED = False
@@ -80,8 +82,8 @@ def run():
         block_meta = [
             {
                 "name": blk.getName(),
-                "start": "0x%x" % blk.getStart().getOffset(),
-                "end": "0x%x" % blk.getEnd().getOffset(),
+                "start": scan_utils.format_address(blk.getStart().getOffset()),
+                "end": scan_utils.format_address(blk.getEnd().getOffset()),
             }
             for blk in blocks
         ]
@@ -103,7 +105,7 @@ def run():
                             func = func_mgr.getFunctionContaining(addr)
                             hits[m].append(
                                 {
-                                    "address": "0x%x" % addr.getOffset(),
+                                    "address": scan_utils.format_address(addr.getOffset()),
                                     "function": func.getName() if func else None,
                                     "mnemonic": instr.getMnemonicString(),
                                     "inst": str(instr),
@@ -114,7 +116,7 @@ def run():
         meta = {
             "build_id": build_id,
             "program": currentProgram.getName(),
-            "masks": ["0x%x" % m for m in masks],
+            "masks": [scan_utils.format_address(m) for m in masks],
             "scan_all_blocks": scan_all,
             "block_filter": block_meta,
         }

@@ -11,6 +11,8 @@ import json
 import os
 import traceback
 
+from ghidra_bootstrap import scan_utils
+
 _RUN_CALLED = False
 
 
@@ -36,9 +38,9 @@ def _collect_for_name(name):
         callers = []
         for ref in ref_mgr.getReferencesTo(func.getEntryPoint()):
             caller_func = func_mgr.getFunctionContaining(ref.getFromAddress())
-            callers.append(
+                callers.append(
                 {
-                    "from": "0x%x" % ref.getFromAddress().getOffset(),
+                    "from": scan_utils.format_address(ref.getFromAddress().getOffset()),
                     "type": ref.getReferenceType().getName(),
                     "caller": caller_func.getName() if caller_func else None,
                 }
@@ -52,7 +54,7 @@ def _collect_for_name(name):
         res.append(
             {
                 "name": func.getName(),
-                "address": "0x%x" % func.getEntryPoint().getOffset(),
+                "address": scan_utils.format_address(func.getEntryPoint().getOffset()),
                 "block": block.getName() if block else None,
                 "size": func.getBody().getNumAddresses(),
                 "callers": callers,

@@ -18,6 +18,8 @@ import json
 import os
 import traceback
 
+from ghidra_bootstrap import scan_utils
+
 _RUN = False
 
 
@@ -41,7 +43,7 @@ def _collect_refs(addr, func_mgr, memory, ref_mgr):
         block = memory.getBlock(from_addr)
         refs.append(
             {
-                "from": "0x%x" % from_addr.getOffset(),
+                "from": scan_utils.format_address(from_addr.getOffset()),
                 "type": ref.getReferenceType().getName(),
                 "is_primary": ref.isPrimary(),
                 "function": func.getName() if func else None,
@@ -92,7 +94,7 @@ def run():
                     "name": name,
                     "library": lib,
                     "type": sym.getSymbolType().toString(),
-                    "address": "0x%x" % addr.getOffset(),
+                    "address": scan_utils.format_address(addr.getOffset()),
                     "block": block.getName() if block else None,
                     "references": refs,
                 }

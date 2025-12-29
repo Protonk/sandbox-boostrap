@@ -12,6 +12,8 @@ import json
 import os
 import traceback
 
+from ghidra_bootstrap import scan_utils
+
 from ghidra.program.model.address import AddressSet
 from ghidra.program.model.address import Address
 from ghidra.program.model.lang import OperandType, Register
@@ -19,26 +21,15 @@ from ghidra.program.model.scalar import Scalar
 from ghidra.program.model.listing import Instruction
 
 _RUN_CALLED = False
-MASK64 = 0xFFFFFFFFFFFFFFFFL
-SIGN_BIT = 0x8000000000000000L
 MAX_BASES_PER_REG = 32
 
 
 def _u64(val):
-    try:
-        return long(val) & MASK64
-    except Exception:
-        return None
+    return scan_utils.to_unsigned(val)
 
 
 def _s64(val):
-    try:
-        v = long(val) & MASK64
-    except Exception:
-        return None
-    if v & SIGN_BIT:
-        return v - (1 << 64)
-    return v
+    return scan_utils.to_signed(val)
 
 
 def _ensure_out_dir(path):
@@ -261,14 +252,14 @@ def _scan_ldr_literal(listing, addr_set, got_blocks, memory, func_mgr, matches, 
             loaded = None
         entry = {
             "kind": "ldr_literal",
-            "ldr": "0x%x" % instr.getAddress().getOffset(),
+            "ldr": scan_utils.format_address(instr.getAddress().getOffset()),
             "function": func.getName() if func else None,
             "ldr_inst": str(instr),
-            "effective_addr": "0x%x" % lit_addr,
+            "effective_addr": scan_utils.format_address(lit_addr),
             "got_block": blk.getName(),
         }
         if loaded is not None:
-            entry["loaded_value"] = "0x%x" % loaded
+            entry["loaded_value"] = scan_utils.format_address(loaded)
         matches.append(entry)
     return ldr_seen
 
@@ -348,16 +339,16 @@ def _scan_adrp_sequences(listing, addr_set, target_mode, target_addr, got_blocks
                 kind = "adrp_add_ldr" if has_add else "adrp_ldr"
                 entry = {
                     "kind": kind,
-                    "adrp": "0x%x" % instr.getAddress().getOffset(),
-                    "ldr": "0x%x" % nxt.getAddress().getOffset(),
+                    "adrp": scan_utils.format_address(instr.getAddress().getOffset()),
+                    "ldr": scan_utils.format_address(nxt.getAddress().getOffset()),
                     "function": func.getName() if func else None,
                     "ldr_inst": str(nxt),
-                    "effective_addr": "0x%x" % candidate,
+                    "effective_addr": scan_utils.format_address(candidate),
                 }
                 if blk:
                     entry["got_block"] = blk.getName()
                 if loaded is not None:
-                    entry["loaded_value"] = "0x%x" % loaded
+                    entry["loaded_value"] = scan_utils.format_address(loaded)
                 matches.append(entry)
                 matched = True
                 break
@@ -389,7 +380,7 @@ def run():
             target_mode = "auth_got"
             got_blocks, got_mode = _find_got_blocks()
         else:
-            target_addr = _u64(int(args[2], 16))
+            target_addr = _u64(scan_utils.parse_hex(args[2]))
             target_page = _u64(target_addr & ~0xFFF) if target_addr is not None else None
         lookahead = 8
         scan_all = False
@@ -433,8 +424,8 @@ def run():
             "build_id": build_id,
             "program": currentProgram.getName(),
             "target_mode": target_mode,
-            "target_addr": "0x%x" % target_addr if target_addr is not None else None,
-            "target_page": "0x%x" % target_page if target_page is not None else None,
+            "target_addr": scan_utils.format_address(target_addr) if target_addr is not None else None,
+            "target_page": scan_utils.format_address(target_page) if target_page is not None else None,
             "lookahead": lookahead,
             "scan_all_blocks": scan_all,
             "adrp_seen": total_adrp,
@@ -446,13 +437,13 @@ def run():
             "got_blocks": [
                 {
                     "name": b.getName(),
-                    "start": "0x%x" % b.getStart().getOffset(),
-                    "end": "0x%x" % b.getEnd().getOffset(),
+                    "start": scan_utils.format_address(b.getStart().getOffset()),
+                    "end": scan_utils.format_address(b.getEnd().getOffset()),
                 }
                 for b in got_blocks
             ],
             "block_filter": [
-                {"name": b.getName(), "start": "0x%x" % b.getStart().getOffset(), "end": "0x%x" % b.getEnd().getOffset()}
+                {"name": b.getName(), "start": scan_utils.format_address(b.getStart().getOffset()), "end": scan_utils.format_address(b.getEnd().getOffset())}
                 for b in blocks
             ],
         }

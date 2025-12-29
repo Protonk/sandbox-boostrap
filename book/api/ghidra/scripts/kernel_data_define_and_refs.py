@@ -13,6 +13,7 @@ Behavior/pitfalls:
 import json, os, traceback
 from ghidra.program.model.data import DataUtilities, DataTypeConflictHandler
 from ghidra.program.model.data import QWordDataType
+from ghidra_bootstrap import scan_utils
 
 _RUN = False
 
@@ -36,7 +37,7 @@ def run():
         for a in args[2:]:
             s=str(a)
             if s.startswith('addr:'):
-                targets.append(int(s.split('addr:',1)[1],16))
+                targets.append(scan_utils.parse_hex(s.split('addr:',1)[1]))
         _ensure(out_dir)
         listing=currentProgram.getListing()
         dtm=currentProgram.getDataTypeManager()
@@ -46,7 +47,7 @@ def run():
         factory=currentProgram.getAddressFactory()
         results=[]
         for t in targets:
-            addr=factory.getDefaultAddressSpace().getAddress("0x%x"%t)
+            addr=factory.getDefaultAddressSpace().getAddress(scan_utils.format_address(t))
             # define qword
             try:
                 DataUtilities.createData(currentProgram, addr, qdt, -1, False, DataTypeConflictHandler.DEFAULT_HANDLER)
@@ -58,8 +59,8 @@ def run():
             for r in refs:
                 fa=r.getFromAddress()
                 func=func_mgr.getFunctionContaining(fa)
-                callers.append({"from":"0x%x"%fa.getOffset(),"type":r.getReferenceType().getName(),"function":func.getName() if func else None})
-            results.append({"address":"0x%x"%addr.getOffset(),"data_type":data_entry.getDataType().getName() if data_entry else None,"data_value":str(data_entry.getValue()) if data_entry else None,"callers":callers})
+                callers.append({"from":scan_utils.format_address(fa.getOffset()),"type":r.getReferenceType().getName(),"function":func.getName() if func else None})
+            results.append({"address":scan_utils.format_address(addr.getOffset()),"data_type":data_entry.getDataType().getName() if data_entry else None,"data_value":str(data_entry.getValue()) if data_entry else None,"callers":callers})
         with open(os.path.join(out_dir,'data_refs.json'),'w') as f:
             json.dump({"meta":{"build_id":build_id,"target_count":len(targets)},"results":results},f,indent=2,sort_keys=True)
         print("kernel_data_define_and_refs: processed %d targets"%len(targets))

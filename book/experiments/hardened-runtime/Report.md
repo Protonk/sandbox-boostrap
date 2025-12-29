@@ -42,7 +42,7 @@ Provide a clean, provenance-stamped decision-stage runtime lane for non-VFS sand
 ## Evidence & artifacts
 - SBPL sources: `book/experiments/hardened-runtime/sb/*.sb`.
 - Runner: `book/experiments/hardened-runtime/run_hardened_runtime.py`.
-- Clean channel: `python -m book.api.runtime_tools run --plan book/experiments/hardened-runtime/plan.json --channel launchd_clean`.
+- Clean channel: `python -m book.api.runtime run --plan book/experiments/hardened-runtime/plan.json --channel launchd_clean`.
 - Outputs: `book/experiments/hardened-runtime/out/` (see Deliverables).
 
 ## Claims and limits

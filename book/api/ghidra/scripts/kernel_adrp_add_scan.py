@@ -13,6 +13,8 @@ import json
 import os
 import traceback
 
+from ghidra_bootstrap import scan_utils
+
 from ghidra.program.model.address import AddressSet
 from ghidra.program.model.lang import OperandType
 from ghidra.program.model.scalar import Scalar
@@ -125,7 +127,7 @@ def run():
             return
         out_dir = args[0]
         build_id = args[1]
-        target_addr = int(args[2], 16)
+        target_addr = scan_utils.parse_hex(args[2])
         lookahead = 8
         scan_all = False
         for extra in args[3:]:
@@ -171,8 +173,8 @@ def run():
                     func = func_mgr.getFunctionContaining(instr.getAddress())
                     matches.append(
                         {
-                            "adrp": "0x%x" % instr.getAddress().getOffset(),
-                            "add_sub": "0x%x" % nxt.getAddress().getOffset(),
+                            "adrp": scan_utils.format_address(instr.getAddress().getOffset()),
+                            "add_sub": scan_utils.format_address(nxt.getAddress().getOffset()),
                             "function": func.getName() if func else None,
                             "add_sub_inst": str(nxt),
                         }
@@ -181,12 +183,12 @@ def run():
         meta = {
             "build_id": build_id,
             "program": currentProgram.getName(),
-            "target_addr": "0x%x" % target_addr,
-            "target_page": "0x%x" % target_page,
+            "target_addr": scan_utils.format_address(target_addr),
+            "target_page": scan_utils.format_address(target_page),
             "lookahead": lookahead,
             "scan_all_blocks": scan_all,
             "adrp_seen": total_adrp,
-            "block_filter": [{"name": b.getName(), "start": "0x%x" % b.getStart().getOffset(), "end": "0x%x" % b.getEnd().getOffset()} for b in blocks],
+            "block_filter": [{"name": b.getName(), "start": scan_utils.format_address(b.getStart().getOffset()), "end": scan_utils.format_address(b.getEnd().getOffset())} for b in blocks],
         }
         with open(os.path.join(out_dir, "adrp_add_scan.json"), "w") as f:
             json.dump({"meta": meta, "matches": matches}, f, indent=2, sort_keys=True)

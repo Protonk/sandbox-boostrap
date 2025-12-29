@@ -11,6 +11,8 @@ import json
 import os
 import traceback
 
+from ghidra_bootstrap import scan_utils
+
 from ghidra.program.model.address import AddressSet
 from ghidra.program.model.lang import Register
 
@@ -47,7 +49,7 @@ def _parse_args(tokens):
         return None
     out_dir = tokens[0]
     build_id = tokens[1]
-    imm = int(tokens[2], 16)
+    imm = scan_utils.parse_hex(tokens[2])
     window = 6
     reg_filter = None
     scan_all = False
@@ -102,7 +104,7 @@ def _context(insts, idx, window):
         inst = insts[j]
         out.append(
             {
-                "addr": "0x%x" % inst.getAddress().getOffset(),
+                "addr": scan_utils.format_address(inst.getAddress().getOffset()),
                 "mnemonic": inst.getMnemonicString(),
                 "inst": str(inst),
             }
@@ -149,7 +151,7 @@ def run():
             func = func_mgr.getFunctionContaining(addr)
             hits.append(
                 {
-                    "address": "0x%x" % addr.getOffset(),
+                    "address": scan_utils.format_address(addr.getOffset()),
                     "function": func.getName() if func else None,
                     "mnemonic": instr.getMnemonicString(),
                     "inst": str(instr),
@@ -161,15 +163,15 @@ def run():
         block_meta = [
             {
                 "name": blk.getName(),
-                "start": "0x%x" % blk.getStart().getOffset(),
-                "end": "0x%x" % blk.getEnd().getOffset(),
+                "start": scan_utils.format_address(blk.getStart().getOffset()),
+                "end": scan_utils.format_address(blk.getEnd().getOffset()),
             }
             for blk in blocks
         ]
         meta = {
             "build_id": build_id,
             "program": currentProgram.getName(),
-            "imm": "0x%x" % imm,
+            "imm": scan_utils.format_address(imm),
             "window": window,
             "reg_filter": reg_filter,
             "mnemonics": sorted(list(_MNEMONICS)),
@@ -179,7 +181,7 @@ def run():
         }
         with open(os.path.join(out_dir, "syscall_code_scan.json"), "w") as f:
             json.dump({"meta": meta, "hits": hits}, f, indent=2, sort_keys=True)
-        print("sandbox_syscall_code_scan: %d hits for 0x%x" % (len(hits), imm))
+        print("sandbox_syscall_code_scan: %d hits for %s" % (len(hits), scan_utils.format_address(imm)))
     except Exception:
         if out_dir:
             try:

@@ -15,6 +15,8 @@ import json
 import os
 import traceback
 
+from ghidra_bootstrap import scan_utils
+
 from ghidra.program.model.address import AddressSet
 from ghidra.program.model.scalar import Scalar
 from ghidra.program.model.lang import Register
@@ -104,9 +106,9 @@ def _detect_adrp_pairs(instr_iter_start, dest_reg, base_page, page_start, page_e
             if page_start <= target <= page_end:
                 hits.append(
                     {
-                        "adrp": "0x%x" % instr_iter_start.getAddress().getOffset(),
-                        "add": "0x%x" % nxt.getAddress().getOffset(),
-                        "target": "0x%x" % target,
+                        "adrp": scan_utils.format_address(instr_iter_start.getAddress().getOffset()),
+                        "add": scan_utils.format_address(nxt.getAddress().getOffset()),
+                        "target": scan_utils.format_address(target),
                         "add_inst": str(nxt),
                     }
                 )
@@ -130,7 +132,7 @@ def run():
             return
         out_dir = args[0]
         build_id = args[1]
-        target_addr = int(args[2], 16)
+        target_addr = scan_utils.parse_hex(args[2])
         page_size = 0x1000
         scan_all = False
         if len(args) > 3:
@@ -165,8 +167,8 @@ def run():
                 if page_start <= to_val <= page_end:
                     ref_hits.append(
                         {
-                            "from": "0x%x" % addr.getOffset(),
-                            "to": "0x%x" % to_val,
+                            "from": scan_utils.format_address(addr.getOffset()),
+                            "to": scan_utils.format_address(to_val),
                             "mnemonic": instr.getMnemonicString(),
                             "inst": str(instr),
                             "function": func.getName() if func else None,
@@ -191,12 +193,12 @@ def run():
         meta = {
             "build_id": build_id,
             "program": currentProgram.getName(),
-            "target_addr": "0x%x" % target_addr,
-            "page_start": "0x%x" % page_start,
-            "page_end": "0x%x" % page_end,
-            "page_size": "0x%x" % page_size,
+            "target_addr": scan_utils.format_address(target_addr),
+            "page_start": scan_utils.format_address(page_start),
+            "page_end": scan_utils.format_address(page_end),
+            "page_size": scan_utils.format_address(page_size),
             "scan_all_blocks": scan_all,
-            "block_filter": [{"name": b.getName(), "start": "0x%x" % b.getStart().getOffset(), "end": "0x%x" % b.getEnd().getOffset()} for b in blocks],
+            "block_filter": [{"name": b.getName(), "start": scan_utils.format_address(b.getStart().getOffset()), "end": scan_utils.format_address(b.getEnd().getOffset())} for b in blocks],
         }
         with open(os.path.join(out_dir, "page_refs.json"), "w") as f:
             json.dump({"meta": meta, "ref_hits": ref_hits, "adrp_add_hits": adrp_hits}, f, indent=2, sort_keys=True)

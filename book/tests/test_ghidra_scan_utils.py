@@ -16,6 +16,24 @@ class ScanUtilsTests(unittest.TestCase):
         self.assertEqual(scan_utils.format_address("0x-1"), "0xffffffffffffffff")
         self.assertEqual(scan_utils.format_address(0x2a), "0x2a")
 
+    def test_parse_hex(self):
+        self.assertEqual(scan_utils.parse_hex("deadbeef"), 0xdeadbeef)
+        self.assertEqual(scan_utils.parse_hex("0x10"), 0x10)
+        self.assertEqual(scan_utils.parse_hex("-0x1"), (1 << 64) - 1)
+
+    def test_parse_signed_hex(self):
+        self.assertEqual(scan_utils.parse_signed_hex("0x-1"), -1)
+        self.assertEqual(scan_utils.parse_signed_hex("0xffffffffffffffff"), -1)
+        self.assertEqual(scan_utils.parse_signed_hex("0x2a"), 0x2a)
+
+    def test_format_signed_hex(self):
+        self.assertEqual(scan_utils.format_signed_hex(-1), "0x-1")
+        self.assertEqual(scan_utils.format_signed_hex(0x2a), "0x2a")
+
+    def test_signed_unsigned_helpers(self):
+        self.assertEqual(scan_utils.to_unsigned(-1), (1 << 64) - 1)
+        self.assertEqual(scan_utils.to_signed((1 << 64) - 1), -1)
+
     def test_exact_offset_match(self):
         self.assertTrue(scan_utils.exact_offset_match("str w8,[x20, #0xc0]", "0xc0"))
         self.assertFalse(scan_utils.exact_offset_match("str w8,[x20, #0xc00]", "0xc0"))

@@ -5,8 +5,8 @@ from pathlib import Path
 
 import pytest
 
-from book.api.runtime_tools import api as runtime_api
-from book.api.runtime_tools.artifacts import writer as artifact_writer
+from book.api.runtime import api as runtime_api
+from book.api.runtime.artifacts import writer as artifact_writer
 
 
 ROOT = Path(__file__).resolve().parents[2]

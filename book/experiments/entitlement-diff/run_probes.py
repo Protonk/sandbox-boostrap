@@ -15,7 +15,7 @@ from pathlib import Path
 from typing import Dict, List
 
 from book.api.path_utils import find_repo_root, to_repo_relative
-from book.api.runtime_tools.core import contract as rt_contract
+from book.api.runtime.core import contract as rt_contract
 
 
 def _load_probe_plan():

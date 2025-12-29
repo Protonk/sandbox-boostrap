@@ -11,7 +11,7 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 from book.api import path_utils
-from book.api.runtime_tools.core import models
+from book.api.runtime.core import models
 
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))
 

@@ -3,7 +3,7 @@
 Use this file for concise notes on commands, runs, and observations for the `/tmp` ↔ `/private/tmp` experiment.
 
 - VFS runs now include an `apply_preflight_profile` in `plan.json` and emit a decision-stage promotion packet at `out/promotion_packet.json` when executed via the `launchd_clean` channel.
-- `runtime_tools` now emits `path_witnesses.json` into the run-scoped bundle; `run_vfs.py` prefers it when building `out/runtime_results.json` (and falls back to stderr marker parsing if absent).
+- `runtime` now emits `path_witnesses.json` into the run-scoped bundle; `run_vfs.py` prefers it when building `out/runtime_results.json` (and falls back to stderr marker parsing if absent).
 - Expanded path set to `/tmp/bar`, `/tmp/nested/child`, and control `/var/tmp/canon` (with canonical counterparts). `/tmp` aliases behave like `/tmp/foo` (only canonical `/private/tmp/...` literals are effective). `/var/tmp/canon` remains denied even with canonical literals present; treat as non-canonicalized/controlled alias.
 - Added `file-write*` probes; writes follow the read pattern (canonical `/private/tmp/...` effective; `/var/tmp` alias denied).
 - Metadata canonicalization is now handled by `book/experiments/metadata-runner/`; metadata probes removed from this suite’s matrix.
@@ -15,4 +15,4 @@ Use this file for concise notes on commands, runs, and observations for the `/tm
 - Added `F_GETPATH_NOFIRMLINK` emission to `sandbox_reader`/`sandbox_writer` and re-ran `run_vfs.py`. For successful `/tmp/*` and `/System/Volumes/Data/private/*` opens, `observed_path_nofirmlink` reports the Data-volume spelling while `observed_path` reports `/private/*`.
 - Added a `/var/tmp` data-spelling profile (`vfs_var_tmp_data_only`) and a third request path (`/System/Volumes/Data/private/var/tmp/...`). Canonical-only profiles allow the data spelling; the data-only profile denies all spellings; `/var/tmp` alias remains denied.
 - Captured host alias inventory in `out/host_alias_inventory.json` (firmlinks list, `synthetic.conf`, and `synthetic.d` presence/contents).
-- VFS expected-matrix generation now comes from the runtime_tools plan template; `run_vfs.py` uses plan-based execution and consumes run-scoped bundle outputs.
+- VFS expected-matrix generation now comes from the runtime plan template; `run_vfs.py` uses plan-based execution and consumes run-scoped bundle outputs.

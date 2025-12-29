@@ -200,7 +200,7 @@ def build_runtime_results(
     promotion_paths = _load_promotion_paths(promotion_packet_path)
     if not promotion_paths and not allow_legacy:
         raise RuntimeError(
-            "promotion_packet.json missing; run runtime_tools emit-promotion or pass --allow-legacy to use legacy paths"
+            "promotion_packet.json missing; run runtime emit-promotion or pass --allow-legacy to use legacy paths"
         )
     if promotion_paths and not allow_legacy and "runtime_events" not in promotion_paths:
         raise RuntimeError("promotion_packet.json missing runtime_events; refuse legacy fallback without --allow-legacy")

@@ -15,37 +15,24 @@ import json
 import os
 import traceback
 
+from ghidra_bootstrap import scan_utils
+
 from ghidra.program.model.address import AddressSet
 from ghidra.program.model.listing import Instruction
 
 _RUN_CALLED = False
-MASK64 = 0xFFFFFFFFFFFFFFFFL
-SIGN_BIT = 0x8000000000000000L
 
 
 def _u64(val):
-    try:
-        return long(val) & MASK64
-    except Exception:
-        return None
+    return scan_utils.to_unsigned(val)
 
 
 def _s64(val):
-    try:
-        v = long(val) & MASK64
-    except Exception:
-        return None
-    if v & SIGN_BIT:
-        return v - (1 << 64)
-    return v
+    return scan_utils.to_signed(val)
 
 
 def _format_addr(value):
-    if value is None:
-        return None
-    if value < 0:
-        return "0x-%x" % abs(value)
-    return "0x%x" % value
+    return scan_utils.format_signed_hex(value)
 
 
 def _ensure_out_dir(path):
@@ -54,22 +41,7 @@ def _ensure_out_dir(path):
 
 
 def _parse_hex(text):
-    text = str(text).strip().lower()
-    if not text:
-        return None
-    if text.startswith("0x-"):
-        return -int(text[3:], 16)
-    if text.startswith("-0x"):
-        return -int(text[3:], 16)
-    if text.startswith("0x"):
-        value = int(text, 16)
-        if value & (1 << 63):
-            return value - (1 << 64)
-        return value
-    value = int(text, 0)
-    if value & (1 << 63):
-        return value - (1 << 64)
-    return value
+    return scan_utils.parse_signed_hex(text)
 
 
 def _load_json(path):

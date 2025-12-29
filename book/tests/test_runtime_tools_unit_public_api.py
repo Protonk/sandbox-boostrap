@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from book.api import runtime_tools as rt
+from book.api import runtime as rt
 
 
 EXPECTED_PUBLIC_EXPORTS = [
@@ -50,10 +50,10 @@ EXPECTED_PUBLIC_EXPORTS = [
 ]
 
 
-def test_runtime_tools_public_api_exports_stable():
+def test_runtime_public_api_exports_stable():
     assert rt.__all__ == EXPECTED_PUBLIC_EXPORTS
 
 
-def test_runtime_tools_public_api_exports_resolve():
+def test_runtime_public_api_exports_resolve():
     missing = [name for name in rt.__all__ if not hasattr(rt, name)]
     assert not missing, f"missing public exports: {missing}"

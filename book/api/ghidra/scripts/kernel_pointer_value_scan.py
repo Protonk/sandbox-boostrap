@@ -11,6 +11,8 @@ import json
 import os
 import traceback
 
+from ghidra_bootstrap import scan_utils
+
 from ghidra.program.model.mem import MemoryAccessException
 
 _RUN_CALLED = False
@@ -29,15 +31,7 @@ def _parse_int(token, default=None):
 
 
 def _parse_hex_addr(token):
-    text = token.strip().lower()
-    if text.startswith("0x-"):
-        text = "-0x" + text[3:]
-    val = _parse_int(text)
-    if val is None:
-        return None
-    if val < 0:
-        val = (1 << 64) + val
-    return val
+    return scan_utils.parse_hex(token)
 
 
 def _iter_blocks(scan_all):
@@ -94,13 +88,13 @@ def run():
                 scanned += 1
                 val_u = raw if raw >= 0 else (1 << 64) + raw
                 if val_u == target:
-                    tgt_addr = addr_space.getAddress("0x%x" % val_u)
+                    tgt_addr = addr_space.getAddress(scan_utils.format_address(val_u))
                     tgt_func = func_mgr.getFunctionAt(tgt_addr)
                     hits.append(
                         {
-                            "entry_addr": "0x%x" % addr.getOffset(),
+                            "entry_addr": scan_utils.format_address(addr.getOffset()),
                             "block": blk.getName(),
-                            "value": "0x%x" % val_u,
+                            "value": scan_utils.format_address(val_u),
                             "target_function": tgt_func.getName() if tgt_func else None,
                         }
                     )
@@ -113,7 +107,7 @@ def run():
         meta = {
             "build_id": build_id,
             "program": currentProgram.getName(),
-            "target": "0x%x" % target,
+            "target": scan_utils.format_address(target),
             "stride": stride,
             "scan_all_blocks": scan_all,
             "max_hits": max_hits,

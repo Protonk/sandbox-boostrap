@@ -2,10 +2,10 @@ from __future__ import annotations
 
 import pytest
 
-from book.api.runtime_tools.core import contract as rt_contract
-from book.api.runtime_tools.core import models
-from book.api.runtime_tools.core import normalize
-from book.api.runtime_tools.mapping.views import build_callout_vs_syscall
+from book.api.runtime.core import contract as rt_contract
+from book.api.runtime.core import models
+from book.api.runtime.core import normalize
+from book.api.runtime.mapping.views import build_callout_vs_syscall
 
 
 def _matrix_and_results_with_probe(stderr: str, runtime_result=None):

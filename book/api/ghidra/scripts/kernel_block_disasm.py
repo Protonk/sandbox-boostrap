@@ -16,6 +16,8 @@ import json
 import os
 import traceback
 
+from ghidra_bootstrap import scan_utils
+
 _RUN_CALLED = False
 
 
@@ -34,8 +36,8 @@ def _parse_int(value, default):
 def _block_meta(block):
     return {
         "name": block.getName(),
-        "start": "0x%x" % block.getStart().getOffset(),
-        "end": "0x%x" % block.getEnd().getOffset(),
+        "start": scan_utils.format_address(block.getStart().getOffset()),
+        "end": scan_utils.format_address(block.getEnd().getOffset()),
         "size": block.getSize(),
         "read": bool(block.isRead()),
         "write": bool(block.isWrite()),

@@ -13,13 +13,13 @@ import json
 import os
 import traceback
 
+from ghidra_bootstrap import scan_utils
+
 from ghidra.program.model.data import DataUtilities, DataTypeConflictHandler
 from ghidra.program.model.data import QWordDataType
 from ghidra.program.model.mem import MemoryAccessException
 
 _RUN = False
-MASK64 = 0xFFFFFFFFFFFFFFFFL
-SIGN_BIT = 0x8000000000000000L
 
 
 def _ensure(path):
@@ -28,21 +28,11 @@ def _ensure(path):
 
 
 def _s64(val):
-    try:
-        v = long(val) & MASK64
-    except Exception:
-        return None
-    if v & SIGN_BIT:
-        return v - (1 << 64)
-    return v
+    return scan_utils.to_signed(val)
 
 
 def _format_addr(value):
-    if value is None:
-        return None
-    if value < 0:
-        return "0x-%x" % abs(value)
-    return "0x%x" % value
+    return scan_utils.format_signed_hex(value)
 
 
 def _sandbox_blocks():

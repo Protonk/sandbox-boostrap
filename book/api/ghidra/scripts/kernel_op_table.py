@@ -18,6 +18,8 @@ import json
 import os
 import traceback
 
+from ghidra_bootstrap import scan_utils
+
 from ghidra.program.model.address import AddressSet
 from ghidra.program.model.mem import MemoryAccessException
 
@@ -88,8 +90,8 @@ def _scan_block_for_tables(block, ptr_size, func_mgr, addr_factory):
                 func = func_mgr.getFunctionAt(ptr_target) if ptr_target else None
                 run.append(
                     {
-                        "offset": "0x%x" % run_addr.getOffset(),
-                        "target": "0x%x" % ptr_target.getOffset() if ptr_target else None,
+                        "offset": scan_utils.format_address(run_addr.getOffset()),
+                        "target": scan_utils.format_address(ptr_target.getOffset()) if ptr_target else None,
                         "function": func.getName() if func else None,
                     }
                 )
@@ -103,7 +105,7 @@ def _scan_block_for_tables(block, ptr_size, func_mgr, addr_factory):
                 tables.append(
                     {
                         "block": block.getName(),
-                        "start": "0x%x" % addr.getOffset(),
+                        "start": scan_utils.format_address(addr.getOffset()),
                         "length": len(run),
                         "truncated": truncated,
                         "entries": run,
@@ -140,8 +142,8 @@ def run():
         block_meta = [
             {
                 "name": blk.getName(),
-                "start": "0x%x" % blk.getStart().getOffset(),
-                "end": "0x%x" % blk.getEnd().getOffset(),
+                "start": scan_utils.format_address(blk.getStart().getOffset()),
+                "end": scan_utils.format_address(blk.getEnd().getOffset()),
             }
             for blk in blocks
         ]

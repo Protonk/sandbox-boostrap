@@ -8,25 +8,11 @@ Outputs: <out_dir>/id_builder_trace.json
 
 import json
 import os
-import sys
 import traceback
 
 from ghidra.program.model.lang import OperandType, Register
 
-try:
-    SCRIPT_DIR = os.path.dirname(getSourceFile().getAbsolutePath())
-except Exception:
-    SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__)) if "__file__" in globals() else os.getcwd()
-
-candidate_paths = [
-    os.path.abspath(os.path.join(SCRIPT_DIR, "..")),
-    os.path.abspath(os.path.join(os.getcwd(), "book", "api", "ghidra")),
-]
-for _p in candidate_paths:
-    if _p not in sys.path:
-        sys.path.insert(0, _p)
-
-from ghidra_lib import scan_utils
+from ghidra_bootstrap import scan_utils
 
 
 _RUN_CALLED = False
@@ -68,7 +54,7 @@ def _resolve_adrp_page(instr):
     if not repr_text:
         return None
     try:
-        return scan_utils.parse_address(repr_text)
+        return scan_utils.parse_hex(repr_text)
     except Exception:
         return None
 
@@ -86,10 +72,10 @@ def run():
             return
         out_dir = args[0]
         build_id = args[1]
-        lookup_addr = scan_utils.parse_address(args[2])
+        lookup_addr = scan_utils.parse_hex(args[2])
         if lookup_addr is None:
             raise ValueError("Invalid lookup address: %s" % args[2])
-        list_head_addr = scan_utils.parse_address(args[3]) if len(args) > 3 else None
+        list_head_addr = scan_utils.parse_hex(args[3]) if len(args) > 3 else None
         store_offset = int(args[4], 0) if len(args) > 4 else 0xc0
         list_head_offset = 0xfa0
 
@@ -100,10 +86,10 @@ def run():
         func_mgr = currentProgram.getFunctionManager()
         ref_mgr = currentProgram.getReferenceManager()
 
-        lookup = addr_space.getAddress("0x%x" % lookup_addr)
+        lookup = addr_space.getAddress(scan_utils.format_address(lookup_addr))
         func = func_mgr.getFunctionContaining(lookup)
         if func is None:
-            raise ValueError("No function for lookup addr: 0x%x" % lookup_addr)
+            raise ValueError("No function for lookup addr: %s" % scan_utils.format_address(lookup_addr))
 
         list_head_candidates = []
         for instr in listing.getInstructions(func.getBody(), True):
@@ -134,7 +120,7 @@ def run():
                 list_head = (page_addr + list_head_offset) & ((1 << 64) - 1)
                 list_head_candidates.append(
                     {
-                        "ldr_addr": "0x%x" % instr.getAddress().getOffset(),
+                        "ldr_addr": scan_utils.format_address(instr.getAddress().getOffset()),
                         "ldr_inst": inst_text,
                         "base_reg": base_name,
                         "adrp_page": scan_utils.format_address(page_addr),
@@ -159,10 +145,10 @@ def run():
             addr_text = cand.get("list_head")
             if not addr_text:
                 continue
-            addr_val = scan_utils.parse_address(addr_text)
+            addr_val = scan_utils.parse_hex(addr_text)
             if addr_val is None:
                 continue
-            addr = addr_space.getAddress("0x%x" % addr_val)
+            addr = addr_space.getAddress(scan_utils.format_address(addr_val))
             refs = []
             func_entry_map = {}
             for ref in ref_mgr.getReferencesTo(addr):
@@ -170,11 +156,11 @@ def run():
                 func_ref = func_mgr.getFunctionContaining(from_addr)
                 func_entry = None
                 if func_ref:
-                    func_entry = "0x%x" % func_ref.getEntryPoint().getOffset()
+                    func_entry = scan_utils.format_address(func_ref.getEntryPoint().getOffset())
                     func_entry_map.setdefault(func_ref.getName(), func_entry)
                 refs.append(
                     {
-                        "from": "0x%x" % from_addr.getOffset(),
+                        "from": scan_utils.format_address(from_addr.getOffset()),
                         "function": func_ref.getName() if func_ref else None,
                         "function_entry": func_entry,
                         "type": ref.getReferenceType().getName(),
@@ -194,10 +180,10 @@ def run():
                 entry_text = func_entry_map.get(fn)
                 if not entry_text:
                     continue
-                entry_val = scan_utils.parse_address(entry_text)
+                entry_val = scan_utils.parse_hex(entry_text)
                 if entry_val is None:
                     continue
-                entry_addr = addr_space.getAddress("0x%x" % entry_val)
+                entry_addr = addr_space.getAddress(scan_utils.format_address(entry_val))
                 func_obj = func_mgr.getFunctionAt(entry_addr)
                 if func_obj is None:
                     continue
@@ -213,7 +199,7 @@ def run():
                     store_hits.append(
                         {
                             "function": fn,
-                            "addr": "0x%x" % instr.getAddress().getOffset(),
+                            "addr": scan_utils.format_address(instr.getAddress().getOffset()),
                             "inst": inst_text,
                         }
                     )
@@ -230,8 +216,8 @@ def run():
             "build_id": build_id,
             "lookup_addr": scan_utils.format_address(lookup_addr),
             "lookup_function": func.getName() if func else None,
-            "list_head_offset": "0x%x" % list_head_offset,
-            "store_offset": "0x%x" % store_offset,
+            "list_head_offset": scan_utils.format_address(list_head_offset),
+            "store_offset": scan_utils.format_address(store_offset),
             "list_head_candidates": list_head_candidates,
             "writer_candidates": writer_candidates,
         }

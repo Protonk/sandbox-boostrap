@@ -10,6 +10,8 @@ import json
 import os
 import traceback
 
+from ghidra_bootstrap import scan_utils
+
 from ghidra.program.model.mem import MemoryAccessException
 
 _RUN_CALLED = False
@@ -28,15 +30,7 @@ def _parse_int(token, default=None):
 
 
 def _parse_hex_addr(token):
-    text = token.strip().lower()
-    if text.startswith("0x-"):
-        text = "-0x" + text[3:]
-    val = _parse_int(text)
-    if val is None:
-        return None
-    if val < 0:
-        val = (1 << 64) + val
-    return val
+    return scan_utils.parse_hex(token)
 
 
 def run():
@@ -72,7 +66,7 @@ def run():
         entries = []
         for idx in range(count):
             entry_addr_val = table_addr + (idx * 4)
-            entry_addr = addr_space.getAddress("0x%x" % entry_addr_val)
+            entry_addr = addr_space.getAddress(scan_utils.format_address(entry_addr_val))
             try:
                 raw = mem.getInt(entry_addr)
             except MemoryAccessException:
@@ -84,22 +78,22 @@ def run():
             if raw_u32 & 0x80000000:
                 offset = raw_u32 - 0x100000000
             target_val = (base_addr + offset) & ((1 << 64) - 1)
-            target_addr = addr_space.getAddress("0x%x" % target_val)
+            target_addr = addr_space.getAddress(scan_utils.format_address(target_val))
             func = func_mgr.getFunctionAt(target_addr)
             entry = {
                 "index": idx,
-                "entry_addr": "0x%x" % entry_addr_val,
+                "entry_addr": scan_utils.format_address(entry_addr_val),
                 "offset": offset,
                 "offset_u32": raw_u32,
-                "target": "0x%x" % target_val,
+                "target": scan_utils.format_address(target_val),
                 "target_function": func.getName() if func else None,
             }
             if alt_base is not None:
                 alt_target = (alt_base + offset) & ((1 << 64) - 1)
-                alt_addr = addr_space.getAddress("0x%x" % alt_target)
+                alt_addr = addr_space.getAddress(scan_utils.format_address(alt_target))
                 alt_func = func_mgr.getFunctionAt(alt_addr)
-                entry["alt_base"] = "0x%x" % alt_base
-                entry["alt_target"] = "0x%x" % alt_target
+                entry["alt_base"] = scan_utils.format_address(alt_base)
+                entry["alt_target"] = scan_utils.format_address(alt_target)
                 entry["alt_target_function"] = alt_func.getName() if alt_func else None
                 entry["alt_label"] = alt_label
             entries.append(entry)
@@ -107,13 +101,13 @@ def run():
         meta = {
             "build_id": build_id,
             "program": currentProgram.getName(),
-            "table_addr": "0x%x" % table_addr,
-            "base_addr": "0x%x" % base_addr,
+            "table_addr": scan_utils.format_address(table_addr),
+            "base_addr": scan_utils.format_address(base_addr),
             "count": count,
             "entry_count": len(entries),
         }
         if alt_base is not None:
-            meta["alt_base"] = "0x%x" % alt_base
+            meta["alt_base"] = scan_utils.format_address(alt_base)
             meta["alt_label"] = alt_label
         with open(os.path.join(out_dir, "jump_table_entries.json"), "w") as f:
             json.dump({"meta": meta, "entries": entries}, f, indent=2, sort_keys=True)

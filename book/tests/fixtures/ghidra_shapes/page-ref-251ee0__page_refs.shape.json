@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0",
+  "shape": {
+    "keys": {
+      "adrp_add_hits": {
+        "element_shapes": [],
+        "length": 0,
+        "sampled": 0,
+        "type": "list"
+      },
+      "meta": {
+        "keys": {
+          "block_filter": {
+            "element_shapes": [
+              {
+                "keys": {
+                  "end": {
+                    "type": "str"
+                  },
+                  "name": {
+                    "type": "str"
+                  },
+                  "start": {
+                    "type": "str"
+                  }
+                },
+                "type": "dict"
+              }
+            ],
+            "length": 2957,
+            "sampled": 2957,
+            "type": "list"
+          },
+          "build_id": {
+            "type": "str"
+          },
+          "page_end": {
+            "type": "str"
+          },
+          "page_size": {
+            "type": "str"
+          },
+          "page_start": {
+            "type": "str"
+          },
+          "program": {
+            "type": "str"
+          },
+          "scan_all_blocks": {
+            "type": "bool"
+          },
+          "target_addr": {
+            "type": "str"
+          }
+        },
+        "type": "dict"
+      },
+      "ref_hits": {
+        "element_shapes": [],
+        "length": 0,
+        "sampled": 0,
+        "type": "list"
+      }
+    },
+    "type": "dict"
+  },
+  "source": {
+    "name": "page-ref-251ee0__page_refs",
+    "output_path": "dumps/ghidra/out/14.4.1-23E224/page-ref-251ee0/page_refs.json",
+    "shape_options": {
+      "list_length": true,
+      "max_list_items": null
+    },
+    "snapshot_path": "book/tests/fixtures/ghidra_shapes/page-ref-251ee0__page_refs.shape.json",
+    "task": "page-ref-251ee0"
+  }
+}

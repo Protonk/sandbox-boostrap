@@ -23,6 +23,8 @@ import json
 import os
 import traceback
 
+from ghidra_bootstrap import scan_utils
+
 from ghidra.program.model.address import AddressSet
 from ghidra.program.model.lang import OperandType
 from ghidra.program.model.listing import Instruction
@@ -89,7 +91,7 @@ def run():
             return
         out_dir = args[0]
         build_id = args[1]
-        target_addr = int(args[2], 16)
+        target_addr = scan_utils.parse_hex(args[2])
         page_size = 0x1000
         scan_all = False
         for extra in args[3:]:
@@ -129,12 +131,12 @@ def run():
                         if _in_page(val, page_start, page_end):
                             matches.append(
                                 {
-                                    "address": "0x%x" % _u64(addr.getOffset()),
+                                    "address": scan_utils.format_address(_u64(addr.getOffset())),
                                     "mnemonic": instr.getMnemonicString(),
                                     "inst": str(instr),
                                     "operand_index": op_index,
                                     "mode": "address",
-                                    "target": "0x%x" % val,
+                                    "target": scan_utils.format_address(val),
                                 }
                             )
                             break
@@ -149,12 +151,12 @@ def run():
                         if _in_page(tgt, page_start, page_end):
                             matches.append(
                                 {
-                                    "address": "0x%x" % _u64(addr.getOffset()),
+                                    "address": scan_utils.format_address(_u64(addr.getOffset())),
                                     "mnemonic": instr.getMnemonicString(),
                                     "inst": str(instr),
                                     "operand_index": op_index,
                                     "mode": "relative",
-                                    "target": "0x%x" % tgt,
+                                    "target": scan_utils.format_address(tgt),
                                 }
                             )
                             break
@@ -162,24 +164,24 @@ def run():
                         if _in_page(sval64, page_start, page_end):
                             matches.append(
                                 {
-                                    "address": "0x%x" % _u64(addr.getOffset()),
+                                    "address": scan_utils.format_address(_u64(addr.getOffset())),
                                     "mnemonic": instr.getMnemonicString(),
                                     "inst": str(instr),
                                     "operand_index": op_index,
                                     "mode": "absolute",
-                                    "target": "0x%x" % sval64,
+                                    "target": scan_utils.format_address(sval64),
                                 }
                             )
                             break
         meta = {
             "build_id": build_id,
             "program": currentProgram.getName(),
-            "target_addr": "0x%x" % target_u,
-            "page_start": "0x%x" % page_start,
-            "page_end": "0x%x" % page_end,
-            "page_size": "0x%x" % page_size,
+            "target_addr": scan_utils.format_address(target_u),
+            "page_start": scan_utils.format_address(page_start),
+            "page_end": scan_utils.format_address(page_end),
+            "page_size": scan_utils.format_address(page_size),
             "scan_all_blocks": scan_all,
-            "block_filter": [{"name": b.getName(), "start": "0x%x" % b.getStart().getOffset(), "end": "0x%x" % b.getEnd().getOffset()} for b in blocks],
+            "block_filter": [{"name": b.getName(), "start": scan_utils.format_address(b.getStart().getOffset()), "end": scan_utils.format_address(b.getEnd().getOffset())} for b in blocks],
             "instructions_scanned": total_instr,
         }
         with open(os.path.join(out_dir, "x86_page_scan.json"), "w") as f:

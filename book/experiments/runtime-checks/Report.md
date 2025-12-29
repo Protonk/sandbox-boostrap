@@ -27,7 +27,7 @@ Validate that runtime allow/deny behavior for selected profiles matches decoder-
   - Expected probe matrix in `out/expected_matrix.json` covers bucket-4 (`v1_read`) and bucket-5 (`v11_read_subpath`) synthetic profiles, runtime shapes (`allow_all`, `metafilter_any`), and system blobs (`airlock`, `bsd`) flagged for blob mode (airlock marked expected-fail locally).
   - Harness now prefers local shims and wrapper: `sandbox_runner`/`sandbox_reader` succeed for bucket profiles and runtime shapes; metafilter_any stabilized by adding `/private/tmp` literals and reader mode.
   - `sys:airlock`/`bsd`: `airlock` is apply-gated on this host baseline and is preflight-blocked by default (treat as expected-fail); `bsd` applies via SBPL/compiled blob (wrapper run hit execvp noise once). Use SBPL/recompiled `bsd` for system probes on this host.
-  - Latest rerun executed via `python -m book.api.runtime_tools run --plan book/experiments/runtime-checks/plan.json --channel launchd_clean` (staged to `/private/tmp`); decision-stage outcomes are current for the runtime-checks matrix and only `sys:airlock` remains preflight-blocked. `out/runtime_results.json` now carries seatbelt-callout markers (sandbox_check oracle lane) for file/mach probes.
+  - Latest rerun executed via `python -m book.api.runtime run --plan book/experiments/runtime-checks/plan.json --channel launchd_clean` (staged to `/private/tmp`); decision-stage outcomes are current for the runtime-checks matrix and only `sys:airlock` remains preflight-blocked. `out/runtime_results.json` now carries seatbelt-callout markers (sandbox_check oracle lane) for file/mach probes.
   - Clean-channel runs now emit `out/run_manifest.json` and `out/run_preflight.json` (sandbox_check self check + baseline metadata). Mapping generators require `channel=launchd_clean` before promoting decision-stage artifacts.
 - **1) Scope and setup**
   - Identified target profiles: canonical system blobs (`airlock`, `bsd`, `sample`) and representative bucket-4/bucket-5 synthetic profiles (`v1_read`, `v11_read_subpath`) from `op-table-operation`.
@@ -65,7 +65,7 @@ If runtime checks are extended or revisited, reuse this outline:
 - Sandbox_check callouts: `out/runtime_results.json` now includes `seatbelt_callouts` markers for file/mach probes (oracle lane only).
 - Harness scripts (`run_probes.py`, `sandbox_runner`, `sandbox_reader`, and SBPL wrapper integration) under this directory and `book/tools/sbpl/wrapper`.
 - Guardrail test `tests/test_runtime_matrix_shape.py` asserting the presence and shape of the expected matrix.
- - Clean channel via runtime_tools (`--channel launchd_clean`) for unsandboxed runs when the parent environment is nested.
+ - Clean channel via runtime (`--channel launchd_clean`) for unsandboxed runs when the parent environment is nested.
 
 ## Blockers / risks
 - On this Sonoma host, `sandbox_apply` returns `EPERM` for `airlock` even when recompiled from SBPL, so platform profiles cannot yet be exercised directly in blob mode.
@@ -76,4 +76,4 @@ If runtime checks are extended or revisited, reuse this outline:
 - Re-run or refine runtime checks using the current wrapper-based harness, focusing on synthetic bucket-4/bucket-5 profiles and `bsd` rather than `airlock`.
 - If practical, repeat selected probes on a host where platform blobs can be applied successfully, or codify “expected-fail” behavior for `airlock` as part of this host’s baseline.
 - Extend guardrails from matrix-shape checks to a small set of concrete allow/deny outcomes once harness stability is acceptable.
- - Use the runtime_tools clean channel (staged to `/private/tmp`) when running from a sandboxed parent to ensure decision-stage runs.
+ - Use the runtime clean channel (staged to `/private/tmp`) when running from a sandboxed parent to ensure decision-stage runs.

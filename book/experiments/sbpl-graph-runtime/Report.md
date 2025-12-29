@@ -4,7 +4,7 @@
 Produce SBPL → PolicyGraph → runtime “golden triples” on the Sonoma host, with expectation-aligned runtime logs (schema: provisional) keyed by `expectation_id`. Golden profiles must have coherent SBPL, decoded graphs, and runtime outcomes via `sandbox_init` from an unsandboxed caller.
 
 ## Current status (provisional cut)
-- Golden triples (custom, allow-default, file-centric): `runtime:allow_all`, `runtime:metafilter_any`, `bucket4:v1_read`, plus minimal strict profile `runtime:strict_1`. SBPL mode via `runtime_tools` aligns runtime with expectations (OS perms on `/etc/hosts` writes are outside sandbox scope). Wrapper “no version specified” errors on blobs are avoided by using SBPL inputs.
+- Golden triples (custom, allow-default, file-centric): `runtime:allow_all`, `runtime:metafilter_any`, `bucket4:v1_read`, plus minimal strict profile `runtime:strict_1`. SBPL mode via `runtime` aligns runtime with expectations (OS perms on `/etc/hosts` writes are outside sandbox scope). Wrapper “no version specified” errors on blobs are avoided by using SBPL inputs.
 - Tooling: new `book/api/golden_runner` API/CLI (with unit tests) now emits compiled blobs, ingested summaries, static expectations, and runtime logs straight into the golden profiles folder; the experiment’s `run_probes.py` is now just a thin wrapper over this API.
 - Platform-only apply-gated: `sys:bsd`, `sys:airlock`, `sys:sample` return EPERM/execvp at apply even unsandboxed; treated as platform-only, not harness bugs.
 - Custom outlier: `bucket5:v11_read_subpath` still returns `EPERM` on the expected-allow probe (`/tmp/foo`), so status stays `partial`/non-golden.

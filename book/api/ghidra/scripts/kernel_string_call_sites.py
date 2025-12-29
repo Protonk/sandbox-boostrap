@@ -13,12 +13,12 @@ import json
 import os
 import traceback
 
+from ghidra_bootstrap import scan_utils
+
 from ghidra.program.model.address import Address, AddressSet
 from ghidra.program.model.data import StringDataInstance
 
 _RUN = False
-MASK64 = 0xFFFFFFFFFFFFFFFFL
-SIGN_BIT = 0x8000000000000000L
 
 
 def _ensure_out_dir(path):
@@ -55,10 +55,10 @@ def _collect_refs(addr, addr_set, func_mgr, memory, ref_mgr):
         block = memory.getBlock(from_addr)
         refs.append(
             {
-                "from": "0x%x" % from_addr.getOffset(),
+                "from": scan_utils.format_address(from_addr.getOffset()),
                 "type": ref.getReferenceType().getName(),
                 "function": func.getName() if func else None,
-                "function_entry": "0x%x" % func.getEntryPoint().getOffset() if func else None,
+                "function_entry": scan_utils.format_address(func.getEntryPoint().getOffset()) if func else None,
                 "block": block.getName() if block else None,
             }
         )
@@ -66,32 +66,11 @@ def _collect_refs(addr, addr_set, func_mgr, memory, ref_mgr):
 
 
 def _s64(val):
-    try:
-        v = long(val) & MASK64
-    except Exception:
-        return None
-    if v & SIGN_BIT:
-        return v - (1 << 64)
-    return v
+    return scan_utils.to_signed(val)
 
 
 def _parse_hex(text):
-    text = str(text).strip().lower()
-    if not text:
-        return None
-    if text.startswith("0x-"):
-        return -int(text[3:], 16)
-    if text.startswith("-0x"):
-        return -int(text[3:], 16)
-    if text.startswith("0x"):
-        value = int(text, 16)
-        if value & (1 << 63):
-            return value - (1 << 64)
-        return value
-    value = int(text, 0)
-    if value & (1 << 63):
-        return value - (1 << 64)
-    return value
+    return scan_utils.parse_signed_hex(text)
 
 
 def run():
@@ -147,7 +126,7 @@ def run():
             refs = _collect_refs(addr, addr_set, func_mgr, memory, ref_mgr)
             string_hits.append(
                 {
-                    "address": "0x%x" % addr.getOffset(),
+                    "address": scan_utils.format_address(addr.getOffset()),
                     "value": sval,
                     "block": block.getName() if block else None,
                     "queries": matched,
@@ -181,7 +160,7 @@ def run():
                 block = memory.getBlock(call_addr)
                 call_sites.append(
                     {
-                        "call_address": "0x%x" % call_addr.getOffset(),
+                        "call_address": scan_utils.format_address(call_addr.getOffset()),
                         "call_mnemonic": instr.getMnemonicString() if instr else None,
                         "target_entry": entry_hex,
                         "target_name": info.get("name"),

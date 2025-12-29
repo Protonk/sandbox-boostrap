@@ -25,8 +25,8 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from book.api import path_utils
-from book.api.runtime_tools.core import contract as rt_contract
-from book.api.runtime_tools.core import models as rt_models
+from book.api.runtime.core import contract as rt_contract
+from book.api.runtime.core import models as rt_models
 
 
 EPERM = 1

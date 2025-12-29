@@ -10,6 +10,8 @@ import json
 import os
 import traceback
 
+from ghidra_bootstrap import scan_utils
+
 from ghidra.app.cmd.function import ApplyFunctionSignatureCmd
 from ghidra.app.util.parser import FunctionSignatureParser
 from ghidra.program.model.data import (
@@ -24,37 +26,14 @@ from java.lang import Throwable
 from ghidra.program.model.symbol import SourceType
 
 _RUN = False
-MASK64 = 0xFFFFFFFFFFFFFFFFL
-SIGN_BIT = 0x8000000000000000L
 
 
 def _s64(val):
-    try:
-        v = long(val) & MASK64
-    except Exception:
-        return None
-    if v & SIGN_BIT:
-        return v - (1 << 64)
-    return v
+    return scan_utils.to_signed(val)
 
 
 def _parse_hex(text):
-    text = str(text).strip().lower()
-    if not text:
-        return None
-    if text.startswith("0x-"):
-        return -int(text[3:], 16)
-    if text.startswith("-0x"):
-        return -int(text[3:], 16)
-    if text.startswith("0x"):
-        value = int(text, 16)
-        if value & (1 << 63):
-            return value - (1 << 64)
-        return value
-    value = int(text, 0)
-    if value & (1 << 63):
-        return value - (1 << 64)
-    return value
+    return scan_utils.parse_signed_hex(text)
 
 
 def _ensure_out_dir(path):
@@ -129,7 +108,7 @@ def run():
                 "program": currentProgram.getName(),
             },
             "anchor": {
-                "address": "0x%x" % addr.getOffset(),
+                "address": scan_utils.format_address(addr.getOffset()),
                 "name": name,
                 "function": func.getName() if func else None,
                 "signature": sig_result,

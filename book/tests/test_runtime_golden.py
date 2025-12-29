@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-import book.api.runtime_tools.harness.golden as rg
+import book.api.runtime.harness.golden as rg
 
 
 ROOT = Path(__file__).resolve().parents[2]

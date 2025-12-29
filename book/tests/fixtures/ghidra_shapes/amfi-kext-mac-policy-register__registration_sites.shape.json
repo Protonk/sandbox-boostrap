@@ -1,0 +1,235 @@
+{
+  "schema_version": "1.0",
+  "shape": {
+    "keys": {
+      "call_sites": {
+        "element_shapes": [],
+        "length": 0,
+        "sampled": 0,
+        "type": "list"
+      },
+      "got_blocks": {
+        "element_shapes": [
+          {
+            "keys": {
+              "end": {
+                "type": "str"
+              },
+              "name": {
+                "type": "str"
+              },
+              "start": {
+                "type": "str"
+              }
+            },
+            "type": "dict"
+          }
+        ],
+        "length": 3,
+        "sampled": 3,
+        "type": "list"
+      },
+      "got_entries": {
+        "element_shapes": [
+          {
+            "keys": {
+              "address": {
+                "type": "str"
+              },
+              "block": {
+                "type": "str"
+              },
+              "pointer_value": {
+                "type": "str"
+              },
+              "symbol_libraries": {
+                "element_shapes": [],
+                "length": 0,
+                "sampled": 0,
+                "type": "list"
+              },
+              "symbol_names": {
+                "element_shapes": [],
+                "length": 0,
+                "sampled": 0,
+                "type": "list"
+              }
+            },
+            "type": "dict"
+          },
+          {
+            "keys": {
+              "address": {
+                "type": "str"
+              },
+              "block": {
+                "type": "str"
+              },
+              "pointer_value": {
+                "type": "str"
+              },
+              "symbol_libraries": {
+                "element_shapes": [],
+                "length": 0,
+                "sampled": 0,
+                "type": "list"
+              },
+              "symbol_names": {
+                "element_shapes": [
+                  {
+                    "type": "str"
+                  }
+                ],
+                "length": 1,
+                "sampled": 1,
+                "type": "list"
+              }
+            },
+            "type": "dict"
+          }
+        ],
+        "length": 329,
+        "sampled": 329,
+        "type": "list"
+      },
+      "indirect_call_sites": {
+        "element_shapes": [],
+        "length": 0,
+        "sampled": 0,
+        "type": "list"
+      },
+      "meta": {
+        "keys": {
+          "build_id": {
+            "type": "str"
+          },
+          "call_site_count": {
+            "type": "int"
+          },
+          "flow_call_sites": {
+            "type": "int"
+          },
+          "flow_scan": {
+            "type": "bool"
+          },
+          "got_block_mode": {
+            "type": "str"
+          },
+          "indirect_all": {
+            "type": "bool"
+          },
+          "indirect_call_sites": {
+            "type": "int"
+          },
+          "indirect_scan": {
+            "type": "bool"
+          },
+          "program": {
+            "type": "str"
+          },
+          "query_substrings": {
+            "element_shapes": [
+              {
+                "type": "str"
+              }
+            ],
+            "length": 2,
+            "sampled": 2,
+            "type": "list"
+          },
+          "scan_all_blocks": {
+            "type": "bool"
+          },
+          "scan_limits": {
+            "keys": {
+              "depth": {
+                "type": "int"
+              },
+              "max_back": {
+                "type": "int"
+              }
+            },
+            "type": "dict"
+          },
+          "stub_target_count": {
+            "type": "int"
+          },
+          "stub_target_error": {
+            "type": "null"
+          },
+          "stub_targets_path": {
+            "type": "null"
+          },
+          "target_count": {
+            "type": "int"
+          }
+        },
+        "type": "dict"
+      },
+      "targets": {
+        "element_shapes": [
+          {
+            "keys": {
+              "address": {
+                "type": "str"
+              },
+              "block": {
+                "type": "null"
+              },
+              "external": {
+                "type": "bool"
+              },
+              "kind": {
+                "type": "str"
+              },
+              "name": {
+                "type": "str"
+              },
+              "symbol_type": {
+                "type": "str"
+              }
+            },
+            "type": "dict"
+          },
+          {
+            "keys": {
+              "address": {
+                "type": "str"
+              },
+              "block": {
+                "type": "str"
+              },
+              "external": {
+                "type": "bool"
+              },
+              "kind": {
+                "type": "str"
+              },
+              "name": {
+                "type": "str"
+              },
+              "symbol_type": {
+                "type": "str"
+              }
+            },
+            "type": "dict"
+          }
+        ],
+        "length": 6,
+        "sampled": 6,
+        "type": "list"
+      }
+    },
+    "type": "dict"
+  },
+  "source": {
+    "name": "amfi-kext-mac-policy-register__registration_sites",
+    "output_path": "dumps/ghidra/out/14.4.1-23E224/amfi-kext-mac-policy-register/registration_sites.json",
+    "shape_options": {
+      "list_length": true,
+      "max_list_items": null
+    },
+    "snapshot_path": "book/tests/fixtures/ghidra_shapes/amfi-kext-mac-policy-register__registration_sites.shape.json",
+    "task": "amfi-kext-mac-policy-register"
+  }
+}

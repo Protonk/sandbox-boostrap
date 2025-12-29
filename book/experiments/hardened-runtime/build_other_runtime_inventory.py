@@ -10,7 +10,7 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from book.api.runtime_tools import inventory as runtime_inventory  # noqa: E402
+from book.api.runtime import inventory as runtime_inventory  # noqa: E402
 
 OUT_PATH = REPO_ROOT / "book/experiments/hardened-runtime/other_runtime_inventory.json"
 

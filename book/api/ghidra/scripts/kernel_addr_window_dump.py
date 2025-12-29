@@ -8,24 +8,11 @@ Outputs: <out_dir>/addr_window_dump.json
 
 import json
 import os
-import sys
 import traceback
 
 from ghidra.program.model.mem import MemoryAccessException
 
-try:
-    SCRIPT_DIR = os.path.dirname(getSourceFile().getAbsolutePath())
-except Exception:
-    SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__)) if "__file__" in globals() else os.getcwd()
-candidate_paths = [
-    os.path.abspath(os.path.join(SCRIPT_DIR, "..")),  # .../book/api/ghidra
-    os.path.abspath(os.path.join(os.getcwd(), "book", "api", "ghidra")),  # repo root fallback
-]
-for _p in candidate_paths:
-    if _p not in sys.path:
-        sys.path.insert(0, _p)
-
-from ghidra_lib import scan_utils
+from ghidra_bootstrap import scan_utils
 
 _RUN_CALLED = False
 
@@ -44,7 +31,7 @@ def _parse_int(token, default=None):
 
 def _parse_hex_addr(token):
     try:
-        return scan_utils.parse_address(token)
+        return scan_utils.parse_hex(token)
     except Exception:
         return None
 
@@ -53,7 +40,7 @@ def _inst_entry(inst):
     if inst is None:
         return None
     return {
-        "addr": "0x%x" % inst.getAddress().getOffset(),
+        "addr": scan_utils.format_address(inst.getAddress().getOffset()),
         "mnemonic": inst.getMnemonicString(),
         "inst": str(inst),
         "stack_access": scan_utils.is_stack_access(str(inst)),
@@ -84,7 +71,7 @@ def run():
         func_mgr = currentProgram.getFunctionManager()
         addr_factory = currentProgram.getAddressFactory()
         addr_space = addr_factory.getDefaultAddressSpace()
-        addr = addr_space.getAddress("0x%x" % addr_val)
+        addr = addr_space.getAddress(scan_utils.format_address(addr_val))
 
         inst = listing.getInstructionAt(addr)
         if not inst:
@@ -123,7 +110,7 @@ def run():
         out = {
             "build_id": build_id,
             "program": currentProgram.getName(),
-            "address": "0x%x" % addr_val,
+            "address": scan_utils.format_address(addr_val),
             "function": func.getName() if func else None,
             "instructions": [x for x in [_inst_entry(i) for i in (before_list + after_list)] if x],
         }

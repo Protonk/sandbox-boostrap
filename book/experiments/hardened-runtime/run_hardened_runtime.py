@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Deprecated wrapper: run hardened-runtime via runtime_tools plan execution.
+Deprecated wrapper: run hardened-runtime via runtime plan execution.
 """
 
 from __future__ import annotations
@@ -9,8 +9,8 @@ import argparse
 from pathlib import Path
 
 from book.api import path_utils
-from book.api.runtime_tools import api as runtime_api
-from book.api.runtime_tools.channels import ChannelSpec
+from book.api.runtime import api as runtime_api
+from book.api.runtime.channels import ChannelSpec
 
 
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))
@@ -19,7 +19,7 @@ OUT_DIR = Path(__file__).with_name("out")
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Run hardened-runtime via runtime_tools plan.")
+    parser = argparse.ArgumentParser(description="Run hardened-runtime via runtime plan.")
     parser.add_argument("--out", type=Path, default=OUT_DIR, help="Output directory")
     parser.add_argument("--channel", type=str, default="launchd_clean", help="Channel (launchd_clean|direct)")
     parser.add_argument("--only-profile", action="append", default=[], help="Limit to a profile_id")

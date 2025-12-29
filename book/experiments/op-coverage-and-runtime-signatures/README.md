@@ -15,10 +15,10 @@ Purpose: link operation vocabulary entries, profile coverage, and runtime signat
 - IR path: mappings flow into `book/graph/mappings/vocab/ops_coverage.json` and CARTON indexes; this suite only mirrors the canonical results.
 
 ## Current workflow (promotion packet based)
-- Run a runtime plan via runtime_tools:
-  `python -m book.api.runtime_tools run --plan book/experiments/runtime-adversarial/plan.json --channel launchd_clean --out book/experiments/runtime-adversarial/out`
+- Run a runtime plan via runtime:
+  `python -m book.api.runtime run --plan book/experiments/runtime-adversarial/plan.json --channel launchd_clean --out book/experiments/runtime-adversarial/out`
 - Emit a promotion packet:
-  `python -m book.api.runtime_tools emit-promotion --bundle book/experiments/runtime-adversarial/out --out book/experiments/runtime-adversarial/out/promotion_packet.json`
+  `python -m book.api.runtime emit-promotion --bundle book/experiments/runtime-adversarial/out --out book/experiments/runtime-adversarial/out/promotion_packet.json`
 - Promote runtime mappings (canonical):
   `python book/graph/mappings/runtime/promote_from_packets.py`
 - Optional convenience copy for this suite:

@@ -15,6 +15,8 @@ import json
 import os
 import traceback
 
+from ghidra_bootstrap import scan_utils
+
 from ghidra.program.model.address import AddressSet
 
 _RUN_CALLED = False
@@ -78,8 +80,8 @@ def run():
         block_meta = [
             {
                 "name": blk.getName(),
-                "start": "0x%x" % blk.getStart().getOffset(),
-                "end": "0x%x" % blk.getEnd().getOffset(),
+                "start": scan_utils.format_address(blk.getStart().getOffset()),
+                "end": scan_utils.format_address(blk.getEnd().getOffset()),
             }
             for blk in blocks
         ]
@@ -100,7 +102,7 @@ def run():
             candidates.append(
                 {
                     "name": func.getName(),
-                    "address": "0x%x" % entry.getOffset(),
+                    "address": scan_utils.format_address(entry.getOffset()),
                     "computed_jumps": computed,
                     "jump_like": jump_like,
                     "size": func.getBody().getNumAddresses(),

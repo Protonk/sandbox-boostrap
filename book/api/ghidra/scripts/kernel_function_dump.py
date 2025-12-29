@@ -16,6 +16,8 @@ import json
 import os
 import traceback
 
+from ghidra_bootstrap import scan_utils
+
 _RUN_CALLED = False
 
 
@@ -29,7 +31,7 @@ def _parse_targets(tokens):
     names = []
     for t in tokens:
         try:
-            addrs.append(int(str(t), 16))
+            addrs.append(scan_utils.parse_hex(str(t)))
         except Exception:
             names.append(str(t))
     return addrs, names
@@ -67,9 +69,9 @@ def _dump_function(func, listing):
             bytes_at = instr.getBytes()
         except Exception:
             bytes_at = None
-        lines.append(
+            lines.append(
             {
-                "addr": "0x%x" % instr.getAddress().getOffset(),
+                "addr": scan_utils.format_address(instr.getAddress().getOffset()),
                 "mnemonic": instr.getMnemonicString(),
                 "inst": str(instr),
                 "bytes": _bytes_hex(bytes_at),
@@ -102,16 +104,16 @@ def run():
         addr_vals, name_vals = _parse_targets(addr_tokens)
         entries = []
         for a in addr_vals:
-            addr = addr_factory.getDefaultAddressSpace().getAddress("0x%x" % a)
+            addr = addr_factory.getDefaultAddressSpace().getAddress(scan_utils.format_address(a))
             func = func_mgr.getFunctionContaining(addr)
             if not func:
-                entries.append({"input": "0x%x" % a, "error": "no function at address"})
+                entries.append({"input": scan_utils.format_address(a), "error": "no function at address"})
                 continue
             entries.append(
                 {
-                    "input": "0x%x" % a,
+                    "input": scan_utils.format_address(a),
                     "function": func.getName(),
-                    "entry": "0x%x" % func.getEntryPoint().getOffset(),
+                    "entry": scan_utils.format_address(func.getEntryPoint().getOffset()),
                     "instructions": _dump_function(func, listing),
                 }
             )
@@ -124,7 +126,7 @@ def run():
                 {
                     "input": name,
                     "function": func.getName(),
-                    "entry": "0x%x" % func.getEntryPoint().getOffset(),
+                    "entry": scan_utils.format_address(func.getEntryPoint().getOffset()),
                     "instructions": _dump_function(func, listing),
                 }
             )

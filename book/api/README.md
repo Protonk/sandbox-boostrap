@@ -24,13 +24,13 @@ Legacy packages (`book.api.sbpl_compile`, `book.api.inspect_profile`, `book.api.
 
 ### file_probe
 
-Definition: Minimal JSON-emitting read/write probe binary (under `book/api/runtime_tools/native/file_probe/`).
+Definition: Minimal JSON-emitting read/write probe binary (under `book/api/runtime/native/file_probe/`).
 
 Role: Provide a deterministic target for runtime allow/deny checks once a profile is applied.
 
 Example:
 ```sh
-gcc book/api/runtime_tools/native/file_probe/file_probe.c -o /tmp/file_probe
+gcc book/api/runtime/native/file_probe/file_probe.c -o /tmp/file_probe
 /tmp/file_probe read /etc/hosts
 ```
 
@@ -61,7 +61,7 @@ PY
 ```
 See `book/api/carton/README.md`, `AGENTS.md`, and `API.md` for design, routing, and function contracts.
 
-### runtime_tools
+### runtime
 
 Definition: Unified runtime tooling (observations, mappings, projections, plan-based execution, and harness runner/golden generator).
 
@@ -69,17 +69,17 @@ Role: Normalize harness output into canonical runtime observations, build runtim
 
 Example:
 ```sh
-python -m book.api.runtime_tools run \
+python -m book.api.runtime run \
   --plan book/experiments/hardened-runtime/plan.json \
   --channel launchd_clean \
   --out book/experiments/hardened-runtime/out
 
-python -m book.api.runtime_tools status
-python -m book.api.runtime_tools list-plans
-python -m book.api.runtime_tools plan-lint --plan book/experiments/hardened-runtime/plan.json
-python -m book.api.runtime_tools registry-lint --registry hardened-runtime
+python -m book.api.runtime status
+python -m book.api.runtime list-plans
+python -m book.api.runtime plan-lint --plan book/experiments/hardened-runtime/plan.json
+python -m book.api.runtime registry-lint --registry hardened-runtime
 
-python -m book.api.runtime_tools golden \
+python -m book.api.runtime golden \
   --matrix book/experiments/runtime-checks/out/expected_matrix.json
 ```
 
@@ -118,5 +118,5 @@ See `book/api/entitlementjail/README.md` (Contract section) for API usage and co
 ## CARTON conversion assessment
 
 - **op_table**: could gain a CARTON-backed query layer if op-table fingerprints/alignments are ever promoted to CARTON mappings; today it is generator/inspection tooling (see `book.api.profile_tools.op_table`), not CARTON IR.
-- **runtime_tools**: the harness + mapping outputs could be query-able if golden traces/expectations become CARTON mappings with a defined concept; currently generation-only.
-- **Others (regex_tools, runtime_tools/native/file_probe, ghidra)**: generation/inspection/harness tools, not CARTON concepts; poor fits for the CARTON query surface in their current form.
+- **runtime**: the harness + mapping outputs could be query-able if golden traces/expectations become CARTON mappings with a defined concept; currently generation-only.
+- **Others (regex_tools, runtime/native/file_probe, ghidra)**: generation/inspection/harness tools, not CARTON concepts; poor fits for the CARTON query surface in their current form.

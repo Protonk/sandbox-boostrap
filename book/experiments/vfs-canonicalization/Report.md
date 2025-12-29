@@ -14,13 +14,13 @@ This experiment checks how alias/canonical path families behave structurally and
 - **Targets:** the path pairs above; each family is tested only against its own configured pair(s).
 - **Harness:**
   - Entry: `book/experiments/vfs-canonicalization/run_vfs.py`.
-  - Plan-data generated via `python -m book.api.runtime_tools plan-build --template vfs-canonicalization --out book/experiments/vfs-canonicalization --overwrite`.
-  - Runtime harness via `book.api.runtime_tools` plan execution, reusing the same shims as `runtime-checks` / `runtime-adversarial`.
+  - Plan-data generated via `python -m book.api.runtime plan-build --template vfs-canonicalization --out book/experiments/vfs-canonicalization --overwrite`.
+  - Runtime harness via `book.api.runtime` plan execution, reusing the same shims as `runtime-checks` / `runtime-adversarial`.
   - Structural decode via `book/api/profile_tools/decoder.py` using `book/graph/mappings/tag_layouts/tag_layouts.json`.
 - **Outputs:**
-  - `plan.json` + `registry/{probes,profiles}.json` – plan/registry data generated from the runtime_tools template.
+  - `plan.json` + `registry/{probes,profiles}.json` – plan/registry data generated from the runtime template.
   - `out/expected_matrix.json` – human expectations for `(profile_id, requested_path, expected_decision)` (template-derived).
-  - `out/<run_id>/expected_matrix.json` – runtime_tools expected matrix (plan-derived, harness-ready).
+  - `out/<run_id>/expected_matrix.json` – runtime expected matrix (plan-derived, harness-ready).
   - `out/<run_id>/runtime_results.json` – raw runtime harness results (per-profile dict form).
   - `out/<run_id>/runtime_events.normalized.json` – normalized runtime observations (per scenario).
   - `out/promotion_packet.json` – promotion packet (preferred evidence interface) pointing to the committed run-scoped bundle.
@@ -60,7 +60,7 @@ These observations align with the broader structural story from `probe-op-struct
 
 ## Runtime observations
 
-From `out/runtime_results.json` (via `run_vfs.py` + runtime_tools plan execution on this world):
+From `out/runtime_results.json` (via `run_vfs.py` + runtime plan execution on this world):
 
 - **Base `/tmp` family**
   - `vfs_tmp_only` denies all alias and canonical requests across the path set for file-read* and file-write*.

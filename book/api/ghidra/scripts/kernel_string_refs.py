@@ -15,6 +15,8 @@ import json
 import os
 import traceback
 
+from ghidra_bootstrap import scan_utils
+
 from ghidra.program.model.address import AddressSet
 from ghidra.program.model.data import StringDataInstance
 
@@ -48,7 +50,7 @@ def _collect_refs(addr, addr_set, func_mgr, memory, ref_mgr):
         block = memory.getBlock(from_addr)
         refs.append(
             {
-                "from": "0x%x" % from_addr.getOffset(),
+                "from": scan_utils.format_address(from_addr.getOffset()),
                 "type": ref.getReferenceType().getName(),
                 "is_primary": ref.isPrimary(),
                 "function": func.getName() if func else None,
@@ -81,7 +83,7 @@ def _string_matches(queries, addr_set):
         refs = _collect_refs(addr, addr_set, func_mgr, memory, ref_mgr)
         matches.append(
             {
-                "address": "0x%x" % addr.getOffset(),
+                "address": scan_utils.format_address(addr.getOffset()),
                 "value": sval,
                 "block": block.getName() if block else None,
                 "queries": matched,
@@ -115,7 +117,7 @@ def _symbols_matching(substr, addr_set):
             {
                 "name": name,
                 "type": sym.getSymbolType().toString(),
-                "address": "0x%x" % addr.getOffset(),
+                "address": scan_utils.format_address(addr.getOffset()),
                 "namespace": sym.getParentNamespace().getName(True),
                 "block": block.getName() if block else None,
                 "references": refs,
@@ -171,7 +173,7 @@ def _external_functions(library_substr, addr_set):
                 "name": sym.getName(),
                 "library": loc.getLibraryName(),
                 "type": sym.getSymbolType().toString(),
-                "address": "0x%x" % addr.getOffset(),
+                "address": scan_utils.format_address(addr.getOffset()),
                 "references": refs,
             }
         )
@@ -221,8 +223,8 @@ def run():
         block_meta = [
             {
                 "name": blk.getName(),
-                "start": "0x%x" % blk.getStart().getOffset(),
-                "end": "0x%x" % blk.getEnd().getOffset(),
+                "start": scan_utils.format_address(blk.getStart().getOffset()),
+                "end": scan_utils.format_address(blk.getEnd().getOffset()),
             }
             for blk in blocks
         ]

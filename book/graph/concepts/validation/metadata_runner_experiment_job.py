@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import Any, Dict, Optional
 
 from book.api.path_utils import find_repo_root, to_repo_relative
-from book.api.runtime_tools.core import normalize as runtime_normalize
+from book.api.runtime.core import normalize as runtime_normalize
 from book.graph.concepts.validation import registry
 from book.graph.concepts.validation.registry import ValidationJob
 

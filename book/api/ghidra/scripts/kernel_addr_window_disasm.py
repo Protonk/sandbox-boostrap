@@ -9,24 +9,11 @@ Outputs: <out_dir>/addr_window_disasm.json
 
 import json
 import os
-import sys
 import traceback
 
 from ghidra.program.model.lang import Register
 
-try:
-    SCRIPT_DIR = os.path.dirname(getSourceFile().getAbsolutePath())
-except Exception:
-    SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__)) if "__file__" in globals() else os.getcwd()
-candidate_paths = [
-    os.path.abspath(os.path.join(SCRIPT_DIR, "..")),  # .../book/api/ghidra
-    os.path.abspath(os.path.join(os.getcwd(), "book", "api", "ghidra")),  # repo root fallback
-]
-for _p in candidate_paths:
-    if _p not in sys.path:
-        sys.path.insert(0, _p)
-
-from ghidra_lib import scan_utils
+from ghidra_bootstrap import scan_utils
 
 _RUN_CALLED = False
 
@@ -45,7 +32,7 @@ def _parse_int(token, default=None):
 
 def _parse_hex_addr(token):
     try:
-        return scan_utils.parse_address(token)
+        return scan_utils.parse_hex(token)
     except Exception:
         return None
 
@@ -54,7 +41,7 @@ def _inst_entry(inst):
     if inst is None:
         return None
     return {
-        "addr": "0x%x" % inst.getAddress().getOffset(),
+        "addr": scan_utils.format_address(inst.getAddress().getOffset()),
         "mnemonic": inst.getMnemonicString(),
         "inst": str(inst),
     }
@@ -83,7 +70,7 @@ def _target_context(listing, func_mgr, addr):
     block = currentProgram.getMemory().getBlock(addr)
     if not inst:
         return {
-            "address": "0x%x" % addr.getOffset(),
+            "address": scan_utils.format_address(addr.getOffset()),
             "function": func.getName() if func else None,
             "block": block.getName() if block else None,
             "instruction": None,
@@ -115,7 +102,7 @@ def _target_context(listing, func_mgr, addr):
             name = _base_reg_name(reg)
             if name in input_regs and name not in defs:
                 defs[name] = {
-                    "addr": "0x%x" % cur.getAddress().getOffset(),
+                    "addr": scan_utils.format_address(cur.getAddress().getOffset()),
                     "inst": str(cur),
                 }
         cur = listing.getInstructionBefore(cur.getAddress())
@@ -129,7 +116,7 @@ def _target_context(listing, func_mgr, addr):
             register_defs.append(entry)
 
     return {
-        "address": "0x%x" % addr.getOffset(),
+        "address": scan_utils.format_address(addr.getOffset()),
         "function": func.getName() if func else None,
         "block": block.getName() if block else None,
         "instruction": str(inst),
@@ -174,7 +161,7 @@ def run():
         # Ensure disassembly exists across the window.
         cur = start_addr
         while cur <= end_addr and not monitor.isCancelled():
-            addr = addr_space.getAddress("0x%x" % cur)
+            addr = addr_space.getAddress(scan_utils.format_address(cur))
             inst = listing.getInstructionAt(addr)
             if not inst:
                 try:
@@ -186,20 +173,20 @@ def run():
         entries = []
         cur = start_addr
         while cur <= end_addr and not monitor.isCancelled():
-            addr = addr_space.getAddress("0x%x" % cur)
+            addr = addr_space.getAddress(scan_utils.format_address(cur))
             inst = listing.getInstructionAt(addr)
-            entry = {"addr": "0x%x" % cur}
+            entry = {"addr": scan_utils.format_address(cur)}
             if inst:
                 entry.update(_inst_entry(inst))
                 entry["stack_access"] = scan_utils.is_stack_access(str(inst))
             entries.append(entry)
             cur += step
 
-        target_addr = addr_space.getAddress("0x%x" % addr_val)
+        target_addr = addr_space.getAddress(scan_utils.format_address(addr_val))
         out = {
             "build_id": build_id,
             "program": currentProgram.getName(),
-            "address": "0x%x" % addr_val,
+            "address": scan_utils.format_address(addr_val),
             "before": before,
             "after": after,
             "step": step,

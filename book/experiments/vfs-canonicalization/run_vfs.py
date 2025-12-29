@@ -4,7 +4,7 @@ VFS canonicalization harness for alias/canonical path families on Sonoma.
 
 Tasks:
 - Ensure local fixtures for the VFS probes.
-- Run the plan-based runtime_tools harness.
+- Run the plan-based runtime harness.
 - Down-convert normalized runtime events into a simple runtime_results.json array.
 - Decode the compiled SBPL blobs and emit decode_tmp_profiles.json
   (anchors, tags, and field2 values for the configured path pairs).
@@ -24,11 +24,11 @@ if str(REPO_ROOT) not in sys.path:
 
 from book.api import path_utils
 from book.api.profile_tools import compile_sbpl_string, decoder  # type: ignore
-from book.api.runtime_tools import api as runtime_api  # type: ignore
-from book.api.runtime_tools import plan_builder as runtime_plan_builder  # type: ignore
-from book.api.runtime_tools import registry as runtime_registry  # type: ignore
-from book.api.runtime_tools.channels import ChannelSpec  # type: ignore
-from book.api.runtime_tools.harness.runner import ensure_fixtures  # type: ignore
+from book.api.runtime import api as runtime_api  # type: ignore
+from book.api.runtime import plan_builder as runtime_plan_builder  # type: ignore
+from book.api.runtime import registry as runtime_registry  # type: ignore
+from book.api.runtime.channels import ChannelSpec  # type: ignore
+from book.api.runtime.harness.runner import ensure_fixtures  # type: ignore
 
 
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))
@@ -50,7 +50,7 @@ def load_world_id() -> str:
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Run VFS canonicalization via runtime_tools plan.")
+    parser = argparse.ArgumentParser(description="Run VFS canonicalization via runtime plan.")
     parser.add_argument("--out", type=Path, default=OUT_DIR, help="Output directory")
     parser.add_argument("--channel", type=str, default="launchd_clean", help="Channel (launchd_clean|direct)")
     parser.add_argument(
@@ -63,7 +63,7 @@ def parse_args() -> argparse.Namespace:
 
 def load_plan_doc() -> Dict[str, Any]:
     if not PLAN_PATH.exists():
-        raise FileNotFoundError("missing plan.json; run runtime_tools plan-build first")
+        raise FileNotFoundError("missing plan.json; run runtime plan-build first")
     return _load_json(PLAN_PATH)
 
 

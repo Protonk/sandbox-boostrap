@@ -1,8 +1,8 @@
-# runtime_tools tests (taxonomy)
+# runtime tests (taxonomy)
 
-This repo runs tests via `make -C book test` (the `book/tests/run_all.py` harness). The runtime surface now spans both legacy matrix-based mapping checks and the newer `runtime_tools` bundle service.
+This repo runs tests via `make -C book test` (the `book/tests/run_all.py` harness). The runtime surface now spans both legacy matrix-based mapping checks and the newer runtime bundle service.
 
-This document classifies the `runtime_tools` tests by purpose so they stay discriminating and avoid overlapping coverage.
+This document classifies the runtime tests by purpose so they stay discriminating and avoid overlapping coverage.
 
 ## Unit tests
 

@@ -8,23 +8,9 @@ Outputs: <out_dir>/list_head_xref.json
 
 import json
 import os
-import sys
 import traceback
 
-try:
-    SCRIPT_DIR = os.path.dirname(getSourceFile().getAbsolutePath())
-except Exception:
-    SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__)) if "__file__" in globals() else os.getcwd()
-
-candidate_paths = [
-    os.path.abspath(os.path.join(SCRIPT_DIR, "..")),
-    os.path.abspath(os.path.join(os.getcwd(), "book", "api", "ghidra")),
-]
-for _p in candidate_paths:
-    if _p not in sys.path:
-        sys.path.insert(0, _p)
-
-from ghidra_lib import scan_utils
+from ghidra_bootstrap import scan_utils
 
 
 _RUN_CALLED = False
@@ -48,14 +34,14 @@ def run():
             return
         out_dir = args[0]
         build_id = args[1]
-        addr_val = scan_utils.parse_address(args[2])
+        addr_val = scan_utils.parse_hex(args[2])
         if addr_val is None:
             raise ValueError("Invalid address: %s" % args[2])
 
         _ensure_out_dir(out_dir)
         addr_factory = currentProgram.getAddressFactory()
         addr_space = addr_factory.getDefaultAddressSpace()
-        addr = addr_space.getAddress("0x%x" % addr_val)
+        addr = addr_space.getAddress(scan_utils.format_address(addr_val))
         ref_mgr = currentProgram.getReferenceManager()
         func_mgr = currentProgram.getFunctionManager()
 
@@ -65,7 +51,7 @@ def run():
             func = func_mgr.getFunctionContaining(from_addr)
             refs.append(
                 {
-                    "from": "0x%x" % from_addr.getOffset(),
+                    "from": scan_utils.format_address(from_addr.getOffset()),
                     "function": func.getName() if func else None,
                     "type": ref.getReferenceType().getName(),
                     "is_read": ref.getReferenceType().isRead(),

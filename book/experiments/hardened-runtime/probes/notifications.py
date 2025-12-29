@@ -5,7 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import List
 
-from book.api.runtime_tools import workflow
+from book.api.runtime import workflow
 
 
 ALLOW_NAME = "com.sandboxlore.hardened_runtime.test1"

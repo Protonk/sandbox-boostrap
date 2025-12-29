@@ -12,6 +12,8 @@ import json
 import os
 import traceback
 
+from ghidra_bootstrap import scan_utils
+
 from ghidra.program.model.address import AddressSet
 
 _RUN_CALLED = False
@@ -79,25 +81,25 @@ def run():
                         func = func_mgr.getFunctionContaining(addr)
                         hits.append(
                             {
-                                "address": "0x%x" % addr.getOffset(),
+                                "address": scan_utils.format_address(addr.getOffset()),
                                 "function": func.getName() if func else None,
                                 "mnemonic": instr.getMnemonicString(),
                                 "inst": str(instr),
                             }
                         )
                         break
-        block_meta = [{"name": b.getName(), "start": "0x%x" % b.getStart().getOffset(), "end": "0x%x" % b.getEnd().getOffset()} for b in blocks]
+        block_meta = [{"name": b.getName(), "start": scan_utils.format_address(b.getStart().getOffset()), "end": scan_utils.format_address(b.getEnd().getOffset())} for b in blocks]
         meta = {
             "build_id": build_id,
             "program": currentProgram.getName(),
-            "imm": "0x%x" % imm,
+            "imm": scan_utils.format_address(imm),
             "hit_count": len(hits),
             "scan_all_blocks": scan_all,
             "block_filter": block_meta,
         }
         with open(os.path.join(out_dir, "imm_search.json"), "w") as f:
             json.dump({"meta": meta, "hits": hits}, f, indent=2, sort_keys=True)
-        print("kernel_imm_search: %d hits for 0x%x" % (len(hits), imm))
+        print("kernel_imm_search: %d hits for %s" % (len(hits), scan_utils.format_address(imm)))
     except Exception:
         if out_dir:
             try:

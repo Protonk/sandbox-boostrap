@@ -24,6 +24,8 @@ import os
 import string
 import traceback
 
+from ghidra_bootstrap import scan_utils
+
 SCAN_SLOTS = 10  # cover core mac_policy_conf plus common list/data extras
 MAX_STR_LEN = 128
 MAX_LABELNAME_COUNT = 32
@@ -36,7 +38,7 @@ def _ensure(path):
 
 def _read_qword(mem, factory, offset):
     try:
-        addr = factory.getDefaultAddressSpace().getAddress("0x%x" % offset)
+        addr = factory.getDefaultAddressSpace().getAddress(scan_utils.format_address(offset))
         val = mem.getLong(addr)
         return addr, val & 0xFFFFFFFFFFFFFFFF
     except Exception:
@@ -182,20 +184,20 @@ def scan(allow_any_ptr=False):
             name_str = None
             fullname_str = None
             if name_ptr:
-                nptr_addr = factory.getDefaultAddressSpace().getAddress("0x%x" % name_ptr)
+                nptr_addr = factory.getDefaultAddressSpace().getAddress(scan_utils.format_address(name_ptr))
                 name_str = _read_ascii(memory, nptr_addr)
                 if name_str is None:
                     addr = addr.add(8)
                     continue
             if fullname_ptr:
-                fptr_addr = factory.getDefaultAddressSpace().getAddress("0x%x" % fullname_ptr)
+                fptr_addr = factory.getDefaultAddressSpace().getAddress(scan_utils.format_address(fullname_ptr))
                 fullname_str = _read_ascii(memory, fptr_addr)
                 if fullname_str is None:
                     addr = addr.add(8)
                     continue
             ops_block = None
             if ops_ptr:
-                ops_addr = factory.getDefaultAddressSpace().getAddress("0x%x" % ops_ptr)
+                ops_addr = factory.getDefaultAddressSpace().getAddress(scan_utils.format_address(ops_ptr))
                 ops_block = _block_name(ops_addr, memory)
 
             soft_score = 0
@@ -213,23 +215,23 @@ def scan(allow_any_ptr=False):
                 soft_flags["labelnames_nonnull"] = True
             if loadtime_flags in (0x2, 0x4, 0x6):
                 soft_score += 1
-                soft_flags["loadtime_flag_hint"] = "0x%x" % loadtime_flags
+                soft_flags["loadtime_flag_hint"] = scan_utils.format_address(loadtime_flags)
 
             candidates.append(
                 {
-                    "address": "0x%x" % base_off,
+                    "address": scan_utils.format_address(base_off),
                     "segment": name,
                     "slots": {
-                        "name": "0x%x" % name_ptr,
-                        "fullname": "0x%x" % fullname_ptr,
-                        "labelnames": "0x%x" % labelnames_ptr,
+                        "name": scan_utils.format_address(name_ptr),
+                        "fullname": scan_utils.format_address(fullname_ptr),
+                        "labelnames": scan_utils.format_address(labelnames_ptr),
                         "labelname_count": labelname_count,
-                        "ops": "0x%x" % ops_ptr,
-                        "loadtime_flags": "0x%x" % loadtime_flags,
-                        "field_or_label_slot": "0x%x" % field_slot,
-                        "runtime_flags": "0x%x" % runtime_flags,
-                        "extra0": "0x%x" % extra0,
-                        "extra1": "0x%x" % extra1,
+                        "ops": scan_utils.format_address(ops_ptr),
+                        "loadtime_flags": scan_utils.format_address(loadtime_flags),
+                        "field_or_label_slot": scan_utils.format_address(field_slot),
+                        "runtime_flags": scan_utils.format_address(runtime_flags),
+                        "extra0": scan_utils.format_address(extra0),
+                        "extra1": scan_utils.format_address(extra1),
                     },
                     "string_values": {"name": name_str, "fullname": fullname_str},
                     "ops_block": ops_block,
@@ -257,8 +259,8 @@ def run():
         block_meta = [
             {
                 "name": blk.getName(),
-                "start": "0x%x" % blk.getStart().getOffset(),
-                "end": "0x%x" % blk.getEnd().getOffset(),
+                "start": scan_utils.format_address(blk.getStart().getOffset()),
+                "end": scan_utils.format_address(blk.getEnd().getOffset()),
             }
             for blk in blocks
         ]

@@ -19,9 +19,9 @@ This suite keeps a per-operation runtime summary aligned with the canonical prom
 
 ## Mechanism (promotion packet -> mapping)
 
-1. Run runtime plans via runtime_tools and emit promotion packets:
-   - `python -m book.api.runtime_tools run --plan book/experiments/runtime-adversarial/plan.json --channel launchd_clean --out book/experiments/runtime-adversarial/out`
-   - `python -m book.api.runtime_tools emit-promotion --bundle book/experiments/runtime-adversarial/out --out book/experiments/runtime-adversarial/out/promotion_packet.json`
+1. Run runtime plans via runtime and emit promotion packets:
+   - `python -m book.api.runtime run --plan book/experiments/runtime-adversarial/plan.json --channel launchd_clean --out book/experiments/runtime-adversarial/out`
+   - `python -m book.api.runtime emit-promotion --bundle book/experiments/runtime-adversarial/out --out book/experiments/runtime-adversarial/out/promotion_packet.json`
 2. Promote runtime mappings (canonical):
    - `python book/graph/mappings/runtime/promote_from_packets.py`
    - This generates `op_runtime_summary.json` alongside runtime cuts, runtime coverage, and runtime signatures.

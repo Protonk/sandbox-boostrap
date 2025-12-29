@@ -22,8 +22,8 @@ Run provenance:
 - Promotion receipt: `book/graph/mappings/runtime/promotion_receipt.json` (packet `status: used`)
 
 Commands:
-- `python -m book.api.runtime_tools run --plan book/experiments/anchor-filter-map/plan.json --channel launchd_clean --out book/experiments/anchor-filter-map/out`
-- `python -m book.api.runtime_tools emit-promotion --bundle book/experiments/anchor-filter-map/out --out book/experiments/anchor-filter-map/out/promotion_packet.json --require-promotable`
+- `python -m book.api.runtime run --plan book/experiments/anchor-filter-map/plan.json --channel launchd_clean --out book/experiments/anchor-filter-map/out`
+- `python -m book.api.runtime emit-promotion --bundle book/experiments/anchor-filter-map/out --out book/experiments/anchor-filter-map/out/promotion_packet.json --require-promotable`
 - `PYTHONPATH=$PWD python book/graph/mappings/runtime/promote_from_packets.py --packet-set book/graph/mappings/runtime/packet_set.json`
 - `python book/graph/mappings/anchors/generate_anchor_filter_map.py`
 - `make -C book test`
@@ -45,8 +45,8 @@ Run provenance:
 - Promotion receipt: `book/graph/mappings/runtime/promotion_receipt.json` (packet `status: used`)
 
 Commands:
-- `python -m book.api.runtime_tools run --plan book/experiments/anchor-filter-map/iokit-class/plan.json --channel launchd_clean --out book/experiments/anchor-filter-map/iokit-class/out`
-- `python -m book.api.runtime_tools emit-promotion --bundle book/experiments/anchor-filter-map/iokit-class/out --out book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json --require-promotable`
+- `python -m book.api.runtime run --plan book/experiments/anchor-filter-map/iokit-class/plan.json --channel launchd_clean --out book/experiments/anchor-filter-map/iokit-class/out`
+- `python -m book.api.runtime emit-promotion --bundle book/experiments/anchor-filter-map/iokit-class/out --out book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json --require-promotable`
 - `PYTHONPATH=$PWD python book/graph/mappings/runtime/promote_from_packets.py --packet-set book/graph/mappings/runtime/packet_set.json`
 - `python book/graph/mappings/anchors/generate_anchor_filter_map.py`
 

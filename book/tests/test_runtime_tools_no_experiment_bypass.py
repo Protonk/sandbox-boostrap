@@ -13,7 +13,7 @@ CODE_SUFFIXES = {".py"}
 # bespoke harness runners or normalize their own decision-stage streams.
 # Keep the allowlist explicit and small so new bypasses are visible.
 FORBIDDEN_PATTERNS = {
-    "harness_runner": re.compile(r"\bbook\.api\.runtime_tools\.harness\.runner\b"),
+    "harness_runner": re.compile(r"\bbook\.api\.runtime\.harness\.runner\b"),
     "normalize_observations": re.compile(r"\bwrite_(matrix|metadata)_observations\b"),
 }
 
@@ -42,7 +42,7 @@ def _first_match_line(text: str, match: re.Match[str]) -> int:
     return text.count("\n", 0, match.start()) + 1
 
 
-def test_no_new_experiment_runtime_tools_bypasses():
+def test_no_new_experiment_runtime_bypasses():
     violations: list[str] = []
     for path in _iter_experiment_code():
         rel = path.relative_to(ROOT)
@@ -56,5 +56,4 @@ def test_no_new_experiment_runtime_tools_bypasses():
             line = _first_match_line(text, match)
             violations.append(f"{rel}:{line} contains forbidden {kind} usage")
 
-    assert not violations, "runtime_tools bypass risk:\n" + "\n".join(violations)
-
+    assert not violations, "runtime bypass risk:\n" + "\n".join(violations)
