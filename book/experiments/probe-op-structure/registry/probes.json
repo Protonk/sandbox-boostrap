@@ -1,0 +1,105 @@
+{
+  "schema_version": "runtime-tools.probe_registry.v0.1",
+  "registry_id": "probe-op-structure",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "probes": {
+    "probe-op-structure:file:v1_file_require_any:tmp_foo": {
+      "probe_id": "probe-op-structure:file:v1_file_require_any:tmp_foo",
+      "name": "tmp_foo",
+      "operation": "file-read*",
+      "target": "/tmp/foo",
+      "expected": "allow",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "expected_predicates": [
+        "/tmp/foo"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "probe-op-structure:file:v1_file_require_any:etc_hosts": {
+      "probe_id": "probe-op-structure:file:v1_file_require_any:etc_hosts",
+      "name": "etc_hosts",
+      "operation": "file-read*",
+      "target": "/etc/hosts",
+      "expected": "allow",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "expected_predicates": [
+        "/etc/hosts"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "probe-op-structure:mach:v3_mach_global_local:cfprefsd_agent": {
+      "probe_id": "probe-op-structure:mach:v3_mach_global_local:cfprefsd_agent",
+      "name": "cfprefsd_agent",
+      "operation": "mach-lookup",
+      "target": "com.apple.cfprefsd.agent",
+      "expected": "allow",
+      "driver": "sandbox_mach_probe",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "mach-lookup"
+      ],
+      "expected_predicates": [
+        "com.apple.cfprefsd.agent"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    },
+    "probe-op-structure:iokit:v5_iokit_class_property:iousb_host_interface": {
+      "probe_id": "probe-op-structure:iokit:v5_iokit_class_property:iousb_host_interface",
+      "name": "iousb_host_interface",
+      "operation": "iokit-open-service",
+      "target": "IOUSBHostInterface",
+      "expected": "allow",
+      "driver": "sandbox_iokit_probe",
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      },
+      "expected_primary_ops": [
+        "iokit-open-service"
+      ],
+      "expected_predicates": [
+        "IOUSBHostInterface"
+      ],
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ]
+    }
+  }
+}

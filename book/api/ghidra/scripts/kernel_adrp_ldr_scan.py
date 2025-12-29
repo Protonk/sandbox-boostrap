@@ -6,13 +6,17 @@ Args: <out_dir> <build_id> <target_addr_hex|auth_got> [lookahead] [all]
 Scans sandbox blocks by default; pass "all" to scan the entire program.
 Use "auth_got" to record all ADRP+LDR pairs that land inside __auth_got.
 Writes JSON to <out_dir>/adrp_ldr_scan.json with matches and scan metadata.
+
+Notes:
+- ADRP computes a page base; LDR immediate adds an offset or literal address.
+- Ghidra can report signed addresses; normalize to unsigned before comparisons.
 """
 
 import json
 import os
 import traceback
 
-from ghidra_bootstrap import scan_utils
+from ghidra_bootstrap import block_utils, io_utils, scan_utils
 
 from ghidra.program.model.address import AddressSet
 from ghidra.program.model.address import Address
@@ -21,6 +25,7 @@ from ghidra.program.model.scalar import Scalar
 from ghidra.program.model.listing import Instruction
 
 _RUN_CALLED = False
+# Cap base candidates per register to keep runs deterministic on large binaries.
 MAX_BASES_PER_REG = 32
 
 
@@ -33,28 +38,13 @@ def _s64(val):
 
 
 def _ensure_out_dir(path):
-    if not os.path.isdir(path):
-        os.makedirs(path)
-
+    return io_utils.ensure_out_dir(path)
 
 def _sandbox_blocks():
-    mem = currentProgram.getMemory()
-    blocks = []
-    for blk in mem.getBlocks():
-        name = blk.getName() or ""
-        if "sandbox" in name.lower():
-            blocks.append(blk)
-    if blocks:
-        return blocks
-    return list(mem.getBlocks())
-
+    return block_utils.sandbox_blocks(program=currentProgram)
 
 def _block_set(blocks):
-    aset = AddressSet()
-    for blk in blocks:
-        aset.add(blk.getStart(), blk.getEnd())
-    return aset
-
+    return block_utils.block_set(blocks)
 
 def _find_got_blocks():
     mem = currentProgram.getMemory()
@@ -206,6 +196,7 @@ def _adrp_pages(instr):
     inst_addr = _u64(instr.getAddress().getOffset())
     if inst_addr is None:
         return []
+    # ADRP uses page alignment; mask to 4K boundaries.
     inst_page = _u64(inst_addr & ~0xFFF)
     pages = set()
     pages.add(_u64(inst_page + imm))
@@ -377,6 +368,7 @@ def run():
         got_blocks = []
         got_mode = None
         if target_token in ("auth_got", "got", "auth-got"):
+            # Special mode: record ADRP+LDR pairs that land in GOT blocks.
             target_mode = "auth_got"
             got_blocks, got_mode = _find_got_blocks()
         else:
@@ -397,6 +389,7 @@ def run():
         listing = currentProgram.getListing()
         func_mgr = currentProgram.getFunctionManager()
         memory = currentProgram.getMemory()
+        # Default to sandbox blocks to keep scans focused and deterministic.
         blocks = list(currentProgram.getMemory().getBlocks()) if scan_all else _sandbox_blocks()
         addr_set = _block_set(blocks)
         matches = []

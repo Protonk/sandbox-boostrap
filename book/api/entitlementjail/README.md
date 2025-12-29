@@ -53,9 +53,9 @@ We do not rely on integrated `log stream` capture (removed in v2); deny evidence
 
 ## CLI contract (observed)
 The CLI help text must include:
-- `xpc run` with `--profile`/`--service`, `--ack-risk`, `--plan-id`, `--row-id`, `--correlation-id`.
-- `xpc session` with `--profile`/`--service`, `--ack-risk`, `--plan-id`, `--correlation-id`, `--wait`, `--wait-timeout-ms`, `--wait-interval-ms`, `--xpc-timeout-ms`.
-- `sandbox-log-observer` with `--pid`, `--process-name`, `--start`, `--end`, `--last`, `--duration`, `--follow`.
+- `xpc run` with `--profile`/`--service`, `--variant` (or `<id[@variant]>`), `--plan-id`, `--row-id`, `--correlation-id`.
+- `xpc session` with `--profile`/`--service`, `--variant` (or `<id[@variant]>`), `--plan-id`, `--correlation-id`, `--wait`, `--wait-timeout-ms`, `--wait-interval-ms`, `--xpc-timeout-ms`.
+- `sandbox-log-observer` with `--pid`, `--process-name`, `--start`, `--end`, `--last`, `--duration`, `--follow`, `--predicate`.
 - `sandbox-log-observer` with `--format`, `--output`.
 - `sandbox-log-observer` with `--plan-id`, `--row-id`, `--correlation-id`.
 

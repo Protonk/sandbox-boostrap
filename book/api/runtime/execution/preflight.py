@@ -1,5 +1,11 @@
 """
 Apply-preflight helpers for runtime plan execution.
+
+This module runs a tiny "apply-only" check so we can label apply-gated failures
+before attempting runtime probes.
+
+Apply failures are not denials. Preflight lets us separate "gate"
+conditions (EPERM on apply) from actual policy decisions.
 """
 
 from __future__ import annotations
@@ -19,6 +25,7 @@ REPO_ROOT = path_utils.find_repo_root(Path(__file__))
 
 
 def sandbox_check_self() -> Dict[str, Any]:
+    """Return a minimal sandbox_check(self) probe record."""
     info: Dict[str, Any] = {"source": "sandbox_check"}
     try:
         lib_path = ctypes.util.find_library("system_sandbox")
@@ -41,6 +48,7 @@ def run_apply_preflight(
     profile_path: Path,
     runner_path: Path,
 ) -> Dict[str, Any]:
+    """Run a no-op apply to detect gating; return a structured record."""
     run_id = os.environ.get("SANDBOX_LORE_RUN_ID")
     record: Dict[str, Any] = {
         "world_id": world_id,
@@ -57,6 +65,7 @@ def run_apply_preflight(
         record["status"] = "error"
         record["error"] = "missing_sandbox_runner"
         return record
+    # Use /usr/bin/true to minimize side effects while exercising apply.
     cmd = [str(runner_path), str(profile_path), "--", "/usr/bin/true"]
     try:
         res = subprocess.run(cmd, capture_output=True, text=True, timeout=10)

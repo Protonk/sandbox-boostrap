@@ -9,13 +9,16 @@ Args: <out_dir> [build_id] [all] [extra queries...]
 Pitfalls:
 - Relies on defined string data; with --no-analysis strings may be sparse. Run at least an import pass that defines data.
 - Filters to sandbox blocks unless "all" is passed to reduce noise.
+Notes:
+- Default queries focus on sandbox and AppleMatch strings; extra queries extend the search.
+- String refs are substring matches to keep the scan flexible.
 """
 
 import json
 import os
 import traceback
 
-from ghidra_bootstrap import scan_utils
+from ghidra_bootstrap import block_utils, io_utils, scan_utils
 
 from ghidra.program.model.address import AddressSet
 from ghidra.program.model.data import StringDataInstance
@@ -24,21 +27,10 @@ _RUN_CALLED = False
 
 
 def _ensure_out_dir(path):
-    if not os.path.isdir(path):
-        os.makedirs(path)
-
+    return io_utils.ensure_out_dir(path)
 
 def _sandbox_blocks():
-    mem = currentProgram.getMemory()
-    blocks = []
-    for blk in mem.getBlocks():
-        name = blk.getName() or ""
-        if "sandbox" in name.lower():
-            blocks.append(blk)
-    if blocks:
-        return blocks
-    return list(mem.getBlocks())
-
+    return block_utils.sandbox_blocks(program=currentProgram)
 
 def _collect_refs(addr, addr_set, func_mgr, memory, ref_mgr):
     refs = []
@@ -75,6 +67,7 @@ def _string_matches(queries, addr_set):
         if sval is None:
             continue
         sval = str(sval)
+        # Substring match keeps the search resilient to small string edits.
         matched = [q for q in queries if q in sval]
         if not matched:
             continue
@@ -197,6 +190,7 @@ def run():
         print("kernel_string_refs: starting for build %s -> %s" % (build_id, out_dir))
 
         _ensure_out_dir(out_dir)
+        # Default queries are the primary sandbox and AppleMatch markers.
         queries = ["com.apple.security.sandbox", "com.apple.kext.AppleMatch"]
         scan_all = False
         extra_queries = []

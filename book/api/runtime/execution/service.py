@@ -1,5 +1,5 @@
 """
-runtime service API (plan execution + bundle lifecycle).
+Runtime service API (plan execution + bundle lifecycle).
 
 This module is the orchestration layer for plan-based runtime runs. It is
 responsible for:
@@ -18,6 +18,9 @@ enforces clean-channel gating rather than trusting caller intent.
 This module deliberately refuses to "repair" bundles implicitly; repairs are
 explicit (`reindex_bundle`) and leave an audit log. Mapping generation remains
 outside runtime; the contract boundary is the promotion packet.
+
+The service layer is about provenance. It records what ran, how it
+ran, and which artifacts are trustworthy before any mapping is attempted.
 """
 
 from __future__ import annotations
@@ -67,6 +70,7 @@ BASELINE_SCHEMA_VERSION = "runtime-tools.baseline_results.v0.1"
 PATH_WITNESSES_SCHEMA_VERSION = "runtime-tools.path_witnesses.v0.1"
 STATUS_SCHEMA_VERSION = "runtime-tools.status.v0.1"
 
+# Keep core artifacts ordered for deterministic artifact indexes and summaries.
 CORE_ARTIFACTS = [
     "run_status.json",
     "run_manifest.json",
@@ -113,6 +117,7 @@ def _channel_from_env(default: str) -> str:
 
 
 def runtime_status(repo_root: Optional[Path] = None) -> Dict[str, Any]:
+    """Return a structured snapshot of the runtime execution environment."""
     repo_root = path_utils.ensure_absolute(repo_root or REPO_ROOT, REPO_ROOT)
     stage_used = os.environ.get("SANDBOX_LORE_STAGE_USED") == "1"
     stage_root = os.environ.get("SANDBOX_LORE_STAGE_ROOT")
@@ -131,7 +136,7 @@ def runtime_status(repo_root: Optional[Path] = None) -> Dict[str, Any]:
         "sandbox_check_self": apply_preflight.sandbox_check_self(),
         "tools": {
             "launchctl": bool(shutil.which("launchctl")),
-            "sandbox_runner": (REPO_ROOT / "book" / "experiments" / "runtime-checks" / "sandbox_runner").exists(),
+            "sandbox_runner": (REPO_ROOT / "book" / "api" / "runtime" / "native" / "sandbox_runner" / "sandbox_runner").exists(),
         },
     }
     return status
@@ -368,11 +373,13 @@ def _write_artifact_index(
 
 
 def load_bundle(out_dir: Path) -> Dict[str, Any]:
+    """Strictly load a bundle (verify digests, refuse in-progress bundles)."""
     # Strict loader: refuses in-progress bundles and verifies digests.
     return _load_bundle_index_strict(out_dir, repo_root=REPO_ROOT)
 
 
 def validate_bundle(out_dir: Path) -> ValidationResult:
+    """Validate a bundle and return a structured OK/error summary."""
     errors: list[str] = []
     try:
         index = load_bundle(out_dir)
@@ -387,10 +394,12 @@ def validate_bundle(out_dir: Path) -> ValidationResult:
 
 
 def open_bundle_unverified(out_dir: Path) -> Dict[str, Any]:
+    """Load a bundle without digest or completeness checks (debug only)."""
     return _open_bundle_unverified(out_dir, repo_root=REPO_ROOT)
 
 
 def reindex_bundle(out_dir: Path, *, repair: bool = False) -> Dict[str, Any]:
+    """Recompute a bundle index; optionally repair digest mismatches."""
     bundle_dir, _run_id = _resolve_bundle_dir(out_dir)
     bundle_dir = path_utils.ensure_absolute(bundle_dir, REPO_ROOT)
 
@@ -441,6 +450,7 @@ def reindex_bundle(out_dir: Path, *, repair: bool = False) -> Dict[str, Any]:
 
 
 def emit_promotion_packet(out_dir: Path, out_path: Path, *, require_promotable: bool = False) -> Dict[str, Any]:
+    """Emit a promotion packet for a bundle."""
     # Packet emission enforces clean-channel gating and records promotability.
     return _emit_promotion_packet_impl(
         out_dir,
@@ -451,6 +461,7 @@ def emit_promotion_packet(out_dir: Path, out_path: Path, *, require_promotable: 
 
 
 def build_runtime_inventory(repo_root: Path, out_path: Path) -> Dict[str, Any]:
+    """Build and write the runtime inventory document."""
     return runtime_inventory.build_runtime_inventory(repo_root=repo_root, out_path=out_path)
 
 
@@ -463,6 +474,7 @@ def run_plan(
     only_scenarios: Optional[Iterable[str]] = None,
     dry_run: bool = False,
 ) -> RunBundle:
+    """Execute a runtime plan and write a run-scoped bundle."""
     channel_spec = channel if isinstance(channel, ChannelSpec) else ChannelSpec(channel=channel)
     plan_doc = plan_loader.load_plan(plan_path)
     run_id = _run_id()
@@ -560,7 +572,9 @@ def run_plan(
             apply_preflight_profile = plan_doc.get("apply_preflight_profile")
             if apply_preflight_profile and not dry_run:
                 profile_path = path_utils.ensure_absolute(Path(apply_preflight_profile), REPO_ROOT)
-                runner_path = REPO_ROOT / "book" / "experiments" / "runtime-checks" / "sandbox_runner"
+                runner_path = (
+                    REPO_ROOT / "book" / "api" / "runtime" / "native" / "sandbox_runner" / "sandbox_runner"
+                )
                 apply_preflight_doc = apply_preflight.run_apply_preflight(
                     world_id=world_id,
                     profile_path=profile_path,

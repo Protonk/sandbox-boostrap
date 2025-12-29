@@ -12,6 +12,7 @@ Schema: meta (build_id, program, substrings, counts), symbols (name, library, ty
 Notes:
 - No block filtering; scans the full program for externals.
 - References include caller function names when available.
+ - External symbol locations can be missing in partially analyzed projects.
 """
 
 import json
@@ -66,6 +67,7 @@ def run():
             return
         out_dir = args[0]
         build_id = args[1] if len(args) > 1 else ""
+        # Lowercase filters once so matching is case-insensitive.
         substrings = [s.lower() for s in args[2:]] if len(args) > 2 else []
         _ensure(out_dir)
 
@@ -121,4 +123,5 @@ def run():
 
 
 if not os.environ.get("GHIDRA_SKIP_AUTORUN"):
+    # Allow callers to import this script without running it.
     run()

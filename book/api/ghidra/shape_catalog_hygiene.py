@@ -1,4 +1,9 @@
-"""Maintenance checks for the Ghidra shape catalog (no test integration)."""
+"""Maintenance checks for the Ghidra shape catalog (no test integration).
+
+This tool is intentionally read-only and fast: it inspects fixture metadata and
+shape snapshots without running Ghidra. Use it to keep the catalog tidy as
+scripts evolve.
+"""
 
 from __future__ import annotations
 
@@ -34,6 +39,7 @@ def _assign_family(entry: dict, families: dict) -> str:
 
     mode = families.get("mode") or "task"
     if mode == "task":
+        # Task-level grouping keeps the default family mapping simple and predictable.
         return entry.get("task") or "unclassified"
 
     if mode == "prefix":
@@ -108,6 +114,7 @@ def build_report(
         shapes.setdefault(sig, []).append(entry.get("name"))
     for sig, names in shapes.items():
         if len(names) > 1:
+            # Duplicate shapes should be pruned to keep the catalog high-signal.
             duplicates.append({"entries": sorted(names), "shape_signature": sig[:64]})
 
     families_summary: Dict[str, dict] = {}
@@ -186,6 +193,7 @@ def main(argv: Optional[List[str]] = None) -> int:
     issues = report.get("issues", {})
     has_issues = any(issues.get(key) for key in issues)
     if args.fail_on_issues and has_issues:
+        # Fail-on-issues is a maintenance guardrail, not a correctness signal.
         print(
             "catalog issues detected; generate a baseline report with: "
             "python -m book.api.ghidra.shape_catalog_hygiene "

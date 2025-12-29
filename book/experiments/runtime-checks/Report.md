@@ -25,13 +25,14 @@ Validate that runtime allow/deny behavior for selected profiles matches decoder-
 - **Current status**
   - Experiment scaffolded (this Report, Plan, Notes).
   - Expected probe matrix in `out/expected_matrix.json` covers bucket-4 (`v1_read`) and bucket-5 (`v11_read_subpath`) synthetic profiles, runtime shapes (`allow_all`, `metafilter_any`), and system blobs (`airlock`, `bsd`) flagged for blob mode (airlock marked expected-fail locally).
-  - Harness now prefers local shims and wrapper: `sandbox_runner`/`sandbox_reader` succeed for bucket profiles and runtime shapes; metafilter_any stabilized by adding `/private/tmp` literals and reader mode.
+  - Harness now prefers runtime shims (`book/api/runtime/native/sandbox_runner/{sandbox_runner,sandbox_reader}`) and wrapper: bucket profiles and runtime shapes succeed; metafilter_any stabilized by adding `/private/tmp` literals and reader mode.
+  - Mach/IOKit probe binaries moved to `book/api/runtime/native/probes` with a shared sandbox profile helper and local build script.
   - `sys:airlock`/`bsd`: `airlock` is apply-gated on this host baseline and is preflight-blocked by default (treat as expected-fail); `bsd` applies via SBPL/compiled blob (wrapper run hit execvp noise once). Use SBPL/recompiled `bsd` for system probes on this host.
   - Latest rerun executed via `python -m book.api.runtime run --plan book/experiments/runtime-checks/plan.json --channel launchd_clean` (staged to `/private/tmp`); decision-stage outcomes are current for the runtime-checks matrix and only `sys:airlock` remains preflight-blocked. `out/runtime_results.json` now carries seatbelt-callout markers (sandbox_check oracle lane) for file/mach probes.
   - Clean-channel runs now emit `out/run_manifest.json` and `out/run_preflight.json` (sandbox_check self check + baseline metadata). Mapping generators require `channel=launchd_clean` before promoting decision-stage artifacts.
 - **1) Scope and setup**
   - Identified target profiles: canonical system blobs (`airlock`, `bsd`, `sample`) and representative bucket-4/bucket-5 synthetic profiles (`v1_read`, `v11_read_subpath`) from `op-table-operation`.
-  - Harness in place: `run_probes.py` prefers local shims (`sandbox_runner` / `sandbox_reader`) and now uses `book/tools/sbpl/wrapper/wrapper --blob` for compiled profiles.
+  - Harness in place: `run_probes.py` prefers runtime shims (`book/api/runtime/native/sandbox_runner/{sandbox_runner,sandbox_reader}`) and now uses `book/tools/sbpl/wrapper/wrapper --blob` for compiled profiles.
 - **2) Define probes and expectations**
   - Listed the operations and concrete probes for bucket-4 and bucket-5 profiles (e.g., `file-read*` on `/etc/hosts` and `/tmp/foo`, `file-write*` to `/etc/hosts` / `/tmp/foo`), captured in `out/expected_matrix.json`.
 - **3) Run runtime checks**
@@ -63,7 +64,7 @@ If runtime checks are extended or revisited, reuse this outline:
 - Runtime results in `book/experiments/runtime-checks/out/runtime_results.json` from `run_probes.py` runs (where harnesses succeeded).
 - Clean-channel manifests: `book/experiments/runtime-checks/out/run_manifest.json` (provenance bundle) and `book/experiments/runtime-checks/out/run_preflight.json` (sandbox_check self check).
 - Sandbox_check callouts: `out/runtime_results.json` now includes `seatbelt_callouts` markers for file/mach probes (oracle lane only).
-- Harness scripts (`run_probes.py`, `sandbox_runner`, `sandbox_reader`, and SBPL wrapper integration) under this directory and `book/tools/sbpl/wrapper`.
+- Harness scripts: `run_probes.py` remains in this directory; runtime shims live in `book/api/runtime/native/sandbox_runner`; probe binaries live in `book/api/runtime/native/probes`; SBPL wrapper integration lives under `book/tools/sbpl/wrapper`.
 - Guardrail test `tests/test_runtime_matrix_shape.py` asserting the presence and shape of the expected matrix.
  - Clean channel via runtime (`--channel launchd_clean`) for unsandboxed runs when the parent environment is nested.
 

@@ -9,6 +9,10 @@ Outputs: dumps/ghidra/out/<build>/find-field2-evaluator/{field2_evaluator.json,h
 Assumptions/pitfalls:
 - Requires functions/instructions recovered; avoid --no-analysis if you need reliable callers.
 - Heuristics expect ARM64 mnemonics; ensure the KC was imported with the ARM64 language.
+
+Notes:
+- Heuristic ranking prefers small helpers with minimal masking/bitfield ops.
+- Results are a starting point for manual review, not a proof of semantics.
 """
 
 import json
@@ -108,6 +112,7 @@ def run():
         "instruction_count": instr_count,
     }
 
+    # Prefer mask-free, small helpers to approximate the field2 reader.
     candidates_sorted = sorted(candidates, key=lambda c: (c["has_mask"], c["size"]))
     for cand in candidates_sorted[:5]:
         summary["candidates"].append(
@@ -192,7 +197,7 @@ def run():
                 "dump": eval_path,
             }
 
-    # Always try to dump _eval explicitly for comparison.
+    # Always try to dump _eval explicitly for comparison with the heuristic pick.
     eval_func = None
     for func in funcs:
         if func.getName() == "_eval":

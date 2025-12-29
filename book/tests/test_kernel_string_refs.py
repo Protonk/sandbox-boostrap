@@ -33,9 +33,11 @@ def _install_ghidra_stubs():
 
 
 def _install_ghidra_bootstrap_stub():
-    from book.api.ghidra.ghidra_lib import scan_utils
+    from book.api.ghidra.ghidra_lib import block_utils, io_utils, scan_utils
 
     bootstrap = types.ModuleType("ghidra_bootstrap")
+    bootstrap.block_utils = block_utils
+    bootstrap.io_utils = io_utils
     bootstrap.scan_utils = scan_utils
     bootstrap.node_scan_utils = types.ModuleType("node_scan_utils")
     sys.modules["ghidra_bootstrap"] = bootstrap

@@ -1,5 +1,5 @@
 """
-runtime promotion packet emission (service contract).
+Runtime promotion packet emission (service contract).
 
 This module defines the promotion packet schema and the rules for when a packet
 may be treated as decision-stage promotable evidence.
@@ -16,6 +16,9 @@ Key points:
 This module does not build mappings. Mapping generators consume promotion
 packets and must continue to enforce gating; packet emission is an additional
 ergonomic guardrail, not a replacement.
+
+Promotion packets are an intentionally small, reviewable interface.
+They decouple evidence capture from mapping promotion so we can audit inputs.
 """
 
 from __future__ import annotations
@@ -132,6 +135,7 @@ def assess_promotability(bundle_dir: Path, *, repo_root: Path) -> Dict[str, Any]
             reasons.append(PromotabilityReason.DECISION_STAGE_ARTIFACTS_MISSING)
             break
 
+    # Sort reasons for deterministic packet output and stable diffs.
     return {
         "promotable_decision_stage": promotable,
         "reasons": sorted({r.value for r in reasons}),
@@ -151,6 +155,7 @@ def emit_promotion_packet(
     repo_root: Path,
     require_promotable: bool = False,
 ) -> Dict[str, Any]:
+    """Emit a promotion packet for a bundle and optionally enforce promotability."""
     bundle_dir, _run_id = resolve_bundle_dir(bundle_dir, repo_root=repo_root)
     bundle_dir = path_utils.ensure_absolute(bundle_dir, repo_root)
     promotability = assess_promotability(bundle_dir, repo_root=repo_root)

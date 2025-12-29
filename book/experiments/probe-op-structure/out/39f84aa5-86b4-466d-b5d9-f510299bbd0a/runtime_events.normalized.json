@@ -1,0 +1,201 @@
+[
+  {
+    "actual": "allow",
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "ok",
+      "err_class_source": "none",
+      "errbuf": null,
+      "errno": 0,
+      "rc": 0
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "book/experiments/probe-op-structure/out/39f84aa5-86b4-466d-b5d9-f510299bbd0a/runtime_profiles/v1_file_require_any.probe-op-structure_file_v1_file_require_any.runtime.sb",
+      "/tmp/foo"
+    ],
+    "expectation_id": "probe-op-structure:file:v1_file_require_any:tmp_foo",
+    "expected": "allow",
+    "match": true,
+    "normalized_path": "/private/tmp/foo",
+    "normalized_path_source": "observed_path",
+    "observed_path": "/private/tmp/foo",
+    "observed_path_source": "fd_path",
+    "operation": "file-read*",
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/experiments/probe-op-structure/out/39f84aa5-86b4-466d-b5d9-f510299bbd0a/runtime_profiles/v1_file_require_any.probe-op-structure_file_v1_file_require_any.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "tmp_foo",
+    "profile_id": "probe-op-structure:file:v1_file_require_any",
+    "requested_path": "/tmp/foo",
+    "run_id": "39f84aa5-86b4-466d-b5d9-f510299bbd0a",
+    "runner_info": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "entrypoint": "sandbox_reader",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "entrypoint_sha256": "ab87a4f05e8cd1ab5e6a07acaa3dc4e0193d1799aa7c63d2112f2588b8149115",
+      "preexisting_sandbox_suspected": false,
+      "tool_build_id": "ab87a4f05e8cd1ab5e6a07acaa3dc4e0193d1799aa7c63d2112f2588b8149115"
+    },
+    "runtime_status": "success",
+    "scenario_id": "probe-op-structure:file:v1_file_require_any:tmp_foo",
+    "stderr": "F_GETPATH:/private/tmp/foo\nF_GETPATH_NOFIRMLINK:/System/Volumes/Data/private/tmp/foo\n",
+    "stdout": "runtime-checks foo\n",
+    "target": "/tmp/foo",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "actual": "deny",
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "ok",
+      "err_class_source": "none",
+      "errbuf": null,
+      "errno": 0,
+      "rc": 0
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "book/experiments/probe-op-structure/out/39f84aa5-86b4-466d-b5d9-f510299bbd0a/runtime_profiles/v1_file_require_any.probe-op-structure_file_v1_file_require_any.runtime.sb",
+      "/etc/hosts"
+    ],
+    "errno": 2,
+    "expectation_id": "probe-op-structure:file:v1_file_require_any:etc_hosts",
+    "expected": "allow",
+    "failure_kind": "probe_nonzero_exit",
+    "failure_stage": "probe",
+    "match": false,
+    "normalized_path": "/private/etc/hosts",
+    "normalized_path_source": "observed_path",
+    "observed_path": "/private/etc/hosts",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-read*",
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/experiments/probe-op-structure/out/39f84aa5-86b4-466d-b5d9-f510299bbd0a/runtime_profiles/v1_file_require_any.probe-op-structure_file_v1_file_require_any.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "etc_hosts",
+    "profile_id": "probe-op-structure:file:v1_file_require_any",
+    "requested_path": "/etc/hosts",
+    "run_id": "39f84aa5-86b4-466d-b5d9-f510299bbd0a",
+    "runner_info": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "entrypoint": "sandbox_reader",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "entrypoint_sha256": "ab87a4f05e8cd1ab5e6a07acaa3dc4e0193d1799aa7c63d2112f2588b8149115",
+      "preexisting_sandbox_suspected": false,
+      "tool_build_id": "ab87a4f05e8cd1ab5e6a07acaa3dc4e0193d1799aa7c63d2112f2588b8149115"
+    },
+    "runtime_status": "errno",
+    "scenario_id": "probe-op-structure:file:v1_file_require_any:etc_hosts",
+    "stderr": "open target: Operation not permitted\n",
+    "stdout": "",
+    "target": "/etc/hosts",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "actual": "allow",
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "ok",
+      "err_class_source": "none",
+      "errbuf": null,
+      "errno": 0,
+      "rc": 0
+    },
+    "command": [
+      "book/api/runtime/native/probes/sandbox_mach_probe",
+      "book/experiments/probe-op-structure/out/39f84aa5-86b4-466d-b5d9-f510299bbd0a/runtime_profiles/v3_mach_global_local.probe-op-structure_mach_v3_mach_global_local.runtime.sb",
+      "com.apple.cfprefsd.agent"
+    ],
+    "expectation_id": "probe-op-structure:mach:v3_mach_global_local:cfprefsd_agent",
+    "expected": "allow",
+    "match": true,
+    "operation": "mach-lookup",
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/experiments/probe-op-structure/out/39f84aa5-86b4-466d-b5d9-f510299bbd0a/runtime_profiles/v3_mach_global_local.probe-op-structure_mach_v3_mach_global_local.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "cfprefsd_agent",
+    "profile_id": "probe-op-structure:mach:v3_mach_global_local",
+    "run_id": "39f84aa5-86b4-466d-b5d9-f510299bbd0a",
+    "runner_info": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "entrypoint": "sandbox_mach_probe",
+      "entrypoint_path": "book/api/runtime/native/probes/sandbox_mach_probe",
+      "entrypoint_sha256": "1053274c6049b28770cada4c140e9144e9e147288dd382d0356aac96b806b61f",
+      "preexisting_sandbox_suspected": false,
+      "tool_build_id": "1053274c6049b28770cada4c140e9144e9e147288dd382d0356aac96b806b61f"
+    },
+    "runtime_status": "success",
+    "scenario_id": "probe-op-structure:mach:v3_mach_global_local:cfprefsd_agent",
+    "stderr": "",
+    "stdout": "{\"kr\":0}\n",
+    "target": "com.apple.cfprefsd.agent",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "actual": "deny",
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "ok",
+      "err_class_source": "none",
+      "errbuf": null,
+      "errno": 0,
+      "rc": 0
+    },
+    "command": [
+      "book/api/runtime/native/probes/sandbox_iokit_probe",
+      "book/experiments/probe-op-structure/out/39f84aa5-86b4-466d-b5d9-f510299bbd0a/runtime_profiles/v5_iokit_class_property.probe-op-structure_iokit_v5_iokit_class_property.runtime.sb",
+      "IOUSBHostInterface"
+    ],
+    "errno": 2,
+    "expectation_id": "probe-op-structure:iokit:v5_iokit_class_property:iousb_host_interface",
+    "expected": "allow",
+    "failure_kind": "probe_nonzero_exit",
+    "failure_stage": "probe",
+    "match": false,
+    "operation": "iokit-open-service",
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/experiments/probe-op-structure/out/39f84aa5-86b4-466d-b5d9-f510299bbd0a/runtime_profiles/v5_iokit_class_property.probe-op-structure_iokit_v5_iokit_class_property.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "iousb_host_interface",
+    "profile_id": "probe-op-structure:iokit:v5_iokit_class_property",
+    "run_id": "39f84aa5-86b4-466d-b5d9-f510299bbd0a",
+    "runtime_status": "errno",
+    "scenario_id": "probe-op-structure:iokit:v5_iokit_class_property:iousb_host_interface",
+    "stderr": "",
+    "stdout": "{\"found\":false,\"open_kr\":null}\n",
+    "target": "IOUSBHostInterface",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  }
+]

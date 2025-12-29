@@ -1,5 +1,5 @@
 """
-runtime artifact readers (service contract).
+Runtime artifact readers (service contract).
 
 This module provides the "consumer" view of a runtime bundle.
 
@@ -14,6 +14,9 @@ Key invariants:
 This module is intentionally strict by default (`load_bundle_index_strict`) and
 also exposes a debug-friendly path (`open_bundle_unverified`) that never claims
 the bundle is complete or promotable.
+
+Treat a bundle like a signed packet of facts. We read it as-is and
+verify digests before trusting anything that may inform downstream mappings.
 """
 
 from __future__ import annotations
@@ -47,6 +50,7 @@ def _sha256_path(path: Path) -> str:
     h = hashlib.sha256()
     with path.open("rb") as fh:
         while True:
+            # Read in chunks to avoid loading large artifacts into memory.
             chunk = fh.read(1024 * 1024)
             if not chunk:
                 break

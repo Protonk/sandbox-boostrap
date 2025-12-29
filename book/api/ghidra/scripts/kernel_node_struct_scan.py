@@ -17,6 +17,10 @@ Does three things:
 
 See also: book/api/ghidra/README.md (node struct/evaluator tooling) and
 book/api/ghidra/ghidra_lib/README.md (helper schema/usage).
+
+Notes:
+- The reachable-set computation follows direct call flows; it is not a full CFG.
+- Candidates are heuristics intended to narrow manual inspection.
 """
 
 import json
@@ -32,6 +36,7 @@ collect_loads = node_scan_utils.collect_loads
 filter_loads = node_scan_utils.filter_loads
 validate_candidate_schema = node_scan_utils.validate_candidate_schema
 
+# Default _eval entry for Sonoma KC; override for other hosts.
 DEFAULT_EVAL = "fffffe000b40d698"
 
 
@@ -133,6 +138,7 @@ def write_reports(out_dir, candidates, scanned_count, eval_entry):
         "schema_version": SCHEMA_VERSION,
         "eval_entry": str(eval_entry),
         "functions_scanned": scanned_count,
+        # Only include candidates that pass the schema validator to keep JSON consistent.
         "candidates": [c for c in candidates if validate_candidate_schema(c)],
     }
     with open(json_path, "w") as fh:

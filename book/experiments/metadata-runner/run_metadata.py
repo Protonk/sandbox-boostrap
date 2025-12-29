@@ -28,11 +28,9 @@ from book.api.runtime.contracts.normalize import write_metadata_observations  # 
 BASE_DIR = Path(__file__).resolve().parent
 SB_DIR = BASE_DIR / "sb"
 BUILD_DIR = SB_DIR / "build"
-RUNNER_SRC = BASE_DIR / "metadata_runner.swift"
-RUNNER_BUILD_DIR = BASE_DIR / "build"
-RUNNER_BIN = RUNNER_BUILD_DIR / "metadata_runner"
-TOOL_MARKERS_SWIFT = REPO_ROOT / "book" / "api" / "runtime" / "native" / "ToolMarkers.swift"
-SEATBELT_CALLOUT_SHIM_C = REPO_ROOT / "book" / "api" / "runtime" / "native" / "seatbelt_callout_shim.c"
+RUNNER_DIR = REPO_ROOT / "book" / "api" / "runtime" / "native" / "metadata_runner"
+RUNNER_BIN = RUNNER_DIR / "metadata_runner"
+RUNNER_BUILD_SCRIPT = RUNNER_DIR / "build.sh"
 OUT_DIR = BASE_DIR / "out"
 WORLD_PATH = find_repo_root(Path(__file__)) / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world.json"
 
@@ -159,11 +157,7 @@ def decode_profiles(blobs: Dict[str, Path]) -> Path:
 
 def build_runner() -> Path:
     """Compile the Swift metadata runner."""
-    RUNNER_BUILD_DIR.mkdir(parents=True, exist_ok=True)
-    shim_obj = RUNNER_BUILD_DIR / "seatbelt_callout_shim.o"
-    subprocess.run(["clang", "-c", str(SEATBELT_CALLOUT_SHIM_C), "-o", str(shim_obj)], check=True, cwd=BASE_DIR)
-    cmd = ["swiftc", str(RUNNER_SRC), str(TOOL_MARKERS_SWIFT), str(shim_obj), "-o", str(RUNNER_BIN)]
-    subprocess.run(cmd, check=True, cwd=BASE_DIR)
+    subprocess.run([str(RUNNER_BUILD_SCRIPT)], check=True, cwd=RUNNER_DIR)
     return RUNNER_BIN
 
 

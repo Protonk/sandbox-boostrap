@@ -8,6 +8,10 @@ Args (from scaffold/manual): <out_dir> <build_id> <function_or_addr> [max_back] 
   max_entries: limit table entries read (default: 512).
 
 Outputs: <out_dir>/jump_tables.json
+
+Notes:
+- Regex matching uses Ghidra's instruction string representation; small format changes may affect matches.
+- max_entries keeps table reads bounded to avoid scanning bogus pointers.
 """
 
 import json
@@ -15,12 +19,13 @@ import os
 import re
 import traceback
 
-from ghidra_bootstrap import scan_utils
+from ghidra_bootstrap import io_utils, scan_utils
 
 from ghidra.program.model.address import Address
 
 _RUN_CALLED = False
 
+# Ghidra instruction strings are lowercased for matching consistency.
 BR_RE = re.compile(r"^(br|braa|brab)\s+(\w+)(?:\s*,\s*(\w+))?$")
 LDRSW_RE = re.compile(r"^ldrsw\s+(\w+)\s*,\s*\[(\w+)\s*,\s*(\w+)\s*,\s*lsl\s*#0x2\]$")
 ADRP_RE = re.compile(r"^adrp\s+(\w+)\s*,\s*([-0-9xa-f]+)$")
@@ -31,9 +36,7 @@ CMP_IMM_RE = re.compile(r"^cmp\s+(\w+)\s*,\s*#([0-9xa-f]+)$")
 
 
 def _ensure_out_dir(path):
-    if not os.path.isdir(path):
-        os.makedirs(path)
-
+    return io_utils.ensure_out_dir(path)
 
 def _parse_int(token, default=None):
     try:
@@ -145,6 +148,7 @@ def _scan_jump_tables(func, max_back, max_entries):
         br_reg = br_match.group(2)
         br_key = _reg_key(br_reg)
         br_addr = inst.getAddress().getOffset()
+        # max_back bounds the backward search to keep the pass deterministic.
         window_start = max(0, idx - max_back)
         window = insts[window_start:idx]
 

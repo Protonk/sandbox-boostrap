@@ -9,13 +9,17 @@ Args: <out_dir> <build_id> stub-targets=<json>|stub-map=<json> [scan_all] [inclu
   include_b: include direct B (tail-call) sites in addition to BL.
 
 Outputs: <out_dir>/stub_call_sites.json
+
+Notes:
+- BL is the canonical call; include_b adds tail-call branches for completeness.
+- Stub metadata can come from stub_got_map.json or match_stub_got outputs.
 """
 
 import json
 import os
 import traceback
 
-from ghidra_bootstrap import scan_utils
+from ghidra_bootstrap import block_utils, io_utils, scan_utils
 
 from ghidra.program.model.address import AddressSet
 from ghidra.program.model.listing import Instruction
@@ -36,9 +40,7 @@ def _format_addr(value):
 
 
 def _ensure_out_dir(path):
-    if not os.path.isdir(path):
-        os.makedirs(path)
-
+    return io_utils.ensure_out_dir(path)
 
 def _parse_hex(text):
     return scan_utils.parse_signed_hex(text)
@@ -61,6 +63,7 @@ def _load_stubs(stub_targets_path, stub_map_path):
         data = _load_json(stub_map_path)
         stubs = data.get("stubs") or []
         source = "stub_map"
+    # Preserve source metadata so downstream reports can trace provenance.
     return stubs, data.get("meta", {}), source
 
 
@@ -134,11 +137,7 @@ def _select_blocks(scan_all):
 
 
 def _block_set(blocks):
-    aset = AddressSet()
-    for blk in blocks:
-        aset.add(blk.getStart(), blk.getEnd())
-    return aset
-
+    return block_utils.block_set(blocks)
 
 def run():
     global _RUN_CALLED
@@ -172,6 +171,7 @@ def run():
                 scan_all = True
                 continue
             if low in ("include_b", "include-b", "b"):
+                # include_b picks up tail-call patterns that use B instead of BL.
                 include_b = True
                 continue
 

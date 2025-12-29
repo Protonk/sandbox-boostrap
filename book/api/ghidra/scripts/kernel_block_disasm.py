@@ -10,21 +10,23 @@ Args (from scaffold/manual): <out_dir> <build_id> [block_substr] [step] [max_byt
   exec_only: "1" to scan only executable blocks, "0" to scan all (default: 1).
 
 Outputs: <out_dir>/disasm_report.json
+
+Notes:
+- This is a preparatory step to populate the instruction listing for later scans.
+- Step defaults to 4 bytes to align with AArch64 instruction width.
 """
 
 import json
 import os
 import traceback
 
-from ghidra_bootstrap import scan_utils
+from ghidra_bootstrap import io_utils, scan_utils
 
 _RUN_CALLED = False
 
 
 def _ensure_out_dir(path):
-    if not os.path.isdir(path):
-        os.makedirs(path)
-
+    return io_utils.ensure_out_dir(path)
 
 def _parse_int(value, default):
     try:
@@ -52,6 +54,7 @@ def _select_blocks(substr, exec_only):
         picked = blocks
     else:
         needle = substr.lower()
+        # Match on block name substrings because KC block naming varies by slice.
         picked = [blk for blk in blocks if needle in (blk.getName() or "").lower()]
     if exec_only:
         picked = [blk for blk in picked if blk.isExecute()]
@@ -107,6 +110,7 @@ def run():
         out_dir = args[0]
         build_id = args[1] if len(args) > 1 else ""
         block_substr = args[2] if len(args) > 2 and args[2] else "sandbox"
+        # Keep default step aligned with AArch64 instruction size.
         step = _parse_int(args[3], 4) if len(args) > 3 else 4
         max_bytes = _parse_int(args[4], 0) if len(args) > 4 else 0
         exec_only = True

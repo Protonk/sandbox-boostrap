@@ -1,4 +1,9 @@
-"""Refresh canonical Ghidra sentinel fixtures from existing outputs."""
+"""Refresh canonical Ghidra sentinel fixtures from existing outputs.
+
+This script takes a live Ghidra output (already generated) and normalizes it
+into a canonical fixture plus a metadata sidecar. It is intentionally strict
+about provenance so freshness is enforced without re-running Ghidra.
+"""
 
 from __future__ import annotations
 
@@ -11,8 +16,11 @@ from typing import Dict, List, Optional, Sequence
 from book.api import path_utils
 
 
+# Schema versions are asserted by tests; bump only with an explicit fixture refresh.
 PROVENANCE_SCHEMA_VERSION = 1
 META_SCHEMA_VERSION = 1
+OFFSET_CANONICAL_LIMIT = 1000
+SYMBOL_CANONICAL_LIMIT = 1000
 
 SENTINELS = {
     "offset_inst_scan_0xc0_write_classify": {
@@ -50,6 +58,7 @@ def _hex_int(value: str) -> int:
     text = str(value).strip().lower()
     if text.startswith("0x-"):
         text = "-0x" + text[3:]
+    # Ghidra sometimes emits negative hex for signed addresses; normalize to int here.
     return int(text, 16)
 
 
@@ -77,6 +86,9 @@ def _normalize_offset_inst_scan(payload: dict) -> dict:
         return (_hex_int(addr) if addr else 0, mnemonic, inst)
 
     hits_sorted = sorted(hits, key=hit_key)
+    if len(hits_sorted) > OFFSET_CANONICAL_LIMIT:
+        hits_sorted = hits_sorted[:OFFSET_CANONICAL_LIMIT]
+    meta["hit_count"] = len(hits_sorted)
     return {"meta": meta, "hits": hits_sorted}
 
 
@@ -104,6 +116,9 @@ def _normalize_kernel_symbols(payload: dict) -> dict:
         return (name, addr_val, namespace, sym_type, block, size)
 
     symbols_sorted = sorted(symbols, key=symbol_key)
+    if len(symbols_sorted) > SYMBOL_CANONICAL_LIMIT:
+        symbols_sorted = symbols_sorted[:SYMBOL_CANONICAL_LIMIT]
+    meta["symbol_count"] = len(symbols_sorted)
     return {"meta": meta, "symbols": symbols_sorted}
 
 
@@ -160,6 +175,7 @@ def _expected_dep_paths(repo_root: Path) -> List[str]:
     dep_paths.add("book/api/ghidra/scripts/ghidra_bootstrap.py")
     ghidra_lib_dir = repo_root / "book" / "api" / "ghidra" / "ghidra_lib"
     if ghidra_lib_dir.exists():
+        # Conservative hashing: include all helper modules to avoid stale fixtures.
         for path in ghidra_lib_dir.rglob("*.py"):
             rel = path_utils.to_repo_relative(path, repo_root)
             dep_paths.add(rel)
@@ -202,9 +218,11 @@ def refresh(name: str) -> None:
     elif normalizer_id == "kernel_symbols_normalizer_v1":
         normalized = _normalize_kernel_symbols(output_payload)
     else:
+        # Sentinel names are explicit; avoid silently normalizing unknown outputs.
         raise SystemExit(f"no normalizer registered for sentinel {name} (normalizer_id={normalizer_id})")
     _write_json(paths["fixture"], normalized)
 
+    # World id is pinned to the Sonoma baseline; canonical fixtures are not cross-world.
     world_path = repo_root / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world.json"
     world = _load_json(world_path)
     profile_id = provenance.get("analysis", {}).get("profile_id")

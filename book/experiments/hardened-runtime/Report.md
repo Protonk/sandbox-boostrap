@@ -44,6 +44,7 @@ Provide a clean, provenance-stamped decision-stage runtime lane for non-VFS sand
 - Runner: `book/experiments/hardened-runtime/run_hardened_runtime.py`.
 - Clean channel: `python -m book.api.runtime run --plan book/experiments/hardened-runtime/plan.json --channel launchd_clean`.
 - Outputs: `book/experiments/hardened-runtime/out/` (see Deliverables).
+- Runtime tooling inventory: `book/experiments/hardened-runtime/other_runtime_inventory.json` (regenerated after probe migration to `book/api/runtime/native/probes`).
 
 ## Claims and limits
 - Runtime claims remain **partial** while mismatches persist; mismatch packets keep the boundary explicit.

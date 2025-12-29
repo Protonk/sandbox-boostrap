@@ -67,6 +67,9 @@ def _normalize_offset_inst_scan(payload: dict) -> dict:
         return (_hex_int(addr) if addr else 0, mnemonic, inst)
 
     hits_sorted = sorted(hits, key=hit_key)
+    if len(hits_sorted) > OFFSET_MAX_HITS:
+        hits_sorted = hits_sorted[:OFFSET_MAX_HITS]
+    meta["hit_count"] = len(hits_sorted)
     return {"meta": meta, "hits": hits_sorted}
 
 
@@ -94,6 +97,9 @@ def _normalize_kernel_symbols(payload: dict) -> dict:
         return (name, addr_val, namespace, sym_type, block, size)
 
     symbols_sorted = sorted(symbols, key=symbol_key)
+    if len(symbols_sorted) > SYMBOL_MAX_SYMBOLS:
+        symbols_sorted = symbols_sorted[:SYMBOL_MAX_SYMBOLS]
+    meta["symbol_count"] = len(symbols_sorted)
     return {"meta": meta, "symbols": symbols_sorted}
 
 

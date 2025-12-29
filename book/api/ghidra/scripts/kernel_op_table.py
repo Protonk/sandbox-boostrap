@@ -12,13 +12,17 @@ Heuristic:
 Pitfalls:
 - Use a correct processor import so pointer size and address sign-extension are correct.
 - With --no-analysis you still get memory blocks, but function detection may be weaker.
+
+Notes:
+- Candidate tables are long runs of function pointers; shorter runs are ignored as noise.
+- Pointers are sign-extended by Ghidra; normalization is required to stay within block bounds.
 """
 
 import json
 import os
 import traceback
 
-from ghidra_bootstrap import scan_utils
+from ghidra_bootstrap import block_utils, io_utils, scan_utils
 
 from ghidra.program.model.address import AddressSet
 from ghidra.program.model.mem import MemoryAccessException
@@ -27,28 +31,13 @@ _RUN_CALLED = False
 
 
 def _ensure_out_dir(path):
-    if not os.path.isdir(path):
-        os.makedirs(path)
-
+    return io_utils.ensure_out_dir(path)
 
 def _sandbox_blocks():
-    mem = currentProgram.getMemory()
-    blocks = []
-    for blk in mem.getBlocks():
-        name = blk.getName() or ""
-        if "sandbox" in name.lower():
-            blocks.append(blk)
-    if blocks:
-        return blocks
-    return list(mem.getBlocks())
-
+    return block_utils.sandbox_blocks(program=currentProgram)
 
 def _block_set(blocks):
-    aset = AddressSet()
-    for blk in blocks:
-        aset.add(blk.getStart(), blk.getEnd())
-    return aset
-
+    return block_utils.block_set(blocks)
 
 def _read_pointer(mem, addr, ptr_size, addr_factory):
     try:
@@ -77,6 +66,7 @@ def _scan_block_for_tables(block, ptr_size, func_mgr, addr_factory):
     end = block.getEnd().subtract(ptr_size - 1)
     tables = []
     addr = start
+    # Require a minimum run length to avoid false positives from small pointer arrays.
     min_len = 32
     while addr.compareTo(end) <= 0 and not monitor.isCancelled():
         target = _read_pointer(mem, addr, ptr_size, addr_factory)
@@ -98,6 +88,7 @@ def _scan_block_for_tables(block, ptr_size, func_mgr, addr_factory):
                 run_addr = run_addr.add(ptr_size)
             if len(run) >= min_len:
                 truncated = False
+                # Cap table size to keep JSON outputs bounded.
                 max_entries = 512
                 if len(run) > max_entries:
                     run = run[:max_entries]

@@ -1,4 +1,9 @@
-# Shared scan helpers for Ghidra scripts (pure Python).
+"""Shared scan helpers for Ghidra scripts (pure Python).
+
+These helpers normalize addresses and instruction text across Ghidra outputs,
+including the signed-address behavior Ghidra uses for 64-bit values. Keep them
+pure-Python so they work in Jython without extra dependencies.
+"""
 
 import hashlib
 import os
@@ -11,6 +16,7 @@ except NameError:  # Python 3
 
 MASK64 = (1 << 64) - 1
 SIGN_BIT = 1 << 63
+# Ghidra uses signed 64-bit offsets; normalize by masking to u64 for stable JSON.
 
 _STACK_TOKENS = ("[sp", "[x29", "[fp")
 
@@ -36,6 +42,7 @@ def format_address(value):
     val = parse_address(value)
     if val is None:
         return None
+    # Canonical hex avoids negative prefixes in dumps and keeps comparisons stable.
     return "0x%x" % (val & MASK64)
 
 
@@ -169,6 +176,7 @@ def find_repo_root(start_path=None):
     path = os.path.abspath(start_path)
     if os.path.isfile(path):
         path = os.path.dirname(path)
+    # Limit the walk to keep Jython scripts fast even when invoked from temp dirs.
     for _ in range(8):
         if os.path.isdir(os.path.join(path, "book")) and os.path.isdir(os.path.join(path, "dumps")):
             return path

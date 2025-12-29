@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-runtime CLI entrypoint (service contract).
+Runtime CLI entrypoint (service contract).
 
 This CLI is the stable "human and agent" interface to runtime. It exposes:
 - Plan-based runs via `run --plan ...` (recommended for experiments).
@@ -22,6 +22,9 @@ Assumptions:
 Refusals:
 - The CLI does not guess promotability; strict promotion packet emission is an
   explicit opt-in (`emit-promotion --require-promotable`).
+
+The CLI is a thin wrapper over library functions. That means the
+behavior is the same whether you run a command or import the API in code.
 """
 
 from __future__ import annotations
@@ -43,6 +46,7 @@ from book.api.runtime.plans import builder as runtime_plan_builder
 from book.api.runtime.analysis import op_summary as runtime_op_summary
 
 
+# Resolve repo roots once so defaults remain stable across subcommands.
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))
 BOOK_ROOT = REPO_ROOT / "book"
 
@@ -56,6 +60,7 @@ def _default_runtime_results() -> Path:
 
 
 def run_command(args: argparse.Namespace) -> int:
+    """Handle the `run` CLI subcommand."""
     if args.plan:
         out_dir = args.out or args.plan.parent / "out"
         channel = ChannelSpec(
@@ -84,6 +89,7 @@ def run_command(args: argparse.Namespace) -> int:
 
 
 def normalize_command(args: argparse.Namespace) -> int:
+    """Handle the `normalize` CLI subcommand."""
     out_path = normalize.write_matrix_observations(
         args.matrix,
         args.runtime_results,
@@ -95,6 +101,7 @@ def normalize_command(args: argparse.Namespace) -> int:
 
 
 def cut_command(args: argparse.Namespace) -> int:
+    """Handle the `cut` CLI subcommand."""
     cut = workflow.build_cut(
         args.matrix,
         args.runtime_results,
@@ -106,6 +113,7 @@ def cut_command(args: argparse.Namespace) -> int:
 
 
 def story_command(args: argparse.Namespace) -> int:
+    """Handle the `story` CLI subcommand."""
     story_doc = runtime_story.build_story(args.ops, args.scenarios, vocab_path=args.vocab, world_id=args.world_id)
     out_path = runtime_story.write_story(story_doc, args.out)
     print(f"[+] wrote {out_path}")
@@ -113,6 +121,7 @@ def story_command(args: argparse.Namespace) -> int:
 
 
 def golden_command(args: argparse.Namespace) -> int:
+    """Handle the `golden` CLI subcommand."""
     artifacts = workflow.generate_golden_artifacts(
         matrix_path=args.matrix,
         runtime_results_path=args.runtime_results,
@@ -126,12 +135,14 @@ def golden_command(args: argparse.Namespace) -> int:
 
 
 def promote_command(args: argparse.Namespace) -> int:
+    """Handle the `promote` CLI subcommand."""
     cut = workflow.promote_cut(args.staging, args.out)
     print(f"[+] wrote {cut.manifest}")
     return 0
 
 
 def mismatch_command(args: argparse.Namespace) -> int:
+    """Handle the `mismatch` CLI subcommand."""
     matrix_doc = json.loads(Path(args.matrix).read_text())
     runtime_doc = json.loads(Path(args.runtime_results).read_text())
     world_id = args.world_id or matrix_doc.get("world_id") or runtime_doc.get("world_id")
@@ -145,6 +156,7 @@ def mismatch_command(args: argparse.Namespace) -> int:
 
 
 def list_registries_command(args: argparse.Namespace) -> int:
+    """Handle the `list-registries` CLI subcommand."""
     registries = runtime_registry.list_registries()
     payload = [
         {
@@ -160,30 +172,35 @@ def list_registries_command(args: argparse.Namespace) -> int:
 
 
 def list_probes_command(args: argparse.Namespace) -> int:
+    """Handle the `list-probes` CLI subcommand."""
     probes = runtime_registry.list_probes(args.registry)
     print(json.dumps(probes, indent=2))
     return 0
 
 
 def list_profiles_command(args: argparse.Namespace) -> int:
+    """Handle the `list-profiles` CLI subcommand."""
     profiles = runtime_registry.list_profiles(args.registry)
     print(json.dumps(profiles, indent=2))
     return 0
 
 
 def describe_probe_command(args: argparse.Namespace) -> int:
+    """Handle the `describe-probe` CLI subcommand."""
     probe = runtime_registry.resolve_probe(args.registry, args.probe)
     print(json.dumps(probe, indent=2))
     return 0
 
 
 def describe_profile_command(args: argparse.Namespace) -> int:
+    """Handle the `describe-profile` CLI subcommand."""
     profile = runtime_registry.resolve_profile(args.registry, args.profile)
     print(json.dumps(profile, indent=2))
     return 0
 
 
 def emit_promotion_command(args: argparse.Namespace) -> int:
+    """Handle the `emit-promotion` CLI subcommand."""
     packet = runtime_api.emit_promotion_packet(args.bundle, args.out, require_promotable=args.require_promotable)
     promotability = packet.get("promotability") or {}
     if not promotability.get("promotable_decision_stage"):
@@ -194,6 +211,7 @@ def emit_promotion_command(args: argparse.Namespace) -> int:
 
 
 def validate_bundle_command(args: argparse.Namespace) -> int:
+    """Handle the `validate-bundle` CLI subcommand."""
     result = runtime_api.validate_bundle(args.bundle)
     if not result.ok:
         for err in result.errors:
@@ -204,18 +222,21 @@ def validate_bundle_command(args: argparse.Namespace) -> int:
 
 
 def status_command(args: argparse.Namespace) -> int:
+    """Handle the `status` CLI subcommand."""
     status = runtime_api.runtime_status()
     print(json.dumps(status, indent=2))
     return 0
 
 
 def list_plans_command(args: argparse.Namespace) -> int:
+    """Handle the `list-plans` CLI subcommand."""
     plans = runtime_plan.list_plans()
     print(json.dumps(plans, indent=2))
     return 0
 
 
 def describe_plan_command(args: argparse.Namespace) -> int:
+    """Handle the `describe-plan` CLI subcommand."""
     doc = runtime_plan.load_plan(args.plan)
     payload = {
         "plan": doc,
@@ -227,6 +248,7 @@ def describe_plan_command(args: argparse.Namespace) -> int:
 
 
 def plan_lint_command(args: argparse.Namespace) -> int:
+    """Handle the `plan-lint` CLI subcommand."""
     _doc, errors = runtime_plan.lint_plan(args.plan)
     if errors:
         for err in errors:
@@ -237,12 +259,14 @@ def plan_lint_command(args: argparse.Namespace) -> int:
 
 
 def list_templates_command(args: argparse.Namespace) -> int:
+    """Handle the `list-templates` CLI subcommand."""
     templates = runtime_plan_builder.list_plan_templates()
     print(json.dumps(templates, indent=2))
     return 0
 
 
 def plan_build_command(args: argparse.Namespace) -> int:
+    """Handle the `plan-build` CLI subcommand."""
     result = runtime_plan_builder.build_plan_from_template(
         args.template,
         args.out,
@@ -258,6 +282,7 @@ def plan_build_command(args: argparse.Namespace) -> int:
 
 
 def summarize_ops_command(args: argparse.Namespace) -> int:
+    """Handle the `summarize-ops` CLI subcommand."""
     if bool(args.bundle) == bool(args.packet):
         raise SystemExit("must pass exactly one of --bundle or --packet")
     if args.bundle:
@@ -277,6 +302,7 @@ def summarize_ops_command(args: argparse.Namespace) -> int:
 
 
 def registry_lint_command(args: argparse.Namespace) -> int:
+    """Handle the `registry-lint` CLI subcommand."""
     _doc, errors = runtime_registry.lint_registry(args.registry)
     if errors:
         for err in errors:
@@ -287,6 +313,7 @@ def registry_lint_command(args: argparse.Namespace) -> int:
 
 
 def reindex_bundle_command(args: argparse.Namespace) -> int:
+    """Handle the `reindex-bundle` CLI subcommand."""
     if args.repair and args.strict:
         raise SystemExit("--repair and --strict are mutually exclusive")
     if not args.repair and not args.strict:
@@ -297,6 +324,7 @@ def reindex_bundle_command(args: argparse.Namespace) -> int:
 
 
 def run_all_command(args: argparse.Namespace) -> int:
+    """Handle the `run-all` CLI subcommand (legacy matrix runner)."""
     run = workflow.run_from_matrix(
         args.matrix,
         args.out,
@@ -310,6 +338,7 @@ def run_all_command(args: argparse.Namespace) -> int:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """CLI entrypoint for `python -m book.api.runtime`."""
     ap = argparse.ArgumentParser(description="Runtime tools (run, normalize, cut, story, promote).")
     sub = ap.add_subparsers(dest="command", required=True)
 

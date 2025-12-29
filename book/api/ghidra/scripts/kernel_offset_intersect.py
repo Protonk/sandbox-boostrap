@@ -4,6 +4,10 @@ Intersect multiple offset scan outputs by function.
 Args: <out_dir> <build_id> <scan_json> [scan_json ...] [limit=N]
 
 Outputs: <out_dir>/offset_intersect.json
+
+Notes:
+- Intersections are computed on function name, not address, to stay stable across shifts.
+- limit controls how many per-function hits are included from each scan.
 """
 
 import json
@@ -11,19 +15,20 @@ import os
 import sys
 import traceback
 
+from ghidra_bootstrap import io_utils
+
 
 _RUN_CALLED = False
 
 
 def _ensure_out_dir(path):
-    if not os.path.isdir(path):
-        os.makedirs(path)
-
+    return io_utils.ensure_out_dir(path)
 
 def _parse_args(argv):
     out_dir = None
     build_id = None
     scans = []
+    # Keep default limit small so the output remains reviewable.
     limit = 5
     for token in argv:
         if token.startswith("limit="):
@@ -97,6 +102,7 @@ def run():
             entry = {"function": func, "hits": {}}
             for scan in scans_data:
                 hits = scan["by_func"].get(func, [])
+                # limit keeps each scan's contribution bounded for large intersections.
                 entry["hits"][scan["path"]] = hits[:limit]
             intersection_entries.append(entry)
 

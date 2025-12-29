@@ -4,13 +4,17 @@ Read a signed-32 jump table and resolve target addresses.
 Args: <out_dir> <build_id> <table_addr_hex> <base_addr_hex> <count> [alt_base_hex] [alt_label]
 
 Outputs: <out_dir>/jump_table_entries.json
+
+Notes:
+- Jump table entries are signed 32-bit offsets relative to the base.
+- alt_base is useful when tables are indexed from a different anchor.
 """
 
 import json
 import os
 import traceback
 
-from ghidra_bootstrap import scan_utils
+from ghidra_bootstrap import io_utils, scan_utils
 
 from ghidra.program.model.mem import MemoryAccessException
 
@@ -18,9 +22,7 @@ _RUN_CALLED = False
 
 
 def _ensure_out_dir(path):
-    if not os.path.isdir(path):
-        os.makedirs(path)
-
+    return io_utils.ensure_out_dir(path)
 
 def _parse_int(token, default=None):
     try:
@@ -76,6 +78,7 @@ def run():
             raw_u32 = raw & 0xFFFFFFFF
             offset = raw_u32
             if raw_u32 & 0x80000000:
+                # Interpret entries as signed 32-bit offsets.
                 offset = raw_u32 - 0x100000000
             target_val = (base_addr + offset) & ((1 << 64) - 1)
             target_addr = addr_space.getAddress(scan_utils.format_address(target_val))
@@ -89,6 +92,7 @@ def run():
                 "target_function": func.getName() if func else None,
             }
             if alt_base is not None:
+                # alt_base lets callers compare two candidate anchors quickly.
                 alt_target = (alt_base + offset) & ((1 << 64) - 1)
                 alt_addr = addr_space.getAddress(scan_utils.format_address(alt_target))
                 alt_func = func_mgr.getFunctionAt(alt_addr)

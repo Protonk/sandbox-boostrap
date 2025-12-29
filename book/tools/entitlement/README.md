@@ -20,7 +20,7 @@ Fixtures live under `fixtures/` and capture stable CLI/JSON shapes the tooling e
 - `EntitlementJail.app/Contents/MacOS/sandbox-log-observer --help > fixtures/contract/sandbox-log-observer.help.txt 2>&1` (prints help to stderr)
 - Run a probe to get a service PID/process name, then capture observer output (outside the sandbox):
   - `entitlement-jail xpc run --profile minimal --plan-id contract --row-id observer.sample --correlation-id "$(uuidgen)" capabilities_snapshot > /tmp/ej_probe.json`
-  - `PID=$(plutil -extract data.details.pid raw -o - /tmp/ej_probe.json)`
+  - `PID=$(plutil -extract data.details.service_pid raw -o - /tmp/ej_probe.json)`
   - `NAME=$(plutil -extract data.details.process_name raw -o - /tmp/ej_probe.json)`
-  - `CORR=$(plutil -extract data.correlation_id raw -o - /tmp/ej_probe.json)`
+  - `CORR=$(plutil -extract data.details.correlation_id raw -o - /tmp/ej_probe.json)`
   - `sandbox-log-observer --pid "$PID" --process-name "$NAME" --last 10s --plan-id contract --row-id observer.sample --correlation-id "$CORR" --format json > fixtures/contract/observer.sample.json`

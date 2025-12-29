@@ -1,5 +1,5 @@
 """
-runtime path-witness extraction (service support).
+Runtime path-witness extraction (service support).
 
 This module builds a small, explicit "path witness" IR from bundle artifacts so
 VFS canonicalization work does not have to re-parse stderr markers ad-hoc.
@@ -15,6 +15,9 @@ Non-goals / refusals:
   Seatbelt consulted; it only records what the kernel reported for an FD.
 - This module does not infer semantics from missing witnesses (denied opens do
   not produce FD paths).
+
+Path witnesses are a practical tool for studying canonicalization.
+They are observations of file descriptor paths, not proofs of policy logic.
 """
 
 from __future__ import annotations
@@ -73,9 +76,11 @@ def build_path_witnesses_doc(
     run_id: str,
     plan_id: str,
 ) -> Dict[str, Any]:
+    """Build a path_witnesses document from bundle artifacts."""
     records: List[Dict[str, Any]] = []
 
     baseline_path = run_dir / "baseline_results.json"
+    # Baseline lane uses unsandboxed probes; keep it distinct from scenario traces.
     if baseline_path.exists():
         baseline_doc = json.loads(baseline_path.read_text(encoding="utf-8", errors="ignore"))
         for row in baseline_doc.get("results") or []:
@@ -151,4 +156,3 @@ def build_path_witnesses_doc(
         "plan_id": plan_id,
         "records": records,
     }
-

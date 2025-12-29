@@ -3,6 +3,9 @@ Derived runtime projections.
 
 These helpers build secondary views from normalized runtime events without
 upgrading them into semantic claims or influencing failure_stage/failure_kind.
+
+Projections are "views," not truth. They make it easier to spot
+patterns while keeping the raw evidence separate.
 """
 
 from __future__ import annotations
@@ -86,6 +89,7 @@ def _pick_best_callout(
     if not candidates:
         return None
 
+    # Prefer pre-syscall/preflight markers to align with decision timing.
     pref = stage_preference or ["pre_syscall", "preflight", "post_apply", "bootstrap_exec"]
     by_stage = {s: i for i, s in enumerate(pref)}
     return sorted(candidates, key=lambda m: by_stage.get(str(m.get("stage")), 999))[0]

@@ -6,6 +6,10 @@ This module does not execute probes; it normalizes harness output
 shape with stable scenario IDs keyed to this world's runtime work. Full event
 logs are treated as recomputable; callers can write small curated slices when
 needed, but the normalization helpers are the source of truth.
+
+Normalization is the bridge between noisy execution and durable
+evidence. Once normalized, observations can be compared across runs without
+relearning every probe's quirks.
 """
 
 from __future__ import annotations
@@ -20,6 +24,7 @@ from book.api.runtime.contracts import schema as rt_contract
 from book.api.runtime.contracts import models
 
 # Host-bound alias map derived from vfs-canonicalization (partial).
+# Keep this small; full canonicalization mappings live in generated artifacts.
 _PATH_ALIAS_PREFIXES = (
     ("/tmp", "/private/tmp"),
 )
@@ -608,6 +613,7 @@ def write_metadata_observations(
     harness_version: Optional[str] = None,
     runner_info: Optional[Mapping[str, Any]] = None,
 ) -> Path:
+    """Normalize metadata-runner results and write them as JSON observations."""
     runtime_doc = load_json(runtime_results_path)
     observations = normalize_metadata_results(runtime_doc, world_id=world_id, harness_version=harness_version, runner_info=runner_info)
     return write_observations(observations, out_path)

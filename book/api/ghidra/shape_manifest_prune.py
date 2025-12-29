@@ -1,4 +1,9 @@
-"""Prune and expand Ghidra shape manifest entries for stable coverage."""
+"""Prune and expand Ghidra shape manifest entries for stable coverage.
+
+This tool keeps the shape catalog small by selecting representative outputs per
+task family and mode. It is intentionally conservative: duplicates are pruned
+so the manifest stays reviewable and high-signal.
+"""
 
 from __future__ import annotations
 
@@ -13,6 +18,7 @@ from book.api import path_utils
 from book.api.ghidra import shape_snapshot
 
 
+# Parametric task families share output shapes; we keep one representative per family/mode.
 PARAM_FAMILIES = (
     "addr-lookup",
     "adrp-add",
@@ -24,12 +30,14 @@ PARAM_FAMILIES = (
     "x86-page",
 )
 
+# Mode keys distinguish scan variants that materially change the output shape.
 MODE_KEYS = {
     "kernel-collection-offset-scan": ("write_only", "scan_all_blocks"),
     "sandbox-kext-offset-scan": ("write_only", "scan_all_blocks"),
     "kernel-adrp-ldr-scan": ("target_mode", "scan_all_blocks"),
 }
 
+# Some tasks produce multiple outputs that should be kept together.
 TASK_PATTERNS = {
     "find-field2-evaluator": (
         "summary.json",
@@ -122,6 +130,7 @@ def _choose_keepers(infos: List[EntryInfo]) -> Tuple[List[EntryInfo], List[Entry
     removed: List[EntryInfo] = []
     for entries in grouped.values():
         entries_sorted = sorted(entries, key=lambda e: _entry_rank(e.entry, e.family))
+        # Prefer the shortest, most canonical output path to minimize churn.
         keep = entries_sorted[0]
         keepers.append(keep)
         removed.extend(entries_sorted[1:])
@@ -169,6 +178,7 @@ def _representatives_from_outputs(
         rel = path.relative_to(repo_root).as_posix()
         if rel in existing_paths:
             continue
+        # The task name is the first directory under dumps/ghidra/out/<build>/.
         task = path.parent.relative_to(out_root).parts[0]
         family = _normalize_task(task)
         meta = _output_meta(path)

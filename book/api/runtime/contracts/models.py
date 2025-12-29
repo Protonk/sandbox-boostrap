@@ -1,3 +1,14 @@
+"""
+Typed runtime models used across normalization and mapping code.
+
+These dataclasses define the shape of runtime observations and derived cuts so
+the rest of the pipeline can be explicit about inputs and outputs.
+
+Typed records are a lightweight way to document assumptions in Python.
+They help later readers understand what a "runtime event" means without chasing
+dozens of JSON blobs.
+"""
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -5,6 +16,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 # Fixed world for this repository.
+# Updated only via world baseline migrations; do not override in callers.
 WORLD_ID = "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
 
 
@@ -60,6 +72,7 @@ class RuntimeObservation:
 
 @dataclass(frozen=True)
 class RuntimeCut:
+    """Paths to the canonical runtime cut artifacts."""
     events_index: Path
     scenarios: Path
     ops: Path
@@ -70,6 +83,7 @@ class RuntimeCut:
 
 @dataclass(frozen=True)
 class RuntimeRun:
+    """Paths to expected/runtime inputs plus the derived runtime cut."""
     expected_matrix: Path
     runtime_results: Path
     cut: RuntimeCut
@@ -78,6 +92,7 @@ class RuntimeRun:
 
 @dataclass(frozen=True)
 class GoldenArtifacts:
+    """Paths to golden artifacts derived from runtime-checks."""
     decode_summary: Path
     expectations: Path
     traces: Path

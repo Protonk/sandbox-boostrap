@@ -9,13 +9,17 @@ Assumptions/pitfalls:
 - Needs functions present (skip --no-analysis); computed_jumps will be zero otherwise.
 - Heuristic ranking only; manual triage in the Ghidra project is expected.
 - Stays within sandbox-related memory blocks when named; falls back to full-program if blocks are unnamed.
+
+Notes:
+- Computed jumps are a proxy for tag dispatchers, not proof of policy switches.
+- Sorting favors functions with many computed jumps and larger bodies.
 """
 
 import json
 import os
 import traceback
 
-from ghidra_bootstrap import scan_utils
+from ghidra_bootstrap import block_utils, io_utils, scan_utils
 
 from ghidra.program.model.address import AddressSet
 
@@ -23,28 +27,13 @@ _RUN_CALLED = False
 
 
 def _ensure_out_dir(path):
-    if not os.path.isdir(path):
-        os.makedirs(path)
-
+    return io_utils.ensure_out_dir(path)
 
 def _sandbox_blocks():
-    mem = currentProgram.getMemory()
-    blocks = []
-    for blk in mem.getBlocks():
-        name = blk.getName() or ""
-        if "sandbox" in name.lower():
-            blocks.append(blk)
-    if blocks:
-        return blocks
-    return list(mem.getBlocks())
-
+    return block_utils.sandbox_blocks(program=currentProgram)
 
 def _block_set(blocks):
-    aset = AddressSet()
-    for blk in blocks:
-        aset.add(blk.getStart(), blk.getEnd())
-    return aset
-
+    return block_utils.block_set(blocks)
 
 def _count_computed_jumps(func, listing):
     computed = 0
@@ -75,6 +64,7 @@ def run():
         print("kernel_tag_switch: starting for build %s -> %s" % (build_id, out_dir))
 
         _ensure_out_dir(out_dir)
+        # Focus on sandbox blocks to avoid unrelated kernel dispatchers.
         blocks = _sandbox_blocks()
         addr_set = _block_set(blocks)
         block_meta = [

@@ -1,5 +1,9 @@
-# Common helpers for node/struct scans in sandbox Ghidra scripts.
-# These rely on Ghidra's Python API (currentProgram, ghidra.program.model.*).
+"""Helpers for node/struct scans in sandbox Ghidra scripts.
+
+This module implements lightweight expression tracking and pcode filtering so
+struct-field scans can stay in Python/Jython. The API is tuned for determinism
+over completeness: we prefer predictable JSON output to fragile decompiler state.
+"""
 
 import re
 from collections import Counter
@@ -8,10 +12,12 @@ from ghidra.program.model.address import AddressSpace
 from ghidra.program.model.lang import Register
 
 
+# Bump when JSON output format changes so downstream snapshots can track it.
 SCHEMA_VERSION = "1.0"
 
 
 class Expr(object):
+    # Expr tracks a linear expression: sum(coeff*var) + const, or unknown.
     def __init__(self, terms=None, const=0, unknown=False):
         self.terms = terms or {}
         self.const = const
@@ -67,6 +73,7 @@ def get_reg_name(varnode, program):
 
 def eval_varnode(varnode, defs, program, reg_env=None, depth=0):
     if varnode is None or depth > 25:
+        # Depth cap keeps recursive pcode resolution from exploding on cyclic defs.
         return Expr(unknown=True)
     space = varnode.getAddress().getAddressSpace()
     if space.isConstantSpace():
@@ -77,6 +84,7 @@ def eval_varnode(varnode, defs, program, reg_env=None, depth=0):
             return reg_env[name].copy()
         return Expr(terms={name: 1})
     if space.getType() == AddressSpace.TYPE_UNIQUE:
+        # UNIQUE space nodes are Ghidra temporaries; chase their defining pcode op.
         defining = defs.get(varnode)
         if defining is None:
             return Expr(unknown=True)

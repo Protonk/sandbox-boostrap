@@ -7,13 +7,17 @@ Args: <out_dir> <build_id> [with_refs_only] [all]
   all: scan all blocks (default: only sandbox-named blocks, fallback to all).
 
 Outputs: <out_dir>/got_ref_sweep.json
+
+Notes:
+- GOT entries are 8-byte pointers; we walk in 8-byte strides.
+- Pointer-authenticated GOT slots are kept distinct via block name heuristics.
 """
 
 import json
 import os
 import traceback
 
-from ghidra_bootstrap import scan_utils
+from ghidra_bootstrap import block_utils, scan_utils
 
 from ghidra.program.model.data import DataUtilities, DataTypeConflictHandler
 from ghidra.program.model.data import QWordDataType
@@ -36,16 +40,7 @@ def _format_addr(value):
 
 
 def _sandbox_blocks():
-    mem = currentProgram.getMemory()
-    blocks = []
-    for blk in mem.getBlocks():
-        name = blk.getName() or ""
-        if "sandbox" in name.lower():
-            blocks.append(blk)
-    if blocks:
-        return blocks
-    return list(mem.getBlocks())
-
+    return block_utils.sandbox_blocks(program=currentProgram)
 
 def _find_got_blocks(blocks):
     got_blocks = []
@@ -94,6 +89,7 @@ def run():
         for extra in args[2:]:
             token = str(extra).lower()
             if token in ("1", "true", "yes", "with_refs_only"):
+                # with_refs_only keeps the output compact by dropping empty entries.
                 with_refs_only = True
             elif token == "all":
                 scan_all = True
@@ -117,7 +113,7 @@ def run():
             addr = start
             limit = end.getOffset() - 7
             while addr.getOffset() <= limit and not monitor.isCancelled():
-                # Define data as QWORD
+                # Define data as QWORD to ensure references resolve to a data item.
                 try:
                     DataUtilities.createData(
                         currentProgram, addr, qdt, -1, False, DataTypeConflictHandler.DEFAULT_HANDLER

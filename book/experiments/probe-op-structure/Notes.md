@@ -104,3 +104,12 @@ Use this file for concise notes on probe designs, compile logs, and findings.
 ## Refresh with updated layouts/contracts
 
 - Reran `analyze_profiles.py` and `anchor_scan.py` after landing the header/tail contracts and new tag layouts (meta tags 2/3, payload tag10). Outputs are aligned with the trimmed node region and current decoder; anchor hits for flow-divert/bsd/airlock/system profiles remain structurally stable.
+
+## Runtime slice (plan-based)
+
+- Added a minimal runtime plan + registry (`plan.json`, `registry/{profiles,probes}.json`) and registered the new runtime registry in `book/api/runtime/plans/registry/index.json`.
+- Preflight scan (`python3 book/tools/preflight/preflight.py scan ...`) reports `no_known_apply_gate_signature` for `v1_file_require_any`, `v3_mach_global_local`, and `v5_iokit_class_property`.
+- Ran `python -m book.api.runtime run --plan book/experiments/probe-op-structure/plan.json --channel launchd_clean --out book/experiments/probe-op-structure/out` → run id `39f84aa5-86b4-466d-b5d9-f510299bbd0a` (status: partial).
+- File probe outcomes: `/tmp/foo` allowed; `/etc/hosts` denied with `open target: Operation not permitted` (apply ok, failure at probe stage). Unsandboxed observation records `/private/etc/hosts`, suggesting a canonicalization mismatch.
+- Mach probe outcome: `com.apple.cfprefsd.agent` allowed via `sandbox_mach_probe`.
+- IOKit probe outcome: `IOUSBHostInterface` not found (`stdout: {"found":false}`), so the sandboxed probe exits nonzero; treat as non-discriminating for policy semantics.

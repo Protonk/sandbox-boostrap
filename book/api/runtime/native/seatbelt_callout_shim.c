@@ -1,3 +1,13 @@
+/*
+ * Seatbelt callout shim implementation.
+ *
+ * This file loads sandbox_check_by_audit_token dynamically and exposes a
+ * minimal helper to query seatbelt decisions for the current process.
+ *
+ * Callout APIs are observational tools. They do not replace syscall
+ * evidence; they are a separate lane used to cross-check behavior.
+ */
+
 #include "seatbelt_callout_shim.h"
 
 #include <dlfcn.h>
@@ -20,6 +30,7 @@ static void *sbl_load_libsystem_sandbox_handle(void) {
     static int attempted = 0;
     if (attempted) return handle;
     attempted = 1;
+    /* Cache the handle to avoid repeated dlopen calls. */
     handle = dlopen("/usr/lib/system/libsystem_sandbox.dylib", RTLD_NOW | RTLD_LOCAL);
     return handle;
 }
@@ -56,6 +67,7 @@ static int sbl_get_self_audit_token(audit_token_t *out, int *mach_kr_out) {
     return kr == KERN_SUCCESS ? 0 : -1;
 }
 
+/* Invoke a seatbelt callout for the current process and capture metadata. */
 int sbl_seatbelt_callout_self(
     const char *operation,
     int filter_type,

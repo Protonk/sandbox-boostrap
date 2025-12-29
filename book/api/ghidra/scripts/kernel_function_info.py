@@ -5,21 +5,22 @@ Args: <out_dir> <build_id> <function_name> [function_name...]
 
 Outputs: <out_dir>/function_info.json with per-function metadata.
 Pitfalls: depends on symbol/function recovery; avoid --no-analysis if you need caller/callee sets populated.
+Notes:
+- Symbol lookup uses the symbol table and may return multiple matches; we pick the first function.
+- Caller/callee sets are reference-based, not full call-graph recovery.
 """
 
 import json
 import os
 import traceback
 
-from ghidra_bootstrap import scan_utils
+from ghidra_bootstrap import io_utils, scan_utils
 
 _RUN_CALLED = False
 
 
 def _ensure_out_dir(path):
-    if not os.path.isdir(path):
-        os.makedirs(path)
-
+    return io_utils.ensure_out_dir(path)
 
 def _collect_for_name(name):
     symtab = currentProgram.getSymbolTable()
@@ -38,7 +39,8 @@ def _collect_for_name(name):
         callers = []
         for ref in ref_mgr.getReferencesTo(func.getEntryPoint()):
             caller_func = func_mgr.getFunctionContaining(ref.getFromAddress())
-                callers.append(
+            # Reference manager reports low-level refs; wrap into human-readable caller names.
+            callers.append(
                 {
                     "from": scan_utils.format_address(ref.getFromAddress().getOffset()),
                     "type": ref.getReferenceType().getName(),
@@ -77,6 +79,7 @@ def run():
             return
         out_dir = args[0]
         build_id = args[1]
+        # Ignore flag-like tokens so ad hoc CLI invocations can pass options later.
         names = [n for n in args[2:] if not n.startswith("-")]
         _ensure_out_dir(out_dir)
         results = []

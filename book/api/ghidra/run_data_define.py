@@ -30,6 +30,7 @@ from book.api.ghidra import scaffold
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run kernel-data-define via HeadlessConnector.")
+    # Use addr: prefix to avoid Ghidra's signed-hex ambiguity in headless scripts.
     parser.add_argument("--address", required=True, help="Address to define (e.g., 0x-7fffdf10f0).")
     parser.add_argument("--build", default=scaffold.DEFAULT_BUILD_ID, help="Sandbox-private build ID.")
     parser.add_argument("--task-name", default="kernel-data-define", help="Ghidra task name.")
@@ -57,6 +58,7 @@ def main() -> int:
         process_existing=args.process_existing,
         script_args=script_args,
     )
+    # Print the command to support copy/paste runs in troubleshooting sessions.
     print("Command:", invocation.render_shell())
     result = runner.run(invocation, execute=True, timeout=args.timeout)
     print("Return code:", result.returncode)

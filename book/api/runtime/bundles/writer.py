@@ -1,5 +1,5 @@
 """
-runtime artifact writers (service contract).
+Runtime artifact writers (service contract).
 
 This module owns the mechanics of writing runtime bundle artifacts in a
 way that supports the bundle invariants:
@@ -13,6 +13,10 @@ way that supports the bundle invariants:
 This module assumes the caller has already chosen an output directory and (for
 concurrent writers) acquired any necessary bundle-root lock. This module does
 not run probes, interpret evidence tiers, or decide promotability.
+
+Atomic writes + explicit commit markers let other tools read bundles
+without races. This is a small reliability trick that pays off when runs are
+expensive to reproduce.
 """
 
 from __future__ import annotations
@@ -43,20 +47,25 @@ class ArtifactIndexStatus(StrEnum):
 
 
 def write_json_atomic(path: Path, payload: Dict[str, Any]) -> None:
+    """Write a JSON payload atomically to the target path."""
     path.parent.mkdir(parents=True, exist_ok=True)
+    # Keep temp file in the same directory so rename stays atomic.
     tmp = path.with_name(path.name + ".tmp")
     tmp.write_text(json.dumps(payload, indent=2), encoding="utf-8")
     os.replace(tmp, path)
 
 
 def write_text_atomic(path: Path, text: str) -> None:
+    """Write plain text atomically to the target path."""
     path.parent.mkdir(parents=True, exist_ok=True)
+    # Use a sibling temp file so os.replace remains an atomic swap.
     tmp = path.with_name(path.name + ".tmp")
     tmp.write_text(text, encoding="utf-8")
     os.replace(tmp, path)
 
 
 def sha256_path(path: Path) -> str:
+    """Return the SHA-256 hex digest for the file at path."""
     h = hashlib.sha256()
     with path.open("rb") as fh:
         while True:
@@ -68,6 +77,7 @@ def sha256_path(path: Path) -> str:
 
 
 def extract_schema_version(path: Path) -> Optional[str]:
+    """Extract a schema_version from a JSON/JSONL artifact when present."""
     if path.suffix == ".jsonl":
         for line in path.read_text(encoding="utf-8", errors="ignore").splitlines():
             if not line.strip():
@@ -98,6 +108,7 @@ def write_artifact_index(
     repo_root: Path,
     status_override: Optional[str] = None,
 ) -> Path:
+    """Write the bundle commit index and return its path."""
     artifacts = []
     missing = []
     for name in expected_artifacts:

@@ -10,6 +10,10 @@ These helpers produce the canonical runtime mapping shapes for this world:
 
 Event traces are per-scenario JSONL; APIs should stream them via the index
 instead of depending on a monolithic events blob.
+
+Runtime mapping builders sit between "raw evidence" and "narrative."
+They intentionally keep schema versions explicit so later readers can diff
+changes without reverse-engineering formats.
 """
 
 from __future__ import annotations
@@ -95,6 +99,7 @@ def write_traces(
         safe = _sanitize_name(scenario_id)
         trace_path = traces_root / f"{safe}.jsonl"
         if scenario_id not in truncated and trace_path.exists():
+            # Remove stale traces before appending new observations.
             trace_path.unlink()
         truncated.add(scenario_id)
         with trace_path.open("a", encoding="utf-8") as fh:
@@ -113,6 +118,7 @@ def write_traces(
 
 
 def write_events_index(events_index: Mapping[str, Any], out_path: Path) -> Path:
+    """Write the per-scenario events index and return its path."""
     out_path = path_utils.ensure_absolute(out_path, REPO_ROOT)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(events_index, indent=2))
@@ -291,6 +297,7 @@ def build_scenarios(
 
 
 def write_scenarios(doc: Mapping[str, Any], out_path: Path) -> Path:
+    """Write the scenario-level mapping document and return its path."""
     out_path = path_utils.ensure_absolute(out_path, REPO_ROOT)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(doc, indent=2))
@@ -376,6 +383,7 @@ def build_ops(
 
 
 def write_ops(doc: Mapping[str, Any], out_path: Path) -> Path:
+    """Write the op-level mapping document and return its path."""
     out_path = path_utils.ensure_absolute(out_path, REPO_ROOT)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(doc, indent=2))
@@ -407,6 +415,7 @@ def build_indexes(
 
 
 def write_indexes(doc: Mapping[str, Any], out_path: Path) -> Path:
+    """Write the runtime mapping indexes document and return its path."""
     out_path = path_utils.ensure_absolute(out_path, REPO_ROOT)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(doc, indent=2))
@@ -437,6 +446,7 @@ def build_manifest(
 
 
 def write_manifest(doc: Mapping[str, Any], out_path: Path) -> Path:
+    """Write the runtime mapping manifest document and return its path."""
     out_path = path_utils.ensure_absolute(out_path, REPO_ROOT)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(doc, indent=2))

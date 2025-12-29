@@ -1,8 +1,11 @@
 """
-runtime plan builder (template -> plan/registry artifacts).
+Runtime plan builder (template -> plan/registry artifacts).
 
 This module centralizes template-driven plan generation so experiments can stay
 data-only and reuse consistent expected-matrix logic.
+
+Templates are a quick-start for new probe families. They keep the
+plan/registry shapes consistent across experiments.
 """
 
 from __future__ import annotations
@@ -21,6 +24,7 @@ from book.api.runtime.contracts import models
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))
 
 TEMPLATE_SCHEMA_VERSION = "runtime-tools.plan_template.v0.1"
+# Hardcoded template index keeps template resolution deterministic.
 TEMPLATE_INDEX: Dict[str, Path] = {
     "runtime-adversarial": REPO_ROOT
     / "book"
@@ -115,6 +119,7 @@ def _build_static_template(
 
 
 def list_plan_templates() -> List[Dict[str, Any]]:
+    """List available plan templates with descriptions and paths."""
     templates: List[Dict[str, Any]] = []
     for template_id, path in TEMPLATE_INDEX.items():
         if not path.exists():
@@ -131,6 +136,7 @@ def list_plan_templates() -> List[Dict[str, Any]]:
 
 
 def load_plan_template(template_id: str) -> Dict[str, Any]:
+    """Load a plan template by id and validate its schema."""
     path = TEMPLATE_INDEX.get(template_id)
     if not path:
         raise KeyError(f"unknown template id: {template_id}")
@@ -204,6 +210,7 @@ def _expected_decisions(policy: str, role: str, primary_path: str, alternate_pat
 
 
 def build_expected_entries(template: Dict[str, Any]) -> List[Dict[str, Any]]:
+    """Expand template path policies into expected decision rows."""
     path_sets = template.get("path_sets") or {}
     profiles = template.get("profiles") or {}
     profile_order: Sequence[str] = template.get("profile_order") or list(profiles.keys())
@@ -261,6 +268,7 @@ def build_expected_entries(template: Dict[str, Any]) -> List[Dict[str, Any]]:
 
 
 def collect_anchor_paths(template: Dict[str, Any]) -> List[str]:
+    """Return sorted anchor paths referenced by the template expectations."""
     anchors = {entry["requested_path"] for entry in build_expected_entries(template)}
     return sorted(anchors)
 
@@ -383,6 +391,7 @@ def build_plan_from_template(
     overwrite: bool = False,
     write_expected_matrix: bool = True,
 ) -> PlanBuildResult:
+    """Render a template into plan/registry files under out_root."""
     template = load_plan_template(template_id)
     out_root = path_utils.ensure_absolute(out_root, repo_root or REPO_ROOT)
     if template_id == "vfs-canonicalization":

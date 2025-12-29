@@ -1,5 +1,5 @@
 """
-runtime launchd_clean channel runner (service contract).
+Runtime launchd_clean channel runner (service contract).
 
 This module provides the canonical "clean" execution channel for runtime
 plan runs. It:
@@ -24,6 +24,9 @@ Guarantees:
 Refusals:
 - This module does not interpret runtime evidence, does not validate bundles,
   and does not build mappings. It only produces a clean-provenance run.
+
+macOS Seatbelt decisions depend on process state. Launchd gives us
+a reliable way to start unsandboxed, which is critical for decision-stage runs.
 """
 
 from __future__ import annotations
@@ -113,6 +116,7 @@ def _build_plist(
 def _wait_for_output(stdout_path: Path, stderr_path: Path, timeout: float) -> bool:
     start = time.time()
     while time.time() - start < timeout:
+        # Any output indicates the job has started and is reachable.
         if stdout_path.exists() and stdout_path.stat().st_size > 0:
             return True
         if stderr_path.exists() and stderr_path.stat().st_size > 0:
@@ -130,6 +134,7 @@ def run_via_launchctl(
     only_scenarios: Optional[Iterable[str]] = None,
     run_id: Optional[str] = None,
 ) -> None:
+    """Stage the repo and run a plan via launchd for a clean process context."""
     if not LAUNCHCTL.exists():
         raise RuntimeError("launchctl missing")
 

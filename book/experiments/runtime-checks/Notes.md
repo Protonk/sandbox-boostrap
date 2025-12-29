@@ -91,3 +91,8 @@ Use this file for concise notes on progress, commands, and intermediate findings
 - Added `F_GETPATH` + `F_GETPATH_NOFIRMLINK` emission to `sandbox_reader`/`sandbox_writer` so successful opens record both firmlink-normalized and non-firmlinked FD paths on stderr; vfs-canonicalization now uses these to populate `observed_path` and `observed_path_nofirmlink`.
 - Ran the runtime clean channel with staging to `/private/tmp` to avoid Desktop TCC; outputs synced back to `out/` with decision-stage results and sandbox_check callouts recorded in `runtime_results.json`.
 - Clean-channel runs now emit `out/run_manifest.json` and `out/run_preflight.json`; mapping generators refuse to promote decision-stage artifacts unless `channel=launchd_clean`.
+
+## Migration notes
+
+- Migrated `sandbox_runner`/`sandbox_reader`/`sandbox_writer` sources and binaries to `book/api/runtime/native/sandbox_runner` and centralized reader/writer logic in a shared helper; runtime harness paths now point at the new location.
+- Migrated `mach_probe`/`iokit_probe` and sandboxed variants to `book/api/runtime/native/probes`, sharing a single SBPL apply helper and build script.

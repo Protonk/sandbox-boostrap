@@ -1,3 +1,13 @@
+/*
+ * Minimal file probe for runtime allow/deny checks.
+ *
+ * The probe performs a single read or write and emits a tiny JSON summary so
+ * higher-level tooling can normalize results without parsing stderr text.
+ *
+ * Small probes reduce ambiguity. A single open/read/write maps more
+ * cleanly to a sandbox operation than a full-featured tool.
+ */
+
 #define _DARWIN_C_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
@@ -6,6 +16,7 @@
 #include <fcntl.h>
 #include <errno.h>
 
+/* Entry point: run a single read/write probe and emit JSON on stdout. */
 int main(int argc, char **argv) {
     if (argc < 3) {
         dprintf(2, "Usage: %s <read|write> <path>\n", argv[0]);
@@ -32,6 +43,7 @@ int main(int argc, char **argv) {
         dprintf(2, "unknown op: %s\n", op);
         return 2;
     }
+    /* Emit a tiny JSON summary to keep parsing deterministic. */
     dprintf(1, "{\"op\":\"%s\",\"path\":\"%s\",\"rc\":%d,\"errno\":%d}\n", op, path, rc, rc ? rc : 0);
     return rc ? 1 : 0;
 }

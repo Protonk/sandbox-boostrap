@@ -12,104 +12,39 @@ Options:
   skip-stack - skip stack-frame accesses ([sp]/[x29]/[fp]).
 
 Outputs: <out_dir>/offset_inst_scan.json
+
+Notes:
+- Offsets are matched against the instruction string to keep the scan simple and deterministic.
+- The provenance block is required by canonical sentinel tests.
 """
 
 import json
 import os
 import traceback
 
-from ghidra_bootstrap import scan_utils
-
-from ghidra.program.model.address import AddressSet
+from ghidra_bootstrap import block_utils, io_utils, provenance, scan_utils
 
 _RUN_CALLED = False
 
 
 def _ensure_out_dir(path):
-    if not os.path.isdir(path):
-        os.makedirs(path)
-
+    return io_utils.ensure_out_dir(path)
 
 def _sandbox_blocks():
-    mem = currentProgram.getMemory()
-    blocks = []
-    for blk in mem.getBlocks():
-        name = blk.getName() or ""
-        if "sandbox" in name.lower():
-            blocks.append(blk)
-    if blocks:
-        return blocks
-    return list(mem.getBlocks())
-
+    return block_utils.sandbox_blocks(program=currentProgram)
 
 def _block_set(blocks):
-    aset = AddressSet()
-    for blk in blocks:
-        aset.add(blk.getStart(), blk.getEnd())
-    return aset
-
+    return block_utils.block_set(blocks)
 
 def _bool_str(value):
     return "true" if value else "false"
 
 
-def _collect_deps(repo_root):
-    deps = []
-    if not repo_root:
-        return deps
-    dep_paths = set()
-    dep_paths.add(os.path.join("book", "api", "ghidra", "scripts", "ghidra_bootstrap.py"))
-    ghidra_lib_dir = os.path.join(repo_root, "book", "api", "ghidra", "ghidra_lib")
-    if os.path.isdir(ghidra_lib_dir):
-        for root, dirs, files in os.walk(ghidra_lib_dir):
-            dirs[:] = [d for d in dirs if d != "__pycache__"]
-            for name in files:
-                if not name.endswith(".py"):
-                    continue
-                dep_paths.add(os.path.join(root, name))
-    for path in sorted(dep_paths):
-        dep_abs = path if os.path.isabs(path) else os.path.join(repo_root, path)
-        if not os.path.isfile(dep_abs):
-            continue
-        dep_rel = scan_utils.to_repo_relative(dep_abs, repo_root)
-        deps.append({"path": dep_rel, "sha256": scan_utils.sha256_path(dep_abs)})
-    return deps
-
-
-def _read_world_id(repo_root):
-    if not repo_root:
-        return None
-    world_path = os.path.join(repo_root, "book", "world", "sonoma-14.4.1-23E224-arm64", "world.json")
-    if not os.path.isfile(world_path):
-        return None
-    try:
-        with open(world_path, "r") as f:
-            data = json.load(f)
-        return data.get("world_id")
-    except Exception:
-        return None
-
-
 def _build_provenance(build_id, needle, write_only, scan_all, exact_match, include_canonical, include_access, skip_stack):
     script_path = os.path.realpath(__file__)
-    repo_root = scan_utils.find_repo_root(script_path)
-    script_rel = scan_utils.to_repo_relative(script_path, repo_root)
-    script_sha = scan_utils.sha256_path(script_path)
-
-    deps = _collect_deps(repo_root)
-
-    program_path = None
-    program_sha = None
-    try:
-        program_path = currentProgram.getExecutablePath()
-    except Exception:
-        program_path = None
-    if program_path and os.path.isfile(program_path):
-        program_sha = scan_utils.sha256_path(program_path)
-    program_rel = scan_utils.to_repo_relative(program_path, repo_root) if program_path else None
-
     profile_id = os.environ.get("SANDBOX_LORE_GHIDRA_PROFILE_ID")
     if not profile_id:
+        # Profile ids encode scan parameters so canonical fixtures can validate freshness.
         profile_id = (
             "kernel_offset_inst_scan:offset=%s:write=%s:all=%s:exact=%s:"
             "canonical=%s:classify=%s:skip_stack=%s"
@@ -124,23 +59,8 @@ def _build_provenance(build_id, needle, write_only, scan_all, exact_match, inclu
             )
         )
 
-    return {
-        "schema_version": 1,
-        "world_id": _read_world_id(repo_root),
-        "generator": {
-            "script_path": script_rel,
-            "script_content_sha256": script_sha,
-            "deps": deps,
-        },
-        "input": {
-            "program_path": program_rel,
-            "program_sha256": program_sha,
-        },
-        "analysis": {
-            "profile_id": profile_id,
-        },
-        "build_id": build_id,
-    }
+    program_name = currentProgram.getName()
+    return provenance.build_provenance(build_id, profile_id, script_path, program_name=program_name)
 
 
 def run():
@@ -185,7 +105,8 @@ def run():
         _ensure_out_dir(out_dir)
         listing = currentProgram.getListing()
         func_mgr = currentProgram.getFunctionManager()
-        blocks = list(currentProgram.getMemory().getBlocks()) if scan_all else _sandbox_blocks()
+        memory = currentProgram.getMemory()
+        blocks = list(memory.getBlocks()) if scan_all else _sandbox_blocks()
         addr_set = _block_set(blocks)
 
         hits = []
@@ -193,6 +114,7 @@ def run():
         while instr_iter.hasNext() and not monitor.isCancelled():
             instr = instr_iter.next()
             inst_text = str(instr)
+            # exact_match avoids prefix collisions such as #0xc00 when scanning #0xc0.
             if exact_match:
                 if not scan_utils.exact_offset_match(inst_text, needle):
                     continue
@@ -218,7 +140,7 @@ def run():
                 entry["access"] = scan_utils.classify_mnemonic(instr.getMnemonicString())
             entry["stack_access"] = scan_utils.is_stack_access(inst_text)
             hits.append(entry)
-        block_meta = [{"name": b.getName(), "start": scan_utils.format_address(b.getStart().getOffset()), "end": scan_utils.format_address(b.getEnd().getOffset())} for b in blocks]
+        block_meta = block_utils.block_meta(blocks)
         meta = {
             "build_id": build_id,
             "program": currentProgram.getName(),
@@ -242,8 +164,7 @@ def run():
             include_access,
             skip_stack,
         )
-        with open(os.path.join(out_dir, "offset_inst_scan.json"), "w") as f:
-            json.dump({"meta": meta, "hits": hits, "_provenance": provenance}, f, indent=2, sort_keys=True)
+        io_utils.write_json(os.path.join(out_dir, "offset_inst_scan.json"), {"meta": meta, "hits": hits, "_provenance": provenance})
         print("kernel_offset_inst_scan: %d hits for %s" % (len(hits), needle))
     except Exception:
         if out_dir:

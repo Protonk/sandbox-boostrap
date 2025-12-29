@@ -15,13 +15,17 @@ Defaults:
 
 Outputs:
   registration_sites.json (call sites + arg recovery attempts)
+
+Notes:
+- Indirect call scanning uses GOT blocks to resolve BLR targets on arm64e.
+- Argument recovery is heuristic; treat outputs as leads, not authoritative truth.
 """
 
 import json
 import os
 import traceback
 
-from ghidra_bootstrap import scan_utils
+from ghidra_bootstrap import block_utils, scan_utils
 
 from ghidra.program.model.address import Address, AddressSet
 from ghidra.program.model.lang import Register
@@ -62,23 +66,10 @@ def _normalize_reg(name):
 
 
 def _sandbox_blocks():
-    mem = currentProgram.getMemory()
-    blocks = []
-    for blk in mem.getBlocks():
-        name = blk.getName() or ""
-        if "sandbox" in name.lower():
-            blocks.append(blk)
-    if blocks:
-        return blocks
-    return list(mem.getBlocks())
-
+    return block_utils.sandbox_blocks(program=currentProgram)
 
 def _block_set(blocks):
-    aset = AddressSet()
-    for blk in blocks:
-        aset.add(blk.getStart(), blk.getEnd())
-    return aset
-
+    return block_utils.block_set(blocks)
 
 def _find_got_blocks():
     mem = currentProgram.getMemory()
@@ -102,6 +93,7 @@ def _find_got_blocks():
         seen.add(key)
         blocks.append(blk)
         kinds.append(kind)
+    # Collapse GOT variants into a single metadata label.
     mode = "+".join(sorted(set(kinds))) if kinds else None
     return blocks, mode
 
@@ -185,6 +177,7 @@ def _resolve_reg_value(start_instr, reg_name, memory, max_back=40, depth=2):
     instr = start_instr
     steps = 0
     pending = None
+    # Backward scan is bounded to keep the pass fast on large functions.
     while instr and steps < max_back and not monitor.isCancelled():
         if not _writes_reg(instr, reg_name):
             instr = instr.getPrevious()

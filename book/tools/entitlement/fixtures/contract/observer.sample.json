@@ -1,30 +1,30 @@
 {
   "data": {
-    "correlation_id": "2DBE8BBC-0DCB-44EA-BA4F-D57A1C31B609",
+    "correlation_id": "f247b604-8240-493b-a116-ec88f997e38e",
     "deny_lines": [],
     "duration_ms": null,
-    "end": null,
-    "last": "10s",
+    "end": "2025-12-28 23:28:40",
+    "last": null,
     "layer_attribution": {
       "seatbelt": "observer_only"
     },
     "log_error": null,
     "log_rc": 0,
     "log_stderr": "",
-    "log_stdout": "Timestamp                       (process)[PID]    \n2025-12-26 17:16:31.678995-0800  localhost log[67162]: [com.apple.log:] log run noninteractively, parent: 67161 (sandbox-log-observer), args: '/usr/bin/log' 'show' '--style' 'syslog' '--info' '--debug' '--last' '10s' '--predicate' '((eventMessage CONTAINS[c] \"Sandbox: ProbeService_minimal(67158)\") OR ((eventMessage CONTAINS[c",
+    "log_stdout": "Timestamp                       (process)[PID]    ",
     "log_truncated": false,
     "mode": "show",
     "observed_deny": false,
-    "observed_lines": 2,
+    "observed_lines": 1,
     "observer_schema_version": 1,
-    "pid": 67158,
+    "pid": 98372,
     "plan_id": "contract",
-    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_minimal(67158)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"67158\")))",
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_minimal(98372)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"98372\")))",
     "process_name": "ProbeService_minimal",
     "row_id": "observer.sample",
-    "start": null
+    "start": "2025-12-28 23:28:36"
   },
-  "generated_at_unix_ms": 1766798192084,
+  "generated_at_unix_ms": 1766993318941,
   "kind": "sandbox_log_observer_report",
   "result": {
     "errno": null,
@@ -36,5 +36,5 @@
     "stderr": null,
     "stdout": null
   },
-  "schema_version": 2
+  "schema_version": 3
 }

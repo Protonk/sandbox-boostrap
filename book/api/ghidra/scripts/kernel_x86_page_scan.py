@@ -17,13 +17,17 @@ IMPORTANT: This is an x86-specific helper. On Apple Silicon / ARM64 kernels
 it will not find ADRP/ADD/LDR-style materializations and should not be treated
 as evidence for or against usage of an address. Use ARM64-aware scans instead
 when working with macOS 13–14 targets.
+
+Notes:
+- Page size defaults to 4K, matching typical kernel page alignment.
+- RELATIVE operands are interpreted as RIP-relative displacements.
 """
 
 import json
 import os
 import traceback
 
-from ghidra_bootstrap import scan_utils
+from ghidra_bootstrap import block_utils, io_utils, scan_utils
 
 from ghidra.program.model.address import AddressSet
 from ghidra.program.model.lang import OperandType
@@ -35,28 +39,13 @@ _RUN_CALLED = False
 
 
 def _ensure_out_dir(path):
-    if not os.path.isdir(path):
-        os.makedirs(path)
-
+    return io_utils.ensure_out_dir(path)
 
 def _sandbox_blocks():
-    mem = currentProgram.getMemory()
-    blocks = []
-    for blk in mem.getBlocks():
-        name = blk.getName() or ""
-        if "sandbox" in name.lower():
-            blocks.append(blk)
-    if blocks:
-        return blocks
-    return list(mem.getBlocks())
-
+    return block_utils.sandbox_blocks(program=currentProgram)
 
 def _block_set(blocks):
-    aset = AddressSet()
-    for blk in blocks:
-        aset.add(blk.getStart(), blk.getEnd())
-    return aset
-
+    return block_utils.block_set(blocks)
 
 def _scalar_val(obj):
     if isinstance(obj, Scalar):
@@ -92,6 +81,7 @@ def run():
         out_dir = args[0]
         build_id = args[1]
         target_addr = scan_utils.parse_hex(args[2])
+        # Default to 4K pages for address range matching.
         page_size = 0x1000
         scan_all = False
         for extra in args[3:]:
@@ -147,6 +137,7 @@ def run():
                     # Normalize to unsigned 64-bit for comparison
                     sval64 = _u64(sval)
                     if op_type & OperandType.RELATIVE:
+                        # RIP-relative addressing: target is next instruction + displacement.
                         tgt = _u64(next_addr_val + sval)
                         if _in_page(tgt, page_start, page_end):
                             matches.append(

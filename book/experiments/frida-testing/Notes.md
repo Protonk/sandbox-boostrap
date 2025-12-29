@@ -360,6 +360,18 @@
 - Status: partial (release call captured; outcome still failing).
 - Follow-up: clarify token semantics with EntitlementJail maintainers.
 
+- Command: ./.venv/bin/python book/experiments/frida-testing/run_ej_frida.py --profile-id minimal@injectable --ack-risk minimal@injectable --probe-id probe_catalog --script book/experiments/frida-testing/hooks/fs_open_selftest.js
+- Result: command timed out in the harness after capabilities_snapshot; Frida hooks installed and self-open emitted errno 13, but no run_xpc/manifest emitted.
+- Artifacts: book/experiments/frida-testing/out/7cf0b52b-e6a8-4b27-9503-180d4dc9ccd3/ej/capabilities_snapshot.json; book/experiments/frida-testing/out/7cf0b52b-e6a8-4b27-9503-180d4dc9ccd3/ej/logs/capabilities_snapshot.log; book/experiments/frida-testing/out/7cf0b52b-e6a8-4b27-9503-180d4dc9ccd3/ej/logs/observer/capabilities_snapshot.log.observer.json; book/experiments/frida-testing/out/7cf0b52b-e6a8-4b27-9503-180d4dc9ccd3/frida/events.jsonl.
+- Status: partial (harness timeout; session output missing).
+- Follow-up: rerun with a longer timeout to capture run_xpc/manifest.
+
+- Command: ./.venv/bin/python book/experiments/frida-testing/run_ej_frida.py --profile-id minimal@injectable --ack-risk minimal@injectable --probe-id probe_catalog --script book/experiments/frida-testing/hooks/fs_open_selftest.js
+- Result: run-xpc session ok; attach succeeded with pid_matches_service_pid true; fs_open_selftest.js emitted fs-open errno 13; selftest path preparation failed with PermissionError.
+- Artifacts: book/experiments/frida-testing/out/b03ad4a9-d2b3-438e-a71c-cab0ec92b0f3/manifest.json; book/experiments/frida-testing/out/b03ad4a9-d2b3-438e-a71c-cab0ec92b0f3/ej/run_xpc.json; book/experiments/frida-testing/out/b03ad4a9-d2b3-438e-a71c-cab0ec92b0f3/ej/capabilities_snapshot.json; book/experiments/frida-testing/out/b03ad4a9-d2b3-438e-a71c-cab0ec92b0f3/frida/events.jsonl; book/experiments/frida-testing/out/b03ad4a9-d2b3-438e-a71c-cab0ec92b0f3/frida/meta.json.
+- Status: ok (attach + probe_catalog succeeded).
+- Follow-up: investigate why selftest path preparation failed under minimal@injectable.
+
 ## Entry template
 - Command:
 - Result:

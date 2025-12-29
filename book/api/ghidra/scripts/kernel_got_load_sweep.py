@@ -9,13 +9,17 @@ Args: <out_dir> <build_id> [lookback] [all] [refs_only] [target_only=addr1,addr2
   target_only: comma-separated list of GOT entry addresses to include.
 
 Outputs: <out_dir>/got_load_sweep.json
+
+Notes:
+- __auth_got and __auth_ptr store pointer-authenticated entries; treat them as distinct from plain __got.
+- Lookback depth trades accuracy for speed; larger values chase more register defs.
 """
 
 import json
 import os
 import traceback
 
-from ghidra_bootstrap import scan_utils
+from ghidra_bootstrap import block_utils, scan_utils
 
 from ghidra.program.model.address import Address, AddressSet
 from ghidra.program.model.lang import Register
@@ -44,16 +48,7 @@ def _parse_hex_address(text):
 
 
 def _sandbox_blocks():
-    mem = currentProgram.getMemory()
-    blocks = []
-    for blk in mem.getBlocks():
-        name = blk.getName() or ""
-        if "sandbox" in name.lower():
-            blocks.append(blk)
-    if blocks:
-        return blocks
-    return list(mem.getBlocks())
-
+    return block_utils.sandbox_blocks(program=currentProgram)
 
 def _find_got_blocks(blocks):
     got_blocks = []
@@ -71,6 +66,7 @@ def _find_got_blocks(blocks):
             continue
         got_blocks.append(blk)
         kinds.append(kind)
+    # Collapse block kinds into a single mode label for metadata.
     mode = "+".join(sorted(set(kinds))) if kinds else None
     return got_blocks, mode
 
@@ -79,15 +75,12 @@ def _exec_blocks(blocks):
     exec_blocks = [b for b in blocks if b.isExecute()]
     if exec_blocks:
         return exec_blocks
+    # If none are marked executable, fall back to all blocks to avoid empty scans.
     return blocks
 
 
 def _block_set(blocks):
-    aset = AddressSet()
-    for blk in blocks:
-        aset.add(blk.getStart(), blk.getEnd())
-    return aset
-
+    return block_utils.block_set(blocks)
 
 def _addr_in_blocks(addr, blocks):
     try:
@@ -116,6 +109,7 @@ def _normalize_reg(name):
     if not name:
         return None
     name = name.lower()
+    # Normalize wN to xN so register matches are width-agnostic.
     if name.startswith("w") and name[1:].isdigit():
         return "x" + name[1:]
     return name

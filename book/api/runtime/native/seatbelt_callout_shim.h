@@ -1,3 +1,13 @@
+/*
+ * Seatbelt callout shim interface for runtime probes.
+ *
+ * This header exposes a tiny C ABI used by probes to call
+ * sandbox_check_by_audit_token-like APIs and collect structured metadata.
+ *
+ * Callout results are a side channel. They are useful for debugging
+ * but should not be confused with syscall-level evidence.
+ */
+
 #ifndef SANDBOX_LORE_SEATBELT_CALLOUT_SHIM_H
 #define SANDBOX_LORE_SEATBELT_CALLOUT_SHIM_H
 
@@ -6,11 +16,13 @@ extern "C" {
 #endif
 
 enum {
+    /* Stable no-report reason codes surfaced by the callout shim. */
     SBL_NO_REPORT_USED = 0,
     SBL_NO_REPORT_SYMBOL_MISSING = 1,
     SBL_NO_REPORT_FLAG_ZERO = 2,
 };
 
+/* Invoke a seatbelt callout for the current process and capture metadata. */
 int sbl_seatbelt_callout_self(
     const char *operation,
     int filter_type,

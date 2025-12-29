@@ -2,6 +2,9 @@
 Runtime tooling inventory builder.
 
 Collects in-repo runtime tooling references plus a curated external list.
+
+The inventory acts as a map of "where runtime evidence lives" so
+agents can route questions without spelunking the repo tree.
 """
 
 from __future__ import annotations
@@ -18,6 +21,7 @@ REPO_ROOT = path_utils.find_repo_root(Path(__file__))
 BASELINE = REPO_ROOT / "book/world/sonoma-14.4.1-23E224-arm64/world.json"
 SCHEMA_VERSION = "hardened-runtime.other-runtime-inventory.v0.1"
 
+# Keyword scan targets common runtime/sandbox tokens for cross-repo discovery.
 KEYWORDS = [
     "sandbox_init",
     "sandbox_init_with_parameters",
@@ -139,7 +143,7 @@ IN_REPO_ITEMS: List[Dict[str, Any]] = [
     },
     {
         "id": "preflight-tools",
-        "paths": ["book/tools/preflight", "book/experiments/preflight-index", "book/experiments/preflight-blob-digests"],
+        "paths": ["book/tools/preflight", "book/tools/preflight/index", "book/experiments/preflight-blob-digests"],
         "category": "apply-stage",
         "description": "Apply-gate preflight scanning and enterability indices.",
         "privileges": "user",
@@ -283,6 +287,7 @@ def _rg_files(pattern: str, repo_root: Path) -> Iterable[Path]:
 
 
 def collect_keyword_hits(repo_root: Path) -> Dict[str, List[str]]:
+    """Scan the repo for keyword hits and return a map of path -> keywords."""
     hits: Dict[str, List[str]] = {}
     if not _rg_available():
         return hits
@@ -294,6 +299,7 @@ def collect_keyword_hits(repo_root: Path) -> Dict[str, List[str]]:
 
 
 def assign_hits(items: List[Dict[str, Any]], hits: Dict[str, List[str]]) -> Dict[str, Any]:
+    """Attach keyword hit paths to inventory items based on path prefixes."""
     by_prefix: Dict[str, Dict[str, Any]] = {}
     for item in items:
         for prefix in item.get("paths") or []:
@@ -315,6 +321,7 @@ def assign_hits(items: List[Dict[str, Any]], hits: Dict[str, List[str]]) -> Dict
 
 
 def load_world_id(baseline: Optional[Path] = None) -> str:
+    """Load the baseline world_id from the world JSON file."""
     baseline_path = baseline or BASELINE
     if not baseline_path.exists():
         return "unknown"
@@ -323,6 +330,7 @@ def load_world_id(baseline: Optional[Path] = None) -> str:
 
 
 def build_runtime_inventory(*, repo_root: Optional[Path], out_path: Path) -> Dict[str, Any]:
+    """Build and write the runtime tooling inventory document."""
     root = path_utils.ensure_absolute(repo_root or REPO_ROOT, REPO_ROOT)
     hits = collect_keyword_hits(root)
     assigned = assign_hits(IN_REPO_ITEMS, hits)

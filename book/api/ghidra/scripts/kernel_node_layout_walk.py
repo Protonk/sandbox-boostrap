@@ -11,6 +11,10 @@ Modes:
        same base+index pattern (likely node-like structs). Outputs a candidate list.
   3) probe <out_txt> [out_json] [target_fn_or_addr] [index_reg]
      - Same behavior as kernel_node_layout_probe.py (single-function probe).
+
+Notes:
+- This script leans on pcode heuristics; treat results as leads, not proofs.
+- The eval-callees mode is tuned to the Sonoma _eval call graph.
 """
 
 import json
@@ -22,10 +26,12 @@ from ghidra.program.model.address import AddressSet, AddressSpace
 from ghidra.program.model.lang import Register
 from ghidra.program.model.scalar import Scalar
 
+# Default eval address matches the Sonoma KC; override when probing other hosts.
 DEFAULT_EVAL = "fffffe000b40d698"
 
 
 class Expr(object):
+    # Expr tracks linear forms used to infer base+index addressing.
     def __init__(self, terms=None, const=0, unknown=False):
         self.terms = terms or {}
         self.const = const

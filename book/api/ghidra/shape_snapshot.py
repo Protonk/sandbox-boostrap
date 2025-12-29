@@ -1,4 +1,9 @@
-"""Shape snapshots for Ghidra script outputs (host-bound, static JSON only)."""
+"""Shape snapshots for Ghidra script outputs (host-bound, static JSON only).
+
+Snapshots are structural: they record types, keys, and list shapes without
+asserting semantic correctness. This keeps tests stable while still catching
+schema drift in Ghidra outputs.
+"""
 
 from __future__ import annotations
 
@@ -11,6 +16,7 @@ from typing import Any, Dict, Iterable, List, Tuple
 from book.api import path_utils
 
 
+# Bump when the snapshot schema itself changes (not when data changes).
 SCHEMA_VERSION = "1.0"
 
 
@@ -58,6 +64,7 @@ def build_shape(value: Any, options: ShapeOptions) -> Dict[str, Any]:
         items = value
         length = len(items)
         if options.max_list_items is not None:
+            # Sampling keeps large outputs from exploding snapshot size.
             items = items[: options.max_list_items]
         shapes = [build_shape(item, options) for item in items]
         element_shapes = _dedupe_shapes(shapes)
@@ -130,6 +137,7 @@ def validate_entry(entry: Dict[str, Any], repo_root: Path) -> Tuple[bool, str | 
     snapshot_path = path_utils.ensure_absolute(entry["snapshot_path"], repo_root)
     if not output_path.exists():
         if entry.get("required"):
+            # Required entries are strict gates in CI; missing outputs should fail fast.
             return False, "missing output %s" % path_utils.to_repo_relative(output_path, repo_root)
         return True, None
     if not snapshot_path.exists():

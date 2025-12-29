@@ -5,44 +5,34 @@ Args: <out_dir> <build_id> <imm_hex> [window=<n>] [reg=<w1>] [all]
 
 By default scans sandbox-named blocks; include "all" to scan the entire program.
 Outputs: <out_dir>/syscall_code_scan.json
+
+Notes:
+- This is a mnemonic-based heuristic; it does not validate syscall semantics.
+- reg= filters for a specific argument register when the call code is passed in.
 """
 
 import json
 import os
 import traceback
 
-from ghidra_bootstrap import scan_utils
+from ghidra_bootstrap import block_utils, io_utils, scan_utils
 
 from ghidra.program.model.address import AddressSet
 from ghidra.program.model.lang import Register
 
 _RUN_CALLED = False
+# Compare-like mnemonics that commonly guard syscall dispatch paths.
 _MNEMONICS = set(["cmp", "cmn", "subs", "adds", "ands", "tst"])
 
 
 def _ensure_out_dir(path):
-    if not os.path.isdir(path):
-        os.makedirs(path)
-
+    return io_utils.ensure_out_dir(path)
 
 def _sandbox_blocks():
-    mem = currentProgram.getMemory()
-    blocks = []
-    for blk in mem.getBlocks():
-        name = blk.getName() or ""
-        if "sandbox" in name.lower():
-            blocks.append(blk)
-    if blocks:
-        return blocks
-    return list(mem.getBlocks())
-
+    return block_utils.sandbox_blocks(program=currentProgram)
 
 def _block_set(blocks):
-    aset = AddressSet()
-    for blk in blocks:
-        aset.add(blk.getStart(), blk.getEnd())
-    return aset
-
+    return block_utils.block_set(blocks)
 
 def _parse_args(tokens):
     if len(tokens) < 3:
@@ -145,6 +135,7 @@ def run():
             if not any(_imm_matches(val, imm) for val in imms):
                 continue
             regs = _collect_regs(instr)
+            # Optional register filter narrows candidates to a specific argument register.
             if reg_filter and reg_filter not in regs:
                 continue
             addr = instr.getAddress()

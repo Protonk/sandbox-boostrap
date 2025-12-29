@@ -1,5 +1,5 @@
 """
-runtime registry loader (service contract).
+Runtime registry loader (service contract).
 
 Registries describe probes and SBPL profiles as data. They are the bridge
 between plan JSON ("run these profiles") and the runnable harness inputs.
@@ -19,6 +19,9 @@ Non-goals / refusals:
 - This module does not execute probes and does not interpret runtime evidence.
 - It does not auto-heal registries; descriptor drift should be fixed at the
   source (the registry JSON and referenced files).
+
+Registry JSON is the "index card" for runtime probes. Keeping it
+data-only makes automation safer and reproducible.
 """
 
 from __future__ import annotations
@@ -32,6 +35,7 @@ from book.api import path_utils
 
 
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))
+# Registry index stays in-repo; resolve once for consistent paths.
 REGISTRY_INDEX = REPO_ROOT / "book" / "api" / "runtime" / "plans" / "registry" / "index.json"
 
 INDEX_SCHEMA_VERSION = "runtime-tools.registry_index.v0.1"
@@ -52,6 +56,7 @@ def _load_json(path: Path) -> Dict[str, Any]:
 
 
 def load_registry_index(path: Optional[Path] = None) -> Dict[str, Any]:
+    """Load the registry index file and validate its schema."""
     index_path = path_utils.ensure_absolute(path or REGISTRY_INDEX, REPO_ROOT)
     doc = _load_json(index_path)
     if doc.get("schema_version") != INDEX_SCHEMA_VERSION:
@@ -60,6 +65,7 @@ def load_registry_index(path: Optional[Path] = None) -> Dict[str, Any]:
 
 
 def iter_registry_paths(index_doc: Optional[Dict[str, Any]] = None) -> Iterable[RegistryPaths]:
+    """Yield registry path entries from the registry index document."""
     doc = index_doc or load_registry_index()
     for entry in doc.get("registries") or []:
         registry_id = entry.get("id")
@@ -90,6 +96,7 @@ def _load_profile_registry(path: Path) -> Dict[str, Any]:
 
 
 def load_registry(registry_id: str, index_doc: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+    """Load probes and profiles for a registry id."""
     for entry in iter_registry_paths(index_doc):
         if entry.registry_id == registry_id:
             probes = _load_probe_registry(entry.probes)
@@ -105,20 +112,24 @@ def load_registry(registry_id: str, index_doc: Optional[Dict[str, Any]] = None) 
 
 
 def list_registries() -> list[RegistryPaths]:
+    """Return registry path records from the registry index."""
     return list(iter_registry_paths())
 
 
 def list_probes(registry_id: str) -> list[Dict[str, Any]]:
+    """Return probe descriptors for a registry id."""
     reg = load_registry(registry_id)
     return list((reg.get("probes") or {}).values())
 
 
 def list_profiles(registry_id: str) -> list[Dict[str, Any]]:
+    """Return profile descriptors for a registry id."""
     reg = load_registry(registry_id)
     return list((reg.get("profiles") or {}).values())
 
 
 def resolve_probe(registry_id: str, probe_id: str) -> Dict[str, Any]:
+    """Resolve a probe descriptor by id within a registry."""
     reg = load_registry(registry_id)
     probe = (reg.get("probes") or {}).get(probe_id)
     if not probe:
@@ -127,6 +138,7 @@ def resolve_probe(registry_id: str, probe_id: str) -> Dict[str, Any]:
 
 
 def resolve_profile(registry_id: str, profile_id: str) -> Dict[str, Any]:
+    """Resolve a profile descriptor by id within a registry."""
     reg = load_registry(registry_id)
     profile = (reg.get("profiles") or {}).get(profile_id)
     if not profile:
@@ -135,6 +147,7 @@ def resolve_profile(registry_id: str, profile_id: str) -> Dict[str, Any]:
 
 
 def lint_registry(registry_id: Optional[str] = None) -> Tuple[Optional[Dict[str, Any]], list[str]]:
+    """Lint registry descriptors and return (index_doc, errors)."""
     errors: list[str] = []
     try:
         index_doc = load_registry_index()

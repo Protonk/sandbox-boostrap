@@ -1,6 +1,3 @@
-#ifndef SANDBOX_LORE_RUNTIME_TOOL_MARKERS_H
-#define SANDBOX_LORE_RUNTIME_TOOL_MARKERS_H
-
 /*
  * Shared JSONL marker emitter helpers for SANDBOX_LORE runtime tooling.
  *
@@ -15,7 +12,13 @@
  *
  * NOTE: This header is intentionally header-only with static helpers to keep
  * build integration minimal across ad-hoc experiment binaries.
+ *
+ * Emitting structured markers is safer than scraping stderr text.
+ * It gives the Python layer a stable contract to parse across tool versions.
  */
+
+#ifndef SANDBOX_LORE_RUNTIME_TOOL_MARKERS_H
+#define SANDBOX_LORE_RUNTIME_TOOL_MARKERS_H
 
 #include <ctype.h>
 #include <dlfcn.h>
@@ -29,6 +32,24 @@
 #include <string.h>
 #include <unistd.h>
 
+/* Compiler helpers keep warnings stable across header-only uses. */
+#if defined(__clang__)
+#define SBL_DIAGNOSTIC_PUSH _Pragma("clang diagnostic push")
+#define SBL_DIAGNOSTIC_POP _Pragma("clang diagnostic pop")
+#define SBL_DIAGNOSTIC_IGNORED_DEPRECATED _Pragma("clang diagnostic ignored \"-Wdeprecated-declarations\"")
+#else
+#define SBL_DIAGNOSTIC_PUSH
+#define SBL_DIAGNOSTIC_POP
+#define SBL_DIAGNOSTIC_IGNORED_DEPRECATED
+#endif
+
+#if defined(__GNUC__) || defined(__clang__)
+#define SBL_UNUSED __attribute__((unused))
+#else
+#define SBL_UNUSED
+#endif
+
+/* Schema versions are centralized here to keep marker compatibility explicit. */
 #define SANDBOX_LORE_SBPL_APPLY_MARKER_SCHEMA_VERSION 1
 #define SANDBOX_LORE_SEATBELT_CALLOUT_MARKER_SCHEMA_VERSION 2
 #define SANDBOX_LORE_SBPL_COMPILE_MARKER_SCHEMA_VERSION 1
@@ -266,7 +287,7 @@ static sbl_apply_report_t sbl_apply_report_from_parts(
     return report;
 }
 
-static sbl_apply_report_t sbl_sandbox_init_with_markers(
+static SBL_UNUSED sbl_apply_report_t sbl_sandbox_init_with_markers(
     const char *profile_text,
     uint64_t flags,
     char **errorbuf_out,
@@ -276,6 +297,8 @@ static sbl_apply_report_t sbl_sandbox_init_with_markers(
     char **errp = errorbuf_out ? errorbuf_out : &tmp_err;
 
     errno = 0;
+    SBL_DIAGNOSTIC_PUSH
+    SBL_DIAGNOSTIC_IGNORED_DEPRECATED
     int rc = sandbox_init(profile_text, flags, errp);
     int saved_errno = errno;
     const char *errbuf = (errp && *errp) ? *errp : NULL;
@@ -287,10 +310,11 @@ static sbl_apply_report_t sbl_sandbox_init_with_markers(
     if (!errorbuf_out && tmp_err) {
         sandbox_free_error(tmp_err);
     }
+    SBL_DIAGNOSTIC_POP
     return sbl_apply_report_from_parts("sbpl", "sandbox_init", rc, saved_errno, errbuf, profile_path);
 }
 
-static sbl_apply_report_t sbl_sandbox_apply_with_markers(
+static SBL_UNUSED sbl_apply_report_t sbl_sandbox_apply_with_markers(
     sbl_sandbox_apply_fn apply_fn,
     void *compiled_profile,
     const char *profile_path
@@ -305,6 +329,14 @@ static sbl_apply_report_t sbl_sandbox_apply_with_markers(
         sbl_emit_sbpl_applied_marker("blob", "sandbox_apply", profile_path);
     }
     return sbl_apply_report_from_parts("blob", "sandbox_apply", rc, saved_errno, errbuf, profile_path);
+}
+
+static SBL_UNUSED void sbl_sandbox_free_error(char *errbuf) {
+    if (!errbuf) return;
+    SBL_DIAGNOSTIC_PUSH
+    SBL_DIAGNOSTIC_IGNORED_DEPRECATED
+    sandbox_free_error(errbuf);
+    SBL_DIAGNOSTIC_POP
 }
 
 static void sbl_emit_sbpl_applied_marker(const char *mode, const char *api, const char *profile_path) {
@@ -323,7 +355,7 @@ static void sbl_emit_sbpl_applied_marker(const char *mode, const char *api, cons
     fflush(out);
 }
 
-static void sbl_emit_sbpl_exec_marker(int rc, int err, const char *argv0) {
+static SBL_UNUSED void sbl_emit_sbpl_exec_marker(int rc, int err, const char *argv0) {
     FILE *out = stderr;
     int first = 1;
     fputc('{', out);
@@ -345,7 +377,7 @@ static void sbl_emit_sbpl_exec_marker(int rc, int err, const char *argv0) {
  * canonical stderr). It records whether preflight ran, what policy was in
  * effect, and the preflight tool's exit code.
  */
-static void sbl_emit_sbpl_preflight_marker(
+static SBL_UNUSED void sbl_emit_sbpl_preflight_marker(
     const char *mode,
     const char *policy,
     const char *profile_path,
@@ -380,7 +412,7 @@ static void sbl_emit_sbpl_preflight_marker(
  * - present: 0/1 when rc==0, or -1 to omit.
  * - value_bool: 0/1 when the entitlement value is boolean, or -1 to omit.
  */
-static void sbl_emit_entitlement_check_marker(
+static SBL_UNUSED void sbl_emit_entitlement_check_marker(
     const char *stage,
     const char *entitlement,
     int rc,
@@ -478,7 +510,11 @@ static sbl_sandbox_free_profile_fn sbl_load_sandbox_free_profile(void) {
     return fn;
 }
 
-static sbl_compiled_profile_t *sbl_sandbox_compile_file_with_markers(const char *path, uint64_t flags, char **errorbuf_out) {
+static SBL_UNUSED sbl_compiled_profile_t *sbl_sandbox_compile_file_with_markers(
+    const char *path,
+    uint64_t flags,
+    char **errorbuf_out
+) {
     sbl_sandbox_compile_file_fn compile_fn = sbl_load_sandbox_compile_file();
     char *tmp_err = NULL;
     char **errp = errorbuf_out ? errorbuf_out : &tmp_err;
@@ -497,7 +533,12 @@ static sbl_compiled_profile_t *sbl_sandbox_compile_file_with_markers(const char 
     return profile;
 }
 
-static sbl_compiled_profile_t *sbl_sandbox_compile_string_with_markers(const char *profile_src, uint64_t flags, char **errorbuf_out, const char *profile_path) {
+static SBL_UNUSED sbl_compiled_profile_t *sbl_sandbox_compile_string_with_markers(
+    const char *profile_src,
+    uint64_t flags,
+    char **errorbuf_out,
+    const char *profile_path
+) {
     sbl_sandbox_compile_string_fn compile_fn = sbl_load_sandbox_compile_string();
     char *tmp_err = NULL;
     char **errp = errorbuf_out ? errorbuf_out : &tmp_err;
@@ -516,7 +557,7 @@ static sbl_compiled_profile_t *sbl_sandbox_compile_string_with_markers(const cha
     return profile;
 }
 
-static void sbl_sandbox_free_profile(sbl_compiled_profile_t *profile) {
+static SBL_UNUSED void sbl_sandbox_free_profile(sbl_compiled_profile_t *profile) {
     if (!profile) return;
     sbl_sandbox_free_profile_fn free_fn = sbl_load_sandbox_free_profile();
     if (free_fn) {
@@ -649,7 +690,7 @@ static void sbl_emit_seatbelt_callout(
     fflush(out);
 }
 
-static void sbl_maybe_seatbelt_callout_from_env(const char *stage) {
+static SBL_UNUSED void sbl_maybe_seatbelt_callout_from_env(const char *stage) {
     const char *enabled = getenv(SANDBOX_LORE_ENV_SEATBELT_CALLOUT);
     if (!enabled || strcmp(enabled, "1") != 0) return;
     const char *op = getenv(SANDBOX_LORE_ENV_SEATBELT_OP);
@@ -744,7 +785,7 @@ static void sbl_maybe_seatbelt_callout_from_env(const char *stage) {
     );
 }
 
-static void sbl_maybe_seatbelt_process_exec_callout(const char *stage, const char *argv0) {
+static SBL_UNUSED void sbl_maybe_seatbelt_process_exec_callout(const char *stage, const char *argv0) {
     const char *enabled = getenv(SANDBOX_LORE_ENV_SEATBELT_CALLOUT);
     if (!enabled || strcmp(enabled, "1") != 0) return;
     if (!argv0) return;

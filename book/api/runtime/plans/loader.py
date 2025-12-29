@@ -1,5 +1,5 @@
 """
-runtime plan-data (service contract).
+Runtime plan-data (service contract).
 
 This module defines the stable "plan JSON" surface for plan-based runtime runs.
 Plans are data: a plan points at a registry, chooses a set of profiles, and
@@ -22,6 +22,9 @@ Non-goals / refusals:
 - This module does not execute probes, stage the repo, or manage channels.
 - This module does not interpret sandbox semantics; it only wires probe/profile
   descriptors into a runnable harness configuration.
+
+Plans are the declarative contract for runtime execution. When you
+can point to a plan file, you can rerun the same evidence capture on this host.
 """
 
 from __future__ import annotations
@@ -83,6 +86,7 @@ def _load_json(path: Path) -> Dict[str, Any]:
 
 
 def load_plan(path: Path) -> Dict[str, Any]:
+    """Load and validate a plan.json document."""
     plan_path = path_utils.ensure_absolute(path, REPO_ROOT)
     doc = _load_json(plan_path)
     if doc.get("schema_version") != PLAN_SCHEMA_VERSION:
@@ -97,6 +101,7 @@ def load_plan(path: Path) -> Dict[str, Any]:
 
 
 def plan_digest(doc: Dict[str, Any]) -> str:
+    """Compute a deterministic hash over plan-relevant fields."""
     payload = {
         "plan_id": doc.get("plan_id"),
         "registry_id": doc.get("registry_id"),
@@ -106,6 +111,7 @@ def plan_digest(doc: Dict[str, Any]) -> str:
         "schema_versions": doc.get("schema_versions") or {},
         "apply_preflight_profile": doc.get("apply_preflight_profile"),
     }
+    # sort_keys keeps digests stable across JSON key-order differences.
     encoded = json.dumps(payload, sort_keys=True).encode("utf-8")
     return hashlib.sha256(encoded).hexdigest()
 
@@ -140,6 +146,7 @@ def compile_profiles(
     only_profiles: Optional[Iterable[str]] = None,
     only_scenarios: Optional[Iterable[str]] = None,
 ) -> List[workflow.ProfileSpec]:
+    """Compile a plan+registry into runnable ProfileSpec entries."""
     registry_id = plan_doc["registry_id"]
     try:
         registry = load_registry(registry_id)
@@ -178,6 +185,7 @@ def compile_profiles(
 
 
 def list_plan_paths(root: Optional[Path] = None) -> List[Path]:
+    """Return all plan.json paths under the experiments tree."""
     repo_root = path_utils.ensure_absolute(root or REPO_ROOT, REPO_ROOT)
     experiments_root = repo_root / "book" / "experiments"
     if not experiments_root.exists():
@@ -186,6 +194,7 @@ def list_plan_paths(root: Optional[Path] = None) -> List[Path]:
 
 
 def list_plans(root: Optional[Path] = None) -> List[Dict[str, Any]]:
+    """Return metadata for all discovered plans (including errors)."""
     entries: List[Dict[str, Any]] = []
     for path in list_plan_paths(root=root):
         try:
@@ -210,6 +219,7 @@ def list_plans(root: Optional[Path] = None) -> List[Dict[str, Any]]:
 
 
 def lint_plan(path: Path) -> Tuple[Optional[Dict[str, Any]], List[str]]:
+    """Lint a plan and return (doc, errors) without raising."""
     errors: List[str] = []
     try:
         doc = load_plan(path)

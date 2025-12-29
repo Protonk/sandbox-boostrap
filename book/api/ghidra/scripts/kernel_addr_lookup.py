@@ -8,21 +8,22 @@ Offsets are hex without 0x (file offsets, added to image base). Prefix an input 
 When --data-only is present, report defined data at the computed address (type/value).
 
 Pitfalls: file-offset math assumes correct image base; ensure the KC was imported with the right processor/format. Caller/callee info requires functions (avoid --no-analysis if you need it).
+Notes:
+- Ghidra stores 64-bit addresses as signed values; normalize them before output.
+- The image base for kernel collections is the canonical anchor for file-offset math.
 """
 
 import json
 import os
 import traceback
 
-from ghidra_bootstrap import scan_utils
+from ghidra_bootstrap import io_utils, scan_utils
 
 _RUN_CALLED = False
 
 
 def _ensure_out_dir(path):
-    if not os.path.isdir(path):
-        os.makedirs(path)
-
+    return io_utils.ensure_out_dir(path)
 
 def _lookup_offsets(offsets):
     res = []
@@ -31,6 +32,7 @@ def _lookup_offsets(offsets):
     ref_mgr = currentProgram.getReferenceManager()
     listing = currentProgram.getListing()
     addr_factory = currentProgram.getAddressFactory()
+    # Image base is used for file-offset math; it must match the imported KC layout.
     img_base_addr = currentProgram.getImageBase()
     img_base = img_base_addr.getOffset()
     for off, is_addr in offsets:
@@ -40,6 +42,7 @@ def _lookup_offsets(offsets):
         else:
             file_offset = scan_utils.format_address(off)
             try:
+                # add() can throw if the offset is outside the current address space.
                 addr = img_base_addr.add(off)
             except Exception:
                 addr = addr_factory.getDefaultAddressSpace().getAddress(scan_utils.format_address(img_base + off))
@@ -99,6 +102,7 @@ def run():
         data_only = False
         for x in args[2:]:
             if str(x) == "--data-only":
+                # data_only flips output emphasis from code to data definitions.
                 data_only = True
                 continue
             try:

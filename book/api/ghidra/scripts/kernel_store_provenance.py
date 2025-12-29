@@ -4,6 +4,10 @@ Summarize one-step provenance for a store instruction.
 Args: <out_dir> <build_id> <addr_hex> [max_back]
 
 Outputs: <out_dir>/store_provenance.json
+
+Notes:
+- This is a bounded backward scan; it does not attempt full dataflow recovery.
+- Disassembly is requested on demand if the listing is sparse.
 """
 
 import json
@@ -12,16 +16,14 @@ import traceback
 
 from ghidra.program.model.lang import OperandType, Register
 
-from ghidra_bootstrap import scan_utils
+from ghidra_bootstrap import io_utils, scan_utils
 
 
 _RUN_CALLED = False
 
 
 def _ensure_out_dir(path):
-    if not os.path.isdir(path):
-        os.makedirs(path)
-
+    return io_utils.ensure_out_dir(path)
 
 def _collect_registers(objs):
     regs = []
@@ -79,6 +81,7 @@ def run():
         addr_val = scan_utils.parse_hex(args[2])
         if addr_val is None:
             raise ValueError("Invalid address: %s" % args[2])
+        # Keep default scan window small to avoid long backtracking in large functions.
         max_back = int(args[3], 0) if len(args) > 3 else 64
 
         _ensure_out_dir(out_dir)
@@ -89,6 +92,7 @@ def run():
         instr = listing.getInstructionAt(addr)
         if not instr:
             try:
+                # Headless projects may be partially disassembled; request a local decode.
                 disassemble(addr)
             except Exception:
                 pass

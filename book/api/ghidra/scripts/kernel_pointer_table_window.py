@@ -9,22 +9,24 @@ Args (from scaffold/manual): <out_dir> <build_id> <addr_hex> [entries] [stride] 
         "auto" expands outward until a non-pointer or block change is seen.
 
 Outputs: <out_dir>/pointer_window.json
+
+Notes:
+- Pointer values are normalized to unsigned 64-bit for consistent output.
+- auto mode is a best-effort expansion that stops on block changes or non-pointers.
 """
 
 import json
 import os
 import traceback
 
-from ghidra_bootstrap import scan_utils
+from ghidra_bootstrap import io_utils, scan_utils
 
 
 _RUN_CALLED = False
 
 
 def _ensure_out_dir(path):
-    if not os.path.isdir(path):
-        os.makedirs(path)
-
+    return io_utils.ensure_out_dir(path)
 
 def _parse_int(token, default=None):
     try:
@@ -84,6 +86,7 @@ def run():
         addr = _parse_hex_addr(args[2])
         if addr is None:
             raise ValueError("Invalid address: %s" % args[2])
+        # Defaults align with pointer tables: 64 entries, 8-byte stride.
         entries = _parse_int(args[3], 64) if len(args) > 3 else 64
         stride = _parse_int(args[4], 8) if len(args) > 4 else 8
         mode = args[5].lower() if len(args) > 5 else "center"

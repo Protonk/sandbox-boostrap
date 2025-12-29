@@ -9,6 +9,10 @@ Usage (script args):
 Defaults:
   target_fn_or_addr: fffffe000b40d698 (_eval)
   index_reg: guess from loads (or X22 if not found)
+
+Notes:
+- This probe uses pcode to approximate index/base arithmetic; it is heuristic by design.
+- Ghidra decompiler output can vary across versions, so keep results as hints.
 """
 
 import json
@@ -20,10 +24,12 @@ from ghidra.program.model.address import AddressSet, AddressSpace
 from ghidra.program.model.lang import Register
 from ghidra.program.model.scalar import Scalar
 
+# Default target is _eval in the Sonoma KC; override when probing other layouts.
 DEFAULT_TARGET = "fffffe000b40d698"
 
 
 class Expr(object):
+    # Expr tracks linear combinations of registers plus a constant offset.
     def __init__(self, terms=None, const=0, unknown=False):
         self.terms = terms or {}
         self.const = const

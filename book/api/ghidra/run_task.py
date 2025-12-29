@@ -26,7 +26,9 @@ from typing import List
 
 from book.api.ghidra import connector
 
+# Apple Silicon language ID keeps the importer aligned with the Sonoma KC binary format.
 DEFAULT_PROCESSOR = "AARCH64:LE:64:AppleSilicon"
+# Disable x86 analyzers to avoid long runs on irrelevant architectures.
 DEFAULT_PRE_SCRIPTS = ["disable_x86_analyzers.py"]
 
 
@@ -83,6 +85,7 @@ def main() -> int:
         vm_path=args.vm_path,
         pre_scripts=pre_scripts,
     )
+    # Print the exact command to help reproduce headless runs outside the wrapper.
     print("Command:", inv.render_shell())
     if not args.do_exec:
         return 0

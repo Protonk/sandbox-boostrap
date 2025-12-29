@@ -4,13 +4,17 @@ Rename and apply a signature to the mac_policy_register function anchor.
 
 Args: <out_dir> <build_id> <function_addr> [name]
 Outputs: <out_dir>/mac_policy_register_anchor.json
+
+Notes:
+- We create a minimal mac_policy_conf/mac_policy_handle_t in the local data type manager if missing.
+- Signature parsing can fail under Jython; a fallback signature keeps the anchor usable.
 """
 
 import json
 import os
 import traceback
 
-from ghidra_bootstrap import scan_utils
+from ghidra_bootstrap import io_utils, scan_utils
 
 from ghidra.app.cmd.function import ApplyFunctionSignatureCmd
 from ghidra.app.util.parser import FunctionSignatureParser
@@ -37,9 +41,7 @@ def _parse_hex(text):
 
 
 def _ensure_out_dir(path):
-    if not os.path.isdir(path):
-        os.makedirs(path)
-
+    return io_utils.ensure_out_dir(path)
 
 def run():
     global _RUN
@@ -56,6 +58,7 @@ def run():
         build_id = args[1]
         addr_text = args[2]
         name = args[3] if len(args) > 3 else "mac_policy_register"
+        # Default name matches historical anchor naming used in reports.
 
         _ensure_out_dir(out_dir)
         addr_val = _parse_hex(addr_text)
@@ -68,6 +71,7 @@ def run():
         if func:
             func.setName(name, SourceType.USER_DEFINED)
 
+        # Some Ghidra versions reject "struct" in signatures; keep a fallback without it.
         signature_text = "int %s(struct mac_policy_conf *mpc, mac_policy_handle_t *handlep, void *xd)" % name
         fallback_signature = "int %s(mac_policy_conf *mpc, mac_policy_handle_t *handlep, void *xd)" % name
         sig_result = {

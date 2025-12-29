@@ -5,6 +5,9 @@ Builds a per-op runtime view that joins the canonical op mapping with scenario
 summaries and light static vocab context. Also provides small adapters that
 emit legacy views (runtime signatures, coverage) for consumers that still
 expect the older shapes.
+
+Story views are for humans. They explain how observations line up
+with the static vocab without asserting new semantics.
 """
 
 from __future__ import annotations
@@ -76,6 +79,7 @@ def build_story(
                     "mismatches": scenario_body.get("mismatches") or [],
                 }
             )
+        # Use op_id when available to keep story keys stable across renames.
         key = str(op_id) if op_id is not None else op_name
         story_ops[key] = {
             "op_id": op_id,
@@ -97,6 +101,7 @@ def build_story(
 
 
 def write_story(doc: Mapping[str, Any], out_path: Path | str) -> Path:
+    """Write the runtime story document and return its path."""
     out_path = path_utils.ensure_absolute(Path(out_path), REPO_ROOT)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(doc, indent=2))

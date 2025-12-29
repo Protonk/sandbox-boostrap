@@ -45,6 +45,8 @@ Establish attach-first Frida witnesses for in-process sandbox behavior using Ent
 - Attempted: probe_catalog + smoke under jit_rwx_legacy (run_id cb3bde87-6cb3-47cc-99ab-fc25621445a1) run-xpc ok but Frida attach denied.
 - Attempted: probe_catalog + smoke under get-task-allow (run_id 9a1301d7-c4c5-483b-a107-d27505905225) failed with XPC connection error (xpc_error).
 - Completed: probe_catalog + smoke under fully_injectable (run_id 1459e42d-3293-4521-9f27-5e4305ac6cf0) attached successfully after EntitlementJail update.
+- Attempted: probe_catalog + fs_open_selftest under minimal@injectable (run_id 7cf0b52b-e6a8-4b27-9503-180d4dc9ccd3) timed out; run_xpc/manifest missing.
+- Completed: probe_catalog + fs_open_selftest under minimal@injectable (run_id b03ad4a9-d2b3-438e-a71c-cab0ec92b0f3) attached successfully; fs-open errno 13 observed; selftest preparation failed (PermissionError).
 - Completed: fs_op + fs_open_funnel.js with explicit denied path (run_id d36438ca-f9d1-4d8d-9840-0f31c090ffd6) captured open errno 13 events with backtraces; readlink hooks installed but no readlink events observed.
 - Attempted: probe_catalog + sandbox_check_trace.js (run_id fdd4679d-599f-498e-b474-e32fc243c09c) failed with XPC connection error; no sandbox-call events observed.
 - Attempted: fs_op + sandbox_check_trace.js (run_id 4f40aa49-92c8-41b9-9b20-4dd8d0634e68) failed with XPC connection error; no sandbox-call events observed.
@@ -94,6 +96,7 @@ Establish attach-first Frida witnesses for in-process sandbox behavior using Ent
   - book/experiments/frida-testing/out/eca03911-40f3-4df0-a74d-9aba5f0c0c1e/manifest.json (probe_catalog + discover_sandbox_exports.js).
   - book/experiments/frida-testing/out/25d6ade2-0b08-40d2-b37c-fbcad882e11a/manifest.json (probe_catalog + sandbox_trace.js; trace unavailable).
   - book/experiments/frida-testing/out/b218b156-0b63-4265-8dc5-7aec41de3981/manifest.json (probe_catalog + fs_open_selftest).
+  - book/experiments/frida-testing/out/b03ad4a9-d2b3-438e-a71c-cab0ec92b0f3/manifest.json (probe_catalog + fs_open_selftest under minimal@injectable).
   - book/experiments/frida-testing/out/1459e42d-3293-4521-9f27-5e4305ac6cf0/manifest.json (probe_catalog + smoke under fully_injectable after update).
   - book/experiments/frida-testing/out/d36438ca-f9d1-4d8d-9840-0f31c090ffd6/manifest.json (fs_op + fs_open_funnel.js denied path).
   - book/experiments/frida-testing/out/cb747a39-41a8-4e1b-874d-ef732c15eb0a/manifest.json (probe_catalog + execmem_trace.js).
@@ -131,6 +134,7 @@ Establish attach-first Frida witnesses for in-process sandbox behavior using Ent
 - Timed-out runs (manifest missing):
   - book/experiments/frida-testing/out/59e0530c-0817-49ad-ad0c-d824c7186b2c/ej/capabilities_snapshot.json (debuggable; Frida attach failed; run_xpc missing).
   - book/experiments/frida-testing/out/c134a17d-2147-4031-9874-610a2e9de20b/ej/capabilities_snapshot.json (debuggable; Frida attach failed; run_xpc missing).
+  - book/experiments/frida-testing/out/7cf0b52b-e6a8-4b27-9503-180d4dc9ccd3/ej/capabilities_snapshot.json (minimal@injectable probe_catalog; harness timeout; run_xpc missing).
 - Blocked runs (XPC connection error):
   - book/experiments/frida-testing/out/e1ee3f59-b895-49ab-ba4b-62d0bd27999b/manifest.json.
   - book/experiments/frida-testing/out/6ba32d45-72c2-48fe-9dbe-ffc5ba8753f9/manifest.json.

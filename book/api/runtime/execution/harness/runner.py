@@ -2,6 +2,9 @@
 Runtime execution harness for expected matrices.
 
 Consolidated home for the former `golden_runner`.
+
+The harness is intentionally boring. It applies profiles, runs probes,
+and records structured results so the evidence can be replayed and audited.
 """
 
 from __future__ import annotations
@@ -20,14 +23,16 @@ from book.api.runtime.contracts import schema as rt_contract
 REPO_ROOT = find_repo_root(Path(__file__))
 DEFAULT_OUT = REPO_ROOT / "book" / "profiles" / "golden-triple"
 DEFAULT_RUNTIME_PROFILE_DIR = DEFAULT_OUT / "runtime_profiles"
-RUNNER = REPO_ROOT / "book" / "experiments" / "runtime-checks" / "sandbox_runner"
-READER = REPO_ROOT / "book" / "experiments" / "runtime-checks" / "sandbox_reader"
-WRITER = REPO_ROOT / "book" / "experiments" / "runtime-checks" / "sandbox_writer"
+SANDBOX_RUNNER_DIR = REPO_ROOT / "book" / "api" / "runtime" / "native" / "sandbox_runner"
+RUNNER = SANDBOX_RUNNER_DIR / "sandbox_runner"
+READER = SANDBOX_RUNNER_DIR / "sandbox_reader"
+WRITER = SANDBOX_RUNNER_DIR / "sandbox_writer"
 WRAPPER = REPO_ROOT / "book" / "tools" / "sbpl" / "wrapper" / "wrapper"
-MACH_PROBE = REPO_ROOT / "book" / "experiments" / "runtime-checks" / "mach_probe"
-SANDBOX_MACH_PROBE = REPO_ROOT / "book" / "experiments" / "runtime-checks" / "sandbox_mach_probe"
-IOKIT_PROBE = REPO_ROOT / "book" / "experiments" / "runtime-checks" / "iokit_probe"
-SANDBOX_IOKIT_PROBE = REPO_ROOT / "book" / "experiments" / "runtime-checks" / "sandbox_iokit_probe"
+PROBE_DIR = REPO_ROOT / "book" / "api" / "runtime" / "native" / "probes"
+MACH_PROBE = PROBE_DIR / "mach_probe"
+SANDBOX_MACH_PROBE = PROBE_DIR / "sandbox_mach_probe"
+IOKIT_PROBE = PROBE_DIR / "iokit_probe"
+SANDBOX_IOKIT_PROBE = PROBE_DIR / "sandbox_iokit_probe"
 FILE_PROBE = REPO_ROOT / "book" / "api" / "runtime" / "native" / "file_probe" / "file_probe"
 
 CAT = "/bin/cat"
@@ -54,6 +59,7 @@ def _first_marker(markers: List[Dict[str, Any]], stage: str) -> Optional[Dict[st
     return None
 
 
+# Cache digests to avoid re-hashing the same artifacts repeatedly.
 _SHA256_CACHE: Dict[str, str] = {}
 
 
@@ -90,6 +96,7 @@ def _extract_probe_details(stdout: Optional[str]) -> tuple[Optional[Dict[str, An
 
 
 def ensure_fixtures(fixture_root: Path = Path("/tmp")) -> None:
+    """Create small fixture files used by runtime probes."""
     for name in ["foo", "bar"]:
         p = fixture_root / name
         p.write_text(f"runtime-checks {name}\n")
@@ -102,12 +109,14 @@ def ensure_fixtures(fixture_root: Path = Path("/tmp")) -> None:
     (rt / "write.txt").write_text("runtime-checks write\n")
     (rt / "param_root").mkdir(parents=True, exist_ok=True)
     (rt / "param_root" / "foo").write_text("runtime-checks param_root foo\n")
+    # Use /private/tmp for canonicalization-sensitive fixtures.
     strict_dir = Path("/private/tmp/strict_ok")
     strict_dir.mkdir(parents=True, exist_ok=True)
     (strict_dir / "allow.txt").write_text("strict allow\n")
     ok_dir = Path("/private/tmp/ok")
     ok_dir.mkdir(parents=True, exist_ok=True)
     (ok_dir / "allow.txt").write_text("param ok allow\n")
+
 
 def _is_path_operation(op: Optional[str]) -> bool:
     if not op:
@@ -187,6 +196,7 @@ def _unsandboxed_path_observation(path: Optional[str]) -> Optional[Dict[str, Any
 
 
 def classify_profile_status(probes: List[Dict[str, Any]], skipped_reason: str | None = None) -> tuple[str, str | None]:
+    """Summarize probe outcomes into a profile-level status."""
     if skipped_reason:
         return "blocked", skipped_reason
     if not probes:
@@ -374,6 +384,7 @@ def prepare_profile(
     shim_rules: List[str] | None = None,
     profile_mode: str | None = None,
 ) -> Path:
+    """Prepare a runtime profile path with shim rules applied."""
     base = ensure_absolute(base, REPO_ROOT)
     runtime_profile_dir.mkdir(parents=True, exist_ok=True)
     if base.suffix == ".bin":
@@ -387,6 +398,7 @@ def prepare_profile(
 
 
 def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None, wrapper_preflight: str | None) -> Dict[str, Any]:
+    """Run a single probe under a prepared profile and return the result row."""
     target = probe.get("target")
     op = probe.get("operation")
     cmd: List[str]
@@ -642,6 +654,7 @@ def run_matrix(
     profile_paths: Dict[str, Path] | None = None,
     key_specific_rules: Dict[str, List[str]] | None = None,
 ) -> Path:
+    """Run an expected-matrix harness and write runtime_results.json."""
     matrix_path = ensure_absolute(matrix_path, REPO_ROOT)
     out_dir = ensure_absolute(out_dir, REPO_ROOT) if out_dir else DEFAULT_OUT
     runtime_profile_dir = ensure_absolute(runtime_profile_dir, REPO_ROOT) if runtime_profile_dir else out_dir / "runtime_profiles"

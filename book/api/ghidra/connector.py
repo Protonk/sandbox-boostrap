@@ -21,11 +21,13 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Dict, Iterable, List, Mapping, MutableMapping, Optional, Sequence
 
+from . import paths
 from . import scaffold as gh_scaffold
 
 
-ROOT = Path(__file__).resolve().parents[3]
-DUMPS_ROOT = ROOT / "dumps"
+ROOT = paths.REPO_ROOT
+DUMPS_ROOT = paths.DUMPS_ROOT
+# Analyzer property file is a pinned baseline; avoid moving it without updating docs/tests.
 ARM64_ANALYSIS_PROPERTIES = Path(__file__).resolve().parent / "analysis_arm64.properties"
 
 
@@ -56,6 +58,7 @@ class TaskRegistry:
     """Registry for Ghidra tasks accessible to agents."""
 
     def __init__(self, tasks: Mapping[str, TaskSpec]):
+        # Copy to decouple caller mutation; tasks are treated as read-only registry state.
         self._tasks = dict(tasks)
 
     @classmethod
@@ -124,6 +127,7 @@ def _build_env(
     env["TMP"] = str(temp_dir)
     user_home_prop = f"-Duser.home={user_dir}"
     tmp_prop = f"-Djava.io.tmpdir={temp_dir}"
+    # Ghidra honors JAVA_TOOL_OPTIONS; appending preserves user flags while pinning paths.
     if env.get("JAVA_TOOL_OPTIONS"):
         env["JAVA_TOOL_OPTIONS"] = env["JAVA_TOOL_OPTIONS"] + " " + user_home_prop + " " + tmp_prop
     else:
@@ -190,6 +194,7 @@ class HeadlessConnector:
             raise FileNotFoundError(f"Missing project for --process-existing: {project_file}")
 
         args = list(script_args) if script_args else []
+        # Preserve per-call overrides while keeping the connector default for the session.
         analysis_props_value = analysis_properties or self.analysis_properties
         pre_scripts_list = list(pre_scripts) if pre_scripts else []
         if process_existing:

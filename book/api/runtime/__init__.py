@@ -8,9 +8,11 @@ Stability contract:
 - The supported import surface is this package (`book.api.runtime`).
 - The supported symbols are listed in `__all__` and documented in
   `book/api/runtime/README.md`.
-- Submodules (e.g. `core/`, `harness/`, `mapping/`, `workflow.py`) exist for
-  internal implementation and legacy helpers, but they are not part of the
-  stable public API unless exported here.
+- Submodules exist for internal implementation and legacy helpers, but they are
+  not part of the stable public API unless exported here.
+
+`__all__` is the explicit public surface for `from ... import *` and
+acts as a signal to readers about what we intend to keep stable.
 """
 
 from __future__ import annotations
@@ -52,6 +54,7 @@ from .plans.registry import (
     resolve_profile,
 )
 
+# Group exports to mirror README sections and keep diffs stable.
 __all__ = [
     # Channels
     "ChannelName",

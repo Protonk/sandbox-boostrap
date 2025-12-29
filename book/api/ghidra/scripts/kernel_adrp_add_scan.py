@@ -7,13 +7,16 @@ Scans sandbox blocks by default; pass "all" to scan the entire program.
 Writes JSON to <out_dir>/adrp_add_scan.json with matches and scan metadata.
 
 Pitfalls: assumes ARM64 mnemonics and register semantics; requires a correct processor import. With --no-analysis basic instruction traversal still works.
+Notes:
+- ADRP computes a page base; ADD/SUB applies a within-page offset.
+- Ghidra may represent immediates already shifted; both forms are tried.
 """
 
 import json
 import os
 import traceback
 
-from ghidra_bootstrap import scan_utils
+from ghidra_bootstrap import block_utils, io_utils, scan_utils
 
 from ghidra.program.model.address import AddressSet
 from ghidra.program.model.lang import OperandType
@@ -24,28 +27,13 @@ _RUN_CALLED = False
 
 
 def _ensure_out_dir(path):
-    if not os.path.isdir(path):
-        os.makedirs(path)
-
+    return io_utils.ensure_out_dir(path)
 
 def _sandbox_blocks():
-    mem = currentProgram.getMemory()
-    blocks = []
-    for blk in mem.getBlocks():
-        name = blk.getName() or ""
-        if "sandbox" in name.lower():
-            blocks.append(blk)
-    if blocks:
-        return blocks
-    return list(mem.getBlocks())
-
+    return block_utils.sandbox_blocks(program=currentProgram)
 
 def _block_set(blocks):
-    aset = AddressSet()
-    for blk in blocks:
-        aset.add(blk.getStart(), blk.getEnd())
-    return aset
-
+    return block_utils.block_set(blocks)
 
 def _scalar_val(obj):
     if isinstance(obj, Scalar):
@@ -93,8 +81,9 @@ def _adrp_pages(instr):
     if imm is None:
         return []
     inst_addr = instr.getAddress().getOffset()
+    # Page-align the instruction address to compute ADRP base.
     inst_page = inst_addr & ~0xFFF
-    # Depending on pspec, imm may already be shifted. Try both.
+    # Depending on processor spec, imm may already be shifted. Try both.
     pages = set()
     pages.add(inst_page + imm)
     pages.add(inst_page + (imm << 12))
@@ -142,6 +131,7 @@ def run():
         _ensure_out_dir(out_dir)
         listing = currentProgram.getListing()
         func_mgr = currentProgram.getFunctionManager()
+        # By default, focus on sandbox-related blocks to keep scan volume manageable.
         blocks = list(currentProgram.getMemory().getBlocks()) if scan_all else _sandbox_blocks()
         addr_set = _block_set(blocks)
         instr_iter = listing.getInstructions(addr_set, True)

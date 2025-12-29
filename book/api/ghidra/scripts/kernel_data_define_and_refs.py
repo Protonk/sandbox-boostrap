@@ -9,6 +9,10 @@ Behavior/pitfalls:
 - Addresses must be prefixed with `addr:` and parsed as unsigned hex; other forms are ignored.
 - Defines 8-byte values as QWORDs, then walks xrefs to dump callers and contents.
 - Works best against an existing analyzed project (`--process-existing --no-analysis`) after a full import.
+
+Notes:
+- Data definitions modify the listing; run in a disposable project when possible.
+- Ghidra treats addresses as signed; scan_utils.format_address normalizes output.
 """
 import json, os, traceback
 from ghidra.program.model.data import DataUtilities, DataTypeConflictHandler
@@ -37,6 +41,7 @@ def run():
         for a in args[2:]:
             s=str(a)
             if s.startswith('addr:'):
+                # Require the addr: prefix to avoid accidental decimal parsing.
                 targets.append(scan_utils.parse_hex(s.split('addr:',1)[1]))
         _ensure(out_dir)
         listing=currentProgram.getListing()
@@ -48,7 +53,7 @@ def run():
         results=[]
         for t in targets:
             addr=factory.getDefaultAddressSpace().getAddress(scan_utils.format_address(t))
-            # define qword
+            # Define a QWORD to coerce Ghidra into creating a data entry for xrefs.
             try:
                 DataUtilities.createData(currentProgram, addr, qdt, -1, False, DataTypeConflictHandler.DEFAULT_HANDLER)
             except Exception as e:

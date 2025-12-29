@@ -4,22 +4,24 @@ Enumerate references to a list head address and group by function.
 Args: <out_dir> <build_id> <addr_hex>
 
 Outputs: <out_dir>/list_head_xref.json
+
+Notes:
+- Reference types include read/write flags from Ghidra's ReferenceType API.
+- Grouping by function helps identify writers vs readers quickly.
 """
 
 import json
 import os
 import traceback
 
-from ghidra_bootstrap import scan_utils
+from ghidra_bootstrap import io_utils, scan_utils
 
 
 _RUN_CALLED = False
 
 
 def _ensure_out_dir(path):
-    if not os.path.isdir(path):
-        os.makedirs(path)
-
+    return io_utils.ensure_out_dir(path)
 
 def run():
     global _RUN_CALLED
@@ -61,6 +63,7 @@ def run():
 
         grouped = {}
         for ref in refs:
+            # Use <no-func> for raw references that aren't inside a recovered function.
             func = ref.get("function") or "<no-func>"
             grouped.setdefault(func, []).append(ref)
 

@@ -5,13 +5,16 @@ Outputs land under dumps/ghidra/out/<build>/kernel-symbols/.
 
 Args (from scaffold): <out_dir> [build_id]
 Pitfalls: with --no-analysis you still get symbol tables but fewer functions; block filtering prefers sandbox-named blocks, falls back to full program if unnamed.
+Notes:
+- Symbols/strings are filtered to sandbox blocks to keep outputs targeted.
+- Provenance is required for canonical fixture freshness checks.
 """
 
 import json
 import os
 import traceback
 
-from ghidra_bootstrap import scan_utils
+from ghidra_bootstrap import block_utils, io_utils, provenance, scan_utils
 
 from ghidra.program.model.address import AddressSet
 from ghidra.program.model.data import StringDataInstance
@@ -21,113 +24,23 @@ _RUN_CALLED = False
 
 
 def _ensure_out_dir(path):
-    if not os.path.isdir(path):
-        os.makedirs(path)
-
+    return io_utils.ensure_out_dir(path)
 
 def _sandbox_blocks():
-    mem = currentProgram.getMemory()
-    blocks = []
-    for blk in mem.getBlocks():
-        name = blk.getName() or ""
-        if "sandbox" in name.lower():
-            blocks.append(blk)
-    if blocks:
-        return blocks
-    return list(mem.getBlocks())
-
+    return block_utils.sandbox_blocks(program=currentProgram)
 
 def _block_set(blocks):
-    aset = AddressSet()
-    for blk in blocks:
-        aset.add(blk.getStart(), blk.getEnd())
-    return aset
-
-
-def _collect_deps(repo_root):
-    deps = []
-    if not repo_root:
-        return deps
-    dep_paths = set()
-    dep_paths.add(os.path.join("book", "api", "ghidra", "scripts", "ghidra_bootstrap.py"))
-    ghidra_lib_dir = os.path.join(repo_root, "book", "api", "ghidra", "ghidra_lib")
-    if os.path.isdir(ghidra_lib_dir):
-        for root, dirs, files in os.walk(ghidra_lib_dir):
-            dirs[:] = [d for d in dirs if d != "__pycache__"]
-            for name in files:
-                if not name.endswith(".py"):
-                    continue
-                dep_paths.add(os.path.join(root, name))
-    for path in sorted(dep_paths):
-        dep_abs = path if os.path.isabs(path) else os.path.join(repo_root, path)
-        if not os.path.isfile(dep_abs):
-            continue
-        dep_rel = scan_utils.to_repo_relative(dep_abs, repo_root)
-        deps.append({"path": dep_rel, "sha256": scan_utils.sha256_path(dep_abs)})
-    return deps
-
-
-def _read_world_id(repo_root):
-    if not repo_root:
-        return None
-    world_path = os.path.join(repo_root, "book", "world", "sonoma-14.4.1-23E224-arm64", "world.json")
-    if not os.path.isfile(world_path):
-        return None
-    try:
-        with open(world_path, "r") as f:
-            data = json.load(f)
-        return data.get("world_id")
-    except Exception:
-        return None
-
-
-def _block_mode(blocks):
-    for blk in blocks:
-        name = blk.getName() or ""
-        if "sandbox" in name.lower():
-            return "sandbox"
-    return "all"
-
+    return block_utils.block_set(blocks)
 
 def _build_provenance(build_id, block_mode, block_count):
     script_path = os.path.realpath(__file__)
-    repo_root = scan_utils.find_repo_root(script_path)
-    script_rel = scan_utils.to_repo_relative(script_path, repo_root)
-    script_sha = scan_utils.sha256_path(script_path)
-
-    deps = _collect_deps(repo_root)
-
-    program_path = None
-    program_sha = None
-    try:
-        program_path = currentProgram.getExecutablePath()
-    except Exception:
-        program_path = None
-    if program_path and os.path.isfile(program_path):
-        program_sha = scan_utils.sha256_path(program_path)
-    program_rel = scan_utils.to_repo_relative(program_path, repo_root) if program_path else None
-
     profile_id = os.environ.get("SANDBOX_LORE_GHIDRA_PROFILE_ID")
     if not profile_id:
+        # Profile id encodes block mode/count so outputs can be compared across runs.
         profile_id = "kernel_symbols:block_mode=%s:blocks=%d" % (block_mode, block_count)
 
-    return {
-        "schema_version": 1,
-        "world_id": _read_world_id(repo_root),
-        "generator": {
-            "script_path": script_rel,
-            "script_content_sha256": script_sha,
-            "deps": deps,
-        },
-        "input": {
-            "program_path": program_rel,
-            "program_sha256": program_sha,
-        },
-        "analysis": {
-            "profile_id": profile_id,
-        },
-        "build_id": build_id,
-    }
+    program_name = currentProgram.getName()
+    return provenance.build_provenance(build_id, profile_id, script_path, program_name=program_name)
 
 
 def _collect_symbols(address_set):
@@ -202,17 +115,11 @@ def run():
         with open(trace_path, "a") as trace:
             trace.write("start\n")
 
+        # Prefer sandbox-named blocks; block_utils falls back to all blocks if needed.
         blocks = _sandbox_blocks()
         addr_set = _block_set(blocks)
-        block_meta = [
-            {
-                "name": blk.getName(),
-                "start": scan_utils.format_address(blk.getStart().getOffset()),
-                "end": scan_utils.format_address(blk.getEnd().getOffset()),
-            }
-            for blk in blocks
-        ]
-        block_mode = _block_mode(blocks)
+        block_meta = block_utils.block_meta(blocks)
+        block_mode = block_utils.block_mode(blocks)
         provenance = _build_provenance(build_id, block_mode, len(blocks))
 
         symbols = _collect_symbols(addr_set)
@@ -225,10 +132,8 @@ def run():
             "string_count": len(strings),
         }
 
-        with open(os.path.join(out_dir, "symbols.json"), "w") as f:
-            json.dump({"_provenance": provenance, "meta": meta, "symbols": symbols}, f, indent=2, sort_keys=True)
-        with open(os.path.join(out_dir, "strings.json"), "w") as f:
-            json.dump({"_provenance": provenance, "meta": meta, "strings": strings}, f, indent=2, sort_keys=True)
+        io_utils.write_json(os.path.join(out_dir, "symbols.json"), {"_provenance": provenance, "meta": meta, "symbols": symbols})
+        io_utils.write_json(os.path.join(out_dir, "strings.json"), {"_provenance": provenance, "meta": meta, "strings": strings})
 
         print("kernel_symbols: wrote %d symbols and %d strings to %s" % (len(symbols), len(strings), out_dir))
         with open(trace_path, "a") as trace:

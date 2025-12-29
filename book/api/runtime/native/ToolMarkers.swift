@@ -1,10 +1,15 @@
+/*
+ ToolMarkers emits JSONL "marker" records for SANDBOX_LORE runtime tools,
+ bridging Swift helpers to libsandbox and optional seatbelt callouts. The
+ output is intentionally side-effecting (stderr) so normalization can ingest
+ markers without treating them as canonical runtime stderr.
+
+ These markers capture stage-labeled facts (apply/exec/callout) that
+ are later normalized into runtime IR; they are not policy semantics by
+ themselves.
+*/
 import Foundation
 import Darwin
-
-// Shared JSONL marker helpers for SANDBOX_LORE runtime tooling.
-//
-// These are emitted on stderr and treated as tool inputs to normalization,
-// not as canonical stderr content in normalized runtime IR.
 
 @_silgen_name("sandbox_init")
 private func sbl_sandbox_init(
@@ -29,6 +34,7 @@ private func sbl_seatbelt_callout_self(
     _ tokenMachKrOut: UnsafeMutablePointer<Int32>
 ) -> Int32
 
+/// Namespaced helpers for emitting runtime marker JSONL records.
 enum ToolMarkers {
     static let sbplApplyMarkerSchemaVersion: Int = 1
     static let seatbeltCalloutMarkerSchemaVersion: Int = 2
@@ -53,6 +59,7 @@ enum ToolMarkers {
         let profile: String
     }
 
+    /// Emit a marker for an SBPL apply attempt before any exec is observed.
     static func emitSbplApply(
         mode: String,
         api: String,
@@ -80,6 +87,7 @@ enum ToolMarkers {
         )
     }
 
+    /// Emit a marker for a direct seatbelt callout probe.
     static func emitSeatbeltCallout(
         stage: String,
         operation: String,
@@ -119,6 +127,7 @@ enum ToolMarkers {
         )
     }
 
+    /// Emit a marker indicating the profile was applied successfully.
     static func emitSbplApplied(mode: String, api: String, profile: String) {
         emitJsonl(
             [
@@ -134,6 +143,7 @@ enum ToolMarkers {
         )
     }
 
+    /// Emit a marker for the exec stage when an exec attempt is observed.
     static func emitSbplExec(rc: Int32, err: Int32, argv0: String) {
         emitJsonl(
             [
@@ -148,6 +158,7 @@ enum ToolMarkers {
         )
     }
 
+    /// Call sandbox_init with markers and return a summarized apply report.
     static func sandboxInitWithMarkers(profileText: String, flags: UInt64 = 0, profilePath: String) -> ApplyReport {
         var errBuf: UnsafeMutablePointer<CChar>? = nil
         errno = 0
@@ -178,6 +189,7 @@ enum ToolMarkers {
         )
     }
 
+    /// Emit an apply marker for a precomputed sandbox_init failure.
     static func sandboxInitFailureWithMarkers(rc: Int32, err: Int32, errbuf: String?, profilePath: String) -> ApplyReport {
         emitSbplApply(mode: "sbpl", api: "sandbox_init", rc: rc, err: err, errbuf: errbuf, profile: profilePath)
         let (errClass, errClassSource) = classifyApplyError(api: "sandbox_init", rc: rc, err: err, errbuf: errbuf)
@@ -193,6 +205,7 @@ enum ToolMarkers {
         )
     }
 
+    /// Emit apply markers around a sandbox_apply attempt (blob mode).
     static func sandboxApplyWithMarkers(applyRc: Int32, applyErrno: Int32, profilePath: String) -> ApplyReport {
         // Swift tools may call into a private sandbox_apply shim; keep the marker emission
         // in one place even when the apply itself is done elsewhere.
@@ -214,6 +227,7 @@ enum ToolMarkers {
         )
     }
 
+    /// Load a compiled blob and apply it via libsandbox, emitting markers.
     static func sandboxApplyBlobFileWithMarkers(blobPath: String) -> ApplyReport {
         guard let handle = dlopen("/usr/lib/libsandbox.1.dylib", RTLD_NOW | RTLD_LOCAL) else {
             return sandboxApplyWithMarkers(applyRc: -1, applyErrno: errno, profilePath: blobPath)
@@ -241,8 +255,10 @@ enum ToolMarkers {
         }
     }
 
+    /// If env vars request it, issue a seatbelt callout and emit a marker.
     static func maybeSeatbeltCalloutFromEnv(stage: String) {
         let env = ProcessInfo.processInfo.environment
+        // The callout is opt-in so most tools can avoid extra runtime work.
         guard env["SANDBOX_LORE_SEATBELT_CALLOUT"] == "1" else { return }
         guard let op = env["SANDBOX_LORE_SEATBELT_OP"],
               let filterS = env["SANDBOX_LORE_SEATBELT_FILTER_TYPE"],
@@ -270,6 +286,7 @@ enum ToolMarkers {
         }
 
         let tokenStatus = (tokenMachKr == 0) ? "ok" : "task_info_failed"
+        // Determine whether the callout executed versus failed to invoke.
         let executed = (rc == 0 || rc == 1 || (rc == -1 && outErrno != 0))
 
         var noReport = false
@@ -389,6 +406,7 @@ enum ToolMarkers {
         guard JSONSerialization.isValidJSONObject(payload) else {
             return
         }
+        // Best-effort emission: drop markers rather than throwing.
         guard let data = try? JSONSerialization.data(withJSONObject: payload, options: []) else {
             return
         }

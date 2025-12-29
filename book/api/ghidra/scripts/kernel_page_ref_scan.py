@@ -9,13 +9,16 @@ By default, only sandbox memory blocks are scanned; pass "all" to scan the entir
 program. Results are written to JSON in <out_dir>/page_refs.json.
 
 Pitfalls: processor must be ARM64 for ADRP/ADD recognition; --no-analysis reduces xref quality but immediate scans still run.
+Notes:
+- Page size defaults to 4K, matching kernel page alignment.
+- ADRP+ADD detection is heuristic and bounded to a short lookahead window.
 """
 
 import json
 import os
 import traceback
 
-from ghidra_bootstrap import scan_utils
+from ghidra_bootstrap import block_utils, io_utils, scan_utils
 
 from ghidra.program.model.address import AddressSet
 from ghidra.program.model.scalar import Scalar
@@ -25,28 +28,13 @@ _RUN_CALLED = False
 
 
 def _ensure_out_dir(path):
-    if not os.path.isdir(path):
-        os.makedirs(path)
-
+    return io_utils.ensure_out_dir(path)
 
 def _sandbox_blocks():
-    mem = currentProgram.getMemory()
-    blocks = []
-    for blk in mem.getBlocks():
-        name = blk.getName() or ""
-        if "sandbox" in name.lower():
-            blocks.append(blk)
-    if blocks:
-        return blocks
-    return list(mem.getBlocks())
-
+    return block_utils.sandbox_blocks(program=currentProgram)
 
 def _block_set(blocks):
-    aset = AddressSet()
-    for blk in blocks:
-        aset.add(blk.getStart(), blk.getEnd())
-    return aset
-
+    return block_utils.block_set(blocks)
 
 def _scalar_value(obj):
     if isinstance(obj, Scalar):
@@ -133,6 +121,7 @@ def run():
         out_dir = args[0]
         build_id = args[1]
         target_addr = scan_utils.parse_hex(args[2])
+        # Default to 4K pages; override when scanning large segments.
         page_size = 0x1000
         scan_all = False
         if len(args) > 3:
@@ -145,6 +134,7 @@ def run():
                         page_size = int(extra, 16)
                     except Exception:
                         pass
+        # Page-align the target to compute bounds for reference matching.
         page_start = target_addr & ~0xFFF
         page_end = page_start + page_size - 1
         _ensure_out_dir(out_dir)

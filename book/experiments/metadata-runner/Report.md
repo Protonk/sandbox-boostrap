@@ -32,13 +32,13 @@
 ## Plan & execution log
 - Skeleton established with SBPL probes for alias/canonical/both path sets.
 - `file-write-metadata` is not in the SBPL vocabulary; metadata writes are exercised via `file-write*` using `chmod` and `utimes`.
-- Swift runner built (`metadata_runner.swift`) using `sandbox_init` with SBPL input; driver `run_metadata.py` compiles probes, builds the runner, seeds fixtures, and emits runtime/decode outputs.
+- Swift runner (`book/api/runtime/native/metadata_runner/metadata_runner.swift`) uses `sandbox_init` with SBPL input; driver `run_metadata.py` compiles probes, builds the runner via the shared build script, seeds fixtures, and emits runtime/decode outputs.
 - Matrix coverage expanded: `file-read-metadata` via `lstat`/`getattrlist`/`setattrlist`/`fstat`; `file-write*` via `chmod`/`utimes`/`fchmod`/`futimes`/`lchown`/`fchown`/`fchownat`/`lutimes`; anchor forms tested for each profile family (literal, subpath, regex) and attrlist payload variants (`cmn`, `cmn-name`, `cmn-times`, `file-size`).
 - Results: alias-only profiles deny everything; canonical-only profiles allow canonical paths and deny aliases. Anchor type matters for mixed-path profiles: literal-both still only allows canonical paths, but subpath-both and regex-both allow `/tmp/*` aliases (while `/var/tmp/canon` remains denied). `setattrlist` returns `EINVAL` on canonical paths and `EPERM` on aliases across anchor forms.
 
 ## Evidence & artifacts
 - SBPL probes: `sb/metadata_*.sb`; compiled blobs: `sb/build/*.sb.bin`.
-- Runner + driver: `metadata_runner.swift`, `run_metadata.py` (builds runner to `build/metadata_runner`, ignored in git).
+- Runner + driver: `book/api/runtime/native/metadata_runner/metadata_runner.swift`, `book/experiments/metadata-runner/run_metadata.py` (builds `book/api/runtime/native/metadata_runner/metadata_runner`).
 - Outputs: `out/runtime_results.json` (matrix run) and `out/decode_profiles.json` (anchor summaries); `out/anchor_structural_check.json` (cross-check vs anchor_filter_map for available anchors).
 
 ## Blockers / risks

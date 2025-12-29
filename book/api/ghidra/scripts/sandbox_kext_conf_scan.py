@@ -17,6 +17,10 @@ Template (64-bit, permissive):
 
 Hard filters live in-pointer/segment checks and small ints; content checks are soft and emitted for offline ranking.
 Emits mac_policy_conf_candidates.json with meta + candidates.
+
+Notes:
+- The template is permissive by design; false positives are expected and filtered later.
+- allow_any_ptr bypasses range validation for cross-slice experiments.
 """
 
 import json
@@ -26,6 +30,7 @@ import traceback
 
 from ghidra_bootstrap import scan_utils
 
+# Slot count includes core mac_policy_conf fields plus common extension pointers.
 SCAN_SLOTS = 10  # cover core mac_policy_conf plus common list/data extras
 MAX_STR_LEN = 128
 MAX_LABELNAME_COUNT = 32
@@ -130,6 +135,7 @@ def scan(allow_any_ptr=False):
 
     for blk in blocks:
         name = blk.getName() or ""
+        # mac_policy_conf instances live in data/const segments; skip text blocks.
         if "__data" not in name.lower() and "__const" not in name.lower():
             continue
         bytes_scanned += blk.getSize()
@@ -164,7 +170,7 @@ def scan(allow_any_ptr=False):
             extra0 = slots[8][1]
             extra1 = slots[9][1]
 
-            # Hard constraints: addressable slots, small labelname_count, pointer-ish fields either NULL or inside this program.
+            # Hard constraints: addressable slots, small labelname_count, pointer-ish fields either NULL or in-range.
             if labelname_count > MAX_LABELNAME_COUNT:
                 addr = addr.add(8)
                 continue

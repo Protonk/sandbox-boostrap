@@ -4,6 +4,10 @@ Dump a window of instructions around an address.
 Args: <out_dir> <build_id> <addr_hex> [before] [after]
 
 Outputs: <out_dir>/addr_window_dump.json
+
+Notes:
+- Uses a simple before/after scan rather than a control-flow walk.
+- Addresses are normalized to unsigned hex for stable output.
 """
 
 import json
@@ -12,15 +16,13 @@ import traceback
 
 from ghidra.program.model.mem import MemoryAccessException
 
-from ghidra_bootstrap import scan_utils
+from ghidra_bootstrap import io_utils, scan_utils
 
 _RUN_CALLED = False
 
 
 def _ensure_out_dir(path):
-    if not os.path.isdir(path):
-        os.makedirs(path)
-
+    return io_utils.ensure_out_dir(path)
 
 def _parse_int(token, default=None):
     try:
@@ -63,6 +65,7 @@ def run():
         addr_val = _parse_hex_addr(args[2])
         if addr_val is None:
             raise ValueError("Invalid address: %s" % args[2])
+        # Keep defaults small so the dump stays reviewable in diffs.
         before = _parse_int(args[3], 16) if len(args) > 3 else 16
         after = _parse_int(args[4], 16) if len(args) > 4 else 32
 
@@ -76,6 +79,7 @@ def run():
         inst = listing.getInstructionAt(addr)
         if not inst:
             try:
+                # Headless imports may skip disassembly; request it explicitly.
                 disassemble(addr)
             except MemoryAccessException:
                 pass

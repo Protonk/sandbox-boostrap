@@ -5,6 +5,10 @@ Args: <out_dir> <build_id> <addr_hex> [before] [after] [step]
 
 before/after are instruction counts; step defaults to 4 (AArch64).
 Outputs: <out_dir>/addr_window_disasm.json
+
+Notes:
+- We disassemble on-demand across the window to keep outputs reproducible in headless runs.
+- Address math assumes AArch64 fixed-width instructions (4 bytes).
 """
 
 import json
@@ -13,15 +17,13 @@ import traceback
 
 from ghidra.program.model.lang import Register
 
-from ghidra_bootstrap import scan_utils
+from ghidra_bootstrap import io_utils, scan_utils
 
 _RUN_CALLED = False
 
 
 def _ensure_out_dir(path):
-    if not os.path.isdir(path):
-        os.makedirs(path)
-
+    return io_utils.ensure_out_dir(path)
 
 def _parse_int(token, default=None):
     try:
@@ -94,6 +96,7 @@ def _target_context(listing, func_mgr, addr):
             input_regs.append(name)
 
     defs = {}
+    # Scan backward a fixed window to find register defs without full dataflow.
     max_back = 64
     cur = listing.getInstructionBefore(addr)
     steps = 0
@@ -145,6 +148,7 @@ def run():
             raise ValueError("Invalid address: %s" % args[2])
         before = _parse_int(args[3], 32) if len(args) > 3 else 32
         after = _parse_int(args[4], 32) if len(args) > 4 else 32
+        # AArch64 instructions are 4 bytes; keep the default step aligned.
         step = _parse_int(args[5], 4) if len(args) > 5 else 4
 
         _ensure_out_dir(out_dir)
@@ -158,7 +162,7 @@ def run():
         if start_addr < 0:
             start_addr = 0
 
-        # Ensure disassembly exists across the window.
+        # Ensure disassembly exists across the window; headless projects may be sparse.
         cur = start_addr
         while cur <= end_addr and not monitor.isCancelled():
             addr = addr_space.getAddress(scan_utils.format_address(cur))

@@ -8,13 +8,17 @@ Args:
   [mac-policy-register=<addr>] [max-back=<n>]
 
 Outputs: <out_dir>/mac_policy_register_instances.json
+
+Notes:
+- This script mixes pcode, decompiler, and raw instruction walks; expect partial coverage in --no-analysis runs.
+- The goal is a stable JSON record of mac_policy_conf layout, not a perfect call graph.
 """
 
 import json
 import os
 import traceback
 
-from ghidra_bootstrap import scan_utils
+from ghidra_bootstrap import io_utils, scan_utils
 
 from ghidra.program.model.address import Address, AddressSet
 from ghidra.program.model.lang import Register
@@ -29,6 +33,7 @@ _RUN = False
 _DECOMP = None
 _DECOMP_CACHE = {}
 _EXT_OPS = []
+# Crosscheck offsets against known blog-derived anchors; keep as heuristics only.
 _ASP_OFFSET_CROSSCHECK = {
     0x468: {"hook_name": "proc_notify_exec_complete", "source": "objective_see_blog_0x6A"},
     0x298: {"hook_name": "file_check_library_validation", "source": "objective_see_blog_0x6A"},
@@ -57,9 +62,7 @@ def _parse_hex(text):
 
 
 def _ensure_out_dir(path):
-    if not os.path.isdir(path):
-        os.makedirs(path)
-
+    return io_utils.ensure_out_dir(path)
 
 def _load_json(path):
     with open(path, "r") as fh:
@@ -610,6 +613,7 @@ def _get_decompiler():
     if _DECOMP is not None:
         return _DECOMP
     decomp = DecompInterface()
+    # Decompiler state is expensive; keep a singleton per run.
     decomp.openProgram(currentProgram)
     _DECOMP = decomp
     return _DECOMP
@@ -620,6 +624,7 @@ def _get_high_function(func):
     if key in _DECOMP_CACHE:
         return _DECOMP_CACHE[key]
     decomp = _get_decompiler()
+    # Use a bounded timeout to avoid hanging on complex KC functions.
     res = decomp.decompileFunction(func, 30, monitor)
     if res is None or not res.decompileCompleted():
         return None

@@ -6,13 +6,16 @@ Scans sandbox blocks by default; include "all" to scan entire program.
 
 Outputs: dumps/ghidra/out/<build>/kernel-imm-search/<imm_hex>.json (plus script.log).
 Pitfalls: ensure ARM64 processor import so immediate widths are parsed correctly; function recovery not required but helps triage.
+Notes:
+- Ghidra exposes immediates as signed; we compare unsigned when needed.
+- Scanning only sandbox blocks keeps the hit set manageable.
 """
 
 import json
 import os
 import traceback
 
-from ghidra_bootstrap import scan_utils
+from ghidra_bootstrap import block_utils, io_utils, scan_utils
 
 from ghidra.program.model.address import AddressSet
 
@@ -20,28 +23,13 @@ _RUN_CALLED = False
 
 
 def _ensure_out_dir(path):
-    if not os.path.isdir(path):
-        os.makedirs(path)
-
+    return io_utils.ensure_out_dir(path)
 
 def _sandbox_blocks():
-    mem = currentProgram.getMemory()
-    blocks = []
-    for blk in mem.getBlocks():
-        name = blk.getName() or ""
-        if "sandbox" in name.lower():
-            blocks.append(blk)
-    if blocks:
-        return blocks
-    return list(mem.getBlocks())
-
+    return block_utils.sandbox_blocks(program=currentProgram)
 
 def _block_set(blocks):
-    aset = AddressSet()
-    for blk in blocks:
-        aset.add(blk.getStart(), blk.getEnd())
-    return aset
-
+    return block_utils.block_set(blocks)
 
 def run():
     global _RUN_CALLED
@@ -56,6 +44,7 @@ def run():
             return
         out_dir = args[0]
         build_id = args[1]
+        # Parse as hex to avoid accidental decimal interpretation.
         imm = int(args[2], 16)
         scan_all = False
         if len(args) > 3 and args[3].lower() == "all":
@@ -76,6 +65,7 @@ def run():
                         val = int(obj)
                     except Exception:
                         continue
+                    # Unsigned compare handles negative signed immediates.
                     if val == imm or (imm > (1 << 63) and (val & ((1 << 64) - 1)) == imm):
                         addr = instr.getAddress()
                         func = func_mgr.getFunctionContaining(addr)

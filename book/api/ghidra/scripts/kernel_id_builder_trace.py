@@ -4,6 +4,10 @@ Trace list-head and writer candidates for the update_file_by_fileid id builder.
 Args: <out_dir> <build_id> <lookup_addr_hex> [list_head_addr_hex] [store_offset_hex]
 
 Outputs: <out_dir>/id_builder_trace.json
+
+Notes:
+- Offsets default to Sonoma 14.4.1 evidence (list_head +0xfa0, store +0xc0).
+- The scan is heuristic and intentionally bounded to keep runs fast.
 """
 
 import json
@@ -12,16 +16,14 @@ import traceback
 
 from ghidra.program.model.lang import OperandType, Register
 
-from ghidra_bootstrap import scan_utils
+from ghidra_bootstrap import io_utils, scan_utils
 
 
 _RUN_CALLED = False
 
 
 def _ensure_out_dir(path):
-    if not os.path.isdir(path):
-        os.makedirs(path)
-
+    return io_utils.ensure_out_dir(path)
 
 def _collect_registers(objs):
     regs = []
@@ -76,6 +78,7 @@ def run():
         if lookup_addr is None:
             raise ValueError("Invalid lookup address: %s" % args[2])
         list_head_addr = scan_utils.parse_hex(args[3]) if len(args) > 3 else None
+        # store_offset and list_head_offset are hard-coded to the observed struct layout.
         store_offset = int(args[4], 0) if len(args) > 4 else 0xc0
         list_head_offset = 0xfa0
 
@@ -103,7 +106,7 @@ def run():
             base_name = _base_reg_name(mem_regs[0]) if mem_regs else None
             if not base_name:
                 continue
-            # walk backward to find matching adrp
+            # Walk backward to find the ADRP that materializes the list head base.
             page_addr = None
             prev = listing.getInstructionBefore(instr.getAddress())
             steps = 0

@@ -10,13 +10,17 @@ Args: <out_dir> <build_id> [block_substr] [lookahead] [exec_only] [all]
   all: optional flag to ignore block_substr and scan all blocks.
 
 Outputs: <out_dir>/stub_got_map.json
+
+Notes:
+- __auth_got/__auth_ptr contain pointer-authenticated entries; keep them distinct.
+- Stubs are matched by ADRP/ADD/LDR/BLR patterns and are inherently heuristic.
 """
 
 import json
 import os
 import traceback
 
-from ghidra_bootstrap import scan_utils
+from ghidra_bootstrap import block_utils, io_utils, scan_utils
 
 from ghidra.program.model.address import Address, AddressSet
 from ghidra.program.model.lang import Register
@@ -40,9 +44,7 @@ def _format_addr(value):
 
 
 def _ensure_out_dir(path):
-    if not os.path.isdir(path):
-        os.makedirs(path)
-
+    return io_utils.ensure_out_dir(path)
 
 def _parse_int(value, default):
     try:
@@ -68,6 +70,7 @@ def _find_got_blocks():
             continue
         blocks.append(blk)
         kinds.append(kind)
+    # Collapse block kinds into a single mode label for metadata.
     mode = "+".join(sorted(set(kinds))) if kinds else None
     return blocks, mode
 
@@ -79,6 +82,7 @@ def _select_blocks(substr, exec_only, scan_all):
         picked = blocks
     else:
         needle = substr.lower()
+        # Block names vary by KC slice; substring matching is more robust than exact names.
         picked = [blk for blk in blocks if needle in (blk.getName() or "").lower()]
     if exec_only:
         picked = [blk for blk in picked if blk.isExecute()]
@@ -86,11 +90,7 @@ def _select_blocks(substr, exec_only, scan_all):
 
 
 def _block_set(blocks):
-    aset = AddressSet()
-    for blk in blocks:
-        aset.add(blk.getStart(), blk.getEnd())
-    return aset
-
+    return block_utils.block_set(blocks)
 
 def _addr_in_blocks(addr, blocks):
     try:
@@ -119,6 +119,7 @@ def _normalize_reg(name):
     if not name:
         return None
     name = name.lower()
+    # Normalize register width to xN to simplify matching across operand forms.
     if name.startswith("w") and name[1:].isdigit():
         return "x" + name[1:]
     return name

@@ -10,21 +10,22 @@ Each argument is either:
 Outputs JSON to <out_dir>/function_dump.json with per-function instruction lists.
 
 Pitfalls: requires functions recovered for name-based lookup; avoid --no-analysis if you rely on names. Address targets are resolved even without names but benefit from proper processor import.
+Notes:
+- The instruction list is capped to keep JSON outputs bounded and diffable.
+- Function lookup by name scans the whole function manager; keep target lists small.
 """
 
 import json
 import os
 import traceback
 
-from ghidra_bootstrap import scan_utils
+from ghidra_bootstrap import io_utils, scan_utils
 
 _RUN_CALLED = False
 
 
 def _ensure_out_dir(path):
-    if not os.path.isdir(path):
-        os.makedirs(path)
-
+    return io_utils.ensure_out_dir(path)
 
 def _parse_targets(tokens):
     addrs = []
@@ -78,6 +79,7 @@ def _dump_function(func, listing):
             }
         )
         if len(lines) > 4000:
+            # Cap output size to keep snapshots reviewable.
             lines.append({"truncated": True})
             break
     return lines

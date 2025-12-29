@@ -14,13 +14,16 @@ Heuristic:
 Outputs JSON to <out_dir>/arm_const_base_scan.json.
 
 Pitfalls: assumes ARM64 instruction set; ensure processor import is ARM64. With --no-analysis, function info may be missing but linear instruction scanning still works.
+Notes:
+- Range inputs are treated as signed addresses to align with Ghidra's internal offsets.
+- ADRP immediates can be pre-shifted by the processor spec; both forms are checked.
 """
 
 import json
 import os
 import traceback
 
-from ghidra_bootstrap import scan_utils
+from ghidra_bootstrap import block_utils, io_utils, scan_utils
 
 from ghidra.program.model.address import AddressSet
 from ghidra.program.model.lang import OperandType
@@ -32,9 +35,7 @@ _RUN_CALLED = False
 
 
 def _ensure_out_dir(path):
-    if not os.path.isdir(path):
-        os.makedirs(path)
-
+    return io_utils.ensure_out_dir(path)
 
 def _s64(val):
     return scan_utils.to_signed(val)
@@ -49,23 +50,10 @@ def _parse_hex_address(text):
 
 
 def _sandbox_blocks():
-    mem = currentProgram.getMemory()
-    blocks = []
-    for blk in mem.getBlocks():
-        name = blk.getName() or ""
-        if "sandbox" in name.lower():
-            blocks.append(blk)
-    if blocks:
-        return blocks
-    return list(mem.getBlocks())
-
+    return block_utils.sandbox_blocks(program=currentProgram)
 
 def _block_set(blocks):
-    aset = AddressSet()
-    for blk in blocks:
-        aset.add(blk.getStart(), blk.getEnd())
-    return aset
-
+    return block_utils.block_set(blocks)
 
 def _scalar(obj):
     if isinstance(obj, Scalar):
@@ -141,6 +129,7 @@ def run():
             print("invalid range args: %s %s" % (args[2], args[3]))
             return
         if start_addr > end_addr:
+            # Accept reversed ranges to make ad hoc use less error-prone.
             start_addr, end_addr = end_addr, start_addr
         lookahead = 8
         scan_all = False
@@ -156,6 +145,7 @@ def run():
         _ensure_out_dir(out_dir)
         listing = currentProgram.getListing()
         func_mgr = currentProgram.getFunctionManager()
+        # Default to sandbox blocks so the scan stays focused and fast.
         blocks = list(currentProgram.getMemory().getBlocks()) if scan_all else _sandbox_blocks()
         addr_set = _block_set(blocks)
         instr_iter = listing.getInstructions(addr_set, True)

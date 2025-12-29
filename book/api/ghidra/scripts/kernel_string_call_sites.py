@@ -7,13 +7,17 @@ Args: <out_dir> <build_id> [all] <query...>
   - queries are substring matches against defined strings
 
 Outputs: <out_dir>/string_call_sites.json
+
+Notes:
+- String matching is substring-based; use specific tokens to avoid noisy hits.
+- Call sites are filtered to the same block set as string references.
 """
 
 import json
 import os
 import traceback
 
-from ghidra_bootstrap import scan_utils
+from ghidra_bootstrap import block_utils, io_utils, scan_utils
 
 from ghidra.program.model.address import Address, AddressSet
 from ghidra.program.model.data import StringDataInstance
@@ -22,28 +26,13 @@ _RUN = False
 
 
 def _ensure_out_dir(path):
-    if not os.path.isdir(path):
-        os.makedirs(path)
-
+    return io_utils.ensure_out_dir(path)
 
 def _sandbox_blocks():
-    mem = currentProgram.getMemory()
-    blocks = []
-    for blk in mem.getBlocks():
-        name = blk.getName() or ""
-        if "sandbox" in name.lower():
-            blocks.append(blk)
-    if blocks:
-        return blocks
-    return list(mem.getBlocks())
-
+    return block_utils.sandbox_blocks(program=currentProgram)
 
 def _block_set(blocks):
-    aset = AddressSet()
-    for blk in blocks:
-        aset.add(blk.getStart(), blk.getEnd())
-    return aset
-
+    return block_utils.block_set(blocks)
 
 def _collect_refs(addr, addr_set, func_mgr, memory, ref_mgr):
     refs = []
@@ -118,6 +107,7 @@ def run():
             if sval is None:
                 continue
             sval = str(sval)
+            # Substring match keeps the search flexible across minor string changes.
             matched = [q for q in queries if q in sval]
             if not matched:
                 continue
@@ -154,6 +144,7 @@ def run():
                 if not rtype.isCall():
                     continue
                 call_addr = ref.getFromAddress()
+                # Restrict to the same block set to keep call sites focused.
                 if addr_set and not addr_set.contains(call_addr):
                     continue
                 instr = listing.getInstructionAt(call_addr)

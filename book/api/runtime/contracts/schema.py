@@ -13,6 +13,10 @@ Tool marker families currently recognized:
 - tool:"sbpl-compile" (compile-only)
 - tool:"seatbelt-callout" (optional additive evidence)
 - tool:"entitlement-check" (optional additive evidence)
+
+The contract layer turns low-level tool markers into structured
+evidence. This reduces the temptation to "grep stderr" and accidentally invent
+semantics that are not observed.
 """
 
 from __future__ import annotations
@@ -26,6 +30,7 @@ CURRENT_TOOL_MARKER_SCHEMA_VERSION = 2
 SUPPORTED_RUNTIME_RESULT_SCHEMA_VERSIONS = {0, 1}
 SUPPORTED_TOOL_MARKER_SCHEMA_VERSIONS = {0, 1, 2}
 
+# Keep supported-version sets explicit to bound the compatibility window.
 SBPL_APPLY_TOOL = "sbpl-apply"
 SBPL_PREFLIGHT_TOOL = "sbpl-preflight"
 SEATBELT_CALLOUT_TOOL = "seatbelt-callout"
@@ -67,11 +72,13 @@ def _parse_json_object(line: str) -> Optional[Dict[str, Any]]:
 
 
 def marker_schema_version(marker: Mapping[str, Any]) -> int:
+    """Return a marker schema version, defaulting to 0 when absent."""
     value = marker.get("marker_schema_version")
     return value if isinstance(value, int) else 0
 
 
 def extract_sbpl_apply_markers(stderr_raw: Optional[str]) -> List[Dict[str, Any]]:
+    """Parse sbpl-apply tool markers from stderr into normalized dicts."""
     markers: List[Dict[str, Any]] = []
     for line in (stderr_raw or "").splitlines():
         payload = _parse_json_object(line)
@@ -91,6 +98,7 @@ def extract_sbpl_apply_markers(stderr_raw: Optional[str]) -> List[Dict[str, Any]
 
 
 def extract_sbpl_preflight_markers(stderr_raw: Optional[str]) -> List[Dict[str, Any]]:
+    """Parse sbpl-preflight tool markers from stderr into normalized dicts."""
     markers: List[Dict[str, Any]] = []
     for line in (stderr_raw or "").splitlines():
         payload = _parse_json_object(line)
@@ -110,6 +118,7 @@ def extract_sbpl_preflight_markers(stderr_raw: Optional[str]) -> List[Dict[str, 
 
 
 def extract_sbpl_compile_markers(stderr_raw: Optional[str]) -> List[Dict[str, Any]]:
+    """Parse sbpl-compile tool markers from stderr into normalized dicts."""
     markers: List[Dict[str, Any]] = []
     for line in (stderr_raw or "").splitlines():
         payload = _parse_json_object(line)
@@ -129,6 +138,7 @@ def extract_sbpl_compile_markers(stderr_raw: Optional[str]) -> List[Dict[str, An
 
 
 def filter_type_name(filter_type: Any) -> str:
+    """Return a human-friendly filter type name for a raw numeric id."""
     if isinstance(filter_type, int):
         name = _FILTER_TYPE_NAMES.get(filter_type)
         if name:
@@ -188,6 +198,7 @@ def upgrade_seatbelt_callout_marker(marker: Mapping[str, Any]) -> Dict[str, Any]
 
 
 def extract_seatbelt_callout_markers(stderr_raw: Optional[str]) -> List[Dict[str, Any]]:
+    """Parse seatbelt-callout markers from stderr into normalized dicts."""
     markers: List[Dict[str, Any]] = []
     for line in (stderr_raw or "").splitlines():
         payload = _parse_json_object(line)
@@ -204,6 +215,7 @@ def extract_seatbelt_callout_markers(stderr_raw: Optional[str]) -> List[Dict[str
 
 
 def extract_entitlement_check_markers(stderr_raw: Optional[str]) -> List[Dict[str, Any]]:
+    """Parse entitlement-check markers from stderr into normalized dicts."""
     markers: List[Dict[str, Any]] = []
     for line in (stderr_raw or "").splitlines():
         payload = _parse_json_object(line)
@@ -354,6 +366,7 @@ def classify_apply_err_class(api: Optional[str], rc: Any, err: Any, errbuf: Any)
 
 
 def derive_apply_report_from_markers(sbpl_apply_markers: List[Dict[str, Any]]) -> Optional[Dict[str, Any]]:
+    """Build a compact apply_report from sbpl-apply markers."""
     apply_marker = _first_marker(sbpl_apply_markers, "apply")
     if not apply_marker:
         return None

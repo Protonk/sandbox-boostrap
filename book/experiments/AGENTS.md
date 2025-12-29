@@ -38,7 +38,7 @@ This loop repeats. Do not treat “one run” as complete. Prefer several small 
   Use the Concepts and State documents as constraints. If an experiment appears to contradict an invariant, treat that as a tension to investigate, not something to be patched over. Do not rewrite definitions to fit your latest result.
 
 * Require a witness before leaning on a concept  
-  Before treating a concept cluster as more than substrate theory, make sure there is at least one host-specific witness artifact (mapping, decoded profile, experiment report, runtime trace). Example: for the Operation vocabulary, the witness is the harvested name table under `book/experiments/vocab-from-cache/out/` paired with the promoted `book/graph/mappings/vocab/ops.json`.
+  Before treating a concept cluster as more than substrate theory, make sure there is at least one host-specific witness artifact (mapping, decoded profile, experiment report, runtime trace). Example: for the Operation/Filter vocabularies, the witness is the bedrock mapping `book/graph/mappings/vocab/{ops.json,filters.json}` (generated from `book/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib`).
 
 * Maintain validation status honestly  
   Each experiment has a validation status (`ok`, `partial`, `blocked`, `brittle`). Update this based on actual runs, not on how convincing the narrative feels. Do not silently upgrade `partial` or `brittle` results to `ok` without new evidence.
@@ -77,9 +77,9 @@ Each subdirectory under `book/experiments/` is a host-specific experiment. They 
   - `node-layout` – profile format, node region, literal/regex pools, stride/tag structure.
   - `op-table-operation` – op-table “bucket” behavior vs operations/filters.
   - `op-table-vocab-alignment` – bucket ↔ Operation Vocabulary alignment.
-  - `vocab-from-cache` – Operation/Filter vocab harvested from the dyld cache.
-  - `tag-layout-decode` – tag ↔ node-layout mapping for literal/regex-bearing nodes.
-  - `system-profile-digest` – digests for curated system profiles.
+  - `archive/vocab-from-cache` – (archived) provenance for dyld-harvested Operation/Filter vocab.
+  - `archive/tag-layout-decode` – (archived) provenance for canonical tag layouts.
+  - `archive/system-profile-digest` – (archived) provenance for curated system profile digests.
   - `anchor-filter-map` – anchors ↔ Filter IDs using `field2` and vocab.
   - `field2-filters` – `field2` behavior across filters, tags, and profiles.
   - `probe-op-structure` – richer SBPL probes to surface `field2` and tag patterns.
@@ -87,6 +87,7 @@ Each subdirectory under `book/experiments/` is a host-specific experiment. They 
 - **Runtime & semantic alignment**
   - `runtime-checks` – bucket-level runtime behavior vs decoder expectations.
   - `sbpl-graph-runtime` – SBPL ↔ graph ↔ runtime “golden” triples.
+  - `archive/op-coverage-and-runtime-signatures` – (archived) provenance for per-op runtime summaries (canonical mapping lives under `book/graph/mappings/runtime/`).
 
 - **Entitlements, kernel, and symbol work**
   - `entitlement-diff` – entitlement-driven profile/filter/runtime differences.

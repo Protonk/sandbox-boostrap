@@ -7,13 +7,16 @@ instead of sandbox memory blocks only.
 
 Outputs: dumps/ghidra/out/<build>/kernel-field2-mask-scan/mask_scan.json (plus script.log).
 Pitfalls: with --no-analysis basic instruction iteration still works, but function metadata/xrefs will be sparse.
+Notes:
+- Defaults mirror the most common field2 masks seen in Sonoma KC patterns.
+- Ghidra exposes immediates as signed; we normalize to unsigned when matching.
 """
 
 import json
 import os
 import traceback
 
-from ghidra_bootstrap import scan_utils
+from ghidra_bootstrap import block_utils, io_utils, scan_utils
 
 from ghidra.program.model.address import AddressSet
 
@@ -21,28 +24,13 @@ _RUN_CALLED = False
 
 
 def _ensure_out_dir(path):
-    if not os.path.isdir(path):
-        os.makedirs(path)
-
+    return io_utils.ensure_out_dir(path)
 
 def _sandbox_blocks():
-    mem = currentProgram.getMemory()
-    blocks = []
-    for blk in mem.getBlocks():
-        name = blk.getName() or ""
-        if "sandbox" in name.lower():
-            blocks.append(blk)
-    if blocks:
-        return blocks
-    return list(mem.getBlocks())
-
+    return block_utils.sandbox_blocks(program=currentProgram)
 
 def _block_set(blocks):
-    aset = AddressSet()
-    for blk in blocks:
-        aset.add(blk.getStart(), blk.getEnd())
-    return aset
-
+    return block_utils.block_set(blocks)
 
 def _parse_masks(args):
     masks = []
@@ -56,6 +44,7 @@ def _parse_masks(args):
         except Exception:
             continue
     if not masks:
+        # Default masks are curated from sandbox field2 usage; keep them explicit.
         masks = [0x3FFF, 0x4000, 0xC000]
     return masks, scan_all
 
@@ -101,6 +90,7 @@ def run():
                         continue
                     for m in masks:
                         if val == m or (m > (1 << 63) and (val & ((1 << 64) - 1)) == m):
+                            # Unsigned comparison handles negative signed immediates from Ghidra.
                             addr = instr.getAddress()
                             func = func_mgr.getFunctionContaining(addr)
                             hits[m].append(

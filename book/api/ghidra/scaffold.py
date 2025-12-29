@@ -28,17 +28,22 @@ from pathlib import Path
 from typing import Dict, Iterable, List, Tuple
 
 
-REPO_ROOT = Path(__file__).resolve().parents[3]
-DUMPS_ROOT = REPO_ROOT / "dumps"
-GHIDRA_ROOT = DUMPS_ROOT / "ghidra"
-SANDBOX_PRIVATE = DUMPS_ROOT / "Sandbox-private"
-BOOK_API_SCRIPTS = Path(__file__).resolve().parent / "scripts"
-SCRIPTS_DIR = BOOK_API_SCRIPTS
-OUT_ROOT = GHIDRA_ROOT / "out"
-KERNEL_SYMBOLS_OUT_ROOT = REPO_ROOT / "book" / "experiments" / "kernel-symbols" / "out"
-PROJECTS_ROOT = GHIDRA_ROOT / "projects"
-TEMP_ROOT = GHIDRA_ROOT / "tmp"
-DEFAULT_BUILD_ID = "14.4.1-23E224"
+from . import paths
+from .tasks import tasks_by_name
+from .tasks.base import TaskConfig
+
+
+REPO_ROOT = paths.REPO_ROOT
+DUMPS_ROOT = paths.DUMPS_ROOT
+GHIDRA_ROOT = paths.GHIDRA_ROOT
+SANDBOX_PRIVATE = paths.SANDBOX_PRIVATE
+BOOK_API_SCRIPTS = paths.SCRIPTS_DIR
+SCRIPTS_DIR = paths.SCRIPTS_DIR
+OUT_ROOT = paths.OUT_ROOT
+KERNEL_SYMBOLS_OUT_ROOT = paths.KERNEL_SYMBOLS_OUT_ROOT
+PROJECTS_ROOT = paths.PROJECTS_ROOT
+TEMP_ROOT = paths.TEMP_ROOT
+DEFAULT_BUILD_ID = paths.DEFAULT_BUILD_ID
 
 
 @dataclass(frozen=True)
@@ -88,388 +93,7 @@ class BuildPaths:
         return [p for p in paths if not p.exists()]
 
 
-@dataclass(frozen=True)
-class TaskConfig:
-    """Definition of a headless task: which script to run, where to import from, and where to write."""
-    name: str
-    script: str
-    import_target: str
-    description: str
-    out_root: Path | None = None
-
-    def script_path(self) -> Path:
-        return SCRIPTS_DIR / self.script
-
-
-TASKS: Dict[str, TaskConfig] = {
-    "kernel-symbols": TaskConfig(
-        name="kernel-symbols",
-        script="kernel_symbols.py",
-        import_target="kernel",
-        description="Import KC and dump symbols/strings for com.apple.security.sandbox.",
-        out_root=KERNEL_SYMBOLS_OUT_ROOT,
-    ),
-    "kernel-collection-symbols": TaskConfig(
-        name="kernel-collection-symbols",
-        script="kernel_symbols.py",
-        import_target="kernel_collection",
-        description="Dump symbols/strings for com.apple.security.sandbox in the KC.",
-    ),
-    "kernel-tag-switch": TaskConfig(
-        name="kernel-tag-switch",
-        script="kernel_tag_switch.py",
-        import_target="kernel",
-        description="Locate PolicyGraph dispatcher/tag switch inside the KC.",
-    ),
-    "kernel-op-table": TaskConfig(
-        name="kernel-op-table",
-        script="kernel_op_table.py",
-        import_target="kernel",
-        description="Recover operation pointer table entries from the KC.",
-    ),
-    "kernel-string-refs": TaskConfig(
-        name="kernel-string-refs",
-        script="kernel_string_refs.py",
-        import_target="kernel",
-        description="Resolve references to sandbox strings and AppleMatch imports in the KC.",
-    ),
-    "kernel-function-dump": TaskConfig(
-        name="kernel-function-dump",
-        script="kernel_function_dump.py",
-        import_target="kernel",
-        description="Dump disassembly for specified functions/addresses.",
-    ),
-    "kernel-collection-function-dump": TaskConfig(
-        name="kernel-collection-function-dump",
-        script="kernel_function_dump.py",
-        import_target="kernel_collection",
-        description="Dump disassembly for specified functions/addresses in the KC.",
-    ),
-    "kernel-collection-addr-window-dump": TaskConfig(
-        name="kernel-collection-addr-window-dump",
-        script="kernel_addr_window_dump.py",
-        import_target="kernel_collection",
-        description="Dump an instruction window around a KC address.",
-    ),
-    "kernel-collection-addr-window-disasm": TaskConfig(
-        name="kernel-collection-addr-window-disasm",
-        script="kernel_addr_window_disasm.py",
-        import_target="kernel_collection",
-        description="Disassemble a fixed instruction window around a KC address.",
-    ),
-    "kernel-collection-offset-scan": TaskConfig(
-        name="kernel-collection-offset-scan",
-        script="kernel_offset_inst_scan.py",
-        import_target="kernel_collection",
-        description="Scan the KC for instructions referencing a specific immediate offset.",
-    ),
-    "kernel-collection-addr-lookup": TaskConfig(
-        name="kernel-collection-addr-lookup",
-        script="kernel_addr_lookup.py",
-        import_target="kernel_collection",
-        description="Lookup KC addresses/offsets and report functions/callers.",
-    ),
-    "kernel-collection-list-head-xref": TaskConfig(
-        name="kernel-collection-list-head-xref",
-        script="kernel_list_head_xref.py",
-        import_target="kernel_collection",
-        description="Xref a KC list-head address and group refs by function.",
-    ),
-    "kernel-collection-store-provenance": TaskConfig(
-        name="kernel-collection-store-provenance",
-        script="kernel_store_provenance.py",
-        import_target="kernel_collection",
-        description="Summarize one-step register provenance for a store instruction.",
-    ),
-    "kernel-collection-id-builder-trace": TaskConfig(
-        name="kernel-collection-id-builder-trace",
-        script="kernel_id_builder_trace.py",
-        import_target="kernel_collection",
-        description="Trace list-head and writer candidates for id builders in the KC.",
-    ),
-    "kernel-imports": TaskConfig(
-        name="kernel-imports",
-        script="kernel_imports_scan.py",
-        import_target="kernel",
-        description="Enumerate external symbols/imports and their references.",
-    ),
-    "kernel-collection-imports": TaskConfig(
-        name="kernel-collection-imports",
-        script="kernel_imports_scan.py",
-        import_target="kernel_collection",
-        description="Enumerate external symbols/imports and their references in the KC.",
-    ),
-    "kernel-collection-stub-got-map": TaskConfig(
-        name="kernel-collection-stub-got-map",
-        script="kernel_stub_got_map.py",
-        import_target="kernel_collection",
-        description="Map KC stubs/trampolines to GOT entries (auth_got/auth_ptr/got).",
-    ),
-    "kernel-collection-stub-call-sites": TaskConfig(
-        name="kernel-collection-stub-call-sites",
-        script="kernel_stub_call_sites.py",
-        import_target="kernel_collection",
-        description="Scan KC for BL/B call sites targeting stub/trampoline addresses.",
-    ),
-    "kernel-mac-policy-register": TaskConfig(
-        name="kernel-mac-policy-register",
-        script="mac_policy_register_scan.py",
-        import_target="kernel_collection",
-        description="Locate mac_policy_register call sites and recover arg pointers in the KC.",
-    ),
-    "kernel-collection-string-call-sites": TaskConfig(
-        name="kernel-collection-string-call-sites",
-        script="kernel_string_call_sites.py",
-        import_target="kernel_collection",
-        description="Find functions referencing strings and list call sites in the KC.",
-    ),
-    "kernel-collection-jump-table-read": TaskConfig(
-        name="kernel-collection-jump-table-read",
-        script="kernel_jump_table_read.py",
-        import_target="kernel_collection",
-        description="Read a signed-32 jump table and resolve targets in the KC.",
-    ),
-    "kernel-collection-syscall-code-scan": TaskConfig(
-        name="kernel-collection-syscall-code-scan",
-        script="sandbox_syscall_code_scan.py",
-        import_target="kernel_collection",
-        description="Scan the KC for compare-like uses of a syscall call code.",
-    ),
-    "kernel-mac-policy-register-anchor": TaskConfig(
-        name="kernel-mac-policy-register-anchor",
-        script="kernel_anchor_mac_policy_register.py",
-        import_target="kernel_collection",
-        description="Rename and apply signature to mac_policy_register anchor in the KC.",
-    ),
-    "kernel-mac-policy-register-instances": TaskConfig(
-        name="kernel-mac-policy-register-instances",
-        script="kernel_mac_policy_register_instances.py",
-        import_target="kernel_collection",
-        description="Recover mac_policy_register instances and decode mac_policy_conf fields.",
-    ),
-    "kernel-block-disasm": TaskConfig(
-        name="kernel-block-disasm",
-        script="kernel_block_disasm.py",
-        import_target="kernel",
-        description="Disassemble across matching KC memory blocks (prepares follow-on scans).",
-    ),
-    "kernel-addr-lookup": TaskConfig(
-        name="kernel-addr-lookup",
-        script="kernel_addr_lookup.py",
-        import_target="kernel",
-        description="Lookup file offsets/constants to map to addresses/functions/callers.",
-    ),
-    "sandbox-kext-addr-lookup": TaskConfig(
-        name="sandbox-kext-addr-lookup",
-        script="kernel_addr_lookup.py",
-        import_target="sandbox_kext",
-        description="Lookup addresses/constants inside sandbox_kext.",
-    ),
-    "sandbox-kext-addr-window-dump": TaskConfig(
-        name="sandbox-kext-addr-window-dump",
-        script="kernel_addr_window_dump.py",
-        import_target="sandbox_kext",
-        description="Dump an instruction window around a sandbox_kext address.",
-    ),
-    "kernel-adrp-add-scan": TaskConfig(
-        name="kernel-adrp-add-scan",
-        script="kernel_adrp_add_scan.py",
-        import_target="kernel",
-        description="Locate ADRP+ADD/SUB sequences that materialize a target address.",
-    ),
-    "kernel-adrp-ldr-scan": TaskConfig(
-        name="kernel-adrp-ldr-scan",
-        script="kernel_adrp_ldr_scan.py",
-        import_target="kernel",
-        description="Locate ADRP+LDR sequences that load a target address.",
-    ),
-    "sandbox-kext-adrp-add-scan": TaskConfig(
-        name="sandbox-kext-adrp-add-scan",
-        script="kernel_adrp_add_scan.py",
-        import_target="sandbox_kext",
-        description="Locate ADRP+ADD/SUB sequences in sandbox_kext for a target address.",
-    ),
-    "sandbox-kext-adrp-ldr-scan": TaskConfig(
-        name="sandbox-kext-adrp-ldr-scan",
-        script="kernel_adrp_ldr_scan.py",
-        import_target="sandbox_kext",
-        description="Locate ADRP+LDR sequences in sandbox_kext for a target address.",
-    ),
-    "sandbox-kext-adrp-ldr-got-scan": TaskConfig(
-        name="sandbox-kext-adrp-ldr-got-scan",
-        script="kernel_adrp_ldr_scan.py",
-        import_target="sandbox_kext",
-        description="Locate ADRP+LDR sequences in sandbox_kext that land in __auth_got.",
-    ),
-    "kernel-function-info": TaskConfig(
-        name="kernel-function-info",
-        script="kernel_function_info.py",
-        import_target="kernel",
-        description="Emit metadata for specified functions (callers, callees, size).",
-    ),
-    "kernel-collection-function-info": TaskConfig(
-        name="kernel-collection-function-info",
-        script="kernel_function_info.py",
-        import_target="kernel_collection",
-        description="Emit metadata for specified functions in the KC (callers, callees, size).",
-    ),
-    "sandbox-kext-conf-scan": TaskConfig(
-        name="sandbox-kext-conf-scan",
-        script="sandbox_kext_conf_scan.py",
-        import_target="sandbox_kext",
-        description="Scan sandbox kext data segments for mac_policy_conf candidates.",
-    ),
-    "sandbox-kext-symbols": TaskConfig(
-        name="sandbox-kext-symbols",
-        script="kernel_symbols.py",
-        import_target="sandbox_kext",
-        description="Emit symbol/string tables for sandbox_kext.",
-    ),
-    "sandbox-kext-mac-policy-register": TaskConfig(
-        name="sandbox-kext-mac-policy-register",
-        script="mac_policy_register_scan.py",
-        import_target="sandbox_kext",
-        description="Locate mac_policy_register call sites inside sandbox_kext.bin.",
-    ),
-    "sandbox-kext-block-disasm": TaskConfig(
-        name="sandbox-kext-block-disasm",
-        script="kernel_block_disasm.py",
-        import_target="sandbox_kext",
-        description="Disassemble across matching sandbox kext blocks (e.g., __stubs).",
-    ),
-    "sandbox-kext-function-dump": TaskConfig(
-        name="sandbox-kext-function-dump",
-        script="kernel_function_dump.py",
-        import_target="sandbox_kext",
-        description="Dump disassembly for specified functions/addresses in sandbox_kext.",
-    ),
-    "sandbox-kext-stub-got-map": TaskConfig(
-        name="sandbox-kext-stub-got-map",
-        script="kernel_stub_got_map.py",
-        import_target="sandbox_kext",
-        description="Map sandbox kext stubs to GOT entries (auth_got/auth_ptr/got).",
-    ),
-    "sandbox-kext-got-ref-sweep": TaskConfig(
-        name="sandbox-kext-got-ref-sweep",
-        script="kernel_got_ref_sweep.py",
-        import_target="sandbox_kext",
-        description="Define GOT entries and collect references in sandbox_kext.",
-    ),
-    "sandbox-kext-got-load-sweep": TaskConfig(
-        name="sandbox-kext-got-load-sweep",
-        script="kernel_got_load_sweep.py",
-        import_target="sandbox_kext",
-        description="Scan code for GOT loads or direct refs in sandbox_kext.",
-    ),
-    "sandbox-kext-imm-search": TaskConfig(
-        name="sandbox-kext-imm-search",
-        script="kernel_imm_search.py",
-        import_target="sandbox_kext",
-        description="Search sandbox_kext instructions for a given immediate value.",
-    ),
-    "sandbox-kext-op-table": TaskConfig(
-        name="sandbox-kext-op-table",
-        script="kernel_op_table.py",
-        import_target="sandbox_kext",
-        description="Surface pointer-table candidates inside sandbox_kext segments.",
-    ),
-    "sandbox-kext-pointer-value-scan": TaskConfig(
-        name="sandbox-kext-pointer-value-scan",
-        script="kernel_pointer_value_scan.py",
-        import_target="sandbox_kext",
-        description="Scan sandbox_kext memory for a specific pointer value.",
-    ),
-    "sandbox-kext-jump-table-dump": TaskConfig(
-        name="sandbox-kext-jump-table-dump",
-        script="kernel_jump_table_dump.py",
-        import_target="sandbox_kext",
-        description="Dump jump-table entries for sandbox_kext dispatcher candidates.",
-    ),
-    "sandbox-kext-jump-table-read": TaskConfig(
-        name="sandbox-kext-jump-table-read",
-        script="kernel_jump_table_read.py",
-        import_target="sandbox_kext",
-        description="Read a signed-32 jump table and resolve targets in sandbox_kext.",
-    ),
-    "sandbox-kext-syscall-code-scan": TaskConfig(
-        name="sandbox-kext-syscall-code-scan",
-        script="sandbox_syscall_code_scan.py",
-        import_target="sandbox_kext",
-        description="Scan sandbox_kext for compare-like uses of a syscall call code.",
-    ),
-    "kernel-imm-search": TaskConfig(
-        name="kernel-imm-search",
-        script="kernel_imm_search.py",
-        import_target="kernel",
-        description="Search instructions for a given immediate (scalar) value.",
-    ),
-    "kernel-arm-const-base-scan": TaskConfig(
-        name="kernel-arm-const-base-scan",
-        script="kernel_arm_const_base_scan.py",
-        import_target="kernel",
-        description="Scan ADRP base materializations into a target address range.",
-    ),
-    "sandbox-kext-arm-const-base-scan": TaskConfig(
-        name="sandbox-kext-arm-const-base-scan",
-        script="kernel_arm_const_base_scan.py",
-        import_target="sandbox_kext",
-        description="Scan ADRP base materializations into a target address range in sandbox_kext.",
-    ),
-    "kernel-field2-mask-scan": TaskConfig(
-        name="kernel-field2-mask-scan",
-        script="kernel_field2_mask_scan.py",
-        import_target="kernel",
-        description="Search sandbox code for mask immediates (field2/filter_arg flags).",
-    ),
-    "kernel-data-define": TaskConfig(
-        name="kernel-data-define",
-        script="kernel_data_define_and_refs.py",
-        import_target="kernel",
-        description="Define data at given addresses and dump references (for pointer/table pivots).",
-    ),
-    "sandbox-kext-data-define": TaskConfig(
-        name="sandbox-kext-data-define",
-        script="kernel_data_define_and_refs.py",
-        import_target="sandbox_kext",
-        description="Define data at given addresses in sandbox_kext and dump references.",
-    ),
-    "sandbox-kext-string-refs": TaskConfig(
-        name="sandbox-kext-string-refs",
-        script="kernel_string_refs.py",
-        import_target="sandbox_kext",
-        description="Resolve references to key sandbox strings inside sandbox_kext.bin.",
-    ),
-    "amfi-kext-block-disasm": TaskConfig(
-        name="amfi-kext-block-disasm",
-        script="kernel_block_disasm.py",
-        import_target="amfi_kext",
-        description="Disassemble across matching AMFI kext blocks (prepares follow-on scans).",
-    ),
-    "amfi-kext-mac-policy-register": TaskConfig(
-        name="amfi-kext-mac-policy-register",
-        script="mac_policy_register_scan.py",
-        import_target="amfi_kext",
-        description="Locate mac_policy_register call sites inside AMFI kext slice.",
-    ),
-    "amfi-kext-got-ref-sweep": TaskConfig(
-        name="amfi-kext-got-ref-sweep",
-        script="kernel_got_ref_sweep.py",
-        import_target="amfi_kext",
-        description="Define GOT entries and collect references in AMFI kext slice.",
-    ),
-    "amfi-kext-got-load-sweep": TaskConfig(
-        name="amfi-kext-got-load-sweep",
-        script="kernel_got_load_sweep.py",
-        import_target="amfi_kext",
-        description="Scan code for GOT loads or direct refs in AMFI kext slice.",
-    ),
-    "amfi-kext-function-dump": TaskConfig(
-        name="amfi-kext-function-dump",
-        script="kernel_function_dump.py",
-        import_target="amfi_kext",
-        description="Dump disassembly for specified AMFI kext functions/addresses.",
-    ),
-}
+TASKS: Dict[str, TaskConfig] = tasks_by_name()
 
 
 def ensure_under(child: Path, parent: Path) -> None:
@@ -505,6 +129,7 @@ def build_headless_command(
     project_name: str,
 ) -> Tuple[List[str], Path]:
     import_path = getattr(build, task.import_target)
+    # Each task maps to a specific import target in BuildPaths (kernel, KC, kext, etc.).
     out_root = task.out_root if task.out_root else OUT_ROOT
     out_dir = out_root / build.build_id / task.name
     ensure_under(out_dir, out_root)
@@ -537,6 +162,7 @@ def build_headless_command(
             build.build_id,
         ]
     )
+    # Scripts expect out_dir/build_id as the first positional args; keep ordering stable.
     cmd.extend(script_args)
     return cmd, out_dir
 
@@ -583,6 +209,7 @@ def build_process_command(
             build.build_id,
         ]
     )
+    # process_existing uses the already-imported program name, not the source path.
     cmd.extend(script_args)
     return cmd, out_dir
 

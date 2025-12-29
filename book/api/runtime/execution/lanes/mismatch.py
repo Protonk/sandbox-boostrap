@@ -1,5 +1,8 @@
 """
 Mismatch packet generation for runtime plans.
+
+Mismatch packets are the smallest portable "why" for a divergence.
+They turn a failed expectation into a structured debugging artifact.
 """
 
 from __future__ import annotations
@@ -71,6 +74,7 @@ def emit_packets(
     run_manifest: Path,
     out_path: Path,
 ) -> List[Dict[str, Any]]:
+    """Emit mismatch packets from a mismatch summary and runtime events."""
     mismatch_doc = _load_json(mismatch_summary)
     if not mismatch_doc:
         return []
@@ -153,6 +157,6 @@ def emit_packets(
         packets.append(packet)
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
+    # sort_keys stabilizes packet diffs across runs.
     out_path.write_text("\n".join(json.dumps(p, sort_keys=True) for p in packets) + "\n")
     return packets
-

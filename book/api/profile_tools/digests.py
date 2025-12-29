@@ -3,7 +3,7 @@ Decoder-backed digest helpers for compiled sandbox blobs (Sonoma baseline).
 
 This module provides a reusable home for the digest logic originally implemented
 in the experiment:
-- `book/experiments/system-profile-digest/run.py`
+- `book/experiments/archive/system-profile-digest/`
 """
 
 from __future__ import annotations

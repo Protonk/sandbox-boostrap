@@ -3,6 +3,9 @@ Baseline (unsandboxed) probe execution for runtime tools.
 
 Baseline results are used to disambiguate platform restrictions from
 profile-attributed decisions.
+
+The baseline lane answers "what happens without a profile?" so we
+can avoid blaming the sandbox for ambient platform behavior.
 """
 
 from __future__ import annotations
@@ -53,6 +56,7 @@ def _command_for_probe(op: str, target: Optional[str]) -> list[str]:
 
 
 def run_baseline_for_probe(profile_id: str, probe: Dict[str, Any]) -> Dict[str, Any]:
+    """Run a single probe without applying any profile."""
     op = probe.get("operation") or ""
     target = probe.get("target")
     cmd = _command_for_probe(op, target)
@@ -77,6 +81,7 @@ def run_baseline_for_probe(profile_id: str, probe: Dict[str, Any]) -> Dict[str, 
         probe_details, stdout_clean = _extract_probe_details(res.stdout or "")
         record["status"] = "allow" if res.returncode == 0 else "deny"
         record["exit_code"] = res.returncode
+        # Truncate outputs to keep baseline artifacts compact.
         record["stdout"] = stdout_clean[:200]
         record["stderr"] = (res.stderr or "")[:200]
         record["reached_primary_op"] = True
@@ -93,6 +98,7 @@ def run_baseline_for_probe(profile_id: str, probe: Dict[str, Any]) -> Dict[str, 
 
 
 def build_baseline_results(world_id: str, profiles: list[Dict[str, Any]], run_id: Optional[str]) -> Dict[str, Any]:
+    """Build a baseline_results document for a list of profiles."""
     results = []
     for profile in profiles:
         profile_id = profile.get("profile_id")
@@ -104,4 +110,3 @@ def build_baseline_results(world_id: str, profiles: list[Dict[str, Any]], run_id
         "run_id": run_id,
         "results": results,
     }
-

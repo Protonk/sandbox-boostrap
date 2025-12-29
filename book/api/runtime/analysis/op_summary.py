@@ -3,6 +3,9 @@ Op-level runtime summary helpers.
 
 Builds per-operation summaries from normalized runtime observations without
 relying on experiment-local scripts.
+
+Runtime observations are per-scenario; summaries collapse them by
+operation so we can reason about coverage and consistency across probes.
 """
 
 from __future__ import annotations
@@ -25,6 +28,7 @@ REPO_ROOT = path_utils.find_repo_root(Path(__file__))
 def _sha256_path(path: Path) -> str:
     h = hashlib.sha256()
     with path.open("rb") as fh:
+        # Chunked reads avoid pulling large bundles into memory.
         for chunk in iter(lambda: fh.read(8192), b""):
             h.update(chunk)
     return h.hexdigest()
@@ -60,6 +64,7 @@ def build_op_runtime_summary(
     source_jobs: Optional[List[str]] = None,
     notes: Optional[str] = None,
 ) -> Dict[str, Any]:
+    """Build an op-level summary document from runtime observations."""
     summary = mapping_build.build_ops(observations, world_id=world_id)
     meta = summary.get("meta") or {}
     if inputs is not None:
@@ -75,6 +80,7 @@ def build_op_runtime_summary(
 
 
 def write_op_runtime_summary(summary: Dict[str, Any], out_path: Path) -> Path:
+    """Write an op-level summary document to disk."""
     out_path = path_utils.ensure_absolute(out_path, REPO_ROOT)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(summary, indent=2))
@@ -87,6 +93,7 @@ def summarize_ops_from_bundle(
     out_path: Optional[Path] = None,
     strict: bool = True,
 ) -> Dict[str, Any]:
+    """Summarize ops for a committed bundle; optionally write to disk."""
     bundle_dir, _ = artifact_reader.resolve_bundle_dir(bundle_root, repo_root=REPO_ROOT)
     bundle_dir = path_utils.ensure_absolute(bundle_dir, REPO_ROOT)
     if strict:
@@ -146,6 +153,7 @@ def summarize_ops_from_packet(
     out_path: Optional[Path] = None,
     require_promotable: bool = True,
 ) -> Dict[str, Any]:
+    """Summarize ops from a promotion packet; optionally enforce promotability."""
     packet_path = path_utils.ensure_absolute(packet_path, REPO_ROOT)
     packet, run_manifest = _load_promotion_packet(packet_path)
     if require_promotable:

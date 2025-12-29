@@ -7,6 +7,8 @@ This module centralizes:
   from expected_matrix + runtime_results.
 - Promoting a staged runtime cut into canonical mapping locations (optional; caller-controlled).
 - Running harness families end-to-end into normalized mappings.
+Workflow helpers are the "glue" between raw events and mapped outputs.
+They should remain deterministic and avoid embedding experiment-specific logic.
 """
 
 from __future__ import annotations
@@ -64,6 +66,7 @@ def _run_id_from_env() -> Optional[str]:
     run_id = os.environ.get("SANDBOX_LORE_RUN_ID")
     if not run_id:
         return None
+    # Allow staged workers to propagate their run id through the environment.
     run_id = run_id.strip()
     return run_id or None
 

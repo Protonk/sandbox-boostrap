@@ -10,10 +10,13 @@ Baseline and safety:
 
 Interfaces:
 - Python API: `TaskRegistry` + `HeadlessConnector` (build/run headless commands with consistent env).
+- Registry CLI: `python -m book.api.ghidra.cli groups|list|describe` (or `python -m book.api.ghidra ...`).
 - CLI scaffold: `python -m book.api.ghidra.scaffold <task> [--build-id ...] [--exec] ...`. The shim `python dumps/ghidra/scaffold.py ...` still works.
 - Convenience runner: `python book/api/ghidra/run_task.py <task> --exec` (defaults: ARM64 processor, x86 analyzers disabled via pre-script).
 - Scripts live in `book/api/ghidra/scripts/`; `dumps/ghidra/scripts/` are redirectors only.
 - Import ghidra helpers via `from ghidra_bootstrap import scan_utils` (or `node_scan_utils`) to keep path wiring consistent.
+- Task grouping lives in `book/api/ghidra/tasks/` (symbols, imports, disasm, scan, xref, policy, data).
+- Registry helpers (list groups/tasks) live in `book/api/ghidra/registry.py`.
 - Use `python -m book.api.ghidra.shape_manifest_prune --manifest book/tests/fixtures/ghidra_shapes/manifest.json --report book/tests/fixtures/ghidra_shapes/prune_report.json --write --expand` to prune and re-seed shape coverage from existing outputs.
 - Strict gating uses `book/tests/fixtures/ghidra_shapes/manifest.strict.json` via `book/tests/test_ghidra_output_shapes_strict_gate.py`.
   Setting `GHIDRA_STRICT_SHAPES=1` additionally runs the optional strict test.

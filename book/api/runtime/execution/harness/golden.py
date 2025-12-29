@@ -2,6 +2,9 @@
 Generate promoted golden artifacts from runtime-checks outputs.
 
 This is the consolidated home for the former `runtime_golden.generate`.
+
+Golden artifacts are a structural snapshot, not a semantic truth.
+They anchor decoder behavior and help detect drift in profile compilation.
 """
 
 from __future__ import annotations
@@ -16,6 +19,7 @@ from book.api.profile_tools import decoder
 from book.api.profile_tools import compile as compile_mod
 
 # Golden profile keys (runtime-checks).
+# Keep ordering stable to produce deterministic summaries.
 GOLDEN_KEYS = [
     "bucket4:v1_read",
     "bucket5:v11_read_subpath",
@@ -34,6 +38,7 @@ class GoldenProfile:
 
     @property
     def is_blob(self) -> bool:
+        """Return True when the profile path points to a compiled blob."""
         return self.path.suffix == ".bin"
 
 
@@ -44,6 +49,7 @@ class BaselineInfo:
 
 
 def load_baseline_info(baseline_ref: str) -> BaselineInfo:
+    """Load world_id and baseline path metadata from a world baseline file."""
     path = Path(baseline_ref)
     data = json.loads(path.read_text())
     world_id = data.get("world_id")
@@ -53,6 +59,7 @@ def load_baseline_info(baseline_ref: str) -> BaselineInfo:
 
 
 def load_golden_matrix(matrix_path: Path) -> Dict[str, GoldenProfile]:
+    """Load a golden expected matrix and return profile descriptors."""
     data = json.loads(matrix_path.read_text())
     profiles = data.get("profiles") or {}
     out: Dict[str, GoldenProfile] = {}
@@ -69,20 +76,24 @@ def load_golden_matrix(matrix_path: Path) -> Dict[str, GoldenProfile]:
 
 
 def sha256_bytes(buf: bytes) -> str:
+    """Return the SHA-256 hex digest for a byte buffer."""
     return hashlib.sha256(buf).hexdigest()
 
 
 def compile_golden_profile(profile: GoldenProfile) -> bytes:
+    """Compile an SBPL profile to a blob (or return the blob as-is)."""
     if profile.is_blob:
         return profile.path.read_bytes()
     return compile_mod.compile_sbpl_string(profile.path.read_text()).blob
 
 
 def decode_blob(blob: bytes) -> Dict[str, Any]:
+    """Decode a compiled profile blob into structural IR."""
     return decoder.decode_profile_dict(blob)
 
 
 def summarize_blob(key: str, blob_path: Path, blob_bytes: bytes, decoded: Dict[str, Any]) -> Dict[str, Any]:
+    """Build a summary record for a compiled profile blob."""
     return {
         "key": key,
         "blob": str(blob_path),
@@ -95,6 +106,7 @@ def summarize_blob(key: str, blob_path: Path, blob_bytes: bytes, decoded: Dict[s
 
 
 def normalize_golden_results(runtime_results: Path, profiles: Iterable[str]) -> List[Dict[str, Any]]:
+    """Normalize runtime results for the golden profile set."""
     data = json.loads(runtime_results.read_text())
     rows: List[Dict[str, Any]] = []
     for key in profiles:
@@ -118,11 +130,13 @@ def normalize_golden_results(runtime_results: Path, profiles: Iterable[str]) -> 
 
 
 def write_json(path: Path, payload: Any) -> None:
+    """Write JSON with stable formatting."""
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2))
 
 
 def write_jsonl(path: Path, rows: Iterable[Dict[str, Any]]) -> None:
+    """Write JSONL rows with stable formatting."""
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w") as f:
         for row in rows:

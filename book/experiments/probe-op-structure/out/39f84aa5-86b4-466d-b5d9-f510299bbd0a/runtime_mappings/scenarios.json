@@ -1,0 +1,239 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "tier": "mapped",
+    "source_jobs": [],
+    "notes": "scenario-level runtime summaries"
+  },
+  "phase_histograms": {
+    "overall": {
+      "total": 4,
+      "stages": {
+        "apply": 0,
+        "bootstrap": 0,
+        "preflight": 0,
+        "probe": 4
+      },
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "probe": {
+        "total": 4,
+        "allow": 2,
+        "deny": 2,
+        "mismatches": 2
+      }
+    },
+    "by_family": {
+      "file-read": {
+        "total": 2,
+        "stages": {
+          "apply": 0,
+          "bootstrap": 0,
+          "preflight": 0,
+          "probe": 2
+        },
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "probe": {
+          "total": 2,
+          "allow": 1,
+          "deny": 1,
+          "mismatches": 1
+        }
+      },
+      "mach-lookup": {
+        "total": 1,
+        "stages": {
+          "apply": 0,
+          "bootstrap": 0,
+          "preflight": 0,
+          "probe": 1
+        },
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "probe": {
+          "total": 1,
+          "allow": 1,
+          "deny": 0,
+          "mismatches": 0
+        }
+      },
+      "iokit-open-service": {
+        "total": 1,
+        "stages": {
+          "apply": 0,
+          "bootstrap": 0,
+          "preflight": 0,
+          "probe": 1
+        },
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "probe": {
+          "total": 1,
+          "allow": 0,
+          "deny": 1,
+          "mismatches": 1
+        }
+      }
+    }
+  },
+  "scenarios": {
+    "probe-op-structure:file:v1_file_require_any:tmp_foo": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "probe-op-structure:file:v1_file_require_any",
+      "expectations": [
+        {
+          "expectation_id": "probe-op-structure:file:v1_file_require_any:tmp_foo",
+          "profile_id": "probe-op-structure:file:v1_file_require_any",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "probe_name": "tmp_foo"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "probe-op-structure:file:v1_file_require_any:tmp_foo"
+    },
+    "probe-op-structure:file:v1_file_require_any:etc_hosts": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "probe-op-structure:file:v1_file_require_any",
+      "expectations": [
+        {
+          "expectation_id": "probe-op-structure:file:v1_file_require_any:etc_hosts",
+          "profile_id": "probe-op-structure:file:v1_file_require_any",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "allow",
+          "probe_name": "etc_hosts"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "probe-op-structure:file:v1_file_require_any:etc_hosts",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: Operation not permitted\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "probe-op-structure:file:v1_file_require_any:etc_hosts"
+    },
+    "probe-op-structure:mach:v3_mach_global_local:cfprefsd_agent": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "probe-op-structure:mach:v3_mach_global_local",
+      "expectations": [
+        {
+          "expectation_id": "probe-op-structure:mach:v3_mach_global_local:cfprefsd_agent",
+          "profile_id": "probe-op-structure:mach:v3_mach_global_local",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.agent",
+          "expected": "allow",
+          "probe_name": "cfprefsd_agent"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "probe-op-structure:mach:v3_mach_global_local:cfprefsd_agent"
+    },
+    "probe-op-structure:iokit:v5_iokit_class_property:iousb_host_interface": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "probe-op-structure:iokit:v5_iokit_class_property",
+      "expectations": [
+        {
+          "expectation_id": "probe-op-structure:iokit:v5_iokit_class_property:iousb_host_interface",
+          "profile_id": "probe-op-structure:iokit:v5_iokit_class_property",
+          "operation": "iokit-open-service",
+          "target": "IOUSBHostInterface",
+          "expected": "allow",
+          "probe_name": "iousb_host_interface"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "probe-op-structure:iokit:v5_iokit_class_property:iousb_host_interface",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "iokit-open-service",
+          "target": "IOUSBHostInterface",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": ""
+        }
+      ],
+      "impact": null,
+      "scenario_id": "probe-op-structure:iokit:v5_iokit_class_property:iousb_host_interface"
+    }
+  }
+}

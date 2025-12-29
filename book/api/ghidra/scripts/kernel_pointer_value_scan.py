@@ -5,13 +5,17 @@ Args: <out_dir> <build_id> <target_hex> [stride] [max_hits] [all]
 
 By default scans non-executable blocks; include "all" to scan every block.
 Outputs: <out_dir>/pointer_value_hits.json
+
+Notes:
+- Stride defaults to 8 bytes to align with 64-bit pointer slots.
+- Skipping executable blocks keeps the scan focused on data tables.
 """
 
 import json
 import os
 import traceback
 
-from ghidra_bootstrap import scan_utils
+from ghidra_bootstrap import io_utils, scan_utils
 
 from ghidra.program.model.mem import MemoryAccessException
 
@@ -19,9 +23,7 @@ _RUN_CALLED = False
 
 
 def _ensure_out_dir(path):
-    if not os.path.isdir(path):
-        os.makedirs(path)
-
+    return io_utils.ensure_out_dir(path)
 
 def _parse_int(token, default=None):
     try:
@@ -38,6 +40,7 @@ def _iter_blocks(scan_all):
     mem = currentProgram.getMemory()
     for blk in mem.getBlocks():
         if not scan_all and blk.isExecute():
+            # Skip code blocks unless the caller explicitly opts in.
             continue
         yield blk
 
@@ -58,6 +61,7 @@ def run():
         target = _parse_hex_addr(args[2])
         if target is None:
             raise ValueError("Invalid target address: %s" % args[2])
+        # Default stride aligns with pointer-sized slots in KC data tables.
         stride = _parse_int(args[3], 8) if len(args) > 3 else 8
         max_hits = _parse_int(args[4], 1024) if len(args) > 4 else 1024
         scan_all = False
