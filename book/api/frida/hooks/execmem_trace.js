@@ -24,15 +24,7 @@ function readErrno() {
 }
 
 function backtrace(ctx) {
-  if (!INCLUDE_BT) return null;
-  try {
-    return Thread.backtrace(ctx, Backtracer.FUZZY)
-      .slice(0, 20)
-      .map(DebugSymbol.fromAddress)
-      .map(s => s.toString());
-  } catch (_) {
-    return null;
-  }
+  return SL.backtrace(ctx, { include: INCLUDE_BT, limit: 20, mode: 'fuzzy' });
 }
 
 function maybeCString(ptr) {
@@ -68,7 +60,7 @@ for (const moduleName of MODULES) {
   try {
     moduleObj = Process.getModuleByName(moduleName);
   } catch (e) {
-    send({ kind: 'execmem-error', module: moduleName, error: String(e) });
+    SL.emit('execmem-error', { module: moduleName, error: String(e) });
     continue;
   }
 
@@ -76,8 +68,7 @@ for (const moduleName of MODULES) {
     .filter(e => e.type === 'function')
     .filter(e => TARGETS.has(normalizeSymbol(e.name)));
 
-  send({
-    kind: 'execmem-candidates',
+  SL.emit('execmem-candidates', {
     module: moduleName,
     count: exports.length,
     names: exports.map(e => e.name)
@@ -91,7 +82,7 @@ for (const moduleName of MODULES) {
     seenAddrs.add(addrKey);
 
     const sig = normalizeSymbol(symbol);
-    send({ kind: 'execmem-hook', module: moduleName, symbol, addr: addrKey, sig });
+    SL.emit('execmem-hook', { module: moduleName, symbol, addr: addrKey, sig });
 
     Interceptor.attach(addr, {
       onEnter(args) {
@@ -126,8 +117,7 @@ for (const moduleName of MODULES) {
         const retInt = retval ? retval.toInt32() : null;
         const errno = (this.sig === 'mprotect' && retInt === -1) ? readErrno() : null;
         const includeBt = hasExec || hasJit || (errno !== null);
-        send({
-          kind: 'execmem-call',
+        SL.emit('execmem-call', {
           sig: this.sig,
           symbol: this.symbol,
           tid: this.tid,

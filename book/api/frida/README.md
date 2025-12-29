@@ -23,6 +23,8 @@ Stable hooks promoted from `book/experiments/frida-testing/hooks/` live in:
 
 Exploratory hooks remain in `book/experiments/frida-testing/hooks/`.
 
+Hooks in `book/api/frida/hooks/` are loaded via a deterministic assembly step (shared helper + hook source); see `book/api/frida/hooks/_shared/trace_helper.js`.
+
 ## Run products (compatibility surface)
 The compatibility surface is explicitly frozen in `book/api/frida/TRACE_COMPATIBILITY.md`:
 - Run directory contract is `meta.json` + `events.jsonl`

@@ -37,4 +37,9 @@ Use this file for short, factual run notes and failures. Avoid timestamps.
   - `v6_user_client_only`: `open_kr=-536870174` (EPERM), call not attempted; failure at operation stage.
   - `v7_service_user_client_both`: `open_kr=0` and `call_kr=-536870206`; failure at operation stage.
   - Unsandboxed `book/api/runtime/native/probes/iokit_probe IOSurfaceRoot` returns `open_kr=0` with `call_kr=-536870206`, so the post-open call fails even without a sandbox.
+- Post-open probe update: `iokit_probe` now attempts a selector sweep plus `IOSurfaceCreate`; unsandboxed run reports `surface_create_ok=true`.
+- IOKit op-identity tri-matrix run `out/bf996c2f-a265-4bb5-8c8a-105bd70af25a/` (launchd_clean, iokit-only).
+  - `v5_service_only` and `v6_user_client_only`: `open_kr=-536870174` (EPERM), `surface_create_ok=false`; failure at operation stage.
+  - `v7_service_user_client_both`: `open_kr=0`, `call_kr=-536870206`, `surface_create_ok=false`; failure at operation stage.
+  - Observer-lane capture: `out/bf996c2f-a265-4bb5-8c8a-105bd70af25a/observer/sandbox_log_stream_iokit.txt` and `observer/sandbox_log_show_iokit.txt` contain only the filter header (no sandbox deny lines with op names).
 - Emitted promotion packet for the file matrix run and refreshed VFS canonicalization mapping via `book/graph/mappings/vfs_canonicalization/generate_path_canonicalization_map.py` after updating `packet_set.json`.

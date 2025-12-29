@@ -10,9 +10,10 @@ to avoid extra syscalls that would confound sandbox decisions.
 - `sandbox_mach_probe`: Applies SBPL via `sandbox_init`, then performs the same
   lookup (emits tool markers on stderr).
 - `iokit_probe`: Unsandboxed `IOServiceMatching` + `IOServiceOpen` for a class,
-  followed by a minimal `IOConnectCallMethod` to exercise the post-open path.
+  followed by minimal post-open calls (selector sweep + `IOSurfaceCreate`) to
+  exercise the user-client path.
 - `sandbox_iokit_probe`: Applies SBPL via `sandbox_init`, then performs the same
-  open + post-open call (emits tool markers on stderr).
+  open + post-open calls (emits tool markers on stderr).
 
 ## Build
 

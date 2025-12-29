@@ -27,8 +27,7 @@ Example:
 - `rpc_exports`: list of `rpc.exports` function names (strings)
 - `configure`: special-case declaration for `rpc.exports.configure`:
   - `supported`: boolean
-  - `input_schema`: JSON Schema for the `configure(opts)` argument (or `null`)
+  - `input_schema`: JSON Schema (object) for the `configure(opts)` argument (use an empty-object schema when unsupported)
 - `module_expectations`: module-name expectations (best-effort; hooks should still be robust to missing modules)
 
 The manifest may also declare `send_payload_kinds`, which is used for inventorying and cross-hook queries.
-

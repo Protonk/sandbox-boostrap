@@ -107,3 +107,31 @@ def test_frida_trace_validate_known_good_runs(tmp_path: Path) -> None:
         for qname, qdigest in expected_query_digests.items():
             assert actual_direct.get(qname) == qdigest
 
+
+def test_frida_fs_open_selftest_payload_fields_survive_normalization(tmp_path: Path) -> None:
+    repo_root = path_utils.find_repo_root()
+    src_dir = repo_root / "book/api/frida/fixtures/runs/00000000-0000-4000-8000-000000000002"
+    assert src_dir.is_dir()
+
+    dst_dir = tmp_path / "fs_open_selftest"
+    shutil.copytree(src_dir, dst_dir)
+
+    report = validate_run_dir(dst_dir)
+    assert report.get("ok") is True
+
+    events_path = dst_dir / "events.jsonl"
+    events = [json.loads(line) for line in events_path.read_text().splitlines() if line.strip()]
+    send_events = [e for e in events if e.get("source") == "agent" and e.get("kind") == "send"]
+    assert send_events
+
+    by_kind = {e.get("hook_payload_kind"): e.get("hook_payload") for e in send_events}
+
+    fs_open = by_kind.get("fs-open")
+    assert isinstance(fs_open, dict)
+    for field in ("symbol", "path", "rv", "errno", "tid"):
+        assert field in fs_open
+
+    self_open = by_kind.get("self-open")
+    assert isinstance(self_open, dict)
+    for field in ("status", "path", "source"):
+        assert field in self_open

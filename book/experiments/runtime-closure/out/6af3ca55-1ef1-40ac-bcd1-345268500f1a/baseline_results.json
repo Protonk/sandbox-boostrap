@@ -1,0 +1,103 @@
+{
+  "schema_version": "runtime-tools.baseline_results.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "run_id": "6af3ca55-1ef1-40ac-bcd1-345268500f1a",
+  "results": [
+    {
+      "name": "baseline:runtime-closure:iokit:v5_service_only:iosurface_root",
+      "profile_id": "runtime-closure:iokit:v5_service_only",
+      "probe_name": "iosurface_root",
+      "operation": "iokit-open-service",
+      "target": "IOSurfaceRoot",
+      "primary_intent": {
+        "operation": "iokit-open-service",
+        "target": "IOSurfaceRoot",
+        "profile_id": "runtime-closure:iokit:v5_service_only",
+        "probe_name": "iosurface_root"
+      },
+      "command": [
+        "book/api/runtime/native/probes/iokit_probe",
+        "IOSurfaceRoot"
+      ],
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "{\"found\":true,\"open_kr\":0,\"call_kr\":-536870206,\"call_selector\":9,\"call_succeeded\":false,\"surface_create_ok\":true}\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline",
+      "probe_details": {
+        "found": true,
+        "open_kr": 0,
+        "call_kr": -536870206,
+        "call_selector": 9,
+        "call_kind": "IOConnectCallMethod",
+        "call_succeeded": false,
+        "surface_create_ok": true
+      }
+    },
+    {
+      "name": "baseline:runtime-closure:iokit:v6_user_client_only:iosurface_root",
+      "profile_id": "runtime-closure:iokit:v6_user_client_only",
+      "probe_name": "iosurface_root",
+      "operation": "iokit-open-service",
+      "target": "IOSurfaceRoot",
+      "primary_intent": {
+        "operation": "iokit-open-service",
+        "target": "IOSurfaceRoot",
+        "profile_id": "runtime-closure:iokit:v6_user_client_only",
+        "probe_name": "iosurface_root"
+      },
+      "command": [
+        "book/api/runtime/native/probes/iokit_probe",
+        "IOSurfaceRoot"
+      ],
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "{\"found\":true,\"open_kr\":0,\"call_kr\":-536870206,\"call_selector\":9,\"call_succeeded\":false,\"surface_create_ok\":true}\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline",
+      "probe_details": {
+        "found": true,
+        "open_kr": 0,
+        "call_kr": -536870206,
+        "call_selector": 9,
+        "call_kind": "IOConnectCallMethod",
+        "call_succeeded": false,
+        "surface_create_ok": true
+      }
+    },
+    {
+      "name": "baseline:runtime-closure:iokit:v7_service_user_client_both:iosurface_root",
+      "profile_id": "runtime-closure:iokit:v7_service_user_client_both",
+      "probe_name": "iosurface_root",
+      "operation": "iokit-open-service",
+      "target": "IOSurfaceRoot",
+      "primary_intent": {
+        "operation": "iokit-open-service",
+        "target": "IOSurfaceRoot",
+        "profile_id": "runtime-closure:iokit:v7_service_user_client_both",
+        "probe_name": "iosurface_root"
+      },
+      "command": [
+        "book/api/runtime/native/probes/iokit_probe",
+        "IOSurfaceRoot"
+      ],
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "{\"found\":true,\"open_kr\":0,\"call_kr\":-536870206,\"call_selector\":9,\"call_succeeded\":false,\"surface_create_ok\":true}\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline",
+      "probe_details": {
+        "found": true,
+        "open_kr": 0,
+        "call_kr": -536870206,
+        "call_selector": 9,
+        "call_kind": "IOConnectCallMethod",
+        "call_succeeded": false,
+        "surface_create_ok": true
+      }
+    }
+  ]
+}

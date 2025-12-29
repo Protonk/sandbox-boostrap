@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import sys
 from pathlib import Path
@@ -103,12 +104,163 @@ def _repo_rel(path: Path, repo_root: Path) -> str:
     return path_utils.to_repo_relative(path, repo_root)
 
 
+def _sha256_bytes(data: bytes) -> str:
+    h = hashlib.sha256()
+    h.update(data)
+    return h.hexdigest()
+
+
+HOOK_MANIFEST_SCHEMA_NAME = "book.api.frida.hook_manifest"
+HOOK_MANIFEST_SCHEMA_VERSION = 1
+
+
+def validate_hook_manifest_v1(manifest: Any) -> List[str]:
+    errors: List[str] = []
+    if not isinstance(manifest, dict):
+        return ["manifest must be a JSON object"]
+
+    allowed_top_keys = {
+        "schema_name",
+        "schema_version",
+        "hook",
+        "trace_event_schema",
+        "rpc_exports",
+        "configure",
+        "module_expectations",
+        "send_payload_kinds",
+    }
+    extra_top = sorted(set(manifest.keys()) - allowed_top_keys)
+    if extra_top:
+        errors.append(f"unexpected top-level keys: {extra_top}")
+
+    if manifest.get("schema_name") != HOOK_MANIFEST_SCHEMA_NAME:
+        errors.append("schema_name mismatch")
+    if manifest.get("schema_version") != HOOK_MANIFEST_SCHEMA_VERSION:
+        errors.append("schema_version mismatch")
+
+    hook = manifest.get("hook")
+    if not isinstance(hook, dict):
+        errors.append("hook must be an object")
+    else:
+        allowed_hook_keys = {"id", "script_path", "summary"}
+        extra_hook = sorted(set(hook.keys()) - allowed_hook_keys)
+        if extra_hook:
+            errors.append(f"hook has unexpected keys: {extra_hook}")
+        hid = hook.get("id")
+        if not isinstance(hid, str) or not hid:
+            errors.append("hook.id must be a non-empty string")
+        sp = hook.get("script_path")
+        if not isinstance(sp, str) or not sp:
+            errors.append("hook.script_path must be a non-empty string")
+        elif sp.startswith("/"):
+            errors.append("hook.script_path must be repo-relative, not absolute")
+        summary = hook.get("summary")
+        if summary is not None and not isinstance(summary, str):
+            errors.append("hook.summary must be a string when present")
+
+    tes = manifest.get("trace_event_schema")
+    if not isinstance(tes, dict):
+        errors.append("trace_event_schema must be an object")
+    else:
+        if tes.get("schema_name") != trace_v1.TRACE_EVENT_SCHEMA_NAME:
+            errors.append("trace_event_schema.schema_name mismatch")
+        if tes.get("schema_version") != trace_v1.TRACE_EVENT_SCHEMA_VERSION:
+            errors.append("trace_event_schema.schema_version mismatch")
+
+    rpc_exports = manifest.get("rpc_exports")
+    if not isinstance(rpc_exports, list) or not all(isinstance(x, str) for x in rpc_exports):
+        errors.append("rpc_exports must be a list of strings")
+
+    configure = manifest.get("configure")
+    if not isinstance(configure, dict):
+        errors.append("configure must be an object")
+    else:
+        allowed_cfg_keys = {"supported", "input_schema"}
+        extra_cfg = sorted(set(configure.keys()) - allowed_cfg_keys)
+        if extra_cfg:
+            errors.append(f"configure has unexpected keys: {extra_cfg}")
+        supported = configure.get("supported")
+        if not isinstance(supported, bool):
+            errors.append("configure.supported must be boolean")
+        input_schema = configure.get("input_schema")
+        if not isinstance(input_schema, dict):
+            errors.append("configure.input_schema must be an object (JSON Schema)")
+        if isinstance(supported, bool) and isinstance(rpc_exports, list):
+            if supported and "configure" not in rpc_exports:
+                errors.append("configure.supported true but rpc_exports missing 'configure'")
+            if (not supported) and "configure" in rpc_exports:
+                errors.append("configure.supported false but rpc_exports includes 'configure'")
+
+    module_expectations = manifest.get("module_expectations")
+    if not isinstance(module_expectations, list):
+        errors.append("module_expectations must be a list")
+    else:
+        for i, m in enumerate(module_expectations):
+            if not isinstance(m, dict):
+                errors.append(f"module_expectations[{i}] must be an object")
+                continue
+            allowed_mod_keys = {"name", "required"}
+            extra_mod = sorted(set(m.keys()) - allowed_mod_keys)
+            if extra_mod:
+                errors.append(f"module_expectations[{i}] unexpected keys: {extra_mod}")
+            name = m.get("name")
+            if not isinstance(name, str) or not name:
+                errors.append(f"module_expectations[{i}].name must be a non-empty string")
+            req = m.get("required")
+            if req is not None and not isinstance(req, bool):
+                errors.append(f"module_expectations[{i}].required must be boolean when present")
+
+    spk = manifest.get("send_payload_kinds")
+    if spk is not None:
+        if not isinstance(spk, list) or not all(isinstance(x, str) and x for x in spk):
+            errors.append("send_payload_kinds must be a list of non-empty strings when present")
+
+    return errors
+
+
+def validate_hook_manifest_file(manifest_path: Path) -> Dict[str, Any]:
+    raw = manifest_path.read_bytes()
+    try:
+        data = json.loads(raw)
+    except Exception as exc:
+        return {
+            "ok": False,
+            "path": str(manifest_path),
+            "sha256": _sha256_bytes(raw),
+            "error": f"invalid json: {type(exc).__name__}: {exc}",
+            "violations": ["manifest must be valid JSON"],
+        }
+    violations = validate_hook_manifest_v1(data)
+    return {
+        "ok": not violations,
+        "path": str(manifest_path),
+        "sha256": _sha256_bytes(raw),
+        "error": None,
+        "violations": violations,
+    }
+
+
+def validate_hook_manifests_tree(hooks_dir: Path) -> Dict[str, Any]:
+    reports: List[Dict[str, Any]] = []
+    for path in sorted(hooks_dir.glob("*.manifest.json")):
+        if not path.is_file():
+            continue
+        reports.append(validate_hook_manifest_file(path))
+    ok = all(r.get("ok") for r in reports) and bool(reports)
+    return {"ok": ok, "manifest_count": len(reports), "manifests": reports}
+
+
 def main(argv: Optional[List[str]] = None) -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument(
         "--examples",
         action="store_true",
         help="Validate the checked-in trace v1 examples JSON",
+    )
+    ap.add_argument(
+        "--hook-manifests",
+        action="store_true",
+        help="Validate all hook manifests under book/api/frida/hooks/*.manifest.json",
     )
     ap.add_argument(
         "--events-jsonl",
@@ -140,6 +292,21 @@ def main(argv: Optional[List[str]] = None) -> int:
                 "event_count": len(events),
                 "ok": not errors,
                 "errors": errors,
+            }
+        )
+
+    if args.hook_manifests:
+        hooks_dir = repo_root / "book/api/frida/hooks"
+        res = validate_hook_manifests_tree(hooks_dir)
+        # Repo-relativize manifest paths for stable output.
+        for m in res.get("manifests") or []:
+            if isinstance(m, dict) and isinstance(m.get("path"), str):
+                m["path"] = _repo_rel(Path(m["path"]), repo_root)
+        reports.append(
+            {
+                "kind": "hook_manifests",
+                "hooks_dir": _repo_rel(hooks_dir, repo_root),
+                **res,
             }
         )
 

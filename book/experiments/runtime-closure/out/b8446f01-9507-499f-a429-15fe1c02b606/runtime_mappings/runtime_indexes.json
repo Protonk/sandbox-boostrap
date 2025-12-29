@@ -1,0 +1,29 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "tier": "mapped",
+    "source_jobs": [],
+    "notes": "scenario-level runtime summaries"
+  },
+  "op_to_scenarios": {
+    "iokit-open-service": [
+      "runtime-closure:iokit:v5_service_only:iosurface_root",
+      "runtime-closure:iokit:v6_user_client_only:iosurface_root",
+      "runtime-closure:iokit:v7_service_user_client_both:iosurface_root"
+    ]
+  },
+  "scenario_to_traces": {
+    "runtime-closure:iokit:v5_service_only:iosurface_root": [
+      "book/experiments/runtime-closure/out/b8446f01-9507-499f-a429-15fe1c02b606/runtime_mappings/traces/runtime-closure_iokit_v5_service_only_iosurface_root.jsonl"
+    ],
+    "runtime-closure:iokit:v6_user_client_only:iosurface_root": [
+      "book/experiments/runtime-closure/out/b8446f01-9507-499f-a429-15fe1c02b606/runtime_mappings/traces/runtime-closure_iokit_v6_user_client_only_iosurface_root.jsonl"
+    ],
+    "runtime-closure:iokit:v7_service_user_client_both:iosurface_root": [
+      "book/experiments/runtime-closure/out/b8446f01-9507-499f-a429-15fe1c02b606/runtime_mappings/traces/runtime-closure_iokit_v7_service_user_client_both_iosurface_root.jsonl"
+    ]
+  }
+}

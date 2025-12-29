@@ -46,14 +46,14 @@ Observed (run: `out/66315539-a0ce-44bf-bff0-07a79f205fea/`):
 ### IOKit
 Profiles target IOSurfaceRoot via user-client-class filters to align with anchor-level structure.
 
-Observed (runs: `out/6ecc929d-fec5-4206-a85c-e3e265c349a7/`, `out/08887f36-f87b-45ff-8e9e-6ee7eb9cb635/`, `out/33ff5a68-262a-4a8c-b427-c7cb923a3adc/`, `out/fae371c2-f2f5-470f-b672-cf0c3e24d6c0/`):
+Observed (runs: `out/6ecc929d-fec5-4206-a85c-e3e265c349a7/`, `out/08887f36-f87b-45ff-8e9e-6ee7eb9cb635/`, `out/33ff5a68-262a-4a8c-b427-c7cb923a3adc/`, `out/fae371c2-f2f5-470f-b672-cf0c3e24d6c0/`, `out/bf996c2f-a265-4bb5-8c8a-105bd70af25a/`):
 - `v2_user_client_only` (`iokit-open-user-client`) allows `IOSurfaceRoot` (`open_kr=0`) at operation stage.
 - `v4_iokit_open_user_client` (`iokit-open`) allows `IOSurfaceRoot` (`open_kr=0`) at operation stage.
 - `v3_connection_user_client` denies with `open_kr=-536870174` and `EPERM` at operation stage.
-- `v5_service_only` (`iokit-open-service` allow + user-client deny) returns `open_kr=-536870174` (EPERM); post-open call not attempted.
-- `v6_user_client_only` (`iokit-open-user-client` allow + service deny) returns `open_kr=-536870174` (EPERM); post-open call not attempted.
-- `v7_service_user_client_both` (allow both ops) returns `open_kr=0` with `call_kr=-536870206` from `IOConnectCallMethod`.
-All profiles apply successfully (`sandbox_init` rc=0). The post-open call returns `call_kr=-536870206` even when unsandboxed (`book/api/runtime/native/probes/iokit_probe IOSurfaceRoot`), so Action B is not discriminating on this host.
+- `v5_service_only` (`iokit-open-service` allow + user-client deny) returns `open_kr=-536870174` (EPERM), `surface_create_ok=false`.
+- `v6_user_client_only` (`iokit-open-user-client` allow + service deny) returns `open_kr=-536870174` (EPERM), `surface_create_ok=false`.
+- `v7_service_user_client_both` (allow both ops) returns `open_kr=0` with `call_kr=-536870206` and `surface_create_ok=false`.
+All profiles apply successfully (`sandbox_init` rc=0). The post-open selector sweep still returns `call_kr=-536870206` under all scenarios, while `IOSurfaceCreate` succeeds unsandboxed (`surface_create_ok=true` in `book/api/runtime/native/probes/iokit_probe IOSurfaceRoot`) and fails under the sandbox, so Action B is now a discriminating failure signal but does not yet surface an op-name witness.
 
 This indicates the user-client-class filter is sufficient for the IOSurfaceRoot probe, while the IOAccelerator connection constraint is too narrow on this host.
 
@@ -63,7 +63,8 @@ This indicates the user-client-class filter is sufficient for the IOSurfaceRoot 
 - Run bundles: `book/experiments/runtime-closure/out/<run_id>/`.
   - File lane (v2 matrix): `book/experiments/runtime-closure/out/ea704c9c-5102-473a-b942-e24af4136cc8/` (includes `path_witnesses.json` and `promotion_packet.json`).
   - Mach lane: `book/experiments/runtime-closure/out/66315539-a0ce-44bf-bff0-07a79f205fea/`.
-  - IOKit op-identity lane: `book/experiments/runtime-closure/out/6ecc929d-fec5-4206-a85c-e3e265c349a7/`, `book/experiments/runtime-closure/out/08887f36-f87b-45ff-8e9e-6ee7eb9cb635/`, `book/experiments/runtime-closure/out/33ff5a68-262a-4a8c-b427-c7cb923a3adc/`, `book/experiments/runtime-closure/out/fae371c2-f2f5-470f-b672-cf0c3e24d6c0/`.
+  - IOKit op-identity lane: `book/experiments/runtime-closure/out/6ecc929d-fec5-4206-a85c-e3e265c349a7/`, `book/experiments/runtime-closure/out/08887f36-f87b-45ff-8e9e-6ee7eb9cb635/`, `book/experiments/runtime-closure/out/33ff5a68-262a-4a8c-b427-c7cb923a3adc/`, `book/experiments/runtime-closure/out/fae371c2-f2f5-470f-b672-cf0c3e24d6c0/`, `book/experiments/runtime-closure/out/bf996c2f-a265-4bb5-8c8a-105bd70af25a/`.
+  - Observer-lane logs: `book/experiments/runtime-closure/out/bf996c2f-a265-4bb5-8c8a-105bd70af25a/observer/sandbox_log_stream_iokit.txt` and `book/experiments/runtime-closure/out/bf996c2f-a265-4bb5-8c8a-105bd70af25a/observer/sandbox_log_show_iokit.txt` (no iokit op lines observed).
   - Prior runs: `book/experiments/runtime-closure/out/5a8908d8-d626-4cac-8bdd-0f53c02af8fe/` (file v1) and `book/experiments/runtime-closure/out/48086066-bfa2-44bb-877c-62dd1dceca09/` (IOKit v1).
 - Mapped VFS update: `book/graph/mappings/vfs_canonicalization/path_canonicalization_map.json` (now includes the runtime-closure file matrix packet).
 

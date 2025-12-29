@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any, Dict, Optional
 
 from book.api import path_utils
+from book.api.frida import schema_validate
 
 
 HOOK_MANIFEST_SCHEMA_NAME = "book.api.frida.hook_manifest"
@@ -18,6 +19,11 @@ def sha256_bytes(blob: bytes) -> str:
     h = hashlib.sha256()
     h.update(blob)
     return h.hexdigest()
+
+
+def sha256_canonical_json(obj: Any) -> str:
+    blob = json.dumps(obj, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return sha256_bytes(blob)
 
 
 def manifest_path_for_script(script_path: Path) -> Path:
@@ -33,26 +39,38 @@ def _try_load_manifest(manifest_path: Path) -> Optional[Dict[str, Any]]:
     except Exception as exc:
         return {
             "path": str(manifest_path),
-            "sha256": sha256_bytes(raw),
-            "error": f"invalid json: {type(exc).__name__}: {exc}",
+            "sha256": None,
+            "error": {"code": "manifest_invalid_json", "message": f"{type(exc).__name__}: {exc}"},
             "manifest": None,
+            "violations": ["manifest must be valid JSON"],
         }
     if not isinstance(data, dict):
         return {
             "path": str(manifest_path),
-            "sha256": sha256_bytes(raw),
-            "error": "manifest must be a JSON object",
+            "sha256": None,
+            "error": {"code": "manifest_invalid_shape", "message": "manifest must be a JSON object"},
             "manifest": None,
+            "violations": ["manifest must be a JSON object"],
+        }
+    violations = schema_validate.validate_hook_manifest_v1(data)
+    if violations:
+        return {
+            "path": str(manifest_path),
+            "sha256": sha256_canonical_json(data),
+            "error": {"code": "manifest_invalid_schema", "message": "schema violations"},
+            "manifest": data,
+            "violations": violations,
         }
     return {
         "path": str(manifest_path),
-        "sha256": sha256_bytes(raw),
+        "sha256": sha256_canonical_json(data),
         "error": None,
         "manifest": data,
+        "violations": [],
     }
 
 
-def load_manifest_snapshot(*, script_path: Path, repo_root: Path) -> Optional[Dict[str, Any]]:
+def load_manifest_snapshot(*, script_path: Path, repo_root: Path) -> Dict[str, Any]:
     """
     Load a hook manifest snapshot for a script path.
 
@@ -72,10 +90,20 @@ def load_manifest_snapshot(*, script_path: Path, repo_root: Path) -> Optional[Di
         snap = _try_load_manifest(cand)
         if snap is None:
             continue
-        # Make paths repo-relative in the serialized snapshot.
-        out = dict(snap)
-        out["path"] = path_utils.to_repo_relative(Path(out["path"]), repo_root)
-        return out
+        return {
+            "ok": snap.get("error") is None,
+            "manifest": snap.get("manifest"),
+            "manifest_path": path_utils.to_repo_relative(Path(str(snap.get("path"))), repo_root),
+            "manifest_sha256": snap.get("sha256"),
+            "manifest_error": snap.get("error"),
+            "violations": snap.get("violations") or [],
+        }
 
-    return None
-
+    return {
+        "ok": False,
+        "manifest": None,
+        "manifest_path": None,
+        "manifest_sha256": None,
+        "manifest_error": {"code": "manifest_missing", "message": "no adjacent *.manifest.json found"},
+        "violations": ["missing manifest file"],
+    }

@@ -11,6 +11,7 @@ import frida
 
 from book.api import path_utils
 from book.api.frida.hook_manifest import load_manifest_snapshot
+from book.api.frida.script_assembly import assemble_script_source
 from book.api.frida.trace_writer import TraceWriterV1, now_ns
 from book.api.profile.identity import baseline_world_id
 from book.api.frida.trace_v1 import trace_event_schema_stamp
@@ -54,6 +55,8 @@ def run(
         js_path_resolved = js_path_abs.resolve()
     except Exception:
         js_path_resolved = js_path_abs
+    assembled_src, assembly_meta = assemble_script_source(script_path=js_path_abs, repo_root=repo_root)
+    manifest_snapshot = load_manifest_snapshot(script_path=js_path_abs, repo_root=repo_root)
 
     spawn_exec_abs: Path | None = None
     spawn_argv: list[str] | None = None
@@ -83,11 +86,16 @@ def run(
         },
         "script": {
             "path": path_utils.to_repo_relative(js_path_abs, repo_root),
-            "resolved_path": (
-                path_utils.to_repo_relative(js_path_resolved, repo_root) if js_path_resolved != js_path_abs else None
-            ),
+            "resolved_path": path_utils.to_repo_relative(js_path_resolved, repo_root),
             "sha256": sha256_bytes(js_src),
-            "manifest": load_manifest_snapshot(script_path=js_path_abs, repo_root=repo_root),
+            "assembled_sha256": assembly_meta.get("assembled_sha256"),
+            "assembly_version": assembly_meta.get("assembly_version"),
+            "helper": assembly_meta.get("helper"),
+            "manifest": manifest_snapshot.get("manifest"),
+            "manifest_path": manifest_snapshot.get("manifest_path"),
+            "manifest_sha256": manifest_snapshot.get("manifest_sha256"),
+            "manifest_error": manifest_snapshot.get("manifest_error"),
+            "manifest_violations": manifest_snapshot.get("violations"),
         },
         "mode": "spawn" if spawn else "attach",
         "target": {
@@ -113,6 +121,16 @@ def run(
         writer.emit_runner({"kind": kind, **fields})
 
     emit_runner("runner-start")
+
+    if not manifest_snapshot.get("ok"):
+        emit_runner(
+            "manifest-error",
+            error=manifest_snapshot.get("manifest_error"),
+            violations=manifest_snapshot.get("violations"),
+            manifest_path=manifest_snapshot.get("manifest_path"),
+        )
+        jsonl.close()
+        return 1
 
     stage = "device"
     try:
@@ -143,7 +161,7 @@ def run(
 
         stage = "script-load"
         emit_runner("stage", stage=stage)
-        script_obj = session.create_script(js_src.decode("utf-8"))
+        script_obj = session.create_script(assembled_src.decode("utf-8"))
         script_obj.on("message", on_message)
         script_obj.load()
 

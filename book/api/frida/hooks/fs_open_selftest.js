@@ -29,24 +29,16 @@ function readErrno() {
 }
 
 function backtrace(ctx) {
-  if (!INCLUDE_BT) return null;
-  try {
-    return Thread.backtrace(ctx, Backtracer.FUZZY)
-      .slice(0, MAX_BT_FRAMES)
-      .map(DebugSymbol.fromAddress)
-      .map(s => s.toString());
-  } catch (_) {
-    return null;
-  }
+  return SL.backtrace(ctx, { include: INCLUDE_BT, limit: MAX_BT_FRAMES, mode: 'fuzzy' });
 }
 
 function hookOpenLike(symbol, arity) {
   const addr = Module.getGlobalExportByName(symbol);
   if (!addr) {
-    send({ kind: 'hook-missing', symbol });
+    SL.emit('hook-missing', { symbol });
     return;
   }
-  send({ kind: 'hook-installed', symbol, addr: addr.toString() });
+  SL.emit('hook-installed', { symbol, addr: addr.toString() });
 
   Interceptor.attach(addr, {
     onEnter(args) {
@@ -69,8 +61,7 @@ function hookOpenLike(symbol, arity) {
       const rv = retval.toInt32();
       if (rv === -1) {
         const e = readErrno();
-        send({
-          kind: 'fs-open',
+        SL.emit('fs-open', {
           symbol: this.symbol,
           tid: this.tid,
           path: this.path,
@@ -84,8 +75,7 @@ function hookOpenLike(symbol, arity) {
       }
 
       if (LOG_SUCCESSES) {
-        send({
-          kind: 'fs-open',
+        SL.emit('fs-open', {
           symbol: this.symbol,
           tid: this.tid,
           path: this.path,
@@ -177,13 +167,13 @@ function selfOpen() {
   const targetPath = resolved.path;
   const openAddr = Module.getGlobalExportByName('open');
   if (!openAddr) {
-    send({ kind: 'self-open', status: 'open-missing', path: targetPath, source: resolved.source });
+    SL.emit('self-open', { status: 'open-missing', path: targetPath, source: resolved.source });
     return;
   }
   const closeAddr = Module.getGlobalExportByName('close');
   const openFn = new NativeFunction(openAddr, 'int', ['pointer', 'int', 'int']);
   const closeFn = closeAddr ? new NativeFunction(closeAddr, 'int', ['int']) : null;
-  send({ kind: 'self-open', status: 'attempt', path: targetPath, source: resolved.source });
+  SL.emit('self-open', { status: 'attempt', path: targetPath, source: resolved.source });
   const cPath = Memory.allocUtf8String(targetPath);
   const fd = openFn(cPath, 0, 0);
   if (fd >= 0 && closeFn) {

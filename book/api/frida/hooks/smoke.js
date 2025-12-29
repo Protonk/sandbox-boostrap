@@ -7,7 +7,7 @@ try {
   codeSigningPolicy = null;
 }
 
-send({
+SL.send({
   kind: "smoke",
   pid: Process.id,
   arch: Process.arch,

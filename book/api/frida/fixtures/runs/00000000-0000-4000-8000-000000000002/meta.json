@@ -1,0 +1,71 @@
+{
+  "frida": {
+    "python_pkg_version": "17.5.2"
+  },
+  "host": {
+    "machine": "arm64",
+    "platform": "fixture",
+    "python": "3.14.2"
+  },
+  "mode": "attach",
+  "out_dir": "book/api/frida/fixtures/runs/00000000-0000-4000-8000-000000000002",
+  "run_id": "00000000-0000-4000-8000-000000000002",
+  "script": {
+    "assembled_sha256": "c63062500d3135959c1052f0aaf2790c528e84a6e9615ddb612a3b8abb16e646",
+    "assembly_version": 1,
+    "helper": {
+      "path": "book/api/frida/hooks/_shared/trace_helper.js",
+      "sha256": "0a5d4b3ce69c6ae01ca2de5f073bd4085466e4acfb4e47f164411c10967bdb6f"
+    },
+    "manifest": {
+      "configure": {
+        "input_schema": {
+          "additionalProperties": false,
+          "properties": {
+            "selftest_path": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "supported": true
+      },
+      "hook": {
+        "id": "fs_open_selftest",
+        "script_path": "book/api/frida/hooks/fs_open_selftest.js",
+        "summary": "Hooks open-like APIs and attempts a self-open to exercise sandbox denial paths."
+      },
+      "module_expectations": [],
+      "rpc_exports": [
+        "configure"
+      ],
+      "schema_name": "book.api.frida.hook_manifest",
+      "schema_version": 1,
+      "send_payload_kinds": [
+        "fs-open",
+        "hook-installed",
+        "hook-missing",
+        "self-open"
+      ],
+      "trace_event_schema": {
+        "events_format": "jsonl",
+        "schema_name": "book.api.frida.trace_event",
+        "schema_path": "book/api/frida/schemas/trace_event_v1.schema.json",
+        "schema_version": 1
+      }
+    },
+    "manifest_error": null,
+    "manifest_path": "book/api/frida/hooks/fs_open_selftest.manifest.json",
+    "manifest_sha256": "e413dcb3ec05cc1361ff3ba3e1bf4d8bf2e90b3508ef80262b383d877f214785",
+    "path": "book/api/frida/hooks/fs_open_selftest.js",
+    "resolved_path": "book/api/frida/hooks/fs_open_selftest.js",
+    "sha256": "e0808c7d358be9cb441c93dd66d01efaa09b1ccc45b260aa781e269430ba436d"
+  },
+  "t0_ns": 2000000000,
+  "target": {
+    "attach_pid": 4242,
+    "spawn_argv": null
+  },
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}
+

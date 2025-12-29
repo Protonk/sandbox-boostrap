@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 from book.api import path_utils
+from book.api.frida import hook_manifest as hook_manifest_mod
 from book.api.frida import normalize as frida_normalize
 from book.api.frida import query as frida_query
 from book.api.frida import schema_validate
@@ -72,6 +73,70 @@ def _load_events(events_path: Path) -> List[Dict[str, Any]]:
     return events
 
 
+def _validate_manifest_snapshot(meta: Dict[str, Any]) -> Dict[str, Any]:
+    errors: List[str] = []
+    script = meta.get("script")
+    if not isinstance(script, dict):
+        return {"ok": False, "status": "fail", "errors": ["meta.script missing/invalid"]}
+
+    resolved_path = script.get("resolved_path")
+    if not isinstance(resolved_path, str) or not resolved_path:
+        errors.append("script.resolved_path missing/invalid")
+
+    hook_sha256 = script.get("sha256")
+    if not isinstance(hook_sha256, str) or len(hook_sha256) != 64:
+        errors.append("script.sha256 missing/invalid (expected 64-hex)")
+
+    manifest_path = script.get("manifest_path")
+    if not isinstance(manifest_path, str) or not manifest_path:
+        errors.append("script.manifest_path missing/invalid")
+
+    manifest_sha256 = script.get("manifest_sha256")
+    if not isinstance(manifest_sha256, str) or len(manifest_sha256) != 64:
+        errors.append("script.manifest_sha256 missing/invalid (expected 64-hex)")
+
+    manifest_error = script.get("manifest_error")
+    if manifest_error is not None:
+        errors.append("script.manifest_error present (manifest snapshot not ok)")
+
+    manifest = script.get("manifest")
+    if not isinstance(manifest, dict):
+        errors.append("script.manifest missing/invalid (expected manifest object)")
+        manifest = None
+
+    if isinstance(manifest, dict):
+        violations = schema_validate.validate_hook_manifest_v1(manifest)
+        if violations:
+            errors.append(f"hook manifest schema violations: {violations}")
+
+        # Identity consistency: hook path in manifest should match the resolved script path.
+        hook_obj = manifest.get("hook")
+        hook_script_path = hook_obj.get("script_path") if isinstance(hook_obj, dict) else None
+        if isinstance(resolved_path, str) and resolved_path and hook_script_path != resolved_path:
+            errors.append("manifest.hook.script_path does not match meta.script.resolved_path")
+
+        # Ensure the recorded manifest content hash matches the snapshot content.
+        if isinstance(manifest_sha256, str) and len(manifest_sha256) == 64:
+            computed = hook_manifest_mod.sha256_canonical_json(manifest)
+            if computed != manifest_sha256:
+                errors.append("script.manifest_sha256 does not match canonical hash of script.manifest")
+
+    ok = not errors
+    return {
+        "ok": ok,
+        "status": "pass" if ok else "fail",
+        "errors": errors,
+        "hook": {
+            "resolved_path": resolved_path,
+            "sha256": hook_sha256,
+        },
+        "manifest": {
+            "path": manifest_path,
+            "sha256": manifest_sha256,
+        },
+    }
+
+
 def validate_run_dir(run_dir: Path) -> Dict[str, Any]:
     repo_root = path_utils.find_repo_root()
     run_dir_abs = path_utils.ensure_absolute(run_dir, repo_root)
@@ -87,12 +152,14 @@ def validate_run_dir(run_dir: Path) -> Dict[str, Any]:
     if not isinstance(meta_run_id, str) or not meta_run_id:
         raise SystemExit(f"meta.json missing run_id: {path_utils.to_repo_relative(meta_path, repo_root)}")
 
+    manifest_snapshot = _validate_manifest_snapshot(meta)
+
     schema_report = schema_validate.validate_events_jsonl(events_path)
     seq_ok, seq_err = _check_seq(events)
     rid_ok, rid_err = _check_run_id(meta_run_id, events)
     ts_ok, ts_err = _check_non_decreasing_t_ns(events)
 
-    schema_invariants_ok = bool(schema_report.get("ok") and seq_ok and rid_ok and ts_ok)
+    schema_invariants_ok = bool(schema_report.get("ok") and seq_ok and rid_ok and ts_ok and manifest_snapshot.get("ok"))
 
     # Query invariants: canned queries must match between direct JSONL and cached index.
     queries = _load_queries(repo_root)
@@ -147,6 +214,7 @@ def validate_run_dir(run_dir: Path) -> Dict[str, Any]:
             "t_ns_non_decreasing_ok": ts_ok,
             "t_ns_error": ts_err,
         },
+        "manifest_snapshot": manifest_snapshot,
         "query": {
             "ok": query_invariants_ok,
             "index_build": index_build,
@@ -175,4 +243,3 @@ def validate_run_dirs(run_dirs: Iterable[Path]) -> Dict[str, Any]:
         "runs": results,
         "repo_root": path_utils.to_repo_relative(repo_root, repo_root),
     }
-

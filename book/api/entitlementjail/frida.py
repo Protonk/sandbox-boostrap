@@ -380,6 +380,8 @@ def run_from_args(args: argparse.Namespace) -> int:
         },
     }
     write_json(out_root / "manifest.json", manifest)
+    if isinstance(frida_attach_error, str) and frida_attach_error.startswith("ManifestError:"):
+        return 1
     return 0
 
 

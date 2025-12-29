@@ -5,15 +5,7 @@ const MAX_EVENTS = 80;
 const INCLUDE_BT = true;
 
 function backtrace(ctx) {
-  if (!INCLUDE_BT) return null;
-  try {
-    return Thread.backtrace(ctx, Backtracer.FUZZY)
-      .slice(0, 20)
-      .map(DebugSymbol.fromAddress)
-      .map(s => s.toString());
-  } catch (_) {
-    return null;
-  }
+  return SL.backtrace(ctx, { include: INCLUDE_BT, limit: 20, mode: 'fuzzy' });
 }
 
 function maybeCString(ptr) {
@@ -40,7 +32,7 @@ let moduleObj;
 try {
   moduleObj = Process.getModuleByName(MODULE);
 } catch (e) {
-  send({ kind: 'sandbox-hook-error', module: MODULE, error: String(e) });
+  SL.emit('sandbox-hook-error', { module: MODULE, error: String(e) });
   moduleObj = null;
 }
 
@@ -49,8 +41,7 @@ if (moduleObj) {
     .filter(e => e.type === 'function')
     .filter(e => shouldHook(e.name));
 
-  send({
-    kind: 'sandbox-hook-candidates',
+  SL.emit('sandbox-hook-candidates', {
     module: MODULE,
     count: exports.length,
     names: exports.map(e => e.name)
@@ -59,7 +50,7 @@ if (moduleObj) {
   for (const exp of exports) {
     const symbol = exp.name;
     const addr = exp.address;
-    send({ kind: 'sandbox-hook', module: MODULE, symbol, addr: addr.toString() });
+    SL.emit('sandbox-hook', { module: MODULE, symbol, addr: addr.toString() });
 
     Interceptor.attach(addr, {
       onEnter(args) {
@@ -79,8 +70,7 @@ if (moduleObj) {
       onLeave(retval) {
         if (seen >= MAX_EVENTS) return;
         seen += 1;
-        send({
-          kind: 'sandbox-call',
+        SL.emit('sandbox-call', {
           symbol: this.symbol,
           tid: this.tid,
           args: this.args,

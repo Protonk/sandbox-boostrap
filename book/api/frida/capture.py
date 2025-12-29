@@ -12,6 +12,7 @@ import frida
 
 from book.api import path_utils
 from book.api.frida.hook_manifest import load_manifest_snapshot
+from book.api.frida.script_assembly import assemble_script_source
 from book.api.frida.trace_v1 import trace_event_schema_stamp
 from book.api.frida.trace_writer import TraceWriterV1, now_ns
 
@@ -46,6 +47,14 @@ class FridaCapture:
         self.session = None
         self.script = None
         self.js_src = self.script_path.read_bytes()
+        try:
+            self.script_path_resolved = self.script_path.resolve()
+        except Exception:
+            self.script_path_resolved = self.script_path
+        self.assembled_src, self.assembly_meta = assemble_script_source(
+            script_path=self.script_path, repo_root=self.repo_root
+        )
+        self.manifest_snapshot = load_manifest_snapshot(script_path=self.script_path, repo_root=self.repo_root)
 
     def _emit_runner(self, kind: str, **fields: object) -> None:
         payload: Dict[str, object] = {"kind": kind}
@@ -54,6 +63,21 @@ class FridaCapture:
 
     def attach(self) -> Optional[str]:
         self._emit_runner("runner-start")
+        if not self.manifest_snapshot.get("ok"):
+            self._emit_runner(
+                "manifest-error",
+                error=self.manifest_snapshot.get("manifest_error"),
+                violations=self.manifest_snapshot.get("violations"),
+                manifest_path=self.manifest_snapshot.get("manifest_path"),
+            )
+            err = self.manifest_snapshot.get("manifest_error")
+            if isinstance(err, dict):
+                code = err.get("code") if isinstance(err.get("code"), str) else "unknown"
+                msg = err.get("message") if isinstance(err.get("message"), str) else "manifest snapshot not ok"
+            else:
+                code = "unknown"
+                msg = "manifest snapshot not ok"
+            return f"ManifestError:{code}:{msg}"
         try:
             self._emit_runner("stage", stage="device")
             device = frida.get_local_device()
@@ -75,7 +99,7 @@ class FridaCapture:
                     self._emit_runner("agent-message-nonobject", msg_type=str(type(msg)))
 
             self._emit_runner("stage", stage="script-load")
-            self.script = self.session.create_script(self.js_src.decode("utf-8"))
+            self.script = self.session.create_script(self.assembled_src.decode("utf-8"))
             self.script.on("message", on_message)
             self.script.load()
 
@@ -91,11 +115,6 @@ class FridaCapture:
         return None
 
     def finalize_meta(self, *, world_id: str, attach_meta: Dict[str, object]) -> None:
-        try:
-            script_path_resolved = self.script_path.resolve()
-        except Exception:
-            script_path_resolved = self.script_path
-
         meta = {
             "run_id": self.run_id,
             "world_id": world_id,
@@ -112,13 +131,16 @@ class FridaCapture:
             },
             "script": {
                 "path": path_utils.to_repo_relative(self.script_path, self.repo_root),
-                "resolved_path": (
-                    path_utils.to_repo_relative(script_path_resolved, self.repo_root)
-                    if script_path_resolved != self.script_path
-                    else None
-                ),
+                "resolved_path": path_utils.to_repo_relative(self.script_path_resolved, self.repo_root),
                 "sha256": sha256_bytes(self.js_src),
-                "manifest": load_manifest_snapshot(script_path=self.script_path, repo_root=self.repo_root),
+                "assembled_sha256": self.assembly_meta.get("assembled_sha256"),
+                "assembly_version": self.assembly_meta.get("assembly_version"),
+                "helper": self.assembly_meta.get("helper"),
+                "manifest": self.manifest_snapshot.get("manifest"),
+                "manifest_path": self.manifest_snapshot.get("manifest_path"),
+                "manifest_sha256": self.manifest_snapshot.get("manifest_sha256"),
+                "manifest_error": self.manifest_snapshot.get("manifest_error"),
+                "manifest_violations": self.manifest_snapshot.get("violations"),
             },
             "attach": attach_meta,
             "config": self.config,
