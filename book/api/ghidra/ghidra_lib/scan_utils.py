@@ -1,5 +1,7 @@
 # Shared scan helpers for Ghidra scripts (pure Python).
 
+import hashlib
+import os
 import re
 
 try:
@@ -158,3 +160,48 @@ def classify_mnemonic(mnemonic):
         if text.startswith(prefix):
             return "store"
     return "other"
+
+
+def find_repo_root(start_path=None):
+    """Locate the repo root by walking upwards to find book/ and dumps/."""
+    if start_path is None:
+        start_path = os.path.abspath(os.path.dirname(__file__))
+    path = os.path.abspath(start_path)
+    if os.path.isfile(path):
+        path = os.path.dirname(path)
+    for _ in range(8):
+        if os.path.isdir(os.path.join(path, "book")) and os.path.isdir(os.path.join(path, "dumps")):
+            return path
+        parent = os.path.dirname(path)
+        if parent == path:
+            break
+        path = parent
+    return None
+
+
+def to_repo_relative(path, repo_root):
+    """Return a repo-relative path (with /) when possible."""
+    if path is None or repo_root is None:
+        return path
+    try:
+        abs_path = os.path.abspath(path)
+        root = os.path.abspath(repo_root)
+        if abs_path == root:
+            return "."
+        prefix = root + os.sep
+        if abs_path.startswith(prefix):
+            rel = os.path.relpath(abs_path, root)
+            return rel.replace(os.sep, "/")
+    except Exception:
+        return path
+    return path
+
+
+def sha256_path(path):
+    if path is None:
+        return None
+    h = hashlib.sha256()
+    with open(path, "rb") as f:
+        for chunk in iter(lambda: f.read(1024 * 1024), b""):
+            h.update(chunk)
+    return h.hexdigest()

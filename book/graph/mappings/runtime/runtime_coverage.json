@@ -6,26 +6,28 @@
       "book/graph/mappings/runtime_cuts/scenarios.json",
       "book/experiments/runtime-checks/out/promotion_packet.json",
       "book/experiments/runtime-adversarial/out/promotion_packet.json",
+      "book/experiments/hardened-runtime/out/promotion_packet.json",
       "book/experiments/anchor-filter-map/out/promotion_packet.json",
       "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json",
       "book/experiments/runtime-checks/out/promotion_packet.json",
       "book/experiments/runtime-adversarial/out/promotion_packet.json",
+      "book/experiments/hardened-runtime/out/promotion_packet.json",
       "book/experiments/anchor-filter-map/out/promotion_packet.json",
-      "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json",
-      "book/experiments/runtime-adversarial/out/impact_map.json"
+      "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json"
     ],
     "input_hashes": {
-      "book/graph/mappings/runtime_cuts/ops.json": "7d6f41b635f8922dd2af50df1146f7cae07c224acad6dc912da953ba39b98954",
-      "book/graph/mappings/runtime_cuts/scenarios.json": "f0a1003c9b7c2cbe7f9a39b0303d6ac4d68376e3386d91b7102cbbda2b66769a",
-      "book/experiments/runtime-checks/out/promotion_packet.json": "98ee9c649c1926fa231bf1e14324fd3f9df0c6acd4345d5b2e02015339d46c7e",
-      "book/experiments/runtime-checks/out/run_manifest.json": "2b023453161c58f5540fe22dd9c75585a975262370fbfd9fc2f2ad1f352d20cf",
-      "book/experiments/runtime-adversarial/out/promotion_packet.json": "3b479d0a30a4e9105ca2ef0d18c015255f40cb6bf960c622915db02cc81bb823",
-      "book/experiments/runtime-adversarial/out/run_manifest.json": "17364fc9b9c0c215aa6703f3f6a5bb33685eadc8af836a592dd4ca6f01d7a775",
-      "book/experiments/anchor-filter-map/out/promotion_packet.json": "b0dc6ea4d240cf2a41c99cf9ecaf8c782b35c63b6e5f6f5503692bfbe48de178",
-      "book/experiments/anchor-filter-map/out/028d4d91-1c9e-4c2f-95da-7fc89ec3635a/run_manifest.json": "b2dfd462935fcc90d7d0a2ff601ec5b51aa5087130837f398ea500904f1b5a4e",
-      "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json": "6162982de26c10913bb1d0c5f7f34da46e0ef1b46ae919a48ff85ae95d523f9c",
-      "book/experiments/anchor-filter-map/iokit-class/out/bf80e47b-3020-4b13-bfa7-249cfcff8b52/run_manifest.json": "5dc19d6c4cfe20cfbc078ec76d1a050c5d10758efb3a7469b73ac427ddfbe2b9",
-      "book/experiments/runtime-adversarial/out/impact_map.json": "f962ea8ae6da193f560086b084f98b1f2aa479b3f48cb20bf74fe55ee780b58a"
+      "book/graph/mappings/runtime_cuts/ops.json": "1b022b9c2c3101a2cad1b967baa9e5b034f9479f40d52cb86702dc114fb0834a",
+      "book/graph/mappings/runtime_cuts/scenarios.json": "20fe2e924ec523006e4913777a364a9e2a267c613e7b78816eb6f9742253aa66",
+      "book/experiments/runtime-checks/out/promotion_packet.json": "2eb9676cc437ed0ddf4d9649c474f86934215de5c214590ae1791bc198b5a2d4",
+      "book/experiments/runtime-checks/out/0319c452-4c2e-413b-b59e-346bb277246a/run_manifest.json": "aa089922f123fc04a72adad0099488000794e575a83c0282b1715568d276ceab",
+      "book/experiments/runtime-adversarial/out/promotion_packet.json": "1997e7ac69e31f5aa702cc0bc518a9fc118136972412caae5fb96dd42016935b",
+      "book/experiments/runtime-adversarial/out/e33aac0d-fc88-4399-b322-46a41ceaae64/run_manifest.json": "404aa119e7cbab5cdd41a3f33610a4729e370df20e8bfa93d72ddfe5995d75fa",
+      "book/experiments/hardened-runtime/out/promotion_packet.json": "f6d4498b0e6ac78a98166381b3315d0764a322081a8a954b563c7decac63eb45",
+      "book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/run_manifest.json": "d4e042b01cabdc3a354b21d0b57d2e406990008ffc25f014f5f03f6446ca47d0",
+      "book/experiments/anchor-filter-map/out/promotion_packet.json": "d6ccd15ff5d58568ec73f05ec194ec7a1429fd5ab0fbbb3706d7d68a78c231ca",
+      "book/experiments/anchor-filter-map/out/cdebc3c2-f0a3-4d35-8f4c-cea54a816292/run_manifest.json": "5a507cc211ae47320e3d4b2b36b919d6b044cbd8da72af97e2623f0220a806bd",
+      "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json": "7b2cc131633ad8317a757c89e2d0d56053566981d2d72beb51aa287333401de4",
+      "book/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/run_manifest.json": "9efc54f5b1575c926a40b60d826e5a856cb27ea3a74a8dbc027efb7ec5703b50"
     },
     "source_jobs": [
       "promotion_packet"
@@ -36,35 +38,11 @@
     "mismatches": [
       {
         "op_name": "file-read*",
-        "expectation_id": "adv:path_alias:alias-private"
-      },
-      {
-        "op_name": "file-read*",
-        "expectation_id": "adv:path_alias:alias-tmp"
-      },
-      {
-        "op_name": "file-read*",
         "expectation_id": "adv:path_edges:allow-subpath"
       },
       {
         "op_name": "file-read*",
         "expectation_id": "adv:path_edges:allow-tmp"
-      },
-      {
-        "op_name": "file-read*",
-        "expectation_id": "adv:struct_flat:allow-ok-deep"
-      },
-      {
-        "op_name": "file-read*",
-        "expectation_id": "adv:struct_flat:allow-ok-root"
-      },
-      {
-        "op_name": "file-read*",
-        "expectation_id": "adv:struct_nested:allow-ok-deep"
-      },
-      {
-        "op_name": "file-read*",
-        "expectation_id": "adv:struct_nested:allow-ok-root"
       },
       {
         "op_name": "file-read*",
@@ -84,27 +62,35 @@
       },
       {
         "op_name": "file-write*",
-        "expectation_id": "adv:struct_flat:write-ok-deep"
-      },
-      {
-        "op_name": "file-write*",
-        "expectation_id": "adv:struct_flat:write-ok-root"
-      },
-      {
-        "op_name": "file-write*",
-        "expectation_id": "adv:struct_nested:write-ok-deep"
-      },
-      {
-        "op_name": "file-write*",
-        "expectation_id": "adv:struct_nested:write-ok-root"
-      },
-      {
-        "op_name": "file-write*",
         "expectation_id": "sys:airlock:write_/etc/hosts"
       },
       {
         "op_name": "file-write*",
         "expectation_id": "sys:airlock:write_/tmp/foo"
+      },
+      {
+        "op_name": "network-outbound",
+        "expectation_id": "adv:flow_divert_partial_tcp:tcp-loopback"
+      },
+      {
+        "op_name": "network-outbound",
+        "expectation_id": "adv:flow_divert_partial_tcp:tcp-loopback-2"
+      },
+      {
+        "op_name": "network-outbound",
+        "expectation_id": "adv:flow_divert_require_all_tcp:tcp-loopback"
+      },
+      {
+        "op_name": "network-outbound",
+        "expectation_id": "adv:flow_divert_require_all_tcp:tcp-loopback-2"
+      },
+      {
+        "op_name": "network-outbound",
+        "expectation_id": "adv:net_outbound_allow:tcp-loopback"
+      },
+      {
+        "op_name": "network-outbound",
+        "expectation_id": "adv:net_outbound_allow:tcp-loopback-2"
       },
       {
         "op_name": "mach-lookup",
@@ -113,6 +99,10 @@
       {
         "op_name": "mach-lookup",
         "expectation_id": "anchor-filter-map:cfprefsd:S2_allow_local"
+      },
+      {
+        "op_name": "mach-lookup",
+        "expectation_id": "hardened:mach_lookup:deny-cfprefsd"
       },
       {
         "op_name": "iokit-open-service",
@@ -132,8 +122,8 @@
       }
     ],
     "mismatch_summary": {
-      "total_mismatches": 24,
-      "total_disallowed_mismatches": 24,
+      "total_mismatches": 21,
+      "total_disallowed_mismatches": 21,
       "tags": {}
     },
     "provenance": {
@@ -150,39 +140,45 @@
           "book/graph/mappings/runtime_cuts/scenarios.json",
           "book/experiments/runtime-checks/out/promotion_packet.json",
           "book/experiments/runtime-adversarial/out/promotion_packet.json",
+          "book/experiments/hardened-runtime/out/promotion_packet.json",
           "book/experiments/anchor-filter-map/out/promotion_packet.json",
           "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json"
         ],
         "input_hashes": {
-          "book/graph/mappings/runtime_cuts/ops.json": "7d6f41b635f8922dd2af50df1146f7cae07c224acad6dc912da953ba39b98954",
-          "book/graph/mappings/runtime_cuts/scenarios.json": "f0a1003c9b7c2cbe7f9a39b0303d6ac4d68376e3386d91b7102cbbda2b66769a",
-          "book/experiments/runtime-checks/out/promotion_packet.json": "98ee9c649c1926fa231bf1e14324fd3f9df0c6acd4345d5b2e02015339d46c7e",
-          "book/experiments/runtime-checks/out/run_manifest.json": "2b023453161c58f5540fe22dd9c75585a975262370fbfd9fc2f2ad1f352d20cf",
-          "book/experiments/runtime-adversarial/out/promotion_packet.json": "3b479d0a30a4e9105ca2ef0d18c015255f40cb6bf960c622915db02cc81bb823",
-          "book/experiments/runtime-adversarial/out/run_manifest.json": "17364fc9b9c0c215aa6703f3f6a5bb33685eadc8af836a592dd4ca6f01d7a775",
-          "book/experiments/anchor-filter-map/out/promotion_packet.json": "b0dc6ea4d240cf2a41c99cf9ecaf8c782b35c63b6e5f6f5503692bfbe48de178",
-          "book/experiments/anchor-filter-map/out/028d4d91-1c9e-4c2f-95da-7fc89ec3635a/run_manifest.json": "b2dfd462935fcc90d7d0a2ff601ec5b51aa5087130837f398ea500904f1b5a4e",
-          "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json": "6162982de26c10913bb1d0c5f7f34da46e0ef1b46ae919a48ff85ae95d523f9c",
-          "book/experiments/anchor-filter-map/iokit-class/out/bf80e47b-3020-4b13-bfa7-249cfcff8b52/run_manifest.json": "5dc19d6c4cfe20cfbc078ec76d1a050c5d10758efb3a7469b73ac427ddfbe2b9"
+          "book/graph/mappings/runtime_cuts/ops.json": "1b022b9c2c3101a2cad1b967baa9e5b034f9479f40d52cb86702dc114fb0834a",
+          "book/graph/mappings/runtime_cuts/scenarios.json": "20fe2e924ec523006e4913777a364a9e2a267c613e7b78816eb6f9742253aa66",
+          "book/experiments/runtime-checks/out/promotion_packet.json": "2eb9676cc437ed0ddf4d9649c474f86934215de5c214590ae1791bc198b5a2d4",
+          "book/experiments/runtime-checks/out/0319c452-4c2e-413b-b59e-346bb277246a/run_manifest.json": "aa089922f123fc04a72adad0099488000794e575a83c0282b1715568d276ceab",
+          "book/experiments/runtime-adversarial/out/promotion_packet.json": "1997e7ac69e31f5aa702cc0bc518a9fc118136972412caae5fb96dd42016935b",
+          "book/experiments/runtime-adversarial/out/e33aac0d-fc88-4399-b322-46a41ceaae64/run_manifest.json": "404aa119e7cbab5cdd41a3f33610a4729e370df20e8bfa93d72ddfe5995d75fa",
+          "book/experiments/hardened-runtime/out/promotion_packet.json": "f6d4498b0e6ac78a98166381b3315d0764a322081a8a954b563c7decac63eb45",
+          "book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/run_manifest.json": "d4e042b01cabdc3a354b21d0b57d2e406990008ffc25f014f5f03f6446ca47d0",
+          "book/experiments/anchor-filter-map/out/promotion_packet.json": "d6ccd15ff5d58568ec73f05ec194ec7a1429fd5ab0fbbb3706d7d68a78c231ca",
+          "book/experiments/anchor-filter-map/out/cdebc3c2-f0a3-4d35-8f4c-cea54a816292/run_manifest.json": "5a507cc211ae47320e3d4b2b36b919d6b044cbd8da72af97e2623f0220a806bd",
+          "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json": "7b2cc131633ad8317a757c89e2d0d56053566981d2d72beb51aa287333401de4",
+          "book/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/run_manifest.json": "9efc54f5b1575c926a40b60d826e5a856cb27ea3a74a8dbc027efb7ec5703b50"
         },
         "run_provenance": {
           "run_ids": [
-            "629a8948-b53b-4c7e-bbb4-d45dc7d01709",
-            "65312c5f-21dd-48c0-b980-c5c9487b3307",
-            "028d4d91-1c9e-4c2f-95da-7fc89ec3635a",
-            "bf80e47b-3020-4b13-bfa7-249cfcff8b52"
+            "0319c452-4c2e-413b-b59e-346bb277246a",
+            "e33aac0d-fc88-4399-b322-46a41ceaae64",
+            "1d8bcf26-508d-43fd-8d32-0ecff7c2799c",
+            "cdebc3c2-f0a3-4d35-8f4c-cea54a816292",
+            "7a706f1f-29ab-4a03-8fb9-09b24eec47ef"
           ],
           "manifests": [
-            "book/experiments/runtime-checks/out/run_manifest.json",
-            "book/experiments/runtime-adversarial/out/run_manifest.json",
-            "book/experiments/anchor-filter-map/out/028d4d91-1c9e-4c2f-95da-7fc89ec3635a/run_manifest.json",
-            "book/experiments/anchor-filter-map/iokit-class/out/bf80e47b-3020-4b13-bfa7-249cfcff8b52/run_manifest.json"
+            "book/experiments/runtime-checks/out/0319c452-4c2e-413b-b59e-346bb277246a/run_manifest.json",
+            "book/experiments/runtime-adversarial/out/e33aac0d-fc88-4399-b322-46a41ceaae64/run_manifest.json",
+            "book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/run_manifest.json",
+            "book/experiments/anchor-filter-map/out/cdebc3c2-f0a3-4d35-8f4c-cea54a816292/run_manifest.json",
+            "book/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/run_manifest.json"
           ],
           "repo_root_contexts": [
-            "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime-checks.52386",
-            "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime-adversarial.63656",
-            "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime-tools.028d4d91-1c9e-4c2f-95da-7fc89ec3635a",
-            "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime-tools.bf80e47b-3020-4b13-bfa7-249cfcff8b52"
+            "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.0319c452-4c2e-413b-b59e-346bb277246a",
+            "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.e33aac0d-fc88-4399-b322-46a41ceaae64",
+            "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c",
+            "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.cdebc3c2-f0a3-4d35-8f4c-cea54a816292",
+            "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7a706f1f-29ab-4a03-8fb9-09b24eec47ef"
           ]
         }
       }
@@ -229,20 +225,14 @@
       },
       "status": "partial",
       "mismatches": [
-        "adv:path_alias:alias-private",
-        "adv:path_alias:alias-tmp",
         "adv:path_edges:allow-subpath",
         "adv:path_edges:allow-tmp",
-        "adv:struct_flat:allow-ok-deep",
-        "adv:struct_flat:allow-ok-root",
-        "adv:struct_nested:allow-ok-deep",
-        "adv:struct_nested:allow-ok-root",
         "sys:airlock:read_/etc/hosts",
         "sys:airlock:read_/tmp/foo"
       ],
       "mismatch_summary": {
-        "total_mismatches": 10,
-        "total_disallowed_mismatches": 10,
+        "total_mismatches": 4,
+        "total_disallowed_mismatches": 4,
         "tags": {}
       }
     },
@@ -279,16 +269,42 @@
       "mismatches": [
         "adv:path_edges:write-subpath",
         "adv:path_edges:write-tmp",
-        "adv:struct_flat:write-ok-deep",
-        "adv:struct_flat:write-ok-root",
-        "adv:struct_nested:write-ok-deep",
-        "adv:struct_nested:write-ok-root",
         "sys:airlock:write_/etc/hosts",
         "sys:airlock:write_/tmp/foo"
       ],
       "mismatch_summary": {
-        "total_mismatches": 8,
-        "total_disallowed_mismatches": 8,
+        "total_mismatches": 4,
+        "total_disallowed_mismatches": 4,
+        "tags": {}
+      }
+    },
+    "network-outbound": {
+      "op_id": 112,
+      "runtime_signatures": [
+        "adv:flow_divert_partial_tcp:tcp-loopback",
+        "adv:flow_divert_partial_tcp:tcp-loopback-2",
+        "adv:flow_divert_require_all_tcp:tcp-loopback",
+        "adv:flow_divert_require_all_tcp:tcp-loopback-2",
+        "adv:net_outbound_allow:tcp-loopback",
+        "adv:net_outbound_allow:tcp-loopback-2",
+        "adv:net_outbound_deny:tcp-loopback",
+        "adv:net_outbound_deny:tcp-loopback-2"
+      ],
+      "counts": {
+        "runtime_signatures": 8
+      },
+      "status": "partial",
+      "mismatches": [
+        "adv:flow_divert_partial_tcp:tcp-loopback",
+        "adv:flow_divert_partial_tcp:tcp-loopback-2",
+        "adv:flow_divert_require_all_tcp:tcp-loopback",
+        "adv:flow_divert_require_all_tcp:tcp-loopback-2",
+        "adv:net_outbound_allow:tcp-loopback",
+        "adv:net_outbound_allow:tcp-loopback-2"
+      ],
+      "mismatch_summary": {
+        "total_mismatches": 6,
+        "total_disallowed_mismatches": 6,
         "tags": {}
       }
     },
@@ -310,36 +326,108 @@
         "anchor-filter-map:cfprefsd:S1_allow_global",
         "anchor-filter-map:cfprefsd:S2_allow_local",
         "anchor-filter-map:cfprefsd:S3_allow_both",
-        "anchor-filter-map:cfprefsd:bogus_baseline"
+        "anchor-filter-map:cfprefsd:bogus_baseline",
+        "hardened:mach_lookup:deny-bogus",
+        "hardened:mach_lookup:deny-cfprefsd",
+        "hardened:mach_lookup_allow:allow-cfprefsd"
       ],
       "counts": {
-        "runtime_signatures": 16
+        "runtime_signatures": 19
       },
       "status": "partial",
       "mismatches": [
         "anchor-filter-map:cfprefsd:C2_deny_local",
-        "anchor-filter-map:cfprefsd:S2_allow_local"
+        "anchor-filter-map:cfprefsd:S2_allow_local",
+        "hardened:mach_lookup:deny-cfprefsd"
       ],
       "mismatch_summary": {
-        "total_mismatches": 2,
-        "total_disallowed_mismatches": 2,
+        "total_mismatches": 3,
+        "total_disallowed_mismatches": 3,
         "tags": {}
       }
     },
-    "network-outbound": {
-      "op_id": 112,
+    "darwin-notification-post": {
+      "op_id": 7,
       "runtime_signatures": [
-        "adv:flow_divert_partial_tcp:tcp-loopback",
-        "adv:flow_divert_partial_tcp:tcp-loopback-2",
-        "adv:flow_divert_require_all_tcp:tcp-loopback",
-        "adv:flow_divert_require_all_tcp:tcp-loopback-2",
-        "adv:net_outbound_allow:tcp-loopback",
-        "adv:net_outbound_allow:tcp-loopback-2",
-        "adv:net_outbound_deny:tcp-loopback",
-        "adv:net_outbound_deny:tcp-loopback-2"
+        "hardened:notifications:deny-allowed-darwin",
+        "hardened:notifications:deny-darwin",
+        "hardened:notifications_allow:allow-darwin"
       ],
       "counts": {
-        "runtime_signatures": 8
+        "runtime_signatures": 3
+      },
+      "status": "ok",
+      "mismatches": [],
+      "mismatch_summary": {
+        "total_mismatches": 0,
+        "total_disallowed_mismatches": 0,
+        "tags": {}
+      }
+    },
+    "distributed-notification-post": {
+      "op_id": 8,
+      "runtime_signatures": [
+        "hardened:notifications:deny-allowed-distributed",
+        "hardened:notifications:deny-distributed",
+        "hardened:notifications_allow:allow-distributed"
+      ],
+      "counts": {
+        "runtime_signatures": 3
+      },
+      "status": "ok",
+      "mismatches": [],
+      "mismatch_summary": {
+        "total_mismatches": 0,
+        "total_disallowed_mismatches": 0,
+        "tags": {}
+      }
+    },
+    "process-info-pidinfo": {
+      "op_id": 129,
+      "runtime_signatures": [
+        "hardened:process_info_allow:pidinfo-init",
+        "hardened:process_info_allow:pidinfo-self",
+        "hardened:process_info_allow_canary:pidinfo-self",
+        "hardened:process_info_deny:pidinfo-init",
+        "hardened:process_info_deny:pidinfo-self"
+      ],
+      "counts": {
+        "runtime_signatures": 5
+      },
+      "status": "ok",
+      "mismatches": [],
+      "mismatch_summary": {
+        "total_mismatches": 0,
+        "total_disallowed_mismatches": 0,
+        "tags": {}
+      }
+    },
+    "signal": {
+      "op_id": 145,
+      "runtime_signatures": [
+        "hardened:signal_self_allow:signal-same-sandbox",
+        "hardened:signal_self_deny:signal-same-sandbox"
+      ],
+      "counts": {
+        "runtime_signatures": 2
+      },
+      "status": "ok",
+      "mismatches": [],
+      "mismatch_summary": {
+        "total_mismatches": 0,
+        "total_disallowed_mismatches": 0,
+        "tags": {}
+      }
+    },
+    "sysctl-read": {
+      "op_id": 155,
+      "runtime_signatures": [
+        "hardened:sysctl_read:deny-kern-bootargs",
+        "hardened:sysctl_read:deny-kern-osrelease",
+        "hardened:sysctl_read_allow:allow-kern-ostype"
+      ],
+      "counts": {
+        "runtime_signatures": 3
       },
       "status": "ok",
       "mismatches": [],

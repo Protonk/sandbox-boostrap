@@ -834,7 +834,7 @@ def run_matrix(
             }
 
             violation_summary = None
-            if failure_stage in {"apply", "bootstrap"} and observed_errno == 1:
+            if observed_errno == 1:
                 violation_summary = "EPERM"
             elif (
                 failure_stage == "apply"

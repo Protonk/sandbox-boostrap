@@ -131,39 +131,39 @@
         }
       ]
     },
-    "sys:bsd": {
-      "blob": "/System/Library/Sandbox/Profiles/bsd.sb",
+    "runtime:strict_1": {
+      "blob": "book/experiments/runtime-checks/strict_1.sb",
       "mode": "sbpl",
       "family": null,
       "semantic_group": null,
       "probes": [
         {
-          "name": "read_/etc/hosts",
+          "name": "read_ok",
+          "operation": "file-read*",
+          "target": "/private/tmp/strict_ok/allow.txt",
+          "expected": "allow",
+          "expectation_id": "runtime:strict_1:read_ok"
+        },
+        {
+          "name": "write_ok",
+          "operation": "file-write*",
+          "target": "/private/tmp/strict_ok/allow.txt",
+          "expected": "allow",
+          "expectation_id": "runtime:strict_1:write_ok"
+        },
+        {
+          "name": "read_hosts",
           "operation": "file-read*",
           "target": "/etc/hosts",
           "expected": "deny",
-          "expectation_id": "sys:bsd:read_/etc/hosts"
+          "expectation_id": "runtime:strict_1:read_hosts"
         },
         {
-          "name": "write_/etc/hosts",
+          "name": "write_hosts",
           "operation": "file-write*",
           "target": "/etc/hosts",
           "expected": "deny",
-          "expectation_id": "sys:bsd:write_/etc/hosts"
-        },
-        {
-          "name": "read_/tmp/foo",
-          "operation": "file-read*",
-          "target": "/tmp/foo",
-          "expected": "deny",
-          "expectation_id": "sys:bsd:read_/tmp/foo"
-        },
-        {
-          "name": "write_/tmp/foo",
-          "operation": "file-write*",
-          "target": "/tmp/foo",
-          "expected": "deny",
-          "expectation_id": "sys:bsd:write_/tmp/foo"
+          "expectation_id": "runtime:strict_1:write_hosts"
         }
       ]
     },
@@ -203,39 +203,39 @@
         }
       ]
     },
-    "runtime:strict_1": {
-      "blob": "book/experiments/runtime-checks/strict_1.sb",
+    "sys:bsd": {
+      "blob": "/System/Library/Sandbox/Profiles/bsd.sb",
       "mode": "sbpl",
       "family": null,
       "semantic_group": null,
       "probes": [
         {
-          "name": "read_ok",
-          "operation": "file-read*",
-          "target": "/private/tmp/strict_ok/allow.txt",
-          "expected": "allow",
-          "expectation_id": "runtime:strict_1:read_ok"
-        },
-        {
-          "name": "write_ok",
-          "operation": "file-write*",
-          "target": "/private/tmp/strict_ok/allow.txt",
-          "expected": "allow",
-          "expectation_id": "runtime:strict_1:write_ok"
-        },
-        {
-          "name": "read_hosts",
+          "name": "read_/etc/hosts",
           "operation": "file-read*",
           "target": "/etc/hosts",
           "expected": "deny",
-          "expectation_id": "runtime:strict_1:read_hosts"
+          "expectation_id": "sys:bsd:read_/etc/hosts"
         },
         {
-          "name": "write_hosts",
+          "name": "write_/etc/hosts",
           "operation": "file-write*",
           "target": "/etc/hosts",
           "expected": "deny",
-          "expectation_id": "runtime:strict_1:write_hosts"
+          "expectation_id": "sys:bsd:write_/etc/hosts"
+        },
+        {
+          "name": "read_/tmp/foo",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "deny",
+          "expectation_id": "sys:bsd:read_/tmp/foo"
+        },
+        {
+          "name": "write_/tmp/foo",
+          "operation": "file-write*",
+          "target": "/tmp/foo",
+          "expected": "deny",
+          "expectation_id": "sys:bsd:write_/tmp/foo"
         }
       ]
     }

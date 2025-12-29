@@ -1,5 +1,9 @@
-# Hardened Runtime Summary
+# Runtime Summary
 
-Status: ok
+Status: partial
+Plan: hardened-runtime.v1
+Channel: launchd_clean
+Profiles: 11
+Scenarios: 19
 
-Mismatches: none
+Mismatches: 1

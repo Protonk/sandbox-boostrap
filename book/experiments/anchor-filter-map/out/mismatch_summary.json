@@ -1,0 +1,34 @@
+{
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "generated_by": "book/api/runtime/workflow.py",
+  "mismatches": [
+    {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "anchor-filter-map:cfprefsd:S2_allow_local",
+      "expectation_id": "anchor-filter-map:cfprefsd:S2_allow_local",
+      "operation": "mach-lookup",
+      "path": "com.apple.cfprefsd.agent",
+      "expected": "allow",
+      "actual": "deny",
+      "mismatch_type": "unexpected_deny",
+      "violation_summary": "EPERM",
+      "notes": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.cdebc3c2-f0a3-4d35-8f4c-cea54a816292/book/experiments/anchor-filter-map/out/cdebc3c2-f0a3-4d35-8f4c-cea54a816292/runtime_profiles/mach_lookup_deny_default.anchor-filter-map_cfprefsd_S2_allow_local.runtime.sb\",\"pid\":84683}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.cdebc3c2-f0a3-4d35-8f4c-cea54a816292/book/experiments/anchor-filter-map/out/cdebc3c2-f0a3-4d35-8f4c-cea54a816292/runtime_profiles/mach_lookup_deny_default.anchor-filter-map_cfprefsd_S2_allow_local.runtime.sb\",\"pid\":84683}\n"
+    },
+    {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "anchor-filter-map:cfprefsd:C2_deny_local",
+      "expectation_id": "anchor-filter-map:cfprefsd:C2_deny_local",
+      "operation": "mach-lookup",
+      "path": "com.apple.cfprefsd.agent",
+      "expected": "deny",
+      "actual": "allow",
+      "mismatch_type": "unexpected_allow",
+      "violation_summary": null,
+      "notes": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.cdebc3c2-f0a3-4d35-8f4c-cea54a816292/book/experiments/anchor-filter-map/out/cdebc3c2-f0a3-4d35-8f4c-cea54a816292/runtime_profiles/mach_lookup_allow_default.anchor-filter-map_cfprefsd_C2_deny_local.runtime.sb\",\"pid\":84688}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.cdebc3c2-f0a3-4d35-8f4c-cea54a816292/book/experiments/anchor-filter-map/out/cdebc3c2-f0a3-4d35-8f4c-cea54a816292/runtime_profiles/mach_lookup_allow_default.anchor-filter-map_cfprefsd_C2_deny_local.runtime.sb\",\"pid\":84688}\n"
+    }
+  ],
+  "counts": {
+    "unexpected_deny": 1,
+    "unexpected_allow": 1
+  }
+}

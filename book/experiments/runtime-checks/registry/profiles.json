@@ -16,19 +16,22 @@
       ],
       "notes": "Baseline bucket-4 profile: allow file-read* only."
     },
-    "bucket5:v11_read_subpath": {
+  "bucket5:v11_read_subpath": {
       "profile_id": "bucket5:v11_read_subpath",
       "profile_path": "book/experiments/op-table-operation/sb/v11_read_subpath.sb",
       "mode": "sbpl",
       "family": null,
       "semantic_group": null,
-      "probe_refs": [
-        "bucket5:v11_read_subpath:read_/tmp/foo",
-        "bucket5:v11_read_subpath:read_/tmp/bar",
-        "bucket5:v11_read_subpath:write_/tmp/foo"
-      ],
-      "notes": "Bucket-5 subpath profile: allow read under /tmp/foo; deny other reads/writes."
-    },
+    "probe_refs": [
+      "bucket5:v11_read_subpath:read_/tmp/foo",
+      "bucket5:v11_read_subpath:read_/tmp/bar",
+      "bucket5:v11_read_subpath:write_/tmp/foo"
+    ],
+    "key_specific_rules": [
+      "(allow file-read* (subpath \"/private/tmp/foo\"))"
+    ],
+    "notes": "Bucket-5 subpath profile: allow read under /tmp/foo; deny other reads/writes."
+  },
     "runtime:allow_all": {
       "profile_id": "runtime:allow_all",
       "profile_path": "book/profiles/golden-triple/allow_all.sb.bin",
@@ -42,21 +45,25 @@
       ],
       "notes": "allow default; should allow all file read/write"
     },
-    "runtime:metafilter_any": {
+  "runtime:metafilter_any": {
       "profile_id": "runtime:metafilter_any",
       "profile_path": "book/experiments/sbpl-graph-runtime/profiles/metafilter_any.sb",
       "mode": "sbpl",
       "family": null,
       "semantic_group": null,
-      "probe_refs": [
-        "metafilter_any|file-read*|/tmp/foo.txt",
-        "metafilter_any|file-read*|/tmp/bar.txt",
-        "metafilter_any|file-read*|/tmp/qux.txt",
-        "metafilter_any|file-read*|/tmp/baz.txt",
-        "metafilter_any|file-write*|/tmp/baz.txt"
-      ],
-      "notes": "require-any literal foo/bar; deny baz."
-    },
+    "probe_refs": [
+      "metafilter_any|file-read*|/tmp/foo.txt",
+      "metafilter_any|file-read*|/tmp/bar.txt",
+      "metafilter_any|file-read*|/tmp/qux.txt",
+      "metafilter_any|file-read*|/tmp/baz.txt",
+      "metafilter_any|file-write*|/tmp/baz.txt"
+    ],
+    "key_specific_rules": [
+      "(deny file-read* (literal \"/private/tmp/baz.txt\"))",
+      "(deny file-write* (literal \"/private/tmp/baz.txt\"))"
+    ],
+    "notes": "require-any literal foo/bar; deny baz."
+  },
     "sys:bsd": {
       "profile_id": "sys:bsd",
       "profile_path": "/System/Library/Sandbox/Profiles/bsd.sb",

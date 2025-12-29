@@ -1,5 +1,9 @@
+import hashlib
+import os
+import tempfile
 import unittest
 
+from book.api import path_utils
 from book.api.ghidra.ghidra_lib import scan_utils
 
 
@@ -50,6 +54,22 @@ class ScanUtilsTests(unittest.TestCase):
         self.assertEqual(scan_utils.classify_mnemonic("str"), "store")
         self.assertEqual(scan_utils.classify_mnemonic("stp"), "store")
         self.assertEqual(scan_utils.classify_mnemonic("add"), "other")
+
+    def test_repo_root_helpers(self):
+        repo_root = path_utils.find_repo_root()
+        self.assertEqual(scan_utils.find_repo_root(), str(repo_root))
+        rel = scan_utils.to_repo_relative(os.path.join(str(repo_root), "book"), str(repo_root))
+        self.assertEqual(rel, "book")
+
+    def test_sha256_path(self):
+        with tempfile.NamedTemporaryFile(delete=False) as tmp:
+            tmp.write(b"scan-utils-test")
+            tmp_path = tmp.name
+        try:
+            expected = hashlib.sha256(b"scan-utils-test").hexdigest()
+            self.assertEqual(scan_utils.sha256_path(tmp_path), expected)
+        finally:
+            os.unlink(tmp_path)
 
 
 if __name__ == "__main__":

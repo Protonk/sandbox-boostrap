@@ -1,0 +1,33 @@
+{
+  "analysis": {
+    "profile_id": "kernel_offset_inst_scan:offset=0xc0:write=true:all=true:exact=true:canonical=true:classify=true:skip_stack=true"
+  },
+  "generator": {
+    "deps": [
+      {
+        "path": "book/api/ghidra/scripts/ghidra_bootstrap.py",
+        "sha256": "e06f33de471648fb124b74a6e4d98a779c7e0be265aaf1fba8f8b00a0f59a9a4"
+      },
+      {
+        "path": "book/api/ghidra/ghidra_lib/scan_utils.py",
+        "sha256": "3d30421dfdcf1acd28f7d2c7f800e5c01938b248bec9cb92c4ff595e12a8ff8e"
+      }
+    ],
+    "runner_version": "book.api.ghidra.scaffold",
+    "script_content_sha256": "f49afed56d3d61d84177ad0fe7986bc88d0b417c360a0bf80770452f0c6e86e2",
+    "script_path": "book/api/ghidra/scripts/kernel_offset_inst_scan.py"
+  },
+  "ghidra": {
+    "version": "11.4.2"
+  },
+  "input": {
+    "program_path": "dumps/Sandbox-private/14.4.1-23E224/kernel/BootKernelCollection.kc",
+    "program_sha256": "0a3f694514bb0accbc82c5b869bb6896a0fa4a09af1537e9d1ccf26350366b54"
+  },
+  "normalizer_id": "offset_inst_scan_normalizer_v1",
+  "output": {
+    "normalized_sha256": "f2a439d09c021ab693dededd6a9d7c5894801b54ecc0459f901275968dc51d1a",
+    "path": "dumps/ghidra/out/14.4.1-23E224/kernel-collection-offset-scan-0xc0-write-classify/offset_inst_scan.json"
+  },
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

@@ -14,6 +14,8 @@ Interfaces:
 - Convenience runner: `python book/api/ghidra/run_task.py <task> --exec` (defaults: ARM64 processor, x86 analyzers disabled via pre-script).
 - Scripts live in `book/api/ghidra/scripts/`; `dumps/ghidra/scripts/` are redirectors only.
 - Import ghidra helpers via `from ghidra_bootstrap import scan_utils` (or `node_scan_utils`) to keep path wiring consistent.
+- Use `python -m book.api.ghidra.shape_manifest_prune --manifest book/tests/fixtures/ghidra_shapes/manifest.json --report book/tests/fixtures/ghidra_shapes/prune_report.json --write --expand` to prune and re-seed shape coverage from existing outputs.
+- Optional strict gating uses `book/tests/fixtures/ghidra_shapes/manifest.strict.json`; run with `GHIDRA_STRICT_SHAPES=1`.
 
 Tasks (examples; see `TaskRegistry.default()` for the full set):
 - `kernel-symbols` (fast, `--no-analysis` OK): dump sandbox symbols/strings; outputs also mirrored to `book/experiments/kernel-symbols/out/<build>/...`.

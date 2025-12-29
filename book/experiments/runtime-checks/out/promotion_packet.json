@@ -1,11 +1,25 @@
 {
-  "schema_version": "runtime-tools.promotion_packet.v0.1",
-  "run_manifest": "book/experiments/runtime-checks/out/run_manifest.json",
-  "expected_matrix": "book/experiments/runtime-checks/out/expected_matrix.json",
-  "runtime_results": "book/experiments/runtime-checks/out/runtime_results.json",
-  "runtime_events": "book/experiments/runtime-checks/out/runtime_events.normalized.json",
-  "baseline_results": "book/experiments/runtime-checks/out/baseline_results.json",
-  "oracle_results": "book/experiments/runtime-checks/out/oracle_results.json",
-  "mismatch_packets": "book/experiments/runtime-checks/out/mismatch_packets.jsonl",
-  "summary": "book/experiments/runtime-checks/out/summary.json"
+  "schema_version": "runtime-tools.promotion_packet.v0.2",
+  "run_manifest": "book/experiments/runtime-checks/out/0319c452-4c2e-413b-b59e-346bb277246a/run_manifest.json",
+  "expected_matrix": "book/experiments/runtime-checks/out/0319c452-4c2e-413b-b59e-346bb277246a/expected_matrix.json",
+  "runtime_results": "book/experiments/runtime-checks/out/0319c452-4c2e-413b-b59e-346bb277246a/runtime_results.json",
+  "runtime_events": "book/experiments/runtime-checks/out/0319c452-4c2e-413b-b59e-346bb277246a/runtime_events.normalized.json",
+  "baseline_results": "book/experiments/runtime-checks/out/0319c452-4c2e-413b-b59e-346bb277246a/baseline_results.json",
+  "oracle_results": "book/experiments/runtime-checks/out/0319c452-4c2e-413b-b59e-346bb277246a/oracle_results.json",
+  "mismatch_packets": "book/experiments/runtime-checks/out/0319c452-4c2e-413b-b59e-346bb277246a/mismatch_packets.jsonl",
+  "summary": "book/experiments/runtime-checks/out/0319c452-4c2e-413b-b59e-346bb277246a/summary.json",
+  "promotability": {
+    "promotable_decision_stage": true,
+    "reasons": [],
+    "gating_inputs": {
+      "channel": "launchd_clean",
+      "apply_preflight_present": true,
+      "apply_ok": true,
+      "sandbox_check_self": {
+        "source": "sandbox_check",
+        "error": "libsystem_sandbox not found"
+      }
+    }
+  },
+  "path_witnesses": "book/experiments/runtime-checks/out/0319c452-4c2e-413b-b59e-346bb277246a/path_witnesses.json"
 }

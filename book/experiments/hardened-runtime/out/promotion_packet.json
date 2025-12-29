@@ -1,0 +1,25 @@
+{
+  "schema_version": "runtime-tools.promotion_packet.v0.2",
+  "run_manifest": "book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/run_manifest.json",
+  "expected_matrix": "book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/expected_matrix.json",
+  "runtime_results": "book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_results.json",
+  "runtime_events": "book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_events.normalized.json",
+  "baseline_results": "book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/baseline_results.json",
+  "oracle_results": "book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/oracle_results.json",
+  "mismatch_packets": "book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/mismatch_packets.jsonl",
+  "summary": "book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/summary.json",
+  "promotability": {
+    "promotable_decision_stage": true,
+    "reasons": [],
+    "gating_inputs": {
+      "channel": "launchd_clean",
+      "apply_preflight_present": true,
+      "apply_ok": true,
+      "sandbox_check_self": {
+        "source": "sandbox_check",
+        "error": "libsystem_sandbox not found"
+      }
+    }
+  },
+  "path_witnesses": "book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/path_witnesses.json"
+}

@@ -1,22 +1,22 @@
 {
   "counts": {
     "by_classification": {
-      "likely_apply_gated_for_harness_identity": 27,
-      "no_known_apply_gate_signature": 647
+      "likely_apply_gated_for_harness_identity": 24,
+      "no_known_apply_gate_signature": 643
     },
     "by_input_kind": {
-      "sbpl_blob_path": 367,
+      "sbpl_blob_path": 360,
       "sbpl_path": 307
     },
     "by_signature": {
-      "apply_gate_blob_digest": 23,
+      "apply_gate_blob_digest": 20,
       "deny_message_filter": 4,
-      "null": 647
+      "null": 643
     },
     "by_source": {
       "book_blobs": {
-        "likely_apply_gated_for_harness_identity": 23,
-        "no_known_apply_gate_signature": 344
+        "likely_apply_gated_for_harness_identity": 20,
+        "no_known_apply_gate_signature": 340
       },
       "examples_sbpl": {
         "no_known_apply_gate_signature": 3
@@ -32,7 +32,7 @@
         "no_known_apply_gate_signature": 55
       }
     },
-    "total_records": 674
+    "total_records": 667
   },
   "digest_groups": {
     "apply_gate_blob_digest": [
@@ -50,17 +50,6 @@
         ]
       },
       {
-        "blob_sha256": "33d1a72e709f86f7827cb6e5a919a30cc86a3d0ea6e048b2117d0240a923467e",
-        "count": 5,
-        "paths": [
-          "book/experiments/runtime-checks/out/decoded_blobs/sys_airlock.sb.bin",
-          "book/experiments/runtime-checks/out/recompiled/airlock.recompiled.sb.bin",
-          "book/experiments/runtime-checks/out/sb_build/airlock.sb.bin",
-          "book/graph/concepts/validation/fixtures/blobs/airlock.sb.bin",
-          "book/graph/mappings/runtime/decoded_blobs/sys_airlock.sb.bin"
-        ]
-      },
-      {
         "blob_sha256": "1c810afb4859beba5ea31eece812cdd3548ea575500a1063dc8eeaa11a8e3f60",
         "count": 4,
         "paths": [
@@ -68,6 +57,14 @@
           "book/experiments/gate-witnesses/out/micro_variants/base_v1_outer_iokit_open.sb.bin",
           "book/experiments/gate-witnesses/out/witnesses/blastdoor/compile_vs_apply/minimal_failing.sb.bin",
           "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/blastdoor/minimal_failing.sb.bin"
+        ]
+      },
+      {
+        "blob_sha256": "33d1a72e709f86f7827cb6e5a919a30cc86a3d0ea6e048b2117d0240a923467e",
+        "count": 2,
+        "paths": [
+          "book/graph/concepts/validation/fixtures/blobs/airlock.sb.bin",
+          "book/graph/mappings/runtime/decoded_blobs/sys_airlock.sb.bin"
         ]
       },
       {
@@ -137,9 +134,6 @@
       "book/experiments/gate-witnesses/out/witnesses/blastdoor/compile_vs_apply/minimal_failing.sb.bin",
       "book/experiments/gate-witnesses/out/witnesses/com.apple.CoreGraphics.CGPDFService/compile_vs_apply/minimal_failing.sb.bin",
       "book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/compile_vs_apply/minimal_failing.sb.bin",
-      "book/experiments/runtime-checks/out/decoded_blobs/sys_airlock.sb.bin",
-      "book/experiments/runtime-checks/out/recompiled/airlock.recompiled.sb.bin",
-      "book/experiments/runtime-checks/out/sb_build/airlock.sb.bin",
       "book/graph/concepts/validation/fixtures/blobs/airlock.sb.bin",
       "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/minimal_failing.sb.bin",
       "book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/blastdoor/minimal_failing.sb.bin",
@@ -584,15 +578,6 @@
       "book/experiments/probe-op-structure/sb/v6_file_mach_combo.sb",
       "book/experiments/probe-op-structure/sb/v7_file_network_combo.sb",
       "book/experiments/probe-op-structure/sb/v8_all_combo.sb",
-      "book/experiments/runtime-adversarial/out/sb_build/mach_local_literal.sb.bin",
-      "book/experiments/runtime-adversarial/out/sb_build/mach_local_regex.sb.bin",
-      "book/experiments/runtime-adversarial/out/sb_build/mach_simple_allow.sb.bin",
-      "book/experiments/runtime-adversarial/out/sb_build/mach_simple_variants.sb.bin",
-      "book/experiments/runtime-adversarial/out/sb_build/net_outbound_allow.sb.bin",
-      "book/experiments/runtime-adversarial/out/sb_build/net_outbound_deny.sb.bin",
-      "book/experiments/runtime-adversarial/out/sb_build/path_edges.sb.bin",
-      "book/experiments/runtime-adversarial/out/sb_build/struct_flat.sb.bin",
-      "book/experiments/runtime-adversarial/out/sb_build/struct_nested.sb.bin",
       "book/experiments/runtime-adversarial/sb/apply_preflight_allow.sb",
       "book/experiments/runtime-adversarial/sb/build/mach_local_literal.sb.bin",
       "book/experiments/runtime-adversarial/sb/build/mach_local_regex.sb.bin",
@@ -615,17 +600,6 @@
       "book/experiments/runtime-adversarial/sb/path_edges.sb",
       "book/experiments/runtime-adversarial/sb/struct_flat.sb",
       "book/experiments/runtime-adversarial/sb/struct_nested.sb",
-      "book/experiments/runtime-checks/out/decoded_blobs/bucket4_v1_read.sb.bin",
-      "book/experiments/runtime-checks/out/decoded_blobs/bucket5_v11_read_subpath.sb.bin",
-      "book/experiments/runtime-checks/out/decoded_blobs/runtime_metafilter_any.sb.bin",
-      "book/experiments/runtime-checks/out/decoded_blobs/runtime_strict_1.sb.bin",
-      "book/experiments/runtime-checks/out/decoded_blobs/sys_bsd.sb.bin",
-      "book/experiments/runtime-checks/out/recompiled/bsd.recompiled.sb.bin",
-      "book/experiments/runtime-checks/out/sb_build/bsd.sb.bin",
-      "book/experiments/runtime-checks/out/sb_build/metafilter_any.sb.bin",
-      "book/experiments/runtime-checks/out/sb_build/strict_1.sb.bin",
-      "book/experiments/runtime-checks/out/sb_build/v11_read_subpath.sb.bin",
-      "book/experiments/runtime-checks/out/sb_build/v1_read.sb.bin",
       "book/experiments/runtime-checks/strict_1.sb",
       "book/experiments/sandbox-init-params/out/file_ftp_proxy.sb.bin",
       "book/experiments/sandbox-init-params/out/file_simple.sb.bin",
@@ -652,38 +626,54 @@
       "book/experiments/sbpl-graph-runtime/profiles/param_path_concrete.sb",
       "book/experiments/sbpl-graph-runtime/profiles/param_root_shim.sb",
       "book/experiments/sbpl-graph-runtime/profiles/param_write_gate.sb",
-      "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/sb_build/vfs_both_paths.sb.bin",
-      "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/sb_build/vfs_etc_alias_only.sb.bin",
-      "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/sb_build/vfs_etc_both.sb.bin",
-      "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/sb_build/vfs_etc_private_only.sb.bin",
-      "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/sb_build/vfs_firmlink_both.sb.bin",
-      "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/sb_build/vfs_firmlink_data_only.sb.bin",
-      "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/sb_build/vfs_firmlink_private_only.sb.bin",
-      "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/sb_build/vfs_link_both.sb.bin",
-      "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/sb_build/vfs_link_private_tmp_only.sb.bin",
-      "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/sb_build/vfs_link_var_tmp_only.sb.bin",
-      "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/sb_build/vfs_private_tmp_only.sb.bin",
-      "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/sb_build/vfs_tmp_only.sb.bin",
-      "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/sb_build/vfs_var_tmp_alias_only.sb.bin",
-      "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/sb_build/vfs_var_tmp_both.sb.bin",
-      "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/sb_build/vfs_var_tmp_data_only.sb.bin",
-      "book/experiments/vfs-canonicalization/out/79513c5c-91ce-4518-9b91-64ead0db388e/sb_build/vfs_var_tmp_private_only.sb.bin",
-      "book/experiments/vfs-canonicalization/out/99f126d1-2c04-41ea-925c-bc59e73f9843/sb_build/vfs_both_paths.sb.bin",
-      "book/experiments/vfs-canonicalization/out/99f126d1-2c04-41ea-925c-bc59e73f9843/sb_build/vfs_etc_alias_only.sb.bin",
-      "book/experiments/vfs-canonicalization/out/99f126d1-2c04-41ea-925c-bc59e73f9843/sb_build/vfs_etc_both.sb.bin",
-      "book/experiments/vfs-canonicalization/out/99f126d1-2c04-41ea-925c-bc59e73f9843/sb_build/vfs_etc_private_only.sb.bin",
-      "book/experiments/vfs-canonicalization/out/99f126d1-2c04-41ea-925c-bc59e73f9843/sb_build/vfs_firmlink_both.sb.bin",
-      "book/experiments/vfs-canonicalization/out/99f126d1-2c04-41ea-925c-bc59e73f9843/sb_build/vfs_firmlink_data_only.sb.bin",
-      "book/experiments/vfs-canonicalization/out/99f126d1-2c04-41ea-925c-bc59e73f9843/sb_build/vfs_firmlink_private_only.sb.bin",
-      "book/experiments/vfs-canonicalization/out/99f126d1-2c04-41ea-925c-bc59e73f9843/sb_build/vfs_link_both.sb.bin",
-      "book/experiments/vfs-canonicalization/out/99f126d1-2c04-41ea-925c-bc59e73f9843/sb_build/vfs_link_private_tmp_only.sb.bin",
-      "book/experiments/vfs-canonicalization/out/99f126d1-2c04-41ea-925c-bc59e73f9843/sb_build/vfs_link_var_tmp_only.sb.bin",
-      "book/experiments/vfs-canonicalization/out/99f126d1-2c04-41ea-925c-bc59e73f9843/sb_build/vfs_private_tmp_only.sb.bin",
-      "book/experiments/vfs-canonicalization/out/99f126d1-2c04-41ea-925c-bc59e73f9843/sb_build/vfs_tmp_only.sb.bin",
-      "book/experiments/vfs-canonicalization/out/99f126d1-2c04-41ea-925c-bc59e73f9843/sb_build/vfs_var_tmp_alias_only.sb.bin",
-      "book/experiments/vfs-canonicalization/out/99f126d1-2c04-41ea-925c-bc59e73f9843/sb_build/vfs_var_tmp_both.sb.bin",
-      "book/experiments/vfs-canonicalization/out/99f126d1-2c04-41ea-925c-bc59e73f9843/sb_build/vfs_var_tmp_data_only.sb.bin",
-      "book/experiments/vfs-canonicalization/out/99f126d1-2c04-41ea-925c-bc59e73f9843/sb_build/vfs_var_tmp_private_only.sb.bin",
+      "book/experiments/vfs-canonicalization/out/55fb69a3-ad0e-408c-975a-fb2db090b366/sb_build/vfs_both_paths.sb.bin",
+      "book/experiments/vfs-canonicalization/out/55fb69a3-ad0e-408c-975a-fb2db090b366/sb_build/vfs_etc_alias_only.sb.bin",
+      "book/experiments/vfs-canonicalization/out/55fb69a3-ad0e-408c-975a-fb2db090b366/sb_build/vfs_etc_both.sb.bin",
+      "book/experiments/vfs-canonicalization/out/55fb69a3-ad0e-408c-975a-fb2db090b366/sb_build/vfs_etc_private_only.sb.bin",
+      "book/experiments/vfs-canonicalization/out/55fb69a3-ad0e-408c-975a-fb2db090b366/sb_build/vfs_firmlink_both.sb.bin",
+      "book/experiments/vfs-canonicalization/out/55fb69a3-ad0e-408c-975a-fb2db090b366/sb_build/vfs_firmlink_data_only.sb.bin",
+      "book/experiments/vfs-canonicalization/out/55fb69a3-ad0e-408c-975a-fb2db090b366/sb_build/vfs_firmlink_private_only.sb.bin",
+      "book/experiments/vfs-canonicalization/out/55fb69a3-ad0e-408c-975a-fb2db090b366/sb_build/vfs_link_both.sb.bin",
+      "book/experiments/vfs-canonicalization/out/55fb69a3-ad0e-408c-975a-fb2db090b366/sb_build/vfs_link_private_tmp_only.sb.bin",
+      "book/experiments/vfs-canonicalization/out/55fb69a3-ad0e-408c-975a-fb2db090b366/sb_build/vfs_link_var_tmp_only.sb.bin",
+      "book/experiments/vfs-canonicalization/out/55fb69a3-ad0e-408c-975a-fb2db090b366/sb_build/vfs_private_tmp_only.sb.bin",
+      "book/experiments/vfs-canonicalization/out/55fb69a3-ad0e-408c-975a-fb2db090b366/sb_build/vfs_tmp_only.sb.bin",
+      "book/experiments/vfs-canonicalization/out/55fb69a3-ad0e-408c-975a-fb2db090b366/sb_build/vfs_var_tmp_alias_only.sb.bin",
+      "book/experiments/vfs-canonicalization/out/55fb69a3-ad0e-408c-975a-fb2db090b366/sb_build/vfs_var_tmp_both.sb.bin",
+      "book/experiments/vfs-canonicalization/out/55fb69a3-ad0e-408c-975a-fb2db090b366/sb_build/vfs_var_tmp_data_only.sb.bin",
+      "book/experiments/vfs-canonicalization/out/55fb69a3-ad0e-408c-975a-fb2db090b366/sb_build/vfs_var_tmp_private_only.sb.bin",
+      "book/experiments/vfs-canonicalization/out/8cb5e067-2dc7-40dc-a2c0-6319e5accff7/sb_build/vfs_both_paths.sb.bin",
+      "book/experiments/vfs-canonicalization/out/8cb5e067-2dc7-40dc-a2c0-6319e5accff7/sb_build/vfs_etc_alias_only.sb.bin",
+      "book/experiments/vfs-canonicalization/out/8cb5e067-2dc7-40dc-a2c0-6319e5accff7/sb_build/vfs_etc_both.sb.bin",
+      "book/experiments/vfs-canonicalization/out/8cb5e067-2dc7-40dc-a2c0-6319e5accff7/sb_build/vfs_etc_private_only.sb.bin",
+      "book/experiments/vfs-canonicalization/out/8cb5e067-2dc7-40dc-a2c0-6319e5accff7/sb_build/vfs_firmlink_both.sb.bin",
+      "book/experiments/vfs-canonicalization/out/8cb5e067-2dc7-40dc-a2c0-6319e5accff7/sb_build/vfs_firmlink_data_only.sb.bin",
+      "book/experiments/vfs-canonicalization/out/8cb5e067-2dc7-40dc-a2c0-6319e5accff7/sb_build/vfs_firmlink_private_only.sb.bin",
+      "book/experiments/vfs-canonicalization/out/8cb5e067-2dc7-40dc-a2c0-6319e5accff7/sb_build/vfs_link_both.sb.bin",
+      "book/experiments/vfs-canonicalization/out/8cb5e067-2dc7-40dc-a2c0-6319e5accff7/sb_build/vfs_link_private_tmp_only.sb.bin",
+      "book/experiments/vfs-canonicalization/out/8cb5e067-2dc7-40dc-a2c0-6319e5accff7/sb_build/vfs_link_var_tmp_only.sb.bin",
+      "book/experiments/vfs-canonicalization/out/8cb5e067-2dc7-40dc-a2c0-6319e5accff7/sb_build/vfs_private_tmp_only.sb.bin",
+      "book/experiments/vfs-canonicalization/out/8cb5e067-2dc7-40dc-a2c0-6319e5accff7/sb_build/vfs_tmp_only.sb.bin",
+      "book/experiments/vfs-canonicalization/out/8cb5e067-2dc7-40dc-a2c0-6319e5accff7/sb_build/vfs_var_tmp_alias_only.sb.bin",
+      "book/experiments/vfs-canonicalization/out/8cb5e067-2dc7-40dc-a2c0-6319e5accff7/sb_build/vfs_var_tmp_both.sb.bin",
+      "book/experiments/vfs-canonicalization/out/8cb5e067-2dc7-40dc-a2c0-6319e5accff7/sb_build/vfs_var_tmp_data_only.sb.bin",
+      "book/experiments/vfs-canonicalization/out/8cb5e067-2dc7-40dc-a2c0-6319e5accff7/sb_build/vfs_var_tmp_private_only.sb.bin",
+      "book/experiments/vfs-canonicalization/out/eff2187e-9fc9-4542-bfe8-af5bbc08c1c2/sb_build/vfs_both_paths.sb.bin",
+      "book/experiments/vfs-canonicalization/out/eff2187e-9fc9-4542-bfe8-af5bbc08c1c2/sb_build/vfs_etc_alias_only.sb.bin",
+      "book/experiments/vfs-canonicalization/out/eff2187e-9fc9-4542-bfe8-af5bbc08c1c2/sb_build/vfs_etc_both.sb.bin",
+      "book/experiments/vfs-canonicalization/out/eff2187e-9fc9-4542-bfe8-af5bbc08c1c2/sb_build/vfs_etc_private_only.sb.bin",
+      "book/experiments/vfs-canonicalization/out/eff2187e-9fc9-4542-bfe8-af5bbc08c1c2/sb_build/vfs_firmlink_both.sb.bin",
+      "book/experiments/vfs-canonicalization/out/eff2187e-9fc9-4542-bfe8-af5bbc08c1c2/sb_build/vfs_firmlink_data_only.sb.bin",
+      "book/experiments/vfs-canonicalization/out/eff2187e-9fc9-4542-bfe8-af5bbc08c1c2/sb_build/vfs_firmlink_private_only.sb.bin",
+      "book/experiments/vfs-canonicalization/out/eff2187e-9fc9-4542-bfe8-af5bbc08c1c2/sb_build/vfs_link_both.sb.bin",
+      "book/experiments/vfs-canonicalization/out/eff2187e-9fc9-4542-bfe8-af5bbc08c1c2/sb_build/vfs_link_private_tmp_only.sb.bin",
+      "book/experiments/vfs-canonicalization/out/eff2187e-9fc9-4542-bfe8-af5bbc08c1c2/sb_build/vfs_link_var_tmp_only.sb.bin",
+      "book/experiments/vfs-canonicalization/out/eff2187e-9fc9-4542-bfe8-af5bbc08c1c2/sb_build/vfs_private_tmp_only.sb.bin",
+      "book/experiments/vfs-canonicalization/out/eff2187e-9fc9-4542-bfe8-af5bbc08c1c2/sb_build/vfs_tmp_only.sb.bin",
+      "book/experiments/vfs-canonicalization/out/eff2187e-9fc9-4542-bfe8-af5bbc08c1c2/sb_build/vfs_var_tmp_alias_only.sb.bin",
+      "book/experiments/vfs-canonicalization/out/eff2187e-9fc9-4542-bfe8-af5bbc08c1c2/sb_build/vfs_var_tmp_both.sb.bin",
+      "book/experiments/vfs-canonicalization/out/eff2187e-9fc9-4542-bfe8-af5bbc08c1c2/sb_build/vfs_var_tmp_data_only.sb.bin",
+      "book/experiments/vfs-canonicalization/out/eff2187e-9fc9-4542-bfe8-af5bbc08c1c2/sb_build/vfs_var_tmp_private_only.sb.bin",
       "book/experiments/vfs-canonicalization/sb/build/vfs_both_paths.sb.bin",
       "book/experiments/vfs-canonicalization/sb/build/vfs_etc_alias_only.sb.bin",
       "book/experiments/vfs-canonicalization/sb/build/vfs_etc_both.sb.bin",

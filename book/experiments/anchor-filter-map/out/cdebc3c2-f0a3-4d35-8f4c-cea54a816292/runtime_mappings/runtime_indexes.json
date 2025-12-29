@@ -1,0 +1,49 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "tier": "mapped",
+    "source_jobs": [],
+    "notes": "scenario-level runtime summaries"
+  },
+  "op_to_scenarios": {
+    "mach-lookup": [
+      "anchor-filter-map:cfprefsd:S0_allow_any",
+      "anchor-filter-map:cfprefsd:S1_allow_global",
+      "anchor-filter-map:cfprefsd:S2_allow_local",
+      "anchor-filter-map:cfprefsd:S3_allow_both",
+      "anchor-filter-map:cfprefsd:N1_deny_default",
+      "anchor-filter-map:cfprefsd:bogus_baseline",
+      "anchor-filter-map:cfprefsd:C1_deny_global",
+      "anchor-filter-map:cfprefsd:C2_deny_local"
+    ]
+  },
+  "scenario_to_traces": {
+    "anchor-filter-map:cfprefsd:S0_allow_any": [
+      "book/experiments/anchor-filter-map/out/cdebc3c2-f0a3-4d35-8f4c-cea54a816292/runtime_mappings/traces/anchor-filter-map_cfprefsd_S0_allow_any.jsonl"
+    ],
+    "anchor-filter-map:cfprefsd:S1_allow_global": [
+      "book/experiments/anchor-filter-map/out/cdebc3c2-f0a3-4d35-8f4c-cea54a816292/runtime_mappings/traces/anchor-filter-map_cfprefsd_S1_allow_global.jsonl"
+    ],
+    "anchor-filter-map:cfprefsd:S2_allow_local": [
+      "book/experiments/anchor-filter-map/out/cdebc3c2-f0a3-4d35-8f4c-cea54a816292/runtime_mappings/traces/anchor-filter-map_cfprefsd_S2_allow_local.jsonl"
+    ],
+    "anchor-filter-map:cfprefsd:S3_allow_both": [
+      "book/experiments/anchor-filter-map/out/cdebc3c2-f0a3-4d35-8f4c-cea54a816292/runtime_mappings/traces/anchor-filter-map_cfprefsd_S3_allow_both.jsonl"
+    ],
+    "anchor-filter-map:cfprefsd:N1_deny_default": [
+      "book/experiments/anchor-filter-map/out/cdebc3c2-f0a3-4d35-8f4c-cea54a816292/runtime_mappings/traces/anchor-filter-map_cfprefsd_N1_deny_default.jsonl"
+    ],
+    "anchor-filter-map:cfprefsd:bogus_baseline": [
+      "book/experiments/anchor-filter-map/out/cdebc3c2-f0a3-4d35-8f4c-cea54a816292/runtime_mappings/traces/anchor-filter-map_cfprefsd_bogus_baseline.jsonl"
+    ],
+    "anchor-filter-map:cfprefsd:C1_deny_global": [
+      "book/experiments/anchor-filter-map/out/cdebc3c2-f0a3-4d35-8f4c-cea54a816292/runtime_mappings/traces/anchor-filter-map_cfprefsd_C1_deny_global.jsonl"
+    ],
+    "anchor-filter-map:cfprefsd:C2_deny_local": [
+      "book/experiments/anchor-filter-map/out/cdebc3c2-f0a3-4d35-8f4c-cea54a816292/runtime_mappings/traces/anchor-filter-map_cfprefsd_C2_deny_local.jsonl"
+    ]
+  }
+}

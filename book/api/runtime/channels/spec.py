@@ -51,4 +51,4 @@ class ChannelSpec:
     lock: bool = True
     lock_mode: str = LockMode.FAIL
     lock_timeout_seconds: float = 30.0
-    label_prefix: str = "sandbox-lore.runtime-tools"
+    label_prefix: str = "sandbox-lore.runtime"

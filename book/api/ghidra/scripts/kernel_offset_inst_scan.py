@@ -49,6 +49,90 @@ def _block_set(blocks):
     return aset
 
 
+def _bool_str(value):
+    return "true" if value else "false"
+
+
+def _read_world_id(repo_root):
+    if not repo_root:
+        return None
+    world_path = os.path.join(repo_root, "book", "world", "sonoma-14.4.1-23E224-arm64", "world.json")
+    if not os.path.isfile(world_path):
+        return None
+    try:
+        with open(world_path, "r") as f:
+            data = json.load(f)
+        return data.get("world_id")
+    except Exception:
+        return None
+
+
+def _build_provenance(build_id, needle, write_only, scan_all, exact_match, include_canonical, include_access, skip_stack):
+    script_path = os.path.realpath(__file__)
+    repo_root = scan_utils.find_repo_root(script_path)
+    script_rel = scan_utils.to_repo_relative(script_path, repo_root)
+    script_sha = scan_utils.sha256_path(script_path)
+
+    deps = []
+    if repo_root:
+        dep_paths = [
+            os.path.join("book", "api", "ghidra", "scripts", "ghidra_bootstrap.py"),
+            os.path.join("book", "api", "ghidra", "ghidra_lib", "scan_utils.py"),
+        ]
+        for dep_rel in dep_paths:
+            dep_abs = os.path.join(repo_root, dep_rel)
+            if os.path.isfile(dep_abs):
+                deps.append(
+                    {
+                        "path": dep_rel.replace(os.sep, "/"),
+                        "sha256": scan_utils.sha256_path(dep_abs),
+                    }
+                )
+
+    program_path = None
+    program_sha = None
+    try:
+        program_path = currentProgram.getExecutablePath()
+    except Exception:
+        program_path = None
+    if program_path and os.path.isfile(program_path):
+        program_sha = scan_utils.sha256_path(program_path)
+    program_rel = scan_utils.to_repo_relative(program_path, repo_root) if program_path else None
+
+    profile_id = os.environ.get("SANDBOX_LORE_GHIDRA_PROFILE_ID")
+    if not profile_id:
+        profile_id = (
+            "kernel_offset_inst_scan:offset=%s:write=%s:all=%s:exact=%s:"
+            "canonical=%s:classify=%s:skip_stack=%s"
+            % (
+                needle,
+                _bool_str(write_only),
+                _bool_str(scan_all),
+                _bool_str(exact_match),
+                _bool_str(include_canonical),
+                _bool_str(include_access),
+                _bool_str(skip_stack),
+            )
+        )
+
+    return {
+        "world_id": _read_world_id(repo_root),
+        "generator": {
+            "script_path": script_rel,
+            "script_content_sha256": script_sha,
+            "deps": deps,
+        },
+        "input": {
+            "program_path": program_rel,
+            "program_sha256": program_sha,
+        },
+        "analysis": {
+            "profile_id": profile_id,
+        },
+        "build_id": build_id,
+    }
+
+
 def run():
     global _RUN_CALLED
     if _RUN_CALLED:
@@ -138,8 +222,18 @@ def run():
             "skip_stack": skip_stack,
             "block_filter": block_meta,
         }
+        provenance = _build_provenance(
+            build_id,
+            needle,
+            write_only,
+            scan_all,
+            exact_match,
+            include_canonical,
+            include_access,
+            skip_stack,
+        )
         with open(os.path.join(out_dir, "offset_inst_scan.json"), "w") as f:
-            json.dump({"meta": meta, "hits": hits}, f, indent=2, sort_keys=True)
+            json.dump({"meta": meta, "hits": hits, "_provenance": provenance}, f, indent=2, sort_keys=True)
         print("kernel_offset_inst_scan: %d hits for %s" % (len(hits), needle))
     except Exception:
         if out_dir:
