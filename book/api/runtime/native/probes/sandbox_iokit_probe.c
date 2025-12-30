@@ -212,6 +212,78 @@ static void emit_iokit_callout_number(
     );
 }
 
+static void emit_iokit_callout_noarg(
+    const char *stage,
+    const char *operation
+) {
+    const char *enabled = getenv(SANDBOX_LORE_ENV_SEATBELT_CALLOUT);
+    if (!enabled || strcmp(enabled, "1") != 0) {
+        return;
+    }
+    if (!operation) {
+        return;
+    }
+
+    int token_kr = 0;
+    audit_token_t token;
+    if (sbl_get_self_audit_token(&token, &token_kr) != 0) {
+        sbl_emit_seatbelt_callout(
+            stage,
+            operation,
+            SBL_FILTER_NONE,
+            "<none>",
+            -1,
+            0,
+            "TASK_AUDIT_TOKEN unavailable",
+            0,
+            "token_unavailable",
+            token_kr,
+            "task_info_failed",
+            SBL_FILTER_NONE,
+            0
+        );
+        return;
+    }
+    sbl_sandbox_check_by_audit_token_fn fn = sbl_load_sandbox_check_by_audit_token();
+    if (!fn) {
+        sbl_emit_seatbelt_callout(
+            stage,
+            operation,
+            SBL_FILTER_NONE,
+            "<none>",
+            -2,
+            ENOSYS,
+            "sandbox_check_by_audit_token missing",
+            0,
+            "symbol_missing",
+            token_kr,
+            "ok",
+            SBL_FILTER_NONE,
+            0
+        );
+        return;
+    }
+
+    errno = 0;
+    int rc = fn(&token, operation, SBL_FILTER_NONE);
+    int err = errno;
+    sbl_emit_seatbelt_callout(
+        stage,
+        operation,
+        SBL_FILTER_NONE,
+        "<none>",
+        rc,
+        err,
+        NULL,
+        0,
+        "not_applicable",
+        token_kr,
+        "ok",
+        SBL_FILTER_NONE,
+        0
+    );
+}
+
 static bool attempt_surface_create(int *signal_out) {
     int width = 1;
     int height = 1;
@@ -288,10 +360,14 @@ int main(int argc, char *argv[]) {
     emit_iokit_callout_string("pre_syscall", "iokit-open", SBL_FILTER_IOKIT_REGISTRY_ENTRY_CLASS, class_name);
     emit_iokit_callout_string("pre_syscall", "iokit-open-service", SBL_FILTER_IOKIT_REGISTRY_ENTRY_CLASS, class_name);
     if (user_client_name) {
+        emit_iokit_callout_string("pre_syscall", "iokit-open-user-client", SBL_FILTER_IOKIT_REGISTRY_ENTRY_CLASS, user_client_name);
         emit_iokit_callout_string("pre_syscall", "iokit-open-user-client", SBL_FILTER_IOKIT_USER_CLIENT_TYPE, user_client_name);
     }
+    emit_iokit_callout_string("pre_syscall", "iokit-open-user-client", SBL_FILTER_IOKIT_REGISTRY_ENTRY_CLASS, class_name);
+    emit_iokit_callout_string("pre_syscall", "iokit-open-user-client", SBL_FILTER_IOKIT_CONNECTION, "IOAccelerator");
     emit_iokit_callout_number("pre_syscall", "iokit-open-user-client", SBL_FILTER_IOKIT_USER_CLIENT_TYPE, user_client_type);
     emit_iokit_callout_number("pre_syscall", "iokit-open", SBL_FILTER_IOKIT_USER_CLIENT_TYPE, user_client_type);
+    emit_iokit_callout_noarg("pre_syscall", "iokit-open-user-client");
 
     CFMutableDictionaryRef matching = IOServiceMatching(class_name);
     if (!matching) {

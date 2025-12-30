@@ -172,6 +172,7 @@ $EJ xpc run --profile minimal fs_op --op stat --path-class tmp
 $EJ xpc run --profile net_client net_op --op tcp_connect --host 127.0.0.1 --port 9
 $EJ xpc run --profile minimal --variant injectable sandbox_check --operation file-read-data --path /etc/hosts
 $EJ xpc run --profile temporary_exception sandbox_extension --op issue_file --class com.apple.app-sandbox.read --path /etc/hosts --allow-unsafe-path
+$EJ xpc run --profile temporary_exception inherit_child --scenario dynamic_extension --path /private/var/db/launchd.db/com.apple.launchd/overrides.plist --allow-unsafe-path
 ```
 
 Use `probe_catalog` as the source of truth for per-probe usage; the current build also exposes `fs_op_wait`, `bookmark_make`, `bookmark_op`, `bookmark_roundtrip`, `userdefaults_op`, `fs_coordinated_op`, and `network_tcp_connect`.
@@ -209,6 +210,26 @@ Notes:
 - On Sonoma 14.4.1, `release`/`release_file` did not revoke access inside the same process; access cleared after the process exited. Treat release as best-effort cleanup and verify on your target OS.
 - Advanced: `issue_extension`/`issue_fs_extension`/`issue_fs_rw_extension` are wrapper issue calls. `update_file` (path + flags) and `update_file_by_fileid` (token + file id + flags; some hosts expect a fileid pointer, try `--call-variant fileid_ptr_token`, or a selector via `--call-variant payload_ptr_selector --selector <u64>`) are experimental maintenance calls that may not affect access in-process. On Sonoma 14.4.1, kernel disassembly suggests `update_file_by_fileid` expects an internal id (low 32 bits of an 8-byte payload) and requires field2 = 0, so success may require a handle not exposed via the public token string.
 
+### Paired-process harness (`inherit_child`)
+
+`inherit_child` is a cooperative parent/child probe that traces a sandbox-inheriting child via a pre-opened trace bus. The response includes a structured witness under `data.witness` (run_id, parent/child events, child pid).
+
+Example (dynamic extension inheritance demo; requires `temporary_exception`):
+
+```sh
+$EJ xpc run --profile temporary_exception inherit_child \
+  --scenario dynamic_extension \
+  --path /private/var/db/launchd.db/com.apple.launchd/overrides.plist \
+  --allow-unsafe-path
+```
+
+Notes:
+
+- Use `--stop-on-entry` to make the child raise `SIGSTOP` early for deterministic attach.
+- Use `--stop-on-deny` to stop on `EPERM`/`EACCES` right at the failing syscall.
+- The harness only spawns the bundled helper; it never executes arbitrary paths.
+- If you see `child_missing`, rebuild so the helper is embedded inside the probe service bundle.
+
 ### Deterministic debugger attach (`xpc session`)
 
 `xpc session` is a session-based XPC control plane intended for tooling like lldb/dtrace/Frida. It provides explicit lifecycle events and keeps the service alive across multiple probes so you can attach once and then iterate.
@@ -238,6 +259,7 @@ Lifecycle events you’ll commonly see:
 - `session_ready` — session opened; includes `data.pid` and an opaque `data.session_token`
 - `wait_ready` — wait barrier configured; includes `data.wait_path`
 - `trigger_received` — wait barrier satisfied; safe point to start probes
+- `child_spawned` / `child_stopped` / `child_exited` — emitted by `inherit_child` with `data.child_pid` + `data.run_id`
 - `probe_starting` / `probe_done` — per-probe execution bracketing
 - `session_closed` — explicit close
 
@@ -272,7 +294,7 @@ EntitlementJail.app/Contents/MacOS/sandbox-log-observer --pid "$PID" --process-n
 Observer usage (summary):
 
 - Windowed (`log show`, default): `--last 5s` or explicit `--start`/`--end`
-- Live (`log stream`): `--duration <seconds>` or `--follow`
+- Live (`log stream`): `--duration <seconds>` or `--follow` (optionally `--until-pid-exit`)
 - Output: `--format json` (default) or `--format jsonl` (events + final report); optional copy via `--output <path>`
 - Optional override: `--predicate <predicate>` to customize the log filter
 

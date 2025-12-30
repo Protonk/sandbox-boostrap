@@ -1,6 +1,24 @@
 {
   "entries": [
     {
+      "bundle_id": null,
+      "id": "ej-inherit-child",
+      "rel_path": "Contents/MacOS/ej-inherit-child",
+      "symbols": [
+        "ej_inherit_child_stop_entry",
+        "ej_inherit_child_stop_on_deny"
+      ]
+    },
+    {
+      "bundle_id": null,
+      "id": "ej-inherit-child-bad",
+      "rel_path": "Contents/MacOS/ej-inherit-child-bad",
+      "symbols": [
+        "ej_inherit_child_stop_entry",
+        "ej_inherit_child_stop_on_deny"
+      ]
+    },
+    {
       "bundle_id": "com.yourteam.entitlement-jail.ProbeService_bookmarks_app_scope",
       "id": "com.yourteam.entitlement-jail.ProbeService_bookmarks_app_scope",
       "rel_path": "Contents/XPCServices/ProbeService_bookmarks_app_scope.xpc/Contents/MacOS/ProbeService_bookmarks_app_scope",
@@ -14,12 +32,31 @@
         "ej_probe_dlopen_external",
         "ej_probe_fs_op",
         "ej_probe_fs_op_wait",
+        "ej_probe_inherit_child",
         "ej_probe_jit_map_jit",
         "ej_probe_jit_rwx_legacy",
         "ej_probe_net_op",
         "ej_probe_sandbox_check",
         "ej_probe_sandbox_extension",
         "ej_sendto"
+      ]
+    },
+    {
+      "bundle_id": "com.yourteam.entitlement-jail.ProbeService_bookmarks_app_scope",
+      "id": "com.yourteam.entitlement-jail.ProbeService_bookmarks_app_scope.inherit_child",
+      "rel_path": "Contents/XPCServices/ProbeService_bookmarks_app_scope.xpc/Contents/MacOS/ej-inherit-child",
+      "symbols": [
+        "ej_inherit_child_stop_entry",
+        "ej_inherit_child_stop_on_deny"
+      ]
+    },
+    {
+      "bundle_id": "com.yourteam.entitlement-jail.ProbeService_bookmarks_app_scope",
+      "id": "com.yourteam.entitlement-jail.ProbeService_bookmarks_app_scope.inherit_child_bad",
+      "rel_path": "Contents/XPCServices/ProbeService_bookmarks_app_scope.xpc/Contents/MacOS/ej-inherit-child-bad",
+      "symbols": [
+        "ej_inherit_child_stop_entry",
+        "ej_inherit_child_stop_on_deny"
       ]
     },
     {
@@ -36,12 +73,31 @@
         "ej_probe_dlopen_external",
         "ej_probe_fs_op",
         "ej_probe_fs_op_wait",
+        "ej_probe_inherit_child",
         "ej_probe_jit_map_jit",
         "ej_probe_jit_rwx_legacy",
         "ej_probe_net_op",
         "ej_probe_sandbox_check",
         "ej_probe_sandbox_extension",
         "ej_sendto"
+      ]
+    },
+    {
+      "bundle_id": "com.yourteam.entitlement-jail.ProbeService_bookmarks_app_scope.injectable",
+      "id": "com.yourteam.entitlement-jail.ProbeService_bookmarks_app_scope.injectable.inherit_child",
+      "rel_path": "Contents/XPCServices/ProbeService_bookmarks_app_scope__injectable.xpc/Contents/MacOS/ej-inherit-child",
+      "symbols": [
+        "ej_inherit_child_stop_entry",
+        "ej_inherit_child_stop_on_deny"
+      ]
+    },
+    {
+      "bundle_id": "com.yourteam.entitlement-jail.ProbeService_bookmarks_app_scope.injectable",
+      "id": "com.yourteam.entitlement-jail.ProbeService_bookmarks_app_scope.injectable.inherit_child_bad",
+      "rel_path": "Contents/XPCServices/ProbeService_bookmarks_app_scope__injectable.xpc/Contents/MacOS/ej-inherit-child-bad",
+      "symbols": [
+        "ej_inherit_child_stop_entry",
+        "ej_inherit_child_stop_on_deny"
       ]
     },
     {
@@ -58,12 +114,31 @@
         "ej_probe_dlopen_external",
         "ej_probe_fs_op",
         "ej_probe_fs_op_wait",
+        "ej_probe_inherit_child",
         "ej_probe_jit_map_jit",
         "ej_probe_jit_rwx_legacy",
         "ej_probe_net_op",
         "ej_probe_sandbox_check",
         "ej_probe_sandbox_extension",
         "ej_sendto"
+      ]
+    },
+    {
+      "bundle_id": "com.yourteam.entitlement-jail.ProbeService_downloads_rw",
+      "id": "com.yourteam.entitlement-jail.ProbeService_downloads_rw.inherit_child",
+      "rel_path": "Contents/XPCServices/ProbeService_downloads_rw.xpc/Contents/MacOS/ej-inherit-child",
+      "symbols": [
+        "ej_inherit_child_stop_entry",
+        "ej_inherit_child_stop_on_deny"
+      ]
+    },
+    {
+      "bundle_id": "com.yourteam.entitlement-jail.ProbeService_downloads_rw",
+      "id": "com.yourteam.entitlement-jail.ProbeService_downloads_rw.inherit_child_bad",
+      "rel_path": "Contents/XPCServices/ProbeService_downloads_rw.xpc/Contents/MacOS/ej-inherit-child-bad",
+      "symbols": [
+        "ej_inherit_child_stop_entry",
+        "ej_inherit_child_stop_on_deny"
       ]
     },
     {
@@ -80,12 +155,31 @@
         "ej_probe_dlopen_external",
         "ej_probe_fs_op",
         "ej_probe_fs_op_wait",
+        "ej_probe_inherit_child",
         "ej_probe_jit_map_jit",
         "ej_probe_jit_rwx_legacy",
         "ej_probe_net_op",
         "ej_probe_sandbox_check",
         "ej_probe_sandbox_extension",
         "ej_sendto"
+      ]
+    },
+    {
+      "bundle_id": "com.yourteam.entitlement-jail.ProbeService_downloads_rw.injectable",
+      "id": "com.yourteam.entitlement-jail.ProbeService_downloads_rw.injectable.inherit_child",
+      "rel_path": "Contents/XPCServices/ProbeService_downloads_rw__injectable.xpc/Contents/MacOS/ej-inherit-child",
+      "symbols": [
+        "ej_inherit_child_stop_entry",
+        "ej_inherit_child_stop_on_deny"
+      ]
+    },
+    {
+      "bundle_id": "com.yourteam.entitlement-jail.ProbeService_downloads_rw.injectable",
+      "id": "com.yourteam.entitlement-jail.ProbeService_downloads_rw.injectable.inherit_child_bad",
+      "rel_path": "Contents/XPCServices/ProbeService_downloads_rw__injectable.xpc/Contents/MacOS/ej-inherit-child-bad",
+      "symbols": [
+        "ej_inherit_child_stop_entry",
+        "ej_inherit_child_stop_on_deny"
       ]
     },
     {
@@ -102,12 +196,31 @@
         "ej_probe_dlopen_external",
         "ej_probe_fs_op",
         "ej_probe_fs_op_wait",
+        "ej_probe_inherit_child",
         "ej_probe_jit_map_jit",
         "ej_probe_jit_rwx_legacy",
         "ej_probe_net_op",
         "ej_probe_sandbox_check",
         "ej_probe_sandbox_extension",
         "ej_sendto"
+      ]
+    },
+    {
+      "bundle_id": "com.yourteam.entitlement-jail.ProbeService_minimal",
+      "id": "com.yourteam.entitlement-jail.ProbeService_minimal.inherit_child",
+      "rel_path": "Contents/XPCServices/ProbeService_minimal.xpc/Contents/MacOS/ej-inherit-child",
+      "symbols": [
+        "ej_inherit_child_stop_entry",
+        "ej_inherit_child_stop_on_deny"
+      ]
+    },
+    {
+      "bundle_id": "com.yourteam.entitlement-jail.ProbeService_minimal",
+      "id": "com.yourteam.entitlement-jail.ProbeService_minimal.inherit_child_bad",
+      "rel_path": "Contents/XPCServices/ProbeService_minimal.xpc/Contents/MacOS/ej-inherit-child-bad",
+      "symbols": [
+        "ej_inherit_child_stop_entry",
+        "ej_inherit_child_stop_on_deny"
       ]
     },
     {
@@ -124,12 +237,31 @@
         "ej_probe_dlopen_external",
         "ej_probe_fs_op",
         "ej_probe_fs_op_wait",
+        "ej_probe_inherit_child",
         "ej_probe_jit_map_jit",
         "ej_probe_jit_rwx_legacy",
         "ej_probe_net_op",
         "ej_probe_sandbox_check",
         "ej_probe_sandbox_extension",
         "ej_sendto"
+      ]
+    },
+    {
+      "bundle_id": "com.yourteam.entitlement-jail.ProbeService_minimal.injectable",
+      "id": "com.yourteam.entitlement-jail.ProbeService_minimal.injectable.inherit_child",
+      "rel_path": "Contents/XPCServices/ProbeService_minimal__injectable.xpc/Contents/MacOS/ej-inherit-child",
+      "symbols": [
+        "ej_inherit_child_stop_entry",
+        "ej_inherit_child_stop_on_deny"
+      ]
+    },
+    {
+      "bundle_id": "com.yourteam.entitlement-jail.ProbeService_minimal.injectable",
+      "id": "com.yourteam.entitlement-jail.ProbeService_minimal.injectable.inherit_child_bad",
+      "rel_path": "Contents/XPCServices/ProbeService_minimal__injectable.xpc/Contents/MacOS/ej-inherit-child-bad",
+      "symbols": [
+        "ej_inherit_child_stop_entry",
+        "ej_inherit_child_stop_on_deny"
       ]
     },
     {
@@ -146,12 +278,31 @@
         "ej_probe_dlopen_external",
         "ej_probe_fs_op",
         "ej_probe_fs_op_wait",
+        "ej_probe_inherit_child",
         "ej_probe_jit_map_jit",
         "ej_probe_jit_rwx_legacy",
         "ej_probe_net_op",
         "ej_probe_sandbox_check",
         "ej_probe_sandbox_extension",
         "ej_sendto"
+      ]
+    },
+    {
+      "bundle_id": "com.yourteam.entitlement-jail.ProbeService_net_client",
+      "id": "com.yourteam.entitlement-jail.ProbeService_net_client.inherit_child",
+      "rel_path": "Contents/XPCServices/ProbeService_net_client.xpc/Contents/MacOS/ej-inherit-child",
+      "symbols": [
+        "ej_inherit_child_stop_entry",
+        "ej_inherit_child_stop_on_deny"
+      ]
+    },
+    {
+      "bundle_id": "com.yourteam.entitlement-jail.ProbeService_net_client",
+      "id": "com.yourteam.entitlement-jail.ProbeService_net_client.inherit_child_bad",
+      "rel_path": "Contents/XPCServices/ProbeService_net_client.xpc/Contents/MacOS/ej-inherit-child-bad",
+      "symbols": [
+        "ej_inherit_child_stop_entry",
+        "ej_inherit_child_stop_on_deny"
       ]
     },
     {
@@ -168,12 +319,31 @@
         "ej_probe_dlopen_external",
         "ej_probe_fs_op",
         "ej_probe_fs_op_wait",
+        "ej_probe_inherit_child",
         "ej_probe_jit_map_jit",
         "ej_probe_jit_rwx_legacy",
         "ej_probe_net_op",
         "ej_probe_sandbox_check",
         "ej_probe_sandbox_extension",
         "ej_sendto"
+      ]
+    },
+    {
+      "bundle_id": "com.yourteam.entitlement-jail.ProbeService_net_client.injectable",
+      "id": "com.yourteam.entitlement-jail.ProbeService_net_client.injectable.inherit_child",
+      "rel_path": "Contents/XPCServices/ProbeService_net_client__injectable.xpc/Contents/MacOS/ej-inherit-child",
+      "symbols": [
+        "ej_inherit_child_stop_entry",
+        "ej_inherit_child_stop_on_deny"
+      ]
+    },
+    {
+      "bundle_id": "com.yourteam.entitlement-jail.ProbeService_net_client.injectable",
+      "id": "com.yourteam.entitlement-jail.ProbeService_net_client.injectable.inherit_child_bad",
+      "rel_path": "Contents/XPCServices/ProbeService_net_client__injectable.xpc/Contents/MacOS/ej-inherit-child-bad",
+      "symbols": [
+        "ej_inherit_child_stop_entry",
+        "ej_inherit_child_stop_on_deny"
       ]
     },
     {
@@ -190,12 +360,31 @@
         "ej_probe_dlopen_external",
         "ej_probe_fs_op",
         "ej_probe_fs_op_wait",
+        "ej_probe_inherit_child",
         "ej_probe_jit_map_jit",
         "ej_probe_jit_rwx_legacy",
         "ej_probe_net_op",
         "ej_probe_sandbox_check",
         "ej_probe_sandbox_extension",
         "ej_sendto"
+      ]
+    },
+    {
+      "bundle_id": "com.yourteam.entitlement-jail.ProbeService_temporary_exception",
+      "id": "com.yourteam.entitlement-jail.ProbeService_temporary_exception.inherit_child",
+      "rel_path": "Contents/XPCServices/ProbeService_temporary_exception.xpc/Contents/MacOS/ej-inherit-child",
+      "symbols": [
+        "ej_inherit_child_stop_entry",
+        "ej_inherit_child_stop_on_deny"
+      ]
+    },
+    {
+      "bundle_id": "com.yourteam.entitlement-jail.ProbeService_temporary_exception",
+      "id": "com.yourteam.entitlement-jail.ProbeService_temporary_exception.inherit_child_bad",
+      "rel_path": "Contents/XPCServices/ProbeService_temporary_exception.xpc/Contents/MacOS/ej-inherit-child-bad",
+      "symbols": [
+        "ej_inherit_child_stop_entry",
+        "ej_inherit_child_stop_on_deny"
       ]
     },
     {
@@ -212,12 +401,31 @@
         "ej_probe_dlopen_external",
         "ej_probe_fs_op",
         "ej_probe_fs_op_wait",
+        "ej_probe_inherit_child",
         "ej_probe_jit_map_jit",
         "ej_probe_jit_rwx_legacy",
         "ej_probe_net_op",
         "ej_probe_sandbox_check",
         "ej_probe_sandbox_extension",
         "ej_sendto"
+      ]
+    },
+    {
+      "bundle_id": "com.yourteam.entitlement-jail.ProbeService_temporary_exception.injectable",
+      "id": "com.yourteam.entitlement-jail.ProbeService_temporary_exception.injectable.inherit_child",
+      "rel_path": "Contents/XPCServices/ProbeService_temporary_exception__injectable.xpc/Contents/MacOS/ej-inherit-child",
+      "symbols": [
+        "ej_inherit_child_stop_entry",
+        "ej_inherit_child_stop_on_deny"
+      ]
+    },
+    {
+      "bundle_id": "com.yourteam.entitlement-jail.ProbeService_temporary_exception.injectable",
+      "id": "com.yourteam.entitlement-jail.ProbeService_temporary_exception.injectable.inherit_child_bad",
+      "rel_path": "Contents/XPCServices/ProbeService_temporary_exception__injectable.xpc/Contents/MacOS/ej-inherit-child-bad",
+      "symbols": [
+        "ej_inherit_child_stop_entry",
+        "ej_inherit_child_stop_on_deny"
       ]
     },
     {
@@ -234,12 +442,31 @@
         "ej_probe_dlopen_external",
         "ej_probe_fs_op",
         "ej_probe_fs_op_wait",
+        "ej_probe_inherit_child",
         "ej_probe_jit_map_jit",
         "ej_probe_jit_rwx_legacy",
         "ej_probe_net_op",
         "ej_probe_sandbox_check",
         "ej_probe_sandbox_extension",
         "ej_sendto"
+      ]
+    },
+    {
+      "bundle_id": "com.yourteam.entitlement-jail.ProbeService_user_selected_executable",
+      "id": "com.yourteam.entitlement-jail.ProbeService_user_selected_executable.inherit_child",
+      "rel_path": "Contents/XPCServices/ProbeService_user_selected_executable.xpc/Contents/MacOS/ej-inherit-child",
+      "symbols": [
+        "ej_inherit_child_stop_entry",
+        "ej_inherit_child_stop_on_deny"
+      ]
+    },
+    {
+      "bundle_id": "com.yourteam.entitlement-jail.ProbeService_user_selected_executable",
+      "id": "com.yourteam.entitlement-jail.ProbeService_user_selected_executable.inherit_child_bad",
+      "rel_path": "Contents/XPCServices/ProbeService_user_selected_executable.xpc/Contents/MacOS/ej-inherit-child-bad",
+      "symbols": [
+        "ej_inherit_child_stop_entry",
+        "ej_inherit_child_stop_on_deny"
       ]
     },
     {
@@ -256,6 +483,7 @@
         "ej_probe_dlopen_external",
         "ej_probe_fs_op",
         "ej_probe_fs_op_wait",
+        "ej_probe_inherit_child",
         "ej_probe_jit_map_jit",
         "ej_probe_jit_rwx_legacy",
         "ej_probe_net_op",
@@ -263,7 +491,25 @@
         "ej_probe_sandbox_extension",
         "ej_sendto"
       ]
+    },
+    {
+      "bundle_id": "com.yourteam.entitlement-jail.ProbeService_user_selected_executable.injectable",
+      "id": "com.yourteam.entitlement-jail.ProbeService_user_selected_executable.injectable.inherit_child",
+      "rel_path": "Contents/XPCServices/ProbeService_user_selected_executable__injectable.xpc/Contents/MacOS/ej-inherit-child",
+      "symbols": [
+        "ej_inherit_child_stop_entry",
+        "ej_inherit_child_stop_on_deny"
+      ]
+    },
+    {
+      "bundle_id": "com.yourteam.entitlement-jail.ProbeService_user_selected_executable.injectable",
+      "id": "com.yourteam.entitlement-jail.ProbeService_user_selected_executable.injectable.inherit_child_bad",
+      "rel_path": "Contents/XPCServices/ProbeService_user_selected_executable__injectable.xpc/Contents/MacOS/ej-inherit-child-bad",
+      "symbols": [
+        "ej_inherit_child_stop_entry",
+        "ej_inherit_child_stop_on_deny"
+      ]
     }
   ],
-  "generated_at": "2025-12-29T08:09:43Z"
+  "generated_at": "2025-12-30T03:15:48Z"
 }

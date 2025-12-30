@@ -109,6 +109,16 @@ def _run_validate(args: argparse.Namespace) -> int:
     return 0 if report.get("ok") else 1
 
 
+def _run_validate_known_good(args: argparse.Namespace) -> int:
+    from book.api.frida.validate import validate_known_good_inventory
+
+    repo_root = path_utils.find_repo_root()
+    inventory_path = path_utils.ensure_absolute(args.inventory, repo_root)
+    report = validate_known_good_inventory(inventory_path)
+    print(json.dumps(report, indent=2, sort_keys=True))
+    return 0 if report.get("ok") else 1
+
+
 def _run_generate_hook(args: argparse.Namespace) -> int:
     from book.api.frida.generate_hook import HookGeneratorError, generate_hook_files, write_generated_hook
 
@@ -210,6 +220,17 @@ def build_arg_parser() -> argparse.ArgumentParser:
     val_parser = sub.add_parser("validate", help="Validate schema/query/export invariants for run directories")
     val_parser.add_argument("run_dirs", nargs="+", help="Run directories containing meta.json + events.jsonl")
     val_parser.set_defaults(func=_run_validate)
+
+    vg_parser = sub.add_parser(
+        "validate-known-good",
+        help="Validate all known-good fixture runs pinned in trace_inventory.json",
+    )
+    vg_parser.add_argument(
+        "--inventory",
+        default="book/api/frida/trace_inventory.json",
+        help="Path to trace_inventory.json (default: book/api/frida/trace_inventory.json)",
+    )
+    vg_parser.set_defaults(func=_run_validate_known_good)
 
     gen_parser = sub.add_parser("generate-hook", help="Generate a new hook + manifest from a v1 input JSON")
     gen_parser.add_argument("--input", required=True, help="Path to HOOK_GENERATOR_INPUT v1 JSON")

@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import hashlib
 import json
+import shutil
+import tempfile
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
@@ -71,6 +73,89 @@ def _load_events(events_path: Path) -> List[Dict[str, Any]]:
             raise ValueError("event is not an object")
         events.append(ev)
     return events
+
+
+def _validate_run_outcome(meta: Dict[str, Any], events: List[Dict[str, Any]]) -> Dict[str, Any]:
+    """
+    Classify whether a run ended cleanly, aborted due to detach, or aborted due to hook error.
+
+    This is a headless diagnostic surface intended to keep failure modes explicit and machine-checkable.
+    """
+    runner_error_kinds: List[str] = []
+    detach_requested_values: List[Optional[bool]] = []
+    detach_reasons: List[str] = []
+    agent_error_seen = False
+
+    for ev in events:
+        if not isinstance(ev, dict):
+            continue
+        source = ev.get("source")
+        kind = ev.get("kind")
+
+        if source == "agent" and kind == "error":
+            agent_error_seen = True
+
+        if source != "runner":
+            continue
+        if not isinstance(kind, str):
+            continue
+
+        if kind == "agent-error":
+            agent_error_seen = True
+
+        if kind == "session-detached":
+            runner = ev.get("runner")
+            requested = runner.get("requested") if isinstance(runner, dict) else None
+            detach_requested_values.append(requested if isinstance(requested, bool) else None)
+            reason = runner.get("reason") if isinstance(runner, dict) else None
+            if isinstance(reason, str) and reason:
+                detach_reasons.append(reason)
+
+        if kind.endswith("-error") or kind in ("runner-exception", "frida-import-error", "manifest-error", "config-error"):
+            runner_error_kinds.append(kind)
+
+    # Meta-provided outcome is advisory; events are the primary witness.
+    meta_outcome = meta.get("outcome")
+    if isinstance(meta_outcome, dict) and meta_outcome.get("status") == "error":
+        reason = meta_outcome.get("reason")
+        if isinstance(reason, str) and reason:
+            runner_error_kinds.append(f"meta:{reason}")
+
+    if agent_error_seen:
+        return {
+            "ok": False,
+            "classification": "hook-error",
+            "failure_kind": "agent-error",
+            "runner_error_kinds": sorted({k for k in runner_error_kinds}),
+            "detach": {"requested_values": detach_requested_values, "reasons": detach_reasons},
+        }
+
+    if any(v is False for v in detach_requested_values):
+        return {
+            "ok": False,
+            "classification": "detached",
+            "failure_kind": "session-detached",
+            "runner_error_kinds": sorted({k for k in runner_error_kinds}),
+            "detach": {"requested_values": detach_requested_values, "reasons": detach_reasons},
+        }
+
+    if runner_error_kinds:
+        return {
+            "ok": False,
+            "classification": "runner-error",
+            "failure_kind": sorted({k for k in runner_error_kinds})[0],
+            "runner_error_kinds": sorted({k for k in runner_error_kinds}),
+            "detach": {"requested_values": detach_requested_values, "reasons": detach_reasons},
+        }
+
+    # Detach events with requested missing/true are treated as clean termination.
+    return {
+        "ok": True,
+        "classification": "clean",
+        "failure_kind": None,
+        "runner_error_kinds": [],
+        "detach": {"requested_values": detach_requested_values, "reasons": detach_reasons},
+    }
 
 
 def _validate_manifest_snapshot(meta: Dict[str, Any]) -> Dict[str, Any]:
@@ -381,6 +466,56 @@ def validate_run_dir(run_dir: Path) -> Dict[str, Any]:
         and config_snapshot.get("ok")
     )
 
+    outcome_report = _validate_run_outcome(meta, events)
+    if not schema_invariants_ok:
+        return {
+            "ok": False,
+            "run_dir": path_utils.to_repo_relative(run_dir_abs, repo_root),
+            "run_id": meta_run_id,
+            "digests": {
+                "events_jsonl_sha256": _sha256_file(events_path),
+            },
+            "schema": {
+                "ok": schema_invariants_ok,
+                "schema_report": schema_report,
+                "seq_ok": seq_ok,
+                "seq_error": seq_err,
+                "run_id_ok": rid_ok,
+                "run_id_error": rid_err,
+                "t_ns_non_decreasing_ok": ts_ok,
+                "t_ns_error": ts_err,
+            },
+            "manifest_snapshot": manifest_snapshot,
+            "config_snapshot": config_snapshot,
+            "normalize": normalize_report,
+            "outcome": outcome_report,
+        }
+
+    if not outcome_report.get("ok"):
+        # Fail closed before query/export when the run itself did not complete cleanly.
+        return {
+            "ok": False,
+            "run_dir": path_utils.to_repo_relative(run_dir_abs, repo_root),
+            "run_id": meta_run_id,
+            "digests": {
+                "events_jsonl_sha256": _sha256_file(events_path),
+            },
+            "schema": {
+                "ok": schema_invariants_ok,
+                "schema_report": schema_report,
+                "seq_ok": seq_ok,
+                "seq_error": seq_err,
+                "run_id_ok": rid_ok,
+                "run_id_error": rid_err,
+                "t_ns_non_decreasing_ok": ts_ok,
+                "t_ns_error": ts_err,
+            },
+            "manifest_snapshot": manifest_snapshot,
+            "config_snapshot": config_snapshot,
+            "normalize": normalize_report,
+            "outcome": outcome_report,
+        }
+
     # Query invariants: canned queries must match between direct JSONL and cached index.
     queries = _load_queries(repo_root)
     query_results: Dict[str, Dict[str, Any]] = {}
@@ -417,7 +552,7 @@ def validate_run_dir(run_dir: Path) -> Dict[str, Any]:
 
     semantics_report = trace_product_semantics(meta, events)
 
-    ok = bool(schema_invariants_ok and query_invariants_ok and export_invariants_ok)
+    ok = bool(schema_invariants_ok and query_invariants_ok and export_invariants_ok and outcome_report.get("ok"))
     return {
         "ok": ok,
         "run_dir": path_utils.to_repo_relative(run_dir_abs, repo_root),
@@ -438,6 +573,7 @@ def validate_run_dir(run_dir: Path) -> Dict[str, Any]:
         },
         "manifest_snapshot": manifest_snapshot,
         "config_snapshot": config_snapshot,
+        "outcome": outcome_report,
         "query": {
             "ok": query_invariants_ok,
             "index_build": index_build,
@@ -466,4 +602,108 @@ def validate_run_dirs(run_dirs: Iterable[Path]) -> Dict[str, Any]:
         "ok": ok,
         "runs": results,
         "repo_root": path_utils.to_repo_relative(repo_root, repo_root),
+    }
+
+
+def validate_known_good_inventory(inventory_path: Path) -> Dict[str, Any]:
+    """Validate all inventory runs marked known_good.validate_expected_ok (headless, non-mutating)."""
+    repo_root = path_utils.find_repo_root()
+    inventory_path_abs = path_utils.ensure_absolute(inventory_path, repo_root)
+    inventory = json.loads(inventory_path_abs.read_text())
+    runs = inventory.get("runs")
+    if not isinstance(runs, list):
+        raise SystemExit("trace inventory missing runs[]")
+
+    known_good: List[Dict[str, Any]] = []
+    for run in runs:
+        if not isinstance(run, dict):
+            continue
+        kg = run.get("known_good")
+        if not isinstance(kg, dict):
+            continue
+        if kg.get("validate_expected_ok") is True:
+            known_good.append(run)
+
+    results: List[Dict[str, Any]] = []
+    for run in sorted(known_good, key=lambda r: str(r.get("id", ""))):
+        run_id = run.get("id")
+        run_dir_rel = run.get("run_dir")
+        kg = run.get("known_good")
+        digests_expected = kg.get("validate_digests") if isinstance(kg, dict) else None
+
+        if not isinstance(run_id, str) or not run_id:
+            results.append({"ok": False, "id": run_id, "error": "inventory entry missing id"})
+            continue
+        if not isinstance(run_dir_rel, str) or not run_dir_rel:
+            results.append({"ok": False, "id": run_id, "error": "inventory entry missing run_dir"})
+            continue
+        if not isinstance(digests_expected, dict):
+            results.append({"ok": False, "id": run_id, "run_dir": run_dir_rel, "error": "missing known_good.validate_digests"})
+            continue
+
+        src_dir = path_utils.ensure_absolute(run_dir_rel, repo_root)
+        if not src_dir.is_dir():
+            results.append({"ok": False, "id": run_id, "run_dir": run_dir_rel, "error": "run_dir not found"})
+            continue
+
+        tmp_root = Path(tempfile.mkdtemp(prefix="tmp_validate_known_good.", dir=str(repo_root / "book/api/frida")))
+        try:
+            dst_dir = tmp_root / run_id
+            shutil.copytree(src_dir, dst_dir)
+
+            try:
+                report = validate_run_dir(dst_dir)
+            except Exception as exc:
+                results.append(
+                    {
+                        "ok": False,
+                        "id": run_id,
+                        "run_dir": run_dir_rel,
+                        "error": f"{type(exc).__name__}: {exc}",
+                    }
+                )
+                continue
+
+            mismatches: List[str] = []
+            out_digests = report.get("digests")
+            if not isinstance(out_digests, dict):
+                mismatches.append("digests:missing")
+                out_digests = {}
+
+            exp_events = digests_expected.get("events_jsonl_sha256")
+            exp_trace = digests_expected.get("chrometrace_json_sha256")
+            if out_digests.get("events_jsonl_sha256") != exp_events:
+                mismatches.append("events_jsonl_sha256")
+            if out_digests.get("chrometrace_json_sha256") != exp_trace:
+                mismatches.append("chrometrace_json_sha256")
+
+            exp_query = digests_expected.get("query_result_digests")
+            query_section = report.get("query")
+            direct_digests = query_section.get("digests", {}).get("direct") if isinstance(query_section, dict) else None
+            if isinstance(exp_query, dict) and isinstance(direct_digests, dict):
+                for qname, qdigest in sorted(exp_query.items(), key=lambda kv: str(kv[0])):
+                    if direct_digests.get(qname) != qdigest:
+                        mismatches.append(f"query:{qname}")
+            else:
+                mismatches.append("query_result_digests:missing")
+
+            entry_ok = bool(report.get("ok") is True and not mismatches)
+            results.append(
+                {
+                    "ok": entry_ok,
+                    "id": run_id,
+                    "run_dir": run_dir_rel,
+                    "validate_ok": bool(report.get("ok")),
+                    "digest_mismatches": mismatches,
+                }
+            )
+        finally:
+            shutil.rmtree(tmp_root, ignore_errors=True)
+
+    ok = bool(results) and all(r.get("ok") for r in results)
+    return {
+        "ok": ok,
+        "inventory_path": path_utils.to_repo_relative(inventory_path_abs, repo_root),
+        "world_id": inventory.get("world_id"),
+        "runs": results,
     }

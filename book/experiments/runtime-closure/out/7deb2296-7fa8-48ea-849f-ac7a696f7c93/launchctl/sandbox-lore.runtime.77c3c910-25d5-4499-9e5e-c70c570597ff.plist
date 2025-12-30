@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>EnvironmentVariables</key>
+	<dict>
+		<key>PYTHONPATH</key>
+		<string>/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.77c3c910-25d5-4499-9e5e-c70c570597ff</string>
+		<key>SANDBOX_LORE_CHANNEL</key>
+		<string>launchd_clean</string>
+		<key>SANDBOX_LORE_LAUNCHD_CLEAN</key>
+		<string>1</string>
+		<key>SANDBOX_LORE_RUN_ID</key>
+		<string>77c3c910-25d5-4499-9e5e-c70c570597ff</string>
+		<key>SANDBOX_LORE_SEATBELT_CALLOUT</key>
+		<string>1</string>
+		<key>SANDBOX_LORE_STAGE_OUTPUT_ROOT</key>
+		<string>/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.77c3c910-25d5-4499-9e5e-c70c570597ff/book/experiments/runtime-closure/out/7deb2296-7fa8-48ea-849f-ac7a696f7c93</string>
+		<key>SANDBOX_LORE_STAGE_ROOT</key>
+		<string>/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.77c3c910-25d5-4499-9e5e-c70c570597ff</string>
+		<key>SANDBOX_LORE_STAGE_USED</key>
+		<string>1</string>
+	</dict>
+	<key>Label</key>
+	<string>sandbox-lore.runtime.77c3c910-25d5-4499-9e5e-c70c570597ff</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/opt/homebrew/opt/python@3.14/bin/python3.14</string>
+		<string>-m</string>
+		<string>book.api.runtime</string>
+		<string>run</string>
+		<string>--plan</string>
+		<string>/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.77c3c910-25d5-4499-9e5e-c70c570597ff/book/experiments/runtime-closure/plan.json</string>
+		<string>--out</string>
+		<string>/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.77c3c910-25d5-4499-9e5e-c70c570597ff/book/experiments/runtime-closure/out/7deb2296-7fa8-48ea-849f-ac7a696f7c93</string>
+		<string>--channel</string>
+		<string>direct</string>
+		<string>--only-profile</string>
+		<string>runtime-closure:iokit:v13_ioaccelerator_connection</string>
+		<string>--only-profile</string>
+		<string>runtime-closure:iokit:v14_iosurface_send_right</string>
+		<string>--only-profile</string>
+		<string>runtime-closure:iokit:v15_ioacceleration_user_client</string>
+	</array>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>StandardErrorPath</key>
+	<string>/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.77c3c910-25d5-4499-9e5e-c70c570597ff/book/experiments/runtime-closure/out/7deb2296-7fa8-48ea-849f-ac7a696f7c93/launchctl/sandbox-lore.runtime.77c3c910-25d5-4499-9e5e-c70c570597ff.stderr.txt</string>
+	<key>StandardOutPath</key>
+	<string>/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.77c3c910-25d5-4499-9e5e-c70c570597ff/book/experiments/runtime-closure/out/7deb2296-7fa8-48ea-849f-ac7a696f7c93/launchctl/sandbox-lore.runtime.77c3c910-25d5-4499-9e5e-c70c570597ff.stdout.txt</string>
+	<key>WorkingDirectory</key>
+	<string>/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.77c3c910-25d5-4499-9e5e-c70c570597ff</string>
+</dict>
+</plist>

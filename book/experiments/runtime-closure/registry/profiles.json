@@ -132,6 +132,51 @@
       "profile_path": "book/experiments/runtime-closure/sb/v12_iokit_cvmsserv.sb",
       "semantic_group": "iokit:graphics-prereq"
     },
+    "runtime-closure:iokit:v13_ioaccelerator_connection": {
+      "family": "iokit-open-service",
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ],
+      "mode": "sbpl",
+      "notes": "Add iokit-connection IOAccelerator allow to the IOSurfaceRoot open baseline.",
+      "probe_refs": [
+        "runtime-closure:iokit:v13_ioaccelerator_connection:iosurface_root"
+      ],
+      "profile_id": "runtime-closure:iokit:v13_ioaccelerator_connection",
+      "profile_path": "book/experiments/runtime-closure/sb/v13_iokit_ioaccelerator_connection.sb",
+      "semantic_group": "iokit:graphics-prereq"
+    },
+    "runtime-closure:iokit:v14_iosurface_send_right": {
+      "family": "iokit-open-service",
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ],
+      "mode": "sbpl",
+      "notes": "Add IOSurfaceSendRight user-client allow to the IOSurfaceRoot open baseline.",
+      "probe_refs": [
+        "runtime-closure:iokit:v14_iosurface_send_right:iosurface_root"
+      ],
+      "profile_id": "runtime-closure:iokit:v14_iosurface_send_right",
+      "profile_path": "book/experiments/runtime-closure/sb/v14_iokit_iosurface_send_right.sb",
+      "semantic_group": "iokit:graphics-prereq"
+    },
+    "runtime-closure:iokit:v15_ioacceleration_user_client": {
+      "family": "iokit-open-service",
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ],
+      "mode": "sbpl",
+      "notes": "Add IOAccelerationUserClient allow to the IOSurfaceRoot open baseline.",
+      "probe_refs": [
+        "runtime-closure:iokit:v15_ioacceleration_user_client:iosurface_root"
+      ],
+      "profile_id": "runtime-closure:iokit:v15_ioacceleration_user_client",
+      "profile_path": "book/experiments/runtime-closure/sb/v15_iokit_ioacceleration_user_client.sb",
+      "semantic_group": "iokit:graphics-prereq"
+    },
     "runtime-closure:iokit:v1_class_only": {
       "family": "iokit-open-service",
       "key_specific_rules": [

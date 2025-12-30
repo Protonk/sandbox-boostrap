@@ -36,6 +36,11 @@ def _stable_error_string(exc: Exception) -> str:
     return f"{type(exc).__name__}: {msg}"
 
 
+def _sanitize_text(text: str) -> str:
+    msg = " ".join(str(text).split())
+    return re.sub(r"0x[0-9a-fA-F]+", "0x<addr>", msg)
+
+
 def _type_name(value: object) -> str:
     if value is None:
         return "null"
@@ -127,6 +132,7 @@ def run(
     )
 
     configure_record: dict[str, object] = {"status": "skipped", "present": None, "result": None, "error": None}
+    outcome: dict[str, object] = {"status": "running", "reason": None, "error": None, "details": None}
 
     meta = {
         "run_id": run_id,
@@ -146,6 +152,22 @@ def run(
         "frida": {
             "python_pkg_version": None,
         },
+        "tooling": {
+            "python": {
+                "version": platform.python_version(),
+                "implementation": platform.python_implementation(),
+            },
+            "platform": {
+                "system": platform.system(),
+                "release": platform.release(),
+                "version": platform.version(),
+                "machine": platform.machine(),
+                "mac_ver": platform.mac_ver()[0],
+            },
+            "frida": {
+                "python_pkg_version": None,
+            },
+        },
         "script": {
             "path": path_utils.to_repo_relative(js_path_abs, repo_root),
             "resolved_path": path_utils.to_repo_relative(js_path_resolved, repo_root),
@@ -162,6 +184,7 @@ def run(
             "config_validation": cfg_validation,
             "configure": configure_record,
         },
+        "outcome": outcome,
         "mode": "spawn" if spawn else "attach",
         "target": {
             "spawn_argv": (
@@ -178,148 +201,275 @@ def run(
     pid: int | None = attach_pid if attach_pid is not None else None
     session = None
     device = None
-
     writer = TraceWriterV1(jsonl, run_id=run_id, pid=pid)
+
+    abort_reason: dict[str, object] = {"kind": None, "error": None}
+    detach_info: dict[str, object] | None = None
+    requested_detach = False
 
     def emit_runner(kind: str, **fields) -> None:
         writer.emit_runner({"kind": kind, **fields})
 
+    def set_outcome_error(reason: str, *, error: str | None, details: dict[str, object] | None = None) -> None:
+        outcome["status"] = "error"
+        outcome["reason"] = reason
+        outcome["error"] = error
+        outcome["details"] = details
+
+    def set_outcome_ok() -> None:
+        outcome["status"] = "ok"
+        outcome["reason"] = "clean"
+        outcome["error"] = None
+        outcome["details"] = None
+
+    def request_abort(kind: str, *, error: str | None) -> None:
+        abort_reason["kind"] = kind
+        abort_reason["error"] = error
+
     emit_runner("runner-start")
 
-    if not manifest_snapshot.get("ok"):
-        emit_runner(
-            "manifest-error",
-            error=manifest_snapshot.get("manifest_error"),
-            violations=manifest_snapshot.get("violations"),
-            manifest_path=manifest_snapshot.get("manifest_path"),
-        )
-        (out_root / "meta.json").write_text(json.dumps(meta, indent=2, sort_keys=True))
-        jsonl.close()
-        return 1
-
-    emit_runner("config-validation", status=cfg_validation.get("status"), error=cfg_validation.get("error"))
-    if cfg_validation.get("status") != "pass":
-        emit_runner("config-error", error=cfg_validation.get("error"), violations=cfg_validation.get("violations"))
-        meta["script"]["configure"] = {"status": "skipped", "present": None, "result": None, "error": cfg_validation.get("error")}
-        (out_root / "meta.json").write_text(json.dumps(meta, indent=2, sort_keys=True))
-        jsonl.close()
-        return 1
-
+    stage = "init"
     try:
-        import frida  # type: ignore
+        if not manifest_snapshot.get("ok"):
+            emit_runner(
+                "manifest-error",
+                error=manifest_snapshot.get("manifest_error"),
+                violations=manifest_snapshot.get("violations"),
+                manifest_path=manifest_snapshot.get("manifest_path"),
+            )
+            set_outcome_error("manifest-error", error="manifest snapshot not ok")
+            return 1
 
-        meta["frida"]["python_pkg_version"] = getattr(frida, "__version__", None)
-    except Exception as exc:
-        emit_runner("frida-import-error", error=_stable_error_string(exc))
-        meta["script"]["configure"] = {"status": "skipped", "present": None, "result": None, "error": _stable_error_string(exc)}
-        (out_root / "meta.json").write_text(json.dumps(meta, indent=2, sort_keys=True))
-        jsonl.close()
-        return 1
+        emit_runner("config-validation", status=cfg_validation.get("status"), error=cfg_validation.get("error"))
+        if cfg_validation.get("status") != "pass":
+            emit_runner("config-error", error=cfg_validation.get("error"), violations=cfg_validation.get("violations"))
+            meta["script"]["configure"] = {
+                "status": "skipped",
+                "present": None,
+                "result": None,
+                "error": cfg_validation.get("error"),
+            }
+            set_outcome_error("config-error", error=str(cfg_validation.get("error")))
+            return 1
 
-    stage = "device"
-    try:
+        try:
+            import frida  # type: ignore
+
+            meta["frida"]["python_pkg_version"] = getattr(frida, "__version__", None)
+            meta["tooling"]["frida"]["python_pkg_version"] = getattr(frida, "__version__", None)
+        except Exception as exc:
+            err = _stable_error_string(exc)
+            emit_runner("frida-import-error", error=err)
+            meta["script"]["configure"] = {"status": "skipped", "present": None, "result": None, "error": err}
+            set_outcome_error("frida-import-error", error=err)
+            return 1
+
+        stage = "device"
         emit_runner("stage", stage=stage)
-        device = frida.get_local_device()
+        try:
+            device = frida.get_local_device()
+        except Exception as exc:
+            err = _stable_error_string(exc)
+            emit_runner("device-error", stage=stage, error=err)
+            set_outcome_error("device-error", error=err, details={"stage": stage})
+            return 1
 
         stage = "attach"
         emit_runner("stage", stage=stage)
-        if spawn_argv:
-            pid = device.spawn(spawn_argv)
-            writer.set_pid(pid)
-            session = device.attach(pid)
-        else:
-            pid = attach_pid
-            writer.set_pid(pid)
-            session = device.attach(pid)
+        try:
+            if spawn_argv:
+                pid = device.spawn(spawn_argv)
+                writer.set_pid(pid)
+                session = device.attach(pid)
+            else:
+                pid = attach_pid
+                writer.set_pid(pid)
+                session = device.attach(pid)
+        except Exception as exc:
+            err = _stable_error_string(exc)
+            emit_runner("attach-error", stage=stage, error=err)
+            set_outcome_error("attach-error", error=err, details={"stage": stage})
+            return 1
 
         def on_detached(reason, crash=None):
-            payload = {"reason": str(reason)}
+            nonlocal detach_info
+            payload: dict[str, object] = {"reason": str(reason), "requested": bool(requested_detach)}
             if crash:
                 payload["crash"] = crash
+            detach_info = dict(payload)
             emit_runner("session-detached", **payload)
+            if not requested_detach:
+                request_abort("session-detached", error=str(reason))
 
         session.on("detached", on_detached)
 
         def on_message(msg, data):
+            if not isinstance(msg, dict):
+                emit_runner("agent-message-nonobject", msg_type=str(type(msg)))
+                return
+
             writer.emit_agent_message(msg)
+            if msg.get("type") == "error":
+                desc = msg.get("description")
+                stack = msg.get("stack")
+                stable = _stable_error_string(Exception(str(desc) if desc is not None else "script error"))
+                emit_runner(
+                    "agent-error",
+                    error=stable,
+                    description=_sanitize_text(desc) if isinstance(desc, str) else None,
+                    stack=_sanitize_text(stack) if isinstance(stack, str) else None,
+                )
+                request_abort("agent-error", error=stable)
+
+        stage = "script-create"
+        emit_runner("stage", stage=stage)
+        try:
+            script_obj = session.create_script(assembled_src.decode("utf-8"))
+        except Exception as exc:
+            err = _stable_error_string(exc)
+            emit_runner("script-create-error", stage=stage, error=err)
+            set_outcome_error("script-create-error", error=err, details={"stage": stage})
+            return 1
 
         stage = "script-load"
         emit_runner("stage", stage=stage)
-        script_obj = session.create_script(assembled_src.decode("utf-8"))
         script_obj.on("message", on_message)
-        script_obj.load()
+        try:
+            script_obj.load()
+        except Exception as exc:
+            err = _stable_error_string(exc)
+            emit_runner("script-load-error", stage=stage, error=err)
+            set_outcome_error("script-load-error", error=err, details={"stage": stage})
+            return 1
 
         # Configure contract v1: call configure() once, immediately after script.load().
+        stage = "configure"
         expected = expected_configure_present
-        actual_present = False
         try:
             result = script_obj.exports_sync.configure(cfg_obj)
         except Exception as exc:
             if _looks_like_missing_export(exc, export_name="configure"):
-                actual_present = False
                 if expected is True:
                     err = "ConfigureMissingError: configure export absent"
                     meta["script"]["configure"] = {"status": "fail", "present": False, "result": None, "error": err}
                     emit_runner("configure", status="fail", present=False)
                     emit_runner("configure-error", error=err)
+                    set_outcome_error("configure-error", error=err, details={"stage": stage})
                     return 1
                 meta["script"]["configure"] = {"status": "absent", "present": False, "result": None, "error": None}
                 emit_runner("configure", status="absent", present=False)
             else:
-                actual_present = True
                 err = _stable_error_string(exc)
                 meta["script"]["configure"] = {"status": "fail", "present": True, "result": None, "error": err}
                 emit_runner("configure", status="fail", present=True)
                 emit_runner("configure-error", error=err)
+                set_outcome_error("configure-error", error=err, details={"stage": stage})
                 return 1
         else:
-            actual_present = True
             if expected is False:
                 err = "ConfigureMismatchError: manifest rpc.configure.present=false but configure export exists"
                 meta["script"]["configure"] = {"status": "fail", "present": True, "result": None, "error": err}
                 emit_runner("configure", status="fail", present=True)
                 emit_runner("configure-error", error=err)
+                set_outcome_error("configure-error", error=err, details={"stage": stage})
                 return 1
             if not isinstance(result, dict):
                 err = f"ConfigureTypeError: expected object return, got {_type_name(result)}"
                 meta["script"]["configure"] = {"status": "fail", "present": True, "result": None, "error": err}
                 emit_runner("configure", status="fail", present=True)
                 emit_runner("configure-error", error=err)
+                set_outcome_error("configure-error", error=err, details={"stage": stage})
                 return 1
             meta["script"]["configure"] = {"status": "pass", "present": True, "result": result, "error": None}
             emit_runner("configure", status="pass", present=True)
 
+        # Run loop: abort early on agent errors or unexpected detach.
         if spawn_argv:
             stage = "resume"
             emit_runner("stage", stage=stage)
-            device.resume(pid)
+            try:
+                device.resume(pid)
+            except Exception as exc:
+                err = _stable_error_string(exc)
+                emit_runner("resume-error", stage=stage, error=err)
+                set_outcome_error("resume-error", error=err, details={"stage": stage})
+                return 1
             run_duration = duration_s if duration_s is not None else 5.0
-            time.sleep(run_duration)
-            session.detach()
+            deadline = time.monotonic() + max(run_duration, 0.0)
+            while time.monotonic() < deadline:
+                if abort_reason.get("kind") is not None:
+                    break
+                time.sleep(0.05)
+            requested_detach = True
+            try:
+                session.detach()
+            except Exception as exc:
+                emit_runner("detach-error", stage=stage, error=_stable_error_string(exc))
         else:
             if duration_s is not None:
                 stage = "attach-sleep"
                 emit_runner("stage", stage=stage)
-                time.sleep(duration_s)
-                session.detach()
+                deadline = time.monotonic() + max(duration_s, 0.0)
+                while time.monotonic() < deadline:
+                    if abort_reason.get("kind") is not None:
+                        break
+                    time.sleep(0.05)
+                requested_detach = True
+                try:
+                    session.detach()
+                except Exception as exc:
+                    emit_runner("detach-error", stage=stage, error=_stable_error_string(exc))
             else:
                 stage = "attach-loop"
                 emit_runner("stage", stage=stage)
                 try:
                     while True:
+                        if abort_reason.get("kind") is not None:
+                            break
                         time.sleep(0.25)
                 except KeyboardInterrupt:
+                    pass
+                requested_detach = True
+                try:
                     session.detach()
+                except Exception as exc:
+                    emit_runner("detach-error", stage=stage, error=_stable_error_string(exc))
+
+        if abort_reason.get("kind") == "agent-error":
+            set_outcome_error(
+                "agent-error",
+                error=str(abort_reason.get("error")),
+                details={"stage": stage},
+            )
+            return 1
+        if abort_reason.get("kind") == "session-detached":
+            set_outcome_error(
+                "session-detached",
+                error=str(abort_reason.get("error")),
+                details={"stage": stage, "detach": detach_info},
+            )
+            return 1
+
+        set_outcome_ok()
+        return 0
     except Exception as exc:
-        emit_runner("runner-exception", stage=stage, error=str(exc))
-        raise
+        err = _stable_error_string(exc)
+        emit_runner("runner-exception", stage=stage, error=err)
+        set_outcome_error("runner-exception", error=err, details={"stage": stage})
+        return 1
     finally:
+        emit_runner(
+            "runner-end",
+            status=outcome.get("status"),
+            reason=outcome.get("reason"),
+            error=outcome.get("error"),
+            detach=detach_info,
+        )
         try:
-            if session is not None:
+            if session is not None and not requested_detach:
+                requested_detach = True
                 session.detach()
         except Exception:
             pass
         (out_root / "meta.json").write_text(json.dumps(meta, indent=2, sort_keys=True))
         jsonl.close()
-
-    return 0

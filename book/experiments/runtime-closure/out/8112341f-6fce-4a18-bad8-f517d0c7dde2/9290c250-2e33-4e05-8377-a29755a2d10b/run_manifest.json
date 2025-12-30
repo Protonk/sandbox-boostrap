@@ -1,0 +1,49 @@
+{
+  "schema_version": "runtime-tools.run_manifest.v0.1",
+  "run_id": "9290c250-2e33-4e05-8377-a29755a2d10b",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "channel": "launchd_clean",
+  "plan_id": "runtime-closure.v6",
+  "plan_digest": "ecc7313e68914e9b337c8b484d05c3548e3f26be3cf770ad28cc02a6bbc55b51",
+  "dry_run": false,
+  "stage_used": true,
+  "stage_root": "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.9290c250-2e33-4e05-8377-a29755a2d10b",
+  "repo_root_context": "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.9290c250-2e33-4e05-8377-a29755a2d10b",
+  "staged_output_root": "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.9290c250-2e33-4e05-8377-a29755a2d10b/book/experiments/runtime-closure/out/8112341f-6fce-4a18-bad8-f517d0c7dde2",
+  "output_root": "book/experiments/runtime-closure/out/8112341f-6fce-4a18-bad8-f517d0c7dde2/9290c250-2e33-4e05-8377-a29755a2d10b",
+  "apply_preflight": {
+    "path": "apply_preflight.json",
+    "record": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "run_id": "9290c250-2e33-4e05-8377-a29755a2d10b",
+      "profile": "book/experiments/hardened-runtime/sb/apply_preflight_allow.sb",
+      "runner": "book/api/runtime/native/sandbox_runner/sandbox_runner",
+      "sandbox_check_self": {
+        "source": "sandbox_check",
+        "error": "libsystem_sandbox not found"
+      },
+      "status": "ok",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_runner",
+        "book/experiments/hardened-runtime/sb/apply_preflight_allow.sb",
+        "--",
+        "/usr/bin/true"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "apply_report": {
+        "api": "sandbox_init",
+        "rc": 0,
+        "errno": 0,
+        "errbuf": null,
+        "err_class": "ok",
+        "err_class_source": "none"
+      },
+      "apply_marker_pid": 37968,
+      "apply_ok": true,
+      "failure_stage": null,
+      "schema_version": "runtime-tools.apply_preflight.v0.1"
+    }
+  }
+}

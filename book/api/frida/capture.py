@@ -29,6 +29,11 @@ def _stable_error_string(exc: Exception) -> str:
     return f"{type(exc).__name__}: {msg}"
 
 
+def _sanitize_text(text: str) -> str:
+    msg = " ".join(str(text).split())
+    return re.sub(r"0x[0-9a-fA-F]+", "0x<addr>", msg)
+
+
 def _looks_like_missing_export(exc: Exception, *, export_name: str) -> bool:
     msg = str(exc).lower()
     name = export_name.lower()
@@ -72,10 +77,12 @@ class FridaCapture:
         self.writer = TraceWriterV1(self.events_fp, run_id=self.run_id, pid=self.pid)
         self.session = None
         self.script = None
+        self.requested_detach = False
         self.config_obj: Dict[str, object] = {}
         self.config_snapshot: Dict[str, object] = {"source": {"kind": "none"}, "value": {}}
         self.config_validation: Dict[str, object] = {"status": "pass", "error": None, "violations": []}
         self.configure_record: Dict[str, object] = {"status": "skipped", "present": None, "result": None, "error": None}
+        self.outcome: Dict[str, object] = {"status": "running", "reason": None, "error": None, "details": None}
         self.js_src = self.script_path.read_bytes()
         try:
             self.script_path_resolved = self.script_path.resolve()
@@ -93,6 +100,7 @@ class FridaCapture:
 
     def attach(self) -> Optional[str]:
         self._emit_runner("runner-start")
+        stage = "init"
         if not self.manifest_snapshot.get("ok"):
             self._emit_runner(
                 "manifest-error",
@@ -107,6 +115,7 @@ class FridaCapture:
             else:
                 code = "unknown"
                 msg = "manifest snapshot not ok"
+            self.outcome.update({"status": "error", "reason": "manifest-error", "error": msg, "details": None})
             return f"ManifestError:{code}:{msg}"
 
         manifest = self.manifest_snapshot.get("manifest")
@@ -181,46 +190,114 @@ class FridaCapture:
                 "error": cfg_validation.get("error"),
             }
             self._emit_runner("config-error", error=cfg_validation.get("error"), violations=cfg_validation.get("violations"))
+            self.outcome.update(
+                {
+                    "status": "error",
+                    "reason": "config-error",
+                    "error": cfg_validation.get("error"),
+                    "details": {"stage": stage},
+                }
+            )
             return f"ConfigError:{cfg_validation.get('error')}"
 
         try:
             try:
                 import frida  # type: ignore
             except Exception as exc:
-                self._emit_runner("frida-import-error", error=_stable_error_string(exc))
+                err = _stable_error_string(exc)
+                self._emit_runner("frida-import-error", error=err)
                 self.configure_record = {
                     "status": "skipped",
                     "present": None,
                     "result": None,
-                    "error": _stable_error_string(exc),
+                    "error": err,
                 }
-                return f"FridaImportError:{_stable_error_string(exc)}"
+                self.outcome.update({"status": "error", "reason": "frida-import-error", "error": err, "details": None})
+                return f"FridaImportError:{err}"
 
-            self._emit_runner("stage", stage="device")
-            device = frida.get_local_device()
-            self._emit_runner("stage", stage="attach")
-            self.session = device.attach(self.pid)
+            stage = "device"
+            self._emit_runner("stage", stage=stage)
+            try:
+                device = frida.get_local_device()
+            except Exception as exc:
+                err = _stable_error_string(exc)
+                self._emit_runner("device-error", stage=stage, error=err)
+                self.outcome.update({"status": "error", "reason": "device-error", "error": err, "details": {"stage": stage}})
+                return f"DeviceError:{err}"
+
+            stage = "attach"
+            self._emit_runner("stage", stage=stage)
+            try:
+                self.session = device.attach(self.pid)
+            except Exception as exc:
+                err = _stable_error_string(exc)
+                self._emit_runner("attach-error", stage=stage, error=err)
+                self.outcome.update({"status": "error", "reason": "attach-error", "error": err, "details": {"stage": stage}})
+                return f"AttachError:{err}"
 
             def on_detached(reason, crash=None):
-                payload = {"reason": str(reason)}
+                payload = {"reason": str(reason), "requested": bool(self.requested_detach)}
                 if crash:
                     payload["crash"] = crash
                 self._emit_runner("session-detached", **payload)
+                self.outcome.update(
+                    {
+                        "status": "error",
+                        "reason": "session-detached",
+                        "error": str(reason),
+                        "details": {"crash": crash} if crash else None,
+                    }
+                )
 
             self.session.on("detached", on_detached)
 
             def on_message(msg, data):
-                if isinstance(msg, dict):
-                    self.writer.emit_agent_message(msg)
-                else:
+                if not isinstance(msg, dict):
                     self._emit_runner("agent-message-nonobject", msg_type=str(type(msg)))
+                    return
 
-            self._emit_runner("stage", stage="script-load")
-            self.script = self.session.create_script(self.assembled_src.decode("utf-8"))
+                self.writer.emit_agent_message(msg)
+                if msg.get("type") == "error":
+                    desc = msg.get("description")
+                    stack = msg.get("stack")
+                    stable = _stable_error_string(Exception(str(desc) if desc is not None else "script error"))
+                    self._emit_runner(
+                        "agent-error",
+                        error=stable,
+                        description=_sanitize_text(desc) if isinstance(desc, str) else None,
+                        stack=_sanitize_text(stack) if isinstance(stack, str) else None,
+                    )
+                    self.outcome.update(
+                        {"status": "error", "reason": "agent-error", "error": stable, "details": {"stage": stage}}
+                    )
+
+            stage = "script-create"
+            self._emit_runner("stage", stage=stage)
+            try:
+                self.script = self.session.create_script(self.assembled_src.decode("utf-8"))
+            except Exception as exc:
+                err = _stable_error_string(exc)
+                self._emit_runner("script-create-error", stage=stage, error=err)
+                self.outcome.update(
+                    {"status": "error", "reason": "script-create-error", "error": err, "details": {"stage": stage}}
+                )
+                return f"ScriptCreateError:{err}"
+
+            stage = "script-load"
+            self._emit_runner("stage", stage=stage)
             self.script.on("message", on_message)
-            self.script.load()
+            try:
+                self.script.load()
+            except Exception as exc:
+                err = _stable_error_string(exc)
+                self._emit_runner("script-load-error", stage=stage, error=err)
+                self.outcome.update(
+                    {"status": "error", "reason": "script-load-error", "error": err, "details": {"stage": stage}}
+                )
+                return f"ScriptLoadError:{err}"
 
             # Configure contract v1: call configure() once, immediately after script.load().
+            stage = "configure"
             try:
                 result = self.script.exports_sync.configure(self.config_obj)
             except Exception as exc:
@@ -230,6 +307,9 @@ class FridaCapture:
                         self.configure_record = {"status": "fail", "present": False, "result": None, "error": err}
                         self._emit_runner("configure", status="fail", present=False)
                         self._emit_runner("configure-error", error=err)
+                        self.outcome.update(
+                            {"status": "error", "reason": "configure-error", "error": err, "details": {"stage": stage}}
+                        )
                         return f"ConfigureError:{err}"
                     self.configure_record = {"status": "absent", "present": False, "result": None, "error": None}
                     self._emit_runner("configure", status="absent", present=False)
@@ -238,6 +318,9 @@ class FridaCapture:
                     self.configure_record = {"status": "fail", "present": True, "result": None, "error": err}
                     self._emit_runner("configure", status="fail", present=True)
                     self._emit_runner("configure-error", error=err)
+                    self.outcome.update(
+                        {"status": "error", "reason": "configure-error", "error": err, "details": {"stage": stage}}
+                    )
                     return f"ConfigureError:{err}"
             else:
                 if expected_configure_present is False:
@@ -245,18 +328,28 @@ class FridaCapture:
                     self.configure_record = {"status": "fail", "present": True, "result": None, "error": err}
                     self._emit_runner("configure", status="fail", present=True)
                     self._emit_runner("configure-error", error=err)
+                    self.outcome.update(
+                        {"status": "error", "reason": "configure-error", "error": err, "details": {"stage": stage}}
+                    )
                     return f"ConfigureError:{err}"
                 if not isinstance(result, dict):
                     err = f"ConfigureTypeError: expected object return, got {type(result).__name__}"
                     self.configure_record = {"status": "fail", "present": True, "result": None, "error": err}
                     self._emit_runner("configure", status="fail", present=True)
                     self._emit_runner("configure-error", error=err)
+                    self.outcome.update(
+                        {"status": "error", "reason": "configure-error", "error": err, "details": {"stage": stage}}
+                    )
                     return f"ConfigureError:{err}"
                 self.configure_record = {"status": "pass", "present": True, "result": result, "error": None}
                 self._emit_runner("configure", status="pass", present=True)
         except Exception as exc:
-            self._emit_runner("runner-exception", error=str(exc))
-            return f"{type(exc).__name__}: {exc}"
+            err = _stable_error_string(exc)
+            self._emit_runner("runner-exception", stage=stage, error=err)
+            self.outcome.update({"status": "error", "reason": "runner-exception", "error": err, "details": {"stage": stage}})
+            return f"RunnerError:{err}"
+
+        self.outcome.update({"status": "ok", "reason": "attached", "error": None, "details": {"stage": stage}})
         return None
 
     def finalize_meta(self, *, world_id: str, attach_meta: Dict[str, object]) -> None:
@@ -280,6 +373,22 @@ class FridaCapture:
             "frida": {
                 "python_pkg_version": frida_version,
             },
+            "tooling": {
+                "python": {
+                    "version": platform.python_version(),
+                    "implementation": platform.python_implementation(),
+                },
+                "platform": {
+                    "system": platform.system(),
+                    "release": platform.release(),
+                    "version": platform.version(),
+                    "machine": platform.machine(),
+                    "mac_ver": platform.mac_ver()[0],
+                },
+                "frida": {
+                    "python_pkg_version": frida_version,
+                },
+            },
             "script": {
                 "path": path_utils.to_repo_relative(self.script_path, self.repo_root),
                 "resolved_path": path_utils.to_repo_relative(self.script_path_resolved, self.repo_root),
@@ -296,6 +405,7 @@ class FridaCapture:
                 "config_validation": self.config_validation,
                 "configure": self.configure_record,
             },
+            "outcome": self.outcome,
             "attach": attach_meta,
         }
         self.meta_path.parent.mkdir(parents=True, exist_ok=True)
@@ -303,7 +413,17 @@ class FridaCapture:
 
     def close(self) -> None:
         try:
+            self._emit_runner(
+                "runner-end",
+                status=self.outcome.get("status"),
+                reason=self.outcome.get("reason"),
+                error=self.outcome.get("error"),
+            )
             if self.session is not None:
-                self.session.detach()
+                try:
+                    self.requested_detach = True
+                    self.session.detach()
+                except Exception as exc:
+                    self._emit_runner("detach-error", error=_stable_error_string(exc))
         finally:
             self.events_fp.close()

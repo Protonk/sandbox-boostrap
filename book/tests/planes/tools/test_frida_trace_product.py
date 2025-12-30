@@ -237,6 +237,28 @@ def test_frida_configure_fixture_run_is_headless_and_gated(tmp_path: Path) -> No
     assert any(e.get("source") == "runner" and e.get("kind") == "configure" for e in events)
 
 
+def test_frida_failure_fixtures_are_classified_headlessly(tmp_path: Path) -> None:
+    repo_root = path_utils.find_repo_root()
+    cases = [
+        ("00000000-0000-4000-8000-000000000007", "hook-error", "agent-error"),
+        ("00000000-0000-4000-8000-000000000008", "detached", "session-detached"),
+        ("00000000-0000-4000-8000-000000000009", "runner-error", "script-load-error"),
+    ]
+
+    for run_id, classification, failure_kind in cases:
+        src_dir = repo_root / f"book/api/frida/fixtures/runs/{run_id}"
+        assert src_dir.is_dir()
+        dst_dir = tmp_path / run_id
+        shutil.copytree(src_dir, dst_dir)
+
+        report = validate_run_dir(dst_dir)
+        assert report.get("ok") is False
+        outcome = report.get("outcome")
+        assert isinstance(outcome, dict)
+        assert outcome.get("classification") == classification
+        assert outcome.get("failure_kind") == failure_kind
+
+
 def test_frida_hook_generator_golden_outputs_are_stable(tmp_path: Path) -> None:
     repo_root = path_utils.find_repo_root()
 

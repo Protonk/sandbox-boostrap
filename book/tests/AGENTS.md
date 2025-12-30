@@ -6,7 +6,7 @@ turning tests into a second copy of the book.
 
 ## Run
 
-- Only supported runner: `make -C book test` (pytest + Swift graph build via `book/ci.py`).
+- Only supported runner: `make -C book test` (pytest + Swift graph build via `book/tests/ci.py`).
 
 ## Router (where things live)
 

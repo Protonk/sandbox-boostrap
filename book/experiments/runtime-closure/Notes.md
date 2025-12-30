@@ -66,3 +66,9 @@ Use this file for short, factual run notes and failures. Avoid timestamps.
 - IOKit cvmsServ run: `out/760494b1-5088-4271-ba05-50c3888c8690/` (launchd_clean, v12 with callouts).
   - `open_kr=0`, `call_kr=-536870206`, `surface_create_ok=false` (no improvement from `v7_service_user_client_both`).
   - Oracle callouts: `iokit-open` + `iokit-registry-entry-class` denies (`rc=1`), `iokit-open-service` + `iokit-registry-entry-class` allows (`rc=0`), `iokit-open-user-client` + `iokit-user-client-type` still returns `EINVAL` for both string (`IOSurfaceRootUserClient`) and numeric (`0`) arguments.
+- Oracle ABI tightening (registry-entry-class): `out/7edc2b2f-7edf-4a50-ba0c-bd9bb2a549d3/` (launchd_clean, v7 with callouts).
+  - `iokit-open-user-client` with filter `iokit-registry-entry-class` now yields a real deny (`rc=1`, `errno=0`) for both `IOSurfaceRootUserClient` and `IOSurfaceRoot`, removing the EINVAL-only failure mode for this op.
+  - `iokit-open-user-client` with `iokit-connection` (`IOAccelerator`) returns `rc=-1`, `errno=3`; `iokit-open-user-client` with `iokit-user-client-type` remains `EINVAL` for string and numeric arguments.
+  - Filterless callout (`filter_type=none`) returns `EINVAL`, so that path remains blocked.
+- Graphics dependency micro-matrix (single deltas): `out/7deb2296-7fa8-48ea-849f-ac7a696f7c93/` (launchd_clean, v13/v14/v15 with callouts).
+  - `v13_ioaccelerator_connection`, `v14_iosurface_send_right`, `v15_ioacceleration_user_client`: all return `open_kr=0`, `call_kr=-536870206`, `surface_create_ok=false` (no change vs baseline).
