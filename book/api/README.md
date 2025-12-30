@@ -48,9 +48,16 @@ See `book/api/ghidra/README.md` for setup and workflow.
 
 ### carton
 
-Definition: **Deprecated API location.** CARTON moved to `book/integration/carton/` as an integration contract bundle (manifest + contracts + check/diff).
+Definition: Integration fixer bundle that freezes host-bound mappings into canonical relationships, views, and contracts.
 
-Role: Use the integration CARTON tooling to freeze and verify host-bound mappings; no public query API remains here.
+Role: Use the CARTON tools under `book/integration/carton/tools` to run fixers, rebuild the bundle manifest, and verify drift. The bundle outputs under `book/integration/carton/bundle/` are the authoritative relationships/views/contracts (manifest-pinned) surfaces; there is no CARTON query API in `book/api/`.
+
+Example:
+```sh
+python -m book.integration.carton.tools.update
+python -m book.integration.carton.tools.diff
+python -m book.integration.carton.tools.check
+```
 
 ### runtime
 
@@ -122,8 +129,8 @@ Example:
 python -m book.api.frida.cli run --attach-pid 12345 --script book/api/frida/hooks/smoke.js
 ```
 
-## CARTON conversion assessment
+## CARTON scope notes
 
-- **op_table**: could gain a CARTON-backed contract snapshot if op-table fingerprints/alignments become part of the integration bundle; today it is generator/inspection tooling (see `book.api.profile.op_table`), not CARTON IR.
-- **runtime**: harness + mapping outputs could be promoted into CARTON contracts if a stable concept emerges; currently generation-only.
-- **Others (regex_tools, runtime/native/file_probe, ghidra)**: generation/inspection/harness tools, not CARTON contracts in their current form.
+- **op_table**: generator/inspection tooling today (see `book.api.profile.op_table`); add to `book/integration/carton/spec/carton_spec.json` only when the mapping shape is stable enough to freeze.
+- **runtime**: harness outputs and runtime mappings can be promoted into CARTON by adding stable artifacts to the spec; keep generation-only until the relationship surface is stable.
+- **Others (regex_tools, runtime/native/file_probe, ghidra)**: generation/inspection/harness tools; keep outside CARTON unless a frozen contract surface is needed.

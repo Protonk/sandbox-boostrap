@@ -1,6 +1,6 @@
 # Agents in `book/graph/`
 
-These instructions apply to the entire `book/graph/` tree. Treat this directory as the shared “graph IR + concept inventory” layer that sits between experiments and the textbook: it defines concepts, ingests compiled profiles, and publishes stable mappings for this Sonoma host. Those mappings are then normalized into CARTON, the frozen IR/mapping set that the textbook and API layer read from.
+These instructions apply to the entire `book/graph/` tree. Treat this directory as the shared “graph IR + concept inventory” layer that sits between experiments and the textbook: it defines concepts, ingests compiled profiles, and publishes stable mappings for this Sonoma host. Those mappings are then fed into CARTON fixers, which produce the frozen CARTON bundle (relationships/views/contracts + manifest) under `book/integration/carton/bundle/` for the textbook and tooling to read.
 
 ## Scope and router
 
@@ -19,7 +19,7 @@ High-level layout:
     - This is the only place new ingestion/decoder logic should live.
 
 - `mappings/`
-  - Stable host-specific mapping artifacts used across the repo (see `book/graph/mappings/README.md`); mapping generators read validation IR and write these before they are folded into CARTON:
+  - Stable host-specific mapping artifacts used across the repo (see `book/graph/mappings/README.md`); mapping generators read validation IR and write these before CARTON fixers normalize them into the CARTON bundle (relationships/views/contracts + manifest):
     - `vocab/` – Operation/Filter Vocabulary Maps.
     - `op_table/` – op-table buckets, signatures, and vocab alignment.
     - `anchors/` – anchor ↔ filter/field2 mappings.
@@ -36,7 +36,7 @@ When in doubt:
 - New *code* that ingests or validates compiled profiles → `concepts/validation/`.
 - New *stable mappings* or “IR” that other code depends on → `mappings/` (with metadata and schema).
 - Experiment-specific scratch outputs stay under `book/experiments/*/out`, not here.
-- CARTON is the frozen, host-specific IR/mapping contract bundle; see `book/integration/carton/README.md` and use `python -m book.integration.carton.tools.check` / `python -m book.integration.carton.tools.diff` rather than ad-hoc JSON spelunking.
+- CARTON is the frozen, host-specific bundle (relationships/views/contracts + manifest); see `book/integration/carton/README.md` and use `python -m book.integration.carton.tools.check` / `python -m book.integration.carton.tools.diff` rather than ad-hoc JSON spelunking.
 
 For **anchor/field2 structure** on this Sonoma world, use this stack as your entrypoint:
 - Structural source (anchors + tags + `field2` per profile): `book/experiments/probe-op-structure/Report.md` (tier: mapped, structural only).

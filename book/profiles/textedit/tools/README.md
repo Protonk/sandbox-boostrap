@@ -7,4 +7,4 @@ Lightweight helpers used in the TextEdit chapter to turn entitlements, SBPL, and
 - `02.3_*` tracing helpers annotate filesystem/mach traces; they read from `traces/` and emit under `output/`.
 - `02.4_pattern_extraction.py` distills patterns for broader lessons; uses the same `output/` staging area.
 
-Scripts assume the Sonoma 14.4.1 artifacts already in this directory; they are not wired into the main test runner. Use them to regenerate chapter-local JSON/markdown outputs without touching graph mappings or CARTON.***
+Scripts assume the Sonoma 14.4.1 artifacts already in this directory; they are not wired into the main test runner. Use them to regenerate chapter-local JSON/markdown outputs without touching graph mappings or the CARTON bundle.

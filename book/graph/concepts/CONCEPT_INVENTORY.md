@@ -28,7 +28,7 @@ Concretely, “success” means that each concept has:
 3. **Stable and tractable mappings**  
   We can fix in a machine-readable form:
   - How concepts map to example code.
-  - How concepts map to shared abstractions and mapping JSONs, and (when frozen) how they surface in CARTON as part of the host’s canonical IR web.
+  - How concepts map to shared abstractions and mapping JSONs, and (when frozen) how they surface in the CARTON bundle (relationships/views/contracts under `book/integration/carton/bundle/`) as part of the host’s canonical IR web.
 
 ### Current bedrock surfaces (navigation)
 This list mirrors the registry in `book/graph/concepts/BEDROCK_SURFACES.json`; that file is the source of truth for bedrock in this world. For navigation, the current set is:

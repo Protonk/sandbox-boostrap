@@ -6,7 +6,7 @@ What it does (current):
 - Parses `book/substrate/Concepts.md` + `book/graph/concepts/CONCEPT_INVENTORY.md` + `book/graph/concepts/validation/Concept_map.md`.
 - Emits JSON: `book/graph/concepts/{concepts.json,concept_map.json,concept_text_map.json}`, `book/graph/concepts/validation/{strategies.json,validation_report.json}`, `book/examples/examples.json`.
 - Runs light validation (concept IDs referenced by strategies and runtime expectations exist) and writes `book/graph/concepts/validation/validation_report.json`.
-- Feeds stable mappings into CARTON (see `book/integration/carton/bundle/CARTON.json`), the frozen IR/mapping contract bundle used by the textbook and CI guardrails.
+- Feeds stable mappings into CARTON fixers (see `book/integration/carton/bundle/CARTON.json`), the frozen CARTON bundle (relationships/views/contracts + manifest) used by the textbook and CI guardrails.
 - Encodes “always enforced” mapping invariants as Swift data structures; the Swift build fails if the host mappings drift (see `swift/`).
 
 How to run:
@@ -25,6 +25,6 @@ Extending it:
 Directory map (agent quick reference):
 - `swift/` – Swift generator/validator, split by concern (types/utils, concept parsing, strategies, examples, bindings, entrypoint).
 - `concepts/` – Concept inventory source (markdown), generated JSON, validation metadata, and Swift validation reports.
-- `mappings/` – Stable host-specific IR (vocab, op_table, anchors, tag_layouts, system_profiles, runtime) that mapping generators normalize into CARTON-facing artifacts.
-- `carton/` – CARTON manifest and helpers that declare which mappings/IR files are treated as the frozen set for this host.
+- `mappings/` – Stable host-specific IR (vocab, op_table, anchors, tag_layouts, system_profiles, runtime) that mapping generators feed into CARTON fixers.
+- CARTON bundle lives under `book/integration/carton/` (relationships, views, contracts, manifest, and tools).
 - `regions/` – Generated chapter/section map for the textbook.

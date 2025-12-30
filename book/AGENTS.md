@@ -30,7 +30,8 @@ Paths and generated artifacts:
 - Checked-in JSON/IR must not embed absolute paths; emit repo-relative paths using `book.api.path_utils` (`to_repo_relative`, `relativize_command`).
 - Do not hand-edit shared/generated artifacts. Regenerate via the appropriate generator:
   - Concepts JSON: `cd book/graph && swift run`
-  - Mappings/CARTON overlays: `python book/graph/mappings/run_promotion.py`
+  - Mappings promotion: `python book/graph/mappings/run_promotion.py`
+  - CARTON fixers + manifest: `python -m book.integration.carton.tools.update`
 - CARTON refresh: `python -m book.integration.carton.tools.update` or `make -C book carton-refresh`
 
 ## Commands (supported entrypoints)
@@ -51,14 +52,14 @@ Host-neutral (still host-scoped artifacts; no live sandbox):
 ## Cold-start routing (where to look)
 
 Pick the smallest surface that answers your question:
-- “What operations/filters exist on this host?” → `book/graph/mappings/vocab/` (bedrock) and `book/integration/carton/` for the frozen contract bundle.
+- “What operations/filters exist on this host?” → `book/graph/mappings/vocab/` (bedrock) and the CARTON bundle at `book/integration/carton/bundle/` (relationships/views/contracts + manifest).
 - “What bytes did this SBPL compile into?” → `book/api/profile/` (structural tooling).
 - “Why did a runtime probe fail/deny?” → `book/api/runtime/` bundles and promotion packets (stage + lane + promotability).
 - “Am I about to hit apply-gating?” → `book/tools/preflight/` (scan + minimize-gate) and `book/tools/sbpl/wrapper/`.
 - “Is my baseline/world consistent?” → `book/tools/doctor/` (hypothesis-tier checkup).
 
 Then read the nearest `AGENTS.md` in the subtree you touch:
-- API/tooling: `book/api/AGENTS.md`; CARTON contract bundle: `book/integration/carton/README.md`.
+- API/tooling: `book/api/AGENTS.md`; CARTON fixer bundle: `book/integration/carton/README.md`.
 - Graph/concepts/mappings: `book/graph/AGENTS.md`; deeper routing in `book/graph/concepts/AGENTS.md`, `book/graph/mappings/AGENTS.md`, `book/graph/swift/AGENTS.md`.
 - Experiments: `book/experiments/AGENTS.md`; archived work in `book/experiments/archive/AGENTS.md`.
 - Dumps/artifacts: `book/dumps/AGENTS.md`.

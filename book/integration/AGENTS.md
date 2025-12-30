@@ -15,7 +15,7 @@ Pick the smallest plane that “owns” the invariant:
 - `book/integration/tests/smoke` — import/wiring sanity (fast failures).
 - `book/integration/tests/contracts` — decoder/profile/SBPL API & CLI contracts.
 - `book/integration/tests/graph` — concepts, vocab, mappings, anchors, validation IR alignment.
-- `book/integration/tests/carton` — CARTON manifest/contracts/check invariants.
+- `book/integration/tests/carton` — CARTON relationships/views/contracts/manifest invariants.
 - `book/integration/tests/runtime` — normalized runtime artifacts, promotion packet shapes, lifecycle cross-checks.
 - `book/integration/tests/ghidra` — Ghidra scan outputs and fixture guardrails.
 - `book/integration/tests/tools` — preflight/gate minimizer/trace shrink/frida/entitlement tooling.
@@ -42,7 +42,7 @@ Fixtures and fixture policy:
   `book.api.path_utils` helpers instead of embedding `/Users/...`.
 - Use the `run_cmd` fixture for subprocesses so stdout/stderr and the command
   line are captured under `book/integration/out/` for debugging.
-- Don’t hand-edit generated/shared artifacts (mappings, CARTON-listed files,
+- Don’t hand-edit generated/shared artifacts (mappings, CARTON bundle files listed in `book/integration/carton/bundle/CARTON.json`,
   generated concept JSON). Update sources and rerun the generator.
 
 ## Fixtures (how changes should land)
