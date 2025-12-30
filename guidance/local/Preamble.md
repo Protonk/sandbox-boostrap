@@ -57,7 +57,7 @@ claim:
 - **Substrate + concepts**: `book/substrate/` defines the vocabulary; the concept inventory is in `book/graph/concepts/CONCEPT_INVENTORY.md` and generated JSON in `book/graph/concepts/` comes from `swift run` in `book/graph`.
 - **Experiments -> validation IR**: experiments write to `book/experiments/*/out`; the validation driver (`python -m book.graph.concepts.validation`) normalizes into `book/graph/concepts/validation/out/` and records status.
 - **Validation IR -> mappings**: generators under `book/graph/mappings/*/generate_*.py` read validation outputs and emit host mappings; the supported entrypoint is `book/graph/mappings/run_promotion.py`.
-- **Mappings -> CARTON**: CARTON overlays live in `book/graph/mappings/carton/`; refresh contracts + manifest with `python -m book.integration.carton.build_manifest`. Use `carton check`/`carton diff` for verification and drift review.
+- **Mappings -> CARTON**: CARTON overlays live in `book/graph/mappings/carton/`; refresh via `python -m book.integration.carton.update` (or `make -C book carton-refresh`). Use `carton check`/`carton diff` for verification and drift review.
 
 # Evidence sources
 

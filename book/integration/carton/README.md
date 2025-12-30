@@ -6,7 +6,8 @@ CARTON is the integration-time contract for SANDBOX_LORE: a small, reviewable bu
 
 - `carton_spec.json` — declarative list of frozen artifacts and their hash policies.
 - `CARTON.json` — generated manifest (schema v2) with digest, role, size, and world binding.
-- `build_manifest.py` — spec-driven manifest builder (optionally regenerates contracts).
+- `update.py` — front door: promotion → contracts → manifest → check.
+- `build_manifest.py` — spec-driven manifest builder (used by `update.py`).
 - `check.py` — CI entrypoint: verify hashes, world binding, schemas, and invariants.
 - `diff.py` — human-focused drift report (manifest vs live artifacts).
 - `contracts/` — derived claim snapshots (review surface; not a query API).
@@ -14,26 +15,27 @@ CARTON is the integration-time contract for SANDBOX_LORE: a small, reviewable bu
 
 ## Workflow (update CARTON deliberately)
 
-1. Refresh upstream mappings/IR:
+1. Refresh the bundle (front door):
    ```sh
-   python -m book.graph.mappings.run_promotion --generators runtime,system-profiles,carton-coverage,carton-indices
+   python -m book.integration.carton.update
    ```
-2. Regenerate contract snapshots:
+   or:
    ```sh
-   python -m book.integration.carton.build_manifest --refresh-contracts --skip-manifest
+   make -C book carton-refresh
    ```
-3. Refresh the manifest:
-   ```sh
-   python -m book.integration.carton.build_manifest
-   ```
-4. Review drift:
+2. Review drift:
    ```sh
    python -m book.integration.carton.diff
    ```
-5. Verify invariants:
+3. Optional: verify invariants explicitly:
    ```sh
    python -m book.integration.carton.check
    ```
+
+Manual (advanced) steps:
+- `python -m book.graph.mappings.run_promotion --generators runtime,system-profiles,carton-coverage,carton-indices`
+- `python -m book.integration.carton.build_manifest --refresh-contracts --skip-manifest`
+- `python -m book.integration.carton.build_manifest`
 
 ## Notes
 
