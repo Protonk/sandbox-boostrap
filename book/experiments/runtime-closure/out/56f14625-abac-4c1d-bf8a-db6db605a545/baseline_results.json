@@ -1,0 +1,63 @@
+{
+  "schema_version": "runtime-tools.baseline_results.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "run_id": "56f14625-abac-4c1d-bf8a-db6db605a545",
+  "results": [
+    {
+      "name": "baseline:runtime-closure:iokit:v7_service_user_client_both:iosurface_root",
+      "profile_id": "runtime-closure:iokit:v7_service_user_client_both",
+      "probe_name": "iosurface_root",
+      "operation": "iokit-open-service",
+      "target": "IOSurfaceRoot",
+      "primary_intent": {
+        "operation": "iokit-open-service",
+        "target": "IOSurfaceRoot",
+        "profile_id": "runtime-closure:iokit:v7_service_user_client_both",
+        "probe_name": "iosurface_root"
+      },
+      "command": [
+        "book/api/runtime/native/probes/iokit_probe",
+        "IOSurfaceRoot"
+      ],
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "{\"found\":true,\"open_kr\":0,\"call_kr\":null,\"call_kr_string\":null,\"call_selector\":null,\"call_input_scalar_count\":null,\"call_input_struct_bytes\":null,\"call_output_scalar_count\":null,\"call_output_struct_by",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline",
+      "probe_details": {
+        "found": true,
+        "open_kr": 0,
+        "call_kr": null,
+        "call_kr_string": null,
+        "call_selector": null,
+        "call_kind": "IOConnectCallMethod",
+        "call_input_scalar_count": null,
+        "call_input_struct_bytes": null,
+        "call_output_scalar_count": null,
+        "call_output_struct_bytes": null,
+        "surface_create_ok": true,
+        "surface_create_signal": null,
+        "capture_enabled": true,
+        "capture_seen": false,
+        "capture_kind": null,
+        "capture_selector": null,
+        "capture_input_scalar_count": null,
+        "capture_input_struct_bytes": null,
+        "capture_output_scalar_count": null,
+        "capture_output_struct_bytes": null,
+        "capture_kr": null,
+        "capture_kr_string": null,
+        "capture_non_invalid_seen": false,
+        "capture_non_invalid_kind": null,
+        "capture_non_invalid_selector": null,
+        "capture_non_invalid_input_scalar_count": null,
+        "capture_non_invalid_input_struct_bytes": null,
+        "capture_non_invalid_output_scalar_count": null,
+        "capture_non_invalid_output_struct_bytes": null,
+        "capture_non_invalid_kr": null,
+        "capture_non_invalid_kr_string": null
+      }
+    }
+  ]
+}

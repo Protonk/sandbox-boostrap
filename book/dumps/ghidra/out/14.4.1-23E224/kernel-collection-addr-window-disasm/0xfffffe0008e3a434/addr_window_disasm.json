@@ -1,0 +1,975 @@
+{
+  "address": "0xfffffe0008e3a434", 
+  "after": 96, 
+  "before": 96, 
+  "build_id": "14.4.1-23E224", 
+  "instructions": [
+    {
+      "addr": "0x-1fff71c5d4c", 
+      "inst": "bl 0xfffffe000858f180", 
+      "mnemonic": "bl"
+    }, 
+    {
+      "addr": "0x-1fff71c5d48", 
+      "inst": "ldr x21,[x23, #0x240]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5d44", 
+      "inst": "mov w8,#0x3ae4", 
+      "mnemonic": "mov"
+    }, 
+    {
+      "addr": "0x-1fff71c5d40", 
+      "inst": "add x20,x21,x8", 
+      "mnemonic": "add"
+    }, 
+    {
+      "addr": "0x-1fff71c5d3c", 
+      "inst": "mov w8,#0x3aa0", 
+      "mnemonic": "mov"
+    }, 
+    {
+      "addr": "0x-1fff71c5d38", 
+      "inst": "add x1,x21,x8", 
+      "mnemonic": "add"
+    }, 
+    {
+      "addr": "0x-1fff71c5d34", 
+      "inst": "ldr x0,[x23, #0x200]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5d30", 
+      "inst": "ldr x16,[x0]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5d2c", 
+      "inst": "mov x17,x0", 
+      "mnemonic": "mov"
+    }, 
+    {
+      "addr": "0x-1fff71c5d28", 
+      "inst": "movk x17,#0xcda1, LSL #48", 
+      "mnemonic": "movk"
+    }, 
+    {
+      "addr": "0x-1fff71c5d24", 
+      "inst": "autda x16,x17", 
+      "mnemonic": "autda"
+    }, 
+    {
+      "addr": "0x-1fff71c5d20", 
+      "inst": "mov x17,x16", 
+      "mnemonic": "mov"
+    }, 
+    {
+      "addr": "0x-1fff71c5d1c", 
+      "inst": "xpacd x17", 
+      "mnemonic": "xpacd"
+    }, 
+    {
+      "addr": "0x-1fff71c5d18", 
+      "inst": "cmp x16,x17", 
+      "mnemonic": "cmp"
+    }, 
+    {
+      "addr": "0x-1fff71c5d14", 
+      "inst": "b.eq 0xfffffe0008e3a2f4", 
+      "mnemonic": "b.eq"
+    }, 
+    {
+      "addr": "0x-1fff71c5d10", 
+      "inst": "brk #0xc472", 
+      "mnemonic": "brk"
+    }, 
+    {
+      "addr": "0x-1fff71c5d0c", 
+      "inst": "add x8,x16,#0xcd8", 
+      "mnemonic": "add"
+    }, 
+    {
+      "addr": "0x-1fff71c5d08", 
+      "inst": "ldr x9,[x16, #0xcd8]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5d04", 
+      "inst": "mov x17,x8", 
+      "mnemonic": "mov"
+    }, 
+    {
+      "addr": "0x-1fff71c5d00", 
+      "inst": "movk x17,#0x1c44, LSL #48", 
+      "mnemonic": "movk"
+    }, 
+    {
+      "addr": "0x-1fff71c5cfc", 
+      "inst": "blraa x9,x17", 
+      "mnemonic": "blraa"
+    }, 
+    {
+      "addr": "0x-1fff71c5cf8", 
+      "inst": "ldr x8,[x23, #0x2c0]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5cf4", 
+      "inst": "add x9,x8,#0x10c", 
+      "mnemonic": "add"
+    }, 
+    {
+      "addr": "0x-1fff71c5cf0", 
+      "inst": "ldr w10,[x21, #0x3aa4]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5cec", 
+      "inst": "str w10,[x8, #0xcc]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5ce8", 
+      "inst": "ldr w10,[x21, #0x3aa8]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5ce4", 
+      "inst": "str w10,[x8, #0xd0]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5ce0", 
+      "inst": "ldr w10,[x21, #0x3aac]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5cdc", 
+      "inst": "str w10,[x8, #0xd4]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5cd8", 
+      "inst": "ldr w10,[x21, #0x3ab0]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5cd4", 
+      "inst": "str w10,[x8, #0xd8]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5cd0", 
+      "inst": "ldr w10,[x21, #0x3ab4]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5ccc", 
+      "inst": "str w10,[x8, #0xdc]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5cc8", 
+      "inst": "ldr w10,[x21, #0x3ab8]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5cc4", 
+      "inst": "str w10,[x8, #0xe0]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5cc0", 
+      "inst": "ldr w10,[x21, #0x3abc]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5cbc", 
+      "inst": "str w10,[x8, #0xe4]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5cb8", 
+      "inst": "ldr w10,[x21, #0x3ac0]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5cb4", 
+      "inst": "str w10,[x8, #0xe8]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5cb0", 
+      "inst": "ldr w10,[x21, #0x3ac4]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5cac", 
+      "inst": "str w10,[x8, #0xec]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5ca8", 
+      "inst": "ldr w10,[x21, #0x3ac8]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5ca4", 
+      "inst": "str w10,[x8, #0xf0]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5ca0", 
+      "inst": "ldr w10,[x21, #0x3acc]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5c9c", 
+      "inst": "str w10,[x8, #0xf4]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5c98", 
+      "inst": "ldr w10,[x21, #0x3ad0]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5c94", 
+      "inst": "str w10,[x8, #0xf8]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5c90", 
+      "inst": "ldr w10,[x21, #0x3ad4]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5c8c", 
+      "inst": "str w10,[x8, #0xfc]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5c88", 
+      "inst": "ldr w10,[x21, #0x3ad8]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5c84", 
+      "inst": "str w10,[x8, #0x100]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5c80", 
+      "inst": "ldr w10,[x21, #0x3adc]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5c7c", 
+      "inst": "str w10,[x8, #0x104]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5c78", 
+      "inst": "ldr w10,[x21, #0x3ae0]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5c74", 
+      "inst": "str w10,[x8, #0x108]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5c70", 
+      "inst": "ldr x10,[x20]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5c6c", 
+      "inst": "str x10,[x9]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5c68", 
+      "inst": "ldr x10,[x20, #0x20]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5c64", 
+      "inst": "str x10,[x9, #0x20]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5c60", 
+      "inst": "ldr x10,[x20, #0x8]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5c5c", 
+      "inst": "str x10,[x9, #0x8]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5c58", 
+      "inst": "ldr x10,[x20, #0x28]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5c54", 
+      "inst": "str x10,[x9, #0x28]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5c50", 
+      "inst": "ldr x10,[x20, #0x10]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5c4c", 
+      "inst": "str x10,[x9, #0x10]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5c48", 
+      "inst": "ldr x10,[x20, #0x30]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5c44", 
+      "inst": "str x10,[x9, #0x30]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5c40", 
+      "inst": "ldr x10,[x20, #0x18]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5c3c", 
+      "inst": "str x10,[x9, #0x18]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5c38", 
+      "inst": "ldr x10,[x20, #0x38]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5c34", 
+      "inst": "str x10,[x9, #0x38]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5c30", 
+      "inst": "ldr x10,[x20, #0x40]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5c2c", 
+      "inst": "str x10,[x9, #0x40]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5c28", 
+      "inst": "ldr x10,[x20, #0x48]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5c24", 
+      "inst": "str x10,[x9, #0x48]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5c20", 
+      "inst": "ldr x10,[x20, #0x50]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5c1c", 
+      "inst": "str x10,[x9, #0x50]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5c18", 
+      "inst": "ldr x10,[x20, #0x58]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5c14", 
+      "inst": "str x10,[x9, #0x58]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5c10", 
+      "inst": "ldr x10,[x20, #0x60]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5c0c", 
+      "inst": "str x10,[x9, #0x60]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5c08", 
+      "inst": "ldr x10,[x20, #0x88]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5c04", 
+      "inst": "str x10,[x9, #0x88]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5c00", 
+      "inst": "ldr x10,[x20, #0x90]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5bfc", 
+      "inst": "str x10,[x9, #0x90]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5bf8", 
+      "inst": "ldr x10,[x20, #0x98]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5bf4", 
+      "inst": "str x10,[x9, #0x98]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5bf0", 
+      "inst": "ldr x10,[x20, #0xa0]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5bec", 
+      "inst": "str x10,[x9, #0xa0]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5be8", 
+      "inst": "ldr x10,[x20, #0xa8]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5be4", 
+      "inst": "str x10,[x9, #0xa8]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5be0", 
+      "inst": "ldr x10,[x20, #0xb0]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5bdc", 
+      "inst": "str x10,[x9, #0xb0]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5bd8", 
+      "inst": "ldr x10,[x20, #0xb8]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5bd4", 
+      "inst": "str x10,[x9, #0xb8]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5bd0", 
+      "inst": "ldr x10,[x20, #0xc0]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5bcc", 
+      "inst": "str x10,[x9, #0xc0]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5bc8", 
+      "inst": "ldr x10,[x20, #0xc8]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5bc4", 
+      "inst": "str x10,[x9, #0xc8]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5bc0", 
+      "inst": "ldr x10,[x20, #0xd0]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5bbc", 
+      "inst": "str x10,[x9, #0xd0]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5bb8", 
+      "inst": "ldr x10,[x20, #0xd8]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5bb4", 
+      "inst": "str x10,[x9, #0xd8]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5bb0", 
+      "inst": "ldr x10,[x20, #0xe0]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5bac", 
+      "inst": "str x10,[x9, #0xe0]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5ba8", 
+      "inst": "ldr x10,[x20, #0xe8]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5ba4", 
+      "inst": "str x10,[x9, #0xe8]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5ba0", 
+      "inst": "ldr x10,[x20, #0xf0]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5b9c", 
+      "inst": "str x10,[x9, #0xf0]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5b98", 
+      "inst": "ldr x10,[x20, #0xf8]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5b94", 
+      "inst": "str x10,[x9, #0xf8]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5b90", 
+      "inst": "ldr x10,[x20, #0x340]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5b8c", 
+      "inst": "str x10,[x9, #0x340]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5b88", 
+      "inst": "ldr x10,[x20, #0x100]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5b84", 
+      "inst": "str x10,[x9, #0x100]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5b80", 
+      "inst": "ldr x10,[x20, #0x120]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5b7c", 
+      "inst": "str x10,[x9, #0x120]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5b78", 
+      "inst": "ldr x10,[x20, #0x348]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5b74", 
+      "inst": "str x10,[x9, #0x348]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5b70", 
+      "inst": "ldr x10,[x20, #0x368]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5b6c", 
+      "inst": "str x10,[x9, #0x368]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5b68", 
+      "inst": "ldr x10,[x20, #0x108]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5b64", 
+      "inst": "str x10,[x9, #0x108]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5b60", 
+      "inst": "ldr x10,[x20, #0x128]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5b5c", 
+      "inst": "str x10,[x9, #0x128]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5b58", 
+      "inst": "ldr x10,[x20, #0x350]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5b54", 
+      "inst": "str x10,[x9, #0x350]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5b50", 
+      "inst": "ldr x10,[x20, #0x370]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5b4c", 
+      "inst": "str x10,[x9, #0x370]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5b48", 
+      "inst": "ldr x10,[x20, #0x110]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5b44", 
+      "inst": "str x10,[x9, #0x110]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5b40", 
+      "inst": "ldr x10,[x20, #0x130]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5b3c", 
+      "inst": "str x10,[x9, #0x130]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5b38", 
+      "inst": "ldr x10,[x20, #0x358]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5b34", 
+      "inst": "str x10,[x9, #0x358]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5b30", 
+      "inst": "ldr x10,[x20, #0x378]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5b2c", 
+      "inst": "str x10,[x9, #0x378]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5b28", 
+      "inst": "ldr x10,[x20, #0x118]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5b24", 
+      "inst": "str x10,[x9, #0x118]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5b20", 
+      "inst": "ldr x10,[x20, #0x138]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5b1c", 
+      "inst": "str x10,[x9, #0x138]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5b18", 
+      "inst": "ldr x10,[x20, #0x360]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5b14", 
+      "inst": "str x10,[x9, #0x360]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5b10", 
+      "inst": "ldr x10,[x20, #0x380]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5b0c", 
+      "inst": "str x10,[x9, #0x380]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5b08", 
+      "inst": "add x10,x8,#0x24c", 
+      "mnemonic": "add"
+    }, 
+    {
+      "addr": "0x-1fff71c5b04", 
+      "inst": "mov w11,#0x3c24", 
+      "mnemonic": "mov"
+    }, 
+    {
+      "addr": "0x-1fff71c5b00", 
+      "inst": "add x11,x21,x11", 
+      "mnemonic": "add"
+    }, 
+    {
+      "addr": "0x-1fff71c5afc", 
+      "inst": "mov w12,#0x40", 
+      "mnemonic": "mov"
+    }, 
+    {
+      "addr": "0x-1fff71c5af8", 
+      "inst": "ldr x13,[x11]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5af4", 
+      "inst": "str x13,[x10]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5af0", 
+      "inst": "ldr x13,[x11, #0x248]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5aec", 
+      "inst": "str x13,[x10, #0x248]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5ae8", 
+      "inst": "add x10,x10,#0x8", 
+      "mnemonic": "add"
+    }, 
+    {
+      "addr": "0x-1fff71c5ae4", 
+      "inst": "add x11,x11,#0x8", 
+      "mnemonic": "add"
+    }, 
+    {
+      "addr": "0x-1fff71c5ae0", 
+      "inst": "subs x12,x12,#0x1", 
+      "mnemonic": "subs"
+    }, 
+    {
+      "addr": "0x-1fff71c5adc", 
+      "inst": "b.ne 0xfffffe0008e3a508", 
+      "mnemonic": "b.ne"
+    }, 
+    {
+      "addr": "0x-1fff71c5ad8", 
+      "inst": "ldr x10,[x20, #0x588]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5ad4", 
+      "inst": "str x10,[x9, #0x588]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5ad0", 
+      "inst": "ldr x10,[x20, #0x590]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5acc", 
+      "inst": "str x10,[x9, #0x590]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5ac8", 
+      "inst": "ldr x10,[x20, #0x598]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5ac4", 
+      "inst": "str x10,[x9, #0x598]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5ac0", 
+      "inst": "ldr x10,[x20, #0x5a0]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5abc", 
+      "inst": "str x10,[x9, #0x5a0]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5ab8", 
+      "inst": "ldr x10,[x20, #0x5a8]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5ab4", 
+      "inst": "str x10,[x9, #0x5a8]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5ab0", 
+      "inst": "ldr x10,[x20, #0x5b0]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5aac", 
+      "inst": "str x10,[x9, #0x5b0]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5aa8", 
+      "inst": "ldr x10,[x20, #0x5b8]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5aa4", 
+      "inst": "str x10,[x9, #0x5b8]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5aa0", 
+      "inst": "ldr x10,[x20, #0x5c0]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5a9c", 
+      "inst": "str x10,[x9, #0x5c0]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5a98", 
+      "inst": "ldr x10,[x20, #0x5c8]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5a94", 
+      "inst": "str x10,[x9, #0x5c8]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5a90", 
+      "inst": "ldr x10,[x20, #0x5d0]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5a8c", 
+      "inst": "str x10,[x9, #0x5d0]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5a88", 
+      "inst": "ldr x10,[x20, #0x5d8]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5a84", 
+      "inst": "str x10,[x9, #0x5d8]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5a80", 
+      "inst": "ldr x10,[x20, #0x5e0]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5a7c", 
+      "inst": "str x10,[x9, #0x5e0]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5a78", 
+      "inst": "ldr x10,[x20, #0x5e8]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5a74", 
+      "inst": "str x10,[x9, #0x5e8]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5a70", 
+      "inst": "ldr x10,[x20, #0x5f0]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5a6c", 
+      "inst": "str x10,[x9, #0x5f0]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5a68", 
+      "inst": "ldr x10,[x20, #0x5f8]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5a64", 
+      "inst": "str x10,[x9, #0x5f8]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5a60", 
+      "inst": "ldr x10,[x20, #0x600]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5a5c", 
+      "inst": "str x10,[x9, #0x600]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5a58", 
+      "inst": "ldr x10,[x20, #0x608]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5a54", 
+      "inst": "str x10,[x9, #0x608]", 
+      "mnemonic": "str"
+    }, 
+    {
+      "addr": "0x-1fff71c5a50", 
+      "inst": "ldr x10,[x20, #0x610]", 
+      "mnemonic": "ldr"
+    }, 
+    {
+      "addr": "0x-1fff71c5a4c", 
+      "inst": "str x10,[x9, #0x610]", 
+      "mnemonic": "str"
+    }
+  ], 
+  "program": "BootKernelCollection.kc", 
+  "step": 4
+}

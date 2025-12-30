@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0",
+  "shape": {
+    "keys": {
+      "anchor": {
+        "keys": {
+          "address": {
+            "type": "str"
+          },
+          "function": {
+            "type": "str"
+          },
+          "name": {
+            "type": "str"
+          },
+          "signature": {
+            "keys": {
+              "applied": {
+                "type": "bool"
+              },
+              "error": {
+                "type": "null"
+              },
+              "fallback_signature": {
+                "type": "str"
+              },
+              "signature": {
+                "type": "str"
+              }
+            },
+            "type": "dict"
+          }
+        },
+        "type": "dict"
+      },
+      "meta": {
+        "keys": {
+          "build_id": {
+            "type": "str"
+          },
+          "program": {
+            "type": "str"
+          }
+        },
+        "type": "dict"
+      }
+    },
+    "type": "dict"
+  },
+  "source": {
+    "name": "kernel-mac-policy-register-anchor__mac_policy_register_anchor",
+    "output_path": "book/dumps/ghidra/out/14.4.1-23E224/kernel-mac-policy-register-anchor/mac_policy_register_anchor.json",
+    "shape_options": {
+      "list_length": true,
+      "max_list_items": null
+    },
+    "snapshot_path": "book/integration/tests/ghidra/fixtures/shape_catalog/snapshots/kernel-mac-policy-register-anchor__mac_policy_register_anchor.shape.json",
+    "task": "kernel-mac-policy-register-anchor"
+  }
+}

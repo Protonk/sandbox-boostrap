@@ -21,6 +21,21 @@ TASKS = [
         description="Scan the KC for instructions referencing a specific immediate offset.",
         group=GROUP,
     ),
+    # The 0xc0 presets are used by canonical fixtures and shape snapshots; keep the names stable.
+    TaskConfig(
+        name="kernel-collection-offset-scan-0xc0-write",
+        script="kernel_offset_inst_scan.py",
+        import_target="kernel_collection",
+        description="Scan the KC for write-only instructions referencing offset 0xc0.",
+        group=GROUP,
+    ),
+    TaskConfig(
+        name="kernel-collection-offset-scan-0xc0-write-classify",
+        script="kernel_offset_inst_scan.py",
+        import_target="kernel_collection",
+        description="Scan the KC for write-only offset 0xc0 instructions with canonicalized addresses and access classification.",
+        group=GROUP,
+    ),
     # Offset-specific tasks pin known struct fields; the name encodes the offset for clarity.
     TaskConfig(
         name="kernel-collection-offset-scan-0x150",

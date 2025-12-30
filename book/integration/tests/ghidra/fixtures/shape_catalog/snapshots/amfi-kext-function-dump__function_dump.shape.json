@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0",
+  "shape": {
+    "keys": {
+      "entries": {
+        "element_shapes": [
+          {
+            "keys": {
+              "entry": {
+                "type": "str"
+              },
+              "function": {
+                "type": "str"
+              },
+              "input": {
+                "type": "str"
+              },
+              "instructions": {
+                "element_shapes": [
+                  {
+                    "keys": {
+                      "addr": {
+                        "type": "str"
+                      },
+                      "bytes": {
+                        "type": "str"
+                      },
+                      "inst": {
+                        "type": "str"
+                      },
+                      "mnemonic": {
+                        "type": "str"
+                      }
+                    },
+                    "type": "dict"
+                  }
+                ],
+                "length": 7,
+                "sampled": 7,
+                "type": "list"
+              }
+            },
+            "type": "dict"
+          },
+          {
+            "keys": {
+              "error": {
+                "type": "str"
+              },
+              "input": {
+                "type": "str"
+              }
+            },
+            "type": "dict"
+          }
+        ],
+        "length": 2,
+        "sampled": 2,
+        "type": "list"
+      },
+      "meta": {
+        "keys": {
+          "build_id": {
+            "type": "str"
+          },
+          "program": {
+            "type": "str"
+          },
+          "target_count": {
+            "type": "int"
+          }
+        },
+        "type": "dict"
+      }
+    },
+    "type": "dict"
+  },
+  "source": {
+    "name": "amfi-kext-function-dump__function_dump",
+    "output_path": "book/dumps/ghidra/out/14.4.1-23E224/amfi-kext-function-dump/function_dump.json",
+    "shape_options": {
+      "list_length": true,
+      "max_list_items": null
+    },
+    "snapshot_path": "book/integration/tests/ghidra/fixtures/shape_catalog/snapshots/amfi-kext-function-dump__function_dump.shape.json",
+    "task": "amfi-kext-function-dump"
+  }
+}

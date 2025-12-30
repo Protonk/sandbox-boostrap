@@ -3,15 +3,15 @@ Canonical headless-command builder for Ghidra tasks on the Sonoma baseline (`boo
 
 Intent:
 - Build (and optionally run) `analyzeHeadless` invocations against the extracted host artifacts in
-  `dumps/Sandbox-private/<build>/...` without ever copying those artifacts into tracked trees.
-- Keep all Ghidra side effects inside `dumps/ghidra/{out,projects,user,tmp}`; callers should not need
+  `book/dumps/ghidra/private/aapl-restricted/<build>/...` without ever copying those artifacts into tracked trees.
+- Keep all Ghidra side effects inside `book/dumps/ghidra/{out,projects,user,tmp}`; callers should not need
   to reason about Ghidra’s defaults or macOS prompts.
 - Provide a single source of truth for task registration (scripts + import targets + output layout).
 
 Safety reminders (why the plumbing is opinionated):
-- `HOME`/`GHIDRA_USER_HOME`/`JAVA_TOOL_OPTIONS` are forced under `dumps/ghidra/` so headless does not
+- `HOME`/`GHIDRA_USER_HOME`/`JAVA_TOOL_OPTIONS` are forced under `book/dumps/ghidra/` so headless does not
   touch the real user tree (seatbelt-protected) or prompt for a JDK path.
-- Inputs are always read from `Sandbox-private` in place; outputs stay under `dumps/ghidra/out/` with
+- Inputs are always read from `aapl-restricted` in place; outputs stay under `book/dumps/ghidra/out/` with
   optional redirects (e.g., kernel-symbols into the experiment tree).
 - Apply-gate and analysis churn are expected; scripts should log to `script.log` in their out dir.
 """
@@ -221,7 +221,7 @@ def render_shell_command(cmd: Iterable[str]) -> str:
 def parse_args(argv: List[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Build (and optionally run) Ghidra headless commands for sandbox RE.")
     parser.add_argument("task", choices=sorted(TASKS.keys()), help="Task to run.")
-    parser.add_argument("--build-id", default=DEFAULT_BUILD_ID, help="Sandbox-private build ID.")
+    parser.add_argument("--build-id", default=DEFAULT_BUILD_ID, help="aapl-restricted build ID.")
     parser.add_argument("--ghidra-headless", help="Path to Ghidra analyzeHeadless (env GHIDRA_HEADLESS fallback).")
     parser.add_argument("--project-name", help="Override Ghidra project name (defaults to sandbox_<build_id>).")
     parser.add_argument(

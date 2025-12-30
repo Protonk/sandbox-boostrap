@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0",
+  "shape": {
+    "keys": {
+      "entries": {
+        "element_shapes": [
+          {
+            "keys": {
+              "entry": {
+                "type": "str"
+              },
+              "function": {
+                "type": "str"
+              },
+              "input": {
+                "type": "str"
+              },
+              "instructions": {
+                "element_shapes": [],
+                "length": 0,
+                "sampled": 0,
+                "type": "list"
+              }
+            },
+            "type": "dict"
+          }
+        ],
+        "length": 1,
+        "sampled": 1,
+        "type": "list"
+      },
+      "meta": {
+        "keys": {
+          "build_id": {
+            "type": "str"
+          },
+          "program": {
+            "type": "str"
+          },
+          "target_count": {
+            "type": "int"
+          }
+        },
+        "type": "dict"
+      }
+    },
+    "type": "dict"
+  },
+  "source": {
+    "name": "kernel-function-dump__function_dump",
+    "output_path": "book/dumps/ghidra/out/14.4.1-23E224/kernel-function-dump/function_dump.json",
+    "shape_options": {
+      "list_length": true,
+      "max_list_items": null
+    },
+    "snapshot_path": "book/integration/tests/ghidra/fixtures/shape_catalog/snapshots/kernel-function-dump__function_dump.shape.json",
+    "task": "kernel-function-dump"
+  }
+}

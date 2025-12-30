@@ -92,7 +92,22 @@ def _discover_book_blobs() -> List[Path]:
     root = REPO_ROOT / "book"
     if not root.exists():
         return []
-    return sorted([p for p in root.rglob("*.sb.bin") if p.is_file()])
+    # NOTE: `book/dumps/**` is host-local working material (often private) and must
+    # not be pulled into the checked-in preflight index inventory. Similarly,
+    # `book/integration/out/**` is a scratch directory for test runs.
+    excluded_roots = [
+        root / "dumps",
+        root / "integration" / "out",
+    ]
+
+    blobs: List[Path] = []
+    for path in root.rglob("*.sb.bin"):
+        if not path.is_file():
+            continue
+        if any(path.is_relative_to(excluded) for excluded in excluded_roots):
+            continue
+        blobs.append(path)
+    return sorted(blobs)
 
 
 def discover_inputs() -> List[InputRef]:
@@ -159,7 +174,7 @@ def build_manifest(inputs: Sequence[InputRef]) -> Dict[str, Any]:
             "experiments_sbpl": "book/experiments/**/*.sb (excluding out/)",
             "examples_sbpl": "book/examples/**/*.sb",
             "tools_sbpl": "book/tools/sbpl/corpus/**/*.sb",
-            "book_blobs": "book/**/*.sb.bin",
+            "book_blobs": "book/**/*.sb.bin (excluding book/dumps/** and book/integration/out/**)",
         },
         "records": records,
     }

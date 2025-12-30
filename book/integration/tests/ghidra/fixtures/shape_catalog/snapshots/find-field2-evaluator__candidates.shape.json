@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0",
+  "shape": {
+    "element_shapes": [
+      {
+        "keys": {
+          "address": {
+            "type": "str"
+          },
+          "caller_count": {
+            "type": "int"
+          },
+          "has_bitfield": {
+            "type": "bool"
+          },
+          "has_mask": {
+            "type": "bool"
+          },
+          "ldrb": {
+            "type": "int"
+          },
+          "ldrh": {
+            "type": "int"
+          },
+          "name": {
+            "type": "str"
+          },
+          "size": {
+            "type": "int"
+          },
+          "strh": {
+            "type": "int"
+          }
+        },
+        "type": "dict"
+      }
+    ],
+    "length": 113,
+    "sampled": 113,
+    "type": "list"
+  },
+  "source": {
+    "name": "find-field2-evaluator__candidates",
+    "output_path": "book/dumps/ghidra/out/14.4.1-23E224/find-field2-evaluator/candidates.json",
+    "shape_options": {
+      "list_length": true,
+      "max_list_items": null
+    },
+    "snapshot_path": "book/integration/tests/ghidra/fixtures/shape_catalog/snapshots/find-field2-evaluator__candidates.shape.json",
+    "task": "find-field2-evaluator"
+  }
+}

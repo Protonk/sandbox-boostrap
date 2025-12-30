@@ -1,0 +1,54 @@
+{
+  "analysis": {
+    "profile_id": "kernel_symbols:block_mode=all:blocks=5006"
+  },
+  "generator": {
+    "deps": [
+      {
+        "path": "book/api/ghidra/ghidra_lib/__init__.py",
+        "sha256": "fa93cb4675972cfd724e828bc6216e1b9f6a6a31ee23414aeb545face76f828c"
+      },
+      {
+        "path": "book/api/ghidra/ghidra_lib/block_utils.py",
+        "sha256": "0f29a4c5e8ef86a502423f3eeccbc94ad34357af703d1440e56b3b29426d7d37"
+      },
+      {
+        "path": "book/api/ghidra/ghidra_lib/io_utils.py",
+        "sha256": "f16d98d7fed6a182596da6cbfbeb7a726f02f2a1835516cf6d5e9d1356b63e71"
+      },
+      {
+        "path": "book/api/ghidra/ghidra_lib/node_scan_utils.py",
+        "sha256": "00eef3dbdb5f7968fc279c65a9bf66c38c6903c2c6789ff0e0d2531675446767"
+      },
+      {
+        "path": "book/api/ghidra/ghidra_lib/provenance.py",
+        "sha256": "7aa6dfb2269eb69102dc3ac939aaec97b112404cb5d2c9a8e17d15e9256bd47b"
+      },
+      {
+        "path": "book/api/ghidra/ghidra_lib/scan_utils.py",
+        "sha256": "5c382fe5bfaa4b97fa24a0e3fb4139f7bf7bc89ddbd1aacc1b902a8e626d4f44"
+      },
+      {
+        "path": "book/api/ghidra/scripts/ghidra_bootstrap.py",
+        "sha256": "0497c84f8b96d50842d28795a75b909427d8eb80cc4f4489d3d6abada5cc9cb8"
+      }
+    ],
+    "runner_version": "book.api.ghidra.scaffold",
+    "script_content_sha256": "be497ebc739e38400208bfd6f01c534a05678fbf4a821761cfe6e00b53e6edf8",
+    "script_path": "book/api/ghidra/scripts/kernel_symbols.py"
+  },
+  "ghidra": {
+    "version": "11.4.2"
+  },
+  "input": {
+    "program_path": "book/dumps/ghidra/private/aapl-restricted/14.4.1-23E224/kernel/BootKernelCollection.kc",
+    "program_sha256": "0a3f694514bb0accbc82c5b869bb6896a0fa4a09af1537e9d1ccf26350366b54"
+  },
+  "meta_schema_version": 1,
+  "normalizer_id": "kernel_symbols_normalizer_v1",
+  "output": {
+    "normalized_sha256": "68ed66dd182138363a65e17684af2e603ac26ec24fee1dfeb69a32d853450124",
+    "path": "book/dumps/ghidra/out/14.4.1-23E224/kernel-collection-symbols/symbols.json"
+  },
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

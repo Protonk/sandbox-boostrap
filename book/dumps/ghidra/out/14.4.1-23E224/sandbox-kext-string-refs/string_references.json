@@ -1,0 +1,205 @@
+{
+  "applematch_externals": [], 
+  "external_libraries": [], 
+  "meta": {
+    "applematch_externals": 0, 
+    "block_filter": [
+      {
+        "end": "0x-1fff86dbc71", 
+        "name": "__TEXT", 
+        "start": "0x-1fff86dc2e0"
+      }, 
+      {
+        "end": "0x-1fff86bf33e", 
+        "name": "__const", 
+        "start": "0x-1fff86dbc70"
+      }, 
+      {
+        "end": "0x-1fff86b862c", 
+        "name": "__cstring", 
+        "start": "0x-1fff86bf33d"
+      }, 
+      {
+        "end": "0x-1fff86b6e92", 
+        "name": "__os_log", 
+        "start": "0x-1fff86b862b"
+      }, 
+      {
+        "end": "0x-1fff7b37981", 
+        "name": "__auth_got", 
+        "start": "0x-1fff7b382e0"
+      }, 
+      {
+        "end": "0x-1fff7b37889", 
+        "name": "__got", 
+        "start": "0x-1fff7b37980"
+      }, 
+      {
+        "end": "0x-1fff7b37881", 
+        "name": "__auth_ptr", 
+        "start": "0x-1fff7b37888"
+      }, 
+      {
+        "end": "0x-1fff7b33fd9", 
+        "name": "__const", 
+        "start": "0x-1fff7b37880"
+      }, 
+      {
+        "end": "0x-1fff7b33a89", 
+        "name": "__kalloc_var", 
+        "start": "0x-1fff7b33fd8"
+      }, 
+      {
+        "end": "0x-1fff7b32949", 
+        "name": "__kalloc_type", 
+        "start": "0x-1fff7b33a88"
+      }, 
+      {
+        "end": "0x-1fff4bcc849", 
+        "name": "__text", 
+        "start": "0x-1fff4c0cb10"
+      }, 
+      {
+        "end": "0x-1fff40a44d1", 
+        "name": "__data", 
+        "start": "0x-1fff40a4758"
+      }, 
+      {
+        "end": "0x-1fff40a0759", 
+        "name": "__bss", 
+        "start": "0x-1fff40a44d0"
+      }, 
+      {
+        "end": "0x-1fff408e3f9", 
+        "name": "__bss", 
+        "start": "0x-1fff40a0758"
+      }, 
+      {
+        "end": "0x-1fff2c9384a", 
+        "name": "__LINKEDIT", 
+        "start": "0x-1fff3fa4000"
+      }, 
+      {
+        "end": "0x-1fff2c91589", 
+        "name": "EXTERNAL", 
+        "start": "0x-1fff2c92000"
+      }
+    ], 
+    "build_id": "14.4.1-23E224", 
+    "external_library_count": 0, 
+    "external_library_filter": "applematch", 
+    "program": "sandbox_kext.bin", 
+    "query_strings": [
+      "com.apple.security.sandbox", 
+      "com.apple.kext.AppleMatch", 
+      "com.apple.private.security.message-filter", 
+      "com.apple.private.security.message-filter-manager", 
+      "missing message filter entitlement", 
+      "failed to associate message filter", 
+      "cannot apply mach message filtering"
+    ], 
+    "scan_all_blocks": false, 
+    "string_hits": 6, 
+    "symbol_hits": 0, 
+    "symbol_substrings": [
+      "applematch"
+    ]
+  }, 
+  "strings": [
+    {
+      "address": "0x-1fff86be3a9", 
+      "block": "__cstring", 
+      "queries": [
+        "com.apple.private.security.message-filter"
+      ], 
+      "references": [
+        {
+          "block": "__text", 
+          "from": "0x-1fff4bf844c", 
+          "function": "_syscall_set_userland_profile", 
+          "is_primary": true, 
+          "type": "PARAM"
+        }
+      ], 
+      "value": "com.apple.private.security.message-filter"
+    }, 
+    {
+      "address": "0x-1fff86ba316", 
+      "block": "__cstring", 
+      "queries": [
+        "com.apple.private.security.message-filter", 
+        "com.apple.private.security.message-filter-manager"
+      ], 
+      "references": [
+        {
+          "block": "__text", 
+          "from": "0x-1fff4bd580c", 
+          "function": "_syscall_message_filter_retain", 
+          "is_primary": true, 
+          "type": "PARAM"
+        }, 
+        {
+          "block": "__text", 
+          "from": "0x-1fff4bd5784", 
+          "function": "_syscall_message_filter_release", 
+          "is_primary": true, 
+          "type": "PARAM"
+        }
+      ], 
+      "value": "com.apple.private.security.message-filter-manager"
+    }, 
+    {
+      "address": "0x-1fff86b829d", 
+      "block": "__os_log", 
+      "queries": [
+        "missing message filter entitlement"
+      ], 
+      "references": [
+        {
+          "block": "__text", 
+          "from": "0x-1fff4bf83e4", 
+          "function": "_syscall_set_userland_profile", 
+          "is_primary": true, 
+          "type": "PARAM"
+        }
+      ], 
+      "value": "%s[%d]: missing message filter entitlement"
+    }, 
+    {
+      "address": "0x-1fff86b7f66", 
+      "block": "__os_log", 
+      "queries": [
+        "failed to associate message filter"
+      ], 
+      "references": [], 
+      "value": "failed to associate message filter %u: %d"
+    }, 
+    {
+      "address": "0x-1fff86b7eb5", 
+      "block": "__os_log", 
+      "queries": [
+        "cannot apply mach message filtering"
+      ], 
+      "references": [
+        {
+          "block": "__text", 
+          "from": "0x-1fff4be4a6c", 
+          "function": "_hook_cred_label_update_execve", 
+          "is_primary": true, 
+          "type": "PARAM"
+        }
+      ], 
+      "value": "%s[%d] is translated: cannot apply mach message filtering!"
+    }, 
+    {
+      "address": "0x-1fff40a4748", 
+      "block": "__data", 
+      "queries": [
+        "com.apple.security.sandbox"
+      ], 
+      "references": [], 
+      "value": "com.apple.security.sandbox"
+    }
+  ], 
+  "symbol_hits": []
+}

@@ -4,7 +4,7 @@ Use this file for concise notes on commands, findings, and pivots.
 
 ## Initial scaffold and inputs
 
-- Scaffolded experiment (Plan/Notes/ResearchReport). Ghidra inputs: analyzed project `dumps/ghidra/projects/sandbox_14.4.1-23E224`, headless scripts in `book/api/ghidra/scripts/`. Next actions: widen string/import queries and collect caller maps.
+- Scaffolded experiment (Plan/Notes/ResearchReport). Ghidra inputs: analyzed project `book/dumps/ghidra/projects/sandbox_14.4.1-23E224`, headless scripts in `book/api/ghidra/scripts/`. Next actions: widen string/import queries and collect caller maps.
 
 ## First string/symbol scans
 
@@ -30,7 +30,7 @@ Use this file for concise notes on commands, findings, and pivots.
 
 ## Extended string/import queries
 
-- Headless needed a writable home dir; set `JAVA_TOOL_OPTIONS=-Duser.home=$PWD/dumps/ghidra/home` (plus `GHIDRA_JAVA_HOME`) to avoid writing under `~/Library/ghidra` (blocked by the workspace sandbox).
+- Headless needed a writable home dir; set `JAVA_TOOL_OPTIONS=-Duser.home=$PWD/book/dumps/ghidra/home` (plus `GHIDRA_JAVA_HOME`) to avoid writing under `~/Library/ghidra` (blocked by the workspace sandbox).
 - Added `kernel_page_ref_scan.py` (ADRPs/refs into a target page) and `kernel_function_dump.py` (dump disassembly for named functions).
 - Ran page-ref scan for candidate table at `0xffffff8000251ee0` (page start `0xffffff8000251000`, 0x1000 size, all blocks): 0 direct refs, 0 ADRP+ADD hits. Likely need a variant that decodes ADRP immediates without relying on reference analysis.
 - Dumped functions carrying op-count/magic immediates (`FUN_ffffff8001565fc4`, `...158f618`, `...15ff7a8`); they are full prolog/setup routines touching per-struct offsets (e.g., `[rdi+0x1328]`, `[rax+0x32f0]`) and calling helpers at `0xffffff80016c4a16`/`0xffffff80015aaf56`/`0xffffff8002fd0f5e`. No obvious op-table usage yet; need to trace their callouts and data structures.
@@ -55,14 +55,14 @@ Use this file for concise notes on commands, findings, and pivots.
 
 ## ARM64 string refs rerun (AppleMatch + sandbox)
 
-- `python -m book.api.ghidra.run_task kernel-string-refs --process-existing --no-analysis --exec --script-args "all extlib=match symsub=applematch symsub=sandbox symsub=mac_policy symsub=seatbelt AppleMatch applematch _matchExec _matchUnpack AppleSandbox sandbox seatbelt mac_policy mac policy"` (ARM64 processor + `disable_x86_analyzers.py`). Output: `dumps/ghidra/out/14.4.1-23E224/kernel-string-refs/string_references.json` with 190 string hits, 0 symbol hits, 0 AppleMatch externals (lib filter `match`). Queries include a stray `-vmPath ...` because run_task appends vmPath after script args.
+- `python -m book.api.ghidra.run_task kernel-string-refs --process-existing --no-analysis --exec --script-args "all extlib=match symsub=applematch symsub=sandbox symsub=mac_policy symsub=seatbelt AppleMatch applematch _matchExec _matchUnpack AppleSandbox sandbox seatbelt mac_policy mac policy"` (ARM64 processor + `disable_x86_analyzers.py`). Output: `book/dumps/ghidra/out/14.4.1-23E224/kernel-string-refs/string_references.json` with 190 string hits, 0 symbol hits, 0 AppleMatch externals (lib filter `match`). Queries include a stray `-vmPath ...` because run_task appends vmPath after script args.
 - All references are LINKEDIT data refs (symbol-table strings). Non-LINKEDIT hits—including `com.apple.security.sandbox` copies in `__TEXT`/`__data` and mac_policy_* strings—have zero recorded callers. AppleMatch/mac_policy pivots remain string-only with no callable anchors.
 - After reordering `-vmPath` ahead of postScript args in the scaffold and rerunning with `extlib=` (no filter), queries are clean (no `-vmPath` in meta), still 190 string hits, 0 symbol hits, 0 externals, and an empty external library summary. No new anchors emerged.
 
 ## mac_policy_conf / mac_policy_ops sweep
 
 - `python -m book.api.ghidra.run_task kernel-data-define --process-existing --no-analysis --exec --script-args "addr:0xffffff8002dd2920 addr:0xffffff800020ef10 addr:0xffffff8002650f78 addr:0xffffff8002698000 addr:0xffffff8002726010 addr:0xffffff8002cd1000"`. Targets = sandbox name strings plus a few __const table starts from op_table_candidates.
-- Results (`dumps/ghidra/out/14.4.1-23E224/kernel-data-define/data_refs.json`): two targets typed as strings (`com.apple.security.sandbox`, no callers); four targets typed as pointers to `0xffffff8000100000`. Only `0x-7ffd968000` shows a DATA ref from `0x-7ffc3311d0` (no function); other targets have zero callers.
+- Results (`book/dumps/ghidra/out/14.4.1-23E224/kernel-data-define/data_refs.json`): two targets typed as strings (`com.apple.security.sandbox`, no callers); four targets typed as pointers to `0xffffff8000100000`. Only `0x-7ffd968000` shows a DATA ref from `0x-7ffc3311d0` (no function); other targets have zero callers.
 - Follow-up `kernel-addr-lookup` on `0xffffff8003ccee30` (the lone ref site) reports a LINKEDIT address with no data/function metadata. No mac_policy_conf/mac_policy_ops struct located; MACF hook path still unresolved and needs a different pivot (GOT/stub decode or mac_policy registration decomp).
 - No dispatcher/helper candidates surfaced to compare against `book/graph/mappings/op_table/op_table.json`; intersection remains empty.
 
@@ -70,7 +70,7 @@ Use this file for concise notes on commands, findings, and pivots.
 
 - Added `kernel_imports_scan.py` + scaffold task `kernel-imports` to enumerate externals/GOT stubs and their callers.
 - Run: `python -m book.api.ghidra.run_task kernel-imports --process-existing --no-analysis --exec --script-args "applematch mac_policy sandbox seatbelt"`.
-- Output: `dumps/ghidra/out/14.4.1-23E224/kernel-imports/external_symbols.json` → `symbol_count: 0` (no externals matched substrings). Import/GOT pivot remains dry; need alternative hooks (mac_policy registration decomp or broader, unfiltered import sweep).
+- Output: `book/dumps/ghidra/out/14.4.1-23E224/kernel-imports/external_symbols.json` → `symbol_count: 0` (no externals matched substrings). Import/GOT pivot remains dry; need alternative hooks (mac_policy registration decomp or broader, unfiltered import sweep).
 - Unfiltered census: copied `external_symbols.json` to `imports_all.json`; filtered view via `filter_imports.py --substr applematch mac_policy sandbox seatbelt` → `imports_filtered_sandbox.json` with 0 symbols. Kernel imports are ok-negative for these substrings (full census checked).
 
 ## mac_policy registration trace attempts (imm-search)
@@ -86,7 +86,7 @@ Use this file for concise notes on commands, findings, and pivots.
 
 ## BootKernelCollection import attempt (tag-switch)
 
-- Attempted to import `BootKernelCollection.kc` into a new Ghidra project (`dumps/ghidra/projects/sandbox_14.4.1-23E224_kc`) and run `kernel_tag_switch.py` in the same pass (manual `analyzeHeadless`, ARM64 processor, `disable_x86_analyzers.py`). The run did not finish within 10 minutes or 30 minutes; `dumps/ghidra/out/14.4.1-23E224/kernel-tag-switch-kc/` contains only an empty `script.log` and no `switch_candidates.json`.
+- Attempted to import `BootKernelCollection.kc` into a new Ghidra project (`book/dumps/ghidra/projects/sandbox_14.4.1-23E224_kc`) and run `kernel_tag_switch.py` in the same pass (manual `analyzeHeadless`, ARM64 processor, `disable_x86_analyzers.py`). The run did not finish within 10 minutes or 30 minutes; `book/dumps/ghidra/out/14.4.1-23E224/kernel-tag-switch-kc/` contains only an empty `script.log` and no `switch_candidates.json`.
 - The log shows KC import and analysis start (chained pointer fixups, analysis warnings), so the blocker is wallclock analysis time rather than missing inputs. Next step is the two-phase workflow from `troubles/ghidra_setup.md` (analysis-only run with a generous timeout, then a postScript-only pass) or an analyzer-disabling pre-script to shorten the analysis window.
 - Completed the analysis-only run for `BootKernelCollection.kc` using the two-phase approach; analysis succeeded and the project saved (`sandbox_14.4.1-23E224_kc`). Next: run postScript passes (block disassembly + tag-switch).
 - PostScript runs on the analyzed KC:

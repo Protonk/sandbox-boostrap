@@ -43,7 +43,7 @@ For **anchor/field2 structure** on this Sonoma world, use this stack as your ent
 - `field2` inventory and unknowns: `book/experiments/field2-filters/Report.md` (bounded high/unknown IDs, experiment closed).
 - Curated anchors and their Filter mappings:
   - Canonical (context-indexed): `book/graph/mappings/anchors/anchor_ctx_filter_map.json`
-  - Compatibility view (literal-keyed, conservative): `book/graph/mappings/anchors/anchor_filter_map.json` (guarded by `book/tests/planes/graph/test_anchor_filter_alignment.py`).
+  - Compatibility view (literal-keyed, conservative): `book/graph/mappings/anchors/anchor_filter_map.json` (guarded by `book/integration/tests/graph/test_anchor_filter_alignment.py`).
 
 ## Swift generator loop (for agents)
 

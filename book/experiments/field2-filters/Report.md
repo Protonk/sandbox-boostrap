@@ -19,7 +19,7 @@ Canonical vocabulary mappings live at `book/graph/mappings/vocab/filters.json` a
 
 The experiment’s primary outputs are `book/experiments/field2-filters/out/field2_inventory.json` (per-profile histograms, tag counts, and hi/lo census) and `book/experiments/field2-filters/out/unknown_nodes.json` (concrete unknown/high nodes with fields, fan-in/out derived from the current edge assumptions, and op reach when available).
 
-Kernel-side evidence is sourced from Ghidra analysis outputs under `dumps/ghidra/out/14.4.1-23E224/find-field2-evaluator/`, driven by scripts under `book/api/ghidra/scripts/`.
+Kernel-side evidence is sourced from Ghidra analysis outputs under `book/dumps/ghidra/out/14.4.1-23E224/find-field2-evaluator/`, driven by scripts under `book/api/ghidra/scripts/`.
 
 ## Approach (what we did)
 
@@ -55,7 +55,7 @@ The experiment treats these values as “structurally bounded but semantically o
 
 ### Kernel-side structure hunt is negative for u16 splitting
 
-The kernel-side work in `dumps/ghidra/out/14.4.1-23E224/find-field2-evaluator/` supports two negative conclusions.
+The kernel-side work in `book/dumps/ghidra/out/14.4.1-23E224/find-field2-evaluator/` supports two negative conclusions.
 
 First, the u16 reader helper (`__read16`) loads and forwards the u16 without applying masks or bitfield extracts. Second, neither `_eval` nor its reachable neighborhood contains the hypothesized `0x3fff`/`0x4000` masks that would indicate a stable hi/lo split of `filter_arg_raw`. This does not prove that no semantics exist, but it eliminates a broad and previously plausible hypothesis space.
 

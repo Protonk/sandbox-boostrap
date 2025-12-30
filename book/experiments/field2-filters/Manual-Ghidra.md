@@ -4,11 +4,11 @@ Purpose: hand off a concrete, reproducible path to locate how the kernel evaluat
 
 ## Setup
 
-- Open the existing project: `dumps/ghidra/projects/sandbox_14.4.1-23E224` (ARM64, pre-analyzed with x86 analyzers disabled).
+- Open the existing project: `book/dumps/ghidra/projects/sandbox_14.4.1-23E224` (ARM64, pre-analyzed with x86 analyzers disabled).
 - Relevant task outputs:
-  - `dumps/ghidra/out/14.4.1-23E224/kernel-tag-switch/switch_candidates.json` (computed-jump ranking). Top candidates include `FUN_ffffff80005bbb90`, `FUN_ffffff8002377c16`, `FUN_ffffff8000546e60`, `FUN_ffffff80006e9310`, `FUN_ffffff80007f9150`, `FUN_ffffff8002222324`, `FUN_ffffff80008641c0`, `FUN_ffffff80016a17ac`, `FUN_ffffff8000902bb0`, `FUN_ffffff80017b7748`.
-  - `dumps/ghidra/out/14.4.1-23E224/kernel-op-table/op_table_candidates.json` (op-table scan, mostly dense; may help find entrypoints).
-  - `dumps/ghidra/out/14.4.1-23E224/kernel-field2-mask-scan/mask_scan.json` and `kernel-imm-search` dirs (all empty for target masks/immediates).
+  - `book/dumps/ghidra/out/14.4.1-23E224/kernel-tag-switch/switch_candidates.json` (computed-jump ranking). Top candidates include `FUN_ffffff80005bbb90`, `FUN_ffffff8002377c16`, `FUN_ffffff8000546e60`, `FUN_ffffff80006e9310`, `FUN_ffffff80007f9150`, `FUN_ffffff8002222324`, `FUN_ffffff80008641c0`, `FUN_ffffff80016a17ac`, `FUN_ffffff8000902bb0`, `FUN_ffffff80017b7748`.
+  - `book/dumps/ghidra/out/14.4.1-23E224/kernel-op-table/op_table_candidates.json` (op-table scan, mostly dense; may help find entrypoints).
+  - `book/dumps/ghidra/out/14.4.1-23E224/kernel-field2-mask-scan/mask_scan.json` and `kernel-imm-search` dirs (all empty for target masks/immediates).
 
 ## What to look for
 
@@ -41,7 +41,7 @@ Purpose: hand off a concrete, reproducible path to locate how the kernel evaluat
 
 ## Where to store findings
 
-- Drop function dumps and notes in `dumps/ghidra/out/14.4.1-23E224/kernel-function-dump/` (via `kernel-function-dump.py`) or export text nearby.
+- Drop function dumps and notes in `book/dumps/ghidra/out/14.4.1-23E224/kernel-function-dump/` (via `kernel-function-dump.py`) or export text nearby.
 - Log observations and dead ends in `Notes.md` (this experiment), with function names/addresses and brief conclusions (“checked, no mask”, “payload passes to helper foo”, etc.).
 - If a mask/bitfield scheme is identified, summarize it in `Plan.md` and `troubles/field2-hunting.md` for handoff.
 
@@ -59,7 +59,7 @@ This project is anchored to a single host: macOS 14.4.1 (Apple Silicon), SIP ena
 - The `bsd` platform profile shows `field2` values 170/174/115/109 on tag 26 and a hi-bit value 16660 (0x4114) on tag 0 that behaves like a shared tail (fan_in=33, fan_out=1). Targeted SBPL probes failed to surface these values outside the full profile.
 - The `airlock` profile shows high values 165/166/10752 on tags {166,1,0}; not reproduced in simpler probes.
 
-Data model and inventories: field2 is tracked as `field2_raw` with derived `field2_hi = raw & 0xC000` and `field2_lo = raw & 0x3FFF`; unknown/high values are kept as `UnknownFilterArg(field2_raw)`. All current unknowns except bsd’s 16660 have `hi=0`; 16660 has `hi=0x4000`, `lo=0x114`. Unknown-node tables include tags, fan-in/out, and literal refs. Outputs live under `book/experiments/field2-filters/out/` (inventory, unknown_nodes.json) and `dumps/ghidra/out/` for Ghidra tasks.
+Data model and inventories: field2 is tracked as `field2_raw` with derived `field2_hi = raw & 0xC000` and `field2_lo = raw & 0x3FFF`; unknown/high values are kept as `UnknownFilterArg(field2_raw)`. All current unknowns except bsd’s 16660 have `hi=0`; 16660 has `hi=0x4000`, `lo=0x114`. Unknown-node tables include tags, fan-in/out, and literal refs. Outputs live under `book/experiments/field2-filters/out/` (inventory, unknown_nodes.json) and `book/dumps/ghidra/out/` for Ghidra tasks.
 
 Automated Ghidra passes on `BootKernelExtensions.kc` (build 14.4.1-23E224):
 - `kernel_field2_mask_scan` for masks 0x3fff/0x4000/0xc000/0x00ff/0xff00 (sandbox blocks and full KC): no hits.

@@ -1,0 +1,167 @@
+{
+  "schema_version": "1.0",
+  "shape": {
+    "keys": {
+      "call_sites": {
+        "element_shapes": [
+          {
+            "keys": {
+              "block": {
+                "type": "str"
+              },
+              "call_address": {
+                "type": "str"
+              },
+              "call_mnemonic": {
+                "type": "str"
+              },
+              "target_entry": {
+                "type": "str"
+              },
+              "target_name": {
+                "type": "str"
+              }
+            },
+            "type": "dict"
+          }
+        ],
+        "length": 53,
+        "sampled": 53,
+        "type": "list"
+      },
+      "functions": {
+        "element_shapes": [
+          {
+            "keys": {
+              "entry": {
+                "type": "str"
+              },
+              "name": {
+                "type": "str"
+              },
+              "strings": {
+                "element_shapes": [
+                  {
+                    "type": "str"
+                  }
+                ],
+                "length": 1,
+                "sampled": 1,
+                "type": "list"
+              }
+            },
+            "type": "dict"
+          }
+        ],
+        "length": 4,
+        "sampled": 4,
+        "type": "list"
+      },
+      "meta": {
+        "keys": {
+          "build_id": {
+            "type": "str"
+          },
+          "call_site_count": {
+            "type": "int"
+          },
+          "function_hit_count": {
+            "type": "int"
+          },
+          "program": {
+            "type": "str"
+          },
+          "query_strings": {
+            "element_shapes": [
+              {
+                "type": "str"
+              }
+            ],
+            "length": 2,
+            "sampled": 2,
+            "type": "list"
+          },
+          "scan_all_blocks": {
+            "type": "bool"
+          },
+          "string_hit_count": {
+            "type": "int"
+          }
+        },
+        "type": "dict"
+      },
+      "string_hits": {
+        "element_shapes": [
+          {
+            "keys": {
+              "address": {
+                "type": "str"
+              },
+              "block": {
+                "type": "str"
+              },
+              "queries": {
+                "element_shapes": [
+                  {
+                    "type": "str"
+                  }
+                ],
+                "length": 1,
+                "sampled": 1,
+                "type": "list"
+              },
+              "reference_count": {
+                "type": "int"
+              },
+              "references": {
+                "element_shapes": [
+                  {
+                    "keys": {
+                      "block": {
+                        "type": "str"
+                      },
+                      "from": {
+                        "type": "str"
+                      },
+                      "function": {
+                        "type": "str"
+                      },
+                      "function_entry": {
+                        "type": "str"
+                      },
+                      "type": {
+                        "type": "str"
+                      }
+                    },
+                    "type": "dict"
+                  }
+                ],
+                "length": 1,
+                "sampled": 1,
+                "type": "list"
+              },
+              "value": {
+                "type": "str"
+              }
+            },
+            "type": "dict"
+          }
+        ],
+        "length": 4,
+        "sampled": 4,
+        "type": "list"
+      }
+    },
+    "type": "dict"
+  },
+  "source": {
+    "name": "kernel-collection-string-call-sites__string_call_sites",
+    "output_path": "book/dumps/ghidra/out/14.4.1-23E224/kernel-collection-string-call-sites/string_call_sites.json",
+    "shape_options": {
+      "list_length": true,
+      "max_list_items": null
+    },
+    "snapshot_path": "book/integration/tests/ghidra/fixtures/shape_catalog/snapshots/kernel-collection-string-call-sites__string_call_sites.shape.json",
+    "task": "kernel-collection-string-call-sites"
+  }
+}

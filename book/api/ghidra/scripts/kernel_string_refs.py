@@ -1,7 +1,7 @@
 #@category Sandbox
 """
 Walk references to key sandbox strings and AppleMatch imports.
-Outputs JSON under dumps/ghidra/out/<build>/kernel-string-refs/.
+Outputs JSON under book/dumps/ghidra/out/<build>/kernel-string-refs/.
 Args: <out_dir> [build_id] [all] [extra queries...]
   - include "all" to scan all memory blocks (default: sandbox blocks only)
   - provide extra query substrings to match additional strings

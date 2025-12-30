@@ -38,7 +38,7 @@ If you are extending or regenerating CARTON:
   - Use `book/graph/mappings/run_promotion.py` to rebuild runtime/system mappings and CARTON‑derived views (coverage and indices).
   - Use `book/api/carton/create_manifest.py` (or the promotion driver) to refresh `CARTON.json` after mappings change.
   - Keep mappings and manifest free of timestamps; host metadata must come from `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
-  - Update or add tests under `book/tests/` when you introduce new CARTON surfaces or concept bindings.
+  - Update or add tests under `book/integration/` when you introduce new CARTON surfaces or concept bindings.
 
 - **Do not**:
   - Hand‑edit JSON files that are listed in `CARTON.json`.

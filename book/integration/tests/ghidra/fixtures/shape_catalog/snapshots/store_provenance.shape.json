@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0",
+  "shape": {
+    "keys": {
+      "address": {
+        "type": "str"
+      },
+      "base_register": {
+        "type": "null"
+      },
+      "build_id": {
+        "type": "str"
+      },
+      "instruction": {
+        "type": "str"
+      },
+      "mnemonic": {
+        "type": "str"
+      },
+      "register_defs": {
+        "element_shapes": [
+          {
+            "keys": {
+              "addr": {
+                "type": "str"
+              },
+              "inst": {
+                "type": "str"
+              },
+              "register": {
+                "type": "str"
+              }
+            },
+            "type": "dict"
+          }
+        ],
+        "length": 3,
+        "sampled": 3,
+        "type": "list"
+      },
+      "stack_access": {
+        "type": "bool"
+      },
+      "unresolved": {
+        "element_shapes": [],
+        "length": 0,
+        "sampled": 0,
+        "type": "list"
+      },
+      "value_registers": {
+        "element_shapes": [
+          {
+            "type": "str"
+          }
+        ],
+        "length": 3,
+        "sampled": 3,
+        "type": "list"
+      }
+    },
+    "type": "dict"
+  },
+  "source": {
+    "name": "kc-store-provenance",
+    "output_path": "book/dumps/ghidra/out/14.4.1-23E224/kernel-collection-store-provenance/store_provenance.json",
+    "shape_options": {
+      "list_length": true,
+      "max_list_items": null
+    },
+    "snapshot_path": "book/integration/tests/ghidra/fixtures/shape_catalog/snapshots/store_provenance.shape.json",
+    "task": "kernel-collection-store-provenance"
+  }
+}

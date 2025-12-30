@@ -2,7 +2,7 @@
 Rebuild the sandbox kext Mach-O from the Boot Kernel Collection fileset entry.
 
 Why this exists:
-- The carved `sandbox_kext.bin` under `dumps/Sandbox-private/<build>/kernel/` was
+- The carved `sandbox_kext.bin` under `book/dumps/ghidra/private/aapl-restricted/<build>/kernel/` was
   a thin slice between adjacent LC_FILESET_ENTRY offsets and omits the __DATA,
   __DATA_CONST, and __LINKEDIT ranges. Ghidra import fails with out-of-bounds
   errors as a result.
@@ -12,7 +12,7 @@ Why this exists:
   relative to the rebuilt file (base = min segment fileoff).
 
 Outputs:
-- For a single entry: writes `dumps/Sandbox-private/<build>/kernel/sandbox_kext.bin`
+- For a single entry: writes `book/dumps/ghidra/private/aapl-restricted/<build>/kernel/sandbox_kext.bin`
   (for the default `com.apple.security.sandbox`) or `sandbox_kext_<entry>.bin`
   for other entry IDs.
 - With `--all-matching`, rebuilds every LC_FILESET_ENTRY whose name contains
@@ -192,8 +192,8 @@ def _sanitize_name(name: str) -> str:
 
 def rebuild(build_id: str, entry_id: str = "com.apple.security.sandbox", dest_name: str | None = None) -> Path:
     repo_root = path_utils.find_repo_root()
-    kc_path = path_utils.ensure_absolute(repo_root / f"dumps/Sandbox-private/{build_id}/kernel/BootKernelCollection.kc")
-    base_dir = path_utils.ensure_absolute(repo_root / f"dumps/Sandbox-private/{build_id}/kernel")
+    kc_path = path_utils.ensure_absolute(repo_root / f"book/dumps/ghidra/private/aapl-restricted/{build_id}/kernel/BootKernelCollection.kc")
+    base_dir = path_utils.ensure_absolute(repo_root / f"book/dumps/ghidra/private/aapl-restricted/{build_id}/kernel")
     if dest_name:
         dest_path = base_dir / dest_name
     elif entry_id == "com.apple.security.sandbox":
@@ -227,7 +227,7 @@ def rebuild(build_id: str, entry_id: str = "com.apple.security.sandbox", dest_na
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Rebuild sandbox kext Mach-O with fixed file offsets.")
-    parser.add_argument("--build-id", default=scaffold.DEFAULT_BUILD_ID, help="Sandbox-private build ID")
+    parser.add_argument("--build-id", default=scaffold.DEFAULT_BUILD_ID, help="aapl-restricted build ID")
     parser.add_argument("--entry-id", default="com.apple.security.sandbox", help="LC_FILESET_ENTRY id to rebuild")
     parser.add_argument(
         "--all-matching",
@@ -243,7 +243,7 @@ def main() -> int:
 
     if args.list:
         repo_root = path_utils.find_repo_root()
-        kc_path = path_utils.ensure_absolute(repo_root / f"dumps/Sandbox-private/{args.build_id}/kernel/BootKernelCollection.kc")
+        kc_path = path_utils.ensure_absolute(repo_root / f"book/dumps/ghidra/private/aapl-restricted/{args.build_id}/kernel/BootKernelCollection.kc")
         entries = _iter_fileset_entries(kc_path)
         for name, off in entries.items():
             print(f"{name}\t0x{off:x}")
@@ -252,7 +252,7 @@ def main() -> int:
     if args.all_matching:
         keywords = ("sandbox", "seatbelt")
         repo_root = path_utils.find_repo_root()
-        kc_path = path_utils.ensure_absolute(repo_root / f"dumps/Sandbox-private/{args.build_id}/kernel/BootKernelCollection.kc")
+        kc_path = path_utils.ensure_absolute(repo_root / f"book/dumps/ghidra/private/aapl-restricted/{args.build_id}/kernel/BootKernelCollection.kc")
         entries = _iter_fileset_entries(kc_path)
         matches = [name for name in entries if any(k in name.lower() for k in keywords)]
         if not matches:

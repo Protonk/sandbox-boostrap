@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0",
+  "shape": {
+    "keys": {
+      "blocks": {
+        "element_shapes": [],
+        "length": 0,
+        "sampled": 0,
+        "type": "list"
+      },
+      "meta": {
+        "keys": {
+          "all_block_names": {
+            "element_shapes": [
+              {
+                "type": "str"
+              }
+            ],
+            "length": 51,
+            "sampled": 51,
+            "type": "list"
+          },
+          "block_substr": {
+            "type": "str"
+          },
+          "build_id": {
+            "type": "str"
+          },
+          "exec_only": {
+            "type": "bool"
+          },
+          "matched_blocks": {
+            "type": "int"
+          },
+          "max_bytes": {
+            "type": "int"
+          },
+          "program": {
+            "type": "str"
+          },
+          "step": {
+            "type": "int"
+          }
+        },
+        "type": "dict"
+      }
+    },
+    "type": "dict"
+  },
+  "source": {
+    "name": "kernel-block-disasm-kc__disasm_report",
+    "output_path": "book/dumps/ghidra/out/14.4.1-23E224/kernel-block-disasm-kc/disasm_report.json",
+    "shape_options": {
+      "list_length": true,
+      "max_list_items": null
+    },
+    "snapshot_path": "book/integration/tests/ghidra/fixtures/shape_catalog/snapshots/kernel-block-disasm-kc__disasm_report.shape.json",
+    "task": "kernel-block-disasm-kc"
+  }
+}

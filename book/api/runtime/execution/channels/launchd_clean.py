@@ -96,8 +96,18 @@ def _build_plist(
     # are not accidentally influenced by the parent shell environment.
     for key in [
         "SANDBOX_LORE_SEATBELT_CALLOUT",
+        "SANDBOX_LORE_SEATBELT_API",
         "SANDBOX_LORE_PREFLIGHT",
         "SANDBOX_LORE_PREFLIGHT_FORCE",
+        "SANDBOX_LORE_IOKIT_ORACLE_ONLY",
+        "SANDBOX_LORE_IKIT_SELECTOR_LIST",
+        "SANDBOX_LORE_IKIT_CALL_KIND",
+        "SANDBOX_LORE_IKIT_CALL_IN_SCALARS",
+        "SANDBOX_LORE_IKIT_CALL_IN_STRUCT_BYTES",
+        "SANDBOX_LORE_IKIT_CALL_OUT_SCALARS",
+        "SANDBOX_LORE_IKIT_CALL_OUT_STRUCT_BYTES",
+        "SANDBOX_LORE_IKIT_CAPTURE_CALLS",
+        "SBL_IKIT_SKIP_SWEEP",
     ]:
         value = os.environ.get(key)
         if value is not None:

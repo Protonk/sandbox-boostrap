@@ -1,0 +1,5 @@
+(version 1)
+(deny default)
+(allow iokit-open-user-client
+  (with message "runtime-closure:iokit:allow-user-client-registry")
+  (iokit-registry-entry-class "IOSurfaceRootUserClient"))

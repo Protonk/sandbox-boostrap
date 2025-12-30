@@ -1,0 +1,518 @@
+{
+  "_provenance": {
+    "analysis": {
+      "profile_id": "kernel_offset_inst_scan:offset=0xc0:write=true:all=true:exact=false:canonical=false:classify=false:skip_stack=false"
+    },
+    "build_id": "14.4.1-23E224",
+    "generator": {
+      "deps": [
+        {
+          "path": "book/api/ghidra/ghidra_lib/__init__.py",
+          "sha256": "370d9f181451a045c47be360e0b432cfe2132bc4e449a8ba5823a746fc2f16cc"
+        },
+        {
+          "path": "book/api/ghidra/ghidra_lib/block_utils.py",
+          "sha256": "173ee484abaa228416862818b8d21d7e9414c89e15fca697335f142aa3b6a6d9"
+        },
+        {
+          "path": "book/api/ghidra/ghidra_lib/io_utils.py",
+          "sha256": "cd4e989e34b6f1d3e3ab2d4bfb4dca1bd6149aa7ce262f10841f695d4d998ef1"
+        },
+        {
+          "path": "book/api/ghidra/ghidra_lib/node_scan_utils.py",
+          "sha256": "6d4a6b4805a05012ce10a892af9fe89068e105b21f3e31c9b1921346dd491ee6"
+        },
+        {
+          "path": "book/api/ghidra/ghidra_lib/provenance.py",
+          "sha256": "fddc838681911580817934cc6a7c13b0cdaf2b2c3038aac8df41cd245ae42790"
+        },
+        {
+          "path": "book/api/ghidra/ghidra_lib/scan_utils.py",
+          "sha256": "3d30421dfdcf1acd28f7d2c7f800e5c01938b248bec9cb92c4ff595e12a8ff8e"
+        },
+        {
+          "path": "book/api/ghidra/scripts/ghidra_bootstrap.py",
+          "sha256": "f451159e207c2b3692086687e9f68a7e60de8477a63b454f20a0bc0bf211c99b"
+        }
+      ],
+      "script_content_sha256": "91da4ebd891e530dd73510504f599999a56ffd19202d4c073328cb809bfa06e1",
+      "script_path": "book/api/ghidra/scripts/kernel_offset_inst_scan.py"
+    },
+    "input": {
+      "program_path": "dumps/Sandbox-private/14.4.1-23E224/kernel/sandbox_kext.bin",
+      "program_sha256": "91a4c9220ae53f2e61a1fade75313a2a5ac6e4e2d40041a6e90259b5eb60b8fb"
+    },
+    "schema_version": 1,
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  "hits": [
+    {
+      "address": "0x-1fff4c071b4",
+      "function": "_syscallmask_populate_union",
+      "inst": "stp q0,q0,[sp, #0xc0]",
+      "mnemonic": "stp"
+    },
+    {
+      "address": "0x-1fff4c07138",
+      "function": "_syscallmask_populate_union",
+      "inst": "stp q0,q0,[sp, #0xc0]",
+      "mnemonic": "stp"
+    },
+    {
+      "address": "0x-1fff4c07028",
+      "function": "_syscallmask_populate_intersection",
+      "inst": "stp q0,q0,[sp, #0xc0]",
+      "mnemonic": "stp"
+    },
+    {
+      "address": "0x-1fff4c06f00",
+      "function": "_syscallmask_populate_intersection",
+      "inst": "stp q0,q0,[sp, #0xc0]",
+      "mnemonic": "stp"
+    },
+    {
+      "address": "0x-1fff4c04e68",
+      "function": "_macl_writeback_handler",
+      "inst": "str q0,[sp, #0xc0]",
+      "mnemonic": "str"
+    },
+    {
+      "address": "0x-1fff4c03e10",
+      "function": "_macl_record",
+      "inst": "stp q0,q0,[sp, #0xc0]",
+      "mnemonic": "stp"
+    },
+    {
+      "address": "0x-1fff4c0191c",
+      "function": "_sandbox_check_vnode",
+      "inst": "str x4,[sp, #0xc0]",
+      "mnemonic": "str"
+    },
+    {
+      "address": "0x-1fff4c017b8",
+      "function": "_sandbox_responsibility_label_alloc",
+      "inst": "stp x22,x21,[sp, #0xc0]",
+      "mnemonic": "stp"
+    },
+    {
+      "address": "0x-1fff4c01134",
+      "function": "_authorize_signal",
+      "inst": "str w20,[sp, #0xc0]",
+      "mnemonic": "str"
+    },
+    {
+      "address": "0x-1fff4c00678",
+      "function": "_hook_vnode_check_lookup_preflight",
+      "inst": "stp q0,q0,[sp, #0xc0]",
+      "mnemonic": "stp"
+    },
+    {
+      "address": "0x-1fff4bff154",
+      "function": "_hook_vnode_check_setutimes",
+      "inst": "stp q0,q0,[sp, #0xc0]",
+      "mnemonic": "stp"
+    },
+    {
+      "address": "0x-1fff4bfeae4",
+      "function": "_hook_vnode_check_setextattr",
+      "inst": "str x20,[sp, #0xc0]",
+      "mnemonic": "str"
+    },
+    {
+      "address": "0x-1fff4bfde94",
+      "function": "_hook_vnode_check_ioctl",
+      "inst": "str x19,[sp, #0xc0]",
+      "mnemonic": "str"
+    },
+    {
+      "address": "0x-1fff4bfddc4",
+      "function": "_hook_vnode_check_getextattr",
+      "inst": "str x3,[sp, #0xc0]",
+      "mnemonic": "str"
+    },
+    {
+      "address": "0x-1fff4bfdbd8",
+      "function": null,
+      "inst": "stp q0,q0,[x23, #0xc0]",
+      "mnemonic": "stp"
+    },
+    {
+      "address": "0x-1fff4bfd8f8",
+      "function": "_hook_vnode_check_deleteextattr",
+      "inst": "str x20,[sp, #0xc0]",
+      "mnemonic": "str"
+    },
+    {
+      "address": "0x-1fff4bfd7e8",
+      "function": "_hook_vnode_check_create",
+      "inst": "stp q0,q0,[x8, #0xc0]",
+      "mnemonic": "stp"
+    },
+    {
+      "address": "0x-1fff4bfb344",
+      "function": "_hook_socket_check_getsockopt",
+      "inst": "str x21,[sp, #0xc0]",
+      "mnemonic": "str"
+    },
+    {
+      "address": "0x-1fff4bfb270",
+      "function": "_hook_socket_check_setsockopt",
+      "inst": "str x21,[sp, #0xc0]",
+      "mnemonic": "str"
+    },
+    {
+      "address": "0x-1fff4bfb174",
+      "function": "_cred_check_socket",
+      "inst": "str x22,[sp, #0xc0]",
+      "mnemonic": "str"
+    },
+    {
+      "address": "0x-1fff4bfa8b4",
+      "function": "_hook_posixsem_check_wait",
+      "inst": "str x8,[sp, #0xc0]",
+      "mnemonic": "str"
+    },
+    {
+      "address": "0x-1fff4bfa7e4",
+      "function": "_cred_check_posix_semaphore",
+      "inst": "str x8,[sp, #0xc0]",
+      "mnemonic": "str"
+    },
+    {
+      "address": "0x-1fff4bfa7a8",
+      "function": "_cred_check_posix_semaphore",
+      "inst": "str x0,[sp, #0xc0]",
+      "mnemonic": "str"
+    },
+    {
+      "address": "0x-1fff4bfa6e4",
+      "function": "_hook_posixsem_check_post",
+      "inst": "str x8,[sp, #0xc0]",
+      "mnemonic": "str"
+    },
+    {
+      "address": "0x-1fff4bfa60c",
+      "function": "_hook_posixsem_check_create",
+      "inst": "stp x0,x20,[sp, #0xc0]",
+      "mnemonic": "stp"
+    },
+    {
+      "address": "0x-1fff4bfa540",
+      "function": "_hook_skywalk_flow_check_listen",
+      "inst": "stp w8,w3,[sp, #0xc0]",
+      "mnemonic": "stp"
+    },
+    {
+      "address": "0x-1fff4bfa480",
+      "function": "_hook_skywalk_flow_check_connect",
+      "inst": "stp w8,w3,[sp, #0xc0]",
+      "mnemonic": "stp"
+    },
+    {
+      "address": "0x-1fff4bf9bd4",
+      "function": null,
+      "inst": "stp q0,q0,[x25, #0xc0]",
+      "mnemonic": "stp"
+    },
+    {
+      "address": "0x-1fff4bf6484",
+      "function": "_hook_mount_check_umount",
+      "inst": "stp q0,q0,[sp, #0xc0]",
+      "mnemonic": "stp"
+    },
+    {
+      "address": "0x-1fff4bf6354",
+      "function": "_hook_mount_check_remount",
+      "inst": "stp q0,q0,[sp, #0xc0]",
+      "mnemonic": "stp"
+    },
+    {
+      "address": "0x-1fff4bf5eb8",
+      "function": null,
+      "inst": "stp q0,q0,[x25, #0xc0]",
+      "mnemonic": "stp"
+    },
+    {
+      "address": "0x-1fff4bf3374",
+      "function": "_path_authorization_callback",
+      "inst": "stp q0,q0,[x8, #0xc0]",
+      "mnemonic": "stp"
+    },
+    {
+      "address": "0x-1fff4bf0100",
+      "function": "_derive_semaphore_owner",
+      "inst": "str xzr,[x19, #0xc0]",
+      "mnemonic": "str"
+    },
+    {
+      "address": "0x-1fff4bf00f8",
+      "function": "_derive_semaphore_owner",
+      "inst": "str xzr,[x19, #0xc0]",
+      "mnemonic": "str"
+    },
+    {
+      "address": "0x-1fff4bebb30",
+      "function": "_hook_vnode_check_exec",
+      "inst": "stp q0,q0,[sp, #0xc0]",
+      "mnemonic": "stp"
+    },
+    {
+      "address": "0x-1fff4bebb00",
+      "function": "_hook_vnode_check_exec",
+      "inst": "str x21,[sp, #0xc0]",
+      "mnemonic": "str"
+    },
+    {
+      "address": "0x-1fff4bea760",
+      "function": "_serialize_context",
+      "inst": "stp x20,x19,[sp, #0xc0]",
+      "mnemonic": "stp"
+    },
+    {
+      "address": "0x-1fff4be871c",
+      "function": "_send_event_to_sandboxd",
+      "inst": "stp x22,x21,[sp, #0xc0]",
+      "mnemonic": "stp"
+    },
+    {
+      "address": "0x-1fff4be4dc4",
+      "function": "_hook_cred_label_update_execve",
+      "inst": "str xzr,[sp, #0xc0]",
+      "mnemonic": "str"
+    },
+    {
+      "address": "0x-1fff4be3874",
+      "function": "_uuid_for_data",
+      "inst": "stp x22,x21,[sp, #0xc0]",
+      "mnemonic": "stp"
+    },
+    {
+      "address": "0x-1fff4be2034",
+      "function": "_extensions_notify_create",
+      "inst": "stp xzr,x26,[sp, #0xc0]",
+      "mnemonic": "stp"
+    },
+    {
+      "address": "0x-1fff4be05a4",
+      "function": "_syscall_extension_issue",
+      "inst": "stp x8,x9,[sp, #0xc0]",
+      "mnemonic": "stp"
+    },
+    {
+      "address": "0x-1fff4bdf554",
+      "function": "_syscall_extension_consume",
+      "inst": "stp x20,x19,[sp, #0xc0]",
+      "mnemonic": "stp"
+    },
+    {
+      "address": "0x-1fff4bdec5c",
+      "function": "_syscall_extension_release",
+      "inst": "stp q0,q0,[sp, #0xc0]",
+      "mnemonic": "stp"
+    },
+    {
+      "address": "0x-1fff4bdcdac",
+      "function": "_schedule_before_userret",
+      "inst": "str w8,[x22, #0xc0]",
+      "mnemonic": "str"
+    },
+    {
+      "address": "0x-1fff4bdcb90",
+      "function": "_userret_entry_remove_locked",
+      "inst": "str w9,[x8, #0xc0]",
+      "mnemonic": "str"
+    },
+    {
+      "address": "0x-1fff4bd9d64",
+      "function": "_syscall_check_sandbox",
+      "inst": "stp xzr,xzr,[sp, #0xc0]",
+      "mnemonic": "stp"
+    },
+    {
+      "address": "0x-1fff4bd9b8c",
+      "function": "_syscall_check_sandbox",
+      "inst": "str x8,[sp, #0xc0]",
+      "mnemonic": "str"
+    },
+    {
+      "address": "0x-1fff4bd9a44",
+      "function": "_syscall_check_sandbox",
+      "inst": "str xzr,[sp, #0xc0]",
+      "mnemonic": "str"
+    },
+    {
+      "address": "0x-1fff4bd955c",
+      "function": "_syscall_check_sandbox",
+      "inst": "str x8,[sp, #0xc0]",
+      "mnemonic": "str"
+    },
+    {
+      "address": "0x-1fff4bd9408",
+      "function": "_syscall_check_sandbox",
+      "inst": "str x8,[sp, #0xc0]",
+      "mnemonic": "str"
+    },
+    {
+      "address": "0x-1fff4bd9364",
+      "function": "_syscall_check_sandbox",
+      "inst": "str x8,[sp, #0xc0]",
+      "mnemonic": "str"
+    },
+    {
+      "address": "0x-1fff4bd9290",
+      "function": "_syscall_check_sandbox",
+      "inst": "str x9,[sp, #0xc0]",
+      "mnemonic": "str"
+    },
+    {
+      "address": "0x-1fff4bd91b8",
+      "function": "_syscall_check_sandbox",
+      "inst": "str x8,[sp, #0xc0]",
+      "mnemonic": "str"
+    },
+    {
+      "address": "0x-1fff4bd8c00",
+      "function": "_syscall_check_sandbox_bulk",
+      "inst": "stp q0,q0,[sp, #0xc0]",
+      "mnemonic": "stp"
+    },
+    {
+      "address": "0x-1fff4bd74f4",
+      "function": "_macl_copy_for_vnode",
+      "inst": "stp q0,q0,[sp, #0xc0]",
+      "mnemonic": "stp"
+    },
+    {
+      "address": "0x-1fff4bd7484",
+      "function": "_macl_copy_for_vnode",
+      "inst": "stp q0,q0,[sp, #0xc0]",
+      "mnemonic": "stp"
+    },
+    {
+      "address": "0x-1fff4bd4cb8",
+      "function": "_fetch_filter_policy_callback",
+      "inst": "stp q0,q0,[sp, #0xc0]",
+      "mnemonic": "stp"
+    },
+    {
+      "address": "0x-1fff4bd4be4",
+      "function": "_fetch_filter_policy_callback",
+      "inst": "stp q0,q0,[sp, #0xc0]",
+      "mnemonic": "stp"
+    },
+    {
+      "address": "0x-1fff4bd3d80",
+      "function": "__has_rootless_entitlement",
+      "inst": "stp x24,x23,[sp, #0xc0]",
+      "mnemonic": "stp"
+    },
+    {
+      "address": "0x-1fff4bd3a34",
+      "function": "_syscall_rootless_protected_volume",
+      "inst": "stp q0,q0,[sp, #0xc0]",
+      "mnemonic": "stp"
+    },
+    {
+      "address": "0x-1fff4bd30d4",
+      "function": "_syscall_rootless_clear_storage_class",
+      "inst": "stp q0,q0,[sp, #0xc0]",
+      "mnemonic": "stp"
+    },
+    {
+      "address": "0x-1fff4bd2e84",
+      "function": "_syscall_profile_registration",
+      "inst": "stp x24,x23,[sp, #0xc0]",
+      "mnemonic": "stp"
+    }
+  ],
+  "meta": {
+    "block_filter": [
+      {
+        "end": "0x-1fff86dbc71",
+        "name": "__TEXT",
+        "start": "0x-1fff86dc2e0"
+      },
+      {
+        "end": "0x-1fff86bf33e",
+        "name": "__const",
+        "start": "0x-1fff86dbc70"
+      },
+      {
+        "end": "0x-1fff86b862c",
+        "name": "__cstring",
+        "start": "0x-1fff86bf33d"
+      },
+      {
+        "end": "0x-1fff86b6e92",
+        "name": "__os_log",
+        "start": "0x-1fff86b862b"
+      },
+      {
+        "end": "0x-1fff7b37981",
+        "name": "__auth_got",
+        "start": "0x-1fff7b382e0"
+      },
+      {
+        "end": "0x-1fff7b37889",
+        "name": "__got",
+        "start": "0x-1fff7b37980"
+      },
+      {
+        "end": "0x-1fff7b37881",
+        "name": "__auth_ptr",
+        "start": "0x-1fff7b37888"
+      },
+      {
+        "end": "0x-1fff7b33fd9",
+        "name": "__const",
+        "start": "0x-1fff7b37880"
+      },
+      {
+        "end": "0x-1fff7b33a89",
+        "name": "__kalloc_var",
+        "start": "0x-1fff7b33fd8"
+      },
+      {
+        "end": "0x-1fff7b32949",
+        "name": "__kalloc_type",
+        "start": "0x-1fff7b33a88"
+      },
+      {
+        "end": "0x-1fff4bcc849",
+        "name": "__text",
+        "start": "0x-1fff4c0cb10"
+      },
+      {
+        "end": "0x-1fff40a44d1",
+        "name": "__data",
+        "start": "0x-1fff40a4758"
+      },
+      {
+        "end": "0x-1fff40a0759",
+        "name": "__bss",
+        "start": "0x-1fff40a44d0"
+      },
+      {
+        "end": "0x-1fff408e3f9",
+        "name": "__bss",
+        "start": "0x-1fff40a0758"
+      },
+      {
+        "end": "0x-1fff2c9384a",
+        "name": "__LINKEDIT",
+        "start": "0x-1fff3fa4000"
+      },
+      {
+        "end": "0x-1fff2c91589",
+        "name": "EXTERNAL",
+        "start": "0x-1fff2c92000"
+      }
+    ],
+    "build_id": "14.4.1-23E224",
+    "hit_count": 63,
+    "offset": "0xc0",
+    "program": "sandbox_kext.bin",
+    "scan_all_blocks": true,
+    "write_only": true
+  }
+}

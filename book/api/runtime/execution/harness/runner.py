@@ -606,9 +606,14 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None, wr
     if os.environ.get("SANDBOX_LORE_SEATBELT_CALLOUT") == "1":
         filter_type: Optional[int] = None
         callout_arg: Optional[str] = None
+        seatbelt_op = op
         if op in {"file-read*", "file-write*", "file-read-metadata"} and target:
             filter_type = 0
             callout_arg = target
+            if op == "file-read*":
+                seatbelt_op = "file-read-data"
+            elif op == "file-write*":
+                seatbelt_op = "file-write-data"
         elif op == "mach-lookup" and target:
             filter_type = 5
             callout_arg = target
@@ -619,9 +624,9 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None, wr
             filter_type = 34
             callout_arg = target
 
-        if op and filter_type is not None and callout_arg is not None:
+        if seatbelt_op and filter_type is not None and callout_arg is not None:
             env = dict(os.environ)
-            env["SANDBOX_LORE_SEATBELT_OP"] = op
+            env["SANDBOX_LORE_SEATBELT_OP"] = seatbelt_op
             env["SANDBOX_LORE_SEATBELT_FILTER_TYPE"] = str(filter_type)
             env["SANDBOX_LORE_SEATBELT_ARG"] = callout_arg
 

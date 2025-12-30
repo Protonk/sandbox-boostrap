@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/Users/achyland/Desktop/SANDBOX_LORE/dumps/ghidra/scripts/kernel_op_table.py", line 135, in run
+    candidates.extend(_scan_block_for_tables(blk, ptr_size, func_mgr, addr_factory))
+  File "/Users/achyland/Desktop/SANDBOX_LORE/dumps/ghidra/scripts/kernel_op_table.py", line 63, in _scan_block_for_tables
+    target = _read_pointer(mem, addr, ptr_size, addr_factory)
+  File "/Users/achyland/Desktop/SANDBOX_LORE/dumps/ghidra/scripts/kernel_op_table.py", line 49, in _read_pointer
+    target = addr_factory.getDefaultAddressSpace().getAddress(value)
+TypeError: getAddress(): 1st arg can't be coerced to long, String

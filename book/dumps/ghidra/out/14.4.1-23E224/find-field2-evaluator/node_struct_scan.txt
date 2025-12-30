@@ -1,0 +1,149 @@
+== Node struct scan (reachable from _eval) ==
+Candidates: 2 (functions scanned: 3262)
+FUN_fffffe000852f360 (fffffe000852f360) block=__text: base=X8 index=X2 stride=0x1 bytes=['0x0', '0xc5L'] halfs=['0x1L', '0xc3L']
+FUN_fffffe000863e488 (fffffe000863e488) block=__text: base=X4 index=X23 stride=-0x1 bytes=['-0x1ffffffffa8L', '-0x1ffffffff48L', '-0x1ffffffff47L'] halfs=['-0x1ffffffffb4L', '-0x1ffffffffacL']
+  usage hints:
+    fffffe000863e514 ubfx x9,x27,#0x32,#0x1 flags=ubfx
+    fffffe000863e51c and w10,w10,#0xfffe flags=and imm=0xfffe
+    fffffe000863e51c and w10,w10,#0xfffe flags=and imm=0xfffe
+    fffffe000863e578 tbz w9,#0x0,0xfffffe000863e5a4 flags=tbz
+    fffffe000863e5a8 and w9,w9,#0x7 flags=and imm=0x7
+    fffffe000863e5a8 and w9,w9,#0x7 flags=and imm=0x7
+    fffffe000863e6c4 tst x9,#0x20000000000000 flags=tst imm=0x20000000000000
+    fffffe000863e6d0 and w10,w9,#0x7 flags=and imm=0x7
+    fffffe000863e6d0 and w10,w9,#0x7 flags=and imm=0x7
+    fffffe000863e6d8 and w9,w9,#0xf flags=and imm=0xf
+    fffffe000863e6d8 and w9,w9,#0xf flags=and imm=0xf
+    fffffe000863e6e4 and w9,w9,#0x3 flags=and imm=0x3
+    fffffe000863e6e4 and w9,w9,#0x3 flags=and imm=0x3
+    fffffe000863e734 lsr x9,x9,#0x24 flags=lsr
+    fffffe000863e734 lsr x9,x9,#0x24 flags=lsr
+    fffffe000863e7a0 ubfx x11,x8,#0x7,#0x19 flags=ubfx
+    fffffe000863e7b4 ubfx x11,x8,#0xb,#0x15 flags=ubfx
+    fffffe000863e7cc tbnz x8,#0x3f,0xfffffe000863f784 flags=tbnz
+    fffffe000863e7d8 lsr x9,x21,#0x1a flags=lsr
+    fffffe000863e7dc and x9,x9,#0x3fffffffc0 flags=and imm=0x3fffffffc0
+    fffffe000863e7dc and x9,x9,#0x3fffffffc0 flags=and imm=0x3fffffffc0
+    fffffe000863e7e4 lsr x10,x21,#0x20 flags=lsr
+    fffffe000863e7f8 tst x8,#0x7800 flags=tst imm=0x7800
+    fffffe000863e838 and x8,x8,#0xfff flags=and imm=0xfff
+    fffffe000863e838 and x8,x8,#0xfff flags=and imm=0xfff
+    fffffe000863e858 ubfx w10,w10,#0x6,#0x1 flags=ubfx
+    fffffe000863e858 ubfx w10,w10,#0x6,#0x1 flags=ubfx
+    fffffe000863e89c ubfx x10,x21,#0xe,#0x20 flags=ubfx
+    fffffe000863e8b0 and w10,w10,#0x3ff flags=and imm=0x3ff
+    fffffe000863e8b0 and w10,w10,#0x3ff flags=and imm=0x3ff
+    fffffe000863e924 tbz w8,#0x0,0xfffffe000863e940 flags=tbz
+    fffffe000863e9ac ubfx x8,x21,#0xe,#0x20 flags=ubfx
+    fffffe000863e9c0 and w8,w8,#0x3ff flags=and imm=0x3ff
+    fffffe000863e9c0 and w8,w8,#0x3ff flags=and imm=0x3ff
+    fffffe000863ea40 tbnz x8,#0x3f,0xfffffe000863f378 flags=tbnz
+    fffffe000863ea4c and w8,w8,#0xfffffbff flags=and imm=0xfffffbff
+    fffffe000863ea4c and w8,w8,#0xfffffbff flags=and imm=0xfffffbff
+    fffffe000863ea6c tbnz w8,#0x0,0xfffffe000863e708 flags=tbnz
+    fffffe000863eab4 tbnz w8,#0x6,0xfffffe000863eae8 flags=tbnz
+    fffffe000863eacc and x8,x8,#0x1 flags=and imm=0x1
+    fffffe000863eacc and x8,x8,#0x1 flags=and imm=0x1
+    fffffe000863eaf4 ubfx w3,w8,#0x3,#0x1 flags=ubfx
+    fffffe000863eb0c tbnz x8,#0x3f,0xfffffe000863f23c flags=tbnz
+    fffffe000863ec04 and w8,w8,#0xfffe7fff flags=and imm=0xfffe7fff
+    fffffe000863ec04 and w8,w8,#0xfffe7fff flags=and imm=0xfffe7fff
+    fffffe000863ec38 tst w9,#0x2000 flags=tst imm=0x2000
+    fffffe000863ec5c tst x8,#0x2000000 flags=tst imm=0x2000000
+    fffffe000863ec98 tst x10,#0x2 flags=tst imm=0x2
+    fffffe000863ece8 and w10,w10,#0x7 flags=and imm=0x7
+    fffffe000863ece8 and w10,w10,#0x7 flags=and imm=0x7
+    fffffe000863ed04 and w10,w10,#0xf flags=and imm=0xf
+    fffffe000863ed04 and w10,w10,#0xf flags=and imm=0xf
+    fffffe000863ed14 and x10,x10,#0x80000 flags=and imm=0x80000
+    fffffe000863ed14 and x10,x10,#0x80000 flags=and imm=0x80000
+    fffffe000863ed4c ubfx x9,x9,#0x7,#0x19 flags=ubfx
+    fffffe000863ed4c ubfx x9,x9,#0x7,#0x19 flags=ubfx
+    fffffe000863ed90 tbnz w8,#0x1,0xfffffe000863f16c flags=tbnz
+    fffffe000863ed98 and x8,x8,#0x3000 flags=and imm=0x3000
+    fffffe000863ed98 and x8,x8,#0x3000 flags=and imm=0x3000
+    fffffe000863edd0 tbnz w8,#0x1,0xfffffe000863f154 flags=tbnz
+    fffffe000863edfc tbnz x8,#0x3f,0xfffffe000863ee1c flags=tbnz
+    fffffe000863ee3c and w8,w8,#0xfffffffe flags=and imm=0xfffffffe
+    fffffe000863ee3c and w8,w8,#0xfffffffe flags=and imm=0xfffffffe
+    fffffe000863ef20 lsr x10,x10,#0x6 flags=lsr
+    fffffe000863ef20 lsr x10,x10,#0x6 flags=lsr
+    fffffe000863ef3c and x8,x8,#0xfff flags=and imm=0xfff
+    fffffe000863ef3c and x8,x8,#0xfff flags=and imm=0xfff
+    fffffe000863ef40 and w9,w9,#0x800000 flags=and imm=0x800000
+    fffffe000863ef40 and w9,w9,#0x800000 flags=and imm=0x800000
+    fffffe000863efd0 lsr x10,x10,#0x6 flags=lsr
+    fffffe000863efd0 lsr x10,x10,#0x6 flags=lsr
+    fffffe000863f008 and w10,w10,#0x1 flags=and imm=0x1
+    fffffe000863f008 and w10,w10,#0x1 flags=and imm=0x1
+    fffffe000863f0d0 tbz w9,#0x17,0xfffffe000863f0e4 flags=tbz
+    fffffe000863f0d8 tbnz x10,#0x33,0xfffffe000863f9c0 flags=tbnz
+    fffffe000863f0e0 tbnz w10,#0x5,0xfffffe000863fa00 flags=tbnz
+    fffffe000863f104 tbnz w10,#0x1,0xfffffe000863f17c flags=tbnz
+    fffffe000863f108 and w9,w9,#0xffffffbf flags=and imm=0xffffffbf
+    fffffe000863f108 and w9,w9,#0xffffffbf flags=and imm=0xffffffbf
+    fffffe000863f12c tbnz x8,#0x3f,0xfffffe000863f1e8 flags=tbnz
+    fffffe000863f190 tbnz w8,#0x0,0xfffffe000863f1cc flags=tbnz
+    fffffe000863f198 tbnz w8,#0x1,0xfffffe000863f1cc flags=tbnz
+    fffffe000863f1a8 and w8,w9,w8, LSR #0x7 flags=and imm=0x7
+    fffffe000863f1a8 and w8,w9,w8, LSR #0x7 flags=and imm=0x7
+    fffffe000863f1a8 and w8,w9,w8, LSR #0x7 flags=and imm=0x7
+    fffffe000863f1ac and w8,w8,#0x7 flags=and imm=0x7
+    fffffe000863f1ac and w8,w8,#0x7 flags=and imm=0x7
+    fffffe000863f1c0 and w8,w9,w8, LSR #0xb flags=and imm=0xb
+    fffffe000863f1c0 and w8,w9,w8, LSR #0xb flags=and imm=0xb
+    fffffe000863f1c0 and w8,w9,w8, LSR #0xb flags=and imm=0xb
+    fffffe000863f1c4 and w8,w8,#0xf flags=and imm=0xf
+    fffffe000863f1c4 and w8,w8,#0xf flags=and imm=0xf
+    fffffe000863f1d0 tbnz x8,#0x31,0xfffffe000863f858 flags=tbnz
+    fffffe000863f254 lsr x10,x11,#0x6 flags=lsr
+    fffffe000863f290 tbnz w8,#0x6,0xfffffe000863f3dc flags=tbnz
+    fffffe000863f2a4 and w6,w10,w8, LSR #0x7 flags=and imm=0x7
+    fffffe000863f2a4 and w6,w10,w8, LSR #0x7 flags=and imm=0x7
+    fffffe000863f2ac tbnz w10,#0x3,0xfffffe000863f35c flags=tbnz
+    fffffe000863f2f4 and w8,w8,#0x1 flags=and imm=0x1
+    fffffe000863f2f4 and w8,w8,#0x1 flags=and imm=0x1
+    fffffe000863f318 tbnz w8,#0x6,0xfffffe000863f44c flags=tbnz
+    fffffe000863f31c tbnz w8,#0x0,0xfffffe000863f410 flags=tbnz
+    fffffe000863f324 tbnz w9,#0x3,0xfffffe000863f410 flags=tbnz
+    fffffe000863f35c tbnz w8,#0x1f,0xfffffe000863f3b8 flags=tbnz
+    fffffe000863f3e4 tbnz x9,#0x3f,0xfffffe000863f400 flags=tbnz
+    fffffe000863f418 and w6,w9,w8, LSR #0x7 flags=and imm=0x7
+    fffffe000863f418 and w6,w9,w8, LSR #0x7 flags=and imm=0x7
+    fffffe000863f51c ubfx x25,x10,#0x6,#0x1 flags=ubfx
+    fffffe000863f574 and w10,w10,#0x3ff flags=and imm=0x3ff
+    fffffe000863f574 and w10,w10,#0x3ff flags=and imm=0x3ff
+    fffffe000863f5cc tbnz w8,#0x0,0xfffffe000863f5dc flags=tbnz
+    fffffe000863f660 and w8,w8,#0x3ff flags=and imm=0x3ff
+    fffffe000863f660 and w8,w8,#0x3ff flags=and imm=0x3ff
+    fffffe000863f6b4 tbnz x8,#0x3f,0xfffffe000863f7cc flags=tbnz
+    fffffe000863f6d0 tst x8,#0x7800 flags=tst imm=0x7800
+    fffffe000863f714 and x9,x8,#0xfff flags=and imm=0xfff
+    fffffe000863f714 and x9,x8,#0xfff flags=and imm=0xfff
+    fffffe000863f72c lsr x9,x9,#0x31 flags=lsr
+    fffffe000863f72c lsr x9,x9,#0x31 flags=lsr
+    fffffe000863f7e0 tbnz w8,#0x6,0xfffffe000863f810 flags=tbnz
+    fffffe000863f7e8 tbnz w10,#0x3,0xfffffe000863f810 flags=tbnz
+    fffffe000863f7f0 and w10,w10,#0x1ff800 flags=and imm=0x1ff800
+    fffffe000863f7f0 and w10,w10,#0x1ff800 flags=and imm=0x1ff800
+    fffffe000863f7f4 and w10,w10,#0xfff00fff flags=and imm=0xfff00fff
+    fffffe000863f7f4 and w10,w10,#0xfff00fff flags=and imm=0xfff00fff
+    fffffe000863f800 tbnz w8,#0x0,0xfffffe000863fb18 flags=tbnz
+    fffffe000863f818 tbnz x8,#0x3f,0xfffffe000863fa40 flags=tbnz
+    fffffe000863f8ac lsr x10,x8,#0x1a flags=lsr
+    fffffe000863f8ac lsr x10,x8,#0x1a flags=lsr
+    fffffe000863f8b0 and x10,x10,#0x3fffffffc0 flags=and imm=0x3fffffffc0
+    fffffe000863f8b0 and x10,x10,#0x3fffffffc0 flags=and imm=0x3fffffffc0
+    fffffe000863f8b8 lsr x8,x8,#0x20 flags=lsr
+    fffffe000863f8b8 lsr x8,x8,#0x20 flags=lsr
+    fffffe000863f92c tbz w8,#0x1,0xfffffe000863f8a8 flags=tbz
+    fffffe000863f954 ubfx x8,x8,#0xe,#0x20 flags=ubfx
+    fffffe000863f954 ubfx x8,x8,#0xe,#0x20 flags=ubfx
+    fffffe000863f964 and w8,w8,#0x3ff flags=and imm=0x3ff
+    fffffe000863f964 and w8,w8,#0x3ff flags=and imm=0x3ff
+    fffffe000863fa68 tbnz x8,#0x3f,0xfffffe000863fa84 flags=tbnz
+    fffffe000863fa98 lsr x11,x10,#0x6 flags=lsr
+    fffffe000863fad4 tbnz w8,#0x6,0xfffffe000863fb08 flags=tbnz
+    fffffe000863fadc and w6,w9,w8, LSR #0x7 flags=and imm=0x7
+    fffffe000863fadc and w6,w9,w8, LSR #0x7 flags=and imm=0x7
+    fffffe000863fb18 tbnz w8,#0x1f,0xfffffe000863fb38 flags=tbnz

@@ -2,8 +2,8 @@
 
 Usage:
   python book/experiments/mac-policy-registration/filter_conf_candidates.py \
-    --in dumps/ghidra/out/14.4.1-23E224/sandbox-kext-conf-scan/mac_policy_conf_candidates.json \
-    --out dumps/ghidra/out/14.4.1-23E224/sandbox-kext-conf-scan/mac_policy_conf_candidates_ranked.json
+    --in book/dumps/ghidra/out/14.4.1-23E224/sandbox-kext-conf-scan/mac_policy_conf_candidates.json \
+    --out book/dumps/ghidra/out/14.4.1-23E224/sandbox-kext-conf-scan/mac_policy_conf_candidates_ranked.json
 
 This is intentionally lightweight: it preserves the raw candidates from the
 Ghidra scan and emits a sorted shortlist with heuristic scores (string hints,

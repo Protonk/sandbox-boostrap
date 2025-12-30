@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.0",
+  "shape": {
+    "keys": {
+      "meta": {
+        "keys": {
+          "addr": {
+            "type": "str"
+          },
+          "build_id": {
+            "type": "str"
+          },
+          "entries": {
+            "type": "int"
+          },
+          "mode": {
+            "type": "str"
+          },
+          "program": {
+            "type": "str"
+          },
+          "start": {
+            "type": "str"
+          },
+          "stride": {
+            "type": "int"
+          }
+        },
+        "type": "dict"
+      },
+      "rows": {
+        "element_shapes": [
+          {
+            "keys": {
+              "entry_addr": {
+                "type": "str"
+              },
+              "index": {
+                "type": "int"
+              },
+              "target_block": {
+                "type": "str"
+              },
+              "target_function": {
+                "type": "null"
+              },
+              "value": {
+                "type": "str"
+              },
+              "value_signed": {
+                "type": "int"
+              }
+            },
+            "type": "dict"
+          },
+          {
+            "keys": {
+              "entry_addr": {
+                "type": "str"
+              },
+              "index": {
+                "type": "int"
+              },
+              "target_block": {
+                "type": "str"
+              },
+              "target_function": {
+                "type": "str"
+              },
+              "value": {
+                "type": "str"
+              },
+              "value_signed": {
+                "type": "int"
+              }
+            },
+            "type": "dict"
+          }
+        ],
+        "length": 128,
+        "sampled": 128,
+        "type": "list"
+      }
+    },
+    "type": "dict"
+  },
+  "source": {
+    "name": "kernel-pointer-window-kc__pointer_window",
+    "output_path": "book/dumps/ghidra/out/14.4.1-23E224/kernel-pointer-window-kc/pointer_window.json",
+    "shape_options": {
+      "list_length": true,
+      "max_list_items": null
+    },
+    "snapshot_path": "book/integration/tests/ghidra/fixtures/shape_catalog/snapshots/kernel-pointer-window-kc__pointer_window.shape.json",
+    "task": "kernel-pointer-window-kc"
+  }
+}

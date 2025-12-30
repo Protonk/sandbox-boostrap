@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/Users/achyland/Desktop/SANDBOX_LORE/dumps/ghidra/scripts/kernel_addr_lookup.py", line 111, in run
+    results = _lookup_offsets(offsets)
+  File "/Users/achyland/Desktop/SANDBOX_LORE/dumps/ghidra/scripts/kernel_addr_lookup.py", line 34, in _lookup_offsets
+    addr = addr_factory.getDefaultAddressSpace().getAddress(long(off))
+TypeError: getAddress(): 1st arg can't be coerced to long, String

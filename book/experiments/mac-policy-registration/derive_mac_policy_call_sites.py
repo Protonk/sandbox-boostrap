@@ -88,7 +88,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Derive mac_policy_register call sites from string scan.")
     parser.add_argument(
         "--string-calls",
-        default="dumps/ghidra/out/14.4.1-23E224/kernel-collection-string-call-sites/string_call_sites.json",
+        default="book/dumps/ghidra/out/14.4.1-23E224/kernel-collection-string-call-sites/string_call_sites.json",
         help="Path to string_call_sites.json",
     )
     parser.add_argument(

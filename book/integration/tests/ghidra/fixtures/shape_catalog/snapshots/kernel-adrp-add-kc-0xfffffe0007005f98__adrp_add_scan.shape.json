@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0",
+  "shape": {
+    "keys": {
+      "matches": {
+        "element_shapes": [],
+        "length": 0,
+        "sampled": 0,
+        "type": "list"
+      },
+      "meta": {
+        "keys": {
+          "adrp_seen": {
+            "type": "int"
+          },
+          "block_filter": {
+            "element_shapes": [
+              {
+                "keys": {
+                  "end": {
+                    "type": "str"
+                  },
+                  "name": {
+                    "type": "str"
+                  },
+                  "start": {
+                    "type": "str"
+                  }
+                },
+                "type": "dict"
+              }
+            ],
+            "length": 5006,
+            "sampled": 5006,
+            "type": "list"
+          },
+          "build_id": {
+            "type": "str"
+          },
+          "lookahead": {
+            "type": "int"
+          },
+          "program": {
+            "type": "str"
+          },
+          "scan_all_blocks": {
+            "type": "bool"
+          },
+          "target_addr": {
+            "type": "str"
+          },
+          "target_page": {
+            "type": "str"
+          }
+        },
+        "type": "dict"
+      }
+    },
+    "type": "dict"
+  },
+  "source": {
+    "name": "kernel-adrp-add-kc-0xfffffe0007005f98__adrp_add_scan",
+    "output_path": "book/dumps/ghidra/out/14.4.1-23E224/kernel-adrp-add-kc-0xfffffe0007005f98/adrp_add_scan.json",
+    "shape_options": {
+      "list_length": true,
+      "max_list_items": null
+    },
+    "snapshot_path": "book/integration/tests/ghidra/fixtures/shape_catalog/snapshots/kernel-adrp-add-kc-0xfffffe0007005f98__adrp_add_scan.shape.json",
+    "task": "kernel-adrp-add-kc-0xfffffe0007005f98"
+  }
+}

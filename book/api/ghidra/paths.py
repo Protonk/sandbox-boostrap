@@ -15,13 +15,16 @@ BASELINE_BUILD_ID_FALLBACK = "14.4.1-23E224"
 
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
-# Keep all Ghidra state under dumps/ to avoid polluting the user's global config.
-DUMPS_ROOT = REPO_ROOT / "dumps"
+BOOK_ROOT = REPO_ROOT / "book"
+# Keep all Ghidra state under book/dumps/ to avoid polluting the user's global config.
+DUMPS_ROOT = BOOK_ROOT / "dumps"
 GHIDRA_ROOT = DUMPS_ROOT / "ghidra"
-SANDBOX_PRIVATE = DUMPS_ROOT / "Sandbox-private"
+GHIDRA_PRIVATE_ROOT = GHIDRA_ROOT / "private"
+SANDBOX_PRIVATE = GHIDRA_PRIVATE_ROOT / "aapl-restricted"
+SANDBOX_OVERSIZE = GHIDRA_PRIVATE_ROOT / "oversize"
 SCRIPTS_DIR = Path(__file__).resolve().parent / "scripts"
 OUT_ROOT = GHIDRA_ROOT / "out"
-KERNEL_SYMBOLS_OUT_ROOT = REPO_ROOT / "book" / "experiments" / "kernel-symbols" / "out"
+KERNEL_SYMBOLS_OUT_ROOT = BOOK_ROOT / "experiments" / "kernel-symbols" / "out"
 PROJECTS_ROOT = GHIDRA_ROOT / "projects"
 TEMP_ROOT = GHIDRA_ROOT / "tmp"
 def _derive_build_id_from_world(world: dict) -> str | None:

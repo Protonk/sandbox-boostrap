@@ -25,10 +25,10 @@ New notes do not have to be identical, but the following pattern keeps things ea
 - Optional `## Reproduction` – minimal commands/paths to trigger it.
 - `## Interpretation` – how we currently understand it, using the project’s vocabulary.
 - `## Status` – `open` / `partial` / `resolved` plus a one‑liner (“resolved via …”, “blocked by …”).
-- Optional `## Pointers` – links into `book/` or `dumps/` for deeper artifacts.
+- Optional `## Pointers` – links into `book/` or `book/dumps/` for deeper artifacts.
 
 ## Things to avoid
 
 - Don’t stash large binaries or long logs; reference paths and include minimal snippets.
-- Don’t treat this as another `out/` tree—troubles should point back to real artifacts under `book/` or `dumps/`.
+- Don’t treat this as another `out/` tree—troubles should point back to real artifacts under `book/` or `book/dumps/`.
 - Don’t silently delete or overwrite prior notes; if superseded, note where the fix landed.

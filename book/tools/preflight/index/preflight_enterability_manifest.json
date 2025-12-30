@@ -1,6 +1,6 @@
 {
   "inputs": {
-    "book_blobs": "book/**/*.sb.bin",
+    "book_blobs": "book/**/*.sb.bin (excluding book/dumps/** and book/integration/out/**)",
     "examples_sbpl": "book/examples/**/*.sb",
     "experiments_sbpl": "book/experiments/**/*.sb (excluding out/)",
     "profiles_sbpl": "book/profiles/**/*.sb",
@@ -10135,6 +10135,60 @@
         "findings": [],
         "input_kind": "sbpl_path",
         "input_ref": "book/experiments/runtime-closure/sb/v15_iokit_ioacceleration_user_client.sb",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "experiments_sbpl"
+      ]
+    },
+    {
+      "file_sha256": "1b9de192221cae1304bc6c70d089c2007425253a8486200e57cffe3074bbac3d",
+      "file_size": 161,
+      "path": "book/experiments/runtime-closure/sb/v16_iokit_service_only_registry.sb",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [],
+        "input_kind": "sbpl_path",
+        "input_ref": "book/experiments/runtime-closure/sb/v16_iokit_service_only_registry.sb",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "experiments_sbpl"
+      ]
+    },
+    {
+      "file_sha256": "fc9eb24678aaafb56d4237437e3f499c77dce5f03fc7900cd52999ac27ce2038",
+      "file_size": 183,
+      "path": "book/experiments/runtime-closure/sb/v17_iokit_user_client_registry.sb",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [],
+        "input_kind": "sbpl_path",
+        "input_ref": "book/experiments/runtime-closure/sb/v17_iokit_user_client_registry.sb",
+        "preflight_schema_version": 1,
+        "signature": null,
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "sources": [
+        "experiments_sbpl"
+      ]
+    },
+    {
+      "file_sha256": "de831ac2d083d627710c0aefef495602a37b0be2647256d34abca2df2e1fa24f",
+      "file_size": 317,
+      "path": "book/experiments/runtime-closure/sb/v18_iokit_service_user_client_registry.sb",
+      "preflight": {
+        "classification": "no_known_apply_gate_signature",
+        "findings": [],
+        "input_kind": "sbpl_path",
+        "input_ref": "book/experiments/runtime-closure/sb/v18_iokit_service_user_client_registry.sb",
         "preflight_schema_version": 1,
         "signature": null,
         "tool": "book/tools/preflight",

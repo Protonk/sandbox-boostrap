@@ -1,0 +1,53 @@
+{
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "profiles": {
+    "runtime-closure:iokit:v16_service_only_registry": {
+      "blob": "book/experiments/runtime-closure/sb/v16_iokit_service_only_registry.sb",
+      "mode": "sbpl",
+      "family": "iokit-open-service",
+      "semantic_group": "iokit:op-identity-oracle",
+      "probes": [
+        {
+          "name": "iosurface_root",
+          "operation": "iokit-open-service",
+          "target": "IOSurfaceRoot",
+          "expected": "allow",
+          "expectation_id": "runtime-closure:iokit:v16_service_only_registry:iosurface_root",
+          "driver": "sandbox_iokit_probe"
+        }
+      ]
+    },
+    "runtime-closure:iokit:v17_user_client_registry": {
+      "blob": "book/experiments/runtime-closure/sb/v17_iokit_user_client_registry.sb",
+      "mode": "sbpl",
+      "family": "iokit-open-service",
+      "semantic_group": "iokit:op-identity-oracle",
+      "probes": [
+        {
+          "name": "iosurface_root",
+          "operation": "iokit-open-service",
+          "target": "IOSurfaceRoot",
+          "expected": "allow",
+          "expectation_id": "runtime-closure:iokit:v17_user_client_registry:iosurface_root",
+          "driver": "sandbox_iokit_probe"
+        }
+      ]
+    },
+    "runtime-closure:iokit:v18_service_user_client_registry": {
+      "blob": "book/experiments/runtime-closure/sb/v18_iokit_service_user_client_registry.sb",
+      "mode": "sbpl",
+      "family": "iokit-open-service",
+      "semantic_group": "iokit:op-identity-oracle",
+      "probes": [
+        {
+          "name": "iosurface_root",
+          "operation": "iokit-open-service",
+          "target": "IOSurfaceRoot",
+          "expected": "allow",
+          "expectation_id": "runtime-closure:iokit:v18_service_user_client_registry:iosurface_root",
+          "driver": "sandbox_iokit_probe"
+        }
+      ]
+    }
+  }
+}

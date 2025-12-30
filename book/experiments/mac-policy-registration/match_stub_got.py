@@ -12,7 +12,7 @@ from pathlib import Path
 from book.api import path_utils
 
 DEFAULT_BUILD_ID = "14.4.1-23E224"
-DEFAULT_STUB_MAP = "dumps/ghidra/out/{build}/sandbox-kext-stub-got-map/stub_got_map.json"
+DEFAULT_STUB_MAP = "book/dumps/ghidra/out/{build}/sandbox-kext-stub-got-map/stub_got_map.json"
 DEFAULT_OTOOL = "book/experiments/mac-policy-registration/out/otool_indirect_symbols.txt"
 DEFAULT_OUT = "book/experiments/mac-policy-registration/out/stub_targets.json"
 DEFAULT_SYMBOL_SUBSTRINGS = ["mac_policy_register", "amfi_register_mac_policy"]
@@ -104,7 +104,7 @@ def _match_stubs(stubs, symbols_by_addr, filters):
 
 def main():
     parser = argparse.ArgumentParser(description="Join stub_got_map.json with otool indirect symbols.")
-    parser.add_argument("--build-id", default=DEFAULT_BUILD_ID, help="Sandbox-private build ID.")
+    parser.add_argument("--build-id", default=DEFAULT_BUILD_ID, help="aapl-restricted build ID.")
     parser.add_argument("--stub-map", default=None, help="Path to stub_got_map.json.")
     parser.add_argument("--otool", default=DEFAULT_OTOOL, help="Path to otool indirect symbols output.")
     parser.add_argument("--out", default=DEFAULT_OUT, help="Output JSON path.")

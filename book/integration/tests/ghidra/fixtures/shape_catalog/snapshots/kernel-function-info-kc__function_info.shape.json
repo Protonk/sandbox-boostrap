@@ -1,0 +1,93 @@
+{
+  "schema_version": "1.0",
+  "shape": {
+    "keys": {
+      "meta": {
+        "keys": {
+          "build_id": {
+            "type": "str"
+          },
+          "program": {
+            "type": "str"
+          },
+          "query_names": {
+            "element_shapes": [
+              {
+                "type": "str"
+              }
+            ],
+            "length": 1,
+            "sampled": 1,
+            "type": "list"
+          },
+          "result_count": {
+            "type": "int"
+          }
+        },
+        "type": "dict"
+      },
+      "results": {
+        "element_shapes": [
+          {
+            "keys": {
+              "address": {
+                "type": "str"
+              },
+              "block": {
+                "type": "str"
+              },
+              "callees": {
+                "element_shapes": [],
+                "length": 0,
+                "sampled": 0,
+                "type": "list"
+              },
+              "callers": {
+                "element_shapes": [
+                  {
+                    "keys": {
+                      "caller": {
+                        "type": "null"
+                      },
+                      "from": {
+                        "type": "str"
+                      },
+                      "type": {
+                        "type": "str"
+                      }
+                    },
+                    "type": "dict"
+                  }
+                ],
+                "length": 1,
+                "sampled": 1,
+                "type": "list"
+              },
+              "name": {
+                "type": "str"
+              },
+              "size": {
+                "type": "int"
+              }
+            },
+            "type": "dict"
+          }
+        ],
+        "length": 1,
+        "sampled": 1,
+        "type": "list"
+      }
+    },
+    "type": "dict"
+  },
+  "source": {
+    "name": "kernel-function-info-kc__function_info",
+    "output_path": "book/dumps/ghidra/out/14.4.1-23E224/kernel-function-info-kc/function_info.json",
+    "shape_options": {
+      "list_length": true,
+      "max_list_items": null
+    },
+    "snapshot_path": "book/integration/tests/ghidra/fixtures/shape_catalog/snapshots/kernel-function-info-kc__function_info.shape.json",
+    "task": "kernel-function-info-kc"
+  }
+}

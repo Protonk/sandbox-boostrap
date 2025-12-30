@@ -1,0 +1,23 @@
+fffffe000b40fa1c: pacibsp
+fffffe000b40fa20: stp x29,x30,[sp, #-0x10]!
+fffffe000b40fa24: mov x29,sp
+fffffe000b40fa28: adds x8,x1,#0x1
+fffffe000b40fa2c: cset w10,cs
+fffffe000b40fa30: sbfx x9,x10,#0x0,#0x1
+fffffe000b40fa34: eor x10,x9,x10
+fffffe000b40fa38: cbnz x10,0xfffffe000b40fa64
+fffffe000b40fa3c: tbnz x9,#0x3f,0xfffffe000b40fa64
+fffffe000b40fa40: ldr x9,[x0, #0x8]
+fffffe000b40fa44: cmp x9,x8
+fffffe000b40fa48: b.ls 0xfffffe000b40fa64
+fffffe000b40fa4c: ldr x8,[x0]
+fffffe000b40fa50: ldrh w8,[x8, x1, LSL #0x0]
+fffffe000b40fa54: strh w8,[x2]
+fffffe000b40fa58: mov w0,#0x1
+fffffe000b40fa5c: ldp x29,x30,[sp], #0x10
+fffffe000b40fa60: retab
+fffffe000b40fa64: adrp x1,-0x1fff86be000
+fffffe000b40fa68: add x1,x1,#0x2a6
+fffffe000b40fa6c: bl 0xfffffe000b40f78c
+fffffe000b40fa70: mov w0,#0x0
+fffffe000b40fa74: b 0xfffffe000b40fa5c

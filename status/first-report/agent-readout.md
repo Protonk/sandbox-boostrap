@@ -325,12 +325,12 @@ This section summarizes the core tools under `book/api/` that decode profiles, a
 
 * **Ghidra connector (`book/api/ghidra`)**
 
-  * Provides a `TaskRegistry` and `HeadlessConnector` for running Seatbelt-focused Ghidra scripts against kernel and userland artifacts stored under `dumps/`.
+  * Provides a `TaskRegistry` and `HeadlessConnector` for running Seatbelt-focused Ghidra scripts against kernel and userland artifacts stored under `book/dumps/`.
   * It enforces basic hygiene:
 
-    * Inputs are taken from `dumps/Sandbox-private/...`.
-    * Outputs are written under `dumps/ghidra/out/` and `dumps/ghidra/projects/`.
-    * `HOME`, `GHIDRA_USER_HOME`, and temporary directories are pointed inside `dumps/ghidra/` to keep Ghidra’s side effects inside the project’s own sandbox.
+    * Inputs are taken from `book/dumps/ghidra/private/aapl-restricted/...`.
+    * Outputs are written under `book/dumps/ghidra/out/` and `book/dumps/ghidra/projects/`.
+    * `HOME`, `GHIDRA_USER_HOME`, and temporary directories are pointed inside `book/dumps/ghidra/` to keep Ghidra’s side effects inside the project’s own sandbox.
 
 * **File probe (`book/api/file_probe/file_probe`)**
 

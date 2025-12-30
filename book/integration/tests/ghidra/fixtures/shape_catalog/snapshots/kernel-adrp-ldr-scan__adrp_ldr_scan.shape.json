@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.0",
+  "shape": {
+    "keys": {
+      "matches": {
+        "element_shapes": [],
+        "length": 0,
+        "sampled": 0,
+        "type": "list"
+      },
+      "meta": {
+        "keys": {
+          "adrp_seen": {
+            "type": "int"
+          },
+          "block_filter": {
+            "element_shapes": [
+              {
+                "keys": {
+                  "end": {
+                    "type": "str"
+                  },
+                  "name": {
+                    "type": "str"
+                  },
+                  "start": {
+                    "type": "str"
+                  }
+                },
+                "type": "dict"
+              }
+            ],
+            "length": 2957,
+            "sampled": 2957,
+            "type": "list"
+          },
+          "build_id": {
+            "type": "str"
+          },
+          "got_block_mode": {
+            "type": "null"
+          },
+          "got_blocks": {
+            "element_shapes": [],
+            "length": 0,
+            "sampled": 0,
+            "type": "list"
+          },
+          "ldr_literal_seen": {
+            "type": "int"
+          },
+          "lookahead": {
+            "type": "int"
+          },
+          "match_kinds": {
+            "keys": {},
+            "type": "dict"
+          },
+          "max_bases_per_reg": {
+            "type": "int"
+          },
+          "program": {
+            "type": "str"
+          },
+          "scan_all_blocks": {
+            "type": "bool"
+          },
+          "target_addr": {
+            "type": "str"
+          },
+          "target_mode": {
+            "type": "str"
+          },
+          "target_page": {
+            "type": "str"
+          },
+          "truncated_bases": {
+            "type": "int"
+          }
+        },
+        "type": "dict"
+      }
+    },
+    "type": "dict"
+  },
+  "source": {
+    "name": "kernel-adrp-ldr-scan__adrp_ldr_scan",
+    "output_path": "book/dumps/ghidra/out/14.4.1-23E224/kernel-adrp-ldr-scan/adrp_ldr_scan.json",
+    "shape_options": {
+      "list_length": true,
+      "max_list_items": null
+    },
+    "snapshot_path": "book/integration/tests/ghidra/fixtures/shape_catalog/snapshots/kernel-adrp-ldr-scan__adrp_ldr_scan.shape.json",
+    "task": "kernel-adrp-ldr-scan"
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "schema_version": "1.0",
+  "shape": {
+    "keys": {
+      "applematch_externals": {
+        "element_shapes": [],
+        "length": 0,
+        "sampled": 0,
+        "type": "list"
+      },
+      "external_libraries": {
+        "element_shapes": [],
+        "length": 0,
+        "sampled": 0,
+        "type": "list"
+      },
+      "meta": {
+        "keys": {
+          "applematch_externals": {
+            "type": "int"
+          },
+          "block_filter": {
+            "element_shapes": [
+              {
+                "keys": {
+                  "end": {
+                    "type": "str"
+                  },
+                  "name": {
+                    "type": "str"
+                  },
+                  "start": {
+                    "type": "str"
+                  }
+                },
+                "type": "dict"
+              }
+            ],
+            "length": 5006,
+            "sampled": 5006,
+            "type": "list"
+          },
+          "build_id": {
+            "type": "str"
+          },
+          "external_library_count": {
+            "type": "int"
+          },
+          "external_library_filter": {
+            "type": "str"
+          },
+          "program": {
+            "type": "str"
+          },
+          "query_strings": {
+            "element_shapes": [
+              {
+                "type": "str"
+              }
+            ],
+            "length": 2,
+            "sampled": 2,
+            "type": "list"
+          },
+          "scan_all_blocks": {
+            "type": "bool"
+          },
+          "string_hits": {
+            "type": "int"
+          },
+          "symbol_hits": {
+            "type": "int"
+          },
+          "symbol_substrings": {
+            "element_shapes": [
+              {
+                "type": "str"
+              }
+            ],
+            "length": 1,
+            "sampled": 1,
+            "type": "list"
+          }
+        },
+        "type": "dict"
+      },
+      "strings": {
+        "element_shapes": [
+          {
+            "keys": {
+              "address": {
+                "type": "str"
+              },
+              "block": {
+                "type": "str"
+              },
+              "queries": {
+                "element_shapes": [
+                  {
+                    "type": "str"
+                  }
+                ],
+                "length": 1,
+                "sampled": 1,
+                "type": "list"
+              },
+              "references": {
+                "element_shapes": [],
+                "length": 0,
+                "sampled": 0,
+                "type": "list"
+              },
+              "value": {
+                "type": "str"
+              }
+            },
+            "type": "dict"
+          }
+        ],
+        "length": 3,
+        "sampled": 3,
+        "type": "list"
+      },
+      "symbol_hits": {
+        "element_shapes": [],
+        "length": 0,
+        "sampled": 0,
+        "type": "list"
+      }
+    },
+    "type": "dict"
+  },
+  "source": {
+    "name": "kernel-string-refs-kc__string_references",
+    "output_path": "book/dumps/ghidra/out/14.4.1-23E224/kernel-string-refs-kc/string_references.json",
+    "shape_options": {
+      "list_length": true,
+      "max_list_items": null
+    },
+    "snapshot_path": "book/integration/tests/ghidra/fixtures/shape_catalog/snapshots/kernel-string-refs-kc__string_references.shape.json",
+    "task": "kernel-string-refs-kc"
+  }
+}

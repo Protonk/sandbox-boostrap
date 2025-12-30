@@ -2,8 +2,8 @@
 Filter the kernel import census for sandbox-related externals.
 
 Usage:
-    python filter_imports.py --input dumps/ghidra/out/14.4.1-23E224/kernel-imports/imports_all.json \\
-        --output dumps/ghidra/out/14.4.1-23E224/kernel-imports/imports_filtered.json \\
+    python filter_imports.py --input book/dumps/ghidra/out/14.4.1-23E224/kernel-imports/imports_all.json \\
+        --output book/dumps/ghidra/out/14.4.1-23E224/kernel-imports/imports_filtered.json \\
         --substr applematch mac_policy sandbox seatbelt
     python filter_imports.py --input ... --output ... --regex 'apple.*match'
 

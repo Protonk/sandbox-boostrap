@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "shape": {
+    "keys": {
+      "meta": {
+        "keys": {
+          "build_id": {
+            "type": "str"
+          },
+          "program": {
+            "type": "str"
+          },
+          "query_substrings": {
+            "element_shapes": [
+              {
+                "type": "str"
+              }
+            ],
+            "length": 4,
+            "sampled": 4,
+            "type": "list"
+          },
+          "symbol_count": {
+            "type": "int"
+          }
+        },
+        "type": "dict"
+      },
+      "symbols": {
+        "element_shapes": [],
+        "length": 0,
+        "sampled": 0,
+        "type": "list"
+      }
+    },
+    "type": "dict"
+  },
+  "source": {
+    "name": "kernel-imports__imports_all",
+    "output_path": "book/dumps/ghidra/out/14.4.1-23E224/kernel-imports/imports_all.json",
+    "shape_options": {
+      "list_length": true,
+      "max_list_items": null
+    },
+    "snapshot_path": "book/integration/tests/ghidra/fixtures/shape_catalog/snapshots/kernel-imports__imports_all.shape.json",
+    "task": "kernel-imports"
+  }
+}

@@ -23,7 +23,7 @@ Runtime discipline:
 
 Safety and boundaries:
 - Never weaken the baseline (no disabling SIP, TCC, or hardened runtime).
-- Do not copy from `dumps/Sandbox-private`.
+- Do not copy from `book/dumps/ghidra/private/aapl-restricted`.
 - Do not hide harness/decoder/apply failures; treat them as first-class evidence.
 
 Paths and generated artifacts:
@@ -58,10 +58,14 @@ Pick the smallest surface that answers your question:
 - “Is my baseline/world consistent?” → `book/tools/doctor/` (hypothesis-tier checkup).
 
 Then read the nearest `AGENTS.md` in the subtree you touch:
-- API/tooling: `book/api/AGENTS.md`
-- Graph/concepts/mappings: `book/graph/AGENTS.md`
-- Experiments: `book/experiments/AGENTS.md`
-- Tests: `book/tests/AGENTS.md`
+- API/tooling: `book/api/AGENTS.md`; CARTON specifics in `book/api/carton/AGENTS.md`.
+- Graph/concepts/mappings: `book/graph/AGENTS.md`; deeper routing in `book/graph/concepts/AGENTS.md`, `book/graph/mappings/AGENTS.md`, `book/graph/swift/AGENTS.md`.
+- Experiments: `book/experiments/AGENTS.md`; archived work in `book/experiments/archive/AGENTS.md`.
+- Dumps/artifacts: `book/dumps/AGENTS.md`.
+- Profiles: `book/profiles/AGENTS.md`.
+- Examples: `book/examples/AGENTS.md`.
+- Substrate/textbook base: `book/substrate/AGENTS.md`.
+- Tests: `book/integration/AGENTS.md`.
 
 ## Investigation protocol (for sandbox questions)
 

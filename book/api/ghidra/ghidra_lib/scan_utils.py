@@ -170,7 +170,7 @@ def classify_mnemonic(mnemonic):
 
 
 def find_repo_root(start_path=None):
-    """Locate the repo root by walking upwards to find book/ and dumps/."""
+    """Locate the repo root by walking upwards to find book/ and book/dumps/."""
     if start_path is None:
         start_path = os.path.abspath(os.path.dirname(__file__))
     path = os.path.abspath(start_path)
@@ -178,7 +178,7 @@ def find_repo_root(start_path=None):
         path = os.path.dirname(path)
     # Limit the walk to keep Jython scripts fast even when invoked from temp dirs.
     for _ in range(8):
-        if os.path.isdir(os.path.join(path, "book")) and os.path.isdir(os.path.join(path, "dumps")):
+        if os.path.isdir(os.path.join(path, "book")) and os.path.isdir(os.path.join(path, "book", "dumps")):
             return path
         parent = os.path.dirname(path)
         if parent == path:

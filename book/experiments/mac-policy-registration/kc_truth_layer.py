@@ -616,7 +616,7 @@ def _write_fixups(
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Build KC fileset + chained-fixups truth layer.")
-    parser.add_argument("--build-id", default="14.4.1-23E224", help="Sandbox-private build ID.")
+    parser.add_argument("--build-id", default="14.4.1-23E224", help="aapl-restricted build ID.")
     parser.add_argument("--out-dir", default="book/experiments/mac-policy-registration/out", help="Output dir.")
     parser.add_argument(
         "--fixups-mode",
@@ -628,7 +628,7 @@ def main() -> int:
 
     repo_root = path_utils.find_repo_root()
     kc_path = path_utils.ensure_absolute(
-        repo_root / f"dumps/Sandbox-private/{args.build_id}/kernel/BootKernelCollection.kc"
+        repo_root / f"book/dumps/ghidra/private/aapl-restricted/{args.build_id}/kernel/BootKernelCollection.kc"
     )
     out_dir = path_utils.ensure_absolute(args.out_dir, repo_root)
     out_dir.mkdir(parents=True, exist_ok=True)

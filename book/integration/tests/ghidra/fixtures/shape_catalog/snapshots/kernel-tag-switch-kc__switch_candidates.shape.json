@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0",
+  "shape": {
+    "keys": {
+      "candidates": {
+        "element_shapes": [
+          {
+            "keys": {
+              "address": {
+                "type": "str"
+              },
+              "calling_convention": {
+                "type": "str"
+              },
+              "computed_jumps": {
+                "type": "int"
+              },
+              "jump_like": {
+                "type": "int"
+              },
+              "name": {
+                "type": "str"
+              },
+              "size": {
+                "type": "int"
+              }
+            },
+            "type": "dict"
+          }
+        ],
+        "length": 43722,
+        "sampled": 43722,
+        "type": "list"
+      },
+      "meta": {
+        "keys": {
+          "block_filter": {
+            "element_shapes": [
+              {
+                "keys": {
+                  "end": {
+                    "type": "str"
+                  },
+                  "name": {
+                    "type": "str"
+                  },
+                  "start": {
+                    "type": "str"
+                  }
+                },
+                "type": "dict"
+              }
+            ],
+            "length": 5006,
+            "sampled": 5006,
+            "type": "list"
+          },
+          "build_id": {
+            "type": "str"
+          },
+          "candidate_count": {
+            "type": "int"
+          },
+          "program": {
+            "type": "str"
+          }
+        },
+        "type": "dict"
+      }
+    },
+    "type": "dict"
+  },
+  "source": {
+    "name": "kernel-tag-switch-kc__switch_candidates",
+    "output_path": "book/dumps/ghidra/out/14.4.1-23E224/kernel-tag-switch-kc/switch_candidates.json",
+    "shape_options": {
+      "list_length": true,
+      "max_list_items": null
+    },
+    "snapshot_path": "book/integration/tests/ghidra/fixtures/shape_catalog/snapshots/kernel-tag-switch-kc__switch_candidates.shape.json",
+    "task": "kernel-tag-switch-kc"
+  }
+}

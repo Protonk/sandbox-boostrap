@@ -30,7 +30,8 @@ claim:
   world_id: sonoma-14.4.1-23E224-arm64-dyld-2c0602c5
   tier: bedrock|mapped|hypothesis
   status: ok|partial|brittle|blocked (optional)
-  stage: static|compile|apply|bootstrap|operation
+  stage: compile|apply|bootstrap|operation
+  lane: scenario|baseline|oracle (runtime only)
   subject: <op/filter/profile/concept in repo vocabulary>
   evidence:
     - <repo-relative path to mapping / bundle / promotion packet>

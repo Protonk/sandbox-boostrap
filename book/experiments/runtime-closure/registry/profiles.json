@@ -177,6 +177,51 @@
       "profile_path": "book/experiments/runtime-closure/sb/v15_iokit_ioacceleration_user_client.sb",
       "semantic_group": "iokit:graphics-prereq"
     },
+    "runtime-closure:iokit:v16_service_only_registry": {
+      "family": "iokit-open-service",
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ],
+      "mode": "sbpl",
+      "notes": "Oracle alignment: service-only iokit-open-service with registry-entry-class IOSurfaceRoot.",
+      "probe_refs": [
+        "runtime-closure:iokit:v16_service_only_registry:iosurface_root"
+      ],
+      "profile_id": "runtime-closure:iokit:v16_service_only_registry",
+      "profile_path": "book/experiments/runtime-closure/sb/v16_iokit_service_only_registry.sb",
+      "semantic_group": "iokit:op-identity-oracle"
+    },
+    "runtime-closure:iokit:v17_user_client_registry": {
+      "family": "iokit-open-service",
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ],
+      "mode": "sbpl",
+      "notes": "Oracle alignment: user-client-only iokit-open-user-client with registry-entry-class IOSurfaceRootUserClient.",
+      "probe_refs": [
+        "runtime-closure:iokit:v17_user_client_registry:iosurface_root"
+      ],
+      "profile_id": "runtime-closure:iokit:v17_user_client_registry",
+      "profile_path": "book/experiments/runtime-closure/sb/v17_iokit_user_client_registry.sb",
+      "semantic_group": "iokit:op-identity-oracle"
+    },
+    "runtime-closure:iokit:v18_service_user_client_registry": {
+      "family": "iokit-open-service",
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ],
+      "mode": "sbpl",
+      "notes": "Oracle alignment: allow both ops with registry-entry-class predicates for IOSurfaceRoot and IOSurfaceRootUserClient.",
+      "probe_refs": [
+        "runtime-closure:iokit:v18_service_user_client_registry:iosurface_root"
+      ],
+      "profile_id": "runtime-closure:iokit:v18_service_user_client_registry",
+      "profile_path": "book/experiments/runtime-closure/sb/v18_iokit_service_user_client_registry.sb",
+      "semantic_group": "iokit:op-identity-oracle"
+    },
     "runtime-closure:iokit:v1_class_only": {
       "family": "iokit-open-service",
       "key_specific_rules": [

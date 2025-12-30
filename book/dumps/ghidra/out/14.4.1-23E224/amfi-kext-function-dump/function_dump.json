@@ -1,0 +1,62 @@
+{
+  "entries": [
+    {
+      "entry": "0x-1fff650e854", 
+      "function": "_amfi_register_mac_policy", 
+      "input": "_amfi_register_mac_policy", 
+      "instructions": [
+        {
+          "addr": "0x-1fff650e854", 
+          "bytes": "array('b', [127, 35, 3, -43])", 
+          "inst": "pacibsp", 
+          "mnemonic": "pacibsp"
+        }, 
+        {
+          "addr": "0x-1fff650e850", 
+          "bytes": "array('b', [-3, 123, -65, -87])", 
+          "inst": "stp x29,x30,[sp, #-0x10]!", 
+          "mnemonic": "stp"
+        }, 
+        {
+          "addr": "0x-1fff650e84c", 
+          "bytes": "array('b', [-3, 3, 0, -111])", 
+          "inst": "mov x29,sp", 
+          "mnemonic": "mov"
+        }, 
+        {
+          "addr": "0x-1fff650e848", 
+          "bytes": "array('b', [94, -4, -1, -105])", 
+          "inst": "bl 0xfffffe0009af0930", 
+          "mnemonic": "bl"
+        }, 
+        {
+          "addr": "0x-1fff650e844", 
+          "bytes": "array('b', [0, 0, -128, 82])", 
+          "inst": "mov w0,#0x0", 
+          "mnemonic": "mov"
+        }, 
+        {
+          "addr": "0x-1fff650e840", 
+          "bytes": "array('b', [-3, 123, -63, -88])", 
+          "inst": "ldp x29,x30,[sp], #0x10", 
+          "mnemonic": "ldp"
+        }, 
+        {
+          "addr": "0x-1fff650e83c", 
+          "bytes": "array('b', [-1, 15, 95, -42])", 
+          "inst": "retab", 
+          "mnemonic": "retab"
+        }
+      ]
+    }, 
+    {
+      "error": "function not found", 
+      "input": "__ZL15_policy_initbsdP15mac_policy_conf"
+    }
+  ], 
+  "meta": {
+    "build_id": "14.4.1-23E224", 
+    "program": "sandbox_kext_com_apple_driver_AppleMobileFileIntegrity.bin", 
+    "target_count": 2
+  }
+}

@@ -5,7 +5,7 @@ Recover the sandbox/mac_policy_conf and mac_policy_ops (plus registration site) 
 
 ## Baseline & scope
 - Host: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (Apple Silicon, SIP on).
-- Inputs: kernelcache (`dumps/Sandbox-private/14.4.1-23E224/kernel/BootKernelCollection.kc`) with sandbox fileset entry rebuilt to `dumps/Sandbox-private/14.4.1-23E224/kernel/sandbox_kext.bin` (arm64e) and AMFI fileset entry rebuilt to `dumps/Sandbox-private/14.4.1-23E224/kernel/sandbox_kext_com_apple_driver_AppleMobileFileIntegrity.bin`; analyzed Ghidra projects `dumps/ghidra/projects/sandbox_14.4.1-23E224` and `dumps/ghidra/projects/amfi_kext_14.4.1-23E224`.
+- Inputs: kernelcache (`book/dumps/ghidra/private/aapl-restricted/14.4.1-23E224/kernel/BootKernelCollection.kc`) with sandbox fileset entry rebuilt to `book/dumps/ghidra/private/aapl-restricted/14.4.1-23E224/kernel/sandbox_kext.bin` (arm64e) and AMFI fileset entry rebuilt to `book/dumps/ghidra/private/aapl-restricted/14.4.1-23E224/kernel/sandbox_kext_com_apple_driver_AppleMobileFileIntegrity.bin`; analyzed Ghidra projects `book/dumps/ghidra/projects/sandbox_14.4.1-23E224` and `book/dumps/ghidra/projects/amfi_kext_14.4.1-23E224`.
 - Out of scope: generic/macOS-cross-version claims; focus only on this world.
 
 ## Model (public anchor)
@@ -69,37 +69,37 @@ Recover the sandbox/mac_policy_conf and mac_policy_ops (plus registration site) 
    - If alignment exists, note it; otherwise mark as non-op-table or unknown.
 
 ## Evidence & artifacts
-- Ghidra project: `dumps/ghidra/projects/sandbox_14.4.1-23E224`.
-- AMFI Ghidra project: `dumps/ghidra/projects/amfi_kext_14.4.1-23E224`.
-- BootKernelExtensions Ghidra project: `dumps/ghidra/projects/sandbox_14.4.1-23E224_extensions`.
+- Ghidra project: `book/dumps/ghidra/projects/sandbox_14.4.1-23E224`.
+- AMFI Ghidra project: `book/dumps/ghidra/projects/amfi_kext_14.4.1-23E224`.
+- BootKernelExtensions Ghidra project: `book/dumps/ghidra/projects/sandbox_14.4.1-23E224_extensions`.
 - Registration-site scans:
-  - `dumps/ghidra/out/14.4.1-23E224/sandbox-kext-mac-policy-register/registration_sites.json`
-  - `dumps/ghidra/out/14.4.1-23E224/kernel-mac-policy-register/registration_sites.json`
-  - `dumps/ghidra/out/14.4.1-23E224/amfi-kext-mac-policy-register/registration_sites.json`
-  - `dumps/ghidra/out/14.4.1-23E224/sandbox-kext-adrp-add-scan/adrp_add_scan.json`
-- `dumps/ghidra/out/14.4.1-23E224/sandbox-kext-adrp-ldr-scan/adrp_ldr_scan.json`
-  - `dumps/ghidra/out/14.4.1-23E224/sandbox-kext-adrp-ldr-got-scan/adrp_ldr_scan.json`
-  - `dumps/ghidra/out/14.4.1-23E224/sandbox-kext-data-define/data_refs.json`
-  - `dumps/ghidra/out/14.4.1-23E224/sandbox-kext-block-disasm/disasm_report.json`
-  - `dumps/ghidra/out/14.4.1-23E224/sandbox-kext-stub-got-map/stub_got_map.json`
-  - `dumps/ghidra/out/14.4.1-23E224/kernel-collection-stub-got-map/stub_got_map.json`
-  - `dumps/ghidra/out/14.4.1-23E224/kernel-collection-stub-call-sites/stub_call_sites.json`
-  - `dumps/ghidra/out/14.4.1-23E224/kernel-collection-string-call-sites/string_call_sites.json`
-  - `dumps/ghidra/out/14.4.1-23E224/kernel-mac-policy-register-anchor/mac_policy_register_anchor.json`
-  - `dumps/ghidra/out/14.4.1-23E224/kernel-mac-policy-register-instances/mac_policy_register_instances.json`
-  - `dumps/ghidra/out/14.4.1-23E224/sandbox-kext-arm-const-base-scan/arm_const_base_scan.json`
-  - `dumps/ghidra/out/14.4.1-23E224/sandbox-kext-got-ref-sweep/got_ref_sweep.json`
-  - `dumps/ghidra/out/14.4.1-23E224/sandbox-kext-got-load-sweep/got_load_sweep.json`
-  - `dumps/ghidra/out/14.4.1-23E224/amfi-kext-block-disasm/disasm_report.json`
-  - `dumps/ghidra/out/14.4.1-23E224/amfi-kext-function-dump/function_dump.json`
-  - `dumps/ghidra/out/14.4.1-23E224/amfi-kext-got-ref-sweep/got_ref_sweep.json`
-  - `dumps/ghidra/out/14.4.1-23E224/amfi-kext-got-load-sweep/got_load_sweep.json`
-  - `dumps/ghidra/out/14.4.1-23E224/kernel-imports/external_symbols.json`
-  - `dumps/ghidra/out/14.4.1-23E224/kernel-collection-imports/external_symbols.json`
-  - `dumps/ghidra/out/14.4.1-23E224/kernel-string-refs/string_references.json`
-  - `dumps/ghidra/out/14.4.1-23E224/kernel-adrp-add-scan/adrp_add_scan.json`
-  - `dumps/ghidra/out/14.4.1-23E224/kernel-adrp-ldr-scan/adrp_ldr_scan.json`
-  - `dumps/ghidra/out/14.4.1-23E224/kernel-imm-search/imm_search.json`
+  - `book/dumps/ghidra/out/14.4.1-23E224/sandbox-kext-mac-policy-register/registration_sites.json`
+  - `book/dumps/ghidra/out/14.4.1-23E224/kernel-mac-policy-register/registration_sites.json`
+  - `book/dumps/ghidra/out/14.4.1-23E224/amfi-kext-mac-policy-register/registration_sites.json`
+  - `book/dumps/ghidra/out/14.4.1-23E224/sandbox-kext-adrp-add-scan/adrp_add_scan.json`
+- `book/dumps/ghidra/out/14.4.1-23E224/sandbox-kext-adrp-ldr-scan/adrp_ldr_scan.json`
+  - `book/dumps/ghidra/out/14.4.1-23E224/sandbox-kext-adrp-ldr-got-scan/adrp_ldr_scan.json`
+  - `book/dumps/ghidra/out/14.4.1-23E224/sandbox-kext-data-define/data_refs.json`
+  - `book/dumps/ghidra/out/14.4.1-23E224/sandbox-kext-block-disasm/disasm_report.json`
+  - `book/dumps/ghidra/out/14.4.1-23E224/sandbox-kext-stub-got-map/stub_got_map.json`
+  - `book/dumps/ghidra/out/14.4.1-23E224/kernel-collection-stub-got-map/stub_got_map.json`
+  - `book/dumps/ghidra/out/14.4.1-23E224/kernel-collection-stub-call-sites/stub_call_sites.json`
+  - `book/dumps/ghidra/out/14.4.1-23E224/kernel-collection-string-call-sites/string_call_sites.json`
+  - `book/dumps/ghidra/out/14.4.1-23E224/kernel-mac-policy-register-anchor/mac_policy_register_anchor.json`
+  - `book/dumps/ghidra/out/14.4.1-23E224/kernel-mac-policy-register-instances/mac_policy_register_instances.json`
+  - `book/dumps/ghidra/out/14.4.1-23E224/sandbox-kext-arm-const-base-scan/arm_const_base_scan.json`
+  - `book/dumps/ghidra/out/14.4.1-23E224/sandbox-kext-got-ref-sweep/got_ref_sweep.json`
+  - `book/dumps/ghidra/out/14.4.1-23E224/sandbox-kext-got-load-sweep/got_load_sweep.json`
+  - `book/dumps/ghidra/out/14.4.1-23E224/amfi-kext-block-disasm/disasm_report.json`
+  - `book/dumps/ghidra/out/14.4.1-23E224/amfi-kext-function-dump/function_dump.json`
+  - `book/dumps/ghidra/out/14.4.1-23E224/amfi-kext-got-ref-sweep/got_ref_sweep.json`
+  - `book/dumps/ghidra/out/14.4.1-23E224/amfi-kext-got-load-sweep/got_load_sweep.json`
+  - `book/dumps/ghidra/out/14.4.1-23E224/kernel-imports/external_symbols.json`
+  - `book/dumps/ghidra/out/14.4.1-23E224/kernel-collection-imports/external_symbols.json`
+  - `book/dumps/ghidra/out/14.4.1-23E224/kernel-string-refs/string_references.json`
+  - `book/dumps/ghidra/out/14.4.1-23E224/kernel-adrp-add-scan/adrp_add_scan.json`
+  - `book/dumps/ghidra/out/14.4.1-23E224/kernel-adrp-ldr-scan/adrp_ldr_scan.json`
+  - `book/dumps/ghidra/out/14.4.1-23E224/kernel-imm-search/imm_search.json`
   - `book/experiments/mac-policy-registration/out/otool_indirect_symbols.txt`
   - `book/experiments/mac-policy-registration/out/otool_indirect_symbols_amfi.txt`
 - `book/experiments/mac-policy-registration/out/otool_indirect_symbols_kc.txt`
@@ -151,14 +151,14 @@ Recover the sandbox/mac_policy_conf and mac_policy_ops (plus registration site) 
 - BootKernelCollection is `MH_FILESET` with 355 fileset entries and 7 top-level segments (`kc_fileset_index.json`), with a segment-interval map built from each entry’s `LC_SEGMENT_64` ranges (1440 intervals; `__LINKEDIT` excluded because it is a shared range across entries, overlap_total=0).
 - Top-level `LC_DYLD_CHAINED_FIXUPS` parsed (`fixups_version: 0`, `imports_count: 0`) with pointer_format `8` only; full chain walking (next*4) yields 914,488 fixups across `__DATA_CONST` (894,872) and `__DATA` (19,616), with max chain length 2048 and per-page coverage recorded (`kc_fixups_summary.json` + `kc_fixups.jsonl`). No `DYLD_CHAINED_PTR_START_MULTI` pages observed.
 - Fixup decoding now yields `cache_level_counts: {0: 914488}` with `resolved_in_entry_fraction: 1.0` and `resolved_outside_fraction: 0.0` (KC on-disk vmaddr space, slide=0), so no base-pointer inference beyond the seed is needed under the corrected decode.
-- Fixups audit run against the full fixups file (stored under `dumps/Sandbox-oversize/mac-policy-registration/`) confirms `cache_level_counts: {0: 914488}` and `next_out_of_page_fraction: {0: 0.0}` in `kc_fixups_audit.json`.
+- Fixups audit run against the full fixups file (stored under `book/dumps/ghidra/private/oversize/mac-policy-registration/`) confirms `cache_level_counts: {0: 914488}` and `next_out_of_page_fraction: {0: 0.0}` in `kc_fixups_audit.json`.
 - `kc_fixups.jsonl` is now emitted in **compact** mode by default to stay GitHub‑safe; use `kc_truth_layer.py --fixups-mode full` locally for full fixup records (required by `kc_fixups_audit.py`). Status remains **partial** because higher‑order semantics are still under exploration.
-- Full fixups are intentionally kept out of source control because the JSONL routinely exceeds 100 MB and contains host-specific pointer decode detail. They are still valuable for fixup audits and pointer-format debugging. Generate them locally into `dumps/Sandbox-oversize/mac-policy-registration/` (git-ignored) with:
+- Full fixups are intentionally kept out of source control because the JSONL routinely exceeds 100 MB and contains host-specific pointer decode detail. They are still valuable for fixup audits and pointer-format debugging. Generate them locally into `book/dumps/ghidra/private/oversize/mac-policy-registration/` (git-ignored) with:
 ```sh
 PYTHONPATH=$PWD python3 book/experiments/mac-policy-registration/kc_truth_layer.py \
   --build-id 14.4.1-23E224 \
   --fixups-mode full \
-  --out-dir dumps/Sandbox-oversize/mac-policy-registration
+  --out-dir book/dumps/ghidra/private/oversize/mac-policy-registration
 ```
 
 ### String-anchored mac_policy_register hunt (partial)
@@ -224,7 +224,7 @@ python3 book/api/ghidra/run_task.py sandbox-kext-stub-got-map \
 
 PYTHONPATH=$PWD python3 book/experiments/mac-policy-registration/match_stub_got.py \
   --build-id 14.4.1-23E224 \
-  --stub-map dumps/ghidra/out/14.4.1-23E224/sandbox-kext-stub-got-map/stub_got_map.json \
+  --stub-map book/dumps/ghidra/out/14.4.1-23E224/sandbox-kext-stub-got-map/stub_got_map.json \
   --otool book/experiments/mac-policy-registration/out/otool_indirect_symbols.txt \
   --out book/experiments/mac-policy-registration/out/stub_targets.json
 python3 book/api/ghidra/run_task.py sandbox-kext-mac-policy-register \
@@ -252,7 +252,7 @@ python3 book/api/ghidra/run_task.py kernel-collection-stub-got-map \
   --process-existing --project-name sandbox_14.4.1-23E224_kc --no-analysis --exec \
   --script-args stub 8 1 all
 PYTHONPATH=$PWD python3 book/experiments/mac-policy-registration/match_stub_got.py \
-  --stub-map dumps/ghidra/out/14.4.1-23E224/kernel-collection-stub-got-map/stub_got_map.json \
+  --stub-map book/dumps/ghidra/out/14.4.1-23E224/kernel-collection-stub-got-map/stub_got_map.json \
   --otool book/experiments/mac-policy-registration/out/otool_indirect_symbols_kc.txt \
   --out book/experiments/mac-policy-registration/out/stub_targets_kc.json
 python3 book/api/ghidra/run_task.py kernel-collection-stub-call-sites \
@@ -284,13 +284,13 @@ python3 book/api/ghidra/run_task.py kernel-imm-search \
   --process-existing --project-name sandbox_14.4.1-23E224_extensions --no-analysis --exec \
   --script-args 0xfffffe0007e5c290 all
 
-otool -Iv dumps/Sandbox-private/14.4.1-23E224/kernel/sandbox_kext.bin \
+otool -Iv book/dumps/ghidra/private/aapl-restricted/14.4.1-23E224/kernel/sandbox_kext.bin \
   > book/experiments/mac-policy-registration/out/otool_indirect_symbols.txt
 
-otool -Iv dumps/Sandbox-private/14.4.1-23E224/kernel/sandbox_kext_com_apple_driver_AppleMobileFileIntegrity.bin \
+otool -Iv book/dumps/ghidra/private/aapl-restricted/14.4.1-23E224/kernel/sandbox_kext_com_apple_driver_AppleMobileFileIntegrity.bin \
   > book/experiments/mac-policy-registration/out/otool_indirect_symbols_amfi.txt
 
-otool -Iv dumps/Sandbox-private/14.4.1-23E224/kernel/BootKernelCollection.kc \
+otool -Iv book/dumps/ghidra/private/aapl-restricted/14.4.1-23E224/kernel/BootKernelCollection.kc \
   > book/experiments/mac-policy-registration/out/otool_indirect_symbols_kc.txt
 
 python3 book/api/ghidra/run_task.py sandbox-kext-adrp-add-scan \

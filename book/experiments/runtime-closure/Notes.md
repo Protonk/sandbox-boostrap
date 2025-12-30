@@ -72,3 +72,14 @@ Use this file for short, factual run notes and failures. Avoid timestamps.
   - Filterless callout (`filter_type=none`) returns `EINVAL`, so that path remains blocked.
 - Graphics dependency micro-matrix (single deltas): `out/7deb2296-7fa8-48ea-849f-ac7a696f7c93/` (launchd_clean, v13/v14/v15 with callouts).
   - `v13_ioaccelerator_connection`, `v14_iosurface_send_right`, `v15_ioacceleration_user_client`: all return `open_kr=0`, `call_kr=-536870206`, `surface_create_ok=false` (no change vs baseline).
+- Oracle-only A/B/C truth table (registry-entry-class alignment): `out/e32f5fe4-c074-4398-9696-0807ef7fbc00/` (launchd_clean, `SANDBOX_LORE_IOKIT_ORACLE_ONLY=1`).
+  - `v16_service_only_registry`, `v17_user_client_registry`, `v18_service_user_client_registry` all report `iokit-open-service` allow and `iokit-open-user-client` deny via the registry-entry-class callout, so the oracle table does not align with the SBPL allow in `v17_user_client_registry`.
+  - This indicates a shape mismatch for the oracle lane (registry-entry-class filter does not reflect the SBPL allow outcome for `iokit-open-user-client` on this host).
+- Selector discovery (WebKit candidate set) baseline run: `out/a6e042e5-135d-4072-b0d6-50455abc62a3/` using `SANDBOX_LORE_IKIT_SELECTOR_LIST` with a non-zero call shape.
+  - `open_kr=0`, `surface_create_ok=true`, and the sweep reports `call_kr=-536870206` with selector `513` and non-zero input/output sizes (no non-invalid responses observed).
+- File oracle calibration run (audit-token callouts): `out/fe3745a4-1049-4a17-8246-0a29e5585d0e/` (launchd_clean, v2 alias/private file profiles, `SANDBOX_LORE_SEATBELT_CALLOUT=1`).
+  - All `file-read-data` oracle decisions are `deny`, including `/private/etc/hosts` under `v2_private_literals` where the operation-stage probe allows; oracle lane does not flip with the SBPL allow.
+- File oracle calibration run (pid callouts): `out/0c49afaa-0739-4239-9275-eb875c6232da/` (launchd_clean, v2 alias/private file profiles, `SANDBOX_LORE_SEATBELT_API=pid`).
+  - Oracle callouts still report `deny` for all file targets, including allowed `/private/etc/hosts`; treat file oracle lane as blocked on this host.
+- IOSurface ground-truth capture attempt: `out/518f2e1d-66db-4392-89e8-4a74db154a82/` (launchd_clean, v7 with `SANDBOX_LORE_IKIT_CAPTURE_CALLS=1`).
+  - `surface_create_ok=true` baseline, but `capture_seen=false` even after interposing IOConnectCall* and MIG stubs; no selector/shape captured from IOSurfaceCreate on this host.

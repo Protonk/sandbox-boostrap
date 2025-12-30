@@ -3,12 +3,12 @@ Agent-facing connector for Seatbelt-focused Ghidra headless runs.
 
 Why this exists:
 - Centralize task registration and env policy so agents do not have to remember the headless incantations.
-- Keep all Ghidra side effects in `dumps/ghidra/{out,projects,user,tmp}` and never move host artifacts out of
-  `dumps/Sandbox-private/<build>/...`.
+- Keep all Ghidra side effects in `book/dumps/ghidra/{out,projects,user,tmp}` and never move host artifacts out of
+  `book/dumps/ghidra/private/aapl-restricted/<build>/...`.
 - Offer a dry-run path (render shell) and an execution path with consistent HOME/TMPDIR/JAVA settings.
 
 Safety/assumptions:
-- Baseline: see `book/world/sonoma-14.4.1-23E224-arm64/world.json`; inputs must already exist under Sandbox-private.
+- Baseline: see `book/world/sonoma-14.4.1-23E224-arm64/world.json`; inputs must already exist under aapl-restricted.
 - `JAVA_TOOL_OPTIONS` is forced to a repo-local home/temp to dodge seatbelt prompts and permission errors.
 - `analysis_properties` is accepted for parity but ignored by Ghidra 11.4.2 (use pre-scripts instead).
 """

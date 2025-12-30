@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0",
+  "shape": {
+    "keys": {
+      "candidates": {
+        "element_shapes": [],
+        "length": 0,
+        "sampled": 0,
+        "type": "list"
+      },
+      "meta": {
+        "keys": {
+          "block_filter": {
+            "element_shapes": [
+              {
+                "keys": {
+                  "end": {
+                    "type": "str"
+                  },
+                  "name": {
+                    "type": "str"
+                  },
+                  "start": {
+                    "type": "str"
+                  }
+                },
+                "type": "dict"
+              }
+            ],
+            "length": 16,
+            "sampled": 16,
+            "type": "list"
+          },
+          "build_id": {
+            "type": "str"
+          },
+          "candidate_count": {
+            "type": "int"
+          },
+          "pointer_size": {
+            "type": "int"
+          },
+          "program": {
+            "type": "str"
+          },
+          "scan_all_blocks": {
+            "type": "bool"
+          }
+        },
+        "type": "dict"
+      }
+    },
+    "type": "dict"
+  },
+  "source": {
+    "name": "sandbox-kext-op-table__op_table_candidates",
+    "output_path": "book/dumps/ghidra/out/14.4.1-23E224/sandbox-kext-op-table/op_table_candidates.json",
+    "shape_options": {
+      "list_length": true,
+      "max_list_items": null
+    },
+    "snapshot_path": "book/integration/tests/ghidra/fixtures/shape_catalog/snapshots/sandbox-kext-op-table__op_table_candidates.shape.json",
+    "task": "sandbox-kext-op-table"
+  }
+}

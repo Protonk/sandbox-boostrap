@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "shape": {
+    "keys": {
+      "meta": {
+        "keys": {
+          "build_id": {
+            "type": "str"
+          },
+          "program": {
+            "type": "str"
+          },
+          "query_substrings": {
+            "element_shapes": [
+              {
+                "type": "str"
+              }
+            ],
+            "length": 5,
+            "sampled": 5,
+            "type": "list"
+          },
+          "symbol_count": {
+            "type": "int"
+          }
+        },
+        "type": "dict"
+      },
+      "symbols": {
+        "element_shapes": [],
+        "length": 0,
+        "sampled": 0,
+        "type": "list"
+      }
+    },
+    "type": "dict"
+  },
+  "source": {
+    "name": "kernel-collection-imports__external_symbols",
+    "output_path": "book/dumps/ghidra/out/14.4.1-23E224/kernel-collection-imports/external_symbols.json",
+    "shape_options": {
+      "list_length": true,
+      "max_list_items": null
+    },
+    "snapshot_path": "book/integration/tests/ghidra/fixtures/shape_catalog/snapshots/kernel-collection-imports__external_symbols.shape.json",
+    "task": "kernel-collection-imports"
+  }
+}

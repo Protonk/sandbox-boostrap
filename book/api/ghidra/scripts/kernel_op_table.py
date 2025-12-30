@@ -3,7 +3,7 @@
 Surface pointer-table candidates inside com.apple.security.sandbox segments.
 
 Args (from scaffold): <out_dir> <build_id>
-Outputs: dumps/ghidra/out/<build>/kernel-op-table/op_table_candidates.json (plus script.log).
+Outputs: book/dumps/ghidra/out/<build>/kernel-op-table/op_table_candidates.json (plus script.log).
 
 Heuristic:
 - Scan for contiguous pointer runs that mostly target functions (signed addresses handled).

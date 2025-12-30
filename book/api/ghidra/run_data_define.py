@@ -4,8 +4,8 @@ Helper to run the `kernel-data-define` task via the connector.
 Use when: you want a small wrapper that enforces the correct address format and reuses the connector defaults.
 
 Inputs/outputs:
-- Inputs come from `dumps/Sandbox-private/<build>/...` (KC imported into the project).
-- Outputs land under `dumps/ghidra/out/<build>/kernel-data-define/` (data_refs.json, script log).
+- Inputs come from `book/dumps/ghidra/private/aapl-restricted/<build>/...` (KC imported into the project).
+- Outputs land under `book/dumps/ghidra/out/<build>/kernel-data-define/` (data_refs.json, script log).
 
 Address format:
 - Pass targets as `addr:<unsigned hex>` (e.g., `addr:0xffffff800020ef10`). Signed `0x-...` or bare hex will process 0 targets.
@@ -32,7 +32,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run kernel-data-define via HeadlessConnector.")
     # Use addr: prefix to avoid Ghidra's signed-hex ambiguity in headless scripts.
     parser.add_argument("--address", required=True, help="Address to define (e.g., 0x-7fffdf10f0).")
-    parser.add_argument("--build", default=scaffold.DEFAULT_BUILD_ID, help="Sandbox-private build ID.")
+    parser.add_argument("--build", default=scaffold.DEFAULT_BUILD_ID, help="aapl-restricted build ID.")
     parser.add_argument("--task-name", default="kernel-data-define", help="Ghidra task name.")
     parser.add_argument("--no-analysis", action="store_true", help="Pass -noanalysis to headless.")
     parser.add_argument(

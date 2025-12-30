@@ -64,7 +64,7 @@ def _guess_program_path(repo_root, build_id, program_name):
     if not repo_root or not build_id or not program_name:
         return None
     program_name = os.path.basename(str(program_name))
-    base = os.path.join(repo_root, "dumps", "Sandbox-private", build_id)
+    base = os.path.join(repo_root, "book", "dumps", "ghidra", "private", "aapl-restricted", build_id)
     candidates = [
         os.path.join(base, "kernel", program_name),
         os.path.join(base, "userland", program_name),
@@ -92,7 +92,9 @@ def build_provenance(
         repo_root = scan_utils.find_repo_root(os.getcwd())
     if repo_root is None:
         env_root = os.environ.get("SANDBOX_LORE_REPO_ROOT") or os.environ.get("PWD")
-        if env_root and os.path.isdir(os.path.join(env_root, "book")) and os.path.isdir(os.path.join(env_root, "dumps")):
+        if env_root and os.path.isdir(os.path.join(env_root, "book")) and os.path.isdir(
+            os.path.join(env_root, "book", "dumps")
+        ):
             repo_root = env_root
     script_rel = scan_utils.to_repo_relative(script_path, repo_root)
     script_sha = scan_utils.sha256_path(script_path)

@@ -5,8 +5,8 @@ Locate the sandbox PolicyGraph dispatcher (and helpers) in the KC by combining A
 
 ## Baseline & tooling
 - Host: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (Apple Silicon, SIP on).
-- Inputs: `dumps/Sandbox-private/14.4.1-23E224/kernel/BootKernelExtensions.kc`; analyzed Ghidra project `dumps/ghidra/projects/sandbox_14.4.1-23E224`.
-- Tools: `book/api/ghidra/run_task.py` tasks (`kernel-string-refs`, `kernel-data-define`, `kernel-op-table`, etc.), ARM64 processor with `disable_x86_analyzers.py`; repo-local JAVA/HOME/TMPDIR (`JAVA_TOOL_OPTIONS=-Duser.home=$PWD/dumps/ghidra/user -Djava.io.tmpdir=$PWD/dumps/ghidra/tmp`).
+- Inputs: `book/dumps/ghidra/private/aapl-restricted/14.4.1-23E224/kernel/BootKernelExtensions.kc`; analyzed Ghidra project `book/dumps/ghidra/projects/sandbox_14.4.1-23E224`.
+- Tools: `book/api/ghidra/run_task.py` tasks (`kernel-string-refs`, `kernel-data-define`, `kernel-op-table`, etc.), ARM64 processor with `disable_x86_analyzers.py`; repo-local JAVA/HOME/TMPDIR (`JAVA_TOOL_OPTIONS=-Duser.home=$PWD/book/dumps/ghidra/user -Djava.io.tmpdir=$PWD/book/dumps/ghidra/tmp`).
 
 ## Current status
 - Import census: unfiltered `kernel-imports` (imports_all.json) plus filtered view (`filter_imports.py --substr applematch mac_policy sandbox seatbelt`) show 0 matching externals. Import/GOT anchors for these names are ok-negative on this world.
@@ -46,7 +46,7 @@ Locate the sandbox PolicyGraph dispatcher (and helpers) in the KC by combining A
 ## BootKernelCollection analysis-only run (script)
 
 Run from the repo root with `GHIDRA_HEADLESS` and `JAVA_HOME` set. This builds/refreshes the
-`dumps/ghidra/projects/sandbox_14.4.1-23E224_kc` project with full analysis and no postScript.
+`book/dumps/ghidra/projects/sandbox_14.4.1-23E224_kc` project with full analysis and no postScript.
 
 If `JAVA_HOME` is not set, you can set it like this (adjust the version if needed):
 
@@ -71,13 +71,13 @@ if [ ! -f "$ROOT/book/experiments/symbol-search/Report.md" ]; then
 fi
 
 BUILD_ID="14.4.1-23E224"
-KERNEL_DIR="$ROOT/dumps/Sandbox-private/$BUILD_ID/kernel"
+KERNEL_DIR="$ROOT/book/dumps/ghidra/private/aapl-restricted/$BUILD_ID/kernel"
 KC="$KERNEL_DIR/BootKernelCollection.kc"
 PROJECT="sandbox_${BUILD_ID}_kc"
-PROJECTS="$ROOT/dumps/ghidra/projects"
+PROJECTS="$ROOT/book/dumps/ghidra/projects"
 SCRIPTS="$ROOT/book/api/ghidra/scripts"
-USER_DIR="$ROOT/dumps/ghidra/user"
-TMP_DIR="$ROOT/dumps/ghidra/tmp"
+USER_DIR="$ROOT/book/dumps/ghidra/user"
+TMP_DIR="$ROOT/book/dumps/ghidra/tmp"
 PROC="AARCH64:LE:64:AppleSilicon"
 PRE="disable_x86_analyzers.py"
 
@@ -110,11 +110,11 @@ set -euo pipefail
 ROOT="$(pwd)"
 BUILD_ID="14.4.1-23E224"
 PROJECT="sandbox_${BUILD_ID}_kc"
-PROJECTS="$ROOT/dumps/ghidra/projects"
+PROJECTS="$ROOT/book/dumps/ghidra/projects"
 SCRIPTS="$ROOT/book/api/ghidra/scripts"
-OUT_ROOT="$ROOT/dumps/ghidra/out/$BUILD_ID"
-USER_DIR="$ROOT/dumps/ghidra/user"
-TMP_DIR="$ROOT/dumps/ghidra/tmp"
+OUT_ROOT="$ROOT/book/dumps/ghidra/out/$BUILD_ID"
+USER_DIR="$ROOT/book/dumps/ghidra/user"
+TMP_DIR="$ROOT/book/dumps/ghidra/tmp"
 
 : "${GHIDRA_HEADLESS:?Set GHIDRA_HEADLESS to analyzeHeadless}"
 : "${JAVA_HOME:?Set JAVA_HOME to a JDK}"
@@ -154,11 +154,11 @@ set -euo pipefail
 ROOT="$(pwd)"
 BUILD_ID="14.4.1-23E224"
 PROJECT="sandbox_${BUILD_ID}_kc"
-PROJECTS="$ROOT/dumps/ghidra/projects"
+PROJECTS="$ROOT/book/dumps/ghidra/projects"
 SCRIPTS="$ROOT/book/api/ghidra/scripts"
-OUT_ROOT="$ROOT/dumps/ghidra/out/$BUILD_ID"
-USER_DIR="$ROOT/dumps/ghidra/user"
-TMP_DIR="$ROOT/dumps/ghidra/tmp"
+OUT_ROOT="$ROOT/book/dumps/ghidra/out/$BUILD_ID"
+USER_DIR="$ROOT/book/dumps/ghidra/user"
+TMP_DIR="$ROOT/book/dumps/ghidra/tmp"
 
 : "${GHIDRA_HEADLESS:?Set GHIDRA_HEADLESS to analyzeHeadless}"
 : "${JAVA_HOME:?Set JAVA_HOME to a JDK}"
@@ -197,20 +197,20 @@ SH
 
 ## Evidence & artifacts (KC postScript)
 
-- Block disasm report: `dumps/ghidra/out/14.4.1-23E224/kernel-block-disasm-kc/disasm_report.json`.
-- Tag-switch candidates (KC): `dumps/ghidra/out/14.4.1-23E224/kernel-tag-switch-kc/switch_candidates.json`.
-- Function dumps (KC): `dumps/ghidra/out/14.4.1-23E224/kernel-function-dump-kc/function_dump.json`.
-- Function info (top candidates): `dumps/ghidra/out/14.4.1-23E224/kernel-function-info-kc-top10/function_info.json`.
-- String refs (KC): `dumps/ghidra/out/14.4.1-23E224/kernel-string-refs-kc/string_references.json`.
-- ADRP scans (KC): `dumps/ghidra/out/14.4.1-23E224/kernel-adrp-add-kc-0xfffffe0007009f18/adrp_add_scan.json`, `dumps/ghidra/out/14.4.1-23E224/kernel-adrp-add-kc-0xfffffe000bf5b8b8/adrp_add_scan.json`, `dumps/ghidra/out/14.4.1-23E224/kernel-adrp-add-kc-0xfffffe0007005f98/adrp_add_scan.json`.
-- Pointer entry for `FUN_fffffe00092fb9e0`: `dumps/ghidra/out/14.4.1-23E224/kernel-addr-lookup-kc/addr_lookup.json` (address `0xfffffe0007ca4040` in `__const`).
-- Jump-table dump (KC): `dumps/ghidra/out/14.4.1-23E224/kernel-jump-table-dump-kc/jump_tables.json`.
-- Pointer window (KC): `dumps/ghidra/out/14.4.1-23E224/kernel-pointer-window-kc/pointer_window.json`.
-- Pointer window (KC, auto bounds): `dumps/ghidra/out/14.4.1-23E224/kernel-pointer-window-kc-auto/pointer_window.json`.
+- Block disasm report: `book/dumps/ghidra/out/14.4.1-23E224/kernel-block-disasm-kc/disasm_report.json`.
+- Tag-switch candidates (KC): `book/dumps/ghidra/out/14.4.1-23E224/kernel-tag-switch-kc/switch_candidates.json`.
+- Function dumps (KC): `book/dumps/ghidra/out/14.4.1-23E224/kernel-function-dump-kc/function_dump.json`.
+- Function info (top candidates): `book/dumps/ghidra/out/14.4.1-23E224/kernel-function-info-kc-top10/function_info.json`.
+- String refs (KC): `book/dumps/ghidra/out/14.4.1-23E224/kernel-string-refs-kc/string_references.json`.
+- ADRP scans (KC): `book/dumps/ghidra/out/14.4.1-23E224/kernel-adrp-add-kc-0xfffffe0007009f18/adrp_add_scan.json`, `book/dumps/ghidra/out/14.4.1-23E224/kernel-adrp-add-kc-0xfffffe000bf5b8b8/adrp_add_scan.json`, `book/dumps/ghidra/out/14.4.1-23E224/kernel-adrp-add-kc-0xfffffe0007005f98/adrp_add_scan.json`.
+- Pointer entry for `FUN_fffffe00092fb9e0`: `book/dumps/ghidra/out/14.4.1-23E224/kernel-addr-lookup-kc/addr_lookup.json` (address `0xfffffe0007ca4040` in `__const`).
+- Jump-table dump (KC): `book/dumps/ghidra/out/14.4.1-23E224/kernel-jump-table-dump-kc/jump_tables.json`.
+- Pointer window (KC): `book/dumps/ghidra/out/14.4.1-23E224/kernel-pointer-window-kc/pointer_window.json`.
+- Pointer window (KC, auto bounds): `book/dumps/ghidra/out/14.4.1-23E224/kernel-pointer-window-kc-auto/pointer_window.json`.
 
 ## Evidence & artifacts
-- Project: `dumps/ghidra/projects/sandbox_14.4.1-23E224`.
-- String refs: `dumps/ghidra/out/14.4.1-23E224/kernel-string-refs/string_references.json` (190 hits, no externals).
-- Import census: `dumps/ghidra/out/14.4.1-23E224/kernel-imports/imports_all.json` plus filtered `imports_filtered_sandbox.json` (0 matches for applematch/mac_policy/sandbox/seatbelt).
-- Data refs: `dumps/ghidra/out/14.4.1-23E224/kernel-data-define/data_refs.json` (sandbox strings + pointer targets, no callers).
+- Project: `book/dumps/ghidra/projects/sandbox_14.4.1-23E224`.
+- String refs: `book/dumps/ghidra/out/14.4.1-23E224/kernel-string-refs/string_references.json` (190 hits, no externals).
+- Import census: `book/dumps/ghidra/out/14.4.1-23E224/kernel-imports/imports_all.json` plus filtered `imports_filtered_sandbox.json` (0 matches for applematch/mac_policy/sandbox/seatbelt).
+- Data refs: `book/dumps/ghidra/out/14.4.1-23E224/kernel-data-define/data_refs.json` (sandbox strings + pointer targets, no callers).
 - Pointer tables: `book/experiments/kernel-symbols/out/14.4.1-23E224/op_table_candidates.json` (dense tables, unreferenced so far).

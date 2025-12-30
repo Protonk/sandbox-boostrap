@@ -5,12 +5,12 @@
 
 ## Setup and first scan attempts
 
-- Added Ghidra script `sandbox_kext_conf_scan.py` and scaffold task `sandbox-kext-conf-scan` (import target `sandbox_kext` -> `dumps/Sandbox-private/14.4.1-23E224/kernel/sandbox_kext.bin`). Heuristic slots: name/fullname/labelnames/count/ops/flags/field/runtime_flags.
+- Added Ghidra script `sandbox_kext_conf_scan.py` and scaffold task `sandbox-kext-conf-scan` (import target `sandbox_kext` -> `book/dumps/ghidra/private/aapl-restricted/14.4.1-23E224/kernel/sandbox_kext.bin`). Heuristic slots: name/fullname/labelnames/count/ops/flags/field/runtime_flags.
 - First headless attempt (`python -m book.api.ghidra.run_task sandbox-kext-conf-scan --project-name sandbox_kext_14.4.1-23E224 --no-analysis --exec`) failed to import `sandbox_kext.bin` (IndexOutOfBoundsException during Mach-O load). Placeholder `mac_policy_conf_candidates.json` written with `candidate_count: 0` until kext import path is fixed.
 
 ## Rebuild from BootKernelCollection (arm64e)
 
-- Added `rebuild_sandbox_kext.py` to reconstruct the sandbox fileset entry from `BootKernelCollection.kc` (LC_FILESET_ENTRY `com.apple.security.sandbox`). The helper slices the full range (base 0x91fd20 → end 0x63687b7), rewrites load-command offsets relative to base, and overwrites `dumps/Sandbox-private/14.4.1-23E224/kernel/sandbox_kext.bin` (now ~90 MB, `file` reports arm64e).
+- Added `rebuild_sandbox_kext.py` to reconstruct the sandbox fileset entry from `BootKernelCollection.kc` (LC_FILESET_ENTRY `com.apple.security.sandbox`). The helper slices the full range (base 0x91fd20 → end 0x63687b7), rewrites load-command offsets relative to base, and overwrites `book/dumps/ghidra/private/aapl-restricted/14.4.1-23E224/kernel/sandbox_kext.bin` (now ~90 MB, `file` reports arm64e).
 - Reran `python -m book.api.ghidra.run_task sandbox-kext-conf-scan --project-name sandbox_kext_14.4.1-23E224 --no-analysis --exec` against the rebuilt binary. Import succeeded; `mac_policy_conf_candidates.json` refreshed with `candidate_count: 0` (no hits under the current heuristics). Guarded `_read_ascii` to skip invalid pointers after the first MemoryAccessException during scanning.
 
 ## Relaxed scan (minimal hard checks, offline ranking)
@@ -35,26 +35,26 @@
 ## Registration-site recovery (symbol + GOT pivots)
 
 - Added `mac_policy_register_scan.py` plus scaffold tasks `kernel-mac-policy-register` (BootKernelCollection) and `sandbox-kext-mac-policy-register` (sandbox kext) to search for mac_policy_register call sites with light arg recovery.
-- `python3 book/api/ghidra/run_task.py sandbox-kext-mac-policy-register --process-existing --project-name sandbox_kext_14.4.1-23E224 --exec --script-args flow` reports `target_count: 4` (external `_mac_policy_register` + `_amfi_register_mac_policy`) but `call_site_count: 0` (`dumps/ghidra/out/14.4.1-23E224/sandbox-kext-mac-policy-register/registration_sites.json`).
+- `python3 book/api/ghidra/run_task.py sandbox-kext-mac-policy-register --process-existing --project-name sandbox_kext_14.4.1-23E224 --exec --script-args flow` reports `target_count: 4` (external `_mac_policy_register` + `_amfi_register_mac_policy`) but `call_site_count: 0` (`book/dumps/ghidra/out/14.4.1-23E224/sandbox-kext-mac-policy-register/registration_sites.json`).
 - `python3 book/api/ghidra/run_task.py kernel-mac-policy-register --process-existing --project-name sandbox_14.4.1-23E224_kc --no-analysis --exec` reports `target_count: 0`, `call_site_count: 0` (no mac_policy symbol names in BootKernelCollection).
-- `otool -Iv dumps/Sandbox-private/14.4.1-23E224/kernel/sandbox_kext.bin` shows `__DATA_CONST,__auth_got` entries for `_amfi_register_mac_policy` (`0xfffffe00084c7ea8`) and `_mac_policy_register` (`0xfffffe00084c80a0`); full output saved to `book/experiments/mac-policy-registration/out/otool_indirect_symbols.txt`.
+- `otool -Iv book/dumps/ghidra/private/aapl-restricted/14.4.1-23E224/kernel/sandbox_kext.bin` shows `__DATA_CONST,__auth_got` entries for `_amfi_register_mac_policy` (`0xfffffe00084c7ea8`) and `_mac_policy_register` (`0xfffffe00084c80a0`); full output saved to `book/experiments/mac-policy-registration/out/otool_indirect_symbols.txt`.
 - Added `kernel_adrp_ldr_scan.py` and sandbox-kext variants of ADRP scans/data-define; ran:
   - `python3 book/api/ghidra/run_task.py sandbox-kext-adrp-add-scan --process-existing --project-name sandbox_kext_14.4.1-23E224 --exec --script-args 0xfffffe00084c80a0 all` → `0` matches.
   - `python3 book/api/ghidra/run_task.py sandbox-kext-adrp-ldr-scan --process-existing --project-name sandbox_kext_14.4.1-23E224 --exec --script-args 0xfffffe00084c80a0 all` → `0` matches.
-  - `python3 book/api/ghidra/run_task.py sandbox-kext-data-define --process-existing --project-name sandbox_kext_14.4.1-23E224 --exec --script-args addr:0xfffffe00084c80a0 addr:0xfffffe00084c7ea8` → data values recorded but no callers (`dumps/ghidra/out/14.4.1-23E224/sandbox-kext-data-define/data_refs.json`).
+  - `python3 book/api/ghidra/run_task.py sandbox-kext-data-define --process-existing --project-name sandbox_kext_14.4.1-23E224 --exec --script-args addr:0xfffffe00084c80a0 addr:0xfffffe00084c7ea8` → data values recorded but no callers (`book/dumps/ghidra/out/14.4.1-23E224/sandbox-kext-data-define/data_refs.json`).
 
 - Extended `mac_policy_register_scan.py` to scan authenticated GOT for indirect BLR/BLRAA call sites and dump the `__auth_got` table.
 - `python3 book/api/ghidra/run_task.py sandbox-kext-mac-policy-register --process-existing --project-name sandbox_kext_14.4.1-23E224 --exec --script-args flow indirect`:
   - `indirect_call_sites: 0` and `call_site_count: 0` (no mac_policy call sites found).
   - `got_entries` captured for `__auth_got` with pointer values but no symbol names (`registration_sites.json`).
 - Added `sandbox-kext-adrp-ldr-got-scan` for ADRP+LDR hits into `__auth_got`; ran:
-  - `python3 book/api/ghidra/run_task.py sandbox-kext-adrp-ldr-got-scan --process-existing --project-name sandbox_kext_14.4.1-23E224 --exec --script-args auth_got 32 all` → `0` matches (`dumps/ghidra/out/14.4.1-23E224/sandbox-kext-adrp-ldr-got-scan/adrp_ldr_scan.json`).
+  - `python3 book/api/ghidra/run_task.py sandbox-kext-adrp-ldr-got-scan --process-existing --project-name sandbox_kext_14.4.1-23E224 --exec --script-args auth_got 32 all` → `0` matches (`book/dumps/ghidra/out/14.4.1-23E224/sandbox-kext-adrp-ldr-got-scan/adrp_ldr_scan.json`).
 - Normalized address values to signed 64-bit when calling `toAddr` in `kernel_adrp_ldr_scan.py`; reran `sandbox-kext-adrp-ldr-got-scan` with `auth_got 32 all` and still saw `0` matches (`adrp_seen: 3452`, `ldr_literal_seen: 0`, `truncated_bases: 1508`, `got_block_mode: auth_got`).
 - Reran `sandbox-kext-mac-policy-register` with `flow indirect-all all`: `target_count: 4`, `call_site_count: 0`, `indirect_call_sites: 0`, `got_block_mode: auth_got+auth_ptr+got`, `got_entries: 332`.
 
 ## Stub + GOT join attempt
 
-- Block disasm sweep for "stub" matched zero blocks; sandbox kext block names do not include `stub`. Reran with `text` to cover `__text` (`sandbox-kext-block-disasm`), scanning one executable block (`dumps/ghidra/out/14.4.1-23E224/sandbox-kext-block-disasm/disasm_report.json`).
+- Block disasm sweep for "stub" matched zero blocks; sandbox kext block names do not include `stub`. Reran with `text` to cover `__text` (`sandbox-kext-block-disasm`), scanning one executable block (`book/dumps/ghidra/out/14.4.1-23E224/sandbox-kext-block-disasm/disasm_report.json`).
 - Added `kernel_stub_got_map.py` and task `sandbox-kext-stub-got-map` to map ADRP+LDR stub sequences to GOT entries; run over `text` blocks with lookahead 6 yields `0` matches (`adrp_seen: 3648`, `match_count: 0`).
 - Joined stub map with `otool -Iv` indirect symbols via `match_stub_got.py`; `stub_targets.json` reports `match_count: 0`, `target_count: 0`.
 - Reran `sandbox-kext-mac-policy-register` with `stub-targets=.../stub_targets.json` plus `flow indirect-all all`; still `call_site_count: 0`, `stub_target_count: 0`.
@@ -75,8 +75,8 @@
 ## AMFI pivot (AppleMobileFileIntegrity)
 
 - Listed LC_FILESET_ENTRY names with `PYTHONPATH=$PWD python3 book/experiments/mac-policy-registration/rebuild_sandbox_kext.py --list`; AMFI is `com.apple.driver.AppleMobileFileIntegrity` (offset `0x48d3f0`). First rebuild attempt used the offset (`--entry-id 0x48d3f0`) and failed because `--entry-id` expects the entry name, not the offset.
-- Rebuilt AMFI slice: `PYTHONPATH=$PWD python3 book/experiments/mac-policy-registration/rebuild_sandbox_kext.py --entry-id com.apple.driver.AppleMobileFileIntegrity`, output `dumps/Sandbox-private/14.4.1-23E224/kernel/sandbox_kext_com_apple_driver_AppleMobileFileIntegrity.bin`.
-- Imported AMFI into `amfi_kext_14.4.1-23E224` via `amfi-kext-block-disasm` (`text 4 0 1`); disasm report shows 1 executable block (`dumps/ghidra/out/14.4.1-23E224/amfi-kext-block-disasm/disasm_report.json`).
+- Rebuilt AMFI slice: `PYTHONPATH=$PWD python3 book/experiments/mac-policy-registration/rebuild_sandbox_kext.py --entry-id com.apple.driver.AppleMobileFileIntegrity`, output `book/dumps/ghidra/private/aapl-restricted/14.4.1-23E224/kernel/sandbox_kext_com_apple_driver_AppleMobileFileIntegrity.bin`.
+- Imported AMFI into `amfi_kext_14.4.1-23E224` via `amfi-kext-block-disasm` (`text 4 0 1`); disasm report shows 1 executable block (`book/dumps/ghidra/out/14.4.1-23E224/amfi-kext-block-disasm/disasm_report.json`).
 - `amfi-kext-mac-policy-register` with `flow indirect-all all` wrote `registration_sites.json` with `target_count: 6`, `call_site_count: 0`, `indirect_call_sites: 0`; targets include `_mac_policy_register`, `_amfi_register_mac_policy`, and `__ZL15_policy_initbsdP15mac_policy_conf`.
 - `otool -Iv` on AMFI saved to `book/experiments/mac-policy-registration/out/otool_indirect_symbols_amfi.txt`; `_mac_policy_register` entry at `0xfffffe0007e5c290` (signed `0x-1fff81a3d70`) in `__auth_got`.
 - `amfi-kext-got-ref-sweep`: `entries=329`, `with_refs=47`; `_mac_policy_register` GOT entry has `ref_count: 0`.
@@ -138,7 +138,7 @@
   - `arg_resolution` captures per-call-site resolution attempts.
 - Ran:
   - `PYTHONPATH=$PWD python3 book/api/ghidra/run_task.py kernel-mac-policy-register-instances --build 14.4.1-23E224 --project-name sandbox_14.4.1-23E224_kc --process-existing --no-analysis --exec --script-args call-sites=book/experiments/mac-policy-registration/out/mac_policy_register_call_sites.json fixups=book/experiments/mac-policy-registration/out/kc_fixups.jsonl fileset-index=book/experiments/mac-policy-registration/out/kc_fileset_index.json mac-policy-register=0x-1fff729bb68 max-back=200`
-  - Output: `dumps/ghidra/out/14.4.1-23E224/kernel-mac-policy-register-instances/mac_policy_register_instances.json`.
+  - Output: `book/dumps/ghidra/out/14.4.1-23E224/kernel-mac-policy-register-instances/mac_policy_register_instances.json`.
 - Results: 7 call sites, 4 resolved names from decoded `mac_policy_conf` (`AppleImage4`, `Quarantine`, `EndpointSecurity`, `Sandbox`). All resolved structs/ops pointers map to `com.apple.driver.AppleTrustedAccessory`.
 - Unresolved cases:
   - One call site resolves `x0 = x19 + 0xb10` with unresolved base (mpc_addr `0xb10`).
@@ -168,7 +168,7 @@
   - call-site argument recovery now respects function bodies (avoid crossing into unrelated code),
   - ops-owner sampling (`ops_owner_histogram` + `mpc_ops_owner`) emits the dominant fileset entry from ops-table pointers,
   - call-chain fallback for ops pointer resolution (caller arg recovery + data-ref scan around indirect init tables).
-- Reran `kernel-mac-policy-register-instances` with the same command (output refreshed in `dumps/ghidra/out/14.4.1-23E224/kernel-mac-policy-register-instances/mac_policy_register_instances.json`).
+- Reran `kernel-mac-policy-register-instances` with the same command (output refreshed in `book/dumps/ghidra/out/14.4.1-23E224/kernel-mac-policy-register-instances/mac_policy_register_instances.json`).
 - `kernel-collection-function-dump` runs:
   - `0xfffffe0009df4188` + `0xfffffe0009df43bc` to inspect the ASP registration chain.
   - `0xfffffe0009af0930` to confirm AMFI store sequence (`stp x19,x9,[x0]` with `x0` materialized via ADRP+ADD).
@@ -199,10 +199,10 @@
 
 ## KC segment-interval attribution + ops recovery refresh
 
-- Generated a full fixups file for audit work: `PYTHONPATH=$PWD python3 book/experiments/mac-policy-registration/kc_truth_layer.py --build-id 14.4.1-23E224 --fixups-mode full --out-dir dumps/Sandbox-oversize/mac-policy-registration` (full records stored outside source control).
-- Ran fixups audit using the full file: `PYTHONPATH=$PWD python3 book/experiments/mac-policy-registration/kc_fixups_audit.py --fixups dumps/Sandbox-oversize/mac-policy-registration/kc_fixups.jsonl --fileset-index book/experiments/mac-policy-registration/out/kc_fileset_index.json --summary book/experiments/mac-policy-registration/out/kc_fixups_summary.json --out book/experiments/mac-policy-registration/out/kc_fixups_audit.json` → `cache_level_counts: {0: 914488}`, `next_out_of_page_fraction: {0: 0.0}`.
-- Re-ran ASP fixup signature scan with compact fixups (resolved-only): `PYTHONPATH=$PWD python3 book/experiments/mac-policy-registration/asp_conf_fixup_signature_scan.py --fixups book/experiments/mac-policy-registration/out/kc_fixups.jsonl --fileset-index book/experiments/mac-policy-registration/out/kc_fileset_index.json --instances dumps/ghidra/out/14.4.1-23E224/kernel-mac-policy-register-instances/mac_policy_register_instances.json --out book/experiments/mac-policy-registration/out/asp_conf_fixup_candidates.json` → `resolved_candidate_count: 0` and no name/fullname slot matches.
-- Re-ran ASP fixup signature scan with full fixups + `--allow-unresolved` to include target-bit matching: `PYTHONPATH=$PWD python3 book/experiments/mac-policy-registration/asp_conf_fixup_signature_scan.py --fixups dumps/Sandbox-oversize/mac-policy-registration/kc_fixups.jsonl --fileset-index book/experiments/mac-policy-registration/out/kc_fileset_index.json --instances dumps/ghidra/out/14.4.1-23E224/kernel-mac-policy-register-instances/mac_policy_register_instances.json --allow-unresolved --out book/experiments/mac-policy-registration/out/asp_conf_fixup_candidates_full.json` → `resolved_candidate_count: 0`, `target_candidate_count: 0`.
+- Generated a full fixups file for audit work: `PYTHONPATH=$PWD python3 book/experiments/mac-policy-registration/kc_truth_layer.py --build-id 14.4.1-23E224 --fixups-mode full --out-dir book/dumps/ghidra/private/oversize/mac-policy-registration` (full records stored outside source control).
+- Ran fixups audit using the full file: `PYTHONPATH=$PWD python3 book/experiments/mac-policy-registration/kc_fixups_audit.py --fixups book/dumps/ghidra/private/oversize/mac-policy-registration/kc_fixups.jsonl --fileset-index book/experiments/mac-policy-registration/out/kc_fileset_index.json --summary book/experiments/mac-policy-registration/out/kc_fixups_summary.json --out book/experiments/mac-policy-registration/out/kc_fixups_audit.json` → `cache_level_counts: {0: 914488}`, `next_out_of_page_fraction: {0: 0.0}`.
+- Re-ran ASP fixup signature scan with compact fixups (resolved-only): `PYTHONPATH=$PWD python3 book/experiments/mac-policy-registration/asp_conf_fixup_signature_scan.py --fixups book/experiments/mac-policy-registration/out/kc_fixups.jsonl --fileset-index book/experiments/mac-policy-registration/out/kc_fileset_index.json --instances book/dumps/ghidra/out/14.4.1-23E224/kernel-mac-policy-register-instances/mac_policy_register_instances.json --out book/experiments/mac-policy-registration/out/asp_conf_fixup_candidates.json` → `resolved_candidate_count: 0` and no name/fullname slot matches.
+- Re-ran ASP fixup signature scan with full fixups + `--allow-unresolved` to include target-bit matching: `PYTHONPATH=$PWD python3 book/experiments/mac-policy-registration/asp_conf_fixup_signature_scan.py --fixups book/dumps/ghidra/private/oversize/mac-policy-registration/kc_fixups.jsonl --fileset-index book/experiments/mac-policy-registration/out/kc_fileset_index.json --instances book/dumps/ghidra/out/14.4.1-23E224/kernel-mac-policy-register-instances/mac_policy_register_instances.json --allow-unresolved --out book/experiments/mac-policy-registration/out/asp_conf_fixup_candidates_full.json` → `resolved_candidate_count: 0`, `target_candidate_count: 0`.
 - Expanded ASP interprocedural store-chain collection (object-relative writes) in `kernel_mac_policy_register_instances.py`, then reran with compact fixups: `PYTHONPATH=$PWD python3 book/api/ghidra/run_task.py kernel-mac-policy-register-instances --build 14.4.1-23E224 --project-name sandbox_14.4.1-23E224_kc --process-existing --no-analysis --exec --script-args call-sites=book/experiments/mac-policy-registration/out/mac_policy_register_call_sites.json fixups=book/experiments/mac-policy-registration/out/kc_fixups.jsonl fixups-mode=compact fileset-index=book/experiments/mac-policy-registration/out/kc_fileset_index.json mac-policy-register=0x-1fff729bb68 max-back=200`.
 - ASP store-chain results: 22 functions scanned (depth <= 3), 22 object-relative stores in the ops/conf windows (12 ops, 10 conf). 9 exec pointer stores in ops region all map to `com.apple.AppleSystemPolicy`, and offsets cluster at `0x98 + {0x30,0x40,0x48,0x58,0x68,0x80,0x90,0x120,0x14c,0x200,0x3a0,0x3d0}` relative to `this` (captured in `asp_store_chain` inside `mac_policy_register_instances.json`).
 - Added memcpy/bcopy-style bulk init detection to the ASP store-chain collector (argument-shape based; detects dst in ops/conf window + large length + src pointer or zero fill) and re-ran `kernel-mac-policy-register-instances` with compact fixups. No bulk init calls detected (`bulk_inits: 0`), so the ASP ops map remains derived from direct exec-pointer stores only (`ops_patch_slots: 9`, `ops_template_slots: 0`, `ops_slots_merged: 9`). Run required a longer timeout (initial 120s timeout hit, reran with 180s).
@@ -237,7 +237,7 @@
   - `cache_level_counts`: `{0: 1560, 1: 12, 2: 2735, 3: 12}`; `cache_nonzero_fraction ≈ 0.639`, so inference is **skipped** (`status: skipped_sanity_gate`).
   - `unresolved_unknown_base_fraction ≈ 0.639` after the gate, reflecting the same cache-level distribution.
 - New script `asp_conf_fixup_signature_scan.py` searches fixup slots for adjacent `(mpc_name, mpc_fullname)` pointers (ASP) and derives `mpc_base/x0_base/ops_base` when found.
-  - Run: `PYTHONPATH=$PWD python3 book/experiments/mac-policy-registration/asp_conf_fixup_signature_scan.py --fixups book/experiments/mac-policy-registration/out/kc_fixups.jsonl --fileset-index book/experiments/mac-policy-registration/out/kc_fileset_index.json --instances dumps/ghidra/out/14.4.1-23E224/kernel-mac-policy-register-instances/mac_policy_register_instances.json --out book/experiments/mac-policy-registration/out/asp_conf_fixup_candidates.json`
+  - Run: `PYTHONPATH=$PWD python3 book/experiments/mac-policy-registration/asp_conf_fixup_signature_scan.py --fixups book/experiments/mac-policy-registration/out/kc_fixups.jsonl --fileset-index book/experiments/mac-policy-registration/out/kc_fileset_index.json --instances book/dumps/ghidra/out/14.4.1-23E224/kernel-mac-policy-register-instances/mac_policy_register_instances.json --out book/experiments/mac-policy-registration/out/asp_conf_fixup_candidates.json`
   - Output: `status: no_adjacent_fixup_slots`, `name_ptr_matches: 0`, `fullname_ptr_matches: 0` (no static fixup slots resolved to the ASP strings under the current fixups gate).
   - Re-run with `--allow-unresolved` (target-bit matching): `status.resolved = no_adjacent_fixup_slots`, `status.target = no_adjacent_target_slots` with zero target matches, so there is still no adjacent fixup-slot signature for ASP even without base-pointer resolution.
 

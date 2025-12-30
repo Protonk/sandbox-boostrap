@@ -6,7 +6,8 @@ Use when: you want a single CLI to run any task in the registry without hand-wri
 Defaults:
 - Adds the `disable_x86_analyzers.py` pre-script to avoid wasting time on x86 analyzers.
 - Sets the processor to an Apple Silicon ARM64 language ID (overrideable).
-- Pulls inputs from `dumps/Sandbox-private/<build>/...`; outputs go to `dumps/ghidra/out/<build>/<task>/`.
+- Pulls inputs from `book/dumps/ghidra/private/aapl-restricted/<build>/...`; outputs go to
+  `book/dumps/ghidra/out/<build>/<task>/`.
 
 Examples:
 - Import + (optional) analysis with defaults:

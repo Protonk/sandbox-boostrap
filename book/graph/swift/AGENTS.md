@@ -2,7 +2,7 @@
 
 Purpose: Swift generator/validator for graph-level artifacts. It parses `book/substrate/Concepts.md` + inventory markdown, emits JSON used by the textbook and CARTON, and hosts static enforcement for stable mappings encoded as Swift data structures.
 
-Run: `make -C book test` (preferred) or `swift run` from `book/graph/` after sourcing the repo venv. The CI driver (`book/tests/ci.py`) invokes this target automatically.
+Run: `make -C book test` (preferred) or `swift run` from `book/graph/` after sourcing the repo venv. The CI driver (`book/integration/ci.py`) invokes this target automatically.
 
 Modify:
 - Add Swift types/validators for new schema slices (e.g., vocab attestations, coverage summaries, tag layouts) under this directory, not elsewhere.

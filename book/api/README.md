@@ -38,7 +38,7 @@ gcc book/api/runtime/native/file_probe/file_probe.c -o /tmp/file_probe
 
 Definition: Seatbelt-focused Ghidra scaffold and CLI.
 
-Role: Provide connectors for reverse-engineering tasks (kernel/op-table symbol work) and manage the runtime workspace under `dumps/ghidra/`.
+Role: Provide connectors for reverse-engineering tasks (kernel/op-table symbol work) and manage the runtime workspace under `book/dumps/ghidra/`.
 
 Example:
 ```sh

@@ -24,20 +24,20 @@ SYMBOL_CANONICAL_LIMIT = 1000
 
 SENTINELS = {
     "offset_inst_scan_0xc0_write_classify": {
-        "fixture_path": "book/tests/planes/ghidra/fixtures/canonical/offset_inst_scan_0xc0_write_classify.json",
-        "meta_path": "book/tests/planes/ghidra/fixtures/canonical/offset_inst_scan_0xc0_write_classify.meta.json",
-        "output_path": "dumps/ghidra/out/14.4.1-23E224/kernel-collection-offset-scan-0xc0-write-classify/offset_inst_scan.json",
+        "fixture_path": "book/integration/tests/ghidra/fixtures/canonical/offset_inst_scan_0xc0_write_classify.json",
+        "meta_path": "book/integration/tests/ghidra/fixtures/canonical/offset_inst_scan_0xc0_write_classify.meta.json",
+        "output_path": "book/dumps/ghidra/out/14.4.1-23E224/kernel-collection-offset-scan-0xc0-write-classify/offset_inst_scan.json",
         "script_path": "book/api/ghidra/scripts/kernel_offset_inst_scan.py",
-        "program_path": "dumps/Sandbox-private/14.4.1-23E224/kernel/BootKernelCollection.kc",
+        "program_path": "book/dumps/ghidra/private/aapl-restricted/14.4.1-23E224/kernel/BootKernelCollection.kc",
         "normalizer_id": "offset_inst_scan_normalizer_v1",
         "ghidra_version": "11.4.2",
     },
     "kernel_collection_symbols_canary": {
-        "fixture_path": "book/tests/planes/ghidra/fixtures/canonical/kernel_collection_symbols_canary.json",
-        "meta_path": "book/tests/planes/ghidra/fixtures/canonical/kernel_collection_symbols_canary.meta.json",
-        "output_path": "dumps/ghidra/out/14.4.1-23E224/kernel-collection-symbols/symbols.json",
+        "fixture_path": "book/integration/tests/ghidra/fixtures/canonical/kernel_collection_symbols_canary.json",
+        "meta_path": "book/integration/tests/ghidra/fixtures/canonical/kernel_collection_symbols_canary.meta.json",
+        "output_path": "book/dumps/ghidra/out/14.4.1-23E224/kernel-collection-symbols/symbols.json",
         "script_path": "book/api/ghidra/scripts/kernel_symbols.py",
-        "program_path": "dumps/Sandbox-private/14.4.1-23E224/kernel/BootKernelCollection.kc",
+        "program_path": "book/dumps/ghidra/private/aapl-restricted/14.4.1-23E224/kernel/BootKernelCollection.kc",
         "normalizer_id": "kernel_symbols_normalizer_v1",
         "ghidra_version": "11.4.2",
     },

@@ -2,7 +2,7 @@
 
 ## Context
 
-Headless runs target `dumps/Sandbox-private/14.4.1-23E224/` via the canonical scaffold `book/api/ghidra/scaffold.py` (a shim remains at `dumps/ghidra/scaffold.py`). This log captures the friction points and the mitigations applied. `dumps/RE_Plan.md` is historical context only; current workflow lives in `book/api/ghidra/README.md`.
+Headless runs target `book/dumps/ghidra/private/aapl-restricted/14.4.1-23E224/` via the canonical scaffold `book/api/ghidra/scaffold.py`. This log captures the friction points and the mitigations applied. Current workflow lives in `book/api/ghidra/README.md`.
 
 ## Status
 
@@ -24,8 +24,8 @@ All blocking issues are mitigated with the current defaults (ARM64 processor, x8
 - **Auto-import picked x86 language**: without `--processor`, the loader defaulted to `x86:LE:64:default:gcc` for the KC, enabling x86 analyzers; set the processor explicitly for Apple Silicon runs.
 
 ## Mitigations applied
-- **Force Java selection non-interactively**: run headless with `--java-home /Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home` and pass `-vmPath .../bin/java`. Scaffold exports `JAVA_HOME` and injects `JAVA_TOOL_OPTIONS=-Duser.home=<repo>/dumps/ghidra/user` so LaunchSupport finds a writable home and skips prompting.
-- **Sandbox Ghidra user dir**: `--user-dir dumps/ghidra/user` (default in scaffold) plus env `HOME`/`GHIDRA_USER_HOME` set to that path. Added `.gitignore` entry for `user/`.
+- **Force Java selection non-interactively**: run headless with `--java-home /Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home` and pass `-vmPath .../bin/java`. Scaffold exports `JAVA_HOME` and injects `JAVA_TOOL_OPTIONS=-Duser.home=<repo>/book/dumps/ghidra/user` so LaunchSupport finds a writable home and skips prompting.
+- **Sandbox Ghidra user dir**: `--user-dir book/dumps/ghidra/user` (default in scaffold) plus env `HOME`/`GHIDRA_USER_HOME` set to that path.
 - **Script logging**: scaffold now adds `-scriptlog <out>/<task>/script.log` so script stdout/stderr is captured per task.
 - **Overwrite conflicting projects**: added `-overwrite` to avoid “conflicting program file” errors on repeated imports.
 - **Optional `-noanalysis` flag**: exposed `--no-analysis` to speed up import-only passes when function recovery is not needed (used for symbols/strings; not suitable for dispatcher search).
@@ -46,10 +46,10 @@ All blocking issues are mitigated with the current defaults (ARM64 processor, x8
 - Tag switch (needs functions): drop `--no-analysis` for a slower but populated run.
 - Data define (script-only against existing project): `PYTHONPATH=$PWD GHIDRA_HEADLESS=$GHIDRA_HEADLESS JAVA_HOME=$JAVA_HOME python3 book/api/ghidra/run_data_define.py --address addr:0xffffff800020ef10 --process-existing --no-analysis --timeout 900`
 - Full analysis with x86 analyzers disabled: add `--pre-script disable_x86_analyzers.py` and explicitly set `--processor` to the ARM64 language for the KC (for example, `AARCH64:LE:64:AppleSilicon`) to skip x86-only passes on Apple Silicon. The convenience wrapper `python3 book/api/ghidra/run_task.py <task> --exec` applies these defaults unless overridden.
-- Outputs land under `dumps/ghidra/out/14.4.1-23E224/<task>/`; project at `dumps/ghidra/projects/sandbox_14.4.1-23E224`; user config at `dumps/ghidra/user/`.
+- Outputs land under `book/dumps/ghidra/out/14.4.1-23E224/<task>/`; project at `book/dumps/ghidra/projects/sandbox_14.4.1-23E224`; user config at `book/dumps/ghidra/user/`.
 
 ## Remaining cautions
 - Running without `--java-home` will still trigger the JDK prompt and fail under headless/non-TTY.
 - `-noanalysis` suppresses function recovery; use it only when you don’t need call graphs or instruction walks.
 - KC imports produce many analysis warnings; these are expected but keep an eye on `application.log` for script exceptions.
-- Keep all runs contained in `dumps/`; do not relocate artifacts into tracked trees.
+- Keep all runs contained in `book/dumps/`; do not relocate artifacts into tracked trees.

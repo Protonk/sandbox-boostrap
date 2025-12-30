@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0",
+  "shape": {
+    "keys": {
+      "address": {
+        "type": "str"
+      },
+      "build_id": {
+        "type": "str"
+      },
+      "function": {
+        "type": "str"
+      },
+      "instructions": {
+        "element_shapes": [
+          {
+            "keys": {
+              "addr": {
+                "type": "str"
+              },
+              "inst": {
+                "type": "str"
+              },
+              "mnemonic": {
+                "type": "str"
+              }
+            },
+            "type": "dict"
+          }
+        ],
+        "length": 129,
+        "sampled": 129,
+        "type": "list"
+      },
+      "program": {
+        "type": "str"
+      }
+    },
+    "type": "dict"
+  },
+  "source": {
+    "name": "kernel-collection-addr-window-dump__addr_window_dump_0xfffffe00085f7070",
+    "output_path": "book/dumps/ghidra/out/14.4.1-23E224/kernel-collection-addr-window-dump/addr_window_dump_0xfffffe00085f7070.json",
+    "shape_options": {
+      "list_length": true,
+      "max_list_items": null
+    },
+    "snapshot_path": "book/integration/tests/ghidra/fixtures/shape_catalog/snapshots/kernel-collection-addr-window-dump__addr_window_dump_0xfffffe00085f7070.shape.json",
+    "task": "kernel-collection-addr-window-dump"
+  }
+}

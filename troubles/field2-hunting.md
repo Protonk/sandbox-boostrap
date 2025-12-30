@@ -7,8 +7,8 @@ This note captures the hunt for the third 16‑bit payload slot in compiled Poli
 Key artifacts (all under `book/experiments/field2-filters/`):
 - Inventories: `out/field2_inventory.json`, `out/unknown_nodes.json`.
 - System + probe SBPL: `sb/` and `sb/build/*.sb.bin` (including `bsd_ops_default_file`, `airlock_system_fcntl`, flow-divert variants).
-- Ghidra evaluator/helper dumps: `dumps/ghidra/out/14.4.1-23E224/find-field2-evaluator/` (`field2_evaluator.json`, `helper.txt`, `eval.txt`, `candidates.json`).
-- Ghidra struct hunt (negative): `dumps/ghidra/out/14.4.1-23E224/find-field2-evaluator/node_struct_scan.txt` and `.json` (0 real candidates reachable from `_eval`).
+- Ghidra evaluator/helper dumps: `book/dumps/ghidra/out/14.4.1-23E224/find-field2-evaluator/` (`field2_evaluator.json`, `helper.txt`, `eval.txt`, `candidates.json`).
+- Ghidra struct hunt (negative): `book/dumps/ghidra/out/14.4.1-23E224/find-field2-evaluator/node_struct_scan.txt` and `.json` (0 real candidates reachable from `_eval`).
 - Scripts: `harvest_field2.py`, `unknown_focus.py`, `book/api/ghidra/scripts/find_field2_evaluator.py`, `kernel_node_struct_scan.py`.
 
 ## What is known

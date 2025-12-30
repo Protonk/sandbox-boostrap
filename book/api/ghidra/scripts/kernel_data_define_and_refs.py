@@ -3,7 +3,7 @@
 Define data at given addresses and report references.
 
 Args: <out_dir> <build_id> addr:<hex> [addr:<hex> ...]
-Outputs: dumps/ghidra/out/<build>/kernel-data-define/data_refs.json (plus script.log)
+Outputs: book/dumps/ghidra/out/<build>/kernel-data-define/data_refs.json (plus script.log)
 
 Behavior/pitfalls:
 - Addresses must be prefixed with `addr:` and parsed as unsigned hex; other forms are ignored.

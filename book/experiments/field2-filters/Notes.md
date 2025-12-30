@@ -101,8 +101,8 @@ Use this file for concise notes on progress, commands, and intermediate findings
 
 - Ran `kernel_field2_mask_scan` twice on the 14.4.1 project:
   - Sandbox blocks only (default masks 0x3fff/0x4000/0xc000): no hits.
-  - Full-program with masks 0x3fff/0x4000/0xc000/0x00ff/0xff00: no hits. Output at `dumps/ghidra/out/14.4.1-23E224/kernel-field2-mask-scan/mask_scan.json`.
-- Ran `kernel_imm_search` on key field2 constants across the full KC: 0xa00 (flow-divert 2560), 0x4114 (bsd tail hi-bit), and 0x2a00 (airlock high). All returned zero hits. Outputs under `dumps/ghidra/out/14.4.1-23E224/kernel-imm-search/`. These negatives suggest the constants are not present as plain immediates; evaluator likely derives flags via other arithmetic or indirect tables.
+  - Full-program with masks 0x3fff/0x4000/0xc000/0x00ff/0xff00: no hits. Output at `book/dumps/ghidra/out/14.4.1-23E224/kernel-field2-mask-scan/mask_scan.json`.
+- Ran `kernel_imm_search` on key field2 constants across the full KC: 0xa00 (flow-divert 2560), 0x4114 (bsd tail hi-bit), and 0x2a00 (airlock high). All returned zero hits. Outputs under `book/dumps/ghidra/out/14.4.1-23E224/kernel-imm-search/`. These negatives suggest the constants are not present as plain immediates; evaluator likely derives flags via other arithmetic or indirect tables.
 
 ## Ghidra pointer
 
@@ -135,12 +135,12 @@ Next steps: If needed, scan the main evaluator (FUN_ffffff8002d8547a in arm64e) 
 ### Headless helper hunt (arm64e sandbox kext)
 
 - Added `book/api/ghidra/scripts/find_field2_evaluator.py` and ran it headlessly against the extracted sandbox kext (`/tmp/sandbox_arm64e/com.apple.security.sandbox`) via project `sandbox_field2_sbx`.
-- Output at `dumps/ghidra/out/14.4.1-23E224/find-field2-evaluator/field2_evaluator.json`: ~60k instructions, 897 functions. Heuristic picked `__read24` at `fffffe000b410ee4` (loads a halfword + byte with bounds checks) as the smallest widely-called ldrb+ldrh helper; callers include `_eval` at `fffffe000b40d698`, `_populate_syscall_mask`, and `_check_syscall_mask_composable`. The dumped helper/evaluator disasm lives in `helper.txt` / `evaluator.txt` alongside the JSON.
+- Output at `book/dumps/ghidra/out/14.4.1-23E224/find-field2-evaluator/field2_evaluator.json`: ~60k instructions, 897 functions. Heuristic picked `__read24` at `fffffe000b410ee4` (loads a halfword + byte with bounds checks) as the smallest widely-called ldrb+ldrh helper; callers include `_eval` at `fffffe000b40d698`, `_populate_syscall_mask`, and `_check_syscall_mask_composable`. The dumped helper/evaluator disasm lives in `helper.txt` / `evaluator.txt` alongside the JSON.
 - Caveat: this heuristic is still generic; `__read24` is not yet confirmed as the field2 reader. `_eval` remains the evaluator candidate and should be dumped/inspected directly to confirm field2 handling.
 
 ### 2026-02-12 follow-up (arm64e helper + new probes)
 
-- Refined the headless helper hunt (`book/api/ghidra/scripts/find_field2_evaluator.py`): the stricter filter now lands on `__read16` at `fffffe000b40fa1c` as the small u16 reader. Disasm in `dumps/ghidra/out/14.4.1-23E224/find-field2-evaluator/helper.txt` shows bounds checks and a plain `ldrh/strh`; no bit tests or masks on the payload. The script also auto-dumps `_eval` to `eval.txt`.
+- Refined the headless helper hunt (`book/api/ghidra/scripts/find_field2_evaluator.py`): the stricter filter now lands on `__read16` at `fffffe000b40fa1c` as the small u16 reader. Disasm in `book/dumps/ghidra/out/14.4.1-23E224/find-field2-evaluator/helper.txt` shows bounds checks and a plain `ldrh/strh`; no bit tests or masks on the payload. The script also auto-dumps `_eval` to `eval.txt`.
 - `_eval` dump (`fffffe000b40d698`) shows masking with `0xffffff`, `0x7fffff`, `0x7f`, and bit-test on bit 0x17, but no `0x3fff`/`0x4000` masks. `rg` over `eval.txt` finds no 0x3fff/0x4000 immediates. `__read16` callers are mostly mask/populate helpers (`_populate_syscall_mask`, `_check_syscall_mask_composable`, `_match_network`, etc.); `__read24` remains used in `_eval` for other payloads.
 - Added probes:
   - `sb/bsd_ops_default_file.sb` (default/file* cluster with simple path literals).
@@ -150,7 +150,7 @@ Next steps: If needed, scan the main evaluator (FUN_ffffff8002d8547a in arm64e) 
   - `airlock_system_fcntl` surfaces a new hi-bit sentinel `field2=0xffff` (hi=0xc000, lo=0x3fff) on tag 1, no literals; otherwise low path/socket IDs.
   - `bsd_ops_default_file` mirrors `sample` with low path/socket IDs and the existing sentinel 3584; no high bsd tail values surfaced.
   - System profiles unchanged: bsd 16660 hi=0x4000 still reachable from ops 0–27; other bsd highs op-empty. Airlock unknowns still hang off op 162. Flow-divert 2560 remains only in the triple-socket probes (v4/v7/v_net_require_all_domain_type_proto) and op-empty.
-  - Updated artifacts: `out/field2_inventory.json`, `out/unknown_nodes.json`, Ghidra outputs under `dumps/ghidra/out/14.4.1-23E224/find-field2-evaluator/`.
+  - Updated artifacts: `out/field2_inventory.json`, `out/unknown_nodes.json`, Ghidra outputs under `book/dumps/ghidra/out/14.4.1-23E224/find-field2-evaluator/`.
 
 ## Kernel helper hunt (arm64e targets)
 
@@ -172,21 +172,21 @@ Next steps: If needed, scan the main evaluator (FUN_ffffff8002d8547a in arm64e) 
 - Attempted to run a headless Ghidra script (`dump_read16_callers.py`) against project `sandbox_field2_sbx` to dump the caller set. Command failed early with:
   - `/Users/achyland/Library/ghidra/ghidra_11.4.2_PUBLIC/java_home.save (Operation not permitted)`
   - `ERROR: Unable to prompt user for JDK path, no TTY detected.`
-- This is the familiar “JDK prompt in headless” issue noted in `ghidra_setup.md`. Resolution: rerun with `JAVA_HOME` and `-vmPath` set, and `HOME`/`GHIDRA_USER_HOME` pointing to the repo-local sandbox (`dumps/ghidra/user`). The existing scaffold does this; the ad hoc call here lacked the env. Next action: rerun the caller dump via `book/api/ghidra/run_task.py` or with explicit env (`JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home`, `HOME=.../dumps/ghidra/user`, `GHIDRA_USER_HOME=.../dumps/ghidra/user`, `-vmPath $JAVA_HOME/bin/java`), then collect the disassembly into `dumps/ghidra/out/14.4.1-23E224/find-field2-evaluator/callers/read16_callers.txt`.
+- This is the familiar “JDK prompt in headless” issue noted in `ghidra_setup.md`. Resolution: rerun with `JAVA_HOME` and `-vmPath` set, and `HOME`/`GHIDRA_USER_HOME` pointing to the repo-local sandbox (`book/dumps/ghidra/user`). The existing scaffold does this; the ad hoc call here lacked the env. Next action: rerun the caller dump via `book/api/ghidra/run_task.py` or with explicit env (`JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home`, `HOME=.../book/dumps/ghidra/user`, `GHIDRA_USER_HOME=.../book/dumps/ghidra/user`, `-vmPath $JAVA_HOME/bin/java`), then collect the disassembly into `book/dumps/ghidra/out/14.4.1-23E224/find-field2-evaluator/callers/read16_callers.txt`.
 
 ## Headless retry still blocked
 
-- Retried the caller dump with explicit env (`JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home`, `HOME`/`GHIDRA_USER_HOME` to `dumps/ghidra/user`, `-vmPath` set). The headless run still failed with the same prompt errors (`java_home.save` EPERM / “Unable to prompt user for JDK path, no TTY”).
-- This matches the `ghidra_setup.md` caution: ad hoc headless invocations that don’t set `JAVA_TOOL_OPTIONS=-Duser.home=<repo>/dumps/ghidra/user` or don’t run through the scaffold continue to hit the prompt.
+- Retried the caller dump with explicit env (`JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home`, `HOME`/`GHIDRA_USER_HOME` to `book/dumps/ghidra/user`, `-vmPath` set). The headless run still failed with the same prompt errors (`java_home.save` EPERM / “Unable to prompt user for JDK path, no TTY”).
+- This matches the `ghidra_setup.md` caution: ad hoc headless invocations that don’t set `JAVA_TOOL_OPTIONS=-Duser.home=<repo>/book/dumps/ghidra/user` or don’t run through the scaffold continue to hit the prompt.
 - Next possible solutions:
   - Use the repo’s `book/api/ghidra/run_task.py` (which wires env and `--java-home/-vmPath`) to invoke a small script that dumps the caller set, instead of hand-rolling `analyzeHeadless`.
-  - Alternatively, set `JAVA_TOOL_OPTIONS=-Duser.home=$PWD/dumps/ghidra/user` alongside `JAVA_HOME`/`-vmPath` before calling headless directly.
-  - If headless continues to balk, fall back to an interactive Ghidra session to export caller disassembly, then park the dumps under `dumps/ghidra/out/14.4.1-23E224/find-field2-evaluator/callers/`.
+  - Alternatively, set `JAVA_TOOL_OPTIONS=-Duser.home=$PWD/book/dumps/ghidra/user` alongside `JAVA_HOME`/`-vmPath` before calling headless directly.
+  - If headless continues to balk, fall back to an interactive Ghidra session to export caller disassembly, then park the dumps under `book/dumps/ghidra/out/14.4.1-23E224/find-field2-evaluator/callers/`.
 
 ## Headless caller dump via settingsdir override
 
-- Applied the settingsdir guidance: seeded a repo-local settings dir (`.ghidra-user/ghidra/ghidra_11.4.2_PUBLIC/java_home.save`) and invoked `analyzeHeadless` with `JAVA_TOOL_OPTIONS="-Dapplication.settingsdir=$PWD/.ghidra-user -Duser.home=$PWD/dumps/ghidra/user"` plus HOME/GHIDRA_USER_HOME pointing to `dumps/ghidra/user`. Dropped unsupported flags (`-vmPath`, `-logFile`).
-- Headless run succeeded; dumped caller disassembly to `dumps/ghidra/out/14.4.1-23E224/find-field2-evaluator/read16_callers.txt` using a Jython script (`/tmp/dump_read16_callers.py`) that iterates functions by name.
+- Applied the settingsdir guidance: seeded a repo-local settings dir (`.ghidra-user/ghidra/ghidra_11.4.2_PUBLIC/java_home.save`) and invoked `analyzeHeadless` with `JAVA_TOOL_OPTIONS="-Dapplication.settingsdir=$PWD/.ghidra-user -Duser.home=$PWD/book/dumps/ghidra/user"` plus HOME/GHIDRA_USER_HOME pointing to `book/dumps/ghidra/user`. Dropped unsupported flags (`-vmPath`, `-logFile`).
+- Headless run succeeded; dumped caller disassembly to `book/dumps/ghidra/out/14.4.1-23E224/find-field2-evaluator/read16_callers.txt` using a Jython script (`/tmp/dump_read16_callers.py`) that iterates functions by name.
 - Quick scan findings (no deep analysis yet):
   - Callers (`__readaddr`, `__readstr`, `_check_syscall_mask_composable`, `_iterate_sandbox_state_flags`, etc.) call `__read16` early and then perform range/size checks; several mask the payload with `#0xffff` (e.g., `and x?, #0xffff`, `tst w?, #0xffff`), but no immediates matching our unknowns (0xa00/0x4114/0x2a00/0xffff/0xe00) appear.
   - No direct comparisons against the high field2 constants in these snippets; paths mostly dispatch to error/log helpers (`...f78c`) on failure.

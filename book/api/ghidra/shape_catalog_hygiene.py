@@ -157,17 +157,17 @@ def main(argv: Optional[List[str]] = None) -> int:
     parser = argparse.ArgumentParser(description="Ghidra shape catalog hygiene checks")
     parser.add_argument(
         "--manifest",
-        default="book/tests/planes/ghidra/fixtures/shape_catalog/manifest.json",
+        default="book/integration/tests/ghidra/fixtures/shape_catalog/manifest.json",
         help="Manifest path",
     )
     parser.add_argument(
         "--strict-manifest",
-        default="book/tests/planes/ghidra/fixtures/shape_catalog/manifest.strict.json",
+        default="book/integration/tests/ghidra/fixtures/shape_catalog/manifest.strict.json",
         help="Strict manifest path",
     )
     parser.add_argument(
         "--families",
-        default="book/tests/planes/ghidra/fixtures/shape_catalog/families.json",
+        default="book/integration/tests/ghidra/fixtures/shape_catalog/families.json",
         help="Family map path",
     )
     parser.add_argument("--report", help="Write JSON report to this path")
@@ -197,7 +197,7 @@ def main(argv: Optional[List[str]] = None) -> int:
         print(
             "catalog issues detected; generate a baseline report with: "
             "python -m book.api.ghidra.shape_catalog_hygiene "
-            "--report book/tests/planes/ghidra/fixtures/shape_catalog/reports/catalog_report.json",
+            "--report book/integration/tests/ghidra/fixtures/shape_catalog/reports/catalog_report.json",
             file=sys.stderr,
         )
         return 1

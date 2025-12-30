@@ -178,7 +178,7 @@ def _representatives_from_outputs(
         rel = path.relative_to(repo_root).as_posix()
         if rel in existing_paths:
             continue
-        # The task name is the first directory under dumps/ghidra/out/<build>/.
+        # The task name is the first directory under book/dumps/ghidra/out/<build>/.
         task = path.parent.relative_to(out_root).parts[0]
         family = _normalize_task(task)
         meta = _output_meta(path)
@@ -193,7 +193,7 @@ def _representatives_from_outputs(
                 "name": name,
                 "task": task,
                 "output_path": rel,
-                "snapshot_path": "book/tests/planes/ghidra/fixtures/shape_catalog/snapshots/%s.shape.json" % name,
+                "snapshot_path": "book/integration/tests/ghidra/fixtures/shape_catalog/snapshots/%s.shape.json" % name,
                 "required": False,
                 "shape": {"list_length": True},
             }

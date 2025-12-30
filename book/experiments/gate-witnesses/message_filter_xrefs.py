@@ -8,8 +8,8 @@ Goal (host-grounded):
 - Cross-check userland dyld slices for presence/absence of the entitlement key.
 
 This script relies on existing host artifacts:
-- Ghidra project: dumps/ghidra/projects/sandbox_kext_14.4.1-23E224.{gpr,rep}
-- KC/kext inputs under dumps/Sandbox-private/14.4.1-23E224/...
+- Ghidra project: book/dumps/ghidra/projects/sandbox_kext_14.4.1-23E224.{gpr,rep}
+- KC/kext inputs under book/dumps/ghidra/private/aapl-restricted/14.4.1-23E224/...
 
 It writes a compact summary JSON under this experiment's out/ directory.
 """
@@ -83,7 +83,7 @@ def _ensure_kernel_xrefs(
     java_home: Optional[str],
     no_analysis: bool,
 ) -> Path:
-    out_path = REPO_ROOT / f"dumps/ghidra/out/{BUILD_ID}/{GHIDRA_TASK}/string_references.json"
+    out_path = REPO_ROOT / f"book/dumps/ghidra/out/{BUILD_ID}/{GHIDRA_TASK}/string_references.json"
     if not refresh:
         return out_path
 
@@ -146,7 +146,7 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
     parser.add_argument(
         "--refresh-ghidra",
         action="store_true",
-        help="Run the Ghidra task to refresh dumps/ghidra/out before summarizing.",
+        help="Run the Ghidra task to refresh book/dumps/ghidra/out before summarizing.",
     )
     parser.add_argument(
         "--no-analysis",
