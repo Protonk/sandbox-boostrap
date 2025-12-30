@@ -15,7 +15,7 @@ from book.api.frida.generate_hook import HookGeneratorError, format_manifest_jso
 from book.api.frida.hook_manifest import load_manifest_snapshot
 from book.api.frida.script_assembly import assemble_script_source
 from book.api.frida.schema_validate import validate_hook_manifest_v1
-from book.api.frida.validate import validate_run_dir
+from book.api.frida.validate import trace_product_semantics_digest, validate_run_dir
 
 
 def test_frida_hook_manifests_are_present_and_well_formed() -> None:
@@ -322,3 +322,54 @@ def test_frida_generated_hook_is_compatible_with_assembly_and_manifest_snapshot(
     assert isinstance(manifest, dict)
     assert validate_hook_manifest_v1(manifest) == []
     assert manifest.get("hook", {}).get("id") == "example_hook"
+
+
+def test_frida_ts_hook_build_is_up_to_date(tmp_path: Path) -> None:
+    repo_root = path_utils.find_repo_root()
+    p = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "book.api.frida.cli",
+            "build-ts-hooks",
+            "--check",
+        ],
+        cwd=str(repo_root),
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    assert p.returncode == 0, p.stderr
+    report = json.loads(p.stdout)
+    assert report.get("ok") is True
+
+
+def test_frida_ts_hook_runtime_shape_is_loader_compatible() -> None:
+    repo_root = path_utils.find_repo_root()
+    js_path = repo_root / "book/api/frida/hooks/smoke_ts.js"
+    assert js_path.is_file()
+    text = js_path.read_text()
+    assert "SL." in text
+    assert "import " not in text
+    assert "require(" not in text
+
+
+def test_frida_trace_product_semantics_equivalence_across_authoring_pipelines(tmp_path: Path) -> None:
+    repo_root = path_utils.find_repo_root()
+    run_dirs = {
+        "hand_written": repo_root / "book/api/frida/fixtures/runs/00000000-0000-4000-8000-000000000003",
+        "generated": repo_root / "book/api/frida/fixtures/runs/00000000-0000-4000-8000-000000000005",
+        "ts_built": repo_root / "book/api/frida/fixtures/runs/00000000-0000-4000-8000-000000000006",
+    }
+
+    digests = {}
+    for label, src in run_dirs.items():
+        assert src.is_dir()
+        dst = tmp_path / label
+        shutil.copytree(src, dst)
+        sem = trace_product_semantics_digest(dst)
+        assert sem.get("ok") is True
+        digests[label] = sem.get("digest")
+
+    assert digests["generated"] == digests["ts_built"]
+    assert digests["generated"] == digests["hand_written"]

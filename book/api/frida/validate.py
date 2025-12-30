@@ -238,6 +238,117 @@ def _validate_config_snapshot(meta: Dict[str, Any], events: List[Dict[str, Any]]
     }
 
 
+def trace_product_semantics(meta: Dict[str, Any], events: List[Dict[str, Any]]) -> Dict[str, Any]:
+    """
+    Compute a pipeline-agnostic digest over trace-product semantics.
+
+    This is used to prove that downstream tooling cannot distinguish authoring
+    pipeline (hand-written vs generated vs TS-built) when only trace-product
+    invariants are considered.
+
+    Intentionally ignored:
+    - run_id
+    - seq
+    - t_ns
+    - pid
+    - hook payload contents / kinds
+    """
+    errors: List[str] = []
+    script = meta.get("script")
+    if not isinstance(script, dict):
+        errors.append("meta.script missing/invalid")
+        script = {}
+
+    manifest = script.get("manifest") if isinstance(script, dict) else None
+    if not isinstance(manifest, dict):
+        errors.append("meta.script.manifest missing/invalid")
+        manifest = {}
+
+    schema_name = events[0].get("schema_name") if events else None
+    schema_version = events[0].get("schema_version") if events else None
+
+    # Runner event signature stream (no time/pid).
+    runner_sequence: List[Dict[str, Any]] = []
+    agent_send_count = 0
+    for ev in events:
+        if not isinstance(ev, dict):
+            continue
+        source = ev.get("source")
+        kind = ev.get("kind")
+        if source == "runner":
+            if kind == "stage":
+                runner = ev.get("runner")
+                stage = runner.get("stage") if isinstance(runner, dict) else None
+                runner_sequence.append({"kind": "stage", "stage": stage})
+            elif kind == "config-validation":
+                runner = ev.get("runner")
+                status = runner.get("status") if isinstance(runner, dict) else None
+                runner_sequence.append({"kind": "config-validation", "status": status})
+            elif kind == "configure":
+                runner = ev.get("runner")
+                status = runner.get("status") if isinstance(runner, dict) else None
+                present = runner.get("present") if isinstance(runner, dict) else None
+                runner_sequence.append({"kind": "configure", "status": status, "present": present})
+            else:
+                runner_sequence.append({"kind": kind})
+        elif source == "agent" and kind == "send":
+            agent_send_count += 1
+
+    rpc_present = None
+    rpc = manifest.get("rpc") if isinstance(manifest, dict) else None
+    cfg = rpc.get("configure") if isinstance(rpc, dict) else None
+    if isinstance(cfg, dict):
+        rpc_present = cfg.get("present")
+
+    config_validation_status = None
+    configure_status = None
+    configure_present = None
+    cfg_val = script.get("config_validation") if isinstance(script, dict) else None
+    if isinstance(cfg_val, dict):
+        config_validation_status = cfg_val.get("status")
+    cfg_rec = script.get("configure") if isinstance(script, dict) else None
+    if isinstance(cfg_rec, dict):
+        configure_status = cfg_rec.get("status")
+        configure_present = cfg_rec.get("present")
+
+    semantics = {
+        "schema": {"schema_name": schema_name, "schema_version": schema_version},
+        "meta": {
+            "manifest": {
+                "schema_name": manifest.get("schema_name") if isinstance(manifest, dict) else None,
+                "schema_version": manifest.get("schema_version") if isinstance(manifest, dict) else None,
+                "rpc_configure_present": rpc_present,
+            },
+            "config_validation_status": config_validation_status,
+            "configure": {"status": configure_status, "present": configure_present},
+        },
+        "events": {"runner_sequence": runner_sequence, "agent_send_count": agent_send_count},
+    }
+
+    if agent_send_count < 1:
+        errors.append("no agent send() events present")
+    if rpc_present is True and configure_status != "pass":
+        errors.append("manifest indicates configure present but configure status != pass")
+
+    return {
+        "ok": not errors,
+        "status": "pass" if not errors else "fail",
+        "errors": errors,
+        "digest": _digest_json(semantics),
+        "semantics": semantics,
+    }
+
+
+def trace_product_semantics_digest(run_dir: Path) -> Dict[str, Any]:
+    """Convenience wrapper: normalize + load + compute semantics digest."""
+    repo_root = path_utils.find_repo_root()
+    run_dir_abs = path_utils.ensure_absolute(run_dir, repo_root)
+    frida_normalize.normalize_run_dir(run_dir_abs)
+    meta = json.loads((run_dir_abs / "meta.json").read_text())
+    events = _load_events(run_dir_abs / "events.jsonl")
+    return trace_product_semantics(meta, events)
+
+
 def validate_run_dir(run_dir: Path) -> Dict[str, Any]:
     repo_root = path_utils.find_repo_root()
     run_dir_abs = path_utils.ensure_absolute(run_dir, repo_root)
@@ -304,6 +415,8 @@ def validate_run_dir(run_dir: Path) -> Dict[str, Any]:
     trace_validation = validate_chrometrace(trace_path)
     export_invariants_ok = bool(export_deterministic and trace_validation.get("ok"))
 
+    semantics_report = trace_product_semantics(meta, events)
+
     ok = bool(schema_invariants_ok and query_invariants_ok and export_invariants_ok)
     return {
         "ok": ok,
@@ -339,6 +452,7 @@ def validate_run_dir(run_dir: Path) -> Dict[str, Any]:
             "trace_validation": trace_validation,
         },
         "normalize": normalize_report,
+        "semantics": semantics_report,
     }
 
 
