@@ -100,4 +100,4 @@ See fixtures:
 
 ## Guardrails
 Tests validate the help text and observer JSON shape using these fixtures. See:
-- `book/tests/test_entitlementjail_contract.py`
+- `book/tests/planes/tools/test_entitlementjail_contract.py`

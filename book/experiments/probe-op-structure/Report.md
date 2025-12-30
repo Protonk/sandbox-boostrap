@@ -4,7 +4,7 @@
 - runtime outputs: out/39f84aa5-86b4-466d-b5d9-f510299bbd0a/{runtime_results.json,runtime_events.normalized.json,run_manifest.json}
 - upstream IR: book/api/profile/decoder/; book/graph/mappings/tag_layouts/tag_layouts.json; book/graph/mappings/vocab/filters.json
 - downstream mappings: book/graph/mappings/anchors/anchor_filter_map.json; book/experiments/field2-filters/out/*
-- guardrails: book/tests/test_anchor_filter_alignment.py; book/tests/test_mappings_guardrail.py
+- guardrails: book/tests/planes/graph/test_anchor_filter_alignment.py; book/tests/planes/graph/test_mappings_guardrail.py
 
 # Probe Op Structure – Research Report (Sonoma baseline)
 
@@ -89,8 +89,8 @@ The runtime-closure file spelling matrix run `book/experiments/runtime-closure/o
 - Shared mappings: `book/graph/mappings/tag_layouts/tag_layouts.json`, `book/graph/mappings/anchors/anchor_filter_map.json`.
 
 ## Guardrails
-- `book/tests/test_mappings_guardrail.py` ensures tag layouts and core mappings stay pinned to this world.
-- `book/tests/test_anchor_filter_alignment.py` enforces that `anchor_filter_map.json` stays aligned with `out/anchor_hits.json` (or `out/anchor_hits_delta.json` for delta-attributed anchors).
+- `book/tests/planes/graph/test_mappings_guardrail.py` ensures tag layouts and core mappings stay pinned to this world.
+- `book/tests/planes/graph/test_anchor_filter_alignment.py` enforces that `anchor_filter_map.json` stays aligned with `out/anchor_hits.json` (or `out/anchor_hits_delta.json` for delta-attributed anchors).
 
 ## Running and refreshing
 - Structural refresh:

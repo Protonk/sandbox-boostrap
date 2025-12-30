@@ -55,7 +55,7 @@ Outputs: expected/runtime matrices, mismatch summaries, and impact hooks to down
 - Apply preflight: `book/experiments/runtime-adversarial/out/apply_preflight.json` (runner entitlements + apply markers + parent chain).
 - Historical runtime events: `book/experiments/runtime-adversarial/out/historical_runtime_events.json` (only refreshed when a decision-stage run succeeds).
 - Mapping stub: `book/graph/mappings/runtime/adversarial_summary.json` (world-level counts).
-- Guardrails: `book/tests/test_runtime_adversarial.py`, `book/tests/test_network_outbound_guardrail.py`, plus dyld slice manifest/checker `book/graph/mappings/dyld-libs/{manifest.json,check_manifest.py}` enforced by `book/tests/test_dyld_libs_manifest.py`.
+- Guardrails: `book/tests/planes/runtime/test_runtime_adversarial.py`, `book/tests/planes/runtime/test_network_outbound_guardrail.py`, plus dyld slice manifest/checker `book/graph/mappings/dyld-libs/{manifest.json,check_manifest.py}` enforced by `book/tests/planes/graph/test_dyld_libs_manifest.py`.
 - Runtime-backed ops: `book/graph/mappings/vocab/ops_coverage.json` marks `file-read*`, `file-write*`, `mach-lookup`, and `network-outbound` as having runtime evidence via runtime-checks and runtime-adversarial families; use it to decide when new probes are needed for other ops.
 
 ## Claims and limits
@@ -84,7 +84,7 @@ Before refactoring the harness, a bespoke SBPL under `sandbox-exec -f … /usr/b
 - IR updates: runtime mappings and coverage have been refreshed from the latest cut; mismatches remain limited to structural/path families.
 
 ### Guardrail test
-- Structural: `book/tests/test_network_outbound_guardrail.py` loads `sb/net_outbound_allow.sb` and `sb/net_outbound_deny.sb` and asserts they are identical except for the `network-outbound` rule.
+- Structural: `book/tests/planes/runtime/test_network_outbound_guardrail.py` loads `sb/net_outbound_allow.sb` and `sb/net_outbound_deny.sb` and asserts they are identical except for the `network-outbound` rule.
 - Behavioral: the same test checks `adv:net_outbound_allow*` probes all yield allow and `adv:net_outbound_deny*` probes all yield deny in `out/runtime_results.json`.
 - Intent: prevents reintroducing sandboxed Python or profile shape drift that would blur the `network-outbound` decision between harness noise and PolicyGraph behavior.
 

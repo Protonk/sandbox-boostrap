@@ -74,7 +74,7 @@ This experiment starts where `libsandbox-encoder` stopped: it treats the compile
 ## Contract for this world_id
 - For `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`, running `init_params_probe` (with/without container) must produce a compiled blob of length 416 and sha256 `19832eb9716a32459bee8398c8977fd1dfd575fa26606928f95728462a833c92`, with `call_code` = 0.
 - Pointer values are treated as structural (non-zero) but not fixed; guardrail asserts length/hash/call_code only.
-- Validation/guardrail: `book/graph/concepts/validation/sandbox_init_params_job.py` reads `out/validation_summary.json`, checks required runs for this world, and is exercised by `book/tests/test_sandbox_init_params_guardrail.py`. Additional named/file runs are recorded as variation witnesses only.
+- Validation/guardrail: `book/graph/concepts/validation/sandbox_init_params_job.py` reads `out/validation_summary.json`, checks required runs for this world, and is exercised by `book/tests/planes/contracts/test_sandbox_init_params_guardrail.py`. Additional named/file runs are recorded as variation witnesses only.
 
 ## Planned guardrails (not yet implemented)
 - For `init_params_probe`, the `(ptr,len)` passed to `__sandbox_ms` should match the sb_buffer produced by `sandbox_compile_string` for the inline profile.

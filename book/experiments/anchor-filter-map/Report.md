@@ -17,7 +17,7 @@ Bind anchor labels emitted by `probe-op-structure` to concrete Filter IDs, while
 - `book/graph/mappings/anchors/anchor_ctx_filter_map.json` as the source of truth for anchor→Filter bindings keyed by `anchor_ctx_id`.
 - `book/graph/mappings/anchors/anchor_filter_map.json` as a deterministic, conservative derived view keyed by literal string with `ctx_ids` backpointers.
 - `book/experiments/anchor-filter-map/out/anchor_filter_candidates.json` summarizing candidate mappings and evidence.
-- Guardrail coverage in `tests/test_mappings_guardrail.py` for at least one high-confidence anchor → filter-ID pair.
+- Guardrail coverage in `book/tests/planes/graph/test_mappings_guardrail.py` for at least one high-confidence anchor → filter-ID pair.
 - Notes/Report entries describing ambiguous anchors and how to revisit them.
 
 ## Plan & execution log
@@ -55,7 +55,7 @@ Bind anchor labels emitted by `probe-op-structure` to concrete Filter IDs, while
   - None so far; current map is based solely on existing probes and system profiles.
 - **4) Synthesis and guardrails**
   - Finalized `book/graph/mappings/anchors/anchor_ctx_filter_map.json` as the canonical ctx-indexed mapping surface; regenerated `book/graph/mappings/anchors/anchor_filter_map.json` as the deterministic derived view.
-  - Added a guardrail test (`tests/test_mappings_guardrail.py`) that asserts map presence and at least one mapped anchor → filter ID.
+  - Added a guardrail test (`book/tests/planes/graph/test_mappings_guardrail.py`) that asserts map presence and at least one mapped anchor → filter ID.
   - Updated `ResearchReport.md` and `Notes.md` with current mapping decisions, evidence sources, and remaining ambiguous anchors.
 
 ### Maintenance / rerun plan

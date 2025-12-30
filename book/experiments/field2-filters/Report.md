@@ -71,7 +71,7 @@ Second, the decoder now exposes structure with provenance rather than silently g
 
 To protect the learned tag/layout/role relationships on this host without freezing a closed unknown inventory, we added a lightweight validation job and guardrail test. The validation job `structure:tag_roles` lives in `book/graph/concepts/validation/tag_role_layout_job.py` and is registered via `book/graph/concepts/validation/registry.py`. It runs on the pinned canonical corpus and verifies the two structural invariants: observed tags have declared roles, and tags whose roles imply a payload slot have layouts. It also reports vocab hit/miss counts and fallback usage, but it does not fail merely because values are out-of-vocab.
 
-The guardrail test `book/tests/test_field2_unknowns.py` pins the current out-of-vocab payload set observed in `unknown_nodes.json`, scoped to `u16_role=filter_vocab_id` tags only. Flow-divert triple-only payloads 2560 and 2816 are asserted separately and are intentionally excluded from the unknown set.
+The guardrail test `book/tests/planes/graph/test_field2_unknowns.py` pins the current out-of-vocab payload set observed in `unknown_nodes.json`, scoped to `u16_role=filter_vocab_id` tags only. Flow-divert triple-only payloads 2560 and 2816 are asserted separately and are intentionally excluded from the unknown set.
 
 ## Non-claims and limitations
 

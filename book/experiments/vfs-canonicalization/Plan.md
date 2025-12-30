@@ -22,7 +22,7 @@ Metadata canonicalization is handled by `book/experiments/metadata-runner/`.
 Upstream inputs:
 
 - **Tag and layout bedrock:** `book/graph/mappings/tag_layouts/tag_layouts.json` (status: ok, from `tag-layout-decode`).
-- **Anchor/field2 structure:** `book/experiments/probe-op-structure/Report.md` + `out/anchor_hits.json`, plus curated anchors in `book/graph/mappings/anchors/anchor_filter_map.json` (guarded by `book/tests/test_anchor_filter_alignment.py`). In particular, `/tmp/foo` anchor placement and tag/field2 usage.
+- **Anchor/field2 structure:** `book/experiments/probe-op-structure/Report.md` + `out/anchor_hits.json`, plus curated anchors in `book/graph/mappings/anchors/anchor_filter_map.json` (guarded by `book/tests/planes/graph/test_anchor_filter_alignment.py`). In particular, `/tmp/foo` anchor placement and tag/field2 usage.
 - **Field2 inventories:** `book/experiments/field2-filters/Report.md` with `out/field2_inventory.json` and `out/unknown_nodes.json` for high/unknown field2 values.
 - **Runtime harness:** `book/api/runtime` plan execution (same shims as `runtime-checks` / `runtime-adversarial`).
 
@@ -186,9 +186,9 @@ These sketches are informal; tests will check that the actual JSONs obey the sam
 
 Guardrails:
 
-- A small structural test in `book/tests/` will assert:
+- Structural guardrail `book/tests/planes/runtime/test_vfs_canonicalization_structural.py` asserts:
   - `decode_tmp_profiles.json` exists and includes `vfs_tmp_only`, `vfs_private_tmp_only`, `vfs_both_paths`.
   - Each profile has anchor entries for both `/tmp/foo` and `/private/tmp/foo`.
-- A shape test will assert:
+- Shape guardrail `book/tests/planes/runtime/test_vfs_canonicalization_outputs.py` asserts:
   - `expected_matrix.json` and `runtime_results.json` exist.
   - Each entry carries the required fields (`profile_id`, `operation`, `requested_path`, `expected_decision` / `decision`, `observed_path`).

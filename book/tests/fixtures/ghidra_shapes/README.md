@@ -25,7 +25,7 @@ The shape tests are best-effort: if the referenced output files are missing
 (e.g., no local `dumps/` artifacts), the tests skip unless the entry is marked
 `"required": true`.
 
-Strict shapes are enforced by `book/tests/test_ghidra_output_shapes_strict_gate.py`.
+Strict shapes are enforced by `book/tests/planes/ghidra/test_ghidra_output_shapes_strict_gate.py`.
 Setting `GHIDRA_STRICT_SHAPES=1` additionally runs the optional strict test.
 
 ## Workflow (single-path commands)

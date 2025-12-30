@@ -18,7 +18,7 @@ Interfaces:
 - Task grouping lives in `book/api/ghidra/tasks/` (symbols, imports, disasm, scan, xref, policy, data).
 - Registry helpers (list groups/tasks) live in `book/api/ghidra/registry.py`.
 - Use `python -m book.api.ghidra.shape_manifest_prune --manifest book/tests/fixtures/ghidra_shapes/manifest.json --report book/tests/fixtures/ghidra_shapes/prune_report.json --write --expand` to prune and re-seed shape coverage from existing outputs.
-- Strict gating uses `book/tests/fixtures/ghidra_shapes/manifest.strict.json` via `book/tests/test_ghidra_output_shapes_strict_gate.py`.
+- Strict gating uses `book/tests/fixtures/ghidra_shapes/manifest.strict.json` via `book/tests/planes/ghidra/test_ghidra_output_shapes_strict_gate.py`.
   Setting `GHIDRA_STRICT_SHAPES=1` additionally runs the optional strict test.
 
 Tasks (examples; see `TaskRegistry.default()` for the full set):

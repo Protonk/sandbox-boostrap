@@ -9,7 +9,7 @@ Use this file for concise notes on progress, commands, and intermediate findings
 ## First harness attempts
 
 - Defined initial probe matrix in `out/expected_matrix.json` targeting bucket-4 (`v1_read`) and bucket-5 (`v11_read_subpath`) profiles from `op-table-operation`, plus placeholders for system profiles. Expectations cover read/write on `/etc/hosts` and `/tmp/foo` aligned with SBPL allows/denies. Runtime harness not run yet.
-- Added stub `out/runtime_results.json` (status: not-run) to track expectations until harness is executed. Guardrail `tests/test_runtime_matrix_shape.py` ensures bucket profiles/probes remain in the matrix.
+- Added stub `out/runtime_results.json` (status: not-run) to track expectations until harness is executed. Guardrail `book/tests/planes/runtime/test_runtime_matrix_shape.py` ensures bucket profiles/probes remain in the matrix.
 
 ## Early `sandbox-exec` failures
 
@@ -79,13 +79,13 @@ Use this file for concise notes on progress, commands, and intermediate findings
 - Added a key-specific shim for `bucket5:v11_read_subpath` to allow `/private/tmp/foo` reads (symlink target of `/tmp/foo` on this host).
 - Extended `out/expected_matrix.json` to include `sys:bsd`/`sys:airlock` via SBPL; set `sys:bsd` expectations to deny based on observed runtime behavior; kept `airlock` expected-fail.
 - Reran `run_probes.py` (PYTHONPATH=.) → `bucket4` and `bucket5` now `status: ok` with reader/runner; `sys:bsd` denies all probes; `sys:airlock` apply-denies as expected. `out/runtime_results.json` refreshed.
-- Added guardrail test `book/tests/test_runtime_results_outcomes.py` to assert actual allow/deny outcomes for bucket4/bucket5 and the `sys:bsd` denies. Pytest not available in this environment, so the new test was not executed here.
+- Added guardrail test `book/tests/planes/runtime/test_runtime_results_outcomes.py` to assert actual allow/deny outcomes for bucket4/bucket5 and the `sys:bsd` denies. Pytest not available in this environment, so the new test was not executed here.
 - Baseline controls: `sys:bsd` is intentionally treated as a deny-only negative control (applies via SBPL, denies all probed paths); `sys:airlock` is expected to return `EPERM` on apply on this host (platform-only profile).
 - Added `runtime:metafilter_any` as a positive case in the expected matrix with allow foo/bar/qux and deny baz (including /private/tmp alias). Refreshed runtime_results: status ok with expected allow/deny mix.
 - Added placeholder `runtime:strict_todo` entry in expected_matrix (deny-default profile to be designed later); not wired into the harness yet.
 - Added a minimal strict profile `runtime:strict_1` (deny default; allow read/write only under `/private/tmp/strict_ok`; explicit deny for `/etc/hosts`). Added fixtures in `ensure_tmp_files`, wired it into the expected matrix and harness; runtime_results shows allow on strict_ok read/write and deny on hosts. Guardrail updated to assert these outcomes.
 - Added `sandbox_writer` helper to avoid exec-based writes; `run_probe` now prefers it for file-write probes.
-- Golden set (frozen for this host): bucket4, bucket5, runtime:metafilter_any, runtime:strict_1; controls: sys:bsd (deny-only), sys:airlock (expected EPERM on apply). These are the canonical profiles guarded by expected_matrix.json + runtime_results.json + test_runtime_results_outcomes.py; decoder summaries live in out/golden_decodes.json.
+- Golden set (frozen for this host): bucket4, bucket5, runtime:metafilter_any, runtime:strict_1; controls: sys:bsd (deny-only), sys:airlock (expected EPERM on apply). These are the canonical profiles guarded by expected_matrix.json + runtime_results.json + `book/tests/planes/runtime/test_runtime_results_outcomes.py`; decoder summaries live in out/golden_decodes.json.
 - Refreshed `python book/experiments/runtime-checks/run_probes.py` during the runtime cutover: all probes now fail at apply (`sandbox_apply` EPERM) on this host, so `out/runtime_results.json` and the normalized events record apply-gate blocks across the matrix. Treat runtime evidence as blocked until apply succeeds again.
 - Re-ran `python book/experiments/runtime-checks/run_probes.py` after the host was made more permissive (`--yolo`); apply-stage EPERM cleared for the matrix, and only `sys:airlock` remains preflight-blocked.
 - Added `F_GETPATH` + `F_GETPATH_NOFIRMLINK` emission to `sandbox_reader`/`sandbox_writer` so successful opens record both firmlink-normalized and non-firmlinked FD paths on stderr; vfs-canonicalization now uses these to populate `observed_path` and `observed_path_nofirmlink`.

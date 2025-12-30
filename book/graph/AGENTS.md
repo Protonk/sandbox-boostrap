@@ -43,7 +43,7 @@ For **anchor/field2 structure** on this Sonoma world, use this stack as your ent
 - `field2` inventory and unknowns: `book/experiments/field2-filters/Report.md` (bounded high/unknown IDs, experiment closed).
 - Curated anchors and their Filter mappings:
   - Canonical (context-indexed): `book/graph/mappings/anchors/anchor_ctx_filter_map.json`
-  - Compatibility view (literal-keyed, conservative): `book/graph/mappings/anchors/anchor_filter_map.json` (guarded by `book/tests/test_anchor_filter_alignment.py`).
+  - Compatibility view (literal-keyed, conservative): `book/graph/mappings/anchors/anchor_filter_map.json` (guarded by `book/tests/planes/graph/test_anchor_filter_alignment.py`).
 
 ## Swift generator loop (for agents)
 
@@ -52,7 +52,7 @@ Use this pattern to extend the Swift generator/validator:
 - Add Swift types that mirror the JSON shape and small validators (status enums, required IDs).
 - Parse inputs, reuse generated `concepts.json` for ID checks, and emit a report under `book/graph/concepts/validation/` instead of failing silently.
 - Document the new coverage in `book/graph/README.md` and `book/graph/swift/README.md` (inputs/outputs, how to run).
-- Run `swift run` (or `make -C book test`, which calls the Swift build; `make -C book build` does the same with a pinned module cache). `make -C book clean` wipes SwiftPM/.build/module caches and CI stamps if you need a fresh start.
+- Run `swift run` (or `make -C book test`, which calls the Swift build; `make -C book build` does the same with a pinned module cache). `make -C book clean` wipes SwiftPM/.build/module caches if you need a fresh start.
 
 ---
 

@@ -21,8 +21,6 @@ ci:
 
 clean:
 	rm -rf graph/.build graph/.swiftpm graph/.module-cache \
-	       graph/out/ci-stamps/python-harness.json \
-	       graph/out/ci-stamps/swift-build.json \
 	       __pycache__ */__pycache__
 
 build:

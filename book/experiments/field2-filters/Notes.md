@@ -213,7 +213,7 @@ Next steps: If needed, scan the main evaluator (FUN_ffffff8002d8547a in arm64e) 
 - Added `airlock_system_fcntl_matrix.sb` (fcntl-command sweep 0–3) to probe whether command payloads drive the 0xffff/0xa5/0xa6 highs. Decode/harvest shows only low scaffolding filters (ipc-posix-name/file-mode) and no unknown/high `field2` values.
 - Added `right_and_preference_names.sb` (right-name/preference-domain literals) to see if tag26/27 highs map to literal arguments. Decode shows only path/name scaffolding; no high/unknown `field2` values and no tag26/27 payloads beyond vocab IDs.
 - Reran `harvest_field2.py` and `unknown_focus.py` to fold in the new profiles. Unknowns remain limited to the existing clusters: flow-divert `field2=2560` on tag0 nodes with edges →0, bsd tail `field2=0x4114` and tag26 payloads, airlock highs {165,166,0x2a00}, and the probe-only 0xffff sentinel on `airlock_system_fcntl`.
-- Added guardrail `book/tests/test_field2_unknowns.py` to pin the current unknown/high `field2` set; adjust `EXPECTED_UNKNOWN_RAW` deliberately if future probes surface new unknowns.
+- Added guardrail `book/tests/planes/graph/test_field2_unknowns.py` to pin the current unknown/high `field2` set; adjust `EXPECTED_UNKNOWN_RAW` deliberately if future probes surface new unknowns.
 
 - Decoder framing update: the decoder now selects an 8-byte node record framing for this world based on op-table alignment evidence, and `profile_ingestion.slice_sections` now uses the same lower-bound witness to avoid truncating the node region.
 - Reran `harvest_field2.py` and `unknown_focus.py` under the updated framing and regenerated `out/field2_inventory.json` and `out/unknown_nodes.json`.

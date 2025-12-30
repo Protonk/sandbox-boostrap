@@ -3,6 +3,7 @@
 
 # Swift build caches
 .swift-module-cache/
+.module-cache/
 
 # Local dumps and Ghidra scratch
 dumps/Sandbox-private/
@@ -13,11 +14,12 @@ dumps/ghidra/tmp/
 # Python env and bytecode
 .venv/
 **/__pycache__/
+.tmp_pytest/
 .pytest_cache/
 *.pyc
 
-# CI stamps produced by book/ci.py
-book/out/ci-stamps/
+# Test artifacts
+book/tests/out/
 
 # Editor settings
 .vscode/

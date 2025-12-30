@@ -144,7 +144,7 @@ We intentionally avoid guessing op-table slot ordering or Operation↔bucket sem
        - describe the intent in `Notes.md`,
        - ensure `analyze.py` still compiles everything and updates all three outputs,
       - run `make -C book test` to keep the experiment’s tests green.
-     - If you add new buckets or signatures, consider extending `book/tests/test_experiments.py` with sanity checks (e.g., verifying that specific profiles still have expected bucket shapes).
+     - If you add new buckets or signatures, consider extending `book/tests/planes/examples/test_experiments.py` with sanity checks (e.g., verifying that specific profiles still have expected bucket shapes).
   
   ---
 - **1. Setup and scope**

@@ -29,7 +29,7 @@ PYTHONPATH=. python book/experiments/entitlement-diff/run_entitlementjail.py --s
 The stable CLI and JSON shapes are documented and guarded:
 - Contract doc: `book/api/entitlementjail/README.md` (Contract section)
 - Fixtures: `book/tools/entitlement/fixtures/contract/`
-- Tests: `book/tests/test_entitlementjail_contract.py`
+- Tests: `book/tests/planes/tools/test_entitlementjail_contract.py`
 
 ## Environment toggles
 Defaults are observer-first:

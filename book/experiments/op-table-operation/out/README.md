@@ -1,6 +1,6 @@
 # Outputs
 
-Artifacts produced by `book/experiments/op-table-operation/analyze.py` (and its helper `build_catalog.py`). These are fixtures for `book/tests/test_experiments.py` and other guardrails:
+Artifacts produced by `book/experiments/op-table-operation/analyze.py` (and its helper `build_catalog.py`). These are fixtures for `book/tests/planes/examples/test_experiments.py` and other guardrails:
 
 - `summary.json` — per-variant op-table and node summaries (decoder blocks included).
 - `op_table_map.json` / `op_table_signatures.json` — entrypoint mappings and traversal signatures.

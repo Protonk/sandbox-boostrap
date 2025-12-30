@@ -581,8 +581,8 @@ This resolution is enforced in three places:
 - **Wrapper-level default**: SBPL-wrapper’s default `--preflight enforce` makes “don’t attempt known-gated applies” the default behavior, and `--preflight force` makes “I am intentionally studying the gate” an explicit choice (see [`book/tools/sbpl/wrapper/README.md`](../../book/tools/sbpl/wrapper/README.md)).
 - **Normalized runtime IR**: the runtime harness emits `failure_stage:"preflight"` / `failure_kind:"preflight_apply_gate_signature"` instead of generating an apply-stage EPERM record when it is knowingly entering an apply-gated category (see [`book/api/runtime/execution/harness/runner.py`](../../book/api/runtime/execution/harness/runner.py)). This protects semantic tallies from being polluted by hypothesis evidence.
 - **Regression tests**: basic guardrails ensure that preflight + wrapper integration stays mechanically visible and doesn’t regress back into substring inference:
-  - [`book/tests/test_sbpl_wrapper_preflight.py`](../../book/tests/test_sbpl_wrapper_preflight.py)
-  - [`book/tests/test_runtime_tools_component_preflight.py`](../../book/tests/test_runtime_tools_component_preflight.py)
+  - [`book/tests/planes/tools/test_sbpl_wrapper_preflight.py`](../../book/tests/planes/tools/test_sbpl_wrapper_preflight.py)
+  - [`book/tests/planes/runtime/test_runtime_tools_component_preflight.py`](../../book/tests/planes/runtime/test_runtime_tools_component_preflight.py)
 
 ## Current status (what we know, what remains open)
 

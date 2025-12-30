@@ -35,7 +35,7 @@ This is the canonical example of a field2-first view. It is intentionally narrow
 - Static: `book/experiments/field2-atlas/out/static/field2_records.jsonl`
 - Runtime: `book/experiments/field2-atlas/out/runtime/field2_runtime_results.json`
 - Atlas: `book/experiments/field2-atlas/out/atlas/{field2_atlas.json,summary.json}`
-- Helpers: `atlas_static.py`, `atlas_runtime.py`, `atlas_build.py`; guardrail `book/tests/test_field2_atlas.py`.
+- Helpers: `atlas_static.py`, `atlas_runtime.py`, `atlas_build.py`; guardrail `book/tests/planes/graph/test_field2_atlas.py`.
 - Mismatch packets: `book/experiments/runtime-adversarial/out/mismatch_packets.jsonl` (decision-stage mismatch bundles).
 - Promotion packet: `book/experiments/runtime-adversarial/out/promotion_packet.json` (required for runtime events + baseline results + run manifest unless `--allow-legacy` is passed).
 

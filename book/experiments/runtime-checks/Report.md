@@ -42,7 +42,7 @@ Validate that runtime allow/deny behavior for selected profiles matches decoder-
   - `sandbox_runner`/`sandbox_reader` now work on this host: bucket-4/5, allow_all, and metafilter_any complete with expected/actual/match fields (metafilter fixed by adding /private/tmp literals and reader mode).
   - System profiles now run as compiled blobs through the wrapper; on this host `sandbox_apply` returns `EPERM` for airlock (even when recompiled); bsd works via SBPL/compiled blob. Adjust expectations accordingly; airlock treated as expected-fail locally.
 - **4) Compare and guardrail**
-  - Added a guardrail test (`tests/test_runtime_matrix_shape.py`) that asserts matrix shape and the presence of bucket‑4/bucket‑5 probe definitions.
+  - Added a guardrail test (`book/tests/planes/runtime/test_runtime_matrix_shape.py`) that asserts matrix shape and the presence of bucket‑4/bucket‑5 probe definitions.
   - Recorded the current harness failure (`sandbox_apply: Operation not permitted`) and its implications in this Report and in `Notes.md`.
 
 ### Maintenance / rerun plan
@@ -65,7 +65,7 @@ If runtime checks are extended or revisited, reuse this outline:
 - Clean-channel manifests: `book/experiments/runtime-checks/out/run_manifest.json` (provenance bundle) and `book/experiments/runtime-checks/out/run_preflight.json` (sandbox_check self check).
 - Sandbox_check callouts: `out/runtime_results.json` now includes `seatbelt_callouts` markers for file/mach probes (oracle lane only).
 - Harness scripts: `run_probes.py` remains in this directory; runtime shims live in `book/api/runtime/native/sandbox_runner`; probe binaries live in `book/api/runtime/native/probes`; SBPL wrapper integration lives under `book/tools/sbpl/wrapper`.
-- Guardrail test `tests/test_runtime_matrix_shape.py` asserting the presence and shape of the expected matrix.
+- Guardrail test `book/tests/planes/runtime/test_runtime_matrix_shape.py` asserting the presence and shape of the expected matrix.
  - Clean channel via runtime (`--channel launchd_clean`) for unsandboxed runs when the parent environment is nested.
 
 ## Blockers / risks

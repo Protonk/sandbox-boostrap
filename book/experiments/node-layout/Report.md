@@ -216,7 +216,7 @@ These tools give us a consistent “slice + decode” view of modern profiles th
 - SBPL probe profiles under `sb/` and their compiled blobs in `sb/build/*.sb.bin`.
 - `book/experiments/node-layout/analyze.py` as the main ingestion and summary script.
 - `book/experiments/node-layout/out/summary.json` with per-variant structural data and decoder output.
-- Header/preamble and node-remainder contracts for canonical profiles captured in `book/graph/mappings/system_profiles/header_contract.json` and `book/graph/concepts/validation/out/static/node_remainders.json` (guardrailed in `book/tests/`).
+- Header/preamble and node-remainder contracts for canonical profiles captured in `book/graph/mappings/system_profiles/header_contract.json` and `book/graph/concepts/validation/out/static/node_remainders.json` (guardrailed in `book/tests/planes/contracts/test_header_contract.py` and `book/tests/planes/graph/test_node_remainders.py`).
 - Shared ingestion/decoder helpers under `book/graph/concepts/validation/` as referenced in the Baseline & scope section.
 
 ## Blockers / risks

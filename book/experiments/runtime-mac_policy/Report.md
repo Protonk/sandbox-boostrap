@@ -45,7 +45,7 @@ Trace sandbox/mac_policy registration at runtime and capture live `mac_policy_co
 
 ## Evidence & artifacts
 - Schema: `runtime_mac_policy_registration.schema.json`.
-- Tooling: `capture.py` (dynamic DTrace wrapper) and `normalize.py` (raw → schema JSON); covered by `test_normalize.py`.
+- Tooling: `capture.py` (dynamic DTrace wrapper) and `normalize.py` (raw → schema JSON); sanity-checked by experiment-local `book/experiments/runtime-mac_policy/test_normalize.py` (not run by `make -C book test`).
 - Runtime world metadata: `book/world/runtime-mac-policy-dev/world.json` (macOS 14.6.1, build 23G93, SIP disabled; runtime-only host).
 - Captures:
   - `out/raw/fbt_smoketest.log` and `out/fbt_smoketest.json` — single `fbt:mach_kernel:vnode_put:entry` event (pipeline proof).

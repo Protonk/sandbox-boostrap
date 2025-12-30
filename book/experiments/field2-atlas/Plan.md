@@ -29,7 +29,7 @@ Build a field2-centric experiment that follows selected field2 IDs end-to-end ac
 4. **Atlas synthesis**  
    Merge static + runtime layers into `out/atlas/field2_atlas.json` and `out/atlas/summary.json`, one row per seed. Compute a coarse status (`runtime_backed`, `static_only`, `no_runtime_candidate`, `blocked`). Keep repo-relative paths to all contributing artifacts.
 5. **Guardrails**  
-   Add `book/tests/test_field2_atlas.py` to assert: seed manifest is non-empty, atlas covers every seed, at least one seed is `runtime_backed` with a runtime result that points at an existing runtime trace/signature, and the static join includes the recorded seed anchors/tags.
+   Add `book/tests/planes/graph/test_field2_atlas.py` to assert: seed manifest is non-empty, atlas covers every seed, at least one seed is `runtime_backed` with a runtime result that points at an existing runtime trace/signature, and the static join includes the recorded seed anchors/tags.
 6. **Reporting**  
    Keep `Report.md` aligned with actual outputs; record failed probes or gaps in `Notes.md`.
 
