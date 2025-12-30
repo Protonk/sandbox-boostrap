@@ -1,0 +1,150 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "tier": "mapped",
+    "source_jobs": [],
+    "notes": "scenario-level runtime summaries"
+  },
+  "phase_histograms": {
+    "overall": {
+      "total": 4,
+      "stages": {
+        "apply": 2,
+        "bootstrap": 0,
+        "preflight": 0,
+        "probe": 2
+      },
+      "blocked": {
+        "total": 2,
+        "by_stage": {
+          "apply": 2
+        },
+        "by_kind": {
+          "sandbox_init_failed": 1,
+          "sandbox_apply_failed": 1
+        }
+      },
+      "probe": {
+        "total": 2,
+        "allow": 0,
+        "deny": 2,
+        "mismatches": 2
+      }
+    },
+    "by_family": {
+      "apply-gate": {
+        "total": 4,
+        "stages": {
+          "apply": 2,
+          "bootstrap": 0,
+          "preflight": 0,
+          "probe": 2
+        },
+        "blocked": {
+          "total": 2,
+          "by_stage": {
+            "apply": 2
+          },
+          "by_kind": {
+            "sandbox_init_failed": 1,
+            "sandbox_apply_failed": 1
+          }
+        },
+        "probe": {
+          "total": 2,
+          "allow": 0,
+          "deny": 2,
+          "mismatches": 2
+        }
+      }
+    }
+  },
+  "scenarios": {
+    "lockdown:signal-self": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "lockdown:airlock_passing_sbpl",
+      "expectations": [
+        {
+          "expectation_id": "lockdown:signal-self",
+          "profile_id": "lockdown:airlock_gate_blob",
+          "operation": "signal",
+          "target": "self",
+          "expected": "allow",
+          "probe_name": "signal self"
+        }
+      ],
+      "results": {
+        "total": 2,
+        "matches": 0,
+        "mismatches": 2,
+        "total_including_blocked": 4,
+        "blocked": {
+          "total": 2,
+          "by_stage": {
+            "apply": 2
+          },
+          "by_kind": {
+            "sandbox_init_failed": 1,
+            "sandbox_apply_failed": 1
+          }
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "lockdown:signal-self",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "signal",
+          "target": "self",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": ""
+        },
+        {
+          "expectation_id": "lockdown:signal-self",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "signal",
+          "target": "self",
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "mismatch_type": "apply_gate",
+          "violation_summary": "EPERM",
+          "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n"
+        },
+        {
+          "expectation_id": "lockdown:signal-self",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "signal",
+          "target": "self",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": ""
+        },
+        {
+          "expectation_id": "lockdown:signal-self",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "signal",
+          "target": "self",
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_apply_failed",
+          "mismatch_type": "apply_gate",
+          "violation_summary": "EPERM",
+          "stderr": "sandbox_apply: Operation not permitted\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "lockdown:signal-self"
+    }
+  }
+}

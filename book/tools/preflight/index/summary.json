@@ -1,17 +1,17 @@
 {
   "counts": {
     "by_classification": {
-      "likely_apply_gated_for_harness_identity": 26,
-      "no_known_apply_gate_signature": 658
+      "likely_apply_gated_for_harness_identity": 30,
+      "no_known_apply_gate_signature": 662
     },
     "by_input_kind": {
       "sbpl_blob_path": 348,
-      "sbpl_path": 336
+      "sbpl_path": 344
     },
     "by_signature": {
       "apply_gate_blob_digest": 20,
-      "deny_message_filter": 6,
-      "null": 658
+      "deny_message_filter": 10,
+      "null": 662
     },
     "by_source": {
       "book_blobs": {
@@ -22,8 +22,8 @@
         "no_known_apply_gate_signature": 3
       },
       "experiments_sbpl": {
-        "likely_apply_gated_for_harness_identity": 2,
-        "no_known_apply_gate_signature": 261
+        "likely_apply_gated_for_harness_identity": 6,
+        "no_known_apply_gate_signature": 265
       },
       "profiles_sbpl": {
         "no_known_apply_gate_signature": 11
@@ -33,7 +33,7 @@
         "no_known_apply_gate_signature": 55
       }
     },
-    "total_records": 684
+    "total_records": 692
   },
   "digest_groups": {
     "apply_gate_blob_digest": [
@@ -135,6 +135,10 @@
       "book/experiments/gate-witnesses/out/witnesses/blastdoor/compile_vs_apply/minimal_failing.sb.bin",
       "book/experiments/gate-witnesses/out/witnesses/com.apple.CoreGraphics.CGPDFService/compile_vs_apply/minimal_failing.sb.bin",
       "book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/compile_vs_apply/minimal_failing.sb.bin",
+      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/8d20c8f6-6ed3-4ca6-b0bd-da17599b18a9/runtime_profiles/minimal_failing.lockdown_airlock_gate_sbpl.runtime.sb",
+      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/ac762cd2-6121-466c-a344-29d61c369b03/runtime_profiles/minimal_failing.lockdown_airlock_gate_sbpl.runtime.sb",
+      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_force/2f48c512-4056-4fc3-b57c-a0e6330e708b/runtime_profiles/minimal_failing.lockdown_airlock_gate_sbpl.runtime.sb",
+      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_force/4406014b-65cc-4753-a550-1200d966734d/runtime_profiles/minimal_failing.lockdown_airlock_gate_sbpl.runtime.sb",
       "book/experiments/runtime-closure/sb/v10_iokit_message_filter_allow.sb",
       "book/experiments/runtime-closure/sb/v9_iokit_message_filter_deny.sb",
       "book/graph/concepts/validation/fixtures/blobs/airlock.sb.bin",
@@ -443,6 +447,10 @@
       "book/experiments/libsandbox-encoder/sb/single_file_literal.sb",
       "book/experiments/libsandbox-encoder/sb/single_file_subpath.sb",
       "book/experiments/libsandbox-encoder/sb/single_network_domain.sb",
+      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/8d20c8f6-6ed3-4ca6-b0bd-da17599b18a9/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl.runtime.sb",
+      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/ac762cd2-6121-466c-a344-29d61c369b03/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl.runtime.sb",
+      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_force/2f48c512-4056-4fc3-b57c-a0e6330e708b/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl.runtime.sb",
+      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_force/4406014b-65cc-4753-a550-1200d966734d/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl.runtime.sb",
       "book/experiments/metadata-runner/sb/build/metadata_alias_only.sb.bin",
       "book/experiments/metadata-runner/sb/build/metadata_both_paths.sb.bin",
       "book/experiments/metadata-runner/sb/build/metadata_canonical_only.sb.bin",

@@ -1,0 +1,49 @@
+{
+  "schema_version": "runtime-tools.run_manifest.v0.1",
+  "run_id": "8d20c8f6-6ed3-4ca6-b0bd-da17599b18a9",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "channel": "launchd_clean",
+  "plan_id": "lifecycle-lockdown.v1",
+  "plan_digest": "db67b8d5d85d7f1d9f6aa43776082426822088b021f02781fda839e2e0ae038f",
+  "dry_run": false,
+  "stage_used": true,
+  "stage_root": "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.8d20c8f6-6ed3-4ca6-b0bd-da17599b18a9",
+  "repo_root_context": "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.8d20c8f6-6ed3-4ca6-b0bd-da17599b18a9",
+  "staged_output_root": "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.8d20c8f6-6ed3-4ca6-b0bd-da17599b18a9/book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce",
+  "output_root": "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/8d20c8f6-6ed3-4ca6-b0bd-da17599b18a9",
+  "apply_preflight": {
+    "path": "apply_preflight.json",
+    "record": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "run_id": "8d20c8f6-6ed3-4ca6-b0bd-da17599b18a9",
+      "profile": "book/experiments/hardened-runtime/sb/apply_preflight_allow.sb",
+      "runner": "book/api/runtime/native/sandbox_runner/sandbox_runner",
+      "sandbox_check_self": {
+        "source": "sandbox_check",
+        "error": "libsystem_sandbox not found"
+      },
+      "status": "ok",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_runner",
+        "book/experiments/hardened-runtime/sb/apply_preflight_allow.sb",
+        "--",
+        "/usr/bin/true"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "apply_report": {
+        "api": "sandbox_init",
+        "rc": 0,
+        "errno": 0,
+        "errbuf": null,
+        "err_class": "ok",
+        "err_class_source": "none"
+      },
+      "apply_marker_pid": 23161,
+      "apply_ok": true,
+      "failure_stage": null,
+      "schema_version": "runtime-tools.apply_preflight.v0.1"
+    }
+  }
+}

@@ -19,6 +19,12 @@ to avoid extra syscalls that would confound sandbox decisions.
 
 - `SBL_IKIT_SKIP_SWEEP=1`: skip the IOConnectCallMethod selector sweep and only
   run the IOSurfaceCreate post-open action.
+- `SANDBOX_LORE_IKIT_SWEEP=1`: run a bounded per-selector sweep with a fixed
+  shape menu and emit `sweep_results` plus `first_non_invalid_spec` in probe
+  output.
+- `SANDBOX_LORE_IKIT_MACH_CAPTURE=1`: interpose `mach_msg` and record the first
+  32 send messages addressed to the opened user-client port (msg id, size, hash,
+  kr).
 - `SANDBOX_LORE_IKIT_SELECTOR_LIST=...`: override the selector sweep with a
   comma/space-separated list of method numbers. When set, probes use a small
   non-zero input/output buffer to avoid trivially invalid shapes.

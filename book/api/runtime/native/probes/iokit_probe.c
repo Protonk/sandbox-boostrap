@@ -20,6 +20,7 @@
 #include <dlfcn.h>
 #include <mach/error.h>
 #include <mach/mach.h>
+#include <stdarg.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -37,6 +38,9 @@
 #define SBL_IKIT_SYNTH_CALL_ENV "SANDBOX_LORE_IKIT_SYNTH_CALL"
 #define SBL_IKIT_REPLAY_ENV "SANDBOX_LORE_IKIT_REPLAY"
 #define SBL_IKIT_REPLAY_SPEC_ENV "SANDBOX_LORE_IKIT_REPLAY_SPEC"
+#define SBL_IKIT_SWEEP_ENV "SANDBOX_LORE_IKIT_SWEEP"
+#define SBL_IKIT_SWEEP_MENU_ENV "SANDBOX_LORE_IKIT_SWEEP_MENU"
+#define SBL_IKIT_MACH_CAPTURE_ENV "SANDBOX_LORE_IKIT_MACH_CAPTURE"
 
 typedef struct {
     int seen;
@@ -68,12 +72,116 @@ typedef struct {
     kern_return_t kr;
 } sbl_iokit_call_tuple_t;
 
+typedef struct {
+    uint32_t input_scalar_count;
+    size_t input_struct_bytes;
+    uint32_t output_scalar_count;
+    size_t output_struct_bytes;
+} sbl_iokit_call_shape_t;
+
+static const sbl_iokit_call_shape_t k_sweep_shapes[] = {
+    {0, 0, 0, 0},
+    {0, 16, 0, 16},
+    {0, 64, 0, 64},
+    {1, 0, 1, 0},
+    {1, 16, 1, 16},
+};
+
+typedef struct {
+    int enabled;
+    mach_port_t port;
+    size_t count;
+    struct {
+        int32_t msg_id;
+        mach_msg_size_t size;
+        uint32_t hash;
+        kern_return_t kr;
+    } entries[32];
+} sbl_mach_capture_t;
+
+#define SBL_DYLD_INTERPOSE(_replacement, _replacee) \
+    __attribute__((used)) static struct {          \
+        const void *replacement;                   \
+        const void *replacee;                      \
+    } _interpose_##_replacee                       \
+        __attribute__((section("__DATA,__interpose"))) = { \
+            (const void *)(unsigned long)&_replacement,    \
+            (const void *)(unsigned long)&_replacee        \
+        };
+
+typedef kern_return_t (*sbl_mach_msg_fn)(
+    mach_msg_header_t *msg,
+    mach_msg_option_t option,
+    mach_msg_size_t send_size,
+    mach_msg_size_t rcv_size,
+    mach_port_t rcv_name,
+    mach_msg_timeout_t timeout,
+    mach_port_t notify);
+
 static sbl_iokit_capture_t g_capture;
 static int g_capture_active = 0;
+static sbl_mach_capture_t g_mach_capture;
+static sbl_mach_msg_fn sbl_real_mach_msg = NULL;
 
 static void sbl_capture_reset(void) {
     memset(&g_capture, 0, sizeof(g_capture));
 }
+
+static uint32_t sbl_hash_bytes(const uint8_t *data, size_t len) {
+    uint32_t hash = 2166136261u;
+    for (size_t i = 0; i < len; i++) {
+        hash ^= data[i];
+        hash *= 16777619u;
+    }
+    return hash;
+}
+
+static void sbl_mach_capture_record(const mach_msg_header_t *msg, mach_msg_size_t size, kern_return_t kr) {
+    if (!g_mach_capture.enabled || !msg) {
+        return;
+    }
+    if (g_mach_capture.count >= (sizeof(g_mach_capture.entries) / sizeof(g_mach_capture.entries[0]))) {
+        return;
+    }
+    size_t idx = g_mach_capture.count++;
+    size_t hash_len = size > 256 ? 256 : size;
+    uint32_t hash = sbl_hash_bytes((const uint8_t *)msg, hash_len);
+    g_mach_capture.entries[idx].msg_id = msg->msgh_id;
+    g_mach_capture.entries[idx].size = size;
+    g_mach_capture.entries[idx].hash = hash;
+    g_mach_capture.entries[idx].kr = kr;
+}
+
+static sbl_mach_msg_fn sbl_load_mach_msg(void) {
+    if (sbl_real_mach_msg) {
+        return sbl_real_mach_msg;
+    }
+    sbl_real_mach_msg = (sbl_mach_msg_fn)dlsym(RTLD_NEXT, "mach_msg");
+    return sbl_real_mach_msg;
+}
+
+kern_return_t sbl_interpose_mach_msg(
+    mach_msg_header_t *msg,
+    mach_msg_option_t option,
+    mach_msg_size_t send_size,
+    mach_msg_size_t rcv_size,
+    mach_port_t rcv_name,
+    mach_msg_timeout_t timeout,
+    mach_port_t notify
+) {
+    sbl_mach_msg_fn fn = sbl_load_mach_msg();
+    if (!fn) {
+        return KERN_FAILURE;
+    }
+    kern_return_t kr = fn(msg, option, send_size, rcv_size, rcv_name, timeout, notify);
+    if (g_mach_capture.enabled && msg && (option & MACH_SEND_MSG) && msg->msgh_remote_port == g_mach_capture.port) {
+        mach_msg_size_t size = send_size ? send_size : msg->msgh_size;
+        sbl_mach_capture_record(msg, size, kr);
+    }
+    return kr;
+}
+
+SBL_DYLD_INTERPOSE(sbl_interpose_mach_msg, mach_msg)
 
 static const char *normalize_call_kind(const char *kind);
 
@@ -222,15 +330,6 @@ static int sbl_parse_replay_spec(const char *spec, sbl_iokit_call_tuple_t *tuple
     tuple->kr = KERN_FAILURE;
     return 1;
 }
-
-#define SBL_DYLD_INTERPOSE(_replacement, _replacee) \
-    __attribute__((used)) static struct { \
-        const void *replacement; \
-        const void *replacee; \
-    } _sbl_interpose_##_replacee __attribute__((section("__DATA,__interpose"))) = { \
-        (const void *)(unsigned long)&_replacement, \
-        (const void *)(unsigned long)&_replacee \
-    }
 
 typedef kern_return_t (*sbl_IOConnectCallMethod_fn)(
     io_connect_t connection,
@@ -838,6 +937,39 @@ static int parse_env_size(const char *name, size_t *out) {
     return 1;
 }
 
+static void sbl_json_append(char **buf, size_t *len, size_t *cap, const char *fmt, ...) {
+    if (!buf || !len || !cap || !fmt) {
+        return;
+    }
+    va_list args;
+    va_start(args, fmt);
+    va_list args_copy;
+    va_copy(args_copy, args);
+    int needed = vsnprintf(NULL, 0, fmt, args_copy);
+    va_end(args_copy);
+    if (needed < 0) {
+        va_end(args);
+        return;
+    }
+    size_t required = *len + (size_t)needed + 1;
+    if (*cap < required) {
+        size_t new_cap = *cap ? *cap : 256;
+        while (new_cap < required) {
+            new_cap *= 2;
+        }
+        char *next = (char *)realloc(*buf, new_cap);
+        if (!next) {
+            va_end(args);
+            return;
+        }
+        *buf = next;
+        *cap = new_cap;
+    }
+    vsnprintf(*buf + *len, *cap - *len, fmt, args);
+    va_end(args);
+    *len += (size_t)needed;
+}
+
 static const char *json_string_or_null(char *buf, size_t buf_len, const char *value, int has_value) {
     if (!has_value || !value || !*value) {
         return "null";
@@ -1386,6 +1518,17 @@ int main(int argc, char *argv[]) {
     bool surface_ok = false;
     int surface_signal = 0;
     bool do_sweep = true;
+    bool sweep_requested = false;
+    bool sweep_enabled = false;
+    bool sweep_found_non_invalid = false;
+    bool sweep_missing_non_invalid = false;
+    bool mach_capture_enabled = false;
+    size_t sweep_result_count = 0;
+    char *sweep_results_json = NULL;
+    size_t sweep_results_len = 0;
+    size_t sweep_results_cap = 0;
+    char sweep_first_spec_buf[256];
+    sweep_first_spec_buf[0] = '\0';
     bool replay_enabled = false;
     bool replay_attempted = false;
     bool replay_missing_capture = false;
@@ -1403,6 +1546,9 @@ int main(int argc, char *argv[]) {
     const uint32_t *selectors = default_selectors;
     size_t selector_count = sizeof(default_selectors) / sizeof(default_selectors[0]);
     uint32_t selector_buf[128];
+    uint32_t sweep_selector_buf[160];
+    const uint32_t *sweep_selectors = NULL;
+    size_t sweep_selector_count = 0;
     const char *selector_env = getenv("SANDBOX_LORE_IKIT_SELECTOR_LIST");
     if (selector_env && selector_env[0] != '\0') {
         size_t parsed = parse_selector_list(selector_env, selector_buf, sizeof(selector_buf) / sizeof(selector_buf[0]));
@@ -1410,6 +1556,18 @@ int main(int argc, char *argv[]) {
             selectors = selector_buf;
             selector_count = parsed;
         }
+    }
+    const char *sweep_env = getenv(SBL_IKIT_SWEEP_ENV);
+    if (sweep_env && sweep_env[0] != '\0' && sweep_env[0] != '0') {
+        sweep_requested = true;
+    }
+    const char *sweep_menu_env = getenv(SBL_IKIT_SWEEP_MENU_ENV);
+    if (!sweep_requested && sweep_menu_env && sweep_menu_env[0] != '\0' && sweep_menu_env[0] != '0') {
+        sweep_requested = true;
+    }
+    const char *mach_capture_env = getenv(SBL_IKIT_MACH_CAPTURE_ENV);
+    if (mach_capture_env && mach_capture_env[0] != '\0' && mach_capture_env[0] != '0') {
+        mach_capture_enabled = true;
     }
     const char *skip_sweep_env = getenv("SBL_IKIT_SKIP_SWEEP");
     if (skip_sweep_env && skip_sweep_env[0] != '\0' && skip_sweep_env[0] != '0') {
@@ -1429,6 +1587,10 @@ int main(int argc, char *argv[]) {
         synthetic_call_enabled = true;
         do_sweep = false;
     }
+    if (sweep_requested && !capture_calls && !replay_enabled && !synthetic_call_enabled) {
+        sweep_enabled = true;
+        do_sweep = false;
+    }
     uint32_t input_scalar_override = 0;
     size_t input_struct_override = 0;
     uint32_t output_scalar_override = 0;
@@ -1438,6 +1600,27 @@ int main(int argc, char *argv[]) {
     call_shape_override |= parse_env_size(SBL_IKIT_CALL_IN_STRUCT_BYTES_ENV, &input_struct_override);
     call_shape_override |= parse_env_u32(SBL_IKIT_CALL_OUT_SCALARS_ENV, &output_scalar_override);
     call_shape_override |= parse_env_size(SBL_IKIT_CALL_OUT_STRUCT_BYTES_ENV, &output_struct_override);
+    if (sweep_enabled) {
+        if (selector_env && selector_env[0] != '\0') {
+            size_t parsed = parse_selector_list(
+                selector_env, sweep_selector_buf, sizeof(sweep_selector_buf) / sizeof(sweep_selector_buf[0]));
+            if (parsed > 0) {
+                sweep_selectors = sweep_selector_buf;
+                sweep_selector_count = parsed;
+            }
+        }
+        if (sweep_selector_count == 0) {
+            for (uint32_t i = 0; i <= 64 && sweep_selector_count < (sizeof(sweep_selector_buf) / sizeof(sweep_selector_buf[0])); i++) {
+                sweep_selector_buf[sweep_selector_count++] = i;
+            }
+            const uint32_t extras[] = {257, 258, 259, 260, 261, 262, 263, 264, 265, 266, 267, 268, 269, 513};
+            size_t extras_count = sizeof(extras) / sizeof(extras[0]);
+            for (size_t i = 0; i < extras_count && sweep_selector_count < (sizeof(sweep_selector_buf) / sizeof(sweep_selector_buf[0])); i++) {
+                sweep_selector_buf[sweep_selector_count++] = extras[i];
+            }
+            sweep_selectors = sweep_selector_buf;
+        }
+    }
     const char *replay_spec_env = getenv(SBL_IKIT_REPLAY_SPEC_ENV);
     if (replay_enabled) {
         if (!sbl_parse_replay_spec(replay_spec_env, &replay_tuple)) {
@@ -1448,6 +1631,11 @@ int main(int argc, char *argv[]) {
         }
     }
     if (kr == KERN_SUCCESS && conn != IO_OBJECT_NULL) {
+        if (mach_capture_enabled) {
+            memset(&g_mach_capture, 0, sizeof(g_mach_capture));
+            g_mach_capture.enabled = 1;
+            g_mach_capture.port = conn;
+        }
         if (replay_enabled && replay_missing_capture) {
             /* Skip replay when we do not have a tuple; surface as probe-stage failure. */
         } else if (replay_enabled && replay_tuple.valid) {
@@ -1587,7 +1775,133 @@ int main(int argc, char *argv[]) {
             if (input_struct) free(input_struct);
             if (output_struct) free(output_struct);
         }
-        if (do_sweep) {
+        if (sweep_enabled) {
+            const sbl_iokit_call_shape_t *shapes = k_sweep_shapes;
+            size_t shape_count = sizeof(k_sweep_shapes) / sizeof(k_sweep_shapes[0]);
+            if (!sweep_selectors || sweep_selector_count == 0) {
+                sweep_missing_non_invalid = true;
+            } else {
+                sbl_json_append(&sweep_results_json, &sweep_results_len, &sweep_results_cap, "[");
+                bool sweep_stop = false;
+                for (size_t si = 0; si < sweep_selector_count && !sweep_stop; si++) {
+                    for (size_t sj = 0; sj < shape_count && !sweep_stop; sj++) {
+                        uint32_t input_scalar_count = shapes[sj].input_scalar_count;
+                        size_t input_struct_bytes = shapes[sj].input_struct_bytes;
+                        uint32_t output_scalar_capacity = shapes[sj].output_scalar_count;
+                        size_t output_struct_bytes = shapes[sj].output_struct_bytes;
+                        uint64_t *input_scalars = NULL;
+                        uint64_t *output_scalars = NULL;
+                        uint8_t *input_struct = NULL;
+                        uint8_t *output_struct = NULL;
+                        if (input_scalar_count > 0) {
+                            input_scalars = (uint64_t *)calloc(input_scalar_count, sizeof(uint64_t));
+                            if (!input_scalars) {
+                                input_scalar_count = 0;
+                            }
+                        }
+                        if (output_scalar_capacity > 0) {
+                            output_scalars = (uint64_t *)calloc(output_scalar_capacity, sizeof(uint64_t));
+                            if (!output_scalars) {
+                                output_scalar_capacity = 0;
+                            }
+                        }
+                        if (input_struct_bytes > 0) {
+                            input_struct = (uint8_t *)calloc(1, input_struct_bytes);
+                            if (!input_struct) {
+                                input_struct_bytes = 0;
+                            }
+                        }
+                        if (output_struct_bytes > 0) {
+                            output_struct = (uint8_t *)calloc(1, output_struct_bytes);
+                            if (!output_struct) {
+                                output_struct_bytes = 0;
+                            }
+                        }
+                        uint32_t output_scalar_count = output_scalar_capacity;
+                        size_t output_struct_count = output_struct_bytes;
+                        call_kind_used = call_kind;
+                        kern_return_t sweep_kr = call_by_kind(
+                            call_kind,
+                            conn,
+                            sweep_selectors[si],
+                            input_scalars,
+                            input_scalar_count,
+                            input_struct,
+                            input_struct_bytes,
+                            output_scalars,
+                            &output_scalar_count,
+                            output_struct,
+                            &output_struct_count
+                        );
+                        const char *sweep_kr_string = mach_error_string(sweep_kr);
+                        char sweep_kr_string_json[128];
+                        const char *sweep_kr_string_out = json_string_or_null(
+                            sweep_kr_string_json, sizeof(sweep_kr_string_json), sweep_kr_string, sweep_kr_string != NULL);
+                        if (sweep_result_count > 0) {
+                            sbl_json_append(&sweep_results_json, &sweep_results_len, &sweep_results_cap, ",");
+                        }
+                        sbl_json_append(
+                            &sweep_results_json,
+                            &sweep_results_len,
+                            &sweep_results_cap,
+                            "{\"selector\":%u,\"call_kind\":\"%s\",\"input_scalar_count\":%u,"
+                            "\"input_struct_bytes\":%zu,\"output_scalar_count\":%u,\"output_struct_bytes\":%zu,"
+                            "\"kr\":%d,\"kr_string\":%s}",
+                            sweep_selectors[si],
+                            call_kind_used,
+                            input_scalar_count,
+                            input_struct_bytes,
+                            output_scalar_capacity,
+                            output_struct_bytes,
+                            sweep_kr,
+                            sweep_kr_string_out
+                        );
+                        sweep_result_count++;
+                        if (!sweep_found_non_invalid && sweep_kr != kIOReturnBadArgument) {
+                            sweep_found_non_invalid = true;
+                            sbl_tuple_set(
+                                &capture_tuple,
+                                call_kind_used,
+                                sweep_selectors[si],
+                                input_scalar_count,
+                                input_struct_bytes,
+                                output_scalar_capacity,
+                                output_struct_bytes,
+                                sweep_kr
+                            );
+                            capture_source = "sweep_first_non_invalid";
+                            call_attempted = true;
+                            call_selector = sweep_selectors[si];
+                            call_input_scalar_count = input_scalar_count;
+                            call_input_struct_bytes = input_struct_bytes;
+                            call_output_scalar_count = output_scalar_count;
+                            call_output_struct_bytes = output_struct_count;
+                            call_kr = sweep_kr;
+                            call_kr_string = sweep_kr_string;
+                            sbl_format_replay_spec(&capture_tuple, sweep_first_spec_buf, sizeof(sweep_first_spec_buf));
+                            sweep_stop = true;
+                        } else {
+                            call_attempted = true;
+                            call_selector = sweep_selectors[si];
+                            call_input_scalar_count = input_scalar_count;
+                            call_input_struct_bytes = input_struct_bytes;
+                            call_output_scalar_count = output_scalar_count;
+                            call_output_struct_bytes = output_struct_count;
+                            call_kr = sweep_kr;
+                            call_kr_string = sweep_kr_string;
+                        }
+                        if (input_scalars) free(input_scalars);
+                        if (output_scalars) free(output_scalars);
+                        if (input_struct) free(input_struct);
+                        if (output_struct) free(output_struct);
+                    }
+                }
+                sbl_json_append(&sweep_results_json, &sweep_results_len, &sweep_results_cap, "]");
+                if (!sweep_found_non_invalid) {
+                    sweep_missing_non_invalid = true;
+                }
+            }
+        } else if (do_sweep) {
             uint32_t input_scalar_count = 0;
             uint32_t output_scalar_capacity = 0;
             size_t input_struct_bytes = 0;
@@ -1683,7 +1997,7 @@ int main(int argc, char *argv[]) {
             if (input_struct) free(input_struct);
             if (output_struct) free(output_struct);
         }
-        if (call_attempted) {
+        if (call_attempted && !capture_tuple.valid) {
             sbl_tuple_set(
                 &capture_tuple,
                 call_kind_used,
@@ -1695,7 +2009,7 @@ int main(int argc, char *argv[]) {
                 call_kr
             );
             capture_source = "post_open_call";
-        } else if (g_capture.seen) {
+        } else if (!capture_tuple.valid && g_capture.seen) {
             sbl_tuple_set(
                 &capture_tuple,
                 g_capture.kind,
@@ -1707,7 +2021,7 @@ int main(int argc, char *argv[]) {
                 g_capture.kr
             );
             capture_source = "interpose_capture";
-        } else if (synthetic_call_attempted) {
+        } else if (!capture_tuple.valid && synthetic_call_attempted) {
             sbl_tuple_set(
                 &capture_tuple,
                 synthetic_call_kind,
@@ -2014,12 +2328,66 @@ int main(int argc, char *argv[]) {
         replay_output_struct_out,
         replay_kr_out,
         replay_kr_string_out);
+    char *sweep_fields = NULL;
+    size_t sweep_fields_len = 0;
+    size_t sweep_fields_cap = 0;
+    if (sweep_enabled) {
+        char sweep_first_spec_json[256];
+        const char *sweep_first_spec_out = json_string_or_null(
+            sweep_first_spec_json,
+            sizeof(sweep_first_spec_json),
+            sweep_first_spec_buf,
+            sweep_found_non_invalid && sweep_first_spec_buf[0] != '\0');
+        const char *sweep_results_out = sweep_results_json ? sweep_results_json : "[]";
+        sbl_json_append(
+            &sweep_fields,
+            &sweep_fields_len,
+            &sweep_fields_cap,
+            ",\"sweep_enabled\":true,\"sweep_result_count\":%zu,\"sweep_results\":%s,"
+            "\"first_non_invalid_spec\":%s,\"first_non_invalid_missing\":%s",
+            sweep_result_count,
+            sweep_results_out,
+            sweep_first_spec_out,
+            sweep_missing_non_invalid ? "true" : "false");
+    }
+    char *mach_capture_fields = NULL;
+    size_t mach_capture_fields_len = 0;
+    size_t mach_capture_fields_cap = 0;
+    char *mach_capture_json = NULL;
+    size_t mach_capture_json_len = 0;
+    size_t mach_capture_json_cap = 0;
+    if (mach_capture_enabled) {
+        sbl_json_append(&mach_capture_json, &mach_capture_json_len, &mach_capture_json_cap, "[");
+        for (size_t i = 0; i < g_mach_capture.count; i++) {
+            if (i > 0) {
+                sbl_json_append(&mach_capture_json, &mach_capture_json_len, &mach_capture_json_cap, ",");
+            }
+            sbl_json_append(
+                &mach_capture_json,
+                &mach_capture_json_len,
+                &mach_capture_json_cap,
+                "{\"msg_id\":%d,\"size\":%u,\"hash\":%u,\"kr\":%d}",
+                g_mach_capture.entries[i].msg_id,
+                (unsigned int)g_mach_capture.entries[i].size,
+                g_mach_capture.entries[i].hash,
+                g_mach_capture.entries[i].kr
+            );
+        }
+        sbl_json_append(&mach_capture_json, &mach_capture_json_len, &mach_capture_json_cap, "]");
+        sbl_json_append(
+            &mach_capture_fields,
+            &mach_capture_fields_len,
+            &mach_capture_fields_cap,
+            ",\"mach_msg_capture_enabled\":true,\"mach_msg_capture_count\":%zu,\"mach_msg_capture\":%s",
+            g_mach_capture.count,
+            mach_capture_json ? mach_capture_json : "[]");
+    }
 
     if (call_attempted) {
         const char *call_kr_string_value = call_kr_string ? call_kr_string : "unknown";
         if (surface_signal) {
             printf(
-                "SBL_PROBE_DETAILS {\"found\":true,\"open_kr\":%d,\"call_kr\":%d,\"call_kr_string\":\"%s\",\"call_selector\":%u,\"call_kind\":\"%s\",\"call_input_scalar_count\":%u,\"call_input_struct_bytes\":%zu,\"call_output_scalar_count\":%u,\"call_output_struct_bytes\":%zu,\"call_succeeded\":%s,\"surface_create_ok\":%s,\"surface_create_signal\":%d%s%s%s%s}\n",
+                "SBL_PROBE_DETAILS {\"found\":true,\"open_kr\":%d,\"call_kr\":%d,\"call_kr_string\":\"%s\",\"call_selector\":%u,\"call_kind\":\"%s\",\"call_input_scalar_count\":%u,\"call_input_struct_bytes\":%zu,\"call_output_scalar_count\":%u,\"call_output_struct_bytes\":%zu,\"call_succeeded\":%s,\"surface_create_ok\":%s,\"surface_create_signal\":%d%s%s%s%s%s%s}\n",
                 kr,
                 call_kr,
                 call_kr_string_value,
@@ -2035,9 +2403,11 @@ int main(int argc, char *argv[]) {
                 capture_fields,
                 synthetic_fields,
                 capture_first_fields,
-                replay_fields);
+                replay_fields,
+                sweep_fields ? sweep_fields : "",
+                mach_capture_fields ? mach_capture_fields : "");
             printf(
-                "{\"found\":true,\"open_kr\":%d,\"call_kr\":%d,\"call_kr_string\":\"%s\",\"call_selector\":%u,\"call_input_scalar_count\":%u,\"call_input_struct_bytes\":%zu,\"call_output_scalar_count\":%u,\"call_output_struct_bytes\":%zu,\"call_succeeded\":%s,\"surface_create_ok\":%s,\"surface_create_signal\":%d%s%s%s%s}\n",
+                "{\"found\":true,\"open_kr\":%d,\"call_kr\":%d,\"call_kr_string\":\"%s\",\"call_selector\":%u,\"call_input_scalar_count\":%u,\"call_input_struct_bytes\":%zu,\"call_output_scalar_count\":%u,\"call_output_struct_bytes\":%zu,\"call_succeeded\":%s,\"surface_create_ok\":%s,\"surface_create_signal\":%d%s%s%s%s%s%s}\n",
                 kr,
                 call_kr,
                 call_kr_string_value,
@@ -2052,10 +2422,12 @@ int main(int argc, char *argv[]) {
                 capture_fields,
                 synthetic_fields,
                 capture_first_fields,
-                replay_fields);
+                replay_fields,
+                sweep_fields ? sweep_fields : "",
+                mach_capture_fields ? mach_capture_fields : "");
         } else {
             printf(
-                "SBL_PROBE_DETAILS {\"found\":true,\"open_kr\":%d,\"call_kr\":%d,\"call_kr_string\":\"%s\",\"call_selector\":%u,\"call_kind\":\"%s\",\"call_input_scalar_count\":%u,\"call_input_struct_bytes\":%zu,\"call_output_scalar_count\":%u,\"call_output_struct_bytes\":%zu,\"call_succeeded\":%s,\"surface_create_ok\":%s,\"surface_create_signal\":null%s%s%s%s}\n",
+                "SBL_PROBE_DETAILS {\"found\":true,\"open_kr\":%d,\"call_kr\":%d,\"call_kr_string\":\"%s\",\"call_selector\":%u,\"call_kind\":\"%s\",\"call_input_scalar_count\":%u,\"call_input_struct_bytes\":%zu,\"call_output_scalar_count\":%u,\"call_output_struct_bytes\":%zu,\"call_succeeded\":%s,\"surface_create_ok\":%s,\"surface_create_signal\":null%s%s%s%s%s%s}\n",
                 kr,
                 call_kr,
                 call_kr_string_value,
@@ -2070,9 +2442,11 @@ int main(int argc, char *argv[]) {
                 capture_fields,
                 synthetic_fields,
                 capture_first_fields,
-                replay_fields);
+                replay_fields,
+                sweep_fields ? sweep_fields : "",
+                mach_capture_fields ? mach_capture_fields : "");
             printf(
-                "{\"found\":true,\"open_kr\":%d,\"call_kr\":%d,\"call_kr_string\":\"%s\",\"call_selector\":%u,\"call_input_scalar_count\":%u,\"call_input_struct_bytes\":%zu,\"call_output_scalar_count\":%u,\"call_output_struct_bytes\":%zu,\"call_succeeded\":%s,\"surface_create_ok\":%s,\"surface_create_signal\":null%s%s%s%s}\n",
+                "{\"found\":true,\"open_kr\":%d,\"call_kr\":%d,\"call_kr_string\":\"%s\",\"call_selector\":%u,\"call_input_scalar_count\":%u,\"call_input_struct_bytes\":%zu,\"call_output_scalar_count\":%u,\"call_output_struct_bytes\":%zu,\"call_succeeded\":%s,\"surface_create_ok\":%s,\"surface_create_signal\":null%s%s%s%s%s%s}\n",
                 kr,
                 call_kr,
                 call_kr_string_value,
@@ -2086,12 +2460,14 @@ int main(int argc, char *argv[]) {
                 capture_fields,
                 synthetic_fields,
                 capture_first_fields,
-                replay_fields);
+                replay_fields,
+                sweep_fields ? sweep_fields : "",
+                mach_capture_fields ? mach_capture_fields : "");
         }
     } else {
         if (surface_signal) {
             printf(
-                "SBL_PROBE_DETAILS {\"found\":true,\"open_kr\":%d,\"call_kr\":null,\"call_kr_string\":null,\"call_selector\":null,\"call_kind\":\"%s\",\"call_input_scalar_count\":null,\"call_input_struct_bytes\":null,\"call_output_scalar_count\":null,\"call_output_struct_bytes\":null,\"surface_create_ok\":%s,\"surface_create_signal\":%d%s%s%s%s}\n",
+                "SBL_PROBE_DETAILS {\"found\":true,\"open_kr\":%d,\"call_kr\":null,\"call_kr_string\":null,\"call_selector\":null,\"call_kind\":\"%s\",\"call_input_scalar_count\":null,\"call_input_struct_bytes\":null,\"call_output_scalar_count\":null,\"call_output_struct_bytes\":null,\"surface_create_ok\":%s,\"surface_create_signal\":%d%s%s%s%s%s%s}\n",
                 kr,
                 call_kind_used,
                 surface_ok ? "true" : "false",
@@ -2099,35 +2475,55 @@ int main(int argc, char *argv[]) {
                 capture_fields,
                 synthetic_fields,
                 capture_first_fields,
-                replay_fields);
+                replay_fields,
+                sweep_fields ? sweep_fields : "",
+                mach_capture_fields ? mach_capture_fields : "");
             printf(
-                "{\"found\":true,\"open_kr\":%d,\"call_kr\":null,\"call_kr_string\":null,\"call_selector\":null,\"call_input_scalar_count\":null,\"call_input_struct_bytes\":null,\"call_output_scalar_count\":null,\"call_output_struct_bytes\":null,\"surface_create_ok\":%s,\"surface_create_signal\":%d%s%s%s%s}\n",
+                "{\"found\":true,\"open_kr\":%d,\"call_kr\":null,\"call_kr_string\":null,\"call_selector\":null,\"call_input_scalar_count\":null,\"call_input_struct_bytes\":null,\"call_output_scalar_count\":null,\"call_output_struct_bytes\":null,\"surface_create_ok\":%s,\"surface_create_signal\":%d%s%s%s%s%s%s}\n",
                 kr,
                 surface_ok ? "true" : "false",
                 surface_signal,
                 capture_fields,
                 synthetic_fields,
                 capture_first_fields,
-                replay_fields);
+                replay_fields,
+                sweep_fields ? sweep_fields : "",
+                mach_capture_fields ? mach_capture_fields : "");
         } else {
             printf(
-                "SBL_PROBE_DETAILS {\"found\":true,\"open_kr\":%d,\"call_kr\":null,\"call_kr_string\":null,\"call_selector\":null,\"call_kind\":\"%s\",\"call_input_scalar_count\":null,\"call_input_struct_bytes\":null,\"call_output_scalar_count\":null,\"call_output_struct_bytes\":null,\"surface_create_ok\":%s,\"surface_create_signal\":null%s%s%s%s}\n",
+                "SBL_PROBE_DETAILS {\"found\":true,\"open_kr\":%d,\"call_kr\":null,\"call_kr_string\":null,\"call_selector\":null,\"call_kind\":\"%s\",\"call_input_scalar_count\":null,\"call_input_struct_bytes\":null,\"call_output_scalar_count\":null,\"call_output_struct_bytes\":null,\"surface_create_ok\":%s,\"surface_create_signal\":null%s%s%s%s%s%s}\n",
                 kr,
                 call_kind_used,
                 surface_ok ? "true" : "false",
                 capture_fields,
                 synthetic_fields,
                 capture_first_fields,
-                replay_fields);
+                replay_fields,
+                sweep_fields ? sweep_fields : "",
+                mach_capture_fields ? mach_capture_fields : "");
             printf(
-                "{\"found\":true,\"open_kr\":%d,\"call_kr\":null,\"call_kr_string\":null,\"call_selector\":null,\"call_input_scalar_count\":null,\"call_input_struct_bytes\":null,\"call_output_scalar_count\":null,\"call_output_struct_bytes\":null,\"surface_create_ok\":%s,\"surface_create_signal\":null%s%s%s%s}\n",
+                "{\"found\":true,\"open_kr\":%d,\"call_kr\":null,\"call_kr_string\":null,\"call_selector\":null,\"call_input_scalar_count\":null,\"call_input_struct_bytes\":null,\"call_output_scalar_count\":null,\"call_output_struct_bytes\":null,\"surface_create_ok\":%s,\"surface_create_signal\":null%s%s%s%s%s%s}\n",
                 kr,
                 surface_ok ? "true" : "false",
                 capture_fields,
                 synthetic_fields,
                 capture_first_fields,
-                replay_fields);
+                replay_fields,
+                sweep_fields ? sweep_fields : "",
+                mach_capture_fields ? mach_capture_fields : "");
         }
+    }
+    if (sweep_fields) {
+        free(sweep_fields);
+    }
+    if (sweep_results_json) {
+        free(sweep_results_json);
+    }
+    if (mach_capture_fields) {
+        free(mach_capture_fields);
+    }
+    if (mach_capture_json) {
+        free(mach_capture_json);
     }
     if (replay_enabled && replay_missing_capture) {
         return 1;

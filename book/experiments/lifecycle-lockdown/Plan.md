@@ -53,6 +53,20 @@ python3 book/experiments/lifecycle-lockdown/run_lockdown.py --out book/experimen
 
 The runner records raw command outputs (stdout/stderr) plus small normalized summaries so the evidence can be re-read without rerunning.
 
+Execution-lane isolation (runtime API, staged via `launchd_clean`):
+
+```sh
+python3 -m book.api.runtime run \
+  --plan book/experiments/lifecycle-lockdown/plan.json \
+  --channel launchd_clean \
+  --out book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce
+
+SANDBOX_LORE_PREFLIGHT_FORCE=1 python3 -m book.api.runtime run \
+  --plan book/experiments/lifecycle-lockdown/plan.json \
+  --channel launchd_clean \
+  --out book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_force
+```
+
 Apply inputs note:
 - The apply branch uses the `gate-witnesses` corpus SBPL + precompiled blobs under `compile_vs_apply/` (instead of minting new `.sb.bin` files under `out/`) so the repo-wide preflight index manifest does not drift.
 

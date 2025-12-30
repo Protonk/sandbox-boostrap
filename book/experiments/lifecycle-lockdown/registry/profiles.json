@@ -1,0 +1,51 @@
+{
+  "schema_version": "runtime-tools.profile_registry.v0.1",
+  "registry_id": "lifecycle-lockdown",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "profiles": {
+    "lockdown:airlock_passing_sbpl": {
+      "profile_id": "lockdown:airlock_passing_sbpl",
+      "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+      "mode": "sbpl",
+      "family": "apply-gate",
+      "semantic_group": "apply-gate:airlock",
+      "probe_refs": [
+        "lockdown:signal_self"
+      ],
+      "notes": "Passing neighbor for gate-witnesses:airlock (SBPL mode; sandbox_init via sandbox_runner)."
+    },
+    "lockdown:airlock_gate_sbpl": {
+      "profile_id": "lockdown:airlock_gate_sbpl",
+      "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/minimal_failing.sb",
+      "mode": "sbpl",
+      "family": "apply-gate",
+      "semantic_group": "apply-gate:airlock",
+      "probe_refs": [
+        "lockdown:signal_self"
+      ],
+      "notes": "Minimal failing for gate-witnesses:airlock (SBPL mode; expected to preflight-block or apply-gate depending on preflight force)."
+    },
+    "lockdown:airlock_passing_blob": {
+      "profile_id": "lockdown:airlock_passing_blob",
+      "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/compile_vs_apply/passing_neighbor.sb.bin",
+      "mode": "blob",
+      "family": "apply-gate",
+      "semantic_group": "apply-gate:airlock",
+      "probe_refs": [
+        "lockdown:signal_self"
+      ],
+      "notes": "Passing neighbor for gate-witnesses:airlock (blob mode; sandbox_apply via SBPL-wrapper)."
+    },
+    "lockdown:airlock_gate_blob": {
+      "profile_id": "lockdown:airlock_gate_blob",
+      "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/compile_vs_apply/minimal_failing.sb.bin",
+      "mode": "blob",
+      "family": "apply-gate",
+      "semantic_group": "apply-gate:airlock",
+      "probe_refs": [
+        "lockdown:signal_self"
+      ],
+      "notes": "Minimal failing for gate-witnesses:airlock (blob mode; expected to preflight-block or apply-gate depending on preflight force)."
+    }
+  }
+}

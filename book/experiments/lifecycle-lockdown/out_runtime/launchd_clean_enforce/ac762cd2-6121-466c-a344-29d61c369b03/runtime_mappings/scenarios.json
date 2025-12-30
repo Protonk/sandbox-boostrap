@@ -1,0 +1,147 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "tier": "mapped",
+    "source_jobs": [],
+    "notes": "scenario-level runtime summaries"
+  },
+  "phase_histograms": {
+    "overall": {
+      "total": 4,
+      "stages": {
+        "apply": 0,
+        "bootstrap": 0,
+        "preflight": 2,
+        "probe": 2
+      },
+      "blocked": {
+        "total": 2,
+        "by_stage": {
+          "preflight": 2
+        },
+        "by_kind": {
+          "preflight_apply_gate_signature": 2
+        }
+      },
+      "probe": {
+        "total": 2,
+        "allow": 0,
+        "deny": 2,
+        "mismatches": 2
+      }
+    },
+    "by_family": {
+      "apply-gate": {
+        "total": 4,
+        "stages": {
+          "apply": 0,
+          "bootstrap": 0,
+          "preflight": 2,
+          "probe": 2
+        },
+        "blocked": {
+          "total": 2,
+          "by_stage": {
+            "preflight": 2
+          },
+          "by_kind": {
+            "preflight_apply_gate_signature": 2
+          }
+        },
+        "probe": {
+          "total": 2,
+          "allow": 0,
+          "deny": 2,
+          "mismatches": 2
+        }
+      }
+    }
+  },
+  "scenarios": {
+    "lockdown:process_exec_true": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "lockdown:airlock_passing_sbpl",
+      "expectations": [
+        {
+          "expectation_id": "lockdown:process_exec_true",
+          "profile_id": "lockdown:airlock_gate_blob",
+          "operation": "process-exec*",
+          "target": null,
+          "expected": "allow",
+          "probe_name": "process-exec true"
+        }
+      ],
+      "results": {
+        "total": 2,
+        "matches": 0,
+        "mismatches": 2,
+        "total_including_blocked": 4,
+        "blocked": {
+          "total": 2,
+          "by_stage": {
+            "preflight": 2
+          },
+          "by_kind": {
+            "preflight_apply_gate_signature": 2
+          }
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "lockdown:process_exec_true",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "process-exec*",
+          "target": null,
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": ""
+        },
+        {
+          "expectation_id": "lockdown:process_exec_true",
+          "expected": "allow",
+          "actual": null,
+          "operation": "process-exec*",
+          "target": null,
+          "failure_stage": "preflight",
+          "failure_kind": "preflight_apply_gate_signature",
+          "mismatch_type": "preflight_blocked",
+          "violation_summary": null,
+          "stderr": ""
+        },
+        {
+          "expectation_id": "lockdown:process_exec_true",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "process-exec*",
+          "target": null,
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": ""
+        },
+        {
+          "expectation_id": "lockdown:process_exec_true",
+          "expected": "allow",
+          "actual": null,
+          "operation": "process-exec*",
+          "target": null,
+          "failure_stage": "preflight",
+          "failure_kind": "preflight_apply_gate_signature",
+          "mismatch_type": "preflight_blocked",
+          "violation_summary": null,
+          "stderr": ""
+        }
+      ],
+      "impact": null,
+      "scenario_id": "lockdown:process_exec_true"
+    }
+  }
+}

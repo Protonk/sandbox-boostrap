@@ -95,3 +95,7 @@ Use this file for short, factual run notes and failures. Avoid timestamps.
 - Capture → replay loop (call-shape gate):
   - Baseline capture run `out/274a4c71-3c97-4aaa-a22f-93b587ba9ba9/` with `SANDBOX_LORE_IKIT_SELECTOR_LIST=0` captured `capture_first_spec=IOConnectCallMethod:0:1:16:0:16` and `call_kr=-536870206` (invalid argument).
   - Replay run `out/e720b256-2f6e-4888-9288-2e19b5007fa9/` with `SANDBOX_LORE_IKIT_REPLAY=1` and `SANDBOX_LORE_IKIT_REPLAY_SPEC=IOConnectCallMethod:0:1:16:0:16` returned `replay_kr=-536870206` in baseline and scenario (replay attempted, no sweep).
+- Bounded selector sweep (per-selector menu): `out/b9060860-23e1-45b2-9e13-5d3abcb77a6e/` (launchd_clean, v19, `SANDBOX_LORE_IKIT_SWEEP=1`).
+  - Baseline `sweep_result_count=395`, `first_non_invalid_missing=true`; no non-invalid tuple found within the bounded selector/shape menu.
+- Mach message capture (Branch B fallback): `out/a21b9fe6-dc2c-4d80-9131-202cab92595a/` (launchd_clean, v7, `SANDBOX_LORE_IKIT_MACH_CAPTURE=1`, `SBL_IKIT_SKIP_SWEEP=1`).
+  - Baseline and scenario both report `mach_msg_capture_count=0` for messages addressed to the IOSurface user-client port; `open_kr=0` and `surface_create_ok=false` in the sandboxed lane.

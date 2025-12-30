@@ -1,0 +1,189 @@
+[
+  {
+    "actual": "deny",
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_runner",
+      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/ac762cd2-6121-466c-a344-29d61c369b03/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl.runtime.sb",
+      "--",
+      "true"
+    ],
+    "errno": 127,
+    "expectation_id": "lockdown:process_exec_true",
+    "expected": "allow",
+    "failure_kind": "probe_nonzero_exit",
+    "failure_stage": "probe",
+    "match": false,
+    "operation": "process-exec*",
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/ac762cd2-6121-466c-a344-29d61c369b03/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "process-exec true",
+    "profile_id": "lockdown:airlock_passing_sbpl",
+    "run_id": "ac762cd2-6121-466c-a344-29d61c369b03",
+    "runner_info": {
+      "apply_model": "exec_wrapper",
+      "apply_timing": "pre_exec",
+      "entrypoint": "sandbox_runner",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_runner",
+      "entrypoint_sha256": "7820fa45440400aa64e61fccbb869ac6a1433fc9eb00ff9541dcb4fbbdcc0a62",
+      "preexisting_sandbox_suspected": false,
+      "tool_build_id": "7820fa45440400aa64e61fccbb869ac6a1433fc9eb00ff9541dcb4fbbdcc0a62"
+    },
+    "runtime_status": "errno",
+    "scenario_id": "lockdown:process_exec_true",
+    "stderr": "",
+    "stdout": "",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "command": [],
+    "expectation_id": "lockdown:process_exec_true",
+    "expected": "allow",
+    "failure_kind": "preflight_apply_gate_signature",
+    "failure_stage": "preflight",
+    "notes": "preflight blocked: known apply-gate signature",
+    "operation": "process-exec*",
+    "preflight": {
+      "classification": "likely_apply_gated_for_harness_identity",
+      "findings": [
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        }
+      ],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/ac762cd2-6121-466c-a344-29d61c369b03/runtime_profiles/minimal_failing.lockdown_airlock_gate_sbpl.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": "deny_message_filter",
+      "signature_meta": {
+        "pointers": [
+          "troubles/EPERMx2.md",
+          "book/experiments/gate-witnesses/Report.md",
+          "book/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json"
+        ],
+        "status": "partial"
+      },
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "process-exec true",
+    "profile_id": "lockdown:airlock_gate_sbpl",
+    "run_id": "ac762cd2-6121-466c-a344-29d61c369b03",
+    "runtime_status": "blocked",
+    "scenario_id": "lockdown:process_exec_true",
+    "stderr": "",
+    "stdout": "",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "actual": "deny",
+    "command": [
+      "book/tools/sbpl/wrapper/wrapper",
+      "--preflight",
+      "enforce",
+      "--blob",
+      "book/experiments/gate-witnesses/out/witnesses/airlock/compile_vs_apply/passing_neighbor.sb.bin",
+      "--",
+      "true"
+    ],
+    "entitlement_checks": [
+      {
+        "entitlement": "com.apple.private.security.message-filter",
+        "marker_schema_version": 1,
+        "pid": 15064,
+        "present": false,
+        "rc": 0,
+        "stage": "pre_apply",
+        "tool": "entitlement-check",
+        "value_type": "absent"
+      }
+    ],
+    "errno": 127,
+    "expectation_id": "lockdown:process_exec_true",
+    "expected": "allow",
+    "failure_kind": "probe_nonzero_exit",
+    "failure_stage": "probe",
+    "match": false,
+    "operation": "process-exec*",
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [
+        {
+          "blob_sha256": "06162de74997b5641b60cca5b68bfb2e36e62652dc8ed9dd26af7e69a4ad6068",
+          "matched": false
+        }
+      ],
+      "input_kind": "sbpl_blob_path",
+      "input_ref": "book/experiments/gate-witnesses/out/witnesses/airlock/compile_vs_apply/passing_neighbor.sb.bin",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "process-exec true",
+    "profile_id": "lockdown:airlock_passing_blob",
+    "run_id": "ac762cd2-6121-466c-a344-29d61c369b03",
+    "runner_info": {
+      "apply_model": "exec_wrapper",
+      "apply_timing": "pre_exec",
+      "entrypoint": "SBPL-wrapper",
+      "entrypoint_path": "book/tools/sbpl/wrapper/wrapper",
+      "entrypoint_sha256": "2a4ead954fcceb103a5409d6057ab6803f206a11fc94554638c1b6a2aa065bb3",
+      "preexisting_sandbox_suspected": false,
+      "tool_build_id": "2a4ead954fcceb103a5409d6057ab6803f206a11fc94554638c1b6a2aa065bb3"
+    },
+    "runtime_status": "errno",
+    "scenario_id": "lockdown:process_exec_true",
+    "stderr": "",
+    "stdout": "",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "command": [],
+    "expectation_id": "lockdown:process_exec_true",
+    "expected": "allow",
+    "failure_kind": "preflight_apply_gate_signature",
+    "failure_stage": "preflight",
+    "notes": "preflight blocked: known apply-gate signature",
+    "operation": "process-exec*",
+    "preflight": {
+      "classification": "likely_apply_gated_for_harness_identity",
+      "findings": [
+        {
+          "blob_sha256": "f8aaa1deb5becd33659daca06a4b15df2238f8b912c65c24a8e43b40c61b6640",
+          "matched": true
+        }
+      ],
+      "input_kind": "sbpl_blob_path",
+      "input_ref": "book/experiments/gate-witnesses/out/witnesses/airlock/compile_vs_apply/minimal_failing.sb.bin",
+      "preflight_schema_version": 1,
+      "signature": "apply_gate_blob_digest",
+      "signature_meta": {
+        "pointers": [
+          "troubles/EPERMx2.md",
+          "book/experiments/preflight-blob-digests/Report.md",
+          "book/graph/concepts/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
+        ],
+        "status": "ok"
+      },
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "process-exec true",
+    "profile_id": "lockdown:airlock_gate_blob",
+    "run_id": "ac762cd2-6121-466c-a344-29d61c369b03",
+    "runtime_status": "blocked",
+    "scenario_id": "lockdown:process_exec_true",
+    "stderr": "",
+    "stdout": "",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  }
+]

@@ -111,6 +111,8 @@ def _build_plist(
         "SANDBOX_LORE_IKIT_CAPTURE_CALLS",
         "SANDBOX_LORE_IKIT_REPLAY",
         "SANDBOX_LORE_IKIT_REPLAY_SPEC",
+        "SANDBOX_LORE_IKIT_SWEEP",
+        "SANDBOX_LORE_IKIT_MACH_CAPTURE",
         "SBL_IKIT_SKIP_SWEEP",
     ]:
         value = os.environ.get(key)
