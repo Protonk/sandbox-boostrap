@@ -35,6 +35,183 @@ static void print_no_service(void) {
     printf("{\"found\":false,\"open_kr\":null,\"call_kr\":null,\"call_kr_string\":null,\"call_selector\":null,\"call_input_scalar_count\":null,\"call_input_struct_bytes\":null,\"call_output_scalar_count\":null,\"call_output_struct_bytes\":null,\"surface_create_ok\":null,\"surface_create_signal\":null}\n");
 }
 
+static const char *derive_user_client_class(const char *registry_class, char *buf, size_t buf_len) {
+    if (!registry_class || !buf || buf_len == 0) {
+        return NULL;
+    }
+    int written = snprintf(buf, buf_len, "%sUserClient", registry_class);
+    if (written < 0 || (size_t)written >= buf_len) {
+        return NULL;
+    }
+    return buf;
+}
+
+static void emit_iokit_callout_string(
+    const char *stage,
+    const char *operation,
+    long filter_type,
+    const char *argument
+) {
+    const char *enabled = getenv(SANDBOX_LORE_ENV_SEATBELT_CALLOUT);
+    if (!enabled || strcmp(enabled, "1") != 0) {
+        return;
+    }
+    if (!operation || !argument) {
+        return;
+    }
+
+    int token_kr = 0;
+    audit_token_t token;
+    if (sbl_get_self_audit_token(&token, &token_kr) != 0) {
+        sbl_emit_seatbelt_callout(
+            stage,
+            operation,
+            filter_type,
+            argument,
+            -1,
+            0,
+            "TASK_AUDIT_TOKEN unavailable",
+            0,
+            "token_unavailable",
+            token_kr,
+            "task_info_failed",
+            filter_type,
+            1
+        );
+        return;
+    }
+    sbl_sandbox_check_by_audit_token_fn fn = sbl_load_sandbox_check_by_audit_token();
+    if (!fn) {
+        sbl_emit_seatbelt_callout(
+            stage,
+            operation,
+            filter_type,
+            argument,
+            -2,
+            ENOSYS,
+            "sandbox_check_by_audit_token missing",
+            0,
+            "symbol_missing",
+            token_kr,
+            "ok",
+            filter_type,
+            1
+        );
+        return;
+    }
+
+    int no_report_used = 0;
+    const char *no_report_reason = NULL;
+    int type_used = sbl_sb_check_type_with_no_report(filter_type, &no_report_used, &no_report_reason);
+    if (!no_report_used && no_report_reason == NULL) {
+        no_report_reason = "unknown";
+    }
+    errno = 0;
+    int rc = fn(&token, operation, type_used, argument);
+    int err = errno;
+    sbl_emit_seatbelt_callout(
+        stage,
+        operation,
+        filter_type,
+        argument,
+        rc,
+        err,
+        NULL,
+        no_report_used,
+        no_report_reason,
+        token_kr,
+        "ok",
+        type_used,
+        1
+    );
+}
+
+static void emit_iokit_callout_number(
+    const char *stage,
+    const char *operation,
+    long filter_type,
+    long argument
+) {
+    const char *enabled = getenv(SANDBOX_LORE_ENV_SEATBELT_CALLOUT);
+    if (!enabled || strcmp(enabled, "1") != 0) {
+        return;
+    }
+    if (!operation) {
+        return;
+    }
+
+    int token_kr = 0;
+    audit_token_t token;
+    if (sbl_get_self_audit_token(&token, &token_kr) != 0) {
+        char arg_buf[32];
+        snprintf(arg_buf, sizeof(arg_buf), "%ld", argument);
+        sbl_emit_seatbelt_callout(
+            stage,
+            operation,
+            filter_type,
+            arg_buf,
+            -1,
+            0,
+            "TASK_AUDIT_TOKEN unavailable",
+            0,
+            "token_unavailable",
+            token_kr,
+            "task_info_failed",
+            filter_type,
+            1
+        );
+        return;
+    }
+    sbl_sandbox_check_by_audit_token_fn fn = sbl_load_sandbox_check_by_audit_token();
+    if (!fn) {
+        char arg_buf[32];
+        snprintf(arg_buf, sizeof(arg_buf), "%ld", argument);
+        sbl_emit_seatbelt_callout(
+            stage,
+            operation,
+            filter_type,
+            arg_buf,
+            -2,
+            ENOSYS,
+            "sandbox_check_by_audit_token missing",
+            0,
+            "symbol_missing",
+            token_kr,
+            "ok",
+            filter_type,
+            1
+        );
+        return;
+    }
+
+    int no_report_used = 0;
+    const char *no_report_reason = NULL;
+    int type_used = sbl_sb_check_type_with_no_report(filter_type, &no_report_used, &no_report_reason);
+    if (!no_report_used && no_report_reason == NULL) {
+        no_report_reason = "unknown";
+    }
+    errno = 0;
+    int rc = fn(&token, operation, type_used, argument);
+    int err = errno;
+    char arg_buf[32];
+    snprintf(arg_buf, sizeof(arg_buf), "%ld", argument);
+    sbl_emit_seatbelt_callout(
+        stage,
+        operation,
+        filter_type,
+        arg_buf,
+        rc,
+        err,
+        NULL,
+        no_report_used,
+        no_report_reason,
+        token_kr,
+        "ok",
+        type_used,
+        1
+    );
+}
+
 static bool attempt_surface_create(int *signal_out) {
     int width = 1;
     int height = 1;
@@ -105,6 +282,16 @@ int main(int argc, char *argv[]) {
     }
 
     sbl_maybe_seatbelt_callout_from_env("pre_syscall");
+    char user_client_class[256];
+    const char *user_client_name = derive_user_client_class(class_name, user_client_class, sizeof(user_client_class));
+    const long user_client_type = 0;
+    emit_iokit_callout_string("pre_syscall", "iokit-open", SBL_FILTER_IOKIT_REGISTRY_ENTRY_CLASS, class_name);
+    emit_iokit_callout_string("pre_syscall", "iokit-open-service", SBL_FILTER_IOKIT_REGISTRY_ENTRY_CLASS, class_name);
+    if (user_client_name) {
+        emit_iokit_callout_string("pre_syscall", "iokit-open-user-client", SBL_FILTER_IOKIT_USER_CLIENT_TYPE, user_client_name);
+    }
+    emit_iokit_callout_number("pre_syscall", "iokit-open-user-client", SBL_FILTER_IOKIT_USER_CLIENT_TYPE, user_client_type);
+    emit_iokit_callout_number("pre_syscall", "iokit-open", SBL_FILTER_IOKIT_USER_CLIENT_TYPE, user_client_type);
 
     CFMutableDictionaryRef matching = IOServiceMatching(class_name);
     if (!matching) {

@@ -1,0 +1,36 @@
+[
+  {
+    "actual": "deny",
+    "command": [
+      "book/api/runtime/native/probes/sandbox_iokit_probe",
+      "book/experiments/runtime-closure/out/f7b0ca74-c80b-4431-b0bc-9f1c97962e82/b5455e5b-87b7-4f78-ac62-3dec8a4b6203/runtime_profiles/v11_iokit_report_loud.runtime-closure_iokit_v11_report_loud.runtime.sb",
+      "IOSurfaceRoot"
+    ],
+    "errno": -5,
+    "expectation_id": "runtime-closure:iokit:v11_report_loud:iosurface_root",
+    "expected": "allow",
+    "failure_kind": "probe_nonzero_exit",
+    "failure_stage": "probe",
+    "match": false,
+    "operation": "iokit-open-service",
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/experiments/runtime-closure/out/f7b0ca74-c80b-4431-b0bc-9f1c97962e82/b5455e5b-87b7-4f78-ac62-3dec8a4b6203/runtime_profiles/v11_iokit_report_loud.runtime-closure_iokit_v11_report_loud.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "iosurface_root",
+    "profile_id": "runtime-closure:iokit:v11_report_loud",
+    "run_id": "b5455e5b-87b7-4f78-ac62-3dec8a4b6203",
+    "runtime_status": "errno",
+    "scenario_id": "runtime-closure:iokit:v11_report_loud:iosurface_root",
+    "stderr": "",
+    "stdout": "",
+    "target": "IOSurfaceRoot",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  }
+]

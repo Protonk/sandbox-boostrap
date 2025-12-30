@@ -109,6 +109,74 @@ def _run_validate(args: argparse.Namespace) -> int:
     return 0 if report.get("ok") else 1
 
 
+def _run_generate_hook(args: argparse.Namespace) -> int:
+    from book.api.frida.generate_hook import HookGeneratorError, generate_hook_files, write_generated_hook
+
+    repo_root = path_utils.find_repo_root()
+    input_path = path_utils.ensure_absolute(args.input, repo_root)
+    try:
+        input_obj = json.loads(input_path.read_text())
+    except json.JSONDecodeError as exc:
+        msg = " ".join(str(exc.msg).split())
+        report = {
+            "ok": False,
+            "error": f"JSONDecodeError: {msg} (line {exc.lineno} col {exc.colno})",
+            "input_path": path_utils.to_repo_relative(input_path, repo_root),
+        }
+        print(json.dumps(report, indent=2, sort_keys=True))
+        return 1
+    except Exception as exc:
+        report = {
+            "ok": False,
+            "error": f"{type(exc).__name__}: {exc}",
+            "input_path": path_utils.to_repo_relative(input_path, repo_root),
+        }
+        print(json.dumps(report, indent=2, sort_keys=True))
+        return 1
+
+    try:
+        out = generate_hook_files(input_obj)
+        hook_js = out["hook_js"]
+        manifest_json = out["manifest_json"]
+        hook_name = str(manifest_json.get("hook", {}).get("id"))
+        write_report = write_generated_hook(
+            Path(args.out_dir),
+            hook_name=hook_name,
+            hook_js=hook_js,
+            manifest_json=manifest_json,
+            force=bool(args.force),
+        )
+    except HookGeneratorError as exc:
+        report = {
+            "ok": False,
+            "error": str(exc),
+            "input_path": path_utils.to_repo_relative(input_path, repo_root),
+        }
+        print(json.dumps(report, indent=2, sort_keys=True))
+        return 1
+
+    report = {
+        "ok": True,
+        "input_path": path_utils.to_repo_relative(input_path, repo_root),
+        "write": write_report,
+    }
+    print(json.dumps(report, indent=2, sort_keys=True))
+    return 0
+
+
+def _run_build_ts_hooks(args: argparse.Namespace) -> int:
+    from book.api.frida.build_ts_hooks import TSHookBuildError, build_ts_hooks
+
+    try:
+        report = build_ts_hooks(force=bool(args.force), check=bool(args.check))
+    except TSHookBuildError as exc:
+        out = {"ok": False, "error": str(exc)}
+        print(json.dumps(out, indent=2, sort_keys=True))
+        return 1
+    print(json.dumps(report, indent=2, sort_keys=True))
+    return 0 if report.get("ok") else 1
+
+
 def build_arg_parser() -> argparse.ArgumentParser:
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest="command", required=True)
@@ -142,6 +210,21 @@ def build_arg_parser() -> argparse.ArgumentParser:
     val_parser = sub.add_parser("validate", help="Validate schema/query/export invariants for run directories")
     val_parser.add_argument("run_dirs", nargs="+", help="Run directories containing meta.json + events.jsonl")
     val_parser.set_defaults(func=_run_validate)
+
+    gen_parser = sub.add_parser("generate-hook", help="Generate a new hook + manifest from a v1 input JSON")
+    gen_parser.add_argument("--input", required=True, help="Path to HOOK_GENERATOR_INPUT v1 JSON")
+    gen_parser.add_argument(
+        "--out-dir",
+        default="book/api/frida/hooks",
+        help="Output directory (default: book/api/frida/hooks)",
+    )
+    gen_parser.add_argument("--force", action="store_true", help="Overwrite existing files")
+    gen_parser.set_defaults(func=_run_generate_hook)
+
+    ts_parser = sub.add_parser("build-ts-hooks", help="Compile hooks_ts/*.ts into runtime hooks/*.js artifacts")
+    ts_parser.add_argument("--force", action="store_true", help="Overwrite existing runtime hook artifacts")
+    ts_parser.add_argument("--check", action="store_true", help="Check whether runtime artifacts are up to date (no writes)")
+    ts_parser.set_defaults(func=_run_build_ts_hooks)
 
     return ap
 

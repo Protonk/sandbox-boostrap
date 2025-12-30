@@ -46,13 +46,14 @@ Observed (run: `out/66315539-a0ce-44bf-bff0-07a79f205fea/`):
 ### IOKit
 Profiles target IOSurfaceRoot via user-client-class filters to align with anchor-level structure.
 
-Observed (runs: `out/6ecc929d-fec5-4206-a85c-e3e265c349a7/`, `out/08887f36-f87b-45ff-8e9e-6ee7eb9cb635/`, `out/33ff5a68-262a-4a8c-b427-c7cb923a3adc/`, `out/fae371c2-f2f5-470f-b672-cf0c3e24d6c0/`, `out/bf996c2f-a265-4bb5-8c8a-105bd70af25a/`, `out/03aaad16-f06b-4ec7-a468-c6379abbeb4d/`, `out/ad767bba-9e59-40ff-b006-45fe911b2d02/`):
+Observed (runs: `out/6ecc929d-fec5-4206-a85c-e3e265c349a7/`, `out/08887f36-f87b-45ff-8e9e-6ee7eb9cb635/`, `out/33ff5a68-262a-4a8c-b427-c7cb923a3adc/`, `out/fae371c2-f2f5-470f-b672-cf0c3e24d6c0/`, `out/bf996c2f-a265-4bb5-8c8a-105bd70af25a/`, `out/03aaad16-f06b-4ec7-a468-c6379abbeb4d/`, `out/ad767bba-9e59-40ff-b006-45fe911b2d02/`, `out/760494b1-5088-4271-ba05-50c3888c8690/`):
 - `v2_user_client_only` (`iokit-open-user-client`) allows `IOSurfaceRoot` (`open_kr=0`) at operation stage.
 - `v4_iokit_open_user_client` (`iokit-open`) allows `IOSurfaceRoot` (`open_kr=0`) at operation stage.
 - `v3_connection_user_client` denies with `open_kr=-536870174` and `EPERM` at operation stage.
 - `v5_service_only` (`iokit-open-service` allow + user-client deny) returns `open_kr=-536870174` (EPERM), `surface_create_ok=false`.
 - `v6_user_client_only` (`iokit-open-user-client` allow + service deny) returns `open_kr=-536870174` (EPERM), `surface_create_ok=false`.
 - `v7_service_user_client_both` (allow both ops) returns `open_kr=0` with `call_kr=-536870206`, `call_kr_string="(iokit/common) invalid argument"`, selector=9, and all call input/output sizes zero; `surface_create_ok=false`.
+- `v12_service_user_client_cvmsserv` (allow both ops + `mach-lookup com.apple.cvmsServ`) returns `open_kr=0` with the same `call_kr=-536870206` and `surface_create_ok=false`, so the cvmsServ allow does not flip the post-open failure on this host.
 - `v8_external_method` (allow open + external-method) fails at apply stage with `sandbox_init` error `iokit-external-method operation not applicable in this context` and is treated as blocked evidence.
 - `v9_message_filter_deny` and `v10_message_filter_allow` are blocked at preflight (`likely_apply_gated_for_harness_identity`) due to the deny-style message filter inside `apply-message-filter`, so no runtime probe execution occurs.
 
@@ -63,14 +64,19 @@ All profiles apply successfully (`sandbox_init` rc=0). The post-open selector sw
 
 This indicates the user-client-class filter is sufficient for the IOSurfaceRoot probe, while the IOAccelerator connection constraint is too narrow on this host.
 
+Op-witness attempts:
+- Report-loud `v11_report_loud` (deny default + telemetry) kills `sandbox_iokit_probe` at probe stage (`exit_code=-5`, SIGTRAP), producing no stdout/stderr and no sandbox log lines; log capture in `out/bf200589-b801-4771-8b73-a84dfef73be6/observer/sandbox_log.txt` contains only the filter header.
+- Oracle lane callouts enabled on `v7_service_user_client_both` (`out/6ed9e0b6-a2cf-4122-846e-c9c36eea52a0/`) emit `sandbox_check_by_audit_token` markers: `iokit-open-service` allows with filter `iokit-registry-entry-class` + `IOSurfaceRoot`, while `iokit-open-user-client` with filter `iokit-user-client-type` + `IOSurfaceRootUserClient` returns `EINVAL` (`rc=-1`), so the user-client callout shape remains invalid on this host.
+- Oracle lane callouts expanded in `v12_service_user_client_cvmsserv` (`out/760494b1-5088-4271-ba05-50c3888c8690/`) show `iokit-open` + `iokit-registry-entry-class` denies (`rc=1`, `errno=1`) and emits a sandbox warning that `iokit-open` is obsolete, while `iokit-open-service` + `iokit-registry-entry-class` allows (`rc=0`). `iokit-open-user-client` remains `EINVAL` for both string and numeric user-client-type arguments, so the oracle lane still cannot validate that op on this host.
+
 ## Evidence & artifacts
 - Runtime plan/registry: `book/experiments/runtime-closure/plan.json` and `registry/{probes.json,profiles.json}`.
 - SBPL profiles: `book/experiments/runtime-closure/sb/*.sb`.
 - Run bundles: `book/experiments/runtime-closure/out/<run_id>/`.
   - File lane (v2 matrix): `book/experiments/runtime-closure/out/ea704c9c-5102-473a-b942-e24af4136cc8/` (includes `path_witnesses.json` and `promotion_packet.json`).
   - Mach lane: `book/experiments/runtime-closure/out/66315539-a0ce-44bf-bff0-07a79f205fea/`.
-  - IOKit op-identity lane: `book/experiments/runtime-closure/out/6ecc929d-fec5-4206-a85c-e3e265c349a7/`, `book/experiments/runtime-closure/out/08887f36-f87b-45ff-8e9e-6ee7eb9cb635/`, `book/experiments/runtime-closure/out/33ff5a68-262a-4a8c-b427-c7cb923a3adc/`, `book/experiments/runtime-closure/out/fae371c2-f2f5-470f-b672-cf0c3e24d6c0/`, `book/experiments/runtime-closure/out/bf996c2f-a265-4bb5-8c8a-105bd70af25a/`, `book/experiments/runtime-closure/out/03aaad16-f06b-4ec7-a468-c6379abbeb4d/`, `book/experiments/runtime-closure/out/ad767bba-9e59-40ff-b006-45fe911b2d02/`.
-  - Call-shape trace: `book/experiments/runtime-closure/out/iosurface_call_trace/iosurface_trace_stderr.txt` and `book/experiments/runtime-closure/out/iosurface_call_trace/iosurface_trace_stdout.txt`.
+  - IOKit op-identity lane: `book/experiments/runtime-closure/out/6ecc929d-fec5-4206-a85c-e3e265c349a7/`, `book/experiments/runtime-closure/out/08887f36-f87b-45ff-8e9e-6ee7eb9cb635/`, `book/experiments/runtime-closure/out/33ff5a68-262a-4a8c-b427-c7cb923a3adc/`, `book/experiments/runtime-closure/out/fae371c2-f2f5-470f-b672-cf0c3e24d6c0/`, `book/experiments/runtime-closure/out/bf996c2f-a265-4bb5-8c8a-105bd70af25a/`, `book/experiments/runtime-closure/out/03aaad16-f06b-4ec7-a468-c6379abbeb4d/`, `book/experiments/runtime-closure/out/ad767bba-9e59-40ff-b006-45fe911b2d02/`, `book/experiments/runtime-closure/out/bf200589-b801-4771-8b73-a84dfef73be6/`, `book/experiments/runtime-closure/out/f7b0ca74-c80b-4431-b0bc-9f1c97962e82/`, `book/experiments/runtime-closure/out/6ed9e0b6-a2cf-4122-846e-c9c36eea52a0/`, `book/experiments/runtime-closure/out/760494b1-5088-4271-ba05-50c3888c8690/`.
+  - Call-shape trace: `book/experiments/runtime-closure/out/iosurface_call_trace/iosurface_trace_stderr.txt`, `book/experiments/runtime-closure/out/iosurface_call_trace/iosurface_trace_stdout.txt`, `book/experiments/runtime-closure/out/iosurface_call_trace_2/iosurface_trace_stderr.txt`, `book/experiments/runtime-closure/out/iosurface_call_trace_2/iosurface_trace_stdout.txt`.
   - Observer-lane logs: `book/experiments/runtime-closure/out/bf996c2f-a265-4bb5-8c8a-105bd70af25a/observer/sandbox_log_stream_iokit.txt` and `book/experiments/runtime-closure/out/bf996c2f-a265-4bb5-8c8a-105bd70af25a/observer/sandbox_log_show_iokit.txt` (no iokit op lines observed).
   - Prior runs: `book/experiments/runtime-closure/out/5a8908d8-d626-4cac-8bdd-0f53c02af8fe/` (file v1) and `book/experiments/runtime-closure/out/48086066-bfa2-44bb-877c-62dd1dceca09/` (IOKit v1).
 - Mapped VFS update: `book/graph/mappings/vfs_canonicalization/path_canonicalization_map.json` (now includes the runtime-closure file matrix packet).
@@ -82,3 +88,5 @@ This indicates the user-client-class filter is sufficient for the IOSurfaceRoot 
 - Data-only literal rules do not allow Data spellings on this host, suggesting enforcement compares a different spelling; this remains hypothesis-level without a direct kernel witness at operation time.
 - `with report` is not accepted on deny rules in this harness, so the initial tri-matrix attempt (`out/1034a7bd-81e1-41a1-9897-35f5556800c7/`) failed at apply stage and is treated as blocked evidence.
 - `iokit-external-method` is rejected at apply stage for the IOSurface user-client rule in this harness (`out/03aaad16-f06b-4ec7-a468-c6379abbeb4d/`), and deny-style message filters trigger preflight apply-gate blocks (`out/ad767bba-9e59-40ff-b006-45fe911b2d02/`), so external-method gating remains blocked on this host.
+- The report-loud `v11_report_loud` profile terminates the probe (SIGTRAP), so sandbox log capture via deny-default telemetry did not yield an op witness on this host.
+- Oracle-lane `sandbox_check_by_audit_token` succeeds for `iokit-open-service` but returns `EINVAL` for `iokit-open-user-client` with the current filter/argument shape, so user-client callouts remain hypothesis-only until the filter tuple is corrected.

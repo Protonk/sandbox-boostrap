@@ -277,5 +277,146 @@
         }
       }
     }
+    ,
+    {
+      "id": "generic_runner_spawn_generated_example_hook_fixture_complete",
+      "run_dir": "book/api/frida/fixtures/runs/00000000-0000-4000-8000-000000000005",
+      "workflow": "generic_runner_spawn",
+      "hook": {
+        "script_path": "book/api/frida/hooks/example_hook.js",
+        "script_sha256": "e417f13aeb94618449a9db30a48ae4244a921ff3686d844b32872a1f40ccbb4f"
+      },
+      "target": {
+        "mode": "spawn",
+        "spawn_argv": [
+          "/bin/sleep",
+          "1"
+        ],
+        "attach_pid": null,
+        "pid_at_capture": 4242
+      },
+      "events_present": {
+        "trace_v1_record_shape": {
+          "top_level_fields": [
+            "schema_name",
+            "schema_version",
+            "run_id",
+            "seq",
+            "t_ns",
+            "pid",
+            "source",
+            "kind"
+          ],
+          "msg_types": [
+            "runner",
+            "send"
+          ],
+          "runner_kinds": [
+            "runner-start",
+            "config-validation",
+            "stage",
+            "configure",
+            "session-detached"
+          ],
+          "agent_msg_types": [
+            "send"
+          ],
+          "agent_payload_kinds": [
+            "example_hook-configured"
+          ]
+        }
+      },
+      "timestamps_present": [
+        {
+          "field": "events[].t_ns",
+          "type": "int",
+          "units": "ns",
+          "where": "events.jsonl top-level",
+          "meaning": "wall clock sampled at write (time.time_ns)"
+        }
+      ],
+      "known_good": {
+        "validate_expected_ok": true,
+        "validate_digests": {
+          "events_jsonl_sha256": "26ef1c1cbe54547552121436c33d43ed24fe582cb6094d92e9c4cf8dd5c5974b",
+          "chrometrace_json_sha256": "a8966cc9b74cbdc5fadd425dfa7f16ecc25e7a5d5d33d0b7dfa10f33c2f61177",
+          "query_result_digests": {
+            "hook_payload_kind_counts.sql": "6015bda9232ba1d98a01147533d5fd3ecf9718b2006c7e59c9e6d4475ac98ace",
+            "runner_stage_timeline.sql": "e2f7b4b4f86820915ad3042655af3d1c38bfb0c50b9ffe904a7af23a79013dd7",
+            "send_events.sql": "f6952fa222de5f648ace8b057df8043efa9726b90c950bea1ed28f66cb8e3629"
+          }
+        }
+      }
+    },
+    {
+      "id": "generic_runner_spawn_smoke_ts_fixture_complete",
+      "run_dir": "book/api/frida/fixtures/runs/00000000-0000-4000-8000-000000000006",
+      "workflow": "generic_runner_spawn",
+      "hook": {
+        "script_path": "book/api/frida/hooks/smoke_ts.js",
+        "script_sha256": "0163b851794b915a42288693840e415e00bb825d22457b38ae95a4f8625dd829"
+      },
+      "target": {
+        "mode": "spawn",
+        "spawn_argv": [
+          "/bin/sleep",
+          "1"
+        ],
+        "attach_pid": null,
+        "pid_at_capture": 4242
+      },
+      "events_present": {
+        "trace_v1_record_shape": {
+          "top_level_fields": [
+            "schema_name",
+            "schema_version",
+            "run_id",
+            "seq",
+            "t_ns",
+            "pid",
+            "source",
+            "kind"
+          ],
+          "msg_types": [
+            "runner",
+            "send"
+          ],
+          "runner_kinds": [
+            "runner-start",
+            "config-validation",
+            "stage",
+            "configure",
+            "session-detached"
+          ],
+          "agent_msg_types": [
+            "send"
+          ],
+          "agent_payload_kinds": [
+            "smoke_ts"
+          ]
+        }
+      },
+      "timestamps_present": [
+        {
+          "field": "events[].t_ns",
+          "type": "int",
+          "units": "ns",
+          "where": "events.jsonl top-level",
+          "meaning": "wall clock sampled at write (time.time_ns)"
+        }
+      ],
+      "known_good": {
+        "validate_expected_ok": true,
+        "validate_digests": {
+          "events_jsonl_sha256": "bf99f0cac04affbb061e6028fa2178e57cfcead63a9ef10b3433f642e4e8b4cb",
+          "chrometrace_json_sha256": "1176634769cb1d49046175f32256c18b426e95a43d5ee6dae61775e3b9d332dc",
+          "query_result_digests": {
+            "hook_payload_kind_counts.sql": "5b23ab2f5d060b9c4583907c57ad4e63541b3199246d2c81b2a6273feab9f7f3",
+            "runner_stage_timeline.sql": "db36a92d4517d0994a146f69310b4bbe5d1a6737184441d200fb8648a7f11d99",
+            "send_events.sql": "fa26cd7d7daafe5a8cf280cac50470eebc0095cc563b171a617af369287c5bd7"
+          }
+        }
+      }
+    }
   ]
 }

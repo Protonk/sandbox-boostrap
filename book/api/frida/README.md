@@ -38,6 +38,8 @@ Trace v1 envelope is documented in `book/api/frida/TRACE_SCHEMA_V1.md` and machi
 - Build cached index: `python -m book.api.frida.cli index <run_dir>`
 - Export Chrome Trace artifact: `python -m book.api.frida.cli export <run_dir>`
 - Validate schema/query/export invariants: `python -m book.api.frida.cli validate <run_dir...>`
+- Generate a new hook + manifest scaffold: `python -m book.api.frida.cli generate-hook --input book/api/frida/fixtures/generator_inputs/example_exports_v1.json`
+- Build TypeScript-authored hooks into the runtime catalog: `python -m book.api.frida.cli build-ts-hooks --check`
 
 Hook manifests are specified in `book/api/frida/HOOK_MANIFEST_V1.md` and live next to hook scripts as `*.manifest.json`.
 

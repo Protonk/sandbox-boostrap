@@ -596,7 +596,9 @@ enum {
     SBL_FILTER_PATH = 0,
     SBL_FILTER_GLOBAL_NAME = 5,
     SBL_FILTER_LOCAL_NAME = 6,
+    SBL_FILTER_IOKIT_REGISTRY_ENTRY_CLASS = 16,
     SBL_FILTER_RIGHT_NAME = 26,
+    SBL_FILTER_IOKIT_USER_CLIENT_TYPE = 76,
     SBL_FILTER_PREFERENCE_DOMAIN = 27,
 };
 
@@ -608,8 +610,12 @@ static const char *sbl_filter_type_name(long filter_type) {
         return "global-name";
     case SBL_FILTER_LOCAL_NAME:
         return "local-name";
+    case SBL_FILTER_IOKIT_REGISTRY_ENTRY_CLASS:
+        return "iokit-registry-entry-class";
     case SBL_FILTER_RIGHT_NAME:
         return "right-name";
+    case SBL_FILTER_IOKIT_USER_CLIENT_TYPE:
+        return "iokit-user-client-type";
     case SBL_FILTER_PREFERENCE_DOMAIN:
         return "preference-domain";
     default:
@@ -622,7 +628,9 @@ static int sbl_filter_type_is_string_arg(long filter_type) {
     case SBL_FILTER_PATH:
     case SBL_FILTER_GLOBAL_NAME:
     case SBL_FILTER_LOCAL_NAME:
+    case SBL_FILTER_IOKIT_REGISTRY_ENTRY_CLASS:
     case SBL_FILTER_RIGHT_NAME:
+    case SBL_FILTER_IOKIT_USER_CLIENT_TYPE:
     case SBL_FILTER_PREFERENCE_DOMAIN:
         return 1;
     default:

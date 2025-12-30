@@ -1,0 +1,29 @@
+{
+  "hook_name": "example_hook",
+  "description": "Example generated hook for golden-output tests.",
+  "targets": [
+    {
+      "module": "libsystem_sandbox.dylib",
+      "exports": [
+        "sandbox_check",
+        "sandbox_check_by_audit_token"
+      ],
+      "export_patterns": [
+        "^sandbox_check_.*$"
+      ]
+    },
+    {
+      "module": "libsystem_kernel.dylib",
+      "exports": [
+        "open",
+        "open$NOCANCEL"
+      ]
+    }
+  ],
+  "defaults": {
+    "emit_backtrace": false,
+    "emit_args": true,
+    "emit_return": false
+  }
+}
+

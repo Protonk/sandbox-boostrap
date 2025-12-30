@@ -1,0 +1,8 @@
+(version 2)
+(deny default (with telemetry) (with message "runtime-closure:iokit:deny-default"))
+(allow iokit-open-service
+  (with message "runtime-closure:iokit:allow-open-service")
+  (iokit-registry-entry-class "IOSurfaceRoot"))
+(allow iokit-open-user-client
+  (with message "runtime-closure:iokit:allow-open-user-client")
+  (iokit-user-client-class "IOSurfaceRootUserClient"))

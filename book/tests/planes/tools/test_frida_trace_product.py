@@ -2,11 +2,19 @@ from __future__ import annotations
 
 import json
 import shutil
+import subprocess
+import sys
 from pathlib import Path
+
+import pytest
 
 from book.api import path_utils
 from book.api.frida import trace_v1
 from book.api.frida.config import load_and_validate_config
+from book.api.frida.generate_hook import HookGeneratorError, format_manifest_json, generate_hook_files, write_generated_hook
+from book.api.frida.hook_manifest import load_manifest_snapshot
+from book.api.frida.script_assembly import assemble_script_source
+from book.api.frida.schema_validate import validate_hook_manifest_v1
 from book.api.frida.validate import validate_run_dir
 
 
@@ -227,3 +235,90 @@ def test_frida_configure_fixture_run_is_headless_and_gated(tmp_path: Path) -> No
     events = [json.loads(line) for line in (dst_dir / "events.jsonl").read_text().splitlines() if line.strip()]
     assert any(e.get("source") == "runner" and e.get("kind") == "config-validation" for e in events)
     assert any(e.get("source") == "runner" and e.get("kind") == "configure" for e in events)
+
+
+def test_frida_hook_generator_golden_outputs_are_stable(tmp_path: Path) -> None:
+    repo_root = path_utils.find_repo_root()
+
+    input_path = repo_root / "book/api/frida/fixtures/generator_inputs/example_exports_v1.json"
+    expected_js_path = repo_root / "book/api/frida/fixtures/generator_expected/example_hook_v1.js"
+    expected_manifest_path = repo_root / "book/api/frida/fixtures/generator_expected/example_hook_v1.manifest.json"
+
+    input_obj = json.loads(input_path.read_text())
+
+    out1 = generate_hook_files(input_obj)
+    out2 = generate_hook_files(input_obj)
+    assert out1["hook_js"] == out2["hook_js"]
+    assert out1["manifest_json"] == out2["manifest_json"]
+
+    assert out1["hook_js"] == expected_js_path.read_text()
+    assert format_manifest_json(out1["manifest_json"]) == expected_manifest_path.read_text()
+
+    violations = validate_hook_manifest_v1(out1["manifest_json"])
+    assert violations == []
+
+    out_dir_1 = tmp_path / "gen_1"
+    out_dir_2 = tmp_path / "gen_2"
+    write_generated_hook(out_dir_1, "example_hook", out1["hook_js"], out1["manifest_json"])
+    write_generated_hook(out_dir_2, "example_hook", out1["hook_js"], out1["manifest_json"])
+
+    assert (out_dir_1 / "example_hook.js").read_bytes() == (out_dir_2 / "example_hook.js").read_bytes()
+    assert (out_dir_1 / "example_hook.manifest.json").read_bytes() == (out_dir_2 / "example_hook.manifest.json").read_bytes()
+
+    with pytest.raises(HookGeneratorError) as exc:
+        write_generated_hook(out_dir_1, "example_hook", out1["hook_js"], out1["manifest_json"])
+    assert str(exc.value).startswith("OutputExistsError:")
+
+
+def test_frida_hook_generator_cli_smoke(tmp_path: Path) -> None:
+    repo_root = path_utils.find_repo_root()
+    input_path = repo_root / "book/api/frida/fixtures/generator_inputs/example_exports_v1.json"
+
+    out_dir = tmp_path / "cli_out"
+    p = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "book.api.frida.cli",
+            "generate-hook",
+            "--input",
+            str(input_path),
+            "--out-dir",
+            str(out_dir),
+        ],
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    assert p.returncode == 0, p.stderr
+    report = json.loads(p.stdout)
+    assert report.get("ok") is True
+    assert (out_dir / "example_hook.js").is_file()
+    assert (out_dir / "example_hook.manifest.json").is_file()
+
+
+def test_frida_generated_hook_is_compatible_with_assembly_and_manifest_snapshot(tmp_path: Path) -> None:
+    repo_root = path_utils.find_repo_root()
+
+    input_path = repo_root / "book/api/frida/fixtures/generator_inputs/example_exports_v1.json"
+    input_obj = json.loads(input_path.read_text())
+    out = generate_hook_files(input_obj)
+
+    out_dir = tmp_path / "gen"
+    write_generated_hook(out_dir, "example_hook", out["hook_js"], out["manifest_json"])
+    script_path = out_dir / "example_hook.js"
+
+    assembled_bytes, assembly_meta = assemble_script_source(script_path=script_path, repo_root=repo_root)
+    assert isinstance(assembled_bytes, (bytes, bytearray))
+    assert assembly_meta.get("assembly_version") == 1
+    helper = assembly_meta.get("helper")
+    assert isinstance(helper, dict)
+    assert helper.get("path") == "book/api/frida/hooks/_shared/trace_helper.js"
+
+    snap = load_manifest_snapshot(script_path=script_path, repo_root=repo_root)
+    assert snap.get("ok") is True
+    assert snap.get("violations") == []
+    manifest = snap.get("manifest")
+    assert isinstance(manifest, dict)
+    assert validate_hook_manifest_v1(manifest) == []
+    assert manifest.get("hook", {}).get("id") == "example_hook"

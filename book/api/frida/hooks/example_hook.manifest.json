@@ -1,0 +1,52 @@
+{
+  "config": {
+    "schema": {
+      "additionalProperties": true,
+      "type": "object"
+    }
+  },
+  "configure": {
+    "input_schema": {
+      "additionalProperties": true,
+      "type": "object"
+    },
+    "supported": true
+  },
+  "hook": {
+    "id": "example_hook",
+    "script_path": "book/api/frida/hooks/example_hook.js",
+    "summary": "Example generated hook for golden-output tests."
+  },
+  "module_expectations": [
+    {
+      "name": "libsystem_kernel.dylib",
+      "required": true
+    },
+    {
+      "name": "libsystem_sandbox.dylib",
+      "required": true
+    }
+  ],
+  "rpc": {
+    "configure": {
+      "present": true
+    }
+  },
+  "rpc_exports": [
+    "configure"
+  ],
+  "schema_name": "book.api.frida.hook_manifest",
+  "schema_version": 1,
+  "send_payload_kinds": [
+    "example_hook-call",
+    "example_hook-configured",
+    "hook-installed",
+    "hook-missing"
+  ],
+  "trace_event_schema": {
+    "events_format": "jsonl",
+    "schema_name": "book.api.frida.trace_event",
+    "schema_path": "book/api/frida/schemas/trace_event_v1.schema.json",
+    "schema_version": 1
+  }
+}

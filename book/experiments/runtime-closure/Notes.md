@@ -54,3 +54,15 @@ Use this file for short, factual run notes and failures. Avoid timestamps.
   - `v7_service_user_client_both`: `open_kr=0`, `call_kr=-536870206`, `call_kr_string="(iokit/common) invalid argument"`, `surface_create_ok=false`.
   - `v9_message_filter_deny` and `v10_message_filter_allow` blocked at preflight (apply gate signature); no runtime probe execution.
 - Emitted promotion packet for the file matrix run and refreshed VFS canonicalization mapping via `book/graph/mappings/vfs_canonicalization/generate_path_canonicalization_map.py` after updating `packet_set.json`.
+- Report-loud log capture attempt: `out/34a16e32-c4f9-4757-b69d-1b369a4d566e/` includes `observer/sandbox_log.txt` with `log` invocation error (zsh builtin). Reran with `/usr/bin/log` in `out/bf200589-b801-4771-8b73-a84dfef73be6/`; `observer/sandbox_log.txt` contains only the filter header (no sandbox report lines).
+- Report-loud v11 runtime runs: `out/bf200589-b801-4771-8b73-a84dfef73be6/` and `out/f7b0ca74-c80b-4431-b0bc-9f1c97962e82/` both return `exit_code=-5` (`probe_nonzero_exit`, no stdout/stderr); direct `sandbox_iokit_probe` run exits 133 (SIGTRAP).
+- Added seatbelt callouts to `sandbox_iokit_probe` for `iokit-open-service` and `iokit-open-user-client` (derived user-client class) gated by `SANDBOX_LORE_SEATBELT_CALLOUT=1`.
+- IOKit op-witness run with callouts: `out/6ed9e0b6-a2cf-4122-846e-c9c36eea52a0/` (launchd_clean, v7).
+  - `iokit-open-service` callout: `rc=0` (allow) for `IOSurfaceRoot`.
+  - `iokit-open-user-client` callout: `rc=-1`, `errno=22` (EINVAL) for `IOSurfaceRootUserClient`.
+- Rebuilt and reran `iosurface_trace` in `out/iosurface_call_trace_2/`; stderr shows `SBL_IKIT_INTERPOSE` only, with no `SBL_IKIT_CALL` lines.
+- IOKit callout preflight now tests `iokit-open`, `iokit-open-service`, and `iokit-open-user-client` with both registry-class strings and user-client-type numeric `0` via `sandbox_check_by_audit_token` (oracle lane only).
+- Added `v12_iokit_cvmsserv.sb` (allow open-service + open-user-client + `mach-lookup` for `com.apple.cvmsServ`) to test the WebKit graphics prereq hypothesis.
+- IOKit cvmsServ run: `out/760494b1-5088-4271-ba05-50c3888c8690/` (launchd_clean, v12 with callouts).
+  - `open_kr=0`, `call_kr=-536870206`, `surface_create_ok=false` (no improvement from `v7_service_user_client_both`).
+  - Oracle callouts: `iokit-open` + `iokit-registry-entry-class` denies (`rc=1`), `iokit-open-service` + `iokit-registry-entry-class` allows (`rc=0`), `iokit-open-user-client` + `iokit-user-client-type` still returns `EINVAL` for both string (`IOSurfaceRootUserClient`) and numeric (`0`) arguments.
