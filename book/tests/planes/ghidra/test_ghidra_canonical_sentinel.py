@@ -5,7 +5,7 @@ from pathlib import Path
 from book.api import path_utils
 
 
-CANONICAL_DIR = Path("book/tests/fixtures/ghidra_canonical")
+CANONICAL_DIR = Path("book/tests/planes/ghidra/fixtures/canonical")
 WORLD_PATH = Path("book/world/sonoma-14.4.1-23E224-arm64/world.json")
 PROVENANCE_SCHEMA_VERSION = 1
 META_SCHEMA_VERSION = 1

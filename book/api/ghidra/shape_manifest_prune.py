@@ -193,7 +193,7 @@ def _representatives_from_outputs(
                 "name": name,
                 "task": task,
                 "output_path": rel,
-                "snapshot_path": "book/tests/fixtures/ghidra_shapes/%s.shape.json" % name,
+                "snapshot_path": "book/tests/planes/ghidra/fixtures/shape_catalog/snapshots/%s.shape.json" % name,
                 "required": False,
                 "shape": {"list_length": True},
             }

@@ -93,7 +93,7 @@ def build_report(
         if entry.get("output_path") not in manifest_output_paths:
             strict_missing_from_manifest.append(entry.get("name"))
 
-    fixture_dir = repo_root / "book" / "tests" / "fixtures" / "ghidra_shapes"
+    fixture_dir = repo_root / "book" / "tests" / "planes" / "ghidra" / "fixtures" / "shape_catalog" / "snapshots"
     orphans = []
     for path in fixture_dir.glob("*.shape.json"):
         rel = path_utils.to_repo_relative(path, repo_root)
@@ -157,17 +157,17 @@ def main(argv: Optional[List[str]] = None) -> int:
     parser = argparse.ArgumentParser(description="Ghidra shape catalog hygiene checks")
     parser.add_argument(
         "--manifest",
-        default="book/tests/fixtures/ghidra_shapes/manifest.json",
+        default="book/tests/planes/ghidra/fixtures/shape_catalog/manifest.json",
         help="Manifest path",
     )
     parser.add_argument(
         "--strict-manifest",
-        default="book/tests/fixtures/ghidra_shapes/manifest.strict.json",
+        default="book/tests/planes/ghidra/fixtures/shape_catalog/manifest.strict.json",
         help="Strict manifest path",
     )
     parser.add_argument(
         "--families",
-        default="book/tests/fixtures/ghidra_shapes/families.json",
+        default="book/tests/planes/ghidra/fixtures/shape_catalog/families.json",
         help="Family map path",
     )
     parser.add_argument("--report", help="Write JSON report to this path")
@@ -197,7 +197,7 @@ def main(argv: Optional[List[str]] = None) -> int:
         print(
             "catalog issues detected; generate a baseline report with: "
             "python -m book.api.ghidra.shape_catalog_hygiene "
-            "--report book/tests/fixtures/ghidra_shapes/catalog_report.json",
+            "--report book/tests/planes/ghidra/fixtures/shape_catalog/reports/catalog_report.json",
             file=sys.stderr,
         )
         return 1

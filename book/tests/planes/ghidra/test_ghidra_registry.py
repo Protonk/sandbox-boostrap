@@ -26,8 +26,8 @@ def test_manifest_tasks_are_registered():
     tasks = registry.all_tasks()
 
     for rel in (
-        "book/tests/fixtures/ghidra_shapes/manifest.json",
-        "book/tests/fixtures/ghidra_shapes/manifest.strict.json",
+        "book/tests/planes/ghidra/fixtures/shape_catalog/manifest.json",
+        "book/tests/planes/ghidra/fixtures/shape_catalog/manifest.strict.json",
     ):
         manifest = _load_manifest(repo_root, rel)
         for entry in manifest.get("entries", []):

@@ -1,0 +1,126 @@
+{
+  "schema_version": "1.0",
+  "shape": {
+    "keys": {
+      "build_id": {
+        "type": "str"
+      },
+      "list_head_candidates": {
+        "element_shapes": [
+          {
+            "keys": {
+              "adrp_page": {
+                "type": "str"
+              },
+              "base_reg": {
+                "type": "str"
+              },
+              "ldr_addr": {
+                "type": "str"
+              },
+              "ldr_inst": {
+                "type": "str"
+              },
+              "list_head": {
+                "type": "str"
+              }
+            },
+            "type": "dict"
+          }
+        ],
+        "length": 1,
+        "sampled": 1,
+        "type": "list"
+      },
+      "list_head_offset": {
+        "type": "str"
+      },
+      "lookup_addr": {
+        "type": "str"
+      },
+      "lookup_function": {
+        "type": "str"
+      },
+      "store_offset": {
+        "type": "str"
+      },
+      "writer_candidates": {
+        "element_shapes": [
+          {
+            "keys": {
+              "list_head": {
+                "type": "str"
+              },
+              "refs": {
+                "element_shapes": [
+                  {
+                    "keys": {
+                      "from": {
+                        "type": "str"
+                      },
+                      "function": {
+                        "type": "str"
+                      },
+                      "function_entry": {
+                        "type": "str"
+                      },
+                      "is_read": {
+                        "type": "bool"
+                      },
+                      "is_write": {
+                        "type": "bool"
+                      },
+                      "type": {
+                        "type": "str"
+                      }
+                    },
+                    "type": "dict"
+                  }
+                ],
+                "length": 25,
+                "sampled": 25,
+                "type": "list"
+              },
+              "stores": {
+                "element_shapes": [
+                  {
+                    "keys": {
+                      "addr": {
+                        "type": "str"
+                      },
+                      "function": {
+                        "type": "str"
+                      },
+                      "inst": {
+                        "type": "str"
+                      }
+                    },
+                    "type": "dict"
+                  }
+                ],
+                "length": 2,
+                "sampled": 2,
+                "type": "list"
+              }
+            },
+            "type": "dict"
+          }
+        ],
+        "length": 1,
+        "sampled": 1,
+        "type": "list"
+      }
+    },
+    "type": "dict"
+  },
+  "source": {
+    "name": "kc-id-builder-trace",
+    "output_path": "dumps/ghidra/out/14.4.1-23E224/kernel-collection-id-builder-trace/id_builder_trace.json",
+    "shape_options": {
+      "list_length": true,
+      "max_list_items": null
+    },
+    "snapshot_path": "book/tests/planes/ghidra/fixtures/shape_catalog/snapshots/id_builder_trace.shape.json",
+    "task": "kernel-collection-id-builder-trace"
+  }
+}

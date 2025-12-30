@@ -4,8 +4,12 @@ from book.api.ghidra import shape_snapshot
 
 def test_ghidra_strict_shapes_are_required():
     repo_root = path_utils.find_repo_root()
-    manifest_path = repo_root / "book" / "tests" / "fixtures" / "ghidra_shapes" / "manifest.strict.json"
-    full_manifest_path = repo_root / "book" / "tests" / "fixtures" / "ghidra_shapes" / "manifest.json"
+    manifest_path = (
+        repo_root / "book" / "tests" / "planes" / "ghidra" / "fixtures" / "shape_catalog" / "manifest.strict.json"
+    )
+    full_manifest_path = (
+        repo_root / "book" / "tests" / "planes" / "ghidra" / "fixtures" / "shape_catalog" / "manifest.json"
+    )
     if not manifest_path.exists():
         raise AssertionError(f"missing strict manifest: {manifest_path}")
     if not full_manifest_path.exists():

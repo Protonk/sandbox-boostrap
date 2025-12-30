@@ -17,8 +17,8 @@ Interfaces:
 - Import ghidra helpers via `from ghidra_bootstrap import scan_utils` (or `node_scan_utils`) to keep path wiring consistent.
 - Task grouping lives in `book/api/ghidra/tasks/` (symbols, imports, disasm, scan, xref, policy, data).
 - Registry helpers (list groups/tasks) live in `book/api/ghidra/registry.py`.
-- Use `python -m book.api.ghidra.shape_manifest_prune --manifest book/tests/fixtures/ghidra_shapes/manifest.json --report book/tests/fixtures/ghidra_shapes/prune_report.json --write --expand` to prune and re-seed shape coverage from existing outputs.
-- Strict gating uses `book/tests/fixtures/ghidra_shapes/manifest.strict.json` via `book/tests/planes/ghidra/test_ghidra_output_shapes_strict_gate.py`.
+- Use `python -m book.api.ghidra.shape_manifest_prune --manifest book/tests/planes/ghidra/fixtures/shape_catalog/manifest.json --report book/tests/planes/ghidra/fixtures/shape_catalog/reports/prune_report.json --write --expand` to prune and re-seed shape coverage from existing outputs.
+- Strict gating uses `book/tests/planes/ghidra/fixtures/shape_catalog/manifest.strict.json` via `book/tests/planes/ghidra/test_ghidra_output_shapes_strict_gate.py`.
   Setting `GHIDRA_STRICT_SHAPES=1` additionally runs the optional strict test.
 
 Tasks (examples; see `TaskRegistry.default()` for the full set):
@@ -57,7 +57,7 @@ Workflow helpers (scripts in `book/api/ghidra/scripts/`):
 
 Catalog maintenance:
 - `python -m book.api.ghidra.shape_catalog_hygiene` – report orphan snapshots, missing fixtures,
-  duplicate shapes, and family coverage (driven by `book/tests/fixtures/ghidra_shapes/families.json`).
+  duplicate shapes, and family coverage (driven by `book/tests/planes/ghidra/fixtures/shape_catalog/families.json`).
 
 ## Workflow (single-path commands)
 
@@ -65,7 +65,7 @@ Catalog maintenance:
 - Refresh canonical sentinel: `python -m book.api.ghidra.refresh_canonical --name <sentinel_name>`
   - `offset_inst_scan_0xc0_write_classify`
   - `kernel_collection_symbols_canary`
-- Maintenance hygiene: `python -m book.api.ghidra.shape_catalog_hygiene --report book/tests/fixtures/ghidra_shapes/catalog_report.json`
+- Maintenance hygiene: `python -m book.api.ghidra.shape_catalog_hygiene --report book/tests/planes/ghidra/fixtures/shape_catalog/reports/catalog_report.json`
   - Add `--fail-on-issues` for a non-zero exit when issues are found.
 
 Tag-switch triage (rolled up from the former `dumps/ghidra/Tag_triage.md`):

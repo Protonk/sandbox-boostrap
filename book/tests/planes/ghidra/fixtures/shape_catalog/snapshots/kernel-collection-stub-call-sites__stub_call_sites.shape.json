@@ -1,0 +1,126 @@
+{
+  "schema_version": "1.0",
+  "shape": {
+    "keys": {
+      "call_sites": {
+        "element_shapes": [],
+        "length": 0,
+        "sampled": 0,
+        "type": "list"
+      },
+      "meta": {
+        "keys": {
+          "all_block_names": {
+            "element_shapes": [
+              {
+                "type": "str"
+              }
+            ],
+            "length": 51,
+            "sampled": 51,
+            "type": "list"
+          },
+          "block_filter": {
+            "element_shapes": [
+              {
+                "keys": {
+                  "end": {
+                    "type": "str"
+                  },
+                  "name": {
+                    "type": "str"
+                  },
+                  "start": {
+                    "type": "str"
+                  }
+                },
+                "type": "dict"
+              }
+            ],
+            "length": 624,
+            "sampled": 624,
+            "type": "list"
+          },
+          "build_id": {
+            "type": "str"
+          },
+          "call_site_count": {
+            "type": "int"
+          },
+          "include_b": {
+            "type": "bool"
+          },
+          "program": {
+            "type": "str"
+          },
+          "scan_all_blocks": {
+            "type": "bool"
+          },
+          "stub_entry_count": {
+            "type": "int"
+          },
+          "stub_map_path": {
+            "type": "null"
+          },
+          "stub_meta": {
+            "keys": {
+              "build_id": {
+                "type": "str"
+              },
+              "match_count": {
+                "type": "int"
+              },
+              "matched_stub_count": {
+                "type": "int"
+              },
+              "otool": {
+                "type": "str"
+              },
+              "stub_count": {
+                "type": "int"
+              },
+              "stub_map": {
+                "type": "str"
+              },
+              "symbol_filters": {
+                "element_shapes": [
+                  {
+                    "type": "str"
+                  }
+                ],
+                "length": 2,
+                "sampled": 2,
+                "type": "list"
+              },
+              "target_count": {
+                "type": "int"
+              }
+            },
+            "type": "dict"
+          },
+          "stub_record_count": {
+            "type": "int"
+          },
+          "stub_source": {
+            "type": "str"
+          },
+          "stub_target_path": {
+            "type": "str"
+          }
+        },
+        "type": "dict"
+      }
+    },
+    "type": "dict"
+  },
+  "source": {
+    "name": "kernel-collection-stub-call-sites__stub_call_sites",
+    "output_path": "dumps/ghidra/out/14.4.1-23E224/kernel-collection-stub-call-sites/stub_call_sites.json",
+    "shape_options": {
+      "list_length": true,
+      "max_list_items": null
+    },
+    "snapshot_path": "book/tests/planes/ghidra/fixtures/shape_catalog/snapshots/kernel-collection-stub-call-sites__stub_call_sites.shape.json",
+    "task": "kernel-collection-stub-call-sites"
+  }
+}

@@ -1,0 +1,165 @@
+{
+  "schema_version": "1.0",
+  "shape": {
+    "keys": {
+      "_provenance": {
+        "keys": {
+          "analysis": {
+            "keys": {
+              "profile_id": {
+                "type": "str"
+              }
+            },
+            "type": "dict"
+          },
+          "build_id": {
+            "type": "str"
+          },
+          "generator": {
+            "keys": {
+              "deps": {
+                "element_shapes": [
+                  {
+                    "keys": {
+                      "path": {
+                        "type": "str"
+                      },
+                      "sha256": {
+                        "type": "str"
+                      }
+                    },
+                    "type": "dict"
+                  }
+                ],
+                "length": 7,
+                "sampled": 7,
+                "type": "list"
+              },
+              "script_content_sha256": {
+                "type": "str"
+              },
+              "script_path": {
+                "type": "str"
+              }
+            },
+            "type": "dict"
+          },
+          "input": {
+            "keys": {
+              "program_path": {
+                "type": "str"
+              },
+              "program_sha256": {
+                "type": "str"
+              }
+            },
+            "type": "dict"
+          },
+          "schema_version": {
+            "type": "int"
+          },
+          "world_id": {
+            "type": "str"
+          }
+        },
+        "type": "dict"
+      },
+      "hits": {
+        "element_shapes": [
+          {
+            "keys": {
+              "address": {
+                "type": "str"
+              },
+              "function": {
+                "type": "null"
+              },
+              "inst": {
+                "type": "str"
+              },
+              "mnemonic": {
+                "type": "str"
+              }
+            },
+            "type": "dict"
+          },
+          {
+            "keys": {
+              "address": {
+                "type": "str"
+              },
+              "function": {
+                "type": "str"
+              },
+              "inst": {
+                "type": "str"
+              },
+              "mnemonic": {
+                "type": "str"
+              }
+            },
+            "type": "dict"
+          }
+        ],
+        "length": 2711,
+        "sampled": 2711,
+        "type": "list"
+      },
+      "meta": {
+        "keys": {
+          "block_filter": {
+            "element_shapes": [
+              {
+                "keys": {
+                  "end": {
+                    "type": "str"
+                  },
+                  "name": {
+                    "type": "str"
+                  },
+                  "start": {
+                    "type": "str"
+                  }
+                },
+                "type": "dict"
+              }
+            ],
+            "length": 5006,
+            "sampled": 5006,
+            "type": "list"
+          },
+          "build_id": {
+            "type": "str"
+          },
+          "hit_count": {
+            "type": "int"
+          },
+          "offset": {
+            "type": "str"
+          },
+          "program": {
+            "type": "str"
+          },
+          "scan_all_blocks": {
+            "type": "bool"
+          },
+          "write_only": {
+            "type": "bool"
+          }
+        },
+        "type": "dict"
+      }
+    },
+    "type": "dict"
+  },
+  "source": {
+    "name": "kernel-collection-offset-scan-0x150__offset_inst_scan",
+    "output_path": "dumps/ghidra/out/14.4.1-23E224/kernel-collection-offset-scan-0x150/offset_inst_scan.json",
+    "shape_options": {
+      "list_length": true,
+      "max_list_items": null
+    },
+    "snapshot_path": "book/tests/planes/ghidra/fixtures/shape_catalog/snapshots/kernel-collection-offset-scan-0x150__offset_inst_scan.shape.json",
+    "task": "kernel-collection-offset-scan-0x150"
+  }
+}

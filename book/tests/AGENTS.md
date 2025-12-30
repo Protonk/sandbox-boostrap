@@ -23,8 +23,7 @@ Pick the smallest plane that “owns” the invariant:
 
 Fixtures and fixture policy:
 
-- `book/tests/fixtures/README.md`
-- `book/tests/fixtures/ghidra/README.md`
+- `book/tests/planes/ghidra/fixtures/README.md`
 
 ## Marks (keep the suite honest)
 

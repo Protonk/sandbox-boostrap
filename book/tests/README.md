@@ -72,5 +72,4 @@ Apple tooling with `@pytest.mark.system`.
 
 Fixtures are inputs to tests, not outputs of test runs.
 
-- Fixture policy: `book/tests/fixtures/README.md`.
-- Ghidra fixtures (shapes + canonical sentinels): `book/tests/fixtures/ghidra/README.md`.
+- Fixture policy and layout: `book/tests/planes/ghidra/fixtures/README.md`.

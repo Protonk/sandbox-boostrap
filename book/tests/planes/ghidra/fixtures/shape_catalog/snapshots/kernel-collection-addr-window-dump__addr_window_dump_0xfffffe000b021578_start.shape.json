@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0",
+  "shape": {
+    "keys": {
+      "address": {
+        "type": "str"
+      },
+      "build_id": {
+        "type": "str"
+      },
+      "function": {
+        "type": "null"
+      },
+      "instructions": {
+        "element_shapes": [
+          {
+            "keys": {
+              "addr": {
+                "type": "str"
+              },
+              "inst": {
+                "type": "str"
+              },
+              "mnemonic": {
+                "type": "str"
+              }
+            },
+            "type": "dict"
+          }
+        ],
+        "length": 401,
+        "sampled": 401,
+        "type": "list"
+      },
+      "program": {
+        "type": "str"
+      }
+    },
+    "type": "dict"
+  },
+  "source": {
+    "name": "kernel-collection-addr-window-dump__addr_window_dump_0xfffffe000b021578_start",
+    "output_path": "dumps/ghidra/out/14.4.1-23E224/kernel-collection-addr-window-dump/addr_window_dump_0xfffffe000b021578_start.json",
+    "shape_options": {
+      "list_length": true,
+      "max_list_items": null
+    },
+    "snapshot_path": "book/tests/planes/ghidra/fixtures/shape_catalog/snapshots/kernel-collection-addr-window-dump__addr_window_dump_0xfffffe000b021578_start.shape.json",
+    "task": "kernel-collection-addr-window-dump"
+  }
+}

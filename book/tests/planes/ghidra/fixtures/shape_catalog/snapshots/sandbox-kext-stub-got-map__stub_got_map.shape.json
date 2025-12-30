@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.0",
+  "shape": {
+    "keys": {
+      "meta": {
+        "keys": {
+          "adrp_seen": {
+            "type": "int"
+          },
+          "all_block_names": {
+            "element_shapes": [
+              {
+                "type": "str"
+              }
+            ],
+            "length": 14,
+            "sampled": 14,
+            "type": "list"
+          },
+          "block_filter": {
+            "element_shapes": [
+              {
+                "keys": {
+                  "end": {
+                    "type": "str"
+                  },
+                  "name": {
+                    "type": "str"
+                  },
+                  "start": {
+                    "type": "str"
+                  }
+                },
+                "type": "dict"
+              }
+            ],
+            "length": 1,
+            "sampled": 1,
+            "type": "list"
+          },
+          "block_substr": {
+            "type": "str"
+          },
+          "branch_hits": {
+            "type": "int"
+          },
+          "branch_seen": {
+            "type": "int"
+          },
+          "build_id": {
+            "type": "str"
+          },
+          "exec_only": {
+            "type": "bool"
+          },
+          "got_block_mode": {
+            "type": "str"
+          },
+          "got_blocks": {
+            "element_shapes": [
+              {
+                "keys": {
+                  "end": {
+                    "type": "str"
+                  },
+                  "name": {
+                    "type": "str"
+                  },
+                  "start": {
+                    "type": "str"
+                  }
+                },
+                "type": "dict"
+              }
+            ],
+            "length": 3,
+            "sampled": 3,
+            "type": "list"
+          },
+          "lookahead": {
+            "type": "int"
+          },
+          "match_count": {
+            "type": "int"
+          },
+          "program": {
+            "type": "str"
+          },
+          "scan_all_blocks": {
+            "type": "bool"
+          }
+        },
+        "type": "dict"
+      },
+      "stubs": {
+        "element_shapes": [],
+        "length": 0,
+        "sampled": 0,
+        "type": "list"
+      }
+    },
+    "type": "dict"
+  },
+  "source": {
+    "name": "sandbox-kext-stub-got-map__stub_got_map",
+    "output_path": "dumps/ghidra/out/14.4.1-23E224/sandbox-kext-stub-got-map/stub_got_map.json",
+    "shape_options": {
+      "list_length": true,
+      "max_list_items": null
+    },
+    "snapshot_path": "book/tests/planes/ghidra/fixtures/shape_catalog/snapshots/sandbox-kext-stub-got-map__stub_got_map.shape.json",
+    "task": "sandbox-kext-stub-got-map"
+  }
+}
