@@ -32,7 +32,7 @@ def test_canonical_status_propagates_downstream():
     digests = load_json(ROOT / "book" / "graph" / "mappings" / "system_profiles" / "digests.json")
     canonical_status = (digests.get("metadata") or {}).get("status")
     canonical_profiles = (digests.get("metadata") or {}).get("canonical_profiles") or {}
-    coverage = load_json(ROOT / "book" / "graph" / "mappings" / "carton" / "operation_coverage.json")
+    coverage = load_json(ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "operation_coverage.json")
     tag_layouts = load_json(ROOT / "book" / "graph" / "mappings" / "tag_layouts" / "tag_layouts.json")
     assert coverage.get("metadata", {}).get("status") == canonical_status
     assert tag_layouts.get("metadata", {}).get("status") == canonical_status

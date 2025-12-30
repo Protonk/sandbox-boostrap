@@ -1,0 +1,60 @@
+{
+  "metadata": {
+    "notes": "View derived from concept_sources relationship.",
+    "status": "ok",
+    "tier": "mapped",
+    "inputs": [
+      "book/integration/carton/bundle/relationships/concept_sources.json",
+      "book/integration/carton/bundle/CARTON.json"
+    ],
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  "concepts": {
+    "operation": [
+      {
+        "path": "book/graph/mappings/vocab/ops.json",
+        "key": "ops",
+        "by": "id/name"
+      },
+      {
+        "path": "book/integration/carton/bundle/relationships/operation_coverage.json",
+        "key": "coverage",
+        "by": "op_name"
+      },
+      {
+        "path": "book/integration/carton/bundle/views/operation_index.json",
+        "key": "operations",
+        "by": "op_name"
+      }
+    ],
+    "filter": [
+      {
+        "path": "book/graph/mappings/vocab/filters.json",
+        "key": "filters",
+        "by": "id/name"
+      },
+      {
+        "path": "book/integration/carton/bundle/relationships/filter_usage.json",
+        "key": "filters",
+        "by": "filter_name (map keys)"
+      },
+      {
+        "path": "book/integration/carton/bundle/views/filter_index.json",
+        "key": "filters",
+        "by": "filter_name (map keys)"
+      }
+    ],
+    "profile-layer": [
+      {
+        "path": "book/integration/carton/bundle/relationships/profile_layer_ops.json",
+        "key": "profiles",
+        "by": "profile_id (map keys)"
+      },
+      {
+        "path": "book/integration/carton/bundle/views/profile_layer_index.json",
+        "key": "profiles",
+        "by": "profile_id (map keys)"
+      }
+    ]
+  }
+}

@@ -57,35 +57,40 @@ def test_canonical_drift_demotes_and_propagates(monkeypatch, tmp_path):
     assert tag_layouts["metadata"]["status"] == "brittle"
     assert tag_layouts["metadata"]["canonical_profiles"]["sys:bsd"] == "brittle"
 
-    # Propagate to coverage and indices (with temp outputs to avoid touching real mappings)
-    cov = importlib.import_module("book.graph.mappings.carton.generate_coverage_from_carton")
+    # Propagate to coverage and views (with temp outputs to avoid touching real mappings)
+    cov = importlib.import_module("book.integration.carton.fixers.operation_coverage")
     tmp_cov = tmp_path / "operation_coverage.json"
     monkeypatch.setattr(cov, "DIGESTS_PATH", tmp_digests)
     monkeypatch.setattr(cov, "OUT_PATH", tmp_cov)
     monkeypatch.setattr(cov, "run_validation", lambda: None)
     monkeypatch.setattr(cov, "require_jobs", lambda status: None)
-    cov.main()
+    cov.run()
     coverage = load_json(tmp_cov)
     assert coverage["metadata"]["status"] == "brittle"
     assert coverage["metadata"]["canonical_profile_status"]["sys:bsd"] == "brittle"
 
-    op_idx = importlib.import_module("book.graph.mappings.carton.generate_operation_index")
+    profile_rel = importlib.import_module("book.integration.carton.fixers.profile_layer_ops")
+    tmp_profile_rel = tmp_path / "profile_layer_ops.json"
+    monkeypatch.setattr(profile_rel, "DIGESTS_PATH", tmp_digests)
+    monkeypatch.setattr(profile_rel, "COVERAGE_PATH", tmp_cov)
+    monkeypatch.setattr(profile_rel, "OUT_PATH", tmp_profile_rel)
+    profile_rel.run()
+
+    views = importlib.import_module("book.integration.carton.fixers.build_views")
     tmp_op_idx = tmp_path / "operation_index.json"
-    monkeypatch.setattr(op_idx, "COVERAGE", tmp_cov)
-    monkeypatch.setattr(op_idx, "DIGESTS", tmp_digests)
-    monkeypatch.setattr(op_idx, "OUT", tmp_op_idx)
-    op_idx.main()
-    operation_index = load_json(tmp_op_idx)
+    monkeypatch.setattr(views, "COVERAGE_PATH", tmp_cov)
+    monkeypatch.setattr(views, "DIGESTS_PATH", tmp_digests)
+    monkeypatch.setattr(views, "OP_INDEX_PATH", tmp_op_idx)
+    operation_index = views.build_operation_index()
+    tmp_op_idx.write_text(json.dumps(operation_index, indent=2))
     assert operation_index["metadata"]["status"] == "brittle"
     assert operation_index["metadata"]["canonical_profile_status"]["sys:bsd"] == "brittle"
 
-    profile_idx = importlib.import_module("book.graph.mappings.carton.generate_profile_layer_index")
     tmp_profile_idx = tmp_path / "profile_layer_index.json"
-    monkeypatch.setattr(profile_idx, "DIGESTS", tmp_digests)
-    monkeypatch.setattr(profile_idx, "COVERAGE", tmp_cov)
-    monkeypatch.setattr(profile_idx, "OUT", tmp_profile_idx)
-    profile_idx.main()
-    profile_layer_index = load_json(tmp_profile_idx)
+    monkeypatch.setattr(views, "PROFILE_REL_PATH", tmp_profile_rel)
+    monkeypatch.setattr(views, "PROFILE_INDEX_PATH", tmp_profile_idx)
+    profile_layer_index = views.build_profile_layer_index()
+    tmp_profile_idx.write_text(json.dumps(profile_layer_index, indent=2))
     assert profile_layer_index["metadata"]["status"] == "brittle"
     assert profile_layer_index["metadata"]["canonical_profile_status"]["sys:bsd"] == "brittle"
     assert profile_layer_index["profiles"]["sys:bsd"]["status"] == "brittle"

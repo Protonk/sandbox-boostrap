@@ -1,0 +1,1132 @@
+{
+  "metadata": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "inputs": [
+      "book/integration/carton/bundle/relationships/operation_coverage.json",
+      "book/integration/carton/bundle/CARTON.json"
+    ],
+    "source_jobs": [
+      "experiment:system-profile-digest",
+      "vocab:sonoma-14.4.1"
+    ],
+    "status": "ok",
+    "tier": "mapped",
+    "notes": "Derived from operation_coverage; exposes operation \u2194 system profile edges."
+  },
+  "operations": {
+    "appleevent-send": {
+      "op_id": 1,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "authorization-right-obtain": {
+      "op_id": 2,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "boot-arg-set": {
+      "op_id": 3,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "darwin-notification-post": {
+      "op_id": 7,
+      "system_profiles": [
+        "sys:airlock",
+        "sys:sample"
+      ],
+      "system_profile_status": {
+        "sys:airlock": "ok",
+        "sys:sample": "ok"
+      }
+    },
+    "default": {
+      "op_id": 0,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "default-message-filter": {
+      "op_id": 190,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "device*": {
+      "op_id": 4,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "device-camera": {
+      "op_id": 5,
+      "system_profiles": [
+        "sys:airlock"
+      ],
+      "system_profile_status": {
+        "sys:airlock": "ok"
+      }
+    },
+    "device-microphone": {
+      "op_id": 6,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "distributed-notification-post": {
+      "op_id": 8,
+      "system_profiles": [
+        "sys:sample"
+      ],
+      "system_profile_status": {
+        "sys:sample": "ok"
+      }
+    },
+    "dynamic-code-generation": {
+      "op_id": 9,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "file*": {
+      "op_id": 10,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "file-chroot": {
+      "op_id": 11,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "file-clone": {
+      "op_id": 12,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "file-ioctl": {
+      "op_id": 13,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "file-issue-extension": {
+      "op_id": 14,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "file-link": {
+      "op_id": 15,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "file-lock": {
+      "op_id": 16,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "file-map-executable": {
+      "op_id": 17,
+      "system_profiles": [
+        "sys:airlock"
+      ],
+      "system_profile_status": {
+        "sys:airlock": "ok"
+      }
+    },
+    "file-mknod": {
+      "op_id": 18,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "file-mount": {
+      "op_id": 19,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "file-mount-update": {
+      "op_id": 20,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "file-read*": {
+      "op_id": 21,
+      "system_profiles": [
+        "sys:bsd"
+      ],
+      "system_profile_status": {
+        "sys:bsd": "ok"
+      }
+    },
+    "file-read-data": {
+      "op_id": 22,
+      "system_profiles": [
+        "sys:bsd"
+      ],
+      "system_profile_status": {
+        "sys:bsd": "ok"
+      }
+    },
+    "file-read-metadata": {
+      "op_id": 23,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "file-read-xattr": {
+      "op_id": 24,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "file-revoke": {
+      "op_id": 25,
+      "system_profiles": [
+        "sys:bsd"
+      ],
+      "system_profile_status": {
+        "sys:bsd": "ok"
+      }
+    },
+    "file-search": {
+      "op_id": 26,
+      "system_profiles": [
+        "sys:bsd"
+      ],
+      "system_profile_status": {
+        "sys:bsd": "ok"
+      }
+    },
+    "file-test-existence": {
+      "op_id": 27,
+      "system_profiles": [
+        "sys:bsd"
+      ],
+      "system_profile_status": {
+        "sys:bsd": "ok"
+      }
+    },
+    "file-unmount": {
+      "op_id": 28,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "file-write*": {
+      "op_id": 29,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "file-write-acl": {
+      "op_id": 30,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "file-write-create": {
+      "op_id": 31,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "file-write-data": {
+      "op_id": 32,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "file-write-finderinfo": {
+      "op_id": 33,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "file-write-flags": {
+      "op_id": 34,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "file-write-mode": {
+      "op_id": 35,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "file-write-owner": {
+      "op_id": 36,
+      "system_profiles": [
+        "sys:airlock"
+      ],
+      "system_profile_status": {
+        "sys:airlock": "ok"
+      }
+    },
+    "file-write-setugid": {
+      "op_id": 37,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "file-write-times": {
+      "op_id": 38,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "file-write-unlink": {
+      "op_id": 39,
+      "system_profiles": [
+        "sys:airlock"
+      ],
+      "system_profile_status": {
+        "sys:airlock": "ok"
+      }
+    },
+    "file-write-xattr": {
+      "op_id": 40,
+      "system_profiles": [
+        "sys:airlock"
+      ],
+      "system_profile_status": {
+        "sys:airlock": "ok"
+      }
+    },
+    "fs-quota*": {
+      "op_id": 41,
+      "system_profiles": [
+        "sys:airlock"
+      ],
+      "system_profile_status": {
+        "sys:airlock": "ok"
+      }
+    },
+    "fs-quota-get": {
+      "op_id": 42,
+      "system_profiles": [
+        "sys:airlock"
+      ],
+      "system_profile_status": {
+        "sys:airlock": "ok"
+      }
+    },
+    "fs-quota-off": {
+      "op_id": 44,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "fs-quota-on": {
+      "op_id": 43,
+      "system_profiles": [
+        "sys:airlock"
+      ],
+      "system_profile_status": {
+        "sys:airlock": "ok"
+      }
+    },
+    "fs-quota-set*": {
+      "op_id": 45,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "fs-quota-set-limits": {
+      "op_id": 46,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "fs-quota-set-usage": {
+      "op_id": 47,
+      "system_profiles": [
+        "sys:airlock"
+      ],
+      "system_profile_status": {
+        "sys:airlock": "ok"
+      }
+    },
+    "fs-quota-stat": {
+      "op_id": 48,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "fs-quota-sync": {
+      "op_id": 49,
+      "system_profiles": [
+        "sys:airlock"
+      ],
+      "system_profile_status": {
+        "sys:airlock": "ok"
+      }
+    },
+    "fs-rename": {
+      "op_id": 50,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "fs-snapshot*": {
+      "op_id": 51,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "fs-snapshot-create": {
+      "op_id": 52,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "fs-snapshot-delete": {
+      "op_id": 53,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "fs-snapshot-mount": {
+      "op_id": 54,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "fs-snapshot-revert": {
+      "op_id": 55,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "generic-issue-extension": {
+      "op_id": 56,
+      "system_profiles": [
+        "sys:airlock"
+      ],
+      "system_profile_status": {
+        "sys:airlock": "ok"
+      }
+    },
+    "hid-control": {
+      "op_id": 58,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "iokit*": {
+      "op_id": 59,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "iokit-async-external-method": {
+      "op_id": 191,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "iokit-external-method": {
+      "op_id": 192,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "iokit-external-trap": {
+      "op_id": 193,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "iokit-get-properties": {
+      "op_id": 60,
+      "system_profiles": [
+        "sys:airlock"
+      ],
+      "system_profile_status": {
+        "sys:airlock": "ok"
+      }
+    },
+    "iokit-issue-extension": {
+      "op_id": 61,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "iokit-open*": {
+      "op_id": 62,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "iokit-open-service": {
+      "op_id": 64,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "iokit-open-user-client": {
+      "op_id": 63,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "iokit-set-properties": {
+      "op_id": 65,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "ipc*": {
+      "op_id": 66,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "ipc-posix*": {
+      "op_id": 67,
+      "system_profiles": [
+        "sys:airlock"
+      ],
+      "system_profile_status": {
+        "sys:airlock": "ok"
+      }
+    },
+    "ipc-posix-issue-extension": {
+      "op_id": 68,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "ipc-posix-sem*": {
+      "op_id": 69,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "ipc-posix-sem-create": {
+      "op_id": 70,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "ipc-posix-sem-open": {
+      "op_id": 71,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "ipc-posix-sem-post": {
+      "op_id": 72,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "ipc-posix-sem-unlink": {
+      "op_id": 73,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "ipc-posix-sem-wait": {
+      "op_id": 74,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "ipc-posix-shm*": {
+      "op_id": 75,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "ipc-posix-shm-read-data": {
+      "op_id": 76,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "ipc-posix-shm-write*": {
+      "op_id": 77,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "ipc-posix-shm-write-create": {
+      "op_id": 78,
+      "system_profiles": [
+        "sys:airlock"
+      ],
+      "system_profile_status": {
+        "sys:airlock": "ok"
+      }
+    },
+    "ipc-posix-shm-write-data": {
+      "op_id": 79,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "ipc-posix-shm-write-unlink": {
+      "op_id": 80,
+      "system_profiles": [
+        "sys:airlock"
+      ],
+      "system_profile_status": {
+        "sys:airlock": "ok"
+      }
+    },
+    "ipc-sysv*": {
+      "op_id": 81,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "ipc-sysv-msg": {
+      "op_id": 82,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "ipc-sysv-sem": {
+      "op_id": 83,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "ipc-sysv-shm": {
+      "op_id": 84,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "job-creation": {
+      "op_id": 85,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "lsopen": {
+      "op_id": 86,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "mach*": {
+      "op_id": 87,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "mach-bootstrap": {
+      "op_id": 88,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "mach-cross-domain-lookup": {
+      "op_id": 89,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "mach-derive-port": {
+      "op_id": 90,
+      "system_profiles": [
+        "sys:airlock"
+      ],
+      "system_profile_status": {
+        "sys:airlock": "ok"
+      }
+    },
+    "mach-host*": {
+      "op_id": 91,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "mach-host-exception-port-set": {
+      "op_id": 92,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "mach-host-special-port-set": {
+      "op_id": 93,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "mach-issue-extension": {
+      "op_id": 94,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "mach-kernel-endpoint": {
+      "op_id": 95,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "mach-lookup": {
+      "op_id": 96,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "mach-message-send": {
+      "op_id": 194,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "mach-priv*": {
+      "op_id": 97,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "mach-priv-host-port": {
+      "op_id": 98,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "mach-priv-task-port": {
+      "op_id": 99,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "mach-register": {
+      "op_id": 100,
+      "system_profiles": [
+        "sys:airlock"
+      ],
+      "system_profile_status": {
+        "sys:airlock": "ok"
+      }
+    },
+    "mach-task*": {
+      "op_id": 101,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "mach-task-inspect": {
+      "op_id": 102,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "mach-task-name": {
+      "op_id": 103,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "mach-task-read": {
+      "op_id": 104,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "mach-task-special-port*": {
+      "op_id": 105,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "mach-task-special-port-get": {
+      "op_id": 106,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "mach-task-special-port-set": {
+      "op_id": 107,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "managed-preference-read": {
+      "op_id": 186,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "necp-client-open": {
+      "op_id": 108,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "network*": {
+      "op_id": 109,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "network-bind": {
+      "op_id": 111,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "network-inbound": {
+      "op_id": 110,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "network-outbound": {
+      "op_id": 112,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "nvram*": {
+      "op_id": 113,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "nvram-delete": {
+      "op_id": 114,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "nvram-get": {
+      "op_id": 115,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "nvram-set": {
+      "op_id": 116,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "opendirectory-user-modify": {
+      "op_id": 117,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "process*": {
+      "op_id": 118,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "process-codesigning": {
+      "op_id": 119,
+      "system_profiles": [
+        "sys:airlock"
+      ],
+      "system_profile_status": {
+        "sys:airlock": "ok"
+      }
+    },
+    "process-exec*": {
+      "op_id": 120,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "process-exec-interpreter": {
+      "op_id": 121,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "process-exec-update-label": {
+      "op_id": 189,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "process-fork": {
+      "op_id": 122,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "process-info*": {
+      "op_id": 123,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "process-info-codesignature": {
+      "op_id": 124,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "process-info-dirtycontrol": {
+      "op_id": 125,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "process-info-ledger": {
+      "op_id": 126,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "process-info-listpids": {
+      "op_id": 127,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "process-info-pidfdinfo": {
+      "op_id": 130,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "process-info-pidfileportinfo": {
+      "op_id": 131,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "process-info-pidinfo": {
+      "op_id": 129,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "process-info-rusage": {
+      "op_id": 128,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "process-info-setcontrol": {
+      "op_id": 132,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "process-legacy-codesigning*": {
+      "op_id": 133,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "process-legacy-codesigning-blob-get": {
+      "op_id": 134,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "process-legacy-codesigning-cdhash-get": {
+      "op_id": 135,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "process-legacy-codesigning-entitlements-blob-get": {
+      "op_id": 136,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "process-legacy-codesigning-entitlements-der-blob-get": {
+      "op_id": 137,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "process-legacy-codesigning-identity-get": {
+      "op_id": 138,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "process-legacy-codesigning-status*": {
+      "op_id": 139,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "process-legacy-codesigning-status-get": {
+      "op_id": 140,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "process-legacy-codesigning-status-set": {
+      "op_id": 141,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "process-legacy-codesigning-teamid-get": {
+      "op_id": 142,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "process-legacy-codesigning-text-offset-get": {
+      "op_id": 143,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "pseudo-tty": {
+      "op_id": 144,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "qtn-user": {
+      "op_id": 57,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "signal": {
+      "op_id": 145,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "socket-ioctl": {
+      "op_id": 146,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "socket-option*": {
+      "op_id": 147,
+      "system_profiles": [
+        "sys:airlock"
+      ],
+      "system_profile_status": {
+        "sys:airlock": "ok"
+      }
+    },
+    "socket-option-get": {
+      "op_id": 148,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "socket-option-set": {
+      "op_id": 149,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "storage-class-map": {
+      "op_id": 188,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "syscall*": {
+      "op_id": 150,
+      "system_profiles": [
+        "sys:airlock"
+      ],
+      "system_profile_status": {
+        "sys:airlock": "ok"
+      }
+    },
+    "syscall-mach": {
+      "op_id": 152,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "syscall-mig": {
+      "op_id": 153,
+      "system_profiles": [
+        "sys:airlock"
+      ],
+      "system_profile_status": {
+        "sys:airlock": "ok"
+      }
+    },
+    "syscall-unix": {
+      "op_id": 151,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "sysctl*": {
+      "op_id": 154,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "sysctl-read": {
+      "op_id": 155,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "sysctl-write": {
+      "op_id": 156,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "system*": {
+      "op_id": 157,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "system-acct": {
+      "op_id": 158,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "system-audit": {
+      "op_id": 159,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "system-automount": {
+      "op_id": 160,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "system-debug": {
+      "op_id": 161,
+      "system_profiles": [
+        "sys:airlock"
+      ],
+      "system_profile_status": {
+        "sys:airlock": "ok"
+      }
+    },
+    "system-fcntl": {
+      "op_id": 162,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "system-fsctl": {
+      "op_id": 163,
+      "system_profiles": [
+        "sys:airlock"
+      ],
+      "system_profile_status": {
+        "sys:airlock": "ok"
+      }
+    },
+    "system-info": {
+      "op_id": 164,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "system-kas-info": {
+      "op_id": 165,
+      "system_profiles": [
+        "sys:airlock"
+      ],
+      "system_profile_status": {
+        "sys:airlock": "ok"
+      }
+    },
+    "system-kext*": {
+      "op_id": 166,
+      "system_profiles": [
+        "sys:airlock"
+      ],
+      "system_profile_status": {
+        "sys:airlock": "ok"
+      }
+    },
+    "system-kext-load": {
+      "op_id": 167,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "system-kext-query": {
+      "op_id": 169,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "system-kext-unload": {
+      "op_id": 168,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "system-mac*": {
+      "op_id": 170,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "system-mac-label": {
+      "op_id": 171,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "system-mac-syscall": {
+      "op_id": 172,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "system-memorystatus-control": {
+      "op_id": 173,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "system-necp-client-action": {
+      "op_id": 174,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "system-nfssvc": {
+      "op_id": 175,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "system-package-check": {
+      "op_id": 176,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "system-privilege": {
+      "op_id": 177,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "system-reboot": {
+      "op_id": 178,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "system-sched": {
+      "op_id": 179,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "system-set-time": {
+      "op_id": 180,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "system-socket": {
+      "op_id": 181,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "system-suspend-resume": {
+      "op_id": 182,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "system-swap": {
+      "op_id": 183,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "user-preference*": {
+      "op_id": 184,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "user-preference-read": {
+      "op_id": 185,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "user-preference-write": {
+      "op_id": 187,
+      "system_profiles": [],
+      "system_profile_status": {}
+    },
+    "xpc-message-send": {
+      "op_id": 195,
+      "system_profiles": [],
+      "system_profile_status": {}
+    }
+  },
+  "summary": {
+    "ops_total": 196,
+    "ops_with_system_profiles": 32
+  }
+}

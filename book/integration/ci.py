@@ -41,6 +41,21 @@ def run_python_harness() -> None:
     subprocess.check_call(cmd, cwd=repo_root, env=env)
 
 
+def run_carton_validation() -> None:
+    repo_root = _repo_root()
+    env = os.environ.copy()
+    env["PYTHONPATH"] = str(repo_root)
+
+    cmd = [
+        sys.executable,
+        "-m",
+        "book.integration.carton.tools.update",
+        "--skip-promotion",
+    ]
+    print(f"[ci] carton: running {' '.join(cmd)}", flush=True)
+    subprocess.check_call(cmd, cwd=repo_root, env=env)
+
+
 def run_swift_build() -> None:
     repo_root = _repo_root()
     book_root = _book_root(repo_root)
@@ -59,10 +74,10 @@ def run_swift_build() -> None:
 
 
 def main() -> None:
+    run_carton_validation()
     run_python_harness()
     run_swift_build()
 
 
 if __name__ == "__main__":
     main()
-

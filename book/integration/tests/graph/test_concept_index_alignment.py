@@ -4,8 +4,8 @@ from pathlib import Path
 from book.api import path_utils
 ROOT = path_utils.find_repo_root(Path(__file__))
 CONCEPT_MAP = ROOT / "book" / "graph" / "concepts" / "concept_map.json"
-CONCEPT_INDEX = ROOT / "book" / "graph" / "mappings" / "carton" / "concept_index.json"
-MANIFEST = ROOT / "book" / "integration" / "carton" / "CARTON.json"
+CONCEPT_INDEX = ROOT / "book" / "integration" / "carton" / "bundle" / "views" / "concept_index.json"
+MANIFEST = ROOT / "book" / "integration" / "carton" / "bundle" / "CARTON.json"
 
 
 def test_concept_index_keys_are_known_concepts():

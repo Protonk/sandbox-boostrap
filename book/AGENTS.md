@@ -31,7 +31,7 @@ Paths and generated artifacts:
 - Do not hand-edit shared/generated artifacts. Regenerate via the appropriate generator:
   - Concepts JSON: `cd book/graph && swift run`
   - Mappings/CARTON overlays: `python book/graph/mappings/run_promotion.py`
-  - CARTON refresh: `python -m book.integration.carton.update` or `make -C book carton-refresh`
+- CARTON refresh: `python -m book.integration.carton.tools.update` or `make -C book carton-refresh`
 
 ## Commands (supported entrypoints)
 

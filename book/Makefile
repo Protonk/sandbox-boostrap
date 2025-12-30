@@ -37,4 +37,4 @@ swift:
 	PYTHONPATH=$(REPO_ROOT) SWIFT=$(SWIFT) $(PYTHON) -c "from book.integration import ci; ci.run_swift_build()"
 
 carton-refresh:
-	PYTHONPATH=$(REPO_ROOT) $(PYTHON) -m book.integration.carton.update
+	PYTHONPATH=$(REPO_ROOT) $(PYTHON) -m book.integration.carton.tools.update

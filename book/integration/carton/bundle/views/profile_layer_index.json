@@ -1,0 +1,176 @@
+{
+  "metadata": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "inputs": [
+      "book/integration/carton/bundle/relationships/profile_layer_ops.json",
+      "book/integration/carton/bundle/CARTON.json"
+    ],
+    "source_jobs": [
+      "experiment:system-profile-digest",
+      "generator:system_profiles:static_checks"
+    ],
+    "status": "ok",
+    "tier": "mapped",
+    "canonical_profile_status": {
+      "sys:airlock": "ok",
+      "sys:bsd": "ok",
+      "sys:sample": "ok"
+    },
+    "notes": "View derived from profile_layer_ops relationship."
+  },
+  "profiles": {
+    "sys:airlock": {
+      "id": "sys:airlock",
+      "layer": "system",
+      "status": "ok",
+      "ops": [
+        {
+          "name": "device-camera",
+          "id": 5
+        },
+        {
+          "name": "darwin-notification-post",
+          "id": 7
+        },
+        {
+          "name": "file-map-executable",
+          "id": 17
+        },
+        {
+          "name": "file-write-owner",
+          "id": 36
+        },
+        {
+          "name": "file-write-unlink",
+          "id": 39
+        },
+        {
+          "name": "file-write-xattr",
+          "id": 40
+        },
+        {
+          "name": "fs-quota*",
+          "id": 41
+        },
+        {
+          "name": "fs-quota-get",
+          "id": 42
+        },
+        {
+          "name": "fs-quota-on",
+          "id": 43
+        },
+        {
+          "name": "fs-quota-set-usage",
+          "id": 47
+        },
+        {
+          "name": "fs-quota-sync",
+          "id": 49
+        },
+        {
+          "name": "generic-issue-extension",
+          "id": 56
+        },
+        {
+          "name": "iokit-get-properties",
+          "id": 60
+        },
+        {
+          "name": "ipc-posix*",
+          "id": 67
+        },
+        {
+          "name": "ipc-posix-shm-write-create",
+          "id": 78
+        },
+        {
+          "name": "ipc-posix-shm-write-unlink",
+          "id": 80
+        },
+        {
+          "name": "mach-derive-port",
+          "id": 90
+        },
+        {
+          "name": "mach-register",
+          "id": 100
+        },
+        {
+          "name": "process-codesigning",
+          "id": 119
+        },
+        {
+          "name": "socket-option*",
+          "id": 147
+        },
+        {
+          "name": "syscall*",
+          "id": 150
+        },
+        {
+          "name": "syscall-mig",
+          "id": 153
+        },
+        {
+          "name": "system-debug",
+          "id": 161
+        },
+        {
+          "name": "system-fsctl",
+          "id": 163
+        },
+        {
+          "name": "system-kas-info",
+          "id": 165
+        },
+        {
+          "name": "system-kext*",
+          "id": 166
+        }
+      ]
+    },
+    "sys:bsd": {
+      "id": "sys:bsd",
+      "layer": "system",
+      "status": "ok",
+      "ops": [
+        {
+          "name": "file-read*",
+          "id": 21
+        },
+        {
+          "name": "file-read-data",
+          "id": 22
+        },
+        {
+          "name": "file-revoke",
+          "id": 25
+        },
+        {
+          "name": "file-search",
+          "id": 26
+        },
+        {
+          "name": "file-test-existence",
+          "id": 27
+        }
+      ]
+    },
+    "sys:sample": {
+      "id": "sys:sample",
+      "layer": "system",
+      "status": "ok",
+      "ops": [
+        {
+          "name": "darwin-notification-post",
+          "id": 7
+        },
+        {
+          "name": "distributed-notification-post",
+          "id": 8
+        }
+      ]
+    }
+  }
+}

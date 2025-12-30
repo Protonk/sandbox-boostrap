@@ -1,1 +1,1 @@
-"""CARTON integration contract bundle (manifest + contracts + checks)."""
+"""CARTON fixer bundle (relationships, views, contracts, and checks)."""

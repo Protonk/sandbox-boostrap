@@ -1,9 +1,9 @@
 """
 Thin promotion helper: run validation for selected tags/ids then call mapping generators.
 
-Usage example (runtime + system profiles + CARTON coverage/indices):
+Usage example (runtime + system profiles):
     python -m book.graph.mappings.run_promotion \\
-      --generators runtime,system-profiles,carton-coverage,carton-indices
+      --generators runtime,system-profiles
 """
 
 from __future__ import annotations
@@ -21,15 +21,6 @@ GENERATOR_CMDS = {
     ],
     "system-profiles": [
         [sys.executable, str(ROOT / "graph" / "mappings" / "system_profiles" / "generate_digests_from_ir.py")],
-    ],
-    "carton-coverage": [
-        [sys.executable, str(ROOT / "graph" / "mappings" / "carton" / "generate_coverage_from_carton.py")],
-    ],
-    "carton-indices": [
-        [sys.executable, str(ROOT / "graph" / "mappings" / "carton" / "generate_operation_index.py")],
-        [sys.executable, str(ROOT / "graph" / "mappings" / "carton" / "generate_profile_layer_index.py")],
-        [sys.executable, str(ROOT / "graph" / "mappings" / "carton" / "generate_filter_index.py")],
-        [sys.executable, str(ROOT / "graph" / "mappings" / "carton" / "generate_concept_index.py")],
     ],
 }
 
@@ -55,10 +46,10 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument(
         "--generators",
-        default="runtime,system-profiles,carton-coverage,carton-indices",
+        default="runtime,system-profiles",
         help=(
             "comma-separated generators to run "
-            "(runtime,system-profiles,carton-coverage,carton-indices)"
+            "(runtime,system-profiles)"
         ),
     )
     args = ap.parse_args()
@@ -66,9 +57,6 @@ def main():
     tags = {"smoke"}
     if "system-profiles" in gens:
         tags.add("system-profiles")
-    if "carton-coverage" in gens or "carton-indices" in gens:
-        tags.add("system-profiles")
-
     run_validation(sorted(tags))
 
     for gen in gens:

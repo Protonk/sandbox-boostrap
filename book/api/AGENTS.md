@@ -15,5 +15,5 @@ This directory is the API/tooling layer for the Seatbelt textbook. All tools ass
 
 - Stay within the host baseline and substrate vocabulary; lean on `book/graph/mappings/` for vocab and format truths.
 - CARTON is now an integration contract bundle; prefer its frozen mappings/contracts instead of re-parsing validation outputs ad hoc.
-- Use the validation driver and promotion pipeline when changing mappings that feed CARTON; do not hand-edit files listed in `book/integration/carton/CARTON.json`.
+- Use the validation driver and promotion pipeline when changing mappings that feed CARTON; do not hand-edit files listed in `book/integration/carton/bundle/CARTON.json`.
 - Keep tools small, host-specific, and backed by minimal guards run via `make -C book test`.

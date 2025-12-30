@@ -71,8 +71,8 @@ def test_anchor_field2_map_metadata_and_presence():
             assert node_indices, f"{anchor} (contract) missing node indices"
 
 
-def test_carton_anchor_index_aligns_with_map_and_hits():
-    anchor_index_path = ROOT / "book" / "graph" / "mappings" / "carton" / "anchor_index.json"
+def test_carton_anchor_field2_aligns_with_map_and_hits():
+    anchor_index_path = ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "anchor_field2.json"
     anchor_map_path = ROOT / "book" / "graph" / "mappings" / "anchors" / "anchor_field2_map.json"
     hits_path = ROOT / "book" / "experiments" / "probe-op-structure" / "out" / "anchor_hits.json"
 

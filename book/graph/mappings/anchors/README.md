@@ -6,7 +6,7 @@ Current artifacts:
 - `anchor_field2_map.json` – Anchor → `field2` hints derived from `probe-op-structure` anchor hits. Each anchor is a human-meaningful literal (path, mach name, iokit class) that the experiments have tied to one or more `field2` values and node indices.
 - `anchor_ctx_filter_map.json` – Canonical, **context-indexed** anchor→Filter bindings. This avoids treating SBPL literal strings as type-safe: the same literal can legitimately appear in multiple disjoint filter contexts (and in non-filter structural roles).
 - `anchor_filter_map.json` – **Derived, conservative, lossy compatibility view** keyed by literal string. It is generated from `anchor_ctx_filter_map.json` and pins a literal only when all observed contexts agree; otherwise it stays blocked and links to the underlying ctx entries via `ctx_ids`.
-- `carton/anchor_index.json` (under `book/graph/mappings/carton/`) – CARTON-facing, structural index of anchor → field2 hints with roles (default `exploratory`) and metadata; generated from `anchor_field2_map.json` + `probe-op-structure/out/anchor_hits.json`.
+- `book/integration/carton/bundle/relationships/anchor_field2.json` – CARTON-facing, structural index of anchor → field2 hints with roles (default `exploratory`) and metadata; generated from `anchor_field2_map.json` + `probe-op-structure/out/anchor_hits.json`.
 
 Role in the substrate:
 - Anchors come from SBPL- or profile-level literals (paths, mach names, etc.) and serve as stable “handles” for specific filters in the PolicyGraph.
@@ -26,7 +26,7 @@ These mappings are **not** free-floating. They are driven by, and constrained by
 
 If this guardrail fails, you must reconcile **either** the experiment outputs **or** the mapping (or both) so that each mapped anchor is supported by the current `anchor_hits.json`. For the structural story, limitations, and next steps of the experiment that feeds these mappings, see `book/experiments/probe-op-structure/Report.md`.
 
-`anchor_field2_map.json` carries host/status/inputs metadata (status currently `partial`) and feeds the CARTON-facing `carton/anchor_index.json`. Treat both as structural hints: they are not semantic filter bindings, and any anchor elevated into the CARTON contract should first gain stable witnesses in `anchor_hits.json` and pass the anchor guardrails in `book/integration/tests/graph/test_anchor_filter_alignment.py`.
+`anchor_field2_map.json` carries host/status/inputs metadata (status currently `partial`) and feeds the CARTON-facing `book/integration/carton/bundle/relationships/anchor_field2.json`. Treat both as structural hints: they are not semantic filter bindings, and any anchor elevated into the CARTON contract should first gain stable witnesses in `anchor_hits.json` and pass the anchor guardrails in `book/integration/tests/graph/test_anchor_filter_alignment.py`.
 
 ## Regeneration
 

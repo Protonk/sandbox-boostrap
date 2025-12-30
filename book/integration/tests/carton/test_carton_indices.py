@@ -3,10 +3,10 @@ from pathlib import Path
 
 from book.api import path_utils
 ROOT = path_utils.find_repo_root(Path(__file__))
-OP_INDEX = ROOT / "book" / "graph" / "mappings" / "carton" / "operation_index.json"
-PROFILE_INDEX = ROOT / "book" / "graph" / "mappings" / "carton" / "profile_layer_index.json"
-FILTER_INDEX = ROOT / "book" / "graph" / "mappings" / "carton" / "filter_index.json"
-CONCEPT_INDEX = ROOT / "book" / "graph" / "mappings" / "carton" / "concept_index.json"
+OP_INDEX = ROOT / "book" / "integration" / "carton" / "bundle" / "views" / "operation_index.json"
+PROFILE_INDEX = ROOT / "book" / "integration" / "carton" / "bundle" / "views" / "profile_layer_index.json"
+FILTER_INDEX = ROOT / "book" / "integration" / "carton" / "bundle" / "views" / "filter_index.json"
+CONCEPT_INDEX = ROOT / "book" / "integration" / "carton" / "bundle" / "views" / "concept_index.json"
 BASELINE_REF = "book/world/sonoma-14.4.1-23E224-arm64/world.json"
 
 
@@ -75,7 +75,7 @@ def test_concept_index_contains_expected_concepts():
     op_entries = concepts["operation"]
     paths = {entry["path"] for entry in op_entries}
     assert "book/graph/mappings/vocab/ops.json" in paths
-    assert "book/graph/mappings/carton/operation_index.json" in paths
+    assert "book/integration/carton/bundle/views/operation_index.json" in paths
     filter_entries = concepts["filter"]
     filter_paths = {entry["path"] for entry in filter_entries}
-    assert "book/graph/mappings/carton/filter_index.json" in filter_paths
+    assert "book/integration/carton/bundle/views/filter_index.json" in filter_paths

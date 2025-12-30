@@ -74,7 +74,7 @@ python -m book.api.profile inspect /tmp/sample.sb.bin --out /tmp/summary.json
 1. Compile SBPL (`compile/`) and slice/decode compiled blobs (`ingestion/`, `decoder/`).
 2. Normalize structural outputs into validation IR (`book/graph/concepts/validation/out/…`).
 3. Generate host mappings from validation IR (`book/graph/mappings/**`).
-4. Refresh CARTON’s manifest-verified contract set (`python -m book.integration.carton.update`).
+4. Refresh CARTON’s manifest-verified contract set (`python -m book.integration.carton.tools.update`).
 
 If you are trying to answer “what does this operation/filter mean?”, prefer CARTON. If you are trying to answer “what bytes did libsandbox emit for this SBPL input on this host?”, use `profile`.
 

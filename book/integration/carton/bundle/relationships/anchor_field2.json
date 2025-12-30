@@ -1,0 +1,387 @@
+{
+  "metadata": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "status": "partial",
+    "tier": "mapped",
+    "inputs": [
+      "book/graph/mappings/anchors/anchor_field2_map.json",
+      "book/experiments/probe-op-structure/out/anchor_hits.json"
+    ],
+    "source_jobs": [
+      "experiment:probe-op-structure"
+    ],
+    "notes": "CARTON-facing anchor \u2192 field2 hints. Structural only; roles default to exploratory."
+  },
+  "anchors": {
+    "/etc/hosts": {
+      "field2_values": [
+        0,
+        1,
+        4,
+        5,
+        6,
+        7,
+        11,
+        59,
+        256,
+        1281,
+        1536,
+        2560,
+        2816,
+        3072,
+        3328,
+        3584,
+        4352,
+        7424
+      ],
+      "node_indices": [
+        23,
+        24,
+        34,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57
+      ],
+      "profiles": [
+        "probe:v0_file_require_all",
+        "probe:v1_file_require_any",
+        "probe:v2_file_three_filters_any",
+        "probe:v6_file_mach_combo",
+        "probe:v7_file_network_combo",
+        "probe:v8_all_combo",
+        "sys:sample"
+      ],
+      "status": "partial",
+      "role": "contract",
+      "sources": [
+        "probe:v0_file_require_all",
+        "probe:v1_file_require_any",
+        "probe:v2_file_three_filters_any",
+        "probe:v6_file_mach_combo",
+        "probe:v7_file_network_combo",
+        "probe:v8_all_combo",
+        "sys:sample"
+      ]
+    },
+    "/tmp/foo": {
+      "field2_values": [
+        0,
+        1,
+        2,
+        3,
+        5,
+        256,
+        1536,
+        2816,
+        3072,
+        3328,
+        3584
+      ],
+      "node_indices": [
+        3,
+        4,
+        23,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        54,
+        55
+      ],
+      "profiles": [
+        "probe:v0_file_require_all",
+        "probe:v1_file_require_any",
+        "probe:v2_file_three_filters_any",
+        "probe:v6_file_mach_combo",
+        "probe:v7_file_network_combo",
+        "probe:v8_all_combo"
+      ],
+      "status": "partial",
+      "role": "contract",
+      "sources": [
+        "probe:v0_file_require_all",
+        "probe:v1_file_require_any",
+        "probe:v2_file_three_filters_any",
+        "probe:v6_file_mach_combo",
+        "probe:v7_file_network_combo",
+        "probe:v8_all_combo"
+      ]
+    },
+    "/var/log": {
+      "field2_values": [
+        0,
+        1,
+        4,
+        12096
+      ],
+      "node_indices": [
+        24,
+        34,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52
+      ],
+      "profiles": [
+        "probe:v2_file_three_filters_any"
+      ],
+      "status": "partial",
+      "role": "exploratory",
+      "sources": [
+        "probe:v2_file_three_filters_any"
+      ]
+    },
+    "IOAccelerator": {
+      "field2_values": [
+        0,
+        1,
+        5
+      ],
+      "node_indices": [
+        23,
+        46,
+        47,
+        48,
+        51
+      ],
+      "profiles": [
+        "probe:v11_iokit_user_client_connection"
+      ],
+      "status": "partial",
+      "role": "exploratory",
+      "sources": [
+        "probe:v11_iokit_user_client_connection"
+      ]
+    },
+    "IOHIDParamUserClient": {
+      "field2_values": [
+        0,
+        1,
+        4,
+        18753
+      ],
+      "node_indices": [
+        24,
+        34,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52
+      ],
+      "profiles": [
+        "probe:v10_iokit_user_client_pair"
+      ],
+      "status": "partial",
+      "role": "exploratory",
+      "sources": [
+        "probe:v10_iokit_user_client_pair"
+      ]
+    },
+    "IOSurfaceRootUserClient": {
+      "field2_values": [
+        1
+      ],
+      "node_indices": [
+        46
+      ],
+      "profiles": [
+        "probe:v9_iokit_user_client_only"
+      ],
+      "status": "partial",
+      "role": "exploratory",
+      "sources": [
+        "probe:v9_iokit_user_client_only"
+      ]
+    },
+    "IOUSBHostInterface": {
+      "field2_values": [
+        0,
+        4,
+        5,
+        11
+      ],
+      "node_indices": [
+        22,
+        32,
+        46,
+        47,
+        48,
+        51
+      ],
+      "profiles": [
+        "probe:v5_iokit_class_property",
+        "probe:v8_all_combo"
+      ],
+      "status": "partial",
+      "role": "contract",
+      "sources": [
+        "probe:v5_iokit_class_property",
+        "probe:v8_all_combo"
+      ]
+    },
+    "app-sandbox.read": {
+      "field2_values": [
+        9,
+        10,
+        142,
+        165
+      ],
+      "node_indices": [
+        10,
+        16,
+        18,
+        23,
+        41,
+        42,
+        45,
+        56,
+        71,
+        80,
+        81,
+        93,
+        94,
+        103,
+        104,
+        120,
+        121,
+        145,
+        154,
+        170
+      ],
+      "profiles": [
+        "sys:airlock"
+      ],
+      "status": "partial",
+      "role": "exploratory",
+      "sources": [
+        "sys:airlock"
+      ]
+    },
+    "com.apple.cfprefsd.agent": {
+      "field2_values": [
+        0,
+        1,
+        5,
+        11
+      ],
+      "node_indices": [
+        22,
+        46,
+        47,
+        48,
+        50,
+        51
+      ],
+      "profiles": [
+        "probe:v3_mach_global_local",
+        "probe:v6_file_mach_combo",
+        "probe:v8_all_combo"
+      ],
+      "status": "partial",
+      "role": "contract",
+      "sources": [
+        "probe:v3_mach_global_local",
+        "probe:v6_file_mach_combo",
+        "probe:v8_all_combo"
+      ]
+    },
+    "flow-divert": {
+      "field2_values": [
+        7,
+        11,
+        26,
+        1281,
+        2560,
+        2816,
+        3072,
+        3328,
+        3584
+      ],
+      "node_indices": [
+        22,
+        25,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        53,
+        54
+      ],
+      "profiles": [
+        "probe:v4_network_socket_require_all",
+        "probe:v7_file_network_combo",
+        "probe:v8_all_combo"
+      ],
+      "status": "partial",
+      "role": "contract",
+      "sources": [
+        "probe:v4_network_socket_require_all",
+        "probe:v7_file_network_combo",
+        "probe:v8_all_combo"
+      ]
+    },
+    "idVendor": {
+      "field2_values": [
+        0,
+        1,
+        5
+      ],
+      "node_indices": [
+        23,
+        46,
+        47,
+        48,
+        51
+      ],
+      "profiles": [
+        "probe:v5_iokit_class_property"
+      ],
+      "status": "partial",
+      "role": "exploratory",
+      "sources": [
+        "probe:v5_iokit_class_property"
+      ]
+    },
+    "preferences/logging": {
+      "field2_values": [
+        5
+      ],
+      "node_indices": [
+        18
+      ],
+      "profiles": [
+        "sys:bsd"
+      ],
+      "status": "partial",
+      "role": "exploratory",
+      "sources": [
+        "sys:bsd"
+      ]
+    }
+  }
+}

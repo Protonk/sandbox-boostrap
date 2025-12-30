@@ -2,16 +2,16 @@ import json
 from pathlib import Path
 
 from book.api import path_utils
-from book.integration.carton import build_manifest
+from book.integration.carton import bundle
 
 ROOT = path_utils.find_repo_root(Path(__file__))
-SPEC = ROOT / "book" / "integration" / "carton" / "carton_spec.json"
-MANIFEST = ROOT / "book" / "integration" / "carton" / "CARTON.json"
+SPEC = ROOT / "book" / "integration" / "carton" / "spec" / "carton_spec.json"
+MANIFEST = ROOT / "book" / "integration" / "carton" / "bundle" / "CARTON.json"
 BASELINE_REF = "book/world/sonoma-14.4.1-23E224-arm64/world.json"
 
 
 def _canonical_digest(doc: dict) -> str:
-    return build_manifest._sha256_canonical_json(doc)
+    return bundle._sha256_canonical_json(doc)
 
 
 def test_carton_manifest_matches_spec_and_world():
@@ -19,9 +19,9 @@ def test_carton_manifest_matches_spec_and_world():
     manifest = json.loads(MANIFEST.read_text())
     spec = json.loads(SPEC.read_text())
 
-    assert manifest.get("schema_version") == build_manifest.MANIFEST_SCHEMA_VERSION
+    assert manifest.get("schema_version") == bundle.MANIFEST_SCHEMA_VERSION
     assert "generated_at" not in manifest
-    assert manifest.get("spec_path") == "book/integration/carton/carton_spec.json"
+    assert manifest.get("spec_path") == "book/integration/carton/spec/carton_spec.json"
     assert manifest.get("spec_sha256") == _canonical_digest(spec)
 
     baseline_world = json.loads((ROOT / BASELINE_REF).read_text()).get("world_id")
@@ -40,6 +40,6 @@ def test_carton_manifest_matches_spec_and_world():
 
 
 def test_carton_manifest_deterministic():
-    live = build_manifest.build_manifest_doc(spec_path=SPEC, repo_root=ROOT)
+    live = bundle.build_manifest_doc(spec_path=SPEC, repo_root=ROOT)
     manifest = json.loads(MANIFEST.read_text())
     assert _canonical_digest(live) == _canonical_digest(manifest)

@@ -3,7 +3,7 @@ from pathlib import Path
 
 from book.api import path_utils
 ROOT = path_utils.find_repo_root(Path(__file__))
-COVERAGE_PATH = ROOT / "book" / "graph" / "mappings" / "carton" / "operation_coverage.json"
+COVERAGE_PATH = ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "operation_coverage.json"
 BASELINE_REF = "book/world/sonoma-14.4.1-23E224-arm64/world.json"
 
 
@@ -55,5 +55,5 @@ def test_coverage_metadata_inputs_include_carton_manifest():
     data = load()
     inputs = data.get("metadata", {}).get("inputs") or []
     assert any(
-        path == "book/integration/carton/CARTON.json" for path in inputs
+        path == "book/integration/carton/bundle/CARTON.json" for path in inputs
     ), "coverage mapping should cite CARTON manifest"
