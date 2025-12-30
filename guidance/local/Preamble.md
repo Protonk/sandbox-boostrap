@@ -13,7 +13,7 @@ SANDBOX_LORE is a host-bound, local-only universe for the macOS Seatbelt sandbox
 - **Repo-relative evidence paths**: checked-in JSON/IR must not embed absolute paths; emit repo-relative paths using `book.api.path_utils` helpers.
 - **Regenerate shared IR**: do not hand-edit generated/shared artifacts (mappings, generated concept JSON, CARTON-listed files). Update sources and rerun the appropriate generator (`swift run` for concepts; `book/graph/mappings/run_promotion.py` for mappings/CARTON).
 - **Surrounding constraints are confounders**: treat TCC, hardened runtime, SIP/platform gates, and VFS canonicalization as surrounding constraints that can dominate outcomes. For behavioral claims, prefer at least one passing neighbor and one confounder toggle.
-- **CARTON integrity**: files listed in `book/api/carton/CARTON.json` are manifest-verified; do not hand-edit them. Use validation -> mappings -> manifest refresh instead.
+- **CARTON integrity**: files listed in `book/integration/carton/CARTON.json` are manifest-verified; do not hand-edit them. Use validation -> mappings -> contracts -> manifest refresh instead.
 
 # Claim + witness template (use this shape)
 
@@ -57,7 +57,7 @@ claim:
 - **Substrate + concepts**: `book/substrate/` defines the vocabulary; the concept inventory is in `book/graph/concepts/CONCEPT_INVENTORY.md` and generated JSON in `book/graph/concepts/` comes from `swift run` in `book/graph`.
 - **Experiments -> validation IR**: experiments write to `book/experiments/*/out`; the validation driver (`python -m book.graph.concepts.validation`) normalizes into `book/graph/concepts/validation/out/` and records status.
 - **Validation IR -> mappings**: generators under `book/graph/mappings/*/generate_*.py` read validation outputs and emit host mappings; the supported entrypoint is `book/graph/mappings/run_promotion.py`.
-- **Mappings -> CARTON**: CARTON overlays live in `book/graph/mappings/carton/`; refresh the manifest with `book/api/carton/create_manifest.py`. Query via `book.api.carton.carton_query`.
+- **Mappings -> CARTON**: CARTON overlays live in `book/graph/mappings/carton/`; refresh contracts + manifest with `python -m book.integration.carton.build_manifest`. Use `carton check`/`carton diff` for verification and drift review.
 
 # Evidence sources
 
@@ -102,7 +102,7 @@ Promotion packets are the contract boundary for runtime evidence: `python -m boo
 - Start with `README.md` and `AGENTS.md`, then the nearest `AGENTS.md` in the subtree you touch.
 - For graph IR/mappings: `book/graph/AGENTS.md`, `book/graph/mappings/README.md`, `book/graph/mappings/AGENTS.md`.
 - For experiments: `book/experiments/AGENTS.md` and `book/experiments/Experiments.md`.
-- For API/CARTON: `book/api/AGENTS.md`, `book/api/README.md`, `book/api/carton/README.md`, `book/api/carton/API.md`.
+- For API/CARTON: `book/api/AGENTS.md`, `book/api/README.md`, `book/integration/carton/README.md`.
 - Single entrance test runner: `make -C book test`.
 
 # Welcome aboard

@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "name": "CARTON",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "artifacts": [
+    {
+      "id": "vocab.ops",
+      "path": "book/graph/mappings/vocab/ops.json",
+      "role": "mapping",
+      "hash_mode": "semantic_json",
+      "checks": ["metadata_world_id"]
+    },
+    {
+      "id": "vocab.filters",
+      "path": "book/graph/mappings/vocab/filters.json",
+      "role": "mapping",
+      "hash_mode": "semantic_json",
+      "checks": ["metadata_world_id"]
+    },
+    {
+      "id": "system_profiles.digests",
+      "path": "book/graph/mappings/system_profiles/digests.json",
+      "role": "mapping",
+      "hash_mode": "semantic_json",
+      "checks": ["metadata_world_id", "metadata_inputs"]
+    },
+    {
+      "id": "carton.operation_coverage",
+      "path": "book/graph/mappings/carton/operation_coverage.json",
+      "role": "mapping",
+      "hash_mode": "semantic_json",
+      "checks": ["metadata_world_id", "metadata_inputs"]
+    },
+    {
+      "id": "carton.operation_index",
+      "path": "book/graph/mappings/carton/operation_index.json",
+      "role": "mapping",
+      "hash_mode": "semantic_json",
+      "checks": ["metadata_world_id", "metadata_inputs"]
+    },
+    {
+      "id": "carton.profile_layer_index",
+      "path": "book/graph/mappings/carton/profile_layer_index.json",
+      "role": "mapping",
+      "hash_mode": "semantic_json",
+      "checks": ["metadata_world_id", "metadata_inputs"]
+    },
+    {
+      "id": "carton.filter_index",
+      "path": "book/graph/mappings/carton/filter_index.json",
+      "role": "mapping",
+      "hash_mode": "semantic_json",
+      "checks": ["metadata_world_id", "metadata_inputs"]
+    },
+    {
+      "id": "carton.concept_index",
+      "path": "book/graph/mappings/carton/concept_index.json",
+      "role": "mapping",
+      "hash_mode": "semantic_json",
+      "checks": ["metadata_world_id", "metadata_inputs"]
+    },
+    {
+      "id": "carton.anchor_index",
+      "path": "book/graph/mappings/carton/anchor_index.json",
+      "role": "mapping",
+      "hash_mode": "semantic_json",
+      "checks": ["metadata_world_id", "metadata_inputs"]
+    },
+    {
+      "id": "validation.field2_ir",
+      "path": "book/graph/concepts/validation/out/experiments/field2/field2_ir.json",
+      "role": "provenance",
+      "hash_mode": "semantic_json"
+    },
+    {
+      "id": "validation.system_profile_digests_ir",
+      "path": "book/graph/concepts/validation/out/experiments/system-profile-digest/digests_ir.json",
+      "role": "provenance",
+      "hash_mode": "semantic_json"
+    },
+    {
+      "id": "validation.vocab_status",
+      "path": "book/graph/concepts/validation/out/vocab_status.json",
+      "role": "status",
+      "hash_mode": "semantic_json",
+      "checks": ["inputs_field"]
+    },
+    {
+      "id": "validation.status",
+      "path": "book/graph/concepts/validation/out/validation_status.json",
+      "role": "status",
+      "hash_mode": "semantic_json",
+      "checks": ["top_level_world_id"]
+    },
+    {
+      "id": "contracts.vocab",
+      "path": "book/integration/carton/contracts/vocab.contract.json",
+      "role": "derived",
+      "hash_mode": "semantic_json",
+      "schema": "contracts_vocab.schema.json",
+      "checks": ["top_level_world_id", "inputs_field"]
+    },
+    {
+      "id": "contracts.profiles",
+      "path": "book/integration/carton/contracts/profiles.contract.json",
+      "role": "derived",
+      "hash_mode": "semantic_json",
+      "schema": "contracts_profiles.schema.json",
+      "checks": ["top_level_world_id", "inputs_field"]
+    },
+    {
+      "id": "contracts.coverage",
+      "path": "book/integration/carton/contracts/coverage.contract.json",
+      "role": "derived",
+      "hash_mode": "semantic_json",
+      "schema": "contracts_coverage.schema.json",
+      "checks": ["top_level_world_id", "inputs_field"]
+    }
+  ],
+  "invariants": {
+    "canonical_profile_status": {
+      "sys:airlock": "ok",
+      "sys:bsd": "ok",
+      "sys:sample": "ok"
+    },
+    "coverage_status": "ok"
+  }
+}

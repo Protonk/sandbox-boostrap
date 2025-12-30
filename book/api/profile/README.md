@@ -4,7 +4,7 @@ Unified profile-byte tooling for the Sonoma baseline (`world_id sonoma-14.4.1-23
 
 This package is intentionally **structural**:
 - It compiles SBPL into compiled profile blobs and inspects/decodes the resulting bytes.
-- It does not define sandbox semantics; use runtime evidence (`book/api/runtime/`) and mapped query surfaces (CARTON, `book/api/carton/`) for concept-shaped answers.
+- It does not define sandbox semantics; use runtime evidence (`book/api/runtime/`) and the CARTON contract bundle (`book/integration/carton/`) for concept-shaped answers.
 - Apply-stage failures (`sandbox_apply` / `EPERM`) are not denials; use preflight (`book/tools/preflight`) before live runtime probes.
 
 ## Public API (stable surface)
@@ -74,7 +74,7 @@ python -m book.api.profile inspect /tmp/sample.sb.bin --out /tmp/summary.json
 1. Compile SBPL (`compile/`) and slice/decode compiled blobs (`ingestion/`, `decoder/`).
 2. Normalize structural outputs into validation IR (`book/graph/concepts/validation/out/…`).
 3. Generate host mappings from validation IR (`book/graph/mappings/**`).
-4. Refresh CARTON’s manifest-verified query set (`book/api/carton/CARTON.json`).
+4. Refresh CARTON’s manifest-verified contract set (`book/integration/carton/CARTON.json`).
 
 If you are trying to answer “what does this operation/filter mean?”, prefer CARTON. If you are trying to answer “what bytes did libsandbox emit for this SBPL input on this host?”, use `profile`.
 

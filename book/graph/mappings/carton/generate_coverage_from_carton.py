@@ -32,7 +32,7 @@ from book.api import world as world_mod  # noqa: E402
 
 OPS_PATH = ROOT / "book/graph/mappings/vocab/ops.json"
 DIGESTS_PATH = ROOT / "book/graph/mappings/system_profiles/digests.json"
-CARTON_PATH = ROOT / "book/api/carton/CARTON.json"
+CARTON_PATH = ROOT / "book/integration/carton/CARTON.json"
 STATUS_PATH = ROOT / "book/graph/concepts/validation/out/validation_status.json"
 OUT_PATH = ROOT / "book/graph/mappings/carton/operation_coverage.json"
 EXPECTED_JOBS = {

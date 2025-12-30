@@ -65,7 +65,7 @@ def build_index() -> dict:
         "book/graph/mappings/vocab/ops.json",
         "book/graph/mappings/system_profiles/digests.json",
         "book/graph/mappings/carton/operation_coverage.json",
-        "book/api/carton/CARTON.json",
+        "book/integration/carton/CARTON.json",
     ]
     meta = coverage.get("metadata") or {}
     coverage_status = meta.get("status") or "unknown"

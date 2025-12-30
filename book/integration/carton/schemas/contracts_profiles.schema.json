@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "book/integration/carton/schemas/contracts_profiles.schema.json",
+  "type": "object",
+  "required": ["schema_version", "world_id", "inputs", "canonical_profiles"],
+  "properties": {
+    "schema_version": {"type": "integer"},
+    "world_id": {"type": "string"},
+    "inputs": {"type": "array", "items": {"type": "string"}},
+    "canonical_profiles": {
+      "type": "object",
+      "properties": {}
+    }
+  }
+}

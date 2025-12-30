@@ -1,8 +1,9 @@
 """
 Thin promotion helper: run validation for selected tags/ids then call mapping generators.
 
-Usage example (runtime + system profiles + CARTON coverage + indices):
-    python -m book.graph.mappings.run_promotion --generators runtime,system-profiles,carton-coverage,carton-indices
+Usage example (runtime + system profiles + CARTON coverage/indices + contracts/manifest):
+    python -m book.graph.mappings.run_promotion \\
+      --generators runtime,system-profiles,carton-coverage,carton-indices,carton-contracts,carton-manifest
 """
 
 from __future__ import annotations
@@ -30,6 +31,17 @@ GENERATOR_CMDS = {
         [sys.executable, str(ROOT / "graph" / "mappings" / "carton" / "generate_filter_index.py")],
         [sys.executable, str(ROOT / "graph" / "mappings" / "carton" / "generate_concept_index.py")],
     ],
+    "carton-contracts": [
+        [
+            sys.executable,
+            str(ROOT / "integration" / "carton" / "build_manifest.py"),
+            "--refresh-contracts",
+            "--skip-manifest",
+        ],
+    ],
+    "carton-manifest": [
+        [sys.executable, str(ROOT / "integration" / "carton" / "build_manifest.py")],
+    ],
 }
 
 
@@ -48,14 +60,17 @@ def run_validation(tags):
 def main():
     """
     Dispatch generator scripts after a minimal validation pass. The default set
-    refreshes runtime signatures, system profile digests, and CARTON coverage +
-    indices in a single run.
+    refreshes runtime signatures, system profile digests, CARTON coverage +
+    indices, plus the CARTON contracts + manifest in a single run.
     """
     ap = argparse.ArgumentParser()
     ap.add_argument(
         "--generators",
-        default="runtime,system-profiles,carton-coverage,carton-indices",
-        help="comma-separated generators to run (runtime,system-profiles,carton-coverage,carton-indices)",
+        default="runtime,system-profiles,carton-coverage,carton-indices,carton-contracts,carton-manifest",
+        help=(
+            "comma-separated generators to run "
+            "(runtime,system-profiles,carton-coverage,carton-indices,carton-contracts,carton-manifest)"
+        ),
     )
     args = ap.parse_args()
     gens = [g.strip() for g in args.generators.split(",") if g.strip()]

@@ -67,7 +67,7 @@ def build_index() -> dict:
         "book/graph/mappings/system_profiles/digests.json",
         "book/graph/mappings/vocab/ops.json",
         "book/graph/mappings/carton/operation_coverage.json",
-        "book/api/carton/CARTON.json",
+        "book/integration/carton/CARTON.json",
     ]
     meta = digests.get("metadata") or {}
     source_jobs = meta.get("source_jobs") or source_jobs

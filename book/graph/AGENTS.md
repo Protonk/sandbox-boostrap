@@ -36,7 +36,7 @@ When in doubt:
 - New *code* that ingests or validates compiled profiles → `concepts/validation/`.
 - New *stable mappings* or “IR” that other code depends on → `mappings/` (with metadata and schema).
 - Experiment-specific scratch outputs stay under `book/experiments/*/out`, not here.
-- CARTON is the frozen, host-specific IR/mapping set exposed via an API; see `book/api/carton/API.md` and prefer `book/api/carton/carton_query.py` (plus the coverage mapping it reads) over ad-hoc JSON spelunking.
+- CARTON is the frozen, host-specific IR/mapping contract bundle; see `book/integration/carton/README.md` and use `carton check`/`carton diff` rather than ad-hoc JSON spelunking.
 
 For **anchor/field2 structure** on this Sonoma world, use this stack as your entrypoint:
 - Structural source (anchors + tags + `field2` per profile): `book/experiments/probe-op-structure/Report.md` (tier: mapped, structural only).

@@ -2,7 +2,7 @@
 
 This directory holds the code/metadata for validating the concept clusters against the `book/examples/` labs. The goal is to keep all harness code here and let the examples remain focused on their domain probes.
 
-Current status: sandbox-exec-based semantic and lifecycle runs are deferred while the harness is being repaired; static ingestion and vocab mapping are current, and a first CARTON snapshot (see `book/api/carton/CARTON.json`) is wired up as the frozen IR/mapping web this validation layer feeds.
+Current status: sandbox-exec-based semantic and lifecycle runs are deferred while the harness is being repaired; static ingestion and vocab mapping are current, and a CARTON snapshot (see `book/integration/carton/CARTON.json`) is wired up as the frozen IR/mapping web this validation layer feeds.
 
 Validation units (use these tags/IDs when adding jobs):
 - `vocab:*` — libsandbox/dyld-cache vocab ingestion (ops/filters).
@@ -35,7 +35,7 @@ Smoke tag:
 
 Promotion contract:
 - Mapping generators must: (1) run the validation driver for relevant tags/IDs, (2) refuse to proceed on non-`ok` jobs, (3) read normalized validation IR only (not raw experiment out/), and (4) carry host/provenance (`host`, `source_jobs`) into outputs. See `book/graph/mappings/run_promotion.py` and `generate_runtime_signatures.py` / `generate_digests_from_ir.py` for the pattern.
-- CARTON: the frozen IR/mapping set for Sonoma 14.4.1 lives at `book/api/carton/CARTON.json`; changes to CARTON require updating the manifest after rerunning validation + generators. Schema checks assert CARTON and mapping provenance. CARTON is what the textbook and API layer query; this validation directory is where you extend or regenerate the IR that feeds it.
+- CARTON: the frozen IR/mapping contract bundle for Sonoma 14.4.1 lives at `book/integration/carton/CARTON.json`; changes to CARTON require regenerating contracts + manifest after rerunning validation + generators. Schema checks assert CARTON and mapping provenance. CARTON is what the textbook and CI read; this validation directory is where you extend or regenerate the IR that feeds it.
 
 Keep Swift-side validation non-fatal: extend the report rather than blocking generation when checks fail.
 

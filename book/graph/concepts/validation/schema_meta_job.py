@@ -15,7 +15,7 @@ from book.graph.concepts.validation.registry import ValidationJob
 ROOT = find_repo_root(Path(__file__))
 STATUS_PATH = ROOT / "book" / "graph" / "concepts" / "validation" / "out" / "validation_status.json"
 EXPERIMENT_STATUS_DIR = ROOT / "book" / "graph" / "concepts" / "validation" / "out" / "experiments"
-CARTON_MANIFEST = ROOT / "book" / "api" / "carton" / "CARTON.json"
+CARTON_MANIFEST = ROOT / "book" / "integration" / "carton" / "CARTON.json"
 MAPPING_CHECKS = [
     ROOT / "book" / "graph" / "mappings" / "runtime" / "runtime_signatures.json",
     ROOT / "book" / "graph" / "mappings" / "runtime" / "runtime_coverage.json",

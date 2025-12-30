@@ -54,4 +54,6 @@ def test_coverage_summary_matches_counts():
 def test_coverage_metadata_inputs_include_carton_manifest():
     data = load()
     inputs = data.get("metadata", {}).get("inputs") or []
-    assert any("CARTON.json" in path for path in inputs), "coverage mapping should cite CARTON manifest"
+    assert any(
+        path == "book/integration/carton/CARTON.json" for path in inputs
+    ), "coverage mapping should cite CARTON manifest"

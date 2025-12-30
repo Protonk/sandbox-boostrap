@@ -48,18 +48,9 @@ See `book/api/ghidra/README.md` for setup and workflow.
 
 ### carton
 
-Definition: Public query surface for CARTON, the frozen IR/mapping set rooted at `book/api/carton/CARTON.json`.
+Definition: **Deprecated API location.** CARTON moved to `book/integration/carton/` as an integration contract bundle (manifest + contracts + check/diff).
 
-Role: Answer concept-shaped questions about operations, filters, system profiles/profile layers, and runtime signatures without touching raw experiment outputs.
-
-Example:
-```sh
-python - <<'PY'
-from book.api.carton import carton_query
-print(carton_query.operation_story("file-read*"))
-PY
-```
-See `book/api/carton/README.md`, `AGENTS.md`, and `API.md` for design, routing, and function contracts.
+Role: Use the integration CARTON tooling to freeze and verify host-bound mappings; no public query API remains here.
 
 ### runtime
 
@@ -133,6 +124,6 @@ python -m book.api.frida.cli run --attach-pid 12345 --script book/api/frida/hook
 
 ## CARTON conversion assessment
 
-- **op_table**: could gain a CARTON-backed query layer if op-table fingerprints/alignments are ever promoted to CARTON mappings; today it is generator/inspection tooling (see `book.api.profile.op_table`), not CARTON IR.
-- **runtime**: the harness + mapping outputs could be query-able if golden traces/expectations become CARTON mappings with a defined concept; currently generation-only.
-- **Others (regex_tools, runtime/native/file_probe, ghidra)**: generation/inspection/harness tools, not CARTON concepts; poor fits for the CARTON query surface in their current form.
+- **op_table**: could gain a CARTON-backed contract snapshot if op-table fingerprints/alignments become part of the integration bundle; today it is generator/inspection tooling (see `book.api.profile.op_table`), not CARTON IR.
+- **runtime**: harness + mapping outputs could be promoted into CARTON contracts if a stable concept emerges; currently generation-only.
+- **Others (regex_tools, runtime/native/file_probe, ghidra)**: generation/inspection/harness tools, not CARTON contracts in their current form.

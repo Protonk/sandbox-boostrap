@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "book/integration/carton/schemas/contracts_coverage.schema.json",
+  "type": "object",
+  "required": ["schema_version", "world_id", "inputs", "summary", "ops_with_no_coverage"],
+  "properties": {
+    "schema_version": {"type": "integer"},
+    "world_id": {"type": "string"},
+    "inputs": {"type": "array", "items": {"type": "string"}},
+    "summary": {"type": "object"},
+    "ops_with_no_coverage": {"type": "array", "items": {"type": "string"}}
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "book/integration/carton/schemas/contracts_vocab.schema.json",
+  "type": "object",
+  "required": ["schema_version", "world_id", "inputs", "ops", "filters"],
+  "properties": {
+    "schema_version": {"type": "integer"},
+    "world_id": {"type": "string"},
+    "inputs": {"type": "array", "items": {"type": "string"}},
+    "ops": {
+      "type": "object",
+      "required": ["count", "names", "name_digest", "id_map_digest"],
+      "properties": {
+        "count": {"type": "integer"},
+        "names": {"type": "array", "items": {"type": "string"}},
+        "name_digest": {"type": "string"},
+        "id_map_digest": {"type": "string"}
+      }
+    },
+    "filters": {
+      "type": "object",
+      "required": ["count", "names", "name_digest", "id_map_digest"],
+      "properties": {
+        "count": {"type": "integer"},
+        "names": {"type": "array", "items": {"type": "string"}},
+        "name_digest": {"type": "string"},
+        "id_map_digest": {"type": "string"}
+      }
+    }
+  }
+}

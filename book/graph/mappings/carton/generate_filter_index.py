@@ -32,7 +32,7 @@ from book.api import world as world_mod  # noqa: E402
 
 FILTERS = ROOT / "book/graph/mappings/vocab/filters.json"
 DIGESTS = ROOT / "book/graph/mappings/system_profiles/digests.json"
-CARTON = ROOT / "book/api/carton/CARTON.json"
+CARTON = ROOT / "book/integration/carton/CARTON.json"
 OUT = ROOT / "book/graph/mappings/carton/filter_index.json"
 
 
@@ -85,7 +85,7 @@ def build_index() -> dict:
     inputs: List[str] = [
         "book/graph/mappings/vocab/filters.json",
         "book/graph/mappings/system_profiles/digests.json",
-        "book/api/carton/CARTON.json",
+        "book/integration/carton/CARTON.json",
     ]
 
     return {

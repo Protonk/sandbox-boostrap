@@ -31,7 +31,7 @@ Paths and generated artifacts:
 - Do not hand-edit shared/generated artifacts. Regenerate via the appropriate generator:
   - Concepts JSON: `cd book/graph && swift run`
   - Mappings/CARTON overlays: `python book/graph/mappings/run_promotion.py`
-  - CARTON manifest: `python book/api/carton/create_manifest.py` (usually invoked by promotion)
+  - CARTON manifest: `python -m book.integration.carton.build_manifest` (usually invoked by promotion)
 
 ## Commands (supported entrypoints)
 
@@ -51,14 +51,14 @@ Host-neutral (still host-scoped artifacts; no live sandbox):
 ## Cold-start routing (where to look)
 
 Pick the smallest surface that answers your question:
-- “What operations/filters exist on this host?” → `book/graph/mappings/vocab/` (bedrock) and `book/api/carton/` for a stable query surface.
+- “What operations/filters exist on this host?” → `book/graph/mappings/vocab/` (bedrock) and `book/integration/carton/` for the frozen contract bundle.
 - “What bytes did this SBPL compile into?” → `book/api/profile/` (structural tooling).
 - “Why did a runtime probe fail/deny?” → `book/api/runtime/` bundles and promotion packets (stage + lane + promotability).
 - “Am I about to hit apply-gating?” → `book/tools/preflight/` (scan + minimize-gate) and `book/tools/sbpl/wrapper/`.
 - “Is my baseline/world consistent?” → `book/tools/doctor/` (hypothesis-tier checkup).
 
 Then read the nearest `AGENTS.md` in the subtree you touch:
-- API/tooling: `book/api/AGENTS.md`; CARTON specifics in `book/api/carton/AGENTS.md`.
+- API/tooling: `book/api/AGENTS.md`; CARTON contract bundle: `book/integration/carton/README.md`.
 - Graph/concepts/mappings: `book/graph/AGENTS.md`; deeper routing in `book/graph/concepts/AGENTS.md`, `book/graph/mappings/AGENTS.md`, `book/graph/swift/AGENTS.md`.
 - Experiments: `book/experiments/AGENTS.md`; archived work in `book/experiments/archive/AGENTS.md`.
 - Dumps/artifacts: `book/dumps/AGENTS.md`.

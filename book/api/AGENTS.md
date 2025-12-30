@@ -4,11 +4,7 @@ This directory is the API/tooling layer for the Seatbelt textbook. All tools ass
 
 ## How to route here
 
-- `carton/` – Public CARTON query surface and manifest (`book/api/carton/CARTON.json`).
-  - Read `book/api/carton/README.md` for CARTON’s role and concepts, `AGENTS.md` for routing/working rules, and `API.md` for function contracts.
-  - Use `book.api.carton.carton_query` for stable facts about operations, filters, system profiles/profile layers, and runtime signatures. Handle `UnknownOperationError` (unknown op) vs `CartonDataError` (manifest/hash/mapping drift).
-  - First moves: `list_operations`, `list_profiles`, `list_filters`, then `operation_story`, `profile_story`, `filter_story`, `runtime_signature_info`, `ops_with_low_coverage`.
-
+- CARTON lives under `book/integration/carton/` as an integration contract bundle (manifest + contracts + check/diff); there is no CARTON API surface in `book/api/`.
 - `profile/` – Canonical surface for profile-byte work: SBPL compilation, blob decoding/inspection, op-table summaries, digests, and structural oracles (replaces `sbpl_compile`, `inspect_profile`, `op_table`, and the former standalone `decoder`/`sbpl_oracle` modules).
   - Legacy packages (`book.api.sbpl_compile`, `book.api.inspect_profile`, `book.api.op_table`) have been removed; route callers here.
 - `runtime/` – Unified runtime observations + mappings + harness runner/generator (replaces `runtime` + `runtime_harness`).
@@ -18,6 +14,6 @@ This directory is the API/tooling layer for the Seatbelt textbook. All tools ass
 ## Expectations
 
 - Stay within the host baseline and substrate vocabulary; lean on `book/graph/mappings/` for vocab and format truths.
-- Prefer CARTON for concept-level questions (ops ↔ profiles ↔ runtime signatures); do not re-parse validation outputs when CARTON already exposes the concept.
-- Use the validation driver and promotion pipeline when changing mappings that feed CARTON; do not hand-edit files listed in `book/api/carton/CARTON.json`.
+- CARTON is now an integration contract bundle; prefer its frozen mappings/contracts instead of re-parsing validation outputs ad hoc.
+- Use the validation driver and promotion pipeline when changing mappings that feed CARTON; do not hand-edit files listed in `book/integration/carton/CARTON.json`.
 - Keep tools small, host-specific, and backed by minimal guards run via `make -C book test`.

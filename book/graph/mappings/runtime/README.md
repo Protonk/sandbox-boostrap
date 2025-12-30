@@ -15,7 +15,7 @@ Current artifacts:
 - `runtime_callout_oracle.json` — sandbox_check oracle lane derived from seatbelt-callout markers (decision-only; not syscall outcomes).
 - `packet_set.json` — ordered list of promotion packets considered for promotion on this host baseline (config input).
 - `promotion_receipt.json` — machine-readable receipt showing which packets were used/rejected (and why) for the current promoted cut.
-- CARTON: see `book/api/carton/CARTON.json` for frozen hashes/paths of the runtime mappings/IR that are included in CARTON for Sonoma 14.4.1.
+- CARTON: see `book/integration/carton/CARTON.json` for frozen hashes/paths of the runtime mappings/IR that are included in CARTON for Sonoma 14.4.1.
 
 Status update (launchd clean run):
 - Latest refresh ran via the runtime launchd-clean channel (`python -m book.api.runtime run --plan ... --channel launchd_clean`), which avoids the Desktop TCC block by staging to `/private/tmp`; decision-stage outcomes are current for runtime-checks and runtime-adversarial.

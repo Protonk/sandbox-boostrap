@@ -1,6 +1,6 @@
 # Case study: bucket4_v1_read (SBPL → blob → graph → runtime)
 
-Host: Sonoma 14.4.1 (23E224), CARTON snapshot (book/api/carton/CARTON.json).
+Host: Sonoma 14.4.1 (23E224), CARTON snapshot (book/integration/carton/CARTON.json).
 
 - **SBPL source:** `book/profiles/golden-triple/bucket4_v1_read.sb` (`(deny default)` + `(allow file-read*)`).
 - **Compiled blob:** `book/profiles/golden-triple/bucket4_v1_read.sb.bin` (also mirrored in runtime profiles under `book/experiments/runtime-checks/out/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb`).
@@ -12,6 +12,6 @@ Host: Sonoma 14.4.1 (23E224), CARTON snapshot (book/api/carton/CARTON.json).
     - `write_/etc/hosts` → deny.
   - Summarized in `book/graph/mappings/runtime/runtime_signatures.json` under `signatures["bucket4:v1_read"]`.
 - **Graph linkage:** op-table entrypoints decoded in `book/graph/mappings/runtime/runtime_signatures.json` come from the same blob; vocab IDs tie back to `ops.json`. Use `--describe experiment:runtime-checks` to see the IR job that feeds this mapping.
-- **CARTON lookup:** `book/api/carton/carton_query.py` and `book/api/carton/API.md` show how to pull the same facts (probes, runtime blob path, op coverage) directly from the CARTON API.
+- **CARTON contract:** use `book/integration/carton/CARTON.json` plus the contract snapshots under `book/integration/carton/contracts/` to review frozen facts (probes, runtime blob path, op coverage) and any drift.
 
 This profile is the exemplar for the validation→IR→mapping pipeline: SBPL source → compiled blob → validated runtime IR → frozen CARTON mapping.

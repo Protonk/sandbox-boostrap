@@ -41,7 +41,7 @@ Choose the smallest plane that owns the invariant:
 - `book/integration/tests/smoke` — import/wiring sanity (fast failures).
 - `book/integration/tests/contracts` — decoder/profile/SBPL API & CLI contracts.
 - `book/integration/tests/graph` — concepts, vocab, mappings, anchors, validation IR alignment.
-- `book/integration/tests/carton` — CARTON manifest/indices/query facade invariants.
+- `book/integration/tests/carton` — CARTON manifest/contracts/check invariants.
 - `book/integration/tests/runtime` — normalized runtime artifacts and promotion packet shapes.
 - `book/integration/tests/ghidra` — Ghidra scan outputs + fixture guardrails.
 - `book/integration/tests/tools` — preflight/gate minimizer/trace shrink/frida/entitlement tooling.
