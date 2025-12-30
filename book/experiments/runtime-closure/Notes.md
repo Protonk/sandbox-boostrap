@@ -51,6 +51,15 @@ Use this file for short, factual run notes and failures. Avoid timestamps.
   - Switched to dynamic interpose in `iosurface_trace`; run in `out/iosurface_call_trace/iosurface_trace_stderr.txt` reports `SBL_IKIT_INTERPOSE` installed but emits no `SBL_IKIT_CALL` lines, suggesting IOSurfaceCreate does not call IOConnectCall* functions on this host or the call sites are not interposed.
 - Preflight scan (IOKit message-filter lane): `v9_iokit_message_filter_deny.sb` and `v10_iokit_message_filter_allow.sb` classified as `likely_apply_gated_for_harness_identity` (deny-style apply-message-filter).
 - IOKit message-filter run `out/ad767bba-9e59-40ff-b006-45fe911b2d02/` (launchd_clean, iokit-only with v7 + v9 + v10).
+
+## Oracle calibration + capture plumbing
+
+- Oracle calibration run `out/77d63a7c-1d11-4dee-870c-4e745014189e/` (launchd_clean, `SANDBOX_LORE_SEATBELT_API=pid`, `SANDBOX_LORE_FILE_PRECREATE=1`).
+  - File probe `/private/tmp/sandbox-lore-oracle.txt` allows at operation stage but `sandbox_check` reports `deny` for `file-read-data`.
+  - Mach probes show `sandbox_check` denies `mach-lookup` for both `com.apple.cfprefsd.agent` and the missing control, while `bootstrap_look_up` succeeds for the known service.
+  - Oracle lane remains non-calibrated for non-path ops on this host.
+- Synthetic capture run `out/df0d8269-e0fb-4306-b942-74853239c60b/` (launchd_clean, `SANDBOX_LORE_IKIT_SYNTH_CALL=1`, `SANDBOX_LORE_IKIT_CAPTURE_CALLS=1`).
+  - `iokit_probe` reports `capture_seen=true` with the synthetic IOConnectCallMethod (selector 0, 1 scalar in, 16-byte struct in/out).
   - `v7_service_user_client_both`: `open_kr=0`, `call_kr=-536870206`, `call_kr_string="(iokit/common) invalid argument"`, `surface_create_ok=false`.
   - `v9_message_filter_deny` and `v10_message_filter_allow` blocked at preflight (apply gate signature); no runtime probe execution.
 - Emitted promotion packet for the file matrix run and refreshed VFS canonicalization mapping via `book/graph/mappings/vfs_canonicalization/generate_path_canonicalization_map.py` after updating `packet_set.json`.
@@ -83,3 +92,6 @@ Use this file for short, factual run notes and failures. Avoid timestamps.
   - Oracle callouts still report `deny` for all file targets, including allowed `/private/etc/hosts`; treat file oracle lane as blocked on this host.
 - IOSurface ground-truth capture attempt: `out/518f2e1d-66db-4392-89e8-4a74db154a82/` (launchd_clean, v7 with `SANDBOX_LORE_IKIT_CAPTURE_CALLS=1`).
   - `surface_create_ok=true` baseline, but `capture_seen=false` even after interposing IOConnectCall* and MIG stubs; no selector/shape captured from IOSurfaceCreate on this host.
+- Capture → replay loop (call-shape gate):
+  - Baseline capture run `out/274a4c71-3c97-4aaa-a22f-93b587ba9ba9/` with `SANDBOX_LORE_IKIT_SELECTOR_LIST=0` captured `capture_first_spec=IOConnectCallMethod:0:1:16:0:16` and `call_kr=-536870206` (invalid argument).
+  - Replay run `out/e720b256-2f6e-4888-9288-2e19b5007fa9/` with `SANDBOX_LORE_IKIT_REPLAY=1` and `SANDBOX_LORE_IKIT_REPLAY_SPEC=IOConnectCallMethod:0:1:16:0:16` returned `replay_kr=-536870206` in baseline and scenario (replay attempted, no sweep).

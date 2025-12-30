@@ -16,6 +16,9 @@
 #include <sys/syslimits.h>
 #include <unistd.h>
 
+// Opt-in precreate for oracle calibration: ensure the target exists after apply.
+#define SANDBOX_LORE_ENV_FILE_PRECREATE "SANDBOX_LORE_FILE_PRECREATE"
+
 static int apply_profile(const char *profile_path) {
     FILE *fp = fopen(profile_path, "r");
     if (!fp) {
@@ -51,6 +54,22 @@ static int apply_profile(const char *profile_path) {
     return 0;
 }
 
+static void maybe_precreate_target(const char *target_path) {
+    const char *precreate = getenv(SANDBOX_LORE_ENV_FILE_PRECREATE);
+    if (!precreate || precreate[0] == '\0' || precreate[0] == '0') {
+        return;
+    }
+    if (!target_path) {
+        return;
+    }
+    int fd = open(target_path, O_WRONLY | O_CREAT, 0644);
+    if (fd < 0) {
+        fprintf(stderr, "precreate target: %s\n", strerror(errno));
+        return;
+    }
+    close(fd);
+}
+
 static void emit_fd_paths(int fd) {
     char pathbuf[PATH_MAX];
     if (fcntl(fd, F_GETPATH, pathbuf) == 0) {
@@ -76,6 +95,7 @@ int sandbox_io_read(const char *profile_path, const char *target_path) {
         return rc;
     }
 
+    maybe_precreate_target(target_path);
     sbl_maybe_seatbelt_callout_from_env("pre_syscall");
     int fd = open(target_path, O_RDONLY);
     if (fd < 0) {

@@ -1,7 +1,7 @@
 > NOTE (docs-only)
 >
-> The runnable probe source has moved to `book/api/lifecycle_probes/c/extensions_demo.c`. This example directory is documentation only.
-> Use `python -m book.api.lifecycle_probes extensions` to build/run the probe and (optionally) write `validation/out/lifecycle/extensions_dynamic.md`.
+> The runnable probe source has moved to `book/api/lifecycle/c/extensions_demo.c`. This example directory is documentation only.
+> Use `python -m book.api.lifecycle extensions` to build/run the probe and (optionally) write `validation/out/lifecycle/extensions_dynamic.md`.
 
 ## 1. What this example is about
 
@@ -22,13 +22,13 @@ The key mapping is: **extensions → `(extension ...)` filters in SBPL**, which 
 
 Single source file:
 
-* `book/api/lifecycle_probes/c/extensions_demo.c`
+* `book/api/lifecycle/c/extensions_demo.c`
 
 Typical build:
 
 ```sh
-clang book/api/lifecycle_probes/c/extensions_demo.c \
-  -o book/api/lifecycle_probes/build/extensions_demo \
+clang book/api/lifecycle/c/extensions_demo.c \
+  -o book/api/lifecycle/build/extensions_demo \
   -ldl
 ```
 
@@ -37,13 +37,13 @@ clang book/api/lifecycle_probes/c/extensions_demo.c \
 Then run:
 
 ```sh
-book/api/lifecycle_probes/build/extensions_demo
+book/api/lifecycle/build/extensions_demo
 ```
 
 To write the canonical validation output:
 
 ```sh
-python -m book.api.lifecycle_probes extensions \
+python -m book.api.lifecycle extensions \
   --out book/graph/concepts/validation/out/lifecycle/extensions_dynamic.md
 ```
 

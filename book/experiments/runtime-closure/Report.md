@@ -18,7 +18,8 @@ Provide narrow, stage-labeled runtime evidence that helps close gaps in `probe-o
 ## Status
 - File canonicalization lane: partial (v2 spelling matrix run; `/etc` still unresolved).
 - Mach service discrimination lane: ok (baseline confirms missing control).
-- IOKit lane: partial (service-only and user-client-only deny open; both allow open but post-open call still fails under sandbox; message-filter variants are blocked by preflight apply-gate signatures).
+- Oracle calibration lane: blocked (sandbox_check denies even when the operation allows on this host).
+- IOKit lane: partial (service-only and user-client-only deny open; both allow open but post-open call still fails; replay shows the captured call shape is invalid in baseline and sandbox, so the post-open failure is a call-shape issue rather than a sandbox gate on this host; message-filter variants are blocked by preflight apply-gate signatures).
 
 ## Lanes
 
@@ -31,7 +32,7 @@ Observed (run: `out/ea704c9c-5102-473a-b942-e24af4136cc8/`):
 - Data profile (`v2_data_literals`) denies all six probes, including the Data spellings, at operation stage.
 - `path_witnesses.json` baseline shows `/etc/hosts` -> `/private/etc/hosts` and `/tmp/foo` -> `/private/tmp/foo`. Scenario successes report `F_GETPATH_NOFIRMLINK:/System/Volumes/Data/private/...` for the private profile.
 All three profiles compile and apply successfully (`sandbox_init` rc=0); failures are operation-stage (`failure_stage: probe`).
-Oracle calibration (runs: `out/fe3745a4-1049-4a17-8246-0a29e5585d0e/`, `out/0c49afaa-0739-4239-9275-eb875c6232da/`) shows `sandbox_check` callouts returning `deny` for every `file-read-data` target, including `/private/etc/hosts` under the private profile; the file oracle lane does not flip with SBPL allows on this host and is treated as blocked evidence.
+Oracle calibration (runs: `out/fe3745a4-1049-4a17-8246-0a29e5585d0e/`, `out/0c49afaa-0739-4239-9275-eb875c6232da/`, `out/77d63a7c-1d11-4dee-870c-4e745014189e/`) shows `sandbox_check` callouts returning `deny` for every `file-read-data` target, including a precreated `/private/tmp/sandbox-lore-oracle.txt` under an allow rule; the file oracle lane does not flip with SBPL allows on this host and is treated as blocked evidence.
 
 Interpretation (bounded):
 - `/tmp/foo` fits the “alias fails, private succeeds” bucket: the private literal rule allows alias and Data spellings, suggesting canonicalization to `/private/tmp` at operation time.
@@ -43,6 +44,7 @@ One profile allows `mach-lookup` for a known service and a missing control name.
 Observed (run: `out/66315539-a0ce-44bf-bff0-07a79f205fea/`):
 - `com.apple.cfprefsd.agent` allowed in baseline and scenario (`kr=0`).
 - `com.apple.sandbox-lore.missing` returns `kr=1102` in baseline and scenario (missing service), so the “deny” result is not a sandbox decision on this host.
+Oracle calibration (run: `out/77d63a7c-1d11-4dee-870c-4e745014189e/`) shows `sandbox_check` denying `mach-lookup` for both services even when `bootstrap_look_up` succeeds for `com.apple.cfprefsd.agent`, so oracle results are not used as a gating signal.
 
 ### IOKit
 Profiles target IOSurfaceRoot via user-client-class filters to align with anchor-level structure.
@@ -64,6 +66,11 @@ Call-shape instrumentation:
 - A DYLD interposer (`harness/iokit_call_interpose.c`) crashes when injected into `iokit_probe` or `iosurface_trace` (SIGSEGV, no output).
 - The dynamic-interpose `iosurface_trace` run (`out/iosurface_call_trace/iosurface_trace_stderr.txt`) reports the IOSurface and IOKit images and successful install, but emits no `SBL_IKIT_CALL` lines, so no selector/argument shape was observed for `IOSurfaceCreate` on this host.
 - In-probe interpose capture (`SANDBOX_LORE_IKIT_CAPTURE_CALLS=1`) with IOConnectCall* + MIG stub hooks (`out/518f2e1d-66db-4392-89e8-4a74db154a82/`) reports `surface_create_ok=true` but `capture_seen=false`, so no selector/shape is observable in-process for `IOSurfaceCreate` on this host.
+- Synthetic capture control (`out/df0d8269-e0fb-4306-b942-74853239c60b/`) forces an IOConnectCallMethod via `dlsym`, yielding `capture_seen=true` with selector 0 and non-zero sizes; capture plumbing now has a positive hit.
+- Capture → replay loop:
+  - Baseline capture run `out/274a4c71-3c97-4aaa-a22f-93b587ba9ba9/` (launchd_clean, `SANDBOX_LORE_IKIT_SELECTOR_LIST=0`) records `capture_first_spec="IOConnectCallMethod:0:1:16:0:16"` with `call_kr=-536870206` at operation stage and `surface_create_ok=true` in baseline.
+  - Replay run `out/e720b256-2f6e-4888-9288-2e19b5007fa9/` (launchd_clean, `SANDBOX_LORE_IKIT_REPLAY=1`, `SANDBOX_LORE_IKIT_REPLAY_SPEC=IOConnectCallMethod:0:1:16:0:16`) replays the tuple under sandbox and returns `replay_kr=-536870206` in both baseline and scenario, with `replay_attempted=true` and no selector sweep (replay mode).
+  - Interpretation: the captured post-open call shape is invalid in baseline and sandbox, so the IOSurface post-open failure is a call-shape issue, not a sandbox gate, at hypothesis tier.
 All profiles apply successfully (`sandbox_init` rc=0). The post-open selector sweep still returns `call_kr=-536870206` under all scenarios, while `IOSurfaceCreate` succeeds unsandboxed (`surface_create_ok=true` in `book/api/runtime/native/probes/iokit_probe IOSurfaceRoot`) and fails under the sandbox, so Action B is now a discriminating failure signal but does not yet surface an op-name witness.
 
 This indicates the user-client-class filter is sufficient for the IOSurfaceRoot probe, while the IOAccelerator connection constraint is too narrow on this host.
@@ -82,7 +89,7 @@ Op-witness attempts:
   - File lane (v2 matrix): `book/experiments/runtime-closure/out/ea704c9c-5102-473a-b942-e24af4136cc8/` (includes `path_witnesses.json` and `promotion_packet.json`).
   - File oracle calibration: `book/experiments/runtime-closure/out/fe3745a4-1049-4a17-8246-0a29e5585d0e/`, `book/experiments/runtime-closure/out/0c49afaa-0739-4239-9275-eb875c6232da/` (callouts deny all file targets).
   - Mach lane: `book/experiments/runtime-closure/out/66315539-a0ce-44bf-bff0-07a79f205fea/`.
-  - IOKit op-identity lane: `book/experiments/runtime-closure/out/6ecc929d-fec5-4206-a85c-e3e265c349a7/`, `book/experiments/runtime-closure/out/08887f36-f87b-45ff-8e9e-6ee7eb9cb635/`, `book/experiments/runtime-closure/out/33ff5a68-262a-4a8c-b427-c7cb923a3adc/`, `book/experiments/runtime-closure/out/fae371c2-f2f5-470f-b672-cf0c3e24d6c0/`, `book/experiments/runtime-closure/out/bf996c2f-a265-4bb5-8c8a-105bd70af25a/`, `book/experiments/runtime-closure/out/03aaad16-f06b-4ec7-a468-c6379abbeb4d/`, `book/experiments/runtime-closure/out/ad767bba-9e59-40ff-b006-45fe911b2d02/`, `book/experiments/runtime-closure/out/bf200589-b801-4771-8b73-a84dfef73be6/`, `book/experiments/runtime-closure/out/f7b0ca74-c80b-4431-b0bc-9f1c97962e82/`, `book/experiments/runtime-closure/out/6ed9e0b6-a2cf-4122-846e-c9c36eea52a0/`, `book/experiments/runtime-closure/out/760494b1-5088-4271-ba05-50c3888c8690/`, `book/experiments/runtime-closure/out/7edc2b2f-7edf-4a50-ba0c-bd9bb2a549d3/`, `book/experiments/runtime-closure/out/7deb2296-7fa8-48ea-849f-ac7a696f7c93/`, `book/experiments/runtime-closure/out/518f2e1d-66db-4392-89e8-4a74db154a82/`.
+  - IOKit op-identity lane: `book/experiments/runtime-closure/out/6ecc929d-fec5-4206-a85c-e3e265c349a7/`, `book/experiments/runtime-closure/out/08887f36-f87b-45ff-8e9e-6ee7eb9cb635/`, `book/experiments/runtime-closure/out/33ff5a68-262a-4a8c-b427-c7cb923a3adc/`, `book/experiments/runtime-closure/out/fae371c2-f2f5-470f-b672-cf0c3e24d6c0/`, `book/experiments/runtime-closure/out/bf996c2f-a265-4bb5-8c8a-105bd70af25a/`, `book/experiments/runtime-closure/out/03aaad16-f06b-4ec7-a468-c6379abbeb4d/`, `book/experiments/runtime-closure/out/ad767bba-9e59-40ff-b006-45fe911b2d02/`, `book/experiments/runtime-closure/out/bf200589-b801-4771-8b73-a84dfef73be6/`, `book/experiments/runtime-closure/out/f7b0ca74-c80b-4431-b0bc-9f1c97962e82/`, `book/experiments/runtime-closure/out/6ed9e0b6-a2cf-4122-846e-c9c36eea52a0/`, `book/experiments/runtime-closure/out/760494b1-5088-4271-ba05-50c3888c8690/`, `book/experiments/runtime-closure/out/7edc2b2f-7edf-4a50-ba0c-bd9bb2a549d3/`, `book/experiments/runtime-closure/out/7deb2296-7fa8-48ea-849f-ac7a696f7c93/`, `book/experiments/runtime-closure/out/518f2e1d-66db-4392-89e8-4a74db154a82/`, `book/experiments/runtime-closure/out/274a4c71-3c97-4aaa-a22f-93b587ba9ba9/`, `book/experiments/runtime-closure/out/e720b256-2f6e-4888-9288-2e19b5007fa9/`.
 - Call-shape trace: `book/experiments/runtime-closure/out/iosurface_call_trace/iosurface_trace_stderr.txt`, `book/experiments/runtime-closure/out/iosurface_call_trace/iosurface_trace_stdout.txt`, `book/experiments/runtime-closure/out/iosurface_call_trace_2/iosurface_trace_stderr.txt`, `book/experiments/runtime-closure/out/iosurface_call_trace_2/iosurface_trace_stdout.txt`.
   - Selector discovery (baseline): `book/experiments/runtime-closure/out/a6e042e5-135d-4072-b0d6-50455abc62a3/iokit_probe_stdout.txt` and `book/experiments/runtime-closure/out/a6e042e5-135d-4072-b0d6-50455abc62a3/iokit_probe_stderr.txt` using a WebKit-derived candidate list with non-zero call shapes.
   - Observer-lane logs: `book/experiments/runtime-closure/out/bf996c2f-a265-4bb5-8c8a-105bd70af25a/observer/sandbox_log_stream_iokit.txt` and `book/experiments/runtime-closure/out/bf996c2f-a265-4bb5-8c8a-105bd70af25a/observer/sandbox_log_show_iokit.txt` (no iokit op lines observed).

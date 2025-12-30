@@ -93,7 +93,7 @@ Promotion packets are the contract boundary for runtime evidence: `python -m boo
 - **Runtime probes**: `book.api.runtime` (CLI: `python -m book.api.runtime`) for plan-based runs, bundle validation, and promotion packets.
 - **Apply-gate guardrails**: `book/tools/preflight/preflight.py` for scan + minimize-gate.
 - **Apply/probe pair**: `book/tools/sbpl/wrapper/` (wrapper binary) + `book/api/runtime/native/file_probe/file_probe.c` (probe target).
-- **Lifecycle probes**: `book.api.lifecycle_probes` (CLI: `python -m book.api.lifecycle_probes`).
+- **Lifecycle probes**: `book.api.lifecycle` (CLI: `python -m book.api.lifecycle`).
 - **Entitlements witness**: `book.api.entitlementjail` driving `book/tools/entitlement/EntitlementJail.app` (see `book/tools/entitlement/EntitlementJail.md`).
 - **Kernel/symbol work**: `book.api.ghidra` (CLI: `python -m book.api.ghidra.cli`).
 

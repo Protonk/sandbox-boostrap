@@ -1,3 +1,8 @@
+> NOTE (docs-only)
+>
+> The runnable probe source has moved to `book/api/lifecycle/c/platform_policy.c`. This example directory is documentation only.
+> Use `python -m book.api.lifecycle platform-policy` to build/run the probe and (optionally) write lifecycle validation output.
+
 ## 1. What this example is about
 
 This example is a **platform-policy probe**, not a sandbox profile demo:
@@ -24,21 +29,19 @@ The key lesson from `lessons.md`:
 
 Single file:
 
-* `platform_policy.c`
+* `book/api/lifecycle/c/platform_policy.c`
 
 Typical build:
 
 ```sh
-clang platform_policy.c -o platform_policy \
-  -framework CoreServices
+python -m book.api.lifecycle platform-policy
 ```
 
-(Depending on your SDK, you may not need extra frameworks; the core needs are standard libc and Mach/Bootstrap headers.)
-
-Then run:
+To build and run it manually:
 
 ```sh
-./platform_policy
+clang book/api/lifecycle/c/platform_policy.c -o book/api/lifecycle/build/platform_policy
+book/api/lifecycle/build/platform_policy
 ```
 
 You will see:
@@ -300,7 +303,7 @@ A practical workflow:
 
 1. **Baseline unsandboxed run**
 
-   * Run `./platform_policy` as a normal user.
+   * Run `python -m book.api.lifecycle platform-policy` as a normal user.
    * Record:
 
      * Which probes succeed,

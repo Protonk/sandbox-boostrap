@@ -31,10 +31,16 @@ Every run is interpreted by stage:
    - Probes: existing service (`com.apple.cfprefsd.agent`) + missing control (`com.apple.sandbox-lore.missing`).
    - Question: is a failure a true denial or a missing service (baseline vs scenario)?
 
-3) **IOKit op-identity lane**
+3) **Oracle calibration lane**
+   - Profile: allow `mach-lookup` for `com.apple.cfprefsd.agent` and file read/write for a temp file under `/private/tmp`.
+   - Probes: `mach-lookup` for the known service and missing control, plus a file-read on a precreated temp path.
+   - Question: do oracle callouts align with at least one non-path operation before we depend on them?
+
+4) **IOKit op-identity lane**
    - Profiles: `iokit-open-service` only, `iokit-open-user-client` only, both, plus message-filter variants that gate `iokit-external-method` via `apply-message-filter` on `iokit-open`.
    - Probes: `IOSurfaceRoot` with a post-open user-client call (IOConnectCallMethod) and `IOSurfaceCreate` as the discriminating action; the probe logs selector and call sizes, and `iosurface_trace` attempts to capture call shapes via dynamic interpose.
    - Question: which IOKit operation gates service open vs post-open user-client use, and does message-filtered `iokit-external-method` change the post-open path?
+   - Capture→replay: capture one post-open call tuple (`capture_first_spec`) in baseline, then replay the same tuple under sandbox (`SANDBOX_LORE_IKIT_REPLAY_SPEC`) to separate call-shape errors from sandbox gates.
 
 ## Evidence and artifacts
 

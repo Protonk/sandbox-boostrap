@@ -10,7 +10,7 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
-from book.api.lifecycle_probes import runner as probes
+from book.api.lifecycle import runner as probes
 from book.api.path_utils import find_repo_root
 
 from . import registry
@@ -35,8 +35,8 @@ def run_lifecycle_probes_job():
             "tier": "mapped",
             "notes": f"Set {ENV_ENABLE}=1 to build/run lifecycle probes on this host.",
             "inputs": [
-                "book/api/lifecycle_probes/c/entitlements_example.c",
-                "book/api/lifecycle_probes/c/extensions_demo.c",
+                "book/api/lifecycle/c/entitlements_example.c",
+                "book/api/lifecycle/c/extensions_demo.c",
             ],
             "outputs": [ENTITLEMENTS_OUT, EXTENSIONS_OUT],
         }
@@ -60,8 +60,8 @@ def run_lifecycle_probes_job():
         "status": status,
         "tier": "mapped",
         "inputs": [
-            "book/api/lifecycle_probes/c/entitlements_example.c",
-            "book/api/lifecycle_probes/c/extensions_demo.c",
+            "book/api/lifecycle/c/entitlements_example.c",
+            "book/api/lifecycle/c/extensions_demo.c",
         ],
         "outputs": [ENTITLEMENTS_OUT, EXTENSIONS_OUT],
         "notes": f"entitlements_present={ent.get('entitlements_present')}; extensions_status={ext.get('status')}; token_issued={ext.get('token_issued')}",
@@ -77,8 +77,8 @@ registry.register(
         id="lifecycle:probes",
         runner=run_lifecycle_probes_job,
         inputs=[
-            "book/api/lifecycle_probes/c/entitlements_example.c",
-            "book/api/lifecycle_probes/c/extensions_demo.c",
+            "book/api/lifecycle/c/entitlements_example.c",
+            "book/api/lifecycle/c/extensions_demo.c",
         ],
         outputs=[ENTITLEMENTS_OUT, EXTENSIONS_OUT],
         tags=["lifecycle", "lifecycle-extension"],

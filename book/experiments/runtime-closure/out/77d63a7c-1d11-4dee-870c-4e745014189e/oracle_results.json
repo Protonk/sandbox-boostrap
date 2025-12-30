@@ -1,0 +1,40 @@
+{
+  "schema_version": "runtime-tools.oracle_results.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "run_id": "77d63a7c-1d11-4dee-870c-4e745014189e",
+  "results": [
+    {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "run_id": "77d63a7c-1d11-4dee-870c-4e745014189e",
+      "expectation_id": "runtime-closure:oracle:v1_calibration:file_oracle_temp",
+      "operation": "file-read-data",
+      "filter_type": 0,
+      "filter_type_name": "path",
+      "argument": "/private/tmp/sandbox-lore-oracle.txt",
+      "decision": "deny",
+      "stage": "pre_syscall"
+    },
+    {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "run_id": "77d63a7c-1d11-4dee-870c-4e745014189e",
+      "expectation_id": "runtime-closure:oracle:v1_calibration:mach_cfprefsd_agent",
+      "operation": "mach-lookup",
+      "filter_type": 5,
+      "filter_type_name": "global-name",
+      "argument": "com.apple.cfprefsd.agent",
+      "decision": "deny",
+      "stage": "pre_syscall"
+    },
+    {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "run_id": "77d63a7c-1d11-4dee-870c-4e745014189e",
+      "expectation_id": "runtime-closure:oracle:v1_calibration:mach_missing_service",
+      "operation": "mach-lookup",
+      "filter_type": 5,
+      "filter_type_name": "global-name",
+      "argument": "com.apple.sandbox-lore.missing",
+      "decision": "deny",
+      "stage": "pre_syscall"
+    }
+  ]
+}

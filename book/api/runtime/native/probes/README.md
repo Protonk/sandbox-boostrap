@@ -25,6 +25,14 @@ to avoid extra syscalls that would confound sandbox decisions.
 - `SANDBOX_LORE_IKIT_CAPTURE_CALLS=1`: in `iokit_probe`, capture the first
   IOSurfaceCreate-triggered IOKit call (and first non-invalid call) via
   interposed IOConnect/IOKit MIG stubs. Capture mode suppresses the sweep.
+- `SANDBOX_LORE_IKIT_SYNTH_CALL=1`: in `iokit_probe`, issue a synthetic
+  IOConnectCallMethod via `dlsym` after IOServiceOpen to validate capture
+  plumbing (records synthetic call fields in probe output).
+- `SANDBOX_LORE_IKIT_REPLAY=1`: in both probes, replay a single captured call
+  tuple instead of running the selector sweep.
+- `SANDBOX_LORE_IKIT_REPLAY_SPEC=kind:selector:in_scalars:in_struct:out_scalars:out_struct`:
+  tuple string to replay (copy from `capture_first_spec` in probe output).
+  `capture_first_spec` is emitted by `iokit_probe` when a post-open call is attempted.
 - `SANDBOX_LORE_IKIT_CALL_KIND=...`: call kind to use for the sweep/replay
   (`IOConnectCallMethod`, `IOConnectCallScalarMethod`, `IOConnectCallStructMethod`,
   `IOConnectCallAsyncScalarMethod`, `IOConnectCallAsyncStructMethod`,

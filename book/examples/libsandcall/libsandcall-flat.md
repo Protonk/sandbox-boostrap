@@ -1,9 +1,14 @@
+> NOTE (docs-only)
+>
+> The runnable harness for “compile + apply” lives in `book/tools/sbpl/wrapper/` and is driven by `book.api.lifecycle`.
+> This example directory is documentation only. Use `python -m book.api.lifecycle apply-attempt` to write lifecycle validation output.
+
 ## 1. What this example is about
 
 This example shows both halves of the `libsandbox` story:
 
-1. **Compilation path**: inline SBPL → `sandbox_compile_string` → compiled profile blob.
-2. **Application path**: compiled profile → `sandbox_apply` → “try to sandbox this process”.
+1. **Compilation path**: SBPL → `sandbox_compile_file` (via the wrapper) → compiled profile blob.
+2. **Application path**: compiled profile → `sandbox_apply` (via the wrapper) → “try to sandbox this process”.
 
 On modern macOS, you should expect the **apply step to fail** without the right entitlements / SIP configuration. That is the point: the demo makes visible that:
 
@@ -18,31 +23,23 @@ You can read this example as a minimal “compile + apply probe” for `libsandb
 
 Files:
 
-* `src/sandbox_calls_demo.c` – the demo itself.
-* `Makefile` – builds `build/sandbox_calls_demo`.
-* `run-demo.sh` – makes sure it’s built, then runs it.
+* `book/tools/sbpl/wrapper/wrapper.c` – the apply harness (calls `libsandbox` APIs and emits stderr markers).
+* `book/api/lifecycle/runner.py` – the `apply-attempt` API wrapper (runs `wrapper` and writes `apply_attempt.json`).
 
-From the example root:
+Canonical run (from repo root):
 
 ```sh
-# One-shot run
-./run-demo.sh
+python -m book.api.lifecycle apply-attempt
 ```
 
-That script:
-
-1. Builds `build/sandbox_calls_demo` via `make` if missing.
-2. Runs `build/sandbox_calls_demo`.
-
-You should see:
-
-* Confirmation that inline SBPL compiled.
-* The `profile_type`, bytecode length, and a hex preview of the compiled profile.
-* A `sandbox_apply` result, usually an error, with `errno` explaining that activation is blocked.
+This writes `book/graph/concepts/validation/out/lifecycle/apply_attempt.json` by default.
 
 ---
 
 ## 3. Build glue: `Makefile` and `run-demo.sh`
+
+> Historical note: this document originally described a standalone `Makefile` + `run-demo.sh` build in `book/examples/libsandcall/`.
+> The runnable source now lives under `book/api/lifecycle/`, and this section is retained as narrative context only.
 
 ### `Makefile`
 
@@ -116,6 +113,10 @@ Net effect: `./run-demo.sh` is the entry point you use; it hides the build detai
 ---
 
 ## 4. The demo: `sandbox_calls_demo.c`
+
+> Historical note: this section is retained as narrative context, but the original
+> `sandbox_calls_demo.c` is no longer in-tree. For current implementation, see
+> `book/tools/sbpl/wrapper/wrapper.c`.
 
 ### 4.1 Private interface declarations
 
@@ -319,7 +320,7 @@ This example is most useful if you treat it as a **two-step probe**:
 
      * add more `(allow ...)` rules,
      * change paths, operations, or version.
-   * Rebuild and run via `./run-demo.sh`.
+   * Rebuild and run via `python -m book.api.lifecycle apply-attempt`.
    * Observe:
 
      * `profile_type` (does it change?),

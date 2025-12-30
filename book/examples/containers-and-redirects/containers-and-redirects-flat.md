@@ -1,3 +1,8 @@
+> NOTE (docs-only)
+>
+> The runnable probe source has moved to `book/api/lifecycle/swift/containers_demo.swift`. This example directory is documentation only.
+> Use `python -m book.api.lifecycle containers` to run it and (optionally) write lifecycle validation output.
+
 ## 1. What this example is about
 
 This example is a small, read-only probe for how app containers and redirects show up on disk from a process’s point of view:
@@ -19,18 +24,22 @@ Running this alongside decoded profiles helps you understand why certain reads/w
 
 There is a single Swift file:
 
-* `containers_demo.swift`
+* `book/api/lifecycle/swift/containers_demo.swift`
 
 You can run it in a few ways, for example:
 
+* Via the canonical API entrypoint:
+
+  * `python -m book.api.lifecycle containers`
+
 * Directly with the Swift interpreter:
 
-  * `swift containers_demo.swift`
+  * `swift book/api/lifecycle/swift/containers_demo.swift`
 
 * Or compile, then run:
 
-  * `swiftc containers_demo.swift -o containers_demo`
-  * `./containers_demo`
+  * `swiftc book/api/lifecycle/swift/containers_demo.swift -o book/api/lifecycle/build/containers_demo`
+  * `book/api/lifecycle/build/containers_demo`
 
 When you run it, you will see output like:
 
@@ -60,7 +69,7 @@ This is safe to run in your normal user environment. It only reads directories a
 3. **Knowing container layout is necessary to read profiles correctly.**
    When you see a rule like `(allow file-read* (subpath "/Users/you/Library/Containers/..."))` in decoded SBPL, you can now map that back to the “same-looking” paths you interact with as a user and understand why a sandboxed app behaves differently from an unsandboxed tool.
 
-You can treat `containers_demo.swift` as an executable illustration for these bullets: run it, look at the concrete paths on your machine, and then cross-check them against any decoded profiles or sandbox logs you are studying.
+You can treat `book/api/lifecycle/swift/containers_demo.swift` as an executable illustration for these bullets: run it, look at the concrete paths on your machine, and then cross-check them against any decoded profiles or sandbox logs you are studying.
 
 ## 4. Walking through the code
 

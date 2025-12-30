@@ -624,6 +624,80 @@
       },
       "target": "/System/Volumes/Data/private/tmp/foo"
     },
+    "runtime-closure:oracle:v1_calibration:file_oracle_temp": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "/private/tmp/sandbox-lore-oracle.txt"
+      ],
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "name": "file_oracle_temp",
+      "operation": "file-read*",
+      "probe_id": "runtime-closure:oracle:v1_calibration:file_oracle_temp",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/private/tmp/sandbox-lore-oracle.txt"
+    },
+    "runtime-closure:oracle:v1_calibration:mach_cfprefsd_agent": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "driver": "sandbox_mach_probe",
+      "expected": "allow",
+      "expected_predicates": [
+        "com.apple.cfprefsd.agent"
+      ],
+      "expected_primary_ops": [
+        "mach-lookup"
+      ],
+      "name": "mach_cfprefsd_agent",
+      "operation": "mach-lookup",
+      "probe_id": "runtime-closure:oracle:v1_calibration:mach_cfprefsd_agent",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "com.apple.cfprefsd.agent"
+    },
+    "runtime-closure:oracle:v1_calibration:mach_missing_service": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "driver": "sandbox_mach_probe",
+      "expected": "deny",
+      "expected_predicates": [
+        "com.apple.sandbox-lore.missing"
+      ],
+      "expected_primary_ops": [
+        "mach-lookup"
+      ],
+      "name": "mach_missing_service",
+      "operation": "mach-lookup",
+      "probe_id": "runtime-closure:oracle:v1_calibration:mach_missing_service",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "com.apple.sandbox-lore.missing"
+    },
     "runtime-closure:file:v2_private_literals:tmp_private": {
       "capabilities_required": [],
       "controls_supported": [
@@ -1041,6 +1115,56 @@
       "name": "iosurface_root",
       "operation": "iokit-open-service",
       "probe_id": "runtime-closure:iokit:v7_service_user_client_both:iosurface_root",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "IOSurfaceRoot"
+    },
+    "runtime-closure:iokit:v19_capture_replay:iosurface_root_capture": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "driver": "sandbox_iokit_probe",
+      "expected": "allow",
+      "expected_predicates": [
+        "IOSurfaceRoot"
+      ],
+      "expected_primary_ops": [
+        "iokit-open-service"
+      ],
+      "name": "iosurface_root_capture",
+      "operation": "iokit-open-service",
+      "probe_id": "runtime-closure:iokit:v19_capture_replay:iosurface_root_capture",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "IOSurfaceRoot"
+    },
+    "runtime-closure:iokit:v20_replay_tuple:iosurface_root_replay": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "driver": "sandbox_iokit_probe",
+      "expected": "allow",
+      "expected_predicates": [
+        "IOSurfaceRoot"
+      ],
+      "expected_primary_ops": [
+        "iokit-open-service"
+      ],
+      "name": "iosurface_root_replay",
+      "operation": "iokit-open-service",
+      "probe_id": "runtime-closure:iokit:v20_replay_tuple:iosurface_root_replay",
       "supports_lanes": {
         "baseline": true,
         "oracle": true,

@@ -1,0 +1,75 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "tier": "mapped",
+    "source_jobs": [],
+    "notes": "op-level runtime summary"
+  },
+  "ops": {
+    "file-read*": {
+      "op_name": "file-read*",
+      "op_id": 21,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 1,
+      "matches": 1,
+      "mismatches": 0,
+      "probes_including_blocked": 1,
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "examples": [
+        {
+          "scenario_id": "runtime-closure:oracle:v1_calibration:file_oracle_temp",
+          "expectation_id": "runtime-closure:oracle:v1_calibration:file_oracle_temp",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        }
+      ],
+      "scenarios": [
+        "runtime-closure:oracle:v1_calibration:file_oracle_temp"
+      ],
+      "coverage_status": "ok"
+    },
+    "mach-lookup": {
+      "op_name": "mach-lookup",
+      "op_id": 96,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 2,
+      "matches": 2,
+      "mismatches": 0,
+      "probes_including_blocked": 2,
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "examples": [
+        {
+          "scenario_id": "runtime-closure:oracle:v1_calibration:mach_cfprefsd_agent",
+          "expectation_id": "runtime-closure:oracle:v1_calibration:mach_cfprefsd_agent",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        },
+        {
+          "scenario_id": "runtime-closure:oracle:v1_calibration:mach_missing_service",
+          "expectation_id": "runtime-closure:oracle:v1_calibration:mach_missing_service",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        }
+      ],
+      "scenarios": [
+        "runtime-closure:oracle:v1_calibration:mach_cfprefsd_agent",
+        "runtime-closure:oracle:v1_calibration:mach_missing_service"
+      ],
+      "coverage_status": "ok"
+    }
+  }
+}

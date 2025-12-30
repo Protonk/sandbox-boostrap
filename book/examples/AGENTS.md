@@ -58,7 +58,7 @@ These examples assume a macOS system with:
 - **Run:**
   ```sh
   # Note: example dir is docs-only; runnable probe lives under book/api/.
-  python -m book.api.lifecycle_probes entitlements \
+  python -m book.api.lifecycle entitlements \
     --out book/graph/concepts/validation/out/lifecycle/entitlements.json
 ```
 
@@ -72,8 +72,8 @@ These examples assume a macOS system with:
 * **Run:**
 
   ```sh
-  clang platform_policy.c -o platform_policy
-  ./platform_policy
+  # Note: example dir is docs-only; runnable probe lives under book/api/.
+  python -m book.api.lifecycle platform-policy
   ```
 * **Concept:** Platform vs app sandbox layering. Use when you need examples where global rules (SIP/CSR/platform policy) can deny even if a per-process profile would allow.
 
@@ -86,7 +86,7 @@ These examples assume a macOS system with:
 
   ```sh
   # Note: example dir is docs-only; runnable probe lives under book/api/.
-  python -m book.api.lifecycle_probes extensions \
+  python -m book.api.lifecycle extensions \
     --out book/graph/concepts/validation/out/lifecycle/extensions_dynamic.md
   ```
 * **Concept:** Sandbox extensions as **dynamic capabilities** stacked on top of platform and per-process policy. Expected to fail issuance on unentitled CLIs; focus is on the API pattern.
@@ -99,8 +99,8 @@ These examples assume a macOS system with:
 * **Run:**
 
   ```sh
-  swiftc containers_demo.swift -o containers_demo
-  ./containers_demo
+  # Note: example dir is docs-only; runnable probe lives under book/api/.
+  python -m book.api.lifecycle containers
   ```
 * **Concept:** Containers, redirects, and path filters (`subpath`, `literal`, `regex`). Use when you need examples about container layout and symlink resolution.
 
@@ -212,7 +212,8 @@ Use these when you need to **compile, extract, disassemble, or visualize profile
 * **Run:**
 
   ```sh
-  ./run-demo.sh
+  # Note: example dir is docs-only; runnable probe lives under book/api/.
+  python -m book.api.lifecycle apply-attempt
   ```
 * **Concept:** Direct `libsandbox` usage (`sandbox_compile_string`, `sandbox_apply`). Use when you need a minimal caller that both compiles and (tries to) apply a profile.
 
