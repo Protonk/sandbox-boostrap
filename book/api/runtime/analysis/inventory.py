@@ -41,6 +41,9 @@ KEYWORDS = [
     "policywitness",
     "policy-witness",
 ]
+EXCLUDED_SCAN_PREFIXES = (
+    "book/experiments/archive/",
+)
 
 IN_REPO_ITEMS: List[Dict[str, Any]] = [
     {
@@ -153,7 +156,7 @@ IN_REPO_ITEMS: List[Dict[str, Any]] = [
     },
     {
         "id": "policy-witness",
-        "paths": ["book/tools/witness", "book/experiments/entitlement-diff"],
+        "paths": ["book/tools/witness"],
         "category": "logging",
         "description": "App Sandbox/entitlement probes and sandbox log observation (PolicyWitness).",
         "privileges": "user (App Sandbox runner)",
@@ -276,7 +279,19 @@ def _rg_available() -> bool:
 
 
 def _rg_files(pattern: str, repo_root: Path) -> Iterable[Path]:
-    cmd = ["rg", "-l", "-F", pattern, str(repo_root), "-g", "!.git/**", "-g", "!**/out/**"]
+    cmd = [
+        "rg",
+        "-l",
+        "-F",
+        pattern,
+        str(repo_root),
+        "-g",
+        "!.git/**",
+        "-g",
+        "!**/out/**",
+        "-g",
+        "!book/experiments/archive/**",
+    ]
     res = subprocess.run(cmd, capture_output=True, text=True)
     if res.returncode not in (0, 1):
         return []
@@ -295,6 +310,8 @@ def collect_keyword_hits(repo_root: Path) -> Dict[str, List[str]]:
     for keyword in KEYWORDS:
         for path in _rg_files(keyword, repo_root):
             rel = path_utils.to_repo_relative(path, repo_root=repo_root)
+            if any(rel.startswith(prefix) for prefix in EXCLUDED_SCAN_PREFIXES):
+                continue
             hits.setdefault(rel, []).append(keyword)
     return hits
 

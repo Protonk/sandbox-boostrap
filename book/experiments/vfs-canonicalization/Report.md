@@ -23,7 +23,7 @@ python -m book.api.runtime run \
   - `/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe` ↔ `/private/var/tmp/vfs_link_probe` (intermediate symlink).
 - **Targets:** the path pairs above; each family is tested only against its own configured pair(s).
 - **Harness:**
-  - Plan-data generated via `python -m book.api.runtime plan-build --template vfs-canonicalization --out book/experiments/vfs-canonicalization --overwrite`.
+  - Plan-data generated via `python -m book.api.runtime plan-build --template vfs-canonicalization --out book/experiments/vfs-canonicalization --overwrite` (plan-build skips expected_matrix.json by default; use `--write-expected-matrix` for a static snapshot).
   - Runtime execution via `python -m book.api.runtime run --plan book/experiments/vfs-canonicalization/plan.json --channel launchd_clean` (bundle under `out/<run_id>/`, `out/LATEST` points to the most recent committed run).
   - Derived summaries via `python book/experiments/vfs-canonicalization/derive_outputs.py --bundle book/experiments/vfs-canonicalization/out --out-dir book/experiments/vfs-canonicalization/out/derived`.
   - Structural decode via `book/api/profile/decoder/` using bundle blobs (driven by the derive step).

@@ -90,7 +90,7 @@ Strict emission mode:
 
 `run_plan()` may run under a bundle-root lock file:
 
-- lock file: `out/.runtime.lock`
+- lock file: `out/.runtime.lock` (ephemeral; removed after release and should not be committed)
 - lock modes: `fail` (fail fast) or `wait` (bounded by timeout)
 
 The lock protects:

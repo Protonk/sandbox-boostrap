@@ -1,0 +1,259 @@
+{
+  "app_binary_rel_path": "Contents/MacOS/entitlement-jail",
+  "app_bundle_id": "com.yourteam.entitlement-jail",
+  "app_entitlements": {
+    "com.apple.security.app-sandbox": true
+  },
+  "entries": [
+    {
+      "entitlements": {
+        "com.apple.security.app-sandbox": true,
+        "com.apple.security.inherit": true
+      },
+      "id": "xpc-probe-client",
+      "kind": "helper",
+      "lc_uuid": "7FBE6FF7-CBF5-30C0-AAF4-988FD272A2FA",
+      "rel_path": "Contents/MacOS/xpc-probe-client",
+      "sha256": "c92340247a7bc3c493cc27a8821baa7d0bc62a86a481baa1f2f23f53047cba77"
+    },
+    {
+      "entitlements": {
+        "com.apple.security.app-sandbox": true,
+        "com.apple.security.inherit": true
+      },
+      "id": "xpc-quarantine-client",
+      "kind": "helper",
+      "lc_uuid": "FE1189CF-ECEA-3743-B6CB-F85C6DE6A59B",
+      "rel_path": "Contents/MacOS/xpc-quarantine-client",
+      "sha256": "871403b03b8e3b3893005d2a86007cac3a96fb2f798e81be2a4b299caefc138f"
+    },
+    {
+      "bundle_id": "com.yourteam.entitlement-jail.ProbeService_bookmarks_app_scope",
+      "entitlements": {
+        "com.apple.security.app-sandbox": true,
+        "com.apple.security.files.bookmarks.app-scope": true
+      },
+      "id": "com.yourteam.entitlement-jail.ProbeService_bookmarks_app_scope",
+      "kind": "xpc-service",
+      "lc_uuid": "5E66E54E-C199-3B95-BC69-636C6C3D928F",
+      "rel_path": "Contents/XPCServices/ProbeService_bookmarks_app_scope.xpc/Contents/MacOS/ProbeService_bookmarks_app_scope",
+      "service_name": "ProbeService_bookmarks_app_scope",
+      "sha256": "17afc533ba0b4bdcf50780c49156e108d53a76b043f3d5d55d191d6565412450"
+    },
+    {
+      "bundle_id": "com.yourteam.entitlement-jail.ProbeService_debuggable",
+      "entitlements": {
+        "com.apple.security.app-sandbox": true,
+        "com.apple.security.cs.disable-library-validation": true,
+        "com.apple.security.get-task-allow": true
+      },
+      "id": "com.yourteam.entitlement-jail.ProbeService_debuggable",
+      "kind": "xpc-service",
+      "lc_uuid": "5DFB712D-6797-3AFE-9646-127D6BC610BB",
+      "rel_path": "Contents/XPCServices/ProbeService_debuggable.xpc/Contents/MacOS/ProbeService_debuggable",
+      "service_name": "ProbeService_debuggable",
+      "sha256": "f45d5355f9c0842e3454f272eb1a507a8683430fd655ffc785d129a899116cb4"
+    },
+    {
+      "bundle_id": "com.yourteam.entitlement-jail.ProbeService_downloads_rw",
+      "entitlements": {
+        "com.apple.security.app-sandbox": true,
+        "com.apple.security.files.downloads.read-write": true
+      },
+      "id": "com.yourteam.entitlement-jail.ProbeService_downloads_rw",
+      "kind": "xpc-service",
+      "lc_uuid": "821A2317-3F9A-3E62-9253-260228BAD102",
+      "rel_path": "Contents/XPCServices/ProbeService_downloads_rw.xpc/Contents/MacOS/ProbeService_downloads_rw",
+      "service_name": "ProbeService_downloads_rw",
+      "sha256": "9c07276637be989e6712bc04d478a67c98e2cfe862aa22370b7d8a201c04bdb1"
+    },
+    {
+      "bundle_id": "com.yourteam.entitlement-jail.ProbeService_dyld_env_enabled",
+      "entitlements": {
+        "com.apple.security.app-sandbox": true,
+        "com.apple.security.cs.allow-dyld-environment-variables": true
+      },
+      "id": "com.yourteam.entitlement-jail.ProbeService_dyld_env_enabled",
+      "kind": "xpc-service",
+      "lc_uuid": "B426F073-57CF-3A1F-8095-E3543147979B",
+      "rel_path": "Contents/XPCServices/ProbeService_dyld_env_enabled.xpc/Contents/MacOS/ProbeService_dyld_env_enabled",
+      "service_name": "ProbeService_dyld_env_enabled",
+      "sha256": "b70fcd24ad771ccb43620ac352649a58b0ecfda6ac930ac2605620e44c83a132"
+    },
+    {
+      "bundle_id": "com.yourteam.entitlement-jail.ProbeService_fully_injectable",
+      "entitlements": {
+        "com.apple.security.app-sandbox": true,
+        "com.apple.security.cs.allow-dyld-environment-variables": true,
+        "com.apple.security.cs.allow-jit": true,
+        "com.apple.security.cs.allow-unsigned-executable-memory": true,
+        "com.apple.security.cs.disable-library-validation": true,
+        "com.apple.security.get-task-allow": true
+      },
+      "id": "com.yourteam.entitlement-jail.ProbeService_fully_injectable",
+      "kind": "xpc-service",
+      "lc_uuid": "110C2236-A506-3F29-86C8-EFDF7A049304",
+      "rel_path": "Contents/XPCServices/ProbeService_fully_injectable.xpc/Contents/MacOS/ProbeService_fully_injectable",
+      "service_name": "ProbeService_fully_injectable",
+      "sha256": "1c42edef8728bdc6a5ef5fde93d4bfbc47e2705f805db49b4f799e11557321a6"
+    },
+    {
+      "bundle_id": "com.yourteam.entitlement-jail.ProbeService_jit_map_jit",
+      "entitlements": {
+        "com.apple.security.app-sandbox": true,
+        "com.apple.security.cs.allow-jit": true
+      },
+      "id": "com.yourteam.entitlement-jail.ProbeService_jit_map_jit",
+      "kind": "xpc-service",
+      "lc_uuid": "F0594AD5-C47B-342D-B22C-77D2A5F27228",
+      "rel_path": "Contents/XPCServices/ProbeService_jit_map_jit.xpc/Contents/MacOS/ProbeService_jit_map_jit",
+      "service_name": "ProbeService_jit_map_jit",
+      "sha256": "7812e8fc6a3ab45fe791d2b0bbcdc86dd52ede9f6b9cb1f93222888706d21486"
+    },
+    {
+      "bundle_id": "com.yourteam.entitlement-jail.ProbeService_jit_rwx_legacy",
+      "entitlements": {
+        "com.apple.security.app-sandbox": true,
+        "com.apple.security.cs.allow-unsigned-executable-memory": true
+      },
+      "id": "com.yourteam.entitlement-jail.ProbeService_jit_rwx_legacy",
+      "kind": "xpc-service",
+      "lc_uuid": "0CF2D2BA-984A-3627-8BB8-64018C0F53E3",
+      "rel_path": "Contents/XPCServices/ProbeService_jit_rwx_legacy.xpc/Contents/MacOS/ProbeService_jit_rwx_legacy",
+      "service_name": "ProbeService_jit_rwx_legacy",
+      "sha256": "42b54b98719871f0214f14f39050aa924fff5cb3f053d146fbca11a0edbde776"
+    },
+    {
+      "bundle_id": "com.yourteam.entitlement-jail.ProbeService_minimal",
+      "entitlements": {
+        "com.apple.security.app-sandbox": true
+      },
+      "id": "com.yourteam.entitlement-jail.ProbeService_minimal",
+      "kind": "xpc-service",
+      "lc_uuid": "E1F6080D-C4E2-387F-A834-2EA57505138F",
+      "rel_path": "Contents/XPCServices/ProbeService_minimal.xpc/Contents/MacOS/ProbeService_minimal",
+      "service_name": "ProbeService_minimal",
+      "sha256": "e7d2b99c68a2a3b1d313eb6e4d187053bae0b9bebf40b52a3e831b691f7da112"
+    },
+    {
+      "bundle_id": "com.yourteam.entitlement-jail.ProbeService_net_client",
+      "entitlements": {
+        "com.apple.security.app-sandbox": true,
+        "com.apple.security.network.client": true
+      },
+      "id": "com.yourteam.entitlement-jail.ProbeService_net_client",
+      "kind": "xpc-service",
+      "lc_uuid": "3E3C4324-8E31-3AA6-87E9-0459E8C01A9D",
+      "rel_path": "Contents/XPCServices/ProbeService_net_client.xpc/Contents/MacOS/ProbeService_net_client",
+      "service_name": "ProbeService_net_client",
+      "sha256": "77450e81cbf80c501469752d3473f0ae03976db44ec8377e493a79ff83f0bf42"
+    },
+    {
+      "bundle_id": "com.yourteam.entitlement-jail.ProbeService_plugin_host_relaxed",
+      "entitlements": {
+        "com.apple.security.app-sandbox": true,
+        "com.apple.security.cs.disable-library-validation": true
+      },
+      "id": "com.yourteam.entitlement-jail.ProbeService_plugin_host_relaxed",
+      "kind": "xpc-service",
+      "lc_uuid": "6DD0ADEB-9A8A-35E8-8D2F-A383DE93111B",
+      "rel_path": "Contents/XPCServices/ProbeService_plugin_host_relaxed.xpc/Contents/MacOS/ProbeService_plugin_host_relaxed",
+      "service_name": "ProbeService_plugin_host_relaxed",
+      "sha256": "44c5c3e9ece06c1d2032a48a9650c9318e0ad4c27f2b8263936564dcbd28da33"
+    },
+    {
+      "bundle_id": "com.yourteam.entitlement-jail.ProbeService_user_selected_executable",
+      "entitlements": {
+        "com.apple.security.app-sandbox": true,
+        "com.apple.security.files.user-selected.executable": true
+      },
+      "id": "com.yourteam.entitlement-jail.ProbeService_user_selected_executable",
+      "kind": "xpc-service",
+      "lc_uuid": "E8227F7E-B41F-3E9A-9682-3E998CC99D5B",
+      "rel_path": "Contents/XPCServices/ProbeService_user_selected_executable.xpc/Contents/MacOS/ProbeService_user_selected_executable",
+      "service_name": "ProbeService_user_selected_executable",
+      "sha256": "74516bec52c9d7159362c11e07138655401d1dff1ec1d5e4449475c84b11162d"
+    },
+    {
+      "bundle_id": "com.yourteam.entitlement-jail.QuarantineLab_bookmarks_app_scope",
+      "entitlements": {
+        "com.apple.security.app-sandbox": true,
+        "com.apple.security.files.bookmarks.app-scope": true
+      },
+      "id": "com.yourteam.entitlement-jail.QuarantineLab_bookmarks_app_scope",
+      "kind": "xpc-service",
+      "lc_uuid": "374BAACE-4FE5-3B7F-905C-06F22596AEB2",
+      "rel_path": "Contents/XPCServices/QuarantineLab_bookmarks_app_scope.xpc/Contents/MacOS/QuarantineLab_bookmarks_app_scope",
+      "service_name": "QuarantineLab_bookmarks_app_scope",
+      "sha256": "1ae03e09c93f481f6892c08d2cc2423c6f9fe1c5ea2c1929e28f97fe9fbc27a2"
+    },
+    {
+      "bundle_id": "com.yourteam.entitlement-jail.QuarantineLab_default",
+      "entitlements": {
+        "com.apple.security.app-sandbox": true
+      },
+      "id": "com.yourteam.entitlement-jail.QuarantineLab_default",
+      "kind": "xpc-service",
+      "lc_uuid": "2E74DF6F-DE04-3849-A17A-E301F9FE6008",
+      "rel_path": "Contents/XPCServices/QuarantineLab_default.xpc/Contents/MacOS/QuarantineLab_default",
+      "service_name": "QuarantineLab_default",
+      "sha256": "6d51778d2571bd31efb4c00cabdf9daf2578e2ed0aa179ceeaf8ea35be38ceaa"
+    },
+    {
+      "bundle_id": "com.yourteam.entitlement-jail.QuarantineLab_downloads_rw",
+      "entitlements": {
+        "com.apple.security.app-sandbox": true,
+        "com.apple.security.files.downloads.read-write": true
+      },
+      "id": "com.yourteam.entitlement-jail.QuarantineLab_downloads_rw",
+      "kind": "xpc-service",
+      "lc_uuid": "D445FA22-BBE5-3167-96CE-7126438DDCE8",
+      "rel_path": "Contents/XPCServices/QuarantineLab_downloads_rw.xpc/Contents/MacOS/QuarantineLab_downloads_rw",
+      "service_name": "QuarantineLab_downloads_rw",
+      "sha256": "27f0c5a1dac81446c36b3b30b2c2e6d936191aeb662f1af58ece1d9841dc7e19"
+    },
+    {
+      "bundle_id": "com.yourteam.entitlement-jail.QuarantineLab_net_client",
+      "entitlements": {
+        "com.apple.security.app-sandbox": true,
+        "com.apple.security.network.client": true
+      },
+      "id": "com.yourteam.entitlement-jail.QuarantineLab_net_client",
+      "kind": "xpc-service",
+      "lc_uuid": "E3C170B4-9E93-3E76-B21E-292CDFF92E3B",
+      "rel_path": "Contents/XPCServices/QuarantineLab_net_client.xpc/Contents/MacOS/QuarantineLab_net_client",
+      "service_name": "QuarantineLab_net_client",
+      "sha256": "c55c595988fb4d606a92348a66a9d70d9f2b23baf0865e3acc3b72bbf3f671bc"
+    },
+    {
+      "bundle_id": "com.yourteam.entitlement-jail.QuarantineLab_user_selected_executable",
+      "entitlements": {
+        "com.apple.security.app-sandbox": true,
+        "com.apple.security.files.user-selected.executable": true
+      },
+      "id": "com.yourteam.entitlement-jail.QuarantineLab_user_selected_executable",
+      "kind": "xpc-service",
+      "lc_uuid": "8BECCEE5-660D-3DB7-8236-CC6644169AB6",
+      "rel_path": "Contents/XPCServices/QuarantineLab_user_selected_executable.xpc/Contents/MacOS/QuarantineLab_user_selected_executable",
+      "service_name": "QuarantineLab_user_selected_executable",
+      "sha256": "51f8348cb27c0f4beead8ce8edf3c649dfbbd94121c4055f3c5d99641c631964"
+    },
+    {
+      "id": "evidence.symbols",
+      "kind": "evidence",
+      "rel_path": "Contents/Resources/Evidence/symbols.json",
+      "sha256": "dab685929b638c5ac90ffa805997e484b4c6a84ef054a61dd7089985e54be301"
+    },
+    {
+      "id": "evidence.profiles",
+      "kind": "evidence",
+      "rel_path": "Contents/Resources/Evidence/profiles.json",
+      "sha256": "ed976a906ea8c876cbb3beaeea0db6410bcedbe01274e80c2f56639789f4f6db"
+    }
+  ],
+  "generated_at": "2025-12-24T23:06:51Z",
+  "notes": [
+    "Main app binary hash is omitted because the manifest is signed by the app bundle."
+  ],
+  "schema_version": 1
+}

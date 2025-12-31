@@ -1,0 +1,40 @@
+{
+  "data": {
+    "correlation_id": "0D42EF9B-380B-47C0-87F8-051CC06F4646",
+    "deny_lines": [],
+    "duration_ms": null,
+    "end": "2025-12-25 13:08:04",
+    "last": null,
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    ",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": false,
+    "observed_lines": 1,
+    "observer_schema_version": 1,
+    "pid": 89145,
+    "plan_id": "entitlement-diff:ej",
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_minimal(89145)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"89145\")))",
+    "process_name": "ProbeService_minimal",
+    "row_id": "net_client.minimal.world_shape",
+    "start": "2025-12-25 13:07:54"
+  },
+  "generated_at_unix_ms": 1766696879629,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

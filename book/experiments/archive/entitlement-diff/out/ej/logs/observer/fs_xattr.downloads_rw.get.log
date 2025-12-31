@@ -1,0 +1,40 @@
+{
+  "data": {
+    "correlation_id": "82A1F064-075A-42F3-883E-CDBFE71B5D66",
+    "deny_lines": [],
+    "duration_ms": null,
+    "end": "2025-12-25 13:09:15",
+    "last": null,
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    ",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": false,
+    "observed_lines": 1,
+    "observer_schema_version": 1,
+    "pid": 89827,
+    "plan_id": "entitlement-diff:ej",
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_downloads_rw(89827)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"89827\")))",
+    "process_name": "ProbeService_downloads_rw",
+    "row_id": "fs_xattr.downloads_rw.get",
+    "start": "2025-12-25 13:09:05"
+  },
+  "generated_at_unix_ms": 1766696951249,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

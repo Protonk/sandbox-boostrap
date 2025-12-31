@@ -81,7 +81,7 @@ Signals:
 IR path:
 
 - `Plan.md` (this file) encodes the question, design, and JSON shapes.
-- `python -m book.api.runtime plan-build --template vfs-canonicalization --out book/experiments/vfs-canonicalization --overwrite` keeps `plan.json` and `registry/` in sync.
+- `python -m book.api.runtime plan-build --template vfs-canonicalization --out book/experiments/vfs-canonicalization --overwrite` keeps `plan.json` and `registry/` in sync (use `--write-expected-matrix` only for a static snapshot; runtime runs emit run-scoped expected_matrix bundles).
 - `python book/experiments/vfs-canonicalization/prepare_fixtures.py` prepares host fixtures under `/private/tmp` and `/private/var/tmp`.
 - `python -m book.api.runtime run --plan book/experiments/vfs-canonicalization/plan.json --channel launchd_clean` emits a committed bundle under `out/<run_id>/` and updates `out/LATEST`.
 - `python -m book.api.runtime emit-promotion --bundle book/experiments/vfs-canonicalization/out/LATEST --out book/experiments/vfs-canonicalization/out/promotion_packet.json --require-promotable` (when promotion is intended).

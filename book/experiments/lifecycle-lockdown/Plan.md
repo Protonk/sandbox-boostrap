@@ -59,12 +59,12 @@ Execution-lane isolation (runtime API, staged via `launchd_clean`):
 python3 -m book.api.runtime run \
   --plan book/experiments/lifecycle-lockdown/plan.json \
   --channel launchd_clean \
-  --out book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce
+  --out book/experiments/lifecycle-lockdown/out/runtime/launchd_clean_enforce
 
 SANDBOX_LORE_PREFLIGHT_FORCE=1 python3 -m book.api.runtime run \
   --plan book/experiments/lifecycle-lockdown/plan.json \
   --channel launchd_clean \
-  --out book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_force
+  --out book/experiments/lifecycle-lockdown/out/runtime/launchd_clean_force
 ```
 
 Apply inputs note:

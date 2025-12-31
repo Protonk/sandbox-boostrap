@@ -12,7 +12,7 @@ Outputs: expected/runtime matrices, mismatch summaries, and impact hooks to down
 - Execution: `python -m book.api.runtime run --plan book/experiments/runtime-adversarial/plan.json --channel launchd_clean` (plan-based runtime CLI). Bundle outputs under `out/<run_id>/` are authoritative (resolve via `out/LATEST`). Compile/decode via `book.api.profile` and `book.api.profile.decoder`.
 - Profiles: `struct_flat`, `struct_nested` (structural variants); `path_edges` + `path_alias` (path/literal edge stress + `/tmp` alias witness); `mach_simple_allow`, `mach_simple_variants`, `mach_local_literal`, `mach_local_regex` (mach-lookup variants); `net_outbound_allow`, `net_outbound_deny`, `flow_divert_require_all_tcp` (network-outbound variants including the flow-divert require-all triple). Custom SBPL only; no platform blobs.
 - Outputs live in `sb/`, `sb/build/`, and `out/`.
-- Plan/registry data is generated from the runtime template (`python -m book.api.runtime plan-build --template runtime-adversarial --out book/experiments/runtime-adversarial --overwrite`).
+- Plan/registry data is generated from the runtime template (`python -m book.api.runtime plan-build --template runtime-adversarial --out book/experiments/runtime-adversarial --overwrite`; plan-build skips expected_matrix.json by default, use `--write-expected-matrix` for a static snapshot).
 
 ## How to run
 Run via the runtime CLI and treat the run-scoped bundle as the authority (`out/LATEST` points to the most recent committed run):

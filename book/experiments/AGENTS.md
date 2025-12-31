@@ -89,7 +89,6 @@ Each subdirectory under `book/experiments/` is a host-specific experiment. They 
   - `sbpl-graph-runtime` – SBPL ↔ graph ↔ runtime “golden” triples.
 
 - **Entitlements, kernel, and symbol work**
-  - `entitlement-diff` – entitlement-driven profile/filter/runtime differences.
   - `kernel-symbols` – kernel symbol/string inventories for sandbox-related work.
   - `symbol-search` – searches for the PolicyGraph dispatcher and related kernel helpers.
 

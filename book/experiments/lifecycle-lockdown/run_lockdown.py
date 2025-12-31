@@ -31,7 +31,7 @@ BASE_DIR = Path(__file__).resolve().parent
 DEFAULT_OUT = BASE_DIR / "out"
 
 GATE_SBPL_DEFAULT = Path("book/experiments/gate-witnesses/out/witnesses/airlock/minimal_failing.sb")
-ADHOC_ENTITLEMENTS = Path("book/experiments/entitlement-diff/entitlements/none.plist")
+ADHOC_ENTITLEMENTS = Path("book/experiments/lifecycle-lockdown/entitlements/none.plist")
 
 
 @dataclass(frozen=True)

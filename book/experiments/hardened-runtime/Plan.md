@@ -12,7 +12,7 @@ Build a clean, provenance-stamped decision-stage runtime lane for non-VFS sandbo
 - SBPL profiles under `book/experiments/hardened-runtime/sb/`.
 - Clean channel execution via `python -m book.api.runtime run --plan book/experiments/hardened-runtime/plan.json --channel launchd_clean`.
 - Runtime harness via `book.api.runtime`.
-- Plan/registry data generated via `python -m book.api.runtime plan-build --template hardened-runtime --out book/experiments/hardened-runtime --overwrite`.
+- Plan/registry data generated via `python -m book.api.runtime plan-build --template hardened-runtime --out book/experiments/hardened-runtime --overwrite` (plan-build skips expected_matrix.json by default; use `--write-expected-matrix` for a static snapshot).
 
 ## Outputs
 - `out/LATEST/run_manifest.json` (clean-channel provenance bundle).

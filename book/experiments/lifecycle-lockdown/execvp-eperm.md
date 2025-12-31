@@ -15,16 +15,18 @@ The runtime runs here are driven by `book.api.runtime` and the experiment’s ru
 python3 -m book.api.runtime run \
   --plan book/experiments/lifecycle-lockdown/plan.json \
   --channel launchd_clean \
-  --out book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce
+  --out book/experiments/lifecycle-lockdown/out/runtime/launchd_clean_enforce
 
 # Focused “allow default deny scan” plan used for bootstrap narrowing
 python3 -m book.api.runtime run \
   --plan book/experiments/lifecycle-lockdown/plan_exec_prereq_allow_default_deny_scan.json \
   --channel launchd_clean \
-  --out book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce
+  --out book/experiments/lifecycle-lockdown/out/runtime/launchd_clean_enforce
 ```
 
 Important harness note from `book/experiments/lifecycle-lockdown/Notes.md`: in this Codex harness, `launchd_clean` required an escalated / unsandboxed invocation; otherwise `launchctl bootstrap` failed with exit status `5` (“Input/output error”).
+
+Note: legacy runtime bundles were pruned during runtime cleanup. Rerun the plan to regenerate bundles under `out/runtime/`; the paths in the excerpts below are historical until rerun.
 
 Representative failure excerpt (trimmed; this is before rerunning with escalation):
 
@@ -126,8 +128,8 @@ This is *observability loss*, not a different underlying mechanism.
 Adding a broad instrumentation rule `(allow file-write-data)` makes markers visible. Then the same core failure becomes obvious:
 
 ```jsonl
-{"tool":"sbpl-apply","marker_schema_version":1,"stage":"apply","mode":"sbpl","api":"sandbox_init","rc":0,"errno":0,"err_class":"ok","err_class_source":"none","profile":"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.d4e96281-6046-4405-81de-535fd29e8890/book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/d4e96281-6046-4405-81de-535fd29e8890/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write.runtime.sb","pid":5034}
-{"tool":"sbpl-apply","marker_schema_version":1,"stage":"applied","mode":"sbpl","api":"sandbox_init","rc":0,"profile":"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.d4e96281-6046-4405-81de-535fd29e8890/book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/d4e96281-6046-4405-81de-535fd29e8890/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write.runtime.sb","pid":5034}
+{"tool":"sbpl-apply","marker_schema_version":1,"stage":"apply","mode":"sbpl","api":"sandbox_init","rc":0,"errno":0,"err_class":"ok","err_class_source":"none","profile":"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.d4e96281-6046-4405-81de-535fd29e8890/book/experiments/lifecycle-lockdown/out/runtime/launchd_clean_enforce/d4e96281-6046-4405-81de-535fd29e8890/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write.runtime.sb","pid":5034}
+{"tool":"sbpl-apply","marker_schema_version":1,"stage":"applied","mode":"sbpl","api":"sandbox_init","rc":0,"profile":"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.d4e96281-6046-4405-81de-535fd29e8890/book/experiments/lifecycle-lockdown/out/runtime/launchd_clean_enforce/d4e96281-6046-4405-81de-535fd29e8890/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write.runtime.sb","pid":5034}
 {"tool":"sbpl-apply","marker_schema_version":1,"stage":"exec","rc":-1,"errno":1,"argv0":"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.d4e96281-6046-4405-81de-535fd29e8890/book/api/runtime/native/file_probe/file_probe","pid":5034}
 execvp: Operation not permitted
 ```
@@ -158,8 +160,8 @@ To reduce “staging root” suspicions, we switched to executing a system binar
 It fails the same way (apply succeeds; exec fails with `EPERM`):
 
 ```jsonl
-{"tool":"sbpl-apply","marker_schema_version":1,"stage":"apply","mode":"sbpl","api":"sandbox_init","rc":0,"errno":0,"err_class":"ok","err_class_source":"none","profile":"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.d4e96281-6046-4405-81de-535fd29e8890/book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/d4e96281-6046-4405-81de-535fd29e8890/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_sysctl.runtime.sb","pid":5037}
-{"tool":"sbpl-apply","marker_schema_version":1,"stage":"applied","mode":"sbpl","api":"sandbox_init","rc":0,"profile":"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.d4e96281-6046-4405-81de-535fd29e8890/book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/d4e96281-6046-4405-81de-535fd29e8890/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_sysctl.runtime.sb","pid":5037}
+{"tool":"sbpl-apply","marker_schema_version":1,"stage":"apply","mode":"sbpl","api":"sandbox_init","rc":0,"errno":0,"err_class":"ok","err_class_source":"none","profile":"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.d4e96281-6046-4405-81de-535fd29e8890/book/experiments/lifecycle-lockdown/out/runtime/launchd_clean_enforce/d4e96281-6046-4405-81de-535fd29e8890/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_sysctl.runtime.sb","pid":5037}
+{"tool":"sbpl-apply","marker_schema_version":1,"stage":"applied","mode":"sbpl","api":"sandbox_init","rc":0,"profile":"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.d4e96281-6046-4405-81de-535fd29e8890/book/experiments/lifecycle-lockdown/out/runtime/launchd_clean_enforce/d4e96281-6046-4405-81de-535fd29e8890/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_sysctl.runtime.sb","pid":5037}
 {"tool":"sbpl-apply","marker_schema_version":1,"stage":"exec","rc":-1,"errno":1,"argv0":"/usr/sbin/sysctl","pid":5037}
 execvp: Operation not permitted
 ```
@@ -300,8 +302,8 @@ SBPL applied:
 Markers:
 
 ```jsonl
-{"tool":"sbpl-apply","marker_schema_version":1,"stage":"apply","mode":"sbpl","api":"sandbox_init","rc":0,"errno":0,"err_class":"ok","err_class_source":"none","profile":"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1bb25481-8997-4d78-9617-001f6d826fc2/book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/1bb25481-8997-4d78-9617-001f6d826fc2/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_mapexec_any_sysctl.runtime.sb","pid":15318}
-{"tool":"sbpl-apply","marker_schema_version":1,"stage":"applied","mode":"sbpl","api":"sandbox_init","rc":0,"profile":"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1bb25481-8997-4d78-9617-001f6d826fc2/book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/1bb25481-8997-4d78-9617-001f6d826fc2/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_mapexec_any_sysctl.runtime.sb","pid":15318}
+{"tool":"sbpl-apply","marker_schema_version":1,"stage":"apply","mode":"sbpl","api":"sandbox_init","rc":0,"errno":0,"err_class":"ok","err_class_source":"none","profile":"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1bb25481-8997-4d78-9617-001f6d826fc2/book/experiments/lifecycle-lockdown/out/runtime/launchd_clean_enforce/1bb25481-8997-4d78-9617-001f6d826fc2/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_mapexec_any_sysctl.runtime.sb","pid":15318}
+{"tool":"sbpl-apply","marker_schema_version":1,"stage":"applied","mode":"sbpl","api":"sandbox_init","rc":0,"profile":"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1bb25481-8997-4d78-9617-001f6d826fc2/book/experiments/lifecycle-lockdown/out/runtime/launchd_clean_enforce/1bb25481-8997-4d78-9617-001f6d826fc2/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_mapexec_any_sysctl.runtime.sb","pid":15318}
 {"tool":"sbpl-apply","marker_schema_version":1,"stage":"exec","rc":-1,"errno":1,"argv0":"/usr/sbin/sysctl","pid":15318}
 execvp: Operation not permitted
 ```
@@ -329,8 +331,8 @@ SBPL applied:
 Markers:
 
 ```jsonl
-{"tool":"sbpl-apply","marker_schema_version":1,"stage":"apply","mode":"sbpl","api":"sandbox_init","rc":0,"errno":0,"err_class":"ok","err_class_source":"none","profile":"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.d759cebc-796f-4ca6-aedc-4cc2b12e270c/book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/d759cebc-796f-4ca6-aedc-4cc2b12e270c/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_read_any_sysctl.runtime.sb","pid":19193}
-{"tool":"sbpl-apply","marker_schema_version":1,"stage":"applied","mode":"sbpl","api":"sandbox_init","rc":0,"profile":"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.d759cebc-796f-4ca6-aedc-4cc2b12e270c/book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/d759cebc-796f-4ca6-aedc-4cc2b12e270c/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_read_any_sysctl.runtime.sb","pid":19193}
+{"tool":"sbpl-apply","marker_schema_version":1,"stage":"apply","mode":"sbpl","api":"sandbox_init","rc":0,"errno":0,"err_class":"ok","err_class_source":"none","profile":"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.d759cebc-796f-4ca6-aedc-4cc2b12e270c/book/experiments/lifecycle-lockdown/out/runtime/launchd_clean_enforce/d759cebc-796f-4ca6-aedc-4cc2b12e270c/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_read_any_sysctl.runtime.sb","pid":19193}
+{"tool":"sbpl-apply","marker_schema_version":1,"stage":"applied","mode":"sbpl","api":"sandbox_init","rc":0,"profile":"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.d759cebc-796f-4ca6-aedc-4cc2b12e270c/book/experiments/lifecycle-lockdown/out/runtime/launchd_clean_enforce/d759cebc-796f-4ca6-aedc-4cc2b12e270c/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_read_any_sysctl.runtime.sb","pid":19193}
 {"tool":"sbpl-apply","marker_schema_version":1,"stage":"exec","rc":-1,"errno":1,"argv0":"/usr/sbin/sysctl","pid":19193}
 execvp: Operation not permitted
 ```
@@ -358,8 +360,8 @@ SBPL applied:
 Markers:
 
 ```jsonl
-{"tool":"sbpl-apply","marker_schema_version":1,"stage":"apply","mode":"sbpl","api":"sandbox_init","rc":0,"errno":0,"err_class":"ok","err_class_source":"none","profile":"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.78662d76-b193-445c-a172-d770a1899f78/book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/78662d76-b193-445c-a172-d770a1899f78/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_mach_lookup_sysctl.runtime.sb","pid":17983}
-{"tool":"sbpl-apply","marker_schema_version":1,"stage":"applied","mode":"sbpl","api":"sandbox_init","rc":0,"profile":"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.78662d76-b193-445c-a172-d770a1899f78/book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/78662d76-b193-445c-a172-d770a1899f78/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_mach_lookup_sysctl.runtime.sb","pid":17983}
+{"tool":"sbpl-apply","marker_schema_version":1,"stage":"apply","mode":"sbpl","api":"sandbox_init","rc":0,"errno":0,"err_class":"ok","err_class_source":"none","profile":"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.78662d76-b193-445c-a172-d770a1899f78/book/experiments/lifecycle-lockdown/out/runtime/launchd_clean_enforce/78662d76-b193-445c-a172-d770a1899f78/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_mach_lookup_sysctl.runtime.sb","pid":17983}
+{"tool":"sbpl-apply","marker_schema_version":1,"stage":"applied","mode":"sbpl","api":"sandbox_init","rc":0,"profile":"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.78662d76-b193-445c-a172-d770a1899f78/book/experiments/lifecycle-lockdown/out/runtime/launchd_clean_enforce/78662d76-b193-445c-a172-d770a1899f78/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_mach_lookup_sysctl.runtime.sb","pid":17983}
 {"tool":"sbpl-apply","marker_schema_version":1,"stage":"exec","rc":-1,"errno":1,"argv0":"/usr/sbin/sysctl","pid":17983}
 execvp: Operation not permitted
 ```
@@ -387,8 +389,8 @@ SBPL applied:
 Markers:
 
 ```jsonl
-{"tool":"sbpl-apply","marker_schema_version":1,"stage":"apply","mode":"sbpl","api":"sandbox_init","rc":0,"errno":0,"err_class":"ok","err_class_source":"none","profile":"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.2c77975f-808c-47b5-a92a-9beda16f2f1d/book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/2c77975f-808c-47b5-a92a-9beda16f2f1d/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_file_search_sysctl.runtime.sb","pid":31169}
-{"tool":"sbpl-apply","marker_schema_version":1,"stage":"applied","mode":"sbpl","api":"sandbox_init","rc":0,"profile":"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.2c77975f-808c-47b5-a92a-9beda16f2f1d/book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/2c77975f-808c-47b5-a92a-9beda16f2f1d/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_file_search_sysctl.runtime.sb","pid":31169}
+{"tool":"sbpl-apply","marker_schema_version":1,"stage":"apply","mode":"sbpl","api":"sandbox_init","rc":0,"errno":0,"err_class":"ok","err_class_source":"none","profile":"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.2c77975f-808c-47b5-a92a-9beda16f2f1d/book/experiments/lifecycle-lockdown/out/runtime/launchd_clean_enforce/2c77975f-808c-47b5-a92a-9beda16f2f1d/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_file_search_sysctl.runtime.sb","pid":31169}
+{"tool":"sbpl-apply","marker_schema_version":1,"stage":"applied","mode":"sbpl","api":"sandbox_init","rc":0,"profile":"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.2c77975f-808c-47b5-a92a-9beda16f2f1d/book/experiments/lifecycle-lockdown/out/runtime/launchd_clean_enforce/2c77975f-808c-47b5-a92a-9beda16f2f1d/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_file_search_sysctl.runtime.sb","pid":31169}
 {"tool":"sbpl-apply","marker_schema_version":1,"stage":"exec","rc":-1,"errno":1,"argv0":"/usr/sbin/sysctl","pid":31169}
 execvp: Operation not permitted
 ```
@@ -414,8 +416,8 @@ Evidence excerpt:
 Markers (note: no `exec` marker because `execvp()` succeeded):
 
 ```jsonl
-{"tool":"sbpl-apply","marker_schema_version":1,"stage":"apply","mode":"sbpl","api":"sandbox_init","rc":0,"errno":0,"err_class":"ok","err_class_source":"none","profile":"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.6629c56b-2729-4cc0-be08-5d3a6b7be0a2/book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/6629c56b-2729-4cc0-be08-5d3a6b7be0a2/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_allow_default_sysctl.runtime.sb","pid":13569}
-{"tool":"sbpl-apply","marker_schema_version":1,"stage":"applied","mode":"sbpl","api":"sandbox_init","rc":0,"profile":"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.6629c56b-2729-4cc0-be08-5d3a6b7be0a2/book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/6629c56b-2729-4cc0-be08-5d3a6b7be0a2/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_allow_default_sysctl.runtime.sb","pid":13569}
+{"tool":"sbpl-apply","marker_schema_version":1,"stage":"apply","mode":"sbpl","api":"sandbox_init","rc":0,"errno":0,"err_class":"ok","err_class_source":"none","profile":"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.6629c56b-2729-4cc0-be08-5d3a6b7be0a2/book/experiments/lifecycle-lockdown/out/runtime/launchd_clean_enforce/6629c56b-2729-4cc0-be08-5d3a6b7be0a2/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_allow_default_sysctl.runtime.sb","pid":13569}
+{"tool":"sbpl-apply","marker_schema_version":1,"stage":"applied","mode":"sbpl","api":"sandbox_init","rc":0,"profile":"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.6629c56b-2729-4cc0-be08-5d3a6b7be0a2/book/experiments/lifecycle-lockdown/out/runtime/launchd_clean_enforce/6629c56b-2729-4cc0-be08-5d3a6b7be0a2/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_allow_default_sysctl.runtime.sb","pid":13569}
 ```
 
 ### Staged `file_probe` succeeds under `(allow default)` (operation-stage evidence becomes possible)

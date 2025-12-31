@@ -9,7 +9,7 @@ Probe for static↔runtime divergences by running deliberately adversarial SBPL 
 - Expectation wiring patterned after `book/experiments/sbpl-graph-runtime`.
 - Comparison and summaries live in the committed bundle under `out/<run_id>/` (resolve via `out/LATEST`).
 - Plan/registry files are generated from the runtime template:
-  `python -m book.api.runtime plan-build --template runtime-adversarial --out book/experiments/runtime-adversarial --overwrite`.
+  `python -m book.api.runtime plan-build --template runtime-adversarial --out book/experiments/runtime-adversarial --overwrite` (plan-build skips expected_matrix.json by default; use `--write-expected-matrix` for a static snapshot).
 
 ## Deliverables (Phase 1)
 - Bundle artifacts in `out/LATEST/` (`expected_matrix.json`, `runtime_results.json`, `runtime_events.normalized.json`, `mismatch_summary.json`, `mismatch_packets.jsonl`, `artifact_index.json`).

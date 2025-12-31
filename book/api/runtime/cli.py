@@ -282,7 +282,7 @@ def plan_build_command(args: argparse.Namespace) -> int:
         args.template,
         args.out,
         overwrite=args.overwrite,
-        write_expected_matrix=not args.skip_expected_matrix,
+        write_expected_matrix=bool(args.write_expected_matrix),
     )
     print(f"[+] wrote {result.plan_path}")
     print(f"[+] wrote {result.probes_path}")
@@ -483,10 +483,18 @@ def main(argv: list[str] | None = None) -> int:
     ap_plan_build.add_argument("--out", type=Path, required=True, help="Experiment directory root")
     ap_plan_build.add_argument("--overwrite", action="store_true", help="Overwrite existing plan/registry files")
     ap_plan_build.add_argument(
-        "--skip-expected-matrix",
+        "--write-expected-matrix",
+        dest="write_expected_matrix",
         action="store_true",
-        help="Skip writing out/expected_matrix.json",
+        help="Write out/expected_matrix.json (default: skip)",
     )
+    ap_plan_build.add_argument(
+        "--skip-expected-matrix",
+        dest="write_expected_matrix",
+        action="store_false",
+        help="Deprecated; plan-build now skips expected_matrix.json by default",
+    )
+    ap_plan_build.set_defaults(write_expected_matrix=False)
     ap_plan_build.set_defaults(func=plan_build_command)
 
     ap_op_summary = sub.add_parser("summarize-ops", help="Summarize op-level runtime results.")

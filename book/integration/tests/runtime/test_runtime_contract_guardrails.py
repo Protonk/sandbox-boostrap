@@ -15,8 +15,6 @@ EXPERIMENTS_ROOT = ROOT / "book" / "experiments"
 RUN_SCRIPT_ALLOWLIST = {
     Path("book/experiments/bsd-airlock-highvals/run_probes.py"),
     Path("book/experiments/encoder-write-trace/run_trace.py"),
-    Path("book/experiments/entitlement-diff/run_policywitness.py"),
-    Path("book/experiments/entitlement-diff/run_probes.py"),
     Path("book/experiments/frida-testing/run_pw_frida.py"),
     Path("book/experiments/frida-testing/run_frida.py"),
     Path("book/experiments/libsandbox-encoder/run_network_matrix.py"),
@@ -24,8 +22,13 @@ RUN_SCRIPT_ALLOWLIST = {
     Path("book/experiments/lifecycle-lockdown/run_lockdown.py"),
     Path("book/experiments/metadata-runner/run_metadata.py"),
 }
+EXCLUDED_EXPERIMENTS = {
+    "entitlement-diff",
+    "entitlement-jail-extension-semantics",
+}
 
 PROHIBITED_TOPLEVEL = {
+    ".runtime.lock",
     "apply_preflight.json",
     "artifact_index.json",
     "baseline_results.json",
@@ -67,6 +70,14 @@ def _runtime_bundle_roots() -> list[Path]:
     for latest in EXPERIMENTS_ROOT.rglob("LATEST"):
         roots.append(latest.parent)
     return sorted(set(roots))
+
+
+def _is_excluded_experiment_path(path: Path) -> bool:
+    try:
+        rel = path.relative_to(EXPERIMENTS_ROOT)
+    except ValueError:
+        return False
+    return any(part in EXCLUDED_EXPERIMENTS for part in rel.parts)
 
 
 def _extract_how_to_run_sections(path: Path) -> list[str]:
@@ -138,6 +149,8 @@ def test_experiment_run_script_allowlist():
     found = sorted(EXPERIMENTS_ROOT.rglob("run_*.py"))
     unexpected = []
     for path in found:
+        if _is_excluded_experiment_path(path):
+            continue
         rel = path.relative_to(ROOT)
         if rel not in RUN_SCRIPT_ALLOWLIST:
             unexpected.append(str(rel))
@@ -172,3 +185,17 @@ def test_runtime_bundle_roots_do_not_shadow_bundle_artifacts():
             if path.exists():
                 errors.append(f"{_rel(path)} should live under a run-scoped bundle")
     assert not errors, "top-level runtime artifacts found:\n" + "\n".join(errors)
+
+
+def test_no_runtime_lockfiles_checked_in():
+    lockfiles = sorted(EXPERIMENTS_ROOT.rglob(".runtime.lock"))
+    assert not lockfiles, "runtime lockfiles should not be checked in:\n" + "\n".join(
+        _rel(path) for path in lockfiles
+    )
+
+
+def test_no_out_runtime_dirs_checked_in():
+    out_runtime_dirs = sorted(path for path in EXPERIMENTS_ROOT.rglob("out_runtime") if path.is_dir())
+    assert not out_runtime_dirs, "legacy out_runtime roots should not be checked in:\n" + "\n".join(
+        _rel(path) for path in out_runtime_dirs
+    )

@@ -33,6 +33,19 @@ DEFAULT_MANIFEST_PATH = DEFAULT_OUT_DIR / "preflight_enterability_manifest.json"
 DEFAULT_SUMMARY_PATH = DEFAULT_OUT_DIR / "summary.json"
 
 MANIFEST_SCHEMA_VERSION = 1
+EXCLUDED_EXPERIMENT_DIRS = {
+    "entitlement-diff",
+    "entitlement-jail-extension-semantics",
+}
+EXCLUDED_EXPERIMENTS_LABEL = ", ".join(sorted(EXCLUDED_EXPERIMENT_DIRS))
+
+
+def _excluded_experiment_roots(experiments_root: Path) -> List[Path]:
+    roots: List[Path] = []
+    for name in sorted(EXCLUDED_EXPERIMENT_DIRS):
+        roots.append(experiments_root / name)
+        roots.append(experiments_root / "archive" / name)
+    return roots
 
 
 def _sha256_file(path: Path) -> str:
@@ -63,12 +76,15 @@ def _discover_experiments_sbpl() -> List[Path]:
     root = REPO_ROOT / "book" / "experiments"
     if not root.exists():
         return []
+    excluded_roots = _excluded_experiment_roots(root)
     sbpls: List[Path] = []
     for p in root.rglob("*.sb"):
         if not p.is_file():
             continue
-        # Exclude derived artifacts under out/; these tend to churn as harnesses evolve.
-        if "out" in p.parts:
+        # Exclude derived artifacts under out*/; these tend to churn as harnesses evolve.
+        if any(part == "out" or part.startswith("out_") or part.startswith("out-") for part in p.parts):
+            continue
+        if any(p.is_relative_to(excluded) for excluded in excluded_roots):
             continue
         sbpls.append(p)
     return sorted(set(sbpls))
@@ -99,6 +115,7 @@ def _discover_book_blobs() -> List[Path]:
         root / "dumps",
         root / "integration" / "out",
     ]
+    excluded_roots.extend(_excluded_experiment_roots(root / "experiments"))
 
     blobs: List[Path] = []
     for path in root.rglob("*.sb.bin"):
@@ -116,10 +133,10 @@ def discover_inputs() -> List[InputRef]:
 
     Sources:
     - profiles_sbpl: book/profiles/**/*.sb
-    - experiments_sbpl: book/experiments/**/*.sb (excluding out/)
+    - experiments_sbpl: book/experiments/**/*.sb (excluding out/, entitlement-diff, entitlement-jail-extension-semantics)
     - examples_sbpl: book/examples/**/*.sb
     - tools_sbpl: book/tools/sbpl/corpus/**/*.sb
-    - book_blobs: book/**/*.sb.bin
+    - book_blobs: book/**/*.sb.bin (excluding book/dumps/**, book/integration/out/**, and excluded experiments)
     """
 
     by_path: Dict[Path, set[str]] = {}
@@ -171,10 +188,13 @@ def build_manifest(inputs: Sequence[InputRef]) -> Dict[str, Any]:
         "preflight_schema_version": preflight_mod.PREFLIGHT_SCHEMA_VERSION,
         "inputs": {
             "profiles_sbpl": "book/profiles/**/*.sb",
-            "experiments_sbpl": "book/experiments/**/*.sb (excluding out/)",
+            "experiments_sbpl": f"book/experiments/**/*.sb (excluding out/ and {EXCLUDED_EXPERIMENTS_LABEL})",
             "examples_sbpl": "book/examples/**/*.sb",
             "tools_sbpl": "book/tools/sbpl/corpus/**/*.sb",
-            "book_blobs": "book/**/*.sb.bin (excluding book/dumps/** and book/integration/out/**)",
+            "book_blobs": (
+                "book/**/*.sb.bin (excluding book/dumps/**, book/integration/out/**, and "
+                f"{EXCLUDED_EXPERIMENTS_LABEL})"
+            ),
         },
         "records": records,
     }

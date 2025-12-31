@@ -1,0 +1,29 @@
+;;;; App Sandbox baseline for entitlement-diff (no network.server, no mach-lookup exception)
+;;;; World: sonoma-14.4.1-23E224-arm64-dyld-2c0602c5
+;;;; Derived from profiles/textedit/application.sb with fixed params/entitlements.
+
+;; Pin params to portable placeholders so the imported template behaves consistently.
+(define (param name)
+  (cond
+    ((equal? name "application_bundle_id") "com.example.entitlement-diff")
+    ((equal? name "application_container_id") "com.example.entitlement-diff.container")
+    ((equal? name "application_bundle") "/private/tmp/entitlement-diff/app_bundle")
+    ((equal? name "application_container") "/private/tmp/entitlement-diff/container")
+    ((equal? name "application_darwin_user_dir") "/private/tmp/entitlement-diff/user")
+    ((equal? name "application_darwin_temp_dir") "/private/tmp/entitlement-diff/tmp")
+    ((equal? name "application_darwin_cache_dir") "/private/tmp/entitlement-diff/cache")
+    ((equal? name "application_dyld_paths") "/usr/lib")
+    ((equal? name "_HOME") "/Users/entitlement-diff")
+    ((equal? name "_UID") "501")
+    ((equal? name "_USER") "entitlement-diff")
+    (else #f)))
+
+;; Baseline entitlements: app sandbox only (no network.server, no mach-lookup allowance).
+(define *entitlements*
+  '(("com.apple.security.app-sandbox" . #t)
+    ("com.apple.security.network.server" . #f)
+    ("com.apple.security.network.client" . #f)
+    ("com.apple.security.temporary-exception.mach-lookup.global-name" . ())))
+
+;; Pull in the system Application Sandbox template (TextEdit copy) with the pinned params above.
+(import "book/profiles/textedit/application.sb")

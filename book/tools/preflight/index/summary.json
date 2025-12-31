@@ -1,29 +1,29 @@
 {
   "counts": {
     "by_classification": {
-      "likely_apply_gated_for_harness_identity": 33,
-      "no_known_apply_gate_signature": 716
+      "likely_apply_gated_for_harness_identity": 26,
+      "no_known_apply_gate_signature": 644
     },
     "by_input_kind": {
-      "sbpl_blob_path": 348,
-      "sbpl_path": 401
+      "sbpl_blob_path": 343,
+      "sbpl_path": 327
     },
     "by_signature": {
       "apply_gate_blob_digest": 20,
-      "deny_message_filter": 13,
-      "null": 716
+      "deny_message_filter": 6,
+      "null": 644
     },
     "by_source": {
       "book_blobs": {
         "likely_apply_gated_for_harness_identity": 20,
-        "no_known_apply_gate_signature": 328
+        "no_known_apply_gate_signature": 323
       },
       "examples_sbpl": {
         "no_known_apply_gate_signature": 3
       },
       "experiments_sbpl": {
-        "likely_apply_gated_for_harness_identity": 9,
-        "no_known_apply_gate_signature": 319
+        "likely_apply_gated_for_harness_identity": 2,
+        "no_known_apply_gate_signature": 252
       },
       "profiles_sbpl": {
         "no_known_apply_gate_signature": 11
@@ -33,7 +33,7 @@
         "no_known_apply_gate_signature": 55
       }
     },
-    "total_records": 749
+    "total_records": 670
   },
   "digest_groups": {
     "apply_gate_blob_digest": [
@@ -135,13 +135,6 @@
       "book/experiments/gate-witnesses/out/witnesses/blastdoor/compile_vs_apply/minimal_failing.sb.bin",
       "book/experiments/gate-witnesses/out/witnesses/com.apple.CoreGraphics.CGPDFService/compile_vs_apply/minimal_failing.sb.bin",
       "book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/compile_vs_apply/minimal_failing.sb.bin",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/7ff2530c-ce4f-44d9-a43f-da3383a7984b/runtime_profiles/minimal_failing.lockdown_airlock_gate_sbpl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/8d20c8f6-6ed3-4ca6-b0bd-da17599b18a9/runtime_profiles/minimal_failing.lockdown_airlock_gate_sbpl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/ac762cd2-6121-466c-a344-29d61c369b03/runtime_profiles/minimal_failing.lockdown_airlock_gate_sbpl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/d4e96281-6046-4405-81de-535fd29e8890/runtime_profiles/minimal_failing.lockdown_airlock_gate_sbpl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/f2118065-6f7c-4445-9006-63b01240034b/runtime_profiles/minimal_failing.lockdown_airlock_gate_sbpl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_force/2f48c512-4056-4fc3-b57c-a0e6330e708b/runtime_profiles/minimal_failing.lockdown_airlock_gate_sbpl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_force/4406014b-65cc-4753-a550-1200d966734d/runtime_profiles/minimal_failing.lockdown_airlock_gate_sbpl.runtime.sb",
       "book/experiments/runtime-closure/sb/v10_iokit_message_filter_allow.sb",
       "book/experiments/runtime-closure/sb/v9_iokit_message_filter_deny.sb",
       "book/graph/concepts/validation/fixtures/blobs/airlock.sb.bin",
@@ -239,21 +232,6 @@
       "book/experiments/encoder-write-trace/out/blobs/triple_nested_tcp.sb.bin",
       "book/experiments/encoder-write-trace/out/blobs/type_sock_dgram.sb.bin",
       "book/experiments/encoder-write-trace/out/blobs/type_sock_stream.sb.bin",
-      "book/experiments/entitlement-diff/sb/appsandbox-baseline.sb",
-      "book/experiments/entitlement-diff/sb/appsandbox-bookmarks-app-scope.sb",
-      "book/experiments/entitlement-diff/sb/appsandbox-downloads-rw.sb",
-      "book/experiments/entitlement-diff/sb/appsandbox-net-client.sb",
-      "book/experiments/entitlement-diff/sb/appsandbox-network-mach.sb",
-      "book/experiments/entitlement-diff/sb/build/appsandbox-baseline.expanded.sb",
-      "book/experiments/entitlement-diff/sb/build/appsandbox-baseline.sb.bin",
-      "book/experiments/entitlement-diff/sb/build/appsandbox-bookmarks-app-scope.expanded.sb",
-      "book/experiments/entitlement-diff/sb/build/appsandbox-bookmarks-app-scope.sb.bin",
-      "book/experiments/entitlement-diff/sb/build/appsandbox-downloads-rw.expanded.sb",
-      "book/experiments/entitlement-diff/sb/build/appsandbox-downloads-rw.sb.bin",
-      "book/experiments/entitlement-diff/sb/build/appsandbox-net-client.expanded.sb",
-      "book/experiments/entitlement-diff/sb/build/appsandbox-net-client.sb.bin",
-      "book/experiments/entitlement-diff/sb/build/appsandbox-network-mach.expanded.sb",
-      "book/experiments/entitlement-diff/sb/build/appsandbox-network-mach.sb.bin",
       "book/experiments/field2-filters/sb/airlock_system_fcntl.sb",
       "book/experiments/field2-filters/sb/airlock_system_fcntl_matrix.sb",
       "book/experiments/field2-filters/sb/bsd_broader.sb",
@@ -450,63 +428,6 @@
       "book/experiments/libsandbox-encoder/sb/single_file_literal.sb",
       "book/experiments/libsandbox-encoder/sb/single_file_subpath.sb",
       "book/experiments/libsandbox-encoder/sb/single_network_domain.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/0576697c-80c0-4b0b-8ea8-3ac38713af80/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_mapexec_preboot_dyld_sysctl_procinfo.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/1bb25481-8997-4d78-9617-001f6d826fc2/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_mapexec_any_sysctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/2c77975f-808c-47b5-a92a-9beda16f2f1d/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_allow_default_sysctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/2c77975f-808c-47b5-a92a-9beda16f2f1d/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_file_search_and_test_existence_sysctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/2c77975f-808c-47b5-a92a-9beda16f2f1d/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_file_search_sysctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/2c77975f-808c-47b5-a92a-9beda16f2f1d/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_file_test_existence_sysctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/2c77975f-808c-47b5-a92a-9beda16f2f1d/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_sysctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/3958713a-f205-4e2c-b12e-3f2bce63d379/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_mapexec_preboot_dyld_sysctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/52401592-67fb-473e-af25-f9217d21a925/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_allow_default_deny_file_ioctl_sysctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/52401592-67fb-473e-af25-f9217d21a925/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_allow_default_deny_file_map_executable_sysctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/52401592-67fb-473e-af25-f9217d21a925/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_allow_default_deny_mach_bootstrap_sysctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/52401592-67fb-473e-af25-f9217d21a925/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_allow_default_deny_mach_lookup_sysctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/52401592-67fb-473e-af25-f9217d21a925/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_allow_default_deny_process_codesigning_sysctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/52401592-67fb-473e-af25-f9217d21a925/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_allow_default_deny_process_exec_sysctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/52401592-67fb-473e-af25-f9217d21a925/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_allow_default_sysctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/56be2155-c694-4689-8308-d3a49521e783/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_read_xattr_sysctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/6629c56b-2729-4cc0-be08-5d3a6b7be0a2/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_allow_default_sysctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/78662d76-b193-445c-a172-d770a1899f78/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_mach_lookup_sysctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/7898013c-3fca-49db-865a-1da04eed884c/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_read_private_sysctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/7ff2530c-ce4f-44d9-a43f-da3383a7984b/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/7ff2530c-ce4f-44d9-a43f-da3383a7984b/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/7ff2530c-ce4f-44d9-a43f-da3383a7984b/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_mapexec.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/81b5ae10-79c6-4db5-a3a8-524d6fca9d3f/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_allow_default_deny_process_exec_sysctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/81b5ae10-79c6-4db5-a3a8-524d6fca9d3f/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_allow_default_deny_process_legacy_codesigning_status_sysctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/81b5ae10-79c6-4db5-a3a8-524d6fca9d3f/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_allow_default_deny_process_legacy_codesigning_sysctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/81b5ae10-79c6-4db5-a3a8-524d6fca9d3f/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_allow_default_sysctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/8d20c8f6-6ed3-4ca6-b0bd-da17599b18a9/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/a36ce479-765f-4e3d-9102-863225f7d6d3/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_allow_default_sysctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/a36ce479-765f-4e3d-9102-863225f7d6d3/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_process_exec_nostar_subpath_root_sysctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/a36ce479-765f-4e3d-9102-863225f7d6d3/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_process_exec_subpath_root_sysctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/a36ce479-765f-4e3d-9102-863225f7d6d3/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_sysctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/ac762cd2-6121-466c-a344-29d61c369b03/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/b741f61b-a3d2-49df-a3c5-5c261823d715/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_process_codesigning_sysctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/b8557b5d-fa11-40c5-bcb6-72cda15a61f7/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_debug_deny_sysctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/be733a4a-1903-4028-bad7-80f07ecd18ef/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_allow_default_fileprobe.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/d120a86b-4e84-4b34-bdb0-db3be69360ff/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_mapexec_preboot_dyld_sysctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/d4e96281-6046-4405-81de-535fd29e8890/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/d4e96281-6046-4405-81de-535fd29e8890/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/d4e96281-6046-4405-81de-535fd29e8890/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_mapexec.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/d4e96281-6046-4405-81de-535fd29e8890/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_mapexec_sysctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/d4e96281-6046-4405-81de-535fd29e8890/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_read_launchctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/d4e96281-6046-4405-81de-535fd29e8890/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_sysctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/d759cebc-796f-4ca6-aedc-4cc2b12e270c/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_read_any_sysctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/dc3e5aef-9e16-4bb4-8250-efe77419c8dd/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_mapexec_preboot_dyld_sysctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/ebd53423-8af4-4841-9dd9-1133fea07a9b/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_allow_default_sysctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/ebd53423-8af4-4841-9dd9-1133fea07a9b/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_file_ioctl_sysctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/ebd53423-8af4-4841-9dd9-1133fea07a9b/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_mach_bootstrap_register_sysctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/ebd53423-8af4-4841-9dd9-1133fea07a9b/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_mach_bootstrap_sysctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/ebd53423-8af4-4841-9dd9-1133fea07a9b/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_process_exec_subpath_root_sysctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/ebd53423-8af4-4841-9dd9-1133fea07a9b/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_sysctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/f2118065-6f7c-4445-9006-63b01240034b/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/f2118065-6f7c-4445-9006-63b01240034b/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/f2118065-6f7c-4445-9006-63b01240034b/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_mapexec.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/f2118065-6f7c-4445-9006-63b01240034b/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_read_launchctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/f866a60a-cc3a-4079-9c5d-70dabf2e68e8/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_process_exec_extras_sysctl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_force/2f48c512-4056-4fc3-b57c-a0e6330e708b/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl.runtime.sb",
-      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_force/4406014b-65cc-4753-a550-1200d966734d/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl.runtime.sb",
       "book/experiments/metadata-runner/sb/build/metadata_alias_only.sb.bin",
       "book/experiments/metadata-runner/sb/build/metadata_both_paths.sb.bin",
       "book/experiments/metadata-runner/sb/build/metadata_canonical_only.sb.bin",

@@ -3,15 +3,15 @@
 This is a repo-wide inventory of legacy evidence-tier surfaces and their current operationalization.
 
 ## Summary
-- JSON `status`/`tier` hits: 7965
-- evidence-tier: 315
-- operational-status: 7650
+- JSON `status`/`tier` hits: 7477
+- evidence-tier: 298
+- operational-status: 7179
 - doc tier-term hits: 0
 - code interpreter hits: 8
 
 ## Evidence-tier-like JSON values (top)
-- `mapped`: 305
-- `bedrock`: 9
+- `mapped`: 289
+- `bedrock`: 8
 - `bedrock|mapped|hypothesis`: 1
 
 ## Ambiguous JSON hits (review)

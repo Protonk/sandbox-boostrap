@@ -186,6 +186,13 @@ def _bundle_lock(
             fcntl.flock(fh, fcntl.LOCK_UN)
         finally:
             fh.close()
+        try:
+            lock_path.unlink()
+        except FileNotFoundError:
+            pass
+        except OSError:
+            # Best-effort cleanup; leaving the lock file is not fatal.
+            pass
 
 
 def _resolve_bundle_dir(bundle_dir: Path) -> Tuple[Path, Optional[str]]:

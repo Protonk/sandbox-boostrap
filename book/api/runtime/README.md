@@ -30,6 +30,8 @@ python -m book.api.runtime plan-build \
   --template hardened-runtime \
   --out book/experiments/hardened-runtime \
   --overwrite
+# Use --write-expected-matrix only when you need a static snapshot; runtime runs
+# always emit run-scoped expected_matrix.json bundles.
 
 # 2) Lint the data contract (no execution).
 python -m book.api.runtime plan-lint --plan book/experiments/hardened-runtime/plan.json

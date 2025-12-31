@@ -1,0 +1,40 @@
+{
+  "data": {
+    "correlation_id": "8A809092-1CEE-48EB-B5A4-D48C0C228C61",
+    "deny_lines": [],
+    "duration_ms": null,
+    "end": "2025-12-25 13:08:20",
+    "last": null,
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    ",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": false,
+    "observed_lines": 1,
+    "observer_schema_version": 1,
+    "pid": 89239,
+    "plan_id": "entitlement-diff:ej",
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_bookmarks_app_scope(89239)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"89239\")))",
+    "process_name": "ProbeService_bookmarks_app_scope",
+    "row_id": "bookmarks.bookmarks_app_scope.capabilities_snapshot",
+    "start": "2025-12-25 13:08:10"
+  },
+  "generated_at_unix_ms": 1766696896113,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

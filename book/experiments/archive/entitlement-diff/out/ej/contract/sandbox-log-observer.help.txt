@@ -1,0 +1,7 @@
+usage:
+  sandbox-log-observer --pid <pid> --process-name <name> [--start <time> --end <time> | --last <duration> | --duration <seconds> | --follow] [--predicate <predicate>] [--format <json|jsonl>] [--output <path>] [--plan-id <id>] [--row-id <id>] [--correlation-id <id>]
+
+notes:
+  - runs `log show` (default) or `log stream` (with --duration/--follow) with a sandbox-deny predicate (observer-only)
+  - --format jsonl emits per-line events plus a final report line
+  - intended to run outside EntitlementJail.app (unsandboxed)
