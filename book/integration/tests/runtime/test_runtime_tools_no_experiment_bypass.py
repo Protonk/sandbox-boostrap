@@ -14,18 +14,14 @@ CODE_SUFFIXES = {".py"}
 # bespoke harness runners or normalize their own decision-stage streams.
 # Keep the allowlist explicit and small so new bypasses are visible.
 FORBIDDEN_PATTERNS = {
-    "harness_runner": re.compile(r"\bbook\.api\.runtime\.harness\.runner\b"),
+    "harness_runner": re.compile(r"\bbook\.api\.runtime\.execution\.harness\.runner\b"),
     "normalize_observations": re.compile(r"\bwrite_(matrix|metadata)_observations\b"),
 }
 
 ALLOWLIST = {
-    # Focused canonicalization experiments currently keep their own harness
-    # and normalization outputs; treat them as exceptions until migrated.
-    "harness_runner": {Path("book/experiments/vfs-canonicalization/run_vfs.py")},
-    "normalize_observations": {
-        Path("book/experiments/vfs-canonicalization/run_vfs.py"),
-        Path("book/experiments/metadata-runner/run_metadata.py"),
-    },
+    # Fixture prep is a narrow helper; do not allow runner imports elsewhere.
+    "harness_runner": {Path("book/experiments/vfs-canonicalization/prepare_fixtures.py")},
+    "normalize_observations": {Path("book/experiments/metadata-runner/run_metadata.py")},
 }
 
 

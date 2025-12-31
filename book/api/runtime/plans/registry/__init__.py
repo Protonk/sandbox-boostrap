@@ -32,6 +32,7 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, Optional, Tuple
 
 from book.api import path_utils
+from . import upgrade as registry_upgrade
 
 
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))
@@ -39,8 +40,8 @@ REPO_ROOT = path_utils.find_repo_root(Path(__file__))
 REGISTRY_INDEX = REPO_ROOT / "book" / "api" / "runtime" / "plans" / "registry" / "index.json"
 
 INDEX_SCHEMA_VERSION = "runtime-tools.registry_index.v0.1"
-PROBE_SCHEMA_VERSION = "runtime-tools.probe_registry.v0.1"
-PROFILE_SCHEMA_VERSION = "runtime-tools.profile_registry.v0.1"
+PROBE_SCHEMA_VERSION = registry_upgrade.PROBE_SCHEMA_VERSION
+PROFILE_SCHEMA_VERSION = registry_upgrade.PROFILE_SCHEMA_VERSION
 
 
 @dataclass(frozen=True)
@@ -184,17 +185,11 @@ def lint_registry(registry_id: Optional[str] = None) -> Tuple[Optional[Dict[str,
         if not isinstance(profiles, dict):
             errors.append(f"profiles must be a dict ({entry.registry_id})")
         for probe_id, probe in probes.items():
-            if probe.get("probe_id") != probe_id:
-                errors.append(f"probe_id mismatch ({entry.registry_id}:{probe_id})")
-            if not probe.get("operation"):
-                errors.append(f"probe missing operation ({entry.registry_id}:{probe_id})")
+            errors.extend(registry_upgrade.validate_probe_entry(probe_id, probe, strict=True))
         for profile_id, profile in profiles.items():
-            if profile.get("profile_id") != profile_id:
-                errors.append(f"profile_id mismatch ({entry.registry_id}:{profile_id})")
+            errors.extend(registry_upgrade.validate_profile_entry(profile_id, profile, strict=True))
             profile_path = profile.get("profile_path")
-            if not profile_path:
-                errors.append(f"profile missing profile_path ({entry.registry_id}:{profile_id})")
-            else:
+            if isinstance(profile_path, str):
                 abs_path = path_utils.ensure_absolute(Path(profile_path), REPO_ROOT)
                 if not abs_path.exists():
                     errors.append(f"profile_path missing ({entry.registry_id}:{profile_id} -> {profile_path})")
@@ -206,3 +201,21 @@ def lint_registry(registry_id: Optional[str] = None) -> Tuple[Optional[Dict[str,
                     errors.append(f"unknown probe_ref ({entry.registry_id}:{profile_id}:{probe_ref})")
 
     return index_doc, errors
+
+
+def upgrade_registry(
+    registry_id: str,
+    *,
+    out_dir: Optional[Path] = None,
+    overwrite: bool = False,
+) -> registry_upgrade.RegistryUpgradeResult:
+    """Upgrade a registry's probes/profiles JSON to the current schema version."""
+    for entry in iter_registry_paths():
+        if entry.registry_id == registry_id:
+            return registry_upgrade.upgrade_registry_files(
+                probes_path=entry.probes,
+                profiles_path=entry.profiles,
+                out_dir=out_dir,
+                overwrite=overwrite,
+            )
+    raise KeyError(f"registry not found: {registry_id}")

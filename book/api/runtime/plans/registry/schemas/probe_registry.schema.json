@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "runtime-tools.probe_registry.v0.2",
+  "title": "Runtime probe registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "registry_id",
+    "world_id",
+    "probes"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "runtime-tools.probe_registry.v0.2"
+    },
+    "registry_id": {
+      "type": "string"
+    },
+    "world_id": {
+      "type": "string"
+    },
+    "probes": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/probe"
+      }
+    }
+  },
+  "$defs": {
+    "supports_lanes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "baseline",
+        "scenario",
+        "oracle"
+      ],
+      "properties": {
+        "baseline": {
+          "type": "boolean"
+        },
+        "scenario": {
+          "type": "boolean"
+        },
+        "oracle": {
+          "type": "boolean"
+        }
+      }
+    },
+    "probe": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "probe_id",
+        "name",
+        "operation",
+        "target",
+        "expected",
+        "supports_lanes",
+        "expected_primary_ops",
+        "expected_predicates",
+        "capabilities_required",
+        "controls_supported"
+      ],
+      "properties": {
+        "probe_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "operation": {
+          "type": "string"
+        },
+        "target": {
+          "type": "string"
+        },
+        "expected": {
+          "type": "string",
+          "enum": [
+            "allow",
+            "deny"
+          ]
+        },
+        "expectation_id": {
+          "type": "string"
+        },
+        "mode": {
+          "type": "string"
+        },
+        "driver": {
+          "type": "string"
+        },
+        "anchor_ctx_id": {
+          "type": "string"
+        },
+        "supports_lanes": {
+          "$ref": "#/$defs/supports_lanes"
+        },
+        "expected_primary_ops": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "expected_predicates": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "capabilities_required": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "controls_supported": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "baseline",
+              "allow_default",
+              "deny_default"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

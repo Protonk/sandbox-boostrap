@@ -12,5 +12,11 @@ Suggested workflow:
 5) Run `python -m book.api.runtime registry-lint --registry <id>` and `plan-lint` before running.
 
 Available templates:
+- `anchor-filter-map` (anchor to filter discriminator probes).
+- `hardened-runtime` (non-VFS operation probes).
+- `lifecycle-lockdown` (apply-gate and lane isolation probes).
+- `probe-op-structure` (probe-op-structure runtime slice).
 - `runtime-adversarial` (plan + registry for adversarial runtime probes).
+- `runtime-checks` (bucket-level runtime checks).
+- `runtime-closure` (closure lanes for runtime alignment work).
 - `vfs-canonicalization` (path-family probes for VFS canonicalization).

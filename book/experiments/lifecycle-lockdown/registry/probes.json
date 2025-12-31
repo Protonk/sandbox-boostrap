@@ -1,36 +1,75 @@
 {
-  "schema_version": "runtime-tools.probe_registry.v0.1",
-  "registry_id": "lifecycle-lockdown",
-  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
   "probes": {
-    "lockdown:signal_self": {
-      "probe_id": "lockdown:signal_self",
-      "name": "signal self",
-      "operation": "signal",
-      "target": "self",
-      "expected": "allow",
-      "expectation_id": "lockdown:signal-self",
-      "driver": "native",
-      "mode": "scenario"
-    },
     "lockdown:fileprobe_read_usr_bin_true": {
-      "probe_id": "lockdown:fileprobe_read_usr_bin_true",
+      "capabilities_required": [],
+      "controls_supported": [],
+      "driver": "file_probe",
+      "expectation_id": "lockdown:fileprobe-read-/usr/bin/true",
+      "expected": "allow",
+      "expected_predicates": [
+        "/usr/bin/true"
+      ],
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "mode": "scenario",
       "name": "file_probe read /usr/bin/true",
       "operation": "file-read*",
-      "target": "/usr/bin/true",
+      "probe_id": "lockdown:fileprobe_read_usr_bin_true",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/usr/bin/true"
+    },
+    "lockdown:signal_self": {
+      "capabilities_required": [],
+      "controls_supported": [],
+      "driver": "native",
+      "expectation_id": "lockdown:signal-self",
       "expected": "allow",
-      "expectation_id": "lockdown:fileprobe-read-/usr/bin/true",
-      "driver": "file_probe",
-      "mode": "scenario"
+      "expected_predicates": [
+        "self"
+      ],
+      "expected_primary_ops": [
+        "signal"
+      ],
+      "mode": "scenario",
+      "name": "signal self",
+      "operation": "signal",
+      "probe_id": "lockdown:signal_self",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "self"
     },
     "lockdown:sysctl_kern_osrelease": {
-      "probe_id": "lockdown:sysctl_kern_osrelease",
+      "capabilities_required": [],
+      "controls_supported": [],
+      "expectation_id": "lockdown:sysctl-read-kern.osrelease",
+      "expected": "allow",
+      "expected_predicates": [
+        "kern.osrelease"
+      ],
+      "expected_primary_ops": [
+        "sysctl-read"
+      ],
+      "mode": "scenario",
       "name": "sysctl -n kern.osrelease",
       "operation": "sysctl-read",
-      "target": "kern.osrelease",
-      "expected": "allow",
-      "expectation_id": "lockdown:sysctl-read-kern.osrelease",
-      "mode": "scenario"
+      "probe_id": "lockdown:sysctl_kern_osrelease",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "kern.osrelease"
     }
-  }
+  },
+  "registry_id": "lifecycle-lockdown",
+  "schema_version": "runtime-tools.probe_registry.v0.2",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
 }

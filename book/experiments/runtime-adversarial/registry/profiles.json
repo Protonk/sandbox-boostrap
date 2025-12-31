@@ -1,50 +1,127 @@
 {
-  "schema_version": "runtime-tools.profile_registry.v0.1",
-  "registry_id": "runtime-adversarial",
-  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
   "profiles": {
-    "adv:struct_flat": {
-      "profile_id": "adv:struct_flat",
-      "profile_path": "book/experiments/runtime-adversarial/sb/struct_flat.sb",
+    "adv:flow_divert_partial_tcp": {
+      "family": "network",
+      "key_specific_rules": [],
       "mode": "sbpl",
-      "family": "structural_variants",
-      "semantic_group": "structural:file-read-subpath",
+      "notes": null,
       "probe_refs": [
-        "adv:struct_flat:allow-ok-root",
-        "adv:struct_flat:allow-ok-deep",
-        "adv:struct_flat:deny-blocked",
-        "adv:struct_flat:deny-outside",
-        "adv:struct_flat:write-ok-root",
-        "adv:struct_flat:write-ok-deep",
-        "adv:struct_flat:write-blocked",
-        "adv:struct_flat:write-outside"
+        "adv:flow_divert_partial_tcp:tcp-loopback",
+        "adv:flow_divert_partial_tcp:tcp-loopback-2"
       ],
-      "notes": null
+      "profile_id": "adv:flow_divert_partial_tcp",
+      "profile_path": "book/experiments/runtime-adversarial/sb/flow_divert_partial_tcp.sb",
+      "semantic_group": "network:flow-divert-partial"
     },
-    "adv:struct_nested": {
-      "profile_id": "adv:struct_nested",
-      "profile_path": "book/experiments/runtime-adversarial/sb/struct_nested.sb",
+    "adv:flow_divert_require_all_tcp": {
+      "family": "network",
+      "key_specific_rules": [],
       "mode": "sbpl",
-      "family": "structural_variants",
-      "semantic_group": "structural:file-read-subpath",
+      "notes": null,
       "probe_refs": [
-        "adv:struct_nested:allow-ok-root",
-        "adv:struct_nested:allow-ok-deep",
-        "adv:struct_nested:deny-blocked",
-        "adv:struct_nested:deny-outside",
-        "adv:struct_nested:write-ok-root",
-        "adv:struct_nested:write-ok-deep",
-        "adv:struct_nested:write-blocked",
-        "adv:struct_nested:write-outside"
+        "adv:flow_divert_require_all_tcp:tcp-loopback",
+        "adv:flow_divert_require_all_tcp:tcp-loopback-2"
       ],
-      "notes": null
+      "profile_id": "adv:flow_divert_require_all_tcp",
+      "profile_path": "book/experiments/runtime-adversarial/sb/flow_divert_require_all_tcp.sb",
+      "semantic_group": "network:flow-divert-require-all"
+    },
+    "adv:mach_local_literal": {
+      "family": "mach_local",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": null,
+      "probe_refs": [
+        "adv:mach_local_literal:allow-cfprefsd-local",
+        "adv:mach_local_literal:deny-bogus-local"
+      ],
+      "profile_id": "adv:mach_local_literal",
+      "profile_path": "book/experiments/runtime-adversarial/sb/mach_local_literal.sb",
+      "semantic_group": "mach:local-name-allow"
+    },
+    "adv:mach_local_regex": {
+      "family": "mach_local",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": null,
+      "probe_refs": [
+        "adv:mach_local_regex:allow-cfprefsd-local",
+        "adv:mach_local_regex:deny-bogus-local"
+      ],
+      "profile_id": "adv:mach_local_regex",
+      "profile_path": "book/experiments/runtime-adversarial/sb/mach_local_regex.sb",
+      "semantic_group": "mach:local-name-allow"
+    },
+    "adv:mach_simple_allow": {
+      "family": "mach_variants",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": null,
+      "probe_refs": [
+        "adv:mach_simple_allow:allow-cfprefsd",
+        "adv:mach_simple_allow:deny-bogus"
+      ],
+      "profile_id": "adv:mach_simple_allow",
+      "profile_path": "book/experiments/runtime-adversarial/sb/mach_simple_allow.sb",
+      "semantic_group": "mach:global-name-allow"
+    },
+    "adv:mach_simple_variants": {
+      "family": "mach_variants",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": null,
+      "probe_refs": [
+        "adv:mach_simple_variants:allow-cfprefsd",
+        "adv:mach_simple_variants:deny-bogus"
+      ],
+      "profile_id": "adv:mach_simple_variants",
+      "profile_path": "book/experiments/runtime-adversarial/sb/mach_simple_variants.sb",
+      "semantic_group": "mach:global-name-allow"
+    },
+    "adv:net_outbound_allow": {
+      "family": "network",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": null,
+      "probe_refs": [
+        "adv:net_outbound_allow:tcp-loopback",
+        "adv:net_outbound_allow:tcp-loopback-2"
+      ],
+      "profile_id": "adv:net_outbound_allow",
+      "profile_path": "book/experiments/runtime-adversarial/sb/net_outbound_allow.sb",
+      "semantic_group": "network:outbound-allow"
+    },
+    "adv:net_outbound_deny": {
+      "family": "network",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": null,
+      "probe_refs": [
+        "adv:net_outbound_deny:tcp-loopback",
+        "adv:net_outbound_deny:tcp-loopback-2"
+      ],
+      "profile_id": "adv:net_outbound_deny",
+      "profile_path": "book/experiments/runtime-adversarial/sb/net_outbound_deny.sb",
+      "semantic_group": "network:outbound-deny"
+    },
+    "adv:path_alias": {
+      "family": "path_alias",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": null,
+      "probe_refs": [
+        "adv:path_alias:alias-tmp",
+        "adv:path_alias:alias-private"
+      ],
+      "profile_id": "adv:path_alias",
+      "profile_path": "book/experiments/runtime-adversarial/sb/path_alias.sb",
+      "semantic_group": "paths:alias-canonicalization"
     },
     "adv:path_edges": {
-      "profile_id": "adv:path_edges",
-      "profile_path": "book/experiments/runtime-adversarial/sb/path_edges.sb",
-      "mode": "sbpl",
       "family": "path_edges",
-      "semantic_group": "paths:literal-vs-normalized",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": null,
       "probe_refs": [
         "adv:path_edges:allow-tmp",
         "adv:path_edges:deny-private",
@@ -56,115 +133,50 @@
         "adv:path_edges:write-subpath",
         "adv:path_edges:write-dotdot"
       ],
-      "notes": null
+      "profile_id": "adv:path_edges",
+      "profile_path": "book/experiments/runtime-adversarial/sb/path_edges.sb",
+      "semantic_group": "paths:literal-vs-normalized"
     },
-    "adv:path_alias": {
-      "profile_id": "adv:path_alias",
-      "profile_path": "book/experiments/runtime-adversarial/sb/path_alias.sb",
+    "adv:struct_flat": {
+      "family": "structural_variants",
+      "key_specific_rules": [],
       "mode": "sbpl",
-      "family": "path_alias",
-      "semantic_group": "paths:alias-canonicalization",
+      "notes": null,
       "probe_refs": [
-        "adv:path_alias:alias-tmp",
-        "adv:path_alias:alias-private"
+        "adv:struct_flat:allow-ok-root",
+        "adv:struct_flat:allow-ok-deep",
+        "adv:struct_flat:deny-blocked",
+        "adv:struct_flat:deny-outside",
+        "adv:struct_flat:write-ok-root",
+        "adv:struct_flat:write-ok-deep",
+        "adv:struct_flat:write-blocked",
+        "adv:struct_flat:write-outside"
       ],
-      "notes": null
+      "profile_id": "adv:struct_flat",
+      "profile_path": "book/experiments/runtime-adversarial/sb/struct_flat.sb",
+      "semantic_group": "structural:file-read-subpath"
     },
-    "adv:mach_simple_allow": {
-      "profile_id": "adv:mach_simple_allow",
-      "profile_path": "book/experiments/runtime-adversarial/sb/mach_simple_allow.sb",
+    "adv:struct_nested": {
+      "family": "structural_variants",
+      "key_specific_rules": [],
       "mode": "sbpl",
-      "family": "mach_variants",
-      "semantic_group": "mach:global-name-allow",
+      "notes": null,
       "probe_refs": [
-        "adv:mach_simple_allow:allow-cfprefsd",
-        "adv:mach_simple_allow:deny-bogus"
+        "adv:struct_nested:allow-ok-root",
+        "adv:struct_nested:allow-ok-deep",
+        "adv:struct_nested:deny-blocked",
+        "adv:struct_nested:deny-outside",
+        "adv:struct_nested:write-ok-root",
+        "adv:struct_nested:write-ok-deep",
+        "adv:struct_nested:write-blocked",
+        "adv:struct_nested:write-outside"
       ],
-      "notes": null
-    },
-    "adv:mach_simple_variants": {
-      "profile_id": "adv:mach_simple_variants",
-      "profile_path": "book/experiments/runtime-adversarial/sb/mach_simple_variants.sb",
-      "mode": "sbpl",
-      "family": "mach_variants",
-      "semantic_group": "mach:global-name-allow",
-      "probe_refs": [
-        "adv:mach_simple_variants:allow-cfprefsd",
-        "adv:mach_simple_variants:deny-bogus"
-      ],
-      "notes": null
-    },
-    "adv:mach_local_literal": {
-      "profile_id": "adv:mach_local_literal",
-      "profile_path": "book/experiments/runtime-adversarial/sb/mach_local_literal.sb",
-      "mode": "sbpl",
-      "family": "mach_local",
-      "semantic_group": "mach:local-name-allow",
-      "probe_refs": [
-        "adv:mach_local_literal:allow-cfprefsd-local",
-        "adv:mach_local_literal:deny-bogus-local"
-      ],
-      "notes": null
-    },
-    "adv:mach_local_regex": {
-      "profile_id": "adv:mach_local_regex",
-      "profile_path": "book/experiments/runtime-adversarial/sb/mach_local_regex.sb",
-      "mode": "sbpl",
-      "family": "mach_local",
-      "semantic_group": "mach:local-name-allow",
-      "probe_refs": [
-        "adv:mach_local_regex:allow-cfprefsd-local",
-        "adv:mach_local_regex:deny-bogus-local"
-      ],
-      "notes": null
-    },
-    "adv:net_outbound_allow": {
-      "profile_id": "adv:net_outbound_allow",
-      "profile_path": "book/experiments/runtime-adversarial/sb/net_outbound_allow.sb",
-      "mode": "sbpl",
-      "family": "network",
-      "semantic_group": "network:outbound-allow",
-      "probe_refs": [
-        "adv:net_outbound_allow:tcp-loopback",
-        "adv:net_outbound_allow:tcp-loopback-2"
-      ],
-      "notes": null
-    },
-    "adv:net_outbound_deny": {
-      "profile_id": "adv:net_outbound_deny",
-      "profile_path": "book/experiments/runtime-adversarial/sb/net_outbound_deny.sb",
-      "mode": "sbpl",
-      "family": "network",
-      "semantic_group": "network:outbound-deny",
-      "probe_refs": [
-        "adv:net_outbound_deny:tcp-loopback",
-        "adv:net_outbound_deny:tcp-loopback-2"
-      ],
-      "notes": null
-    },
-    "adv:flow_divert_require_all_tcp": {
-      "profile_id": "adv:flow_divert_require_all_tcp",
-      "profile_path": "book/experiments/runtime-adversarial/sb/flow_divert_require_all_tcp.sb",
-      "mode": "sbpl",
-      "family": "network",
-      "semantic_group": "network:flow-divert-require-all",
-      "probe_refs": [
-        "adv:flow_divert_require_all_tcp:tcp-loopback",
-        "adv:flow_divert_require_all_tcp:tcp-loopback-2"
-      ],
-      "notes": null
-    },
-    "adv:flow_divert_partial_tcp": {
-      "profile_id": "adv:flow_divert_partial_tcp",
-      "profile_path": "book/experiments/runtime-adversarial/sb/flow_divert_partial_tcp.sb",
-      "mode": "sbpl",
-      "family": "network",
-      "semantic_group": "network:flow-divert-partial",
-      "probe_refs": [
-        "adv:flow_divert_partial_tcp:tcp-loopback",
-        "adv:flow_divert_partial_tcp:tcp-loopback-2"
-      ],
-      "notes": null
+      "profile_id": "adv:struct_nested",
+      "profile_path": "book/experiments/runtime-adversarial/sb/struct_nested.sb",
+      "semantic_group": "structural:file-read-subpath"
     }
-  }
+  },
+  "registry_id": "runtime-adversarial",
+  "schema_version": "runtime-tools.profile_registry.v0.2",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
 }

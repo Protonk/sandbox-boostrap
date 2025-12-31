@@ -91,6 +91,8 @@ def load_plan(path: Path) -> Dict[str, Any]:
     doc = _load_json(plan_path)
     if doc.get("schema_version") != PLAN_SCHEMA_VERSION:
         raise ValueError(f"plan schema mismatch: {doc.get('schema_version')}")
+    if "schema_versions" in doc:
+        raise ValueError("plan schema_versions overrides are not supported; remove schema_versions from plan.json")
     if not doc.get("plan_id"):
         raise ValueError("plan_id missing")
     if not doc.get("registry_id"):
@@ -225,6 +227,9 @@ def lint_plan(path: Path) -> Tuple[Optional[Dict[str, Any]], List[str]]:
         doc = load_plan(path)
     except Exception as exc:
         return None, [str(exc)]
+
+    if "schema_versions" in doc:
+        errors.append("plan schema_versions overrides are not supported; remove schema_versions from plan.json")
 
     lanes = doc.get("lanes") or {}
     scenario_enabled = bool(lanes.get("scenario"))

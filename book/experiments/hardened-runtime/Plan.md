@@ -12,14 +12,16 @@ Build a clean, provenance-stamped decision-stage runtime lane for non-VFS sandbo
 - SBPL profiles under `book/experiments/hardened-runtime/sb/`.
 - Clean channel execution via `python -m book.api.runtime run --plan book/experiments/hardened-runtime/plan.json --channel launchd_clean`.
 - Runtime harness via `book.api.runtime`.
+- Plan/registry data generated via `python -m book.api.runtime plan-build --template hardened-runtime --out book/experiments/hardened-runtime --overwrite`.
 
 ## Outputs
-- `out/run_manifest.json` (clean channel provenance bundle).
-- `out/baseline_results.json` (unsandboxed baseline comparator).
-- `out/runtime_results.json` + `out/runtime_events.normalized.json` (decision-stage evidence).
-- `out/mismatch_packets.jsonl` (bounded mismatch packets with enumerated reasons).
-- `out/oracle_results.json` (sandbox_check oracle lane only).
-- `out/summary.json` + `out/summary.md` (status and coverage).
+- `out/LATEST/run_manifest.json` (clean-channel provenance bundle).
+- `out/LATEST/baseline_results.json` (unsandboxed baseline comparator).
+- `out/LATEST/runtime_results.json` + `out/LATEST/runtime_events.normalized.json` (decision-stage evidence).
+- `out/LATEST/mismatch_packets.jsonl` (bounded mismatch packets with enumerated reasons).
+- `out/LATEST/oracle_results.json` (sandbox_check oracle lane only).
+- `out/LATEST/summary.json` + `out/LATEST/summary.md` (status and coverage).
+- `out/LATEST/artifact_index.json` (bundle index + digests).
 
 ## Plan
 1. Stand up the clean-channel harness (launchd staging + apply preflight + run manifest gating).

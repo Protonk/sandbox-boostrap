@@ -1,136 +1,147 @@
 {
-  "schema_version": "runtime-tools.profile_registry.v0.1",
-  "registry_id": "hardened-runtime",
-  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
   "profiles": {
     "hardened:mach_lookup": {
-      "profile_id": "hardened:mach_lookup",
-      "profile_path": "book/experiments/hardened-runtime/sb/mach_lookup.sb",
-      "mode": "sbpl",
       "family": "mach_lookup",
-      "semantic_group": "mach:global-name",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": null,
       "probe_refs": [
         "hardened:mach_lookup:deny-cfprefsd",
         "hardened:mach_lookup:deny-bogus"
       ],
-      "notes": null
+      "profile_id": "hardened:mach_lookup",
+      "profile_path": "book/experiments/hardened-runtime/sb/mach_lookup.sb",
+      "semantic_group": "mach:global-name"
     },
     "hardened:mach_lookup_allow": {
-      "profile_id": "hardened:mach_lookup_allow",
-      "profile_path": "book/experiments/hardened-runtime/sb/mach_lookup_allow.sb",
-      "mode": "sbpl",
       "family": "mach_lookup",
-      "semantic_group": "mach:global-name",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": null,
       "probe_refs": [
         "hardened:mach_lookup_allow:allow-cfprefsd"
       ],
-      "notes": null
-    },
-    "hardened:sysctl_read": {
-      "profile_id": "hardened:sysctl_read",
-      "profile_path": "book/experiments/hardened-runtime/sb/sysctl_read.sb",
-      "mode": "sbpl",
-      "family": "sysctl_read",
-      "semantic_group": "sysctl:name",
-      "probe_refs": [
-        "hardened:sysctl_read:deny-kern-osrelease",
-        "hardened:sysctl_read:deny-kern-bootargs"
-      ],
-      "notes": null
-    },
-    "hardened:sysctl_read_allow": {
-      "profile_id": "hardened:sysctl_read_allow",
-      "profile_path": "book/experiments/hardened-runtime/sb/sysctl_read_allow.sb",
-      "mode": "sbpl",
-      "family": "sysctl_read",
-      "semantic_group": "sysctl:name",
-      "probe_refs": [
-        "hardened:sysctl_read_allow:allow-kern-ostype"
-      ],
-      "notes": null
-    },
-    "hardened:process_info_allow": {
-      "profile_id": "hardened:process_info_allow",
-      "profile_path": "book/experiments/hardened-runtime/sb/process_info_allow.sb",
-      "mode": "sbpl",
-      "family": "process_info",
-      "semantic_group": "process-info:pidinfo",
-      "probe_refs": [
-        "hardened:process_info_allow:pidinfo-self",
-        "hardened:process_info_allow:pidinfo-init"
-      ],
-      "notes": null
-    },
-    "hardened:process_info_allow_canary": {
-      "profile_id": "hardened:process_info_allow_canary",
-      "profile_path": "book/experiments/hardened-runtime/sb/process_info_allow_canary.sb",
-      "mode": "sbpl",
-      "family": "process_info",
-      "semantic_group": "process-info:pidinfo",
-      "probe_refs": [
-        "hardened:process_info_allow_canary:pidinfo-self"
-      ],
-      "notes": null
-    },
-    "hardened:process_info_deny": {
-      "profile_id": "hardened:process_info_deny",
-      "profile_path": "book/experiments/hardened-runtime/sb/process_info_deny.sb",
-      "mode": "sbpl",
-      "family": "process_info",
-      "semantic_group": "process-info:pidinfo",
-      "probe_refs": [
-        "hardened:process_info_deny:pidinfo-self",
-        "hardened:process_info_deny:pidinfo-init"
-      ],
-      "notes": null
+      "profile_id": "hardened:mach_lookup_allow",
+      "profile_path": "book/experiments/hardened-runtime/sb/mach_lookup_allow.sb",
+      "semantic_group": "mach:global-name"
     },
     "hardened:notifications": {
-      "profile_id": "hardened:notifications",
-      "profile_path": "book/experiments/hardened-runtime/sb/notifications.sb",
-      "mode": "sbpl",
       "family": "notifications",
-      "semantic_group": "notifications:post",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": null,
       "probe_refs": [
         "hardened:notifications:deny-allowed-darwin",
         "hardened:notifications:deny-darwin",
         "hardened:notifications:deny-allowed-distributed",
         "hardened:notifications:deny-distributed"
       ],
-      "notes": null
+      "profile_id": "hardened:notifications",
+      "profile_path": "book/experiments/hardened-runtime/sb/notifications.sb",
+      "semantic_group": "notifications:post"
     },
     "hardened:notifications_allow": {
-      "profile_id": "hardened:notifications_allow",
-      "profile_path": "book/experiments/hardened-runtime/sb/notifications_allow.sb",
-      "mode": "sbpl",
       "family": "notifications",
-      "semantic_group": "notifications:post",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": null,
       "probe_refs": [
         "hardened:notifications_allow:allow-darwin",
         "hardened:notifications_allow:allow-distributed"
       ],
-      "notes": null
+      "profile_id": "hardened:notifications_allow",
+      "profile_path": "book/experiments/hardened-runtime/sb/notifications_allow.sb",
+      "semantic_group": "notifications:post"
+    },
+    "hardened:process_info_allow": {
+      "family": "process_info",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": null,
+      "probe_refs": [
+        "hardened:process_info_allow:pidinfo-self",
+        "hardened:process_info_allow:pidinfo-init"
+      ],
+      "profile_id": "hardened:process_info_allow",
+      "profile_path": "book/experiments/hardened-runtime/sb/process_info_allow.sb",
+      "semantic_group": "process-info:pidinfo"
+    },
+    "hardened:process_info_allow_canary": {
+      "family": "process_info",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": null,
+      "probe_refs": [
+        "hardened:process_info_allow_canary:pidinfo-self"
+      ],
+      "profile_id": "hardened:process_info_allow_canary",
+      "profile_path": "book/experiments/hardened-runtime/sb/process_info_allow_canary.sb",
+      "semantic_group": "process-info:pidinfo"
+    },
+    "hardened:process_info_deny": {
+      "family": "process_info",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": null,
+      "probe_refs": [
+        "hardened:process_info_deny:pidinfo-self",
+        "hardened:process_info_deny:pidinfo-init"
+      ],
+      "profile_id": "hardened:process_info_deny",
+      "profile_path": "book/experiments/hardened-runtime/sb/process_info_deny.sb",
+      "semantic_group": "process-info:pidinfo"
     },
     "hardened:signal_self_allow": {
-      "profile_id": "hardened:signal_self_allow",
-      "profile_path": "book/experiments/hardened-runtime/sb/signal_self_allow.sb",
-      "mode": "sbpl",
       "family": "signal",
-      "semantic_group": "signal:self",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": null,
       "probe_refs": [
         "hardened:signal_self_allow:signal-same-sandbox"
       ],
-      "notes": null
+      "profile_id": "hardened:signal_self_allow",
+      "profile_path": "book/experiments/hardened-runtime/sb/signal_self_allow.sb",
+      "semantic_group": "signal:self"
     },
     "hardened:signal_self_deny": {
-      "profile_id": "hardened:signal_self_deny",
-      "profile_path": "book/experiments/hardened-runtime/sb/signal_self_deny.sb",
-      "mode": "sbpl",
       "family": "signal",
-      "semantic_group": "signal:self",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": null,
       "probe_refs": [
         "hardened:signal_self_deny:signal-same-sandbox"
       ],
-      "notes": null
+      "profile_id": "hardened:signal_self_deny",
+      "profile_path": "book/experiments/hardened-runtime/sb/signal_self_deny.sb",
+      "semantic_group": "signal:self"
+    },
+    "hardened:sysctl_read": {
+      "family": "sysctl_read",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": null,
+      "probe_refs": [
+        "hardened:sysctl_read:deny-kern-osrelease",
+        "hardened:sysctl_read:deny-kern-bootargs"
+      ],
+      "profile_id": "hardened:sysctl_read",
+      "profile_path": "book/experiments/hardened-runtime/sb/sysctl_read.sb",
+      "semantic_group": "sysctl:name"
+    },
+    "hardened:sysctl_read_allow": {
+      "family": "sysctl_read",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": null,
+      "probe_refs": [
+        "hardened:sysctl_read_allow:allow-kern-ostype"
+      ],
+      "profile_id": "hardened:sysctl_read_allow",
+      "profile_path": "book/experiments/hardened-runtime/sb/sysctl_read_allow.sb",
+      "semantic_group": "sysctl:name"
     }
-  }
+  },
+  "registry_id": "hardened-runtime",
+  "schema_version": "runtime-tools.profile_registry.v0.2",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
 }

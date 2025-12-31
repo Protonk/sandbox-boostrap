@@ -1,631 +1,631 @@
 {
-  "schema_version": "runtime-tools.probe_registry.v0.1",
-  "registry_id": "runtime-checks",
-  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
   "probes": {
-    "bucket4:v1_read:read_/etc/hosts": {
-      "probe_id": "bucket4:v1_read:read_/etc/hosts",
-      "name": "read_/etc/hosts",
-      "operation": "file-read*",
-      "target": "/etc/hosts",
-      "expected": "allow",
-      "supports_lanes": {
-        "baseline": true,
-        "scenario": true,
-        "oracle": true
-      },
-      "expected_primary_ops": [
-        "file-read*"
-      ],
-      "expected_predicates": [
-        "/etc/hosts"
-      ],
-      "capabilities_required": [],
-      "controls_supported": [
-        "baseline",
-        "allow_default",
-        "deny_default"
-      ]
-    },
-    "bucket4:v1_read:write_/etc/hosts": {
-      "probe_id": "bucket4:v1_read:write_/etc/hosts",
-      "name": "write_/etc/hosts",
-      "operation": "file-write*",
-      "target": "/etc/hosts",
-      "expected": "deny",
-      "supports_lanes": {
-        "baseline": true,
-        "scenario": true,
-        "oracle": true
-      },
-      "expected_primary_ops": [
-        "file-write*"
-      ],
-      "expected_predicates": [
-        "/etc/hosts"
-      ],
-      "capabilities_required": [],
-      "controls_supported": [
-        "baseline",
-        "allow_default",
-        "deny_default"
-      ]
-    },
-    "bucket4:v1_read:read_/tmp/foo": {
-      "probe_id": "bucket4:v1_read:read_/tmp/foo",
-      "name": "read_/tmp/foo",
-      "operation": "file-read*",
-      "target": "/tmp/foo",
-      "expected": "allow",
-      "supports_lanes": {
-        "baseline": true,
-        "scenario": true,
-        "oracle": true
-      },
-      "expected_primary_ops": [
-        "file-read*"
-      ],
-      "expected_predicates": [
-        "/tmp/foo"
-      ],
-      "capabilities_required": [],
-      "controls_supported": [
-        "baseline",
-        "allow_default",
-        "deny_default"
-      ]
-    },
-    "bucket5:v11_read_subpath:read_/tmp/foo": {
-      "probe_id": "bucket5:v11_read_subpath:read_/tmp/foo",
-      "name": "read_/tmp/foo",
-      "operation": "file-read*",
-      "target": "/tmp/foo",
-      "expected": "allow",
-      "supports_lanes": {
-        "baseline": true,
-        "scenario": true,
-        "oracle": true
-      },
-      "expected_primary_ops": [
-        "file-read*"
-      ],
-      "expected_predicates": [
-        "/tmp/foo"
-      ],
-      "capabilities_required": [],
-      "controls_supported": [
-        "baseline",
-        "allow_default",
-        "deny_default"
-      ]
-    },
-    "bucket5:v11_read_subpath:read_/tmp/bar": {
-      "probe_id": "bucket5:v11_read_subpath:read_/tmp/bar",
-      "name": "read_/tmp/bar",
-      "operation": "file-read*",
-      "target": "/tmp/bar",
-      "expected": "deny",
-      "supports_lanes": {
-        "baseline": true,
-        "scenario": true,
-        "oracle": true
-      },
-      "expected_primary_ops": [
-        "file-read*"
-      ],
-      "expected_predicates": [
-        "/tmp/bar"
-      ],
-      "capabilities_required": [],
-      "controls_supported": [
-        "baseline",
-        "allow_default",
-        "deny_default"
-      ]
-    },
-    "bucket5:v11_read_subpath:write_/tmp/foo": {
-      "probe_id": "bucket5:v11_read_subpath:write_/tmp/foo",
-      "name": "write_/tmp/foo",
-      "operation": "file-write*",
-      "target": "/tmp/foo",
-      "expected": "deny",
-      "supports_lanes": {
-        "baseline": true,
-        "scenario": true,
-        "oracle": true
-      },
-      "expected_primary_ops": [
-        "file-write*"
-      ],
-      "expected_predicates": [
-        "/tmp/foo"
-      ],
-      "capabilities_required": [],
-      "controls_supported": [
-        "baseline",
-        "allow_default",
-        "deny_default"
-      ]
-    },
     "allow_all|file-read*|/etc/hosts": {
-      "probe_id": "allow_all|file-read*|/etc/hosts",
-      "name": "read_/etc/hosts",
-      "operation": "file-read*",
-      "target": "/etc/hosts",
-      "expected": "allow",
-      "supports_lanes": {
-        "baseline": true,
-        "scenario": true,
-        "oracle": true
-      },
-      "expected_primary_ops": [
-        "file-read*"
-      ],
-      "expected_predicates": [
-        "/etc/hosts"
-      ],
       "capabilities_required": [],
       "controls_supported": [
         "baseline",
         "allow_default",
         "deny_default"
-      ]
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "/etc/hosts"
+      ],
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "name": "read_/etc/hosts",
+      "operation": "file-read*",
+      "probe_id": "allow_all|file-read*|/etc/hosts",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/etc/hosts"
     },
     "allow_all|file-read*|/tmp/sbpl_rt/read.txt": {
-      "probe_id": "allow_all|file-read*|/tmp/sbpl_rt/read.txt",
-      "name": "read_/tmp/sbpl_rt/read.txt",
-      "operation": "file-read*",
-      "target": "/tmp/sbpl_rt/read.txt",
-      "expected": "allow",
-      "supports_lanes": {
-        "baseline": true,
-        "scenario": true,
-        "oracle": true
-      },
-      "expected_primary_ops": [
-        "file-read*"
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
       ],
+      "expected": "allow",
       "expected_predicates": [
         "/tmp/sbpl_rt/read.txt"
       ],
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "name": "read_/tmp/sbpl_rt/read.txt",
+      "operation": "file-read*",
+      "probe_id": "allow_all|file-read*|/tmp/sbpl_rt/read.txt",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/tmp/sbpl_rt/read.txt"
+    },
+    "allow_all|file-write*|/tmp/sbpl_rt/write.txt": {
       "capabilities_required": [],
       "controls_supported": [
         "baseline",
         "allow_default",
         "deny_default"
-      ]
-    },
-    "allow_all|file-write*|/tmp/sbpl_rt/write.txt": {
-      "probe_id": "allow_all|file-write*|/tmp/sbpl_rt/write.txt",
-      "name": "write_/tmp/sbpl_rt/write.txt",
-      "operation": "file-write*",
-      "target": "/tmp/sbpl_rt/write.txt",
-      "expected": "allow",
-      "supports_lanes": {
-        "baseline": true,
-        "scenario": true,
-        "oracle": true
-      },
-      "expected_primary_ops": [
-        "file-write*"
       ],
+      "expected": "allow",
       "expected_predicates": [
         "/tmp/sbpl_rt/write.txt"
       ],
+      "expected_primary_ops": [
+        "file-write*"
+      ],
+      "name": "write_/tmp/sbpl_rt/write.txt",
+      "operation": "file-write*",
+      "probe_id": "allow_all|file-write*|/tmp/sbpl_rt/write.txt",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/tmp/sbpl_rt/write.txt"
+    },
+    "bucket4:v1_read:read_/etc/hosts": {
       "capabilities_required": [],
       "controls_supported": [
         "baseline",
         "allow_default",
         "deny_default"
-      ]
-    },
-    "metafilter_any|file-read*|/tmp/foo.txt": {
-      "probe_id": "metafilter_any|file-read*|/tmp/foo.txt",
-      "name": "read_foo",
-      "operation": "file-read*",
-      "target": "/tmp/foo.txt",
+      ],
       "expected": "allow",
-      "supports_lanes": {
-        "baseline": true,
-        "scenario": true,
-        "oracle": true
-      },
+      "expected_predicates": [
+        "/etc/hosts"
+      ],
       "expected_primary_ops": [
         "file-read*"
       ],
-      "expected_predicates": [
-        "/tmp/foo.txt"
-      ],
+      "name": "read_/etc/hosts",
+      "operation": "file-read*",
+      "probe_id": "bucket4:v1_read:read_/etc/hosts",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/etc/hosts"
+    },
+    "bucket4:v1_read:read_/tmp/foo": {
       "capabilities_required": [],
       "controls_supported": [
         "baseline",
         "allow_default",
         "deny_default"
-      ]
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "/tmp/foo"
+      ],
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "name": "read_/tmp/foo",
+      "operation": "file-read*",
+      "probe_id": "bucket4:v1_read:read_/tmp/foo",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/tmp/foo"
+    },
+    "bucket4:v1_read:write_/etc/hosts": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/etc/hosts"
+      ],
+      "expected_primary_ops": [
+        "file-write*"
+      ],
+      "name": "write_/etc/hosts",
+      "operation": "file-write*",
+      "probe_id": "bucket4:v1_read:write_/etc/hosts",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/etc/hosts"
+    },
+    "bucket5:v11_read_subpath:read_/tmp/bar": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/tmp/bar"
+      ],
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "name": "read_/tmp/bar",
+      "operation": "file-read*",
+      "probe_id": "bucket5:v11_read_subpath:read_/tmp/bar",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/tmp/bar"
+    },
+    "bucket5:v11_read_subpath:read_/tmp/foo": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "/tmp/foo"
+      ],
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "name": "read_/tmp/foo",
+      "operation": "file-read*",
+      "probe_id": "bucket5:v11_read_subpath:read_/tmp/foo",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/tmp/foo"
+    },
+    "bucket5:v11_read_subpath:write_/tmp/foo": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/tmp/foo"
+      ],
+      "expected_primary_ops": [
+        "file-write*"
+      ],
+      "name": "write_/tmp/foo",
+      "operation": "file-write*",
+      "probe_id": "bucket5:v11_read_subpath:write_/tmp/foo",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/tmp/foo"
     },
     "metafilter_any|file-read*|/tmp/bar.txt": {
-      "probe_id": "metafilter_any|file-read*|/tmp/bar.txt",
-      "name": "read_bar",
-      "operation": "file-read*",
-      "target": "/tmp/bar.txt",
-      "expected": "allow",
-      "supports_lanes": {
-        "baseline": true,
-        "scenario": true,
-        "oracle": true
-      },
-      "expected_primary_ops": [
-        "file-read*"
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
       ],
+      "expected": "allow",
       "expected_predicates": [
         "/tmp/bar.txt"
       ],
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "name": "read_bar",
+      "operation": "file-read*",
+      "probe_id": "metafilter_any|file-read*|/tmp/bar.txt",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/tmp/bar.txt"
+    },
+    "metafilter_any|file-read*|/tmp/baz.txt": {
       "capabilities_required": [],
       "controls_supported": [
         "baseline",
         "allow_default",
         "deny_default"
-      ]
-    },
-    "metafilter_any|file-read*|/tmp/qux.txt": {
-      "probe_id": "metafilter_any|file-read*|/tmp/qux.txt",
-      "name": "read_other",
-      "operation": "file-read*",
-      "target": "/tmp/qux.txt",
-      "expected": "allow",
-      "supports_lanes": {
-        "baseline": true,
-        "scenario": true,
-        "oracle": true
-      },
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/tmp/baz.txt"
+      ],
       "expected_primary_ops": [
         "file-read*"
       ],
+      "name": "read_baz",
+      "operation": "file-read*",
+      "probe_id": "metafilter_any|file-read*|/tmp/baz.txt",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/tmp/baz.txt"
+    },
+    "metafilter_any|file-read*|/tmp/foo.txt": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "/tmp/foo.txt"
+      ],
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "name": "read_foo",
+      "operation": "file-read*",
+      "probe_id": "metafilter_any|file-read*|/tmp/foo.txt",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/tmp/foo.txt"
+    },
+    "metafilter_any|file-read*|/tmp/qux.txt": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
       "expected_predicates": [
         "/tmp/qux.txt"
       ],
-      "capabilities_required": [],
-      "controls_supported": [
-        "baseline",
-        "allow_default",
-        "deny_default"
-      ]
-    },
-    "metafilter_any|file-read*|/tmp/baz.txt": {
-      "probe_id": "metafilter_any|file-read*|/tmp/baz.txt",
-      "name": "read_baz",
-      "operation": "file-read*",
-      "target": "/tmp/baz.txt",
-      "expected": "deny",
-      "supports_lanes": {
-        "baseline": true,
-        "scenario": true,
-        "oracle": true
-      },
       "expected_primary_ops": [
         "file-read*"
       ],
-      "expected_predicates": [
-        "/tmp/baz.txt"
-      ],
-      "capabilities_required": [],
-      "controls_supported": [
-        "baseline",
-        "allow_default",
-        "deny_default"
-      ]
+      "name": "read_other",
+      "operation": "file-read*",
+      "probe_id": "metafilter_any|file-read*|/tmp/qux.txt",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/tmp/qux.txt"
     },
     "metafilter_any|file-write*|/tmp/baz.txt": {
-      "probe_id": "metafilter_any|file-write*|/tmp/baz.txt",
-      "name": "write_baz",
-      "operation": "file-write*",
-      "target": "/tmp/baz.txt",
-      "expected": "deny",
-      "supports_lanes": {
-        "baseline": true,
-        "scenario": true,
-        "oracle": true
-      },
-      "expected_primary_ops": [
-        "file-write*"
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
       ],
+      "expected": "deny",
       "expected_predicates": [
         "/tmp/baz.txt"
       ],
-      "capabilities_required": [],
-      "controls_supported": [
-        "baseline",
-        "allow_default",
-        "deny_default"
-      ]
-    },
-    "sys:bsd:read_/etc/hosts": {
-      "probe_id": "sys:bsd:read_/etc/hosts",
-      "name": "read_/etc/hosts",
-      "operation": "file-read*",
-      "target": "/etc/hosts",
-      "expected": "deny",
-      "supports_lanes": {
-        "baseline": true,
-        "scenario": true,
-        "oracle": true
-      },
-      "expected_primary_ops": [
-        "file-read*"
-      ],
-      "expected_predicates": [
-        "/etc/hosts"
-      ],
-      "capabilities_required": [],
-      "controls_supported": [
-        "baseline",
-        "allow_default",
-        "deny_default"
-      ]
-    },
-    "sys:bsd:write_/etc/hosts": {
-      "probe_id": "sys:bsd:write_/etc/hosts",
-      "name": "write_/etc/hosts",
-      "operation": "file-write*",
-      "target": "/etc/hosts",
-      "expected": "deny",
-      "supports_lanes": {
-        "baseline": true,
-        "scenario": true,
-        "oracle": true
-      },
       "expected_primary_ops": [
         "file-write*"
       ],
-      "expected_predicates": [
-        "/etc/hosts"
-      ],
-      "capabilities_required": [],
-      "controls_supported": [
-        "baseline",
-        "allow_default",
-        "deny_default"
-      ]
-    },
-    "sys:bsd:read_/tmp/foo": {
-      "probe_id": "sys:bsd:read_/tmp/foo",
-      "name": "read_/tmp/foo",
-      "operation": "file-read*",
-      "target": "/tmp/foo",
-      "expected": "deny",
-      "supports_lanes": {
-        "baseline": true,
-        "scenario": true,
-        "oracle": true
-      },
-      "expected_primary_ops": [
-        "file-read*"
-      ],
-      "expected_predicates": [
-        "/tmp/foo"
-      ],
-      "capabilities_required": [],
-      "controls_supported": [
-        "baseline",
-        "allow_default",
-        "deny_default"
-      ]
-    },
-    "sys:bsd:write_/tmp/foo": {
-      "probe_id": "sys:bsd:write_/tmp/foo",
-      "name": "write_/tmp/foo",
+      "name": "write_baz",
       "operation": "file-write*",
-      "target": "/tmp/foo",
-      "expected": "deny",
+      "probe_id": "metafilter_any|file-write*|/tmp/baz.txt",
       "supports_lanes": {
         "baseline": true,
-        "scenario": true,
-        "oracle": true
+        "oracle": true,
+        "scenario": true
       },
-      "expected_primary_ops": [
-        "file-write*"
-      ],
-      "expected_predicates": [
-        "/tmp/foo"
-      ],
-      "capabilities_required": [],
-      "controls_supported": [
-        "baseline",
-        "allow_default",
-        "deny_default"
-      ]
-    },
-    "sys:airlock:read_/etc/hosts": {
-      "probe_id": "sys:airlock:read_/etc/hosts",
-      "name": "read_/etc/hosts",
-      "operation": "file-read*",
-      "target": "/etc/hosts",
-      "expected": "deny",
-      "supports_lanes": {
-        "baseline": true,
-        "scenario": true,
-        "oracle": true
-      },
-      "expected_primary_ops": [
-        "file-read*"
-      ],
-      "expected_predicates": [
-        "/etc/hosts"
-      ],
-      "capabilities_required": [],
-      "controls_supported": [
-        "baseline",
-        "allow_default",
-        "deny_default"
-      ]
-    },
-    "sys:airlock:write_/etc/hosts": {
-      "probe_id": "sys:airlock:write_/etc/hosts",
-      "name": "write_/etc/hosts",
-      "operation": "file-write*",
-      "target": "/etc/hosts",
-      "expected": "deny",
-      "supports_lanes": {
-        "baseline": true,
-        "scenario": true,
-        "oracle": true
-      },
-      "expected_primary_ops": [
-        "file-write*"
-      ],
-      "expected_predicates": [
-        "/etc/hosts"
-      ],
-      "capabilities_required": [],
-      "controls_supported": [
-        "baseline",
-        "allow_default",
-        "deny_default"
-      ]
-    },
-    "sys:airlock:read_/tmp/foo": {
-      "probe_id": "sys:airlock:read_/tmp/foo",
-      "name": "read_/tmp/foo",
-      "operation": "file-read*",
-      "target": "/tmp/foo",
-      "expected": "deny",
-      "supports_lanes": {
-        "baseline": true,
-        "scenario": true,
-        "oracle": true
-      },
-      "expected_primary_ops": [
-        "file-read*"
-      ],
-      "expected_predicates": [
-        "/tmp/foo"
-      ],
-      "capabilities_required": [],
-      "controls_supported": [
-        "baseline",
-        "allow_default",
-        "deny_default"
-      ]
-    },
-    "sys:airlock:write_/tmp/foo": {
-      "probe_id": "sys:airlock:write_/tmp/foo",
-      "name": "write_/tmp/foo",
-      "operation": "file-write*",
-      "target": "/tmp/foo",
-      "expected": "deny",
-      "supports_lanes": {
-        "baseline": true,
-        "scenario": true,
-        "oracle": true
-      },
-      "expected_primary_ops": [
-        "file-write*"
-      ],
-      "expected_predicates": [
-        "/tmp/foo"
-      ],
-      "capabilities_required": [],
-      "controls_supported": [
-        "baseline",
-        "allow_default",
-        "deny_default"
-      ]
-    },
-    "runtime:strict_1:read_ok": {
-      "probe_id": "runtime:strict_1:read_ok",
-      "name": "read_ok",
-      "operation": "file-read*",
-      "target": "/private/tmp/strict_ok/allow.txt",
-      "expected": "allow",
-      "supports_lanes": {
-        "baseline": true,
-        "scenario": true,
-        "oracle": true
-      },
-      "expected_primary_ops": [
-        "file-read*"
-      ],
-      "expected_predicates": [
-        "/private/tmp/strict_ok/allow.txt"
-      ],
-      "capabilities_required": [],
-      "controls_supported": [
-        "baseline",
-        "allow_default",
-        "deny_default"
-      ]
-    },
-    "runtime:strict_1:write_ok": {
-      "probe_id": "runtime:strict_1:write_ok",
-      "name": "write_ok",
-      "operation": "file-write*",
-      "target": "/private/tmp/strict_ok/allow.txt",
-      "expected": "allow",
-      "supports_lanes": {
-        "baseline": true,
-        "scenario": true,
-        "oracle": true
-      },
-      "expected_primary_ops": [
-        "file-write*"
-      ],
-      "expected_predicates": [
-        "/private/tmp/strict_ok/allow.txt"
-      ],
-      "capabilities_required": [],
-      "controls_supported": [
-        "baseline",
-        "allow_default",
-        "deny_default"
-      ]
+      "target": "/tmp/baz.txt"
     },
     "runtime:strict_1:read_hosts": {
-      "probe_id": "runtime:strict_1:read_hosts",
-      "name": "read_hosts",
-      "operation": "file-read*",
-      "target": "/etc/hosts",
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
       "expected": "deny",
-      "supports_lanes": {
-        "baseline": true,
-        "scenario": true,
-        "oracle": true
-      },
+      "expected_predicates": [
+        "/etc/hosts"
+      ],
       "expected_primary_ops": [
         "file-read*"
       ],
-      "expected_predicates": [
-        "/etc/hosts"
-      ],
+      "name": "read_hosts",
+      "operation": "file-read*",
+      "probe_id": "runtime:strict_1:read_hosts",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/etc/hosts"
+    },
+    "runtime:strict_1:read_ok": {
       "capabilities_required": [],
       "controls_supported": [
         "baseline",
         "allow_default",
         "deny_default"
-      ]
-    },
-    "runtime:strict_1:write_hosts": {
-      "probe_id": "runtime:strict_1:write_hosts",
-      "name": "write_hosts",
-      "operation": "file-write*",
-      "target": "/etc/hosts",
-      "expected": "deny",
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "/private/tmp/strict_ok/allow.txt"
+      ],
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "name": "read_ok",
+      "operation": "file-read*",
+      "probe_id": "runtime:strict_1:read_ok",
       "supports_lanes": {
         "baseline": true,
-        "scenario": true,
-        "oracle": true
+        "oracle": true,
+        "scenario": true
       },
+      "target": "/private/tmp/strict_ok/allow.txt"
+    },
+    "runtime:strict_1:write_hosts": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/etc/hosts"
+      ],
       "expected_primary_ops": [
         "file-write*"
       ],
-      "expected_predicates": [
-        "/etc/hosts"
-      ],
+      "name": "write_hosts",
+      "operation": "file-write*",
+      "probe_id": "runtime:strict_1:write_hosts",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/etc/hosts"
+    },
+    "runtime:strict_1:write_ok": {
       "capabilities_required": [],
       "controls_supported": [
         "baseline",
         "allow_default",
         "deny_default"
-      ]
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "/private/tmp/strict_ok/allow.txt"
+      ],
+      "expected_primary_ops": [
+        "file-write*"
+      ],
+      "name": "write_ok",
+      "operation": "file-write*",
+      "probe_id": "runtime:strict_1:write_ok",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/private/tmp/strict_ok/allow.txt"
+    },
+    "sys:airlock:read_/etc/hosts": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/etc/hosts"
+      ],
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "name": "read_/etc/hosts",
+      "operation": "file-read*",
+      "probe_id": "sys:airlock:read_/etc/hosts",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/etc/hosts"
+    },
+    "sys:airlock:read_/tmp/foo": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/tmp/foo"
+      ],
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "name": "read_/tmp/foo",
+      "operation": "file-read*",
+      "probe_id": "sys:airlock:read_/tmp/foo",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/tmp/foo"
+    },
+    "sys:airlock:write_/etc/hosts": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/etc/hosts"
+      ],
+      "expected_primary_ops": [
+        "file-write*"
+      ],
+      "name": "write_/etc/hosts",
+      "operation": "file-write*",
+      "probe_id": "sys:airlock:write_/etc/hosts",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/etc/hosts"
+    },
+    "sys:airlock:write_/tmp/foo": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/tmp/foo"
+      ],
+      "expected_primary_ops": [
+        "file-write*"
+      ],
+      "name": "write_/tmp/foo",
+      "operation": "file-write*",
+      "probe_id": "sys:airlock:write_/tmp/foo",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/tmp/foo"
+    },
+    "sys:bsd:read_/etc/hosts": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/etc/hosts"
+      ],
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "name": "read_/etc/hosts",
+      "operation": "file-read*",
+      "probe_id": "sys:bsd:read_/etc/hosts",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/etc/hosts"
+    },
+    "sys:bsd:read_/tmp/foo": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/tmp/foo"
+      ],
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "name": "read_/tmp/foo",
+      "operation": "file-read*",
+      "probe_id": "sys:bsd:read_/tmp/foo",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/tmp/foo"
+    },
+    "sys:bsd:write_/etc/hosts": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/etc/hosts"
+      ],
+      "expected_primary_ops": [
+        "file-write*"
+      ],
+      "name": "write_/etc/hosts",
+      "operation": "file-write*",
+      "probe_id": "sys:bsd:write_/etc/hosts",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/etc/hosts"
+    },
+    "sys:bsd:write_/tmp/foo": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/tmp/foo"
+      ],
+      "expected_primary_ops": [
+        "file-write*"
+      ],
+      "name": "write_/tmp/foo",
+      "operation": "file-write*",
+      "probe_id": "sys:bsd:write_/tmp/foo",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/tmp/foo"
     }
-  }
+  },
+  "registry_id": "runtime-checks",
+  "schema_version": "runtime-tools.probe_registry.v0.2",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
 }

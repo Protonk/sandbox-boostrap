@@ -8,6 +8,16 @@ Evaluate whether `book.api.lifecycle` probe outputs are supportable by independe
 
 This report summarizes the first host runs of `run_lockdown.py` and records what is (and is not) supportable from the committed artifacts.
 
+## How to run
+Run the runtime slice via the runtime CLI (bundles are committed under the chosen out root; `LATEST` points to the most recent run):
+
+```sh
+python -m book.api.runtime run \
+  --plan book/experiments/lifecycle-lockdown/plan.json \
+  --channel launchd_clean \
+  --out book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce
+```
+
 ## Open questions
 
 See `book/experiments/lifecycle-lockdown/Plan.md`.

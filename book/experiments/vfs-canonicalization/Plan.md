@@ -68,117 +68,138 @@ Signals:
     - tags,
     - `field2` values,
     - whether the two paths share the same structural placement or not.
-  - Stored in `out/decode_tmp_profiles.json`.
+  - Stored in `out/derived/decode_tmp_profiles.json` (derived from the committed bundle; includes bundle metadata).
 - **Runtime signals:**
   - For each `(profile_id, requested_path)` pair:
-    - decision (`allow` / `deny` / `error`),
+    - decision (`allow` / `deny` / `error`) and expected decision,
     - errno (if any),
     - command output (stdout/stderr).
-  - Stored in `out/runtime_results.json` (simple array form) with `profile_id`, `operation`, `requested_path`, `observed_path`, `observed_path_source`, `observed_path_nofirmlink`, `observed_path_nofirmlink_source`, `observed_path_nofirmlink_errno` (when available), `decision`, `errno`, `raw_log`.
+  - Stored in `out/derived/runtime_results.json` (derived from `out/LATEST/runtime_events.normalized.json` + `out/LATEST/path_witnesses.json`, includes bundle metadata and a `records` list).
 - **Logical expectations:**
-  - For each `(profile_id, requested_path)` we record an initial expectation in `out/expected_matrix.json`, generated from the runtime plan template. The base `/tmp` family encodes the observed canonicalization pattern (including the `/var/tmp` control), while the additional variants default to a literal-only baseline so mismatches are the signal.
+  - For each `(profile_id, requested_path)` we record an initial expectation in `out/LATEST/expected_matrix.json`, generated from the runtime plan template. The base `/tmp` family encodes the observed canonicalization pattern (including the `/var/tmp` control), while the additional variants default to a literal-only baseline so mismatches are the signal.
 
 IR path:
 
 - `Plan.md` (this file) encodes the question, design, and JSON shapes.
-- `run_vfs.py` (harness script) will:
-  - expects plan/registry data generated via the runtime plan template (and keeps `out/expected_matrix.json` in sync via `plan-build`),
-  - execute the runtime plan into a run-scoped bundle under `out/<run_id>/`,
-  - emit `out/promotion_packet.json` pointing at the committed run-scoped bundle (preferred evidence interface for downstream mappings/consumers),
-  - down-convert the harness runtime results into `out/runtime_results.json` (authoritative runtime behavior for this suite on this world),
-  - emit `out/decode_tmp_profiles.json` via `book/api/profile/decoder/` (structural view, using blobs from `out/<run_id>/sb_build`),
-  - emit a small `out/mismatch_summary.json` that classifies each profile’s behavior (“canonicalization” vs “control”) for downstream readers.
+- `python -m book.api.runtime plan-build --template vfs-canonicalization --out book/experiments/vfs-canonicalization --overwrite` keeps `plan.json` and `registry/` in sync.
+- `python book/experiments/vfs-canonicalization/prepare_fixtures.py` prepares host fixtures under `/private/tmp` and `/private/var/tmp`.
+- `python -m book.api.runtime run --plan book/experiments/vfs-canonicalization/plan.json --channel launchd_clean` emits a committed bundle under `out/<run_id>/` and updates `out/LATEST`.
+- `python -m book.api.runtime emit-promotion --bundle book/experiments/vfs-canonicalization/out/LATEST --out book/experiments/vfs-canonicalization/out/promotion_packet.json --require-promotable` (when promotion is intended).
+- `python book/experiments/vfs-canonicalization/derive_outputs.py --bundle book/experiments/vfs-canonicalization/out --out-dir book/experiments/vfs-canonicalization/out/derived` writes derived summaries (`runtime_results.json`, `decode_tmp_profiles.json`, `mismatch_summary.json`) that include `(run_id, artifact_index digest)` and point back to the bundle.
 
 ## JSON schema sketches
 
 These sketches are informal; tests will check that the actual JSONs obey the same shape.
 
-- `out/expected_matrix.json` – array of entries:
-
-  ```jsonc
-  [
-    {
-      "profile_id": "vfs_tmp_only",
-      "operation": "file-read*",
-      "requested_path": "/tmp/foo",
-      "expected_decision": "deny",
-      "notes": "canonicalization makes /tmp literal ineffective"
-    },
-    {
-      "profile_id": "vfs_tmp_only",
-      "operation": "file-read*",
-      "requested_path": "/private/tmp/foo",
-      "expected_decision": "deny",
-      "notes": "canonicalization makes /tmp literal ineffective"
-    }
-    // ...
-  ]
-  ```
-  The generated matrix also includes `file-write*` entries.
-
-- `out/runtime_results.json` – array of entries:
-
-  ```jsonc
-  [
-    {
-      "profile_id": "vfs_tmp_only",
-      "operation": "file-read*",
-      "requested_path": "/tmp/foo",
-      "observed_path": "/private/tmp/foo", // from F_GETPATH if open succeeds
-      "observed_path_source": "fd_path", // or "requested_path" fallback
-      "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/foo", // when available
-      "observed_path_nofirmlink_source": "fd_path", // or "unavailable"/"not_attempted"
-      "decision": "allow",
-      "errno": 0,
-      "raw_log": {
-        "exit_code": 0,
-        "stdout": "...",
-        "stderr": "..."
-      }
-    }
-  ]
-  ```
-
-- `out/decode_tmp_profiles.json` – object keyed by `profile_id`:
-
-  ```jsonc
-  {
-    "vfs_tmp_only": {
-      "anchors": [
-        {
-          "path": "/tmp/foo",
-          "present": true,
-          "tags": [0],
-          "field2_values": [0]
-        },
-        {
-          "path": "/private/tmp/foo",
-          "present": false,
-          "tags": [],
-          "field2_values": []
-        }
-      ]
-    }
-  }
-  ```
-
-- `out/mismatch_summary.json` – coarse classification (base `/tmp` family only):
+- `out/LATEST/expected_matrix.json` – object with profile-scoped probe expectations:
 
   ```jsonc
   {
     "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
     "profiles": {
       "vfs_tmp_only": {
+        "blob": "book/experiments/vfs-canonicalization/out/<run_id>/runtime_profiles/vfs_tmp_only.vfs_tmp_only.runtime.sb",
+        "mode": "sbpl",
+        "family": "vfs_tmp",
+        "semantic_group": "vfs_canonicalization",
+        "probes": [
+          {
+            "name": "read_/tmp/foo",
+            "operation": "file-read*",
+            "target": "/tmp/foo",
+            "expected": "deny",
+            "expectation_id": "vfs_tmp_only:read_/tmp/foo"
+          }
+        ]
+      }
+    }
+  }
+  ```
+  The generated matrix includes `file-write*` entries under each profile’s probe list.
+
+- `out/derived/runtime_results.json` – derived bundle summary:
+
+  ```jsonc
+  {
+    "schema_version": "vfs-canonicalization.runtime_summary.v0.1",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "bundle": {
+      "bundle_dir": "book/experiments/vfs-canonicalization/out/<run_id>",
+      "run_id": "<run_id>",
+      "artifact_index": "book/experiments/vfs-canonicalization/out/<run_id>/artifact_index.json",
+      "artifact_index_sha256": "<sha256>"
+    },
+    "records": [
+      {
+        "profile_id": "vfs_tmp_only",
+        "operation": "file-read*",
+        "requested_path": "/tmp/foo",
+        "actual": "deny",
+        "expected": "deny",
+        "observed_path": "/private/tmp/foo",
+        "observed_path_source": "unsandboxed_fd_path",
+        "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/foo",
+        "observed_path_nofirmlink_source": "fd_path"
+      }
+    ]
+  }
+  ```
+
+- `out/derived/decode_tmp_profiles.json` – derived structural view:
+
+  ```jsonc
+  {
+    "schema_version": "vfs-canonicalization.decode_profiles.v0.1",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "bundle": {
+      "bundle_dir": "book/experiments/vfs-canonicalization/out/<run_id>",
+      "run_id": "<run_id>",
+      "artifact_index": "book/experiments/vfs-canonicalization/out/<run_id>/artifact_index.json",
+      "artifact_index_sha256": "<sha256>"
+    },
+    "profiles": {
+      "vfs_tmp_only": {
+        "anchors": [
+          {
+            "path": "/tmp/foo",
+            "present": true,
+            "tags": [0],
+            "field2_values": [0]
+          },
+          {
+            "path": "/private/tmp/foo",
+            "present": false,
+            "tags": [],
+            "field2_values": []
+          }
+        ],
+        "literal_candidates": ["/tmp/foo", "/private/tmp/foo"],
+        "node_count": 53,
+        "tag_counts": {
+          "4": 17,
+          "5": 28
+        }
+      }
+    }
+  }
+  ```
+
+- `out/derived/mismatch_summary.json` – coarse classification (base `/tmp` family only):
+
+  ```jsonc
+  {
+    "schema_version": "vfs-canonicalization.mismatch_summary.v0.1",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "bundle": {
+      "bundle_dir": "book/experiments/vfs-canonicalization/out/<run_id>",
+      "run_id": "<run_id>",
+      "artifact_index": "book/experiments/vfs-canonicalization/out/<run_id>/artifact_index.json",
+      "artifact_index_sha256": "<sha256>"
+    },
+    "profiles": {
+      "vfs_tmp_only": {
         "kind": "canonicalization",
         "note": "Profile mentions only /tmp/foo; both /tmp/foo and /private/tmp/foo are denied; interpreted as canonicalization-before-enforcement, literal /tmp/foo ineffective."
-      },
-      "vfs_private_tmp_only": {
-        "kind": "canonicalization",
-        "note": "Profile mentions only /private/tmp/foo; both requests allowed; literal on canonical path effective."
-      },
-      "vfs_both_paths": {
-        "kind": "control",
-        "note": "Profile mentions both paths; both requests allowed; control confirming canonical behavior."
       }
     }
   }
@@ -186,9 +207,9 @@ These sketches are informal; tests will check that the actual JSONs obey the sam
 
 Guardrails:
 
-- Structural guardrail `book/tests/planes/runtime/test_vfs_canonicalization_structural.py` asserts:
-  - `decode_tmp_profiles.json` exists and includes `vfs_tmp_only`, `vfs_private_tmp_only`, `vfs_both_paths`.
+- Structural guardrail `book/integration/tests/runtime/test_vfs_canonicalization_structural.py` asserts:
+  - `out/derived/decode_tmp_profiles.json` exists and includes `vfs_tmp_only`, `vfs_private_tmp_only`, `vfs_both_paths`.
   - Each profile has anchor entries for both `/tmp/foo` and `/private/tmp/foo`.
-- Shape guardrail `book/tests/planes/runtime/test_vfs_canonicalization_outputs.py` asserts:
-  - `expected_matrix.json` and `runtime_results.json` exist.
-  - Each entry carries the required fields (`profile_id`, `operation`, `requested_path`, `expected_decision` / `decision`, `observed_path`).
+- Shape guardrail `book/integration/tests/runtime/test_vfs_canonicalization_outputs.py` asserts:
+  - `out/LATEST/expected_matrix.json` and `out/derived/runtime_results.json` exist.
+  - Each expected probe entry carries the required fields (`operation`, `target`, `expected`) and runtime records carry `profile_id`, `operation`, `requested_path`, `actual`, and `observed_path`.

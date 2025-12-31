@@ -1,9 +1,12 @@
 import json
 from pathlib import Path
 
-
 from book.api import path_utils
+from book.integration.tests.runtime.runtime_bundle_helpers import load_bundle_json
+
 ROOT = path_utils.find_repo_root(Path(__file__))
+OUT_ROOT = ROOT / "book" / "experiments" / "vfs-canonicalization" / "out"
+DERIVED_ROOT = OUT_ROOT / "derived"
 
 
 def load_json(path: Path):
@@ -12,41 +15,47 @@ def load_json(path: Path):
 
 
 def test_vfs_expected_and_runtime_shapes():
-    """Shape guardrail: expected_matrix.json and runtime_results.json exist and have basic structure."""
-    exp_path = ROOT / "book" / "experiments" / "vfs-canonicalization" / "out" / "expected_matrix.json"
-    res_path = ROOT / "book" / "experiments" / "vfs-canonicalization" / "out" / "runtime_results.json"
-    expected = load_json(exp_path)
-    results = load_json(res_path)
+    """Shape guardrail: expected_matrix.json and derived runtime_results.json exist and have basic structure."""
+    expected = load_bundle_json(OUT_ROOT, "expected_matrix.json")
+    results = load_json(DERIVED_ROOT / "runtime_results.json")
 
-    assert isinstance(expected, list) and expected, "expected_matrix.json should be a non-empty list"
-    for entry in expected:
-        for key in ["profile_id", "operation", "requested_path", "expected_decision"]:
-            assert key in entry, f"expected_matrix entry missing {key}"
+    assert isinstance(expected, dict), "expected_matrix.json should be an object"
+    profiles = expected.get("profiles")
+    assert isinstance(profiles, dict) and profiles, "expected_matrix.json should include profiles"
+    for profile_id, profile in profiles.items():
+        assert profile_id, "expected_matrix profile_id should be non-empty"
+        probes = profile.get("probes")
+        assert isinstance(probes, list) and probes, f"expected_matrix probes missing for {profile_id}"
+        for probe in probes:
+            for key in ["operation", "target", "expected"]:
+                assert key in probe, f"expected_matrix probe missing {key}"
 
-    assert isinstance(results, list) and results, "runtime_results.json should be a non-empty list"
-    for row in results:
-        for key in ["profile_id", "operation", "requested_path", "observed_path", "decision"]:
-            assert key in row, f"runtime_results entry missing {key}"
+    assert isinstance(results, dict), "runtime_results.json should be an object"
+    records = results.get("records")
+    assert isinstance(records, list) and records, "runtime_results.json should include records"
+    for row in records:
+        for key in ["profile_id", "operation", "requested_path", "actual", "observed_path"]:
+            assert key in row, f"runtime_results record missing {key}"
 
-    expected_profiles = {e["profile_id"] for e in expected}
-    result_profiles = {r["profile_id"] for r in results}
+    expected_profiles = set(profiles.keys())
+    result_profiles = {r["profile_id"] for r in records}
     # Ensure we have runtime observations for all profiles we planned for.
     assert expected_profiles.issubset(result_profiles), "missing runtime results for some profiles in expected_matrix"
 
 
 def test_vfs_semantic_pattern():
     """Semantic guardrail: coarse allow/deny pattern per profile should remain stable on this world."""
-    res_path = ROOT / "book" / "experiments" / "vfs-canonicalization" / "out" / "runtime_results.json"
-    results = load_json(res_path)
-    ops = {row.get("operation") for row in results}
+    results = load_json(DERIVED_ROOT / "runtime_results.json")
+    records = results.get("records") or []
+    ops = {row.get("operation") for row in records}
     assert ops == {"file-read*", "file-write*"}, "unexpected operations in vfs-canonicalization runtime results"
 
     def decisions_for(profile_id: str):
         out = {}
-        for row in results:
+        for row in records:
             if row.get("profile_id") != profile_id:
                 continue
-            out[(row["operation"], row["requested_path"])] = row["decision"]
+            out[(row["operation"], row["requested_path"])] = row["actual"]
         return out
 
     tmp_only = decisions_for("vfs_tmp_only")

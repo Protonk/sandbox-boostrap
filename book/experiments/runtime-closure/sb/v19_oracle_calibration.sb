@@ -1,0 +1,10 @@
+(version 1)
+(deny default)
+(allow file-read*
+  (literal "/private/tmp/sandbox-lore-oracle.txt"))
+(allow file-write*
+  (literal "/private/tmp/sandbox-lore-oracle.txt"))
+(allow mach-lookup
+  (require-any
+    (global-name "com.apple.cfprefsd.agent")
+    (local-name "com.apple.cfprefsd.agent")))

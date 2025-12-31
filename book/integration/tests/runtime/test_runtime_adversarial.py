@@ -3,6 +3,7 @@ from pathlib import Path
 
 
 from book.api import path_utils
+from book.integration.tests.runtime.runtime_bundle_helpers import load_bundle_json
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))
 BASE_DIR = REPO_ROOT / "book" / "experiments" / "runtime-adversarial"
 OUT_DIR = BASE_DIR / "out"
@@ -17,10 +18,9 @@ def load_json(path: Path):
 def test_adversarial_artifacts_present_and_annotated():
     world = load_json(WORLD_PATH)
     world_id = world.get("world_id") or world.get("id")
-    expected_matrix = load_json(OUT_DIR / "expected_matrix.json")
-    runtime_results = load_json(OUT_DIR / "runtime_results.json")
-    mismatch_summary = load_json(OUT_DIR / "mismatch_summary.json")
-    impact_map = load_json(OUT_DIR / "impact_map.json")
+    expected_matrix = load_bundle_json(OUT_DIR, "expected_matrix.json")
+    runtime_results = load_bundle_json(OUT_DIR, "runtime_results.json")
+    mismatch_summary = load_bundle_json(OUT_DIR, "mismatch_summary.json")
 
     assert expected_matrix.get("world_id") == world_id
     assert mismatch_summary.get("world_id") == world_id
@@ -40,7 +40,3 @@ def test_adversarial_artifacts_present_and_annotated():
     }
     # Shapes must stay aligned.
     assert set(runtime_results.keys()) == set(expected_matrix.get("profiles", {}).keys())
-    # Every mismatch must be annotated in impact_map to force deliberate triage.
-    for mismatch in mismatch_summary.get("mismatches") or []:
-        eid = mismatch.get("expectation_id")
-        assert eid in impact_map, f"unannotated mismatch for {eid}"

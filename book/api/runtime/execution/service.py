@@ -526,15 +526,14 @@ def run_plan(
             raise RuntimeError(f"run_dir already exists: {run_dir}")
         run_dir.mkdir(parents=True, exist_ok=False)
 
-        schema_versions = plan_doc.get("schema_versions") or {}
-        run_manifest_schema = schema_versions.get("run_manifest", RUN_MANIFEST_SCHEMA_VERSION)
-        summary_schema = schema_versions.get("summary", SUMMARY_SCHEMA_VERSION)
-        runtime_results_schema = schema_versions.get("runtime_results", RUNTIME_RESULTS_SCHEMA_VERSION)
-        artifact_index_schema = schema_versions.get("artifact_index", ARTIFACT_INDEX_SCHEMA_VERSION)
-        mismatch_schema = schema_versions.get("mismatch_packet", MISMATCH_PACKET_SCHEMA_VERSION)
-        oracle_schema = schema_versions.get("oracle", ORACLE_SCHEMA_VERSION)
-        baseline_schema = schema_versions.get("baseline", BASELINE_SCHEMA_VERSION)
-        path_witnesses_schema = schema_versions.get("path_witnesses", PATH_WITNESSES_SCHEMA_VERSION)
+        run_manifest_schema = RUN_MANIFEST_SCHEMA_VERSION
+        summary_schema = SUMMARY_SCHEMA_VERSION
+        runtime_results_schema = RUNTIME_RESULTS_SCHEMA_VERSION
+        artifact_index_schema = ARTIFACT_INDEX_SCHEMA_VERSION
+        mismatch_schema = MISMATCH_PACKET_SCHEMA_VERSION
+        oracle_schema = ORACLE_SCHEMA_VERSION
+        baseline_schema = BASELINE_SCHEMA_VERSION
+        path_witnesses_schema = PATH_WITNESSES_SCHEMA_VERSION
 
         lanes = plan_doc.get("lanes") or {}
         effective_lanes = dict(lanes)

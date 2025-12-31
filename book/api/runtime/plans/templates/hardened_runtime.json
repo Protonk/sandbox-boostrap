@@ -1,0 +1,648 @@
+{
+  "description": "Non-VFS hardened runtime probe families.",
+  "plan": {
+    "apply_preflight_profile": "book/experiments/hardened-runtime/sb/apply_preflight_allow.sb",
+    "controls": {
+      "baseline": true
+    },
+    "lanes": {
+      "baseline": true,
+      "oracle": true,
+      "scenario": true
+    },
+    "plan_id": "hardened-runtime.v1",
+    "profiles": [
+      "hardened:mach_lookup",
+      "hardened:mach_lookup_allow",
+      "hardened:notifications",
+      "hardened:notifications_allow",
+      "hardened:process_info_allow",
+      "hardened:process_info_allow_canary",
+      "hardened:process_info_deny",
+      "hardened:signal_self_allow",
+      "hardened:signal_self_deny",
+      "hardened:sysctl_read",
+      "hardened:sysctl_read_allow"
+    ],
+    "registry_id": "hardened-runtime",
+    "schema_version": "runtime-tools.plan.v0.1",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  "probes": {
+    "probes": {
+      "hardened:mach_lookup:deny-bogus": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "driver": "sandbox_mach_probe",
+        "expected": "deny",
+        "expected_predicates": [
+          "com.apple.sandbox-lore.hardened-runtime.bogus"
+        ],
+        "expected_primary_ops": [
+          "mach-lookup"
+        ],
+        "name": "deny-bogus",
+        "operation": "mach-lookup",
+        "probe_id": "hardened:mach_lookup:deny-bogus",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "target": "com.apple.sandbox-lore.hardened-runtime.bogus"
+      },
+      "hardened:mach_lookup:deny-cfprefsd": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "driver": "sandbox_mach_probe",
+        "expected": "deny",
+        "expected_predicates": [
+          "com.apple.cfprefsd.agent"
+        ],
+        "expected_primary_ops": [
+          "mach-lookup"
+        ],
+        "name": "deny-cfprefsd",
+        "operation": "mach-lookup",
+        "probe_id": "hardened:mach_lookup:deny-cfprefsd",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "target": "com.apple.cfprefsd.agent"
+      },
+      "hardened:mach_lookup_allow:allow-cfprefsd": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "driver": "sandbox_mach_probe",
+        "expected": "allow",
+        "expected_predicates": [
+          "com.apple.cfprefsd.agent"
+        ],
+        "expected_primary_ops": [
+          "mach-lookup"
+        ],
+        "name": "allow-cfprefsd",
+        "operation": "mach-lookup",
+        "probe_id": "hardened:mach_lookup_allow:allow-cfprefsd",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "target": "com.apple.cfprefsd.agent"
+      },
+      "hardened:notifications:deny-allowed-darwin": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "expected": "deny",
+        "expected_predicates": [
+          "com.sandboxlore.hardened_runtime.test1"
+        ],
+        "expected_primary_ops": [
+          "darwin-notification-post"
+        ],
+        "name": "deny-allowed-darwin",
+        "operation": "darwin-notification-post",
+        "probe_id": "hardened:notifications:deny-allowed-darwin",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "target": "com.sandboxlore.hardened_runtime.test1"
+      },
+      "hardened:notifications:deny-allowed-distributed": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "expected": "deny",
+        "expected_predicates": [
+          "com.sandboxlore.hardened_runtime.test1"
+        ],
+        "expected_primary_ops": [
+          "distributed-notification-post"
+        ],
+        "name": "deny-allowed-distributed",
+        "operation": "distributed-notification-post",
+        "probe_id": "hardened:notifications:deny-allowed-distributed",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "target": "com.sandboxlore.hardened_runtime.test1"
+      },
+      "hardened:notifications:deny-darwin": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "expected": "deny",
+        "expected_predicates": [
+          "com.sandboxlore.hardened_runtime.test2"
+        ],
+        "expected_primary_ops": [
+          "darwin-notification-post"
+        ],
+        "name": "deny-darwin",
+        "operation": "darwin-notification-post",
+        "probe_id": "hardened:notifications:deny-darwin",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "target": "com.sandboxlore.hardened_runtime.test2"
+      },
+      "hardened:notifications:deny-distributed": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "expected": "deny",
+        "expected_predicates": [
+          "com.sandboxlore.hardened_runtime.test2"
+        ],
+        "expected_primary_ops": [
+          "distributed-notification-post"
+        ],
+        "name": "deny-distributed",
+        "operation": "distributed-notification-post",
+        "probe_id": "hardened:notifications:deny-distributed",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "target": "com.sandboxlore.hardened_runtime.test2"
+      },
+      "hardened:notifications_allow:allow-darwin": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "expected": "allow",
+        "expected_predicates": [
+          "com.sandboxlore.hardened_runtime.test1"
+        ],
+        "expected_primary_ops": [
+          "darwin-notification-post"
+        ],
+        "name": "allow-darwin",
+        "operation": "darwin-notification-post",
+        "probe_id": "hardened:notifications_allow:allow-darwin",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "target": "com.sandboxlore.hardened_runtime.test1"
+      },
+      "hardened:notifications_allow:allow-distributed": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "expected": "allow",
+        "expected_predicates": [
+          "com.sandboxlore.hardened_runtime.test1"
+        ],
+        "expected_primary_ops": [
+          "distributed-notification-post"
+        ],
+        "name": "allow-distributed",
+        "operation": "distributed-notification-post",
+        "probe_id": "hardened:notifications_allow:allow-distributed",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "target": "com.sandboxlore.hardened_runtime.test1"
+      },
+      "hardened:process_info_allow:pidinfo-init": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "expected": "deny",
+        "expected_predicates": [
+          "1"
+        ],
+        "expected_primary_ops": [
+          "process-info-pidinfo"
+        ],
+        "name": "pidinfo-init",
+        "operation": "process-info-pidinfo",
+        "probe_id": "hardened:process_info_allow:pidinfo-init",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "target": "1"
+      },
+      "hardened:process_info_allow:pidinfo-self": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "expected": "deny",
+        "expected_predicates": [
+          "self"
+        ],
+        "expected_primary_ops": [
+          "process-info-pidinfo"
+        ],
+        "name": "pidinfo-self",
+        "operation": "process-info-pidinfo",
+        "probe_id": "hardened:process_info_allow:pidinfo-self",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "target": "self"
+      },
+      "hardened:process_info_allow_canary:pidinfo-self": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "expected": "allow",
+        "expected_predicates": [
+          "self"
+        ],
+        "expected_primary_ops": [
+          "process-info-pidinfo"
+        ],
+        "name": "pidinfo-self",
+        "operation": "process-info-pidinfo",
+        "probe_id": "hardened:process_info_allow_canary:pidinfo-self",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "target": "self"
+      },
+      "hardened:process_info_deny:pidinfo-init": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "expected": "deny",
+        "expected_predicates": [
+          "1"
+        ],
+        "expected_primary_ops": [
+          "process-info-pidinfo"
+        ],
+        "name": "pidinfo-init",
+        "operation": "process-info-pidinfo",
+        "probe_id": "hardened:process_info_deny:pidinfo-init",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "target": "1"
+      },
+      "hardened:process_info_deny:pidinfo-self": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "expected": "deny",
+        "expected_predicates": [
+          "self"
+        ],
+        "expected_primary_ops": [
+          "process-info-pidinfo"
+        ],
+        "name": "pidinfo-self",
+        "operation": "process-info-pidinfo",
+        "probe_id": "hardened:process_info_deny:pidinfo-self",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "target": "self"
+      },
+      "hardened:signal_self_allow:signal-same-sandbox": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "expected": "allow",
+        "expected_predicates": [
+          "same-sandbox"
+        ],
+        "expected_primary_ops": [
+          "signal"
+        ],
+        "name": "signal-same-sandbox",
+        "operation": "signal",
+        "probe_id": "hardened:signal_self_allow:signal-same-sandbox",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "target": "same-sandbox"
+      },
+      "hardened:signal_self_deny:signal-same-sandbox": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "expected": "deny",
+        "expected_predicates": [
+          "same-sandbox"
+        ],
+        "expected_primary_ops": [
+          "signal"
+        ],
+        "name": "signal-same-sandbox",
+        "operation": "signal",
+        "probe_id": "hardened:signal_self_deny:signal-same-sandbox",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "target": "same-sandbox"
+      },
+      "hardened:sysctl_read:deny-kern-bootargs": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "expected": "deny",
+        "expected_predicates": [
+          "kern.bootargs"
+        ],
+        "expected_primary_ops": [
+          "sysctl-read"
+        ],
+        "name": "deny-kern-bootargs",
+        "operation": "sysctl-read",
+        "probe_id": "hardened:sysctl_read:deny-kern-bootargs",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "target": "kern.bootargs"
+      },
+      "hardened:sysctl_read:deny-kern-osrelease": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "expected": "deny",
+        "expected_predicates": [
+          "kern.osrelease"
+        ],
+        "expected_primary_ops": [
+          "sysctl-read"
+        ],
+        "name": "deny-kern-osrelease",
+        "operation": "sysctl-read",
+        "probe_id": "hardened:sysctl_read:deny-kern-osrelease",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "target": "kern.osrelease"
+      },
+      "hardened:sysctl_read_allow:allow-kern-ostype": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "expected": "allow",
+        "expected_predicates": [
+          "kern.ostype"
+        ],
+        "expected_primary_ops": [
+          "sysctl-read"
+        ],
+        "name": "allow-kern-ostype",
+        "operation": "sysctl-read",
+        "probe_id": "hardened:sysctl_read_allow:allow-kern-ostype",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "target": "kern.ostype"
+      }
+    },
+    "registry_id": "hardened-runtime",
+    "schema_version": "runtime-tools.probe_registry.v0.2",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  "profiles": {
+    "profiles": {
+      "hardened:mach_lookup": {
+        "family": "mach_lookup",
+        "key_specific_rules": [],
+        "mode": "sbpl",
+        "notes": null,
+        "probe_refs": [
+          "hardened:mach_lookup:deny-cfprefsd",
+          "hardened:mach_lookup:deny-bogus"
+        ],
+        "profile_id": "hardened:mach_lookup",
+        "profile_path": "book/experiments/hardened-runtime/sb/mach_lookup.sb",
+        "semantic_group": "mach:global-name"
+      },
+      "hardened:mach_lookup_allow": {
+        "family": "mach_lookup",
+        "key_specific_rules": [],
+        "mode": "sbpl",
+        "notes": null,
+        "probe_refs": [
+          "hardened:mach_lookup_allow:allow-cfprefsd"
+        ],
+        "profile_id": "hardened:mach_lookup_allow",
+        "profile_path": "book/experiments/hardened-runtime/sb/mach_lookup_allow.sb",
+        "semantic_group": "mach:global-name"
+      },
+      "hardened:notifications": {
+        "family": "notifications",
+        "key_specific_rules": [],
+        "mode": "sbpl",
+        "notes": null,
+        "probe_refs": [
+          "hardened:notifications:deny-allowed-darwin",
+          "hardened:notifications:deny-darwin",
+          "hardened:notifications:deny-allowed-distributed",
+          "hardened:notifications:deny-distributed"
+        ],
+        "profile_id": "hardened:notifications",
+        "profile_path": "book/experiments/hardened-runtime/sb/notifications.sb",
+        "semantic_group": "notifications:post"
+      },
+      "hardened:notifications_allow": {
+        "family": "notifications",
+        "key_specific_rules": [],
+        "mode": "sbpl",
+        "notes": null,
+        "probe_refs": [
+          "hardened:notifications_allow:allow-darwin",
+          "hardened:notifications_allow:allow-distributed"
+        ],
+        "profile_id": "hardened:notifications_allow",
+        "profile_path": "book/experiments/hardened-runtime/sb/notifications_allow.sb",
+        "semantic_group": "notifications:post"
+      },
+      "hardened:process_info_allow": {
+        "family": "process_info",
+        "key_specific_rules": [],
+        "mode": "sbpl",
+        "notes": null,
+        "probe_refs": [
+          "hardened:process_info_allow:pidinfo-self",
+          "hardened:process_info_allow:pidinfo-init"
+        ],
+        "profile_id": "hardened:process_info_allow",
+        "profile_path": "book/experiments/hardened-runtime/sb/process_info_allow.sb",
+        "semantic_group": "process-info:pidinfo"
+      },
+      "hardened:process_info_allow_canary": {
+        "family": "process_info",
+        "key_specific_rules": [],
+        "mode": "sbpl",
+        "notes": null,
+        "probe_refs": [
+          "hardened:process_info_allow_canary:pidinfo-self"
+        ],
+        "profile_id": "hardened:process_info_allow_canary",
+        "profile_path": "book/experiments/hardened-runtime/sb/process_info_allow_canary.sb",
+        "semantic_group": "process-info:pidinfo"
+      },
+      "hardened:process_info_deny": {
+        "family": "process_info",
+        "key_specific_rules": [],
+        "mode": "sbpl",
+        "notes": null,
+        "probe_refs": [
+          "hardened:process_info_deny:pidinfo-self",
+          "hardened:process_info_deny:pidinfo-init"
+        ],
+        "profile_id": "hardened:process_info_deny",
+        "profile_path": "book/experiments/hardened-runtime/sb/process_info_deny.sb",
+        "semantic_group": "process-info:pidinfo"
+      },
+      "hardened:signal_self_allow": {
+        "family": "signal",
+        "key_specific_rules": [],
+        "mode": "sbpl",
+        "notes": null,
+        "probe_refs": [
+          "hardened:signal_self_allow:signal-same-sandbox"
+        ],
+        "profile_id": "hardened:signal_self_allow",
+        "profile_path": "book/experiments/hardened-runtime/sb/signal_self_allow.sb",
+        "semantic_group": "signal:self"
+      },
+      "hardened:signal_self_deny": {
+        "family": "signal",
+        "key_specific_rules": [],
+        "mode": "sbpl",
+        "notes": null,
+        "probe_refs": [
+          "hardened:signal_self_deny:signal-same-sandbox"
+        ],
+        "profile_id": "hardened:signal_self_deny",
+        "profile_path": "book/experiments/hardened-runtime/sb/signal_self_deny.sb",
+        "semantic_group": "signal:self"
+      },
+      "hardened:sysctl_read": {
+        "family": "sysctl_read",
+        "key_specific_rules": [],
+        "mode": "sbpl",
+        "notes": null,
+        "probe_refs": [
+          "hardened:sysctl_read:deny-kern-osrelease",
+          "hardened:sysctl_read:deny-kern-bootargs"
+        ],
+        "profile_id": "hardened:sysctl_read",
+        "profile_path": "book/experiments/hardened-runtime/sb/sysctl_read.sb",
+        "semantic_group": "sysctl:name"
+      },
+      "hardened:sysctl_read_allow": {
+        "family": "sysctl_read",
+        "key_specific_rules": [],
+        "mode": "sbpl",
+        "notes": null,
+        "probe_refs": [
+          "hardened:sysctl_read_allow:allow-kern-ostype"
+        ],
+        "profile_id": "hardened:sysctl_read_allow",
+        "profile_path": "book/experiments/hardened-runtime/sb/sysctl_read_allow.sb",
+        "semantic_group": "sysctl:name"
+      }
+    },
+    "registry_id": "hardened-runtime",
+    "schema_version": "runtime-tools.profile_registry.v0.2",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  "registry_id": "hardened-runtime",
+  "schema_version": "runtime-tools.plan_template.v0.1",
+  "template_id": "hardened-runtime",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

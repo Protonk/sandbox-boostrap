@@ -12,10 +12,10 @@ Provide a clean, provenance-stamped decision-stage runtime lane for non-VFS sand
 - **partial**: clean-channel run recorded with decision-stage events; signal-to-same-sandbox canary now succeeds with a deny control, while allow attempts for mach/sysctl/notifications/process-info still deny under the strict profiles and remain under exploration. Allow-canary profiles with `(allow default)` are now present as positive-evidence checks.
 
 ## Clean-channel success criteria (for promotable runs)
-- `out/run_manifest.json` reports `channel=launchd_clean` with `sandbox_check_self` and staging context.
-- `out/runtime_events.normalized.json` includes decision-stage events (not apply/preflight only).
-- `out/baseline_results.json` and `out/oracle_results.json` are present and remain separate lanes.
-- `out/artifact_index.json` lists all core artifacts with digests and schema versions.
+- `out/LATEST/run_manifest.json` reports `channel=launchd_clean` with `sandbox_check_self` and staging context.
+- `out/LATEST/runtime_events.normalized.json` includes decision-stage events (not apply/preflight only).
+- `out/LATEST/baseline_results.json` and `out/LATEST/oracle_results.json` are present and remain separate lanes.
+- `out/LATEST/artifact_index.json` lists all core artifacts with digests and schema versions.
 
 ## Current probe families
 - **mach-lookup** (global-name): allow/deny probes for a small service set to map decision-stage behavior.
@@ -25,25 +25,25 @@ Provide a clean, provenance-stamped decision-stage runtime lane for non-VFS sand
 - **signal** (same-sandbox target): canary allow/deny using a child process to exercise signal checks; “self” is not used as a deny control.
 
 ## Latest run summary
-- `out/run_manifest.json` reports `channel=launchd_clean` with staged root under `/private/tmp`.
-- Decision-stage events are present in `out/runtime_events.normalized.json`.
-- `out/baseline_results.json` shows unsandboxed success for mach/sysctl/notification/process-info probes, while sandboxed runs deny under the current profiles.
+- `out/LATEST/run_manifest.json` reports `channel=launchd_clean` with staged root under `/private/tmp`.
+- Decision-stage events are present in `out/LATEST/runtime_events.normalized.json`.
+- `out/LATEST/baseline_results.json` shows unsandboxed success for mach/sysctl/notification/process-info probes, while sandboxed runs deny under the current profiles.
 - Signal canary allow and deny both match expectations (control verified).
 
 ## Deliverables / expected outcomes
-- Clean-channel run provenance (`out/run_manifest.json`) and apply preflight (`out/apply_preflight.json`).
-- Baseline comparator (`out/baseline_results.json`) recorded from unsandboxed probes.
-- Decision-stage runtime outputs (`out/runtime_results.json`, `out/runtime_events.normalized.json`).
-- Oracle lane (`out/oracle_results.json`) separated from syscall-observed outcomes.
-- Bounded mismatches (`out/mismatch_packets.jsonl`) with enumerated `mismatch_reason`.
-- Summary (`out/summary.json`, `out/summary.md`).
-- Artifact index (`out/artifact_index.json`) that pins paths, digests, and schema versions for the run.
+- Clean-channel run provenance (`out/LATEST/run_manifest.json`) and apply preflight (`out/LATEST/apply_preflight.json`).
+- Baseline comparator (`out/LATEST/baseline_results.json`) recorded from unsandboxed probes.
+- Decision-stage runtime outputs (`out/LATEST/runtime_results.json`, `out/LATEST/runtime_events.normalized.json`).
+- Oracle lane (`out/LATEST/oracle_results.json`) separated from syscall-observed outcomes.
+- Bounded mismatches (`out/LATEST/mismatch_packets.jsonl`) with enumerated `mismatch_reason`.
+- Summary (`out/LATEST/summary.json`, `out/LATEST/summary.md`).
+- Artifact index (`out/LATEST/artifact_index.json`) that pins paths, digests, and schema versions for the run.
 
 ## Evidence & artifacts
 - SBPL sources: `book/experiments/hardened-runtime/sb/*.sb`.
-- Runner: `book/experiments/hardened-runtime/run_hardened_runtime.py`.
 - Clean channel: `python -m book.api.runtime run --plan book/experiments/hardened-runtime/plan.json --channel launchd_clean`.
-- Outputs: `book/experiments/hardened-runtime/out/` (see Deliverables).
+- Plan template: `python -m book.api.runtime plan-build --template hardened-runtime --out book/experiments/hardened-runtime --overwrite`.
+- Outputs: `book/experiments/hardened-runtime/out/LATEST/` (see Deliverables).
 - Runtime tooling inventory: `book/experiments/hardened-runtime/other_runtime_inventory.json` (regenerated after probe migration to `book/api/runtime/native/probes`).
 
 ## Claims and limits

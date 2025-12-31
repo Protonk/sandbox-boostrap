@@ -26,6 +26,34 @@ REPO_ROOT = path_utils.find_repo_root(Path(__file__))
 TEMPLATE_SCHEMA_VERSION = "runtime-tools.plan_template.v0.1"
 # Hardcoded template index keeps template resolution deterministic.
 TEMPLATE_INDEX: Dict[str, Path] = {
+    "anchor-filter-map": REPO_ROOT
+    / "book"
+    / "api"
+    / "runtime"
+    / "plans"
+    / "templates"
+    / "anchor_filter_map.json",
+    "hardened-runtime": REPO_ROOT
+    / "book"
+    / "api"
+    / "runtime"
+    / "plans"
+    / "templates"
+    / "hardened_runtime.json",
+    "lifecycle-lockdown": REPO_ROOT
+    / "book"
+    / "api"
+    / "runtime"
+    / "plans"
+    / "templates"
+    / "lifecycle_lockdown.json",
+    "probe-op-structure": REPO_ROOT
+    / "book"
+    / "api"
+    / "runtime"
+    / "plans"
+    / "templates"
+    / "probe_op_structure.json",
     "runtime-adversarial": REPO_ROOT
     / "book"
     / "api"
@@ -33,6 +61,20 @@ TEMPLATE_INDEX: Dict[str, Path] = {
     / "plans"
     / "templates"
     / "runtime_adversarial.json",
+    "runtime-checks": REPO_ROOT
+    / "book"
+    / "api"
+    / "runtime"
+    / "plans"
+    / "templates"
+    / "runtime_checks.json",
+    "runtime-closure": REPO_ROOT
+    / "book"
+    / "api"
+    / "runtime"
+    / "plans"
+    / "templates"
+    / "runtime_closure.json",
     "vfs-canonicalization": REPO_ROOT
     / "book"
     / "api"
@@ -294,6 +336,7 @@ def _build_vfs(template: Dict[str, Any], out_root: Path, *, overwrite: bool, wri
     expected_entries = build_expected_entries(template)
     probes: Dict[str, Dict[str, Any]] = {}
     profile_probe_refs: Dict[str, List[str]] = {pid: [] for pid in profile_order}
+    supports_lanes = template.get("lanes") or {"baseline": True, "scenario": True, "oracle": True}
     for entry in expected_entries:
         profile_id = entry["profile_id"]
         op = entry["operation"]
@@ -306,6 +349,11 @@ def _build_vfs(template: Dict[str, Any], out_root: Path, *, overwrite: bool, wri
             "operation": op,
             "target": path,
             "expected": entry["expected_decision"],
+            "supports_lanes": dict(supports_lanes),
+            "expected_primary_ops": [op],
+            "expected_predicates": [path],
+            "capabilities_required": [],
+            "controls_supported": ["baseline", "allow_default", "deny_default"],
         }
         if probe_id in probes:
             if probes[probe_id].get("expected") != probe["expected"]:
@@ -331,6 +379,7 @@ def _build_vfs(template: Dict[str, Any], out_root: Path, *, overwrite: bool, wri
             "family": cfg.get("family") or family,
             "semantic_group": cfg.get("semantic_group") or semantic_group,
             "probe_refs": profile_probe_refs.get(profile_id) or [],
+            "key_specific_rules": cfg.get("key_specific_rules") or [],
             "notes": cfg.get("notes"),
         }
 
@@ -394,8 +443,8 @@ def build_plan_from_template(
     """Render a template into plan/registry files under out_root."""
     template = load_plan_template(template_id)
     out_root = path_utils.ensure_absolute(out_root, repo_root or REPO_ROOT)
+    if isinstance(template.get("plan"), dict) and isinstance(template.get("probes"), dict) and isinstance(template.get("profiles"), dict):
+        return _build_static_template(template, out_root, overwrite=overwrite, write_expected_matrix=write_expected_matrix)
     if template_id == "vfs-canonicalization":
         return _build_vfs(template, out_root, overwrite=overwrite, write_expected_matrix=write_expected_matrix)
-    if template_id == "runtime-adversarial":
-        return _build_static_template(template, out_root, overwrite=overwrite, write_expected_matrix=write_expected_matrix)
     raise ValueError(f"no builder registered for template: {template_id}")

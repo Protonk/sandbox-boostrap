@@ -2,6 +2,16 @@
 
 This experiment checks how alias/canonical path families behave structurally and at runtime on world `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`, using tri-profile variants (alias-only, canonical-only, both) plus a data-spelling-only variant for `/var/tmp`, and a minimal runtime harness that exercises file-read* and file-write*. It covers `/tmp` ↔ `/private/tmp`, a `/var/tmp` discriminator (including `/System/Volumes/Data/private/var/tmp`), `/etc` read-only, a firmlink spelling for `/private/tmp`, and an intermediate symlink-in-path probe. The goal is to bound canonicalization behavior for these path families on this host: structurally, alias and canonical spellings are distinct anchors in the compiled PolicyGraph, while runtime behavior shows where canonicalization does (and does not) make those literals effective.
 
+## How to run
+Run via the runtime CLI and treat the run-scoped bundle as the authority (`out/LATEST` points to the most recent committed run):
+
+```sh
+python -m book.api.runtime run \
+  --plan book/experiments/vfs-canonicalization/plan.json \
+  --channel launchd_clean \
+  --out book/experiments/vfs-canonicalization/out
+```
+
 ## Setup
 
 - **World:** `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (Sonoma baseline).
@@ -13,30 +23,28 @@ This experiment checks how alias/canonical path families behave structurally and
   - `/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe` ↔ `/private/var/tmp/vfs_link_probe` (intermediate symlink).
 - **Targets:** the path pairs above; each family is tested only against its own configured pair(s).
 - **Harness:**
-  - Entry: `book/experiments/vfs-canonicalization/run_vfs.py`.
   - Plan-data generated via `python -m book.api.runtime plan-build --template vfs-canonicalization --out book/experiments/vfs-canonicalization --overwrite`.
-  - Runtime harness via `book.api.runtime` plan execution, reusing the same shims as `runtime-checks` / `runtime-adversarial`.
-  - Structural decode via `book/api/profile/decoder/` using `book/graph/mappings/tag_layouts/tag_layouts.json`.
+  - Runtime execution via `python -m book.api.runtime run --plan book/experiments/vfs-canonicalization/plan.json --channel launchd_clean` (bundle under `out/<run_id>/`, `out/LATEST` points to the most recent committed run).
+  - Derived summaries via `python book/experiments/vfs-canonicalization/derive_outputs.py --bundle book/experiments/vfs-canonicalization/out --out-dir book/experiments/vfs-canonicalization/out/derived`.
+  - Structural decode via `book/api/profile/decoder/` using bundle blobs (driven by the derive step).
+  - Fixture preparation via `python book/experiments/vfs-canonicalization/prepare_fixtures.py` (host-local paths under `/private/tmp` and `/private/var/tmp`).
 - **Outputs:**
   - `plan.json` + `registry/{probes,profiles}.json` – plan/registry data generated from the runtime template.
-  - `out/expected_matrix.json` – human expectations for `(profile_id, requested_path, expected_decision)` (template-derived).
-  - `out/<run_id>/expected_matrix.json` – runtime expected matrix (plan-derived, harness-ready).
-  - `out/<run_id>/runtime_results.json` – raw runtime harness results (per-profile dict form).
-  - `out/<run_id>/runtime_events.normalized.json` – normalized runtime observations (per scenario).
+  - `out/LATEST/expected_matrix.json` – plan-derived expectations (profile → probe list).
+  - `out/LATEST/runtime_results.json` – raw runtime harness results (per scenario).
+  - `out/LATEST/runtime_events.normalized.json` – normalized runtime observations (per scenario).
+  - `out/LATEST/path_witnesses.json` – file probe FD path witnesses (per scenario).
+  - `out/derived/runtime_results.json` – derived summary with bundle metadata and `observed_path_nofirmlink` fields.
+  - `out/derived/decode_tmp_profiles.json` – derived structural view of anchors/tags/field2 (plus literal candidates) for all configured path pairs.
+  - `out/derived/mismatch_summary.json` – coarse classification for the base `/tmp` family (canonicalization vs control).
   - `out/promotion_packet.json` – promotion packet (preferred evidence interface) pointing to the committed run-scoped bundle.
-  - `out/runtime_results.json` – simplified array of runtime observations (per scenario).
-  - `out/decode_tmp_profiles.json` – structural view of anchors/tags/field2 (plus literal candidates) for all configured path pairs in each profile.
-  - `out/mismatch_summary.json` – coarse classification for the base `/tmp` family (canonicalization vs control).
-  - `out/host_alias_inventory.json` – host-local firmlinks and synthetic root config snapshots (presence + contents).
   - `book/graph/mappings/vfs_canonicalization/path_canonicalization_map.json` – generated mapping slice derived from the promotion packet, with `book/graph/mappings/vfs_canonicalization/promotion_receipt.json` as the audit receipt.
 - **Observed vs canonicalized paths:**
   - The harness now emits `F_GETPATH` and (when available) `F_GETPATH_NOFIRMLINK` for successful opens. `observed_path` is sourced from `F_GETPATH` when present, and `observed_path_nofirmlink` captures the alternate FD path spelling when available.
   - For denied requests the FD never opens, so neither FD path exists; `observed_path` remains the requested path and canonicalization for denied paths is inferred from behavior.
-- **Host alias inventory:** `out/host_alias_inventory.json` captures `/usr/share/firmlinks`, `/etc/synthetic.conf`, and `/etc/synthetic.d` on this host. The firmlinks list exists but does not include `/private`; `synthetic.conf` and `synthetic.d` are absent. Treat this as a host-specific bound, not a general rule.
-
 ## Structural observations
 
-From `out/decode_tmp_profiles.json` (anchors, tags, field2, and normalized literal candidates):
+From `out/derived/decode_tmp_profiles.json` (anchors, tags, field2, and normalized literal candidates):
 
 - **Profile `vfs_tmp_only`**
   - Anchors present for `/tmp/foo`, `/tmp/bar`, `/tmp/nested/child`, `/var/tmp/canon`; canonical counterparts absent. Tag counts: `node_count = 53`, `tag_counts = {"4": 17, "5": 28, "3": 4, "1": 1, "0": 3}`.
@@ -60,7 +68,7 @@ These observations align with the broader structural story from `probe-op-struct
 
 ## Runtime observations
 
-From `out/runtime_results.json` (via `run_vfs.py` + runtime plan execution on this world):
+From `out/derived/runtime_results.json` (derived from the committed bundle on this world):
 
 - **Base `/tmp` family**
   - `vfs_tmp_only` denies all alias and canonical requests across the path set for file-read* and file-write*.
@@ -147,7 +155,7 @@ Non-claims and cautions:
 - This experiment does **not** attempt to generalize to all alias families; `/var/tmp`, `/etc`, and intermediate symlink behavior remain **partial** and may involve additional alias spellings not yet probed.
 - It does not alter or override the structural anchor story from `probe-op-structure` or the field2 inventories from `field2-filters`; it only adds small, concrete runtime stories on top of them for these path families.
 - Literal decoding here strips the leading literal-type byte; earlier substring-based checks could misclassify which anchors were present. Treat any future deviations as decoder hygiene issues, not policy changes.
-- The latest runtime harness run (captured in `out/runtime_results.json`) enabled seatbelt callouts for file-read* and file-write* probes; the underlying world and profiles are otherwise unchanged.
+- The latest runtime harness run (summarized in `out/derived/runtime_results.json`) enabled seatbelt callouts for file-read* and file-write* probes; the underlying world and profiles are otherwise unchanged.
 
 Why expand canonicalization scope? Canonicalization determines which literals are actually enforceable on this host. If `/tmp` → `/private/tmp` is just one case in a broader VFS normalization layer, knowing where else literals are rewritten keeps profile interpretation honest (PolicyGraph literals vs runtime matches), strengthens runtime evidence beyond a single fixture, and gives chapters/experiments a reusable runtime invariant (or a bounded brittleness) instead of overfitting to one anchor that might never match. In short, broader probing tells the textbook which literal strings are semantically live on Sonoma.
 

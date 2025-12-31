@@ -92,12 +92,19 @@ The runtime-closure file spelling matrix run `book/experiments/runtime-closure/o
 - `book/tests/planes/graph/test_mappings_guardrail.py` ensures tag layouts and core mappings stay pinned to this world.
 - `book/tests/planes/graph/test_anchor_filter_alignment.py` enforces that `anchor_filter_map.json` stays aligned with `out/anchor_hits.json` (or `out/anchor_hits_delta.json` for delta-attributed anchors).
 
-## Running and refreshing
-- Structural refresh:
-  - `python3 book/experiments/probe-op-structure/analyze_profiles.py`
-  - `python3 book/experiments/probe-op-structure/anchor_scan.py`
-- Runtime slice:
-  - `python -m book.api.runtime run --plan book/experiments/probe-op-structure/plan.json --channel launchd_clean --out book/experiments/probe-op-structure/out`
+## How to run
+Run via the runtime CLI and treat the run-scoped bundle as the authority (`out/LATEST` points to the most recent committed run):
+
+```sh
+python -m book.api.runtime run \
+  --plan book/experiments/probe-op-structure/plan.json \
+  --channel launchd_clean \
+  --out book/experiments/probe-op-structure/out
+```
+
+## Structural refresh
+- `python3 book/experiments/probe-op-structure/analyze_profiles.py`
+- `python3 book/experiments/probe-op-structure/anchor_scan.py`
 
 ## Limitations and non-claims
 - Literal/regex operands are still partial; some anchor bindings rely on heuristic scans.

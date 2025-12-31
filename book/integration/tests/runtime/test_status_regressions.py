@@ -5,6 +5,7 @@ from book.api import evidence_tiers
 
 
 from book.api import path_utils
+from book.integration.tests.runtime.runtime_bundle_helpers import load_bundle_json
 ROOT = path_utils.find_repo_root(Path(__file__))
 BASELINE = ROOT / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world.json"
 VALIDATION_STATUS = ROOT / "book" / "graph" / "concepts" / "validation" / "out" / "validation_status.json"
@@ -86,11 +87,13 @@ def test_status_regressions():
         # If already partial/brittle, let other tests handle it.
         assert not failures, "\n".join(failures)
         return
-    mismatch_path = ROOT / "book" / "experiments" / "runtime-adversarial" / "out" / "mismatch_summary.json"
-    if not mismatch_path.exists():
+    runtime_adv_out = ROOT / "book" / "experiments" / "runtime-adversarial" / "out"
+    try:
+        mismatch_doc = load_bundle_json(runtime_adv_out, "mismatch_summary.json")
+    except AssertionError:
         assert not failures, "\n".join(failures)
         return
-    mismatches = load_json(mismatch_path).get("mismatches") or []
+    mismatches = mismatch_doc.get("mismatches") or []
     if not mismatches:
         assert not failures, "\n".join(failures)
         return

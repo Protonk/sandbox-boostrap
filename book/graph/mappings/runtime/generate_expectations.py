@@ -25,12 +25,23 @@ if str(ROOT) not in sys.path:
 
 from book.api import evidence_tiers  # noqa: E402
 from book.api import world as world_mod  # noqa: E402
+from book.api.runtime.bundles import reader as bundle_reader  # noqa: E402
 
 RUNTIME_STORY = ROOT / "book/graph/mappings/runtime_cuts/runtime_story.json"
 IMPACT_MAP = ROOT / "book/experiments/runtime-adversarial/out/impact_map.json"
 OUT = ROOT / "book/graph/mappings/runtime/expectations.json"
-RUN_MANIFEST_CHECKS = ROOT / "book/experiments/runtime-checks/out/run_manifest.json"
-RUN_MANIFEST_ADV = ROOT / "book/experiments/runtime-adversarial/out/run_manifest.json"
+
+
+def resolve_run_manifest(bundle_root: Path) -> Path:
+    try:
+        bundle_dir, _ = bundle_reader.resolve_bundle_dir(bundle_root, repo_root=ROOT)
+    except FileNotFoundError:
+        bundle_dir = bundle_root
+    return bundle_dir / "run_manifest.json"
+
+
+RUN_MANIFEST_CHECKS = resolve_run_manifest(ROOT / "book/experiments/runtime-checks/out")
+RUN_MANIFEST_ADV = resolve_run_manifest(ROOT / "book/experiments/runtime-adversarial/out")
 
 TRACE_PATHS = {
     "runtime:allow_all": "book/graph/mappings/runtime/traces/runtime_allow_all.jsonl",

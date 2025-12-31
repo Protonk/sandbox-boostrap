@@ -13,6 +13,16 @@ Bind anchor labels emitted by `probe-op-structure` to concrete Filter IDs, while
 - Tooling: `book.api.profile.decoder` for any new probes; existing probe outputs as primary evidence.
 - Target artifact: `book/graph/mappings/anchors/anchor_ctx_filter_map.json` (canonical), plus derived `book/graph/mappings/anchors/anchor_filter_map.json` (compatibility view).
 
+## How to run
+Use the runtime CLI so the committed bundle is the only authority (resolve the latest run via `out/LATEST`):
+
+```sh
+python -m book.api.runtime run \
+  --plan book/experiments/anchor-filter-map/plan.json \
+  --channel launchd_clean \
+  --out book/experiments/anchor-filter-map/out
+```
+
 ## Deliverables / expected outcomes
 - `book/graph/mappings/anchors/anchor_ctx_filter_map.json` as the source of truth for anchor→Filter bindings keyed by `anchor_ctx_id`.
 - `book/graph/mappings/anchors/anchor_filter_map.json` as a deterministic, conservative derived view keyed by literal string with `ctx_ids` backpointers.

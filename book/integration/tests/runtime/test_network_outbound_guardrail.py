@@ -1,16 +1,15 @@
 from __future__ import annotations
 
-import json
 from pathlib import Path
 
 
 from book.api import path_utils
+from book.integration.tests.runtime.runtime_bundle_helpers import load_bundle_json
 ROOT = path_utils.find_repo_root(Path(__file__))
 BASE = ROOT / "book" / "experiments" / "runtime-adversarial"
 SB_ALLOW = BASE / "sb" / "net_outbound_allow.sb"
 SB_DENY = BASE / "sb" / "net_outbound_deny.sb"
-EXPECTED = BASE / "out" / "expected_matrix.json"
-RESULTS = BASE / "out" / "runtime_results.json"
+OUT_ROOT = BASE / "out"
 
 
 def _load_lines(path: Path) -> list[str]:
@@ -35,8 +34,8 @@ def test_net_outbound_profiles_shape():
 
 
 def test_net_outbound_behavior():
-    expected = json.loads(EXPECTED.read_text())
-    results = json.loads(RESULTS.read_text())
+    expected = load_bundle_json(OUT_ROOT, "expected_matrix.json")
+    results = load_bundle_json(OUT_ROOT, "runtime_results.json")
 
     allow_probes = expected["profiles"]["adv:net_outbound_allow"]["probes"]
     deny_probes = expected["profiles"]["adv:net_outbound_deny"]["probes"]

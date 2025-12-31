@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "runtime-tools.profile_registry.v0.2",
+  "title": "Runtime profile registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "registry_id",
+    "world_id",
+    "profiles"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "runtime-tools.profile_registry.v0.2"
+    },
+    "registry_id": {
+      "type": "string"
+    },
+    "world_id": {
+      "type": "string"
+    },
+    "profiles": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/profile"
+      }
+    }
+  },
+  "$defs": {
+    "profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "profile_id",
+        "profile_path",
+        "mode",
+        "family",
+        "semantic_group",
+        "probe_refs",
+        "key_specific_rules",
+        "notes"
+      ],
+      "properties": {
+        "profile_id": {
+          "type": "string"
+        },
+        "profile_path": {
+          "type": "string"
+        },
+        "mode": {
+          "type": "string",
+          "enum": [
+            "sbpl",
+            "blob"
+          ]
+        },
+        "family": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "semantic_group": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "probe_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "key_specific_rules": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}

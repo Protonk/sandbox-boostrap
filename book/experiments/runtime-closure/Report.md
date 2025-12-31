@@ -15,6 +15,16 @@ Provide narrow, stage-labeled runtime evidence that helps close gaps in `probe-o
 - Preflight: `book/tools/preflight/preflight.py scan` on all SBPL inputs.
 - Profiles: minimal deny-default SBPL with explicit allow rules for the targeted anchors.
 
+## How to run
+Run via the runtime CLI so the committed bundle is the authority (`out/LATEST` points to the most recent committed run):
+
+```sh
+python -m book.api.runtime run \
+  --plan book/experiments/runtime-closure/plan.json \
+  --channel launchd_clean \
+  --out book/experiments/runtime-closure/out
+```
+
 ## Status
 - File canonicalization lane: partial (v2 spelling matrix run; `/etc` still unresolved).
 - Mach service discrimination lane: ok (baseline confirms missing control).

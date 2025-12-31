@@ -1,20 +1,20 @@
 # Runtime Adversarial Suite – Plan
 
 ## Aim
-Probe for static↔runtime divergences by running deliberately adversarial SBPL profiles through the existing golden_runner/runtime harness. Phase 1 covers two families: (1) structurally distinct but semantically equivalent profiles, and (2) path/literal edge cases that stress normalization and literal vs subpath handling. Outputs include expected/runtime matrices, mismatch summaries, and an impact map hook.
+Probe for static↔runtime divergences by running deliberately adversarial SBPL profiles through the plan-based runtime CLI. Phase 1 covers two families: (1) structurally distinct but semantically equivalent profiles, and (2) path/literal edge cases that stress normalization and literal vs subpath handling. Outputs are bundle-scoped expected/runtime matrices and mismatch packets.
 
 ## Infrastructure reuse
 - Compile/decode via `book.api.profile` and `book.api.profile.decoder`.
-- Runtime harness via `book.api.runtime.execution.harness.runner.run_matrix` (reusing `runtime-checks` shims).
+- Runtime execution via `python -m book.api.runtime run --plan book/experiments/runtime-adversarial/plan.json --channel launchd_clean`.
 - Expectation wiring patterned after `book/experiments/sbpl-graph-runtime`.
-- Comparison and summaries live in this experiment’s `out/`.
+- Comparison and summaries live in the committed bundle under `out/<run_id>/` (resolve via `out/LATEST`).
 - Plan/registry files are generated from the runtime template:
   `python -m book.api.runtime plan-build --template runtime-adversarial --out book/experiments/runtime-adversarial --overwrite`.
 
 ## Deliverables (Phase 1)
-- `out/expected_matrix.json`, `out/runtime_results.json`, `out/mismatch_summary.json`, `out/impact_map.json` (world_id-stamped).
+- Bundle artifacts in `out/LATEST/` (`expected_matrix.json`, `runtime_results.json`, `runtime_events.normalized.json`, `mismatch_summary.json`, `mismatch_packets.jsonl`, `artifact_index.json`).
 - SBPL + blobs under `sb/` and `sb/build/`.
-- Guardrail test ensuring mismatches are either absent or annotated.
+- Guardrail test ensuring mismatch packets remain coherent.
 
 ## Test families (Phase 1)
 - Structural variants: `struct_flat` vs `struct_nested` (same file-read semantics, different graph shapes via metafilter nesting vs flat filters).
@@ -22,7 +22,7 @@ Probe for static↔runtime divergences by running deliberately adversarial SBPL 
 
 ## Comparison signals
 - Per expectation_id: expected allow/deny, runtime allow/deny, match flag, mismatch_type (`apply_gate`, `unexpected_allow`, `unexpected_deny`, `path_normalization`, `op_misroute`, `filter_diff`), notes.
-- `mismatch_summary.json` aggregates mismatches + counts by type; `impact_map.json` hooks expectation_ids to bedrock claims/status suggestions.
+- `mismatch_summary.json` aggregates mismatches + counts by type; `mismatch_packets.jsonl` captures bounded mismatch packets.
 
 ## Sequencing
 1. Refresh plan/registry via runtime template (see above).

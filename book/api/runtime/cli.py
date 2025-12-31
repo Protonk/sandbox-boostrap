@@ -40,6 +40,7 @@ from book.api.runtime.analysis.mapping import story as runtime_story
 from book.api.runtime.execution import workflow
 from book.api.runtime.execution import service as runtime_api
 from book.api.runtime.execution.channels import ChannelSpec
+from book.api.runtime.bundles import reader as bundle_reader
 from book.api.runtime.plans import registry as runtime_registry
 from book.api.runtime.plans import loader as runtime_plan
 from book.api.runtime.plans import builder as runtime_plan_builder
@@ -52,11 +53,21 @@ BOOK_ROOT = REPO_ROOT / "book"
 
 
 def _default_matrix() -> Path:
-    return BOOK_ROOT / "experiments" / "runtime-checks" / "out" / "expected_matrix.json"
+    bundle_root = BOOK_ROOT / "experiments" / "runtime-checks" / "out"
+    try:
+        bundle_dir, _ = bundle_reader.resolve_bundle_dir(bundle_root, repo_root=REPO_ROOT)
+    except FileNotFoundError:
+        bundle_dir = bundle_root
+    return bundle_dir / "expected_matrix.json"
 
 
 def _default_runtime_results() -> Path:
-    return BOOK_ROOT / "experiments" / "runtime-checks" / "out" / "runtime_results.json"
+    bundle_root = BOOK_ROOT / "experiments" / "runtime-checks" / "out"
+    try:
+        bundle_dir, _ = bundle_reader.resolve_bundle_dir(bundle_root, repo_root=REPO_ROOT)
+    except FileNotFoundError:
+        bundle_dir = bundle_root
+    return bundle_dir / "runtime_results.json"
 
 
 def run_command(args: argparse.Namespace) -> int:
@@ -312,6 +323,18 @@ def registry_lint_command(args: argparse.Namespace) -> int:
     return 0
 
 
+def registry_upgrade_command(args: argparse.Namespace) -> int:
+    """Handle the `registry-upgrade` CLI subcommand."""
+    result = runtime_registry.upgrade_registry(
+        args.registry,
+        out_dir=args.out_dir,
+        overwrite=args.overwrite,
+    )
+    print(f"[+] wrote {result.probes_path}")
+    print(f"[+] wrote {result.profiles_path}")
+    return 0
+
+
 def reindex_bundle_command(args: argparse.Namespace) -> int:
     """Handle the `reindex-bundle` CLI subcommand."""
     if args.repair and args.strict:
@@ -485,6 +508,12 @@ def main(argv: list[str] | None = None) -> int:
     ap_reg_lint = sub.add_parser("registry-lint", help="Validate probe/profile registries.")
     ap_reg_lint.add_argument("--registry", type=str, help="Registry id (omit to lint all)")
     ap_reg_lint.set_defaults(func=registry_lint_command)
+
+    ap_reg_upgrade = sub.add_parser("registry-upgrade", help="Normalize probe/profile registries to the current schema.")
+    ap_reg_upgrade.add_argument("--registry", type=str, required=True, help="Registry id")
+    ap_reg_upgrade.add_argument("--out-dir", type=Path, help="Output directory (defaults to registry dir)")
+    ap_reg_upgrade.add_argument("--overwrite", action="store_true", help="Overwrite existing registry files")
+    ap_reg_upgrade.set_defaults(func=registry_upgrade_command)
 
     args = ap.parse_args(argv)
     return args.func(args)

@@ -1,7 +1,11 @@
 {
-  "schema_version": "runtime-tools.probe_registry.v0.1",
+  "schema_version": "runtime-tools.probe_registry.v0.2",
+  "registry_id": "example-registry",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
   "probes": {
     "example_probe": {
+      "capabilities_required": [],
+      "controls_supported": [],
       "probe_id": "example_probe",
       "name": "example_probe",
       "operation": "signal",
@@ -9,7 +13,18 @@
       "expected": "allow",
       "expectation_id": "example:signal-self",
       "driver": "native",
-      "mode": "scenario"
+      "mode": "scenario",
+      "expected_primary_ops": [
+        "signal"
+      ],
+      "expected_predicates": [
+        "self"
+      ],
+      "supports_lanes": {
+        "baseline": true,
+        "scenario": true,
+        "oracle": true
+      }
     }
   }
 }

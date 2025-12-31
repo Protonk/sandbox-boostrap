@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "runtime-tools.registry_index.v0.1",
+  "title": "Runtime registry index",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "registries"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "runtime-tools.registry_index.v0.1"
+    },
+    "registries": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/registry_entry"
+      }
+    }
+  },
+  "$defs": {
+    "registry_entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "probes",
+        "profiles"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "probes": {
+          "type": "string"
+        },
+        "profiles": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
