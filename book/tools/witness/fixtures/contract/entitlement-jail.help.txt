@@ -1,0 +1,19 @@
+usage:
+  entitlement-jail run-system <absolute-platform-binary> [args...]
+  entitlement-jail run-embedded <tool-name> [args...]
+  entitlement-jail xpc run (--profile <id[@variant]> [--variant <base|injectable>] | --service <bundle-id>) [--plan-id <id>] [--row-id <id>] [--correlation-id <id>] <probe-id> [probe-args...]
+  entitlement-jail xpc session (--profile <id[@variant]> [--variant <base|injectable>] | --service <bundle-id>) [--plan-id <id>] [--correlation-id <id>] [--wait <fifo:auto|fifo:/abs|exists:/abs>] [--wait-timeout-ms <n>] [--wait-interval-ms <n>] [--xpc-timeout-ms <n>]
+  entitlement-jail quarantine-lab <xpc-service-bundle-id> <payload-class> [options...]
+  entitlement-jail verify-evidence
+  entitlement-jail inspect-macho <service-id|main|path>
+  entitlement-jail list-profiles
+  entitlement-jail list-services
+  entitlement-jail show-profile <id[@variant]> [--variant <base|injectable>]
+  entitlement-jail describe-service <id[@variant]> [--variant <base|injectable>]
+  entitlement-jail health-check [--profile <id[@variant]>] [--variant <base|injectable>]
+  entitlement-jail bundle-evidence [--out <dir>] [--include-health-check]
+  entitlement-jail run-matrix --group <name> [--variant <base|injectable>] [--out <dir>] <probe-id> [probe-args...]
+
+notes:
+  - run-system only allows platform-style paths (/bin, /usr/bin, /sbin, /usr/sbin, /usr/libexec, /System/Library)
+  - run-embedded looks for signed helper tools in this app bundle (Contents/Helpers and Contents/Helpers/Probes)
