@@ -1,0 +1,63 @@
+{
+  "data": {
+    "argv": [
+      "--op",
+      "listdir",
+      "--path",
+      "/Users/achyland/Downloads",
+      "--allow-unsafe-path"
+    ],
+    "correlation_id": "7E29F34B-5FC1-4FDB-B149-C72B37A1C594",
+    "details": {
+      "base_dir": "",
+      "bundle_id": "com.yourteam.policy-witness.ProbeService_net_client",
+      "cleanup_mode": "default",
+      "correlation_id": "7E29F34B-5FC1-4FDB-B149-C72B37A1C594",
+      "cwd": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_net_client/Data",
+      "duration_ms": "4",
+      "file_path": "/Users/achyland/Downloads",
+      "harness_dir": "",
+      "home_dir": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_net_client/Data",
+      "op": "listdir",
+      "path_class": "",
+      "path_mode": "direct_path",
+      "pid": "55703",
+      "probe_family": "fs_op",
+      "probe_pid": "55703",
+      "process_name": "ProbeService_net_client",
+      "run_dir": "",
+      "service_pid": "55703",
+      "session_token": "5F45ADC8-B383-4876-9A87-A3C7861C72C4",
+      "target": "base",
+      "tmp_dir": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_net_client/Data/tmp/"
+    },
+    "ended_at_iso8601": "2025-12-31T23:24:53.919Z",
+    "errno": 1,
+    "error": "Error Domain=NSCocoaErrorDomain Code=257 \"The file \u201cDownloads\u201d couldn\u2019t be opened because you don\u2019t have permission to view it.\" UserInfo={NSUserStringVariant=(\n    Folder\n), NSURL=file:///Users/achyland/Downloads, NSFilePath=/Users/achyland/Downloads, NSUnderlyingError=0x6000022b8a80 {Error Domain=NSPOSIXErrorDomain Code=1 \"Operation not permitted\"}}",
+    "normalized_outcome": "permission_error",
+    "plan_id": "policywitness-deny-atlas:smoke:smoke-dc03c1fb-270e-4a75-901c-6ecdfd557156",
+    "probe_id": "fs_op",
+    "rc": 1,
+    "row_id": "net_client.fs_op_listdir_home_downloads",
+    "schema_version": 1,
+    "service_build": "2",
+    "service_bundle_id": "com.yourteam.policy-witness.ProbeService_net_client",
+    "service_name": "ProbeService_net_client",
+    "service_version": "2.0.0",
+    "started_at_iso8601": "2025-12-31T23:24:53.915Z",
+    "stderr": "",
+    "stdout": "",
+    "thread_id": "4099"
+  },
+  "generated_at_unix_ms": 1767223493921,
+  "kind": "probe_response",
+  "result": {
+    "errno": 1,
+    "error": "Error Domain=NSCocoaErrorDomain Code=257 \"The file \u201cDownloads\u201d couldn\u2019t be opened because you don\u2019t have permission to view it.\" UserInfo={NSUserStringVariant=(\n    Folder\n), NSURL=file:///Users/achyland/Downloads, NSFilePath=/Users/achyland/Downloads, NSUnderlyingError=0x6000022b8a80 {Error Domain=NSPOSIXErrorDomain Code=1 \"Operation not permitted\"}}",
+    "exit_code": 1,
+    "normalized_outcome": "permission_error",
+    "ok": false,
+    "rc": 1
+  },
+  "schema_version": 1
+}

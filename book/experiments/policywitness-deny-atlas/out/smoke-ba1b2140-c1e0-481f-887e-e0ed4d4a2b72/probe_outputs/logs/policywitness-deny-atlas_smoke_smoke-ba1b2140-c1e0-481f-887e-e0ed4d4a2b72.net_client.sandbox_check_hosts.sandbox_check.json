@@ -1,0 +1,54 @@
+{
+  "data": {
+    "argv": [
+      "--operation",
+      "file-read-data",
+      "--path",
+      "/etc/hosts"
+    ],
+    "correlation_id": "E05D244B-B8E6-4DE5-95BD-B041D7BDCADE",
+    "details": {
+      "bundle_id": "com.yourteam.policy-witness.ProbeService_net_client",
+      "correlation_id": "E05D244B-B8E6-4DE5-95BD-B041D7BDCADE",
+      "cwd": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_net_client/Data",
+      "home_dir": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_net_client/Data",
+      "pid": "49658",
+      "probe_family": "sandbox_check",
+      "probe_pid": "49658",
+      "process_name": "ProbeService_net_client",
+      "sandbox_check_filter": "path(guessed_type=1)",
+      "sandbox_check_operation": "file-read-data",
+      "sandbox_check_path": "/etc/hosts",
+      "sandbox_check_rc": "1",
+      "sandbox_check_rc_samples": "0:1",
+      "sandbox_check_repeat": "1",
+      "service_pid": "49658",
+      "session_token": "3BFE2EAF-2CF7-475B-844E-C81CD099E013",
+      "tmp_dir": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_net_client/Data/tmp/"
+    },
+    "ended_at_iso8601": "2025-12-31T23:09:51.089Z",
+    "normalized_outcome": "deny",
+    "plan_id": "policywitness-deny-atlas:smoke:smoke-ba1b2140-c1e0-481f-887e-e0ed4d4a2b72",
+    "probe_id": "sandbox_check",
+    "rc": 0,
+    "row_id": "net_client.sandbox_check_hosts",
+    "schema_version": 1,
+    "service_build": "2",
+    "service_bundle_id": "com.yourteam.policy-witness.ProbeService_net_client",
+    "service_name": "ProbeService_net_client",
+    "service_version": "2.0.0",
+    "started_at_iso8601": "2025-12-31T23:09:51.089Z",
+    "stderr": "",
+    "stdout": "",
+    "thread_id": "5635"
+  },
+  "generated_at_unix_ms": 1767222591092,
+  "kind": "probe_response",
+  "result": {
+    "exit_code": 0,
+    "normalized_outcome": "deny",
+    "ok": true,
+    "rc": 0
+  },
+  "schema_version": 1
+}

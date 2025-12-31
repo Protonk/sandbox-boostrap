@@ -1,0 +1,63 @@
+{
+  "data": {
+    "argv": [
+      "--op",
+      "open_read",
+      "--path",
+      "/private/var/db/launchd.db/com.apple.launchd/overrides.plist",
+      "--allow-unsafe-path"
+    ],
+    "correlation_id": "B8A184F4-EEF0-49C2-812A-41D03E2D788D",
+    "details": {
+      "base_dir": "",
+      "bundle_id": "com.yourteam.policy-witness.ProbeService_net_client",
+      "cleanup_mode": "default",
+      "correlation_id": "B8A184F4-EEF0-49C2-812A-41D03E2D788D",
+      "cwd": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_net_client/Data",
+      "duration_ms": "0",
+      "file_path": "/private/var/db/launchd.db/com.apple.launchd/overrides.plist",
+      "harness_dir": "",
+      "home_dir": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_net_client/Data",
+      "op": "open_read",
+      "path_class": "",
+      "path_mode": "direct_path",
+      "pid": "49637",
+      "probe_family": "fs_op",
+      "probe_pid": "49637",
+      "process_name": "ProbeService_net_client",
+      "run_dir": "",
+      "service_pid": "49637",
+      "session_token": "A1073C09-BA28-47F7-8159-A0491A6ACE2E",
+      "target": "specimen_file",
+      "tmp_dir": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_net_client/Data/tmp/"
+    },
+    "ended_at_iso8601": "2025-12-31T23:09:49.743Z",
+    "errno": 1,
+    "error": "Operation not permitted",
+    "normalized_outcome": "permission_error",
+    "plan_id": "policywitness-deny-atlas:smoke:smoke-ba1b2140-c1e0-481f-887e-e0ed4d4a2b72",
+    "probe_id": "fs_op",
+    "rc": 1,
+    "row_id": "net_client.fs_op_deny_private_overrides",
+    "schema_version": 1,
+    "service_build": "2",
+    "service_bundle_id": "com.yourteam.policy-witness.ProbeService_net_client",
+    "service_name": "ProbeService_net_client",
+    "service_version": "2.0.0",
+    "started_at_iso8601": "2025-12-31T23:09:49.742Z",
+    "stderr": "",
+    "stdout": "",
+    "thread_id": "6151"
+  },
+  "generated_at_unix_ms": 1767222589747,
+  "kind": "probe_response",
+  "result": {
+    "errno": 1,
+    "error": "Operation not permitted",
+    "exit_code": 1,
+    "normalized_outcome": "permission_error",
+    "ok": false,
+    "rc": 1
+  },
+  "schema_version": 1
+}

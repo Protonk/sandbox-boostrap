@@ -1,0 +1,58 @@
+{
+  "data": {
+    "argv": [
+      "--op",
+      "tcp_connect",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "9"
+    ],
+    "correlation_id": "462A9B65-77D8-4B83-8846-B576AF36B451",
+    "details": {
+      "attempts": "1",
+      "bundle_id": "com.yourteam.policy-witness.ProbeService_net_client",
+      "correlation_id": "462A9B65-77D8-4B83-8846-B576AF36B451",
+      "cwd": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_net_client/Data",
+      "home_dir": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_net_client/Data",
+      "host": "127.0.0.1",
+      "op": "tcp_connect",
+      "pid": "50053",
+      "port": "9",
+      "probe_family": "net_op",
+      "probe_pid": "50053",
+      "process_name": "ProbeService_net_client",
+      "service_pid": "50053",
+      "session_token": "66B3499F-0D5C-434F-9CFF-34A89E478712",
+      "tmp_dir": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_net_client/Data/tmp/"
+    },
+    "ended_at_iso8601": "2025-12-31T23:12:31.766Z",
+    "errno": 61,
+    "error": "Connection refused",
+    "normalized_outcome": "connection_refused",
+    "plan_id": "policywitness-deny-atlas:smoke:smoke-1fba8f33-73fd-45b2-a358-47743a924d55",
+    "probe_id": "net_op",
+    "rc": 1,
+    "row_id": "net_client.net_op_tcp_connect_control",
+    "schema_version": 1,
+    "service_build": "2",
+    "service_bundle_id": "com.yourteam.policy-witness.ProbeService_net_client",
+    "service_name": "ProbeService_net_client",
+    "service_version": "2.0.0",
+    "started_at_iso8601": "2025-12-31T23:12:31.766Z",
+    "stderr": "",
+    "stdout": "",
+    "thread_id": "3843"
+  },
+  "generated_at_unix_ms": 1767222751768,
+  "kind": "probe_response",
+  "result": {
+    "errno": 61,
+    "error": "Connection refused",
+    "exit_code": 1,
+    "normalized_outcome": "connection_refused",
+    "ok": false,
+    "rc": 1
+  },
+  "schema_version": 1
+}

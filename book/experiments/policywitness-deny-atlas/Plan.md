@@ -35,7 +35,7 @@ If `probe_catalog` shows a Mach/XPC probe (for example a `mach_*` or `bootstrap`
    - For each profile:
      - Run the deny set using `client.run_probe` with `OutputSpec(out_dir=...)`.
      - Keep `plan_id` stable, set `row_id` per probe.
-     - Leave `observer` enabled (default).
+     - Default to manual observer (`--manual-observer-last`) to avoid missing deny lines.
 
 3) **Observer parsing**
    - For each probe result, load the observer report (or record missing).
@@ -43,17 +43,19 @@ If `probe_catalog` shows a Mach/XPC probe (for example a `mach_*` or `bootstrap`
      - `observed_deny` (boolean)
      - `predicate`
      - log excerpt lines
+   - Prefer `deny_lines` from the observer report; fall back to `MetaData` JSON if present.
    - Parse the log payload for fields:
      - `operation`
      - `primary-filter`
      - `primary-filter-value`
      - `target`
+     - If the log line omits the filter, infer `path` for `file-*` operations and record `filter_inferred`.
    - Map `operation` to vocab `ops.json`; map `primary-filter` to `filters.json`.
 
 4) **Evidence tier assignment**
    - **Mapped**: observer report exists, `observed_deny == true`, and operation/filter map to vocab.
    - **Hypothesis**: permission-shaped outcome with no observer evidence or unmapped fields.
-   - Record explicit `limits` for each record (missing observer, unmapped operation/filter, etc.).
+   - Record explicit `limits` for each record (missing observer, unmapped operation/filter, `filter_inferred`, etc.).
 
 5) **Atlas emission**
    - Write `deny_atlas.json` with rows:

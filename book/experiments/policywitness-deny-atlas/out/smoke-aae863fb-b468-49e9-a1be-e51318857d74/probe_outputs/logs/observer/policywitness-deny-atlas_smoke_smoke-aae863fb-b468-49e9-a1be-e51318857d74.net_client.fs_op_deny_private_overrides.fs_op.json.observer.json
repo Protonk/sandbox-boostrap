@@ -1,0 +1,41 @@
+{
+  "data": {
+    "correlation_id": "3DBF22DD-B8D8-494F-830F-47BF8B8EE772",
+    "deny_lines": [],
+    "duration_ms": null,
+    "end": "2025-12-31 15:05:34",
+    "last": null,
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    ",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": false,
+    "observed_lines": 1,
+    "observer_schema_version": 1,
+    "pid": 48806,
+    "plan_id": "policywitness-deny-atlas:smoke:smoke-aae863fb-b468-49e9-a1be-e51318857d74",
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_net_client(48806)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"48806\")))",
+    "process_name": "ProbeService_net_client",
+    "row_id": "net_client.fs_op_deny_private_overrides",
+    "start": "2025-12-31 15:05:30",
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767222332542,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

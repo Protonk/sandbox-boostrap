@@ -1,0 +1,63 @@
+{
+  "data": {
+    "argv": [
+      "--op",
+      "open_read",
+      "--path",
+      "/private/var/db/launchd.db/com.apple.launchd/overrides.plist",
+      "--allow-unsafe-path"
+    ],
+    "correlation_id": "5F703785-8958-4E50-8AD3-42167B3C5AF2",
+    "details": {
+      "base_dir": "",
+      "bundle_id": "com.yourteam.policy-witness.ProbeService_temporary_exception",
+      "cleanup_mode": "default",
+      "correlation_id": "5F703785-8958-4E50-8AD3-42167B3C5AF2",
+      "cwd": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_temporary_exception/Data",
+      "duration_ms": "0",
+      "file_path": "/private/var/db/launchd.db/com.apple.launchd/overrides.plist",
+      "harness_dir": "",
+      "home_dir": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_temporary_exception/Data",
+      "op": "open_read",
+      "path_class": "",
+      "path_mode": "direct_path",
+      "pid": "50265",
+      "probe_family": "fs_op",
+      "probe_pid": "50265",
+      "process_name": "ProbeService_temporary_exception",
+      "run_dir": "",
+      "service_pid": "50265",
+      "session_token": "25E5A15D-1BF2-4AAD-BCFF-9BA6ACBA5DE2",
+      "target": "specimen_file",
+      "tmp_dir": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_temporary_exception/Data/tmp/"
+    },
+    "ended_at_iso8601": "2025-12-31T23:12:51.346Z",
+    "errno": 1,
+    "error": "Operation not permitted",
+    "normalized_outcome": "permission_error",
+    "plan_id": "policywitness-deny-atlas:smoke:smoke-56d7ce86-28a7-4d0b-a4a5-fe78c9f16f42",
+    "probe_id": "fs_op",
+    "rc": 1,
+    "row_id": "temporary_exception.fs_op_deny_private_overrides",
+    "schema_version": 1,
+    "service_build": "2",
+    "service_bundle_id": "com.yourteam.policy-witness.ProbeService_temporary_exception",
+    "service_name": "ProbeService_temporary_exception",
+    "service_version": "2.0.0",
+    "started_at_iso8601": "2025-12-31T23:12:51.346Z",
+    "stderr": "",
+    "stdout": "",
+    "thread_id": "4099"
+  },
+  "generated_at_unix_ms": 1767222771348,
+  "kind": "probe_response",
+  "result": {
+    "errno": 1,
+    "error": "Operation not permitted",
+    "exit_code": 1,
+    "normalized_outcome": "permission_error",
+    "ok": false,
+    "rc": 1
+  },
+  "schema_version": 1
+}

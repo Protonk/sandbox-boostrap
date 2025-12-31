@@ -1,0 +1,43 @@
+{
+  "data": {
+    "correlation_id": null,
+    "deny_lines": [
+      "2025-12-31 15:12:46.671912-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_minimal(50199) deny(1) file-read-data /Users/achyland/Downloads"
+    ],
+    "duration_ms": null,
+    "end": null,
+    "last": "30s",
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    \n2025-12-31 15:12:46.671912-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_minimal(50199) deny(1) file-read-data /Users/achyland/Downloads\n2025-12-31 15:12:46.688228-0800  localhost log[50201]: [com.apple.log:] log run noninteractively, parent: 50200 (sandbox-log-observer), args: '/usr/bin/log' 'show' '--style' 'syslog' '--info' '--debug' '--last' '30s' '--predicate' '((eventMessage CONTAINS[c] \"Sandbox: ProbeService_minimal(50199)\") OR ((eventMessage CONTAINS[c",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": true,
+    "observed_lines": 3,
+    "observer_schema_version": 1,
+    "pid": 50199,
+    "plan_id": "policywitness-deny-atlas:smoke:smoke-56d7ce86-28a7-4d0b-a4a5-fe78c9f16f42",
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_minimal(50199)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"50199\")))",
+    "process_name": "ProbeService_minimal",
+    "row_id": "minimal.fs_op_listdir_home_downloads",
+    "start": null,
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767222767010,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

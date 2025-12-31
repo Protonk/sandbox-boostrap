@@ -1,0 +1,41 @@
+{
+  "data": {
+    "correlation_id": "3CD6E077-7A7A-4ED3-BE4B-761FE4333480",
+    "deny_lines": [],
+    "duration_ms": null,
+    "end": "2025-12-31 15:23:03",
+    "last": null,
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    ",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": false,
+    "observed_lines": 1,
+    "observer_schema_version": 1,
+    "pid": 54505,
+    "plan_id": "policywitness-deny-atlas:smoke:smoke-fd118439-a88a-44c6-954d-5c80afba9714",
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_minimal(54505)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"54505\")))",
+    "process_name": "ProbeService_minimal",
+    "row_id": "minimal.fs_op_allow_hosts",
+    "start": "2025-12-31 15:22:59",
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767223381482,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

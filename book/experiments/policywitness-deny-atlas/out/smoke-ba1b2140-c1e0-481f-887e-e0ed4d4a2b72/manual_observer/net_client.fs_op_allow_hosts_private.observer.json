@@ -1,0 +1,41 @@
+{
+  "data": {
+    "correlation_id": null,
+    "deny_lines": [],
+    "duration_ms": null,
+    "end": null,
+    "last": "30s",
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    \n2025-12-31 15:09:50.468128-0800  localhost log[49650]: [com.apple.log:] log run noninteractively, parent: 49649 (sandbox-log-observer), args: '/usr/bin/log' 'show' '--style' 'syslog' '--info' '--debug' '--last' '30s' '--predicate' '((eventMessage CONTAINS[c] \"Sandbox: ProbeService_net_client(49648)\") OR ((eventMessage CONTAIN",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": false,
+    "observed_lines": 2,
+    "observer_schema_version": 1,
+    "pid": 49648,
+    "plan_id": "policywitness-deny-atlas:smoke:smoke-ba1b2140-c1e0-481f-887e-e0ed4d4a2b72",
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_net_client(49648)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"49648\")))",
+    "process_name": "ProbeService_net_client",
+    "row_id": "net_client.fs_op_allow_hosts_private",
+    "start": null,
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767222590709,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

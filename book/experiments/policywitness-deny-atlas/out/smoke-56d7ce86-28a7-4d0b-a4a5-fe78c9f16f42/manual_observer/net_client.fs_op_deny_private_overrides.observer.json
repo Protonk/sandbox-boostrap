@@ -1,0 +1,43 @@
+{
+  "data": {
+    "correlation_id": null,
+    "deny_lines": [
+      "2025-12-31 15:12:47.501484-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_net_client(50209) deny(1) file-read-data /private/var/db/launchd.db/com.apple.launchd/overrides.plist"
+    ],
+    "duration_ms": null,
+    "end": null,
+    "last": "30s",
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    \n2025-12-31 15:12:47.501484-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_net_client(50209) deny(1) file-read-data /private/var/db/launchd.db/com.apple.launchd/overrides.plist\n2025-12-31 15:12:47.514315-0800  localhost log[50211]: [com.apple.log:] log run noninteractively, parent: 50210 (sandbox-log-observer), args: '/usr/bin/log' 'show' '--style' 'syslog' '--info' '--debug' '--last' '30s' '--predicate' '((eventMessage CONTAINS[c] \"Sandbox: ProbeService_net_client(50209)\") OR ((eventMessage CONTAIN",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": true,
+    "observed_lines": 3,
+    "observer_schema_version": 1,
+    "pid": 50209,
+    "plan_id": "policywitness-deny-atlas:smoke:smoke-56d7ce86-28a7-4d0b-a4a5-fe78c9f16f42",
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_net_client(50209)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"50209\")))",
+    "process_name": "ProbeService_net_client",
+    "row_id": "net_client.fs_op_deny_private_overrides",
+    "start": null,
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767222767849,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}
