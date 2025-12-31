@@ -1,7 +1,7 @@
 """
-EntitlementJail CLI helpers.
+PolicyWitness CLI helpers.
 
-This module provides structured wrappers around the entitlement-jail CLI,
+This module provides structured wrappers around the policy-witness CLI,
 including one-shot probe execution, matrix group runs, and evidence bundling.
 It normalizes stdout/stderr into a consistent record and preserves enough
 metadata to correlate observer output with probes.
@@ -17,7 +17,7 @@ from pathlib import Path
 from typing import Dict, List, Optional, Sequence
 
 from book.api import path_utils
-from book.api.entitlementjail.logging import (
+from book.api.policywitness.logging import (
     LOG_OBSERVER_LAST,
     extract_correlation_id,
     extract_details,
@@ -27,11 +27,11 @@ from book.api.entitlementjail.logging import (
     run_sandbox_log_observer,
     should_run_observer,
 )
-from book.api.entitlementjail.paths import (
-    EJ,
-    EJ_EVIDENCE_MANIFEST,
-    EJ_EVIDENCE_PROFILES,
-    EJ_EVIDENCE_SYMBOLS,
+from book.api.policywitness.paths import (
+    PW,
+    PW_EVIDENCE_MANIFEST,
+    PW_EVIDENCE_PROFILES,
+    PW_EVIDENCE_SYMBOLS,
     REPO_ROOT,
 )
 from book.api.profile.identity import baseline_world_id
@@ -101,7 +101,7 @@ def run_cmd(
 
 
 def maybe_parse_json(text: str) -> Optional[Dict[str, object]]:
-    # EntitlementJail generally returns JSON, but stderr/stdout can be non-JSON on error.
+    # PolicyWitness generally returns JSON, but stderr/stdout can be non-JSON on error.
     if not text:
         return None
     try:
@@ -229,54 +229,54 @@ def _wrap_json_command(cmd: List[str], *, timeout_s: Optional[float] = None) -> 
 
 
 def list_profiles(*, timeout_s: Optional[float] = None) -> Dict[str, object]:
-    record = _wrap_json_command([str(EJ), "list-profiles"], timeout_s=timeout_s)
+    record = _wrap_json_command([str(PW), "list-profiles"], timeout_s=timeout_s)
     return {
         "world_id": WORLD_ID,
-        "entrypoint": path_utils.to_repo_relative(EJ, REPO_ROOT),
+        "entrypoint": path_utils.to_repo_relative(PW, REPO_ROOT),
         **record,
     }
 
 
 def list_services(*, timeout_s: Optional[float] = None) -> Dict[str, object]:
-    record = _wrap_json_command([str(EJ), "list-services"], timeout_s=timeout_s)
+    record = _wrap_json_command([str(PW), "list-services"], timeout_s=timeout_s)
     _normalize_data_path(record.get("stdout_json"), "profiles_path")
     return {
         "world_id": WORLD_ID,
-        "entrypoint": path_utils.to_repo_relative(EJ, REPO_ROOT),
+        "entrypoint": path_utils.to_repo_relative(PW, REPO_ROOT),
         **record,
     }
 
 
 def show_profile(profile_id: str, *, timeout_s: Optional[float] = None) -> Dict[str, object]:
-    record = _wrap_json_command([str(EJ), "show-profile", profile_id], timeout_s=timeout_s)
+    record = _wrap_json_command([str(PW), "show-profile", profile_id], timeout_s=timeout_s)
     _normalize_data_path(record.get("stdout_json"), "profiles_path")
     return {
         "world_id": WORLD_ID,
-        "entrypoint": path_utils.to_repo_relative(EJ, REPO_ROOT),
+        "entrypoint": path_utils.to_repo_relative(PW, REPO_ROOT),
         "profile_id": profile_id,
         **record,
     }
 
 
 def describe_service(profile_id: str, *, timeout_s: Optional[float] = None) -> Dict[str, object]:
-    record = _wrap_json_command([str(EJ), "describe-service", profile_id], timeout_s=timeout_s)
+    record = _wrap_json_command([str(PW), "describe-service", profile_id], timeout_s=timeout_s)
     return {
         "world_id": WORLD_ID,
-        "entrypoint": path_utils.to_repo_relative(EJ, REPO_ROOT),
+        "entrypoint": path_utils.to_repo_relative(PW, REPO_ROOT),
         "profile_id": profile_id,
         **record,
     }
 
 
 def health_check(*, profile_id: Optional[str] = None, timeout_s: Optional[float] = None) -> Dict[str, object]:
-    cmd = [str(EJ), "health-check"]
+    cmd = [str(PW), "health-check"]
     if profile_id:
         cmd += ["--profile", profile_id]
     record = _wrap_json_command(cmd, timeout_s=timeout_s)
     _normalize_data_path(record.get("stdout_json"), "profiles_path")
     payload: Dict[str, object] = {
         "world_id": WORLD_ID,
-        "entrypoint": path_utils.to_repo_relative(EJ, REPO_ROOT),
+        "entrypoint": path_utils.to_repo_relative(PW, REPO_ROOT),
     }
     if profile_id:
         payload["profile_id"] = profile_id
@@ -284,17 +284,17 @@ def health_check(*, profile_id: Optional[str] = None, timeout_s: Optional[float]
 
 
 def verify_evidence(*, timeout_s: Optional[float] = None) -> Dict[str, object]:
-    record = _wrap_json_command([str(EJ), "verify-evidence"], timeout_s=timeout_s)
+    record = _wrap_json_command([str(PW), "verify-evidence"], timeout_s=timeout_s)
     _normalize_data_path(record.get("stdout_json"), "manifest_path")
     return {
         "world_id": WORLD_ID,
-        "entrypoint": path_utils.to_repo_relative(EJ, REPO_ROOT),
+        "entrypoint": path_utils.to_repo_relative(PW, REPO_ROOT),
         **record,
     }
 
 
 def inspect_macho(selector: str, *, timeout_s: Optional[float] = None) -> Dict[str, object]:
-    record = _wrap_json_command([str(EJ), "inspect-macho", selector], timeout_s=timeout_s)
+    record = _wrap_json_command([str(PW), "inspect-macho", selector], timeout_s=timeout_s)
     stdout_json = record.get("stdout_json")
     if isinstance(stdout_json, dict):
         data = stdout_json.get("data")
@@ -310,7 +310,7 @@ def inspect_macho(selector: str, *, timeout_s: Optional[float] = None) -> Dict[s
                     entry["abs_path"] = normalized
     return {
         "world_id": WORLD_ID,
-        "entrypoint": path_utils.to_repo_relative(EJ, REPO_ROOT),
+        "entrypoint": path_utils.to_repo_relative(PW, REPO_ROOT),
         "selector": selector,
         **record,
     }
@@ -321,20 +321,17 @@ def run_matrix(
     *,
     probe_id: str,
     probe_args: Sequence[str] = (),
-    ack_risk: Optional[str] = None,
     dest_dir: Path,
     timeout_s: Optional[float] = None,
 ) -> Dict[str, object]:
     if dest_dir.exists():
         shutil.rmtree(dest_dir, ignore_errors=True)
-    cmd = [str(EJ), "run-matrix", "--group", group, "--out", str(dest_dir), probe_id, *probe_args]
-    if ack_risk:
-        cmd += ["--ack-risk", ack_risk]
+    cmd = [str(PW), "run-matrix", "--group", group, "--out", str(dest_dir), probe_id, *probe_args]
     record = _wrap_json_command(cmd, timeout_s=timeout_s)
     _normalize_data_path(record.get("stdout_json"), "output_dir")
     return {
         "world_id": WORLD_ID,
-        "entrypoint": path_utils.to_repo_relative(EJ, REPO_ROOT),
+        "entrypoint": path_utils.to_repo_relative(PW, REPO_ROOT),
         "group": group,
         "probe_id": probe_id,
         "probe_args": list(probe_args),
@@ -354,7 +351,7 @@ def quarantine_lab(
     bundle_id = extract_profile_bundle_id(show.get("stdout_json"))
     payload: Dict[str, object] = {
         "world_id": WORLD_ID,
-        "entrypoint": path_utils.to_repo_relative(EJ, REPO_ROOT),
+        "entrypoint": path_utils.to_repo_relative(PW, REPO_ROOT),
         "profile_id": profile_id,
         "bundle_id": bundle_id,
         "show_profile": show,
@@ -363,7 +360,7 @@ def quarantine_lab(
         payload["error"] = "bundle_id_missing"
         return payload
 
-    cmd = [str(EJ), "quarantine-lab", bundle_id, payload_class, *payload_args]
+    cmd = [str(PW), "quarantine-lab", bundle_id, payload_class, *payload_args]
     record = _wrap_json_command(cmd, timeout_s=timeout_s)
     _normalize_data_path(record.get("stdout_json"), "output_dir")
     payload["run"] = record
@@ -372,22 +369,22 @@ def quarantine_lab(
 
 def load_evidence_manifest() -> Dict[str, object]:
     return {
-        "path": path_utils.to_repo_relative(EJ_EVIDENCE_MANIFEST, REPO_ROOT),
-        "data": json.loads(EJ_EVIDENCE_MANIFEST.read_text()),
+        "path": path_utils.to_repo_relative(PW_EVIDENCE_MANIFEST, REPO_ROOT),
+        "data": json.loads(PW_EVIDENCE_MANIFEST.read_text()),
     }
 
 
 def load_evidence_profiles() -> Dict[str, object]:
     return {
-        "path": path_utils.to_repo_relative(EJ_EVIDENCE_PROFILES, REPO_ROOT),
-        "data": json.loads(EJ_EVIDENCE_PROFILES.read_text()),
+        "path": path_utils.to_repo_relative(PW_EVIDENCE_PROFILES, REPO_ROOT),
+        "data": json.loads(PW_EVIDENCE_PROFILES.read_text()),
     }
 
 
 def load_evidence_symbols() -> Dict[str, object]:
     return {
-        "path": path_utils.to_repo_relative(EJ_EVIDENCE_SYMBOLS, REPO_ROOT),
-        "data": json.loads(EJ_EVIDENCE_SYMBOLS.read_text()),
+        "path": path_utils.to_repo_relative(PW_EVIDENCE_SYMBOLS, REPO_ROOT),
+        "data": json.loads(PW_EVIDENCE_SYMBOLS.read_text()),
     }
 
 
@@ -400,7 +397,7 @@ def run_xpc(
     plan_id: str,
     row_id: Optional[str] = None,
     correlation_id: Optional[str] = None,
-    ack_risk: Optional[str] = None,
+    capture_sandbox_logs: bool = False,
     timeout_s: Optional[float] = None,
 ) -> Dict[str, object]:
     """Run a probe under a profile, capturing observer output when configured."""
@@ -409,14 +406,14 @@ def run_xpc(
 
     started_at_unix_s = time.time()
     probe_timeout_s = timeout_s or 25.0
-    cmd = [str(EJ), "xpc", "run", "--profile", profile_id]
-    if ack_risk:
-        cmd += ["--ack-risk", ack_risk]
+    cmd = [str(PW), "xpc", "run", "--profile", profile_id]
     cmd += ["--plan-id", plan_id]
     if row_id:
         cmd += ["--row-id", row_id]
     if correlation_id:
         cmd += ["--correlation-id", correlation_id]
+    if capture_sandbox_logs:
+        cmd += ["--capture-sandbox-logs"]
     cmd += [probe_id, *probe_args]
 
     res = run_cmd(cmd, timeout_s=probe_timeout_s)
@@ -457,6 +454,7 @@ def run_xpc(
         "plan_id": plan_id,
         "row_id": row_id,
         "correlation_id": correlation_id,
+        "capture_sandbox_logs": capture_sandbox_logs,
         "started_at_unix_s": started_at_unix_s,
         "finished_at_unix_s": finished_at_unix_s,
         "duration_s": finished_at_unix_s - started_at_unix_s,
@@ -479,34 +477,30 @@ def run_xpc(
     return record
 
 
-def run_matrix_group(group: str, *, ack_risk: Optional[str], dest_dir: Path) -> Dict[str, object]:
+def run_matrix_group(group: str, *, dest_dir: Path) -> Dict[str, object]:
     """Run a matrix group and write outputs into the repo."""
     if dest_dir.exists():
         shutil.rmtree(dest_dir, ignore_errors=True)
-    cmd = [str(EJ), "run-matrix", "--group", group, "--out", str(dest_dir), "capabilities_snapshot"]
-    if ack_risk:
-        cmd += ["--ack-risk", ack_risk]
+    cmd = [str(PW), "run-matrix", "--group", group, "--out", str(dest_dir), "capabilities_snapshot"]
     res = run_cmd(cmd)
     return {
         "world_id": WORLD_ID,
-        "entrypoint": path_utils.to_repo_relative(EJ, REPO_ROOT),
+        "entrypoint": path_utils.to_repo_relative(PW, REPO_ROOT),
         "group": group,
         "out_dir": path_utils.to_repo_relative(dest_dir, REPO_ROOT),
         **res,
     }
 
 
-def bundle_evidence(*, ack_risk: Optional[str], dest_dir: Path) -> Dict[str, object]:
+def bundle_evidence(*, dest_dir: Path) -> Dict[str, object]:
     """Create a bundle-evidence snapshot and write outputs into the repo."""
     if dest_dir.exists():
         shutil.rmtree(dest_dir, ignore_errors=True)
-    cmd = [str(EJ), "bundle-evidence", "--out", str(dest_dir), "--include-health-check"]
-    if ack_risk:
-        cmd += ["--ack-risk", ack_risk]
+    cmd = [str(PW), "bundle-evidence", "--out", str(dest_dir), "--include-health-check"]
     res = run_cmd(cmd)
     return {
         "world_id": WORLD_ID,
-        "entrypoint": path_utils.to_repo_relative(EJ, REPO_ROOT),
+        "entrypoint": path_utils.to_repo_relative(PW, REPO_ROOT),
         "out_dir": path_utils.to_repo_relative(dest_dir, REPO_ROOT),
         **res,
     }

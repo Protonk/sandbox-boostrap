@@ -1,15 +1,15 @@
 import json
 from pathlib import Path
 
-
 from book.api import path_utils
+
 ROOT = path_utils.find_repo_root(Path(__file__))
-CONTRACT_DIR = ROOT / "book" / "tools" / "entitlement" / "fixtures" / "contract"
+CONTRACT_DIR = ROOT / "book" / "tools" / "witness" / "fixtures" / "contract"
 
 
-def test_entitlementjail_help_contract():
-    help_path = CONTRACT_DIR / "entitlement-jail.help.txt"
-    assert help_path.exists(), "missing entitlement-jail help fixture"
+def test_policywitness_help_contract():
+    help_path = CONTRACT_DIR / "policy-witness.help.txt"
+    assert help_path.exists(), "missing policy-witness help fixture"
     text = help_path.read_text()
     for flag in [
         "xpc run",
@@ -20,15 +20,16 @@ def test_entitlementjail_help_contract():
         "--plan-id",
         "--row-id",
         "--correlation-id",
+        "--capture-sandbox-logs",
         "--wait <fifo:auto|fifo:/abs|exists:/abs>",
         "--wait-timeout-ms",
         "--wait-interval-ms",
         "--xpc-timeout-ms",
     ]:
-        assert flag in text, f"missing {flag} in entitlement-jail help"
+        assert flag in text, f"missing {flag} in policy-witness help"
 
 
-def test_entitlementjail_observer_help_contract():
+def test_policywitness_observer_help_contract():
     help_path = CONTRACT_DIR / "sandbox-log-observer.help.txt"
     assert help_path.exists(), "missing sandbox-log-observer help fixture"
     text = help_path.read_text()
@@ -50,7 +51,7 @@ def test_entitlementjail_observer_help_contract():
         assert flag in text, f"missing {flag} in observer help"
 
 
-def test_entitlementjail_observer_sample_contract():
+def test_policywitness_observer_sample_contract():
     sample_path = CONTRACT_DIR / "observer.sample.json"
     assert sample_path.exists(), "missing observer sample fixture"
     payload = json.loads(sample_path.read_text())

@@ -2,23 +2,23 @@ from pathlib import Path
 
 import pytest
 
-from book.api.entitlementjail import logging as ej_logging
-from book.api.entitlementjail.logging import extract_details
-from book.api.entitlementjail.paths import EJ
-from book.api.entitlementjail.protocol import WaitSpec
-from book.api.entitlementjail.session import open_session
+from book.api.policywitness import logging as pw_logging
+from book.api.policywitness.logging import extract_details
+from book.api.policywitness.paths import PW
+from book.api.policywitness.protocol import WaitSpec
+from book.api.policywitness.session import open_session
 
 
 @pytest.mark.system
-def test_entitlementjail_xpc_session_multi_probe(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
-    assert EJ.exists(), "missing EntitlementJail CLI (book/tools/entitlement/EntitlementJail.app)"
+def test_policywitness_xpc_session_multi_probe(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
+    assert PW.exists(), "missing PolicyWitness CLI (book/tools/witness/PolicyWitness.app)"
 
-    monkeypatch.setattr(ej_logging, "LOG_OBSERVER_MODE", "disabled")
-    correlation_id = "test-entitlementjail-session"
+    monkeypatch.setattr(pw_logging, "LOG_OBSERVER_MODE", "disabled")
+    correlation_id = "test-policywitness-session"
     try:
         session = open_session(
             profile_id="minimal",
-            plan_id="test:entitlementjail:session",
+            plan_id="test:policywitness:session",
             correlation_id=correlation_id,
             wait_spec=WaitSpec.fifo_auto(),
             wait_timeout_ms=15000,
@@ -41,7 +41,7 @@ def test_entitlementjail_xpc_session_multi_probe(tmp_path: Path, monkeypatch: py
         probe_record = session.run_probe_with_observer(
             probe_id="capabilities_snapshot",
             log_path=probe_log,
-            plan_id="test:entitlementjail:session",
+            plan_id="test:policywitness:session",
             row_id="capabilities_snapshot",
         )
         assert probe_record.get("observer_status") == "not_requested"

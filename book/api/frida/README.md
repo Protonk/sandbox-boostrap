@@ -21,13 +21,13 @@ Outputs:
 - `<out_dir>/<run_id>/meta.json`
 - `<out_dir>/<run_id>/events.jsonl`
 
-## Run (EntitlementJail attach-first)
+## Run (PolicyWitness attach-first)
 
-EntitlementJail attach-first runs use the same trace product contract, but are orchestrated via the EJ XPC session runner:
+PolicyWitness attach-first runs use the same trace product contract, but are orchestrated via the PolicyWitness XPC session runner:
 
-`python -m book.api.entitlementjail.frida --profile-id <profile_id> --probe-id <probe_id> --script book/api/frida/hooks/fs_open_selftest.js --out-dir book/api/frida/out`
+`python -m book.api.policywitness.frida --profile-id <profile_id> --probe-id <probe_id> --script book/api/frida/hooks/fs_open_selftest.js --out-dir book/api/frida/out`
 
-Outputs (under the EJ run root):
+Outputs (under the PolicyWitness run root):
 - `<out_dir>/<run_id>/frida/meta.json`
 - `<out_dir>/<run_id>/frida/events.jsonl`
 

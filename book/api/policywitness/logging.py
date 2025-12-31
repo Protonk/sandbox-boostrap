@@ -1,7 +1,7 @@
 """
-Logging and observer helpers for EntitlementJail probes.
+Logging and observer helpers for PolicyWitness probes.
 
-EntitlementJail v2 decouples probe execution (`entitlement-jail xpc ...`) from
+PolicyWitness decouples probe execution (`policy-witness xpc ...`) from
 deny-evidence capture (`sandbox-log-observer`). This module:
 
 - extracts PID/process identity from probe/session JSON, and
@@ -18,16 +18,16 @@ from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
 from book.api import path_utils
-from book.api.entitlementjail.paths import LOG_OBSERVER, REPO_ROOT
+from book.api.policywitness.paths import LOG_OBSERVER, REPO_ROOT
 
 # Environment-driven toggles for observer behavior.
 #
 # v2 runs the observer out-of-process only.
-LOG_OBSERVER_MODE = os.environ.get("EJ_LOG_OBSERVER", "external").lower()
-LOG_OBSERVER_LAST = os.environ.get("EJ_LOG_LAST", "10s")
+LOG_OBSERVER_MODE = os.environ.get("PW_LOG_OBSERVER", "external").lower()
+LOG_OBSERVER_LAST = os.environ.get("PW_LOG_LAST", "10s")
 
 try:
-    LOG_OBSERVER_PAD_S = float(os.environ.get("EJ_LOG_PAD_S", "2.0"))
+    LOG_OBSERVER_PAD_S = float(os.environ.get("PW_LOG_PAD_S", "2.0"))
 except Exception:
     LOG_OBSERVER_PAD_S = 2.0
 

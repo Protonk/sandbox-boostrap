@@ -1,5 +1,5 @@
 """
-Protocol helpers for EntitlementJail `xpc session`.
+Protocol helpers for PolicyWitness `xpc session`.
 """
 
 from __future__ import annotations
@@ -14,7 +14,7 @@ from typing import Optional, Tuple
 
 @dataclass(frozen=True)
 class WaitSpec:
-    """Typed wait spec for `entitlement-jail xpc session --wait`."""
+    """Typed wait spec for `policy-witness xpc session --wait`."""
 
     kind: str
     path: Optional[str] = None

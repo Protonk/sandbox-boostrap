@@ -88,34 +88,33 @@ Preflight (apply-gate avoidance):
   - Force apply even if preflight flags a signature: `SANDBOX_LORE_PREFLIGHT_FORCE=1`
   - Per-profile override in `expected_matrix.json`: `"preflight": {"mode": "off"|"force"|"enforce"}`
 
-### entitlementjail
+### policywitness
 
-Definition: Thin Python surface for EntitlementJail.app (`entitlement-jail` CLI + `sandbox-log-observer`).
+Definition: Thin Python surface for PolicyWitness.app (`policy-witness` CLI + `sandbox-log-observer`).
 
 Role: Run probes across profiles, capture observer/stream deny evidence, and bundle matrix/evidence outputs without binding tooling to experiment paths.
 
 Example:
 ```sh
 python - <<'PY'
-from book.api.entitlementjail import cli
+from book.api.policywitness import cli
 result = cli.run_xpc(
     profile_id="minimal",
     probe_id="capabilities_snapshot",
     probe_args=[],
     log_path=None,
-    plan_id="entitlementjail:sample",
+    plan_id="policywitness:sample",
     row_id="capabilities_snapshot",
-    ack_risk=None,
 )
 print(result.get("stdout_json", {}))
 PY
 ```
 
-See `book/api/entitlementjail/README.md` (Contract section) for API usage and contract fixtures.
+See `book/api/policywitness/README.md` (Contract section) for API usage and contract fixtures.
 
-Frida harness (EntitlementJail XPC session + attach):
+Frida harness (PolicyWitness XPC session + attach):
 ```sh
-python -m book.api.entitlementjail.frida --profile-id minimal@injectable --probe-id probe_catalog --script book/api/frida/hooks/smoke.js
+python -m book.api.policywitness.frida --profile-id minimal@injectable --probe-id probe_catalog --script book/api/frida/hooks/smoke.js
 ```
 
 ### frida

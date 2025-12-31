@@ -38,7 +38,8 @@ KEYWORDS = [
     "OpenBSM",
     "dtrace",
     "frida",
-    "entitlementjail",
+    "policywitness",
+    "policy-witness",
 ]
 
 IN_REPO_ITEMS: List[Dict[str, Any]] = [
@@ -151,10 +152,10 @@ IN_REPO_ITEMS: List[Dict[str, Any]] = [
         "status": "active",
     },
     {
-        "id": "entitlement-jail",
-        "paths": ["book/tools/entitlement", "book/experiments/entitlement-diff"],
+        "id": "policy-witness",
+        "paths": ["book/tools/witness", "book/experiments/entitlement-diff"],
         "category": "logging",
-        "description": "App Sandbox/entitlement probes and sandbox log observation.",
+        "description": "App Sandbox/entitlement probes and sandbox log observation (PolicyWitness).",
         "privileges": "user (App Sandbox runner)",
         "evidence_tier": "logs-only",
         "status": "partial",

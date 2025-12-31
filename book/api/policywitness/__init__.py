@@ -1,10 +1,10 @@
 """
-EntitlementJail tooling surface (stable API exports).
+PolicyWitness tooling surface (stable API exports).
 
 Re-exports the small, stable API used by experiments and tooling.
 """
 
-from book.api.entitlementjail.cli import (
+from book.api.policywitness.cli import (
     WORLD_ID,
     bundle_evidence,
     describe_service,
@@ -22,14 +22,14 @@ from book.api.entitlementjail.cli import (
     show_profile,
     verify_evidence,
 )
-from book.api.entitlementjail.paths import EJ, EJ_APP, LOG_OBSERVER, REPO_ROOT
-from book.api.entitlementjail.protocol import WaitSpec
-from book.api.entitlementjail.session import XpcSession, open_session
+from book.api.policywitness.paths import LOG_OBSERVER, PW, PW_APP, REPO_ROOT
+from book.api.policywitness.protocol import WaitSpec
+from book.api.policywitness.session import XpcSession, open_session
 
 __all__ = [
-    "EJ",
-    "EJ_APP",
     "LOG_OBSERVER",
+    "PW",
+    "PW_APP",
     "REPO_ROOT",
     "WORLD_ID",
     "bundle_evidence",

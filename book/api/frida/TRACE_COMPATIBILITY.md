@@ -16,10 +16,9 @@ This note freezes the compatibility surface for the Frida trace “product” in
 
 ## Why this exists
 
-The repo has multiple capture workflows (generic spawn/attach and EntitlementJail attach-first). We want to evolve the event stream into a versioned, headless, machine-checkable trace product without breaking the ability to consume:
+The repo has multiple capture workflows (generic spawn/attach and PolicyWitness attach-first). We want to evolve the event stream into a versioned, headless, machine-checkable trace product without breaking the ability to consume:
 
 - legacy runs already captured on this host baseline
 - existing hook scripts and their `send()` payload shapes
 
 See `book/api/frida/TRACE_PRODUCT_DECISIONS.md` for the headless invariants and the v1 envelope decisions.
-

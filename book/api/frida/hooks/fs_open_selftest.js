@@ -163,9 +163,9 @@ function resolveSelftestPath() {
   }
   const home = resolveHome();
   if (home) {
-    return { path: `${home}/tmp/ej_noaccess`, source: 'home' };
+    return { path: `${home}/tmp/pw_noaccess`, source: 'home' };
   }
-  return { path: '/tmp/ej_noaccess', source: 'default' };
+  return { path: '/tmp/pw_noaccess', source: 'default' };
 }
 
 function selfOpen() {

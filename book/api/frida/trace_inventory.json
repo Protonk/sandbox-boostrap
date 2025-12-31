@@ -209,9 +209,9 @@
       }
     },
     {
-      "id": "entitlementjail_attach_first_smoke_fixture_complete",
+      "id": "policywitness_attach_first_smoke_fixture_complete",
       "run_dir": "book/api/frida/fixtures/runs/00000000-0000-4000-8000-000000000004",
-      "workflow": "entitlementjail_attach_first",
+      "workflow": "policywitness_attach_first",
       "hook": {
         "script_path": "book/api/frida/hooks/smoke.js",
         "script_sha256": "a895ae4d45380a42b6bfe0e0d34e26edd27d2271b46db36810d1e30245a55872"
@@ -222,7 +222,7 @@
         "attach_pid": 38503,
         "pid_at_capture": 38503,
         "process_name": "ProbeService_minimal__injectable",
-        "service_bundle_id": "com.yourteam.entitlement-jail.ProbeService_minimal.injectable"
+        "service_bundle_id": "com.yourteam.policy-witness.ProbeService_minimal.injectable"
       },
       "events_present": {
         "trace_v1_record_shape": {
@@ -268,7 +268,7 @@
         "validate_expected_ok": true,
         "validate_digests": {
           "events_jsonl_sha256": "847aa2485e83770744f3549f84e117826cee2db8b21e6ea87bd02675edff99fc",
-          "chrometrace_json_sha256": "c6e43dd9dee45d8fe093aa3e2ec637d1324ac8d24e759d3de24a9a3e6b503253",
+          "chrometrace_json_sha256": "b881a682327389a78726a7c01ceb439ed8672c3c7cacc1ef00bb77ba18c1902d",
           "query_result_digests": {
             "hook_payload_kind_counts.sql": "98172529d1d84a31afe09df0bdea3a89a35482964f57c2eee6c4574650566afb",
             "runner_stage_timeline.sql": "76a19ab10298dff1bdf1dcd33239bc9d6555668d22e0af8a10f15a465f4322ad",
@@ -276,8 +276,7 @@
           }
         }
       }
-    }
-    ,
+    },
     {
       "id": "generic_runner_spawn_generated_example_hook_fixture_complete",
       "run_dir": "book/api/frida/fixtures/runs/00000000-0000-4000-8000-000000000005",

@@ -1,4 +1,4 @@
-"""Attach-first Frida harness for EntitlementJail XPC sessions."""
+"""Attach-first Frida harness for PolicyWitness XPC sessions."""
 
 from __future__ import annotations
 
@@ -12,9 +12,9 @@ from pathlib import Path
 from typing import Dict, List, Optional, Sequence, Tuple
 
 from book.api import path_utils
-from book.api.entitlementjail import cli as ej_cli
-from book.api.entitlementjail.logging import extract_details
-from book.api.entitlementjail.session import XpcSession
+from book.api.policywitness import cli as pw_cli
+from book.api.policywitness.logging import extract_details
+from book.api.policywitness.session import XpcSession
 from book.api.frida.capture import FridaCapture, now_ns
 from book.api.profile.identity import baseline_world_id
 
@@ -60,7 +60,7 @@ def wait_for_pid(process_name: str, timeout_s: float) -> Tuple[Optional[int], Li
 
 
 def add_arguments(ap: argparse.ArgumentParser) -> None:
-    ap.add_argument("--profile-id", required=True, help="EntitlementJail profile id")
+    ap.add_argument("--profile-id", required=True, help="PolicyWitness profile id")
     ap.add_argument("--service-name", help="Override process name for attach")
     ap.add_argument("--probe-id", required=True, help="Probe id to run via xpc session")
     ap.add_argument(
@@ -77,7 +77,11 @@ def add_arguments(ap: argparse.ArgumentParser) -> None:
         default="book/api/frida/out",
         help="Output root for run artifacts",
     )
-    ap.add_argument("--plan-id", default="frida-testing:ej-frida", help="Plan id for correlation")
+    ap.add_argument(
+        "--plan-id",
+        default="frida-testing:policywitness-frida",
+        help="Plan id for correlation",
+    )
     ap.add_argument("--row-id", default=None, help="Row id override (default: plan_id.run_id)")
     ap.add_argument("--attach-seconds", type=int, default=30, help="Seconds to wait before triggering")
     ap.add_argument("--hold-open-seconds", type=int, default=20, help="Seconds to keep the service open")
@@ -96,7 +100,7 @@ def add_arguments(ap: argparse.ArgumentParser) -> None:
         help="Delay before post-trigger attach",
     )
     ap.add_argument("--selftest-path", help="Override selftest path for fs_open_selftest.js")
-    ap.add_argument("--selftest-name", default="ej_noaccess", help="File name under tmp_dir")
+    ap.add_argument("--selftest-name", default="pw_noaccess", help="File name under tmp_dir")
     ap.add_argument("--skip-capabilities", action="store_true", help="Skip capabilities_snapshot")
     ap.add_argument(
         "--no-prepare-selftest",
@@ -118,9 +122,9 @@ def run_from_args(args: argparse.Namespace) -> int:
     run_id = str(uuid.uuid4())
     row_id = args.row_id or f"{args.plan_id}.{run_id}"
     out_root = path_utils.ensure_absolute(args.out_dir, repo_root) / run_id
-    ej_dir = out_root / "ej"
+    pw_dir = out_root / "policywitness"
     frida_dir = out_root / "frida"
-    logs_dir = ej_dir / "logs"
+    logs_dir = pw_dir / "logs"
     logs_dir.mkdir(parents=True, exist_ok=True)
     frida_dir.mkdir(parents=True, exist_ok=True)
 
@@ -131,7 +135,7 @@ def run_from_args(args: argparse.Namespace) -> int:
     process_name = args.service_name
     if not args.skip_capabilities:
         cap_log_path = logs_dir / "capabilities_snapshot.log"
-        cap_record = ej_cli.run_xpc(
+        cap_record = pw_cli.run_xpc(
             profile_id=target_profile_id,
             probe_id="capabilities_snapshot",
             probe_args=[],
@@ -139,7 +143,7 @@ def run_from_args(args: argparse.Namespace) -> int:
             plan_id=args.plan_id,
             row_id=f"{row_id}.capabilities_snapshot",
         )
-        write_json(ej_dir / "capabilities_snapshot.json", cap_record)
+        write_json(pw_dir / "capabilities_snapshot.json", cap_record)
         details = extract_details(cap_record.get("stdout_json"))
         if isinstance(details, dict):
             tmp_dir = details.get("tmp_dir")
@@ -319,7 +323,7 @@ def run_from_args(args: argparse.Namespace) -> int:
             for k in {o.get("kind") for o in session.stdout_jsonl if isinstance(o, dict)}
         },
     }
-    write_json(ej_dir / "run_xpc.json", record)
+    write_json(pw_dir / "run_xpc.json", record)
 
     service_pid = None
     details = extract_details(record.get("stdout_json"))
@@ -347,10 +351,10 @@ def run_from_args(args: argparse.Namespace) -> int:
             "probe_id": args.probe_id,
             "probe_args": list(args.probe_args),
         },
-        "entitlementjail": {
-            "run_xpc_path": path_utils.to_repo_relative(ej_dir / "run_xpc.json", repo_root),
+        "policywitness": {
+            "run_xpc_path": path_utils.to_repo_relative(pw_dir / "run_xpc.json", repo_root),
             "capabilities_snapshot_path": (
-                path_utils.to_repo_relative(ej_dir / "capabilities_snapshot.json", repo_root)
+                path_utils.to_repo_relative(pw_dir / "capabilities_snapshot.json", repo_root)
                 if cap_record
                 else None
             ),

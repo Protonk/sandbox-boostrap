@@ -1,7 +1,7 @@
 """
-Session helpers for EntitlementJail `xpc session` (v2 control plane).
+Session helpers for PolicyWitness `xpc session` (control plane).
 
-`entitlement-jail xpc session` exposes a JSONL stdin/stdout protocol intended
+`policy-witness xpc session` exposes a JSONL stdin/stdout protocol intended
 for deterministic attach workflows (lldb/dtrace/frida) and multi-probe runs
 under a stable service process.
 """
@@ -18,7 +18,7 @@ from pathlib import Path
 from typing import Callable, Dict, Iterator, List, Optional, Sequence
 
 from book.api import path_utils
-from book.api.entitlementjail.logging import (
+from book.api.policywitness.logging import (
     LOG_OBSERVER_LAST,
     extract_correlation_id,
     extract_process_name,
@@ -27,8 +27,8 @@ from book.api.entitlementjail.logging import (
     run_sandbox_log_observer,
     should_run_observer,
 )
-from book.api.entitlementjail.paths import EJ, REPO_ROOT
-from book.api.entitlementjail.protocol import (
+from book.api.policywitness.paths import PW, REPO_ROOT
+from book.api.policywitness.protocol import (
     WaitSpec,
     normalize_wait_spec,
     parse_wait_spec,
@@ -104,7 +104,7 @@ def _readline_with_timeout(stream, timeout_s: float) -> Optional[str]:
 
 class XpcSession:
     """
-    Live wrapper around `entitlement-jail xpc session`.
+    Live wrapper around `policy-witness xpc session`.
 
     - Call `start()` or use as a context manager.
     - Use `run_probe()` repeatedly.
@@ -117,7 +117,6 @@ class XpcSession:
         profile_id: str,
         plan_id: str,
         correlation_id: Optional[str] = None,
-        ack_risk: Optional[str] = None,
         wait_spec: Optional[str | WaitSpec] = None,
         wait_timeout_ms: Optional[int] = None,
         wait_interval_ms: Optional[int] = None,
@@ -129,7 +128,6 @@ class XpcSession:
         self.profile_id = profile_id
         self.plan_id = plan_id
         self.correlation_id = correlation_id
-        self.ack_risk = ack_risk
         self.wait_spec = normalize_wait_spec(wait_spec)
         self.wait_timeout_ms = wait_timeout_ms
         self.wait_interval_ms = wait_interval_ms
@@ -160,9 +158,7 @@ class XpcSession:
         return f"exit:{self.proc.returncode}"
 
     def _build_cmd(self) -> List[str]:
-        cmd = [str(EJ), "xpc", "session", "--plan-id", self.plan_id]
-        if self.ack_risk:
-            cmd += ["--ack-risk", self.ack_risk]
+        cmd = [str(PW), "xpc", "session", "--plan-id", self.plan_id]
         if self.correlation_id:
             cmd += ["--correlation-id", self.correlation_id]
         if self.wait_spec:
@@ -575,7 +571,6 @@ def open_session(
     profile_id: str,
     plan_id: str,
     correlation_id: Optional[str] = None,
-    ack_risk: Optional[str] = None,
     wait_spec: Optional[str | WaitSpec] = None,
     wait_timeout_ms: Optional[int] = None,
     wait_interval_ms: Optional[int] = None,
@@ -587,7 +582,6 @@ def open_session(
         profile_id=profile_id,
         plan_id=plan_id,
         correlation_id=correlation_id,
-        ack_risk=ack_risk,
         wait_spec=wait_spec,
         wait_timeout_ms=wait_timeout_ms,
         wait_interval_ms=wait_interval_ms,

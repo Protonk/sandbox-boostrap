@@ -15,9 +15,9 @@ EXPERIMENTS_ROOT = ROOT / "book" / "experiments"
 RUN_SCRIPT_ALLOWLIST = {
     Path("book/experiments/bsd-airlock-highvals/run_probes.py"),
     Path("book/experiments/encoder-write-trace/run_trace.py"),
-    Path("book/experiments/entitlement-diff/run_entitlementjail.py"),
+    Path("book/experiments/entitlement-diff/run_policywitness.py"),
     Path("book/experiments/entitlement-diff/run_probes.py"),
-    Path("book/experiments/frida-testing/run_ej_frida.py"),
+    Path("book/experiments/frida-testing/run_pw_frida.py"),
     Path("book/experiments/frida-testing/run_frida.py"),
     Path("book/experiments/libsandbox-encoder/run_network_matrix.py"),
     Path("book/experiments/libsandbox-encoder/run_phase_a.py"),
