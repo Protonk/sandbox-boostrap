@@ -1,8 +1,14 @@
 {
-  "schema_version": "runtime-tools.plan.v0.1",
+  "apply_preflight_profile": "book/experiments/hardened-runtime/sb/apply_preflight_allow.sb",
+  "controls": {
+    "baseline": true
+  },
+  "lanes": {
+    "baseline": true,
+    "oracle": false,
+    "scenario": true
+  },
   "plan_id": "lifecycle-lockdown.v17.exec-stage-prereq-narrowing",
-  "registry_id": "lifecycle-lockdown",
-  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
   "profiles": [
     "lockdown:airlock_passing_sbpl",
     "lockdown:airlock_passing_sbpl_write",
@@ -30,13 +36,7 @@
     "lockdown:airlock_passing_blob",
     "lockdown:airlock_gate_blob"
   ],
-  "lanes": {
-    "baseline": false,
-    "scenario": true,
-    "oracle": false
-  },
-  "controls": {
-    "baseline": false
-  },
-  "apply_preflight_profile": "book/experiments/hardened-runtime/sb/apply_preflight_allow.sb"
+  "registry_id": "lifecycle-lockdown",
+  "schema_version": "runtime-tools.plan.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
 }

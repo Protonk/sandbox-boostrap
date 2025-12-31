@@ -8,3 +8,4 @@
 - Control sanity: `(allow default)` profile via the runner permits metadata operations, confirming the runner is behaving; targeted allows are what surface the alias/canonical divergence.
 - Migrated the Swift runner source to `book/api/runtime/native/metadata_runner` and updated the driver to build via the shared build script.
 - Local build attempt of `book/api/runtime/native/metadata_runner/build.sh` failed with Swift module cache permission errors and an SDK/compiler mismatch; the script itself is correct but the toolchain needs alignment to run.
+- Unified runtime CLI run: `launchd_clean` bootstrap failed (launchctl exit 5); direct channel run succeeded and produced a committed bundle under `book/experiments/metadata-runner/out/<run_id>/`.

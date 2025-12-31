@@ -221,7 +221,10 @@ def run_via_launchctl(
     dest_out.mkdir(parents=True, exist_ok=True)
     shutil.copytree(staged_out, dest_out, dirs_exist_ok=True, ignore=ignore)
 
-    launchctl_dest = dest_out / "launchctl"
+    run_dir = dest_out / run_id
+    if not run_dir.exists():
+        run_dir.mkdir(parents=True, exist_ok=True)
+    launchctl_dest = run_dir / "launchctl"
     launchctl_dest.mkdir(parents=True, exist_ok=True)
     for path in (stdout_path, stderr_path, plist_path):
         if path.exists():

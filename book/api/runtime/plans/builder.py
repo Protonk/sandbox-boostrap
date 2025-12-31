@@ -47,6 +47,13 @@ TEMPLATE_INDEX: Dict[str, Path] = {
     / "plans"
     / "templates"
     / "lifecycle_lockdown.json",
+    "metadata-runner": REPO_ROOT
+    / "book"
+    / "api"
+    / "runtime"
+    / "plans"
+    / "templates"
+    / "metadata_runner.json",
     "probe-op-structure": REPO_ROOT
     / "book"
     / "api"
@@ -325,6 +332,19 @@ def _probe_name(operation: str, target: str) -> str:
     return f"{prefix}_{target}"
 
 
+def _metadata_probe_name(operation: str, syscall: str, attr_payload: Optional[str], target: str) -> str:
+    if operation == "file-read-metadata":
+        prefix = "readmeta"
+    elif operation == "file-write*":
+        prefix = "writemeta"
+    else:
+        prefix = operation.replace("*", "")
+    parts = [prefix, syscall]
+    if attr_payload:
+        parts.append(attr_payload)
+    return f"{'_'.join(parts)}_{target}"
+
+
 def _build_vfs(template: Dict[str, Any], out_root: Path, *, overwrite: bool, write_expected_matrix: bool) -> PlanBuildResult:
     registry_id = template.get("registry_id") or template.get("template_id") or "vfs-canonicalization"
     world_id = template.get("world_id") or models.WORLD_ID
@@ -432,6 +452,187 @@ def _build_vfs(template: Dict[str, Any], out_root: Path, *, overwrite: bool, wri
     )
 
 
+def _build_metadata_runner(
+    template: Dict[str, Any],
+    out_root: Path,
+    *,
+    overwrite: bool,
+    write_expected_matrix: bool,
+) -> PlanBuildResult:
+    registry_id = template.get("registry_id") or template.get("template_id") or "metadata-runner"
+    world_id = template.get("world_id") or models.WORLD_ID
+
+    plan_id = template.get("plan_id") or f"{registry_id}.v1"
+    lanes = template.get("lanes") or {"baseline": True, "scenario": True, "oracle": False}
+    controls = template.get("controls") or {"baseline": True}
+
+    path_pairs = template.get("path_pairs") or []
+    if not isinstance(path_pairs, list) or not path_pairs:
+        raise ValueError("metadata-runner template missing path_pairs")
+    alias_paths: list[str] = []
+    canonical_paths: list[str] = []
+    for pair in path_pairs:
+        if not isinstance(pair, list) or len(pair) != 2:
+            raise ValueError(f"metadata-runner path_pairs entries must be 2-item lists: {pair!r}")
+        alias_paths.append(str(pair[0]))
+        canonical_paths.append(str(pair[1]))
+
+    path_sets = {
+        "alias": alias_paths,
+        "alias_tmp": [p for p in alias_paths if p.startswith("/tmp/")],
+        "alias_var": [p for p in alias_paths if p.startswith("/var/tmp")],
+        "canonical": canonical_paths,
+        "all": alias_paths + canonical_paths,
+    }
+    target_paths: list[str] = []
+    for alias, canonical in zip(alias_paths, canonical_paths):
+        target_paths.extend([alias, canonical])
+
+    ops_cfg = template.get("ops") or {}
+    read_cfg = ops_cfg.get("file-read-metadata") or {}
+    write_cfg = ops_cfg.get("file-write*") or {}
+    read_syscalls = read_cfg.get("syscalls") or []
+    read_payloads = read_cfg.get("attr_payloads") or []
+    read_payload_syscalls = set(read_cfg.get("attr_payload_syscalls") or [])
+    write_syscalls = write_cfg.get("syscalls") or []
+    if not read_syscalls or not write_syscalls:
+        raise ValueError("metadata-runner template missing syscall lists")
+
+    profiles_cfg = template.get("profiles") or {}
+    family_default = template.get("family")
+    semantic_default = template.get("semantic_group")
+    profile_order: Sequence[str] = template.get("profile_order") or list(profiles_cfg.keys())
+
+    probes: Dict[str, Dict[str, Any]] = {}
+    profile_probe_refs: Dict[str, List[str]] = {pid: [] for pid in profile_order}
+
+    for profile_id in profile_order:
+        cfg = profiles_cfg.get(profile_id) or {}
+        allowed_sets = cfg.get("allowed_sets") or []
+        allowed_paths: set[str] = set()
+        for name in allowed_sets:
+            if name not in path_sets:
+                raise ValueError(f"metadata-runner unknown allowed_set {name!r} for {profile_id}")
+            allowed_paths.update(path_sets[name])
+
+        for op in ["file-read-metadata", "file-write*"]:
+            if op == "file-read-metadata":
+                for path in target_paths:
+                    expected = "allow" if path in allowed_paths else "deny"
+                    for syscall in read_syscalls:
+                        payloads = read_payloads if syscall in read_payload_syscalls else [None]
+                        for payload in payloads:
+                            name = _metadata_probe_name(op, syscall, payload, path)
+                            probe_id = f"{profile_id}:{name}"
+                            probe = {
+                                "probe_id": probe_id,
+                                "name": name,
+                                "operation": op,
+                                "target": path,
+                                "expected": expected,
+                                "supports_lanes": dict(lanes),
+                                "expected_primary_ops": [op],
+                                "expected_predicates": [path],
+                                "capabilities_required": [],
+                                "controls_supported": ["baseline", "allow_default", "deny_default"],
+                                "driver": "metadata_runner",
+                                "syscall": syscall,
+                            }
+                            if payload:
+                                probe["attr_payload"] = payload
+                            probes[probe_id] = probe
+                            profile_probe_refs.setdefault(profile_id, []).append(probe_id)
+            else:
+                for path in target_paths:
+                    expected = "allow" if path in allowed_paths else "deny"
+                    for syscall in write_syscalls:
+                        name = _metadata_probe_name(op, syscall, None, path)
+                        probe_id = f"{profile_id}:{name}"
+                        probes[probe_id] = {
+                            "probe_id": probe_id,
+                            "name": name,
+                            "operation": op,
+                            "target": path,
+                            "expected": expected,
+                            "supports_lanes": dict(lanes),
+                            "expected_primary_ops": [op],
+                            "expected_predicates": [path],
+                            "capabilities_required": [],
+                            "controls_supported": ["baseline", "allow_default", "deny_default"],
+                            "driver": "metadata_runner",
+                            "syscall": syscall,
+                        }
+                        profile_probe_refs.setdefault(profile_id, []).append(probe_id)
+
+    profiles: Dict[str, Dict[str, Any]] = {}
+    for profile_id in profile_order:
+        cfg = profiles_cfg.get(profile_id) or {}
+        sbpl_path = cfg.get("sbpl")
+        if not sbpl_path:
+            raise ValueError(f"profile missing sbpl path: {profile_id}")
+        abs_path = path_utils.ensure_absolute(Path(sbpl_path), REPO_ROOT)
+        profiles[profile_id] = {
+            "profile_id": profile_id,
+            "profile_path": path_utils.to_repo_relative(abs_path, repo_root=REPO_ROOT),
+            "mode": cfg.get("mode") or "sbpl",
+            "family": cfg.get("family") if "family" in cfg else family_default,
+            "semantic_group": cfg.get("semantic_group") if "semantic_group" in cfg else semantic_default,
+            "probe_refs": profile_probe_refs.get(profile_id) or [],
+            "key_specific_rules": cfg.get("key_specific_rules") or [],
+            "notes": cfg.get("notes"),
+        }
+
+    plan_doc: Dict[str, Any] = {
+        "schema_version": runtime_plan.PLAN_SCHEMA_VERSION,
+        "plan_id": plan_id,
+        "registry_id": registry_id,
+        "world_id": world_id,
+        "profiles": list(profile_order),
+        "lanes": dict(lanes),
+        "controls": dict(controls),
+    }
+    if template.get("notes"):
+        plan_doc["notes"] = template.get("notes")
+    if template.get("apply_preflight_profile"):
+        plan_doc["apply_preflight_profile"] = template.get("apply_preflight_profile")
+
+    registry_dir = out_root / "registry"
+    probes_doc = {
+        "schema_version": runtime_registry.PROBE_SCHEMA_VERSION,
+        "registry_id": registry_id,
+        "world_id": world_id,
+        "probes": probes,
+    }
+    profiles_doc = {
+        "schema_version": runtime_registry.PROFILE_SCHEMA_VERSION,
+        "registry_id": registry_id,
+        "world_id": world_id,
+        "profiles": profiles,
+    }
+
+    plan_path = out_root / "plan.json"
+    probes_path = registry_dir / "probes.json"
+    profiles_path = registry_dir / "profiles.json"
+    _write_json(plan_path, plan_doc, overwrite=overwrite)
+    _write_json(probes_path, probes_doc, overwrite=overwrite)
+    _write_json(profiles_path, profiles_doc, overwrite=overwrite)
+
+    expected_matrix_path: Optional[Path] = None
+    if write_expected_matrix and isinstance(template.get("expected_matrix"), dict):
+        expected_matrix_path = out_root / "out" / "expected_matrix.json"
+        expected_matrix_path.parent.mkdir(parents=True, exist_ok=True)
+        expected_matrix_path.write_text(json.dumps(template["expected_matrix"], indent=2))
+
+    return PlanBuildResult(
+        template_id=template.get("template_id") or "metadata-runner",
+        registry_id=registry_id,
+        plan_path=plan_path,
+        probes_path=probes_path,
+        profiles_path=profiles_path,
+        expected_matrix_path=expected_matrix_path,
+    )
+
+
 def build_plan_from_template(
     template_id: str,
     out_root: Path,
@@ -447,4 +648,6 @@ def build_plan_from_template(
         return _build_static_template(template, out_root, overwrite=overwrite, write_expected_matrix=write_expected_matrix)
     if template_id == "vfs-canonicalization":
         return _build_vfs(template, out_root, overwrite=overwrite, write_expected_matrix=write_expected_matrix)
+    if template_id == "metadata-runner":
+        return _build_metadata_runner(template, out_root, overwrite=overwrite, write_expected_matrix=write_expected_matrix)
     raise ValueError(f"no builder registered for template: {template_id}")

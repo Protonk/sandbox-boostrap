@@ -1,0 +1,132 @@
+{
+  "schema_version": "runtime-tools.plan_template.v0.1",
+  "template_id": "metadata-runner",
+  "description": "Metadata syscall matrix for alias/canonical path probes.",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "registry_id": "metadata-runner",
+  "plan_id": "metadata-runner.v1",
+  "apply_preflight_profile": "book/experiments/hardened-runtime/sb/apply_preflight_allow.sb",
+  "lanes": {
+    "baseline": true,
+    "scenario": true,
+    "oracle": false
+  },
+  "controls": {
+    "baseline": true
+  },
+  "family": "metadata",
+  "semantic_group": "metadata:canonicalization",
+  "path_pairs": [
+    [
+      "/tmp/foo",
+      "/private/tmp/foo"
+    ],
+    [
+      "/tmp/bar",
+      "/private/tmp/bar"
+    ],
+    [
+      "/tmp/nested/child",
+      "/private/tmp/nested/child"
+    ],
+    [
+      "/var/tmp/canon",
+      "/private/var/tmp/canon"
+    ]
+  ],
+  "ops": {
+    "file-read-metadata": {
+      "syscalls": [
+        "lstat",
+        "getattrlist",
+        "setattrlist",
+        "fstat"
+      ],
+      "attr_payloads": [
+        "cmn",
+        "cmn-name",
+        "cmn-times",
+        "file-size"
+      ],
+      "attr_payload_syscalls": [
+        "getattrlist",
+        "setattrlist"
+      ]
+    },
+    "file-write*": {
+      "syscalls": [
+        "chmod",
+        "utimes",
+        "fchmod",
+        "futimes",
+        "lchown",
+        "fchown",
+        "fchownat",
+        "lutimes"
+      ]
+    }
+  },
+  "profile_order": [
+    "literal_alias_only",
+    "literal_canonical_only",
+    "literal_both_paths",
+    "subpath_alias_only",
+    "subpath_canonical_only",
+    "subpath_both_paths",
+    "regex_alias_only",
+    "regex_canonical_only",
+    "regex_both_paths"
+  ],
+  "profiles": {
+    "literal_alias_only": {
+      "sbpl": "book/experiments/metadata-runner/sb/metadata_alias_only.sb",
+      "allowed_sets": []
+    },
+    "literal_canonical_only": {
+      "sbpl": "book/experiments/metadata-runner/sb/metadata_canonical_only.sb",
+      "allowed_sets": [
+        "canonical"
+      ]
+    },
+    "literal_both_paths": {
+      "sbpl": "book/experiments/metadata-runner/sb/metadata_both_paths.sb",
+      "allowed_sets": [
+        "canonical"
+      ]
+    },
+    "subpath_alias_only": {
+      "sbpl": "book/experiments/metadata-runner/sb/metadata_subpath_alias_only.sb",
+      "allowed_sets": []
+    },
+    "subpath_canonical_only": {
+      "sbpl": "book/experiments/metadata-runner/sb/metadata_subpath_canonical_only.sb",
+      "allowed_sets": [
+        "canonical"
+      ]
+    },
+    "subpath_both_paths": {
+      "sbpl": "book/experiments/metadata-runner/sb/metadata_subpath_both_paths.sb",
+      "allowed_sets": [
+        "canonical",
+        "alias_tmp"
+      ]
+    },
+    "regex_alias_only": {
+      "sbpl": "book/experiments/metadata-runner/sb/metadata_regex_alias_only.sb",
+      "allowed_sets": []
+    },
+    "regex_canonical_only": {
+      "sbpl": "book/experiments/metadata-runner/sb/metadata_regex_canonical_only.sb",
+      "allowed_sets": [
+        "canonical"
+      ]
+    },
+    "regex_both_paths": {
+      "sbpl": "book/experiments/metadata-runner/sb/metadata_regex_both_paths.sb",
+      "allowed_sets": [
+        "canonical",
+        "alias_tmp"
+      ]
+    }
+  }
+}

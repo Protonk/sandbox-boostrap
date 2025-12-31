@@ -27,6 +27,7 @@ See `book/experiments/lifecycle-lockdown/Plan.md`.
 - Entitlements cross-check outputs under `book/experiments/lifecycle-lockdown/out/entitlements/`
 - Apply cross-check outputs under `book/experiments/lifecycle-lockdown/out/apply/`
 - Execution-lane isolation runtime bundles under `book/experiments/lifecycle-lockdown/out/runtime/`
+- Baseline reachability lane outputs under each runtime bundle (`baseline_results.json`).
 
 Note: legacy runtime bundles were pruned during runtime cleanup. Rerun the plan to regenerate bundles under `out/runtime/`; run-id paths below are historical until rerun.
 
@@ -83,7 +84,7 @@ Observation: when rerun under `launchd_clean`, the “passing neighbor” no lon
 
 This separates the earlier “everything EPERM” outcome (direct harness lane) from profile-shape apply gating (known-gated profile).
 
-Runtime note: these bundles are `lane=scenario` only (baseline/oracle lanes disabled in `book/experiments/lifecycle-lockdown/plan.json`).
+Runtime note: baseline lane is now enabled as a reachability sanity lane (`baseline_results.json`); oracle lane remains disabled in `book/experiments/lifecycle-lockdown/plan.json`.
 
 - Preflight enforce run (`launchd_clean`, `SANDBOX_LORE_PREFLIGHT_FORCE=0`):
   - Passing profiles: `failure_stage=probe` (no apply-stage error observed)

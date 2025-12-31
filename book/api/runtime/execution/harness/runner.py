@@ -27,6 +27,8 @@ SANDBOX_RUNNER_DIR = REPO_ROOT / "book" / "api" / "runtime" / "native" / "sandbo
 RUNNER = SANDBOX_RUNNER_DIR / "sandbox_runner"
 READER = SANDBOX_RUNNER_DIR / "sandbox_reader"
 WRITER = SANDBOX_RUNNER_DIR / "sandbox_writer"
+METADATA_RUNNER_DIR = REPO_ROOT / "book" / "api" / "runtime" / "native" / "metadata_runner"
+METADATA_RUNNER = METADATA_RUNNER_DIR / "metadata_runner"
 WRAPPER = REPO_ROOT / "book" / "tools" / "sbpl" / "wrapper" / "wrapper"
 PROBE_DIR = REPO_ROOT / "book" / "api" / "runtime" / "native" / "probes"
 MACH_PROBE = PROBE_DIR / "mach_probe"
@@ -101,6 +103,18 @@ def ensure_fixtures(fixture_root: Path = Path("/tmp")) -> None:
         p = fixture_root / name
         p.write_text(f"runtime-checks {name}\n")
         (p.with_suffix(".txt")).write_text(f"{name}\n")
+    nested = fixture_root / "nested" / "child"
+    nested.parent.mkdir(parents=True, exist_ok=True)
+    nested.write_text("runtime-checks nested child\n")
+    nested.chmod(0o640)
+    var_tmp = Path("/var/tmp/canon")
+    try:
+        var_tmp.parent.mkdir(parents=True, exist_ok=True)
+        var_tmp.write_text("runtime-checks var tmp canon\n")
+        var_tmp.chmod(0o640)
+    except OSError:
+        # Best-effort: /var/tmp can be sandbox-restricted in CI environments.
+        pass
     (fixture_root / "baz.txt").write_text("baz\n")
     (fixture_root / "qux.txt").write_text("qux\n")
     rt = fixture_root / "sbpl_rt"
@@ -225,7 +239,12 @@ def build_probe_command(probe: Dict[str, Any]) -> List[str]:
     target = probe.get("target")
     op = probe.get("operation")
     cmd: List[str]
-    if op == "file-read*":
+    if op == "file-read-metadata":
+        if target and Path(PYTHON).exists():
+            cmd = [PYTHON, "-c", "import os, sys; os.lstat(sys.argv[1])", target]
+        else:
+            cmd = ["true"]
+    elif op == "file-read*":
         use_file_probe = probe.get("driver") == "file_probe" and FILE_PROBE.exists() and target
         if use_file_probe:
             cmd = [str(FILE_PROBE), "read", target]
@@ -409,7 +428,30 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None, wr
     reader_mode = False
     writer_mode = False
     self_apply_mode = False
-    if op == "file-read*":
+    metadata_driver = False
+    if op == "file-read-metadata":
+        driver = probe.get("driver")
+        if driver != "metadata_runner":
+            return {"error": "file-read-metadata probe missing driver (expected metadata_runner)"}
+        if not METADATA_RUNNER.exists():
+            return {"error": "metadata_runner missing"}
+        if not target:
+            return {"error": "metadata_runner requires target path"}
+        cmd = [str(METADATA_RUNNER)]
+        if blob_mode:
+            cmd += ["--blob", str(profile)]
+        else:
+            cmd += ["--sbpl", str(profile)]
+        cmd += ["--op", op, "--path", target]
+        syscall = probe.get("syscall")
+        if syscall:
+            cmd += ["--syscall", str(syscall)]
+        attr_payload = probe.get("attr_payload")
+        if attr_payload:
+            cmd += ["--attr-payload", str(attr_payload)]
+        metadata_driver = True
+        self_apply_mode = True
+    elif op == "file-read*":
         use_file_probe = probe.get("driver") == "file_probe" and FILE_PROBE.exists() and target
         if use_file_probe:
             cmd = [str(FILE_PROBE), "read", target]
@@ -421,16 +463,34 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None, wr
         else:
             cmd = [CAT, target]
     elif op == "file-write*":
-        use_file_probe = probe.get("driver") == "file_probe" and FILE_PROBE.exists() and target
-        if use_file_probe:
-            cmd = [str(FILE_PROBE), "write", target]
-        # Same rule as file-read*: avoid sandbox_init-on-binary by using /bin/sh
-        # inside the blob-applied wrapper process.
-        elif not blob_mode and WRITER.exists():
-            cmd = [str(WRITER), str(profile), target]
-            writer_mode = True
+        driver = probe.get("driver")
+        if driver == "metadata_runner":
+            if not METADATA_RUNNER.exists():
+                return {"error": "metadata_runner missing"}
+            if not target:
+                return {"error": "metadata_runner requires target path"}
+            cmd = [str(METADATA_RUNNER)]
+            if blob_mode:
+                cmd += ["--blob", str(profile)]
+            else:
+                cmd += ["--sbpl", str(profile)]
+            cmd += ["--op", op, "--path", target]
+            syscall = probe.get("syscall")
+            if syscall:
+                cmd += ["--syscall", str(syscall)]
+            metadata_driver = True
+            self_apply_mode = True
         else:
-            cmd = [SH, "-c", f"echo runtime-check >> '{target}'"]
+            use_file_probe = driver == "file_probe" and FILE_PROBE.exists() and target
+            if use_file_probe:
+                cmd = [str(FILE_PROBE), "write", target]
+            # Same rule as file-read*: avoid sandbox_init-on-binary by using /bin/sh
+            # inside the blob-applied wrapper process.
+            elif not blob_mode and WRITER.exists():
+                cmd = [str(WRITER), str(profile), target]
+                writer_mode = True
+            else:
+                cmd = [SH, "-c", f"echo runtime-check >> '{target}'"]
     elif op == "mach-lookup":
         driver = probe.get("driver")
         if driver == "sandbox_mach_probe":
@@ -638,10 +698,32 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None, wr
             timeout=10,
             env=env,
         )
-        probe_details, stdout_clean = _extract_probe_details(res.stdout)
+        exit_code = res.returncode
+        probe_details = None
+        stdout_clean = res.stdout
+        if metadata_driver:
+            parsed: Optional[Dict[str, Any]] = None
+            stdout_clean = ""
+            if res.stdout:
+                try:
+                    parsed = json.loads(res.stdout)
+                except Exception:
+                    parsed = {"error": "metadata_runner_stdout_parse_failed"}
+                    stdout_clean = res.stdout
+            if isinstance(parsed, dict):
+                probe_details = parsed
+                status = parsed.get("status")
+                if status == "ok":
+                    exit_code = 0
+                elif isinstance(parsed.get("errno"), int):
+                    exit_code = int(parsed.get("errno") or 1)
+                else:
+                    exit_code = 1
+        else:
+            probe_details, stdout_clean = _extract_probe_details(res.stdout)
         return {
             "command": full_cmd,
-            "exit_code": res.returncode,
+            "exit_code": exit_code,
             "stdout": stdout_clean,
             "stderr": res.stderr,
             "probe_details": probe_details,
@@ -686,13 +768,18 @@ def run_matrix(
                 entry["notes"] = note
             results[key] = entry
             continue
-        runtime_profile = prepare_profile(
-            profile_path,
-            key,
-            key_specific_rules=key_specific_rules,
-            runtime_profile_dir=runtime_profile_dir,
-            profile_mode=rec.get("mode"),
-        )
+        probes = rec.get("probes") or []
+        metadata_only = bool(probes) and all(p.get("driver") == "metadata_runner" for p in probes)
+        if metadata_only:
+            runtime_profile = profile_path
+        else:
+            runtime_profile = prepare_profile(
+                profile_path,
+                key,
+                key_specific_rules=key_specific_rules,
+                runtime_profile_dir=runtime_profile_dir,
+                profile_mode=rec.get("mode"),
+            )
         profile_mode = rec.get("mode")
         preflight_record: Optional[Dict[str, Any]] = None
         preflight_blocked = False
@@ -730,7 +817,6 @@ def run_matrix(
             except Exception:
                 preflight_record = None
                 preflight_blocked = False
-        probes = rec.get("probes") or []
         probe_results = []
         for probe in probes:
             path_observation = None
@@ -824,6 +910,8 @@ def run_matrix(
                 runner_info = {"entrypoint": "sandbox_reader", "apply_model": "self_apply", "apply_timing": "pre_syscall"}
             elif entrypoint == str(WRITER):
                 runner_info = {"entrypoint": "sandbox_writer", "apply_model": "self_apply", "apply_timing": "pre_syscall"}
+            elif entrypoint == str(METADATA_RUNNER):
+                runner_info = {"entrypoint": "metadata_runner", "apply_model": "self_apply", "apply_timing": "pre_syscall"}
             else:
                 runner_info = None
 

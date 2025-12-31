@@ -1,15 +1,14 @@
-import json
 from pathlib import Path
 
 
 from book.api import path_utils
+from book.integration.tests.runtime.runtime_bundle_helpers import load_bundle_json
 ROOT = path_utils.find_repo_root(Path(__file__))
-RESULTS_PATH = ROOT / "book" / "experiments" / "metadata-runner" / "out" / "runtime_events.normalized.json"
+OUT_ROOT = ROOT / "book" / "experiments" / "metadata-runner" / "out"
 
 
 def load_results():
-    assert RESULTS_PATH.exists(), f"missing runtime results at {RESULTS_PATH}"
-    data = json.loads(RESULTS_PATH.read_text())
+    data = load_bundle_json(OUT_ROOT, "runtime_events.normalized.json")
     assert isinstance(data, list) and data, "runtime_events.normalized.json should be a non-empty list"
     return data
 

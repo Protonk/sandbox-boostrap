@@ -24,7 +24,7 @@ def test_normalized_runtime_event_files_marker_free_and_world_stamped():
         ),
         (
             "metadata-runner",
-            load_json(ROOT / "book" / "experiments" / "metadata-runner" / "out" / "runtime_events.normalized.json"),
+            load_bundle_json(ROOT / "book" / "experiments" / "metadata-runner" / "out", "runtime_events.normalized.json"),
         ),
         (
             "vfs-canonicalization",

@@ -1,26 +1,22 @@
 """
 Validation job for the metadata-runner experiment.
 
-Normalizes the experiment's bespoke runtime_results.json into contract-shaped
-RuntimeObservation rows, written as a standalone JSON array under validation/out.
+Copies committed runtime bundle outputs into validation IR.
 """
 
 from __future__ import annotations
 
-import hashlib
 import json
 from pathlib import Path
 from typing import Any, Dict, Optional
 
 from book.api.path_utils import find_repo_root, to_repo_relative
-from book.api.runtime.contracts import normalize as runtime_normalize
+from book.api.runtime.bundles import reader as bundle_reader
 from book.graph.concepts.validation import registry
 from book.graph.concepts.validation.registry import ValidationJob
 
 ROOT = find_repo_root(Path(__file__))
-EXP_ROOT = ROOT / "book/experiments/metadata-runner/out"
-RUNTIME_RESULTS = EXP_ROOT / "runtime_results.json"
-RUNNER_BIN = ROOT / "book/experiments/metadata-runner/build/metadata_runner"
+BUNDLE_ROOT = ROOT / "book/experiments/metadata-runner/out"
 META_PATH = ROOT / "book/graph/concepts/validation/out/metadata.json"
 STATUS_PATH = ROOT / "book/graph/concepts/validation/out/experiments/metadata-runner/status.json"
 IR_PATH = ROOT / "book/graph/concepts/validation/out/experiments/metadata-runner/runtime_events.normalized.json"
@@ -30,57 +26,36 @@ def rel(path: Path) -> str:
     return to_repo_relative(path, ROOT)
 
 
-def _sha256(path: Path) -> str:
-    h = hashlib.sha256()
-    with path.open("rb") as fh:
-        for chunk in iter(lambda: fh.read(8192), b""):
-            h.update(chunk)
-    return h.hexdigest()
-
-
-def _build_runner_info() -> Optional[Dict[str, Any]]:
-    if not RUNNER_BIN.exists():
-        return None
-    digest = _sha256(RUNNER_BIN)
-    return {
-        "entrypoint": "metadata_runner",
-        "apply_model": "self_apply",
-        "apply_timing": "pre_syscall",
-        "entrypoint_path": rel(RUNNER_BIN),
-        "entrypoint_sha256": digest,
-        "tool_build_id": digest,
-    }
+def _load_bundle() -> tuple[Dict[str, Any], Path, Optional[str]]:
+    index = bundle_reader.load_bundle_index_strict(BUNDLE_ROOT, repo_root=ROOT)
+    bundle_dir, run_id = bundle_reader.resolve_bundle_dir(BUNDLE_ROOT, repo_root=ROOT)
+    return index, bundle_dir, run_id
 
 
 def run_metadata_runner_job():
-    if not RUNTIME_RESULTS.exists():
-        raise FileNotFoundError(f"missing required input: {RUNTIME_RESULTS}")
+    _index, bundle_dir, _run_id = _load_bundle()
+    events_path = bundle_dir / "runtime_events.normalized.json"
+    if not events_path.exists():
+        raise FileNotFoundError(f"missing required input: {events_path}")
 
-    results_doc = json.loads(RUNTIME_RESULTS.read_text())
-    meta = json.loads(META_PATH.read_text()) if META_PATH.exists() else {}
+    events = json.loads(events_path.read_text())
+    if not isinstance(events, list):
+        raise AssertionError("runtime_events.normalized.json must be a list")
 
-    runner_info = None
-    if isinstance(results_doc.get("runner_info"), dict):
-        runner_info = results_doc.get("runner_info")
-    else:
-        runner_info = _build_runner_info()
-
-    observations = runtime_normalize.normalize_metadata_results(results_doc, runner_info=runner_info)
     IR_PATH.parent.mkdir(parents=True, exist_ok=True)
-    IR_PATH.write_text(
-        json.dumps([runtime_normalize.observation_to_dict(o) for o in observations], indent=2, sort_keys=True)
-    )
+    IR_PATH.write_text(json.dumps(events, indent=2, sort_keys=True))
 
+    meta = json.loads(META_PATH.read_text()) if META_PATH.exists() else {}
     STATUS_PATH.parent.mkdir(parents=True, exist_ok=True)
     payload = {
         "job_id": "experiment:metadata-runner",
         "status": "ok",
         "tier": "mapped",
         "host": meta.get("os", {}),
-        "inputs": [rel(RUNTIME_RESULTS)],
+        "inputs": [rel(bundle_dir / "artifact_index.json"), rel(events_path)],
         "outputs": [rel(IR_PATH)],
-        "metrics": {"events": len(observations)},
-        "notes": "Normalized metadata-runner runtime_results into contract-shaped runtime events for this world.",
+        "metrics": {"events": len(events)},
+        "notes": "Copied committed metadata-runner runtime events into validation IR.",
         "tags": ["experiment:metadata-runner", "experiment", "runtime"],
     }
     STATUS_PATH.write_text(json.dumps(payload, indent=2))
@@ -99,10 +74,10 @@ def run_metadata_runner_job():
 registry.register(
     ValidationJob(
         id="experiment:metadata-runner",
-        inputs=[rel(RUNTIME_RESULTS)],
+        inputs=["book/experiments/metadata-runner/out/*/artifact_index.json"],
         outputs=[rel(IR_PATH), rel(STATUS_PATH)],
         tags=["experiment:metadata-runner", "experiment", "runtime"],
-        description="Normalize metadata-runner experiment outputs into shared runtime IR.",
+        description="Copy metadata-runner runtime bundle outputs into shared runtime IR.",
         example_command="python -m book.graph.concepts.validation --experiment metadata-runner",
         runner=run_metadata_runner_job,
     )
