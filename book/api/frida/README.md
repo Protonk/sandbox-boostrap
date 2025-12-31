@@ -25,7 +25,7 @@ Outputs:
 
 PolicyWitness attach-first runs use the same trace product contract, but are orchestrated via the PolicyWitness XPC session runner:
 
-`python -m book.api.policywitness.frida --profile-id <profile_id> --probe-id <probe_id> --script book/api/frida/hooks/fs_open_selftest.js --out-dir book/api/frida/out`
+`python -m book.api.witness.frida --profile-id <profile_id> --probe-id <probe_id> --script book/api/frida/hooks/fs_open_selftest.js --out-dir book/api/witness/out`
 
 Outputs (under the PolicyWitness run root):
 - `<out_dir>/<run_id>/frida/meta.json`

@@ -1,0 +1,85 @@
+{
+  "data": {
+    "profile": {
+      "kind": "quarantine",
+      "label": "quarantine default",
+      "profile_id": "quarantine_default",
+      "variants": [
+        {
+          "bundle_id": "com.yourteam.policy-witness.QuarantineLab_default",
+          "entitlements": {
+            "com.apple.security.app-sandbox": true
+          },
+          "entitlements_error": null,
+          "risk_reasons": [],
+          "risk_tier": 0,
+          "service_name": "QuarantineLab_default",
+          "tags": [
+            "baseline",
+            "quarantine",
+            "sandbox"
+          ],
+          "variant": "base"
+        },
+        {
+          "bundle_id": "com.yourteam.policy-witness.QuarantineLab_default.injectable",
+          "entitlements": {
+            "com.apple.security.app-sandbox": true,
+            "com.apple.security.cs.allow-dyld-environment-variables": true,
+            "com.apple.security.cs.allow-unsigned-executable-memory": true,
+            "com.apple.security.cs.disable-library-validation": true,
+            "com.apple.security.get-task-allow": true
+          },
+          "entitlements_error": null,
+          "risk_reasons": [
+            "allow_dyld_env",
+            "allow_unsigned_exec_mem"
+          ],
+          "risk_tier": 2,
+          "service_name": "QuarantineLab_default__injectable",
+          "tags": [
+            "baseline",
+            "disable_library_validation",
+            "dyld_env",
+            "get_task_allow",
+            "injectable",
+            "quarantine",
+            "rwx_legacy",
+            "sandbox"
+          ],
+          "variant": "injectable"
+        }
+      ]
+    },
+    "profiles_path": "/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/tools/witness/PolicyWitness.app/Contents/Resources/Evidence/profiles.json",
+    "variant": {
+      "bundle_id": "com.yourteam.policy-witness.QuarantineLab_default",
+      "entitlements": {
+        "com.apple.security.app-sandbox": true
+      },
+      "entitlements_error": null,
+      "risk_reasons": [],
+      "risk_tier": 0,
+      "service_name": "QuarantineLab_default",
+      "tags": [
+        "baseline",
+        "quarantine",
+        "sandbox"
+      ],
+      "variant": "base"
+    }
+  },
+  "generated_at_unix_ms": 1767213318137,
+  "kind": "profile_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

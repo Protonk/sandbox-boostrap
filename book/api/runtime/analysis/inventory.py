@@ -38,8 +38,8 @@ KEYWORDS = [
     "OpenBSM",
     "dtrace",
     "frida",
-    "policywitness",
     "policy-witness",
+    "PolicyWitness",
 ]
 EXCLUDED_SCAN_PREFIXES = (
     "book/experiments/archive/",
@@ -156,7 +156,7 @@ IN_REPO_ITEMS: List[Dict[str, Any]] = [
     },
     {
         "id": "policy-witness",
-        "paths": ["book/tools/witness"],
+        "paths": ["book/tools/witness", "book/api/witness"],
         "category": "logging",
         "description": "App Sandbox/entitlement probes and sandbox log observation (PolicyWitness).",
         "privileges": "user (App Sandbox runner)",

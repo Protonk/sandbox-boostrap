@@ -1,0 +1,564 @@
+{
+  "data": {
+    "argv": [
+      "--scenario",
+      "matrix_basic",
+      "--path-class",
+      "tmp",
+      "--target",
+      "specimen_file",
+      "--name",
+      "pw_child.txt",
+      "--create"
+    ],
+    "correlation_id": "53AAE01A-70C7-44E8-BDA4-43BF581D4466",
+    "details": {
+      "bookmark_invalid": "false",
+      "bundle_id": "com.yourteam.policy-witness.ProbeService_minimal",
+      "capability_count": "3",
+      "capability_event_count": "0",
+      "capability_rights_count": "3",
+      "child_exit_status": "0",
+      "child_path": "/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/tools/witness/PolicyWitness.app/Contents/XPCServices/ProbeService_minimal.xpc/Contents/MacOS/pw-inherit-child",
+      "child_pid": "95276",
+      "correlation_id": "53AAE01A-70C7-44E8-BDA4-43BF581D4466",
+      "cwd": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal/Data",
+      "harness_dir": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal/Data/tmp/policy-witness-harness",
+      "home_dir": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal/Data",
+      "pid": "95275",
+      "probe_family": "inherit_child",
+      "probe_pid": "95275",
+      "process_name": "ProbeService_minimal",
+      "protocol_bad_cap_id": "false",
+      "run_dir": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal/Data/tmp/policy-witness-harness/fs-op/85B35353-2BFB-4E76-B43F-D3C83E9A991C",
+      "run_id": "8BA66CFD-7577-494F-882F-E42F4B43EA91",
+      "scenario": "matrix_basic",
+      "service_pid": "95275",
+      "session_token": "2256A562-32D2-4D8E-9E9A-B446C4BD35E2",
+      "socket_path": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal/Data/tmp/pw.sock",
+      "stop_auto_resume": "false",
+      "stop_on_deny": "false",
+      "stop_on_entry": "false",
+      "target_dir": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal/Data/tmp/policy-witness-harness/fs-op/85B35353-2BFB-4E76-B43F-D3C83E9A991C",
+      "target_name": "pw_child.txt",
+      "target_path": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal/Data/tmp/policy-witness-harness/fs-op/85B35353-2BFB-4E76-B43F-D3C83E9A991C/pw_child.txt",
+      "tmp_dir": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal/Data/tmp/"
+    },
+    "ended_at_iso8601": "2025-12-31T20:35:21.428Z",
+    "host_sandbox_log_capture": {
+      "observer_args": [
+        "--pid",
+        "95276",
+        "--process-name",
+        "ProbeService_minimal",
+        "--last",
+        "2m",
+        "--format",
+        "jsonl"
+      ],
+      "observer_exit_code": 0,
+      "observer_path": "/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/tools/witness/PolicyWitness.app/Contents/MacOS/sandbox-log-observer",
+      "observer_report": {
+        "data": {
+          "correlation_id": null,
+          "deny_lines": [],
+          "duration_ms": null,
+          "end": null,
+          "last": "2m",
+          "layer_attribution": {
+            "seatbelt": "observer_only"
+          },
+          "log_error": null,
+          "log_rc": 0,
+          "log_stderr": "",
+          "log_stdout": "Timestamp                       (process)[PID]    \n2025-12-31 12:35:21.452552-0800  localhost log[95278]: [com.apple.log:] log run noninteractively, parent: 95277 (sandbox-log-observer), args: '/usr/bin/log' 'show' '--style' 'syslog' '--info' '--debug' '--last' '2m' '--predicate' '((eventMessage CONTAINS[c] \"Sandbox: ProbeService_minimal(95276)\") OR ((eventMessage CONTAINS[c]",
+          "log_truncated": false,
+          "mode": "show",
+          "observed_deny": false,
+          "observed_lines": 2,
+          "observer_schema_version": 1,
+          "pid": 95276,
+          "plan_id": null,
+          "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_minimal(95276)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"95276\")))",
+          "process_name": "ProbeService_minimal",
+          "row_id": null,
+          "start": null,
+          "stop_on_pid_exit": false
+        },
+        "generated_at_unix_ms": 1767213321867,
+        "kind": "sandbox_log_observer_report",
+        "result": {
+          "errno": null,
+          "error": null,
+          "exit_code": 0,
+          "normalized_outcome": null,
+          "ok": true,
+          "rc": null,
+          "stderr": null,
+          "stdout": null
+        },
+        "schema_version": 1
+      }
+    },
+    "normalized_outcome": "ok",
+    "plan_id": "witness:guide",
+    "probe_id": "inherit_child",
+    "rc": 0,
+    "row_id": "inherit_child_matrix_basic",
+    "schema_version": 1,
+    "service_build": "2",
+    "service_bundle_id": "com.yourteam.policy-witness.ProbeService_minimal",
+    "service_name": "ProbeService_minimal",
+    "service_version": "2.0.0",
+    "started_at_iso8601": "2025-12-31T20:35:21.063Z",
+    "stderr": "",
+    "stdout": "",
+    "thread_id": "4355",
+    "witness": {
+      "capability_namespace": "inherit_child.cap.v1",
+      "capability_results": [
+        {
+          "cap_id": "file_fd",
+          "cap_type": "file_fd",
+          "child_acquire": {
+            "rc": 0
+          },
+          "child_use": {
+            "rc": 0
+          },
+          "notes": "op=read",
+          "parent_acquire": {
+            "rc": 0
+          }
+        },
+        {
+          "cap_id": "dir_fd",
+          "cap_type": "dir_fd",
+          "child_acquire": {
+            "rc": 0
+          },
+          "child_use": {
+            "rc": 0
+          },
+          "notes": "op=openat",
+          "parent_acquire": {
+            "rc": 0
+          }
+        },
+        {
+          "cap_id": "socket_fd",
+          "cap_type": "socket_fd",
+          "child_acquire": {
+            "rc": 0
+          },
+          "child_use": {
+            "rc": 0
+          },
+          "notes": "op=sendrecv",
+          "parent_acquire": {
+            "rc": 0
+          }
+        }
+      ],
+      "child_bundle_id": "com.yourteam.policy-witness.ProbeService_minimal",
+      "child_entitlements": {
+        "com.apple.security.app-sandbox": true,
+        "com.apple.security.inherit": true
+      },
+      "child_event_fd": 9,
+      "child_exit_status": 0,
+      "child_path": "/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/tools/witness/PolicyWitness.app/Contents/XPCServices/ProbeService_minimal.xpc/Contents/MacOS/pw-inherit-child",
+      "child_pid": 95276,
+      "child_rights_fd": 11,
+      "child_team_id": "42D369QV8E",
+      "events": [
+        {
+          "actor": "parent",
+          "details": {
+            "scenario": "matrix_basic"
+          },
+          "monotonic_ns": 3938763156635000,
+          "phase": "parent_start",
+          "pid": 95275,
+          "run_id": "8BA66CFD-7577-494F-882F-E42F4B43EA91",
+          "time_unix_ms": 1767213321063
+        },
+        {
+          "actor": "parent",
+          "details": {
+            "cap_id": "file_fd",
+            "cap_type": "file_fd",
+            "path": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal/Data/tmp/policy-witness-harness/fs-op/85B35353-2BFB-4E76-B43F-D3C83E9A991C/pw_child.txt"
+          },
+          "monotonic_ns": 3938763491786000,
+          "phase": "parent_acquire_attempt",
+          "pid": 95275,
+          "rc": 0,
+          "run_id": "8BA66CFD-7577-494F-882F-E42F4B43EA91",
+          "time_unix_ms": 1767213321398
+        },
+        {
+          "actor": "parent",
+          "details": {
+            "cap_id": "dir_fd",
+            "cap_type": "dir_fd",
+            "path": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal/Data/tmp/policy-witness-harness/fs-op/85B35353-2BFB-4E76-B43F-D3C83E9A991C"
+          },
+          "monotonic_ns": 3938763491970000,
+          "phase": "parent_acquire_attempt",
+          "pid": 95275,
+          "rc": 0,
+          "run_id": "8BA66CFD-7577-494F-882F-E42F4B43EA91",
+          "time_unix_ms": 1767213321398
+        },
+        {
+          "actor": "parent",
+          "details": {
+            "cap_id": "socket_fd",
+            "cap_type": "socket_fd",
+            "path": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal/Data/tmp/pw.sock"
+          },
+          "monotonic_ns": 3938763492052000,
+          "phase": "parent_acquire_attempt",
+          "pid": 95275,
+          "rc": 0,
+          "run_id": "8BA66CFD-7577-494F-882F-E42F4B43EA91",
+          "time_unix_ms": 1767213321398
+        },
+        {
+          "actor": "parent",
+          "details": {
+            "child_pid": "95276"
+          },
+          "monotonic_ns": 3938763500611000,
+          "phase": "child_spawned",
+          "pid": 95275,
+          "run_id": "8BA66CFD-7577-494F-882F-E42F4B43EA91",
+          "time_unix_ms": 1767213321407
+        },
+        {
+          "actor": "parent",
+          "details": {
+            "cap_id": "file_fd",
+            "cap_id_expected": "1",
+            "cap_id_sent": "1",
+            "cap_type": "file_fd"
+          },
+          "monotonic_ns": 3938763500795000,
+          "phase": "parent_capability_sent",
+          "pid": 95275,
+          "rc": 0,
+          "run_id": "8BA66CFD-7577-494F-882F-E42F4B43EA91",
+          "time_unix_ms": 1767213321407
+        },
+        {
+          "actor": "parent",
+          "details": {
+            "cap_id": "dir_fd",
+            "cap_id_expected": "2",
+            "cap_id_sent": "2",
+            "cap_type": "dir_fd"
+          },
+          "monotonic_ns": 3938763500836000,
+          "phase": "parent_capability_sent",
+          "pid": 95275,
+          "rc": 0,
+          "run_id": "8BA66CFD-7577-494F-882F-E42F4B43EA91",
+          "time_unix_ms": 1767213321407
+        },
+        {
+          "actor": "parent",
+          "details": {
+            "cap_id": "socket_fd",
+            "cap_id_expected": "3",
+            "cap_id_sent": "3",
+            "cap_type": "socket_fd"
+          },
+          "monotonic_ns": 3938763500845000,
+          "phase": "parent_capability_sent",
+          "pid": 95275,
+          "rc": 0,
+          "run_id": "8BA66CFD-7577-494F-882F-E42F4B43EA91",
+          "time_unix_ms": 1767213321407
+        },
+        {
+          "actor": "child",
+          "details": {
+            "line": "PW_CHILD_SENTINEL pid=95276 run_id=8BA66CFD-7577-494F-882F-E42F4B43EA91 scenario=matrix_basic path=/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal/Data/tmp/policy-witness-harness/fs-op/85B35353-2BFB-4E76-B43F-D3C83E9A991C/pw_child.txt event_fd=9 rights_fd=11 protocol_version=1 cap_namespace=inherit_child.cap.v1"
+          },
+          "monotonic_ns": 3938763514578000,
+          "phase": "child_sentinel",
+          "pid": 95276,
+          "run_id": "8BA66CFD-7577-494F-882F-E42F4B43EA91",
+          "time_unix_ms": 1767213321421
+        },
+        {
+          "actor": "child",
+          "details": {
+            "cap_namespace": "inherit_child.cap.v1",
+            "event_fd": "9",
+            "path": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal/Data/tmp/policy-witness-harness/fs-op/85B35353-2BFB-4E76-B43F-D3C83E9A991C/pw_child.txt",
+            "protocol_version": "1",
+            "rights_fd": "11",
+            "scenario": "matrix_basic",
+            "socket_path": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal/Data/tmp/pw.sock",
+            "target_name": "pw_child.txt"
+          },
+          "lineage": {
+            "depth": 1,
+            "pid": 95276,
+            "ppid": 95275
+          },
+          "monotonic_ns": 3938763514341000,
+          "phase": "child_start",
+          "pid": 95276,
+          "run_id": "8BA66CFD-7577-494F-882F-E42F4B43EA91",
+          "time_unix_ms": 1767213321420
+        },
+        {
+          "actor": "child",
+          "lineage": {
+            "depth": 1,
+            "pid": 95276,
+            "ppid": 95275
+          },
+          "monotonic_ns": 3938763519634000,
+          "phase": "child_ready",
+          "pid": 95276,
+          "run_id": "8BA66CFD-7577-494F-882F-E42F4B43EA91",
+          "time_unix_ms": 1767213321426
+        },
+        {
+          "actor": "child",
+          "details": {
+            "cap_id": "file_fd",
+            "cap_type": "file_fd",
+            "path": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal/Data/tmp/policy-witness-harness/fs-op/85B35353-2BFB-4E76-B43F-D3C83E9A991C/pw_child.txt"
+          },
+          "lineage": {
+            "depth": 1,
+            "pid": 95276,
+            "ppid": 95275
+          },
+          "monotonic_ns": 3938763519881000,
+          "phase": "child_acquire_attempt",
+          "pid": 95276,
+          "rc": 0,
+          "run_id": "8BA66CFD-7577-494F-882F-E42F4B43EA91",
+          "time_unix_ms": 1767213321426
+        },
+        {
+          "actor": "child",
+          "details": {
+            "cap_id": "file_fd",
+            "cap_type": "file_fd",
+            "path": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal/Data/tmp/policy-witness-harness/fs-op/85B35353-2BFB-4E76-B43F-D3C83E9A991C/pw_child.txt"
+          },
+          "lineage": {
+            "depth": 1,
+            "pid": 95276,
+            "ppid": 95275
+          },
+          "monotonic_ns": 3938763519961000,
+          "phase": "child_use_attempt",
+          "pid": 95276,
+          "rc": 0,
+          "run_id": "8BA66CFD-7577-494F-882F-E42F4B43EA91",
+          "time_unix_ms": 1767213321426
+        },
+        {
+          "actor": "child",
+          "details": {
+            "cap_id": "file_fd",
+            "cap_type": "file_fd",
+            "child_acquire_errno": "",
+            "child_acquire_rc": "0",
+            "child_use_errno": "",
+            "child_use_rc": "0"
+          },
+          "lineage": {
+            "depth": 1,
+            "pid": 95276,
+            "ppid": 95275
+          },
+          "monotonic_ns": 3938763520024000,
+          "phase": "child_capability_result",
+          "pid": 95276,
+          "run_id": "8BA66CFD-7577-494F-882F-E42F4B43EA91",
+          "time_unix_ms": 1767213321426
+        },
+        {
+          "actor": "child",
+          "details": {
+            "cap_id": "dir_fd",
+            "cap_type": "dir_fd",
+            "path": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal/Data/tmp/policy-witness-harness/fs-op/85B35353-2BFB-4E76-B43F-D3C83E9A991C"
+          },
+          "lineage": {
+            "depth": 1,
+            "pid": 95276,
+            "ppid": 95275
+          },
+          "monotonic_ns": 3938763520171000,
+          "phase": "child_acquire_attempt",
+          "pid": 95276,
+          "rc": 0,
+          "run_id": "8BA66CFD-7577-494F-882F-E42F4B43EA91",
+          "time_unix_ms": 1767213321426
+        },
+        {
+          "actor": "child",
+          "details": {
+            "cap_id": "dir_fd",
+            "cap_type": "dir_fd",
+            "dir": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal/Data/tmp/policy-witness-harness/fs-op/85B35353-2BFB-4E76-B43F-D3C83E9A991C",
+            "name": "pw_child.txt"
+          },
+          "lineage": {
+            "depth": 1,
+            "pid": 95276,
+            "ppid": 95275
+          },
+          "monotonic_ns": 3938763520246000,
+          "phase": "child_use_attempt",
+          "pid": 95276,
+          "rc": 0,
+          "run_id": "8BA66CFD-7577-494F-882F-E42F4B43EA91",
+          "time_unix_ms": 1767213321426
+        },
+        {
+          "actor": "child",
+          "details": {
+            "cap_id": "dir_fd",
+            "cap_type": "dir_fd",
+            "child_acquire_errno": "",
+            "child_acquire_rc": "0",
+            "child_use_errno": "",
+            "child_use_rc": "0"
+          },
+          "lineage": {
+            "depth": 1,
+            "pid": 95276,
+            "ppid": 95275
+          },
+          "monotonic_ns": 3938763520312000,
+          "phase": "child_capability_result",
+          "pid": 95276,
+          "run_id": "8BA66CFD-7577-494F-882F-E42F4B43EA91",
+          "time_unix_ms": 1767213321426
+        },
+        {
+          "actor": "child",
+          "details": {
+            "cap_id": "socket_fd",
+            "cap_type": "socket_fd",
+            "path": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal/Data/tmp/pw.sock"
+          },
+          "lineage": {
+            "depth": 1,
+            "pid": 95276,
+            "ppid": 95275
+          },
+          "monotonic_ns": 3938763520449000,
+          "phase": "child_acquire_attempt",
+          "pid": 95276,
+          "rc": 0,
+          "run_id": "8BA66CFD-7577-494F-882F-E42F4B43EA91",
+          "time_unix_ms": 1767213321426
+        },
+        {
+          "actor": "child",
+          "details": {
+            "cap_id": "socket_fd",
+            "cap_type": "socket_fd",
+            "path": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal/Data/tmp/pw.sock"
+          },
+          "lineage": {
+            "depth": 1,
+            "pid": 95276,
+            "ppid": 95275
+          },
+          "monotonic_ns": 3938763520540000,
+          "phase": "child_use_attempt",
+          "pid": 95276,
+          "rc": 0,
+          "run_id": "8BA66CFD-7577-494F-882F-E42F4B43EA91",
+          "time_unix_ms": 1767213321427
+        },
+        {
+          "actor": "child",
+          "details": {
+            "cap_id": "socket_fd",
+            "cap_type": "socket_fd",
+            "child_acquire_errno": "",
+            "child_acquire_rc": "0",
+            "child_use_errno": "",
+            "child_use_rc": "0"
+          },
+          "lineage": {
+            "depth": 1,
+            "pid": 95276,
+            "ppid": 95275
+          },
+          "monotonic_ns": 3938763520631000,
+          "phase": "child_capability_result",
+          "pid": 95276,
+          "run_id": "8BA66CFD-7577-494F-882F-E42F4B43EA91",
+          "time_unix_ms": 1767213321427
+        },
+        {
+          "actor": "child",
+          "lineage": {
+            "depth": 1,
+            "pid": 95276,
+            "ppid": 95275
+          },
+          "monotonic_ns": 3938763520698000,
+          "phase": "child_done",
+          "pid": 95276,
+          "run_id": "8BA66CFD-7577-494F-882F-E42F4B43EA91",
+          "time_unix_ms": 1767213321427
+        },
+        {
+          "actor": "parent",
+          "details": {
+            "status": "0"
+          },
+          "monotonic_ns": 3938763521535000,
+          "phase": "child_exited",
+          "pid": 95275,
+          "run_id": "8BA66CFD-7577-494F-882F-E42F4B43EA91",
+          "time_unix_ms": 1767213321428
+        }
+      ],
+      "inherit_contract_ok": true,
+      "outcome_summary": "file_fd: acquire=ok use=ok dir_fd: acquire=ok use=ok socket_fd: acquire=ok use=ok",
+      "parent_pid": 95275,
+      "process_name": "ProbeService_minimal",
+      "profile": "ProbeService_minimal",
+      "protocol_version": 1,
+      "run_id": "8BA66CFD-7577-494F-882F-E42F4B43EA91",
+      "sandbox_log_capture": {
+        "observer_args": "[\"--pid\",\"95276\",\"--process-name\",\"ProbeService_minimal\",\"--last\",\"2m\",\"--format\",\"jsonl\"]",
+        "observer_exit_code": "0",
+        "observer_path": "/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/tools/witness/PolicyWitness.app/Contents/MacOS/sandbox-log-observer",
+        "observer_report": "{\"data\":{\"correlation_id\":null,\"deny_lines\":[],\"duration_ms\":null,\"end\":null,\"last\":\"2m\",\"layer_attribution\":{\"seatbelt\":\"observer_only\"},\"log_error\":null,\"log_rc\":0,\"log_stderr\":\"\",\"log_stdout\":\"Timestamp                       (process)[PID]    \\n2025-12-31 12:35:21.452552-0800  localhost log[95278]: [com.apple.log:] log run noninteractively, parent: 95277 (sandbox-log-observer), args: '/usr/bin/log' 'show' '--style' 'syslog' '--info' '--debug' '--last' '2m' '--predicate' '((eventMessage CONTAINS[c] \\\"Sandbox: ProbeService_minimal(95276)\\\") OR ((eventMessage CONTAINS[c]\",\"log_truncated\":false,\"mode\":\"show\",\"observed_deny\":false,\"observed_lines\":2,\"observer_schema_version\":1,\"pid\":95276,\"plan_id\":null,\"predicate\":\"((eventMessage CONTAINS[c] \\\"Sandbox: ProbeService_minimal(95276)\\\") OR ((eventMessage CONTAINS[c] \\\"deny\\\") AND (eventMessage CONTAINS[c] \\\"95276\\\")))\",\"process_name\":\"ProbeService_minimal\",\"row_id\":null,\"start\":null,\"stop_on_pid_exit\":false},\"generated_at_unix_ms\":1767213321867,\"kind\":\"sandbox_log_observer_report\",\"result\":{\"errno\":null,\"error\":null,\"exit_code\":0,\"normalized_outcome\":null,\"ok\":true,\"rc\":null,\"stderr\":null,\"stdout\":null},\"schema_version\":1}"
+      },
+      "sandbox_log_capture_status": "captured",
+      "scenario": "matrix_basic",
+      "schema_version": 1,
+      "service_bundle_id": "com.yourteam.policy-witness.ProbeService_minimal",
+      "stop_on_deny": false,
+      "stop_on_entry": false
+    }
+  },
+  "generated_at_unix_ms": 1767213321432,
+  "kind": "probe_response",
+  "result": {
+    "exit_code": 0,
+    "normalized_outcome": "ok",
+    "ok": true,
+    "rc": 0
+  },
+  "schema_version": 1
+}

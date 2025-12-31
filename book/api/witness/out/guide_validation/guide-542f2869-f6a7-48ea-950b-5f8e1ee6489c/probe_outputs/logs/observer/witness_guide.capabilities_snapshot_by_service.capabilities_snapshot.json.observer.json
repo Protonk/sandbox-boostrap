@@ -1,0 +1,41 @@
+{
+  "data": {
+    "correlation_id": "41D754F1-C6E5-4B08-8B4A-8D0201EF27DA",
+    "deny_lines": [],
+    "duration_ms": null,
+    "end": "2025-12-31 12:55:09",
+    "last": null,
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    ",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": false,
+    "observed_lines": 1,
+    "observer_schema_version": 1,
+    "pid": 96640,
+    "plan_id": "witness:guide",
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_minimal(96640)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"96640\")))",
+    "process_name": "ProbeService_minimal",
+    "row_id": "capabilities_snapshot_by_service",
+    "start": "2025-12-31 12:55:05",
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767214507663,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

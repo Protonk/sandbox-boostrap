@@ -7,7 +7,7 @@ ROOT = Path(__file__).resolve().parents[3]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from book.api.entitlementjail import frida as ej_frida  # noqa: E402
+from book.api.witness import frida as witness_frida  # noqa: E402
 
 
 def _argv_out_dir(argv: list[str], *, default: str) -> tuple[list[str], str]:
@@ -42,7 +42,7 @@ def main() -> int:
     out_dir = Path(out_dir_str)
     before = {p.name for p in out_dir.iterdir() if p.is_dir()} if out_dir.exists() else set()
 
-    ej_rc = ej_frida.main(argv)
+    witness_rc = witness_frida.main(argv)
 
     run_root = _find_run_root(out_dir, before)
     frida_dir = (run_root / "frida") if run_root is not None else None
@@ -63,8 +63,8 @@ def main() -> int:
         validate_rc = 1
 
     report = {
-        "ok": bool(ej_rc == 0 and validate_rc == 0),
-        "ej": {"exit_code": ej_rc},
+        "ok": bool(witness_rc == 0 and validate_rc == 0),
+        "witness": {"exit_code": witness_rc},
         "run_root": str(run_root) if run_root is not None else None,
         "frida_dir": str(frida_dir) if frida_dir is not None else None,
         "validate": validate_report,

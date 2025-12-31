@@ -1,0 +1,596 @@
+{
+  "data": {
+    "generated_at": "2025-12-31T05:49:39Z",
+    "profiles": [
+      {
+        "kind": "probe",
+        "label": "bookmarks app scope",
+        "profile_id": "bookmarks_app_scope",
+        "variants": [
+          {
+            "bundle_id": "com.yourteam.policy-witness.ProbeService_bookmarks_app_scope",
+            "entitlements": {
+              "com.apple.security.app-sandbox": true,
+              "com.apple.security.files.bookmarks.app-scope": true
+            },
+            "entitlements_error": null,
+            "risk_reasons": [],
+            "risk_tier": 0,
+            "service_name": "ProbeService_bookmarks_app_scope",
+            "tags": [
+              "bookmarks_app_scope",
+              "probe",
+              "sandbox"
+            ],
+            "variant": "base"
+          },
+          {
+            "bundle_id": "com.yourteam.policy-witness.ProbeService_bookmarks_app_scope.injectable",
+            "entitlements": {
+              "com.apple.security.app-sandbox": true,
+              "com.apple.security.cs.allow-dyld-environment-variables": true,
+              "com.apple.security.cs.allow-unsigned-executable-memory": true,
+              "com.apple.security.cs.disable-library-validation": true,
+              "com.apple.security.files.bookmarks.app-scope": true,
+              "com.apple.security.get-task-allow": true
+            },
+            "entitlements_error": null,
+            "risk_reasons": [
+              "allow_dyld_env",
+              "allow_unsigned_exec_mem"
+            ],
+            "risk_tier": 2,
+            "service_name": "ProbeService_bookmarks_app_scope__injectable",
+            "tags": [
+              "bookmarks_app_scope",
+              "disable_library_validation",
+              "dyld_env",
+              "get_task_allow",
+              "injectable",
+              "probe",
+              "rwx_legacy",
+              "sandbox"
+            ],
+            "variant": "injectable"
+          }
+        ]
+      },
+      {
+        "kind": "probe",
+        "label": "downloads rw",
+        "profile_id": "downloads_rw",
+        "variants": [
+          {
+            "bundle_id": "com.yourteam.policy-witness.ProbeService_downloads_rw",
+            "entitlements": {
+              "com.apple.security.app-sandbox": true,
+              "com.apple.security.files.downloads.read-write": true
+            },
+            "entitlements_error": null,
+            "risk_reasons": [],
+            "risk_tier": 0,
+            "service_name": "ProbeService_downloads_rw",
+            "tags": [
+              "downloads_rw",
+              "probe",
+              "sandbox"
+            ],
+            "variant": "base"
+          },
+          {
+            "bundle_id": "com.yourteam.policy-witness.ProbeService_downloads_rw.injectable",
+            "entitlements": {
+              "com.apple.security.app-sandbox": true,
+              "com.apple.security.cs.allow-dyld-environment-variables": true,
+              "com.apple.security.cs.allow-unsigned-executable-memory": true,
+              "com.apple.security.cs.disable-library-validation": true,
+              "com.apple.security.files.downloads.read-write": true,
+              "com.apple.security.get-task-allow": true
+            },
+            "entitlements_error": null,
+            "risk_reasons": [
+              "allow_dyld_env",
+              "allow_unsigned_exec_mem"
+            ],
+            "risk_tier": 2,
+            "service_name": "ProbeService_downloads_rw__injectable",
+            "tags": [
+              "disable_library_validation",
+              "downloads_rw",
+              "dyld_env",
+              "get_task_allow",
+              "injectable",
+              "probe",
+              "rwx_legacy",
+              "sandbox"
+            ],
+            "variant": "injectable"
+          }
+        ]
+      },
+      {
+        "kind": "probe",
+        "label": "minimal",
+        "profile_id": "minimal",
+        "variants": [
+          {
+            "bundle_id": "com.yourteam.policy-witness.ProbeService_minimal",
+            "entitlements": {
+              "com.apple.security.app-sandbox": true
+            },
+            "entitlements_error": null,
+            "risk_reasons": [],
+            "risk_tier": 0,
+            "service_name": "ProbeService_minimal",
+            "tags": [
+              "baseline",
+              "probe",
+              "sandbox"
+            ],
+            "variant": "base"
+          },
+          {
+            "bundle_id": "com.yourteam.policy-witness.ProbeService_minimal.injectable",
+            "entitlements": {
+              "com.apple.security.app-sandbox": true,
+              "com.apple.security.cs.allow-dyld-environment-variables": true,
+              "com.apple.security.cs.allow-unsigned-executable-memory": true,
+              "com.apple.security.cs.disable-library-validation": true,
+              "com.apple.security.get-task-allow": true
+            },
+            "entitlements_error": null,
+            "risk_reasons": [
+              "allow_dyld_env",
+              "allow_unsigned_exec_mem"
+            ],
+            "risk_tier": 2,
+            "service_name": "ProbeService_minimal__injectable",
+            "tags": [
+              "baseline",
+              "disable_library_validation",
+              "dyld_env",
+              "get_task_allow",
+              "injectable",
+              "probe",
+              "rwx_legacy",
+              "sandbox"
+            ],
+            "variant": "injectable"
+          }
+        ]
+      },
+      {
+        "kind": "probe",
+        "label": "net client",
+        "profile_id": "net_client",
+        "variants": [
+          {
+            "bundle_id": "com.yourteam.policy-witness.ProbeService_net_client",
+            "entitlements": {
+              "com.apple.security.app-sandbox": true,
+              "com.apple.security.network.client": true
+            },
+            "entitlements_error": null,
+            "risk_reasons": [],
+            "risk_tier": 0,
+            "service_name": "ProbeService_net_client",
+            "tags": [
+              "network_client",
+              "probe",
+              "sandbox"
+            ],
+            "variant": "base"
+          },
+          {
+            "bundle_id": "com.yourteam.policy-witness.ProbeService_net_client.injectable",
+            "entitlements": {
+              "com.apple.security.app-sandbox": true,
+              "com.apple.security.cs.allow-dyld-environment-variables": true,
+              "com.apple.security.cs.allow-unsigned-executable-memory": true,
+              "com.apple.security.cs.disable-library-validation": true,
+              "com.apple.security.get-task-allow": true,
+              "com.apple.security.network.client": true
+            },
+            "entitlements_error": null,
+            "risk_reasons": [
+              "allow_dyld_env",
+              "allow_unsigned_exec_mem"
+            ],
+            "risk_tier": 2,
+            "service_name": "ProbeService_net_client__injectable",
+            "tags": [
+              "disable_library_validation",
+              "dyld_env",
+              "get_task_allow",
+              "injectable",
+              "network_client",
+              "probe",
+              "rwx_legacy",
+              "sandbox"
+            ],
+            "variant": "injectable"
+          }
+        ]
+      },
+      {
+        "kind": "quarantine",
+        "label": "quarantine bookmarks app scope",
+        "profile_id": "quarantine_bookmarks_app_scope",
+        "variants": [
+          {
+            "bundle_id": "com.yourteam.policy-witness.QuarantineLab_bookmarks_app_scope",
+            "entitlements": {
+              "com.apple.security.app-sandbox": true,
+              "com.apple.security.files.bookmarks.app-scope": true
+            },
+            "entitlements_error": null,
+            "risk_reasons": [],
+            "risk_tier": 0,
+            "service_name": "QuarantineLab_bookmarks_app_scope",
+            "tags": [
+              "bookmarks_app_scope",
+              "quarantine",
+              "sandbox"
+            ],
+            "variant": "base"
+          },
+          {
+            "bundle_id": "com.yourteam.policy-witness.QuarantineLab_bookmarks_app_scope.injectable",
+            "entitlements": {
+              "com.apple.security.app-sandbox": true,
+              "com.apple.security.cs.allow-dyld-environment-variables": true,
+              "com.apple.security.cs.allow-unsigned-executable-memory": true,
+              "com.apple.security.cs.disable-library-validation": true,
+              "com.apple.security.files.bookmarks.app-scope": true,
+              "com.apple.security.get-task-allow": true
+            },
+            "entitlements_error": null,
+            "risk_reasons": [
+              "allow_dyld_env",
+              "allow_unsigned_exec_mem"
+            ],
+            "risk_tier": 2,
+            "service_name": "QuarantineLab_bookmarks_app_scope__injectable",
+            "tags": [
+              "bookmarks_app_scope",
+              "disable_library_validation",
+              "dyld_env",
+              "get_task_allow",
+              "injectable",
+              "quarantine",
+              "rwx_legacy",
+              "sandbox"
+            ],
+            "variant": "injectable"
+          }
+        ]
+      },
+      {
+        "kind": "quarantine",
+        "label": "quarantine default",
+        "profile_id": "quarantine_default",
+        "variants": [
+          {
+            "bundle_id": "com.yourteam.policy-witness.QuarantineLab_default",
+            "entitlements": {
+              "com.apple.security.app-sandbox": true
+            },
+            "entitlements_error": null,
+            "risk_reasons": [],
+            "risk_tier": 0,
+            "service_name": "QuarantineLab_default",
+            "tags": [
+              "baseline",
+              "quarantine",
+              "sandbox"
+            ],
+            "variant": "base"
+          },
+          {
+            "bundle_id": "com.yourteam.policy-witness.QuarantineLab_default.injectable",
+            "entitlements": {
+              "com.apple.security.app-sandbox": true,
+              "com.apple.security.cs.allow-dyld-environment-variables": true,
+              "com.apple.security.cs.allow-unsigned-executable-memory": true,
+              "com.apple.security.cs.disable-library-validation": true,
+              "com.apple.security.get-task-allow": true
+            },
+            "entitlements_error": null,
+            "risk_reasons": [
+              "allow_dyld_env",
+              "allow_unsigned_exec_mem"
+            ],
+            "risk_tier": 2,
+            "service_name": "QuarantineLab_default__injectable",
+            "tags": [
+              "baseline",
+              "disable_library_validation",
+              "dyld_env",
+              "get_task_allow",
+              "injectable",
+              "quarantine",
+              "rwx_legacy",
+              "sandbox"
+            ],
+            "variant": "injectable"
+          }
+        ]
+      },
+      {
+        "kind": "quarantine",
+        "label": "quarantine downloads rw",
+        "profile_id": "quarantine_downloads_rw",
+        "variants": [
+          {
+            "bundle_id": "com.yourteam.policy-witness.QuarantineLab_downloads_rw",
+            "entitlements": {
+              "com.apple.security.app-sandbox": true,
+              "com.apple.security.files.downloads.read-write": true
+            },
+            "entitlements_error": null,
+            "risk_reasons": [],
+            "risk_tier": 0,
+            "service_name": "QuarantineLab_downloads_rw",
+            "tags": [
+              "downloads_rw",
+              "quarantine",
+              "sandbox"
+            ],
+            "variant": "base"
+          },
+          {
+            "bundle_id": "com.yourteam.policy-witness.QuarantineLab_downloads_rw.injectable",
+            "entitlements": {
+              "com.apple.security.app-sandbox": true,
+              "com.apple.security.cs.allow-dyld-environment-variables": true,
+              "com.apple.security.cs.allow-unsigned-executable-memory": true,
+              "com.apple.security.cs.disable-library-validation": true,
+              "com.apple.security.files.downloads.read-write": true,
+              "com.apple.security.get-task-allow": true
+            },
+            "entitlements_error": null,
+            "risk_reasons": [
+              "allow_dyld_env",
+              "allow_unsigned_exec_mem"
+            ],
+            "risk_tier": 2,
+            "service_name": "QuarantineLab_downloads_rw__injectable",
+            "tags": [
+              "disable_library_validation",
+              "downloads_rw",
+              "dyld_env",
+              "get_task_allow",
+              "injectable",
+              "quarantine",
+              "rwx_legacy",
+              "sandbox"
+            ],
+            "variant": "injectable"
+          }
+        ]
+      },
+      {
+        "kind": "quarantine",
+        "label": "quarantine net client",
+        "profile_id": "quarantine_net_client",
+        "variants": [
+          {
+            "bundle_id": "com.yourteam.policy-witness.QuarantineLab_net_client",
+            "entitlements": {
+              "com.apple.security.app-sandbox": true,
+              "com.apple.security.network.client": true
+            },
+            "entitlements_error": null,
+            "risk_reasons": [],
+            "risk_tier": 0,
+            "service_name": "QuarantineLab_net_client",
+            "tags": [
+              "network_client",
+              "quarantine",
+              "sandbox"
+            ],
+            "variant": "base"
+          },
+          {
+            "bundle_id": "com.yourteam.policy-witness.QuarantineLab_net_client.injectable",
+            "entitlements": {
+              "com.apple.security.app-sandbox": true,
+              "com.apple.security.cs.allow-dyld-environment-variables": true,
+              "com.apple.security.cs.allow-unsigned-executable-memory": true,
+              "com.apple.security.cs.disable-library-validation": true,
+              "com.apple.security.get-task-allow": true,
+              "com.apple.security.network.client": true
+            },
+            "entitlements_error": null,
+            "risk_reasons": [
+              "allow_dyld_env",
+              "allow_unsigned_exec_mem"
+            ],
+            "risk_tier": 2,
+            "service_name": "QuarantineLab_net_client__injectable",
+            "tags": [
+              "disable_library_validation",
+              "dyld_env",
+              "get_task_allow",
+              "injectable",
+              "network_client",
+              "quarantine",
+              "rwx_legacy",
+              "sandbox"
+            ],
+            "variant": "injectable"
+          }
+        ]
+      },
+      {
+        "kind": "quarantine",
+        "label": "quarantine user selected executable",
+        "profile_id": "quarantine_user_selected_executable",
+        "variants": [
+          {
+            "bundle_id": "com.yourteam.policy-witness.QuarantineLab_user_selected_executable",
+            "entitlements": {
+              "com.apple.security.app-sandbox": true,
+              "com.apple.security.files.user-selected.executable": true
+            },
+            "entitlements_error": null,
+            "risk_reasons": [],
+            "risk_tier": 0,
+            "service_name": "QuarantineLab_user_selected_executable",
+            "tags": [
+              "quarantine",
+              "sandbox",
+              "user_selected_executable"
+            ],
+            "variant": "base"
+          },
+          {
+            "bundle_id": "com.yourteam.policy-witness.QuarantineLab_user_selected_executable.injectable",
+            "entitlements": {
+              "com.apple.security.app-sandbox": true,
+              "com.apple.security.cs.allow-dyld-environment-variables": true,
+              "com.apple.security.cs.allow-unsigned-executable-memory": true,
+              "com.apple.security.cs.disable-library-validation": true,
+              "com.apple.security.files.user-selected.executable": true,
+              "com.apple.security.get-task-allow": true
+            },
+            "entitlements_error": null,
+            "risk_reasons": [
+              "allow_dyld_env",
+              "allow_unsigned_exec_mem"
+            ],
+            "risk_tier": 2,
+            "service_name": "QuarantineLab_user_selected_executable__injectable",
+            "tags": [
+              "disable_library_validation",
+              "dyld_env",
+              "get_task_allow",
+              "injectable",
+              "quarantine",
+              "rwx_legacy",
+              "sandbox",
+              "user_selected_executable"
+            ],
+            "variant": "injectable"
+          }
+        ]
+      },
+      {
+        "kind": "probe",
+        "label": "temporary exception",
+        "profile_id": "temporary_exception",
+        "variants": [
+          {
+            "bundle_id": "com.yourteam.policy-witness.ProbeService_temporary_exception",
+            "entitlements": {
+              "com.apple.security.app-sandbox": true,
+              "com.apple.security.temporary-exception.sbpl": [
+                "(allow file-issue-extension (extension-class \"com.apple.app-sandbox.read\"))",
+                "(allow file-issue-extension (extension-class \"com.apple.app-sandbox.read-write\"))"
+              ]
+            },
+            "entitlements_error": null,
+            "risk_reasons": [
+              "temporary_exception_sbpl"
+            ],
+            "risk_tier": 2,
+            "service_name": "ProbeService_temporary_exception",
+            "tags": [
+              "probe",
+              "sandbox",
+              "temporary_exception_sbpl"
+            ],
+            "variant": "base"
+          },
+          {
+            "bundle_id": "com.yourteam.policy-witness.ProbeService_temporary_exception.injectable",
+            "entitlements": {
+              "com.apple.security.app-sandbox": true,
+              "com.apple.security.cs.allow-dyld-environment-variables": true,
+              "com.apple.security.cs.allow-unsigned-executable-memory": true,
+              "com.apple.security.cs.disable-library-validation": true,
+              "com.apple.security.get-task-allow": true,
+              "com.apple.security.temporary-exception.sbpl": [
+                "(allow file-issue-extension (extension-class \"com.apple.app-sandbox.read\"))",
+                "(allow file-issue-extension (extension-class \"com.apple.app-sandbox.read-write\"))"
+              ]
+            },
+            "entitlements_error": null,
+            "risk_reasons": [
+              "temporary_exception_sbpl",
+              "allow_dyld_env",
+              "allow_unsigned_exec_mem"
+            ],
+            "risk_tier": 2,
+            "service_name": "ProbeService_temporary_exception__injectable",
+            "tags": [
+              "disable_library_validation",
+              "dyld_env",
+              "get_task_allow",
+              "injectable",
+              "probe",
+              "rwx_legacy",
+              "sandbox",
+              "temporary_exception_sbpl"
+            ],
+            "variant": "injectable"
+          }
+        ]
+      },
+      {
+        "kind": "probe",
+        "label": "user selected executable",
+        "profile_id": "user_selected_executable",
+        "variants": [
+          {
+            "bundle_id": "com.yourteam.policy-witness.ProbeService_user_selected_executable",
+            "entitlements": {
+              "com.apple.security.app-sandbox": true,
+              "com.apple.security.files.user-selected.executable": true
+            },
+            "entitlements_error": null,
+            "risk_reasons": [],
+            "risk_tier": 0,
+            "service_name": "ProbeService_user_selected_executable",
+            "tags": [
+              "probe",
+              "sandbox",
+              "user_selected_executable"
+            ],
+            "variant": "base"
+          },
+          {
+            "bundle_id": "com.yourteam.policy-witness.ProbeService_user_selected_executable.injectable",
+            "entitlements": {
+              "com.apple.security.app-sandbox": true,
+              "com.apple.security.cs.allow-dyld-environment-variables": true,
+              "com.apple.security.cs.allow-unsigned-executable-memory": true,
+              "com.apple.security.cs.disable-library-validation": true,
+              "com.apple.security.files.user-selected.executable": true,
+              "com.apple.security.get-task-allow": true
+            },
+            "entitlements_error": null,
+            "risk_reasons": [
+              "allow_dyld_env",
+              "allow_unsigned_exec_mem"
+            ],
+            "risk_tier": 2,
+            "service_name": "ProbeService_user_selected_executable__injectable",
+            "tags": [
+              "disable_library_validation",
+              "dyld_env",
+              "get_task_allow",
+              "injectable",
+              "probe",
+              "rwx_legacy",
+              "sandbox",
+              "user_selected_executable"
+            ],
+            "variant": "injectable"
+          }
+        ]
+      }
+    ]
+  },
+  "path": "book/tools/witness/PolicyWitness.app/Contents/Resources/Evidence/profiles.json"
+}

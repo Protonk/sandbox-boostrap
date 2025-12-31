@@ -1,0 +1,41 @@
+{
+  "data": {
+    "correlation_id": "0D786B7F-5943-4D35-80D5-5EDE8D1ED7D0",
+    "deny_lines": [],
+    "duration_ms": null,
+    "end": "2025-12-31 12:35:21",
+    "last": null,
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    ",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": false,
+    "observed_lines": 1,
+    "observer_schema_version": 1,
+    "pid": 95245,
+    "plan_id": "witness:guide",
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_net_client(95245)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"95245\")))",
+    "process_name": "ProbeService_net_client",
+    "row_id": "net_op_tcp_connect",
+    "start": "2025-12-31 12:35:17",
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767213319919,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

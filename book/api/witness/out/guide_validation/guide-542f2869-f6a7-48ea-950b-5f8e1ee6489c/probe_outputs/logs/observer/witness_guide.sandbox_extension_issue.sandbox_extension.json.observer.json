@@ -1,0 +1,41 @@
+{
+  "data": {
+    "correlation_id": "3AB6983E-7EF9-471E-B351-98FB4C863421",
+    "deny_lines": [],
+    "duration_ms": null,
+    "end": "2025-12-31 12:35:21",
+    "last": null,
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    ",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": false,
+    "observed_lines": 1,
+    "observer_schema_version": 1,
+    "pid": 95250,
+    "plan_id": "witness:guide",
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_temporary_exception(95250)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"95250\")))",
+    "process_name": "ProbeService_temporary_exception",
+    "row_id": "sandbox_extension_issue",
+    "start": "2025-12-31 12:35:17",
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767213320126,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

@@ -1,0 +1,40 @@
+{
+  "cmd_duration_s": 0.355391263961792,
+  "cmd_finished_at_unix_s": 1767212603.0783622,
+  "cmd_started_at_unix_s": 1767212602.722971,
+  "command": [
+    "book/tools/witness/PolicyWitness.app/Contents/MacOS/policy-witness",
+    "verify-evidence"
+  ],
+  "entrypoint": "book/tools/witness/PolicyWitness.app/Contents/MacOS/policy-witness",
+  "exit_code": 0,
+  "stderr": "",
+  "stdout": "{\n  \"data\": {\n    \"checked\": 53,\n    \"manifest_path\": \"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/tools/witness/PolicyWitness.app/Contents/Resources/Evidence/manifest.json\",\n    \"mismatches\": [],\n    \"notes\": [\n      \"Main app binary hash is omitted because the manifest is signed by the app bundle.\"\n    ],\n    \"ok\": true,\n    \"schema_version\": 1\n  },\n  \"generated_at_unix_ms\": 1767212603078,\n  \"kind\": \"verify_evidence_report\",\n  \"result\": {\n    \"errno\": null,\n    \"error\": null,\n    \"exit_code\": 0,\n    \"normalized_outcome\": null,\n    \"ok\": true,\n    \"rc\": null,\n    \"stderr\": null,\n    \"stdout\": null\n  },\n  \"schema_version\": 1\n}\n",
+  "stdout_json": {
+    "data": {
+      "checked": 53,
+      "manifest_path": "book/tools/witness/PolicyWitness.app/Contents/Resources/Evidence/manifest.json",
+      "mismatches": [],
+      "notes": [
+        "Main app binary hash is omitted because the manifest is signed by the app bundle."
+      ],
+      "ok": true,
+      "schema_version": 1
+    },
+    "generated_at_unix_ms": 1767212603078,
+    "kind": "verify_evidence_report",
+    "result": {
+      "errno": null,
+      "error": null,
+      "exit_code": 0,
+      "normalized_outcome": null,
+      "ok": true,
+      "rc": null,
+      "stderr": null,
+      "stdout": null
+    },
+    "schema_version": 1
+  },
+  "timeout_s": null,
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

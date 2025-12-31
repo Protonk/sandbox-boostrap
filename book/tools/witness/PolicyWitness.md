@@ -29,6 +29,7 @@ This guide assumes you have only `PolicyWitness.app` and this file (`PolicyWitne
 - Evidence bundle: `bundle-evidence` (plus `verify-evidence`, `inspect-macho`)
 - Quarantine/Gatekeeper deltas (no execution): `quarantine-lab`
 - Deny evidence (outside the sandbox boundary): `PolicyWitness.app/Contents/MacOS/sandbox-log-observer`
+- SANDBOX_LORE API bridge: see `book/api/witness/README.md` when using the repo API.
 
 ## Quick start
 
@@ -63,10 +64,11 @@ $PW run-matrix --group baseline capabilities_snapshot
 Create a harness file and set an xattr (extract `data.details.file_path` without `jq`):
 
 ```sh
-$PW xpc run --profile minimal fs_op --op create --path-class tmp --target specimen_file --name pw_xattr.txt > /tmp/pw_fs_op.json
+$PW xpc run --profile minimal fs_op --op create --path-class tmp --target specimen_file --name pw_xattr.txt --no-cleanup > /tmp/pw_fs_op.json
 FILE_PATH=$(plutil -extract data.details.file_path raw -o - /tmp/pw_fs_op.json)
 $PW xpc run --profile minimal fs_xattr --op set --path "$FILE_PATH" --name user.pw --value test
 ```
+Note: without `--no-cleanup`, the harness file may be removed before `fs_xattr` runs.
 
 ## Concepts
 
@@ -119,6 +121,7 @@ Inspect a service “statically” (what the profile says it should have):
 ```sh
 $PW describe-service minimal@injectable
 ```
+Note: `show-profile` returns the base profile plus its variants. Use `describe-service <id@variant>` for variant-specific detail.
 
 **Risk signals**
 
@@ -176,6 +179,7 @@ $PW xpc run --profile minimal --variant injectable sandbox_check --operation fil
 $PW xpc run --profile temporary_exception sandbox_extension --op issue_file --class com.apple.app-sandbox.read --path /etc/hosts --allow-unsafe-path
 $PW xpc run --profile temporary_exception inherit_child --scenario dynamic_extension --path /private/var/db/launchd.db/com.apple.launchd/overrides.plist --allow-unsafe-path
 ```
+Note: `tcp_connect` to 127.0.0.1:9 usually returns `connection_refused` (closed port), not a sandbox denial.
 
 Use `probe_catalog` as the source of truth for per-probe usage; it also lists `fs_op_wait`, `bookmark_make`, `bookmark_op`, `bookmark_roundtrip`, `userdefaults_op`, `fs_coordinated_op`, and `network_tcp_connect`.
 
@@ -200,6 +204,7 @@ $PW xpc run --profile minimal sandbox_extension --op release --token "$TOKEN"
 
 Notes:
 
+- `consume_ok` means the token was accepted; always verify access with a follow-up probe.
 - If you want to issue extensions for a non-harness path, pass `--allow-unsafe-path` to `sandbox_extension --op issue_file`.
 - Tokens are returned in `data.details.token` and also in `data.stdout`.
 - If consume/release fails with invalid-token style errors, try `--token-format prefix` (default: `full`).
@@ -323,7 +328,7 @@ Attach/inspection knobs:
 Host-side sandbox log capture (single artifact):
 
 - Add `--capture-sandbox-logs` to `xpc run` to attach a lookback sandbox log excerpt under `data.host_sandbox_log_capture`.
-- For `inherit_child`, the excerpt is also summarized into the witness fields `sandbox_log_capture_status` and `sandbox_log_capture` so a run is self-contained.
+- For `inherit_child`, the excerpt is attached under `data.host_sandbox_log_capture` (no summary fields are guaranteed).
 
 How to interpret failures:
 
@@ -473,7 +478,7 @@ $PW quarantine-lab <xpc-service-bundle-id> <payload-class> [options...]
 Choosing a service id:
 
 - Run `$PW list-profiles` and look for Quarantine Lab profiles (often `quarantine_*`).
-- Run `$PW show-profile <id>` and copy `data.variant.bundle_id` into the `quarantine-lab` invocation.
+- Run `$PW show-profile <id>` and copy a `data.profile.variants[*].bundle_id` into the `quarantine-lab` invocation.
 
 Example:
 
