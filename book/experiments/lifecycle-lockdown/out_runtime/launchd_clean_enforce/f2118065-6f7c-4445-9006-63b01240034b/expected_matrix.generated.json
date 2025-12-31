@@ -1,0 +1,124 @@
+{
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "profiles": {
+    "lockdown:airlock_passing_sbpl": {
+      "blob": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+      "mode": "sbpl",
+      "family": "apply-gate",
+      "semantic_group": "apply-gate:airlock",
+      "probes": [
+        {
+          "name": "file_probe read /usr/bin/true",
+          "operation": "file-read*",
+          "target": "/usr/bin/true",
+          "expected": "allow",
+          "expectation_id": "lockdown:fileprobe-read-/usr/bin/true",
+          "mode": "scenario",
+          "driver": "file_probe"
+        }
+      ]
+    },
+    "lockdown:airlock_passing_sbpl_write": {
+      "blob": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+      "mode": "sbpl",
+      "family": "apply-gate",
+      "semantic_group": "apply-gate:airlock",
+      "probes": [
+        {
+          "name": "file_probe read /usr/bin/true",
+          "operation": "file-read*",
+          "target": "/usr/bin/true",
+          "expected": "allow",
+          "expectation_id": "lockdown:fileprobe-read-/usr/bin/true",
+          "mode": "scenario",
+          "driver": "file_probe"
+        }
+      ]
+    },
+    "lockdown:airlock_passing_sbpl_write_mapexec": {
+      "blob": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+      "mode": "sbpl",
+      "family": "apply-gate",
+      "semantic_group": "apply-gate:airlock",
+      "probes": [
+        {
+          "name": "file_probe read /usr/bin/true",
+          "operation": "file-read*",
+          "target": "/usr/bin/true",
+          "expected": "allow",
+          "expectation_id": "lockdown:fileprobe-read-/usr/bin/true",
+          "mode": "scenario",
+          "driver": "file_probe"
+        }
+      ]
+    },
+    "lockdown:airlock_passing_sbpl_write_read_launchctl": {
+      "blob": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+      "mode": "sbpl",
+      "family": "apply-gate",
+      "semantic_group": "apply-gate:airlock",
+      "probes": [
+        {
+          "name": "file_probe read /usr/bin/true",
+          "operation": "file-read*",
+          "target": "/usr/bin/true",
+          "expected": "allow",
+          "expectation_id": "lockdown:fileprobe-read-/usr/bin/true",
+          "mode": "scenario",
+          "driver": "file_probe"
+        }
+      ]
+    },
+    "lockdown:airlock_gate_sbpl": {
+      "blob": "book/experiments/gate-witnesses/out/witnesses/airlock/minimal_failing.sb",
+      "mode": "sbpl",
+      "family": "apply-gate",
+      "semantic_group": "apply-gate:airlock",
+      "probes": [
+        {
+          "name": "file_probe read /usr/bin/true",
+          "operation": "file-read*",
+          "target": "/usr/bin/true",
+          "expected": "allow",
+          "expectation_id": "lockdown:fileprobe-read-/usr/bin/true",
+          "mode": "scenario",
+          "driver": "file_probe"
+        }
+      ]
+    },
+    "lockdown:airlock_passing_blob": {
+      "blob": "book/experiments/gate-witnesses/out/witnesses/airlock/compile_vs_apply/passing_neighbor.sb.bin",
+      "mode": "blob",
+      "family": "apply-gate",
+      "semantic_group": "apply-gate:airlock",
+      "probes": [
+        {
+          "name": "file_probe read /usr/bin/true",
+          "operation": "file-read*",
+          "target": "/usr/bin/true",
+          "expected": "allow",
+          "expectation_id": "lockdown:fileprobe-read-/usr/bin/true",
+          "mode": "scenario",
+          "driver": "file_probe"
+        }
+      ]
+    },
+    "lockdown:airlock_gate_blob": {
+      "blob": "book/experiments/gate-witnesses/out/witnesses/airlock/compile_vs_apply/minimal_failing.sb.bin",
+      "mode": "blob",
+      "family": "apply-gate",
+      "semantic_group": "apply-gate:airlock",
+      "probes": [
+        {
+          "name": "file_probe read /usr/bin/true",
+          "operation": "file-read*",
+          "target": "/usr/bin/true",
+          "expected": "allow",
+          "expectation_id": "lockdown:fileprobe-read-/usr/bin/true",
+          "mode": "scenario",
+          "driver": "file_probe"
+        }
+      ]
+    }
+  }
+}

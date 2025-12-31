@@ -11,9 +11,9 @@ SANDBOX_LORE is a host-bound, local-only universe for the macOS Seatbelt sandbox
 - **Runtime labeling**: runtime statements must include both a `stage` (`compile|apply|bootstrap|operation`) and a `lane` (`scenario|baseline|oracle`). If you can’t name them, you don’t have a stable claim yet.
 - **Committed runtime evidence only**: treat runtime results as evidence only when sourced from a committed runtime bundle (`artifact_index.json`) or a `promotion_packet.json`. Anything else is debug/unverified and stays `hypothesis`.
 - **Repo-relative evidence paths**: checked-in JSON/IR must not embed absolute paths; emit repo-relative paths using `book.api.path_utils` helpers.
-- **Regenerate shared IR**: do not hand-edit generated/shared artifacts (mappings, generated concept JSON, CARTON-listed files). Update sources and rerun the appropriate generator (`swift run` for concepts; `book/graph/mappings/run_promotion.py` for mappings/CARTON).
+- **Regenerate shared IR**: do not hand-edit generated/shared artifacts (mappings, generated concept JSON, CARTON-listed files). Update sources and rerun the appropriate generator (`swift run` for concepts; `book/graph/mappings/run_promotion.py` for mappings; `python -m book.integration.carton.tools.update` for CARTON).
 - **Surrounding constraints are confounders**: treat TCC, hardened runtime, SIP/platform gates, and VFS canonicalization as surrounding constraints that can dominate outcomes. For behavioral claims, prefer at least one passing neighbor and one confounder toggle.
-- **CARTON integrity**: files listed in `book/integration/carton/CARTON.json` are manifest-verified; do not hand-edit them. Use validation -> mappings -> contracts -> manifest refresh instead.
+- **CARTON integrity**: files listed in `book/integration/carton/bundle/CARTON.json` are manifest-verified; do not hand-edit them. Use validation -> mappings -> CARTON fixers + contracts + manifest refresh instead.
 
 # Claim + witness template (use this shape)
 
@@ -57,7 +57,7 @@ claim:
 - **Substrate + concepts**: `book/substrate/` defines the vocabulary; the concept inventory is in `book/graph/concepts/CONCEPT_INVENTORY.md` and generated JSON in `book/graph/concepts/` comes from `swift run` in `book/graph`.
 - **Experiments -> validation IR**: experiments write to `book/experiments/*/out`; the validation driver (`python -m book.graph.concepts.validation`) normalizes into `book/graph/concepts/validation/out/` and records status.
 - **Validation IR -> mappings**: generators under `book/graph/mappings/*/generate_*.py` read validation outputs and emit host mappings; the supported entrypoint is `book/graph/mappings/run_promotion.py`.
-- **Mappings -> CARTON**: CARTON overlays live in `book/graph/mappings/carton/`; refresh via `python -m book.integration.carton.update` (or `make -C book carton-refresh`). Use `carton check`/`carton diff` for verification and drift review.
+- **Mappings -> CARTON**: CARTON lives under `book/integration/carton/bundle/` (relationships/views/contracts + manifest). Refresh via `python -m book.integration.carton.tools.update` (or `make -C book carton-refresh`). Use `python -m book.integration.carton.tools.check` / `python -m book.integration.carton.tools.diff` for verification and drift review.
 
 # Evidence sources
 

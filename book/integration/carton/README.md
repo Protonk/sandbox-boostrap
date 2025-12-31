@@ -1,13 +1,13 @@
 # CARTON (integration fixer bundle)
 
-CARTON is the integration-time contract for SANDBOX_LORE: a small, reviewable bundle that freezes host-bound facts, their provenance, and the invariants we refuse to drift on. It is **not** a library API. The primary interface is **fix + verify + explain drift**.
+CARTON is the integration-time contract for SANDBOX_LORE: a small, reviewable bundle that freezes host-bound facts, their provenance, and the invariants we refuse to drift on. The primary interface is **fix + verify + explain drift**.
 
 ## Layout
 
 - `bundle/CARTON.json` — generated manifest (schema v2) with digest, role, size, and world binding.
 - `bundle/relationships/` — canonical relationship outputs (operation coverage, profile-layer ops, anchor field2, etc.).
 - `bundle/views/` — derived indices built from relationships (operation_index, profile_layer_index, filter_index, concept_index, anchor_index).
-- `bundle/contracts/` — derived claim snapshots (review surface; not a query API).
+- `bundle/contracts/` — derived claim snapshots (review surface).
 - `spec/carton_spec.json` — declarative list of frozen artifacts and their hash policies.
 - `spec/fixers.json` — fixer registry (ordering, module bindings, outputs).
 - `spec/invariants.json` — status invariants we refuse to drift on.

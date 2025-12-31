@@ -1,0 +1,23 @@
+{
+  "schema_version": "runtime-tools.plan.v0.1",
+  "plan_id": "lifecycle-lockdown.exec-prereq-file-search-test.v1",
+  "registry_id": "lifecycle-lockdown",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "profiles": [
+    "lockdown:airlock_passing_sbpl_write_sysctl",
+    "lockdown:airlock_passing_sbpl_write_allow_default_sysctl",
+    "lockdown:airlock_passing_sbpl_write_file_search_sysctl",
+    "lockdown:airlock_passing_sbpl_write_file_test_existence_sysctl",
+    "lockdown:airlock_passing_sbpl_write_file_search_and_test_existence_sysctl"
+  ],
+  "lanes": {
+    "baseline": false,
+    "scenario": true,
+    "oracle": false
+  },
+  "controls": {
+    "baseline": false
+  },
+  "apply_preflight_profile": "book/experiments/hardened-runtime/sb/apply_preflight_allow.sb"
+}
+

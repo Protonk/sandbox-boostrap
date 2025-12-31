@@ -1,0 +1,29 @@
+{
+  "schema_version": "runtime-tools.summary.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "run_id": "52401592-67fb-473e-af25-f9217d21a925",
+  "status": "partial",
+  "plan_id": "lifecycle-lockdown.exec-prereq-allow-default-deny-scan.v1",
+  "plan_digest": "ffd8b75223c392b3930fa9670394f083d7b318272026b39dfaddf5c69458ca5b",
+  "channel": "launchd_clean",
+  "lanes": {
+    "baseline": false,
+    "scenario": true,
+    "oracle": false
+  },
+  "profile_count": 7,
+  "scenario_count": 7,
+  "expected_profiles": [
+    "lockdown:airlock_passing_sbpl_write_allow_default_sysctl",
+    "lockdown:airlock_passing_sbpl_write_allow_default_deny_process_exec_sysctl",
+    "lockdown:airlock_passing_sbpl_write_allow_default_deny_mach_lookup_sysctl",
+    "lockdown:airlock_passing_sbpl_write_allow_default_deny_mach_bootstrap_sysctl",
+    "lockdown:airlock_passing_sbpl_write_allow_default_deny_file_map_executable_sysctl",
+    "lockdown:airlock_passing_sbpl_write_allow_default_deny_process_codesigning_sysctl",
+    "lockdown:airlock_passing_sbpl_write_allow_default_deny_file_ioctl_sysctl"
+  ],
+  "mismatch_counts": {
+    "bootstrap_deny_process_exec": 1
+  },
+  "dry_run": false
+}

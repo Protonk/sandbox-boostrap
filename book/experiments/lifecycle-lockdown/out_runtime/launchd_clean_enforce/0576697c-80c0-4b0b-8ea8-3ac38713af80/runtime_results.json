@@ -1,0 +1,111 @@
+{
+  "lockdown:airlock_passing_sbpl_write_mapexec_preboot_dyld_sysctl_procinfo": {
+    "status": "blocked",
+    "profile_path": "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/0576697c-80c0-4b0b-8ea8-3ac38713af80/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_mapexec_preboot_dyld_sysctl_procinfo.runtime.sb",
+    "base_profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+    "preflight": {
+      "tool": "book/tools/preflight",
+      "preflight_schema_version": 1,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "input_kind": "sbpl_path",
+      "input_ref": "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/0576697c-80c0-4b0b-8ea8-3ac38713af80/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_mapexec_preboot_dyld_sysctl_procinfo.runtime.sb",
+      "classification": "no_known_apply_gate_signature",
+      "signature": null,
+      "findings": []
+    },
+    "probes": [
+      {
+        "name": "sysctl -n kern.osrelease",
+        "expectation_id": "lockdown:sysctl-read-kern.osrelease",
+        "operation": "sysctl-read",
+        "path": "kern.osrelease",
+        "expected": "allow",
+        "actual": "deny",
+        "match": false,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "bootstrap",
+          "failure_kind": "bootstrap_deny_process_exec",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": 0,
+            "errno": 0,
+            "errbuf": null,
+            "err_class": "ok",
+            "err_class_source": "none"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_runner",
+            "apply_model": "exec_wrapper",
+            "apply_timing": "pre_exec",
+            "preexisting_sandbox_suspected": false,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_runner",
+            "entrypoint_sha256": "7820fa45440400aa64e61fccbb869ac6a1433fc9eb00ff9541dcb4fbbdcc0a62",
+            "tool_build_id": "7820fa45440400aa64e61fccbb869ac6a1433fc9eb00ff9541dcb4fbbdcc0a62"
+          },
+          "seatbelt_callouts": [
+            {
+              "tool": "seatbelt-callout",
+              "marker_schema_version": 2,
+              "stage": "preflight",
+              "api": "sandbox_check_by_audit_token",
+              "operation": "sysctl-read",
+              "filter_type": 37,
+              "filter_type_name": "unknown",
+              "check_type": 37,
+              "varargs_count": 1,
+              "argument": "kern.osrelease",
+              "no_report": false,
+              "no_report_reason": "unsupported_filter_type",
+              "token_status": "ok",
+              "token_mach_kr": 0,
+              "rc": -2,
+              "errno": 45,
+              "decision": "error",
+              "error": "unsupported filter type (string-arg only)"
+            },
+            {
+              "tool": "seatbelt-callout",
+              "marker_schema_version": 2,
+              "stage": "bootstrap_exec",
+              "api": "sandbox_check_by_audit_token",
+              "operation": "process-exec*",
+              "filter_type": 0,
+              "filter_type_name": "path",
+              "check_type": 0,
+              "varargs_count": 1,
+              "argument": "/usr/sbin/sysctl",
+              "no_report": false,
+              "no_report_reason": "token_unavailable",
+              "token_status": "task_info_failed",
+              "token_mach_kr": 53,
+              "rc": -1,
+              "errno": 0,
+              "decision": "error",
+              "error": "TASK_AUDIT_TOKEN unavailable"
+            }
+          ]
+        },
+        "violation_summary": "EPERM",
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_runner",
+          "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/0576697c-80c0-4b0b-8ea8-3ac38713af80/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_mapexec_preboot_dyld_sysctl_procinfo.runtime.sb",
+          "--",
+          "/usr/sbin/sysctl",
+          "-n",
+          "kern.osrelease"
+        ],
+        "exit_code": 127,
+        "stdout": "",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.0576697c-80c0-4b0b-8ea8-3ac38713af80/book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/0576697c-80c0-4b0b-8ea8-3ac38713af80/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_mapexec_preboot_dyld_sysctl_procinfo.runtime.sb\",\"pid\":11240}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.0576697c-80c0-4b0b-8ea8-3ac38713af80/book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/0576697c-80c0-4b0b-8ea8-3ac38713af80/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_mapexec_preboot_dyld_sysctl_procinfo.runtime.sb\",\"pid\":11240}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"preflight\",\"api\":\"sandbox_check_by_audit_token\",\"operation\":\"sysctl-read\",\"filter_type\":37,\"filter_type_name\":\"unknown\",\"check_type\":37,\"varargs_count\":1,\"argument\":\"kern.osrelease\",\"no_report\":false,\"no_report_reason\":\"unsupported_filter_type\",\"token_status\":\"ok\",\"token_mach_kr\":0,\"rc\":-2,\"errno\":45,\"decision\":\"error\",\"error\":\"unsupported filter type (string-arg only)\"}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"bootstrap_exec\",\"api\":\"sandbox_check_by_audit_token\",\"operation\":\"process-exec*\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":0,\"varargs_count\":1,\"argument\":\"/usr/sbin/sysctl\",\"no_report\":false,\"no_report_reason\":\"token_unavailable\",\"token_status\":\"task_info_failed\",\"token_mach_kr\":53,\"rc\":-1,\"errno\":0,\"decision\":\"error\",\"error\":\"TASK_AUDIT_TOKEN unavailable\"}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"exec\",\"rc\":-1,\"errno\":1,\"argv0\":\"/usr/sbin/sysctl\",\"pid\":11240}\nexecvp: Operation not permitted\n",
+        "probe_details": null
+      }
+    ],
+    "notes": "all probes blocked before policy evaluation",
+    "schema_version": "runtime-tools.runtime_results.v0.1",
+    "run_id": "0576697c-80c0-4b0b-8ea8-3ac38713af80"
+  }
+}

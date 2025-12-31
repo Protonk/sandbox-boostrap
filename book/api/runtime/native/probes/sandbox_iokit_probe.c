@@ -16,6 +16,7 @@
 #include "sandbox_profile.h"
 #include "../tool_markers.h"
 #include <CoreFoundation/CoreFoundation.h>
+#include <IOKit/IOCFSerialize.h>
 #include <IOKit/IOKitLib.h>
 #include <IOKit/IOReturn.h>
 #include <IOSurface/IOSurface.h>
@@ -31,6 +32,37 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
+extern kern_return_t mach_msg_overwrite_trap(
+    mach_msg_header_t *msg,
+    mach_msg_option_t option,
+    mach_msg_size_t send_size,
+    mach_msg_size_t rcv_size,
+    mach_port_t rcv_name,
+    mach_msg_timeout_t timeout,
+    mach_port_t notify,
+    mach_msg_header_t *rcv_msg,
+    mach_msg_size_t rcv_limit) __attribute__((weak_import));
+
+extern kern_return_t mach_msg_trap(
+    mach_msg_header_t *msg,
+    mach_msg_option_t option,
+    mach_msg_size_t send_size,
+    mach_msg_size_t rcv_size,
+    mach_port_t rcv_name,
+    mach_msg_timeout_t timeout,
+    mach_port_t notify) __attribute__((weak_import));
+
+extern kern_return_t mach_msg2_trap(
+    mach_msg_header_t *msg,
+    uint64_t option,
+    mach_msg_size_t send_size,
+    mach_msg_size_t rcv_size,
+    mach_port_t rcv_name,
+    mach_msg_timeout_t timeout,
+    mach_port_t notify,
+    uint64_t priority,
+    mach_msg_size_t rcv_trailer_size) __attribute__((weak_import));
+
 #define SBL_IKIT_CALL_KIND_ENV "SANDBOX_LORE_IKIT_CALL_KIND"
 #define SBL_IKIT_CALL_IN_SCALARS_ENV "SANDBOX_LORE_IKIT_CALL_IN_SCALARS"
 #define SBL_IKIT_CALL_IN_STRUCT_BYTES_ENV "SANDBOX_LORE_IKIT_CALL_IN_STRUCT_BYTES"
@@ -39,6 +71,10 @@
 #define SBL_IKIT_REPLAY_ENV "SANDBOX_LORE_IKIT_REPLAY"
 #define SBL_IKIT_REPLAY_SPEC_ENV "SANDBOX_LORE_IKIT_REPLAY_SPEC"
 #define SBL_IKIT_MACH_CAPTURE_ENV "SANDBOX_LORE_IKIT_MACH_CAPTURE"
+#define SBL_IKIT_METHOD0_ENV "SANDBOX_LORE_IKIT_METHOD0"
+#define SBL_IKIT_METHOD0_BINARY_ENV "SANDBOX_LORE_IKIT_METHOD0_BINARY"
+#define SBL_IKIT_METHOD0_PAYLOAD_IN_ENV "SANDBOX_LORE_IKIT_METHOD0_PAYLOAD_IN"
+#define SBL_IKIT_METHOD0_PAYLOAD_OUT_ENV "SANDBOX_LORE_IKIT_METHOD0_PAYLOAD_OUT"
 
 typedef kern_return_t (*sbl_io_connect_method_scalarI_scalarO_fn)(
     mach_port_t connection,
@@ -161,6 +197,41 @@ typedef kern_return_t (*sbl_mach_msg_fn)(
 static sbl_mach_capture_t g_mach_capture;
 static sbl_mach_msg_fn sbl_real_mach_msg = NULL;
 
+typedef kern_return_t (*sbl_mach_msg_overwrite_trap_fn)(
+    mach_msg_header_t *msg,
+    mach_msg_option_t option,
+    mach_msg_size_t send_size,
+    mach_msg_size_t rcv_size,
+    mach_port_t rcv_name,
+    mach_msg_timeout_t timeout,
+    mach_port_t notify,
+    mach_msg_header_t *rcv_msg,
+    mach_msg_size_t rcv_limit);
+
+typedef kern_return_t (*sbl_mach_msg_trap_fn)(
+    mach_msg_header_t *msg,
+    mach_msg_option_t option,
+    mach_msg_size_t send_size,
+    mach_msg_size_t rcv_size,
+    mach_port_t rcv_name,
+    mach_msg_timeout_t timeout,
+    mach_port_t notify);
+
+typedef kern_return_t (*sbl_mach_msg2_trap_fn)(
+    mach_msg_header_t *msg,
+    uint64_t option,
+    mach_msg_size_t send_size,
+    mach_msg_size_t rcv_size,
+    mach_port_t rcv_name,
+    mach_msg_timeout_t timeout,
+    mach_port_t notify,
+    uint64_t priority,
+    mach_msg_size_t rcv_trailer_size);
+
+static sbl_mach_msg_overwrite_trap_fn sbl_real_mach_msg_overwrite_trap = NULL;
+static sbl_mach_msg_trap_fn sbl_real_mach_msg_trap = NULL;
+static sbl_mach_msg2_trap_fn sbl_real_mach_msg2_trap = NULL;
+
 static sbl_io_connect_method_scalarI_scalarO_fn sbl_load_io_connect_method_scalarI_scalarO(void) {
     static sbl_io_connect_method_scalarI_scalarO_fn fn = NULL;
     static int attempted = 0;
@@ -276,6 +347,177 @@ static void sbl_json_append(char **buf, size_t *len, size_t *cap, const char *fm
     *len += (size_t)needed;
 }
 
+static const char *json_string_or_null(char *buf, size_t buf_len, const char *value, int has_value) {
+    if (!has_value || !value || !*value) {
+        return "null";
+    }
+    snprintf(buf, buf_len, "\"%s\"", value);
+    return buf;
+}
+
+static const char *json_uint_or_null(char *buf, size_t buf_len, unsigned long value, int has_value) {
+    if (!has_value) {
+        return "null";
+    }
+    snprintf(buf, buf_len, "%lu", value);
+    return buf;
+}
+
+static CFDictionaryRef sbl_build_iosurface_create_props(void) {
+    int width = 1;
+    int height = 1;
+    int bytes_per_elem = 4;
+    int bytes_per_row = width * bytes_per_elem;
+    int alloc_size = bytes_per_row * height;
+    uint32_t pixel_format = 0x42475241; /* 'BGRA' */
+    CFNumberRef width_num = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &width);
+    CFNumberRef height_num = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &height);
+    CFNumberRef bpe_num = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &bytes_per_elem);
+    CFNumberRef bpr_num = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &bytes_per_row);
+    CFNumberRef alloc_num = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &alloc_size);
+    CFNumberRef pixel_format_num = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &pixel_format);
+    if (!width_num || !height_num || !bpe_num || !bpr_num || !alloc_num || !pixel_format_num) {
+        if (width_num) CFRelease(width_num);
+        if (height_num) CFRelease(height_num);
+        if (bpe_num) CFRelease(bpe_num);
+        if (bpr_num) CFRelease(bpr_num);
+        if (alloc_num) CFRelease(alloc_num);
+        if (pixel_format_num) CFRelease(pixel_format_num);
+        return NULL;
+    }
+    const void *keys[] = {
+        kIOSurfaceWidth,
+        kIOSurfaceHeight,
+        kIOSurfaceBytesPerElement,
+        kIOSurfaceBytesPerRow,
+        kIOSurfacePixelFormat,
+        kIOSurfaceAllocSize,
+    };
+    const void *vals[] = {
+        width_num,
+        height_num,
+        bpe_num,
+        bpr_num,
+        pixel_format_num,
+        alloc_num,
+    };
+    CFDictionaryRef props = CFDictionaryCreate(
+        kCFAllocatorDefault,
+        keys,
+        vals,
+        6,
+        &kCFTypeDictionaryKeyCallBacks,
+        &kCFTypeDictionaryValueCallBacks
+    );
+    CFRelease(width_num);
+    CFRelease(height_num);
+    CFRelease(bpe_num);
+    CFRelease(bpr_num);
+    CFRelease(alloc_num);
+    CFRelease(pixel_format_num);
+    if (!props) {
+        return NULL;
+    }
+    return props;
+}
+
+static CFDataRef sbl_build_iosurface_plist(
+    const char **format_out,
+    const char **source_out,
+    CFOptionFlags serialize_flags
+) {
+    CFDictionaryRef props = sbl_build_iosurface_create_props();
+    if (!props) {
+        return NULL;
+    }
+    if (source_out) {
+        *source_out = "create_props";
+    }
+    CFDataRef data = IOCFSerialize(props, serialize_flags);
+    if (data && format_out) {
+        *format_out = (serialize_flags & kIOCFSerializeToBinary) ? "iocf_binary" : "iocf_xml";
+    }
+    CFRelease(props);
+    return data;
+}
+
+static CFDataRef sbl_load_payload_file(const char *path) {
+    if (!path || !*path) {
+        return NULL;
+    }
+    FILE *fh = fopen(path, "rb");
+    if (!fh) {
+        return NULL;
+    }
+    if (fseek(fh, 0, SEEK_END) != 0) {
+        fclose(fh);
+        return NULL;
+    }
+    long size = ftell(fh);
+    if (size <= 0) {
+        fclose(fh);
+        return NULL;
+    }
+    if (fseek(fh, 0, SEEK_SET) != 0) {
+        fclose(fh);
+        return NULL;
+    }
+    uint8_t *buf = (uint8_t *)calloc(1, (size_t)size);
+    if (!buf) {
+        fclose(fh);
+        return NULL;
+    }
+    size_t read_len = fread(buf, 1, (size_t)size, fh);
+    fclose(fh);
+    if (read_len != (size_t)size) {
+        free(buf);
+        return NULL;
+    }
+    CFDataRef data = CFDataCreate(kCFAllocatorDefault, buf, (CFIndex)read_len);
+    free(buf);
+    return data;
+}
+
+static void sbl_write_payload_file(const char *path, const uint8_t *data, size_t len) {
+    if (!path || !*path || !data || len == 0) {
+        return;
+    }
+    FILE *fh = fopen(path, "wb");
+    if (!fh) {
+        return;
+    }
+    (void)fwrite(data, 1, len, fh);
+    fclose(fh);
+}
+
+static uint8_t *sbl_copy_payload_with_nul(
+    const uint8_t *data,
+    size_t len,
+    size_t *out_len,
+    bool *nul_appended_out
+) {
+    if (!data || len == 0) {
+        return NULL;
+    }
+    bool needs_nul = data[len - 1] != 0;
+    size_t final_len = len + (needs_nul ? 1 : 0);
+    uint8_t *buf = (uint8_t *)calloc(1, final_len);
+    if (!buf) {
+        return NULL;
+    }
+    memcpy(buf, data, len);
+    if (needs_nul) {
+        buf[len] = 0;
+    }
+    if (out_len) {
+        *out_len = final_len;
+    }
+    if (nul_appended_out) {
+        *nul_appended_out = needs_nul;
+    }
+    return buf;
+}
+
 static uint32_t sbl_hash_bytes(const uint8_t *data, size_t len) {
     uint32_t hash = 2166136261u;
     for (size_t i = 0; i < len; i++) {
@@ -309,6 +551,30 @@ static sbl_mach_msg_fn sbl_load_mach_msg(void) {
     return sbl_real_mach_msg;
 }
 
+static sbl_mach_msg_overwrite_trap_fn sbl_load_mach_msg_overwrite_trap(void) {
+    if (sbl_real_mach_msg_overwrite_trap) {
+        return sbl_real_mach_msg_overwrite_trap;
+    }
+    sbl_real_mach_msg_overwrite_trap = (sbl_mach_msg_overwrite_trap_fn)dlsym(RTLD_NEXT, "mach_msg_overwrite_trap");
+    return sbl_real_mach_msg_overwrite_trap;
+}
+
+static sbl_mach_msg_trap_fn sbl_load_mach_msg_trap(void) {
+    if (sbl_real_mach_msg_trap) {
+        return sbl_real_mach_msg_trap;
+    }
+    sbl_real_mach_msg_trap = (sbl_mach_msg_trap_fn)dlsym(RTLD_NEXT, "mach_msg_trap");
+    return sbl_real_mach_msg_trap;
+}
+
+static sbl_mach_msg2_trap_fn sbl_load_mach_msg2_trap(void) {
+    if (sbl_real_mach_msg2_trap) {
+        return sbl_real_mach_msg2_trap;
+    }
+    sbl_real_mach_msg2_trap = (sbl_mach_msg2_trap_fn)dlsym(RTLD_NEXT, "mach_msg2_trap");
+    return sbl_real_mach_msg2_trap;
+}
+
 kern_return_t sbl_interpose_mach_msg(
     mach_msg_header_t *msg,
     mach_msg_option_t option,
@@ -331,6 +597,79 @@ kern_return_t sbl_interpose_mach_msg(
 }
 
 SBL_DYLD_INTERPOSE(sbl_interpose_mach_msg, mach_msg)
+
+kern_return_t sbl_interpose_mach_msg_overwrite_trap(
+    mach_msg_header_t *msg,
+    mach_msg_option_t option,
+    mach_msg_size_t send_size,
+    mach_msg_size_t rcv_size,
+    mach_port_t rcv_name,
+    mach_msg_timeout_t timeout,
+    mach_port_t notify,
+    mach_msg_header_t *rcv_msg,
+    mach_msg_size_t rcv_limit
+) {
+    sbl_mach_msg_overwrite_trap_fn fn = sbl_load_mach_msg_overwrite_trap();
+    if (!fn) {
+        return KERN_FAILURE;
+    }
+    kern_return_t kr = fn(msg, option, send_size, rcv_size, rcv_name, timeout, notify, rcv_msg, rcv_limit);
+    if (g_mach_capture.enabled && msg && (option & MACH_SEND_MSG) && msg->msgh_remote_port == g_mach_capture.port) {
+        mach_msg_size_t size = send_size ? send_size : msg->msgh_size;
+        sbl_mach_capture_record(msg, size, kr);
+    }
+    return kr;
+}
+
+SBL_DYLD_INTERPOSE(sbl_interpose_mach_msg_overwrite_trap, mach_msg_overwrite_trap)
+
+kern_return_t sbl_interpose_mach_msg_trap(
+    mach_msg_header_t *msg,
+    mach_msg_option_t option,
+    mach_msg_size_t send_size,
+    mach_msg_size_t rcv_size,
+    mach_port_t rcv_name,
+    mach_msg_timeout_t timeout,
+    mach_port_t notify
+) {
+    sbl_mach_msg_trap_fn fn = sbl_load_mach_msg_trap();
+    if (!fn) {
+        return KERN_FAILURE;
+    }
+    kern_return_t kr = fn(msg, option, send_size, rcv_size, rcv_name, timeout, notify);
+    if (g_mach_capture.enabled && msg && (option & MACH_SEND_MSG) && msg->msgh_remote_port == g_mach_capture.port) {
+        mach_msg_size_t size = send_size ? send_size : msg->msgh_size;
+        sbl_mach_capture_record(msg, size, kr);
+    }
+    return kr;
+}
+
+SBL_DYLD_INTERPOSE(sbl_interpose_mach_msg_trap, mach_msg_trap)
+
+kern_return_t sbl_interpose_mach_msg2_trap(
+    mach_msg_header_t *msg,
+    uint64_t option,
+    mach_msg_size_t send_size,
+    mach_msg_size_t rcv_size,
+    mach_port_t rcv_name,
+    mach_msg_timeout_t timeout,
+    mach_port_t notify,
+    uint64_t priority,
+    mach_msg_size_t rcv_trailer_size
+) {
+    sbl_mach_msg2_trap_fn fn = sbl_load_mach_msg2_trap();
+    if (!fn) {
+        return KERN_FAILURE;
+    }
+    kern_return_t kr = fn(msg, option, send_size, rcv_size, rcv_name, timeout, notify, priority, rcv_trailer_size);
+    if (g_mach_capture.enabled && msg && (option & MACH_SEND_MSG) && msg->msgh_remote_port == g_mach_capture.port) {
+        mach_msg_size_t size = send_size ? send_size : msg->msgh_size;
+        sbl_mach_capture_record(msg, size, kr);
+    }
+    return kr;
+}
+
+SBL_DYLD_INTERPOSE(sbl_interpose_mach_msg2_trap, mach_msg2_trap)
 
 static void sbl_tuple_reset(sbl_iokit_call_tuple_t *tuple) {
     if (!tuple) {
@@ -1118,8 +1457,27 @@ int main(int argc, char *argv[]) {
     const char *profile_path = argv[1];
     const char *class_name = argv[2];
 
+    const char *method0_env_pre = getenv(SBL_IKIT_METHOD0_ENV);
+    bool method0_enabled_pre = method0_env_pre && method0_env_pre[0] != '\0' && method0_env_pre[0] != '0';
+    const char *method0_binary_env = getenv(SBL_IKIT_METHOD0_BINARY_ENV);
+    bool method0_binary = method0_binary_env && method0_binary_env[0] != '\0' && method0_binary_env[0] != '0';
+    CFOptionFlags method0_serialize_flags = method0_binary ? kIOCFSerializeToBinary : 0;
+    const char *method0_payload_in_path_pre = getenv(SBL_IKIT_METHOD0_PAYLOAD_IN_ENV);
+    const char *method0_payload_out_path_pre = getenv(SBL_IKIT_METHOD0_PAYLOAD_OUT_ENV);
+    CFDataRef method0_payload_preload = NULL;
+    const char *method0_payload_preload_source = NULL;
+    if (method0_enabled_pre && method0_payload_in_path_pre && method0_payload_in_path_pre[0] != '\0') {
+        method0_payload_preload = sbl_load_payload_file(method0_payload_in_path_pre);
+        if (method0_payload_preload) {
+            method0_payload_preload_source = "file";
+        }
+    }
+
     int apply_rc = sbl_apply_profile_from_path(profile_path);
     if (apply_rc != 0) {
+        if (method0_payload_preload) {
+            CFRelease(method0_payload_preload);
+        }
         return apply_rc;
     }
 
@@ -1171,6 +1529,19 @@ int main(int argc, char *argv[]) {
     int surface_signal = 0;
     bool do_sweep = true;
     bool mach_capture_enabled = false;
+    bool method0_enabled = method0_enabled_pre;
+    bool method0_attempted = false;
+    bool method0_payload_ok = false;
+    const char *method0_plist_format = method0_payload_preload ? "file" : NULL;
+    const char *method0_payload_source = method0_payload_preload ? method0_payload_preload_source : NULL;
+    bool method0_payload_nul_appended = false;
+    const char *method0_payload_in_path = method0_payload_in_path_pre;
+    const char *method0_payload_out_path = method0_payload_out_path_pre;
+    size_t method0_input_bytes = 0;
+    size_t method0_output_capacity = 0x2000;
+    size_t method0_output_bytes = 0;
+    uint32_t method0_output_id = 0;
+    bool method0_output_id_valid = false;
     bool replay_enabled = false;
     bool replay_attempted = false;
     bool replay_missing_capture = false;
@@ -1215,6 +1586,9 @@ int main(int argc, char *argv[]) {
     call_shape_override |= parse_env_size(SBL_IKIT_CALL_IN_STRUCT_BYTES_ENV, &input_struct_override);
     call_shape_override |= parse_env_u32(SBL_IKIT_CALL_OUT_SCALARS_ENV, &output_scalar_override);
     call_shape_override |= parse_env_size(SBL_IKIT_CALL_OUT_STRUCT_BYTES_ENV, &output_struct_override);
+    if (method0_enabled) {
+        do_sweep = false;
+    }
     const char *replay_spec_env = getenv(SBL_IKIT_REPLAY_SPEC_ENV);
     if (replay_enabled) {
         if (!sbl_parse_replay_spec(replay_spec_env, &replay_tuple)) {
@@ -1239,39 +1613,198 @@ int main(int argc, char *argv[]) {
             uint8_t *output_struct = NULL;
             uint32_t output_scalar_count = replay_tuple.output_scalar_count;
             size_t output_struct_bytes = replay_tuple.output_struct_bytes;
-            if (replay_tuple.input_scalar_count > 0) {
-                input_scalars = (uint64_t *)calloc(replay_tuple.input_scalar_count, sizeof(uint64_t));
+            CFDataRef replay_payload = NULL;
+            uint8_t *payload_buf = NULL;
+            size_t payload_len = 0;
+            bool payload_nul_appended = false;
+            if (method0_enabled && strcmp(replay_tuple.kind, "IOConnectCallStructMethod") == 0) {
+                if (method0_payload_preload) {
+                    replay_payload = method0_payload_preload;
+                    method0_payload_preload = NULL;
+                } else if (method0_payload_in_path && method0_payload_in_path[0] != '\0') {
+                    method0_payload_source = "file_missing";
+                }
+                if (!replay_payload && (!method0_payload_in_path || method0_payload_in_path[0] == '\0')) {
+                    method0_payload_source = NULL;
+                    replay_payload = sbl_build_iosurface_plist(
+                        &method0_plist_format,
+                        &method0_payload_source,
+                        method0_serialize_flags
+                    );
+                }
+                if (replay_payload) {
+                    const uint8_t *payload_bytes = CFDataGetBytePtr(replay_payload);
+                    size_t payload_raw_len = (size_t)CFDataGetLength(replay_payload);
+                    payload_buf = sbl_copy_payload_with_nul(
+                        payload_bytes,
+                        payload_raw_len,
+                        &payload_len,
+                        &payload_nul_appended
+                    );
+                    if (!payload_buf) {
+                        replay_status = "replay_missing_payload";
+                        replay_missing_capture = true;
+                    } else {
+                        method0_payload_ok = true;
+                        method0_attempted = true;
+                        method0_payload_nul_appended = payload_nul_appended;
+                        method0_input_bytes = payload_len;
+                        if (method0_payload_out_path && method0_payload_out_path[0] != '\0') {
+                            sbl_write_payload_file(method0_payload_out_path, payload_buf, payload_len);
+                        }
+                        replay_tuple.input_struct_bytes = payload_len;
+                        output_struct_bytes = method0_output_capacity;
+                        replay_tuple.output_struct_bytes = output_struct_bytes;
+                    }
+                } else {
+                    replay_status = "replay_missing_payload";
+                    replay_missing_capture = true;
+                }
             }
-            if (output_scalar_count > 0) {
-                output_scalars = (uint64_t *)calloc(output_scalar_count, sizeof(uint64_t));
+            if (replay_enabled && replay_missing_capture) {
+                if (replay_payload) {
+                    CFRelease(replay_payload);
+                }
+                if (payload_buf) {
+                    free(payload_buf);
+                }
+            } else {
+                if (replay_tuple.input_scalar_count > 0) {
+                    input_scalars = (uint64_t *)calloc(replay_tuple.input_scalar_count, sizeof(uint64_t));
+                }
+                if (output_scalar_count > 0) {
+                    output_scalars = (uint64_t *)calloc(output_scalar_count, sizeof(uint64_t));
+                }
+                if (replay_tuple.input_struct_bytes > 0) {
+                    input_struct = (uint8_t *)calloc(1, replay_tuple.input_struct_bytes);
+                    if (input_struct && payload_buf && payload_len > 0) {
+                        size_t copy_len = payload_len > replay_tuple.input_struct_bytes ? replay_tuple.input_struct_bytes : payload_len;
+                        memcpy(input_struct, payload_buf, copy_len);
+                    }
+                }
+                if (output_struct_bytes > 0) {
+                    output_struct = (uint8_t *)calloc(1, output_struct_bytes);
+                }
+                replay_attempted = true;
+                replay_status = "replay_attempted";
+                replay_tuple.kr = call_by_kind(
+                    replay_tuple.kind,
+                    conn,
+                    replay_tuple.selector,
+                    input_scalars,
+                    replay_tuple.input_scalar_count,
+                    input_struct,
+                    replay_tuple.input_struct_bytes,
+                    output_scalars,
+                    &output_scalar_count,
+                    output_struct,
+                    &output_struct_bytes
+                );
+                replay_tuple.output_scalar_count = output_scalar_count;
+                replay_tuple.output_struct_bytes = output_struct_bytes;
+                if (method0_enabled && method0_payload_ok && output_struct_bytes > 0) {
+                    method0_output_bytes = output_struct_bytes;
+                    if (output_struct && output_struct_bytes >= 0x14) {
+                        uint32_t id_value = 0;
+                        memcpy(&id_value, output_struct + 0x10, sizeof(id_value));
+                        method0_output_id = id_value;
+                        method0_output_id_valid = true;
+                    }
+                }
+                if (input_scalars) free(input_scalars);
+                if (output_scalars) free(output_scalars);
+                if (input_struct) free(input_struct);
+                if (output_struct) free(output_struct);
+                if (payload_buf) {
+                    free(payload_buf);
+                }
+                if (replay_payload) {
+                    CFRelease(replay_payload);
+                }
             }
-            if (replay_tuple.input_struct_bytes > 0) {
-                input_struct = (uint8_t *)calloc(1, replay_tuple.input_struct_bytes);
+        }
+        if (method0_enabled && !replay_enabled) {
+            CFDataRef payload = NULL;
+            uint8_t *payload_buf = NULL;
+            size_t payload_len = 0;
+            bool payload_nul_appended = false;
+            if (method0_payload_preload) {
+                payload = method0_payload_preload;
+                method0_payload_preload = NULL;
+            } else if (method0_payload_in_path && method0_payload_in_path[0] != '\0') {
+                method0_payload_source = "file_missing";
             }
-            if (output_struct_bytes > 0) {
-                output_struct = (uint8_t *)calloc(1, output_struct_bytes);
+            if (!payload && (!method0_payload_in_path || method0_payload_in_path[0] == '\0')) {
+                method0_payload_source = NULL;
+                payload = sbl_build_iosurface_plist(
+                    &method0_plist_format,
+                    &method0_payload_source,
+                    method0_serialize_flags
+                );
             }
-            replay_attempted = true;
-            replay_status = "replay_attempted";
-            replay_tuple.kr = call_by_kind(
-                replay_tuple.kind,
-                conn,
-                replay_tuple.selector,
-                input_scalars,
-                replay_tuple.input_scalar_count,
-                input_struct,
-                replay_tuple.input_struct_bytes,
-                output_scalars,
-                &output_scalar_count,
-                output_struct,
-                &output_struct_bytes
-            );
-            replay_tuple.output_scalar_count = output_scalar_count;
-            replay_tuple.output_struct_bytes = output_struct_bytes;
-            if (input_scalars) free(input_scalars);
-            if (output_scalars) free(output_scalars);
-            if (input_struct) free(input_struct);
-            if (output_struct) free(output_struct);
+            if (payload) {
+                const uint8_t *payload_bytes = CFDataGetBytePtr(payload);
+                size_t payload_raw_len = (size_t)CFDataGetLength(payload);
+                payload_buf = sbl_copy_payload_with_nul(
+                    payload_bytes,
+                    payload_raw_len,
+                    &payload_len,
+                    &payload_nul_appended
+                );
+            }
+            if (payload_buf) {
+                method0_payload_ok = true;
+                method0_payload_nul_appended = payload_nul_appended;
+                method0_input_bytes = payload_len;
+                if (method0_payload_out_path && method0_payload_out_path[0] != '\0') {
+                    sbl_write_payload_file(method0_payload_out_path, payload_buf, method0_input_bytes);
+                }
+                size_t output_struct_bytes = method0_output_capacity;
+                uint8_t *output_struct = NULL;
+                if (output_struct_bytes > 0) {
+                    output_struct = (uint8_t *)calloc(1, output_struct_bytes);
+                }
+                call_kind_used = "IOConnectCallStructMethod";
+                call_selector = 0;
+                call_input_scalar_count = 0;
+                call_input_struct_bytes = method0_input_bytes;
+                call_output_scalar_count = 0;
+                call_output_struct_bytes = output_struct_bytes;
+                call_attempted = true;
+                method0_attempted = true;
+                call_kr = call_by_kind(
+                    call_kind_used,
+                    conn,
+                    call_selector,
+                    NULL,
+                    0,
+                    payload_buf,
+                    method0_input_bytes,
+                    NULL,
+                    NULL,
+                    output_struct,
+                    &output_struct_bytes
+                );
+                call_kr_string = mach_error_string(call_kr);
+                call_succeeded = (call_kr == KERN_SUCCESS);
+                call_output_struct_bytes = output_struct_bytes;
+                method0_output_bytes = output_struct_bytes;
+                if (output_struct && output_struct_bytes >= 0x14) {
+                    uint32_t id_value = 0;
+                    memcpy(&id_value, output_struct + 0x10, sizeof(id_value));
+                    method0_output_id = id_value;
+                    method0_output_id_valid = true;
+                }
+                if (output_struct) {
+                    free(output_struct);
+                }
+            }
+            if (payload) {
+                CFRelease(payload);
+            }
+            if (payload_buf) {
+                free(payload_buf);
+            }
         }
         if (do_sweep) {
             uint32_t input_scalar_count = 0;
@@ -1413,6 +1946,65 @@ int main(int argc, char *argv[]) {
         replay_output_struct_out,
         replay_kr_out,
         replay_kr_string_out);
+    const char *method0_enabled_json = method0_enabled ? "true" : "false";
+    const char *method0_attempted_json = method0_attempted ? "true" : "false";
+    const char *method0_payload_ok_json = method0_payload_ok ? "true" : "false";
+    const char *method0_payload_nul_out = method0_attempted ? (method0_payload_nul_appended ? "true" : "false") : "null";
+    char method0_format_json[64];
+    char method0_source_json[64];
+    char method0_input_bytes_json[32];
+    char method0_output_cap_json[32];
+    char method0_output_bytes_json[32];
+    char method0_output_id_json[32];
+    const char *method0_format_out = json_string_or_null(
+        method0_format_json,
+        sizeof(method0_format_json),
+        method0_plist_format,
+        method0_plist_format != NULL);
+    const char *method0_source_out = json_string_or_null(
+        method0_source_json,
+        sizeof(method0_source_json),
+        method0_payload_source,
+        method0_payload_source != NULL);
+    const char *method0_input_bytes_out = json_uint_or_null(
+        method0_input_bytes_json,
+        sizeof(method0_input_bytes_json),
+        method0_input_bytes,
+        method0_attempted);
+    const char *method0_output_cap_out = json_uint_or_null(
+        method0_output_cap_json,
+        sizeof(method0_output_cap_json),
+        method0_output_capacity,
+        method0_attempted);
+    const char *method0_output_bytes_out = json_uint_or_null(
+        method0_output_bytes_json,
+        sizeof(method0_output_bytes_json),
+        method0_output_bytes,
+        method0_attempted);
+    const char *method0_output_id_out = json_uint_or_null(
+        method0_output_id_json,
+        sizeof(method0_output_id_json),
+        method0_output_id,
+        method0_output_id_valid);
+    char method0_fields[512];
+    snprintf(
+        method0_fields,
+        sizeof(method0_fields),
+        ",\"method0_enabled\":%s,\"method0_attempted\":%s,\"method0_payload_ok\":%s,"
+        "\"method0_payload_nul_appended\":%s,\"method0_plist_format\":%s,\"method0_payload_source\":%s,"
+        "\"method0_input_bytes\":%s,"
+        "\"method0_output_capacity\":%s,"
+        "\"method0_output_bytes\":%s,\"method0_output_id_u32_0x10\":%s",
+        method0_enabled_json,
+        method0_attempted_json,
+        method0_payload_ok_json,
+        method0_payload_nul_out,
+        method0_format_out,
+        method0_source_out,
+        method0_input_bytes_out,
+        method0_output_cap_out,
+        method0_output_bytes_out,
+        method0_output_id_out);
     char *mach_capture_fields = NULL;
     size_t mach_capture_fields_len = 0;
     size_t mach_capture_fields_cap = 0;
@@ -1450,7 +2042,7 @@ int main(int argc, char *argv[]) {
         const char *call_kr_string_value = call_kr_string ? call_kr_string : "unknown";
         if (surface_signal) {
             printf(
-                "SBL_PROBE_DETAILS {\"found\":true,\"open_kr\":%d,\"call_kr\":%d,\"call_kr_string\":\"%s\",\"call_selector\":%u,\"call_kind\":\"%s\",\"call_input_scalar_count\":%u,\"call_input_struct_bytes\":%zu,\"call_output_scalar_count\":%u,\"call_output_struct_bytes\":%zu,\"call_succeeded\":%s,\"surface_create_ok\":%s,\"surface_create_signal\":%d%s%s}\n",
+                "SBL_PROBE_DETAILS {\"found\":true,\"open_kr\":%d,\"call_kr\":%d,\"call_kr_string\":\"%s\",\"call_selector\":%u,\"call_kind\":\"%s\",\"call_input_scalar_count\":%u,\"call_input_struct_bytes\":%zu,\"call_output_scalar_count\":%u,\"call_output_struct_bytes\":%zu,\"call_succeeded\":%s,\"surface_create_ok\":%s,\"surface_create_signal\":%d%s%s%s}\n",
                 kr,
                 call_kr,
                 call_kr_string_value,
@@ -1464,9 +2056,10 @@ int main(int argc, char *argv[]) {
                 surface_ok ? "true" : "false",
                 surface_signal,
                 replay_fields,
+                method0_fields,
                 mach_capture_fields ? mach_capture_fields : "");
             printf(
-                "{\"found\":true,\"open_kr\":%d,\"call_kr\":%d,\"call_kr_string\":\"%s\",\"call_selector\":%u,\"call_input_scalar_count\":%u,\"call_input_struct_bytes\":%zu,\"call_output_scalar_count\":%u,\"call_output_struct_bytes\":%zu,\"call_succeeded\":%s,\"surface_create_ok\":%s,\"surface_create_signal\":%d%s%s}\n",
+                "{\"found\":true,\"open_kr\":%d,\"call_kr\":%d,\"call_kr_string\":\"%s\",\"call_selector\":%u,\"call_input_scalar_count\":%u,\"call_input_struct_bytes\":%zu,\"call_output_scalar_count\":%u,\"call_output_struct_bytes\":%zu,\"call_succeeded\":%s,\"surface_create_ok\":%s,\"surface_create_signal\":%d%s%s%s}\n",
                 kr,
                 call_kr,
                 call_kr_string_value,
@@ -1479,10 +2072,11 @@ int main(int argc, char *argv[]) {
                 surface_ok ? "true" : "false",
                 surface_signal,
                 replay_fields,
+                method0_fields,
                 mach_capture_fields ? mach_capture_fields : "");
         } else {
             printf(
-                "SBL_PROBE_DETAILS {\"found\":true,\"open_kr\":%d,\"call_kr\":%d,\"call_kr_string\":\"%s\",\"call_selector\":%u,\"call_kind\":\"%s\",\"call_input_scalar_count\":%u,\"call_input_struct_bytes\":%zu,\"call_output_scalar_count\":%u,\"call_output_struct_bytes\":%zu,\"call_succeeded\":%s,\"surface_create_ok\":%s,\"surface_create_signal\":null%s%s}\n",
+                "SBL_PROBE_DETAILS {\"found\":true,\"open_kr\":%d,\"call_kr\":%d,\"call_kr_string\":\"%s\",\"call_selector\":%u,\"call_kind\":\"%s\",\"call_input_scalar_count\":%u,\"call_input_struct_bytes\":%zu,\"call_output_scalar_count\":%u,\"call_output_struct_bytes\":%zu,\"call_succeeded\":%s,\"surface_create_ok\":%s,\"surface_create_signal\":null%s%s%s}\n",
                 kr,
                 call_kr,
                 call_kr_string_value,
@@ -1495,9 +2089,10 @@ int main(int argc, char *argv[]) {
                 call_succeeded ? "true" : "false",
                 surface_ok ? "true" : "false",
                 replay_fields,
+                method0_fields,
                 mach_capture_fields ? mach_capture_fields : "");
             printf(
-                "{\"found\":true,\"open_kr\":%d,\"call_kr\":%d,\"call_kr_string\":\"%s\",\"call_selector\":%u,\"call_input_scalar_count\":%u,\"call_input_struct_bytes\":%zu,\"call_output_scalar_count\":%u,\"call_output_struct_bytes\":%zu,\"call_succeeded\":%s,\"surface_create_ok\":%s,\"surface_create_signal\":null%s%s}\n",
+                "{\"found\":true,\"open_kr\":%d,\"call_kr\":%d,\"call_kr_string\":\"%s\",\"call_selector\":%u,\"call_input_scalar_count\":%u,\"call_input_struct_bytes\":%zu,\"call_output_scalar_count\":%u,\"call_output_struct_bytes\":%zu,\"call_succeeded\":%s,\"surface_create_ok\":%s,\"surface_create_signal\":null%s%s%s}\n",
                 kr,
                 call_kr,
                 call_kr_string_value,
@@ -1509,38 +2104,43 @@ int main(int argc, char *argv[]) {
                 call_succeeded ? "true" : "false",
                 surface_ok ? "true" : "false",
                 replay_fields,
+                method0_fields,
                 mach_capture_fields ? mach_capture_fields : "");
         }
     } else {
         if (surface_signal) {
             printf(
-                "SBL_PROBE_DETAILS {\"found\":true,\"open_kr\":%d,\"call_kr\":null,\"call_kr_string\":null,\"call_selector\":null,\"call_kind\":\"%s\",\"call_input_scalar_count\":null,\"call_input_struct_bytes\":null,\"call_output_scalar_count\":null,\"call_output_struct_bytes\":null,\"surface_create_ok\":%s,\"surface_create_signal\":%d%s%s}\n",
+                "SBL_PROBE_DETAILS {\"found\":true,\"open_kr\":%d,\"call_kr\":null,\"call_kr_string\":null,\"call_selector\":null,\"call_kind\":\"%s\",\"call_input_scalar_count\":null,\"call_input_struct_bytes\":null,\"call_output_scalar_count\":null,\"call_output_struct_bytes\":null,\"surface_create_ok\":%s,\"surface_create_signal\":%d%s%s%s}\n",
                 kr,
                 call_kind_used,
                 surface_ok ? "true" : "false",
                 surface_signal,
                 replay_fields,
+                method0_fields,
                 mach_capture_fields ? mach_capture_fields : "");
             printf(
-                "{\"found\":true,\"open_kr\":%d,\"call_kr\":null,\"call_kr_string\":null,\"call_selector\":null,\"call_input_scalar_count\":null,\"call_input_struct_bytes\":null,\"call_output_scalar_count\":null,\"call_output_struct_bytes\":null,\"surface_create_ok\":%s,\"surface_create_signal\":%d%s%s}\n",
+                "{\"found\":true,\"open_kr\":%d,\"call_kr\":null,\"call_kr_string\":null,\"call_selector\":null,\"call_input_scalar_count\":null,\"call_input_struct_bytes\":null,\"call_output_scalar_count\":null,\"call_output_struct_bytes\":null,\"surface_create_ok\":%s,\"surface_create_signal\":%d%s%s%s}\n",
                 kr,
                 surface_ok ? "true" : "false",
                 surface_signal,
                 replay_fields,
+                method0_fields,
                 mach_capture_fields ? mach_capture_fields : "");
         } else {
             printf(
-                "SBL_PROBE_DETAILS {\"found\":true,\"open_kr\":%d,\"call_kr\":null,\"call_kr_string\":null,\"call_selector\":null,\"call_kind\":\"%s\",\"call_input_scalar_count\":null,\"call_input_struct_bytes\":null,\"call_output_scalar_count\":null,\"call_output_struct_bytes\":null,\"surface_create_ok\":%s,\"surface_create_signal\":null%s%s}\n",
+                "SBL_PROBE_DETAILS {\"found\":true,\"open_kr\":%d,\"call_kr\":null,\"call_kr_string\":null,\"call_selector\":null,\"call_kind\":\"%s\",\"call_input_scalar_count\":null,\"call_input_struct_bytes\":null,\"call_output_scalar_count\":null,\"call_output_struct_bytes\":null,\"surface_create_ok\":%s,\"surface_create_signal\":null%s%s%s}\n",
                 kr,
                 call_kind_used,
                 surface_ok ? "true" : "false",
                 replay_fields,
+                method0_fields,
                 mach_capture_fields ? mach_capture_fields : "");
             printf(
-                "{\"found\":true,\"open_kr\":%d,\"call_kr\":null,\"call_kr_string\":null,\"call_selector\":null,\"call_input_scalar_count\":null,\"call_input_struct_bytes\":null,\"call_output_scalar_count\":null,\"call_output_struct_bytes\":null,\"surface_create_ok\":%s,\"surface_create_signal\":null%s%s}\n",
+                "{\"found\":true,\"open_kr\":%d,\"call_kr\":null,\"call_kr_string\":null,\"call_selector\":null,\"call_input_scalar_count\":null,\"call_input_struct_bytes\":null,\"call_output_scalar_count\":null,\"call_output_struct_bytes\":null,\"surface_create_ok\":%s,\"surface_create_signal\":null%s%s%s}\n",
                 kr,
                 surface_ok ? "true" : "false",
                 replay_fields,
+                method0_fields,
                 mach_capture_fields ? mach_capture_fields : "");
         }
     }
@@ -1549,6 +2149,10 @@ int main(int argc, char *argv[]) {
     }
     if (mach_capture_json) {
         free(mach_capture_json);
+    }
+    if (method0_payload_preload) {
+        CFRelease(method0_payload_preload);
+        method0_payload_preload = NULL;
     }
     if (replay_enabled && replay_missing_capture) {
         return 1;

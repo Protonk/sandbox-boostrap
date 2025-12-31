@@ -1,0 +1,21 @@
+{
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "generated_by": "book/api/runtime/execution/workflow.py",
+  "mismatches": [
+    {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "lockdown:airlock_passing_sbpl_write_debug_deny_sysctl",
+      "expectation_id": "lockdown:sysctl-read-kern.osrelease",
+      "operation": "sysctl-read",
+      "path": "kern.osrelease",
+      "expected": "allow",
+      "actual": "deny",
+      "mismatch_type": "apply_gate",
+      "violation_summary": null,
+      "notes": "sandbox initialization failed: unbound variable: debug at <input string>, line 12, column 2\n\nBacktrace: \n<input string>:12:2:\n\tdebug\n\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":0,\"errbuf\":\"unbound variable: debug at <input string>, line 12, column 2\\n\\nBacktrace: \\n<input string>:12:2:\\n\\tdebug\\n\",\"err_class\":\"unknown\",\"err_class_source\":\"errbuf_present\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.b8557b5d-fa11-40c5-bcb6-72cda15a61f7/book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/b8557b5d-fa11-40c5-bcb6-72cda15a61f7/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_debug_deny_sysctl.runtime.sb\",\"pid\":20731}\nsandbox_init failed: unbound variable: debug at <input string>, line 12, column 2\n\nBacktrace: \n<input string>:12:2:\n\tdebug\n\n"
+    }
+  ],
+  "counts": {
+    "apply_gate": 1
+  }
+}

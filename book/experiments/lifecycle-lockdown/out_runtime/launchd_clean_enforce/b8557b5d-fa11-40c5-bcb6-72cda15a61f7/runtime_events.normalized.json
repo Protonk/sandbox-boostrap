@@ -1,0 +1,56 @@
+[
+  {
+    "actual": "deny",
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "unknown",
+      "err_class_source": "errbuf_present",
+      "errbuf": "unbound variable: debug at <input string>, line 12, column 2\n\nBacktrace: \n<input string>:12:2:\n\tdebug\n",
+      "errno": 0,
+      "rc": -1
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_runner",
+      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/b8557b5d-fa11-40c5-bcb6-72cda15a61f7/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_debug_deny_sysctl.runtime.sb",
+      "--",
+      "/usr/sbin/sysctl",
+      "-n",
+      "kern.osrelease"
+    ],
+    "errno": 0,
+    "expectation_id": "lockdown:sysctl-read-kern.osrelease",
+    "expected": "allow",
+    "failure_kind": "sandbox_init_failed",
+    "failure_stage": "apply",
+    "match": false,
+    "operation": "sysctl-read",
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/b8557b5d-fa11-40c5-bcb6-72cda15a61f7/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_debug_deny_sysctl.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "sysctl -n kern.osrelease",
+    "profile_id": "lockdown:airlock_passing_sbpl_write_debug_deny_sysctl",
+    "run_id": "b8557b5d-fa11-40c5-bcb6-72cda15a61f7",
+    "runner_info": {
+      "apply_model": "exec_wrapper",
+      "apply_timing": "pre_exec",
+      "entrypoint": "sandbox_runner",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_runner",
+      "entrypoint_sha256": "7820fa45440400aa64e61fccbb869ac6a1433fc9eb00ff9541dcb4fbbdcc0a62",
+      "preexisting_sandbox_suspected": false,
+      "tool_build_id": "7820fa45440400aa64e61fccbb869ac6a1433fc9eb00ff9541dcb4fbbdcc0a62"
+    },
+    "runtime_status": "errno",
+    "scenario_id": "lockdown:sysctl-read-kern.osrelease",
+    "stderr": "sandbox initialization failed: unbound variable: debug at <input string>, line 12, column 2\n\nBacktrace: \n<input string>:12:2:\n\tdebug\n\nsandbox_init failed: unbound variable: debug at <input string>, line 12, column 2\n\nBacktrace: \n<input string>:12:2:\n\tdebug\n\n",
+    "stdout": "",
+    "target": "kern.osrelease",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  }
+]

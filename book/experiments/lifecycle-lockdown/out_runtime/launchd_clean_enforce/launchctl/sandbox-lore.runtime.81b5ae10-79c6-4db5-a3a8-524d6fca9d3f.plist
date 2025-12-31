@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>EnvironmentVariables</key>
+	<dict>
+		<key>PYTHONPATH</key>
+		<string>/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.81b5ae10-79c6-4db5-a3a8-524d6fca9d3f</string>
+		<key>SANDBOX_LORE_CHANNEL</key>
+		<string>launchd_clean</string>
+		<key>SANDBOX_LORE_LAUNCHD_CLEAN</key>
+		<string>1</string>
+		<key>SANDBOX_LORE_RUN_ID</key>
+		<string>81b5ae10-79c6-4db5-a3a8-524d6fca9d3f</string>
+		<key>SANDBOX_LORE_STAGE_OUTPUT_ROOT</key>
+		<string>/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.81b5ae10-79c6-4db5-a3a8-524d6fca9d3f/book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce</string>
+		<key>SANDBOX_LORE_STAGE_ROOT</key>
+		<string>/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.81b5ae10-79c6-4db5-a3a8-524d6fca9d3f</string>
+		<key>SANDBOX_LORE_STAGE_USED</key>
+		<string>1</string>
+	</dict>
+	<key>Label</key>
+	<string>sandbox-lore.runtime.81b5ae10-79c6-4db5-a3a8-524d6fca9d3f</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/opt/homebrew/opt/python@3.14/bin/python3.14</string>
+		<string>-m</string>
+		<string>book.api.runtime</string>
+		<string>run</string>
+		<string>--plan</string>
+		<string>/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.81b5ae10-79c6-4db5-a3a8-524d6fca9d3f/book/experiments/lifecycle-lockdown/plan_exec_prereq_allow_default_deny_scan_v2.json</string>
+		<string>--out</string>
+		<string>/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.81b5ae10-79c6-4db5-a3a8-524d6fca9d3f/book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce</string>
+		<string>--channel</string>
+		<string>direct</string>
+	</array>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>StandardErrorPath</key>
+	<string>/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.81b5ae10-79c6-4db5-a3a8-524d6fca9d3f/book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/launchctl/sandbox-lore.runtime.81b5ae10-79c6-4db5-a3a8-524d6fca9d3f.stderr.txt</string>
+	<key>StandardOutPath</key>
+	<string>/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.81b5ae10-79c6-4db5-a3a8-524d6fca9d3f/book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/launchctl/sandbox-lore.runtime.81b5ae10-79c6-4db5-a3a8-524d6fca9d3f.stdout.txt</string>
+	<key>WorkingDirectory</key>
+	<string>/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.81b5ae10-79c6-4db5-a3a8-524d6fca9d3f</string>
+</dict>
+</plist>

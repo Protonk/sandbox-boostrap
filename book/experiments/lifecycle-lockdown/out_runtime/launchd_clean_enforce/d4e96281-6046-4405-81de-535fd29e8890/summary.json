@@ -1,0 +1,33 @@
+{
+  "schema_version": "runtime-tools.summary.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "run_id": "d4e96281-6046-4405-81de-535fd29e8890",
+  "status": "partial",
+  "plan_id": "lifecycle-lockdown.v4.exec-stage-system-binary-pivot",
+  "plan_digest": "c7d7befe76ed12b980fcc397b3e66a52146d3e0880a7a4059fee84f32287df57",
+  "channel": "launchd_clean",
+  "lanes": {
+    "baseline": false,
+    "scenario": true,
+    "oracle": false
+  },
+  "profile_count": 9,
+  "scenario_count": 9,
+  "expected_profiles": [
+    "lockdown:airlock_passing_sbpl",
+    "lockdown:airlock_passing_sbpl_write",
+    "lockdown:airlock_passing_sbpl_write_mapexec",
+    "lockdown:airlock_passing_sbpl_write_read_launchctl",
+    "lockdown:airlock_passing_sbpl_write_sysctl",
+    "lockdown:airlock_passing_sbpl_write_mapexec_sysctl",
+    "lockdown:airlock_gate_sbpl",
+    "lockdown:airlock_passing_blob",
+    "lockdown:airlock_gate_blob"
+  ],
+  "mismatch_counts": {
+    "unexpected_deny": 2,
+    "bootstrap_deny_process_exec": 5,
+    "preflight_blocked": 2
+  },
+  "dry_run": false
+}

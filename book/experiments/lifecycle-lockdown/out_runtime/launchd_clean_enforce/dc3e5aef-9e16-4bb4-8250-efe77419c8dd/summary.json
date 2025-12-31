@@ -1,0 +1,23 @@
+{
+  "schema_version": "runtime-tools.summary.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "run_id": "dc3e5aef-9e16-4bb4-8250-efe77419c8dd",
+  "status": "partial",
+  "plan_id": "lifecycle-lockdown.v5.exec-stage-preboot-dyld",
+  "plan_digest": "91d065d16f400dc0944c31e3fbab49b4f28845d287918f96a5368a4d29ba6f4a",
+  "channel": "launchd_clean",
+  "lanes": {
+    "baseline": false,
+    "scenario": true,
+    "oracle": false
+  },
+  "profile_count": 1,
+  "scenario_count": 1,
+  "expected_profiles": [
+    "lockdown:airlock_passing_sbpl_write_mapexec_preboot_dyld_sysctl"
+  ],
+  "mismatch_counts": {
+    "bootstrap_deny_process_exec": 1
+  },
+  "dry_run": false
+}

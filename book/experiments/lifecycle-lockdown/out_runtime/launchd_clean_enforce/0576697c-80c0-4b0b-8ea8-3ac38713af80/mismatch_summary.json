@@ -1,0 +1,21 @@
+{
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "generated_by": "book/api/runtime/execution/workflow.py",
+  "mismatches": [
+    {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "lockdown:airlock_passing_sbpl_write_mapexec_preboot_dyld_sysctl_procinfo",
+      "expectation_id": "lockdown:sysctl-read-kern.osrelease",
+      "operation": "sysctl-read",
+      "path": "kern.osrelease",
+      "expected": "allow",
+      "actual": "deny",
+      "mismatch_type": "bootstrap_deny_process_exec",
+      "violation_summary": "EPERM",
+      "notes": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.0576697c-80c0-4b0b-8ea8-3ac38713af80/book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/0576697c-80c0-4b0b-8ea8-3ac38713af80/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_mapexec_preboot_dyld_sysctl_procinfo.runtime.sb\",\"pid\":11240}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.0576697c-80c0-4b0b-8ea8-3ac38713af80/book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/0576697c-80c0-4b0b-8ea8-3ac38713af80/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_mapexec_preboot_dyld_sysctl_procinfo.runtime.sb\",\"pid\":11240}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"preflight\",\"api\":\"sandbox_check_by_audit_token\",\"operation\":\"sysctl-read\",\"filter_type\":37,\"filter_type_name\":\"unknown\",\"check_type\":37,\"varargs_count\":1,\"argument\":\"kern.osrelease\",\"no_report\":false,\"no_report_reason\":\"unsupported_filter_type\",\"token_status\":\"ok\",\"token_mach_kr\":0,\"rc\":-2,\"errno\":45,\"decision\":\"error\",\"error\":\"unsupported filter type (string-arg only)\"}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"bootstrap_exec\",\"api\":\"sandbox_check_by_audit_token\",\"operation\":\"process-exec*\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":0,\"varargs_count\":1,\"argument\":\"/usr/sbin/sysctl\",\"no_report\":false,\"no_report_reason\":\"token_unavailable\",\"token_status\":\"task_info_failed\",\"token_mach_kr\":53,\"rc\":-1,\"errno\":0,\"decision\":\"error\",\"error\":\"TASK_AUDIT_TOKEN unavailable\"}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"exec\",\"rc\":-1,\"errno\":1,\"argv0\":\"/usr/sbin/sysctl\",\"pid\":11240}\nexecvp: Operation not permitted\n"
+    }
+  ],
+  "counts": {
+    "bootstrap_deny_process_exec": 1
+  }
+}

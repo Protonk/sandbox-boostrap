@@ -19,12 +19,24 @@ to avoid extra syscalls that would confound sandbox decisions.
 
 - `SBL_IKIT_SKIP_SWEEP=1`: skip the IOConnectCallMethod selector sweep and only
   run the IOSurfaceCreate post-open action.
-- `SANDBOX_LORE_IKIT_SWEEP=1`: run a bounded per-selector sweep with a fixed
-  shape menu and emit `sweep_results` plus `first_non_invalid_spec` in probe
-  output.
+- `SANDBOX_LORE_IKIT_SWEEP=1`: run a bounded per-selector sweep and emit
+  `sweep_results` plus `first_non_invalid_spec` in probe output. When combined
+  with `SANDBOX_LORE_IKIT_METHOD0=1`, the sweep uses the IOSurface create
+  payload with `IOConnectCallStructMethod` and defaults to selectors `0..25`.
 - `SANDBOX_LORE_IKIT_MACH_CAPTURE=1`: interpose `mach_msg` and record the first
   32 send messages addressed to the opened user-client port (msg id, size, hash,
-  kr).
+  kr). Trap-level entrypoints (`mach_msg_overwrite_trap`, `mach_msg_trap`,
+  `mach_msg2_trap`) are interposed alongside `mach_msg`.
+- `SANDBOX_LORE_IKIT_METHOD0=1`: issue a targeted `IOConnectCallStructMethod`
+  selector 0 call using an IOCFSerialize payload (IOKit XML/binary) and record
+  output metadata (input bytes, output size, u32 at offset 0x10).
+- `SANDBOX_LORE_IKIT_METHOD0_BINARY=1`: serialize the selector 0 payload as
+  IOCF binary instead of the default XML form.
+- `SANDBOX_LORE_IKIT_METHOD0_PAYLOAD_IN=...`: path to a serialized IOSurface
+  property list blob to use as the selector 0 input payload (binary/XML plist).
+- `SANDBOX_LORE_IKIT_METHOD0_PAYLOAD_OUT=...`: path to write the selector 0
+  payload bytes that were actually used (useful for baseline → sandbox replay).
+  Payloads are NUL-terminated if the serialized buffer lacks a trailing `0x00`.
 - `SANDBOX_LORE_IKIT_SELECTOR_LIST=...`: override the selector sweep with a
   comma/space-separated list of method numbers. When set, probes use a small
   non-zero input/output buffer to avoid trivially invalid shapes.

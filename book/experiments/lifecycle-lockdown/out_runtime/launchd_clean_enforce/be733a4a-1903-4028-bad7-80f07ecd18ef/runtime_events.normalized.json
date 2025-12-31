@@ -1,0 +1,58 @@
+[
+  {
+    "actual": "allow",
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "ok",
+      "err_class_source": "none",
+      "errbuf": null,
+      "errno": 0,
+      "rc": 0
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_runner",
+      "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/be733a4a-1903-4028-bad7-80f07ecd18ef/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_allow_default_fileprobe.runtime.sb",
+      "--",
+      "book/api/runtime/native/file_probe/file_probe",
+      "read",
+      "/usr/bin/true"
+    ],
+    "expectation_id": "lockdown:fileprobe-read-/usr/bin/true",
+    "expected": "allow",
+    "match": true,
+    "normalized_path": "/usr/bin/true",
+    "normalized_path_source": "observed_path",
+    "observed_path": "/usr/bin/true",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-read*",
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/experiments/lifecycle-lockdown/out_runtime/launchd_clean_enforce/be733a4a-1903-4028-bad7-80f07ecd18ef/runtime_profiles/passing_neighbor.lockdown_airlock_passing_sbpl_write_allow_default_fileprobe.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "file_probe read /usr/bin/true",
+    "profile_id": "lockdown:airlock_passing_sbpl_write_allow_default_fileprobe",
+    "requested_path": "/usr/bin/true",
+    "run_id": "be733a4a-1903-4028-bad7-80f07ecd18ef",
+    "runner_info": {
+      "apply_model": "exec_wrapper",
+      "apply_timing": "pre_exec",
+      "entrypoint": "sandbox_runner",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_runner",
+      "entrypoint_sha256": "7820fa45440400aa64e61fccbb869ac6a1433fc9eb00ff9541dcb4fbbdcc0a62",
+      "preexisting_sandbox_suspected": false,
+      "tool_build_id": "7820fa45440400aa64e61fccbb869ac6a1433fc9eb00ff9541dcb4fbbdcc0a62"
+    },
+    "runtime_status": "success",
+    "scenario_id": "lockdown:fileprobe-read-/usr/bin/true",
+    "stderr": "",
+    "stdout": "{\"op\":\"read\",\"path\":\"/usr/bin/true\",\"rc\":0,\"errno\":0}\n",
+    "target": "/usr/bin/true",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  }
+]

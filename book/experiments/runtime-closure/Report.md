@@ -21,6 +21,15 @@ Provide narrow, stage-labeled runtime evidence that helps close gaps in `probe-o
 - Oracle calibration lane: blocked (sandbox_check denies even when the operation allows on this host).
 - IOKit lane: partial (service-only and user-client-only deny open; both allow open but post-open call still fails; replay shows the captured call shape is invalid in baseline and sandbox, so the post-open failure is a call-shape issue rather than a sandbox gate on this host; message-filter variants are blocked by preflight apply-gate signatures).
 
+## IOKit lane reference summary (IOKIT.md)
+The consolidated IOKit lane reference lives in `book/experiments/runtime-closure/IOKIT.md` and records the current closure point: post-open IOSurface work still returns `kIOReturnBadArgument` in both baseline and sandbox, so it is not a sandbox gate claim at this stage. The summary table in that document points to the method-0 sweep (`book/experiments/runtime-closure/out/iosurface_method0_sweep.json`), binary payload attempt (`book/experiments/runtime-closure/out/iosurface_method0_binary.json`), v7 method-0 run (`book/experiments/runtime-closure/out/289b183e-d86e-47db-ae57-0b9bd3541c6a/runtime_events.normalized.json`), and replay run (`book/experiments/runtime-closure/out/e720b256-2f6e-4888-9288-2e19b5007fa9/runtime_events.normalized.json`).
+
+## Failures ledger summary (Failures.md)
+The negative knowledge from this experiment is captured in `book/experiments/runtime-closure/Failures.md` and is meant to prevent re-running known dead ends. It highlights the method-0 selector sweep failure (`book/experiments/runtime-closure/out/iosurface_method0_sweep.json`), the mach capture blind spot (`book/experiments/runtime-closure/out/iosurface_mach_capture.json`), the apply-gated external-method profile (`book/experiments/runtime-closure/out/03aaad16-f06b-4ec7-a468-c6379abbeb4d/mismatch_summary.json`), and the uncalibrated oracle lane (`book/experiments/runtime-closure/out/0c49afaa-0739-4239-9275-eb875c6232da/runtime_events.normalized.json`).
+
+## Seatbelt interfaces summary (Seatbelt_Interfaces.md)
+The seatbelt interface map is documented in `book/experiments/runtime-closure/Seatbelt_Interfaces.md` and explains how SBPL compilation/apply, operation-stage enforcement, oracle callouts, and observer logs are classified. It anchors the apply-gate boundary for `iokit-external-method` (same apply-gate run as above) and records the op vocabulary drift warning (`book/experiments/runtime-closure/out/7deb2296-7fa8-48ea-849f-ac7a696f7c93/77c3c910-25d5-4499-9e5e-c70c570597ff/runtime_results.json`) as an interface-level signal, not a policy decision.
+
 ## Lanes
 
 ### File canonicalization

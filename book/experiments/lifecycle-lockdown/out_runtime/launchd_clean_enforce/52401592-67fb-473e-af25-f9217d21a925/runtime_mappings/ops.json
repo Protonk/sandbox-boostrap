@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "tier": "mapped",
+    "source_jobs": [],
+    "notes": "op-level runtime summary"
+  },
+  "ops": {
+    "sysctl-read": {
+      "op_name": "sysctl-read",
+      "op_id": 155,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 6,
+      "matches": 6,
+      "mismatches": 0,
+      "probes_including_blocked": 7,
+      "blocked": {
+        "total": 1,
+        "by_stage": {
+          "bootstrap": 1
+        },
+        "by_kind": {
+          "bootstrap_deny_process_exec": 1
+        }
+      },
+      "examples": [
+        {
+          "scenario_id": "lockdown:sysctl-read-kern.osrelease",
+          "expectation_id": "lockdown:sysctl-read-kern.osrelease",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        },
+        {
+          "scenario_id": "lockdown:sysctl-read-kern.osrelease",
+          "expectation_id": "lockdown:sysctl-read-kern.osrelease",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        },
+        {
+          "scenario_id": "lockdown:sysctl-read-kern.osrelease",
+          "expectation_id": "lockdown:sysctl-read-kern.osrelease",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        },
+        {
+          "scenario_id": "lockdown:sysctl-read-kern.osrelease",
+          "expectation_id": "lockdown:sysctl-read-kern.osrelease",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        },
+        {
+          "scenario_id": "lockdown:sysctl-read-kern.osrelease",
+          "expectation_id": "lockdown:sysctl-read-kern.osrelease",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        }
+      ],
+      "scenarios": [
+        "lockdown:sysctl-read-kern.osrelease"
+      ],
+      "coverage_status": "ok"
+    }
+  }
+}

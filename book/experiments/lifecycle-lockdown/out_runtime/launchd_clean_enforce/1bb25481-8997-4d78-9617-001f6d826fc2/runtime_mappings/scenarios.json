@@ -1,0 +1,111 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "tier": "mapped",
+    "source_jobs": [],
+    "notes": "scenario-level runtime summaries"
+  },
+  "phase_histograms": {
+    "overall": {
+      "total": 1,
+      "stages": {
+        "apply": 0,
+        "bootstrap": 1,
+        "preflight": 0,
+        "probe": 0
+      },
+      "blocked": {
+        "total": 1,
+        "by_stage": {
+          "bootstrap": 1
+        },
+        "by_kind": {
+          "bootstrap_deny_process_exec": 1
+        }
+      },
+      "probe": {
+        "total": 0,
+        "allow": 0,
+        "deny": 0,
+        "mismatches": 0
+      }
+    },
+    "by_family": {
+      "apply-gate": {
+        "total": 1,
+        "stages": {
+          "apply": 0,
+          "bootstrap": 1,
+          "preflight": 0,
+          "probe": 0
+        },
+        "blocked": {
+          "total": 1,
+          "by_stage": {
+            "bootstrap": 1
+          },
+          "by_kind": {
+            "bootstrap_deny_process_exec": 1
+          }
+        },
+        "probe": {
+          "total": 0,
+          "allow": 0,
+          "deny": 0,
+          "mismatches": 0
+        }
+      }
+    }
+  },
+  "scenarios": {
+    "lockdown:sysctl-read-kern.osrelease": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "lockdown:airlock_passing_sbpl_write_mapexec_any_sysctl",
+      "expectations": [
+        {
+          "expectation_id": "lockdown:sysctl-read-kern.osrelease",
+          "profile_id": "lockdown:airlock_passing_sbpl_write_mapexec_any_sysctl",
+          "operation": "sysctl-read",
+          "target": "kern.osrelease",
+          "expected": "allow",
+          "probe_name": "sysctl -n kern.osrelease"
+        }
+      ],
+      "results": {
+        "total": 0,
+        "matches": 0,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 1,
+          "by_stage": {
+            "bootstrap": 1
+          },
+          "by_kind": {
+            "bootstrap_deny_process_exec": 1
+          }
+        },
+        "status": "blocked"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "lockdown:sysctl-read-kern.osrelease",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "sysctl-read",
+          "target": "kern.osrelease",
+          "failure_stage": "bootstrap",
+          "failure_kind": "bootstrap_deny_process_exec",
+          "mismatch_type": "bootstrap_deny_process_exec",
+          "violation_summary": "EPERM",
+          "stderr": "execvp: Operation not permitted\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "lockdown:sysctl-read-kern.osrelease"
+    }
+  }
+}

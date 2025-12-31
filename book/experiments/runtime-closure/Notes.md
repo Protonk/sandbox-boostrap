@@ -99,3 +99,28 @@ Use this file for short, factual run notes and failures. Avoid timestamps.
   - Baseline `sweep_result_count=395`, `first_non_invalid_missing=true`; no non-invalid tuple found within the bounded selector/shape menu.
 - Mach message capture (Branch B fallback): `out/a21b9fe6-dc2c-4d80-9131-202cab92595a/` (launchd_clean, v7, `SANDBOX_LORE_IKIT_MACH_CAPTURE=1`, `SBL_IKIT_SKIP_SWEEP=1`).
   - Baseline and scenario both report `mach_msg_capture_count=0` for messages addressed to the IOSurface user-client port; `open_kr=0` and `surface_create_ok=false` in the sandboxed lane.
+- Method0 payload baseline (manual `iokit_probe`): wrote `out/iosurface_method0_payload.plist` with `SANDBOX_LORE_IKIT_METHOD0=1` and `SBL_IKIT_SKIP_SWEEP=1`.
+  - `call_kr=-536870206` (invalid argument) with selector 0; payload source `surface_values` and `method0_input_bytes=247`.
+- Method0 sandbox crash (pre-fix): `out/a788dcc3-e484-4ae7-b764-f24bc86e5dfc/` run exits `-11` (probe SIGSEGV) when `SANDBOX_LORE_IKIT_METHOD0=1` under v7.
+- Method0 payload preloading fix: `sandbox_iokit_probe` now preloads payload before apply when `SANDBOX_LORE_IKIT_METHOD0_PAYLOAD_IN` is set, avoiding the SIGSEGV.
+- Method0 replay under v7 (payload file, mach capture): `out/eb42253f-0491-4e8c-90db-cd922a67eca4/` (launchd_clean, v7, `SANDBOX_LORE_IKIT_METHOD0=1`, `SANDBOX_LORE_IKIT_METHOD0_PAYLOAD_IN=out/iosurface_method0_payload.plist`, `SBL_IKIT_SKIP_SWEEP=1`).
+  - Scenario lane: `open_kr=0`, `call_kr=-536870206` (invalid argument), `method0_payload_source=file`, `mach_msg_capture_count=0`, probe exits 1 (operation failed).
+  - Baseline lane: same selector 0 tuple and `call_kr=-536870206` with payload file (no non-invalid call shape found yet).
+- Method0 payload (IOCFSerialize) baseline: `iokit_probe` run with `SANDBOX_LORE_IKIT_METHOD0=1`, `SBL_IKIT_SKIP_SWEEP=1` writes `out/iosurface_method0_payload.iokit`.
+  - `call_kr=-536870206` with selector 0; `method0_plist_format=iocf_xml`, `method0_input_bytes=455`, `method0_payload_nul_appended=false`.
+- Method0 replay under v7 (IOCFSerialize payload): `out/b45c0692-d480-4111-956e-1b9d27f363fb/` (launchd_clean, v7, `SANDBOX_LORE_IKIT_METHOD0=1`, `SANDBOX_LORE_IKIT_METHOD0_PAYLOAD_IN=out/iosurface_method0_payload.iokit`, `SBL_IKIT_SKIP_SWEEP=1`).
+  - Scenario lane: `open_kr=0`, `call_kr=-536870206` (invalid argument), `method0_payload_source=file`, `method0_payload_nul_appended=false`, probe exits 1.
+- Method0 replay under v7 after IOCFSerialize XML-only enforcement: `out/013c8616-edf7-44d9-a8f5-d653a2593dbe/` (launchd_clean, v7, `SANDBOX_LORE_IKIT_METHOD0=1`, `SANDBOX_LORE_IKIT_METHOD0_PAYLOAD_IN=out/iosurface_method0_payload.iokit`, `SBL_IKIT_SKIP_SWEEP=1`).
+  - Scenario lane: `open_kr=0`, `call_kr=-536870206` (invalid argument), `method0_plist_format=file`, `method0_payload_nul_appended=false`, `method0_input_bytes=455`, probe exits 1.
+- Method0 create-props payload (IOCFSerialize XML) baseline: `iokit_probe` run with `SANDBOX_LORE_IKIT_METHOD0=1`, `SBL_IKIT_SKIP_SWEEP=1` writes `out/iosurface_method0_payload.iokit`.
+  - `call_kr=-536870206` with selector 0; `method0_plist_format=iocf_xml`, `method0_payload_source=create_props`, `method0_input_bytes=368`, `method0_output_capacity=8192`.
+- Method0 replay under v7 (create-props payload, 0x2000 output): `out/289b183e-d86e-47db-ae57-0b9bd3541c6a/` (launchd_clean, v7, `SANDBOX_LORE_IKIT_METHOD0=1`, `SANDBOX_LORE_IKIT_METHOD0_PAYLOAD_IN=out/iosurface_method0_payload.iokit`, `SBL_IKIT_SKIP_SWEEP=1`).
+  - Scenario lane: `open_kr=0`, `call_kr=-536870206` (invalid argument), `method0_payload_source=file`, `method0_input_bytes=368`, `method0_output_capacity=8192`, probe exits 1.
+- Method0 selector sweep (create-props XML payload): `out/iosurface_method0_sweep.json` (baseline `iokit_probe`, `SANDBOX_LORE_IKIT_METHOD0=1`, `SANDBOX_LORE_IKIT_SWEEP=1`).
+  - `sweep_result_count=26`, `first_non_invalid_missing=true`; selectors `0..25` all return `kIOReturnBadArgument` with `input_struct_bytes=368` and `output_struct_bytes=8192`.
+- Method0 binary payload baseline: `out/iosurface_method0_binary.json` (baseline `iokit_probe`, `SANDBOX_LORE_IKIT_METHOD0=1`, `SANDBOX_LORE_IKIT_METHOD0_BINARY=1`, `SBL_IKIT_SKIP_SWEEP=1`).
+  - `call_kr=-536870206` (invalid argument) with selector 0; `method0_plist_format=iocf_binary`, `method0_input_bytes=209`, `method0_payload_nul_appended=true`.
+- Mach capture (IOSurfaceCreate path): `out/iosurface_mach_capture.json` (baseline `iokit_probe`, `SANDBOX_LORE_IKIT_MACH_CAPTURE=1`, `SBL_IKIT_SKIP_SWEEP=1`).
+  - `mach_msg_capture_count=0` despite `open_kr=0` and `surface_create_ok=true`.
+- Mach capture synthetic control: `out/iosurface_mach_capture_synth.json` (baseline `iokit_probe`, `SANDBOX_LORE_IKIT_MACH_CAPTURE=1`, `SANDBOX_LORE_IKIT_SYNTH_CALL=1`).
+  - `synthetic_call_attempted=true`, but `mach_msg_capture_count=0`, so trap-level interpose still shows no send events to the connection port.

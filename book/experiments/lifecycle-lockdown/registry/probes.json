@@ -12,6 +12,25 @@
       "expectation_id": "lockdown:signal-self",
       "driver": "native",
       "mode": "scenario"
+    },
+    "lockdown:fileprobe_read_usr_bin_true": {
+      "probe_id": "lockdown:fileprobe_read_usr_bin_true",
+      "name": "file_probe read /usr/bin/true",
+      "operation": "file-read*",
+      "target": "/usr/bin/true",
+      "expected": "allow",
+      "expectation_id": "lockdown:fileprobe-read-/usr/bin/true",
+      "driver": "file_probe",
+      "mode": "scenario"
+    },
+    "lockdown:sysctl_kern_osrelease": {
+      "probe_id": "lockdown:sysctl_kern_osrelease",
+      "name": "sysctl -n kern.osrelease",
+      "operation": "sysctl-read",
+      "target": "kern.osrelease",
+      "expected": "allow",
+      "expectation_id": "lockdown:sysctl-read-kern.osrelease",
+      "mode": "scenario"
     }
   }
 }

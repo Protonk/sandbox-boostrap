@@ -1,0 +1,23 @@
+{
+  "schema_version": "runtime-tools.summary.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "run_id": "56be2155-c694-4689-8308-d3a49521e783",
+  "status": "partial",
+  "plan_id": "lifecycle-lockdown.v11.exec-stage-xattr",
+  "plan_digest": "a890c9a6759519c64f869f162d13dafa401bee175066533f6020087f6da62638",
+  "channel": "launchd_clean",
+  "lanes": {
+    "baseline": false,
+    "scenario": true,
+    "oracle": false
+  },
+  "profile_count": 1,
+  "scenario_count": 1,
+  "expected_profiles": [
+    "lockdown:airlock_passing_sbpl_write_read_xattr_sysctl"
+  ],
+  "mismatch_counts": {
+    "bootstrap_deny_process_exec": 1
+  },
+  "dry_run": false
+}
