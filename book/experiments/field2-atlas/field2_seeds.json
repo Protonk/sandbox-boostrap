@@ -6,7 +6,14 @@
     "mach-lookup",
     "file-read-xattr",
     "file-write-xattr",
-    "darwin-notification-post"
+    "darwin-notification-post",
+    "distributed-notification-post",
+    "authorization-right-obtain",
+    "user-preference-read",
+    "user-preference-write",
+    "sysctl-read",
+    "ipc-posix-shm*",
+    "ipc-posix-sem*"
   ],
   "sources": {
     "vocab": "book/graph/mappings/vocab/{ops.json,filters.json}",
@@ -173,6 +180,135 @@
         }
       ],
       "notes": "file-mode appears in sys:bsd (tag 27) and sys:sample (tags 3/8); runtime probes use a file-read* discriminator over /private/tmp mode fixtures."
+    },
+    {
+      "field2": 4,
+      "filter_name": "ipc-posix-name",
+      "target_ops": [
+        "ipc-posix-shm*",
+        "ipc-posix-sem*"
+      ],
+      "anchors": [],
+      "system_profiles": [
+        {
+          "profile": "sys:bsd",
+          "tags": {
+            "0": 1
+          }
+        }
+      ],
+      "notes": "ipc-posix-name appears in sys:bsd and sys:airlock; userland probes can use shm_open/sem_open and sandbox_check for decision oracles."
+    },
+    {
+      "field2": 6,
+      "filter_name": "local-name",
+      "target_ops": [
+        "mach-lookup"
+      ],
+      "anchors": [],
+      "system_profiles": [],
+      "notes": "local-name appears in mach probe profiles; no system profile witness in the current field2 inventory."
+    },
+    {
+      "field2": 26,
+      "filter_name": "right-name",
+      "target_ops": [
+        "authorization-right-obtain"
+      ],
+      "anchors": [],
+      "system_profiles": [
+        {
+          "profile": "sys:bsd",
+          "tags": {
+            "26": 7,
+            "27": 5,
+            "5": 1
+          }
+        }
+      ],
+      "notes": "right-name appears in sys:bsd; runtime backing can use authorization-right-obtain with sandbox_check callouts."
+    },
+    {
+      "field2": 27,
+      "filter_name": "preference-domain",
+      "target_ops": [
+        "user-preference-read",
+        "user-preference-write"
+      ],
+      "anchors": [],
+      "system_profiles": [
+        {
+          "profile": "sys:bsd",
+          "tags": {
+            "27": 14,
+            "26": 4,
+            "0": 17
+          }
+        }
+      ],
+      "notes": "preference-domain appears in sys:bsd; userland preference reads/writes can be paired with sandbox_check callouts."
+    },
+    {
+      "field2": 34,
+      "filter_name": "notification-name",
+      "target_ops": [
+        "darwin-notification-post",
+        "distributed-notification-post"
+      ],
+      "anchors": [],
+      "system_profiles": [
+        {
+          "profile": "sys:airlock",
+          "tags": {
+            "18": 1,
+            "19": 1,
+            "20": 1,
+            "21": 1,
+            "22": 1,
+            "23": 1,
+            "24": 1,
+            "25": 1,
+            "26": 1,
+            "27": 1,
+            "28": 1,
+            "29": 1,
+            "30": 1
+          }
+        }
+      ],
+      "notes": "notification-name appears in sys:airlock tags 18-30; hardened runtime notification probes provide runtime signatures."
+    },
+    {
+      "field2": 37,
+      "filter_name": "sysctl-name",
+      "target_ops": [
+        "sysctl-read"
+      ],
+      "anchors": [
+        {
+          "anchor": "kern.ostype",
+          "status": "partial",
+          "source": "seed_manifest"
+        }
+      ],
+      "system_profiles": [],
+      "notes": "sysctl-name has no system-profile witness in the current inventory; hardened sysctl probes provide runtime signatures."
+    },
+    {
+      "field2": 49,
+      "filter_name": "xpc-service-name",
+      "target_ops": [
+        "mach-lookup"
+      ],
+      "anchors": [
+        {
+          "anchor": "com.apple.cfprefsd.xpc",
+          "status": "partial",
+          "source": "seed_manifest"
+        }
+      ],
+      "system_profiles": [],
+      "notes": "xpc-service-name has no system-profile witness in the current inventory; runtime backing is expected via sandbox_check on mach-lookup."
     },
     {
       "field2": 2560,

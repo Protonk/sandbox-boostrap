@@ -1,0 +1,471 @@
+(7hb
+( @9)
+(ih8
+(@@9
+(@@9
+(D@9
+( @9
+( @9
+( @9
+(i*8
+(\@y
+( @9
+(0@y
+( @9
+(3@9
+(hb8(
+scheme.c
+(long)snprintf(name,sizeof(name),"gensym-%ld",sc->gensym_cnt) < (long)sizeof(name)
+scheme_backtrace
+size_t scheme_write_to_file(scheme *, pointer, FILE *)
+()[];
+(bytes_to_advance % BYTE_ALIGNMENT) == 0
+(flags & ACTION_INLINE_FLAG) == 0
+(buffer->used_byte_count % __alignof(struct intern_entry)) == 0
+(modinfo->action_flag & ~modinfo->action_mask) == 0
+sb_sbpl_parser_new
+sbpl_parser.c
+sb_sbpl_parser_release
+sb_sbpl_parser_parse_string
+^{cell=I(?={?=*Q}{num=c(?=qd)}^{port}^?@?{?=^v^?}{?=^{cell}^{cell}}^{backtrace_frame}){location=*SS}}24@?0^{scheme=^?^?qi[3*][3^{cell}]i^{cell}^{cell}^{cell}^{cell}iQ^{backtrace_frame}^{backtrace_segment}{backtrace_frame=^{cell}^{cell}{location=*SS}S{timeval=qi}^{backtrace_frame}}{backtrace_frame=^{cell}^{cell}{location=*SS}S{timeval=qi}^{backtrace_frame}}i{cell=I(?={?=*Q}{num=c(?=qd)}^{port}^?@?{?=^v^?}{?=^{cell}^{cell}}^{backtrace_frame}){location=*SS}}^{cell}{cell=I(?={?=*Q}{num=c(?=qd)}^{port}^?@?{?=^v^?}{?=^{cell}^{cell}}^{backtrace_frame}){location=*SS}}^{cell}{cell=I(?={?=*Q}{num=c(?=qd)}^{port}^?@?{?=^v^?}{?=^{cell}^{cell}}^{backtrace_frame}){location=*SS}}^{cell}{cell=I(?={?=*Q}{num=c(?=qd)}^{port}^?@?{?=^v^?}{?=^{cell}^{cell}}^{backtrace_frame}){location=*SS}}^{cell}{cell=I(?={?=*Q}{num=c(?=qd)}^{port}^?@?{?=^v^?}{?=^{cell}^{cell}}^{backtrace_frame}){location=*SS}}^{cell}{cell=I(?={?=*Q}{num=c(?=qd)}^{port}^?@?{?=^v^?}{?=^{cell}^{cell}}^{backtrace_frame}){location=*SS}}^{cell}^{cell}^{cell}^{cell}^{cell}^{cell}^{cell}^{cell}^{cell}^{cell}^{cell}^{cell}^{cell}q^{cell}^{cell}^{cell}^{cell}^{cell}[64{port=C(?={?=^{__sFILE}i}{?=***}){location=*SS}I}][64i]ii^{cell}QQ^i^{location}cc^{cell}^{cell}[1024c]^{__sFILE}ii^{cell}i^vq^vi^{_sc_stack_snapshot}}8^{cell=I(?={?=*Q}{num=c(?=qd)}^{port}^?@?{?=^v^?}{?=^{cell}^{cell}}^{backtrace_frame}){location=*SS}}16
+%sbpl-enter-message-filter-context
+%sbpl-leave-message-filter-context
+sbpl-filter?
+sbpl-modifier?
+sbpl-operation?
+sbpl-message-filter?
+sbpl-filter-eqv?
+sbpl-message-filter-eqv?
+sbpl-operation-eqv?
+%sbpl-modifier-properties
+sbpl-operation-can-return?
+sbpl-version-compatible?
+<internal sbpl library>
+*sbpl-type-symbols*
+sbpl1
+sbpl2
+sbpl3
+sbpl-operation
+sbpl-filter
+sbpl-modifier
+sbpl-message-filter
+sbpl_enter_message_filter_context
+sbpl_leave_message_filter_context
+(size_t)(qpos - quoted) <= quotedlen
+sbpl_filter_eqv
+sbpl_operation_eqv
+(define (caar x) (car (car x)))
+(define (cadr x) (car (cdr x)))
+(define (cdar x) (cdr (car x)))
+(define (cddr x) (cdr (cdr x)))
+(define (caaar x) (car (car (car x))))
+(define (caadr x) (car (car (cdr x))))
+(define (cadar x) (car (cdr (car x))))
+(define (caddr x) (car (cdr (cdr x))))
+(define (cdaar x) (cdr (car (car x))))
+(define (cdadr x) (cdr (car (cdr x))))
+(define (cddar x) (cdr (cdr (car x))))
+(define (cdddr x) (cdr (cdr (cdr x))))
+(define (caaaar x) (car (car (car (car x)))))
+(define (caaadr x) (car (car (car (cdr x)))))
+(define (caadar x) (car (car (cdr (car x)))))
+(define (caaddr x) (car (car (cdr (cdr x)))))
+(define (cadaar x) (car (cdr (car (car x)))))
+(define (cadadr x) (car (cdr (car (cdr x)))))
+(define (caddar x) (car (cdr (cdr (car x)))))
+(define (cadddr x) (car (cdr (cdr (cdr x)))))
+(define (cdaaar x) (cdr (car (car (car x)))))
+(define (cdaadr x) (cdr (car (car (cdr x)))))
+(define (cdadar x) (cdr (car (cdr (car x)))))
+(define (cdaddr x) (cdr (car (cdr (cdr x)))))
+(define (cddaar x) (cdr (cdr (car (car x)))))
+(define (cddadr x) (cdr (cdr (car (cdr x)))))
+(define (cdddar x) (cdr (cdr (cdr (car x)))))
+(define (cddddr x) (cdr (cdr (cdr (cdr x)))))
+(macro (unless form) `(if (not ,(cadr form)) (begin ,@(cddr form))))
+(macro (when form) `(if ,(cadr form) (begin ,@(cddr form))))
+(macro (define-macro dform)
+(define exact? integer?)
+(define (inexact? x) (and (real? x) (not (integer? x))))
+(define (even? n) (= (remainder n 2) 0))
+(define (odd? n) (not (= (remainder n 2) 0)))
+(define (zero? n) (= n 0))
+(define (positive? n) (> n 0))
+(define (negative? n) (< n 0))
+(define complex? number?)
+(define rational? real?)
+(define (abs n) (if (>= n 0) n (- n)))
+(define (exact->inexact n) (* n 1))
+(define (<> n1 n2) (not (= n1 n2)))
+(define (max . lst)
+(define (min . lst)
+(define (succ x) (+ x 1))
+(define (pred x) (- x 1))
+(define (gcd a b)
+(define (lcm a b)
+(define call/cc call-with-current-continuation)
+(define (string . charlist) (list->string charlist))
+(define (list->string charlist)
+(define (string-fill! s e)
+(define (string->list s)
+(define (string-copy str) (string-append str))
+(define (string->anyatom str pred)
+(define (string->number str) (string->anyatom str number?))
+(define (anyatom->string n pred)
+(define (number->string n) (anyatom->string n number?))
+(define (char-cmp? cmp a b) (cmp (char->integer a) (char->integer b)))
+(define (char-ci-cmp? cmp a b)
+(define (char=? a b) (char-cmp? = a b))
+(define (char<? a b) (char-cmp? < a b))
+(define (char>? a b) (char-cmp? > a b))
+(define (char<=? a b) (char-cmp? <= a b))
+(define (char>=? a b) (char-cmp? >= a b))
+(define (char-ci=? a b) (char-ci-cmp? = a b))
+(define (char-ci<? a b) (char-ci-cmp? < a b))
+(define (char-ci>? a b) (char-ci-cmp? > a b))
+(define (char-ci<=? a b) (char-ci-cmp? <= a b))
+(define (char-ci>=? a b) (char-ci-cmp? >= a b))
+(define (string=? a b) (= (internal-strcmp a b #f) 0))
+(define (string<? a b) (< (internal-strcmp a b #f) 0))
+(define (string>? a b) (> (internal-strcmp a b #f) 0))
+(define (string<=? a b) (<= (internal-strcmp a b #f) 0))
+(define (string>=? a b) (>= (internal-strcmp a b #f) 0))
+(define (string-ci=? a b) (= (internal-strcmp a b #t) 0))
+(define (string-ci<? a b) (< (internal-strcmp a b #t) 0))
+(define (string-ci>? a b) (> (internal-strcmp a b #t) 0))
+(define (string-ci<=? a b) (<= (internal-strcmp a b #t) 0))
+(define (string-ci>=? a b) (>= (internal-strcmp a b #t) 0))
+(define (list . x) x)
+(define (foldr f x lst) (if (null? lst) x (foldr f (f x (car lst)) (cdr lst))))
+(define (unzip1-with-cdr . lists) (unzip1-with-cdr-iterative lists '() '()))
+(define (unzip1-with-cdr-iterative lists cars cdrs)
+(define (map proc . lists)
+(define (filter pred l)
+(define (flatten lst)
+(define (partition pred lst)
+(define (for-each proc . lists)
+(define (list-tail x k) (if (zero? k) x (list-tail (cdr x) (- k 1))))
+(define (list-ref x k) (car (list-tail x k)))
+(define (last-pair x) (if (pair? (cdr x)) (last-pair (cdr x)) x))
+(define (take l n) (if (= n 0) '() (cons (car l) (take (cdr l) (- n 1)))))
+(define (drop l n) (if (= n 0) l (drop (cdr l) (- n 1))))
+(define (head stream) (car stream))
+(define (tail stream) (force (cdr stream)))
+(define (vector-equal? x y)
+(define (list->vector x) (apply vector x))
+(define (vector-fill! v e)
+(define (vector->list v)
+(macro quasiquote
+(define (atom? x) (not (pair? x)))
+(define (equal? x y)
+(macro do
+(define (generic-member cmp obj lst)
+(define (memq obj lst) (generic-member eq? obj lst))
+(define (memv obj lst) (generic-member eqv? obj lst))
+(define (member obj lst) (generic-member equal? obj lst))
+(define (generic-assoc cmp obj alst)
+(define (assq obj alst) (generic-assoc eq? obj alst))
+(define (assv obj alst) (generic-assoc eqv? obj alst))
+(define (assoc obj alst) (generic-assoc equal? obj alst))
+(define (acons x y z) (cons (cons x y) z))
+(define (macro-expand form) ((eval (get-closure-code (eval (car form)))) form))
+(macro (define-with-return form)
+(define *handlers* (list))
+(define (push-handler proc) (set! *handlers* (cons proc *handlers*)))
+(define (pop-handler)
+(define (more-handlers?) (pair? *handlers*))
+(define (throw . x)
+(macro (catch form)
+(define *error-hook* throw)
+(macro (make-environment form)
+(define-macro
+(define *colon-hook* eval)
+(define (input-output-port? p) (and (input-port? p) (output-port? p)))
+(define (close-port p)
+(define (call-with-input-file s p)
+(define (call-with-output-file s p)
+(define (with-input-from-file s p)
+(define (with-output-to-file s p)
+(define (with-input-output-from-to-files si so p)
+(define *seed* 1)
+(define (random-next)
+(define *features* '(srfi-0))
+(define-macro
+(define (cond-expand-runtime cond-action-list)
+(define (cond-eval-and cond-list)
+(define (cond-eval-or cond-list)
+(define (cond-eval condition)
+(gc-verbose #f)
+(let ((orig-eqv? eqv?) (orig-pair? pair?))
+           (not (or (sbpl-filter? x)
+                    (sbpl-message-filter? x)
+                    (sbpl-modifier? x)
+                    (sbpl-operation? x))))))
+        (cond ((sbpl-filter? x y) (sbpl-filter-eqv? x y))
+              ((sbpl-message-filter? x y) (sbpl-message-filter-eqv? x y))
+              ((sbpl-modifier? x y)
+                 (%sbpl-modifier-properties x)
+                 (%sbpl-modifier-properties y)))
+              ((sbpl-operation? x y) (sbpl-operation-eqv? x y))
+(define (%finalize))
+(define (param key)
+(let ((old-load load)
+(define *import-path* #f)
+(define (import path)
+(macro (extends form)
+(macro (with-operations form)
+(macro (with-filter form)
+                       (let* ((collected (partition sbpl-filter? args))
+(macro (with-modifier form)
+(macro (sbpl-message-filter form)
+            (%sbpl-enter-message-filter-context)
+            (%sbpl-leave-message-filter-context))))
+(macro (apply-message-filter form)
+                (if (sbpl-message-filter? (car ps))
+                  (macro-expand (cons sbpl-message-filter ps)))))
+(macro (sbpl-message-filter-update! form)
+            (%sbpl-enter-message-filter-context ,msgfilter)
+            (%sbpl-leave-message-filter-context))))
+(define (path-ancestors . paths)
+(define (entitlement-value arg)
+(define (entitlement-value-regex arg)
+(define (require-entitlement entitlement-name . args)
+(define %storage-class-names ())
+(define (define-storage-class class-name filter)
+(define (apply-default-sandbox-profile profile filter)
+(define (no-default-sandbox-profile filter)
+(define (_IO g n) (+ n (* 256 (char->integer (car (string->list g))))))
+(define literal path)
+(define prefix path-prefix)
+(define regex path-regex)
+(define mount-relative-literal mount-relative-path)
+(define mount-relative-regex mount-relative-path-regex)
+(define fileprovider-syncroot-literal fileprovider-syncroot-path)
+(define fileprovider-syncroot-regex fileprovider-syncroot-path-regex)
+(define mount-root-literal mount-root-path)
+(define mount-root-regex mount-root-path-regex)
+(define process-exec process-exec*)
+(define ipc-posix-shm-read* ipc-posix-shm-read-data)
+(define (executable-bundle) (extension *sandbox-executable-bundle*))
+(define (container) (extension *ios-sandbox-container*))
+(define (application-group) (extension *ios-sandbox-application-group*))
+(define (system-container) (extension *ios-sandbox-system-container*))
+(define (system-group) (extension *ios-sandbox-system-group*))
+(define iokit-user-client-class iokit-registry-entry-class)
+(define iokit-user-client-class-regex iokit-registry-entry-class-regex)
+(define sysctl-write sysctl*)
+(define (syscall-group-aio-read)
+(define (syscall-group-aio-write)
+(define (syscall-group-audit-session)
+(define (syscall-group-bsdthread)
+(define (syscall-group-chflags) (syscall-number SYS_chflags SYS_fchflags))
+(define (syscall-group-close)
+(define (syscall-group-fcntl) (syscall-number SYS_fcntl SYS_fcntl_nocancel))
+(define (syscall-group-file-handle) (syscall-number SYS_fhopen SYS_getfh))
+(define (syscall-group-getfsstat)
+(define (syscall-group-kdebug)
+(define (syscall-group-kevent)
+(define (syscall-group-kqueue)
+(define (syscall-group-mach-eventlink)
+(define (syscall-group-mkdir)
+(define (syscall-group-necp-client)
+(define (syscall-group-necp-session)
+(define (syscall-group-network-channel)
+(define (syscall-group-nexus)
+(define (syscall-group-open) (syscall-number SYS_guarded_open_np))
+(define (syscall-group-open-dprotected)
+(define (syscall-group-pthread-locks)
+(define (syscall-group-pthread-cv)
+(define (syscall-group-pthread)
+(define (syscall-group-read)
+(define (syscall-group-recv)
+(define (syscall-group-rlimit)
+(define (syscall-group-select)
+(define (syscall-group-send)
+(define (syscall-group-signal)
+(define (syscall-group-sockopt) (syscall-number SYS_getsockopt SYS_setsockopt))
+(define (syscall-group-stat)
+(define (syscall-group-statfs)
+(define (syscall-group-ulock)
+(define (syscall-group-write)
+(define disable-syscall-inference ())
+(define disable-networking-inference ())
+(let* ((allowed? (lambda (op) (sbpl-operation-can-return? op 'allow)))
+       (denied? (lambda (op) (sbpl-operation-can-return? op 'deny)))
+             (sbpl-version-compatible? 2)
+             (sbpl-version-compatible? 1)
+             (sbpl-version-compatible? 1)
+             (sbpl-version-compatible? 1)
+             (sbpl-version-compatible? 2)
+             (sbpl-version-compatible? 2)
+(allow darwin-notification-post)
+(allow dynamic-code-generation)
+(allow file-clone)
+(allow file-link)
+(allow file-lock)
+(allow file-map-executable)
+(allow file-test-existence)
+(allow fs-quota*)
+(allow fs-snapshot-mount)
+(allow iokit-get-properties)
+(allow iokit-open-service)
+(allow mach-bootstrap)
+(allow mach-cross-domain-lookup)
+(allow mach-task-special-port*)
+(allow necp-client-open)
+(allow nvram*)
+(allow process-info*)
+(allow process-info-codesignature)
+(allow socket-ioctl)
+(allow socket-option-get)
+(allow socket-option-set)
+(allow syscall-unix)
+(allow syscall-mach)
+(allow syscall-mig)
+(allow system-fcntl)
+(allow system-mac-syscall)
+(allow system-memorystatus-control)
+(allow system-necp-client-action)
+(define (trace path))
+(define no-callout
+(define partial-symbolication
+(macro (debug args))
+(define getenv param)
+(define file-fsctl system-fsctl)
+(define iokit-open iokit-open-user-client)
+(define ipc-posix-sem ipc-posix-sem*)
+(define ipc-posix-shm ipc-posix-shm*)
+(define system-misc system*)
+(define time-set system-set-time)
+(define from local)
+(define to remote)
+(define no-profile no-sandbox)
+(define no-log no-report)
+(define granted-extensions extension)
+(define (eliminate-duplicate-rules))
+(define (record path))
+(define file-issue-extension* file-issue-extension)
+(define file-issue-extension-read file-issue-extension)
+(define file-issue-extension-write file-issue-extension)
+(define file-unlink file-write-unlink)
+(define mach-extension extension)
+(define (tty) (vnode-type TTY))
+(define file-write-mount file-mount)
+(define file-write-unmount file-unmount)
+(define file-write-umount file-unmount)
+(define rootless-modifier sip-override)
+(define rootless sip-override)
+(define (debug-mode) (system-attribute sandbox-debug-mode))
+(define managed-preference* managed-preference-read)
+(define (process-is-plugin) (process-attribute is-plugin))
+(define (process-is-installer) (process-attribute is-installer))
+(define (datavault-file-filter) (file-attribute datavault))
+(define (rootless-file-filter) (file-attribute sip-protected))
+(define ipc-posix-shm-read-metadata 'no-op)
+(define mach-per-user-lookup 'no-op)
+(define system-chud 'no-op)
+(define qtn-download 'no-op)
+(define load-unsigned-code 'no-op)
+(define process-codesigning* process-legacy-codesigning*)
+(define process-codesigning-blob-get process-legacy-codesigning-blob-get)
+(define process-codesigning-cdhash-get process-legacy-codesigning-cdhash-get)
+(define process-codesigning-entitlements-blob-get
+(define process-codesigning-entitlements-der-blob-get
+(define process-codesigning-identity-get
+(define process-codesigning-status* process-legacy-codesigning-status*)
+(define process-codesigning-status-get process-legacy-codesigning-status-get)
+(define process-codesigning-status-set process-legacy-codesigning-status-set)
+(define process-codesigning-teamid-get process-legacy-codesigning-teamid-get)
+(define process-codesigning-text-offset-get
+(unless
+(define unix 'unix)
+(define unix-socket unix)
+(define path-literal path)
+(allow file-lock)
+(allow mach-task-special-port*)
+(allow necp-client-open)
+(allow syscall-mig)
+(allow system-memorystatus-control)
+(allow system-necp-client-action)
+(define process-codesigning* process-legacy-codesigning*)
+(define process-codesigning-blob-get process-legacy-codesigning-blob-get)
+(define process-codesigning-cdhash-get process-legacy-codesigning-cdhash-get)
+(define process-codesigning-entitlements-blob-get
+(define process-codesigning-entitlements-der-blob-get
+(define process-codesigning-identity-get
+(define process-codesigning-status* process-legacy-codesigning-status*)
+(define process-codesigning-status-get process-legacy-codesigning-status-get)
+(define process-codesigning-status-set process-legacy-codesigning-status-set)
+(define process-codesigning-teamid-get process-legacy-codesigning-teamid-get)
+(define process-codesigning-text-offset-get
+(unless
+(allow file-lock)
+(allow mach-task-special-port*)
+(allow syscall-mig)
+(define process-codesigning* process-legacy-codesigning*)
+(define process-codesigning-blob-get process-legacy-codesigning-blob-get)
+(define process-codesigning-cdhash-get process-legacy-codesigning-cdhash-get)
+(define process-codesigning-entitlements-blob-get
+(define process-codesigning-entitlements-der-blob-get
+(define process-codesigning-identity-get
+(define process-codesigning-status* process-legacy-codesigning-status*)
+(define process-codesigning-status-get process-legacy-codesigning-status-get)
+(define process-codesigning-status-set process-legacy-codesigning-status-set)
+(define process-codesigning-teamid-get process-legacy-codesigning-teamid-get)
+(define process-codesigning-text-offset-get
+(unless
+(r5rPr]
+_scheme_init_new
+_scheme_init_custom_alloc
+_scheme_enable_full_backtraces
+_scheme_set_external_data
+_scheme_set_output_port_string
+_scheme_set_error_port_string
+_scheme_load_string
+_scheme_define
+_scheme_load_file
+___sb_sbpl_parser_init_scheme_block_invoke
+_scheme_push_string
+___sb_sbpl_parser_init_scheme_block_invoke_4
+___sb_sbpl_parser_init_scheme_block_invoke_5
+_scheme_get_external_data
+_scheme_global
+_scheme_call
+___sb_sbpl_parser_init_scheme_block_invoke_10
+_sb_sbpl_parser_release
+_scheme_deinit
+___sb_sbpl_parser_init_scheme_block_invoke_3
+___sb_sbpl_parser_init_scheme_block_invoke_2
+_scheme_get_location_name
+_scheme_get_location_line
+_scheme_get_location_col
+_scheme_backtrace
+_scheme_write_to_file
+_scheme_error
+_scheme_errorf
+_scheme_quit
+___sb_sbpl_parser_init_scheme_block_invoke_6
+___sb_sbpl_parser_init_scheme_block_invoke_7
+___sb_sbpl_parser_init_scheme_block_invoke_8
+___sb_sbpl_parser_init_scheme_block_invoke_9
+___sb_sbpl_parser_init_scheme_block_invoke_11
+___sb_sbpl_parser_init_scheme_block_invoke_13
+___sb_sbpl_parser_init_scheme_block_invoke_15
+___sb_sbpl_parser_init_scheme_block_invoke_17
+___sb_sbpl_parser_init_scheme_block_invoke_18
+___sb_sbpl_parser_init_scheme_block_invoke_19
+___sb_sbpl_parser_init_scheme_block_invoke_20
+_sbpl_operation_eqv
+___sbpl_operation_eqv_block_invoke
+_sbpl_filter_eqv
+___sbpl_filter_eqv_block_invoke
+___sb_sbpl_parser_init_scheme_block_invoke_16
+___sb_sbpl_parser_init_scheme_block_invoke_14
+___sb_sbpl_parser_init_scheme_block_invoke_12
+_sbpl_leave_message_filter_context
+_sbpl_enter_message_filter_context
+_scheme_backtrace.cold.1
+_sbpl_scm
+_sbpl1_scm
+_sbpl2_scm
+_sbpl3_scm

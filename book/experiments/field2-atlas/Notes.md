@@ -20,3 +20,6 @@
 - Field2 atlas builders now accept only promotion packets and emit derived outputs under `out/derived/<run_id>/` with a stamped consumption receipt.
 - Added xattr runtime candidate swap (`adv:xattr:allow-foo-read`) after a clean-channel run (`out/7fb35590-c5c0-4187-8949-f534fbd43045/`); field2=2 is now runtime-backed and the atlas reflects the updated candidate.
 - Added file-mode seed + runtime candidate (`adv:file_mode:allow-private`) and refreshed the clean-channel run (`out/ec3df76c-6559-421b-8203-c32709667ffc/`); field2=3 is now runtime-backed.
+- Latest clean-channel packet refresh (`out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/`) leaves the entire seed slice runtime-backed with no mapping delta proposals; further progress is blocked until the seed set in `field2_seeds.json` is expanded.
+- Expanded `field2_seeds.json` with a userland-backed tranche (`ipc-posix-name`, `local-name`, `right-name`, `preference-domain`, `notification-name`, `sysctl-name`, `xpc-service-name`) and added runtime candidates for local-name, notification-name, and sysctl-name; derived atlas outputs need a packet refresh to reflect the new seed slice.
+- `atlas_static.py` now merges seed-manifest anchors into `anchor_hits` when the anchor map lacks coverage; sysctl-name and xpc-service-name seeds carry seed-manifest anchors to keep static records non-empty.

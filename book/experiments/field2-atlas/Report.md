@@ -1,14 +1,14 @@
 # Field2 Atlas — Research Report — **Status: partial**
 
 ## Purpose
-Follow a fixed seed slice of field2 IDs (0 `path`, 1 `mount-relative-path`, 2 `xattr`, 3 `file-mode`, 5 `global-name`, 7 `local`, 2560 flow-divert triple) end-to-end across tag layouts, anchors, canonical system profiles, and the runtime harness. Field2 is the primary key: we start from a field2 ID and ask where it shows up and what happens at runtime when we poke it.
+Follow a fixed seed slice of field2 IDs (0 `path`, 1 `mount-relative-path`, 2 `xattr`, 3 `file-mode`, 4 `ipc-posix-name`, 5 `global-name`, 6 `local-name`, 7 `local`, 26 `right-name`, 27 `preference-domain`, 34 `notification-name`, 37 `sysctl-name`, 49 `xpc-service-name`, 2560 flow-divert triple) end-to-end across tag layouts, anchors, canonical system profiles, and the runtime harness. Field2 is the primary key: we start from a field2 ID and ask where it shows up and what happens at runtime when we poke it.
 
 ## Position in the book
-This is the canonical example of a field2-first view. It is intentionally narrow (0/5/7 + one static-only neighbor) and wires directly into existing mappings and runtime traces rather than trying to cover all field2 values.
+This is the canonical example of a field2-first view. It is intentionally narrow (a curated seed slice that stays tied to concrete witnesses) and wires directly into existing mappings and runtime traces rather than trying to cover all field2 values.
 
 ## Setup
 - World: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
-- Seed set: fixed in `field2_seeds.json` (0/5/7 with anchors + profile witnesses, 1 as nearby static neighbor, 2560 as characterized flow-divert triple-only token: tag0/u16_role=filter_vocab_id/literal `com.apple.flow-divert`).
+- Seed set: fixed in `field2_seeds.json` (baseline slice plus a userland-backed tranche: `ipc-posix-name`, `local-name`, `right-name`, `preference-domain`, `notification-name`, `sysctl-name`, `xpc-service-name`). Some of these seeds are system-profile-backed (bsd/airlock), while others currently rely on vocab-only IDs and probe profiles until a runtime witness is added.
 - Inputs: `book/graph/mappings/vocab/{ops.json,filters.json}`, `book/graph/mappings/tag_layouts/tag_layouts.json`, `book/graph/mappings/anchors/anchor_filter_map.json`, `book/graph/mappings/system_profiles/{digests.json,static_checks.json}`, `book/experiments/field2-filters/out/field2_inventory.json`, runtime signatures under `book/graph/mappings/runtime/` (notably `runtime_signatures.json`). Runtime events/baseline/manifest are resolved from the promotion packet export surface.
 - Deliverables: static records (`out/static/field2_records.jsonl`) plus derived runtime + atlas outputs under `out/derived/<run_id>/` with a stamped `consumption_receipt.json`.
 
@@ -21,10 +21,11 @@ This is the canonical example of a field2-first view. It is intentionally narrow
 - `out/derived/<run_id>/atlas/mapping_delta.json` — proposal set for upgrading weak runtime candidates using packet-resolved events.
 
 ## Status
-- Static: `ok` for the seed slice including seed `2560` (characterized flow-divert triple token).
-- Runtime: **partial** — refreshed via the launchd clean channel; path_edges mismatches persist as canonicalization boundaries in the adversarial suite, while field2 0 uses the `/private/tmp` control profile (`adv:path_edges_private`) and field2 1 uses the dedicated mount-relative-path discriminator (`adv:mount_relative_path`) so both runtime candidates reach operation stage.
+- Static: **partial** for the expanded tranche — `ipc-posix-name`, `right-name`, `preference-domain`, and `notification-name` have system-profile placements, while `sysctl-name` and `xpc-service-name` rely on seed-manifest anchors until a static witness is observed in the inventory.
+- Runtime: **partial** — refreshed via the launchd clean channel; path_edges mismatches persist as canonicalization boundaries in the adversarial suite, while field2 0 uses the `/private/tmp` control profile (`adv:path_edges_private`) and field2 1 uses the dedicated mount-relative-path discriminator (`adv:mount_relative_path`) so both runtime candidates reach operation stage. New runtime candidates are added for `local-name`, `notification-name`, and `sysctl-name` via existing mach/hardened signatures.
 - Mapping delta: runtime signatures were refreshed from the promotion packet, and the atlas reflects the updated candidates.
 - Atlas: rebuilt after the refreshed runtime signatures and static inventory; field2=2 (xattr) and field2=3 (file-mode) are now runtime-backed, and field2=2560 remains runtime-backed with the flow-divert control witness.
+- Current posture: the original seed slice remains runtime-backed, while the new tranche requires sandbox_check or hardened-runtime evidence to move beyond static-only coverage.
 
 ## Case studies (seed slice)
 - Field2 0 (`path`): Appears on path-centric tags in `sys:sample` and multiple probes; anchors include `/etc/hosts` and `/tmp/foo`. Runtime scenario `adv:path_edges_private:allow-tmp` targets `/tmp/...` with normalization to `/private/tmp/...`, and the decision is allow at operation stage. The canonicalization boundary is explicit via `requested_path`/`normalized_path` plus the `adv:path_alias` twin-probe witness.

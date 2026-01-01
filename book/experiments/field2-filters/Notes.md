@@ -225,3 +225,8 @@ Next steps: If needed, scan the main evaluator (FUN_ffffff8002d8547a in arm64e) 
 
 - Treated `filter_arg_raw=2816` (`0x0b00`) as characterized (triple-only alongside `2560`) using the same flow-divert matrix witness, and excluded it from `unknown_focus.py`’s unknown census (`CHARACTERIZED_FIELD2`).
 - Reran `unknown_focus.py` and regenerated `out/unknown_nodes.json`; current unknown/high set (scoped to `u16_role=filter_vocab_id` and excluding 2560/2816) is now `{165, 256, 1281, 3584, 12096, 49171}`.
+
+## Userland predicate probes + Scheme extract
+
+- Added single-filter SBPL probes for `ipc-posix-name`, `notification-name`, `preference-domain`, `right-name`, `sysctl-name`, and `xpc-service-name` under `sb/` and refreshed `out/field2_inventory.json`; the new profiles still collapse to generic field2 IDs (no direct sysctl-name/xpc-service-name payloads observed in these tiny profiles).
+- Added `extract_sbpl_scheme.py` to pull Scheme-like strings out of `book/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib` and to scan for unknown/high field2 values; outputs live under `out/libsandbox_scheme/` (candidate Scheme strings plus unknown-value hit summaries).

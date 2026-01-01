@@ -90,6 +90,25 @@ def _gather_anchor_hits(anchor_map: Dict[str, Any], fid: int) -> List[Dict[str, 
     return anchors
 
 
+def _seed_anchor_hits(seed: Dict[str, Any], fid: int, *, existing: set[str]) -> List[Dict[str, Any]]:
+    anchors: List[Dict[str, Any]] = []
+    for entry in seed.get("anchors") or []:
+        anchor = entry.get("anchor")
+        if not anchor or anchor in existing:
+            continue
+        anchors.append(
+            {
+                "anchor": anchor,
+                "status": entry.get("status", "partial"),
+                "filter_name": seed.get("filter_name"),
+                "filter_id": None,
+                "sources": [entry.get("source", "seed_manifest")],
+                "field2_values": [fid],
+            }
+        )
+    return anchors
+
+
 def build_records(
     seeds_path: Path = DEFAULT_SEEDS,
     field2_inventory_path: Path = DEFAULT_FIELD2_INVENTORY,
@@ -104,6 +123,8 @@ def build_records(
         fid = seed["field2"]
         profiles = _gather_profiles(field2_inventory, fid)
         anchors = _gather_anchor_hits(anchor_map, fid)
+        anchor_names = {entry.get("anchor") for entry in anchors if entry.get("anchor")}
+        anchors += _seed_anchor_hits(seed, fid, existing=anchor_names)
         tag_ids: List[int] = sorted(
             {int(tag) for profile in profiles for tag in (profile.get("tags") or {}).keys()}
         )

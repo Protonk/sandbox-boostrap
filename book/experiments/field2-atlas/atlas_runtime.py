@@ -50,7 +50,22 @@ RUNTIME_CANDIDATES = {
         "scenario_id": "adv:file_mode:allow-private",
     },
     5: {"profile_id": "adv:mach_simple_allow", "probe_name": "allow-cfprefsd", "scenario_id": "field2-5-mach-global"},
+    6: {
+        "profile_id": "adv:mach_local_regex",
+        "probe_name": "allow-cfprefsd-local",
+        "scenario_id": "adv:mach_local_regex:allow-cfprefsd-local",
+    },
     7: {"profile_id": "adv:mach_local_literal", "probe_name": "allow-cfprefsd-local", "scenario_id": "field2-7-mach-local"},
+    34: {
+        "profile_id": "hardened:notifications_allow",
+        "probe_name": "allow-darwin",
+        "scenario_id": "hardened:notifications_allow:allow-darwin",
+    },
+    37: {
+        "profile_id": "hardened:sysctl_read_allow",
+        "probe_name": "allow-kern-ostype",
+        "scenario_id": "hardened:sysctl_read_allow:allow-kern-ostype",
+    },
     2560: {
         "profile_id": "adv:flow_divert_require_all_tcp",
         "probe_name": "tcp-loopback",

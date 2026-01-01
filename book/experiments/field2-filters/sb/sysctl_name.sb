@@ -1,0 +1,5 @@
+(version 1)
+
+(deny default)
+(allow sysctl-read (sysctl-name "kern.ostype"))
+(allow sysctl-read (sysctl-name "kern.osrelease"))

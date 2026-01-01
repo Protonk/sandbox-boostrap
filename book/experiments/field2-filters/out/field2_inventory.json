@@ -2884,23 +2884,84 @@
       {
         "anchor": "app-sandbox.read",
         "offsets": [
-          1439,
-          1471,
-          1504,
-          1536
+          194,
+          226,
+          184,
+          216
         ],
         "literal_offsets": [
-          1439,
-          1471,
-          1504,
-          1536
+          194,
+          226,
+          184,
+          216
         ],
         "literal_string_index": 8,
         "node_indices": [
-          9
+          10,
+          16,
+          18,
+          23,
+          41,
+          42,
+          45,
+          56,
+          71,
+          80,
+          81,
+          93,
+          94,
+          103,
+          104,
+          120,
+          121,
+          145,
+          154,
+          170
         ],
-        "field2_values": [],
-        "field2_names": []
+        "field2_values": [
+          10,
+          9,
+          165,
+          10,
+          10,
+          10,
+          10,
+          10,
+          165,
+          165,
+          165,
+          165,
+          165,
+          165,
+          165,
+          165,
+          165,
+          142,
+          10,
+          165
+        ],
+        "field2_names": [
+          "socket-domain",
+          "control-name",
+          null,
+          "socket-domain",
+          "socket-domain",
+          "socket-domain",
+          "socket-domain",
+          "socket-domain",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "socket-domain",
+          null
+        ]
       }
     ]
   },
@@ -3128,20 +3189,20 @@
       {
         "anchor": "preferences/logging",
         "offsets": [
-          158,
-          552,
-          156,
-          550
+          102,
+          496,
+          100,
+          494
         ],
         "literal_offsets": [
-          158,
-          552,
-          156,
-          550
+          102,
+          496,
+          100,
+          494
         ],
         "literal_string_index": 7,
         "node_indices": [
-          12
+          18
         ],
         "field2_values": [
           5
@@ -3427,30 +3488,21 @@
       {
         "anchor": "/etc/hosts",
         "offsets": [
-          46,
-          53
+          1,
+          0
         ],
         "literal_offsets": [
-          46,
-          53
+          1,
+          0
         ],
         "literal_string_index": 0,
         "node_indices": [
-          15,
-          22,
-          30,
-          31
+          23
         ],
         "field2_values": [
-          1,
-          0,
-          3584,
           7
         ],
         "field2_names": [
-          "mount-relative-path",
-          "path",
-          null,
           "local"
         ]
       }
@@ -4229,6 +4281,74 @@
     "unknown_nodes": [],
     "anchors": []
   },
+  "probe:ipc_posix_name.sb": {
+    "op_count": 7,
+    "node_count": 53,
+    "field2": [
+      {
+        "raw": 6,
+        "raw_hex": "0x6",
+        "hi": 0,
+        "lo": 6,
+        "name": "local-name",
+        "count": 31,
+        "tags": {
+          "6": 21,
+          "5": 9,
+          "3": 1
+        }
+      },
+      {
+        "raw": 5,
+        "raw_hex": "0x5",
+        "hi": 0,
+        "lo": 5,
+        "name": "global-name",
+        "count": 17,
+        "tags": {
+          "5": 6,
+          "6": 9,
+          "0": 2
+        }
+      },
+      {
+        "raw": 0,
+        "raw_hex": "0x0",
+        "hi": 0,
+        "lo": 0,
+        "name": "path",
+        "count": 3,
+        "tags": {
+          "6": 2,
+          "0": 1
+        }
+      },
+      {
+        "raw": 4,
+        "raw_hex": "0x4",
+        "hi": 0,
+        "lo": 4,
+        "name": "ipc-posix-name",
+        "count": 1,
+        "tags": {
+          "6": 1
+        }
+      },
+      {
+        "raw": 1,
+        "raw_hex": "0x1",
+        "hi": 0,
+        "lo": 1,
+        "name": "mount-relative-path",
+        "count": 1,
+        "tags": {
+          "6": 1
+        }
+      }
+    ],
+    "unknown_nodes": [],
+    "anchors": []
+  },
   "probe:net_require_all_domain_proto.sb": {
     "op_count": 8,
     "node_count": 54,
@@ -4960,6 +5080,132 @@
     "unknown_nodes": [],
     "anchors": []
   },
+  "probe:notification_name.sb": {
+    "op_count": 6,
+    "node_count": 52,
+    "field2": [
+      {
+        "raw": 5,
+        "raw_hex": "0x5",
+        "hi": 0,
+        "lo": 5,
+        "name": "global-name",
+        "count": 33,
+        "tags": {
+          "4": 10,
+          "5": 23
+        }
+      },
+      {
+        "raw": 4,
+        "raw_hex": "0x4",
+        "hi": 0,
+        "lo": 4,
+        "name": "ipc-posix-name",
+        "count": 11,
+        "tags": {
+          "5": 7,
+          "4": 3,
+          "1": 1
+        }
+      },
+      {
+        "raw": 0,
+        "raw_hex": "0x0",
+        "hi": 0,
+        "lo": 0,
+        "name": "path",
+        "count": 4,
+        "tags": {
+          "5": 1,
+          "4": 2,
+          "0": 1
+        }
+      },
+      {
+        "raw": 1,
+        "raw_hex": "0x1",
+        "hi": 0,
+        "lo": 1,
+        "name": "mount-relative-path",
+        "count": 3,
+        "tags": {
+          "0": 1,
+          "4": 2
+        }
+      },
+      {
+        "raw": 2,
+        "raw_hex": "0x2",
+        "hi": 0,
+        "lo": 2,
+        "name": "xattr",
+        "count": 1,
+        "tags": {
+          "5": 1
+        }
+      }
+    ],
+    "unknown_nodes": [],
+    "anchors": []
+  },
+  "probe:preference_domain.sb": {
+    "op_count": 7,
+    "node_count": 53,
+    "field2": [
+      {
+        "raw": 6,
+        "raw_hex": "0x6",
+        "hi": 0,
+        "lo": 6,
+        "name": "local-name",
+        "count": 31,
+        "tags": {
+          "6": 22,
+          "5": 9
+        }
+      },
+      {
+        "raw": 5,
+        "raw_hex": "0x5",
+        "hi": 0,
+        "lo": 5,
+        "name": "global-name",
+        "count": 17,
+        "tags": {
+          "5": 6,
+          "6": 9,
+          "2": 1,
+          "0": 1
+        }
+      },
+      {
+        "raw": 0,
+        "raw_hex": "0x0",
+        "hi": 0,
+        "lo": 0,
+        "name": "path",
+        "count": 4,
+        "tags": {
+          "6": 3,
+          "0": 1
+        }
+      },
+      {
+        "raw": 3,
+        "raw_hex": "0x3",
+        "hi": 0,
+        "lo": 3,
+        "name": "file-mode",
+        "count": 1,
+        "tags": {
+          "6": 1
+        }
+      }
+    ],
+    "unknown_nodes": [],
+    "anchors": []
+  },
   "probe:right_and_preference_names.sb": {
     "op_count": 7,
     "node_count": 53,
@@ -5011,6 +5257,144 @@
         "count": 1,
         "tags": {
           "6": 1
+        }
+      }
+    ],
+    "unknown_nodes": [],
+    "anchors": []
+  },
+  "probe:right_name.sb": {
+    "op_count": 6,
+    "node_count": 52,
+    "field2": [
+      {
+        "raw": 5,
+        "raw_hex": "0x5",
+        "hi": 0,
+        "lo": 5,
+        "name": "global-name",
+        "count": 33,
+        "tags": {
+          "4": 10,
+          "5": 23
+        }
+      },
+      {
+        "raw": 4,
+        "raw_hex": "0x4",
+        "hi": 0,
+        "lo": 4,
+        "name": "ipc-posix-name",
+        "count": 11,
+        "tags": {
+          "5": 7,
+          "4": 3,
+          "1": 1
+        }
+      },
+      {
+        "raw": 0,
+        "raw_hex": "0x0",
+        "hi": 0,
+        "lo": 0,
+        "name": "path",
+        "count": 4,
+        "tags": {
+          "5": 1,
+          "4": 2,
+          "0": 1
+        }
+      },
+      {
+        "raw": 1,
+        "raw_hex": "0x1",
+        "hi": 0,
+        "lo": 1,
+        "name": "mount-relative-path",
+        "count": 3,
+        "tags": {
+          "0": 1,
+          "4": 2
+        }
+      },
+      {
+        "raw": 2,
+        "raw_hex": "0x2",
+        "hi": 0,
+        "lo": 2,
+        "name": "xattr",
+        "count": 1,
+        "tags": {
+          "5": 1
+        }
+      }
+    ],
+    "unknown_nodes": [],
+    "anchors": []
+  },
+  "probe:sysctl_name.sb": {
+    "op_count": 6,
+    "node_count": 52,
+    "field2": [
+      {
+        "raw": 5,
+        "raw_hex": "0x5",
+        "hi": 0,
+        "lo": 5,
+        "name": "global-name",
+        "count": 33,
+        "tags": {
+          "4": 10,
+          "5": 22,
+          "0": 1
+        }
+      },
+      {
+        "raw": 4,
+        "raw_hex": "0x4",
+        "hi": 0,
+        "lo": 4,
+        "name": "ipc-posix-name",
+        "count": 11,
+        "tags": {
+          "5": 7,
+          "4": 3,
+          "2": 1
+        }
+      },
+      {
+        "raw": 0,
+        "raw_hex": "0x0",
+        "hi": 0,
+        "lo": 0,
+        "name": "path",
+        "count": 4,
+        "tags": {
+          "5": 1,
+          "0": 2,
+          "4": 1
+        }
+      },
+      {
+        "raw": 1,
+        "raw_hex": "0x1",
+        "hi": 0,
+        "lo": 1,
+        "name": "mount-relative-path",
+        "count": 3,
+        "tags": {
+          "4": 3
+        }
+      },
+      {
+        "raw": 3,
+        "raw_hex": "0x3",
+        "hi": 0,
+        "lo": 3,
+        "name": "file-mode",
+        "count": 1,
+        "tags": {
+          "5": 1
         }
       }
     ],
@@ -5644,7 +6028,337 @@
     ],
     "anchors": []
   },
+  "probe:xpc_service_name.sb": {
+    "op_count": 6,
+    "node_count": 52,
+    "field2": [
+      {
+        "raw": 5,
+        "raw_hex": "0x5",
+        "hi": 0,
+        "lo": 5,
+        "name": "global-name",
+        "count": 33,
+        "tags": {
+          "4": 10,
+          "5": 23
+        }
+      },
+      {
+        "raw": 4,
+        "raw_hex": "0x4",
+        "hi": 0,
+        "lo": 4,
+        "name": "ipc-posix-name",
+        "count": 11,
+        "tags": {
+          "5": 7,
+          "4": 3,
+          "1": 1
+        }
+      },
+      {
+        "raw": 0,
+        "raw_hex": "0x0",
+        "hi": 0,
+        "lo": 0,
+        "name": "path",
+        "count": 4,
+        "tags": {
+          "5": 1,
+          "4": 2,
+          "0": 1
+        }
+      },
+      {
+        "raw": 1,
+        "raw_hex": "0x1",
+        "hi": 0,
+        "lo": 1,
+        "name": "mount-relative-path",
+        "count": 3,
+        "tags": {
+          "0": 1,
+          "4": 2
+        }
+      },
+      {
+        "raw": 2,
+        "raw_hex": "0x2",
+        "hi": 0,
+        "lo": 2,
+        "name": "xattr",
+        "count": 1,
+        "tags": {
+          "5": 1
+        }
+      }
+    ],
+    "unknown_nodes": [],
+    "anchors": []
+  },
   "probe-op:v0_file_require_all.sb": {
+    "op_count": 5,
+    "node_count": 48,
+    "field2": [
+      {
+        "raw": 4,
+        "raw_hex": "0x4",
+        "hi": 0,
+        "lo": 4,
+        "name": "ipc-posix-name",
+        "count": 30,
+        "tags": {
+          "4": 24,
+          "3": 6
+        }
+      },
+      {
+        "raw": 3,
+        "raw_hex": "0x3",
+        "hi": 0,
+        "lo": 3,
+        "name": "file-mode",
+        "count": 15,
+        "tags": {
+          "4": 9,
+          "3": 5,
+          "2": 1
+        }
+      },
+      {
+        "raw": 3584,
+        "raw_hex": "0xe00",
+        "hi": 0,
+        "lo": 3584,
+        "name": null,
+        "count": 2,
+        "tags": {
+          "0": 1,
+          "1": 1
+        }
+      },
+      {
+        "raw": 0,
+        "raw_hex": "0x0",
+        "hi": 0,
+        "lo": 0,
+        "name": "path",
+        "count": 1,
+        "tags": {
+          "4": 1
+        }
+      }
+    ],
+    "unknown_nodes": [
+      {
+        "idx": 46,
+        "tag": 0,
+        "fields": [
+          0,
+          0,
+          3584
+        ],
+        "raw": 3584,
+        "raw_hex": "0xe00",
+        "hi": 0,
+        "lo": 3584,
+        "literal_refs": []
+      },
+      {
+        "idx": 47,
+        "tag": 1,
+        "fields": [
+          3,
+          4,
+          3584
+        ],
+        "raw": 3584,
+        "raw_hex": "0xe00",
+        "hi": 0,
+        "lo": 3584,
+        "literal_refs": []
+      }
+    ],
+    "anchors": []
+  },
+  "probe-op:v10_iokit_user_client_pair.sb": {
+    "op_count": 6,
+    "node_count": 53,
+    "field2": [
+      {
+        "raw": 5,
+        "raw_hex": "0x5",
+        "hi": 0,
+        "lo": 5,
+        "name": "global-name",
+        "count": 33,
+        "tags": {
+          "4": 10,
+          "5": 22,
+          "3": 1
+        }
+      },
+      {
+        "raw": 4,
+        "raw_hex": "0x4",
+        "hi": 0,
+        "lo": 4,
+        "name": "ipc-posix-name",
+        "count": 11,
+        "tags": {
+          "5": 7,
+          "4": 3,
+          "1": 1
+        }
+      },
+      {
+        "raw": 0,
+        "raw_hex": "0x0",
+        "hi": 0,
+        "lo": 0,
+        "name": "path",
+        "count": 4,
+        "tags": {
+          "5": 1,
+          "4": 2,
+          "0": 1
+        }
+      },
+      {
+        "raw": 1,
+        "raw_hex": "0x1",
+        "hi": 0,
+        "lo": 1,
+        "name": "mount-relative-path",
+        "count": 3,
+        "tags": {
+          "0": 1,
+          "4": 2
+        }
+      },
+      {
+        "raw": 2,
+        "raw_hex": "0x2",
+        "hi": 0,
+        "lo": 2,
+        "name": "xattr",
+        "count": 1,
+        "tags": {
+          "5": 1
+        }
+      },
+      {
+        "raw": 18753,
+        "raw_hex": "0x4941",
+        "hi": 16384,
+        "lo": 2369,
+        "name": null,
+        "count": 1,
+        "tags": {
+          "0": 1
+        }
+      }
+    ],
+    "unknown_nodes": [
+      {
+        "idx": 52,
+        "tag": 0,
+        "fields": [
+          0,
+          53,
+          18753
+        ],
+        "raw": 18753,
+        "raw_hex": "0x4941",
+        "hi": 16384,
+        "lo": 2369,
+        "literal_refs": [
+          "QHIDParamUserClient"
+        ]
+      }
+    ],
+    "anchors": []
+  },
+  "probe-op:v11_iokit_user_client_connection.sb": {
+    "op_count": 7,
+    "node_count": 53,
+    "field2": [
+      {
+        "raw": 6,
+        "raw_hex": "0x6",
+        "hi": 0,
+        "lo": 6,
+        "name": "local-name",
+        "count": 31,
+        "tags": {
+          "6": 23,
+          "5": 8
+        }
+      },
+      {
+        "raw": 5,
+        "raw_hex": "0x5",
+        "hi": 0,
+        "lo": 5,
+        "name": "global-name",
+        "count": 16,
+        "tags": {
+          "5": 6,
+          "6": 8,
+          "0": 2
+        }
+      },
+      {
+        "raw": 0,
+        "raw_hex": "0x0",
+        "hi": 0,
+        "lo": 0,
+        "name": "path",
+        "count": 3,
+        "tags": {
+          "6": 2,
+          "0": 1
+        }
+      },
+      {
+        "raw": 3,
+        "raw_hex": "0x3",
+        "hi": 0,
+        "lo": 3,
+        "name": "file-mode",
+        "count": 1,
+        "tags": {
+          "5": 1
+        }
+      },
+      {
+        "raw": 1,
+        "raw_hex": "0x1",
+        "hi": 0,
+        "lo": 1,
+        "name": "mount-relative-path",
+        "count": 1,
+        "tags": {
+          "6": 1
+        }
+      },
+      {
+        "raw": 4,
+        "raw_hex": "0x4",
+        "hi": 0,
+        "lo": 4,
+        "name": "ipc-posix-name",
+        "count": 1,
+        "tags": {
+          "6": 1
+        }
+      }
+    ],
+    "unknown_nodes": [],
+    "anchors": []
+  },
+  "probe-op:v12_iokit_control.sb": {
     "op_count": 5,
     "node_count": 48,
     "field2": [
@@ -5893,7 +6607,7 @@
         "tag": 0,
         "fields": [
           0,
-          49,
+          75,
           12096
         ],
         "raw": 12096,
@@ -5901,7 +6615,7 @@
         "hi": 0,
         "lo": 12096,
         "literal_refs": [
-          "Ftmp/foo"
+          "Fvar/log"
         ]
       }
     ],
@@ -6720,7 +7434,7 @@
         "name": null,
         "count": 1,
         "tags": {
-          "13": 1
+          "16": 1
         }
       },
       {
@@ -6764,7 +7478,7 @@
         "name": null,
         "count": 1,
         "tags": {
-          "9": 1
+          "12": 1
         }
       },
       {
@@ -6775,7 +7489,7 @@
         "name": null,
         "count": 1,
         "tags": {
-          "5": 1
+          "8": 1
         }
       },
       {
@@ -6812,11 +7526,11 @@
         }
       },
       {
-        "raw": 33,
-        "raw_hex": "0x21",
+        "raw": 59,
+        "raw_hex": "0x3b",
         "hi": 0,
-        "lo": 33,
-        "name": "info-type",
+        "lo": 59,
+        "name": "iokit-usb-interface-class",
         "count": 1,
         "tags": {
           "0": 1
@@ -6837,12 +7551,12 @@
         "hi": 0,
         "lo": 2560,
         "literal_refs": [
-          "Ftmp/foo"
+          "Hetc/hosts"
         ]
       },
       {
         "idx": 45,
-        "tag": 13,
+        "tag": 16,
         "fields": [
           11,
           1,
@@ -6853,8 +7567,8 @@
         "hi": 0,
         "lo": 2816,
         "literal_refs": [
-          "\nHetc/hosts",
-          "Ftmp/foo"
+          "\nCtmp/",
+          "Hetc/hosts"
         ]
       },
       {
@@ -6870,8 +7584,8 @@
         "hi": 0,
         "lo": 3072,
         "literal_refs": [
-          "Ftmp/foo",
-          "QIOUSBHostInterface"
+          "Bfoo",
+          "Hetc/hosts"
         ]
       },
       {
@@ -6887,9 +7601,9 @@
         "hi": 0,
         "lo": 3328,
         "literal_refs": [
-          "\nHetc/hosts",
-          "Ftmp/foo",
-          "Wcom.apple.cfprefsd.agent"
+          "\nCtmp/",
+          "\nNanchor-scan-pad",
+          "Hetc/hosts"
         ]
       },
       {
@@ -6905,7 +7619,8 @@
         "hi": 0,
         "lo": 3584,
         "literal_refs": [
-          "Ftmp/foo"
+          "Hetc/hosts",
+          "Tcom.apple.flow-divert"
         ]
       },
       {
@@ -6921,8 +7636,8 @@
         "hi": 0,
         "lo": 3584,
         "literal_refs": [
-          "\nHetc/hosts",
-          "Ftmp/foo"
+          "\nCtmp/",
+          "Hetc/hosts"
         ]
       },
       {
@@ -6938,8 +7653,8 @@
         "hi": 0,
         "lo": 3584,
         "literal_refs": [
-          "\nHetc/hosts",
-          "Ftmp/foo"
+          "\nCtmp/",
+          "Hetc/hosts"
         ]
       },
       {
@@ -6955,13 +7670,13 @@
         "hi": 0,
         "lo": 1536,
         "literal_refs": [
-          "\nHetc/hosts",
-          "Ftmp/foo"
+          "\nCtmp/",
+          "Hetc/hosts"
         ]
       },
       {
         "idx": 52,
-        "tag": 9,
+        "tag": 12,
         "fields": [
           11,
           12,
@@ -6972,12 +7687,12 @@
         "hi": 0,
         "lo": 4352,
         "literal_refs": [
-          "Ftmp/foo"
+          "Hetc/hosts"
         ]
       },
       {
         "idx": 53,
-        "tag": 5,
+        "tag": 8,
         "fields": [
           11,
           12,
@@ -6988,7 +7703,7 @@
         "hi": 0,
         "lo": 7424,
         "literal_refs": [
-          "Ftmp/foo"
+          "Hetc/hosts"
         ]
       },
       {
@@ -7004,8 +7719,8 @@
         "hi": 0,
         "lo": 256,
         "literal_refs": [
-          "\nHetc/hosts",
-          "Ftmp/foo"
+          "\nCtmp/",
+          "Hetc/hosts"
         ]
       },
       {
@@ -7021,10 +7736,80 @@
         "hi": 0,
         "lo": 1281,
         "literal_refs": [
-          "Ftmp/foo"
+          "Hetc/hosts"
         ]
       }
     ],
+    "anchors": []
+  },
+  "probe-op:v9_iokit_user_client_only.sb": {
+    "op_count": 6,
+    "node_count": 52,
+    "field2": [
+      {
+        "raw": 5,
+        "raw_hex": "0x5",
+        "hi": 0,
+        "lo": 5,
+        "name": "global-name",
+        "count": 33,
+        "tags": {
+          "4": 10,
+          "5": 22,
+          "3": 1
+        }
+      },
+      {
+        "raw": 4,
+        "raw_hex": "0x4",
+        "hi": 0,
+        "lo": 4,
+        "name": "ipc-posix-name",
+        "count": 11,
+        "tags": {
+          "5": 7,
+          "4": 3,
+          "1": 1
+        }
+      },
+      {
+        "raw": 0,
+        "raw_hex": "0x0",
+        "hi": 0,
+        "lo": 0,
+        "name": "path",
+        "count": 4,
+        "tags": {
+          "5": 1,
+          "4": 2,
+          "0": 1
+        }
+      },
+      {
+        "raw": 1,
+        "raw_hex": "0x1",
+        "hi": 0,
+        "lo": 1,
+        "name": "mount-relative-path",
+        "count": 3,
+        "tags": {
+          "0": 1,
+          "4": 2
+        }
+      },
+      {
+        "raw": 2,
+        "raw_hex": "0x2",
+        "hi": 0,
+        "lo": 2,
+        "name": "xattr",
+        "count": 1,
+        "tags": {
+          "5": 1
+        }
+      }
+    ],
+    "unknown_nodes": [],
     "anchors": []
   }
 }

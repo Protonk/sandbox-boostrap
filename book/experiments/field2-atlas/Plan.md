@@ -17,7 +17,14 @@ Build a field2-centric experiment that follows selected field2 IDs end-to-end ac
   - `0` (`path`) – anchors `/etc/hosts`, `/tmp/foo`, `IOUSBHostInterface`, `com.apple.cfprefsd.agent`; present in `sys:sample` (tag 7). Primary op: `file-read-data`/`file-write-data`.
   - `5` (`global-name`) – anchors `/etc/hosts`, `/tmp/foo`, `IOUSBHostInterface`, `com.apple.cfprefsd.agent`, `preferences/logging`; present in `sys:bsd` (tag 27). Primary op: `mach-lookup`.
   - `7` (`local`) – anchors `/etc/hosts`, `flow-divert`; present in `sys:sample` (tags 3/7/8). Primary op: `mach-lookup` (runtime-backed via mach/local probes).
-- Status: seed set is intentionally small to keep the join surfaces inspectable; expand only after the atlas pipeline is proven.
+  - `4` (`ipc-posix-name`) – present in `sys:bsd` and `sys:airlock`. Primary ops: `ipc-posix-shm*`/`ipc-posix-sem*`.
+  - `6` (`local-name`) – probe-backed mach-lookup filter (no system-profile witness in the current inventory).
+  - `26` (`right-name`) – present in `sys:bsd` tags; primary op: `authorization-right-obtain`.
+  - `27` (`preference-domain`) – present in `sys:bsd` tags; primary ops: `user-preference-read`/`user-preference-write`.
+  - `34` (`notification-name`) – present in `sys:airlock` tags; primary ops: `darwin-notification-post`/`distributed-notification-post`.
+  - `37` (`sysctl-name`) – vocab-backed seed for sysctl reads (system-profile witness not yet present in the inventory).
+  - `49` (`xpc-service-name`) – vocab-backed seed for mach-lookup (system-profile witness not yet present in the inventory).
+- Status: seed set remains bounded but now includes a userland-backed tranche; keep additions tight so join surfaces remain inspectable.
 
 ## Work plan
 1. **Seed curation (locked)**  
