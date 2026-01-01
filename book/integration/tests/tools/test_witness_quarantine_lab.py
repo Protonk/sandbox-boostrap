@@ -31,12 +31,12 @@ def test_witness_quarantine_lab_bundle_id_resolution(run_cmd, monkeypatch: pytes
     def fake_show_profile(profile_id: str, *, timeout_s=None):
         return {"stdout_json": stdout_json}
 
-    def fake_wrap(cmd, *, timeout_s=None):
+    def fake_wrap(cmd, *, cwd=None, timeout_s=None, repo_root=None):
         captured["cmd"] = cmd
         return {"stdout": "{}", "stderr": "", "exit_code": 0, "stdout_json": {"result": {"exit_code": 0}}}
 
     monkeypatch.setattr(client, "show_profile", fake_show_profile)
-    monkeypatch.setattr(client, "_wrap_json_command", fake_wrap)
+    monkeypatch.setattr(client.exec_record, "run_json_command", fake_wrap)
 
     payload = client.quarantine_lab(
         profile_id="quarantine_default",

@@ -1,0 +1,43 @@
+{
+  "data": {
+    "correlation_id": "36635A95-A886-42BF-BB3B-FFB5AD7CE325",
+    "deny_lines": [
+      "2025-12-31 16:22:33.147710-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_temporary_exception(74556) deny(1) network-outbound remote:*:9"
+    ],
+    "duration_ms": null,
+    "end": null,
+    "last": "30s",
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    \n2025-12-31 16:22:33.147710-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_temporary_exception(74556) deny(1) network-outbound remote:*:9\n2025-12-31 16:22:33.161287-0800  localhost log[74558]: [com.apple.log:] log run noninteractively, parent: 74557 (sandbox-log-observer), args: '/usr/bin/log' 'show' '--style' 'syslog' '--info' '--debug' '--last' '30s' '--predicate' '((eventMessage CONTAINS[c] \"Sandbox: ProbeService_temporary_exception(74556)\") OR ((eventMessag",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": true,
+    "observed_lines": 3,
+    "observer_schema_version": 1,
+    "pid": 74556,
+    "plan_id": "policywitness-deny-atlas:smoke:smoke-53266e96-e411-445e-bd39-691554845047",
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_temporary_exception(74556)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"74556\")))",
+    "process_name": "ProbeService_temporary_exception",
+    "row_id": "temporary_exception.net_op_tcp_connect_control",
+    "start": null,
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767226953348,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

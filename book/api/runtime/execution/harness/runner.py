@@ -10,13 +10,15 @@ and records structured results so the evidence can be replayed and audited.
 from __future__ import annotations
 
 import fcntl
-import hashlib
 import json
 import os
+import re
 import subprocess
+import time
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
+from book.api import tooling
 from book.api.path_utils import ensure_absolute, find_repo_root, relativize_command, to_repo_relative
 from book.api.runtime.contracts import schema as rt_contract
 
@@ -59,21 +61,6 @@ def _first_marker(markers: List[Dict[str, Any]], stage: str) -> Optional[Dict[st
         if marker.get("stage") == stage:
             return marker
     return None
-
-
-# Cache digests to avoid re-hashing the same artifacts repeatedly.
-_SHA256_CACHE: Dict[str, str] = {}
-
-
-def _sha256_path(path: Path) -> str:
-    key = str(path)
-    cached = _SHA256_CACHE.get(key)
-    if cached:
-        return cached
-    data = path.read_bytes()
-    digest = hashlib.sha256(data).hexdigest()
-    _SHA256_CACHE[key] = digest
-    return digest
 
 
 def _extract_probe_details(stdout: Optional[str]) -> tuple[Optional[Dict[str, Any]], str]:
@@ -207,6 +194,72 @@ def _observe_path_unsandboxed(path: Optional[str]) -> Optional[Dict[str, Any]]:
 
 def _unsandboxed_path_observation(path: Optional[str]) -> Optional[Dict[str, Any]]:
     return _observe_path_unsandboxed(path)
+
+
+def _sanitize_label(value: str) -> str:
+    cleaned = re.sub(r"[^A-Za-z0-9_.-]+", "_", value.strip())
+    return cleaned.strip("_") or "probe"
+
+
+def _should_capture_witness_observer() -> bool:
+    return os.environ.get("SANDBOX_LORE_WITNESS_OBSERVER") == "1"
+
+
+def _extract_witness_identity(probe_details: Optional[Dict[str, Any]]) -> tuple[Optional[str], Optional[str]]:
+    if not isinstance(probe_details, dict):
+        return None, None
+    pid = None
+    for key in ("service_pid", "probe_pid", "pid"):
+        value = probe_details.get(key)
+        if isinstance(value, int):
+            pid = str(value)
+            break
+        if isinstance(value, str) and value:
+            pid = value
+            break
+    process_name = probe_details.get("process_name")
+    if not isinstance(process_name, str):
+        process_name = probe_details.get("service_name")
+    if not isinstance(process_name, str):
+        process_name = None
+    return pid, process_name
+
+
+def _capture_witness_observer(
+    *,
+    probe_details: Optional[Dict[str, Any]],
+    out_dir: Path,
+    profile_id: str,
+    probe_name: str,
+    started_at_unix_s: Optional[float],
+    finished_at_unix_s: Optional[float],
+    plan_id: Optional[str],
+    row_id: Optional[str],
+) -> Optional[Dict[str, Any]]:
+    if not _should_capture_witness_observer():
+        return None
+    try:
+        from book.api.witness import observer as witness_observer
+    except Exception as exc:
+        return {"skipped": "observer_import_error", "error": f"{type(exc).__name__}: {exc}"}
+    if not witness_observer.should_run_observer():
+        return {"skipped": "observer_disabled"}
+    pid, process_name = _extract_witness_identity(probe_details)
+    if pid is None or process_name is None:
+        return {"skipped": "missing_pid_or_process_name"}
+    label = _sanitize_label(f"{profile_id}.{probe_name}")
+    dest_path = out_dir / "observer" / f"{label}.observer.json"
+    return witness_observer.run_sandbox_log_observer(
+        pid=pid,
+        process_name=process_name,
+        dest_path=dest_path,
+        last=witness_observer.OBSERVER_LAST,
+        start_s=started_at_unix_s,
+        end_s=finished_at_unix_s,
+        plan_id=plan_id,
+        row_id=row_id or label,
+        correlation_id=None,
+    )
 
 
 def classify_profile_status(probes: List[Dict[str, Any]], skipped_reason: str | None = None) -> tuple[str, str | None]:
@@ -690,6 +743,7 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None, wr
             env["SANDBOX_LORE_SEATBELT_FILTER_TYPE"] = str(filter_type)
             env["SANDBOX_LORE_SEATBELT_ARG"] = callout_arg
 
+    started_at_unix_s = time.time()
     try:
         res = subprocess.run(
             full_cmd,
@@ -698,6 +752,7 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None, wr
             timeout=10,
             env=env,
         )
+        finished_at_unix_s = time.time()
         exit_code = res.returncode
         probe_details = None
         stdout_clean = res.stdout
@@ -727,11 +782,26 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None, wr
             "stdout": stdout_clean,
             "stderr": res.stderr,
             "probe_details": probe_details,
+            "cmd_started_at_unix_s": started_at_unix_s,
+            "cmd_finished_at_unix_s": finished_at_unix_s,
+            "cmd_duration_s": finished_at_unix_s - started_at_unix_s,
         }
     except FileNotFoundError as e:
-        return {"error": f"sandbox-exec missing: {e}"}
+        finished_at_unix_s = time.time()
+        return {
+            "error": f"sandbox-exec missing: {e}",
+            "cmd_started_at_unix_s": started_at_unix_s,
+            "cmd_finished_at_unix_s": finished_at_unix_s,
+            "cmd_duration_s": finished_at_unix_s - started_at_unix_s,
+        }
     except Exception as e:
-        return {"error": str(e)}
+        finished_at_unix_s = time.time()
+        return {
+            "error": str(e),
+            "cmd_started_at_unix_s": started_at_unix_s,
+            "cmd_finished_at_unix_s": finished_at_unix_s,
+            "cmd_duration_s": finished_at_unix_s - started_at_unix_s,
+        }
 
 
 def run_matrix(
@@ -748,6 +818,7 @@ def run_matrix(
     ensure_fixtures()
     assert matrix_path.exists(), f"missing expected matrix: {matrix_path}"
     matrix = json.loads(matrix_path.read_text())
+    plan_id = matrix.get("plan_id") if isinstance(matrix, dict) else None
     profiles = matrix.get("profiles") or {}
     profile_paths = {k: ensure_absolute(v, REPO_ROOT) for k, v in (profile_paths or {}).items()}
     key_specific_rules = key_specific_rules or {}
@@ -835,6 +906,20 @@ def run_matrix(
                     wrapper_preflight = "enforce"
                 raw = run_probe(runtime_profile, probe, profile_mode, wrapper_preflight)
                 actual = "allow" if raw.get("exit_code") == 0 else "deny"
+            if not preflight_blocked and raw.get("error") is None:
+                probe_name = probe.get("name") or probe.get("probe_id") or probe.get("operation") or "probe"
+                observer_record = _capture_witness_observer(
+                    probe_details=raw.get("probe_details"),
+                    out_dir=out_dir,
+                    profile_id=key,
+                    probe_name=str(probe_name),
+                    started_at_unix_s=raw.get("cmd_started_at_unix_s"),
+                    finished_at_unix_s=raw.get("cmd_finished_at_unix_s"),
+                    plan_id=plan_id if isinstance(plan_id, str) else None,
+                    row_id=probe.get("expectation_id") if isinstance(probe.get("expectation_id"), str) else None,
+                )
+                if observer_record is not None:
+                    raw["observer"] = observer_record
             expected = probe.get("expected")
 
             stderr = raw.get("stderr") or ""
@@ -922,10 +1007,14 @@ def run_matrix(
                         preexisting = True
                 runner_info["preexisting_sandbox_suspected"] = preexisting
 
-            if runner_info is not None and entrypoint_path and entrypoint_path.exists():
-                runner_info["entrypoint_path"] = to_repo_relative(entrypoint_path, REPO_ROOT)
-                runner_info["entrypoint_sha256"] = _sha256_path(entrypoint_path)
-                runner_info["tool_build_id"] = runner_info["entrypoint_sha256"]
+            if runner_info is not None and entrypoint_path:
+                runner_info.update(
+                    tooling.runner_info(
+                        entrypoint_path,
+                        repo_root=REPO_ROOT,
+                        entrypoint=str(runner_info.get("entrypoint") or "runtime"),
+                    )
+                )
 
             runtime_result = {
                 "status": "blocked" if preflight_blocked else ("success" if raw.get("exit_code") == 0 else "errno"),

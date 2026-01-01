@@ -43,6 +43,11 @@ print(health["stdout_json"]["data"]["ok"])
 - `records/<plan_id>.<row_id>.<probe_id>.record.json` (ProbeResult envelope)
 - `logs/observer/<plan_id>.<row_id>.<probe_id>.json.observer.json` (sandbox-log-observer report)
 
+Bundle mode (optional):
+- Set `bundle_root=Path(...)` to write into `bundle_root/<run_id>/...` and emit
+  `artifact_index.json` for the run-scoped directory.
+- Set `bundle_run_id` to pin the run directory name (default is a generated UUID).
+
 Disable the external observer when you already used `--capture-sandbox-logs`:
 ```sh
 WITNESS_OBSERVER_MODE=disabled
@@ -60,7 +65,10 @@ result = client.run_probe(
     probe_args=[],
     plan_id="witness:sample",
     row_id="capabilities_snapshot",
-    output=outputs.OutputSpec(out_dir=Path("book/api/witness/out")),
+    output=outputs.OutputSpec(
+        bundle_root=Path("book/api/witness/out"),
+        bundle_run_id="witness-sample",
+    ),
 )
 print(result.stdout_json)
 ```

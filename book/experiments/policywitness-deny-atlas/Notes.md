@@ -7,3 +7,4 @@
 - `smoke-fd118439-a88a-44c6-954d-5c80afba9714`: manual observer with time-range + correlation id; only 6 mapped denies and minimal had none. Time-range window appears brittle.
 - `smoke-dc03c1fb-270e-4a75-901c-6ecdfd557156`: manual observer (`--last 30s`) + correlation id; 27 records, 12 mapped denies across all three profiles. File operations mapped with `filter_inferred`; one explicit `remote` filter via `network-outbound`.
 - Diff `smoke-f0db6faf-1afb-429d-ba0d-720499effdbb` vs `smoke-dc03c1fb-270e-4a75-901c-6ecdfd557156`: 7 row_ids flipped between hypothesis and mapped. `temporary_exception.net_op_tcp_connect_control` flipped from mapped → hypothesis; several `fs_op_listdir_home_*` rows flipped to mapped. Stability is not yet established.
+- Attempted `--manual-observer-last 60s` run hit `NameError: probe_out` in `run_smoke.py` (manifest write). Fixed by using `run_root` for `probe_output_dir`.

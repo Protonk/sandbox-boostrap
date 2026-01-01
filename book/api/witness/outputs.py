@@ -25,6 +25,9 @@ class OutputSpec:
     write_record_json: bool = True
     json_indent: int = 2
     json_sort_keys: bool = True
+    bundle_root: Optional[Path] = None
+    bundle_run_id: Optional[str] = None
+    bundle_write_index: bool = True
 
 
 @dataclass(frozen=True)
@@ -96,6 +99,9 @@ def fork_output(output: Optional[OutputSpec], *, prefix: str) -> Optional[Output
         write_record_json=output.write_record_json,
         json_indent=output.json_indent,
         json_sort_keys=output.json_sort_keys,
+        bundle_root=output.bundle_root,
+        bundle_run_id=output.bundle_run_id,
+        bundle_write_index=output.bundle_write_index,
     )
 
 

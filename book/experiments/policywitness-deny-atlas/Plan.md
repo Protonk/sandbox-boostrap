@@ -33,7 +33,9 @@ If `probe_catalog` shows a Mach/XPC probe (for example a `mach_*` or `bootstrap`
 
 2) **Probe execution**
    - For each profile:
-     - Run the deny set using `client.run_probe` with `OutputSpec(out_dir=...)`.
+     - Run the deny set using `client.run_probe` with
+       `OutputSpec(bundle_root=<out_root>, bundle_run_id=<run_id>)` so each run
+       is bundle-shaped and emits `artifact_index.json`.
      - Keep `plan_id` stable, set `row_id` per probe.
      - Default to manual observer (`--manual-observer-last`) to avoid missing deny lines.
 

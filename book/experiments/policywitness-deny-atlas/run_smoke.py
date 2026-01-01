@@ -143,7 +143,7 @@ def _pick_profiles(profile_ids: List[str], max_count: int) -> List[str]:
     return picked
 
 
-def _probe_set(home_dir: Path) -> List[Dict[str, object]]:
+def _probe_set(home_dir: Path, *, include_stateful: bool) -> List[Dict[str, object]]:
     probes: List[Dict[str, object]] = [
         {
             "label": "fs_op_deny_private_overrides",
@@ -181,31 +181,34 @@ def _probe_set(home_dir: Path) -> List[Dict[str, object]]:
             "probe_id": "net_op",
             "probe_args": ["--op", "tcp_connect", "--host", "127.0.0.1", "--port", "9"],
         },
-        {
-            "label": "downloads_rw_probe",
-            "probe_id": "downloads_rw",
-            "probe_args": [],
-        },
     ]
 
-    downloads_dir = home_dir / "Downloads"
-    if downloads_dir.exists():
+    if include_stateful:
         probes.append(
             {
-                "label": "fs_op_listdir_home_downloads",
-                "probe_id": "fs_op",
-                "probe_args": ["--op", "listdir", "--path", str(downloads_dir), "--allow-unsafe-path"],
+                "label": "downloads_rw_probe",
+                "probe_id": "downloads_rw",
+                "probe_args": [],
             }
         )
-    documents_dir = home_dir / "Documents"
-    if documents_dir.exists():
-        probes.append(
-            {
-                "label": "fs_op_listdir_home_documents",
-                "probe_id": "fs_op",
-                "probe_args": ["--op", "listdir", "--path", str(documents_dir), "--allow-unsafe-path"],
-            }
-        )
+        downloads_dir = home_dir / "Downloads"
+        if downloads_dir.exists():
+            probes.append(
+                {
+                    "label": "fs_op_listdir_home_downloads",
+                    "probe_id": "fs_op",
+                    "probe_args": ["--op", "listdir", "--path", str(downloads_dir), "--allow-unsafe-path"],
+                }
+            )
+        documents_dir = home_dir / "Documents"
+        if documents_dir.exists():
+            probes.append(
+                {
+                    "label": "fs_op_listdir_home_documents",
+                    "probe_id": "fs_op",
+                    "probe_args": ["--op", "listdir", "--path", str(documents_dir), "--allow-unsafe-path"],
+                }
+            )
 
     return probes
 
@@ -266,7 +269,8 @@ def main() -> None:
     parser.add_argument("--out-root", default="book/experiments/policywitness-deny-atlas/out")
     parser.add_argument("--max-profiles", type=int, default=3)
     parser.add_argument("--capture-sandbox-logs", action="store_true")
-    parser.add_argument("--manual-observer-last", default=None)
+    parser.add_argument("--manual-observer-last", default="30s")
+    parser.add_argument("--include-stateful-probes", action="store_true")
     args = parser.parse_args()
 
     repo_root = path_utils.find_repo_root(Path(__file__))
@@ -276,8 +280,7 @@ def main() -> None:
     run_id = f"smoke-{uuid.uuid4()}"
     run_root = out_root / run_id
     run_root.mkdir(parents=True, exist_ok=True)
-    probe_out = run_root / "probe_outputs"
-    output_spec = outputs.OutputSpec(out_dir=probe_out)
+    output_spec = outputs.OutputSpec(bundle_root=out_root, bundle_run_id=run_id)
     home_dir = Path.home()
 
     ops_map = _load_vocab(repo_root / "book/graph/mappings/vocab/ops.json", "ops")
@@ -310,7 +313,7 @@ def main() -> None:
 
     with runs_path.open("w", encoding="utf-8") as runs_file:
         for profile_id in smoke_profiles:
-            for probe in _probe_set(home_dir):
+            for probe in _probe_set(home_dir, include_stateful=args.include_stateful_probes):
                 label = probe["label"]
                 row_id = f"{profile_id}.{label}"
                 run_args = probe["probe_args"]
@@ -439,10 +442,10 @@ def main() -> None:
         "run_id": run_id,
         "plan_id": plan_id,
         "profiles": smoke_profiles,
-        "probe_set": _probe_set(home_dir),
+        "probe_set": _probe_set(home_dir, include_stateful=args.include_stateful_probes),
         "runs_path": path_utils.to_repo_relative(runs_path, repo_root),
         "atlas_path": path_utils.to_repo_relative(run_root / "deny_atlas.json", repo_root),
-        "probe_output_dir": path_utils.to_repo_relative(probe_out, repo_root),
+        "probe_output_dir": path_utils.to_repo_relative(run_root, repo_root),
     }
     (run_root / "manifest.json").write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n")
 

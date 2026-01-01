@@ -36,6 +36,7 @@ Falsify by capturing observer-backed deny lines for these cases, or by mapping t
 - `Report.md`, `Plan.md`, `Notes.md` for the experiment.
 - `out/<run_id>/deny_atlas.json`: profile x probe x operation x filter x target, with evidence tier per record.
 - `out/<run_id>/runs.jsonl`: per-probe records (probe result + observer report + parsed log excerpt).
+- `out/<run_id>/artifact_index.json`: bundle commit barrier for the run.
 - Optional `out/<run_id>/summary.json`: counts by profile and operation.
 
 ## Plan & execution log
@@ -58,6 +59,9 @@ Falsify by capturing observer-backed deny lines for these cases, or by mapping t
 - `book/experiments/policywitness-deny-atlas/out/smoke-dc03c1fb-270e-4a75-901c-6ecdfd557156/deny_atlas.json` (current best atlas output).
 - `book/experiments/policywitness-deny-atlas/out/smoke-dc03c1fb-270e-4a75-901c-6ecdfd557156/runs.jsonl` (full per-probe ledger).
 - `book/experiments/policywitness-deny-atlas/out/smoke-fd118439-a88a-44c6-954d-5c80afba9714/deny_atlas.json` (brittle time-range capture comparison).
+
+Legacy runs listed above predate bundle-mode outputs; new runs should include
+`artifact_index.json` in the run directory.
 
 ## Risks / blockers
 

@@ -1,0 +1,41 @@
+{
+  "data": {
+    "correlation_id": "A97CF3F4-BEA0-4A83-B3C5-4486686456BB",
+    "deny_lines": [],
+    "duration_ms": null,
+    "end": null,
+    "last": "30s",
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    \n2025-12-31 16:22:28.992658-0800  localhost log[74491]: [com.apple.log:] log run noninteractively, parent: 74490 (sandbox-log-observer), args: '/usr/bin/log' 'show' '--style' 'syslog' '--info' '--debug' '--last' '30s' '--predicate' '((eventMessage CONTAINS[c] \"Sandbox: ProbeService_minimal(74489)\") OR ((eventMessage CONTAINS[c",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": false,
+    "observed_lines": 2,
+    "observer_schema_version": 1,
+    "pid": 74489,
+    "plan_id": "policywitness-deny-atlas:smoke:smoke-53266e96-e411-445e-bd39-691554845047",
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_minimal(74489)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"74489\")))",
+    "process_name": "ProbeService_minimal",
+    "row_id": "minimal.sandbox_check_hosts",
+    "start": null,
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767226949115,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

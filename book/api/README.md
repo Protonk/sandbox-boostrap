@@ -107,11 +107,17 @@ result = client.run_probe(
     probe_args=[],
     plan_id="witness:sample",
     row_id="capabilities_snapshot",
-    output=outputs.OutputSpec(out_dir=Path("book/api/witness/out")),
+    output=outputs.OutputSpec(
+        bundle_root=Path("book/api/witness/out"),
+        bundle_run_id="witness-sample",
+    ),
 )
 print(result.stdout_json or {})
 PY
 ```
+
+Bundle outputs land under `book/api/witness/out/witness-sample/` with
+`artifact_index.json` as the commit barrier.
 
 See `book/api/witness/README.md` (Contract section) for API usage and contract fixtures.
 

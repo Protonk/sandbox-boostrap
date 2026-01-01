@@ -57,6 +57,8 @@ class ProbeResult:
     observer_status: str
     probe_timeout_s: float
     probe_error: Optional[str]
+    runner_info: Optional[Dict[str, object]] = None
+    bundle: Optional[Dict[str, object]] = None
     log_write_error: Optional[str] = None
     lifecycle: Optional["LifecycleSnapshot"] = None
     record_write_error: Optional[str] = None
@@ -109,6 +111,8 @@ class CommandResult:
     duration_s: float
     error: Optional[str] = None
     tool_markers: Optional[Dict[str, List[Dict[str, object]]]] = None
+    runner_info: Optional[Dict[str, object]] = None
+    preflight: Optional[Dict[str, object]] = None
     evidence_tier: str = "mapped"
 
     def to_json(self) -> Dict[str, object]:

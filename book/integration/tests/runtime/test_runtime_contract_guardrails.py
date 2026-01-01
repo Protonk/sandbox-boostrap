@@ -21,6 +21,7 @@ RUN_SCRIPT_ALLOWLIST = {
     Path("book/experiments/libsandbox-encoder/run_phase_a.py"),
     Path("book/experiments/lifecycle-lockdown/run_lockdown.py"),
     Path("book/experiments/metadata-runner/run_metadata.py"),
+    Path("book/experiments/policywitness-deny-atlas/run_smoke.py"),
 }
 EXCLUDED_EXPERIMENTS = {
     "entitlement-diff",

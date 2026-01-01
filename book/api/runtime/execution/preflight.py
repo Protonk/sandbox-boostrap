@@ -13,11 +13,11 @@ from __future__ import annotations
 import ctypes
 import ctypes.util
 import os
-import subprocess
 from pathlib import Path
 from typing import Any, Dict, Optional
 
 from book.api import path_utils
+from book.api import exec_record
 from book.api.runtime.contracts import schema as rt_contract
 
 
@@ -67,28 +67,29 @@ def run_apply_preflight(
         return record
     # Use /usr/bin/true to minimize side effects while exercising apply.
     cmd = [str(runner_path), str(profile_path), "--", "/usr/bin/true"]
-    try:
-        res = subprocess.run(cmd, capture_output=True, text=True, timeout=10)
-        stderr = res.stderr or ""
-        apply_markers = rt_contract.extract_sbpl_apply_markers(stderr)
-        apply_report = rt_contract.derive_apply_report_from_markers(apply_markers) if apply_markers else None
-        record.update(
-            {
-                "status": "ok",
-                "command": path_utils.relativize_command(cmd, repo_root=REPO_ROOT),
-                "exit_code": res.returncode,
-                "stdout": res.stdout,
-                "stderr": rt_contract.strip_tool_markers(stderr),
-                "apply_report": apply_report,
-                "apply_marker_pid": (apply_markers[0].get("pid") if apply_markers else None),
-                "apply_ok": bool(apply_report and apply_report.get("rc") == 0),
-                "failure_stage": "apply" if apply_report and apply_report.get("rc") not in (0, None) else None,
-            }
-        )
-    except subprocess.TimeoutExpired:
+    res = exec_record.run_command(cmd, timeout_s=10, repo_root=REPO_ROOT)
+    if res.get("error") == "timeout":
         record["status"] = "error"
         record["error"] = "timeout"
-    except Exception as exc:
+        return record
+    if res.get("error"):
         record["status"] = "error"
-        record["error"] = str(exc)
+        record["error"] = res.get("error")
+        return record
+    stderr = res.get("stderr") or ""
+    apply_markers = rt_contract.extract_sbpl_apply_markers(stderr)
+    apply_report = rt_contract.derive_apply_report_from_markers(apply_markers) if apply_markers else None
+    record.update(
+        {
+            "status": "ok",
+            "command": res.get("command"),
+            "exit_code": res.get("exit_code"),
+            "stdout": res.get("stdout"),
+            "stderr": rt_contract.strip_tool_markers(stderr),
+            "apply_report": apply_report,
+            "apply_marker_pid": (apply_markers[0].get("pid") if apply_markers else None),
+            "apply_ok": bool(apply_report and apply_report.get("rc") == 0),
+            "failure_stage": "apply" if apply_report and apply_report.get("rc") not in (0, None) else None,
+        }
+    )
     return record

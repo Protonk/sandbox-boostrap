@@ -11,12 +11,14 @@ from __future__ import annotations
 
 import json
 import shutil
-import subprocess
 import time
+import uuid
 from pathlib import Path
 from typing import Dict, List, Optional, Sequence
 
-from book.api import path_utils
+from book.api import exec_record, path_utils, tooling
+from book.api.runtime.bundles import writer as bundle_writer
+from book.api.runtime.execution import service as runtime_service
 from book.api.profile.identity import baseline_world_id
 from book.api.witness import lifecycle, outputs
 from book.api.witness.models import ProbeRequest, ProbeResult
@@ -41,67 +43,8 @@ from book.api.witness.paths import (
 WORLD_ID = baseline_world_id(REPO_ROOT)
 
 
-def run_cmd(
-    cmd: List[str],
-    *,
-    cwd: Optional[Path] = None,
-    timeout_s: Optional[float] = None,
-) -> Dict[str, object]:
-    """Run a CLI command and return a structured result for logs/reports."""
-    started_at_unix_s = time.time()
-    try:
-        res = subprocess.run(
-            cmd,
-            capture_output=True,
-            text=True,
-            cwd=str(cwd) if cwd else str(REPO_ROOT),
-            timeout=timeout_s,
-        )
-        finished_at_unix_s = time.time()
-        return {
-            "command": path_utils.relativize_command(cmd, REPO_ROOT),
-            "exit_code": res.returncode,
-            "stdout": res.stdout,
-            "stderr": res.stderr,
-            "timeout_s": timeout_s,
-            "cmd_started_at_unix_s": started_at_unix_s,
-            "cmd_finished_at_unix_s": finished_at_unix_s,
-            "cmd_duration_s": finished_at_unix_s - started_at_unix_s,
-        }
-    except subprocess.TimeoutExpired as exc:
-        finished_at_unix_s = time.time()
-        return {
-            "command": path_utils.relativize_command(cmd, REPO_ROOT),
-            "exit_code": None,
-            "stdout": exc.stdout or "",
-            "stderr": exc.stderr or "",
-            "error": "timeout",
-            "timed_out": True,
-            "timeout_s": timeout_s,
-            "cmd_started_at_unix_s": started_at_unix_s,
-            "cmd_finished_at_unix_s": finished_at_unix_s,
-            "cmd_duration_s": finished_at_unix_s - started_at_unix_s,
-        }
-    except Exception as exc:
-        finished_at_unix_s = time.time()
-        return {
-            "command": path_utils.relativize_command(cmd, REPO_ROOT),
-            "error": f"{type(exc).__name__}: {exc}",
-            "timeout_s": timeout_s,
-            "cmd_started_at_unix_s": started_at_unix_s,
-            "cmd_finished_at_unix_s": finished_at_unix_s,
-            "cmd_duration_s": finished_at_unix_s - started_at_unix_s,
-        }
-
-
-def maybe_parse_json(text: str) -> Optional[Dict[str, object]]:
-    # PolicyWitness generally returns JSON, but stderr/stdout can be non-JSON on error.
-    if not text:
-        return None
-    try:
-        return json.loads(text)
-    except Exception:
-        return None
+def _witness_runner_info() -> Dict[str, object]:
+    return tooling.runner_info(WITNESS_CLI, repo_root=REPO_ROOT, entrypoint="policy-witness")
 
 
 def extract_profile_bundle_id(
@@ -162,52 +105,53 @@ def _normalize_data_path(stdout_json: Optional[Dict[str, object]], key: str) -> 
         data[key] = normalized
 
 
-def _wrap_json_command(cmd: List[str], *, timeout_s: Optional[float] = None) -> Dict[str, object]:
-    res = run_cmd(cmd, timeout_s=timeout_s)
-    stdout_json = maybe_parse_json(res.get("stdout", ""))
-    record: Dict[str, object] = {**res}
-    if stdout_json is not None:
-        record["stdout_json"] = stdout_json
-    else:
-        record["stdout_json_error"] = "stdout_json_missing"
-    return record
-
-
 def list_profiles(*, timeout_s: Optional[float] = None) -> Dict[str, object]:
-    record = _wrap_json_command([str(WITNESS_CLI), "list-profiles"], timeout_s=timeout_s)
+    record = exec_record.run_json_command([str(WITNESS_CLI), "list-profiles"], timeout_s=timeout_s, repo_root=REPO_ROOT)
     return {
         "world_id": WORLD_ID,
         "entrypoint": path_utils.to_repo_relative(WITNESS_CLI, REPO_ROOT),
+        "runner_info": _witness_runner_info(),
         **record,
     }
 
 
 def list_services(*, timeout_s: Optional[float] = None) -> Dict[str, object]:
-    record = _wrap_json_command([str(WITNESS_CLI), "list-services"], timeout_s=timeout_s)
+    record = exec_record.run_json_command([str(WITNESS_CLI), "list-services"], timeout_s=timeout_s, repo_root=REPO_ROOT)
     _normalize_data_path(record.get("stdout_json"), "profiles_path")
     return {
         "world_id": WORLD_ID,
         "entrypoint": path_utils.to_repo_relative(WITNESS_CLI, REPO_ROOT),
+        "runner_info": _witness_runner_info(),
         **record,
     }
 
 
 def show_profile(profile_id: str, *, timeout_s: Optional[float] = None) -> Dict[str, object]:
-    record = _wrap_json_command([str(WITNESS_CLI), "show-profile", profile_id], timeout_s=timeout_s)
+    record = exec_record.run_json_command(
+        [str(WITNESS_CLI), "show-profile", profile_id],
+        timeout_s=timeout_s,
+        repo_root=REPO_ROOT,
+    )
     _normalize_data_path(record.get("stdout_json"), "profiles_path")
     return {
         "world_id": WORLD_ID,
         "entrypoint": path_utils.to_repo_relative(WITNESS_CLI, REPO_ROOT),
+        "runner_info": _witness_runner_info(),
         "profile_id": profile_id,
         **record,
     }
 
 
 def describe_service(profile_id: str, *, timeout_s: Optional[float] = None) -> Dict[str, object]:
-    record = _wrap_json_command([str(WITNESS_CLI), "describe-service", profile_id], timeout_s=timeout_s)
+    record = exec_record.run_json_command(
+        [str(WITNESS_CLI), "describe-service", profile_id],
+        timeout_s=timeout_s,
+        repo_root=REPO_ROOT,
+    )
     return {
         "world_id": WORLD_ID,
         "entrypoint": path_utils.to_repo_relative(WITNESS_CLI, REPO_ROOT),
+        "runner_info": _witness_runner_info(),
         "profile_id": profile_id,
         **record,
     }
@@ -217,11 +161,12 @@ def health_check(*, profile_id: Optional[str] = None, timeout_s: Optional[float]
     cmd = [str(WITNESS_CLI), "health-check"]
     if profile_id:
         cmd += ["--profile", profile_id]
-    record = _wrap_json_command(cmd, timeout_s=timeout_s)
+    record = exec_record.run_json_command(cmd, timeout_s=timeout_s, repo_root=REPO_ROOT)
     _normalize_data_path(record.get("stdout_json"), "profiles_path")
     payload: Dict[str, object] = {
         "world_id": WORLD_ID,
         "entrypoint": path_utils.to_repo_relative(WITNESS_CLI, REPO_ROOT),
+        "runner_info": _witness_runner_info(),
     }
     if profile_id:
         payload["profile_id"] = profile_id
@@ -229,17 +174,22 @@ def health_check(*, profile_id: Optional[str] = None, timeout_s: Optional[float]
 
 
 def verify_evidence(*, timeout_s: Optional[float] = None) -> Dict[str, object]:
-    record = _wrap_json_command([str(WITNESS_CLI), "verify-evidence"], timeout_s=timeout_s)
+    record = exec_record.run_json_command([str(WITNESS_CLI), "verify-evidence"], timeout_s=timeout_s, repo_root=REPO_ROOT)
     _normalize_data_path(record.get("stdout_json"), "manifest_path")
     return {
         "world_id": WORLD_ID,
         "entrypoint": path_utils.to_repo_relative(WITNESS_CLI, REPO_ROOT),
+        "runner_info": _witness_runner_info(),
         **record,
     }
 
 
 def inspect_macho(selector: str, *, timeout_s: Optional[float] = None) -> Dict[str, object]:
-    record = _wrap_json_command([str(WITNESS_CLI), "inspect-macho", selector], timeout_s=timeout_s)
+    record = exec_record.run_json_command(
+        [str(WITNESS_CLI), "inspect-macho", selector],
+        timeout_s=timeout_s,
+        repo_root=REPO_ROOT,
+    )
     stdout_json = record.get("stdout_json")
     if isinstance(stdout_json, dict):
         data = stdout_json.get("data")
@@ -256,6 +206,7 @@ def inspect_macho(selector: str, *, timeout_s: Optional[float] = None) -> Dict[s
     return {
         "world_id": WORLD_ID,
         "entrypoint": path_utils.to_repo_relative(WITNESS_CLI, REPO_ROOT),
+        "runner_info": _witness_runner_info(),
         "selector": selector,
         **record,
     }
@@ -272,11 +223,12 @@ def run_matrix(
     if dest_dir.exists():
         shutil.rmtree(dest_dir, ignore_errors=True)
     cmd = [str(WITNESS_CLI), "run-matrix", "--group", group, "--out", str(dest_dir), probe_id, *probe_args]
-    record = _wrap_json_command(cmd, timeout_s=timeout_s)
+    record = exec_record.run_json_command(cmd, timeout_s=timeout_s, repo_root=REPO_ROOT)
     _normalize_data_path(record.get("stdout_json"), "output_dir")
     return {
         "world_id": WORLD_ID,
         "entrypoint": path_utils.to_repo_relative(WITNESS_CLI, REPO_ROOT),
+        "runner_info": _witness_runner_info(),
         "group": group,
         "probe_id": probe_id,
         "probe_args": list(probe_args),
@@ -302,6 +254,7 @@ def quarantine_lab(
     payload: Dict[str, object] = {
         "world_id": WORLD_ID,
         "entrypoint": path_utils.to_repo_relative(WITNESS_CLI, REPO_ROOT),
+        "runner_info": _witness_runner_info(),
         "profile_id": profile_id,
         "bundle_id": resolved_bundle_id,
         "show_profile": show,
@@ -315,7 +268,7 @@ def quarantine_lab(
         return payload
 
     cmd = [str(WITNESS_CLI), "quarantine-lab", resolved_bundle_id, payload_class, *payload_args]
-    record = _wrap_json_command(cmd, timeout_s=timeout_s)
+    record = exec_record.run_json_command(cmd, timeout_s=timeout_s, repo_root=REPO_ROOT)
     _normalize_data_path(record.get("stdout_json"), "output_dir")
     payload["run"] = record
     return payload
@@ -369,26 +322,49 @@ def run_probe_request(
         cmd += ["--capture-sandbox-logs"]
     cmd += [request.probe_id, *request.probe_args]
 
-    res = run_cmd(cmd, timeout_s=probe_timeout_s)
+    bundle_root = None
+    bundle_run_id = None
+    effective_output = output
+    if output is not None and output.bundle_root is not None:
+        if output.out_dir or output.log_path or output.record_path or output.observer_path:
+            raise ValueError("bundle_root is incompatible with explicit output paths")
+        bundle_run_id = output.bundle_run_id or str(uuid.uuid4())
+        bundle_root = path_utils.ensure_absolute(output.bundle_root, REPO_ROOT)
+        bundle_dir = bundle_root / bundle_run_id
+        effective_output = outputs.OutputSpec(
+            out_dir=bundle_dir,
+            prefix=output.prefix,
+            write_stdout_json=output.write_stdout_json,
+            write_record_json=output.write_record_json,
+            json_indent=output.json_indent,
+            json_sort_keys=output.json_sort_keys,
+        )
+
+    res = exec_record.run_command(cmd, timeout_s=probe_timeout_s, repo_root=REPO_ROOT)
     finished_at_unix_s = time.time()
     stdout_text = res.get("stdout", "")
     stderr_text = res.get("stderr", "")
-    stdout_json = maybe_parse_json(stdout_text)
+    stdout_json = exec_record.maybe_parse_json(stdout_text)
 
     out_paths = outputs.resolve_output_paths(
-        output,
+        effective_output,
         plan_id=request.plan_id,
         row_id=request.row_id,
         probe_id=request.probe_id,
     )
 
     log_write_error = None
-    if output is not None and output.write_stdout_json and out_paths.log_path is not None and stdout_json is not None:
+    if (
+        effective_output is not None
+        and effective_output.write_stdout_json
+        and out_paths.log_path is not None
+        and stdout_json is not None
+    ):
         log_write_error = outputs.write_json(
             out_paths.log_path,
             stdout_json,
-            indent=output.json_indent,
-            sort_keys=output.json_sort_keys,
+            indent=effective_output.json_indent,
+            sort_keys=effective_output.json_sort_keys,
         )
 
     observer_record = None
@@ -431,6 +407,7 @@ def run_probe_request(
         observer_status=observer_status(observer_record),
         probe_timeout_s=probe_timeout_s,
         probe_error=res.get("error"),
+        runner_info=_witness_runner_info(),
         lifecycle=lifecycle.snapshot_from_probe(
             stdout_json,
             profile_id=request.profile_id,
@@ -446,14 +423,40 @@ def run_probe_request(
         probe_result.stdout_json_error = "stdout_json_missing"
 
     record_write_error = None
-    if output is not None and output.write_record_json and out_paths.record_path is not None:
+    if effective_output is not None and effective_output.write_record_json and out_paths.record_path is not None:
         record_write_error = outputs.write_json(
             out_paths.record_path,
             probe_result.to_json(),
-            indent=output.json_indent,
-            sort_keys=output.json_sort_keys,
+            indent=effective_output.json_indent,
+            sort_keys=effective_output.json_sort_keys,
         )
     probe_result.record_write_error = record_write_error
+
+    if bundle_root is not None and bundle_run_id is not None and output is not None and output.bundle_write_index:
+        expected = []
+        for path in (out_paths.log_path, out_paths.record_path, out_paths.observer_path):
+            if path is None:
+                continue
+            try:
+                rel = path.relative_to(bundle_root / bundle_run_id)
+            except ValueError:
+                continue
+            expected.append(str(rel))
+        artifact_index = bundle_writer.write_artifact_index(
+            bundle_root / bundle_run_id,
+            run_id=bundle_run_id,
+            world_id=WORLD_ID,
+            schema_version=runtime_service.ARTIFACT_INDEX_SCHEMA_VERSION,
+            expected_artifacts=expected,
+            repo_root=REPO_ROOT,
+        )
+        probe_result.bundle = {
+            "run_id": bundle_run_id,
+            "bundle_root": path_utils.to_repo_relative(bundle_root, REPO_ROOT),
+            "bundle_dir": path_utils.to_repo_relative(bundle_root / bundle_run_id, REPO_ROOT),
+            "artifact_index": path_utils.to_repo_relative(artifact_index, REPO_ROOT),
+            "schema_version": runtime_service.ARTIFACT_INDEX_SCHEMA_VERSION,
+        }
 
     return probe_result
 
@@ -491,10 +494,11 @@ def run_matrix_group(group: str, *, dest_dir: Path) -> Dict[str, object]:
     if dest_dir.exists():
         shutil.rmtree(dest_dir, ignore_errors=True)
     cmd = [str(WITNESS_CLI), "run-matrix", "--group", group, "--out", str(dest_dir), "capabilities_snapshot"]
-    res = run_cmd(cmd)
+    res = exec_record.run_command(cmd, repo_root=REPO_ROOT)
     return {
         "world_id": WORLD_ID,
         "entrypoint": path_utils.to_repo_relative(WITNESS_CLI, REPO_ROOT),
+        "runner_info": _witness_runner_info(),
         "group": group,
         "out_dir": path_utils.to_repo_relative(dest_dir, REPO_ROOT),
         **res,
@@ -506,10 +510,11 @@ def bundle_evidence(*, dest_dir: Path) -> Dict[str, object]:
     if dest_dir.exists():
         shutil.rmtree(dest_dir, ignore_errors=True)
     cmd = [str(WITNESS_CLI), "bundle-evidence", "--out", str(dest_dir), "--include-health-check"]
-    res = run_cmd(cmd)
+    res = exec_record.run_command(cmd, repo_root=REPO_ROOT)
     return {
         "world_id": WORLD_ID,
         "entrypoint": path_utils.to_repo_relative(WITNESS_CLI, REPO_ROOT),
+        "runner_info": _witness_runner_info(),
         "out_dir": path_utils.to_repo_relative(dest_dir, REPO_ROOT),
         **res,
     }

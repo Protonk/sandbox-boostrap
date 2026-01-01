@@ -94,6 +94,16 @@ second source of truth.
 - `emit-promotion --require-promotable` refuses bundles that do not meet this
   gate.
 
+## Optional witness observer capture
+
+Set `SANDBOX_LORE_WITNESS_OBSERVER=1` to capture PolicyWitness
+`sandbox-log-observer` output during runtime harness probe runs. Observer
+reports are written under the run bundle (for example,
+`out/<run_id>/observer/*.observer.json`) and attached to raw probe records for
+debugging and attribution; they are not promotion inputs. The capture honors
+`WITNESS_OBSERVER_MODE=disabled` if you need to suppress external observer
+calls.
+
 ## Registry and plan contract
 
 - Registry index: `book/api/runtime/plans/registry/index.json`.
