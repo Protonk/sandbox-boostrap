@@ -5,7 +5,8 @@
     "file-write-data",
     "mach-lookup",
     "file-read-xattr",
-    "file-write-xattr"
+    "file-write-xattr",
+    "darwin-notification-post"
   ],
   "sources": {
     "vocab": "book/graph/mappings/vocab/{ops.json,filters.json}",
@@ -148,6 +149,30 @@
         }
       ],
       "notes": "xattr appears in sys:bsd (tag 26) and field2 inventory; runtime probes use file-read-xattr/file-write-xattr against /private/tmp fixtures."
+    },
+    {
+      "field2": 3,
+      "filter_name": "file-mode",
+      "target_ops": [
+        "file-read*"
+      ],
+      "anchors": [],
+      "system_profiles": [
+        {
+          "profile": "sys:bsd",
+          "tags": {
+            "27": 1
+          }
+        },
+        {
+          "profile": "sys:sample",
+          "tags": {
+            "3": 1,
+            "8": 1
+          }
+        }
+      ],
+      "notes": "file-mode appears in sys:bsd (tag 27) and sys:sample (tags 3/8); runtime probes use a file-read* discriminator over /private/tmp mode fixtures."
     },
     {
       "field2": 2560,

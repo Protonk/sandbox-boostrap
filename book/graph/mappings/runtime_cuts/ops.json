@@ -13,10 +13,10 @@
       "op_name": "file-read*",
       "op_id": 21,
       "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
-      "probes": 34,
-      "matches": 30,
+      "probes": 36,
+      "matches": 32,
       "mismatches": 4,
-      "probes_including_blocked": 36,
+      "probes_including_blocked": 38,
       "blocked": {
         "total": 2,
         "by_stage": {
@@ -64,6 +64,8 @@
         }
       ],
       "scenarios": [
+        "adv:file_mode:allow-private",
+        "adv:file_mode:deny-world",
         "adv:path_alias:alias-private",
         "adv:path_alias:alias-tmp",
         "adv:path_edges:allow-subpath",

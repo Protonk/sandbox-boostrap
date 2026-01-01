@@ -108,6 +108,28 @@ def _is_disallowed_filter(filter_type: Optional[int], filter_name: Optional[str]
             return True
     return False
 
+
+def _xattr_probe_command(op: str, target: Optional[str]) -> List[str]:
+    if not target or not Path(XATTR).exists():
+        return ["true"]
+    mode = "read" if op == "file-read-xattr" else "write"
+    script = (
+        'target="$1"\n'
+        'mode="$2"\n'
+        'name="user.sandbox_lore"\n'
+        'if [ "$mode" = "read" ]; then\n'
+        '  /usr/bin/xattr -p "$name" "$target" >/dev/null 2>&1\n'
+        '  rc=$?\n'
+        'else\n'
+        '  /usr/bin/xattr -w "$name" "probe" "$target" >/dev/null 2>&1\n'
+        '  rc=$?\n'
+        'fi\n'
+        'if [ "$rc" -eq 0 ]; then dec="allow"; else dec="deny"; fi\n'
+        'printf "SBL_PROBE_DETAILS {\\\"decision\\\":\\\"%s\\\",\\\"exit_code\\\":%s}\\n" "$dec" "$rc"\n'
+        'exit 0\n'
+    )
+    return [SH, "-c", script, "xattr_probe", target, mode]
+
 def _first_marker(markers: List[Dict[str, Any]], stage: str) -> Optional[Dict[str, Any]]:
     for marker in markers:
         if marker.get("stage") == stage:
@@ -205,6 +227,12 @@ def ensure_fixtures(fixture_root: Path = Path("/tmp")) -> None:
     ok_dir = Path("/private/tmp/ok")
     ok_dir.mkdir(parents=True, exist_ok=True)
     (ok_dir / "allow.txt").write_text("param ok allow\n")
+    mode_allow = Path("/private/tmp/mode_allow")
+    mode_allow.write_text("mode allow\n")
+    mode_allow.chmod(0o644)
+    mode_deny = Path("/private/tmp/mode_deny")
+    mode_deny.write_text("mode deny\n")
+    mode_deny.chmod(0o600)
     # Best-effort xattr fixture for file-read-xattr/file-write-xattr probes.
     setxattr = getattr(os, "setxattr", None)
     if callable(setxattr):
@@ -560,21 +588,9 @@ def build_probe_command(probe: Dict[str, Any]) -> List[str]:
         else:
             cmd = ["true"]
     elif op == "file-read-xattr":
-        if target and Path(XATTR).exists():
-            cmd = [XATTR, "-p", "user.sandbox_lore", target]
-        elif target and Path(PYTHON).exists() and hasattr(os, "getxattr"):
-            script = "import os, sys; os.getxattr(sys.argv[1], 'user.sandbox_lore'); sys.exit(0)\n"
-            cmd = [PYTHON, "-c", script, target]
-        else:
-            cmd = ["true"]
+        cmd = _xattr_probe_command(op, target)
     elif op == "file-write-xattr":
-        if target and Path(XATTR).exists():
-            cmd = [XATTR, "-w", "user.sandbox_lore", "probe", target]
-        elif target and Path(PYTHON).exists() and hasattr(os, "setxattr"):
-            script = "import os, sys; os.setxattr(sys.argv[1], 'user.sandbox_lore', b'probe'); sys.exit(0)\n"
-            cmd = [PYTHON, "-c", script, target]
-        else:
-            cmd = ["true"]
+        cmd = _xattr_probe_command(op, target)
     elif op == "mach-lookup":
         driver = probe.get("driver")
         if driver == "xpc_probe":
@@ -842,21 +858,9 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None, wr
         else:
             cmd = ["true"]
     elif op == "file-read-xattr":
-        if target and Path(XATTR).exists():
-            cmd = [XATTR, "-p", "user.sandbox_lore", target]
-        elif target and Path(PYTHON).exists() and hasattr(os, "getxattr"):
-            script = "import os, sys; os.getxattr(sys.argv[1], 'user.sandbox_lore'); sys.exit(0)\n"
-            cmd = [PYTHON, "-c", script, target]
-        else:
-            cmd = ["true"]
+        cmd = _xattr_probe_command(op, target)
     elif op == "file-write-xattr":
-        if target and Path(XATTR).exists():
-            cmd = [XATTR, "-w", "user.sandbox_lore", "probe", target]
-        elif target and Path(PYTHON).exists() and hasattr(os, "setxattr"):
-            script = "import os, sys; os.setxattr(sys.argv[1], 'user.sandbox_lore', b'probe'); sys.exit(0)\n"
-            cmd = [PYTHON, "-c", script, target]
-        else:
-            cmd = ["true"]
+        cmd = _xattr_probe_command(op, target)
     elif op == "mach-lookup":
         driver = probe.get("driver")
         if driver == "sandbox_mach_probe":
@@ -1238,6 +1242,7 @@ def run_matrix(
             path_observation = None
             if _is_path_operation(op):
                 path_observation = _observe_path_unsandboxed(target)
+            decision_source = None
             if preflight_blocked:
                 actual = None
                 raw = {"command": [], "exit_code": None, "stdout": "", "stderr": ""}
@@ -1251,6 +1256,10 @@ def run_matrix(
                     wrapper_preflight = "enforce"
                 raw = run_probe(runtime_profile, probe, profile_mode, wrapper_preflight)
                 actual = "allow" if raw.get("exit_code") == 0 else "deny"
+                decision = (raw.get("probe_details") or {}).get("decision") if isinstance(raw.get("probe_details"), dict) else None
+                if decision in {"allow", "deny"}:
+                    actual = decision
+                    decision_source = "probe_details"
             if not preflight_blocked and raw.get("error") is None:
                 probe_name = probe.get("name") or probe.get("probe_id") or probe.get("operation") or "probe"
                 observer_record = _capture_witness_observer(
@@ -1415,6 +1424,7 @@ def run_matrix(
                     "violation_summary": violation_summary,
                     **({"path_observation": path_observation} if path_observation else {}),
                     **{**raw, "command": relativize_command(raw.get("command") or [], REPO_ROOT)},
+                    **({"decision_source": decision_source} if decision_source else {}),
                     **(
                         {"notes": "preflight blocked: known apply-gate signature"}
                         if preflight_blocked

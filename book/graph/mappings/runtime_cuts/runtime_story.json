@@ -17,12 +17,12 @@
       "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json"
     ],
     "input_hashes": {
-      "book/graph/mappings/runtime_cuts/ops.json": "01fc96258e6e5d614556d798ecab819cb5d9051f14e35a1a7ab3f7f3f6d56861",
-      "book/graph/mappings/runtime_cuts/scenarios.json": "82c35b19359d4c23dd52c5d4e9d345c7405bdf931d6102dac43cbb7002de3b3f",
+      "book/graph/mappings/runtime_cuts/ops.json": "2b0a44d9f9d8b3ae72ad51b7f3b3b4b42caa11093cf16cbd5feaf1669ef24e4a",
+      "book/graph/mappings/runtime_cuts/scenarios.json": "86848b3ff1b4f8458d094f3d0dda53e8cd3524dd9c54b9a20008ee1470adae04",
       "book/experiments/runtime-checks/out/promotion_packet.json": "662297e9f76b45fe433c47a3b882f2e59c020323ec967a76b0a972cc28dc7f95",
       "book/experiments/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json": "8c042b30534d5129f1879a78d756922d2ef3fa40a002ca23ef1bf8dc27c3676e",
-      "book/experiments/runtime-adversarial/out/promotion_packet.json": "bc35f5e64d6226bc6246dcc1cc66c821c7cfaeb0548b22996ede040899e6760a",
-      "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/run_manifest.json": "967dfcb45bc8981cfd848c60c4d61c5752fde06c42c2f510eacca958f10a28a4",
+      "book/experiments/runtime-adversarial/out/promotion_packet.json": "e338dbc59abb3e9c2da39371d9cddf4fedb9b3882d8fae092c738c300afef0c0",
+      "book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/run_manifest.json": "0d5510b8b41d3f748ae7a1950e369864e5240bc6e644479f2d62e0f02c7cefab",
       "book/experiments/hardened-runtime/out/promotion_packet.json": "5d8f999c2b9f86e80038f61324ca87fc8bb8e72300bc0ee8ce7dc323e821c1b7",
       "book/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json": "654bb48411211bff7809e5df650b87a89e2dc5d9904858c69b493abf74464dd2",
       "book/experiments/anchor-filter-map/out/promotion_packet.json": "3da1176b548091e31d9bed8c9e73bd7c77dc5f8d5b12665ca6a762c27c6e5b13",
@@ -33,21 +33,21 @@
     "run_provenance": {
       "run_ids": [
         "1e641b64-6267-47df-b1c3-b320aa90e675",
-        "7fb35590-c5c0-4187-8949-f534fbd43045",
+        "ec3df76c-6559-421b-8203-c32709667ffc",
         "62456e46-0901-4345-b02d-f96becc33310",
         "fa90bf31-b6a2-4a0b-bced-78d77be2b89f",
         "83c8343f-44ca-452a-be49-470fb0b5fd3d"
       ],
       "manifests": [
         "book/experiments/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json",
-        "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/run_manifest.json",
+        "book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/run_manifest.json",
         "book/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json",
         "book/experiments/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/run_manifest.json",
         "book/experiments/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/run_manifest.json"
       ],
       "repo_root_contexts": [
         "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1e641b64-6267-47df-b1c3-b320aa90e675",
-        "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7fb35590-c5c0-4187-8949-f534fbd43045",
+        "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.ec3df76c-6559-421b-8203-c32709667ffc",
         "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.62456e46-0901-4345-b02d-f96becc33310",
         "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.fa90bf31-b6a2-4a0b-bced-78d77be2b89f",
         "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.83c8343f-44ca-452a-be49-470fb0b5fd3d"
@@ -59,8 +59,8 @@
       "op_id": 21,
       "op_name": "file-read*",
       "coverage_status": "partial",
-      "probes": 34,
-      "matches": 30,
+      "probes": 36,
+      "matches": 32,
       "mismatches": 4,
       "examples": [
         {
@@ -100,6 +100,62 @@
         }
       ],
       "scenarios": [
+        {
+          "scenario_id": "adv:file_mode:allow-private",
+          "profile_id": "adv:file_mode",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "adv:file_mode:allow-private",
+              "profile_id": "adv:file_mode",
+              "operation": "file-read*",
+              "target": "/private/tmp/mode_deny",
+              "expected": "allow",
+              "probe_name": "allow-private"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "adv:file_mode:deny-world",
+          "profile_id": "adv:file_mode",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "adv:file_mode:deny-world",
+              "profile_id": "adv:file_mode",
+              "operation": "file-read*",
+              "target": "/private/tmp/mode_allow",
+              "expected": "deny",
+              "probe_name": "deny-world"
+            }
+          ],
+          "mismatches": []
+        },
         {
           "scenario_id": "adv:path_alias:alias-private",
           "profile_id": "adv:path_alias",

@@ -1,6 +1,32 @@
 {
   "expected_matrix": {
     "profiles": {
+      "adv:file_mode": {
+        "blob": "book/experiments/runtime-adversarial/sb/file_mode.sb",
+        "family": "file_mode",
+        "mode": "sbpl",
+        "probes": [
+          {
+            "classification": "covered_ok",
+            "expectation_id": "adv:file_mode:allow-private",
+            "expected": "allow",
+            "name": "allow-private",
+            "operation": "file-read*",
+            "scenario_id": "adv:file_mode:allow-private",
+            "target": "/private/tmp/mode_deny"
+          },
+          {
+            "classification": "covered_ok",
+            "expectation_id": "adv:file_mode:deny-world",
+            "expected": "deny",
+            "name": "deny-world",
+            "operation": "file-read*",
+            "scenario_id": "adv:file_mode:deny-world",
+            "target": "/private/tmp/mode_allow"
+          }
+        ],
+        "semantic_group": "file:file-mode"
+      },
       "adv:flow_divert_partial_tcp": {
         "blob": "book/experiments/runtime-adversarial/sb/flow_divert_partial_tcp.sb",
         "family": "network",
@@ -1498,9 +1524,9 @@
       "coverage_ratio": 1.0,
       "covered_mismatch_allowed": 0,
       "covered_mismatch_disallowed": 6,
-      "covered_ok": 30,
-      "covered_rows": 36,
-      "total_expected_rows": 36,
+      "covered_ok": 32,
+      "covered_rows": 38,
+      "total_expected_rows": 38,
       "uncovered": 0
     },
     "file-read-xattr": {
@@ -2334,14 +2360,14 @@
       "book/experiments/anchor-filter-map/out/promotion_packet.json": "3da1176b548091e31d9bed8c9e73bd7c77dc5f8d5b12665ca6a762c27c6e5b13",
       "book/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json": "654bb48411211bff7809e5df650b87a89e2dc5d9904858c69b493abf74464dd2",
       "book/experiments/hardened-runtime/out/promotion_packet.json": "5d8f999c2b9f86e80038f61324ca87fc8bb8e72300bc0ee8ce7dc323e821c1b7",
-      "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/run_manifest.json": "967dfcb45bc8981cfd848c60c4d61c5752fde06c42c2f510eacca958f10a28a4",
-      "book/experiments/runtime-adversarial/out/promotion_packet.json": "bc35f5e64d6226bc6246dcc1cc66c821c7cfaeb0548b22996ede040899e6760a",
+      "book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/run_manifest.json": "0d5510b8b41d3f748ae7a1950e369864e5240bc6e644479f2d62e0f02c7cefab",
+      "book/experiments/runtime-adversarial/out/promotion_packet.json": "e338dbc59abb3e9c2da39371d9cddf4fedb9b3882d8fae092c738c300afef0c0",
       "book/experiments/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json": "8c042b30534d5129f1879a78d756922d2ef3fa40a002ca23ef1bf8dc27c3676e",
       "book/experiments/runtime-checks/out/promotion_packet.json": "662297e9f76b45fe433c47a3b882f2e59c020323ec967a76b0a972cc28dc7f95",
       "book/graph/concepts/validation/out/experiments/field2/field2_ir.json": "17498be658bac148db6939d60c280c95ca18a3b1a2c0089da7443ee46af7f1fc",
-      "book/graph/mappings/runtime/runtime_coverage.json": "276e8a396240cac546317ad80f180efe5f5c91701a4b7254258b843f18f1c48f",
-      "book/graph/mappings/runtime_cuts/runtime_story.json": "dd1d2921098af6a266c6f8d1d9685d469815c3e5beccd717128fe6cd9a1f631c",
-      "expected_matrix": "91ef6010d5b4517a7f024a0fce6b8e2c90f31d1a38fbeb617f7ff96eb4f93fef"
+      "book/graph/mappings/runtime/runtime_coverage.json": "5153856e89ca8e7daba84467c9869dd6992e97b5e829975f85e73b3f3e43ecfd",
+      "book/graph/mappings/runtime_cuts/runtime_story.json": "0c565b8e49726f1de59e5edbf539ba1cffbf8bfd6eaedbdb867bddccd1953c34",
+      "expected_matrix": "81876c4a912bbff9356847317a95f5fa81559cb6666e0e2528f0becaa4146c32"
     },
     "inputs": [
       "book/graph/mappings/runtime_cuts/runtime_story.json",
@@ -2363,12 +2389,12 @@
           "book/experiments/anchor-filter-map/out/promotion_packet.json": "3da1176b548091e31d9bed8c9e73bd7c77dc5f8d5b12665ca6a762c27c6e5b13",
           "book/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json": "654bb48411211bff7809e5df650b87a89e2dc5d9904858c69b493abf74464dd2",
           "book/experiments/hardened-runtime/out/promotion_packet.json": "5d8f999c2b9f86e80038f61324ca87fc8bb8e72300bc0ee8ce7dc323e821c1b7",
-          "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/run_manifest.json": "967dfcb45bc8981cfd848c60c4d61c5752fde06c42c2f510eacca958f10a28a4",
-          "book/experiments/runtime-adversarial/out/promotion_packet.json": "bc35f5e64d6226bc6246dcc1cc66c821c7cfaeb0548b22996ede040899e6760a",
+          "book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/run_manifest.json": "0d5510b8b41d3f748ae7a1950e369864e5240bc6e644479f2d62e0f02c7cefab",
+          "book/experiments/runtime-adversarial/out/promotion_packet.json": "e338dbc59abb3e9c2da39371d9cddf4fedb9b3882d8fae092c738c300afef0c0",
           "book/experiments/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json": "8c042b30534d5129f1879a78d756922d2ef3fa40a002ca23ef1bf8dc27c3676e",
           "book/experiments/runtime-checks/out/promotion_packet.json": "662297e9f76b45fe433c47a3b882f2e59c020323ec967a76b0a972cc28dc7f95",
-          "book/graph/mappings/runtime_cuts/ops.json": "01fc96258e6e5d614556d798ecab819cb5d9051f14e35a1a7ab3f7f3f6d56861",
-          "book/graph/mappings/runtime_cuts/scenarios.json": "82c35b19359d4c23dd52c5d4e9d345c7405bdf931d6102dac43cbb7002de3b3f"
+          "book/graph/mappings/runtime_cuts/ops.json": "2b0a44d9f9d8b3ae72ad51b7f3b3b4b42caa11093cf16cbd5feaf1669ef24e4a",
+          "book/graph/mappings/runtime_cuts/scenarios.json": "86848b3ff1b4f8458d094f3d0dda53e8cd3524dd9c54b9a20008ee1470adae04"
         },
         "inputs": [
           "book/graph/mappings/runtime_cuts/ops.json",
@@ -2469,12 +2495,12 @@
               "book/experiments/anchor-filter-map/out/promotion_packet.json": "3da1176b548091e31d9bed8c9e73bd7c77dc5f8d5b12665ca6a762c27c6e5b13",
               "book/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json": "654bb48411211bff7809e5df650b87a89e2dc5d9904858c69b493abf74464dd2",
               "book/experiments/hardened-runtime/out/promotion_packet.json": "5d8f999c2b9f86e80038f61324ca87fc8bb8e72300bc0ee8ce7dc323e821c1b7",
-              "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/run_manifest.json": "967dfcb45bc8981cfd848c60c4d61c5752fde06c42c2f510eacca958f10a28a4",
-              "book/experiments/runtime-adversarial/out/promotion_packet.json": "bc35f5e64d6226bc6246dcc1cc66c821c7cfaeb0548b22996ede040899e6760a",
+              "book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/run_manifest.json": "0d5510b8b41d3f748ae7a1950e369864e5240bc6e644479f2d62e0f02c7cefab",
+              "book/experiments/runtime-adversarial/out/promotion_packet.json": "e338dbc59abb3e9c2da39371d9cddf4fedb9b3882d8fae092c738c300afef0c0",
               "book/experiments/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json": "8c042b30534d5129f1879a78d756922d2ef3fa40a002ca23ef1bf8dc27c3676e",
               "book/experiments/runtime-checks/out/promotion_packet.json": "662297e9f76b45fe433c47a3b882f2e59c020323ec967a76b0a972cc28dc7f95",
-              "book/graph/mappings/runtime_cuts/ops.json": "01fc96258e6e5d614556d798ecab819cb5d9051f14e35a1a7ab3f7f3f6d56861",
-              "book/graph/mappings/runtime_cuts/scenarios.json": "82c35b19359d4c23dd52c5d4e9d345c7405bdf931d6102dac43cbb7002de3b3f"
+              "book/graph/mappings/runtime_cuts/ops.json": "2b0a44d9f9d8b3ae72ad51b7f3b3b4b42caa11093cf16cbd5feaf1669ef24e4a",
+              "book/graph/mappings/runtime_cuts/scenarios.json": "86848b3ff1b4f8458d094f3d0dda53e8cd3524dd9c54b9a20008ee1470adae04"
             },
             "inputs": [
               "book/graph/mappings/runtime_cuts/ops.json",
@@ -2489,21 +2515,21 @@
             "run_provenance": {
               "manifests": [
                 "book/experiments/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json",
-                "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/run_manifest.json",
+                "book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/run_manifest.json",
                 "book/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json",
                 "book/experiments/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/run_manifest.json",
                 "book/experiments/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/run_manifest.json"
               ],
               "repo_root_contexts": [
                 "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1e641b64-6267-47df-b1c3-b320aa90e675",
-                "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7fb35590-c5c0-4187-8949-f534fbd43045",
+                "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.ec3df76c-6559-421b-8203-c32709667ffc",
                 "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.62456e46-0901-4345-b02d-f96becc33310",
                 "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.fa90bf31-b6a2-4a0b-bced-78d77be2b89f",
                 "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.83c8343f-44ca-452a-be49-470fb0b5fd3d"
               ],
               "run_ids": [
                 "1e641b64-6267-47df-b1c3-b320aa90e675",
-                "7fb35590-c5c0-4187-8949-f534fbd43045",
+                "ec3df76c-6559-421b-8203-c32709667ffc",
                 "62456e46-0901-4345-b02d-f96becc33310",
                 "fa90bf31-b6a2-4a0b-bced-78d77be2b89f",
                 "83c8343f-44ca-452a-be49-470fb0b5fd3d"
@@ -2532,12 +2558,12 @@
           "book/experiments/anchor-filter-map/out/promotion_packet.json": "3da1176b548091e31d9bed8c9e73bd7c77dc5f8d5b12665ca6a762c27c6e5b13",
           "book/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json": "654bb48411211bff7809e5df650b87a89e2dc5d9904858c69b493abf74464dd2",
           "book/experiments/hardened-runtime/out/promotion_packet.json": "5d8f999c2b9f86e80038f61324ca87fc8bb8e72300bc0ee8ce7dc323e821c1b7",
-          "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/run_manifest.json": "967dfcb45bc8981cfd848c60c4d61c5752fde06c42c2f510eacca958f10a28a4",
-          "book/experiments/runtime-adversarial/out/promotion_packet.json": "bc35f5e64d6226bc6246dcc1cc66c821c7cfaeb0548b22996ede040899e6760a",
+          "book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/run_manifest.json": "0d5510b8b41d3f748ae7a1950e369864e5240bc6e644479f2d62e0f02c7cefab",
+          "book/experiments/runtime-adversarial/out/promotion_packet.json": "e338dbc59abb3e9c2da39371d9cddf4fedb9b3882d8fae092c738c300afef0c0",
           "book/experiments/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json": "8c042b30534d5129f1879a78d756922d2ef3fa40a002ca23ef1bf8dc27c3676e",
           "book/experiments/runtime-checks/out/promotion_packet.json": "662297e9f76b45fe433c47a3b882f2e59c020323ec967a76b0a972cc28dc7f95",
-          "book/graph/mappings/runtime_cuts/ops.json": "01fc96258e6e5d614556d798ecab819cb5d9051f14e35a1a7ab3f7f3f6d56861",
-          "book/graph/mappings/runtime_cuts/scenarios.json": "82c35b19359d4c23dd52c5d4e9d345c7405bdf931d6102dac43cbb7002de3b3f"
+          "book/graph/mappings/runtime_cuts/ops.json": "2b0a44d9f9d8b3ae72ad51b7f3b3b4b42caa11093cf16cbd5feaf1669ef24e4a",
+          "book/graph/mappings/runtime_cuts/scenarios.json": "86848b3ff1b4f8458d094f3d0dda53e8cd3524dd9c54b9a20008ee1470adae04"
         },
         "inputs": [
           "book/graph/mappings/runtime_cuts/ops.json",
@@ -2552,21 +2578,21 @@
         "run_provenance": {
           "manifests": [
             "book/experiments/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json",
-            "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/run_manifest.json",
+            "book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/run_manifest.json",
             "book/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json",
             "book/experiments/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/run_manifest.json",
             "book/experiments/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/run_manifest.json"
           ],
           "repo_root_contexts": [
             "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1e641b64-6267-47df-b1c3-b320aa90e675",
-            "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7fb35590-c5c0-4187-8949-f534fbd43045",
+            "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.ec3df76c-6559-421b-8203-c32709667ffc",
             "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.62456e46-0901-4345-b02d-f96becc33310",
             "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.fa90bf31-b6a2-4a0b-bced-78d77be2b89f",
             "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.83c8343f-44ca-452a-be49-470fb0b5fd3d"
           ],
           "run_ids": [
             "1e641b64-6267-47df-b1c3-b320aa90e675",
-            "7fb35590-c5c0-4187-8949-f534fbd43045",
+            "ec3df76c-6559-421b-8203-c32709667ffc",
             "62456e46-0901-4345-b02d-f96becc33310",
             "fa90bf31-b6a2-4a0b-bced-78d77be2b89f",
             "83c8343f-44ca-452a-be49-470fb0b5fd3d"
@@ -2583,21 +2609,21 @@
     "run_provenance": {
       "manifests": [
         "book/experiments/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json",
-        "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/run_manifest.json",
+        "book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/run_manifest.json",
         "book/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json",
         "book/experiments/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/run_manifest.json",
         "book/experiments/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/run_manifest.json"
       ],
       "repo_root_contexts": [
         "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1e641b64-6267-47df-b1c3-b320aa90e675",
-        "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7fb35590-c5c0-4187-8949-f534fbd43045",
+        "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.ec3df76c-6559-421b-8203-c32709667ffc",
         "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.62456e46-0901-4345-b02d-f96becc33310",
         "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.fa90bf31-b6a2-4a0b-bced-78d77be2b89f",
         "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.83c8343f-44ca-452a-be49-470fb0b5fd3d"
       ],
       "run_ids": [
         "1e641b64-6267-47df-b1c3-b320aa90e675",
-        "7fb35590-c5c0-4187-8949-f534fbd43045",
+        "ec3df76c-6559-421b-8203-c32709667ffc",
         "62456e46-0901-4345-b02d-f96becc33310",
         "fa90bf31-b6a2-4a0b-bced-78d77be2b89f",
         "83c8343f-44ca-452a-be49-470fb0b5fd3d"
@@ -2704,35 +2730,38 @@
     }
   ],
   "profiles_metadata": {
+    "adv:file_mode": {
+      "runtime_profile": "book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/runtime_profiles/file_mode.adv_file_mode.runtime.sb"
+    },
     "adv:flow_divert_partial_tcp": {
-      "runtime_profile": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/runtime_profiles/flow_divert_partial_tcp.adv_flow_divert_partial_tcp.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/runtime_profiles/flow_divert_partial_tcp.adv_flow_divert_partial_tcp.runtime.sb"
     },
     "adv:flow_divert_require_all_tcp": {
-      "runtime_profile": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/runtime_profiles/flow_divert_require_all_tcp.adv_flow_divert_require_all_tcp.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/runtime_profiles/flow_divert_require_all_tcp.adv_flow_divert_require_all_tcp.runtime.sb"
     },
     "adv:net_outbound_allow": {
-      "runtime_profile": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/runtime_profiles/net_outbound_allow.adv_net_outbound_allow.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/runtime_profiles/net_outbound_allow.adv_net_outbound_allow.runtime.sb"
     },
     "adv:net_outbound_deny": {
-      "runtime_profile": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/runtime_profiles/net_outbound_deny.adv_net_outbound_deny.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/runtime_profiles/net_outbound_deny.adv_net_outbound_deny.runtime.sb"
     },
     "adv:path_alias": {
-      "runtime_profile": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/runtime_profiles/path_alias.adv_path_alias.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/runtime_profiles/path_alias.adv_path_alias.runtime.sb"
     },
     "adv:path_edges": {
-      "runtime_profile": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/runtime_profiles/path_edges.adv_path_edges.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/runtime_profiles/path_edges.adv_path_edges.runtime.sb"
     },
     "adv:path_edges_private": {
-      "runtime_profile": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/runtime_profiles/path_edges_private.adv_path_edges_private.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/runtime_profiles/path_edges_private.adv_path_edges_private.runtime.sb"
     },
     "adv:struct_flat": {
-      "runtime_profile": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/runtime_profiles/struct_flat.adv_struct_flat.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/runtime_profiles/struct_flat.adv_struct_flat.runtime.sb"
     },
     "adv:struct_nested": {
-      "runtime_profile": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/runtime_profiles/struct_nested.adv_struct_nested.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/runtime_profiles/struct_nested.adv_struct_nested.runtime.sb"
     },
     "adv:xattr": {
-      "runtime_profile": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/runtime_profiles/xattr.adv_xattr.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/runtime_profiles/xattr.adv_xattr.runtime.sb"
     },
     "bucket4:v1_read": {
       "runtime_profile": "book/experiments/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb"
@@ -2775,6 +2804,66 @@
     }
   },
   "scenarios": {
+    "adv:file_mode:allow-private": {
+      "coverage_status": "partial",
+      "disallowed_mismatches": [],
+      "expected_row_ids": [
+        "adv:file_mode:allow-private"
+      ],
+      "failed_probes": [],
+      "mismatches": [],
+      "op_id": 21,
+      "op_name": "file-read*",
+      "passed_probes": [
+        "adv:file_mode:allow-private"
+      ],
+      "profile_id": "adv:file_mode",
+      "results": {
+        "blocked": {
+          "by_kind": {},
+          "by_stage": {},
+          "total": 0
+        },
+        "matches": 1,
+        "mismatches": 0,
+        "status": "ok",
+        "total": 1,
+        "total_including_blocked": 1
+      },
+      "runtime_only": false,
+      "scenario_id": "adv:file_mode:allow-private",
+      "status": "partial"
+    },
+    "adv:file_mode:deny-world": {
+      "coverage_status": "partial",
+      "disallowed_mismatches": [],
+      "expected_row_ids": [
+        "adv:file_mode:deny-world"
+      ],
+      "failed_probes": [],
+      "mismatches": [],
+      "op_id": 21,
+      "op_name": "file-read*",
+      "passed_probes": [
+        "adv:file_mode:deny-world"
+      ],
+      "profile_id": "adv:file_mode",
+      "results": {
+        "blocked": {
+          "by_kind": {},
+          "by_stage": {},
+          "total": 0
+        },
+        "matches": 1,
+        "mismatches": 0,
+        "status": "ok",
+        "total": 1,
+        "total_including_blocked": 1
+      },
+      "runtime_only": false,
+      "scenario_id": "adv:file_mode:deny-world",
+      "status": "partial"
+    },
     "adv:flow_divert_partial_tcp:tcp-loopback": {
       "coverage_status": "ok",
       "disallowed_mismatches": [],
@@ -6622,6 +6711,10 @@
     }
   },
   "signatures": {
+    "adv:file_mode": {
+      "allow-private": "allow",
+      "deny-world": "deny"
+    },
     "adv:flow_divert_partial_tcp": {
       "tcp-loopback": "allow",
       "tcp-loopback-2": "allow"

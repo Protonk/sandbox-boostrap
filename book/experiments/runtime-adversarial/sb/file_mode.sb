@@ -1,0 +1,5 @@
+(version 1)
+(allow default)
+
+;; Deny world-readable file to discriminate file-mode filter.
+(deny file-read* (require-all (file-mode #o0004) (literal "/private/tmp/mode_allow")))

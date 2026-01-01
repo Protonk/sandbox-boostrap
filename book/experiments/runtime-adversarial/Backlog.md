@@ -1,18 +1,18 @@
 # Runtime Adversarial Backlog
 
-Upstream bundle: run_id `7fb35590-c5c0-4187-8949-f534fbd43045`, artifact_index sha256 `c9454b3010e2f9a35b085254b5283758c474f66c8a49fba8bf2820ddc3533f75`.
+Upstream bundle: run_id `ec3df76c-6559-421b-8203-c32709667ffc`, artifact_index sha256 `a1482ddceb3cf636143be8cdc7c8bbbeedfce681a9f4d7fa069dd07a08d0808d`.
 
 ## Field2 ambiguity (weak or unresolved field2↔runtime associations)
-Source: `book/experiments/field2-atlas/out/derived/7fb35590-c5c0-4187-8949-f534fbd43045/runtime/field2_runtime_results.json`
+Source: `book/experiments/field2-atlas/out/derived/ec3df76c-6559-421b-8203-c32709667ffc/runtime/field2_runtime_results.json`
 
-- none (field2=2 now resolves via `adv:xattr:allow-foo-read`; seed slice is runtime-backed).
+- none (field2=3 now resolves via `adv:file_mode:allow-private`; seed slice is runtime-backed).
 
 ## Shape/semantics disagreement (metamorphic invariance failures)
-Source: `book/experiments/graph-shape-vs-semantics/out/derived/7fb35590-c5c0-4187-8949-f534fbd43045/graph_shape_semantics_summary.json`
+Source: `book/experiments/graph-shape-vs-semantics/out/derived/ec3df76c-6559-421b-8203-c32709667ffc/graph_shape_semantics_summary.json`
 
 - none (path_edges now classified as canonicalization-aware equivalence; counterexamples empty for this run).
 
 ## Runtime-adversarial partials/mismatches (decision-stage divergence or prereq-limited)
-Source: `book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/mismatch_packets.jsonl`
+Source: `book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/mismatch_packets.jsonl`
 
 - none (remaining mismatches are canonicalization-boundary path_edges entries already bounded by path-witness evidence).

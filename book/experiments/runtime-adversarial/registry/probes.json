@@ -1399,6 +1399,54 @@
         "scenario": true
       },
       "target": "/private/tmp/bar"
+    },
+    "adv:file_mode:allow-private": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "/private/tmp/mode_deny"
+      ],
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "name": "allow-private",
+      "operation": "file-read*",
+      "probe_id": "adv:file_mode:allow-private",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/private/tmp/mode_deny"
+    },
+    "adv:file_mode:deny-world": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/private/tmp/mode_allow"
+      ],
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "name": "deny-world",
+      "operation": "file-read*",
+      "probe_id": "adv:file_mode:deny-world",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/private/tmp/mode_allow"
     }
   },
   "registry_id": "runtime-adversarial",

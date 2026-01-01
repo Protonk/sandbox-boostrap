@@ -44,6 +44,11 @@ RUNTIME_CANDIDATES = {
         "probe_name": "allow-foo-read",
         "scenario_id": "adv:xattr:allow-foo-read",
     },
+    3: {
+        "profile_id": "adv:file_mode",
+        "probe_name": "allow-private",
+        "scenario_id": "adv:file_mode:allow-private",
+    },
     5: {"profile_id": "adv:mach_simple_allow", "probe_name": "allow-cfprefsd", "scenario_id": "field2-5-mach-global"},
     7: {"profile_id": "adv:mach_local_literal", "probe_name": "allow-cfprefsd-local", "scenario_id": "field2-7-mach-local"},
     2560: {

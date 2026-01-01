@@ -210,6 +210,19 @@
       "profile_id": "adv:xattr",
       "profile_path": "book/experiments/runtime-adversarial/sb/xattr.sb",
       "semantic_group": "file:xattr-basic"
+    },
+    "adv:file_mode": {
+      "family": "file_mode",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": "File-mode discriminator: deny world-readable file while allowing private file.",
+      "probe_refs": [
+        "adv:file_mode:allow-private",
+        "adv:file_mode:deny-world"
+      ],
+      "profile_id": "adv:file_mode",
+      "profile_path": "book/experiments/runtime-adversarial/sb/file_mode.sb",
+      "semantic_group": "file:file-mode"
     }
   },
   "registry_id": "runtime-adversarial",

@@ -10,7 +10,7 @@ Outputs: expected/runtime matrices, mismatch summaries, and impact hooks to down
 ## Baseline & scope
 - World: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (`book/world/sonoma-14.4.1-23E224-arm64/world.json`).
 - Execution: `python -m book.api.runtime run --plan book/experiments/runtime-adversarial/plan.json --channel launchd_clean` (plan-based runtime CLI). Bundle outputs under `out/<run_id>/` are authoritative (resolve via `out/LATEST`). Compile/decode via `book.api.profile` and `book.api.profile.decoder`.
-- Profiles: `struct_flat`, `struct_nested` (structural variants); `path_edges`, `path_edges_private`, `path_alias` (path/literal edge stress + `/tmp` alias witness + `/private/tmp` canonicalization control); `xattr` (xattr read/write discrimination over `/private/tmp` fixtures); `mach_simple_allow`, `mach_simple_variants`, `mach_local_literal`, `mach_local_regex` (mach-lookup variants); `net_outbound_allow`, `net_outbound_deny`, `flow_divert_require_all_tcp` (network-outbound variants including the flow-divert require-all triple). Custom SBPL only; no platform blobs.
+- Profiles: `struct_flat`, `struct_nested` (structural variants); `path_edges`, `path_edges_private`, `path_alias` (path/literal edge stress + `/tmp` alias witness + `/private/tmp` canonicalization control); `xattr` (xattr read/write discrimination over `/private/tmp` fixtures); `file_mode` (file-mode discriminator over `/private/tmp` fixtures); `mach_simple_allow`, `mach_simple_variants`, `mach_local_literal`, `mach_local_regex` (mach-lookup variants); `net_outbound_allow`, `net_outbound_deny`, `flow_divert_require_all_tcp` (network-outbound variants including the flow-divert require-all triple). Custom SBPL only; no platform blobs.
 - Outputs live in `sb/`, `sb/build/`, and `out/`.
 - Plan/registry data is generated from the runtime template (`python -m book.api.runtime plan-build --template runtime-adversarial --out book/experiments/runtime-adversarial --overwrite`; plan-build skips expected_matrix.json by default, use `--write-expected-matrix` for a static snapshot).
 
@@ -50,6 +50,11 @@ python -m book.api.runtime run \
 - Runtime: `allow-foo-read`/`allow-foo-write` reach operation stage and allow; deny probes return the expected deny and serve as the negative control.
 - Conclusion: xattr probes are decision-stage on this host and are now available as a runtime-backed witness for field2=2.
 
+### File-mode discriminators (file_mode)
+- Static intent: deny reads of a world-readable fixture (`/private/tmp/mode_allow`, mode 0644) while allowing a private fixture (`/private/tmp/mode_deny`, mode 0600) using a `file-mode` filter.
+- Runtime: `allow-private` succeeds; `deny-world` returns the expected deny (nonzero exit) and provides the negative control.
+- Conclusion: file-mode probes now discriminate on this host and serve as the runtime-backed witness for field2=3.
+
 ### Mach families (mach_simple_* / mach_local_*)
 - Static intent: allow `mach-lookup` for `com.apple.cfprefsd.agent` only; profiles use literal vs regex and global-name vs local-name encodings, but aim for the same allow/deny surface (explicit deny on a bogus service).
 - Runtime: expected allow/deny outcomes match across all mach variants in the latest run.
@@ -77,7 +82,7 @@ python -m book.api.runtime run \
 - Runtime-backed ops: `book/graph/mappings/vocab/ops_coverage.json` marks `file-read*`, `file-write*`, `mach-lookup`, and `network-outbound` as having runtime evidence via runtime-checks and runtime-adversarial families; use it to decide when new probes are needed for other ops.
 
 ## Claims and limits
-- Covered ops/shapes: adversarial probes cover file-read*/file-write* (bucket-4/bucket-5 filesystem profiles and structural/metafilter variants), `file-read-xattr`/`file-write-xattr` (xattr discriminators), `mach-lookup` (global-name and local-name, literal and regex, simple vs nested forms), and `network-outbound` (loopback TCP via nc under deny-default + startup shims), plus a flow-divert require-all triple profile.
+- Covered ops/shapes: adversarial probes cover file-read*/file-write* (bucket-4/bucket-5 filesystem profiles and structural/metafilter variants), `file-read-xattr`/`file-write-xattr` (xattr discriminators), `file-read*` with file-mode filters (file-mode discriminator), `mach-lookup` (global-name and local-name, literal and regex, simple vs nested forms), and `network-outbound` (loopback TCP via nc under deny-default + startup shims), plus a flow-divert require-all triple profile.
 - Static↔runtime alignment: decision-stage outcomes are current for mach/network families, but structural/path families still show unexpected denies; keep those mismatches scoped to this host and avoid promotion.
 - Bounded mismatch: `/tmp` → `/private/tmp` canonicalization remains a known boundary from the focused VFS canonicalization experiment; it is not treated as a decoder bug.
 - Scope of claims: do not treat adversarial runtime results as bedrock while apply-gated; keep `runtime_evidence` usage conservative and rely on static IR + explicit blocked status.

@@ -1,7 +1,7 @@
 # Field2 Atlas — Research Report — **Status: partial**
 
 ## Purpose
-Follow a fixed seed slice of field2 IDs (0 `path`, 1 `mount-relative-path`, 2 `xattr`, 5 `global-name`, 7 `local`, 2560 flow-divert triple) end-to-end across tag layouts, anchors, canonical system profiles, and the runtime harness. Field2 is the primary key: we start from a field2 ID and ask where it shows up and what happens at runtime when we poke it.
+Follow a fixed seed slice of field2 IDs (0 `path`, 1 `mount-relative-path`, 2 `xattr`, 3 `file-mode`, 5 `global-name`, 7 `local`, 2560 flow-divert triple) end-to-end across tag layouts, anchors, canonical system profiles, and the runtime harness. Field2 is the primary key: we start from a field2 ID and ask where it shows up and what happens at runtime when we poke it.
 
 ## Position in the book
 This is the canonical example of a field2-first view. It is intentionally narrow (0/5/7 + one static-only neighbor) and wires directly into existing mappings and runtime traces rather than trying to cover all field2 values.
@@ -23,8 +23,8 @@ This is the canonical example of a field2-first view. It is intentionally narrow
 ## Status
 - Static: `ok` for the seed slice including seed `2560` (characterized flow-divert triple token).
 - Runtime: **partial** — refreshed via the launchd clean channel; path_edges mismatches persist as canonicalization boundaries in the adversarial suite, while field2 0/1 use the `/private/tmp` control profile (`adv:path_edges_private`) so their runtime candidates reach operation stage.
-- Mapping delta: field2=2 now resolves via `adv:xattr:allow-foo-read`; runtime signatures were refreshed from the promotion packet, and the atlas reflects the updated candidate.
-- Atlas: rebuilt after the refreshed runtime signatures and static inventory; field2=2 is now runtime-backed, and field2=2560 remains runtime-backed with the flow-divert control witness.
+- Mapping delta: runtime signatures were refreshed from the promotion packet, and the atlas reflects the updated candidates.
+- Atlas: rebuilt after the refreshed runtime signatures and static inventory; field2=2 (xattr) and field2=3 (file-mode) are now runtime-backed, and field2=2560 remains runtime-backed with the flow-divert control witness.
 
 ## Case studies (seed slice)
 - Field2 0 (`path`): Appears on path-centric tags in `sys:sample` and multiple probes; anchors include `/etc/hosts` and `/tmp/foo`. Runtime scenario `adv:path_edges_private:allow-tmp` targets `/tmp/...` with normalization to `/private/tmp/...`, and the decision is allow at operation stage. The canonicalization boundary is explicit via `requested_path`/`normalized_path` plus the `adv:path_alias` twin-probe witness.
@@ -32,6 +32,7 @@ This is the canonical example of a field2-first view. It is intentionally narrow
 - Field2 7 (`local`): Present in `sys:sample` tags 3/7/8 and network/mach probes; anchors include `/etc/hosts` and blocked `flow-divert`. Runtime scenario `field2-7-mach-local` is decision-stage current.
 - Field2 1 (`mount-relative-path`): Anchored via `/etc/hosts` and present in `sys:sample` tag 8; runtime scenario `adv:path_edges_private:allow-tmp-subpath` now reaches operation stage and allows. The legacy `/tmp` mismatch is still captured in the adversarial mismatch packets as `canonicalization_boundary`.
 - Field2 2 (`xattr`): Present in `sys:bsd` tag 26 and field2 inventory; runtime scenario `adv:xattr:allow-foo-read` reaches operation stage and allows on `/private/tmp/foo`, providing the current runtime-backed witness for `file-read-xattr`.
+- Field2 3 (`file-mode`): Present in `sys:bsd` tag 27 and `sys:sample` tags 3/8; runtime scenario `adv:file_mode:allow-private` reads `/private/tmp/mode_deny` (0600) successfully, while `adv:file_mode:deny-world` denies `/private/tmp/mode_allow` (0644), providing the current file-mode witness.
 - Field2 2560 (`flow-divert triple`): Characterized static token for combined domain/type/proto in flow-divert probes; tag0/u16_role=filter_vocab_id with literal `com.apple.flow-divert`, target op `network-outbound`. Runtime scenario `adv:flow_divert_require_all_tcp` now yields a decision-stage allow with a baseline listener control; the partial-triple control (`adv:flow_divert_partial_tcp`) also allows, so it remains non-discriminating but no longer ambient-restricted.
 
 ## Evidence & artifacts

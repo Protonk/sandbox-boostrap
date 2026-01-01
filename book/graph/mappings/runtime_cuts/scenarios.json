@@ -10,12 +10,12 @@
   },
   "phase_histograms": {
     "overall": {
-      "total": 118,
+      "total": 120,
       "stages": {
         "apply": 0,
         "bootstrap": 0,
         "preflight": 4,
-        "probe": 114
+        "probe": 116
       },
       "blocked": {
         "total": 4,
@@ -27,9 +27,9 @@
         }
       },
       "probe": {
-        "total": 114,
-        "allow": 50,
-        "deny": 64,
+        "total": 116,
+        "allow": 51,
+        "deny": 65,
         "mismatches": 13
       }
     },
@@ -255,6 +255,26 @@
           "total": 4,
           "allow": 2,
           "deny": 2,
+          "mismatches": 0
+        }
+      },
+      "file_mode": {
+        "total": 2,
+        "stages": {
+          "apply": 0,
+          "bootstrap": 0,
+          "preflight": 0,
+          "probe": 2
+        },
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "probe": {
+          "total": 2,
+          "allow": 1,
+          "deny": 1,
           "mismatches": 0
         }
       },
@@ -2933,6 +2953,64 @@
       "mismatches": [],
       "impact": null,
       "scenario_id": "adv:xattr:deny-bar-write"
+    },
+    "adv:file_mode:allow-private": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:file_mode",
+      "expectations": [
+        {
+          "expectation_id": "adv:file_mode:allow-private",
+          "profile_id": "adv:file_mode",
+          "operation": "file-read*",
+          "target": "/private/tmp/mode_deny",
+          "expected": "allow",
+          "probe_name": "allow-private"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:file_mode:allow-private"
+    },
+    "adv:file_mode:deny-world": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:file_mode",
+      "expectations": [
+        {
+          "expectation_id": "adv:file_mode:deny-world",
+          "profile_id": "adv:file_mode",
+          "operation": "file-read*",
+          "target": "/private/tmp/mode_allow",
+          "expected": "deny",
+          "probe_name": "deny-world"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:file_mode:deny-world"
     },
     "hardened:mach_lookup:deny-cfprefsd": {
       "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",

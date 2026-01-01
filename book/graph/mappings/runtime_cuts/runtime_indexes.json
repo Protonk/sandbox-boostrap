@@ -45,7 +45,9 @@
       "adv:path_edges_private:allow-private-subpath",
       "adv:path_edges_private:allow-tmp",
       "adv:path_edges_private:allow-tmp-subpath",
-      "adv:path_edges_private:deny-dotdot"
+      "adv:path_edges_private:deny-dotdot",
+      "adv:file_mode:allow-private",
+      "adv:file_mode:deny-world"
     ],
     "file-write*": [
       "bucket4:v1_read:write_/etc/hosts",
@@ -401,6 +403,12 @@
     ],
     "adv:xattr:deny-bar-write": [
       "book/graph/mappings/runtime_cuts/traces/adv_xattr_deny-bar-write.jsonl"
+    ],
+    "adv:file_mode:allow-private": [
+      "book/graph/mappings/runtime_cuts/traces/adv_file_mode_allow-private.jsonl"
+    ],
+    "adv:file_mode:deny-world": [
+      "book/graph/mappings/runtime_cuts/traces/adv_file_mode_deny-world.jsonl"
     ],
     "hardened:mach_lookup:deny-cfprefsd": [
       "book/graph/mappings/runtime_cuts/traces/hardened_mach_lookup_deny-cfprefsd.jsonl"
