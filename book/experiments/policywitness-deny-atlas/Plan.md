@@ -9,7 +9,7 @@ Create a reproducible, observer-backed deny atlas for PolicyWitness profiles usi
 ## Inputs and tooling
 
 - PolicyWitness API: `book.api.witness.client`, `book.api.witness.enforcement`, `book.api.witness.lifecycle`.
-- Observer: `book.api.witness.observer` (external observer only).
+- Observer: `book.api.witness.observer` (manual `--last` default; external range available via `--observer-mode external`).
 - Vocab (bedrock): `book/graph/mappings/vocab/ops.json`, `book/graph/mappings/vocab/filters.json`, `book/graph/mappings/vocab/ops_coverage.json`.
 - Path helpers: `book.api.path_utils` for repo-relative outputs.
 
@@ -38,6 +38,8 @@ If `probe_catalog` shows a Mach/XPC probe (for example a `mach_*` or `bootstrap`
        is bundle-shaped and emits `artifact_index.json`.
      - Keep `plan_id` stable, set `row_id` per probe.
      - Default to manual observer (`--manual-observer-last`) to avoid missing deny lines.
+     - Use `--include-stateful-probes` when you need stronger deny yield; it adds `downloads_rw`
+       and home listdir probes with per-run unique file names.
 
 3) **Observer parsing**
    - For each probe result, load the observer report (or record missing).
@@ -68,8 +70,8 @@ If `probe_catalog` shows a Mach/XPC probe (for example a `mach_*` or `bootstrap`
    - Write `runs.jsonl` with full per-probe `ProbeResult` + parsed observer summary.
 
 6) **Repeatability**
-   - Re-run the deny set for `minimal` and one additional profile to check stability.
-   - Flag any operation/filter changes between runs.
+   - Re-run the deny set twice (same flags) and require identical mapped rows for a stability pass.
+   - If a row flips, record it as unstable and keep the atlas `partial`.
 
 7) **Report updates**
    - Update `Report.md` with what was run, the highest-signal deny records, and any blockers.

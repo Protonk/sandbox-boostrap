@@ -1,0 +1,41 @@
+{
+  "data": {
+    "correlation_id": "18CA11F6-B36E-4A14-BF33-934B1AFAADBB",
+    "deny_lines": [],
+    "duration_ms": null,
+    "end": "2025-12-31 16:26:47",
+    "last": null,
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    ",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": false,
+    "observed_lines": 1,
+    "observer_schema_version": 1,
+    "pid": 75357,
+    "plan_id": "policywitness-deny-atlas:smoke:smoke-6314b2b4-d2e7-43e1-8169-3861cd6c592d",
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_temporary_exception(75357)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"75357\")))",
+    "process_name": "ProbeService_temporary_exception",
+    "row_id": "temporary_exception.sandbox_check_hosts",
+    "start": "2025-12-31 16:26:43",
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767227205469,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

@@ -8,7 +8,7 @@ Build a field2-centric experiment that follows selected field2 IDs end-to-end ac
 - Canonical vocab/mappings: `book/graph/mappings/vocab/{ops.json,filters.json}`, `book/graph/mappings/tag_layouts/tag_layouts.json`, `book/graph/mappings/anchors/anchor_filter_map.json`, `book/graph/mappings/system_profiles/{digests.json,static_checks.json}`, `book/experiments/field2-filters/out/field2_inventory.json`.
 - Runtime references: existing traces and signatures under `book/graph/mappings/runtime/` (golden traces, adversarial summary, runtime_signatures.json).
 - Initial op focus (runtime-backed on this host): `file-read-data`, `file-write-data`, `mach-lookup`.
-- Experiment home: `book/experiments/field2-atlas/` with outputs in `out/static/`, `out/runtime/`, `out/atlas/`.
+- Experiment home: `book/experiments/field2-atlas/` with outputs in `out/static/` and derived outputs under `out/derived/<run_id>/`.
 
 ## Field2 seed set (fixed)
 - Seeds are locked in `field2_seeds.json` to keep the slice stable across runs.
@@ -24,12 +24,12 @@ Build a field2-centric experiment that follows selected field2 IDs end-to-end ac
    Commit the fixed seed manifest (`field2_seeds.json`) with anchor/profile witnesses and target ops. Add a small helper to re-derive the seed slice from canonical mappings for drift detection (no mutation).
 2. **Static join builder**  
    Implement `atlas_static.py` to emit `out/static/field2_records.jsonl` keyed by field2, joining tag IDs (from tag layouts + field2-filters inventory), filter metadata (vocab), anchors (anchor_filter_map + probe-op-structure hits), and system profile counts (field2-filters inventory). Mark coverage as `ok`/`partial` per source status.
-3. **Runtime harness (field2-first)**  
-   Extend a thin wrapper around `book/api/runtime` that, for each seed with a runtime candidate, runs exactly one probe (path literal or mach name) and records the profile/operation/outcome in `out/runtime/field2_runtime_results.json`. If no plausible probe, record `runtime_candidate: none`. Treat EPERM/apply gates as `blocked` outcomes, not absence.
+3. **Runtime consumption (packet-only)**  
+   Consume a promotion packet to resolve runtime exports and emit derived results under `out/derived/<run_id>/runtime/field2_runtime_results.json`, stamped with `(run_id, artifact_index digest)` and a consumption receipt. If no plausible probe, record `runtime_candidate: none`. Treat EPERM/apply gates as `blocked` outcomes, not absence.
 4. **Atlas synthesis**  
-   Merge static + runtime layers into `out/atlas/field2_atlas.json` and `out/atlas/summary.json`, one row per seed. Compute a coarse status (`runtime_backed`, `static_only`, `no_runtime_candidate`, `blocked`). Keep repo-relative paths to all contributing artifacts.
+   Merge static + runtime layers into `out/derived/<run_id>/atlas/field2_atlas.json` and `out/derived/<run_id>/atlas/summary.json`, one row per seed. Compute a coarse status (`runtime_backed`, `static_only`, `no_runtime_candidate`, `blocked`). Keep repo-relative paths to all contributing artifacts and stamp provenance.
 5. **Guardrails**  
-   Add `book/tests/planes/graph/test_field2_atlas.py` to assert: seed manifest is non-empty, atlas covers every seed, at least one seed is `runtime_backed` with a runtime result that points at an existing runtime trace/signature, and the static join includes the recorded seed anchors/tags.
+   Add `book/integration/tests/graph/test_field2_atlas.py` to assert: seed manifest is non-empty, atlas covers every seed, at least one seed is runtime-attempted, and derived outputs are provenance-stamped from a promotion packet.
 6. **Reporting**  
    Keep `Report.md` aligned with actual outputs; record failed probes or gaps in `Notes.md`.
 

@@ -1,0 +1,63 @@
+{
+  "data": {
+    "argv": [
+      "--op",
+      "listdir",
+      "--path",
+      "/Users/achyland/Documents",
+      "--allow-unsafe-path"
+    ],
+    "correlation_id": "3109613B-E236-4715-BB74-F39E5B20EA99",
+    "details": {
+      "base_dir": "",
+      "bundle_id": "com.yourteam.policy-witness.ProbeService_minimal",
+      "cleanup_mode": "default",
+      "correlation_id": "3109613B-E236-4715-BB74-F39E5B20EA99",
+      "cwd": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal/Data",
+      "duration_ms": "4",
+      "file_path": "/Users/achyland/Documents",
+      "harness_dir": "",
+      "home_dir": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal/Data",
+      "op": "listdir",
+      "path_class": "",
+      "path_mode": "direct_path",
+      "pid": "75769",
+      "probe_family": "fs_op",
+      "probe_pid": "75769",
+      "process_name": "ProbeService_minimal",
+      "run_dir": "",
+      "service_pid": "75769",
+      "session_token": "4D26CF94-D2A2-43EB-AA59-A2A0D846FB5F",
+      "target": "base",
+      "tmp_dir": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal/Data/tmp/"
+    },
+    "ended_at_iso8601": "2026-01-01T00:29:22.121Z",
+    "errno": 1,
+    "error": "Error Domain=NSCocoaErrorDomain Code=257 \"The file \u201cDocuments\u201d couldn\u2019t be opened because you don\u2019t have permission to view it.\" UserInfo={NSUserStringVariant=(\n    Folder\n), NSURL=file:///Users/achyland/Documents, NSFilePath=/Users/achyland/Documents, NSUnderlyingError=0x600001010b70 {Error Domain=NSPOSIXErrorDomain Code=1 \"Operation not permitted\"}}",
+    "normalized_outcome": "permission_error",
+    "plan_id": "policywitness-deny-atlas:smoke:smoke-df029550-1d70-4c8a-a810-2c212e803eb9",
+    "probe_id": "fs_op",
+    "rc": 1,
+    "row_id": "minimal.fs_op_listdir_home_documents",
+    "schema_version": 1,
+    "service_build": "2",
+    "service_bundle_id": "com.yourteam.policy-witness.ProbeService_minimal",
+    "service_name": "ProbeService_minimal",
+    "service_version": "2.0.0",
+    "started_at_iso8601": "2026-01-01T00:29:22.117Z",
+    "stderr": "",
+    "stdout": "",
+    "thread_id": "4355"
+  },
+  "generated_at_unix_ms": 1767227362123,
+  "kind": "probe_response",
+  "result": {
+    "errno": 1,
+    "error": "Error Domain=NSCocoaErrorDomain Code=257 \"The file \u201cDocuments\u201d couldn\u2019t be opened because you don\u2019t have permission to view it.\" UserInfo={NSUserStringVariant=(\n    Folder\n), NSURL=file:///Users/achyland/Documents, NSFilePath=/Users/achyland/Documents, NSUnderlyingError=0x600001010b70 {Error Domain=NSPOSIXErrorDomain Code=1 \"Operation not permitted\"}}",
+    "exit_code": 1,
+    "normalized_outcome": "permission_error",
+    "ok": false,
+    "rc": 1
+  },
+  "schema_version": 1
+}

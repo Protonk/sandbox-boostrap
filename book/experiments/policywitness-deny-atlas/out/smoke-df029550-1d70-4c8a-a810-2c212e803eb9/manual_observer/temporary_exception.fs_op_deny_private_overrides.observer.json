@@ -1,0 +1,43 @@
+{
+  "data": {
+    "correlation_id": "3EF9CEE9-FEBE-466A-B15A-C9DA22C6251D",
+    "deny_lines": [
+      "2025-12-31 16:29:25.594650-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_temporary_exception(75853) deny(1) file-read-data /private/var/db/launchd.db/com.apple.launchd/overrides.plist"
+    ],
+    "duration_ms": null,
+    "end": null,
+    "last": "30s",
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    \n2025-12-31 16:29:25.594650-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_temporary_exception(75853) deny(1) file-read-data /private/var/db/launchd.db/com.apple.launchd/overrides.plist\n2025-12-31 16:29:25.608708-0800  localhost log[75855]: [com.apple.log:] log run noninteractively, parent: 75854 (sandbox-log-observer), args: '/usr/bin/log' 'show' '--style' 'syslog' '--info' '--debug' '--last' '30s' '--predicate' '((eventMessage CONTAINS[c] \"Sandbox: ProbeService_temporary_exception(75853)\") OR ((eventMessag",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": true,
+    "observed_lines": 3,
+    "observer_schema_version": 1,
+    "pid": 75853,
+    "plan_id": "policywitness-deny-atlas:smoke:smoke-df029550-1d70-4c8a-a810-2c212e803eb9",
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_temporary_exception(75853)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"75853\")))",
+    "process_name": "ProbeService_temporary_exception",
+    "row_id": "temporary_exception.fs_op_deny_private_overrides",
+    "start": null,
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767227365774,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

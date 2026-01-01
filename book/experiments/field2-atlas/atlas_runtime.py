@@ -1,9 +1,8 @@
 """
-Runtime wrapper for the Field2 Atlas experiment.
+Runtime slice builder for the Field2 Atlas experiment (packet-only).
 
-This maps field2 seeds to concrete runtime probes (one per seed where available)
-and emits `out/runtime/field2_runtime_results.json`. It reuses canonical runtime
-signatures for this host to keep the harness field2-tagged.
+This consumes a promotion packet, resolves committed bundle exports, and
+emits derived runtime results under `out/derived/<run_id>/runtime/`.
 """
 
 from __future__ import annotations
@@ -12,7 +11,7 @@ import argparse
 import json
 import sys
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Iterable, Optional
 
 # Ensure repository root is on sys.path for `book` imports when run directly.
 REPO_ROOT = Path(__file__).resolve().parents[3]
@@ -20,23 +19,17 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from book.api import path_utils
+from book.api.runtime.analysis import packet_utils
 
 
 REPO_ROOT = path_utils.find_repo_root(Path(__file__).resolve())
 DEFAULT_SEEDS = Path(__file__).with_name("field2_seeds.json")
 DEFAULT_RUNTIME_SIGNATURES = REPO_ROOT / "book" / "graph" / "mappings" / "runtime" / "runtime_signatures.json"
-DEFAULT_PROMOTION_PACKET = (
-    REPO_ROOT / "book" / "experiments" / "runtime-adversarial" / "out" / "promotion_packet.json"
-)
-DEFAULT_RUNTIME_EVENTS = [
-    REPO_ROOT / "book" / "experiments" / "runtime-adversarial" / "out" / "runtime_events.normalized.json",
-]
-DEFAULT_HISTORICAL_EVENTS = REPO_ROOT / "book" / "experiments" / "runtime-adversarial" / "out" / "historical_runtime_events.json"
-DEFAULT_RUN_MANIFEST = REPO_ROOT / "book" / "experiments" / "runtime-adversarial" / "out" / "run_manifest.json"
-DEFAULT_BASELINE_RESULTS = REPO_ROOT / "book" / "experiments" / "runtime-adversarial" / "out" / "baseline_results.json"
-# Derived compatibility view; canonical anchor binding is ctx-indexed.
 DEFAULT_ANCHOR_MAP = REPO_ROOT / "book" / "graph" / "mappings" / "anchors" / "anchor_filter_map.json"
-DEFAULT_OUTPUT = Path(__file__).with_name("out") / "runtime" / "field2_runtime_results.json"
+DEFAULT_OUT_ROOT = Path(__file__).with_name("out") / "derived"
+REQUIRED_EXPORTS = ("runtime_events", "baseline_results", "run_manifest")
+RUNTIME_RESULTS_SCHEMA_VERSION = "field2-atlas.runtime_results.v0"
+CONSUMPTION_RECEIPT_SCHEMA_VERSION = "field2-atlas.consumption_receipt.v0"
 
 # For the initial seed slice, pick one canonical runtime signature per field2.
 RUNTIME_CANDIDATES = {
@@ -79,21 +72,6 @@ def _load_runtime_events(paths: list[Path], tier: str) -> list[Dict[str, Any]]:
                 row["tier"] = tier
                 events.append(row)
     return events
-
-
-def _load_promotion_paths(packet_path: Path) -> Optional[Dict[str, Path]]:
-    if not packet_path.exists():
-        return None
-    doc = load_json(packet_path)
-    paths: Dict[str, Path] = {}
-    for key in ("runtime_events", "baseline_results", "run_manifest"):
-        value = doc.get(key)
-        if value:
-            paths[key] = path_utils.ensure_absolute(Path(value), repo_root=REPO_ROOT)
-    if not paths:
-        return None
-    paths["promotion_packet"] = packet_path
-    return paths
 
 
 def _load_baseline_results(path: Path) -> Dict[tuple[str, str], Dict[str, Any]]:
@@ -189,38 +167,27 @@ def _path_witness(events_by_key: Dict[tuple[str, str], Dict[str, Any]]) -> Optio
 
 
 def build_runtime_results(
-    seeds_path: Path = DEFAULT_SEEDS,
-    runtime_signatures_path: Path = DEFAULT_RUNTIME_SIGNATURES,
-    promotion_packet_path: Path = DEFAULT_PROMOTION_PACKET,
-    allow_legacy: bool = False,
-) -> Dict[str, Any]:
-    seeds_doc = load_json(seeds_path)
-    runtime_doc = load_json(runtime_signatures_path)
+    packet_path: Path,
+    *,
+    receipt_path: Optional[Path] = None,
+    packet_context: Optional[packet_utils.PacketContext] = None,
+) -> tuple[Dict[str, Any], packet_utils.PacketContext]:
+    ctx = packet_context or packet_utils.resolve_packet_context(
+        packet_path, required_exports=REQUIRED_EXPORTS, repo_root=REPO_ROOT
+    )
+    seeds_doc = load_json(DEFAULT_SEEDS)
+    runtime_doc = load_json(DEFAULT_RUNTIME_SIGNATURES)
     anchor_map = load_json(DEFAULT_ANCHOR_MAP)
-    promotion_paths = _load_promotion_paths(promotion_packet_path)
-    if not promotion_paths and not allow_legacy:
-        raise RuntimeError(
-            "promotion_packet.json missing; run runtime emit-promotion or pass --allow-legacy to use legacy paths"
-        )
-    if promotion_paths and not allow_legacy and "runtime_events" not in promotion_paths:
-        raise RuntimeError("promotion_packet.json missing runtime_events; refuse legacy fallback without --allow-legacy")
-    runtime_event_paths = list(DEFAULT_RUNTIME_EVENTS)
-    baseline_path = DEFAULT_BASELINE_RESULTS
-    run_manifest_path = DEFAULT_RUN_MANIFEST
-    if promotion_paths:
-        runtime_event = promotion_paths.get("runtime_events")
-        baseline = promotion_paths.get("baseline_results")
-        manifest = promotion_paths.get("run_manifest")
-        if runtime_event:
-            runtime_event_paths = [runtime_event]
-        if baseline:
-            baseline_path = baseline
-        if manifest:
-            run_manifest_path = manifest
-    events = _load_runtime_events(runtime_event_paths, tier="current")
-    historical_events = _load_runtime_events([DEFAULT_HISTORICAL_EVENTS], tier="historical")
+
+    manifest_world_id = ctx.run_manifest.get("world_id")
+    if manifest_world_id and seeds_doc.get("world_id") and manifest_world_id != seeds_doc.get("world_id"):
+        raise ValueError("promotion packet world_id does not match field2 seeds")
+
+    runtime_event_path = ctx.export_paths["runtime_events"]
+    baseline_path = ctx.export_paths["baseline_results"]
+
+    events = _load_runtime_events([runtime_event_path], tier="current")
     events_by_key = _index_runtime_events(events)
-    historical_by_key = _index_runtime_events(historical_events)
     baseline_by_key = _load_baseline_results(baseline_path)
     signatures = runtime_doc.get("signatures") or {}
     profiles_meta = runtime_doc.get("profiles_metadata") or {}
@@ -253,8 +220,6 @@ def build_runtime_results(
         actual = (signatures.get(profile_id) or {}).get(probe_name)
         runtime_profile = profiles_meta.get(profile_id, {}).get("runtime_profile")
         event = events_by_key.get((profile_id, probe_name))
-        historical_event = historical_by_key.get((profile_id, probe_name))
-
         if not probe_info:
             base_record["status"] = "missing_probe"
             base_record["runtime_candidate"] = candidate
@@ -262,25 +227,17 @@ def build_runtime_results(
             continue
 
         blocked = _is_blocked_event(event)
-        historical_actual = None
-        if historical_event and not _is_blocked_event(historical_event):
-            historical_actual = historical_event.get("actual")
-
         result = None
         result_tier = None
         result_source = None
         if not blocked and actual is not None:
             result = actual
-            result_tier = "current"
-            result_source = path_utils.to_repo_relative(runtime_signatures_path, repo_root=REPO_ROOT)
-        elif blocked and historical_actual is not None:
-            result = historical_actual
-            result_tier = "historical_event"
-            result_source = historical_event.get("source")
+            result_tier = "mapping"
+            result_source = path_utils.to_repo_relative(DEFAULT_RUNTIME_SIGNATURES, repo_root=REPO_ROOT)
         elif blocked and actual is not None:
             result = actual
             result_tier = "historical_mapping"
-            result_source = path_utils.to_repo_relative(runtime_signatures_path, repo_root=REPO_ROOT)
+            result_source = path_utils.to_repo_relative(DEFAULT_RUNTIME_SIGNATURES, repo_root=REPO_ROOT)
 
         if not blocked and result is not None:
             status = "runtime_backed"
@@ -320,18 +277,18 @@ def build_runtime_results(
                     "result_tier": result_tier,
                     "result_source": result_source,
                     "mapping_status": mapping_status,
-                "path_observation": path_observation,
-                "latest_attempt": (
-                    {
-                        "runtime_status": event.get("runtime_status"),
-                        "failure_stage": event.get("failure_stage"),
-                        "failure_kind": event.get("failure_kind"),
-                        "run_id": event.get("run_id"),
-                        "source": event.get("source"),
-                    }
-                    if event
-                    else None
-                ),
+                    "path_observation": path_observation,
+                    "latest_attempt": (
+                        {
+                            "runtime_status": event.get("runtime_status"),
+                            "failure_stage": event.get("failure_stage"),
+                            "failure_kind": event.get("failure_kind"),
+                            "run_id": event.get("run_id"),
+                            "source": event.get("source"),
+                        }
+                        if event
+                        else None
+                    ),
                     "anchor_match": (
                         {
                             "anchor": anchor_match.get("anchor"),
@@ -348,19 +305,10 @@ def build_runtime_results(
                     "runtime_profile": path_utils.to_repo_relative(runtime_profile, repo_root=REPO_ROOT)
                     if runtime_profile
                     else None,
-                    "source": path_utils.to_repo_relative(runtime_signatures_path, repo_root=REPO_ROOT),
+                    "source": path_utils.to_repo_relative(DEFAULT_RUNTIME_SIGNATURES, repo_root=REPO_ROOT),
                 },
             }
         )
-        if historical_actual is not None:
-            base_record["last_successful_witness"] = {
-                "result": historical_actual,
-                "runtime_status": historical_event.get("runtime_status"),
-                "failure_stage": historical_event.get("failure_stage"),
-                "source": historical_event.get("source"),
-                "probe_name": probe_name,
-                "profile_id": profile_id,
-            }
         if fid == 0 and path_witness:
             base_record["path_canonicalization_witness"] = path_witness
         if fid == 2560:
@@ -378,9 +326,7 @@ def build_runtime_results(
                     "source": control_event.get("source") if control_event else None,
                 },
                 "baseline": {
-                    "source": path_utils.to_repo_relative(baseline_path, repo_root=REPO_ROOT)
-                    if baseline_path.exists()
-                    else None,
+                    "source": path_utils.to_repo_relative(baseline_path, repo_root=REPO_ROOT),
                     "record": baseline_by_key.get((profile_id, probe_name)),
                 },
             }
@@ -400,76 +346,97 @@ def build_runtime_results(
         extra = result_ids - seed_ids
         raise ValueError(f"seed/runtime mismatch: missing={sorted(missing)} extra={sorted(extra)}")
 
-    return {
+    provenance = packet_utils.format_packet_provenance(
+        ctx, exports=REQUIRED_EXPORTS, receipt_path=receipt_path, repo_root=REPO_ROOT
+    )
+    packet_exports = {
+        key: path_utils.to_repo_relative(path, repo_root=REPO_ROOT) for key, path in ctx.export_paths.items()
+    }
+    doc = {
+        "schema_version": RUNTIME_RESULTS_SCHEMA_VERSION,
         "world_id": seeds_doc.get("world_id"),
+        "provenance": provenance,
         "source_artifacts": {
-            "seeds": path_utils.to_repo_relative(seeds_path, repo_root=REPO_ROOT),
-            "runtime_signatures": path_utils.to_repo_relative(runtime_signatures_path, repo_root=REPO_ROOT),
-            "runtime_events": [
-                path_utils.to_repo_relative(path, repo_root=REPO_ROOT)
-                for path in runtime_event_paths
-                if path.exists()
-            ],
-            "run_manifest": path_utils.to_repo_relative(run_manifest_path, repo_root=REPO_ROOT)
-            if run_manifest_path.exists()
-            else None,
-            "baseline_results": path_utils.to_repo_relative(baseline_path, repo_root=REPO_ROOT)
-            if baseline_path.exists()
-            else None,
-            "promotion_packet": path_utils.to_repo_relative(promotion_paths["promotion_packet"], repo_root=REPO_ROOT)
-            if promotion_paths
-            else None,
-            "historical_runtime_events": [
-                path_utils.to_repo_relative(DEFAULT_HISTORICAL_EVENTS, repo_root=REPO_ROOT)
-                for _ in [DEFAULT_HISTORICAL_EVENTS]
-                if DEFAULT_HISTORICAL_EVENTS.exists()
-            ],
+            "seeds": path_utils.to_repo_relative(DEFAULT_SEEDS, repo_root=REPO_ROOT),
+            "runtime_signatures": path_utils.to_repo_relative(DEFAULT_RUNTIME_SIGNATURES, repo_root=REPO_ROOT),
             "anchor_map": path_utils.to_repo_relative(DEFAULT_ANCHOR_MAP, repo_root=REPO_ROOT),
+            "packet_exports": packet_exports,
         },
         "results": results,
     }
+    return doc, ctx
 
 
-def write_results(doc: Dict[str, Any], output_path: Path = DEFAULT_OUTPUT) -> None:
+def derived_run_dir(out_root: Path, run_id: str) -> Path:
+    out_root = path_utils.ensure_absolute(out_root, repo_root=REPO_ROOT)
+    return out_root / run_id
+
+
+def runtime_results_path(out_root: Path, run_id: str) -> Path:
+    return derived_run_dir(out_root, run_id) / "runtime" / "field2_runtime_results.json"
+
+
+def write_results(doc: Dict[str, Any], output_path: Path) -> None:
     output_path.parent.mkdir(parents=True, exist_ok=True)
     with output_path.open("w", encoding="utf-8") as fh:
         json.dump(doc, fh, indent=2, sort_keys=True)
 
 
+def write_consumption_receipt(
+    receipt_path: Path,
+    *,
+    world_id: str,
+    packet_ctx: packet_utils.PacketContext,
+    exports_used: Iterable[str],
+    outputs: Dict[str, Path],
+) -> Path:
+    receipt_path = path_utils.ensure_absolute(receipt_path, repo_root=REPO_ROOT)
+    export_paths: Dict[str, str] = {}
+    for key in exports_used:
+        export_paths[key] = path_utils.to_repo_relative(packet_ctx.export_paths[key], repo_root=REPO_ROOT)
+    receipt = {
+        "schema_version": CONSUMPTION_RECEIPT_SCHEMA_VERSION,
+        "world_id": world_id,
+        "consumed_packets": [
+            {
+                "packet_path": path_utils.to_repo_relative(packet_ctx.packet_path, repo_root=REPO_ROOT),
+                "run_id": packet_ctx.run_id,
+                "artifact_index": path_utils.to_repo_relative(packet_ctx.artifact_index_path, repo_root=REPO_ROOT),
+                "artifact_index_sha256": packet_ctx.artifact_index_sha256,
+                "exports": export_paths,
+            }
+        ],
+        "outputs": {key: path_utils.to_repo_relative(path, repo_root=REPO_ROOT) for key, path in outputs.items()},
+    }
+    receipt_path.parent.mkdir(parents=True, exist_ok=True)
+    receipt_path.write_text(json.dumps(receipt, indent=2, sort_keys=True), encoding="utf-8")
+    return receipt_path
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Build Field2 Atlas runtime results from promotion packets.")
-    parser.add_argument("--seeds", type=Path, default=DEFAULT_SEEDS, help="Path to field2 seeds JSON")
+    parser.add_argument("--packet", type=Path, required=True, help="Path to promotion_packet.json")
     parser.add_argument(
-        "--runtime-signatures",
+        "--out-root",
         type=Path,
-        default=DEFAULT_RUNTIME_SIGNATURES,
-        help="Path to runtime_signatures.json",
-    )
-    parser.add_argument(
-        "--promotion-packet",
-        type=Path,
-        default=DEFAULT_PROMOTION_PACKET,
-        help="Path to promotion_packet.json",
-    )
-    parser.add_argument(
-        "--allow-legacy",
-        action="store_true",
-        help="Allow legacy runtime_events/baseline paths when no promotion packet exists",
-    )
-    parser.add_argument(
-        "--output",
-        type=Path,
-        default=DEFAULT_OUTPUT,
-        help="Output path for field2_runtime_results.json",
+        default=DEFAULT_OUT_ROOT,
+        help="Output root for derived artifacts (run_id subdir will be created)",
     )
     args = parser.parse_args()
-    doc = build_runtime_results(
-        seeds_path=args.seeds,
-        runtime_signatures_path=args.runtime_signatures,
-        promotion_packet_path=args.promotion_packet,
-        allow_legacy=args.allow_legacy,
+
+    ctx = packet_utils.resolve_packet_context(args.packet, required_exports=REQUIRED_EXPORTS, repo_root=REPO_ROOT)
+    derived_root = derived_run_dir(args.out_root, ctx.run_id)
+    receipt_path = derived_root / "consumption_receipt.json"
+    doc, _ = build_runtime_results(args.packet, receipt_path=receipt_path, packet_context=ctx)
+    output_path = runtime_results_path(args.out_root, ctx.run_id)
+    write_results(doc, output_path=output_path)
+    write_consumption_receipt(
+        receipt_path,
+        world_id=doc.get("world_id"),
+        packet_ctx=ctx,
+        exports_used=REQUIRED_EXPORTS,
+        outputs={"runtime_results": output_path},
     )
-    write_results(doc, output_path=args.output)
 
 
 if __name__ == "__main__":

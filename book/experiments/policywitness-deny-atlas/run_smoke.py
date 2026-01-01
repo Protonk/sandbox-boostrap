@@ -143,7 +143,7 @@ def _pick_profiles(profile_ids: List[str], max_count: int) -> List[str]:
     return picked
 
 
-def _probe_set(home_dir: Path, *, include_stateful: bool) -> List[Dict[str, object]]:
+def _probe_set(home_dir: Path, *, include_stateful: bool, run_id: str) -> List[Dict[str, object]]:
     probes: List[Dict[str, object]] = [
         {
             "label": "fs_op_deny_private_overrides",
@@ -184,11 +184,12 @@ def _probe_set(home_dir: Path, *, include_stateful: bool) -> List[Dict[str, obje
     ]
 
     if include_stateful:
+        safe_suffix = run_id.replace("-", "")[:12]
         probes.append(
             {
                 "label": "downloads_rw_probe",
                 "probe_id": "downloads_rw",
-                "probe_args": [],
+                "probe_args": ["--name", f"atlas_{safe_suffix}.txt"],
             }
         )
         downloads_dir = home_dir / "Downloads"
@@ -268,6 +269,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Smoke pass for policywitness-deny-atlas.")
     parser.add_argument("--out-root", default="book/experiments/policywitness-deny-atlas/out")
     parser.add_argument("--max-profiles", type=int, default=3)
+    parser.add_argument("--observer-mode", choices=["manual", "external", "capture"], default="manual")
     parser.add_argument("--capture-sandbox-logs", action="store_true")
     parser.add_argument("--manual-observer-last", default="30s")
     parser.add_argument("--include-stateful-probes", action="store_true")
@@ -305,15 +307,20 @@ def main() -> None:
     runs_path = run_root / "runs.jsonl"
     atlas_records: List[Dict[str, object]] = []
 
-    observer_mode = "external"
-    if args.capture_sandbox_logs:
-        observer_mode = "capture"
-    if args.manual_observer_last:
-        observer_mode = "manual_last"
+    manual_last = args.manual_observer_last
+    if isinstance(manual_last, str) and manual_last.strip().lower() in {"off", "none"}:
+        manual_last = None
+
+    observer_mode = args.observer_mode
+    capture_logs = args.capture_sandbox_logs or observer_mode == "capture"
 
     with runs_path.open("w", encoding="utf-8") as runs_file:
         for profile_id in smoke_profiles:
-            for probe in _probe_set(home_dir, include_stateful=args.include_stateful_probes):
+            for probe in _probe_set(
+                home_dir,
+                include_stateful=args.include_stateful_probes,
+                run_id=run_id,
+            ):
                 label = probe["label"]
                 row_id = f"{profile_id}.{label}"
                 run_args = probe["probe_args"]
@@ -324,7 +331,7 @@ def main() -> None:
                     plan_id=plan_id,
                     row_id=row_id,
                     output=output_spec,
-                    capture_sandbox_logs=args.capture_sandbox_logs,
+                    capture_sandbox_logs=capture_logs,
                     observer=observer_mode == "external",
                 )
                 result_json = result.to_json()
@@ -338,7 +345,7 @@ def main() -> None:
                         capture = data.get("host_sandbox_log_capture")
                         if isinstance(capture, dict):
                             observer_report = capture.get("observer_report")
-                elif observer_mode == "manual_last":
+                elif observer_mode == "manual":
                     pid = witness_observer.extract_service_pid(result.stdout_json)
                     name = witness_observer.extract_process_name(result.stdout_json)
                     correlation_id = result.correlation_id or witness_observer.extract_correlation_id(
@@ -350,7 +357,7 @@ def main() -> None:
                         pid=pid,
                         process_name=name,
                         dest_path=obs_path,
-                        last=args.manual_observer_last,
+                        last=manual_last or "30s",
                         plan_id=plan_id,
                         row_id=row_id,
                         correlation_id=correlation_id,
@@ -442,7 +449,14 @@ def main() -> None:
         "run_id": run_id,
         "plan_id": plan_id,
         "profiles": smoke_profiles,
-        "probe_set": _probe_set(home_dir, include_stateful=args.include_stateful_probes),
+        "probe_set": _probe_set(
+            home_dir,
+            include_stateful=args.include_stateful_probes,
+            run_id=run_id,
+        ),
+        "observer_mode": observer_mode,
+        "manual_observer_last": manual_last,
+        "capture_sandbox_logs": capture_logs,
         "runs_path": path_utils.to_repo_relative(runs_path, repo_root),
         "atlas_path": path_utils.to_repo_relative(run_root / "deny_atlas.json", repo_root),
         "probe_output_dir": path_utils.to_repo_relative(run_root, repo_root),

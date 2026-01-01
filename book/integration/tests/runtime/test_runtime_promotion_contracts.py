@@ -38,10 +38,10 @@ def test_runtime_promotion_contracts():
 
     atlas = ROOT / "book" / "experiments" / "field2-atlas" / "atlas_runtime.py"
     atlas_text = atlas.read_text()
-    if "--allow-legacy" not in atlas_text:
-        failures.append("book/experiments/field2-atlas/atlas_runtime.py missing required --allow-legacy guard")
-    if "promotion_packet.json missing" not in atlas_text:
-        failures.append("book/experiments/field2-atlas/atlas_runtime.py missing required promotion-packet rejection")
+    if "packet_utils.resolve_packet_context" not in atlas_text:
+        failures.append("book/experiments/field2-atlas/atlas_runtime.py missing packet-only resolver")
+    if "allow-legacy" in atlas_text:
+        failures.append("book/experiments/field2-atlas/atlas_runtime.py still mentions allow-legacy")
 
     packet_set_path = ROOT / "book" / "graph" / "mappings" / "runtime" / "packet_set.json"
     if not packet_set_path.exists():
@@ -65,4 +65,3 @@ def test_runtime_promotion_contracts():
             failures.append("packet_set.json packets list mismatch")
 
     assert not failures, "runtime promotion contract failures:\n" + "\n".join(failures)
-

@@ -2,6 +2,8 @@
 
 Purpose: test whether SBPL/graph encodings with the same intended allow/deny semantics but different shapes (nesting, ordering, sharing) produce equivalent runtime behavior on this world (`world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`), and what that reveals about PolicyGraph structure/tag interpretation.
 
+Derived outputs are written under `out/derived/<run_id>/` and are stamped with upstream packet provenance.
+
 ## Evidence cards
 
 ### Structural variants, same intent

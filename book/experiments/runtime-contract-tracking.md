@@ -30,14 +30,14 @@ Coordination: this file is the only coordination surface for the two big steps.
 - downstream consumers + allowed reads: `book/experiments/field2-atlas` and `book/experiments/graph-shape-vs-semantics` must consume `book/experiments/runtime-adversarial/out/promotion_packet.json` only; runtime mapping generators also consume the packet; no consumer should read `out/LATEST` directly
 
 ### field2-atlas
-- canonical invocation: `PYTHONPATH=$PWD python3 book/experiments/field2-atlas/atlas_static.py` then `PYTHONPATH=$PWD python3 book/experiments/field2-atlas/atlas_runtime.py --promotion-packet book/experiments/runtime-adversarial/out/promotion_packet.json` then `PYTHONPATH=$PWD python3 book/experiments/field2-atlas/atlas_build.py`
-- authoritative outputs (bundle + packet): derived outputs only: `book/experiments/field2-atlas/out/static/field2_records.jsonl`, `book/experiments/field2-atlas/out/runtime/field2_runtime_results.json`, `book/experiments/field2-atlas/out/atlas/field2_atlas.json`, `book/experiments/field2-atlas/out/atlas/summary.json`; upstream packet is `book/experiments/runtime-adversarial/out/promotion_packet.json`
-- downstream consumers + allowed reads: `book/integration/tests/graph/test_field2_atlas.py` reads `book/experiments/field2-atlas/out/runtime/field2_runtime_results.json` and `book/experiments/field2-atlas/out/atlas/*`; inputs must come from the promotion packet (no `out/LATEST` scraping)
+- canonical invocation: `PYTHONPATH=$PWD python3 book/experiments/field2-atlas/atlas_static.py` then `PYTHONPATH=$PWD python3 book/experiments/field2-atlas/atlas_build.py --packet <promotion_packet.json> --out-root book/experiments/field2-atlas/out/derived`
+- authoritative outputs (bundle + packet): derived outputs only: `book/experiments/field2-atlas/out/static/field2_records.jsonl` plus `book/experiments/field2-atlas/out/derived/<run_id>/runtime/field2_runtime_results.json`, `book/experiments/field2-atlas/out/derived/<run_id>/atlas/field2_atlas.json`, `book/experiments/field2-atlas/out/derived/<run_id>/atlas/summary.json`, and `book/experiments/field2-atlas/out/derived/<run_id>/consumption_receipt.json`; upstream packet supplied by caller
+- downstream consumers + allowed reads: `book/integration/tests/graph/test_field2_atlas.py` derives outputs from a promotion packet and validates provenance stamps; inputs must come from the packet (no `out/LATEST` scraping)
 
 ### graph-shape-vs-semantics
-- canonical invocation: run runtime-adversarial plan (see above) then `python3 book/experiments/graph-shape-vs-semantics/summarize_struct_variants.py`
-- authoritative outputs (bundle + packet): derived summary `book/experiments/graph-shape-vs-semantics/out/graph_shape_semantics_summary.json` from `book/experiments/runtime-adversarial/out/promotion_packet.json`
-- downstream consumers + allowed reads: none external; summary is derived, and upstream access must remain packet-only
+- canonical invocation: run runtime-adversarial plan (see above), emit a promotion packet, then `python3 book/experiments/graph-shape-vs-semantics/summarize_struct_variants.py --packet <promotion_packet.json> --out-root book/experiments/graph-shape-vs-semantics/out/derived`
+- authoritative outputs (bundle + packet): derived summary `book/experiments/graph-shape-vs-semantics/out/derived/<run_id>/graph_shape_semantics_summary.json` plus `consumption_receipt.json`; upstream packet supplied by caller
+- downstream consumers + allowed reads: none external; summary is derived and upstream access must remain packet-only
 
 ## Coupling scans (repo-wide grep results)
 

@@ -1,0 +1,43 @@
+{
+  "data": {
+    "correlation_id": "4A20F596-6B8D-4311-B9C3-E117539C61FA",
+    "deny_lines": [
+      "2025-12-31 16:43:35.134620-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_temporary_exception(77376) deny(1) file-read-data /Users/achyland/Downloads"
+    ],
+    "duration_ms": null,
+    "end": "2025-12-31 16:43:37",
+    "last": null,
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    \n2025-12-31 16:43:35.134620-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_temporary_exception(77376) deny(1) file-read-data /Users/achyland/Downloads",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": true,
+    "observed_lines": 2,
+    "observer_schema_version": 1,
+    "pid": 77376,
+    "plan_id": "policywitness-deny-atlas:smoke:smoke-bd9d0f87-b3f0-4070-a934-75b2223f1870",
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_temporary_exception(77376)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"77376\")))",
+    "process_name": "ProbeService_temporary_exception",
+    "row_id": "temporary_exception.fs_op_listdir_home_downloads",
+    "start": "2025-12-31 16:43:33",
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767228215307,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

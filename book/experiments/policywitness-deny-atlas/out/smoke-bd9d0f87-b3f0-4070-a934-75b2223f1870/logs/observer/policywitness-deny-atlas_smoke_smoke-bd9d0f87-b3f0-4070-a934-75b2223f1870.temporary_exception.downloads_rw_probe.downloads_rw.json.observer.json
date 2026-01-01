@@ -1,0 +1,43 @@
+{
+  "data": {
+    "correlation_id": "21142187-92FD-425F-8B87-FB3B6EB88A82",
+    "deny_lines": [
+      "2025-12-31 16:43:34.848221-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_temporary_exception(77371) deny(1) file-write-create /Users/achyland/Downloads/policy-witness-harness"
+    ],
+    "duration_ms": null,
+    "end": "2025-12-31 16:43:36",
+    "last": null,
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    \n2025-12-31 16:43:34.848221-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_temporary_exception(77371) deny(1) file-write-create /Users/achyland/Downloads/policy-witness-harness",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": true,
+    "observed_lines": 2,
+    "observer_schema_version": 1,
+    "pid": 77371,
+    "plan_id": "policywitness-deny-atlas:smoke:smoke-bd9d0f87-b3f0-4070-a934-75b2223f1870",
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_temporary_exception(77371)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"77371\")))",
+    "process_name": "ProbeService_temporary_exception",
+    "row_id": "temporary_exception.downloads_rw_probe",
+    "start": "2025-12-31 16:43:32",
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767228215067,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

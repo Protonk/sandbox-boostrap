@@ -1,0 +1,53 @@
+{
+  "data": {
+    "argv": [
+      "--name",
+      "atlas_smoke162aeb4.txt"
+    ],
+    "correlation_id": "2A965234-8FDD-40C2-8933-5F6F22C7B5D9",
+    "details": {
+      "bundle_id": "com.yourteam.policy-witness.ProbeService_net_client",
+      "correlation_id": "2A965234-8FDD-40C2-8933-5F6F22C7B5D9",
+      "cwd": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_net_client/Data",
+      "downloads_dir": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_net_client/Data/Downloads",
+      "failed_op": "mkdir",
+      "file_path": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_net_client/Data/Downloads/policy-witness-harness/atlas_smoke162aeb4.txt",
+      "home_dir": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_net_client/Data",
+      "pid": "78078",
+      "probe_pid": "78078",
+      "process_name": "ProbeService_net_client",
+      "service_pid": "78078",
+      "session_token": "F3D9790C-7123-4867-9751-12B7C2CFA682",
+      "target_dir": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_net_client/Data/Downloads/policy-witness-harness",
+      "tmp_dir": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_net_client/Data/tmp/"
+    },
+    "ended_at_iso8601": "2026-01-01T00:44:44.076Z",
+    "errno": 1,
+    "error": "Error Domain=NSCocoaErrorDomain Code=513 \"You don\u2019t have permission to save the file \u201cpolicy-witness-harness\u201d in the folder \u201cDownloads\u201d.\" UserInfo={NSFilePath=/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_net_client/Data/Downloads/policy-witness-harness, NSUnderlyingError=0x60000250c5a0 {Error Domain=NSPOSIXErrorDomain Code=1 \"Operation not permitted\"}}",
+    "normalized_outcome": "permission_error",
+    "plan_id": "policywitness-deny-atlas:smoke:smoke-162aeb4f-6e86-4ff7-a664-73f923e642e3",
+    "probe_id": "downloads_rw",
+    "rc": 1,
+    "row_id": "net_client.downloads_rw_probe",
+    "schema_version": 1,
+    "service_build": "2",
+    "service_bundle_id": "com.yourteam.policy-witness.ProbeService_net_client",
+    "service_name": "ProbeService_net_client",
+    "service_version": "2.0.0",
+    "started_at_iso8601": "2026-01-01T00:44:44.072Z",
+    "stderr": "",
+    "stdout": "",
+    "thread_id": "6147"
+  },
+  "generated_at_unix_ms": 1767228284078,
+  "kind": "probe_response",
+  "result": {
+    "errno": 1,
+    "error": "Error Domain=NSCocoaErrorDomain Code=513 \"You don\u2019t have permission to save the file \u201cpolicy-witness-harness\u201d in the folder \u201cDownloads\u201d.\" UserInfo={NSFilePath=/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_net_client/Data/Downloads/policy-witness-harness, NSUnderlyingError=0x60000250c5a0 {Error Domain=NSPOSIXErrorDomain Code=1 \"Operation not permitted\"}}",
+    "exit_code": 1,
+    "normalized_outcome": "permission_error",
+    "ok": false,
+    "rc": 1
+  },
+  "schema_version": 1
+}

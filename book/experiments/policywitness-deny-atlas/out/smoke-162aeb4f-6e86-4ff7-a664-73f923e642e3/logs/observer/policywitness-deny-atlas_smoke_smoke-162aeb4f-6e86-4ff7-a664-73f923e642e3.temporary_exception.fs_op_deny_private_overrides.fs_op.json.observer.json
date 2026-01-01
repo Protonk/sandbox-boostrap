@@ -1,0 +1,43 @@
+{
+  "data": {
+    "correlation_id": "4D2C29DB-A2AE-4DF1-B40B-88D79FA6DC98",
+    "deny_lines": [
+      "2025-12-31 16:44:44.875249-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_temporary_exception(78094) deny(1) file-read-data /private/var/db/launchd.db/com.apple.launchd/overrides.plist"
+    ],
+    "duration_ms": null,
+    "end": "2025-12-31 16:44:46",
+    "last": null,
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    \n2025-12-31 16:44:44.875249-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_temporary_exception(78094) deny(1) file-read-data /private/var/db/launchd.db/com.apple.launchd/overrides.plist",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": true,
+    "observed_lines": 2,
+    "observer_schema_version": 1,
+    "pid": 78094,
+    "plan_id": "policywitness-deny-atlas:smoke:smoke-162aeb4f-6e86-4ff7-a664-73f923e642e3",
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_temporary_exception(78094)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"78094\")))",
+    "process_name": "ProbeService_temporary_exception",
+    "row_id": "temporary_exception.fs_op_deny_private_overrides",
+    "start": "2025-12-31 16:44:42",
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767228285065,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

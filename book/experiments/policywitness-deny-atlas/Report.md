@@ -47,6 +47,13 @@ Falsify by capturing observer-backed deny lines for these cases, or by mapping t
 - `smoke-fd118439-a88a-44c6-954d-5c80afba9714`: manual observer with time-range + correlation id; fewer mapped denies (6) and `minimal` produced no mapped denies. Treat as brittle capture.
 - `smoke-dc03c1fb-270e-4a75-901c-6ecdfd557156`: manual observer (`--last 30s`) + correlation id; 27 records, 12 mapped denies across all three profiles. Observed operations: `file-read-data`, `file-write-create` (filter inferred), and `network-outbound` (explicit `remote` filter). This is the current best atlas output.
 - Stability check: comparing `smoke-f0db6faf-1afb-429d-ba0d-720499effdbb` vs `smoke-dc03c1fb-270e-4a75-901c-6ecdfd557156` shows 7 row_ids flipping between hypothesis and mapped (including `temporary_exception.net_op_tcp_connect_control` mapped → hypothesis). Stability is not yet demonstrated.
+- `smoke-71899407-fcef-4054-9fb8-6b3ed5276587`: manual observer (`--last 60s`) increased instability (10 row flips vs `smoke-dc03...`); reject this window.
+- `smoke-53266e96-e411-445e-bd39-691554845047` / `smoke-aac77a40-46e3-4114-83a2-07bf6d581ee2`: core probe set (no stateful probes) yields 0–1 mapped denies; deny yield too low to be useful.
+- `smoke-6314b2b4-d2e7-43e1-8169-3861cd6c592d`: external observer (time-range) with core probe set yields 1 mapped deny; still too low.
+- `smoke-df029550-1d70-4c8a-a810-2c212e803eb9` / `smoke-b0fb0aee-f1e1-4144-ab5a-ef69ffa658d1`: include-stateful probes + per-run unique `downloads_rw` filename yields 27 records with 7–8 mapped denies; only one row flip (`net_client.downloads_rw_probe`). This is the current best stability.
+- Stable mapped intersection across those two runs: 7 rows (net_client listdir denies + temporary_exception file/Downloads denies + temporary_exception network-outbound).
+- `smoke-bd9d0f87-b3f0-4070-a934-75b2223f1870` / `smoke-162aeb4f-6e86-4ff7-a664-73f923e642e3`: external observer + include-stateful probes yields 3 row flips and lower deny yield than manual; not preferred.
+- `smoke-2f1ae2be-9441-48e2-a9f8-e5bffb477a11`: capture mode still fails with `missing child_pid for sandbox log capture`.
 
 ## Evidence and tiers
 
@@ -56,9 +63,10 @@ Falsify by capturing observer-backed deny lines for these cases, or by mapping t
 
 ## Evidence & artifacts
 
-- `book/experiments/policywitness-deny-atlas/out/smoke-dc03c1fb-270e-4a75-901c-6ecdfd557156/deny_atlas.json` (current best atlas output).
-- `book/experiments/policywitness-deny-atlas/out/smoke-dc03c1fb-270e-4a75-901c-6ecdfd557156/runs.jsonl` (full per-probe ledger).
+- `book/experiments/policywitness-deny-atlas/out/smoke-dc03c1fb-270e-4a75-901c-6ecdfd557156/deny_atlas.json` (highest deny yield, unstable).
+- `book/experiments/policywitness-deny-atlas/out/smoke-dc03c1fb-270e-4a75-901c-6ecdfd557156/runs.jsonl` (full per-probe ledger for the high-yield run).
 - `book/experiments/policywitness-deny-atlas/out/smoke-fd118439-a88a-44c6-954d-5c80afba9714/deny_atlas.json` (brittle time-range capture comparison).
+- `book/experiments/policywitness-deny-atlas/out/smoke-b0fb0aee-f1e1-4144-ab5a-ef69ffa658d1/deny_atlas.json` (best stability with include-stateful probes; use as current stability baseline).
 
 Legacy runs listed above predate bundle-mode outputs; new runs should include
 `artifact_index.json` in the run directory.
@@ -70,6 +78,8 @@ Legacy runs listed above predate bundle-mode outputs; new runs should include
 - Log formats may omit or rename operation/filter fields; parsing must be conservative.
 - Time-range observer windows can miss denies; the `--last` mode is currently more reliable.
 - Mapped rows can shift between runs; the atlas is currently `partial` until a stability check passes.
+- `downloads_rw` is still unstable under the `net_client` profile even with unique filenames; treat that row as unstable.
+- `--capture-sandbox-logs` remains broken (missing child_pid), so capture mode is blocked.
 
 ## Next steps
 
@@ -77,6 +87,9 @@ Legacy runs listed above predate bundle-mode outputs; new runs should include
 - Decide whether `filter_inferred` remains mapped-tier or must downgrade to hypothesis; if downgraded, add a probe or observer mode that yields explicit primary filters.
 - Expand the deny set to include a non-file operation that yields explicit filter metadata (to reduce inference).
 - Once observer capture is stable, expand from the smoke subset to a full profile sweep.
+- Consider dropping or repeating `net_client.downloads_rw_probe` if it continues to flap.
+- Integrate `book.api.witness.compare.compare_action` (tri-run) only after the mapped-row stability gate passes.
+- When integrating tri-run, use the SBPL preflight record from `compare_action` to label apply-stage gates explicitly.
 
 We hope this atlas yields a clear, reproducible separation between "permission-shaped failure" and "observer-backed deny" for entitlements-lane probes on this host. That separation makes later reasoning about sandbox policy less fragile and prevents accidental promotion of hypothesis-tier outcomes to mapped claims.
 

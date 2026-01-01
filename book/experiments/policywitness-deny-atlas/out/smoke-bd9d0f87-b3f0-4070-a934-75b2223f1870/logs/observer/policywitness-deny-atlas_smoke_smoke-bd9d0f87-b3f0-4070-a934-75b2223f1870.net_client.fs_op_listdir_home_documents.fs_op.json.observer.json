@@ -1,0 +1,43 @@
+{
+  "data": {
+    "correlation_id": "083E1678-2D28-4CD2-8391-B49E9F8792DB",
+    "deny_lines": [
+      "2025-12-31 16:43:32.653578-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_net_client(77329) deny(1) file-read-data /Users/achyland/Documents"
+    ],
+    "duration_ms": null,
+    "end": "2025-12-31 16:43:34",
+    "last": null,
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    \n2025-12-31 16:43:32.653578-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_net_client(77329) deny(1) file-read-data /Users/achyland/Documents",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": true,
+    "observed_lines": 2,
+    "observer_schema_version": 1,
+    "pid": 77329,
+    "plan_id": "policywitness-deny-atlas:smoke:smoke-bd9d0f87-b3f0-4070-a934-75b2223f1870",
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_net_client(77329)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"77329\")))",
+    "process_name": "ProbeService_net_client",
+    "row_id": "net_client.fs_op_listdir_home_documents",
+    "start": "2025-12-31 16:43:30",
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767228212932,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

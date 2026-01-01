@@ -1,0 +1,43 @@
+{
+  "data": {
+    "correlation_id": "3DA4C122-C0BD-465E-8D78-1F2CAD2926D4",
+    "deny_lines": [
+      "2025-12-31 16:29:24.895757-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_net_client(75843) deny(1) file-read-data /Users/achyland/Downloads"
+    ],
+    "duration_ms": null,
+    "end": null,
+    "last": "30s",
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    \n2025-12-31 16:29:24.895757-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_net_client(75843) deny(1) file-read-data /Users/achyland/Downloads\n2025-12-31 16:29:24.915714-0800  localhost log[75845]: [com.apple.log:] log run noninteractively, parent: 75844 (sandbox-log-observer), args: '/usr/bin/log' 'show' '--style' 'syslog' '--info' '--debug' '--last' '30s' '--predicate' '((eventMessage CONTAINS[c] \"Sandbox: ProbeService_net_client(75843)\") OR ((eventMessage CONTAIN",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": true,
+    "observed_lines": 3,
+    "observer_schema_version": 1,
+    "pid": 75843,
+    "plan_id": "policywitness-deny-atlas:smoke:smoke-df029550-1d70-4c8a-a810-2c212e803eb9",
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_net_client(75843)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"75843\")))",
+    "process_name": "ProbeService_net_client",
+    "row_id": "net_client.fs_op_listdir_home_downloads",
+    "start": null,
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767227365074,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}
