@@ -1,0 +1,6 @@
+(version 1)
+(deny default)
+(allow file-read-data (literal "/etc/hosts"))
+(allow file-test-existence (literal "/etc/hosts"))
+(allow file-search (literal "/tmp/sbpl_rt"))
+(allow file-write-data (literal "/tmp/sbpl_rt/write.txt"))

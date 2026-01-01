@@ -1,0 +1,43 @@
+{
+  "data": {
+    "correlation_id": "25441668-EC2D-4942-848C-ABC5FC46EE51",
+    "deny_lines": [
+      "2025-12-31 21:12:28.018916-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_minimal(29281) deny(1) file-write-create /Users/achyland/Downloads/atlas_matrixextern.txt"
+    ],
+    "duration_ms": null,
+    "end": "2025-12-31 21:12:29",
+    "last": null,
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    \n2025-12-31 21:12:28.018916-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_minimal(29281) deny(1) file-write-create /Users/achyland/Downloads/atlas_matrixextern.txt",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": true,
+    "observed_lines": 2,
+    "observer_schema_version": 1,
+    "pid": 29281,
+    "plan_id": "deny-delay-detail:external:matrix-external-2-85679cc9-03ea-4698-827d-de746ee5de2b",
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_minimal(29281)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"29281\")))",
+    "process_name": "ProbeService_minimal",
+    "row_id": "minimal.fs_op_create_direct_downloads",
+    "start": "2025-12-31 21:12:25",
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767244348097,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

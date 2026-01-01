@@ -19,6 +19,7 @@ PACKET_SCHEMA_VERSION = "runtime-tools.mismatch_packet.v0.1"
 
 ALLOWED_REASONS = {
     "ambient_platform_restriction",
+    "canonicalization_boundary",
     "path_normalization_sensitivity",
     "anchor_alias_gap",
     "expectation_too_strong",
@@ -53,6 +54,61 @@ def _pick_callout(event: Dict[str, Any]) -> Optional[Dict[str, Any]]:
     return callouts[0] if callouts else None
 
 
+def _index_path_witnesses(path: Optional[Path]) -> Dict[tuple[str, str], Dict[str, Any]]:
+    if not path or not path.exists():
+        return {}
+    doc = _load_json(path)
+    records = doc.get("records") or []
+    indexed: Dict[tuple[str, str], Dict[str, Any]] = {}
+    for record in records:
+        if not isinstance(record, dict):
+            continue
+        lane = record.get("lane")
+        scenario_id = record.get("scenario_id")
+        if isinstance(lane, str) and isinstance(scenario_id, str):
+            indexed[(lane, scenario_id)] = record
+    return indexed
+
+
+def _is_canonicalization_pair(requested: Optional[str], observed: Optional[str]) -> bool:
+    if not isinstance(requested, str) or not isinstance(observed, str):
+        return False
+    if requested == observed:
+        return False
+    alias_pairs = (("/tmp", "/private/tmp"),)
+    for alias, canonical in alias_pairs:
+        if requested.startswith(alias) and observed.startswith(canonical):
+            return True
+        if requested.startswith(canonical) and observed.startswith(alias):
+            return True
+    return False
+
+
+def _canonicalization_boundary(
+    *,
+    requested_path: Optional[str],
+    scenario_witness: Optional[Dict[str, Any]],
+    baseline_witness: Optional[Dict[str, Any]],
+) -> Optional[Dict[str, Any]]:
+    if not isinstance(requested_path, str) or not requested_path:
+        return None
+    for witness in (scenario_witness, baseline_witness):
+        if not witness:
+            continue
+        observed = witness.get("observed_path") or witness.get("normalized_path")
+        if _is_canonicalization_pair(requested_path, observed):
+            return {
+                "lane": witness.get("lane"),
+                "scenario_id": witness.get("scenario_id"),
+                "requested_path": requested_path,
+                "observed_path": witness.get("observed_path"),
+                "observed_path_source": witness.get("observed_path_source"),
+                "normalized_path": witness.get("normalized_path"),
+                "normalized_path_source": witness.get("normalized_path_source"),
+            }
+    return None
+
+
 def _classify_reason(
     *,
     baseline_status: Optional[str],
@@ -72,6 +128,7 @@ def emit_packets(
     events_path: Path,
     baseline_results: Path,
     run_manifest: Path,
+    path_witnesses: Optional[Path] = None,
     out_path: Path,
 ) -> List[Dict[str, Any]]:
     """Emit mismatch packets from a mismatch summary and runtime events."""
@@ -83,6 +140,12 @@ def emit_packets(
     baseline_doc = _load_json(baseline_results)
     baseline_by_name = {row.get("name"): row for row in (baseline_doc.get("results") or []) if isinstance(row, dict)}
     manifest = _load_json(run_manifest)
+    witness_index = _index_path_witnesses(path_witnesses)
+    path_witnesses_rel = (
+        path_utils.to_repo_relative(path_witnesses, repo_root=REPO_ROOT)
+        if path_witnesses and path_witnesses.exists()
+        else None
+    )
 
     packets = []
     for mismatch in mismatch_doc.get("mismatches") or []:
@@ -99,11 +162,21 @@ def emit_packets(
 
         callout = _pick_callout(event)
         oracle_decision = callout.get("decision") if isinstance(callout, dict) else None
-        reason = _classify_reason(
-            baseline_status=(baseline.get("status") if isinstance(baseline, dict) else None),
-            event_decision=event.get("actual"),
-            oracle_decision=oracle_decision,
+        scenario_witness = witness_index.get(("scenario", event.get("scenario_id")))
+        baseline_witness = witness_index.get(("baseline", baseline_key))
+        canonicalization = _canonicalization_boundary(
+            requested_path=event.get("requested_path") or event.get("target"),
+            scenario_witness=scenario_witness,
+            baseline_witness=baseline_witness,
         )
+        if canonicalization:
+            reason = "canonicalization_boundary"
+        else:
+            reason = _classify_reason(
+                baseline_status=(baseline.get("status") if isinstance(baseline, dict) else None),
+                event_decision=event.get("actual"),
+                oracle_decision=oracle_decision,
+            )
         if reason not in ALLOWED_REASONS:
             reason = "expectation_too_strong"
 
@@ -151,6 +224,12 @@ def emit_packets(
                 "argument": callout.get("argument") if isinstance(callout, dict) else None,
             }
             if callout
+            else None,
+            "canonicalization": {
+                "witness_source": path_witnesses_rel,
+                "witness": canonicalization,
+            }
+            if canonicalization
             else None,
             "mismatch_reason": reason,
         }

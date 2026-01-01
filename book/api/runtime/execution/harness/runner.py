@@ -13,10 +13,13 @@ import fcntl
 import json
 import os
 import re
+import socket
 import subprocess
+import threading
 import time
+from contextlib import contextmanager
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 from book.api import tooling
 from book.api.path_utils import ensure_absolute, find_repo_root, relativize_command, to_repo_relative
@@ -37,12 +40,14 @@ MACH_PROBE = PROBE_DIR / "mach_probe"
 SANDBOX_MACH_PROBE = PROBE_DIR / "sandbox_mach_probe"
 IOKIT_PROBE = PROBE_DIR / "iokit_probe"
 SANDBOX_IOKIT_PROBE = PROBE_DIR / "sandbox_iokit_probe"
+XPC_PROBE = PROBE_DIR / "xpc_probe"
 FILE_PROBE = REPO_ROOT / "book" / "api" / "runtime" / "native" / "file_probe" / "file_probe"
 
 CAT = "/bin/cat"
 SH = "/bin/sh"
 NOTIFYUTIL = "/usr/bin/notifyutil"
 PYTHON = "/usr/bin/python3"
+XATTR = "/usr/bin/xattr"
 
 RUNTIME_SHIM_RULES = [
     "(allow process-exec*)",
@@ -56,11 +61,94 @@ RUNTIME_SHIM_RULES = [
     '(allow file-read-metadata (literal "/tmp"))',
 ]
 
+FILTER_VOCAB_PATH = REPO_ROOT / "book" / "graph" / "mappings" / "vocab" / "filters.json"
+_FILTER_NAME_TO_ID: Dict[str, int] = {}
+
+DEFAULT_FILTER_NAMES_BY_OP = {
+    "file-read*": "path",
+    "file-read-data": "path",
+    "file-read-metadata": "path",
+    "file-test-existence": "path",
+    "file-search": "path",
+    "file-read-xattr": "path",
+    "file-write*": "path",
+    "file-write-data": "path",
+    "file-write-xattr": "path",
+    "mach-lookup": "global-name",
+    "darwin-notification-post": "notification-name",
+    "distributed-notification-post": "notification-name",
+}
+
+DISALLOWED_SANDBOX_CHECK_FILTERS = {"sysctl-name"}
+
+
+def _load_filter_vocab() -> None:
+    global _FILTER_NAME_TO_ID
+    if _FILTER_NAME_TO_ID:
+        return
+    try:
+        doc = json.loads(FILTER_VOCAB_PATH.read_text())
+        entries = doc.get("filters") or []
+        for entry in entries:
+            name = entry.get("name")
+            fid = entry.get("id")
+            if isinstance(name, str) and isinstance(fid, int):
+                _FILTER_NAME_TO_ID[name] = fid
+    except Exception:
+        _FILTER_NAME_TO_ID = {}
+
+
+def _is_disallowed_filter(filter_type: Optional[int], filter_name: Optional[str]) -> bool:
+    if isinstance(filter_name, str) and filter_name in DISALLOWED_SANDBOX_CHECK_FILTERS:
+        return True
+    if isinstance(filter_type, int):
+        _load_filter_vocab()
+        sysctl_id = _FILTER_NAME_TO_ID.get("sysctl-name")
+        if sysctl_id is not None and filter_type == sysctl_id:
+            return True
+    return False
+
 def _first_marker(markers: List[Dict[str, Any]], stage: str) -> Optional[Dict[str, Any]]:
     for marker in markers:
         if marker.get("stage") == stage:
             return marker
     return None
+
+
+def _callout_op_candidates(operation: Optional[str]) -> List[str]:
+    if not operation:
+        return []
+    if operation == "file-read*":
+        return ["file-read-data", "file-read*"]
+    if operation == "file-write*":
+        return ["file-write-data", "file-write*"]
+    return [operation]
+
+
+def _intended_op_witnessed(
+    callouts: Optional[List[Dict[str, Any]]],
+    request: Optional[Dict[str, Any]],
+    operation: Optional[str],
+    target: Optional[str],
+) -> Optional[bool]:
+    if not request:
+        return None
+    if not callouts:
+        return False
+    op_candidates = set(_callout_op_candidates(operation))
+    requested_filter = request.get("filter_type") if isinstance(request, dict) else None
+    for marker in callouts:
+        if marker.get("stage") not in {"pre_syscall", "preflight", "bootstrap_exec"}:
+            continue
+        if op_candidates and marker.get("operation") not in op_candidates:
+            continue
+        if isinstance(requested_filter, int) and marker.get("filter_type") != requested_filter:
+            continue
+        if target is not None and marker.get("argument") not in {None, target}:
+            continue
+        if marker.get("decision") in {"allow", "deny"}:
+            return True
+    return False
 
 
 def _extract_probe_details(stdout: Optional[str]) -> tuple[Optional[Dict[str, Any]], str]:
@@ -117,6 +205,23 @@ def ensure_fixtures(fixture_root: Path = Path("/tmp")) -> None:
     ok_dir = Path("/private/tmp/ok")
     ok_dir.mkdir(parents=True, exist_ok=True)
     (ok_dir / "allow.txt").write_text("param ok allow\n")
+    # Best-effort xattr fixture for file-read-xattr/file-write-xattr probes.
+    setxattr = getattr(os, "setxattr", None)
+    if callable(setxattr):
+        try:
+            setxattr(str(fixture_root / "foo"), "user.sandbox_lore", b"1")
+            setxattr(str(fixture_root / "bar"), "user.sandbox_lore", b"1")
+            setxattr(str(rt / "read.txt"), "user.sandbox_lore", b"1")
+        except OSError:
+            pass
+    elif Path(XATTR).exists():
+        for path in (fixture_root / "foo", fixture_root / "bar", rt / "read.txt"):
+            subprocess.run(
+                [XATTR, "-w", "user.sandbox_lore", "1", str(path)],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                check=False,
+            )
 
 
 def _is_path_operation(op: Optional[str]) -> bool:
@@ -199,6 +304,137 @@ def _unsandboxed_path_observation(path: Optional[str]) -> Optional[Dict[str, Any
 def _sanitize_label(value: str) -> str:
     cleaned = re.sub(r"[^A-Za-z0-9_.-]+", "_", value.strip())
     return cleaned.strip("_") or "probe"
+
+
+def _parse_loopback_target(target: Optional[str]) -> Optional[Tuple[str, int]]:
+    if not target or ":" not in target:
+        return None
+    host, port_str = target.rsplit(":", 1)
+    if host not in {"127.0.0.1", "localhost"}:
+        return None
+    try:
+        port = int(port_str)
+    except ValueError:
+        return None
+    if port <= 0:
+        return None
+    return host, port
+
+
+def _resolve_filter_type(probe: Dict[str, Any], op: Optional[str]) -> tuple[Optional[int], Optional[str]]:
+    filter_type = probe.get("filter_type")
+    if isinstance(filter_type, int):
+        filter_name = probe.get("filter_name") if isinstance(probe.get("filter_name"), str) else None
+        if _is_disallowed_filter(filter_type, filter_name):
+            return None, None
+        return filter_type, filter_name
+    filter_name = probe.get("filter_name")
+    if isinstance(filter_name, str):
+        if _is_disallowed_filter(None, filter_name):
+            return None, None
+        _load_filter_vocab()
+        ftype = _FILTER_NAME_TO_ID.get(filter_name)
+        if _is_disallowed_filter(ftype, filter_name):
+            return None, None
+        return ftype, filter_name
+    if op:
+        name = DEFAULT_FILTER_NAMES_BY_OP.get(op)
+        if name:
+            if _is_disallowed_filter(None, name):
+                return None, None
+            _load_filter_vocab()
+            return _FILTER_NAME_TO_ID.get(name), name
+    return None, None
+
+
+def _seatbelt_callout_spec(probe: Dict[str, Any], op: Optional[str], target: Optional[str]) -> Optional[Dict[str, Any]]:
+    if not op or not target:
+        return None
+    filter_type, filter_name = _resolve_filter_type(probe, op)
+    if filter_type is None:
+        return None
+    seatbelt_op = op
+    if op == "file-read*":
+        seatbelt_op = "file-read-data"
+    elif op == "file-write*":
+        seatbelt_op = "file-write-data"
+    spec = {
+        "operation": seatbelt_op,
+        "filter_type": filter_type,
+        "filter_name": filter_name,
+        "argument": target,
+    }
+    if filter_type == 0:
+        spec["canonicalization"] = "both"
+    return spec
+
+
+@contextmanager
+def _loopback_listener(target: Optional[str]) -> Any:
+    hostport = _parse_loopback_target(target)
+    if not hostport:
+        yield None
+        return
+    host, port = hostport
+    info: Dict[str, Any] = {
+        "host": host,
+        "port": port,
+        "status": "ok",
+        "error": None,
+        "precheck": {"status": "skipped", "error": None},
+        "accept_count": 0,
+    }
+    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    try:
+        server.bind((host, port))
+        server.listen(1)
+        server.settimeout(0.5)
+    except Exception as exc:
+        info["status"] = "error"
+        info["error"] = str(exc)
+        try:
+            server.close()
+        except Exception:
+            pass
+        yield info
+        return
+
+    stop = threading.Event()
+    accept_count = 0
+
+    def _accept_loop() -> None:
+        nonlocal accept_count
+        while not stop.is_set():
+            try:
+                conn, _ = server.accept()
+                accept_count += 1
+                conn.close()
+            except socket.timeout:
+                continue
+            except Exception as exc:
+                info["status"] = "error"
+                info["error"] = str(exc)
+                break
+
+    thread = threading.Thread(target=_accept_loop, daemon=True)
+    thread.start()
+    precheck = {"status": "ok", "error": None}
+    try:
+        client = socket.create_connection((host, port), timeout=1.0)
+        client.close()
+    except Exception as exc:
+        precheck = {"status": "error", "error": str(exc)}
+    info["precheck"] = precheck
+    try:
+        yield info
+    finally:
+        stop.set()
+        try:
+            server.close()
+        except Exception:
+            pass
+        info["accept_count"] = accept_count
 
 
 def _should_capture_witness_observer() -> bool:
@@ -297,23 +533,54 @@ def build_probe_command(probe: Dict[str, Any]) -> List[str]:
             cmd = [PYTHON, "-c", "import os, sys; os.lstat(sys.argv[1])", target]
         else:
             cmd = ["true"]
-    elif op == "file-read*":
+    elif op in {"file-read*", "file-read-data"}:
         use_file_probe = probe.get("driver") == "file_probe" and FILE_PROBE.exists() and target
         if use_file_probe:
             cmd = [str(FILE_PROBE), "read", target]
         else:
             cmd = [CAT, target] if target else ["true"]
-    elif op == "file-write*":
+    elif op in {"file-write*", "file-write-data"}:
         use_file_probe = probe.get("driver") == "file_probe" and FILE_PROBE.exists() and target
         if use_file_probe:
             cmd = [str(FILE_PROBE), "write", target]
         else:
             cmd = [SH, "-c", f"echo runtime-check >> '{target}'"] if target else ["true"]
-    elif op == "mach-lookup":
-        if MACH_PROBE.exists() and target:
-            cmd = [str(MACH_PROBE), target]
+    elif op == "file-test-existence":
+        if target and Path(PYTHON).exists():
+            script = "import os, sys; sys.exit(0 if os.access(sys.argv[1], os.F_OK) else 1)\n"
+            cmd = [PYTHON, "-c", script, target]
         else:
             cmd = ["true"]
+    elif op == "file-search":
+        if target and FILE_PROBE.exists():
+            cmd = [str(FILE_PROBE), "search", target]
+        elif target and Path(PYTHON).exists():
+            script = "import os, sys; os.listdir(sys.argv[1]); sys.exit(0)\n"
+            cmd = [PYTHON, "-c", script, target]
+        else:
+            cmd = ["true"]
+    elif op == "file-read-xattr":
+        if target and Path(XATTR).exists():
+            cmd = [XATTR, "-p", "user.sandbox_lore", target]
+        elif target and Path(PYTHON).exists() and hasattr(os, "getxattr"):
+            script = "import os, sys; os.getxattr(sys.argv[1], 'user.sandbox_lore'); sys.exit(0)\n"
+            cmd = [PYTHON, "-c", script, target]
+        else:
+            cmd = ["true"]
+    elif op == "file-write-xattr":
+        if target and Path(XATTR).exists():
+            cmd = [XATTR, "-w", "user.sandbox_lore", "probe", target]
+        elif target and Path(PYTHON).exists() and hasattr(os, "setxattr"):
+            script = "import os, sys; os.setxattr(sys.argv[1], 'user.sandbox_lore', b'probe'); sys.exit(0)\n"
+            cmd = [PYTHON, "-c", script, target]
+        else:
+            cmd = ["true"]
+    elif op == "mach-lookup":
+        driver = probe.get("driver")
+        if driver == "xpc_probe":
+            cmd = [str(XPC_PROBE), target] if (XPC_PROBE.exists() and target) else ["true"]
+        else:
+            cmd = [str(MACH_PROBE), target] if (MACH_PROBE.exists() and target) else ["true"]
     elif op == "iokit-open-service":
         if IOKIT_PROBE.exists() and target:
             cmd = [str(IOKIT_PROBE), target]
@@ -441,6 +708,22 @@ def build_probe_command(probe: Dict[str, Any]) -> List[str]:
             host, port = hostport, "80"
         nc = Path("/usr/bin/nc")
         cmd = [str(nc), "-z", "-w", "2", host, port]
+    elif op == "process-fork":
+        if Path(PYTHON).exists():
+            script = (
+                "import os, sys\n"
+                "try:\n"
+                "    pid = os.fork()\n"
+                "except Exception:\n"
+                "    sys.exit(1)\n"
+                "if pid == 0:\n"
+                "    os._exit(0)\n"
+                "_, status = os.waitpid(pid, 0)\n"
+                "sys.exit(0 if os.WIFEXITED(status) else 1)\n"
+            )
+            cmd = [PYTHON, "-c", script]
+        else:
+            cmd = ["true"]
     elif op == "process-exec":
         cmd = ["true"]
     else:
@@ -504,7 +787,7 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None, wr
             cmd += ["--attr-payload", str(attr_payload)]
         metadata_driver = True
         self_apply_mode = True
-    elif op == "file-read*":
+    elif op in {"file-read*", "file-read-data"}:
         use_file_probe = probe.get("driver") == "file_probe" and FILE_PROBE.exists() and target
         if use_file_probe:
             cmd = [str(FILE_PROBE), "read", target]
@@ -515,7 +798,7 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None, wr
             reader_mode = True
         else:
             cmd = [CAT, target]
-    elif op == "file-write*":
+    elif op in {"file-write*", "file-write-data"}:
         driver = probe.get("driver")
         if driver == "metadata_runner":
             if not METADATA_RUNNER.exists():
@@ -544,6 +827,36 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None, wr
                 writer_mode = True
             else:
                 cmd = [SH, "-c", f"echo runtime-check >> '{target}'"]
+    elif op == "file-test-existence":
+        if target and Path(PYTHON).exists():
+            script = "import os, sys; sys.exit(0 if os.access(sys.argv[1], os.F_OK) else 1)\n"
+            cmd = [PYTHON, "-c", script, target]
+        else:
+            cmd = ["true"]
+    elif op == "file-search":
+        if target and FILE_PROBE.exists():
+            cmd = [str(FILE_PROBE), "search", target]
+        elif target and Path(PYTHON).exists():
+            script = "import os, sys; os.listdir(sys.argv[1]); sys.exit(0)\n"
+            cmd = [PYTHON, "-c", script, target]
+        else:
+            cmd = ["true"]
+    elif op == "file-read-xattr":
+        if target and Path(XATTR).exists():
+            cmd = [XATTR, "-p", "user.sandbox_lore", target]
+        elif target and Path(PYTHON).exists() and hasattr(os, "getxattr"):
+            script = "import os, sys; os.getxattr(sys.argv[1], 'user.sandbox_lore'); sys.exit(0)\n"
+            cmd = [PYTHON, "-c", script, target]
+        else:
+            cmd = ["true"]
+    elif op == "file-write-xattr":
+        if target and Path(XATTR).exists():
+            cmd = [XATTR, "-w", "user.sandbox_lore", "probe", target]
+        elif target and Path(PYTHON).exists() and hasattr(os, "setxattr"):
+            script = "import os, sys; os.setxattr(sys.argv[1], 'user.sandbox_lore', b'probe'); sys.exit(0)\n"
+            cmd = [PYTHON, "-c", script, target]
+        else:
+            cmd = ["true"]
     elif op == "mach-lookup":
         driver = probe.get("driver")
         if driver == "sandbox_mach_probe":
@@ -554,8 +867,10 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None, wr
                 return {"error": "sandbox_mach_probe missing or invalid target"}
         elif driver == "mach_probe":
             cmd = [str(MACH_PROBE), target] if (MACH_PROBE.exists() and target) else ["true"]
+        elif driver == "xpc_probe":
+            cmd = [str(XPC_PROBE), target] if (XPC_PROBE.exists() and target) else ["true"]
         elif driver is None:
-            return {"error": "mach-lookup probe missing driver (expected sandbox_mach_probe or mach_probe)"}
+            return {"error": "mach-lookup probe missing driver (expected sandbox_mach_probe, mach_probe, or xpc_probe)"}
         else:
             return {"error": f"unsupported mach-lookup driver: {driver}"}
     elif op == "iokit-open-service":
@@ -694,6 +1009,22 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None, wr
             host, port = hostport, "80"
         nc = Path("/usr/bin/nc")
         cmd = [str(nc), "-z", "-w", "2", host, port]
+    elif op == "process-fork":
+        if Path(PYTHON).exists():
+            script = (
+                "import os, sys\n"
+                "try:\n"
+                "    pid = os.fork()\n"
+                "except Exception:\n"
+                "    sys.exit(1)\n"
+                "if pid == 0:\n"
+                "    os._exit(0)\n"
+                "_, status = os.waitpid(pid, 0)\n"
+                "sys.exit(0 if os.WIFEXITED(status) else 1)\n"
+            )
+            cmd = [PYTHON, "-c", script]
+        else:
+            cmd = ["true"]
     elif op == "process-exec":
         cmd = ["true"]
     else:
@@ -716,42 +1047,40 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None, wr
         return {"error": "sandbox_runner missing; sandbox-exec fallback is unsupported for stable runtime IR"}
 
     env = None
-    if os.environ.get("SANDBOX_LORE_SEATBELT_CALLOUT") == "1":
-        filter_type: Optional[int] = None
-        callout_arg: Optional[str] = None
-        seatbelt_op = op
-        if op in {"file-read*", "file-write*", "file-read-metadata"} and target:
-            filter_type = 0
-            callout_arg = target
-            if op == "file-read*":
-                seatbelt_op = "file-read-data"
-            elif op == "file-write*":
-                seatbelt_op = "file-write-data"
-        elif op == "mach-lookup" and target:
-            filter_type = 5
-            callout_arg = target
-        elif op == "sysctl-read" and target:
-            filter_type = 37
-            callout_arg = target
-        elif op in {"darwin-notification-post", "distributed-notification-post"} and target:
-            filter_type = 34
-            callout_arg = target
-
-        if seatbelt_op and filter_type is not None and callout_arg is not None:
-            env = dict(os.environ)
-            env["SANDBOX_LORE_SEATBELT_OP"] = seatbelt_op
-            env["SANDBOX_LORE_SEATBELT_FILTER_TYPE"] = str(filter_type)
-            env["SANDBOX_LORE_SEATBELT_ARG"] = callout_arg
+    callout_spec = None
+    if os.environ.get("SANDBOX_LORE_SEATBELT_CALLOUT") != "0":
+        callout_spec = _seatbelt_callout_spec(probe, op, target)
+    if callout_spec:
+        env = dict(os.environ)
+        env["SANDBOX_LORE_SEATBELT_CALLOUT"] = "1"
+        env.setdefault("SANDBOX_LORE_SEATBELT_API", "sandbox_check")
+        env["SANDBOX_LORE_SEATBELT_OP"] = str(callout_spec["operation"])
+        env["SANDBOX_LORE_SEATBELT_FILTER_TYPE"] = str(callout_spec["filter_type"])
+        env["SANDBOX_LORE_SEATBELT_ARG"] = str(callout_spec["argument"])
+        canonicalization = callout_spec.get("canonicalization")
+        if isinstance(canonicalization, str) and canonicalization:
+            env["SANDBOX_LORE_SEATBELT_CANONICAL"] = canonicalization
 
     started_at_unix_s = time.time()
+    listener_info = None
     try:
-        res = subprocess.run(
-            full_cmd,
-            capture_output=True,
-            text=True,
-            timeout=10,
-            env=env,
-        )
+        if op == "network-outbound":
+            with _loopback_listener(target) as listener_info:
+                res = subprocess.run(
+                    full_cmd,
+                    capture_output=True,
+                    text=True,
+                    timeout=10,
+                    env=env,
+                )
+        else:
+            res = subprocess.run(
+                full_cmd,
+                capture_output=True,
+                text=True,
+                timeout=10,
+                env=env,
+            )
         finished_at_unix_s = time.time()
         exit_code = res.returncode
         probe_details = None
@@ -776,7 +1105,7 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None, wr
                     exit_code = 1
         else:
             probe_details, stdout_clean = _extract_probe_details(res.stdout)
-        return {
+        raw = {
             "command": full_cmd,
             "exit_code": exit_code,
             "stdout": stdout_clean,
@@ -786,10 +1115,24 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None, wr
             "cmd_finished_at_unix_s": finished_at_unix_s,
             "cmd_duration_s": finished_at_unix_s - started_at_unix_s,
         }
+        if callout_spec:
+            raw["sandbox_check_request"] = callout_spec
+        if listener_info is not None:
+            raw["listener"] = listener_info
+        return raw
     except FileNotFoundError as e:
         finished_at_unix_s = time.time()
         return {
             "error": f"sandbox-exec missing: {e}",
+            "cmd_started_at_unix_s": started_at_unix_s,
+            "cmd_finished_at_unix_s": finished_at_unix_s,
+            "cmd_duration_s": finished_at_unix_s - started_at_unix_s,
+        }
+    except subprocess.TimeoutExpired:
+        finished_at_unix_s = time.time()
+        return {
+            "error": "timeout",
+            "error_kind": "timeout",
             "cmd_started_at_unix_s": started_at_unix_s,
             "cmd_finished_at_unix_s": finished_at_unix_s,
             "cmd_duration_s": finished_at_unix_s - started_at_unix_s,
@@ -890,9 +1233,11 @@ def run_matrix(
                 preflight_blocked = False
         probe_results = []
         for probe in probes:
+            op = probe.get("operation")
+            target = probe.get("target")
             path_observation = None
-            if _is_path_operation(probe.get("operation")):
-                path_observation = _observe_path_unsandboxed(probe.get("target"))
+            if _is_path_operation(op):
+                path_observation = _observe_path_unsandboxed(target)
             if preflight_blocked:
                 actual = None
                 raw = {"command": [], "exit_code": None, "stdout": "", "stderr": ""}
@@ -928,6 +1273,10 @@ def run_matrix(
             applied_marker = _first_marker(apply_markers, "applied")
             exec_marker = _first_marker(apply_markers, "exec")
             seatbelt_callouts = rt_contract.extract_seatbelt_callout_markers(stderr) or None
+            callout_request = raw.get("sandbox_check_request") if not preflight_blocked else None
+            intended_op_witnessed = _intended_op_witnessed(seatbelt_callouts, callout_request, op, target)
+            if callout_request and intended_op_witnessed is False:
+                actual = None
 
             failure_stage: Optional[str] = None
             failure_kind: Optional[str] = None
@@ -977,6 +1326,9 @@ def run_matrix(
                         failure_kind = "bootstrap_deny_process_exec"
                     else:
                         failure_kind = "bootstrap_exec_failed"
+                elif raw.get("error_kind") == "timeout":
+                    failure_stage = "probe"
+                    failure_kind = "probe_timeout"
                 elif raw.get("exit_code") not in (None, 0):
                     failure_stage = "probe"
                     failure_kind = "probe_nonzero_exit"
@@ -1016,6 +1368,14 @@ def run_matrix(
                     )
                 )
 
+            resource_hygiene = {
+                "apply_model": runner_info.get("apply_model") if runner_info else None,
+                "apply_timing": runner_info.get("apply_timing") if runner_info else None,
+                "preexisting_sandbox_suspected": runner_info.get("preexisting_sandbox_suspected") if runner_info else None,
+                "close_fds": True,
+                "pass_fds": [],
+            }
+
             runtime_result = {
                 "status": "blocked" if preflight_blocked else ("success" if raw.get("exit_code") == 0 else "errno"),
                 "errno": None if preflight_blocked or raw.get("exit_code") == 0 else observed_errno,
@@ -1026,6 +1386,9 @@ def run_matrix(
                 "apply_report": apply_report,
                 "runner_info": runner_info,
                 "seatbelt_callouts": seatbelt_callouts,
+                "intended_op_witnessed": intended_op_witnessed,
+                "sandbox_check_request": raw.get("sandbox_check_request"),
+                "resource_hygiene": resource_hygiene,
             }
 
             violation_summary = None

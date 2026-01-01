@@ -1,0 +1,43 @@
+{
+  "data": {
+    "correlation_id": "5DC0F59D-8511-4FCC-AAFA-5EE4DC0A79E5",
+    "deny_lines": [
+      "2025-12-31 20:26:08.025499-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_minimal(3153) deny(1) file-write-create /Users/achyland/Downloads/policy-witness-harness"
+    ],
+    "duration_ms": null,
+    "end": null,
+    "last": "30s",
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    \n2025-12-31 20:26:08.025499-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_minimal(3153) deny(1) file-write-create /Users/achyland/Downloads/policy-witness-harness\n2025-12-31 20:26:08.036512-0800  localhost log[3155]: [com.apple.log:] log run noninteractively, parent: 3154 (sandbox-log-observer), args: '/usr/bin/log' 'show' '--style' 'syslog' '--info' '--debug' '--last' '30s' '--predicate' '((eventMessage CONTAINS[c] \"Sandbox: ProbeService_minimal(3153)\") OR ((eventMessage CONTAINS[c] ",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": true,
+    "observed_lines": 3,
+    "observer_schema_version": 1,
+    "pid": 3153,
+    "plan_id": "policywitness-deny-atlas:smoke:smoke-233b9861-ae8a-45b1-be28-77a22e2297c7",
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_minimal(3153)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"3153\")))",
+    "process_name": "ProbeService_minimal",
+    "row_id": "minimal.fs_op_create_pathclass_downloads",
+    "start": null,
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767241568101,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

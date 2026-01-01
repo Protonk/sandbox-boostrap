@@ -27,14 +27,23 @@ DEFAULT_SEEDS = Path(__file__).with_name("field2_seeds.json")
 DEFAULT_RUNTIME_SIGNATURES = REPO_ROOT / "book" / "graph" / "mappings" / "runtime" / "runtime_signatures.json"
 DEFAULT_ANCHOR_MAP = REPO_ROOT / "book" / "graph" / "mappings" / "anchors" / "anchor_filter_map.json"
 DEFAULT_OUT_ROOT = Path(__file__).with_name("out") / "derived"
-REQUIRED_EXPORTS = ("runtime_events", "baseline_results", "run_manifest")
+REQUIRED_EXPORTS = ("runtime_events", "baseline_results", "run_manifest", "path_witnesses")
 RUNTIME_RESULTS_SCHEMA_VERSION = "field2-atlas.runtime_results.v0"
 CONSUMPTION_RECEIPT_SCHEMA_VERSION = "field2-atlas.consumption_receipt.v0"
 
 # For the initial seed slice, pick one canonical runtime signature per field2.
 RUNTIME_CANDIDATES = {
-    0: {"profile_id": "adv:path_edges", "probe_name": "allow-tmp", "scenario_id": "field2-0-path_edges"},
-    1: {"profile_id": "adv:path_edges", "probe_name": "allow-subpath", "scenario_id": "field2-1-path-subpath"},
+    0: {"profile_id": "adv:path_edges_private", "probe_name": "allow-tmp", "scenario_id": "adv:path_edges_private:allow-tmp"},
+    1: {
+        "profile_id": "adv:path_edges_private",
+        "probe_name": "allow-tmp-subpath",
+        "scenario_id": "adv:path_edges_private:allow-tmp-subpath",
+    },
+    2: {
+        "profile_id": "adv:xattr",
+        "probe_name": "allow-foo-read",
+        "scenario_id": "adv:xattr:allow-foo-read",
+    },
     5: {"profile_id": "adv:mach_simple_allow", "probe_name": "allow-cfprefsd", "scenario_id": "field2-5-mach-global"},
     7: {"profile_id": "adv:mach_local_literal", "probe_name": "allow-cfprefsd-local", "scenario_id": "field2-7-mach-local"},
     2560: {
@@ -139,22 +148,29 @@ def _is_blocked_event(event: Optional[Dict[str, Any]]) -> bool:
     return False
 
 
-def _path_witness(events_by_key: Dict[tuple[str, str], Dict[str, Any]]) -> Optional[Dict[str, Any]]:
+def _path_witness_from_doc(path_witnesses: Dict[str, Any], *, source: str) -> Optional[Dict[str, Any]]:
     profile_id = "adv:path_alias"
+    records = path_witnesses.get("records") or []
     probes = []
-    for probe_name in ("alias-tmp", "alias-private"):
-        row = events_by_key.get((profile_id, probe_name))
-        if not row:
+    for record in records:
+        if not isinstance(record, dict):
             continue
+        if record.get("lane") != "scenario":
+            continue
+        if record.get("profile_id") != profile_id:
+            continue
+        scenario_id = record.get("scenario_id") or ""
+        probe_name = scenario_id.split(":")[-1] if isinstance(scenario_id, str) else None
         probes.append(
             {
                 "probe_name": probe_name,
-                "requested_path": row.get("requested_path"),
-                "observed_path": row.get("observed_path"),
-                "observed_path_source": row.get("observed_path_source"),
-                "normalized_path": row.get("normalized_path"),
-                "normalized_path_source": row.get("normalized_path_source"),
-                "actual": row.get("actual"),
+                "scenario_id": scenario_id,
+                "requested_path": record.get("requested_path"),
+                "observed_path": record.get("observed_path"),
+                "observed_path_source": record.get("observed_path_source"),
+                "normalized_path": record.get("normalized_path"),
+                "normalized_path_source": record.get("normalized_path_source"),
+                "decision": record.get("decision"),
             }
         )
     if not probes:
@@ -162,7 +178,7 @@ def _path_witness(events_by_key: Dict[tuple[str, str], Dict[str, Any]]) -> Optio
     return {
         "profile_id": profile_id,
         "probes": probes,
-        "source": events_by_key.get((profile_id, probes[0]["probe_name"])).get("source"),
+        "source": source,
     }
 
 
@@ -191,13 +207,19 @@ def build_runtime_results(
     baseline_by_key = _load_baseline_results(baseline_path)
     signatures = runtime_doc.get("signatures") or {}
     profiles_meta = runtime_doc.get("profiles_metadata") or {}
-    mapping_status = (runtime_doc.get("metadata") or {}).get("status")
-    path_witness = _path_witness(events_by_key)
+    mapping_status_default = (runtime_doc.get("metadata") or {}).get("status")
+    path_witnesses_path = ctx.export_paths["path_witnesses"]
+    path_witnesses_doc = load_json(path_witnesses_path)
+    path_witness = _path_witness_from_doc(
+        path_witnesses_doc,
+        source=path_utils.to_repo_relative(path_witnesses_path, repo_root=REPO_ROOT),
+    )
 
     results = []
     for seed in seeds_doc.get("seeds", []):
         fid = seed["field2"]
         candidate = RUNTIME_CANDIDATES.get(fid)
+        mapping_status = mapping_status_default
         base_record: Dict[str, Any] = {
             "world_id": seeds_doc.get("world_id"),
             "field2": fid,
@@ -234,6 +256,11 @@ def build_runtime_results(
             result = actual
             result_tier = "mapping"
             result_source = path_utils.to_repo_relative(DEFAULT_RUNTIME_SIGNATURES, repo_root=REPO_ROOT)
+        elif not blocked and event and event.get("actual") is not None:
+            result = event.get("actual")
+            result_tier = "packet_event"
+            result_source = path_utils.to_repo_relative(runtime_event_path, repo_root=REPO_ROOT)
+            mapping_status = "packet_only"
         elif blocked and actual is not None:
             result = actual
             result_tier = "historical_mapping"
@@ -249,6 +276,8 @@ def build_runtime_results(
             status = "missing_actual"
 
         anchor_match = _anchor_match(anchor_map, (event or {}).get("normalized_path"))
+        if not runtime_profile and event:
+            runtime_profile = (event.get("preflight") or {}).get("input_ref")
         path_observation = None
         if event:
             path_observation = {

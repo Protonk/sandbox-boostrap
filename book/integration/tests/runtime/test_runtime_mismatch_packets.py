@@ -9,6 +9,7 @@ ROOT = path_utils.find_repo_root(Path(__file__))
 STORY = ROOT / "book" / "graph" / "mappings" / "runtime_cuts" / "runtime_story.json"
 ALLOWED_REASONS = {
     "ambient_platform_restriction",
+    "canonicalization_boundary",
     "path_normalization_sensitivity",
     "anchor_alias_gap",
     "expectation_too_strong",

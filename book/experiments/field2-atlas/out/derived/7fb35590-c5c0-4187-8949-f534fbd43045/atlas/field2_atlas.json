@@ -1,0 +1,2249 @@
+{
+  "atlas": [
+    {
+      "field2": 0,
+      "filter_name": "path",
+      "runtime": {
+        "field2": 0,
+        "filter_name": "path",
+        "notes": "Multiple anchor witnesses in probe-op-structure; present in canonical sys:sample decode (tag 7). Structural coverage ok; runtime to be refreshed.",
+        "path_canonicalization_witness": {
+          "probes": [
+            {
+              "decision": "deny",
+              "normalized_path": "/tmp/runtime-adv/alias/allow.txt",
+              "normalized_path_source": "requested_path",
+              "observed_path": null,
+              "observed_path_source": "probe_fgetpath:missing",
+              "probe_name": "alias-tmp",
+              "requested_path": "/tmp/runtime-adv/alias/allow.txt",
+              "scenario_id": "adv:path_alias:alias-tmp"
+            },
+            {
+              "decision": "deny",
+              "normalized_path": "/private/tmp/runtime-adv/alias/allow.txt",
+              "normalized_path_source": "requested_path",
+              "observed_path": null,
+              "observed_path_source": "probe_fgetpath:missing",
+              "probe_name": "alias-private",
+              "requested_path": "/private/tmp/runtime-adv/alias/allow.txt",
+              "scenario_id": "adv:path_alias:alias-private"
+            }
+          ],
+          "profile_id": "adv:path_alias",
+          "source": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/path_witnesses.json"
+        },
+        "runtime_candidate": {
+          "anchor_match": null,
+          "expected": "allow",
+          "latest_attempt": {
+            "failure_kind": null,
+            "failure_stage": null,
+            "run_id": "7fb35590-c5c0-4187-8949-f534fbd43045",
+            "runtime_status": "success",
+            "source": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/runtime_events.normalized.json"
+          },
+          "mapping_status": "partial",
+          "operation": "file-read*",
+          "path_canonicalization_detected": true,
+          "path_observation": {
+            "failure_kind": null,
+            "failure_stage": null,
+            "normalized_path": "/private/tmp/runtime-adv/edges/a",
+            "normalized_path_source": "observed_path",
+            "observed_path": "/private/tmp/runtime-adv/edges/a",
+            "observed_path_source": "fd_path",
+            "requested_path": "/tmp/runtime-adv/edges/a",
+            "runtime_status": "success",
+            "source": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/runtime_events.normalized.json"
+          },
+          "probe_name": "allow-tmp",
+          "profile_id": "adv:path_edges_private",
+          "result": "allow",
+          "result_source": "book/graph/mappings/runtime/runtime_signatures.json",
+          "result_tier": "mapping",
+          "runtime_profile": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/runtime_profiles/path_edges_private.adv_path_edges_private.runtime.sb",
+          "scenario_id": "adv:path_edges_private:allow-tmp",
+          "source": "book/graph/mappings/runtime/runtime_signatures.json",
+          "target": "/tmp/runtime-adv/edges/a"
+        },
+        "seed_anchors": [
+          {
+            "anchor": "/etc/hosts",
+            "source": "anchor_filter_map",
+            "status": "partial"
+          },
+          {
+            "anchor": "/tmp/foo",
+            "source": "anchor_filter_map",
+            "status": "partial"
+          }
+        ],
+        "status": "runtime_backed",
+        "target_ops": [
+          "file-read-data",
+          "file-write-data"
+        ],
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "static": {
+        "anchor_hits": [
+          {
+            "anchor": "/etc/hosts",
+            "field2_values": [
+              0,
+              1,
+              4,
+              5,
+              6,
+              7,
+              11,
+              59,
+              256,
+              1281,
+              1536,
+              2560,
+              2816,
+              3072,
+              3328,
+              3584,
+              4352,
+              7424
+            ],
+            "filter_id": null,
+            "filter_name": null,
+            "sources": [
+              "probe:v1_file_require_any",
+              "probe:v2_file_three_filters_any",
+              "probe:v8_all_combo",
+              "sys:sample"
+            ],
+            "status": "blocked"
+          },
+          {
+            "anchor": "/tmp/foo",
+            "field2_values": [
+              0,
+              1,
+              2,
+              3,
+              5,
+              256,
+              1536,
+              2816,
+              3072,
+              3328,
+              3584
+            ],
+            "filter_id": null,
+            "filter_name": null,
+            "sources": [
+              "probe:v1_file_require_any",
+              "probe:v2_file_three_filters_any",
+              "probe:v8_all_combo"
+            ],
+            "status": "blocked"
+          },
+          {
+            "anchor": "/var/log",
+            "field2_values": [
+              0,
+              1,
+              4,
+              12096
+            ],
+            "filter_id": null,
+            "filter_name": null,
+            "sources": [
+              "probe:v2_file_three_filters_any"
+            ],
+            "status": "blocked"
+          },
+          {
+            "anchor": "IOAccelerator",
+            "field2_values": [
+              0,
+              1,
+              5
+            ],
+            "filter_id": null,
+            "filter_name": null,
+            "sources": [
+              "probe:v11_iokit_user_client_connection"
+            ],
+            "status": "blocked"
+          },
+          {
+            "anchor": "IOHIDParamUserClient",
+            "field2_values": [
+              0,
+              1,
+              4,
+              18753
+            ],
+            "filter_id": null,
+            "filter_name": null,
+            "sources": [
+              "probe:v10_iokit_user_client_pair"
+            ],
+            "status": "blocked"
+          },
+          {
+            "anchor": "IOUSBHostInterface",
+            "field2_values": [
+              0,
+              4,
+              5,
+              11
+            ],
+            "filter_id": null,
+            "filter_name": null,
+            "sources": [
+              "probe:v5_iokit_class_property",
+              "probe:v8_all_combo"
+            ],
+            "status": "blocked"
+          },
+          {
+            "anchor": "com.apple.cfprefsd.agent",
+            "field2_values": [
+              0,
+              1,
+              5,
+              11
+            ],
+            "filter_id": null,
+            "filter_name": null,
+            "sources": [
+              "probe:v3_mach_global_local",
+              "probe:v6_file_mach_combo",
+              "probe:v8_all_combo"
+            ],
+            "status": "blocked"
+          },
+          {
+            "anchor": "idVendor",
+            "field2_values": [
+              0,
+              1,
+              5
+            ],
+            "filter_id": null,
+            "filter_name": null,
+            "sources": [
+              "probe:v5_iokit_class_property"
+            ],
+            "status": "blocked"
+          }
+        ],
+        "field2": 0,
+        "filter_name": "path",
+        "notes": "Multiple anchor witnesses in probe-op-structure; present in canonical sys:sample decode (tag 7). Structural coverage ok; runtime to be refreshed.",
+        "profiles": [
+          {
+            "count": 9,
+            "name": "path",
+            "profile": "sys:airlock",
+            "tags": {
+              "0": 2,
+              "166": 3,
+              "53": 1,
+              "58": 1,
+              "6": 1,
+              "71": 1
+            }
+          },
+          {
+            "count": 3,
+            "name": "path",
+            "profile": "sys:bsd",
+            "tags": {
+              "1": 2,
+              "26": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": "path",
+            "profile": "sys:sample",
+            "tags": {
+              "7": 1
+            }
+          },
+          {
+            "count": 4,
+            "name": "path",
+            "profile": "probe:airlock_system_fcntl.sb",
+            "tags": {
+              "1": 3,
+              "6": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": "path",
+            "profile": "probe:airlock_system_fcntl_matrix.sb",
+            "tags": {
+              "4": 1
+            }
+          },
+          {
+            "count": 4,
+            "name": "path",
+            "profile": "probe:bsd_broader.sb",
+            "tags": {
+              "1": 2,
+              "6": 1,
+              "7": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": "path",
+            "profile": "probe:bsd_ops_default_file.sb",
+            "tags": {
+              "8": 1
+            }
+          },
+          {
+            "count": 4,
+            "name": "path",
+            "profile": "probe:bsd_tail_context.sb",
+            "tags": {
+              "0": 1,
+              "1": 2,
+              "3": 1
+            }
+          },
+          {
+            "count": 4,
+            "name": "path",
+            "profile": "probe:dtracehelper_posixspawn.sb",
+            "tags": {
+              "0": 1,
+              "4": 2,
+              "5": 1
+            }
+          },
+          {
+            "count": 4,
+            "name": "path",
+            "profile": "probe:flow_divert_only.sb",
+            "tags": {
+              "0": 1,
+              "1": 1,
+              "2": 2
+            }
+          },
+          {
+            "count": 4,
+            "name": "path",
+            "profile": "probe:net_require_all_domain_proto.sb",
+            "tags": {
+              "1": 2,
+              "6": 1,
+              "7": 1
+            }
+          },
+          {
+            "count": 4,
+            "name": "path",
+            "profile": "probe:net_require_all_domain_type.sb",
+            "tags": {
+              "1": 2,
+              "6": 1,
+              "7": 1
+            }
+          },
+          {
+            "count": 4,
+            "name": "path",
+            "profile": "probe:net_require_all_type_proto.sb",
+            "tags": {
+              "1": 2,
+              "6": 1,
+              "7": 1
+            }
+          },
+          {
+            "count": 3,
+            "name": "path",
+            "profile": "probe:right_and_preference_names.sb",
+            "tags": {
+              "0": 1,
+              "6": 2
+            }
+          },
+          {
+            "count": 4,
+            "name": "path",
+            "profile": "probe:v0_subpath.sb",
+            "tags": {
+              "0": 1,
+              "4": 2,
+              "5": 1
+            }
+          },
+          {
+            "count": 4,
+            "name": "path",
+            "profile": "probe:v1_literal.sb",
+            "tags": {
+              "0": 1,
+              "4": 2,
+              "5": 1
+            }
+          },
+          {
+            "count": 4,
+            "name": "path",
+            "profile": "probe:v2_global_name.sb",
+            "tags": {
+              "0": 1,
+              "4": 2,
+              "5": 1
+            }
+          },
+          {
+            "count": 4,
+            "name": "path",
+            "profile": "probe:v3_local_name.sb",
+            "tags": {
+              "0": 1,
+              "4": 2,
+              "5": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": "path",
+            "profile": "probe:v4_vnode_type.sb",
+            "tags": {
+              "5": 1
+            }
+          },
+          {
+            "count": 3,
+            "name": "path",
+            "profile": "probe:v5_socket_domain.sb",
+            "tags": {
+              "0": 1,
+              "6": 2
+            }
+          },
+          {
+            "count": 4,
+            "name": "path",
+            "profile": "probe:v6_iokit_registry_class.sb",
+            "tags": {
+              "0": 1,
+              "4": 2,
+              "5": 1
+            }
+          },
+          {
+            "count": 4,
+            "name": "path",
+            "profile": "probe:v7_require_any_subpath_literal.sb",
+            "tags": {
+              "0": 1,
+              "4": 2,
+              "5": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": "path",
+            "profile": "probe-op:v0_file_require_all.sb",
+            "tags": {
+              "4": 1
+            }
+          },
+          {
+            "count": 3,
+            "name": "path",
+            "profile": "probe-op:v1_file_require_any.sb",
+            "tags": {
+              "0": 1,
+              "6": 2
+            }
+          },
+          {
+            "count": 4,
+            "name": "path",
+            "profile": "probe-op:v2_file_three_filters_any.sb",
+            "tags": {
+              "0": 1,
+              "4": 2,
+              "5": 1
+            }
+          },
+          {
+            "count": 3,
+            "name": "path",
+            "profile": "probe-op:v3_mach_global_local.sb",
+            "tags": {
+              "0": 1,
+              "6": 2
+            }
+          },
+          {
+            "count": 3,
+            "name": "path",
+            "profile": "probe-op:v5_iokit_class_property.sb",
+            "tags": {
+              "0": 1,
+              "6": 2
+            }
+          },
+          {
+            "count": 4,
+            "name": "path",
+            "profile": "probe-op:v6_file_mach_combo.sb",
+            "tags": {
+              "0": 1,
+              "4": 2,
+              "5": 1
+            }
+          }
+        ],
+        "seed_anchors": [
+          {
+            "anchor": "/etc/hosts",
+            "source": "anchor_filter_map",
+            "status": "partial"
+          },
+          {
+            "anchor": "/tmp/foo",
+            "source": "anchor_filter_map",
+            "status": "partial"
+          }
+        ],
+        "source_artifacts": {
+          "anchor_map": "book/graph/mappings/anchors/anchor_filter_map.json",
+          "field2_inventory": "book/experiments/field2-filters/out/field2_inventory.json",
+          "seeds": "book/experiments/field2-atlas/field2_seeds.json"
+        },
+        "status": "ok",
+        "tag_ids": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          26,
+          53,
+          58,
+          71,
+          166
+        ],
+        "target_ops": [
+          "file-read-data",
+          "file-write-data"
+        ],
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "status": "runtime_backed",
+      "target_ops": [
+        "file-read-data",
+        "file-write-data"
+      ]
+    },
+    {
+      "field2": 1,
+      "filter_name": "mount-relative-path",
+      "runtime": {
+        "field2": 1,
+        "filter_name": "mount-relative-path",
+        "notes": "Nearby static-only candidate riding the same path ops/profiles as seed0; added to exercise atlas growth. No runtime probe yet.",
+        "runtime_candidate": {
+          "anchor_match": null,
+          "expected": "allow",
+          "latest_attempt": {
+            "failure_kind": null,
+            "failure_stage": null,
+            "run_id": "7fb35590-c5c0-4187-8949-f534fbd43045",
+            "runtime_status": "success",
+            "source": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/runtime_events.normalized.json"
+          },
+          "mapping_status": "partial",
+          "operation": "file-read*",
+          "path_canonicalization_detected": true,
+          "path_observation": {
+            "failure_kind": null,
+            "failure_stage": null,
+            "normalized_path": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+            "normalized_path_source": "observed_path",
+            "observed_path": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+            "observed_path_source": "fd_path",
+            "requested_path": "/tmp/runtime-adv/edges/okdir/item.txt",
+            "runtime_status": "success",
+            "source": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/runtime_events.normalized.json"
+          },
+          "probe_name": "allow-tmp-subpath",
+          "profile_id": "adv:path_edges_private",
+          "result": "allow",
+          "result_source": "book/graph/mappings/runtime/runtime_signatures.json",
+          "result_tier": "mapping",
+          "runtime_profile": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/runtime_profiles/path_edges_private.adv_path_edges_private.runtime.sb",
+          "scenario_id": "adv:path_edges_private:allow-tmp-subpath",
+          "source": "book/graph/mappings/runtime/runtime_signatures.json",
+          "target": "/tmp/runtime-adv/edges/okdir/item.txt"
+        },
+        "seed_anchors": [
+          {
+            "anchor": "/etc/hosts",
+            "source": "anchor_filter_map",
+            "status": "partial"
+          }
+        ],
+        "status": "runtime_backed",
+        "target_ops": [
+          "file-read-data",
+          "file-write-data"
+        ],
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "static": {
+        "anchor_hits": [
+          {
+            "anchor": "/etc/hosts",
+            "field2_values": [
+              0,
+              1,
+              4,
+              5,
+              6,
+              7,
+              11,
+              59,
+              256,
+              1281,
+              1536,
+              2560,
+              2816,
+              3072,
+              3328,
+              3584,
+              4352,
+              7424
+            ],
+            "filter_id": null,
+            "filter_name": null,
+            "sources": [
+              "probe:v1_file_require_any",
+              "probe:v2_file_three_filters_any",
+              "probe:v8_all_combo",
+              "sys:sample"
+            ],
+            "status": "blocked"
+          },
+          {
+            "anchor": "/tmp/foo",
+            "field2_values": [
+              0,
+              1,
+              2,
+              3,
+              5,
+              256,
+              1536,
+              2816,
+              3072,
+              3328,
+              3584
+            ],
+            "filter_id": null,
+            "filter_name": null,
+            "sources": [
+              "probe:v1_file_require_any",
+              "probe:v2_file_three_filters_any",
+              "probe:v8_all_combo"
+            ],
+            "status": "blocked"
+          },
+          {
+            "anchor": "/var/log",
+            "field2_values": [
+              0,
+              1,
+              4,
+              12096
+            ],
+            "filter_id": null,
+            "filter_name": null,
+            "sources": [
+              "probe:v2_file_three_filters_any"
+            ],
+            "status": "blocked"
+          },
+          {
+            "anchor": "IOAccelerator",
+            "field2_values": [
+              0,
+              1,
+              5
+            ],
+            "filter_id": null,
+            "filter_name": null,
+            "sources": [
+              "probe:v11_iokit_user_client_connection"
+            ],
+            "status": "blocked"
+          },
+          {
+            "anchor": "IOHIDParamUserClient",
+            "field2_values": [
+              0,
+              1,
+              4,
+              18753
+            ],
+            "filter_id": null,
+            "filter_name": null,
+            "sources": [
+              "probe:v10_iokit_user_client_pair"
+            ],
+            "status": "blocked"
+          },
+          {
+            "anchor": "IOSurfaceRootUserClient",
+            "field2_values": [
+              1
+            ],
+            "filter_id": 1,
+            "filter_name": "mount-relative-path",
+            "sources": [
+              "probe:v9_iokit_user_client_only"
+            ],
+            "status": "partial"
+          },
+          {
+            "anchor": "com.apple.cfprefsd.agent",
+            "field2_values": [
+              0,
+              1,
+              5,
+              11
+            ],
+            "filter_id": null,
+            "filter_name": null,
+            "sources": [
+              "probe:v3_mach_global_local",
+              "probe:v6_file_mach_combo",
+              "probe:v8_all_combo"
+            ],
+            "status": "blocked"
+          },
+          {
+            "anchor": "idVendor",
+            "field2_values": [
+              0,
+              1,
+              5
+            ],
+            "filter_id": null,
+            "filter_name": null,
+            "sources": [
+              "probe:v5_iokit_class_property"
+            ],
+            "status": "blocked"
+          }
+        ],
+        "field2": 1,
+        "filter_name": "mount-relative-path",
+        "notes": "Nearby static-only candidate riding the same path ops/profiles as seed0; added to exercise atlas growth. No runtime probe yet.",
+        "profiles": [
+          {
+            "count": 1,
+            "name": "mount-relative-path",
+            "profile": "sys:bsd",
+            "tags": {
+              "27": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": "mount-relative-path",
+            "profile": "sys:sample",
+            "tags": {
+              "3": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": "mount-relative-path",
+            "profile": "probe:airlock_system_fcntl.sb",
+            "tags": {
+              "0": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": "mount-relative-path",
+            "profile": "probe:bsd_ops_default_file.sb",
+            "tags": {
+              "0": 1
+            }
+          },
+          {
+            "count": 4,
+            "name": "mount-relative-path",
+            "profile": "probe:bsd_tail_context.sb",
+            "tags": {
+              "0": 1,
+              "1": 2,
+              "2": 1
+            }
+          },
+          {
+            "count": 3,
+            "name": "mount-relative-path",
+            "profile": "probe:dtracehelper_posixspawn.sb",
+            "tags": {
+              "0": 1,
+              "4": 2
+            }
+          },
+          {
+            "count": 43,
+            "name": "mount-relative-path",
+            "profile": "probe:flow_divert_mixed.sb",
+            "tags": {
+              "1": 43
+            }
+          },
+          {
+            "count": 1,
+            "name": "mount-relative-path",
+            "profile": "probe:flow_divert_only.sb",
+            "tags": {
+              "0": 1
+            }
+          },
+          {
+            "count": 43,
+            "name": "mount-relative-path",
+            "profile": "probe:flow_divert_variant.sb",
+            "tags": {
+              "1": 43
+            }
+          },
+          {
+            "count": 1,
+            "name": "mount-relative-path",
+            "profile": "probe:net_require_all_domain_proto.sb",
+            "tags": {
+              "0": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": "mount-relative-path",
+            "profile": "probe:net_require_all_domain_type.sb",
+            "tags": {
+              "0": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": "mount-relative-path",
+            "profile": "probe:net_require_all_domain_type_proto.sb",
+            "tags": {
+              "1": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": "mount-relative-path",
+            "profile": "probe:net_require_all_domain_type_proto_udp.sb",
+            "tags": {
+              "1": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": "mount-relative-path",
+            "profile": "probe:net_require_all_type_proto.sb",
+            "tags": {
+              "0": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": "mount-relative-path",
+            "profile": "probe:right_and_preference_names.sb",
+            "tags": {
+              "6": 1
+            }
+          },
+          {
+            "count": 3,
+            "name": "mount-relative-path",
+            "profile": "probe:v0_subpath.sb",
+            "tags": {
+              "0": 1,
+              "4": 2
+            }
+          },
+          {
+            "count": 3,
+            "name": "mount-relative-path",
+            "profile": "probe:v1_literal.sb",
+            "tags": {
+              "0": 1,
+              "4": 2
+            }
+          },
+          {
+            "count": 3,
+            "name": "mount-relative-path",
+            "profile": "probe:v2_global_name.sb",
+            "tags": {
+              "0": 1,
+              "4": 2
+            }
+          },
+          {
+            "count": 3,
+            "name": "mount-relative-path",
+            "profile": "probe:v3_local_name.sb",
+            "tags": {
+              "0": 1,
+              "4": 2
+            }
+          },
+          {
+            "count": 3,
+            "name": "mount-relative-path",
+            "profile": "probe:v4_vnode_type.sb",
+            "tags": {
+              "0": 1,
+              "4": 2
+            }
+          },
+          {
+            "count": 3,
+            "name": "mount-relative-path",
+            "profile": "probe:v6_iokit_registry_class.sb",
+            "tags": {
+              "0": 1,
+              "4": 2
+            }
+          },
+          {
+            "count": 3,
+            "name": "mount-relative-path",
+            "profile": "probe:v7_require_any_subpath_literal.sb",
+            "tags": {
+              "0": 1,
+              "4": 2
+            }
+          },
+          {
+            "count": 1,
+            "name": "mount-relative-path",
+            "profile": "probe-op:v1_file_require_any.sb",
+            "tags": {
+              "6": 1
+            }
+          },
+          {
+            "count": 3,
+            "name": "mount-relative-path",
+            "profile": "probe-op:v2_file_three_filters_any.sb",
+            "tags": {
+              "0": 1,
+              "4": 2
+            }
+          },
+          {
+            "count": 1,
+            "name": "mount-relative-path",
+            "profile": "probe-op:v3_mach_global_local.sb",
+            "tags": {
+              "6": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": "mount-relative-path",
+            "profile": "probe-op:v4_network_socket_require_all.sb",
+            "tags": {
+              "1": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": "mount-relative-path",
+            "profile": "probe-op:v5_iokit_class_property.sb",
+            "tags": {
+              "6": 1
+            }
+          },
+          {
+            "count": 3,
+            "name": "mount-relative-path",
+            "profile": "probe-op:v6_file_mach_combo.sb",
+            "tags": {
+              "0": 1,
+              "4": 2
+            }
+          },
+          {
+            "count": 1,
+            "name": "mount-relative-path",
+            "profile": "probe-op:v7_file_network_combo.sb",
+            "tags": {
+              "1": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": "mount-relative-path",
+            "profile": "probe-op:v8_all_combo.sb",
+            "tags": {
+              "0": 1
+            }
+          }
+        ],
+        "seed_anchors": [
+          {
+            "anchor": "/etc/hosts",
+            "source": "anchor_filter_map",
+            "status": "partial"
+          }
+        ],
+        "source_artifacts": {
+          "anchor_map": "book/graph/mappings/anchors/anchor_filter_map.json",
+          "field2_inventory": "book/experiments/field2-filters/out/field2_inventory.json",
+          "seeds": "book/experiments/field2-atlas/field2_seeds.json"
+        },
+        "status": "ok",
+        "tag_ids": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          6,
+          27
+        ],
+        "target_ops": [
+          "file-read-data",
+          "file-write-data"
+        ],
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "status": "runtime_backed",
+      "target_ops": [
+        "file-read-data",
+        "file-write-data"
+      ]
+    },
+    {
+      "field2": 2,
+      "filter_name": "xattr",
+      "runtime": {
+        "field2": 2,
+        "filter_name": "xattr",
+        "notes": "xattr appears in sys:bsd (tag 26) and field2 inventory; runtime probes use file-read-xattr/file-write-xattr against /private/tmp fixtures.",
+        "runtime_candidate": {
+          "anchor_match": {
+            "alias_used": true,
+            "anchor": "/tmp/foo",
+            "filter_id": null,
+            "filter_name": null,
+            "source": "book/graph/mappings/anchors/anchor_filter_map.json",
+            "status": "blocked"
+          },
+          "expected": "allow",
+          "latest_attempt": {
+            "failure_kind": null,
+            "failure_stage": null,
+            "run_id": "7fb35590-c5c0-4187-8949-f534fbd43045",
+            "runtime_status": "success",
+            "source": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/runtime_events.normalized.json"
+          },
+          "mapping_status": "partial",
+          "operation": "file-read-xattr",
+          "path_canonicalization_detected": false,
+          "path_observation": {
+            "failure_kind": null,
+            "failure_stage": null,
+            "normalized_path": "/private/tmp/foo",
+            "normalized_path_source": "observed_path",
+            "observed_path": "/private/tmp/foo",
+            "observed_path_source": "unsandboxed_fd_path",
+            "requested_path": "/private/tmp/foo",
+            "runtime_status": "success",
+            "source": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/runtime_events.normalized.json"
+          },
+          "probe_name": "allow-foo-read",
+          "profile_id": "adv:xattr",
+          "result": "allow",
+          "result_source": "book/graph/mappings/runtime/runtime_signatures.json",
+          "result_tier": "mapping",
+          "runtime_profile": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/runtime_profiles/xattr.adv_xattr.runtime.sb",
+          "scenario_id": "adv:xattr:allow-foo-read",
+          "source": "book/graph/mappings/runtime/runtime_signatures.json",
+          "target": "/private/tmp/foo"
+        },
+        "seed_anchors": [
+          {
+            "anchor": "/tmp/foo",
+            "source": "anchor_filter_map",
+            "status": "blocked"
+          }
+        ],
+        "status": "runtime_backed",
+        "target_ops": [
+          "file-read-xattr",
+          "file-write-xattr"
+        ],
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "static": {
+        "anchor_hits": [
+          {
+            "anchor": "/tmp/foo",
+            "field2_values": [
+              0,
+              1,
+              2,
+              3,
+              5,
+              256,
+              1536,
+              2816,
+              3072,
+              3328,
+              3584
+            ],
+            "filter_id": null,
+            "filter_name": null,
+            "sources": [
+              "probe:v1_file_require_any",
+              "probe:v2_file_three_filters_any",
+              "probe:v8_all_combo"
+            ],
+            "status": "blocked"
+          }
+        ],
+        "field2": 2,
+        "filter_name": "xattr",
+        "notes": "xattr appears in sys:bsd (tag 26) and field2 inventory; runtime probes use file-read-xattr/file-write-xattr against /private/tmp fixtures.",
+        "profiles": [
+          {
+            "count": 1,
+            "name": "xattr",
+            "profile": "sys:airlock",
+            "tags": {
+              "166": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": "xattr",
+            "profile": "sys:bsd",
+            "tags": {
+              "26": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": "xattr",
+            "profile": "probe:bsd_tail_context.sb",
+            "tags": {
+              "3": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": "xattr",
+            "profile": "probe:dtracehelper_posixspawn.sb",
+            "tags": {
+              "5": 1
+            }
+          },
+          {
+            "count": 45,
+            "name": "xattr",
+            "profile": "probe:flow_divert_only.sb",
+            "tags": {
+              "2": 45
+            }
+          },
+          {
+            "count": 1,
+            "name": "xattr",
+            "profile": "probe:v0_subpath.sb",
+            "tags": {
+              "5": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": "xattr",
+            "profile": "probe:v1_literal.sb",
+            "tags": {
+              "5": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": "xattr",
+            "profile": "probe:v2_global_name.sb",
+            "tags": {
+              "5": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": "xattr",
+            "profile": "probe:v3_local_name.sb",
+            "tags": {
+              "5": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": "xattr",
+            "profile": "probe:v4_vnode_type.sb",
+            "tags": {
+              "5": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": "xattr",
+            "profile": "probe:v6_iokit_registry_class.sb",
+            "tags": {
+              "5": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": "xattr",
+            "profile": "probe:v7_require_any_subpath_literal.sb",
+            "tags": {
+              "5": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": "xattr",
+            "profile": "probe-op:v2_file_three_filters_any.sb",
+            "tags": {
+              "5": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": "xattr",
+            "profile": "probe-op:v6_file_mach_combo.sb",
+            "tags": {
+              "5": 1
+            }
+          }
+        ],
+        "seed_anchors": [
+          {
+            "anchor": "/tmp/foo",
+            "source": "anchor_filter_map",
+            "status": "blocked"
+          }
+        ],
+        "source_artifacts": {
+          "anchor_map": "book/graph/mappings/anchors/anchor_filter_map.json",
+          "field2_inventory": "book/experiments/field2-filters/out/field2_inventory.json",
+          "seeds": "book/experiments/field2-atlas/field2_seeds.json"
+        },
+        "status": "ok",
+        "tag_ids": [
+          2,
+          3,
+          5,
+          26,
+          166
+        ],
+        "target_ops": [
+          "file-read-xattr",
+          "file-write-xattr"
+        ],
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "status": "runtime_backed",
+      "target_ops": [
+        "file-read-xattr",
+        "file-write-xattr"
+      ]
+    },
+    {
+      "field2": 5,
+      "filter_name": "global-name",
+      "runtime": {
+        "field2": 5,
+        "filter_name": "global-name",
+        "notes": "Global-name appears on multiple anchors (mach + path probes) and in sys:bsd tag 27; runtime backed by mach-lookup traces on this host.",
+        "runtime_candidate": {
+          "anchor_match": null,
+          "expected": "allow",
+          "latest_attempt": {
+            "failure_kind": null,
+            "failure_stage": null,
+            "run_id": "7fb35590-c5c0-4187-8949-f534fbd43045",
+            "runtime_status": "success",
+            "source": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/runtime_events.normalized.json"
+          },
+          "mapping_status": "partial",
+          "operation": "mach-lookup",
+          "path_canonicalization_detected": false,
+          "path_observation": {
+            "failure_kind": null,
+            "failure_stage": null,
+            "normalized_path": null,
+            "normalized_path_source": null,
+            "observed_path": null,
+            "observed_path_source": null,
+            "requested_path": null,
+            "runtime_status": "success",
+            "source": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/runtime_events.normalized.json"
+          },
+          "probe_name": "allow-cfprefsd",
+          "profile_id": "adv:mach_simple_allow",
+          "result": "allow",
+          "result_source": "book/graph/mappings/runtime/runtime_signatures.json",
+          "result_tier": "mapping",
+          "runtime_profile": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/runtime_profiles/mach_simple_allow.adv_mach_simple_allow.runtime.sb",
+          "scenario_id": "field2-5-mach-global",
+          "source": "book/graph/mappings/runtime/runtime_signatures.json",
+          "target": "com.apple.cfprefsd.agent"
+        },
+        "seed_anchors": [
+          {
+            "anchor": "preferences/logging",
+            "source": "anchor_filter_map",
+            "status": "partial"
+          },
+          {
+            "anchor": "/etc/hosts",
+            "source": "anchor_filter_map",
+            "status": "partial"
+          }
+        ],
+        "status": "runtime_backed",
+        "target_ops": [
+          "mach-lookup"
+        ],
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "static": {
+        "anchor_hits": [
+          {
+            "anchor": "/etc/hosts",
+            "field2_values": [
+              0,
+              1,
+              4,
+              5,
+              6,
+              7,
+              11,
+              59,
+              256,
+              1281,
+              1536,
+              2560,
+              2816,
+              3072,
+              3328,
+              3584,
+              4352,
+              7424
+            ],
+            "filter_id": null,
+            "filter_name": null,
+            "sources": [
+              "probe:v1_file_require_any",
+              "probe:v2_file_three_filters_any",
+              "probe:v8_all_combo",
+              "sys:sample"
+            ],
+            "status": "blocked"
+          },
+          {
+            "anchor": "/tmp/foo",
+            "field2_values": [
+              0,
+              1,
+              2,
+              3,
+              5,
+              256,
+              1536,
+              2816,
+              3072,
+              3328,
+              3584
+            ],
+            "filter_id": null,
+            "filter_name": null,
+            "sources": [
+              "probe:v1_file_require_any",
+              "probe:v2_file_three_filters_any",
+              "probe:v8_all_combo"
+            ],
+            "status": "blocked"
+          },
+          {
+            "anchor": "IOAccelerator",
+            "field2_values": [
+              0,
+              1,
+              5
+            ],
+            "filter_id": null,
+            "filter_name": null,
+            "sources": [
+              "probe:v11_iokit_user_client_connection"
+            ],
+            "status": "blocked"
+          },
+          {
+            "anchor": "IOUSBHostInterface",
+            "field2_values": [
+              0,
+              4,
+              5,
+              11
+            ],
+            "filter_id": null,
+            "filter_name": null,
+            "sources": [
+              "probe:v5_iokit_class_property",
+              "probe:v8_all_combo"
+            ],
+            "status": "blocked"
+          },
+          {
+            "anchor": "com.apple.cfprefsd.agent",
+            "field2_values": [
+              0,
+              1,
+              5,
+              11
+            ],
+            "filter_id": null,
+            "filter_name": null,
+            "sources": [
+              "probe:v3_mach_global_local",
+              "probe:v6_file_mach_combo",
+              "probe:v8_all_combo"
+            ],
+            "status": "blocked"
+          },
+          {
+            "anchor": "idVendor",
+            "field2_values": [
+              0,
+              1,
+              5
+            ],
+            "filter_id": null,
+            "filter_name": null,
+            "sources": [
+              "probe:v5_iokit_class_property"
+            ],
+            "status": "blocked"
+          },
+          {
+            "anchor": "preferences/logging",
+            "field2_values": [
+              5
+            ],
+            "filter_id": 5,
+            "filter_name": "global-name",
+            "sources": [
+              "sys:bsd"
+            ],
+            "status": "partial"
+          }
+        ],
+        "field2": 5,
+        "filter_name": "global-name",
+        "notes": "Global-name appears on multiple anchors (mach + path probes) and in sys:bsd tag 27; runtime backed by mach-lookup traces on this host.",
+        "profiles": [
+          {
+            "count": 1,
+            "name": "global-name",
+            "profile": "sys:bsd",
+            "tags": {
+              "27": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": "global-name",
+            "profile": "sys:sample",
+            "tags": {
+              "8": 1
+            }
+          },
+          {
+            "count": 2,
+            "name": "global-name",
+            "profile": "probe:bsd_broader.sb",
+            "tags": {
+              "0": 1,
+              "5": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": "global-name",
+            "profile": "probe:bsd_ops_default_file.sb",
+            "tags": {
+              "6": 1
+            }
+          },
+          {
+            "count": 32,
+            "name": "global-name",
+            "profile": "probe:dtracehelper_posixspawn.sb",
+            "tags": {
+              "3": 1,
+              "4": 10,
+              "5": 21
+            }
+          },
+          {
+            "count": 17,
+            "name": "global-name",
+            "profile": "probe:right_and_preference_names.sb",
+            "tags": {
+              "0": 2,
+              "4": 1,
+              "5": 6,
+              "6": 8
+            }
+          },
+          {
+            "count": 32,
+            "name": "global-name",
+            "profile": "probe:v0_subpath.sb",
+            "tags": {
+              "3": 1,
+              "4": 10,
+              "5": 21
+            }
+          },
+          {
+            "count": 32,
+            "name": "global-name",
+            "profile": "probe:v1_literal.sb",
+            "tags": {
+              "3": 1,
+              "4": 10,
+              "5": 21
+            }
+          },
+          {
+            "count": 33,
+            "name": "global-name",
+            "profile": "probe:v2_global_name.sb",
+            "tags": {
+              "4": 10,
+              "5": 23
+            }
+          },
+          {
+            "count": 33,
+            "name": "global-name",
+            "profile": "probe:v3_local_name.sb",
+            "tags": {
+              "4": 10,
+              "5": 23
+            }
+          },
+          {
+            "count": 32,
+            "name": "global-name",
+            "profile": "probe:v4_vnode_type.sb",
+            "tags": {
+              "3": 1,
+              "4": 10,
+              "5": 21
+            }
+          },
+          {
+            "count": 17,
+            "name": "global-name",
+            "profile": "probe:v5_socket_domain.sb",
+            "tags": {
+              "0": 2,
+              "1": 1,
+              "2": 1,
+              "5": 6,
+              "6": 7
+            }
+          },
+          {
+            "count": 32,
+            "name": "global-name",
+            "profile": "probe:v6_iokit_registry_class.sb",
+            "tags": {
+              "3": 1,
+              "4": 10,
+              "5": 21
+            }
+          },
+          {
+            "count": 32,
+            "name": "global-name",
+            "profile": "probe:v7_require_any_subpath_literal.sb",
+            "tags": {
+              "3": 1,
+              "4": 10,
+              "5": 21
+            }
+          },
+          {
+            "count": 17,
+            "name": "global-name",
+            "profile": "probe-op:v1_file_require_any.sb",
+            "tags": {
+              "0": 2,
+              "3": 1,
+              "4": 1,
+              "5": 6,
+              "6": 7
+            }
+          },
+          {
+            "count": 32,
+            "name": "global-name",
+            "profile": "probe-op:v2_file_three_filters_any.sb",
+            "tags": {
+              "3": 1,
+              "4": 10,
+              "5": 21
+            }
+          },
+          {
+            "count": 17,
+            "name": "global-name",
+            "profile": "probe-op:v3_mach_global_local.sb",
+            "tags": {
+              "0": 2,
+              "4": 1,
+              "5": 6,
+              "6": 8
+            }
+          },
+          {
+            "count": 16,
+            "name": "global-name",
+            "profile": "probe-op:v5_iokit_class_property.sb",
+            "tags": {
+              "0": 2,
+              "5": 6,
+              "6": 8
+            }
+          },
+          {
+            "count": 33,
+            "name": "global-name",
+            "profile": "probe-op:v6_file_mach_combo.sb",
+            "tags": {
+              "4": 10,
+              "5": 23
+            }
+          }
+        ],
+        "seed_anchors": [
+          {
+            "anchor": "preferences/logging",
+            "source": "anchor_filter_map",
+            "status": "partial"
+          },
+          {
+            "anchor": "/etc/hosts",
+            "source": "anchor_filter_map",
+            "status": "partial"
+          }
+        ],
+        "source_artifacts": {
+          "anchor_map": "book/graph/mappings/anchors/anchor_filter_map.json",
+          "field2_inventory": "book/experiments/field2-filters/out/field2_inventory.json",
+          "seeds": "book/experiments/field2-atlas/field2_seeds.json"
+        },
+        "status": "ok",
+        "tag_ids": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          8,
+          27
+        ],
+        "target_ops": [
+          "mach-lookup"
+        ],
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "status": "runtime_backed",
+      "target_ops": [
+        "mach-lookup"
+      ]
+    },
+    {
+      "field2": 7,
+      "filter_name": "local",
+      "runtime": {
+        "field2": 7,
+        "filter_name": "local",
+        "notes": "Local (mach/socket) has multiple anchor witnesses, including a blocked flow-divert path; present in sys:sample tags 3/7/8. Runtime probes exist for mach/local combos; reuse them here.",
+        "runtime_candidate": {
+          "anchor_match": null,
+          "expected": "allow",
+          "latest_attempt": {
+            "failure_kind": null,
+            "failure_stage": null,
+            "run_id": "7fb35590-c5c0-4187-8949-f534fbd43045",
+            "runtime_status": "success",
+            "source": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/runtime_events.normalized.json"
+          },
+          "mapping_status": "partial",
+          "operation": "mach-lookup",
+          "path_canonicalization_detected": false,
+          "path_observation": {
+            "failure_kind": null,
+            "failure_stage": null,
+            "normalized_path": null,
+            "normalized_path_source": null,
+            "observed_path": null,
+            "observed_path_source": null,
+            "requested_path": null,
+            "runtime_status": "success",
+            "source": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/runtime_events.normalized.json"
+          },
+          "probe_name": "allow-cfprefsd-local",
+          "profile_id": "adv:mach_local_literal",
+          "result": "allow",
+          "result_source": "book/graph/mappings/runtime/runtime_signatures.json",
+          "result_tier": "mapping",
+          "runtime_profile": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/runtime_profiles/mach_local_literal.adv_mach_local_literal.runtime.sb",
+          "scenario_id": "field2-7-mach-local",
+          "source": "book/graph/mappings/runtime/runtime_signatures.json",
+          "target": "com.apple.cfprefsd.agent"
+        },
+        "seed_anchors": [
+          {
+            "anchor": "/etc/hosts",
+            "source": "anchor_filter_map",
+            "status": "partial"
+          },
+          {
+            "anchor": "flow-divert",
+            "source": "anchor_filter_map",
+            "status": "blocked"
+          }
+        ],
+        "status": "runtime_backed",
+        "target_ops": [
+          "mach-lookup"
+        ],
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "static": {
+        "anchor_hits": [
+          {
+            "anchor": "/etc/hosts",
+            "field2_values": [
+              0,
+              1,
+              4,
+              5,
+              6,
+              7,
+              11,
+              59,
+              256,
+              1281,
+              1536,
+              2560,
+              2816,
+              3072,
+              3328,
+              3584,
+              4352,
+              7424
+            ],
+            "filter_id": null,
+            "filter_name": null,
+            "sources": [
+              "probe:v1_file_require_any",
+              "probe:v2_file_three_filters_any",
+              "probe:v8_all_combo",
+              "sys:sample"
+            ],
+            "status": "blocked"
+          },
+          {
+            "anchor": "flow-divert",
+            "field2_values": [
+              7,
+              11,
+              26,
+              1281,
+              2560,
+              2816,
+              3072,
+              3328,
+              3584
+            ],
+            "filter_id": null,
+            "filter_name": null,
+            "sources": [
+              "probe:v4_network_socket_require_all",
+              "probe:v7_file_network_combo",
+              "probe:v8_all_combo"
+            ],
+            "status": "blocked"
+          }
+        ],
+        "field2": 7,
+        "filter_name": "local",
+        "notes": "Local (mach/socket) has multiple anchor witnesses, including a blocked flow-divert path; present in sys:sample tags 3/7/8. Runtime probes exist for mach/local combos; reuse them here.",
+        "profiles": [
+          {
+            "count": 18,
+            "name": "local",
+            "profile": "sys:sample",
+            "tags": {
+              "2": 1,
+              "3": 1,
+              "7": 10,
+              "8": 6
+            }
+          },
+          {
+            "count": 32,
+            "name": "local",
+            "profile": "probe:airlock_system_fcntl.sb",
+            "tags": {
+              "0": 3,
+              "6": 6,
+              "7": 23
+            }
+          },
+          {
+            "count": 31,
+            "name": "local",
+            "profile": "probe:bsd_broader.sb",
+            "tags": {
+              "0": 5,
+              "6": 6,
+              "7": 20
+            }
+          },
+          {
+            "count": 14,
+            "name": "local",
+            "profile": "probe:bsd_ops_default_file.sb",
+            "tags": {
+              "2": 1,
+              "6": 2,
+              "7": 5,
+              "8": 6
+            }
+          },
+          {
+            "count": 33,
+            "name": "local",
+            "profile": "probe:net_require_all_domain_proto.sb",
+            "tags": {
+              "0": 5,
+              "6": 6,
+              "7": 22
+            }
+          },
+          {
+            "count": 33,
+            "name": "local",
+            "profile": "probe:net_require_all_domain_type.sb",
+            "tags": {
+              "0": 5,
+              "6": 6,
+              "7": 22
+            }
+          },
+          {
+            "count": 14,
+            "name": "local",
+            "profile": "probe:net_require_all_domain_type_proto.sb",
+            "tags": {
+              "6": 1,
+              "7": 5,
+              "8": 8
+            }
+          },
+          {
+            "count": 14,
+            "name": "local",
+            "profile": "probe:net_require_all_domain_type_proto_udp.sb",
+            "tags": {
+              "6": 1,
+              "7": 5,
+              "8": 8
+            }
+          },
+          {
+            "count": 33,
+            "name": "local",
+            "profile": "probe:net_require_all_type_proto.sb",
+            "tags": {
+              "0": 5,
+              "6": 6,
+              "7": 22
+            }
+          },
+          {
+            "count": 14,
+            "name": "local",
+            "profile": "probe-op:v4_network_socket_require_all.sb",
+            "tags": {
+              "6": 1,
+              "7": 5,
+              "8": 8
+            }
+          },
+          {
+            "count": 14,
+            "name": "local",
+            "profile": "probe-op:v7_file_network_combo.sb",
+            "tags": {
+              "6": 1,
+              "7": 5,
+              "8": 8
+            }
+          }
+        ],
+        "seed_anchors": [
+          {
+            "anchor": "/etc/hosts",
+            "source": "anchor_filter_map",
+            "status": "partial"
+          },
+          {
+            "anchor": "flow-divert",
+            "source": "anchor_filter_map",
+            "status": "blocked"
+          }
+        ],
+        "source_artifacts": {
+          "anchor_map": "book/graph/mappings/anchors/anchor_filter_map.json",
+          "field2_inventory": "book/experiments/field2-filters/out/field2_inventory.json",
+          "seeds": "book/experiments/field2-atlas/field2_seeds.json"
+        },
+        "status": "ok",
+        "tag_ids": [
+          0,
+          2,
+          3,
+          6,
+          7,
+          8
+        ],
+        "target_ops": [
+          "mach-lookup"
+        ],
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "status": "runtime_backed",
+      "target_ops": [
+        "mach-lookup"
+      ]
+    },
+    {
+      "field2": 2560,
+      "filter_name": "local",
+      "runtime": {
+        "control_witness": {
+          "baseline": {
+            "record": {
+              "command": [
+                "/usr/bin/nc",
+                "-z",
+                "-w",
+                "2",
+                "127.0.0.1",
+                "62646"
+              ],
+              "decision_path": "baseline",
+              "exit_code": 0,
+              "listener": {
+                "accept_count": 2,
+                "error": null,
+                "host": "127.0.0.1",
+                "port": 62646,
+                "precheck": {
+                  "error": null,
+                  "status": "ok"
+                },
+                "status": "ok"
+              },
+              "name": "baseline:adv:flow_divert_require_all_tcp:tcp-loopback",
+              "operation": "network-outbound",
+              "primary_intent": {
+                "operation": "network-outbound",
+                "probe_name": "tcp-loopback",
+                "profile_id": "adv:flow_divert_require_all_tcp",
+                "target": "127.0.0.1:62646"
+              },
+              "probe_name": "tcp-loopback",
+              "profile_id": "adv:flow_divert_require_all_tcp",
+              "reached_primary_op": true,
+              "status": "allow",
+              "stderr": "Connection to 127.0.0.1 port 62646 [tcp/*] succeeded!\n",
+              "stdout": "",
+              "target": "127.0.0.1:62646"
+            },
+            "source": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/baseline_results.json"
+          },
+          "discriminating": false,
+          "notes": "control non-discriminating (same decision as require-all variant)",
+          "partial_triple": {
+            "actual": "allow",
+            "expected": "allow",
+            "probe_name": "tcp-loopback",
+            "profile_id": "adv:flow_divert_partial_tcp",
+            "runtime_status": "success",
+            "source": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/runtime_events.normalized.json"
+          }
+        },
+        "field2": 2560,
+        "filter_name": "local",
+        "notes": "Characterized static token for flow-divert triples (domain+type+proto) on tag0 with literal com.apple.flow-divert; derived from flow-divert-2560 matrix decode. No runtime witness; world-scoped.",
+        "runtime_candidate": {
+          "anchor_match": null,
+          "expected": "allow",
+          "latest_attempt": {
+            "failure_kind": null,
+            "failure_stage": null,
+            "run_id": "7fb35590-c5c0-4187-8949-f534fbd43045",
+            "runtime_status": "success",
+            "source": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/runtime_events.normalized.json"
+          },
+          "mapping_status": "partial",
+          "operation": "network-outbound",
+          "path_canonicalization_detected": false,
+          "path_observation": {
+            "failure_kind": null,
+            "failure_stage": null,
+            "normalized_path": null,
+            "normalized_path_source": null,
+            "observed_path": null,
+            "observed_path_source": null,
+            "requested_path": null,
+            "runtime_status": "success",
+            "source": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/runtime_events.normalized.json"
+          },
+          "probe_name": "tcp-loopback",
+          "profile_id": "adv:flow_divert_require_all_tcp",
+          "result": "allow",
+          "result_source": "book/graph/mappings/runtime/runtime_signatures.json",
+          "result_tier": "mapping",
+          "runtime_profile": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/runtime_profiles/flow_divert_require_all_tcp.adv_flow_divert_require_all_tcp.runtime.sb",
+          "scenario_id": "field2-2560-flow-divert",
+          "source": "book/graph/mappings/runtime/runtime_signatures.json",
+          "target": "127.0.0.1:62646"
+        },
+        "seed_anchors": [
+          {
+            "anchor": "flow-divert",
+            "notes": "Triple-only: domain+type+proto; tag0 u16_role=filter_vocab_id; literal com.apple.flow-divert",
+            "source": "flow-divert-2560",
+            "status": "characterized"
+          }
+        ],
+        "status": "runtime_backed",
+        "target_ops": [
+          "network-outbound"
+        ],
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "static": {
+        "anchor_hits": [
+          {
+            "anchor": "/etc/hosts",
+            "field2_values": [
+              0,
+              1,
+              4,
+              5,
+              6,
+              7,
+              11,
+              59,
+              256,
+              1281,
+              1536,
+              2560,
+              2816,
+              3072,
+              3328,
+              3584,
+              4352,
+              7424
+            ],
+            "filter_id": null,
+            "filter_name": null,
+            "sources": [
+              "probe:v1_file_require_any",
+              "probe:v2_file_three_filters_any",
+              "probe:v8_all_combo",
+              "sys:sample"
+            ],
+            "status": "blocked"
+          },
+          {
+            "anchor": "flow-divert",
+            "field2_values": [
+              7,
+              11,
+              26,
+              1281,
+              2560,
+              2816,
+              3072,
+              3328,
+              3584
+            ],
+            "filter_id": null,
+            "filter_name": null,
+            "sources": [
+              "probe:v4_network_socket_require_all",
+              "probe:v7_file_network_combo",
+              "probe:v8_all_combo"
+            ],
+            "status": "blocked"
+          }
+        ],
+        "field2": 2560,
+        "filter_name": "local",
+        "notes": "Characterized static token for flow-divert triples (domain+type+proto) on tag0 with literal com.apple.flow-divert; derived from flow-divert-2560 matrix decode. No runtime witness; world-scoped.",
+        "profiles": [
+          {
+            "count": 1,
+            "name": null,
+            "profile": "probe:net_require_all_domain_type_proto.sb",
+            "tags": {
+              "0": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": null,
+            "profile": "probe:net_require_all_domain_type_proto_udp.sb",
+            "tags": {
+              "0": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": null,
+            "profile": "probe-op:v4_network_socket_require_all.sb",
+            "tags": {
+              "0": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": null,
+            "profile": "probe-op:v7_file_network_combo.sb",
+            "tags": {
+              "0": 1
+            }
+          },
+          {
+            "count": 1,
+            "name": null,
+            "profile": "probe-op:v8_all_combo.sb",
+            "tags": {
+              "0": 1
+            }
+          }
+        ],
+        "seed_anchors": [
+          {
+            "anchor": "flow-divert",
+            "notes": "Triple-only: domain+type+proto; tag0 u16_role=filter_vocab_id; literal com.apple.flow-divert",
+            "source": "flow-divert-2560",
+            "status": "characterized"
+          }
+        ],
+        "source_artifacts": {
+          "anchor_map": "book/graph/mappings/anchors/anchor_filter_map.json",
+          "field2_inventory": "book/experiments/field2-filters/out/field2_inventory.json",
+          "seeds": "book/experiments/field2-atlas/field2_seeds.json"
+        },
+        "status": "ok",
+        "tag_ids": [
+          0
+        ],
+        "target_ops": [
+          "network-outbound"
+        ],
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "status": "runtime_backed",
+      "target_ops": [
+        "network-outbound"
+      ]
+    }
+  ],
+  "inputs": {
+    "runtime": {
+      "path": "book/experiments/field2-atlas/out/derived/7fb35590-c5c0-4187-8949-f534fbd43045/runtime/field2_runtime_results.json",
+      "sha256": "474f94d94534e54e2f9adc2b294ceff4f35e220b69507647d2622875f527ba71"
+    },
+    "seeds": {
+      "path": "book/experiments/field2-atlas/field2_seeds.json",
+      "sha256": "e54e1e3e2f390883bc4521f7041deeb442d0a4d56ae50a82d8bbd212519cf071"
+    },
+    "static": {
+      "path": "book/experiments/field2-atlas/out/static/field2_records.jsonl",
+      "sha256": "2c58a96662f7950850cc4290a2e74eb5f0bc4fd04ff0da8eec1796fc2918cc12"
+    }
+  },
+  "provenance": {
+    "artifact_index": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/artifact_index.json",
+    "artifact_index_sha256": "c9454b3010e2f9a35b085254b5283758c474f66c8a49fba8bf2820ddc3533f75",
+    "bundle_dir": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045",
+    "consumption_receipt": "book/experiments/field2-atlas/out/derived/7fb35590-c5c0-4187-8949-f534fbd43045/consumption_receipt.json",
+    "exports": {
+      "baseline_results": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/baseline_results.json",
+      "path_witnesses": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/path_witnesses.json",
+      "run_manifest": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/run_manifest.json",
+      "runtime_events": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/runtime_events.normalized.json"
+    },
+    "packet": "book/experiments/runtime-adversarial/out/promotion_packet.json",
+    "run_id": "7fb35590-c5c0-4187-8949-f534fbd43045"
+  },
+  "schema_version": "field2-atlas.atlas.v0",
+  "source_artifacts": {
+    "runtime": "book/experiments/field2-atlas/out/derived/7fb35590-c5c0-4187-8949-f534fbd43045/runtime/field2_runtime_results.json",
+    "seeds": "book/experiments/field2-atlas/field2_seeds.json",
+    "static": "book/experiments/field2-atlas/out/static/field2_records.jsonl"
+  },
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

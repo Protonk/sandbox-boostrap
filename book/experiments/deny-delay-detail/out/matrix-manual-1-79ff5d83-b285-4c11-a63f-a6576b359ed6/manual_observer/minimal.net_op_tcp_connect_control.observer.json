@@ -1,0 +1,43 @@
+{
+  "data": {
+    "correlation_id": "96074F11-D071-4FD7-832F-EE691110C9AA",
+    "deny_lines": [
+      "2025-12-31 21:06:02.722188-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_minimal(26752) deny(1) network-outbound remote:*:9"
+    ],
+    "duration_ms": null,
+    "end": null,
+    "last": "30s",
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    \n2025-12-31 21:06:02.722188-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_minimal(26752) deny(1) network-outbound remote:*:9\n2025-12-31 21:06:02.731587-0800  localhost log[26755]: [com.apple.log:] log run noninteractively, parent: 26754 (sandbox-log-observer), args: '/usr/bin/log' 'show' '--style' 'syslog' '--info' '--debug' '--last' '30s' '--predicate' '((eventMessage CONTAINS[c] \"Sandbox: ProbeService_minimal(26752)\") OR ((eventMessage CONTAINS[c",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": true,
+    "observed_lines": 3,
+    "observer_schema_version": 1,
+    "pid": 26752,
+    "plan_id": "deny-delay-detail:manual:matrix-manual-1-79ff5d83-b285-4c11-a63f-a6576b359ed6",
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_minimal(26752)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"26752\")))",
+    "process_name": "ProbeService_minimal",
+    "row_id": "minimal.net_op_tcp_connect_control",
+    "start": null,
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767243962842,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

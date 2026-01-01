@@ -1,0 +1,41 @@
+{
+  "data": {
+    "correlation_id": "79E6C4F8-CBD9-4E8A-A00B-F1F01BC9B890",
+    "deny_lines": [],
+    "duration_ms": null,
+    "end": null,
+    "last": "30s",
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    \n2025-12-31 21:12:21.523934-0800  localhost log[29092]: [com.apple.log:] log run noninteractively, parent: 29091 (sandbox-log-observer), args: '/usr/bin/log' 'show' '--style' 'syslog' '--info' '--debug' '--last' '30s' '--predicate' '((eventMessage CONTAINS[c] \"Sandbox: ProbeService_net_client(29090)\") OR ((eventMessage CONTAIN",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": false,
+    "observed_lines": 2,
+    "observer_schema_version": 1,
+    "pid": 29090,
+    "plan_id": "deny-delay-detail:manual:matrix-manual-2-8905ab2d-bd8b-4786-807e-3c87cfc8af84",
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_net_client(29090)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"29090\")))",
+    "process_name": "ProbeService_net_client",
+    "row_id": "net_client.sandbox_check_write_host_downloads",
+    "start": null,
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767244341756,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

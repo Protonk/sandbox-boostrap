@@ -21,7 +21,7 @@ Probe for static↔runtime divergences by running deliberately adversarial SBPL 
 - Path/literal edge stress: `path_edges` with overlapping `/tmp` vs `/private/tmp`, `..` segments, literal vs subpath mix.
 
 ## Comparison signals
-- Per expectation_id: expected allow/deny, runtime allow/deny, match flag, mismatch_type (`apply_gate`, `unexpected_allow`, `unexpected_deny`, `path_normalization`, `op_misroute`, `filter_diff`), notes.
+- Per expectation_id: expected allow/deny, runtime allow/deny, match flag, mismatch_type (`apply_gate`, `unexpected_allow`, `unexpected_deny`, `canonicalization_boundary`, `op_misroute`, `filter_diff`), notes.
 - `mismatch_summary.json` aggregates mismatches + counts by type; `mismatch_packets.jsonl` captures bounded mismatch packets.
 
 ## Sequencing

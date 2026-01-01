@@ -1,0 +1,8 @@
+(version 1)
+(allow default)
+
+;; Xattr discriminators: allow /private/tmp/foo, deny /private/tmp/bar.
+(allow file-read-xattr (literal "/private/tmp/foo"))
+(allow file-write-xattr (literal "/private/tmp/foo"))
+(deny file-read-xattr (literal "/private/tmp/bar"))
+(deny file-write-xattr (literal "/private/tmp/bar"))

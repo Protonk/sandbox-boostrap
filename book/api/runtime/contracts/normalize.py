@@ -16,6 +16,7 @@ from __future__ import annotations
 
 from dataclasses import asdict
 import json
+import os
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Mapping, Optional
 
@@ -165,6 +166,247 @@ def _validate_probe_contract(
         if sbpl_markers:
             raise AssertionError("failure_stage=preflight but sbpl-apply markers are present")
 
+
+def _index_baseline_results(
+    baseline_results: Optional[Mapping[str, Any]]
+) -> tuple[Dict[tuple[str, str], Mapping[str, Any]], Dict[tuple[str, str, Optional[str]], Mapping[str, Any]]]:
+    by_name: Dict[tuple[str, str], Mapping[str, Any]] = {}
+    by_key: Dict[tuple[str, str, Optional[str]], Mapping[str, Any]] = {}
+    if not baseline_results:
+        return by_name, by_key
+    rows = baseline_results.get("results") or []
+    for row in rows:
+        if not isinstance(row, Mapping):
+            continue
+        profile_id = row.get("profile_id")
+        probe_name = row.get("probe_name") or row.get("name")
+        op = row.get("operation")
+        target = row.get("target")
+        if isinstance(profile_id, str) and isinstance(probe_name, str):
+            by_name[(profile_id, probe_name)] = row
+        if isinstance(profile_id, str) and isinstance(op, str):
+            by_key[(profile_id, op, str(target) if target is not None else None)] = row
+    return by_name, by_key
+
+
+def _lookup_baseline_row(
+    by_name: Mapping[tuple[str, str], Mapping[str, Any]],
+    by_key: Mapping[tuple[str, str, Optional[str]], Mapping[str, Any]],
+    *,
+    profile_id: str,
+    probe_name: Optional[str],
+    operation: Optional[str],
+    target: Optional[str],
+) -> Optional[Mapping[str, Any]]:
+    if probe_name:
+        row = by_name.get((profile_id, probe_name))
+        if row is not None:
+            return row
+    if operation:
+        return by_key.get((profile_id, operation, target))
+    return None
+
+
+def _policy_layers_for_observation(
+    *,
+    baseline_row: Optional[Mapping[str, Any]],
+    scenario_decision: Optional[str],
+    runtime_status: Optional[str],
+    failure_stage: Optional[str],
+    failure_kind: Optional[str],
+) -> Dict[str, Any]:
+    platform_status = None
+    platform_error = None
+    platform_exit = None
+    platform_decision = "unknown"
+    platform_source = "baseline_missing"
+    if baseline_row:
+        platform_status = baseline_row.get("status")
+        platform_error = baseline_row.get("error")
+        platform_exit = baseline_row.get("exit_code")
+        platform_source = "baseline"
+        if platform_status in {"allow", "deny"}:
+            platform_decision = platform_status
+
+    process_decision = scenario_decision if scenario_decision in {"allow", "deny"} else "unknown"
+    if failure_stage in {"apply", "bootstrap", "preflight"}:
+        process_decision = "unknown"
+
+    effective_decision = process_decision
+    attribution = "unknown"
+    if platform_decision == "deny":
+        effective_decision = "deny"
+        attribution = "platform_policy"
+    elif platform_decision == "allow":
+        if process_decision == "deny":
+            effective_decision = "deny"
+            attribution = "process_policy"
+        elif process_decision == "allow":
+            effective_decision = "allow"
+            attribution = "allow"
+
+    return {
+        "platform_policy": {
+            "decision": platform_decision,
+            "status": platform_status,
+            "source": platform_source,
+            "error": platform_error,
+            "exit_code": platform_exit,
+        },
+        "process_policy": {
+            "decision": process_decision,
+            "status": runtime_status,
+            "failure_stage": failure_stage,
+            "failure_kind": failure_kind,
+        },
+        "effective_decision": effective_decision,
+        "attribution": attribution,
+    }
+
+
+def _tcc_sensitive(operation: Optional[str], target: Optional[str]) -> bool:
+    if operation in {"device-camera", "device-microphone", "device-mic"}:
+        return True
+    if not target or not isinstance(target, str) or not target.startswith("/"):
+        return False
+    home = os.path.expanduser("~")
+    if not home or not home.startswith("/"):
+        return False
+    for folder in ("Documents", "Downloads", "Desktop"):
+        prefix = os.path.join(home, folder)
+        if target == prefix or target.startswith(prefix + "/"):
+            return True
+    return False
+
+
+def _tcc_status_from_baseline(baseline_row: Optional[Mapping[str, Any]]) -> str:
+    if not baseline_row:
+        return "unknown"
+    if baseline_row.get("error") == "timeout":
+        return "prompt_or_timeout"
+    status = baseline_row.get("status")
+    if status in {"allow", "deny"}:
+        return status
+    return "unknown"
+
+
+def _tcc_status_from_scenario(
+    scenario_decision: Optional[str],
+    failure_stage: Optional[str],
+    failure_kind: Optional[str],
+) -> str:
+    if failure_stage in {"apply", "bootstrap", "preflight"}:
+        return "unknown"
+    if failure_kind == "probe_timeout":
+        return "prompt_or_timeout"
+    if scenario_decision in {"allow", "deny"}:
+        return scenario_decision
+    return "unknown"
+
+
+def _tcc_confounder_for_observation(
+    *,
+    operation: Optional[str],
+    target: Optional[str],
+    baseline_row: Optional[Mapping[str, Any]],
+    scenario_decision: Optional[str],
+    failure_stage: Optional[str],
+    failure_kind: Optional[str],
+) -> Optional[Dict[str, Any]]:
+    if not _tcc_sensitive(operation, target):
+        return None
+    baseline_status = _tcc_status_from_baseline(baseline_row)
+    scenario_status = _tcc_status_from_scenario(scenario_decision, failure_stage, failure_kind)
+    attribution = "unknown"
+    if baseline_status in {"deny", "prompt_or_timeout"}:
+        attribution = "tcc_or_platform"
+    elif baseline_status == "allow" and scenario_status in {"deny", "prompt_or_timeout"}:
+        attribution = "sandbox_or_other"
+    elif baseline_status == "allow" and scenario_status == "allow":
+        attribution = "allow"
+    return {
+        "sensitive": True,
+        "baseline_status": baseline_status,
+        "scenario_status": scenario_status,
+        "attribution": attribution,
+    }
+
+
+def _callout_op_candidates(operation: Optional[str]) -> List[str]:
+    if not operation:
+        return []
+    if operation == "file-read*":
+        return ["file-read-data", "file-read*"]
+    if operation == "file-write*":
+        return ["file-write-data", "file-write*"]
+    return [operation]
+
+
+def _sandbox_check_prepass(
+    callouts: Optional[List[Dict[str, Any]]],
+    operation: Optional[str],
+    target: Optional[str],
+) -> Optional[Dict[str, Any]]:
+    if not callouts:
+        return None
+    def _pack(marker: Mapping[str, Any]) -> Dict[str, Any]:
+        return {
+            "stage": marker.get("stage"),
+            "api": marker.get("api"),
+            "operation": marker.get("operation"),
+            "argument": marker.get("argument"),
+            "filter_type": marker.get("filter_type"),
+            "filter_type_name": marker.get("filter_type_name"),
+            "decision": marker.get("decision"),
+            "rc": marker.get("rc"),
+            "errno": marker.get("errno"),
+            "no_report": marker.get("no_report"),
+            "no_report_reason": marker.get("no_report_reason"),
+            "canonicalization": marker.get("canonicalization"),
+            "canonical_flag_used": marker.get("canonical_flag_used"),
+            "canonical_flag_reason": marker.get("canonical_flag_reason"),
+            "token_status": marker.get("token_status"),
+            "token_mach_kr": marker.get("token_mach_kr"),
+        }
+    candidates: List[Dict[str, Any]] = []
+    op_candidates = set(_callout_op_candidates(operation))
+    for marker in callouts:
+        if marker.get("stage") not in {"pre_syscall", "preflight", "bootstrap_exec"}:
+            continue
+        if op_candidates and marker.get("operation") not in op_candidates:
+            continue
+        if target is not None and marker.get("argument") not in {None, target}:
+            continue
+        candidates.append(marker)
+    if not candidates:
+        return None
+    if len(candidates) == 1:
+        return _pack(candidates[0])
+    primary = next((c for c in candidates if c.get("canonicalization") == "raw"), candidates[0])
+    return {
+        "primary": _pack(primary),
+        "variants": [_pack(c) for c in candidates],
+    }
+
+
+def _resource_hygiene(runtime_result: Mapping[str, Any]) -> Optional[Dict[str, Any]]:
+    record = runtime_result.get("resource_hygiene")
+    if isinstance(record, Mapping):
+        return dict(record)
+    runner = runtime_result.get("runner_info")
+    if not isinstance(runner, Mapping):
+        return None
+    apply_model = runner.get("apply_model")
+    apply_timing = runner.get("apply_timing")
+    preexisting = runner.get("preexisting_sandbox_suspected")
+    if apply_model is None and apply_timing is None and preexisting is None:
+        return None
+    return {
+        "apply_model": apply_model,
+        "apply_timing": apply_timing,
+        "preexisting_sandbox_suspected": preexisting,
+    }
+
 def derive_expectation_id(profile_id: str, operation: Optional[str], target: Optional[str]) -> str:
     """
     Fallback expectation identifier when one is not present in the matrix.
@@ -244,6 +486,7 @@ def _expectation_for(
 def normalize_matrix(
     expected_matrix: Mapping[str, Any],
     runtime_results: Mapping[str, Any],
+    baseline_results: Optional[Mapping[str, Any]] = None,
     world_id: Optional[str] = None,
     harness_version: Optional[str] = None,
     run_id: Optional[str] = None,
@@ -260,6 +503,7 @@ def normalize_matrix(
 
     resolved_world = world_id or expected_matrix.get("world_id") or runtime_results.get("world_id") or models.WORLD_ID
     expectations_idx = _index_expectations(expected_matrix or {})
+    baseline_by_name, baseline_by_key = _index_baseline_results(baseline_results)
 
     observations: List[models.RuntimeObservation] = []
     for profile_id, profile_result in (runtime_results or {}).items():
@@ -290,6 +534,14 @@ def normalize_matrix(
                 runtime_result.setdefault("failure_kind", "probe_errno")
             _validate_probe_contract(runtime_result, stderr_raw)
             apply_report = runtime_result.get("apply_report")
+            baseline_row = _lookup_baseline_row(
+                baseline_by_name,
+                baseline_by_key,
+                profile_id=profile_id,
+                probe_name=probe_name,
+                operation=op,
+                target=target,
+            )
             stderr_canonical = _strip_sbpl_apply_markers(stderr_raw)
             rt_contract.assert_no_tool_markers_in_stderr(stderr_canonical)
 
@@ -321,12 +573,34 @@ def normalize_matrix(
                     match=match,
                     primary_intent=probe.get("primary_intent"),
                     reached_primary_op=probe.get("reached_primary_op"),
+                    intended_op_witnessed=runtime_result.get("intended_op_witnessed"),
                     first_denial_op=probe.get("first_denial_op"),
                     first_denial_filters=probe.get("first_denial_filters"),
                     decision_path=probe.get("decision_path"),
                     runtime_status=runtime_result.get("status"),
                     errno=runtime_result.get("errno"),
                     errno_name=None,
+                    policy_layers=_policy_layers_for_observation(
+                        baseline_row=baseline_row,
+                        scenario_decision=actual_decision,
+                        runtime_status=runtime_result.get("status"),
+                        failure_stage=runtime_result.get("failure_stage"),
+                        failure_kind=runtime_result.get("failure_kind"),
+                    ),
+                    tcc_confounder=_tcc_confounder_for_observation(
+                        operation=op,
+                        target=target,
+                        baseline_row=baseline_row,
+                        scenario_decision=actual_decision,
+                        failure_stage=runtime_result.get("failure_stage"),
+                        failure_kind=runtime_result.get("failure_kind"),
+                    ),
+                    sandbox_check_prepass=_sandbox_check_prepass(
+                        runtime_result.get("seatbelt_callouts"),
+                        op,
+                        target,
+                    ),
+                    resource_hygiene=_resource_hygiene(runtime_result),
                     failure_stage=runtime_result.get("failure_stage"),
                     failure_kind=runtime_result.get("failure_kind"),
                     apply_report=apply_report,
@@ -373,6 +647,7 @@ def write_observations(observations: Iterable[models.RuntimeObservation], out_pa
 def normalize_matrix_paths(
     expected_matrix_path: Path | str,
     runtime_results_path: Path | str,
+    baseline_results_path: Optional[Path | str] = None,
     world_id: Optional[str] = None,
     harness_version: Optional[str] = None,
     run_id: Optional[str] = None,
@@ -383,24 +658,36 @@ def normalize_matrix_paths(
 
     expected_doc = load_json(expected_matrix_path)
     runtime_doc = load_json(runtime_results_path)
-    return normalize_matrix(expected_doc, runtime_doc, world_id=world_id, harness_version=harness_version, run_id=run_id)
+    baseline_doc = load_json(baseline_results_path) if baseline_results_path else None
+    return normalize_matrix(
+        expected_doc,
+        runtime_doc,
+        baseline_results=baseline_doc,
+        world_id=world_id,
+        harness_version=harness_version,
+        run_id=run_id,
+    )
 
 
 def write_matrix_observations(
     expected_matrix_path: Path | str,
     runtime_results_path: Path | str,
-    out_path: Path | str,
+    out_path: Path | str | None = None,
     world_id: Optional[str] = None,
     harness_version: Optional[str] = None,
     run_id: Optional[str] = None,
+    baseline_results_path: Optional[Path | str] = None,
 ) -> Path:
     """
     Normalize events from disk and write them as a JSON array.
     """
 
+    if out_path is None:
+        raise ValueError("out_path is required")
     observations = normalize_matrix_paths(
         expected_matrix_path,
         runtime_results_path,
+        baseline_results_path=baseline_results_path,
         world_id=world_id,
         harness_version=harness_version,
         run_id=run_id,
@@ -414,6 +701,7 @@ def normalize_metadata_results(
     harness_version: Optional[str] = None,
     runner_info: Optional[Mapping[str, Any]] = None,
     run_id: Optional[str] = None,
+    baseline_results: Optional[Mapping[str, Any]] = None,
 ) -> List[models.RuntimeObservation]:
     """
     Normalize metadata-runner experiment output into RuntimeObservation rows.
@@ -433,6 +721,7 @@ def normalize_metadata_results(
     if not isinstance(rows, list):
         raise AssertionError("metadata-runner runtime_results.json should contain a results list")
 
+    baseline_by_name, baseline_by_key = _index_baseline_results(baseline_results)
     observations: List[models.RuntimeObservation] = []
     for row in rows:
         if not isinstance(row, Mapping):
@@ -588,6 +877,37 @@ def normalize_metadata_results(
                 runtime_status=runtime_status,
                 errno=observed_errno,
                 errno_name=str(row.get("errno_name")) if isinstance(row.get("errno_name"), str) else None,
+                policy_layers=_policy_layers_for_observation(
+                    baseline_row=_lookup_baseline_row(
+                        baseline_by_name,
+                        baseline_by_key,
+                        profile_id=profile_id,
+                        probe_name=probe_name,
+                        operation=op,
+                        target=target,
+                    ),
+                    scenario_decision=actual,
+                    runtime_status=runtime_status,
+                    failure_stage=failure_stage,
+                    failure_kind=failure_kind,
+                ),
+                tcc_confounder=_tcc_confounder_for_observation(
+                    operation=op,
+                    target=target,
+                    baseline_row=_lookup_baseline_row(
+                        baseline_by_name,
+                        baseline_by_key,
+                        profile_id=profile_id,
+                        probe_name=probe_name,
+                        operation=op,
+                        target=target,
+                    ),
+                    scenario_decision=actual,
+                    failure_stage=failure_stage,
+                    failure_kind=failure_kind,
+                ),
+                sandbox_check_prepass=_sandbox_check_prepass(seatbelt_markers or None, op, target),
+                resource_hygiene=_resource_hygiene(runtime_result),
                 failure_stage=failure_stage,
                 failure_kind=failure_kind,
                 apply_report=apply_report,

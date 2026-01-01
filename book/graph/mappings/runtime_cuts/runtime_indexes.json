@@ -40,7 +40,12 @@
       "adv:struct_nested:allow-ok-root",
       "adv:struct_nested:allow-ok-deep",
       "adv:struct_nested:deny-blocked",
-      "adv:struct_nested:deny-outside"
+      "adv:struct_nested:deny-outside",
+      "adv:path_edges_private:allow-private",
+      "adv:path_edges_private:allow-private-subpath",
+      "adv:path_edges_private:allow-tmp",
+      "adv:path_edges_private:allow-tmp-subpath",
+      "adv:path_edges_private:deny-dotdot"
     ],
     "file-write*": [
       "bucket4:v1_read:write_/etc/hosts",
@@ -64,7 +69,12 @@
       "adv:struct_nested:write-ok-root",
       "adv:struct_nested:write-ok-deep",
       "adv:struct_nested:write-blocked",
-      "adv:struct_nested:write-outside"
+      "adv:struct_nested:write-outside",
+      "adv:path_edges_private:write-private",
+      "adv:path_edges_private:write-private-subpath",
+      "adv:path_edges_private:write-tmp",
+      "adv:path_edges_private:write-tmp-subpath",
+      "adv:path_edges_private:write-dotdot"
     ],
     "network-outbound": [
       "adv:flow_divert_partial_tcp:tcp-loopback",
@@ -96,6 +106,14 @@
       "anchor-filter-map:cfprefsd:bogus_baseline",
       "anchor-filter-map:cfprefsd:C1_deny_global",
       "anchor-filter-map:cfprefsd:C2_deny_local"
+    ],
+    "file-read-xattr": [
+      "adv:xattr:allow-foo-read",
+      "adv:xattr:deny-bar-read"
+    ],
+    "file-write-xattr": [
+      "adv:xattr:allow-foo-write",
+      "adv:xattr:deny-bar-write"
     ],
     "darwin-notification-post": [
       "hardened:notifications:deny-allowed-darwin",
@@ -341,6 +359,48 @@
     ],
     "adv:struct_nested:write-outside": [
       "book/graph/mappings/runtime_cuts/traces/adv_struct_nested_write-outside.jsonl"
+    ],
+    "adv:path_edges_private:allow-private": [
+      "book/graph/mappings/runtime_cuts/traces/adv_path_edges_private_allow-private.jsonl"
+    ],
+    "adv:path_edges_private:allow-private-subpath": [
+      "book/graph/mappings/runtime_cuts/traces/adv_path_edges_private_allow-private-subpath.jsonl"
+    ],
+    "adv:path_edges_private:allow-tmp": [
+      "book/graph/mappings/runtime_cuts/traces/adv_path_edges_private_allow-tmp.jsonl"
+    ],
+    "adv:path_edges_private:allow-tmp-subpath": [
+      "book/graph/mappings/runtime_cuts/traces/adv_path_edges_private_allow-tmp-subpath.jsonl"
+    ],
+    "adv:path_edges_private:deny-dotdot": [
+      "book/graph/mappings/runtime_cuts/traces/adv_path_edges_private_deny-dotdot.jsonl"
+    ],
+    "adv:path_edges_private:write-private": [
+      "book/graph/mappings/runtime_cuts/traces/adv_path_edges_private_write-private.jsonl"
+    ],
+    "adv:path_edges_private:write-private-subpath": [
+      "book/graph/mappings/runtime_cuts/traces/adv_path_edges_private_write-private-subpath.jsonl"
+    ],
+    "adv:path_edges_private:write-tmp": [
+      "book/graph/mappings/runtime_cuts/traces/adv_path_edges_private_write-tmp.jsonl"
+    ],
+    "adv:path_edges_private:write-tmp-subpath": [
+      "book/graph/mappings/runtime_cuts/traces/adv_path_edges_private_write-tmp-subpath.jsonl"
+    ],
+    "adv:path_edges_private:write-dotdot": [
+      "book/graph/mappings/runtime_cuts/traces/adv_path_edges_private_write-dotdot.jsonl"
+    ],
+    "adv:xattr:allow-foo-read": [
+      "book/graph/mappings/runtime_cuts/traces/adv_xattr_allow-foo-read.jsonl"
+    ],
+    "adv:xattr:deny-bar-read": [
+      "book/graph/mappings/runtime_cuts/traces/adv_xattr_deny-bar-read.jsonl"
+    ],
+    "adv:xattr:allow-foo-write": [
+      "book/graph/mappings/runtime_cuts/traces/adv_xattr_allow-foo-write.jsonl"
+    ],
+    "adv:xattr:deny-bar-write": [
+      "book/graph/mappings/runtime_cuts/traces/adv_xattr_deny-bar-write.jsonl"
     ],
     "hardened:mach_lookup:deny-cfprefsd": [
       "book/graph/mappings/runtime_cuts/traces/hardened_mach_lookup_deny-cfprefsd.jsonl"

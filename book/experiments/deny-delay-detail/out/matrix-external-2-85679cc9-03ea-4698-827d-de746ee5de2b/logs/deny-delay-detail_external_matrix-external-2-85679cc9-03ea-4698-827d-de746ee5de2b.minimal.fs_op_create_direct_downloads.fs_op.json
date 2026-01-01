@@ -1,0 +1,63 @@
+{
+  "data": {
+    "argv": [
+      "--op",
+      "create",
+      "--path",
+      "/Users/achyland/Downloads/atlas_matrixextern.txt",
+      "--allow-unsafe-path"
+    ],
+    "correlation_id": "25441668-EC2D-4942-848C-ABC5FC46EE51",
+    "details": {
+      "base_dir": "",
+      "bundle_id": "com.yourteam.policy-witness.ProbeService_minimal",
+      "cleanup_mode": "default",
+      "correlation_id": "25441668-EC2D-4942-848C-ABC5FC46EE51",
+      "cwd": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal/Data",
+      "duration_ms": "3",
+      "file_path": "/Users/achyland/Downloads/atlas_matrixextern.txt",
+      "harness_dir": "",
+      "home_dir": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal/Data",
+      "op": "create",
+      "path_class": "",
+      "path_mode": "direct_path",
+      "pid": "29281",
+      "probe_family": "fs_op",
+      "probe_pid": "29281",
+      "process_name": "ProbeService_minimal",
+      "run_dir": "",
+      "service_pid": "29281",
+      "session_token": "717E3E5D-6FE2-468D-9D3A-087873587474",
+      "target": "specimen_file",
+      "tmp_dir": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal/Data/tmp/"
+    },
+    "ended_at_iso8601": "2026-01-01T05:12:27.914Z",
+    "errno": 1,
+    "error": "Error Domain=NSCocoaErrorDomain Code=513 \"You don\u2019t have permission to save the file \u201catlas_matrixextern.txt\u201d in the folder \u201cDownloads\u201d.\" UserInfo={NSFilePath=/Users/achyland/Downloads/atlas_matrixextern.txt, NSUnderlyingError=0x600003edcae0 {Error Domain=NSPOSIXErrorDomain Code=1 \"Operation not permitted\"}}",
+    "normalized_outcome": "permission_error",
+    "plan_id": "deny-delay-detail:external:matrix-external-2-85679cc9-03ea-4698-827d-de746ee5de2b",
+    "probe_id": "fs_op",
+    "rc": 1,
+    "row_id": "minimal.fs_op_create_direct_downloads",
+    "schema_version": 1,
+    "service_build": "2",
+    "service_bundle_id": "com.yourteam.policy-witness.ProbeService_minimal",
+    "service_name": "ProbeService_minimal",
+    "service_version": "2.0.0",
+    "started_at_iso8601": "2026-01-01T05:12:27.911Z",
+    "stderr": "",
+    "stdout": "",
+    "thread_id": "4611"
+  },
+  "generated_at_unix_ms": 1767244347916,
+  "kind": "probe_response",
+  "result": {
+    "errno": 1,
+    "error": "Error Domain=NSCocoaErrorDomain Code=513 \"You don\u2019t have permission to save the file \u201catlas_matrixextern.txt\u201d in the folder \u201cDownloads\u201d.\" UserInfo={NSFilePath=/Users/achyland/Downloads/atlas_matrixextern.txt, NSUnderlyingError=0x600003edcae0 {Error Domain=NSPOSIXErrorDomain Code=1 \"Operation not permitted\"}}",
+    "exit_code": 1,
+    "normalized_outcome": "permission_error",
+    "ok": false,
+    "rc": 1
+  },
+  "schema_version": 1
+}

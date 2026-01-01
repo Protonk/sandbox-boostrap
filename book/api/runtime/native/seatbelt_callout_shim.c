@@ -21,6 +21,8 @@ enum {
     SBL_FILTER_LOCAL_NAME = 6,
     SBL_FILTER_RIGHT_NAME = 26,
     SBL_FILTER_PREFERENCE_DOMAIN = 27,
+    SBL_FILTER_NOTIFICATION = 34,
+    SBL_FILTER_XPC_SERVICE_NAME = 49,
 };
 
 typedef int (*sbl_sandbox_check_by_audit_token_fn)(audit_token_t *token, const char *operation, int type, ...);
@@ -57,6 +59,17 @@ static const int *sbl_load_sandbox_check_no_report_flag(void) {
     return flag;
 }
 
+static const int *sbl_load_sandbox_check_canonical_flag(void) {
+    static const int *flag = NULL;
+    static int attempted = 0;
+    if (attempted) return flag;
+    attempted = 1;
+    void *handle = sbl_load_libsystem_sandbox_handle();
+    if (!handle) return NULL;
+    flag = (const int *)dlsym(handle, "SANDBOX_CHECK_CANONICAL");
+    return flag;
+}
+
 static int sbl_get_self_audit_token(audit_token_t *out, int *mach_kr_out) {
     if (!out) return -1;
     mach_msg_type_number_t count = TASK_AUDIT_TOKEN_COUNT;
@@ -73,10 +86,13 @@ int sbl_seatbelt_callout_self(
     int filter_type,
     const char *arg0,
     const char *arg1,
+    int canonicalize,
     int *errno_out,
     int *type_used_out,
     int *no_report_used_out,
     int *no_report_reason_out,
+    int *canonical_used_out,
+    int *canonical_reason_out,
     int *token_mach_kr_out
 ) {
     (void)arg1;
@@ -84,6 +100,8 @@ int sbl_seatbelt_callout_self(
     if (type_used_out) *type_used_out = filter_type;
     if (no_report_used_out) *no_report_used_out = 0;
     if (no_report_reason_out) *no_report_reason_out = SBL_NO_REPORT_SYMBOL_MISSING;
+    if (canonical_used_out) *canonical_used_out = 0;
+    if (canonical_reason_out) *canonical_reason_out = SBL_CANONICAL_NOT_REQUESTED;
     if (token_mach_kr_out) *token_mach_kr_out = 0;
 
     if (!operation || !*operation) {
@@ -105,30 +123,35 @@ int sbl_seatbelt_callout_self(
         return -2;
     }
 
-    switch (filter_type) {
-    case SBL_FILTER_PATH:
-    case SBL_FILTER_GLOBAL_NAME:
-    case SBL_FILTER_LOCAL_NAME:
-    case SBL_FILTER_RIGHT_NAME:
-    case SBL_FILTER_PREFERENCE_DOMAIN:
-        if (!arg0) {
-            if (errno_out) *errno_out = EINVAL;
-            return -2;
-        }
-        break;
-    default:
-        if (errno_out) *errno_out = ENOTSUP;
+    if (!arg0) {
+        if (errno_out) *errno_out = EINVAL;
         return -2;
     }
 
     int type_used = filter_type;
     int no_report_used = 0;
     int no_report_reason = SBL_NO_REPORT_SYMBOL_MISSING;
+    int canonical_used = 0;
+    int canonical_reason = SBL_CANONICAL_NOT_REQUESTED;
+    if (canonicalize) {
+        canonical_reason = SBL_CANONICAL_SYMBOL_MISSING;
+        const int *canonical_flag = sbl_load_sandbox_check_canonical_flag();
+        if (canonical_flag) {
+            int flag_value = *canonical_flag;
+            if (flag_value != 0) {
+                type_used |= flag_value;
+                canonical_used = 1;
+                canonical_reason = SBL_CANONICAL_USED;
+            } else {
+                canonical_reason = SBL_CANONICAL_FLAG_ZERO;
+            }
+        }
+    }
     const int *no_report_flag = sbl_load_sandbox_check_no_report_flag();
     if (no_report_flag) {
         int flag_value = *no_report_flag;
         if (flag_value != 0) {
-            type_used = filter_type | flag_value;
+            type_used = type_used | flag_value;
             no_report_used = 1;
             no_report_reason = SBL_NO_REPORT_USED;
         } else {
@@ -138,6 +161,8 @@ int sbl_seatbelt_callout_self(
     if (type_used_out) *type_used_out = type_used;
     if (no_report_used_out) *no_report_used_out = no_report_used;
     if (no_report_reason_out) *no_report_reason_out = no_report_reason;
+    if (canonical_used_out) *canonical_used_out = canonical_used;
+    if (canonical_reason_out) *canonical_reason_out = canonical_reason;
 
     errno = 0;
     int rc = fn(&token, operation, type_used, arg0);

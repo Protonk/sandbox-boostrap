@@ -1,0 +1,43 @@
+{
+  "data": {
+    "correlation_id": "75B1CFB1-EA8F-4899-AA21-2D86FD01E733",
+    "deny_lines": [
+      "2025-12-31 21:12:30.912109-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_temporary_exception(29417) deny(1) network-outbound remote:*:9"
+    ],
+    "duration_ms": null,
+    "end": "2025-12-31 21:12:32",
+    "last": null,
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    \n2025-12-31 21:12:30.912109-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_temporary_exception(29417) deny(1) network-outbound remote:*:9",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": true,
+    "observed_lines": 2,
+    "observer_schema_version": 1,
+    "pid": 29417,
+    "plan_id": "deny-delay-detail:external:matrix-external-2-85679cc9-03ea-4698-827d-de746ee5de2b",
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_temporary_exception(29417)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"29417\")))",
+    "process_name": "ProbeService_temporary_exception",
+    "row_id": "temporary_exception.net_op_tcp_connect_control",
+    "start": "2025-12-31 21:12:28",
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767244350991,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

@@ -1,0 +1,41 @@
+{
+  "cmd_duration_s": 0.7043168544769287,
+  "cmd_finished_at_unix_s": 1767251476.398765,
+  "cmd_started_at_unix_s": 1767251475.6944482,
+  "command": [
+    "/usr/bin/log",
+    "show",
+    "--style",
+    "syslog",
+    "--last",
+    "10s",
+    "--predicate",
+    "((processID == 0) AND (senderImagePath CONTAINS \"/Sandbox\")) OR (subsystem == \"com.apple.sandbox.reporting\")"
+  ],
+  "deny_lines": [
+    "2025-12-31 23:11:10.936932-0800  localhost kernel[0]: (Sandbox) Sandbox: codex-aarch64-apple-darwin(42217) deny(1) sysctl-read kern.bootargs",
+    "2025-12-31 23:11:10.937644-0800  localhost kernel[0]: (Sandbox) Sandbox: codex-aarch64-apple-darwin(42217) deny(1) file-write-data /dev/dtracehelper",
+    "2025-12-31 23:11:10.940249-0800  localhost kernel[0]: (Sandbox) Sandbox: codex-aarch64-apple-darwin(42217) deny(1) mach-lookup com.apple.system.notification_center",
+    "2025-12-31 23:11:10.940381-0800  localhost kernel[0]: (Sandbox) Sandbox: codex-aarch64-apple-darwin(42217) deny(1) mach-lookup com.apple.logd",
+    "2025-12-31 23:11:13.849722-0800  localhost kernel[0]: (Sandbox) Sandbox: ContextStoreAgent(33526) allow file-read-data /Applications/Visual Studio Code.app",
+    "2025-12-31 23:11:13.849846-0800  localhost kernel[0]: (Sandbox) Sandbox: ContextStoreAgent(33526) allow file-read-data /Applications/Visual Studio Code.app/Contents",
+    "2025-12-31 23:11:13.849935-0800  localhost kernel[0]: (Sandbox) Sandbox: ContextStoreAgent(33526) allow file-read-data /Applications/Visual Studio Code.app/Contents/Info.plist",
+    "2025-12-31 23:11:13.865797-0800  localhost kernel[0]: (Sandbox) Sandbox: ContextStoreAgent(33526) allow file-read-data /Applications/Visual Studio Code.app",
+    "2025-12-31 23:11:13.866041-0800  localhost kernel[0]: (Sandbox) Sandbox: ContextStoreAgent(33526) allow file-read-data /Applications/Visual Studio Code.app/Contents/MacOS/Electron",
+    "2025-12-31 23:11:13.866162-0800  localhost kernel[0]: (Sandbox) 1 duplicate report for Sandbox: ContextStoreAgent(33526) allow file-read-data /Applications/Visual Studio Code.app/Contents/MacOS/Electron",
+    "2025-12-31 23:11:13.866167-0800  localhost kernel[0]: (Sandbox) Sandbox: ContextStoreAgent(33526) allow file-read-xattr /Applications/Visual Studio Code.app/Contents/MacOS/Electron",
+    "2025-12-31 23:11:13.875054-0800  localhost kernel[0]: (Sandbox) Sandbox: ContextStoreAgent(33526) allow file-read-data /Applications/Visual Studio Code.app/Contents/Info.plist",
+    "2025-12-31 23:11:15.840647-0800  localhost kernel[0]: (Sandbox) Sandbox: logd_helper(86423) deny(1) file-read-data /Applications/GitHub Desktop.app/Contents/Resources/app/keytar.node",
+    "2025-12-31 23:11:15.840787-0800  localhost kernel[0]: (Sandbox) Sandbox: logd_helper(86423) deny(1) file-read-data /Applications/GitHub Desktop.app/Contents/Resources/app/fs_admin.node"
+  ],
+  "deny_lines_pid": [],
+  "exit_code": 0,
+  "observed_deny": true,
+  "observed_deny_pid": false,
+  "observed_pid": 42437,
+  "predicate": "((processID == 0) AND (senderImagePath CONTAINS \"/Sandbox\")) OR (subsystem == \"com.apple.sandbox.reporting\")",
+  "signal_id": "S5",
+  "stderr": "",
+  "stdout": "Timestamp                       (process)[PID]    \n2025-12-31 23:11:10.936932-0800  localhost kernel[0]: (Sandbox) Sandbox: codex-aarch64-apple-darwin(42217) deny(1) sysctl-read kern.bootargs\n2025-12-31 23:11:10.937644-0800  localhost kernel[0]: (Sandbox) Sandbox: codex-aarch64-apple-darwin(42217) deny(1) file-write-data /dev/dtracehelper\n2025-12-31 23:11:10.940249-0800  localhost kernel[0]: (Sandbox) Sandbox: codex-aarch64-apple-darwin(42217) deny(1) mach-lookup com.apple.system.notification_center\n2025-12-31 23:11:10.940381-0800  localhost kernel[0]: (Sandbox) Sandbox: codex-aarch64-apple-darwin(42217) deny(1) mach-lookup com.apple.logd\n2025-12-31 23:11:13.849722-0800  localhost kernel[0]: (Sandbox) Sandbox: ContextStoreAgent(33526) allow file-read-data /Applications/Visual Studio Code.app\n2025-12-31 23:11:13.849846-0800  localhost kernel[0]: (Sandbox) Sandbox: ContextStoreAgent(33526) allow file-read-data /Applications/Visual Studio Code.app/Contents\n2025-12-31 23:11:13.849935-0800  localhost kernel[0]: (Sandbox) Sandbox: ContextStoreAgent(33526) allow file-read-data /Applications/Visual Studio Code.app/Contents/Info.plist\n2025-12-31 23:11:13.865797-0800  localhost kernel[0]: (Sandbox) Sandbox: ContextStoreAgent(33526) allow file-read-data /Applications/Visual Studio Code.app\n2025-12-31 23:11:13.866041-0800  localhost kernel[0]: (Sandbox) Sandbox: ContextStoreAgent(33526) allow file-read-data /Applications/Visual Studio Code.app/Contents/MacOS/Electron\n2025-12-31 23:11:13.866162-0800  localhost kernel[0]: (Sandbox) 1 duplicate report for Sandbox: ContextStoreAgent(33526) allow file-read-data /Applications/Visual Studio Code.app/Contents/MacOS/Electron\n2025-12-31 23:11:13.866167-0800  localhost kernel[0]: (Sandbox) Sandbox: ContextStoreAgent(33526) allow file-read-xattr /Applications/Visual Studio Code.app/Contents/MacOS/Electron\n2025-12-31 23:11:13.875054-0800  localhost kernel[0]: (Sandbox) Sandbox: ContextStoreAgent(33526) allow file-read-data /Applications/Visual Studio Code.app/Contents/Info.plist\n2025-12-31 23:11:15.840647-0800  localhost kernel[0]: (Sandbox) Sandbox: logd_helper(86423) deny(1) file-read-data /Applications/GitHub Desktop.app/Contents/Resources/app/keytar.node\n2025-12-31 23:11:15.840787-0800  localhost kernel[0]: (Sandbox) Sandbox: logd_helper(86423) deny(1) file-read-data /Applications/GitHub Desktop.app/Contents/Resources/app/fs_admin.node\n",
+  "timeout_s": 30.0
+}

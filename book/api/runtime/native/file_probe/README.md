@@ -1,6 +1,6 @@
 # File Probe
 
-Role: minimal C helper that performs a single `open` + `read` or `open` + `write` and reports the result as JSON. Used by runtime probes (e.g., `sbpl-graph-runtime`) as the target process once a profile is applied by `book/tools/sbpl/wrapper/wrapper`.
+Role: minimal C helper that performs a single `open` + `read`, `open` + `write`, or a `searchfs(2)`-backed file search and reports the result as JSON. Used by runtime probes (e.g., `sbpl-graph-runtime`) as the target process once a profile is applied by `book/tools/sbpl/wrapper/wrapper`.
 
 Use when: you need a deterministic, low-noise file access to test allow/deny outcomes under a sandbox profile.
 
@@ -18,6 +18,7 @@ Run examples:
 ```sh
 ./file_probe read /tmp/probe.txt
 ./file_probe write /tmp/probe.txt
+./file_probe search /tmp
 ```
 
 Output: one JSON line like `{"op":"read","path":"/tmp/probe.txt","rc":0,"errno":0}`. Exit code is `0` on success, `1` with `errno` captured in the JSON payload for failures.

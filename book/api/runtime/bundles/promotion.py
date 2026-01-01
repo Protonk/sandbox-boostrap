@@ -181,6 +181,9 @@ def emit_promotion_packet(
     path_witnesses = bundle_dir / "path_witnesses.json"
     if path_witnesses.exists():
         packet["path_witnesses"] = path_utils.to_repo_relative(path_witnesses, repo_root=repo_root)
+    fixtures = bundle_dir / "fixtures.json"
+    if fixtures.exists():
+        packet["fixtures"] = path_utils.to_repo_relative(fixtures, repo_root=repo_root)
     impact_map = bundle_dir / "impact_map.json"
     if impact_map.exists():
         packet["impact_map"] = path_utils.to_repo_relative(impact_map, repo_root=repo_root)

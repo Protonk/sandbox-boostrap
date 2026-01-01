@@ -1,0 +1,25 @@
+{
+  "schema_version": "runtime-tools.summary.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "run_id": "7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a",
+  "status": "partial",
+  "plan_id": "runtime-frontiers.v1",
+  "plan_digest": "dd79153fb3505b585ee30be5526fe82b650b1ceaa01434cd246b1fdd1c26d185",
+  "channel": "launchd_clean",
+  "lanes": {
+    "baseline": true,
+    "oracle": true,
+    "scenario": true
+  },
+  "profile_count": 3,
+  "scenario_count": 19,
+  "expected_profiles": [
+    "frontier:system_ops",
+    "frontier:anchor_filters",
+    "frontier:unknown_ops"
+  ],
+  "mismatch_counts": {
+    "unexpected_deny": 10
+  },
+  "dry_run": false
+}

@@ -8,7 +8,7 @@ from book.api.runtime.analysis import packet_utils
 
 ROOT = path_utils.find_repo_root(Path(__file__))
 PACKET_PATH = ROOT / "book" / "experiments" / "runtime-adversarial" / "out" / "promotion_packet.json"
-GRAPH_PACKET_EXPORTS = ("runtime_results", "run_manifest")
+GRAPH_PACKET_EXPORTS = ("runtime_results", "run_manifest", "path_witnesses")
 
 
 def load_json(path: Path):
@@ -37,6 +37,8 @@ def test_graph_shape_semantics_packet_consumer(tmp_path):
 
     derived_root = tmp_path / ctx.run_id
     summary_path = derived_root / "graph_shape_semantics_summary.json"
+    verdicts_path = derived_root / "graph_shape_semantics_verdicts.json"
+    counterexamples_path = derived_root / "graph_shape_semantics_counterexamples.json"
     receipt_path = derived_root / "consumption_receipt.json"
 
     summary_doc = load_json(summary_path)
@@ -49,6 +51,14 @@ def test_graph_shape_semantics_packet_consumer(tmp_path):
     receipt = load_json(receipt_path)
     outputs = receipt.get("outputs") or {}
     assert outputs.get("summary") == path_utils.to_repo_relative(summary_path, repo_root=ROOT)
+    assert outputs.get("verdicts") == path_utils.to_repo_relative(verdicts_path, repo_root=ROOT)
+    assert outputs.get("counterexamples") == path_utils.to_repo_relative(counterexamples_path, repo_root=ROOT)
+
+    verdicts = load_json(verdicts_path)
+    assert verdicts.get("schema_version") == "graph-shape-vs-semantics.verdicts.v0"
+
+    counterexamples = load_json(counterexamples_path)
+    assert counterexamples.get("schema_version") == "graph-shape-vs-semantics.counterexamples.v0"
 
 
 def _iter_consumer_files() -> list[Path]:

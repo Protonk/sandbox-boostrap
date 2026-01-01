@@ -1,0 +1,61 @@
+{
+  "data": {
+    "argv": [
+      "--op",
+      "tcp_connect",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "9"
+    ],
+    "correlation_id": "DE4EDAE2-44AE-464B-9660-02C3EAECF051",
+    "details": {
+      "attempts": "1",
+      "bundle_id": "com.yourteam.policy-witness.ProbeService_temporary_exception",
+      "correlation_id": "DE4EDAE2-44AE-464B-9660-02C3EAECF051",
+      "cwd": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_temporary_exception/Data",
+      "home_dir": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_temporary_exception/Data",
+      "host": "127.0.0.1",
+      "op": "tcp_connect",
+      "pid": "27245",
+      "port": "9",
+      "probe_family": "net_op",
+      "probe_pid": "27245",
+      "process_name": "ProbeService_temporary_exception",
+      "service_pid": "27245",
+      "session_token": "34F0CB72-D339-4CAD-B8D9-DD005E342ECA",
+      "tmp_dir": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_temporary_exception/Data/tmp/"
+    },
+    "ended_at_iso8601": "2026-01-01T05:06:19.460Z",
+    "errno": 1,
+    "error": "Operation not permitted",
+    "host_sandbox_log_capture": {
+      "error": "missing child_pid for sandbox log capture"
+    },
+    "normalized_outcome": "permission_error",
+    "plan_id": "deny-delay-detail:capture:matrix-capture-1-6dbc5f9b-b07b-4006-bcfa-ce88171561ac",
+    "probe_id": "net_op",
+    "rc": 1,
+    "row_id": "temporary_exception.net_op_tcp_connect_control",
+    "schema_version": 1,
+    "service_build": "2",
+    "service_bundle_id": "com.yourteam.policy-witness.ProbeService_temporary_exception",
+    "service_name": "ProbeService_temporary_exception",
+    "service_version": "2.0.0",
+    "started_at_iso8601": "2026-01-01T05:06:19.460Z",
+    "stderr": "",
+    "stdout": "",
+    "thread_id": "4611"
+  },
+  "generated_at_unix_ms": 1767243979461,
+  "kind": "probe_response",
+  "result": {
+    "errno": 1,
+    "error": "Operation not permitted",
+    "exit_code": 1,
+    "normalized_outcome": "permission_error",
+    "ok": false,
+    "rc": 1
+  },
+  "schema_version": 1
+}

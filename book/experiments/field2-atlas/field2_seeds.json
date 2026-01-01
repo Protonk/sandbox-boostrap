@@ -3,7 +3,9 @@
   "seed_ops": [
     "file-read-data",
     "file-write-data",
-    "mach-lookup"
+    "mach-lookup",
+    "file-read-xattr",
+    "file-write-xattr"
   ],
   "sources": {
     "vocab": "book/graph/mappings/vocab/{ops.json,filters.json}",
@@ -122,6 +124,30 @@
         }
       ],
       "notes": "Nearby static-only candidate riding the same path ops/profiles as seed0; added to exercise atlas growth. No runtime probe yet."
+    },
+    {
+      "field2": 2,
+      "filter_name": "xattr",
+      "target_ops": [
+        "file-read-xattr",
+        "file-write-xattr"
+      ],
+      "anchors": [
+        {
+          "anchor": "/tmp/foo",
+          "status": "blocked",
+          "source": "anchor_filter_map"
+        }
+      ],
+      "system_profiles": [
+        {
+          "profile": "sys:bsd",
+          "tags": {
+            "26": 1
+          }
+        }
+      ],
+      "notes": "xattr appears in sys:bsd (tag 26) and field2 inventory; runtime probes use file-read-xattr/file-write-xattr against /private/tmp fixtures."
     },
     {
       "field2": 2560,

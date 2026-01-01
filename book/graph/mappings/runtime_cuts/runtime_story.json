@@ -17,12 +17,12 @@
       "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json"
     ],
     "input_hashes": {
-      "book/graph/mappings/runtime_cuts/ops.json": "1b022b9c2c3101a2cad1b967baa9e5b034f9479f40d52cb86702dc114fb0834a",
-      "book/graph/mappings/runtime_cuts/scenarios.json": "20fe2e924ec523006e4913777a364a9e2a267c613e7b78816eb6f9742253aa66",
+      "book/graph/mappings/runtime_cuts/ops.json": "01fc96258e6e5d614556d798ecab819cb5d9051f14e35a1a7ab3f7f3f6d56861",
+      "book/graph/mappings/runtime_cuts/scenarios.json": "82c35b19359d4c23dd52c5d4e9d345c7405bdf931d6102dac43cbb7002de3b3f",
       "book/experiments/runtime-checks/out/promotion_packet.json": "662297e9f76b45fe433c47a3b882f2e59c020323ec967a76b0a972cc28dc7f95",
       "book/experiments/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json": "8c042b30534d5129f1879a78d756922d2ef3fa40a002ca23ef1bf8dc27c3676e",
-      "book/experiments/runtime-adversarial/out/promotion_packet.json": "a8a0dd416addbe2ad37e28bd52f9e3b42ddc219cf2bb2e154a38838c634b6faa",
-      "book/experiments/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/run_manifest.json": "24405bc02499f3b9e2aaf1a82b164645afbc12f27c76d6383c5b7a9932391418",
+      "book/experiments/runtime-adversarial/out/promotion_packet.json": "bc35f5e64d6226bc6246dcc1cc66c821c7cfaeb0548b22996ede040899e6760a",
+      "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/run_manifest.json": "967dfcb45bc8981cfd848c60c4d61c5752fde06c42c2f510eacca958f10a28a4",
       "book/experiments/hardened-runtime/out/promotion_packet.json": "5d8f999c2b9f86e80038f61324ca87fc8bb8e72300bc0ee8ce7dc323e821c1b7",
       "book/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json": "654bb48411211bff7809e5df650b87a89e2dc5d9904858c69b493abf74464dd2",
       "book/experiments/anchor-filter-map/out/promotion_packet.json": "3da1176b548091e31d9bed8c9e73bd7c77dc5f8d5b12665ca6a762c27c6e5b13",
@@ -33,21 +33,21 @@
     "run_provenance": {
       "run_ids": [
         "1e641b64-6267-47df-b1c3-b320aa90e675",
-        "c06024a5-5e52-4d38-a989-c3022af8a083",
+        "7fb35590-c5c0-4187-8949-f534fbd43045",
         "62456e46-0901-4345-b02d-f96becc33310",
         "fa90bf31-b6a2-4a0b-bced-78d77be2b89f",
         "83c8343f-44ca-452a-be49-470fb0b5fd3d"
       ],
       "manifests": [
         "book/experiments/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json",
-        "book/experiments/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/run_manifest.json",
+        "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/run_manifest.json",
         "book/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json",
         "book/experiments/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/run_manifest.json",
         "book/experiments/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/run_manifest.json"
       ],
       "repo_root_contexts": [
         "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1e641b64-6267-47df-b1c3-b320aa90e675",
-        "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.c06024a5-5e52-4d38-a989-c3022af8a083",
+        "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7fb35590-c5c0-4187-8949-f534fbd43045",
         "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.62456e46-0901-4345-b02d-f96becc33310",
         "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.fa90bf31-b6a2-4a0b-bced-78d77be2b89f",
         "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.83c8343f-44ca-452a-be49-470fb0b5fd3d"
@@ -59,9 +59,9 @@
       "op_id": 21,
       "op_name": "file-read*",
       "coverage_status": "partial",
-      "probes": 29,
-      "matches": 27,
-      "mismatches": 2,
+      "probes": 34,
+      "matches": 30,
+      "mismatches": 4,
       "examples": [
         {
           "scenario_id": "bucket4:v1_read:read_/etc/hosts",
@@ -103,18 +103,18 @@
         {
           "scenario_id": "adv:path_alias:alias-private",
           "profile_id": "adv:path_alias",
-          "status": "ok",
+          "status": "brittle",
           "results": {
             "total": 1,
-            "matches": 1,
-            "mismatches": 0,
+            "matches": 0,
+            "mismatches": 1,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
               "by_stage": {},
               "by_kind": {}
             },
-            "status": "ok"
+            "status": "brittle"
           },
           "expectations": [
             {
@@ -126,23 +126,36 @@
               "probe_name": "alias-private"
             }
           ],
-          "mismatches": []
+          "mismatches": [
+            {
+              "expectation_id": "adv:path_alias:alias-private",
+              "expected": "allow",
+              "actual": "deny",
+              "operation": "file-read*",
+              "target": "/private/tmp/runtime-adv/alias/allow.txt",
+              "failure_stage": "probe",
+              "failure_kind": "probe_nonzero_exit",
+              "mismatch_type": "unexpected_deny",
+              "violation_summary": null,
+              "stderr": "open target: No such file or directory\n"
+            }
+          ]
         },
         {
           "scenario_id": "adv:path_alias:alias-tmp",
           "profile_id": "adv:path_alias",
-          "status": "ok",
+          "status": "brittle",
           "results": {
             "total": 1,
-            "matches": 1,
-            "mismatches": 0,
+            "matches": 0,
+            "mismatches": 1,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
               "by_stage": {},
               "by_kind": {}
             },
-            "status": "ok"
+            "status": "brittle"
           },
           "expectations": [
             {
@@ -154,7 +167,20 @@
               "probe_name": "alias-tmp"
             }
           ],
-          "mismatches": []
+          "mismatches": [
+            {
+              "expectation_id": "adv:path_alias:alias-tmp",
+              "expected": "allow",
+              "actual": "deny",
+              "operation": "file-read*",
+              "target": "/tmp/runtime-adv/alias/allow.txt",
+              "failure_stage": "probe",
+              "failure_kind": "probe_nonzero_exit",
+              "mismatch_type": "unexpected_deny",
+              "violation_summary": null,
+              "stderr": "open target: No such file or directory\n"
+            }
+          ]
         },
         {
           "scenario_id": "adv:path_edges:allow-subpath",
@@ -318,6 +344,146 @@
               "target": "/private/tmp/runtime-adv/edges/a",
               "expected": "deny",
               "probe_name": "deny-private"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "adv:path_edges_private:allow-private",
+          "profile_id": "adv:path_edges_private",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "adv:path_edges_private:allow-private",
+              "profile_id": "adv:path_edges_private",
+              "operation": "file-read*",
+              "target": "/private/tmp/runtime-adv/edges/a",
+              "expected": "allow",
+              "probe_name": "allow-private"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "adv:path_edges_private:allow-private-subpath",
+          "profile_id": "adv:path_edges_private",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "adv:path_edges_private:allow-private-subpath",
+              "profile_id": "adv:path_edges_private",
+              "operation": "file-read*",
+              "target": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+              "expected": "allow",
+              "probe_name": "allow-private-subpath"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "adv:path_edges_private:allow-tmp",
+          "profile_id": "adv:path_edges_private",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "adv:path_edges_private:allow-tmp",
+              "profile_id": "adv:path_edges_private",
+              "operation": "file-read*",
+              "target": "/tmp/runtime-adv/edges/a",
+              "expected": "allow",
+              "probe_name": "allow-tmp"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "adv:path_edges_private:allow-tmp-subpath",
+          "profile_id": "adv:path_edges_private",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "adv:path_edges_private:allow-tmp-subpath",
+              "profile_id": "adv:path_edges_private",
+              "operation": "file-read*",
+              "target": "/tmp/runtime-adv/edges/okdir/item.txt",
+              "expected": "allow",
+              "probe_name": "allow-tmp-subpath"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "adv:path_edges_private:deny-dotdot",
+          "profile_id": "adv:path_edges_private",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "adv:path_edges_private:deny-dotdot",
+              "profile_id": "adv:path_edges_private",
+              "operation": "file-read*",
+              "target": "/private/tmp/runtime-adv/edges/okdir/../blocked.txt",
+              "expected": "deny",
+              "probe_name": "deny-dotdot"
             }
           ],
           "mismatches": []
@@ -1041,8 +1207,8 @@
       "op_id": 29,
       "op_name": "file-write*",
       "coverage_status": "partial",
-      "probes": 20,
-      "matches": 18,
+      "probes": 25,
+      "matches": 23,
       "mismatches": 2,
       "examples": [
         {
@@ -1219,6 +1385,146 @@
               "stderr": "open target: Operation not permitted\n"
             }
           ]
+        },
+        {
+          "scenario_id": "adv:path_edges_private:write-dotdot",
+          "profile_id": "adv:path_edges_private",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "adv:path_edges_private:write-dotdot",
+              "profile_id": "adv:path_edges_private",
+              "operation": "file-write*",
+              "target": "/private/tmp/runtime-adv/edges/okdir/../blocked.txt",
+              "expected": "deny",
+              "probe_name": "write-dotdot"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "adv:path_edges_private:write-private",
+          "profile_id": "adv:path_edges_private",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "adv:path_edges_private:write-private",
+              "profile_id": "adv:path_edges_private",
+              "operation": "file-write*",
+              "target": "/private/tmp/runtime-adv/edges/a",
+              "expected": "allow",
+              "probe_name": "write-private"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "adv:path_edges_private:write-private-subpath",
+          "profile_id": "adv:path_edges_private",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "adv:path_edges_private:write-private-subpath",
+              "profile_id": "adv:path_edges_private",
+              "operation": "file-write*",
+              "target": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+              "expected": "allow",
+              "probe_name": "write-private-subpath"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "adv:path_edges_private:write-tmp",
+          "profile_id": "adv:path_edges_private",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "adv:path_edges_private:write-tmp",
+              "profile_id": "adv:path_edges_private",
+              "operation": "file-write*",
+              "target": "/tmp/runtime-adv/edges/a",
+              "expected": "allow",
+              "probe_name": "write-tmp"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "adv:path_edges_private:write-tmp-subpath",
+          "profile_id": "adv:path_edges_private",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "adv:path_edges_private:write-tmp-subpath",
+              "profile_id": "adv:path_edges_private",
+              "operation": "file-write*",
+              "target": "/tmp/runtime-adv/edges/okdir/item.txt",
+              "expected": "allow",
+              "probe_name": "write-tmp-subpath"
+            }
+          ],
+          "mismatches": []
         },
         {
           "scenario_id": "adv:struct_flat:write-blocked",
@@ -1770,63 +2076,63 @@
     "112": {
       "op_id": 112,
       "op_name": "network-outbound",
-      "coverage_status": "partial",
+      "coverage_status": "ok",
       "probes": 8,
-      "matches": 2,
-      "mismatches": 6,
+      "matches": 8,
+      "mismatches": 0,
       "examples": [
         {
           "scenario_id": "adv:flow_divert_partial_tcp:tcp-loopback",
           "expectation_id": "adv:flow_divert_partial_tcp:tcp-loopback",
           "expected": "allow",
-          "actual": "deny",
-          "match": false
+          "actual": "allow",
+          "match": true
         },
         {
           "scenario_id": "adv:flow_divert_partial_tcp:tcp-loopback-2",
           "expectation_id": "adv:flow_divert_partial_tcp:tcp-loopback-2",
           "expected": "allow",
-          "actual": "deny",
-          "match": false
+          "actual": "allow",
+          "match": true
         },
         {
           "scenario_id": "adv:flow_divert_require_all_tcp:tcp-loopback",
           "expectation_id": "adv:flow_divert_require_all_tcp:tcp-loopback",
           "expected": "allow",
-          "actual": "deny",
-          "match": false
+          "actual": "allow",
+          "match": true
         },
         {
           "scenario_id": "adv:flow_divert_require_all_tcp:tcp-loopback-2",
           "expectation_id": "adv:flow_divert_require_all_tcp:tcp-loopback-2",
           "expected": "allow",
-          "actual": "deny",
-          "match": false
+          "actual": "allow",
+          "match": true
         },
         {
           "scenario_id": "adv:net_outbound_allow:tcp-loopback",
           "expectation_id": "adv:net_outbound_allow:tcp-loopback",
           "expected": "allow",
-          "actual": "deny",
-          "match": false
+          "actual": "allow",
+          "match": true
         }
       ],
       "scenarios": [
         {
           "scenario_id": "adv:flow_divert_partial_tcp:tcp-loopback",
           "profile_id": "adv:flow_divert_partial_tcp",
-          "status": "brittle",
+          "status": "ok",
           "results": {
             "total": 1,
-            "matches": 0,
-            "mismatches": 1,
+            "matches": 1,
+            "mismatches": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
               "by_stage": {},
               "by_kind": {}
             },
-            "status": "brittle"
+            "status": "ok"
           },
           "expectations": [
             {
@@ -1838,36 +2144,23 @@
               "probe_name": "tcp-loopback"
             }
           ],
-          "mismatches": [
-            {
-              "expectation_id": "adv:flow_divert_partial_tcp:tcp-loopback",
-              "expected": "allow",
-              "actual": "deny",
-              "operation": "network-outbound",
-              "target": "127.0.0.1:62646",
-              "failure_stage": "probe",
-              "failure_kind": "probe_nonzero_exit",
-              "mismatch_type": "unexpected_deny",
-              "violation_summary": "EPERM",
-              "stderr": ""
-            }
-          ]
+          "mismatches": []
         },
         {
           "scenario_id": "adv:flow_divert_partial_tcp:tcp-loopback-2",
           "profile_id": "adv:flow_divert_partial_tcp",
-          "status": "brittle",
+          "status": "ok",
           "results": {
             "total": 1,
-            "matches": 0,
-            "mismatches": 1,
+            "matches": 1,
+            "mismatches": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
               "by_stage": {},
               "by_kind": {}
             },
-            "status": "brittle"
+            "status": "ok"
           },
           "expectations": [
             {
@@ -1879,36 +2172,23 @@
               "probe_name": "tcp-loopback-2"
             }
           ],
-          "mismatches": [
-            {
-              "expectation_id": "adv:flow_divert_partial_tcp:tcp-loopback-2",
-              "expected": "allow",
-              "actual": "deny",
-              "operation": "network-outbound",
-              "target": "127.0.0.1:62647",
-              "failure_stage": "probe",
-              "failure_kind": "probe_nonzero_exit",
-              "mismatch_type": "unexpected_deny",
-              "violation_summary": "EPERM",
-              "stderr": ""
-            }
-          ]
+          "mismatches": []
         },
         {
           "scenario_id": "adv:flow_divert_require_all_tcp:tcp-loopback",
           "profile_id": "adv:flow_divert_require_all_tcp",
-          "status": "brittle",
+          "status": "ok",
           "results": {
             "total": 1,
-            "matches": 0,
-            "mismatches": 1,
+            "matches": 1,
+            "mismatches": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
               "by_stage": {},
               "by_kind": {}
             },
-            "status": "brittle"
+            "status": "ok"
           },
           "expectations": [
             {
@@ -1920,36 +2200,23 @@
               "probe_name": "tcp-loopback"
             }
           ],
-          "mismatches": [
-            {
-              "expectation_id": "adv:flow_divert_require_all_tcp:tcp-loopback",
-              "expected": "allow",
-              "actual": "deny",
-              "operation": "network-outbound",
-              "target": "127.0.0.1:62646",
-              "failure_stage": "probe",
-              "failure_kind": "probe_nonzero_exit",
-              "mismatch_type": "unexpected_deny",
-              "violation_summary": "EPERM",
-              "stderr": ""
-            }
-          ]
+          "mismatches": []
         },
         {
           "scenario_id": "adv:flow_divert_require_all_tcp:tcp-loopback-2",
           "profile_id": "adv:flow_divert_require_all_tcp",
-          "status": "brittle",
+          "status": "ok",
           "results": {
             "total": 1,
-            "matches": 0,
-            "mismatches": 1,
+            "matches": 1,
+            "mismatches": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
               "by_stage": {},
               "by_kind": {}
             },
-            "status": "brittle"
+            "status": "ok"
           },
           "expectations": [
             {
@@ -1961,36 +2228,23 @@
               "probe_name": "tcp-loopback-2"
             }
           ],
-          "mismatches": [
-            {
-              "expectation_id": "adv:flow_divert_require_all_tcp:tcp-loopback-2",
-              "expected": "allow",
-              "actual": "deny",
-              "operation": "network-outbound",
-              "target": "127.0.0.1:62647",
-              "failure_stage": "probe",
-              "failure_kind": "probe_nonzero_exit",
-              "mismatch_type": "unexpected_deny",
-              "violation_summary": "EPERM",
-              "stderr": ""
-            }
-          ]
+          "mismatches": []
         },
         {
           "scenario_id": "adv:net_outbound_allow:tcp-loopback",
           "profile_id": "adv:net_outbound_allow",
-          "status": "brittle",
+          "status": "ok",
           "results": {
             "total": 1,
-            "matches": 0,
-            "mismatches": 1,
+            "matches": 1,
+            "mismatches": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
               "by_stage": {},
               "by_kind": {}
             },
-            "status": "brittle"
+            "status": "ok"
           },
           "expectations": [
             {
@@ -2002,36 +2256,23 @@
               "probe_name": "tcp-loopback"
             }
           ],
-          "mismatches": [
-            {
-              "expectation_id": "adv:net_outbound_allow:tcp-loopback",
-              "expected": "allow",
-              "actual": "deny",
-              "operation": "network-outbound",
-              "target": "127.0.0.1:62646",
-              "failure_stage": "probe",
-              "failure_kind": "probe_nonzero_exit",
-              "mismatch_type": "unexpected_deny",
-              "violation_summary": "EPERM",
-              "stderr": ""
-            }
-          ]
+          "mismatches": []
         },
         {
           "scenario_id": "adv:net_outbound_allow:tcp-loopback-2",
           "profile_id": "adv:net_outbound_allow",
-          "status": "brittle",
+          "status": "ok",
           "results": {
             "total": 1,
-            "matches": 0,
-            "mismatches": 1,
+            "matches": 1,
+            "mismatches": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
               "by_stage": {},
               "by_kind": {}
             },
-            "status": "brittle"
+            "status": "ok"
           },
           "expectations": [
             {
@@ -2043,20 +2284,7 @@
               "probe_name": "tcp-loopback-2"
             }
           ],
-          "mismatches": [
-            {
-              "expectation_id": "adv:net_outbound_allow:tcp-loopback-2",
-              "expected": "allow",
-              "actual": "deny",
-              "operation": "network-outbound",
-              "target": "127.0.0.1:62647",
-              "failure_stage": "probe",
-              "failure_kind": "probe_nonzero_exit",
-              "mismatch_type": "unexpected_deny",
-              "violation_summary": "EPERM",
-              "stderr": ""
-            }
-          ]
+          "mismatches": []
         },
         {
           "scenario_id": "adv:net_outbound_deny:tcp-loopback",
@@ -2744,6 +2972,184 @@
         "vocab_entry": {
           "id": 96,
           "name": "mach-lookup",
+          "source": "book/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib"
+        }
+      }
+    },
+    "24": {
+      "op_id": 24,
+      "op_name": "file-read-xattr",
+      "coverage_status": "ok",
+      "probes": 2,
+      "matches": 2,
+      "mismatches": 0,
+      "examples": [
+        {
+          "scenario_id": "adv:xattr:allow-foo-read",
+          "expectation_id": "adv:xattr:allow-foo-read",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        },
+        {
+          "scenario_id": "adv:xattr:deny-bar-read",
+          "expectation_id": "adv:xattr:deny-bar-read",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        }
+      ],
+      "scenarios": [
+        {
+          "scenario_id": "adv:xattr:allow-foo-read",
+          "profile_id": "adv:xattr",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "adv:xattr:allow-foo-read",
+              "profile_id": "adv:xattr",
+              "operation": "file-read-xattr",
+              "target": "/private/tmp/foo",
+              "expected": "allow",
+              "probe_name": "allow-foo-read"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "adv:xattr:deny-bar-read",
+          "profile_id": "adv:xattr",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "adv:xattr:deny-bar-read",
+              "profile_id": "adv:xattr",
+              "operation": "file-read-xattr",
+              "target": "/private/tmp/bar",
+              "expected": "deny",
+              "probe_name": "deny-bar-read"
+            }
+          ],
+          "mismatches": []
+        }
+      ],
+      "static": {
+        "vocab_entry": {
+          "id": 24,
+          "name": "file-read-xattr",
+          "source": "book/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib"
+        }
+      }
+    },
+    "40": {
+      "op_id": 40,
+      "op_name": "file-write-xattr",
+      "coverage_status": "ok",
+      "probes": 2,
+      "matches": 2,
+      "mismatches": 0,
+      "examples": [
+        {
+          "scenario_id": "adv:xattr:allow-foo-write",
+          "expectation_id": "adv:xattr:allow-foo-write",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        },
+        {
+          "scenario_id": "adv:xattr:deny-bar-write",
+          "expectation_id": "adv:xattr:deny-bar-write",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        }
+      ],
+      "scenarios": [
+        {
+          "scenario_id": "adv:xattr:allow-foo-write",
+          "profile_id": "adv:xattr",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "adv:xattr:allow-foo-write",
+              "profile_id": "adv:xattr",
+              "operation": "file-write-xattr",
+              "target": "/private/tmp/foo",
+              "expected": "allow",
+              "probe_name": "allow-foo-write"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "adv:xattr:deny-bar-write",
+          "profile_id": "adv:xattr",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "adv:xattr:deny-bar-write",
+              "profile_id": "adv:xattr",
+              "operation": "file-write-xattr",
+              "target": "/private/tmp/bar",
+              "expected": "deny",
+              "probe_name": "deny-bar-write"
+            }
+          ],
+          "mismatches": []
+        }
+      ],
+      "static": {
+        "vocab_entry": {
+          "id": 40,
+          "name": "file-write-xattr",
           "source": "book/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib"
         }
       }

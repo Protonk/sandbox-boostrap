@@ -1,0 +1,43 @@
+{
+  "data": {
+    "correlation_id": "F643B2B2-883A-45A0-8C98-112A0089D039",
+    "deny_lines": [
+      "2025-12-31 21:06:05.482128-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_temporary_exception(26813) deny(1) file-write-create /Users/achyland/Downloads/atlas_matrixmanual.txt"
+    ],
+    "duration_ms": null,
+    "end": null,
+    "last": "30s",
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    \n2025-12-31 21:06:05.482128-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_temporary_exception(26813) deny(1) file-write-create /Users/achyland/Downloads/atlas_matrixmanual.txt\n2025-12-31 21:06:05.495509-0800  localhost log[26816]: [com.apple.log:] log run noninteractively, parent: 26815 (sandbox-log-observer), args: '/usr/bin/log' 'show' '--style' 'syslog' '--info' '--debug' '--last' '30s' '--predicate' '((eventMessage CONTAINS[c] \"Sandbox: ProbeService_temporary_exception(26813)\") OR ((eventMessag",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": true,
+    "observed_lines": 3,
+    "observer_schema_version": 1,
+    "pid": 26813,
+    "plan_id": "deny-delay-detail:manual:matrix-manual-1-79ff5d83-b285-4c11-a63f-a6576b359ed6",
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_temporary_exception(26813)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"26813\")))",
+    "process_name": "ProbeService_temporary_exception",
+    "row_id": "temporary_exception.fs_op_create_direct_downloads",
+    "start": null,
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767243965662,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

@@ -14,3 +14,5 @@
 - `smoke-df029550-1d70-4c8a-a810-2c212e803eb9` / `smoke-b0fb0aee-f1e1-4144-ab5a-ef69ffa658d1`: include-stateful probes + unique `downloads_rw` filename; 27 records with 7–8 mapped denies; only one row flip (`net_client.downloads_rw_probe`).
 - `smoke-bd9d0f87-b3f0-4070-a934-75b2223f1870` / `smoke-162aeb4f-6e86-4ff7-a664-73f923e642e3`: external observer + include-stateful probes; 3 row flips and lower deny yield than manual.
 - `smoke-2f1ae2be-9441-48e2-a9f8-e5bffb477a11`: capture mode; `host_sandbox_log_capture` still fails with `missing child_pid for sandbox log capture`.
+- `smoke-2cbc3597-9aac-4abb-b188-e16cb244f4b3`: include-stateful + downloads ladder; 39 records, 21 mapped denies. Downloads ladder probes (fs_op create path-class/direct, fs_coordinated_op write, downloads_rw) all yielded observed deny lines; sandbox_check control did not.
+- `smoke-233b9861-ae8a-45b1-be28-77a22e2297c7`: repeat of downloads ladder run; only flips were `minimal.fs_op_deny_private_overrides` and `minimal.net_op_tcp_connect_control`. Downloads ladder rows stayed mapped in both runs.

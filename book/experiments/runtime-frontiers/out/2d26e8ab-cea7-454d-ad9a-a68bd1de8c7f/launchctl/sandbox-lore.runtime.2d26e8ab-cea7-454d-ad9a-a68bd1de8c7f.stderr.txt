@@ -1,0 +1,21 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.2d26e8ab-cea7-454d-ad9a-a68bd1de8c7f/book/api/runtime/__main__.py", line 24, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.2d26e8ab-cea7-454d-ad9a-a68bd1de8c7f/book/api/runtime/__main__.py", line 19, in main
+    return cli.main()
+           ~~~~~~~~^^
+  File "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.2d26e8ab-cea7-454d-ad9a-a68bd1de8c7f/book/api/runtime/cli.py", line 527, in main
+    return args.func(args)
+           ~~~~~~~~~^^^^^^
+  File "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.2d26e8ab-cea7-454d-ad9a-a68bd1de8c7f/book/api/runtime/cli.py", line 83, in run_command
+    bundle = runtime_api.run_plan(
+        args.plan,
+    ...<4 lines>...
+        dry_run=args.dry,
+    )
+  File "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.2d26e8ab-cea7-454d-ad9a-a68bd1de8c7f/book/api/runtime/execution/service.py", line 536, in run_plan
+    raise RuntimeError(f"run_dir already exists: {run_dir}")
+RuntimeError: run_dir already exists: /private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.2d26e8ab-cea7-454d-ad9a-a68bd1de8c7f/book/experiments/runtime-frontiers/out/2d26e8ab-cea7-454d-ad9a-a68bd1de8c7f

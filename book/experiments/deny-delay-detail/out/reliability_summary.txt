@@ -1,0 +1,28 @@
+observer_mode: capture
+  stable_rows: 0
+  stable_mapped_rows: 0
+observer_mode: external
+  stable_rows: 18
+  stable_mapped_rows: 14
+    minimal.downloads_rw_probe
+    minimal.fs_coordinated_write_pathclass_downloads
+    minimal.fs_op_create_direct_downloads
+    minimal.fs_op_create_pathclass_downloads
+    minimal.net_op_tcp_connect_control
+    net_client.downloads_rw_probe
+    net_client.fs_coordinated_write_pathclass_downloads
+    net_client.fs_op_create_direct_downloads
+    net_client.fs_op_create_pathclass_downloads
+    temporary_exception.downloads_rw_probe
+    temporary_exception.fs_coordinated_write_pathclass_downloads
+    temporary_exception.fs_op_create_direct_downloads
+    temporary_exception.fs_op_create_pathclass_downloads
+    temporary_exception.net_op_tcp_connect_control
+observer_mode: manual
+  stable_rows: 9
+  stable_mapped_rows: 5
+    net_client.fs_coordinated_write_pathclass_downloads
+    temporary_exception.fs_coordinated_write_pathclass_downloads
+    temporary_exception.fs_op_create_direct_downloads
+    temporary_exception.fs_op_create_pathclass_downloads
+    temporary_exception.net_op_tcp_connect_control

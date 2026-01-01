@@ -1,0 +1,41 @@
+{
+  "data": {
+    "correlation_id": "43FEF9CC-EF6C-418A-8DB3-E64226A67119",
+    "deny_lines": [],
+    "duration_ms": null,
+    "end": null,
+    "last": "30s",
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    \n2025-12-31 21:06:08.270650-0800  localhost log[26862]: [com.apple.log:] log run noninteractively, parent: 26861 (sandbox-log-observer), args: '/usr/bin/log' 'show' '--style' 'syslog' '--info' '--debug' '--last' '30s' '--predicate' '((eventMessage CONTAINS[c] \"Sandbox: ProbeService_minimal(26860)\") OR ((eventMessage CONTAINS[c",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": false,
+    "observed_lines": 2,
+    "observer_schema_version": 1,
+    "pid": 26860,
+    "plan_id": "deny-delay-detail:manual:matrix-manual-2-1a12922b-6daf-416e-9c62-ebb186538626",
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_minimal(26860)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"26860\")))",
+    "process_name": "ProbeService_minimal",
+    "row_id": "minimal.sandbox_check_write_host_downloads",
+    "start": null,
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767243968448,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

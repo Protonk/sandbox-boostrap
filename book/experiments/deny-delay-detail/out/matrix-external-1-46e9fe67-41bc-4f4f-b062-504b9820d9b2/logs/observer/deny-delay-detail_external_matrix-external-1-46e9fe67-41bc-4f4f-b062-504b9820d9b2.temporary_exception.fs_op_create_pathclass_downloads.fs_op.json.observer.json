@@ -1,0 +1,43 @@
+{
+  "data": {
+    "correlation_id": "4937F5FD-60BE-45D2-9B55-FD71087DEF45",
+    "deny_lines": [
+      "2025-12-31 21:12:26.547469-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_temporary_exception(29246) deny(1) file-write-create /Users/achyland/Downloads/policy-witness-harness"
+    ],
+    "duration_ms": null,
+    "end": "2025-12-31 21:12:28",
+    "last": null,
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    \n2025-12-31 21:12:26.547469-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_temporary_exception(29246) deny(1) file-write-create /Users/achyland/Downloads/policy-witness-harness",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": true,
+    "observed_lines": 2,
+    "observer_schema_version": 1,
+    "pid": 29246,
+    "plan_id": "deny-delay-detail:external:matrix-external-1-46e9fe67-41bc-4f4f-b062-504b9820d9b2",
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_temporary_exception(29246)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"29246\")))",
+    "process_name": "ProbeService_temporary_exception",
+    "row_id": "temporary_exception.fs_op_create_pathclass_downloads",
+    "start": "2025-12-31 21:12:24",
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767244346613,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

@@ -48,12 +48,17 @@ class RuntimeObservation:
     match: Optional[bool] = None
     primary_intent: Optional[Dict[str, Any]] = None
     reached_primary_op: Optional[bool] = None
+    intended_op_witnessed: Optional[bool] = None
     first_denial_op: Optional[str] = None
     first_denial_filters: Optional[List[Dict[str, Any]]] = None
     decision_path: Optional[str] = None
     runtime_status: Optional[str] = None
     errno: Optional[int] = None
     errno_name: Optional[str] = None
+    policy_layers: Optional[Dict[str, Any]] = None
+    tcc_confounder: Optional[Dict[str, Any]] = None
+    sandbox_check_prepass: Optional[Dict[str, Any]] = None
+    resource_hygiene: Optional[Dict[str, Any]] = None
     failure_stage: Optional[str] = None
     failure_kind: Optional[str] = None
     apply_report: Optional[Dict[str, Any]] = None

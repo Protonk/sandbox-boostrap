@@ -53,10 +53,18 @@ SUPPORTED_ENTITLEMENT_CHECK_MARKER_SCHEMA_VERSIONS = {0, 1}
 
 _FILTER_TYPE_NAMES = {
     0: "path",
+    1: "mount-relative-path",
+    4: "ipc-posix-name",
     5: "global-name",
     6: "local-name",
+    9: "control-name",
+    22: "extension",
     26: "right-name",
     27: "preference-domain",
+    34: "notification-name",
+    37: "sysctl-name",
+    44: "nvram-variable",
+    49: "xpc-service-name",
 }
 
 
@@ -188,6 +196,10 @@ def upgrade_seatbelt_callout_marker(marker: Mapping[str, Any]) -> Dict[str, Any]
     if no_report_reason is None and ver < CURRENT_SEATBELT_CALLOUT_MARKER_SCHEMA_VERSION:
         no_report_reason = "legacy"
     upgraded["no_report_reason"] = no_report_reason
+
+    upgraded["canonicalization"] = _maybe_str(upgraded.get("canonicalization"))
+    upgraded["canonical_flag_used"] = _maybe_bool(upgraded.get("canonical_flag_used"))
+    upgraded["canonical_flag_reason"] = _maybe_str(upgraded.get("canonical_flag_reason"))
 
     upgraded["token_status"] = _maybe_str(upgraded.get("token_status"))
     upgraded["token_mach_kr"] = _maybe_int(upgraded.get("token_mach_kr"))

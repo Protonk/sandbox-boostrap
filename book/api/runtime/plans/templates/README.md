@@ -20,4 +20,5 @@ Available templates:
 - `runtime-adversarial` (plan + registry for adversarial runtime probes).
 - `runtime-checks` (bucket-level runtime checks).
 - `runtime-closure` (closure lanes for runtime alignment work).
+- `runtime-frontiers` (system-op gaps, anchor filters, unknown-op samples).
 - `vfs-canonicalization` (path-family probes for VFS canonicalization).

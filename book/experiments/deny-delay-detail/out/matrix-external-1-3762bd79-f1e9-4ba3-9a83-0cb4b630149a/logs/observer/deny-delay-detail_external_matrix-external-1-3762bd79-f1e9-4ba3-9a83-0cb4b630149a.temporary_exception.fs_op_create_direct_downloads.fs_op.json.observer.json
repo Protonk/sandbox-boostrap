@@ -1,0 +1,43 @@
+{
+  "data": {
+    "correlation_id": "AEE42F1F-BD99-45B5-8077-87C207D7E463",
+    "deny_lines": [
+      "2025-12-31 21:06:14.877453-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_temporary_exception(27047) deny(1) file-write-create /Users/achyland/Downloads/atlas_matrixextern.txt"
+    ],
+    "duration_ms": null,
+    "end": "2025-12-31 21:06:16",
+    "last": null,
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    \n2025-12-31 21:06:14.877453-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_temporary_exception(27047) deny(1) file-write-create /Users/achyland/Downloads/atlas_matrixextern.txt",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": true,
+    "observed_lines": 2,
+    "observer_schema_version": 1,
+    "pid": 27047,
+    "plan_id": "deny-delay-detail:external:matrix-external-1-3762bd79-f1e9-4ba3-9a83-0cb4b630149a",
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_temporary_exception(27047)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"27047\")))",
+    "process_name": "ProbeService_temporary_exception",
+    "row_id": "temporary_exception.fs_op_create_direct_downloads",
+    "start": "2025-12-31 21:06:12",
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767243974948,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

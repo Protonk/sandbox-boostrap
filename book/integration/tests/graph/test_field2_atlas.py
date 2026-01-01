@@ -8,7 +8,7 @@ from book.api.runtime.analysis import packet_utils
 
 ROOT = path_utils.find_repo_root(Path(__file__))
 PACKET_PATH = ROOT / "book" / "experiments" / "runtime-adversarial" / "out" / "promotion_packet.json"
-REQUIRED_EXPORTS = ("runtime_events", "baseline_results", "run_manifest")
+REQUIRED_EXPORTS = ("runtime_events", "baseline_results", "run_manifest", "path_witnesses")
 
 
 def load_json(path: Path):
@@ -68,6 +68,7 @@ def test_field2_atlas_packet_consumer(tmp_path):
     atlas_path = derived_root / "atlas" / "field2_atlas.json"
     summary_path = derived_root / "atlas" / "summary.json"
     summary_md_path = derived_root / "atlas" / "summary.md"
+    delta_path = derived_root / "atlas" / "mapping_delta.json"
     receipt_path = derived_root / "consumption_receipt.json"
 
     runtime_doc = load_json(runtime_path)
@@ -83,6 +84,7 @@ def test_field2_atlas_packet_consumer(tmp_path):
     assert outputs.get("atlas") == path_utils.to_repo_relative(atlas_path, repo_root=ROOT)
     assert outputs.get("summary") == path_utils.to_repo_relative(summary_path, repo_root=ROOT)
     assert outputs.get("summary_md") == path_utils.to_repo_relative(summary_md_path, repo_root=ROOT)
+    assert outputs.get("mapping_delta") == path_utils.to_repo_relative(delta_path, repo_root=ROOT)
 
     atlas_doc = load_json(atlas_path)
     atlas_entries = atlas_doc.get("atlas") or []
@@ -119,6 +121,10 @@ def test_field2_atlas_packet_consumer(tmp_path):
     total_from_status = sum(summary_block.get("by_status", {}).values())
     assert total_from_status == summary_block.get("total"), "summary total does not match by_status counts"
     assert total_from_status == len(atlas_entries), "summary total does not match atlas entries"
+
+    delta = load_json(delta_path)
+    assert delta.get("schema_version") == "field2-atlas.mapping_delta.v0"
+    assert delta.get("proposals") is not None
 
     header = summary_md_path.read_text(encoding="utf-8").splitlines()[0]
     assert ctx.run_id in header

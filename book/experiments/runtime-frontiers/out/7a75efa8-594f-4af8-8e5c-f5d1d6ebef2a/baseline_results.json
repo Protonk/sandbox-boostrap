@@ -1,0 +1,561 @@
+{
+  "schema_version": "runtime-tools.baseline_results.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "run_id": "7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a",
+  "results": [
+    {
+      "name": "baseline:frontier:system_ops:read_data_/etc/hosts",
+      "profile_id": "frontier:system_ops",
+      "probe_name": "read_data_/etc/hosts",
+      "operation": "file-read-data",
+      "target": "/etc/hosts",
+      "primary_intent": {
+        "operation": "file-read-data",
+        "target": "/etc/hosts",
+        "profile_id": "frontier:system_ops",
+        "probe_name": "read_data_/etc/hosts"
+      },
+      "command": [
+        "/bin/cat",
+        "/etc/hosts"
+      ],
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "##\n# Host Database\n#\n# localhost is used to configure the loopback interface\n# when the system is booting.  Do not change this entry.\n##\n127.0.0.1\tlocalhost\n255.255.255.255\tbroadcasthost\n::1          ",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:frontier:system_ops:read_data_/private/etc/hosts",
+      "profile_id": "frontier:system_ops",
+      "probe_name": "read_data_/private/etc/hosts",
+      "operation": "file-read-data",
+      "target": "/private/etc/hosts",
+      "primary_intent": {
+        "operation": "file-read-data",
+        "target": "/private/etc/hosts",
+        "profile_id": "frontier:system_ops",
+        "probe_name": "read_data_/private/etc/hosts"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/etc/hosts"
+      ],
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "##\n# Host Database\n#\n# localhost is used to configure the loopback interface\n# when the system is booting.  Do not change this entry.\n##\n127.0.0.1\tlocalhost\n255.255.255.255\tbroadcasthost\n::1          ",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:frontier:system_ops:test_exists_/etc/hosts",
+      "profile_id": "frontier:system_ops",
+      "probe_name": "test_exists_/etc/hosts",
+      "operation": "file-test-existence",
+      "target": "/etc/hosts",
+      "primary_intent": {
+        "operation": "file-test-existence",
+        "target": "/etc/hosts",
+        "profile_id": "frontier:system_ops",
+        "probe_name": "test_exists_/etc/hosts"
+      },
+      "command": [
+        "/usr/bin/python3",
+        "-c",
+        "import os, sys; sys.exit(0 if os.access(sys.argv[1], os.F_OK) else 1)\n",
+        "/etc/hosts"
+      ],
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:frontier:system_ops:test_exists_/private/etc/hosts",
+      "profile_id": "frontier:system_ops",
+      "probe_name": "test_exists_/private/etc/hosts",
+      "operation": "file-test-existence",
+      "target": "/private/etc/hosts",
+      "primary_intent": {
+        "operation": "file-test-existence",
+        "target": "/private/etc/hosts",
+        "profile_id": "frontier:system_ops",
+        "probe_name": "test_exists_/private/etc/hosts"
+      },
+      "command": [
+        "/usr/bin/python3",
+        "-c",
+        "import os, sys; sys.exit(0 if os.access(sys.argv[1], os.F_OK) else 1)\n",
+        "/private/etc/hosts"
+      ],
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:frontier:system_ops:search_/tmp/sbpl_rt",
+      "profile_id": "frontier:system_ops",
+      "probe_name": "search_/tmp/sbpl_rt",
+      "operation": "file-search",
+      "target": "/tmp/sbpl_rt",
+      "primary_intent": {
+        "operation": "file-search",
+        "target": "/tmp/sbpl_rt",
+        "profile_id": "frontier:system_ops",
+        "probe_name": "search_/tmp/sbpl_rt"
+      },
+      "command": [
+        "book/api/runtime/native/file_probe/file_probe",
+        "search",
+        "/tmp/sbpl_rt"
+      ],
+      "observed_path": "/private/tmp/sbpl_rt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "{\"op\":\"search\",\"path\":\"/tmp/sbpl_rt\",\"rc\":0,\"errno\":0,\"search_rc\":-1,\"search_errno\":35,\"matches\":0,\"search_name\":\"sbpl_rt\"}\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:frontier:system_ops:search_/private/tmp/sbpl_rt",
+      "profile_id": "frontier:system_ops",
+      "probe_name": "search_/private/tmp/sbpl_rt",
+      "operation": "file-search",
+      "target": "/private/tmp/sbpl_rt",
+      "primary_intent": {
+        "operation": "file-search",
+        "target": "/private/tmp/sbpl_rt",
+        "profile_id": "frontier:system_ops",
+        "probe_name": "search_/private/tmp/sbpl_rt"
+      },
+      "command": [
+        "book/api/runtime/native/file_probe/file_probe",
+        "search",
+        "/private/tmp/sbpl_rt"
+      ],
+      "observed_path": "/private/tmp/sbpl_rt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "{\"op\":\"search\",\"path\":\"/private/tmp/sbpl_rt\",\"rc\":0,\"errno\":0,\"search_rc\":-1,\"search_errno\":35,\"matches\":0,\"search_name\":\"sbpl_rt\"}\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:frontier:system_ops:write_data_/tmp/sbpl_rt/write.txt",
+      "profile_id": "frontier:system_ops",
+      "probe_name": "write_data_/tmp/sbpl_rt/write.txt",
+      "operation": "file-write-data",
+      "target": "/tmp/sbpl_rt/write.txt",
+      "primary_intent": {
+        "operation": "file-write-data",
+        "target": "/tmp/sbpl_rt/write.txt",
+        "profile_id": "frontier:system_ops",
+        "probe_name": "write_data_/tmp/sbpl_rt/write.txt"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/sbpl_rt/write.txt'"
+      ],
+      "observed_path": "/private/tmp/sbpl_rt/write.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:frontier:system_ops:write_data_/private/tmp/strict_ok/allow.txt",
+      "profile_id": "frontier:system_ops",
+      "probe_name": "write_data_/private/tmp/strict_ok/allow.txt",
+      "operation": "file-write-data",
+      "target": "/private/tmp/strict_ok/allow.txt",
+      "primary_intent": {
+        "operation": "file-write-data",
+        "target": "/private/tmp/strict_ok/allow.txt",
+        "profile_id": "frontier:system_ops",
+        "probe_name": "write_data_/private/tmp/strict_ok/allow.txt"
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/tmp/strict_ok/allow.txt'"
+      ],
+      "observed_path": "/private/tmp/strict_ok/allow.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:frontier:anchor_filters:mach_cfprefsd",
+      "profile_id": "frontier:anchor_filters",
+      "probe_name": "mach_cfprefsd",
+      "operation": "mach-lookup",
+      "target": "com.apple.cfprefsd.agent",
+      "primary_intent": {
+        "operation": "mach-lookup",
+        "target": "com.apple.cfprefsd.agent",
+        "profile_id": "frontier:anchor_filters",
+        "probe_name": "mach_cfprefsd"
+      },
+      "command": [
+        "book/api/runtime/native/probes/mach_probe",
+        "com.apple.cfprefsd.agent"
+      ],
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "{\"kr\":0}\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:frontier:anchor_filters:mach_bogus",
+      "profile_id": "frontier:anchor_filters",
+      "probe_name": "mach_bogus",
+      "operation": "mach-lookup",
+      "target": "com.apple.sandbox-lore.frontier.bogus",
+      "primary_intent": {
+        "operation": "mach-lookup",
+        "target": "com.apple.sandbox-lore.frontier.bogus",
+        "profile_id": "frontier:anchor_filters",
+        "probe_name": "mach_bogus"
+      },
+      "command": [
+        "book/api/runtime/native/probes/mach_probe",
+        "com.apple.sandbox-lore.frontier.bogus"
+      ],
+      "status": "deny",
+      "exit_code": 1,
+      "stdout": "{\"kr\":1102}\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:frontier:anchor_filters:read_data_/etc/hosts",
+      "profile_id": "frontier:anchor_filters",
+      "probe_name": "read_data_/etc/hosts",
+      "operation": "file-read-data",
+      "target": "/etc/hosts",
+      "primary_intent": {
+        "operation": "file-read-data",
+        "target": "/etc/hosts",
+        "profile_id": "frontier:anchor_filters",
+        "probe_name": "read_data_/etc/hosts"
+      },
+      "command": [
+        "/bin/cat",
+        "/etc/hosts"
+      ],
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "##\n# Host Database\n#\n# localhost is used to configure the loopback interface\n# when the system is booting.  Do not change this entry.\n##\n127.0.0.1\tlocalhost\n255.255.255.255\tbroadcasthost\n::1          ",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:frontier:anchor_filters:read_data_/private/etc/hosts",
+      "profile_id": "frontier:anchor_filters",
+      "probe_name": "read_data_/private/etc/hosts",
+      "operation": "file-read-data",
+      "target": "/private/etc/hosts",
+      "primary_intent": {
+        "operation": "file-read-data",
+        "target": "/private/etc/hosts",
+        "profile_id": "frontier:anchor_filters",
+        "probe_name": "read_data_/private/etc/hosts"
+      },
+      "command": [
+        "/bin/cat",
+        "/private/etc/hosts"
+      ],
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "##\n# Host Database\n#\n# localhost is used to configure the loopback interface\n# when the system is booting.  Do not change this entry.\n##\n127.0.0.1\tlocalhost\n255.255.255.255\tbroadcasthost\n::1          ",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:frontier:anchor_filters:search_/var/log",
+      "profile_id": "frontier:anchor_filters",
+      "probe_name": "search_/var/log",
+      "operation": "file-search",
+      "target": "/var/log",
+      "primary_intent": {
+        "operation": "file-search",
+        "target": "/var/log",
+        "profile_id": "frontier:anchor_filters",
+        "probe_name": "search_/var/log"
+      },
+      "command": [
+        "book/api/runtime/native/file_probe/file_probe",
+        "search",
+        "/var/log"
+      ],
+      "observed_path": "/private/var/log",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "{\"op\":\"search\",\"path\":\"/var/log\",\"rc\":0,\"errno\":0,\"search_rc\":-1,\"search_errno\":35,\"matches\":0,\"search_name\":\"log\"}\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:frontier:anchor_filters:search_/private/var/log",
+      "profile_id": "frontier:anchor_filters",
+      "probe_name": "search_/private/var/log",
+      "operation": "file-search",
+      "target": "/private/var/log",
+      "primary_intent": {
+        "operation": "file-search",
+        "target": "/private/var/log",
+        "profile_id": "frontier:anchor_filters",
+        "probe_name": "search_/private/var/log"
+      },
+      "command": [
+        "book/api/runtime/native/file_probe/file_probe",
+        "search",
+        "/private/var/log"
+      ],
+      "observed_path": "/private/var/log",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "{\"op\":\"search\",\"path\":\"/private/var/log\",\"rc\":0,\"errno\":0,\"search_rc\":-1,\"search_errno\":35,\"matches\":0,\"search_name\":\"log\"}\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:frontier:unknown_ops:read_xattr_/tmp/foo",
+      "profile_id": "frontier:unknown_ops",
+      "probe_name": "read_xattr_/tmp/foo",
+      "operation": "file-read-xattr",
+      "target": "/tmp/foo",
+      "primary_intent": {
+        "operation": "file-read-xattr",
+        "target": "/tmp/foo",
+        "profile_id": "frontier:unknown_ops",
+        "probe_name": "read_xattr_/tmp/foo"
+      },
+      "command": [
+        "/usr/bin/xattr",
+        "-p",
+        "user.sandbox_lore",
+        "/tmp/foo"
+      ],
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "1\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:frontier:unknown_ops:read_xattr_/tmp/bar",
+      "profile_id": "frontier:unknown_ops",
+      "probe_name": "read_xattr_/tmp/bar",
+      "operation": "file-read-xattr",
+      "target": "/tmp/bar",
+      "primary_intent": {
+        "operation": "file-read-xattr",
+        "target": "/tmp/bar",
+        "profile_id": "frontier:unknown_ops",
+        "probe_name": "read_xattr_/tmp/bar"
+      },
+      "command": [
+        "/usr/bin/xattr",
+        "-p",
+        "user.sandbox_lore",
+        "/tmp/bar"
+      ],
+      "observed_path": "/private/tmp/bar",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "1\n",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:frontier:unknown_ops:write_xattr_/tmp/foo",
+      "profile_id": "frontier:unknown_ops",
+      "probe_name": "write_xattr_/tmp/foo",
+      "operation": "file-write-xattr",
+      "target": "/tmp/foo",
+      "primary_intent": {
+        "operation": "file-write-xattr",
+        "target": "/tmp/foo",
+        "profile_id": "frontier:unknown_ops",
+        "probe_name": "write_xattr_/tmp/foo"
+      },
+      "command": [
+        "/usr/bin/xattr",
+        "-w",
+        "user.sandbox_lore",
+        "probe",
+        "/tmp/foo"
+      ],
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:frontier:unknown_ops:write_xattr_/tmp/bar",
+      "profile_id": "frontier:unknown_ops",
+      "probe_name": "write_xattr_/tmp/bar",
+      "operation": "file-write-xattr",
+      "target": "/tmp/bar",
+      "primary_intent": {
+        "operation": "file-write-xattr",
+        "target": "/tmp/bar",
+        "profile_id": "frontier:unknown_ops",
+        "probe_name": "write_xattr_/tmp/bar"
+      },
+      "command": [
+        "/usr/bin/xattr",
+        "-w",
+        "user.sandbox_lore",
+        "probe",
+        "/tmp/bar"
+      ],
+      "observed_path": "/private/tmp/bar",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    },
+    {
+      "name": "baseline:frontier:unknown_ops:process_fork",
+      "profile_id": "frontier:unknown_ops",
+      "probe_name": "process_fork",
+      "operation": "process-fork",
+      "target": "self",
+      "primary_intent": {
+        "operation": "process-fork",
+        "target": "self",
+        "profile_id": "frontier:unknown_ops",
+        "probe_name": "process_fork"
+      },
+      "command": [
+        "/usr/bin/python3",
+        "-c",
+        "import os, sys\ntry:\n    pid = os.fork()\nexcept Exception:\n    sys.exit(1)\nif pid == 0:\n    os._exit(0)\n_, status = os.waitpid(pid, 0)\nsys.exit(0 if os.WIFEXITED(status) else 1)\n"
+      ],
+      "status": "allow",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "reached_primary_op": true,
+      "decision_path": "baseline"
+    }
+  ]
+}

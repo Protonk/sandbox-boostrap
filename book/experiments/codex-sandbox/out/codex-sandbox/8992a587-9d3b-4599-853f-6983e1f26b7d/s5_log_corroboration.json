@@ -1,0 +1,26 @@
+{
+  "cmd_duration_s": 0.004256010055541992,
+  "cmd_finished_at_unix_s": 1767254398.6706161,
+  "cmd_started_at_unix_s": 1767254398.6663601,
+  "command": [
+    "/usr/bin/log",
+    "show",
+    "--style",
+    "syslog",
+    "--last",
+    "10s",
+    "--predicate",
+    "((processID == 0) AND (senderImagePath CONTAINS \"/Sandbox\")) OR (subsystem == \"com.apple.sandbox.reporting\")"
+  ],
+  "deny_lines": [],
+  "deny_lines_pid": [],
+  "exit_code": 64,
+  "observed_deny": false,
+  "observed_deny_pid": false,
+  "observed_pid": 83179,
+  "predicate": "((processID == 0) AND (senderImagePath CONTAINS \"/Sandbox\")) OR (subsystem == \"com.apple.sandbox.reporting\")",
+  "signal_id": "S5",
+  "stderr": "log: Cannot run while sandboxed\n",
+  "stdout": "",
+  "timeout_s": 30.0
+}

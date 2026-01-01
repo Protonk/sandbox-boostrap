@@ -1,7 +1,9 @@
 {
   "probes": {
     "adv:flow_divert_partial_tcp:tcp-loopback": {
-      "capabilities_required": [],
+      "capabilities_required": [
+        "loopback_listener"
+      ],
       "controls_supported": [
         "baseline",
         "allow_default",
@@ -25,7 +27,9 @@
       "target": "127.0.0.1:62646"
     },
     "adv:flow_divert_partial_tcp:tcp-loopback-2": {
-      "capabilities_required": [],
+      "capabilities_required": [
+        "loopback_listener"
+      ],
       "controls_supported": [
         "baseline",
         "allow_default",
@@ -49,7 +53,9 @@
       "target": "127.0.0.1:62647"
     },
     "adv:flow_divert_require_all_tcp:tcp-loopback": {
-      "capabilities_required": [],
+      "capabilities_required": [
+        "loopback_listener"
+      ],
       "controls_supported": [
         "baseline",
         "allow_default",
@@ -73,7 +79,9 @@
       "target": "127.0.0.1:62646"
     },
     "adv:flow_divert_require_all_tcp:tcp-loopback-2": {
-      "capabilities_required": [],
+      "capabilities_required": [
+        "loopback_listener"
+      ],
       "controls_supported": [
         "baseline",
         "allow_default",
@@ -119,7 +127,8 @@
         "oracle": true,
         "scenario": true
       },
-      "target": "com.apple.cfprefsd.agent"
+      "target": "com.apple.cfprefsd.agent",
+      "filter_name": "local-name"
     },
     "adv:mach_local_literal:deny-bogus-local": {
       "capabilities_required": [],
@@ -144,7 +153,8 @@
         "oracle": true,
         "scenario": true
       },
-      "target": "com.apple.sandboxadversarial.fake"
+      "target": "com.apple.sandboxadversarial.fake",
+      "filter_name": "local-name"
     },
     "adv:mach_local_regex:allow-cfprefsd-local": {
       "capabilities_required": [],
@@ -169,7 +179,8 @@
         "oracle": true,
         "scenario": true
       },
-      "target": "com.apple.cfprefsd.agent"
+      "target": "com.apple.cfprefsd.agent",
+      "filter_name": "local-name"
     },
     "adv:mach_local_regex:deny-bogus-local": {
       "capabilities_required": [],
@@ -194,7 +205,8 @@
         "oracle": true,
         "scenario": true
       },
-      "target": "com.apple.sandboxadversarial.fake"
+      "target": "com.apple.sandboxadversarial.fake",
+      "filter_name": "local-name"
     },
     "adv:mach_simple_allow:allow-cfprefsd": {
       "capabilities_required": [],
@@ -219,7 +231,8 @@
         "oracle": true,
         "scenario": true
       },
-      "target": "com.apple.cfprefsd.agent"
+      "target": "com.apple.cfprefsd.agent",
+      "filter_name": "global-name"
     },
     "adv:mach_simple_allow:deny-bogus": {
       "capabilities_required": [],
@@ -244,7 +257,8 @@
         "oracle": true,
         "scenario": true
       },
-      "target": "com.apple.sandboxadversarial.fake"
+      "target": "com.apple.sandboxadversarial.fake",
+      "filter_name": "global-name"
     },
     "adv:mach_simple_variants:allow-cfprefsd": {
       "capabilities_required": [],
@@ -269,7 +283,8 @@
         "oracle": true,
         "scenario": true
       },
-      "target": "com.apple.cfprefsd.agent"
+      "target": "com.apple.cfprefsd.agent",
+      "filter_name": "global-name"
     },
     "adv:mach_simple_variants:deny-bogus": {
       "capabilities_required": [],
@@ -294,10 +309,13 @@
         "oracle": true,
         "scenario": true
       },
-      "target": "com.apple.sandboxadversarial.fake"
+      "target": "com.apple.sandboxadversarial.fake",
+      "filter_name": "global-name"
     },
     "adv:net_outbound_allow:tcp-loopback": {
-      "capabilities_required": [],
+      "capabilities_required": [
+        "loopback_listener"
+      ],
       "controls_supported": [
         "baseline",
         "allow_default",
@@ -321,7 +339,9 @@
       "target": "127.0.0.1:62646"
     },
     "adv:net_outbound_allow:tcp-loopback-2": {
-      "capabilities_required": [],
+      "capabilities_required": [
+        "loopback_listener"
+      ],
       "controls_supported": [
         "baseline",
         "allow_default",
@@ -345,7 +365,9 @@
       "target": "127.0.0.1:62647"
     },
     "adv:net_outbound_deny:tcp-loopback": {
-      "capabilities_required": [],
+      "capabilities_required": [
+        "loopback_listener"
+      ],
       "controls_supported": [
         "baseline",
         "allow_default",
@@ -369,7 +391,9 @@
       "target": "127.0.0.1:62646"
     },
     "adv:net_outbound_deny:tcp-loopback-2": {
-      "capabilities_required": [],
+      "capabilities_required": [
+        "loopback_listener"
+      ],
       "controls_supported": [
         "baseline",
         "allow_default",
@@ -1039,6 +1063,342 @@
         "scenario": true
       },
       "target": "/tmp/runtime-adv/struct/outside.txt"
+    },
+    "adv:path_edges_private:allow-private": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "/private/tmp/runtime-adv/edges/a"
+      ],
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "name": "allow-private",
+      "operation": "file-read*",
+      "probe_id": "adv:path_edges_private:allow-private",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/private/tmp/runtime-adv/edges/a"
+    },
+    "adv:path_edges_private:allow-private-subpath": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "/private/tmp/runtime-adv/edges/okdir/item.txt"
+      ],
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "name": "allow-private-subpath",
+      "operation": "file-read*",
+      "probe_id": "adv:path_edges_private:allow-private-subpath",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/private/tmp/runtime-adv/edges/okdir/item.txt"
+    },
+    "adv:path_edges_private:allow-tmp": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "/tmp/runtime-adv/edges/a"
+      ],
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "name": "allow-tmp",
+      "operation": "file-read*",
+      "probe_id": "adv:path_edges_private:allow-tmp",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/tmp/runtime-adv/edges/a"
+    },
+    "adv:path_edges_private:allow-tmp-subpath": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "/tmp/runtime-adv/edges/okdir/item.txt"
+      ],
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "name": "allow-tmp-subpath",
+      "operation": "file-read*",
+      "probe_id": "adv:path_edges_private:allow-tmp-subpath",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/tmp/runtime-adv/edges/okdir/item.txt"
+    },
+    "adv:path_edges_private:deny-dotdot": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/private/tmp/runtime-adv/edges/okdir/../blocked.txt"
+      ],
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "name": "deny-dotdot",
+      "operation": "file-read*",
+      "probe_id": "adv:path_edges_private:deny-dotdot",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/private/tmp/runtime-adv/edges/okdir/../blocked.txt"
+    },
+    "adv:path_edges_private:write-private": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "/private/tmp/runtime-adv/edges/a"
+      ],
+      "expected_primary_ops": [
+        "file-write*"
+      ],
+      "name": "write-private",
+      "operation": "file-write*",
+      "probe_id": "adv:path_edges_private:write-private",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/private/tmp/runtime-adv/edges/a"
+    },
+    "adv:path_edges_private:write-private-subpath": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "/private/tmp/runtime-adv/edges/okdir/item.txt"
+      ],
+      "expected_primary_ops": [
+        "file-write*"
+      ],
+      "name": "write-private-subpath",
+      "operation": "file-write*",
+      "probe_id": "adv:path_edges_private:write-private-subpath",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/private/tmp/runtime-adv/edges/okdir/item.txt"
+    },
+    "adv:path_edges_private:write-tmp": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "/tmp/runtime-adv/edges/a"
+      ],
+      "expected_primary_ops": [
+        "file-write*"
+      ],
+      "name": "write-tmp",
+      "operation": "file-write*",
+      "probe_id": "adv:path_edges_private:write-tmp",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/tmp/runtime-adv/edges/a"
+    },
+    "adv:path_edges_private:write-tmp-subpath": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "/tmp/runtime-adv/edges/okdir/item.txt"
+      ],
+      "expected_primary_ops": [
+        "file-write*"
+      ],
+      "name": "write-tmp-subpath",
+      "operation": "file-write*",
+      "probe_id": "adv:path_edges_private:write-tmp-subpath",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/tmp/runtime-adv/edges/okdir/item.txt"
+    },
+    "adv:path_edges_private:write-dotdot": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/private/tmp/runtime-adv/edges/okdir/../blocked.txt"
+      ],
+      "expected_primary_ops": [
+        "file-write*"
+      ],
+      "name": "write-dotdot",
+      "operation": "file-write*",
+      "probe_id": "adv:path_edges_private:write-dotdot",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/private/tmp/runtime-adv/edges/okdir/../blocked.txt"
+    },
+    "adv:xattr:allow-foo-read": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "/private/tmp/foo"
+      ],
+      "expected_primary_ops": [
+        "file-read-xattr"
+      ],
+      "name": "allow-foo-read",
+      "operation": "file-read-xattr",
+      "probe_id": "adv:xattr:allow-foo-read",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/private/tmp/foo"
+    },
+    "adv:xattr:deny-bar-read": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/private/tmp/bar"
+      ],
+      "expected_primary_ops": [
+        "file-read-xattr"
+      ],
+      "name": "deny-bar-read",
+      "operation": "file-read-xattr",
+      "probe_id": "adv:xattr:deny-bar-read",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/private/tmp/bar"
+    },
+    "adv:xattr:allow-foo-write": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "/private/tmp/foo"
+      ],
+      "expected_primary_ops": [
+        "file-write-xattr"
+      ],
+      "name": "allow-foo-write",
+      "operation": "file-write-xattr",
+      "probe_id": "adv:xattr:allow-foo-write",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/private/tmp/foo"
+    },
+    "adv:xattr:deny-bar-write": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/private/tmp/bar"
+      ],
+      "expected_primary_ops": [
+        "file-write-xattr"
+      ],
+      "name": "deny-bar-write",
+      "operation": "file-write-xattr",
+      "probe_id": "adv:xattr:deny-bar-write",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/private/tmp/bar"
     }
   },
   "registry_id": "runtime-adversarial",

@@ -174,6 +174,42 @@
       "profile_id": "adv:struct_nested",
       "profile_path": "book/experiments/runtime-adversarial/sb/struct_nested.sb",
       "semantic_group": "structural:file-read-subpath"
+    },
+    "adv:path_edges_private": {
+      "family": "path_edges",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": "Allow /private/tmp edges to discriminate /tmp normalization.",
+      "probe_refs": [
+        "adv:path_edges_private:allow-private",
+        "adv:path_edges_private:allow-private-subpath",
+        "adv:path_edges_private:allow-tmp",
+        "adv:path_edges_private:allow-tmp-subpath",
+        "adv:path_edges_private:deny-dotdot",
+        "adv:path_edges_private:write-private",
+        "adv:path_edges_private:write-private-subpath",
+        "adv:path_edges_private:write-tmp",
+        "adv:path_edges_private:write-tmp-subpath",
+        "adv:path_edges_private:write-dotdot"
+      ],
+      "profile_id": "adv:path_edges_private",
+      "profile_path": "book/experiments/runtime-adversarial/sb/path_edges_private.sb",
+      "semantic_group": "paths:literal-vs-normalized"
+    },
+    "adv:xattr": {
+      "family": "xattr",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": "Xattr read/write discrimination over /private/tmp fixtures.",
+      "probe_refs": [
+        "adv:xattr:allow-foo-read",
+        "adv:xattr:deny-bar-read",
+        "adv:xattr:allow-foo-write",
+        "adv:xattr:deny-bar-write"
+      ],
+      "profile_id": "adv:xattr",
+      "profile_path": "book/experiments/runtime-adversarial/sb/xattr.sb",
+      "semantic_group": "file:xattr-basic"
     }
   },
   "registry_id": "runtime-adversarial",

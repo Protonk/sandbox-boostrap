@@ -1,0 +1,43 @@
+{
+  "data": {
+    "correlation_id": "70805F42-9A63-448E-97AD-6F5F2A9DA1B1",
+    "deny_lines": [
+      "2025-12-31 21:12:29.219810-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_net_client(29311) deny(1) file-write-create /Users/achyland/Downloads/atlas_matrixextern.txt"
+    ],
+    "duration_ms": null,
+    "end": "2025-12-31 21:12:31",
+    "last": null,
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    \n2025-12-31 21:12:29.219810-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_net_client(29311) deny(1) file-write-create /Users/achyland/Downloads/atlas_matrixextern.txt",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": true,
+    "observed_lines": 2,
+    "observer_schema_version": 1,
+    "pid": 29311,
+    "plan_id": "deny-delay-detail:external:matrix-external-2-85679cc9-03ea-4698-827d-de746ee5de2b",
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_net_client(29311)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"29311\")))",
+    "process_name": "ProbeService_net_client",
+    "row_id": "net_client.fs_op_create_direct_downloads",
+    "start": "2025-12-31 21:12:27",
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767244349272,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

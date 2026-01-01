@@ -77,7 +77,12 @@ def run_baseline_for_probe(profile_id: str, probe: Dict[str, Any]) -> Dict[str, 
     if op.startswith("file-"):
         record.update(_baseline_path_observation(target))
     try:
-        res = subprocess.run(cmd, capture_output=True, text=True, timeout=5)
+        listener_info = None
+        if op == "network-outbound":
+            with harness_runner._loopback_listener(target) as listener_info:
+                res = subprocess.run(cmd, capture_output=True, text=True, timeout=5)
+        else:
+            res = subprocess.run(cmd, capture_output=True, text=True, timeout=5)
         probe_details, stdout_clean = _extract_probe_details(res.stdout or "")
         record["status"] = "allow" if res.returncode == 0 else "deny"
         record["exit_code"] = res.returncode
@@ -88,6 +93,8 @@ def run_baseline_for_probe(profile_id: str, probe: Dict[str, Any]) -> Dict[str, 
         record["decision_path"] = "baseline"
         if probe_details is not None:
             record["probe_details"] = probe_details
+        if listener_info is not None:
+            record["listener"] = listener_info
     except subprocess.TimeoutExpired:
         record["status"] = "deny"
         record["error"] = "timeout"

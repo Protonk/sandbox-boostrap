@@ -54,6 +54,7 @@ Falsify by capturing observer-backed deny lines for these cases, or by mapping t
 - Stable mapped intersection across those two runs: 7 rows (net_client listdir denies + temporary_exception file/Downloads denies + temporary_exception network-outbound).
 - `smoke-bd9d0f87-b3f0-4070-a934-75b2223f1870` / `smoke-162aeb4f-6e86-4ff7-a664-73f923e642e3`: external observer + include-stateful probes yields 3 row flips and lower deny yield than manual; not preferred.
 - `smoke-2f1ae2be-9441-48e2-a9f8-e5bffb477a11`: capture mode still fails with `missing child_pid for sandbox log capture`.
+- `smoke-2cbc3597-9aac-4abb-b188-e16cb244f4b3` / `smoke-233b9861-ae8a-45b1-be28-77a22e2297c7`: include-stateful + downloads ladder; 39 records, 21–23 mapped denies. Downloads ladder rows are stable across these two runs; only flips were `minimal.fs_op_deny_private_overrides` and `minimal.net_op_tcp_connect_control`.
 
 ## Evidence and tiers
 
@@ -67,6 +68,7 @@ Falsify by capturing observer-backed deny lines for these cases, or by mapping t
 - `book/experiments/policywitness-deny-atlas/out/smoke-dc03c1fb-270e-4a75-901c-6ecdfd557156/runs.jsonl` (full per-probe ledger for the high-yield run).
 - `book/experiments/policywitness-deny-atlas/out/smoke-fd118439-a88a-44c6-954d-5c80afba9714/deny_atlas.json` (brittle time-range capture comparison).
 - `book/experiments/policywitness-deny-atlas/out/smoke-b0fb0aee-f1e1-4144-ab5a-ef69ffa658d1/deny_atlas.json` (best stability with include-stateful probes; use as current stability baseline).
+- `book/experiments/policywitness-deny-atlas/out/smoke-2cbc3597-9aac-4abb-b188-e16cb244f4b3/deny_atlas.json` (downloads ladder run; shows observer-backed denies across the ladder probes).
 
 Legacy runs listed above predate bundle-mode outputs; new runs should include
 `artifact_index.json` in the run directory.
@@ -79,7 +81,12 @@ Legacy runs listed above predate bundle-mode outputs; new runs should include
 - Time-range observer windows can miss denies; the `--last` mode is currently more reliable.
 - Mapped rows can shift between runs; the atlas is currently `partial` until a stability check passes.
 - `downloads_rw` is still unstable under the `net_client` profile even with unique filenames; treat that row as unstable.
+- Downloads ladder probes show consistent kernel deny evidence in manual observer mode, which makes a userland-only short-circuit less likely; observer misses remain the most plausible source of intermittence.
 - `--capture-sandbox-logs` remains broken (missing child_pid), so capture mode is blocked.
+
+## Kernel deny line reliability (work in progress)
+
+We observed intermittent deny evidence for `net_client.downloads_rw_probe`: the probe result was stable (`permission_error`), but the manual observer sometimes reported no deny lines. To improve reliability, we added a downloads ladder probe set (fs_op create via path-class downloads, fs_op create via direct host path, fs_coordinated_op write via path-class downloads, plus a sandbox_check control) and forced per-run unique filenames to avoid stale artifacts. Two consecutive manual-observer runs with the ladder (`smoke-2cbc3597-9aac-4abb-b188-e16cb244f4b3` and `smoke-233b9861-ae8a-45b1-be28-77a22e2297c7`) yielded stable kernel deny lines for the ladder probes across all three profiles, with only non-ladder rows flipping. External observer mode still showed lower deny yield and more flips, and capture mode remained blocked by `missing child_pid for sandbox log capture`. The current working conclusion (hypothesis tier) is that observer misses are the dominant source of intermittence, not a userland-only short-circuit.
 
 ## Next steps
 

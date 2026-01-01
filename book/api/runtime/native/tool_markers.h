@@ -67,6 +67,7 @@
 #define SANDBOX_LORE_ENV_SEATBELT_FILTER_TYPE "SANDBOX_LORE_SEATBELT_FILTER_TYPE"
 #define SANDBOX_LORE_ENV_SEATBELT_ARG "SANDBOX_LORE_SEATBELT_ARG"
 #define SANDBOX_LORE_ENV_SEATBELT_API "SANDBOX_LORE_SEATBELT_API"
+#define SANDBOX_LORE_ENV_SEATBELT_CANONICAL "SANDBOX_LORE_SEATBELT_CANONICAL"
 
 typedef struct sbl_apply_report {
     const char *mode;
@@ -589,6 +590,17 @@ static const int *sbl_load_sandbox_check_no_report_flag(void) {
     return flag;
 }
 
+static const int *sbl_load_sandbox_check_canonical_flag(void) {
+    static const int *flag = NULL;
+    static int attempted = 0;
+    if (attempted) return flag;
+    attempted = 1;
+    void *handle = sbl_load_libsystem_sandbox_handle();
+    if (!handle) return NULL;
+    flag = (const int *)dlsym(handle, "SANDBOX_CHECK_CANONICAL");
+    return flag;
+}
+
 static int sbl_get_self_audit_token(audit_token_t *out, int *mach_kr_out) {
     if (!out) return -1;
     mach_msg_type_number_t count = TASK_AUDIT_TOKEN_COUNT;
@@ -613,8 +625,10 @@ enum {
     SBL_FILTER_IOKIT_REGISTRY_ENTRY_CLASS = 16,
     SBL_FILTER_IOKIT_CONNECTION = 18,
     SBL_FILTER_RIGHT_NAME = 26,
-    SBL_FILTER_IOKIT_USER_CLIENT_TYPE = 76,
     SBL_FILTER_PREFERENCE_DOMAIN = 27,
+    SBL_FILTER_NOTIFICATION = 34,
+    SBL_FILTER_XPC_SERVICE_NAME = 49,
+    SBL_FILTER_IOKIT_USER_CLIENT_TYPE = 76,
 };
 
 static const char *sbl_filter_type_name(long filter_type) {
@@ -637,6 +651,10 @@ static const char *sbl_filter_type_name(long filter_type) {
         return "iokit-user-client-type";
     case SBL_FILTER_PREFERENCE_DOMAIN:
         return "preference-domain";
+    case SBL_FILTER_NOTIFICATION:
+        return "notification-name";
+    case SBL_FILTER_XPC_SERVICE_NAME:
+        return "xpc-service-name";
     default:
         return "unknown";
     }
@@ -644,6 +662,8 @@ static const char *sbl_filter_type_name(long filter_type) {
 
 static int sbl_filter_type_is_string_arg(long filter_type) {
     switch (filter_type) {
+    case SBL_FILTER_NONE:
+        return 0;
     case SBL_FILTER_PATH:
     case SBL_FILTER_GLOBAL_NAME:
     case SBL_FILTER_LOCAL_NAME:
@@ -652,29 +672,59 @@ static int sbl_filter_type_is_string_arg(long filter_type) {
     case SBL_FILTER_RIGHT_NAME:
     case SBL_FILTER_IOKIT_USER_CLIENT_TYPE:
     case SBL_FILTER_PREFERENCE_DOMAIN:
+    case SBL_FILTER_NOTIFICATION:
+    case SBL_FILTER_XPC_SERVICE_NAME:
         return 1;
     default:
-        return 0;
+        return 1;
     }
 }
 
-static int sbl_sb_check_type_with_no_report(long filter_type, int *no_report_used, const char **no_report_reason) {
-    int used = 0;
-    const char *reason = "symbol_missing";
+static int sbl_sb_check_type_with_flags(
+    long filter_type,
+    int canonicalize,
+    int *no_report_used,
+    const char **no_report_reason,
+    int *canonical_used,
+    const char **canonical_reason
+) {
+    int no_report_flag_used = 0;
+    int canonical_flag_used = 0;
+    const char *no_report_note = "symbol_missing";
+    const char *canonical_note = "not_requested";
     long type_used = filter_type;
+
+    if (canonicalize) {
+        const int *flagp = sbl_load_sandbox_check_canonical_flag();
+        canonical_note = "symbol_missing";
+        if (flagp) {
+            int flag_value = *flagp;
+            if (flag_value != 0) {
+                type_used = filter_type | flag_value;
+                canonical_flag_used = 1;
+                canonical_note = NULL;
+            } else {
+                canonical_note = "flag_zero";
+            }
+        }
+    }
+
     const int *flagp = sbl_load_sandbox_check_no_report_flag();
     if (flagp) {
         int flag_value = *flagp;
         if (flag_value != 0) {
-            type_used = filter_type | flag_value;
-            used = 1;
-            reason = NULL;
+            type_used = type_used | flag_value;
+            no_report_flag_used = 1;
+            no_report_note = NULL;
         } else {
-            reason = "flag_zero";
+            no_report_note = "flag_zero";
         }
     }
-    if (no_report_used) *no_report_used = used;
-    if (no_report_reason) *no_report_reason = reason;
+
+    if (no_report_used) *no_report_used = no_report_flag_used;
+    if (no_report_reason) *no_report_reason = no_report_note;
+    if (canonical_used) *canonical_used = canonical_flag_used;
+    if (canonical_reason) *canonical_reason = canonical_note;
     return (int)type_used;
 }
 
@@ -684,6 +734,9 @@ static void sbl_emit_seatbelt_callout(
     const char *operation,
     long filter_type,
     const char *argument,
+    const char *canonicalization,
+    int canonical_flag_used,
+    const char *canonical_flag_reason,
     int rc,
     int err,
     const char *error_msg,
@@ -707,6 +760,9 @@ static void sbl_emit_seatbelt_callout(
     sbl_json_emit_kv_int(out, &first, "check_type", check_type);
     sbl_json_emit_kv_int(out, &first, "varargs_count", varargs_count);
     sbl_json_emit_kv_string(out, &first, "argument", argument);
+    sbl_json_emit_kv_string(out, &first, "canonicalization", canonicalization);
+    sbl_json_emit_kv_bool(out, &first, "canonical_flag_used", canonical_flag_used);
+    sbl_json_emit_kv_string(out, &first, "canonical_flag_reason", canonical_flag_reason);
     sbl_json_emit_kv_bool(out, &first, "no_report", no_report);
     sbl_json_emit_kv_string(out, &first, "no_report_reason", no_report_reason);
     sbl_json_emit_kv_string(out, &first, "token_status", token_status);
@@ -719,29 +775,25 @@ static void sbl_emit_seatbelt_callout(
     fflush(out);
 }
 
-static SBL_UNUSED void sbl_maybe_seatbelt_callout_from_env(const char *stage) {
-    const char *enabled = getenv(SANDBOX_LORE_ENV_SEATBELT_CALLOUT);
-    if (!enabled || strcmp(enabled, "1") != 0) return;
-    const char *op = getenv(SANDBOX_LORE_ENV_SEATBELT_OP);
-    const char *filter_s = getenv(SANDBOX_LORE_ENV_SEATBELT_FILTER_TYPE);
-    const char *arg = getenv(SANDBOX_LORE_ENV_SEATBELT_ARG);
-    const char *api_env = getenv(SANDBOX_LORE_ENV_SEATBELT_API);
-    if (!op || !filter_s || !arg) return;
-    char *end = NULL;
-    long filter = strtol(filter_s, &end, 10);
-    if (!end || *end != '\0') return;
-    int use_pid = 0;
-    if (api_env && (strcmp(api_env, "pid") == 0 || strcmp(api_env, "sandbox_check") == 0)) {
-        use_pid = 1;
-    }
-
+static void sbl_seatbelt_callout_variant(
+    const char *stage,
+    const char *operation,
+    long filter,
+    const char *argument,
+    int use_pid,
+    int canonicalize,
+    const char *canonicalization
+) {
     if (!sbl_filter_type_is_string_arg(filter)) {
         sbl_emit_seatbelt_callout(
             stage,
             use_pid ? "sandbox_check" : "sandbox_check_by_audit_token",
-            op,
+            operation,
             filter,
-            arg,
+            argument,
+            canonicalization,
+            0,
+            "unsupported_filter_type",
             -2,
             ENOTSUP,
             "unsupported filter type (string-arg only)",
@@ -757,19 +809,35 @@ static SBL_UNUSED void sbl_maybe_seatbelt_callout_from_env(const char *stage) {
 
     int no_report_used = 0;
     const char *no_report_reason = NULL;
-    int type_used = sbl_sb_check_type_with_no_report(filter, &no_report_used, &no_report_reason);
+    int canonical_used = 0;
+    const char *canonical_reason = NULL;
+    int type_used = sbl_sb_check_type_with_flags(
+        filter,
+        canonicalize,
+        &no_report_used,
+        &no_report_reason,
+        &canonical_used,
+        &canonical_reason
+    );
     if (!no_report_used && no_report_reason == NULL) {
         no_report_reason = "unknown";
     }
+    if (!canonical_used && canonical_reason == NULL) {
+        canonical_reason = "unknown";
+    }
+
     if (use_pid) {
         sbl_sandbox_check_fn fn = sbl_load_sandbox_check();
         if (!fn) {
             sbl_emit_seatbelt_callout(
                 stage,
                 "sandbox_check",
-                op,
+                operation,
                 filter,
-                arg,
+                argument,
+                canonicalization,
+                canonical_used,
+                canonical_reason,
                 -2,
                 ENOSYS,
                 "sandbox_check missing",
@@ -783,14 +851,17 @@ static SBL_UNUSED void sbl_maybe_seatbelt_callout_from_env(const char *stage) {
             return;
         }
         errno = 0;
-        int rc = fn(getpid(), op, type_used, arg);
+        int rc = fn(getpid(), operation, type_used, argument);
         int err = errno;
         sbl_emit_seatbelt_callout(
             stage,
             "sandbox_check",
-            op,
+            operation,
             filter,
-            arg,
+            argument,
+            canonicalization,
+            canonical_used,
+            canonical_reason,
             rc,
             err,
             NULL,
@@ -810,9 +881,12 @@ static SBL_UNUSED void sbl_maybe_seatbelt_callout_from_env(const char *stage) {
         sbl_emit_seatbelt_callout(
             stage,
             "sandbox_check_by_audit_token",
-            op,
+            operation,
             filter,
-            arg,
+            argument,
+            canonicalization,
+            canonical_used,
+            canonical_reason,
             -1,
             0,
             "TASK_AUDIT_TOKEN unavailable",
@@ -830,9 +904,12 @@ static SBL_UNUSED void sbl_maybe_seatbelt_callout_from_env(const char *stage) {
         sbl_emit_seatbelt_callout(
             stage,
             "sandbox_check_by_audit_token",
-            op,
+            operation,
             filter,
-            arg,
+            argument,
+            canonicalization,
+            canonical_used,
+            canonical_reason,
             -2,
             ENOSYS,
             "sandbox_check_by_audit_token missing",
@@ -847,14 +924,17 @@ static SBL_UNUSED void sbl_maybe_seatbelt_callout_from_env(const char *stage) {
     }
 
     errno = 0;
-    int rc = fn(&token, op, type_used, arg);
+    int rc = fn(&token, operation, type_used, argument);
     int err = errno;
     sbl_emit_seatbelt_callout(
         stage,
         "sandbox_check_by_audit_token",
-        op,
+        operation,
         filter,
-        arg,
+        argument,
+        canonicalization,
+        canonical_used,
+        canonical_reason,
         rc,
         err,
         NULL,
@@ -867,6 +947,42 @@ static SBL_UNUSED void sbl_maybe_seatbelt_callout_from_env(const char *stage) {
     );
 }
 
+static SBL_UNUSED void sbl_maybe_seatbelt_callout_from_env(const char *stage) {
+    const char *enabled = getenv(SANDBOX_LORE_ENV_SEATBELT_CALLOUT);
+    if (!enabled || strcmp(enabled, "1") != 0) return;
+    const char *op = getenv(SANDBOX_LORE_ENV_SEATBELT_OP);
+    const char *filter_s = getenv(SANDBOX_LORE_ENV_SEATBELT_FILTER_TYPE);
+    const char *arg = getenv(SANDBOX_LORE_ENV_SEATBELT_ARG);
+    const char *api_env = getenv(SANDBOX_LORE_ENV_SEATBELT_API);
+    const char *canonical_env = getenv(SANDBOX_LORE_ENV_SEATBELT_CANONICAL);
+    if (!op || !filter_s || !arg) return;
+    char *end = NULL;
+    long filter = strtol(filter_s, &end, 10);
+    if (!end || *end != '\0') return;
+    int use_pid = 0;
+    if (api_env && (strcmp(api_env, "pid") == 0 || strcmp(api_env, "sandbox_check") == 0)) {
+        use_pid = 1;
+    }
+    int call_raw = 1;
+    int call_canonical = 0;
+    if (canonical_env) {
+        if (strcmp(canonical_env, "both") == 0) {
+            call_raw = 1;
+            call_canonical = 1;
+        } else if (strcmp(canonical_env, "1") == 0 || strcmp(canonical_env, "canonical") == 0) {
+            call_raw = 0;
+            call_canonical = 1;
+        }
+    }
+
+    if (call_raw) {
+        sbl_seatbelt_callout_variant(stage, op, filter, arg, use_pid, 0, "raw");
+    }
+    if (call_canonical) {
+        sbl_seatbelt_callout_variant(stage, op, filter, arg, use_pid, 1, "canonical");
+    }
+}
+
 static SBL_UNUSED void sbl_maybe_seatbelt_process_exec_callout(const char *stage, const char *argv0) {
     const char *enabled = getenv(SANDBOX_LORE_ENV_SEATBELT_CALLOUT);
     if (!enabled || strcmp(enabled, "1") != 0) return;
@@ -876,121 +992,7 @@ static SBL_UNUSED void sbl_maybe_seatbelt_process_exec_callout(const char *stage
     if (api_env && (strcmp(api_env, "pid") == 0 || strcmp(api_env, "sandbox_check") == 0)) {
         use_pid = 1;
     }
-    if (use_pid) {
-        sbl_sandbox_check_fn fn = sbl_load_sandbox_check();
-        if (!fn) {
-            sbl_emit_seatbelt_callout(
-                stage,
-                "sandbox_check",
-                "process-exec*",
-                SBL_FILTER_PATH,
-                argv0,
-                -2,
-                ENOSYS,
-                "sandbox_check missing",
-                0,
-                "symbol_missing",
-                0,
-                "pid",
-                SBL_FILTER_PATH,
-                1
-            );
-            return;
-        }
-        int no_report_used = 0;
-        const char *no_report_reason = NULL;
-        int type_used = sbl_sb_check_type_with_no_report(SBL_FILTER_PATH, &no_report_used, &no_report_reason);
-        if (!no_report_used && no_report_reason == NULL) {
-            no_report_reason = "unknown";
-        }
-        errno = 0;
-        int rc = fn(getpid(), "process-exec*", type_used, argv0);
-        int err = errno;
-        sbl_emit_seatbelt_callout(
-            stage,
-            "sandbox_check",
-            "process-exec*",
-            SBL_FILTER_PATH,
-            argv0,
-            rc,
-            err,
-            NULL,
-            no_report_used,
-            no_report_reason,
-            0,
-            "pid",
-            type_used,
-            1
-        );
-        return;
-    }
-    int token_kr = 0;
-    audit_token_t token;
-    if (sbl_get_self_audit_token(&token, &token_kr) != 0) {
-        sbl_emit_seatbelt_callout(
-            stage,
-            "sandbox_check_by_audit_token",
-            "process-exec*",
-            SBL_FILTER_PATH,
-            argv0,
-            -1,
-            0,
-            "TASK_AUDIT_TOKEN unavailable",
-            0,
-            "token_unavailable",
-            token_kr,
-            "task_info_failed",
-            SBL_FILTER_PATH,
-            1
-        );
-        return;
-    }
-    sbl_sandbox_check_by_audit_token_fn fn = sbl_load_sandbox_check_by_audit_token();
-    if (!fn) {
-        sbl_emit_seatbelt_callout(
-            stage,
-            "sandbox_check_by_audit_token",
-            "process-exec*",
-            SBL_FILTER_PATH,
-            argv0,
-            -2,
-            ENOSYS,
-            "sandbox_check_by_audit_token missing",
-            0,
-            "symbol_missing",
-            token_kr,
-            "ok",
-            SBL_FILTER_PATH,
-            1
-        );
-        return;
-    }
-
-    int no_report_used = 0;
-    const char *no_report_reason = NULL;
-    int type_used = sbl_sb_check_type_with_no_report(SBL_FILTER_PATH, &no_report_used, &no_report_reason);
-    if (!no_report_used && no_report_reason == NULL) {
-        no_report_reason = "unknown";
-    }
-    errno = 0;
-    int rc = fn(&token, "process-exec*", type_used, argv0);
-    int err = errno;
-    sbl_emit_seatbelt_callout(
-        stage,
-        "sandbox_check_by_audit_token",
-        "process-exec*",
-        SBL_FILTER_PATH,
-        argv0,
-        rc,
-        err,
-        NULL,
-        no_report_used,
-        no_report_reason,
-        token_kr,
-        "ok",
-        type_used,
-        1
-    );
+    sbl_seatbelt_callout_variant(stage, "process-exec*", SBL_FILTER_PATH, argv0, use_pid, 0, "raw");
 }
 
 #endif /* SANDBOX_LORE_RUNTIME_TOOL_MARKERS_H */

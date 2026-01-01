@@ -18,7 +18,7 @@
     ],
     "input_hashes": {
       "book/experiments/runtime-checks/out/promotion_packet.json": "662297e9f76b45fe433c47a3b882f2e59c020323ec967a76b0a972cc28dc7f95",
-      "book/experiments/runtime-adversarial/out/promotion_packet.json": "a8a0dd416addbe2ad37e28bd52f9e3b42ddc219cf2bb2e154a38838c634b6faa",
+      "book/experiments/runtime-adversarial/out/promotion_packet.json": "bc35f5e64d6226bc6246dcc1cc66c821c7cfaeb0548b22996ede040899e6760a",
       "book/experiments/hardened-runtime/out/promotion_packet.json": "5d8f999c2b9f86e80038f61324ca87fc8bb8e72300bc0ee8ce7dc323e821c1b7",
       "book/experiments/anchor-filter-map/out/promotion_packet.json": "3da1176b548091e31d9bed8c9e73bd7c77dc5f8d5b12665ca6a762c27c6e5b13",
       "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json": "b782656b8fc38a49f4c1a91c2b484590773d46fc97fea8c7c9fbb78be3222d54"
@@ -29,10 +29,10 @@
       "op_name": "file-read*",
       "op_id": 21,
       "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
-      "probes": 29,
-      "matches": 27,
-      "mismatches": 2,
-      "probes_including_blocked": 31,
+      "probes": 34,
+      "matches": 30,
+      "mismatches": 4,
+      "probes_including_blocked": 36,
       "blocked": {
         "total": 2,
         "by_stage": {
@@ -87,6 +87,11 @@
         "adv:path_edges:allow-tmp",
         "adv:path_edges:deny-dotdot",
         "adv:path_edges:deny-private",
+        "adv:path_edges_private:allow-private",
+        "adv:path_edges_private:allow-private-subpath",
+        "adv:path_edges_private:allow-tmp",
+        "adv:path_edges_private:allow-tmp-subpath",
+        "adv:path_edges_private:deny-dotdot",
         "adv:struct_flat:allow-ok-deep",
         "adv:struct_flat:allow-ok-root",
         "adv:struct_flat:deny-blocked",
@@ -114,6 +119,20 @@
       ],
       "mismatch_details": [
         {
+          "scenario_id": "adv:path_alias:alias-tmp",
+          "expectation_id": "adv:path_alias:alias-tmp",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/tmp/runtime-adv/alias/allow.txt"
+        },
+        {
+          "scenario_id": "adv:path_alias:alias-private",
+          "expectation_id": "adv:path_alias:alias-private",
+          "expected": "allow",
+          "actual": "deny",
+          "target": "/private/tmp/runtime-adv/alias/allow.txt"
+        },
+        {
           "scenario_id": "adv:path_edges:allow-tmp",
           "expectation_id": "adv:path_edges:allow-tmp",
           "expected": "allow",
@@ -134,10 +153,10 @@
       "op_name": "file-write*",
       "op_id": 29,
       "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
-      "probes": 20,
-      "matches": 18,
+      "probes": 25,
+      "matches": 23,
       "mismatches": 2,
-      "probes_including_blocked": 22,
+      "probes_including_blocked": 27,
       "blocked": {
         "total": 2,
         "by_stage": {
@@ -189,6 +208,11 @@
         "adv:path_edges:write-private",
         "adv:path_edges:write-subpath",
         "adv:path_edges:write-tmp",
+        "adv:path_edges_private:write-dotdot",
+        "adv:path_edges_private:write-private",
+        "adv:path_edges_private:write-private-subpath",
+        "adv:path_edges_private:write-tmp",
+        "adv:path_edges_private:write-tmp-subpath",
         "adv:struct_flat:write-blocked",
         "adv:struct_flat:write-ok-deep",
         "adv:struct_flat:write-ok-root",
@@ -231,8 +255,8 @@
       "op_id": 112,
       "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
       "probes": 8,
-      "matches": 2,
-      "mismatches": 6,
+      "matches": 8,
+      "mismatches": 0,
       "probes_including_blocked": 8,
       "blocked": {
         "total": 0,
@@ -244,36 +268,36 @@
           "scenario_id": "adv:flow_divert_partial_tcp:tcp-loopback",
           "expectation_id": "adv:flow_divert_partial_tcp:tcp-loopback",
           "expected": "allow",
-          "actual": "deny",
-          "match": false
+          "actual": "allow",
+          "match": true
         },
         {
           "scenario_id": "adv:flow_divert_partial_tcp:tcp-loopback-2",
           "expectation_id": "adv:flow_divert_partial_tcp:tcp-loopback-2",
           "expected": "allow",
-          "actual": "deny",
-          "match": false
+          "actual": "allow",
+          "match": true
         },
         {
           "scenario_id": "adv:flow_divert_require_all_tcp:tcp-loopback",
           "expectation_id": "adv:flow_divert_require_all_tcp:tcp-loopback",
           "expected": "allow",
-          "actual": "deny",
-          "match": false
+          "actual": "allow",
+          "match": true
         },
         {
           "scenario_id": "adv:flow_divert_require_all_tcp:tcp-loopback-2",
           "expectation_id": "adv:flow_divert_require_all_tcp:tcp-loopback-2",
           "expected": "allow",
-          "actual": "deny",
-          "match": false
+          "actual": "allow",
+          "match": true
         },
         {
           "scenario_id": "adv:net_outbound_allow:tcp-loopback",
           "expectation_id": "adv:net_outbound_allow:tcp-loopback",
           "expected": "allow",
-          "actual": "deny",
-          "match": false
+          "actual": "allow",
+          "match": true
         }
       ],
       "scenarios": [
@@ -286,51 +310,7 @@
         "adv:net_outbound_deny:tcp-loopback",
         "adv:net_outbound_deny:tcp-loopback-2"
       ],
-      "mismatch_details": [
-        {
-          "scenario_id": "adv:flow_divert_partial_tcp:tcp-loopback",
-          "expectation_id": "adv:flow_divert_partial_tcp:tcp-loopback",
-          "expected": "allow",
-          "actual": "deny",
-          "target": "127.0.0.1:62646"
-        },
-        {
-          "scenario_id": "adv:flow_divert_partial_tcp:tcp-loopback-2",
-          "expectation_id": "adv:flow_divert_partial_tcp:tcp-loopback-2",
-          "expected": "allow",
-          "actual": "deny",
-          "target": "127.0.0.1:62647"
-        },
-        {
-          "scenario_id": "adv:flow_divert_require_all_tcp:tcp-loopback",
-          "expectation_id": "adv:flow_divert_require_all_tcp:tcp-loopback",
-          "expected": "allow",
-          "actual": "deny",
-          "target": "127.0.0.1:62646"
-        },
-        {
-          "scenario_id": "adv:flow_divert_require_all_tcp:tcp-loopback-2",
-          "expectation_id": "adv:flow_divert_require_all_tcp:tcp-loopback-2",
-          "expected": "allow",
-          "actual": "deny",
-          "target": "127.0.0.1:62647"
-        },
-        {
-          "scenario_id": "adv:net_outbound_allow:tcp-loopback",
-          "expectation_id": "adv:net_outbound_allow:tcp-loopback",
-          "expected": "allow",
-          "actual": "deny",
-          "target": "127.0.0.1:62646"
-        },
-        {
-          "scenario_id": "adv:net_outbound_allow:tcp-loopback-2",
-          "expectation_id": "adv:net_outbound_allow:tcp-loopback-2",
-          "expected": "allow",
-          "actual": "deny",
-          "target": "127.0.0.1:62647"
-        }
-      ],
-      "coverage_status": "partial"
+      "coverage_status": "ok"
     },
     "mach-lookup": {
       "op_name": "mach-lookup",
@@ -427,6 +407,76 @@
         }
       ],
       "coverage_status": "partial"
+    },
+    "file-read-xattr": {
+      "op_name": "file-read-xattr",
+      "op_id": 24,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 2,
+      "matches": 2,
+      "mismatches": 0,
+      "probes_including_blocked": 2,
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "examples": [
+        {
+          "scenario_id": "adv:xattr:allow-foo-read",
+          "expectation_id": "adv:xattr:allow-foo-read",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        },
+        {
+          "scenario_id": "adv:xattr:deny-bar-read",
+          "expectation_id": "adv:xattr:deny-bar-read",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        }
+      ],
+      "scenarios": [
+        "adv:xattr:allow-foo-read",
+        "adv:xattr:deny-bar-read"
+      ],
+      "coverage_status": "ok"
+    },
+    "file-write-xattr": {
+      "op_name": "file-write-xattr",
+      "op_id": 40,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 2,
+      "matches": 2,
+      "mismatches": 0,
+      "probes_including_blocked": 2,
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "examples": [
+        {
+          "scenario_id": "adv:xattr:allow-foo-write",
+          "expectation_id": "adv:xattr:allow-foo-write",
+          "expected": "allow",
+          "actual": "allow",
+          "match": true
+        },
+        {
+          "scenario_id": "adv:xattr:deny-bar-write",
+          "expectation_id": "adv:xattr:deny-bar-write",
+          "expected": "deny",
+          "actual": "deny",
+          "match": true
+        }
+      ],
+      "scenarios": [
+        "adv:xattr:allow-foo-write",
+        "adv:xattr:deny-bar-write"
+      ],
+      "coverage_status": "ok"
     },
     "darwin-notification-post": {
       "op_name": "darwin-notification-post",

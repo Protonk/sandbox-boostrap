@@ -10,6 +10,7 @@ Outputs (derived):
 - out/derived/<run_id>/atlas/field2_atlas.json
 - out/derived/<run_id>/atlas/summary.json
 - out/derived/<run_id>/atlas/summary.md
+- out/derived/<run_id>/atlas/mapping_delta.json
 - out/derived/<run_id>/consumption_receipt.json
 """
 
@@ -38,6 +39,22 @@ SEEDS_PATH = Path(__file__).with_name("field2_seeds.json")
 DEFAULT_OUT_ROOT = Path(__file__).with_name("out") / "derived"
 ATLAS_SCHEMA_VERSION = "field2-atlas.atlas.v0"
 SUMMARY_SCHEMA_VERSION = "field2-atlas.summary.v0"
+DELTA_SCHEMA_VERSION = "field2-atlas.mapping_delta.v0"
+
+ALT_CANDIDATES = {
+    0: {"profile_id": "adv:path_edges_private", "probe_name": "allow-tmp"},
+    1: {"profile_id": "adv:path_edges_private", "probe_name": "allow-tmp-subpath"},
+    2: {"profile_id": "adv:xattr", "probe_name": "allow-foo-read"},
+}
+
+
+def _load_runtime_events(path: Path) -> List[Dict[str, Any]]:
+    if not path.exists():
+        return []
+    doc = atlas_runtime.load_json(path)
+    if isinstance(doc, list):
+        return [row for row in doc if isinstance(row, dict)]
+    return []
 
 
 def _sha256(path: Path) -> str:
@@ -92,6 +109,7 @@ def derive_output_paths(out_root: Path, run_id: str) -> Dict[str, Path]:
         "atlas": derived_root / "atlas" / "field2_atlas.json",
         "summary": derived_root / "atlas" / "summary.json",
         "summary_md": derived_root / "atlas" / "summary.md",
+        "delta": derived_root / "atlas" / "mapping_delta.json",
         "receipt": derived_root / "consumption_receipt.json",
     }
 
@@ -170,6 +188,99 @@ def build_atlas(
     return atlas_doc, summary_doc
 
 
+def build_mapping_delta(
+    runtime_doc: Dict[str, Any],
+    *,
+    runtime_events_path: Path,
+) -> Dict[str, Any]:
+    events = _load_runtime_events(runtime_events_path)
+    events_by_key = {}
+    for event in events:
+        profile_id = event.get("profile_id")
+        probe_name = event.get("probe_name")
+        if profile_id and probe_name:
+            events_by_key[(profile_id, probe_name)] = event
+
+    proposals = []
+    unresolved = []
+    for entry in runtime_doc.get("results", []):
+        field2 = entry.get("field2")
+        candidate = entry.get("runtime_candidate") or {}
+        latest = candidate.get("latest_attempt") or {}
+        status = entry.get("status")
+        weak = bool(latest.get("failure_stage")) or status != "runtime_backed"
+        if not weak:
+            continue
+        alt = ALT_CANDIDATES.get(field2)
+        if alt:
+            alt_event = events_by_key.get((alt["profile_id"], alt["probe_name"]))
+            if alt_event and alt_event.get("failure_stage") is None and alt_event.get("actual") is not None:
+                proposals.append(
+                    {
+                        "field2": field2,
+                        "filter_name": entry.get("filter_name"),
+                        "candidate_before": {
+                            "profile_id": candidate.get("profile_id"),
+                            "probe_name": candidate.get("probe_name"),
+                            "scenario_id": candidate.get("scenario_id"),
+                        },
+                        "candidate_after": {
+                            "profile_id": alt_event.get("profile_id"),
+                            "probe_name": alt_event.get("probe_name"),
+                            "scenario_id": alt_event.get("scenario_id"),
+                        },
+                        "decision": {
+                            "operation": alt_event.get("operation"),
+                            "target": alt_event.get("target"),
+                            "expected": alt_event.get("expected"),
+                            "actual": alt_event.get("actual"),
+                            "runtime_status": alt_event.get("runtime_status"),
+                            "failure_stage": alt_event.get("failure_stage"),
+                            "failure_kind": alt_event.get("failure_kind"),
+                            "source": path_utils.to_repo_relative(runtime_events_path, repo_root=REPO_ROOT),
+                        },
+                        "status": "decided",
+                    }
+                )
+                continue
+            unresolved.append(
+                {
+                    "field2": field2,
+                    "filter_name": entry.get("filter_name"),
+                    "candidate": {
+                        "profile_id": candidate.get("profile_id"),
+                        "probe_name": candidate.get("probe_name"),
+                        "scenario_id": candidate.get("scenario_id"),
+                    },
+                    "reason": "alternate_candidate_not_decisive",
+                }
+            )
+        else:
+            unresolved.append(
+                {
+                    "field2": field2,
+                    "filter_name": entry.get("filter_name"),
+                    "candidate": {
+                        "profile_id": candidate.get("profile_id"),
+                        "probe_name": candidate.get("probe_name"),
+                        "scenario_id": candidate.get("scenario_id"),
+                    },
+                    "reason": "no_alternate_candidate",
+                }
+            )
+
+    return {
+        "schema_version": DELTA_SCHEMA_VERSION,
+        "world_id": runtime_doc.get("world_id"),
+        "provenance": runtime_doc.get("provenance") or {},
+        "source_artifacts": {
+            "runtime_events": path_utils.to_repo_relative(runtime_events_path, repo_root=REPO_ROOT),
+        },
+        "proposals": proposals,
+        "unresolved": unresolved,
+    }
+
+
 def _summary_header(provenance: Dict[str, Any]) -> str:
     run_id = provenance.get("run_id") or "unknown"
     digest = provenance.get("artifact_index_sha256") or "unknown"
@@ -184,10 +295,13 @@ def write_outputs(
     atlas_path: Path,
     summary_path: Path,
     summary_md_path: Path,
+    delta_path: Path,
+    delta_doc: Dict[str, Any],
 ) -> None:
     atlas_path.parent.mkdir(parents=True, exist_ok=True)
     atlas_path.write_text(json.dumps(atlas_doc, indent=2, sort_keys=True), encoding="utf-8")
     summary_path.write_text(json.dumps(summary_doc, indent=2, sort_keys=True), encoding="utf-8")
+    delta_path.write_text(json.dumps(delta_doc, indent=2, sort_keys=True), encoding="utf-8")
 
     lines = [_summary_header(atlas_doc.get("provenance") or {})]
     lines += ["| field2 | status | profiles | anchors | runtime_scenario |", "| --- | --- | --- | --- | --- |"]
@@ -216,18 +330,21 @@ def main() -> None:
 
     ctx = packet_utils.resolve_packet_context(args.packet, required_exports=atlas_runtime.REQUIRED_EXPORTS, repo_root=REPO_ROOT)
     paths = derive_output_paths(args.out_root, ctx.run_id)
-    runtime_doc, _ = atlas_runtime.build_runtime_results(
+    runtime_doc, ctx = atlas_runtime.build_runtime_results(
         args.packet, receipt_path=paths["receipt"], packet_context=ctx
     )
     atlas_runtime.write_results(runtime_doc, output_path=paths["runtime_results"])
 
     atlas_doc, summary_doc = build_atlas(runtime_doc, runtime_results_path=paths["runtime_results"])
+    delta_doc = build_mapping_delta(runtime_doc, runtime_events_path=ctx.export_paths["runtime_events"])
     write_outputs(
         atlas_doc,
         summary_doc,
         atlas_path=paths["atlas"],
         summary_path=paths["summary"],
         summary_md_path=paths["summary_md"],
+        delta_path=paths["delta"],
+        delta_doc=delta_doc,
     )
 
     atlas_runtime.write_consumption_receipt(
@@ -240,6 +357,7 @@ def main() -> None:
             "atlas": paths["atlas"],
             "summary": paths["summary"],
             "summary_md": paths["summary_md"],
+            "mapping_delta": paths["delta"],
         },
     )
 

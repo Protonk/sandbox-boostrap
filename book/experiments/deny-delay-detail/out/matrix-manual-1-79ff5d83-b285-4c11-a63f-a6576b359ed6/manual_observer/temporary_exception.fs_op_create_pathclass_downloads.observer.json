@@ -1,0 +1,43 @@
+{
+  "data": {
+    "correlation_id": "E3B8A844-2863-4ADA-8C90-B02563322F66",
+    "deny_lines": [
+      "2025-12-31 21:06:05.192966-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_temporary_exception(26808) deny(1) file-write-create /Users/achyland/Downloads/policy-witness-harness"
+    ],
+    "duration_ms": null,
+    "end": null,
+    "last": "30s",
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    \n2025-12-31 21:06:05.192966-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_temporary_exception(26808) deny(1) file-write-create /Users/achyland/Downloads/policy-witness-harness\n2025-12-31 21:06:05.203934-0800  localhost log[26810]: [com.apple.log:] log run noninteractively, parent: 26809 (sandbox-log-observer), args: '/usr/bin/log' 'show' '--style' 'syslog' '--info' '--debug' '--last' '30s' '--predicate' '((eventMessage CONTAINS[c] \"Sandbox: ProbeService_temporary_exception(26808)\") OR ((eventMessag",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": true,
+    "observed_lines": 3,
+    "observer_schema_version": 1,
+    "pid": 26808,
+    "plan_id": "deny-delay-detail:manual:matrix-manual-1-79ff5d83-b285-4c11-a63f-a6576b359ed6",
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_temporary_exception(26808)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"26808\")))",
+    "process_name": "ProbeService_temporary_exception",
+    "row_id": "temporary_exception.fs_op_create_pathclass_downloads",
+    "start": null,
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767243965360,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

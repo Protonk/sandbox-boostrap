@@ -1,0 +1,5 @@
+(version 1)
+(deny default)
+(allow file-read-xattr (literal "/tmp/foo"))
+(allow file-write-xattr (literal "/tmp/foo"))
+(allow process-fork)

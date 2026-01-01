@@ -1,0 +1,62 @@
+{
+  "data": {
+    "argv": [
+      "--op",
+      "write",
+      "--path-class",
+      "downloads",
+      "--target",
+      "specimen_file"
+    ],
+    "correlation_id": "DDED9AF8-DC1E-4867-9C2C-C49B11306150",
+    "details": {
+      "base_dir": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_net_client/Data/Downloads",
+      "bundle_id": "com.yourteam.policy-witness.ProbeService_net_client",
+      "correlation_id": "DDED9AF8-DC1E-4867-9C2C-C49B11306150",
+      "cwd": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_net_client/Data",
+      "file_path": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_net_client/Data/Downloads/policy-witness-harness/fs-op/0AC355D6-B42F-4D2B-BBF8-DC5167A4EBC0/specimen-D14D4F76-F18A-4EDC-8E02-136BF5BE0B3E.txt",
+      "harness_dir": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_net_client/Data/Downloads/policy-witness-harness",
+      "home_dir": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_net_client/Data",
+      "op": "write",
+      "path_class": "downloads",
+      "path_mode": "path_class",
+      "pid": "28978",
+      "probe_family": "fs_coordinated_op",
+      "probe_pid": "28978",
+      "process_name": "ProbeService_net_client",
+      "run_dir": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_net_client/Data/Downloads/policy-witness-harness/fs-op/0AC355D6-B42F-4D2B-BBF8-DC5167A4EBC0",
+      "service_pid": "28978",
+      "session_token": "A5B3A2B1-800F-4232-B462-4DD824999ED3",
+      "target": "specimen_file",
+      "tmp_dir": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_net_client/Data/tmp/"
+    },
+    "ended_at_iso8601": "2026-01-01T05:12:20.693Z",
+    "errno": 1,
+    "error": "Error Domain=NSCocoaErrorDomain Code=513 \"You don\u2019t have permission to save the file \u201c0AC355D6-B42F-4D2B-BBF8-DC5167A4EBC0\u201d in the folder \u201cfs-op\u201d.\" UserInfo={NSFilePath=/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_net_client/Data/Downloads/policy-witness-harness/fs-op/0AC355D6-B42F-4D2B-BBF8-DC5167A4EBC0, NSUnderlyingError=0x60000018dec0 {Error Domain=NSPOSIXErrorDomain Code=1 \"Operation not permitted\"}}",
+    "normalized_outcome": "permission_error",
+    "plan_id": "deny-delay-detail:manual:matrix-manual-2-8905ab2d-bd8b-4786-807e-3c87cfc8af84",
+    "probe_id": "fs_coordinated_op",
+    "rc": 1,
+    "row_id": "net_client.fs_coordinated_write_pathclass_downloads",
+    "schema_version": 1,
+    "service_build": "2",
+    "service_bundle_id": "com.yourteam.policy-witness.ProbeService_net_client",
+    "service_name": "ProbeService_net_client",
+    "service_version": "2.0.0",
+    "started_at_iso8601": "2026-01-01T05:12:20.690Z",
+    "stderr": "",
+    "stdout": "",
+    "thread_id": "5895"
+  },
+  "generated_at_unix_ms": 1767244340694,
+  "kind": "probe_response",
+  "result": {
+    "errno": 1,
+    "error": "Error Domain=NSCocoaErrorDomain Code=513 \"You don\u2019t have permission to save the file \u201c0AC355D6-B42F-4D2B-BBF8-DC5167A4EBC0\u201d in the folder \u201cfs-op\u201d.\" UserInfo={NSFilePath=/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_net_client/Data/Downloads/policy-witness-harness/fs-op/0AC355D6-B42F-4D2B-BBF8-DC5167A4EBC0, NSUnderlyingError=0x60000018dec0 {Error Domain=NSPOSIXErrorDomain Code=1 \"Operation not permitted\"}}",
+    "exit_code": 1,
+    "normalized_outcome": "permission_error",
+    "ok": false,
+    "rc": 1
+  },
+  "schema_version": 1
+}

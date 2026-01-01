@@ -40,6 +40,9 @@ If `probe_catalog` shows a Mach/XPC probe (for example a `mach_*` or `bootstrap`
      - Default to manual observer (`--manual-observer-last`) to avoid missing deny lines.
      - Use `--include-stateful-probes` when you need stronger deny yield; it adds `downloads_rw`
        and home listdir probes with per-run unique file names.
+     - Use `--include-downloads-ladder` to add a downloads ladder:
+       `fs_op create` (path-class downloads), `fs_op create` (direct host path),
+       `fs_coordinated_op write` (path-class downloads), and a `sandbox_check` control.
 
 3) **Observer parsing**
    - For each probe result, load the observer report (or record missing).

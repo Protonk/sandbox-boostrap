@@ -1,0 +1,84 @@
+{
+  "proposals": [
+    {
+      "candidate_after": {
+        "probe_name": "allow-tmp",
+        "profile_id": "adv:path_edges_private",
+        "scenario_id": "adv:path_edges_private:allow-tmp"
+      },
+      "candidate_before": {
+        "probe_name": "allow-tmp",
+        "profile_id": "adv:path_edges",
+        "scenario_id": "field2-0-path_edges"
+      },
+      "decision": {
+        "actual": "allow",
+        "expected": "allow",
+        "failure_kind": null,
+        "failure_stage": null,
+        "operation": "file-read*",
+        "runtime_status": "success",
+        "source": "book/experiments/runtime-adversarial/out/922328dd-4ed3-45b3-be69-425b45b725f0/runtime_events.normalized.json",
+        "target": "/tmp/runtime-adv/edges/a"
+      },
+      "field2": 0,
+      "filter_name": "path",
+      "status": "decided"
+    },
+    {
+      "candidate_after": {
+        "probe_name": "allow-tmp-subpath",
+        "profile_id": "adv:path_edges_private",
+        "scenario_id": "adv:path_edges_private:allow-tmp-subpath"
+      },
+      "candidate_before": {
+        "probe_name": "allow-subpath",
+        "profile_id": "adv:path_edges",
+        "scenario_id": "field2-1-path-subpath"
+      },
+      "decision": {
+        "actual": "allow",
+        "expected": "allow",
+        "failure_kind": null,
+        "failure_stage": null,
+        "operation": "file-read*",
+        "runtime_status": "success",
+        "source": "book/experiments/runtime-adversarial/out/922328dd-4ed3-45b3-be69-425b45b725f0/runtime_events.normalized.json",
+        "target": "/tmp/runtime-adv/edges/okdir/item.txt"
+      },
+      "field2": 1,
+      "filter_name": "mount-relative-path",
+      "status": "decided"
+    }
+  ],
+  "provenance": {
+    "artifact_index": "book/experiments/runtime-adversarial/out/922328dd-4ed3-45b3-be69-425b45b725f0/artifact_index.json",
+    "artifact_index_sha256": "ef4662b36e6cef7038ca8a1653834efac6403f6a3e3a72fac8cc948f1c2f6670",
+    "bundle_dir": "book/experiments/runtime-adversarial/out/922328dd-4ed3-45b3-be69-425b45b725f0",
+    "consumption_receipt": "book/experiments/field2-atlas/out/derived/922328dd-4ed3-45b3-be69-425b45b725f0/consumption_receipt.json",
+    "exports": {
+      "baseline_results": "book/experiments/runtime-adversarial/out/922328dd-4ed3-45b3-be69-425b45b725f0/baseline_results.json",
+      "run_manifest": "book/experiments/runtime-adversarial/out/922328dd-4ed3-45b3-be69-425b45b725f0/run_manifest.json",
+      "runtime_events": "book/experiments/runtime-adversarial/out/922328dd-4ed3-45b3-be69-425b45b725f0/runtime_events.normalized.json"
+    },
+    "packet": "book/experiments/runtime-adversarial/out/promotion_packet.json",
+    "run_id": "922328dd-4ed3-45b3-be69-425b45b725f0"
+  },
+  "schema_version": "field2-atlas.mapping_delta.v0",
+  "source_artifacts": {
+    "runtime_events": "book/experiments/runtime-adversarial/out/922328dd-4ed3-45b3-be69-425b45b725f0/runtime_events.normalized.json"
+  },
+  "unresolved": [
+    {
+      "candidate": {
+        "probe_name": "tcp-loopback",
+        "profile_id": "adv:flow_divert_require_all_tcp",
+        "scenario_id": "field2-2560-flow-divert"
+      },
+      "field2": 2560,
+      "filter_name": "local",
+      "reason": "no_alternate_candidate"
+    }
+  ],
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

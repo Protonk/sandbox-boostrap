@@ -1,0 +1,468 @@
+{
+  "schema_version": "runtime-tools.probe_registry.v0.2",
+  "registry_id": "runtime-frontiers",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "probes": {
+    "frontier:system_ops:read_data_/etc/hosts": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "/etc/hosts"
+      ],
+      "expected_primary_ops": [
+        "file-read-data"
+      ],
+      "name": "read_data_/etc/hosts",
+      "operation": "file-read-data",
+      "probe_id": "frontier:system_ops:read_data_/etc/hosts",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/etc/hosts"
+    },
+    "frontier:system_ops:read_data_/private/etc/hosts": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/private/etc/hosts"
+      ],
+      "expected_primary_ops": [
+        "file-read-data"
+      ],
+      "name": "read_data_/private/etc/hosts",
+      "operation": "file-read-data",
+      "probe_id": "frontier:system_ops:read_data_/private/etc/hosts",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/private/etc/hosts"
+    },
+    "frontier:system_ops:test_exists_/etc/hosts": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "/etc/hosts"
+      ],
+      "expected_primary_ops": [
+        "file-test-existence"
+      ],
+      "name": "test_exists_/etc/hosts",
+      "operation": "file-test-existence",
+      "probe_id": "frontier:system_ops:test_exists_/etc/hosts",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/etc/hosts"
+    },
+    "frontier:system_ops:test_exists_/private/etc/hosts": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/private/etc/hosts"
+      ],
+      "expected_primary_ops": [
+        "file-test-existence"
+      ],
+      "name": "test_exists_/private/etc/hosts",
+      "operation": "file-test-existence",
+      "probe_id": "frontier:system_ops:test_exists_/private/etc/hosts",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/private/etc/hosts"
+    },
+    "frontier:system_ops:search_/tmp/sbpl_rt": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "/tmp/sbpl_rt"
+      ],
+      "expected_primary_ops": [
+        "file-search"
+      ],
+      "name": "search_/tmp/sbpl_rt",
+      "operation": "file-search",
+      "probe_id": "frontier:system_ops:search_/tmp/sbpl_rt",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/tmp/sbpl_rt"
+    },
+    "frontier:system_ops:search_/private/tmp/sbpl_rt": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/private/tmp/sbpl_rt"
+      ],
+      "expected_primary_ops": [
+        "file-search"
+      ],
+      "name": "search_/private/tmp/sbpl_rt",
+      "operation": "file-search",
+      "probe_id": "frontier:system_ops:search_/private/tmp/sbpl_rt",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/private/tmp/sbpl_rt"
+    },
+    "frontier:system_ops:write_data_/tmp/sbpl_rt/write.txt": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "/tmp/sbpl_rt/write.txt"
+      ],
+      "expected_primary_ops": [
+        "file-write-data"
+      ],
+      "name": "write_data_/tmp/sbpl_rt/write.txt",
+      "operation": "file-write-data",
+      "probe_id": "frontier:system_ops:write_data_/tmp/sbpl_rt/write.txt",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/tmp/sbpl_rt/write.txt"
+    },
+    "frontier:system_ops:write_data_/private/tmp/strict_ok/allow.txt": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/private/tmp/strict_ok/allow.txt"
+      ],
+      "expected_primary_ops": [
+        "file-write-data"
+      ],
+      "name": "write_data_/private/tmp/strict_ok/allow.txt",
+      "operation": "file-write-data",
+      "probe_id": "frontier:system_ops:write_data_/private/tmp/strict_ok/allow.txt",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/private/tmp/strict_ok/allow.txt"
+    },
+    "frontier:anchor_filters:mach_cfprefsd": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "com.apple.cfprefsd.agent"
+      ],
+      "expected_primary_ops": [
+        "mach-lookup"
+      ],
+      "name": "mach_cfprefsd",
+      "operation": "mach-lookup",
+      "probe_id": "frontier:anchor_filters:mach_cfprefsd",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "com.apple.cfprefsd.agent",
+      "anchor_ctx_id": "ctx:bd2b79af19c45bf1",
+      "filter_name": "global-name"
+    },
+    "frontier:anchor_filters:mach_bogus": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "com.apple.sandbox-lore.frontier.bogus"
+      ],
+      "expected_primary_ops": [
+        "mach-lookup"
+      ],
+      "name": "mach_bogus",
+      "operation": "mach-lookup",
+      "probe_id": "frontier:anchor_filters:mach_bogus",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "com.apple.sandbox-lore.frontier.bogus",
+      "filter_name": "global-name"
+    },
+    "frontier:anchor_filters:read_data_/etc/hosts": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "/etc/hosts"
+      ],
+      "expected_primary_ops": [
+        "file-read-data"
+      ],
+      "name": "read_data_/etc/hosts",
+      "operation": "file-read-data",
+      "probe_id": "frontier:anchor_filters:read_data_/etc/hosts",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/etc/hosts",
+      "anchor_ctx_id": "ctx:70628fdfa6fe2e13"
+    },
+    "frontier:anchor_filters:read_data_/private/etc/hosts": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/private/etc/hosts"
+      ],
+      "expected_primary_ops": [
+        "file-read-data"
+      ],
+      "name": "read_data_/private/etc/hosts",
+      "operation": "file-read-data",
+      "probe_id": "frontier:anchor_filters:read_data_/private/etc/hosts",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/private/etc/hosts"
+    },
+    "frontier:anchor_filters:search_/var/log": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "/var/log"
+      ],
+      "expected_primary_ops": [
+        "file-search"
+      ],
+      "name": "search_/var/log",
+      "operation": "file-search",
+      "probe_id": "frontier:anchor_filters:search_/var/log",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/var/log",
+      "anchor_ctx_id": "ctx:716642527f41e42a"
+    },
+    "frontier:anchor_filters:search_/private/var/log": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/private/var/log"
+      ],
+      "expected_primary_ops": [
+        "file-search"
+      ],
+      "name": "search_/private/var/log",
+      "operation": "file-search",
+      "probe_id": "frontier:anchor_filters:search_/private/var/log",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/private/var/log"
+    },
+    "frontier:unknown_ops:read_xattr_/tmp/foo": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "/tmp/foo"
+      ],
+      "expected_primary_ops": [
+        "file-read-xattr"
+      ],
+      "name": "read_xattr_/tmp/foo",
+      "operation": "file-read-xattr",
+      "probe_id": "frontier:unknown_ops:read_xattr_/tmp/foo",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/tmp/foo"
+    },
+    "frontier:unknown_ops:read_xattr_/tmp/bar": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/tmp/bar"
+      ],
+      "expected_primary_ops": [
+        "file-read-xattr"
+      ],
+      "name": "read_xattr_/tmp/bar",
+      "operation": "file-read-xattr",
+      "probe_id": "frontier:unknown_ops:read_xattr_/tmp/bar",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/tmp/bar"
+    },
+    "frontier:unknown_ops:write_xattr_/tmp/foo": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "/tmp/foo"
+      ],
+      "expected_primary_ops": [
+        "file-write-xattr"
+      ],
+      "name": "write_xattr_/tmp/foo",
+      "operation": "file-write-xattr",
+      "probe_id": "frontier:unknown_ops:write_xattr_/tmp/foo",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/tmp/foo"
+    },
+    "frontier:unknown_ops:write_xattr_/tmp/bar": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/tmp/bar"
+      ],
+      "expected_primary_ops": [
+        "file-write-xattr"
+      ],
+      "name": "write_xattr_/tmp/bar",
+      "operation": "file-write-xattr",
+      "probe_id": "frontier:unknown_ops:write_xattr_/tmp/bar",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/tmp/bar"
+    },
+    "frontier:unknown_ops:process_fork": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "self"
+      ],
+      "expected_primary_ops": [
+        "process-fork"
+      ],
+      "name": "process_fork",
+      "operation": "process-fork",
+      "probe_id": "frontier:unknown_ops:process_fork",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "self"
+    }
+  }
+}

@@ -139,6 +139,10 @@ def _probe_to_row(probe: Dict[str, Any], profile_id: str) -> Dict[str, Any]:
         row["driver"] = probe.get("driver")
     if probe.get("anchor_ctx_id"):
         row["anchor_ctx_id"] = probe.get("anchor_ctx_id")
+    if probe.get("filter_name"):
+        row["filter_name"] = probe.get("filter_name")
+    if probe.get("filter_type") is not None:
+        row["filter_type"] = probe.get("filter_type")
     return row
 
 

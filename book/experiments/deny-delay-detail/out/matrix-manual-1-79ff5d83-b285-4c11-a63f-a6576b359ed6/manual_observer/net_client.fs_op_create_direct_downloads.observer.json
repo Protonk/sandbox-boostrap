@@ -1,0 +1,43 @@
+{
+  "data": {
+    "correlation_id": "39B5C51B-AF65-40AA-93B9-744152793EB1",
+    "deny_lines": [
+      "2025-12-31 21:06:03.767059-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_net_client(26782) deny(1) file-write-create /Users/achyland/Downloads/atlas_matrixmanual.txt"
+    ],
+    "duration_ms": null,
+    "end": null,
+    "last": "30s",
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    \n2025-12-31 21:06:03.767059-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_net_client(26782) deny(1) file-write-create /Users/achyland/Downloads/atlas_matrixmanual.txt\n2025-12-31 21:06:03.780522-0800  localhost log[26784]: [com.apple.log:] log run noninteractively, parent: 26783 (sandbox-log-observer), args: '/usr/bin/log' 'show' '--style' 'syslog' '--info' '--debug' '--last' '30s' '--predicate' '((eventMessage CONTAINS[c] \"Sandbox: ProbeService_net_client(26782)\") OR ((eventMessage CONTAIN",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": true,
+    "observed_lines": 3,
+    "observer_schema_version": 1,
+    "pid": 26782,
+    "plan_id": "deny-delay-detail:manual:matrix-manual-1-79ff5d83-b285-4c11-a63f-a6576b359ed6",
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_net_client(26782)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"26782\")))",
+    "process_name": "ProbeService_net_client",
+    "row_id": "net_client.fs_op_create_direct_downloads",
+    "start": null,
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767243963925,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

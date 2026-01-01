@@ -1,0 +1,69 @@
+{
+  "data": {
+    "argv": [
+      "--op",
+      "create",
+      "--path-class",
+      "downloads",
+      "--target",
+      "specimen_file",
+      "--name",
+      "atlas_matrixcaptur.txt"
+    ],
+    "correlation_id": "FE4770EA-A915-441F-82F0-4F0DB1848AE4",
+    "details": {
+      "base_dir": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_temporary_exception/Data/Downloads",
+      "bundle_id": "com.yourteam.policy-witness.ProbeService_temporary_exception",
+      "cleanup_mode": "default",
+      "correlation_id": "FE4770EA-A915-441F-82F0-4F0DB1848AE4",
+      "cwd": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_temporary_exception/Data",
+      "duration_ms": "1",
+      "file_path": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_temporary_exception/Data/Downloads/policy-witness-harness/fs-op/23E17C9F-7555-4A15-9D81-64190F5B3C78/atlas_matrixcaptur.txt",
+      "harness_dir": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_temporary_exception/Data/Downloads/policy-witness-harness",
+      "home_dir": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_temporary_exception/Data",
+      "op": "create",
+      "path_class": "downloads",
+      "path_mode": "path_class",
+      "pid": "27236",
+      "probe_family": "fs_op",
+      "probe_pid": "27236",
+      "process_name": "ProbeService_temporary_exception",
+      "run_dir": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_temporary_exception/Data/Downloads/policy-witness-harness/fs-op/23E17C9F-7555-4A15-9D81-64190F5B3C78",
+      "service_pid": "27236",
+      "session_token": "6EBB3353-7134-4DD3-8AED-A247EC2EB819",
+      "target": "specimen_file",
+      "tmp_dir": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_temporary_exception/Data/tmp/"
+    },
+    "ended_at_iso8601": "2026-01-01T05:06:19.362Z",
+    "errno": 1,
+    "error": "Error Domain=NSCocoaErrorDomain Code=513 \"You don\u2019t have permission to save the file \u201c23E17C9F-7555-4A15-9D81-64190F5B3C78\u201d in the folder \u201cfs-op\u201d.\" UserInfo={NSFilePath=/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_temporary_exception/Data/Downloads/policy-witness-harness/fs-op/23E17C9F-7555-4A15-9D81-64190F5B3C78, NSUnderlyingError=0x600001c4c7e0 {Error Domain=NSPOSIXErrorDomain Code=1 \"Operation not permitted\"}}",
+    "host_sandbox_log_capture": {
+      "error": "missing child_pid for sandbox log capture"
+    },
+    "normalized_outcome": "permission_error",
+    "plan_id": "deny-delay-detail:capture:matrix-capture-1-6dbc5f9b-b07b-4006-bcfa-ce88171561ac",
+    "probe_id": "fs_op",
+    "rc": 1,
+    "row_id": "temporary_exception.fs_op_create_pathclass_downloads",
+    "schema_version": 1,
+    "service_build": "2",
+    "service_bundle_id": "com.yourteam.policy-witness.ProbeService_temporary_exception",
+    "service_name": "ProbeService_temporary_exception",
+    "service_version": "2.0.0",
+    "started_at_iso8601": "2026-01-01T05:06:19.361Z",
+    "stderr": "",
+    "stdout": "",
+    "thread_id": "5891"
+  },
+  "generated_at_unix_ms": 1767243979363,
+  "kind": "probe_response",
+  "result": {
+    "errno": 1,
+    "error": "Error Domain=NSCocoaErrorDomain Code=513 \"You don\u2019t have permission to save the file \u201c23E17C9F-7555-4A15-9D81-64190F5B3C78\u201d in the folder \u201cfs-op\u201d.\" UserInfo={NSFilePath=/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_temporary_exception/Data/Downloads/policy-witness-harness/fs-op/23E17C9F-7555-4A15-9D81-64190F5B3C78, NSUnderlyingError=0x600001c4c7e0 {Error Domain=NSPOSIXErrorDomain Code=1 \"Operation not permitted\"}}",
+    "exit_code": 1,
+    "normalized_outcome": "permission_error",
+    "ok": false,
+    "rc": 1
+  },
+  "schema_version": 1
+}

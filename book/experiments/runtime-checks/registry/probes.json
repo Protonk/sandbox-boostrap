@@ -623,6 +623,662 @@
         "scenario": true
       },
       "target": "/tmp/foo"
+    },
+    "sys:blastdoor:read_/etc/hosts": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "/etc/hosts"
+      ],
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "name": "read_/etc/hosts",
+      "operation": "file-read*",
+      "probe_id": "sys:blastdoor:read_/etc/hosts",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/etc/hosts"
+    },
+    "sys:blastdoor:write_/etc/hosts": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/etc/hosts"
+      ],
+      "expected_primary_ops": [
+        "file-write*"
+      ],
+      "name": "write_/etc/hosts",
+      "operation": "file-write*",
+      "probe_id": "sys:blastdoor:write_/etc/hosts",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/etc/hosts"
+    },
+    "sys:blastdoor:read_/tmp/foo": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "/tmp/foo"
+      ],
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "name": "read_/tmp/foo",
+      "operation": "file-read*",
+      "probe_id": "sys:blastdoor:read_/tmp/foo",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/tmp/foo"
+    },
+    "sys:blastdoor:write_/tmp/foo": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/tmp/foo"
+      ],
+      "expected_primary_ops": [
+        "file-write*"
+      ],
+      "name": "write_/tmp/foo",
+      "operation": "file-write*",
+      "probe_id": "sys:blastdoor:write_/tmp/foo",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/tmp/foo"
+    },
+    "sys:blastdoor:mach_allow_logd": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "com.apple.logd"
+      ],
+      "expected_primary_ops": [
+        "mach-lookup"
+      ],
+      "name": "mach_allow_logd",
+      "operation": "mach-lookup",
+      "probe_id": "sys:blastdoor:mach_allow_logd",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "driver": "mach_probe",
+      "filter_name": "global-name",
+      "target": "com.apple.logd"
+    },
+    "sys:blastdoor:mach_allow_trustd": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "com.apple.trustd.agent"
+      ],
+      "expected_primary_ops": [
+        "mach-lookup"
+      ],
+      "name": "mach_allow_trustd",
+      "operation": "mach-lookup",
+      "probe_id": "sys:blastdoor:mach_allow_trustd",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "driver": "mach_probe",
+      "filter_name": "global-name",
+      "target": "com.apple.trustd.agent"
+    },
+    "sys:blastdoor:mach_deny_cfprefsd": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "com.apple.cfprefsd.agent"
+      ],
+      "expected_primary_ops": [
+        "mach-lookup"
+      ],
+      "name": "mach_deny_cfprefsd",
+      "operation": "mach-lookup",
+      "probe_id": "sys:blastdoor:mach_deny_cfprefsd",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "driver": "mach_probe",
+      "filter_name": "global-name",
+      "target": "com.apple.cfprefsd.agent"
+    },
+    "sys:blastdoor:xpc_deny_trustd": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "com.apple.trustd.agent"
+      ],
+      "expected_primary_ops": [
+        "mach-lookup"
+      ],
+      "name": "xpc_deny_trustd",
+      "operation": "mach-lookup",
+      "probe_id": "sys:blastdoor:xpc_deny_trustd",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "driver": "xpc_probe",
+      "filter_name": "xpc-service-name",
+      "target": "com.apple.trustd.agent"
+    },
+    "sys:cgpdfservice:read_/etc/hosts": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "/etc/hosts"
+      ],
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "name": "read_/etc/hosts",
+      "operation": "file-read*",
+      "probe_id": "sys:cgpdfservice:read_/etc/hosts",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/etc/hosts"
+    },
+    "sys:cgpdfservice:write_/etc/hosts": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/etc/hosts"
+      ],
+      "expected_primary_ops": [
+        "file-write*"
+      ],
+      "name": "write_/etc/hosts",
+      "operation": "file-write*",
+      "probe_id": "sys:cgpdfservice:write_/etc/hosts",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/etc/hosts"
+    },
+    "sys:cgpdfservice:read_/tmp/foo": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "/tmp/foo"
+      ],
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "name": "read_/tmp/foo",
+      "operation": "file-read*",
+      "probe_id": "sys:cgpdfservice:read_/tmp/foo",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/tmp/foo"
+    },
+    "sys:cgpdfservice:write_/tmp/foo": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/tmp/foo"
+      ],
+      "expected_primary_ops": [
+        "file-write*"
+      ],
+      "name": "write_/tmp/foo",
+      "operation": "file-write*",
+      "probe_id": "sys:cgpdfservice:write_/tmp/foo",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/tmp/foo"
+    },
+    "sys:cgpdfservice:read_/Library/Preferences/com.apple.timezone.auto.plist": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/Library/Preferences/com.apple.timezone.auto.plist"
+      ],
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "name": "read_/Library/Preferences/com.apple.timezone.auto.plist",
+      "operation": "file-read*",
+      "probe_id": "sys:cgpdfservice:read_/Library/Preferences/com.apple.timezone.auto.plist",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/Library/Preferences/com.apple.timezone.auto.plist"
+    },
+    "sys:cgpdfservice:read_/var/db/timezone/zoneinfo/Etc/UTC": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/var/db/timezone/zoneinfo/Etc/UTC"
+      ],
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "name": "read_/var/db/timezone/zoneinfo/Etc/UTC",
+      "operation": "file-read*",
+      "probe_id": "sys:cgpdfservice:read_/var/db/timezone/zoneinfo/Etc/UTC",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/var/db/timezone/zoneinfo/Etc/UTC"
+    },
+    "sys:cgpdfservice:read_/private/etc/localtime": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/private/etc/localtime"
+      ],
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "name": "read_/private/etc/localtime",
+      "operation": "file-read*",
+      "probe_id": "sys:cgpdfservice:read_/private/etc/localtime",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/private/etc/localtime"
+    },
+    "appsandbox:baseline:read_/etc/hosts": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "/etc/hosts"
+      ],
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "name": "read_/etc/hosts",
+      "operation": "file-read*",
+      "probe_id": "appsandbox:baseline:read_/etc/hosts",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/etc/hosts"
+    },
+    "appsandbox:baseline:write_/etc/hosts": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/etc/hosts"
+      ],
+      "expected_primary_ops": [
+        "file-write*"
+      ],
+      "name": "write_/etc/hosts",
+      "operation": "file-write*",
+      "probe_id": "appsandbox:baseline:write_/etc/hosts",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/etc/hosts"
+    },
+    "appsandbox:baseline:read_/tmp/foo": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "/tmp/foo"
+      ],
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "name": "read_/tmp/foo",
+      "operation": "file-read*",
+      "probe_id": "appsandbox:baseline:read_/tmp/foo",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/tmp/foo"
+    },
+    "appsandbox:baseline:write_/tmp/foo": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/tmp/foo"
+      ],
+      "expected_primary_ops": [
+        "file-write*"
+      ],
+      "name": "write_/tmp/foo",
+      "operation": "file-write*",
+      "probe_id": "appsandbox:baseline:write_/tmp/foo",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/tmp/foo"
+    },
+    "appsandbox:net-client:read_/etc/hosts": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "/etc/hosts"
+      ],
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "name": "read_/etc/hosts",
+      "operation": "file-read*",
+      "probe_id": "appsandbox:net-client:read_/etc/hosts",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/etc/hosts"
+    },
+    "appsandbox:net-client:write_/etc/hosts": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/etc/hosts"
+      ],
+      "expected_primary_ops": [
+        "file-write*"
+      ],
+      "name": "write_/etc/hosts",
+      "operation": "file-write*",
+      "probe_id": "appsandbox:net-client:write_/etc/hosts",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/etc/hosts"
+    },
+    "appsandbox:net-client:read_/tmp/foo": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "/tmp/foo"
+      ],
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "name": "read_/tmp/foo",
+      "operation": "file-read*",
+      "probe_id": "appsandbox:net-client:read_/tmp/foo",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/tmp/foo"
+    },
+    "appsandbox:net-client:write_/tmp/foo": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/tmp/foo"
+      ],
+      "expected_primary_ops": [
+        "file-write*"
+      ],
+      "name": "write_/tmp/foo",
+      "operation": "file-write*",
+      "probe_id": "appsandbox:net-client:write_/tmp/foo",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/tmp/foo"
+    },
+    "appsandbox:downloads-rw:read_/etc/hosts": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "/etc/hosts"
+      ],
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "name": "read_/etc/hosts",
+      "operation": "file-read*",
+      "probe_id": "appsandbox:downloads-rw:read_/etc/hosts",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/etc/hosts"
+    },
+    "appsandbox:downloads-rw:write_/etc/hosts": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/etc/hosts"
+      ],
+      "expected_primary_ops": [
+        "file-write*"
+      ],
+      "name": "write_/etc/hosts",
+      "operation": "file-write*",
+      "probe_id": "appsandbox:downloads-rw:write_/etc/hosts",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/etc/hosts"
+    },
+    "appsandbox:downloads-rw:read_/tmp/foo": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "/tmp/foo"
+      ],
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "name": "read_/tmp/foo",
+      "operation": "file-read*",
+      "probe_id": "appsandbox:downloads-rw:read_/tmp/foo",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/tmp/foo"
+    },
+    "appsandbox:downloads-rw:write_/tmp/foo": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/tmp/foo"
+      ],
+      "expected_primary_ops": [
+        "file-write*"
+      ],
+      "name": "write_/tmp/foo",
+      "operation": "file-write*",
+      "probe_id": "appsandbox:downloads-rw:write_/tmp/foo",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/tmp/foo"
     }
   },
   "registry_id": "runtime-checks",

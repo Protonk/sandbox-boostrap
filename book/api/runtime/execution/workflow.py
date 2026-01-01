@@ -193,12 +193,15 @@ def classify_mismatches(
         op = probe.get("operation")
         if expected == "allow" and actual == "deny":
             path = probe.get("path") or probe.get("target") or ""
-            if op == "file-read*" and (".." in path or path.startswith("/tmp/runtime-adv/edges")):
-                return "path_normalization"
+            if op in {"file-read*", "file-write*"} and (
+                ".." in path or path.startswith("/tmp/runtime-adv/edges") or path.startswith("/private/tmp/runtime-adv/edges")
+            ):
+                return "canonicalization_boundary"
             return "unexpected_deny"
         if expected == "deny" and actual == "allow":
-            if op == "file-read*" and ".." in (probe.get("path") or probe.get("target") or ""):
-                return "path_normalization"
+            path = probe.get("path") or probe.get("target") or ""
+            if op in {"file-read*", "file-write*"} and (".." in path or path.startswith("/tmp/runtime-adv/edges")):
+                return "canonicalization_boundary"
             return "unexpected_allow"
         return "filter_diff"
 

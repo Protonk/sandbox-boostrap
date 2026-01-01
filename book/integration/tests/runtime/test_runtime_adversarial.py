@@ -21,13 +21,16 @@ def test_adversarial_artifacts_present_and_annotated():
     expected_matrix = load_bundle_json(OUT_DIR, "expected_matrix.json")
     runtime_results = load_bundle_json(OUT_DIR, "runtime_results.json")
     mismatch_summary = load_bundle_json(OUT_DIR, "mismatch_summary.json")
+    path_witnesses = load_bundle_json(OUT_DIR, "path_witnesses.json")
 
     assert expected_matrix.get("world_id") == world_id
     assert mismatch_summary.get("world_id") == world_id
+    assert path_witnesses.get("world_id") == world_id
     assert set(expected_matrix.get("profiles", {})) == {
         "adv:struct_flat",
         "adv:struct_nested",
         "adv:path_edges",
+        "adv:path_edges_private",
         "adv:path_alias",
         "adv:mach_simple_allow",
         "adv:mach_simple_variants",
@@ -35,8 +38,17 @@ def test_adversarial_artifacts_present_and_annotated():
         "adv:mach_local_regex",
         "adv:net_outbound_allow",
         "adv:net_outbound_deny",
+        "adv:xattr",
         "adv:flow_divert_require_all_tcp",
         "adv:flow_divert_partial_tcp",
     }
     # Shapes must stay aligned.
     assert set(runtime_results.keys()) == set(expected_matrix.get("profiles", {}).keys())
+
+    records = path_witnesses.get("records") or []
+    scenario_edges = [
+        rec
+        for rec in records
+        if rec.get("lane") == "scenario" and rec.get("profile_id") == "adv:path_edges"
+    ]
+    assert scenario_edges, "expected path_witnesses for adv:path_edges probes"

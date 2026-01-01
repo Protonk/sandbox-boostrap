@@ -82,6 +82,13 @@ TEMPLATE_INDEX: Dict[str, Path] = {
     / "plans"
     / "templates"
     / "runtime_closure.json",
+    "runtime-frontiers": REPO_ROOT
+    / "book"
+    / "api"
+    / "runtime"
+    / "plans"
+    / "templates"
+    / "runtime_frontiers.json",
     "vfs-canonicalization": REPO_ROOT
     / "book"
     / "api"

@@ -1,0 +1,5 @@
+(version 1)
+(deny default)
+(allow file-read-data (literal "/etc/hosts"))
+(allow file-search (literal "/var/log"))
+(allow mach-lookup (global-name "com.apple.cfprefsd.agent"))

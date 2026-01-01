@@ -1,0 +1,129 @@
+{
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "generated_by": "book/api/runtime/execution/workflow.py",
+  "mismatches": [
+    {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "frontier:system_ops",
+      "expectation_id": "frontier:system_ops:read_data_/etc/hosts",
+      "operation": "file-read-data",
+      "path": "/etc/hosts",
+      "expected": "allow",
+      "actual": "deny",
+      "mismatch_type": "unexpected_deny",
+      "violation_summary": null,
+      "notes": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/book/experiments/runtime-frontiers/out/7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/runtime_profiles/frontier_system_ops.frontier_system_ops.runtime.sb\",\"pid\":81781}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/book/experiments/runtime-frontiers/out/7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/runtime_profiles/frontier_system_ops.frontier_system_ops.runtime.sb\",\"pid\":81781}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"pre_syscall\",\"api\":\"sandbox_check\",\"operation\":\"file-read-data\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1073741824,\"varargs_count\":1,\"argument\":\"/etc/hosts\",\"canonicalization\":\"raw\",\"canonical_flag_used\":false,\"canonical_flag_reason\":\"not_requested\",\"no_report\":true,\"token_status\":\"pid\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"pre_syscall\",\"api\":\"sandbox_check\",\"operation\":\"file-read-data\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1610612736,\"varargs_count\":1,\"argument\":\"/etc/hosts\",\"canonicalization\":\"canonical\",\"canonical_flag_used\":true,\"no_report\":true,\"token_status\":\"pid\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\nopen target: Operation not permitted\n"
+    },
+    {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "frontier:system_ops",
+      "expectation_id": "frontier:system_ops:test_exists_/etc/hosts",
+      "operation": "file-test-existence",
+      "path": "/etc/hosts",
+      "expected": "allow",
+      "actual": "deny",
+      "mismatch_type": "unexpected_deny",
+      "violation_summary": null,
+      "notes": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/book/experiments/runtime-frontiers/out/7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/runtime_profiles/frontier_system_ops.frontier_system_ops.runtime.sb\",\"pid\":81783}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/book/experiments/runtime-frontiers/out/7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/runtime_profiles/frontier_system_ops.frontier_system_ops.runtime.sb\",\"pid\":81783}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"preflight\",\"api\":\"sandbox_check\",\"operation\":\"file-test-existence\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1073741824,\"varargs_count\":1,\"argument\":\"/etc/hosts\",\"canonicalization\":\"raw\",\"canonical_flag_used\":false,\"canonical_flag_reason\":\"not_requested\",\"no_report\":true,\"token_status\":\"pid\",\"token_mach_kr\":0,\"rc\":0,\"errno\":0,\"decision\":\"allow\"}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"preflight\",\"api\":\"sandbox_check\",\"operation\":\"file-test-existence\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1610612736,\"varargs_count\":1,\"argument\":\"/etc/hosts\",\"canonicalization\":\"canonical\",\"canonical_flag_used\":true,\"no_report\":true,\"token_status\":\"pid\",\"token_mach_kr\":0,\"rc\":0,\"errno\":0,\"decision\":\"allow\"}\n"
+    },
+    {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "frontier:system_ops",
+      "expectation_id": "frontier:system_ops:search_/tmp/sbpl_rt",
+      "operation": "file-search",
+      "path": "/tmp/sbpl_rt",
+      "expected": "allow",
+      "actual": "deny",
+      "mismatch_type": "unexpected_deny",
+      "violation_summary": null,
+      "notes": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/book/experiments/runtime-frontiers/out/7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/runtime_profiles/frontier_system_ops.frontier_system_ops.runtime.sb\",\"pid\":81787}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/book/experiments/runtime-frontiers/out/7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/runtime_profiles/frontier_system_ops.frontier_system_ops.runtime.sb\",\"pid\":81787}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"preflight\",\"api\":\"sandbox_check\",\"operation\":\"file-search\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1073741824,\"varargs_count\":1,\"argument\":\"/tmp/sbpl_rt\",\"canonicalization\":\"raw\",\"canonical_flag_used\":false,\"canonical_flag_reason\":\"not_requested\",\"no_report\":true,\"token_status\":\"pid\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"preflight\",\"api\":\"sandbox_check\",\"operation\":\"file-search\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1610612736,\"varargs_count\":1,\"argument\":\"/tmp/sbpl_rt\",\"canonicalization\":\"canonical\",\"canonical_flag_used\":true,\"no_report\":true,\"token_status\":\"pid\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\n"
+    },
+    {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "frontier:system_ops",
+      "expectation_id": "frontier:system_ops:write_data_/tmp/sbpl_rt/write.txt",
+      "operation": "file-write-data",
+      "path": "/tmp/sbpl_rt/write.txt",
+      "expected": "allow",
+      "actual": "deny",
+      "mismatch_type": "unexpected_deny",
+      "violation_summary": null,
+      "notes": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/book/experiments/runtime-frontiers/out/7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/runtime_profiles/frontier_system_ops.frontier_system_ops.runtime.sb\",\"pid\":81789}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/book/experiments/runtime-frontiers/out/7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/runtime_profiles/frontier_system_ops.frontier_system_ops.runtime.sb\",\"pid\":81789}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"pre_syscall\",\"api\":\"sandbox_check\",\"operation\":\"file-write-data\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1073741824,\"varargs_count\":1,\"argument\":\"/tmp/sbpl_rt/write.txt\",\"canonicalization\":\"raw\",\"canonical_flag_used\":false,\"canonical_flag_reason\":\"not_requested\",\"no_report\":true,\"token_status\":\"pid\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"pre_syscall\",\"api\":\"sandbox_check\",\"operation\":\"file-write-data\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1610612736,\"varargs_count\":1,\"argument\":\"/tmp/sbpl_rt/write.txt\",\"canonicalization\":\"canonical\",\"canonical_flag_used\":true,\"no_report\":true,\"token_status\":\"pid\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\nopen target: Operation not permitted\n"
+    },
+    {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "frontier:anchor_filters",
+      "expectation_id": "frontier:anchor_filters:mach_cfprefsd",
+      "operation": "mach-lookup",
+      "path": "com.apple.cfprefsd.agent",
+      "expected": "allow",
+      "actual": "deny",
+      "mismatch_type": "unexpected_deny",
+      "violation_summary": null,
+      "notes": null
+    },
+    {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "frontier:anchor_filters",
+      "expectation_id": "frontier:anchor_filters:read_data_/etc/hosts",
+      "operation": "file-read-data",
+      "path": "/etc/hosts",
+      "expected": "allow",
+      "actual": "deny",
+      "mismatch_type": "unexpected_deny",
+      "violation_summary": null,
+      "notes": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/book/experiments/runtime-frontiers/out/7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/runtime_profiles/frontier_anchor_filters.frontier_anchor_filters.runtime.sb\",\"pid\":81800}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/book/experiments/runtime-frontiers/out/7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/runtime_profiles/frontier_anchor_filters.frontier_anchor_filters.runtime.sb\",\"pid\":81800}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"pre_syscall\",\"api\":\"sandbox_check\",\"operation\":\"file-read-data\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1073741824,\"varargs_count\":1,\"argument\":\"/etc/hosts\",\"canonicalization\":\"raw\",\"canonical_flag_used\":false,\"canonical_flag_reason\":\"not_requested\",\"no_report\":true,\"token_status\":\"pid\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"pre_syscall\",\"api\":\"sandbox_check\",\"operation\":\"file-read-data\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1610612736,\"varargs_count\":1,\"argument\":\"/etc/hosts\",\"canonicalization\":\"canonical\",\"canonical_flag_used\":true,\"no_report\":true,\"token_status\":\"pid\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\nopen target: Operation not permitted\n"
+    },
+    {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "frontier:anchor_filters",
+      "expectation_id": "frontier:anchor_filters:search_/var/log",
+      "operation": "file-search",
+      "path": "/var/log",
+      "expected": "allow",
+      "actual": "deny",
+      "mismatch_type": "unexpected_deny",
+      "violation_summary": null,
+      "notes": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/book/experiments/runtime-frontiers/out/7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/runtime_profiles/frontier_anchor_filters.frontier_anchor_filters.runtime.sb\",\"pid\":81802}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/book/experiments/runtime-frontiers/out/7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/runtime_profiles/frontier_anchor_filters.frontier_anchor_filters.runtime.sb\",\"pid\":81802}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"preflight\",\"api\":\"sandbox_check\",\"operation\":\"file-search\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1073741824,\"varargs_count\":1,\"argument\":\"/var/log\",\"canonicalization\":\"raw\",\"canonical_flag_used\":false,\"canonical_flag_reason\":\"not_requested\",\"no_report\":true,\"token_status\":\"pid\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"preflight\",\"api\":\"sandbox_check\",\"operation\":\"file-search\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1610612736,\"varargs_count\":1,\"argument\":\"/var/log\",\"canonicalization\":\"canonical\",\"canonical_flag_used\":true,\"no_report\":true,\"token_status\":\"pid\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\n"
+    },
+    {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "frontier:unknown_ops",
+      "expectation_id": "frontier:unknown_ops:read_xattr_/tmp/foo",
+      "operation": "file-read-xattr",
+      "path": "/tmp/foo",
+      "expected": "allow",
+      "actual": "deny",
+      "mismatch_type": "unexpected_deny",
+      "violation_summary": null,
+      "notes": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/book/experiments/runtime-frontiers/out/7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/runtime_profiles/frontier_unknown_ops.frontier_unknown_ops.runtime.sb\",\"pid\":81804}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/book/experiments/runtime-frontiers/out/7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/runtime_profiles/frontier_unknown_ops.frontier_unknown_ops.runtime.sb\",\"pid\":81804}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"preflight\",\"api\":\"sandbox_check\",\"operation\":\"file-read-xattr\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1073741824,\"varargs_count\":1,\"argument\":\"/tmp/foo\",\"canonicalization\":\"raw\",\"canonical_flag_used\":false,\"canonical_flag_reason\":\"not_requested\",\"no_report\":true,\"token_status\":\"pid\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"preflight\",\"api\":\"sandbox_check\",\"operation\":\"file-read-xattr\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1610612736,\"varargs_count\":1,\"argument\":\"/tmp/foo\",\"canonicalization\":\"canonical\",\"canonical_flag_used\":true,\"no_report\":true,\"token_status\":\"pid\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\n"
+    },
+    {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "frontier:unknown_ops",
+      "expectation_id": "frontier:unknown_ops:write_xattr_/tmp/foo",
+      "operation": "file-write-xattr",
+      "path": "/tmp/foo",
+      "expected": "allow",
+      "actual": "deny",
+      "mismatch_type": "unexpected_deny",
+      "violation_summary": null,
+      "notes": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/book/experiments/runtime-frontiers/out/7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/runtime_profiles/frontier_unknown_ops.frontier_unknown_ops.runtime.sb\",\"pid\":81806}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/book/experiments/runtime-frontiers/out/7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/runtime_profiles/frontier_unknown_ops.frontier_unknown_ops.runtime.sb\",\"pid\":81806}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"preflight\",\"api\":\"sandbox_check\",\"operation\":\"file-write-xattr\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1073741824,\"varargs_count\":1,\"argument\":\"/tmp/foo\",\"canonicalization\":\"raw\",\"canonical_flag_used\":false,\"canonical_flag_reason\":\"not_requested\",\"no_report\":true,\"token_status\":\"pid\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"preflight\",\"api\":\"sandbox_check\",\"operation\":\"file-write-xattr\",\"filter_type\":0,\"filter_type_name\":\"path\",\"check_type\":1610612736,\"varargs_count\":1,\"argument\":\"/tmp/foo\",\"canonicalization\":\"canonical\",\"canonical_flag_used\":true,\"no_report\":true,\"token_status\":\"pid\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\n"
+    },
+    {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "frontier:unknown_ops",
+      "expectation_id": "frontier:unknown_ops:process_fork",
+      "operation": "process-fork",
+      "path": "self",
+      "expected": "allow",
+      "actual": "deny",
+      "mismatch_type": "unexpected_deny",
+      "violation_summary": null,
+      "notes": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/book/experiments/runtime-frontiers/out/7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/runtime_profiles/frontier_unknown_ops.frontier_unknown_ops.runtime.sb\",\"pid\":81808}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/book/experiments/runtime-frontiers/out/7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/runtime_profiles/frontier_unknown_ops.frontier_unknown_ops.runtime.sb\",\"pid\":81808}\n"
+    }
+  ],
+  "counts": {
+    "unexpected_deny": 10
+  }
+}

@@ -36,6 +36,7 @@ def test_net_outbound_profiles_shape():
 def test_net_outbound_behavior():
     expected = load_bundle_json(OUT_ROOT, "expected_matrix.json")
     results = load_bundle_json(OUT_ROOT, "runtime_results.json")
+    fixtures = load_bundle_json(OUT_ROOT, "fixtures.json")
 
     allow_probes = expected["profiles"]["adv:net_outbound_allow"]["probes"]
     deny_probes = expected["profiles"]["adv:net_outbound_deny"]["probes"]
@@ -51,8 +52,26 @@ def test_net_outbound_behavior():
         if probe.get("actual") == "deny":
             assert probe.get("violation_summary") == "EPERM"
             assert probe.get("match") is False
+        listener = probe.get("listener") or {}
+        precheck = listener.get("precheck") or {}
+        assert listener.get("status") == "ok", "loopback listener missing or errored for allow probe"
+        assert precheck.get("status") == "ok", "loopback listener precheck failed for allow probe"
 
     for probe in deny_runtime:
         assert probe.get("expected") == "deny"
         assert probe.get("actual") == "deny"
         assert probe.get("match") is True
+        listener = probe.get("listener") or {}
+        precheck = listener.get("precheck") or {}
+        assert listener.get("status") == "ok", "loopback listener missing or errored for deny probe"
+        assert precheck.get("status") == "ok", "loopback listener precheck failed for deny probe"
+
+    fixture_records = fixtures.get("records") or []
+    scenario_records = [
+        rec for rec in fixture_records if rec.get("lane") == "scenario" and rec.get("operation") == "network-outbound"
+    ]
+    baseline_records = [
+        rec for rec in fixture_records if rec.get("lane") == "baseline" and rec.get("operation") == "network-outbound"
+    ]
+    assert scenario_records, "expected scenario fixture markers for network-outbound"
+    assert baseline_records, "expected baseline fixture markers for network-outbound"

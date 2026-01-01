@@ -24,7 +24,8 @@
         "oracle": true,
         "scenario": true
       },
-      "target": "com.apple.cfprefsd.agent"
+      "target": "com.apple.cfprefsd.agent",
+      "filter_name": "global-name"
     },
     "anchor-filter-map:cfprefsd:C2_deny_local": {
       "anchor_ctx_id": "ctx:bd2b79af19c45bf1",
@@ -50,7 +51,8 @@
         "oracle": true,
         "scenario": true
       },
-      "target": "com.apple.cfprefsd.agent"
+      "target": "com.apple.cfprefsd.agent",
+      "filter_name": "local-name"
     },
     "anchor-filter-map:cfprefsd:N1_deny_default": {
       "anchor_ctx_id": "ctx:bd2b79af19c45bf1",
@@ -76,7 +78,8 @@
         "oracle": true,
         "scenario": true
       },
-      "target": "com.apple.cfprefsd.agent"
+      "target": "com.apple.cfprefsd.agent",
+      "filter_name": "global-name"
     },
     "anchor-filter-map:cfprefsd:S0_allow_any": {
       "anchor_ctx_id": "ctx:bd2b79af19c45bf1",
@@ -102,7 +105,8 @@
         "oracle": true,
         "scenario": true
       },
-      "target": "com.apple.cfprefsd.agent"
+      "target": "com.apple.cfprefsd.agent",
+      "filter_name": "global-name"
     },
     "anchor-filter-map:cfprefsd:S1_allow_global": {
       "anchor_ctx_id": "ctx:bd2b79af19c45bf1",
@@ -128,7 +132,8 @@
         "oracle": true,
         "scenario": true
       },
-      "target": "com.apple.cfprefsd.agent"
+      "target": "com.apple.cfprefsd.agent",
+      "filter_name": "global-name"
     },
     "anchor-filter-map:cfprefsd:S2_allow_local": {
       "anchor_ctx_id": "ctx:bd2b79af19c45bf1",
@@ -154,7 +159,8 @@
         "oracle": true,
         "scenario": true
       },
-      "target": "com.apple.cfprefsd.agent"
+      "target": "com.apple.cfprefsd.agent",
+      "filter_name": "local-name"
     },
     "anchor-filter-map:cfprefsd:S3_allow_both": {
       "anchor_ctx_id": "ctx:bd2b79af19c45bf1",
@@ -180,7 +186,8 @@
         "oracle": true,
         "scenario": true
       },
-      "target": "com.apple.cfprefsd.agent"
+      "target": "com.apple.cfprefsd.agent",
+      "filter_name": "global-name"
     },
     "anchor-filter-map:cfprefsd:bogus_baseline": {
       "capabilities_required": [],
@@ -205,7 +212,8 @@
         "oracle": true,
         "scenario": true
       },
-      "target": "com.apple.sandbox-lore.anchor-filter-map.bogus"
+      "target": "com.apple.sandbox-lore.anchor-filter-map.bogus",
+      "filter_name": "global-name"
     },
     "anchor-filter-map:iokit_class:C1_deny_class": {
       "capabilities_required": [],

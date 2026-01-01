@@ -1,0 +1,41 @@
+{
+  "data": {
+    "correlation_id": "7FE4E785-A3BB-4649-B82C-EDAE55C315E4",
+    "deny_lines": [],
+    "duration_ms": null,
+    "end": "2025-12-31 21:06:18",
+    "last": null,
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    ",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": false,
+    "observed_lines": 1,
+    "observer_schema_version": 1,
+    "pid": 27126,
+    "plan_id": "deny-delay-detail:external:matrix-external-2-faf009b1-23a7-4df3-8ffb-eaf5b4b5f85a",
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_minimal(27126)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"27126\")))",
+    "process_name": "ProbeService_minimal",
+    "row_id": "minimal.sandbox_check_write_host_downloads",
+    "start": "2025-12-31 21:06:14",
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767243976598,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

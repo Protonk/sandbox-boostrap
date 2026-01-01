@@ -18,3 +18,4 @@
 - Decoupled observed-path collection from sandbox apply by using unsandboxed F_GETPATH; path normalization evidence now survives apply-gated runs.
 - Refreshed via launchd clean channel; field2=1 mismatch is captured in packet-exported mismatch packets, and field2=2560 carries a partial-triple control + baseline witness in derived runtime results.
 - Field2 atlas builders now accept only promotion packets and emit derived outputs under `out/derived/<run_id>/` with a stamped consumption receipt.
+- Added xattr runtime candidate swap (`adv:xattr:allow-foo-read`) after a clean-channel run (`out/7fb35590-c5c0-4187-8949-f534fbd43045/`); field2=2 is now runtime-backed and the atlas reflects the updated candidate.

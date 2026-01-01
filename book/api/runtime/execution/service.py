@@ -43,6 +43,7 @@ from ..plans import loader as plan_loader
 from . import preflight as apply_preflight
 from . import workflow
 from ..analysis import inventory as runtime_inventory
+from .lanes import fixtures
 from .lanes import path_witnesses
 from ..contracts import normalize
 from ..contracts import models
@@ -68,6 +69,7 @@ MISMATCH_PACKET_SCHEMA_VERSION = "runtime-tools.mismatch_packet.v0.1"
 ORACLE_SCHEMA_VERSION = "runtime-tools.oracle_results.v0.1"
 BASELINE_SCHEMA_VERSION = "runtime-tools.baseline_results.v0.1"
 PATH_WITNESSES_SCHEMA_VERSION = "runtime-tools.path_witnesses.v0.1"
+FIXTURES_SCHEMA_VERSION = "runtime-tools.fixtures.v0.1"
 STATUS_SCHEMA_VERSION = "runtime-tools.status.v0.1"
 
 # Keep core artifacts ordered for deterministic artifact indexes and summaries.
@@ -77,6 +79,7 @@ CORE_ARTIFACTS = [
     "apply_preflight.json",
     "baseline_results.json",
     "path_witnesses.json",
+    "fixtures.json",
     "expected_matrix.generated.json",
     "expected_matrix.json",
     "runtime_results.json",
@@ -541,6 +544,7 @@ def run_plan(
         oracle_schema = ORACLE_SCHEMA_VERSION
         baseline_schema = BASELINE_SCHEMA_VERSION
         path_witnesses_schema = PATH_WITNESSES_SCHEMA_VERSION
+        fixtures_schema = FIXTURES_SCHEMA_VERSION
 
         lanes = plan_doc.get("lanes") or {}
         effective_lanes = dict(lanes)
@@ -610,14 +614,6 @@ def run_plan(
 
                 runtime_results_path = run_dir / "runtime_results.json"
                 _annotate_runtime_results(runtime_results_path, runtime_results_schema, run_id)
-
-                normalize.write_matrix_observations(
-                    expected_matrix_path,
-                    runtime_results_path,
-                    run_dir / "runtime_events.normalized.json",
-                    world_id=world_id,
-                    run_id=run_id,
-                )
             else:
                 matrix_doc = workflow.build_matrix(world_id, profiles, run_dir / "sb_build")
                 (run_dir / "expected_matrix.generated.json").write_text(json.dumps(matrix_doc, indent=2))
@@ -631,6 +627,16 @@ def run_plan(
                 )
                 baseline_doc["schema_version"] = baseline_schema
                 _write_json(run_dir / "baseline_results.json", baseline_doc)
+
+            if effective_lanes.get("scenario", True):
+                normalize.write_matrix_observations(
+                    run_dir / "expected_matrix.json",
+                    run_dir / "runtime_results.json",
+                    run_dir / "runtime_events.normalized.json",
+                    world_id=world_id,
+                    run_id=run_id,
+                    baseline_results_path=run_dir / "baseline_results.json" if effective_lanes.get("baseline", True) else None,
+                )
 
             if effective_lanes.get("oracle", True):
                 _write_oracle_results(
@@ -651,6 +657,14 @@ def run_plan(
                 )
                 path_witnesses_doc["schema_version"] = path_witnesses_schema
                 _write_json(run_dir / "path_witnesses.json", path_witnesses_doc)
+                fixtures_doc = fixtures.build_fixture_markers_doc(
+                    run_dir,
+                    world_id=world_id,
+                    run_id=run_id,
+                    plan_id=plan_id,
+                )
+                fixtures_doc["schema_version"] = fixtures_schema
+                _write_json(run_dir / "fixtures.json", fixtures_doc)
 
             mismatch_packets = []
             if effective_lanes.get("scenario", True) and (run_dir / "mismatch_summary.json").exists():
@@ -659,6 +673,7 @@ def run_plan(
                     events_path=run_dir / "runtime_events.normalized.json",
                     baseline_results=run_dir / "baseline_results.json",
                     run_manifest=run_manifest,
+                    path_witnesses=run_dir / "path_witnesses.json",
                     out_path=run_dir / "mismatch_packets.jsonl",
                 )
             if mismatch_packets:
@@ -754,6 +769,7 @@ def run_plan(
             expected_artifacts.append("baseline_results.json")
         if effective_lanes.get("scenario", True) or effective_lanes.get("baseline", True):
             expected_artifacts.append("path_witnesses.json")
+            expected_artifacts.append("fixtures.json")
         if effective_lanes.get("oracle", True):
             expected_artifacts.append("oracle_results.json")
 

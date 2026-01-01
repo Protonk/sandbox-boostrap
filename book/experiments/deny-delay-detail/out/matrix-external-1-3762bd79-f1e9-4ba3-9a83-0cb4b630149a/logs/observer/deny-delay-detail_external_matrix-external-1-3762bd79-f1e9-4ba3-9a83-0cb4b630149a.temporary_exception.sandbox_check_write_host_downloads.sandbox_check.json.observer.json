@@ -1,0 +1,41 @@
+{
+  "data": {
+    "correlation_id": "C4D2EA70-FE41-461C-9273-B70552241926",
+    "deny_lines": [],
+    "duration_ms": null,
+    "end": "2025-12-31 21:06:17",
+    "last": null,
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    ",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": false,
+    "observed_lines": 1,
+    "observer_schema_version": 1,
+    "pid": 27062,
+    "plan_id": "deny-delay-detail:external:matrix-external-1-3762bd79-f1e9-4ba3-9a83-0cb4b630149a",
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_temporary_exception(27062)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"27062\")))",
+    "process_name": "ProbeService_temporary_exception",
+    "row_id": "temporary_exception.sandbox_check_write_host_downloads",
+    "start": "2025-12-31 21:06:13",
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767243975495,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

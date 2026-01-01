@@ -27,10 +27,13 @@ private func sbl_seatbelt_callout_self(
     _ filterType: Int32,
     _ arg0: UnsafePointer<CChar>?,
     _ arg1: UnsafePointer<CChar>?,
+    _ canonicalize: Int32,
     _ errnoOut: UnsafeMutablePointer<Int32>,
     _ typeUsedOut: UnsafeMutablePointer<Int32>,
     _ noReportUsedOut: UnsafeMutablePointer<Int32>,
     _ noReportReasonOut: UnsafeMutablePointer<Int32>,
+    _ canonicalUsedOut: UnsafeMutablePointer<Int32>,
+    _ canonicalReasonOut: UnsafeMutablePointer<Int32>,
     _ tokenMachKrOut: UnsafeMutablePointer<Int32>
 ) -> Int32
 
@@ -93,6 +96,9 @@ enum ToolMarkers {
         operation: String,
         filterType: Int,
         argument: String?,
+        canonicalization: String?,
+        canonicalFlagUsed: Bool,
+        canonicalFlagReason: String?,
         rc: Int32,
         err: Int32,
         error: String?,
@@ -115,6 +121,9 @@ enum ToolMarkers {
                 "check_type": checkType,
                 "varargs_count": varargsCount,
                 "argument": argument ?? NSNull(),
+                "canonicalization": canonicalization ?? NSNull(),
+                "canonical_flag_used": canonicalFlagUsed,
+                "canonical_flag_reason": canonicalFlagReason ?? NSNull(),
                 "no_report": noReport,
                 "no_report_reason": noReportReason ?? NSNull(),
                 "token_status": tokenStatus,
@@ -264,81 +273,109 @@ enum ToolMarkers {
               let filterS = env["SANDBOX_LORE_SEATBELT_FILTER_TYPE"],
               let arg = env["SANDBOX_LORE_SEATBELT_ARG"],
               let filter = Int(filterS) else { return }
-        var outErrno: Int32 = 0
-        var typeUsed: Int32 = Int32(filter)
-        var noReportUsed: Int32 = 0
-        var noReportReasonCode: Int32 = 0
-        var tokenMachKr: Int32 = 0
-        let rc = op.withCString { opC in
-            arg.withCString { argC in
-                sbl_seatbelt_callout_self(
-                    opC,
-                    Int32(filter),
-                    argC,
-                    nil,
-                    &outErrno,
-                    &typeUsed,
-                    &noReportUsed,
-                    &noReportReasonCode,
-                    &tokenMachKr
-                )
-            }
+        let canonicalEnv = env["SANDBOX_LORE_SEATBELT_CANONICAL"]?.lowercased()
+        var modes: [(label: String, canonicalize: Int32)] = [("raw", 0)]
+        if canonicalEnv == "both" {
+            modes = [("raw", 0), ("canonical", 1)]
+        } else if canonicalEnv == "1" || canonicalEnv == "canonical" {
+            modes = [("canonical", 1)]
         }
 
-        let tokenStatus = (tokenMachKr == 0) ? "ok" : "task_info_failed"
-        // Determine whether the callout executed versus failed to invoke.
-        let executed = (rc == 0 || rc == 1 || (rc == -1 && outErrno != 0))
-
-        var noReport = false
-        var noReportReason: String? = nil
-        if executed {
-            noReport = (noReportUsed == 1)
-            if !noReport {
-                noReportReason = noReportReasonString(noReportReasonCode)
+        func emitForMode(label: String, canonicalize: Int32) {
+            var outErrno: Int32 = 0
+            var typeUsed: Int32 = Int32(filter)
+            var noReportUsed: Int32 = 0
+            var noReportReasonCode: Int32 = 0
+            var canonicalUsed: Int32 = 0
+            var canonicalReasonCode: Int32 = 0
+            var tokenMachKr: Int32 = 0
+            let rc = op.withCString { opC in
+                arg.withCString { argC in
+                    sbl_seatbelt_callout_self(
+                        opC,
+                        Int32(filter),
+                        argC,
+                        nil,
+                        canonicalize,
+                        &outErrno,
+                        &typeUsed,
+                        &noReportUsed,
+                        &noReportReasonCode,
+                        &canonicalUsed,
+                        &canonicalReasonCode,
+                        &tokenMachKr
+                    )
+                }
             }
-        } else {
-            noReport = false
-            if tokenMachKr != 0 {
-                noReportReason = "token_unavailable"
-            } else if rc == -2, outErrno == ENOTSUP {
-                noReportReason = "unsupported_filter_type"
-            } else if rc == -2, outErrno == EINVAL {
-                noReportReason = "invalid_argument"
-            } else if rc == -2, outErrno == ENOSYS {
-                noReportReason = "symbol_missing"
+
+            let tokenStatus = (tokenMachKr == 0) ? "ok" : "task_info_failed"
+            // Determine whether the callout executed versus failed to invoke.
+            let executed = (rc == 0 || rc == 1 || (rc == -1 && outErrno != 0))
+
+            var noReport = false
+            var noReportReason: String? = nil
+            if executed {
+                noReport = (noReportUsed == 1)
+                if !noReport {
+                    noReportReason = noReportReasonString(noReportReasonCode)
+                }
             } else {
-                noReportReason = "function_missing"
+                noReport = false
+                if tokenMachKr != 0 {
+                    noReportReason = "token_unavailable"
+                } else if rc == -2, outErrno == ENOTSUP {
+                    noReportReason = "unsupported_filter_type"
+                } else if rc == -2, outErrno == EINVAL {
+                    noReportReason = "invalid_argument"
+                } else if rc == -2, outErrno == ENOSYS {
+                    noReportReason = "symbol_missing"
+                } else {
+                    noReportReason = "function_missing"
+                }
             }
+
+            let canonicalFlagUsed = (canonicalUsed == 1)
+            var canonicalFlagReason: String? = nil
+            if !canonicalFlagUsed {
+                canonicalFlagReason = canonicalReasonString(canonicalReasonCode)
+            }
+
+            let error: String?
+            if executed {
+                error = nil
+            } else if tokenMachKr != 0 {
+                error = "TASK_AUDIT_TOKEN unavailable"
+            } else if rc == -2, outErrno == ENOTSUP {
+                error = "unsupported filter type (string-arg only)"
+            } else if rc == -2, outErrno == EINVAL {
+                error = "invalid argument"
+            } else {
+                error = "sandbox_check_by_audit_token missing"
+            }
+
+            emitSeatbeltCallout(
+                stage: stage,
+                operation: op,
+                filterType: filter,
+                argument: arg,
+                canonicalization: label,
+                canonicalFlagUsed: canonicalFlagUsed,
+                canonicalFlagReason: canonicalFlagReason,
+                rc: rc,
+                err: outErrno,
+                error: error,
+                noReport: noReport,
+                noReportReason: noReportReason,
+                tokenStatus: tokenStatus,
+                tokenMachKr: tokenMachKr,
+                checkType: typeUsed,
+                varargsCount: 1
+            )
         }
 
-        let error: String?
-        if executed {
-            error = nil
-        } else if tokenMachKr != 0 {
-            error = "TASK_AUDIT_TOKEN unavailable"
-        } else if rc == -2, outErrno == ENOTSUP {
-            error = "unsupported filter type (string-arg only)"
-        } else if rc == -2, outErrno == EINVAL {
-            error = "invalid argument"
-        } else {
-            error = "sandbox_check_by_audit_token missing"
+        for mode in modes {
+            emitForMode(label: mode.label, canonicalize: mode.canonicalize)
         }
-
-        emitSeatbeltCallout(
-            stage: stage,
-            operation: op,
-            filterType: filter,
-            argument: arg,
-            rc: rc,
-            err: outErrno,
-            error: error,
-            noReport: noReport,
-            noReportReason: noReportReason,
-            tokenStatus: tokenStatus,
-            tokenMachKr: tokenMachKr,
-            checkType: typeUsed,
-            varargsCount: 1
-        )
     }
 
     private static func filterTypeName(_ filterType: Int) -> String {
@@ -353,6 +390,10 @@ enum ToolMarkers {
             return "right-name"
         case 27:
             return "preference-domain"
+        case 34:
+            return "notification-name"
+        case 49:
+            return "xpc-service-name"
         default:
             return "unknown"
         }
@@ -363,6 +404,19 @@ enum ToolMarkers {
         case 1:
             return "symbol_missing"
         case 2:
+            return "flag_zero"
+        default:
+            return "unknown"
+        }
+    }
+
+    private static func canonicalReasonString(_ code: Int32) -> String {
+        switch code {
+        case 1:
+            return "not_requested"
+        case 2:
+            return "symbol_missing"
+        case 3:
             return "flag_zero"
         default:
             return "unknown"

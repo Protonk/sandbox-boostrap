@@ -1,0 +1,59 @@
+{
+  "command": [
+    "book/tools/sbpl/wrapper/wrapper",
+    "--preflight",
+    "on",
+    "--sbpl",
+    "book/experiments/sbpl-graph-runtime/profiles/allow_all.sb",
+    "--",
+    "/bin/sh",
+    "-c",
+    "echo test > \\\"$HOME/Downloads/atlas_compare_8e21f10540d9.txt\\\"; rm -f \\\"$HOME/Downloads/atlas_compare_8e21f10540d9.txt\\\""
+  ],
+  "duration_s": 0.003731966018676758,
+  "error": null,
+  "evidence_tier": "mapped",
+  "exit_code": 64,
+  "finished_at_unix_s": 1767244551.878144,
+  "preflight": {
+    "apply_marker_pid": 33132,
+    "apply_ok": false,
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_runner",
+      "book/experiments/sbpl-graph-runtime/profiles/allow_all.sb",
+      "--",
+      "/usr/bin/true"
+    ],
+    "exit_code": 1,
+    "failure_stage": "apply",
+    "profile": "book/experiments/sbpl-graph-runtime/profiles/allow_all.sb",
+    "run_id": null,
+    "runner": "book/api/runtime/native/sandbox_runner/sandbox_runner",
+    "sandbox_check_self": {
+      "error": "libsystem_sandbox not found",
+      "source": "sandbox_check"
+    },
+    "status": "ok",
+    "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
+    "stdout": "",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  "runner_info": {
+    "entrypoint": "sbpl-wrapper",
+    "entrypoint_path": "book/tools/sbpl/wrapper/wrapper",
+    "entrypoint_sha256": "2a4ead954fcceb103a5409d6057ab6803f206a11fc94554638c1b6a2aa065bb3",
+    "tool_build_id": "2a4ead954fcceb103a5409d6057ab6803f206a11fc94554638c1b6a2aa065bb3"
+  },
+  "started_at_unix_s": 1767244551.874412,
+  "stderr": "invalid --preflight value: on\n",
+  "stdout": "",
+  "tool_markers": null
+}

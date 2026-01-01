@@ -143,7 +143,13 @@ def _pick_profiles(profile_ids: List[str], max_count: int) -> List[str]:
     return picked
 
 
-def _probe_set(home_dir: Path, *, include_stateful: bool, run_id: str) -> List[Dict[str, object]]:
+def _probe_set(
+    home_dir: Path,
+    *,
+    include_stateful: bool,
+    include_downloads_ladder: bool,
+    run_id: str,
+) -> List[Dict[str, object]]:
     probes: List[Dict[str, object]] = [
         {
             "label": "fs_op_deny_private_overrides",
@@ -183,8 +189,8 @@ def _probe_set(home_dir: Path, *, include_stateful: bool, run_id: str) -> List[D
         },
     ]
 
+    safe_suffix = run_id.replace("-", "")[:12]
     if include_stateful:
-        safe_suffix = run_id.replace("-", "")[:12]
         probes.append(
             {
                 "label": "downloads_rw_probe",
@@ -210,6 +216,61 @@ def _probe_set(home_dir: Path, *, include_stateful: bool, run_id: str) -> List[D
                     "probe_args": ["--op", "listdir", "--path", str(documents_dir), "--allow-unsafe-path"],
                 }
             )
+
+    if include_downloads_ladder:
+        downloads_name = f"atlas_{safe_suffix}.txt"
+        host_downloads = home_dir / "Downloads" / downloads_name
+        probes.extend(
+            [
+                {
+                    "label": "fs_op_create_pathclass_downloads",
+                    "probe_id": "fs_op",
+                    "probe_args": [
+                        "--op",
+                        "create",
+                        "--path-class",
+                        "downloads",
+                        "--target",
+                        "specimen_file",
+                        "--name",
+                        downloads_name,
+                    ],
+                },
+                {
+                    "label": "fs_op_create_direct_downloads",
+                    "probe_id": "fs_op",
+                    "probe_args": [
+                        "--op",
+                        "create",
+                        "--path",
+                        str(host_downloads),
+                        "--allow-unsafe-path",
+                    ],
+                },
+                {
+                    "label": "fs_coordinated_write_pathclass_downloads",
+                    "probe_id": "fs_coordinated_op",
+                    "probe_args": [
+                        "--op",
+                        "write",
+                        "--path-class",
+                        "downloads",
+                        "--target",
+                        "specimen_file",
+                    ],
+                },
+                {
+                    "label": "sandbox_check_write_host_downloads",
+                    "probe_id": "sandbox_check",
+                    "probe_args": [
+                        "--operation",
+                        "file-write-create",
+                        "--path",
+                        str(host_downloads),
+                    ],
+                },
+            ]
+        )
 
     return probes
 
@@ -273,6 +334,7 @@ def main() -> None:
     parser.add_argument("--capture-sandbox-logs", action="store_true")
     parser.add_argument("--manual-observer-last", default="30s")
     parser.add_argument("--include-stateful-probes", action="store_true")
+    parser.add_argument("--include-downloads-ladder", action="store_true")
     args = parser.parse_args()
 
     repo_root = path_utils.find_repo_root(Path(__file__))
@@ -319,6 +381,7 @@ def main() -> None:
             for probe in _probe_set(
                 home_dir,
                 include_stateful=args.include_stateful_probes,
+                include_downloads_ladder=args.include_downloads_ladder,
                 run_id=run_id,
             ):
                 label = probe["label"]
@@ -452,11 +515,14 @@ def main() -> None:
         "probe_set": _probe_set(
             home_dir,
             include_stateful=args.include_stateful_probes,
+            include_downloads_ladder=args.include_downloads_ladder,
             run_id=run_id,
         ),
         "observer_mode": observer_mode,
         "manual_observer_last": manual_last,
         "capture_sandbox_logs": capture_logs,
+        "include_stateful_probes": args.include_stateful_probes,
+        "include_downloads_ladder": args.include_downloads_ladder,
         "runs_path": path_utils.to_repo_relative(runs_path, repo_root),
         "atlas_path": path_utils.to_repo_relative(run_root / "deny_atlas.json", repo_root),
         "probe_output_dir": path_utils.to_repo_relative(run_root, repo_root),

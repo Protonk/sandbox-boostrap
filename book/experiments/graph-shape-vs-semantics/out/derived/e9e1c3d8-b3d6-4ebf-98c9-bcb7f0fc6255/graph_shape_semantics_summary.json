@@ -1,0 +1,385 @@
+{
+  "provenance": {
+    "artifact_index": "book/experiments/runtime-adversarial/out/e9e1c3d8-b3d6-4ebf-98c9-bcb7f0fc6255/artifact_index.json",
+    "artifact_index_sha256": "db47f467f5111e89736f14c0751a0fd473b7a105b21962f8b7586de1bab44412",
+    "bundle_dir": "book/experiments/runtime-adversarial/out/e9e1c3d8-b3d6-4ebf-98c9-bcb7f0fc6255",
+    "consumption_receipt": "book/experiments/graph-shape-vs-semantics/out/derived/e9e1c3d8-b3d6-4ebf-98c9-bcb7f0fc6255/consumption_receipt.json",
+    "exports": {
+      "run_manifest": "book/experiments/runtime-adversarial/out/e9e1c3d8-b3d6-4ebf-98c9-bcb7f0fc6255/run_manifest.json",
+      "runtime_results": "book/experiments/runtime-adversarial/out/e9e1c3d8-b3d6-4ebf-98c9-bcb7f0fc6255/runtime_results.json"
+    },
+    "packet": "book/experiments/runtime-adversarial/out/promotion_packet.json",
+    "run_id": "e9e1c3d8-b3d6-4ebf-98c9-bcb7f0fc6255"
+  },
+  "schema_version": "graph-shape-vs-semantics.summary.v0",
+  "summary": {
+    "mach global-name literal vs regex variants": {
+      "aligned_expectations": [
+        {
+          "actual_a": "allow",
+          "actual_b": "allow",
+          "both_match": true,
+          "expectation_id": "allow-cfprefsd",
+          "expected": "allow",
+          "profile_a": "adv:mach_simple_allow",
+          "profile_b": "adv:mach_simple_variants"
+        },
+        {
+          "actual_a": "deny",
+          "actual_b": "deny",
+          "both_match": true,
+          "expectation_id": "deny-bogus",
+          "expected": "deny",
+          "profile_a": "adv:mach_simple_allow",
+          "profile_b": "adv:mach_simple_variants"
+        }
+      ],
+      "mismatches": [],
+      "profiles": [
+        "adv:mach_simple_allow",
+        "adv:mach_simple_variants"
+      ]
+    },
+    "mach local-name literal vs regex variants": {
+      "aligned_expectations": [
+        {
+          "actual_a": "allow",
+          "actual_b": "allow",
+          "both_match": true,
+          "expectation_id": "allow-cfprefsd-local",
+          "expected": "allow",
+          "profile_a": "adv:mach_local_literal",
+          "profile_b": "adv:mach_local_regex"
+        },
+        {
+          "actual_a": "deny",
+          "actual_b": "deny",
+          "both_match": true,
+          "expectation_id": "deny-bogus-local",
+          "expected": "deny",
+          "profile_a": "adv:mach_local_literal",
+          "profile_b": "adv:mach_local_regex"
+        }
+      ],
+      "mismatches": [],
+      "profiles": [
+        "adv:mach_local_literal",
+        "adv:mach_local_regex"
+      ]
+    },
+    "path_edges": {
+      "mismatches": [
+        {
+          "actual": "deny",
+          "cmd_duration_s": 0.006913900375366211,
+          "cmd_finished_at_unix_s": 1767244336.545883,
+          "cmd_started_at_unix_s": 1767244336.538969,
+          "command": [
+            "book/api/runtime/native/sandbox_runner/sandbox_reader",
+            "book/experiments/runtime-adversarial/out/e9e1c3d8-b3d6-4ebf-98c9-bcb7f0fc6255/runtime_profiles/path_edges.adv_path_edges.runtime.sb",
+            "/tmp/runtime-adv/edges/a"
+          ],
+          "exit_code": 2,
+          "expectation_id": "adv:path_edges:allow-tmp",
+          "expected": "allow",
+          "match": false,
+          "name": "allow-tmp",
+          "operation": "file-read*",
+          "path": "/tmp/runtime-adv/edges/a",
+          "path_observation": {
+            "observed_path": "/private/tmp/runtime-adv/edges/a",
+            "observed_path_errno": null,
+            "observed_path_nofirmlink": null,
+            "observed_path_nofirmlink_errno": null,
+            "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+            "observed_path_source": "unsandboxed_fd_path"
+          },
+          "probe_details": null,
+          "runtime_result": {
+            "apply_report": {
+              "api": "sandbox_init",
+              "err_class": "ok",
+              "err_class_source": "none",
+              "errbuf": null,
+              "errno": 0,
+              "rc": 0
+            },
+            "errno": 2,
+            "failure_kind": "probe_nonzero_exit",
+            "failure_stage": "probe",
+            "runner_info": {
+              "apply_model": "self_apply",
+              "apply_timing": "pre_syscall",
+              "entrypoint": "sandbox_reader",
+              "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+              "entrypoint_sha256": "83bb1dcc3f78e430be04ce95b32d2e4bea893260ab4b1eb4219c9be8d161db15",
+              "preexisting_sandbox_suspected": false,
+              "tool_build_id": "83bb1dcc3f78e430be04ce95b32d2e4bea893260ab4b1eb4219c9be8d161db15"
+            },
+            "runtime_result_schema_version": 1,
+            "seatbelt_callouts": null,
+            "status": "errno",
+            "tool_marker_schema_version": 2
+          },
+          "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.e9e1c3d8-b3d6-4ebf-98c9-bcb7f0fc6255/book/experiments/runtime-adversarial/out/e9e1c3d8-b3d6-4ebf-98c9-bcb7f0fc6255/runtime_profiles/path_edges.adv_path_edges.runtime.sb\",\"pid\":28749}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.e9e1c3d8-b3d6-4ebf-98c9-bcb7f0fc6255/book/experiments/runtime-adversarial/out/e9e1c3d8-b3d6-4ebf-98c9-bcb7f0fc6255/runtime_profiles/path_edges.adv_path_edges.runtime.sb\",\"pid\":28749}\nopen target: Operation not permitted\n",
+          "stdout": "",
+          "violation_summary": null
+        },
+        {
+          "actual": "deny",
+          "cmd_duration_s": 0.007051229476928711,
+          "cmd_finished_at_unix_s": 1767244336.5610461,
+          "cmd_started_at_unix_s": 1767244336.553995,
+          "command": [
+            "book/api/runtime/native/sandbox_runner/sandbox_reader",
+            "book/experiments/runtime-adversarial/out/e9e1c3d8-b3d6-4ebf-98c9-bcb7f0fc6255/runtime_profiles/path_edges.adv_path_edges.runtime.sb",
+            "/tmp/runtime-adv/edges/okdir/item.txt"
+          ],
+          "exit_code": 2,
+          "expectation_id": "adv:path_edges:allow-subpath",
+          "expected": "allow",
+          "match": false,
+          "name": "allow-subpath",
+          "operation": "file-read*",
+          "path": "/tmp/runtime-adv/edges/okdir/item.txt",
+          "path_observation": {
+            "observed_path": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+            "observed_path_errno": null,
+            "observed_path_nofirmlink": null,
+            "observed_path_nofirmlink_errno": null,
+            "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+            "observed_path_source": "unsandboxed_fd_path"
+          },
+          "probe_details": null,
+          "runtime_result": {
+            "apply_report": {
+              "api": "sandbox_init",
+              "err_class": "ok",
+              "err_class_source": "none",
+              "errbuf": null,
+              "errno": 0,
+              "rc": 0
+            },
+            "errno": 2,
+            "failure_kind": "probe_nonzero_exit",
+            "failure_stage": "probe",
+            "runner_info": {
+              "apply_model": "self_apply",
+              "apply_timing": "pre_syscall",
+              "entrypoint": "sandbox_reader",
+              "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+              "entrypoint_sha256": "83bb1dcc3f78e430be04ce95b32d2e4bea893260ab4b1eb4219c9be8d161db15",
+              "preexisting_sandbox_suspected": false,
+              "tool_build_id": "83bb1dcc3f78e430be04ce95b32d2e4bea893260ab4b1eb4219c9be8d161db15"
+            },
+            "runtime_result_schema_version": 1,
+            "seatbelt_callouts": null,
+            "status": "errno",
+            "tool_marker_schema_version": 2
+          },
+          "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.e9e1c3d8-b3d6-4ebf-98c9-bcb7f0fc6255/book/experiments/runtime-adversarial/out/e9e1c3d8-b3d6-4ebf-98c9-bcb7f0fc6255/runtime_profiles/path_edges.adv_path_edges.runtime.sb\",\"pid\":28754}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.e9e1c3d8-b3d6-4ebf-98c9-bcb7f0fc6255/book/experiments/runtime-adversarial/out/e9e1c3d8-b3d6-4ebf-98c9-bcb7f0fc6255/runtime_profiles/path_edges.adv_path_edges.runtime.sb\",\"pid\":28754}\nopen target: Operation not permitted\n",
+          "stdout": "",
+          "violation_summary": null
+        },
+        {
+          "actual": "deny",
+          "cmd_duration_s": 0.28566789627075195,
+          "cmd_finished_at_unix_s": 1767244336.863368,
+          "cmd_started_at_unix_s": 1767244336.5777001,
+          "command": [
+            "book/api/runtime/native/sandbox_runner/sandbox_writer",
+            "book/experiments/runtime-adversarial/out/e9e1c3d8-b3d6-4ebf-98c9-bcb7f0fc6255/runtime_profiles/path_edges.adv_path_edges.runtime.sb",
+            "/tmp/runtime-adv/edges/a"
+          ],
+          "exit_code": 2,
+          "expectation_id": "adv:path_edges:write-tmp",
+          "expected": "allow",
+          "match": false,
+          "name": "write-tmp",
+          "operation": "file-write*",
+          "path": "/tmp/runtime-adv/edges/a",
+          "path_observation": {
+            "observed_path": "/private/tmp/runtime-adv/edges/a",
+            "observed_path_errno": null,
+            "observed_path_nofirmlink": null,
+            "observed_path_nofirmlink_errno": null,
+            "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+            "observed_path_source": "unsandboxed_fd_path"
+          },
+          "probe_details": null,
+          "runtime_result": {
+            "apply_report": {
+              "api": "sandbox_init",
+              "err_class": "ok",
+              "err_class_source": "none",
+              "errbuf": null,
+              "errno": 0,
+              "rc": 0
+            },
+            "errno": 2,
+            "failure_kind": "probe_nonzero_exit",
+            "failure_stage": "probe",
+            "runner_info": {
+              "apply_model": "self_apply",
+              "apply_timing": "pre_syscall",
+              "entrypoint": "sandbox_writer",
+              "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_writer",
+              "entrypoint_sha256": "c1a3e997a50e7877d795abb0468d0121cfbf06159dfb0e6c7bb9eecbfa69c433",
+              "preexisting_sandbox_suspected": false,
+              "tool_build_id": "c1a3e997a50e7877d795abb0468d0121cfbf06159dfb0e6c7bb9eecbfa69c433"
+            },
+            "runtime_result_schema_version": 1,
+            "seatbelt_callouts": null,
+            "status": "errno",
+            "tool_marker_schema_version": 2
+          },
+          "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.e9e1c3d8-b3d6-4ebf-98c9-bcb7f0fc6255/book/experiments/runtime-adversarial/out/e9e1c3d8-b3d6-4ebf-98c9-bcb7f0fc6255/runtime_profiles/path_edges.adv_path_edges.runtime.sb\",\"pid\":28759}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.e9e1c3d8-b3d6-4ebf-98c9-bcb7f0fc6255/book/experiments/runtime-adversarial/out/e9e1c3d8-b3d6-4ebf-98c9-bcb7f0fc6255/runtime_profiles/path_edges.adv_path_edges.runtime.sb\",\"pid\":28759}\nopen target: Operation not permitted\n",
+          "stdout": "",
+          "violation_summary": null
+        },
+        {
+          "actual": "deny",
+          "cmd_duration_s": 0.007299661636352539,
+          "cmd_finished_at_unix_s": 1767244336.8818638,
+          "cmd_started_at_unix_s": 1767244336.8745642,
+          "command": [
+            "book/api/runtime/native/sandbox_runner/sandbox_writer",
+            "book/experiments/runtime-adversarial/out/e9e1c3d8-b3d6-4ebf-98c9-bcb7f0fc6255/runtime_profiles/path_edges.adv_path_edges.runtime.sb",
+            "/tmp/runtime-adv/edges/okdir/item.txt"
+          ],
+          "exit_code": 2,
+          "expectation_id": "adv:path_edges:write-subpath",
+          "expected": "allow",
+          "match": false,
+          "name": "write-subpath",
+          "operation": "file-write*",
+          "path": "/tmp/runtime-adv/edges/okdir/item.txt",
+          "path_observation": {
+            "observed_path": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+            "observed_path_errno": null,
+            "observed_path_nofirmlink": null,
+            "observed_path_nofirmlink_errno": null,
+            "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+            "observed_path_source": "unsandboxed_fd_path"
+          },
+          "probe_details": null,
+          "runtime_result": {
+            "apply_report": {
+              "api": "sandbox_init",
+              "err_class": "ok",
+              "err_class_source": "none",
+              "errbuf": null,
+              "errno": 0,
+              "rc": 0
+            },
+            "errno": 2,
+            "failure_kind": "probe_nonzero_exit",
+            "failure_stage": "probe",
+            "runner_info": {
+              "apply_model": "self_apply",
+              "apply_timing": "pre_syscall",
+              "entrypoint": "sandbox_writer",
+              "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_writer",
+              "entrypoint_sha256": "c1a3e997a50e7877d795abb0468d0121cfbf06159dfb0e6c7bb9eecbfa69c433",
+              "preexisting_sandbox_suspected": false,
+              "tool_build_id": "c1a3e997a50e7877d795abb0468d0121cfbf06159dfb0e6c7bb9eecbfa69c433"
+            },
+            "runtime_result_schema_version": 1,
+            "seatbelt_callouts": null,
+            "status": "errno",
+            "tool_marker_schema_version": 2
+          },
+          "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.e9e1c3d8-b3d6-4ebf-98c9-bcb7f0fc6255/book/experiments/runtime-adversarial/out/e9e1c3d8-b3d6-4ebf-98c9-bcb7f0fc6255/runtime_profiles/path_edges.adv_path_edges.runtime.sb\",\"pid\":28765}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.e9e1c3d8-b3d6-4ebf-98c9-bcb7f0fc6255/book/experiments/runtime-adversarial/out/e9e1c3d8-b3d6-4ebf-98c9-bcb7f0fc6255/runtime_profiles/path_edges.adv_path_edges.runtime.sb\",\"pid\":28765}\nopen target: Operation not permitted\n",
+          "stdout": "",
+          "violation_summary": null
+        }
+      ],
+      "note": "expected allow on /tmp variants denied (VFS canonicalization likely)",
+      "profiles": [
+        "adv:path_edges"
+      ]
+    },
+    "structural variants of same intent (read/write)": {
+      "aligned_expectations": [
+        {
+          "actual_a": "allow",
+          "actual_b": "allow",
+          "both_match": true,
+          "expectation_id": "allow-ok-deep",
+          "expected": "allow",
+          "profile_a": "adv:struct_flat",
+          "profile_b": "adv:struct_nested"
+        },
+        {
+          "actual_a": "allow",
+          "actual_b": "allow",
+          "both_match": true,
+          "expectation_id": "allow-ok-root",
+          "expected": "allow",
+          "profile_a": "adv:struct_flat",
+          "profile_b": "adv:struct_nested"
+        },
+        {
+          "actual_a": "deny",
+          "actual_b": "deny",
+          "both_match": true,
+          "expectation_id": "deny-blocked",
+          "expected": "deny",
+          "profile_a": "adv:struct_flat",
+          "profile_b": "adv:struct_nested"
+        },
+        {
+          "actual_a": "deny",
+          "actual_b": "deny",
+          "both_match": true,
+          "expectation_id": "deny-outside",
+          "expected": "deny",
+          "profile_a": "adv:struct_flat",
+          "profile_b": "adv:struct_nested"
+        },
+        {
+          "actual_a": "deny",
+          "actual_b": "deny",
+          "both_match": true,
+          "expectation_id": "write-blocked",
+          "expected": "deny",
+          "profile_a": "adv:struct_flat",
+          "profile_b": "adv:struct_nested"
+        },
+        {
+          "actual_a": "allow",
+          "actual_b": "allow",
+          "both_match": true,
+          "expectation_id": "write-ok-deep",
+          "expected": "allow",
+          "profile_a": "adv:struct_flat",
+          "profile_b": "adv:struct_nested"
+        },
+        {
+          "actual_a": "allow",
+          "actual_b": "allow",
+          "both_match": true,
+          "expectation_id": "write-ok-root",
+          "expected": "allow",
+          "profile_a": "adv:struct_flat",
+          "profile_b": "adv:struct_nested"
+        },
+        {
+          "actual_a": "deny",
+          "actual_b": "deny",
+          "both_match": true,
+          "expectation_id": "write-outside",
+          "expected": "deny",
+          "profile_a": "adv:struct_flat",
+          "profile_b": "adv:struct_nested"
+        }
+      ],
+      "mismatches": [],
+      "profiles": [
+        "adv:struct_flat",
+        "adv:struct_nested"
+      ]
+    }
+  },
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

@@ -761,6 +761,9 @@ static void emit_iokit_callout_string(
             operation,
             filter_type,
             argument,
+            "raw",
+            0,
+            "not_requested",
             -1,
             0,
             "TASK_AUDIT_TOKEN unavailable",
@@ -781,6 +784,9 @@ static void emit_iokit_callout_string(
             operation,
             filter_type,
             argument,
+            "raw",
+            0,
+            "not_requested",
             -2,
             ENOSYS,
             "sandbox_check_by_audit_token missing",
@@ -796,9 +802,21 @@ static void emit_iokit_callout_string(
 
     int no_report_used = 0;
     const char *no_report_reason = NULL;
-    int type_used = sbl_sb_check_type_with_no_report(filter_type, &no_report_used, &no_report_reason);
+    int canonical_used = 0;
+    const char *canonical_reason = NULL;
+    int type_used = sbl_sb_check_type_with_flags(
+        filter_type,
+        0,
+        &no_report_used,
+        &no_report_reason,
+        &canonical_used,
+        &canonical_reason
+    );
     if (!no_report_used && no_report_reason == NULL) {
         no_report_reason = "unknown";
+    }
+    if (!canonical_used && canonical_reason == NULL) {
+        canonical_reason = "unknown";
     }
     errno = 0;
     int rc = fn(&token, operation, type_used, argument);
@@ -809,6 +827,9 @@ static void emit_iokit_callout_string(
         operation,
         filter_type,
         argument,
+        "raw",
+        canonical_used,
+        canonical_reason,
         rc,
         err,
         NULL,
@@ -846,6 +867,9 @@ static void emit_iokit_callout_number(
             operation,
             filter_type,
             arg_buf,
+            "raw",
+            0,
+            "not_requested",
             -1,
             0,
             "TASK_AUDIT_TOKEN unavailable",
@@ -868,6 +892,9 @@ static void emit_iokit_callout_number(
             operation,
             filter_type,
             arg_buf,
+            "raw",
+            0,
+            "not_requested",
             -2,
             ENOSYS,
             "sandbox_check_by_audit_token missing",
@@ -883,9 +910,21 @@ static void emit_iokit_callout_number(
 
     int no_report_used = 0;
     const char *no_report_reason = NULL;
-    int type_used = sbl_sb_check_type_with_no_report(filter_type, &no_report_used, &no_report_reason);
+    int canonical_used = 0;
+    const char *canonical_reason = NULL;
+    int type_used = sbl_sb_check_type_with_flags(
+        filter_type,
+        0,
+        &no_report_used,
+        &no_report_reason,
+        &canonical_used,
+        &canonical_reason
+    );
     if (!no_report_used && no_report_reason == NULL) {
         no_report_reason = "unknown";
+    }
+    if (!canonical_used && canonical_reason == NULL) {
+        canonical_reason = "unknown";
     }
     errno = 0;
     int rc = fn(&token, operation, type_used, argument);
@@ -898,6 +937,9 @@ static void emit_iokit_callout_number(
         operation,
         filter_type,
         arg_buf,
+        "raw",
+        canonical_used,
+        canonical_reason,
         rc,
         err,
         NULL,
@@ -931,6 +973,9 @@ static void emit_iokit_callout_noarg(
             operation,
             SBL_FILTER_NONE,
             "<none>",
+            "raw",
+            0,
+            "not_requested",
             -1,
             0,
             "TASK_AUDIT_TOKEN unavailable",
@@ -951,6 +996,9 @@ static void emit_iokit_callout_noarg(
             operation,
             SBL_FILTER_NONE,
             "<none>",
+            "raw",
+            0,
+            "not_requested",
             -2,
             ENOSYS,
             "sandbox_check_by_audit_token missing",
@@ -973,6 +1021,9 @@ static void emit_iokit_callout_noarg(
         operation,
         SBL_FILTER_NONE,
         "<none>",
+        "raw",
+        0,
+        "not_requested",
         rc,
         err,
         NULL,

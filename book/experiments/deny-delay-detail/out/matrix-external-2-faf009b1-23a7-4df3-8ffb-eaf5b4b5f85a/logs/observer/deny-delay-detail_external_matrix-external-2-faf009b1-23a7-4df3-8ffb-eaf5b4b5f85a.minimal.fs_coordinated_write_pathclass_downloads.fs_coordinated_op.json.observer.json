@@ -1,0 +1,43 @@
+{
+  "data": {
+    "correlation_id": "ED533332-CE30-46FD-B88F-BC620ED6C807",
+    "deny_lines": [
+      "2025-12-31 21:06:16.187890-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_minimal(27116) deny(1) file-write-create /Users/achyland/Downloads/policy-witness-harness"
+    ],
+    "duration_ms": null,
+    "end": "2025-12-31 21:06:18",
+    "last": null,
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    \n2025-12-31 21:06:16.187890-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_minimal(27116) deny(1) file-write-create /Users/achyland/Downloads/policy-witness-harness",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": true,
+    "observed_lines": 2,
+    "observer_schema_version": 1,
+    "pid": 27116,
+    "plan_id": "deny-delay-detail:external:matrix-external-2-faf009b1-23a7-4df3-8ffb-eaf5b4b5f85a",
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_minimal(27116)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"27116\")))",
+    "process_name": "ProbeService_minimal",
+    "row_id": "minimal.fs_coordinated_write_pathclass_downloads",
+    "start": "2025-12-31 21:06:14",
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767243976240,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

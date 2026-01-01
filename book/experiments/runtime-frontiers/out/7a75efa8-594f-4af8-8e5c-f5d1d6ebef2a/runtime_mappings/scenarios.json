@@ -1,0 +1,738 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "tier": "mapped",
+    "source_jobs": [],
+    "notes": "scenario-level runtime summaries"
+  },
+  "phase_histograms": {
+    "overall": {
+      "total": 19,
+      "stages": {
+        "apply": 0,
+        "bootstrap": 0,
+        "preflight": 0,
+        "probe": 19
+      },
+      "blocked": {
+        "total": 0,
+        "by_stage": {},
+        "by_kind": {}
+      },
+      "probe": {
+        "total": 19,
+        "allow": 0,
+        "deny": 19,
+        "mismatches": 10
+      }
+    },
+    "by_family": {
+      "frontier": {
+        "total": 19,
+        "stages": {
+          "apply": 0,
+          "bootstrap": 0,
+          "preflight": 0,
+          "probe": 19
+        },
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "probe": {
+          "total": 19,
+          "allow": 0,
+          "deny": 19,
+          "mismatches": 10
+        }
+      }
+    }
+  },
+  "scenarios": {
+    "frontier:system_ops:read_data_/etc/hosts": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "frontier:system_ops",
+      "expectations": [
+        {
+          "expectation_id": "frontier:system_ops:read_data_/etc/hosts",
+          "profile_id": "frontier:system_ops",
+          "operation": "file-read-data",
+          "target": "/etc/hosts",
+          "expected": "allow",
+          "probe_name": "read_data_/etc/hosts"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "frontier:system_ops:read_data_/etc/hosts",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-read-data",
+          "target": "/etc/hosts",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: Operation not permitted\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "frontier:system_ops:read_data_/etc/hosts"
+    },
+    "frontier:system_ops:read_data_/private/etc/hosts": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "frontier:system_ops",
+      "expectations": [
+        {
+          "expectation_id": "frontier:system_ops:read_data_/private/etc/hosts",
+          "profile_id": "frontier:system_ops",
+          "operation": "file-read-data",
+          "target": "/private/etc/hosts",
+          "expected": "deny",
+          "probe_name": "read_data_/private/etc/hosts"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "frontier:system_ops:read_data_/private/etc/hosts"
+    },
+    "frontier:system_ops:test_exists_/etc/hosts": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "frontier:system_ops",
+      "expectations": [
+        {
+          "expectation_id": "frontier:system_ops:test_exists_/etc/hosts",
+          "profile_id": "frontier:system_ops",
+          "operation": "file-test-existence",
+          "target": "/etc/hosts",
+          "expected": "allow",
+          "probe_name": "test_exists_/etc/hosts"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "frontier:system_ops:test_exists_/etc/hosts",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-test-existence",
+          "target": "/etc/hosts",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": ""
+        }
+      ],
+      "impact": null,
+      "scenario_id": "frontier:system_ops:test_exists_/etc/hosts"
+    },
+    "frontier:system_ops:test_exists_/private/etc/hosts": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "frontier:system_ops",
+      "expectations": [
+        {
+          "expectation_id": "frontier:system_ops:test_exists_/private/etc/hosts",
+          "profile_id": "frontier:system_ops",
+          "operation": "file-test-existence",
+          "target": "/private/etc/hosts",
+          "expected": "deny",
+          "probe_name": "test_exists_/private/etc/hosts"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "frontier:system_ops:test_exists_/private/etc/hosts"
+    },
+    "frontier:system_ops:search_/tmp/sbpl_rt": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "frontier:system_ops",
+      "expectations": [
+        {
+          "expectation_id": "frontier:system_ops:search_/tmp/sbpl_rt",
+          "profile_id": "frontier:system_ops",
+          "operation": "file-search",
+          "target": "/tmp/sbpl_rt",
+          "expected": "allow",
+          "probe_name": "search_/tmp/sbpl_rt"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "frontier:system_ops:search_/tmp/sbpl_rt",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-search",
+          "target": "/tmp/sbpl_rt",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": ""
+        }
+      ],
+      "impact": null,
+      "scenario_id": "frontier:system_ops:search_/tmp/sbpl_rt"
+    },
+    "frontier:system_ops:search_/private/tmp/sbpl_rt": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "frontier:system_ops",
+      "expectations": [
+        {
+          "expectation_id": "frontier:system_ops:search_/private/tmp/sbpl_rt",
+          "profile_id": "frontier:system_ops",
+          "operation": "file-search",
+          "target": "/private/tmp/sbpl_rt",
+          "expected": "deny",
+          "probe_name": "search_/private/tmp/sbpl_rt"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "frontier:system_ops:search_/private/tmp/sbpl_rt"
+    },
+    "frontier:system_ops:write_data_/tmp/sbpl_rt/write.txt": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "frontier:system_ops",
+      "expectations": [
+        {
+          "expectation_id": "frontier:system_ops:write_data_/tmp/sbpl_rt/write.txt",
+          "profile_id": "frontier:system_ops",
+          "operation": "file-write-data",
+          "target": "/tmp/sbpl_rt/write.txt",
+          "expected": "allow",
+          "probe_name": "write_data_/tmp/sbpl_rt/write.txt"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "frontier:system_ops:write_data_/tmp/sbpl_rt/write.txt",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-write-data",
+          "target": "/tmp/sbpl_rt/write.txt",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: Operation not permitted\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "frontier:system_ops:write_data_/tmp/sbpl_rt/write.txt"
+    },
+    "frontier:system_ops:write_data_/private/tmp/strict_ok/allow.txt": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "frontier:system_ops",
+      "expectations": [
+        {
+          "expectation_id": "frontier:system_ops:write_data_/private/tmp/strict_ok/allow.txt",
+          "profile_id": "frontier:system_ops",
+          "operation": "file-write-data",
+          "target": "/private/tmp/strict_ok/allow.txt",
+          "expected": "deny",
+          "probe_name": "write_data_/private/tmp/strict_ok/allow.txt"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "frontier:system_ops:write_data_/private/tmp/strict_ok/allow.txt"
+    },
+    "frontier:anchor_filters:mach_cfprefsd": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "frontier:anchor_filters",
+      "expectations": [
+        {
+          "expectation_id": "frontier:anchor_filters:mach_cfprefsd",
+          "profile_id": "frontier:anchor_filters",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.agent",
+          "expected": "allow",
+          "probe_name": "mach_cfprefsd"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "frontier:anchor_filters:mach_cfprefsd",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.agent",
+          "failure_stage": "probe",
+          "failure_kind": null,
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": null
+        }
+      ],
+      "impact": null,
+      "scenario_id": "frontier:anchor_filters:mach_cfprefsd"
+    },
+    "frontier:anchor_filters:mach_bogus": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "frontier:anchor_filters",
+      "expectations": [
+        {
+          "expectation_id": "frontier:anchor_filters:mach_bogus",
+          "profile_id": "frontier:anchor_filters",
+          "operation": "mach-lookup",
+          "target": "com.apple.sandbox-lore.frontier.bogus",
+          "expected": "deny",
+          "probe_name": "mach_bogus"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "frontier:anchor_filters:mach_bogus"
+    },
+    "frontier:anchor_filters:read_data_/etc/hosts": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "frontier:anchor_filters",
+      "expectations": [
+        {
+          "expectation_id": "frontier:anchor_filters:read_data_/etc/hosts",
+          "profile_id": "frontier:anchor_filters",
+          "operation": "file-read-data",
+          "target": "/etc/hosts",
+          "expected": "allow",
+          "probe_name": "read_data_/etc/hosts"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "frontier:anchor_filters:read_data_/etc/hosts",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-read-data",
+          "target": "/etc/hosts",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": "open target: Operation not permitted\n"
+        }
+      ],
+      "impact": null,
+      "scenario_id": "frontier:anchor_filters:read_data_/etc/hosts"
+    },
+    "frontier:anchor_filters:read_data_/private/etc/hosts": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "frontier:anchor_filters",
+      "expectations": [
+        {
+          "expectation_id": "frontier:anchor_filters:read_data_/private/etc/hosts",
+          "profile_id": "frontier:anchor_filters",
+          "operation": "file-read-data",
+          "target": "/private/etc/hosts",
+          "expected": "deny",
+          "probe_name": "read_data_/private/etc/hosts"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "frontier:anchor_filters:read_data_/private/etc/hosts"
+    },
+    "frontier:anchor_filters:search_/var/log": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "frontier:anchor_filters",
+      "expectations": [
+        {
+          "expectation_id": "frontier:anchor_filters:search_/var/log",
+          "profile_id": "frontier:anchor_filters",
+          "operation": "file-search",
+          "target": "/var/log",
+          "expected": "allow",
+          "probe_name": "search_/var/log"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "frontier:anchor_filters:search_/var/log",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-search",
+          "target": "/var/log",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": ""
+        }
+      ],
+      "impact": null,
+      "scenario_id": "frontier:anchor_filters:search_/var/log"
+    },
+    "frontier:anchor_filters:search_/private/var/log": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "frontier:anchor_filters",
+      "expectations": [
+        {
+          "expectation_id": "frontier:anchor_filters:search_/private/var/log",
+          "profile_id": "frontier:anchor_filters",
+          "operation": "file-search",
+          "target": "/private/var/log",
+          "expected": "deny",
+          "probe_name": "search_/private/var/log"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "frontier:anchor_filters:search_/private/var/log"
+    },
+    "frontier:unknown_ops:read_xattr_/tmp/foo": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "frontier:unknown_ops",
+      "expectations": [
+        {
+          "expectation_id": "frontier:unknown_ops:read_xattr_/tmp/foo",
+          "profile_id": "frontier:unknown_ops",
+          "operation": "file-read-xattr",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "probe_name": "read_xattr_/tmp/foo"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "frontier:unknown_ops:read_xattr_/tmp/foo",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-read-xattr",
+          "target": "/tmp/foo",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": ""
+        }
+      ],
+      "impact": null,
+      "scenario_id": "frontier:unknown_ops:read_xattr_/tmp/foo"
+    },
+    "frontier:unknown_ops:read_xattr_/tmp/bar": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "frontier:unknown_ops",
+      "expectations": [
+        {
+          "expectation_id": "frontier:unknown_ops:read_xattr_/tmp/bar",
+          "profile_id": "frontier:unknown_ops",
+          "operation": "file-read-xattr",
+          "target": "/tmp/bar",
+          "expected": "deny",
+          "probe_name": "read_xattr_/tmp/bar"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "frontier:unknown_ops:read_xattr_/tmp/bar"
+    },
+    "frontier:unknown_ops:write_xattr_/tmp/foo": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "frontier:unknown_ops",
+      "expectations": [
+        {
+          "expectation_id": "frontier:unknown_ops:write_xattr_/tmp/foo",
+          "profile_id": "frontier:unknown_ops",
+          "operation": "file-write-xattr",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "probe_name": "write_xattr_/tmp/foo"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "frontier:unknown_ops:write_xattr_/tmp/foo",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "file-write-xattr",
+          "target": "/tmp/foo",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": ""
+        }
+      ],
+      "impact": null,
+      "scenario_id": "frontier:unknown_ops:write_xattr_/tmp/foo"
+    },
+    "frontier:unknown_ops:write_xattr_/tmp/bar": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "frontier:unknown_ops",
+      "expectations": [
+        {
+          "expectation_id": "frontier:unknown_ops:write_xattr_/tmp/bar",
+          "profile_id": "frontier:unknown_ops",
+          "operation": "file-write-xattr",
+          "target": "/tmp/bar",
+          "expected": "deny",
+          "probe_name": "write_xattr_/tmp/bar"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "frontier:unknown_ops:write_xattr_/tmp/bar"
+    },
+    "frontier:unknown_ops:process_fork": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "frontier:unknown_ops",
+      "expectations": [
+        {
+          "expectation_id": "frontier:unknown_ops:process_fork",
+          "profile_id": "frontier:unknown_ops",
+          "operation": "process-fork",
+          "target": "self",
+          "expected": "allow",
+          "probe_name": "process_fork"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 0,
+        "mismatches": 1,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "brittle"
+      },
+      "mismatches": [
+        {
+          "expectation_id": "frontier:unknown_ops:process_fork",
+          "expected": "allow",
+          "actual": "deny",
+          "operation": "process-fork",
+          "target": "self",
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "mismatch_type": "unexpected_deny",
+          "violation_summary": null,
+          "stderr": ""
+        }
+      ],
+      "impact": null,
+      "scenario_id": "frontier:unknown_ops:process_fork"
+    }
+  }
+}

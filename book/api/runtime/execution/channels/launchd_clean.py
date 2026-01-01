@@ -56,6 +56,30 @@ def _write_json(path: Path, payload: dict) -> None:
     path.write_text(json.dumps(payload, indent=2))
 
 
+def _write_text(path: Path, text: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(text)
+
+
+def _capture_command(
+    argv: list[str],
+    *,
+    stdout_path: Optional[Path] = None,
+    stderr_path: Optional[Path] = None,
+) -> dict:
+    result = subprocess.run(argv, capture_output=True, text=True)
+    if stdout_path is not None:
+        _write_text(stdout_path, result.stdout)
+    if stderr_path is not None:
+        _write_text(stderr_path, result.stderr)
+    return {
+        "argv": path_utils.relativize_command(argv, REPO_ROOT),
+        "rc": result.returncode,
+        "stdout_path": path_utils.to_repo_relative(stdout_path, REPO_ROOT) if stdout_path else None,
+        "stderr_path": path_utils.to_repo_relative(stderr_path, REPO_ROOT) if stderr_path else None,
+    }
+
+
 def _build_plist(
     *,
     label: str,
@@ -67,6 +91,7 @@ def _build_plist(
     out_dir: Path,
     only_profiles: Optional[Iterable[str]],
     only_scenarios: Optional[Iterable[str]],
+    limit_load_to_session_types: Optional[list[str]] = None,
 ) -> dict:
     # launchd workers must run with a Python that matches the repo's runtime
     # contract. The host /usr/bin/python3 is not reliable for this repo (it may be
@@ -121,7 +146,7 @@ def _build_plist(
         value = os.environ.get(key)
         if value is not None:
             env[key] = value
-    return {
+    payload = {
         "Label": label,
         "ProgramArguments": args,
         "RunAtLoad": True,
@@ -130,6 +155,9 @@ def _build_plist(
         "StandardErrorPath": str(stderr_path),
         "EnvironmentVariables": env,
     }
+    if limit_load_to_session_types:
+        payload["LimitLoadToSessionType"] = limit_load_to_session_types
+    return payload
 
 
 def _wait_for_output(stdout_path: Path, stderr_path: Path, timeout: float) -> bool:
@@ -142,6 +170,17 @@ def _wait_for_output(stdout_path: Path, stderr_path: Path, timeout: float) -> bo
             return True
         time.sleep(0.5)
     return False
+
+
+def _domain_label(domain: str) -> str:
+    return domain.replace("/", "_")
+
+
+def _check_domain(domain: str, launchctl_dest: Path, label: str) -> dict:
+    tag = _domain_label(domain)
+    stdout_path = launchctl_dest / f"{label}.launchctl_print.{tag}.stdout.txt"
+    stderr_path = launchctl_dest / f"{label}.launchctl_print.{tag}.stderr.txt"
+    return _capture_command([str(LAUNCHCTL), "print", domain], stdout_path=stdout_path, stderr_path=stderr_path)
 
 
 def run_via_launchctl(
@@ -182,6 +221,13 @@ def run_via_launchctl(
     )
     shutil.copytree(REPO_ROOT, stage_root, symlinks=False, ignore=ignore)
 
+    dest_out = path_utils.ensure_absolute(out_dir, REPO_ROOT)
+    dest_out.mkdir(parents=True, exist_ok=True)
+    run_dir = dest_out / run_id
+    run_dir.mkdir(parents=True, exist_ok=True)
+    launchctl_dest = run_dir / "launchctl"
+    launchctl_dest.mkdir(parents=True, exist_ok=True)
+
     plan_rel = path_utils.to_repo_relative(plan_path, repo_root=REPO_ROOT)
     out_rel = path_utils.to_repo_relative(out_dir, repo_root=REPO_ROOT)
     staged_plan = stage_root / plan_rel
@@ -194,6 +240,19 @@ def run_via_launchctl(
     stderr_path = launchctl_dir / f"{label}.stderr.txt"
     plist_path = launchctl_dir / f"{label}.plist"
 
+    uid = os.getuid()
+    gui_domain = f"gui/{uid}"
+    user_domain = f"user/{uid}"
+    domain_check = _check_domain(gui_domain, launchctl_dest, label)
+    if domain_check["rc"] == 0:
+        domain = gui_domain
+        domain_reason = "gui_domain_available"
+        session_types = None
+    else:
+        domain = user_domain
+        domain_reason = "gui_domain_unavailable"
+        session_types = ["Background"]
+
     plist = _build_plist(
         label=label,
         stdout_path=stdout_path,
@@ -204,28 +263,80 @@ def run_via_launchctl(
         out_dir=staged_out,
         only_profiles=only_profiles,
         only_scenarios=only_scenarios,
+        limit_load_to_session_types=session_types,
     )
     plist_path.write_bytes(plistlib.dumps(plist))
 
-    domain = f"gui/{os.getuid()}"
-    try:
-        subprocess.run([str(LAUNCHCTL), "bootstrap", domain, str(plist_path)], check=True)
-    except Exception as exc:
-        raise RuntimeError(f"launchctl bootstrap failed: {exc}") from exc
+    plist_dest = launchctl_dest / plist_path.name
+    shutil.copy2(plist_path, plist_dest)
+    lint_stdout = launchctl_dest / f"{label}.plutil_lint.stdout.txt"
+    lint_stderr = launchctl_dest / f"{label}.plutil_lint.stderr.txt"
+    plutil_lint = _capture_command(
+        ["/usr/bin/plutil", "-lint", str(plist_path)],
+        stdout_path=lint_stdout,
+        stderr_path=lint_stderr,
+    )
+
+    bootstrap_stdout = launchctl_dest / f"{label}.bootstrap.stdout.txt"
+    bootstrap_stderr = launchctl_dest / f"{label}.bootstrap.stderr.txt"
+    bootstrap_cmd = [str(LAUNCHCTL), "bootstrap", domain, str(plist_path)]
+    bootstrap = _capture_command(bootstrap_cmd, stdout_path=bootstrap_stdout, stderr_path=bootstrap_stderr)
+
+    launchctl_cmds: list[dict] = [domain_check, plutil_lint, bootstrap]
+    diagnostics = {
+        "label": label,
+        "run_id": run_id,
+        "domain": domain,
+        "domain_reason": domain_reason,
+        "session_types": session_types,
+        "plist_path": path_utils.to_repo_relative(plist_dest, REPO_ROOT),
+        "launchctl_cmds": launchctl_cmds,
+    }
+
+    if bootstrap["rc"] != 0:
+        log_stdout = launchctl_dest / f"{label}.launchd_logshow.stdout.txt"
+        log_stderr = launchctl_dest / f"{label}.launchd_logshow.stderr.txt"
+        log_show = _capture_command(
+            [
+                "/usr/bin/log",
+                "show",
+                "--last",
+                "2m",
+                "--predicate",
+                'subsystem == "com.apple.xpc.launchd" || process == "launchd"',
+            ],
+            stdout_path=log_stdout,
+            stderr_path=log_stderr,
+        )
+        diagnostics["log_show"] = log_show
+        if plutil_lint["rc"] != 0:
+            classification = "plist_invalid"
+        elif domain_reason == "gui_domain_unavailable" and domain == user_domain:
+            classification = "domain_session_mismatch"
+        elif not os.access(plist_path, os.R_OK):
+            classification = "plist_unreadable"
+        else:
+            classification = "bootstrap_failed"
+        diagnostics["bootstrap_failure"] = {
+            "classification": classification,
+            "rc": bootstrap["rc"],
+        }
+        _write_json(launchctl_dest / "launchctl_diagnostics.json", diagnostics)
+        raise RuntimeError(f"launchctl bootstrap failed: rc={bootstrap['rc']} ({classification})")
 
     _wait_for_output(stdout_path, stderr_path, timeout=60)
-    subprocess.run([str(LAUNCHCTL), "bootout", domain, str(plist_path)], check=False)
+    bootout_stdout = launchctl_dest / f"{label}.bootout.stdout.txt"
+    bootout_stderr = launchctl_dest / f"{label}.bootout.stderr.txt"
+    bootout = _capture_command(
+        [str(LAUNCHCTL), "bootout", domain, str(plist_path)],
+        stdout_path=bootout_stdout,
+        stderr_path=bootout_stderr,
+    )
+    launchctl_cmds.append(bootout)
 
     # Sync staged outputs back to repo.
-    dest_out = path_utils.ensure_absolute(out_dir, REPO_ROOT)
-    dest_out.mkdir(parents=True, exist_ok=True)
     shutil.copytree(staged_out, dest_out, dirs_exist_ok=True, ignore=ignore)
 
-    run_dir = dest_out / run_id
-    if not run_dir.exists():
-        run_dir.mkdir(parents=True, exist_ok=True)
-    launchctl_dest = run_dir / "launchctl"
-    launchctl_dest.mkdir(parents=True, exist_ok=True)
     for path in (stdout_path, stderr_path, plist_path):
         if path.exists():
             shutil.copy2(path, launchctl_dest / path.name)
@@ -233,6 +344,7 @@ def run_via_launchctl(
         launchctl_dest / "launchctl_last_run.json",
         {"label": label, "run_id": run_id, "stage_root": str(stage_root)},
     )
+    _write_json(launchctl_dest / "launchctl_diagnostics.json", diagnostics)
 
     # Best-effort cleanup: staged repos are large and can exhaust /private/tmp
     # quickly during iterative work. Keep the bundle in the repo; discard the

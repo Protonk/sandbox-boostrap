@@ -1,0 +1,60 @@
+# deny-delay-detail (Notes)
+
+- Ran reliability matrix:
+  - `PYTHONPATH=. python book/experiments/deny-delay-detail/run_reliability.py --observer-modes manual,external --iterations 2 --include-capture`
+  - Summary: external stable_rows=18 (stable_mapped_rows=14), manual stable_rows=9 (stable_mapped_rows=5), capture stable_rows=0.
+  - Capture logs report `missing child_pid for sandbox log capture` (see `book/experiments/deny-delay-detail/out/reliability_summary.txt` and capture logs).
+- Tri-run comparison (initial attempt):
+  - `PYTHONPATH=. python book/experiments/deny-delay-detail/run_compare.py`
+  - First run recorded invalid `--preflight on` and a `No such file or directory` error from the none baseline (see `book/experiments/deny-delay-detail/out/compare/downloads_direct_8e21f10540d9/comparison.json`).
+- Tri-run comparison (corrected):
+  - Updated `run_compare.py` to use `--path-class downloads`, `--preflight enforce`, and simpler `$HOME/Downloads` shell command.
+  - `PYTHONPATH=. python book/experiments/deny-delay-detail/run_compare.py`
+  - Entitlements: XPC openSession failed (`sandbox restriction`); observer skipped (no PID).
+  - SBPL: apply-stage EPERM (apply gate) despite preflight ok.
+  - None baseline: operation-stage EPERM when writing to `$HOME/Downloads`.
+  - Output: `book/experiments/deny-delay-detail/out/compare/downloads_direct_3ba22aa95682/comparison.json`.
+- OpenSession investigation:
+  - `book/tools/witness/PolicyWitness.app/Contents/MacOS/policy-witness xpc run --profile minimal fs_op --op stat --path-class tmp` works (operation-stage ok).
+  - `book/tools/witness/PolicyWitness.app/Contents/MacOS/policy-witness xpc run --profile minimal --plan-id deny-delay-detail:compare:manual-test --row-id entitlements.fs_op_create_downloads fs_op --op create --path-class downloads --target specimen_file --name atlas_manual_test.txt` runs and returns permission_error.
+  - `book/tools/witness/PolicyWitness.app/Contents/MacOS/policy-witness xpc run --profile minimal downloads_rw --name atlas_downloads_rw_test.txt` returns permission_error (`mkdir` in container Downloads).
+  - OpenSession failure not reproduced in direct CLI runs.
+- `run_compare.py` rerun initially failed due to `SyntaxError` in `book/api/runtime/contracts/normalize.py` (out_path parameter order). Fixed by making `out_path` optional and validating it.
+- Tri-run comparison (path-class downloads, after runtime fix):
+  - `PYTHONPATH=. python book/experiments/deny-delay-detail/run_compare.py`
+  - Observer saw no deny lines; entitlements operation returned permission_error.
+  - Output: `book/experiments/deny-delay-detail/out/compare/downloads_direct_a11650ccf1be/comparison.json`.
+- Tri-run comparison (direct host Downloads):
+  - Updated `run_compare.py` to use `fs_op --path /Users/achyland/Downloads/<name> --allow-unsafe-path` and keep `$HOME/Downloads` for shell commands.
+  - `PYTHONPATH=. python book/experiments/deny-delay-detail/run_compare.py`
+  - Observer recorded deny line for `file-write-create` on `/Users/achyland/Downloads/...`.
+  - None baseline succeeded; SBPL apply ok.
+  - Output: `book/experiments/deny-delay-detail/out/compare/downloads_direct_6b6d6d71bb48/comparison.json`.
+- Normal sandbox reproduction (no escalated permissions):
+  - `policy-witness xpc run --profile minimal fs_op --op stat --path-class tmp` fails with `xpc:openSession_failed` (sandbox restriction).
+  - `policy-witness xpc run --profile minimal fs_op --op create --path-class downloads ...` fails with `xpc:openSession_failed`.
+  - `policy-witness xpc run --profile minimal downloads_rw --name ...` fails with `xpc:openSession_failed`.
+  - `PYTHONPATH=. python book/experiments/deny-delay-detail/run_compare.py` -> `downloads_direct_75a94f377bcd`:
+    - entitlements run: openSession failed; observer skipped (no PID).
+    - none baseline: `Operation not permitted` writing to `$HOME/Downloads`.
+    - sbpl: apply-stage EPERM.
+  - Output: `book/experiments/deny-delay-detail/out/compare/downloads_direct_75a94f377bcd/comparison.json`.
+- Codex sandbox mini-run:
+  - `PYTHONPATH=. python book/experiments/deny-delay-detail/codex_sandbox.py --mode normal`
+  - Output: `book/experiments/deny-delay-detail/out/codex-sandbox/42b268d9-dc59-43bd-87fc-5ee074c8a42b/manifest.json`.
+- Codex sandbox mini-run (elevated):
+  - `PYTHONPATH=. python book/experiments/deny-delay-detail/codex_sandbox.py --mode elevated`
+  - Output: `book/experiments/deny-delay-detail/out/codex-sandbox/c037475a-79eb-4500-8156-813fd246c596/manifest.json`.
+- Codex sandbox mini-run (normal, log corroboration):
+  - `PYTHONPATH=. python book/experiments/deny-delay-detail/codex_sandbox.py --mode normal`
+  - Output: `book/experiments/deny-delay-detail/out/codex-sandbox/d0c480dc-8b05-4d42-9792-6f846ce196ab/manifest.json`.
+- Codex sandbox mini-run (elevated, log corroboration):
+  - `PYTHONPATH=. python book/experiments/deny-delay-detail/codex_sandbox.py --mode elevated`
+  - Output: `book/experiments/deny-delay-detail/out/codex-sandbox/985ab309-a883-4852-bfa6-0537f8a24362/manifest.json`.
+- Codex sandbox mini-run (normal, workspace repeat):
+  - `python3 book/experiments/deny-delay-detail/codex_sandbox.py --mode normal` -> `ModuleNotFoundError: No module named 'book'`.
+  - `PYTHONPATH=. python3 book/experiments/deny-delay-detail/codex_sandbox.py --mode normal`
+  - Output: `book/experiments/deny-delay-detail/out/codex-sandbox/2f63d887-46c2-46fa-a36a-e1b46e060911/manifest.json`.
+- Codex sandbox mini-run (elevated, full access repeat):
+  - `PYTHONPATH=. python3 book/experiments/deny-delay-detail/codex_sandbox.py --mode elevated`
+  - Output: `book/experiments/deny-delay-detail/out/codex-sandbox/5d0e304f-db39-4130-aac2-aede2627572b/manifest.json`.

@@ -1,0 +1,43 @@
+{
+  "data": {
+    "correlation_id": "261508DE-7F0B-42B1-B305-F68C8C15E34F",
+    "deny_lines": [
+      "2025-12-31 20:25:18.264632-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_minimal(2750) deny(1) file-read-data /Users/achyland/Documents"
+    ],
+    "duration_ms": null,
+    "end": null,
+    "last": "30s",
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    \n2025-12-31 20:25:18.264632-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_minimal(2750) deny(1) file-read-data /Users/achyland/Documents\n2025-12-31 20:25:18.277196-0800  localhost log[2752]: [com.apple.log:] log run noninteractively, parent: 2751 (sandbox-log-observer), args: '/usr/bin/log' 'show' '--style' 'syslog' '--info' '--debug' '--last' '30s' '--predicate' '((eventMessage CONTAINS[c] \"Sandbox: ProbeService_minimal(2750)\") OR ((eventMessage CONTAINS[c] ",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": true,
+    "observed_lines": 3,
+    "observer_schema_version": 1,
+    "pid": 2750,
+    "plan_id": "policywitness-deny-atlas:smoke:smoke-2cbc3597-9aac-4abb-b188-e16cb244f4b3",
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_minimal(2750)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"2750\")))",
+    "process_name": "ProbeService_minimal",
+    "row_id": "minimal.fs_op_listdir_home_documents",
+    "start": null,
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767241518366,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

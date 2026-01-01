@@ -1,0 +1,43 @@
+{
+  "data": {
+    "correlation_id": "3CC9E805-7F97-4099-B1F1-94B0513A0A96",
+    "deny_lines": [
+      "2025-12-31 21:12:25.202016-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_net_client(29155) deny(1) file-write-create /Users/achyland/Downloads/policy-witness-harness"
+    ],
+    "duration_ms": null,
+    "end": "2025-12-31 21:12:27",
+    "last": null,
+    "layer_attribution": {
+      "seatbelt": "observer_only"
+    },
+    "log_error": null,
+    "log_rc": 0,
+    "log_stderr": "",
+    "log_stdout": "Timestamp                       (process)[PID]    \n2025-12-31 21:12:25.202016-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_net_client(29155) deny(1) file-write-create /Users/achyland/Downloads/policy-witness-harness",
+    "log_truncated": false,
+    "mode": "show",
+    "observed_deny": true,
+    "observed_lines": 2,
+    "observer_schema_version": 1,
+    "pid": 29155,
+    "plan_id": "deny-delay-detail:external:matrix-external-1-46e9fe67-41bc-4f4f-b062-504b9820d9b2",
+    "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_net_client(29155)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"29155\")))",
+    "process_name": "ProbeService_net_client",
+    "row_id": "net_client.downloads_rw_probe",
+    "start": "2025-12-31 21:12:23",
+    "stop_on_pid_exit": false
+  },
+  "generated_at_unix_ms": 1767244345244,
+  "kind": "sandbox_log_observer_report",
+  "result": {
+    "errno": null,
+    "error": null,
+    "exit_code": 0,
+    "normalized_outcome": null,
+    "ok": true,
+    "rc": null,
+    "stderr": null,
+    "stdout": null
+  },
+  "schema_version": 1
+}

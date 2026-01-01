@@ -7,7 +7,7 @@
         "mode": "sbpl",
         "probes": [
           {
-            "classification": "covered_mismatch_disallowed",
+            "classification": "covered_ok",
             "expectation_id": "adv:flow_divert_partial_tcp:tcp-loopback",
             "expected": "allow",
             "name": "tcp-loopback",
@@ -16,7 +16,7 @@
             "target": "127.0.0.1:62646"
           },
           {
-            "classification": "covered_mismatch_disallowed",
+            "classification": "covered_ok",
             "expectation_id": "adv:flow_divert_partial_tcp:tcp-loopback-2",
             "expected": "allow",
             "name": "tcp-loopback-2",
@@ -33,7 +33,7 @@
         "mode": "sbpl",
         "probes": [
           {
-            "classification": "covered_mismatch_disallowed",
+            "classification": "covered_ok",
             "expectation_id": "adv:flow_divert_require_all_tcp:tcp-loopback",
             "expected": "allow",
             "name": "tcp-loopback",
@@ -42,7 +42,7 @@
             "target": "127.0.0.1:62646"
           },
           {
-            "classification": "covered_mismatch_disallowed",
+            "classification": "covered_ok",
             "expectation_id": "adv:flow_divert_require_all_tcp:tcp-loopback-2",
             "expected": "allow",
             "name": "tcp-loopback-2",
@@ -63,6 +63,7 @@
             "driver": "sandbox_mach_probe",
             "expectation_id": "adv:mach_local_literal:allow-cfprefsd-local",
             "expected": "allow",
+            "filter_name": "local-name",
             "name": "allow-cfprefsd-local",
             "operation": "mach-lookup",
             "scenario_id": "adv:mach_local_literal:allow-cfprefsd-local",
@@ -73,6 +74,7 @@
             "driver": "sandbox_mach_probe",
             "expectation_id": "adv:mach_local_literal:deny-bogus-local",
             "expected": "deny",
+            "filter_name": "local-name",
             "name": "deny-bogus-local",
             "operation": "mach-lookup",
             "scenario_id": "adv:mach_local_literal:deny-bogus-local",
@@ -91,6 +93,7 @@
             "driver": "sandbox_mach_probe",
             "expectation_id": "adv:mach_local_regex:allow-cfprefsd-local",
             "expected": "allow",
+            "filter_name": "local-name",
             "name": "allow-cfprefsd-local",
             "operation": "mach-lookup",
             "scenario_id": "adv:mach_local_regex:allow-cfprefsd-local",
@@ -101,6 +104,7 @@
             "driver": "sandbox_mach_probe",
             "expectation_id": "adv:mach_local_regex:deny-bogus-local",
             "expected": "deny",
+            "filter_name": "local-name",
             "name": "deny-bogus-local",
             "operation": "mach-lookup",
             "scenario_id": "adv:mach_local_regex:deny-bogus-local",
@@ -119,6 +123,7 @@
             "driver": "sandbox_mach_probe",
             "expectation_id": "adv:mach_simple_allow:allow-cfprefsd",
             "expected": "allow",
+            "filter_name": "global-name",
             "name": "allow-cfprefsd",
             "operation": "mach-lookup",
             "scenario_id": "adv:mach_simple_allow:allow-cfprefsd",
@@ -129,6 +134,7 @@
             "driver": "sandbox_mach_probe",
             "expectation_id": "adv:mach_simple_allow:deny-bogus",
             "expected": "deny",
+            "filter_name": "global-name",
             "name": "deny-bogus",
             "operation": "mach-lookup",
             "scenario_id": "adv:mach_simple_allow:deny-bogus",
@@ -147,6 +153,7 @@
             "driver": "sandbox_mach_probe",
             "expectation_id": "adv:mach_simple_variants:allow-cfprefsd",
             "expected": "allow",
+            "filter_name": "global-name",
             "name": "allow-cfprefsd",
             "operation": "mach-lookup",
             "scenario_id": "adv:mach_simple_variants:allow-cfprefsd",
@@ -157,6 +164,7 @@
             "driver": "sandbox_mach_probe",
             "expectation_id": "adv:mach_simple_variants:deny-bogus",
             "expected": "deny",
+            "filter_name": "global-name",
             "name": "deny-bogus",
             "operation": "mach-lookup",
             "scenario_id": "adv:mach_simple_variants:deny-bogus",
@@ -171,7 +179,7 @@
         "mode": "sbpl",
         "probes": [
           {
-            "classification": "covered_mismatch_disallowed",
+            "classification": "covered_ok",
             "expectation_id": "adv:net_outbound_allow:tcp-loopback",
             "expected": "allow",
             "name": "tcp-loopback",
@@ -180,7 +188,7 @@
             "target": "127.0.0.1:62646"
           },
           {
-            "classification": "covered_mismatch_disallowed",
+            "classification": "covered_ok",
             "expectation_id": "adv:net_outbound_allow:tcp-loopback-2",
             "expected": "allow",
             "name": "tcp-loopback-2",
@@ -223,7 +231,7 @@
         "mode": "sbpl",
         "probes": [
           {
-            "classification": "covered_ok",
+            "classification": "covered_mismatch_disallowed",
             "expectation_id": "adv:path_alias:alias-tmp",
             "expected": "allow",
             "name": "alias-tmp",
@@ -232,7 +240,7 @@
             "target": "/tmp/runtime-adv/alias/allow.txt"
           },
           {
-            "classification": "covered_ok",
+            "classification": "covered_mismatch_disallowed",
             "expectation_id": "adv:path_alias:alias-private",
             "expected": "allow",
             "name": "alias-private",
@@ -328,6 +336,104 @@
             "operation": "file-write*",
             "scenario_id": "adv:path_edges:write-dotdot",
             "target": "/tmp/runtime-adv/edges/okdir/../blocked.txt"
+          }
+        ],
+        "semantic_group": "paths:literal-vs-normalized"
+      },
+      "adv:path_edges_private": {
+        "blob": "book/experiments/runtime-adversarial/sb/path_edges_private.sb",
+        "family": "path_edges",
+        "mode": "sbpl",
+        "probes": [
+          {
+            "classification": "covered_ok",
+            "expectation_id": "adv:path_edges_private:allow-private",
+            "expected": "allow",
+            "name": "allow-private",
+            "operation": "file-read*",
+            "scenario_id": "adv:path_edges_private:allow-private",
+            "target": "/private/tmp/runtime-adv/edges/a"
+          },
+          {
+            "classification": "covered_ok",
+            "expectation_id": "adv:path_edges_private:allow-private-subpath",
+            "expected": "allow",
+            "name": "allow-private-subpath",
+            "operation": "file-read*",
+            "scenario_id": "adv:path_edges_private:allow-private-subpath",
+            "target": "/private/tmp/runtime-adv/edges/okdir/item.txt"
+          },
+          {
+            "classification": "covered_ok",
+            "expectation_id": "adv:path_edges_private:allow-tmp",
+            "expected": "allow",
+            "name": "allow-tmp",
+            "operation": "file-read*",
+            "scenario_id": "adv:path_edges_private:allow-tmp",
+            "target": "/tmp/runtime-adv/edges/a"
+          },
+          {
+            "classification": "covered_ok",
+            "expectation_id": "adv:path_edges_private:allow-tmp-subpath",
+            "expected": "allow",
+            "name": "allow-tmp-subpath",
+            "operation": "file-read*",
+            "scenario_id": "adv:path_edges_private:allow-tmp-subpath",
+            "target": "/tmp/runtime-adv/edges/okdir/item.txt"
+          },
+          {
+            "classification": "covered_ok",
+            "expectation_id": "adv:path_edges_private:deny-dotdot",
+            "expected": "deny",
+            "name": "deny-dotdot",
+            "operation": "file-read*",
+            "scenario_id": "adv:path_edges_private:deny-dotdot",
+            "target": "/private/tmp/runtime-adv/edges/okdir/../blocked.txt"
+          },
+          {
+            "classification": "covered_ok",
+            "expectation_id": "adv:path_edges_private:write-private",
+            "expected": "allow",
+            "name": "write-private",
+            "operation": "file-write*",
+            "scenario_id": "adv:path_edges_private:write-private",
+            "target": "/private/tmp/runtime-adv/edges/a"
+          },
+          {
+            "classification": "covered_ok",
+            "expectation_id": "adv:path_edges_private:write-private-subpath",
+            "expected": "allow",
+            "name": "write-private-subpath",
+            "operation": "file-write*",
+            "scenario_id": "adv:path_edges_private:write-private-subpath",
+            "target": "/private/tmp/runtime-adv/edges/okdir/item.txt"
+          },
+          {
+            "classification": "covered_ok",
+            "expectation_id": "adv:path_edges_private:write-tmp",
+            "expected": "allow",
+            "name": "write-tmp",
+            "operation": "file-write*",
+            "scenario_id": "adv:path_edges_private:write-tmp",
+            "target": "/tmp/runtime-adv/edges/a"
+          },
+          {
+            "classification": "covered_ok",
+            "expectation_id": "adv:path_edges_private:write-tmp-subpath",
+            "expected": "allow",
+            "name": "write-tmp-subpath",
+            "operation": "file-write*",
+            "scenario_id": "adv:path_edges_private:write-tmp-subpath",
+            "target": "/tmp/runtime-adv/edges/okdir/item.txt"
+          },
+          {
+            "classification": "covered_ok",
+            "expectation_id": "adv:path_edges_private:write-dotdot",
+            "expected": "deny",
+            "name": "write-dotdot",
+            "operation": "file-write*",
+            "scenario_id": "adv:path_edges_private:write-dotdot",
+            "target": "/private/tmp/runtime-adv/edges/okdir/../blocked.txt"
           }
         ],
         "semantic_group": "paths:literal-vs-normalized"
@@ -491,6 +597,50 @@
           }
         ],
         "semantic_group": "structural:file-read-subpath"
+      },
+      "adv:xattr": {
+        "blob": "book/experiments/runtime-adversarial/sb/xattr.sb",
+        "family": "xattr",
+        "mode": "sbpl",
+        "probes": [
+          {
+            "classification": "covered_ok",
+            "expectation_id": "adv:xattr:allow-foo-read",
+            "expected": "allow",
+            "name": "allow-foo-read",
+            "operation": "file-read-xattr",
+            "scenario_id": "adv:xattr:allow-foo-read",
+            "target": "/private/tmp/foo"
+          },
+          {
+            "classification": "covered_ok",
+            "expectation_id": "adv:xattr:deny-bar-read",
+            "expected": "deny",
+            "name": "deny-bar-read",
+            "operation": "file-read-xattr",
+            "scenario_id": "adv:xattr:deny-bar-read",
+            "target": "/private/tmp/bar"
+          },
+          {
+            "classification": "covered_ok",
+            "expectation_id": "adv:xattr:allow-foo-write",
+            "expected": "allow",
+            "name": "allow-foo-write",
+            "operation": "file-write-xattr",
+            "scenario_id": "adv:xattr:allow-foo-write",
+            "target": "/private/tmp/foo"
+          },
+          {
+            "classification": "covered_ok",
+            "expectation_id": "adv:xattr:deny-bar-write",
+            "expected": "deny",
+            "name": "deny-bar-write",
+            "operation": "file-write-xattr",
+            "scenario_id": "adv:xattr:deny-bar-write",
+            "target": "/private/tmp/bar"
+          }
+        ],
+        "semantic_group": "file:xattr-basic"
       },
       "anchor-filter-map:cfprefsd:C1_deny_global": {
         "blob": "book/experiments/anchor-filter-map/sb/mach_lookup_allow_default.sb",
@@ -1347,19 +1497,37 @@
     "file-read*": {
       "coverage_ratio": 1.0,
       "covered_mismatch_allowed": 0,
-      "covered_mismatch_disallowed": 4,
-      "covered_ok": 27,
-      "covered_rows": 31,
-      "total_expected_rows": 31,
+      "covered_mismatch_disallowed": 6,
+      "covered_ok": 30,
+      "covered_rows": 36,
+      "total_expected_rows": 36,
+      "uncovered": 0
+    },
+    "file-read-xattr": {
+      "coverage_ratio": 1.0,
+      "covered_mismatch_allowed": 0,
+      "covered_mismatch_disallowed": 0,
+      "covered_ok": 2,
+      "covered_rows": 2,
+      "total_expected_rows": 2,
       "uncovered": 0
     },
     "file-write*": {
       "coverage_ratio": 1.0,
       "covered_mismatch_allowed": 0,
       "covered_mismatch_disallowed": 4,
-      "covered_ok": 18,
-      "covered_rows": 22,
-      "total_expected_rows": 22,
+      "covered_ok": 23,
+      "covered_rows": 27,
+      "total_expected_rows": 27,
+      "uncovered": 0
+    },
+    "file-write-xattr": {
+      "coverage_ratio": 1.0,
+      "covered_mismatch_allowed": 0,
+      "covered_mismatch_disallowed": 0,
+      "covered_ok": 2,
+      "covered_rows": 2,
+      "total_expected_rows": 2,
       "uncovered": 0
     },
     "iokit-open-service": {
@@ -1383,8 +1551,8 @@
     "network-outbound": {
       "coverage_ratio": 1.0,
       "covered_mismatch_allowed": 0,
-      "covered_mismatch_disallowed": 6,
-      "covered_ok": 2,
+      "covered_mismatch_disallowed": 0,
+      "covered_ok": 8,
       "covered_rows": 8,
       "total_expected_rows": 8,
       "uncovered": 0
@@ -2166,14 +2334,14 @@
       "book/experiments/anchor-filter-map/out/promotion_packet.json": "3da1176b548091e31d9bed8c9e73bd7c77dc5f8d5b12665ca6a762c27c6e5b13",
       "book/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json": "654bb48411211bff7809e5df650b87a89e2dc5d9904858c69b493abf74464dd2",
       "book/experiments/hardened-runtime/out/promotion_packet.json": "5d8f999c2b9f86e80038f61324ca87fc8bb8e72300bc0ee8ce7dc323e821c1b7",
-      "book/experiments/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/run_manifest.json": "24405bc02499f3b9e2aaf1a82b164645afbc12f27c76d6383c5b7a9932391418",
-      "book/experiments/runtime-adversarial/out/promotion_packet.json": "a8a0dd416addbe2ad37e28bd52f9e3b42ddc219cf2bb2e154a38838c634b6faa",
+      "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/run_manifest.json": "967dfcb45bc8981cfd848c60c4d61c5752fde06c42c2f510eacca958f10a28a4",
+      "book/experiments/runtime-adversarial/out/promotion_packet.json": "bc35f5e64d6226bc6246dcc1cc66c821c7cfaeb0548b22996ede040899e6760a",
       "book/experiments/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json": "8c042b30534d5129f1879a78d756922d2ef3fa40a002ca23ef1bf8dc27c3676e",
       "book/experiments/runtime-checks/out/promotion_packet.json": "662297e9f76b45fe433c47a3b882f2e59c020323ec967a76b0a972cc28dc7f95",
       "book/graph/concepts/validation/out/experiments/field2/field2_ir.json": "17498be658bac148db6939d60c280c95ca18a3b1a2c0089da7443ee46af7f1fc",
-      "book/graph/mappings/runtime/runtime_coverage.json": "9507fecd70c776cbc7f04f4f69ea891a660342ce29c43d46f5d55841750ec0eb",
-      "book/graph/mappings/runtime_cuts/runtime_story.json": "ad1812eced7e13cf0606255f66be3d617e76805727a4ad8620a3f1c9e1ab5f84",
-      "expected_matrix": "b416f3bed94e254831cc407ad04751985cc631f24480793ee3b95a4b319234ff"
+      "book/graph/mappings/runtime/runtime_coverage.json": "276e8a396240cac546317ad80f180efe5f5c91701a4b7254258b843f18f1c48f",
+      "book/graph/mappings/runtime_cuts/runtime_story.json": "dd1d2921098af6a266c6f8d1d9685d469815c3e5beccd717128fe6cd9a1f631c",
+      "expected_matrix": "91ef6010d5b4517a7f024a0fce6b8e2c90f31d1a38fbeb617f7ff96eb4f93fef"
     },
     "inputs": [
       "book/graph/mappings/runtime_cuts/runtime_story.json",
@@ -2185,7 +2353,7 @@
       "book/experiments/anchor-filter-map/out/promotion_packet.json",
       "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json"
     ],
-    "notes": "Derived from runtime_story with coverage gating; status cannot exceed runtime_coverage. Decision-stage inputs require launchd_clean run manifests. Disallowed mismatches present: 21.",
+    "notes": "Derived from runtime_story with coverage gating; status cannot exceed runtime_coverage. Decision-stage inputs require launchd_clean run manifests. Disallowed mismatches present: 17.",
     "provenance": {
       "runtime_coverage": {
         "input_hashes": {
@@ -2195,12 +2363,12 @@
           "book/experiments/anchor-filter-map/out/promotion_packet.json": "3da1176b548091e31d9bed8c9e73bd7c77dc5f8d5b12665ca6a762c27c6e5b13",
           "book/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json": "654bb48411211bff7809e5df650b87a89e2dc5d9904858c69b493abf74464dd2",
           "book/experiments/hardened-runtime/out/promotion_packet.json": "5d8f999c2b9f86e80038f61324ca87fc8bb8e72300bc0ee8ce7dc323e821c1b7",
-          "book/experiments/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/run_manifest.json": "24405bc02499f3b9e2aaf1a82b164645afbc12f27c76d6383c5b7a9932391418",
-          "book/experiments/runtime-adversarial/out/promotion_packet.json": "a8a0dd416addbe2ad37e28bd52f9e3b42ddc219cf2bb2e154a38838c634b6faa",
+          "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/run_manifest.json": "967dfcb45bc8981cfd848c60c4d61c5752fde06c42c2f510eacca958f10a28a4",
+          "book/experiments/runtime-adversarial/out/promotion_packet.json": "bc35f5e64d6226bc6246dcc1cc66c821c7cfaeb0548b22996ede040899e6760a",
           "book/experiments/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json": "8c042b30534d5129f1879a78d756922d2ef3fa40a002ca23ef1bf8dc27c3676e",
           "book/experiments/runtime-checks/out/promotion_packet.json": "662297e9f76b45fe433c47a3b882f2e59c020323ec967a76b0a972cc28dc7f95",
-          "book/graph/mappings/runtime_cuts/ops.json": "1b022b9c2c3101a2cad1b967baa9e5b034f9479f40d52cb86702dc114fb0834a",
-          "book/graph/mappings/runtime_cuts/scenarios.json": "20fe2e924ec523006e4913777a364a9e2a267c613e7b78816eb6f9742253aa66"
+          "book/graph/mappings/runtime_cuts/ops.json": "01fc96258e6e5d614556d798ecab819cb5d9051f14e35a1a7ab3f7f3f6d56861",
+          "book/graph/mappings/runtime_cuts/scenarios.json": "82c35b19359d4c23dd52c5d4e9d345c7405bdf931d6102dac43cbb7002de3b3f"
         },
         "inputs": [
           "book/graph/mappings/runtime_cuts/ops.json",
@@ -2218,10 +2386,18 @@
         ],
         "mismatch_summary": {
           "tags": {},
-          "total_disallowed_mismatches": 21,
-          "total_mismatches": 21
+          "total_disallowed_mismatches": 17,
+          "total_mismatches": 17
         },
         "mismatches": [
+          {
+            "expectation_id": "adv:path_alias:alias-private",
+            "op_name": "file-read*"
+          },
+          {
+            "expectation_id": "adv:path_alias:alias-tmp",
+            "op_name": "file-read*"
+          },
           {
             "expectation_id": "adv:path_edges:allow-subpath",
             "op_name": "file-read*"
@@ -2253,30 +2429,6 @@
           {
             "expectation_id": "sys:airlock:write_/tmp/foo",
             "op_name": "file-write*"
-          },
-          {
-            "expectation_id": "adv:flow_divert_partial_tcp:tcp-loopback",
-            "op_name": "network-outbound"
-          },
-          {
-            "expectation_id": "adv:flow_divert_partial_tcp:tcp-loopback-2",
-            "op_name": "network-outbound"
-          },
-          {
-            "expectation_id": "adv:flow_divert_require_all_tcp:tcp-loopback",
-            "op_name": "network-outbound"
-          },
-          {
-            "expectation_id": "adv:flow_divert_require_all_tcp:tcp-loopback-2",
-            "op_name": "network-outbound"
-          },
-          {
-            "expectation_id": "adv:net_outbound_allow:tcp-loopback",
-            "op_name": "network-outbound"
-          },
-          {
-            "expectation_id": "adv:net_outbound_allow:tcp-loopback-2",
-            "op_name": "network-outbound"
           },
           {
             "expectation_id": "anchor-filter-map:cfprefsd:C2_deny_local",
@@ -2317,12 +2469,12 @@
               "book/experiments/anchor-filter-map/out/promotion_packet.json": "3da1176b548091e31d9bed8c9e73bd7c77dc5f8d5b12665ca6a762c27c6e5b13",
               "book/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json": "654bb48411211bff7809e5df650b87a89e2dc5d9904858c69b493abf74464dd2",
               "book/experiments/hardened-runtime/out/promotion_packet.json": "5d8f999c2b9f86e80038f61324ca87fc8bb8e72300bc0ee8ce7dc323e821c1b7",
-              "book/experiments/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/run_manifest.json": "24405bc02499f3b9e2aaf1a82b164645afbc12f27c76d6383c5b7a9932391418",
-              "book/experiments/runtime-adversarial/out/promotion_packet.json": "a8a0dd416addbe2ad37e28bd52f9e3b42ddc219cf2bb2e154a38838c634b6faa",
+              "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/run_manifest.json": "967dfcb45bc8981cfd848c60c4d61c5752fde06c42c2f510eacca958f10a28a4",
+              "book/experiments/runtime-adversarial/out/promotion_packet.json": "bc35f5e64d6226bc6246dcc1cc66c821c7cfaeb0548b22996ede040899e6760a",
               "book/experiments/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json": "8c042b30534d5129f1879a78d756922d2ef3fa40a002ca23ef1bf8dc27c3676e",
               "book/experiments/runtime-checks/out/promotion_packet.json": "662297e9f76b45fe433c47a3b882f2e59c020323ec967a76b0a972cc28dc7f95",
-              "book/graph/mappings/runtime_cuts/ops.json": "1b022b9c2c3101a2cad1b967baa9e5b034f9479f40d52cb86702dc114fb0834a",
-              "book/graph/mappings/runtime_cuts/scenarios.json": "20fe2e924ec523006e4913777a364a9e2a267c613e7b78816eb6f9742253aa66"
+              "book/graph/mappings/runtime_cuts/ops.json": "01fc96258e6e5d614556d798ecab819cb5d9051f14e35a1a7ab3f7f3f6d56861",
+              "book/graph/mappings/runtime_cuts/scenarios.json": "82c35b19359d4c23dd52c5d4e9d345c7405bdf931d6102dac43cbb7002de3b3f"
             },
             "inputs": [
               "book/graph/mappings/runtime_cuts/ops.json",
@@ -2337,21 +2489,21 @@
             "run_provenance": {
               "manifests": [
                 "book/experiments/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json",
-                "book/experiments/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/run_manifest.json",
+                "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/run_manifest.json",
                 "book/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json",
                 "book/experiments/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/run_manifest.json",
                 "book/experiments/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/run_manifest.json"
               ],
               "repo_root_contexts": [
                 "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1e641b64-6267-47df-b1c3-b320aa90e675",
-                "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.c06024a5-5e52-4d38-a989-c3022af8a083",
+                "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7fb35590-c5c0-4187-8949-f534fbd43045",
                 "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.62456e46-0901-4345-b02d-f96becc33310",
                 "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.fa90bf31-b6a2-4a0b-bced-78d77be2b89f",
                 "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.83c8343f-44ca-452a-be49-470fb0b5fd3d"
               ],
               "run_ids": [
                 "1e641b64-6267-47df-b1c3-b320aa90e675",
-                "c06024a5-5e52-4d38-a989-c3022af8a083",
+                "7fb35590-c5c0-4187-8949-f534fbd43045",
                 "62456e46-0901-4345-b02d-f96becc33310",
                 "fa90bf31-b6a2-4a0b-bced-78d77be2b89f",
                 "83c8343f-44ca-452a-be49-470fb0b5fd3d"
@@ -2380,12 +2532,12 @@
           "book/experiments/anchor-filter-map/out/promotion_packet.json": "3da1176b548091e31d9bed8c9e73bd7c77dc5f8d5b12665ca6a762c27c6e5b13",
           "book/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json": "654bb48411211bff7809e5df650b87a89e2dc5d9904858c69b493abf74464dd2",
           "book/experiments/hardened-runtime/out/promotion_packet.json": "5d8f999c2b9f86e80038f61324ca87fc8bb8e72300bc0ee8ce7dc323e821c1b7",
-          "book/experiments/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/run_manifest.json": "24405bc02499f3b9e2aaf1a82b164645afbc12f27c76d6383c5b7a9932391418",
-          "book/experiments/runtime-adversarial/out/promotion_packet.json": "a8a0dd416addbe2ad37e28bd52f9e3b42ddc219cf2bb2e154a38838c634b6faa",
+          "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/run_manifest.json": "967dfcb45bc8981cfd848c60c4d61c5752fde06c42c2f510eacca958f10a28a4",
+          "book/experiments/runtime-adversarial/out/promotion_packet.json": "bc35f5e64d6226bc6246dcc1cc66c821c7cfaeb0548b22996ede040899e6760a",
           "book/experiments/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json": "8c042b30534d5129f1879a78d756922d2ef3fa40a002ca23ef1bf8dc27c3676e",
           "book/experiments/runtime-checks/out/promotion_packet.json": "662297e9f76b45fe433c47a3b882f2e59c020323ec967a76b0a972cc28dc7f95",
-          "book/graph/mappings/runtime_cuts/ops.json": "1b022b9c2c3101a2cad1b967baa9e5b034f9479f40d52cb86702dc114fb0834a",
-          "book/graph/mappings/runtime_cuts/scenarios.json": "20fe2e924ec523006e4913777a364a9e2a267c613e7b78816eb6f9742253aa66"
+          "book/graph/mappings/runtime_cuts/ops.json": "01fc96258e6e5d614556d798ecab819cb5d9051f14e35a1a7ab3f7f3f6d56861",
+          "book/graph/mappings/runtime_cuts/scenarios.json": "82c35b19359d4c23dd52c5d4e9d345c7405bdf931d6102dac43cbb7002de3b3f"
         },
         "inputs": [
           "book/graph/mappings/runtime_cuts/ops.json",
@@ -2400,21 +2552,21 @@
         "run_provenance": {
           "manifests": [
             "book/experiments/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json",
-            "book/experiments/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/run_manifest.json",
+            "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/run_manifest.json",
             "book/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json",
             "book/experiments/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/run_manifest.json",
             "book/experiments/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/run_manifest.json"
           ],
           "repo_root_contexts": [
             "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1e641b64-6267-47df-b1c3-b320aa90e675",
-            "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.c06024a5-5e52-4d38-a989-c3022af8a083",
+            "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7fb35590-c5c0-4187-8949-f534fbd43045",
             "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.62456e46-0901-4345-b02d-f96becc33310",
             "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.fa90bf31-b6a2-4a0b-bced-78d77be2b89f",
             "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.83c8343f-44ca-452a-be49-470fb0b5fd3d"
           ],
           "run_ids": [
             "1e641b64-6267-47df-b1c3-b320aa90e675",
-            "c06024a5-5e52-4d38-a989-c3022af8a083",
+            "7fb35590-c5c0-4187-8949-f534fbd43045",
             "62456e46-0901-4345-b02d-f96becc33310",
             "fa90bf31-b6a2-4a0b-bced-78d77be2b89f",
             "83c8343f-44ca-452a-be49-470fb0b5fd3d"
@@ -2431,21 +2583,21 @@
     "run_provenance": {
       "manifests": [
         "book/experiments/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json",
-        "book/experiments/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/run_manifest.json",
+        "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/run_manifest.json",
         "book/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json",
         "book/experiments/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/run_manifest.json",
         "book/experiments/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/run_manifest.json"
       ],
       "repo_root_contexts": [
         "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1e641b64-6267-47df-b1c3-b320aa90e675",
-        "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.c06024a5-5e52-4d38-a989-c3022af8a083",
+        "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7fb35590-c5c0-4187-8949-f534fbd43045",
         "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.62456e46-0901-4345-b02d-f96becc33310",
         "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.fa90bf31-b6a2-4a0b-bced-78d77be2b89f",
         "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.83c8343f-44ca-452a-be49-470fb0b5fd3d"
       ],
       "run_ids": [
         "1e641b64-6267-47df-b1c3-b320aa90e675",
-        "c06024a5-5e52-4d38-a989-c3022af8a083",
+        "7fb35590-c5c0-4187-8949-f534fbd43045",
         "62456e46-0901-4345-b02d-f96becc33310",
         "fa90bf31-b6a2-4a0b-bced-78d77be2b89f",
         "83c8343f-44ca-452a-be49-470fb0b5fd3d"
@@ -2465,6 +2617,16 @@
     "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
   },
   "mismatches": [
+    {
+      "expectation_id": "adv:path_alias:alias-private",
+      "op_name": "file-read*",
+      "scenario_id": "adv:path_alias:alias-private"
+    },
+    {
+      "expectation_id": "adv:path_alias:alias-tmp",
+      "op_name": "file-read*",
+      "scenario_id": "adv:path_alias:alias-tmp"
+    },
     {
       "expectation_id": "adv:path_edges:allow-subpath",
       "op_name": "file-read*",
@@ -2506,36 +2668,6 @@
       "scenario_id": "sys:airlock:write_/tmp/foo"
     },
     {
-      "expectation_id": "adv:flow_divert_partial_tcp:tcp-loopback",
-      "op_name": "network-outbound",
-      "scenario_id": "adv:flow_divert_partial_tcp:tcp-loopback"
-    },
-    {
-      "expectation_id": "adv:flow_divert_partial_tcp:tcp-loopback-2",
-      "op_name": "network-outbound",
-      "scenario_id": "adv:flow_divert_partial_tcp:tcp-loopback-2"
-    },
-    {
-      "expectation_id": "adv:flow_divert_require_all_tcp:tcp-loopback",
-      "op_name": "network-outbound",
-      "scenario_id": "adv:flow_divert_require_all_tcp:tcp-loopback"
-    },
-    {
-      "expectation_id": "adv:flow_divert_require_all_tcp:tcp-loopback-2",
-      "op_name": "network-outbound",
-      "scenario_id": "adv:flow_divert_require_all_tcp:tcp-loopback-2"
-    },
-    {
-      "expectation_id": "adv:net_outbound_allow:tcp-loopback",
-      "op_name": "network-outbound",
-      "scenario_id": "adv:net_outbound_allow:tcp-loopback"
-    },
-    {
-      "expectation_id": "adv:net_outbound_allow:tcp-loopback-2",
-      "op_name": "network-outbound",
-      "scenario_id": "adv:net_outbound_allow:tcp-loopback-2"
-    },
-    {
       "expectation_id": "anchor-filter-map:cfprefsd:C2_deny_local",
       "op_name": "mach-lookup",
       "scenario_id": "anchor-filter-map:cfprefsd:C2_deny_local"
@@ -2573,28 +2705,34 @@
   ],
   "profiles_metadata": {
     "adv:flow_divert_partial_tcp": {
-      "runtime_profile": "book/experiments/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/runtime_profiles/flow_divert_partial_tcp.adv_flow_divert_partial_tcp.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/runtime_profiles/flow_divert_partial_tcp.adv_flow_divert_partial_tcp.runtime.sb"
     },
     "adv:flow_divert_require_all_tcp": {
-      "runtime_profile": "book/experiments/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/runtime_profiles/flow_divert_require_all_tcp.adv_flow_divert_require_all_tcp.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/runtime_profiles/flow_divert_require_all_tcp.adv_flow_divert_require_all_tcp.runtime.sb"
     },
     "adv:net_outbound_allow": {
-      "runtime_profile": "book/experiments/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/runtime_profiles/net_outbound_allow.adv_net_outbound_allow.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/runtime_profiles/net_outbound_allow.adv_net_outbound_allow.runtime.sb"
     },
     "adv:net_outbound_deny": {
-      "runtime_profile": "book/experiments/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/runtime_profiles/net_outbound_deny.adv_net_outbound_deny.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/runtime_profiles/net_outbound_deny.adv_net_outbound_deny.runtime.sb"
     },
     "adv:path_alias": {
-      "runtime_profile": "book/experiments/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/runtime_profiles/path_alias.adv_path_alias.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/runtime_profiles/path_alias.adv_path_alias.runtime.sb"
     },
     "adv:path_edges": {
-      "runtime_profile": "book/experiments/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/runtime_profiles/path_edges.adv_path_edges.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/runtime_profiles/path_edges.adv_path_edges.runtime.sb"
+    },
+    "adv:path_edges_private": {
+      "runtime_profile": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/runtime_profiles/path_edges_private.adv_path_edges_private.runtime.sb"
     },
     "adv:struct_flat": {
-      "runtime_profile": "book/experiments/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/runtime_profiles/struct_flat.adv_struct_flat.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/runtime_profiles/struct_flat.adv_struct_flat.runtime.sb"
     },
     "adv:struct_nested": {
-      "runtime_profile": "book/experiments/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/runtime_profiles/struct_nested.adv_struct_nested.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/runtime_profiles/struct_nested.adv_struct_nested.runtime.sb"
+    },
+    "adv:xattr": {
+      "runtime_profile": "book/experiments/runtime-adversarial/out/7fb35590-c5c0-4187-8949-f534fbd43045/runtime_profiles/xattr.adv_xattr.runtime.sb"
     },
     "bucket4:v1_read": {
       "runtime_profile": "book/experiments/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb"
@@ -2638,35 +2776,18 @@
   },
   "scenarios": {
     "adv:flow_divert_partial_tcp:tcp-loopback": {
-      "coverage_status": "partial",
-      "disallowed_mismatches": [
-        "adv:flow_divert_partial_tcp:tcp-loopback"
-      ],
+      "coverage_status": "ok",
+      "disallowed_mismatches": [],
       "expected_row_ids": [
         "adv:flow_divert_partial_tcp:tcp-loopback"
       ],
-      "failed_probes": [
-        {
-          "actual": "deny",
-          "allowed": false,
-          "expectation_id": "adv:flow_divert_partial_tcp:tcp-loopback",
-          "expected": "allow",
-          "failure_kind": "probe_nonzero_exit",
-          "failure_stage": "probe",
-          "mismatch_type": "unexpected_deny",
-          "operation": "network-outbound",
-          "stderr": "",
-          "tags": [],
-          "target": "127.0.0.1:62646",
-          "violation_summary": "EPERM"
-        }
-      ],
-      "mismatches": [
-        "adv:flow_divert_partial_tcp:tcp-loopback"
-      ],
+      "failed_probes": [],
+      "mismatches": [],
       "op_id": 112,
       "op_name": "network-outbound",
-      "passed_probes": [],
+      "passed_probes": [
+        "adv:flow_divert_partial_tcp:tcp-loopback"
+      ],
       "profile_id": "adv:flow_divert_partial_tcp",
       "results": {
         "blocked": {
@@ -2674,46 +2795,29 @@
           "by_stage": {},
           "total": 0
         },
-        "matches": 0,
-        "mismatches": 1,
-        "status": "brittle",
+        "matches": 1,
+        "mismatches": 0,
+        "status": "ok",
         "total": 1,
         "total_including_blocked": 1
       },
       "runtime_only": false,
       "scenario_id": "adv:flow_divert_partial_tcp:tcp-loopback",
-      "status": "partial"
+      "status": "ok"
     },
     "adv:flow_divert_partial_tcp:tcp-loopback-2": {
-      "coverage_status": "partial",
-      "disallowed_mismatches": [
-        "adv:flow_divert_partial_tcp:tcp-loopback-2"
-      ],
+      "coverage_status": "ok",
+      "disallowed_mismatches": [],
       "expected_row_ids": [
         "adv:flow_divert_partial_tcp:tcp-loopback-2"
       ],
-      "failed_probes": [
-        {
-          "actual": "deny",
-          "allowed": false,
-          "expectation_id": "adv:flow_divert_partial_tcp:tcp-loopback-2",
-          "expected": "allow",
-          "failure_kind": "probe_nonzero_exit",
-          "failure_stage": "probe",
-          "mismatch_type": "unexpected_deny",
-          "operation": "network-outbound",
-          "stderr": "",
-          "tags": [],
-          "target": "127.0.0.1:62647",
-          "violation_summary": "EPERM"
-        }
-      ],
-      "mismatches": [
-        "adv:flow_divert_partial_tcp:tcp-loopback-2"
-      ],
+      "failed_probes": [],
+      "mismatches": [],
       "op_id": 112,
       "op_name": "network-outbound",
-      "passed_probes": [],
+      "passed_probes": [
+        "adv:flow_divert_partial_tcp:tcp-loopback-2"
+      ],
       "profile_id": "adv:flow_divert_partial_tcp",
       "results": {
         "blocked": {
@@ -2721,46 +2825,29 @@
           "by_stage": {},
           "total": 0
         },
-        "matches": 0,
-        "mismatches": 1,
-        "status": "brittle",
+        "matches": 1,
+        "mismatches": 0,
+        "status": "ok",
         "total": 1,
         "total_including_blocked": 1
       },
       "runtime_only": false,
       "scenario_id": "adv:flow_divert_partial_tcp:tcp-loopback-2",
-      "status": "partial"
+      "status": "ok"
     },
     "adv:flow_divert_require_all_tcp:tcp-loopback": {
-      "coverage_status": "partial",
-      "disallowed_mismatches": [
-        "adv:flow_divert_require_all_tcp:tcp-loopback"
-      ],
+      "coverage_status": "ok",
+      "disallowed_mismatches": [],
       "expected_row_ids": [
         "adv:flow_divert_require_all_tcp:tcp-loopback"
       ],
-      "failed_probes": [
-        {
-          "actual": "deny",
-          "allowed": false,
-          "expectation_id": "adv:flow_divert_require_all_tcp:tcp-loopback",
-          "expected": "allow",
-          "failure_kind": "probe_nonzero_exit",
-          "failure_stage": "probe",
-          "mismatch_type": "unexpected_deny",
-          "operation": "network-outbound",
-          "stderr": "",
-          "tags": [],
-          "target": "127.0.0.1:62646",
-          "violation_summary": "EPERM"
-        }
-      ],
-      "mismatches": [
-        "adv:flow_divert_require_all_tcp:tcp-loopback"
-      ],
+      "failed_probes": [],
+      "mismatches": [],
       "op_id": 112,
       "op_name": "network-outbound",
-      "passed_probes": [],
+      "passed_probes": [
+        "adv:flow_divert_require_all_tcp:tcp-loopback"
+      ],
       "profile_id": "adv:flow_divert_require_all_tcp",
       "results": {
         "blocked": {
@@ -2768,46 +2855,29 @@
           "by_stage": {},
           "total": 0
         },
-        "matches": 0,
-        "mismatches": 1,
-        "status": "brittle",
+        "matches": 1,
+        "mismatches": 0,
+        "status": "ok",
         "total": 1,
         "total_including_blocked": 1
       },
       "runtime_only": false,
       "scenario_id": "adv:flow_divert_require_all_tcp:tcp-loopback",
-      "status": "partial"
+      "status": "ok"
     },
     "adv:flow_divert_require_all_tcp:tcp-loopback-2": {
-      "coverage_status": "partial",
-      "disallowed_mismatches": [
-        "adv:flow_divert_require_all_tcp:tcp-loopback-2"
-      ],
+      "coverage_status": "ok",
+      "disallowed_mismatches": [],
       "expected_row_ids": [
         "adv:flow_divert_require_all_tcp:tcp-loopback-2"
       ],
-      "failed_probes": [
-        {
-          "actual": "deny",
-          "allowed": false,
-          "expectation_id": "adv:flow_divert_require_all_tcp:tcp-loopback-2",
-          "expected": "allow",
-          "failure_kind": "probe_nonzero_exit",
-          "failure_stage": "probe",
-          "mismatch_type": "unexpected_deny",
-          "operation": "network-outbound",
-          "stderr": "",
-          "tags": [],
-          "target": "127.0.0.1:62647",
-          "violation_summary": "EPERM"
-        }
-      ],
-      "mismatches": [
-        "adv:flow_divert_require_all_tcp:tcp-loopback-2"
-      ],
+      "failed_probes": [],
+      "mismatches": [],
       "op_id": 112,
       "op_name": "network-outbound",
-      "passed_probes": [],
+      "passed_probes": [
+        "adv:flow_divert_require_all_tcp:tcp-loopback-2"
+      ],
       "profile_id": "adv:flow_divert_require_all_tcp",
       "results": {
         "blocked": {
@@ -2815,15 +2885,15 @@
           "by_stage": {},
           "total": 0
         },
-        "matches": 0,
-        "mismatches": 1,
-        "status": "brittle",
+        "matches": 1,
+        "mismatches": 0,
+        "status": "ok",
         "total": 1,
         "total_including_blocked": 1
       },
       "runtime_only": false,
       "scenario_id": "adv:flow_divert_require_all_tcp:tcp-loopback-2",
-      "status": "partial"
+      "status": "ok"
     },
     "adv:mach_local_literal:allow-cfprefsd-local": {
       "coverage_status": "partial",
@@ -3066,35 +3136,18 @@
       "status": "partial"
     },
     "adv:net_outbound_allow:tcp-loopback": {
-      "coverage_status": "partial",
-      "disallowed_mismatches": [
-        "adv:net_outbound_allow:tcp-loopback"
-      ],
+      "coverage_status": "ok",
+      "disallowed_mismatches": [],
       "expected_row_ids": [
         "adv:net_outbound_allow:tcp-loopback"
       ],
-      "failed_probes": [
-        {
-          "actual": "deny",
-          "allowed": false,
-          "expectation_id": "adv:net_outbound_allow:tcp-loopback",
-          "expected": "allow",
-          "failure_kind": "probe_nonzero_exit",
-          "failure_stage": "probe",
-          "mismatch_type": "unexpected_deny",
-          "operation": "network-outbound",
-          "stderr": "",
-          "tags": [],
-          "target": "127.0.0.1:62646",
-          "violation_summary": "EPERM"
-        }
-      ],
-      "mismatches": [
-        "adv:net_outbound_allow:tcp-loopback"
-      ],
+      "failed_probes": [],
+      "mismatches": [],
       "op_id": 112,
       "op_name": "network-outbound",
-      "passed_probes": [],
+      "passed_probes": [
+        "adv:net_outbound_allow:tcp-loopback"
+      ],
       "profile_id": "adv:net_outbound_allow",
       "results": {
         "blocked": {
@@ -3102,46 +3155,29 @@
           "by_stage": {},
           "total": 0
         },
-        "matches": 0,
-        "mismatches": 1,
-        "status": "brittle",
+        "matches": 1,
+        "mismatches": 0,
+        "status": "ok",
         "total": 1,
         "total_including_blocked": 1
       },
       "runtime_only": false,
       "scenario_id": "adv:net_outbound_allow:tcp-loopback",
-      "status": "partial"
+      "status": "ok"
     },
     "adv:net_outbound_allow:tcp-loopback-2": {
-      "coverage_status": "partial",
-      "disallowed_mismatches": [
-        "adv:net_outbound_allow:tcp-loopback-2"
-      ],
+      "coverage_status": "ok",
+      "disallowed_mismatches": [],
       "expected_row_ids": [
         "adv:net_outbound_allow:tcp-loopback-2"
       ],
-      "failed_probes": [
-        {
-          "actual": "deny",
-          "allowed": false,
-          "expectation_id": "adv:net_outbound_allow:tcp-loopback-2",
-          "expected": "allow",
-          "failure_kind": "probe_nonzero_exit",
-          "failure_stage": "probe",
-          "mismatch_type": "unexpected_deny",
-          "operation": "network-outbound",
-          "stderr": "",
-          "tags": [],
-          "target": "127.0.0.1:62647",
-          "violation_summary": "EPERM"
-        }
-      ],
-      "mismatches": [
-        "adv:net_outbound_allow:tcp-loopback-2"
-      ],
+      "failed_probes": [],
+      "mismatches": [],
       "op_id": 112,
       "op_name": "network-outbound",
-      "passed_probes": [],
+      "passed_probes": [
+        "adv:net_outbound_allow:tcp-loopback-2"
+      ],
       "profile_id": "adv:net_outbound_allow",
       "results": {
         "blocked": {
@@ -3149,18 +3185,18 @@
           "by_stage": {},
           "total": 0
         },
-        "matches": 0,
-        "mismatches": 1,
-        "status": "brittle",
+        "matches": 1,
+        "mismatches": 0,
+        "status": "ok",
         "total": 1,
         "total_including_blocked": 1
       },
       "runtime_only": false,
       "scenario_id": "adv:net_outbound_allow:tcp-loopback-2",
-      "status": "partial"
+      "status": "ok"
     },
     "adv:net_outbound_deny:tcp-loopback": {
-      "coverage_status": "partial",
+      "coverage_status": "ok",
       "disallowed_mismatches": [],
       "expected_row_ids": [
         "adv:net_outbound_deny:tcp-loopback"
@@ -3187,10 +3223,10 @@
       },
       "runtime_only": false,
       "scenario_id": "adv:net_outbound_deny:tcp-loopback",
-      "status": "partial"
+      "status": "ok"
     },
     "adv:net_outbound_deny:tcp-loopback-2": {
-      "coverage_status": "partial",
+      "coverage_status": "ok",
       "disallowed_mismatches": [],
       "expected_row_ids": [
         "adv:net_outbound_deny:tcp-loopback-2"
@@ -3217,21 +3253,38 @@
       },
       "runtime_only": false,
       "scenario_id": "adv:net_outbound_deny:tcp-loopback-2",
-      "status": "partial"
+      "status": "ok"
     },
     "adv:path_alias:alias-private": {
       "coverage_status": "partial",
-      "disallowed_mismatches": [],
+      "disallowed_mismatches": [
+        "adv:path_alias:alias-private"
+      ],
       "expected_row_ids": [
         "adv:path_alias:alias-private"
       ],
-      "failed_probes": [],
-      "mismatches": [],
-      "op_id": 21,
-      "op_name": "file-read*",
-      "passed_probes": [
+      "failed_probes": [
+        {
+          "actual": "deny",
+          "allowed": false,
+          "expectation_id": "adv:path_alias:alias-private",
+          "expected": "allow",
+          "failure_kind": "probe_nonzero_exit",
+          "failure_stage": "probe",
+          "mismatch_type": "unexpected_deny",
+          "operation": "file-read*",
+          "stderr": "open target: No such file or directory\n",
+          "tags": [],
+          "target": "/private/tmp/runtime-adv/alias/allow.txt",
+          "violation_summary": null
+        }
+      ],
+      "mismatches": [
         "adv:path_alias:alias-private"
       ],
+      "op_id": 21,
+      "op_name": "file-read*",
+      "passed_probes": [],
       "profile_id": "adv:path_alias",
       "results": {
         "blocked": {
@@ -3239,9 +3292,9 @@
           "by_stage": {},
           "total": 0
         },
-        "matches": 1,
-        "mismatches": 0,
-        "status": "ok",
+        "matches": 0,
+        "mismatches": 1,
+        "status": "brittle",
         "total": 1,
         "total_including_blocked": 1
       },
@@ -3251,17 +3304,34 @@
     },
     "adv:path_alias:alias-tmp": {
       "coverage_status": "partial",
-      "disallowed_mismatches": [],
+      "disallowed_mismatches": [
+        "adv:path_alias:alias-tmp"
+      ],
       "expected_row_ids": [
         "adv:path_alias:alias-tmp"
       ],
-      "failed_probes": [],
-      "mismatches": [],
-      "op_id": 21,
-      "op_name": "file-read*",
-      "passed_probes": [
+      "failed_probes": [
+        {
+          "actual": "deny",
+          "allowed": false,
+          "expectation_id": "adv:path_alias:alias-tmp",
+          "expected": "allow",
+          "failure_kind": "probe_nonzero_exit",
+          "failure_stage": "probe",
+          "mismatch_type": "unexpected_deny",
+          "operation": "file-read*",
+          "stderr": "open target: No such file or directory\n",
+          "tags": [],
+          "target": "/tmp/runtime-adv/alias/allow.txt",
+          "violation_summary": null
+        }
+      ],
+      "mismatches": [
         "adv:path_alias:alias-tmp"
       ],
+      "op_id": 21,
+      "op_name": "file-read*",
+      "passed_probes": [],
       "profile_id": "adv:path_alias",
       "results": {
         "blocked": {
@@ -3269,9 +3339,9 @@
           "by_stage": {},
           "total": 0
         },
-        "matches": 1,
-        "mismatches": 0,
-        "status": "ok",
+        "matches": 0,
+        "mismatches": 1,
+        "status": "brittle",
         "total": 1,
         "total_including_blocked": 1
       },
@@ -3615,6 +3685,306 @@
       },
       "runtime_only": false,
       "scenario_id": "adv:path_edges:write-tmp",
+      "status": "partial"
+    },
+    "adv:path_edges_private:allow-private": {
+      "coverage_status": "partial",
+      "disallowed_mismatches": [],
+      "expected_row_ids": [
+        "adv:path_edges_private:allow-private"
+      ],
+      "failed_probes": [],
+      "mismatches": [],
+      "op_id": 21,
+      "op_name": "file-read*",
+      "passed_probes": [
+        "adv:path_edges_private:allow-private"
+      ],
+      "profile_id": "adv:path_edges_private",
+      "results": {
+        "blocked": {
+          "by_kind": {},
+          "by_stage": {},
+          "total": 0
+        },
+        "matches": 1,
+        "mismatches": 0,
+        "status": "ok",
+        "total": 1,
+        "total_including_blocked": 1
+      },
+      "runtime_only": false,
+      "scenario_id": "adv:path_edges_private:allow-private",
+      "status": "partial"
+    },
+    "adv:path_edges_private:allow-private-subpath": {
+      "coverage_status": "partial",
+      "disallowed_mismatches": [],
+      "expected_row_ids": [
+        "adv:path_edges_private:allow-private-subpath"
+      ],
+      "failed_probes": [],
+      "mismatches": [],
+      "op_id": 21,
+      "op_name": "file-read*",
+      "passed_probes": [
+        "adv:path_edges_private:allow-private-subpath"
+      ],
+      "profile_id": "adv:path_edges_private",
+      "results": {
+        "blocked": {
+          "by_kind": {},
+          "by_stage": {},
+          "total": 0
+        },
+        "matches": 1,
+        "mismatches": 0,
+        "status": "ok",
+        "total": 1,
+        "total_including_blocked": 1
+      },
+      "runtime_only": false,
+      "scenario_id": "adv:path_edges_private:allow-private-subpath",
+      "status": "partial"
+    },
+    "adv:path_edges_private:allow-tmp": {
+      "coverage_status": "partial",
+      "disallowed_mismatches": [],
+      "expected_row_ids": [
+        "adv:path_edges_private:allow-tmp"
+      ],
+      "failed_probes": [],
+      "mismatches": [],
+      "op_id": 21,
+      "op_name": "file-read*",
+      "passed_probes": [
+        "adv:path_edges_private:allow-tmp"
+      ],
+      "profile_id": "adv:path_edges_private",
+      "results": {
+        "blocked": {
+          "by_kind": {},
+          "by_stage": {},
+          "total": 0
+        },
+        "matches": 1,
+        "mismatches": 0,
+        "status": "ok",
+        "total": 1,
+        "total_including_blocked": 1
+      },
+      "runtime_only": false,
+      "scenario_id": "adv:path_edges_private:allow-tmp",
+      "status": "partial"
+    },
+    "adv:path_edges_private:allow-tmp-subpath": {
+      "coverage_status": "partial",
+      "disallowed_mismatches": [],
+      "expected_row_ids": [
+        "adv:path_edges_private:allow-tmp-subpath"
+      ],
+      "failed_probes": [],
+      "mismatches": [],
+      "op_id": 21,
+      "op_name": "file-read*",
+      "passed_probes": [
+        "adv:path_edges_private:allow-tmp-subpath"
+      ],
+      "profile_id": "adv:path_edges_private",
+      "results": {
+        "blocked": {
+          "by_kind": {},
+          "by_stage": {},
+          "total": 0
+        },
+        "matches": 1,
+        "mismatches": 0,
+        "status": "ok",
+        "total": 1,
+        "total_including_blocked": 1
+      },
+      "runtime_only": false,
+      "scenario_id": "adv:path_edges_private:allow-tmp-subpath",
+      "status": "partial"
+    },
+    "adv:path_edges_private:deny-dotdot": {
+      "coverage_status": "partial",
+      "disallowed_mismatches": [],
+      "expected_row_ids": [
+        "adv:path_edges_private:deny-dotdot"
+      ],
+      "failed_probes": [],
+      "mismatches": [],
+      "op_id": 21,
+      "op_name": "file-read*",
+      "passed_probes": [
+        "adv:path_edges_private:deny-dotdot"
+      ],
+      "profile_id": "adv:path_edges_private",
+      "results": {
+        "blocked": {
+          "by_kind": {},
+          "by_stage": {},
+          "total": 0
+        },
+        "matches": 1,
+        "mismatches": 0,
+        "status": "ok",
+        "total": 1,
+        "total_including_blocked": 1
+      },
+      "runtime_only": false,
+      "scenario_id": "adv:path_edges_private:deny-dotdot",
+      "status": "partial"
+    },
+    "adv:path_edges_private:write-dotdot": {
+      "coverage_status": "partial",
+      "disallowed_mismatches": [],
+      "expected_row_ids": [
+        "adv:path_edges_private:write-dotdot"
+      ],
+      "failed_probes": [],
+      "mismatches": [],
+      "op_id": 29,
+      "op_name": "file-write*",
+      "passed_probes": [
+        "adv:path_edges_private:write-dotdot"
+      ],
+      "profile_id": "adv:path_edges_private",
+      "results": {
+        "blocked": {
+          "by_kind": {},
+          "by_stage": {},
+          "total": 0
+        },
+        "matches": 1,
+        "mismatches": 0,
+        "status": "ok",
+        "total": 1,
+        "total_including_blocked": 1
+      },
+      "runtime_only": false,
+      "scenario_id": "adv:path_edges_private:write-dotdot",
+      "status": "partial"
+    },
+    "adv:path_edges_private:write-private": {
+      "coverage_status": "partial",
+      "disallowed_mismatches": [],
+      "expected_row_ids": [
+        "adv:path_edges_private:write-private"
+      ],
+      "failed_probes": [],
+      "mismatches": [],
+      "op_id": 29,
+      "op_name": "file-write*",
+      "passed_probes": [
+        "adv:path_edges_private:write-private"
+      ],
+      "profile_id": "adv:path_edges_private",
+      "results": {
+        "blocked": {
+          "by_kind": {},
+          "by_stage": {},
+          "total": 0
+        },
+        "matches": 1,
+        "mismatches": 0,
+        "status": "ok",
+        "total": 1,
+        "total_including_blocked": 1
+      },
+      "runtime_only": false,
+      "scenario_id": "adv:path_edges_private:write-private",
+      "status": "partial"
+    },
+    "adv:path_edges_private:write-private-subpath": {
+      "coverage_status": "partial",
+      "disallowed_mismatches": [],
+      "expected_row_ids": [
+        "adv:path_edges_private:write-private-subpath"
+      ],
+      "failed_probes": [],
+      "mismatches": [],
+      "op_id": 29,
+      "op_name": "file-write*",
+      "passed_probes": [
+        "adv:path_edges_private:write-private-subpath"
+      ],
+      "profile_id": "adv:path_edges_private",
+      "results": {
+        "blocked": {
+          "by_kind": {},
+          "by_stage": {},
+          "total": 0
+        },
+        "matches": 1,
+        "mismatches": 0,
+        "status": "ok",
+        "total": 1,
+        "total_including_blocked": 1
+      },
+      "runtime_only": false,
+      "scenario_id": "adv:path_edges_private:write-private-subpath",
+      "status": "partial"
+    },
+    "adv:path_edges_private:write-tmp": {
+      "coverage_status": "partial",
+      "disallowed_mismatches": [],
+      "expected_row_ids": [
+        "adv:path_edges_private:write-tmp"
+      ],
+      "failed_probes": [],
+      "mismatches": [],
+      "op_id": 29,
+      "op_name": "file-write*",
+      "passed_probes": [
+        "adv:path_edges_private:write-tmp"
+      ],
+      "profile_id": "adv:path_edges_private",
+      "results": {
+        "blocked": {
+          "by_kind": {},
+          "by_stage": {},
+          "total": 0
+        },
+        "matches": 1,
+        "mismatches": 0,
+        "status": "ok",
+        "total": 1,
+        "total_including_blocked": 1
+      },
+      "runtime_only": false,
+      "scenario_id": "adv:path_edges_private:write-tmp",
+      "status": "partial"
+    },
+    "adv:path_edges_private:write-tmp-subpath": {
+      "coverage_status": "partial",
+      "disallowed_mismatches": [],
+      "expected_row_ids": [
+        "adv:path_edges_private:write-tmp-subpath"
+      ],
+      "failed_probes": [],
+      "mismatches": [],
+      "op_id": 29,
+      "op_name": "file-write*",
+      "passed_probes": [
+        "adv:path_edges_private:write-tmp-subpath"
+      ],
+      "profile_id": "adv:path_edges_private",
+      "results": {
+        "blocked": {
+          "by_kind": {},
+          "by_stage": {},
+          "total": 0
+        },
+        "matches": 1,
+        "mismatches": 0,
+        "status": "ok",
+        "total": 1,
+        "total_including_blocked": 1
+      },
+      "runtime_only": false,
+      "scenario_id": "adv:path_edges_private:write-tmp-subpath",
       "status": "partial"
     },
     "adv:struct_flat:allow-ok-deep": {
@@ -4096,6 +4466,126 @@
       "runtime_only": false,
       "scenario_id": "adv:struct_nested:write-outside",
       "status": "partial"
+    },
+    "adv:xattr:allow-foo-read": {
+      "coverage_status": "ok",
+      "disallowed_mismatches": [],
+      "expected_row_ids": [
+        "adv:xattr:allow-foo-read"
+      ],
+      "failed_probes": [],
+      "mismatches": [],
+      "op_id": 24,
+      "op_name": "file-read-xattr",
+      "passed_probes": [
+        "adv:xattr:allow-foo-read"
+      ],
+      "profile_id": "adv:xattr",
+      "results": {
+        "blocked": {
+          "by_kind": {},
+          "by_stage": {},
+          "total": 0
+        },
+        "matches": 1,
+        "mismatches": 0,
+        "status": "ok",
+        "total": 1,
+        "total_including_blocked": 1
+      },
+      "runtime_only": false,
+      "scenario_id": "adv:xattr:allow-foo-read",
+      "status": "ok"
+    },
+    "adv:xattr:allow-foo-write": {
+      "coverage_status": "ok",
+      "disallowed_mismatches": [],
+      "expected_row_ids": [
+        "adv:xattr:allow-foo-write"
+      ],
+      "failed_probes": [],
+      "mismatches": [],
+      "op_id": 40,
+      "op_name": "file-write-xattr",
+      "passed_probes": [
+        "adv:xattr:allow-foo-write"
+      ],
+      "profile_id": "adv:xattr",
+      "results": {
+        "blocked": {
+          "by_kind": {},
+          "by_stage": {},
+          "total": 0
+        },
+        "matches": 1,
+        "mismatches": 0,
+        "status": "ok",
+        "total": 1,
+        "total_including_blocked": 1
+      },
+      "runtime_only": false,
+      "scenario_id": "adv:xattr:allow-foo-write",
+      "status": "ok"
+    },
+    "adv:xattr:deny-bar-read": {
+      "coverage_status": "ok",
+      "disallowed_mismatches": [],
+      "expected_row_ids": [
+        "adv:xattr:deny-bar-read"
+      ],
+      "failed_probes": [],
+      "mismatches": [],
+      "op_id": 24,
+      "op_name": "file-read-xattr",
+      "passed_probes": [
+        "adv:xattr:deny-bar-read"
+      ],
+      "profile_id": "adv:xattr",
+      "results": {
+        "blocked": {
+          "by_kind": {},
+          "by_stage": {},
+          "total": 0
+        },
+        "matches": 1,
+        "mismatches": 0,
+        "status": "ok",
+        "total": 1,
+        "total_including_blocked": 1
+      },
+      "runtime_only": false,
+      "scenario_id": "adv:xattr:deny-bar-read",
+      "status": "ok"
+    },
+    "adv:xattr:deny-bar-write": {
+      "coverage_status": "ok",
+      "disallowed_mismatches": [],
+      "expected_row_ids": [
+        "adv:xattr:deny-bar-write"
+      ],
+      "failed_probes": [],
+      "mismatches": [],
+      "op_id": 40,
+      "op_name": "file-write-xattr",
+      "passed_probes": [
+        "adv:xattr:deny-bar-write"
+      ],
+      "profile_id": "adv:xattr",
+      "results": {
+        "blocked": {
+          "by_kind": {},
+          "by_stage": {},
+          "total": 0
+        },
+        "matches": 1,
+        "mismatches": 0,
+        "status": "ok",
+        "total": 1,
+        "total_including_blocked": 1
+      },
+      "runtime_only": false,
+      "scenario_id": "adv:xattr:deny-bar-write",
+      "status": "ok"
     },
     "allow_all|file-read*|/etc/hosts": {
       "coverage_status": "partial",
@@ -6133,12 +6623,12 @@
   },
   "signatures": {
     "adv:flow_divert_partial_tcp": {
-      "tcp-loopback": "deny",
-      "tcp-loopback-2": "deny"
+      "tcp-loopback": "allow",
+      "tcp-loopback-2": "allow"
     },
     "adv:flow_divert_require_all_tcp": {
-      "tcp-loopback": "deny",
-      "tcp-loopback-2": "deny"
+      "tcp-loopback": "allow",
+      "tcp-loopback-2": "allow"
     },
     "adv:mach_local_literal": {
       "allow-cfprefsd-local": "allow",
@@ -6157,16 +6647,16 @@
       "deny-bogus": "deny"
     },
     "adv:net_outbound_allow": {
-      "tcp-loopback": "deny",
-      "tcp-loopback-2": "deny"
+      "tcp-loopback": "allow",
+      "tcp-loopback-2": "allow"
     },
     "adv:net_outbound_deny": {
       "tcp-loopback": "deny",
       "tcp-loopback-2": "deny"
     },
     "adv:path_alias": {
-      "alias-private": "allow",
-      "alias-tmp": "allow"
+      "alias-private": "deny",
+      "alias-tmp": "deny"
     },
     "adv:path_edges": {
       "allow-subpath": "deny",
@@ -6178,6 +6668,18 @@
       "write-private": "deny",
       "write-subpath": "deny",
       "write-tmp": "deny"
+    },
+    "adv:path_edges_private": {
+      "allow-private": "allow",
+      "allow-private-subpath": "allow",
+      "allow-tmp": "allow",
+      "allow-tmp-subpath": "allow",
+      "deny-dotdot": "deny",
+      "write-dotdot": "deny",
+      "write-private": "allow",
+      "write-private-subpath": "allow",
+      "write-tmp": "allow",
+      "write-tmp-subpath": "allow"
     },
     "adv:struct_flat": {
       "allow-ok-deep": "allow",
@@ -6198,6 +6700,12 @@
       "write-ok-deep": "allow",
       "write-ok-root": "allow",
       "write-outside": "deny"
+    },
+    "adv:xattr": {
+      "allow-foo-read": "allow",
+      "allow-foo-write": "allow",
+      "deny-bar-read": "deny",
+      "deny-bar-write": "deny"
     },
     "anchor-filter-map:cfprefsd:C1_deny_global": {
       "C1_deny_global": "deny"

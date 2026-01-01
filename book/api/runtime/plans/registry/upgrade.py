@@ -50,6 +50,8 @@ PROBE_OPTIONAL = {
     "syscall",
     "attr_payload",
     "anchor_ctx_id",
+    "filter_name",
+    "filter_type",
 }
 PROBE_ALLOWED = PROBE_NORMALIZED_REQUIRED | PROBE_OPTIONAL
 
@@ -119,6 +121,13 @@ def _ensure_str_list(value: Any, label: str, errors: list[str]) -> list[str]:
     return out
 
 
+def _ensure_int(value: Any, label: str, errors: list[str]) -> int:
+    if isinstance(value, int):
+        return value
+    errors.append(f"{label} must be an integer")
+    return 0
+
+
 def _ensure_supports_lanes(value: Any, label: str, errors: list[str]) -> Dict[str, bool]:
     if value is None:
         return dict(DEFAULT_SUPPORTS_LANES)
@@ -176,9 +185,11 @@ def validate_probe_entry(probe_id: str, probe: Dict[str, Any], *, strict: bool) 
                     f"probe {probe_id}.controls_supported has unknown value {item!r}"
                 )
 
-    for key in ["expectation_id", "mode", "driver", "syscall", "attr_payload", "anchor_ctx_id"]:
+    for key in ["expectation_id", "mode", "driver", "syscall", "attr_payload", "anchor_ctx_id", "filter_name"]:
         if key in probe and probe[key] is not None:
             _ensure_str(probe.get(key), f"probe {probe_id}.{key}", errors)
+    if "filter_type" in probe and probe["filter_type"] is not None:
+        _ensure_int(probe.get("filter_type"), f"probe {probe_id}.filter_type", errors)
 
     return errors
 
@@ -234,7 +245,7 @@ def normalize_probe_entry(probe_id: str, probe: Dict[str, Any]) -> Dict[str, Any
         "capabilities_required": capabilities_required,
         "controls_supported": controls_supported,
     }
-    for key in ["expectation_id", "mode", "driver", "syscall", "attr_payload", "anchor_ctx_id"]:
+    for key in ["expectation_id", "mode", "driver", "syscall", "attr_payload", "anchor_ctx_id", "filter_name", "filter_type"]:
         if key in probe:
             normalized[key] = probe[key]
     return normalized
