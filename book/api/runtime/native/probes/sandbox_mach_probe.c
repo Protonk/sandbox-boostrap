@@ -43,7 +43,17 @@ int main(int argc, char *argv[]) {
     if (kr == KERN_SUCCESS) {
         mach_port_deallocate(mach_task_self(), port);
     }
-
+    const char *service_present = "null";
+    if (kr == KERN_SUCCESS) {
+        service_present = "true";
+    } else if (kr == BOOTSTRAP_UNKNOWN_SERVICE) {
+        service_present = "false";
+    }
+    printf(
+        "SBL_PROBE_DETAILS {\"operation\":\"mach-lookup\",\"kr\":%d,\"service_present\":%s}\n",
+        kr,
+        service_present
+    );
     printf("{\"kr\":%d}\n", kr);
     return kr == KERN_SUCCESS ? 0 : 1;
 }

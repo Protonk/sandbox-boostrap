@@ -8,9 +8,11 @@ to avoid extra syscalls that would confound sandbox decisions.
 
 - `mach_probe`: Unsandboxed `bootstrap_look_up` for a service name.
 - `sandbox_mach_probe`: Applies SBPL via `sandbox_init`, then performs the same
-  lookup (emits tool markers on stderr).
+  lookup (emits tool markers on stderr). Both mach probes emit
+  `SBL_PROBE_DETAILS` with `kr` and `service_present` in stdout.
 - `xpc_probe`: Unsandboxed XPC mach service connection probe (synchronous
-  send/receive on a service name).
+  send/receive on a service name). Emits `SBL_PROBE_DETAILS` with reply type
+  and XPC error classification.
 - `iokit_probe`: Unsandboxed `IOServiceMatching` + `IOServiceOpen` for a class,
   followed by minimal post-open calls (selector sweep + `IOSurfaceCreate`) to
   exercise the user-client path. Emits call selector and input/output sizes.

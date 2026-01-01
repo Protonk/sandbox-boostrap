@@ -99,6 +99,9 @@ second source of truth.
   treat `intended_op_witnessed=false` as “not observed,” not an allow/deny.
 - `file_confounder` tags file-operation denials with errno-based hints
   (`EPERM` → App Sandbox/MAC, `EACCES` → UNIX/ACL) plus policy-layer attribution.
+- `service_confounder` tags `mach-lookup` outcomes as missing-service when
+  baseline and scenario probe details agree (helps avoid misattributing
+  missing services as policy denials).
 - `resource_hygiene` carries `preopen_hints` and `preopen_detected` to flag
   harness-level pre-acquisition that can bias outcomes.
 - `path_witnesses.json` includes canonicalization flags (`alias_pair`,
@@ -109,6 +112,9 @@ second source of truth.
 - Process probes inherit sandbox policy across fork/exec; the `inherit`
   entitlement is not the enforcement mechanism and should not be treated as a
   separate allow/deny control.
+- For mach/XPC/notification probes, the harness infers a typed filter from
+  `anchor_filter_map.json` when the plan omits one (and prefers
+  `xpc-service-name` for `xpc_probe`).
 
 ## Optional witness observer capture
 

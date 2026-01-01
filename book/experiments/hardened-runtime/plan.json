@@ -1,8 +1,14 @@
 {
-  "schema_version": "runtime-tools.plan.v0.1",
+  "apply_preflight_profile": "book/experiments/hardened-runtime/sb/apply_preflight_allow.sb",
+  "controls": {
+    "baseline": true
+  },
+  "lanes": {
+    "baseline": true,
+    "oracle": true,
+    "scenario": true
+  },
   "plan_id": "hardened-runtime.v1",
-  "registry_id": "hardened-runtime",
-  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
   "profiles": [
     "hardened:mach_lookup",
     "hardened:mach_lookup_allow",
@@ -16,13 +22,7 @@
     "hardened:sysctl_read",
     "hardened:sysctl_read_allow"
   ],
-  "lanes": {
-    "baseline": true,
-    "scenario": true,
-    "oracle": true
-  },
-  "controls": {
-    "baseline": true
-  },
-  "apply_preflight_profile": "book/experiments/hardened-runtime/sb/apply_preflight_allow.sb"
+  "registry_id": "hardened-runtime",
+  "schema_version": "runtime-tools.plan.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
 }

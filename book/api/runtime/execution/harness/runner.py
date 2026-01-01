@@ -63,6 +63,15 @@ RUNTIME_SHIM_RULES = [
 
 FILTER_VOCAB_PATH = REPO_ROOT / "book" / "graph" / "mappings" / "vocab" / "filters.json"
 _FILTER_NAME_TO_ID: Dict[str, int] = {}
+ANCHOR_FILTER_MAP_PATH = REPO_ROOT / "book" / "graph" / "mappings" / "anchors" / "anchor_filter_map.json"
+_ANCHOR_FILTER_MAP: Dict[str, Dict[str, Any]] = {}
+
+# Use anchor_filter_map literals to infer a typed filter when plans omit one.
+_ANCHOR_FILTER_HINTS = {
+    "mach-lookup": {"global-name", "local-name", "xpc-service-name"},
+    "darwin-notification-post": {"notification-name"},
+    "distributed-notification-post": {"notification-name"},
+}
 
 DEFAULT_FILTER_NAMES_BY_OP = {
     "file-read*": "path",
@@ -98,6 +107,21 @@ def _load_filter_vocab() -> None:
         _FILTER_NAME_TO_ID = {}
 
 
+def _load_anchor_filter_map() -> None:
+    global _ANCHOR_FILTER_MAP
+    if _ANCHOR_FILTER_MAP:
+        return
+    try:
+        doc = json.loads(ANCHOR_FILTER_MAP_PATH.read_text())
+        for literal, entry in doc.items():
+            if literal == "metadata":
+                continue
+            if isinstance(literal, str) and isinstance(entry, dict):
+                _ANCHOR_FILTER_MAP[literal] = entry
+    except Exception:
+        _ANCHOR_FILTER_MAP = {}
+
+
 def _is_disallowed_filter(filter_type: Optional[int], filter_name: Optional[str]) -> bool:
     if isinstance(filter_name, str) and filter_name in DISALLOWED_SANDBOX_CHECK_FILTERS:
         return True
@@ -114,6 +138,29 @@ def _truthy_env(key: str) -> bool:
     if not value:
         return False
     return value.lower() not in {"0", "false", "no"}
+
+
+def _infer_filter_name_from_anchor(probe: Dict[str, Any], op: Optional[str], target: Optional[str]) -> Optional[str]:
+    if not op or not target:
+        return None
+    if op == "mach-lookup" and probe.get("driver") == "xpc_probe":
+        return "xpc-service-name"
+    allowed = _ANCHOR_FILTER_HINTS.get(op)
+    if not allowed:
+        return None
+    _load_anchor_filter_map()
+    entry = _ANCHOR_FILTER_MAP.get(target)
+    if not isinstance(entry, dict):
+        return None
+    name = entry.get("filter_name")
+    if isinstance(name, str) and name in allowed:
+        return name
+    candidates = entry.get("candidates")
+    if isinstance(candidates, list):
+        matches = {c for c in candidates if isinstance(c, str) and c in allowed}
+        if len(matches) == 1:
+            return next(iter(matches))
+    return None
 
 
 def _xattr_probe_command(op: str, target: Optional[str]) -> List[str]:
@@ -404,6 +451,15 @@ def _resolve_filter_type(probe: Dict[str, Any], op: Optional[str]) -> tuple[Opti
         if _is_disallowed_filter(ftype, filter_name):
             return None, None
         return ftype, filter_name
+    inferred = _infer_filter_name_from_anchor(probe, op, probe.get("target"))
+    if isinstance(inferred, str):
+        if _is_disallowed_filter(None, inferred):
+            return None, None
+        _load_filter_vocab()
+        ftype = _FILTER_NAME_TO_ID.get(inferred)
+        if _is_disallowed_filter(ftype, inferred):
+            return None, None
+        return ftype, inferred
     if op:
         name = DEFAULT_FILTER_NAMES_BY_OP.get(op)
         if name:

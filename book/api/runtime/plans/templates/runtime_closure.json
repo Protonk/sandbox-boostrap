@@ -1196,6 +1196,7 @@
           "deny_default"
         ],
         "driver": "sandbox_mach_probe",
+        "filter_name": "global-name",
         "expected": "allow",
         "expected_predicates": [
           "com.apple.cfprefsd.agent"
@@ -1221,6 +1222,7 @@
           "deny_default"
         ],
         "driver": "sandbox_mach_probe",
+        "filter_name": "global-name",
         "expected": "deny",
         "expected_predicates": [
           "com.apple.sandbox-lore.missing"
@@ -1270,6 +1272,7 @@
           "deny_default"
         ],
         "driver": "sandbox_mach_probe",
+        "filter_name": "global-name",
         "expected": "allow",
         "expected_predicates": [
           "com.apple.cfprefsd.agent"
@@ -1295,6 +1298,7 @@
           "deny_default"
         ],
         "driver": "sandbox_mach_probe",
+        "filter_name": "global-name",
         "expected": "deny",
         "expected_predicates": [
           "com.apple.sandbox-lore.missing"

@@ -62,7 +62,8 @@ This IR exists so VFS canonicalization work can be expressed as stable inputs/ou
 Normalized runtime events include lane attribution and confounder hints:
 
 - `policy_layers` (platform vs process policy decisions).
-- `tcc_confounder` and `file_confounder` (errno-based hints such as `EPERM` vs `EACCES`).
+- `tcc_confounder`, `service_confounder`, and `file_confounder` (errno-based hints
+  such as `EPERM` vs `EACCES`, plus missing-service attribution for mach/XPC).
 - `intended_op_witnessed` to distinguish observed operations from attempts.
 - `resource_hygiene` to flag pre-opened resources that can bias outcomes.
 

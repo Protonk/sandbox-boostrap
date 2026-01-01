@@ -38,6 +38,7 @@
           "deny_default"
         ],
         "driver": "sandbox_mach_probe",
+        "filter_name": "global-name",
         "expected": "deny",
         "expected_predicates": [
           "com.apple.sandbox-lore.hardened-runtime.bogus"
@@ -63,6 +64,7 @@
           "deny_default"
         ],
         "driver": "sandbox_mach_probe",
+        "filter_name": "global-name",
         "expected": "deny",
         "expected_predicates": [
           "com.apple.cfprefsd.agent"
@@ -88,6 +90,7 @@
           "deny_default"
         ],
         "driver": "sandbox_mach_probe",
+        "filter_name": "global-name",
         "expected": "allow",
         "expected_predicates": [
           "com.apple.cfprefsd.agent"
@@ -112,6 +115,7 @@
           "allow_default",
           "deny_default"
         ],
+        "filter_name": "notification-name",
         "expected": "deny",
         "expected_predicates": [
           "com.sandboxlore.hardened_runtime.test1"
@@ -136,6 +140,7 @@
           "allow_default",
           "deny_default"
         ],
+        "filter_name": "notification-name",
         "expected": "deny",
         "expected_predicates": [
           "com.sandboxlore.hardened_runtime.test1"
@@ -160,6 +165,7 @@
           "allow_default",
           "deny_default"
         ],
+        "filter_name": "notification-name",
         "expected": "deny",
         "expected_predicates": [
           "com.sandboxlore.hardened_runtime.test2"
@@ -184,6 +190,7 @@
           "allow_default",
           "deny_default"
         ],
+        "filter_name": "notification-name",
         "expected": "deny",
         "expected_predicates": [
           "com.sandboxlore.hardened_runtime.test2"
@@ -208,6 +215,7 @@
           "allow_default",
           "deny_default"
         ],
+        "filter_name": "notification-name",
         "expected": "allow",
         "expected_predicates": [
           "com.sandboxlore.hardened_runtime.test1"
@@ -232,6 +240,7 @@
           "allow_default",
           "deny_default"
         ],
+        "filter_name": "notification-name",
         "expected": "allow",
         "expected_predicates": [
           "com.sandboxlore.hardened_runtime.test1"

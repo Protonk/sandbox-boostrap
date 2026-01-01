@@ -382,6 +382,40 @@ def _file_confounder_for_observation(
     }
 
 
+def _service_presence_from_details(details: Optional[Mapping[str, Any]]) -> Optional[str]:
+    if not isinstance(details, Mapping):
+        return None
+    present = details.get("service_present")
+    if isinstance(present, bool):
+        return "present" if present else "missing"
+    xpc_error = details.get("xpc_error")
+    if isinstance(xpc_error, str) and xpc_error == "connection_invalid":
+        return "missing"
+    return None
+
+
+def _service_confounder_for_observation(
+    *,
+    operation: Optional[str],
+    probe_details: Optional[Mapping[str, Any]],
+    baseline_row: Optional[Mapping[str, Any]],
+) -> Optional[Dict[str, Any]]:
+    if operation != "mach-lookup":
+        return None
+    scenario_state = _service_presence_from_details(probe_details)
+    baseline_state = _service_presence_from_details(
+        baseline_row.get("probe_details") if isinstance(baseline_row, Mapping) else None
+    )
+    if scenario_state == "missing" and baseline_state == "missing":
+        return {
+            "status": "missing_service",
+            "baseline_state": baseline_state,
+            "scenario_state": scenario_state,
+            "source": "probe_details",
+        }
+    return None
+
+
 def _callout_op_candidates(operation: Optional[str]) -> List[str]:
     if not operation:
         return []
@@ -647,6 +681,11 @@ def normalize_matrix(
                         scenario_decision=actual_decision,
                         failure_stage=runtime_result.get("failure_stage"),
                         failure_kind=runtime_result.get("failure_kind"),
+                    ),
+                    service_confounder=_service_confounder_for_observation(
+                        operation=op,
+                        probe_details=probe.get("probe_details"),
+                        baseline_row=baseline_row,
                     ),
                     file_confounder=_file_confounder_for_observation(
                         operation=op,
@@ -964,6 +1003,11 @@ def normalize_metadata_results(
                     scenario_decision=actual,
                     failure_stage=failure_stage,
                     failure_kind=failure_kind,
+                ),
+                service_confounder=_service_confounder_for_observation(
+                    operation=op,
+                    probe_details=row.get("probe_details") if isinstance(row, Mapping) else None,
+                    baseline_row=baseline_row,
                 ),
                 file_confounder=_file_confounder_for_observation(
                     operation=op,
