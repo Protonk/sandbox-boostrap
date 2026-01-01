@@ -9,6 +9,8 @@ Responsibilities:
 - Join those markers back to `(profile_id, scenario_id, operation, target)` so
   consumers can reason about `requested_path` vs `observed_path` mechanically.
 - Emit `path_witnesses.json` as a run-scoped bundle artifact.
+  - Include canonicalization flags (alias pair, nofirmlink difference) so
+    path-resolution behavior can be compared without re-deriving it.
 
 Non-goals / refusals:
 - This module does not claim that any observed path spelling is the literal
@@ -29,6 +31,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 PATH_WITNESS_SCHEMA_VERSION = "runtime-tools.path_witness.v0.1"
 PATH_WITNESSES_SCHEMA_VERSION = "runtime-tools.path_witnesses.v0.1"
+_ALIAS_PREFIXES = (("/tmp", "/private/tmp"),)
 
 
 def _is_path_operation(op: Optional[str]) -> bool:
@@ -69,6 +72,34 @@ def _normalize_path(requested_path: Optional[str], observed_path: Optional[str])
     return None, "missing"
 
 
+def _is_alias_pair(requested: Optional[str], observed: Optional[str]) -> bool:
+    if not isinstance(requested, str) or not isinstance(observed, str):
+        return False
+    if requested == observed:
+        return False
+    for alias, canonical in _ALIAS_PREFIXES:
+        if requested.startswith(alias) and observed.startswith(canonical):
+            return True
+        if requested.startswith(canonical) and observed.startswith(alias):
+            return True
+    return False
+
+
+def _canonicalization_flags(
+    requested_path: Optional[str],
+    observed_path: Optional[str],
+    observed_path_nofirmlink: Optional[str],
+) -> Dict[str, Optional[bool]]:
+    alias_pair = _is_alias_pair(requested_path, observed_path) or _is_alias_pair(requested_path, observed_path_nofirmlink)
+    nofirmlink_differs = (
+        bool(observed_path and observed_path_nofirmlink and observed_path != observed_path_nofirmlink)
+    )
+    return {
+        "alias_pair": alias_pair,
+        "nofirmlink_differs": nofirmlink_differs,
+    }
+
+
 def build_path_witnesses_doc(
     run_dir: Path,
     *,
@@ -89,6 +120,11 @@ def build_path_witnesses_doc(
                 continue
             requested_path = row.get("target")
             normalized_path, normalized_source = _normalize_path(requested_path, row.get("observed_path"))
+            canonicalization = _canonicalization_flags(
+                requested_path,
+                row.get("observed_path"),
+                row.get("observed_path_nofirmlink"),
+            )
             records.append(
                 {
                     "schema_version": PATH_WITNESS_SCHEMA_VERSION,
@@ -105,6 +141,7 @@ def build_path_witnesses_doc(
                     "observed_path_nofirmlink_errno": row.get("observed_path_nofirmlink_errno"),
                     "normalized_path": normalized_path,
                     "normalized_path_source": normalized_source,
+                    "canonicalization": canonicalization,
                     "decision": row.get("status"),
                     "exit_code": row.get("exit_code"),
                     "command": row.get("command"),
@@ -124,6 +161,7 @@ def build_path_witnesses_doc(
             observed, observed_src, observed_errno = _extract_marker(stderr, label="F_GETPATH")
             nofirmlink, nofirmlink_src, nofirmlink_errno = _extract_marker(stderr, label="F_GETPATH_NOFIRMLINK")
             normalized_path, normalized_source = _normalize_path(requested_path, observed)
+            canonicalization = _canonicalization_flags(requested_path, observed, nofirmlink)
 
             records.append(
                 {
@@ -141,6 +179,7 @@ def build_path_witnesses_doc(
                     "observed_path_nofirmlink_errno": nofirmlink_errno,
                     "normalized_path": normalized_path,
                     "normalized_path_source": normalized_source,
+                    "canonicalization": canonicalization,
                     "decision": row.get("actual"),
                     "errno": row.get("errno"),
                     "failure_stage": row.get("failure_stage"),

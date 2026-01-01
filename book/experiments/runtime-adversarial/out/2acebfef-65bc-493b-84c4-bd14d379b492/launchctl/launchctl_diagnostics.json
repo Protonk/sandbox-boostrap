@@ -1,0 +1,54 @@
+{
+  "label": "sandbox-lore.runtime.2acebfef-65bc-493b-84c4-bd14d379b492",
+  "run_id": "2acebfef-65bc-493b-84c4-bd14d379b492",
+  "domain": "user/0",
+  "domain_reason": "gui_domain_unavailable",
+  "session_types": [
+    "Background"
+  ],
+  "plist_path": "book/experiments/runtime-adversarial/out/2acebfef-65bc-493b-84c4-bd14d379b492/launchctl/sandbox-lore.runtime.2acebfef-65bc-493b-84c4-bd14d379b492.plist",
+  "launchctl_cmds": [
+    {
+      "argv": [
+        "/bin/launchctl",
+        "print",
+        "gui/0"
+      ],
+      "rc": 125,
+      "stdout_path": "book/experiments/runtime-adversarial/out/2acebfef-65bc-493b-84c4-bd14d379b492/launchctl/sandbox-lore.runtime.2acebfef-65bc-493b-84c4-bd14d379b492.launchctl_print.gui_0.stdout.txt",
+      "stderr_path": "book/experiments/runtime-adversarial/out/2acebfef-65bc-493b-84c4-bd14d379b492/launchctl/sandbox-lore.runtime.2acebfef-65bc-493b-84c4-bd14d379b492.launchctl_print.gui_0.stderr.txt"
+    },
+    {
+      "argv": [
+        "/usr/bin/plutil",
+        "-lint",
+        "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.2acebfef-65bc-493b-84c4-bd14d379b492/book/experiments/runtime-adversarial/out/launchctl/sandbox-lore.runtime.2acebfef-65bc-493b-84c4-bd14d379b492.plist"
+      ],
+      "rc": 0,
+      "stdout_path": "book/experiments/runtime-adversarial/out/2acebfef-65bc-493b-84c4-bd14d379b492/launchctl/sandbox-lore.runtime.2acebfef-65bc-493b-84c4-bd14d379b492.plutil_lint.stdout.txt",
+      "stderr_path": "book/experiments/runtime-adversarial/out/2acebfef-65bc-493b-84c4-bd14d379b492/launchctl/sandbox-lore.runtime.2acebfef-65bc-493b-84c4-bd14d379b492.plutil_lint.stderr.txt"
+    },
+    {
+      "argv": [
+        "/bin/launchctl",
+        "bootstrap",
+        "user/0",
+        "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.2acebfef-65bc-493b-84c4-bd14d379b492/book/experiments/runtime-adversarial/out/launchctl/sandbox-lore.runtime.2acebfef-65bc-493b-84c4-bd14d379b492.plist"
+      ],
+      "rc": 0,
+      "stdout_path": "book/experiments/runtime-adversarial/out/2acebfef-65bc-493b-84c4-bd14d379b492/launchctl/sandbox-lore.runtime.2acebfef-65bc-493b-84c4-bd14d379b492.bootstrap.stdout.txt",
+      "stderr_path": "book/experiments/runtime-adversarial/out/2acebfef-65bc-493b-84c4-bd14d379b492/launchctl/sandbox-lore.runtime.2acebfef-65bc-493b-84c4-bd14d379b492.bootstrap.stderr.txt"
+    },
+    {
+      "argv": [
+        "/bin/launchctl",
+        "bootout",
+        "user/0",
+        "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.2acebfef-65bc-493b-84c4-bd14d379b492/book/experiments/runtime-adversarial/out/launchctl/sandbox-lore.runtime.2acebfef-65bc-493b-84c4-bd14d379b492.plist"
+      ],
+      "rc": 0,
+      "stdout_path": "book/experiments/runtime-adversarial/out/2acebfef-65bc-493b-84c4-bd14d379b492/launchctl/sandbox-lore.runtime.2acebfef-65bc-493b-84c4-bd14d379b492.bootout.stdout.txt",
+      "stderr_path": "book/experiments/runtime-adversarial/out/2acebfef-65bc-493b-84c4-bd14d379b492/launchctl/sandbox-lore.runtime.2acebfef-65bc-493b-84c4-bd14d379b492.bootout.stderr.txt"
+    }
+  ]
+}

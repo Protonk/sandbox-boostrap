@@ -47,6 +47,10 @@ def test_inside_tool_json_contract(run_cmd):
         assert signal["strength"] in {"strong", "weak", "unknown"}
         assert signal["direction"] in {True, False, None}
 
+    assert not Path(signals["S3"]["policywitness_bin"]).is_absolute()
+    assert not Path(signals["S4"]["wrapper"]).is_absolute()
+    assert not Path(signals["S4"]["profile"]).is_absolute()
+
     assert signals["S6"].get("axis") == "app_sandbox"
 
     summary = payload["summary"]

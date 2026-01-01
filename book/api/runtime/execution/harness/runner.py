@@ -109,6 +109,13 @@ def _is_disallowed_filter(filter_type: Optional[int], filter_name: Optional[str]
     return False
 
 
+def _truthy_env(key: str) -> bool:
+    value = os.environ.get(key)
+    if not value:
+        return False
+    return value.lower() not in {"0", "false", "no"}
+
+
 def _xattr_probe_command(op: str, target: Optional[str]) -> List[str]:
     if not target or not Path(XATTR).exists():
         return ["true"]
@@ -194,6 +201,32 @@ def _extract_probe_details(stdout: Optional[str]) -> tuple[Optional[Dict[str, An
     return details, cleaned
 
 
+def _parse_probe_json(stdout: Optional[str]) -> Optional[Dict[str, Any]]:
+    if not stdout:
+        return None
+    for line in stdout.splitlines():
+        candidate = line.strip()
+        if not (candidate.startswith("{") and candidate.endswith("}")):
+            continue
+        try:
+            payload = json.loads(candidate)
+        except Exception:
+            continue
+        if isinstance(payload, dict):
+            return payload
+    return None
+
+
+def _probe_details_errno(probe_details: Optional[Dict[str, Any]]) -> Optional[int]:
+    if not isinstance(probe_details, dict):
+        return None
+    for key in ("errno", "rc", "err"):
+        value = probe_details.get(key)
+        if isinstance(value, int):
+            return value
+    return None
+
+
 def ensure_fixtures(fixture_root: Path = Path("/tmp")) -> None:
     """Create small fixture files used by runtime probes."""
     for name in ["foo", "bar"]:
@@ -227,6 +260,12 @@ def ensure_fixtures(fixture_root: Path = Path("/tmp")) -> None:
     ok_dir = Path("/private/tmp/ok")
     ok_dir.mkdir(parents=True, exist_ok=True)
     (ok_dir / "allow.txt").write_text("param ok allow\n")
+    mountrel_dir = Path("/private/tmp/runtime-adv/mountrel")
+    mountrel_dir.mkdir(parents=True, exist_ok=True)
+    (mountrel_dir / "allowed.txt").write_text("runtime-adv mountrel allow\n")
+    mountrel_outside = Path("/private/tmp/runtime-adv/mountrel_outside")
+    mountrel_outside.mkdir(parents=True, exist_ok=True)
+    (mountrel_outside / "blocked.txt").write_text("runtime-adv mountrel blocked\n")
     mode_allow = Path("/private/tmp/mode_allow")
     mode_allow.write_text("mode allow\n")
     mode_allow.chmod(0o644)
@@ -726,6 +765,8 @@ def build_probe_command(probe: Dict[str, Any]) -> List[str]:
         cmd = [str(nc), "-z", "-w", "2", host, port]
     elif op == "process-fork":
         if Path(PYTHON).exists():
+            # Child processes inherit the parent's sandbox policy; fork probes
+            # reflect inherited restrictions rather than a separate entitlement.
             script = (
                 "import os, sys\n"
                 "try:\n"
@@ -781,6 +822,7 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None, wr
     writer_mode = False
     self_apply_mode = False
     metadata_driver = False
+    file_probe_used = False
     if op == "file-read-metadata":
         driver = probe.get("driver")
         if driver != "metadata_runner":
@@ -807,6 +849,7 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None, wr
         use_file_probe = probe.get("driver") == "file_probe" and FILE_PROBE.exists() and target
         if use_file_probe:
             cmd = [str(FILE_PROBE), "read", target]
+            file_probe_used = True
         # In blob mode, the wrapper applies the compiled profile; use /bin/cat
         # as the in-sandbox probe so we don't re-run sandbox_init on a .sb.bin.
         elif not blob_mode and READER.exists():
@@ -836,6 +879,7 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None, wr
             use_file_probe = driver == "file_probe" and FILE_PROBE.exists() and target
             if use_file_probe:
                 cmd = [str(FILE_PROBE), "write", target]
+                file_probe_used = True
             # Same rule as file-read*: avoid sandbox_init-on-binary by using /bin/sh
             # inside the blob-applied wrapper process.
             elif not blob_mode and WRITER.exists():
@@ -852,6 +896,7 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None, wr
     elif op == "file-search":
         if target and FILE_PROBE.exists():
             cmd = [str(FILE_PROBE), "search", target]
+            file_probe_used = True
         elif target and Path(PYTHON).exists():
             script = "import os, sys; os.listdir(sys.argv[1]); sys.exit(0)\n"
             cmd = [PYTHON, "-c", script, target]
@@ -1015,6 +1060,8 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None, wr
         cmd = [str(nc), "-z", "-w", "2", host, port]
     elif op == "process-fork":
         if Path(PYTHON).exists():
+            # Child processes inherit the parent's sandbox policy; fork probes
+            # reflect inherited restrictions rather than a separate entitlement.
             script = (
                 "import os, sys\n"
                 "try:\n"
@@ -1109,6 +1156,11 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None, wr
                     exit_code = 1
         else:
             probe_details, stdout_clean = _extract_probe_details(res.stdout)
+            if probe_details is None and file_probe_used:
+                parsed = _parse_probe_json(res.stdout)
+                if parsed is not None:
+                    probe_details = parsed
+                    stdout_clean = ""
         raw = {
             "command": full_cmd,
             "exit_code": exit_code,
@@ -1292,6 +1344,7 @@ def run_matrix(
             observed_errno: Optional[int] = None
             apply_report: Optional[Dict[str, Any]] = None
 
+            detail_errno = _probe_details_errno(raw.get("probe_details"))
             if preflight_blocked:
                 failure_stage = "preflight"
                 failure_kind = "preflight_apply_gate_signature"
@@ -1341,7 +1394,7 @@ def run_matrix(
                 elif raw.get("exit_code") not in (None, 0):
                     failure_stage = "probe"
                     failure_kind = "probe_nonzero_exit"
-                    observed_errno = observed_errno or raw.get("exit_code")
+                    observed_errno = observed_errno or detail_errno or raw.get("exit_code")
 
             entrypoint = (raw.get("command") or [None])[0]
             entrypoint_path = Path(entrypoint) if isinstance(entrypoint, str) else None
@@ -1377,12 +1430,20 @@ def run_matrix(
                     )
                 )
 
+            preopen_hints: List[str] = []
+            if _truthy_env("SANDBOX_LORE_FILE_PRECREATE"):
+                preopen_hints.append("file_precreate")
+            pass_fds: List[int] = []
+            # Record harness-level preopen hints so "allowed" results are not
+            # misread as post-apply acquisitions when a pre-step was used.
             resource_hygiene = {
                 "apply_model": runner_info.get("apply_model") if runner_info else None,
                 "apply_timing": runner_info.get("apply_timing") if runner_info else None,
                 "preexisting_sandbox_suspected": runner_info.get("preexisting_sandbox_suspected") if runner_info else None,
                 "close_fds": True,
-                "pass_fds": [],
+                "pass_fds": pass_fds,
+                "preopen_hints": preopen_hints,
+                "preopen_detected": bool(preopen_hints or pass_fds),
             }
 
             runtime_result = {

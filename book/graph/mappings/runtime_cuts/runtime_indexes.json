@@ -46,6 +46,8 @@
       "adv:path_edges_private:allow-tmp",
       "adv:path_edges_private:allow-tmp-subpath",
       "adv:path_edges_private:deny-dotdot",
+      "adv:mount_relative_path:allow-subpath",
+      "adv:mount_relative_path:deny-outside",
       "adv:file_mode:allow-private",
       "adv:file_mode:deny-world"
     ],
@@ -391,6 +393,12 @@
     ],
     "adv:path_edges_private:write-dotdot": [
       "book/graph/mappings/runtime_cuts/traces/adv_path_edges_private_write-dotdot.jsonl"
+    ],
+    "adv:mount_relative_path:allow-subpath": [
+      "book/graph/mappings/runtime_cuts/traces/adv_mount_relative_path_allow-subpath.jsonl"
+    ],
+    "adv:mount_relative_path:deny-outside": [
+      "book/graph/mappings/runtime_cuts/traces/adv_mount_relative_path_deny-outside.jsonl"
     ],
     "adv:xattr:allow-foo-read": [
       "book/graph/mappings/runtime_cuts/traces/adv_xattr_allow-foo-read.jsonl"

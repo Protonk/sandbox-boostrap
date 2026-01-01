@@ -1,25 +1,5 @@
 {
-  "counterexamples": [
-    {
-      "actual": "deny",
-      "canonicalization_witness": {
-        "lane": "baseline",
-        "normalized_path": "/private/tmp/runtime-adv/edges/a",
-        "normalized_path_source": "observed_path",
-        "observed_path": "/private/tmp/runtime-adv/edges/a",
-        "observed_path_source": "unsandboxed_fd_path",
-        "requested_path": "/tmp/runtime-adv/edges/a",
-        "scenario_id": "baseline:adv:path_edges:allow-tmp"
-      },
-      "expectation_id": "adv:path_edges:allow-tmp",
-      "expected": "allow",
-      "failure_kind": "probe_nonzero_exit",
-      "failure_stage": "probe",
-      "operation": "file-read*",
-      "target": "/tmp/runtime-adv/edges/a",
-      "transformation": "path_edges"
-    }
-  ],
+  "counterexamples": [],
   "provenance": {
     "artifact_index": "book/experiments/runtime-adversarial/out/d3b1bbf8-fe92-43eb-9422-2dd4e122f77c/artifact_index.json",
     "artifact_index_sha256": "7c33c5d5b63622eb148373b7c847ab2f3af6b5702bfba021751589ef063eab8d",
@@ -30,7 +10,7 @@
       "run_manifest": "book/experiments/runtime-adversarial/out/d3b1bbf8-fe92-43eb-9422-2dd4e122f77c/run_manifest.json",
       "runtime_results": "book/experiments/runtime-adversarial/out/d3b1bbf8-fe92-43eb-9422-2dd4e122f77c/runtime_results.json"
     },
-    "packet": "book/experiments/runtime-adversarial/out/promotion_packet.json",
+    "packet": "book/experiments/runtime-adversarial/out/packets/d3b1bbf8-fe92-43eb-9422-2dd4e122f77c.promotion_packet.json",
     "run_id": "d3b1bbf8-fe92-43eb-9422-2dd4e122f77c"
   },
   "schema_version": "graph-shape-vs-semantics.counterexamples.v0",

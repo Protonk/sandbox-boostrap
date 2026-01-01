@@ -57,6 +57,7 @@ class RuntimeObservation:
     errno_name: Optional[str] = None
     policy_layers: Optional[Dict[str, Any]] = None
     tcc_confounder: Optional[Dict[str, Any]] = None
+    file_confounder: Optional[Dict[str, Any]] = None
     sandbox_check_prepass: Optional[Dict[str, Any]] = None
     resource_hygiene: Optional[Dict[str, Any]] = None
     failure_stage: Optional[str] = None

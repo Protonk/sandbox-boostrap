@@ -199,6 +199,32 @@
         ],
         "semantic_group": "mach:global-name-allow"
       },
+      "adv:mount_relative_path": {
+        "blob": "book/experiments/runtime-adversarial/sb/mount_relative_path.sb",
+        "family": "mount_relative_path",
+        "mode": "sbpl",
+        "probes": [
+          {
+            "classification": "covered_ok",
+            "expectation_id": "adv:mount_relative_path:allow-subpath",
+            "expected": "allow",
+            "name": "allow-subpath",
+            "operation": "file-read*",
+            "scenario_id": "adv:mount_relative_path:allow-subpath",
+            "target": "/private/tmp/runtime-adv/mountrel/allowed.txt"
+          },
+          {
+            "classification": "covered_ok",
+            "expectation_id": "adv:mount_relative_path:deny-outside",
+            "expected": "deny",
+            "name": "deny-outside",
+            "operation": "file-read*",
+            "scenario_id": "adv:mount_relative_path:deny-outside",
+            "target": "/private/tmp/runtime-adv/mountrel_outside/blocked.txt"
+          }
+        ],
+        "semantic_group": "paths:mount-relative-subpath"
+      },
       "adv:net_outbound_allow": {
         "blob": "book/experiments/runtime-adversarial/sb/net_outbound_allow.sb",
         "family": "network",
@@ -1417,7 +1443,7 @@
         "mode": "sbpl",
         "probes": [
           {
-            "classification": "covered_mismatch_disallowed",
+            "classification": "covered_ok",
             "expectation_id": "sys:airlock:read_/etc/hosts",
             "expected": "deny",
             "name": "read_/etc/hosts",
@@ -1426,7 +1452,7 @@
             "target": "/etc/hosts"
           },
           {
-            "classification": "covered_mismatch_disallowed",
+            "classification": "covered_ok",
             "expectation_id": "sys:airlock:write_/etc/hosts",
             "expected": "deny",
             "name": "write_/etc/hosts",
@@ -1435,7 +1461,7 @@
             "target": "/etc/hosts"
           },
           {
-            "classification": "covered_mismatch_disallowed",
+            "classification": "covered_ok",
             "expectation_id": "sys:airlock:read_/tmp/foo",
             "expected": "deny",
             "name": "read_/tmp/foo",
@@ -1444,7 +1470,7 @@
             "target": "/tmp/foo"
           },
           {
-            "classification": "covered_mismatch_disallowed",
+            "classification": "covered_ok",
             "expectation_id": "sys:airlock:write_/tmp/foo",
             "expected": "deny",
             "name": "write_/tmp/foo",
@@ -1523,10 +1549,10 @@
     "file-read*": {
       "coverage_ratio": 1.0,
       "covered_mismatch_allowed": 0,
-      "covered_mismatch_disallowed": 6,
-      "covered_ok": 32,
-      "covered_rows": 38,
-      "total_expected_rows": 38,
+      "covered_mismatch_disallowed": 4,
+      "covered_ok": 36,
+      "covered_rows": 40,
+      "total_expected_rows": 40,
       "uncovered": 0
     },
     "file-read-xattr": {
@@ -1541,8 +1567,8 @@
     "file-write*": {
       "coverage_ratio": 1.0,
       "covered_mismatch_allowed": 0,
-      "covered_mismatch_disallowed": 4,
-      "covered_ok": 23,
+      "covered_mismatch_disallowed": 2,
+      "covered_ok": 25,
       "covered_rows": 27,
       "total_expected_rows": 27,
       "uncovered": 0
@@ -2360,14 +2386,14 @@
       "book/experiments/anchor-filter-map/out/promotion_packet.json": "3da1176b548091e31d9bed8c9e73bd7c77dc5f8d5b12665ca6a762c27c6e5b13",
       "book/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json": "654bb48411211bff7809e5df650b87a89e2dc5d9904858c69b493abf74464dd2",
       "book/experiments/hardened-runtime/out/promotion_packet.json": "5d8f999c2b9f86e80038f61324ca87fc8bb8e72300bc0ee8ce7dc323e821c1b7",
-      "book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/run_manifest.json": "0d5510b8b41d3f748ae7a1950e369864e5240bc6e644479f2d62e0f02c7cefab",
-      "book/experiments/runtime-adversarial/out/promotion_packet.json": "e338dbc59abb3e9c2da39371d9cddf4fedb9b3882d8fae092c738c300afef0c0",
+      "book/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/run_manifest.json": "89e1ec26c520f774d30f5e095e98cf05236c1406090219dd29d8a5ca44c22dfe",
+      "book/experiments/runtime-adversarial/out/promotion_packet.json": "ff61d1d7c79bcf95057d1443b1f6e6ec848340c1cd80673ff734c4f975500a23",
       "book/experiments/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json": "8c042b30534d5129f1879a78d756922d2ef3fa40a002ca23ef1bf8dc27c3676e",
       "book/experiments/runtime-checks/out/promotion_packet.json": "662297e9f76b45fe433c47a3b882f2e59c020323ec967a76b0a972cc28dc7f95",
       "book/graph/concepts/validation/out/experiments/field2/field2_ir.json": "17498be658bac148db6939d60c280c95ca18a3b1a2c0089da7443ee46af7f1fc",
-      "book/graph/mappings/runtime/runtime_coverage.json": "5153856e89ca8e7daba84467c9869dd6992e97b5e829975f85e73b3f3e43ecfd",
-      "book/graph/mappings/runtime_cuts/runtime_story.json": "0c565b8e49726f1de59e5edbf539ba1cffbf8bfd6eaedbdb867bddccd1953c34",
-      "expected_matrix": "81876c4a912bbff9356847317a95f5fa81559cb6666e0e2528f0becaa4146c32"
+      "book/graph/mappings/runtime/runtime_coverage.json": "fec210e12f985148509114aacb551100d78cf68d644408ececa0728082206509",
+      "book/graph/mappings/runtime_cuts/runtime_story.json": "a164f0c41c04487342724e65bdb1d661f25c444b9c0d01acc2d00ddb5a2de3c2",
+      "expected_matrix": "449bb8be43e1dc07c9d10fb495923b47698659e941a4b2ee33119d1af623dc5c"
     },
     "inputs": [
       "book/graph/mappings/runtime_cuts/runtime_story.json",
@@ -2379,7 +2405,7 @@
       "book/experiments/anchor-filter-map/out/promotion_packet.json",
       "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json"
     ],
-    "notes": "Derived from runtime_story with coverage gating; status cannot exceed runtime_coverage. Decision-stage inputs require launchd_clean run manifests. Disallowed mismatches present: 17.",
+    "notes": "Derived from runtime_story with coverage gating; status cannot exceed runtime_coverage. Decision-stage inputs require launchd_clean run manifests. Disallowed mismatches present: 13.",
     "provenance": {
       "runtime_coverage": {
         "input_hashes": {
@@ -2389,12 +2415,12 @@
           "book/experiments/anchor-filter-map/out/promotion_packet.json": "3da1176b548091e31d9bed8c9e73bd7c77dc5f8d5b12665ca6a762c27c6e5b13",
           "book/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json": "654bb48411211bff7809e5df650b87a89e2dc5d9904858c69b493abf74464dd2",
           "book/experiments/hardened-runtime/out/promotion_packet.json": "5d8f999c2b9f86e80038f61324ca87fc8bb8e72300bc0ee8ce7dc323e821c1b7",
-          "book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/run_manifest.json": "0d5510b8b41d3f748ae7a1950e369864e5240bc6e644479f2d62e0f02c7cefab",
-          "book/experiments/runtime-adversarial/out/promotion_packet.json": "e338dbc59abb3e9c2da39371d9cddf4fedb9b3882d8fae092c738c300afef0c0",
+          "book/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/run_manifest.json": "89e1ec26c520f774d30f5e095e98cf05236c1406090219dd29d8a5ca44c22dfe",
+          "book/experiments/runtime-adversarial/out/promotion_packet.json": "ff61d1d7c79bcf95057d1443b1f6e6ec848340c1cd80673ff734c4f975500a23",
           "book/experiments/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json": "8c042b30534d5129f1879a78d756922d2ef3fa40a002ca23ef1bf8dc27c3676e",
           "book/experiments/runtime-checks/out/promotion_packet.json": "662297e9f76b45fe433c47a3b882f2e59c020323ec967a76b0a972cc28dc7f95",
-          "book/graph/mappings/runtime_cuts/ops.json": "2b0a44d9f9d8b3ae72ad51b7f3b3b4b42caa11093cf16cbd5feaf1669ef24e4a",
-          "book/graph/mappings/runtime_cuts/scenarios.json": "86848b3ff1b4f8458d094f3d0dda53e8cd3524dd9c54b9a20008ee1470adae04"
+          "book/graph/mappings/runtime_cuts/ops.json": "84c22d3f674a3bf7a0f3848706bb8399ec8c0e9d5ee7f177ba3a6369db620950",
+          "book/graph/mappings/runtime_cuts/scenarios.json": "259a1d3c9558d63be440e2d76e0786a2ef150ba4187d47b7f0a50725117b8d64"
         },
         "inputs": [
           "book/graph/mappings/runtime_cuts/ops.json",
@@ -2412,8 +2438,8 @@
         ],
         "mismatch_summary": {
           "tags": {},
-          "total_disallowed_mismatches": 17,
-          "total_mismatches": 17
+          "total_disallowed_mismatches": 13,
+          "total_mismatches": 13
         },
         "mismatches": [
           {
@@ -2433,27 +2459,11 @@
             "op_name": "file-read*"
           },
           {
-            "expectation_id": "sys:airlock:read_/etc/hosts",
-            "op_name": "file-read*"
-          },
-          {
-            "expectation_id": "sys:airlock:read_/tmp/foo",
-            "op_name": "file-read*"
-          },
-          {
             "expectation_id": "adv:path_edges:write-subpath",
             "op_name": "file-write*"
           },
           {
             "expectation_id": "adv:path_edges:write-tmp",
-            "op_name": "file-write*"
-          },
-          {
-            "expectation_id": "sys:airlock:write_/etc/hosts",
-            "op_name": "file-write*"
-          },
-          {
-            "expectation_id": "sys:airlock:write_/tmp/foo",
             "op_name": "file-write*"
           },
           {
@@ -2495,12 +2505,12 @@
               "book/experiments/anchor-filter-map/out/promotion_packet.json": "3da1176b548091e31d9bed8c9e73bd7c77dc5f8d5b12665ca6a762c27c6e5b13",
               "book/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json": "654bb48411211bff7809e5df650b87a89e2dc5d9904858c69b493abf74464dd2",
               "book/experiments/hardened-runtime/out/promotion_packet.json": "5d8f999c2b9f86e80038f61324ca87fc8bb8e72300bc0ee8ce7dc323e821c1b7",
-              "book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/run_manifest.json": "0d5510b8b41d3f748ae7a1950e369864e5240bc6e644479f2d62e0f02c7cefab",
-              "book/experiments/runtime-adversarial/out/promotion_packet.json": "e338dbc59abb3e9c2da39371d9cddf4fedb9b3882d8fae092c738c300afef0c0",
+              "book/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/run_manifest.json": "89e1ec26c520f774d30f5e095e98cf05236c1406090219dd29d8a5ca44c22dfe",
+              "book/experiments/runtime-adversarial/out/promotion_packet.json": "ff61d1d7c79bcf95057d1443b1f6e6ec848340c1cd80673ff734c4f975500a23",
               "book/experiments/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json": "8c042b30534d5129f1879a78d756922d2ef3fa40a002ca23ef1bf8dc27c3676e",
               "book/experiments/runtime-checks/out/promotion_packet.json": "662297e9f76b45fe433c47a3b882f2e59c020323ec967a76b0a972cc28dc7f95",
-              "book/graph/mappings/runtime_cuts/ops.json": "2b0a44d9f9d8b3ae72ad51b7f3b3b4b42caa11093cf16cbd5feaf1669ef24e4a",
-              "book/graph/mappings/runtime_cuts/scenarios.json": "86848b3ff1b4f8458d094f3d0dda53e8cd3524dd9c54b9a20008ee1470adae04"
+              "book/graph/mappings/runtime_cuts/ops.json": "84c22d3f674a3bf7a0f3848706bb8399ec8c0e9d5ee7f177ba3a6369db620950",
+              "book/graph/mappings/runtime_cuts/scenarios.json": "259a1d3c9558d63be440e2d76e0786a2ef150ba4187d47b7f0a50725117b8d64"
             },
             "inputs": [
               "book/graph/mappings/runtime_cuts/ops.json",
@@ -2515,21 +2525,21 @@
             "run_provenance": {
               "manifests": [
                 "book/experiments/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json",
-                "book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/run_manifest.json",
+                "book/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/run_manifest.json",
                 "book/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json",
                 "book/experiments/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/run_manifest.json",
                 "book/experiments/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/run_manifest.json"
               ],
               "repo_root_contexts": [
                 "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1e641b64-6267-47df-b1c3-b320aa90e675",
-                "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.ec3df76c-6559-421b-8203-c32709667ffc",
+                "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.738fc3d0-1d12-4608-9a97-90addfbc8d4c",
                 "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.62456e46-0901-4345-b02d-f96becc33310",
                 "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.fa90bf31-b6a2-4a0b-bced-78d77be2b89f",
                 "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.83c8343f-44ca-452a-be49-470fb0b5fd3d"
               ],
               "run_ids": [
                 "1e641b64-6267-47df-b1c3-b320aa90e675",
-                "ec3df76c-6559-421b-8203-c32709667ffc",
+                "738fc3d0-1d12-4608-9a97-90addfbc8d4c",
                 "62456e46-0901-4345-b02d-f96becc33310",
                 "fa90bf31-b6a2-4a0b-bced-78d77be2b89f",
                 "83c8343f-44ca-452a-be49-470fb0b5fd3d"
@@ -2558,12 +2568,12 @@
           "book/experiments/anchor-filter-map/out/promotion_packet.json": "3da1176b548091e31d9bed8c9e73bd7c77dc5f8d5b12665ca6a762c27c6e5b13",
           "book/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json": "654bb48411211bff7809e5df650b87a89e2dc5d9904858c69b493abf74464dd2",
           "book/experiments/hardened-runtime/out/promotion_packet.json": "5d8f999c2b9f86e80038f61324ca87fc8bb8e72300bc0ee8ce7dc323e821c1b7",
-          "book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/run_manifest.json": "0d5510b8b41d3f748ae7a1950e369864e5240bc6e644479f2d62e0f02c7cefab",
-          "book/experiments/runtime-adversarial/out/promotion_packet.json": "e338dbc59abb3e9c2da39371d9cddf4fedb9b3882d8fae092c738c300afef0c0",
+          "book/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/run_manifest.json": "89e1ec26c520f774d30f5e095e98cf05236c1406090219dd29d8a5ca44c22dfe",
+          "book/experiments/runtime-adversarial/out/promotion_packet.json": "ff61d1d7c79bcf95057d1443b1f6e6ec848340c1cd80673ff734c4f975500a23",
           "book/experiments/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json": "8c042b30534d5129f1879a78d756922d2ef3fa40a002ca23ef1bf8dc27c3676e",
           "book/experiments/runtime-checks/out/promotion_packet.json": "662297e9f76b45fe433c47a3b882f2e59c020323ec967a76b0a972cc28dc7f95",
-          "book/graph/mappings/runtime_cuts/ops.json": "2b0a44d9f9d8b3ae72ad51b7f3b3b4b42caa11093cf16cbd5feaf1669ef24e4a",
-          "book/graph/mappings/runtime_cuts/scenarios.json": "86848b3ff1b4f8458d094f3d0dda53e8cd3524dd9c54b9a20008ee1470adae04"
+          "book/graph/mappings/runtime_cuts/ops.json": "84c22d3f674a3bf7a0f3848706bb8399ec8c0e9d5ee7f177ba3a6369db620950",
+          "book/graph/mappings/runtime_cuts/scenarios.json": "259a1d3c9558d63be440e2d76e0786a2ef150ba4187d47b7f0a50725117b8d64"
         },
         "inputs": [
           "book/graph/mappings/runtime_cuts/ops.json",
@@ -2578,21 +2588,21 @@
         "run_provenance": {
           "manifests": [
             "book/experiments/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json",
-            "book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/run_manifest.json",
+            "book/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/run_manifest.json",
             "book/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json",
             "book/experiments/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/run_manifest.json",
             "book/experiments/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/run_manifest.json"
           ],
           "repo_root_contexts": [
             "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1e641b64-6267-47df-b1c3-b320aa90e675",
-            "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.ec3df76c-6559-421b-8203-c32709667ffc",
+            "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.738fc3d0-1d12-4608-9a97-90addfbc8d4c",
             "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.62456e46-0901-4345-b02d-f96becc33310",
             "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.fa90bf31-b6a2-4a0b-bced-78d77be2b89f",
             "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.83c8343f-44ca-452a-be49-470fb0b5fd3d"
           ],
           "run_ids": [
             "1e641b64-6267-47df-b1c3-b320aa90e675",
-            "ec3df76c-6559-421b-8203-c32709667ffc",
+            "738fc3d0-1d12-4608-9a97-90addfbc8d4c",
             "62456e46-0901-4345-b02d-f96becc33310",
             "fa90bf31-b6a2-4a0b-bced-78d77be2b89f",
             "83c8343f-44ca-452a-be49-470fb0b5fd3d"
@@ -2609,21 +2619,21 @@
     "run_provenance": {
       "manifests": [
         "book/experiments/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json",
-        "book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/run_manifest.json",
+        "book/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/run_manifest.json",
         "book/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json",
         "book/experiments/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/run_manifest.json",
         "book/experiments/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/run_manifest.json"
       ],
       "repo_root_contexts": [
         "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1e641b64-6267-47df-b1c3-b320aa90e675",
-        "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.ec3df76c-6559-421b-8203-c32709667ffc",
+        "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.738fc3d0-1d12-4608-9a97-90addfbc8d4c",
         "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.62456e46-0901-4345-b02d-f96becc33310",
         "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.fa90bf31-b6a2-4a0b-bced-78d77be2b89f",
         "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.83c8343f-44ca-452a-be49-470fb0b5fd3d"
       ],
       "run_ids": [
         "1e641b64-6267-47df-b1c3-b320aa90e675",
-        "ec3df76c-6559-421b-8203-c32709667ffc",
+        "738fc3d0-1d12-4608-9a97-90addfbc8d4c",
         "62456e46-0901-4345-b02d-f96becc33310",
         "fa90bf31-b6a2-4a0b-bced-78d77be2b89f",
         "83c8343f-44ca-452a-be49-470fb0b5fd3d"
@@ -2664,16 +2674,6 @@
       "scenario_id": "adv:path_edges:allow-tmp"
     },
     {
-      "expectation_id": "sys:airlock:read_/etc/hosts",
-      "op_name": "file-read*",
-      "scenario_id": "sys:airlock:read_/etc/hosts"
-    },
-    {
-      "expectation_id": "sys:airlock:read_/tmp/foo",
-      "op_name": "file-read*",
-      "scenario_id": "sys:airlock:read_/tmp/foo"
-    },
-    {
       "expectation_id": "adv:path_edges:write-subpath",
       "op_name": "file-write*",
       "scenario_id": "adv:path_edges:write-subpath"
@@ -2682,16 +2682,6 @@
       "expectation_id": "adv:path_edges:write-tmp",
       "op_name": "file-write*",
       "scenario_id": "adv:path_edges:write-tmp"
-    },
-    {
-      "expectation_id": "sys:airlock:write_/etc/hosts",
-      "op_name": "file-write*",
-      "scenario_id": "sys:airlock:write_/etc/hosts"
-    },
-    {
-      "expectation_id": "sys:airlock:write_/tmp/foo",
-      "op_name": "file-write*",
-      "scenario_id": "sys:airlock:write_/tmp/foo"
     },
     {
       "expectation_id": "anchor-filter-map:cfprefsd:C2_deny_local",
@@ -2731,37 +2721,40 @@
   ],
   "profiles_metadata": {
     "adv:file_mode": {
-      "runtime_profile": "book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/runtime_profiles/file_mode.adv_file_mode.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/file_mode.adv_file_mode.runtime.sb"
     },
     "adv:flow_divert_partial_tcp": {
-      "runtime_profile": "book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/runtime_profiles/flow_divert_partial_tcp.adv_flow_divert_partial_tcp.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/flow_divert_partial_tcp.adv_flow_divert_partial_tcp.runtime.sb"
     },
     "adv:flow_divert_require_all_tcp": {
-      "runtime_profile": "book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/runtime_profiles/flow_divert_require_all_tcp.adv_flow_divert_require_all_tcp.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/flow_divert_require_all_tcp.adv_flow_divert_require_all_tcp.runtime.sb"
+    },
+    "adv:mount_relative_path": {
+      "runtime_profile": "book/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/mount_relative_path.adv_mount_relative_path.runtime.sb"
     },
     "adv:net_outbound_allow": {
-      "runtime_profile": "book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/runtime_profiles/net_outbound_allow.adv_net_outbound_allow.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/net_outbound_allow.adv_net_outbound_allow.runtime.sb"
     },
     "adv:net_outbound_deny": {
-      "runtime_profile": "book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/runtime_profiles/net_outbound_deny.adv_net_outbound_deny.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/net_outbound_deny.adv_net_outbound_deny.runtime.sb"
     },
     "adv:path_alias": {
-      "runtime_profile": "book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/runtime_profiles/path_alias.adv_path_alias.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/path_alias.adv_path_alias.runtime.sb"
     },
     "adv:path_edges": {
-      "runtime_profile": "book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/runtime_profiles/path_edges.adv_path_edges.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/path_edges.adv_path_edges.runtime.sb"
     },
     "adv:path_edges_private": {
-      "runtime_profile": "book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/runtime_profiles/path_edges_private.adv_path_edges_private.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/path_edges_private.adv_path_edges_private.runtime.sb"
     },
     "adv:struct_flat": {
-      "runtime_profile": "book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/runtime_profiles/struct_flat.adv_struct_flat.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/struct_flat.adv_struct_flat.runtime.sb"
     },
     "adv:struct_nested": {
-      "runtime_profile": "book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/runtime_profiles/struct_nested.adv_struct_nested.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/struct_nested.adv_struct_nested.runtime.sb"
     },
     "adv:xattr": {
-      "runtime_profile": "book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/runtime_profiles/xattr.adv_xattr.runtime.sb"
+      "runtime_profile": "book/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/xattr.adv_xattr.runtime.sb"
     },
     "bucket4:v1_read": {
       "runtime_profile": "book/experiments/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb"
@@ -2828,7 +2821,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:file_mode:allow-private",
@@ -2858,7 +2852,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:file_mode:deny-world",
@@ -2888,7 +2883,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:flow_divert_partial_tcp:tcp-loopback",
@@ -2918,7 +2914,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:flow_divert_partial_tcp:tcp-loopback-2",
@@ -2948,7 +2945,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:flow_divert_require_all_tcp:tcp-loopback",
@@ -2978,7 +2976,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:flow_divert_require_all_tcp:tcp-loopback-2",
@@ -3008,7 +3007,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:mach_local_literal:allow-cfprefsd-local",
@@ -3038,7 +3038,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:mach_local_literal:deny-bogus-local",
@@ -3068,7 +3069,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:mach_local_regex:allow-cfprefsd-local",
@@ -3098,7 +3100,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:mach_local_regex:deny-bogus-local",
@@ -3128,7 +3131,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:mach_simple_allow:allow-cfprefsd",
@@ -3158,7 +3162,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:mach_simple_allow:deny-bogus",
@@ -3188,7 +3193,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:mach_simple_variants:allow-cfprefsd",
@@ -3218,10 +3224,73 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:mach_simple_variants:deny-bogus",
+      "status": "partial"
+    },
+    "adv:mount_relative_path:allow-subpath": {
+      "coverage_status": "partial",
+      "disallowed_mismatches": [],
+      "expected_row_ids": [
+        "adv:mount_relative_path:allow-subpath"
+      ],
+      "failed_probes": [],
+      "mismatches": [],
+      "op_id": 21,
+      "op_name": "file-read*",
+      "passed_probes": [
+        "adv:mount_relative_path:allow-subpath"
+      ],
+      "profile_id": "adv:mount_relative_path",
+      "results": {
+        "blocked": {
+          "by_kind": {},
+          "by_stage": {},
+          "total": 0
+        },
+        "matches": 1,
+        "mismatches": 0,
+        "status": "ok",
+        "total": 1,
+        "total_including_blocked": 1,
+        "unobserved": 0
+      },
+      "runtime_only": false,
+      "scenario_id": "adv:mount_relative_path:allow-subpath",
+      "status": "partial"
+    },
+    "adv:mount_relative_path:deny-outside": {
+      "coverage_status": "partial",
+      "disallowed_mismatches": [],
+      "expected_row_ids": [
+        "adv:mount_relative_path:deny-outside"
+      ],
+      "failed_probes": [],
+      "mismatches": [],
+      "op_id": 21,
+      "op_name": "file-read*",
+      "passed_probes": [
+        "adv:mount_relative_path:deny-outside"
+      ],
+      "profile_id": "adv:mount_relative_path",
+      "results": {
+        "blocked": {
+          "by_kind": {},
+          "by_stage": {},
+          "total": 0
+        },
+        "matches": 1,
+        "mismatches": 0,
+        "status": "ok",
+        "total": 1,
+        "total_including_blocked": 1,
+        "unobserved": 0
+      },
+      "runtime_only": false,
+      "scenario_id": "adv:mount_relative_path:deny-outside",
       "status": "partial"
     },
     "adv:net_outbound_allow:tcp-loopback": {
@@ -3248,7 +3317,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:net_outbound_allow:tcp-loopback",
@@ -3278,7 +3348,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:net_outbound_allow:tcp-loopback-2",
@@ -3308,7 +3379,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:net_outbound_deny:tcp-loopback",
@@ -3338,7 +3410,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:net_outbound_deny:tcp-loopback-2",
@@ -3385,7 +3458,8 @@
         "mismatches": 1,
         "status": "brittle",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:path_alias:alias-private",
@@ -3432,7 +3506,8 @@
         "mismatches": 1,
         "status": "brittle",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:path_alias:alias-tmp",
@@ -3479,7 +3554,8 @@
         "mismatches": 1,
         "status": "brittle",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:path_edges:allow-subpath",
@@ -3509,7 +3585,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:path_edges:allow-subpath-normalized",
@@ -3556,7 +3633,8 @@
         "mismatches": 1,
         "status": "brittle",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:path_edges:allow-tmp",
@@ -3586,7 +3664,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:path_edges:deny-dotdot",
@@ -3616,7 +3695,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:path_edges:deny-private",
@@ -3646,7 +3726,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:path_edges:write-dotdot",
@@ -3676,7 +3757,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:path_edges:write-private",
@@ -3723,7 +3805,8 @@
         "mismatches": 1,
         "status": "brittle",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:path_edges:write-subpath",
@@ -3770,7 +3853,8 @@
         "mismatches": 1,
         "status": "brittle",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:path_edges:write-tmp",
@@ -3800,7 +3884,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:path_edges_private:allow-private",
@@ -3830,7 +3915,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:path_edges_private:allow-private-subpath",
@@ -3860,7 +3946,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:path_edges_private:allow-tmp",
@@ -3890,7 +3977,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:path_edges_private:allow-tmp-subpath",
@@ -3920,7 +4008,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:path_edges_private:deny-dotdot",
@@ -3950,7 +4039,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:path_edges_private:write-dotdot",
@@ -3980,7 +4070,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:path_edges_private:write-private",
@@ -4010,7 +4101,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:path_edges_private:write-private-subpath",
@@ -4040,7 +4132,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:path_edges_private:write-tmp",
@@ -4070,7 +4163,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:path_edges_private:write-tmp-subpath",
@@ -4100,7 +4194,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:struct_flat:allow-ok-deep",
@@ -4130,7 +4225,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:struct_flat:allow-ok-root",
@@ -4160,7 +4256,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:struct_flat:deny-blocked",
@@ -4190,7 +4287,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:struct_flat:deny-outside",
@@ -4220,7 +4318,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:struct_flat:write-blocked",
@@ -4250,7 +4349,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:struct_flat:write-ok-deep",
@@ -4280,7 +4380,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:struct_flat:write-ok-root",
@@ -4310,7 +4411,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:struct_flat:write-outside",
@@ -4340,7 +4442,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:struct_nested:allow-ok-deep",
@@ -4370,7 +4473,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:struct_nested:allow-ok-root",
@@ -4400,7 +4504,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:struct_nested:deny-blocked",
@@ -4430,7 +4535,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:struct_nested:deny-outside",
@@ -4460,7 +4566,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:struct_nested:write-blocked",
@@ -4490,7 +4597,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:struct_nested:write-ok-deep",
@@ -4520,7 +4628,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:struct_nested:write-ok-root",
@@ -4550,7 +4659,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:struct_nested:write-outside",
@@ -4580,7 +4690,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:xattr:allow-foo-read",
@@ -4610,7 +4721,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:xattr:allow-foo-write",
@@ -4640,7 +4752,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:xattr:deny-bar-read",
@@ -4670,7 +4783,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "adv:xattr:deny-bar-write",
@@ -4700,7 +4814,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "allow_all|file-read*|/etc/hosts",
@@ -4730,7 +4845,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "allow_all|file-read*|/tmp/sbpl_rt/read.txt",
@@ -4760,7 +4876,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "allow_all|file-write*|/tmp/sbpl_rt/write.txt",
@@ -4790,7 +4907,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "anchor-filter-map:cfprefsd:C1_deny_global",
@@ -4837,7 +4955,8 @@
         "mismatches": 1,
         "status": "brittle",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "anchor-filter-map:cfprefsd:C2_deny_local",
@@ -4867,7 +4986,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "anchor-filter-map:cfprefsd:N1_deny_default",
@@ -4897,7 +5017,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "anchor-filter-map:cfprefsd:S0_allow_any",
@@ -4927,7 +5048,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "anchor-filter-map:cfprefsd:S1_allow_global",
@@ -4974,7 +5096,8 @@
         "mismatches": 1,
         "status": "brittle",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "anchor-filter-map:cfprefsd:S2_allow_local",
@@ -5004,7 +5127,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "anchor-filter-map:cfprefsd:S3_allow_both",
@@ -5034,7 +5158,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "anchor-filter-map:cfprefsd:bogus_baseline",
@@ -5064,7 +5189,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "anchor-filter-map:iokit_class:C1_deny_class",
@@ -5094,7 +5220,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "anchor-filter-map:iokit_class:C2_deny_property_literal",
@@ -5124,7 +5251,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "anchor-filter-map:iokit_class:N1_deny_default",
@@ -5171,7 +5299,8 @@
         "mismatches": 1,
         "status": "brittle",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "anchor-filter-map:iokit_class:S0_allow_any",
@@ -5218,7 +5347,8 @@
         "mismatches": 1,
         "status": "brittle",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "anchor-filter-map:iokit_class:S1_allow_class",
@@ -5265,7 +5395,8 @@
         "mismatches": 1,
         "status": "brittle",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "anchor-filter-map:iokit_class:S2_allow_property_literal",
@@ -5312,7 +5443,8 @@
         "mismatches": 1,
         "status": "brittle",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "anchor-filter-map:iokit_class:S3_allow_both",
@@ -5342,7 +5474,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "anchor-filter-map:iokit_class:bogus_baseline",
@@ -5372,7 +5505,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "bucket4:v1_read:read_/etc/hosts",
@@ -5402,7 +5536,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "bucket4:v1_read:read_/tmp/foo",
@@ -5432,7 +5567,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "bucket4:v1_read:write_/etc/hosts",
@@ -5462,7 +5598,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "bucket5:v11_read_subpath:read_/tmp/bar",
@@ -5492,7 +5629,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "bucket5:v11_read_subpath:read_/tmp/foo",
@@ -5522,7 +5660,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "bucket5:v11_read_subpath:write_/tmp/foo",
@@ -5552,7 +5691,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "hardened:mach_lookup:deny-bogus",
@@ -5599,7 +5739,8 @@
         "mismatches": 1,
         "status": "brittle",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "hardened:mach_lookup:deny-cfprefsd",
@@ -5629,7 +5770,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "hardened:mach_lookup_allow:allow-cfprefsd",
@@ -5659,7 +5801,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "hardened:notifications:deny-allowed-darwin",
@@ -5689,7 +5832,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "hardened:notifications:deny-allowed-distributed",
@@ -5719,7 +5863,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "hardened:notifications:deny-darwin",
@@ -5749,7 +5894,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "hardened:notifications:deny-distributed",
@@ -5779,7 +5925,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "hardened:notifications_allow:allow-darwin",
@@ -5809,7 +5956,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "hardened:notifications_allow:allow-distributed",
@@ -5839,7 +5987,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "hardened:process_info_allow:pidinfo-init",
@@ -5869,7 +6018,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "hardened:process_info_allow:pidinfo-self",
@@ -5899,7 +6049,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "hardened:process_info_allow_canary:pidinfo-self",
@@ -5929,7 +6080,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "hardened:process_info_deny:pidinfo-init",
@@ -5959,7 +6111,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "hardened:process_info_deny:pidinfo-self",
@@ -5989,7 +6142,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "hardened:signal_self_allow:signal-same-sandbox",
@@ -6019,7 +6173,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "hardened:signal_self_deny:signal-same-sandbox",
@@ -6049,7 +6204,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "hardened:sysctl_read:deny-kern-bootargs",
@@ -6079,7 +6235,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "hardened:sysctl_read:deny-kern-osrelease",
@@ -6109,7 +6266,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "hardened:sysctl_read_allow:allow-kern-ostype",
@@ -6139,7 +6297,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "metafilter_any|file-read*|/tmp/bar.txt",
@@ -6169,7 +6328,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "metafilter_any|file-read*|/tmp/baz.txt",
@@ -6199,7 +6359,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "metafilter_any|file-read*|/tmp/foo.txt",
@@ -6229,7 +6390,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "metafilter_any|file-read*|/tmp/qux.txt",
@@ -6259,7 +6421,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "metafilter_any|file-write*|/tmp/baz.txt",
@@ -6289,7 +6452,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "runtime:strict_1:read_hosts",
@@ -6319,7 +6483,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "runtime:strict_1:read_ok",
@@ -6349,7 +6514,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "runtime:strict_1:write_hosts",
@@ -6379,7 +6545,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "runtime:strict_1:write_ok",
@@ -6387,34 +6554,17 @@
     },
     "sys:airlock:read_/etc/hosts": {
       "coverage_status": "partial",
-      "disallowed_mismatches": [
-        "sys:airlock:read_/etc/hosts"
-      ],
+      "disallowed_mismatches": [],
       "expected_row_ids": [
         "sys:airlock:read_/etc/hosts"
       ],
-      "failed_probes": [
-        {
-          "actual": null,
-          "allowed": false,
-          "expectation_id": "sys:airlock:read_/etc/hosts",
-          "expected": "deny",
-          "failure_kind": "preflight_apply_gate_signature",
-          "failure_stage": "preflight",
-          "mismatch_type": "preflight_blocked",
-          "operation": "file-read*",
-          "stderr": "",
-          "tags": [],
-          "target": "/etc/hosts",
-          "violation_summary": null
-        }
-      ],
-      "mismatches": [
-        "sys:airlock:read_/etc/hosts"
-      ],
+      "failed_probes": [],
+      "mismatches": [],
       "op_id": 21,
       "op_name": "file-read*",
-      "passed_probes": [],
+      "passed_probes": [
+        "sys:airlock:read_/etc/hosts"
+      ],
       "profile_id": "sys:airlock",
       "results": {
         "blocked": {
@@ -6430,7 +6580,8 @@
         "mismatches": 0,
         "status": "blocked",
         "total": 0,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "sys:airlock:read_/etc/hosts",
@@ -6438,34 +6589,17 @@
     },
     "sys:airlock:read_/tmp/foo": {
       "coverage_status": "partial",
-      "disallowed_mismatches": [
-        "sys:airlock:read_/tmp/foo"
-      ],
+      "disallowed_mismatches": [],
       "expected_row_ids": [
         "sys:airlock:read_/tmp/foo"
       ],
-      "failed_probes": [
-        {
-          "actual": null,
-          "allowed": false,
-          "expectation_id": "sys:airlock:read_/tmp/foo",
-          "expected": "deny",
-          "failure_kind": "preflight_apply_gate_signature",
-          "failure_stage": "preflight",
-          "mismatch_type": "preflight_blocked",
-          "operation": "file-read*",
-          "stderr": "",
-          "tags": [],
-          "target": "/tmp/foo",
-          "violation_summary": null
-        }
-      ],
-      "mismatches": [
-        "sys:airlock:read_/tmp/foo"
-      ],
+      "failed_probes": [],
+      "mismatches": [],
       "op_id": 21,
       "op_name": "file-read*",
-      "passed_probes": [],
+      "passed_probes": [
+        "sys:airlock:read_/tmp/foo"
+      ],
       "profile_id": "sys:airlock",
       "results": {
         "blocked": {
@@ -6481,7 +6615,8 @@
         "mismatches": 0,
         "status": "blocked",
         "total": 0,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "sys:airlock:read_/tmp/foo",
@@ -6489,34 +6624,17 @@
     },
     "sys:airlock:write_/etc/hosts": {
       "coverage_status": "partial",
-      "disallowed_mismatches": [
-        "sys:airlock:write_/etc/hosts"
-      ],
+      "disallowed_mismatches": [],
       "expected_row_ids": [
         "sys:airlock:write_/etc/hosts"
       ],
-      "failed_probes": [
-        {
-          "actual": null,
-          "allowed": false,
-          "expectation_id": "sys:airlock:write_/etc/hosts",
-          "expected": "deny",
-          "failure_kind": "preflight_apply_gate_signature",
-          "failure_stage": "preflight",
-          "mismatch_type": "preflight_blocked",
-          "operation": "file-write*",
-          "stderr": "",
-          "tags": [],
-          "target": "/etc/hosts",
-          "violation_summary": null
-        }
-      ],
-      "mismatches": [
-        "sys:airlock:write_/etc/hosts"
-      ],
+      "failed_probes": [],
+      "mismatches": [],
       "op_id": 29,
       "op_name": "file-write*",
-      "passed_probes": [],
+      "passed_probes": [
+        "sys:airlock:write_/etc/hosts"
+      ],
       "profile_id": "sys:airlock",
       "results": {
         "blocked": {
@@ -6532,7 +6650,8 @@
         "mismatches": 0,
         "status": "blocked",
         "total": 0,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "sys:airlock:write_/etc/hosts",
@@ -6540,34 +6659,17 @@
     },
     "sys:airlock:write_/tmp/foo": {
       "coverage_status": "partial",
-      "disallowed_mismatches": [
-        "sys:airlock:write_/tmp/foo"
-      ],
+      "disallowed_mismatches": [],
       "expected_row_ids": [
         "sys:airlock:write_/tmp/foo"
       ],
-      "failed_probes": [
-        {
-          "actual": null,
-          "allowed": false,
-          "expectation_id": "sys:airlock:write_/tmp/foo",
-          "expected": "deny",
-          "failure_kind": "preflight_apply_gate_signature",
-          "failure_stage": "preflight",
-          "mismatch_type": "preflight_blocked",
-          "operation": "file-write*",
-          "stderr": "",
-          "tags": [],
-          "target": "/tmp/foo",
-          "violation_summary": null
-        }
-      ],
-      "mismatches": [
-        "sys:airlock:write_/tmp/foo"
-      ],
+      "failed_probes": [],
+      "mismatches": [],
       "op_id": 29,
       "op_name": "file-write*",
-      "passed_probes": [],
+      "passed_probes": [
+        "sys:airlock:write_/tmp/foo"
+      ],
       "profile_id": "sys:airlock",
       "results": {
         "blocked": {
@@ -6583,7 +6685,8 @@
         "mismatches": 0,
         "status": "blocked",
         "total": 0,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "sys:airlock:write_/tmp/foo",
@@ -6613,7 +6716,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "sys:bsd:read_/etc/hosts",
@@ -6643,7 +6747,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "sys:bsd:read_/tmp/foo",
@@ -6673,7 +6778,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "sys:bsd:write_/etc/hosts",
@@ -6703,7 +6809,8 @@
         "mismatches": 0,
         "status": "ok",
         "total": 1,
-        "total_including_blocked": 1
+        "total_including_blocked": 1,
+        "unobserved": 0
       },
       "runtime_only": false,
       "scenario_id": "sys:bsd:write_/tmp/foo",
@@ -6738,6 +6845,10 @@
     "adv:mach_simple_variants": {
       "allow-cfprefsd": "allow",
       "deny-bogus": "deny"
+    },
+    "adv:mount_relative_path": {
+      "allow-subpath": "allow",
+      "deny-outside": "deny"
     },
     "adv:net_outbound_allow": {
       "tcp-loopback": "allow",
@@ -6914,10 +7025,10 @@
       "write_ok": "allow"
     },
     "sys:airlock": {
-      "read_/etc/hosts": null,
-      "read_/tmp/foo": null,
-      "write_/etc/hosts": null,
-      "write_/tmp/foo": null
+      "read_/etc/hosts": "deny",
+      "read_/tmp/foo": "deny",
+      "write_/etc/hosts": "deny",
+      "write_/tmp/foo": "deny"
     },
     "sys:bsd": {
       "read_/etc/hosts": "deny",

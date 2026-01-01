@@ -10,12 +10,12 @@
   },
   "phase_histograms": {
     "overall": {
-      "total": 120,
+      "total": 122,
       "stages": {
         "apply": 0,
         "bootstrap": 0,
         "preflight": 4,
-        "probe": 116
+        "probe": 118
       },
       "blocked": {
         "total": 4,
@@ -27,10 +27,11 @@
         }
       },
       "probe": {
-        "total": 116,
-        "allow": 51,
-        "deny": 65,
-        "mismatches": 13
+        "total": 118,
+        "allow": 52,
+        "deny": 66,
+        "mismatches": 13,
+        "unobserved": 0
       }
     },
     "by_family": {
@@ -51,7 +52,8 @@
           "total": 3,
           "allow": 2,
           "deny": 1,
-          "mismatches": 0
+          "mismatches": 0,
+          "unobserved": 0
         }
       },
       "bucket5": {
@@ -71,7 +73,8 @@
           "total": 3,
           "allow": 1,
           "deny": 2,
-          "mismatches": 0
+          "mismatches": 0,
+          "unobserved": 0
         }
       },
       "runtime": {
@@ -91,7 +94,8 @@
           "total": 12,
           "allow": 8,
           "deny": 4,
-          "mismatches": 0
+          "mismatches": 0,
+          "unobserved": 0
         }
       },
       "sys": {
@@ -115,7 +119,8 @@
           "total": 4,
           "allow": 0,
           "deny": 4,
-          "mismatches": 0
+          "mismatches": 0,
+          "unobserved": 0
         }
       },
       "network": {
@@ -135,7 +140,8 @@
           "total": 8,
           "allow": 6,
           "deny": 2,
-          "mismatches": 0
+          "mismatches": 0,
+          "unobserved": 0
         }
       },
       "mach_local": {
@@ -155,7 +161,8 @@
           "total": 4,
           "allow": 2,
           "deny": 2,
-          "mismatches": 0
+          "mismatches": 0,
+          "unobserved": 0
         }
       },
       "mach_variants": {
@@ -175,7 +182,8 @@
           "total": 4,
           "allow": 2,
           "deny": 2,
-          "mismatches": 0
+          "mismatches": 0,
+          "unobserved": 0
         }
       },
       "path_alias": {
@@ -195,7 +203,8 @@
           "total": 2,
           "allow": 0,
           "deny": 2,
-          "mismatches": 2
+          "mismatches": 2,
+          "unobserved": 0
         }
       },
       "path_edges": {
@@ -215,7 +224,8 @@
           "total": 19,
           "allow": 8,
           "deny": 11,
-          "mismatches": 4
+          "mismatches": 4,
+          "unobserved": 0
         }
       },
       "structural_variants": {
@@ -235,7 +245,29 @@
           "total": 16,
           "allow": 8,
           "deny": 8,
-          "mismatches": 0
+          "mismatches": 0,
+          "unobserved": 0
+        }
+      },
+      "mount_relative_path": {
+        "total": 2,
+        "stages": {
+          "apply": 0,
+          "bootstrap": 0,
+          "preflight": 0,
+          "probe": 2
+        },
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "probe": {
+          "total": 2,
+          "allow": 1,
+          "deny": 1,
+          "mismatches": 0,
+          "unobserved": 0
         }
       },
       "xattr": {
@@ -255,7 +287,8 @@
           "total": 4,
           "allow": 2,
           "deny": 2,
-          "mismatches": 0
+          "mismatches": 0,
+          "unobserved": 0
         }
       },
       "file_mode": {
@@ -275,7 +308,8 @@
           "total": 2,
           "allow": 1,
           "deny": 1,
-          "mismatches": 0
+          "mismatches": 0,
+          "unobserved": 0
         }
       },
       "mach_lookup": {
@@ -295,7 +329,8 @@
           "total": 11,
           "allow": 6,
           "deny": 5,
-          "mismatches": 3
+          "mismatches": 3,
+          "unobserved": 0
         }
       },
       "notifications": {
@@ -315,7 +350,8 @@
           "total": 6,
           "allow": 2,
           "deny": 4,
-          "mismatches": 0
+          "mismatches": 0,
+          "unobserved": 0
         }
       },
       "process_info": {
@@ -335,7 +371,8 @@
           "total": 5,
           "allow": 1,
           "deny": 4,
-          "mismatches": 0
+          "mismatches": 0,
+          "unobserved": 0
         }
       },
       "signal": {
@@ -355,7 +392,8 @@
           "total": 2,
           "allow": 1,
           "deny": 1,
-          "mismatches": 0
+          "mismatches": 0,
+          "unobserved": 0
         }
       },
       "sysctl_read": {
@@ -375,7 +413,8 @@
           "total": 3,
           "allow": 1,
           "deny": 2,
-          "mismatches": 0
+          "mismatches": 0,
+          "unobserved": 0
         }
       },
       "iokit_open": {
@@ -395,7 +434,8 @@
           "total": 8,
           "allow": 0,
           "deny": 8,
-          "mismatches": 4
+          "mismatches": 4,
+          "unobserved": 0
         }
       }
     }
@@ -418,6 +458,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -447,6 +488,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -476,6 +518,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -505,6 +548,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -534,6 +578,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -563,6 +608,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -592,6 +638,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -621,6 +668,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -650,6 +698,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -679,6 +728,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -708,6 +758,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -737,6 +788,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -766,6 +818,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -795,6 +848,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -824,6 +878,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -853,6 +908,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -882,6 +938,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -911,6 +968,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -940,6 +998,7 @@
         "total": 0,
         "matches": 0,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 1,
@@ -952,20 +1011,7 @@
         },
         "status": "blocked"
       },
-      "mismatches": [
-        {
-          "expectation_id": "sys:airlock:read_/etc/hosts",
-          "expected": "deny",
-          "actual": null,
-          "operation": "file-read*",
-          "target": "/etc/hosts",
-          "failure_stage": "preflight",
-          "failure_kind": "preflight_apply_gate_signature",
-          "mismatch_type": "preflight_blocked",
-          "violation_summary": null,
-          "stderr": ""
-        }
-      ],
+      "mismatches": [],
       "impact": null,
       "scenario_id": "sys:airlock:read_/etc/hosts"
     },
@@ -986,6 +1032,7 @@
         "total": 0,
         "matches": 0,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 1,
@@ -998,20 +1045,7 @@
         },
         "status": "blocked"
       },
-      "mismatches": [
-        {
-          "expectation_id": "sys:airlock:write_/etc/hosts",
-          "expected": "deny",
-          "actual": null,
-          "operation": "file-write*",
-          "target": "/etc/hosts",
-          "failure_stage": "preflight",
-          "failure_kind": "preflight_apply_gate_signature",
-          "mismatch_type": "preflight_blocked",
-          "violation_summary": null,
-          "stderr": ""
-        }
-      ],
+      "mismatches": [],
       "impact": null,
       "scenario_id": "sys:airlock:write_/etc/hosts"
     },
@@ -1032,6 +1066,7 @@
         "total": 0,
         "matches": 0,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 1,
@@ -1044,20 +1079,7 @@
         },
         "status": "blocked"
       },
-      "mismatches": [
-        {
-          "expectation_id": "sys:airlock:read_/tmp/foo",
-          "expected": "deny",
-          "actual": null,
-          "operation": "file-read*",
-          "target": "/tmp/foo",
-          "failure_stage": "preflight",
-          "failure_kind": "preflight_apply_gate_signature",
-          "mismatch_type": "preflight_blocked",
-          "violation_summary": null,
-          "stderr": ""
-        }
-      ],
+      "mismatches": [],
       "impact": null,
       "scenario_id": "sys:airlock:read_/tmp/foo"
     },
@@ -1078,6 +1100,7 @@
         "total": 0,
         "matches": 0,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 1,
@@ -1090,20 +1113,7 @@
         },
         "status": "blocked"
       },
-      "mismatches": [
-        {
-          "expectation_id": "sys:airlock:write_/tmp/foo",
-          "expected": "deny",
-          "actual": null,
-          "operation": "file-write*",
-          "target": "/tmp/foo",
-          "failure_stage": "preflight",
-          "failure_kind": "preflight_apply_gate_signature",
-          "mismatch_type": "preflight_blocked",
-          "violation_summary": null,
-          "stderr": ""
-        }
-      ],
+      "mismatches": [],
       "impact": null,
       "scenario_id": "sys:airlock:write_/tmp/foo"
     },
@@ -1124,6 +1134,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -1153,6 +1164,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -1182,6 +1194,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -1211,6 +1224,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -1240,6 +1254,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -1269,6 +1284,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -1298,6 +1314,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -1327,6 +1344,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -1356,6 +1374,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -1385,6 +1404,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -1414,6 +1434,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -1443,6 +1464,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -1472,6 +1494,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -1501,6 +1524,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -1530,6 +1554,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -1559,6 +1584,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -1588,6 +1614,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -1617,6 +1644,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -1646,6 +1674,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -1675,6 +1704,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -1704,6 +1734,7 @@
         "total": 1,
         "matches": 0,
         "mismatches": 1,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -1746,6 +1777,7 @@
         "total": 1,
         "matches": 0,
         "mismatches": 1,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -1788,6 +1820,7 @@
         "total": 1,
         "matches": 0,
         "mismatches": 1,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -1830,6 +1863,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -1859,6 +1893,7 @@
         "total": 1,
         "matches": 0,
         "mismatches": 1,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -1901,6 +1936,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -1930,6 +1966,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -1959,6 +1996,7 @@
         "total": 1,
         "matches": 0,
         "mismatches": 1,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -2001,6 +2039,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -2030,6 +2069,7 @@
         "total": 1,
         "matches": 0,
         "mismatches": 1,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -2072,6 +2112,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -2101,6 +2142,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -2130,6 +2172,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -2159,6 +2202,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -2188,6 +2232,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -2217,6 +2262,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -2246,6 +2292,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -2275,6 +2322,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -2304,6 +2352,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -2333,6 +2382,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -2362,6 +2412,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -2391,6 +2442,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -2420,6 +2472,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -2449,6 +2502,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -2478,6 +2532,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -2507,6 +2562,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -2536,6 +2592,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -2565,6 +2622,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -2594,6 +2652,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -2623,6 +2682,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -2652,6 +2712,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -2681,6 +2742,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -2710,6 +2772,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -2739,6 +2802,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -2768,6 +2832,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -2797,6 +2862,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -2826,6 +2892,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -2837,6 +2904,66 @@
       "mismatches": [],
       "impact": null,
       "scenario_id": "adv:path_edges_private:write-dotdot"
+    },
+    "adv:mount_relative_path:allow-subpath": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:mount_relative_path",
+      "expectations": [
+        {
+          "expectation_id": "adv:mount_relative_path:allow-subpath",
+          "profile_id": "adv:mount_relative_path",
+          "operation": "file-read*",
+          "target": "/private/tmp/runtime-adv/mountrel/allowed.txt",
+          "expected": "allow",
+          "probe_name": "allow-subpath"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:mount_relative_path:allow-subpath"
+    },
+    "adv:mount_relative_path:deny-outside": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "adv:mount_relative_path",
+      "expectations": [
+        {
+          "expectation_id": "adv:mount_relative_path:deny-outside",
+          "profile_id": "adv:mount_relative_path",
+          "operation": "file-read*",
+          "target": "/private/tmp/runtime-adv/mountrel_outside/blocked.txt",
+          "expected": "deny",
+          "probe_name": "deny-outside"
+        }
+      ],
+      "results": {
+        "total": 1,
+        "matches": 1,
+        "mismatches": 0,
+        "unobserved": 0,
+        "total_including_blocked": 1,
+        "blocked": {
+          "total": 0,
+          "by_stage": {},
+          "by_kind": {}
+        },
+        "status": "ok"
+      },
+      "mismatches": [],
+      "impact": null,
+      "scenario_id": "adv:mount_relative_path:deny-outside"
     },
     "adv:xattr:allow-foo-read": {
       "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
@@ -2855,6 +2982,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -2884,6 +3012,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -2913,6 +3042,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -2942,6 +3072,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -2971,6 +3102,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -3000,6 +3132,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -3029,6 +3162,7 @@
         "total": 1,
         "matches": 0,
         "mismatches": 1,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -3071,6 +3205,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -3100,6 +3235,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -3129,6 +3265,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -3158,6 +3295,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -3187,6 +3325,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -3216,6 +3355,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -3245,6 +3385,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -3274,6 +3415,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -3303,6 +3445,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -3332,6 +3475,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -3361,6 +3505,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -3390,6 +3535,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -3419,6 +3565,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -3448,6 +3595,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -3477,6 +3625,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -3506,6 +3655,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -3535,6 +3685,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -3564,6 +3715,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -3593,6 +3745,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -3622,6 +3775,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -3651,6 +3805,7 @@
         "total": 1,
         "matches": 0,
         "mismatches": 1,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -3693,6 +3848,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -3722,6 +3878,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -3751,6 +3908,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -3780,6 +3938,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -3809,6 +3968,7 @@
         "total": 1,
         "matches": 0,
         "mismatches": 1,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -3851,6 +4011,7 @@
         "total": 1,
         "matches": 0,
         "mismatches": 1,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -3893,6 +4054,7 @@
         "total": 1,
         "matches": 0,
         "mismatches": 1,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -3935,6 +4097,7 @@
         "total": 1,
         "matches": 0,
         "mismatches": 1,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -3977,6 +4140,7 @@
         "total": 1,
         "matches": 0,
         "mismatches": 1,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -4019,6 +4183,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -4048,6 +4213,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -4077,6 +4243,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,
@@ -4106,6 +4273,7 @@
         "total": 1,
         "matches": 1,
         "mismatches": 0,
+        "unobserved": 0,
         "total_including_blocked": 1,
         "blocked": {
           "total": 0,

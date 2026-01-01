@@ -22,6 +22,7 @@ The bundle lifecycle is recorded in `run_status.json`:
 - `state=in_progress` – the run is still writing; strict consumers must refuse to load (no stable contract)
 - `state=complete` – the run finished its main work and recorded a final status (the commit barrier is still `artifact_index.json`)
 - `state=failed` – the run failed; an index may still exist for debugging
+- optional `launchctl_diagnostics` – repo-relative pointer for `launchd_clean` diagnostics (when available)
 
 The commit barrier is `artifact_index.json`. A bundle is considered **committed** once `artifact_index.json` exists in the run-scoped directory. `out/LATEST` is updated only after this commit step.
 
@@ -51,8 +52,19 @@ Two supported read modes exist:
 - `observed_path` (kernel-reported FD spelling via `F_GETPATH`, when available),
 - `observed_path_nofirmlink` (alternate FD spelling via `F_GETPATH_NOFIRMLINK`, when available),
 - and `normalized_path` (a conservative join key derived from the fields above).
+- `canonicalization.alias_pair` / `canonicalization.nofirmlink_differs` flags to
+  keep alias and firmlink distinctions visible without re-deriving them.
 
 This IR exists so VFS canonicalization work can be expressed as stable inputs/outputs without embedding ad-hoc stderr parsing in experiments.
+
+### 1.6 Normalized runtime events (`runtime_events.normalized.json`)
+
+Normalized runtime events include lane attribution and confounder hints:
+
+- `policy_layers` (platform vs process policy decisions).
+- `tcc_confounder` and `file_confounder` (errno-based hints such as `EPERM` vs `EACCES`).
+- `intended_op_witnessed` to distinguish observed operations from attempts.
+- `resource_hygiene` to flag pre-opened resources that can bias outcomes.
 
 ## 2) Promotion packet contract
 

@@ -181,6 +181,8 @@ def classify_mismatches(
         runtime_result = contract.upgrade_runtime_result(probe.get("runtime_result") or {}, probe.get("stderr"))
         failure_stage = runtime_result.get("failure_stage")
         failure_kind = runtime_result.get("failure_kind")
+        if runtime_result.get("intended_op_witnessed") is False:
+            return "op_not_witnessed"
         if failure_stage == "preflight":
             return "preflight_blocked"
         if failure_stage == "apply":

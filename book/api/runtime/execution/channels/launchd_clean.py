@@ -42,6 +42,7 @@ from pathlib import Path
 from typing import Iterable, Optional
 
 from book.api import path_utils
+from book.api.runtime.bundles import writer as bundle_writer
 
 from .spec import ChannelSpec
 
@@ -98,7 +99,20 @@ def _build_plist(
     # an older toolchain python). Prefer the staged repo's venv python when present,
     # else fall back to the caller's interpreter.
     staged_venv_python = repo_root / VENV_PYTHON
-    program = str(staged_venv_python if staged_venv_python.exists() else sys.executable)
+    if staged_venv_python.exists():
+        program = str(staged_venv_python)
+    else:
+        candidate = Path(sys.executable)
+        # When the repo lives under Desktop/Documents, the launchd worker may not
+        # have TCC access to the venv path. Prefer the resolved base interpreter
+        # when the candidate lives under the repo root or user home.
+        repo_root_abs = REPO_ROOT
+        home_root = Path.home()
+        if repo_root_abs in candidate.parents or home_root in candidate.parents:
+            resolved = Path(os.path.realpath(candidate))
+            if resolved.exists():
+                candidate = resolved
+        program = str(candidate)
     args = [program, "-m", "book.api.runtime", "run", "--plan", str(plan_path), "--out", str(out_dir)]
     args += ["--channel", "direct"]
     if only_profiles:
@@ -160,6 +174,24 @@ def _build_plist(
     return payload
 
 
+def _refresh_artifact_index(run_dir: Path, *, repo_root: Path, updated_paths: Iterable[Path]) -> None:
+    index_path = run_dir / "artifact_index.json"
+    if not index_path.exists():
+        return
+    index = json.loads(index_path.read_text(encoding="utf-8", errors="ignore"))
+    updated = {path_utils.ensure_absolute(p, repo_root) for p in updated_paths}
+    for entry in index.get("artifacts") or []:
+        rel = entry.get("path")
+        if not rel:
+            continue
+        path = path_utils.ensure_absolute(Path(rel), repo_root)
+        if path not in updated or not path.exists():
+            continue
+        entry["file_size"] = path.stat().st_size
+        entry["sha256"] = bundle_writer.sha256_path(path)
+    bundle_writer.write_json_atomic(index_path, index)
+
+
 def _wait_for_output(stdout_path: Path, stderr_path: Path, timeout: float) -> bool:
     start = time.time()
     while time.time() - start < timeout:
@@ -211,6 +243,7 @@ def run_via_launchctl(
         "__pycache__",
         "launchctl",
         "dumps",
+        "out",
         ".venv",
         ".pytest_cache",
         ".tmp_pytest",
@@ -345,6 +378,16 @@ def run_via_launchctl(
         {"label": label, "run_id": run_id, "stage_root": str(stage_root)},
     )
     _write_json(launchctl_dest / "launchctl_diagnostics.json", diagnostics)
+
+    status_path = run_dir / "run_status.json"
+    if status_path.exists():
+        status = json.loads(status_path.read_text())
+        status["launchctl_diagnostics"] = path_utils.to_repo_relative(
+            launchctl_dest / "launchctl_diagnostics.json",
+            REPO_ROOT,
+        )
+        _write_json(status_path, status)
+        _refresh_artifact_index(run_dir, repo_root=REPO_ROOT, updated_paths=[status_path])
 
     # Best-effort cleanup: staged repos are large and can exhaust /private/tmp
     # quickly during iterative work. Keep the bundle in the repo; discard the

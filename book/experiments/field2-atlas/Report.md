@@ -22,7 +22,7 @@ This is the canonical example of a field2-first view. It is intentionally narrow
 
 ## Status
 - Static: `ok` for the seed slice including seed `2560` (characterized flow-divert triple token).
-- Runtime: **partial** — refreshed via the launchd clean channel; path_edges mismatches persist as canonicalization boundaries in the adversarial suite, while field2 0/1 use the `/private/tmp` control profile (`adv:path_edges_private`) so their runtime candidates reach operation stage.
+- Runtime: **partial** — refreshed via the launchd clean channel; path_edges mismatches persist as canonicalization boundaries in the adversarial suite, while field2 0 uses the `/private/tmp` control profile (`adv:path_edges_private`) and field2 1 uses the dedicated mount-relative-path discriminator (`adv:mount_relative_path`) so both runtime candidates reach operation stage.
 - Mapping delta: runtime signatures were refreshed from the promotion packet, and the atlas reflects the updated candidates.
 - Atlas: rebuilt after the refreshed runtime signatures and static inventory; field2=2 (xattr) and field2=3 (file-mode) are now runtime-backed, and field2=2560 remains runtime-backed with the flow-divert control witness.
 
@@ -30,7 +30,7 @@ This is the canonical example of a field2-first view. It is intentionally narrow
 - Field2 0 (`path`): Appears on path-centric tags in `sys:sample` and multiple probes; anchors include `/etc/hosts` and `/tmp/foo`. Runtime scenario `adv:path_edges_private:allow-tmp` targets `/tmp/...` with normalization to `/private/tmp/...`, and the decision is allow at operation stage. The canonicalization boundary is explicit via `requested_path`/`normalized_path` plus the `adv:path_alias` twin-probe witness.
 - Field2 5 (`global-name`): Present in `sys:bsd` tag 27 and many mach/path probes; anchors include `preferences/logging` and `/etc/hosts`. Runtime scenario `field2-5-mach-global` (mach-lookup `com.apple.cfprefsd.agent`) is decision-stage current.
 - Field2 7 (`local`): Present in `sys:sample` tags 3/7/8 and network/mach probes; anchors include `/etc/hosts` and blocked `flow-divert`. Runtime scenario `field2-7-mach-local` is decision-stage current.
-- Field2 1 (`mount-relative-path`): Anchored via `/etc/hosts` and present in `sys:sample` tag 8; runtime scenario `adv:path_edges_private:allow-tmp-subpath` now reaches operation stage and allows. The legacy `/tmp` mismatch is still captured in the adversarial mismatch packets as `canonicalization_boundary`.
+- Field2 1 (`mount-relative-path`): Anchored via `/etc/hosts` and present in `sys:sample` tag 8; runtime scenario `adv:mount_relative_path:allow-subpath` reaches operation stage and allows, paired with `adv:mount_relative_path:deny-outside` as the negative control, so the mount-relative-path discriminator is now clean of `/tmp` alias confounds.
 - Field2 2 (`xattr`): Present in `sys:bsd` tag 26 and field2 inventory; runtime scenario `adv:xattr:allow-foo-read` reaches operation stage and allows on `/private/tmp/foo`, providing the current runtime-backed witness for `file-read-xattr`.
 - Field2 3 (`file-mode`): Present in `sys:bsd` tag 27 and `sys:sample` tags 3/8; runtime scenario `adv:file_mode:allow-private` reads `/private/tmp/mode_deny` (0600) successfully, while `adv:file_mode:deny-world` denies `/private/tmp/mode_allow` (0644), providing the current file-mode witness.
 - Field2 2560 (`flow-divert triple`): Characterized static token for combined domain/type/proto in flow-divert probes; tag0/u16_role=filter_vocab_id with literal `com.apple.flow-divert`, target op `network-outbound`. Runtime scenario `adv:flow_divert_require_all_tcp` now yields a decision-stage allow with a baseline listener control; the partial-triple control (`adv:flow_divert_partial_tcp`) also allows, so it remains non-discriminating but no longer ambient-restricted.
@@ -46,6 +46,6 @@ This is the canonical example of a field2-first view. It is intentionally narrow
 - Promotion packet: promotion packet path (required for runtime exports and provenance).
 
 ## Next steps
-- If the path-edge mismatch remains after normalization controls, tighten the expectation or anchor join for field2=1 and keep the mismatch packet updated with an explicit reason.
+- If the path-edge mismatch remains after normalization controls, keep the mismatch packet updated with the explicit canonicalization-boundary reason.
 - Try a discriminating flow-divert control (alter domain/type/proto filter shape) so field2=2560 has a positive/negative contrast rather than an allow-only witness.
 - Keep the runtime corpus current via the standard harness + validation pipeline, then refresh `atlas_runtime.py` and `atlas_build.py`.

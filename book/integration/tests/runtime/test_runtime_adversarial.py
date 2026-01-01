@@ -32,6 +32,7 @@ def test_adversarial_artifacts_present_and_annotated():
         "adv:path_edges",
         "adv:path_edges_private",
         "adv:path_alias",
+        "adv:mount_relative_path",
         "adv:mach_simple_allow",
         "adv:mach_simple_variants",
         "adv:mach_local_literal",

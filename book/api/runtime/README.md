@@ -94,6 +94,22 @@ second source of truth.
 - `emit-promotion --require-promotable` refuses bundles that do not meet this
   gate.
 
+**Granular attribution signals**
+- Normalized runtime events include `policy_layers` and `intended_op_witnessed`;
+  treat `intended_op_witnessed=false` as “not observed,” not an allow/deny.
+- `file_confounder` tags file-operation denials with errno-based hints
+  (`EPERM` → App Sandbox/MAC, `EACCES` → UNIX/ACL) plus policy-layer attribution.
+- `resource_hygiene` carries `preopen_hints` and `preopen_detected` to flag
+  harness-level pre-acquisition that can bias outcomes.
+- `path_witnesses.json` includes canonicalization flags (`alias_pair`,
+  `nofirmlink_differs`) so path resolution can be analyzed without re-parsing
+  stderr.
+- `run_status.json` may include a `launchctl_diagnostics` pointer for
+  `launchd_clean` runs.
+- Process probes inherit sandbox policy across fork/exec; the `inherit`
+  entitlement is not the enforcement mechanism and should not be treated as a
+  separate allow/deny control.
+
 ## Optional witness observer capture
 
 Set `SANDBOX_LORE_WITNESS_OBSERVER=1` to capture PolicyWitness

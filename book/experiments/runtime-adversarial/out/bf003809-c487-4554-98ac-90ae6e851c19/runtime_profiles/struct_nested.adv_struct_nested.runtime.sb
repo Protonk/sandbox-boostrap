@@ -1,0 +1,46 @@
+(version 1)
+(deny default)
+
+;; Nested metafilters to express the same intent as struct_flat:
+;; allow reads under ok/, block the specific blocked.txt literal.
+(allow file-read*
+  (require-any
+    (require-all (subpath "/tmp/runtime-adv/struct/ok"))
+    (require-all (literal "/tmp/runtime-adv/struct/ok"))
+    (require-all (require-any (subpath "/tmp/runtime-adv/struct/ok")))
+    (require-all (subpath "/private/tmp/runtime-adv/struct/ok"))
+    (require-all (literal "/private/tmp/runtime-adv/struct/ok"))))
+
+(deny file-read*
+  (require-all
+    (require-any
+      (literal "/tmp/runtime-adv/struct/blocked.txt")
+      (literal "/private/tmp/runtime-adv/struct/blocked.txt")
+      (require-all (literal "/tmp/runtime-adv/struct/blocked.txt"))
+      (require-all (literal "/private/tmp/runtime-adv/struct/blocked.txt")))))
+
+;; Mirror read semantics for writes using the same nested structure.
+(allow file-write*
+  (require-any
+    (require-all (subpath "/tmp/runtime-adv/struct/ok"))
+    (require-all (literal "/tmp/runtime-adv/struct/ok"))
+    (require-all (require-any (subpath "/tmp/runtime-adv/struct/ok")))
+    (require-all (subpath "/private/tmp/runtime-adv/struct/ok"))
+    (require-all (literal "/private/tmp/runtime-adv/struct/ok"))))
+
+(deny file-write*
+  (require-all
+    (require-any
+      (literal "/tmp/runtime-adv/struct/blocked.txt")
+      (literal "/private/tmp/runtime-adv/struct/blocked.txt")
+      (require-all (literal "/tmp/runtime-adv/struct/blocked.txt"))
+      (require-all (literal "/private/tmp/runtime-adv/struct/blocked.txt")))))
+(allow process-exec*)
+(allow file-read* (subpath "/System"))
+(allow file-read* (subpath "/usr"))
+(allow file-read* (subpath "/bin"))
+(allow file-read* (subpath "/sbin"))
+(allow file-read* (subpath "/dev"))
+(allow file-read-metadata (literal "/private"))
+(allow file-read-metadata (literal "/private/tmp"))
+(allow file-read-metadata (literal "/tmp"))

@@ -26,10 +26,13 @@
       "family": "frontier",
       "key_specific_rules": [],
       "mode": "sbpl",
-      "notes": "Anchor-backed filters with typed literals (path/global-name) and path variants.",
+      "notes": "Anchor-backed filters with typed literals (path/global-name/notification-name/xpc-service-name) and path variants.",
       "probe_refs": [
         "frontier:anchor_filters:mach_cfprefsd",
         "frontier:anchor_filters:mach_bogus",
+        "frontier:anchor_filters:xpc_cfprefsd",
+        "frontier:anchor_filters:notify_allow",
+        "frontier:anchor_filters:notify_deny",
         "frontier:anchor_filters:read_data_/etc/hosts",
         "frontier:anchor_filters:read_data_/private/etc/hosts",
         "frontier:anchor_filters:search_/var/log",
@@ -43,7 +46,7 @@
       "family": "frontier",
       "key_specific_rules": [],
       "mode": "sbpl",
-      "notes": "Unknown-frontier ops sample (xattr + process-fork).",
+      "notes": "Unknown-frontier ops sample (xattr + process-fork). process-fork inherits the parent's sandbox policy; the inherit entitlement is not the enforcement mechanism.",
       "probe_refs": [
         "frontier:unknown_ops:read_xattr_/tmp/foo",
         "frontier:unknown_ops:read_xattr_/tmp/bar",

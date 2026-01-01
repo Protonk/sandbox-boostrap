@@ -196,6 +196,19 @@
       "profile_path": "book/experiments/runtime-adversarial/sb/path_edges_private.sb",
       "semantic_group": "paths:literal-vs-normalized"
     },
+    "adv:mount_relative_path": {
+      "family": "mount_relative_path",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": "Subpath-only allow to isolate mount-relative-path filter behavior.",
+      "probe_refs": [
+        "adv:mount_relative_path:allow-subpath",
+        "adv:mount_relative_path:deny-outside"
+      ],
+      "profile_id": "adv:mount_relative_path",
+      "profile_path": "book/experiments/runtime-adversarial/sb/mount_relative_path.sb",
+      "semantic_group": "paths:mount-relative-subpath"
+    },
     "adv:xattr": {
       "family": "xattr",
       "key_specific_rules": [],

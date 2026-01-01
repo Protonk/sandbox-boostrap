@@ -33,6 +33,25 @@ def _load_observations(path: Path) -> List[Dict[str, Any]]:
     return [row for row in data if isinstance(row, dict)]
 
 
+def _load_launchctl_diagnostics(run_dir: Path) -> tuple[Optional[Path], Optional[Dict[str, Any]]]:
+    status_path = run_dir / "run_status.json"
+    if not status_path.exists():
+        return None, None
+    status = _load_json(status_path)
+    if not isinstance(status, dict):
+        return None, None
+    diag_ref = status.get("launchctl_diagnostics")
+    if not isinstance(diag_ref, str) or not diag_ref:
+        return None, None
+    diag_path = path_utils.ensure_absolute(Path(diag_ref), REPO_ROOT)
+    if not diag_path.exists():
+        return diag_path, None
+    diag_doc = _load_json(diag_path)
+    if not isinstance(diag_doc, dict):
+        return diag_path, None
+    return diag_path, diag_doc
+
+
 def _load_path_pairs(path: Optional[Path]) -> Set[Tuple[str, str]]:
     if not path or not path.exists():
         return set()
@@ -175,6 +194,7 @@ def generate_report(run_dir: Path, packet_set_path: Path) -> Path:
     delta_disagreements = sorted(new_disagreements - baseline_disagreements)
 
     fidelity = _fidelity_summary(new_obs)
+    diag_path, diag_doc = _load_launchctl_diagnostics(run_dir)
     report_lines = [
         "# Frontier Delta Report",
         "",
@@ -202,6 +222,29 @@ def generate_report(run_dir: Path, packet_set_path: Path) -> Path:
                 f"filter={miss.get('expected_filter_type')} "
                 f"intended_op_witnessed={miss.get('intended_op_witnessed')}"
             )
+    if diag_path and diag_doc is not None:
+        failure = diag_doc.get("bootstrap_failure") if isinstance(diag_doc, dict) else None
+        report_lines += [
+            "",
+            "## Bootstrap diagnostics",
+            "tier: mapped",
+            f"evidence: {path_utils.to_repo_relative(diag_path, REPO_ROOT)}",
+        ]
+        if isinstance(failure, dict):
+            classification = failure.get("classification")
+            rc = failure.get("rc")
+            report_lines.append(f"- bootstrap_failure: {classification} rc={rc}")
+        else:
+            report_lines.append("- bootstrap_failure: none")
+        domain = diag_doc.get("domain")
+        if isinstance(domain, str) and domain:
+            report_lines.append(f"- domain: {domain}")
+        domain_reason = diag_doc.get("domain_reason")
+        if isinstance(domain_reason, str) and domain_reason:
+            report_lines.append(f"- domain_reason: {domain_reason}")
+        session_types = diag_doc.get("session_types")
+        if session_types is not None:
+            report_lines.append(f"- session_types: {session_types}")
     report_lines += [
         "",
         "## Coverage delta",

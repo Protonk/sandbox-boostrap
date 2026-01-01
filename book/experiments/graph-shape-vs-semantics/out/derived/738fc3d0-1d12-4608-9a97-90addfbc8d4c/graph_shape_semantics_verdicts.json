@@ -1,0 +1,51 @@
+{
+  "provenance": {
+    "artifact_index": "book/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/artifact_index.json",
+    "artifact_index_sha256": "21a0c9f45f038bd8afdcdbc5dcd7ff409b36e85b23b5b3ae277d003e0ec9cc80",
+    "bundle_dir": "book/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c",
+    "consumption_receipt": "book/experiments/graph-shape-vs-semantics/out/derived/738fc3d0-1d12-4608-9a97-90addfbc8d4c/consumption_receipt.json",
+    "exports": {
+      "path_witnesses": "book/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/path_witnesses.json",
+      "run_manifest": "book/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/run_manifest.json",
+      "runtime_results": "book/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_results.json"
+    },
+    "packet": "book/experiments/runtime-adversarial/out/promotion_packet.json",
+    "run_id": "738fc3d0-1d12-4608-9a97-90addfbc8d4c"
+  },
+  "schema_version": "graph-shape-vs-semantics.verdicts.v0",
+  "verdicts": {
+    "mach global-name literal vs regex variants": {
+      "coverage": 2,
+      "profiles": [
+        "adv:mach_simple_allow",
+        "adv:mach_simple_variants"
+      ],
+      "status": "preserved"
+    },
+    "mach local-name literal vs regex variants": {
+      "coverage": 2,
+      "profiles": [
+        "adv:mach_local_literal",
+        "adv:mach_local_regex"
+      ],
+      "status": "preserved"
+    },
+    "path_edges": {
+      "canonicalization_equivalence": 4,
+      "profiles": [
+        "adv:path_edges"
+      ],
+      "status": "preserved",
+      "witness_source": "book/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/path_witnesses.json"
+    },
+    "structural variants of same intent (read/write)": {
+      "coverage": 8,
+      "profiles": [
+        "adv:struct_flat",
+        "adv:struct_nested"
+      ],
+      "status": "preserved"
+    }
+  },
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

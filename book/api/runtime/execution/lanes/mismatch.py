@@ -24,6 +24,7 @@ ALLOWED_REASONS = {
     "anchor_alias_gap",
     "expectation_too_strong",
     "capture_pipeline_disagreement",
+    "op_not_witnessed",
 }
 
 
@@ -96,7 +97,10 @@ def _canonicalization_boundary(
         if not witness:
             continue
         observed = witness.get("observed_path") or witness.get("normalized_path")
-        if _is_canonicalization_pair(requested_path, observed):
+        canonical = witness.get("canonicalization") if isinstance(witness.get("canonicalization"), dict) else {}
+        alias_pair = canonical.get("alias_pair")
+        nofirmlink_differs = canonical.get("nofirmlink_differs")
+        if alias_pair or nofirmlink_differs or _is_canonicalization_pair(requested_path, observed):
             return {
                 "lane": witness.get("lane"),
                 "scenario_id": witness.get("scenario_id"),
@@ -105,6 +109,8 @@ def _canonicalization_boundary(
                 "observed_path_source": witness.get("observed_path_source"),
                 "normalized_path": witness.get("normalized_path"),
                 "normalized_path_source": witness.get("normalized_path_source"),
+                "alias_pair": alias_pair,
+                "nofirmlink_differs": nofirmlink_differs,
             }
     return None
 
@@ -169,7 +175,9 @@ def emit_packets(
             scenario_witness=scenario_witness,
             baseline_witness=baseline_witness,
         )
-        if canonicalization:
+        if event.get("intended_op_witnessed") is False:
+            reason = "op_not_witnessed"
+        elif canonicalization:
             reason = "canonicalization_boundary"
         else:
             reason = _classify_reason(
@@ -206,6 +214,8 @@ def emit_packets(
                 "failure_kind": event.get("failure_kind"),
                 "decision": event.get("actual"),
                 "errno": event.get("errno"),
+                "intended_op_witnessed": event.get("intended_op_witnessed"),
+                "policy_layers": event.get("policy_layers"),
                 "source": path_utils.to_repo_relative(events_path, repo_root=REPO_ROOT),
                 "filter_type": callout.get("filter_type") if isinstance(callout, dict) else None,
                 "filter_type_name": callout.get("filter_type_name") if isinstance(callout, dict) else None,

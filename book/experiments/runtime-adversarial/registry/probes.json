@@ -1304,6 +1304,54 @@
       },
       "target": "/private/tmp/runtime-adv/edges/okdir/../blocked.txt"
     },
+    "adv:mount_relative_path:allow-subpath": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "/private/tmp/runtime-adv/mountrel/allowed.txt"
+      ],
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "name": "allow-subpath",
+      "operation": "file-read*",
+      "probe_id": "adv:mount_relative_path:allow-subpath",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/private/tmp/runtime-adv/mountrel/allowed.txt"
+    },
+    "adv:mount_relative_path:deny-outside": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/private/tmp/runtime-adv/mountrel_outside/blocked.txt"
+      ],
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "name": "deny-outside",
+      "operation": "file-read*",
+      "probe_id": "adv:mount_relative_path:deny-outside",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/private/tmp/runtime-adv/mountrel_outside/blocked.txt"
+    },
     "adv:xattr:allow-foo-read": {
       "capabilities_required": [],
       "controls_supported": [

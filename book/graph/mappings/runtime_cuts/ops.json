@@ -13,10 +13,10 @@
       "op_name": "file-read*",
       "op_id": 21,
       "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
-      "probes": 36,
-      "matches": 32,
+      "probes": 38,
+      "matches": 34,
       "mismatches": 4,
-      "probes_including_blocked": 38,
+      "probes_including_blocked": 40,
       "blocked": {
         "total": 2,
         "by_stage": {
@@ -26,6 +26,7 @@
           "preflight_apply_gate_signature": 2
         }
       },
+      "unobserved": 0,
       "examples": [
         {
           "scenario_id": "bucket4:v1_read:read_/etc/hosts",
@@ -66,6 +67,8 @@
       "scenarios": [
         "adv:file_mode:allow-private",
         "adv:file_mode:deny-world",
+        "adv:mount_relative_path:allow-subpath",
+        "adv:mount_relative_path:deny-outside",
         "adv:path_alias:alias-private",
         "adv:path_alias:alias-tmp",
         "adv:path_edges:allow-subpath",
@@ -152,6 +155,7 @@
           "preflight_apply_gate_signature": 2
         }
       },
+      "unobserved": 0,
       "examples": [
         {
           "scenario_id": "bucket4:v1_read:write_/etc/hosts",
@@ -249,6 +253,7 @@
         "by_stage": {},
         "by_kind": {}
       },
+      "unobserved": 0,
       "examples": [
         {
           "scenario_id": "adv:flow_divert_partial_tcp:tcp-loopback",
@@ -311,6 +316,7 @@
         "by_stage": {},
         "by_kind": {}
       },
+      "unobserved": 0,
       "examples": [
         {
           "scenario_id": "adv:mach_local_literal:allow-cfprefsd-local",
@@ -407,6 +413,7 @@
         "by_stage": {},
         "by_kind": {}
       },
+      "unobserved": 0,
       "examples": [
         {
           "scenario_id": "adv:xattr:allow-foo-read",
@@ -442,6 +449,7 @@
         "by_stage": {},
         "by_kind": {}
       },
+      "unobserved": 0,
       "examples": [
         {
           "scenario_id": "adv:xattr:allow-foo-write",
@@ -477,6 +485,7 @@
         "by_stage": {},
         "by_kind": {}
       },
+      "unobserved": 0,
       "examples": [
         {
           "scenario_id": "hardened:notifications:deny-allowed-darwin",
@@ -520,6 +529,7 @@
         "by_stage": {},
         "by_kind": {}
       },
+      "unobserved": 0,
       "examples": [
         {
           "scenario_id": "hardened:notifications:deny-allowed-distributed",
@@ -563,6 +573,7 @@
         "by_stage": {},
         "by_kind": {}
       },
+      "unobserved": 0,
       "examples": [
         {
           "scenario_id": "hardened:process_info_allow:pidinfo-self",
@@ -622,6 +633,7 @@
         "by_stage": {},
         "by_kind": {}
       },
+      "unobserved": 0,
       "examples": [
         {
           "scenario_id": "hardened:signal_self_allow:signal-same-sandbox",
@@ -657,6 +669,7 @@
         "by_stage": {},
         "by_kind": {}
       },
+      "unobserved": 0,
       "examples": [
         {
           "scenario_id": "hardened:sysctl_read:deny-kern-osrelease",
@@ -700,6 +713,7 @@
         "by_stage": {},
         "by_kind": {}
       },
+      "unobserved": 0,
       "examples": [
         {
           "scenario_id": "anchor-filter-map:iokit_class:S0_allow_any",

@@ -35,9 +35,9 @@ CONSUMPTION_RECEIPT_SCHEMA_VERSION = "field2-atlas.consumption_receipt.v0"
 RUNTIME_CANDIDATES = {
     0: {"profile_id": "adv:path_edges_private", "probe_name": "allow-tmp", "scenario_id": "adv:path_edges_private:allow-tmp"},
     1: {
-        "profile_id": "adv:path_edges_private",
-        "probe_name": "allow-tmp-subpath",
-        "scenario_id": "adv:path_edges_private:allow-tmp-subpath",
+        "profile_id": "adv:mount_relative_path",
+        "probe_name": "allow-subpath",
+        "scenario_id": "adv:mount_relative_path:allow-subpath",
     },
     2: {
         "profile_id": "adv:xattr",

@@ -224,6 +224,7 @@
           "allow_default",
           "deny_default"
         ],
+        "driver": "mach_probe",
         "expected": "allow",
         "expected_predicates": [
           "com.apple.cfprefsd.agent"
@@ -239,6 +240,7 @@
           "oracle": true,
           "scenario": true
         },
+        "syscall": "bootstrap_look_up",
         "target": "com.apple.cfprefsd.agent",
         "anchor_ctx_id": "ctx:bd2b79af19c45bf1",
         "filter_name": "global-name"
@@ -250,6 +252,7 @@
           "allow_default",
           "deny_default"
         ],
+        "driver": "mach_probe",
         "expected": "deny",
         "expected_predicates": [
           "com.apple.sandbox-lore.frontier.bogus"
@@ -265,8 +268,88 @@
           "oracle": true,
           "scenario": true
         },
+        "syscall": "bootstrap_look_up",
         "target": "com.apple.sandbox-lore.frontier.bogus",
         "filter_name": "global-name"
+      },
+      "frontier:anchor_filters:xpc_cfprefsd": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "driver": "xpc_probe",
+        "expected": "deny",
+        "expected_predicates": [
+          "com.apple.cfprefsd.agent"
+        ],
+        "expected_primary_ops": [
+          "mach-lookup"
+        ],
+        "name": "xpc_cfprefsd",
+        "operation": "mach-lookup",
+        "probe_id": "frontier:anchor_filters:xpc_cfprefsd",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "syscall": "xpc_connection_create_mach_service",
+        "target": "com.apple.cfprefsd.agent",
+        "filter_name": "xpc-service-name"
+      },
+      "frontier:anchor_filters:notify_allow": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "expected": "allow",
+        "expected_predicates": [
+          "com.apple.sandbox-lore.frontier.notify"
+        ],
+        "expected_primary_ops": [
+          "darwin-notification-post"
+        ],
+        "filter_name": "notification-name",
+        "name": "notify_allow",
+        "operation": "darwin-notification-post",
+        "probe_id": "frontier:anchor_filters:notify_allow",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "syscall": "notify_post",
+        "target": "com.apple.sandbox-lore.frontier.notify"
+      },
+      "frontier:anchor_filters:notify_deny": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "expected": "deny",
+        "expected_predicates": [
+          "com.apple.sandbox-lore.frontier.notify.bogus"
+        ],
+        "expected_primary_ops": [
+          "darwin-notification-post"
+        ],
+        "filter_name": "notification-name",
+        "name": "notify_deny",
+        "operation": "darwin-notification-post",
+        "probe_id": "frontier:anchor_filters:notify_deny",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "syscall": "notify_post",
+        "target": "com.apple.sandbox-lore.frontier.notify.bogus"
       },
       "frontier:anchor_filters:read_data_/etc/hosts": {
         "capabilities_required": [],
@@ -484,6 +567,7 @@
           "oracle": true,
           "scenario": true
         },
+        "syscall": "fork",
         "target": "self"
       }
     }
@@ -516,10 +600,13 @@
         "family": "frontier",
         "key_specific_rules": [],
         "mode": "sbpl",
-        "notes": "Anchor-backed filters with typed literals (path/global-name) and path variants.",
+        "notes": "Anchor-backed filters with typed literals (path/global-name/notification-name/xpc-service-name) and path variants.",
         "probe_refs": [
           "frontier:anchor_filters:mach_cfprefsd",
           "frontier:anchor_filters:mach_bogus",
+          "frontier:anchor_filters:xpc_cfprefsd",
+          "frontier:anchor_filters:notify_allow",
+          "frontier:anchor_filters:notify_deny",
           "frontier:anchor_filters:read_data_/etc/hosts",
           "frontier:anchor_filters:read_data_/private/etc/hosts",
           "frontier:anchor_filters:search_/var/log",
@@ -533,7 +620,7 @@
         "family": "frontier",
         "key_specific_rules": [],
         "mode": "sbpl",
-        "notes": "Unknown-frontier ops sample (xattr + process-fork).",
+        "notes": "Unknown-frontier ops sample (xattr + process-fork). process-fork inherits the parent's sandbox policy; the inherit entitlement is not the enforcement mechanism.",
         "probe_refs": [
           "frontier:unknown_ops:read_xattr_/tmp/foo",
           "frontier:unknown_ops:read_xattr_/tmp/bar",

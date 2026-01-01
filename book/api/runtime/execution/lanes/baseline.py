@@ -41,6 +41,10 @@ def _extract_probe_details(stdout: str) -> tuple[Optional[Dict[str, Any]], str]:
     cleaned = "\n".join(cleaned_lines)
     if stdout.endswith("\n") and cleaned:
         cleaned += "\n"
+    if details is None:
+        parsed = harness_runner._parse_probe_json(stdout)
+        if parsed is not None:
+            return parsed, ""
     return details, cleaned
 
 

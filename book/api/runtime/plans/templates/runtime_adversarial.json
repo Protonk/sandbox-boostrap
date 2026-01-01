@@ -25,6 +25,7 @@
       "adv:struct_flat",
       "adv:struct_nested",
       "adv:path_edges_private",
+      "adv:mount_relative_path",
       "adv:xattr",
       "adv:file_mode"
     ],
@@ -1338,6 +1339,54 @@
         },
         "target": "/private/tmp/runtime-adv/edges/okdir/../blocked.txt"
       },
+      "adv:mount_relative_path:allow-subpath": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "expected": "allow",
+        "expected_predicates": [
+          "/private/tmp/runtime-adv/mountrel/allowed.txt"
+        ],
+        "expected_primary_ops": [
+          "file-read*"
+        ],
+        "name": "allow-subpath",
+        "operation": "file-read*",
+        "probe_id": "adv:mount_relative_path:allow-subpath",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "target": "/private/tmp/runtime-adv/mountrel/allowed.txt"
+      },
+      "adv:mount_relative_path:deny-outside": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "expected": "deny",
+        "expected_predicates": [
+          "/private/tmp/runtime-adv/mountrel_outside/blocked.txt"
+        ],
+        "expected_primary_ops": [
+          "file-read*"
+        ],
+        "name": "deny-outside",
+        "operation": "file-read*",
+        "probe_id": "adv:mount_relative_path:deny-outside",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "target": "/private/tmp/runtime-adv/mountrel_outside/blocked.txt"
+      },
       "adv:xattr:allow-foo-read": {
         "capabilities_required": [],
         "controls_supported": [
@@ -1684,6 +1733,19 @@
         "profile_id": "adv:path_edges_private",
         "profile_path": "book/experiments/runtime-adversarial/sb/path_edges_private.sb",
         "semantic_group": "paths:literal-vs-normalized"
+      },
+      "adv:mount_relative_path": {
+        "family": "mount_relative_path",
+        "key_specific_rules": [],
+        "mode": "sbpl",
+        "notes": "Subpath-only allow to isolate mount-relative-path filter behavior.",
+        "probe_refs": [
+          "adv:mount_relative_path:allow-subpath",
+          "adv:mount_relative_path:deny-outside"
+        ],
+        "profile_id": "adv:mount_relative_path",
+        "profile_path": "book/experiments/runtime-adversarial/sb/mount_relative_path.sb",
+        "semantic_group": "paths:mount-relative-subpath"
       },
       "adv:xattr": {
         "family": "xattr",

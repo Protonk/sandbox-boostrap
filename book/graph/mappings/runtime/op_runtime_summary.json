@@ -18,7 +18,7 @@
     ],
     "input_hashes": {
       "book/experiments/runtime-checks/out/promotion_packet.json": "662297e9f76b45fe433c47a3b882f2e59c020323ec967a76b0a972cc28dc7f95",
-      "book/experiments/runtime-adversarial/out/promotion_packet.json": "e338dbc59abb3e9c2da39371d9cddf4fedb9b3882d8fae092c738c300afef0c0",
+      "book/experiments/runtime-adversarial/out/promotion_packet.json": "ff61d1d7c79bcf95057d1443b1f6e6ec848340c1cd80673ff734c4f975500a23",
       "book/experiments/hardened-runtime/out/promotion_packet.json": "5d8f999c2b9f86e80038f61324ca87fc8bb8e72300bc0ee8ce7dc323e821c1b7",
       "book/experiments/anchor-filter-map/out/promotion_packet.json": "3da1176b548091e31d9bed8c9e73bd7c77dc5f8d5b12665ca6a762c27c6e5b13",
       "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json": "b782656b8fc38a49f4c1a91c2b484590773d46fc97fea8c7c9fbb78be3222d54"
@@ -29,10 +29,10 @@
       "op_name": "file-read*",
       "op_id": 21,
       "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
-      "probes": 36,
-      "matches": 32,
+      "probes": 38,
+      "matches": 34,
       "mismatches": 4,
-      "probes_including_blocked": 38,
+      "probes_including_blocked": 40,
       "blocked": {
         "total": 2,
         "by_stage": {
@@ -42,6 +42,7 @@
           "preflight_apply_gate_signature": 2
         }
       },
+      "unobserved": 0,
       "examples": [
         {
           "scenario_id": "bucket4:v1_read:read_/etc/hosts",
@@ -82,6 +83,8 @@
       "scenarios": [
         "adv:file_mode:allow-private",
         "adv:file_mode:deny-world",
+        "adv:mount_relative_path:allow-subpath",
+        "adv:mount_relative_path:deny-outside",
         "adv:path_alias:alias-private",
         "adv:path_alias:alias-tmp",
         "adv:path_edges:allow-subpath",
@@ -168,6 +171,7 @@
           "preflight_apply_gate_signature": 2
         }
       },
+      "unobserved": 0,
       "examples": [
         {
           "scenario_id": "bucket4:v1_read:write_/etc/hosts",
@@ -265,6 +269,7 @@
         "by_stage": {},
         "by_kind": {}
       },
+      "unobserved": 0,
       "examples": [
         {
           "scenario_id": "adv:flow_divert_partial_tcp:tcp-loopback",
@@ -327,6 +332,7 @@
         "by_stage": {},
         "by_kind": {}
       },
+      "unobserved": 0,
       "examples": [
         {
           "scenario_id": "adv:mach_local_literal:allow-cfprefsd-local",
@@ -423,6 +429,7 @@
         "by_stage": {},
         "by_kind": {}
       },
+      "unobserved": 0,
       "examples": [
         {
           "scenario_id": "adv:xattr:allow-foo-read",
@@ -458,6 +465,7 @@
         "by_stage": {},
         "by_kind": {}
       },
+      "unobserved": 0,
       "examples": [
         {
           "scenario_id": "adv:xattr:allow-foo-write",
@@ -493,6 +501,7 @@
         "by_stage": {},
         "by_kind": {}
       },
+      "unobserved": 0,
       "examples": [
         {
           "scenario_id": "hardened:notifications:deny-allowed-darwin",
@@ -536,6 +545,7 @@
         "by_stage": {},
         "by_kind": {}
       },
+      "unobserved": 0,
       "examples": [
         {
           "scenario_id": "hardened:notifications:deny-allowed-distributed",
@@ -579,6 +589,7 @@
         "by_stage": {},
         "by_kind": {}
       },
+      "unobserved": 0,
       "examples": [
         {
           "scenario_id": "hardened:process_info_allow:pidinfo-self",
@@ -638,6 +649,7 @@
         "by_stage": {},
         "by_kind": {}
       },
+      "unobserved": 0,
       "examples": [
         {
           "scenario_id": "hardened:signal_self_allow:signal-same-sandbox",
@@ -673,6 +685,7 @@
         "by_stage": {},
         "by_kind": {}
       },
+      "unobserved": 0,
       "examples": [
         {
           "scenario_id": "hardened:sysctl_read:deny-kern-osrelease",
@@ -716,6 +729,7 @@
         "by_stage": {},
         "by_kind": {}
       },
+      "unobserved": 0,
       "examples": [
         {
           "scenario_id": "anchor-filter-map:iokit_class:S0_allow_any",

@@ -17,12 +17,12 @@
       "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json"
     ],
     "input_hashes": {
-      "book/graph/mappings/runtime_cuts/ops.json": "2b0a44d9f9d8b3ae72ad51b7f3b3b4b42caa11093cf16cbd5feaf1669ef24e4a",
-      "book/graph/mappings/runtime_cuts/scenarios.json": "86848b3ff1b4f8458d094f3d0dda53e8cd3524dd9c54b9a20008ee1470adae04",
+      "book/graph/mappings/runtime_cuts/ops.json": "84c22d3f674a3bf7a0f3848706bb8399ec8c0e9d5ee7f177ba3a6369db620950",
+      "book/graph/mappings/runtime_cuts/scenarios.json": "259a1d3c9558d63be440e2d76e0786a2ef150ba4187d47b7f0a50725117b8d64",
       "book/experiments/runtime-checks/out/promotion_packet.json": "662297e9f76b45fe433c47a3b882f2e59c020323ec967a76b0a972cc28dc7f95",
       "book/experiments/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json": "8c042b30534d5129f1879a78d756922d2ef3fa40a002ca23ef1bf8dc27c3676e",
-      "book/experiments/runtime-adversarial/out/promotion_packet.json": "e338dbc59abb3e9c2da39371d9cddf4fedb9b3882d8fae092c738c300afef0c0",
-      "book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/run_manifest.json": "0d5510b8b41d3f748ae7a1950e369864e5240bc6e644479f2d62e0f02c7cefab",
+      "book/experiments/runtime-adversarial/out/promotion_packet.json": "ff61d1d7c79bcf95057d1443b1f6e6ec848340c1cd80673ff734c4f975500a23",
+      "book/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/run_manifest.json": "89e1ec26c520f774d30f5e095e98cf05236c1406090219dd29d8a5ca44c22dfe",
       "book/experiments/hardened-runtime/out/promotion_packet.json": "5d8f999c2b9f86e80038f61324ca87fc8bb8e72300bc0ee8ce7dc323e821c1b7",
       "book/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json": "654bb48411211bff7809e5df650b87a89e2dc5d9904858c69b493abf74464dd2",
       "book/experiments/anchor-filter-map/out/promotion_packet.json": "3da1176b548091e31d9bed8c9e73bd7c77dc5f8d5b12665ca6a762c27c6e5b13",
@@ -33,21 +33,21 @@
     "run_provenance": {
       "run_ids": [
         "1e641b64-6267-47df-b1c3-b320aa90e675",
-        "ec3df76c-6559-421b-8203-c32709667ffc",
+        "738fc3d0-1d12-4608-9a97-90addfbc8d4c",
         "62456e46-0901-4345-b02d-f96becc33310",
         "fa90bf31-b6a2-4a0b-bced-78d77be2b89f",
         "83c8343f-44ca-452a-be49-470fb0b5fd3d"
       ],
       "manifests": [
         "book/experiments/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json",
-        "book/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/run_manifest.json",
+        "book/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/run_manifest.json",
         "book/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json",
         "book/experiments/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/run_manifest.json",
         "book/experiments/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/run_manifest.json"
       ],
       "repo_root_contexts": [
         "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1e641b64-6267-47df-b1c3-b320aa90e675",
-        "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.ec3df76c-6559-421b-8203-c32709667ffc",
+        "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.738fc3d0-1d12-4608-9a97-90addfbc8d4c",
         "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.62456e46-0901-4345-b02d-f96becc33310",
         "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.fa90bf31-b6a2-4a0b-bced-78d77be2b89f",
         "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.83c8343f-44ca-452a-be49-470fb0b5fd3d"
@@ -59,8 +59,8 @@
       "op_id": 21,
       "op_name": "file-read*",
       "coverage_status": "partial",
-      "probes": 36,
-      "matches": 32,
+      "probes": 38,
+      "matches": 34,
       "mismatches": 4,
       "examples": [
         {
@@ -108,6 +108,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -136,6 +137,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -157,6 +159,64 @@
           "mismatches": []
         },
         {
+          "scenario_id": "adv:mount_relative_path:allow-subpath",
+          "profile_id": "adv:mount_relative_path",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "unobserved": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "adv:mount_relative_path:allow-subpath",
+              "profile_id": "adv:mount_relative_path",
+              "operation": "file-read*",
+              "target": "/private/tmp/runtime-adv/mountrel/allowed.txt",
+              "expected": "allow",
+              "probe_name": "allow-subpath"
+            }
+          ],
+          "mismatches": []
+        },
+        {
+          "scenario_id": "adv:mount_relative_path:deny-outside",
+          "profile_id": "adv:mount_relative_path",
+          "status": "ok",
+          "results": {
+            "total": 1,
+            "matches": 1,
+            "mismatches": 0,
+            "unobserved": 0,
+            "total_including_blocked": 1,
+            "blocked": {
+              "total": 0,
+              "by_stage": {},
+              "by_kind": {}
+            },
+            "status": "ok"
+          },
+          "expectations": [
+            {
+              "expectation_id": "adv:mount_relative_path:deny-outside",
+              "profile_id": "adv:mount_relative_path",
+              "operation": "file-read*",
+              "target": "/private/tmp/runtime-adv/mountrel_outside/blocked.txt",
+              "expected": "deny",
+              "probe_name": "deny-outside"
+            }
+          ],
+          "mismatches": []
+        },
+        {
           "scenario_id": "adv:path_alias:alias-private",
           "profile_id": "adv:path_alias",
           "status": "brittle",
@@ -164,6 +224,7 @@
             "total": 1,
             "matches": 0,
             "mismatches": 1,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -205,6 +266,7 @@
             "total": 1,
             "matches": 0,
             "mismatches": 1,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -246,6 +308,7 @@
             "total": 1,
             "matches": 0,
             "mismatches": 1,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -287,6 +350,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -315,6 +379,7 @@
             "total": 1,
             "matches": 0,
             "mismatches": 1,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -356,6 +421,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -384,6 +450,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -412,6 +479,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -440,6 +508,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -468,6 +537,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -496,6 +566,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -524,6 +595,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -552,6 +624,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -580,6 +653,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -608,6 +682,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -636,6 +711,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -664,6 +740,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -692,6 +769,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -720,6 +798,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -748,6 +827,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -776,6 +856,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -804,6 +885,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -832,6 +914,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -860,6 +943,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -888,6 +972,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -916,6 +1001,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -944,6 +1030,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -972,6 +1059,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -1000,6 +1088,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -1028,6 +1117,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -1056,6 +1146,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -1084,6 +1175,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -1112,6 +1204,7 @@
             "total": 0,
             "matches": 0,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 1,
@@ -1134,20 +1227,7 @@
               "probe_name": "read_/etc/hosts"
             }
           ],
-          "mismatches": [
-            {
-              "expectation_id": "sys:airlock:read_/etc/hosts",
-              "expected": "deny",
-              "actual": null,
-              "operation": "file-read*",
-              "target": "/etc/hosts",
-              "failure_stage": "preflight",
-              "failure_kind": "preflight_apply_gate_signature",
-              "mismatch_type": "preflight_blocked",
-              "violation_summary": null,
-              "stderr": ""
-            }
-          ]
+          "mismatches": []
         },
         {
           "scenario_id": "sys:airlock:read_/tmp/foo",
@@ -1157,6 +1237,7 @@
             "total": 0,
             "matches": 0,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 1,
@@ -1179,20 +1260,7 @@
               "probe_name": "read_/tmp/foo"
             }
           ],
-          "mismatches": [
-            {
-              "expectation_id": "sys:airlock:read_/tmp/foo",
-              "expected": "deny",
-              "actual": null,
-              "operation": "file-read*",
-              "target": "/tmp/foo",
-              "failure_stage": "preflight",
-              "failure_kind": "preflight_apply_gate_signature",
-              "mismatch_type": "preflight_blocked",
-              "violation_summary": null,
-              "stderr": ""
-            }
-          ]
+          "mismatches": []
         },
         {
           "scenario_id": "sys:bsd:read_/etc/hosts",
@@ -1202,6 +1270,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -1230,6 +1299,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -1312,6 +1382,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -1340,6 +1411,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -1368,6 +1440,7 @@
             "total": 1,
             "matches": 0,
             "mismatches": 1,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -1409,6 +1482,7 @@
             "total": 1,
             "matches": 0,
             "mismatches": 1,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -1450,6 +1524,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -1478,6 +1553,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -1506,6 +1582,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -1534,6 +1611,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -1562,6 +1640,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -1590,6 +1669,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -1618,6 +1698,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -1646,6 +1727,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -1674,6 +1756,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -1702,6 +1785,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -1730,6 +1814,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -1758,6 +1843,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -1786,6 +1872,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -1814,6 +1901,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -1842,6 +1930,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -1870,6 +1959,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -1898,6 +1988,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -1926,6 +2017,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -1954,6 +2046,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -1982,6 +2075,7 @@
             "total": 0,
             "matches": 0,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 1,
@@ -2004,20 +2098,7 @@
               "probe_name": "write_/etc/hosts"
             }
           ],
-          "mismatches": [
-            {
-              "expectation_id": "sys:airlock:write_/etc/hosts",
-              "expected": "deny",
-              "actual": null,
-              "operation": "file-write*",
-              "target": "/etc/hosts",
-              "failure_stage": "preflight",
-              "failure_kind": "preflight_apply_gate_signature",
-              "mismatch_type": "preflight_blocked",
-              "violation_summary": null,
-              "stderr": ""
-            }
-          ]
+          "mismatches": []
         },
         {
           "scenario_id": "sys:airlock:write_/tmp/foo",
@@ -2027,6 +2108,7 @@
             "total": 0,
             "matches": 0,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 1,
@@ -2049,20 +2131,7 @@
               "probe_name": "write_/tmp/foo"
             }
           ],
-          "mismatches": [
-            {
-              "expectation_id": "sys:airlock:write_/tmp/foo",
-              "expected": "deny",
-              "actual": null,
-              "operation": "file-write*",
-              "target": "/tmp/foo",
-              "failure_stage": "preflight",
-              "failure_kind": "preflight_apply_gate_signature",
-              "mismatch_type": "preflight_blocked",
-              "violation_summary": null,
-              "stderr": ""
-            }
-          ]
+          "mismatches": []
         },
         {
           "scenario_id": "sys:bsd:write_/etc/hosts",
@@ -2072,6 +2141,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -2100,6 +2170,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -2182,6 +2253,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -2210,6 +2282,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -2238,6 +2311,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -2266,6 +2340,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -2294,6 +2369,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -2322,6 +2398,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -2350,6 +2427,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -2378,6 +2456,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -2460,6 +2539,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -2488,6 +2568,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -2516,6 +2597,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -2544,6 +2626,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -2572,6 +2655,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -2600,6 +2684,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -2628,6 +2713,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -2656,6 +2742,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -2684,6 +2771,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -2712,6 +2800,7 @@
             "total": 1,
             "matches": 0,
             "mismatches": 1,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -2753,6 +2842,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -2781,6 +2871,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -2809,6 +2900,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -2837,6 +2929,7 @@
             "total": 1,
             "matches": 0,
             "mismatches": 1,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -2878,6 +2971,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -2906,6 +3000,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -2934,6 +3029,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -2962,6 +3058,7 @@
             "total": 1,
             "matches": 0,
             "mismatches": 1,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -3003,6 +3100,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -3064,6 +3162,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -3092,6 +3191,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -3153,6 +3253,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -3181,6 +3282,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -3249,6 +3351,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -3277,6 +3380,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -3305,6 +3409,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -3373,6 +3478,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -3401,6 +3507,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -3429,6 +3536,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -3511,6 +3619,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -3539,6 +3648,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -3567,6 +3677,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -3595,6 +3706,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -3623,6 +3735,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -3684,6 +3797,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -3712,6 +3826,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -3780,6 +3895,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -3808,6 +3924,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -3836,6 +3953,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -3918,6 +4036,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -3946,6 +4065,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -3974,6 +4094,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -4002,6 +4123,7 @@
             "total": 1,
             "matches": 0,
             "mismatches": 1,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -4043,6 +4165,7 @@
             "total": 1,
             "matches": 0,
             "mismatches": 1,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -4084,6 +4207,7 @@
             "total": 1,
             "matches": 0,
             "mismatches": 1,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -4125,6 +4249,7 @@
             "total": 1,
             "matches": 0,
             "mismatches": 1,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,
@@ -4166,6 +4291,7 @@
             "total": 1,
             "matches": 1,
             "mismatches": 0,
+            "unobserved": 0,
             "total_including_blocked": 1,
             "blocked": {
               "total": 0,

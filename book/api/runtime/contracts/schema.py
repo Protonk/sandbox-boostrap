@@ -475,6 +475,9 @@ def upgrade_runtime_result(runtime_result: Mapping[str, Any], stderr_raw: Option
     if upgraded.get("seatbelt_callouts") is None and seatbelt_markers:
         upgraded["seatbelt_callouts"] = seatbelt_markers
 
+    if "intended_op_witnessed" in upgraded:
+        upgraded["intended_op_witnessed"] = _maybe_bool(upgraded.get("intended_op_witnessed"))
+
     existing_entitlements = upgraded.get("entitlement_checks")
     if isinstance(existing_entitlements, list):
         normalized_entitlements: List[Dict[str, Any]] = []

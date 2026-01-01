@@ -1,5 +1,6 @@
 (version 1)
 (deny default)
+(allow darwin-notification-post (notification-name "com.apple.sandbox-lore.frontier.notify"))
 (allow file-read-data (literal "/etc/hosts"))
 (allow file-search (literal "/var/log"))
 (allow mach-lookup (global-name "com.apple.cfprefsd.agent"))

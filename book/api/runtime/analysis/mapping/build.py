@@ -160,7 +160,7 @@ def build_scenarios(
         "total": 0,
         "stages": {"apply": 0, "bootstrap": 0, "preflight": 0, "probe": 0},
         "blocked": {"total": 0, "by_stage": {}, "by_kind": {}},
-        "probe": {"total": 0, "allow": 0, "deny": 0, "mismatches": 0},
+        "probe": {"total": 0, "allow": 0, "deny": 0, "mismatches": 0, "unobserved": 0},
     }
     hist_by_family: Dict[str, Dict[str, Any]] = {}
 
@@ -171,7 +171,7 @@ def build_scenarios(
                 "total": 0,
                 "stages": {"apply": 0, "bootstrap": 0, "preflight": 0, "probe": 0},
                 "blocked": {"total": 0, "by_stage": {}, "by_kind": {}},
-                "probe": {"total": 0, "allow": 0, "deny": 0, "mismatches": 0},
+                "probe": {"total": 0, "allow": 0, "deny": 0, "mismatches": 0, "unobserved": 0},
             },
         )
 
@@ -197,13 +197,17 @@ def build_scenarios(
                     _bump(blocked["by_kind"], obs.failure_kind)
             else:
                 probe_hist = hist["probe"]
-                probe_hist["total"] += 1
-                if obs.actual == "allow":
-                    probe_hist["allow"] += 1
-                elif obs.actual == "deny":
-                    probe_hist["deny"] += 1
-                if obs.match is False:
-                    probe_hist["mismatches"] += 1
+                if obs.intended_op_witnessed is False:
+                    # Do not count non-witnessed probes as coverage; track separately.
+                    probe_hist["unobserved"] += 1
+                else:
+                    probe_hist["total"] += 1
+                    if obs.actual == "allow":
+                        probe_hist["allow"] += 1
+                    elif obs.actual == "deny":
+                        probe_hist["deny"] += 1
+                    if obs.match is False:
+                        probe_hist["mismatches"] += 1
 
         scenario = scenarios.setdefault(
             obs.scenario_id,
@@ -215,6 +219,7 @@ def build_scenarios(
                     "total": 0,
                     "matches": 0,
                     "mismatches": 0,
+                    "unobserved": 0,
                     "total_including_blocked": 0,
                     "blocked": {"total": 0, "by_stage": {}, "by_kind": {}},
                     "status": "partial",
@@ -235,13 +240,16 @@ def build_scenarios(
                 by_kind = blocked["by_kind"]
                 by_kind[obs.failure_kind] = int(by_kind.get(obs.failure_kind, 0)) + 1
         else:
-            scenario["results"]["total"] += 1
-            if obs.match:
-                scenario["results"]["matches"] += 1
+            if obs.intended_op_witnessed is False:
+                scenario["results"]["unobserved"] += 1
             else:
-                scenario["results"]["mismatches"] += 1
+                scenario["results"]["total"] += 1
+                if obs.match is True:
+                    scenario["results"]["matches"] += 1
+                elif obs.match is False:
+                    scenario["results"]["mismatches"] += 1
 
-        if not obs.match:
+        if obs.match is False:
             mismatch_type = "filter_diff"
             if failure_stage == "apply":
                 mismatch_type = "apply_gate"
@@ -277,9 +285,12 @@ def build_scenarios(
         matches = body["results"]["matches"]
         total = body["results"]["total"]
         mismatches = body["results"]["mismatches"]
+        unobserved = body["results"].get("unobserved", 0)
         blocked_total = (body["results"].get("blocked") or {}).get("total", 0)
         if total == 0 and blocked_total:
             body["results"]["status"] = "blocked"
+        elif total == 0 and unobserved:
+            body["results"]["status"] = "brittle"
         elif total and mismatches == 0:
             body["results"]["status"] = "ok"
         elif total and matches > 0:
@@ -328,6 +339,7 @@ def build_ops(
                 "mismatches": 0,
                 "probes_including_blocked": 0,
                 "blocked": {"total": 0, "by_stage": {}, "by_kind": {}},
+                "unobserved": 0,
                 "examples": [],
                 "scenarios": set(),
             },
@@ -343,11 +355,13 @@ def build_ops(
             if obs.failure_kind:
                 by_kind = blocked["by_kind"]
                 by_kind[obs.failure_kind] = int(by_kind.get(obs.failure_kind, 0)) + 1
+        elif obs.intended_op_witnessed is False:
+            entry["unobserved"] += 1
         else:
             entry["probes"] += 1
-            if obs.match:
+            if obs.match is True:
                 entry["matches"] += 1
-            else:
+            elif obs.match is False:
                 entry["mismatches"] += 1
                 entry.setdefault("mismatch_details", []).append(
                     {

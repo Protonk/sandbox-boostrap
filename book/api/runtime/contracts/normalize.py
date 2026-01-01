@@ -15,6 +15,7 @@ relearning every probe's quirks.
 from __future__ import annotations
 
 from dataclasses import asdict
+import errno
 import json
 import os
 from pathlib import Path
@@ -332,6 +333,55 @@ def _tcc_confounder_for_observation(
     }
 
 
+def _errno_name(value: Optional[int]) -> Optional[str]:
+    if isinstance(value, int):
+        return errno.errorcode.get(value)
+    return None
+
+
+def _file_confounder_for_observation(
+    *,
+    operation: Optional[str],
+    errno_value: Optional[int],
+    policy_layers: Optional[Mapping[str, Any]],
+    failure_stage: Optional[str],
+) -> Optional[Dict[str, Any]]:
+    if not _is_path_operation(operation):
+        return None
+    if failure_stage in {"apply", "bootstrap", "preflight"}:
+        return None
+    if not isinstance(errno_value, int) or errno_value == 0:
+        return None
+
+    classification = "unknown"
+    attribution = "unknown"
+    if errno_value == errno.EACCES:
+        classification = "unix_permissions"
+        attribution = "unix_acl"
+    elif errno_value == errno.EPERM:
+        classification = "sandbox_or_mac"
+        platform = None
+        process = None
+        if isinstance(policy_layers, Mapping):
+            platform = (policy_layers.get("platform_policy") or {}).get("decision")
+            process = (policy_layers.get("process_policy") or {}).get("decision")
+        if process == "deny":
+            attribution = "app_sandbox"
+        elif platform == "deny":
+            attribution = "mac"
+        else:
+            attribution = "sandbox_or_mac"
+    else:
+        classification = "other_errno"
+
+    return {
+        "errno": errno_value,
+        "errno_name": _errno_name(errno_value),
+        "classification": classification,
+        "attribution": attribution,
+    }
+
+
 def _callout_op_candidates(operation: Optional[str]) -> List[str]:
     if not operation:
         return []
@@ -553,6 +603,14 @@ def normalize_matrix(
                     obs = probe_obs
             norm = _normalize_path(requested_path, obs.get("path")) if requested_path else {"path": None, "source": None}
 
+            policy_layers = _policy_layers_for_observation(
+                baseline_row=baseline_row,
+                scenario_decision=actual_decision,
+                runtime_status=runtime_result.get("status"),
+                failure_stage=runtime_result.get("failure_stage"),
+                failure_kind=runtime_result.get("failure_kind"),
+            )
+            errno_value = runtime_result.get("errno")
             observations.append(
                 models.RuntimeObservation(
                     world_id=resolved_world,
@@ -578,15 +636,10 @@ def normalize_matrix(
                     first_denial_filters=probe.get("first_denial_filters"),
                     decision_path=probe.get("decision_path"),
                     runtime_status=runtime_result.get("status"),
-                    errno=runtime_result.get("errno"),
-                    errno_name=None,
-                    policy_layers=_policy_layers_for_observation(
-                        baseline_row=baseline_row,
-                        scenario_decision=actual_decision,
-                        runtime_status=runtime_result.get("status"),
-                        failure_stage=runtime_result.get("failure_stage"),
-                        failure_kind=runtime_result.get("failure_kind"),
-                    ),
+                    errno=errno_value,
+                    errno_name=_errno_name(errno_value),
+                    # policy_layers is required in runtime_events for attribution.
+                    policy_layers=policy_layers,
                     tcc_confounder=_tcc_confounder_for_observation(
                         operation=op,
                         target=target,
@@ -594,6 +647,12 @@ def normalize_matrix(
                         scenario_decision=actual_decision,
                         failure_stage=runtime_result.get("failure_stage"),
                         failure_kind=runtime_result.get("failure_kind"),
+                    ),
+                    file_confounder=_file_confounder_for_observation(
+                        operation=op,
+                        errno_value=errno_value,
+                        policy_layers=policy_layers,
+                        failure_stage=runtime_result.get("failure_stage"),
                     ),
                     sandbox_check_prepass=_sandbox_check_prepass(
                         runtime_result.get("seatbelt_callouts"),
@@ -636,7 +695,11 @@ def write_observations(observations: Iterable[models.RuntimeObservation], out_pa
     """
 
     path = path_utils.ensure_absolute(Path(out_path), path_utils.find_repo_root(Path(__file__)))
-    payload = [observation_to_dict(o) for o in observations]
+    payload = []
+    for obs in observations:
+        if obs.policy_layers is None:
+            raise AssertionError("runtime observation missing policy_layers attribution")
+        payload.append(observation_to_dict(obs))
     path.parent.mkdir(parents=True, exist_ok=True)
     import json
 
@@ -856,6 +919,22 @@ def normalize_metadata_results(
             notes_parts.append(f"message={msg}")
         notes = "; ".join(notes_parts) if notes_parts else None
 
+        baseline_row = _lookup_baseline_row(
+            baseline_by_name,
+            baseline_by_key,
+            profile_id=profile_id,
+            probe_name=probe_name,
+            operation=op,
+            target=target,
+        )
+        policy_layers = _policy_layers_for_observation(
+            baseline_row=baseline_row,
+            scenario_decision=actual,
+            runtime_status=runtime_status,
+            failure_stage=failure_stage,
+            failure_kind=failure_kind,
+        )
+        errno_name = str(row.get("errno_name")) if isinstance(row.get("errno_name"), str) else _errno_name(observed_errno)
         observations.append(
             models.RuntimeObservation(
                 world_id=resolved_world,
@@ -876,35 +955,21 @@ def normalize_metadata_results(
                 match=None,
                 runtime_status=runtime_status,
                 errno=observed_errno,
-                errno_name=str(row.get("errno_name")) if isinstance(row.get("errno_name"), str) else None,
-                policy_layers=_policy_layers_for_observation(
-                    baseline_row=_lookup_baseline_row(
-                        baseline_by_name,
-                        baseline_by_key,
-                        profile_id=profile_id,
-                        probe_name=probe_name,
-                        operation=op,
-                        target=target,
-                    ),
-                    scenario_decision=actual,
-                    runtime_status=runtime_status,
-                    failure_stage=failure_stage,
-                    failure_kind=failure_kind,
-                ),
+                errno_name=errno_name,
+                policy_layers=policy_layers,
                 tcc_confounder=_tcc_confounder_for_observation(
                     operation=op,
                     target=target,
-                    baseline_row=_lookup_baseline_row(
-                        baseline_by_name,
-                        baseline_by_key,
-                        profile_id=profile_id,
-                        probe_name=probe_name,
-                        operation=op,
-                        target=target,
-                    ),
+                    baseline_row=baseline_row,
                     scenario_decision=actual,
                     failure_stage=failure_stage,
                     failure_kind=failure_kind,
+                ),
+                file_confounder=_file_confounder_for_observation(
+                    operation=op,
+                    errno_value=observed_errno,
+                    policy_layers=policy_layers,
+                    failure_stage=failure_stage,
                 ),
                 sandbox_check_prepass=_sandbox_check_prepass(seatbelt_markers or None, op, target),
                 resource_hygiene=_resource_hygiene(runtime_result),
