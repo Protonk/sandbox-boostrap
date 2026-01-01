@@ -38,6 +38,7 @@ def test_inside_tool_json_contract(run_cmd):
     for key in ("policywitness_bin", "sbpl_wrapper", "sbpl_profile"):
         assert key in payload
         assert not Path(payload[key]).is_absolute()
+    assert "log_bin" in payload
 
     signals = payload["signals"]
     for sid in ("S0", "S1", "S2", "S3", "S4", "S5", "S6"):

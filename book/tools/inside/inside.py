@@ -15,6 +15,7 @@ import datetime as dt
 import json
 import os
 import re
+import shutil
 import sys
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
@@ -218,11 +219,13 @@ def _summarize_sbpl(stderr: str) -> Dict[str, Any]:
     }
 
 
-def _resolve_repo_path(repo_root: Path, raw_path: str) -> Tuple[str, str]:
-    raw = Path(raw_path)
-    if not raw.is_absolute():
-        raw = repo_root / raw
-    return str(raw), path_utils.to_repo_relative(raw, repo_root)
+def _resolve_exec_target(repo_root: Path, raw_path: str) -> Tuple[str, str]:
+    if os.sep not in raw_path:
+        resolved = shutil.which(raw_path)
+        exec_path = resolved or raw_path
+        return exec_path, raw_path
+    abs_path = path_utils.ensure_absolute(raw_path, repo_root)
+    return str(abs_path), path_utils.to_repo_relative(abs_path, repo_root)
 
 
 def _sensor_s0() -> Dict[str, Any]:
@@ -351,12 +354,12 @@ def _sensor_s2(service_names: Iterable[str]) -> Dict[str, Any]:
 
 
 def _sensor_s3(
-    policywitness_bin: Path,
+    policywitness_bin: str,
     policywitness_rel: str,
     service_name: str,
     timeout_s: float,
 ) -> Dict[str, Any]:
-    if not policywitness_bin.exists():
+    if not Path(policywitness_bin).exists():
         return _result_payload(
             RESULT_UNKNOWN,
             note="policy-witness binary missing",
@@ -366,7 +369,7 @@ def _sensor_s3(
         )
 
     cmd = [
-        str(policywitness_bin),
+        policywitness_bin,
         "xpc",
         "run",
         "--profile",
@@ -390,8 +393,8 @@ def _sensor_s3(
             result_class = RESULT_STRONG_TRUE
             note = "xpc openSession failed with sandbox restriction"
         else:
-            result_class = RESULT_WEAK_TRUE
-            note = "xpc openSession failed"
+            result_class = RESULT_UNKNOWN
+            note = "xpc openSession failed without sandbox restriction"
     elif normalized == "ok":
         result_class = RESULT_WEAK_FALSE
         note = "xpc probe ok"
@@ -410,9 +413,9 @@ def _sensor_s3(
 
 
 def _sensor_s4(
-    wrapper_path: Path,
+    wrapper_path: str,
     wrapper_rel: str,
-    sbpl_path: Path,
+    sbpl_path: str,
     sbpl_rel: str,
     timeout_s: float,
     include_apply: bool,
@@ -426,7 +429,7 @@ def _sensor_s4(
             skipped=True,
             evidence_tier="mapped",
         )
-    if not wrapper_path.exists():
+    if not Path(wrapper_path).exists():
         return _result_payload(
             RESULT_UNKNOWN,
             note="sbpl wrapper missing",
@@ -434,7 +437,7 @@ def _sensor_s4(
             profile=sbpl_rel,
             evidence_tier="mapped",
         )
-    if not sbpl_path.exists():
+    if not Path(sbpl_path).exists():
         return _result_payload(
             RESULT_UNKNOWN,
             note="sbpl profile missing",
@@ -443,11 +446,11 @@ def _sensor_s4(
             evidence_tier="mapped",
         )
     cmd = [
-        str(wrapper_path),
+        wrapper_path,
         "--preflight",
         "enforce",
         "--sbpl",
-        str(sbpl_path),
+        sbpl_path,
         "--",
         "/usr/bin/true",
     ]
@@ -476,7 +479,14 @@ def _sensor_s4(
     )
 
 
-def _sensor_s5(predicate: str, start_ts: dt.datetime, end_ts: dt.datetime, pid: int, include_logs: bool) -> Dict[str, Any]:
+def _sensor_s5(
+    log_bin: str,
+    predicate: str,
+    start_ts: dt.datetime,
+    end_ts: dt.datetime,
+    pid: int,
+    include_logs: bool,
+) -> Dict[str, Any]:
     if not include_logs:
         return _result_payload(
             RESULT_UNKNOWN,
@@ -486,7 +496,7 @@ def _sensor_s5(predicate: str, start_ts: dt.datetime, end_ts: dt.datetime, pid: 
         )
     fmt = "%Y-%m-%d %H:%M:%S"
     cmd = [
-        "/usr/bin/log",
+        log_bin,
         "show",
         "--style",
         "syslog",
@@ -621,6 +631,7 @@ def main() -> int:
     parser.add_argument("--bootstrap-name", action="append", dest="bootstrap_names")
     parser.add_argument("--sbpl-wrapper", default=DEFAULT_SBPL_WRAPPER)
     parser.add_argument("--sbpl-profile", default=DEFAULT_SBPL_PROFILE)
+    parser.add_argument("--log-bin", default="/usr/bin/log")
     parser.add_argument("--timeout", type=float, default=15.0)
     parser.add_argument("--no-unfiltered", action="store_true", help="disable unfiltered mach-lookup fallback")
     parser.add_argument("--disable-vendored", action="store_true", help="disable vendored filter constants")
@@ -629,9 +640,10 @@ def main() -> int:
     repo_root = _repo_root()
     world_id = baseline_world_id(repo_root)
 
-    policywitness_bin_abs, policywitness_bin_rel = _resolve_repo_path(repo_root, args.policywitness_bin)
-    sbpl_wrapper_abs, sbpl_wrapper_rel = _resolve_repo_path(repo_root, args.sbpl_wrapper)
-    sbpl_profile_abs, sbpl_profile_rel = _resolve_repo_path(repo_root, args.sbpl_profile)
+    policywitness_bin_exec, policywitness_bin_rel = _resolve_exec_target(repo_root, args.policywitness_bin)
+    sbpl_wrapper_exec, sbpl_wrapper_rel = _resolve_exec_target(repo_root, args.sbpl_wrapper)
+    sbpl_profile_exec, sbpl_profile_rel = _resolve_exec_target(repo_root, args.sbpl_profile)
+    log_bin_exec, log_bin_rel = _resolve_exec_target(repo_root, args.log_bin)
 
     bootstrap_names = args.bootstrap_names or list(DEFAULT_BOOTSTRAP_NAMES)
     allow_unfiltered = not args.no_unfiltered
@@ -649,15 +661,15 @@ def main() -> int:
     )
     signals["S2"] = _sensor_s2(bootstrap_names)
     signals["S3"] = _sensor_s3(
-        Path(policywitness_bin_abs),
+        policywitness_bin_exec,
         policywitness_bin_rel,
         args.policywitness_service,
         timeout_s=args.timeout,
     )
     signals["S4"] = _sensor_s4(
-        Path(sbpl_wrapper_abs),
+        sbpl_wrapper_exec,
         sbpl_wrapper_rel,
-        Path(sbpl_profile_abs),
+        sbpl_profile_exec,
         sbpl_profile_rel,
         timeout_s=args.timeout,
         include_apply=args.include_apply,
@@ -669,6 +681,7 @@ def main() -> int:
         'OR (subsystem == "com.apple.sandbox.reporting")'
     )
     signals["S5"] = _sensor_s5(
+        log_bin_exec,
         log_predicate,
         start_ts,
         end_ts,
@@ -687,6 +700,7 @@ def main() -> int:
         "policywitness_bin": policywitness_bin_rel,
         "sbpl_wrapper": sbpl_wrapper_rel,
         "sbpl_profile": sbpl_profile_rel,
+        "log_bin": log_bin_rel,
         "signals": {key: signals[key] for key in SENSOR_ORDER if key in signals},
         "summary": summary,
     }

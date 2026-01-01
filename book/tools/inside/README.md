@@ -78,6 +78,7 @@ Key flags:
 - `--json`: emit JSON only.
 - `--include-apply`: enable S4 (apply heuristic).
 - `--with-logs`: enable S5 log corroboration.
+- `--log-bin`: override the log binary (defaults to `/usr/bin/log`).
 - `--no-unfiltered`: disable unfiltered S1 fallback.
 - `--disable-vendored`: do not use vendored filter constants.
 
