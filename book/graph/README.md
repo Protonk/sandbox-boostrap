@@ -4,7 +4,7 @@ This target keeps the concept inventory and routing metadata in sync with the re
 
 What it does (current):
 - Parses `book/substrate/Concepts.md` + `book/evidence/graph/concepts/CONCEPT_INVENTORY.md` + `book/graph/concepts/validation/Concept_map.md`.
-- Emits JSON: `book/evidence/graph/concepts/{concepts.json,concept_map.json,concept_text_map.json}`, `book/evidence/graph/concepts/validation/{strategies.json,validation_report.json}`, `book/examples/examples.json`.
+- Emits JSON: `book/evidence/graph/concepts/{concepts.json,concept_map.json,concept_text_map.json}`, `book/evidence/graph/concepts/validation/{strategies.json,validation_report.json}`.
 - Runs light validation (concept IDs referenced by strategies and runtime expectations exist) and writes `book/evidence/graph/concepts/validation/validation_report.json`.
 - Feeds stable mappings into CARTON fixers (see `book/integration/carton/bundle/CARTON.json`), the frozen CARTON bundle (relationships/views/contracts + manifest) used by the textbook and CI guardrails.
 - Encodes “always enforced” mapping invariants as Swift data structures; the Swift build fails if the host mappings drift (see `swift/`).
@@ -23,7 +23,7 @@ Extending it:
  - Keep static mapping invariants (vocab/coverage/digests/tag layouts/manifest/literal expectations) in Swift so drift is caught by `make -C book test`.
 
 Directory map (agent quick reference):
-- `swift/` – Swift generator/validator, split by concern (types/utils, concept parsing, strategies, examples, bindings, entrypoint).
+- `swift/` – Swift generator/validator, split by concern (types/utils, concept parsing, strategies, bindings, entrypoint).
 - `concepts/` – Concept inventory source (markdown), generated JSON, validation metadata, and Swift validation reports.
 - `mappings/` – Generators for stable host-specific IR (vocab, op_table, anchors, tag_layouts, system_profiles, runtime) that live under `book/evidence/graph/mappings/` and feed into CARTON fixers.
 - CARTON bundle lives under `book/integration/carton/` (relationships, views, contracts, manifest, and tools).

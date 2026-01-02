@@ -47,7 +47,7 @@ Digest signature (exact-match; host-scoped list):
 From repo root:
 
 ```sh
-python3 book/tools/preflight/preflight.py scan book/examples/sb/sample.sb
+python3 book/tools/preflight/preflight.py scan book/tools/sbpl/corpus/baseline/sample.sb
 python3 book/tools/preflight/preflight.py scan book/evidence/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/*/minimal_failing.sb
 python3 book/tools/preflight/preflight.py scan book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/*/*.sb.bin
 ```

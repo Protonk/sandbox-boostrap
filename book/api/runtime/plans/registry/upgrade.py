@@ -185,7 +185,15 @@ def validate_probe_entry(probe_id: str, probe: Dict[str, Any], *, strict: bool) 
                     f"probe {probe_id}.controls_supported has unknown value {item!r}"
                 )
 
-    for key in ["expectation_id", "mode", "driver", "syscall", "attr_payload", "anchor_ctx_id", "filter_name"]:
+    for key in [
+        "expectation_id",
+        "mode",
+        "driver",
+        "syscall",
+        "attr_payload",
+        "anchor_ctx_id",
+        "filter_name",
+    ]:
         if key in probe and probe[key] is not None:
             _ensure_str(probe.get(key), f"probe {probe_id}.{key}", errors)
     if "filter_type" in probe and probe["filter_type"] is not None:
@@ -245,7 +253,16 @@ def normalize_probe_entry(probe_id: str, probe: Dict[str, Any]) -> Dict[str, Any
         "capabilities_required": capabilities_required,
         "controls_supported": controls_supported,
     }
-    for key in ["expectation_id", "mode", "driver", "syscall", "attr_payload", "anchor_ctx_id", "filter_name", "filter_type"]:
+    for key in [
+        "expectation_id",
+        "mode",
+        "driver",
+        "syscall",
+        "attr_payload",
+        "anchor_ctx_id",
+        "filter_name",
+        "filter_type",
+    ]:
         if key in probe:
             normalized[key] = probe[key]
     return normalized

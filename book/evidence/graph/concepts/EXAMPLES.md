@@ -1,213 +1,85 @@
-# Examples and Concept Clusters
+# Witnesses and Concept Clusters
 
-This file explains how the examples under `book/examples/` serve as witnesses for the concept clusters in `CONCEPT_INVENTORY.md`, and how their outputs flow into the shared mapping/validation layer.
+This file maps concept clusters to the active witness artifacts and harnesses in this repo, and shows how their outputs flow into shared validation and mapping layers.
 
-It is *not* a full “how to run” guide for each example (see `book/examples/AGENTS.md` for that), but a routing layer: when you pick an example, this tells you which concepts it supports and which manifests it feeds.
+It is not a step-by-step runbook; use the nearest README in each tool or experiment directory for execution details.
 
-## Cluster ↔ example map (quick view)
+## Cluster ↔ witness map (quick view)
 
-- **Static-Format** – compiled profile structure, headers, operation tables, regex/literal tables, profile format variants.  
-  Examples: `sb/`, `extract_sbs/`, `sbsnarf/`, `apple-scheme/`, `sbdis/`, `re2dot/`, `resnarf/`.
+- **Static-Format** – compiled profile structure, headers, op tables, regex/literal tables, profile format variants.  
+  Witnesses: SBPL corpus samples + system profile fixtures + parameterization validation outputs.
 
-- **Semantic Graph and Evaluation** – operations, filters, metafilters, decisions, policy graph behavior.  
-  Examples: `metafilter-tests/`, `sbpl-params/`, `network-filters/`, `mach-services/`, plus the golden-triple harness under `book/profiles/golden-triple/` (not in `book/examples/`).
+- **Semantic Graph and Evaluation** – operations, filters, metafilters, decisions, runtime behavior.  
+  Witnesses: runtime-checks experiment bundles and the golden-triple harness (runtime expectations + traces).
 
 - **Vocabulary and Mapping** – operation/filter vocab maps and name↔ID alignment.  
-  Examples: `sb/`, `extract_sbs/`, `sbdis/`, `re2dot/`, `resnarf/` (all indirectly), with vocab extraction driven by `book/graph/mappings/vocab/generate_vocab_from_dyld.py` against `book/evidence/graph/mappings/dyld-libs/`.
+  Witnesses: dyld-derived vocab tables, op-table alignment outputs, and normalization runs that cross-check runtime usage.
 
-- **Runtime Lifecycle and Extension** – profile layers, stack evaluation order, compiled profile source, containers, entitlements, extensions, adjacent controls.  
-  Examples: `entitlements-evolution/`, `platform-policy-checks/`, `extensions-dynamic/`, `containers-and-redirects/`, `libsandcall/`.
+- **Runtime Lifecycle and Extension** – profile layers, policy stack order, entitlements, extensions, containers, adjacent controls.  
+  Witnesses: lifecycle probes via `book.api.lifecycle`, normalized lifecycle traces, and runtime lifecycle mappings.
 
 The rest of this file explains these relationships cluster-by-cluster.
 
 ---
 
-## Static-Format examples
+## Static-Format witnesses
 
-Static-format examples produce compiled blobs and structural views that feed decoders, op-table experiments, tag layouts, and system-profile digests.
+Static-format witnesses are built from SBPL specimens and compiled system profiles, then decoded by shared ingestion tooling.
 
-### `sb/`
+- **SBPL corpus sample** (`book/tools/sbpl/corpus/baseline/sample.sb`)
+  - Compile with `python -m book.api.profile compile`.
+  - Outputs land in `book/evidence/graph/concepts/validation/fixtures/blobs/` and are summarized under `book/evidence/graph/concepts/validation/out/static/`.
+  - Feeds system-profile digests and attestations under `book/evidence/graph/mappings/system_profiles/`.
 
-- **Role:** Compile `sample.sb`, then parse the resulting modern graph-based blob via the shared ingestion layer.
-- **Concept clusters:**  
-  - **P:** Static-Format (Binary Profile Header, Operation Pointer Table, Profile Format Variant, PolicyGraph/Policy Node, Regex/Literal Table).  
-  - **S:** Semantic Graph and Evaluation (PolicyGraph reconstruction), Vocabulary and Mapping (operation/filter IDs for the sample).
-- **Feeds:**
-  - `book/evidence/graph/concepts/validation/out/static/sample.sb.json`  
-  - `book/evidence/graph/mappings/system_profiles/digests.json` (via curated inclusion as `sample`)  
-  - `book/evidence/graph/mappings/system_profiles/{attestations.json,static_checks.json}` (sample entry).
+- **System profile fixtures** (`book/evidence/graph/concepts/validation/fixtures/blobs/{airlock,bsd}.sb.bin`)
+  - Compiled from `/System/Library/Sandbox/Profiles/*.sb` via `book.api.profile`.
+  - Used for static checks, op-table alignment, and tag-layout validation.
 
-### `extract_sbs/`
+- **Parameterization validation** (`book/evidence/graph/concepts/validation/out/{sbpl_parameterization,sbpl_param_value_matrix}/status.json`)
+  - Captures compile-time behavior of `(param ...)` specimens for this host.
 
-- **Role:** Compile selected system SBPL templates (e.g., `airlock.sb`, `bsd.sb`) with `libsandbox` and save `.sb.bin` blobs.
-- **Concept clusters:**  
-  - **P:** Static-Format (captured compiled profiles, format variants, system profile layers).  
-  - **S:** Runtime Lifecycle and Extension (Compiled Profile Source: system templates).
-- **Feeds:**
-  - `book/evidence/graph/concepts/validation/fixtures/blobs/*.sb.bin` (canonical raw blobs).  
-  - `validation/out/static/system_profiles.json` (ingestion summaries).  
-  - `mappings/system_profiles/{digests.json,attestations.json,static_checks.json}`.
-
-### `sbsnarf/`
-
-- **Role:** Compile arbitrary SBPL text to `.sb.bin` via `sandbox_compile_file` (no apply).
-- **Concept clusters:**  
-  - **P:** Static-Format (compiled blob production across formats).  
-  - **S:** Runtime Lifecycle and Extension (Compiled Profile Source for test/harness profiles).
-- **Feeds:**
-  - Custom blobs used by experiments; static ingestion outputs under `validation/out/static/` when wired via `validation/tasks.py`.
-
-### `apple-scheme/`
-
-- **Role:** C shim that calls `sandbox_compile_file` on `profiles/demo.sb` and writes `build/demo.sb.bin`.
-- **Concept clusters:**  
-  - **P:** Static-Format (Binary Profile Header, Profile Format Variant).  
-  - **S:** Runtime Lifecycle and Extension (Policy Lifecycle Stage: SBPL compilation).
-- **Feeds:**
-  - Additional compiled blobs for decoder tests and format-variant sanity checks.
-
-### `sbdis/`, `resnarf/`, `re2dot/`
-
-- **Role:** Work with legacy decision-tree formats and AppleMatch regex tables:
-  - `sbdis/` – disassemble legacy decision-tree profiles.  
-  - `resnarf/` – extract AppleMatch regex blobs (`.re`).  
-  - `re2dot/` – turn `.re` blobs into Graphviz `.dot`.
-- **Concept clusters:**  
-  - **P:** Static-Format (legacy node/regex layout, regex/literal table).  
-  - **S:** Vocabulary and Mapping (linking regexes back to filters/operations).
-- **Feeds:**
-  - Legacy static ingestion outputs under `validation/out/static/`.  
-  - Tag-layout work under `book/evidence/graph/mappings/tag_layouts/`; legacy regex tooling now lives in `book/examples/regex_tools/`.
+Legacy decision-tree formats are not part of the active harness; if a legacy blob is available, document it explicitly and keep its outputs clearly labeled.
 
 ---
 
-## Semantic Graph and Evaluation examples
+## Semantic Graph and Evaluation witnesses
 
-Semantic examples exercise operations, filters, and metafilters and (where possible) tie outcomes back to decoded graphs.
+Semantic witnesses are driven by runtime bundles and golden-triple profiles rather than ad-hoc sandbox-exec probes.
 
-### `metafilter-tests/`
+- **Runtime-checks experiment** (`book/evidence/experiments/runtime-final-final/suites/runtime-checks/`)
+  - Run via `python -m book.api.runtime run --plan ... --channel launchd_clean`.
+  - Normalized outputs live at `book/evidence/graph/concepts/validation/out/experiments/runtime-checks/runtime_results.normalized.json`.
+  - Feeds runtime expectations and trace mappings under `book/evidence/graph/mappings/runtime/`.
 
-- **Role:** Use `sandbox-exec` with tiny SBPL profiles to demonstrate `require-any`, `require-all`, and `require-not` behavior on `file-read*`.
-- **Concept clusters:**  
-  - **P:** Semantic Graph and Evaluation (Metafilter, PolicyGraph shape).  
-  - **S:** Static-Format (compiled graphs corresponding to SBPL metafilters).
-- **Feeds:**
-  - `validation/out/semantic/metafilter.jsonl` (legacy, `brittle`).  
-  - Informal graph-shape comparisons when cross-checking decoder output; superseded by golden-triple metafilter profiles where possible.
+- **Golden-triple harness** (`book/profiles/golden-triple/`)
+  - Provides curated SBPL/compiled/runtime triples for allow_all, metafilter_any, bucket4, and bucket5 profiles.
+  - Feeds `book/evidence/graph/mappings/runtime/expectations.json` + `traces/*`.
 
-### `sbpl-params/`
-
-- **Role:** Demonstrate `(param "...")` templating and how parameter dictionaries change allowed paths under `sandbox-exec`.
-- **Concept clusters:**  
-  - **P:** Semantic Graph and Evaluation (SBPL Parameterization as part of semantic profile).  
-  - **S:** Runtime Lifecycle and Extension (parameters supplied at compile/launch time).
-- **Feeds:**
-  - `validation/out/semantic/sbpl_params.jsonl` (legacy, `brittle`).
-
-### `network-filters/`
-
-- **Role:** Exercise TCP/UDP/UNIX sockets to map syscalls to `network-*` operations and filters (domain, type, remote/local addresses).
-- **Concept clusters:**  
-  - **P:** Semantic Graph and Evaluation (network operations and filters).  
-  - **S:** Vocabulary and Mapping (socket-domain/type and network filter vocab).
-- **Feeds:**
-  - `validation/out/semantic/network.jsonl` (legacy, `brittle`).
-
-### `mach-services/`
-
-- **Role:** Register a bootstrap service and look it up alongside selected system services to show how `mach-lookup` and `(global-name ...)` filters behave.
-- **Concept clusters:**  
-  - **P:** Semantic Graph and Evaluation (`mach-lookup` operation, `global-name` filters).  
-  - **S:** Vocabulary and Mapping (service-name/global-name vocab entries).
-- **Feeds:**
-  - `validation/out/semantic/mach_services.jsonl` (legacy, `brittle`).
-
-### Golden-triple harness (outside `book/examples/`)
-
-- **Location:** `book/profiles/golden-triple/` + `book/api/runtime/`.  
-- **Role:** Provide “golden” SBPL/graph/runtime triples (e.g., `allow_all`, `metafilter_any`, bucket4/bucket5 profiles) used for semantic validation.  
-- **Feeds:** `mappings/runtime/expectations.json` + `mappings/runtime/traces/*` and `validation/out/semantic/runtime_results.json`.
+Legacy sandbox-exec snapshots remain under `book/evidence/graph/concepts/validation/out/semantic/` for historical context, but they are not a current regeneration path.
 
 ---
 
-## Vocabulary and Mapping examples
+## Vocabulary and Mapping witnesses
 
-Vocabulary/mapping is mostly driven by dyld cache extraction and op-table experiments, but several examples supply the compiled blobs those experiments need.
+Vocabulary/mapping evidence is anchored in dyld extraction and op-table alignment, with runtime checks as a secondary cross-check.
 
-### `sb/`, `extract_sbs/`, `sbdis/`, `re2dot/`, `resnarf/`
-
-- **Role:** Produce or operate on compiled blobs whose op-table entries, filters, and regex/literal tables are used to align Operation/Filter vocab and op-tables.
-- **Concept clusters:**  
-  - **P:** Static-Format (as above).  
-  - **S:** Vocabulary and Mapping (name↔ID, op-table alignment, regex usage).
-- **Feeds:**
-  - `mappings/vocab/{ops.json,filters.json}` (via dyld, not examples directly).  
-  - `mappings/op_table/op_table_vocab_alignment.json` (op-table alignment for synthetic/sample profiles).  
-  - `validation/out/vocab/*` (mirrored vocab tables and future runtime usage summaries).
-
-Vocabulary extraction itself is driven by `book/graph/mappings/vocab/generate_vocab_from_dyld.py` plus `book/api/profile/` (op-table tooling), not by a single `book/examples/` directory, but the examples above provide the concrete blobs needed to sanity check op-table/vocab alignment.
+- **Dyld-derived vocab**: `book/graph/mappings/vocab/generate_vocab_from_dyld.py` → `book/evidence/graph/mappings/vocab/{ops.json,filters.json,attestations.json}`.
+- **Op-table alignment**: `book/evidence/graph/mappings/op_table/op_table_vocab_alignment.json`.
+- **Runtime cross-check**: normalized runtime events from runtime-checks (see semantic section) can be mapped back to vocab IDs to flag unknowns.
 
 ---
 
-## Runtime Lifecycle and Extension examples
+## Runtime Lifecycle and Extension witnesses
 
-Lifecycle examples focus on profile provenance, entitlements, containers, extensions, and platform policy—everything around “which policies apply when?” instead of detailed graph semantics.
+Lifecycle witnesses come from host-bound probes and normalized lifecycle traces.
 
-### `entitlements-evolution/`
-
-- **Role:** Print signing identifier and entitlements for the running binary; meant to compare differently signed builds to see how entitlement-backed filters drive policy differences.
-- **Concept clusters:**  
-  - **P:** Runtime Lifecycle and Extension (entitlements as lifecycle inputs).  
-  - **S:** Semantic Graph and Evaluation (entitlement-backed filters), Vocabulary and Mapping (entitlement keys and filter names).
-- **Feeds:**
-  - `validation/out/lifecycle/entitlements.json` (unsigned baseline; `partial`).  
-  - `mappings/runtime/lifecycle.json` + `lifecycle_traces/entitlements-evolution.jsonl`.
-
-### `platform-policy-checks/`
-
-- **Role:** Probe sysctl, SIP-protected paths, and Mach services to surface platform/SIP denies that precede or override per-process SBPL.
-- **Concept clusters:**  
-  - **P:** Runtime Lifecycle and Extension (Profile Layer, Policy Stack Evaluation Order, adjacent controls).  
-  - **S:** Semantic Graph and Evaluation (operations and filters hit by the probes).
-- **Feeds:**
-  - Lifecycle logs under `validation/out/lifecycle/` when wired into the harness; mapping-grade promotion still pending.
-
-### `extensions-dynamic/`
-
-- **Role:** Call `sandbox_extension_issue/consume/release`; expected to fail issuance without entitlements but illustrates the token workflow that feeds `(extension ...)` filters.
-- **Concept clusters:**  
-  - **P:** Runtime Lifecycle and Extension (Sandbox Extension, label state).  
-  - **S:** Semantic Graph and Evaluation (extension filters and resulting decisions).
-- **Feeds:**
-  - `validation/out/lifecycle/extensions_dynamic.md` (notes on token issuance attempts).  
-  - `mappings/runtime/lifecycle.json` + `lifecycle_traces/extensions-dynamic.jsonl` (scenario marked `blocked`).
-
-### `containers-and-redirects/`
-
-- **Role:** Walk `~/Library/Containers` and group containers, resolve symlinks, and show the canonical paths the sandbox evaluates.
-- **Concept clusters:**  
-  - **P:** Runtime Lifecycle and Extension (Container, filesystem view).  
-  - **S:** Semantic Graph and Evaluation (path/vnode filters).
-- **Feeds:**
-  - Lifecycle logs under `validation/out/lifecycle/containers.json` when wired; mapping-grade promotion still pending.
-
-### `libsandcall/`
-
-- **Role:** Compile inline SBPL, print bytecode metadata, and attempt `sandbox_apply` (expected to `EPERM` without special entitlements).
-- **Concept clusters:**  
-  - **P:** Runtime Lifecycle and Extension (Policy Lifecycle Stage, applying profiles to labels).  
-  - **S:** Static-Format (compiled blob structure), Semantic Graph and Evaluation (effects of applied profiles when they succeed).
-- **Feeds:**
-  - Lifecycle logs under `validation/out/lifecycle/` (apply attempts, error codes).  
-  - Qualitative evidence for apply gates (`EPERM`) on this host.
+- **Lifecycle probes**: `book.api.lifecycle` CLI produces outputs under `book/evidence/graph/concepts/validation/out/lifecycle/`.
+- **Lifecycle mappings**: `book/evidence/graph/mappings/runtime/lifecycle.json` + `lifecycle_traces/*` for promoted scenarios.
 
 ---
 
 ## How to use this map
 
-- When choosing an example to witness a concept, start with the **cluster** you care about and then pick from the examples listed above.
-- For **static-format** and **vocab** work, favor `sb/` + `extract_sbs/` and look at the system profile manifests (`system_profiles/*`, `op_table/*`, `vocab/*`).
-- For **semantic** work, favor the golden-triple harness (`book/profiles/golden-triple/`) and treat `metafilter-tests/`, `sbpl-params/`, `network-filters/`, and `mach-services/` as legacy/brittle probes.
-- For **lifecycle** work, start with `entitlements-evolution/`, `extensions-dynamic/`, `libsandcall/`, and `containers-and-redirects/`, and use `mappings/runtime/lifecycle.json` as the high-level status view.
-
-In all cases, aim to route new evidence into the existing manifests under `book/evidence/graph/mappings/` and `book/evidence/graph/concepts/validation/out/` so that the concept inventory, examples, and mapping layer stay tightly coupled. 
+- Start from the cluster you care about and pick the smallest, most direct witness (fixtures or experiment bundles).
+- Prefer evidence that is regenerable on this host and already feeds existing manifests under `book/evidence/graph/mappings/` and `book/evidence/graph/concepts/validation/out/`.
+- When adding a new witness, update the relevant manifest or status file rather than leaving evidence as a one-off log.

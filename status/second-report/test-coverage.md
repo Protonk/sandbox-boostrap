@@ -7,20 +7,20 @@
  All automated checks flow through a single CI harness that mirrors pytest discovery without relying on pytest’s runner, and then compiles the Swift graph tools; this keeps “what passes CI” tightly coupled to the host-specific world and the mapping layer.
 
 - Single entrypoint: `make -C book test` (default Make target) calls `book/ci.py`, which in turn runs the Python harness and the Swift build once, with coarse-grained stamps in `book/out/ci-stamps/`.
-- Python side: `book/ci.py` fingerprints `book/tests`, `book/api`, `book/graph/concepts/validation`, `book/examples`, and `book/evidence/experiments`, then invokes `python -m book.tests.run_all` as a lightweight stand-in for pytest.
+- Python side: `book/ci.py` fingerprints `book/tests`, `book/api`, `book/graph/concepts/validation`, and `book/evidence/experiments`, then invokes `python -m book.tests.run_all` as a lightweight stand-in for pytest.
 - Harness shape: `book/tests/run_all.py` discovers `book/tests/test_*.py` plus any `book/api/**/test_*.py` (today only `book/api/golden_runner/test_golden_runner.py`), supports a small fixture set (`tmp_path`, `monkeypatch`), and runs module-level `test_*` callables plus `unittest.TestCase` classes.
 - Expectations: `book/tests/README.md` frames this as a sanity suite—fast, deterministic, with `@pytest.mark.system` on tests that shell out or depend on macOS libs, and with all asserted paths normalized to repo-relative form.
 - Validation bridge: `book/evidence/graph/concepts/validation/out/validation_status.json` currently records four `ok` jobs (`vocab:sonoma-14.4.1`, `experiment:field2`, `experiment:runtime-checks`, `experiment:system-profile-digest`), and several tests assume these jobs have run and produced their normalized IR.
 
 ## High-Level Coverage Picture
 
- Coverage clusters fall into four main bands: (1) structural bedrock for vocab, system profiles, tag layouts, and op-table, (2) CARTON manifest and query API contracts, (3) runtime semantics for a small “golden” operation/profile set plus a VFS canonicalization scenario, and (4) shape and presence checks for experiments, examples, and toolchain builds.
+ Coverage clusters fall into four main bands: (1) structural bedrock for vocab, system profiles, tag layouts, and op-table, (2) CARTON manifest and query API contracts, (3) runtime semantics for a small “golden” operation/profile set plus a VFS canonicalization scenario, and (4) shape and presence checks for experiments and toolchain builds.
 
 At a high level:
 - Structural/mapping tests aim at the **bedrock** tier: they assert file presence, schema, world pinning, and cross-file consistency for the shared IR in `book/evidence/graph/mappings/*` and golden-corpus outputs.
 - CARTON tests sit just above that, ensuring that the frozen IR (`CARTON.json` + indices) remains an accurate projection of the underlying mappings and validation IR for this world.
 - Runtime tests live in the **mapped** tier: they provide detailed allow/deny expectations for a small set of profiles and operations (notably `file-read*`, `file-write*`, and `mach-lookup`) and treat VFS canonicalization quirks as environment facts rather than decoder bugs.
-- Experiments/examples/tests treat their JSON artifacts and SBPL assets as **shape-guarded** but not deeply interpreted; many assertions are “does this JSON look like we expect?” rather than “does this SBPL profile enforce every substrate claim?”.
+- Experiments/tests treat their JSON artifacts and SBPL assets as **shape-guarded** but not deeply interpreted; many assertions are “does this JSON look like we expect?” rather than “does this SBPL profile enforce every substrate claim?”.
 
 The sections below expand each band and connect individual tests back to the concept inventory and mapping layers.
 
@@ -98,17 +98,17 @@ When these tests pass, the project can treat CARTON as a faithful, world-pinned 
 
 Collectively, these tests justify treating runtime behavior for `file-read*`, `file-write*`, `mach-lookup`, and the VFS canonicalization scenario as well-understood on this host (mapped), while explicitly leaving most other operations and profiles in a structural-only tier.
 
-## Experiments, Examples, and Assets
+## Experiments and Assets
 
- Experiment and example tests are almost entirely structural: they ensure that curated SBPL profiles, experiment outputs, kernel symbol inventories, and example demos remain present and well-shaped so other tools and chapters can rely on them as inputs.
+ Experiment and asset tests are almost entirely structural: they ensure that curated SBPL profiles, experiment outputs, kernel symbol inventories, and tooling assets remain present and well-shaped so other tools and chapters can rely on them as inputs.
 
 - **Experiment outputs**
   - `book/tests/planes/examples/test_experiments.py` inspects artifacts from `book/evidence/experiments/node-layout/out`, `op-table-operation/out`, and `op-table-vocab-alignment/out`, checking for expected keys (names, op entries, section lengths, alignment records) and verifying that node-layout decoder blocks contain node counts, tag counts, and op-table offsets. These tests treat those JSON files as stable IR for decoder/op-table work.
   - `book/tests/planes/tools/test_entitlement_diff_assets.py` and `test_kernel_string_refs.py` (not detailed here) similarly check the presence and basic structure of outputs in entitlement-diff and kernel-symbols experiments, ensuring that later consumers can assume those artifacts exist and are minimally sane.
 
-- **Examples and SBPL/tooling scaffolds**
-  - `book/tests/planes/examples/test_examples.py` walks `book/examples/` and runs selected demos (e.g., compile sample profiles, extract system profiles), then asserts that compiled blobs or expected outputs exist, marking system-dependent tests appropriately.
-  - `book/tests/planes/contracts/test_op_table_api.py`, `test_sbpl_compile_api.py`, `test_regex_tools.py`, `test_sbpl_graph_runtime_assets.py`, `test_sbpl_wrapper_exists.py`, `test_book_api_ghidra_connector.py`, and `test_ghidra_scaffold.py` provide smoke tests for API/tooling modules: they assert that CLIs can be imported and invoked on small inputs, that SBPL compile wrappers exist and function on sample profiles, and that Ghidra scaffolding can be imported and used to drive kernel analyses in a controlled way.
+- **SBPL/tooling scaffolds**
+  - `book/tests/planes/examples/test_examples.py` compiles the SBPL corpus sample and system profile templates via `book.api.profile`, then asserts that compiled blobs or expected outputs exist, marking system-dependent tests appropriately.
+  - `book/tests/planes/contracts/test_op_table_api.py`, `test_sbpl_compile_api.py`, `test_sbpl_graph_runtime_assets.py`, `test_sbpl_wrapper_exists.py`, `test_book_api_ghidra_connector.py`, and `test_ghidra_scaffold.py` provide smoke tests for API/tooling modules: they assert that CLIs can be imported and invoked on small inputs, that SBPL compile wrappers exist and function on sample profiles, and that Ghidra scaffolding can be imported and used to drive kernel analyses in a controlled way.
   - `book/tests/planes/graph/test_golden_corpus.py` doubles as both structural and example coverage, confirming that golden-corpus entries are present, world-pinned, and have decoded representations for static-only platform profiles.
 
 These tests do not claim semantic completeness for the experiments or examples; instead they keep their artifacts stable enough that higher-level tools, chapters, and future experiments can rely on them as known-good building blocks.

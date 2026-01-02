@@ -1,7 +1,6 @@
 {
   "inputs": {
     "book_blobs": "book/**/*.sb.bin (excluding book/dumps/**, book/integration/out/**, and entitlement-diff, entitlement-jail-extension-semantics)",
-    "examples_sbpl": "book/examples/**/*.sb",
     "experiments_sbpl": "book/evidence/experiments/**/*.sb (excluding out/ and entitlement-diff, entitlement-jail-extension-semantics)",
     "profiles_sbpl": "book/profiles/**/*.sb",
     "tools_sbpl": "book/tools/sbpl/corpus/**/*.sb"
@@ -12890,60 +12889,6 @@
       },
       "sources": [
         "book_blobs"
-      ]
-    },
-    {
-      "file_sha256": "af406b1ddd1776811df129762c52987fca2a3314153d38635f5280d8480bc6c0",
-      "file_size": 435,
-      "path": "book/examples/apple-scheme/profiles/demo.sb",
-      "preflight": {
-        "classification": "no_known_apply_gate_signature",
-        "findings": [],
-        "input_kind": "sbpl_path",
-        "input_ref": "book/examples/apple-scheme/profiles/demo.sb",
-        "preflight_schema_version": 1,
-        "signature": null,
-        "tool": "book/tools/preflight",
-        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
-      },
-      "sources": [
-        "examples_sbpl"
-      ]
-    },
-    {
-      "file_sha256": "86fb8d953a38c083f3e390f591545f4b24fcda6cf98e7715b34e83faa835a383",
-      "file_size": 479,
-      "path": "book/examples/sb/sample.sb",
-      "preflight": {
-        "classification": "no_known_apply_gate_signature",
-        "findings": [],
-        "input_kind": "sbpl_path",
-        "input_ref": "book/examples/sb/sample.sb",
-        "preflight_schema_version": 1,
-        "signature": null,
-        "tool": "book/tools/preflight",
-        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
-      },
-      "sources": [
-        "examples_sbpl"
-      ]
-    },
-    {
-      "file_sha256": "facffc2b0a01e3c1cdd324d761ad37acd873d33d8290d9495053af3aaa3a25bd",
-      "file_size": 67,
-      "path": "book/examples/sb/variant1.sb",
-      "preflight": {
-        "classification": "no_known_apply_gate_signature",
-        "findings": [],
-        "input_kind": "sbpl_path",
-        "input_ref": "book/examples/sb/variant1.sb",
-        "preflight_schema_version": 1,
-        "signature": null,
-        "tool": "book/tools/preflight",
-        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
-      },
-      "sources": [
-        "examples_sbpl"
       ]
     },
     {

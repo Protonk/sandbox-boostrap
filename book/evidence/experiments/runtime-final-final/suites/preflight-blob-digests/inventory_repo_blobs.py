@@ -49,8 +49,6 @@ def _bucket_for(path: Path) -> str:
         return "profiles"
     if rel.startswith("book/evidence/experiments/"):
         return "experiments"
-    if rel.startswith("book/examples/"):
-        return "examples"
     return "other"
 
 

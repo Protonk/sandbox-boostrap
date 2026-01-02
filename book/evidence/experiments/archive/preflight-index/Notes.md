@@ -7,7 +7,7 @@
   - `python3 book/tools/preflight/build_index.py`
   - Wrote `book/tools/preflight/index/preflight_enterability_manifest.json` and `book/tools/preflight/index/summary.json`.
 - Added a guardrail test: `book/tests/test_preflight_index_manifest.py`.
-- Expanded the SBPL inventory to include `book/evidence/experiments/**/*.sb` (excluding `out/`) and `book/examples/**/*.sb`, then regenerated via `python3 book/tools/preflight/build_index.py`.
+- Expanded the SBPL inventory to include `book/evidence/experiments/**/*.sb` (excluding `out/`) and `book/tools/sbpl/corpus/**/*.sb`, then regenerated via `python3 book/tools/preflight/build_index.py`.
 
 - Regenerated the manifest after new `gate-witnesses` compile-vs-apply artifacts landed:
   - `python3 book/tools/preflight/build_index.py`

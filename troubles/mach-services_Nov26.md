@@ -3,7 +3,7 @@
 ## Context
 
 - Host: Sonoma baseline (see `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world.json)`), SIP enabled.
-- Demo: `book/examples/mach-services/mach_server` and `mach_client`.
+- Demo: mach-services probe binaries (`mach_server` and `mach_client`, legacy local build).
 - Goal: obtain a clean, empirical witness of the `mach-lookup` operation as Seatbelt sees it by probing a small demo service (`com.example.xnusandbox.demo`) and a couple of system services.
 
 ## Narrative: mach-lookup as a stacked gate
@@ -74,7 +74,7 @@ In short, the current host gives us a clear, repeatable outcome—`BOOTSTRAP_NOT
 - Decoded `0x44c` via `bootstrap_strerror` (python3 + ctypes): `Permission denied` (matches `BOOTSTRAP_NOT_PRIVILEGED`). Suggests failure in the bootstrap/launchd layer before Seatbelt `mach-lookup` filters would run.
 - Tried to run the server under launchd to see if a managed per-user job gains bootstrap privileges:
   - `launchctl bootstrap gui/$UID /tmp/com.example.xnusandbox.demo.plist` → `Bootstrap failed: 5: Input/output error`.
-  - `launchctl submit -l com.example.xnusandbox.demo -- /Users/achyland/Desktop/SANDBOX_LORE/book/examples/mach-services/mach_server` → exit 1, no job present (`launchctl print gui/$UID` shows nothing).
+  - `launchctl submit -l com.example.xnusandbox.demo -- <mach_server>` → exit 1, no job present (`launchctl print gui/$UID` shows nothing).
 - Current state: both ad-hoc and launchd-invoked attempts are blocked at bootstrap registration/lookup with `BOOTSTRAP_NOT_PRIVILEGED`. No evidence that mach-lookup reached Seatbelt policy graphs; this remains an upstream bootstrap policy issue rather than an SBPL allow/deny result.
 
 ## from chat

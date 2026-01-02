@@ -4,7 +4,6 @@ import Foundation
 
 public typealias ConceptID = String
 public typealias ValidationID = String
-public typealias ExampleID = String
 public typealias TextRegionID = String
 
 // MARK: - Enums
@@ -50,15 +49,6 @@ public struct ValidationStrategy: Codable {
     public let outputKinds: [OutputKind]
     public let primaryConcepts: [ConceptID]
     public let secondaryConcepts: [ConceptID]
-}
-
-public struct ExampleCode: Codable {
-    public let id: ExampleID
-    public let paths: [String]
-    public let language: String
-    public let description: String
-    public let chapterBindings: [TextRegionID]
-    public let tags: [String]
 }
 
 public struct TextRegion: Codable {

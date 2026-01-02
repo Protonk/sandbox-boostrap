@@ -23,13 +23,13 @@ Canonical artifacts:
 
 ```json
 {
-  "path": "book/examples/apple-scheme/profiles/demo.sb",
+  "path": "book/tools/sbpl/corpus/baseline/sample.sb",
   "preflight": {
     "input_kind": "sbpl_path",
     "classification": "no_known_apply_gate_signature",
     "signature": null
   },
-  "sources": ["examples_sbpl"]
+  "sources": ["tools_sbpl"]
 }
 ```
 
@@ -48,4 +48,3 @@ Canonical artifacts:
 
 - Builder: `python3 book/tools/preflight/build_index.py`
 - Guardrail: `book/tests/test_preflight_index_manifest.py`
-

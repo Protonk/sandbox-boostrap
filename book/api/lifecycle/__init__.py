@@ -2,7 +2,7 @@
 Lifecycle probes for the Sonoma baseline.
 
 This package provides a small, host-bound way to generate lifecycle validation
-IR (entitlements + extensions) without keeping runnable code under `book/examples/`.
+IR (entitlements + extensions) without keeping a separate runnable demo tree.
 """
 
 from __future__ import annotations

@@ -1,0 +1,2679 @@
+{
+  "schema_version": "runtime-tools.path_witnesses.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+  "plan_id": "runtime-checks.v1",
+  "records": [
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "bucket4:v1_read",
+      "scenario_id": "baseline:bucket4:v1_read:read_/etc/hosts",
+      "operation": "file-read*",
+      "requested_path": "/etc/hosts",
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/etc/hosts",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/etc/hosts"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "bucket4:v1_read",
+      "scenario_id": "baseline:bucket4:v1_read:write_/etc/hosts",
+      "operation": "file-write*",
+      "requested_path": "/etc/hosts",
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/etc/hosts",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "exit_code": 1,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/etc/hosts'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "bucket4:v1_read",
+      "scenario_id": "baseline:bucket4:v1_read:read_/tmp/foo",
+      "operation": "file-read*",
+      "requested_path": "/tmp/foo",
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/foo",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/tmp/foo"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "bucket5:v11_read_subpath",
+      "scenario_id": "baseline:bucket5:v11_read_subpath:read_/tmp/foo",
+      "operation": "file-read*",
+      "requested_path": "/tmp/foo",
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/foo",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/tmp/foo"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "bucket5:v11_read_subpath",
+      "scenario_id": "baseline:bucket5:v11_read_subpath:read_/tmp/bar",
+      "operation": "file-read*",
+      "requested_path": "/tmp/bar",
+      "observed_path": "/private/tmp/bar",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/bar",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/tmp/bar"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "bucket5:v11_read_subpath",
+      "scenario_id": "baseline:bucket5:v11_read_subpath:write_/tmp/foo",
+      "operation": "file-write*",
+      "requested_path": "/tmp/foo",
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/foo",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/foo'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "runtime:allow_all",
+      "scenario_id": "baseline:runtime:allow_all:read_/etc/hosts",
+      "operation": "file-read*",
+      "requested_path": "/etc/hosts",
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/etc/hosts",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/etc/hosts"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "runtime:allow_all",
+      "scenario_id": "baseline:runtime:allow_all:read_/tmp/sbpl_rt/read.txt",
+      "operation": "file-read*",
+      "requested_path": "/tmp/sbpl_rt/read.txt",
+      "observed_path": "/private/tmp/sbpl_rt/read.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/sbpl_rt/read.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/tmp/sbpl_rt/read.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "runtime:allow_all",
+      "scenario_id": "baseline:runtime:allow_all:write_/tmp/sbpl_rt/write.txt",
+      "operation": "file-write*",
+      "requested_path": "/tmp/sbpl_rt/write.txt",
+      "observed_path": "/private/tmp/sbpl_rt/write.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/sbpl_rt/write.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/sbpl_rt/write.txt'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "runtime:metafilter_any",
+      "scenario_id": "baseline:runtime:metafilter_any:read_foo",
+      "operation": "file-read*",
+      "requested_path": "/tmp/foo.txt",
+      "observed_path": "/private/tmp/foo.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/foo.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/tmp/foo.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "runtime:metafilter_any",
+      "scenario_id": "baseline:runtime:metafilter_any:read_bar",
+      "operation": "file-read*",
+      "requested_path": "/tmp/bar.txt",
+      "observed_path": "/private/tmp/bar.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/bar.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/tmp/bar.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "runtime:metafilter_any",
+      "scenario_id": "baseline:runtime:metafilter_any:read_other",
+      "operation": "file-read*",
+      "requested_path": "/tmp/qux.txt",
+      "observed_path": "/private/tmp/qux.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/qux.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/tmp/qux.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "runtime:metafilter_any",
+      "scenario_id": "baseline:runtime:metafilter_any:read_baz",
+      "operation": "file-read*",
+      "requested_path": "/tmp/baz.txt",
+      "observed_path": "/private/tmp/baz.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/baz.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/tmp/baz.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "runtime:metafilter_any",
+      "scenario_id": "baseline:runtime:metafilter_any:write_baz",
+      "operation": "file-write*",
+      "requested_path": "/tmp/baz.txt",
+      "observed_path": "/private/tmp/baz.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/baz.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/baz.txt'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "runtime:strict_1",
+      "scenario_id": "baseline:runtime:strict_1:read_ok",
+      "operation": "file-read*",
+      "requested_path": "/private/tmp/strict_ok/allow.txt",
+      "observed_path": "/private/tmp/strict_ok/allow.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/strict_ok/allow.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/private/tmp/strict_ok/allow.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "runtime:strict_1",
+      "scenario_id": "baseline:runtime:strict_1:write_ok",
+      "operation": "file-write*",
+      "requested_path": "/private/tmp/strict_ok/allow.txt",
+      "observed_path": "/private/tmp/strict_ok/allow.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/strict_ok/allow.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/tmp/strict_ok/allow.txt'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "runtime:strict_1",
+      "scenario_id": "baseline:runtime:strict_1:read_hosts",
+      "operation": "file-read*",
+      "requested_path": "/etc/hosts",
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/etc/hosts",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/etc/hosts"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "runtime:strict_1",
+      "scenario_id": "baseline:runtime:strict_1:write_hosts",
+      "operation": "file-write*",
+      "requested_path": "/etc/hosts",
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/etc/hosts",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "exit_code": 1,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/etc/hosts'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "sys:airlock",
+      "scenario_id": "baseline:sys:airlock:read_/etc/hosts",
+      "operation": "file-read*",
+      "requested_path": "/etc/hosts",
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/etc/hosts",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/etc/hosts"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "sys:airlock",
+      "scenario_id": "baseline:sys:airlock:write_/etc/hosts",
+      "operation": "file-write*",
+      "requested_path": "/etc/hosts",
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/etc/hosts",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "exit_code": 1,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/etc/hosts'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "sys:airlock",
+      "scenario_id": "baseline:sys:airlock:read_/tmp/foo",
+      "operation": "file-read*",
+      "requested_path": "/tmp/foo",
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/foo",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/tmp/foo"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "sys:airlock",
+      "scenario_id": "baseline:sys:airlock:write_/tmp/foo",
+      "operation": "file-write*",
+      "requested_path": "/tmp/foo",
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/foo",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/foo'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "sys:bsd",
+      "scenario_id": "baseline:sys:bsd:read_/etc/hosts",
+      "operation": "file-read*",
+      "requested_path": "/etc/hosts",
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/etc/hosts",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/etc/hosts"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "sys:bsd",
+      "scenario_id": "baseline:sys:bsd:write_/etc/hosts",
+      "operation": "file-write*",
+      "requested_path": "/etc/hosts",
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/etc/hosts",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "exit_code": 1,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/etc/hosts'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "sys:bsd",
+      "scenario_id": "baseline:sys:bsd:read_/tmp/foo",
+      "operation": "file-read*",
+      "requested_path": "/tmp/foo",
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/foo",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/tmp/foo"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "sys:bsd",
+      "scenario_id": "baseline:sys:bsd:write_/tmp/foo",
+      "operation": "file-write*",
+      "requested_path": "/tmp/foo",
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/foo",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/foo'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "sys:blastdoor",
+      "scenario_id": "baseline:sys:blastdoor:read_/etc/hosts",
+      "operation": "file-read*",
+      "requested_path": "/etc/hosts",
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/etc/hosts",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/etc/hosts"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "sys:blastdoor",
+      "scenario_id": "baseline:sys:blastdoor:write_/etc/hosts",
+      "operation": "file-write*",
+      "requested_path": "/etc/hosts",
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/etc/hosts",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "exit_code": 1,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/etc/hosts'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "sys:blastdoor",
+      "scenario_id": "baseline:sys:blastdoor:read_/tmp/foo",
+      "operation": "file-read*",
+      "requested_path": "/tmp/foo",
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/foo",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/tmp/foo"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "sys:blastdoor",
+      "scenario_id": "baseline:sys:blastdoor:write_/tmp/foo",
+      "operation": "file-write*",
+      "requested_path": "/tmp/foo",
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/foo",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/foo'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "sys:cgpdfservice",
+      "scenario_id": "baseline:sys:cgpdfservice:read_/etc/hosts",
+      "operation": "file-read*",
+      "requested_path": "/etc/hosts",
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/etc/hosts",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/etc/hosts"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "sys:cgpdfservice",
+      "scenario_id": "baseline:sys:cgpdfservice:write_/etc/hosts",
+      "operation": "file-write*",
+      "requested_path": "/etc/hosts",
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/etc/hosts",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "exit_code": 1,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/etc/hosts'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "sys:cgpdfservice",
+      "scenario_id": "baseline:sys:cgpdfservice:read_/tmp/foo",
+      "operation": "file-read*",
+      "requested_path": "/tmp/foo",
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/foo",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/tmp/foo"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "sys:cgpdfservice",
+      "scenario_id": "baseline:sys:cgpdfservice:write_/tmp/foo",
+      "operation": "file-write*",
+      "requested_path": "/tmp/foo",
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/foo",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/foo'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "sys:cgpdfservice",
+      "scenario_id": "baseline:sys:cgpdfservice:read_/Library/Preferences/com.apple.timezone.auto.plist",
+      "operation": "file-read*",
+      "requested_path": "/Library/Preferences/com.apple.timezone.auto.plist",
+      "observed_path": "/Library/Preferences/com.apple.timezone.auto.plist",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/Library/Preferences/com.apple.timezone.auto.plist",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "exit_code": null,
+      "command": [
+        "/bin/cat",
+        "/Library/Preferences/com.apple.timezone.auto.plist"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "sys:cgpdfservice",
+      "scenario_id": "baseline:sys:cgpdfservice:read_/var/db/timezone/zoneinfo/Etc/UTC",
+      "operation": "file-read*",
+      "requested_path": "/var/db/timezone/zoneinfo/Etc/UTC",
+      "observed_path": "/private/var/db/timezone/tz/2025b.1.0/zoneinfo/Etc/UTC",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/var/db/timezone/tz/2025b.1.0/zoneinfo/Etc/UTC",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/var/db/timezone/zoneinfo/Etc/UTC"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "sys:cgpdfservice",
+      "scenario_id": "baseline:sys:cgpdfservice:read_/private/etc/localtime",
+      "operation": "file-read*",
+      "requested_path": "/private/etc/localtime",
+      "observed_path": "/private/var/db/timezone/tz/2025b.1.0/zoneinfo/America/Los_Angeles",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/var/db/timezone/tz/2025b.1.0/zoneinfo/America/Los_Angeles",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "exit_code": null,
+      "command": [
+        "/bin/cat",
+        "/private/etc/localtime"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "appsandbox:baseline",
+      "scenario_id": "baseline:appsandbox:baseline:read_/etc/hosts",
+      "operation": "file-read*",
+      "requested_path": "/etc/hosts",
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/etc/hosts",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/etc/hosts"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "appsandbox:baseline",
+      "scenario_id": "baseline:appsandbox:baseline:write_/etc/hosts",
+      "operation": "file-write*",
+      "requested_path": "/etc/hosts",
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/etc/hosts",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "exit_code": 1,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/etc/hosts'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "appsandbox:baseline",
+      "scenario_id": "baseline:appsandbox:baseline:read_/tmp/foo",
+      "operation": "file-read*",
+      "requested_path": "/tmp/foo",
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/foo",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/tmp/foo"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "appsandbox:baseline",
+      "scenario_id": "baseline:appsandbox:baseline:write_/tmp/foo",
+      "operation": "file-write*",
+      "requested_path": "/tmp/foo",
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/foo",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/foo'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "appsandbox:net-client",
+      "scenario_id": "baseline:appsandbox:net-client:read_/etc/hosts",
+      "operation": "file-read*",
+      "requested_path": "/etc/hosts",
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/etc/hosts",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/etc/hosts"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "appsandbox:net-client",
+      "scenario_id": "baseline:appsandbox:net-client:write_/etc/hosts",
+      "operation": "file-write*",
+      "requested_path": "/etc/hosts",
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/etc/hosts",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "exit_code": 1,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/etc/hosts'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "appsandbox:net-client",
+      "scenario_id": "baseline:appsandbox:net-client:read_/tmp/foo",
+      "operation": "file-read*",
+      "requested_path": "/tmp/foo",
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/foo",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/tmp/foo"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "appsandbox:net-client",
+      "scenario_id": "baseline:appsandbox:net-client:write_/tmp/foo",
+      "operation": "file-write*",
+      "requested_path": "/tmp/foo",
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/foo",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/foo'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "appsandbox:downloads-rw",
+      "scenario_id": "baseline:appsandbox:downloads-rw:read_/etc/hosts",
+      "operation": "file-read*",
+      "requested_path": "/etc/hosts",
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/etc/hosts",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/etc/hosts"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "appsandbox:downloads-rw",
+      "scenario_id": "baseline:appsandbox:downloads-rw:write_/etc/hosts",
+      "operation": "file-write*",
+      "requested_path": "/etc/hosts",
+      "observed_path": "/private/etc/hosts",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/etc/hosts",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "exit_code": 1,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/etc/hosts'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "appsandbox:downloads-rw",
+      "scenario_id": "baseline:appsandbox:downloads-rw:read_/tmp/foo",
+      "operation": "file-read*",
+      "requested_path": "/tmp/foo",
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/foo",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/tmp/foo"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "appsandbox:downloads-rw",
+      "scenario_id": "baseline:appsandbox:downloads-rw:write_/tmp/foo",
+      "operation": "file-write*",
+      "requested_path": "/tmp/foo",
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/foo",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/foo'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "bucket4:v1_read",
+      "scenario_id": "bucket4:v1_read:read_/etc/hosts",
+      "operation": "file-read*",
+      "requested_path": "/etc/hosts",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/etc/hosts",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": 1,
+      "failure_stage": "apply",
+      "failure_kind": "sandbox_init_failed",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
+        "/etc/hosts"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "bucket4:v1_read",
+      "scenario_id": "bucket4:v1_read:write_/etc/hosts",
+      "operation": "file-write*",
+      "requested_path": "/etc/hosts",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/etc/hosts",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": 1,
+      "failure_stage": "apply",
+      "failure_kind": "sandbox_init_failed",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_writer",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
+        "/etc/hosts"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "bucket4:v1_read",
+      "scenario_id": "bucket4:v1_read:read_/tmp/foo",
+      "operation": "file-read*",
+      "requested_path": "/tmp/foo",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/foo",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": 1,
+      "failure_stage": "apply",
+      "failure_kind": "sandbox_init_failed",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
+        "/tmp/foo"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "bucket5:v11_read_subpath",
+      "scenario_id": "bucket5:v11_read_subpath:read_/tmp/foo",
+      "operation": "file-read*",
+      "requested_path": "/tmp/foo",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/foo",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": 1,
+      "failure_stage": "apply",
+      "failure_kind": "sandbox_init_failed",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
+        "/tmp/foo"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "bucket5:v11_read_subpath",
+      "scenario_id": "bucket5:v11_read_subpath:read_/tmp/bar",
+      "operation": "file-read*",
+      "requested_path": "/tmp/bar",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/bar",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": 1,
+      "failure_stage": "apply",
+      "failure_kind": "sandbox_init_failed",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
+        "/tmp/bar"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "bucket5:v11_read_subpath",
+      "scenario_id": "bucket5:v11_read_subpath:write_/tmp/foo",
+      "operation": "file-write*",
+      "requested_path": "/tmp/foo",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/foo",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": 1,
+      "failure_stage": "apply",
+      "failure_kind": "sandbox_init_failed",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_writer",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
+        "/tmp/foo"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "runtime:allow_all",
+      "scenario_id": "allow_all|file-read*|/etc/hosts",
+      "operation": "file-read*",
+      "requested_path": "/etc/hosts",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/etc/hosts",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": 1,
+      "failure_stage": "apply",
+      "failure_kind": "sandbox_apply_failed",
+      "command": [
+        "book/tools/sbpl/wrapper/wrapper",
+        "--preflight",
+        "enforce",
+        "--blob",
+        "book/profiles/golden-triple/allow_all.sb.bin",
+        "--",
+        "/bin/cat",
+        "/etc/hosts"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "runtime:allow_all",
+      "scenario_id": "allow_all|file-read*|/tmp/sbpl_rt/read.txt",
+      "operation": "file-read*",
+      "requested_path": "/tmp/sbpl_rt/read.txt",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/sbpl_rt/read.txt",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": 1,
+      "failure_stage": "apply",
+      "failure_kind": "sandbox_apply_failed",
+      "command": [
+        "book/tools/sbpl/wrapper/wrapper",
+        "--preflight",
+        "enforce",
+        "--blob",
+        "book/profiles/golden-triple/allow_all.sb.bin",
+        "--",
+        "/bin/cat",
+        "/tmp/sbpl_rt/read.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "runtime:allow_all",
+      "scenario_id": "allow_all|file-write*|/tmp/sbpl_rt/write.txt",
+      "operation": "file-write*",
+      "requested_path": "/tmp/sbpl_rt/write.txt",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/sbpl_rt/write.txt",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": 1,
+      "failure_stage": "apply",
+      "failure_kind": "sandbox_apply_failed",
+      "command": [
+        "book/tools/sbpl/wrapper/wrapper",
+        "--preflight",
+        "enforce",
+        "--blob",
+        "book/profiles/golden-triple/allow_all.sb.bin",
+        "--",
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/sbpl_rt/write.txt'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "runtime:metafilter_any",
+      "scenario_id": "metafilter_any|file-read*|/tmp/foo.txt",
+      "operation": "file-read*",
+      "requested_path": "/tmp/foo.txt",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/foo.txt",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": 1,
+      "failure_stage": "apply",
+      "failure_kind": "sandbox_init_failed",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
+        "/tmp/foo.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "runtime:metafilter_any",
+      "scenario_id": "metafilter_any|file-read*|/tmp/bar.txt",
+      "operation": "file-read*",
+      "requested_path": "/tmp/bar.txt",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/bar.txt",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": 1,
+      "failure_stage": "apply",
+      "failure_kind": "sandbox_init_failed",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
+        "/tmp/bar.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "runtime:metafilter_any",
+      "scenario_id": "metafilter_any|file-read*|/tmp/qux.txt",
+      "operation": "file-read*",
+      "requested_path": "/tmp/qux.txt",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/qux.txt",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": 1,
+      "failure_stage": "apply",
+      "failure_kind": "sandbox_init_failed",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
+        "/tmp/qux.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "runtime:metafilter_any",
+      "scenario_id": "metafilter_any|file-read*|/tmp/baz.txt",
+      "operation": "file-read*",
+      "requested_path": "/tmp/baz.txt",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/baz.txt",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": 1,
+      "failure_stage": "apply",
+      "failure_kind": "sandbox_init_failed",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
+        "/tmp/baz.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "runtime:metafilter_any",
+      "scenario_id": "metafilter_any|file-write*|/tmp/baz.txt",
+      "operation": "file-write*",
+      "requested_path": "/tmp/baz.txt",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/baz.txt",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": 1,
+      "failure_stage": "apply",
+      "failure_kind": "sandbox_init_failed",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_writer",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
+        "/tmp/baz.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "runtime:strict_1",
+      "scenario_id": "runtime:strict_1:read_ok",
+      "operation": "file-read*",
+      "requested_path": "/private/tmp/strict_ok/allow.txt",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/strict_ok/allow.txt",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": 1,
+      "failure_stage": "apply",
+      "failure_kind": "sandbox_init_failed",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/strict_1.runtime_strict_1.runtime.sb",
+        "/private/tmp/strict_ok/allow.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "runtime:strict_1",
+      "scenario_id": "runtime:strict_1:write_ok",
+      "operation": "file-write*",
+      "requested_path": "/private/tmp/strict_ok/allow.txt",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/strict_ok/allow.txt",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": 1,
+      "failure_stage": "apply",
+      "failure_kind": "sandbox_init_failed",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_writer",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/strict_1.runtime_strict_1.runtime.sb",
+        "/private/tmp/strict_ok/allow.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "runtime:strict_1",
+      "scenario_id": "runtime:strict_1:read_hosts",
+      "operation": "file-read*",
+      "requested_path": "/etc/hosts",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/etc/hosts",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": 1,
+      "failure_stage": "apply",
+      "failure_kind": "sandbox_init_failed",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/strict_1.runtime_strict_1.runtime.sb",
+        "/etc/hosts"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "runtime:strict_1",
+      "scenario_id": "runtime:strict_1:write_hosts",
+      "operation": "file-write*",
+      "requested_path": "/etc/hosts",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/etc/hosts",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": 1,
+      "failure_stage": "apply",
+      "failure_kind": "sandbox_init_failed",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_writer",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/strict_1.runtime_strict_1.runtime.sb",
+        "/etc/hosts"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "sys:airlock",
+      "scenario_id": "sys:airlock:read_/etc/hosts",
+      "operation": "file-read*",
+      "requested_path": "/etc/hosts",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/etc/hosts",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": null,
+      "failure_stage": "preflight",
+      "failure_kind": "preflight_apply_gate_signature",
+      "command": []
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "sys:airlock",
+      "scenario_id": "sys:airlock:write_/etc/hosts",
+      "operation": "file-write*",
+      "requested_path": "/etc/hosts",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/etc/hosts",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": null,
+      "failure_stage": "preflight",
+      "failure_kind": "preflight_apply_gate_signature",
+      "command": []
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "sys:airlock",
+      "scenario_id": "sys:airlock:read_/tmp/foo",
+      "operation": "file-read*",
+      "requested_path": "/tmp/foo",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/foo",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": null,
+      "failure_stage": "preflight",
+      "failure_kind": "preflight_apply_gate_signature",
+      "command": []
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "sys:airlock",
+      "scenario_id": "sys:airlock:write_/tmp/foo",
+      "operation": "file-write*",
+      "requested_path": "/tmp/foo",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/foo",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": null,
+      "failure_stage": "preflight",
+      "failure_kind": "preflight_apply_gate_signature",
+      "command": []
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "sys:bsd",
+      "scenario_id": "sys:bsd:read_/etc/hosts",
+      "operation": "file-read*",
+      "requested_path": "/etc/hosts",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/etc/hosts",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": 1,
+      "failure_stage": "apply",
+      "failure_kind": "sandbox_init_failed",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/bsd.sys_bsd.runtime.sb",
+        "/etc/hosts"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "sys:bsd",
+      "scenario_id": "sys:bsd:write_/etc/hosts",
+      "operation": "file-write*",
+      "requested_path": "/etc/hosts",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/etc/hosts",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": 1,
+      "failure_stage": "apply",
+      "failure_kind": "sandbox_init_failed",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_writer",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/bsd.sys_bsd.runtime.sb",
+        "/etc/hosts"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "sys:bsd",
+      "scenario_id": "sys:bsd:read_/tmp/foo",
+      "operation": "file-read*",
+      "requested_path": "/tmp/foo",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/foo",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": 1,
+      "failure_stage": "apply",
+      "failure_kind": "sandbox_init_failed",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/bsd.sys_bsd.runtime.sb",
+        "/tmp/foo"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "sys:bsd",
+      "scenario_id": "sys:bsd:write_/tmp/foo",
+      "operation": "file-write*",
+      "requested_path": "/tmp/foo",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/foo",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": 1,
+      "failure_stage": "apply",
+      "failure_kind": "sandbox_init_failed",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_writer",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/bsd.sys_bsd.runtime.sb",
+        "/tmp/foo"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "sys:blastdoor",
+      "scenario_id": "sys:blastdoor:read_/etc/hosts",
+      "operation": "file-read*",
+      "requested_path": "/etc/hosts",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/etc/hosts",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": null,
+      "failure_stage": "preflight",
+      "failure_kind": "preflight_apply_gate_signature",
+      "command": []
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "sys:blastdoor",
+      "scenario_id": "sys:blastdoor:write_/etc/hosts",
+      "operation": "file-write*",
+      "requested_path": "/etc/hosts",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/etc/hosts",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": null,
+      "failure_stage": "preflight",
+      "failure_kind": "preflight_apply_gate_signature",
+      "command": []
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "sys:blastdoor",
+      "scenario_id": "sys:blastdoor:read_/tmp/foo",
+      "operation": "file-read*",
+      "requested_path": "/tmp/foo",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/foo",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": null,
+      "failure_stage": "preflight",
+      "failure_kind": "preflight_apply_gate_signature",
+      "command": []
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "sys:blastdoor",
+      "scenario_id": "sys:blastdoor:write_/tmp/foo",
+      "operation": "file-write*",
+      "requested_path": "/tmp/foo",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/foo",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": null,
+      "failure_stage": "preflight",
+      "failure_kind": "preflight_apply_gate_signature",
+      "command": []
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "sys:cgpdfservice",
+      "scenario_id": "sys:cgpdfservice:read_/etc/hosts",
+      "operation": "file-read*",
+      "requested_path": "/etc/hosts",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/etc/hosts",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": null,
+      "failure_stage": "preflight",
+      "failure_kind": "preflight_apply_gate_signature",
+      "command": []
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "sys:cgpdfservice",
+      "scenario_id": "sys:cgpdfservice:write_/etc/hosts",
+      "operation": "file-write*",
+      "requested_path": "/etc/hosts",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/etc/hosts",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": null,
+      "failure_stage": "preflight",
+      "failure_kind": "preflight_apply_gate_signature",
+      "command": []
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "sys:cgpdfservice",
+      "scenario_id": "sys:cgpdfservice:read_/tmp/foo",
+      "operation": "file-read*",
+      "requested_path": "/tmp/foo",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/foo",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": null,
+      "failure_stage": "preflight",
+      "failure_kind": "preflight_apply_gate_signature",
+      "command": []
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "sys:cgpdfservice",
+      "scenario_id": "sys:cgpdfservice:write_/tmp/foo",
+      "operation": "file-write*",
+      "requested_path": "/tmp/foo",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/foo",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": null,
+      "failure_stage": "preflight",
+      "failure_kind": "preflight_apply_gate_signature",
+      "command": []
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "sys:cgpdfservice",
+      "scenario_id": "sys:cgpdfservice:read_/Library/Preferences/com.apple.timezone.auto.plist",
+      "operation": "file-read*",
+      "requested_path": "/Library/Preferences/com.apple.timezone.auto.plist",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/Library/Preferences/com.apple.timezone.auto.plist",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": null,
+      "failure_stage": "preflight",
+      "failure_kind": "preflight_apply_gate_signature",
+      "command": []
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "sys:cgpdfservice",
+      "scenario_id": "sys:cgpdfservice:read_/var/db/timezone/zoneinfo/Etc/UTC",
+      "operation": "file-read*",
+      "requested_path": "/var/db/timezone/zoneinfo/Etc/UTC",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/var/db/timezone/zoneinfo/Etc/UTC",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": null,
+      "failure_stage": "preflight",
+      "failure_kind": "preflight_apply_gate_signature",
+      "command": []
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "sys:cgpdfservice",
+      "scenario_id": "sys:cgpdfservice:read_/private/etc/localtime",
+      "operation": "file-read*",
+      "requested_path": "/private/etc/localtime",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/etc/localtime",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": null,
+      "failure_stage": "preflight",
+      "failure_kind": "preflight_apply_gate_signature",
+      "command": []
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "appsandbox:baseline",
+      "scenario_id": "appsandbox:baseline:read_/etc/hosts",
+      "operation": "file-read*",
+      "requested_path": "/etc/hosts",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/etc/hosts",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": 1,
+      "failure_stage": "apply",
+      "failure_kind": "sandbox_init_failed",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/appsandbox-baseline.expanded.appsandbox_baseline.runtime.sb",
+        "/etc/hosts"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "appsandbox:baseline",
+      "scenario_id": "appsandbox:baseline:write_/etc/hosts",
+      "operation": "file-write*",
+      "requested_path": "/etc/hosts",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/etc/hosts",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": 1,
+      "failure_stage": "apply",
+      "failure_kind": "sandbox_init_failed",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_writer",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/appsandbox-baseline.expanded.appsandbox_baseline.runtime.sb",
+        "/etc/hosts"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "appsandbox:baseline",
+      "scenario_id": "appsandbox:baseline:read_/tmp/foo",
+      "operation": "file-read*",
+      "requested_path": "/tmp/foo",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/foo",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": 1,
+      "failure_stage": "apply",
+      "failure_kind": "sandbox_init_failed",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/appsandbox-baseline.expanded.appsandbox_baseline.runtime.sb",
+        "/tmp/foo"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "appsandbox:baseline",
+      "scenario_id": "appsandbox:baseline:write_/tmp/foo",
+      "operation": "file-write*",
+      "requested_path": "/tmp/foo",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/foo",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": 1,
+      "failure_stage": "apply",
+      "failure_kind": "sandbox_init_failed",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_writer",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/appsandbox-baseline.expanded.appsandbox_baseline.runtime.sb",
+        "/tmp/foo"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "appsandbox:net-client",
+      "scenario_id": "appsandbox:net-client:read_/etc/hosts",
+      "operation": "file-read*",
+      "requested_path": "/etc/hosts",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/etc/hosts",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": 1,
+      "failure_stage": "apply",
+      "failure_kind": "sandbox_init_failed",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/appsandbox-net-client.expanded.appsandbox_net-client.runtime.sb",
+        "/etc/hosts"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "appsandbox:net-client",
+      "scenario_id": "appsandbox:net-client:write_/etc/hosts",
+      "operation": "file-write*",
+      "requested_path": "/etc/hosts",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/etc/hosts",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": 1,
+      "failure_stage": "apply",
+      "failure_kind": "sandbox_init_failed",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_writer",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/appsandbox-net-client.expanded.appsandbox_net-client.runtime.sb",
+        "/etc/hosts"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "appsandbox:net-client",
+      "scenario_id": "appsandbox:net-client:read_/tmp/foo",
+      "operation": "file-read*",
+      "requested_path": "/tmp/foo",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/foo",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": 1,
+      "failure_stage": "apply",
+      "failure_kind": "sandbox_init_failed",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/appsandbox-net-client.expanded.appsandbox_net-client.runtime.sb",
+        "/tmp/foo"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "appsandbox:net-client",
+      "scenario_id": "appsandbox:net-client:write_/tmp/foo",
+      "operation": "file-write*",
+      "requested_path": "/tmp/foo",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/foo",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": 1,
+      "failure_stage": "apply",
+      "failure_kind": "sandbox_init_failed",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_writer",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/appsandbox-net-client.expanded.appsandbox_net-client.runtime.sb",
+        "/tmp/foo"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "appsandbox:downloads-rw",
+      "scenario_id": "appsandbox:downloads-rw:read_/etc/hosts",
+      "operation": "file-read*",
+      "requested_path": "/etc/hosts",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/etc/hosts",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": 1,
+      "failure_stage": "apply",
+      "failure_kind": "sandbox_init_failed",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/appsandbox-downloads-rw.expanded.appsandbox_downloads-rw.runtime.sb",
+        "/etc/hosts"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "appsandbox:downloads-rw",
+      "scenario_id": "appsandbox:downloads-rw:write_/etc/hosts",
+      "operation": "file-write*",
+      "requested_path": "/etc/hosts",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/etc/hosts",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": 1,
+      "failure_stage": "apply",
+      "failure_kind": "sandbox_init_failed",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_writer",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/appsandbox-downloads-rw.expanded.appsandbox_downloads-rw.runtime.sb",
+        "/etc/hosts"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "appsandbox:downloads-rw",
+      "scenario_id": "appsandbox:downloads-rw:read_/tmp/foo",
+      "operation": "file-read*",
+      "requested_path": "/tmp/foo",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/foo",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": 1,
+      "failure_stage": "apply",
+      "failure_kind": "sandbox_init_failed",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/appsandbox-downloads-rw.expanded.appsandbox_downloads-rw.runtime.sb",
+        "/tmp/foo"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "appsandbox:downloads-rw",
+      "scenario_id": "appsandbox:downloads-rw:write_/tmp/foo",
+      "operation": "file-write*",
+      "requested_path": "/tmp/foo",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/foo",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": null,
+      "errno": 1,
+      "failure_stage": "apply",
+      "failure_kind": "sandbox_init_failed",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_writer",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/appsandbox-downloads-rw.expanded.appsandbox_downloads-rw.runtime.sb",
+        "/tmp/foo"
+      ]
+    }
+  ]
+}

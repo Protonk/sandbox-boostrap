@@ -14,6 +14,7 @@
     "profiles": [
       "bucket4:v1_read",
       "bucket5:v11_read_subpath",
+      "bucket6:v12_runtime_probe",
       "runtime:allow_all",
       "runtime:metafilter_any",
       "runtime:strict_1",
@@ -246,6 +247,80 @@
           "scenario": true
         },
         "target": "/tmp/foo"
+      },
+      "bucket6:v12_runtime_probe:read_/private/tmp/foo": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "expected": "allow",
+        "expected_predicates": [
+          "/private/tmp/foo"
+        ],
+        "expected_primary_ops": [
+          "file-read*"
+        ],
+        "name": "read_/private/tmp/foo",
+        "operation": "file-read*",
+        "probe_id": "bucket6:v12_runtime_probe:read_/private/tmp/foo",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "target": "/private/tmp/foo"
+      },
+      "bucket6:v12_runtime_probe:read_/private/tmp/bar": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "expected": "deny",
+        "expected_predicates": [
+          "/private/tmp/bar"
+        ],
+        "expected_primary_ops": [
+          "file-read*"
+        ],
+        "name": "read_/private/tmp/bar",
+        "operation": "file-read*",
+        "probe_id": "bucket6:v12_runtime_probe:read_/private/tmp/bar",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "target": "/private/tmp/bar"
+      },
+      "bucket6:v12_runtime_probe:mach_cfprefsd_agent": {
+        "capabilities_required": [],
+        "controls_supported": [
+          "baseline",
+          "allow_default",
+          "deny_default"
+        ],
+        "expected": "allow",
+        "expected_predicates": [
+          "com.apple.cfprefsd.agent"
+        ],
+        "expected_primary_ops": [
+          "mach-lookup"
+        ],
+        "name": "mach_cfprefsd_agent",
+        "operation": "mach-lookup",
+        "probe_id": "bucket6:v12_runtime_probe:mach_cfprefsd_agent",
+        "supports_lanes": {
+          "baseline": true,
+          "oracle": true,
+          "scenario": true
+        },
+        "driver": "sandbox_mach_probe",
+        "filter_name": "global-name",
+        "target": "com.apple.cfprefsd.agent"
       },
       "metafilter_any|file-read*|/tmp/bar.txt": {
         "capabilities_required": [],
@@ -1346,6 +1421,22 @@
         ],
         "profile_id": "bucket5:v11_read_subpath",
         "profile_path": "book/evidence/experiments/profile-pipeline/op-table-operation/sb/v11_read_subpath.sb",
+        "semantic_group": null
+      },
+      "bucket6:v12_runtime_probe": {
+        "family": null,
+        "key_specific_rules": [
+          "(allow file-read* (subpath \"/private/tmp/foo\"))"
+        ],
+        "mode": "sbpl",
+        "notes": "Bucket-6 mixed profile: file-read* subpath + mach-lookup.",
+        "probe_refs": [
+          "bucket6:v12_runtime_probe:read_/private/tmp/foo",
+          "bucket6:v12_runtime_probe:read_/private/tmp/bar",
+          "bucket6:v12_runtime_probe:mach_cfprefsd_agent"
+        ],
+        "profile_id": "bucket6:v12_runtime_probe",
+        "profile_path": "book/evidence/experiments/profile-pipeline/op-table-operation/sb/v12_runtime_probe.sb",
         "semantic_group": null
       },
       "runtime:allow_all": {

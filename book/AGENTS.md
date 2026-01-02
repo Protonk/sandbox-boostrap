@@ -64,7 +64,6 @@ Then read the nearest `AGENTS.md` in the subtree you touch:
 - Experiments: `book/evidence/experiments/AGENTS.md`; archived work in `book/evidence/experiments/archive/AGENTS.md`.
 - Dumps/artifacts: `book/dumps/AGENTS.md`.
 - Profiles: `book/profiles/AGENTS.md`.
-- Examples: `book/examples/AGENTS.md`.
 - Substrate/textbook base: `book/substrate/AGENTS.md`.
 - Tests: `book/integration/AGENTS.md`.
 

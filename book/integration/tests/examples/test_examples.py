@@ -10,7 +10,7 @@ ROOT = path_utils.find_repo_root(Path(__file__))
 
 @pytest.mark.system
 def test_compile_sample_sb(tmp_path: Path, run_cmd):
-    src = ROOT / "book/examples/sb/sample.sb"
+    src = ROOT / "book/tools/sbpl/corpus/baseline/sample.sb"
     if not src.exists():
         pytest.skip("missing sample SBPL fixture")
     out = tmp_path / "sample.sb.bin"

@@ -30,6 +30,22 @@
       "profile_path": "book/evidence/experiments/profile-pipeline/op-table-operation/sb/v11_read_subpath.sb",
       "semantic_group": null
     },
+    "bucket6:v12_runtime_probe": {
+      "family": null,
+      "key_specific_rules": [
+        "(allow file-read* (subpath \"/private/tmp/foo\"))"
+      ],
+      "mode": "sbpl",
+      "notes": "Bucket-6 mixed profile: file-read* subpath + mach-lookup.",
+      "probe_refs": [
+        "bucket6:v12_runtime_probe:read_/private/tmp/foo",
+        "bucket6:v12_runtime_probe:read_/private/tmp/bar",
+        "bucket6:v12_runtime_probe:mach_cfprefsd_agent"
+      ],
+      "profile_id": "bucket6:v12_runtime_probe",
+      "profile_path": "book/evidence/experiments/profile-pipeline/op-table-operation/sb/v12_runtime_probe.sb",
+      "semantic_group": null
+    },
     "runtime:allow_all": {
       "family": null,
       "key_specific_rules": [],

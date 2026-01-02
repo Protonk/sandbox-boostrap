@@ -8,7 +8,7 @@ Produce a checked-in, artifact-shaped **enterability manifest** for in-repo prof
 
 - `book/profiles/**/*.sb`
 - `book/evidence/experiments/**/*.sb` (excluding `out/`)
-- `book/examples/**/*.sb`
+- `book/tools/sbpl/corpus/**/*.sb`
 - `book/**/*.sb.bin`
 
 This is an operational guardrail for the fixed world baseline (`world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`): it helps agents choose profiles that are not known to be apply-gated for the harness identity unless they are explicitly investigating apply gates.

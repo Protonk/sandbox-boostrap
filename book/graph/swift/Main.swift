@@ -18,14 +18,12 @@ struct GraphChecks {
             concepts: concepts
         )
         let strategyList = strategies(concepts: concepts)
-        let examples = exampleEntries(base: root)
         let bindings = conceptTextBindings()
 
         // Emit core JSON artifacts
         writeJSON(concepts, to: root.appendingPathComponent("book/evidence/graph/concepts/concepts.json").path)
         writeJSON(conceptDetails, to: root.appendingPathComponent("book/evidence/graph/concepts/concept_map.json").path)
         writeJSON(strategyList, to: root.appendingPathComponent("book/evidence/graph/concepts/validation/strategies.json").path)
-        writeJSON(examples, to: root.appendingPathComponent("book/examples/examples.json").path)
         writeJSON(bindings, to: root.appendingPathComponent("book/evidence/graph/concepts/concept_text_map.json").path)
 
         // Lightweight validation report (non-fatal)

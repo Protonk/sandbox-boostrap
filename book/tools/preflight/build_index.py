@@ -90,13 +90,6 @@ def _discover_experiments_sbpl() -> List[Path]:
     return sorted(set(sbpls))
 
 
-def _discover_examples_sbpl() -> List[Path]:
-    root = REPO_ROOT / "book" / "examples"
-    if not root.exists():
-        return []
-    return sorted([p for p in root.rglob("*.sb") if p.is_file()])
-
-
 def _discover_tools_sbpl() -> List[Path]:
     root = REPO_ROOT / "book" / "tools" / "sbpl" / "corpus"
     if not root.exists():
@@ -134,7 +127,6 @@ def discover_inputs() -> List[InputRef]:
     Sources:
     - profiles_sbpl: book/profiles/**/*.sb
     - experiments_sbpl: book/evidence/experiments/**/*.sb (excluding out/, entitlement-diff, entitlement-jail-extension-semantics)
-    - examples_sbpl: book/examples/**/*.sb
     - tools_sbpl: book/tools/sbpl/corpus/**/*.sb
     - book_blobs: book/**/*.sb.bin (excluding book/dumps/**, book/integration/out/**, and excluded experiments)
     """
@@ -144,8 +136,6 @@ def discover_inputs() -> List[InputRef]:
         by_path.setdefault(p.resolve(), set()).add("profiles_sbpl")
     for p in _discover_experiments_sbpl():
         by_path.setdefault(p.resolve(), set()).add("experiments_sbpl")
-    for p in _discover_examples_sbpl():
-        by_path.setdefault(p.resolve(), set()).add("examples_sbpl")
     for p in _discover_tools_sbpl():
         by_path.setdefault(p.resolve(), set()).add("tools_sbpl")
     for p in _discover_book_blobs():
@@ -189,7 +179,6 @@ def build_manifest(inputs: Sequence[InputRef]) -> Dict[str, Any]:
         "inputs": {
             "profiles_sbpl": "book/profiles/**/*.sb",
             "experiments_sbpl": f"book/evidence/experiments/**/*.sb (excluding out/ and {EXCLUDED_EXPERIMENTS_LABEL})",
-            "examples_sbpl": "book/examples/**/*.sb",
             "tools_sbpl": "book/tools/sbpl/corpus/**/*.sb",
             "book_blobs": (
                 "book/**/*.sb.bin (excluding book/dumps/**, book/integration/out/**, and "

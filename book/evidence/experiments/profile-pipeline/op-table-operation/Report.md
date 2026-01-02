@@ -86,7 +86,7 @@ We intentionally avoid guessing op-table slot ordering or Operation↔bucket sem
   - Built `out/op_table_map.json` capturing op_entries, unique buckets, and operation sets per profile, including filter annotations.
 - **3. Cross-check with semantic probes (optional stretch)**
   - Reused the shared decoder to walk from each op-table entrypoint and record per-entry signatures (tag_counts, reachable literals), stored in `out/op_table_signatures.json`.
-  - Added an in-process runtime spot-check for the `[6,…,5]` profile (`v12_read_subpath_mach`) via `runtime_probe.c`: `sandbox_init` succeeded; `mach-lookup` (`com.apple.cfprefsd.agent`) returned `kr=0`; file reads of both the allowed subpath and `/etc/hosts` returned `EPERM`. Runtime results recorded in `out/runtime_signatures.json` (schema `provisional`).
+  - Added an in-process runtime spot-check for the `[6,…,5]` profile (`v12_read_subpath_mach`) via `book/api/runtime/native/probes/runtime_probe.c`: `sandbox_init` succeeded; `mach-lookup` (`com.apple.cfprefsd.agent`) returned `kr=0`; file reads of both the allowed subpath and `/etc/hosts` returned `EPERM`. Runtime results recorded in `out/runtime_signatures.json` (schema `provisional`).
   - Added a control runtime probe for `v11_read_subpath` (bucket {5}): `sandbox_init` succeeded; both reads returned `EPERM`; `mach_lookup` returned `kr=1100`. Also recorded as provisional in `out/runtime_signatures.json`.
   - Consolidated static data plus provisional runtime hints into `out/op_table_catalog_v1.json` via `book/tools/sbpl/op_table_runner.py`. Each record includes bucket pattern, op entries, ops/filters, decoder signatures, and optional `runtime_signature` flagged as provisional for future `ops.json` joins.
 - **4. Documentation and reporting**

@@ -3,7 +3,7 @@
 ## Context
 
 - Host: Sonoma baseline (see `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world.json)`).
-- Demo: `book/examples/extensions-dynamic/extensions_demo.c`.
+- Demo: legacy `extensions_demo.c` probe (no longer in the repo).
 - Goal: observe sandbox extensions as a “third dimension” in Seatbelt policy by issuing a `com.apple.app-sandbox.read` extension for a target path, consuming it into the Seatbelt label, and rerunning a `file-read*` operation.
 
 ## Symptom
@@ -14,11 +14,11 @@
 
 ## Reproduction
 
-- `./book/examples/extensions-dynamic/extensions_demo` (prebuilt from `HEAD`):
+- `./extensions_demo` (prebuilt from `HEAD`):
   - crashes with `Sandbox(Signal(11))`,
   - crash report shows `EXC_BAD_ACCESS` in `_platform_strcmp` from `sandbox_extension_consume`.
 - Rebuild and rerun:
-  - `clang book/examples/extensions-dynamic/extensions_demo.c -o book/examples/extensions-dynamic/extensions_demo -ldl`
+  - `clang extensions_demo.c -o extensions_demo -ldl`
   - run output shows:
     - `open("/private/var/db/ConfigurationProfiles") -> success`,
     - `sandbox_extension_issue_file failed rc=0 errno=1 (Operation not permitted)`,
@@ -49,6 +49,6 @@
 
 ## Pointers
 
-- Source/demo: `book/examples/extensions-dynamic/extensions_demo.c`
+- Source/demo: legacy `extensions_demo.c` (superseded by `book/api/lifecycle extensions`)
 - Crash log: `extensions_demo-… .ips` under `~/Library/Logs/DiagnosticReports/` on the host
 - Related experiments: `book/evidence/experiments/runtime-final-final/suites/runtime-checks` (for other runtime probes)

@@ -6,7 +6,21 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parents[7]
+
+def _find_repo_root(start: Path) -> Path:
+    cur = start.resolve()
+    agents_root: Path | None = None
+    for candidate in [cur] + list(cur.parents):
+        if (candidate / ".git").exists():
+            return candidate
+        if (candidate / "AGENTS.md").exists():
+            agents_root = candidate
+    if agents_root:
+        return agents_root
+    raise RuntimeError("Unable to locate repository root")
+
+
+REPO_ROOT = _find_repo_root(Path(__file__))
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 

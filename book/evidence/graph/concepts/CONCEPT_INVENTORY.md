@@ -308,7 +308,7 @@ Agents should treat these manifests as the primary handles when wiring concepts 
 
 ## Validation workflow (condensed)
 
-The validation plan ties `book/examples/` labs to the four clusters. Harness code and task metadata live under `book/graph/concepts/validation/` (see `validation/README.md` and `validation/tasks.py`).
+The validation plan ties fixtures and experiment bundles to the four clusters. Harness code and task metadata live under `book/graph/concepts/validation/` (see `validation/README.md` and `validation/tasks.py`).
 
 - **Stage 0 — Setup and metadata**
   - Record host OS/build, hardware, SIP/TCC state, and profile format variant in `validation/out/metadata.json`.
@@ -367,7 +367,7 @@ For both humans and agents, the safest way to extend validation is to reuse the 
 ### Where to start when adding a new validation path
 
 - Check `validation/out/index.json` to see current coverage for your cluster.
-- Choose nearby examples from `book/examples/` (see `EXAMPLES.md` for cluster bindings).
+- Choose nearby witnesses from fixtures and experiments (see `EXAMPLES.md` for cluster bindings).
 - Prefer:
   - Small, composable examples over large scenarios.
   - Evidence that is regenerable on this host over opaque or manual logs.

@@ -87,7 +87,7 @@
 
 ## Pass 10
 
-- Added an in-process runtime probe (`runtime_probe.c`) to apply SBPL via `sandbox_init` (no process-exec shims) and exercise file-read and mach-lookup in one process.
+- Added an in-process runtime probe (`book/api/runtime/native/probes/runtime_probe.c`) to apply SBPL via `sandbox_init` (no process-exec shims) and exercise file-read and mach-lookup in one process.
 - Targeted the `[6,…,5]` profile `v12_read_subpath_mach` with real fixtures (`/tmp/foo/allowed.txt`, `/etc/hosts`, `com.apple.cfprefsd.agent`). `sandbox_init` succeeded; `mach_lookup` returned `kr=0`; both file reads returned `EPERM` (allowed and denied paths alike), highlighting that this strict profile still blocks even the intended subpath at runtime.
 - Captured the runtime signature in `out/runtime_signatures.json` with schema `provisional` for `v12_read_subpath_mach` (op-table unique entries {5,6}). This can be joined to op_table_map once `ops.json` exists to label the lone bucket 5.
 

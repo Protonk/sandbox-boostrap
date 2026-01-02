@@ -216,6 +216,80 @@
       },
       "target": "/tmp/foo"
     },
+    "bucket6:v12_runtime_probe:read_/private/tmp/foo": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "/private/tmp/foo"
+      ],
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "name": "read_/private/tmp/foo",
+      "operation": "file-read*",
+      "probe_id": "bucket6:v12_runtime_probe:read_/private/tmp/foo",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/private/tmp/foo"
+    },
+    "bucket6:v12_runtime_probe:read_/private/tmp/bar": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "/private/tmp/bar"
+      ],
+      "expected_primary_ops": [
+        "file-read*"
+      ],
+      "name": "read_/private/tmp/bar",
+      "operation": "file-read*",
+      "probe_id": "bucket6:v12_runtime_probe:read_/private/tmp/bar",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "/private/tmp/bar"
+    },
+    "bucket6:v12_runtime_probe:mach_cfprefsd_agent": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "com.apple.cfprefsd.agent"
+      ],
+      "expected_primary_ops": [
+        "mach-lookup"
+      ],
+      "name": "mach_cfprefsd_agent",
+      "operation": "mach-lookup",
+      "probe_id": "bucket6:v12_runtime_probe:mach_cfprefsd_agent",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "driver": "sandbox_mach_probe",
+      "filter_name": "global-name",
+      "target": "com.apple.cfprefsd.agent"
+    },
     "metafilter_any|file-read*|/tmp/bar.txt": {
       "capabilities_required": [],
       "controls_supported": [

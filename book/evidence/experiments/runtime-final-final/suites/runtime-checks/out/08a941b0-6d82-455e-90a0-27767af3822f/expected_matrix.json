@@ -1,0 +1,511 @@
+{
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "profiles": {
+    "bucket4:v1_read": {
+      "blob": "book/evidence/experiments/profile-pipeline/op-table-operation/sb/v1_read.sb",
+      "mode": "sbpl",
+      "family": null,
+      "semantic_group": null,
+      "probes": [
+        {
+          "name": "read_/etc/hosts",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "allow",
+          "expectation_id": "bucket4:v1_read:read_/etc/hosts"
+        },
+        {
+          "name": "write_/etc/hosts",
+          "operation": "file-write*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "expectation_id": "bucket4:v1_read:write_/etc/hosts"
+        },
+        {
+          "name": "read_/tmp/foo",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "expectation_id": "bucket4:v1_read:read_/tmp/foo"
+        }
+      ]
+    },
+    "bucket5:v11_read_subpath": {
+      "blob": "book/evidence/experiments/profile-pipeline/op-table-operation/sb/v11_read_subpath.sb",
+      "mode": "sbpl",
+      "family": null,
+      "semantic_group": null,
+      "probes": [
+        {
+          "name": "read_/tmp/foo",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "expectation_id": "bucket5:v11_read_subpath:read_/tmp/foo"
+        },
+        {
+          "name": "read_/tmp/bar",
+          "operation": "file-read*",
+          "target": "/tmp/bar",
+          "expected": "deny",
+          "expectation_id": "bucket5:v11_read_subpath:read_/tmp/bar"
+        },
+        {
+          "name": "write_/tmp/foo",
+          "operation": "file-write*",
+          "target": "/tmp/foo",
+          "expected": "deny",
+          "expectation_id": "bucket5:v11_read_subpath:write_/tmp/foo"
+        }
+      ]
+    },
+    "bucket6:v12_runtime_probe": {
+      "blob": "book/evidence/experiments/profile-pipeline/op-table-operation/sb/v12_runtime_probe.sb",
+      "mode": "sbpl",
+      "family": null,
+      "semantic_group": null,
+      "probes": [
+        {
+          "name": "read_/private/tmp/foo",
+          "operation": "file-read*",
+          "target": "/private/tmp/foo",
+          "expected": "allow",
+          "expectation_id": "bucket6:v12_runtime_probe:read_/private/tmp/foo"
+        },
+        {
+          "name": "read_/private/tmp/bar",
+          "operation": "file-read*",
+          "target": "/private/tmp/bar",
+          "expected": "deny",
+          "expectation_id": "bucket6:v12_runtime_probe:read_/private/tmp/bar"
+        },
+        {
+          "name": "mach_cfprefsd_agent",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.agent",
+          "expected": "allow",
+          "expectation_id": "bucket6:v12_runtime_probe:mach_cfprefsd_agent",
+          "driver": "sandbox_mach_probe",
+          "filter_name": "global-name"
+        }
+      ]
+    },
+    "runtime:allow_all": {
+      "blob": "book/profiles/golden-triple/allow_all.sb.bin",
+      "mode": "blob",
+      "family": null,
+      "semantic_group": null,
+      "probes": [
+        {
+          "name": "read_/etc/hosts",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "allow",
+          "expectation_id": "allow_all|file-read*|/etc/hosts"
+        },
+        {
+          "name": "read_/tmp/sbpl_rt/read.txt",
+          "operation": "file-read*",
+          "target": "/tmp/sbpl_rt/read.txt",
+          "expected": "allow",
+          "expectation_id": "allow_all|file-read*|/tmp/sbpl_rt/read.txt"
+        },
+        {
+          "name": "write_/tmp/sbpl_rt/write.txt",
+          "operation": "file-write*",
+          "target": "/tmp/sbpl_rt/write.txt",
+          "expected": "allow",
+          "expectation_id": "allow_all|file-write*|/tmp/sbpl_rt/write.txt"
+        }
+      ]
+    },
+    "runtime:metafilter_any": {
+      "blob": "book/evidence/experiments/runtime-final-final/suites/sbpl-graph-runtime/profiles/metafilter_any.sb",
+      "mode": "sbpl",
+      "family": null,
+      "semantic_group": null,
+      "probes": [
+        {
+          "name": "read_foo",
+          "operation": "file-read*",
+          "target": "/tmp/foo.txt",
+          "expected": "allow",
+          "expectation_id": "metafilter_any|file-read*|/tmp/foo.txt"
+        },
+        {
+          "name": "read_bar",
+          "operation": "file-read*",
+          "target": "/tmp/bar.txt",
+          "expected": "allow",
+          "expectation_id": "metafilter_any|file-read*|/tmp/bar.txt"
+        },
+        {
+          "name": "read_other",
+          "operation": "file-read*",
+          "target": "/tmp/qux.txt",
+          "expected": "allow",
+          "expectation_id": "metafilter_any|file-read*|/tmp/qux.txt"
+        },
+        {
+          "name": "read_baz",
+          "operation": "file-read*",
+          "target": "/tmp/baz.txt",
+          "expected": "deny",
+          "expectation_id": "metafilter_any|file-read*|/tmp/baz.txt"
+        },
+        {
+          "name": "write_baz",
+          "operation": "file-write*",
+          "target": "/tmp/baz.txt",
+          "expected": "deny",
+          "expectation_id": "metafilter_any|file-write*|/tmp/baz.txt"
+        }
+      ]
+    },
+    "runtime:strict_1": {
+      "blob": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/strict_1.sb",
+      "mode": "sbpl",
+      "family": null,
+      "semantic_group": null,
+      "probes": [
+        {
+          "name": "read_ok",
+          "operation": "file-read*",
+          "target": "/private/tmp/strict_ok/allow.txt",
+          "expected": "allow",
+          "expectation_id": "runtime:strict_1:read_ok"
+        },
+        {
+          "name": "write_ok",
+          "operation": "file-write*",
+          "target": "/private/tmp/strict_ok/allow.txt",
+          "expected": "allow",
+          "expectation_id": "runtime:strict_1:write_ok"
+        },
+        {
+          "name": "read_hosts",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "expectation_id": "runtime:strict_1:read_hosts"
+        },
+        {
+          "name": "write_hosts",
+          "operation": "file-write*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "expectation_id": "runtime:strict_1:write_hosts"
+        }
+      ]
+    },
+    "sys:airlock": {
+      "blob": "/System/Library/Sandbox/Profiles/airlock.sb",
+      "mode": "sbpl",
+      "family": null,
+      "semantic_group": null,
+      "probes": [
+        {
+          "name": "read_/etc/hosts",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "expectation_id": "sys:airlock:read_/etc/hosts"
+        },
+        {
+          "name": "write_/etc/hosts",
+          "operation": "file-write*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "expectation_id": "sys:airlock:write_/etc/hosts"
+        },
+        {
+          "name": "read_/tmp/foo",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "deny",
+          "expectation_id": "sys:airlock:read_/tmp/foo"
+        },
+        {
+          "name": "write_/tmp/foo",
+          "operation": "file-write*",
+          "target": "/tmp/foo",
+          "expected": "deny",
+          "expectation_id": "sys:airlock:write_/tmp/foo"
+        }
+      ]
+    },
+    "sys:bsd": {
+      "blob": "/System/Library/Sandbox/Profiles/bsd.sb",
+      "mode": "sbpl",
+      "family": null,
+      "semantic_group": null,
+      "probes": [
+        {
+          "name": "read_/etc/hosts",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "expectation_id": "sys:bsd:read_/etc/hosts"
+        },
+        {
+          "name": "write_/etc/hosts",
+          "operation": "file-write*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "expectation_id": "sys:bsd:write_/etc/hosts"
+        },
+        {
+          "name": "read_/tmp/foo",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "deny",
+          "expectation_id": "sys:bsd:read_/tmp/foo"
+        },
+        {
+          "name": "write_/tmp/foo",
+          "operation": "file-write*",
+          "target": "/tmp/foo",
+          "expected": "deny",
+          "expectation_id": "sys:bsd:write_/tmp/foo"
+        }
+      ]
+    },
+    "sys:blastdoor": {
+      "blob": "/System/Library/Sandbox/Profiles/blastdoor.sb",
+      "mode": "sbpl",
+      "family": null,
+      "semantic_group": null,
+      "probes": [
+        {
+          "name": "read_/etc/hosts",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "allow",
+          "expectation_id": "sys:blastdoor:read_/etc/hosts"
+        },
+        {
+          "name": "write_/etc/hosts",
+          "operation": "file-write*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "expectation_id": "sys:blastdoor:write_/etc/hosts"
+        },
+        {
+          "name": "read_/tmp/foo",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "expectation_id": "sys:blastdoor:read_/tmp/foo"
+        },
+        {
+          "name": "write_/tmp/foo",
+          "operation": "file-write*",
+          "target": "/tmp/foo",
+          "expected": "deny",
+          "expectation_id": "sys:blastdoor:write_/tmp/foo"
+        },
+        {
+          "name": "mach_allow_logd",
+          "operation": "mach-lookup",
+          "target": "com.apple.logd",
+          "expected": "allow",
+          "expectation_id": "sys:blastdoor:mach_allow_logd",
+          "driver": "mach_probe",
+          "filter_name": "global-name"
+        },
+        {
+          "name": "mach_allow_trustd",
+          "operation": "mach-lookup",
+          "target": "com.apple.trustd.agent",
+          "expected": "allow",
+          "expectation_id": "sys:blastdoor:mach_allow_trustd",
+          "driver": "mach_probe",
+          "filter_name": "global-name"
+        },
+        {
+          "name": "mach_deny_cfprefsd",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.agent",
+          "expected": "deny",
+          "expectation_id": "sys:blastdoor:mach_deny_cfprefsd",
+          "driver": "mach_probe",
+          "filter_name": "global-name"
+        },
+        {
+          "name": "xpc_deny_trustd",
+          "operation": "mach-lookup",
+          "target": "com.apple.trustd.agent",
+          "expected": "deny",
+          "expectation_id": "sys:blastdoor:xpc_deny_trustd",
+          "driver": "xpc_probe",
+          "filter_name": "xpc-service-name"
+        }
+      ]
+    },
+    "sys:cgpdfservice": {
+      "blob": "/System/Library/Sandbox/Profiles/com.apple.CoreGraphics.CGPDFService.sb",
+      "mode": "sbpl",
+      "family": null,
+      "semantic_group": null,
+      "probes": [
+        {
+          "name": "read_/etc/hosts",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "allow",
+          "expectation_id": "sys:cgpdfservice:read_/etc/hosts"
+        },
+        {
+          "name": "write_/etc/hosts",
+          "operation": "file-write*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "expectation_id": "sys:cgpdfservice:write_/etc/hosts"
+        },
+        {
+          "name": "read_/tmp/foo",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "expectation_id": "sys:cgpdfservice:read_/tmp/foo"
+        },
+        {
+          "name": "write_/tmp/foo",
+          "operation": "file-write*",
+          "target": "/tmp/foo",
+          "expected": "deny",
+          "expectation_id": "sys:cgpdfservice:write_/tmp/foo"
+        },
+        {
+          "name": "read_/Library/Preferences/com.apple.timezone.auto.plist",
+          "operation": "file-read*",
+          "target": "/Library/Preferences/com.apple.timezone.auto.plist",
+          "expected": "deny",
+          "expectation_id": "sys:cgpdfservice:read_/Library/Preferences/com.apple.timezone.auto.plist"
+        },
+        {
+          "name": "read_/var/db/timezone/zoneinfo/Etc/UTC",
+          "operation": "file-read*",
+          "target": "/var/db/timezone/zoneinfo/Etc/UTC",
+          "expected": "deny",
+          "expectation_id": "sys:cgpdfservice:read_/var/db/timezone/zoneinfo/Etc/UTC"
+        },
+        {
+          "name": "read_/private/etc/localtime",
+          "operation": "file-read*",
+          "target": "/private/etc/localtime",
+          "expected": "deny",
+          "expectation_id": "sys:cgpdfservice:read_/private/etc/localtime"
+        }
+      ]
+    },
+    "appsandbox:baseline": {
+      "blob": "book/evidence/experiments/archive/entitlement-diff/sb/build/appsandbox-baseline.expanded.sb",
+      "mode": "sbpl",
+      "family": null,
+      "semantic_group": null,
+      "probes": [
+        {
+          "name": "read_/etc/hosts",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "allow",
+          "expectation_id": "appsandbox:baseline:read_/etc/hosts"
+        },
+        {
+          "name": "write_/etc/hosts",
+          "operation": "file-write*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "expectation_id": "appsandbox:baseline:write_/etc/hosts"
+        },
+        {
+          "name": "read_/tmp/foo",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "expectation_id": "appsandbox:baseline:read_/tmp/foo"
+        },
+        {
+          "name": "write_/tmp/foo",
+          "operation": "file-write*",
+          "target": "/tmp/foo",
+          "expected": "deny",
+          "expectation_id": "appsandbox:baseline:write_/tmp/foo"
+        }
+      ]
+    },
+    "appsandbox:net-client": {
+      "blob": "book/evidence/experiments/archive/entitlement-diff/sb/build/appsandbox-net-client.expanded.sb",
+      "mode": "sbpl",
+      "family": null,
+      "semantic_group": null,
+      "probes": [
+        {
+          "name": "read_/etc/hosts",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "allow",
+          "expectation_id": "appsandbox:net-client:read_/etc/hosts"
+        },
+        {
+          "name": "write_/etc/hosts",
+          "operation": "file-write*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "expectation_id": "appsandbox:net-client:write_/etc/hosts"
+        },
+        {
+          "name": "read_/tmp/foo",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "expectation_id": "appsandbox:net-client:read_/tmp/foo"
+        },
+        {
+          "name": "write_/tmp/foo",
+          "operation": "file-write*",
+          "target": "/tmp/foo",
+          "expected": "deny",
+          "expectation_id": "appsandbox:net-client:write_/tmp/foo"
+        }
+      ]
+    },
+    "appsandbox:downloads-rw": {
+      "blob": "book/evidence/experiments/archive/entitlement-diff/sb/build/appsandbox-downloads-rw.expanded.sb",
+      "mode": "sbpl",
+      "family": null,
+      "semantic_group": null,
+      "probes": [
+        {
+          "name": "read_/etc/hosts",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "allow",
+          "expectation_id": "appsandbox:downloads-rw:read_/etc/hosts"
+        },
+        {
+          "name": "write_/etc/hosts",
+          "operation": "file-write*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "expectation_id": "appsandbox:downloads-rw:write_/etc/hosts"
+        },
+        {
+          "name": "read_/tmp/foo",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "expectation_id": "appsandbox:downloads-rw:read_/tmp/foo"
+        },
+        {
+          "name": "write_/tmp/foo",
+          "operation": "file-write*",
+          "target": "/tmp/foo",
+          "expected": "deny",
+          "expectation_id": "appsandbox:downloads-rw:write_/tmp/foo"
+        }
+      ]
+    }
+  }
+}

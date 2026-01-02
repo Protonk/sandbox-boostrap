@@ -12,7 +12,7 @@ Create a small “preflight index” experiment that scans in-repo profile input
 - Inputs scanned (deterministic inventory):
   - `book/profiles/**/*.sb`
   - `book/evidence/experiments/**/*.sb` (excluding `out/`)
-  - `book/examples/**/*.sb`
+  - `book/tools/sbpl/corpus/**/*.sb`
   - `book/**/*.sb.bin`
 - Tooling:
   - Preflight classifier: `book/tools/preflight/preflight.py` (static; does not compile or apply profiles).

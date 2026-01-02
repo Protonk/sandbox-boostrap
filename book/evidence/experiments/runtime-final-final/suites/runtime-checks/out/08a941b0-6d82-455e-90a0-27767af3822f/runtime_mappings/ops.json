@@ -1,0 +1,146 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "tier": "mapped",
+    "source_jobs": [],
+    "notes": "op-level runtime summary"
+  },
+  "ops": {
+    "file-read*": {
+      "op_name": "file-read*",
+      "op_id": 21,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 0,
+      "matches": 0,
+      "mismatches": 0,
+      "probes_including_blocked": 31,
+      "blocked": {
+        "total": 31,
+        "by_stage": {
+          "apply": 22,
+          "preflight": 9
+        },
+        "by_kind": {
+          "sandbox_init_failed": 20,
+          "sandbox_apply_failed": 2,
+          "preflight_apply_gate_signature": 9
+        }
+      },
+      "unobserved": 0,
+      "examples": [],
+      "scenarios": [
+        "allow_all|file-read*|/etc/hosts",
+        "allow_all|file-read*|/tmp/sbpl_rt/read.txt",
+        "appsandbox:baseline:read_/etc/hosts",
+        "appsandbox:baseline:read_/tmp/foo",
+        "appsandbox:downloads-rw:read_/etc/hosts",
+        "appsandbox:downloads-rw:read_/tmp/foo",
+        "appsandbox:net-client:read_/etc/hosts",
+        "appsandbox:net-client:read_/tmp/foo",
+        "bucket4:v1_read:read_/etc/hosts",
+        "bucket4:v1_read:read_/tmp/foo",
+        "bucket5:v11_read_subpath:read_/tmp/bar",
+        "bucket5:v11_read_subpath:read_/tmp/foo",
+        "bucket6:v12_runtime_probe:read_/private/tmp/bar",
+        "bucket6:v12_runtime_probe:read_/private/tmp/foo",
+        "metafilter_any|file-read*|/tmp/bar.txt",
+        "metafilter_any|file-read*|/tmp/baz.txt",
+        "metafilter_any|file-read*|/tmp/foo.txt",
+        "metafilter_any|file-read*|/tmp/qux.txt",
+        "runtime:strict_1:read_hosts",
+        "runtime:strict_1:read_ok",
+        "sys:airlock:read_/etc/hosts",
+        "sys:airlock:read_/tmp/foo",
+        "sys:blastdoor:read_/etc/hosts",
+        "sys:blastdoor:read_/tmp/foo",
+        "sys:bsd:read_/etc/hosts",
+        "sys:bsd:read_/tmp/foo",
+        "sys:cgpdfservice:read_/Library/Preferences/com.apple.timezone.auto.plist",
+        "sys:cgpdfservice:read_/etc/hosts",
+        "sys:cgpdfservice:read_/private/etc/localtime",
+        "sys:cgpdfservice:read_/tmp/foo",
+        "sys:cgpdfservice:read_/var/db/timezone/zoneinfo/Etc/UTC"
+      ],
+      "coverage_status": "brittle"
+    },
+    "file-write*": {
+      "op_name": "file-write*",
+      "op_id": 29,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 0,
+      "matches": 0,
+      "mismatches": 0,
+      "probes_including_blocked": 20,
+      "blocked": {
+        "total": 20,
+        "by_stage": {
+          "apply": 14,
+          "preflight": 6
+        },
+        "by_kind": {
+          "sandbox_init_failed": 13,
+          "sandbox_apply_failed": 1,
+          "preflight_apply_gate_signature": 6
+        }
+      },
+      "unobserved": 0,
+      "examples": [],
+      "scenarios": [
+        "allow_all|file-write*|/tmp/sbpl_rt/write.txt",
+        "appsandbox:baseline:write_/etc/hosts",
+        "appsandbox:baseline:write_/tmp/foo",
+        "appsandbox:downloads-rw:write_/etc/hosts",
+        "appsandbox:downloads-rw:write_/tmp/foo",
+        "appsandbox:net-client:write_/etc/hosts",
+        "appsandbox:net-client:write_/tmp/foo",
+        "bucket4:v1_read:write_/etc/hosts",
+        "bucket5:v11_read_subpath:write_/tmp/foo",
+        "metafilter_any|file-write*|/tmp/baz.txt",
+        "runtime:strict_1:write_hosts",
+        "runtime:strict_1:write_ok",
+        "sys:airlock:write_/etc/hosts",
+        "sys:airlock:write_/tmp/foo",
+        "sys:blastdoor:write_/etc/hosts",
+        "sys:blastdoor:write_/tmp/foo",
+        "sys:bsd:write_/etc/hosts",
+        "sys:bsd:write_/tmp/foo",
+        "sys:cgpdfservice:write_/etc/hosts",
+        "sys:cgpdfservice:write_/tmp/foo"
+      ],
+      "coverage_status": "brittle"
+    },
+    "mach-lookup": {
+      "op_name": "mach-lookup",
+      "op_id": 96,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "probes": 0,
+      "matches": 0,
+      "mismatches": 0,
+      "probes_including_blocked": 5,
+      "blocked": {
+        "total": 5,
+        "by_stage": {
+          "apply": 1,
+          "preflight": 4
+        },
+        "by_kind": {
+          "sandbox_init_failed": 1,
+          "preflight_apply_gate_signature": 4
+        }
+      },
+      "unobserved": 0,
+      "examples": [],
+      "scenarios": [
+        "bucket6:v12_runtime_probe:mach_cfprefsd_agent",
+        "sys:blastdoor:mach_allow_logd",
+        "sys:blastdoor:mach_allow_trustd",
+        "sys:blastdoor:mach_deny_cfprefsd",
+        "sys:blastdoor:xpc_deny_trustd"
+      ],
+      "coverage_status": "brittle"
+    }
+  }
+}

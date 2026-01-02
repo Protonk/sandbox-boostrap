@@ -8,7 +8,7 @@ from book.api.profile import ingestion as pi
 
 from book.api import path_utils
 ROOT = path_utils.find_repo_root(Path(__file__))
-SAMPLE_SB = ROOT / "book" / "examples" / "sb" / "sample.sb"
+SAMPLE_SB = ROOT / "book" / "tools" / "sbpl" / "corpus" / "baseline" / "sample.sb"
 
 
 @pytest.mark.system

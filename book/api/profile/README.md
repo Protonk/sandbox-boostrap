@@ -54,10 +54,10 @@ Supported commands (stable flags and JSON output shapes):
 Examples:
 ```sh
 # Compile SBPL to a blob.
-python -m book.api.profile compile book/examples/sb/sample.sb --out /tmp/sample.sb.bin
+python -m book.api.profile compile book/tools/sbpl/corpus/baseline/sample.sb --out /tmp/sample.sb.bin
 
 # Compile with compile-time params for `(param "ROOT")`.
-python -m book.api.profile compile book/examples/sb/sample.sb \
+python -m book.api.profile compile book/tools/sbpl/corpus/baseline/sample.sb \
   --param ROOT=/private/tmp \
   --out /tmp/sample.sb.bin
 

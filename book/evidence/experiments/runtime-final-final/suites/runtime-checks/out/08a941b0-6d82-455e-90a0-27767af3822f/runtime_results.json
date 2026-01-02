@@ -1,0 +1,4228 @@
+{
+  "bucket4:v1_read": {
+    "status": "blocked",
+    "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
+    "base_profile_path": "book/evidence/experiments/profile-pipeline/op-table-operation/sb/v1_read.sb",
+    "preflight": {
+      "tool": "book/tools/preflight",
+      "preflight_schema_version": 1,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
+      "classification": "no_known_apply_gate_signature",
+      "signature": null,
+      "findings": []
+    },
+    "probes": [
+      {
+        "name": "read_/etc/hosts",
+        "expectation_id": "bucket4:v1_read:read_/etc/hosts",
+        "operation": "file-read*",
+        "path": "/etc/hosts",
+        "expected": "allow",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": -1,
+            "errno": 1,
+            "errbuf": "Operation not permitted",
+            "err_class": "errno_eperm",
+            "err_class_source": "errno_only"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_reader",
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+            "entrypoint_sha256": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039",
+            "tool_build_id": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039"
+          },
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": false,
+          "sandbox_check_request": {
+            "operation": "file-read-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/etc/hosts",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": "EPERM",
+        "path_observation": {
+          "observed_path": "/private/etc/hosts",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_reader",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
+          "/etc/hosts"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb\",\"pid\":39140}\nsandbox_init failed: Operation not permitted\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767396069.0922508,
+        "cmd_finished_at_unix_s": 1767396069.0986938,
+        "cmd_duration_s": 0.006443023681640625,
+        "sandbox_check_request": {
+          "operation": "file-read-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/etc/hosts",
+          "canonicalization": "both"
+        }
+      },
+      {
+        "name": "write_/etc/hosts",
+        "expectation_id": "bucket4:v1_read:write_/etc/hosts",
+        "operation": "file-write*",
+        "path": "/etc/hosts",
+        "expected": "deny",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": -1,
+            "errno": 1,
+            "errbuf": "Operation not permitted",
+            "err_class": "errno_eperm",
+            "err_class_source": "errno_only"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_writer",
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_writer",
+            "entrypoint_sha256": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63",
+            "tool_build_id": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63"
+          },
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": false,
+          "sandbox_check_request": {
+            "operation": "file-write-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/etc/hosts",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": "EPERM",
+        "path_observation": {
+          "observed_path": "/private/etc/hosts",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_writer",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
+          "/etc/hosts"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb\",\"pid\":39141}\nsandbox_init failed: Operation not permitted\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767396069.09919,
+        "cmd_finished_at_unix_s": 1767396069.105622,
+        "cmd_duration_s": 0.006432056427001953,
+        "sandbox_check_request": {
+          "operation": "file-write-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/etc/hosts",
+          "canonicalization": "both"
+        }
+      },
+      {
+        "name": "read_/tmp/foo",
+        "expectation_id": "bucket4:v1_read:read_/tmp/foo",
+        "operation": "file-read*",
+        "path": "/tmp/foo",
+        "expected": "allow",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": -1,
+            "errno": 1,
+            "errbuf": "Operation not permitted",
+            "err_class": "errno_eperm",
+            "err_class_source": "errno_only"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_reader",
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+            "entrypoint_sha256": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039",
+            "tool_build_id": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039"
+          },
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": false,
+          "sandbox_check_request": {
+            "operation": "file-read-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/tmp/foo",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": "EPERM",
+        "path_observation": {
+          "observed_path": "/private/tmp/foo",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_reader",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
+          "/tmp/foo"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb\",\"pid\":39142}\nsandbox_init failed: Operation not permitted\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767396069.1060338,
+        "cmd_finished_at_unix_s": 1767396069.1122408,
+        "cmd_duration_s": 0.006206989288330078,
+        "sandbox_check_request": {
+          "operation": "file-read-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/tmp/foo",
+          "canonicalization": "both"
+        }
+      }
+    ],
+    "notes": "all probes blocked before policy evaluation",
+    "schema_version": "runtime-tools.runtime_results.v0.1",
+    "run_id": "08a941b0-6d82-455e-90a0-27767af3822f"
+  },
+  "bucket5:v11_read_subpath": {
+    "status": "blocked",
+    "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
+    "base_profile_path": "book/evidence/experiments/profile-pipeline/op-table-operation/sb/v11_read_subpath.sb",
+    "preflight": {
+      "tool": "book/tools/preflight",
+      "preflight_schema_version": 1,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
+      "classification": "no_known_apply_gate_signature",
+      "signature": null,
+      "findings": []
+    },
+    "probes": [
+      {
+        "name": "read_/tmp/foo",
+        "expectation_id": "bucket5:v11_read_subpath:read_/tmp/foo",
+        "operation": "file-read*",
+        "path": "/tmp/foo",
+        "expected": "allow",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": -1,
+            "errno": 1,
+            "errbuf": "Operation not permitted",
+            "err_class": "errno_eperm",
+            "err_class_source": "errno_only"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_reader",
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+            "entrypoint_sha256": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039",
+            "tool_build_id": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039"
+          },
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": false,
+          "sandbox_check_request": {
+            "operation": "file-read-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/tmp/foo",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": "EPERM",
+        "path_observation": {
+          "observed_path": "/private/tmp/foo",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_reader",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
+          "/tmp/foo"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb\",\"pid\":39143}\nsandbox_init failed: Operation not permitted\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767396069.113268,
+        "cmd_finished_at_unix_s": 1767396069.1194901,
+        "cmd_duration_s": 0.006222248077392578,
+        "sandbox_check_request": {
+          "operation": "file-read-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/tmp/foo",
+          "canonicalization": "both"
+        }
+      },
+      {
+        "name": "read_/tmp/bar",
+        "expectation_id": "bucket5:v11_read_subpath:read_/tmp/bar",
+        "operation": "file-read*",
+        "path": "/tmp/bar",
+        "expected": "deny",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": -1,
+            "errno": 1,
+            "errbuf": "Operation not permitted",
+            "err_class": "errno_eperm",
+            "err_class_source": "errno_only"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_reader",
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+            "entrypoint_sha256": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039",
+            "tool_build_id": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039"
+          },
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": false,
+          "sandbox_check_request": {
+            "operation": "file-read-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/tmp/bar",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": "EPERM",
+        "path_observation": {
+          "observed_path": "/private/tmp/bar",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_reader",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
+          "/tmp/bar"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb\",\"pid\":39144}\nsandbox_init failed: Operation not permitted\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767396069.119884,
+        "cmd_finished_at_unix_s": 1767396069.126029,
+        "cmd_duration_s": 0.006145000457763672,
+        "sandbox_check_request": {
+          "operation": "file-read-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/tmp/bar",
+          "canonicalization": "both"
+        }
+      },
+      {
+        "name": "write_/tmp/foo",
+        "expectation_id": "bucket5:v11_read_subpath:write_/tmp/foo",
+        "operation": "file-write*",
+        "path": "/tmp/foo",
+        "expected": "deny",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": -1,
+            "errno": 1,
+            "errbuf": "Operation not permitted",
+            "err_class": "errno_eperm",
+            "err_class_source": "errno_only"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_writer",
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_writer",
+            "entrypoint_sha256": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63",
+            "tool_build_id": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63"
+          },
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": false,
+          "sandbox_check_request": {
+            "operation": "file-write-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/tmp/foo",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": "EPERM",
+        "path_observation": {
+          "observed_path": "/private/tmp/foo",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_writer",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
+          "/tmp/foo"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb\",\"pid\":39145}\nsandbox_init failed: Operation not permitted\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767396069.126365,
+        "cmd_finished_at_unix_s": 1767396069.132513,
+        "cmd_duration_s": 0.006148099899291992,
+        "sandbox_check_request": {
+          "operation": "file-write-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/tmp/foo",
+          "canonicalization": "both"
+        }
+      }
+    ],
+    "notes": "all probes blocked before policy evaluation",
+    "schema_version": "runtime-tools.runtime_results.v0.1",
+    "run_id": "08a941b0-6d82-455e-90a0-27767af3822f"
+  },
+  "bucket6:v12_runtime_probe": {
+    "status": "blocked",
+    "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/v12_runtime_probe.bucket6_v12_runtime_probe.runtime.sb",
+    "base_profile_path": "book/evidence/experiments/profile-pipeline/op-table-operation/sb/v12_runtime_probe.sb",
+    "preflight": {
+      "tool": "book/tools/preflight",
+      "preflight_schema_version": 1,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/v12_runtime_probe.bucket6_v12_runtime_probe.runtime.sb",
+      "classification": "no_known_apply_gate_signature",
+      "signature": null,
+      "findings": []
+    },
+    "probes": [
+      {
+        "name": "read_/private/tmp/foo",
+        "expectation_id": "bucket6:v12_runtime_probe:read_/private/tmp/foo",
+        "operation": "file-read*",
+        "path": "/private/tmp/foo",
+        "expected": "allow",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": -1,
+            "errno": 1,
+            "errbuf": "Operation not permitted",
+            "err_class": "errno_eperm",
+            "err_class_source": "errno_only"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_reader",
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+            "entrypoint_sha256": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039",
+            "tool_build_id": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039"
+          },
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": false,
+          "sandbox_check_request": {
+            "operation": "file-read-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/private/tmp/foo",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": "EPERM",
+        "path_observation": {
+          "observed_path": "/private/tmp/foo",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_reader",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/v12_runtime_probe.bucket6_v12_runtime_probe.runtime.sb",
+          "/private/tmp/foo"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/v12_runtime_probe.bucket6_v12_runtime_probe.runtime.sb\",\"pid\":39146}\nsandbox_init failed: Operation not permitted\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767396069.133589,
+        "cmd_finished_at_unix_s": 1767396069.1399932,
+        "cmd_duration_s": 0.00640416145324707,
+        "sandbox_check_request": {
+          "operation": "file-read-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/private/tmp/foo",
+          "canonicalization": "both"
+        }
+      },
+      {
+        "name": "read_/private/tmp/bar",
+        "expectation_id": "bucket6:v12_runtime_probe:read_/private/tmp/bar",
+        "operation": "file-read*",
+        "path": "/private/tmp/bar",
+        "expected": "deny",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": -1,
+            "errno": 1,
+            "errbuf": "Operation not permitted",
+            "err_class": "errno_eperm",
+            "err_class_source": "errno_only"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_reader",
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+            "entrypoint_sha256": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039",
+            "tool_build_id": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039"
+          },
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": false,
+          "sandbox_check_request": {
+            "operation": "file-read-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/private/tmp/bar",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": "EPERM",
+        "path_observation": {
+          "observed_path": "/private/tmp/bar",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_reader",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/v12_runtime_probe.bucket6_v12_runtime_probe.runtime.sb",
+          "/private/tmp/bar"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/v12_runtime_probe.bucket6_v12_runtime_probe.runtime.sb\",\"pid\":39147}\nsandbox_init failed: Operation not permitted\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767396069.140361,
+        "cmd_finished_at_unix_s": 1767396069.146532,
+        "cmd_duration_s": 0.006170988082885742,
+        "sandbox_check_request": {
+          "operation": "file-read-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/private/tmp/bar",
+          "canonicalization": "both"
+        }
+      },
+      {
+        "name": "mach_cfprefsd_agent",
+        "expectation_id": "bucket6:v12_runtime_probe:mach_cfprefsd_agent",
+        "operation": "mach-lookup",
+        "path": "com.apple.cfprefsd.agent",
+        "expected": "allow",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": -1,
+            "errno": 1,
+            "errbuf": "Operation not permitted",
+            "err_class": "errno_eperm",
+            "err_class_source": "errno_only"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_mach_probe",
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "entrypoint_path": "book/api/runtime/native/probes/sandbox_mach_probe",
+            "entrypoint_sha256": "767e9776f49969fca1829cfe946615ae4075e228163336bb0964cb3b1dbe8a0d",
+            "tool_build_id": "767e9776f49969fca1829cfe946615ae4075e228163336bb0964cb3b1dbe8a0d"
+          },
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": false,
+          "sandbox_check_request": {
+            "operation": "mach-lookup",
+            "filter_type": 5,
+            "filter_name": "global-name",
+            "argument": "com.apple.cfprefsd.agent"
+          },
+          "resource_hygiene": {
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": "EPERM",
+        "command": [
+          "book/api/runtime/native/probes/sandbox_mach_probe",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/v12_runtime_probe.bucket6_v12_runtime_probe.runtime.sb",
+          "com.apple.cfprefsd.agent"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/v12_runtime_probe.bucket6_v12_runtime_probe.runtime.sb\",\"pid\":39148}\nsandbox_init failed: Operation not permitted\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767396069.146915,
+        "cmd_finished_at_unix_s": 1767396069.153419,
+        "cmd_duration_s": 0.006504058837890625,
+        "sandbox_check_request": {
+          "operation": "mach-lookup",
+          "filter_type": 5,
+          "filter_name": "global-name",
+          "argument": "com.apple.cfprefsd.agent"
+        }
+      }
+    ],
+    "notes": "all probes blocked before policy evaluation",
+    "schema_version": "runtime-tools.runtime_results.v0.1",
+    "run_id": "08a941b0-6d82-455e-90a0-27767af3822f"
+  },
+  "runtime:allow_all": {
+    "status": "blocked",
+    "profile_path": "book/profiles/golden-triple/allow_all.sb.bin",
+    "base_profile_path": "book/profiles/golden-triple/allow_all.sb.bin",
+    "preflight": {
+      "tool": "book/tools/preflight",
+      "preflight_schema_version": 1,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "input_kind": "sbpl_blob_path",
+      "input_ref": "book/profiles/golden-triple/allow_all.sb.bin",
+      "classification": "no_known_apply_gate_signature",
+      "signature": null,
+      "findings": [
+        {
+          "blob_sha256": "19832eb9716a32459bee8398c8977fd1dfd575fa26606928f95728462a833c92",
+          "matched": false
+        }
+      ]
+    },
+    "probes": [
+      {
+        "name": "read_/etc/hosts",
+        "expectation_id": "allow_all|file-read*|/etc/hosts",
+        "operation": "file-read*",
+        "path": "/etc/hosts",
+        "expected": "allow",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_apply_failed",
+          "apply_report": {
+            "api": "sandbox_apply",
+            "rc": -1,
+            "errno": 1,
+            "errbuf": "Operation not permitted",
+            "err_class": "errno_eperm",
+            "err_class_source": "errno_only"
+          },
+          "runner_info": {
+            "entrypoint": "SBPL-wrapper",
+            "apply_model": "exec_wrapper",
+            "apply_timing": "pre_exec",
+            "preexisting_sandbox_suspected": true,
+            "entrypoint_path": "book/tools/sbpl/wrapper/wrapper",
+            "entrypoint_sha256": "2a4ead954fcceb103a5409d6057ab6803f206a11fc94554638c1b6a2aa065bb3",
+            "tool_build_id": "2a4ead954fcceb103a5409d6057ab6803f206a11fc94554638c1b6a2aa065bb3"
+          },
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": false,
+          "sandbox_check_request": {
+            "operation": "file-read-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/etc/hosts",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "exec_wrapper",
+            "apply_timing": "pre_exec",
+            "preexisting_sandbox_suspected": true,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": "EPERM",
+        "path_observation": {
+          "observed_path": "/private/etc/hosts",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/tools/sbpl/wrapper/wrapper",
+          "--preflight",
+          "enforce",
+          "--blob",
+          "book/profiles/golden-triple/allow_all.sb.bin",
+          "--",
+          "/bin/cat",
+          "/etc/hosts"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "{\"tool\":\"sbpl-preflight\",\"marker_schema_version\":1,\"stage\":\"preflight\",\"mode\":\"blob\",\"policy\":\"enforce\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/profiles/golden-triple/allow_all.sb.bin\",\"rc\":0,\"record_json\":\"{\\\"classification\\\": \\\"no_known_apply_gate_signature\\\", \\\"findings\\\": [{\\\"blob_sha256\\\": \\\"19832eb9716a32459bee8398c8977fd1dfd575fa26606928f95728462a833c92\\\", \\\"matched\\\": false}], \\\"input_kind\\\": \\\"sbpl_blob_path\\\", \\\"input_ref\\\": \\\"book/profiles/golden-triple/allow_all.sb.bin\\\", \\\"preflight_schema_version\\\": 1, \\\"signature\\\": null, \\\"tool\\\": \\\"book/tools/preflight\\\", \\\"world_id\\\": \\\"sonoma-14.4.1-23E224-arm64-dyld-2c0602c5\\\"}\",\"pid\":39149}\n{\"tool\":\"entitlement-check\",\"marker_schema_version\":1,\"stage\":\"pre_apply\",\"entitlement\":\"com.apple.private.security.message-filter\",\"pid\":39149,\"rc\":0,\"present\":false,\"value_type\":\"absent\"}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"blob\",\"api\":\"sandbox_apply\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/profiles/golden-triple/allow_all.sb.bin\",\"pid\":39149}\nsandbox_apply: Operation not permitted\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767396069.15433,
+        "cmd_finished_at_unix_s": 1767396069.205578,
+        "cmd_duration_s": 0.05124807357788086,
+        "sandbox_check_request": {
+          "operation": "file-read-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/etc/hosts",
+          "canonicalization": "both"
+        }
+      },
+      {
+        "name": "read_/tmp/sbpl_rt/read.txt",
+        "expectation_id": "allow_all|file-read*|/tmp/sbpl_rt/read.txt",
+        "operation": "file-read*",
+        "path": "/tmp/sbpl_rt/read.txt",
+        "expected": "allow",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_apply_failed",
+          "apply_report": {
+            "api": "sandbox_apply",
+            "rc": -1,
+            "errno": 1,
+            "errbuf": "Operation not permitted",
+            "err_class": "errno_eperm",
+            "err_class_source": "errno_only"
+          },
+          "runner_info": {
+            "entrypoint": "SBPL-wrapper",
+            "apply_model": "exec_wrapper",
+            "apply_timing": "pre_exec",
+            "preexisting_sandbox_suspected": true,
+            "entrypoint_path": "book/tools/sbpl/wrapper/wrapper",
+            "entrypoint_sha256": "2a4ead954fcceb103a5409d6057ab6803f206a11fc94554638c1b6a2aa065bb3",
+            "tool_build_id": "2a4ead954fcceb103a5409d6057ab6803f206a11fc94554638c1b6a2aa065bb3"
+          },
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": false,
+          "sandbox_check_request": {
+            "operation": "file-read-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/tmp/sbpl_rt/read.txt",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "exec_wrapper",
+            "apply_timing": "pre_exec",
+            "preexisting_sandbox_suspected": true,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": "EPERM",
+        "path_observation": {
+          "observed_path": "/private/tmp/sbpl_rt/read.txt",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/tools/sbpl/wrapper/wrapper",
+          "--preflight",
+          "enforce",
+          "--blob",
+          "book/profiles/golden-triple/allow_all.sb.bin",
+          "--",
+          "/bin/cat",
+          "/tmp/sbpl_rt/read.txt"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "{\"tool\":\"sbpl-preflight\",\"marker_schema_version\":1,\"stage\":\"preflight\",\"mode\":\"blob\",\"policy\":\"enforce\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/profiles/golden-triple/allow_all.sb.bin\",\"rc\":0,\"record_json\":\"{\\\"classification\\\": \\\"no_known_apply_gate_signature\\\", \\\"findings\\\": [{\\\"blob_sha256\\\": \\\"19832eb9716a32459bee8398c8977fd1dfd575fa26606928f95728462a833c92\\\", \\\"matched\\\": false}], \\\"input_kind\\\": \\\"sbpl_blob_path\\\", \\\"input_ref\\\": \\\"book/profiles/golden-triple/allow_all.sb.bin\\\", \\\"preflight_schema_version\\\": 1, \\\"signature\\\": null, \\\"tool\\\": \\\"book/tools/preflight\\\", \\\"world_id\\\": \\\"sonoma-14.4.1-23E224-arm64-dyld-2c0602c5\\\"}\",\"pid\":39151}\n{\"tool\":\"entitlement-check\",\"marker_schema_version\":1,\"stage\":\"pre_apply\",\"entitlement\":\"com.apple.private.security.message-filter\",\"pid\":39151,\"rc\":0,\"present\":false,\"value_type\":\"absent\"}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"blob\",\"api\":\"sandbox_apply\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/profiles/golden-triple/allow_all.sb.bin\",\"pid\":39151}\nsandbox_apply: Operation not permitted\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767396069.206325,
+        "cmd_finished_at_unix_s": 1767396069.2557728,
+        "cmd_duration_s": 0.04944777488708496,
+        "sandbox_check_request": {
+          "operation": "file-read-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/tmp/sbpl_rt/read.txt",
+          "canonicalization": "both"
+        }
+      },
+      {
+        "name": "write_/tmp/sbpl_rt/write.txt",
+        "expectation_id": "allow_all|file-write*|/tmp/sbpl_rt/write.txt",
+        "operation": "file-write*",
+        "path": "/tmp/sbpl_rt/write.txt",
+        "expected": "allow",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_apply_failed",
+          "apply_report": {
+            "api": "sandbox_apply",
+            "rc": -1,
+            "errno": 1,
+            "errbuf": "Operation not permitted",
+            "err_class": "errno_eperm",
+            "err_class_source": "errno_only"
+          },
+          "runner_info": {
+            "entrypoint": "SBPL-wrapper",
+            "apply_model": "exec_wrapper",
+            "apply_timing": "pre_exec",
+            "preexisting_sandbox_suspected": true,
+            "entrypoint_path": "book/tools/sbpl/wrapper/wrapper",
+            "entrypoint_sha256": "2a4ead954fcceb103a5409d6057ab6803f206a11fc94554638c1b6a2aa065bb3",
+            "tool_build_id": "2a4ead954fcceb103a5409d6057ab6803f206a11fc94554638c1b6a2aa065bb3"
+          },
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": false,
+          "sandbox_check_request": {
+            "operation": "file-write-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/tmp/sbpl_rt/write.txt",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "exec_wrapper",
+            "apply_timing": "pre_exec",
+            "preexisting_sandbox_suspected": true,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": "EPERM",
+        "path_observation": {
+          "observed_path": "/private/tmp/sbpl_rt/write.txt",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/tools/sbpl/wrapper/wrapper",
+          "--preflight",
+          "enforce",
+          "--blob",
+          "book/profiles/golden-triple/allow_all.sb.bin",
+          "--",
+          "/bin/sh",
+          "-c",
+          "echo runtime-check >> '/tmp/sbpl_rt/write.txt'"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "{\"tool\":\"sbpl-preflight\",\"marker_schema_version\":1,\"stage\":\"preflight\",\"mode\":\"blob\",\"policy\":\"enforce\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/profiles/golden-triple/allow_all.sb.bin\",\"rc\":0,\"record_json\":\"{\\\"classification\\\": \\\"no_known_apply_gate_signature\\\", \\\"findings\\\": [{\\\"blob_sha256\\\": \\\"19832eb9716a32459bee8398c8977fd1dfd575fa26606928f95728462a833c92\\\", \\\"matched\\\": false}], \\\"input_kind\\\": \\\"sbpl_blob_path\\\", \\\"input_ref\\\": \\\"book/profiles/golden-triple/allow_all.sb.bin\\\", \\\"preflight_schema_version\\\": 1, \\\"signature\\\": null, \\\"tool\\\": \\\"book/tools/preflight\\\", \\\"world_id\\\": \\\"sonoma-14.4.1-23E224-arm64-dyld-2c0602c5\\\"}\",\"pid\":39153}\n{\"tool\":\"entitlement-check\",\"marker_schema_version\":1,\"stage\":\"pre_apply\",\"entitlement\":\"com.apple.private.security.message-filter\",\"pid\":39153,\"rc\":0,\"present\":false,\"value_type\":\"absent\"}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"blob\",\"api\":\"sandbox_apply\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/profiles/golden-triple/allow_all.sb.bin\",\"pid\":39153}\nsandbox_apply: Operation not permitted\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767396069.256342,
+        "cmd_finished_at_unix_s": 1767396069.3061981,
+        "cmd_duration_s": 0.04985618591308594,
+        "sandbox_check_request": {
+          "operation": "file-write-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/tmp/sbpl_rt/write.txt",
+          "canonicalization": "both"
+        }
+      }
+    ],
+    "notes": "all probes blocked before policy evaluation",
+    "schema_version": "runtime-tools.runtime_results.v0.1",
+    "run_id": "08a941b0-6d82-455e-90a0-27767af3822f"
+  },
+  "runtime:metafilter_any": {
+    "status": "blocked",
+    "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
+    "base_profile_path": "book/evidence/experiments/runtime-final-final/suites/sbpl-graph-runtime/profiles/metafilter_any.sb",
+    "preflight": {
+      "tool": "book/tools/preflight",
+      "preflight_schema_version": 1,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
+      "classification": "no_known_apply_gate_signature",
+      "signature": null,
+      "findings": []
+    },
+    "probes": [
+      {
+        "name": "read_foo",
+        "expectation_id": "metafilter_any|file-read*|/tmp/foo.txt",
+        "operation": "file-read*",
+        "path": "/tmp/foo.txt",
+        "expected": "allow",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": -1,
+            "errno": 1,
+            "errbuf": "Operation not permitted",
+            "err_class": "errno_eperm",
+            "err_class_source": "errno_only"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_reader",
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+            "entrypoint_sha256": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039",
+            "tool_build_id": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039"
+          },
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": false,
+          "sandbox_check_request": {
+            "operation": "file-read-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/tmp/foo.txt",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": "EPERM",
+        "path_observation": {
+          "observed_path": "/private/tmp/foo.txt",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_reader",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
+          "/tmp/foo.txt"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb\",\"pid\":39155}\nsandbox_init failed: Operation not permitted\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767396069.307848,
+        "cmd_finished_at_unix_s": 1767396069.314477,
+        "cmd_duration_s": 0.006628990173339844,
+        "sandbox_check_request": {
+          "operation": "file-read-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/tmp/foo.txt",
+          "canonicalization": "both"
+        }
+      },
+      {
+        "name": "read_bar",
+        "expectation_id": "metafilter_any|file-read*|/tmp/bar.txt",
+        "operation": "file-read*",
+        "path": "/tmp/bar.txt",
+        "expected": "allow",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": -1,
+            "errno": 1,
+            "errbuf": "Operation not permitted",
+            "err_class": "errno_eperm",
+            "err_class_source": "errno_only"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_reader",
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+            "entrypoint_sha256": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039",
+            "tool_build_id": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039"
+          },
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": false,
+          "sandbox_check_request": {
+            "operation": "file-read-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/tmp/bar.txt",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": "EPERM",
+        "path_observation": {
+          "observed_path": "/private/tmp/bar.txt",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_reader",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
+          "/tmp/bar.txt"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb\",\"pid\":39156}\nsandbox_init failed: Operation not permitted\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767396069.31486,
+        "cmd_finished_at_unix_s": 1767396069.32142,
+        "cmd_duration_s": 0.006559848785400391,
+        "sandbox_check_request": {
+          "operation": "file-read-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/tmp/bar.txt",
+          "canonicalization": "both"
+        }
+      },
+      {
+        "name": "read_other",
+        "expectation_id": "metafilter_any|file-read*|/tmp/qux.txt",
+        "operation": "file-read*",
+        "path": "/tmp/qux.txt",
+        "expected": "allow",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": -1,
+            "errno": 1,
+            "errbuf": "Operation not permitted",
+            "err_class": "errno_eperm",
+            "err_class_source": "errno_only"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_reader",
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+            "entrypoint_sha256": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039",
+            "tool_build_id": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039"
+          },
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": false,
+          "sandbox_check_request": {
+            "operation": "file-read-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/tmp/qux.txt",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": "EPERM",
+        "path_observation": {
+          "observed_path": "/private/tmp/qux.txt",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_reader",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
+          "/tmp/qux.txt"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb\",\"pid\":39157}\nsandbox_init failed: Operation not permitted\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767396069.321841,
+        "cmd_finished_at_unix_s": 1767396069.3283799,
+        "cmd_duration_s": 0.006538867950439453,
+        "sandbox_check_request": {
+          "operation": "file-read-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/tmp/qux.txt",
+          "canonicalization": "both"
+        }
+      },
+      {
+        "name": "read_baz",
+        "expectation_id": "metafilter_any|file-read*|/tmp/baz.txt",
+        "operation": "file-read*",
+        "path": "/tmp/baz.txt",
+        "expected": "deny",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": -1,
+            "errno": 1,
+            "errbuf": "Operation not permitted",
+            "err_class": "errno_eperm",
+            "err_class_source": "errno_only"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_reader",
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+            "entrypoint_sha256": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039",
+            "tool_build_id": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039"
+          },
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": false,
+          "sandbox_check_request": {
+            "operation": "file-read-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/tmp/baz.txt",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": "EPERM",
+        "path_observation": {
+          "observed_path": "/private/tmp/baz.txt",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_reader",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
+          "/tmp/baz.txt"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb\",\"pid\":39158}\nsandbox_init failed: Operation not permitted\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767396069.328741,
+        "cmd_finished_at_unix_s": 1767396069.3349361,
+        "cmd_duration_s": 0.006195068359375,
+        "sandbox_check_request": {
+          "operation": "file-read-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/tmp/baz.txt",
+          "canonicalization": "both"
+        }
+      },
+      {
+        "name": "write_baz",
+        "expectation_id": "metafilter_any|file-write*|/tmp/baz.txt",
+        "operation": "file-write*",
+        "path": "/tmp/baz.txt",
+        "expected": "deny",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": -1,
+            "errno": 1,
+            "errbuf": "Operation not permitted",
+            "err_class": "errno_eperm",
+            "err_class_source": "errno_only"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_writer",
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_writer",
+            "entrypoint_sha256": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63",
+            "tool_build_id": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63"
+          },
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": false,
+          "sandbox_check_request": {
+            "operation": "file-write-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/tmp/baz.txt",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": "EPERM",
+        "path_observation": {
+          "observed_path": "/private/tmp/baz.txt",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_writer",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
+          "/tmp/baz.txt"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb\",\"pid\":39159}\nsandbox_init failed: Operation not permitted\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767396069.3352692,
+        "cmd_finished_at_unix_s": 1767396069.341723,
+        "cmd_duration_s": 0.006453752517700195,
+        "sandbox_check_request": {
+          "operation": "file-write-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/tmp/baz.txt",
+          "canonicalization": "both"
+        }
+      }
+    ],
+    "notes": "all probes blocked before policy evaluation",
+    "schema_version": "runtime-tools.runtime_results.v0.1",
+    "run_id": "08a941b0-6d82-455e-90a0-27767af3822f"
+  },
+  "runtime:strict_1": {
+    "status": "blocked",
+    "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/strict_1.runtime_strict_1.runtime.sb",
+    "base_profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/strict_1.sb",
+    "preflight": {
+      "tool": "book/tools/preflight",
+      "preflight_schema_version": 1,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/strict_1.runtime_strict_1.runtime.sb",
+      "classification": "no_known_apply_gate_signature",
+      "signature": null,
+      "findings": []
+    },
+    "probes": [
+      {
+        "name": "read_ok",
+        "expectation_id": "runtime:strict_1:read_ok",
+        "operation": "file-read*",
+        "path": "/private/tmp/strict_ok/allow.txt",
+        "expected": "allow",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": -1,
+            "errno": 1,
+            "errbuf": "Operation not permitted",
+            "err_class": "errno_eperm",
+            "err_class_source": "errno_only"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_reader",
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+            "entrypoint_sha256": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039",
+            "tool_build_id": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039"
+          },
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": false,
+          "sandbox_check_request": {
+            "operation": "file-read-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/private/tmp/strict_ok/allow.txt",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": "EPERM",
+        "path_observation": {
+          "observed_path": "/private/tmp/strict_ok/allow.txt",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_reader",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/strict_1.runtime_strict_1.runtime.sb",
+          "/private/tmp/strict_ok/allow.txt"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/strict_1.runtime_strict_1.runtime.sb\",\"pid\":39160}\nsandbox_init failed: Operation not permitted\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767396069.34274,
+        "cmd_finished_at_unix_s": 1767396069.348983,
+        "cmd_duration_s": 0.006242990493774414,
+        "sandbox_check_request": {
+          "operation": "file-read-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/private/tmp/strict_ok/allow.txt",
+          "canonicalization": "both"
+        }
+      },
+      {
+        "name": "write_ok",
+        "expectation_id": "runtime:strict_1:write_ok",
+        "operation": "file-write*",
+        "path": "/private/tmp/strict_ok/allow.txt",
+        "expected": "allow",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": -1,
+            "errno": 1,
+            "errbuf": "Operation not permitted",
+            "err_class": "errno_eperm",
+            "err_class_source": "errno_only"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_writer",
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_writer",
+            "entrypoint_sha256": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63",
+            "tool_build_id": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63"
+          },
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": false,
+          "sandbox_check_request": {
+            "operation": "file-write-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/private/tmp/strict_ok/allow.txt",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": "EPERM",
+        "path_observation": {
+          "observed_path": "/private/tmp/strict_ok/allow.txt",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_writer",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/strict_1.runtime_strict_1.runtime.sb",
+          "/private/tmp/strict_ok/allow.txt"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/strict_1.runtime_strict_1.runtime.sb\",\"pid\":39161}\nsandbox_init failed: Operation not permitted\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767396069.349352,
+        "cmd_finished_at_unix_s": 1767396069.3556979,
+        "cmd_duration_s": 0.006345987319946289,
+        "sandbox_check_request": {
+          "operation": "file-write-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/private/tmp/strict_ok/allow.txt",
+          "canonicalization": "both"
+        }
+      },
+      {
+        "name": "read_hosts",
+        "expectation_id": "runtime:strict_1:read_hosts",
+        "operation": "file-read*",
+        "path": "/etc/hosts",
+        "expected": "deny",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": -1,
+            "errno": 1,
+            "errbuf": "Operation not permitted",
+            "err_class": "errno_eperm",
+            "err_class_source": "errno_only"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_reader",
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+            "entrypoint_sha256": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039",
+            "tool_build_id": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039"
+          },
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": false,
+          "sandbox_check_request": {
+            "operation": "file-read-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/etc/hosts",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": "EPERM",
+        "path_observation": {
+          "observed_path": "/private/etc/hosts",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_reader",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/strict_1.runtime_strict_1.runtime.sb",
+          "/etc/hosts"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/strict_1.runtime_strict_1.runtime.sb\",\"pid\":39162}\nsandbox_init failed: Operation not permitted\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767396069.356093,
+        "cmd_finished_at_unix_s": 1767396069.362227,
+        "cmd_duration_s": 0.006134033203125,
+        "sandbox_check_request": {
+          "operation": "file-read-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/etc/hosts",
+          "canonicalization": "both"
+        }
+      },
+      {
+        "name": "write_hosts",
+        "expectation_id": "runtime:strict_1:write_hosts",
+        "operation": "file-write*",
+        "path": "/etc/hosts",
+        "expected": "deny",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": -1,
+            "errno": 1,
+            "errbuf": "Operation not permitted",
+            "err_class": "errno_eperm",
+            "err_class_source": "errno_only"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_writer",
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_writer",
+            "entrypoint_sha256": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63",
+            "tool_build_id": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63"
+          },
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": false,
+          "sandbox_check_request": {
+            "operation": "file-write-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/etc/hosts",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": "EPERM",
+        "path_observation": {
+          "observed_path": "/private/etc/hosts",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_writer",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/strict_1.runtime_strict_1.runtime.sb",
+          "/etc/hosts"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/strict_1.runtime_strict_1.runtime.sb\",\"pid\":39163}\nsandbox_init failed: Operation not permitted\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767396069.3625898,
+        "cmd_finished_at_unix_s": 1767396069.3686259,
+        "cmd_duration_s": 0.006036043167114258,
+        "sandbox_check_request": {
+          "operation": "file-write-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/etc/hosts",
+          "canonicalization": "both"
+        }
+      }
+    ],
+    "notes": "all probes blocked before policy evaluation",
+    "schema_version": "runtime-tools.runtime_results.v0.1",
+    "run_id": "08a941b0-6d82-455e-90a0-27767af3822f"
+  },
+  "sys:airlock": {
+    "status": "blocked",
+    "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/airlock.sys_airlock.runtime.sb",
+    "base_profile_path": "/System/Library/Sandbox/Profiles/airlock.sb",
+    "preflight": {
+      "tool": "book/tools/preflight",
+      "preflight_schema_version": 1,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/airlock.sys_airlock.runtime.sb",
+      "classification": "likely_apply_gated_for_harness_identity",
+      "signature": "deny_message_filter",
+      "findings": [
+        {
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client",
+          "denied_operation": "iokit-async-external-method"
+        },
+        {
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client",
+          "denied_operation": "iokit-external-method"
+        },
+        {
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client",
+          "denied_operation": "iokit-external-method"
+        },
+        {
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client",
+          "denied_operation": "iokit-external-method"
+        },
+        {
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client",
+          "denied_operation": "iokit-async-external-method"
+        },
+        {
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client",
+          "denied_operation": "iokit-external-method"
+        },
+        {
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client",
+          "denied_operation": "iokit-external-method"
+        },
+        {
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client",
+          "denied_operation": "iokit-external-method"
+        }
+      ],
+      "signature_meta": {
+        "status": "partial",
+        "pointers": [
+          "troubles/EPERMx2.md",
+          "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/Report.md",
+          "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json"
+        ]
+      }
+    },
+    "probes": [
+      {
+        "name": "read_/etc/hosts",
+        "expectation_id": "sys:airlock:read_/etc/hosts",
+        "operation": "file-read*",
+        "path": "/etc/hosts",
+        "expected": "deny",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "blocked",
+          "errno": null,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "preflight",
+          "failure_kind": "preflight_apply_gate_signature",
+          "apply_report": null,
+          "runner_info": null,
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": null,
+          "sandbox_check_request": null,
+          "resource_hygiene": {
+            "apply_model": null,
+            "apply_timing": null,
+            "preexisting_sandbox_suspected": null,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": null,
+        "path_observation": {
+          "observed_path": "/private/etc/hosts",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [],
+        "exit_code": null,
+        "stdout": "",
+        "stderr": "",
+        "notes": "preflight blocked: known apply-gate signature"
+      },
+      {
+        "name": "write_/etc/hosts",
+        "expectation_id": "sys:airlock:write_/etc/hosts",
+        "operation": "file-write*",
+        "path": "/etc/hosts",
+        "expected": "deny",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "blocked",
+          "errno": null,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "preflight",
+          "failure_kind": "preflight_apply_gate_signature",
+          "apply_report": null,
+          "runner_info": null,
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": null,
+          "sandbox_check_request": null,
+          "resource_hygiene": {
+            "apply_model": null,
+            "apply_timing": null,
+            "preexisting_sandbox_suspected": null,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": null,
+        "path_observation": {
+          "observed_path": "/private/etc/hosts",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [],
+        "exit_code": null,
+        "stdout": "",
+        "stderr": "",
+        "notes": "preflight blocked: known apply-gate signature"
+      },
+      {
+        "name": "read_/tmp/foo",
+        "expectation_id": "sys:airlock:read_/tmp/foo",
+        "operation": "file-read*",
+        "path": "/tmp/foo",
+        "expected": "deny",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "blocked",
+          "errno": null,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "preflight",
+          "failure_kind": "preflight_apply_gate_signature",
+          "apply_report": null,
+          "runner_info": null,
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": null,
+          "sandbox_check_request": null,
+          "resource_hygiene": {
+            "apply_model": null,
+            "apply_timing": null,
+            "preexisting_sandbox_suspected": null,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": null,
+        "path_observation": {
+          "observed_path": "/private/tmp/foo",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [],
+        "exit_code": null,
+        "stdout": "",
+        "stderr": "",
+        "notes": "preflight blocked: known apply-gate signature"
+      },
+      {
+        "name": "write_/tmp/foo",
+        "expectation_id": "sys:airlock:write_/tmp/foo",
+        "operation": "file-write*",
+        "path": "/tmp/foo",
+        "expected": "deny",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "blocked",
+          "errno": null,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "preflight",
+          "failure_kind": "preflight_apply_gate_signature",
+          "apply_report": null,
+          "runner_info": null,
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": null,
+          "sandbox_check_request": null,
+          "resource_hygiene": {
+            "apply_model": null,
+            "apply_timing": null,
+            "preexisting_sandbox_suspected": null,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": null,
+        "path_observation": {
+          "observed_path": "/private/tmp/foo",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [],
+        "exit_code": null,
+        "stdout": "",
+        "stderr": "",
+        "notes": "preflight blocked: known apply-gate signature"
+      }
+    ],
+    "notes": "all probes blocked before policy evaluation",
+    "schema_version": "runtime-tools.runtime_results.v0.1",
+    "run_id": "08a941b0-6d82-455e-90a0-27767af3822f"
+  },
+  "sys:bsd": {
+    "status": "blocked",
+    "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/bsd.sys_bsd.runtime.sb",
+    "base_profile_path": "/System/Library/Sandbox/Profiles/bsd.sb",
+    "preflight": {
+      "tool": "book/tools/preflight",
+      "preflight_schema_version": 1,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/bsd.sys_bsd.runtime.sb",
+      "classification": "no_known_apply_gate_signature",
+      "signature": null,
+      "findings": []
+    },
+    "probes": [
+      {
+        "name": "read_/etc/hosts",
+        "expectation_id": "sys:bsd:read_/etc/hosts",
+        "operation": "file-read*",
+        "path": "/etc/hosts",
+        "expected": "deny",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": -1,
+            "errno": 1,
+            "errbuf": "Operation not permitted",
+            "err_class": "errno_eperm",
+            "err_class_source": "errno_only"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_reader",
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+            "entrypoint_sha256": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039",
+            "tool_build_id": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039"
+          },
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": false,
+          "sandbox_check_request": {
+            "operation": "file-read-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/etc/hosts",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": "EPERM",
+        "path_observation": {
+          "observed_path": "/private/etc/hosts",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_reader",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/bsd.sys_bsd.runtime.sb",
+          "/etc/hosts"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/bsd.sys_bsd.runtime.sb\",\"pid\":39164}\nsandbox_init failed: Operation not permitted\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767396069.37249,
+        "cmd_finished_at_unix_s": 1767396069.383164,
+        "cmd_duration_s": 0.010673999786376953,
+        "sandbox_check_request": {
+          "operation": "file-read-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/etc/hosts",
+          "canonicalization": "both"
+        }
+      },
+      {
+        "name": "write_/etc/hosts",
+        "expectation_id": "sys:bsd:write_/etc/hosts",
+        "operation": "file-write*",
+        "path": "/etc/hosts",
+        "expected": "deny",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": -1,
+            "errno": 1,
+            "errbuf": "Operation not permitted",
+            "err_class": "errno_eperm",
+            "err_class_source": "errno_only"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_writer",
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_writer",
+            "entrypoint_sha256": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63",
+            "tool_build_id": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63"
+          },
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": false,
+          "sandbox_check_request": {
+            "operation": "file-write-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/etc/hosts",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": "EPERM",
+        "path_observation": {
+          "observed_path": "/private/etc/hosts",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_writer",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/bsd.sys_bsd.runtime.sb",
+          "/etc/hosts"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/bsd.sys_bsd.runtime.sb\",\"pid\":39165}\nsandbox_init failed: Operation not permitted\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767396069.383543,
+        "cmd_finished_at_unix_s": 1767396069.39435,
+        "cmd_duration_s": 0.010807037353515625,
+        "sandbox_check_request": {
+          "operation": "file-write-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/etc/hosts",
+          "canonicalization": "both"
+        }
+      },
+      {
+        "name": "read_/tmp/foo",
+        "expectation_id": "sys:bsd:read_/tmp/foo",
+        "operation": "file-read*",
+        "path": "/tmp/foo",
+        "expected": "deny",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": -1,
+            "errno": 1,
+            "errbuf": "Operation not permitted",
+            "err_class": "errno_eperm",
+            "err_class_source": "errno_only"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_reader",
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+            "entrypoint_sha256": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039",
+            "tool_build_id": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039"
+          },
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": false,
+          "sandbox_check_request": {
+            "operation": "file-read-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/tmp/foo",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": "EPERM",
+        "path_observation": {
+          "observed_path": "/private/tmp/foo",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_reader",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/bsd.sys_bsd.runtime.sb",
+          "/tmp/foo"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/bsd.sys_bsd.runtime.sb\",\"pid\":39166}\nsandbox_init failed: Operation not permitted\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767396069.394763,
+        "cmd_finished_at_unix_s": 1767396069.405526,
+        "cmd_duration_s": 0.010762929916381836,
+        "sandbox_check_request": {
+          "operation": "file-read-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/tmp/foo",
+          "canonicalization": "both"
+        }
+      },
+      {
+        "name": "write_/tmp/foo",
+        "expectation_id": "sys:bsd:write_/tmp/foo",
+        "operation": "file-write*",
+        "path": "/tmp/foo",
+        "expected": "deny",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": -1,
+            "errno": 1,
+            "errbuf": "Operation not permitted",
+            "err_class": "errno_eperm",
+            "err_class_source": "errno_only"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_writer",
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_writer",
+            "entrypoint_sha256": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63",
+            "tool_build_id": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63"
+          },
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": false,
+          "sandbox_check_request": {
+            "operation": "file-write-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/tmp/foo",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": "EPERM",
+        "path_observation": {
+          "observed_path": "/private/tmp/foo",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_writer",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/bsd.sys_bsd.runtime.sb",
+          "/tmp/foo"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/bsd.sys_bsd.runtime.sb\",\"pid\":39167}\nsandbox_init failed: Operation not permitted\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767396069.405911,
+        "cmd_finished_at_unix_s": 1767396069.416621,
+        "cmd_duration_s": 0.010710000991821289,
+        "sandbox_check_request": {
+          "operation": "file-write-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/tmp/foo",
+          "canonicalization": "both"
+        }
+      }
+    ],
+    "notes": "all probes blocked before policy evaluation",
+    "schema_version": "runtime-tools.runtime_results.v0.1",
+    "run_id": "08a941b0-6d82-455e-90a0-27767af3822f"
+  },
+  "sys:blastdoor": {
+    "status": "blocked",
+    "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/blastdoor.sys_blastdoor.runtime.sb",
+    "base_profile_path": "/System/Library/Sandbox/Profiles/blastdoor.sb",
+    "preflight": {
+      "tool": "book/tools/preflight",
+      "preflight_schema_version": 1,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/blastdoor.sys_blastdoor.runtime.sb",
+      "classification": "likely_apply_gated_for_harness_identity",
+      "signature": "deny_message_filter",
+      "findings": [
+        {
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client",
+          "denied_operation": "iokit-async-external-method"
+        },
+        {
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client",
+          "denied_operation": "iokit-external-method"
+        },
+        {
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client",
+          "denied_operation": "iokit-external-method"
+        },
+        {
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client",
+          "denied_operation": "iokit-external-method"
+        },
+        {
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client",
+          "denied_operation": "iokit-external-method"
+        },
+        {
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client",
+          "denied_operation": "iokit-async-external-method"
+        },
+        {
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client",
+          "denied_operation": "iokit-external-method"
+        },
+        {
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client",
+          "denied_operation": "iokit-external-method"
+        },
+        {
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client",
+          "denied_operation": "iokit-external-method"
+        },
+        {
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client",
+          "denied_operation": "iokit-external-method"
+        },
+        {
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client",
+          "denied_operation": "iokit-external-method"
+        },
+        {
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client",
+          "denied_operation": "iokit-external-method"
+        },
+        {
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client",
+          "denied_operation": "iokit-external-method"
+        }
+      ],
+      "signature_meta": {
+        "status": "partial",
+        "pointers": [
+          "troubles/EPERMx2.md",
+          "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/Report.md",
+          "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json"
+        ]
+      }
+    },
+    "probes": [
+      {
+        "name": "read_/etc/hosts",
+        "expectation_id": "sys:blastdoor:read_/etc/hosts",
+        "operation": "file-read*",
+        "path": "/etc/hosts",
+        "expected": "allow",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "blocked",
+          "errno": null,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "preflight",
+          "failure_kind": "preflight_apply_gate_signature",
+          "apply_report": null,
+          "runner_info": null,
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": null,
+          "sandbox_check_request": null,
+          "resource_hygiene": {
+            "apply_model": null,
+            "apply_timing": null,
+            "preexisting_sandbox_suspected": null,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": null,
+        "path_observation": {
+          "observed_path": "/private/etc/hosts",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [],
+        "exit_code": null,
+        "stdout": "",
+        "stderr": "",
+        "notes": "preflight blocked: known apply-gate signature"
+      },
+      {
+        "name": "write_/etc/hosts",
+        "expectation_id": "sys:blastdoor:write_/etc/hosts",
+        "operation": "file-write*",
+        "path": "/etc/hosts",
+        "expected": "deny",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "blocked",
+          "errno": null,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "preflight",
+          "failure_kind": "preflight_apply_gate_signature",
+          "apply_report": null,
+          "runner_info": null,
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": null,
+          "sandbox_check_request": null,
+          "resource_hygiene": {
+            "apply_model": null,
+            "apply_timing": null,
+            "preexisting_sandbox_suspected": null,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": null,
+        "path_observation": {
+          "observed_path": "/private/etc/hosts",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [],
+        "exit_code": null,
+        "stdout": "",
+        "stderr": "",
+        "notes": "preflight blocked: known apply-gate signature"
+      },
+      {
+        "name": "read_/tmp/foo",
+        "expectation_id": "sys:blastdoor:read_/tmp/foo",
+        "operation": "file-read*",
+        "path": "/tmp/foo",
+        "expected": "allow",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "blocked",
+          "errno": null,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "preflight",
+          "failure_kind": "preflight_apply_gate_signature",
+          "apply_report": null,
+          "runner_info": null,
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": null,
+          "sandbox_check_request": null,
+          "resource_hygiene": {
+            "apply_model": null,
+            "apply_timing": null,
+            "preexisting_sandbox_suspected": null,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": null,
+        "path_observation": {
+          "observed_path": "/private/tmp/foo",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [],
+        "exit_code": null,
+        "stdout": "",
+        "stderr": "",
+        "notes": "preflight blocked: known apply-gate signature"
+      },
+      {
+        "name": "write_/tmp/foo",
+        "expectation_id": "sys:blastdoor:write_/tmp/foo",
+        "operation": "file-write*",
+        "path": "/tmp/foo",
+        "expected": "deny",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "blocked",
+          "errno": null,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "preflight",
+          "failure_kind": "preflight_apply_gate_signature",
+          "apply_report": null,
+          "runner_info": null,
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": null,
+          "sandbox_check_request": null,
+          "resource_hygiene": {
+            "apply_model": null,
+            "apply_timing": null,
+            "preexisting_sandbox_suspected": null,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": null,
+        "path_observation": {
+          "observed_path": "/private/tmp/foo",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [],
+        "exit_code": null,
+        "stdout": "",
+        "stderr": "",
+        "notes": "preflight blocked: known apply-gate signature"
+      },
+      {
+        "name": "mach_allow_logd",
+        "expectation_id": "sys:blastdoor:mach_allow_logd",
+        "operation": "mach-lookup",
+        "path": "com.apple.logd",
+        "expected": "allow",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "blocked",
+          "errno": null,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "preflight",
+          "failure_kind": "preflight_apply_gate_signature",
+          "apply_report": null,
+          "runner_info": null,
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": null,
+          "sandbox_check_request": null,
+          "resource_hygiene": {
+            "apply_model": null,
+            "apply_timing": null,
+            "preexisting_sandbox_suspected": null,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": null,
+        "command": [],
+        "exit_code": null,
+        "stdout": "",
+        "stderr": "",
+        "notes": "preflight blocked: known apply-gate signature"
+      },
+      {
+        "name": "mach_allow_trustd",
+        "expectation_id": "sys:blastdoor:mach_allow_trustd",
+        "operation": "mach-lookup",
+        "path": "com.apple.trustd.agent",
+        "expected": "allow",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "blocked",
+          "errno": null,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "preflight",
+          "failure_kind": "preflight_apply_gate_signature",
+          "apply_report": null,
+          "runner_info": null,
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": null,
+          "sandbox_check_request": null,
+          "resource_hygiene": {
+            "apply_model": null,
+            "apply_timing": null,
+            "preexisting_sandbox_suspected": null,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": null,
+        "command": [],
+        "exit_code": null,
+        "stdout": "",
+        "stderr": "",
+        "notes": "preflight blocked: known apply-gate signature"
+      },
+      {
+        "name": "mach_deny_cfprefsd",
+        "expectation_id": "sys:blastdoor:mach_deny_cfprefsd",
+        "operation": "mach-lookup",
+        "path": "com.apple.cfprefsd.agent",
+        "expected": "deny",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "blocked",
+          "errno": null,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "preflight",
+          "failure_kind": "preflight_apply_gate_signature",
+          "apply_report": null,
+          "runner_info": null,
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": null,
+          "sandbox_check_request": null,
+          "resource_hygiene": {
+            "apply_model": null,
+            "apply_timing": null,
+            "preexisting_sandbox_suspected": null,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": null,
+        "command": [],
+        "exit_code": null,
+        "stdout": "",
+        "stderr": "",
+        "notes": "preflight blocked: known apply-gate signature"
+      },
+      {
+        "name": "xpc_deny_trustd",
+        "expectation_id": "sys:blastdoor:xpc_deny_trustd",
+        "operation": "mach-lookup",
+        "path": "com.apple.trustd.agent",
+        "expected": "deny",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "blocked",
+          "errno": null,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "preflight",
+          "failure_kind": "preflight_apply_gate_signature",
+          "apply_report": null,
+          "runner_info": null,
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": null,
+          "sandbox_check_request": null,
+          "resource_hygiene": {
+            "apply_model": null,
+            "apply_timing": null,
+            "preexisting_sandbox_suspected": null,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": null,
+        "command": [],
+        "exit_code": null,
+        "stdout": "",
+        "stderr": "",
+        "notes": "preflight blocked: known apply-gate signature"
+      }
+    ],
+    "notes": "all probes blocked before policy evaluation",
+    "schema_version": "runtime-tools.runtime_results.v0.1",
+    "run_id": "08a941b0-6d82-455e-90a0-27767af3822f"
+  },
+  "sys:cgpdfservice": {
+    "status": "blocked",
+    "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/com.apple.CoreGraphics.CGPDFService.sys_cgpdfservice.runtime.sb",
+    "base_profile_path": "/System/Library/Sandbox/Profiles/com.apple.CoreGraphics.CGPDFService.sb",
+    "preflight": {
+      "tool": "book/tools/preflight",
+      "preflight_schema_version": 1,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/com.apple.CoreGraphics.CGPDFService.sys_cgpdfservice.runtime.sb",
+      "classification": "likely_apply_gated_for_harness_identity",
+      "signature": "deny_message_filter",
+      "findings": [
+        {
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client",
+          "denied_operation": "iokit-async-external-method"
+        },
+        {
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client",
+          "denied_operation": "iokit-external-method"
+        },
+        {
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client",
+          "denied_operation": "iokit-external-method"
+        },
+        {
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client",
+          "denied_operation": "iokit-external-method"
+        },
+        {
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client",
+          "denied_operation": "iokit-async-external-method"
+        },
+        {
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client",
+          "denied_operation": "iokit-external-method"
+        },
+        {
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client",
+          "denied_operation": "iokit-external-method"
+        },
+        {
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client",
+          "denied_operation": "iokit-external-method"
+        }
+      ],
+      "signature_meta": {
+        "status": "partial",
+        "pointers": [
+          "troubles/EPERMx2.md",
+          "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/Report.md",
+          "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json"
+        ]
+      }
+    },
+    "probes": [
+      {
+        "name": "read_/etc/hosts",
+        "expectation_id": "sys:cgpdfservice:read_/etc/hosts",
+        "operation": "file-read*",
+        "path": "/etc/hosts",
+        "expected": "allow",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "blocked",
+          "errno": null,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "preflight",
+          "failure_kind": "preflight_apply_gate_signature",
+          "apply_report": null,
+          "runner_info": null,
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": null,
+          "sandbox_check_request": null,
+          "resource_hygiene": {
+            "apply_model": null,
+            "apply_timing": null,
+            "preexisting_sandbox_suspected": null,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": null,
+        "path_observation": {
+          "observed_path": "/private/etc/hosts",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [],
+        "exit_code": null,
+        "stdout": "",
+        "stderr": "",
+        "notes": "preflight blocked: known apply-gate signature"
+      },
+      {
+        "name": "write_/etc/hosts",
+        "expectation_id": "sys:cgpdfservice:write_/etc/hosts",
+        "operation": "file-write*",
+        "path": "/etc/hosts",
+        "expected": "deny",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "blocked",
+          "errno": null,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "preflight",
+          "failure_kind": "preflight_apply_gate_signature",
+          "apply_report": null,
+          "runner_info": null,
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": null,
+          "sandbox_check_request": null,
+          "resource_hygiene": {
+            "apply_model": null,
+            "apply_timing": null,
+            "preexisting_sandbox_suspected": null,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": null,
+        "path_observation": {
+          "observed_path": "/private/etc/hosts",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [],
+        "exit_code": null,
+        "stdout": "",
+        "stderr": "",
+        "notes": "preflight blocked: known apply-gate signature"
+      },
+      {
+        "name": "read_/tmp/foo",
+        "expectation_id": "sys:cgpdfservice:read_/tmp/foo",
+        "operation": "file-read*",
+        "path": "/tmp/foo",
+        "expected": "allow",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "blocked",
+          "errno": null,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "preflight",
+          "failure_kind": "preflight_apply_gate_signature",
+          "apply_report": null,
+          "runner_info": null,
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": null,
+          "sandbox_check_request": null,
+          "resource_hygiene": {
+            "apply_model": null,
+            "apply_timing": null,
+            "preexisting_sandbox_suspected": null,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": null,
+        "path_observation": {
+          "observed_path": "/private/tmp/foo",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [],
+        "exit_code": null,
+        "stdout": "",
+        "stderr": "",
+        "notes": "preflight blocked: known apply-gate signature"
+      },
+      {
+        "name": "write_/tmp/foo",
+        "expectation_id": "sys:cgpdfservice:write_/tmp/foo",
+        "operation": "file-write*",
+        "path": "/tmp/foo",
+        "expected": "deny",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "blocked",
+          "errno": null,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "preflight",
+          "failure_kind": "preflight_apply_gate_signature",
+          "apply_report": null,
+          "runner_info": null,
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": null,
+          "sandbox_check_request": null,
+          "resource_hygiene": {
+            "apply_model": null,
+            "apply_timing": null,
+            "preexisting_sandbox_suspected": null,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": null,
+        "path_observation": {
+          "observed_path": "/private/tmp/foo",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [],
+        "exit_code": null,
+        "stdout": "",
+        "stderr": "",
+        "notes": "preflight blocked: known apply-gate signature"
+      },
+      {
+        "name": "read_/Library/Preferences/com.apple.timezone.auto.plist",
+        "expectation_id": "sys:cgpdfservice:read_/Library/Preferences/com.apple.timezone.auto.plist",
+        "operation": "file-read*",
+        "path": "/Library/Preferences/com.apple.timezone.auto.plist",
+        "expected": "deny",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "blocked",
+          "errno": null,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "preflight",
+          "failure_kind": "preflight_apply_gate_signature",
+          "apply_report": null,
+          "runner_info": null,
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": null,
+          "sandbox_check_request": null,
+          "resource_hygiene": {
+            "apply_model": null,
+            "apply_timing": null,
+            "preexisting_sandbox_suspected": null,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": null,
+        "path_observation": {
+          "observed_path": "/Library/Preferences/com.apple.timezone.auto.plist",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [],
+        "exit_code": null,
+        "stdout": "",
+        "stderr": "",
+        "notes": "preflight blocked: known apply-gate signature"
+      },
+      {
+        "name": "read_/var/db/timezone/zoneinfo/Etc/UTC",
+        "expectation_id": "sys:cgpdfservice:read_/var/db/timezone/zoneinfo/Etc/UTC",
+        "operation": "file-read*",
+        "path": "/var/db/timezone/zoneinfo/Etc/UTC",
+        "expected": "deny",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "blocked",
+          "errno": null,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "preflight",
+          "failure_kind": "preflight_apply_gate_signature",
+          "apply_report": null,
+          "runner_info": null,
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": null,
+          "sandbox_check_request": null,
+          "resource_hygiene": {
+            "apply_model": null,
+            "apply_timing": null,
+            "preexisting_sandbox_suspected": null,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": null,
+        "path_observation": {
+          "observed_path": "/private/var/db/timezone/tz/2025b.1.0/zoneinfo/Etc/UTC",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [],
+        "exit_code": null,
+        "stdout": "",
+        "stderr": "",
+        "notes": "preflight blocked: known apply-gate signature"
+      },
+      {
+        "name": "read_/private/etc/localtime",
+        "expectation_id": "sys:cgpdfservice:read_/private/etc/localtime",
+        "operation": "file-read*",
+        "path": "/private/etc/localtime",
+        "expected": "deny",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "blocked",
+          "errno": null,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "preflight",
+          "failure_kind": "preflight_apply_gate_signature",
+          "apply_report": null,
+          "runner_info": null,
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": null,
+          "sandbox_check_request": null,
+          "resource_hygiene": {
+            "apply_model": null,
+            "apply_timing": null,
+            "preexisting_sandbox_suspected": null,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": null,
+        "path_observation": {
+          "observed_path": "/private/var/db/timezone/tz/2025b.1.0/zoneinfo/America/Los_Angeles",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [],
+        "exit_code": null,
+        "stdout": "",
+        "stderr": "",
+        "notes": "preflight blocked: known apply-gate signature"
+      }
+    ],
+    "notes": "all probes blocked before policy evaluation",
+    "schema_version": "runtime-tools.runtime_results.v0.1",
+    "run_id": "08a941b0-6d82-455e-90a0-27767af3822f"
+  },
+  "appsandbox:baseline": {
+    "status": "blocked",
+    "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/appsandbox-baseline.expanded.appsandbox_baseline.runtime.sb",
+    "base_profile_path": "book/evidence/experiments/archive/entitlement-diff/sb/build/appsandbox-baseline.expanded.sb",
+    "preflight": {
+      "tool": "book/tools/preflight",
+      "preflight_schema_version": 1,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/appsandbox-baseline.expanded.appsandbox_baseline.runtime.sb",
+      "classification": "no_known_apply_gate_signature",
+      "signature": null,
+      "findings": []
+    },
+    "probes": [
+      {
+        "name": "read_/etc/hosts",
+        "expectation_id": "appsandbox:baseline:read_/etc/hosts",
+        "operation": "file-read*",
+        "path": "/etc/hosts",
+        "expected": "allow",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": -1,
+            "errno": 1,
+            "errbuf": "Operation not permitted",
+            "err_class": "errno_eperm",
+            "err_class_source": "errno_only"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_reader",
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+            "entrypoint_sha256": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039",
+            "tool_build_id": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039"
+          },
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": false,
+          "sandbox_check_request": {
+            "operation": "file-read-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/etc/hosts",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": "EPERM",
+        "path_observation": {
+          "observed_path": "/private/etc/hosts",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_reader",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/appsandbox-baseline.expanded.appsandbox_baseline.runtime.sb",
+          "/etc/hosts"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/appsandbox-baseline.expanded.appsandbox_baseline.runtime.sb\",\"pid\":39168}\nsandbox_init failed: Operation not permitted\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767396069.426611,
+        "cmd_finished_at_unix_s": 1767396069.4736261,
+        "cmd_duration_s": 0.04701519012451172,
+        "sandbox_check_request": {
+          "operation": "file-read-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/etc/hosts",
+          "canonicalization": "both"
+        }
+      },
+      {
+        "name": "write_/etc/hosts",
+        "expectation_id": "appsandbox:baseline:write_/etc/hosts",
+        "operation": "file-write*",
+        "path": "/etc/hosts",
+        "expected": "deny",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": -1,
+            "errno": 1,
+            "errbuf": "Operation not permitted",
+            "err_class": "errno_eperm",
+            "err_class_source": "errno_only"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_writer",
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_writer",
+            "entrypoint_sha256": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63",
+            "tool_build_id": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63"
+          },
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": false,
+          "sandbox_check_request": {
+            "operation": "file-write-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/etc/hosts",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": "EPERM",
+        "path_observation": {
+          "observed_path": "/private/etc/hosts",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_writer",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/appsandbox-baseline.expanded.appsandbox_baseline.runtime.sb",
+          "/etc/hosts"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/appsandbox-baseline.expanded.appsandbox_baseline.runtime.sb\",\"pid\":39172}\nsandbox_init failed: Operation not permitted\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767396069.4740689,
+        "cmd_finished_at_unix_s": 1767396069.520407,
+        "cmd_duration_s": 0.04633808135986328,
+        "sandbox_check_request": {
+          "operation": "file-write-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/etc/hosts",
+          "canonicalization": "both"
+        }
+      },
+      {
+        "name": "read_/tmp/foo",
+        "expectation_id": "appsandbox:baseline:read_/tmp/foo",
+        "operation": "file-read*",
+        "path": "/tmp/foo",
+        "expected": "allow",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": -1,
+            "errno": 1,
+            "errbuf": "Operation not permitted",
+            "err_class": "errno_eperm",
+            "err_class_source": "errno_only"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_reader",
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+            "entrypoint_sha256": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039",
+            "tool_build_id": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039"
+          },
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": false,
+          "sandbox_check_request": {
+            "operation": "file-read-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/tmp/foo",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": "EPERM",
+        "path_observation": {
+          "observed_path": "/private/tmp/foo",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_reader",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/appsandbox-baseline.expanded.appsandbox_baseline.runtime.sb",
+          "/tmp/foo"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/appsandbox-baseline.expanded.appsandbox_baseline.runtime.sb\",\"pid\":39173}\nsandbox_init failed: Operation not permitted\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767396069.520819,
+        "cmd_finished_at_unix_s": 1767396069.5672069,
+        "cmd_duration_s": 0.04638791084289551,
+        "sandbox_check_request": {
+          "operation": "file-read-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/tmp/foo",
+          "canonicalization": "both"
+        }
+      },
+      {
+        "name": "write_/tmp/foo",
+        "expectation_id": "appsandbox:baseline:write_/tmp/foo",
+        "operation": "file-write*",
+        "path": "/tmp/foo",
+        "expected": "deny",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": -1,
+            "errno": 1,
+            "errbuf": "Operation not permitted",
+            "err_class": "errno_eperm",
+            "err_class_source": "errno_only"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_writer",
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_writer",
+            "entrypoint_sha256": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63",
+            "tool_build_id": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63"
+          },
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": false,
+          "sandbox_check_request": {
+            "operation": "file-write-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/tmp/foo",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": "EPERM",
+        "path_observation": {
+          "observed_path": "/private/tmp/foo",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_writer",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/appsandbox-baseline.expanded.appsandbox_baseline.runtime.sb",
+          "/tmp/foo"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/appsandbox-baseline.expanded.appsandbox_baseline.runtime.sb\",\"pid\":39174}\nsandbox_init failed: Operation not permitted\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767396069.5676448,
+        "cmd_finished_at_unix_s": 1767396069.6143181,
+        "cmd_duration_s": 0.04667329788208008,
+        "sandbox_check_request": {
+          "operation": "file-write-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/tmp/foo",
+          "canonicalization": "both"
+        }
+      }
+    ],
+    "notes": "all probes blocked before policy evaluation",
+    "schema_version": "runtime-tools.runtime_results.v0.1",
+    "run_id": "08a941b0-6d82-455e-90a0-27767af3822f"
+  },
+  "appsandbox:net-client": {
+    "status": "blocked",
+    "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/appsandbox-net-client.expanded.appsandbox_net-client.runtime.sb",
+    "base_profile_path": "book/evidence/experiments/archive/entitlement-diff/sb/build/appsandbox-net-client.expanded.sb",
+    "preflight": {
+      "tool": "book/tools/preflight",
+      "preflight_schema_version": 1,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/appsandbox-net-client.expanded.appsandbox_net-client.runtime.sb",
+      "classification": "no_known_apply_gate_signature",
+      "signature": null,
+      "findings": []
+    },
+    "probes": [
+      {
+        "name": "read_/etc/hosts",
+        "expectation_id": "appsandbox:net-client:read_/etc/hosts",
+        "operation": "file-read*",
+        "path": "/etc/hosts",
+        "expected": "allow",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": -1,
+            "errno": 1,
+            "errbuf": "Operation not permitted",
+            "err_class": "errno_eperm",
+            "err_class_source": "errno_only"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_reader",
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+            "entrypoint_sha256": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039",
+            "tool_build_id": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039"
+          },
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": false,
+          "sandbox_check_request": {
+            "operation": "file-read-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/etc/hosts",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": "EPERM",
+        "path_observation": {
+          "observed_path": "/private/etc/hosts",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_reader",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/appsandbox-net-client.expanded.appsandbox_net-client.runtime.sb",
+          "/etc/hosts"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/appsandbox-net-client.expanded.appsandbox_net-client.runtime.sb\",\"pid\":39175}\nsandbox_init failed: Operation not permitted\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767396069.619906,
+        "cmd_finished_at_unix_s": 1767396069.668631,
+        "cmd_duration_s": 0.048725128173828125,
+        "sandbox_check_request": {
+          "operation": "file-read-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/etc/hosts",
+          "canonicalization": "both"
+        }
+      },
+      {
+        "name": "write_/etc/hosts",
+        "expectation_id": "appsandbox:net-client:write_/etc/hosts",
+        "operation": "file-write*",
+        "path": "/etc/hosts",
+        "expected": "deny",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": -1,
+            "errno": 1,
+            "errbuf": "Operation not permitted",
+            "err_class": "errno_eperm",
+            "err_class_source": "errno_only"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_writer",
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_writer",
+            "entrypoint_sha256": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63",
+            "tool_build_id": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63"
+          },
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": false,
+          "sandbox_check_request": {
+            "operation": "file-write-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/etc/hosts",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": "EPERM",
+        "path_observation": {
+          "observed_path": "/private/etc/hosts",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_writer",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/appsandbox-net-client.expanded.appsandbox_net-client.runtime.sb",
+          "/etc/hosts"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/appsandbox-net-client.expanded.appsandbox_net-client.runtime.sb\",\"pid\":39176}\nsandbox_init failed: Operation not permitted\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767396069.669078,
+        "cmd_finished_at_unix_s": 1767396069.7182138,
+        "cmd_duration_s": 0.049135684967041016,
+        "sandbox_check_request": {
+          "operation": "file-write-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/etc/hosts",
+          "canonicalization": "both"
+        }
+      },
+      {
+        "name": "read_/tmp/foo",
+        "expectation_id": "appsandbox:net-client:read_/tmp/foo",
+        "operation": "file-read*",
+        "path": "/tmp/foo",
+        "expected": "allow",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": -1,
+            "errno": 1,
+            "errbuf": "Operation not permitted",
+            "err_class": "errno_eperm",
+            "err_class_source": "errno_only"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_reader",
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+            "entrypoint_sha256": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039",
+            "tool_build_id": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039"
+          },
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": false,
+          "sandbox_check_request": {
+            "operation": "file-read-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/tmp/foo",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": "EPERM",
+        "path_observation": {
+          "observed_path": "/private/tmp/foo",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_reader",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/appsandbox-net-client.expanded.appsandbox_net-client.runtime.sb",
+          "/tmp/foo"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/appsandbox-net-client.expanded.appsandbox_net-client.runtime.sb\",\"pid\":39177}\nsandbox_init failed: Operation not permitted\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767396069.718669,
+        "cmd_finished_at_unix_s": 1767396069.7675,
+        "cmd_duration_s": 0.04883098602294922,
+        "sandbox_check_request": {
+          "operation": "file-read-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/tmp/foo",
+          "canonicalization": "both"
+        }
+      },
+      {
+        "name": "write_/tmp/foo",
+        "expectation_id": "appsandbox:net-client:write_/tmp/foo",
+        "operation": "file-write*",
+        "path": "/tmp/foo",
+        "expected": "deny",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": -1,
+            "errno": 1,
+            "errbuf": "Operation not permitted",
+            "err_class": "errno_eperm",
+            "err_class_source": "errno_only"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_writer",
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_writer",
+            "entrypoint_sha256": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63",
+            "tool_build_id": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63"
+          },
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": false,
+          "sandbox_check_request": {
+            "operation": "file-write-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/tmp/foo",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": "EPERM",
+        "path_observation": {
+          "observed_path": "/private/tmp/foo",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_writer",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/appsandbox-net-client.expanded.appsandbox_net-client.runtime.sb",
+          "/tmp/foo"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/appsandbox-net-client.expanded.appsandbox_net-client.runtime.sb\",\"pid\":39178}\nsandbox_init failed: Operation not permitted\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767396069.767952,
+        "cmd_finished_at_unix_s": 1767396069.8169758,
+        "cmd_duration_s": 0.04902386665344238,
+        "sandbox_check_request": {
+          "operation": "file-write-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/tmp/foo",
+          "canonicalization": "both"
+        }
+      }
+    ],
+    "notes": "all probes blocked before policy evaluation",
+    "schema_version": "runtime-tools.runtime_results.v0.1",
+    "run_id": "08a941b0-6d82-455e-90a0-27767af3822f"
+  },
+  "appsandbox:downloads-rw": {
+    "status": "blocked",
+    "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/appsandbox-downloads-rw.expanded.appsandbox_downloads-rw.runtime.sb",
+    "base_profile_path": "book/evidence/experiments/archive/entitlement-diff/sb/build/appsandbox-downloads-rw.expanded.sb",
+    "preflight": {
+      "tool": "book/tools/preflight",
+      "preflight_schema_version": 1,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/appsandbox-downloads-rw.expanded.appsandbox_downloads-rw.runtime.sb",
+      "classification": "no_known_apply_gate_signature",
+      "signature": null,
+      "findings": []
+    },
+    "probes": [
+      {
+        "name": "read_/etc/hosts",
+        "expectation_id": "appsandbox:downloads-rw:read_/etc/hosts",
+        "operation": "file-read*",
+        "path": "/etc/hosts",
+        "expected": "allow",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": -1,
+            "errno": 1,
+            "errbuf": "Operation not permitted",
+            "err_class": "errno_eperm",
+            "err_class_source": "errno_only"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_reader",
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+            "entrypoint_sha256": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039",
+            "tool_build_id": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039"
+          },
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": false,
+          "sandbox_check_request": {
+            "operation": "file-read-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/etc/hosts",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": "EPERM",
+        "path_observation": {
+          "observed_path": "/private/etc/hosts",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_reader",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/appsandbox-downloads-rw.expanded.appsandbox_downloads-rw.runtime.sb",
+          "/etc/hosts"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/appsandbox-downloads-rw.expanded.appsandbox_downloads-rw.runtime.sb\",\"pid\":39179}\nsandbox_init failed: Operation not permitted\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767396069.822746,
+        "cmd_finished_at_unix_s": 1767396069.869875,
+        "cmd_duration_s": 0.047128915786743164,
+        "sandbox_check_request": {
+          "operation": "file-read-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/etc/hosts",
+          "canonicalization": "both"
+        }
+      },
+      {
+        "name": "write_/etc/hosts",
+        "expectation_id": "appsandbox:downloads-rw:write_/etc/hosts",
+        "operation": "file-write*",
+        "path": "/etc/hosts",
+        "expected": "deny",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": -1,
+            "errno": 1,
+            "errbuf": "Operation not permitted",
+            "err_class": "errno_eperm",
+            "err_class_source": "errno_only"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_writer",
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_writer",
+            "entrypoint_sha256": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63",
+            "tool_build_id": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63"
+          },
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": false,
+          "sandbox_check_request": {
+            "operation": "file-write-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/etc/hosts",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": "EPERM",
+        "path_observation": {
+          "observed_path": "/private/etc/hosts",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_writer",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/appsandbox-downloads-rw.expanded.appsandbox_downloads-rw.runtime.sb",
+          "/etc/hosts"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/appsandbox-downloads-rw.expanded.appsandbox_downloads-rw.runtime.sb\",\"pid\":39180}\nsandbox_init failed: Operation not permitted\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767396069.8703182,
+        "cmd_finished_at_unix_s": 1767396069.917276,
+        "cmd_duration_s": 0.04695773124694824,
+        "sandbox_check_request": {
+          "operation": "file-write-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/etc/hosts",
+          "canonicalization": "both"
+        }
+      },
+      {
+        "name": "read_/tmp/foo",
+        "expectation_id": "appsandbox:downloads-rw:read_/tmp/foo",
+        "operation": "file-read*",
+        "path": "/tmp/foo",
+        "expected": "allow",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": -1,
+            "errno": 1,
+            "errbuf": "Operation not permitted",
+            "err_class": "errno_eperm",
+            "err_class_source": "errno_only"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_reader",
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+            "entrypoint_sha256": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039",
+            "tool_build_id": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039"
+          },
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": false,
+          "sandbox_check_request": {
+            "operation": "file-read-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/tmp/foo",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": "EPERM",
+        "path_observation": {
+          "observed_path": "/private/tmp/foo",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_reader",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/appsandbox-downloads-rw.expanded.appsandbox_downloads-rw.runtime.sb",
+          "/tmp/foo"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/appsandbox-downloads-rw.expanded.appsandbox_downloads-rw.runtime.sb\",\"pid\":39181}\nsandbox_init failed: Operation not permitted\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767396069.917741,
+        "cmd_finished_at_unix_s": 1767396069.9653099,
+        "cmd_duration_s": 0.04756879806518555,
+        "sandbox_check_request": {
+          "operation": "file-read-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/tmp/foo",
+          "canonicalization": "both"
+        }
+      },
+      {
+        "name": "write_/tmp/foo",
+        "expectation_id": "appsandbox:downloads-rw:write_/tmp/foo",
+        "operation": "file-write*",
+        "path": "/tmp/foo",
+        "expected": "deny",
+        "actual": null,
+        "match": null,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 1,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "apply",
+          "failure_kind": "sandbox_init_failed",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": -1,
+            "errno": 1,
+            "errbuf": "Operation not permitted",
+            "err_class": "errno_eperm",
+            "err_class_source": "errno_only"
+          },
+          "runner_info": {
+            "entrypoint": "sandbox_writer",
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_writer",
+            "entrypoint_sha256": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63",
+            "tool_build_id": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63"
+          },
+          "seatbelt_callouts": null,
+          "intended_op_witnessed": false,
+          "sandbox_check_request": {
+            "operation": "file-write-data",
+            "filter_type": 0,
+            "filter_name": "path",
+            "argument": "/tmp/foo",
+            "canonicalization": "both"
+          },
+          "resource_hygiene": {
+            "apply_model": "self_apply",
+            "apply_timing": "pre_syscall",
+            "preexisting_sandbox_suspected": true,
+            "close_fds": true,
+            "pass_fds": [],
+            "preopen_hints": [],
+            "preopen_detected": false
+          }
+        },
+        "violation_summary": "EPERM",
+        "path_observation": {
+          "observed_path": "/private/tmp/foo",
+          "observed_path_source": "unsandboxed_fd_path",
+          "observed_path_errno": null,
+          "observed_path_nofirmlink": null,
+          "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+          "observed_path_nofirmlink_errno": null
+        },
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_writer",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/appsandbox-downloads-rw.expanded.appsandbox_downloads-rw.runtime.sb",
+          "/tmp/foo"
+        ],
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "sandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/08a941b0-6d82-455e-90a0-27767af3822f/runtime_profiles/appsandbox-downloads-rw.expanded.appsandbox_downloads-rw.runtime.sb\",\"pid\":39182}\nsandbox_init failed: Operation not permitted\n",
+        "probe_details": null,
+        "cmd_started_at_unix_s": 1767396069.965755,
+        "cmd_finished_at_unix_s": 1767396070.013231,
+        "cmd_duration_s": 0.04747605323791504,
+        "sandbox_check_request": {
+          "operation": "file-write-data",
+          "filter_type": 0,
+          "filter_name": "path",
+          "argument": "/tmp/foo",
+          "canonicalization": "both"
+        }
+      }
+    ],
+    "notes": "all probes blocked before policy evaluation",
+    "schema_version": "runtime-tools.runtime_results.v0.1",
+    "run_id": "08a941b0-6d82-455e-90a0-27767af3822f"
+  }
+}

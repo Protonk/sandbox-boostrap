@@ -1,0 +1,5123 @@
+[
+  {
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
+      "/etc/hosts"
+    ],
+    "errno": 1,
+    "errno_name": "EPERM",
+    "expectation_id": "bucket4:v1_read:read_/etc/hosts",
+    "expected": "allow",
+    "failure_kind": "sandbox_init_failed",
+    "failure_stage": "apply",
+    "intended_op_witnessed": false,
+    "normalized_path": "/private/etc/hosts",
+    "normalized_path_source": "observed_path",
+    "observed_path": "/private/etc/hosts",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-read*",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "unknown",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "sandbox_init_failed",
+        "failure_stage": "apply",
+        "status": "errno"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "read_/etc/hosts",
+    "profile_id": "bucket4:v1_read",
+    "requested_path": "/etc/hosts",
+    "resource_hygiene": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": true,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runner_info": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "entrypoint": "sandbox_reader",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "entrypoint_sha256": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039",
+      "preexisting_sandbox_suspected": true,
+      "tool_build_id": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039"
+    },
+    "runtime_status": "errno",
+    "scenario_id": "bucket4:v1_read:read_/etc/hosts",
+    "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
+    "stdout": "",
+    "target": "/etc/hosts",
+    "violation_summary": "EPERM",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_writer",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
+      "/etc/hosts"
+    ],
+    "errno": 1,
+    "errno_name": "EPERM",
+    "expectation_id": "bucket4:v1_read:write_/etc/hosts",
+    "expected": "deny",
+    "failure_kind": "sandbox_init_failed",
+    "failure_stage": "apply",
+    "intended_op_witnessed": false,
+    "normalized_path": "/private/etc/hosts",
+    "normalized_path_source": "observed_path",
+    "observed_path": "/private/etc/hosts",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-write*",
+    "policy_layers": {
+      "attribution": "platform_policy",
+      "effective_decision": "deny",
+      "platform_policy": {
+        "decision": "deny",
+        "error": null,
+        "exit_code": 1,
+        "source": "baseline",
+        "status": "deny"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "sandbox_init_failed",
+        "failure_stage": "apply",
+        "status": "errno"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "write_/etc/hosts",
+    "profile_id": "bucket4:v1_read",
+    "requested_path": "/etc/hosts",
+    "resource_hygiene": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": true,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runner_info": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "entrypoint": "sandbox_writer",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_writer",
+      "entrypoint_sha256": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63",
+      "preexisting_sandbox_suspected": true,
+      "tool_build_id": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63"
+    },
+    "runtime_status": "errno",
+    "scenario_id": "bucket4:v1_read:write_/etc/hosts",
+    "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
+    "stdout": "",
+    "target": "/etc/hosts",
+    "violation_summary": "EPERM",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
+      "/tmp/foo"
+    ],
+    "errno": 1,
+    "errno_name": "EPERM",
+    "expectation_id": "bucket4:v1_read:read_/tmp/foo",
+    "expected": "allow",
+    "failure_kind": "sandbox_init_failed",
+    "failure_stage": "apply",
+    "intended_op_witnessed": false,
+    "normalized_path": "/private/tmp/foo",
+    "normalized_path_source": "observed_path",
+    "observed_path": "/private/tmp/foo",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-read*",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "unknown",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "sandbox_init_failed",
+        "failure_stage": "apply",
+        "status": "errno"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "read_/tmp/foo",
+    "profile_id": "bucket4:v1_read",
+    "requested_path": "/tmp/foo",
+    "resource_hygiene": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": true,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runner_info": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "entrypoint": "sandbox_reader",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "entrypoint_sha256": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039",
+      "preexisting_sandbox_suspected": true,
+      "tool_build_id": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039"
+    },
+    "runtime_status": "errno",
+    "scenario_id": "bucket4:v1_read:read_/tmp/foo",
+    "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
+    "stdout": "",
+    "target": "/tmp/foo",
+    "violation_summary": "EPERM",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
+      "/tmp/foo"
+    ],
+    "errno": 1,
+    "errno_name": "EPERM",
+    "expectation_id": "bucket5:v11_read_subpath:read_/tmp/foo",
+    "expected": "allow",
+    "failure_kind": "sandbox_init_failed",
+    "failure_stage": "apply",
+    "intended_op_witnessed": false,
+    "normalized_path": "/private/tmp/foo",
+    "normalized_path_source": "observed_path",
+    "observed_path": "/private/tmp/foo",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-read*",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "unknown",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "sandbox_init_failed",
+        "failure_stage": "apply",
+        "status": "errno"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "read_/tmp/foo",
+    "profile_id": "bucket5:v11_read_subpath",
+    "requested_path": "/tmp/foo",
+    "resource_hygiene": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": true,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runner_info": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "entrypoint": "sandbox_reader",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "entrypoint_sha256": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039",
+      "preexisting_sandbox_suspected": true,
+      "tool_build_id": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039"
+    },
+    "runtime_status": "errno",
+    "scenario_id": "bucket5:v11_read_subpath:read_/tmp/foo",
+    "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
+    "stdout": "",
+    "target": "/tmp/foo",
+    "violation_summary": "EPERM",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
+      "/tmp/bar"
+    ],
+    "errno": 1,
+    "errno_name": "EPERM",
+    "expectation_id": "bucket5:v11_read_subpath:read_/tmp/bar",
+    "expected": "deny",
+    "failure_kind": "sandbox_init_failed",
+    "failure_stage": "apply",
+    "intended_op_witnessed": false,
+    "normalized_path": "/private/tmp/bar",
+    "normalized_path_source": "observed_path",
+    "observed_path": "/private/tmp/bar",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-read*",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "unknown",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "sandbox_init_failed",
+        "failure_stage": "apply",
+        "status": "errno"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "read_/tmp/bar",
+    "profile_id": "bucket5:v11_read_subpath",
+    "requested_path": "/tmp/bar",
+    "resource_hygiene": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": true,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runner_info": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "entrypoint": "sandbox_reader",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "entrypoint_sha256": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039",
+      "preexisting_sandbox_suspected": true,
+      "tool_build_id": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039"
+    },
+    "runtime_status": "errno",
+    "scenario_id": "bucket5:v11_read_subpath:read_/tmp/bar",
+    "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
+    "stdout": "",
+    "target": "/tmp/bar",
+    "violation_summary": "EPERM",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_writer",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
+      "/tmp/foo"
+    ],
+    "errno": 1,
+    "errno_name": "EPERM",
+    "expectation_id": "bucket5:v11_read_subpath:write_/tmp/foo",
+    "expected": "deny",
+    "failure_kind": "sandbox_init_failed",
+    "failure_stage": "apply",
+    "intended_op_witnessed": false,
+    "normalized_path": "/private/tmp/foo",
+    "normalized_path_source": "observed_path",
+    "observed_path": "/private/tmp/foo",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-write*",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "unknown",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "sandbox_init_failed",
+        "failure_stage": "apply",
+        "status": "errno"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "write_/tmp/foo",
+    "profile_id": "bucket5:v11_read_subpath",
+    "requested_path": "/tmp/foo",
+    "resource_hygiene": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": true,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runner_info": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "entrypoint": "sandbox_writer",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_writer",
+      "entrypoint_sha256": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63",
+      "preexisting_sandbox_suspected": true,
+      "tool_build_id": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63"
+    },
+    "runtime_status": "errno",
+    "scenario_id": "bucket5:v11_read_subpath:write_/tmp/foo",
+    "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
+    "stdout": "",
+    "target": "/tmp/foo",
+    "violation_summary": "EPERM",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "apply_report": {
+      "api": "sandbox_apply",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "command": [
+      "book/tools/sbpl/wrapper/wrapper",
+      "--preflight",
+      "enforce",
+      "--blob",
+      "book/profiles/golden-triple/allow_all.sb.bin",
+      "--",
+      "/bin/cat",
+      "/etc/hosts"
+    ],
+    "entitlement_checks": [
+      {
+        "entitlement": "com.apple.private.security.message-filter",
+        "marker_schema_version": 1,
+        "pid": 38648,
+        "present": false,
+        "rc": 0,
+        "stage": "pre_apply",
+        "tool": "entitlement-check",
+        "value_type": "absent"
+      }
+    ],
+    "errno": 1,
+    "errno_name": "EPERM",
+    "expectation_id": "allow_all|file-read*|/etc/hosts",
+    "expected": "allow",
+    "failure_kind": "sandbox_apply_failed",
+    "failure_stage": "apply",
+    "intended_op_witnessed": false,
+    "normalized_path": "/private/etc/hosts",
+    "normalized_path_source": "observed_path",
+    "observed_path": "/private/etc/hosts",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-read*",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "unknown",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "sandbox_apply_failed",
+        "failure_stage": "apply",
+        "status": "errno"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [
+        {
+          "blob_sha256": "19832eb9716a32459bee8398c8977fd1dfd575fa26606928f95728462a833c92",
+          "matched": false
+        }
+      ],
+      "input_kind": "sbpl_blob_path",
+      "input_ref": "book/profiles/golden-triple/allow_all.sb.bin",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "read_/etc/hosts",
+    "profile_id": "runtime:allow_all",
+    "requested_path": "/etc/hosts",
+    "resource_hygiene": {
+      "apply_model": "exec_wrapper",
+      "apply_timing": "pre_exec",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": true,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runner_info": {
+      "apply_model": "exec_wrapper",
+      "apply_timing": "pre_exec",
+      "entrypoint": "SBPL-wrapper",
+      "entrypoint_path": "book/tools/sbpl/wrapper/wrapper",
+      "entrypoint_sha256": "2a4ead954fcceb103a5409d6057ab6803f206a11fc94554638c1b6a2aa065bb3",
+      "preexisting_sandbox_suspected": true,
+      "tool_build_id": "2a4ead954fcceb103a5409d6057ab6803f206a11fc94554638c1b6a2aa065bb3"
+    },
+    "runtime_status": "errno",
+    "scenario_id": "allow_all|file-read*|/etc/hosts",
+    "stderr": "sandbox_apply: Operation not permitted\n",
+    "stdout": "",
+    "target": "/etc/hosts",
+    "violation_summary": "EPERM",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "apply_report": {
+      "api": "sandbox_apply",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "command": [
+      "book/tools/sbpl/wrapper/wrapper",
+      "--preflight",
+      "enforce",
+      "--blob",
+      "book/profiles/golden-triple/allow_all.sb.bin",
+      "--",
+      "/bin/cat",
+      "/tmp/sbpl_rt/read.txt"
+    ],
+    "entitlement_checks": [
+      {
+        "entitlement": "com.apple.private.security.message-filter",
+        "marker_schema_version": 1,
+        "pid": 38650,
+        "present": false,
+        "rc": 0,
+        "stage": "pre_apply",
+        "tool": "entitlement-check",
+        "value_type": "absent"
+      }
+    ],
+    "errno": 1,
+    "errno_name": "EPERM",
+    "expectation_id": "allow_all|file-read*|/tmp/sbpl_rt/read.txt",
+    "expected": "allow",
+    "failure_kind": "sandbox_apply_failed",
+    "failure_stage": "apply",
+    "intended_op_witnessed": false,
+    "normalized_path": "/private/tmp/sbpl_rt/read.txt",
+    "normalized_path_source": "observed_path",
+    "observed_path": "/private/tmp/sbpl_rt/read.txt",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-read*",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "unknown",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "sandbox_apply_failed",
+        "failure_stage": "apply",
+        "status": "errno"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [
+        {
+          "blob_sha256": "19832eb9716a32459bee8398c8977fd1dfd575fa26606928f95728462a833c92",
+          "matched": false
+        }
+      ],
+      "input_kind": "sbpl_blob_path",
+      "input_ref": "book/profiles/golden-triple/allow_all.sb.bin",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "read_/tmp/sbpl_rt/read.txt",
+    "profile_id": "runtime:allow_all",
+    "requested_path": "/tmp/sbpl_rt/read.txt",
+    "resource_hygiene": {
+      "apply_model": "exec_wrapper",
+      "apply_timing": "pre_exec",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": true,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runner_info": {
+      "apply_model": "exec_wrapper",
+      "apply_timing": "pre_exec",
+      "entrypoint": "SBPL-wrapper",
+      "entrypoint_path": "book/tools/sbpl/wrapper/wrapper",
+      "entrypoint_sha256": "2a4ead954fcceb103a5409d6057ab6803f206a11fc94554638c1b6a2aa065bb3",
+      "preexisting_sandbox_suspected": true,
+      "tool_build_id": "2a4ead954fcceb103a5409d6057ab6803f206a11fc94554638c1b6a2aa065bb3"
+    },
+    "runtime_status": "errno",
+    "scenario_id": "allow_all|file-read*|/tmp/sbpl_rt/read.txt",
+    "stderr": "sandbox_apply: Operation not permitted\n",
+    "stdout": "",
+    "target": "/tmp/sbpl_rt/read.txt",
+    "violation_summary": "EPERM",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "apply_report": {
+      "api": "sandbox_apply",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "command": [
+      "book/tools/sbpl/wrapper/wrapper",
+      "--preflight",
+      "enforce",
+      "--blob",
+      "book/profiles/golden-triple/allow_all.sb.bin",
+      "--",
+      "/bin/sh",
+      "-c",
+      "echo runtime-check >> '/tmp/sbpl_rt/write.txt'"
+    ],
+    "entitlement_checks": [
+      {
+        "entitlement": "com.apple.private.security.message-filter",
+        "marker_schema_version": 1,
+        "pid": 38652,
+        "present": false,
+        "rc": 0,
+        "stage": "pre_apply",
+        "tool": "entitlement-check",
+        "value_type": "absent"
+      }
+    ],
+    "errno": 1,
+    "errno_name": "EPERM",
+    "expectation_id": "allow_all|file-write*|/tmp/sbpl_rt/write.txt",
+    "expected": "allow",
+    "failure_kind": "sandbox_apply_failed",
+    "failure_stage": "apply",
+    "intended_op_witnessed": false,
+    "normalized_path": "/private/tmp/sbpl_rt/write.txt",
+    "normalized_path_source": "observed_path",
+    "observed_path": "/private/tmp/sbpl_rt/write.txt",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-write*",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "unknown",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "sandbox_apply_failed",
+        "failure_stage": "apply",
+        "status": "errno"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [
+        {
+          "blob_sha256": "19832eb9716a32459bee8398c8977fd1dfd575fa26606928f95728462a833c92",
+          "matched": false
+        }
+      ],
+      "input_kind": "sbpl_blob_path",
+      "input_ref": "book/profiles/golden-triple/allow_all.sb.bin",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "write_/tmp/sbpl_rt/write.txt",
+    "profile_id": "runtime:allow_all",
+    "requested_path": "/tmp/sbpl_rt/write.txt",
+    "resource_hygiene": {
+      "apply_model": "exec_wrapper",
+      "apply_timing": "pre_exec",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": true,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runner_info": {
+      "apply_model": "exec_wrapper",
+      "apply_timing": "pre_exec",
+      "entrypoint": "SBPL-wrapper",
+      "entrypoint_path": "book/tools/sbpl/wrapper/wrapper",
+      "entrypoint_sha256": "2a4ead954fcceb103a5409d6057ab6803f206a11fc94554638c1b6a2aa065bb3",
+      "preexisting_sandbox_suspected": true,
+      "tool_build_id": "2a4ead954fcceb103a5409d6057ab6803f206a11fc94554638c1b6a2aa065bb3"
+    },
+    "runtime_status": "errno",
+    "scenario_id": "allow_all|file-write*|/tmp/sbpl_rt/write.txt",
+    "stderr": "sandbox_apply: Operation not permitted\n",
+    "stdout": "",
+    "target": "/tmp/sbpl_rt/write.txt",
+    "violation_summary": "EPERM",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
+      "/tmp/foo.txt"
+    ],
+    "errno": 1,
+    "errno_name": "EPERM",
+    "expectation_id": "metafilter_any|file-read*|/tmp/foo.txt",
+    "expected": "allow",
+    "failure_kind": "sandbox_init_failed",
+    "failure_stage": "apply",
+    "intended_op_witnessed": false,
+    "normalized_path": "/private/tmp/foo.txt",
+    "normalized_path_source": "observed_path",
+    "observed_path": "/private/tmp/foo.txt",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-read*",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "unknown",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "sandbox_init_failed",
+        "failure_stage": "apply",
+        "status": "errno"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "read_foo",
+    "profile_id": "runtime:metafilter_any",
+    "requested_path": "/tmp/foo.txt",
+    "resource_hygiene": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": true,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runner_info": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "entrypoint": "sandbox_reader",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "entrypoint_sha256": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039",
+      "preexisting_sandbox_suspected": true,
+      "tool_build_id": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039"
+    },
+    "runtime_status": "errno",
+    "scenario_id": "metafilter_any|file-read*|/tmp/foo.txt",
+    "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
+    "stdout": "",
+    "target": "/tmp/foo.txt",
+    "violation_summary": "EPERM",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
+      "/tmp/bar.txt"
+    ],
+    "errno": 1,
+    "errno_name": "EPERM",
+    "expectation_id": "metafilter_any|file-read*|/tmp/bar.txt",
+    "expected": "allow",
+    "failure_kind": "sandbox_init_failed",
+    "failure_stage": "apply",
+    "intended_op_witnessed": false,
+    "normalized_path": "/private/tmp/bar.txt",
+    "normalized_path_source": "observed_path",
+    "observed_path": "/private/tmp/bar.txt",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-read*",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "unknown",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "sandbox_init_failed",
+        "failure_stage": "apply",
+        "status": "errno"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "read_bar",
+    "profile_id": "runtime:metafilter_any",
+    "requested_path": "/tmp/bar.txt",
+    "resource_hygiene": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": true,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runner_info": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "entrypoint": "sandbox_reader",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "entrypoint_sha256": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039",
+      "preexisting_sandbox_suspected": true,
+      "tool_build_id": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039"
+    },
+    "runtime_status": "errno",
+    "scenario_id": "metafilter_any|file-read*|/tmp/bar.txt",
+    "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
+    "stdout": "",
+    "target": "/tmp/bar.txt",
+    "violation_summary": "EPERM",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
+      "/tmp/qux.txt"
+    ],
+    "errno": 1,
+    "errno_name": "EPERM",
+    "expectation_id": "metafilter_any|file-read*|/tmp/qux.txt",
+    "expected": "allow",
+    "failure_kind": "sandbox_init_failed",
+    "failure_stage": "apply",
+    "intended_op_witnessed": false,
+    "normalized_path": "/private/tmp/qux.txt",
+    "normalized_path_source": "observed_path",
+    "observed_path": "/private/tmp/qux.txt",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-read*",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "unknown",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "sandbox_init_failed",
+        "failure_stage": "apply",
+        "status": "errno"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "read_other",
+    "profile_id": "runtime:metafilter_any",
+    "requested_path": "/tmp/qux.txt",
+    "resource_hygiene": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": true,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runner_info": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "entrypoint": "sandbox_reader",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "entrypoint_sha256": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039",
+      "preexisting_sandbox_suspected": true,
+      "tool_build_id": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039"
+    },
+    "runtime_status": "errno",
+    "scenario_id": "metafilter_any|file-read*|/tmp/qux.txt",
+    "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
+    "stdout": "",
+    "target": "/tmp/qux.txt",
+    "violation_summary": "EPERM",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
+      "/tmp/baz.txt"
+    ],
+    "errno": 1,
+    "errno_name": "EPERM",
+    "expectation_id": "metafilter_any|file-read*|/tmp/baz.txt",
+    "expected": "deny",
+    "failure_kind": "sandbox_init_failed",
+    "failure_stage": "apply",
+    "intended_op_witnessed": false,
+    "normalized_path": "/private/tmp/baz.txt",
+    "normalized_path_source": "observed_path",
+    "observed_path": "/private/tmp/baz.txt",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-read*",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "unknown",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "sandbox_init_failed",
+        "failure_stage": "apply",
+        "status": "errno"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "read_baz",
+    "profile_id": "runtime:metafilter_any",
+    "requested_path": "/tmp/baz.txt",
+    "resource_hygiene": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": true,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runner_info": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "entrypoint": "sandbox_reader",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "entrypoint_sha256": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039",
+      "preexisting_sandbox_suspected": true,
+      "tool_build_id": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039"
+    },
+    "runtime_status": "errno",
+    "scenario_id": "metafilter_any|file-read*|/tmp/baz.txt",
+    "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
+    "stdout": "",
+    "target": "/tmp/baz.txt",
+    "violation_summary": "EPERM",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_writer",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
+      "/tmp/baz.txt"
+    ],
+    "errno": 1,
+    "errno_name": "EPERM",
+    "expectation_id": "metafilter_any|file-write*|/tmp/baz.txt",
+    "expected": "deny",
+    "failure_kind": "sandbox_init_failed",
+    "failure_stage": "apply",
+    "intended_op_witnessed": false,
+    "normalized_path": "/private/tmp/baz.txt",
+    "normalized_path_source": "observed_path",
+    "observed_path": "/private/tmp/baz.txt",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-write*",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "unknown",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "sandbox_init_failed",
+        "failure_stage": "apply",
+        "status": "errno"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "write_baz",
+    "profile_id": "runtime:metafilter_any",
+    "requested_path": "/tmp/baz.txt",
+    "resource_hygiene": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": true,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runner_info": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "entrypoint": "sandbox_writer",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_writer",
+      "entrypoint_sha256": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63",
+      "preexisting_sandbox_suspected": true,
+      "tool_build_id": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63"
+    },
+    "runtime_status": "errno",
+    "scenario_id": "metafilter_any|file-write*|/tmp/baz.txt",
+    "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
+    "stdout": "",
+    "target": "/tmp/baz.txt",
+    "violation_summary": "EPERM",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/strict_1.runtime_strict_1.runtime.sb",
+      "/private/tmp/strict_ok/allow.txt"
+    ],
+    "errno": 1,
+    "errno_name": "EPERM",
+    "expectation_id": "runtime:strict_1:read_ok",
+    "expected": "allow",
+    "failure_kind": "sandbox_init_failed",
+    "failure_stage": "apply",
+    "intended_op_witnessed": false,
+    "normalized_path": "/private/tmp/strict_ok/allow.txt",
+    "normalized_path_source": "observed_path",
+    "observed_path": "/private/tmp/strict_ok/allow.txt",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-read*",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "unknown",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "sandbox_init_failed",
+        "failure_stage": "apply",
+        "status": "errno"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/strict_1.runtime_strict_1.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "read_ok",
+    "profile_id": "runtime:strict_1",
+    "requested_path": "/private/tmp/strict_ok/allow.txt",
+    "resource_hygiene": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": true,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runner_info": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "entrypoint": "sandbox_reader",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "entrypoint_sha256": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039",
+      "preexisting_sandbox_suspected": true,
+      "tool_build_id": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039"
+    },
+    "runtime_status": "errno",
+    "scenario_id": "runtime:strict_1:read_ok",
+    "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
+    "stdout": "",
+    "target": "/private/tmp/strict_ok/allow.txt",
+    "violation_summary": "EPERM",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_writer",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/strict_1.runtime_strict_1.runtime.sb",
+      "/private/tmp/strict_ok/allow.txt"
+    ],
+    "errno": 1,
+    "errno_name": "EPERM",
+    "expectation_id": "runtime:strict_1:write_ok",
+    "expected": "allow",
+    "failure_kind": "sandbox_init_failed",
+    "failure_stage": "apply",
+    "intended_op_witnessed": false,
+    "normalized_path": "/private/tmp/strict_ok/allow.txt",
+    "normalized_path_source": "observed_path",
+    "observed_path": "/private/tmp/strict_ok/allow.txt",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-write*",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "unknown",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "sandbox_init_failed",
+        "failure_stage": "apply",
+        "status": "errno"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/strict_1.runtime_strict_1.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "write_ok",
+    "profile_id": "runtime:strict_1",
+    "requested_path": "/private/tmp/strict_ok/allow.txt",
+    "resource_hygiene": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": true,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runner_info": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "entrypoint": "sandbox_writer",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_writer",
+      "entrypoint_sha256": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63",
+      "preexisting_sandbox_suspected": true,
+      "tool_build_id": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63"
+    },
+    "runtime_status": "errno",
+    "scenario_id": "runtime:strict_1:write_ok",
+    "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
+    "stdout": "",
+    "target": "/private/tmp/strict_ok/allow.txt",
+    "violation_summary": "EPERM",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/strict_1.runtime_strict_1.runtime.sb",
+      "/etc/hosts"
+    ],
+    "errno": 1,
+    "errno_name": "EPERM",
+    "expectation_id": "runtime:strict_1:read_hosts",
+    "expected": "deny",
+    "failure_kind": "sandbox_init_failed",
+    "failure_stage": "apply",
+    "intended_op_witnessed": false,
+    "normalized_path": "/private/etc/hosts",
+    "normalized_path_source": "observed_path",
+    "observed_path": "/private/etc/hosts",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-read*",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "unknown",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "sandbox_init_failed",
+        "failure_stage": "apply",
+        "status": "errno"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/strict_1.runtime_strict_1.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "read_hosts",
+    "profile_id": "runtime:strict_1",
+    "requested_path": "/etc/hosts",
+    "resource_hygiene": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": true,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runner_info": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "entrypoint": "sandbox_reader",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "entrypoint_sha256": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039",
+      "preexisting_sandbox_suspected": true,
+      "tool_build_id": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039"
+    },
+    "runtime_status": "errno",
+    "scenario_id": "runtime:strict_1:read_hosts",
+    "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
+    "stdout": "",
+    "target": "/etc/hosts",
+    "violation_summary": "EPERM",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_writer",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/strict_1.runtime_strict_1.runtime.sb",
+      "/etc/hosts"
+    ],
+    "errno": 1,
+    "errno_name": "EPERM",
+    "expectation_id": "runtime:strict_1:write_hosts",
+    "expected": "deny",
+    "failure_kind": "sandbox_init_failed",
+    "failure_stage": "apply",
+    "intended_op_witnessed": false,
+    "normalized_path": "/private/etc/hosts",
+    "normalized_path_source": "observed_path",
+    "observed_path": "/private/etc/hosts",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-write*",
+    "policy_layers": {
+      "attribution": "platform_policy",
+      "effective_decision": "deny",
+      "platform_policy": {
+        "decision": "deny",
+        "error": null,
+        "exit_code": 1,
+        "source": "baseline",
+        "status": "deny"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "sandbox_init_failed",
+        "failure_stage": "apply",
+        "status": "errno"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/strict_1.runtime_strict_1.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "write_hosts",
+    "profile_id": "runtime:strict_1",
+    "requested_path": "/etc/hosts",
+    "resource_hygiene": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": true,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runner_info": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "entrypoint": "sandbox_writer",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_writer",
+      "entrypoint_sha256": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63",
+      "preexisting_sandbox_suspected": true,
+      "tool_build_id": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63"
+    },
+    "runtime_status": "errno",
+    "scenario_id": "runtime:strict_1:write_hosts",
+    "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
+    "stdout": "",
+    "target": "/etc/hosts",
+    "violation_summary": "EPERM",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "command": [],
+    "expectation_id": "sys:airlock:read_/etc/hosts",
+    "expected": "deny",
+    "failure_kind": "preflight_apply_gate_signature",
+    "failure_stage": "preflight",
+    "normalized_path": "/private/etc/hosts",
+    "normalized_path_source": "observed_path",
+    "notes": "preflight blocked: known apply-gate signature",
+    "observed_path": "/private/etc/hosts",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-read*",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "unknown",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "preflight_apply_gate_signature",
+        "failure_stage": "preflight",
+        "status": "blocked"
+      }
+    },
+    "preflight": {
+      "classification": "likely_apply_gated_for_harness_identity",
+      "findings": [
+        {
+          "denied_operation": "iokit-async-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-async-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        }
+      ],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/airlock.sys_airlock.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": "deny_message_filter",
+      "signature_meta": {
+        "pointers": [
+          "troubles/EPERMx2.md",
+          "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/Report.md",
+          "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json"
+        ],
+        "status": "partial"
+      },
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "read_/etc/hosts",
+    "profile_id": "sys:airlock",
+    "requested_path": "/etc/hosts",
+    "resource_hygiene": {
+      "apply_model": null,
+      "apply_timing": null,
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": null,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runtime_status": "blocked",
+    "scenario_id": "sys:airlock:read_/etc/hosts",
+    "stderr": "",
+    "stdout": "",
+    "target": "/etc/hosts",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "command": [],
+    "expectation_id": "sys:airlock:write_/etc/hosts",
+    "expected": "deny",
+    "failure_kind": "preflight_apply_gate_signature",
+    "failure_stage": "preflight",
+    "normalized_path": "/private/etc/hosts",
+    "normalized_path_source": "observed_path",
+    "notes": "preflight blocked: known apply-gate signature",
+    "observed_path": "/private/etc/hosts",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-write*",
+    "policy_layers": {
+      "attribution": "platform_policy",
+      "effective_decision": "deny",
+      "platform_policy": {
+        "decision": "deny",
+        "error": null,
+        "exit_code": 1,
+        "source": "baseline",
+        "status": "deny"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "preflight_apply_gate_signature",
+        "failure_stage": "preflight",
+        "status": "blocked"
+      }
+    },
+    "preflight": {
+      "classification": "likely_apply_gated_for_harness_identity",
+      "findings": [
+        {
+          "denied_operation": "iokit-async-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-async-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        }
+      ],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/airlock.sys_airlock.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": "deny_message_filter",
+      "signature_meta": {
+        "pointers": [
+          "troubles/EPERMx2.md",
+          "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/Report.md",
+          "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json"
+        ],
+        "status": "partial"
+      },
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "write_/etc/hosts",
+    "profile_id": "sys:airlock",
+    "requested_path": "/etc/hosts",
+    "resource_hygiene": {
+      "apply_model": null,
+      "apply_timing": null,
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": null,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runtime_status": "blocked",
+    "scenario_id": "sys:airlock:write_/etc/hosts",
+    "stderr": "",
+    "stdout": "",
+    "target": "/etc/hosts",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "command": [],
+    "expectation_id": "sys:airlock:read_/tmp/foo",
+    "expected": "deny",
+    "failure_kind": "preflight_apply_gate_signature",
+    "failure_stage": "preflight",
+    "normalized_path": "/private/tmp/foo",
+    "normalized_path_source": "observed_path",
+    "notes": "preflight blocked: known apply-gate signature",
+    "observed_path": "/private/tmp/foo",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-read*",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "unknown",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "preflight_apply_gate_signature",
+        "failure_stage": "preflight",
+        "status": "blocked"
+      }
+    },
+    "preflight": {
+      "classification": "likely_apply_gated_for_harness_identity",
+      "findings": [
+        {
+          "denied_operation": "iokit-async-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-async-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        }
+      ],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/airlock.sys_airlock.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": "deny_message_filter",
+      "signature_meta": {
+        "pointers": [
+          "troubles/EPERMx2.md",
+          "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/Report.md",
+          "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json"
+        ],
+        "status": "partial"
+      },
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "read_/tmp/foo",
+    "profile_id": "sys:airlock",
+    "requested_path": "/tmp/foo",
+    "resource_hygiene": {
+      "apply_model": null,
+      "apply_timing": null,
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": null,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runtime_status": "blocked",
+    "scenario_id": "sys:airlock:read_/tmp/foo",
+    "stderr": "",
+    "stdout": "",
+    "target": "/tmp/foo",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "command": [],
+    "expectation_id": "sys:airlock:write_/tmp/foo",
+    "expected": "deny",
+    "failure_kind": "preflight_apply_gate_signature",
+    "failure_stage": "preflight",
+    "normalized_path": "/private/tmp/foo",
+    "normalized_path_source": "observed_path",
+    "notes": "preflight blocked: known apply-gate signature",
+    "observed_path": "/private/tmp/foo",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-write*",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "unknown",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "preflight_apply_gate_signature",
+        "failure_stage": "preflight",
+        "status": "blocked"
+      }
+    },
+    "preflight": {
+      "classification": "likely_apply_gated_for_harness_identity",
+      "findings": [
+        {
+          "denied_operation": "iokit-async-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-async-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        }
+      ],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/airlock.sys_airlock.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": "deny_message_filter",
+      "signature_meta": {
+        "pointers": [
+          "troubles/EPERMx2.md",
+          "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/Report.md",
+          "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json"
+        ],
+        "status": "partial"
+      },
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "write_/tmp/foo",
+    "profile_id": "sys:airlock",
+    "requested_path": "/tmp/foo",
+    "resource_hygiene": {
+      "apply_model": null,
+      "apply_timing": null,
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": null,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runtime_status": "blocked",
+    "scenario_id": "sys:airlock:write_/tmp/foo",
+    "stderr": "",
+    "stdout": "",
+    "target": "/tmp/foo",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/bsd.sys_bsd.runtime.sb",
+      "/etc/hosts"
+    ],
+    "errno": 1,
+    "errno_name": "EPERM",
+    "expectation_id": "sys:bsd:read_/etc/hosts",
+    "expected": "deny",
+    "failure_kind": "sandbox_init_failed",
+    "failure_stage": "apply",
+    "intended_op_witnessed": false,
+    "normalized_path": "/private/etc/hosts",
+    "normalized_path_source": "observed_path",
+    "observed_path": "/private/etc/hosts",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-read*",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "unknown",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "sandbox_init_failed",
+        "failure_stage": "apply",
+        "status": "errno"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/bsd.sys_bsd.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "read_/etc/hosts",
+    "profile_id": "sys:bsd",
+    "requested_path": "/etc/hosts",
+    "resource_hygiene": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": true,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runner_info": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "entrypoint": "sandbox_reader",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "entrypoint_sha256": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039",
+      "preexisting_sandbox_suspected": true,
+      "tool_build_id": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039"
+    },
+    "runtime_status": "errno",
+    "scenario_id": "sys:bsd:read_/etc/hosts",
+    "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
+    "stdout": "",
+    "target": "/etc/hosts",
+    "violation_summary": "EPERM",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_writer",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/bsd.sys_bsd.runtime.sb",
+      "/etc/hosts"
+    ],
+    "errno": 1,
+    "errno_name": "EPERM",
+    "expectation_id": "sys:bsd:write_/etc/hosts",
+    "expected": "deny",
+    "failure_kind": "sandbox_init_failed",
+    "failure_stage": "apply",
+    "intended_op_witnessed": false,
+    "normalized_path": "/private/etc/hosts",
+    "normalized_path_source": "observed_path",
+    "observed_path": "/private/etc/hosts",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-write*",
+    "policy_layers": {
+      "attribution": "platform_policy",
+      "effective_decision": "deny",
+      "platform_policy": {
+        "decision": "deny",
+        "error": null,
+        "exit_code": 1,
+        "source": "baseline",
+        "status": "deny"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "sandbox_init_failed",
+        "failure_stage": "apply",
+        "status": "errno"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/bsd.sys_bsd.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "write_/etc/hosts",
+    "profile_id": "sys:bsd",
+    "requested_path": "/etc/hosts",
+    "resource_hygiene": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": true,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runner_info": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "entrypoint": "sandbox_writer",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_writer",
+      "entrypoint_sha256": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63",
+      "preexisting_sandbox_suspected": true,
+      "tool_build_id": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63"
+    },
+    "runtime_status": "errno",
+    "scenario_id": "sys:bsd:write_/etc/hosts",
+    "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
+    "stdout": "",
+    "target": "/etc/hosts",
+    "violation_summary": "EPERM",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/bsd.sys_bsd.runtime.sb",
+      "/tmp/foo"
+    ],
+    "errno": 1,
+    "errno_name": "EPERM",
+    "expectation_id": "sys:bsd:read_/tmp/foo",
+    "expected": "deny",
+    "failure_kind": "sandbox_init_failed",
+    "failure_stage": "apply",
+    "intended_op_witnessed": false,
+    "normalized_path": "/private/tmp/foo",
+    "normalized_path_source": "observed_path",
+    "observed_path": "/private/tmp/foo",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-read*",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "unknown",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "sandbox_init_failed",
+        "failure_stage": "apply",
+        "status": "errno"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/bsd.sys_bsd.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "read_/tmp/foo",
+    "profile_id": "sys:bsd",
+    "requested_path": "/tmp/foo",
+    "resource_hygiene": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": true,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runner_info": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "entrypoint": "sandbox_reader",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "entrypoint_sha256": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039",
+      "preexisting_sandbox_suspected": true,
+      "tool_build_id": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039"
+    },
+    "runtime_status": "errno",
+    "scenario_id": "sys:bsd:read_/tmp/foo",
+    "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
+    "stdout": "",
+    "target": "/tmp/foo",
+    "violation_summary": "EPERM",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_writer",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/bsd.sys_bsd.runtime.sb",
+      "/tmp/foo"
+    ],
+    "errno": 1,
+    "errno_name": "EPERM",
+    "expectation_id": "sys:bsd:write_/tmp/foo",
+    "expected": "deny",
+    "failure_kind": "sandbox_init_failed",
+    "failure_stage": "apply",
+    "intended_op_witnessed": false,
+    "normalized_path": "/private/tmp/foo",
+    "normalized_path_source": "observed_path",
+    "observed_path": "/private/tmp/foo",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-write*",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "unknown",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "sandbox_init_failed",
+        "failure_stage": "apply",
+        "status": "errno"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/bsd.sys_bsd.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "write_/tmp/foo",
+    "profile_id": "sys:bsd",
+    "requested_path": "/tmp/foo",
+    "resource_hygiene": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": true,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runner_info": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "entrypoint": "sandbox_writer",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_writer",
+      "entrypoint_sha256": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63",
+      "preexisting_sandbox_suspected": true,
+      "tool_build_id": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63"
+    },
+    "runtime_status": "errno",
+    "scenario_id": "sys:bsd:write_/tmp/foo",
+    "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
+    "stdout": "",
+    "target": "/tmp/foo",
+    "violation_summary": "EPERM",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "command": [],
+    "expectation_id": "sys:blastdoor:read_/etc/hosts",
+    "expected": "allow",
+    "failure_kind": "preflight_apply_gate_signature",
+    "failure_stage": "preflight",
+    "normalized_path": "/private/etc/hosts",
+    "normalized_path_source": "observed_path",
+    "notes": "preflight blocked: known apply-gate signature",
+    "observed_path": "/private/etc/hosts",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-read*",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "unknown",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "preflight_apply_gate_signature",
+        "failure_stage": "preflight",
+        "status": "blocked"
+      }
+    },
+    "preflight": {
+      "classification": "likely_apply_gated_for_harness_identity",
+      "findings": [
+        {
+          "denied_operation": "iokit-async-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-async-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        }
+      ],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/blastdoor.sys_blastdoor.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": "deny_message_filter",
+      "signature_meta": {
+        "pointers": [
+          "troubles/EPERMx2.md",
+          "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/Report.md",
+          "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json"
+        ],
+        "status": "partial"
+      },
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "read_/etc/hosts",
+    "profile_id": "sys:blastdoor",
+    "requested_path": "/etc/hosts",
+    "resource_hygiene": {
+      "apply_model": null,
+      "apply_timing": null,
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": null,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runtime_status": "blocked",
+    "scenario_id": "sys:blastdoor:read_/etc/hosts",
+    "stderr": "",
+    "stdout": "",
+    "target": "/etc/hosts",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "command": [],
+    "expectation_id": "sys:blastdoor:write_/etc/hosts",
+    "expected": "deny",
+    "failure_kind": "preflight_apply_gate_signature",
+    "failure_stage": "preflight",
+    "normalized_path": "/private/etc/hosts",
+    "normalized_path_source": "observed_path",
+    "notes": "preflight blocked: known apply-gate signature",
+    "observed_path": "/private/etc/hosts",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-write*",
+    "policy_layers": {
+      "attribution": "platform_policy",
+      "effective_decision": "deny",
+      "platform_policy": {
+        "decision": "deny",
+        "error": null,
+        "exit_code": 1,
+        "source": "baseline",
+        "status": "deny"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "preflight_apply_gate_signature",
+        "failure_stage": "preflight",
+        "status": "blocked"
+      }
+    },
+    "preflight": {
+      "classification": "likely_apply_gated_for_harness_identity",
+      "findings": [
+        {
+          "denied_operation": "iokit-async-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-async-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        }
+      ],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/blastdoor.sys_blastdoor.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": "deny_message_filter",
+      "signature_meta": {
+        "pointers": [
+          "troubles/EPERMx2.md",
+          "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/Report.md",
+          "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json"
+        ],
+        "status": "partial"
+      },
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "write_/etc/hosts",
+    "profile_id": "sys:blastdoor",
+    "requested_path": "/etc/hosts",
+    "resource_hygiene": {
+      "apply_model": null,
+      "apply_timing": null,
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": null,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runtime_status": "blocked",
+    "scenario_id": "sys:blastdoor:write_/etc/hosts",
+    "stderr": "",
+    "stdout": "",
+    "target": "/etc/hosts",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "command": [],
+    "expectation_id": "sys:blastdoor:read_/tmp/foo",
+    "expected": "allow",
+    "failure_kind": "preflight_apply_gate_signature",
+    "failure_stage": "preflight",
+    "normalized_path": "/private/tmp/foo",
+    "normalized_path_source": "observed_path",
+    "notes": "preflight blocked: known apply-gate signature",
+    "observed_path": "/private/tmp/foo",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-read*",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "unknown",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "preflight_apply_gate_signature",
+        "failure_stage": "preflight",
+        "status": "blocked"
+      }
+    },
+    "preflight": {
+      "classification": "likely_apply_gated_for_harness_identity",
+      "findings": [
+        {
+          "denied_operation": "iokit-async-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-async-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        }
+      ],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/blastdoor.sys_blastdoor.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": "deny_message_filter",
+      "signature_meta": {
+        "pointers": [
+          "troubles/EPERMx2.md",
+          "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/Report.md",
+          "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json"
+        ],
+        "status": "partial"
+      },
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "read_/tmp/foo",
+    "profile_id": "sys:blastdoor",
+    "requested_path": "/tmp/foo",
+    "resource_hygiene": {
+      "apply_model": null,
+      "apply_timing": null,
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": null,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runtime_status": "blocked",
+    "scenario_id": "sys:blastdoor:read_/tmp/foo",
+    "stderr": "",
+    "stdout": "",
+    "target": "/tmp/foo",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "command": [],
+    "expectation_id": "sys:blastdoor:write_/tmp/foo",
+    "expected": "deny",
+    "failure_kind": "preflight_apply_gate_signature",
+    "failure_stage": "preflight",
+    "normalized_path": "/private/tmp/foo",
+    "normalized_path_source": "observed_path",
+    "notes": "preflight blocked: known apply-gate signature",
+    "observed_path": "/private/tmp/foo",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-write*",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "unknown",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "preflight_apply_gate_signature",
+        "failure_stage": "preflight",
+        "status": "blocked"
+      }
+    },
+    "preflight": {
+      "classification": "likely_apply_gated_for_harness_identity",
+      "findings": [
+        {
+          "denied_operation": "iokit-async-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-async-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        }
+      ],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/blastdoor.sys_blastdoor.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": "deny_message_filter",
+      "signature_meta": {
+        "pointers": [
+          "troubles/EPERMx2.md",
+          "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/Report.md",
+          "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json"
+        ],
+        "status": "partial"
+      },
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "write_/tmp/foo",
+    "profile_id": "sys:blastdoor",
+    "requested_path": "/tmp/foo",
+    "resource_hygiene": {
+      "apply_model": null,
+      "apply_timing": null,
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": null,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runtime_status": "blocked",
+    "scenario_id": "sys:blastdoor:write_/tmp/foo",
+    "stderr": "",
+    "stdout": "",
+    "target": "/tmp/foo",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "command": [],
+    "expectation_id": "sys:blastdoor:mach_allow_logd",
+    "expected": "allow",
+    "failure_kind": "preflight_apply_gate_signature",
+    "failure_stage": "preflight",
+    "notes": "preflight blocked: known apply-gate signature",
+    "operation": "mach-lookup",
+    "policy_layers": {
+      "attribution": "platform_policy",
+      "effective_decision": "deny",
+      "platform_policy": {
+        "decision": "deny",
+        "error": null,
+        "exit_code": 1,
+        "source": "baseline",
+        "status": "deny"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "preflight_apply_gate_signature",
+        "failure_stage": "preflight",
+        "status": "blocked"
+      }
+    },
+    "preflight": {
+      "classification": "likely_apply_gated_for_harness_identity",
+      "findings": [
+        {
+          "denied_operation": "iokit-async-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-async-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        }
+      ],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/blastdoor.sys_blastdoor.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": "deny_message_filter",
+      "signature_meta": {
+        "pointers": [
+          "troubles/EPERMx2.md",
+          "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/Report.md",
+          "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json"
+        ],
+        "status": "partial"
+      },
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "mach_allow_logd",
+    "profile_id": "sys:blastdoor",
+    "resource_hygiene": {
+      "apply_model": null,
+      "apply_timing": null,
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": null,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runtime_status": "blocked",
+    "scenario_id": "sys:blastdoor:mach_allow_logd",
+    "stderr": "",
+    "stdout": "",
+    "target": "com.apple.logd",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "command": [],
+    "expectation_id": "sys:blastdoor:mach_allow_trustd",
+    "expected": "allow",
+    "failure_kind": "preflight_apply_gate_signature",
+    "failure_stage": "preflight",
+    "notes": "preflight blocked: known apply-gate signature",
+    "operation": "mach-lookup",
+    "policy_layers": {
+      "attribution": "platform_policy",
+      "effective_decision": "deny",
+      "platform_policy": {
+        "decision": "deny",
+        "error": null,
+        "exit_code": 1,
+        "source": "baseline",
+        "status": "deny"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "preflight_apply_gate_signature",
+        "failure_stage": "preflight",
+        "status": "blocked"
+      }
+    },
+    "preflight": {
+      "classification": "likely_apply_gated_for_harness_identity",
+      "findings": [
+        {
+          "denied_operation": "iokit-async-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-async-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        }
+      ],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/blastdoor.sys_blastdoor.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": "deny_message_filter",
+      "signature_meta": {
+        "pointers": [
+          "troubles/EPERMx2.md",
+          "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/Report.md",
+          "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json"
+        ],
+        "status": "partial"
+      },
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "mach_allow_trustd",
+    "profile_id": "sys:blastdoor",
+    "resource_hygiene": {
+      "apply_model": null,
+      "apply_timing": null,
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": null,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runtime_status": "blocked",
+    "scenario_id": "sys:blastdoor:mach_allow_trustd",
+    "stderr": "",
+    "stdout": "",
+    "target": "com.apple.trustd.agent",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "command": [],
+    "expectation_id": "sys:blastdoor:mach_deny_cfprefsd",
+    "expected": "deny",
+    "failure_kind": "preflight_apply_gate_signature",
+    "failure_stage": "preflight",
+    "notes": "preflight blocked: known apply-gate signature",
+    "operation": "mach-lookup",
+    "policy_layers": {
+      "attribution": "platform_policy",
+      "effective_decision": "deny",
+      "platform_policy": {
+        "decision": "deny",
+        "error": null,
+        "exit_code": 1,
+        "source": "baseline",
+        "status": "deny"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "preflight_apply_gate_signature",
+        "failure_stage": "preflight",
+        "status": "blocked"
+      }
+    },
+    "preflight": {
+      "classification": "likely_apply_gated_for_harness_identity",
+      "findings": [
+        {
+          "denied_operation": "iokit-async-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-async-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        }
+      ],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/blastdoor.sys_blastdoor.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": "deny_message_filter",
+      "signature_meta": {
+        "pointers": [
+          "troubles/EPERMx2.md",
+          "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/Report.md",
+          "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json"
+        ],
+        "status": "partial"
+      },
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "mach_deny_cfprefsd",
+    "profile_id": "sys:blastdoor",
+    "resource_hygiene": {
+      "apply_model": null,
+      "apply_timing": null,
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": null,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runtime_status": "blocked",
+    "scenario_id": "sys:blastdoor:mach_deny_cfprefsd",
+    "stderr": "",
+    "stdout": "",
+    "target": "com.apple.cfprefsd.agent",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "command": [],
+    "expectation_id": "sys:blastdoor:xpc_deny_trustd",
+    "expected": "deny",
+    "failure_kind": "preflight_apply_gate_signature",
+    "failure_stage": "preflight",
+    "notes": "preflight blocked: known apply-gate signature",
+    "operation": "mach-lookup",
+    "policy_layers": {
+      "attribution": "platform_policy",
+      "effective_decision": "deny",
+      "platform_policy": {
+        "decision": "deny",
+        "error": null,
+        "exit_code": 1,
+        "source": "baseline",
+        "status": "deny"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "preflight_apply_gate_signature",
+        "failure_stage": "preflight",
+        "status": "blocked"
+      }
+    },
+    "preflight": {
+      "classification": "likely_apply_gated_for_harness_identity",
+      "findings": [
+        {
+          "denied_operation": "iokit-async-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-async-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        }
+      ],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/blastdoor.sys_blastdoor.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": "deny_message_filter",
+      "signature_meta": {
+        "pointers": [
+          "troubles/EPERMx2.md",
+          "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/Report.md",
+          "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json"
+        ],
+        "status": "partial"
+      },
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "xpc_deny_trustd",
+    "profile_id": "sys:blastdoor",
+    "resource_hygiene": {
+      "apply_model": null,
+      "apply_timing": null,
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": null,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runtime_status": "blocked",
+    "scenario_id": "sys:blastdoor:xpc_deny_trustd",
+    "stderr": "",
+    "stdout": "",
+    "target": "com.apple.trustd.agent",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "command": [],
+    "expectation_id": "sys:cgpdfservice:read_/etc/hosts",
+    "expected": "allow",
+    "failure_kind": "preflight_apply_gate_signature",
+    "failure_stage": "preflight",
+    "normalized_path": "/private/etc/hosts",
+    "normalized_path_source": "observed_path",
+    "notes": "preflight blocked: known apply-gate signature",
+    "observed_path": "/private/etc/hosts",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-read*",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "unknown",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "preflight_apply_gate_signature",
+        "failure_stage": "preflight",
+        "status": "blocked"
+      }
+    },
+    "preflight": {
+      "classification": "likely_apply_gated_for_harness_identity",
+      "findings": [
+        {
+          "denied_operation": "iokit-async-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-async-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        }
+      ],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/com.apple.CoreGraphics.CGPDFService.sys_cgpdfservice.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": "deny_message_filter",
+      "signature_meta": {
+        "pointers": [
+          "troubles/EPERMx2.md",
+          "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/Report.md",
+          "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json"
+        ],
+        "status": "partial"
+      },
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "read_/etc/hosts",
+    "profile_id": "sys:cgpdfservice",
+    "requested_path": "/etc/hosts",
+    "resource_hygiene": {
+      "apply_model": null,
+      "apply_timing": null,
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": null,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runtime_status": "blocked",
+    "scenario_id": "sys:cgpdfservice:read_/etc/hosts",
+    "stderr": "",
+    "stdout": "",
+    "target": "/etc/hosts",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "command": [],
+    "expectation_id": "sys:cgpdfservice:write_/etc/hosts",
+    "expected": "deny",
+    "failure_kind": "preflight_apply_gate_signature",
+    "failure_stage": "preflight",
+    "normalized_path": "/private/etc/hosts",
+    "normalized_path_source": "observed_path",
+    "notes": "preflight blocked: known apply-gate signature",
+    "observed_path": "/private/etc/hosts",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-write*",
+    "policy_layers": {
+      "attribution": "platform_policy",
+      "effective_decision": "deny",
+      "platform_policy": {
+        "decision": "deny",
+        "error": null,
+        "exit_code": 1,
+        "source": "baseline",
+        "status": "deny"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "preflight_apply_gate_signature",
+        "failure_stage": "preflight",
+        "status": "blocked"
+      }
+    },
+    "preflight": {
+      "classification": "likely_apply_gated_for_harness_identity",
+      "findings": [
+        {
+          "denied_operation": "iokit-async-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-async-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        }
+      ],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/com.apple.CoreGraphics.CGPDFService.sys_cgpdfservice.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": "deny_message_filter",
+      "signature_meta": {
+        "pointers": [
+          "troubles/EPERMx2.md",
+          "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/Report.md",
+          "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json"
+        ],
+        "status": "partial"
+      },
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "write_/etc/hosts",
+    "profile_id": "sys:cgpdfservice",
+    "requested_path": "/etc/hosts",
+    "resource_hygiene": {
+      "apply_model": null,
+      "apply_timing": null,
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": null,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runtime_status": "blocked",
+    "scenario_id": "sys:cgpdfservice:write_/etc/hosts",
+    "stderr": "",
+    "stdout": "",
+    "target": "/etc/hosts",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "command": [],
+    "expectation_id": "sys:cgpdfservice:read_/tmp/foo",
+    "expected": "allow",
+    "failure_kind": "preflight_apply_gate_signature",
+    "failure_stage": "preflight",
+    "normalized_path": "/private/tmp/foo",
+    "normalized_path_source": "observed_path",
+    "notes": "preflight blocked: known apply-gate signature",
+    "observed_path": "/private/tmp/foo",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-read*",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "unknown",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "preflight_apply_gate_signature",
+        "failure_stage": "preflight",
+        "status": "blocked"
+      }
+    },
+    "preflight": {
+      "classification": "likely_apply_gated_for_harness_identity",
+      "findings": [
+        {
+          "denied_operation": "iokit-async-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-async-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        }
+      ],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/com.apple.CoreGraphics.CGPDFService.sys_cgpdfservice.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": "deny_message_filter",
+      "signature_meta": {
+        "pointers": [
+          "troubles/EPERMx2.md",
+          "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/Report.md",
+          "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json"
+        ],
+        "status": "partial"
+      },
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "read_/tmp/foo",
+    "profile_id": "sys:cgpdfservice",
+    "requested_path": "/tmp/foo",
+    "resource_hygiene": {
+      "apply_model": null,
+      "apply_timing": null,
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": null,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runtime_status": "blocked",
+    "scenario_id": "sys:cgpdfservice:read_/tmp/foo",
+    "stderr": "",
+    "stdout": "",
+    "target": "/tmp/foo",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "command": [],
+    "expectation_id": "sys:cgpdfservice:write_/tmp/foo",
+    "expected": "deny",
+    "failure_kind": "preflight_apply_gate_signature",
+    "failure_stage": "preflight",
+    "normalized_path": "/private/tmp/foo",
+    "normalized_path_source": "observed_path",
+    "notes": "preflight blocked: known apply-gate signature",
+    "observed_path": "/private/tmp/foo",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-write*",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "unknown",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "preflight_apply_gate_signature",
+        "failure_stage": "preflight",
+        "status": "blocked"
+      }
+    },
+    "preflight": {
+      "classification": "likely_apply_gated_for_harness_identity",
+      "findings": [
+        {
+          "denied_operation": "iokit-async-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-async-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        }
+      ],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/com.apple.CoreGraphics.CGPDFService.sys_cgpdfservice.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": "deny_message_filter",
+      "signature_meta": {
+        "pointers": [
+          "troubles/EPERMx2.md",
+          "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/Report.md",
+          "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json"
+        ],
+        "status": "partial"
+      },
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "write_/tmp/foo",
+    "profile_id": "sys:cgpdfservice",
+    "requested_path": "/tmp/foo",
+    "resource_hygiene": {
+      "apply_model": null,
+      "apply_timing": null,
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": null,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runtime_status": "blocked",
+    "scenario_id": "sys:cgpdfservice:write_/tmp/foo",
+    "stderr": "",
+    "stdout": "",
+    "target": "/tmp/foo",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "command": [],
+    "expectation_id": "sys:cgpdfservice:read_/Library/Preferences/com.apple.timezone.auto.plist",
+    "expected": "deny",
+    "failure_kind": "preflight_apply_gate_signature",
+    "failure_stage": "preflight",
+    "normalized_path": "/Library/Preferences/com.apple.timezone.auto.plist",
+    "normalized_path_source": "observed_path",
+    "notes": "preflight blocked: known apply-gate signature",
+    "observed_path": "/Library/Preferences/com.apple.timezone.auto.plist",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-read*",
+    "policy_layers": {
+      "attribution": "platform_policy",
+      "effective_decision": "deny",
+      "platform_policy": {
+        "decision": "deny",
+        "error": "'utf-8' codec can't decode byte 0xd1 in position 8: invalid continuation byte",
+        "exit_code": null,
+        "source": "baseline",
+        "status": "deny"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "preflight_apply_gate_signature",
+        "failure_stage": "preflight",
+        "status": "blocked"
+      }
+    },
+    "preflight": {
+      "classification": "likely_apply_gated_for_harness_identity",
+      "findings": [
+        {
+          "denied_operation": "iokit-async-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-async-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        }
+      ],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/com.apple.CoreGraphics.CGPDFService.sys_cgpdfservice.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": "deny_message_filter",
+      "signature_meta": {
+        "pointers": [
+          "troubles/EPERMx2.md",
+          "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/Report.md",
+          "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json"
+        ],
+        "status": "partial"
+      },
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "read_/Library/Preferences/com.apple.timezone.auto.plist",
+    "profile_id": "sys:cgpdfservice",
+    "requested_path": "/Library/Preferences/com.apple.timezone.auto.plist",
+    "resource_hygiene": {
+      "apply_model": null,
+      "apply_timing": null,
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": null,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runtime_status": "blocked",
+    "scenario_id": "sys:cgpdfservice:read_/Library/Preferences/com.apple.timezone.auto.plist",
+    "stderr": "",
+    "stdout": "",
+    "target": "/Library/Preferences/com.apple.timezone.auto.plist",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "command": [],
+    "expectation_id": "sys:cgpdfservice:read_/var/db/timezone/zoneinfo/Etc/UTC",
+    "expected": "deny",
+    "failure_kind": "preflight_apply_gate_signature",
+    "failure_stage": "preflight",
+    "normalized_path": "/private/var/db/timezone/tz/2025b.1.0/zoneinfo/Etc/UTC",
+    "normalized_path_source": "observed_path",
+    "notes": "preflight blocked: known apply-gate signature",
+    "observed_path": "/private/var/db/timezone/tz/2025b.1.0/zoneinfo/Etc/UTC",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-read*",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "unknown",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "preflight_apply_gate_signature",
+        "failure_stage": "preflight",
+        "status": "blocked"
+      }
+    },
+    "preflight": {
+      "classification": "likely_apply_gated_for_harness_identity",
+      "findings": [
+        {
+          "denied_operation": "iokit-async-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-async-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        }
+      ],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/com.apple.CoreGraphics.CGPDFService.sys_cgpdfservice.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": "deny_message_filter",
+      "signature_meta": {
+        "pointers": [
+          "troubles/EPERMx2.md",
+          "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/Report.md",
+          "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json"
+        ],
+        "status": "partial"
+      },
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "read_/var/db/timezone/zoneinfo/Etc/UTC",
+    "profile_id": "sys:cgpdfservice",
+    "requested_path": "/var/db/timezone/zoneinfo/Etc/UTC",
+    "resource_hygiene": {
+      "apply_model": null,
+      "apply_timing": null,
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": null,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runtime_status": "blocked",
+    "scenario_id": "sys:cgpdfservice:read_/var/db/timezone/zoneinfo/Etc/UTC",
+    "stderr": "",
+    "stdout": "",
+    "target": "/var/db/timezone/zoneinfo/Etc/UTC",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "command": [],
+    "expectation_id": "sys:cgpdfservice:read_/private/etc/localtime",
+    "expected": "deny",
+    "failure_kind": "preflight_apply_gate_signature",
+    "failure_stage": "preflight",
+    "normalized_path": "/private/var/db/timezone/tz/2025b.1.0/zoneinfo/America/Los_Angeles",
+    "normalized_path_source": "observed_path",
+    "notes": "preflight blocked: known apply-gate signature",
+    "observed_path": "/private/var/db/timezone/tz/2025b.1.0/zoneinfo/America/Los_Angeles",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-read*",
+    "policy_layers": {
+      "attribution": "platform_policy",
+      "effective_decision": "deny",
+      "platform_policy": {
+        "decision": "deny",
+        "error": "'utf-8' codec can't decode byte 0xba in position 35: invalid start byte",
+        "exit_code": null,
+        "source": "baseline",
+        "status": "deny"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "preflight_apply_gate_signature",
+        "failure_stage": "preflight",
+        "status": "blocked"
+      }
+    },
+    "preflight": {
+      "classification": "likely_apply_gated_for_harness_identity",
+      "findings": [
+        {
+          "denied_operation": "iokit-async-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-async-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        },
+        {
+          "denied_operation": "iokit-external-method",
+          "outer_action": "allow",
+          "outer_operation": "iokit-open-user-client"
+        }
+      ],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/com.apple.CoreGraphics.CGPDFService.sys_cgpdfservice.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": "deny_message_filter",
+      "signature_meta": {
+        "pointers": [
+          "troubles/EPERMx2.md",
+          "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/Report.md",
+          "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json"
+        ],
+        "status": "partial"
+      },
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "read_/private/etc/localtime",
+    "profile_id": "sys:cgpdfservice",
+    "requested_path": "/private/etc/localtime",
+    "resource_hygiene": {
+      "apply_model": null,
+      "apply_timing": null,
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": null,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runtime_status": "blocked",
+    "scenario_id": "sys:cgpdfservice:read_/private/etc/localtime",
+    "stderr": "",
+    "stdout": "",
+    "target": "/private/etc/localtime",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/appsandbox-baseline.expanded.appsandbox_baseline.runtime.sb",
+      "/etc/hosts"
+    ],
+    "errno": 1,
+    "errno_name": "EPERM",
+    "expectation_id": "appsandbox:baseline:read_/etc/hosts",
+    "expected": "allow",
+    "failure_kind": "sandbox_init_failed",
+    "failure_stage": "apply",
+    "intended_op_witnessed": false,
+    "normalized_path": "/private/etc/hosts",
+    "normalized_path_source": "observed_path",
+    "observed_path": "/private/etc/hosts",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-read*",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "unknown",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "sandbox_init_failed",
+        "failure_stage": "apply",
+        "status": "errno"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/appsandbox-baseline.expanded.appsandbox_baseline.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "read_/etc/hosts",
+    "profile_id": "appsandbox:baseline",
+    "requested_path": "/etc/hosts",
+    "resource_hygiene": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": true,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runner_info": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "entrypoint": "sandbox_reader",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "entrypoint_sha256": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039",
+      "preexisting_sandbox_suspected": true,
+      "tool_build_id": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039"
+    },
+    "runtime_status": "errno",
+    "scenario_id": "appsandbox:baseline:read_/etc/hosts",
+    "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
+    "stdout": "",
+    "target": "/etc/hosts",
+    "violation_summary": "EPERM",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_writer",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/appsandbox-baseline.expanded.appsandbox_baseline.runtime.sb",
+      "/etc/hosts"
+    ],
+    "errno": 1,
+    "errno_name": "EPERM",
+    "expectation_id": "appsandbox:baseline:write_/etc/hosts",
+    "expected": "deny",
+    "failure_kind": "sandbox_init_failed",
+    "failure_stage": "apply",
+    "intended_op_witnessed": false,
+    "normalized_path": "/private/etc/hosts",
+    "normalized_path_source": "observed_path",
+    "observed_path": "/private/etc/hosts",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-write*",
+    "policy_layers": {
+      "attribution": "platform_policy",
+      "effective_decision": "deny",
+      "platform_policy": {
+        "decision": "deny",
+        "error": null,
+        "exit_code": 1,
+        "source": "baseline",
+        "status": "deny"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "sandbox_init_failed",
+        "failure_stage": "apply",
+        "status": "errno"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/appsandbox-baseline.expanded.appsandbox_baseline.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "write_/etc/hosts",
+    "profile_id": "appsandbox:baseline",
+    "requested_path": "/etc/hosts",
+    "resource_hygiene": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": true,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runner_info": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "entrypoint": "sandbox_writer",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_writer",
+      "entrypoint_sha256": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63",
+      "preexisting_sandbox_suspected": true,
+      "tool_build_id": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63"
+    },
+    "runtime_status": "errno",
+    "scenario_id": "appsandbox:baseline:write_/etc/hosts",
+    "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
+    "stdout": "",
+    "target": "/etc/hosts",
+    "violation_summary": "EPERM",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/appsandbox-baseline.expanded.appsandbox_baseline.runtime.sb",
+      "/tmp/foo"
+    ],
+    "errno": 1,
+    "errno_name": "EPERM",
+    "expectation_id": "appsandbox:baseline:read_/tmp/foo",
+    "expected": "allow",
+    "failure_kind": "sandbox_init_failed",
+    "failure_stage": "apply",
+    "intended_op_witnessed": false,
+    "normalized_path": "/private/tmp/foo",
+    "normalized_path_source": "observed_path",
+    "observed_path": "/private/tmp/foo",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-read*",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "unknown",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "sandbox_init_failed",
+        "failure_stage": "apply",
+        "status": "errno"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/appsandbox-baseline.expanded.appsandbox_baseline.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "read_/tmp/foo",
+    "profile_id": "appsandbox:baseline",
+    "requested_path": "/tmp/foo",
+    "resource_hygiene": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": true,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runner_info": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "entrypoint": "sandbox_reader",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "entrypoint_sha256": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039",
+      "preexisting_sandbox_suspected": true,
+      "tool_build_id": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039"
+    },
+    "runtime_status": "errno",
+    "scenario_id": "appsandbox:baseline:read_/tmp/foo",
+    "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
+    "stdout": "",
+    "target": "/tmp/foo",
+    "violation_summary": "EPERM",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_writer",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/appsandbox-baseline.expanded.appsandbox_baseline.runtime.sb",
+      "/tmp/foo"
+    ],
+    "errno": 1,
+    "errno_name": "EPERM",
+    "expectation_id": "appsandbox:baseline:write_/tmp/foo",
+    "expected": "deny",
+    "failure_kind": "sandbox_init_failed",
+    "failure_stage": "apply",
+    "intended_op_witnessed": false,
+    "normalized_path": "/private/tmp/foo",
+    "normalized_path_source": "observed_path",
+    "observed_path": "/private/tmp/foo",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-write*",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "unknown",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "sandbox_init_failed",
+        "failure_stage": "apply",
+        "status": "errno"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/appsandbox-baseline.expanded.appsandbox_baseline.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "write_/tmp/foo",
+    "profile_id": "appsandbox:baseline",
+    "requested_path": "/tmp/foo",
+    "resource_hygiene": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": true,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runner_info": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "entrypoint": "sandbox_writer",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_writer",
+      "entrypoint_sha256": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63",
+      "preexisting_sandbox_suspected": true,
+      "tool_build_id": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63"
+    },
+    "runtime_status": "errno",
+    "scenario_id": "appsandbox:baseline:write_/tmp/foo",
+    "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
+    "stdout": "",
+    "target": "/tmp/foo",
+    "violation_summary": "EPERM",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/appsandbox-net-client.expanded.appsandbox_net-client.runtime.sb",
+      "/etc/hosts"
+    ],
+    "errno": 1,
+    "errno_name": "EPERM",
+    "expectation_id": "appsandbox:net-client:read_/etc/hosts",
+    "expected": "allow",
+    "failure_kind": "sandbox_init_failed",
+    "failure_stage": "apply",
+    "intended_op_witnessed": false,
+    "normalized_path": "/private/etc/hosts",
+    "normalized_path_source": "observed_path",
+    "observed_path": "/private/etc/hosts",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-read*",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "unknown",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "sandbox_init_failed",
+        "failure_stage": "apply",
+        "status": "errno"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/appsandbox-net-client.expanded.appsandbox_net-client.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "read_/etc/hosts",
+    "profile_id": "appsandbox:net-client",
+    "requested_path": "/etc/hosts",
+    "resource_hygiene": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": true,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runner_info": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "entrypoint": "sandbox_reader",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "entrypoint_sha256": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039",
+      "preexisting_sandbox_suspected": true,
+      "tool_build_id": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039"
+    },
+    "runtime_status": "errno",
+    "scenario_id": "appsandbox:net-client:read_/etc/hosts",
+    "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
+    "stdout": "",
+    "target": "/etc/hosts",
+    "violation_summary": "EPERM",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_writer",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/appsandbox-net-client.expanded.appsandbox_net-client.runtime.sb",
+      "/etc/hosts"
+    ],
+    "errno": 1,
+    "errno_name": "EPERM",
+    "expectation_id": "appsandbox:net-client:write_/etc/hosts",
+    "expected": "deny",
+    "failure_kind": "sandbox_init_failed",
+    "failure_stage": "apply",
+    "intended_op_witnessed": false,
+    "normalized_path": "/private/etc/hosts",
+    "normalized_path_source": "observed_path",
+    "observed_path": "/private/etc/hosts",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-write*",
+    "policy_layers": {
+      "attribution": "platform_policy",
+      "effective_decision": "deny",
+      "platform_policy": {
+        "decision": "deny",
+        "error": null,
+        "exit_code": 1,
+        "source": "baseline",
+        "status": "deny"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "sandbox_init_failed",
+        "failure_stage": "apply",
+        "status": "errno"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/appsandbox-net-client.expanded.appsandbox_net-client.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "write_/etc/hosts",
+    "profile_id": "appsandbox:net-client",
+    "requested_path": "/etc/hosts",
+    "resource_hygiene": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": true,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runner_info": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "entrypoint": "sandbox_writer",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_writer",
+      "entrypoint_sha256": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63",
+      "preexisting_sandbox_suspected": true,
+      "tool_build_id": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63"
+    },
+    "runtime_status": "errno",
+    "scenario_id": "appsandbox:net-client:write_/etc/hosts",
+    "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
+    "stdout": "",
+    "target": "/etc/hosts",
+    "violation_summary": "EPERM",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/appsandbox-net-client.expanded.appsandbox_net-client.runtime.sb",
+      "/tmp/foo"
+    ],
+    "errno": 1,
+    "errno_name": "EPERM",
+    "expectation_id": "appsandbox:net-client:read_/tmp/foo",
+    "expected": "allow",
+    "failure_kind": "sandbox_init_failed",
+    "failure_stage": "apply",
+    "intended_op_witnessed": false,
+    "normalized_path": "/private/tmp/foo",
+    "normalized_path_source": "observed_path",
+    "observed_path": "/private/tmp/foo",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-read*",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "unknown",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "sandbox_init_failed",
+        "failure_stage": "apply",
+        "status": "errno"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/appsandbox-net-client.expanded.appsandbox_net-client.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "read_/tmp/foo",
+    "profile_id": "appsandbox:net-client",
+    "requested_path": "/tmp/foo",
+    "resource_hygiene": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": true,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runner_info": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "entrypoint": "sandbox_reader",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "entrypoint_sha256": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039",
+      "preexisting_sandbox_suspected": true,
+      "tool_build_id": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039"
+    },
+    "runtime_status": "errno",
+    "scenario_id": "appsandbox:net-client:read_/tmp/foo",
+    "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
+    "stdout": "",
+    "target": "/tmp/foo",
+    "violation_summary": "EPERM",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_writer",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/appsandbox-net-client.expanded.appsandbox_net-client.runtime.sb",
+      "/tmp/foo"
+    ],
+    "errno": 1,
+    "errno_name": "EPERM",
+    "expectation_id": "appsandbox:net-client:write_/tmp/foo",
+    "expected": "deny",
+    "failure_kind": "sandbox_init_failed",
+    "failure_stage": "apply",
+    "intended_op_witnessed": false,
+    "normalized_path": "/private/tmp/foo",
+    "normalized_path_source": "observed_path",
+    "observed_path": "/private/tmp/foo",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-write*",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "unknown",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "sandbox_init_failed",
+        "failure_stage": "apply",
+        "status": "errno"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/appsandbox-net-client.expanded.appsandbox_net-client.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "write_/tmp/foo",
+    "profile_id": "appsandbox:net-client",
+    "requested_path": "/tmp/foo",
+    "resource_hygiene": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": true,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runner_info": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "entrypoint": "sandbox_writer",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_writer",
+      "entrypoint_sha256": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63",
+      "preexisting_sandbox_suspected": true,
+      "tool_build_id": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63"
+    },
+    "runtime_status": "errno",
+    "scenario_id": "appsandbox:net-client:write_/tmp/foo",
+    "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
+    "stdout": "",
+    "target": "/tmp/foo",
+    "violation_summary": "EPERM",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/appsandbox-downloads-rw.expanded.appsandbox_downloads-rw.runtime.sb",
+      "/etc/hosts"
+    ],
+    "errno": 1,
+    "errno_name": "EPERM",
+    "expectation_id": "appsandbox:downloads-rw:read_/etc/hosts",
+    "expected": "allow",
+    "failure_kind": "sandbox_init_failed",
+    "failure_stage": "apply",
+    "intended_op_witnessed": false,
+    "normalized_path": "/private/etc/hosts",
+    "normalized_path_source": "observed_path",
+    "observed_path": "/private/etc/hosts",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-read*",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "unknown",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "sandbox_init_failed",
+        "failure_stage": "apply",
+        "status": "errno"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/appsandbox-downloads-rw.expanded.appsandbox_downloads-rw.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "read_/etc/hosts",
+    "profile_id": "appsandbox:downloads-rw",
+    "requested_path": "/etc/hosts",
+    "resource_hygiene": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": true,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runner_info": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "entrypoint": "sandbox_reader",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "entrypoint_sha256": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039",
+      "preexisting_sandbox_suspected": true,
+      "tool_build_id": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039"
+    },
+    "runtime_status": "errno",
+    "scenario_id": "appsandbox:downloads-rw:read_/etc/hosts",
+    "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
+    "stdout": "",
+    "target": "/etc/hosts",
+    "violation_summary": "EPERM",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_writer",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/appsandbox-downloads-rw.expanded.appsandbox_downloads-rw.runtime.sb",
+      "/etc/hosts"
+    ],
+    "errno": 1,
+    "errno_name": "EPERM",
+    "expectation_id": "appsandbox:downloads-rw:write_/etc/hosts",
+    "expected": "deny",
+    "failure_kind": "sandbox_init_failed",
+    "failure_stage": "apply",
+    "intended_op_witnessed": false,
+    "normalized_path": "/private/etc/hosts",
+    "normalized_path_source": "observed_path",
+    "observed_path": "/private/etc/hosts",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-write*",
+    "policy_layers": {
+      "attribution": "platform_policy",
+      "effective_decision": "deny",
+      "platform_policy": {
+        "decision": "deny",
+        "error": null,
+        "exit_code": 1,
+        "source": "baseline",
+        "status": "deny"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "sandbox_init_failed",
+        "failure_stage": "apply",
+        "status": "errno"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/appsandbox-downloads-rw.expanded.appsandbox_downloads-rw.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "write_/etc/hosts",
+    "profile_id": "appsandbox:downloads-rw",
+    "requested_path": "/etc/hosts",
+    "resource_hygiene": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": true,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runner_info": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "entrypoint": "sandbox_writer",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_writer",
+      "entrypoint_sha256": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63",
+      "preexisting_sandbox_suspected": true,
+      "tool_build_id": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63"
+    },
+    "runtime_status": "errno",
+    "scenario_id": "appsandbox:downloads-rw:write_/etc/hosts",
+    "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
+    "stdout": "",
+    "target": "/etc/hosts",
+    "violation_summary": "EPERM",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/appsandbox-downloads-rw.expanded.appsandbox_downloads-rw.runtime.sb",
+      "/tmp/foo"
+    ],
+    "errno": 1,
+    "errno_name": "EPERM",
+    "expectation_id": "appsandbox:downloads-rw:read_/tmp/foo",
+    "expected": "allow",
+    "failure_kind": "sandbox_init_failed",
+    "failure_stage": "apply",
+    "intended_op_witnessed": false,
+    "normalized_path": "/private/tmp/foo",
+    "normalized_path_source": "observed_path",
+    "observed_path": "/private/tmp/foo",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-read*",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "unknown",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "sandbox_init_failed",
+        "failure_stage": "apply",
+        "status": "errno"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/appsandbox-downloads-rw.expanded.appsandbox_downloads-rw.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "read_/tmp/foo",
+    "profile_id": "appsandbox:downloads-rw",
+    "requested_path": "/tmp/foo",
+    "resource_hygiene": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": true,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runner_info": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "entrypoint": "sandbox_reader",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_reader",
+      "entrypoint_sha256": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039",
+      "preexisting_sandbox_suspected": true,
+      "tool_build_id": "b0263d3fd97fc9f2e0e14481ce2dd55cd514527a8da454b143bc342966a6b039"
+    },
+    "runtime_status": "errno",
+    "scenario_id": "appsandbox:downloads-rw:read_/tmp/foo",
+    "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
+    "stdout": "",
+    "target": "/tmp/foo",
+    "violation_summary": "EPERM",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  {
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "command": [
+      "book/api/runtime/native/sandbox_runner/sandbox_writer",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/appsandbox-downloads-rw.expanded.appsandbox_downloads-rw.runtime.sb",
+      "/tmp/foo"
+    ],
+    "errno": 1,
+    "errno_name": "EPERM",
+    "expectation_id": "appsandbox:downloads-rw:write_/tmp/foo",
+    "expected": "deny",
+    "failure_kind": "sandbox_init_failed",
+    "failure_stage": "apply",
+    "intended_op_witnessed": false,
+    "normalized_path": "/private/tmp/foo",
+    "normalized_path_source": "observed_path",
+    "observed_path": "/private/tmp/foo",
+    "observed_path_source": "unsandboxed_fd_path",
+    "operation": "file-write*",
+    "policy_layers": {
+      "attribution": "unknown",
+      "effective_decision": "unknown",
+      "platform_policy": {
+        "decision": "allow",
+        "error": null,
+        "exit_code": 0,
+        "source": "baseline",
+        "status": "allow"
+      },
+      "process_policy": {
+        "decision": "unknown",
+        "failure_kind": "sandbox_init_failed",
+        "failure_stage": "apply",
+        "status": "errno"
+      }
+    },
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/aa97e290-1aeb-4fef-b599-081dffd63750/runtime_profiles/appsandbox-downloads-rw.expanded.appsandbox_downloads-rw.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_name": "write_/tmp/foo",
+    "profile_id": "appsandbox:downloads-rw",
+    "requested_path": "/tmp/foo",
+    "resource_hygiene": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "close_fds": true,
+      "pass_fds": [],
+      "preexisting_sandbox_suspected": true,
+      "preopen_detected": false,
+      "preopen_hints": []
+    },
+    "run_id": "aa97e290-1aeb-4fef-b599-081dffd63750",
+    "runner_info": {
+      "apply_model": "self_apply",
+      "apply_timing": "pre_syscall",
+      "entrypoint": "sandbox_writer",
+      "entrypoint_path": "book/api/runtime/native/sandbox_runner/sandbox_writer",
+      "entrypoint_sha256": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63",
+      "preexisting_sandbox_suspected": true,
+      "tool_build_id": "bca9607e5b97dd94e5504077d92146524bc7a6c984b49f52886bc72711ec2e63"
+    },
+    "runtime_status": "errno",
+    "scenario_id": "appsandbox:downloads-rw:write_/tmp/foo",
+    "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
+    "stdout": "",
+    "target": "/tmp/foo",
+    "violation_summary": "EPERM",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  }
+]

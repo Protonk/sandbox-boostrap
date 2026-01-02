@@ -54,7 +54,11 @@ CONTRACT_VERSION = 2
 CANONICAL_PROFILES: Dict[str, Dict[str, Optional[str]]] = {
     "sys:airlock": {"role": "canonical-system-profile", "description": "Platform airlock baseline", "sbpl_path": None},
     "sys:bsd": {"role": "canonical-system-profile", "description": "Platform bsd baseline", "sbpl_path": None},
-    "sys:sample": {"role": "canonical-system-profile", "description": "Book sample profile", "sbpl_path": "book/examples/sb/sample.sb"},
+    "sys:sample": {
+        "role": "canonical-system-profile",
+        "description": "Book sample profile",
+        "sbpl_path": "book/tools/sbpl/corpus/baseline/sample.sb",
+    },
 }
 # Each contract must carry these fields so downstream tools can answer “what
 # exactly were we expecting for this world pointer?” without rereading the code.
