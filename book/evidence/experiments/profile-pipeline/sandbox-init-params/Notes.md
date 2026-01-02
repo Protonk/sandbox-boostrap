@@ -67,7 +67,7 @@
   - arg block: `{q0=0x149808200, q1=416, q2=0}`; call_code 1; `sandbox_apply` return: -1 (as expected for synthetic branch coverage).
 
 ## Validation snapshot
-- `validate_runs.py` checks all `_run.json` files vs blobs:
+- `book/tools/sbpl/sandbox_init_params_validate.py` checks all `_run.json` files vs blobs:
   - Ensures blob length matches recorded `blob.len`.
   - Ensures required runs (`init_params_probe`, `init_params_probe_container`) match expected length/hash/call_code for this world_id; writes `out/validation_summary.json` with world_id and per-run metadata.
 - Current runs:

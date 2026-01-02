@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+"""
+Check encoder write-trace join coverage against network-matrix diffs.
+"""
+
 from __future__ import annotations
 
 import argparse
@@ -7,20 +11,13 @@ import sys
 from pathlib import Path
 from typing import Any, Dict, List, Mapping, Optional
 
-def _find_repo_root(start: Path) -> Path:
-    cur = start.resolve()
-    for candidate in [cur] + list(cur.parents):
-        if (candidate / ".git").exists():
-            return candidate
-    raise RuntimeError("Unable to locate repo root")
-
-
-REPO_ROOT = _find_repo_root(Path(__file__))
+REPO_ROOT = Path(__file__).resolve().parents[3]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from book.api.path_utils import ensure_absolute, find_repo_root, to_repo_relative  # type: ignore
-from book.api.profile.identity import baseline_world_id  # type: ignore
+from book.api import path_utils
+from book.api.profile._shared import encoder_trace as trace_mod
+from book.api.profile.identity import baseline_world_id
 
 
 def _load_json(path: Path) -> Any:
@@ -32,99 +29,8 @@ def _write_json(path: Path, payload: Any) -> None:
     path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
 
 
-def _range_contains(ranges: List[List[int]], offset: int) -> bool:
-    for start, end in ranges:
-        if start <= offset < end:
-            return True
-    return False
-
-
-def _best_trace_map(analysis: Mapping[str, Any]) -> Dict[str, Dict[str, Any]]:
-    out: Dict[str, Dict[str, Any]] = {}
-    for entry in analysis.get("entries", []):
-        if not isinstance(entry, Mapping):
-            continue
-        entry_id = entry.get("id")
-        best = entry.get("best")
-        if not isinstance(entry_id, str) or not isinstance(best, Mapping):
-            continue
-        match = best.get("match")
-        kind = match.get("kind") if isinstance(match, Mapping) else None
-        best_blob_offset = match.get("blob_offset", 0) if isinstance(match, Mapping) else 0
-        best_length = best.get("reconstructed_len")
-        best_candidate: Optional[Dict[str, Any]] = None
-        if isinstance(best_length, int) and isinstance(best_blob_offset, int):
-            if kind in {"full", "subset"}:
-                best_candidate = {
-                    "blob_offset": best_blob_offset,
-                    "length": best_length,
-                    "witnessed_ranges": [[0, best_length]],
-                    "coverage_kind": kind,
-                    "join_source": "best_match",
-                }
-            elif kind == "gapped":
-                alignment = best.get("alignment")
-                if isinstance(alignment, Mapping):
-                    base = alignment.get("base_offset")
-                    length = alignment.get("window_len")
-                    ranges = alignment.get("witnessed_ranges")
-                    if isinstance(base, int) and isinstance(length, int) and isinstance(ranges, list):
-                        best_candidate = {
-                            "blob_offset": base,
-                            "length": length,
-                            "witnessed_ranges": ranges,
-                            "coverage_kind": kind,
-                            "join_source": "best_match",
-                        }
-
-        gapped_best: Optional[Dict[str, Any]] = None
-        for buf in entry.get("buffers", []):
-            if not isinstance(buf, Mapping):
-                continue
-            alignment = buf.get("alignment")
-            if not isinstance(alignment, Mapping):
-                continue
-            base = alignment.get("base_offset")
-            length = alignment.get("window_len")
-            ranges = alignment.get("witnessed_ranges")
-            witnessed = alignment.get("witnessed_bytes", 0)
-            if not isinstance(base, int) or not isinstance(length, int) or not isinstance(ranges, list):
-                continue
-            candidate = {
-                "blob_offset": base,
-                "length": length,
-                "witnessed_ranges": ranges,
-                "coverage_kind": "gapped",
-                "join_source": "gapped_alignment",
-                "witnessed_bytes": int(witnessed) if isinstance(witnessed, int) else 0,
-            }
-            if gapped_best is None:
-                gapped_best = candidate
-            else:
-                best_witnessed = int(gapped_best.get("witnessed_bytes", 0))
-                if candidate["witnessed_bytes"] > best_witnessed:
-                    gapped_best = candidate
-                elif candidate["witnessed_bytes"] == best_witnessed:
-                    if candidate["length"] > gapped_best.get("length", 0):
-                        gapped_best = candidate
-
-        join_candidate = best_candidate
-        if gapped_best:
-            if not join_candidate:
-                join_candidate = gapped_best
-            else:
-                join_len = int(join_candidate.get("length", 0))
-                if gapped_best["length"] > join_len:
-                    join_candidate = gapped_best
-
-        if join_candidate:
-            join_candidate.pop("witnessed_bytes", None)
-            out[entry_id] = join_candidate
-    return out
-
-
 def main(argv: Optional[List[str]] = None) -> int:
-    ap = argparse.ArgumentParser(prog="check-trace-join")
+    ap = argparse.ArgumentParser(prog="encoder-write-trace-check")
     ap.add_argument(
         "--analysis",
         type=Path,
@@ -145,17 +51,17 @@ def main(argv: Optional[List[str]] = None) -> int:
     )
     args = ap.parse_args(argv)
 
-    repo_root = find_repo_root()
-    analysis_path = ensure_absolute(args.analysis, repo_root)
-    network_path = ensure_absolute(args.network_diffs, repo_root)
-    out_path = ensure_absolute(args.out, repo_root)
+    repo_root = path_utils.find_repo_root(Path(__file__))
+    analysis_path = path_utils.ensure_absolute(args.analysis, repo_root)
+    network_path = path_utils.ensure_absolute(args.network_diffs, repo_root)
+    out_path = path_utils.ensure_absolute(args.out, repo_root)
 
     analysis = _load_json(analysis_path)
     expected_world = baseline_world_id(repo_root)
     if analysis.get("world_id") != expected_world:
         raise ValueError(f"analysis world_id mismatch: {analysis.get('world_id')} != {expected_world}")
 
-    trace_map = _best_trace_map(analysis)
+    trace_map = trace_mod.best_trace_map(analysis)
     network_diffs = _load_json(network_path)
 
     missing: List[Dict[str, Any]] = []
@@ -208,7 +114,7 @@ def main(argv: Optional[List[str]] = None) -> int:
                 coverage = "inferred"
                 ranges = trace.get("witnessed_ranges", [])
                 if isinstance(ranges, list) and ranges:
-                    if _range_contains(ranges, cursor):
+                    if trace_mod.range_contains(ranges, cursor):
                         coverage = "witnessed"
                 hits.append(
                     {
@@ -227,8 +133,8 @@ def main(argv: Optional[List[str]] = None) -> int:
     status = "ok" if not missing else "partial"
     payload = {
         "world_id": expected_world,
-        "analysis": to_repo_relative(analysis_path, repo_root),
-        "network_diffs": to_repo_relative(network_path, repo_root),
+        "analysis": path_utils.to_repo_relative(analysis_path, repo_root),
+        "network_diffs": path_utils.to_repo_relative(network_path, repo_root),
         "status": status,
         "counts": {
             "pairs_checked": checked_pairs,

@@ -146,10 +146,10 @@ Additional follow‑ups:
 The trace‑backed join is still partial/brittle. Before relying on these results outside this experiment (or dispersing tooling/artifacts into shared areas), complete the following:
 
 - Tracer correctness hardening: classify breakpoint vs single‑step by Mach exception codes (no PC tolerance), log ring‑buffer drops/truncation, and require `unknown_break_hits == 0` so missing bytes can be treated as real evidence rather than logging artifacts.
-- Close or bound the join gaps: either capture the missing offsets (484–491) via an additional writer breakpoint or mark them as explicitly inferred in the join outputs; update `check_trace_join.py` to consume witnessed vs inferred labeling so the check is non‑vacuous.
+- Close or bound the join gaps: either capture the missing offsets (484–491) via an additional writer breakpoint or mark them as explicitly inferred in the join outputs; update `book/tools/sbpl/encoder_write_trace_check.py` to consume witnessed vs inferred labeling so the check is non‑vacuous.
 - Compile‑mode invariance: run a small matrix across file vs string and params on/off modes, confirm the join windows/hole ranges remain stable, and record the outcome here.
 - Static↔dynamic linkage: include PC/LR (or a call‑site tag) in trace records so the write stream can be tied back to the encoder sites in `out/encoder_sites.json` without manual inference.
-- Guardrail + promotion path: keep the experiment‑local guardrail (`check_trace_join.py`) as the drift gate, then only propose promotion after it is stable across multiple runs; any shared artifacts must go through validation → mapping generation → CARTON manifest with `world_id` and status declared as `partial`/`ok`.
+- Guardrail + promotion path: keep the trace join guardrail (`book/tools/sbpl/encoder_write_trace_check.py`) as the drift gate, then only propose promotion after it is stable across multiple runs; any shared artifacts must go through validation → mapping generation → CARTON manifest with `world_id` and status declared as `partial`/`ok`.
 
 ### Promotion proposal (when you want to harden this join)
 

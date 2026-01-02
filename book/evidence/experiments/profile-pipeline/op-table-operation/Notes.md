@@ -77,7 +77,7 @@
 
 ## Pass 8
 
-- Reran `analyze.py` after decoder updates; summaries and alignment regenerated (no bucket shifts observed). Alignment refreshed via `op-table-vocab-alignment/update_alignment.py`.
+- Reran the batch runner after decoder updates; summaries and alignment regenerated (no bucket shifts observed). Alignment refreshed via `book/tools/sbpl/op_table_runner.py`.
 
 ## Pass 9
 
@@ -107,3 +107,7 @@
 - Updated: removed the earlier (incorrect) `op_count` override to “vocab length”; these synthetic blobs carry a small, per-profile op-table length in their header (typically 5–7), and treating the node region as part of the op-table was a slicing artifact.
 - Note: earlier Notes/Report entries that tie bucket patterns to specific numeric Operation IDs via “index == op_id” should be treated as historical/optimistic; with the corrected framing, we can map SBPL op names to IDs via `book/evidence/graph/mappings/vocab/ops.json`, but we do not yet have a witness that op-table slot indices correspond to operation IDs in these synthetic profiles.
 - Updated: refreshed the promoted mapping snapshots under `book/evidence/graph/mappings/op_table/` from the experiment outputs using `book/graph/mappings/op_table/generate_op_table_mappings.py` (the curated mapping set excludes `v12_runtime_probe`, which remains experiment-local).
+
+## Migration
+
+- Updated: op-table batch regeneration now lives at `book/tools/sbpl/op_table_runner.py` (replacing `analyze.py` and `build_catalog.py` for `out/*` refreshes).

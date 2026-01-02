@@ -21,7 +21,9 @@ does **not** interpret kernel semantics or runtime policy decisions.
   - `harness/build_interposer.sh` (build script)
   - `harness/mach_exc_server.c` / `harness/mach_exc_server.h` (MIG server stubs)
   - `harness/mach_exc_user.c` / `harness/mach_exc_user.h` (exception forwarding stubs)
-  - `compile_one.py` / `run_trace.py` (runner)
+  - `run_trace.py` (runner; compile subprocess uses `book.api.profile.compile`)
+  - `book/tools/sbpl/encoder_write_trace_analyze.py` (join analysis)
+  - `book/tools/sbpl/encoder_write_trace_check.py` (join guardrail)
 - Outputs (under `out/`):
   - `triage/*.json` (hook triage per input)
   - `stats/*.stats.json` (hardware-breakpoint counters)
@@ -107,8 +109,8 @@ From repo root:
 
 ```sh
 python3 book/evidence/experiments/profile-pipeline/encoder-write-trace/run_trace.py --mode triage
-python3 book/evidence/experiments/profile-pipeline/encoder-write-trace/analyze_trace.py
-python3 book/evidence/experiments/profile-pipeline/encoder-write-trace/check_trace_join.py
+python3 book/tools/sbpl/encoder_write_trace_analyze.py
+python3 book/tools/sbpl/encoder_write_trace_check.py
 ```
 
 Note: triage mode records hook metadata under `out/triage/`. Traces require
@@ -118,7 +120,7 @@ Use `--retries 0` to disable compile retries if you want a single attempt.
 For compile‑string/params checks (and other compile‑flavor probes), run:
 `python3 book/evidence/experiments/profile-pipeline/encoder-write-trace/run_trace.py --inputs book/evidence/experiments/profile-pipeline/encoder-write-trace/inputs_params.json --mode triage`.
 For the hardware‑breakpoint comparison, rerun with `--mode hw_breakpoint` and
-then `analyze_trace.py`.
+then `book/tools/sbpl/encoder_write_trace_analyze.py`.
 
 ## Blockers / risks
 
@@ -163,5 +165,5 @@ then `analyze_trace.py`.
   reachability metadata in `out/triage/`.
 - If the symbol is exported/bindable, try `--mode dynamic`; otherwise provide a
   stable address/offset and run `--mode patch`.
-- Once more inputs are traced, rerun `analyze_trace.py` and `check_trace_join.py`
+- Once more inputs are traced, rerun `book/tools/sbpl/encoder_write_trace_analyze.py` and `book/tools/sbpl/encoder_write_trace_check.py`
   to extend join coverage beyond the baseline manifest.

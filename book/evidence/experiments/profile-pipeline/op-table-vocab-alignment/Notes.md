@@ -6,3 +6,7 @@
 
 - Updated: refreshed `out/op_table_vocab_alignment.json` via `update_alignment.py` after correcting the op-table experiment’s framing (no “vocab-length op_count override”, stride=8 decoder witnesses captured upstream).
 - Updated: treat “op-table slot index == Operation ID” as an unsupported assumption for the synthetic profiles in `op-table-operation` (their op-table lengths are small and per-profile); this experiment now uses vocab only to attach numeric IDs to the SBPL `ops` set, while keeping bucket claims keyed on the observed `op_entries` patterns.
+
+## Migration
+
+- Updated: alignment regeneration now runs via `book/tools/sbpl/op_table_runner.py`.

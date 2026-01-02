@@ -19,6 +19,7 @@ WORLD_ID = "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
 SUMMARY_PATH = ROOT / "book/evidence/experiments/profile-pipeline/sandbox-init-params/out/validation_summary.json"
 STATUS_PATH = ROOT / "book/evidence/graph/concepts/validation/out/experiments/sandbox-init-params/status.json"
 META_PATH = ROOT / "book/evidence/graph/concepts/validation/out/metadata.json"
+TOOL_PATH = ROOT / "book/tools/sbpl/sandbox_init_params_validate.py"
 
 EXPECTED_RUNS = {
     "init_params_probe": {
@@ -98,7 +99,10 @@ registry.register(
         inputs=[rel(SUMMARY_PATH)],
         outputs=[rel(STATUS_PATH)],
         tags=["experiment:sandbox-init-params", "experiment", "static-format"],
-        description="Guardrail for sandbox-init-params: asserts canonical runs match expected blob len/sha for this world_id.",
+        description=(
+            "Guardrail for sandbox-init-params: asserts canonical runs match expected blob len/sha for this world_id. "
+            f"Refresh summary via {rel(TOOL_PATH)}."
+        ),
         example_command="python -m book.graph.concepts.validation --experiment sandbox-init-params",
         runner=run_sandbox_init_params_job,
     )

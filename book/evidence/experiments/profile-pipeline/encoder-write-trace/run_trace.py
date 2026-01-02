@@ -33,6 +33,196 @@ DEFAULT_BIND_IMAGE = Path("book/evidence/graph/mappings/dyld-libs/usr/lib/libsan
 RETRY_SIGNALS = {int(signal.SIGSEGV), int(signal.SIGTRAP)}
 DEFAULT_RETRIES = 1
 
+COMPILE_SNIPPET = r"""
+import ctypes
+import hashlib
+import json
+import os
+import sys
+from pathlib import Path
+
+DEFAULT_SANDBOX_PATH = "/usr/lib/libsandbox.1.dylib"
+
+
+def _find_repo_root(start: Path) -> Path:
+    cur = start.resolve()
+    for candidate in [cur] + list(cur.parents):
+        if (candidate / ".git").exists():
+            return candidate
+    raise RuntimeError("Unable to locate repo root")
+
+
+def _sha256_bytes(data: bytes) -> str:
+    h = hashlib.sha256()
+    h.update(data)
+    return h.hexdigest()
+
+
+def _write_json(payload: object) -> None:
+    sys.stdout.write(json.dumps(payload, sort_keys=True) + "\n")
+
+
+def _parse_params(raw):
+    if not raw:
+        return None
+    value = json.loads(raw)
+    if isinstance(value, dict):
+        return {str(k): str(v) for k, v in value.items()}
+    raise ValueError("params must be a JSON object mapping string keys to string values")
+
+
+def _emit_error(
+    *,
+    input_path: Path,
+    out_blob: Path,
+    mode: str,
+    params,
+    error_stage: str,
+    error: str,
+    repo_root: Path,
+) -> int:
+    payload = {
+        "status": "error",
+        "input": to_repo_relative(input_path, repo_root),
+        "out_blob": to_repo_relative(out_blob, repo_root),
+        "mode": mode,
+        "params": params,
+        "error_stage": error_stage,
+        "error": error,
+    }
+    _write_json(payload)
+    if out_blob.exists():
+        out_blob.unlink()
+    return 2
+
+
+repo_root = os.environ.get("SBPL_REPO_ROOT")
+repo_root_path = Path(repo_root).resolve() if repo_root else _find_repo_root(Path.cwd())
+if str(repo_root_path) not in sys.path:
+    sys.path.insert(0, str(repo_root_path))
+
+from book.api.path_utils import ensure_absolute, to_repo_relative  # type: ignore
+from book.api.profile import compile as compile_mod  # type: ignore
+from book.api.profile.compile import libsandbox  # type: ignore
+
+
+def main() -> int:
+    input_raw = os.environ.get("SBPL_COMPILE_INPUT")
+    out_raw = os.environ.get("SBPL_COMPILE_OUT_BLOB")
+    mode = os.environ.get("SBPL_COMPILE_MODE", "file")
+    params_raw = os.environ.get("SBPL_COMPILE_PARAMS")
+    if not input_raw or not out_raw:
+        _write_json(
+            {
+                "status": "error",
+                "error_stage": "config",
+                "error": "SBPL_COMPILE_INPUT and SBPL_COMPILE_OUT_BLOB are required",
+            }
+        )
+        return 2
+
+    input_path = ensure_absolute(Path(input_raw), repo_root_path)
+    out_blob = ensure_absolute(Path(out_raw), repo_root_path)
+    try:
+        params = _parse_params(params_raw)
+    except Exception as exc:
+        return _emit_error(
+            input_path=input_path,
+            out_blob=out_blob,
+            mode=mode,
+            params=None,
+            error_stage="parse_params",
+            error=str(exc),
+            repo_root=repo_root_path,
+        )
+
+    sandbox_path = os.environ.get("SBPL_SANDBOX_PATH")
+    lib = None
+    if sandbox_path and sandbox_path != DEFAULT_SANDBOX_PATH:
+        sandbox_abs = ensure_absolute(Path(sandbox_path), repo_root_path)
+        if not sandbox_abs.exists():
+            return _emit_error(
+                input_path=input_path,
+                out_blob=out_blob,
+                mode=mode,
+                params=params,
+                error_stage="sandbox_path",
+                error=f"SBPL_SANDBOX_PATH does not exist: {sandbox_path}",
+                repo_root=repo_root_path,
+            )
+        try:
+            lib = ctypes.CDLL(str(sandbox_abs))
+        except OSError as exc:
+            return _emit_error(
+                input_path=input_path,
+                out_blob=out_blob,
+                mode=mode,
+                params=params,
+                error_stage="load_libsandbox",
+                error=f"failed to load libsandbox from {sandbox_path}: {exc}",
+                repo_root=repo_root_path,
+            )
+    else:
+        try:
+            lib = libsandbox.load_libsandbox()
+        except Exception as exc:
+            return _emit_error(
+                input_path=input_path,
+                out_blob=out_blob,
+                mode=mode,
+                params=params,
+                error_stage="load_libsandbox",
+                error=str(exc),
+                repo_root=repo_root_path,
+            )
+
+    try:
+        if mode == "string":
+            try:
+                sbpl_text = input_path.read_text()
+            except Exception as exc:
+                return _emit_error(
+                    input_path=input_path,
+                    out_blob=out_blob,
+                    mode=mode,
+                    params=params,
+                    error_stage="read_input",
+                    error=str(exc),
+                    repo_root=repo_root_path,
+                )
+            result = compile_mod.compile_sbpl_string(sbpl_text, lib=lib, params=params)
+            out_blob.parent.mkdir(parents=True, exist_ok=True)
+            out_blob.write_bytes(result.blob)
+        else:
+            result = compile_mod.compile_sbpl_file(input_path, out_blob, lib=lib, params=params)
+    except Exception as exc:
+        return _emit_error(
+            input_path=input_path,
+            out_blob=out_blob,
+            mode=mode,
+            params=params,
+            error_stage="compile",
+            error=str(exc),
+            repo_root=repo_root_path,
+        )
+
+    payload = {
+        "status": "ok",
+        "input": to_repo_relative(input_path, repo_root_path),
+        "out_blob": to_repo_relative(out_blob, repo_root_path),
+        "mode": mode,
+        "params": params,
+        "length": result.length,
+        "profile_type": result.profile_type,
+        "blob_sha256": _sha256_bytes(result.blob),
+    }
+    _write_json(payload)
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+"""
 
 def _load_inputs(path: Path) -> Mapping[str, Any]:
     raw = json.loads(path.read_text())
@@ -116,14 +306,14 @@ def _parse_nm_scope(output: str, symbol: str) -> Dict[str, Any]:
     }
 
 
-def _read_dwarfdump_uuids(path: Path) -> Dict[str, Any]:
+def _read_dwarfdump_uuids(path: Path, repo_root: Path) -> Dict[str, Any]:
     result = _run_tool(["xcrun", "dwarfdump", "--uuid", str(path)])
     stdout = (result.stdout or "").strip()
     stderr = (result.stderr or "").strip()
     if result.returncode != 0:
         return {
             "status": "error",
-            "path": str(path),
+            "path": to_repo_relative(path, repo_root),
             "error": stderr or "dwarfdump failed",
             "entries": [],
         }
@@ -135,16 +325,24 @@ def _read_dwarfdump_uuids(path: Path) -> Dict[str, Any]:
         match = re.match(r"UUID: ([0-9A-Fa-f-]+) \(([^)]+)\) (.+)", line)
         if not match:
             continue
+        raw_path = match.group(3)
+        if Path(raw_path).is_absolute():
+            try:
+                entry_path = to_repo_relative(Path(raw_path), repo_root)
+            except Exception:
+                entry_path = raw_path
+        else:
+            entry_path = raw_path
         entries.append(
             {
                 "uuid": match.group(1).lower(),
                 "arch": match.group(2),
-                "path": match.group(3),
+                "path": entry_path,
             }
         )
     return {
         "status": "ok",
-        "path": str(path),
+        "path": to_repo_relative(path, repo_root),
         "entries": entries,
     }
 
@@ -328,8 +526,8 @@ def _analyze_bind_tables(
     analysis["dyld_info"] = dyld_bundle
 
     arch = platform.machine()
-    extracted_uuid = _read_dwarfdump_uuids(image_path)
-    host_uuid = _read_dwarfdump_uuids(uuid_host_path) if uuid_host_path else {
+    extracted_uuid = _read_dwarfdump_uuids(image_path, repo_root)
+    host_uuid = _read_dwarfdump_uuids(uuid_host_path, repo_root) if uuid_host_path else {
         "status": "missing",
         "path": None,
         "entries": [],
@@ -423,7 +621,6 @@ def _augment_triage(
 def _run_compile(
     repo_root: Path,
     interposer: Path,
-    compile_script: Path,
     sbpl_path: Path,
     trace_path: Path,
     stats_path: Path,
@@ -449,6 +646,14 @@ def _run_compile(
     env["SBPL_TRACE_MODE"] = mode
     env["SBPL_TRACE_TRIAGE_OUT"] = str(triage_path)
     env["SBPL_TRACE_STATS_OUT"] = str(stats_path)
+    env["SBPL_REPO_ROOT"] = str(repo_root)
+    env["SBPL_COMPILE_INPUT"] = str(sbpl_path)
+    env["SBPL_COMPILE_OUT_BLOB"] = str(out_blob)
+    env["SBPL_COMPILE_MODE"] = compile_mode
+    if compile_params is not None:
+        env["SBPL_COMPILE_PARAMS"] = json.dumps(compile_params, sort_keys=True)
+    else:
+        env.pop("SBPL_COMPILE_PARAMS", None)
     if write_addr:
         env["SBPL_WRITE_ADDR"] = write_addr
     if write_unslid:
@@ -464,18 +669,8 @@ def _run_compile(
     if dyld_shared_region:
         env["DYLD_SHARED_REGION"] = dyld_shared_region
 
-    cmd = [
-        sys.executable,
-        str(compile_script),
-        "--input",
-        str(sbpl_path),
-        "--out-blob",
-        str(out_blob),
-        "--compile-mode",
-        compile_mode,
-    ]
-    if compile_params is not None:
-        cmd.extend(["--params", json.dumps(compile_params, sort_keys=True)])
+    env["PYTHONPATH"] = str(repo_root) + os.pathsep + env.get("PYTHONPATH", "")
+    cmd = [sys.executable, "-c", COMPILE_SNIPPET]
     attempts_log: List[Dict[str, Any]] = []
     attempts = 0
     retry_limit = max(0, retries)
@@ -652,8 +847,6 @@ def main(argv: Optional[List[str]] = None) -> int:
     if not args.skip_build:
         subprocess.check_call([str(build_script)], cwd=repo_root)
 
-    compile_script = ensure_absolute(Path("book/evidence/experiments/profile-pipeline/encoder-write-trace/compile_one.py"), repo_root)
-
     if args.bind_image is not None:
         bind_image = ensure_absolute(args.bind_image, repo_root)
     else:
@@ -750,7 +943,6 @@ def main(argv: Optional[List[str]] = None) -> int:
         compile_result = _run_compile(
             repo_root,
             interposer,
-            compile_script,
             sbpl_path,
             trace_path,
             stats_path,
@@ -833,7 +1025,7 @@ def main(argv: Optional[List[str]] = None) -> int:
             "target_symbol": TARGET_SYMBOL,
             "bind_image": to_repo_relative(bind_image, repo_root),
             "compile_command": relativize_command(
-                [sys.executable, compile_script, "--input", "<sbpl>", "--out-blob", "<blob>"],
+                [sys.executable, "-m", "book.api.profile", "compile", "<sbpl>", "--out", "<blob>"],
                 repo_root,
             ),
             "env": {

@@ -26,7 +26,7 @@ This experiment focuses on that gap:
 - Treat raw op-table entries as **opaque bucket labels**, not Operation IDs.
 - Use decoder-backed per-entry “signatures” (tag/literal patterns) as structural fingerprints.
 - Prepare the ground for later vocabulary-mapping work that will supply real Operation IDs.
-- Shared tooling: for new blob summaries (op_table entries, tag counts, literals, entry signatures), prefer `book/api/profile` (CLI or Python) over extending `analyze.py`.
+- Shared tooling: for new blob summaries (op_table entries, tag counts, literals, entry signatures), prefer `book/api/profile` (CLI or Python) over extending the batch runner.
 
 We intentionally avoid guessing op-table slot ordering or Operation↔bucket semantics without a witness. The Operation Vocabulary Map exists for this host (`book/evidence/graph/mappings/vocab/ops.json`, status: ok), but connecting these synthetic profiles’ op-table slots/buckets to numeric Operation IDs remains under exploration.
 
@@ -42,12 +42,12 @@ We intentionally avoid guessing op-table slot ordering or Operation↔bucket sem
 - `Plan.md` – experiment plan and open questions.
 - `Notes.md` – dated notes on variants, analyzer changes, and findings.
 - `sb/` – SBPL variants for this experiment.
-- `sb/build/*.sb.bin` – compiled profile blobs (written by the analyzer).
-- `analyze.py` – the main tool here:
-  - compiles all `sb/*.sb` using `libsandbox.dylib` and `sandbox_compile_string`,
+- `sb/build/*.sb.bin` – compiled profile blobs (written by the batch runner).
+- `book/tools/sbpl/op_table_runner.py` – the batch runner here:
+  - compiles all `sb/*.sb` using libsandbox on this host,
   - parses SBPL to recover the list of allowed operation symbols per profile,
   - tokenizes SBPL to recover filter symbols and map them to filter vocab IDs,
-  - uses `profile_ingestion.parse_header` and `slice_sections` to recover `operation_count` and section boundaries,
+  - uses `book.api.profile.ingestion.parse_header` and `slice_sections` to recover `operation_count` and section boundaries,
   - calls `book.api.profile.decoder.decode_profile_dict` to get node counts, tag counts, literal strings, sections, and stride-selection witnesses,
   - extracts op-table entries from the blob,
   - computes simple tag counts over the node region (stride=8, plus a stride=12 historical view),
@@ -59,7 +59,7 @@ We intentionally avoid guessing op-table slot ordering or Operation↔bucket sem
 
 **Shared dependencies**
 
-- `book.graph.concepts.validation.profile_ingestion` – header parsing, section slicing.
+- `book.api.profile.ingestion` – header parsing, section slicing.
 - `book.api.profile.decoder` – modern-profile decoder (op-table scaling witness + stride selection, nodes, literal pool).
 
 ---
@@ -80,7 +80,7 @@ We intentionally avoid guessing op-table slot ordering or Operation↔bucket sem
 - **1. Setup and scope**
   - Defined the core operation set to probe (file-read*, file-write*, mach-lookup, network-outbound, and a baseline profile).
   - Created single-op and paired-op SBPL profiles under `sb/` covering these operations.
-  - Added `analyze.py` to compile all variants and emit op_count, op_entries, stride=8 tag counts (plus a stride=12 historical view), remainders, and literal summaries.
+  - Added `book/tools/sbpl/op_table_runner.py` to compile all variants and emit op_count, op_entries, stride=8 tag counts (plus a stride=12 historical view), remainders, and literal summaries.
 - **2. Data collection and correlation**
   - Compiled all `sb/*.sb` variants and produced `out/summary.json`.
   - Built `out/op_table_map.json` capturing op_entries, unique buckets, and operation sets per profile, including filter annotations.
@@ -88,7 +88,7 @@ We intentionally avoid guessing op-table slot ordering or Operation↔bucket sem
   - Reused the shared decoder to walk from each op-table entrypoint and record per-entry signatures (tag_counts, reachable literals), stored in `out/op_table_signatures.json`.
   - Added an in-process runtime spot-check for the `[6,…,5]` profile (`v12_read_subpath_mach`) via `runtime_probe.c`: `sandbox_init` succeeded; `mach-lookup` (`com.apple.cfprefsd.agent`) returned `kr=0`; file reads of both the allowed subpath and `/etc/hosts` returned `EPERM`. Runtime results recorded in `out/runtime_signatures.json` (schema `provisional`).
   - Added a control runtime probe for `v11_read_subpath` (bucket {5}): `sandbox_init` succeeded; both reads returned `EPERM`; `mach_lookup` returned `kr=1100`. Also recorded as provisional in `out/runtime_signatures.json`.
-  - Consolidated static data plus provisional runtime hints into `out/op_table_catalog_v1.json` via `build_catalog.py`. Each record includes bucket pattern, op entries, ops/filters, decoder signatures, and optional `runtime_signature` flagged as provisional for future `ops.json` joins.
+  - Consolidated static data plus provisional runtime hints into `out/op_table_catalog_v1.json` via `book/tools/sbpl/op_table_runner.py`. Each record includes bucket pattern, op entries, ops/filters, decoder signatures, and optional `runtime_signature` flagged as provisional for future `ops.json` joins.
 - **4. Documentation and reporting**
   - Kept dated notes in `Notes.md`.
   - Summarized findings and open questions in `ResearchReport.md`.
@@ -142,7 +142,7 @@ We intentionally avoid guessing op-table slot ordering or Operation↔bucket sem
   6. **Keep artifacts and documentation aligned**
      - Whenever you add or modify SBPL variants:
        - describe the intent in `Notes.md`,
-       - ensure `analyze.py` still compiles everything and updates all three outputs,
+       - ensure `book/tools/sbpl/op_table_runner.py` still compiles everything and updates all three outputs,
       - run `make -C book test` to keep the experiment’s tests green.
      - If you add new buckets or signatures, consider extending `book/tests/planes/examples/test_experiments.py` with sanity checks (e.g., verifying that specific profiles still have expected bucket shapes).
   
@@ -167,7 +167,7 @@ We intentionally avoid guessing op-table slot ordering or Operation↔bucket sem
 
 ## Evidence & artifacts
 - SBPL variants under `sb/` and compiled profiles in `sb/build/*.sb.bin`.
-- Analyzer script `book/evidence/experiments/profile-pipeline/op-table-operation/analyze.py`.
+- Batch runner `book/tools/sbpl/op_table_runner.py`.
 - `out/summary.json`, `out/op_table_map.json`, and `out/op_table_signatures.json` as described above.
 - Consolidated catalog: `out/op_table_catalog_v1.json` (schema `op_table_catalog_v1`) with bucket patterns, ops/filters, decoder signatures, and provisional runtime hints.
 - Promoted op-table mappings: `book/evidence/graph/mappings/op_table/` (regenerate after refreshing experiment outputs via `book/graph/mappings/op_table/generate_op_table_mappings.py`).
@@ -256,7 +256,7 @@ They fall into three main families:
 
 **Method**
 
-For each profile, `analyze.py`:
+For each profile, the batch runner:
 
 1. Parses SBPL to list operation symbols (e.g., `["file-read*", "mach-lookup"]`).
 2. Compiles SBPL via `libsandbox`, producing a modern profile blob.

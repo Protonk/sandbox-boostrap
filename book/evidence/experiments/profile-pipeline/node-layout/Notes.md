@@ -244,3 +244,7 @@ The final notes for 2025-11-28 push further into mixed-op probes explicitly targ
 ## Field2 work moved
 
 - Field2-focused node-field analysis moved to `book/evidence/experiments/field2-final-final/` to centralize field2 work.
+
+## Migration
+
+- Updated: node-layout batch regeneration now runs via `book/tools/sbpl/node_layout_runner.py` (replacing the experiment-local analyzer for `out/summary.json` refreshes).

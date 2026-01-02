@@ -1,51 +1,16 @@
-#!/usr/bin/env python3
+"""
+Shared helpers for encoder write-trace analysis (Sonoma baseline).
+
+These are structural utilities for aligning traced write records to compiled
+blob bytes. They intentionally avoid runtime semantics.
+"""
+
 from __future__ import annotations
 
-import argparse
-import json
-import sys
-from pathlib import Path
 from typing import Any, Dict, Iterable, List, Mapping, Optional, Tuple
 
-def _find_repo_root(start: Path) -> Path:
-    cur = start.resolve()
-    for candidate in [cur] + list(cur.parents):
-        if (candidate / ".git").exists():
-            return candidate
-    raise RuntimeError("Unable to locate repo root")
 
-
-REPO_ROOT = _find_repo_root(Path(__file__))
-if str(REPO_ROOT) not in sys.path:
-    sys.path.insert(0, str(REPO_ROOT))
-
-from book.api.path_utils import ensure_absolute, find_repo_root, to_repo_relative  # type: ignore
-from book.api.profile.identity import baseline_world_id  # type: ignore
-
-
-def _load_json(path: Path) -> Any:
-    return json.loads(path.read_text())
-
-
-def _load_jsonl(path: Path) -> List[Dict[str, Any]]:
-    records: List[Dict[str, Any]] = []
-    if not path.exists():
-        return records
-    for line in path.read_text().splitlines():
-        line = line.strip()
-        if not line:
-            continue
-        records.append(json.loads(line))
-    return records
-
-
-def _hex_to_bytes(value: str) -> bytes:
-    if not value:
-        return b""
-    return bytes.fromhex(value)
-
-
-def _merge_ranges(ranges: Iterable[Tuple[int, int]]) -> List[Tuple[int, int]]:
+def merge_ranges(ranges: Iterable[Tuple[int, int]]) -> List[Tuple[int, int]]:
     merged: List[Tuple[int, int]] = []
     for start, end in sorted(ranges):
         if not merged:
@@ -59,10 +24,10 @@ def _merge_ranges(ranges: Iterable[Tuple[int, int]]) -> List[Tuple[int, int]]:
     return merged
 
 
-def _ranges_complement(ranges: Iterable[Tuple[int, int]], window_len: int) -> List[Tuple[int, int]]:
+def ranges_complement(ranges: Iterable[Tuple[int, int]], window_len: int) -> List[Tuple[int, int]]:
     holes: List[Tuple[int, int]] = []
     pos = 0
-    for start, end in _merge_ranges(ranges):
+    for start, end in merge_ranges(ranges):
         if start > pos:
             holes.append((pos, start))
         pos = max(pos, end)
@@ -71,7 +36,7 @@ def _ranges_complement(ranges: Iterable[Tuple[int, int]], window_len: int) -> Li
     return holes
 
 
-def _normalize_writes(
+def normalize_writes(
     writes: Iterable[Tuple[int, bytes]],
     *,
     cursor_mode: str,
@@ -85,7 +50,7 @@ def _normalize_writes(
     return base, normalized
 
 
-def _find_all(haystack: bytes, needle: bytes) -> Iterable[int]:
+def find_all(haystack: bytes, needle: bytes) -> Iterable[int]:
     if not needle:
         return []
     start = 0
@@ -99,7 +64,7 @@ def _find_all(haystack: bytes, needle: bytes) -> Iterable[int]:
     return out
 
 
-def _align_gapped(
+def align_gapped(
     writes: Iterable[Tuple[int, bytes]],
     *,
     cursor_mode: str,
@@ -108,7 +73,7 @@ def _align_gapped(
 ) -> Optional[Dict[str, Any]]:
     if not blob or window_len <= 0:
         return None
-    _, normalized = _normalize_writes(writes, cursor_mode=cursor_mode)
+    _, normalized = normalize_writes(writes, cursor_mode=cursor_mode)
     if not normalized:
         return None
 
@@ -120,7 +85,7 @@ def _align_gapped(
             if len(data) < min_len:
                 continue
             bases_for_write = set()
-            for pos in _find_all(blob, data):
+            for pos in find_all(blob, data):
                 base = pos - cursor
                 if base < 0:
                     continue
@@ -168,9 +133,9 @@ def _align_gapped(
         else:
             mismatched_writes += 1
 
-    merged = _merge_ranges(witnessed_ranges)
+    merged = merge_ranges(witnessed_ranges)
     witnessed_bytes = sum(end - start for start, end in merged)
-    holes = _ranges_complement(merged, window_len)
+    holes = ranges_complement(merged, window_len)
     candidates_sorted = sorted(
         (
             {"base_offset": base, **stats}
@@ -194,7 +159,7 @@ def _align_gapped(
     }
 
 
-def _reconstruct(
+def reconstruct(
     writes: Iterable[Tuple[int, bytes]],
     *,
     cursor_mode: str,
@@ -209,11 +174,9 @@ def _reconstruct(
             "conflicts": 0,
             "match": {"kind": "none"},
         }
-
     base = 0
     if cursor_mode == "cursor_as_ptr":
         base = min(cursors)
-
     max_end = 0
     for cursor, data in writes:
         end = (cursor - base) + len(data)
@@ -250,12 +213,11 @@ def _reconstruct(
     if coverage != max_end:
         result["match"] = {"kind": "gapped"}
         return result
-
     result["reconstructed_bytes"] = bytes(reconstructed)
     return result
 
 
-def _match_reconstruction(reconstructed: bytes, blob: bytes) -> Dict[str, Any]:
+def match_reconstruction(reconstructed: bytes, blob: bytes) -> Dict[str, Any]:
     if reconstructed == blob:
         return {"kind": "full", "blob_offset": 0}
     if reconstructed:
@@ -268,11 +230,11 @@ def _match_reconstruction(reconstructed: bytes, blob: bytes) -> Dict[str, Any]:
     return {"kind": "none"}
 
 
-def _score_match(kind: str) -> int:
+def score_match(kind: str) -> int:
     return {"full": 4, "subset": 3, "superset": 2, "gapped": 1, "none": 0}.get(kind, 0)
 
 
-def _select_best(modes: List[Dict[str, Any]], preferred_buf: Optional[str] = None) -> Optional[Dict[str, Any]]:
+def select_best(modes: List[Dict[str, Any]], preferred_buf: Optional[str] = None) -> Optional[Dict[str, Any]]:
     if preferred_buf:
         filtered = [mode for mode in modes if mode.get("buf") == preferred_buf]
         if filtered:
@@ -281,7 +243,7 @@ def _select_best(modes: List[Dict[str, Any]], preferred_buf: Optional[str] = Non
     for mode in modes:
         match = mode.get("match")
         kind = match.get("kind") if isinstance(match, Mapping) else "none"
-        score = _score_match(str(kind))
+        score = score_match(str(kind))
         if best is None:
             best = mode
             best["_score"] = score
@@ -319,150 +281,92 @@ def _select_best(modes: List[Dict[str, Any]], preferred_buf: Optional[str] = Non
     return best
 
 
-def main(argv: Optional[List[str]] = None) -> int:
-    ap = argparse.ArgumentParser(prog="analyze-trace")
-    ap.add_argument(
-        "--manifest",
-        type=Path,
-        default=Path("book/evidence/experiments/profile-pipeline/encoder-write-trace/out/manifest.json"),
-        help="Trace manifest (repo-relative)",
-    )
-    ap.add_argument(
-        "--out",
-        type=Path,
-        default=Path("book/evidence/experiments/profile-pipeline/encoder-write-trace/out/trace_analysis.json"),
-        help="Output JSON path",
-    )
-    args = ap.parse_args(argv)
-
-    repo_root = find_repo_root()
-    manifest_path = ensure_absolute(args.manifest, repo_root)
-    out_path = ensure_absolute(args.out, repo_root)
-
-    manifest = _load_json(manifest_path)
-    expected_world = baseline_world_id(repo_root)
-    if manifest.get("world_id") != expected_world:
-        raise ValueError(f"manifest world_id mismatch: {manifest.get('world_id')} != {expected_world}")
-
-    entries_out: List[Dict[str, Any]] = []
-
-    for entry in manifest.get("inputs", []):
+def best_trace_map(analysis: Mapping[str, Any]) -> Dict[str, Dict[str, Any]]:
+    out: Dict[str, Dict[str, Any]] = {}
+    for entry in analysis.get("entries", []):
         if not isinstance(entry, Mapping):
             continue
         entry_id = entry.get("id")
-        sbpl_rel = entry.get("sbpl")
-        trace_rel = entry.get("trace")
-        blob_rel = entry.get("blob")
-        stats_rel = entry.get("stats")
-        compile_info = entry.get("compile") if isinstance(entry.get("compile"), Mapping) else {}
-        trace_integrity = entry.get("trace_integrity") if isinstance(entry.get("trace_integrity"), Mapping) else {}
-        compile_status = None
-        compile_error = None
-        if isinstance(compile_info, Mapping):
-            compile_status = compile_info.get("status")
-            compile_error = compile_info.get("error")
-            if not compile_error and isinstance(compile_info.get("output"), Mapping):
-                compile_error = compile_info["output"].get("error")
-        if compile_status is None and isinstance(trace_integrity, Mapping):
-            compile_status = trace_integrity.get("compile_status")
-        if not isinstance(entry_id, str):
+        best = entry.get("best")
+        if not isinstance(entry_id, str) or not isinstance(best, Mapping):
             continue
-        if not isinstance(trace_rel, str) or not isinstance(blob_rel, str):
-            continue
+        match = best.get("match")
+        kind = match.get("kind") if isinstance(match, Mapping) else None
+        best_blob_offset = match.get("blob_offset", 0) if isinstance(match, Mapping) else 0
+        best_length = best.get("reconstructed_len")
+        best_candidate: Optional[Dict[str, Any]] = None
+        if isinstance(best_length, int) and isinstance(best_blob_offset, int):
+            if kind in {"full", "subset"}:
+                best_candidate = {
+                    "blob_offset": best_blob_offset,
+                    "length": best_length,
+                    "witnessed_ranges": [[0, best_length]],
+                    "coverage_kind": kind,
+                    "join_source": "best_match",
+                }
+            elif kind == "gapped":
+                alignment = best.get("alignment")
+                if isinstance(alignment, Mapping):
+                    base = alignment.get("base_offset")
+                    length = alignment.get("window_len")
+                    ranges = alignment.get("witnessed_ranges")
+                    if isinstance(base, int) and isinstance(length, int) and isinstance(ranges, list):
+                        best_candidate = {
+                            "blob_offset": base,
+                            "length": length,
+                            "witnessed_ranges": ranges,
+                            "coverage_kind": kind,
+                            "join_source": "best_match",
+                        }
 
-        trace_path = ensure_absolute(trace_rel, repo_root)
-        blob_path = ensure_absolute(blob_rel, repo_root)
-        blob_bytes = blob_path.read_bytes() if blob_path.exists() else b""
-
-        immutable_buffer = None
-        if isinstance(stats_rel, str):
-            stats_path = ensure_absolute(stats_rel, repo_root)
-            if stats_path.exists():
-                try:
-                    stats_payload = _load_json(stats_path)
-                except Exception:
-                    stats_payload = None
-                if isinstance(stats_payload, Mapping):
-                    imm = stats_payload.get("immutable_buf")
-                    if isinstance(imm, str) and imm.startswith("0x"):
-                        immutable_buffer = imm
-
-        records = _load_jsonl(trace_path)
-        by_buf: Dict[str, List[Tuple[int, bytes]]] = {}
-        for rec in records:
-            if not isinstance(rec, Mapping):
+        gapped_best: Optional[Dict[str, Any]] = None
+        for buf in entry.get("buffers", []):
+            if not isinstance(buf, Mapping):
                 continue
-            buf = rec.get("buf")
-            cursor = rec.get("cursor")
-            data_hex = rec.get("bytes_hex")
-            if not isinstance(buf, str):
+            alignment = buf.get("alignment")
+            if not isinstance(alignment, Mapping):
                 continue
-            if not isinstance(cursor, int):
+            base = alignment.get("base_offset")
+            length = alignment.get("window_len")
+            ranges = alignment.get("witnessed_ranges")
+            witnessed = alignment.get("witnessed_bytes", 0)
+            if not isinstance(base, int) or not isinstance(length, int) or not isinstance(ranges, list):
                 continue
-            if not isinstance(data_hex, str):
-                continue
-            by_buf.setdefault(buf, []).append((cursor, _hex_to_bytes(data_hex)))
-
-        buffers_out: List[Dict[str, Any]] = []
-        best_buffer: Optional[Dict[str, Any]] = None
-
-        for buf, writes in by_buf.items():
-            writes_sorted = sorted(writes, key=lambda w: w[0])
-            modes: List[Dict[str, Any]] = []
-            for mode in ("cursor_as_offset", "cursor_as_ptr"):
-                rec = _reconstruct(writes_sorted, cursor_mode=mode)
-                reconstructed = rec.pop("reconstructed_bytes", None)
-                if isinstance(reconstructed, (bytes, bytearray)) and rec.get("match", {}).get("kind") != "gapped":
-                    rec["match"] = _match_reconstruction(bytes(reconstructed), blob_bytes)
-                if rec.get("match", {}).get("kind") == "gapped":
-                    alignment = _align_gapped(
-                        writes_sorted,
-                        cursor_mode=mode,
-                        blob=blob_bytes,
-                        window_len=int(rec.get("reconstructed_len", 0)),
-                    )
-                    if alignment:
-                        rec["alignment"] = alignment
-                rec.update({"buf": buf, "write_count": len(writes_sorted)})
-                modes.append(rec)
-
-            best_mode = _select_best(modes)
-            if best_mode is not None:
-                best_mode["modes"] = modes
-                buffers_out.append(best_mode)
-
-        if buffers_out:
-            best_buffer = _select_best(buffers_out, preferred_buf=immutable_buffer)
-
-        entries_out.append(
-            {
-                "id": entry_id,
-                "sbpl": sbpl_rel,
-                "trace": trace_rel,
-                "blob": blob_rel,
-                "compile_status": compile_status,
-                "compile_error": compile_error,
-                "immutable_buffer": immutable_buffer,
-                "trace_records": len(records),
-                "buffers": buffers_out,
-                "best": best_buffer,
+            candidate = {
+                "blob_offset": base,
+                "length": length,
+                "witnessed_ranges": ranges,
+                "coverage_kind": "gapped",
+                "join_source": "gapped_alignment",
+                "witnessed_bytes": int(witnessed) if isinstance(witnessed, int) else 0,
             }
-        )
+            if gapped_best is None:
+                gapped_best = candidate
+            else:
+                best_witnessed = int(gapped_best.get("witnessed_bytes", 0))
+                if candidate["witnessed_bytes"] > best_witnessed:
+                    gapped_best = candidate
+                elif candidate["witnessed_bytes"] == best_witnessed:
+                    if candidate["length"] > gapped_best.get("length", 0):
+                        gapped_best = candidate
 
-    payload = {
-        "world_id": expected_world,
-        "manifest": to_repo_relative(manifest_path, repo_root),
-        "entries": entries_out,
-    }
+        join_candidate = best_candidate
+        if gapped_best:
+            if not join_candidate:
+                join_candidate = gapped_best
+            else:
+                join_len = int(join_candidate.get("length", 0))
+                if gapped_best["length"] > join_len:
+                    join_candidate = gapped_best
 
-    _write_json(out_path, payload)
-    return 0
+        if join_candidate:
+            join_candidate.pop("witnessed_bytes", None)
+            out[entry_id] = join_candidate
+    return out
 
 
-def _write_json(path: Path, payload: Any) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
-
-
-if __name__ == "__main__":
-    raise SystemExit(main())
+def range_contains(ranges: List[List[int]], offset: int) -> bool:
+    for start, end in ranges:
+        if start <= offset < end:
+            return True
+    return False

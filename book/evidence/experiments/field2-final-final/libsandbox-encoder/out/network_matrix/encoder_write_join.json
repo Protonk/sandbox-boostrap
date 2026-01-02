@@ -1,7 +1,7 @@
 {
   "analysis": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/trace_analysis.json",
   "events": {
-    "count": 9575,
+    "count": 3560,
     "path": "book/evidence/experiments/field2-final-final/libsandbox-encoder/out/network_matrix/encoder_write_events.jsonl",
     "span_class_notes": {
       "spans_boundary": "write span crosses a witnessed/hole boundary",
@@ -10,7 +10,35 @@
     }
   },
   "manifest": "book/evidence/experiments/field2-final-final/libsandbox-encoder/sb/network_matrix/MANIFEST.json",
-  "missing_specs": [],
+  "missing_specs": [
+    "triple_all_udp",
+    "triple_any_tcp",
+    "triple_any_256",
+    "triple_nested_tcp",
+    "triple_nested_256",
+    "pair_dt_all_system_stream",
+    "pair_dt_all_inet_dgram",
+    "pair_dt_any_inet_stream",
+    "pair_dt_any_system_stream",
+    "pair_dt_any_inet_dgram",
+    "pair_dp_all_inet_256",
+    "pair_dp_all_system_tcp",
+    "pair_dp_all_inet_udp",
+    "pair_dp_any_inet_tcp",
+    "pair_dp_any_inet_256",
+    "pair_dp_any_system_tcp",
+    "pair_dp_any_inet_udp",
+    "pair_tp_all_stream_256",
+    "pair_tp_all_dgram_tcp",
+    "pair_tp_all_stream_udp",
+    "pair_tp_any_stream_tcp",
+    "pair_tp_any_stream_256",
+    "pair_tp_any_dgram_tcp",
+    "pair_tp_any_stream_udp",
+    "triple_all_system_stream_tcp",
+    "triple_all_inet_dgram_tcp",
+    "triple_all_inet_stream_udp"
+  ],
   "notes": [
     "Blob offsets are derived from encoder-write-trace alignment; base_offset + cursor_offset.",
     "Holes indicate missing coverage in the reconstructed byte stream and should be treated as inferred if reading bytes from the blob."
@@ -32,7 +60,7 @@
       "join_status": "ok",
       "spec_id": "domain_af_inet",
       "trace": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/traces/domain_af_inet.jsonl",
-      "trace_records": 224,
+      "trace_records": 221,
       "window_len": 484,
       "witnessed_ranges": [
         [
@@ -90,7 +118,7 @@
       "join_status": "ok",
       "spec_id": "type_sock_stream",
       "trace": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/traces/type_sock_stream.jsonl",
-      "trace_records": 221,
+      "trace_records": 222,
       "window_len": 484,
       "witnessed_ranges": [
         [
@@ -119,7 +147,7 @@
       "join_status": "ok",
       "spec_id": "type_sock_dgram",
       "trace": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/traces/type_sock_dgram.jsonl",
-      "trace_records": 221,
+      "trace_records": 222,
       "window_len": 484,
       "witnessed_ranges": [
         [
@@ -206,7 +234,7 @@
       "join_status": "ok",
       "spec_id": "proto_256",
       "trace": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/traces/proto_256.jsonl",
-      "trace_records": 222,
+      "trace_records": 224,
       "window_len": 484,
       "witnessed_ranges": [
         [
@@ -264,93 +292,6 @@
       "join_status": "ok",
       "spec_id": "triple_all_inet_stream_256",
       "trace": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/traces/triple_all_inet_stream_256.jsonl",
-      "trace_records": 225,
-      "window_len": 500,
-      "witnessed_ranges": [
-        [
-          0,
-          394
-        ],
-        [
-          400,
-          500
-        ]
-      ]
-    },
-    {
-      "base_cursor": null,
-      "base_offset": 0,
-      "blob": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/blobs/triple_all_udp.sb.bin",
-      "cursor_mode": "cursor_as_offset",
-      "hole_ranges": [
-        [
-          394,
-          400
-        ]
-      ],
-      "in_manifest": true,
-      "join_source": "gapped_alignment",
-      "join_status": "ok",
-      "spec_id": "triple_all_udp",
-      "trace": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/traces/triple_all_udp.jsonl",
-      "trace_records": 224,
-      "window_len": 500,
-      "witnessed_ranges": [
-        [
-          0,
-          394
-        ],
-        [
-          400,
-          500
-        ]
-      ]
-    },
-    {
-      "base_cursor": null,
-      "base_offset": 0,
-      "blob": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/blobs/triple_any_tcp.sb.bin",
-      "cursor_mode": "cursor_as_offset",
-      "hole_ranges": [
-        [
-          394,
-          400
-        ]
-      ],
-      "in_manifest": true,
-      "join_source": "gapped_alignment",
-      "join_status": "ok",
-      "spec_id": "triple_any_tcp",
-      "trace": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/traces/triple_any_tcp.jsonl",
-      "trace_records": 223,
-      "window_len": 500,
-      "witnessed_ranges": [
-        [
-          0,
-          394
-        ],
-        [
-          400,
-          500
-        ]
-      ]
-    },
-    {
-      "base_cursor": null,
-      "base_offset": 0,
-      "blob": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/blobs/triple_any_256.sb.bin",
-      "cursor_mode": "cursor_as_offset",
-      "hole_ranges": [
-        [
-          394,
-          400
-        ]
-      ],
-      "in_manifest": true,
-      "join_source": "gapped_alignment",
-      "join_status": "ok",
-      "spec_id": "triple_any_256",
-      "trace": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/traces/triple_any_256.jsonl",
       "trace_records": 223,
       "window_len": 500,
       "witnessed_ranges": [
@@ -396,64 +337,6 @@
     {
       "base_cursor": null,
       "base_offset": 0,
-      "blob": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/blobs/triple_nested_tcp.sb.bin",
-      "cursor_mode": "cursor_as_offset",
-      "hole_ranges": [
-        [
-          394,
-          400
-        ]
-      ],
-      "in_manifest": true,
-      "join_source": "gapped_alignment",
-      "join_status": "ok",
-      "spec_id": "triple_nested_tcp",
-      "trace": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/traces/triple_nested_tcp.jsonl",
-      "trace_records": 223,
-      "window_len": 500,
-      "witnessed_ranges": [
-        [
-          0,
-          394
-        ],
-        [
-          400,
-          500
-        ]
-      ]
-    },
-    {
-      "base_cursor": null,
-      "base_offset": 0,
-      "blob": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/blobs/triple_nested_256.sb.bin",
-      "cursor_mode": "cursor_as_offset",
-      "hole_ranges": [
-        [
-          394,
-          400
-        ]
-      ],
-      "in_manifest": true,
-      "join_source": "gapped_alignment",
-      "join_status": "ok",
-      "spec_id": "triple_nested_256",
-      "trace": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/traces/triple_nested_256.jsonl",
-      "trace_records": 224,
-      "window_len": 500,
-      "witnessed_ranges": [
-        [
-          0,
-          394
-        ],
-        [
-          400,
-          500
-        ]
-      ]
-    },
-    {
-      "base_cursor": null,
-      "base_offset": 0,
       "blob": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/blobs/pair_dt_all_inet_stream.sb.bin",
       "cursor_mode": "cursor_as_offset",
       "hole_ranges": [
@@ -467,7 +350,7 @@
       "join_status": "ok",
       "spec_id": "pair_dt_all_inet_stream",
       "trace": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/traces/pair_dt_all_inet_stream.jsonl",
-      "trace_records": 223,
+      "trace_records": 224,
       "window_len": 492,
       "witnessed_ranges": [
         [
@@ -512,151 +395,6 @@
     {
       "base_cursor": null,
       "base_offset": 0,
-      "blob": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/blobs/pair_dt_all_system_stream.sb.bin",
-      "cursor_mode": "cursor_as_offset",
-      "hole_ranges": [
-        [
-          394,
-          400
-        ]
-      ],
-      "in_manifest": true,
-      "join_source": "gapped_alignment",
-      "join_status": "ok",
-      "spec_id": "pair_dt_all_system_stream",
-      "trace": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/traces/pair_dt_all_system_stream.jsonl",
-      "trace_records": 224,
-      "window_len": 492,
-      "witnessed_ranges": [
-        [
-          0,
-          394
-        ],
-        [
-          400,
-          492
-        ]
-      ]
-    },
-    {
-      "base_cursor": null,
-      "base_offset": 0,
-      "blob": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/blobs/pair_dt_all_inet_dgram.sb.bin",
-      "cursor_mode": "cursor_as_offset",
-      "hole_ranges": [
-        [
-          394,
-          400
-        ]
-      ],
-      "in_manifest": true,
-      "join_source": "gapped_alignment",
-      "join_status": "ok",
-      "spec_id": "pair_dt_all_inet_dgram",
-      "trace": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/traces/pair_dt_all_inet_dgram.jsonl",
-      "trace_records": 223,
-      "window_len": 492,
-      "witnessed_ranges": [
-        [
-          0,
-          394
-        ],
-        [
-          400,
-          492
-        ]
-      ]
-    },
-    {
-      "base_cursor": null,
-      "base_offset": 0,
-      "blob": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/blobs/pair_dt_any_inet_stream.sb.bin",
-      "cursor_mode": "cursor_as_offset",
-      "hole_ranges": [
-        [
-          394,
-          400
-        ]
-      ],
-      "in_manifest": true,
-      "join_source": "gapped_alignment",
-      "join_status": "ok",
-      "spec_id": "pair_dt_any_inet_stream",
-      "trace": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/traces/pair_dt_any_inet_stream.jsonl",
-      "trace_records": 223,
-      "window_len": 492,
-      "witnessed_ranges": [
-        [
-          0,
-          394
-        ],
-        [
-          400,
-          492
-        ]
-      ]
-    },
-    {
-      "base_cursor": null,
-      "base_offset": 0,
-      "blob": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/blobs/pair_dt_any_system_stream.sb.bin",
-      "cursor_mode": "cursor_as_offset",
-      "hole_ranges": [
-        [
-          394,
-          400
-        ]
-      ],
-      "in_manifest": true,
-      "join_source": "gapped_alignment",
-      "join_status": "ok",
-      "spec_id": "pair_dt_any_system_stream",
-      "trace": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/traces/pair_dt_any_system_stream.jsonl",
-      "trace_records": 222,
-      "window_len": 492,
-      "witnessed_ranges": [
-        [
-          0,
-          394
-        ],
-        [
-          400,
-          492
-        ]
-      ]
-    },
-    {
-      "base_cursor": null,
-      "base_offset": 0,
-      "blob": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/blobs/pair_dt_any_inet_dgram.sb.bin",
-      "cursor_mode": "cursor_as_offset",
-      "hole_ranges": [
-        [
-          394,
-          400
-        ]
-      ],
-      "in_manifest": true,
-      "join_source": "gapped_alignment",
-      "join_status": "ok",
-      "spec_id": "pair_dt_any_inet_dgram",
-      "trace": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/traces/pair_dt_any_inet_dgram.jsonl",
-      "trace_records": 223,
-      "window_len": 492,
-      "witnessed_ranges": [
-        [
-          0,
-          394
-        ],
-        [
-          400,
-          492
-        ]
-      ]
-    },
-    {
-      "base_cursor": null,
-      "base_offset": 0,
       "blob": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/blobs/pair_dp_all_inet_tcp.sb.bin",
       "cursor_mode": "cursor_as_offset",
       "hole_ranges": [
@@ -670,7 +408,7 @@
       "join_status": "ok",
       "spec_id": "pair_dp_all_inet_tcp",
       "trace": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/traces/pair_dp_all_inet_tcp.jsonl",
-      "trace_records": 222,
+      "trace_records": 225,
       "window_len": 492,
       "witnessed_ranges": [
         [
@@ -715,209 +453,6 @@
     {
       "base_cursor": null,
       "base_offset": 0,
-      "blob": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/blobs/pair_dp_all_inet_256.sb.bin",
-      "cursor_mode": "cursor_as_offset",
-      "hole_ranges": [
-        [
-          394,
-          400
-        ]
-      ],
-      "in_manifest": true,
-      "join_source": "gapped_alignment",
-      "join_status": "ok",
-      "spec_id": "pair_dp_all_inet_256",
-      "trace": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/traces/pair_dp_all_inet_256.jsonl",
-      "trace_records": 223,
-      "window_len": 492,
-      "witnessed_ranges": [
-        [
-          0,
-          394
-        ],
-        [
-          400,
-          492
-        ]
-      ]
-    },
-    {
-      "base_cursor": null,
-      "base_offset": 0,
-      "blob": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/blobs/pair_dp_all_system_tcp.sb.bin",
-      "cursor_mode": "cursor_as_offset",
-      "hole_ranges": [
-        [
-          394,
-          400
-        ]
-      ],
-      "in_manifest": true,
-      "join_source": "gapped_alignment",
-      "join_status": "ok",
-      "spec_id": "pair_dp_all_system_tcp",
-      "trace": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/traces/pair_dp_all_system_tcp.jsonl",
-      "trace_records": 222,
-      "window_len": 492,
-      "witnessed_ranges": [
-        [
-          0,
-          394
-        ],
-        [
-          400,
-          492
-        ]
-      ]
-    },
-    {
-      "base_cursor": null,
-      "base_offset": 0,
-      "blob": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/blobs/pair_dp_all_inet_udp.sb.bin",
-      "cursor_mode": "cursor_as_offset",
-      "hole_ranges": [
-        [
-          394,
-          400
-        ]
-      ],
-      "in_manifest": true,
-      "join_source": "gapped_alignment",
-      "join_status": "ok",
-      "spec_id": "pair_dp_all_inet_udp",
-      "trace": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/traces/pair_dp_all_inet_udp.jsonl",
-      "trace_records": 223,
-      "window_len": 492,
-      "witnessed_ranges": [
-        [
-          0,
-          394
-        ],
-        [
-          400,
-          492
-        ]
-      ]
-    },
-    {
-      "base_cursor": null,
-      "base_offset": 0,
-      "blob": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/blobs/pair_dp_any_inet_tcp.sb.bin",
-      "cursor_mode": "cursor_as_offset",
-      "hole_ranges": [
-        [
-          394,
-          400
-        ]
-      ],
-      "in_manifest": true,
-      "join_source": "gapped_alignment",
-      "join_status": "ok",
-      "spec_id": "pair_dp_any_inet_tcp",
-      "trace": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/traces/pair_dp_any_inet_tcp.jsonl",
-      "trace_records": 224,
-      "window_len": 492,
-      "witnessed_ranges": [
-        [
-          0,
-          394
-        ],
-        [
-          400,
-          492
-        ]
-      ]
-    },
-    {
-      "base_cursor": null,
-      "base_offset": 0,
-      "blob": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/blobs/pair_dp_any_inet_256.sb.bin",
-      "cursor_mode": "cursor_as_offset",
-      "hole_ranges": [
-        [
-          394,
-          400
-        ]
-      ],
-      "in_manifest": true,
-      "join_source": "gapped_alignment",
-      "join_status": "ok",
-      "spec_id": "pair_dp_any_inet_256",
-      "trace": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/traces/pair_dp_any_inet_256.jsonl",
-      "trace_records": 222,
-      "window_len": 492,
-      "witnessed_ranges": [
-        [
-          0,
-          394
-        ],
-        [
-          400,
-          492
-        ]
-      ]
-    },
-    {
-      "base_cursor": null,
-      "base_offset": 0,
-      "blob": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/blobs/pair_dp_any_system_tcp.sb.bin",
-      "cursor_mode": "cursor_as_offset",
-      "hole_ranges": [
-        [
-          394,
-          400
-        ]
-      ],
-      "in_manifest": true,
-      "join_source": "gapped_alignment",
-      "join_status": "ok",
-      "spec_id": "pair_dp_any_system_tcp",
-      "trace": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/traces/pair_dp_any_system_tcp.jsonl",
-      "trace_records": 222,
-      "window_len": 492,
-      "witnessed_ranges": [
-        [
-          0,
-          394
-        ],
-        [
-          400,
-          492
-        ]
-      ]
-    },
-    {
-      "base_cursor": null,
-      "base_offset": 0,
-      "blob": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/blobs/pair_dp_any_inet_udp.sb.bin",
-      "cursor_mode": "cursor_as_offset",
-      "hole_ranges": [
-        [
-          394,
-          400
-        ]
-      ],
-      "in_manifest": true,
-      "join_source": "gapped_alignment",
-      "join_status": "ok",
-      "spec_id": "pair_dp_any_inet_udp",
-      "trace": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/traces/pair_dp_any_inet_udp.jsonl",
-      "trace_records": 222,
-      "window_len": 492,
-      "witnessed_ranges": [
-        [
-          0,
-          394
-        ],
-        [
-          400,
-          492
-        ]
-      ]
-    },
-    {
-      "base_cursor": null,
-      "base_offset": 0,
       "blob": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/blobs/pair_tp_all_stream_tcp.sb.bin",
       "cursor_mode": "cursor_as_offset",
       "hole_ranges": [
@@ -931,7 +466,7 @@
       "join_status": "ok",
       "spec_id": "pair_tp_all_stream_tcp",
       "trace": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/traces/pair_tp_all_stream_tcp.jsonl",
-      "trace_records": 222,
+      "trace_records": 223,
       "window_len": 492,
       "witnessed_ranges": [
         [
@@ -960,64 +495,6 @@
       "join_status": "ok",
       "spec_id": "pair_tp_all_stream_tcp_order2",
       "trace": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/traces/pair_tp_all_stream_tcp_order2.jsonl",
-      "trace_records": 224,
-      "window_len": 492,
-      "witnessed_ranges": [
-        [
-          0,
-          394
-        ],
-        [
-          400,
-          492
-        ]
-      ]
-    },
-    {
-      "base_cursor": null,
-      "base_offset": 0,
-      "blob": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/blobs/pair_tp_all_stream_256.sb.bin",
-      "cursor_mode": "cursor_as_offset",
-      "hole_ranges": [
-        [
-          394,
-          400
-        ]
-      ],
-      "in_manifest": true,
-      "join_source": "gapped_alignment",
-      "join_status": "ok",
-      "spec_id": "pair_tp_all_stream_256",
-      "trace": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/traces/pair_tp_all_stream_256.jsonl",
-      "trace_records": 222,
-      "window_len": 492,
-      "witnessed_ranges": [
-        [
-          0,
-          394
-        ],
-        [
-          400,
-          492
-        ]
-      ]
-    },
-    {
-      "base_cursor": null,
-      "base_offset": 0,
-      "blob": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/blobs/pair_tp_all_dgram_tcp.sb.bin",
-      "cursor_mode": "cursor_as_offset",
-      "hole_ranges": [
-        [
-          394,
-          400
-        ]
-      ],
-      "in_manifest": true,
-      "join_source": "gapped_alignment",
-      "join_status": "ok",
-      "spec_id": "pair_tp_all_dgram_tcp",
-      "trace": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/traces/pair_tp_all_dgram_tcp.jsonl",
       "trace_records": 223,
       "window_len": 492,
       "witnessed_ranges": [
@@ -1028,238 +505,6 @@
         [
           400,
           492
-        ]
-      ]
-    },
-    {
-      "base_cursor": null,
-      "base_offset": 0,
-      "blob": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/blobs/pair_tp_all_stream_udp.sb.bin",
-      "cursor_mode": "cursor_as_offset",
-      "hole_ranges": [
-        [
-          394,
-          400
-        ]
-      ],
-      "in_manifest": true,
-      "join_source": "gapped_alignment",
-      "join_status": "ok",
-      "spec_id": "pair_tp_all_stream_udp",
-      "trace": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/traces/pair_tp_all_stream_udp.jsonl",
-      "trace_records": 223,
-      "window_len": 492,
-      "witnessed_ranges": [
-        [
-          0,
-          394
-        ],
-        [
-          400,
-          492
-        ]
-      ]
-    },
-    {
-      "base_cursor": null,
-      "base_offset": 0,
-      "blob": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/blobs/pair_tp_any_stream_tcp.sb.bin",
-      "cursor_mode": "cursor_as_offset",
-      "hole_ranges": [
-        [
-          394,
-          400
-        ]
-      ],
-      "in_manifest": true,
-      "join_source": "gapped_alignment",
-      "join_status": "ok",
-      "spec_id": "pair_tp_any_stream_tcp",
-      "trace": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/traces/pair_tp_any_stream_tcp.jsonl",
-      "trace_records": 223,
-      "window_len": 492,
-      "witnessed_ranges": [
-        [
-          0,
-          394
-        ],
-        [
-          400,
-          492
-        ]
-      ]
-    },
-    {
-      "base_cursor": null,
-      "base_offset": 0,
-      "blob": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/blobs/pair_tp_any_stream_256.sb.bin",
-      "cursor_mode": "cursor_as_offset",
-      "hole_ranges": [
-        [
-          394,
-          400
-        ]
-      ],
-      "in_manifest": true,
-      "join_source": "gapped_alignment",
-      "join_status": "ok",
-      "spec_id": "pair_tp_any_stream_256",
-      "trace": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/traces/pair_tp_any_stream_256.jsonl",
-      "trace_records": 222,
-      "window_len": 492,
-      "witnessed_ranges": [
-        [
-          0,
-          394
-        ],
-        [
-          400,
-          492
-        ]
-      ]
-    },
-    {
-      "base_cursor": null,
-      "base_offset": 0,
-      "blob": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/blobs/pair_tp_any_dgram_tcp.sb.bin",
-      "cursor_mode": "cursor_as_offset",
-      "hole_ranges": [
-        [
-          394,
-          400
-        ]
-      ],
-      "in_manifest": true,
-      "join_source": "gapped_alignment",
-      "join_status": "ok",
-      "spec_id": "pair_tp_any_dgram_tcp",
-      "trace": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/traces/pair_tp_any_dgram_tcp.jsonl",
-      "trace_records": 222,
-      "window_len": 492,
-      "witnessed_ranges": [
-        [
-          0,
-          394
-        ],
-        [
-          400,
-          492
-        ]
-      ]
-    },
-    {
-      "base_cursor": null,
-      "base_offset": 0,
-      "blob": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/blobs/pair_tp_any_stream_udp.sb.bin",
-      "cursor_mode": "cursor_as_offset",
-      "hole_ranges": [
-        [
-          394,
-          400
-        ]
-      ],
-      "in_manifest": true,
-      "join_source": "gapped_alignment",
-      "join_status": "ok",
-      "spec_id": "pair_tp_any_stream_udp",
-      "trace": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/traces/pair_tp_any_stream_udp.jsonl",
-      "trace_records": 222,
-      "window_len": 492,
-      "witnessed_ranges": [
-        [
-          0,
-          394
-        ],
-        [
-          400,
-          492
-        ]
-      ]
-    },
-    {
-      "base_cursor": null,
-      "base_offset": 0,
-      "blob": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/blobs/triple_all_system_stream_tcp.sb.bin",
-      "cursor_mode": "cursor_as_offset",
-      "hole_ranges": [
-        [
-          394,
-          400
-        ]
-      ],
-      "in_manifest": true,
-      "join_source": "gapped_alignment",
-      "join_status": "ok",
-      "spec_id": "triple_all_system_stream_tcp",
-      "trace": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/traces/triple_all_system_stream_tcp.jsonl",
-      "trace_records": 224,
-      "window_len": 500,
-      "witnessed_ranges": [
-        [
-          0,
-          394
-        ],
-        [
-          400,
-          500
-        ]
-      ]
-    },
-    {
-      "base_cursor": null,
-      "base_offset": 0,
-      "blob": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/blobs/triple_all_inet_dgram_tcp.sb.bin",
-      "cursor_mode": "cursor_as_offset",
-      "hole_ranges": [
-        [
-          394,
-          400
-        ]
-      ],
-      "in_manifest": true,
-      "join_source": "gapped_alignment",
-      "join_status": "ok",
-      "spec_id": "triple_all_inet_dgram_tcp",
-      "trace": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/traces/triple_all_inet_dgram_tcp.jsonl",
-      "trace_records": 223,
-      "window_len": 500,
-      "witnessed_ranges": [
-        [
-          0,
-          394
-        ],
-        [
-          400,
-          500
-        ]
-      ]
-    },
-    {
-      "base_cursor": null,
-      "base_offset": 0,
-      "blob": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/blobs/triple_all_inet_stream_udp.sb.bin",
-      "cursor_mode": "cursor_as_offset",
-      "hole_ranges": [
-        [
-          394,
-          400
-        ]
-      ],
-      "in_manifest": true,
-      "join_source": "gapped_alignment",
-      "join_status": "ok",
-      "spec_id": "triple_all_inet_stream_udp",
-      "trace": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/traces/triple_all_inet_stream_udp.jsonl",
-      "trace_records": 224,
-      "window_len": 500,
-      "witnessed_ranges": [
-        [
-          0,
-          394
-        ],
-        [
-          400,
-          500
         ]
       ]
     }

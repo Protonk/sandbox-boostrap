@@ -1,23 +1,22 @@
+#!/usr/bin/env python3
+"""
+Validate sandbox-init-params runs against expected hashes for this world.
+"""
+
+from __future__ import annotations
+
+import argparse
 import hashlib
 import json
 import sys
 from pathlib import Path
-from typing import List, Dict, Any
+from typing import Any, Dict, List, Optional
 
-
-def _find_repo_root(start: Path) -> Path:
-    cur = start.resolve()
-    for candidate in [cur] + list(cur.parents):
-        if (candidate / ".git").exists():
-            return candidate
-    raise RuntimeError("Unable to locate repo root")
-
-
-REPO_ROOT = _find_repo_root(Path(__file__))
+REPO_ROOT = Path(__file__).resolve().parents[3]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from book.api.path_utils import to_repo_relative  # type: ignore
+from book.api import path_utils
 
 
 WORLD_ID = "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
@@ -35,27 +34,36 @@ EXPECTED_RUNS = {
 }
 
 
-def load_run(path: Path) -> Dict[str, Any]:
-    with path.open() as f:
-        return json.load(f)
+def _load_json(path: Path) -> Dict[str, Any]:
+    return json.loads(path.read_text())
 
 
-def compute_sha(path: Path) -> str:
+def _compute_sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def main() -> int:
-    out_dir = Path(__file__).resolve().parent / "out"
-    repo_root = REPO_ROOT
+def main(argv: Optional[List[str]] = None) -> int:
+    ap = argparse.ArgumentParser(prog="sandbox-init-params-validate")
+    ap.add_argument(
+        "--out-dir",
+        type=Path,
+        default=Path("book/evidence/experiments/profile-pipeline/sandbox-init-params/out"),
+        help="Output directory with *_run.json files",
+    )
+    args = ap.parse_args(argv)
+
+    repo_root = path_utils.find_repo_root(Path(__file__))
+    out_dir = path_utils.ensure_absolute(args.out_dir, repo_root)
+
     runs = sorted(out_dir.glob("*_run.json"))
     summary: Dict[str, Any] = {"world_id": WORLD_ID, "runs": []}
     ok = True
 
     for run_path in runs:
-        run = load_run(run_path)
+        run = _load_json(run_path)
         blob_path = Path(run["blob"]["file"])
         blob_file = blob_path if blob_path.is_absolute() else repo_root / blob_path
-        sha = compute_sha(blob_file)
+        sha = _compute_sha(blob_file)
         entry = {
             "run_id": run.get("run_id", run_path.stem),
             "world_id": run.get("world_id"),
@@ -65,7 +73,7 @@ def main() -> int:
             "pointer_nonzero": run.get("pointer_nonzero", False),
             "forced_handle0": run.get("forced_handle0", False),
             "container_len": run.get("container_len", 0),
-            "blob_file": to_repo_relative(blob_file, repo_root),
+            "blob_file": path_utils.to_repo_relative(blob_file, repo_root),
         }
         expected = EXPECTED_RUNS.get(entry["run_id"])
         if entry["world_id"] != WORLD_ID:
@@ -87,8 +95,11 @@ def main() -> int:
     summary_path.write_text(json.dumps(summary, indent=2))
 
     for entry in summary["runs"]:
-        line = f"{entry['run_id']}: len={entry['blob_len']}, sha256={entry['blob_sha256']}, call_code={entry['call_code']}"
-        if "error" in entry or "error_call_code" in entry or "error_blob_len" in entry or "error_blob_sha256" in entry:
+        line = (
+            f"{entry['run_id']}: len={entry['blob_len']}, sha256={entry['blob_sha256']}, "
+            f"call_code={entry['call_code']}"
+        )
+        if any(key in entry for key in ("error", "error_call_code", "error_blob_len", "error_blob_sha256")):
             line += " [ERROR]"
         print(line)
 

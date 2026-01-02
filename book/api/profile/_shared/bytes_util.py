@@ -78,3 +78,54 @@ def ascii_strings(buf: bytes, *, min_len: int = 4) -> list[dict[str, Any]]:
     if current and len(current) >= min_len and start is not None:
         runs.append({"offset": start, "string": "".join(current)})
     return runs
+
+
+def record_dump(nodes: bytes, *, stride: int) -> dict[str, Any]:
+    """
+    Emit all stride-sized records plus remainder bytes.
+
+    Each record includes the first two u16 fields as edge hints and the third
+    u16 as a literal-ish field (best-effort, structural only).
+    """
+    records: list[dict[str, Any]] = []
+    if stride <= 0:
+        return {"records": records, "remainder_hex": nodes.hex()}
+    full = len(nodes) // stride
+    for idx in range(full):
+        rec = nodes[idx * stride : (idx + 1) * stride]
+        records.append(
+            {
+                "index": idx,
+                "tag": rec[0],
+                "edge1": int.from_bytes(rec[2:4], "little"),
+                "edge2": int.from_bytes(rec[4:6], "little"),
+                "lit": int.from_bytes(rec[6:8], "little"),
+                "extra": rec[8:min(stride, 12)].hex(),
+            }
+        )
+    remainder = nodes[full * stride :]
+    return {"records": records, "remainder_hex": remainder.hex()}
+
+
+def tail_records(nodes: bytes, *, stride: int, count: int = 3) -> dict[str, Any]:
+    """
+    Emit the last few stride-sized records plus remainder bytes.
+    """
+    if stride <= 0:
+        return {"records": [], "remainder_hex": nodes.hex()}
+    recs = len(nodes) // stride
+    tail: list[dict[str, Any]] = []
+    for idx in range(max(0, recs - count), recs):
+        rec = nodes[idx * stride : (idx + 1) * stride]
+        tail.append(
+            {
+                "index": idx,
+                "tag": rec[0],
+                "edge1": int.from_bytes(rec[2:4], "little"),
+                "edge2": int.from_bytes(rec[4:6], "little"),
+                "lit": int.from_bytes(rec[6:8], "little"),
+                "extra": rec[8:min(stride, 12)].hex(),
+            }
+        )
+    remainder = nodes[recs * stride :]
+    return {"records": tail, "remainder_hex": remainder.hex()}

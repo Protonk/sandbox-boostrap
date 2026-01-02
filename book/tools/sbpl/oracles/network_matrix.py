@@ -20,6 +20,9 @@ Expected inputs:
 
 Output schema:
 - `book/tools/sbpl/oracles/schemas/network_matrix_oracle.v1.schema.json`
+
+Optional:
+- `--trace-analysis` overlays encoder-write-trace join windows per spec.
 """
 
 from __future__ import annotations
@@ -27,13 +30,18 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
-from book.api.path_utils import find_repo_root, to_repo_relative
+from book.api.path_utils import ensure_absolute, find_repo_root, to_repo_relative
 from book.api.profile.oracles import WORLD_ID, extract_network_tuple
+from book.api.profile._shared import encoder_trace as trace_mod
 
 
-def run_network_matrix(manifest_path: Path, blob_dir: Path) -> Dict[str, Any]:
+def run_network_matrix(
+    manifest_path: Path,
+    blob_dir: Path,
+    trace_analysis: Optional[Path] = None,
+) -> Dict[str, Any]:
     """
     Run the network tuple oracle over a MANIFEST + prebuilt blobs.
 
@@ -43,6 +51,14 @@ def run_network_matrix(manifest_path: Path, blob_dir: Path) -> Dict[str, Any]:
     data = json.loads(manifest_path.read_text())
     cases = data.get("cases", [])
 
+    trace_map: Optional[Dict[str, Dict[str, Any]]] = None
+    trace_analysis_rel = None
+    if trace_analysis is not None:
+        analysis_path = ensure_absolute(trace_analysis, root)
+        analysis = json.loads(analysis_path.read_text())
+        trace_map = trace_mod.best_trace_map(analysis)
+        trace_analysis_rel = to_repo_relative(analysis_path, root)
+
     entries: List[Dict[str, Any]] = []
     for case in cases:
         spec_id = case["spec_id"]
@@ -50,16 +66,22 @@ def run_network_matrix(manifest_path: Path, blob_dir: Path) -> Dict[str, Any]:
         result = extract_network_tuple(blob_path.read_bytes()).to_dict()
         result["spec_id"] = spec_id
         result["blob"] = to_repo_relative(blob_path, root)
+        if trace_map is not None:
+            result["trace_window"] = trace_map.get(spec_id)
         entries.append(result)
+
+    inputs = {
+        "manifest": to_repo_relative(manifest_path, root),
+        "blob_dir": to_repo_relative(blob_dir, root),
+    }
+    if trace_analysis_rel:
+        inputs["trace_analysis"] = trace_analysis_rel
 
     return {
         "world_id": WORLD_ID,
         "oracle_id": "sbpl_oracle.network_tuple.v1",
         "purpose": "Extract (domain,type,proto) tuples from compiled blobs using structural witnesses only.",
-        "inputs": {
-            "manifest": to_repo_relative(manifest_path, root),
-            "blob_dir": to_repo_relative(blob_dir, root),
-        },
+        "inputs": inputs,
         "entries": entries,
     }
 
@@ -84,9 +106,14 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--manifest", required=True, type=Path, help="Path to MANIFEST.json.")
     ap.add_argument("--blob-dir", required=True, type=Path, help="Directory containing <spec_id>.sb.bin blobs.")
     ap.add_argument("--out", type=Path, help="Write JSON output to this path (default stdout).")
+    ap.add_argument(
+        "--trace-analysis",
+        type=Path,
+        help="Optional encoder-write-trace analysis JSON to overlay trace windows.",
+    )
 
     args = ap.parse_args(argv)
-    payload = run_network_matrix(args.manifest, args.blob_dir)
+    payload = run_network_matrix(args.manifest, args.blob_dir, trace_analysis=args.trace_analysis)
     _write_json(args.out, payload)
     return 0
 

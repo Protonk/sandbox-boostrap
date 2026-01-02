@@ -1,12 +1,12 @@
 {
   "analysis": "book/evidence/experiments/profile-pipeline/encoder-write-trace/out/trace_analysis.json",
   "counts": {
-    "diffs_checked": 1268,
+    "diffs_checked": 1239,
     "diffs_inferred": 0,
-    "diffs_witnessed": 2496,
+    "diffs_witnessed": 2438,
     "missing": 40,
-    "pairs_checked": 35,
-    "pairs_skipped": 0
+    "pairs_checked": 13,
+    "pairs_skipped": 22
   },
   "hits": [
     {
@@ -111,86 +111,6 @@
     },
     {
       "coverage": "witnessed",
-      "offset": 418,
-      "pair_id": "triple_all_tcp_vs_udp",
-      "side": "a",
-      "trace_window": {
-        "end_exclusive": 500,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 418,
-      "pair_id": "triple_all_tcp_vs_udp",
-      "side": "b",
-      "trace_window": {
-        "end_exclusive": 500,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 426,
-      "pair_id": "triple_all_tcp_vs_udp",
-      "side": "a",
-      "trace_window": {
-        "end_exclusive": 500,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 426,
-      "pair_id": "triple_all_tcp_vs_udp",
-      "side": "b",
-      "trace_window": {
-        "end_exclusive": 500,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 410,
-      "pair_id": "pair_dt_all_inet_stream_vs_system_stream",
-      "side": "a",
-      "trace_window": {
-        "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 410,
-      "pair_id": "pair_dt_all_inet_stream_vs_system_stream",
-      "side": "b",
-      "trace_window": {
-        "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 418,
-      "pair_id": "pair_dt_all_inet_stream_vs_inet_dgram",
-      "side": "a",
-      "trace_window": {
-        "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 418,
-      "pair_id": "pair_dt_all_inet_stream_vs_inet_dgram",
-      "side": "b",
-      "trace_window": {
-        "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
       "offset": 409,
       "pair_id": "pair_dt_all_inet_stream_vs_order2",
       "side": "a",
@@ -263,126 +183,6 @@
       "coverage": "witnessed",
       "offset": 418,
       "pair_id": "pair_dt_all_inet_stream_vs_order2",
-      "side": "b",
-      "trace_window": {
-        "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 410,
-      "pair_id": "pair_dt_any_inet_stream_vs_system_stream",
-      "side": "a",
-      "trace_window": {
-        "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 410,
-      "pair_id": "pair_dt_any_inet_stream_vs_system_stream",
-      "side": "b",
-      "trace_window": {
-        "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 418,
-      "pair_id": "pair_dt_any_inet_stream_vs_inet_dgram",
-      "side": "a",
-      "trace_window": {
-        "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 418,
-      "pair_id": "pair_dt_any_inet_stream_vs_inet_dgram",
-      "side": "b",
-      "trace_window": {
-        "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 410,
-      "pair_id": "pair_dp_all_inet_tcp_vs_system_tcp",
-      "side": "a",
-      "trace_window": {
-        "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 410,
-      "pair_id": "pair_dp_all_inet_tcp_vs_system_tcp",
-      "side": "b",
-      "trace_window": {
-        "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 418,
-      "pair_id": "pair_dp_all_inet_tcp_vs_inet_udp",
-      "side": "a",
-      "trace_window": {
-        "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 418,
-      "pair_id": "pair_dp_all_inet_tcp_vs_inet_udp",
-      "side": "b",
-      "trace_window": {
-        "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 418,
-      "pair_id": "pair_dp_all_inet_tcp_vs_inet_256",
-      "side": "a",
-      "trace_window": {
-        "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 418,
-      "pair_id": "pair_dp_all_inet_tcp_vs_inet_256",
-      "side": "b",
-      "trace_window": {
-        "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 419,
-      "pair_id": "pair_dp_all_inet_tcp_vs_inet_256",
-      "side": "a",
-      "trace_window": {
-        "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 419,
-      "pair_id": "pair_dp_all_inet_tcp_vs_inet_256",
       "side": "b",
       "trace_window": {
         "end_exclusive": 492,
@@ -471,166 +271,6 @@
     },
     {
       "coverage": "witnessed",
-      "offset": 410,
-      "pair_id": "pair_dp_any_inet_tcp_vs_system_tcp",
-      "side": "a",
-      "trace_window": {
-        "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 410,
-      "pair_id": "pair_dp_any_inet_tcp_vs_system_tcp",
-      "side": "b",
-      "trace_window": {
-        "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 418,
-      "pair_id": "pair_dp_any_inet_tcp_vs_inet_udp",
-      "side": "a",
-      "trace_window": {
-        "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 418,
-      "pair_id": "pair_dp_any_inet_tcp_vs_inet_udp",
-      "side": "b",
-      "trace_window": {
-        "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 418,
-      "pair_id": "pair_dp_any_inet_tcp_vs_inet_256",
-      "side": "a",
-      "trace_window": {
-        "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 418,
-      "pair_id": "pair_dp_any_inet_tcp_vs_inet_256",
-      "side": "b",
-      "trace_window": {
-        "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 419,
-      "pair_id": "pair_dp_any_inet_tcp_vs_inet_256",
-      "side": "a",
-      "trace_window": {
-        "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 419,
-      "pair_id": "pair_dp_any_inet_tcp_vs_inet_256",
-      "side": "b",
-      "trace_window": {
-        "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 410,
-      "pair_id": "pair_tp_all_stream_tcp_vs_dgram_tcp",
-      "side": "a",
-      "trace_window": {
-        "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 410,
-      "pair_id": "pair_tp_all_stream_tcp_vs_dgram_tcp",
-      "side": "b",
-      "trace_window": {
-        "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 418,
-      "pair_id": "pair_tp_all_stream_tcp_vs_stream_udp",
-      "side": "a",
-      "trace_window": {
-        "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 418,
-      "pair_id": "pair_tp_all_stream_tcp_vs_stream_udp",
-      "side": "b",
-      "trace_window": {
-        "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 418,
-      "pair_id": "pair_tp_all_stream_tcp_vs_stream_256",
-      "side": "a",
-      "trace_window": {
-        "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 418,
-      "pair_id": "pair_tp_all_stream_tcp_vs_stream_256",
-      "side": "b",
-      "trace_window": {
-        "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 419,
-      "pair_id": "pair_tp_all_stream_tcp_vs_stream_256",
-      "side": "a",
-      "trace_window": {
-        "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 419,
-      "pair_id": "pair_tp_all_stream_tcp_vs_stream_256",
-      "side": "b",
-      "trace_window": {
-        "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
       "offset": 409,
       "pair_id": "pair_tp_all_stream_tcp_vs_order2",
       "side": "a",
@@ -706,146 +346,6 @@
       "side": "b",
       "trace_window": {
         "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 410,
-      "pair_id": "pair_tp_any_stream_tcp_vs_dgram_tcp",
-      "side": "a",
-      "trace_window": {
-        "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 410,
-      "pair_id": "pair_tp_any_stream_tcp_vs_dgram_tcp",
-      "side": "b",
-      "trace_window": {
-        "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 418,
-      "pair_id": "pair_tp_any_stream_tcp_vs_stream_udp",
-      "side": "a",
-      "trace_window": {
-        "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 418,
-      "pair_id": "pair_tp_any_stream_tcp_vs_stream_udp",
-      "side": "b",
-      "trace_window": {
-        "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 418,
-      "pair_id": "pair_tp_any_stream_tcp_vs_stream_256",
-      "side": "a",
-      "trace_window": {
-        "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 418,
-      "pair_id": "pair_tp_any_stream_tcp_vs_stream_256",
-      "side": "b",
-      "trace_window": {
-        "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 419,
-      "pair_id": "pair_tp_any_stream_tcp_vs_stream_256",
-      "side": "a",
-      "trace_window": {
-        "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 419,
-      "pair_id": "pair_tp_any_stream_tcp_vs_stream_256",
-      "side": "b",
-      "trace_window": {
-        "end_exclusive": 492,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 410,
-      "pair_id": "triple_all_tcp_vs_system_stream_tcp",
-      "side": "a",
-      "trace_window": {
-        "end_exclusive": 500,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 410,
-      "pair_id": "triple_all_tcp_vs_system_stream_tcp",
-      "side": "b",
-      "trace_window": {
-        "end_exclusive": 500,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 418,
-      "pair_id": "triple_all_tcp_vs_inet_dgram_tcp",
-      "side": "a",
-      "trace_window": {
-        "end_exclusive": 500,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 418,
-      "pair_id": "triple_all_tcp_vs_inet_dgram_tcp",
-      "side": "b",
-      "trace_window": {
-        "end_exclusive": 500,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 426,
-      "pair_id": "triple_all_tcp_vs_inet_stream_udp",
-      "side": "a",
-      "trace_window": {
-        "end_exclusive": 500,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 426,
-      "pair_id": "triple_all_tcp_vs_inet_stream_udp",
-      "side": "b",
-      "trace_window": {
-        "end_exclusive": 500,
         "start": 0
       }
     },
@@ -24883,86 +24383,6 @@
       "coverage": "witnessed",
       "offset": 499,
       "pair_id": "pair_dt_all_vs_triple_all_tcp",
-      "side": "b",
-      "trace_window": {
-        "end_exclusive": 500,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 426,
-      "pair_id": "triple_any_tcp_vs_256",
-      "side": "a",
-      "trace_window": {
-        "end_exclusive": 500,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 426,
-      "pair_id": "triple_any_tcp_vs_256",
-      "side": "b",
-      "trace_window": {
-        "end_exclusive": 500,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 427,
-      "pair_id": "triple_any_tcp_vs_256",
-      "side": "a",
-      "trace_window": {
-        "end_exclusive": 500,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 427,
-      "pair_id": "triple_any_tcp_vs_256",
-      "side": "b",
-      "trace_window": {
-        "end_exclusive": 500,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 426,
-      "pair_id": "triple_nested_tcp_vs_256",
-      "side": "a",
-      "trace_window": {
-        "end_exclusive": 500,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 426,
-      "pair_id": "triple_nested_tcp_vs_256",
-      "side": "b",
-      "trace_window": {
-        "end_exclusive": 500,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 427,
-      "pair_id": "triple_nested_tcp_vs_256",
-      "side": "a",
-      "trace_window": {
-        "end_exclusive": 500,
-        "start": 0
-      }
-    },
-    {
-      "coverage": "witnessed",
-      "offset": 427,
-      "pair_id": "triple_nested_tcp_vs_256",
       "side": "b",
       "trace_window": {
         "end_exclusive": 500,
@@ -25339,7 +24759,30 @@
     "Coverage is labeled witnessed when the offset falls inside a traced byte range; inferred when it falls inside the aligned window but outside the traced ranges.",
     "When a gapped alignment offers wider coverage than the best subset/full match, the join window is taken from the gapped alignment."
   ],
-  "pairs_skipped": [],
+  "pairs_skipped": [
+    "triple_all_tcp_vs_udp",
+    "pair_dt_all_inet_stream_vs_system_stream",
+    "pair_dt_all_inet_stream_vs_inet_dgram",
+    "pair_dt_any_inet_stream_vs_system_stream",
+    "pair_dt_any_inet_stream_vs_inet_dgram",
+    "pair_dp_all_inet_tcp_vs_system_tcp",
+    "pair_dp_all_inet_tcp_vs_inet_udp",
+    "pair_dp_all_inet_tcp_vs_inet_256",
+    "pair_dp_any_inet_tcp_vs_system_tcp",
+    "pair_dp_any_inet_tcp_vs_inet_udp",
+    "pair_dp_any_inet_tcp_vs_inet_256",
+    "pair_tp_all_stream_tcp_vs_dgram_tcp",
+    "pair_tp_all_stream_tcp_vs_stream_udp",
+    "pair_tp_all_stream_tcp_vs_stream_256",
+    "pair_tp_any_stream_tcp_vs_dgram_tcp",
+    "pair_tp_any_stream_tcp_vs_stream_udp",
+    "pair_tp_any_stream_tcp_vs_stream_256",
+    "triple_all_tcp_vs_system_stream_tcp",
+    "triple_all_tcp_vs_inet_dgram_tcp",
+    "triple_all_tcp_vs_inet_stream_udp",
+    "triple_any_tcp_vs_256",
+    "triple_nested_tcp_vs_256"
+  ],
   "status": "partial",
   "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
 }

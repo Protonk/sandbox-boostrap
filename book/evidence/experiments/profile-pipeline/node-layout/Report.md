@@ -29,9 +29,9 @@ We explicitly do **not** attempt a full reverse-engineering of modern node forma
 - `Notes.md` – dated running notes; useful for detailed provenance.
 - `sb/` – SBPL variants used as probes.
 - `sb/build/*.sb.bin` – compiled policy blobs (one per SBPL variant).
-- `analyze.py` – main tooling for this experiment:
-  - compiles `sb/*.sb` via `sandbox_compile_string`,
-  - slices blobs with `book.graph.concepts.validation.profile_ingestion`,
+- `book/tools/sbpl/node_layout_runner.py` – main tooling for this experiment:
+  - compiles `sb/*.sb` via `book.api.profile.compile`,
+  - slices blobs with `book.api.profile.ingestion`,
   - calls `book.api.profile.decoder.decode_profile_dict` (world-scoped stride selection),
   - emits `out/summary.json`.
 - `out/summary.json` – machine-readable per-variant summary, including:
@@ -52,9 +52,9 @@ We explicitly do **not** attempt a full reverse-engineering of modern node forma
     - decoder `sections` lengths,
     - decoder `validation` (stride selection + scaling witnesses).
 
-**Shared tooling from `book/graph/concepts/validation` and `book/api`**
+**Shared tooling from `book/api`**
 
-- `profile_ingestion.py` – slices blobs into:
+- `book/api/profile/ingestion` – slices blobs into:
   - 16‑byte preamble,
   - **Operation Pointer Table** bytes,
   - node region bytes,
@@ -81,14 +81,14 @@ These tools give us a consistent “slice + decode” view of modern profiles th
 ## Plan & execution log
 ### Completed
 - **1. Baseline ingestion and heuristics**
-  - Used the shared ingestion helpers (`book/graph/concepts/validation/profile_ingestion.py`) to:
+- Used the shared ingestion helpers (`book/api/profile/ingestion`) to:
   - Classify `book/evidence/graph/concepts/validation/fixtures/blobs/sample.sb.bin` as a modern graph-based blob.
   - Slice it into a small preamble/op-table area, a “nodes” region, and a literal/regex tail with human-readable strings.
   - Recorded, for the baseline blob:
   - `operation_count` from the heuristic header and approximate op-table length (`op_count * 2` bytes).
   - Node and literal region lengths.
 - Stride scans (8/12/16 bytes) with tag sets and in-bounds edge rates.
-- Persisted these observations via `analyze.py` and `out/summary.json`, with narrative in `Notes.md`.
+- Persisted these observations via `book/tools/sbpl/node_layout_runner.py` and `out/summary.json`, with narrative in `Notes.md`.
 - For ad hoc blob snapshots (section sizes, op-table entries, stride/tag stats, literals), prefer `book/api/profile/` (`inspect` / `decode`) over re-implementing parsers here.
 - **2. Synthetic SBPL variants**
   - Added a family of variants under `sb/`:
@@ -96,7 +96,7 @@ These tools give us a consistent “slice + decode” view of modern profiles th
   - Subpath-only and dual-subpath profiles.
   - Literal+subpath mixes and multi-literal require-any/require-all shapes.
   - Later probes combining mach-lookup with subpath/literal to stress the layout.
-  - Compiled all variants using `sandbox_compile_string` in `analyze.py`.
+  - Compiled all variants using `book/api/profile/compile` in `book/tools/sbpl/node_layout_runner.py`.
   - For each variant, recorded blob length, op_count, section lengths (op_table, nodes, literals), and stride/tail statistics into `out/summary.json`.
 - **3. Stride and tail behavior**
   - Treated the node region as fixed-size records at strides 8/12/16 for each variant and computed:
@@ -121,13 +121,13 @@ These tools give us a consistent “slice + decode” view of modern profiles th
   - Non-uniform patterns such as `[6,6,6,6,6,6,5]` in mixed mach+filtered-read variants.
   - Used these patterns as structural fingerprints to coordinate with the `op-table-operation` experiment.
 - **6. Tooling and artifacts**
-  - Implemented `analyze.py` to:
+  - Implemented `book/tools/sbpl/node_layout_runner.py` to:
   - compile all `sb/*.sb` into `sb/build/*.sb.bin`,
   - slice blobs into sections,
   - run stride/tail analysis,
   - call the shared decoder to capture `node_count`, tag counts, op_table offsets, literals, section lengths, and stride-selection witnesses,
   - write `out/summary.json` for use by other experiments.
-  - Ensured `Notes.md` references `analyze.py`, `out/summary.json`, and key observations.
+  - Ensured `Notes.md` references `book/tools/sbpl/node_layout_runner.py`, `out/summary.json`, and key observations.
 - **7. Remaining questions and follow-on work**
   - Integrated the shared decoder into the analysis pipeline so that node/tag counts, op_table offsets, and literal strings are available alongside stride stats.
   - Added and studied a family of literal- and mach-heavy probes (two/three/four/five/six/seven+ literal require-any/all variants, mach+literal, mach+subpath), confirming tail-word patterns that change with literal counts and compilation mode.
@@ -141,7 +141,7 @@ These tools give us a consistent “slice + decode” view of modern profiles th
        - swap `require-any` and `require-all`,
        - move the same filter between different operations.
      - For each new variant:
-       - re-run `analyze.py`,
+       - re-run `book/tools/sbpl/node_layout_runner.py`,
        - compare decoder `nodes` and node-field histograms to the nearest baseline,
        - document how the node fields change.
     - Goal: reach a table of the form “node field X consistently appears when construct Y is present” without claiming more than the data supports.
@@ -177,7 +177,7 @@ These tools give us a consistent “slice + decode” view of modern profiles th
   
 ## Evidence & artifacts
 - SBPL probe profiles under `sb/` and their compiled blobs in `sb/build/*.sb.bin`.
-- `book/evidence/experiments/profile-pipeline/node-layout/analyze.py` as the main ingestion and summary script.
+- `book/tools/sbpl/node_layout_runner.py` as the main ingestion and summary script.
 - `book/evidence/experiments/profile-pipeline/node-layout/out/summary.json` with per-variant structural data and decoder output.
 - Header/preamble and node-remainder contracts for canonical profiles captured in `book/evidence/graph/mappings/system_profiles/header_contract.json` and `book/evidence/graph/concepts/validation/out/static/node_remainders.json` (guardrailed in `book/tests/planes/contracts/test_header_contract.py` and `book/tests/planes/graph/test_node_remainders.py`).
 - Shared ingestion/decoder helpers under `book/graph/concepts/validation/` as referenced in the Baseline & scope section.
@@ -231,7 +231,7 @@ Together, these probes let us vary:
 - how many independent filter “branches” are present,
 - and whether extra operations (mach, write, network) are in the same profile.
 
-The compilation step (`analyze.py`) produces matching `*.sb.bin` blobs, guaranteeing that every summary entry is derived from a known SBPL variant.
+The compilation step (`book/tools/sbpl/node_layout_runner.py`) produces matching `*.sb.bin` blobs, guaranteeing that every summary entry is derived from a known SBPL variant.
 
 ---
 
@@ -242,7 +242,7 @@ Across all variants on this host, we see the following structural invariants:
   - an **Operation Pointer Table** (`op_count` 16‑bit entries),
   - a node region,
   - a literal/regex pool.
-- `profile_ingestion` and the decoder agree on:
+- `book/api/profile/ingestion` and the decoder agree on:
   - `op_table_offset = 16` bytes,
   - node and literal section lengths (with minor variations per profile).
 

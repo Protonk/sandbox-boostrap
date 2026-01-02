@@ -55,11 +55,11 @@ This experiment starts where `libsandbox-encoder` stopped: it treats the compile
   - Blob identical to baseline (sha256 `19832eb9716a32459bee8398c8977fd1dfd575fa26606928f95728462a833c92`).
 - Forced branch witness (`INIT_PARAMS_PROBE_MODE=forced`, default run_id `init_params_probe_forced`):
   - Applies via a local packed handle so `handle[0]!=0`, call_code 1, arg block `{q0=0x149808200, q1=416, q2=0}`, `sandbox_apply` returned -1. Blob still matches baseline hash/len.
-- Validation: `validate_runs.py` recomputes length/call_code/sha256 for all runs and writes `out/validation_summary.json`; current required runs are len 416, call_code 0, sha256 `19832e...3c92`.
+- Validation: `book/tools/sbpl/sandbox_init_params_validate.py` recomputes length/call_code/sha256 for all runs and writes `out/validation_summary.json`; current required runs are len 416, call_code 0, sha256 `19832e...3c92`.
 - Artifacts emitted:
   - `Plan.md` (canonical scenario and steps).
   - `Notes.md` (call graph, layout snapshot, handoff snapshot, run log).
-  - `out/call_graph.json`, `out/layout_snapshot.json`, `out/handoff_snapshot.json`, `out/init_params_probe*.sb.bin`, `out/init_params_probe*.inspect.json`, `out/init_params_probe*_run.json`, `out/validation_summary.json`, `out/handle_candidate_profiles.json`, `out/handle_runs_summary.json`, `validate_runs.py`.
+  - `out/call_graph.json`, `out/layout_snapshot.json`, `out/handoff_snapshot.json`, `out/init_params_probe*.sb.bin`, `out/init_params_probe*.inspect.json`, `out/init_params_probe*_run.json`, `out/validation_summary.json`, `out/handle_candidate_profiles.json`, `out/handle_runs_summary.json`, `book/tools/sbpl/sandbox_init_params_validate.py`.
 
 ## Handle[0] harvesting (named/file variants)
 - Candidate set recorded at `out/handle_candidate_profiles.json` (63 `.sb` names from `/usr/share/sandbox`, source `usr_share_sandbox`).
@@ -74,7 +74,7 @@ This experiment starts where `libsandbox-encoder` stopped: it treats the compile
 ## Contract for this world_id
 - For `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`, running `init_params_probe` (with/without container) must produce a compiled blob of length 416 and sha256 `19832eb9716a32459bee8398c8977fd1dfd575fa26606928f95728462a833c92`, with `call_code` = 0.
 - Pointer values are treated as structural (non-zero) but not fixed; guardrail asserts length/hash/call_code only.
-- Validation/guardrail: `book/graph/concepts/validation/sandbox_init_params_job.py` reads `out/validation_summary.json`, checks required runs for this world, and is exercised by `book/tests/planes/contracts/test_sandbox_init_params_guardrail.py`. Additional named/file runs are recorded as variation witnesses only.
+- Validation/guardrail: `book/graph/concepts/validation/sandbox_init_params_job.py` reads `out/validation_summary.json`, checks required runs for this world, and is exercised by `book/integration/tests/contracts/test_sandbox_init_params_guardrail.py`. Additional named/file runs are recorded as variation witnesses only.
 
 ## Planned guardrails (not yet implemented)
 - For `init_params_probe`, the `(ptr,len)` passed to `__sandbox_ms` should match the sb_buffer produced by `sandbox_compile_string` for the inline profile.
