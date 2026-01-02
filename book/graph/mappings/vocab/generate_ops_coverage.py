@@ -20,13 +20,16 @@ if str(REPO_ROOT) not in sys.path:
 from book.api import evidence_tiers  # noqa: E402
 from book.api import world as world_mod  # noqa: E402
 
-OPS_JSON = REPO_ROOT / "book" / "graph" / "mappings" / "vocab" / "ops.json"
-OUT_JSON = REPO_ROOT / "book" / "graph" / "mappings" / "vocab" / "ops_coverage.json"
-RUNTIME_COVERAGE = REPO_ROOT / "book" / "graph" / "mappings" / "runtime" / "runtime_coverage.json"
+OPS_JSON = REPO_ROOT / "book" / "evidence" / "graph" / "mappings" / "vocab" / "ops.json"
+OUT_JSON = REPO_ROOT / "book" / "evidence" / "graph" / "mappings" / "vocab" / "ops_coverage.json"
+RUNTIME_COVERAGE = (
+    REPO_ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "runtime_coverage.json"
+)
 
 RUNTIME_MATRICES = [
     REPO_ROOT
     / "book"
+    / "evidence"
     / "experiments"
     / "runtime-final-final"
     / "suites"
@@ -35,6 +38,7 @@ RUNTIME_MATRICES = [
     / "expected_matrix.json",
     REPO_ROOT
     / "book"
+    / "evidence"
     / "experiments"
     / "runtime-final-final"
     / "suites"

@@ -30,7 +30,7 @@ from book.api.runtime.contracts import models
 from book.api.runtime.contracts import normalize
 
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))
-OPS_VOCAB = REPO_ROOT / "book" / "graph" / "mappings" / "vocab" / "ops.json"
+OPS_VOCAB = REPO_ROOT / "book" / "evidence" / "graph" / "mappings" / "vocab" / "ops.json"
 
 # Default schema versions used across runtime mappings.
 RUNTIME_LOG_SCHEMA = "runtime_log_schema.v0.1.json"

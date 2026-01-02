@@ -14,7 +14,7 @@ Inputs:
 - `book/evidence/graph/mappings/runtime/expectations.json` (optional link)
 - `book/evidence/graph/mappings/anchors/anchor_filter_map.json`
 - `book/evidence/graph/mappings/tag_layouts/tag_layouts.json`
-- `book/graph/mappings/vocab/{ops,filters}.json`
+- `book/evidence/graph/mappings/vocab/{ops,filters}.json`
 
 Outputs:
 - `book/evidence/graph/mappings/system_profiles/attestations.json`

@@ -5,7 +5,7 @@ Expand runtime probe coverage along three frontiers: system-profile ops with zer
 
 ## Baseline & scope
 - world_id: sonoma-14.4.1-23E224-arm64-dyld-2c0602c5
-- Use ops/filters from `book/graph/mappings/vocab/{ops,filters}.json`.
+- Use ops/filters from `book/evidence/graph/mappings/vocab/{ops,filters}.json`.
 - Profiles in `sb/` are deny-default with targeted allow rules.
 
 ## Work

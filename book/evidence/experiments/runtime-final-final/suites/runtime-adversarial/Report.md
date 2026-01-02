@@ -83,7 +83,7 @@ python -m book.api.runtime run \
 - Bundle index: `book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/LATEST/artifact_index.json` (digests + schema versions).
 - Fixture markers: `book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/LATEST/fixtures.json` (loopback listener prereq evidence).
 - Mapping stub: `book/evidence/graph/mappings/runtime/adversarial_summary.json` (world-level counts).
-- Guardrails: `book/integration/tests/runtime/test_runtime_adversarial.py`, `book/integration/tests/runtime/test_network_outbound_guardrail.py`, plus dyld slice manifest/checker `book/graph/mappings/dyld-libs/{manifest.json,check_manifest.py}` enforced by `book/integration/tests/graph/test_dyld_libs_manifest.py`.
+- Guardrails: `book/integration/tests/runtime/test_runtime_adversarial.py`, `book/integration/tests/runtime/test_network_outbound_guardrail.py`, plus dyld slice manifest/checker `book/evidence/graph/mappings/dyld-libs/{manifest.json,check_manifest.py}` enforced by `book/integration/tests/graph/test_dyld_libs_manifest.py`.
 - Runtime-backed ops: `book/evidence/graph/mappings/vocab/ops_coverage.json` marks `file-read*`, `file-write*`, `mach-lookup`, and `network-outbound` as having runtime evidence via runtime-checks and runtime-adversarial families; use it to decide when new probes are needed for other ops.
 
 ## Claims and limits

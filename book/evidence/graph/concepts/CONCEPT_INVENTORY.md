@@ -32,9 +32,9 @@ Concretely, “success” means that each concept has:
 
 ### Current bedrock surfaces (navigation)
 This list mirrors the registry in `book/evidence/graph/concepts/BEDROCK_SURFACES.json`; that file is the source of truth for bedrock in this world. For navigation, the current set is:
-- Operation and Filter vocabularies in `book/graph/mappings/vocab/{ops.json,filters.json,ops_coverage.json}`.
+- Operation and Filter vocabularies in `book/evidence/graph/mappings/vocab/{ops.json,filters.json,ops_coverage.json}`.
 - Modern format/tag-layout subset in `book/evidence/graph/mappings/tag_layouts/tag_layouts.json`.
-- Canonical system profiles in `book/graph/mappings/system_profiles/{digests.json,static_checks.json,attestations.json}` (`sys:airlock`, `sys:bsd`, `sys:sample`).
+- Canonical system profiles in `book/evidence/graph/mappings/system_profiles/{digests.json,static_checks.json,attestations.json}` (`sys:airlock`, `sys:bsd`, `sys:sample`).
 
 When you start a new concept cluster, add a 3–5 sentence “claims and limits” block near the top of its primary README/Report and keep it in sync with the actual witnesses and validation status.
 
@@ -46,7 +46,7 @@ When you start a new concept cluster, add a 3–5 sentence “claims and limits�
   - What evidence “looks like”.
   - Which manifests already witness those concepts.
   - Where the gaps are.
-- Use the **Evidence manifests** section as the router into `book/graph/mappings/` and `book/evidence/graph/concepts/validation/out/`.
+- Use the **Evidence manifests** section as the router into `book/evidence/graph/mappings/` and `book/evidence/graph/concepts/validation/out/`.
 - Use **Validation workflow** and **Guidance for new validation paths** when you want to add new evidence or extend the inventory.
 - Treat the **Appendix on misconceptions** as conceptual hygiene: it describes ways to be wrong, not new evidence or instructions.
 
@@ -110,11 +110,11 @@ A single “profile ingestion” spine (decoder + tag layouts) serves this clust
   - `book/evidence/graph/mappings/system_profiles/static_checks.json` – decoder-backed invariants (header op_count, section sizes, tag_counts, tag_layout hash) for the same canonical blobs.
 
 - **Op-table and node layout**
-  - `book/graph/mappings/op_table/{op_table_map.json,op_table_signatures.json,op_table_operation_summary.json,op_table_vocab_alignment.json}` – op-table bucket maps, structural signatures, and vocab alignment for synthetic profiles.
+  - `book/evidence/graph/mappings/op_table/{op_table_map.json,op_table_signatures.json,op_table_operation_summary.json,op_table_vocab_alignment.json}` – op-table bucket maps, structural signatures, and vocab alignment for synthetic profiles.
   - `book/evidence/graph/mappings/tag_layouts/tag_layouts.json` – per-tag node layouts for tags that carry literal/regex operands; used by the decoder.
 
 - **Anchors and field2**
-- `book/graph/mappings/anchors/{anchor_field2_map.json,anchor_ctx_filter_map.json,anchor_filter_map.json}` – anchor-derived mappings: structural anchor hits (`anchor_field2_map.json`), canonical ctx-indexed anchor→Filter bindings (`anchor_ctx_filter_map.json`), and a conservative literal-keyed compatibility view (`anchor_filter_map.json`).
+- `book/evidence/graph/mappings/anchors/{anchor_field2_map.json,anchor_ctx_filter_map.json,anchor_filter_map.json}` – anchor-derived mappings: structural anchor hits (`anchor_field2_map.json`), canonical ctx-indexed anchor→Filter bindings (`anchor_ctx_filter_map.json`), and a conservative literal-keyed compatibility view (`anchor_filter_map.json`).
 
 - **Static ingestion outputs**
   - `book/evidence/graph/concepts/validation/out/static/*` – JSON summaries of modern and legacy blobs produced by ingestion tools (`profile_ingestion.py`, `decode_blob.py`).
@@ -206,7 +206,7 @@ Primary evidence:
 
 - **Op-table ↔ vocab alignment**
   - `book/evidence/graph/mappings/op_table/op_table_vocab_alignment.json` – per-profile alignment of op-table entries to Operation IDs, used to interpret buckets in terms of concrete operations.
-  - `book/graph/mappings/op_table/{op_table_map.json,op_table_signatures.json,op_table_operation_summary.json}` – bucket maps and structural signatures for synthetic profiles.
+  - `book/evidence/graph/mappings/op_table/{op_table_map.json,op_table_signatures.json,op_table_operation_summary.json}` – bucket maps and structural signatures for synthetic profiles.
 
 - **Validation outputs**
   - `book/evidence/graph/concepts/validation/out/vocab/*` – mirrored vocab tables and any runtime-usage summaries (`runtime_usage.json` is currently `blocked` when no runtime IDs are observed).
@@ -293,7 +293,7 @@ The following manifests are the main entry points from concepts → examples →
 - `book/evidence/graph/mappings/anchors/anchor_filter_map.json` (compatibility view; derived)  
   - Anchor → filter-ID/name map with status per anchor.
 
-- `book/graph/mappings/vocab/{ops.json,filters.json,attestations.json}`  
+- `book/evidence/graph/mappings/vocab/{ops.json,filters.json,attestations.json}`  
   - Canonical vocab tables and their attestation to dyld slices and reference blobs.
 
 - `book/evidence/graph/mappings/runtime/expectations.json` + `traces/*`  
@@ -371,7 +371,7 @@ For both humans and agents, the safest way to extend validation is to reuse the 
 - Prefer:
   - Small, composable examples over large scenarios.
   - Evidence that is regenerable on this host over opaque or manual logs.
-  - Outputs that plug into existing manifests under `book/graph/mappings/` and `book/evidence/graph/concepts/validation/out/`.
+  - Outputs that plug into existing manifests under `book/evidence/graph/mappings/` and `book/evidence/graph/concepts/validation/out/`.
 
 ### What has been done vs what remains
 

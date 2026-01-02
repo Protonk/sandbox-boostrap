@@ -10,16 +10,14 @@ High-level layout:
   - Swift entrypoint(s) for graph-related tooling. Keep these thin wrappers over the Python/JSON IR: they should orchestrate, not re-implement, ingestion or mapping logic. Encode “always enforced” mapping invariants as Swift data structures here so drift is caught by the Swift build.
 
 - `concepts/`
-  - `CONCEPT_INVENTORY.md`, `concepts.json`, `concept_map.json`, `concept_text_map.json`:
-    - Single source of truth for the Seatbelt concept set, their relationships, and how they map to text.
-  - `EXAMPLES.md`:
-    - Human-facing examples that witness concepts via specific artifacts.
+  - Concept inventory sources + generated JSON live under `book/evidence/graph/concepts/`:
+    - `CONCEPT_INVENTORY.md`, `concepts.json`, `concept_map.json`, `concept_text_map.json`, `EXAMPLES.md`.
   - `validation/`:
-    - Python tooling and fixtures that ingest/parse compiled profiles, decode PolicyGraphs, and emit validation outputs under `validation/out/` (profile ingestion, decoder, vocab extraction, static/mapping metadata).
+    - Python tooling that ingests/parses compiled profiles, decodes PolicyGraphs, and emits validation outputs under `book/evidence/graph/concepts/validation/out/` (profile ingestion, decoder, vocab extraction, static/mapping metadata).
     - This is the only place new ingestion/decoder logic should live.
 
 - `mappings/`
-  - Stable host-specific mapping artifacts used across the repo (see `book/graph/mappings/README.md`); mapping generators read validation IR and write these before CARTON fixers normalize them into the CARTON bundle (relationships/views/contracts + manifest):
+  - Generators for stable host-specific mapping artifacts under `book/evidence/graph/mappings/` (see `book/graph/mappings/README.md`); mapping generators read validation IR and write these before CARTON fixers normalize them into the CARTON bundle (relationships/views/contracts + manifest):
     - `vocab/` – Operation/Filter Vocabulary Maps.
     - `op_table/` – op-table buckets, signatures, and vocab alignment.
     - `anchors/` – anchor ↔ filter/field2 mappings.
@@ -34,7 +32,7 @@ The current bedrock surfaces for this world are recorded in `book/evidence/graph
 
 When in doubt:
 - New *code* that ingests or validates compiled profiles → `concepts/validation/`.
-- New *stable mappings* or “IR” that other code depends on → `mappings/` (with metadata and schema).
+- New *stable mappings* or “IR” that other code depends on → `book/evidence/graph/mappings/` (generated from `book/graph/mappings/`).
 - Experiment-specific scratch outputs stay under `book/evidence/experiments/*/out`, not here.
 - CARTON is the frozen, host-specific bundle (relationships/views/contracts + manifest); see `book/integration/carton/README.md` and use `python -m book.integration.carton.tools.check` / `python -m book.integration.carton.tools.diff` rather than ad-hoc JSON spelunking.
 
@@ -50,7 +48,7 @@ For **anchor/field2 structure** on this Sonoma world, use this stack as your ent
 Use this pattern to extend the Swift generator/validator:
 - Pick one schema slice to cover (e.g., runtime expectations, vocab attestations, concept→text bindings).
 - Add Swift types that mirror the JSON shape and small validators (status enums, required IDs).
-- Parse inputs, reuse generated `concepts.json` for ID checks, and emit a report under `book/graph/concepts/validation/` instead of failing silently.
+- Parse inputs, reuse generated `concepts.json` for ID checks, and emit a report under `book/evidence/graph/concepts/validation/out/` instead of failing silently.
 - Document the new coverage in `book/graph/README.md` and `book/graph/swift/README.md` (inputs/outputs, how to run).
 - Run `swift run` (or `make -C book test`, which calls the Swift build; `make -C book build` does the same with a pinned module cache). `make -C book clean` wipes SwiftPM/.build/module caches if you need a fresh start.
 
@@ -70,22 +68,22 @@ Within `concepts/` and `concepts/validation/`:
 - **Validation tooling expectations**
   - New ingestion/decoder logic should:
     - Take raw artifacts (compiled profiles, SBPL, mappings) as input.
-    - Emit small, well-typed JSON outputs under `concepts/validation/out/`.
+    - Emit small, well-typed JSON outputs under `book/evidence/graph/concepts/validation/out/`.
     - Record host, OS/build, and format-variant metadata in outputs.
   - Prefer small, composable scripts (e.g., `profile_ingestion.py`, `node_decoder.py`, `vocab_extraction.py`) over monolithic tools.
   - If you change decoding or ingestion semantics, also:
     - Update `validation/README.md` or nearby docs.
-    - Consider whether existing `mappings/` artifacts need to be regenerated and reversioned.
+    - Consider whether existing `book/evidence/graph/mappings/` artifacts need to be regenerated and reversioned.
 
 - **Fixtures and tests**
-  - Keep fixtures under `concepts/validation/fixtures/` small and explicit (short blobs, curated examples, minimal SBPL).
+  - Keep fixtures under `book/evidence/graph/concepts/validation/fixtures/` small and explicit (short blobs, curated examples, minimal SBPL).
   - Any new fixture or strategy should be referenced from `strategies.json` or equivalent routing, not hidden in ad-hoc scripts.
 
 ---
 
 ## Mapping artifacts
 
-Within `mappings/`, treat files as shared IR:
+Within `book/evidence/graph/mappings/`, treat files as shared IR:
 
 - **General expectations**
   - Every mapping JSON (vocab, op_table, anchors, tag_layouts, system_profiles, runtime) should:
@@ -95,14 +93,14 @@ Within `mappings/`, treat files as shared IR:
   - Keep schemas stable; if you must change a schema, adjust consumers and document the change in `mappings/README.md` or a nearby note.
 
 - **Division of labor**
-  - `mappings/` should contain only artifacts that are:
+  - `book/evidence/graph/mappings/` should contain only artifacts that are:
     - Host-specific.
     - Stable enough to be reused by multiple experiments and chapters.
     - Regenerable from the repo plus the fixed host baseline.
   - Do not put experiment-local scratch data here; that lives under `book/evidence/experiments/*/out`.
 
 - **Alignment with experiments**
-  - When an experiment “graduates” a mapping into `mappings/`:
+  - When an experiment “graduates” a mapping into `book/evidence/graph/mappings/`:
     - Make sure the experiment’s `Report.md` points to the new file and describes its schema and status.
     - Prefer naming and shapes that match the concept inventory (e.g., Operation Vocabulary Map, Filter Vocabulary Map, PolicyGraph, tag layouts).
 
@@ -117,7 +115,7 @@ When working in `book/graph/`, agents should avoid:
   - Do not redefine core terms (Operation, Filter, PolicyGraph, Profile Layer, etc.) in local docs or code.
 
 - **Unversioned or opaque changes**
-  - Do not silently change the semantics or schema of mapping JSONs under `mappings/` without:
+  - Do not silently change the semantics or schema of mapping JSONs under `book/evidence/graph/mappings/` without:
     - Updating metadata and documentation.
     - Checking (and, if needed, updating) consumers in `concepts/validation/`, `book/evidence/experiments/`, and `book/chapters/`.
 

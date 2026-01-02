@@ -2,13 +2,13 @@
 
 world_id: sonoma-14.4.1-23E224-arm64-dyld-2c0602c5
 run_id: 7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a
-new_run: book/evidence/experiments/runtime-frontiers/out/7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a
-baseline_packets: book/evidence/experiments/runtime-checks/out/promotion_packet.json, book/evidence/experiments/runtime-adversarial/out/promotion_packet.json, book/evidence/experiments/hardened-runtime/out/promotion_packet.json, book/evidence/experiments/anchor-filter-map/out/promotion_packet.json, book/evidence/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json
-generated_by: book/evidence/experiments/runtime-frontiers/frontier_delta.py
+new_run: book/evidence/experiments/runtime-final-final/suites/runtime-frontiers/out/7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a
+baseline_packets: book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/promotion_packet.json, book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/promotion_packet.json, book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/promotion_packet.json, book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/out/promotion_packet.json, book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/iokit-class/out/promotion_packet.json
+generated_by: book/evidence/experiments/runtime-final-final/suites/runtime-frontiers/frontier_delta.py
 
 ## Probe fidelity
 tier: mapped
-evidence: book/evidence/experiments/runtime-frontiers/out/7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/runtime_events.normalized.json
+evidence: book/evidence/experiments/runtime-final-final/suites/runtime-frontiers/out/7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/runtime_events.normalized.json
 - total_observations: 19
 - intended_op_witnessed: 16
 - op_filter_literal_witnessed: 16
@@ -20,7 +20,7 @@ missing_details:
 
 ## Coverage delta
 tier: mapped
-evidence: book/evidence/graph/mappings/runtime/packet_set.json, book/evidence/experiments/runtime-frontiers/out/7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/runtime_events.normalized.json, book/evidence/experiments/runtime-frontiers/out/7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/path_witnesses.json
+evidence: book/evidence/graph/mappings/runtime/packet_set.json, book/evidence/experiments/runtime-final-final/suites/runtime-frontiers/out/7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/runtime_events.normalized.json, book/evidence/experiments/runtime-final-final/suites/runtime-frontiers/out/7a75efa8-594f-4af8-8e5c-f5d1d6ebef2a/path_witnesses.json
 notes: filter coverage uses seatbelt callout filter_type_name; path pairs are requested_path -> normalized_path.
 - ops: baseline=3 new=6 added=4
 - filters: baseline=3 new=1 added=0

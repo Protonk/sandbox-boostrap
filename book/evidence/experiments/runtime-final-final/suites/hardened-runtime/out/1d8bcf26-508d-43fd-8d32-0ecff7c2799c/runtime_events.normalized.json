@@ -10,8 +10,8 @@
       "rc": 0
     },
     "command": [
-      "book/evidence/experiments/runtime-checks/sandbox_mach_probe",
-      "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/mach_lookup.hardened_mach_lookup.runtime.sb",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_mach_probe",
+      "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/mach_lookup.hardened_mach_lookup.runtime.sb",
       "com.apple.cfprefsd.agent"
     ],
     "expectation_id": "hardened:mach_lookup:deny-cfprefsd",
@@ -22,7 +22,7 @@
       "classification": "no_known_apply_gate_signature",
       "findings": [],
       "input_kind": "sbpl_path",
-      "input_ref": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/mach_lookup.hardened_mach_lookup.runtime.sb",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/mach_lookup.hardened_mach_lookup.runtime.sb",
       "preflight_schema_version": 1,
       "signature": null,
       "tool": "book/tools/preflight",
@@ -35,7 +35,7 @@
       "apply_model": "self_apply",
       "apply_timing": "pre_syscall",
       "entrypoint": "sandbox_mach_probe",
-      "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_mach_probe",
+      "entrypoint_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_mach_probe",
       "entrypoint_sha256": "0d0fdc1c3c113067b17b463de6f876c4fd8b8886835822f88b45bec7232a431c",
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "0d0fdc1c3c113067b17b463de6f876c4fd8b8886835822f88b45bec7232a431c"
@@ -58,8 +58,8 @@
       "rc": 0
     },
     "command": [
-      "book/evidence/experiments/runtime-checks/sandbox_mach_probe",
-      "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/mach_lookup.hardened_mach_lookup.runtime.sb",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_mach_probe",
+      "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/mach_lookup.hardened_mach_lookup.runtime.sb",
       "com.apple.sandbox-lore.hardened-runtime.bogus"
     ],
     "errno": 1,
@@ -73,7 +73,7 @@
       "classification": "no_known_apply_gate_signature",
       "findings": [],
       "input_kind": "sbpl_path",
-      "input_ref": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/mach_lookup.hardened_mach_lookup.runtime.sb",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/mach_lookup.hardened_mach_lookup.runtime.sb",
       "preflight_schema_version": 1,
       "signature": null,
       "tool": "book/tools/preflight",
@@ -86,7 +86,7 @@
       "apply_model": "self_apply",
       "apply_timing": "pre_syscall",
       "entrypoint": "sandbox_mach_probe",
-      "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_mach_probe",
+      "entrypoint_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_mach_probe",
       "entrypoint_sha256": "0d0fdc1c3c113067b17b463de6f876c4fd8b8886835822f88b45bec7232a431c",
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "0d0fdc1c3c113067b17b463de6f876c4fd8b8886835822f88b45bec7232a431c"
@@ -110,8 +110,8 @@
       "rc": 0
     },
     "command": [
-      "book/evidence/experiments/runtime-checks/sandbox_mach_probe",
-      "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/mach_lookup_allow.hardened_mach_lookup_allow.runtime.sb",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_mach_probe",
+      "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/mach_lookup_allow.hardened_mach_lookup_allow.runtime.sb",
       "com.apple.cfprefsd.agent"
     ],
     "expectation_id": "hardened:mach_lookup_allow:allow-cfprefsd",
@@ -122,7 +122,7 @@
       "classification": "no_known_apply_gate_signature",
       "findings": [],
       "input_kind": "sbpl_path",
-      "input_ref": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/mach_lookup_allow.hardened_mach_lookup_allow.runtime.sb",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/mach_lookup_allow.hardened_mach_lookup_allow.runtime.sb",
       "preflight_schema_version": 1,
       "signature": null,
       "tool": "book/tools/preflight",
@@ -135,7 +135,7 @@
       "apply_model": "self_apply",
       "apply_timing": "pre_syscall",
       "entrypoint": "sandbox_mach_probe",
-      "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_mach_probe",
+      "entrypoint_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_mach_probe",
       "entrypoint_sha256": "0d0fdc1c3c113067b17b463de6f876c4fd8b8886835822f88b45bec7232a431c",
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "0d0fdc1c3c113067b17b463de6f876c4fd8b8886835822f88b45bec7232a431c"
@@ -158,8 +158,8 @@
       "rc": 0
     },
     "command": [
-      "book/evidence/experiments/runtime-checks/sandbox_runner",
-      "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
+      "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb",
       "--",
       "/usr/bin/notifyutil",
       "-p",
@@ -176,7 +176,7 @@
       "classification": "no_known_apply_gate_signature",
       "findings": [],
       "input_kind": "sbpl_path",
-      "input_ref": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb",
       "preflight_schema_version": 1,
       "signature": null,
       "tool": "book/tools/preflight",
@@ -189,7 +189,7 @@
       "apply_model": "exec_wrapper",
       "apply_timing": "pre_exec",
       "entrypoint": "sandbox_runner",
-      "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_runner",
+      "entrypoint_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
       "entrypoint_sha256": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e",
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e"
@@ -212,8 +212,8 @@
       "rc": 0
     },
     "command": [
-      "book/evidence/experiments/runtime-checks/sandbox_runner",
-      "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
+      "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb",
       "--",
       "/usr/bin/notifyutil",
       "-p",
@@ -230,7 +230,7 @@
       "classification": "no_known_apply_gate_signature",
       "findings": [],
       "input_kind": "sbpl_path",
-      "input_ref": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb",
       "preflight_schema_version": 1,
       "signature": null,
       "tool": "book/tools/preflight",
@@ -243,7 +243,7 @@
       "apply_model": "exec_wrapper",
       "apply_timing": "pre_exec",
       "entrypoint": "sandbox_runner",
-      "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_runner",
+      "entrypoint_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
       "entrypoint_sha256": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e",
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e"
@@ -266,8 +266,8 @@
       "rc": 0
     },
     "command": [
-      "book/evidence/experiments/runtime-checks/sandbox_runner",
-      "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
+      "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb",
       "--",
       "/usr/bin/python3",
       "-c",
@@ -285,7 +285,7 @@
       "classification": "no_known_apply_gate_signature",
       "findings": [],
       "input_kind": "sbpl_path",
-      "input_ref": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb",
       "preflight_schema_version": 1,
       "signature": null,
       "tool": "book/tools/preflight",
@@ -298,7 +298,7 @@
       "apply_model": "exec_wrapper",
       "apply_timing": "pre_exec",
       "entrypoint": "sandbox_runner",
-      "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_runner",
+      "entrypoint_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
       "entrypoint_sha256": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e",
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e"
@@ -321,8 +321,8 @@
       "rc": 0
     },
     "command": [
-      "book/evidence/experiments/runtime-checks/sandbox_runner",
-      "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
+      "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb",
       "--",
       "/usr/bin/python3",
       "-c",
@@ -340,7 +340,7 @@
       "classification": "no_known_apply_gate_signature",
       "findings": [],
       "input_kind": "sbpl_path",
-      "input_ref": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb",
       "preflight_schema_version": 1,
       "signature": null,
       "tool": "book/tools/preflight",
@@ -353,7 +353,7 @@
       "apply_model": "exec_wrapper",
       "apply_timing": "pre_exec",
       "entrypoint": "sandbox_runner",
-      "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_runner",
+      "entrypoint_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
       "entrypoint_sha256": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e",
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e"
@@ -376,8 +376,8 @@
       "rc": 0
     },
     "command": [
-      "book/evidence/experiments/runtime-checks/sandbox_runner",
-      "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications_allow.hardened_notifications_allow.runtime.sb",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
+      "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications_allow.hardened_notifications_allow.runtime.sb",
       "--",
       "/usr/bin/notifyutil",
       "-p",
@@ -391,7 +391,7 @@
       "classification": "no_known_apply_gate_signature",
       "findings": [],
       "input_kind": "sbpl_path",
-      "input_ref": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications_allow.hardened_notifications_allow.runtime.sb",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications_allow.hardened_notifications_allow.runtime.sb",
       "preflight_schema_version": 1,
       "signature": null,
       "tool": "book/tools/preflight",
@@ -404,7 +404,7 @@
       "apply_model": "exec_wrapper",
       "apply_timing": "pre_exec",
       "entrypoint": "sandbox_runner",
-      "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_runner",
+      "entrypoint_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
       "entrypoint_sha256": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e",
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e"
@@ -427,8 +427,8 @@
       "rc": 0
     },
     "command": [
-      "book/evidence/experiments/runtime-checks/sandbox_runner",
-      "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications_allow.hardened_notifications_allow.runtime.sb",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
+      "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications_allow.hardened_notifications_allow.runtime.sb",
       "--",
       "/usr/bin/python3",
       "-c",
@@ -443,7 +443,7 @@
       "classification": "no_known_apply_gate_signature",
       "findings": [],
       "input_kind": "sbpl_path",
-      "input_ref": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications_allow.hardened_notifications_allow.runtime.sb",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications_allow.hardened_notifications_allow.runtime.sb",
       "preflight_schema_version": 1,
       "signature": null,
       "tool": "book/tools/preflight",
@@ -456,7 +456,7 @@
       "apply_model": "exec_wrapper",
       "apply_timing": "pre_exec",
       "entrypoint": "sandbox_runner",
-      "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_runner",
+      "entrypoint_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
       "entrypoint_sha256": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e",
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e"
@@ -479,8 +479,8 @@
       "rc": 0
     },
     "command": [
-      "book/evidence/experiments/runtime-checks/sandbox_runner",
-      "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_allow.hardened_process_info_allow.runtime.sb",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
+      "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_allow.hardened_process_info_allow.runtime.sb",
       "--",
       "/usr/bin/python3",
       "-c",
@@ -498,7 +498,7 @@
       "classification": "no_known_apply_gate_signature",
       "findings": [],
       "input_kind": "sbpl_path",
-      "input_ref": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_allow.hardened_process_info_allow.runtime.sb",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_allow.hardened_process_info_allow.runtime.sb",
       "preflight_schema_version": 1,
       "signature": null,
       "tool": "book/tools/preflight",
@@ -511,7 +511,7 @@
       "apply_model": "exec_wrapper",
       "apply_timing": "pre_exec",
       "entrypoint": "sandbox_runner",
-      "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_runner",
+      "entrypoint_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
       "entrypoint_sha256": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e",
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e"
@@ -534,8 +534,8 @@
       "rc": 0
     },
     "command": [
-      "book/evidence/experiments/runtime-checks/sandbox_runner",
-      "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_allow.hardened_process_info_allow.runtime.sb",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
+      "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_allow.hardened_process_info_allow.runtime.sb",
       "--",
       "/usr/bin/python3",
       "-c",
@@ -553,7 +553,7 @@
       "classification": "no_known_apply_gate_signature",
       "findings": [],
       "input_kind": "sbpl_path",
-      "input_ref": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_allow.hardened_process_info_allow.runtime.sb",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_allow.hardened_process_info_allow.runtime.sb",
       "preflight_schema_version": 1,
       "signature": null,
       "tool": "book/tools/preflight",
@@ -566,7 +566,7 @@
       "apply_model": "exec_wrapper",
       "apply_timing": "pre_exec",
       "entrypoint": "sandbox_runner",
-      "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_runner",
+      "entrypoint_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
       "entrypoint_sha256": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e",
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e"
@@ -589,8 +589,8 @@
       "rc": 0
     },
     "command": [
-      "book/evidence/experiments/runtime-checks/sandbox_runner",
-      "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_allow_canary.hardened_process_info_allow_canary.runtime.sb",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
+      "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_allow_canary.hardened_process_info_allow_canary.runtime.sb",
       "--",
       "/usr/bin/python3",
       "-c",
@@ -605,7 +605,7 @@
       "classification": "no_known_apply_gate_signature",
       "findings": [],
       "input_kind": "sbpl_path",
-      "input_ref": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_allow_canary.hardened_process_info_allow_canary.runtime.sb",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_allow_canary.hardened_process_info_allow_canary.runtime.sb",
       "preflight_schema_version": 1,
       "signature": null,
       "tool": "book/tools/preflight",
@@ -618,7 +618,7 @@
       "apply_model": "exec_wrapper",
       "apply_timing": "pre_exec",
       "entrypoint": "sandbox_runner",
-      "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_runner",
+      "entrypoint_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
       "entrypoint_sha256": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e",
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e"
@@ -641,8 +641,8 @@
       "rc": 0
     },
     "command": [
-      "book/evidence/experiments/runtime-checks/sandbox_runner",
-      "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_deny.hardened_process_info_deny.runtime.sb",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
+      "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_deny.hardened_process_info_deny.runtime.sb",
       "--",
       "/usr/bin/python3",
       "-c",
@@ -660,7 +660,7 @@
       "classification": "no_known_apply_gate_signature",
       "findings": [],
       "input_kind": "sbpl_path",
-      "input_ref": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_deny.hardened_process_info_deny.runtime.sb",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_deny.hardened_process_info_deny.runtime.sb",
       "preflight_schema_version": 1,
       "signature": null,
       "tool": "book/tools/preflight",
@@ -673,7 +673,7 @@
       "apply_model": "exec_wrapper",
       "apply_timing": "pre_exec",
       "entrypoint": "sandbox_runner",
-      "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_runner",
+      "entrypoint_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
       "entrypoint_sha256": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e",
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e"
@@ -696,8 +696,8 @@
       "rc": 0
     },
     "command": [
-      "book/evidence/experiments/runtime-checks/sandbox_runner",
-      "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_deny.hardened_process_info_deny.runtime.sb",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
+      "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_deny.hardened_process_info_deny.runtime.sb",
       "--",
       "/usr/bin/python3",
       "-c",
@@ -715,7 +715,7 @@
       "classification": "no_known_apply_gate_signature",
       "findings": [],
       "input_kind": "sbpl_path",
-      "input_ref": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_deny.hardened_process_info_deny.runtime.sb",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_deny.hardened_process_info_deny.runtime.sb",
       "preflight_schema_version": 1,
       "signature": null,
       "tool": "book/tools/preflight",
@@ -728,7 +728,7 @@
       "apply_model": "exec_wrapper",
       "apply_timing": "pre_exec",
       "entrypoint": "sandbox_runner",
-      "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_runner",
+      "entrypoint_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
       "entrypoint_sha256": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e",
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e"
@@ -751,8 +751,8 @@
       "rc": 0
     },
     "command": [
-      "book/evidence/experiments/runtime-checks/sandbox_runner",
-      "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/signal_self_allow.hardened_signal_self_allow.runtime.sb",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
+      "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/signal_self_allow.hardened_signal_self_allow.runtime.sb",
       "--",
       "/usr/bin/python3",
       "-c",
@@ -766,7 +766,7 @@
       "classification": "no_known_apply_gate_signature",
       "findings": [],
       "input_kind": "sbpl_path",
-      "input_ref": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/signal_self_allow.hardened_signal_self_allow.runtime.sb",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/signal_self_allow.hardened_signal_self_allow.runtime.sb",
       "preflight_schema_version": 1,
       "signature": null,
       "tool": "book/tools/preflight",
@@ -789,7 +789,7 @@
       "apply_model": "exec_wrapper",
       "apply_timing": "pre_exec",
       "entrypoint": "sandbox_runner",
-      "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_runner",
+      "entrypoint_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
       "entrypoint_sha256": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e",
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e"
@@ -813,7 +813,7 @@
       "classification": "no_known_apply_gate_signature",
       "findings": [],
       "input_kind": "sbpl_path",
-      "input_ref": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/signal_self_deny.hardened_signal_self_deny.runtime.sb",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/signal_self_deny.hardened_signal_self_deny.runtime.sb",
       "preflight_schema_version": 1,
       "signature": null,
       "tool": "book/tools/preflight",
@@ -838,8 +838,8 @@
       "rc": 0
     },
     "command": [
-      "book/evidence/experiments/runtime-checks/sandbox_runner",
-      "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/sysctl_read.hardened_sysctl_read.runtime.sb",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
+      "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/sysctl_read.hardened_sysctl_read.runtime.sb",
       "--",
       "/usr/sbin/sysctl",
       "-n",
@@ -856,7 +856,7 @@
       "classification": "no_known_apply_gate_signature",
       "findings": [],
       "input_kind": "sbpl_path",
-      "input_ref": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/sysctl_read.hardened_sysctl_read.runtime.sb",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/sysctl_read.hardened_sysctl_read.runtime.sb",
       "preflight_schema_version": 1,
       "signature": null,
       "tool": "book/tools/preflight",
@@ -869,7 +869,7 @@
       "apply_model": "exec_wrapper",
       "apply_timing": "pre_exec",
       "entrypoint": "sandbox_runner",
-      "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_runner",
+      "entrypoint_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
       "entrypoint_sha256": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e",
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e"
@@ -892,8 +892,8 @@
       "rc": 0
     },
     "command": [
-      "book/evidence/experiments/runtime-checks/sandbox_runner",
-      "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/sysctl_read.hardened_sysctl_read.runtime.sb",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
+      "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/sysctl_read.hardened_sysctl_read.runtime.sb",
       "--",
       "/usr/sbin/sysctl",
       "-n",
@@ -910,7 +910,7 @@
       "classification": "no_known_apply_gate_signature",
       "findings": [],
       "input_kind": "sbpl_path",
-      "input_ref": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/sysctl_read.hardened_sysctl_read.runtime.sb",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/sysctl_read.hardened_sysctl_read.runtime.sb",
       "preflight_schema_version": 1,
       "signature": null,
       "tool": "book/tools/preflight",
@@ -923,7 +923,7 @@
       "apply_model": "exec_wrapper",
       "apply_timing": "pre_exec",
       "entrypoint": "sandbox_runner",
-      "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_runner",
+      "entrypoint_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
       "entrypoint_sha256": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e",
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e"
@@ -946,8 +946,8 @@
       "rc": 0
     },
     "command": [
-      "book/evidence/experiments/runtime-checks/sandbox_runner",
-      "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/sysctl_read_allow.hardened_sysctl_read_allow.runtime.sb",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
+      "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/sysctl_read_allow.hardened_sysctl_read_allow.runtime.sb",
       "--",
       "/usr/sbin/sysctl",
       "-n",
@@ -961,7 +961,7 @@
       "classification": "no_known_apply_gate_signature",
       "findings": [],
       "input_kind": "sbpl_path",
-      "input_ref": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/sysctl_read_allow.hardened_sysctl_read_allow.runtime.sb",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/sysctl_read_allow.hardened_sysctl_read_allow.runtime.sb",
       "preflight_schema_version": 1,
       "signature": null,
       "tool": "book/tools/preflight",
@@ -974,7 +974,7 @@
       "apply_model": "exec_wrapper",
       "apply_timing": "pre_exec",
       "entrypoint": "sandbox_runner",
-      "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_runner",
+      "entrypoint_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
       "entrypoint_sha256": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e",
       "preexisting_sandbox_suspected": false,
       "tool_build_id": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e"

@@ -7,6 +7,7 @@ ROOT = path_utils.find_repo_root(Path(__file__))
 OUT_DIR = (
     ROOT
     / "book"
+    / "evidence"
     / "experiments"
     / "field2-final-final"
     / "probe-op-structure"

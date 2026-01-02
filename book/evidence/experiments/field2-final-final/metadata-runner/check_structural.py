@@ -18,11 +18,11 @@ from book.api.path_utils import find_repo_root  # type: ignore
 from book.api.profile import decoder  # type: ignore
 
 BASE_DIR = Path(__file__).resolve().parent
-METADATA_RUNNER_DIR = REPO_ROOT / "book" / "experiments" / "metadata-runner"
+METADATA_RUNNER_DIR = BASE_DIR
 SB_BUILD = METADATA_RUNNER_DIR / "sb" / "build"
 OUT_DIR = BASE_DIR / "out"
 WORLD_PATH = find_repo_root(Path(__file__)) / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world.json"
-ANCHOR_MAP_PATH = REPO_ROOT / "book" / "graph" / "mappings" / "anchors" / "anchor_filter_map.json"
+ANCHOR_MAP_PATH = REPO_ROOT / "book" / "evidence" / "graph" / "mappings" / "anchors" / "anchor_filter_map.json"
 
 # Paths exercised by this experiment
 PATH_PAIRS = [

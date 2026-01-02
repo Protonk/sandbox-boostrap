@@ -17,8 +17,8 @@
   ],
   "inputs": {
     "matrices": [
-      "book/evidence/experiments/preflight-blob-digests/out/blob_apply_matrix.in_harness.json",
-      "book/evidence/experiments/preflight-blob-digests/out/blob_apply_matrix.outside_harness.json"
+      "book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/out/blob_apply_matrix.in_harness.json",
+      "book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/out/blob_apply_matrix.outside_harness.json"
     ]
   },
   "matrices": [
@@ -26,13 +26,13 @@
       "control_classification": "apply_gated_eperm",
       "control_ok": false,
       "label": "in_harness",
-      "path": "book/evidence/experiments/preflight-blob-digests/out/blob_apply_matrix.in_harness.json"
+      "path": "book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/out/blob_apply_matrix.in_harness.json"
     },
     {
       "control_classification": "not_apply_gated",
       "control_ok": true,
       "label": "outside_harness",
-      "path": "book/evidence/experiments/preflight-blob-digests/out/blob_apply_matrix.outside_harness.json"
+      "path": "book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/out/blob_apply_matrix.outside_harness.json"
     }
   ],
   "metrics": {
@@ -47,6 +47,6 @@
     "Only apply_gated_eperm observed in control_ok=true contexts is treated as a profile-specific apply gate witness."
   ],
   "schema_version": 1,
-  "tool": "book/evidence/experiments/preflight-blob-digests",
+  "tool": "book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests",
   "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
 }

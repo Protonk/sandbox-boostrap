@@ -130,7 +130,7 @@ def _load_filter_vocab() -> Dict[int, str]:
         root = find_repo_root(Path(__file__))
     except Exception:
         return {}
-    path = root / "book" / "graph" / "mappings" / "vocab" / "filters.json"
+    path = root / "book" / "evidence" / "graph" / "mappings" / "vocab" / "filters.json"
     if not path.exists():
         return {}
     try:
@@ -153,7 +153,7 @@ def _load_tag_u16_roles() -> Dict[int, str]:
         root = find_repo_root(Path(__file__))
     except Exception:
         return {}
-    path = root / "book" / "graph" / "mappings" / "tag_layouts" / "tag_u16_roles.json"
+    path = root / "book" / "evidence" / "graph" / "mappings" / "tag_layouts" / "tag_u16_roles.json"
     if not path.exists():
         return {}
     try:
@@ -283,8 +283,8 @@ def _load_external_tag_layouts() -> Dict[int, Tuple[int, Tuple[int, ...], Tuple[
     except Exception:
         return {}
     candidates = [
-        root / "book" / "graph" / "mappings" / "tag_layouts" / "tag_layouts.json",
-        root / "book" / "experiments" / "probe-op-structure" / "out" / "tag_layout_assumptions.json",
+        root / "book" / "evidence" / "graph" / "mappings" / "tag_layouts" / "tag_layouts.json",
+        root / "book" / "evidence" / "experiments" / "probe-op-structure" / "out" / "tag_layout_assumptions.json",
     ]
     data = None
     for path in candidates:

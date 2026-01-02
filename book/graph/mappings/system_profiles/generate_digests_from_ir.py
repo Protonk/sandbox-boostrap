@@ -27,10 +27,21 @@ if str(ROOT) not in sys.path:
 from book.api import evidence_tiers  # noqa: E402
 from book.api import world as world_mod  # noqa: E402
 
-IR_PATH = ROOT / "book" / "graph" / "concepts" / "validation" / "out" / "experiments" / "system-profile-digest" / "digests_ir.json"
-STATUS_PATH = ROOT / "book" / "graph" / "concepts" / "validation" / "out" / "validation_status.json"
-OUT_PATH = ROOT / "book" / "graph" / "mappings" / "system_profiles" / "digests.json"
-STATIC_CHECKS_PATH = ROOT / "book" / "graph" / "mappings" / "system_profiles" / "static_checks.json"
+IR_PATH = (
+    ROOT
+    / "book"
+    / "evidence"
+    / "graph"
+    / "concepts"
+    / "validation"
+    / "out"
+    / "experiments"
+    / "system-profile-digest"
+    / "digests_ir.json"
+)
+STATUS_PATH = ROOT / "book" / "evidence" / "graph" / "concepts" / "validation" / "out" / "validation_status.json"
+OUT_PATH = ROOT / "book" / "evidence" / "graph" / "mappings" / "system_profiles" / "digests.json"
+STATIC_CHECKS_PATH = ROOT / "book" / "evidence" / "graph" / "mappings" / "system_profiles" / "static_checks.json"
 EXPECTED_JOB = "experiment:system-profile-digest"
 # Canonical profiles are the bedrock policy layers for this host. They are not a
 # mutable set: each entry pins a specific profile id, its descriptive role, and

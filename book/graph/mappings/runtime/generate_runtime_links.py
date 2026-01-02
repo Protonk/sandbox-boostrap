@@ -26,15 +26,15 @@ if str(SCRIPT_ROOT) not in sys.path:
 
 import promotion_packets
 
-OUT = ROOT / "book" / "graph" / "mappings" / "runtime" / "runtime_links.json"
+OUT = ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "runtime_links.json"
 
-OPS_VOCAB = ROOT / "book" / "graph" / "mappings" / "vocab" / "ops.json"
-OPS_COVERAGE = ROOT / "book" / "graph" / "mappings" / "vocab" / "ops_coverage.json"
-TAG_LAYOUTS = ROOT / "book" / "graph" / "mappings" / "tag_layouts" / "tag_layouts.json"
-SYSTEM_DIGESTS = ROOT / "book" / "graph" / "mappings" / "system_profiles" / "digests.json"
-RUNTIME_SIGNATURES = ROOT / "book" / "graph" / "mappings" / "runtime" / "runtime_signatures.json"
-OP_SUMMARY = ROOT / "book" / "graph" / "mappings" / "runtime" / "op_runtime_summary.json"
-ORACLE = ROOT / "book" / "graph" / "mappings" / "runtime" / "runtime_callout_oracle.json"
+OPS_VOCAB = ROOT / "book" / "evidence" / "graph" / "mappings" / "vocab" / "ops.json"
+OPS_COVERAGE = ROOT / "book" / "evidence" / "graph" / "mappings" / "vocab" / "ops_coverage.json"
+TAG_LAYOUTS = ROOT / "book" / "evidence" / "graph" / "mappings" / "tag_layouts" / "tag_layouts.json"
+SYSTEM_DIGESTS = ROOT / "book" / "evidence" / "graph" / "mappings" / "system_profiles" / "digests.json"
+RUNTIME_SIGNATURES = ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "runtime_signatures.json"
+OP_SUMMARY = ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "op_runtime_summary.json"
+ORACLE = ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "runtime_callout_oracle.json"
 
 LINKS_SCHEMA_VERSION = "runtime-links.v0.1"
 

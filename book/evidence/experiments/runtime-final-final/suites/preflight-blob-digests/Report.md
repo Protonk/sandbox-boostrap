@@ -90,7 +90,7 @@ python3 book/evidence/experiments/runtime-final-final/suites/preflight-blob-dige
 
 # 2) compile determinism/parity (static-ish; no apply)
 python3 book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/compile_determinism.py \
-  --sbpl book/evidence/experiments/op-table-operation/sb/v0_empty.sb \
+  --sbpl book/evidence/experiments/profile-pipeline/op-table-operation/sb/v0_empty.sb \
   --sbpl book/evidence/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/minimal_failing.sb \
   --runs 5 \
   --out book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/out/compile_determinism.json

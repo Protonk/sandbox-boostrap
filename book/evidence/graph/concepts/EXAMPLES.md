@@ -13,7 +13,7 @@ It is *not* a full “how to run” guide for each example (see `book/examples/A
   Examples: `metafilter-tests/`, `sbpl-params/`, `network-filters/`, `mach-services/`, plus the golden-triple harness under `book/profiles/golden-triple/` (not in `book/examples/`).
 
 - **Vocabulary and Mapping** – operation/filter vocab maps and name↔ID alignment.  
-  Examples: `sb/`, `extract_sbs/`, `sbdis/`, `re2dot/`, `resnarf/` (all indirectly), with vocab extraction driven by `book/graph/mappings/vocab/generate_vocab_from_dyld.py` against `book/graph/mappings/dyld-libs/`.
+  Examples: `sb/`, `extract_sbs/`, `sbdis/`, `re2dot/`, `resnarf/` (all indirectly), with vocab extraction driven by `book/graph/mappings/vocab/generate_vocab_from_dyld.py` against `book/evidence/graph/mappings/dyld-libs/`.
 
 - **Runtime Lifecycle and Extension** – profile layers, stack evaluation order, compiled profile source, containers, entitlements, extensions, adjacent controls.  
   Examples: `entitlements-evolution/`, `platform-policy-checks/`, `extensions-dynamic/`, `containers-and-redirects/`, `libsandcall/`.
@@ -35,7 +35,7 @@ Static-format examples produce compiled blobs and structural views that feed dec
 - **Feeds:**
   - `book/evidence/graph/concepts/validation/out/static/sample.sb.json`  
   - `book/evidence/graph/mappings/system_profiles/digests.json` (via curated inclusion as `sample`)  
-  - `book/graph/mappings/system_profiles/{attestations.json,static_checks.json}` (sample entry).
+  - `book/evidence/graph/mappings/system_profiles/{attestations.json,static_checks.json}` (sample entry).
 
 ### `extract_sbs/`
 
@@ -77,7 +77,7 @@ Static-format examples produce compiled blobs and structural views that feed dec
   - **S:** Vocabulary and Mapping (linking regexes back to filters/operations).
 - **Feeds:**
   - Legacy static ingestion outputs under `validation/out/static/`.  
-  - Tag-layout work under `book/graph/mappings/tag_layouts/`; legacy regex tooling now lives in `book/examples/regex_tools/`.
+  - Tag-layout work under `book/evidence/graph/mappings/tag_layouts/`; legacy regex tooling now lives in `book/examples/regex_tools/`.
 
 ---
 
@@ -210,4 +210,4 @@ Lifecycle examples focus on profile provenance, entitlements, containers, extens
 - For **semantic** work, favor the golden-triple harness (`book/profiles/golden-triple/`) and treat `metafilter-tests/`, `sbpl-params/`, `network-filters/`, and `mach-services/` as legacy/brittle probes.
 - For **lifecycle** work, start with `entitlements-evolution/`, `extensions-dynamic/`, `libsandcall/`, and `containers-and-redirects/`, and use `mappings/runtime/lifecycle.json` as the high-level status view.
 
-In all cases, aim to route new evidence into the existing manifests under `book/graph/mappings/` and `book/evidence/graph/concepts/validation/out/` so that the concept inventory, examples, and mapping layer stay tightly coupled. 
+In all cases, aim to route new evidence into the existing manifests under `book/evidence/graph/mappings/` and `book/evidence/graph/concepts/validation/out/` so that the concept inventory, examples, and mapping layer stay tightly coupled. 

@@ -73,7 +73,7 @@ def _discover_profiles_sbpl() -> List[Path]:
 
 
 def _discover_experiments_sbpl() -> List[Path]:
-    root = REPO_ROOT / "book" / "experiments"
+    root = REPO_ROOT / "book" / "evidence" / "experiments"
     if not root.exists():
         return []
     excluded_roots = _excluded_experiment_roots(root)
@@ -115,7 +115,7 @@ def _discover_book_blobs() -> List[Path]:
         root / "dumps",
         root / "integration" / "out",
     ]
-    excluded_roots.extend(_excluded_experiment_roots(root / "experiments"))
+    excluded_roots.extend(_excluded_experiment_roots(root / "evidence" / "experiments"))
 
     blobs: List[Path] = []
     for path in root.rglob("*.sb.bin"):

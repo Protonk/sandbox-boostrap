@@ -16,8 +16,9 @@ from book.graph.concepts.validation.registry import ValidationJob
 
 ROOT = find_repo_root(Path(__file__))
 WORLD_ID = "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
-SUMMARY_PATH = ROOT / "book/evidence/experiments/sandbox-init-params/out/validation_summary.json"
+SUMMARY_PATH = ROOT / "book/evidence/experiments/profile-pipeline/sandbox-init-params/out/validation_summary.json"
 STATUS_PATH = ROOT / "book/evidence/graph/concepts/validation/out/experiments/sandbox-init-params/status.json"
+META_PATH = ROOT / "book/evidence/graph/concepts/validation/out/metadata.json"
 
 EXPECTED_RUNS = {
     "init_params_probe": {
@@ -45,6 +46,12 @@ def rel(path: Path) -> str:
 
 def run_sandbox_init_params_job() -> Dict[str, Any]:
     summary = load_summary()
+    host = {}
+    if META_PATH.exists():
+        try:
+            host = json.loads(META_PATH.read_text()).get("os", {})
+        except Exception:
+            host = {}
     mismatches: List[str] = []
 
     if summary.get("world_id") != WORLD_ID:
@@ -72,6 +79,7 @@ def run_sandbox_init_params_job() -> Dict[str, Any]:
         "job_id": "experiment:sandbox-init-params",
         "status": status,
         "tier": "mapped",
+        "host": host,
         "world_id": WORLD_ID,
         "inputs": [rel(SUMMARY_PATH)],
         "outputs": [rel(STATUS_PATH)],

@@ -12,12 +12,12 @@ import sys
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from book.api import path_utils
-from book.api.runtime.analysis.mapping import build as mapping_build
-
 ROOT = Path(__file__).resolve().parents[4]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
+
+from book.api import path_utils
+from book.api.runtime.analysis.mapping import build as mapping_build
 
 SCRIPT_ROOT = Path(__file__).resolve().parent
 if str(SCRIPT_ROOT) not in sys.path:
@@ -31,8 +31,8 @@ import generate_runtime_signatures
 import generate_op_runtime_summary
 import generate_runtime_links
 
-RUNTIME_CUTS_ROOT = ROOT / "book" / "graph" / "mappings" / "runtime_cuts"
-DEFAULT_RECEIPT_PATH = ROOT / "book" / "graph" / "mappings" / "runtime" / "promotion_receipt.json"
+RUNTIME_CUTS_ROOT = ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime_cuts"
+DEFAULT_RECEIPT_PATH = ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "promotion_receipt.json"
 
 
 def sha256_path(path: Path) -> str:

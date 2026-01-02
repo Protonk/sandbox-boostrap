@@ -94,7 +94,7 @@ def main(argv: List[str] | None = None) -> int:
     ap.add_argument(
         "--control-blob",
         type=Path,
-        default=REPO_ROOT / "book/evidence/experiments/op-table-operation/sb/build/v0_empty.sb.bin",
+        default=REPO_ROOT / "book/evidence/experiments/profile-pipeline/op-table-operation/sb/build/v0_empty.sb.bin",
         help="known non-apply-gated control blob (default: v0_empty.sb.bin)",
     )
     ap.add_argument("--label", default=None, help="optional run label (e.g. in_harness, outside_harness)")

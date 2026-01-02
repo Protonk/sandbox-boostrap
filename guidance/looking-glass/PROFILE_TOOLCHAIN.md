@@ -105,6 +105,5 @@ If it doesn’t, treat it as a different world; don’t mix.
 
 Profile work frequently feeds mapping generators and CARTON. As a result:
 - avoid hand-editing generated/shared artifacts,
-- prefer the repo’s supported entrypoints (compile/decode via `book.api.profile`, mappings promotion via `book/graph/mappings/run_promotion.py`),
+- prefer the repo’s supported entrypoints (compile/decode via `book.api.profile`, mappings promotion via `python -m book.graph.mappings.run_promotion`),
 - and use `make -C book test` as the drift detector.
-

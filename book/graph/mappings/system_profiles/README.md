@@ -1,6 +1,6 @@
 # System profiles
 
-Canonical system-profile digests live here. These profiles (`sys:airlock`, `sys:bsd`, `sys:sample`) are treated as bedrock references for this host/build and carry explicit contract/status metadata tied to the current `world_id`; each canonical entry records its `id`, `role`, `status`, and `world_id` pointer (no new `world_id` values are synthesized here).
+Canonical system-profile digests live under `book/evidence/graph/mappings/system_profiles/`. These profiles (`sys:airlock`, `sys:bsd`, `sys:sample`) are treated as bedrock references for this host/build and carry explicit contract/status metadata tied to the current `world_id`; each canonical entry records its `id`, `role`, `status`, and `world_id` pointer (no new `world_id` values are synthesized here).
 
 Current artifacts:
 - `digests.json` – Central canonical-profile mapping with per-profile status and contract:

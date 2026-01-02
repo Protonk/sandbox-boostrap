@@ -12,7 +12,7 @@ Establish how this host’s `libsandbox` populates the per-node u16 payload slot
   - Maintain a small “network arg” specimen set (`sb/network_matrix/*.sb`) that enables byte-level diffs across controlled deltas (domain/type/proto), producing a falsifiable witness of where those argument bytes land in the compiled blob.
 
 - **Phase B — libsandbox internals (encoder implementation view)**
-  - Inspect the trimmed `libsandbox` slice under `book/graph/mappings/dyld-libs/` (static only).
+  - Inspect the trimmed `libsandbox` slice under `book/evidence/graph/mappings/dyld-libs/` (static only).
   - Identify emitters for the condition-data payloads (e.g., network domain/type/proto) and tie those byte writes to the compiled blob’s sections.
   - Summarize encoder-side sites and their observed write order/widths in a small JSON (`out/encoder_sites.json`), without claiming kernel semantics.
 

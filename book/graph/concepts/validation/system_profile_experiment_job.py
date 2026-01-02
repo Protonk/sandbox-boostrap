@@ -14,9 +14,31 @@ from book.graph.concepts.validation import registry
 from book.graph.concepts.validation.registry import ValidationJob
 
 ROOT = find_repo_root(Path(__file__))
-META_PATH = ROOT / "book" / "graph" / "concepts" / "validation" / "out" / "metadata.json"
-STATUS_PATH = ROOT / "book" / "graph" / "concepts" / "validation" / "out" / "experiments" / "system-profile-digest" / "status.json"
-IR_PATH = ROOT / "book" / "graph" / "concepts" / "validation" / "out" / "experiments" / "system-profile-digest" / "digests_ir.json"
+META_PATH = ROOT / "book" / "evidence" / "graph" / "concepts" / "validation" / "out" / "metadata.json"
+STATUS_PATH = (
+    ROOT
+    / "book"
+    / "evidence"
+    / "graph"
+    / "concepts"
+    / "validation"
+    / "out"
+    / "experiments"
+    / "system-profile-digest"
+    / "status.json"
+)
+IR_PATH = (
+    ROOT
+    / "book"
+    / "evidence"
+    / "graph"
+    / "concepts"
+    / "validation"
+    / "out"
+    / "experiments"
+    / "system-profile-digest"
+    / "digests_ir.json"
+)
 
 
 def rel(path: Path) -> str:

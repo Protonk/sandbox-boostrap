@@ -1,6 +1,7 @@
 {
   "job_id": "experiment:metadata-runner",
   "status": "ok",
+  "tier": "mapped",
   "host": {
     "product": "macOS",
     "version": "14.4.1",
@@ -9,7 +10,8 @@
     "machine": "arm64"
   },
   "inputs": [
-    "book/evidence/experiments/metadata-runner/out/runtime_results.json"
+    "book/evidence/experiments/runtime-final-final/suites/metadata-runner/out/24e3d12a-c0d2-45cc-a552-2185603141d9/artifact_index.json",
+    "book/evidence/experiments/runtime-final-final/suites/metadata-runner/out/24e3d12a-c0d2-45cc-a552-2185603141d9/runtime_events.normalized.json"
   ],
   "outputs": [
     "book/evidence/graph/concepts/validation/out/experiments/metadata-runner/runtime_events.normalized.json"
@@ -17,7 +19,7 @@
   "metrics": {
     "events": 1296
   },
-  "notes": "Normalized metadata-runner runtime_results into contract-shaped runtime events for this world.",
+  "notes": "Copied committed metadata-runner runtime events into validation IR.",
   "tags": [
     "experiment:metadata-runner",
     "experiment",

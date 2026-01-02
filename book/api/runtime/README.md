@@ -52,9 +52,9 @@ python -m book.api.runtime emit-promotion \
 
 # 5) Promote into runtime mappings (outside runtime; consumes packets).
 python book/graph/mappings/runtime/promote_from_packets.py \
-  --packets book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/promotion_packet.json \
-  --out book/graph/mappings/runtime
+  --packets book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/promotion_packet.json
 ```
+Outputs land under `book/evidence/graph/mappings/runtime/` and `book/evidence/graph/mappings/runtime_cuts/`.
 
 Optional summary step:
 

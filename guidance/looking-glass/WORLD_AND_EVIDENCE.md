@@ -76,6 +76,18 @@ SANDBOX_LORE uses two orthogonal label sets:
   - Partial, confounded, or unverified observations; “plausible but not promotable.”
   - Apply-stage `EPERM` is hypothesis by definition (the profile did not attach; no PolicyGraph decision happened).
 
+Declared bedrock surfaces on this host (from `book/evidence/graph/concepts/BEDROCK_SURFACES.json`):
+- Operation + Filter vocabularies:
+  - `book/evidence/graph/mappings/vocab/ops.json`
+  - `book/evidence/graph/mappings/vocab/filters.json`
+  - `book/evidence/graph/mappings/vocab/ops_coverage.json`
+- Modern format/tag-layout subset:
+  - `book/evidence/graph/mappings/tag_layouts/tag_layouts.json`
+- Canonical system profiles:
+  - `book/evidence/graph/mappings/system_profiles/digests.json`
+  - `book/evidence/graph/mappings/system_profiles/static_checks.json`
+  - `book/evidence/graph/mappings/system_profiles/attestations.json`
+
 ### Status (operational health)
 
 Many artifacts also carry `status: ok|partial|brittle|blocked`.
@@ -93,6 +105,8 @@ Use the canonical stage taxonomy:
 - `apply` — profile attachment failed (no policy decision).
 - `bootstrap` — apply succeeded but the probe didn’t start cleanly (still not a policy decision).
 - `operation` — the probe ran an operation and observed allow/deny (this is where runtime semantics can live).
+
+Note: some tools report an apply-adjacent guardrail as `preflight`. Treat that as “apply did not happen” (still not a policy decision).
 
 ### Lane (why there are multiple records)
 
@@ -139,7 +153,7 @@ Source work -> normalized IR -> mappings -> CARTON
 
 Examples:
 - concepts/validation outputs under `book/evidence/graph/concepts/validation/out/`
-- mapping generator outputs under `book/graph/mappings/`
+- mapping outputs under `book/evidence/graph/mappings/` (generators/promotion code live under `book/graph/mappings/`)
 - frozen query surfaces under `book/integration/carton/bundle/`
 
 ### Runtime path
@@ -156,4 +170,3 @@ Treating a “denial-shaped failure” as a sandbox denial when it is actually:
 - an adjacent constraint (TCC / hardened runtime / SIP / VFS canonicalization).
 
 Stage and lane labels exist to prevent that category error.
-

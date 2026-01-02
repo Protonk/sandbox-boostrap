@@ -14,7 +14,7 @@ Evidence discipline:
 
 Vocabulary discipline:
 - Use project terms from `book/evidence/graph/concepts/concept_map.json` and the substrate (do not invent new jargon).
-- Use only ops/filters from `book/graph/mappings/vocab/{ops.json,filters.json}`.
+- Use only ops/filters from `book/evidence/graph/mappings/vocab/{ops.json,filters.json}`.
 
 Runtime discipline:
 - Runtime statements must include both a `stage` (`compile|apply|bootstrap|operation`) and a `lane` (`scenario|baseline|oracle`).
@@ -43,7 +43,7 @@ Common host-bound commands (Sonoma 14.4.1 baseline):
 - Decode/inspect blob: `python -m book.api.profile decode dump <blob.sb.bin> --summary`
 - Plan-based runtime run: `python -m book.api.runtime run --plan <plan.json> --channel launchd_clean --out <out_dir>`
 - Emit promotion packet: `python -m book.api.runtime emit-promotion --bundle <out_dir> --out <out_dir>/promotion_packet.json --require-promotable`
-- Promote runtime packets into mappings: `python book/graph/mappings/runtime/promote_from_packets.py --packets <packet.json> --out book/graph/mappings/runtime`
+- Promote runtime packets into mappings: `python book/graph/mappings/runtime/promote_from_packets.py --packets <packet.json>` (writes under `book/evidence/graph/mappings/`)
 
 Host-neutral (still host-scoped artifacts; no live sandbox):
 - Validate concepts/IR: `python -m book.graph.concepts.validation --tag meta`
@@ -52,7 +52,7 @@ Host-neutral (still host-scoped artifacts; no live sandbox):
 ## Cold-start routing (where to look)
 
 Pick the smallest surface that answers your question:
-- “What operations/filters exist on this host?” → `book/graph/mappings/vocab/` (bedrock) and the CARTON bundle at `book/integration/carton/bundle/` (relationships/views/contracts + manifest).
+- “What operations/filters exist on this host?” → `book/evidence/graph/mappings/vocab/` (bedrock) and the CARTON bundle at `book/integration/carton/bundle/` (relationships/views/contracts + manifest).
 - “What bytes did this SBPL compile into?” → `book/api/profile/` (structural tooling).
 - “Why did a runtime probe fail/deny?” → `book/api/runtime/` bundles and promotion packets (stage + lane + promotability).
 - “Am I about to hit apply-gating?” → `book/tools/preflight/` (scan + minimize-gate) and `book/tools/sbpl/wrapper/`.

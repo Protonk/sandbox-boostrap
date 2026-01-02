@@ -46,8 +46,10 @@ python -m book.api.runtime emit-promotion --bundle <out_dir> --out <out_dir>/pro
 
 Promote runtime packets into mappings:
 ```sh
-python book/graph/mappings/runtime/promote_from_packets.py --packets <packet.json> --out book/graph/mappings/runtime
+python book/graph/mappings/runtime/promote_from_packets.py --packets <packet.json>
 ```
+
+This writes promoted outputs under `book/evidence/graph/mappings/runtime/` and `book/evidence/graph/mappings/runtime_cuts/` (and a receipt at `book/evidence/graph/mappings/runtime/promotion_receipt.json` by default).
 
 These three steps are the supported way to turn “we ran something” into “the repo can build on this.”
 
@@ -74,7 +76,7 @@ If an output tree lacks `artifact_index.json`, treat it as debug/unverified.
 The runtime harness integrates apply-gate preflight. This exists because on the baseline host, some policy shapes cannot be attached from a generic harness identity.
 
 Behavioral intent:
-- If preflight predicts a known apply gate, the harness should record `failure_stage:"preflight"` rather than attempting apply and misclassifying the result.
+- If preflight predicts a known apply gate, record an apply-adjacent non-decision (often labeled `failure_stage:"preflight"`) rather than attempting apply and misclassifying the result.
 
 Common knobs (env vars):
 - `SANDBOX_LORE_PREFLIGHT=0` — disable preflight globally.
@@ -131,4 +133,3 @@ The runtime and witness toolchains are designed to prevent four common category 
    - TCC / hardened runtime / SIP / canonicalization can produce denial-shaped outcomes.
 
 The toolchain encodes stage/lane labeling and commit barriers to keep these errors visible.
-

@@ -133,7 +133,7 @@ Key xrefs on this world:
 
 This is still **mapped** evidence: it is stronger than “string exists” because it identifies concrete sandbox-kext call sites, but it is still static (not a runtime witness of why a particular `sandbox_apply` failed in our harness identity).
 
-The same summary also records a small userland cross-check: the trimmed dyld slices under `book/graph/mappings/dyld-libs/` contain many `message-filter`-related SBPL/compiler strings, but do not contain the entitlement key strings themselves, which is consistent with a kernel-side entitlement check rather than a purely userland compiler-side gate.
+The same summary also records a small userland cross-check: the trimmed dyld slices under `book/evidence/graph/mappings/dyld-libs/` contain many `message-filter`-related SBPL/compiler strings, but do not contain the entitlement key strings themselves, which is consistent with a kernel-side entitlement check rather than a purely userland compiler-side gate.
 
 ## Validation
 

@@ -9,23 +9,23 @@
   "stage_used": true,
   "stage_root": "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.85d51a34-3856-44c5-acd5-4a031ff6debe",
   "repo_root_context": "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.85d51a34-3856-44c5-acd5-4a031ff6debe",
-  "staged_output_root": "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.85d51a34-3856-44c5-acd5-4a031ff6debe/book/experiments/vfs-canonicalization/out",
-  "output_root": "book/evidence/experiments/vfs-canonicalization/out/85d51a34-3856-44c5-acd5-4a031ff6debe",
+  "staged_output_root": "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.85d51a34-3856-44c5-acd5-4a031ff6debe/book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out",
+  "output_root": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/85d51a34-3856-44c5-acd5-4a031ff6debe",
   "apply_preflight": {
     "path": "apply_preflight.json",
     "record": {
       "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
       "run_id": "85d51a34-3856-44c5-acd5-4a031ff6debe",
-      "profile": "book/evidence/experiments/hardened-runtime/sb/apply_preflight_allow.sb",
-      "runner": "book/evidence/experiments/runtime-checks/sandbox_runner",
+      "profile": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/apply_preflight_allow.sb",
+      "runner": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
       "sandbox_check_self": {
         "source": "sandbox_check",
         "error": "libsystem_sandbox not found"
       },
       "status": "ok",
       "command": [
-        "book/evidence/experiments/runtime-checks/sandbox_runner",
-        "book/evidence/experiments/hardened-runtime/sb/apply_preflight_allow.sb",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
+        "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/apply_preflight_allow.sb",
         "--",
         "/usr/bin/true"
       ],

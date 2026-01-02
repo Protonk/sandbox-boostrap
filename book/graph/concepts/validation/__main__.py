@@ -25,8 +25,8 @@ if str(ROOT) not in sys.path:
 from book.api import evidence_tiers
 from book.graph.concepts.validation import registry
 
-METADATA_PATH = ROOT / "book" / "graph" / "concepts" / "validation" / "out" / "metadata.json"
-STATUS_PATH = ROOT / "book" / "graph" / "concepts" / "validation" / "out" / "validation_status.json"
+METADATA_PATH = ROOT / "book" / "evidence" / "graph" / "concepts" / "validation" / "out" / "metadata.json"
+STATUS_PATH = ROOT / "book" / "evidence" / "graph" / "concepts" / "validation" / "out" / "validation_status.json"
 ALLOWED_STATUS = {
     "ok",
     "partial",

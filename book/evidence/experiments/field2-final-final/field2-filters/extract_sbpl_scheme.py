@@ -19,10 +19,28 @@ from book.api import path_utils
 
 SCHEMA_VERSION = "field2-filters.libsandbox_scheme_extract.v0"
 DEFAULT_LIBSANDBOX = (
-    REPO_ROOT / "book" / "graph" / "mappings" / "dyld-libs" / "usr" / "lib" / "libsandbox.1.dylib"
+    REPO_ROOT / "book" / "evidence" / "graph" / "mappings" / "dyld-libs" / "usr" / "lib" / "libsandbox.1.dylib"
 )
-DEFAULT_UNKNOWN_NODES = REPO_ROOT / "book" / "experiments" / "field2-filters" / "out" / "unknown_nodes.json"
-DEFAULT_OUT_DIR = REPO_ROOT / "book" / "experiments" / "field2-filters" / "out" / "libsandbox_scheme"
+DEFAULT_UNKNOWN_NODES = (
+    REPO_ROOT
+    / "book"
+    / "evidence"
+    / "experiments"
+    / "field2-final-final"
+    / "field2-filters"
+    / "out"
+    / "unknown_nodes.json"
+)
+DEFAULT_OUT_DIR = (
+    REPO_ROOT
+    / "book"
+    / "evidence"
+    / "experiments"
+    / "field2-final-final"
+    / "field2-filters"
+    / "out"
+    / "libsandbox_scheme"
+)
 
 
 def extract_strings(data: bytes, *, min_len: int = 4) -> List[str]:

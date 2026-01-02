@@ -30,8 +30,8 @@ from book.api import evidence_tiers
 from book.graph.concepts.validation import registry
 from book.graph.concepts.validation.registry import ValidationJob
 
-OUT_JSON = ROOT / "book" / "graph" / "concepts" / "validation" / "out" / "evidence_tier_inventory.json"
-OUT_MD = ROOT / "book" / "graph" / "concepts" / "validation" / "out" / "evidence_tier_inventory.md"
+OUT_JSON = ROOT / "book" / "evidence" / "graph" / "concepts" / "validation" / "out" / "evidence_tier_inventory.json"
+OUT_MD = ROOT / "book" / "evidence" / "graph" / "concepts" / "validation" / "out" / "evidence_tier_inventory.md"
 
 
 def rel(path: Path) -> str:

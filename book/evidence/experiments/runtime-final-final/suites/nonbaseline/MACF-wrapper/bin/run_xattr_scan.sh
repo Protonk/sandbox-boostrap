@@ -2,10 +2,10 @@
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "$0")/../../../.." && pwd)"
-SCRIPT="$REPO_ROOT/book/experiments/runtime-final-final/suites/nonbaseline/MACF-wrapper/sb/scan_xattr_hooks.d"
-OUT_DIR="$REPO_ROOT/book/experiments/runtime-final-final/suites/nonbaseline/MACF-wrapper/out/raw"
+SCRIPT="$REPO_ROOT/book/evidence/experiments/runtime-final-final/suites/nonbaseline/MACF-wrapper/sb/scan_xattr_hooks.d"
+OUT_DIR="$REPO_ROOT/book/evidence/experiments/runtime-final-final/suites/nonbaseline/MACF-wrapper/out/raw"
 LOG_PATH="$OUT_DIR/xattr_scan.log"
-TEST_DIR="$REPO_ROOT/book/experiments/runtime-final-final/suites/nonbaseline/MACF-wrapper/out/tmp"
+TEST_DIR="$REPO_ROOT/book/evidence/experiments/runtime-final-final/suites/nonbaseline/MACF-wrapper/out/tmp"
 TEST_FILE="$TEST_DIR/macf_wrapper_xattr_test"
 
 mkdir -p "$OUT_DIR"

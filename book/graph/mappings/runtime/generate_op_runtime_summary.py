@@ -26,7 +26,7 @@ if str(SCRIPT_ROOT) not in sys.path:
 
 import promotion_packets
 
-OUT = ROOT / "book" / "graph" / "mappings" / "runtime" / "op_runtime_summary.json"
+OUT = ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "op_runtime_summary.json"
 
 
 def load_json(path: Path) -> Dict[str, Any]:

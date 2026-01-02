@@ -61,9 +61,9 @@ RUNTIME_SHIM_RULES = [
     '(allow file-read-metadata (literal "/tmp"))',
 ]
 
-FILTER_VOCAB_PATH = REPO_ROOT / "book" / "graph" / "mappings" / "vocab" / "filters.json"
+FILTER_VOCAB_PATH = REPO_ROOT / "book" / "evidence" / "graph" / "mappings" / "vocab" / "filters.json"
 _FILTER_NAME_TO_ID: Dict[str, int] = {}
-ANCHOR_FILTER_MAP_PATH = REPO_ROOT / "book" / "graph" / "mappings" / "anchors" / "anchor_filter_map.json"
+ANCHOR_FILTER_MAP_PATH = REPO_ROOT / "book" / "evidence" / "graph" / "mappings" / "anchors" / "anchor_filter_map.json"
 _ANCHOR_FILTER_MAP: Dict[str, Dict[str, Any]] = {}
 
 # Use anchor_filter_map literals to infer a typed filter when plans omit one.

@@ -92,6 +92,28 @@ CORE_ARTIFACTS = [
 ]
 
 
+def _relativize_if_under_repo(raw_path: Optional[str]) -> Optional[str]:
+    if not raw_path:
+        return None
+    try:
+        abs_path = Path(raw_path).resolve()
+    except Exception:
+        return None
+    try:
+        abs_path.relative_to(REPO_ROOT)
+    except ValueError:
+        return None
+    return path_utils.to_repo_relative(abs_path, repo_root=REPO_ROOT)
+
+
+def _repo_root_context(stage_used: bool, stage_root: Optional[str]) -> str:
+    if stage_used:
+        rel = _relativize_if_under_repo(stage_root)
+        if rel is not None:
+            return rel
+    return path_utils.to_repo_relative(REPO_ROOT, repo_root=REPO_ROOT)
+
+
 @dataclass(frozen=True)
 class RunBundle:
     out_dir: Path
@@ -350,9 +372,9 @@ def _write_run_manifest(
         "plan_digest": plan_digest,
         "dry_run": dry_run,
         "stage_used": stage_used,
-        "stage_root": stage_root,
-        "repo_root_context": stage_root if stage_used else str(REPO_ROOT),
-        "staged_output_root": staged_output_root,
+        "stage_root": _relativize_if_under_repo(stage_root),
+        "repo_root_context": _repo_root_context(stage_used, stage_root),
+        "staged_output_root": _relativize_if_under_repo(staged_output_root),
         "output_root": path_utils.to_repo_relative(out_dir, repo_root=REPO_ROOT),
         "apply_preflight": apply_preflight_doc,
     }
@@ -410,7 +432,7 @@ def open_bundle_unverified(out_dir: Path) -> Dict[str, Any]:
 
 def reindex_bundle(out_dir: Path, *, repair: bool = False) -> Dict[str, Any]:
     """Recompute a bundle index; optionally repair digest mismatches."""
-    bundle_dir, _run_id = _resolve_bundle_dir(out_dir)
+    bundle_dir, bundle_run_id = _resolve_bundle_dir(out_dir)
     bundle_dir = path_utils.ensure_absolute(bundle_dir, REPO_ROOT)
 
     if not repair:
@@ -430,7 +452,7 @@ def reindex_bundle(out_dir: Path, *, repair: bool = False) -> Dict[str, Any]:
         manifest = json.loads(manifest_path.read_text())
         run_id = manifest.get("run_id")
         world_id = manifest.get("world_id")
-    run_id = run_id or _run_id() or "unknown"
+    run_id = run_id or bundle_run_id or _run_id() or "unknown"
     world_id = world_id or models.WORLD_ID
 
     before = open_bundle_unverified(bundle_dir)

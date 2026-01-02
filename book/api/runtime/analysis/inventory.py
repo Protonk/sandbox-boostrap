@@ -84,7 +84,7 @@ IN_REPO_ITEMS: List[Dict[str, Any]] = [
     },
     {
         "id": "sandbox-init-params",
-        "paths": ["book/evidence/experiments/sandbox-init-params"],
+        "paths": ["book/evidence/experiments/profile-pipeline/sandbox-init-params"],
         "category": "apply-stage",
         "description": "Investigates sandbox_init_with_parameters plumbing and __sandbox_ms argument layout.",
         "privileges": "user",
@@ -129,7 +129,7 @@ IN_REPO_ITEMS: List[Dict[str, Any]] = [
     },
     {
         "id": "runtime-mappings",
-        "paths": ["book/graph/mappings/runtime", "book/evidence/graph/mappings/runtime_cuts"],
+        "paths": ["book/evidence/graph/mappings/runtime", "book/evidence/graph/mappings/runtime_cuts"],
         "category": "mapping",
         "description": "Canonical runtime mappings (signatures, coverage, story, traces).",
         "privileges": "n/a (derived)",

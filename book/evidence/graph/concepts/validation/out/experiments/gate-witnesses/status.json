@@ -1,22 +1,28 @@
 {
-  "host": {},
+  "host": {
+    "build": "23E224",
+    "kernel": "23.4.0",
+    "machine": "arm64",
+    "product": "macOS",
+    "version": "14.4.1"
+  },
   "inputs": [
-    "book/evidence/experiments/gate-witnesses/out/witnesses"
+    "book/evidence/experiments/profile-pipeline/op-table-operation/sb/v0_empty.sb"
   ],
   "job_id": "experiment:gate-witnesses",
   "metrics": {
-    "failures": 0,
-    "witnesses": 4
+    "witnesses": 0
   },
-  "notes": "Verified apply-gate witness pairs via SBPL-wrapper and runtime contract classification.",
+  "notes": "sandbox_init appears globally apply-gated in this execution context (control profile failed apply-stage EPERM); rerun outside the harness sandbox.",
   "outputs": [
     "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json",
     "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/status.json"
   ],
-  "status": "ok",
+  "status": "blocked",
   "tags": [
     "experiment:gate-witnesses",
     "experiment",
     "apply-gate"
-  ]
+  ],
+  "tier": "mapped"
 }

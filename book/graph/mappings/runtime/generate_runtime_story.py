@@ -28,7 +28,7 @@ if str(SCRIPT_ROOT) not in sys.path:
 
 import promotion_packets
 
-CUT_ROOT = ROOT / "book" / "graph" / "mappings" / "runtime_cuts"
+CUT_ROOT = ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime_cuts"
 
 
 def sha256_path(path: Path) -> str:

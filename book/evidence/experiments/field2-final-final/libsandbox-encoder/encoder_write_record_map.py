@@ -7,7 +7,15 @@ import sys
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Mapping, Optional, Tuple
 
-REPO_ROOT = Path(__file__).resolve().parents[3]
+def _find_repo_root(start: Path) -> Path:
+    cur = start.resolve()
+    for candidate in [cur] + list(cur.parents):
+        if (candidate / ".git").exists():
+            return candidate
+    raise RuntimeError("Unable to locate repo root")
+
+
+REPO_ROOT = _find_repo_root(Path(__file__))
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 

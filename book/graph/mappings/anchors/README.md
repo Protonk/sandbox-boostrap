@@ -1,6 +1,6 @@
 # Anchor mappings
 
-Stable anchor-derived mappings live here.
+Stable anchor-derived mappings live under `book/evidence/graph/mappings/anchors/`. This directory hosts the generators and documentation.
 
 Current artifacts:
 - `anchor_field2_map.json` – Anchor → `field2` hints derived from `probe-op-structure` anchor hits. Each anchor is a human-meaningful literal (path, mach name, iokit class) that the experiments have tied to one or more `field2` values and node indices.
@@ -30,7 +30,7 @@ If this guardrail fails, you must reconcile **either** the experiment outputs **
 
 ## Regeneration
 
-Do not hand-edit mapping JSONs here. Regenerate via:
+Do not hand-edit mapping JSONs under `book/evidence/graph/mappings/anchors/`. Regenerate via:
 
 ```sh
 python book/graph/mappings/anchors/generate_anchor_maps.py

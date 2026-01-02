@@ -1,6 +1,6 @@
 {
   "control": {
-    "blob": "book/evidence/experiments/op-table-operation/sb/build/v0_empty.sb.bin",
+    "blob": "book/evidence/experiments/profile-pipeline/op-table-operation/sb/build/v0_empty.sb.bin",
     "blob_sha256": "0b491b96b6e101f53cd12081c41af87e31caaedec3344e11960018f25f6f4eda",
     "classification": "not_apply_gated",
     "result": {
@@ -15,7 +15,7 @@
       "cmd": [
         "book/api/SBPL-wrapper/wrapper",
         "--blob",
-        "book/evidence/experiments/op-table-operation/sb/build/v0_empty.sb.bin",
+        "book/evidence/experiments/profile-pipeline/op-table-operation/sb/build/v0_empty.sb.bin",
         "--",
         "/usr/bin/true"
       ],
@@ -45,7 +45,7 @@
   "label": "structural_validation_batch2",
   "rows": [
     {
-      "blob": "book/evidence/experiments/gate-witnesses/out/micro_variants/base_v1_inner_allow_external_method.sb.bin",
+      "blob": "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/out/micro_variants/base_v1_inner_allow_external_method.sb.bin",
       "blob_sha256": "a719e4984993099ece41feb62bd3d10d026bda230327672903576c7f9f230b8d",
       "classification": "not_apply_gated",
       "result": {
@@ -60,7 +60,7 @@
         "cmd": [
           "book/api/SBPL-wrapper/wrapper",
           "--blob",
-          "book/evidence/experiments/gate-witnesses/out/micro_variants/base_v1_inner_allow_external_method.sb.bin",
+          "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/out/micro_variants/base_v1_inner_allow_external_method.sb.bin",
           "--",
           "/usr/bin/true"
         ],
@@ -87,7 +87,7 @@
       }
     },
     {
-      "blob": "book/evidence/experiments/gate-witnesses/out/micro_variants/base_v1_inner_deny_async_external_method.sb.bin",
+      "blob": "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/out/micro_variants/base_v1_inner_deny_async_external_method.sb.bin",
       "blob_sha256": "d39f451bbb79c5fa82849de633d23406122c2273565bf8f38876a7006fb0d1b5",
       "classification": "apply_gated_eperm",
       "result": {
@@ -102,7 +102,7 @@
         "cmd": [
           "book/api/SBPL-wrapper/wrapper",
           "--blob",
-          "book/evidence/experiments/gate-witnesses/out/micro_variants/base_v1_inner_deny_async_external_method.sb.bin",
+          "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/out/micro_variants/base_v1_inner_deny_async_external_method.sb.bin",
           "--",
           "/usr/bin/true"
         ],
@@ -129,7 +129,7 @@
       }
     },
     {
-      "blob": "book/evidence/experiments/gate-witnesses/out/micro_variants/base_v1_inner_deny_external_trap.sb.bin",
+      "blob": "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/out/micro_variants/base_v1_inner_deny_external_trap.sb.bin",
       "blob_sha256": "62d86920498488311168176f88787232b6de3510a9e5d0f9aba32554b6c3edb3",
       "classification": "apply_gated_eperm",
       "result": {
@@ -144,7 +144,7 @@
         "cmd": [
           "book/api/SBPL-wrapper/wrapper",
           "--blob",
-          "book/evidence/experiments/gate-witnesses/out/micro_variants/base_v1_inner_deny_external_trap.sb.bin",
+          "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/out/micro_variants/base_v1_inner_deny_external_trap.sb.bin",
           "--",
           "/usr/bin/true"
         ],
@@ -171,7 +171,7 @@
       }
     },
     {
-      "blob": "book/evidence/experiments/gate-witnesses/out/micro_variants/base_v2_mach_bootstrap_deny_message_send.sb.bin",
+      "blob": "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/out/micro_variants/base_v2_mach_bootstrap_deny_message_send.sb.bin",
       "blob_sha256": "67871c25c8938eb9002e6201e231a65bfc3557f8068873a5f6ecbfd339d0fabf",
       "classification": "apply_gated_eperm",
       "result": {
@@ -186,7 +186,7 @@
         "cmd": [
           "book/api/SBPL-wrapper/wrapper",
           "--blob",
-          "book/evidence/experiments/gate-witnesses/out/micro_variants/base_v2_mach_bootstrap_deny_message_send.sb.bin",
+          "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/out/micro_variants/base_v2_mach_bootstrap_deny_message_send.sb.bin",
           "--",
           "/usr/bin/true"
         ],
@@ -297,7 +297,7 @@
       }
     },
     {
-      "blob": "book/evidence/experiments/probe-op-structure/sb/build/v8_all_combo.sb.bin",
+      "blob": "book/evidence/experiments/runtime-final-final/suites/field2-probe-op-structure/sb/build/v8_all_combo.sb.bin",
       "blob_sha256": "32306bbba824add4f3f0bf66fe74d219181b33f9958d68afe906380770fa9082",
       "classification": "not_apply_gated",
       "result": {
@@ -312,7 +312,7 @@
         "cmd": [
           "book/api/SBPL-wrapper/wrapper",
           "--blob",
-          "book/evidence/experiments/probe-op-structure/sb/build/v8_all_combo.sb.bin",
+          "book/evidence/experiments/runtime-final-final/suites/field2-probe-op-structure/sb/build/v8_all_combo.sb.bin",
           "--",
           "/usr/bin/true"
         ],
@@ -382,6 +382,6 @@
     }
   ],
   "schema_version": 1,
-  "tool": "book/evidence/experiments/preflight-blob-digests",
+  "tool": "book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests",
   "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
 }

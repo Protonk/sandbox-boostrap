@@ -5,8 +5,8 @@ Build a field2-centric experiment that follows selected field2 IDs end-to-end ac
 
 ## Baseline & scope
 - Host world: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (fixed).
-- Canonical vocab/mappings: `book/graph/mappings/vocab/{ops.json,filters.json}`, `book/evidence/graph/mappings/tag_layouts/tag_layouts.json`, `book/evidence/graph/mappings/anchors/anchor_filter_map.json`, `book/graph/mappings/system_profiles/{digests.json,static_checks.json}`, `book/evidence/experiments/field2-final-final/field2-filters/out/field2_inventory.json`.
-- Runtime references: existing traces and signatures under `book/graph/mappings/runtime/` (golden traces, adversarial summary, runtime_signatures.json).
+- Canonical vocab/mappings: `book/evidence/graph/mappings/vocab/{ops.json,filters.json}`, `book/evidence/graph/mappings/tag_layouts/tag_layouts.json`, `book/evidence/graph/mappings/anchors/anchor_filter_map.json`, `book/evidence/graph/mappings/system_profiles/{digests.json,static_checks.json}`, `book/evidence/experiments/field2-final-final/field2-filters/out/field2_inventory.json`.
+- Runtime references: existing traces and signatures under `book/evidence/graph/mappings/runtime/` (golden traces, adversarial summary, runtime_signatures.json).
 - Initial op focus (runtime-backed on this host): `file-read-data`, `file-write-data`, `mach-lookup`.
 - Experiment home: `book/evidence/experiments/field2-final-final/field2-atlas/` with outputs in `out/static/` and derived outputs under `out/derived/<run_id>/`.
 

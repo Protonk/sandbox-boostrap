@@ -9,6 +9,7 @@ ROOT = path_utils.find_repo_root(Path(__file__))
 FIXTURE = (
     ROOT
     / "book"
+    / "evidence"
     / "experiments"
     / "runtime-final-final"
     / "suites"

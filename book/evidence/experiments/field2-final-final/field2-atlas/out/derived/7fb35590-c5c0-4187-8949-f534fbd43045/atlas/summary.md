@@ -1,4 +1,4 @@
-<!-- upstream_run_id=7fb35590-c5c0-4187-8949-f534fbd43045 artifact_index_sha256=c9454b3010e2f9a35b085254b5283758c474f66c8a49fba8bf2820ddc3533f75 packet=book/evidence/experiments/runtime-adversarial/out/promotion_packet.json -->
+<!-- upstream_run_id=7fb35590-c5c0-4187-8949-f534fbd43045 artifact_index_sha256=c9454b3010e2f9a35b085254b5283758c474f66c8a49fba8bf2820ddc3533f75 packet=book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/promotion_packet.json -->
 | field2 | status | profiles | anchors | runtime_scenario |
 | --- | --- | --- | --- | --- |
 | 0 | runtime_backed | 28 | 8 | adv:path_edges_private:allow-tmp |

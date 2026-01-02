@@ -14,7 +14,7 @@ Trace v1 envelope is documented in `book/api/frida/TRACE_SCHEMA_V1.md` and machi
 
 Spawn or attach and emit a trace-v1 run directory:
 
-- Spawn: `python -m book.api.frida.cli run --spawn ./book/experiments/runtime-final-final/suites/frida-testing/targets/open_loop /etc/hosts --script book/api/frida/hooks/smoke.js --out-dir book/api/frida/out --duration-s 2`
+- Spawn: `python -m book.api.frida.cli run --spawn ./book/evidence/experiments/runtime-final-final/suites/frida-testing/targets/open_loop /etc/hosts --script book/api/frida/hooks/smoke.js --out-dir book/api/frida/out --duration-s 2`
 - Attach: `python -m book.api.frida.cli run --attach-pid <pid> --script book/api/frida/hooks/smoke.js --out-dir book/api/frida/out --duration-s 2`
 
 Outputs:

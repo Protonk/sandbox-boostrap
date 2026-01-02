@@ -31,8 +31,8 @@ FIELD2_IR = ROOT / "book/evidence/graph/concepts/validation/out/experiments/fiel
 STATUS_PATH = ROOT / "book/evidence/graph/concepts/validation/out/validation_status.json"
 OUT_PATH = ROOT / "book/evidence/graph/mappings/runtime/runtime_signatures.json"
 EXPECTED_JOBS = {"experiment:field2"}
-RUNTIME_STORY = ROOT / "book" / "graph" / "mappings" / "runtime_cuts" / "runtime_story.json"
-RUNTIME_COVERAGE = ROOT / "book" / "graph" / "mappings" / "runtime" / "runtime_coverage.json"
+RUNTIME_STORY = ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime_cuts" / "runtime_story.json"
+RUNTIME_COVERAGE = ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "runtime_coverage.json"
 
 
 def run_field2_validation():

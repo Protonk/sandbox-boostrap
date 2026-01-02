@@ -1,0 +1,30 @@
+{
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "run_id": "file_ftp_proxy",
+  "mode": "file",
+  "profile": ";;\n;; ftp proxy - sandbox profile\n;; Copyright (c) 2010 Apple Inc.  All Rights reserved.\n;;\n;; WARNING: The sandbox rules in this file currently constitute \n;; Apple System Private Interface and are subject to change at any time and\n;; without notice. The contents of this file are also auto-generated and not\n;; user editable; it may be overwritten at any time.\n;;\n(version 1)\n\n(deny default)\n\n(import \"system.sb\")\n\n(allow ipc-posix-shm\n\t(ipc-posix-name \"apple.shm.notification_center\"))\n\n(allow mach-lookup\n       (global-name \"com.apple.networkd\")\n       (global-name \"com.apple.NetworkSharing\")\n       (global-name \"com.apple.pfd\"))\n       \n(allow mach-per-user-lookup)\n\n(system-network)\n(allow network* (local ip))\n\n(allow system-socket)\n\n",
+  "profile_id": "",
+  "profile_path": "/usr/share/sandbox/ftp-proxy.sb",
+  "container": "",
+  "container_len": 0,
+  "handle_ptr_hex": "0x6000025dde60",
+  "handle_words": [
+    0,
+    5754633728,
+    2612
+  ],
+  "handle_words_hex": [
+    "0x0000000000000000",
+    "0x000000015700be00",
+    "0x0000000000000a34"
+  ],
+  "call_code": 0,
+  "forced_handle0": false,
+  "pointer_nonzero": true,
+  "blob": {
+    "ptr_hex": "0x15700be00",
+    "len": 2612,
+    "file": "book/evidence/experiments/profile-pipeline/sandbox-init-params/out/file_ftp_proxy.sb.bin"
+  },
+  "apply_return": 0
+}

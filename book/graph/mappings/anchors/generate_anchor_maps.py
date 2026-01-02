@@ -2,7 +2,7 @@
 """
 Regenerate anchor mappings for this world (deterministic entrypoint).
 
-This is the supported way to refresh anchor mappings under `book/graph/mappings/anchors/`.
+This is the supported way to refresh anchor mappings under `book/evidence/graph/mappings/anchors/`.
 It enforces the "single source of truth + generated compatibility view" contract:
 
 - Canonical: `anchor_ctx_filter_map.json`
@@ -32,4 +32,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

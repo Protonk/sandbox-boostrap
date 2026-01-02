@@ -13,19 +13,19 @@ from book.graph.concepts.validation import registry
 from book.graph.concepts.validation.registry import ValidationJob
 
 ROOT = find_repo_root(Path(__file__))
-STATUS_PATH = ROOT / "book" / "graph" / "concepts" / "validation" / "out" / "validation_status.json"
-EXPERIMENT_STATUS_DIR = ROOT / "book" / "graph" / "concepts" / "validation" / "out" / "experiments"
-CARTON_MANIFEST = ROOT / "book" / "integration" / "carton" / "CARTON.json"
+STATUS_PATH = ROOT / "book" / "evidence" / "graph" / "concepts" / "validation" / "out" / "validation_status.json"
+EXPERIMENT_STATUS_DIR = ROOT / "book" / "evidence" / "graph" / "concepts" / "validation" / "out" / "experiments"
+CARTON_MANIFEST = ROOT / "book" / "integration" / "carton" / "bundle" / "CARTON.json"
 MAPPING_CHECKS = [
-    ROOT / "book" / "graph" / "mappings" / "runtime" / "runtime_signatures.json",
-    ROOT / "book" / "graph" / "mappings" / "runtime" / "runtime_coverage.json",
-    ROOT / "book" / "graph" / "mappings" / "runtime" / "expectations.json",
-    ROOT / "book" / "graph" / "mappings" / "system_profiles" / "digests.json",
-    ROOT / "book" / "graph" / "mappings" / "vocab" / "ops.json",
-    ROOT / "book" / "graph" / "mappings" / "vocab" / "filters.json",
-    ROOT / "book" / "graph" / "mappings" / "carton" / "operation_coverage.json",
+    ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "runtime_signatures.json",
+    ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "runtime_coverage.json",
+    ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "expectations.json",
+    ROOT / "book" / "evidence" / "graph" / "mappings" / "system_profiles" / "digests.json",
+    ROOT / "book" / "evidence" / "graph" / "mappings" / "vocab" / "ops.json",
+    ROOT / "book" / "evidence" / "graph" / "mappings" / "vocab" / "filters.json",
+    ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "operation_coverage.json",
 ]
-META_PATH = ROOT / "book" / "graph" / "concepts" / "validation" / "out" / "metadata.json"
+META_PATH = ROOT / "book" / "evidence" / "graph" / "concepts" / "validation" / "out" / "metadata.json"
 
 REQUIRED_FIELDS = {"job_id", "status", "tier", "host", "inputs", "outputs", "tags"}
 ALLOWED_STATUS = {"ok", "partial", "brittle", "blocked", "skipped"}

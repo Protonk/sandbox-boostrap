@@ -19,10 +19,22 @@ from book.graph.concepts.validation.registry import ValidationJob
 
 ROOT = find_repo_root(Path(__file__))
 
-EXP_OUT = ROOT / "book" / "experiments" / "preflight-blob-digests" / "out" / "apply_gate_blob_digests.json"
-META_PATH = ROOT / "book" / "graph" / "concepts" / "validation" / "out" / "metadata.json"
+EXP_OUT = (
+    ROOT
+    / "book"
+    / "evidence"
+    / "experiments"
+    / "runtime-final-final"
+    / "suites"
+    / "preflight-blob-digests"
+    / "out"
+    / "apply_gate_blob_digests.json"
+)
+META_PATH = ROOT / "book" / "evidence" / "graph" / "concepts" / "validation" / "out" / "metadata.json"
 
-OUT_DIR = ROOT / "book" / "graph" / "concepts" / "validation" / "out" / "experiments" / "preflight-blob-digests"
+OUT_DIR = (
+    ROOT / "book" / "evidence" / "graph" / "concepts" / "validation" / "out" / "experiments" / "preflight-blob-digests"
+)
 STATUS_PATH = OUT_DIR / "status.json"
 IR_PATH = OUT_DIR / "blob_digests_ir.json"
 

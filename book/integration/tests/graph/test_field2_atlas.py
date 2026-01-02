@@ -10,6 +10,7 @@ ROOT = path_utils.find_repo_root(Path(__file__))
 PACKET_PATH = (
     ROOT
     / "book"
+    / "evidence"
     / "experiments"
     / "runtime-final-final"
     / "evidence"
@@ -42,6 +43,7 @@ def _run_atlas_build(tmp_path: Path, run_id: str) -> Path:
     script = (
         ROOT
         / "book"
+        / "evidence"
         / "experiments"
         / "field2-final-final"
         / "field2-atlas"
@@ -66,6 +68,7 @@ def test_field2_atlas_packet_consumer(tmp_path):
     seeds_doc = load_json(
         ROOT
         / "book"
+        / "evidence"
         / "experiments"
         / "field2-final-final"
         / "field2-atlas"
@@ -80,6 +83,7 @@ def test_field2_atlas_packet_consumer(tmp_path):
     static_records = load_jsonl(
         ROOT
         / "book"
+        / "evidence"
         / "experiments"
         / "field2-final-final"
         / "field2-atlas"

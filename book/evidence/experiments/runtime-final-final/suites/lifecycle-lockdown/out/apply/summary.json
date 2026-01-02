@@ -1,16 +1,16 @@
 {
   "api_gate_preflight_mode": "force",
   "api_gate_status": "ok",
-  "gate_blob": "book/evidence/experiments/gate-witnesses/out/witnesses/airlock/compile_vs_apply/minimal_failing.sb.bin",
-  "gate_sbpl": "book/evidence/experiments/gate-witnesses/out/witnesses/airlock/minimal_failing.sb",
-  "passing_blob": "book/evidence/experiments/gate-witnesses/out/witnesses/airlock/compile_vs_apply/passing_neighbor.sb.bin",
-  "passing_sbpl": "book/evidence/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+  "gate_blob": "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/compile_vs_apply/minimal_failing.sb.bin",
+  "gate_sbpl": "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/minimal_failing.sb",
+  "passing_blob": "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/compile_vs_apply/passing_neighbor.sb.bin",
+  "passing_sbpl": "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
   "preflight_scan_gate": {
     "argv": [
       "python3",
       "book/tools/preflight/preflight.py",
       "scan",
-      "book/evidence/experiments/gate-witnesses/out/witnesses/airlock/minimal_failing.sb"
+      "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/minimal_failing.sb"
     ],
     "cwd": ".",
     "parsed": [
@@ -24,13 +24,13 @@
           }
         ],
         "input_kind": "sbpl_path",
-        "input_ref": "book/evidence/experiments/gate-witnesses/out/witnesses/airlock/minimal_failing.sb",
+        "input_ref": "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/minimal_failing.sb",
         "preflight_schema_version": 1,
         "signature": "deny_message_filter",
         "signature_meta": {
           "pointers": [
             "troubles/EPERMx2.md",
-            "book/evidence/experiments/gate-witnesses/Report.md",
+            "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/Report.md",
             "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json"
           ],
           "status": "partial"
@@ -49,7 +49,7 @@
     "argv": [
       "book/tools/sbpl/wrapper/wrapper",
       "--blob",
-      "book/evidence/experiments/gate-witnesses/out/witnesses/airlock/compile_vs_apply/minimal_failing.sb.bin",
+      "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/compile_vs_apply/minimal_failing.sb.bin",
       "--",
       "/usr/bin/true"
     ],
@@ -72,7 +72,7 @@
       "--preflight",
       "force",
       "--blob",
-      "book/evidence/experiments/gate-witnesses/out/witnesses/airlock/compile_vs_apply/minimal_failing.sb.bin",
+      "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/compile_vs_apply/minimal_failing.sb.bin",
       "--",
       "/usr/bin/true"
     ],
@@ -93,7 +93,7 @@
     "argv": [
       "book/tools/sbpl/wrapper/wrapper",
       "--blob",
-      "book/evidence/experiments/gate-witnesses/out/witnesses/airlock/compile_vs_apply/passing_neighbor.sb.bin",
+      "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/compile_vs_apply/passing_neighbor.sb.bin",
       "--",
       "/usr/bin/true"
     ],
@@ -107,7 +107,7 @@
     "argv": [
       "book/tools/sbpl/wrapper/wrapper",
       "--sbpl",
-      "book/evidence/experiments/gate-witnesses/out/witnesses/airlock/minimal_failing.sb",
+      "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/minimal_failing.sb",
       "--",
       "/usr/bin/true"
     ],
@@ -130,7 +130,7 @@
       "--preflight",
       "force",
       "--sbpl",
-      "book/evidence/experiments/gate-witnesses/out/witnesses/airlock/minimal_failing.sb",
+      "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/minimal_failing.sb",
       "--",
       "/usr/bin/true"
     ],
@@ -151,7 +151,7 @@
     "argv": [
       "book/tools/sbpl/wrapper/wrapper",
       "--sbpl",
-      "book/evidence/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+      "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
       "--",
       "/usr/bin/true"
     ],

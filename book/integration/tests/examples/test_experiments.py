@@ -10,7 +10,7 @@ def _load_json(path: Path):
 
 def test_node_layout_experiment_outputs_are_coherent():
     root = path_utils.find_repo_root(Path(__file__))
-    summary = root / "book/evidence/experiments/node-layout/out/summary.json"
+    summary = root / "book/evidence/experiments/profile-pipeline/node-layout/out/summary.json"
     data = _load_json(summary)
     assert isinstance(data, list)
     assert data, "summary.json should not be empty"
@@ -36,12 +36,12 @@ def test_node_layout_experiment_outputs_are_coherent():
 
 def test_op_table_experiment_outputs_are_present():
     root = path_utils.find_repo_root(Path(__file__))
-    summary = root / "book/evidence/experiments/op-table-operation/out/summary.json"
+    summary = root / "book/evidence/experiments/profile-pipeline/op-table-operation/out/summary.json"
     data = _load_json(summary)
     assert isinstance(data, list)
-    op_map = _load_json(root / "book/evidence/experiments/op-table-operation/out/op_table_map.json")
+    op_map = _load_json(root / "book/evidence/experiments/profile-pipeline/op-table-operation/out/op_table_map.json")
     assert "profiles" in op_map
 
-    align = _load_json(root / "book/evidence/experiments/op-table-vocab-alignment/out/op_table_vocab_alignment.json")
+    align = _load_json(root / "book/evidence/experiments/profile-pipeline/op-table-vocab-alignment/out/op_table_vocab_alignment.json")
     assert "records" in align
     assert isinstance(align["records"], list)

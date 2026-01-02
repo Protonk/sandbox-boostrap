@@ -1,14 +1,14 @@
 {
   "hardened:mach_lookup": {
     "status": "partial",
-    "profile_path": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/mach_lookup.hardened_mach_lookup.runtime.sb",
-    "base_profile_path": "book/evidence/experiments/hardened-runtime/sb/mach_lookup.sb",
+    "profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/mach_lookup.hardened_mach_lookup.runtime.sb",
+    "base_profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/mach_lookup.sb",
     "preflight": {
       "tool": "book/tools/preflight",
       "preflight_schema_version": 1,
       "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
       "input_kind": "sbpl_path",
-      "input_ref": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/mach_lookup.hardened_mach_lookup.runtime.sb",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/mach_lookup.hardened_mach_lookup.runtime.sb",
       "classification": "no_known_apply_gate_signature",
       "signature": null,
       "findings": []
@@ -42,7 +42,7 @@
             "apply_model": "self_apply",
             "apply_timing": "pre_syscall",
             "preexisting_sandbox_suspected": false,
-            "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_mach_probe",
+            "entrypoint_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_mach_probe",
             "entrypoint_sha256": "0d0fdc1c3c113067b17b463de6f876c4fd8b8886835822f88b45bec7232a431c",
             "tool_build_id": "0d0fdc1c3c113067b17b463de6f876c4fd8b8886835822f88b45bec7232a431c"
           },
@@ -50,13 +50,13 @@
         },
         "violation_summary": null,
         "command": [
-          "book/evidence/experiments/runtime-checks/sandbox_mach_probe",
-          "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/mach_lookup.hardened_mach_lookup.runtime.sb",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_mach_probe",
+          "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/mach_lookup.hardened_mach_lookup.runtime.sb",
           "com.apple.cfprefsd.agent"
         ],
         "exit_code": 0,
         "stdout": "{\"kr\":0}\n",
-        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/mach_lookup.hardened_mach_lookup.runtime.sb\",\"pid\":83710}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/mach_lookup.hardened_mach_lookup.runtime.sb\",\"pid\":83710}\n",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/mach_lookup.hardened_mach_lookup.runtime.sb\",\"pid\":83710}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/mach_lookup.hardened_mach_lookup.runtime.sb\",\"pid\":83710}\n",
         "probe_details": null
       },
       {
@@ -87,7 +87,7 @@
             "apply_model": "self_apply",
             "apply_timing": "pre_syscall",
             "preexisting_sandbox_suspected": false,
-            "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_mach_probe",
+            "entrypoint_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_mach_probe",
             "entrypoint_sha256": "0d0fdc1c3c113067b17b463de6f876c4fd8b8886835822f88b45bec7232a431c",
             "tool_build_id": "0d0fdc1c3c113067b17b463de6f876c4fd8b8886835822f88b45bec7232a431c"
           },
@@ -95,13 +95,13 @@
         },
         "violation_summary": "EPERM",
         "command": [
-          "book/evidence/experiments/runtime-checks/sandbox_mach_probe",
-          "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/mach_lookup.hardened_mach_lookup.runtime.sb",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_mach_probe",
+          "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/mach_lookup.hardened_mach_lookup.runtime.sb",
           "com.apple.sandbox-lore.hardened-runtime.bogus"
         ],
         "exit_code": 1,
         "stdout": "{\"kr\":1100}\n",
-        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/mach_lookup.hardened_mach_lookup.runtime.sb\",\"pid\":83711}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/mach_lookup.hardened_mach_lookup.runtime.sb\",\"pid\":83711}\n",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/mach_lookup.hardened_mach_lookup.runtime.sb\",\"pid\":83711}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/mach_lookup.hardened_mach_lookup.runtime.sb\",\"pid\":83711}\n",
         "probe_details": null
       }
     ],
@@ -111,14 +111,14 @@
   },
   "hardened:mach_lookup_allow": {
     "status": "ok",
-    "profile_path": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/mach_lookup_allow.hardened_mach_lookup_allow.runtime.sb",
-    "base_profile_path": "book/evidence/experiments/hardened-runtime/sb/mach_lookup_allow.sb",
+    "profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/mach_lookup_allow.hardened_mach_lookup_allow.runtime.sb",
+    "base_profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/mach_lookup_allow.sb",
     "preflight": {
       "tool": "book/tools/preflight",
       "preflight_schema_version": 1,
       "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
       "input_kind": "sbpl_path",
-      "input_ref": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/mach_lookup_allow.hardened_mach_lookup_allow.runtime.sb",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/mach_lookup_allow.hardened_mach_lookup_allow.runtime.sb",
       "classification": "no_known_apply_gate_signature",
       "signature": null,
       "findings": []
@@ -152,7 +152,7 @@
             "apply_model": "self_apply",
             "apply_timing": "pre_syscall",
             "preexisting_sandbox_suspected": false,
-            "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_mach_probe",
+            "entrypoint_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_mach_probe",
             "entrypoint_sha256": "0d0fdc1c3c113067b17b463de6f876c4fd8b8886835822f88b45bec7232a431c",
             "tool_build_id": "0d0fdc1c3c113067b17b463de6f876c4fd8b8886835822f88b45bec7232a431c"
           },
@@ -160,13 +160,13 @@
         },
         "violation_summary": null,
         "command": [
-          "book/evidence/experiments/runtime-checks/sandbox_mach_probe",
-          "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/mach_lookup_allow.hardened_mach_lookup_allow.runtime.sb",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_mach_probe",
+          "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/mach_lookup_allow.hardened_mach_lookup_allow.runtime.sb",
           "com.apple.cfprefsd.agent"
         ],
         "exit_code": 0,
         "stdout": "{\"kr\":0}\n",
-        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/mach_lookup_allow.hardened_mach_lookup_allow.runtime.sb\",\"pid\":83712}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/mach_lookup_allow.hardened_mach_lookup_allow.runtime.sb\",\"pid\":83712}\n",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/mach_lookup_allow.hardened_mach_lookup_allow.runtime.sb\",\"pid\":83712}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/mach_lookup_allow.hardened_mach_lookup_allow.runtime.sb\",\"pid\":83712}\n",
         "probe_details": null
       }
     ],
@@ -175,14 +175,14 @@
   },
   "hardened:notifications": {
     "status": "ok",
-    "profile_path": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb",
-    "base_profile_path": "book/evidence/experiments/hardened-runtime/sb/notifications.sb",
+    "profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb",
+    "base_profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/notifications.sb",
     "preflight": {
       "tool": "book/tools/preflight",
       "preflight_schema_version": 1,
       "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
       "input_kind": "sbpl_path",
-      "input_ref": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb",
       "classification": "no_known_apply_gate_signature",
       "signature": null,
       "findings": []
@@ -216,7 +216,7 @@
             "apply_model": "exec_wrapper",
             "apply_timing": "pre_exec",
             "preexisting_sandbox_suspected": false,
-            "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_runner",
+            "entrypoint_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
             "entrypoint_sha256": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e",
             "tool_build_id": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e"
           },
@@ -224,8 +224,8 @@
         },
         "violation_summary": null,
         "command": [
-          "book/evidence/experiments/runtime-checks/sandbox_runner",
-          "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
+          "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb",
           "--",
           "/usr/bin/notifyutil",
           "-p",
@@ -233,7 +233,7 @@
         ],
         "exit_code": -6,
         "stdout": "",
-        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb\",\"pid\":83713}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb\",\"pid\":83713}\n",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb\",\"pid\":83713}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb\",\"pid\":83713}\n",
         "probe_details": null
       },
       {
@@ -264,7 +264,7 @@
             "apply_model": "exec_wrapper",
             "apply_timing": "pre_exec",
             "preexisting_sandbox_suspected": false,
-            "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_runner",
+            "entrypoint_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
             "entrypoint_sha256": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e",
             "tool_build_id": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e"
           },
@@ -272,8 +272,8 @@
         },
         "violation_summary": null,
         "command": [
-          "book/evidence/experiments/runtime-checks/sandbox_runner",
-          "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
+          "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb",
           "--",
           "/usr/bin/notifyutil",
           "-p",
@@ -281,7 +281,7 @@
         ],
         "exit_code": -6,
         "stdout": "",
-        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb\",\"pid\":83714}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb\",\"pid\":83714}\n",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb\",\"pid\":83714}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb\",\"pid\":83714}\n",
         "probe_details": null
       },
       {
@@ -312,7 +312,7 @@
             "apply_model": "exec_wrapper",
             "apply_timing": "pre_exec",
             "preexisting_sandbox_suspected": false,
-            "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_runner",
+            "entrypoint_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
             "entrypoint_sha256": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e",
             "tool_build_id": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e"
           },
@@ -320,8 +320,8 @@
         },
         "violation_summary": null,
         "command": [
-          "book/evidence/experiments/runtime-checks/sandbox_runner",
-          "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
+          "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb",
           "--",
           "/usr/bin/python3",
           "-c",
@@ -330,7 +330,7 @@
         ],
         "exit_code": -6,
         "stdout": "",
-        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb\",\"pid\":83715}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb\",\"pid\":83715}\n",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb\",\"pid\":83715}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb\",\"pid\":83715}\n",
         "probe_details": null
       },
       {
@@ -361,7 +361,7 @@
             "apply_model": "exec_wrapper",
             "apply_timing": "pre_exec",
             "preexisting_sandbox_suspected": false,
-            "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_runner",
+            "entrypoint_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
             "entrypoint_sha256": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e",
             "tool_build_id": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e"
           },
@@ -369,8 +369,8 @@
         },
         "violation_summary": null,
         "command": [
-          "book/evidence/experiments/runtime-checks/sandbox_runner",
-          "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
+          "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb",
           "--",
           "/usr/bin/python3",
           "-c",
@@ -379,7 +379,7 @@
         ],
         "exit_code": -6,
         "stdout": "",
-        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb\",\"pid\":83716}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb\",\"pid\":83716}\n",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb\",\"pid\":83716}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications.hardened_notifications.runtime.sb\",\"pid\":83716}\n",
         "probe_details": null
       }
     ],
@@ -388,14 +388,14 @@
   },
   "hardened:notifications_allow": {
     "status": "ok",
-    "profile_path": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications_allow.hardened_notifications_allow.runtime.sb",
-    "base_profile_path": "book/evidence/experiments/hardened-runtime/sb/notifications_allow.sb",
+    "profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications_allow.hardened_notifications_allow.runtime.sb",
+    "base_profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/notifications_allow.sb",
     "preflight": {
       "tool": "book/tools/preflight",
       "preflight_schema_version": 1,
       "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
       "input_kind": "sbpl_path",
-      "input_ref": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications_allow.hardened_notifications_allow.runtime.sb",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications_allow.hardened_notifications_allow.runtime.sb",
       "classification": "no_known_apply_gate_signature",
       "signature": null,
       "findings": []
@@ -429,7 +429,7 @@
             "apply_model": "exec_wrapper",
             "apply_timing": "pre_exec",
             "preexisting_sandbox_suspected": false,
-            "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_runner",
+            "entrypoint_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
             "entrypoint_sha256": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e",
             "tool_build_id": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e"
           },
@@ -437,8 +437,8 @@
         },
         "violation_summary": null,
         "command": [
-          "book/evidence/experiments/runtime-checks/sandbox_runner",
-          "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications_allow.hardened_notifications_allow.runtime.sb",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
+          "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications_allow.hardened_notifications_allow.runtime.sb",
           "--",
           "/usr/bin/notifyutil",
           "-p",
@@ -446,7 +446,7 @@
         ],
         "exit_code": 0,
         "stdout": "",
-        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications_allow.hardened_notifications_allow.runtime.sb\",\"pid\":83717}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications_allow.hardened_notifications_allow.runtime.sb\",\"pid\":83717}\n",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications_allow.hardened_notifications_allow.runtime.sb\",\"pid\":83717}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications_allow.hardened_notifications_allow.runtime.sb\",\"pid\":83717}\n",
         "probe_details": null
       },
       {
@@ -477,7 +477,7 @@
             "apply_model": "exec_wrapper",
             "apply_timing": "pre_exec",
             "preexisting_sandbox_suspected": false,
-            "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_runner",
+            "entrypoint_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
             "entrypoint_sha256": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e",
             "tool_build_id": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e"
           },
@@ -485,8 +485,8 @@
         },
         "violation_summary": null,
         "command": [
-          "book/evidence/experiments/runtime-checks/sandbox_runner",
-          "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications_allow.hardened_notifications_allow.runtime.sb",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
+          "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications_allow.hardened_notifications_allow.runtime.sb",
           "--",
           "/usr/bin/python3",
           "-c",
@@ -495,7 +495,7 @@
         ],
         "exit_code": 0,
         "stdout": "",
-        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications_allow.hardened_notifications_allow.runtime.sb\",\"pid\":83718}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications_allow.hardened_notifications_allow.runtime.sb\",\"pid\":83718}\n",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications_allow.hardened_notifications_allow.runtime.sb\",\"pid\":83718}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/notifications_allow.hardened_notifications_allow.runtime.sb\",\"pid\":83718}\n",
         "probe_details": null
       }
     ],
@@ -504,14 +504,14 @@
   },
   "hardened:process_info_allow": {
     "status": "ok",
-    "profile_path": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_allow.hardened_process_info_allow.runtime.sb",
-    "base_profile_path": "book/evidence/experiments/hardened-runtime/sb/process_info_allow.sb",
+    "profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_allow.hardened_process_info_allow.runtime.sb",
+    "base_profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/process_info_allow.sb",
     "preflight": {
       "tool": "book/tools/preflight",
       "preflight_schema_version": 1,
       "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
       "input_kind": "sbpl_path",
-      "input_ref": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_allow.hardened_process_info_allow.runtime.sb",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_allow.hardened_process_info_allow.runtime.sb",
       "classification": "no_known_apply_gate_signature",
       "signature": null,
       "findings": []
@@ -545,7 +545,7 @@
             "apply_model": "exec_wrapper",
             "apply_timing": "pre_exec",
             "preexisting_sandbox_suspected": false,
-            "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_runner",
+            "entrypoint_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
             "entrypoint_sha256": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e",
             "tool_build_id": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e"
           },
@@ -553,8 +553,8 @@
         },
         "violation_summary": null,
         "command": [
-          "book/evidence/experiments/runtime-checks/sandbox_runner",
-          "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_allow.hardened_process_info_allow.runtime.sb",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
+          "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_allow.hardened_process_info_allow.runtime.sb",
           "--",
           "/usr/bin/python3",
           "-c",
@@ -563,7 +563,7 @@
         ],
         "exit_code": -6,
         "stdout": "",
-        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_allow.hardened_process_info_allow.runtime.sb\",\"pid\":83719}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_allow.hardened_process_info_allow.runtime.sb\",\"pid\":83719}\n",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_allow.hardened_process_info_allow.runtime.sb\",\"pid\":83719}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_allow.hardened_process_info_allow.runtime.sb\",\"pid\":83719}\n",
         "probe_details": null
       },
       {
@@ -594,7 +594,7 @@
             "apply_model": "exec_wrapper",
             "apply_timing": "pre_exec",
             "preexisting_sandbox_suspected": false,
-            "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_runner",
+            "entrypoint_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
             "entrypoint_sha256": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e",
             "tool_build_id": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e"
           },
@@ -602,8 +602,8 @@
         },
         "violation_summary": null,
         "command": [
-          "book/evidence/experiments/runtime-checks/sandbox_runner",
-          "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_allow.hardened_process_info_allow.runtime.sb",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
+          "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_allow.hardened_process_info_allow.runtime.sb",
           "--",
           "/usr/bin/python3",
           "-c",
@@ -612,7 +612,7 @@
         ],
         "exit_code": -6,
         "stdout": "",
-        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_allow.hardened_process_info_allow.runtime.sb\",\"pid\":83720}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_allow.hardened_process_info_allow.runtime.sb\",\"pid\":83720}\n",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_allow.hardened_process_info_allow.runtime.sb\",\"pid\":83720}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_allow.hardened_process_info_allow.runtime.sb\",\"pid\":83720}\n",
         "probe_details": null
       }
     ],
@@ -621,14 +621,14 @@
   },
   "hardened:process_info_allow_canary": {
     "status": "ok",
-    "profile_path": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_allow_canary.hardened_process_info_allow_canary.runtime.sb",
-    "base_profile_path": "book/evidence/experiments/hardened-runtime/sb/process_info_allow_canary.sb",
+    "profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_allow_canary.hardened_process_info_allow_canary.runtime.sb",
+    "base_profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/process_info_allow_canary.sb",
     "preflight": {
       "tool": "book/tools/preflight",
       "preflight_schema_version": 1,
       "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
       "input_kind": "sbpl_path",
-      "input_ref": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_allow_canary.hardened_process_info_allow_canary.runtime.sb",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_allow_canary.hardened_process_info_allow_canary.runtime.sb",
       "classification": "no_known_apply_gate_signature",
       "signature": null,
       "findings": []
@@ -662,7 +662,7 @@
             "apply_model": "exec_wrapper",
             "apply_timing": "pre_exec",
             "preexisting_sandbox_suspected": false,
-            "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_runner",
+            "entrypoint_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
             "entrypoint_sha256": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e",
             "tool_build_id": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e"
           },
@@ -670,8 +670,8 @@
         },
         "violation_summary": null,
         "command": [
-          "book/evidence/experiments/runtime-checks/sandbox_runner",
-          "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_allow_canary.hardened_process_info_allow_canary.runtime.sb",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
+          "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_allow_canary.hardened_process_info_allow_canary.runtime.sb",
           "--",
           "/usr/bin/python3",
           "-c",
@@ -680,7 +680,7 @@
         ],
         "exit_code": 0,
         "stdout": "",
-        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_allow_canary.hardened_process_info_allow_canary.runtime.sb\",\"pid\":83721}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_allow_canary.hardened_process_info_allow_canary.runtime.sb\",\"pid\":83721}\n",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_allow_canary.hardened_process_info_allow_canary.runtime.sb\",\"pid\":83721}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_allow_canary.hardened_process_info_allow_canary.runtime.sb\",\"pid\":83721}\n",
         "probe_details": null
       }
     ],
@@ -689,14 +689,14 @@
   },
   "hardened:process_info_deny": {
     "status": "ok",
-    "profile_path": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_deny.hardened_process_info_deny.runtime.sb",
-    "base_profile_path": "book/evidence/experiments/hardened-runtime/sb/process_info_deny.sb",
+    "profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_deny.hardened_process_info_deny.runtime.sb",
+    "base_profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/process_info_deny.sb",
     "preflight": {
       "tool": "book/tools/preflight",
       "preflight_schema_version": 1,
       "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
       "input_kind": "sbpl_path",
-      "input_ref": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_deny.hardened_process_info_deny.runtime.sb",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_deny.hardened_process_info_deny.runtime.sb",
       "classification": "no_known_apply_gate_signature",
       "signature": null,
       "findings": []
@@ -730,7 +730,7 @@
             "apply_model": "exec_wrapper",
             "apply_timing": "pre_exec",
             "preexisting_sandbox_suspected": false,
-            "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_runner",
+            "entrypoint_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
             "entrypoint_sha256": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e",
             "tool_build_id": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e"
           },
@@ -738,8 +738,8 @@
         },
         "violation_summary": null,
         "command": [
-          "book/evidence/experiments/runtime-checks/sandbox_runner",
-          "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_deny.hardened_process_info_deny.runtime.sb",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
+          "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_deny.hardened_process_info_deny.runtime.sb",
           "--",
           "/usr/bin/python3",
           "-c",
@@ -748,7 +748,7 @@
         ],
         "exit_code": -6,
         "stdout": "",
-        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_deny.hardened_process_info_deny.runtime.sb\",\"pid\":83722}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_deny.hardened_process_info_deny.runtime.sb\",\"pid\":83722}\n",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_deny.hardened_process_info_deny.runtime.sb\",\"pid\":83722}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_deny.hardened_process_info_deny.runtime.sb\",\"pid\":83722}\n",
         "probe_details": null
       },
       {
@@ -779,7 +779,7 @@
             "apply_model": "exec_wrapper",
             "apply_timing": "pre_exec",
             "preexisting_sandbox_suspected": false,
-            "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_runner",
+            "entrypoint_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
             "entrypoint_sha256": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e",
             "tool_build_id": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e"
           },
@@ -787,8 +787,8 @@
         },
         "violation_summary": null,
         "command": [
-          "book/evidence/experiments/runtime-checks/sandbox_runner",
-          "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_deny.hardened_process_info_deny.runtime.sb",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
+          "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_deny.hardened_process_info_deny.runtime.sb",
           "--",
           "/usr/bin/python3",
           "-c",
@@ -797,7 +797,7 @@
         ],
         "exit_code": -6,
         "stdout": "",
-        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_deny.hardened_process_info_deny.runtime.sb\",\"pid\":83723}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_deny.hardened_process_info_deny.runtime.sb\",\"pid\":83723}\n",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_deny.hardened_process_info_deny.runtime.sb\",\"pid\":83723}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/process_info_deny.hardened_process_info_deny.runtime.sb\",\"pid\":83723}\n",
         "probe_details": null
       }
     ],
@@ -806,14 +806,14 @@
   },
   "hardened:signal_self_allow": {
     "status": "ok",
-    "profile_path": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/signal_self_allow.hardened_signal_self_allow.runtime.sb",
-    "base_profile_path": "book/evidence/experiments/hardened-runtime/sb/signal_self_allow.sb",
+    "profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/signal_self_allow.hardened_signal_self_allow.runtime.sb",
+    "base_profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/signal_self_allow.sb",
     "preflight": {
       "tool": "book/tools/preflight",
       "preflight_schema_version": 1,
       "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
       "input_kind": "sbpl_path",
-      "input_ref": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/signal_self_allow.hardened_signal_self_allow.runtime.sb",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/signal_self_allow.hardened_signal_self_allow.runtime.sb",
       "classification": "no_known_apply_gate_signature",
       "signature": null,
       "findings": []
@@ -847,7 +847,7 @@
             "apply_model": "exec_wrapper",
             "apply_timing": "pre_exec",
             "preexisting_sandbox_suspected": false,
-            "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_runner",
+            "entrypoint_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
             "entrypoint_sha256": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e",
             "tool_build_id": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e"
           },
@@ -855,8 +855,8 @@
         },
         "violation_summary": null,
         "command": [
-          "book/evidence/experiments/runtime-checks/sandbox_runner",
-          "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/signal_self_allow.hardened_signal_self_allow.runtime.sb",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
+          "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/signal_self_allow.hardened_signal_self_allow.runtime.sb",
           "--",
           "/usr/bin/python3",
           "-c",
@@ -864,7 +864,7 @@
         ],
         "exit_code": 0,
         "stdout": "",
-        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/signal_self_allow.hardened_signal_self_allow.runtime.sb\",\"pid\":83724}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/signal_self_allow.hardened_signal_self_allow.runtime.sb\",\"pid\":83724}\n",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/signal_self_allow.hardened_signal_self_allow.runtime.sb\",\"pid\":83724}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/signal_self_allow.hardened_signal_self_allow.runtime.sb\",\"pid\":83724}\n",
         "probe_details": {
           "probe_schema_version": "hardened-runtime.signal-probe.v0.2",
           "child_pid": 83725,
@@ -882,14 +882,14 @@
   },
   "hardened:signal_self_deny": {
     "status": "blocked",
-    "profile_path": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/signal_self_deny.hardened_signal_self_deny.runtime.sb",
-    "base_profile_path": "book/evidence/experiments/hardened-runtime/sb/signal_self_deny.sb",
+    "profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/signal_self_deny.hardened_signal_self_deny.runtime.sb",
+    "base_profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/signal_self_deny.sb",
     "preflight": {
       "tool": "book/tools/preflight",
       "preflight_schema_version": 1,
       "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
       "input_kind": "sbpl_path",
-      "input_ref": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/signal_self_deny.hardened_signal_self_deny.runtime.sb",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/signal_self_deny.hardened_signal_self_deny.runtime.sb",
       "classification": "no_known_apply_gate_signature",
       "signature": null,
       "findings": []
@@ -915,7 +915,7 @@
           "seatbelt_callouts": null
         },
         "violation_summary": null,
-        "error": "Command '['/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/experiments/runtime-checks/sandbox_runner', '/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/signal_self_deny.hardened_signal_self_deny.runtime.sb', '--', '/usr/bin/python3', '-c', 'import json, os, signal, subprocess, sys\\nready_r, ready_w = os.pipe()\\nresult_r, result_w = os.pipe()\\nchild_env = os.environ.copy()\\nchild_env[\\'SBL_READY_FD\\'] = str(ready_w)\\nchild_env[\\'SBL_RESULT_FD\\'] = str(result_w)\\nchild_code = (\\n    \"import os, signal, sys\\\\n\"\\n    \"ready_fd = int(os.environ.get(\\'SBL_READY_FD\\', \\'-1\\'))\\\\n\"\\n    \"result_fd = int(os.environ.get(\\'SBL_RESULT_FD\\', \\'-1\\'))\\\\n\"\\n    \"def handler(signum, frame):\\\\n\"\\n    \"    try: os.write(result_fd, b\\'signal\\')\\\\n\"\\n    \"    except Exception: pass\\\\n\"\\n    \"    sys.exit(0)\\\\n\"\\n    \"signal.signal(signal.SIGUSR1, handler)\\\\n\"\\n    \"try: os.write(ready_fd, b\\'ready\\')\\\\n\"\\n    \"except Exception: pass\\\\n\"\\n    \"signal.pause()\\\\n\"\\n    \"sys.exit(2)\\\\n\"\\n)\\nchild = subprocess.Popen([sys.executable, \\'-c\\', child_code], pass_fds=(ready_w, result_w), env=child_env)\\nos.close(ready_w)\\nos.close(result_w)\\ndetails = {\\n    \\'probe_schema_version\\': \\'hardened-runtime.signal-probe.v0.2\\',\\n    \\'child_pid\\': child.pid,\\n    \\'child_spawn_method\\': \\'subprocess.Popen\\',\\n    \\'handshake_ok\\': False,\\n    \\'signal_sent\\': False,\\n    \\'child_received_signal\\': False,\\n}\\ntry:\\n    data = os.read(ready_r, 5)\\n    details[\\'handshake_ok\\'] = data == b\\'ready\\'\\nexcept Exception as exc:\\n    details[\\'handshake_error\\'] = str(exc)\\nif details[\\'handshake_ok\\']:\\n    try:\\n        os.kill(child.pid, signal.SIGUSR1)\\n        details[\\'signal_sent\\'] = True\\n    except Exception as exc:\\n        details[\\'signal_error\\'] = str(exc)\\ntry:\\n    import select\\n    rlist, _, _ = select.select([result_r], [], [], 1.0)\\n    if rlist:\\n        data = os.read(result_r, 16)\\n        if data.startswith(b\\'signal\\'):\\n            details[\\'child_received_signal\\'] = True\\nexcept Exception as exc:\\n    details[\\'result_error\\'] = str(exc)\\ntry:\\n    child.wait(timeout=1.0)\\n    details[\\'child_exit_code\\'] = child.returncode\\n    details[\\'child_status\\'] = \\'exited\\'\\nexcept Exception:\\n    child.kill()\\n    child.wait()\\n    details[\\'child_exit_code\\'] = child.returncode\\n    details[\\'child_status\\'] = \\'killed\\'\\nprint(\\'SBL_PROBE_DETAILS \\' + json.dumps(details))\\nsys.exit(0 if details[\\'signal_sent\\'] and details[\\'child_received_signal\\'] else 1)\\n']' timed out after 10 seconds",
+        "error": "Command '['/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner', '/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/signal_self_deny.hardened_signal_self_deny.runtime.sb', '--', '/usr/bin/python3', '-c', 'import json, os, signal, subprocess, sys\\nready_r, ready_w = os.pipe()\\nresult_r, result_w = os.pipe()\\nchild_env = os.environ.copy()\\nchild_env[\\'SBL_READY_FD\\'] = str(ready_w)\\nchild_env[\\'SBL_RESULT_FD\\'] = str(result_w)\\nchild_code = (\\n    \"import os, signal, sys\\\\n\"\\n    \"ready_fd = int(os.environ.get(\\'SBL_READY_FD\\', \\'-1\\'))\\\\n\"\\n    \"result_fd = int(os.environ.get(\\'SBL_RESULT_FD\\', \\'-1\\'))\\\\n\"\\n    \"def handler(signum, frame):\\\\n\"\\n    \"    try: os.write(result_fd, b\\'signal\\')\\\\n\"\\n    \"    except Exception: pass\\\\n\"\\n    \"    sys.exit(0)\\\\n\"\\n    \"signal.signal(signal.SIGUSR1, handler)\\\\n\"\\n    \"try: os.write(ready_fd, b\\'ready\\')\\\\n\"\\n    \"except Exception: pass\\\\n\"\\n    \"signal.pause()\\\\n\"\\n    \"sys.exit(2)\\\\n\"\\n)\\nchild = subprocess.Popen([sys.executable, \\'-c\\', child_code], pass_fds=(ready_w, result_w), env=child_env)\\nos.close(ready_w)\\nos.close(result_w)\\ndetails = {\\n    \\'probe_schema_version\\': \\'hardened-runtime.signal-probe.v0.2\\',\\n    \\'child_pid\\': child.pid,\\n    \\'child_spawn_method\\': \\'subprocess.Popen\\',\\n    \\'handshake_ok\\': False,\\n    \\'signal_sent\\': False,\\n    \\'child_received_signal\\': False,\\n}\\ntry:\\n    data = os.read(ready_r, 5)\\n    details[\\'handshake_ok\\'] = data == b\\'ready\\'\\nexcept Exception as exc:\\n    details[\\'handshake_error\\'] = str(exc)\\nif details[\\'handshake_ok\\']:\\n    try:\\n        os.kill(child.pid, signal.SIGUSR1)\\n        details[\\'signal_sent\\'] = True\\n    except Exception as exc:\\n        details[\\'signal_error\\'] = str(exc)\\ntry:\\n    import select\\n    rlist, _, _ = select.select([result_r], [], [], 1.0)\\n    if rlist:\\n        data = os.read(result_r, 16)\\n        if data.startswith(b\\'signal\\'):\\n            details[\\'child_received_signal\\'] = True\\nexcept Exception as exc:\\n    details[\\'result_error\\'] = str(exc)\\ntry:\\n    child.wait(timeout=1.0)\\n    details[\\'child_exit_code\\'] = child.returncode\\n    details[\\'child_status\\'] = \\'exited\\'\\nexcept Exception:\\n    child.kill()\\n    child.wait()\\n    details[\\'child_exit_code\\'] = child.returncode\\n    details[\\'child_status\\'] = \\'killed\\'\\nprint(\\'SBL_PROBE_DETAILS \\' + json.dumps(details))\\nsys.exit(0 if details[\\'signal_sent\\'] and details[\\'child_received_signal\\'] else 1)\\n']' timed out after 10 seconds",
         "command": []
       }
     ],
@@ -925,14 +925,14 @@
   },
   "hardened:sysctl_read": {
     "status": "ok",
-    "profile_path": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/sysctl_read.hardened_sysctl_read.runtime.sb",
-    "base_profile_path": "book/evidence/experiments/hardened-runtime/sb/sysctl_read.sb",
+    "profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/sysctl_read.hardened_sysctl_read.runtime.sb",
+    "base_profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/sysctl_read.sb",
     "preflight": {
       "tool": "book/tools/preflight",
       "preflight_schema_version": 1,
       "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
       "input_kind": "sbpl_path",
-      "input_ref": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/sysctl_read.hardened_sysctl_read.runtime.sb",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/sysctl_read.hardened_sysctl_read.runtime.sb",
       "classification": "no_known_apply_gate_signature",
       "signature": null,
       "findings": []
@@ -966,7 +966,7 @@
             "apply_model": "exec_wrapper",
             "apply_timing": "pre_exec",
             "preexisting_sandbox_suspected": false,
-            "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_runner",
+            "entrypoint_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
             "entrypoint_sha256": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e",
             "tool_build_id": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e"
           },
@@ -974,8 +974,8 @@
         },
         "violation_summary": null,
         "command": [
-          "book/evidence/experiments/runtime-checks/sandbox_runner",
-          "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/sysctl_read.hardened_sysctl_read.runtime.sb",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
+          "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/sysctl_read.hardened_sysctl_read.runtime.sb",
           "--",
           "/usr/sbin/sysctl",
           "-n",
@@ -983,7 +983,7 @@
         ],
         "exit_code": -6,
         "stdout": "",
-        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/sysctl_read.hardened_sysctl_read.runtime.sb\",\"pid\":83900}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/sysctl_read.hardened_sysctl_read.runtime.sb\",\"pid\":83900}\n",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/sysctl_read.hardened_sysctl_read.runtime.sb\",\"pid\":83900}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/sysctl_read.hardened_sysctl_read.runtime.sb\",\"pid\":83900}\n",
         "probe_details": null
       },
       {
@@ -1014,7 +1014,7 @@
             "apply_model": "exec_wrapper",
             "apply_timing": "pre_exec",
             "preexisting_sandbox_suspected": false,
-            "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_runner",
+            "entrypoint_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
             "entrypoint_sha256": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e",
             "tool_build_id": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e"
           },
@@ -1022,8 +1022,8 @@
         },
         "violation_summary": null,
         "command": [
-          "book/evidence/experiments/runtime-checks/sandbox_runner",
-          "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/sysctl_read.hardened_sysctl_read.runtime.sb",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
+          "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/sysctl_read.hardened_sysctl_read.runtime.sb",
           "--",
           "/usr/sbin/sysctl",
           "-n",
@@ -1031,7 +1031,7 @@
         ],
         "exit_code": -6,
         "stdout": "",
-        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/sysctl_read.hardened_sysctl_read.runtime.sb\",\"pid\":83901}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/sysctl_read.hardened_sysctl_read.runtime.sb\",\"pid\":83901}\n",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/sysctl_read.hardened_sysctl_read.runtime.sb\",\"pid\":83901}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/sysctl_read.hardened_sysctl_read.runtime.sb\",\"pid\":83901}\n",
         "probe_details": null
       }
     ],
@@ -1040,14 +1040,14 @@
   },
   "hardened:sysctl_read_allow": {
     "status": "ok",
-    "profile_path": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/sysctl_read_allow.hardened_sysctl_read_allow.runtime.sb",
-    "base_profile_path": "book/evidence/experiments/hardened-runtime/sb/sysctl_read_allow.sb",
+    "profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/sysctl_read_allow.hardened_sysctl_read_allow.runtime.sb",
+    "base_profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/sysctl_read_allow.sb",
     "preflight": {
       "tool": "book/tools/preflight",
       "preflight_schema_version": 1,
       "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
       "input_kind": "sbpl_path",
-      "input_ref": "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/sysctl_read_allow.hardened_sysctl_read_allow.runtime.sb",
+      "input_ref": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/sysctl_read_allow.hardened_sysctl_read_allow.runtime.sb",
       "classification": "no_known_apply_gate_signature",
       "signature": null,
       "findings": []
@@ -1081,7 +1081,7 @@
             "apply_model": "exec_wrapper",
             "apply_timing": "pre_exec",
             "preexisting_sandbox_suspected": false,
-            "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_runner",
+            "entrypoint_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
             "entrypoint_sha256": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e",
             "tool_build_id": "797d7d72a2807a72e87a5fb578024d66b3dd0bd61da36d756467e38d0f39063e"
           },
@@ -1089,8 +1089,8 @@
         },
         "violation_summary": null,
         "command": [
-          "book/evidence/experiments/runtime-checks/sandbox_runner",
-          "book/evidence/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/sysctl_read_allow.hardened_sysctl_read_allow.runtime.sb",
+          "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
+          "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/sysctl_read_allow.hardened_sysctl_read_allow.runtime.sb",
           "--",
           "/usr/sbin/sysctl",
           "-n",
@@ -1098,7 +1098,7 @@
         ],
         "exit_code": 0,
         "stdout": "Darwin\n",
-        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/sysctl_read_allow.hardened_sysctl_read_allow.runtime.sb\",\"pid\":83902}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/experiments/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/sysctl_read_allow.hardened_sysctl_read_allow.runtime.sb\",\"pid\":83902}\n",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/sysctl_read_allow.hardened_sysctl_read_allow.runtime.sb\",\"pid\":83902}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1d8bcf26-508d-43fd-8d32-0ecff7c2799c/book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/1d8bcf26-508d-43fd-8d32-0ecff7c2799c/runtime_profiles/sysctl_read_allow.hardened_sysctl_read_allow.runtime.sb\",\"pid\":83902}\n",
         "probe_details": null
       }
     ],

@@ -31,9 +31,16 @@ DEFAULT_SEEDS = Path(__file__).with_name("field2_seeds.json")
 # - anchor_filter_map from anchor-filter-map (derived compatibility view; canonical is ctx-indexed)
 # - tag layouts are implicit through the inventory/tag_ids
 DEFAULT_FIELD2_INVENTORY = (
-    REPO_ROOT / "book" / "experiments" / "field2-filters" / "out" / "field2_inventory.json"
+    REPO_ROOT
+    / "book"
+    / "evidence"
+    / "experiments"
+    / "field2-final-final"
+    / "field2-filters"
+    / "out"
+    / "field2_inventory.json"
 )
-DEFAULT_ANCHOR_MAP = REPO_ROOT / "book" / "graph" / "mappings" / "anchors" / "anchor_filter_map.json"
+DEFAULT_ANCHOR_MAP = REPO_ROOT / "book" / "evidence" / "graph" / "mappings" / "anchors" / "anchor_filter_map.json"
 DEFAULT_OUTPUT = Path(__file__).with_name("out") / "static" / "field2_records.jsonl"
 
 

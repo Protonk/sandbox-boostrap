@@ -27,23 +27,26 @@ Baseline anchor: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (Sonoma 14.
 ### 1) Dyld vocab spine (Operations + Filters)
 - **Decides:** what ops/filters (names+IDs) exist on this host.
 - **Evidence braid:** dyld extraction → harvested tables → published vocab mappings; pinned by a dyld slice manifest.
+- **Mapping paths (bedrock):** `book/evidence/graph/mappings/vocab/ops.json`, `book/evidence/graph/mappings/vocab/filters.json`, `book/evidence/graph/mappings/vocab/ops_coverage.json`
 - **Controls:** count/order invariants; spot-check a few IDs.
 - **Confounder:** scope (naming ≠ behavior).
-- **Ask user for:** ops/filters counts + 3 sample entries + dyld manifest excerpt.
+- **Ask user for:** ops/filters counts + 3 sample entries + dyld manifest excerpt (`book/world/<world_name>/dyld/manifest.json` or `book/evidence/graph/mappings/dyld-libs/manifest.json`).
 
 ### 2) Canonical compiled-profile anchors (blobs → stable digests)
 - **Decides:** what the curated system profiles look like structurally (op_count/op-table/tags/literals).
 - **Evidence braid:** canonical blobs → digests/static checks/attestations → consumed by other mappings/tools.
+- **Mapping paths (bedrock):** `book/evidence/graph/mappings/system_profiles/digests.json`, `book/evidence/graph/mappings/system_profiles/static_checks.json`, `book/evidence/graph/mappings/system_profiles/attestations.json`
 - **Controls:** stable identity + “re-decode yields same summary.”
 - **Confounder:** stage (apply-gated ≠ runnable).
-- **Ask user for:** one digest excerpt for `sys:bsd` and `sys:airlock`.
+- **Ask user for:** one excerpt from `book/evidence/graph/mappings/system_profiles/digests.json` for `sys:bsd` and `sys:airlock`.
 
 ### 3) Tag layout island (bounded subset we can decode)
 - **Decides:** which tags have reliable record layouts for literal/regex operands.
 - **Evidence braid:** decode canonical profiles → tag exemplars → published layout map + guardrails.
+- **Mapping path (bedrock):** `book/evidence/graph/mappings/tag_layouts/tag_layouts.json`
 - **Controls:** “layout sanity” excerpt on canonical corpus.
 - **Confounder:** scope (layout ≠ semantic meaning).
-- **Ask user for:** covered tags + record size + one exemplar decode.
+- **Ask user for:** covered tags + record size + one exemplar decode (or a small excerpt from `book/evidence/graph/mappings/tag_layouts/tag_layouts.json`).
 
 ### 4) Op-table bucket signatures (synthetic SBPL probes)
 - **Decides:** how bucket patterns shift under small SBPL changes (structural fingerprints).

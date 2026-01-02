@@ -11,7 +11,7 @@ Validation units (use these tags/IDs when adding jobs):
 - `experiment:<name>` — validations whose inputs live under `book/evidence/experiments/<name>/out`.
 - `graph:*` — consistency checks for artifacts under `book/evidence/graph/mappings/*`.
 
-The Swift `book/graph` generator also writes a lightweight validation report here as `validation_report.json`, capturing schema/ID checks (e.g., concept IDs referenced by strategies and runtime expectations). Run it via:
+The Swift `book/graph` generator also writes a lightweight validation report to `book/evidence/graph/concepts/validation/validation_report.json`, capturing schema/ID checks (e.g., concept IDs referenced by strategies and runtime expectations). Run it via:
 
 ```
 cd book/graph
@@ -42,7 +42,7 @@ Keep Swift-side validation non-fatal: extend the report rather than blocking gen
 ## Files
 
 - `tasks.py` – declarative mapping of validation tasks to examples, inputs, and expected artifacts. Used as the source of truth for which examples exercise which clusters.
-- (future) `out/` – drop-in location for captured evidence (JSON logs, parsed headers, vocab tables) keyed by cluster/run/OS version.
+- `book/evidence/graph/concepts/validation/out/` – drop-in location for captured evidence (JSON logs, parsed headers, vocab tables) keyed by cluster/run/OS version.
 - Decoder lives under `book/api/profile/decoder/` (Python); import `book.api.profile.decoder` (or `from book.api.profile import decoder`) in validation tooling.
 
 ## Usage model (planned)
@@ -50,7 +50,7 @@ Keep Swift-side validation non-fatal: extend the report rather than blocking gen
 1. Use `tasks.py` to enumerate the validation tasks for a cluster.
 2. For Static-Format tasks, compile the SBPL inputs using `python -m book.api.profile compile …` (see `tasks.py`) and feed the resulting `.sb.bin` blobs through the shared ingestion layer to emit JSON summaries under `out/static/`.
 3. For Semantic Graph tasks, run the microprofiles/probes (e.g., `metafilter-tests`, `sbpl-params`, `network-filters`) and capture structured outcomes under `out/semantic/`, making sure to annotate TCC/SIP involvement when observed.
-4. For Vocabulary tasks, extract operation/filter maps from compiled blobs (from Static-Format) and from runtime logs (from Semantic Graph), then normalize into versioned tables under `book/graph/mappings/vocab/` (a shared, stable location). Stable op-table artifacts live under `book/graph/mappings/op_table/`.
+4. For Vocabulary tasks, extract operation/filter maps from compiled blobs (from Static-Format) and from runtime logs (from Semantic Graph), then normalize into versioned tables under `book/evidence/graph/mappings/vocab/` (a shared, stable location). Stable op-table artifacts live under `book/evidence/graph/mappings/op_table/`.
 5. For Runtime Lifecycle tasks, run the scenario probes (`entitlements-evolution`, `platform-policy-checks`, `containers-and-redirects`, `extensions-dynamic`, `libsandcall` apply attempts) and capture label/entitlement/container/extension evidence under `out/lifecycle/`.
 
 All scripts and automation that support these steps should live in this directory; example code remains under `book/examples/`.

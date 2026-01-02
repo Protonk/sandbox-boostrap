@@ -46,8 +46,10 @@ When something looks mysterious, pick one axis to interrogate first — don’t 
 ## What to ask for when the user is stuck (no repo access)
 
 Ask for the smallest bundle of facts that disambiguates Stage/Scope/Stack/Surround:
-- **Stage**: what failed (`compile|apply|bootstrap|operation`), with raw errno/exit.
+- **Stage**: what failed (`compile|apply|bootstrap|operation`); treat apply-adjacent `preflight` as “apply did not happen” (still not a policy decision).
+- **Lane (runtime)**: `scenario|baseline|oracle` (and the channel, if relevant).
 - **Intent**: which Operation(s) and what profile “shape” (filters/metafilters), in a few lines.
+- **Evidence envelope (runtime)**: one repo-relative path to a committed bundle (`artifact_index.json`) or a `promotion_packet.json` (+ a small excerpt).
 - **Controls**: one closest passing neighbor, and one deliberate confounder toggle (`scenario` vs `baseline`; `/tmp` vs `/private/tmp`; TCC-sensitive vs non-sensitive target).
 - **Environment suspects**: any reason TCC/hardened runtime/SIP could be in play.
 

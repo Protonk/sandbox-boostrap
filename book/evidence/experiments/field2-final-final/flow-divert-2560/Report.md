@@ -5,7 +5,7 @@
 
 ## Baseline & scope
 - Host baseline: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
-- Inputs: SBPL probes compiled locally, existing vocab/tag layouts (`book/graph/mappings/vocab`, `book/graph/mappings/tag_layouts`), decoder tooling.
+- Inputs: SBPL probes compiled locally, existing vocab/tag layouts (`book/evidence/graph/mappings/vocab`, `book/evidence/graph/mappings/tag_layouts`), decoder tooling.
 - Out of scope: cross-version speculation, non-`flow-divert` field2 payloads except as controls.
 
 ## Deliverables / expected outcomes

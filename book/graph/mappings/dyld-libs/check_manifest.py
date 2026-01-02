@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Dict
 
 REPO_ROOT = Path(__file__).resolve().parents[4]
-MANIFEST = Path(__file__).resolve().with_name("manifest.json")
+MANIFEST = REPO_ROOT / "book" / "evidence" / "graph" / "mappings" / "dyld-libs" / "manifest.json"
 
 
 def load_manifest() -> Dict:

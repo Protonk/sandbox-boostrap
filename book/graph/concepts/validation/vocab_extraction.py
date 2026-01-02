@@ -114,10 +114,10 @@ def write_vocab_stub(out_dir: Path, kind: str, host_meta: Dict[str, Any], source
 
 
 def main() -> None:
-    base = Path(__file__).resolve().parent
-    out_dir = base / "out" / "vocab"
+    out_base = ROOT / "book" / "evidence" / "graph" / "concepts" / "validation" / "out"
+    out_dir = out_base / "vocab"
     out_dir.mkdir(parents=True, exist_ok=True)
-    host_meta = load_host_metadata(base / "out")
+    host_meta = load_host_metadata(out_base)
     sources = collect_sources()
     write_vocab_stub(out_dir, "ops", host_meta, sources)
     write_vocab_stub(out_dir, "filters", host_meta, sources)
@@ -129,7 +129,7 @@ def run_vocab_job():
     if str(root) not in sys.path:
         sys.path.insert(0, str(root))
     main()
-    out_dir = Path(__file__).resolve().parent / "out" / "vocab"
+    out_dir = root / "book" / "evidence" / "graph" / "concepts" / "validation" / "out" / "vocab"
     return {
         "status": "ok",
         "tier": "mapped",

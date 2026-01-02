@@ -8,7 +8,7 @@ This CLI is deliberately *structural* rather than semantic:
 - Decode and inspect compiled blobs to reason about on-disk layout: header
   words, op-table entries, node stream framing, and literal pool slices.
 - Summarize op-table structure (and optionally align against the published
-  vocab mappings under `book/graph/mappings/vocab/`).
+  vocab mappings under `book/evidence/graph/mappings/vocab/`).
 - Emit digests for canonical blobs and run small “structural oracles”.
 
 Non-goals:

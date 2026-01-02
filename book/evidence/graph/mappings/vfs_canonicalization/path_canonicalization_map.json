@@ -3,8 +3,8 @@
     "dropped_non_witness_records": 65,
     "generated_by": "book/graph/mappings/vfs_canonicalization/generate_path_canonicalization_map.py",
     "inputs": {
-      "book/evidence/experiments/runtime-final-final/suites/runtime-closure/out/ea704c9c-5102-473a-b942-e24af4136cc8/promotion_packet.json": "d86615b3ffff328e12f6e736c5f6673753f2930ff97e5300f9b8602d61b3ac43",
-      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/promotion_packet.json": "b2b0b9143e84419ade3e2aa6385d676662c76b55b6bb20ed78fbfaf3d8bf4dd7"
+      "book/evidence/experiments/runtime-final-final/suites/runtime-closure/out/ea704c9c-5102-473a-b942-e24af4136cc8/promotion_packet.json": "a3a5f61d980d0f676df6e651f18282205ff34dfc23547ef420598f74232b0724",
+      "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/promotion_packet.json": "2d6806b6387a83b9313d45938a750aef7cf7b506b84aae6b860ecbc775f0c641"
     },
     "tier": "mapped"
   },
@@ -775,7 +775,7 @@
     {
       "command": [
         "book/api/runtime/native/sandbox_runner/sandbox_reader",
-        "book/evidence/experiments/runtime-closure/out/ea704c9c-5102-473a-b942-e24af4136cc8/runtime_profiles/v2_private_literals.runtime-closure_file_v2_private_literals.runtime.sb",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-closure/out/ea704c9c-5102-473a-b942-e24af4136cc8/runtime_profiles/v2_private_literals.runtime-closure_file_v2_private_literals.runtime.sb",
         "/System/Volumes/Data/private/etc/hosts"
       ],
       "decision": "allow",
@@ -800,7 +800,7 @@
     {
       "command": [
         "book/api/runtime/native/sandbox_runner/sandbox_reader",
-        "book/evidence/experiments/runtime-closure/out/ea704c9c-5102-473a-b942-e24af4136cc8/runtime_profiles/v2_private_literals.runtime-closure_file_v2_private_literals.runtime.sb",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-closure/out/ea704c9c-5102-473a-b942-e24af4136cc8/runtime_profiles/v2_private_literals.runtime-closure_file_v2_private_literals.runtime.sb",
         "/System/Volumes/Data/private/tmp/foo"
       ],
       "decision": "allow",
@@ -824,8 +824,8 @@
     },
     {
       "command": [
-        "book/evidence/experiments/runtime-checks/sandbox_reader",
-        "book/evidence/experiments/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_firmlink_private_only.vfs_firmlink_private_only.runtime.sb",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_reader",
+        "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_firmlink_private_only.vfs_firmlink_private_only.runtime.sb",
         "/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
       ],
       "decision": "allow",
@@ -849,8 +849,8 @@
     },
     {
       "command": [
-        "book/evidence/experiments/runtime-checks/sandbox_reader",
-        "book/evidence/experiments/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_reader",
+        "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb",
         "/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
       ],
       "decision": "allow",
@@ -874,8 +874,8 @@
     },
     {
       "command": [
-        "book/evidence/experiments/runtime-checks/sandbox_reader",
-        "book/evidence/experiments/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_etc_private_only.vfs_etc_private_only.runtime.sb",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_reader",
+        "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_etc_private_only.vfs_etc_private_only.runtime.sb",
         "/private/etc/hosts"
       ],
       "decision": "allow",
@@ -899,8 +899,8 @@
     },
     {
       "command": [
-        "book/evidence/experiments/runtime-checks/sandbox_reader",
-        "book/evidence/experiments/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_reader",
+        "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
         "/private/tmp/bar"
       ],
       "decision": "allow",
@@ -924,8 +924,8 @@
     },
     {
       "command": [
-        "book/evidence/experiments/runtime-checks/sandbox_reader",
-        "book/evidence/experiments/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_reader",
+        "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
         "/private/tmp/foo"
       ],
       "decision": "allow",
@@ -949,8 +949,8 @@
     },
     {
       "command": [
-        "book/evidence/experiments/runtime-checks/sandbox_reader",
-        "book/evidence/experiments/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_reader",
+        "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
         "/private/tmp/nested/child"
       ],
       "decision": "allow",
@@ -974,8 +974,8 @@
     },
     {
       "command": [
-        "book/evidence/experiments/runtime-checks/sandbox_reader",
-        "book/evidence/experiments/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_firmlink_private_only.vfs_firmlink_private_only.runtime.sb",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_reader",
+        "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_firmlink_private_only.vfs_firmlink_private_only.runtime.sb",
         "/private/tmp/vfs_firmlink_probe"
       ],
       "decision": "allow",
@@ -999,8 +999,8 @@
     },
     {
       "command": [
-        "book/evidence/experiments/runtime-checks/sandbox_reader",
-        "book/evidence/experiments/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_reader",
+        "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
         "/private/var/tmp/canon"
       ],
       "decision": "allow",
@@ -1024,8 +1024,8 @@
     },
     {
       "command": [
-        "book/evidence/experiments/runtime-checks/sandbox_reader",
-        "book/evidence/experiments/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_reader",
+        "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb",
         "/private/var/tmp/vfs_canon_probe"
       ],
       "decision": "allow",
@@ -1049,8 +1049,8 @@
     },
     {
       "command": [
-        "book/evidence/experiments/runtime-checks/sandbox_reader",
-        "book/evidence/experiments/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_link_var_tmp_only.vfs_link_var_tmp_only.runtime.sb",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_reader",
+        "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_link_var_tmp_only.vfs_link_var_tmp_only.runtime.sb",
         "/private/var/tmp/vfs_link_probe"
       ],
       "decision": "allow",
@@ -1074,8 +1074,8 @@
     },
     {
       "command": [
-        "book/evidence/experiments/runtime-checks/sandbox_reader",
-        "book/evidence/experiments/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_reader",
+        "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
         "/tmp/bar"
       ],
       "decision": "allow",
@@ -1099,8 +1099,8 @@
     },
     {
       "command": [
-        "book/evidence/experiments/runtime-checks/sandbox_reader",
-        "book/evidence/experiments/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_reader",
+        "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
         "/tmp/foo"
       ],
       "decision": "allow",
@@ -1124,8 +1124,8 @@
     },
     {
       "command": [
-        "book/evidence/experiments/runtime-checks/sandbox_reader",
-        "book/evidence/experiments/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_reader",
+        "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
         "/tmp/nested/child"
       ],
       "decision": "allow",
@@ -1149,8 +1149,8 @@
     },
     {
       "command": [
-        "book/evidence/experiments/runtime-checks/sandbox_writer",
-        "book/evidence/experiments/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_firmlink_private_only.vfs_firmlink_private_only.runtime.sb",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_writer",
+        "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_firmlink_private_only.vfs_firmlink_private_only.runtime.sb",
         "/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
       ],
       "decision": "allow",
@@ -1174,8 +1174,8 @@
     },
     {
       "command": [
-        "book/evidence/experiments/runtime-checks/sandbox_writer",
-        "book/evidence/experiments/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_writer",
+        "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb",
         "/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
       ],
       "decision": "allow",
@@ -1199,8 +1199,8 @@
     },
     {
       "command": [
-        "book/evidence/experiments/runtime-checks/sandbox_writer",
-        "book/evidence/experiments/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_writer",
+        "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
         "/private/tmp/bar"
       ],
       "decision": "allow",
@@ -1224,8 +1224,8 @@
     },
     {
       "command": [
-        "book/evidence/experiments/runtime-checks/sandbox_writer",
-        "book/evidence/experiments/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_writer",
+        "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
         "/private/tmp/foo"
       ],
       "decision": "allow",
@@ -1249,8 +1249,8 @@
     },
     {
       "command": [
-        "book/evidence/experiments/runtime-checks/sandbox_writer",
-        "book/evidence/experiments/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_writer",
+        "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
         "/private/tmp/nested/child"
       ],
       "decision": "allow",
@@ -1274,8 +1274,8 @@
     },
     {
       "command": [
-        "book/evidence/experiments/runtime-checks/sandbox_writer",
-        "book/evidence/experiments/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_firmlink_private_only.vfs_firmlink_private_only.runtime.sb",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_writer",
+        "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_firmlink_private_only.vfs_firmlink_private_only.runtime.sb",
         "/private/tmp/vfs_firmlink_probe"
       ],
       "decision": "allow",
@@ -1299,8 +1299,8 @@
     },
     {
       "command": [
-        "book/evidence/experiments/runtime-checks/sandbox_writer",
-        "book/evidence/experiments/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_writer",
+        "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
         "/private/var/tmp/canon"
       ],
       "decision": "allow",
@@ -1324,8 +1324,8 @@
     },
     {
       "command": [
-        "book/evidence/experiments/runtime-checks/sandbox_writer",
-        "book/evidence/experiments/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_writer",
+        "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_var_tmp_private_only.vfs_var_tmp_private_only.runtime.sb",
         "/private/var/tmp/vfs_canon_probe"
       ],
       "decision": "allow",
@@ -1349,8 +1349,8 @@
     },
     {
       "command": [
-        "book/evidence/experiments/runtime-checks/sandbox_writer",
-        "book/evidence/experiments/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_link_var_tmp_only.vfs_link_var_tmp_only.runtime.sb",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_writer",
+        "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_link_var_tmp_only.vfs_link_var_tmp_only.runtime.sb",
         "/private/var/tmp/vfs_link_probe"
       ],
       "decision": "allow",
@@ -1374,8 +1374,8 @@
     },
     {
       "command": [
-        "book/evidence/experiments/runtime-checks/sandbox_writer",
-        "book/evidence/experiments/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_writer",
+        "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
         "/tmp/bar"
       ],
       "decision": "allow",
@@ -1399,8 +1399,8 @@
     },
     {
       "command": [
-        "book/evidence/experiments/runtime-checks/sandbox_writer",
-        "book/evidence/experiments/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_writer",
+        "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
         "/tmp/foo"
       ],
       "decision": "allow",
@@ -1424,8 +1424,8 @@
     },
     {
       "command": [
-        "book/evidence/experiments/runtime-checks/sandbox_writer",
-        "book/evidence/experiments/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_writer",
+        "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/runtime_profiles/vfs_private_tmp_only.vfs_private_tmp_only.runtime.sb",
         "/tmp/nested/child"
       ],
       "decision": "allow",

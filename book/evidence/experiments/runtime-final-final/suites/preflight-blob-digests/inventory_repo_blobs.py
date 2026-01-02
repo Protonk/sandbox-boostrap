@@ -43,7 +43,7 @@ def _bucket_for(path: Path) -> str:
         return "validation_fixtures"
     if rel.startswith("book/evidence/graph/concepts/validation/out/experiments/"):
         return "validation_out"
-    if rel.startswith("book/graph/mappings/"):
+    if rel.startswith("book/evidence/graph/mappings/"):
         return "mappings"
     if rel.startswith("book/profiles/"):
         return "profiles"
@@ -103,4 +103,3 @@ def main(argv: List[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

@@ -16,6 +16,7 @@ def test_vfs_decode_tmp_profiles_shape():
     path = (
         ROOT
         / "book"
+        / "evidence"
         / "experiments"
         / "runtime-final-final"
         / "suites"

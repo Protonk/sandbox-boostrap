@@ -20,9 +20,9 @@ from book.api.profile import decoder
 from book.graph.concepts.validation import registry
 from book.graph.concepts.validation.registry import ValidationJob
 
-FIXTURES_PATH = ROOT / "book" / "graph" / "concepts" / "validation" / "fixtures" / "fixtures.json"
-OUT_PATH = ROOT / "book" / "graph" / "concepts" / "validation" / "out" / "fixtures_status.json"
-META_PATH = ROOT / "book" / "graph" / "concepts" / "validation" / "out" / "metadata.json"
+FIXTURES_PATH = ROOT / "book" / "evidence" / "graph" / "concepts" / "validation" / "fixtures" / "fixtures.json"
+OUT_PATH = ROOT / "book" / "evidence" / "graph" / "concepts" / "validation" / "out" / "fixtures_status.json"
+META_PATH = ROOT / "book" / "evidence" / "graph" / "concepts" / "validation" / "out" / "metadata.json"
 
 
 def rel(path: Path) -> str:

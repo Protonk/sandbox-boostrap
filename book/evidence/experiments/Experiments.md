@@ -18,7 +18,7 @@ A good experiment has a clear shape and limited ambition:
   It is built around a narrow, explicit question (or a small cluster of closely related questions) about how Seatbelt or related machinery behaves.
 
 * **Anchored in concepts**
-  It states which project concepts it is exercising or clarifying (for example: operations, filters, policy graphs, containers, entitlements) using the canonical vocabularies in `book/graph/mappings/vocab/{ops,filters}.json` and the project’s concept inventory—no invented op/filter names.
+  It states which project concepts it is exercising or clarifying (for example: operations, filters, policy graphs, containers, entitlements) using the canonical vocabularies in `book/evidence/graph/mappings/vocab/{ops,filters}.json` and the project’s concept inventory—no invented op/filter names.
 
 * **Small but informative**
   It uses the simplest setup that can shed light on the question: a minimal test program, a small SBPL fragment, a focused decode, rather than a sprawling scenario.
@@ -90,5 +90,7 @@ Across this life-cycle, experiments remain the primary link between the project�
   Umbrella experiment for runtime suites and packet-only evidence. Canonical runtime bundles live under `book/evidence/experiments/runtime-final-final/suites/<suite>/out/`, with promotion packets centralized in `book/evidence/experiments/runtime-final-final/evidence/packets/`. Migration is in progress; consult `book/evidence/experiments/runtime-final-final/Report.md` for current status.
 - **field2-final-final** – **mapped (field2-first, static + runtime)**  
   Field2-first slice that follows specific field2 IDs (`path`/`global-name`/`local` plus one static-only neighbor) across tag layouts, anchors, canonical system profiles, and runtime signatures. Static records live in `book/evidence/experiments/field2-final-final/field2-atlas/out/static/field2_records.jsonl`, runtime results in `out/derived/<run_id>/runtime/field2_runtime_results.json`, and the merged atlas/summary in `out/derived/<run_id>/atlas/`. Guardrailed by `book/tests/planes/graph/test_field2_atlas.py` to keep baseline seeds runtime-backed and prevent atlas dropouts.
+- **profile-pipeline** – **partial (compile -> layout -> op-table -> vocab -> apply)**  
+  Consolidated userland pipeline experiment under `book/evidence/experiments/profile-pipeline/` (encoder write tracing, PolicyGraph layout, op-table buckets, vocab alignment, and `sandbox_init*` handle packing). Depends on bedrock Operation/Filter vocab surfaces (`book/evidence/graph/mappings/vocab/ops.json`, `book/evidence/graph/mappings/vocab/filters.json`, `book/evidence/graph/mappings/vocab/ops_coverage.json`) and bedrock tag layouts (`book/evidence/graph/mappings/tag_layouts/tag_layouts.json`); all other outputs remain mapped/hypothesis with `partial` status unless promoted.
 - **hardened-runtime** – **mapped (clean-channel, non-VFS runtime lane)**  
   Clean, provenance-stamped decision-stage runtime lane for non-VFS operations (mach/XPC, sysctl, IOKit, process-info, system-socket, notifications). Outputs are staged under `book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/`; the experiment refuses to promote decision-stage evidence unless run via the launchd clean channel. VFS canonicalization is out-of-scope here except as a recorded observation field.

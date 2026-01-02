@@ -24,8 +24,10 @@ from book.api.runtime.analysis import packet_utils
 
 REPO_ROOT = path_utils.find_repo_root(Path(__file__).resolve())
 DEFAULT_SEEDS = Path(__file__).with_name("field2_seeds.json")
-DEFAULT_RUNTIME_SIGNATURES = REPO_ROOT / "book" / "graph" / "mappings" / "runtime" / "runtime_signatures.json"
-DEFAULT_ANCHOR_MAP = REPO_ROOT / "book" / "graph" / "mappings" / "anchors" / "anchor_filter_map.json"
+DEFAULT_RUNTIME_SIGNATURES = (
+    REPO_ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "runtime_signatures.json"
+)
+DEFAULT_ANCHOR_MAP = REPO_ROOT / "book" / "evidence" / "graph" / "mappings" / "anchors" / "anchor_filter_map.json"
 DEFAULT_OUT_ROOT = Path(__file__).with_name("out") / "derived"
 REQUIRED_EXPORTS = ("runtime_events", "baseline_results", "run_manifest", "path_witnesses")
 RUNTIME_RESULTS_SCHEMA_VERSION = "field2-atlas.runtime_results.v0"

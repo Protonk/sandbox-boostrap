@@ -1,7 +1,7 @@
 # Agents in `book/graph/mappings/`
 
 Purpose:
-- Stable host-specific IR for this Sonoma baseline: vocab tables, op-table alignment, anchors, tag layouts, system profile digests/attestations/static checks, runtime expectations/lifecycle traces.
+- Generators for stable host-specific IR under `book/evidence/graph/mappings/` (vocab tables, op-table alignment, anchors, tag layouts, system profile digests/attestations/static checks, runtime expectations/lifecycle traces).
 
 Do:
 - Regenerate artifacts via the provided generators:

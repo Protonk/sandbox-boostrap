@@ -1,16 +1,16 @@
 {
   "provenance": {
-    "artifact_index": "book/evidence/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/artifact_index.json",
+    "artifact_index": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/artifact_index.json",
     "artifact_index_sha256": "88d53d9d222076617cb524c19d7f41a6f20ab4e57205379f83c7e6b691dbfaf3",
-    "bundle_dir": "book/evidence/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310",
+    "bundle_dir": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310",
     "consumption_receipt": "book/evidence/experiments/field2-final-final/field2-atlas/out/derived/62456e46-0901-4345-b02d-f96becc33310/consumption_receipt.json",
     "exports": {
-      "baseline_results": "book/evidence/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/baseline_results.json",
-      "path_witnesses": "book/evidence/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/path_witnesses.json",
-      "run_manifest": "book/evidence/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json",
-      "runtime_events": "book/evidence/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_events.normalized.json"
+      "baseline_results": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/baseline_results.json",
+      "path_witnesses": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/path_witnesses.json",
+      "run_manifest": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json",
+      "runtime_events": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_events.normalized.json"
     },
-    "packet": "book/evidence/experiments/hardened-runtime/out/promotion_packet.json",
+    "packet": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/promotion_packet.json",
     "run_id": "62456e46-0901-4345-b02d-f96becc33310"
   },
   "results": [
@@ -31,7 +31,7 @@
         "result": "allow",
         "result_source": "book/evidence/graph/mappings/runtime/runtime_signatures.json",
         "result_tier": "mapping",
-        "runtime_profile": "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/path_edges_private.adv_path_edges_private.runtime.sb",
+        "runtime_profile": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/path_edges_private.adv_path_edges_private.runtime.sb",
         "scenario_id": "adv:path_edges_private:allow-tmp",
         "source": "book/evidence/graph/mappings/runtime/runtime_signatures.json",
         "target": "/tmp/runtime-adv/edges/a"
@@ -152,7 +152,7 @@
         "result": "allow",
         "result_source": "book/evidence/graph/mappings/runtime/runtime_signatures.json",
         "result_tier": "mapping",
-        "runtime_profile": "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/mount_relative_path.adv_mount_relative_path.runtime.sb",
+        "runtime_profile": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/mount_relative_path.adv_mount_relative_path.runtime.sb",
         "scenario_id": "adv:mount_relative_path:allow-subpath",
         "source": "book/evidence/graph/mappings/runtime/runtime_signatures.json",
         "target": "/private/tmp/runtime-adv/mountrel/allowed.txt"
@@ -188,7 +188,7 @@
         "result": "allow",
         "result_source": "book/evidence/graph/mappings/runtime/runtime_signatures.json",
         "result_tier": "mapping",
-        "runtime_profile": "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/xattr.adv_xattr.runtime.sb",
+        "runtime_profile": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/xattr.adv_xattr.runtime.sb",
         "scenario_id": "adv:xattr:allow-foo-read",
         "source": "book/evidence/graph/mappings/runtime/runtime_signatures.json",
         "target": "/private/tmp/foo"
@@ -224,7 +224,7 @@
         "result": "allow",
         "result_source": "book/evidence/graph/mappings/runtime/runtime_signatures.json",
         "result_tier": "mapping",
-        "runtime_profile": "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/file_mode.adv_file_mode.runtime.sb",
+        "runtime_profile": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/file_mode.adv_file_mode.runtime.sb",
         "scenario_id": "adv:file_mode:allow-private",
         "source": "book/evidence/graph/mappings/runtime/runtime_signatures.json",
         "target": "/private/tmp/mode_deny"
@@ -315,7 +315,7 @@
           "failure_stage": null,
           "run_id": "62456e46-0901-4345-b02d-f96becc33310",
           "runtime_status": "success",
-          "source": "book/evidence/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_events.normalized.json"
+          "source": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_events.normalized.json"
         },
         "mapping_status": "partial",
         "operation": "darwin-notification-post",
@@ -329,14 +329,14 @@
           "observed_path_source": null,
           "requested_path": null,
           "runtime_status": "success",
-          "source": "book/evidence/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_events.normalized.json"
+          "source": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_events.normalized.json"
         },
         "probe_name": "allow-darwin",
         "profile_id": "hardened:notifications_allow",
         "result": "allow",
         "result_source": "book/evidence/graph/mappings/runtime/runtime_signatures.json",
         "result_tier": "mapping",
-        "runtime_profile": "book/evidence/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_profiles/notifications_allow.hardened_notifications_allow.runtime.sb",
+        "runtime_profile": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_profiles/notifications_allow.hardened_notifications_allow.runtime.sb",
         "scenario_id": "hardened:notifications_allow:allow-darwin",
         "source": "book/evidence/graph/mappings/runtime/runtime_signatures.json",
         "target": "com.sandboxlore.hardened_runtime.test1"
@@ -361,7 +361,7 @@
           "failure_stage": null,
           "run_id": "62456e46-0901-4345-b02d-f96becc33310",
           "runtime_status": "success",
-          "source": "book/evidence/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_events.normalized.json"
+          "source": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_events.normalized.json"
         },
         "mapping_status": "partial",
         "operation": "sysctl-read",
@@ -375,14 +375,14 @@
           "observed_path_source": null,
           "requested_path": null,
           "runtime_status": "success",
-          "source": "book/evidence/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_events.normalized.json"
+          "source": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_events.normalized.json"
         },
         "probe_name": "allow-kern-ostype",
         "profile_id": "hardened:sysctl_read_allow",
         "result": "allow",
         "result_source": "book/evidence/graph/mappings/runtime/runtime_signatures.json",
         "result_tier": "mapping",
-        "runtime_profile": "book/evidence/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_profiles/sysctl_read_allow.hardened_sysctl_read_allow.runtime.sb",
+        "runtime_profile": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_profiles/sysctl_read_allow.hardened_sysctl_read_allow.runtime.sb",
         "scenario_id": "hardened:sysctl_read_allow:allow-kern-ostype",
         "source": "book/evidence/graph/mappings/runtime/runtime_signatures.json",
         "target": "kern.ostype"
@@ -422,7 +422,7 @@
       "control_witness": {
         "baseline": {
           "record": null,
-          "source": "book/evidence/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/baseline_results.json"
+          "source": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/baseline_results.json"
         },
         "discriminating": null,
         "partial_triple": {
@@ -450,7 +450,7 @@
         "result": "allow",
         "result_source": "book/evidence/graph/mappings/runtime/runtime_signatures.json",
         "result_tier": "mapping",
-        "runtime_profile": "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/flow_divert_require_all_tcp.adv_flow_divert_require_all_tcp.runtime.sb",
+        "runtime_profile": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/flow_divert_require_all_tcp.adv_flow_divert_require_all_tcp.runtime.sb",
         "scenario_id": "field2-2560-flow-divert",
         "source": "book/evidence/graph/mappings/runtime/runtime_signatures.json",
         "target": "127.0.0.1:62646"
@@ -474,10 +474,10 @@
   "source_artifacts": {
     "anchor_map": "book/evidence/graph/mappings/anchors/anchor_filter_map.json",
     "packet_exports": {
-      "baseline_results": "book/evidence/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/baseline_results.json",
-      "path_witnesses": "book/evidence/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/path_witnesses.json",
-      "run_manifest": "book/evidence/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json",
-      "runtime_events": "book/evidence/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_events.normalized.json"
+      "baseline_results": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/baseline_results.json",
+      "path_witnesses": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/path_witnesses.json",
+      "run_manifest": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json",
+      "runtime_events": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_events.normalized.json"
     },
     "runtime_signatures": "book/evidence/graph/mappings/runtime/runtime_signatures.json",
     "seeds": "book/evidence/experiments/field2-final-final/field2-atlas/field2_seeds.json"

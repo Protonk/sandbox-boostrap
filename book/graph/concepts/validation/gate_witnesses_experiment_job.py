@@ -32,9 +32,10 @@ WITNESS_ROOT = ROOT / "book/evidence/experiments/runtime-final-final/suites/gate
 OUT_DIR = ROOT / "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses"
 STATUS_PATH = OUT_DIR / "status.json"
 RESULTS_PATH = OUT_DIR / "witness_results.json"
+META_PATH = ROOT / "book/evidence/graph/concepts/validation/out/metadata.json"
 
 WRAPPER = ROOT / "book/tools/sbpl/wrapper/wrapper"
-CONTROL_SBPL = ROOT / "book/evidence/experiments/op-table-operation/sb/v0_empty.sb"
+CONTROL_SBPL = ROOT / "book/evidence/experiments/profile-pipeline/op-table-operation/sb/v0_empty.sb"
 
 EPERM = 1
 
@@ -43,6 +44,15 @@ CLEAR_LOG_ENV = "SANDBOX_LORE_CAPTURE_UNIFIED_LOG"
 
 def rel(path: Path) -> str:
     return to_repo_relative(path, ROOT)
+
+
+def _load_host() -> Dict[str, Any]:
+    if META_PATH.exists():
+        try:
+            return json.loads(META_PATH.read_text()).get("os", {})
+        except Exception:
+            return {}
+    return {}
 
 
 def sha256_file(path: Path) -> str:
@@ -223,6 +233,7 @@ def _is_not_apply_gate(result: Dict[str, Any]) -> bool:
 def run_gate_witnesses_job() -> Dict[str, Any]:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     capture_unified_log = bool(os.environ.get(CLEAR_LOG_ENV))
+    host = _load_host()
 
     if not WITNESS_ROOT.exists():
         raise FileNotFoundError(f"missing witness root: {WITNESS_ROOT}")
@@ -236,11 +247,12 @@ def run_gate_witnesses_job() -> Dict[str, Any]:
             "job_id": "experiment:gate-witnesses",
             "status": "blocked",
             "tier": "mapped",
-            "host": {},
+            "host": host,
             "inputs": [rel(CONTROL_SBPL)],
             "outputs": [rel(RESULTS_PATH), rel(STATUS_PATH)],
             "notes": "sandbox_init appears globally apply-gated in this execution context (control profile failed apply-stage EPERM); rerun outside the harness sandbox.",
             "metrics": {"witnesses": 0},
+            "tags": ["experiment:gate-witnesses", "experiment", "apply-gate"],
         }
         RESULTS_PATH.write_text(
             json.dumps(
@@ -262,6 +274,7 @@ def run_gate_witnesses_job() -> Dict[str, Any]:
             "outputs": payload["outputs"],
             "metrics": payload["metrics"],
             "notes": payload["notes"],
+            "host": payload["host"],
         }
 
     results: List[Dict[str, Any]] = []
@@ -385,7 +398,7 @@ def run_gate_witnesses_job() -> Dict[str, Any]:
         "job_id": "experiment:gate-witnesses",
         "status": status,
         "tier": "mapped",
-        "host": {},
+        "host": host,
         "inputs": [rel(WITNESS_ROOT)],
         "outputs": [rel(RESULTS_PATH), rel(STATUS_PATH)],
         "metrics": {"witnesses": len(results), "failures": len(failures)},

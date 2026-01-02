@@ -8,7 +8,7 @@ Map how this host’s `libsandbox` populates the per-node u16 payload slot (hist
 - Inputs:
   - `book/api/profile` (compile SBPL to a blob).
   - `book/api/profile/decoder/` + `book/graph/concepts/validation/profile_ingestion.py` (decode/slice compiled blobs).
-  - Trimmed `libsandbox` slice under `book/graph/mappings/dyld-libs/` (static-only inspection for Phase B).
+  - Trimmed `libsandbox` slice under `book/evidence/graph/mappings/dyld-libs/` (static-only inspection for Phase B).
 - Structural backbone (world-scoped):
   - Tag layouts: `book/evidence/graph/mappings/tag_layouts/tag_layouts.json` (`status: ok`, record_size_bytes=8).
   - Tag u16 roles: `book/evidence/graph/mappings/tag_layouts/tag_u16_roles.json` (`status: ok`, `filter_vocab_id` vs `arg_u16`).
@@ -132,7 +132,7 @@ We can now tie encoder write events to blob offsets directly, without relying on
 Findings (compile‑only, still partial):
 
 - All traced network‑matrix specs align to gapped windows (lengths 484/492/500) with a consistent `[394,400)` hole; the baseline `allow_all` aligns to a 416‑byte window with the same hole.
-- `book/evidence/experiments/encoder-write-trace/out/trace_join_check.json` reports `pairs_checked: 35` with `missing: 40`; the missing offsets (484–491) are confined to “single vs combined” diff pairs (domain/proto/type vs their pair/triple forms), indicating the combined‑form deltas still sit beyond the traced window end for the single‑arg cases.
+- `book/evidence/experiments/profile-pipeline/encoder-write-trace/out/trace_join_check.json` reports `pairs_checked: 35` with `missing: 40`; the missing offsets (484–491) are confined to “single vs combined” diff pairs (domain/proto/type vs their pair/triple forms), indicating the combined‑form deltas still sit beyond the traced window end for the single‑arg cases.
 
 These artifacts give a second, independent witness for where encoder writes land in the compiled blob for the network‑matrix specimens, but they do **not** resolve kernel semantics or eliminate the remaining join gaps for combined‑form diffs.
 

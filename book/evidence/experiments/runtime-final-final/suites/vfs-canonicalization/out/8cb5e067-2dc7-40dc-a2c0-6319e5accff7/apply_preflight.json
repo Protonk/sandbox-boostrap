@@ -1,16 +1,16 @@
 {
   "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
   "run_id": "8cb5e067-2dc7-40dc-a2c0-6319e5accff7",
-  "profile": "book/evidence/experiments/hardened-runtime/sb/apply_preflight_allow.sb",
-  "runner": "book/evidence/experiments/runtime-checks/sandbox_runner",
+  "profile": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/apply_preflight_allow.sb",
+  "runner": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
   "sandbox_check_self": {
     "source": "sandbox_check",
     "error": "libsystem_sandbox not found"
   },
   "status": "ok",
   "command": [
-    "book/evidence/experiments/runtime-checks/sandbox_runner",
-    "book/evidence/experiments/hardened-runtime/sb/apply_preflight_allow.sb",
+    "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_runner",
+    "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/apply_preflight_allow.sb",
     "--",
     "/usr/bin/true"
   ],

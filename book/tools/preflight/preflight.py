@@ -35,6 +35,7 @@ PREFLIGHT_SCHEMA_VERSION = 1
 _BLOB_DIGESTS_IR_PATH = (
     REPO_ROOT
     / "book"
+    / "evidence"
     / "graph"
     / "concepts"
     / "validation"

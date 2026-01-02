@@ -1,14 +1,14 @@
 {
   "provenance": {
-    "artifact_index": "book/evidence/experiments/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/artifact_index.json",
+    "artifact_index": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/artifact_index.json",
     "artifact_index_sha256": "869729780ba8f1d30888c18edcef07577914ee1066ba19f4ddc578b9aef5078f",
-    "bundle_dir": "book/evidence/experiments/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083",
+    "bundle_dir": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083",
     "consumption_receipt": "book/evidence/experiments/graph-shape-vs-semantics/out/derived/c06024a5-5e52-4d38-a989-c3022af8a083/consumption_receipt.json",
     "exports": {
-      "run_manifest": "book/evidence/experiments/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/run_manifest.json",
-      "runtime_results": "book/evidence/experiments/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/runtime_results.json"
+      "run_manifest": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/run_manifest.json",
+      "runtime_results": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/runtime_results.json"
     },
-    "packet": "book/evidence/experiments/runtime-adversarial/out/promotion_packet.json",
+    "packet": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/promotion_packet.json",
     "run_id": "c06024a5-5e52-4d38-a989-c3022af8a083"
   },
   "schema_version": "graph-shape-vs-semantics.summary.v0",
@@ -72,8 +72,8 @@
         {
           "actual": "deny",
           "command": [
-            "book/evidence/experiments/runtime-checks/sandbox_reader",
-            "book/evidence/experiments/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/runtime_profiles/path_edges.adv_path_edges.runtime.sb",
+            "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_reader",
+            "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/runtime_profiles/path_edges.adv_path_edges.runtime.sb",
             "/tmp/runtime-adv/edges/a"
           ],
           "exit_code": 2,
@@ -108,7 +108,7 @@
               "apply_model": "self_apply",
               "apply_timing": "pre_syscall",
               "entrypoint": "sandbox_reader",
-              "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_reader",
+              "entrypoint_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_reader",
               "entrypoint_sha256": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1",
               "preexisting_sandbox_suspected": false,
               "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
@@ -118,15 +118,15 @@
             "status": "errno",
             "tool_marker_schema_version": 2
           },
-          "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.c06024a5-5e52-4d38-a989-c3022af8a083/book/experiments/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/runtime_profiles/path_edges.adv_path_edges.runtime.sb\",\"pid\":20186}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.c06024a5-5e52-4d38-a989-c3022af8a083/book/experiments/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/runtime_profiles/path_edges.adv_path_edges.runtime.sb\",\"pid\":20186}\nopen target: Operation not permitted\n",
+          "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.c06024a5-5e52-4d38-a989-c3022af8a083/book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/runtime_profiles/path_edges.adv_path_edges.runtime.sb\",\"pid\":20186}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.c06024a5-5e52-4d38-a989-c3022af8a083/book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/runtime_profiles/path_edges.adv_path_edges.runtime.sb\",\"pid\":20186}\nopen target: Operation not permitted\n",
           "stdout": "",
           "violation_summary": null
         },
         {
           "actual": "deny",
           "command": [
-            "book/evidence/experiments/runtime-checks/sandbox_reader",
-            "book/evidence/experiments/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/runtime_profiles/path_edges.adv_path_edges.runtime.sb",
+            "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_reader",
+            "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/runtime_profiles/path_edges.adv_path_edges.runtime.sb",
             "/tmp/runtime-adv/edges/okdir/item.txt"
           ],
           "exit_code": 2,
@@ -161,7 +161,7 @@
               "apply_model": "self_apply",
               "apply_timing": "pre_syscall",
               "entrypoint": "sandbox_reader",
-              "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_reader",
+              "entrypoint_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_reader",
               "entrypoint_sha256": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1",
               "preexisting_sandbox_suspected": false,
               "tool_build_id": "9e84e162afdadcdb5007b1fe978b4d6adfdef947911b319e494cf400e92890a1"
@@ -171,15 +171,15 @@
             "status": "errno",
             "tool_marker_schema_version": 2
           },
-          "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.c06024a5-5e52-4d38-a989-c3022af8a083/book/experiments/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/runtime_profiles/path_edges.adv_path_edges.runtime.sb\",\"pid\":20188}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.c06024a5-5e52-4d38-a989-c3022af8a083/book/experiments/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/runtime_profiles/path_edges.adv_path_edges.runtime.sb\",\"pid\":20188}\nopen target: Operation not permitted\n",
+          "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.c06024a5-5e52-4d38-a989-c3022af8a083/book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/runtime_profiles/path_edges.adv_path_edges.runtime.sb\",\"pid\":20188}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.c06024a5-5e52-4d38-a989-c3022af8a083/book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/runtime_profiles/path_edges.adv_path_edges.runtime.sb\",\"pid\":20188}\nopen target: Operation not permitted\n",
           "stdout": "",
           "violation_summary": null
         },
         {
           "actual": "deny",
           "command": [
-            "book/evidence/experiments/runtime-checks/sandbox_writer",
-            "book/evidence/experiments/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/runtime_profiles/path_edges.adv_path_edges.runtime.sb",
+            "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_writer",
+            "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/runtime_profiles/path_edges.adv_path_edges.runtime.sb",
             "/tmp/runtime-adv/edges/a"
           ],
           "exit_code": 2,
@@ -214,7 +214,7 @@
               "apply_model": "self_apply",
               "apply_timing": "pre_syscall",
               "entrypoint": "sandbox_writer",
-              "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_writer",
+              "entrypoint_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_writer",
               "entrypoint_sha256": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7",
               "preexisting_sandbox_suspected": false,
               "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
@@ -224,15 +224,15 @@
             "status": "errno",
             "tool_marker_schema_version": 2
           },
-          "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.c06024a5-5e52-4d38-a989-c3022af8a083/book/experiments/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/runtime_profiles/path_edges.adv_path_edges.runtime.sb\",\"pid\":20191}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.c06024a5-5e52-4d38-a989-c3022af8a083/book/experiments/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/runtime_profiles/path_edges.adv_path_edges.runtime.sb\",\"pid\":20191}\nopen target: Operation not permitted\n",
+          "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.c06024a5-5e52-4d38-a989-c3022af8a083/book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/runtime_profiles/path_edges.adv_path_edges.runtime.sb\",\"pid\":20191}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.c06024a5-5e52-4d38-a989-c3022af8a083/book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/runtime_profiles/path_edges.adv_path_edges.runtime.sb\",\"pid\":20191}\nopen target: Operation not permitted\n",
           "stdout": "",
           "violation_summary": null
         },
         {
           "actual": "deny",
           "command": [
-            "book/evidence/experiments/runtime-checks/sandbox_writer",
-            "book/evidence/experiments/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/runtime_profiles/path_edges.adv_path_edges.runtime.sb",
+            "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_writer",
+            "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/runtime_profiles/path_edges.adv_path_edges.runtime.sb",
             "/tmp/runtime-adv/edges/okdir/item.txt"
           ],
           "exit_code": 2,
@@ -267,7 +267,7 @@
               "apply_model": "self_apply",
               "apply_timing": "pre_syscall",
               "entrypoint": "sandbox_writer",
-              "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_writer",
+              "entrypoint_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/sandbox_writer",
               "entrypoint_sha256": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7",
               "preexisting_sandbox_suspected": false,
               "tool_build_id": "9259579f33774fb82cbb474d3b6acbdbd6c1ff064f53f2af2a91e1e390e33fe7"
@@ -277,7 +277,7 @@
             "status": "errno",
             "tool_marker_schema_version": 2
           },
-          "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.c06024a5-5e52-4d38-a989-c3022af8a083/book/experiments/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/runtime_profiles/path_edges.adv_path_edges.runtime.sb\",\"pid\":20193}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.c06024a5-5e52-4d38-a989-c3022af8a083/book/experiments/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/runtime_profiles/path_edges.adv_path_edges.runtime.sb\",\"pid\":20193}\nopen target: Operation not permitted\n",
+          "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.c06024a5-5e52-4d38-a989-c3022af8a083/book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/runtime_profiles/path_edges.adv_path_edges.runtime.sb\",\"pid\":20193}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.c06024a5-5e52-4d38-a989-c3022af8a083/book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/c06024a5-5e52-4d38-a989-c3022af8a083/runtime_profiles/path_edges.adv_path_edges.runtime.sb\",\"pid\":20193}\nopen target: Operation not permitted\n",
           "stdout": "",
           "violation_summary": null
         }

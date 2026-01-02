@@ -40,7 +40,7 @@ Locate the sandbox PolicyGraph dispatcher (and helpers) in the KC by combining A
 1) Close this experiment as ok-negative for kernel imports/symbol anchors; keep string-only evidence documented.
 2) Use the pointer table window around `0xfffffe0007ca4040` to determine table bounds and check for nearby metadata or patterns that could anchor it to a specific kext or policy registration path.
 3) If the pointer table bounds are found, dump a wider slice and cluster by target range to see if it isolates a sandbox-relevant region.
-4) Revisit op-table candidates only after a concrete dispatcher/mac_policy_ops candidate exists; align against `book/graph/mappings/op_table/op_table.json` before running table-materialization scans.
+4) Revisit op-table candidates only after a concrete dispatcher/mac_policy_ops candidate exists; align against `book/evidence/graph/mappings/op_table/op_table_map.json` before running table-materialization scans.
 5) If KC analysis remains blocked after mitigation, consider a kext-focused mac_policy registration experiment as the next pivot (defer until KC route is exhausted).
 
 ## BootKernelCollection analysis-only run (script)
@@ -65,7 +65,7 @@ bash -s <<'SH'
 set -euo pipefail
 
 ROOT="$(pwd)"
-if [ ! -f "$ROOT/book/experiments/symbol-search/Report.md" ]; then
+if [ ! -f "$ROOT/book/evidence/experiments/symbol-search/Report.md" ]; then
   echo "Run from repo root." >&2
   exit 1
 fi

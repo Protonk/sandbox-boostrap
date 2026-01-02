@@ -52,11 +52,13 @@ Treat this as the “stable landing zone” for evidence that is meant to be con
 
 ## 4) Host mappings: pinned IR you can build on
 
-Mappings under `book/graph/mappings/` are the durable, world-stamped “facts” the repo builds on.
+Pinned mapping outputs live under `book/evidence/graph/mappings/`. These are the durable, world-stamped “facts” the repo builds on.
+
+Mapping generators and promotion scripts live under `book/graph/mappings/` (code), and their job is to refresh the pinned outputs above.
 
 Common categories:
 
-### 4.1 Vocab (`book/graph/mappings/vocab/`)
+### 4.1 Vocab (`book/evidence/graph/mappings/vocab/`)
 
 The operation + filter vocabulary is the naming/ID spine for everything else.
 
@@ -66,7 +68,7 @@ The operation + filter vocabulary is the naming/ID spine for everything else.
 
 These tables are host-derived (from dyld/lib slices), not assumed stable across macOS.
 
-### 4.2 System profile anchors (`book/graph/mappings/system_profiles/`)
+### 4.2 System profile anchors (`book/evidence/graph/mappings/system_profiles/`)
 
 Canonical “system profile” blobs are treated as structural anchors. The mapping files here encode:
 - which canonical profiles exist (by id like `sys:bsd`, `sys:airlock`),
@@ -75,7 +77,7 @@ Canonical “system profile” blobs are treated as structural anchors. The mapp
 
 These anchors allow many other mapping generators to work without re-decoding the world from scratch every time.
 
-### 4.3 Anchors (`book/graph/mappings/anchors/`)
+### 4.3 Anchors (`book/evidence/graph/mappings/anchors/`)
 
 Anchor maps tie decoded structural slots (for example, the “field2” u16 payload position) to stable meanings for specific tags/contexts.
 
@@ -84,7 +86,7 @@ Examples:
 - `anchor_filter_map.json`
 - `anchor_ctx_filter_map.json`
 
-### 4.4 Runtime projections (`book/graph/mappings/runtime/`)
+### 4.4 Runtime projections (`book/evidence/graph/mappings/runtime/`)
 
 Runtime projections are promoted summaries derived from runtime promotion packets.
 
@@ -100,19 +102,18 @@ These are mapped-tier and scenario-scoped: they are strong within their bounded 
 Mapping generators live under `book/graph/mappings/**/generate_*.py` and are orchestrated by a single supported entrypoint:
 
 ```sh
-python book/graph/mappings/run_promotion.py
+python -m book.graph.mappings.run_promotion
 ```
 
 The intent is to keep “regen” as a bounded, reviewable operation:
 - inputs are validation IR + pinned sources,
-- outputs are world-stamped mapping JSON,
+- outputs are world-stamped mapping JSON (written under `book/evidence/graph/mappings/`),
 - downstream projections (CARTON) can then be refreshed deterministically.
 
 ## 6) Reverse-engineering inputs (where static extraction comes from)
 
 Some mappings are sourced from:
-- dyld-derived slices under `book/graph/mappings/dyld-libs/` (for vocab harvesting), and/or
+- pinned dyld slice manifests/slices under `book/evidence/graph/mappings/dyld-libs/` (with tooling under `book/graph/mappings/dyld-libs/`), and/or
 - Ghidra outputs under `book/evidence/dumps/ghidra/out/` (for kernel/policy constraints and xref work).
 
 Ghidra work is a supporting witness braid: it constrains what implementations can be doing, but by itself is not “policy semantics.”
-

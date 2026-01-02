@@ -10,7 +10,7 @@
 (allow file-read-metadata (subpath (param "WORK_DIR")))
 (allow file-write* (literal (param "DYLD_LOG_PATH")))
 (allow sysctl-read (sysctl-name "kern.bootargs"))
-(allow file-read-data (literal "/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/shrink-trace/out/matrix/sandbox_spawn_dyld1_netparsed_streak3/artifacts/bin/sandbox_spawn"))
+(allow file-read-data (literal "/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/evidence/experiments/runtime-final-final/suites/shrink-trace/out/matrix/sandbox_spawn_dyld1_netparsed_streak3/artifacts/bin/sandbox_spawn"))
 (allow file-read-data (literal "/dev/dtracehelper"))
 (allow network-outbound (remote unix-socket (path-literal "/private/var/run/syslog")))
 (allow sysctl-read (sysctl-name "kern.osvariant_status"))
