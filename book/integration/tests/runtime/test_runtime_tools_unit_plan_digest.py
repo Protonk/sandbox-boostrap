@@ -8,7 +8,7 @@ from book.api.runtime.plans import loader as runtime_plan
 
 from book.api import path_utils
 ROOT = path_utils.find_repo_root(Path(__file__))
-HARDENED_PLAN = ROOT / "book" / "experiments" / "hardened-runtime" / "plan.json"
+HARDENED_PLAN = ROOT / "book" / "experiments" / "runtime-final-final" / "suites" / "hardened-runtime" / "plan.json"
 
 
 def test_plan_digest_is_deterministic_and_sensitive():

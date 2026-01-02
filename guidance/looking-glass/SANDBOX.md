@@ -1,12 +1,13 @@
 # looking-glass — SANDBOX (Sonoma 14.4.1 world)
 
-This is a high‑signal “what’s true” sheet about macOS Seatbelt *as modeled and witnessed by SANDBOX_LORE’s single host baseline* (Sonoma 14.4.1, Apple Silicon, SIP enabled). It aims to be useful for design and audit conversations, not an exhaustive reference.
+This is a high‑signal “what’s true” sheet about macOS Seatbelt *as modeled and witnessed by SANDBOX_LORE’s single host baseline* (Sonoma 14.4.1, Apple Silicon, SIP enabled; `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`). It aims to be useful for design and audit conversations, not an exhaustive reference.
 
 If you need generic macOS sandbox lore, treat it as **generic lore** and keep it separate from what this world actually shows.
 
 ## Quick invariants (don’t get fooled)
 
-- **Stage matters.** There is a critical difference between: compile → apply/attach → exec/bootstrap → operation checks. `EPERM` at apply time is an environment gate, not a policy decision.
+- **Stage matters.** There is a critical difference between: `compile` → `apply` (attach) → `bootstrap` (probe start) → `operation` checks. `EPERM` at apply time is an environment gate, not a policy decision.
+- **Lane matters.** Runtime evidence comes in lanes (`scenario|baseline|oracle`) that answer different questions; do not treat `oracle` as syscall observation.
 - **The sandbox mediates Operations via PolicyGraphs.** “Allow/deny” happens by evaluating a compiled graph per Operation, not by interpreting SBPL at runtime.
 - **Path strings are not stable.** VFS and filesystem canonicalization (e.g., `/tmp` → `/private/tmp`) can cause path‑based rules to behave differently than naive string matching suggests.
 - **Policy is layered.** Effective outcomes come from a stack (platform policies, per‑process profile, auxiliary profiles, sandbox extensions) plus adjacent systems (TCC, hardened runtime, SIP).
@@ -32,6 +33,8 @@ If you need generic macOS sandbox lore, treat it as **generic lore** and keep it
 
 - **`file-read*` / `file-write*`**: there are repeatable runtime probes in this project that exercise allow/deny behavior for these file operations under controlled profiles.
 - **`mach-lookup`**: there are repeatable runtime probes that exercise allow/deny behavior for name lookup in the Mach bootstrap namespace.
+- **`network-outbound`**: there are repeatable runtime probes that exercise allow/deny behavior for outbound networking under controlled profiles.
+- **Other covered ops**: the current runtime corpus also includes mapped coverage for `file-read-xattr`, `file-write-xattr`, `darwin-notification-post`, `distributed-notification-post`, `process-info-pidinfo`, `signal`, `sysctl-read`, and `iokit-open-service`.
 - **VFS canonicalization as a confounder**: at least one canonical scenario shows that path‑based expectations can fail because the kernel resolves paths differently than the profile’s literals (the “/tmp vs /private/tmp” class of issue).
 - **Apply-time gating exists on this host**: some profile shapes and/or platform profiles cannot be attached from a generic harness identity; attempts fail before any operation check occurs.
 
@@ -48,4 +51,3 @@ If you need generic macOS sandbox lore, treat it as **generic lore** and keep it
 - **Some compiled-node fields are still only partially interpreted.** Where decoded graphs contain payloads that are not mapped to a stable semantic meaning, SANDBOX_LORE treats them as bounded unknowns rather than guessing.
 
 This sheet should help you keep design conversations grounded: if a proposal assumes away apply gating, path canonicalization, stacking, or adjacent controls, it’s probably missing the real failure mode.
-

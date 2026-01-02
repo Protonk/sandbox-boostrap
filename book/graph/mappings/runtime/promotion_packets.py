@@ -19,11 +19,11 @@ PACKET_SET_SCHEMA_VERSION = "runtime.packet_set.v0.1"
 RECEIPT_SCHEMA_VERSION = "runtime.promotion_receipt.v0.1"
 
 DEFAULT_PACKET_PATHS = [
-    REPO_ROOT / "book/experiments/runtime-checks/out/promotion_packet.json",
-    REPO_ROOT / "book/experiments/runtime-adversarial/out/promotion_packet.json",
-    REPO_ROOT / "book/experiments/hardened-runtime/out/promotion_packet.json",
-    REPO_ROOT / "book/experiments/field2-final-final/anchor-filter-map/out/promotion_packet.json",
-    REPO_ROOT / "book/experiments/field2-final-final/anchor-filter-map/iokit-class/out/promotion_packet.json",
+    REPO_ROOT / "book/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json",
+    REPO_ROOT / "book/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+    REPO_ROOT / "book/experiments/runtime-final-final/evidence/packets/hardened-runtime.promotion_packet.json",
+    REPO_ROOT / "book/experiments/runtime-final-final/evidence/packets/anchor-filter-map.promotion_packet.json",
+    REPO_ROOT / "book/experiments/runtime-final-final/evidence/packets/anchor-filter-map.iokit-class.promotion_packet.json",
 ]
 
 DEFAULT_PACKET_SET_PATH = REPO_ROOT / "book/graph/mappings/runtime/packet_set.json"

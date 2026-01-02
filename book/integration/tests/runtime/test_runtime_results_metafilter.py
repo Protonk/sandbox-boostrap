@@ -7,7 +7,7 @@ ROOT = path_utils.find_repo_root(Path(__file__))
 
 
 def test_metafilter_runtime_entry_present():
-    out_root = ROOT / "book" / "experiments" / "runtime-checks" / "out"
+    out_root = ROOT / "book" / "experiments" / "runtime-final-final" / "suites" / "runtime-checks" / "out"
     data = load_bundle_json(out_root, "runtime_results.json")
     assert "runtime:metafilter_any" in data
     entry = data["runtime:metafilter_any"]

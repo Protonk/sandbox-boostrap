@@ -18,17 +18,28 @@ The experiment is organized as submodules under this root:
 - `flow-divert-2560/` — triple-token characterization.
 - `bsd-airlock-highvals/` — high/opaque payload probes.
 
+## Loop (frontier → tranche → packet → delta → promote/retire)
+This experiment runs as a single-claim loop. Userland-only evidence feeds a ranked frontier (`frontier_build.py`), a tranche selector picks exactly one field2 claim to decide (`tranche_select.py`), `sandbox_check()` provides a fast discriminator preflight, runtime-adversarial produces a promotion packet for the micro-suite, and packet-only consumers emit a mapping delta or an explicit retire decision. The loop does not accept partials as semantics: apply-stage failures remain blocked, and each cycle either changes a mapping surface or retires a claim with a witness trail.
+
+## Progress ratchet
+The loop is enforced by a progress gate (`book/integration/tests/graph/test_field2_progress_gate.py`) and a milestone ledger: `active_milestone.json` defines the current finite test list and `decisions.jsonl` records each decided claim with packet identity, lane attribution, and delta/retire evidence. `ratchet_driver.py` widens the milestone by excluding already-decided claims so the gate is forced red until new items are decided.
+
 ## Evidence paths (canonical)
 - Inventory: `book/experiments/field2-final-final/field2-filters/out/field2_inventory.json`.
 - Unknown census: `book/experiments/field2-final-final/field2-filters/out/unknown_nodes.json`.
 - Anchor hits: `book/experiments/field2-final-final/probe-op-structure/out/anchor_hits.json`.
 - Atlas static: `book/experiments/field2-final-final/field2-atlas/out/static/field2_records.jsonl`.
 - Atlas derived: `book/experiments/field2-final-final/field2-atlas/out/derived/<run_id>/...`.
+- Frontier: `book/experiments/field2-final-final/out/frontier.json`.
+- Tranche: `book/experiments/field2-final-final/out/tranche.json`.
+- Milestone: `book/experiments/field2-final-final/active_milestone.json`.
+- Decisions: `book/experiments/field2-final-final/decisions.jsonl`.
 
 ## Current status
 - Static inventories are current for the seed slice and the high/unknown census.
 - Runtime atlas remains partial and depends on promotion packets from runtime-adversarial and anchor-filter-map; packet-only consumption is enforced.
 - Encoder matrices and flow-divert triple-only witnesses are preserved as static, structural evidence.
+ - Loop scaffolding is in place to make tranche selection and packet-backed updates mechanical and single-claim by default.
 
 ## Notes on scope and limits
 - All claims are host-bound to the Sonoma baseline and require explicit evidence tiering.

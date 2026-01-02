@@ -3,7 +3,7 @@
 Host: Sonoma 14.4.1 (23E224), CARTON bundle (manifest + relationships/views/contracts) tracked by `book/integration/carton/bundle/CARTON.json`.
 
 - **SBPL source:** `book/profiles/golden-triple/bucket4_v1_read.sb` (`(deny default)` + `(allow file-read*)`).
-- **Compiled blob:** `book/profiles/golden-triple/bucket4_v1_read.sb.bin` (also mirrored in runtime profiles under `book/experiments/runtime-checks/out/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb`).
+- **Compiled blob:** `book/profiles/golden-triple/bucket4_v1_read.sb.bin` (also mirrored in runtime profiles under `book/experiments/runtime-final-final/suites/runtime-checks/out/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb`).
 - **Operations/filters:** uses vocab op `file-read*` (id 21 from `book/graph/mappings/vocab/ops.json`); no additional filters beyond the default op entrypoint.
 - **Runtime behavior (from validation IR → mappings → CARTON relationships/views):**
   - `book/graph/concepts/validation/out/experiments/runtime-checks/runtime_results.normalized.json` records probes:

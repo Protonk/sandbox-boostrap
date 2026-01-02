@@ -23,7 +23,7 @@ analysis produce the expected allow/deny outcomes under SBPL on this host.
 - Runtime harness: `python -m book.api.runtime run`.
 
 ## Outputs
-- `book/experiments/field2-final-final/probe-op-structure/plan.json`
+- `book/experiments/runtime-final-final/suites/field2-probe-op-structure/plan.json`
 - `book/experiments/field2-final-final/probe-op-structure/registry/{profiles,probes}.json`
 - Runtime artifacts under `book/experiments/field2-final-final/probe-op-structure/out/`
   (expected matrix, runtime results, normalized events, run manifest).

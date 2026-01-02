@@ -1,0 +1,132 @@
+{
+  "api_gate_status": "ok",
+  "gate_sbpl": "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/minimal_failing.sb",
+  "preflight_scan_gate": {
+    "argv": [
+      "python3",
+      "book/tools/preflight/preflight.py",
+      "scan",
+      "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/minimal_failing.sb"
+    ],
+    "cwd": ".",
+    "parsed": [
+      {
+        "classification": "likely_apply_gated_for_harness_identity",
+        "findings": [
+          {
+            "denied_operation": "iokit-external-method",
+            "outer_action": "allow",
+            "outer_operation": "iokit-open-user-client"
+          }
+        ],
+        "input_kind": "sbpl_path",
+        "input_ref": "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/minimal_failing.sb",
+        "preflight_schema_version": 1,
+        "signature": "deny_message_filter",
+        "signature_meta": {
+          "pointers": [
+            "troubles/EPERMx2.md",
+            "book/experiments/runtime-final-final/suites/gate-witnesses/Report.md",
+            "book/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json"
+          ],
+          "status": "partial"
+        },
+        "tool": "book/tools/preflight",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      }
+    ],
+    "returncode": 2,
+    "stderr": "preflight_scan_gate.stderr.txt",
+    "stdout": "preflight_scan_gate.stdout.txt"
+  },
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "wrapper_blob_default": {
+    "apply_report": null,
+    "argv": [
+      "book/tools/sbpl/wrapper/wrapper",
+      "--blob",
+      "book/experiments/runtime-final-final/suites/lifecycle-lockdown/out_smoke/apply/apply_attempt_default.sb.bin",
+      "--",
+      "/usr/bin/true"
+    ],
+    "cwd": ".",
+    "returncode": 66,
+    "stderr": "wrapper_blob_default.stderr.txt",
+    "stdout": "wrapper_blob_default.stdout.txt"
+  },
+  "wrapper_blob_gate": {
+    "apply_report": null,
+    "argv": [
+      "book/tools/sbpl/wrapper/wrapper",
+      "--blob",
+      "book/experiments/runtime-final-final/suites/lifecycle-lockdown/out_smoke/apply/gate.sb.bin",
+      "--",
+      "/usr/bin/true"
+    ],
+    "cwd": ".",
+    "returncode": 2,
+    "stderr": "wrapper_blob_gate.stderr.txt",
+    "stdout": "wrapper_blob_gate.stdout.txt"
+  },
+  "wrapper_compile_default": {
+    "argv": [
+      "book/tools/sbpl/wrapper/wrapper",
+      "--compile",
+      "book/experiments/runtime-final-final/suites/lifecycle-lockdown/out_smoke/apply/apply_attempt_default.sb",
+      "--out",
+      "book/experiments/runtime-final-final/suites/lifecycle-lockdown/out_smoke/apply/apply_attempt_default.sb.bin"
+    ],
+    "cwd": ".",
+    "returncode": 1,
+    "stderr": "wrapper_compile_default.stderr.txt",
+    "stdout": "wrapper_compile_default.stdout.txt"
+  },
+  "wrapper_compile_gate": {
+    "argv": [
+      "book/tools/sbpl/wrapper/wrapper",
+      "--compile",
+      "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/minimal_failing.sb",
+      "--out",
+      "book/experiments/runtime-final-final/suites/lifecycle-lockdown/out_smoke/apply/gate.sb.bin"
+    ],
+    "cwd": ".",
+    "returncode": 0,
+    "stderr": "wrapper_compile_gate.stderr.txt",
+    "stdout": "wrapper_compile_gate.stdout.txt"
+  },
+  "wrapper_sbpl_default": {
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "argv": [
+      "book/tools/sbpl/wrapper/wrapper",
+      "--sbpl",
+      "book/experiments/runtime-final-final/suites/lifecycle-lockdown/out_smoke/apply/apply_attempt_default.sb",
+      "--",
+      "/usr/bin/true"
+    ],
+    "cwd": ".",
+    "returncode": 1,
+    "stderr": "wrapper_sbpl_default.stderr.txt",
+    "stdout": "wrapper_sbpl_default.stdout.txt"
+  },
+  "wrapper_sbpl_gate": {
+    "apply_report": null,
+    "argv": [
+      "book/tools/sbpl/wrapper/wrapper",
+      "--sbpl",
+      "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/minimal_failing.sb",
+      "--",
+      "/usr/bin/true"
+    ],
+    "cwd": ".",
+    "returncode": 2,
+    "stderr": "wrapper_sbpl_gate.stderr.txt",
+    "stdout": "wrapper_sbpl_gate.stdout.txt"
+  }
+}

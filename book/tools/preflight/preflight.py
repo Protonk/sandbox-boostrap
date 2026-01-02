@@ -49,7 +49,7 @@ _SIGNATURE_POINTERS: Dict[str, Dict[str, Any]] = {
         "status": "partial",
         "pointers": [
             "troubles/EPERMx2.md",
-            "book/experiments/gate-witnesses/Report.md",
+            "book/experiments/runtime-final-final/suites/gate-witnesses/Report.md",
             "book/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json",
         ],
     },
@@ -57,7 +57,7 @@ _SIGNATURE_POINTERS: Dict[str, Dict[str, Any]] = {
         "status": "ok",
         "pointers": [
             "troubles/EPERMx2.md",
-            "book/experiments/preflight-blob-digests/Report.md",
+            "book/experiments/runtime-final-final/suites/preflight-blob-digests/Report.md",
             "book/graph/concepts/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json",
         ],
     },

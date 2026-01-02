@@ -1,0 +1,238 @@
+{
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "profiles": {
+    "hardened:mach_lookup": {
+      "blob": "book/experiments/runtime-final-final/suites/hardened-runtime/sb/mach_lookup.sb",
+      "mode": "sbpl",
+      "family": "mach_lookup",
+      "semantic_group": "mach:global-name",
+      "probes": [
+        {
+          "name": "deny-cfprefsd",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.agent",
+          "expected": "deny",
+          "expectation_id": "hardened:mach_lookup:deny-cfprefsd",
+          "driver": "sandbox_mach_probe",
+          "filter_name": "global-name"
+        },
+        {
+          "name": "deny-bogus",
+          "operation": "mach-lookup",
+          "target": "com.apple.sandbox-lore.hardened-runtime.bogus",
+          "expected": "deny",
+          "expectation_id": "hardened:mach_lookup:deny-bogus",
+          "driver": "sandbox_mach_probe",
+          "filter_name": "global-name"
+        }
+      ]
+    },
+    "hardened:mach_lookup_allow": {
+      "blob": "book/experiments/runtime-final-final/suites/hardened-runtime/sb/mach_lookup_allow.sb",
+      "mode": "sbpl",
+      "family": "mach_lookup",
+      "semantic_group": "mach:global-name",
+      "probes": [
+        {
+          "name": "allow-cfprefsd",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.agent",
+          "expected": "allow",
+          "expectation_id": "hardened:mach_lookup_allow:allow-cfprefsd",
+          "driver": "sandbox_mach_probe",
+          "filter_name": "global-name"
+        }
+      ]
+    },
+    "hardened:notifications": {
+      "blob": "book/experiments/runtime-final-final/suites/hardened-runtime/sb/notifications.sb",
+      "mode": "sbpl",
+      "family": "notifications",
+      "semantic_group": "notifications:post",
+      "probes": [
+        {
+          "name": "deny-allowed-darwin",
+          "operation": "darwin-notification-post",
+          "target": "com.sandboxlore.hardened_runtime.test1",
+          "expected": "deny",
+          "expectation_id": "hardened:notifications:deny-allowed-darwin",
+          "filter_name": "notification-name"
+        },
+        {
+          "name": "deny-darwin",
+          "operation": "darwin-notification-post",
+          "target": "com.sandboxlore.hardened_runtime.test2",
+          "expected": "deny",
+          "expectation_id": "hardened:notifications:deny-darwin",
+          "filter_name": "notification-name"
+        },
+        {
+          "name": "deny-allowed-distributed",
+          "operation": "distributed-notification-post",
+          "target": "com.sandboxlore.hardened_runtime.test1",
+          "expected": "deny",
+          "expectation_id": "hardened:notifications:deny-allowed-distributed",
+          "filter_name": "notification-name"
+        },
+        {
+          "name": "deny-distributed",
+          "operation": "distributed-notification-post",
+          "target": "com.sandboxlore.hardened_runtime.test2",
+          "expected": "deny",
+          "expectation_id": "hardened:notifications:deny-distributed",
+          "filter_name": "notification-name"
+        }
+      ]
+    },
+    "hardened:notifications_allow": {
+      "blob": "book/experiments/runtime-final-final/suites/hardened-runtime/sb/notifications_allow.sb",
+      "mode": "sbpl",
+      "family": "notifications",
+      "semantic_group": "notifications:post",
+      "probes": [
+        {
+          "name": "allow-darwin",
+          "operation": "darwin-notification-post",
+          "target": "com.sandboxlore.hardened_runtime.test1",
+          "expected": "allow",
+          "expectation_id": "hardened:notifications_allow:allow-darwin",
+          "filter_name": "notification-name"
+        },
+        {
+          "name": "allow-distributed",
+          "operation": "distributed-notification-post",
+          "target": "com.sandboxlore.hardened_runtime.test1",
+          "expected": "allow",
+          "expectation_id": "hardened:notifications_allow:allow-distributed",
+          "filter_name": "notification-name"
+        }
+      ]
+    },
+    "hardened:process_info_allow": {
+      "blob": "book/experiments/runtime-final-final/suites/hardened-runtime/sb/process_info_allow.sb",
+      "mode": "sbpl",
+      "family": "process_info",
+      "semantic_group": "process-info:pidinfo",
+      "probes": [
+        {
+          "name": "pidinfo-self",
+          "operation": "process-info-pidinfo",
+          "target": "self",
+          "expected": "deny",
+          "expectation_id": "hardened:process_info_allow:pidinfo-self"
+        },
+        {
+          "name": "pidinfo-init",
+          "operation": "process-info-pidinfo",
+          "target": "1",
+          "expected": "deny",
+          "expectation_id": "hardened:process_info_allow:pidinfo-init"
+        }
+      ]
+    },
+    "hardened:process_info_allow_canary": {
+      "blob": "book/experiments/runtime-final-final/suites/hardened-runtime/sb/process_info_allow_canary.sb",
+      "mode": "sbpl",
+      "family": "process_info",
+      "semantic_group": "process-info:pidinfo",
+      "probes": [
+        {
+          "name": "pidinfo-self",
+          "operation": "process-info-pidinfo",
+          "target": "self",
+          "expected": "allow",
+          "expectation_id": "hardened:process_info_allow_canary:pidinfo-self"
+        }
+      ]
+    },
+    "hardened:process_info_deny": {
+      "blob": "book/experiments/runtime-final-final/suites/hardened-runtime/sb/process_info_deny.sb",
+      "mode": "sbpl",
+      "family": "process_info",
+      "semantic_group": "process-info:pidinfo",
+      "probes": [
+        {
+          "name": "pidinfo-self",
+          "operation": "process-info-pidinfo",
+          "target": "self",
+          "expected": "deny",
+          "expectation_id": "hardened:process_info_deny:pidinfo-self"
+        },
+        {
+          "name": "pidinfo-init",
+          "operation": "process-info-pidinfo",
+          "target": "1",
+          "expected": "deny",
+          "expectation_id": "hardened:process_info_deny:pidinfo-init"
+        }
+      ]
+    },
+    "hardened:signal_self_allow": {
+      "blob": "book/experiments/runtime-final-final/suites/hardened-runtime/sb/signal_self_allow.sb",
+      "mode": "sbpl",
+      "family": "signal",
+      "semantic_group": "signal:self",
+      "probes": [
+        {
+          "name": "signal-same-sandbox",
+          "operation": "signal",
+          "target": "same-sandbox",
+          "expected": "allow",
+          "expectation_id": "hardened:signal_self_allow:signal-same-sandbox"
+        }
+      ]
+    },
+    "hardened:signal_self_deny": {
+      "blob": "book/experiments/runtime-final-final/suites/hardened-runtime/sb/signal_self_deny.sb",
+      "mode": "sbpl",
+      "family": "signal",
+      "semantic_group": "signal:self",
+      "probes": [
+        {
+          "name": "signal-same-sandbox",
+          "operation": "signal",
+          "target": "same-sandbox",
+          "expected": "deny",
+          "expectation_id": "hardened:signal_self_deny:signal-same-sandbox"
+        }
+      ]
+    },
+    "hardened:sysctl_read": {
+      "blob": "book/experiments/runtime-final-final/suites/hardened-runtime/sb/sysctl_read.sb",
+      "mode": "sbpl",
+      "family": "sysctl_read",
+      "semantic_group": "sysctl:name",
+      "probes": [
+        {
+          "name": "deny-kern-osrelease",
+          "operation": "sysctl-read",
+          "target": "kern.osrelease",
+          "expected": "deny",
+          "expectation_id": "hardened:sysctl_read:deny-kern-osrelease"
+        },
+        {
+          "name": "deny-kern-bootargs",
+          "operation": "sysctl-read",
+          "target": "kern.bootargs",
+          "expected": "deny",
+          "expectation_id": "hardened:sysctl_read:deny-kern-bootargs"
+        }
+      ]
+    },
+    "hardened:sysctl_read_allow": {
+      "blob": "book/experiments/runtime-final-final/suites/hardened-runtime/sb/sysctl_read_allow.sb",
+      "mode": "sbpl",
+      "family": "sysctl_read",
+      "semantic_group": "sysctl:name",
+      "probes": [
+        {
+          "name": "allow-kern-ostype",
+          "operation": "sysctl-read",
+          "target": "kern.ostype",
+          "expected": "allow",
+          "expectation_id": "hardened:sysctl_read_allow:allow-kern-ostype"
+        }
+      ]
+    }
+  }
+}

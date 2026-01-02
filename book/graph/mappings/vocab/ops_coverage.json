@@ -4,8 +4,8 @@
     "inputs": [
       "book/graph/mappings/vocab/ops.json",
       "book/graph/mappings/runtime/runtime_coverage.json",
-      "book/experiments/runtime-checks/out/expected_matrix.json",
-      "book/experiments/runtime-adversarial/out/expected_matrix.json",
+      "book/experiments/runtime-final-final/suites/runtime-checks/out/expected_matrix.json",
+      "book/experiments/runtime-final-final/suites/runtime-adversarial/out/expected_matrix.json",
       "book/profiles/golden-triple/expected_matrix.json"
     ],
     "status": "ok",
@@ -64,13 +64,13 @@
     "darwin-notification-post": {
       "id": 7,
       "structural_evidence": true,
-      "runtime_evidence": false,
+      "runtime_evidence": true,
       "notes": ""
     },
     "distributed-notification-post": {
       "id": 8,
       "structural_evidence": true,
-      "runtime_evidence": false,
+      "runtime_evidence": true,
       "notes": ""
     },
     "dynamic-code-generation": {
@@ -166,7 +166,7 @@
     "file-read-xattr": {
       "id": 24,
       "structural_evidence": true,
-      "runtime_evidence": false,
+      "runtime_evidence": true,
       "notes": ""
     },
     "file-revoke": {
@@ -262,7 +262,7 @@
     "file-write-xattr": {
       "id": 40,
       "structural_evidence": true,
-      "runtime_evidence": false,
+      "runtime_evidence": true,
       "notes": ""
     },
     "fs-quota*": {
@@ -406,7 +406,7 @@
     "iokit-open-service": {
       "id": 64,
       "structural_evidence": true,
-      "runtime_evidence": false,
+      "runtime_evidence": true,
       "notes": ""
     },
     "iokit-set-properties": {
@@ -796,7 +796,7 @@
     "process-info-pidinfo": {
       "id": 129,
       "structural_evidence": true,
-      "runtime_evidence": false,
+      "runtime_evidence": true,
       "notes": ""
     },
     "process-info-pidfdinfo": {
@@ -892,7 +892,7 @@
     "signal": {
       "id": 145,
       "structural_evidence": true,
-      "runtime_evidence": false,
+      "runtime_evidence": true,
       "notes": ""
     },
     "socket-ioctl": {
@@ -952,7 +952,7 @@
     "sysctl-read": {
       "id": 155,
       "structural_evidence": true,
-      "runtime_evidence": false,
+      "runtime_evidence": true,
       "notes": ""
     },
     "sysctl-write": {

@@ -63,19 +63,19 @@ BLOBS: List[Dict[str, str]] = [
     {
         "id": "runtime_deny_all",
         "category": "sbpl-graph-runtime",
-        "path": "experiments/sbpl-graph-runtime/out/deny_all.sb.bin",
+        "path": "experiments/runtime-final-final/suites/sbpl-graph-runtime/out/deny_all.sb.bin",
         "mode": "runtime-capable",
     },
     {
         "id": "runtime_param_path_concrete",
         "category": "sbpl-graph-runtime",
-        "path": "experiments/sbpl-graph-runtime/out/param_path_concrete.sb.bin",
+        "path": "experiments/runtime-final-final/suites/sbpl-graph-runtime/out/param_path_concrete.sb.bin",
         "mode": "runtime-capable",
     },
     {
         "id": "encoder_single_file_subpath",
         "category": "libsandbox-encoder",
-        "path": "experiments/libsandbox-encoder/out/single_file_subpath.sb.bin",
+        "path": "experiments/field2-final-final/libsandbox-encoder/out/single_file_subpath.sb.bin",
         "mode": "runtime-capable",
     },
     {

@@ -8,7 +8,7 @@ This is the canonical example of a field2-first view. It is intentionally narrow
 
 ## Setup
 - World: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
-- Seed set: fixed in `field2_seeds.json` (baseline slice plus a userland-backed tranche: `ipc-posix-name`, `local-name`, `right-name`, `preference-domain`, `notification-name`, `sysctl-name`, `xpc-service-name`). Some of these seeds are system-profile-backed (bsd/airlock), while others currently rely on vocab-only IDs and probe profiles until a runtime witness is added.
+- Seed set: fixed in `field2_seeds.json` (baseline slice plus a userland-backed tranche: `ipc-posix-name`, `local-name`, `right-name`, `preference-domain`, `notification-name`, `sysctl-name`, `xpc-service-name`). Some of these seeds are system-profile-backed (bsd/airlock), while others currently rely on vocab-only IDs and probe profiles until a runtime witness is added. Runtime candidates live in the seed manifest so the runtime atlas can advance without code edits.
 - Inputs: `book/graph/mappings/vocab/{ops.json,filters.json}`, `book/graph/mappings/tag_layouts/tag_layouts.json`, `book/graph/mappings/anchors/anchor_filter_map.json`, `book/graph/mappings/system_profiles/{digests.json,static_checks.json}`, `book/experiments/field2-final-final/field2-filters/out/field2_inventory.json`, runtime signatures under `book/graph/mappings/runtime/` (notably `runtime_signatures.json`). Runtime events/baseline/manifest are resolved from the promotion packet export surface.
 - Deliverables: static records (`out/static/field2_records.jsonl`) plus derived runtime + atlas outputs under `out/derived/<run_id>/` with a stamped `consumption_receipt.json`.
 
@@ -19,6 +19,10 @@ This is the canonical example of a field2-first view. It is intentionally narrow
 - `out/derived/<run_id>/atlas/summary.json` — counts by status to show field2 coverage at a glance.
 - `out/derived/<run_id>/consumption_receipt.json` — packet path, upstream run_id + artifact_index digest, and derived outputs written.
 - `out/derived/<run_id>/atlas/mapping_delta.json` — proposal set for upgrading weak runtime candidates using packet-resolved events.
+
+## Loop artifacts
+- `book/experiments/field2-final-final/out/frontier.json` — ranked candidate list built from userland-visible sources (seed manifest, inventory, unknown census, anchor hits, optional atlas status).
+- `book/experiments/field2-final-final/out/tranche.json` — single-claim tranche selection with a sandbox_check preflight hint and the minimal decision description for the next cycle.
 
 ## Status
 - Static: **partial** for the expanded tranche — `ipc-posix-name`, `right-name`, `preference-domain`, and `notification-name` have system-profile placements, while `sysctl-name` and `xpc-service-name` rely on seed-manifest anchors until a static witness is observed in the inventory.

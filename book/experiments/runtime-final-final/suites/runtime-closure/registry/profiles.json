@@ -1,0 +1,433 @@
+{
+  "profiles": {
+    "runtime-closure:file:v1_etc_alias_only": {
+      "family": "file-read",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": "Alias-only profile for /etc/hosts with /tmp/foo control.",
+      "probe_refs": [
+        "runtime-closure:file:v1_etc_alias_only:etc_hosts",
+        "runtime-closure:file:v1_etc_alias_only:private_etc_hosts",
+        "runtime-closure:file:v1_etc_alias_only:tmp_foo"
+      ],
+      "profile_id": "runtime-closure:file:v1_etc_alias_only",
+      "profile_path": "book/experiments/runtime-final-final/suites/runtime-closure/sb/v1_etc_alias_only.sb",
+      "semantic_group": "file-read:canonicalization"
+    },
+    "runtime-closure:file:v1_etc_both": {
+      "family": "file-read",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": "Both-paths profile for /etc/hosts and /private/etc/hosts with /tmp/foo control.",
+      "probe_refs": [
+        "runtime-closure:file:v1_etc_both:etc_hosts",
+        "runtime-closure:file:v1_etc_both:private_etc_hosts",
+        "runtime-closure:file:v1_etc_both:tmp_foo"
+      ],
+      "profile_id": "runtime-closure:file:v1_etc_both",
+      "profile_path": "book/experiments/runtime-final-final/suites/runtime-closure/sb/v1_etc_both.sb",
+      "semantic_group": "file-read:canonicalization"
+    },
+    "runtime-closure:file:v1_etc_private_only": {
+      "family": "file-read",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": "Canonical-only profile for /private/etc/hosts with /tmp/foo control.",
+      "probe_refs": [
+        "runtime-closure:file:v1_etc_private_only:etc_hosts",
+        "runtime-closure:file:v1_etc_private_only:private_etc_hosts",
+        "runtime-closure:file:v1_etc_private_only:tmp_foo"
+      ],
+      "profile_id": "runtime-closure:file:v1_etc_private_only",
+      "profile_path": "book/experiments/runtime-final-final/suites/runtime-closure/sb/v1_etc_private_only.sb",
+      "semantic_group": "file-read:canonicalization"
+    },
+    "runtime-closure:file:v2_alias_literals": {
+      "family": "file-read",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": "Alias spelling profile for /etc/hosts and /tmp/foo (literal-only).",
+      "probe_refs": [
+        "runtime-closure:file:v2_alias_literals:etc_hosts_alias",
+        "runtime-closure:file:v2_alias_literals:etc_hosts_private",
+        "runtime-closure:file:v2_alias_literals:etc_hosts_data",
+        "runtime-closure:file:v2_alias_literals:tmp_alias",
+        "runtime-closure:file:v2_alias_literals:tmp_private",
+        "runtime-closure:file:v2_alias_literals:tmp_data"
+      ],
+      "profile_id": "runtime-closure:file:v2_alias_literals",
+      "profile_path": "book/experiments/runtime-final-final/suites/runtime-closure/sb/v2_alias_literals.sb",
+      "semantic_group": "file-read:canonicalization-matrix"
+    },
+    "runtime-closure:file:v2_data_literals": {
+      "family": "file-read",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": "Data spelling profile for /System/Volumes/Data/private/etc/hosts and /System/Volumes/Data/private/tmp/foo (literal-only).",
+      "probe_refs": [
+        "runtime-closure:file:v2_data_literals:etc_hosts_alias",
+        "runtime-closure:file:v2_data_literals:etc_hosts_private",
+        "runtime-closure:file:v2_data_literals:etc_hosts_data",
+        "runtime-closure:file:v2_data_literals:tmp_alias",
+        "runtime-closure:file:v2_data_literals:tmp_private",
+        "runtime-closure:file:v2_data_literals:tmp_data"
+      ],
+      "profile_id": "runtime-closure:file:v2_data_literals",
+      "profile_path": "book/experiments/runtime-final-final/suites/runtime-closure/sb/v2_data_literals.sb",
+      "semantic_group": "file-read:canonicalization-matrix"
+    },
+    "runtime-closure:file:v2_private_literals": {
+      "family": "file-read",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": "Private spelling profile for /private/etc/hosts and /private/tmp/foo (literal-only).",
+      "probe_refs": [
+        "runtime-closure:file:v2_private_literals:etc_hosts_alias",
+        "runtime-closure:file:v2_private_literals:etc_hosts_private",
+        "runtime-closure:file:v2_private_literals:etc_hosts_data",
+        "runtime-closure:file:v2_private_literals:tmp_alias",
+        "runtime-closure:file:v2_private_literals:tmp_private",
+        "runtime-closure:file:v2_private_literals:tmp_data"
+      ],
+      "profile_id": "runtime-closure:file:v2_private_literals",
+      "profile_path": "book/experiments/runtime-final-final/suites/runtime-closure/sb/v2_private_literals.sb",
+      "semantic_group": "file-read:canonicalization-matrix"
+    },
+    "runtime-closure:iokit:v10_message_filter_allow": {
+      "family": "iokit-open",
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ],
+      "mode": "sbpl",
+      "notes": "Apply-message-filter allows iokit-external-method for method numbers 0-9 on iokit-open.",
+      "probe_refs": [
+        "runtime-closure:iokit:v10_message_filter_allow:iosurface_root"
+      ],
+      "profile_id": "runtime-closure:iokit:v10_message_filter_allow",
+      "profile_path": "book/experiments/runtime-final-final/suites/runtime-closure/sb/v10_iokit_message_filter_allow.sb",
+      "semantic_group": "iokit:message-filter"
+    },
+    "runtime-closure:iokit:v11_report_loud": {
+      "family": "iokit-open-service",
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ],
+      "mode": "sbpl",
+      "notes": "Report-loud deny-default profile for IOSurfaceRoot with explicit open allows.",
+      "probe_refs": [
+        "runtime-closure:iokit:v11_report_loud:iosurface_root"
+      ],
+      "profile_id": "runtime-closure:iokit:v11_report_loud",
+      "profile_path": "book/experiments/runtime-final-final/suites/runtime-closure/sb/v11_iokit_report_loud.sb",
+      "semantic_group": "iokit:report-loud"
+    },
+    "runtime-closure:iokit:v12_service_user_client_cvmsserv": {
+      "family": "iokit-open-service",
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ],
+      "mode": "sbpl",
+      "notes": "Allow iokit-open-service and iokit-open-user-client for IOSurfaceRoot plus mach-lookup for com.apple.cvmsServ.",
+      "probe_refs": [
+        "runtime-closure:iokit:v12_service_user_client_cvmsserv:iosurface_root"
+      ],
+      "profile_id": "runtime-closure:iokit:v12_service_user_client_cvmsserv",
+      "profile_path": "book/experiments/runtime-final-final/suites/runtime-closure/sb/v12_iokit_cvmsserv.sb",
+      "semantic_group": "iokit:graphics-prereq"
+    },
+    "runtime-closure:iokit:v13_ioaccelerator_connection": {
+      "family": "iokit-open-service",
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ],
+      "mode": "sbpl",
+      "notes": "Add iokit-connection IOAccelerator allow to the IOSurfaceRoot open baseline.",
+      "probe_refs": [
+        "runtime-closure:iokit:v13_ioaccelerator_connection:iosurface_root"
+      ],
+      "profile_id": "runtime-closure:iokit:v13_ioaccelerator_connection",
+      "profile_path": "book/experiments/runtime-final-final/suites/runtime-closure/sb/v13_iokit_ioaccelerator_connection.sb",
+      "semantic_group": "iokit:graphics-prereq"
+    },
+    "runtime-closure:iokit:v14_iosurface_send_right": {
+      "family": "iokit-open-service",
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ],
+      "mode": "sbpl",
+      "notes": "Add IOSurfaceSendRight user-client allow to the IOSurfaceRoot open baseline.",
+      "probe_refs": [
+        "runtime-closure:iokit:v14_iosurface_send_right:iosurface_root"
+      ],
+      "profile_id": "runtime-closure:iokit:v14_iosurface_send_right",
+      "profile_path": "book/experiments/runtime-final-final/suites/runtime-closure/sb/v14_iokit_iosurface_send_right.sb",
+      "semantic_group": "iokit:graphics-prereq"
+    },
+    "runtime-closure:iokit:v15_ioacceleration_user_client": {
+      "family": "iokit-open-service",
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ],
+      "mode": "sbpl",
+      "notes": "Add IOAccelerationUserClient allow to the IOSurfaceRoot open baseline.",
+      "probe_refs": [
+        "runtime-closure:iokit:v15_ioacceleration_user_client:iosurface_root"
+      ],
+      "profile_id": "runtime-closure:iokit:v15_ioacceleration_user_client",
+      "profile_path": "book/experiments/runtime-final-final/suites/runtime-closure/sb/v15_iokit_ioacceleration_user_client.sb",
+      "semantic_group": "iokit:graphics-prereq"
+    },
+    "runtime-closure:iokit:v16_service_only_registry": {
+      "family": "iokit-open-service",
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ],
+      "mode": "sbpl",
+      "notes": "Oracle alignment: service-only iokit-open-service with registry-entry-class IOSurfaceRoot.",
+      "probe_refs": [
+        "runtime-closure:iokit:v16_service_only_registry:iosurface_root"
+      ],
+      "profile_id": "runtime-closure:iokit:v16_service_only_registry",
+      "profile_path": "book/experiments/runtime-final-final/suites/runtime-closure/sb/v16_iokit_service_only_registry.sb",
+      "semantic_group": "iokit:op-identity-oracle"
+    },
+    "runtime-closure:iokit:v17_user_client_registry": {
+      "family": "iokit-open-service",
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ],
+      "mode": "sbpl",
+      "notes": "Oracle alignment: user-client-only iokit-open-user-client with registry-entry-class IOSurfaceRootUserClient.",
+      "probe_refs": [
+        "runtime-closure:iokit:v17_user_client_registry:iosurface_root"
+      ],
+      "profile_id": "runtime-closure:iokit:v17_user_client_registry",
+      "profile_path": "book/experiments/runtime-final-final/suites/runtime-closure/sb/v17_iokit_user_client_registry.sb",
+      "semantic_group": "iokit:op-identity-oracle"
+    },
+    "runtime-closure:iokit:v18_service_user_client_registry": {
+      "family": "iokit-open-service",
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ],
+      "mode": "sbpl",
+      "notes": "Oracle alignment: allow both ops with registry-entry-class predicates for IOSurfaceRoot and IOSurfaceRootUserClient.",
+      "probe_refs": [
+        "runtime-closure:iokit:v18_service_user_client_registry:iosurface_root"
+      ],
+      "profile_id": "runtime-closure:iokit:v18_service_user_client_registry",
+      "profile_path": "book/experiments/runtime-final-final/suites/runtime-closure/sb/v18_iokit_service_user_client_registry.sb",
+      "semantic_group": "iokit:op-identity-oracle"
+    },
+    "runtime-closure:iokit:v19_capture_replay": {
+      "family": "iokit-open-service",
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ],
+      "mode": "sbpl",
+      "notes": "Capture a single post-open call tuple for IOSurfaceRoot using the v7 allow-both profile (capture_first_spec).",
+      "probe_refs": [
+        "runtime-closure:iokit:v19_capture_replay:iosurface_root_capture"
+      ],
+      "profile_id": "runtime-closure:iokit:v19_capture_replay",
+      "profile_path": "book/experiments/runtime-final-final/suites/runtime-closure/sb/v7_iokit_service_user_client_both.sb",
+      "semantic_group": "iokit:call-replay"
+    },
+    "runtime-closure:iokit:v1_class_only": {
+      "family": "iokit-open-service",
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ],
+      "mode": "sbpl",
+      "notes": "Class-only IOKit probe for IOSurfaceRoot (baseline found + open ok).",
+      "probe_refs": [
+        "runtime-closure:iokit:v1_class_only:iosurface_root"
+      ],
+      "profile_id": "runtime-closure:iokit:v1_class_only",
+      "profile_path": "book/experiments/runtime-final-final/suites/runtime-closure/sb/v1_iokit_class_only.sb",
+      "semantic_group": "iokit:class-discriminator"
+    },
+    "runtime-closure:iokit:v20_replay_tuple": {
+      "family": "iokit-open-service",
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ],
+      "mode": "sbpl",
+      "notes": "Replay a single captured call tuple via SANDBOX_LORE_IKIT_REPLAY_SPEC using the v7 allow-both profile.",
+      "probe_refs": [
+        "runtime-closure:iokit:v20_replay_tuple:iosurface_root_replay"
+      ],
+      "profile_id": "runtime-closure:iokit:v20_replay_tuple",
+      "profile_path": "book/experiments/runtime-final-final/suites/runtime-closure/sb/v7_iokit_service_user_client_both.sb",
+      "semantic_group": "iokit:call-replay"
+    },
+    "runtime-closure:iokit:v2_user_client_only": {
+      "family": "iokit-open-user-client",
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ],
+      "mode": "sbpl",
+      "notes": "Allow IOSurfaceRootUserClient via iokit-open-user-client (class-only).",
+      "probe_refs": [
+        "runtime-closure:iokit:v2_user_client_only:iosurface_root"
+      ],
+      "profile_id": "runtime-closure:iokit:v2_user_client_only",
+      "profile_path": "book/experiments/runtime-final-final/suites/runtime-closure/sb/v2_iokit_user_client_only.sb",
+      "semantic_group": "iokit:iosurface-user-client"
+    },
+    "runtime-closure:iokit:v3_connection_user_client": {
+      "family": "iokit-open-user-client",
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ],
+      "mode": "sbpl",
+      "notes": "Allow IOSurfaceRootUserClient with IOAccelerator connection constraint.",
+      "probe_refs": [
+        "runtime-closure:iokit:v3_connection_user_client:iosurface_root"
+      ],
+      "profile_id": "runtime-closure:iokit:v3_connection_user_client",
+      "profile_path": "book/experiments/runtime-final-final/suites/runtime-closure/sb/v3_iokit_connection_user_client.sb",
+      "semantic_group": "iokit:iosurface-user-client"
+    },
+    "runtime-closure:iokit:v4_open_user_client": {
+      "family": "iokit-open",
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ],
+      "mode": "sbpl",
+      "notes": "Allow IOSurfaceRootUserClient via iokit-open (op identity check).",
+      "probe_refs": [
+        "runtime-closure:iokit:v4_open_user_client:iosurface_root"
+      ],
+      "profile_id": "runtime-closure:iokit:v4_open_user_client",
+      "profile_path": "book/experiments/runtime-final-final/suites/runtime-closure/sb/v4_iokit_open_user_client.sb",
+      "semantic_group": "iokit:op-identity"
+    },
+    "runtime-closure:iokit:v5_service_only": {
+      "family": "iokit-open-service",
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ],
+      "mode": "sbpl",
+      "notes": "Allow iokit-open-service for IOSurfaceRoot and deny iokit-open-user-client with report.",
+      "probe_refs": [
+        "runtime-closure:iokit:v5_service_only:iosurface_root"
+      ],
+      "profile_id": "runtime-closure:iokit:v5_service_only",
+      "profile_path": "book/experiments/runtime-final-final/suites/runtime-closure/sb/v5_iokit_service_only.sb",
+      "semantic_group": "iokit:op-identity"
+    },
+    "runtime-closure:iokit:v6_user_client_only": {
+      "family": "iokit-open-user-client",
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ],
+      "mode": "sbpl",
+      "notes": "Allow iokit-open-user-client for IOSurfaceRootUserClient and deny iokit-open-service with report.",
+      "probe_refs": [
+        "runtime-closure:iokit:v6_user_client_only:iosurface_root"
+      ],
+      "profile_id": "runtime-closure:iokit:v6_user_client_only",
+      "profile_path": "book/experiments/runtime-final-final/suites/runtime-closure/sb/v6_iokit_user_client_only.sb",
+      "semantic_group": "iokit:op-identity"
+    },
+    "runtime-closure:iokit:v7_service_user_client_both": {
+      "family": "iokit-open-service",
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ],
+      "mode": "sbpl",
+      "notes": "Allow both iokit-open-service and iokit-open-user-client for IOSurfaceRoot.",
+      "probe_refs": [
+        "runtime-closure:iokit:v7_service_user_client_both:iosurface_root"
+      ],
+      "profile_id": "runtime-closure:iokit:v7_service_user_client_both",
+      "profile_path": "book/experiments/runtime-final-final/suites/runtime-closure/sb/v7_iokit_service_user_client_both.sb",
+      "semantic_group": "iokit:op-identity"
+    },
+    "runtime-closure:iokit:v8_external_method": {
+      "family": "iokit-external-method",
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ],
+      "mode": "sbpl",
+      "notes": "Allow iokit-open-service + iokit-open-user-client plus iokit-external-method for IOSurfaceRootUserClient.",
+      "probe_refs": [
+        "runtime-closure:iokit:v8_external_method:iosurface_root"
+      ],
+      "profile_id": "runtime-closure:iokit:v8_external_method",
+      "profile_path": "book/experiments/runtime-final-final/suites/runtime-closure/sb/v8_iokit_external_method.sb",
+      "semantic_group": "iokit:external-method-gating"
+    },
+    "runtime-closure:iokit:v9_message_filter_deny": {
+      "family": "iokit-open",
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ],
+      "mode": "sbpl",
+      "notes": "Apply-message-filter denies iokit-external-method for IOSurfaceRootUserClient on iokit-open.",
+      "probe_refs": [
+        "runtime-closure:iokit:v9_message_filter_deny:iosurface_root"
+      ],
+      "profile_id": "runtime-closure:iokit:v9_message_filter_deny",
+      "profile_path": "book/experiments/runtime-final-final/suites/runtime-closure/sb/v9_iokit_message_filter_deny.sb",
+      "semantic_group": "iokit:message-filter"
+    },
+    "runtime-closure:mach:v1_service_discriminator": {
+      "family": "mach-lookup",
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ],
+      "mode": "sbpl",
+      "notes": "Allow known service and missing-control name to split missing vs denied.",
+      "probe_refs": [
+        "runtime-closure:mach:v1_service_discriminator:cfprefsd_agent",
+        "runtime-closure:mach:v1_service_discriminator:missing_service"
+      ],
+      "profile_id": "runtime-closure:mach:v1_service_discriminator",
+      "profile_path": "book/experiments/runtime-final-final/suites/runtime-closure/sb/v1_mach_service_discriminator.sb",
+      "semantic_group": "mach:service-discriminator"
+    },
+    "runtime-closure:oracle:v1_calibration": {
+      "family": "oracle-calibration",
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ],
+      "mode": "sbpl",
+      "notes": "Oracle calibration: file read + mach lookup for known-good vs missing controls.",
+      "probe_refs": [
+        "runtime-closure:oracle:v1_calibration:file_oracle_temp",
+        "runtime-closure:oracle:v1_calibration:mach_cfprefsd_agent",
+        "runtime-closure:oracle:v1_calibration:mach_missing_service"
+      ],
+      "profile_id": "runtime-closure:oracle:v1_calibration",
+      "profile_path": "book/experiments/runtime-final-final/suites/runtime-closure/sb/v19_oracle_calibration.sb",
+      "semantic_group": "oracle:calibration"
+    }
+  },
+  "registry_id": "runtime-closure",
+  "schema_version": "runtime-tools.profile_registry.v0.2",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

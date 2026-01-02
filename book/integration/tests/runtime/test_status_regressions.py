@@ -87,7 +87,7 @@ def test_status_regressions():
         # If already partial/brittle, let other tests handle it.
         assert not failures, "\n".join(failures)
         return
-    runtime_adv_out = ROOT / "book" / "experiments" / "runtime-adversarial" / "out"
+    runtime_adv_out = ROOT / "book" / "experiments" / "runtime-final-final" / "suites" / "runtime-adversarial" / "out"
     try:
         mismatch_doc = load_bundle_json(runtime_adv_out, "mismatch_summary.json")
     except AssertionError:
@@ -98,7 +98,7 @@ def test_status_regressions():
         assert not failures, "\n".join(failures)
         return
 
-    impact_map_path = ROOT / "book" / "experiments" / "runtime-adversarial" / "out" / "impact_map.json"
+    impact_map_path = ROOT / "book" / "experiments" / "runtime-final-final" / "suites" / "runtime-adversarial" / "out" / "impact_map.json"
     impact_map = load_json(impact_map_path) if impact_map_path.exists() else {}
 
     allowed_tags = set((impact_map.get("metadata") or {}).get("allowed_tags") or [])

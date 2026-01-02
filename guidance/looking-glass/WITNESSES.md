@@ -4,6 +4,8 @@ This bundle lists SANDBOX_LORE’s current **boundary objects**: small witness s
 
 When a question spans layers (SBPL ↔ compiled graphs ↔ runtime ↔ kernel ↔ environment), don’t answer it by storytelling. **Pick the witness that should decide it**, then propose the smallest move that strengthens or reuses that witness.
 
+Baseline anchor: `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (Sonoma 14.4.1, Apple Silicon, SIP enabled).
+
 ## How to use this
 
 - Treat each witness as a **decision primitive**: “If this holds, we can safely design X; if not, we need Y next.”
@@ -14,7 +16,7 @@ When a question spans layers (SBPL ↔ compiled graphs ↔ runtime ↔ kernel �
 
 - **Dyld**: extracted `libsandbox` / `libsystem_sandbox` slices + manifests, used to harvest stable tables.
 - **Compiled structure**: decode headers/op-tables/nodes/literals and summarize canonical blobs.
-- **Runtime**: stage-aware harness runs against expectation matrices, with minimal probes.
+- **Runtime**: plan-based runs that emit committed bundles (`artifact_index.json`) and `promotion_packet.json`, with stage (`compile|apply|bootstrap|operation`) and lane (`scenario|baseline|oracle`) labeling.
 - **Ghidra/KC**: xrefs and evaluator-shape constraints (including *negative results* that constrain design).
 - **Lifecycle**: sandboxed app harnesses + contract-shaped outputs (future end-to-end stories).
 
@@ -52,24 +54,24 @@ When a question spans layers (SBPL ↔ compiled graphs ↔ runtime ↔ kernel �
 
 ### 5) Apply-gate corpus (attach-time `EPERM` ≠ denial)
 - **Decides:** whether `EPERM` is an apply/attach gate vs a PolicyGraph decision.
-- **Evidence braid:** wrapper stage markers (compile/apply split) + minimized failing vs passing neighbor + unified-log reason string + Ghidra xrefs into sandbox kext.
+- **Evidence braid:** wrapper stage markers (`compile`/`apply`) + minimized failing vs passing neighbor + bounded log window + (when available) Ghidra xrefs into sandbox kext/kernelcache slices.
 - **Controls:** compile succeeds but apply fails; bounded log window; neighbor control.
 - **Confounder:** surround (harness identity / parent environment).
 - **Ask user for:** one witness row (stage+errno) + the log line + the kext-xref summary.
 
 ### 6) VFS canonicalization suite (path literals vs runtime reality)
 - **Decides:** which path spellings actually match for specific alias families (notably `/tmp` ↔ `/private/tmp`).
-- **Evidence braid:** tri-profile design (alias-only/canon-only/both) + structural decodes + runtime results + observed FD paths where available.
+- **Evidence braid:** tri-profile design (alias-only/canon-only/both) + structural decodes + runtime results + `path_witnesses.json` (FD-reported spellings when available) to keep canonicalization visible without ad hoc parsing.
 - **Controls:** the tri-profile matrix (it is the control).
 - **Confounder:** scope (family/operation specific).
 - **Ask user for:** the suite’s “what canonicalizes, what doesn’t” summary paragraph.
 
 ### 7) Runtime “golden families” (narrow, but semantic)
 - **Decides:** do we have repeatable decision-stage allow/deny cases?
-- **Evidence braid:** expectation matrices + stage-aware runs + normalized traces; strongest today in mach/network families, with file/path families still bounded by mismatches.
-- **Controls:** baseline (unsandboxed) control + clean-channel run control.
-- **Confounder:** stage (nested sandboxes, staging roots, path normalization).
-- **Ask user for:** one run manifest excerpt (channel/staging) + one trace snippet for mach or network.
+- **Evidence braid:** expectation matrices + stage-aware runs + normalized events. Current mapped runtime coverage includes: `file-read*`, `file-write*`, `network-outbound`, `mach-lookup`, `file-read-xattr`, `file-write-xattr`, `darwin-notification-post`, `distributed-notification-post`, `process-info-pidinfo`, `signal`, `sysctl-read`, `iokit-open-service`.
+- **Controls:** `baseline` lane control + `scenario` lane control under a clean channel (for example `launchd_clean`).
+- **Confounder:** stage/lane confusions (apply/bootstrap failures, nested sandboxes), plus path normalization.
+- **Ask user for:** `promotion_packet.json` `promotability` excerpt + one `runtime_events.normalized.json` snippet for a single op.
 
 ### 8) Field2 closure (bounded unknowns + kernel constraints)
 - **Decides:** whether the u16 payload slot yields a clean semantic map (or a hi/lo split).
@@ -78,12 +80,12 @@ When a question spans layers (SBPL ↔ compiled graphs ↔ runtime ↔ kernel �
 - **Confounder:** scope (unknown ≠ meaningless; it means “not yet mapped”).
 - **Ask user for:** closure summary + one snippet of the “raw-u16” kernel observation.
 
-### 9) Lifecycle scaffold (EntitlementJail / App Sandbox harness)
-- **Decides:** do we have an instrumented way to ask entitlement/app-sandbox questions without freehanding?
-- **Evidence braid:** sandboxed app + CLI contract fixtures + structured outputs meant to host future end-to-end witnesses.
-- **Controls:** contract fixtures (output shape pinned).
+### 9) Lifecycle scaffold (PolicyWitness / App Sandbox harness)
+- **Decides:** do we have an instrumented way to ask App Sandbox + entitlement questions without freehanding?
+- **Evidence braid:** PolicyWitness.app at `book/tools/witness/PolicyWitness.app` (sandboxed XPC services) + host-side CLI + contract fixtures under `book/tools/witness/fixtures/contract/` + structured outputs meant to host future end-to-end witnesses.
+- **Controls:** contract fixtures (CLI help + JSON shape pinned).
 - **Confounder:** surround/stack (TCC, hardened runtime, SIP can dominate).
-- **Ask user for:** fixture summary + one example output schema snippet.
+- **Ask user for:** fixture excerpt (help or sample observer JSON) + one probe output schema snippet.
 
 ---
 
@@ -97,6 +99,6 @@ When a question spans layers (SBPL ↔ compiled graphs ↔ runtime ↔ kernel �
 | Op-table buckets | bucket shifts/signatures | SBPL → compile → signatures | one-edit deltas | scope | one bucket-pattern row |
 | Apply-gate corpus | attach-time EPERM | markers + logs + kext xrefs | failing+neighbor | surround/stage | witness row + log line |
 | VFS canonicalization | path matching reality | tri-profiles + runtime | tri-profile matrix | scope | suite summary paragraph |
-| Runtime golden families | repeatable semantics | matrix + stage + traces | baseline + clean channel | stage | run manifest + trace snippet |
+| Runtime golden families | repeatable semantics | matrix + stage/lane + promotion | baseline + clean channel | stage/lane | promotion_packet + events snippet |
 | Field2 closure | bounded unknowns | inventories + Ghidra eval | role-scoped unknown set | scope | closure summary excerpt |
-| Lifecycle scaffold | entitlement questions | app harness + fixtures | contract fixtures | surround/stack | fixture + schema snippet |
+| Lifecycle scaffold | App Sandbox + entitlements | PolicyWitness + fixtures | contract fixtures | surround/stack | fixture + schema snippet |

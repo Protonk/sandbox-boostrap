@@ -18,12 +18,12 @@ Goal: produce a clean, promotable runtime discriminator matrix that distinguishe
 
 Run provenance:
 - `run_id`: `028d4d91-1c9e-4c2f-95da-7fc89ec3635a` (launchd clean channel)
-- Promotion packet: `book/experiments/field2-final-final/anchor-filter-map/out/promotion_packet.json`
+- Promotion packet: `book/experiments/runtime-final-final/evidence/packets/anchor-filter-map.promotion_packet.json`
 - Promotion receipt: `book/graph/mappings/runtime/promotion_receipt.json` (packet `status: used`)
 
 Commands:
-- `python -m book.api.runtime run --plan book/experiments/field2-final-final/anchor-filter-map/plan.json --channel launchd_clean --out book/experiments/field2-final-final/anchor-filter-map/out`
-- `python -m book.api.runtime emit-promotion --bundle book/experiments/field2-final-final/anchor-filter-map/out --out book/experiments/field2-final-final/anchor-filter-map/out/promotion_packet.json --require-promotable`
+- `python -m book.api.runtime run --plan book/experiments/runtime-final-final/suites/anchor-filter-map/plan.json --channel launchd_clean --out book/experiments/runtime-final-final/suites/anchor-filter-map/out`
+- `python -m book.api.runtime emit-promotion --bundle book/experiments/runtime-final-final/suites/anchor-filter-map/out --out book/experiments/runtime-final-final/evidence/packets/anchor-filter-map.promotion_packet.json --require-promotable`
 - `PYTHONPATH=$PWD python book/graph/mappings/runtime/promote_from_packets.py --packet-set book/graph/mappings/runtime/packet_set.json`
 - `python book/graph/mappings/anchors/generate_anchor_filter_map.py`
 - `make -C book test`
@@ -41,12 +41,12 @@ Goal: attempt to lift the `IOUSBHostInterface` anchor out of `status: blocked` i
 
 Run provenance:
 - `run_id`: `bf80e47b-3020-4b13-bfa7-249cfcff8b52` (launchd clean channel)
-- Promotion packet: `book/experiments/field2-final-final/anchor-filter-map/iokit-class/out/promotion_packet.json`
+- Promotion packet: `book/experiments/runtime-final-final/evidence/packets/anchor-filter-map.iokit-class.promotion_packet.json`
 - Promotion receipt: `book/graph/mappings/runtime/promotion_receipt.json` (packet `status: used`)
 
 Commands:
-- `python -m book.api.runtime run --plan book/experiments/field2-final-final/anchor-filter-map/iokit-class/plan.json --channel launchd_clean --out book/experiments/field2-final-final/anchor-filter-map/iokit-class/out`
-- `python -m book.api.runtime emit-promotion --bundle book/experiments/field2-final-final/anchor-filter-map/iokit-class/out --out book/experiments/field2-final-final/anchor-filter-map/iokit-class/out/promotion_packet.json --require-promotable`
+- `python -m book.api.runtime run --plan book/experiments/runtime-final-final/suites/anchor-filter-map/iokit-class/plan.json --channel launchd_clean --out book/experiments/runtime-final-final/suites/anchor-filter-map/iokit-class/out`
+- `python -m book.api.runtime emit-promotion --bundle book/experiments/runtime-final-final/suites/anchor-filter-map/iokit-class/out --out book/experiments/runtime-final-final/evidence/packets/anchor-filter-map.iokit-class.promotion_packet.json --require-promotable`
 - `PYTHONPATH=$PWD python book/graph/mappings/runtime/promote_from_packets.py --packet-set book/graph/mappings/runtime/packet_set.json`
 - `python book/graph/mappings/anchors/generate_anchor_filter_map.py`
 

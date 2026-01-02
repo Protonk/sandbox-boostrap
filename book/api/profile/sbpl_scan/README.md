@@ -32,7 +32,7 @@ Current scan: any `(apply-message-filter … (deny …) …)` construct is treat
 
 This is evidence-backed for this baseline but incomplete in scope; treat it as an operational guardrail, not a semantics claim. Provenance pointers:
 - `troubles/EPERMx2.md`
-- `book/experiments/gate-witnesses/Report.md`
+- `book/experiments/runtime-final-final/suites/gate-witnesses/Report.md`
 - `book/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json`
 
 ## Relationship to preflight

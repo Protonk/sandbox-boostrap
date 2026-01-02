@@ -53,7 +53,7 @@ BOOK_ROOT = REPO_ROOT / "book"
 
 
 def _default_matrix() -> Path:
-    bundle_root = BOOK_ROOT / "experiments" / "runtime-checks" / "out"
+    bundle_root = BOOK_ROOT / "experiments" / "runtime-final-final" / "suites" / "runtime-checks" / "out"
     try:
         bundle_dir, _ = bundle_reader.resolve_bundle_dir(bundle_root, repo_root=REPO_ROOT)
     except FileNotFoundError:
@@ -62,7 +62,7 @@ def _default_matrix() -> Path:
 
 
 def _default_runtime_results() -> Path:
-    bundle_root = BOOK_ROOT / "experiments" / "runtime-checks" / "out"
+    bundle_root = BOOK_ROOT / "experiments" / "runtime-final-final" / "suites" / "runtime-checks" / "out"
     try:
         bundle_dir, _ = bundle_reader.resolve_bundle_dir(bundle_root, repo_root=REPO_ROOT)
     except FileNotFoundError:

@@ -13,7 +13,17 @@ def load_json(path: Path):
 
 def test_vfs_decode_tmp_profiles_shape():
     """Structural guardrail: decode_tmp_profiles.json exists and has expected anchor entries."""
-    path = ROOT / "book" / "experiments" / "vfs-canonicalization" / "out" / "derived" / "decode_tmp_profiles.json"
+    path = (
+        ROOT
+        / "book"
+        / "experiments"
+        / "runtime-final-final"
+        / "suites"
+        / "vfs-canonicalization"
+        / "out"
+        / "derived"
+        / "decode_tmp_profiles.json"
+    )
     data = load_json(path)
     profiles = data.get("profiles") or {}
     expected_anchors = {

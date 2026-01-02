@@ -1,0 +1,26 @@
+{
+  "schema_version": "runtime-tools.plan.v0.1",
+  "plan_id": "anchor-filter-map.iokit-class.IOUSBHostInterface.v1",
+  "registry_id": "anchor-filter-map",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "profiles": [
+    "anchor-filter-map:iokit_class:S0_allow_any",
+    "anchor-filter-map:iokit_class:S1_allow_class",
+    "anchor-filter-map:iokit_class:S2_allow_property_literal",
+    "anchor-filter-map:iokit_class:S3_allow_both",
+    "anchor-filter-map:iokit_class:N1_deny_default",
+    "anchor-filter-map:iokit_class:C1_deny_class",
+    "anchor-filter-map:iokit_class:C2_deny_property_literal"
+  ],
+  "lanes": {
+    "baseline": true,
+    "scenario": true,
+    "oracle": true
+  },
+  "controls": {
+    "baseline": true
+  },
+  "apply_preflight_profile": "book/experiments/runtime-final-final/suites/hardened-runtime/sb/apply_preflight_allow.sb",
+  "notes": "Predicate discriminator micro-matrix for IOUSBHostInterface: deny-default reachability + iokit-registry-entry-class vs iokit-property predicate discrimination, with allow-default deny controls."
+}
+

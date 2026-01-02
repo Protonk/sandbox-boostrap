@@ -1,0 +1,26 @@
+{
+  "schema_version": "runtime-tools.plan.v0.1",
+  "plan_id": "metadata-runner.v1",
+  "registry_id": "metadata-runner",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "profiles": [
+    "literal_alias_only",
+    "literal_canonical_only",
+    "literal_both_paths",
+    "subpath_alias_only",
+    "subpath_canonical_only",
+    "subpath_both_paths",
+    "regex_alias_only",
+    "regex_canonical_only",
+    "regex_both_paths"
+  ],
+  "lanes": {
+    "baseline": true,
+    "scenario": true,
+    "oracle": false
+  },
+  "controls": {
+    "baseline": true
+  },
+  "apply_preflight_profile": "book/experiments/runtime-final-final/suites/hardened-runtime/sb/apply_preflight_allow.sb"
+}

@@ -7,7 +7,7 @@ ROOT = path_utils.find_repo_root(Path(__file__))
 
 
 def test_sbpl_graph_runtime_ingested_has_profiles():
-    out = ROOT / "book" / "experiments" / "sbpl-graph-runtime" / "out" / "ingested.json"
+    out = ROOT / "book" / "experiments" / "runtime-final-final" / "suites" / "sbpl-graph-runtime" / "out" / "ingested.json"
     assert out.exists(), "missing ingested.json"
     records = {rec["profile"]: rec for rec in json.loads(out.read_text())}
     for name in ["allow_all.sb.bin", "deny_all.sb.bin", "deny_except_tmp.sb.bin", "metafilter_any.sb.bin"]:

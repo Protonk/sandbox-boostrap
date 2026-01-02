@@ -1,0 +1,126 @@
+# Runtime Closure – Notes
+
+Use this file for short, factual run notes and failures. Avoid timestamps.
+
+- Preflight scan (file lane): `v1_etc_alias_only.sb`, `v1_etc_private_only.sb`, `v1_etc_both.sb` all classified as `no_known_apply_gate_signature`.
+- File lane runtime run: `out/5a8908d8-d626-4cac-8bdd-0f53c02af8fe/` (launchd_clean, file-only profiles).
+  - `/etc/hosts` denied under all three profiles (including the both-paths profile).
+  - `/private/etc/hosts` allowed under private-only and both; denied under alias-only.
+  - `/tmp/foo` denied under all three profiles.
+  - `path_witnesses.json` baseline shows `/etc/hosts` -> `/private/etc/hosts` and `/tmp/foo` -> `/private/tmp/foo`; scenario allows show `F_GETPATH_NOFIRMLINK:/System/Volumes/Data/private/etc/hosts` on success.
+- Preflight scan (mach lane): `v1_mach_service_discriminator.sb` classified as `no_known_apply_gate_signature`.
+- Mach lane runtime run: `out/66315539-a0ce-44bf-bff0-07a79f205fea/` (launchd_clean, mach-only profile).
+  - `com.apple.cfprefsd.agent` allowed in baseline and scenario (`kr=0`).
+  - `com.apple.sandbox-lore.missing` returns `kr=1102` in baseline and scenario (missing service, not a sandbox denial).
+- Baseline IOKit probe sweep picked `IOSurfaceRoot` as a present class with `open_kr=0`.
+- Preflight scan (IOKit lane): `v1_iokit_class_only.sb` classified as `no_known_apply_gate_signature`.
+- IOKit lane runtime run: `out/48086066-bfa2-44bb-877c-62dd1dceca09/` (launchd_clean, IOKit-only profile).
+  - Baseline `iokit_probe` for `IOSurfaceRoot` returns `found=true` and `open_kr=0`.
+  - Scenario `sandbox_iokit_probe` returns `found=true` with `open_kr=-536870174` and `EPERM` (deny at probe stage).
+- Preflight scan (v2 file + user-client IOKit): `v2_alias_literals.sb`, `v2_private_literals.sb`, `v2_data_literals.sb`, `v2_iokit_user_client_only.sb`, `v3_iokit_connection_user_client.sb` all `no_known_apply_gate_signature`.
+- File spelling matrix run: `out/ea704c9c-5102-473a-b942-e24af4136cc8/` (launchd_clean, v2 file profiles).
+  - Alias profile (`v2_alias_literals`) denies all six probes (`/etc`, `/private`, `/System/Volumes/Data` × `/etc/hosts` + `/tmp/foo`) at operation stage.
+  - Private profile (`v2_private_literals`) allows `/private/etc/hosts`, `/System/Volumes/Data/private/etc/hosts`, `/private/tmp/foo`, `/System/Volumes/Data/private/tmp/foo`, and `/tmp/foo`; `/etc/hosts` remains denied.
+  - Data profile (`v2_data_literals`) denies all six probes, including the Data spellings, at operation stage.
+  - `path_witnesses.json` shows baseline `/etc/hosts` -> `/private/etc/hosts` and `/tmp/foo` -> `/private/tmp/foo`; scenario successes report `F_GETPATH_NOFIRMLINK` with `/System/Volumes/Data/private/...` for the private profile.
+- IOKit user-client matrix run: `out/6ecc929d-fec5-4206-a85c-e3e265c349a7/` (launchd_clean).
+  - `v2_user_client_only` allows `IOSurfaceRoot` (`open_kr=0`) at operation stage.
+  - `v3_connection_user_client` denies with `open_kr=-536870174` and `EPERM` at operation stage.
+- Preflight scan (IOKit op-identity lane): `v4_iokit_open_user_client.sb` classified as `no_known_apply_gate_signature`.
+- IOKit op-identity run: `out/08887f36-f87b-45ff-8e9e-6ee7eb9cb635/` (v2 user-client-only) and `out/33ff5a68-262a-4a8c-b427-c7cb923a3adc/` (v4 iokit-open).
+  - Both profiles allow `IOSurfaceRoot` (`open_kr=0`) at operation stage.
+  - Op identity remains ambiguous (both `iokit-open-user-client` and `iokit-open` allow for this probe).
+- Preflight scan (IOKit op-identity tri-matrix): `v5_iokit_service_only.sb`, `v6_iokit_user_client_only.sb`, `v7_iokit_service_user_client_both.sb` all `no_known_apply_gate_signature`.
+- IOKit op-identity tri-matrix run `out/1034a7bd-81e1-41a1-9897-35f5556800c7/` failed in apply stage for v5/v6 because `with report` is invalid on deny rules; removed the report modifier and reran.
+- IOKit op-identity tri-matrix run `out/fae371c2-f2f5-470f-b672-cf0c3e24d6c0/` (launchd_clean).
+  - `v5_service_only`: `open_kr=-536870174` (EPERM), call not attempted; failure at operation stage.
+  - `v6_user_client_only`: `open_kr=-536870174` (EPERM), call not attempted; failure at operation stage.
+  - `v7_service_user_client_both`: `open_kr=0` and `call_kr=-536870206`; failure at operation stage.
+  - Unsandboxed `book/api/runtime/native/probes/iokit_probe IOSurfaceRoot` returns `open_kr=0` with `call_kr=-536870206`, so the post-open call fails even without a sandbox.
+- Post-open probe update: `iokit_probe` now attempts a selector sweep plus `IOSurfaceCreate`; unsandboxed run reports `surface_create_ok=true`.
+- IOKit op-identity tri-matrix run `out/bf996c2f-a265-4bb5-8c8a-105bd70af25a/` (launchd_clean, iokit-only).
+  - `v5_service_only` and `v6_user_client_only`: `open_kr=-536870174` (EPERM), `surface_create_ok=false`; failure at operation stage.
+  - `v7_service_user_client_both`: `open_kr=0`, `call_kr=-536870206`, `surface_create_ok=false`; failure at operation stage.
+  - Observer-lane capture: `out/bf996c2f-a265-4bb5-8c8a-105bd70af25a/observer/sandbox_log_stream_iokit.txt` and `observer/sandbox_log_show_iokit.txt` contain only the filter header (no sandbox deny lines with op names).
+- Preflight scan (IOKit external-method lane): `v8_iokit_external_method.sb` classified as `no_known_apply_gate_signature`.
+- IOKit external-method run `out/03aaad16-f06b-4ec7-a468-c6379abbeb4d/` (launchd_clean, iokit-only with v7 + v8).
+  - `v7_service_user_client_both`: `open_kr=0`, `call_kr=-536870206`, `call_kr_string="(iokit/common) invalid argument"`, selector=9, call input/output sizes all zero, `surface_create_ok=false`.
+  - `v8_external_method`: apply-stage failure (`sandbox_init` rc=-1) with errbuf `iokit-external-method operation not applicable in this context`; treated as blocked evidence.
+- IOSurface call-shape instrumentation:
+  - `book/experiments/runtime-final-final/suites/runtime-closure/harness/iokit_call_interpose.c` via DYLD_INSERT_LIBRARIES caused a SIGSEGV when running `iokit_probe` and `iosurface_trace`; no output captured (`out/iosurface_call_trace/interpose_stderr.txt` empty).
+  - Switched to dynamic interpose in `iosurface_trace`; run in `out/iosurface_call_trace/iosurface_trace_stderr.txt` reports `SBL_IKIT_INTERPOSE` installed but emits no `SBL_IKIT_CALL` lines, suggesting IOSurfaceCreate does not call IOConnectCall* functions on this host or the call sites are not interposed.
+- Preflight scan (IOKit message-filter lane): `v9_iokit_message_filter_deny.sb` and `v10_iokit_message_filter_allow.sb` classified as `likely_apply_gated_for_harness_identity` (deny-style apply-message-filter).
+- IOKit message-filter run `out/ad767bba-9e59-40ff-b006-45fe911b2d02/` (launchd_clean, iokit-only with v7 + v9 + v10).
+
+## Oracle calibration + capture plumbing
+
+- Oracle calibration run `out/77d63a7c-1d11-4dee-870c-4e745014189e/` (launchd_clean, `SANDBOX_LORE_SEATBELT_API=pid`, `SANDBOX_LORE_FILE_PRECREATE=1`).
+  - File probe `/private/tmp/sandbox-lore-oracle.txt` allows at operation stage but `sandbox_check` reports `deny` for `file-read-data`.
+  - Mach probes show `sandbox_check` denies `mach-lookup` for both `com.apple.cfprefsd.agent` and the missing control, while `bootstrap_look_up` succeeds for the known service.
+  - Oracle lane remains non-calibrated for non-path ops on this host.
+- Synthetic capture run `out/df0d8269-e0fb-4306-b942-74853239c60b/` (launchd_clean, `SANDBOX_LORE_IKIT_SYNTH_CALL=1`, `SANDBOX_LORE_IKIT_CAPTURE_CALLS=1`).
+  - `iokit_probe` reports `capture_seen=true` with the synthetic IOConnectCallMethod (selector 0, 1 scalar in, 16-byte struct in/out).
+  - `v7_service_user_client_both`: `open_kr=0`, `call_kr=-536870206`, `call_kr_string="(iokit/common) invalid argument"`, `surface_create_ok=false`.
+  - `v9_message_filter_deny` and `v10_message_filter_allow` blocked at preflight (apply gate signature); no runtime probe execution.
+- Emitted promotion packet for the file matrix run and refreshed VFS canonicalization mapping via `book/graph/mappings/vfs_canonicalization/generate_path_canonicalization_map.py` after updating `packet_set.json`.
+- Report-loud log capture attempt: `out/34a16e32-c4f9-4757-b69d-1b369a4d566e/` includes `observer/sandbox_log.txt` with `log` invocation error (zsh builtin). Reran with `/usr/bin/log` in `out/bf200589-b801-4771-8b73-a84dfef73be6/`; `observer/sandbox_log.txt` contains only the filter header (no sandbox report lines).
+- Report-loud v11 runtime runs: `out/bf200589-b801-4771-8b73-a84dfef73be6/` and `out/f7b0ca74-c80b-4431-b0bc-9f1c97962e82/` both return `exit_code=-5` (`probe_nonzero_exit`, no stdout/stderr); direct `sandbox_iokit_probe` run exits 133 (SIGTRAP).
+- Added seatbelt callouts to `sandbox_iokit_probe` for `iokit-open-service` and `iokit-open-user-client` (derived user-client class) gated by `SANDBOX_LORE_SEATBELT_CALLOUT=1`.
+- IOKit op-witness run with callouts: `out/6ed9e0b6-a2cf-4122-846e-c9c36eea52a0/` (launchd_clean, v7).
+  - `iokit-open-service` callout: `rc=0` (allow) for `IOSurfaceRoot`.
+  - `iokit-open-user-client` callout: `rc=-1`, `errno=22` (EINVAL) for `IOSurfaceRootUserClient`.
+- Rebuilt and reran `iosurface_trace` in `out/iosurface_call_trace_2/`; stderr shows `SBL_IKIT_INTERPOSE` only, with no `SBL_IKIT_CALL` lines.
+- IOKit callout preflight now tests `iokit-open`, `iokit-open-service`, and `iokit-open-user-client` with both registry-class strings and user-client-type numeric `0` via `sandbox_check_by_audit_token` (oracle lane only).
+- Added `v12_iokit_cvmsserv.sb` (allow open-service + open-user-client + `mach-lookup` for `com.apple.cvmsServ`) to test the WebKit graphics prereq hypothesis.
+- IOKit cvmsServ run: `out/760494b1-5088-4271-ba05-50c3888c8690/` (launchd_clean, v12 with callouts).
+  - `open_kr=0`, `call_kr=-536870206`, `surface_create_ok=false` (no improvement from `v7_service_user_client_both`).
+  - Oracle callouts: `iokit-open` + `iokit-registry-entry-class` denies (`rc=1`), `iokit-open-service` + `iokit-registry-entry-class` allows (`rc=0`), `iokit-open-user-client` + `iokit-user-client-type` still returns `EINVAL` for both string (`IOSurfaceRootUserClient`) and numeric (`0`) arguments.
+- Oracle ABI tightening (registry-entry-class): `out/7edc2b2f-7edf-4a50-ba0c-bd9bb2a549d3/` (launchd_clean, v7 with callouts).
+  - `iokit-open-user-client` with filter `iokit-registry-entry-class` now yields a real deny (`rc=1`, `errno=0`) for both `IOSurfaceRootUserClient` and `IOSurfaceRoot`, removing the EINVAL-only failure mode for this op.
+  - `iokit-open-user-client` with `iokit-connection` (`IOAccelerator`) returns `rc=-1`, `errno=3`; `iokit-open-user-client` with `iokit-user-client-type` remains `EINVAL` for string and numeric arguments.
+  - Filterless callout (`filter_type=none`) returns `EINVAL`, so that path remains blocked.
+- Graphics dependency micro-matrix (single deltas): `out/7deb2296-7fa8-48ea-849f-ac7a696f7c93/` (launchd_clean, v13/v14/v15 with callouts).
+  - `v13_ioaccelerator_connection`, `v14_iosurface_send_right`, `v15_ioacceleration_user_client`: all return `open_kr=0`, `call_kr=-536870206`, `surface_create_ok=false` (no change vs baseline).
+- Oracle-only A/B/C truth table (registry-entry-class alignment): `out/e32f5fe4-c074-4398-9696-0807ef7fbc00/` (launchd_clean, `SANDBOX_LORE_IOKIT_ORACLE_ONLY=1`).
+  - `v16_service_only_registry`, `v17_user_client_registry`, `v18_service_user_client_registry` all report `iokit-open-service` allow and `iokit-open-user-client` deny via the registry-entry-class callout, so the oracle table does not align with the SBPL allow in `v17_user_client_registry`.
+  - This indicates a shape mismatch for the oracle lane (registry-entry-class filter does not reflect the SBPL allow outcome for `iokit-open-user-client` on this host).
+- Selector discovery (WebKit candidate set) baseline run: `out/a6e042e5-135d-4072-b0d6-50455abc62a3/` using `SANDBOX_LORE_IKIT_SELECTOR_LIST` with a non-zero call shape.
+  - `open_kr=0`, `surface_create_ok=true`, and the sweep reports `call_kr=-536870206` with selector `513` and non-zero input/output sizes (no non-invalid responses observed).
+- File oracle calibration run (audit-token callouts): `out/fe3745a4-1049-4a17-8246-0a29e5585d0e/` (launchd_clean, v2 alias/private file profiles, `SANDBOX_LORE_SEATBELT_CALLOUT=1`).
+  - All `file-read-data` oracle decisions are `deny`, including `/private/etc/hosts` under `v2_private_literals` where the operation-stage probe allows; oracle lane does not flip with the SBPL allow.
+- File oracle calibration run (pid callouts): `out/0c49afaa-0739-4239-9275-eb875c6232da/` (launchd_clean, v2 alias/private file profiles, `SANDBOX_LORE_SEATBELT_API=pid`).
+  - Oracle callouts still report `deny` for all file targets, including allowed `/private/etc/hosts`; treat file oracle lane as blocked on this host.
+- IOSurface ground-truth capture attempt: `out/518f2e1d-66db-4392-89e8-4a74db154a82/` (launchd_clean, v7 with `SANDBOX_LORE_IKIT_CAPTURE_CALLS=1`).
+  - `surface_create_ok=true` baseline, but `capture_seen=false` even after interposing IOConnectCall* and MIG stubs; no selector/shape captured from IOSurfaceCreate on this host.
+- Capture → replay loop (call-shape gate):
+  - Baseline capture run `out/274a4c71-3c97-4aaa-a22f-93b587ba9ba9/` with `SANDBOX_LORE_IKIT_SELECTOR_LIST=0` captured `capture_first_spec=IOConnectCallMethod:0:1:16:0:16` and `call_kr=-536870206` (invalid argument).
+  - Replay run `out/e720b256-2f6e-4888-9288-2e19b5007fa9/` with `SANDBOX_LORE_IKIT_REPLAY=1` and `SANDBOX_LORE_IKIT_REPLAY_SPEC=IOConnectCallMethod:0:1:16:0:16` returned `replay_kr=-536870206` in baseline and scenario (replay attempted, no sweep).
+- Bounded selector sweep (per-selector menu): `out/b9060860-23e1-45b2-9e13-5d3abcb77a6e/` (launchd_clean, v19, `SANDBOX_LORE_IKIT_SWEEP=1`).
+  - Baseline `sweep_result_count=395`, `first_non_invalid_missing=true`; no non-invalid tuple found within the bounded selector/shape menu.
+- Mach message capture (Branch B fallback): `out/a21b9fe6-dc2c-4d80-9131-202cab92595a/` (launchd_clean, v7, `SANDBOX_LORE_IKIT_MACH_CAPTURE=1`, `SBL_IKIT_SKIP_SWEEP=1`).
+  - Baseline and scenario both report `mach_msg_capture_count=0` for messages addressed to the IOSurface user-client port; `open_kr=0` and `surface_create_ok=false` in the sandboxed lane.
+- Method0 payload baseline (manual `iokit_probe`): wrote `out/iosurface_method0_payload.plist` with `SANDBOX_LORE_IKIT_METHOD0=1` and `SBL_IKIT_SKIP_SWEEP=1`.
+  - `call_kr=-536870206` (invalid argument) with selector 0; payload source `surface_values` and `method0_input_bytes=247`.
+- Method0 sandbox crash (pre-fix): `out/a788dcc3-e484-4ae7-b764-f24bc86e5dfc/` run exits `-11` (probe SIGSEGV) when `SANDBOX_LORE_IKIT_METHOD0=1` under v7.
+- Method0 payload preloading fix: `sandbox_iokit_probe` now preloads payload before apply when `SANDBOX_LORE_IKIT_METHOD0_PAYLOAD_IN` is set, avoiding the SIGSEGV.
+- Method0 replay under v7 (payload file, mach capture): `out/eb42253f-0491-4e8c-90db-cd922a67eca4/` (launchd_clean, v7, `SANDBOX_LORE_IKIT_METHOD0=1`, `SANDBOX_LORE_IKIT_METHOD0_PAYLOAD_IN=out/iosurface_method0_payload.plist`, `SBL_IKIT_SKIP_SWEEP=1`).
+  - Scenario lane: `open_kr=0`, `call_kr=-536870206` (invalid argument), `method0_payload_source=file`, `mach_msg_capture_count=0`, probe exits 1 (operation failed).
+  - Baseline lane: same selector 0 tuple and `call_kr=-536870206` with payload file (no non-invalid call shape found yet).
+- Method0 payload (IOCFSerialize) baseline: `iokit_probe` run with `SANDBOX_LORE_IKIT_METHOD0=1`, `SBL_IKIT_SKIP_SWEEP=1` writes `out/iosurface_method0_payload.iokit`.
+  - `call_kr=-536870206` with selector 0; `method0_plist_format=iocf_xml`, `method0_input_bytes=455`, `method0_payload_nul_appended=false`.
+- Method0 replay under v7 (IOCFSerialize payload): `out/b45c0692-d480-4111-956e-1b9d27f363fb/` (launchd_clean, v7, `SANDBOX_LORE_IKIT_METHOD0=1`, `SANDBOX_LORE_IKIT_METHOD0_PAYLOAD_IN=out/iosurface_method0_payload.iokit`, `SBL_IKIT_SKIP_SWEEP=1`).
+  - Scenario lane: `open_kr=0`, `call_kr=-536870206` (invalid argument), `method0_payload_source=file`, `method0_payload_nul_appended=false`, probe exits 1.
+- Method0 replay under v7 after IOCFSerialize XML-only enforcement: `out/013c8616-edf7-44d9-a8f5-d653a2593dbe/` (launchd_clean, v7, `SANDBOX_LORE_IKIT_METHOD0=1`, `SANDBOX_LORE_IKIT_METHOD0_PAYLOAD_IN=out/iosurface_method0_payload.iokit`, `SBL_IKIT_SKIP_SWEEP=1`).
+  - Scenario lane: `open_kr=0`, `call_kr=-536870206` (invalid argument), `method0_plist_format=file`, `method0_payload_nul_appended=false`, `method0_input_bytes=455`, probe exits 1.
+- Method0 create-props payload (IOCFSerialize XML) baseline: `iokit_probe` run with `SANDBOX_LORE_IKIT_METHOD0=1`, `SBL_IKIT_SKIP_SWEEP=1` writes `out/iosurface_method0_payload.iokit`.
+  - `call_kr=-536870206` with selector 0; `method0_plist_format=iocf_xml`, `method0_payload_source=create_props`, `method0_input_bytes=368`, `method0_output_capacity=8192`.
+- Method0 replay under v7 (create-props payload, 0x2000 output): `out/289b183e-d86e-47db-ae57-0b9bd3541c6a/` (launchd_clean, v7, `SANDBOX_LORE_IKIT_METHOD0=1`, `SANDBOX_LORE_IKIT_METHOD0_PAYLOAD_IN=out/iosurface_method0_payload.iokit`, `SBL_IKIT_SKIP_SWEEP=1`).
+  - Scenario lane: `open_kr=0`, `call_kr=-536870206` (invalid argument), `method0_payload_source=file`, `method0_input_bytes=368`, `method0_output_capacity=8192`, probe exits 1.
+- Method0 selector sweep (create-props XML payload): `out/iosurface_method0_sweep.json` (baseline `iokit_probe`, `SANDBOX_LORE_IKIT_METHOD0=1`, `SANDBOX_LORE_IKIT_SWEEP=1`).
+  - `sweep_result_count=26`, `first_non_invalid_missing=true`; selectors `0..25` all return `kIOReturnBadArgument` with `input_struct_bytes=368` and `output_struct_bytes=8192`.
+- Method0 binary payload baseline: `out/iosurface_method0_binary.json` (baseline `iokit_probe`, `SANDBOX_LORE_IKIT_METHOD0=1`, `SANDBOX_LORE_IKIT_METHOD0_BINARY=1`, `SBL_IKIT_SKIP_SWEEP=1`).
+  - `call_kr=-536870206` (invalid argument) with selector 0; `method0_plist_format=iocf_binary`, `method0_input_bytes=209`, `method0_payload_nul_appended=true`.
+- Mach capture (IOSurfaceCreate path): `out/iosurface_mach_capture.json` (baseline `iokit_probe`, `SANDBOX_LORE_IKIT_MACH_CAPTURE=1`, `SBL_IKIT_SKIP_SWEEP=1`).
+  - `mach_msg_capture_count=0` despite `open_kr=0` and `surface_create_ok=true`.
+- Mach capture synthetic control: `out/iosurface_mach_capture_synth.json` (baseline `iokit_probe`, `SANDBOX_LORE_IKIT_MACH_CAPTURE=1`, `SANDBOX_LORE_IKIT_SYNTH_CALL=1`).
+  - `synthetic_call_attempted=true`, but `mach_msg_capture_count=0`, so trap-level interpose still shows no send events to the connection port.

@@ -11,7 +11,7 @@ from book.api.runtime.execution.channels import ChannelSpec
 
 from book.api import path_utils
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))
-HARDENED_PLAN = REPO_ROOT / "book" / "experiments" / "hardened-runtime" / "plan.json"
+HARDENED_PLAN = REPO_ROOT / "book" / "experiments" / "runtime-final-final" / "suites" / "hardened-runtime" / "plan.json"
 
 
 def test_reindex_bundle_repair_fixes_digest_mismatch(tmp_path, monkeypatch):

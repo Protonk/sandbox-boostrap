@@ -5,7 +5,7 @@
   "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
   "registry_id": "vfs-canonicalization",
   "plan_id": "vfs-canonicalization.v1",
-  "apply_preflight_profile": "book/experiments/hardened-runtime/sb/apply_preflight_allow.sb",
+  "apply_preflight_profile": "book/experiments/runtime-final-final/suites/hardened-runtime/sb/apply_preflight_allow.sb",
   "lanes": {
     "baseline": true,
     "scenario": true,
@@ -73,7 +73,7 @@
   ],
   "profiles": {
     "vfs_tmp_only": {
-      "sbpl": "book/experiments/vfs-canonicalization/sb/vfs_tmp_only.sb",
+      "sbpl": "book/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_tmp_only.sb",
       "ops": [
         "file-read*",
         "file-write*"
@@ -84,7 +84,7 @@
       "path_pairs": "base_pairs"
     },
     "vfs_private_tmp_only": {
-      "sbpl": "book/experiments/vfs-canonicalization/sb/vfs_private_tmp_only.sb",
+      "sbpl": "book/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_private_tmp_only.sb",
       "ops": [
         "file-read*",
         "file-write*"
@@ -95,7 +95,7 @@
       "path_pairs": "base_pairs"
     },
     "vfs_both_paths": {
-      "sbpl": "book/experiments/vfs-canonicalization/sb/vfs_both_paths.sb",
+      "sbpl": "book/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_both_paths.sb",
       "ops": [
         "file-read*",
         "file-write*"
@@ -106,7 +106,7 @@
       "path_pairs": "base_pairs"
     },
     "vfs_var_tmp_alias_only": {
-      "sbpl": "book/experiments/vfs-canonicalization/sb/vfs_var_tmp_alias_only.sb",
+      "sbpl": "book/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_var_tmp_alias_only.sb",
       "ops": [
         "file-read*",
         "file-write*"
@@ -119,7 +119,7 @@
       ]
     },
     "vfs_var_tmp_private_only": {
-      "sbpl": "book/experiments/vfs-canonicalization/sb/vfs_var_tmp_private_only.sb",
+      "sbpl": "book/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_var_tmp_private_only.sb",
       "ops": [
         "file-read*",
         "file-write*"
@@ -132,7 +132,7 @@
       ]
     },
     "vfs_var_tmp_both": {
-      "sbpl": "book/experiments/vfs-canonicalization/sb/vfs_var_tmp_both.sb",
+      "sbpl": "book/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_var_tmp_both.sb",
       "ops": [
         "file-read*",
         "file-write*"
@@ -146,7 +146,7 @@
       ]
     },
     "vfs_var_tmp_data_only": {
-      "sbpl": "book/experiments/vfs-canonicalization/sb/vfs_var_tmp_data_only.sb",
+      "sbpl": "book/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_var_tmp_data_only.sb",
       "ops": [
         "file-read*",
         "file-write*"
@@ -159,7 +159,7 @@
       ]
     },
     "vfs_etc_alias_only": {
-      "sbpl": "book/experiments/vfs-canonicalization/sb/vfs_etc_alias_only.sb",
+      "sbpl": "book/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_etc_alias_only.sb",
       "ops": [
         "file-read*"
       ],
@@ -171,7 +171,7 @@
       ]
     },
     "vfs_etc_private_only": {
-      "sbpl": "book/experiments/vfs-canonicalization/sb/vfs_etc_private_only.sb",
+      "sbpl": "book/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_etc_private_only.sb",
       "ops": [
         "file-read*"
       ],
@@ -183,7 +183,7 @@
       ]
     },
     "vfs_etc_both": {
-      "sbpl": "book/experiments/vfs-canonicalization/sb/vfs_etc_both.sb",
+      "sbpl": "book/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_etc_both.sb",
       "ops": [
         "file-read*"
       ],
@@ -196,7 +196,7 @@
       ]
     },
     "vfs_firmlink_private_only": {
-      "sbpl": "book/experiments/vfs-canonicalization/sb/vfs_firmlink_private_only.sb",
+      "sbpl": "book/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_firmlink_private_only.sb",
       "ops": [
         "file-read*",
         "file-write*"
@@ -209,7 +209,7 @@
       ]
     },
     "vfs_firmlink_data_only": {
-      "sbpl": "book/experiments/vfs-canonicalization/sb/vfs_firmlink_data_only.sb",
+      "sbpl": "book/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_firmlink_data_only.sb",
       "ops": [
         "file-read*",
         "file-write*"
@@ -222,7 +222,7 @@
       ]
     },
     "vfs_firmlink_both": {
-      "sbpl": "book/experiments/vfs-canonicalization/sb/vfs_firmlink_both.sb",
+      "sbpl": "book/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_firmlink_both.sb",
       "ops": [
         "file-read*",
         "file-write*"
@@ -236,7 +236,7 @@
       ]
     },
     "vfs_link_var_tmp_only": {
-      "sbpl": "book/experiments/vfs-canonicalization/sb/vfs_link_var_tmp_only.sb",
+      "sbpl": "book/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_link_var_tmp_only.sb",
       "ops": [
         "file-read*",
         "file-write*"
@@ -249,7 +249,7 @@
       ]
     },
     "vfs_link_private_tmp_only": {
-      "sbpl": "book/experiments/vfs-canonicalization/sb/vfs_link_private_tmp_only.sb",
+      "sbpl": "book/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_link_private_tmp_only.sb",
       "ops": [
         "file-read*",
         "file-write*"
@@ -262,7 +262,7 @@
       ]
     },
     "vfs_link_both": {
-      "sbpl": "book/experiments/vfs-canonicalization/sb/vfs_link_both.sb",
+      "sbpl": "book/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_link_both.sb",
       "ops": [
         "file-read*",
         "file-write*"

@@ -5,7 +5,7 @@
   "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
   "registry_id": "metadata-runner",
   "plan_id": "metadata-runner.v1",
-  "apply_preflight_profile": "book/experiments/hardened-runtime/sb/apply_preflight_allow.sb",
+  "apply_preflight_profile": "book/experiments/runtime-final-final/suites/hardened-runtime/sb/apply_preflight_allow.sb",
   "lanes": {
     "baseline": true,
     "scenario": true,
@@ -79,50 +79,50 @@
   ],
   "profiles": {
     "literal_alias_only": {
-      "sbpl": "book/experiments/metadata-runner/sb/metadata_alias_only.sb",
+      "sbpl": "book/experiments/runtime-final-final/suites/metadata-runner/sb/metadata_alias_only.sb",
       "allowed_sets": []
     },
     "literal_canonical_only": {
-      "sbpl": "book/experiments/metadata-runner/sb/metadata_canonical_only.sb",
+      "sbpl": "book/experiments/runtime-final-final/suites/metadata-runner/sb/metadata_canonical_only.sb",
       "allowed_sets": [
         "canonical"
       ]
     },
     "literal_both_paths": {
-      "sbpl": "book/experiments/metadata-runner/sb/metadata_both_paths.sb",
+      "sbpl": "book/experiments/runtime-final-final/suites/metadata-runner/sb/metadata_both_paths.sb",
       "allowed_sets": [
         "canonical"
       ]
     },
     "subpath_alias_only": {
-      "sbpl": "book/experiments/metadata-runner/sb/metadata_subpath_alias_only.sb",
+      "sbpl": "book/experiments/runtime-final-final/suites/metadata-runner/sb/metadata_subpath_alias_only.sb",
       "allowed_sets": []
     },
     "subpath_canonical_only": {
-      "sbpl": "book/experiments/metadata-runner/sb/metadata_subpath_canonical_only.sb",
+      "sbpl": "book/experiments/runtime-final-final/suites/metadata-runner/sb/metadata_subpath_canonical_only.sb",
       "allowed_sets": [
         "canonical"
       ]
     },
     "subpath_both_paths": {
-      "sbpl": "book/experiments/metadata-runner/sb/metadata_subpath_both_paths.sb",
+      "sbpl": "book/experiments/runtime-final-final/suites/metadata-runner/sb/metadata_subpath_both_paths.sb",
       "allowed_sets": [
         "canonical",
         "alias_tmp"
       ]
     },
     "regex_alias_only": {
-      "sbpl": "book/experiments/metadata-runner/sb/metadata_regex_alias_only.sb",
+      "sbpl": "book/experiments/runtime-final-final/suites/metadata-runner/sb/metadata_regex_alias_only.sb",
       "allowed_sets": []
     },
     "regex_canonical_only": {
-      "sbpl": "book/experiments/metadata-runner/sb/metadata_regex_canonical_only.sb",
+      "sbpl": "book/experiments/runtime-final-final/suites/metadata-runner/sb/metadata_regex_canonical_only.sb",
       "allowed_sets": [
         "canonical"
       ]
     },
     "regex_both_paths": {
-      "sbpl": "book/experiments/metadata-runner/sb/metadata_regex_both_paths.sb",
+      "sbpl": "book/experiments/runtime-final-final/suites/metadata-runner/sb/metadata_regex_both_paths.sb",
       "allowed_sets": [
         "canonical",
         "alias_tmp"

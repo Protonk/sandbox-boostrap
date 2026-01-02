@@ -7,7 +7,7 @@ from book.integration.tests.runtime.runtime_bundle_helpers import load_bundle_js
 
 
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))
-BASE_DIR = REPO_ROOT / "book" / "experiments" / "hardened-runtime"
+BASE_DIR = REPO_ROOT / "book" / "experiments" / "runtime-final-final" / "suites" / "hardened-runtime"
 OUT_DIR = BASE_DIR / "out"
 
 EXPECTED_PROFILES = {

@@ -73,7 +73,7 @@ For this host, the decoded structure of `sys:airlock`, `sys:bsd`, and `sys:sampl
 
 - System SBPL (`/System/Library/Sandbox/Profiles/*.sb`) is compiled and extracted to `.sb.bin` blobs, then decoded into digests and static checks.  
 - The [system-profile-digest experiment](book/experiments/system-profile-digest) owns the decoding and normalization step into `system_profiles/digests.json`.  
-- Runtime-facing experiments ([runtime-checks](book/experiments/runtime-checks) and [sbpl-graph-runtime](book/experiments/sbpl-graph-runtime)) exercise related profiles (recompiled `bsd`, golden microprofiles, selected synthetic bucket profiles) through the SBPL wrapper and compare observed allow/deny behaviour with expectations derived from decoded graphs.  
+- Runtime-facing experiments ([runtime-checks](book/experiments/runtime-final-final/suites/runtime-checks) and [sbpl-graph-runtime](book/experiments/runtime-final-final/suites/sbpl-graph-runtime)) exercise related profiles (recompiled `bsd`, golden microprofiles, selected synthetic bucket profiles) through the SBPL wrapper and compare observed allow/deny behaviour with expectations derived from decoded graphs.  
 
 On this host, platform blobs are apply-gated, but the agreement between decoded structure and runtime outcomes for the golden set indicates that the static IR matches the policies the kernel enforces where the harness can run.
 

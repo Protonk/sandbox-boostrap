@@ -28,7 +28,7 @@ from book.graph.concepts.validation import registry
 from book.graph.concepts.validation.registry import ValidationJob
 
 ROOT = find_repo_root(Path(__file__))
-WITNESS_ROOT = ROOT / "book/experiments/gate-witnesses/out/witnesses"
+WITNESS_ROOT = ROOT / "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses"
 OUT_DIR = ROOT / "book/graph/concepts/validation/out/experiments/gate-witnesses"
 STATUS_PATH = OUT_DIR / "status.json"
 RESULTS_PATH = OUT_DIR / "witness_results.json"

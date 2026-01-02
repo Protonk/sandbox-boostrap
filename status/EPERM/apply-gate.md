@@ -86,7 +86,7 @@ Early on, multiple harnesses and tools surfaced `EPERM` in different places, and
 
 The first recurring apply-stage failure was observed when trying to apply canonical system blobs via `sandbox_apply`, especially `sys:airlock`. This was recorded early in [`troubles/EPERM_chasing.md`](../../troubles/EPERM_chasing.md) and expanded in [`troubles/profile_blobs.md`](../../troubles/profile_blobs.md).
 
-Custom/synthetic blobs applied cleanly while some system profiles (notably `airlock`) failed to apply with `EPERM`, which quickly became a practical blocker for runtime harness work (notably the `runtime-checks` corpus trying to treat canonical `sys:*` blobs as runnable probes on this world). See [`book/experiments/runtime-checks/Report.md`](../../book/experiments/runtime-checks/Report.md) for the “blocked by apply-stage EPERM” framing in that experiment’s own vocabulary.
+Custom/synthetic blobs applied cleanly while some system profiles (notably `airlock`) failed to apply with `EPERM`, which quickly became a practical blocker for runtime harness work (notably the `runtime-checks` corpus trying to treat canonical `sys:*` blobs as runnable probes on this world). See [`book/experiments/runtime-final-final/suites/runtime-checks/Report.md`](../../book/experiments/runtime-final-final/suites/runtime-checks/Report.md) for the “blocked by apply-stage EPERM” framing in that experiment’s own vocabulary.
 
 At this point, our framing was still narrow (“platform/system profiles are gated”) and confounded by three factors we later had to eliminate: uncertainty about whether we were even calling the right apply API, structural observations about blob headers (e.g., `maybe_flags=0x4000` on `airlock`), and a plausible but unproven provenance/credential gate story.
 
@@ -103,7 +103,7 @@ The outcome is that “apply gate” became an explicit, regression-testable pre
 
 This example is taken from a minimizer run (`preflight minimize-gate`) that recorded both the raw stderr marker stream and the normalized outcome.
 
-Raw stderr excerpt (from `book/experiments/gate-witnesses/out/witnesses/airlock/run.json`, `minimal_failing_outcome.raw_stderr`):
+Raw stderr excerpt (from `book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/run.json`, `minimal_failing_outcome.raw_stderr`):
 
 ```text
 sandbox initialization failed: Operation not permitted
@@ -142,9 +142,9 @@ This is now surfaced as `preflight minimize-gate`:
 
 - Tool: [`book/tools/preflight/preflight.py`](../../book/tools/preflight/preflight.py) (`minimize-gate`)
 - Implementation: [`book/tools/preflight/gate_minimizer.py`](../../book/tools/preflight/gate_minimizer.py)
-- Experiment + checked-in witness pairs: [`book/experiments/gate-witnesses/`](../../book/experiments/gate-witnesses/)
+- Experiment + checked-in witness pairs: [`book/experiments/runtime-final-final/suites/gate-witnesses/`](../../book/experiments/runtime-final-final/suites/gate-witnesses/)
 
-The current witness corpus is described in [`book/experiments/gate-witnesses/Report.md`](../../book/experiments/gate-witnesses/Report.md) and is enforced by validation outputs in:
+The current witness corpus is described in [`book/experiments/runtime-final-final/suites/gate-witnesses/Report.md`](../../book/experiments/runtime-final-final/suites/gate-witnesses/Report.md) and is enforced by validation outputs in:
 
 - [`book/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json`](../../book/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json)
 - Forensics directory with compiled blobs + unified-log capture: [`book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/`](../../book/graph/concepts/validation/out/experiments/gate-witnesses/forensics)
@@ -157,7 +157,7 @@ Notation used below:
 Path stems used below (to keep this report readable without losing auditability):
 
 - `R = book/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json`
-- `W = book/experiments/gate-witnesses/out/witnesses/<id>/`
+- `W = book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/<id>/`
 - `F = book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/<id>/`
 
 #### Witness Summary Table (validated)
@@ -176,7 +176,7 @@ Field source conventions (so every cell is checkable by linear reading):
 | `airlock` | `/System/Library/Sandbox/Profiles/airlock.sb` | `W/airlock/minimal_failing.sb` | `W/airlock/passing_neighbor.sb` | 0 | 1 | yes (mf) / no (pn): `F/airlock/log_show_primary.*.txt` | yes (`present:false`) |
 | `blastdoor` | `/System/Library/Sandbox/Profiles/blastdoor.sb` | `W/blastdoor/minimal_failing.sb` | `W/blastdoor/passing_neighbor.sb` | 0 | 1 | yes (mf) / no (pn): `F/blastdoor/log_show_primary.*.txt` | yes (`present:false`) |
 | `com.apple.CoreGraphics.CGPDFService` | `/System/Library/Sandbox/Profiles/com.apple.CoreGraphics.CGPDFService.sb` | `W/com.apple.CoreGraphics.CGPDFService/minimal_failing.sb` | `W/com.apple.CoreGraphics.CGPDFService/passing_neighbor.sb` | 0 | 1 | yes (mf) / no (pn): `F/com.apple.CoreGraphics.CGPDFService/log_show_primary.*.txt` | yes (`present:false`) |
-| `mach_bootstrap_deny_message_send` | `book/experiments/gate-witnesses/out/micro_variants/base_v2_mach_bootstrap_deny_message_send.sb` | `W/mach_bootstrap_deny_message_send/minimal_failing.sb` | `W/mach_bootstrap_deny_message_send/passing_neighbor.sb` | 0 | 1 | yes (mf) / no (pn): `F/mach_bootstrap_deny_message_send/log_show_primary.*.txt` | yes (`present:false`) |
+| `mach_bootstrap_deny_message_send` | `book/experiments/runtime-final-final/suites/gate-witnesses/out/micro_variants/base_v2_mach_bootstrap_deny_message_send.sb` | `W/mach_bootstrap_deny_message_send/minimal_failing.sb` | `W/mach_bootstrap_deny_message_send/passing_neighbor.sb` | 0 | 1 | yes (mf) / no (pn): `F/mach_bootstrap_deny_message_send/log_show_primary.*.txt` | yes (`present:false`) |
 
 #### End-to-end witness example
 
@@ -261,7 +261,7 @@ com.apple.CoreGraphics.CGPDFService:
 
 To scope whether this gate was IOKit-specific vs message-filtering-gated more generally, we also built and minimized a non-IOKit witness that triggers the same apply-stage EPERM boundary under the same harness identity.
 
-Concrete excerpt (from `book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/minimal_failing.sb`):
+Concrete excerpt (from `book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/minimal_failing.sb`):
 
 ```lisp
 (allow mach-bootstrap (apply-message-filter (deny mach-message-send)))
@@ -269,7 +269,7 @@ Concrete excerpt (from `book/experiments/gate-witnesses/out/witnesses/mach_boots
 
 #### Micro-variants: “deny-style” vs “allow-style” message filtering
 
-The gate-witnesses micro-variant matrix (`book/experiments/gate-witnesses/out/compile_vs_apply.json`) records a small set of one-edit variants with explicit compile and blob-apply results.
+The gate-witnesses micro-variant matrix (`book/experiments/runtime-final-final/suites/gate-witnesses/out/compile_vs_apply.json`) records a small set of one-edit variants with explicit compile and blob-apply results.
 
 The table below is a derived view that turns those JSON records into a readable contrast. “Filter shape” is an SBPL-shape label (“does the `apply-message-filter` payload contain a `deny` form?”), not a semantic claim.
 
@@ -291,13 +291,13 @@ This is sufficient to support the narrow statement “`apply-message-filter` pre
 <details>
 <summary>Raw micro-variant records (excerpt)</summary>
 
-Source: `book/experiments/gate-witnesses/out/compile_vs_apply.json` (see `micro_variants[]`).
+Source: `book/experiments/runtime-final-final/suites/gate-witnesses/out/compile_vs_apply.json` (see `micro_variants[]`).
 
 ```json
 [
   {
     "id": "base_v2_inner_deny_external_trap",
-    "sbpl": "book/experiments/gate-witnesses/out/micro_variants/base_v2_inner_deny_external_trap.sb",
+    "sbpl": "book/experiments/runtime-final-final/suites/gate-witnesses/out/micro_variants/base_v2_inner_deny_external_trap.sb",
     "apply_blob": {
       "report": {
         "failure_stage": "apply",
@@ -308,7 +308,7 @@ Source: `book/experiments/gate-witnesses/out/compile_vs_apply.json` (see `micro_
   },
   {
     "id": "base_v2_mach_bootstrap_deny_message_send",
-    "sbpl": "book/experiments/gate-witnesses/out/micro_variants/base_v2_mach_bootstrap_deny_message_send.sb",
+    "sbpl": "book/experiments/runtime-final-final/suites/gate-witnesses/out/micro_variants/base_v2_mach_bootstrap_deny_message_send.sb",
     "apply_blob": {
       "report": {
         "failure_stage": "apply",
@@ -319,7 +319,7 @@ Source: `book/experiments/gate-witnesses/out/compile_vs_apply.json` (see `micro_
   },
   {
     "id": "base_v2_mach_bootstrap_allow_only_with_file_write",
-    "sbpl": "book/experiments/gate-witnesses/out/micro_variants/base_v2_mach_bootstrap_allow_only_with_file_write.sb",
+    "sbpl": "book/experiments/runtime-final-final/suites/gate-witnesses/out/micro_variants/base_v2_mach_bootstrap_allow_only_with_file_write.sb",
     "apply_blob": {
       "report": {
         "failure_stage": "bootstrap",
@@ -330,7 +330,7 @@ Source: `book/experiments/gate-witnesses/out/compile_vs_apply.json` (see `micro_
   },
   {
     "id": "base_v1_inner_allow_external_method",
-    "sbpl": "book/experiments/gate-witnesses/out/micro_variants/base_v1_inner_allow_external_method.sb",
+    "sbpl": "book/experiments/runtime-final-final/suites/gate-witnesses/out/micro_variants/base_v1_inner_allow_external_method.sb",
     "apply_blob": {
       "report": {
         "failure_stage": "bootstrap",
@@ -417,8 +417,8 @@ We intentionally do **not** upgrade this to bedrock: we have not (and may not be
 
 Static corroboration exists but remains explicitly weaker than the log trace:
 
-- codesign “presence” scan for the entitlement key on a small set of system executables: [`book/experiments/gate-witnesses/out/entitlements_scan.json`](../../book/experiments/gate-witnesses/out/entitlements_scan.json) (mapped; presence is not causality)
-- kernel string presence + xrefs for related strings (brittle/partial, but helps locate likely call sites): [`book/experiments/gate-witnesses/out/message_filter_xrefs.json`](../../book/experiments/gate-witnesses/out/message_filter_xrefs.json)
+- codesign “presence” scan for the entitlement key on a small set of system executables: [`book/experiments/runtime-final-final/suites/gate-witnesses/out/entitlements_scan.json`](../../book/experiments/runtime-final-final/suites/gate-witnesses/out/entitlements_scan.json) (mapped; presence is not causality)
+- kernel string presence + xrefs for related strings (brittle/partial, but helps locate likely call sites): [`book/experiments/runtime-final-final/suites/gate-witnesses/out/message_filter_xrefs.json`](../../book/experiments/runtime-final-final/suites/gate-witnesses/out/message_filter_xrefs.json)
 
 <details>
 <summary>Receipt: code paths that emit the entitlement + apply markers</summary>
@@ -533,9 +533,9 @@ This is the operational safety win: the default path produces a “blocked at pr
 
 To extend preflight beyond `.sb` (where structural scanning is possible) to `.sb.bin`, we built a digest corpus of compiled blobs confirmed to be apply-gated on this world:
 
-- Experiment: [`book/experiments/preflight-blob-digests/`](../../book/experiments/preflight-blob-digests/)
+- Experiment: [`book/experiments/runtime-final-final/suites/preflight-blob-digests/`](../../book/experiments/runtime-final-final/suites/preflight-blob-digests/)
 - Validation IR consumed by the preflight tool: [`book/graph/concepts/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json`](../../book/graph/concepts/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json)
-- Human-facing digest list (experiment output): [`book/experiments/preflight-blob-digests/out/apply_gate_blob_digests.json`](../../book/experiments/preflight-blob-digests/out/apply_gate_blob_digests.json)
+- Human-facing digest list (experiment output): [`book/experiments/runtime-final-final/suites/preflight-blob-digests/out/apply_gate_blob_digests.json`](../../book/experiments/runtime-final-final/suites/preflight-blob-digests/out/apply_gate_blob_digests.json)
 
 This is intentionally an avoidance mechanism, not a semantic classifier. It is robust because it does not guess: it only matches exact digests that are already witnessed.
 
@@ -597,7 +597,7 @@ This resolution is enforced in three places:
 **What remains intentionally not closed (still unknown / not upgraded to bedrock)**
 
 - We do not have a positive-control demonstration that adding the entitlement to the harness identity makes the same profiles apply successfully (this may be infeasible on this host baseline).
-- We have not promoted a general structural classifier for `.sb.bin` beyond exact digest match; “structural signal listening” remains explicitly partial/brittle in [`book/experiments/preflight-blob-digests/Report.md`](../../book/experiments/preflight-blob-digests/Report.md).
+- We have not promoted a general structural classifier for `.sb.bin` beyond exact digest match; “structural signal listening” remains explicitly partial/brittle in [`book/experiments/runtime-final-final/suites/preflight-blob-digests/Report.md`](../../book/experiments/runtime-final-final/suites/preflight-blob-digests/Report.md).
 - We have not fully localized the kernel-side enforcement logic beyond xref-level static hints; the runtime claim is grounded in the log trace + entitlement markers, not in a blessed “this is the one validator” reverse-engineering result.
 
 ## Pointers
@@ -617,11 +617,11 @@ This resolution is enforced in three places:
 ### Experiments that produced the current understanding
 
 - Witness corpus + cause tightening:
-  - [`book/experiments/gate-witnesses/Report.md`](../../book/experiments/gate-witnesses/Report.md)
+  - [`book/experiments/runtime-final-final/suites/gate-witnesses/Report.md`](../../book/experiments/runtime-final-final/suites/gate-witnesses/Report.md)
   - Validation output: [`book/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json`](../../book/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json)
   - Forensics (compiled blobs + unified logs): [`book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/`](../../book/graph/concepts/validation/out/experiments/gate-witnesses/forensics)
 - `.sb.bin` digest-based avoidance:
-  - [`book/experiments/preflight-blob-digests/Report.md`](../../book/experiments/preflight-blob-digests/Report.md)
+  - [`book/experiments/runtime-final-final/suites/preflight-blob-digests/Report.md`](../../book/experiments/runtime-final-final/suites/preflight-blob-digests/Report.md)
   - Validation IR: [`book/graph/concepts/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json`](../../book/graph/concepts/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json)
 - Repo-wide enterability manifest:
   - [`book/experiments/archive/preflight-index/Report.md`](../../book/experiments/archive/preflight-index/Report.md)

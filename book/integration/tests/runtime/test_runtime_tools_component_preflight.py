@@ -17,7 +17,7 @@ def test_runtime_preflight_blocks_known_apply_gate_signature(tmp_path, monkeypat
     monkeypatch.setenv("SANDBOX_LORE_PREFLIGHT", "1")
     monkeypatch.delenv("SANDBOX_LORE_PREFLIGHT_FORCE", raising=False)
 
-    witness = Path("book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/minimal_failing.sb")
+    witness = Path("book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/minimal_failing.sb")
     assert witness.exists(), "gate-witness SBPL fixture missing"
 
     matrix = {
@@ -98,7 +98,7 @@ def test_runtime_profile_can_force_apply_even_when_preflight_flags_signature(tmp
     monkeypatch.setenv("SANDBOX_LORE_PREFLIGHT", "1")
     monkeypatch.delenv("SANDBOX_LORE_PREFLIGHT_FORCE", raising=False)
 
-    witness = Path("book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/minimal_failing.sb")
+    witness = Path("book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/minimal_failing.sb")
     assert witness.exists(), "gate-witness SBPL fixture missing"
 
     calls = {"count": 0}

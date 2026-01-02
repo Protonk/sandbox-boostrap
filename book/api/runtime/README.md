@@ -28,31 +28,31 @@ Reference contract/spec: `book/api/runtime/SPEC.md`.
 python -m book.api.runtime list-templates
 python -m book.api.runtime plan-build \
   --template hardened-runtime \
-  --out book/experiments/hardened-runtime \
+  --out book/experiments/runtime-final-final/suites/hardened-runtime \
   --overwrite
 # Use --write-expected-matrix only when you need a static snapshot; runtime runs
 # always emit run-scoped expected_matrix.json bundles.
 
 # 2) Lint the data contract (no execution).
-python -m book.api.runtime plan-lint --plan book/experiments/hardened-runtime/plan.json
+python -m book.api.runtime plan-lint --plan book/experiments/runtime-final-final/suites/hardened-runtime/plan.json
 python -m book.api.runtime registry-lint --registry hardened-runtime
 
 # 3) Run via the clean channel (decision-stage lane).
 python -m book.api.runtime run \
-  --plan book/experiments/hardened-runtime/plan.json \
+  --plan book/experiments/runtime-final-final/suites/hardened-runtime/plan.json \
   --channel launchd_clean \
-  --out book/experiments/hardened-runtime/out
+  --out book/experiments/runtime-final-final/suites/hardened-runtime/out
 
 # 4) Validate and emit a promotion packet.
-python -m book.api.runtime validate-bundle --bundle book/experiments/hardened-runtime/out
+python -m book.api.runtime validate-bundle --bundle book/experiments/runtime-final-final/suites/hardened-runtime/out
 python -m book.api.runtime emit-promotion \
-  --bundle book/experiments/hardened-runtime/out \
-  --out book/experiments/hardened-runtime/out/promotion_packet.json \
+  --bundle book/experiments/runtime-final-final/suites/hardened-runtime/out \
+  --out book/experiments/runtime-final-final/suites/hardened-runtime/out/promotion_packet.json \
   --require-promotable
 
 # 5) Promote into runtime mappings (outside runtime; consumes packets).
 python book/graph/mappings/runtime/promote_from_packets.py \
-  --packets book/experiments/hardened-runtime/out/promotion_packet.json \
+  --packets book/experiments/runtime-final-final/suites/hardened-runtime/out/promotion_packet.json \
   --out book/graph/mappings/runtime
 ```
 
@@ -60,7 +60,7 @@ Optional summary step:
 
 ```sh
 python -m book.api.runtime summarize-ops \
-  --bundle book/experiments/runtime-adversarial/out \
+  --bundle book/experiments/runtime-final-final/suites/runtime-adversarial/out \
   --out book/graph/mappings/runtime/op_runtime_summary.json
 ```
 

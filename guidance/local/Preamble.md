@@ -1,13 +1,16 @@
 >This document is a compressed context bundle, not a router or API manual. It exists to keep you inside the repo's world model, evidence tiers, and toolchain without over-claiming.
 
-SANDBOX_LORE is a host-bound, local-only universe for the macOS Seatbelt sandbox. The repo now holds multiple world baselines under `book/world/`, but the published mappings and CARTON are pinned to the Sonoma 14.4.1 baseline with `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (`book/world/sonoma-14.4.1-23E224-arm64/world.json`). The substrate under `book/substrate/` defines the allowed vocabulary; validation IR, mappings, and CARTON record host-specific evidence with explicit evidence tiering (`bedrock|mapped|hypothesis`) and optional per-artifact `status` signals.
+SANDBOX_LORE is a host-bound, local-only universe for the macOS Seatbelt sandbox. The repo holds multiple worlds under `book/world/`, but the published mappings and CARTON are pinned to the Sonoma 14.4.1 baseline with `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (`book/world/sonoma-14.4.1-23E224-arm64/world.json`). The substrate under `book/substrate/` defines the allowed vocabulary; validation IR, mappings, and CARTON record host-specific evidence with explicit evidence tiering (`bedrock|mapped|hypothesis`) and optional per-artifact `status` signals.
 
 # Invariants (non-negotiable)
 
 - **World scoping**: every emitted artifact (validation IR, mappings, CARTON) is keyed to exactly one `world_id`. A mismatch means you are mixing worlds or pointing at the wrong baseline; stop and fix world selection. Only mint a new `world_id` by following the rebaseline process in `book/world/README.md`.
-- **Vocabulary**: operation and filter names come only from `book/graph/mappings/vocab/ops.json` and `book/graph/mappings/vocab/filters.json`. Unknowns stay unknown; do not name ops/filters by guesswork.
+- **Vocabulary**: use project terms from `book/graph/concepts/concept_map.json` and the substrate; operation and filter names come only from `book/graph/mappings/vocab/ops.json` and `book/graph/mappings/vocab/filters.json`. Unknowns stay unknown; do not name ops/filters by guesswork.
 - **Evidence tiering**: every claim names a tier: `bedrock`, `mapped`, or `hypothesis`. Bedrock surfaces are declared in `book/graph/concepts/BEDROCK_SURFACES.json`; do not upgrade mapped/hypothesis to bedrock. Many artifacts also carry a `status` field (`ok|partial|brittle|blocked`) as an operational health/detail signal; it is not a substitute for tier.
 - **Apply-stage gating**: apply-stage `EPERM` is **hypothesis** evidence, not policy semantics. Preflight before runtime probes that could hit known gates (see `book/tools/preflight/README.md`).
+- **Baseline safety**: never weaken the baseline (no disabling SIP, TCC, or hardened runtime).
+- **Restricted sources**: do not copy from `book/dumps/ghidra/private/aapl-restricted/`.
+- **Failure honesty**: do not hide harness/decoder/apply failures; treat them as first-class evidence.
 - **Runtime labeling**: runtime statements must include both a `stage` (`compile|apply|bootstrap|operation`) and a `lane` (`scenario|baseline|oracle`). If you can’t name them, you don’t have a stable claim yet.
 - **Committed runtime evidence only**: treat runtime results as evidence only when sourced from a committed runtime bundle (`artifact_index.json`) or a `promotion_packet.json`. Anything else is debug/unverified and stays `hypothesis`.
 - **Repo-relative evidence paths**: checked-in JSON/IR must not embed absolute paths; emit repo-relative paths using `book.api.path_utils` helpers.
@@ -50,7 +53,7 @@ claim:
 
 - World baselines live in `book/world/*`; `world_id` is derived from the dyld manifest hash (see `book/world/README.md`) and stored in each baseline file.
 - The active baseline is `book/world/sonoma-14.4.1-23E224-arm64/world.json`; generators and tools resolve it via `book/world/registry.json` or `book.api.world` unless explicitly overridden.
-- Baseline overrides (when a tool supports them) are explicit CLI flags; otherwise baseline selection is not automatic.
+- Baseline overrides (when a tool supports them) are explicit CLI flags (for example `--world-id`); otherwise tools default to the baseline world from `book/world/registry.json`.
 
 # Evidence layers and pipeline
 
@@ -94,8 +97,8 @@ Promotion packets are the contract boundary for runtime evidence: `python -m boo
 - **Apply-gate guardrails**: `book/tools/preflight/preflight.py` for scan + minimize-gate.
 - **Apply/probe pair**: `book/tools/sbpl/wrapper/` (wrapper binary) + `book/api/runtime/native/file_probe/file_probe.c` (probe target).
 - **Lifecycle probes**: `book.api.lifecycle` (CLI: `python -m book.api.lifecycle`).
-- **Entitlements witness**: `book.api.entitlementjail` driving `book/tools/entitlement/EntitlementJail.app` (see `book/tools/entitlement/EntitlementJail.md`).
-- **Kernel/symbol work**: `book.api.ghidra` (CLI: `python -m book.api.ghidra.cli`).
+- **App Sandbox + entitlements witness**: `book.api.witness` wrapping `book/tools/witness/PolicyWitness.app` (guide: `book/tools/witness/PolicyWitness.md`).
+- **Kernel/symbol work**: `book.api.ghidra` (CLI: `python -m book.api.ghidra`).
 
 # Minimal routing
 

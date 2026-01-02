@@ -25,8 +25,22 @@ OUT_JSON = REPO_ROOT / "book" / "graph" / "mappings" / "vocab" / "ops_coverage.j
 RUNTIME_COVERAGE = REPO_ROOT / "book" / "graph" / "mappings" / "runtime" / "runtime_coverage.json"
 
 RUNTIME_MATRICES = [
-    REPO_ROOT / "book" / "experiments" / "runtime-checks" / "out" / "expected_matrix.json",
-    REPO_ROOT / "book" / "experiments" / "runtime-adversarial" / "out" / "expected_matrix.json",
+    REPO_ROOT
+    / "book"
+    / "experiments"
+    / "runtime-final-final"
+    / "suites"
+    / "runtime-checks"
+    / "out"
+    / "expected_matrix.json",
+    REPO_ROOT
+    / "book"
+    / "experiments"
+    / "runtime-final-final"
+    / "suites"
+    / "runtime-adversarial"
+    / "out"
+    / "expected_matrix.json",
     REPO_ROOT / "book" / "profiles" / "golden-triple" / "expected_matrix.json",
 ]
 

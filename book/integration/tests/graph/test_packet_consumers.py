@@ -7,7 +7,15 @@ from book.api import path_utils
 from book.api.runtime.analysis import packet_utils
 
 ROOT = path_utils.find_repo_root(Path(__file__))
-PACKET_PATH = ROOT / "book" / "experiments" / "runtime-adversarial" / "out" / "promotion_packet.json"
+PACKET_PATH = (
+    ROOT
+    / "book"
+    / "experiments"
+    / "runtime-final-final"
+    / "evidence"
+    / "packets"
+    / "runtime-adversarial.promotion_packet.json"
+)
 GRAPH_PACKET_EXPORTS = ("runtime_results", "run_manifest", "path_witnesses")
 
 
@@ -23,7 +31,15 @@ def _packet_context(required_exports):
 
 def test_graph_shape_semantics_packet_consumer(tmp_path):
     ctx = _packet_context(GRAPH_PACKET_EXPORTS)
-    script = ROOT / "book" / "experiments" / "graph-shape-vs-semantics" / "summarize_struct_variants.py"
+    script = (
+        ROOT
+        / "book"
+        / "experiments"
+        / "runtime-final-final"
+        / "suites"
+        / "graph-shape-vs-semantics"
+        / "summarize_struct_variants.py"
+    )
     subprocess.check_call(
         [
             sys.executable,
@@ -64,7 +80,7 @@ def test_graph_shape_semantics_packet_consumer(tmp_path):
 def _iter_consumer_files() -> list[Path]:
     roots = [
         ROOT / "book" / "experiments" / "field2-final-final" / "field2-atlas",
-        ROOT / "book" / "experiments" / "graph-shape-vs-semantics",
+        ROOT / "book" / "experiments" / "runtime-final-final" / "suites" / "graph-shape-vs-semantics",
     ]
     files: list[Path] = []
     for root in roots:

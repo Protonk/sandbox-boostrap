@@ -18,15 +18,15 @@ Use the runtime CLI so the committed bundle is the only authority (resolve the l
 
 ```sh
 python -m book.api.runtime run \
-  --plan book/experiments/field2-final-final/anchor-filter-map/plan.json \
+  --plan book/experiments/runtime-final-final/suites/anchor-filter-map/plan.json \
   --channel launchd_clean \
-  --out book/experiments/field2-final-final/anchor-filter-map/out
+  --out book/experiments/runtime-final-final/suites/anchor-filter-map/out
 ```
 
 ## Deliverables / expected outcomes
 - `book/graph/mappings/anchors/anchor_ctx_filter_map.json` as the source of truth for anchor→Filter bindings keyed by `anchor_ctx_id`.
 - `book/graph/mappings/anchors/anchor_filter_map.json` as a deterministic, conservative derived view keyed by literal string with `ctx_ids` backpointers.
-- `book/experiments/field2-final-final/anchor-filter-map/out/anchor_filter_candidates.json` summarizing candidate mappings and evidence.
+- `book/experiments/runtime-final-final/suites/anchor-filter-map/out/anchor_filter_candidates.json` summarizing candidate mappings and evidence.
 - Guardrail coverage in `book/tests/planes/graph/test_mappings_guardrail.py` for at least one high-confidence anchor → filter-ID pair.
 - Notes/Report entries describing ambiguous anchors and how to revisit them.
 
@@ -40,7 +40,7 @@ python -m book.api.runtime run \
     - Result (tier `mapped`; host-scoped): the discriminating matrix is consistent with `com.apple.cfprefsd.agent@global-name` on this host; the literal-keyed compatibility view remains blocked because the same literal is observed in multiple contexts.
     - Provenance:
       - `run_id`: `028d4d91-1c9e-4c2f-95da-7fc89ec3635a`
-      - Promotion packet: `book/experiments/field2-final-final/anchor-filter-map/out/promotion_packet.json`
+      - Promotion packet: `book/experiments/runtime-final-final/evidence/packets/anchor-filter-map.promotion_packet.json`
       - Promotion receipt: `book/graph/mappings/runtime/promotion_receipt.json` (packet `status: used`)
     - Bounded witness summary:
       - Baseline lane: `com.apple.cfprefsd.agent` is observable (`kr=0`), and a bogus name is unregistered (`kr=1102`).
@@ -50,7 +50,7 @@ python -m book.api.runtime run \
     - Result (tier `mapped`; host-scoped): discriminator attempt is recorded (packet/receipt), but baseline lane reports `found=false` in this process context, so no filter-kind lift is justified.
     - Provenance:
       - `run_id`: `bf80e47b-3020-4b13-bfa7-249cfcff8b52`
-      - Promotion packet: `book/experiments/field2-final-final/anchor-filter-map/iokit-class/out/promotion_packet.json`
+      - Promotion packet: `book/experiments/runtime-final-final/evidence/packets/anchor-filter-map.iokit-class.promotion_packet.json`
       - Promotion receipt: `book/graph/mappings/runtime/promotion_receipt.json` (packet `status: used`)
     - Bounded witness summary:
       - Baseline lane: `IOUSBHostInterface` not found (`found=false`), so the discriminator matrix cannot lift the anchor on this host baseline.
@@ -88,7 +88,7 @@ If the anchor map needs to be updated (for example, new probes or improved decod
 - Anchor hits from `book/experiments/field2-final-final/probe-op-structure/out/anchor_hits.json`.
 - Field2 inventory from `book/experiments/field2-final-final/field2-filters/out/field2_inventory.json`.
 - Filter vocabulary from `book/graph/mappings/vocab/filters.json`.
-- Intermediate candidates in `book/experiments/field2-final-final/anchor-filter-map/out/anchor_filter_candidates.json`.
+- Intermediate candidates in `book/experiments/runtime-final-final/suites/anchor-filter-map/out/anchor_filter_candidates.json`.
 - Canonical ctx-indexed mapping in `book/graph/mappings/anchors/anchor_ctx_filter_map.json`.
 - Derived compatibility view in `book/graph/mappings/anchors/anchor_filter_map.json`.
 

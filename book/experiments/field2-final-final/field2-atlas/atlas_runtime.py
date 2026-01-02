@@ -31,47 +31,6 @@ REQUIRED_EXPORTS = ("runtime_events", "baseline_results", "run_manifest", "path_
 RUNTIME_RESULTS_SCHEMA_VERSION = "field2-atlas.runtime_results.v0"
 CONSUMPTION_RECEIPT_SCHEMA_VERSION = "field2-atlas.consumption_receipt.v0"
 
-# For the initial seed slice, pick one canonical runtime signature per field2.
-RUNTIME_CANDIDATES = {
-    0: {"profile_id": "adv:path_edges_private", "probe_name": "allow-tmp", "scenario_id": "adv:path_edges_private:allow-tmp"},
-    1: {
-        "profile_id": "adv:mount_relative_path",
-        "probe_name": "allow-subpath",
-        "scenario_id": "adv:mount_relative_path:allow-subpath",
-    },
-    2: {
-        "profile_id": "adv:xattr",
-        "probe_name": "allow-foo-read",
-        "scenario_id": "adv:xattr:allow-foo-read",
-    },
-    3: {
-        "profile_id": "adv:file_mode",
-        "probe_name": "allow-private",
-        "scenario_id": "adv:file_mode:allow-private",
-    },
-    5: {"profile_id": "adv:mach_simple_allow", "probe_name": "allow-cfprefsd", "scenario_id": "field2-5-mach-global"},
-    6: {
-        "profile_id": "adv:mach_local_regex",
-        "probe_name": "allow-cfprefsd-local",
-        "scenario_id": "adv:mach_local_regex:allow-cfprefsd-local",
-    },
-    7: {"profile_id": "adv:mach_local_literal", "probe_name": "allow-cfprefsd-local", "scenario_id": "field2-7-mach-local"},
-    34: {
-        "profile_id": "hardened:notifications_allow",
-        "probe_name": "allow-darwin",
-        "scenario_id": "hardened:notifications_allow:allow-darwin",
-    },
-    37: {
-        "profile_id": "hardened:sysctl_read_allow",
-        "probe_name": "allow-kern-ostype",
-        "scenario_id": "hardened:sysctl_read_allow:allow-kern-ostype",
-    },
-    2560: {
-        "profile_id": "adv:flow_divert_require_all_tcp",
-        "probe_name": "tcp-loopback",
-        "scenario_id": "field2-2560-flow-divert",
-    },
-}
 
 
 def load_json(path: Path) -> Any:
@@ -238,7 +197,9 @@ def build_runtime_results(
     results = []
     for seed in seeds_doc.get("seeds", []):
         fid = seed["field2"]
-        candidate = RUNTIME_CANDIDATES.get(fid)
+        candidate = seed.get("runtime_candidate")
+        if candidate is not None and not isinstance(candidate, dict):
+            candidate = None
         mapping_status = mapping_status_default
         base_record: Dict[str, Any] = {
             "world_id": seeds_doc.get("world_id"),

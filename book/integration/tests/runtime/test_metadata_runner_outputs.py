@@ -4,7 +4,7 @@ from pathlib import Path
 from book.api import path_utils
 from book.integration.tests.runtime.runtime_bundle_helpers import load_bundle_json
 ROOT = path_utils.find_repo_root(Path(__file__))
-OUT_ROOT = ROOT / "book" / "experiments" / "metadata-runner" / "out"
+OUT_ROOT = ROOT / "book" / "experiments" / "runtime-final-final" / "suites" / "metadata-runner" / "out"
 
 
 def load_results():

@@ -24,8 +24,8 @@ On this host baseline, SANDBOX_LORE has a credible “static atlas” of Seatbel
 
 The tooling reflects that seriousness:
 - Unified “profile byte work” utilities (compile SBPL, ingest/decode blobs, inspect, digest, op-table views).
-- Runtime tooling that insists on structured, stage-aware results (compile/apply/exec/action), rather than letting raw stderr become the “evidence.”
-- Dedicated tools for known hard problems (apply gating preflight + minimization; entitlement/app-sandbox exploration via a sandboxed app harness).
+- Runtime tooling that insists on structured, stage-aware results (`compile|apply|bootstrap|operation`), rather than letting raw stderr become the “evidence.”
+- Dedicated tools for known hard problems (apply gating preflight + minimization; App Sandbox + entitlements exploration via PolicyWitness.app at `book/tools/witness/PolicyWitness.app` + `book.api.witness`).
 
 ## What is still the frontier (where the textbook is not yet zero-knowledge)
 

@@ -18,7 +18,7 @@ Build an anchor-aware structural view of `field2` usage across operations and fi
   - Probe SBPL variants under `book/experiments/field2-final-final/probe-op-structure/sb/` with compiled blobs in `sb/build/`.
   - Canonical system blobs: `book/graph/concepts/validation/fixtures/blobs/{airlock,bsd,sample}.sb.bin`.
 - Decoder backbone: `book/api/profile/decoder/` with canonical layouts from `book/graph/mappings/tag_layouts/tag_layouts.json` (`status: ok`).
-- Runtime slice: `book/experiments/field2-final-final/probe-op-structure/plan.json` and registry data under `registry/`.
+- Runtime slice: `book/experiments/runtime-final-final/suites/field2-probe-op-structure/plan.json` and registry data under `book/experiments/runtime-final-final/suites/field2-probe-op-structure/registry/`.
 
 ## Status
 - Structural evidence: **mapped** (anchor_hits + tag layouts + guardrails).
@@ -63,8 +63,8 @@ Use the “solid” rows for structural anchor→Filter references on this host.
 ## Runtime slice (launchd clean)
 A minimal runtime plan exists to test a few anchors under the shared runtime harness.
 
-- Plan: `book/experiments/field2-final-final/probe-op-structure/plan.json` (registry `probe-op-structure`).
-- Latest run: `book/experiments/field2-final-final/probe-op-structure/out/39f84aa5-86b4-466d-b5d9-f510299bbd0a/` (see `book/experiments/field2-final-final/probe-op-structure/out/LATEST`).
+- Plan: `book/experiments/runtime-final-final/suites/field2-probe-op-structure/plan.json` (registry `probe-op-structure`).
+- Latest run: `book/experiments/runtime-final-final/suites/field2-probe-op-structure/out/39f84aa5-86b4-466d-b5d9-f510299bbd0a/` (see `book/experiments/runtime-final-final/suites/field2-probe-op-structure/out/LATEST`).
 - Outcomes:
   - `file-read* /tmp/foo` allowed.
   - `file-read* /etc/hosts` denied (`open target: Operation not permitted`); unsandboxed path observation reports `/private/etc/hosts`, suggesting a canonicalization mismatch.
@@ -73,19 +73,19 @@ A minimal runtime plan exists to test a few anchors under the shared runtime har
 
 This runtime slice is intentionally narrow and should be treated as hypothesis-level evidence unless additional controls are added.
 
-Additional runtime closure (file-only) lives in `book/experiments/runtime-closure/Report.md`. The file lane run `book/experiments/runtime-closure/out/5a8908d8-d626-4cac-8bdd-0f53c02af8fe/` denies `/etc/hosts` under alias-only, private-only, and both profiles while allowing `/private/etc/hosts` only when explicitly permitted; `/tmp/foo` is denied across all three profiles. `path_witnesses.json` in that run shows baseline `/etc/hosts` -> `/private/etc/hosts` and scenario `F_GETPATH_NOFIRMLINK:/System/Volumes/Data/private/etc/hosts` when `/private/etc/hosts` opens successfully, reinforcing the canonicalization mismatch hypothesis.
+Additional runtime closure (file-only) lives in `book/experiments/runtime-final-final/suites/runtime-closure/Report.md`. The file lane run `book/experiments/runtime-final-final/suites/runtime-closure/out/5a8908d8-d626-4cac-8bdd-0f53c02af8fe/` denies `/etc/hosts` under alias-only, private-only, and both profiles while allowing `/private/etc/hosts` only when explicitly permitted; `/tmp/foo` is denied across all three profiles. `path_witnesses.json` in that run shows baseline `/etc/hosts` -> `/private/etc/hosts` and scenario `F_GETPATH_NOFIRMLINK:/System/Volumes/Data/private/etc/hosts` when `/private/etc/hosts` opens successfully, reinforcing the canonicalization mismatch hypothesis.
 
-The runtime-closure mach lane run `book/experiments/runtime-closure/out/66315539-a0ce-44bf-bff0-07a79f205fea/` confirms `com.apple.cfprefsd.agent` succeeds in baseline and scenario (`kr=0`), while the missing-service control returns `kr=1102` in both lanes, helping separate “missing service” from sandbox denial.
+The runtime-closure mach lane run `book/experiments/runtime-final-final/suites/runtime-closure/out/66315539-a0ce-44bf-bff0-07a79f205fea/` confirms `com.apple.cfprefsd.agent` succeeds in baseline and scenario (`kr=0`), while the missing-service control returns `kr=1102` in both lanes, helping separate “missing service” from sandbox denial.
 
-The runtime-closure IOKit lane run `book/experiments/runtime-closure/out/48086066-bfa2-44bb-877c-62dd1dceca09/` uses the `IOSurfaceRoot` class: baseline `iokit_probe` opens successfully (`open_kr=0`), while the sandboxed probe reports `open_kr=-536870174` with `EPERM`, providing a discriminating IOKit signal that is not yet aligned with the allow expectation.
+The runtime-closure IOKit lane run `book/experiments/runtime-final-final/suites/runtime-closure/out/48086066-bfa2-44bb-877c-62dd1dceca09/` uses the `IOSurfaceRoot` class: baseline `iokit_probe` opens successfully (`open_kr=0`), while the sandboxed probe reports `open_kr=-536870174` with `EPERM`, providing a discriminating IOKit signal that is not yet aligned with the allow expectation.
 Structural anchor scans now include `IOSurfaceRootUserClient` from `v9_iokit_user_client_only`, `v10_iokit_user_client_pair`, and `v11_iokit_user_client_connection`. A literal-pool compression on this host drops leading `IO` prefixes for some IOKit strings, so `anchor_scan.py` treats `IO*` anchors as matches when the stripped literal matches the anchor minus the `IO` prefix. To avoid widening contexts, delta attribution now compares a deny-default control (`v12_iokit_control`) against the v9 IOSurface variant and emits `out/anchor_hits_delta.json`. The anchor generator uses this delta for IOSurfaceRootUserClient, restricting to filter-vocab nodes and excluding the generic `path` filter. As a result, `anchor_filter_map.json` now exposes a single `mount-relative-path` binding for IOSurfaceRootUserClient. The paired `IOHIDParamUserClient` anchor and the `IOAccelerator` co-anchor remain blocked due to mixed contexts and are kept as structural hints only.
-An op-identity tri-matrix under `book/experiments/runtime-closure/out/fae371c2-f2f5-470f-b672-cf0c3e24d6c0/` shows `iokit-open-service`-only and `iokit-open-user-client`-only profiles both deny `IOSurfaceRoot` (`open_kr=-536870174`), while the profile that allows both ops opens successfully but the post-open `IOConnectCallMethod` still fails (`call_kr=-536870206`). The same post-open call fails unsandboxed (`book/api/runtime/native/probes/iokit_probe IOSurfaceRoot`), so the op identity remains ambiguous and the post-open action is not discriminating on this host without a different user-client call or an observer-lane witness.
+An op-identity tri-matrix under `book/experiments/runtime-final-final/suites/runtime-closure/out/fae371c2-f2f5-470f-b672-cf0c3e24d6c0/` shows `iokit-open-service`-only and `iokit-open-user-client`-only profiles both deny `IOSurfaceRoot` (`open_kr=-536870174`), while the profile that allows both ops opens successfully but the post-open `IOConnectCallMethod` still fails (`call_kr=-536870206`). The same post-open call fails unsandboxed (`book/api/runtime/native/probes/iokit_probe IOSurfaceRoot`), so the op identity remains ambiguous and the post-open action is not discriminating on this host without a different user-client call or an observer-lane witness.
 
-The runtime-closure file spelling matrix run `book/experiments/runtime-closure/out/ea704c9c-5102-473a-b942-e24af4136cc8/` shows alias-only rules failing for both `/etc/hosts` and `/tmp/foo`, while private spelling rules allow `/private/...` and `/System/Volumes/Data/private/...` spellings (and `/tmp/foo`) at operation stage. `/etc/hosts` remains denied under the alias spelling even when private and Data spellings are allowed, so the `/etc` anchor is still unresolved. The same run shows `IOSurfaceRootUserClient` rules flipping `IOSurfaceRoot` to allow under the user-client-class profile (`v2_user_client_only`), while adding the `IOAccelerator` connection constraint returns `EPERM` (`v3_connection_user_client`).
+The runtime-closure file spelling matrix run `book/experiments/runtime-final-final/suites/runtime-closure/out/ea704c9c-5102-473a-b942-e24af4136cc8/` shows alias-only rules failing for both `/etc/hosts` and `/tmp/foo`, while private spelling rules allow `/private/...` and `/System/Volumes/Data/private/...` spellings (and `/tmp/foo`) at operation stage. `/etc/hosts` remains denied under the alias spelling even when private and Data spellings are allowed, so the `/etc` anchor is still unresolved. The same run shows `IOSurfaceRootUserClient` rules flipping `IOSurfaceRoot` to allow under the user-client-class profile (`v2_user_client_only`), while adding the `IOAccelerator` connection constraint returns `EPERM` (`v3_connection_user_client`).
 
 ## Evidence & artifacts
 - Structural outputs: `book/experiments/field2-final-final/probe-op-structure/out/{analysis.json,anchor_hits.json,anchor_hits_delta.json,tag_inventory.json,tag_layout_hypotheses.json,tag_bytes.json,literal_scan.json}`.
-- Runtime outputs: `book/experiments/field2-final-final/probe-op-structure/out/39f84aa5-86b4-466d-b5d9-f510299bbd0a/{runtime_results.json,runtime_events.normalized.json,run_manifest.json}`.
+- Runtime outputs: `book/experiments/runtime-final-final/suites/field2-probe-op-structure/out/39f84aa5-86b4-466d-b5d9-f510299bbd0a/{runtime_results.json,runtime_events.normalized.json,run_manifest.json}`.
 - Shared mappings: `book/graph/mappings/tag_layouts/tag_layouts.json`, `book/graph/mappings/anchors/anchor_filter_map.json`.
 
 ## Guardrails
@@ -97,9 +97,9 @@ Run via the runtime CLI and treat the run-scoped bundle as the authority (`out/L
 
 ```sh
 python -m book.api.runtime run \
-  --plan book/experiments/field2-final-final/probe-op-structure/plan.json \
+  --plan book/experiments/runtime-final-final/suites/field2-probe-op-structure/plan.json \
   --channel launchd_clean \
-  --out book/experiments/field2-final-final/probe-op-structure/out
+  --out book/experiments/runtime-final-final/suites/field2-probe-op-structure/out
 ```
 
 ## Structural refresh

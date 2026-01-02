@@ -3,8 +3,8 @@
 ## Context
 
 - Host: Sonoma baseline (see `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world.json)`).
-- Experiment: `book/experiments/sbpl-graph-runtime` (profile `profiles/metafilter_any.sb`).
-- Harness: `sandbox_runner` driven by `book/experiments/runtime-checks/run_probes.py`.
+- Experiment: `book/experiments/runtime-final-final/suites/sbpl-graph-runtime` (profile `profiles/metafilter_any.sb`).
+- Harness: `sandbox_runner` driven by `book/experiments/runtime-final-final/suites/runtime-checks/run_probes.py`.
 - Probes: read `/tmp/foo.txt`, `/tmp/bar.txt` (expected allow), `/tmp/other.txt` (expected deny).
 
 ## Symptom
@@ -54,6 +54,6 @@
 
 ## Pointers
 
-- Profile: `book/experiments/sbpl-graph-runtime/profiles/metafilter_any.sb`
-- Harness: `book/experiments/runtime-checks/run_probes.py`
-- Reader helper: `book/experiments/runtime-checks/sandbox_reader` (non-exec probe path)
+- Profile: `book/experiments/runtime-final-final/suites/sbpl-graph-runtime/profiles/metafilter_any.sb`
+- Harness: `book/experiments/runtime-final-final/suites/runtime-checks/run_probes.py`
+- Reader helper: `book/experiments/runtime-final-final/suites/runtime-checks/sandbox_reader` (non-exec probe path)

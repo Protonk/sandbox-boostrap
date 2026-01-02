@@ -37,8 +37,8 @@ To make this classification mechanically robust (not substring-fragile), the wra
 **Evidence / scope on this world (mapped / hypothesis):**
 - Platform/system apply gates are a recurring constraint in docs and experiments; treat these outcomes as environment evidence, not as “missing profiles” (see [`guidance/Preamble.md`](guidance/Preamble.md) and [`book/tools/sbpl/wrapper/README.md`](book/tools/sbpl/wrapper/README.md)).
 - There are *at least two shapes* of apply-stage EPERM in the repo today:
-  1) **Profile-specific apply gate**: `airlock` fails apply on this host even when recompiled from SBPL (see [`troubles/EPERM_chasing.md`](troubles/EPERM_chasing.md), [`book/experiments/golden-corpus/Report.md`](book/experiments/golden-corpus/Report.md), and runtime-checks notes in [`book/experiments/runtime-checks/Notes.md`](book/experiments/runtime-checks/Notes.md)).
-  2) **Environment/harness apply gate**: some historical runs record `sandbox_init` returning EPERM for *everything* (see “blocked runtime vocab usage” in [`book/graph/concepts/validation/out/vocab/runtime_usage.json`](book/graph/concepts/validation/out/vocab/runtime_usage.json) and the early runtime-checks chronology in [`book/experiments/runtime-checks/Notes.md`](book/experiments/runtime-checks/Notes.md)). It is not yet clear which parts of that story were host State vs harness context drift (see “Drift / inconsistencies” below).
+  1) **Profile-specific apply gate**: `airlock` fails apply on this host even when recompiled from SBPL (see [`troubles/EPERM_chasing.md`](troubles/EPERM_chasing.md), [`book/experiments/golden-corpus/Report.md`](book/experiments/golden-corpus/Report.md), and runtime-checks notes in [`book/experiments/runtime-final-final/suites/runtime-checks/Notes.md`](book/experiments/runtime-final-final/suites/runtime-checks/Notes.md)).
+  2) **Environment/harness apply gate**: some historical runs record `sandbox_init` returning EPERM for *everything* (see “blocked runtime vocab usage” in [`book/graph/concepts/validation/out/vocab/runtime_usage.json`](book/graph/concepts/validation/out/vocab/runtime_usage.json) and the early runtime-checks chronology in [`book/experiments/runtime-final-final/suites/runtime-checks/Notes.md`](book/experiments/runtime-final-final/suites/runtime-checks/Notes.md)). It is not yet clear which parts of that story were host State vs harness context drift (see “Drift / inconsistencies” below).
 
 ### 2) Decision-stage EPERM (“deny decision”) — **mapped**
 
@@ -50,8 +50,8 @@ To make this classification mechanically robust (not substring-fragile), the wra
 
 **Representative sources:**
 - Golden-triple runtime stderr examples: [`book/profiles/golden-triple/runtime_results.json`](book/profiles/golden-triple/runtime_results.json).
-- VFS canonicalization mismatches present as decision-stage `EPERM` (“open target”) even when the SBPL *looks* like it should allow (see [`book/experiments/vfs-canonicalization/Report.md`](book/experiments/vfs-canonicalization/Report.md) and [`book/experiments/runtime-adversarial/Report.md`](book/experiments/runtime-adversarial/Report.md)).
-- Metadata runner explicitly distinguishes apply success (`apply_rc=0`) from syscall EPERMs on alias paths (see [`book/experiments/metadata-runner/EPERM.md`](book/experiments/metadata-runner/EPERM.md)).
+- VFS canonicalization mismatches present as decision-stage `EPERM` (“open target”) even when the SBPL *looks* like it should allow (see [`book/experiments/runtime-final-final/suites/vfs-canonicalization/Report.md`](book/experiments/runtime-final-final/suites/vfs-canonicalization/Report.md) and [`book/experiments/runtime-final-final/suites/runtime-adversarial/Report.md`](book/experiments/runtime-final-final/suites/runtime-adversarial/Report.md)).
+- Metadata runner explicitly distinguishes apply success (`apply_rc=0`) from syscall EPERMs on alias paths (see [`book/experiments/runtime-final-final/suites/metadata-runner/EPERM.md`](book/experiments/runtime-final-final/suites/metadata-runner/EPERM.md)).
 
 ### 3) Harness-layer EPERM (bootstrap/exec failure) — **partial**
 
@@ -97,19 +97,19 @@ These are *classification* repros: the point is to see whether the failure is ap
 
 This repo now has a small, mechanical witness corpus that ties a common apply-stage EPERM to deny-style message filtering, and it includes a direct, host-grounded “why” trace from the unified log.
 
-- **Minimized witnesses (hypothesis, but confirmed)**: `book/experiments/gate-witnesses/` produces regression-checked witness pairs for three system profiles (`airlock`, `blastdoor`, `com.apple.CoreGraphics.CGPDFService`). All three minimize to the same failing SBPL shape:
+- **Minimized witnesses (hypothesis, but confirmed)**: `book/experiments/runtime-final-final/suites/gate-witnesses/` produces regression-checked witness pairs for three system profiles (`airlock`, `blastdoor`, `com.apple.CoreGraphics.CGPDFService`). All three minimize to the same failing SBPL shape:
   - `(allow iokit-open-user-client (apply-message-filter (deny iokit-external-method)))`
-  - Example: [`book/experiments/gate-witnesses/out/witnesses/airlock/minimal_failing.sb`](book/experiments/gate-witnesses/out/witnesses/airlock/minimal_failing.sb)
-  - Confirmation distributions (e.g. `--confirm 10`) are recorded per target in the checked-in `run.json` (example: [`book/experiments/gate-witnesses/out/witnesses/airlock/run.json`](book/experiments/gate-witnesses/out/witnesses/airlock/run.json)).
+  - Example: [`book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/minimal_failing.sb`](book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/minimal_failing.sb)
+  - Confirmation distributions (e.g. `--confirm 10`) are recorded per target in the checked-in `run.json` (example: [`book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/run.json`](book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/run.json)).
   - Status: these are “hypothesis evidence” about runtime semantics (the Profile never attaches), but they are durable boundary objects.
-- **Compile-vs-apply split (partial)**: `book/experiments/gate-witnesses/out/compile_vs_apply.json` shows the failing witnesses compile successfully (via `sandbox_compile_file`) but fail at apply time (`sandbox_apply` returns `EPERM`). On this host, this is evidence that the gate is enforced at apply/attach time, not as a compiler rejection.
+- **Compile-vs-apply split (partial)**: `book/experiments/runtime-final-final/suites/gate-witnesses/out/compile_vs_apply.json` shows the failing witnesses compile successfully (via `sandbox_compile_file`) but fail at apply time (`sandbox_apply` returns `EPERM`). On this host, this is evidence that the gate is enforced at apply/attach time, not as a compiler rejection.
 - **Unified log enforcement trace (partial, high-signal)**: the gate-witnesses validation job captures a kernel log line that directly states the failure reason for the wrapper process:
   - Example: [`book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_primary.minimal_failing.txt`](book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/airlock/log_show_primary.minimal_failing.txt) contains `missing message filter entitlement`.
   - This is host-grounded runtime evidence that the apply-stage EPERM is an entitlement-gated capability, not a generic “sandbox denied operation X” outcome.
-- **Non-IOKit scope witness (hypothesis, confirmed)**: `book/experiments/gate-witnesses/` includes a minimized, confirmed witness pair demonstrating that deny-style message filtering gates outside IOKit as well (under `mach-bootstrap`):
-  - Minimal failing SBPL: [`book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/minimal_failing.sb`](book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/minimal_failing.sb)
-  - Passing neighbor: [`book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/passing_neighbor.sb`](book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/passing_neighbor.sb)
-  - Confirm distribution: [`book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/run.json`](book/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/run.json)
+- **Non-IOKit scope witness (hypothesis, confirmed)**: `book/experiments/runtime-final-final/suites/gate-witnesses/` includes a minimized, confirmed witness pair demonstrating that deny-style message filtering gates outside IOKit as well (under `mach-bootstrap`):
+  - Minimal failing SBPL: [`book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/minimal_failing.sb`](book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/minimal_failing.sb)
+  - Passing neighbor: [`book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/passing_neighbor.sb`](book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/passing_neighbor.sb)
+  - Confirm distribution: [`book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/run.json`](book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send/run.json)
 
 ## Operational guidance (avoid dead-end applies)
 
@@ -141,8 +141,8 @@ These are practical “don’t waste cycles” constraints derived from the curr
 - [`troubles/EPERM_chasing.md`](troubles/EPERM_chasing.md) points at now-stale blob locations (`book/examples/extract_sbs/build/profiles/…`). Canonical system blobs are now referenced as `book/graph/concepts/validation/fixtures/blobs/{airlock,bsd,sample}.sb.bin` in [`book/graph/mappings/system_profiles/digests.json`](book/graph/mappings/system_profiles/digests.json).
 - [`book/tools/sbpl/wrapper/Plan.md`](book/tools/sbpl/wrapper/Plan.md) says blob-mode is TODO, but [`book/tools/sbpl/wrapper/wrapper.c`](book/tools/sbpl/wrapper/wrapper.c) already implements `--blob` via `sandbox_apply`.
 - Runtime-adversarial has internal tension between narrative and artifacts:
-  - The report frames key mismatches as VFS canonicalization, but `out/mismatch_summary.json` contains many entries annotated with `notes: "sandbox_apply: Operation not permitted\n"` (apply-stage failure marker) (see [`book/experiments/runtime-adversarial/Report.md`](book/experiments/runtime-adversarial/Report.md) vs [`book/experiments/runtime-adversarial/out/mismatch_summary.json`](book/experiments/runtime-adversarial/out/mismatch_summary.json)).
-- VFS canonicalization runtime outputs include a note about being captured under a more permissive “Codex harness `--yolo`” environment to clear a prior apply gate (see [`book/experiments/vfs-canonicalization/Notes.md`](book/experiments/vfs-canonicalization/Notes.md) and [`book/experiments/vfs-canonicalization/Report.md`](book/experiments/vfs-canonicalization/Report.md)). This is a reminder that *harness context* can change whether apply succeeds, and should be recorded explicitly whenever it matters.
+  - The report frames key mismatches as VFS canonicalization, but `out/mismatch_summary.json` contains many entries annotated with `notes: "sandbox_apply: Operation not permitted\n"` (apply-stage failure marker) (see [`book/experiments/runtime-final-final/suites/runtime-adversarial/Report.md`](book/experiments/runtime-final-final/suites/runtime-adversarial/Report.md) vs [`book/experiments/runtime-final-final/suites/runtime-adversarial/out/mismatch_summary.json`](book/experiments/runtime-final-final/suites/runtime-adversarial/out/mismatch_summary.json)).
+- VFS canonicalization runtime outputs include a note about being captured under a more permissive “Codex harness `--yolo`” environment to clear a prior apply gate (see [`book/experiments/runtime-final-final/suites/vfs-canonicalization/Notes.md`](book/experiments/runtime-final-final/suites/vfs-canonicalization/Notes.md) and [`book/experiments/runtime-final-final/suites/vfs-canonicalization/Report.md`](book/experiments/runtime-final-final/suites/vfs-canonicalization/Report.md)). This is a reminder that *harness context* can change whether apply succeeds, and should be recorded explicitly whenever it matters.
 
 ## Pointers (where to look next)
 
@@ -151,7 +151,7 @@ These are practical “don’t waste cycles” constraints derived from the curr
 - [`troubles/EPERM_chasing.md`](troubles/EPERM_chasing.md) — initial “system blobs fail apply” writeup (stale paths; narrow framing).
 - [`troubles/profile_blobs.md`](troubles/profile_blobs.md) — broader blob-apply history, wrapper wiring, and header observations (includes hypotheses; treat as partial).
 - [`book/tools/sbpl/wrapper/README.md`](book/tools/sbpl/wrapper/README.md) and [`book/tools/sbpl/wrapper/wrapper.c`](book/tools/sbpl/wrapper/wrapper.c) — the concrete apply surface (`sandbox_init` vs `sandbox_apply`) used by many runtime probes.
-- [`book/experiments/runtime-checks/Notes.md`](book/experiments/runtime-checks/Notes.md) — chronology showing both “global apply gate” and “platform/profile apply gate” episodes.
+- [`book/experiments/runtime-final-final/suites/runtime-checks/Notes.md`](book/experiments/runtime-final-final/suites/runtime-checks/Notes.md) — chronology showing both “global apply gate” and “platform/profile apply gate” episodes.
 
 ### Places apply-stage EPERM is recorded in normalized IR/mappings
 
@@ -161,7 +161,7 @@ These are practical “don’t waste cycles” constraints derived from the curr
 ### Decision-stage EPERM (policy denials) references
 
 - [`book/profiles/golden-triple/runtime_results.json`](book/profiles/golden-triple/runtime_results.json) — runtime triples with `open target: Operation not permitted` stderr.
-- [`book/experiments/metadata-runner/EPERM.md`](book/experiments/metadata-runner/EPERM.md) — explicitly “not an apply gate” EPERMs (syscall-level) and alias-vs-canonical behavior.
+- [`book/experiments/runtime-final-final/suites/metadata-runner/EPERM.md`](book/experiments/runtime-final-final/suites/metadata-runner/EPERM.md) — explicitly “not an apply gate” EPERMs (syscall-level) and alias-vs-canonical behavior.
 
 ## Status
 

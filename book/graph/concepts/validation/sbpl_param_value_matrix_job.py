@@ -28,7 +28,7 @@ from book.graph.concepts.validation.registry import ValidationJob
 ROOT = find_repo_root(Path(__file__))
 WORLD_ID = "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
 
-SBPL_PATH = ROOT / "book/experiments/sbpl-graph-runtime/profiles/param_write_gate.sb"
+SBPL_PATH = ROOT / "book/experiments/runtime-final-final/suites/sbpl-graph-runtime/profiles/param_write_gate.sb"
 STATUS_PATH = ROOT / "book/graph/concepts/validation/out/sbpl_param_value_matrix/status.json"
 
 PARAM_KEY = "ALLOW_DOWNLOADS"

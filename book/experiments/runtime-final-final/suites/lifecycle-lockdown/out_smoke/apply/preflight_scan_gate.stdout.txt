@@ -1,0 +1,26 @@
+[
+  {
+    "classification": "likely_apply_gated_for_harness_identity",
+    "findings": [
+      {
+        "denied_operation": "iokit-external-method",
+        "outer_action": "allow",
+        "outer_operation": "iokit-open-user-client"
+      }
+    ],
+    "input_kind": "sbpl_path",
+    "input_ref": "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/minimal_failing.sb",
+    "preflight_schema_version": 1,
+    "signature": "deny_message_filter",
+    "signature_meta": {
+      "pointers": [
+        "troubles/EPERMx2.md",
+        "book/experiments/runtime-final-final/suites/gate-witnesses/Report.md",
+        "book/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json"
+      ],
+      "status": "partial"
+    },
+    "tool": "book/tools/preflight",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  }
+]

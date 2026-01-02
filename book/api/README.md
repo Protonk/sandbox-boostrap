@@ -68,17 +68,17 @@ Role: Normalize harness output into canonical runtime observations, build runtim
 Example:
 ```sh
 python -m book.api.runtime run \
-  --plan book/experiments/hardened-runtime/plan.json \
+  --plan book/experiments/runtime-final-final/suites/hardened-runtime/plan.json \
   --channel launchd_clean \
-  --out book/experiments/hardened-runtime/out
+  --out book/experiments/runtime-final-final/suites/hardened-runtime/out
 
 python -m book.api.runtime status
 python -m book.api.runtime list-plans
-python -m book.api.runtime plan-lint --plan book/experiments/hardened-runtime/plan.json
+python -m book.api.runtime plan-lint --plan book/experiments/runtime-final-final/suites/hardened-runtime/plan.json
 python -m book.api.runtime registry-lint --registry hardened-runtime
 
 python -m book.api.runtime golden \
-  --matrix book/experiments/runtime-checks/out/expected_matrix.json
+  --matrix book/experiments/runtime-final-final/suites/runtime-checks/out/expected_matrix.json
 ```
 
 Preflight (apply-gate avoidance):

@@ -36,8 +36,8 @@ Key artifacts (all under `book/experiments/field2-final-final/field2-filters/`):
 - `book/experiments/tag-layout-decode` — status: ok (structural). Publishes literal-bearing tag layouts at `book/graph/mappings/tag_layouts/tag_layouts.json`, used by decoder and field2 consumers.
 - `book/experiments/field2-final-final/libsandbox-encoder` — status: partial. Field2 encoder matrix (`out/field2_encoder_matrix.json`) from SBPL→blob probes; explores compiler emission of field2/payloads for selected tags.
 - `book/experiments/node-layout` — status: ok (structural). Node stride/layout census informing where field2/payloads live.
-- `book/experiments/metadata-runner` — status: partial. Structural checks include anchor/field2 consistency (`out/anchor_structural_check.json`).
-- `book/experiments/vfs-canonicalization` — status: partial. Decodes temp profiles; notes field2 payload placement in `out/decode_tmp_profiles.json`.
+- `book/experiments/runtime-final-final/suites/metadata-runner` — status: partial. Structural checks include anchor/field2 consistency (`out/anchor_structural_check.json`).
+- `book/experiments/runtime-final-final/suites/vfs-canonicalization` — status: partial. Decodes temp profiles; notes field2 payload placement in `out/decode_tmp_profiles.json`.
 - `book/experiments/op-table-operation`, `runtime-adversarial`, `entitlement-diff` — indirect. Use shared decoder/tag layouts (and thus field2 positioning) but do not advance field2 semantics.
 
 ## How we got here (paths and outcomes)

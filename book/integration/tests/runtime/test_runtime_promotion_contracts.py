@@ -62,11 +62,11 @@ def test_runtime_promotion_contracts():
         if doc.get("allow_missing") is not True:
             failures.append("packet_set.json allow_missing must be true")
         expected_packets = [
-            "book/experiments/runtime-checks/out/promotion_packet.json",
-            "book/experiments/runtime-adversarial/out/promotion_packet.json",
-            "book/experiments/hardened-runtime/out/promotion_packet.json",
-            "book/experiments/field2-final-final/anchor-filter-map/out/promotion_packet.json",
-            "book/experiments/field2-final-final/anchor-filter-map/iokit-class/out/promotion_packet.json",
+            "book/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json",
+            "book/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+            "book/experiments/runtime-final-final/evidence/packets/hardened-runtime.promotion_packet.json",
+            "book/experiments/runtime-final-final/evidence/packets/anchor-filter-map.promotion_packet.json",
+            "book/experiments/runtime-final-final/evidence/packets/anchor-filter-map.iokit-class.promotion_packet.json",
         ]
         if doc.get("packets") != expected_packets:
             failures.append("packet_set.json packets list mismatch")

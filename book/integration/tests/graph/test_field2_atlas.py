@@ -7,7 +7,15 @@ from book.api import path_utils
 from book.api.runtime.analysis import packet_utils
 
 ROOT = path_utils.find_repo_root(Path(__file__))
-PACKET_PATH = ROOT / "book" / "experiments" / "runtime-adversarial" / "out" / "promotion_packet.json"
+PACKET_PATH = (
+    ROOT
+    / "book"
+    / "experiments"
+    / "runtime-final-final"
+    / "evidence"
+    / "packets"
+    / "runtime-adversarial.promotion_packet.json"
+)
 REQUIRED_EXPORTS = ("runtime_events", "baseline_results", "run_manifest", "path_witnesses")
 
 

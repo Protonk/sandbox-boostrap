@@ -6,7 +6,16 @@ from book.api.profile import ingestion as pi
 
 from book.api import path_utils
 ROOT = path_utils.find_repo_root(Path(__file__))
-FIXTURE = ROOT / "book" / "experiments" / "sbpl-graph-runtime" / "out" / "allow_all.sb.bin"
+FIXTURE = (
+    ROOT
+    / "book"
+    / "experiments"
+    / "runtime-final-final"
+    / "suites"
+    / "sbpl-graph-runtime"
+    / "out"
+    / "allow_all.sb.bin"
+)
 
 
 def test_decoder_slicing_matches_ingestion_offsets():

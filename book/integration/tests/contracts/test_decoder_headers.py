@@ -7,7 +7,16 @@ from book.api.profile import decoder
 
 from book.api import path_utils
 ROOT = path_utils.find_repo_root(Path(__file__))
-FIXTURE = ROOT / "book" / "experiments" / "sbpl-graph-runtime" / "out" / "allow_all.sb.bin"
+FIXTURE = (
+    ROOT
+    / "book"
+    / "experiments"
+    / "runtime-final-final"
+    / "suites"
+    / "sbpl-graph-runtime"
+    / "out"
+    / "allow_all.sb.bin"
+)
 
 
 def test_decode_profile_header_fields_shape():

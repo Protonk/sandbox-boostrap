@@ -38,7 +38,7 @@ DEFAULT_POLICYWITNESS_SERVICE = "com.yourteam.policy-witness.ProbeService_minima
 DEFAULT_MACH_CONTROL_SERVICE = "com.apple.cfprefsd.daemon"
 DEFAULT_BOOTSTRAP_NAMES = ["com.apple.cfprefsd.agent", "com.apple.trustd"]
 DEFAULT_SBPL_WRAPPER = "book/tools/sbpl/wrapper/wrapper"
-DEFAULT_SBPL_PROFILE = "book/experiments/sbpl-graph-runtime/profiles/allow_all.sb"
+DEFAULT_SBPL_PROFILE = "book/experiments/runtime-final-final/suites/sbpl-graph-runtime/profiles/allow_all.sb"
 
 SANDBOX_HEADER_CANDIDATES = [
     Path("/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sandbox.h"),

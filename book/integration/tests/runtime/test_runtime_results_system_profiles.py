@@ -5,7 +5,7 @@ from book.integration.tests.runtime.runtime_bundle_helpers import load_bundle_js
 ROOT = path_utils.find_repo_root(Path(__file__))
 
 def test_system_profiles_present_in_runtime_results():
-    out_root = ROOT / "book" / "experiments" / "runtime-checks" / "out"
+    out_root = ROOT / "book" / "experiments" / "runtime-final-final" / "suites" / "runtime-checks" / "out"
     data = load_bundle_json(out_root, "runtime_results.json")
     for key in ["sys:airlock", "sys:bsd"]:
         assert key in data, f"missing runtime result for {key}"

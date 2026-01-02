@@ -1,0 +1,62 @@
+{
+  "schema_version": "runtime-tools.profile_registry.v0.2",
+  "registry_id": "runtime-frontiers",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "profiles": {
+    "frontier:system_ops": {
+      "family": "frontier",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": "System-profile op frontier (file-read-data/test-existence/search/write-data) with path variants.",
+      "probe_refs": [
+        "frontier:system_ops:read_data_/etc/hosts",
+        "frontier:system_ops:read_data_/private/etc/hosts",
+        "frontier:system_ops:test_exists_/etc/hosts",
+        "frontier:system_ops:test_exists_/private/etc/hosts",
+        "frontier:system_ops:search_/tmp/sbpl_rt",
+        "frontier:system_ops:search_/private/tmp/sbpl_rt",
+        "frontier:system_ops:write_data_/tmp/sbpl_rt/write.txt",
+        "frontier:system_ops:write_data_/private/tmp/strict_ok/allow.txt"
+      ],
+      "profile_id": "frontier:system_ops",
+      "profile_path": "book/experiments/runtime-final-final/suites/runtime-frontiers/sb/frontier_system_ops.sb",
+      "semantic_group": "frontier:system_ops"
+    },
+    "frontier:anchor_filters": {
+      "family": "frontier",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": "Anchor-backed filters with typed literals (path/global-name/notification-name/xpc-service-name) and path variants.",
+      "probe_refs": [
+        "frontier:anchor_filters:mach_cfprefsd",
+        "frontier:anchor_filters:mach_bogus",
+        "frontier:anchor_filters:xpc_cfprefsd",
+        "frontier:anchor_filters:notify_allow",
+        "frontier:anchor_filters:notify_deny",
+        "frontier:anchor_filters:read_data_/etc/hosts",
+        "frontier:anchor_filters:read_data_/private/etc/hosts",
+        "frontier:anchor_filters:search_/var/log",
+        "frontier:anchor_filters:search_/private/var/log"
+      ],
+      "profile_id": "frontier:anchor_filters",
+      "profile_path": "book/experiments/runtime-final-final/suites/runtime-frontiers/sb/frontier_anchor_filters.sb",
+      "semantic_group": "frontier:anchor_filters"
+    },
+    "frontier:unknown_ops": {
+      "family": "frontier",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": "Unknown-frontier ops sample (xattr + process-fork). process-fork inherits the parent's sandbox policy; the inherit entitlement is not the enforcement mechanism.",
+      "probe_refs": [
+        "frontier:unknown_ops:read_xattr_/tmp/foo",
+        "frontier:unknown_ops:read_xattr_/tmp/bar",
+        "frontier:unknown_ops:write_xattr_/tmp/foo",
+        "frontier:unknown_ops:write_xattr_/tmp/bar",
+        "frontier:unknown_ops:process_fork"
+      ],
+      "profile_id": "frontier:unknown_ops",
+      "profile_path": "book/experiments/runtime-final-final/suites/runtime-frontiers/sb/frontier_unknown_ops.sb",
+      "semantic_group": "frontier:unknown_ops"
+    }
+  }
+}

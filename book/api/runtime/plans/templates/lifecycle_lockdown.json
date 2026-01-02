@@ -1,7 +1,7 @@
 {
   "description": "Execution-lane isolation runs for lifecycle apply-gate cross-checks.",
   "plan": {
-    "apply_preflight_profile": "book/experiments/hardened-runtime/sb/apply_preflight_allow.sb",
+    "apply_preflight_profile": "book/experiments/runtime-final-final/suites/hardened-runtime/sb/apply_preflight_allow.sb",
     "controls": {
       "baseline": true
     },
@@ -128,7 +128,7 @@
           "lockdown:fileprobe_read_usr_bin_true"
         ],
         "profile_id": "lockdown:airlock_gate_blob",
-        "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/compile_vs_apply/minimal_failing.sb.bin",
+        "profile_path": "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/compile_vs_apply/minimal_failing.sb.bin",
         "semantic_group": "apply-gate:airlock"
       },
       "lockdown:airlock_gate_sbpl": {
@@ -140,7 +140,7 @@
           "lockdown:fileprobe_read_usr_bin_true"
         ],
         "profile_id": "lockdown:airlock_gate_sbpl",
-        "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/minimal_failing.sb",
+        "profile_path": "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/minimal_failing.sb",
         "semantic_group": "apply-gate:airlock"
       },
       "lockdown:airlock_passing_blob": {
@@ -152,7 +152,7 @@
           "lockdown:fileprobe_read_usr_bin_true"
         ],
         "profile_id": "lockdown:airlock_passing_blob",
-        "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/compile_vs_apply/passing_neighbor.sb.bin",
+        "profile_path": "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/compile_vs_apply/passing_neighbor.sb.bin",
         "semantic_group": "apply-gate:airlock"
       },
       "lockdown:airlock_passing_sbpl": {
@@ -164,7 +164,7 @@
           "lockdown:fileprobe_read_usr_bin_true"
         ],
         "profile_id": "lockdown:airlock_passing_sbpl",
-        "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+        "profile_path": "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
         "semantic_group": "apply-gate:airlock"
       },
       "lockdown:airlock_passing_sbpl_write": {
@@ -178,7 +178,7 @@
           "lockdown:fileprobe_read_usr_bin_true"
         ],
         "profile_id": "lockdown:airlock_passing_sbpl_write",
-        "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+        "profile_path": "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
         "semantic_group": "apply-gate:airlock"
       },
       "lockdown:airlock_passing_sbpl_write_allow_default_deny_file_ioctl_sysctl": {
@@ -194,7 +194,7 @@
           "lockdown:sysctl_kern_osrelease"
         ],
         "profile_id": "lockdown:airlock_passing_sbpl_write_allow_default_deny_file_ioctl_sysctl",
-        "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+        "profile_path": "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
         "semantic_group": "apply-gate:airlock"
       },
       "lockdown:airlock_passing_sbpl_write_allow_default_deny_file_map_executable_sysctl": {
@@ -210,7 +210,7 @@
           "lockdown:sysctl_kern_osrelease"
         ],
         "profile_id": "lockdown:airlock_passing_sbpl_write_allow_default_deny_file_map_executable_sysctl",
-        "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+        "profile_path": "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
         "semantic_group": "apply-gate:airlock"
       },
       "lockdown:airlock_passing_sbpl_write_allow_default_deny_mach_bootstrap_sysctl": {
@@ -226,7 +226,7 @@
           "lockdown:sysctl_kern_osrelease"
         ],
         "profile_id": "lockdown:airlock_passing_sbpl_write_allow_default_deny_mach_bootstrap_sysctl",
-        "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+        "profile_path": "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
         "semantic_group": "apply-gate:airlock"
       },
       "lockdown:airlock_passing_sbpl_write_allow_default_deny_mach_lookup_sysctl": {
@@ -242,7 +242,7 @@
           "lockdown:sysctl_kern_osrelease"
         ],
         "profile_id": "lockdown:airlock_passing_sbpl_write_allow_default_deny_mach_lookup_sysctl",
-        "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+        "profile_path": "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
         "semantic_group": "apply-gate:airlock"
       },
       "lockdown:airlock_passing_sbpl_write_allow_default_deny_process_codesigning_sysctl": {
@@ -258,7 +258,7 @@
           "lockdown:sysctl_kern_osrelease"
         ],
         "profile_id": "lockdown:airlock_passing_sbpl_write_allow_default_deny_process_codesigning_sysctl",
-        "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+        "profile_path": "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
         "semantic_group": "apply-gate:airlock"
       },
       "lockdown:airlock_passing_sbpl_write_allow_default_deny_process_exec_sysctl": {
@@ -274,7 +274,7 @@
           "lockdown:sysctl_kern_osrelease"
         ],
         "profile_id": "lockdown:airlock_passing_sbpl_write_allow_default_deny_process_exec_sysctl",
-        "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+        "profile_path": "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
         "semantic_group": "apply-gate:airlock"
       },
       "lockdown:airlock_passing_sbpl_write_allow_default_deny_process_legacy_codesigning_status_sysctl": {
@@ -290,7 +290,7 @@
           "lockdown:sysctl_kern_osrelease"
         ],
         "profile_id": "lockdown:airlock_passing_sbpl_write_allow_default_deny_process_legacy_codesigning_status_sysctl",
-        "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+        "profile_path": "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
         "semantic_group": "apply-gate:airlock"
       },
       "lockdown:airlock_passing_sbpl_write_allow_default_deny_process_legacy_codesigning_sysctl": {
@@ -306,7 +306,7 @@
           "lockdown:sysctl_kern_osrelease"
         ],
         "profile_id": "lockdown:airlock_passing_sbpl_write_allow_default_deny_process_legacy_codesigning_sysctl",
-        "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+        "profile_path": "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
         "semantic_group": "apply-gate:airlock"
       },
       "lockdown:airlock_passing_sbpl_write_allow_default_fileprobe": {
@@ -321,7 +321,7 @@
           "lockdown:fileprobe_read_usr_bin_true"
         ],
         "profile_id": "lockdown:airlock_passing_sbpl_write_allow_default_fileprobe",
-        "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+        "profile_path": "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
         "semantic_group": "apply-gate:airlock"
       },
       "lockdown:airlock_passing_sbpl_write_allow_default_sysctl": {
@@ -336,7 +336,7 @@
           "lockdown:sysctl_kern_osrelease"
         ],
         "profile_id": "lockdown:airlock_passing_sbpl_write_allow_default_sysctl",
-        "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+        "profile_path": "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
         "semantic_group": "apply-gate:airlock"
       },
       "lockdown:airlock_passing_sbpl_write_debug_deny_sysctl": {
@@ -351,7 +351,7 @@
           "lockdown:sysctl_kern_osrelease"
         ],
         "profile_id": "lockdown:airlock_passing_sbpl_write_debug_deny_sysctl",
-        "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+        "profile_path": "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
         "semantic_group": "apply-gate:airlock"
       },
       "lockdown:airlock_passing_sbpl_write_file_ioctl_sysctl": {
@@ -366,7 +366,7 @@
           "lockdown:sysctl_kern_osrelease"
         ],
         "profile_id": "lockdown:airlock_passing_sbpl_write_file_ioctl_sysctl",
-        "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+        "profile_path": "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
         "semantic_group": "apply-gate:airlock"
       },
       "lockdown:airlock_passing_sbpl_write_file_search_and_test_existence_sysctl": {
@@ -382,7 +382,7 @@
           "lockdown:sysctl_kern_osrelease"
         ],
         "profile_id": "lockdown:airlock_passing_sbpl_write_file_search_and_test_existence_sysctl",
-        "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+        "profile_path": "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
         "semantic_group": "apply-gate:airlock"
       },
       "lockdown:airlock_passing_sbpl_write_file_search_sysctl": {
@@ -397,7 +397,7 @@
           "lockdown:sysctl_kern_osrelease"
         ],
         "profile_id": "lockdown:airlock_passing_sbpl_write_file_search_sysctl",
-        "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+        "profile_path": "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
         "semantic_group": "apply-gate:airlock"
       },
       "lockdown:airlock_passing_sbpl_write_file_test_existence_sysctl": {
@@ -412,7 +412,7 @@
           "lockdown:sysctl_kern_osrelease"
         ],
         "profile_id": "lockdown:airlock_passing_sbpl_write_file_test_existence_sysctl",
-        "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+        "profile_path": "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
         "semantic_group": "apply-gate:airlock"
       },
       "lockdown:airlock_passing_sbpl_write_mach_bootstrap_register_sysctl": {
@@ -428,7 +428,7 @@
           "lockdown:sysctl_kern_osrelease"
         ],
         "profile_id": "lockdown:airlock_passing_sbpl_write_mach_bootstrap_register_sysctl",
-        "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+        "profile_path": "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
         "semantic_group": "apply-gate:airlock"
       },
       "lockdown:airlock_passing_sbpl_write_mach_bootstrap_sysctl": {
@@ -443,7 +443,7 @@
           "lockdown:sysctl_kern_osrelease"
         ],
         "profile_id": "lockdown:airlock_passing_sbpl_write_mach_bootstrap_sysctl",
-        "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+        "profile_path": "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
         "semantic_group": "apply-gate:airlock"
       },
       "lockdown:airlock_passing_sbpl_write_mach_lookup_sysctl": {
@@ -458,7 +458,7 @@
           "lockdown:sysctl_kern_osrelease"
         ],
         "profile_id": "lockdown:airlock_passing_sbpl_write_mach_lookup_sysctl",
-        "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+        "profile_path": "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
         "semantic_group": "apply-gate:airlock"
       },
       "lockdown:airlock_passing_sbpl_write_mapexec": {
@@ -473,7 +473,7 @@
           "lockdown:fileprobe_read_usr_bin_true"
         ],
         "profile_id": "lockdown:airlock_passing_sbpl_write_mapexec",
-        "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+        "profile_path": "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
         "semantic_group": "apply-gate:airlock"
       },
       "lockdown:airlock_passing_sbpl_write_mapexec_any_sysctl": {
@@ -488,7 +488,7 @@
           "lockdown:sysctl_kern_osrelease"
         ],
         "profile_id": "lockdown:airlock_passing_sbpl_write_mapexec_any_sysctl",
-        "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+        "profile_path": "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
         "semantic_group": "apply-gate:airlock"
       },
       "lockdown:airlock_passing_sbpl_write_mapexec_preboot_dyld_sysctl": {
@@ -503,7 +503,7 @@
           "lockdown:sysctl_kern_osrelease"
         ],
         "profile_id": "lockdown:airlock_passing_sbpl_write_mapexec_preboot_dyld_sysctl",
-        "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+        "profile_path": "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
         "semantic_group": "apply-gate:airlock"
       },
       "lockdown:airlock_passing_sbpl_write_mapexec_preboot_dyld_sysctl_procinfo": {
@@ -519,7 +519,7 @@
           "lockdown:sysctl_kern_osrelease"
         ],
         "profile_id": "lockdown:airlock_passing_sbpl_write_mapexec_preboot_dyld_sysctl_procinfo",
-        "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+        "profile_path": "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
         "semantic_group": "apply-gate:airlock"
       },
       "lockdown:airlock_passing_sbpl_write_mapexec_sysctl": {
@@ -534,7 +534,7 @@
           "lockdown:sysctl_kern_osrelease"
         ],
         "profile_id": "lockdown:airlock_passing_sbpl_write_mapexec_sysctl",
-        "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+        "profile_path": "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
         "semantic_group": "apply-gate:airlock"
       },
       "lockdown:airlock_passing_sbpl_write_process_codesigning_sysctl": {
@@ -549,7 +549,7 @@
           "lockdown:sysctl_kern_osrelease"
         ],
         "profile_id": "lockdown:airlock_passing_sbpl_write_process_codesigning_sysctl",
-        "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+        "profile_path": "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
         "semantic_group": "apply-gate:airlock"
       },
       "lockdown:airlock_passing_sbpl_write_process_exec_extras_sysctl": {
@@ -565,7 +565,7 @@
           "lockdown:sysctl_kern_osrelease"
         ],
         "profile_id": "lockdown:airlock_passing_sbpl_write_process_exec_extras_sysctl",
-        "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+        "profile_path": "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
         "semantic_group": "apply-gate:airlock"
       },
       "lockdown:airlock_passing_sbpl_write_process_exec_nostar_subpath_root_sysctl": {
@@ -580,7 +580,7 @@
           "lockdown:sysctl_kern_osrelease"
         ],
         "profile_id": "lockdown:airlock_passing_sbpl_write_process_exec_nostar_subpath_root_sysctl",
-        "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+        "profile_path": "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
         "semantic_group": "apply-gate:airlock"
       },
       "lockdown:airlock_passing_sbpl_write_process_exec_subpath_root_sysctl": {
@@ -595,7 +595,7 @@
           "lockdown:sysctl_kern_osrelease"
         ],
         "profile_id": "lockdown:airlock_passing_sbpl_write_process_exec_subpath_root_sysctl",
-        "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+        "profile_path": "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
         "semantic_group": "apply-gate:airlock"
       },
       "lockdown:airlock_passing_sbpl_write_read_any_sysctl": {
@@ -610,7 +610,7 @@
           "lockdown:sysctl_kern_osrelease"
         ],
         "profile_id": "lockdown:airlock_passing_sbpl_write_read_any_sysctl",
-        "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+        "profile_path": "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
         "semantic_group": "apply-gate:airlock"
       },
       "lockdown:airlock_passing_sbpl_write_read_launchctl": {
@@ -625,7 +625,7 @@
           "lockdown:fileprobe_read_usr_bin_true"
         ],
         "profile_id": "lockdown:airlock_passing_sbpl_write_read_launchctl",
-        "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+        "profile_path": "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
         "semantic_group": "apply-gate:airlock"
       },
       "lockdown:airlock_passing_sbpl_write_read_private_sysctl": {
@@ -640,7 +640,7 @@
           "lockdown:sysctl_kern_osrelease"
         ],
         "profile_id": "lockdown:airlock_passing_sbpl_write_read_private_sysctl",
-        "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+        "profile_path": "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
         "semantic_group": "apply-gate:airlock"
       },
       "lockdown:airlock_passing_sbpl_write_read_xattr_sysctl": {
@@ -655,7 +655,7 @@
           "lockdown:sysctl_kern_osrelease"
         ],
         "profile_id": "lockdown:airlock_passing_sbpl_write_read_xattr_sysctl",
-        "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+        "profile_path": "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
         "semantic_group": "apply-gate:airlock"
       },
       "lockdown:airlock_passing_sbpl_write_sysctl": {
@@ -669,7 +669,7 @@
           "lockdown:sysctl_kern_osrelease"
         ],
         "profile_id": "lockdown:airlock_passing_sbpl_write_sysctl",
-        "profile_path": "book/experiments/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
+        "profile_path": "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock/passing_neighbor.sb",
         "semantic_group": "apply-gate:airlock"
       }
     },

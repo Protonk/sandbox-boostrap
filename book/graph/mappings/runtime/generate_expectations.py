@@ -5,7 +5,7 @@ Generate runtime/expectations.json from runtime story + traces.
 Inputs:
 - book/graph/mappings/runtime_cuts/runtime_story.json
 - book/graph/mappings/runtime/traces/*.jsonl
-- book/experiments/runtime-adversarial/out/impact_map.json (for allowlisted mismatches)
+- book/experiments/runtime-final-final/suites/runtime-adversarial/out/impact_map.json (for allowlisted mismatches)
 - world baseline (host/world_id)
 
 Status is downgraded to partial if any profile has disallowed mismatches.
@@ -28,7 +28,7 @@ from book.api import world as world_mod  # noqa: E402
 from book.api.runtime.bundles import reader as bundle_reader  # noqa: E402
 
 RUNTIME_STORY = ROOT / "book/graph/mappings/runtime_cuts/runtime_story.json"
-IMPACT_MAP = ROOT / "book/experiments/runtime-adversarial/out/impact_map.json"
+IMPACT_MAP = ROOT / "book/experiments/runtime-final-final/suites/runtime-adversarial/out/impact_map.json"
 OUT = ROOT / "book/graph/mappings/runtime/expectations.json"
 
 
@@ -40,8 +40,8 @@ def resolve_run_manifest(bundle_root: Path) -> Path:
     return bundle_dir / "run_manifest.json"
 
 
-RUN_MANIFEST_CHECKS = resolve_run_manifest(ROOT / "book/experiments/runtime-checks/out")
-RUN_MANIFEST_ADV = resolve_run_manifest(ROOT / "book/experiments/runtime-adversarial/out")
+RUN_MANIFEST_CHECKS = resolve_run_manifest(ROOT / "book/experiments/runtime-final-final/suites/runtime-checks/out")
+RUN_MANIFEST_ADV = resolve_run_manifest(ROOT / "book/experiments/runtime-final-final/suites/runtime-adversarial/out")
 
 TRACE_PATHS = {
     "runtime:allow_all": "book/graph/mappings/runtime/traces/runtime_allow_all.jsonl",
@@ -172,7 +172,7 @@ def main() -> None:
 
     inputs = [
         "book/graph/mappings/runtime_cuts/runtime_story.json",
-        "book/experiments/runtime-adversarial/out/impact_map.json",
+        "book/experiments/runtime-final-final/suites/runtime-adversarial/out/impact_map.json",
     ] + sorted(TRACE_PATHS.values())
 
     mapping = {

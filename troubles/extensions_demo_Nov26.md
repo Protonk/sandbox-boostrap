@@ -51,4 +51,4 @@
 
 - Source/demo: `book/examples/extensions-dynamic/extensions_demo.c`
 - Crash log: `extensions_demo-… .ips` under `~/Library/Logs/DiagnosticReports/` on the host
-- Related experiments: `book/experiments/runtime-checks` (for other runtime probes)
+- Related experiments: `book/experiments/runtime-final-final/suites/runtime-checks` (for other runtime probes)

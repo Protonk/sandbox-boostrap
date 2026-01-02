@@ -12,6 +12,7 @@ Build a field2-centric experiment that follows selected field2 IDs end-to-end ac
 
 ## Field2 seed set (fixed)
 - Seeds are locked in `field2_seeds.json` to keep the slice stable across runs.
+- Runtime candidates live in the seed manifest so the runtime atlas can evolve without code edits.
 - Selection rule for this first cut: field2 IDs that (a) have multiple anchors **or** multiple tag placements in the canonical layouts, (b) appear in at least one canonical system profile, and (c) land on the runtime-backed ops above.
 - Current seeds (see manifest for details and sources):
   - `0` (`path`) – anchors `/etc/hosts`, `/tmp/foo`, `IOUSBHostInterface`, `com.apple.cfprefsd.agent`; present in `sys:sample` (tag 7). Primary op: `file-read-data`/`file-write-data`.
@@ -28,7 +29,7 @@ Build a field2-centric experiment that follows selected field2 IDs end-to-end ac
 
 ## Work plan
 1. **Seed curation (locked)**  
-   Commit the fixed seed manifest (`field2_seeds.json`) with anchor/profile witnesses and target ops. Add a small helper to re-derive the seed slice from canonical mappings for drift detection (no mutation).
+   Commit the fixed seed manifest (`field2_seeds.json`) with anchor/profile witnesses, target ops, and runtime candidates. Add a small helper to re-derive the seed slice from canonical mappings for drift detection (no mutation).
 2. **Static join builder**  
    Implement `atlas_static.py` to emit `out/static/field2_records.jsonl` keyed by field2, joining tag IDs (from tag layouts + field2-filters inventory), filter metadata (vocab), anchors (anchor_filter_map + probe-op-structure hits), and system profile counts (field2-filters inventory). Mark coverage as `ok`/`partial` per source status.
 3. **Runtime consumption (packet-only)**  
@@ -37,7 +38,9 @@ Build a field2-centric experiment that follows selected field2 IDs end-to-end ac
    Merge static + runtime layers into `out/derived/<run_id>/atlas/field2_atlas.json` and `out/derived/<run_id>/atlas/summary.json`, one row per seed. Compute a coarse status (`runtime_backed`, `static_only`, `no_runtime_candidate`, `blocked`). Keep repo-relative paths to all contributing artifacts and stamp provenance.
 5. **Guardrails**  
    Add `book/integration/tests/graph/test_field2_atlas.py` to assert: seed manifest is non-empty, atlas covers every seed, at least one seed is runtime-attempted, and derived outputs are provenance-stamped from a promotion packet.
-6. **Reporting**  
+6. **Frontier → tranche loop**  
+   Use `book/experiments/field2-final-final/frontier_build.py` to emit a ranked frontier from userland evidence, then `book/experiments/field2-final-final/tranche_select.py` to define the next single-claim tranche before running runtime-adversarial.
+7. **Reporting**  
    Keep `Report.md` aligned with actual outputs; record failed probes or gaps in `Notes.md`.
 
 ## Status (initial)

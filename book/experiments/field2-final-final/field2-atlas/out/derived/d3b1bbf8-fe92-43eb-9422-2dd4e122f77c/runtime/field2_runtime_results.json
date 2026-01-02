@@ -3,7 +3,7 @@
     "artifact_index": "book/experiments/runtime-adversarial/out/d3b1bbf8-fe92-43eb-9422-2dd4e122f77c/artifact_index.json",
     "artifact_index_sha256": "7c33c5d5b63622eb148373b7c847ab2f3af6b5702bfba021751589ef063eab8d",
     "bundle_dir": "book/experiments/runtime-adversarial/out/d3b1bbf8-fe92-43eb-9422-2dd4e122f77c",
-    "consumption_receipt": "book/experiments/field2-atlas/out/derived/d3b1bbf8-fe92-43eb-9422-2dd4e122f77c/consumption_receipt.json",
+    "consumption_receipt": "book/experiments/field2-final-final/field2-atlas/out/derived/d3b1bbf8-fe92-43eb-9422-2dd4e122f77c/consumption_receipt.json",
     "exports": {
       "baseline_results": "book/experiments/runtime-adversarial/out/d3b1bbf8-fe92-43eb-9422-2dd4e122f77c/baseline_results.json",
       "path_witnesses": "book/experiments/runtime-adversarial/out/d3b1bbf8-fe92-43eb-9422-2dd4e122f77c/path_witnesses.json",
@@ -311,6 +311,172 @@
       "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
     },
     {
+      "field2": 4,
+      "filter_name": "ipc-posix-name",
+      "notes": "ipc-posix-name appears in sys:bsd and sys:airlock; userland probes can use shm_open/sem_open and sandbox_check for decision oracles.",
+      "runtime_candidate": null,
+      "seed_anchors": [],
+      "status": "no_runtime_candidate",
+      "target_ops": [
+        "ipc-posix-shm*",
+        "ipc-posix-sem*"
+      ],
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    {
+      "field2": 6,
+      "filter_name": "local-name",
+      "notes": "local-name appears in mach probe profiles; no system profile witness in the current field2 inventory.",
+      "runtime_candidate": {
+        "anchor_match": null,
+        "expected": "allow",
+        "latest_attempt": {
+          "failure_kind": null,
+          "failure_stage": null,
+          "run_id": "d3b1bbf8-fe92-43eb-9422-2dd4e122f77c",
+          "runtime_status": "success",
+          "source": "book/experiments/runtime-adversarial/out/d3b1bbf8-fe92-43eb-9422-2dd4e122f77c/runtime_events.normalized.json"
+        },
+        "mapping_status": "partial",
+        "operation": "mach-lookup",
+        "path_canonicalization_detected": false,
+        "path_observation": {
+          "failure_kind": null,
+          "failure_stage": null,
+          "normalized_path": null,
+          "normalized_path_source": null,
+          "observed_path": null,
+          "observed_path_source": null,
+          "requested_path": null,
+          "runtime_status": "success",
+          "source": "book/experiments/runtime-adversarial/out/d3b1bbf8-fe92-43eb-9422-2dd4e122f77c/runtime_events.normalized.json"
+        },
+        "probe_name": "allow-cfprefsd-local",
+        "profile_id": "adv:mach_local_regex",
+        "result": "allow",
+        "result_source": "book/graph/mappings/runtime/runtime_signatures.json",
+        "result_tier": "mapping",
+        "runtime_profile": "book/experiments/runtime-adversarial/out/d3b1bbf8-fe92-43eb-9422-2dd4e122f77c/runtime_profiles/mach_local_regex.adv_mach_local_regex.runtime.sb",
+        "scenario_id": "adv:mach_local_regex:allow-cfprefsd-local",
+        "source": "book/graph/mappings/runtime/runtime_signatures.json",
+        "target": "com.apple.cfprefsd.agent"
+      },
+      "seed_anchors": [],
+      "status": "runtime_backed",
+      "target_ops": [
+        "mach-lookup"
+      ],
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    {
+      "field2": 26,
+      "filter_name": "right-name",
+      "notes": "right-name appears in sys:bsd; runtime backing can use authorization-right-obtain with sandbox_check callouts.",
+      "runtime_candidate": null,
+      "seed_anchors": [],
+      "status": "no_runtime_candidate",
+      "target_ops": [
+        "authorization-right-obtain"
+      ],
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    {
+      "field2": 27,
+      "filter_name": "preference-domain",
+      "notes": "preference-domain appears in sys:bsd; userland preference reads/writes can be paired with sandbox_check callouts.",
+      "runtime_candidate": null,
+      "seed_anchors": [],
+      "status": "no_runtime_candidate",
+      "target_ops": [
+        "user-preference-read",
+        "user-preference-write"
+      ],
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    {
+      "field2": 34,
+      "filter_name": "notification-name",
+      "notes": "notification-name appears in sys:airlock tags 18-30; hardened runtime notification probes provide runtime signatures.",
+      "runtime_candidate": {
+        "anchor_match": null,
+        "expected": "allow",
+        "latest_attempt": null,
+        "mapping_status": "partial",
+        "operation": "darwin-notification-post",
+        "path_canonicalization_detected": false,
+        "path_observation": null,
+        "probe_name": "allow-darwin",
+        "profile_id": "hardened:notifications_allow",
+        "result": "allow",
+        "result_source": "book/graph/mappings/runtime/runtime_signatures.json",
+        "result_tier": "mapping",
+        "runtime_profile": "book/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_profiles/notifications_allow.hardened_notifications_allow.runtime.sb",
+        "scenario_id": "hardened:notifications_allow:allow-darwin",
+        "source": "book/graph/mappings/runtime/runtime_signatures.json",
+        "target": "com.sandboxlore.hardened_runtime.test1"
+      },
+      "seed_anchors": [],
+      "status": "runtime_backed",
+      "target_ops": [
+        "darwin-notification-post",
+        "distributed-notification-post"
+      ],
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    {
+      "field2": 37,
+      "filter_name": "sysctl-name",
+      "notes": "sysctl-name has no system-profile witness in the current inventory; hardened sysctl probes provide runtime signatures.",
+      "runtime_candidate": {
+        "anchor_match": null,
+        "expected": "allow",
+        "latest_attempt": null,
+        "mapping_status": "partial",
+        "operation": "sysctl-read",
+        "path_canonicalization_detected": false,
+        "path_observation": null,
+        "probe_name": "allow-kern-ostype",
+        "profile_id": "hardened:sysctl_read_allow",
+        "result": "allow",
+        "result_source": "book/graph/mappings/runtime/runtime_signatures.json",
+        "result_tier": "mapping",
+        "runtime_profile": "book/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_profiles/sysctl_read_allow.hardened_sysctl_read_allow.runtime.sb",
+        "scenario_id": "hardened:sysctl_read_allow:allow-kern-ostype",
+        "source": "book/graph/mappings/runtime/runtime_signatures.json",
+        "target": "kern.ostype"
+      },
+      "seed_anchors": [
+        {
+          "anchor": "kern.ostype",
+          "source": "seed_manifest",
+          "status": "partial"
+        }
+      ],
+      "status": "runtime_backed",
+      "target_ops": [
+        "sysctl-read"
+      ],
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    {
+      "field2": 49,
+      "filter_name": "xpc-service-name",
+      "notes": "xpc-service-name has no system-profile witness in the current inventory; runtime backing is expected via sandbox_check on mach-lookup.",
+      "runtime_candidate": null,
+      "seed_anchors": [
+        {
+          "anchor": "com.apple.cfprefsd.xpc",
+          "source": "seed_manifest",
+          "status": "partial"
+        }
+      ],
+      "status": "no_runtime_candidate",
+      "target_ops": [
+        "mach-lookup"
+      ],
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    {
       "control_witness": {
         "baseline": {
           "record": {
@@ -426,7 +592,7 @@
       "runtime_events": "book/experiments/runtime-adversarial/out/d3b1bbf8-fe92-43eb-9422-2dd4e122f77c/runtime_events.normalized.json"
     },
     "runtime_signatures": "book/graph/mappings/runtime/runtime_signatures.json",
-    "seeds": "book/experiments/field2-atlas/field2_seeds.json"
+    "seeds": "book/experiments/field2-final-final/field2-atlas/field2_seeds.json"
   },
   "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
 }

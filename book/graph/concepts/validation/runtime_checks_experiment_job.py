@@ -9,15 +9,14 @@ import json
 from pathlib import Path
 
 from book.api.path_utils import find_repo_root, to_repo_relative
+from book.api.runtime.bundles import reader as bundle_reader
 from book.api.runtime.contracts import normalize as runtime_normalize
 from book.api.runtime.contracts import models as runtime_models
 from book.graph.concepts.validation import registry
 from book.graph.concepts.validation.registry import ValidationJob
 
 ROOT = find_repo_root(Path(__file__))
-EXP_ROOT = ROOT / "book/experiments/runtime-checks/out"
-RUNTIME_RESULTS = EXP_ROOT / "runtime_results.json"
-EXPECTED_MATRIX = EXP_ROOT / "expected_matrix.json"
+BUNDLE_ROOT = ROOT / "book/experiments/runtime-final-final/suites/runtime-checks/out"
 META_PATH = ROOT / "book/graph/concepts/validation/out/metadata.json"
 STATUS_PATH = ROOT / "book/graph/concepts/validation/out/experiments/runtime-checks/status.json"
 IR_PATH = ROOT / "book/graph/concepts/validation/out/experiments/runtime-checks/runtime_results.normalized.json"
@@ -26,14 +25,21 @@ IR_PATH = ROOT / "book/graph/concepts/validation/out/experiments/runtime-checks/
 def rel(path: Path) -> str:
     return to_repo_relative(path, ROOT)
 
+def _load_bundle() -> tuple[dict, Path, str | None]:
+    index = bundle_reader.load_bundle_index_strict(BUNDLE_ROOT, repo_root=ROOT)
+    bundle_dir, run_id = bundle_reader.resolve_bundle_dir(BUNDLE_ROOT, repo_root=ROOT)
+    return index, bundle_dir, run_id
 
 def run_runtime_job():
-    if not RUNTIME_RESULTS.exists():
-        raise FileNotFoundError(f"missing required input: {RUNTIME_RESULTS}")
+    _index, bundle_dir, _run_id = _load_bundle()
+    runtime_results_path = bundle_dir / "runtime_results.json"
+    expected_matrix_path = bundle_dir / "expected_matrix.json"
+    if not runtime_results_path.exists():
+        raise FileNotFoundError(f"missing required input: {runtime_results_path}")
 
-    results = json.loads(RUNTIME_RESULTS.read_text())
+    results = json.loads(runtime_results_path.read_text())
     meta = json.loads(META_PATH.read_text()) if META_PATH.exists() else {}
-    expected_matrix = json.loads(EXPECTED_MATRIX.read_text()) if EXPECTED_MATRIX.exists() else {}
+    expected_matrix = json.loads(expected_matrix_path.read_text()) if expected_matrix_path.exists() else {}
 
     STATUS_PATH.parent.mkdir(parents=True, exist_ok=True)
     observations = runtime_normalize.normalize_matrix(expected_matrix, results)
@@ -56,7 +62,7 @@ def run_runtime_job():
         "status": "ok",
         "tier": "mapped",
         "host": meta.get("os", {}),
-        "inputs": [rel(RUNTIME_RESULTS)],
+        "inputs": [rel(bundle_dir / "artifact_index.json"), rel(runtime_results_path)],
         "outputs": [rel(IR_PATH)],
         "metrics": {"events": len(observations)},
         "notes": "Normalized runtime_results into contract-shaped runtime events for this world.",
@@ -77,7 +83,7 @@ def run_runtime_job():
 registry.register(
     ValidationJob(
         id="experiment:runtime-checks",
-        inputs=[rel(RUNTIME_RESULTS)],
+        inputs=["book/experiments/runtime-final-final/suites/runtime-checks/out/*/artifact_index.json"],
         outputs=[rel(IR_PATH), rel(STATUS_PATH)],
         tags=["experiment:runtime-checks", "experiment", "runtime", "smoke", "golden"],
         description="Normalize runtime-checks experiment outputs into shared IR.",

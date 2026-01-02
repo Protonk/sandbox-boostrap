@@ -14,7 +14,7 @@ This bundle is a field guide to the recurring eddies that result — and the mov
 
 ## The four axes that cause most confusion
 
-- **Stage**: compile vs apply/attach vs exec/bootstrap vs operation checks. Many “sandbox problems” are actually stage problems.
+- **Stage**: `compile` vs `apply` (attach) vs `bootstrap` (probe start) vs `operation` checks. Many “sandbox problems” are actually stage problems.
 - **Scope**: “what is the smallest claim we’re trying to make?” A good claim fits in one witness corpus or one mapping, not in a worldview.
 - **Stack**: effective behavior is layered policy plus extensions plus adjacent controls; single-profile reasoning is usually incomplete.
 - **Surround**: TCC, hardened runtime, SIP/platform protections, and filesystem canonicalization can impersonate sandbox behavior.
@@ -24,7 +24,7 @@ When something looks mysterious, pick one axis to interrogate first — don’t 
 ## Recurring eddies (symptoms → likely cause → next move)
 
 - **“Everything is `EPERM` / nothing runs.”** Likely: apply-time gating or harness-identity constraints. Next move: insist on a stage label (did it attach?), then build *minimal failing* + *passing neighbor* cases.
-- **“Expected deny, got allow (or vice versa), and nothing explains why.”** Likely: wrong layer (stack), wrong stage, or adjacent control. Next move: add one control that changes only the suspected confounder (e.g., switch exec/non-exec probe; test with and without a path canonicalization control; isolate a single Operation).
+- **“Expected deny, got allow (or vice versa), and nothing explains why.”** Likely: wrong layer (stack), wrong stage, or adjacent control. Next move: add one control that changes only the suspected confounder (e.g., switch `scenario`/`baseline` lane; test with and without a path canonicalization control; isolate a single Operation).
 - **“Path rules don’t work / `/tmp` keeps betraying us.”** Likely: canonicalization or symlink/vnode resolution. Next move: design every path experiment with a canonicalization control (two spellings; one known-good baseline).
 - **“Decoder says X but runtime says Y.”** Likely: you’re comparing different policy objects (recompiled vs shipped; different layer; profile didn’t attach) or the probe is doing more than you think. Next move: lock the provenance (“which exact blob/profile shape?”) and add a passing-neighbor control before interpreting the mismatch.
 - **“A frozen query/index layer can’t answer something the project ‘should’ know.”** Likely: projection lag (the index is behind the tooling/artifacts). Next move: treat it as an audit signal; ask “what is the source-of-truth artifact and what would a minimal projection look like?”
@@ -46,9 +46,9 @@ When something looks mysterious, pick one axis to interrogate first — don’t 
 ## What to ask for when the user is stuck (no repo access)
 
 Ask for the smallest bundle of facts that disambiguates Stage/Scope/Stack/Surround:
-- **Stage**: what failed (compile/apply/exec/action), with raw errno/exit.
+- **Stage**: what failed (`compile|apply|bootstrap|operation`), with raw errno/exit.
 - **Intent**: which Operation(s) and what profile “shape” (filters/metafilters), in a few lines.
-- **Controls**: one closest passing neighbor, and one deliberate confounder toggle (exec vs non-exec; `/tmp` vs `/private/tmp`; TCC-sensitive vs non-sensitive target).
+- **Controls**: one closest passing neighbor, and one deliberate confounder toggle (`scenario` vs `baseline`; `/tmp` vs `/private/tmp`; TCC-sensitive vs non-sensitive target).
 - **Environment suspects**: any reason TCC/hardened runtime/SIP could be in play.
 
 These questions don’t solve the sandbox — they reliably turn “forbidding” into “decidable.”

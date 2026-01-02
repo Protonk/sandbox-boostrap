@@ -77,17 +77,17 @@ When these tests pass, the project can treat CARTON as a faithful, world-pinned 
  Runtime tests provide a dense, host-specific picture for a handful of “golden” profiles and operations, establishing that the static IR (vocab, tag layouts, system digests) agrees with observed kernel behavior for those cases; outside that slice, runtime coverage is explicitly partial.
 
 - **Golden runtime scenarios**
-  - `book/tests/planes/runtime/test_runtime_golden.py`, `test_runtime_results_structure.py`, `test_runtime_results_outcomes.py`, `test_runtime_matrix_shape.py`, `test_runtime_results_metafilter.py`, and `test_runtime_results_system_profiles.py` all consume normalized runtime IR from `book/graph/concepts/validation/out/experiments/runtime-checks/runtime_results.normalized.json` and from `book/experiments/runtime-checks/out`. They assert:
+  - `book/tests/planes/runtime/test_runtime_golden.py`, `test_runtime_results_structure.py`, `test_runtime_results_outcomes.py`, `test_runtime_matrix_shape.py`, `test_runtime_results_metafilter.py`, and `test_runtime_results_system_profiles.py` all consume normalized runtime IR from `book/graph/concepts/validation/out/experiments/runtime-checks/runtime_results.normalized.json` and from `book/experiments/runtime-final-final/suites/runtime-checks/out`. They assert:
     - Presence of the golden profiles (`bucket4:v1_read`, `bucket5:v11_read_subpath`, `runtime:metafilter_any`, `runtime:strict_1`, `sys:bsd`, `sys:airlock`) in both expected matrices and runtime results.
     - Stable allow/deny patterns for file-read/write probes across different synthetic profiles (e.g., bucket 4 vs bucket 5).
     - System profile behaviors, including that `sys:bsd` denies all probes in the particular runtime-checks matrix, and that `sys:airlock` probes are recorded as EPERM/deny with a status that allows for `blocked` or `partial` (capturing apply gates rather than treating them as missing profiles).
 
 - **Adversarial profiles and network/VFS behavior**
-  - `book/tests/planes/runtime/test_runtime_adversarial.py` and `test_network_outbound_guardrail.py` ingest artifacts from `book/experiments/runtime-adversarial/out` and assert that:
+  - `book/tests/planes/runtime/test_runtime_adversarial.py` and `test_network_outbound_guardrail.py` ingest artifacts from `book/experiments/runtime-final-final/suites/runtime-adversarial/out` and assert that:
     - Expected matrices are world-pinned and profile sets match between expectations and runtime results.
     - Every mismatch in `mismatch_summary.json` is annotated in `impact_map.json`, making divergences explicit rather than silently ignoring them.
     - Carefully paired SBPL profiles for network-outbound allow/deny differ only in the `network-outbound` clause and produce expected allow/deny behavior at runtime.
-  - `book/tests/planes/runtime/test_vfs_canonicalization_outputs.py` and `test_vfs_canonicalization_structural.py` focus on the VFS canonicalization experiment (`book/experiments/vfs-canonicalization/out`), asserting:
+  - `book/tests/planes/runtime/test_vfs_canonicalization_outputs.py` and `test_vfs_canonicalization_structural.py` focus on the VFS canonicalization experiment (`book/experiments/runtime-final-final/suites/vfs-canonicalization/out`), asserting:
     - Shape and presence for expected vs runtime JSON lists.
     - That a “tmp-only” profile denies all probes due to `/tmp`→`/private/tmp` canonicalization.
     - That “private-tmp-only” and “both-paths” profiles follow a predictable allow/deny pattern for file-read/write probes across `/tmp`, `/private/tmp`, and related paths, and that metadata probes deny across the board (recorded as a harness limitation).

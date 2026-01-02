@@ -15,7 +15,7 @@ runtime behavior.
 Evidence tier: hypothesis. These inputs are utility probes; they do not
 carry runtime witnesses and should not be used to claim policy semantics.
 
-Pointers: `book/experiments/sbpl-graph-runtime/Report.md`.
+Pointers: `book/experiments/runtime-final-final/suites/sbpl-graph-runtime/Report.md`.
 
 ### `golden-triple/`
 
@@ -29,7 +29,7 @@ divergences (for example `bucket5:v11_read_subpath`); check the golden profile
 artifacts before treating a profile as runtime-aligned.
 
 Pointers: `book/profiles/golden-triple/README.md`,
-`book/experiments/sbpl-graph-runtime/Report.md`.
+`book/experiments/runtime-final-final/suites/sbpl-graph-runtime/Report.md`.
 
 ### `network-matrix/`
 
@@ -52,7 +52,7 @@ Evidence tier: hypothesis. Apply-stage EPERM is a gate signal (profile never
 attached); use these to avoid apply-gated shapes, not to interpret policy
 decisions.
 
-Pointers: `book/experiments/gate-witnesses/Report.md`,
+Pointers: `book/experiments/runtime-final-final/suites/gate-witnesses/Report.md`,
 `book/tools/preflight/README.md`.
 
 ## Provenance

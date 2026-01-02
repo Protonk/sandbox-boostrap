@@ -1,7 +1,7 @@
 {
   "description": "Bucket-level runtime checks.",
   "plan": {
-    "apply_preflight_profile": "book/experiments/hardened-runtime/sb/apply_preflight_allow.sb",
+    "apply_preflight_profile": "book/experiments/runtime-final-final/suites/hardened-runtime/sb/apply_preflight_allow.sb",
     "controls": {
       "baseline": true
     },
@@ -1378,7 +1378,7 @@
           "metafilter_any|file-write*|/tmp/baz.txt"
         ],
         "profile_id": "runtime:metafilter_any",
-        "profile_path": "book/experiments/sbpl-graph-runtime/profiles/metafilter_any.sb",
+        "profile_path": "book/experiments/runtime-final-final/suites/sbpl-graph-runtime/profiles/metafilter_any.sb",
         "semantic_group": null
       },
       "runtime:strict_1": {
@@ -1393,7 +1393,7 @@
           "runtime:strict_1:write_hosts"
         ],
         "profile_id": "runtime:strict_1",
-        "profile_path": "book/experiments/runtime-checks/strict_1.sb",
+        "profile_path": "book/experiments/runtime-final-final/suites/runtime-checks/strict_1.sb",
         "semantic_group": null
       },
       "sys:airlock": {

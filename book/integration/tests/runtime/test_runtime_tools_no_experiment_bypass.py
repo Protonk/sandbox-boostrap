@@ -20,8 +20,8 @@ FORBIDDEN_PATTERNS = {
 
 ALLOWLIST = {
     # Fixture prep is a narrow helper; do not allow runner imports elsewhere.
-    "harness_runner": {Path("book/experiments/vfs-canonicalization/prepare_fixtures.py")},
-    "normalize_observations": {Path("book/experiments/metadata-runner/run_metadata.py")},
+    "harness_runner": {Path("book/experiments/runtime-final-final/suites/vfs-canonicalization/prepare_fixtures.py")},
+    "normalize_observations": {Path("book/experiments/runtime-final-final/suites/metadata-runner/run_metadata.py")},
 }
 
 

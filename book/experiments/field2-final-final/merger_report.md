@@ -15,12 +15,12 @@ This report records what was consolidated into this experiment. All paths are re
 - `book/experiments/node-layout/`
 - `book/experiments/op-table-operation/`
 - `book/experiments/op-table-vocab-alignment/`
-- `book/experiments/metadata-runner/`
-- `book/experiments/vfs-canonicalization/`
+- `book/experiments/runtime-final-final/suites/metadata-runner/`
+- `book/experiments/runtime-final-final/suites/vfs-canonicalization/`
 
 ## Additional relocations
-- `book/experiments/metadata-runner/check_structural.py` -> `book/experiments/field2-final-final/metadata-runner/check_structural.py`
-- `book/experiments/metadata-runner/out/anchor_structural_check.json` -> `book/experiments/field2-final-final/metadata-runner/out/anchor_structural_check.json`
+- `book/experiments/runtime-final-final/suites/metadata-runner/check_structural.py` -> `book/experiments/field2-final-final/metadata-runner/check_structural.py`
+- `book/experiments/runtime-final-final/suites/metadata-runner/out/anchor_structural_check.json` -> `book/experiments/field2-final-final/metadata-runner/out/anchor_structural_check.json`
 
 ## Archive targets
 The original experiment directories listed above are moved under `book/experiments/archive/` after migration.

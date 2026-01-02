@@ -23,6 +23,23 @@
       "observed_path": "/private/etc/hosts",
       "observed_path_source": "fd_path",
       "operation": "file-read*",
+      "policy_layers": {
+        "attribution": "unknown",
+        "effective_decision": "allow",
+        "platform_policy": {
+          "decision": "unknown",
+          "error": null,
+          "exit_code": null,
+          "source": "baseline_missing",
+          "status": null
+        },
+        "process_policy": {
+          "decision": "allow",
+          "failure_kind": null,
+          "failure_stage": null,
+          "status": "success"
+        }
+      },
       "preflight": {
         "classification": "no_known_apply_gate_signature",
         "findings": [],
@@ -36,6 +53,11 @@
       "probe_name": "read_/etc/hosts",
       "profile_id": "bucket4:v1_read",
       "requested_path": "/etc/hosts",
+      "resource_hygiene": {
+        "apply_model": "self_apply",
+        "apply_timing": "pre_syscall",
+        "preexisting_sandbox_suspected": false
+      },
       "runner_info": {
         "apply_model": "self_apply",
         "apply_timing": "pre_syscall",
@@ -68,16 +90,40 @@
         "/etc/hosts"
       ],
       "errno": 2,
+      "errno_name": "ENOENT",
       "expectation_id": "bucket4:v1_read:write_/etc/hosts",
       "expected": "deny",
       "failure_kind": "probe_nonzero_exit",
       "failure_stage": "probe",
+      "file_confounder": {
+        "attribution": "unknown",
+        "classification": "other_errno",
+        "errno": 2,
+        "errno_name": "ENOENT"
+      },
       "match": true,
       "normalized_path": "/private/etc/hosts",
       "normalized_path_source": "observed_path",
       "observed_path": "/private/etc/hosts",
       "observed_path_source": "unsandboxed_fd_path",
       "operation": "file-write*",
+      "policy_layers": {
+        "attribution": "unknown",
+        "effective_decision": "deny",
+        "platform_policy": {
+          "decision": "unknown",
+          "error": null,
+          "exit_code": null,
+          "source": "baseline_missing",
+          "status": null
+        },
+        "process_policy": {
+          "decision": "deny",
+          "failure_kind": "probe_nonzero_exit",
+          "failure_stage": "probe",
+          "status": "errno"
+        }
+      },
       "preflight": {
         "classification": "no_known_apply_gate_signature",
         "findings": [],
@@ -91,6 +137,11 @@
       "probe_name": "write_/etc/hosts",
       "profile_id": "bucket4:v1_read",
       "requested_path": "/etc/hosts",
+      "resource_hygiene": {
+        "apply_model": "self_apply",
+        "apply_timing": "pre_syscall",
+        "preexisting_sandbox_suspected": false
+      },
       "runner_info": {
         "apply_model": "self_apply",
         "apply_timing": "pre_syscall",
@@ -130,6 +181,23 @@
       "observed_path": "/private/tmp/foo",
       "observed_path_source": "fd_path",
       "operation": "file-read*",
+      "policy_layers": {
+        "attribution": "unknown",
+        "effective_decision": "allow",
+        "platform_policy": {
+          "decision": "unknown",
+          "error": null,
+          "exit_code": null,
+          "source": "baseline_missing",
+          "status": null
+        },
+        "process_policy": {
+          "decision": "allow",
+          "failure_kind": null,
+          "failure_stage": null,
+          "status": "success"
+        }
+      },
       "preflight": {
         "classification": "no_known_apply_gate_signature",
         "findings": [],
@@ -143,6 +211,11 @@
       "probe_name": "read_/tmp/foo",
       "profile_id": "bucket4:v1_read",
       "requested_path": "/tmp/foo",
+      "resource_hygiene": {
+        "apply_model": "self_apply",
+        "apply_timing": "pre_syscall",
+        "preexisting_sandbox_suspected": false
+      },
       "runner_info": {
         "apply_model": "self_apply",
         "apply_timing": "pre_syscall",
@@ -182,6 +255,23 @@
       "observed_path": "/private/tmp/foo",
       "observed_path_source": "fd_path",
       "operation": "file-read*",
+      "policy_layers": {
+        "attribution": "unknown",
+        "effective_decision": "allow",
+        "platform_policy": {
+          "decision": "unknown",
+          "error": null,
+          "exit_code": null,
+          "source": "baseline_missing",
+          "status": null
+        },
+        "process_policy": {
+          "decision": "allow",
+          "failure_kind": null,
+          "failure_stage": null,
+          "status": "success"
+        }
+      },
       "preflight": {
         "classification": "no_known_apply_gate_signature",
         "findings": [],
@@ -195,6 +285,11 @@
       "probe_name": "read_/tmp/foo",
       "profile_id": "bucket5:v11_read_subpath",
       "requested_path": "/tmp/foo",
+      "resource_hygiene": {
+        "apply_model": "self_apply",
+        "apply_timing": "pre_syscall",
+        "preexisting_sandbox_suspected": false
+      },
       "runner_info": {
         "apply_model": "self_apply",
         "apply_timing": "pre_syscall",
@@ -227,16 +322,40 @@
         "/tmp/bar"
       ],
       "errno": 2,
+      "errno_name": "ENOENT",
       "expectation_id": "bucket5:v11_read_subpath:read_/tmp/bar",
       "expected": "deny",
       "failure_kind": "probe_nonzero_exit",
       "failure_stage": "probe",
+      "file_confounder": {
+        "attribution": "unknown",
+        "classification": "other_errno",
+        "errno": 2,
+        "errno_name": "ENOENT"
+      },
       "match": true,
       "normalized_path": "/private/tmp/bar",
       "normalized_path_source": "observed_path",
       "observed_path": "/private/tmp/bar",
       "observed_path_source": "unsandboxed_fd_path",
       "operation": "file-read*",
+      "policy_layers": {
+        "attribution": "unknown",
+        "effective_decision": "deny",
+        "platform_policy": {
+          "decision": "unknown",
+          "error": null,
+          "exit_code": null,
+          "source": "baseline_missing",
+          "status": null
+        },
+        "process_policy": {
+          "decision": "deny",
+          "failure_kind": "probe_nonzero_exit",
+          "failure_stage": "probe",
+          "status": "errno"
+        }
+      },
       "preflight": {
         "classification": "no_known_apply_gate_signature",
         "findings": [],
@@ -250,6 +369,11 @@
       "probe_name": "read_/tmp/bar",
       "profile_id": "bucket5:v11_read_subpath",
       "requested_path": "/tmp/bar",
+      "resource_hygiene": {
+        "apply_model": "self_apply",
+        "apply_timing": "pre_syscall",
+        "preexisting_sandbox_suspected": false
+      },
       "runner_info": {
         "apply_model": "self_apply",
         "apply_timing": "pre_syscall",
@@ -282,16 +406,40 @@
         "/tmp/foo"
       ],
       "errno": 2,
+      "errno_name": "ENOENT",
       "expectation_id": "bucket5:v11_read_subpath:write_/tmp/foo",
       "expected": "deny",
       "failure_kind": "probe_nonzero_exit",
       "failure_stage": "probe",
+      "file_confounder": {
+        "attribution": "unknown",
+        "classification": "other_errno",
+        "errno": 2,
+        "errno_name": "ENOENT"
+      },
       "match": true,
       "normalized_path": "/private/tmp/foo",
       "normalized_path_source": "observed_path",
       "observed_path": "/private/tmp/foo",
       "observed_path_source": "unsandboxed_fd_path",
       "operation": "file-write*",
+      "policy_layers": {
+        "attribution": "unknown",
+        "effective_decision": "deny",
+        "platform_policy": {
+          "decision": "unknown",
+          "error": null,
+          "exit_code": null,
+          "source": "baseline_missing",
+          "status": null
+        },
+        "process_policy": {
+          "decision": "deny",
+          "failure_kind": "probe_nonzero_exit",
+          "failure_stage": "probe",
+          "status": "errno"
+        }
+      },
       "preflight": {
         "classification": "no_known_apply_gate_signature",
         "findings": [],
@@ -305,6 +453,11 @@
       "probe_name": "write_/tmp/foo",
       "profile_id": "bucket5:v11_read_subpath",
       "requested_path": "/tmp/foo",
+      "resource_hygiene": {
+        "apply_model": "self_apply",
+        "apply_timing": "pre_syscall",
+        "preexisting_sandbox_suspected": false
+      },
       "runner_info": {
         "apply_model": "self_apply",
         "apply_timing": "pre_syscall",
@@ -361,6 +514,23 @@
       "observed_path": "/private/etc/hosts",
       "observed_path_source": "unsandboxed_fd_path",
       "operation": "file-read*",
+      "policy_layers": {
+        "attribution": "unknown",
+        "effective_decision": "allow",
+        "platform_policy": {
+          "decision": "unknown",
+          "error": null,
+          "exit_code": null,
+          "source": "baseline_missing",
+          "status": null
+        },
+        "process_policy": {
+          "decision": "allow",
+          "failure_kind": null,
+          "failure_stage": null,
+          "status": "success"
+        }
+      },
       "preflight": {
         "classification": "no_known_apply_gate_signature",
         "findings": [
@@ -379,6 +549,11 @@
       "probe_name": "read_/etc/hosts",
       "profile_id": "runtime:allow_all",
       "requested_path": "/etc/hosts",
+      "resource_hygiene": {
+        "apply_model": "exec_wrapper",
+        "apply_timing": "pre_exec",
+        "preexisting_sandbox_suspected": false
+      },
       "runner_info": {
         "apply_model": "exec_wrapper",
         "apply_timing": "pre_exec",
@@ -435,6 +610,23 @@
       "observed_path": "/private/tmp/sbpl_rt/read.txt",
       "observed_path_source": "unsandboxed_fd_path",
       "operation": "file-read*",
+      "policy_layers": {
+        "attribution": "unknown",
+        "effective_decision": "allow",
+        "platform_policy": {
+          "decision": "unknown",
+          "error": null,
+          "exit_code": null,
+          "source": "baseline_missing",
+          "status": null
+        },
+        "process_policy": {
+          "decision": "allow",
+          "failure_kind": null,
+          "failure_stage": null,
+          "status": "success"
+        }
+      },
       "preflight": {
         "classification": "no_known_apply_gate_signature",
         "findings": [
@@ -453,6 +645,11 @@
       "probe_name": "read_/tmp/sbpl_rt/read.txt",
       "profile_id": "runtime:allow_all",
       "requested_path": "/tmp/sbpl_rt/read.txt",
+      "resource_hygiene": {
+        "apply_model": "exec_wrapper",
+        "apply_timing": "pre_exec",
+        "preexisting_sandbox_suspected": false
+      },
       "runner_info": {
         "apply_model": "exec_wrapper",
         "apply_timing": "pre_exec",
@@ -510,6 +707,23 @@
       "observed_path": "/private/tmp/sbpl_rt/write.txt",
       "observed_path_source": "unsandboxed_fd_path",
       "operation": "file-write*",
+      "policy_layers": {
+        "attribution": "unknown",
+        "effective_decision": "allow",
+        "platform_policy": {
+          "decision": "unknown",
+          "error": null,
+          "exit_code": null,
+          "source": "baseline_missing",
+          "status": null
+        },
+        "process_policy": {
+          "decision": "allow",
+          "failure_kind": null,
+          "failure_stage": null,
+          "status": "success"
+        }
+      },
       "preflight": {
         "classification": "no_known_apply_gate_signature",
         "findings": [
@@ -528,6 +742,11 @@
       "probe_name": "write_/tmp/sbpl_rt/write.txt",
       "profile_id": "runtime:allow_all",
       "requested_path": "/tmp/sbpl_rt/write.txt",
+      "resource_hygiene": {
+        "apply_model": "exec_wrapper",
+        "apply_timing": "pre_exec",
+        "preexisting_sandbox_suspected": false
+      },
       "runner_info": {
         "apply_model": "exec_wrapper",
         "apply_timing": "pre_exec",
@@ -567,6 +786,23 @@
       "observed_path": "/private/tmp/foo.txt",
       "observed_path_source": "fd_path",
       "operation": "file-read*",
+      "policy_layers": {
+        "attribution": "unknown",
+        "effective_decision": "allow",
+        "platform_policy": {
+          "decision": "unknown",
+          "error": null,
+          "exit_code": null,
+          "source": "baseline_missing",
+          "status": null
+        },
+        "process_policy": {
+          "decision": "allow",
+          "failure_kind": null,
+          "failure_stage": null,
+          "status": "success"
+        }
+      },
       "preflight": {
         "classification": "no_known_apply_gate_signature",
         "findings": [],
@@ -580,6 +816,11 @@
       "probe_name": "read_foo",
       "profile_id": "runtime:metafilter_any",
       "requested_path": "/tmp/foo.txt",
+      "resource_hygiene": {
+        "apply_model": "self_apply",
+        "apply_timing": "pre_syscall",
+        "preexisting_sandbox_suspected": false
+      },
       "runner_info": {
         "apply_model": "self_apply",
         "apply_timing": "pre_syscall",
@@ -619,6 +860,23 @@
       "observed_path": "/private/tmp/bar.txt",
       "observed_path_source": "fd_path",
       "operation": "file-read*",
+      "policy_layers": {
+        "attribution": "unknown",
+        "effective_decision": "allow",
+        "platform_policy": {
+          "decision": "unknown",
+          "error": null,
+          "exit_code": null,
+          "source": "baseline_missing",
+          "status": null
+        },
+        "process_policy": {
+          "decision": "allow",
+          "failure_kind": null,
+          "failure_stage": null,
+          "status": "success"
+        }
+      },
       "preflight": {
         "classification": "no_known_apply_gate_signature",
         "findings": [],
@@ -632,6 +890,11 @@
       "probe_name": "read_bar",
       "profile_id": "runtime:metafilter_any",
       "requested_path": "/tmp/bar.txt",
+      "resource_hygiene": {
+        "apply_model": "self_apply",
+        "apply_timing": "pre_syscall",
+        "preexisting_sandbox_suspected": false
+      },
       "runner_info": {
         "apply_model": "self_apply",
         "apply_timing": "pre_syscall",
@@ -671,6 +934,23 @@
       "observed_path": "/private/tmp/qux.txt",
       "observed_path_source": "fd_path",
       "operation": "file-read*",
+      "policy_layers": {
+        "attribution": "unknown",
+        "effective_decision": "allow",
+        "platform_policy": {
+          "decision": "unknown",
+          "error": null,
+          "exit_code": null,
+          "source": "baseline_missing",
+          "status": null
+        },
+        "process_policy": {
+          "decision": "allow",
+          "failure_kind": null,
+          "failure_stage": null,
+          "status": "success"
+        }
+      },
       "preflight": {
         "classification": "no_known_apply_gate_signature",
         "findings": [],
@@ -684,6 +964,11 @@
       "probe_name": "read_other",
       "profile_id": "runtime:metafilter_any",
       "requested_path": "/tmp/qux.txt",
+      "resource_hygiene": {
+        "apply_model": "self_apply",
+        "apply_timing": "pre_syscall",
+        "preexisting_sandbox_suspected": false
+      },
       "runner_info": {
         "apply_model": "self_apply",
         "apply_timing": "pre_syscall",
@@ -716,16 +1001,40 @@
         "/tmp/baz.txt"
       ],
       "errno": 2,
+      "errno_name": "ENOENT",
       "expectation_id": "metafilter_any|file-read*|/tmp/baz.txt",
       "expected": "deny",
       "failure_kind": "probe_nonzero_exit",
       "failure_stage": "probe",
+      "file_confounder": {
+        "attribution": "unknown",
+        "classification": "other_errno",
+        "errno": 2,
+        "errno_name": "ENOENT"
+      },
       "match": true,
       "normalized_path": "/private/tmp/baz.txt",
       "normalized_path_source": "observed_path",
       "observed_path": "/private/tmp/baz.txt",
       "observed_path_source": "unsandboxed_fd_path",
       "operation": "file-read*",
+      "policy_layers": {
+        "attribution": "unknown",
+        "effective_decision": "deny",
+        "platform_policy": {
+          "decision": "unknown",
+          "error": null,
+          "exit_code": null,
+          "source": "baseline_missing",
+          "status": null
+        },
+        "process_policy": {
+          "decision": "deny",
+          "failure_kind": "probe_nonzero_exit",
+          "failure_stage": "probe",
+          "status": "errno"
+        }
+      },
       "preflight": {
         "classification": "no_known_apply_gate_signature",
         "findings": [],
@@ -739,6 +1048,11 @@
       "probe_name": "read_baz",
       "profile_id": "runtime:metafilter_any",
       "requested_path": "/tmp/baz.txt",
+      "resource_hygiene": {
+        "apply_model": "self_apply",
+        "apply_timing": "pre_syscall",
+        "preexisting_sandbox_suspected": false
+      },
       "runner_info": {
         "apply_model": "self_apply",
         "apply_timing": "pre_syscall",
@@ -771,16 +1085,40 @@
         "/tmp/baz.txt"
       ],
       "errno": 2,
+      "errno_name": "ENOENT",
       "expectation_id": "metafilter_any|file-write*|/tmp/baz.txt",
       "expected": "deny",
       "failure_kind": "probe_nonzero_exit",
       "failure_stage": "probe",
+      "file_confounder": {
+        "attribution": "unknown",
+        "classification": "other_errno",
+        "errno": 2,
+        "errno_name": "ENOENT"
+      },
       "match": true,
       "normalized_path": "/private/tmp/baz.txt",
       "normalized_path_source": "observed_path",
       "observed_path": "/private/tmp/baz.txt",
       "observed_path_source": "unsandboxed_fd_path",
       "operation": "file-write*",
+      "policy_layers": {
+        "attribution": "unknown",
+        "effective_decision": "deny",
+        "platform_policy": {
+          "decision": "unknown",
+          "error": null,
+          "exit_code": null,
+          "source": "baseline_missing",
+          "status": null
+        },
+        "process_policy": {
+          "decision": "deny",
+          "failure_kind": "probe_nonzero_exit",
+          "failure_stage": "probe",
+          "status": "errno"
+        }
+      },
       "preflight": {
         "classification": "no_known_apply_gate_signature",
         "findings": [],
@@ -794,6 +1132,11 @@
       "probe_name": "write_baz",
       "profile_id": "runtime:metafilter_any",
       "requested_path": "/tmp/baz.txt",
+      "resource_hygiene": {
+        "apply_model": "self_apply",
+        "apply_timing": "pre_syscall",
+        "preexisting_sandbox_suspected": false
+      },
       "runner_info": {
         "apply_model": "self_apply",
         "apply_timing": "pre_syscall",
@@ -833,6 +1176,23 @@
       "observed_path": "/private/tmp/strict_ok/allow.txt",
       "observed_path_source": "fd_path",
       "operation": "file-read*",
+      "policy_layers": {
+        "attribution": "unknown",
+        "effective_decision": "allow",
+        "platform_policy": {
+          "decision": "unknown",
+          "error": null,
+          "exit_code": null,
+          "source": "baseline_missing",
+          "status": null
+        },
+        "process_policy": {
+          "decision": "allow",
+          "failure_kind": null,
+          "failure_stage": null,
+          "status": "success"
+        }
+      },
       "preflight": {
         "classification": "no_known_apply_gate_signature",
         "findings": [],
@@ -846,6 +1206,11 @@
       "probe_name": "read_ok",
       "profile_id": "runtime:strict_1",
       "requested_path": "/private/tmp/strict_ok/allow.txt",
+      "resource_hygiene": {
+        "apply_model": "self_apply",
+        "apply_timing": "pre_syscall",
+        "preexisting_sandbox_suspected": false
+      },
       "runner_info": {
         "apply_model": "self_apply",
         "apply_timing": "pre_syscall",
@@ -885,6 +1250,23 @@
       "observed_path": "/private/tmp/strict_ok/allow.txt",
       "observed_path_source": "fd_path",
       "operation": "file-write*",
+      "policy_layers": {
+        "attribution": "unknown",
+        "effective_decision": "allow",
+        "platform_policy": {
+          "decision": "unknown",
+          "error": null,
+          "exit_code": null,
+          "source": "baseline_missing",
+          "status": null
+        },
+        "process_policy": {
+          "decision": "allow",
+          "failure_kind": null,
+          "failure_stage": null,
+          "status": "success"
+        }
+      },
       "preflight": {
         "classification": "no_known_apply_gate_signature",
         "findings": [],
@@ -898,6 +1280,11 @@
       "probe_name": "write_ok",
       "profile_id": "runtime:strict_1",
       "requested_path": "/private/tmp/strict_ok/allow.txt",
+      "resource_hygiene": {
+        "apply_model": "self_apply",
+        "apply_timing": "pre_syscall",
+        "preexisting_sandbox_suspected": false
+      },
       "runner_info": {
         "apply_model": "self_apply",
         "apply_timing": "pre_syscall",
@@ -930,16 +1317,40 @@
         "/etc/hosts"
       ],
       "errno": 2,
+      "errno_name": "ENOENT",
       "expectation_id": "runtime:strict_1:read_hosts",
       "expected": "deny",
       "failure_kind": "probe_nonzero_exit",
       "failure_stage": "probe",
+      "file_confounder": {
+        "attribution": "unknown",
+        "classification": "other_errno",
+        "errno": 2,
+        "errno_name": "ENOENT"
+      },
       "match": true,
       "normalized_path": "/private/etc/hosts",
       "normalized_path_source": "observed_path",
       "observed_path": "/private/etc/hosts",
       "observed_path_source": "unsandboxed_fd_path",
       "operation": "file-read*",
+      "policy_layers": {
+        "attribution": "unknown",
+        "effective_decision": "deny",
+        "platform_policy": {
+          "decision": "unknown",
+          "error": null,
+          "exit_code": null,
+          "source": "baseline_missing",
+          "status": null
+        },
+        "process_policy": {
+          "decision": "deny",
+          "failure_kind": "probe_nonzero_exit",
+          "failure_stage": "probe",
+          "status": "errno"
+        }
+      },
       "preflight": {
         "classification": "no_known_apply_gate_signature",
         "findings": [],
@@ -953,6 +1364,11 @@
       "probe_name": "read_hosts",
       "profile_id": "runtime:strict_1",
       "requested_path": "/etc/hosts",
+      "resource_hygiene": {
+        "apply_model": "self_apply",
+        "apply_timing": "pre_syscall",
+        "preexisting_sandbox_suspected": false
+      },
       "runner_info": {
         "apply_model": "self_apply",
         "apply_timing": "pre_syscall",
@@ -985,16 +1401,40 @@
         "/etc/hosts"
       ],
       "errno": 2,
+      "errno_name": "ENOENT",
       "expectation_id": "runtime:strict_1:write_hosts",
       "expected": "deny",
       "failure_kind": "probe_nonzero_exit",
       "failure_stage": "probe",
+      "file_confounder": {
+        "attribution": "unknown",
+        "classification": "other_errno",
+        "errno": 2,
+        "errno_name": "ENOENT"
+      },
       "match": true,
       "normalized_path": "/private/etc/hosts",
       "normalized_path_source": "observed_path",
       "observed_path": "/private/etc/hosts",
       "observed_path_source": "unsandboxed_fd_path",
       "operation": "file-write*",
+      "policy_layers": {
+        "attribution": "unknown",
+        "effective_decision": "deny",
+        "platform_policy": {
+          "decision": "unknown",
+          "error": null,
+          "exit_code": null,
+          "source": "baseline_missing",
+          "status": null
+        },
+        "process_policy": {
+          "decision": "deny",
+          "failure_kind": "probe_nonzero_exit",
+          "failure_stage": "probe",
+          "status": "errno"
+        }
+      },
       "preflight": {
         "classification": "no_known_apply_gate_signature",
         "findings": [],
@@ -1008,6 +1448,11 @@
       "probe_name": "write_hosts",
       "profile_id": "runtime:strict_1",
       "requested_path": "/etc/hosts",
+      "resource_hygiene": {
+        "apply_model": "self_apply",
+        "apply_timing": "pre_syscall",
+        "preexisting_sandbox_suspected": false
+      },
       "runner_info": {
         "apply_model": "self_apply",
         "apply_timing": "pre_syscall",
@@ -1036,6 +1481,23 @@
       "observed_path": "/private/etc/hosts",
       "observed_path_source": "unsandboxed_fd_path",
       "operation": "file-read*",
+      "policy_layers": {
+        "attribution": "unknown",
+        "effective_decision": "unknown",
+        "platform_policy": {
+          "decision": "unknown",
+          "error": null,
+          "exit_code": null,
+          "source": "baseline_missing",
+          "status": null
+        },
+        "process_policy": {
+          "decision": "unknown",
+          "failure_kind": "preflight_apply_gate_signature",
+          "failure_stage": "preflight",
+          "status": "blocked"
+        }
+      },
       "preflight": {
         "classification": "likely_apply_gated_for_harness_identity",
         "findings": [
@@ -1117,6 +1579,23 @@
       "observed_path": "/private/etc/hosts",
       "observed_path_source": "unsandboxed_fd_path",
       "operation": "file-write*",
+      "policy_layers": {
+        "attribution": "unknown",
+        "effective_decision": "unknown",
+        "platform_policy": {
+          "decision": "unknown",
+          "error": null,
+          "exit_code": null,
+          "source": "baseline_missing",
+          "status": null
+        },
+        "process_policy": {
+          "decision": "unknown",
+          "failure_kind": "preflight_apply_gate_signature",
+          "failure_stage": "preflight",
+          "status": "blocked"
+        }
+      },
       "preflight": {
         "classification": "likely_apply_gated_for_harness_identity",
         "findings": [
@@ -1198,6 +1677,23 @@
       "observed_path": "/private/tmp/foo",
       "observed_path_source": "unsandboxed_fd_path",
       "operation": "file-read*",
+      "policy_layers": {
+        "attribution": "unknown",
+        "effective_decision": "unknown",
+        "platform_policy": {
+          "decision": "unknown",
+          "error": null,
+          "exit_code": null,
+          "source": "baseline_missing",
+          "status": null
+        },
+        "process_policy": {
+          "decision": "unknown",
+          "failure_kind": "preflight_apply_gate_signature",
+          "failure_stage": "preflight",
+          "status": "blocked"
+        }
+      },
       "preflight": {
         "classification": "likely_apply_gated_for_harness_identity",
         "findings": [
@@ -1279,6 +1775,23 @@
       "observed_path": "/private/tmp/foo",
       "observed_path_source": "unsandboxed_fd_path",
       "operation": "file-write*",
+      "policy_layers": {
+        "attribution": "unknown",
+        "effective_decision": "unknown",
+        "platform_policy": {
+          "decision": "unknown",
+          "error": null,
+          "exit_code": null,
+          "source": "baseline_missing",
+          "status": null
+        },
+        "process_policy": {
+          "decision": "unknown",
+          "failure_kind": "preflight_apply_gate_signature",
+          "failure_stage": "preflight",
+          "status": "blocked"
+        }
+      },
       "preflight": {
         "classification": "likely_apply_gated_for_harness_identity",
         "findings": [
@@ -1364,16 +1877,40 @@
         "/etc/hosts"
       ],
       "errno": 2,
+      "errno_name": "ENOENT",
       "expectation_id": "sys:bsd:read_/etc/hosts",
       "expected": "deny",
       "failure_kind": "probe_nonzero_exit",
       "failure_stage": "probe",
+      "file_confounder": {
+        "attribution": "unknown",
+        "classification": "other_errno",
+        "errno": 2,
+        "errno_name": "ENOENT"
+      },
       "match": true,
       "normalized_path": "/private/etc/hosts",
       "normalized_path_source": "observed_path",
       "observed_path": "/private/etc/hosts",
       "observed_path_source": "unsandboxed_fd_path",
       "operation": "file-read*",
+      "policy_layers": {
+        "attribution": "unknown",
+        "effective_decision": "deny",
+        "platform_policy": {
+          "decision": "unknown",
+          "error": null,
+          "exit_code": null,
+          "source": "baseline_missing",
+          "status": null
+        },
+        "process_policy": {
+          "decision": "deny",
+          "failure_kind": "probe_nonzero_exit",
+          "failure_stage": "probe",
+          "status": "errno"
+        }
+      },
       "preflight": {
         "classification": "no_known_apply_gate_signature",
         "findings": [],
@@ -1387,6 +1924,11 @@
       "probe_name": "read_/etc/hosts",
       "profile_id": "sys:bsd",
       "requested_path": "/etc/hosts",
+      "resource_hygiene": {
+        "apply_model": "self_apply",
+        "apply_timing": "pre_syscall",
+        "preexisting_sandbox_suspected": false
+      },
       "runner_info": {
         "apply_model": "self_apply",
         "apply_timing": "pre_syscall",
@@ -1419,16 +1961,40 @@
         "/etc/hosts"
       ],
       "errno": 2,
+      "errno_name": "ENOENT",
       "expectation_id": "sys:bsd:write_/etc/hosts",
       "expected": "deny",
       "failure_kind": "probe_nonzero_exit",
       "failure_stage": "probe",
+      "file_confounder": {
+        "attribution": "unknown",
+        "classification": "other_errno",
+        "errno": 2,
+        "errno_name": "ENOENT"
+      },
       "match": true,
       "normalized_path": "/private/etc/hosts",
       "normalized_path_source": "observed_path",
       "observed_path": "/private/etc/hosts",
       "observed_path_source": "unsandboxed_fd_path",
       "operation": "file-write*",
+      "policy_layers": {
+        "attribution": "unknown",
+        "effective_decision": "deny",
+        "platform_policy": {
+          "decision": "unknown",
+          "error": null,
+          "exit_code": null,
+          "source": "baseline_missing",
+          "status": null
+        },
+        "process_policy": {
+          "decision": "deny",
+          "failure_kind": "probe_nonzero_exit",
+          "failure_stage": "probe",
+          "status": "errno"
+        }
+      },
       "preflight": {
         "classification": "no_known_apply_gate_signature",
         "findings": [],
@@ -1442,6 +2008,11 @@
       "probe_name": "write_/etc/hosts",
       "profile_id": "sys:bsd",
       "requested_path": "/etc/hosts",
+      "resource_hygiene": {
+        "apply_model": "self_apply",
+        "apply_timing": "pre_syscall",
+        "preexisting_sandbox_suspected": false
+      },
       "runner_info": {
         "apply_model": "self_apply",
         "apply_timing": "pre_syscall",
@@ -1474,16 +2045,40 @@
         "/tmp/foo"
       ],
       "errno": 2,
+      "errno_name": "ENOENT",
       "expectation_id": "sys:bsd:read_/tmp/foo",
       "expected": "deny",
       "failure_kind": "probe_nonzero_exit",
       "failure_stage": "probe",
+      "file_confounder": {
+        "attribution": "unknown",
+        "classification": "other_errno",
+        "errno": 2,
+        "errno_name": "ENOENT"
+      },
       "match": true,
       "normalized_path": "/private/tmp/foo",
       "normalized_path_source": "observed_path",
       "observed_path": "/private/tmp/foo",
       "observed_path_source": "unsandboxed_fd_path",
       "operation": "file-read*",
+      "policy_layers": {
+        "attribution": "unknown",
+        "effective_decision": "deny",
+        "platform_policy": {
+          "decision": "unknown",
+          "error": null,
+          "exit_code": null,
+          "source": "baseline_missing",
+          "status": null
+        },
+        "process_policy": {
+          "decision": "deny",
+          "failure_kind": "probe_nonzero_exit",
+          "failure_stage": "probe",
+          "status": "errno"
+        }
+      },
       "preflight": {
         "classification": "no_known_apply_gate_signature",
         "findings": [],
@@ -1497,6 +2092,11 @@
       "probe_name": "read_/tmp/foo",
       "profile_id": "sys:bsd",
       "requested_path": "/tmp/foo",
+      "resource_hygiene": {
+        "apply_model": "self_apply",
+        "apply_timing": "pre_syscall",
+        "preexisting_sandbox_suspected": false
+      },
       "runner_info": {
         "apply_model": "self_apply",
         "apply_timing": "pre_syscall",
@@ -1529,16 +2129,40 @@
         "/tmp/foo"
       ],
       "errno": 2,
+      "errno_name": "ENOENT",
       "expectation_id": "sys:bsd:write_/tmp/foo",
       "expected": "deny",
       "failure_kind": "probe_nonzero_exit",
       "failure_stage": "probe",
+      "file_confounder": {
+        "attribution": "unknown",
+        "classification": "other_errno",
+        "errno": 2,
+        "errno_name": "ENOENT"
+      },
       "match": true,
       "normalized_path": "/private/tmp/foo",
       "normalized_path_source": "observed_path",
       "observed_path": "/private/tmp/foo",
       "observed_path_source": "unsandboxed_fd_path",
       "operation": "file-write*",
+      "policy_layers": {
+        "attribution": "unknown",
+        "effective_decision": "deny",
+        "platform_policy": {
+          "decision": "unknown",
+          "error": null,
+          "exit_code": null,
+          "source": "baseline_missing",
+          "status": null
+        },
+        "process_policy": {
+          "decision": "deny",
+          "failure_kind": "probe_nonzero_exit",
+          "failure_stage": "probe",
+          "status": "errno"
+        }
+      },
       "preflight": {
         "classification": "no_known_apply_gate_signature",
         "findings": [],
@@ -1552,6 +2176,11 @@
       "probe_name": "write_/tmp/foo",
       "profile_id": "sys:bsd",
       "requested_path": "/tmp/foo",
+      "resource_hygiene": {
+        "apply_model": "self_apply",
+        "apply_timing": "pre_syscall",
+        "preexisting_sandbox_suspected": false
+      },
       "runner_info": {
         "apply_model": "self_apply",
         "apply_timing": "pre_syscall",
@@ -1659,7 +2288,7 @@
         "semantic_group": null
       },
       "runtime:metafilter_any": {
-        "blob": "book/experiments/sbpl-graph-runtime/profiles/metafilter_any.sb",
+        "blob": "book/experiments/runtime-final-final/suites/sbpl-graph-runtime/profiles/metafilter_any.sb",
         "family": null,
         "mode": "sbpl",
         "probes": [
@@ -1702,7 +2331,7 @@
         "semantic_group": null
       },
       "runtime:strict_1": {
-        "blob": "book/experiments/runtime-checks/strict_1.sb",
+        "blob": "book/experiments/runtime-final-final/suites/runtime-checks/strict_1.sb",
         "family": null,
         "mode": "sbpl",
         "probes": [
