@@ -1,0 +1,51 @@
+{
+  "entitlementjail": {
+    "capabilities_snapshot_path": null,
+    "log_path": "book/evidence/experiments/frida-testing/out/56efece2-00ed-4814-89a6-94de7649056a/ej/logs/run_xpc.log",
+    "run_xpc_path": "book/evidence/experiments/frida-testing/out/56efece2-00ed-4814-89a6-94de7649056a/ej/run_xpc.json"
+  },
+  "frida": {
+    "attach_error": "PermissionDeniedError: unable to access process with pid 87817 from the current user account",
+    "attach_meta": {
+      "pid": 87817,
+      "pid_candidates": [
+        87817
+      ],
+      "pid_error": null,
+      "pid_matches_service_pid": true,
+      "pid_source": "pgrep",
+      "run_id": "56efece2-00ed-4814-89a6-94de7649056a",
+      "service_pid": "87817",
+      "t0_ns": 1766714453015046000,
+      "wait_info": {
+        "wait_mode": "fifo",
+        "wait_path": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_jit_map_jit/Data/tmp/ej-attach-46701799-3986-4B52-9010-8BA6BF7763EF.fifo",
+        "wait_ready_at_unix_s": 1766714453.024919,
+        "wait_ready_line": "[client] wait-ready mode=fifo wait_path=/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_jit_map_jit/Data/tmp/ej-attach-46701799-3986-4B52-9010-8BA6BF7763EF.fifo",
+        "wait_timeout_ms": null
+      }
+    },
+    "events_path": "book/evidence/experiments/frida-testing/out/56efece2-00ed-4814-89a6-94de7649056a/frida/events.jsonl",
+    "meta_path": "book/evidence/experiments/frida-testing/out/56efece2-00ed-4814-89a6-94de7649056a/frida/meta.json"
+  },
+  "out_dir": "book/evidence/experiments/frida-testing/out/56efece2-00ed-4814-89a6-94de7649056a",
+  "plan_id": "frida-testing:ej-frida",
+  "probe": {
+    "ack_risk": "jit_map_jit",
+    "probe_args": [],
+    "probe_id": "probe_catalog",
+    "profile_id": "jit_map_jit",
+    "service_id": "jit_map_jit",
+    "use_profile": true
+  },
+  "row_id": "frida-testing:ej-frida.56efece2-00ed-4814-89a6-94de7649056a",
+  "run_id": "56efece2-00ed-4814-89a6-94de7649056a",
+  "schema_version": 1,
+  "selftest": {
+    "path": null,
+    "prepare_error": null,
+    "prepared": null,
+    "source": null
+  },
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

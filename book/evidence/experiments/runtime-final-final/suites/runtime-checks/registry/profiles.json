@@ -1,0 +1,197 @@
+{
+  "profiles": {
+    "bucket4:v1_read": {
+      "family": null,
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": "Baseline bucket-4 profile: allow file-read* only.",
+      "probe_refs": [
+        "bucket4:v1_read:read_/etc/hosts",
+        "bucket4:v1_read:write_/etc/hosts",
+        "bucket4:v1_read:read_/tmp/foo"
+      ],
+      "profile_id": "bucket4:v1_read",
+      "profile_path": "book/evidence/experiments/op-table-operation/sb/v1_read.sb",
+      "semantic_group": null
+    },
+    "bucket5:v11_read_subpath": {
+      "family": null,
+      "key_specific_rules": [
+        "(allow file-read* (subpath \"/private/tmp/foo\"))"
+      ],
+      "mode": "sbpl",
+      "notes": "Bucket-5 subpath profile: allow read under /tmp/foo; deny other reads/writes.",
+      "probe_refs": [
+        "bucket5:v11_read_subpath:read_/tmp/foo",
+        "bucket5:v11_read_subpath:read_/tmp/bar",
+        "bucket5:v11_read_subpath:write_/tmp/foo"
+      ],
+      "profile_id": "bucket5:v11_read_subpath",
+      "profile_path": "book/evidence/experiments/op-table-operation/sb/v11_read_subpath.sb",
+      "semantic_group": null
+    },
+    "runtime:allow_all": {
+      "family": null,
+      "key_specific_rules": [],
+      "mode": "blob",
+      "notes": "allow default; should allow all file read/write",
+      "probe_refs": [
+        "allow_all|file-read*|/etc/hosts",
+        "allow_all|file-read*|/tmp/sbpl_rt/read.txt",
+        "allow_all|file-write*|/tmp/sbpl_rt/write.txt"
+      ],
+      "profile_id": "runtime:allow_all",
+      "profile_path": "book/profiles/golden-triple/allow_all.sb.bin",
+      "semantic_group": null
+    },
+    "runtime:metafilter_any": {
+      "family": null,
+      "key_specific_rules": [
+        "(deny file-read* (literal \"/private/tmp/baz.txt\"))",
+        "(deny file-write* (literal \"/private/tmp/baz.txt\"))"
+      ],
+      "mode": "sbpl",
+      "notes": "require-any literal foo/bar; deny baz.",
+      "probe_refs": [
+        "metafilter_any|file-read*|/tmp/foo.txt",
+        "metafilter_any|file-read*|/tmp/bar.txt",
+        "metafilter_any|file-read*|/tmp/qux.txt",
+        "metafilter_any|file-read*|/tmp/baz.txt",
+        "metafilter_any|file-write*|/tmp/baz.txt"
+      ],
+      "profile_id": "runtime:metafilter_any",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/sbpl-graph-runtime/profiles/metafilter_any.sb",
+      "semantic_group": null
+    },
+    "runtime:strict_1": {
+      "family": null,
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": "Strict deny-default profile with minimal allow-set for helper liveness.",
+      "probe_refs": [
+        "runtime:strict_1:read_ok",
+        "runtime:strict_1:write_ok",
+        "runtime:strict_1:read_hosts",
+        "runtime:strict_1:write_hosts"
+      ],
+      "profile_id": "runtime:strict_1",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/strict_1.sb",
+      "semantic_group": null
+    },
+    "sys:airlock": {
+      "family": null,
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": "Platform-only profile expected to fail apply on this host; preflight is enforced so runners do not attempt apply under a generic harness identity.",
+      "probe_refs": [
+        "sys:airlock:read_/etc/hosts",
+        "sys:airlock:write_/etc/hosts",
+        "sys:airlock:read_/tmp/foo",
+        "sys:airlock:write_/tmp/foo"
+      ],
+      "profile_id": "sys:airlock",
+      "profile_path": "/System/Library/Sandbox/Profiles/airlock.sb",
+      "semantic_group": null
+    },
+    "sys:bsd": {
+      "family": null,
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": "System bsd profile via SBPL (no platform blob entitlements); observed denies on this host.",
+      "probe_refs": [
+        "sys:bsd:read_/etc/hosts",
+        "sys:bsd:write_/etc/hosts",
+        "sys:bsd:read_/tmp/foo",
+        "sys:bsd:write_/tmp/foo"
+      ],
+      "profile_id": "sys:bsd",
+      "profile_path": "/System/Library/Sandbox/Profiles/bsd.sb",
+      "semantic_group": null
+    },
+    "sys:blastdoor": {
+      "family": null,
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": "System blastdoor profile via SBPL; apply may be gated on this host.",
+      "probe_refs": [
+        "sys:blastdoor:read_/etc/hosts",
+        "sys:blastdoor:write_/etc/hosts",
+        "sys:blastdoor:read_/tmp/foo",
+        "sys:blastdoor:write_/tmp/foo",
+        "sys:blastdoor:mach_allow_logd",
+        "sys:blastdoor:mach_allow_trustd",
+        "sys:blastdoor:mach_deny_cfprefsd",
+        "sys:blastdoor:xpc_deny_trustd"
+      ],
+      "profile_id": "sys:blastdoor",
+      "profile_path": "/System/Library/Sandbox/Profiles/blastdoor.sb",
+      "semantic_group": null
+    },
+    "sys:cgpdfservice": {
+      "family": null,
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": "System CGPDFService profile via SBPL; apply may be gated on this host.",
+      "probe_refs": [
+        "sys:cgpdfservice:read_/etc/hosts",
+        "sys:cgpdfservice:write_/etc/hosts",
+        "sys:cgpdfservice:read_/tmp/foo",
+        "sys:cgpdfservice:write_/tmp/foo",
+        "sys:cgpdfservice:read_/Library/Preferences/com.apple.timezone.auto.plist",
+        "sys:cgpdfservice:read_/var/db/timezone/zoneinfo/Etc/UTC",
+        "sys:cgpdfservice:read_/private/etc/localtime"
+      ],
+      "profile_id": "sys:cgpdfservice",
+      "profile_path": "/System/Library/Sandbox/Profiles/com.apple.CoreGraphics.CGPDFService.sb",
+      "semantic_group": null
+    },
+    "appsandbox:baseline": {
+      "family": null,
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": "Entitlement-generated App Sandbox baseline (expanded SBPL).",
+      "probe_refs": [
+        "appsandbox:baseline:read_/etc/hosts",
+        "appsandbox:baseline:write_/etc/hosts",
+        "appsandbox:baseline:read_/tmp/foo",
+        "appsandbox:baseline:write_/tmp/foo"
+      ],
+      "profile_id": "appsandbox:baseline",
+      "profile_path": "book/evidence/experiments/archive/entitlement-diff/sb/build/appsandbox-baseline.expanded.sb",
+      "semantic_group": null
+    },
+    "appsandbox:net-client": {
+      "family": null,
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": "Entitlement-generated App Sandbox net-client (expanded SBPL).",
+      "probe_refs": [
+        "appsandbox:net-client:read_/etc/hosts",
+        "appsandbox:net-client:write_/etc/hosts",
+        "appsandbox:net-client:read_/tmp/foo",
+        "appsandbox:net-client:write_/tmp/foo"
+      ],
+      "profile_id": "appsandbox:net-client",
+      "profile_path": "book/evidence/experiments/archive/entitlement-diff/sb/build/appsandbox-net-client.expanded.sb",
+      "semantic_group": null
+    },
+    "appsandbox:downloads-rw": {
+      "family": null,
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": "Entitlement-generated App Sandbox downloads-rw (expanded SBPL).",
+      "probe_refs": [
+        "appsandbox:downloads-rw:read_/etc/hosts",
+        "appsandbox:downloads-rw:write_/etc/hosts",
+        "appsandbox:downloads-rw:read_/tmp/foo",
+        "appsandbox:downloads-rw:write_/tmp/foo"
+      ],
+      "profile_id": "appsandbox:downloads-rw",
+      "profile_path": "book/evidence/experiments/archive/entitlement-diff/sb/build/appsandbox-downloads-rw.expanded.sb",
+      "semantic_group": null
+    }
+  },
+  "registry_id": "runtime-checks",
+  "schema_version": "runtime-tools.profile_registry.v0.2",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

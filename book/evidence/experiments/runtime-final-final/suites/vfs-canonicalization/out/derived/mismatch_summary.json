@@ -1,0 +1,24 @@
+{
+  "bundle": {
+    "artifact_index": "book/evidence/experiments/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885/artifact_index.json",
+    "artifact_index_sha256": "7cb3c4d5becdd47360bdbb78c79ed2a1fd4159dd48e24b60ed7c0e10c70a8d48",
+    "bundle_dir": "book/evidence/experiments/vfs-canonicalization/out/e4d250ee-3120-4b2c-b706-fbd5a5ee6885",
+    "run_id": "e4d250ee-3120-4b2c-b706-fbd5a5ee6885"
+  },
+  "profiles": {
+    "vfs_both_paths": {
+      "kind": "control",
+      "note": "Profile mentions both alias and canonical forms; all requests allowed; control confirming canonical behavior."
+    },
+    "vfs_private_tmp_only": {
+      "kind": "canonicalization",
+      "note": "Profile mentions only canonical /private/... paths; alias and canonical requests are allowed across the path set; literal on canonical path effective for both."
+    },
+    "vfs_tmp_only": {
+      "kind": "canonicalization",
+      "note": "Profile mentions only /tmp/* paths; alias and canonical requests are denied across the path set, consistent with canonicalization-before-enforcement with only /private/... literals effective."
+    }
+  },
+  "schema_version": "vfs-canonicalization.mismatch_summary.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

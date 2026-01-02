@@ -1,0 +1,110 @@
+{
+  "argv": [
+    "--input",
+    "book/evidence/experiments/gate-witnesses/out/micro_variants/base_v2_mach_bootstrap_deny_message_send.sb",
+    "--out-dir",
+    "book/evidence/experiments/gate-witnesses/out/witnesses/mach_bootstrap_deny_message_send",
+    "--confirm",
+    "10"
+  ],
+  "command": [
+    "/usr/bin/true"
+  ],
+  "confirm": {
+    "minimal_failing": {
+      "apply_gate_eperm": 10,
+      "bootstrap_deny_process_exec": 0,
+      "distribution": [
+        {
+          "count": 10,
+          "errno": 1,
+          "failure_stage": "apply"
+        }
+      ],
+      "invalid": 0,
+      "not_apply_gate": 0,
+      "runs": 10
+    },
+    "passing_neighbor": {
+      "apply_gate_eperm": 0,
+      "bootstrap_deny_process_exec": 0,
+      "distribution": [
+        {
+          "count": 10,
+          "errno": null,
+          "failure_stage": null
+        }
+      ],
+      "invalid": 0,
+      "not_apply_gate": 10,
+      "runs": 10
+    }
+  },
+  "confirm_runs": 10,
+  "initial_outcome": {
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "failure_kind": "sandbox_init_failed",
+    "failure_stage": "apply",
+    "raw_stderr": "sandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/var/folders/ff/qyyjgwss7m110t6fnj2qtpjr0000gn/T/tmp1bm1x0n9.sb\",\"pid\":93540}\nsandbox_init failed: Operation not permitted\n",
+    "sbpl_sha256": "12f2e6e37cb711c80508f9506fd0281be7c803c640b9612a53db3677c62ba908",
+    "stderr_canonical": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
+    "wrapper_rc": 1
+  },
+  "input": "book/evidence/experiments/gate-witnesses/out/micro_variants/base_v2_mach_bootstrap_deny_message_send.sb",
+  "input_sha256": "e9abb0f214d82a60061c66c7118a37f088560ab888813707cd68259734945766",
+  "max_tests": null,
+  "minimal_failing_outcome": {
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "rc": -1
+    },
+    "failure_kind": "sandbox_init_failed",
+    "failure_stage": "apply",
+    "raw_stderr": "sandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"/var/folders/ff/qyyjgwss7m110t6fnj2qtpjr0000gn/T/tmpkdhupggy.sb\",\"pid\":93543}\nsandbox_init failed: Operation not permitted\n",
+    "sbpl_sha256": "2ad0354a79ebf9d4955b66fada4f21a1993b58383ea8bc33b543d0c711e4586c",
+    "stderr_canonical": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
+    "wrapper_rc": 1
+  },
+  "passing_neighbor": {
+    "deletion": {
+      "form_index": 1,
+      "kind": "delete_top_level_form",
+      "operator": "allow"
+    },
+    "outcome": {
+      "apply_report": null,
+      "failure_kind": null,
+      "failure_stage": null,
+      "raw_stderr": "",
+      "sbpl_sha256": "b9d595c2022396186e5579b9646a52e7502f5902dd104955e4777116b9fb5ecb",
+      "stderr_canonical": "",
+      "wrapper_rc": 127
+    }
+  },
+  "runtime_contract": {
+    "runtime_result_schema_version": 1,
+    "sbpl_apply_marker_schema_version": 1,
+    "seatbelt_callout_marker_schema_version": 2,
+    "tool_marker_schema_version": 2
+  },
+  "tests_run": 27,
+  "timeout_sec": 5,
+  "tool": {
+    "path": "book/tools/gate-minimizer/gate_minimizer.py",
+    "sha256": "825b326ccba2b0725ad08ead7364280265afbbaf7c5e35f9d33d51891d636d1d"
+  },
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "wrapper": "book/api/SBPL-wrapper/wrapper",
+  "wrapper_sha256": "e5c7caa28b2186a11b4583bf69b6c8e0b3b45dc0efd35287b0112446ae9c83cb"
+}

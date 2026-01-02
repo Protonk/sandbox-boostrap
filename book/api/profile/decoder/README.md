@@ -33,9 +33,9 @@ This surface is intentionally **structural**:
 ## Annotations (mapping-assisted, optional)
 
 When the repo mappings exist and the repo root can be resolved, the decoder will try to add light annotations:
-- Tag layouts: `book/graph/mappings/tag_layouts/tag_layouts.json` (or fallback `book/experiments/field2-final-final/probe-op-structure/out/tag_layout_assumptions.json`)
-- Per-tag u16 role hints: `book/graph/mappings/tag_layouts/tag_u16_roles.json`
-- Filter vocab join (id → name): `book/graph/mappings/vocab/filters.json`
+- Tag layouts: `book/evidence/graph/mappings/tag_layouts/tag_layouts.json` (or fallback `book/evidence/experiments/field2-final-final/probe-op-structure/out/tag_layout_assumptions.json`)
+- Per-tag u16 role hints: `book/evidence/graph/mappings/tag_layouts/tag_u16_roles.json`
+- Filter vocab join (id → name): `book/evidence/graph/mappings/vocab/filters.json`
 
 If these files are missing or unreadable, decoding still proceeds but those annotations are omitted.
 

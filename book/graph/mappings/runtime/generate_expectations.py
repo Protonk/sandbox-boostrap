@@ -3,9 +3,9 @@
 Generate runtime/expectations.json from runtime story + traces.
 
 Inputs:
-- book/graph/mappings/runtime_cuts/runtime_story.json
-- book/graph/mappings/runtime/traces/*.jsonl
-- book/experiments/runtime-final-final/suites/runtime-adversarial/out/impact_map.json (for allowlisted mismatches)
+- book/evidence/graph/mappings/runtime_cuts/runtime_story.json
+- book/evidence/graph/mappings/runtime/traces/*.jsonl
+- book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/impact_map.json (for allowlisted mismatches)
 - world baseline (host/world_id)
 
 Status is downgraded to partial if any profile has disallowed mismatches.
@@ -27,9 +27,9 @@ from book.api import evidence_tiers  # noqa: E402
 from book.api import world as world_mod  # noqa: E402
 from book.api.runtime.bundles import reader as bundle_reader  # noqa: E402
 
-RUNTIME_STORY = ROOT / "book/graph/mappings/runtime_cuts/runtime_story.json"
-IMPACT_MAP = ROOT / "book/experiments/runtime-final-final/suites/runtime-adversarial/out/impact_map.json"
-OUT = ROOT / "book/graph/mappings/runtime/expectations.json"
+RUNTIME_STORY = ROOT / "book/evidence/graph/mappings/runtime_cuts/runtime_story.json"
+IMPACT_MAP = ROOT / "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/impact_map.json"
+OUT = ROOT / "book/evidence/graph/mappings/runtime/expectations.json"
 
 
 def resolve_run_manifest(bundle_root: Path) -> Path:
@@ -40,14 +40,14 @@ def resolve_run_manifest(bundle_root: Path) -> Path:
     return bundle_dir / "run_manifest.json"
 
 
-RUN_MANIFEST_CHECKS = resolve_run_manifest(ROOT / "book/experiments/runtime-final-final/suites/runtime-checks/out")
-RUN_MANIFEST_ADV = resolve_run_manifest(ROOT / "book/experiments/runtime-final-final/suites/runtime-adversarial/out")
+RUN_MANIFEST_CHECKS = resolve_run_manifest(ROOT / "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out")
+RUN_MANIFEST_ADV = resolve_run_manifest(ROOT / "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out")
 
 TRACE_PATHS = {
-    "runtime:allow_all": "book/graph/mappings/runtime/traces/runtime_allow_all.jsonl",
-    "runtime:metafilter_any": "book/graph/mappings/runtime/traces/runtime_metafilter_any.jsonl",
-    "bucket4:v1_read": "book/graph/mappings/runtime/traces/bucket4_v1_read.jsonl",
-    "bucket5:v11_read_subpath": "book/graph/mappings/runtime/traces/bucket5_v11_read_subpath.jsonl",
+    "runtime:allow_all": "book/evidence/graph/mappings/runtime/traces/runtime_allow_all.jsonl",
+    "runtime:metafilter_any": "book/evidence/graph/mappings/runtime/traces/runtime_metafilter_any.jsonl",
+    "bucket4:v1_read": "book/evidence/graph/mappings/runtime/traces/bucket4_v1_read.jsonl",
+    "bucket5:v11_read_subpath": "book/evidence/graph/mappings/runtime/traces/bucket5_v11_read_subpath.jsonl",
 }
 
 PROFILE_BLOBS = {
@@ -171,8 +171,8 @@ def main() -> None:
     overall_status = "ok" if all(p.get("status") == "ok" for p in profiles) else "partial"
 
     inputs = [
-        "book/graph/mappings/runtime_cuts/runtime_story.json",
-        "book/experiments/runtime-final-final/suites/runtime-adversarial/out/impact_map.json",
+        "book/evidence/graph/mappings/runtime_cuts/runtime_story.json",
+        "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/impact_map.json",
     ] + sorted(TRACE_PATHS.values())
 
     mapping = {

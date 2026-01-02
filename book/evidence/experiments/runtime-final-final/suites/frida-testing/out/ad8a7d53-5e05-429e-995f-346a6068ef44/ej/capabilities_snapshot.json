@@ -1,0 +1,62 @@
+{
+  "command": [
+    "book/tools/entitlement/EntitlementJail.app/Contents/MacOS/entitlement-jail",
+    "xpc",
+    "run",
+    "--profile",
+    "user_selected_executable@injectable",
+    "--plan-id",
+    "frida-testing:ej-frida",
+    "--row-id",
+    "frida-testing:ej-frida.ad8a7d53-5e05-429e-995f-346a6068ef44.capabilities_snapshot",
+    "capabilities_snapshot"
+  ],
+  "correlation_id": null,
+  "duration_s": 0.01680588722229004,
+  "exit_code": 1,
+  "finished_at_unix_s": 1766999042.486218,
+  "log_path": "book/evidence/experiments/frida-testing/out/ad8a7d53-5e05-429e-995f-346a6068ef44/ej/logs/capabilities_snapshot.log",
+  "log_write_error": null,
+  "observer": {
+    "skipped": "missing_pid_or_process_name"
+  },
+  "observer_log_path": "book/evidence/experiments/frida-testing/out/ad8a7d53-5e05-429e-995f-346a6068ef44/ej/logs/observer/capabilities_snapshot.log.observer.json",
+  "observer_status": "skipped:missing_pid_or_process_name",
+  "plan_id": "frida-testing:ej-frida",
+  "probe_args": [],
+  "probe_error": null,
+  "probe_id": "capabilities_snapshot",
+  "probe_timeout_s": 25.0,
+  "profile_id": "user_selected_executable@injectable",
+  "row_id": "frida-testing:ej-frida.ad8a7d53-5e05-429e-995f-346a6068ef44.capabilities_snapshot",
+  "started_at_unix_s": 1766999042.469412,
+  "stderr": "warning: profile user selected executable@injectable is high concern (reasons: allow_dyld_env, allow_unsigned_exec_mem)\n",
+  "stdout": "{\"data\":{\"details\":{\"service_bundle_id\":\"com.yourteam.entitlement-jail.ProbeService_user_selected_executable.injectable\"},\"error\":\"xpc error: Error Domain=NSCocoaErrorDomain Code=4099 \\\"The connection to service named com.yourteam.entitlement-jail.ProbeService_user_selected_executable.injectable was invalidated: failed at lookup with error 159 - Sandbox restriction.\\\" UserInfo={NSDebugDescription=The connection to service named com.yourteam.entitlement-jail.ProbeService_user_selected_executable.injectable was invalidated: failed at lookup with error 159 - Sandbox restriction.}\",\"layer_attribution\":{\"other\":\"xpc:openSession_failed\"},\"normalized_outcome\":\"xpc_error\",\"rc\":1,\"schema_version\":2,\"stderr\":\"xpc error: Error Domain=NSCocoaErrorDomain Code=4099 \\\"The connection to service named com.yourteam.entitlement-jail.ProbeService_user_selected_executable.injectable was invalidated: failed at lookup with error 159 - Sandbox restriction.\\\" UserInfo={NSDebugDescription=The connection to service named com.yourteam.entitlement-jail.ProbeService_user_selected_executable.injectable was invalidated: failed at lookup with error 159 - Sandbox restriction.}\",\"stdout\":\"\"},\"generated_at_unix_ms\":1766999042480,\"kind\":\"probe_response\",\"result\":{\"error\":\"xpc error: Error Domain=NSCocoaErrorDomain Code=4099 \\\"The connection to service named com.yourteam.entitlement-jail.ProbeService_user_selected_executable.injectable was invalidated: failed at lookup with error 159 - Sandbox restriction.\\\" UserInfo={NSDebugDescription=The connection to service named com.yourteam.entitlement-jail.ProbeService_user_selected_executable.injectable was invalidated: failed at lookup with error 159 - Sandbox restriction.}\",\"exit_code\":1,\"normalized_outcome\":\"xpc_error\",\"ok\":false,\"rc\":1,\"stderr\":\"xpc error: Error Domain=NSCocoaErrorDomain Code=4099 \\\"The connection to service named com.yourteam.entitlement-jail.ProbeService_user_selected_executable.injectable was invalidated: failed at lookup with error 159 - Sandbox restriction.\\\" UserInfo={NSDebugDescription=The connection to service named com.yourteam.entitlement-jail.ProbeService_user_selected_executable.injectable was invalidated: failed at lookup with error 159 - Sandbox restriction.}\"},\"schema_version\":2}\n",
+  "stdout_json": {
+    "data": {
+      "details": {
+        "service_bundle_id": "com.yourteam.entitlement-jail.ProbeService_user_selected_executable.injectable"
+      },
+      "error": "xpc error: Error Domain=NSCocoaErrorDomain Code=4099 \"The connection to service named com.yourteam.entitlement-jail.ProbeService_user_selected_executable.injectable was invalidated: failed at lookup with error 159 - Sandbox restriction.\" UserInfo={NSDebugDescription=The connection to service named com.yourteam.entitlement-jail.ProbeService_user_selected_executable.injectable was invalidated: failed at lookup with error 159 - Sandbox restriction.}",
+      "layer_attribution": {
+        "other": "xpc:openSession_failed"
+      },
+      "normalized_outcome": "xpc_error",
+      "rc": 1,
+      "schema_version": 2,
+      "stderr": "xpc error: Error Domain=NSCocoaErrorDomain Code=4099 \"The connection to service named com.yourteam.entitlement-jail.ProbeService_user_selected_executable.injectable was invalidated: failed at lookup with error 159 - Sandbox restriction.\" UserInfo={NSDebugDescription=The connection to service named com.yourteam.entitlement-jail.ProbeService_user_selected_executable.injectable was invalidated: failed at lookup with error 159 - Sandbox restriction.}",
+      "stdout": ""
+    },
+    "generated_at_unix_ms": 1766999042480,
+    "kind": "probe_response",
+    "result": {
+      "error": "xpc error: Error Domain=NSCocoaErrorDomain Code=4099 \"The connection to service named com.yourteam.entitlement-jail.ProbeService_user_selected_executable.injectable was invalidated: failed at lookup with error 159 - Sandbox restriction.\" UserInfo={NSDebugDescription=The connection to service named com.yourteam.entitlement-jail.ProbeService_user_selected_executable.injectable was invalidated: failed at lookup with error 159 - Sandbox restriction.}",
+      "exit_code": 1,
+      "normalized_outcome": "xpc_error",
+      "ok": false,
+      "rc": 1,
+      "stderr": "xpc error: Error Domain=NSCocoaErrorDomain Code=4099 \"The connection to service named com.yourteam.entitlement-jail.ProbeService_user_selected_executable.injectable was invalidated: failed at lookup with error 159 - Sandbox restriction.\" UserInfo={NSDebugDescription=The connection to service named com.yourteam.entitlement-jail.ProbeService_user_selected_executable.injectable was invalidated: failed at lookup with error 159 - Sandbox restriction.}"
+    },
+    "schema_version": 2
+  }
+}

@@ -21,21 +21,21 @@ def test_normalized_runtime_event_files_marker_free_and_world_stamped():
         (
             "runtime-adversarial",
             load_bundle_json(
-                ROOT / "book" / "experiments" / "runtime-final-final" / "suites" / "runtime-adversarial" / "out",
+                ROOT / "book" / "evidence" / "experiments" / "runtime-final-final" / "suites" / "runtime-adversarial" / "out",
                 "runtime_events.normalized.json",
             ),
         ),
         (
             "metadata-runner",
             load_bundle_json(
-                ROOT / "book" / "experiments" / "runtime-final-final" / "suites" / "metadata-runner" / "out",
+                ROOT / "book" / "evidence" / "experiments" / "runtime-final-final" / "suites" / "metadata-runner" / "out",
                 "runtime_events.normalized.json",
             ),
         ),
         (
             "vfs-canonicalization",
             load_bundle_json(
-                ROOT / "book" / "experiments" / "runtime-final-final" / "suites" / "vfs-canonicalization" / "out",
+                ROOT / "book" / "evidence" / "experiments" / "runtime-final-final" / "suites" / "vfs-canonicalization" / "out",
                 "runtime_events.normalized.json",
             ),
         ),

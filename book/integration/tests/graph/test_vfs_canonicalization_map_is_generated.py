@@ -3,6 +3,7 @@ from pathlib import Path
 
 
 from book.api import path_utils
+
 ROOT = path_utils.find_repo_root(Path(__file__))
 
 
@@ -13,7 +14,7 @@ def load_json(path: Path):
 
 def test_vfs_path_canonicalization_map_is_generated_and_deterministic():
     """
-    Contract: `book/graph/mappings/vfs_canonicalization/*` is generated from promotion packets.
+    Contract: `book/evidence/graph/mappings/vfs_canonicalization/*` is generated from promotion packets.
 
     - `path_canonicalization_map.json` and `promotion_receipt.json` are a pure
       function of `packet_set.json` and the referenced promotion packets.
@@ -22,7 +23,7 @@ def test_vfs_path_canonicalization_map_is_generated_and_deterministic():
 
     from book.graph.mappings.vfs_canonicalization import generate_path_canonicalization_map as gen
 
-    mapping_root = ROOT / "book" / "graph" / "mappings" / "vfs_canonicalization"
+    mapping_root = ROOT / "book" / "evidence" / "graph" / "mappings" / "vfs_canonicalization"
     packet_set_path = mapping_root / "packet_set.json"
     mapping_path = mapping_root / "path_canonicalization_map.json"
     receipt_path = mapping_root / "promotion_receipt.json"
@@ -45,4 +46,3 @@ def test_vfs_path_canonicalization_map_is_generated_and_deterministic():
     meta = expected_mapping.get("metadata") or {}
     assert isinstance(meta, dict)
     assert "status" not in meta, "vfs mapping should not use metadata.status (tiering is handled elsewhere)"
-

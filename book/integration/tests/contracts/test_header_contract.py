@@ -5,8 +5,9 @@ import pytest
 
 
 from book.api import path_utils
+
 ROOT = path_utils.find_repo_root(Path(__file__))
-CONTRACT = ROOT / "book" / "graph" / "mappings" / "system_profiles" / "header_contract.json"
+CONTRACT = ROOT / "book" / "evidence" / "graph" / "mappings" / "system_profiles" / "header_contract.json"
 
 
 @pytest.mark.smoke

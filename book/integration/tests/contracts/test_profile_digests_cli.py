@@ -3,8 +3,20 @@ import sys
 from pathlib import Path
 
 from book.api import path_utils
+
 ROOT = path_utils.find_repo_root(Path(__file__))
-EXPECTED_IR = ROOT / "book" / "graph" / "concepts" / "validation" / "out" / "experiments" / "system-profile-digest" / "digests_ir.json"
+EXPECTED_IR = (
+    ROOT
+    / "book"
+    / "evidence"
+    / "graph"
+    / "concepts"
+    / "validation"
+    / "out"
+    / "experiments"
+    / "system-profile-digest"
+    / "digests_ir.json"
+)
 
 
 def test_profile_digest_system_profiles_matches_experiment(tmp_path, run_cmd):

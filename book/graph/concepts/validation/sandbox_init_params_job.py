@@ -16,8 +16,8 @@ from book.graph.concepts.validation.registry import ValidationJob
 
 ROOT = find_repo_root(Path(__file__))
 WORLD_ID = "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
-SUMMARY_PATH = ROOT / "book/experiments/sandbox-init-params/out/validation_summary.json"
-STATUS_PATH = ROOT / "book/graph/concepts/validation/out/experiments/sandbox-init-params/status.json"
+SUMMARY_PATH = ROOT / "book/evidence/experiments/sandbox-init-params/out/validation_summary.json"
+STATUS_PATH = ROOT / "book/evidence/graph/concepts/validation/out/experiments/sandbox-init-params/status.json"
 
 EXPECTED_RUNS = {
     "init_params_probe": {

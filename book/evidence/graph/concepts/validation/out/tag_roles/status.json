@@ -1,0 +1,38 @@
+{
+  "job_id": "structure:tag_roles",
+  "status": "ok",
+  "tier": "mapped",
+  "host": {
+    "product": "macOS",
+    "version": "14.4.1",
+    "build": "23E224",
+    "kernel": "23.4.0",
+    "machine": "arm64"
+  },
+  "inputs": [
+    "book/evidence/graph/concepts/validation/fixtures/blobs/airlock.sb.bin",
+    "book/evidence/graph/concepts/validation/fixtures/blobs/bsd.sb.bin",
+    "book/evidence/graph/concepts/validation/fixtures/blobs/sample.sb.bin",
+    "book/evidence/graph/mappings/tag_layouts/tag_layouts.json",
+    "book/evidence/graph/mappings/tag_layouts/tag_u16_roles.json"
+  ],
+  "outputs": [
+    "book/evidence/graph/concepts/validation/out/tag_roles/ir.json"
+  ],
+  "metrics": {
+    "profiles": 3,
+    "missing_roles_total": 0,
+    "missing_layout_total": 0,
+    "fallback_nodes_total": 0,
+    "vocab_hits_total": 119,
+    "vocab_misses_total": 9
+  },
+  "notes": "Checked tag roles/layout coverage and vocab resolution on the Sonoma canonical corpus without enforcing hard bounds in the decoder.",
+  "tags": [
+    "structure",
+    "tag",
+    "layout",
+    "role",
+    "smoke"
+  ]
+}

@@ -5,8 +5,9 @@ from pathlib import Path
 
 
 from book.api import path_utils
+
 ROOT = path_utils.find_repo_root(Path(__file__))
-EXPERIMENTS = ROOT / "book" / "experiments"
+EXPERIMENTS = ROOT / "book" / "evidence" / "experiments"
 
 CODE_SUFFIXES = {".py"}
 
@@ -20,8 +21,8 @@ FORBIDDEN_PATTERNS = {
 
 ALLOWLIST = {
     # Fixture prep is a narrow helper; do not allow runner imports elsewhere.
-    "harness_runner": {Path("book/experiments/runtime-final-final/suites/vfs-canonicalization/prepare_fixtures.py")},
-    "normalize_observations": {Path("book/experiments/runtime-final-final/suites/metadata-runner/run_metadata.py")},
+    "harness_runner": {Path("book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/prepare_fixtures.py")},
+    "normalize_observations": {Path("book/evidence/experiments/runtime-final-final/suites/metadata-runner/run_metadata.py")},
 }
 
 

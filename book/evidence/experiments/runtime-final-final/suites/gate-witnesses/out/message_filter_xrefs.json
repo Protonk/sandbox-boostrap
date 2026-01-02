@@ -1,0 +1,128 @@
+{
+  "kernel": {
+    "build_id": "14.4.1-23E224",
+    "ghidra_project": "sandbox_kext_14.4.1-23E224",
+    "ghidra_task": "sandbox-kext-string-refs",
+    "hit_count": 5,
+    "hits": [
+      {
+        "address": "0x-1fff86b7eb5",
+        "block": "__os_log",
+        "functions": [
+          "_hook_cred_label_update_execve"
+        ],
+        "queries": [
+          "cannot apply mach message filtering"
+        ],
+        "reference_count": 1,
+        "value": "%s[%d] is translated: cannot apply mach message filtering!"
+      },
+      {
+        "address": "0x-1fff86b829d",
+        "block": "__os_log",
+        "functions": [
+          "_syscall_set_userland_profile"
+        ],
+        "queries": [
+          "missing message filter entitlement"
+        ],
+        "reference_count": 1,
+        "value": "%s[%d]: missing message filter entitlement"
+      },
+      {
+        "address": "0x-1fff86be3a9",
+        "block": "__cstring",
+        "functions": [
+          "_syscall_set_userland_profile"
+        ],
+        "queries": [
+          "com.apple.private.security.message-filter"
+        ],
+        "reference_count": 1,
+        "value": "com.apple.private.security.message-filter"
+      },
+      {
+        "address": "0x-1fff86ba316",
+        "block": "__cstring",
+        "functions": [
+          "_syscall_message_filter_release",
+          "_syscall_message_filter_retain"
+        ],
+        "queries": [
+          "com.apple.private.security.message-filter",
+          "com.apple.private.security.message-filter-manager"
+        ],
+        "reference_count": 2,
+        "value": "com.apple.private.security.message-filter-manager"
+      },
+      {
+        "address": "0x-1fff86b7f66",
+        "block": "__os_log",
+        "functions": [],
+        "queries": [
+          "failed to associate message filter"
+        ],
+        "reference_count": 0,
+        "value": "failed to associate message filter %u: %d"
+      }
+    ],
+    "queries": [
+      "com.apple.private.security.message-filter",
+      "com.apple.private.security.message-filter-manager",
+      "missing message filter entitlement",
+      "failed to associate message filter",
+      "cannot apply mach message filtering"
+    ],
+    "source": "book/evidence/dumps/ghidra/out/14.4.1-23E224/sandbox-kext-string-refs/string_references.json"
+  },
+  "schema_version": "1.0",
+  "userland": {
+    "dyld_slices": [
+      {
+        "exists": true,
+        "path": "book/evidence/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib",
+        "strings": {
+          "args": [
+            "-a"
+          ],
+          "counts": {
+            "com.apple.private.security.message-filter": 0,
+            "com.apple.private.security.message-filter-manager": 0
+          },
+          "rc": 0,
+          "samples": {
+            "com.apple.private.security.message-filter": [],
+            "com.apple.private.security.message-filter-manager": []
+          },
+          "stderr": null,
+          "tool": "/usr/bin/strings"
+        }
+      },
+      {
+        "exists": true,
+        "path": "book/evidence/graph/mappings/dyld-libs/usr/lib/system/libsystem_sandbox.dylib",
+        "strings": {
+          "args": [
+            "-a"
+          ],
+          "counts": {
+            "com.apple.private.security.message-filter": 0,
+            "com.apple.private.security.message-filter-manager": 0
+          },
+          "rc": 0,
+          "samples": {
+            "com.apple.private.security.message-filter": [],
+            "com.apple.private.security.message-filter-manager": []
+          },
+          "stderr": null,
+          "tool": "/usr/bin/strings"
+        }
+      }
+    ],
+    "queries": [
+      "com.apple.private.security.message-filter",
+      "com.apple.private.security.message-filter-manager"
+    ]
+  },
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

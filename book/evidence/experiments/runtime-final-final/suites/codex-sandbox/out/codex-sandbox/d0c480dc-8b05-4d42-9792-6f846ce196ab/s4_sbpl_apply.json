@@ -1,0 +1,50 @@
+{
+  "apply_eperm": true,
+  "apply_markers": [
+    {
+      "api": "sandbox_init",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "marker_schema_version": 1,
+      "mode": "sbpl",
+      "pid": 35292,
+      "profile": "book/evidence/experiments/sbpl-graph-runtime/profiles/allow_all.sb",
+      "rc": -1,
+      "stage": "apply",
+      "tool": "sbpl-apply"
+    }
+  ],
+  "apply_ok": false,
+  "cmd_duration_s": 0.09676027297973633,
+  "cmd_finished_at_unix_s": 1767250813.9954891,
+  "cmd_started_at_unix_s": 1767250813.8987288,
+  "command": [
+    "book/tools/sbpl/wrapper/wrapper",
+    "--preflight",
+    "enforce",
+    "--sbpl",
+    "book/evidence/experiments/sbpl-graph-runtime/profiles/allow_all.sb",
+    "--",
+    "/usr/bin/true"
+  ],
+  "exit_code": 1,
+  "preflight_markers": [
+    {
+      "marker_schema_version": 1,
+      "mode": "sbpl",
+      "pid": 35292,
+      "policy": "enforce",
+      "profile": "book/evidence/experiments/sbpl-graph-runtime/profiles/allow_all.sb",
+      "rc": 0,
+      "record_json": "{\"classification\": \"no_known_apply_gate_signature\", \"findings\": [], \"input_kind\": \"sbpl_path\", \"input_ref\": \"book/evidence/experiments/sbpl-graph-runtime/profiles/allow_all.sb\", \"preflight_schema_version\": 1, \"signature\": null, \"tool\": \"book/tools/preflight\", \"world_id\": \"sonoma-14.4.1-23E224-arm64-dyld-2c0602c5\"}",
+      "stage": "preflight",
+      "tool": "sbpl-preflight"
+    }
+  ],
+  "signal_id": "S4",
+  "stderr": "{\"tool\":\"sbpl-preflight\",\"marker_schema_version\":1,\"stage\":\"preflight\",\"mode\":\"sbpl\",\"policy\":\"enforce\",\"profile\":\"book/evidence/experiments/sbpl-graph-runtime/profiles/allow_all.sb\",\"rc\":0,\"record_json\":\"{\\\"classification\\\": \\\"no_known_apply_gate_signature\\\", \\\"findings\\\": [], \\\"input_kind\\\": \\\"sbpl_path\\\", \\\"input_ref\\\": \\\"book/evidence/experiments/sbpl-graph-runtime/profiles/allow_all.sb\\\", \\\"preflight_schema_version\\\": 1, \\\"signature\\\": null, \\\"tool\\\": \\\"book/tools/preflight\\\", \\\"world_id\\\": \\\"sonoma-14.4.1-23E224-arm64-dyld-2c0602c5\\\"}\",\"pid\":35292}\n{\"tool\":\"entitlement-check\",\"marker_schema_version\":1,\"stage\":\"pre_apply\",\"entitlement\":\"com.apple.private.security.message-filter\",\"pid\":35292,\"rc\":0,\"present\":false,\"value_type\":\"absent\"}\nsandbox initialization failed: Operation not permitted\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":-1,\"errno\":1,\"errbuf\":\"Operation not permitted\",\"err_class\":\"errno_eperm\",\"err_class_source\":\"errno_only\",\"profile\":\"book/evidence/experiments/sbpl-graph-runtime/profiles/allow_all.sb\",\"pid\":35292}\nsandbox_init failed: Operation not permitted\n",
+  "stdout": "",
+  "timeout_s": 25.0
+}

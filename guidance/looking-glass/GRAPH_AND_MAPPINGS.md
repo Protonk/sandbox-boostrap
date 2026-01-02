@@ -12,12 +12,12 @@ SANDBOX_LORE tries to prevent “vibes-based taxonomy” by keeping a concept in
 
 Primary sources:
 - Substrate definitions: `book/substrate/Concepts.md` (and adjacent substrate files)
-- Concept inventory: `book/graph/concepts/CONCEPT_INVENTORY.md`
+- Concept inventory: `book/evidence/graph/concepts/CONCEPT_INVENTORY.md`
 
 Generated outputs (by the Swift graph target):
-- `book/graph/concepts/concepts.json` — normalized concept inventory (IDs, names, tags).
-- `book/graph/concepts/concept_map.json` — canonical term map (“what do we mean by X?”).
-- `book/graph/concepts/concept_text_map.json` — text snippets keyed by concept IDs.
+- `book/evidence/graph/concepts/concepts.json` — normalized concept inventory (IDs, names, tags).
+- `book/evidence/graph/concepts/concept_map.json` — canonical term map (“what do we mean by X?”).
+- `book/evidence/graph/concepts/concept_text_map.json` — text snippets keyed by concept IDs.
 
 The point: when an agent invents a new term, it should either be added explicitly or treated as a gap, not silently smuggled in as “obvious”.
 
@@ -41,9 +41,9 @@ Why Swift here: it’s deliberately small, typed, and reviewable; it functions l
 
 ## 3) Validation IR: normalized experiment outputs
 
-Experiments often write messy outputs into `book/experiments/*/out/`. The validation driver normalizes selected results into a committed, queryable IR tree:
+Experiments often write messy outputs into `book/evidence/experiments/*/out/`. The validation driver normalizes selected results into a committed, queryable IR tree:
 
-- `book/graph/concepts/validation/out/`
+- `book/evidence/graph/concepts/validation/out/`
   - `metadata.json` — world binding and baseline knobs (SIP/tcc_state/profile format variant, etc.).
   - `validation_status.json` — job status summary.
   - `index.json` — index of validation artifacts and their status.
@@ -112,7 +112,7 @@ The intent is to keep “regen” as a bounded, reviewable operation:
 
 Some mappings are sourced from:
 - dyld-derived slices under `book/graph/mappings/dyld-libs/` (for vocab harvesting), and/or
-- Ghidra outputs under `book/dumps/ghidra/out/` (for kernel/policy constraints and xref work).
+- Ghidra outputs under `book/evidence/dumps/ghidra/out/` (for kernel/policy constraints and xref work).
 
 Ghidra work is a supporting witness braid: it constrains what implementations can be doing, but by itself is not “policy semantics.”
 

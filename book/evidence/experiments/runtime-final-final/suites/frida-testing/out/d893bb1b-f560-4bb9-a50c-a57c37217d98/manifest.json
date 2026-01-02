@@ -1,0 +1,79 @@
+{
+  "entitlementjail": {
+    "capabilities_snapshot_path": "book/evidence/experiments/frida-testing/out/d893bb1b-f560-4bb9-a50c-a57c37217d98/ej/capabilities_snapshot.json",
+    "log_path": "book/evidence/experiments/frida-testing/out/d893bb1b-f560-4bb9-a50c-a57c37217d98/ej/logs/run_xpc.log",
+    "run_xpc_path": "book/evidence/experiments/frida-testing/out/d893bb1b-f560-4bb9-a50c-a57c37217d98/ej/run_xpc.json"
+  },
+  "frida": {
+    "attach_error": null,
+    "attach_meta": {
+      "attach_stage": "wait",
+      "pid": 57677,
+      "pid_candidates": [
+        57677
+      ],
+      "pid_error": null,
+      "pid_matches_service_pid": true,
+      "pid_source": "pgrep",
+      "run_id": "d893bb1b-f560-4bb9-a50c-a57c37217d98",
+      "service_pid": "57677",
+      "t0_ns": 1766857192251295000,
+      "wait_info": {
+        "session_ready": {
+          "correlation_id": "frida-testing:ej-frida.d893bb1b-f560-4bb9-a50c-a57c37217d98",
+          "event": "session_ready",
+          "message": "session opened",
+          "pid": 57677,
+          "plan_id": "frida-testing:ej-frida",
+          "service_bundle_id": "com.yourteam.entitlement-jail.ProbeService_fully_injectable_extensions",
+          "service_name": "ProbeService_fully_injectable_extensions",
+          "session_token": "1CE44B1D-F198-48C8-9F96-8A012267134A",
+          "wait_mode": "fifo",
+          "wait_path": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_fully_injectable_extensions/Data/tmp/entitlement-jail-session/wait.6E7F1F54-23DB-4BE2-B786-308AC400BB22.fifo"
+        },
+        "wait_mode": "fifo",
+        "wait_path": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_fully_injectable_extensions/Data/tmp/entitlement-jail-session/wait.6E7F1F54-23DB-4BE2-B786-308AC400BB22.fifo",
+        "wait_ready": {
+          "correlation_id": "frida-testing:ej-frida.d893bb1b-f560-4bb9-a50c-a57c37217d98",
+          "event": "wait_ready",
+          "message": "wait configured",
+          "pid": 57677,
+          "plan_id": "frida-testing:ej-frida",
+          "service_bundle_id": "com.yourteam.entitlement-jail.ProbeService_fully_injectable_extensions",
+          "service_name": "ProbeService_fully_injectable_extensions",
+          "session_token": "1CE44B1D-F198-48C8-9F96-8A012267134A",
+          "wait_mode": "fifo",
+          "wait_path": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_fully_injectable_extensions/Data/tmp/entitlement-jail-session/wait.6E7F1F54-23DB-4BE2-B786-308AC400BB22.fifo"
+        },
+        "wait_timeout_ms": 30000
+      }
+    },
+    "events_path": "book/evidence/experiments/frida-testing/out/d893bb1b-f560-4bb9-a50c-a57c37217d98/frida/events.jsonl",
+    "meta_path": "book/evidence/experiments/frida-testing/out/d893bb1b-f560-4bb9-a50c-a57c37217d98/frida/meta.json"
+  },
+  "out_dir": "book/evidence/experiments/frida-testing/out/d893bb1b-f560-4bb9-a50c-a57c37217d98",
+  "plan_id": "frida-testing:ej-frida",
+  "probe": {
+    "ack_risk": "fully_injectable_extensions",
+    "probe_args": [
+      "--op",
+      "issue_file",
+      "--class",
+      "com.apple.app-sandbox.read",
+      "--path",
+      "/etc/hosts"
+    ],
+    "probe_id": "sandbox_extension",
+    "profile_id": "fully_injectable_extensions"
+  },
+  "row_id": "frida-testing:ej-frida.d893bb1b-f560-4bb9-a50c-a57c37217d98",
+  "run_id": "d893bb1b-f560-4bb9-a50c-a57c37217d98",
+  "schema_version": 1,
+  "selftest": {
+    "path": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_fully_injectable_extensions/Data/tmp/ej_noaccess",
+    "prepare_error": null,
+    "prepared": null,
+    "source": "capabilities_snapshot"
+  },
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

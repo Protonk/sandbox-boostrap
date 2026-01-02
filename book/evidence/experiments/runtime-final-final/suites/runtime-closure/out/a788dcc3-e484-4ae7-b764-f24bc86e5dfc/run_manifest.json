@@ -1,0 +1,49 @@
+{
+  "schema_version": "runtime-tools.run_manifest.v0.1",
+  "run_id": "a788dcc3-e484-4ae7-b764-f24bc86e5dfc",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "channel": "launchd_clean",
+  "plan_id": "runtime-closure.v7",
+  "plan_digest": "38a086b785ad72e651bee77be65ea93e5a3e97ed2a7490d91cf37ee77a07a02a",
+  "dry_run": false,
+  "stage_used": true,
+  "stage_root": "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.a788dcc3-e484-4ae7-b764-f24bc86e5dfc",
+  "repo_root_context": "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.a788dcc3-e484-4ae7-b764-f24bc86e5dfc",
+  "staged_output_root": "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.a788dcc3-e484-4ae7-b764-f24bc86e5dfc/book/experiments/runtime-closure/out",
+  "output_root": "book/evidence/experiments/runtime-closure/out/a788dcc3-e484-4ae7-b764-f24bc86e5dfc",
+  "apply_preflight": {
+    "path": "apply_preflight.json",
+    "record": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "run_id": "a788dcc3-e484-4ae7-b764-f24bc86e5dfc",
+      "profile": "book/evidence/experiments/hardened-runtime/sb/apply_preflight_allow.sb",
+      "runner": "book/api/runtime/native/sandbox_runner/sandbox_runner",
+      "sandbox_check_self": {
+        "source": "sandbox_check",
+        "error": "libsystem_sandbox not found"
+      },
+      "status": "ok",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_runner",
+        "book/evidence/experiments/hardened-runtime/sb/apply_preflight_allow.sb",
+        "--",
+        "/usr/bin/true"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "apply_report": {
+        "api": "sandbox_init",
+        "rc": 0,
+        "errno": 0,
+        "errbuf": null,
+        "err_class": "ok",
+        "err_class_source": "none"
+      },
+      "apply_marker_pid": 94771,
+      "apply_ok": true,
+      "failure_stage": null,
+      "schema_version": "runtime-tools.apply_preflight.v0.1"
+    }
+  }
+}

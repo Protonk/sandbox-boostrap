@@ -9,8 +9,8 @@ from book.api import evidence_tiers
 from book.integration.carton.fixers import common
 
 ROOT = common.repo_root()
-FILTERS_PATH = ROOT / "book/graph/mappings/vocab/filters.json"
-DIGESTS_PATH = ROOT / "book/graph/mappings/system_profiles/digests.json"
+FILTERS_PATH = ROOT / "book/evidence/graph/mappings/vocab/filters.json"
+DIGESTS_PATH = ROOT / "book/evidence/graph/mappings/system_profiles/digests.json"
 MANIFEST_PATH = ROOT / "book/integration/carton/bundle/CARTON.json"
 OUT_PATH = ROOT / "book/integration/carton/bundle/relationships/filter_usage.json"
 

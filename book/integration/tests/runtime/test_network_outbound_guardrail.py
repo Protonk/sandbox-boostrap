@@ -5,8 +5,9 @@ from pathlib import Path
 
 from book.api import path_utils
 from book.integration.tests.runtime.runtime_bundle_helpers import load_bundle_json
+
 ROOT = path_utils.find_repo_root(Path(__file__))
-BASE = ROOT / "book" / "experiments" / "runtime-final-final" / "suites" / "runtime-adversarial"
+BASE = ROOT / "book" / "evidence" / "experiments" / "runtime-final-final" / "suites" / "runtime-adversarial"
 SB_ALLOW = BASE / "sb" / "net_outbound_allow.sb"
 SB_DENY = BASE / "sb" / "net_outbound_deny.sb"
 OUT_ROOT = BASE / "out"

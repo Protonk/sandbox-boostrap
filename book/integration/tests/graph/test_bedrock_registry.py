@@ -6,9 +6,10 @@ from pathlib import Path
 
 
 from book.api import path_utils
+
 ROOT = path_utils.find_repo_root(Path(__file__))
-REGISTRY_PATH = ROOT / "book" / "graph" / "concepts" / "BEDROCK_SURFACES.json"
-INVENTORY_PATH = ROOT / "book" / "graph" / "concepts" / "CONCEPT_INVENTORY.md"
+REGISTRY_PATH = ROOT / "book" / "evidence" / "graph" / "concepts" / "BEDROCK_SURFACES.json"
+INVENTORY_PATH = ROOT / "book" / "evidence" / "graph" / "concepts" / "CONCEPT_INVENTORY.md"
 AGENTS_PATHS = [
     ROOT / "AGENTS.md",
     ROOT / "book" / "AGENTS.md",
@@ -64,7 +65,7 @@ def test_agents_point_to_bedrock_registry():
     for path in AGENTS_PATHS:
         text = path.read_text()
         assert "BEDROCK_SURFACES" in text, (
-            f"{path} should direct readers to book/graph/concepts/BEDROCK_SURFACES.json "
+            f"{path} should direct readers to book/evidence/graph/concepts/BEDROCK_SURFACES.json "
             "as the current bedrock registry"
         )
 

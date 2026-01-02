@@ -1,0 +1,53 @@
+{
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "profiles": {
+    "runtime-closure:iokit:v7_service_user_client_both": {
+      "blob": "book/evidence/experiments/runtime-closure/sb/v7_iokit_service_user_client_both.sb",
+      "mode": "sbpl",
+      "family": "iokit-open-service",
+      "semantic_group": "iokit:op-identity",
+      "probes": [
+        {
+          "name": "iosurface_root",
+          "operation": "iokit-open-service",
+          "target": "IOSurfaceRoot",
+          "expected": "allow",
+          "expectation_id": "runtime-closure:iokit:v7_service_user_client_both:iosurface_root",
+          "driver": "sandbox_iokit_probe"
+        }
+      ]
+    },
+    "runtime-closure:iokit:v9_message_filter_deny": {
+      "blob": "book/evidence/experiments/runtime-closure/sb/v9_iokit_message_filter_deny.sb",
+      "mode": "sbpl",
+      "family": "iokit-open",
+      "semantic_group": "iokit:message-filter",
+      "probes": [
+        {
+          "name": "iosurface_root",
+          "operation": "iokit-open-service",
+          "target": "IOSurfaceRoot",
+          "expected": "allow",
+          "expectation_id": "runtime-closure:iokit:v9_message_filter_deny:iosurface_root",
+          "driver": "sandbox_iokit_probe"
+        }
+      ]
+    },
+    "runtime-closure:iokit:v10_message_filter_allow": {
+      "blob": "book/evidence/experiments/runtime-closure/sb/v10_iokit_message_filter_allow.sb",
+      "mode": "sbpl",
+      "family": "iokit-open",
+      "semantic_group": "iokit:message-filter",
+      "probes": [
+        {
+          "name": "iosurface_root",
+          "operation": "iokit-open-service",
+          "target": "IOSurfaceRoot",
+          "expected": "allow",
+          "expectation_id": "runtime-closure:iokit:v10_message_filter_allow:iosurface_root",
+          "driver": "sandbox_iokit_probe"
+        }
+      ]
+    }
+  }
+}

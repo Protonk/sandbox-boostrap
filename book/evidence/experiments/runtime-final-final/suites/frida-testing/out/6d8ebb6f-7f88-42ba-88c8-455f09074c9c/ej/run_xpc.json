@@ -1,0 +1,146 @@
+{
+  "command": [
+    "book/tools/entitlement/EntitlementJail.app/Contents/MacOS/entitlement-jail",
+    "xpc",
+    "session",
+    "--plan-id",
+    "frida-testing:ej-frida",
+    "--ack-risk",
+    "fully_injectable_extensions",
+    "--correlation-id",
+    "frida-testing:ej-frida.6d8ebb6f-7f88-42ba-88c8-455f09074c9c",
+    "--wait",
+    "fifo:auto",
+    "--wait-timeout-ms",
+    "30000",
+    "--profile",
+    "fully_injectable_extensions"
+  ],
+  "correlation_id": "frida-testing:ej-frida.6d8ebb6f-7f88-42ba-88c8-455f09074c9c",
+  "error": null,
+  "exit_code": 0,
+  "hold_open_s": 20,
+  "log_path": "book/evidence/experiments/frida-testing/out/6d8ebb6f-7f88-42ba-88c8-455f09074c9c/ej/logs/run_xpc.log",
+  "log_write_error": null,
+  "plan_id": "frida-testing:ej-frida",
+  "probe_args": [
+    "--extension",
+    "com.apple.app-sandbox.read",
+    "--path",
+    "/etc/hosts"
+  ],
+  "probe_finished_at_unix_s": 1766856972.07919,
+  "probe_id": "sandbox_extension",
+  "probe_started_at_unix_s": 1766856972.075955,
+  "row_id": "frida-testing:ej-frida.6d8ebb6f-7f88-42ba-88c8-455f09074c9c",
+  "session_ready": {
+    "data": {
+      "correlation_id": "frida-testing:ej-frida.6d8ebb6f-7f88-42ba-88c8-455f09074c9c",
+      "event": "session_ready",
+      "message": "session opened",
+      "pid": 55509,
+      "plan_id": "frida-testing:ej-frida",
+      "service_bundle_id": "com.yourteam.entitlement-jail.ProbeService_fully_injectable_extensions",
+      "service_name": "ProbeService_fully_injectable_extensions",
+      "session_token": "C7D46C49-91F5-48B1-8E14-8FA7D0B085BB",
+      "wait_mode": "fifo",
+      "wait_path": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_fully_injectable_extensions/Data/tmp/entitlement-jail-session/wait.8DE58D71-02F4-4BB8-A47B-30B08ADBB314.fifo"
+    },
+    "generated_at_unix_ms": 1766856971427,
+    "kind": "xpc_session_event",
+    "result": {
+      "exit_code": 0,
+      "normalized_outcome": "ok",
+      "ok": true,
+      "rc": 0
+    },
+    "schema_version": 2
+  },
+  "stderr": "",
+  "stdout": "{\"data\":{\"correlation_id\":\"frida-testing:ej-frida.6d8ebb6f-7f88-42ba-88c8-455f09074c9c\",\"event\":\"session_ready\",\"message\":\"session opened\",\"pid\":55509,\"plan_id\":\"frida-testing:ej-frida\",\"service_bundle_id\":\"com.yourteam.entitlement-jail.ProbeService_fully_injectable_extensions\",\"service_name\":\"ProbeService_fully_injectable_extensions\",\"session_token\":\"C7D46C49-91F5-48B1-8E14-8FA7D0B085BB\",\"wait_mode\":\"fifo\",\"wait_path\":\"\\/Users\\/achyland\\/Library\\/Containers\\/com.yourteam.entitlement-jail.ProbeService_fully_injectable_extensions\\/Data\\/tmp\\/entitlement-jail-session\\/wait.8DE58D71-02F4-4BB8-A47B-30B08ADBB314.fifo\"},\"generated_at_unix_ms\":1766856971427,\"kind\":\"xpc_session_event\",\"result\":{\"exit_code\":0,\"normalized_outcome\":\"ok\",\"ok\":true,\"rc\":0},\"schema_version\":2}\n{\"data\":{\"correlation_id\":\"frida-testing:ej-frida.6d8ebb6f-7f88-42ba-88c8-455f09074c9c\",\"event\":\"wait_ready\",\"message\":\"wait configured\",\"pid\":55509,\"plan_id\":\"frida-testing:ej-frida\",\"service_bundle_id\":\"com.yourteam.entitlement-jail.ProbeService_fully_injectable_extensions\",\"service_name\":\"ProbeService_fully_injectable_extensions\",\"session_token\":\"C7D46C49-91F5-48B1-8E14-8FA7D0B085BB\",\"wait_mode\":\"fifo\",\"wait_path\":\"\\/Users\\/achyland\\/Library\\/Containers\\/com.yourteam.entitlement-jail.ProbeService_fully_injectable_extensions\\/Data\\/tmp\\/entitlement-jail-session\\/wait.8DE58D71-02F4-4BB8-A47B-30B08ADBB314.fifo\"},\"generated_at_unix_ms\":1766856971428,\"kind\":\"xpc_session_event\",\"result\":{\"exit_code\":0,\"normalized_outcome\":\"ok\",\"ok\":true,\"rc\":0},\"schema_version\":2}\n{\"data\":{\"correlation_id\":\"frida-testing:ej-frida.6d8ebb6f-7f88-42ba-88c8-455f09074c9c\",\"event\":\"trigger_received\",\"pid\":55509,\"plan_id\":\"frida-testing:ej-frida\",\"service_bundle_id\":\"com.yourteam.entitlement-jail.ProbeService_fully_injectable_extensions\",\"service_name\":\"ProbeService_fully_injectable_extensions\",\"session_token\":\"C7D46C49-91F5-48B1-8E14-8FA7D0B085BB\",\"trigger_bytes\":1,\"wait_mode\":\"fifo\",\"wait_path\":\"\\/Users\\/achyland\\/Library\\/Containers\\/com.yourteam.entitlement-jail.ProbeService_fully_injectable_extensions\\/Data\\/tmp\\/entitlement-jail-session\\/wait.8DE58D71-02F4-4BB8-A47B-30B08ADBB314.fifo\"},\"generated_at_unix_ms\":1766856972075,\"kind\":\"xpc_session_event\",\"result\":{\"exit_code\":0,\"normalized_outcome\":\"ok\",\"ok\":true,\"rc\":0},\"schema_version\":2}\n{\"data\":{\"correlation_id\":\"frida-testing:ej-frida.6d8ebb6f-7f88-42ba-88c8-455f09074c9c\",\"event\":\"probe_starting\",\"pid\":55509,\"plan_id\":\"frida-testing:ej-frida\",\"probe_argv\":[\"--extension\",\"com.apple.app-sandbox.read\",\"--path\",\"\\/etc\\/hosts\"],\"probe_id\":\"sandbox_extension\",\"service_bundle_id\":\"com.yourteam.entitlement-jail.ProbeService_fully_injectable_extensions\",\"service_name\":\"ProbeService_fully_injectable_extensions\",\"session_token\":\"C7D46C49-91F5-48B1-8E14-8FA7D0B085BB\",\"wait_mode\":\"fifo\",\"wait_path\":\"\\/Users\\/achyland\\/Library\\/Containers\\/com.yourteam.entitlement-jail.ProbeService_fully_injectable_extensions\\/Data\\/tmp\\/entitlement-jail-session\\/wait.8DE58D71-02F4-4BB8-A47B-30B08ADBB314.fifo\"},\"generated_at_unix_ms\":1766856972076,\"kind\":\"xpc_session_event\",\"result\":{\"exit_code\":0,\"normalized_outcome\":\"ok\",\"ok\":true,\"rc\":0},\"schema_version\":2}\n{\"data\":{\"correlation_id\":\"frida-testing:ej-frida.6d8ebb6f-7f88-42ba-88c8-455f09074c9c\",\"event\":\"probe_done\",\"message\":\"normalized_outcome=bad_request rc=2\",\"pid\":55509,\"plan_id\":\"frida-testing:ej-frida\",\"probe_argv\":[\"--extension\",\"com.apple.app-sandbox.read\",\"--path\",\"\\/etc\\/hosts\"],\"probe_id\":\"sandbox_extension\",\"service_bundle_id\":\"com.yourteam.entitlement-jail.ProbeService_fully_injectable_extensions\",\"service_name\":\"ProbeService_fully_injectable_extensions\",\"session_token\":\"C7D46C49-91F5-48B1-8E14-8FA7D0B085BB\",\"wait_mode\":\"fifo\",\"wait_path\":\"\\/Users\\/achyland\\/Library\\/Containers\\/com.yourteam.entitlement-jail.ProbeService_fully_injectable_extensions\\/Data\\/tmp\\/entitlement-jail-session\\/wait.8DE58D71-02F4-4BB8-A47B-30B08ADBB314.fifo\"},\"generated_at_unix_ms\":1766856972078,\"kind\":\"xpc_session_event\",\"result\":{\"exit_code\":0,\"normalized_outcome\":\"ok\",\"ok\":true,\"rc\":0},\"schema_version\":2}\n{\"data\":{\"argv\":[\"--extension\",\"com.apple.app-sandbox.read\",\"--path\",\"\\/etc\\/hosts\"],\"correlation_id\":\"frida-testing:ej-frida.6d8ebb6f-7f88-42ba-88c8-455f09074c9c\",\"details\":{\"bundle_id\":\"com.yourteam.entitlement-jail.ProbeService_fully_injectable_extensions\",\"correlation_id\":\"frida-testing:ej-frida.6d8ebb6f-7f88-42ba-88c8-455f09074c9c\",\"cwd\":\"\\/Users\\/achyland\\/Library\\/Containers\\/com.yourteam.entitlement-jail.ProbeService_fully_injectable_extensions\\/Data\",\"home_dir\":\"\\/Users\\/achyland\\/Library\\/Containers\\/com.yourteam.entitlement-jail.ProbeService_fully_injectable_extensions\\/Data\",\"pid\":\"55509\",\"probe_family\":\"bad_request\",\"probe_pid\":\"55509\",\"process_name\":\"ProbeService_fully_injectable_extensions\",\"service_pid\":\"55509\",\"session_token\":\"C7D46C49-91F5-48B1-8E14-8FA7D0B085BB\",\"tmp_dir\":\"\\/Users\\/achyland\\/Library\\/Containers\\/com.yourteam.entitlement-jail.ProbeService_fully_injectable_extensions\\/Data\\/tmp\\/\"},\"ended_at_iso8601\":\"2025-12-27T17:36:12.077Z\",\"normalized_outcome\":\"bad_request\",\"plan_id\":\"frida-testing:ej-frida\",\"probe_id\":\"sandbox_extension\",\"rc\":2,\"schema_version\":2,\"service_build\":\"2\",\"service_bundle_id\":\"com.yourteam.entitlement-jail.ProbeService_fully_injectable_extensions\",\"service_name\":\"ProbeService_fully_injectable_extensions\",\"service_version\":\"2.0.0\",\"started_at_iso8601\":\"2025-12-27T17:36:12.077Z\",\"stderr\":\"missing\\/invalid --op (expected: issue_file|consume|release)\",\"stdout\":\"\",\"thread_id\":\"8707\"},\"generated_at_unix_ms\":1766856972078,\"kind\":\"probe_response\",\"result\":{\"exit_code\":2,\"normalized_outcome\":\"bad_request\",\"ok\":false,\"rc\":2,\"stderr\":\"missing\\/invalid --op (expected: issue_file|consume|release)\"},\"schema_version\":2}\n{\"data\":{\"correlation_id\":\"frida-testing:ej-frida.6d8ebb6f-7f88-42ba-88c8-455f09074c9c\",\"event\":\"session_closed\",\"message\":\"session closed\",\"pid\":55509,\"plan_id\":\"frida-testing:ej-frida\",\"service_bundle_id\":\"com.yourteam.entitlement-jail.ProbeService_fully_injectable_extensions\",\"service_name\":\"ProbeService_fully_injectable_extensions\",\"session_token\":\"C7D46C49-91F5-48B1-8E14-8FA7D0B085BB\",\"wait_mode\":\"fifo\",\"wait_path\":\"\\/Users\\/achyland\\/Library\\/Containers\\/com.yourteam.entitlement-jail.ProbeService_fully_injectable_extensions\\/Data\\/tmp\\/entitlement-jail-session\\/wait.8DE58D71-02F4-4BB8-A47B-30B08ADBB314.fifo\"},\"generated_at_unix_ms\":1766856992083,\"kind\":\"xpc_session_event\",\"result\":{\"exit_code\":0,\"normalized_outcome\":\"ok\",\"ok\":true,\"rc\":0},\"schema_version\":2}",
+  "stdout_json": {
+    "data": {
+      "argv": [
+        "--extension",
+        "com.apple.app-sandbox.read",
+        "--path",
+        "/etc/hosts"
+      ],
+      "correlation_id": "frida-testing:ej-frida.6d8ebb6f-7f88-42ba-88c8-455f09074c9c",
+      "details": {
+        "bundle_id": "com.yourteam.entitlement-jail.ProbeService_fully_injectable_extensions",
+        "correlation_id": "frida-testing:ej-frida.6d8ebb6f-7f88-42ba-88c8-455f09074c9c",
+        "cwd": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_fully_injectable_extensions/Data",
+        "home_dir": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_fully_injectable_extensions/Data",
+        "pid": "55509",
+        "probe_family": "bad_request",
+        "probe_pid": "55509",
+        "process_name": "ProbeService_fully_injectable_extensions",
+        "service_pid": "55509",
+        "session_token": "C7D46C49-91F5-48B1-8E14-8FA7D0B085BB",
+        "tmp_dir": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_fully_injectable_extensions/Data/tmp/"
+      },
+      "ended_at_iso8601": "2025-12-27T17:36:12.077Z",
+      "normalized_outcome": "bad_request",
+      "plan_id": "frida-testing:ej-frida",
+      "probe_id": "sandbox_extension",
+      "rc": 2,
+      "schema_version": 2,
+      "service_build": "2",
+      "service_bundle_id": "com.yourteam.entitlement-jail.ProbeService_fully_injectable_extensions",
+      "service_name": "ProbeService_fully_injectable_extensions",
+      "service_version": "2.0.0",
+      "started_at_iso8601": "2025-12-27T17:36:12.077Z",
+      "stderr": "missing/invalid --op (expected: issue_file|consume|release)",
+      "stdout": "",
+      "thread_id": "8707"
+    },
+    "generated_at_unix_ms": 1766856972078,
+    "kind": "probe_response",
+    "result": {
+      "exit_code": 2,
+      "normalized_outcome": "bad_request",
+      "ok": false,
+      "rc": 2,
+      "stderr": "missing/invalid --op (expected: issue_file|consume|release)"
+    },
+    "schema_version": 2
+  },
+  "stdout_jsonl_kinds": {
+    "probe_response": 1,
+    "xpc_session_event": 6
+  },
+  "trigger_delay_s": 0.0,
+  "trigger_events": [
+    {
+      "at_unix_s": 1766856972.053782,
+      "error": null,
+      "kind": "primary"
+    }
+  ],
+  "wait_ready": {
+    "data": {
+      "correlation_id": "frida-testing:ej-frida.6d8ebb6f-7f88-42ba-88c8-455f09074c9c",
+      "event": "wait_ready",
+      "message": "wait configured",
+      "pid": 55509,
+      "plan_id": "frida-testing:ej-frida",
+      "service_bundle_id": "com.yourteam.entitlement-jail.ProbeService_fully_injectable_extensions",
+      "service_name": "ProbeService_fully_injectable_extensions",
+      "session_token": "C7D46C49-91F5-48B1-8E14-8FA7D0B085BB",
+      "wait_mode": "fifo",
+      "wait_path": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_fully_injectable_extensions/Data/tmp/entitlement-jail-session/wait.8DE58D71-02F4-4BB8-A47B-30B08ADBB314.fifo"
+    },
+    "generated_at_unix_ms": 1766856971428,
+    "kind": "xpc_session_event",
+    "result": {
+      "exit_code": 0,
+      "normalized_outcome": "ok",
+      "ok": true,
+      "rc": 0
+    },
+    "schema_version": 2
+  },
+  "wait_spec": "fifo:auto",
+  "wait_timeout_ms": 30000
+}

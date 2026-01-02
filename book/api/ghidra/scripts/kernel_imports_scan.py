@@ -6,7 +6,7 @@ Args: <out_dir> [build_id] [substr ...]
 - When substrings are provided, only include externals whose name or library contains any substring (case-insensitive).
 - If no substrings are provided, include all externals.
 
-Outputs: book/dumps/ghidra/out/<build>/kernel-imports/external_symbols.json
+Outputs: book/evidence/dumps/ghidra/out/<build>/kernel-imports/external_symbols.json
 Schema: meta (build_id, program, substrings, counts), symbols (name, library, type, address, block, references[]).
 
 Notes:

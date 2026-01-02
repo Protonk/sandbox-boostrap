@@ -1,0 +1,22 @@
+{
+  "schema_version": "runtime-tools.plan.v0.1",
+  "plan_id": "lifecycle-lockdown.exec-prereq-allow-default-deny-scan.v2",
+  "registry_id": "lifecycle-lockdown",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "profiles": [
+    "lockdown:airlock_passing_sbpl_write_allow_default_sysctl",
+    "lockdown:airlock_passing_sbpl_write_allow_default_deny_process_exec_sysctl",
+    "lockdown:airlock_passing_sbpl_write_allow_default_deny_process_legacy_codesigning_sysctl",
+    "lockdown:airlock_passing_sbpl_write_allow_default_deny_process_legacy_codesigning_status_sysctl"
+  ],
+  "lanes": {
+    "baseline": false,
+    "scenario": true,
+    "oracle": false
+  },
+  "controls": {
+    "baseline": false
+  },
+  "apply_preflight_profile": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/apply_preflight_allow.sb"
+}
+

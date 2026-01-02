@@ -18,7 +18,7 @@ from book.api.path_utils import ensure_absolute, find_repo_root, relativize_comm
 from book.api.runtime.contracts import schema as rt_contract
 
 
-DEFAULT_LIFECYCLE_OUT_DIR = Path("book/graph/concepts/validation/out/lifecycle")
+DEFAULT_LIFECYCLE_OUT_DIR = Path("book/evidence/graph/concepts/validation/out/lifecycle")
 DEFAULT_ENTITLEMENTS_OUT = DEFAULT_LIFECYCLE_OUT_DIR / "entitlements.json"
 DEFAULT_EXTENSIONS_OUT = DEFAULT_LIFECYCLE_OUT_DIR / "extensions_dynamic.md"
 DEFAULT_PLATFORM_OUT = DEFAULT_LIFECYCLE_OUT_DIR / "platform.jsonl"

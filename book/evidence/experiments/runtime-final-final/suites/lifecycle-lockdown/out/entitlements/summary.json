@@ -1,0 +1,83 @@
+{
+  "commands": {
+    "codesign_adhoc_sign": {
+      "argv": [
+        "codesign",
+        "--force",
+        "--sign",
+        "-",
+        "--entitlements",
+        "book/evidence/experiments/entitlement-diff/entitlements/none.plist",
+        "book/api/lifecycle/build/entitlements_example"
+      ],
+      "cwd": ".",
+      "returncode": 0,
+      "stderr": "codesign_adhoc_sign.stderr.txt",
+      "stdout": "codesign_adhoc_sign.stdout.txt"
+    },
+    "codesign_dv_signed": {
+      "argv": [
+        "codesign",
+        "-dv",
+        "--verbose=4",
+        "book/api/lifecycle/build/entitlements_example"
+      ],
+      "cwd": ".",
+      "returncode": 0,
+      "stderr": "codesign_dv_signed.stderr.txt",
+      "stdout": "codesign_dv_signed.stdout.txt"
+    },
+    "codesign_dv_unsigned": {
+      "argv": [
+        "codesign",
+        "-dv",
+        "--verbose=4",
+        "book/api/lifecycle/build/entitlements_example"
+      ],
+      "cwd": ".",
+      "returncode": 0,
+      "stderr": "codesign_dv_unsigned.stderr.txt",
+      "stdout": "codesign_dv_unsigned.stdout.txt"
+    },
+    "codesign_entitlements_signed": {
+      "argv": [
+        "codesign",
+        "-d",
+        "--entitlements",
+        ":-",
+        "book/api/lifecycle/build/entitlements_example"
+      ],
+      "cwd": ".",
+      "returncode": 0,
+      "stderr": "codesign_entitlements_signed.stderr.txt",
+      "stdout": "codesign_entitlements_signed.stdout.txt"
+    },
+    "codesign_entitlements_unsigned": {
+      "argv": [
+        "codesign",
+        "-d",
+        "--entitlements",
+        ":-",
+        "book/api/lifecycle/build/entitlements_example"
+      ],
+      "cwd": ".",
+      "returncode": 0,
+      "stderr": "codesign_entitlements_unsigned.stderr.txt",
+      "stdout": "codesign_entitlements_unsigned.stdout.txt"
+    }
+  },
+  "executable": "book/api/lifecycle/build/entitlements_example",
+  "limits": [
+    "This compares two independent metadata views (Security.framework vs codesign) and does not claim entitlement effectiveness.",
+    "Ad-hoc signing may constrain which entitlements can be embedded; treat failures as bounded outcomes."
+  ],
+  "signed": {
+    "entitlements_present": true,
+    "signing_identifier": "entitlements_example-555549443a403ff54fcd3b76a5ff87042109216e"
+  },
+  "unsigned": {
+    "entitlements_present": false,
+    "signing_identifier": "entitlements_example"
+  },
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

@@ -1,0 +1,63 @@
+{
+  "attach": {
+    "attach_stage": "wait",
+    "pid": 67019,
+    "pid_candidates": [
+      67019
+    ],
+    "pid_error": null,
+    "pid_matches_service_pid": true,
+    "pid_source": "pgrep",
+    "run_id": "8a907c5b-79af-4e6e-9381-b1485c6dd6bf",
+    "service_pid": "67019",
+    "t0_ns": 1766860952559163000,
+    "wait_info": {
+      "session_ready": {
+        "correlation_id": "frida-testing:ej-frida.8a907c5b-79af-4e6e-9381-b1485c6dd6bf",
+        "event": "session_ready",
+        "message": "session opened",
+        "pid": 67019,
+        "plan_id": "frida-testing:ej-frida",
+        "service_bundle_id": "com.yourteam.entitlement-jail.ProbeService_fully_injectable_extensions",
+        "service_name": "ProbeService_fully_injectable_extensions",
+        "session_token": "A768E611-0AAE-47F3-AEF3-76FE80B2137A",
+        "wait_mode": "fifo",
+        "wait_path": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_fully_injectable_extensions/Data/tmp/entitlement-jail-session/wait.EDD2FF0C-9762-4590-96CF-B5411B95C0E5.fifo"
+      },
+      "wait_mode": "fifo",
+      "wait_path": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_fully_injectable_extensions/Data/tmp/entitlement-jail-session/wait.EDD2FF0C-9762-4590-96CF-B5411B95C0E5.fifo",
+      "wait_ready": {
+        "correlation_id": "frida-testing:ej-frida.8a907c5b-79af-4e6e-9381-b1485c6dd6bf",
+        "event": "wait_ready",
+        "message": "wait configured",
+        "pid": 67019,
+        "plan_id": "frida-testing:ej-frida",
+        "service_bundle_id": "com.yourteam.entitlement-jail.ProbeService_fully_injectable_extensions",
+        "service_name": "ProbeService_fully_injectable_extensions",
+        "session_token": "A768E611-0AAE-47F3-AEF3-76FE80B2137A",
+        "wait_mode": "fifo",
+        "wait_path": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_fully_injectable_extensions/Data/tmp/entitlement-jail-session/wait.EDD2FF0C-9762-4590-96CF-B5411B95C0E5.fifo"
+      },
+      "wait_timeout_ms": 30000
+    }
+  },
+  "config": {
+    "selftest_path": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_fully_injectable_extensions/Data/tmp/ej_noaccess"
+  },
+  "frida": {
+    "python_pkg_version": "17.5.2"
+  },
+  "host": {
+    "machine": "arm64",
+    "platform": "macOS-14.4.1-arm64-arm-64bit-Mach-O",
+    "python": "3.14.2"
+  },
+  "out_dir": "book/evidence/experiments/frida-testing/out/8a907c5b-79af-4e6e-9381-b1485c6dd6bf",
+  "run_id": "8a907c5b-79af-4e6e-9381-b1485c6dd6bf",
+  "script": {
+    "path": "book/evidence/experiments/frida-testing/hooks/smoke.js",
+    "sha256": "a76e314849e7fb0e1959c33097d5be30b7f1814d3e443f8a239c47e05fd9896e"
+  },
+  "t0_ns": 1766860952559163000,
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

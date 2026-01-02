@@ -5,8 +5,8 @@ SANDBOX_LORE is a host-bound, local-only universe for the macOS Seatbelt sandbox
 # Invariants (non-negotiable)
 
 - **World scoping**: every emitted artifact (validation IR, mappings, CARTON) is keyed to exactly one `world_id`. A mismatch means you are mixing worlds or pointing at the wrong baseline; stop and fix world selection. Only mint a new `world_id` by following the rebaseline process in `book/world/README.md`.
-- **Vocabulary**: use project terms from `book/graph/concepts/concept_map.json` and the substrate; operation and filter names come only from `book/graph/mappings/vocab/ops.json` and `book/graph/mappings/vocab/filters.json`. Unknowns stay unknown; do not name ops/filters by guesswork.
-- **Evidence tiering**: every claim names a tier: `bedrock`, `mapped`, or `hypothesis`. Bedrock surfaces are declared in `book/graph/concepts/BEDROCK_SURFACES.json`; do not upgrade mapped/hypothesis to bedrock. Many artifacts also carry a `status` field (`ok|partial|brittle|blocked`) as an operational health/detail signal; it is not a substitute for tier.
+- **Vocabulary**: use project terms from `book/evidence/graph/concepts/concept_map.json` and the substrate; operation and filter names come only from `book/evidence/graph/mappings/vocab/ops.json` and `book/evidence/graph/mappings/vocab/filters.json`. Unknowns stay unknown; do not name ops/filters by guesswork.
+- **Evidence tiering**: every claim names a tier: `bedrock`, `mapped`, or `hypothesis`. Bedrock surfaces are declared in `book/evidence/graph/concepts/BEDROCK_SURFACES.json`; do not upgrade mapped/hypothesis to bedrock. Many artifacts also carry a `status` field (`ok|partial|brittle|blocked`) as an operational health/detail signal; it is not a substitute for tier.
 - **Apply-stage gating**: apply-stage `EPERM` is **hypothesis** evidence, not policy semantics. Preflight before runtime probes that could hit known gates (see `book/tools/preflight/README.md`).
 - **Baseline safety**: never weaken the baseline (no disabling SIP, TCC, or hardened runtime).
 - **Restricted sources**: do not copy from `book/dumps/ghidra/private/aapl-restricted/`.
@@ -21,7 +21,7 @@ SANDBOX_LORE is a host-bound, local-only universe for the macOS Seatbelt sandbox
 # Claim + witness template (use this shape)
 
 Evidence tiers (canonical):
-- `bedrock`: declared in `book/graph/concepts/BEDROCK_SURFACES.json`; safe to treat as a fixed input for this host world.
+- `bedrock`: declared in `book/evidence/graph/concepts/BEDROCK_SURFACES.json`; safe to treat as a fixed input for this host world.
 - `mapped`: host-bound, evidence-backed, but scoped; do not generalize beyond the bounded artifacts/scenarios.
 - `hypothesis`: plausible/partial/confounded; use it to bound unknowns, not to assert semantics.
 
@@ -57,8 +57,8 @@ claim:
 
 # Evidence layers and pipeline
 
-- **Substrate + concepts**: `book/substrate/` defines the vocabulary; the concept inventory is in `book/graph/concepts/CONCEPT_INVENTORY.md` and generated JSON in `book/graph/concepts/` comes from `swift run` in `book/graph`.
-- **Experiments -> validation IR**: experiments write to `book/experiments/*/out`; the validation driver (`python -m book.graph.concepts.validation`) normalizes into `book/graph/concepts/validation/out/` and records status.
+- **Substrate + concepts**: `book/substrate/` defines the vocabulary; the concept inventory is in `book/evidence/graph/concepts/CONCEPT_INVENTORY.md` and generated JSON in `book/graph/concepts/` comes from `swift run` in `book/graph`.
+- **Experiments -> validation IR**: experiments write to `book/evidence/experiments/*/out`; the validation driver (`python -m book.graph.concepts.validation`) normalizes into `book/evidence/graph/concepts/validation/out/` and records status.
 - **Validation IR -> mappings**: generators under `book/graph/mappings/*/generate_*.py` read validation outputs and emit host mappings; the supported entrypoint is `book/graph/mappings/run_promotion.py`.
 - **Mappings -> CARTON**: CARTON lives under `book/integration/carton/bundle/` (relationships/views/contracts + manifest). Refresh via `python -m book.integration.carton.tools.update` (or `make -C book carton-refresh`). Use `python -m book.integration.carton.tools.check` / `python -m book.integration.carton.tools.diff` for verification and drift review.
 
@@ -66,11 +66,11 @@ claim:
 
 Do not copy evidence details from memory. Use these sources as the current cut:
 
-- Bedrock surfaces and their mapping paths: `book/graph/concepts/BEDROCK_SURFACES.json`.
-- Validation summary and job status: `book/graph/concepts/validation/out/README.md`, `book/graph/concepts/validation/out/validation_status.json`, `book/graph/concepts/validation/out/index.json`.
-- Runtime coverage and signatures: `book/graph/mappings/runtime/runtime_coverage.json`, `book/graph/mappings/vocab/ops_coverage.json`, `book/graph/mappings/runtime/runtime_signatures.json`, `book/graph/mappings/runtime/README.md`.
-- Lifecycle probes: `book/graph/mappings/runtime/lifecycle.json`.
-- Anchors/field2 status: `book/graph/mappings/anchors/anchor_field2_map.json`.
+- Bedrock surfaces and their mapping paths: `book/evidence/graph/concepts/BEDROCK_SURFACES.json`.
+- Validation summary and job status: `book/evidence/graph/concepts/validation/out/README.md`, `book/evidence/graph/concepts/validation/out/validation_status.json`, `book/evidence/graph/concepts/validation/out/index.json`.
+- Runtime coverage and signatures: `book/evidence/graph/mappings/runtime/runtime_coverage.json`, `book/evidence/graph/mappings/vocab/ops_coverage.json`, `book/evidence/graph/mappings/runtime/runtime_signatures.json`, `book/graph/mappings/runtime/README.md`.
+- Lifecycle probes: `book/evidence/graph/mappings/runtime/lifecycle.json`.
+- Anchors/field2 status: `book/evidence/graph/mappings/anchors/anchor_field2_map.json`.
 - Apply-gate and preflight: `book/tools/preflight/README.md`.
 
 # Runtime interpretation primer (avoid the common confusions)
@@ -104,7 +104,7 @@ Promotion packets are the contract boundary for runtime evidence: `python -m boo
 
 - Start with `README.md` and `AGENTS.md`, then the nearest `AGENTS.md` in the subtree you touch.
 - For graph IR/mappings: `book/graph/AGENTS.md`, `book/graph/mappings/README.md`, `book/graph/mappings/AGENTS.md`.
-- For experiments: `book/experiments/AGENTS.md` and `book/experiments/Experiments.md`.
+- For experiments: `book/evidence/experiments/AGENTS.md` and `book/evidence/experiments/Experiments.md`.
 - For API/CARTON: `book/api/AGENTS.md`, `book/api/README.md`, `book/integration/carton/README.md`.
 - Single entrance test runner: `make -C book test`.
 

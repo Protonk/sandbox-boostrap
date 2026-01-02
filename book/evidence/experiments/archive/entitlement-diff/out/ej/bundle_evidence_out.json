@@ -1,0 +1,109 @@
+{
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "entrypoint": "book/tools/entitlement/EntitlementJail.app/Contents/MacOS/entitlement-jail",
+  "scenario": "bundle_evidence_out",
+  "runs": [
+    {
+      "out_dir": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail/Data/tmp/ej_evidence_out",
+      "dest_dir": "book/evidence/experiments/entitlement-diff/out/ej/evidence_out",
+      "copy_error": null,
+      "stdout_json": {
+        "data": {
+          "ack_risk": [],
+          "app_bundle_id": "com.yourteam.entitlement-jail",
+          "app_root": "/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/tools/entitlement/EntitlementJail.app",
+          "args": [
+            "/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/tools/entitlement/EntitlementJail.app/Contents/MacOS/entitlement-jail",
+            "bundle-evidence",
+            "--out",
+            "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail/Data/tmp/ej_evidence_out",
+            "--include-health-check"
+          ],
+          "generated_at_unix_ms": 1766620350199,
+          "health_ok": true,
+          "include_health_check": true,
+          "output_dir": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail/Data/tmp/ej_evidence_out",
+          "profiles_included": [
+            "bookmarks_app_scope",
+            "debuggable",
+            "downloads_rw",
+            "minimal",
+            "net_client",
+            "plugin_host_relaxed",
+            "quarantine_bookmarks_app_scope",
+            "quarantine_default",
+            "quarantine_downloads_rw",
+            "quarantine_net_client",
+            "quarantine_user_selected_executable",
+            "user_selected_executable"
+          ],
+          "profiles_skipped": [
+            {
+              "bundle_id": "com.yourteam.entitlement-jail.ProbeService_dyld_env_enabled",
+              "profile_id": "dyld_env_enabled",
+              "reason": "tier2_requires_ack",
+              "risk_reasons": [
+                "allow_dyld_env"
+              ],
+              "risk_tier": 2
+            },
+            {
+              "bundle_id": "com.yourteam.entitlement-jail.ProbeService_fully_injectable",
+              "profile_id": "fully_injectable",
+              "reason": "tier2_requires_ack",
+              "risk_reasons": [
+                "allow_dyld_env",
+                "allow_jit",
+                "allow_unsigned_exec_mem"
+              ],
+              "risk_tier": 2
+            },
+            {
+              "bundle_id": "com.yourteam.entitlement-jail.ProbeService_jit_map_jit",
+              "profile_id": "jit_map_jit",
+              "reason": "tier2_requires_ack",
+              "risk_reasons": [
+                "allow_jit"
+              ],
+              "risk_tier": 2
+            },
+            {
+              "bundle_id": "com.yourteam.entitlement-jail.ProbeService_jit_rwx_legacy",
+              "profile_id": "jit_rwx_legacy",
+              "reason": "tier2_requires_ack",
+              "risk_reasons": [
+                "allow_unsigned_exec_mem"
+              ],
+              "risk_tier": 2
+            }
+          ],
+          "verify_ok": true
+        },
+        "generated_at_unix_ms": 1766620350199,
+        "kind": "bundle_evidence_report",
+        "result": {
+          "errno": null,
+          "error": null,
+          "exit_code": 0,
+          "normalized_outcome": null,
+          "ok": true,
+          "rc": null,
+          "stderr": null,
+          "stdout": null
+        },
+        "schema_version": 1
+      },
+      "report_output_dir": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail/Data/tmp/ej_evidence_out",
+      "command": [
+        "book/tools/entitlement/EntitlementJail.app/Contents/MacOS/entitlement-jail",
+        "bundle-evidence",
+        "--out",
+        "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail/Data/tmp/ej_evidence_out",
+        "--include-health-check"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"data\": {\n    \"ack_risk\": [],\n    \"app_bundle_id\": \"com.yourteam.entitlement-jail\",\n    \"app_root\": \"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/tools/entitlement/EntitlementJail.app\",\n    \"args\": [\n      \"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/tools/entitlement/EntitlementJail.app/Contents/MacOS/entitlement-jail\",\n      \"bundle-evidence\",\n      \"--out\",\n      \"/Users/achyland/Library/Containers/com.yourteam.entitlement-jail/Data/tmp/ej_evidence_out\",\n      \"--include-health-check\"\n    ],\n    \"generated_at_unix_ms\": 1766620350199,\n    \"health_ok\": true,\n    \"include_health_check\": true,\n    \"output_dir\": \"/Users/achyland/Library/Containers/com.yourteam.entitlement-jail/Data/tmp/ej_evidence_out\",\n    \"profiles_included\": [\n      \"bookmarks_app_scope\",\n      \"debuggable\",\n      \"downloads_rw\",\n      \"minimal\",\n      \"net_client\",\n      \"plugin_host_relaxed\",\n      \"quarantine_bookmarks_app_scope\",\n      \"quarantine_default\",\n      \"quarantine_downloads_rw\",\n      \"quarantine_net_client\",\n      \"quarantine_user_selected_executable\",\n      \"user_selected_executable\"\n    ],\n    \"profiles_skipped\": [\n      {\n        \"bundle_id\": \"com.yourteam.entitlement-jail.ProbeService_dyld_env_enabled\",\n        \"profile_id\": \"dyld_env_enabled\",\n        \"reason\": \"tier2_requires_ack\",\n        \"risk_reasons\": [\n          \"allow_dyld_env\"\n        ],\n        \"risk_tier\": 2\n      },\n      {\n        \"bundle_id\": \"com.yourteam.entitlement-jail.ProbeService_fully_injectable\",\n        \"profile_id\": \"fully_injectable\",\n        \"reason\": \"tier2_requires_ack\",\n        \"risk_reasons\": [\n          \"allow_dyld_env\",\n          \"allow_jit\",\n          \"allow_unsigned_exec_mem\"\n        ],\n        \"risk_tier\": 2\n      },\n      {\n        \"bundle_id\": \"com.yourteam.entitlement-jail.ProbeService_jit_map_jit\",\n        \"profile_id\": \"jit_map_jit\",\n        \"reason\": \"tier2_requires_ack\",\n        \"risk_reasons\": [\n          \"allow_jit\"\n        ],\n        \"risk_tier\": 2\n      },\n      {\n        \"bundle_id\": \"com.yourteam.entitlement-jail.ProbeService_jit_rwx_legacy\",\n        \"profile_id\": \"jit_rwx_legacy\",\n        \"reason\": \"tier2_requires_ack\",\n        \"risk_reasons\": [\n          \"allow_unsigned_exec_mem\"\n        ],\n        \"risk_tier\": 2\n      }\n    ],\n    \"verify_ok\": true\n  },\n  \"generated_at_unix_ms\": 1766620350199,\n  \"kind\": \"bundle_evidence_report\",\n  \"result\": {\n    \"errno\": null,\n    \"error\": null,\n    \"exit_code\": 0,\n    \"normalized_outcome\": null,\n    \"ok\": true,\n    \"rc\": null,\n    \"stderr\": null,\n    \"stdout\": null\n  },\n  \"schema_version\": 1\n}\n",
+      "stderr": ""
+    }
+  ]
+}

@@ -9,8 +9,8 @@ from book.api import evidence_tiers
 from book.integration.carton.fixers import common
 
 ROOT = common.repo_root()
-ANCHORS_PATH = ROOT / "book/graph/mappings/anchors/anchor_field2_map.json"
-HITS_PATH = ROOT / "book/experiments/field2-final-final/probe-op-structure/out/anchor_hits.json"
+ANCHORS_PATH = ROOT / "book/evidence/graph/mappings/anchors/anchor_field2_map.json"
+HITS_PATH = ROOT / "book/evidence/experiments/field2-final-final/probe-op-structure/out/anchor_hits.json"
 OUT_PATH = ROOT / "book/integration/carton/bundle/relationships/anchor_field2.json"
 
 

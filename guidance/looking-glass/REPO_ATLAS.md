@@ -83,10 +83,10 @@ Notable subtrees:
 
 See: `CARTON_AND_GUARDRAILS.md`.
 
-### `book/experiments/` — witness generators (not the contract boundary)
+### `book/evidence/experiments/` — witness generators (not the contract boundary)
 
 Experiments are allowed to be messy; their outputs become durable only when promoted into:
-- `book/graph/concepts/validation/out/` (normalized IR), or
+- `book/evidence/graph/concepts/validation/out/` (normalized IR), or
 - `book/graph/mappings/` (stable host mappings), or
 - `book/integration/carton/bundle/` (frozen query layer).
 

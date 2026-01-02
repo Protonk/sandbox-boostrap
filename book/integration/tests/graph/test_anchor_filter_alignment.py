@@ -3,6 +3,7 @@ from pathlib import Path
 
 
 from book.api import path_utils
+
 ROOT = path_utils.find_repo_root(Path(__file__))
 
 
@@ -18,10 +19,11 @@ def test_anchor_filter_alignment_with_anchor_hits():
     delta attribution path is in use), and the pinned filter_id must appear
     among the observed field2 values for those anchors.
     """
-    amap = load_json(ROOT / "book" / "graph" / "mappings" / "anchors" / "anchor_filter_map.json")
+    amap = load_json(ROOT / "book" / "evidence" / "graph" / "mappings" / "anchors" / "anchor_filter_map.json")
     hits = load_json(
         ROOT
         / "book"
+        / "evidence"
         / "experiments"
         / "field2-final-final"
         / "probe-op-structure"
@@ -31,6 +33,7 @@ def test_anchor_filter_alignment_with_anchor_hits():
     delta_path = (
         ROOT
         / "book"
+        / "evidence"
         / "experiments"
         / "field2-final-final"
         / "probe-op-structure"

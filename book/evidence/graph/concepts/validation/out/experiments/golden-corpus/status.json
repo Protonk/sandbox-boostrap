@@ -1,0 +1,30 @@
+{
+  "job_id": "experiment:golden-corpus",
+  "status": "ok",
+  "host": {
+    "product": "macOS",
+    "version": "14.4.1",
+    "build": "23E224",
+    "kernel": "23.4.0",
+    "machine": "arm64"
+  },
+  "inputs": [
+    "book/evidence/graph/concepts/validation/golden_corpus/corpus_manifest.json",
+    "book/evidence/graph/concepts/validation/golden_corpus/corpus_summary.json"
+  ],
+  "outputs": [
+    "book/evidence/graph/concepts/validation/out/experiments/golden-corpus/rerun_summary.json"
+  ],
+  "metrics": {
+    "entries": 8,
+    "mismatches": 0
+  },
+  "notes": "Replayed decoder/profile against golden-corpus manifest; mismatches mark brittleness.",
+  "tags": [
+    "experiment:golden-corpus",
+    "experiment",
+    "static-format",
+    "golden"
+  ],
+  "mismatches": []
+}

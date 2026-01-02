@@ -3,9 +3,9 @@
 This target keeps the concept inventory and routing metadata in sync with the rest of the repo. It is intentionally small and typed so changes stay visible and reproducible.
 
 What it does (current):
-- Parses `book/substrate/Concepts.md` + `book/graph/concepts/CONCEPT_INVENTORY.md` + `book/graph/concepts/validation/Concept_map.md`.
+- Parses `book/substrate/Concepts.md` + `book/evidence/graph/concepts/CONCEPT_INVENTORY.md` + `book/graph/concepts/validation/Concept_map.md`.
 - Emits JSON: `book/graph/concepts/{concepts.json,concept_map.json,concept_text_map.json}`, `book/graph/concepts/validation/{strategies.json,validation_report.json}`, `book/examples/examples.json`.
-- Runs light validation (concept IDs referenced by strategies and runtime expectations exist) and writes `book/graph/concepts/validation/validation_report.json`.
+- Runs light validation (concept IDs referenced by strategies and runtime expectations exist) and writes `book/evidence/graph/concepts/validation/validation_report.json`.
 - Feeds stable mappings into CARTON fixers (see `book/integration/carton/bundle/CARTON.json`), the frozen CARTON bundle (relationships/views/contracts + manifest) used by the textbook and CI guardrails.
 - Encodes “always enforced” mapping invariants as Swift data structures; the Swift build fails if the host mappings drift (see `swift/`).
 

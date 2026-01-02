@@ -19,12 +19,12 @@ from book.graph.concepts.validation import registry
 from book.graph.concepts.validation.registry import ValidationJob
 
 ROOT = find_repo_root(Path(__file__))
-TAG_LAYOUTS_PATH = ROOT / "book/graph/mappings/tag_layouts/tag_layouts.json"
-TAG_U16_ROLES_PATH = ROOT / "book/graph/mappings/tag_layouts/tag_u16_roles.json"
-FILTERS_PATH = ROOT / "book/graph/mappings/vocab/filters.json"
-META_PATH = ROOT / "book/graph/concepts/validation/out/metadata.json"
-STATUS_PATH = ROOT / "book/graph/concepts/validation/out/tag_roles/status.json"
-IR_PATH = ROOT / "book/graph/concepts/validation/out/tag_roles/ir.json"
+TAG_LAYOUTS_PATH = ROOT / "book/evidence/graph/mappings/tag_layouts/tag_layouts.json"
+TAG_U16_ROLES_PATH = ROOT / "book/evidence/graph/mappings/tag_layouts/tag_u16_roles.json"
+FILTERS_PATH = ROOT / "book/evidence/graph/mappings/vocab/filters.json"
+META_PATH = ROOT / "book/evidence/graph/concepts/validation/out/metadata.json"
+STATUS_PATH = ROOT / "book/evidence/graph/concepts/validation/out/tag_roles/status.json"
+IR_PATH = ROOT / "book/evidence/graph/concepts/validation/out/tag_roles/ir.json"
 
 # Canonical corpus for this host.
 _CANONICAL = digests_mod.canonical_system_profile_blobs(ROOT)

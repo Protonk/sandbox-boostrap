@@ -1,0 +1,52 @@
+{
+  "flips": [
+    {
+      "blob_sha256": "a82e5aa81c57e46988a3bbf96880e9131e01f9e0ac19939b6ea7b645753fbaac",
+      "by_label": {
+        "in_harness": "apply_gated_eperm",
+        "outside_harness": "not_apply_gated"
+      }
+    },
+    {
+      "blob_sha256": "c6fe205fe002bcb0e094419e149d5f1a8a49517d034033fe5bec52ef8e75a179",
+      "by_label": {
+        "in_harness": "apply_gated_eperm",
+        "outside_harness": "not_apply_gated"
+      }
+    }
+  ],
+  "inputs": {
+    "matrices": [
+      "book/evidence/experiments/preflight-blob-digests/out/blob_apply_matrix.in_harness.json",
+      "book/evidence/experiments/preflight-blob-digests/out/blob_apply_matrix.outside_harness.json"
+    ]
+  },
+  "matrices": [
+    {
+      "control_classification": "apply_gated_eperm",
+      "control_ok": false,
+      "label": "in_harness",
+      "path": "book/evidence/experiments/preflight-blob-digests/out/blob_apply_matrix.in_harness.json"
+    },
+    {
+      "control_classification": "not_apply_gated",
+      "control_ok": true,
+      "label": "outside_harness",
+      "path": "book/evidence/experiments/preflight-blob-digests/out/blob_apply_matrix.outside_harness.json"
+    }
+  ],
+  "metrics": {
+    "contexts_control_blocked": 1,
+    "contexts_control_ok": 1,
+    "digests_seen": 3,
+    "flips": 2,
+    "matrices": 2
+  },
+  "notes": [
+    "If a context has control_ok=false, its apply_gated_eperm rows are treated as global apply gating (harness/environment), not profile-specific evidence.",
+    "Only apply_gated_eperm observed in control_ok=true contexts is treated as a profile-specific apply gate witness."
+  ],
+  "schema_version": 1,
+  "tool": "book/evidence/experiments/preflight-blob-digests",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

@@ -2,7 +2,7 @@
 """
 Generate a joined per-op runtime story from the latest runtime cut.
 
-Reads the canonical op/scenario mappings from book/graph/mappings/runtime_cuts/
+Reads the canonical op/scenario mappings from book/evidence/graph/mappings/runtime_cuts/
 and emits runtime_story.json alongside them. Updates runtime_manifest.json to
 include a pointer to the story file so loaders can discover it.
 """

@@ -16,10 +16,10 @@ from book.graph.concepts.validation import registry
 from book.graph.concepts.validation.registry import ValidationJob
 
 ROOT = find_repo_root(Path(__file__))
-BUNDLE_ROOT = ROOT / "book/experiments/runtime-final-final/suites/metadata-runner/out"
-META_PATH = ROOT / "book/graph/concepts/validation/out/metadata.json"
-STATUS_PATH = ROOT / "book/graph/concepts/validation/out/experiments/metadata-runner/status.json"
-IR_PATH = ROOT / "book/graph/concepts/validation/out/experiments/metadata-runner/runtime_events.normalized.json"
+BUNDLE_ROOT = ROOT / "book/evidence/experiments/runtime-final-final/suites/metadata-runner/out"
+META_PATH = ROOT / "book/evidence/graph/concepts/validation/out/metadata.json"
+STATUS_PATH = ROOT / "book/evidence/graph/concepts/validation/out/experiments/metadata-runner/status.json"
+IR_PATH = ROOT / "book/evidence/graph/concepts/validation/out/experiments/metadata-runner/runtime_events.normalized.json"
 
 
 def rel(path: Path) -> str:
@@ -74,7 +74,7 @@ def run_metadata_runner_job():
 registry.register(
     ValidationJob(
         id="experiment:metadata-runner",
-        inputs=["book/experiments/runtime-final-final/suites/metadata-runner/out/*/artifact_index.json"],
+        inputs=["book/evidence/experiments/runtime-final-final/suites/metadata-runner/out/*/artifact_index.json"],
         outputs=[rel(IR_PATH), rel(STATUS_PATH)],
         tags=["experiment:metadata-runner", "experiment", "runtime"],
         description="Copy metadata-runner runtime bundle outputs into shared runtime IR.",

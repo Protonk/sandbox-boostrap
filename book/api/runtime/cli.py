@@ -53,7 +53,7 @@ BOOK_ROOT = REPO_ROOT / "book"
 
 
 def _default_matrix() -> Path:
-    bundle_root = BOOK_ROOT / "experiments" / "runtime-final-final" / "suites" / "runtime-checks" / "out"
+    bundle_root = BOOK_ROOT / "evidence" / "experiments" / "runtime-final-final" / "suites" / "runtime-checks" / "out"
     try:
         bundle_dir, _ = bundle_reader.resolve_bundle_dir(bundle_root, repo_root=REPO_ROOT)
     except FileNotFoundError:
@@ -62,7 +62,7 @@ def _default_matrix() -> Path:
 
 
 def _default_runtime_results() -> Path:
-    bundle_root = BOOK_ROOT / "experiments" / "runtime-final-final" / "suites" / "runtime-checks" / "out"
+    bundle_root = BOOK_ROOT / "evidence" / "experiments" / "runtime-final-final" / "suites" / "runtime-checks" / "out"
     try:
         bundle_dir, _ = bundle_reader.resolve_bundle_dir(bundle_root, repo_root=REPO_ROOT)
     except FileNotFoundError:
@@ -394,7 +394,12 @@ def main(argv: list[str] | None = None) -> int:
     ap_story = sub.add_parser("story", help="Build a runtime story from ops + scenarios.")
     ap_story.add_argument("--ops", type=Path, required=True, help="Path to ops.json")
     ap_story.add_argument("--scenarios", type=Path, required=True, help="Path to scenarios.json")
-    ap_story.add_argument("--vocab", type=Path, default=BOOK_ROOT / "graph" / "mappings" / "vocab" / "ops.json", help="Path to ops vocab")
+    ap_story.add_argument(
+        "--vocab",
+        type=Path,
+        default=BOOK_ROOT / "evidence" / "graph" / "mappings" / "vocab" / "ops.json",
+        help="Path to ops vocab",
+    )
     ap_story.add_argument("--out", type=Path, required=True, help="Output path for runtime_story.json")
     ap_story.add_argument("--world-id", type=str, help="Override world_id")
     ap_story.set_defaults(func=story_command)
@@ -403,12 +408,22 @@ def main(argv: list[str] | None = None) -> int:
     ap_golden.add_argument("--matrix", type=Path, default=_default_matrix(), help="Path to expected_matrix.json")
     ap_golden.add_argument("--runtime-results", type=Path, default=_default_runtime_results(), help="Path to runtime_results.json")
     ap_golden.add_argument("--baseline", type=Path, default=BOOK_ROOT / "world" / "sonoma-14.4.1-23E224-arm64" / "world.json", help="Path to world baseline JSON")
-    ap_golden.add_argument("--out", type=Path, default=BOOK_ROOT / "graph" / "mappings" / "runtime", help="Root output directory")
+    ap_golden.add_argument(
+        "--out",
+        type=Path,
+        default=BOOK_ROOT / "evidence" / "graph" / "mappings" / "runtime",
+        help="Root output directory",
+    )
     ap_golden.set_defaults(func=golden_command)
 
     ap_promote = sub.add_parser("promote", help="Promote a staged runtime cut into runtime_cuts.")
     ap_promote.add_argument("--staging", type=Path, required=True, help="Staging root for runtime cut")
-    ap_promote.add_argument("--out", type=Path, default=BOOK_ROOT / "graph" / "mappings" / "runtime_cuts", help="Target root")
+    ap_promote.add_argument(
+        "--out",
+        type=Path,
+        default=BOOK_ROOT / "evidence" / "graph" / "mappings" / "runtime_cuts",
+        help="Target root",
+    )
     ap_promote.set_defaults(func=promote_command)
 
     ap_mismatch = sub.add_parser("mismatch", help="Classify mismatches for expected_matrix + runtime_results.")
@@ -464,7 +479,7 @@ def main(argv: list[str] | None = None) -> int:
     ap_status = sub.add_parser("status", help="Report runtime environment readiness.")
     ap_status.set_defaults(func=status_command)
 
-    ap_list_plans = sub.add_parser("list-plans", help="List plan.json files under book/experiments.")
+    ap_list_plans = sub.add_parser("list-plans", help="List plan.json files under book/evidence/experiments.")
     ap_list_plans.set_defaults(func=list_plans_command)
 
     ap_desc_plan = sub.add_parser("describe-plan", help="Describe a plan.json (includes digest).")

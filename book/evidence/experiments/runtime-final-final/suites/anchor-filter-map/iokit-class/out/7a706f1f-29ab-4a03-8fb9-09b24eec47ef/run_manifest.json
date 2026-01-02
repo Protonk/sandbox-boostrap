@@ -1,0 +1,49 @@
+{
+  "schema_version": "runtime-tools.run_manifest.v0.1",
+  "run_id": "7a706f1f-29ab-4a03-8fb9-09b24eec47ef",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "channel": "launchd_clean",
+  "plan_id": "anchor-filter-map.iokit-class.IOUSBHostInterface.v1",
+  "plan_digest": "c479a5d3a859fe3428bb65d11ee185fd1633951381c1856c0297d35318dbef85",
+  "dry_run": false,
+  "stage_used": true,
+  "stage_root": "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7a706f1f-29ab-4a03-8fb9-09b24eec47ef",
+  "repo_root_context": "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7a706f1f-29ab-4a03-8fb9-09b24eec47ef",
+  "staged_output_root": "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7a706f1f-29ab-4a03-8fb9-09b24eec47ef/book/experiments/anchor-filter-map/iokit-class/out",
+  "output_root": "book/evidence/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef",
+  "apply_preflight": {
+    "path": "apply_preflight.json",
+    "record": {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "run_id": "7a706f1f-29ab-4a03-8fb9-09b24eec47ef",
+      "profile": "book/evidence/experiments/hardened-runtime/sb/apply_preflight_allow.sb",
+      "runner": "book/evidence/experiments/runtime-checks/sandbox_runner",
+      "sandbox_check_self": {
+        "source": "sandbox_check",
+        "error": "libsystem_sandbox not found"
+      },
+      "status": "ok",
+      "command": [
+        "book/evidence/experiments/runtime-checks/sandbox_runner",
+        "book/evidence/experiments/hardened-runtime/sb/apply_preflight_allow.sb",
+        "--",
+        "/usr/bin/true"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "apply_report": {
+        "api": "sandbox_init",
+        "rc": 0,
+        "errno": 0,
+        "errbuf": null,
+        "err_class": "ok",
+        "err_class_source": "none"
+      },
+      "apply_marker_pid": 84953,
+      "apply_ok": true,
+      "failure_stage": null,
+      "schema_version": "runtime-tools.apply_preflight.v0.1"
+    }
+  }
+}

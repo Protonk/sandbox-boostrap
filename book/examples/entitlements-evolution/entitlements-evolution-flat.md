@@ -51,7 +51,7 @@ To write the canonical validation output:
 
 ```sh
 python -m book.api.lifecycle entitlements \
-  --out book/graph/concepts/validation/out/lifecycle/entitlements.json
+  --out book/evidence/graph/concepts/validation/out/lifecycle/entitlements.json
 ```
 
 On an unsigned build, you will typically see:

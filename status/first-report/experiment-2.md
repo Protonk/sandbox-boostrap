@@ -6,7 +6,7 @@
 
 This experiment asked a narrower, complementary question to the earlier “zero-knowledge field2” run ([status/pair-programming/Pairing-field2-hunt.md](status/pair-programming/Pairing-field2-hunt.md)). Instead of chasing what the kernel *does* with the third 16-bit node slot (`field2`), we asked how **libsandbox** on Sonoma 14.4.1 ([world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world.json)](world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world.json))) actually *fills* that slot when it compiles SBPL into a profile blob.
 
-On this host, decoded PolicyGraph nodes have a familiar shape: a tag byte and a handful of 16-bit fields, one of which is treated in this project as `field2 = filter_arg_raw` (see [book/substrate/Concepts.md](book/substrate/Concepts.md) for PolicyGraph terminology). Earlier work showed that low values in this slot line up with a Filter Vocabulary Map ([book/graph/mappings/vocab/filters.json](book/graph/mappings/vocab/filters.json)), while a handful of high values in rich profiles remained unexplained—and that the kernel does *not* implement the old “row of structs + hi/lo bitfields” story.
+On this host, decoded PolicyGraph nodes have a familiar shape: a tag byte and a handful of 16-bit fields, one of which is treated in this project as `field2 = filter_arg_raw` (see [book/substrate/Concepts.md](book/substrate/Concepts.md) for PolicyGraph terminology). Earlier work showed that low values in this slot line up with a Filter Vocabulary Map ([book/graph/mappings/vocab/filters.json](book/evidence/graph/mappings/vocab/filters.json)), while a handful of high values in rich profiles remained unexplained—and that the kernel does *not* implement the old “row of structs + hi/lo bitfields” story.
 
 Here, we shifted the focus up a layer. Using SBPL probes, a refined profile decoder, and disassembly of `libsandbox.1.dylib`, the agents worked out how filter IDs and arguments are laid out in the node records for a key tag (tag10) on this Sonoma baseline. The result is a concrete, byte-level layout for tag10—tag = low byte of halfword0, filter ID in halfword1, payload in halfword2—backed by reproducible SBPL differences (socket-domain 2→30) and a catalog of encoder sites in libsandbox. The syscall side in `libsystem_sandbox` is left as architecture-level context for a follow-on experiment.
 
@@ -21,7 +21,7 @@ In the project’s Sonoma baseline (14.4.1, 23E224, Apple Silicon), decoded poli
 * a tag byte, and
 * several 16-bit fields, one of which is modeled as `field2 = filter_arg_raw` (for tag10 on this host: tag = low byte of halfword0, `field2` corresponds to halfword2, and halfword1 carries the filter ID).
 
-Low `field2` values are already mapped onto a Filter Vocabulary Map ([book/graph/mappings/vocab/filters.json](book/graph/mappings/vocab/filters.json)) covering path filters, socket-domain, iokit filters, mach names, etc., and earlier “zero-knowledge” work ([status/pair-programming/Pairing-field2-hunt.md](status/pair-programming/Pairing-field2-hunt.md)) showed that:
+Low `field2` values are already mapped onto a Filter Vocabulary Map ([book/graph/mappings/vocab/filters.json](book/evidence/graph/mappings/vocab/filters.json)) covering path filters, socket-domain, iokit filters, mach names, etc., and earlier “zero-knowledge” work ([status/pair-programming/Pairing-field2-hunt.md](status/pair-programming/Pairing-field2-hunt.md)) showed that:
 
 * high `field2` values cluster in specific tails and mixed profiles,
 * the kernel treats this operand as a plain u16, and
@@ -38,7 +38,7 @@ The experiment was split into:
 
 ### Phase A: SBPL → PolicyGraph layout
 
-The codex agent scaffolded `book/experiments/field2-final-final/libsandbox-encoder/` with `Plan.md`, `Report.md`, `Notes.md` and a pair of directories `sb/` and `out/`. The core work in Phase A was to cleanly relate SBPL filters and arguments to node fields in decoded profiles, then freeze a layout that other experiments can treat as input (see [book/experiments/field2-final-final/libsandbox-encoder/Report.md](book/experiments/field2-final-final/libsandbox-encoder/Report.md) for the experiment-local view).
+The codex agent scaffolded `book/evidence/experiments/field2-final-final/libsandbox-encoder/` with `Plan.md`, `Report.md`, `Notes.md` and a pair of directories `sb/` and `out/`. The core work in Phase A was to cleanly relate SBPL filters and arguments to node fields in decoded profiles, then freeze a layout that other experiments can treat as input (see [book/evidence/experiments/field2-final-final/libsandbox-encoder/Report.md](book/evidence/experiments/field2-final-final/libsandbox-encoder/Report.md) for the experiment-local view).
 
 Key steps:
 
@@ -48,11 +48,11 @@ Key steps:
 
      * `file-read*`, `mach-lookup`, `network-outbound`, `iokit-open`,
      * filter shapes: literal/subpath path filters, socket domain/type/proto, iokit class/property, mach names.
-   * Implemented `run_phase_a.py` ([book/experiments/field2-final-final/libsandbox-encoder/run_phase_a.py](book/experiments/field2-final-final/libsandbox-encoder/run_phase_a.py)) to:
+   * Implemented `run_phase_a.py` ([book/evidence/experiments/field2-final-final/libsandbox-encoder/run_phase_a.py](book/evidence/experiments/field2-final-final/libsandbox-encoder/run_phase_a.py)) to:
 
      * compile SBPL with `book.api.profile_tools compile`,
      * decode compiled blobs via the project’s profile decoder,
-     * emit a per-node table keyed by tag-specific layouts: `(op, filter_name, SBPL arg, tag, filter_id_raw, payload_raw)` for payload-bearing tags (tag10), and filter-id-only rows for others. Tag2/tag3 were excluded as meta. See [book/experiments/field2-final-final/libsandbox-encoder/out/matrix_v1_field2_encoder_matrix.json](book/experiments/field2-final-final/libsandbox-encoder/out/matrix_v1_field2_encoder_matrix.json).
+     * emit a per-node table keyed by tag-specific layouts: `(op, filter_name, SBPL arg, tag, filter_id_raw, payload_raw)` for payload-bearing tags (tag10), and filter-id-only rows for others. Tag2/tag3 were excluded as meta. See [book/evidence/experiments/field2-final-final/libsandbox-encoder/out/matrix_v1_field2_encoder_matrix.json](book/evidence/experiments/field2-final-final/libsandbox-encoder/out/matrix_v1_field2_encoder_matrix.json).
 
    Early runs revealed problems: tiny sanity profiles and the matrix were dominated by tags 2 and 3 with uniform fields (e.g., `[2,2,2,2,0]`), and `field2_raw` collapsed to a few IDs regardless of SBPL arguments. That indicated we were slicing the node block or interpreting fields incorrectly.
 
@@ -63,8 +63,8 @@ Key steps:
    * **profile_tools inspect/decoder** (formerly `inspect_profile`) was extended to:
 
      * emit `nodes_raw` (offset, tag byte, raw bytes, halfwords),
-     * normalize the nodes section by trimming a consistent +3-byte tail and using `record_size × node_count` as the canonical `nodes_len` (12-byte records on this host). Example: [book/experiments/field2-final-final/libsandbox-encoder/out/matrix_v1.inspect.json](book/experiments/field2-final-final/libsandbox-encoder/out/matrix_v1.inspect.json).
-   * **dump_raw_nodes.py** ([book/experiments/field2-final-final/libsandbox-encoder/dump_raw_nodes.py](book/experiments/field2-final-final/libsandbox-encoder/dump_raw_nodes.py)) gained `--header` and `--stride` modes:
+     * normalize the nodes section by trimming a consistent +3-byte tail and using `record_size × node_count` as the canonical `nodes_len` (12-byte records on this host). Example: [book/evidence/experiments/field2-final-final/libsandbox-encoder/out/matrix_v1.inspect.json](book/evidence/experiments/field2-final-final/libsandbox-encoder/out/matrix_v1.inspect.json).
+   * **dump_raw_nodes.py** ([book/evidence/experiments/field2-final-final/libsandbox-encoder/dump_raw_nodes.py](book/evidence/experiments/field2-final-final/libsandbox-encoder/dump_raw_nodes.py)) gained `--header` and `--stride` modes:
 
      * it now uses `nodes_start` plus `len(nodes_raw) × record_size` to dump header-aligned records with a fixed 12-byte stride.
    * Mining `tag_inventory` and tiny profiles showed:
@@ -76,7 +76,7 @@ Key steps:
 
 3. **Resolving tag10 (filter ID vs payload)**
 
-   Once slicing was stable, the agents focused on **tag10**, the main payload-bearing tag in `matrix_v1` ([book/experiments/field2-final-final/libsandbox-encoder/sb/matrix_v1.sb](book/experiments/field2-final-final/libsandbox-encoder/sb/matrix_v1.sb)):
+   Once slicing was stable, the agents focused on **tag10**, the main payload-bearing tag in `matrix_v1` ([book/evidence/experiments/field2-final-final/libsandbox-encoder/sb/matrix_v1.sb](book/evidence/experiments/field2-final-final/libsandbox-encoder/sb/matrix_v1.sb)):
 
    * Header-aligned dumps showed:
 
@@ -89,14 +89,14 @@ Key steps:
 
      * domain 2 vs domain 30,
      * all other clauses identical so tag10 would still be emitted.
-   * Compiled and decoded both ([book/experiments/field2-final-final/libsandbox-encoder/sb/matrix_v1_domain2.sb](book/experiments/field2-final-final/libsandbox-encoder/sb/matrix_v1_domain2.sb), `…/matrix_v1_domain30.sb`), then compared header-aligned tag10 nodes via [book/experiments/field2-final-final/libsandbox-encoder/out/matrix_v1.sb.inspect.json](book/experiments/field2-final-final/libsandbox-encoder/out/matrix_v1.sb.inspect.json).
+   * Compiled and decoded both ([book/evidence/experiments/field2-final-final/libsandbox-encoder/sb/matrix_v1_domain2.sb](book/evidence/experiments/field2-final-final/libsandbox-encoder/sb/matrix_v1_domain2.sb), `…/matrix_v1_domain30.sb`), then compared header-aligned tag10 nodes via [book/evidence/experiments/field2-final-final/libsandbox-encoder/out/matrix_v1.sb.inspect.json](book/evidence/experiments/field2-final-final/libsandbox-encoder/out/matrix_v1.sb.inspect.json).
 
    In those paired profiles, a tag10 node appeared where:
 
    * halfword1 remained constant with value 10 (socket-domain’s filter ID), and
    * halfword2 changed from 2 → 30 as the SBPL arg changed.
 
-   From this, the experiment fixed the tag10 layout for this Sonoma baseline (recorded in [book/experiments/field2-final-final/libsandbox-encoder/out/tag_layout_overrides.json](book/experiments/field2-final-final/libsandbox-encoder/out/tag_layout_overrides.json)):
+   From this, the experiment fixed the tag10 layout for this Sonoma baseline (recorded in [book/evidence/experiments/field2-final-final/libsandbox-encoder/out/tag_layout_overrides.json](book/evidence/experiments/field2-final-final/libsandbox-encoder/out/tag_layout_overrides.json)):
 
    * **Tag10 layout (Sonoma 14.4.1, arm64)**
 
@@ -105,14 +105,14 @@ Key steps:
      * payload (e.g., socket-domain) = halfword2
      * stride = 12 bytes (6 halfwords).
 
-   This was recorded in [book/experiments/field2-final-final/libsandbox-encoder/out/tag_layout_overrides.json](book/experiments/field2-final-final/libsandbox-encoder/out/tag_layout_overrides.json) (tag10 marked ok; tag2/3 meta; tag8 left filter-id-only).
+   This was recorded in [book/evidence/experiments/field2-final-final/libsandbox-encoder/out/tag_layout_overrides.json](book/evidence/experiments/field2-final-final/libsandbox-encoder/out/tag_layout_overrides.json) (tag10 marked ok; tag2/3 meta; tag8 left filter-id-only).
 
 4. **Freezing the Phase A matrix**
 
    `run_phase_a.py` was updated to consult tag-specific layouts:
 
-   * It now emits both `filter_id_raw` and `payload_raw` for payload-bearing tags (tag10) in [book/experiments/field2-final-final/libsandbox-encoder/out/matrix_v1_field2_encoder_matrix.json](book/experiments/field2-final-final/libsandbox-encoder/out/matrix_v1_field2_encoder_matrix.json).
-   * Tag2/tag3 are excluded as meta; tag8 contributes only filter IDs by design (see [book/experiments/field2-final-final/libsandbox-encoder/out/tag_layout_overrides.json](book/experiments/field2-final-final/libsandbox-encoder/out/tag_layout_overrides.json)).
+   * It now emits both `filter_id_raw` and `payload_raw` for payload-bearing tags (tag10) in [book/evidence/experiments/field2-final-final/libsandbox-encoder/out/matrix_v1_field2_encoder_matrix.json](book/evidence/experiments/field2-final-final/libsandbox-encoder/out/matrix_v1_field2_encoder_matrix.json).
+   * Tag2/tag3 are excluded as meta; tag8 contributes only filter IDs by design (see [book/evidence/experiments/field2-final-final/libsandbox-encoder/out/tag_layout_overrides.json](book/evidence/experiments/field2-final-final/libsandbox-encoder/out/tag_layout_overrides.json)).
 
 At this point Phase A was declared **frozen**:
 
@@ -122,11 +122,11 @@ At this point Phase A was declared **frozen**:
 
 ### Phase B: libsandbox encoder and serializer
 
-With the PolicyGraph view stable, Phase B asked how libsandbox’s compiler produces those node records. This phase deliberately stops at the `libsandbox` / `libsystem_sandbox` boundary; the syscall glue in `libsystem_sandbox` ([book/graph/mappings/dyld-libs/usr/lib/system/libsystem_sandbox.dylib](book/graph/mappings/dyld-libs/usr/lib/system/libsystem_sandbox.dylib)) is reserved for a follow-on experiment.
+With the PolicyGraph view stable, Phase B asked how libsandbox’s compiler produces those node records. This phase deliberately stops at the `libsandbox` / `libsystem_sandbox` boundary; the syscall glue in `libsystem_sandbox` ([book/graph/mappings/dyld-libs/usr/lib/system/libsystem_sandbox.dylib](book/evidence/graph/mappings/dyld-libs/usr/lib/system/libsystem_sandbox.dylib)) is reserved for a follow-on experiment.
 
-Key findings in `libsandbox.1.dylib` ([book/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib](book/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib), recorded in [book/experiments/field2-final-final/libsandbox-encoder/out/encoder_sites.json](book/experiments/field2-final-final/libsandbox-encoder/out/encoder_sites.json) and [book/experiments/field2-final-final/libsandbox-encoder/Report.md](book/experiments/field2-final-final/libsandbox-encoder/Report.md)):
+Key findings in `libsandbox.1.dylib` ([book/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib](book/evidence/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib), recorded in [book/evidence/experiments/field2-final-final/libsandbox-encoder/out/encoder_sites.json](book/evidence/experiments/field2-final-final/libsandbox-encoder/out/encoder_sites.json) and [book/evidence/experiments/field2-final-final/libsandbox-encoder/Report.md](book/evidence/experiments/field2-final-final/libsandbox-encoder/Report.md)):
 
-* **Encoder and serializer sites** (catalogued in [book/experiments/field2-final-final/libsandbox-encoder/out/encoder_sites.json](book/experiments/field2-final-final/libsandbox-encoder/out/encoder_sites.json))
+* **Encoder and serializer sites** (catalogued in [book/evidence/experiments/field2-final-final/libsandbox-encoder/out/encoder_sites.json](book/evidence/experiments/field2-final-final/libsandbox-encoder/out/encoder_sites.json))
 
   * `_emit`:
 
@@ -157,11 +157,11 @@ Key findings in `libsandbox.1.dylib` ([book/graph/mappings/dyld-libs/usr/lib/lib
 
   * In `libsystem_sandbox.dylib`, `_sandbox_init_with_parameters` dynamically resolves `"sandbox_compile_string"`, `"sandbox_compile_named"`, `"sandbox_compile_file"` and calls through function pointers, and `__sandbox_ms` stubs exist.
   * It is architecturally clear that `libsystem_sandbox` calls libsandbox’s compile entry points, receives an `sb_buffer*`, and ultimately passes a `(ptr,len)` to `__sandbox_ms`.
-  * Fully unwinding the function-pointer dispatcher and argument packing is non-trivial and, as noted above, was explicitly deferred to a new experiment (`book/experiments/sandbox-init-params/`); libsandbox-encoder is closed at this boundary.
+  * Fully unwinding the function-pointer dispatcher and argument packing is non-trivial and, as noted above, was explicitly deferred to a new experiment (`book/evidence/experiments/sandbox-init-params/`); libsandbox-encoder is closed at this boundary.
 
 ### Closure and follow-on
 
-By the end of this run, the `libsandbox-encoder` experiment had achieved its AIM on this host: it established a concrete, header-aligned record layout for tag10 (including filter ID and payload slots), verified that this layout matches libsandbox’s behavior under controlled SBPL arg variation, and catalogued encoder and serializer sites in libsandbox and the builder→immutable `sb_buffer*` path. Along the way it hardened shared tooling—profile inspection/decoder tooling (now `book/api/profile_tools/`), `dump_raw_nodes.py`, `run_phase_a.py`, `build_tag_field_summary.py`, and the baseline artifacts under `book/experiments/field2-final-final/libsandbox-encoder/out/`—and drew a clean boundary to a new experiment for `libsystem_sandbox` glue.
+By the end of this run, the `libsandbox-encoder` experiment had achieved its AIM on this host: it established a concrete, header-aligned record layout for tag10 (including filter ID and payload slots), verified that this layout matches libsandbox’s behavior under controlled SBPL arg variation, and catalogued encoder and serializer sites in libsandbox and the builder→immutable `sb_buffer*` path. Along the way it hardened shared tooling—profile inspection/decoder tooling (now `book/api/profile_tools/`), `dump_raw_nodes.py`, `run_phase_a.py`, `build_tag_field_summary.py`, and the baseline artifacts under `book/evidence/experiments/field2-final-final/libsandbox-encoder/out/`—and drew a clean boundary to a new experiment for `libsystem_sandbox` glue.
 
 Compared to the earlier “zero-knowledge field2” run, which established a negative result in the kernel (“no hidden node arrays, no hi/lo bitfields”), this experiment gives a positive compiler-side map: how libsandbox actually lays down filter IDs and arguments in the node records we decode. Together, they narrow the search space for any future attempts to explain the remaining “mystery” field2 values on this Sonoma host, and they do so with reusable code, artifacts, and explicit stopping rules rather than just an evolving folk story.
 

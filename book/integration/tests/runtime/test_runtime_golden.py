@@ -5,8 +5,9 @@ import book.api.runtime.execution.harness.golden as rg
 
 from book.api import path_utils
 from book.integration.tests.runtime.runtime_bundle_helpers import resolve_bundle_dir
+
 ROOT = path_utils.find_repo_root(Path(__file__))
-OUT_ROOT = ROOT / "book" / "experiments" / "runtime-final-final" / "suites" / "runtime-checks" / "out"
+OUT_ROOT = ROOT / "book" / "evidence" / "experiments" / "runtime-final-final" / "suites" / "runtime-checks" / "out"
 BUNDLE_DIR, _ = resolve_bundle_dir(OUT_ROOT)
 MATRIX = BUNDLE_DIR / "expected_matrix.json"
 RUNTIME_RESULTS = BUNDLE_DIR / "runtime_results.json"

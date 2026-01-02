@@ -1,0 +1,181 @@
+{
+  "out_path": "book/evidence/experiments/gate-witnesses/out/entitlements_scan.json",
+  "schema_version": "1.0",
+  "targets": [
+    {
+      "codesign_cmd": [
+        "/usr/bin/codesign",
+        "-d",
+        "--entitlements",
+        "-"
+      ],
+      "executable": "book/api/SBPL-wrapper/wrapper",
+      "exists": true,
+      "has_entitlements_dump": false,
+      "has_message_filter": false,
+      "has_message_filter_manager": false,
+      "label": "control:wrapper",
+      "message_filter_keys": [],
+      "path": "book/api/SBPL-wrapper/wrapper",
+      "rc": 0,
+      "warnings": []
+    },
+    {
+      "codesign_cmd": [
+        "/usr/bin/codesign",
+        "-d",
+        "--entitlements",
+        "-"
+      ],
+      "executable": "/usr/bin/true",
+      "exists": true,
+      "has_entitlements_dump": false,
+      "has_message_filter": false,
+      "has_message_filter_manager": false,
+      "label": "control:/usr/bin/true",
+      "message_filter_keys": [],
+      "path": "/usr/bin/true",
+      "rc": 0,
+      "warnings": []
+    },
+    {
+      "codesign_cmd": [
+        "/usr/bin/codesign",
+        "-d",
+        "--entitlements",
+        "-"
+      ],
+      "executable": "/System/Library/Frameworks/CoreGraphics.framework/Versions/A/XPCServices/CGPDFService.xpc/Contents/MacOS/CGPDFService",
+      "exists": true,
+      "has_entitlements_dump": true,
+      "has_message_filter": true,
+      "has_message_filter_manager": false,
+      "label": "coregraphics:CGPDFService",
+      "message_filter_keys": [
+        "com.apple.private.security.message-filter"
+      ],
+      "path": "/System/Library/Frameworks/CoreGraphics.framework/Versions/A/XPCServices/CGPDFService.xpc/Contents/MacOS/CGPDFService",
+      "rc": 0,
+      "warnings": []
+    },
+    {
+      "codesign_cmd": [
+        "/usr/bin/codesign",
+        "-d",
+        "--entitlements",
+        "-"
+      ],
+      "executable": "/System/Volumes/Preboot/Cryptexes/OS/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.WebContent.xpc/Contents/MacOS/com.apple.WebKit.WebContent",
+      "exists": true,
+      "has_entitlements_dump": true,
+      "has_message_filter": true,
+      "has_message_filter_manager": false,
+      "label": "webkit:WebContent",
+      "message_filter_keys": [
+        "com.apple.private.security.message-filter"
+      ],
+      "path": "/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.WebContent.xpc/Contents/MacOS/com.apple.WebKit.WebContent",
+      "rc": 0,
+      "warnings": []
+    },
+    {
+      "codesign_cmd": [
+        "/usr/bin/codesign",
+        "-d",
+        "--entitlements",
+        "-"
+      ],
+      "executable": "/System/Volumes/Preboot/Cryptexes/OS/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.GPU.xpc/Contents/MacOS/com.apple.WebKit.GPU",
+      "exists": true,
+      "has_entitlements_dump": true,
+      "has_message_filter": true,
+      "has_message_filter_manager": false,
+      "label": "webkit:GPU",
+      "message_filter_keys": [
+        "com.apple.private.security.message-filter"
+      ],
+      "path": "/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.GPU.xpc/Contents/MacOS/com.apple.WebKit.GPU",
+      "rc": 0,
+      "warnings": []
+    },
+    {
+      "codesign_cmd": [
+        "/usr/bin/codesign",
+        "-d",
+        "--entitlements",
+        "-"
+      ],
+      "executable": "/System/Volumes/Preboot/Cryptexes/OS/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.Networking.xpc/Contents/MacOS/com.apple.WebKit.Networking",
+      "exists": true,
+      "has_entitlements_dump": true,
+      "has_message_filter": true,
+      "has_message_filter_manager": false,
+      "label": "webkit:Networking",
+      "message_filter_keys": [
+        "com.apple.private.security.message-filter"
+      ],
+      "path": "/System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.Networking.xpc/Contents/MacOS/com.apple.WebKit.Networking",
+      "rc": 0,
+      "warnings": []
+    },
+    {
+      "codesign_cmd": [
+        "/usr/bin/codesign",
+        "-d",
+        "--entitlements",
+        "-"
+      ],
+      "executable": "/System/Library/PrivateFrameworks/MessagesBlastDoorSupport.framework/Versions/A/XPCServices/MessagesBlastDoorService.xpc/Contents/MacOS/MessagesBlastDoorService",
+      "exists": true,
+      "has_entitlements_dump": true,
+      "has_message_filter": true,
+      "has_message_filter_manager": false,
+      "label": "blastdoor:MessagesBlastDoorService",
+      "message_filter_keys": [
+        "com.apple.private.security.message-filter"
+      ],
+      "path": "/System/Library/PrivateFrameworks/MessagesBlastDoorSupport.framework/Versions/A/XPCServices/MessagesBlastDoorService.xpc/Contents/MacOS/MessagesBlastDoorService",
+      "rc": 0,
+      "warnings": []
+    },
+    {
+      "codesign_cmd": [
+        "/usr/bin/codesign",
+        "-d",
+        "--entitlements",
+        "-"
+      ],
+      "executable": "/System/Library/PrivateFrameworks/IDSBlastDoorSupport.framework/Versions/A/XPCServices/IDSBlastDoorService.xpc/Contents/MacOS/IDSBlastDoorService",
+      "exists": true,
+      "has_entitlements_dump": true,
+      "has_message_filter": true,
+      "has_message_filter_manager": false,
+      "label": "blastdoor:IDSBlastDoorService",
+      "message_filter_keys": [
+        "com.apple.private.security.message-filter"
+      ],
+      "path": "/System/Library/PrivateFrameworks/IDSBlastDoorSupport.framework/Versions/A/XPCServices/IDSBlastDoorService.xpc/Contents/MacOS/IDSBlastDoorService",
+      "rc": 0,
+      "warnings": []
+    },
+    {
+      "codesign_cmd": [
+        "/usr/bin/codesign",
+        "-d",
+        "--entitlements",
+        "-"
+      ],
+      "executable": "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/Contents/MacOS/Safari",
+      "exists": true,
+      "has_entitlements_dump": true,
+      "has_message_filter": false,
+      "has_message_filter_manager": false,
+      "label": "apps:Safari",
+      "message_filter_keys": [],
+      "path": "/Applications/Safari.app/Contents/MacOS/Safari",
+      "rc": 0,
+      "warnings": []
+    }
+  ],
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

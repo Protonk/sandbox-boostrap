@@ -6,8 +6,8 @@ field, classify it (tier vs operational vs ambiguous), and record remaining
 references to deprecated tier vocabulary.
 
 Outputs:
-- book/graph/concepts/validation/out/evidence_tier_inventory.json
-- book/graph/concepts/validation/out/evidence_tier_inventory.md
+- book/evidence/graph/concepts/validation/out/evidence_tier_inventory.json
+- book/evidence/graph/concepts/validation/out/evidence_tier_inventory.md
 """
 
 from __future__ import annotations
@@ -46,8 +46,8 @@ LEGACY_EVIDENCE_STATUS_VALUES = set(LEGACY_TIER_TERMS)
 
 # Don’t recurse on the output artifacts this job produces (once they are tracked).
 EXCLUDED_TRACKED_PATHS = {
-    "book/graph/concepts/validation/out/evidence_tier_inventory.json",
-    "book/graph/concepts/validation/out/evidence_tier_inventory.md",
+    "book/evidence/graph/concepts/validation/out/evidence_tier_inventory.json",
+    "book/evidence/graph/concepts/validation/out/evidence_tier_inventory.md",
 }
 
 

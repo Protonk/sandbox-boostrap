@@ -54,7 +54,7 @@ def bedrock_mapping_paths() -> Set[str]:
     Return the repo-relative mapping paths declared bedrock for this world.
     """
     repo_root = find_repo_root(Path(__file__))
-    registry = repo_root / "book" / "graph" / "concepts" / "BEDROCK_SURFACES.json"
+    registry = repo_root / "book" / "evidence" / "graph" / "concepts" / "BEDROCK_SURFACES.json"
     if not registry.exists():
         return set()
     try:

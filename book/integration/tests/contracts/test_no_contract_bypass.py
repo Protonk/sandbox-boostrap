@@ -9,7 +9,7 @@ ROOT = path_utils.find_repo_root(Path(__file__))
 
 SCAN_ROOTS = [
     ROOT / "book" / "api",
-    ROOT / "book" / "experiments",
+    ROOT / "book" / "evidence" / "experiments",
     ROOT / "book" / "graph",
 ]
 
@@ -38,11 +38,11 @@ ALLOWLIST = {
         Path("book/api/profile/compile/libsandbox.py"),
         Path("book/api/runtime/execution/harness/runner.py"),
         Path("book/graph/mappings/runtime/generate_runtime_signatures.py"),
-        Path("book/experiments/runtime-final-final/suites/shrink-trace/scripts/run_workflow.sh"),
-        Path("book/experiments/runtime-final-final/suites/shrink-trace/scripts/shrink_instrumented.sh"),
-        Path("book/experiments/runtime-final-final/suites/shrink-trace/scripts/trace_instrumented.sh"),
-        Path("book/experiments/runtime-final-final/suites/shrink-trace/upstream/shrink.sh"),
-        Path("book/experiments/runtime-final-final/suites/shrink-trace/upstream/trace.sh"),
+        Path("book/evidence/experiments/runtime-final-final/suites/shrink-trace/scripts/run_workflow.sh"),
+        Path("book/evidence/experiments/runtime-final-final/suites/shrink-trace/scripts/shrink_instrumented.sh"),
+        Path("book/evidence/experiments/runtime-final-final/suites/shrink-trace/scripts/trace_instrumented.sh"),
+        Path("book/evidence/experiments/runtime-final-final/suites/shrink-trace/upstream/shrink.sh"),
+        Path("book/evidence/experiments/runtime-final-final/suites/shrink-trace/upstream/trace.sh"),
     },
 }
 

@@ -1,0 +1,17 @@
+{
+  "hooks": [
+    "mac_vnode_check_open",
+    "mac_vnop_setxattr"
+  ],
+  "json_output": "book/evidence/experiments/MACF-wrapper/out/json/macf_setxattr_test.json",
+  "module": "mach_kernel",
+  "provider": "fbt",
+  "raw_log": "book/evidence/experiments/MACF-wrapper/out/raw/macf_setxattr_test.log",
+  "run_command": "/usr/bin/xattr -w com.airlock.macfwrapper hello /Users/watchful-crow/Desktop/VirtualBuddyShared/VM-BRIDGE/SANDBOX_LORE/book/experiments/MACF-wrapper/out/tmp/macf_wrapper_xattr_test",
+  "run_id": "macf_setxattr_test",
+  "runtime_world_id": "sonoma-14.6.1-debug-vm",
+  "scenario": "xattr_tmp_file",
+  "scenario_description": "set com.airlock.macfwrapper on out/tmp/macf_wrapper_xattr_test via xattr(1)",
+  "summary": "book/evidence/experiments/MACF-wrapper/out/meta/macf_setxattr_test_summary.json",
+  "target_pid": null
+}

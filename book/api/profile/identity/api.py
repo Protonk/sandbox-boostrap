@@ -3,7 +3,7 @@ Profile identity resolution helpers for the Sonoma Seatbelt baseline.
 
 The repo has multiple, intentionally different identity surfaces for profiles:
 - Canonical system profile ids: `sys:airlock`, `sys:bsd`, `sys:sample`
-- Compiled blob repo-relative paths: `book/graph/concepts/validation/fixtures/blobs/*.sb.bin`
+- Compiled blob repo-relative paths: `book/evidence/graph/concepts/validation/fixtures/blobs/*.sb.bin`
 - Compiled blob sha256 digests (contract + witnesses)
 - Per-blob attestations and static checks keyed by blob path
 
@@ -28,9 +28,9 @@ from typing import Any, Dict, Optional, Sequence
 from book.api.path_utils import find_repo_root, to_repo_relative
 
 BASELINE_REF = Path("book/world/sonoma-14.4.1-23E224-arm64/world.json")
-SYSTEM_DIGESTS_REF = Path("book/graph/mappings/system_profiles/digests.json")
-SYSTEM_STATIC_CHECKS_REF = Path("book/graph/mappings/system_profiles/static_checks.json")
-SYSTEM_ATTESTATIONS_REF = Path("book/graph/mappings/system_profiles/attestations.json")
+SYSTEM_DIGESTS_REF = Path("book/evidence/graph/mappings/system_profiles/digests.json")
+SYSTEM_STATIC_CHECKS_REF = Path("book/evidence/graph/mappings/system_profiles/static_checks.json")
+SYSTEM_ATTESTATIONS_REF = Path("book/evidence/graph/mappings/system_profiles/attestations.json")
 
 
 class ProfileIdentityError(Exception):

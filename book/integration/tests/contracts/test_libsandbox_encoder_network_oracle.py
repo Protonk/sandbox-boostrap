@@ -4,7 +4,7 @@ from book.api.profile.oracles import extract_network_tuple
 
 from book.api import path_utils
 def _load_blob(root: Path, spec_id: str) -> bytes:
-    blob = root / "book/experiments/field2-final-final/libsandbox-encoder/out/network_matrix" / f"{spec_id}.sb.bin"
+    blob = root / "book/evidence/experiments/field2-final-final/libsandbox-encoder/out/network_matrix" / f"{spec_id}.sb.bin"
     assert blob.exists(), f"missing {blob}"
     return blob.read_bytes()
 

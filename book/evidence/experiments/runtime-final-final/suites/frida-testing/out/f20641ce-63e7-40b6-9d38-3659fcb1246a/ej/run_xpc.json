@@ -1,0 +1,151 @@
+{
+  "command": [
+    "book/tools/entitlement/EntitlementJail.app/Contents/MacOS/entitlement-jail",
+    "xpc",
+    "session",
+    "--plan-id",
+    "frida-testing:ej-frida",
+    "--ack-risk",
+    "fully_injectable",
+    "--correlation-id",
+    "frida-testing:ej-frida.f20641ce-63e7-40b6-9d38-3659fcb1246a",
+    "--wait",
+    "fifo:auto",
+    "--wait-timeout-ms",
+    "30000",
+    "--profile",
+    "fully_injectable"
+  ],
+  "correlation_id": "frida-testing:ej-frida.f20641ce-63e7-40b6-9d38-3659fcb1246a",
+  "error": null,
+  "exit_code": 0,
+  "hold_open_s": 20,
+  "log_path": "book/evidence/experiments/frida-testing/out/f20641ce-63e7-40b6-9d38-3659fcb1246a/ej/logs/run_xpc.log",
+  "log_write_error": null,
+  "plan_id": "frida-testing:ej-frida",
+  "probe_args": [
+    "--operation",
+    "file-read-data",
+    "--path",
+    "/etc/hosts"
+  ],
+  "probe_finished_at_unix_s": 1766850762.076062,
+  "probe_id": "sandbox_check",
+  "probe_started_at_unix_s": 1766850762.0732522,
+  "row_id": "frida-testing:ej-frida.f20641ce-63e7-40b6-9d38-3659fcb1246a",
+  "session_ready": {
+    "data": {
+      "correlation_id": "frida-testing:ej-frida.f20641ce-63e7-40b6-9d38-3659fcb1246a",
+      "event": "session_ready",
+      "message": "session opened",
+      "pid": 31333,
+      "plan_id": "frida-testing:ej-frida",
+      "service_bundle_id": "com.yourteam.entitlement-jail.ProbeService_fully_injectable",
+      "service_name": "ProbeService_fully_injectable",
+      "session_token": "9B88D2A1-FA8C-481A-9461-460C18CF0FC6",
+      "wait_mode": "fifo",
+      "wait_path": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_fully_injectable/Data/tmp/entitlement-jail-session/wait.2047F229-481D-44CA-9E55-1972EAC2FD44.fifo"
+    },
+    "generated_at_unix_ms": 1766850761391,
+    "kind": "xpc_session_event",
+    "result": {
+      "exit_code": 0,
+      "normalized_outcome": "ok",
+      "ok": true,
+      "rc": 0
+    },
+    "schema_version": 2
+  },
+  "stderr": "",
+  "stdout": "{\"data\":{\"correlation_id\":\"frida-testing:ej-frida.f20641ce-63e7-40b6-9d38-3659fcb1246a\",\"event\":\"session_ready\",\"message\":\"session opened\",\"pid\":31333,\"plan_id\":\"frida-testing:ej-frida\",\"service_bundle_id\":\"com.yourteam.entitlement-jail.ProbeService_fully_injectable\",\"service_name\":\"ProbeService_fully_injectable\",\"session_token\":\"9B88D2A1-FA8C-481A-9461-460C18CF0FC6\",\"wait_mode\":\"fifo\",\"wait_path\":\"\\/Users\\/achyland\\/Library\\/Containers\\/com.yourteam.entitlement-jail.ProbeService_fully_injectable\\/Data\\/tmp\\/entitlement-jail-session\\/wait.2047F229-481D-44CA-9E55-1972EAC2FD44.fifo\"},\"generated_at_unix_ms\":1766850761391,\"kind\":\"xpc_session_event\",\"result\":{\"exit_code\":0,\"normalized_outcome\":\"ok\",\"ok\":true,\"rc\":0},\"schema_version\":2}\n{\"data\":{\"correlation_id\":\"frida-testing:ej-frida.f20641ce-63e7-40b6-9d38-3659fcb1246a\",\"event\":\"wait_ready\",\"message\":\"wait configured\",\"pid\":31333,\"plan_id\":\"frida-testing:ej-frida\",\"service_bundle_id\":\"com.yourteam.entitlement-jail.ProbeService_fully_injectable\",\"service_name\":\"ProbeService_fully_injectable\",\"session_token\":\"9B88D2A1-FA8C-481A-9461-460C18CF0FC6\",\"wait_mode\":\"fifo\",\"wait_path\":\"\\/Users\\/achyland\\/Library\\/Containers\\/com.yourteam.entitlement-jail.ProbeService_fully_injectable\\/Data\\/tmp\\/entitlement-jail-session\\/wait.2047F229-481D-44CA-9E55-1972EAC2FD44.fifo\"},\"generated_at_unix_ms\":1766850761391,\"kind\":\"xpc_session_event\",\"result\":{\"exit_code\":0,\"normalized_outcome\":\"ok\",\"ok\":true,\"rc\":0},\"schema_version\":2}\n{\"data\":{\"correlation_id\":\"frida-testing:ej-frida.f20641ce-63e7-40b6-9d38-3659fcb1246a\",\"event\":\"trigger_received\",\"pid\":31333,\"plan_id\":\"frida-testing:ej-frida\",\"service_bundle_id\":\"com.yourteam.entitlement-jail.ProbeService_fully_injectable\",\"service_name\":\"ProbeService_fully_injectable\",\"session_token\":\"9B88D2A1-FA8C-481A-9461-460C18CF0FC6\",\"trigger_bytes\":1,\"wait_mode\":\"fifo\",\"wait_path\":\"\\/Users\\/achyland\\/Library\\/Containers\\/com.yourteam.entitlement-jail.ProbeService_fully_injectable\\/Data\\/tmp\\/entitlement-jail-session\\/wait.2047F229-481D-44CA-9E55-1972EAC2FD44.fifo\"},\"generated_at_unix_ms\":1766850762072,\"kind\":\"xpc_session_event\",\"result\":{\"exit_code\":0,\"normalized_outcome\":\"ok\",\"ok\":true,\"rc\":0},\"schema_version\":2}\n{\"data\":{\"correlation_id\":\"frida-testing:ej-frida.f20641ce-63e7-40b6-9d38-3659fcb1246a\",\"event\":\"probe_starting\",\"pid\":31333,\"plan_id\":\"frida-testing:ej-frida\",\"probe_argv\":[\"--operation\",\"file-read-data\",\"--path\",\"\\/etc\\/hosts\"],\"probe_id\":\"sandbox_check\",\"service_bundle_id\":\"com.yourteam.entitlement-jail.ProbeService_fully_injectable\",\"service_name\":\"ProbeService_fully_injectable\",\"session_token\":\"9B88D2A1-FA8C-481A-9461-460C18CF0FC6\",\"wait_mode\":\"fifo\",\"wait_path\":\"\\/Users\\/achyland\\/Library\\/Containers\\/com.yourteam.entitlement-jail.ProbeService_fully_injectable\\/Data\\/tmp\\/entitlement-jail-session\\/wait.2047F229-481D-44CA-9E55-1972EAC2FD44.fifo\"},\"generated_at_unix_ms\":1766850762073,\"kind\":\"xpc_session_event\",\"result\":{\"exit_code\":0,\"normalized_outcome\":\"ok\",\"ok\":true,\"rc\":0},\"schema_version\":2}\n{\"data\":{\"correlation_id\":\"frida-testing:ej-frida.f20641ce-63e7-40b6-9d38-3659fcb1246a\",\"event\":\"probe_done\",\"message\":\"normalized_outcome=deny rc=0\",\"pid\":31333,\"plan_id\":\"frida-testing:ej-frida\",\"probe_argv\":[\"--operation\",\"file-read-data\",\"--path\",\"\\/etc\\/hosts\"],\"probe_id\":\"sandbox_check\",\"service_bundle_id\":\"com.yourteam.entitlement-jail.ProbeService_fully_injectable\",\"service_name\":\"ProbeService_fully_injectable\",\"session_token\":\"9B88D2A1-FA8C-481A-9461-460C18CF0FC6\",\"wait_mode\":\"fifo\",\"wait_path\":\"\\/Users\\/achyland\\/Library\\/Containers\\/com.yourteam.entitlement-jail.ProbeService_fully_injectable\\/Data\\/tmp\\/entitlement-jail-session\\/wait.2047F229-481D-44CA-9E55-1972EAC2FD44.fifo\"},\"generated_at_unix_ms\":1766850762075,\"kind\":\"xpc_session_event\",\"result\":{\"exit_code\":0,\"normalized_outcome\":\"ok\",\"ok\":true,\"rc\":0},\"schema_version\":2}\n{\"data\":{\"argv\":[\"--operation\",\"file-read-data\",\"--path\",\"\\/etc\\/hosts\"],\"correlation_id\":\"frida-testing:ej-frida.f20641ce-63e7-40b6-9d38-3659fcb1246a\",\"details\":{\"bundle_id\":\"com.yourteam.entitlement-jail.ProbeService_fully_injectable\",\"correlation_id\":\"frida-testing:ej-frida.f20641ce-63e7-40b6-9d38-3659fcb1246a\",\"cwd\":\"\\/Users\\/achyland\\/Library\\/Containers\\/com.yourteam.entitlement-jail.ProbeService_fully_injectable\\/Data\",\"home_dir\":\"\\/Users\\/achyland\\/Library\\/Containers\\/com.yourteam.entitlement-jail.ProbeService_fully_injectable\\/Data\",\"pid\":\"31333\",\"probe_family\":\"sandbox_check\",\"probe_pid\":\"31333\",\"process_name\":\"ProbeService_fully_injectable\",\"sandbox_check_filter\":\"path(guessed_type=1)\",\"sandbox_check_operation\":\"file-read-data\",\"sandbox_check_path\":\"\\/etc\\/hosts\",\"sandbox_check_rc\":\"1\",\"sandbox_check_rc_samples\":\"0:1\",\"sandbox_check_repeat\":\"1\",\"service_pid\":\"31333\",\"session_token\":\"9B88D2A1-FA8C-481A-9461-460C18CF0FC6\",\"tmp_dir\":\"\\/Users\\/achyland\\/Library\\/Containers\\/com.yourteam.entitlement-jail.ProbeService_fully_injectable\\/Data\\/tmp\\/\"},\"ended_at_iso8601\":\"2025-12-27T15:52:42.074Z\",\"normalized_outcome\":\"deny\",\"plan_id\":\"frida-testing:ej-frida\",\"probe_id\":\"sandbox_check\",\"rc\":0,\"schema_version\":2,\"service_build\":\"2\",\"service_bundle_id\":\"com.yourteam.entitlement-jail.ProbeService_fully_injectable\",\"service_name\":\"ProbeService_fully_injectable\",\"service_version\":\"2.0.0\",\"started_at_iso8601\":\"2025-12-27T15:52:42.074Z\",\"stderr\":\"\",\"stdout\":\"\",\"thread_id\":\"5123\"},\"generated_at_unix_ms\":1766850762075,\"kind\":\"probe_response\",\"result\":{\"exit_code\":0,\"normalized_outcome\":\"deny\",\"ok\":true,\"rc\":0},\"schema_version\":2}\n{\"data\":{\"correlation_id\":\"frida-testing:ej-frida.f20641ce-63e7-40b6-9d38-3659fcb1246a\",\"event\":\"session_closed\",\"message\":\"session closed\",\"pid\":31333,\"plan_id\":\"frida-testing:ej-frida\",\"service_bundle_id\":\"com.yourteam.entitlement-jail.ProbeService_fully_injectable\",\"service_name\":\"ProbeService_fully_injectable\",\"session_token\":\"9B88D2A1-FA8C-481A-9461-460C18CF0FC6\",\"wait_mode\":\"fifo\",\"wait_path\":\"\\/Users\\/achyland\\/Library\\/Containers\\/com.yourteam.entitlement-jail.ProbeService_fully_injectable\\/Data\\/tmp\\/entitlement-jail-session\\/wait.2047F229-481D-44CA-9E55-1972EAC2FD44.fifo\"},\"generated_at_unix_ms\":1766850782082,\"kind\":\"xpc_session_event\",\"result\":{\"exit_code\":0,\"normalized_outcome\":\"ok\",\"ok\":true,\"rc\":0},\"schema_version\":2}",
+  "stdout_json": {
+    "data": {
+      "argv": [
+        "--operation",
+        "file-read-data",
+        "--path",
+        "/etc/hosts"
+      ],
+      "correlation_id": "frida-testing:ej-frida.f20641ce-63e7-40b6-9d38-3659fcb1246a",
+      "details": {
+        "bundle_id": "com.yourteam.entitlement-jail.ProbeService_fully_injectable",
+        "correlation_id": "frida-testing:ej-frida.f20641ce-63e7-40b6-9d38-3659fcb1246a",
+        "cwd": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_fully_injectable/Data",
+        "home_dir": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_fully_injectable/Data",
+        "pid": "31333",
+        "probe_family": "sandbox_check",
+        "probe_pid": "31333",
+        "process_name": "ProbeService_fully_injectable",
+        "sandbox_check_filter": "path(guessed_type=1)",
+        "sandbox_check_operation": "file-read-data",
+        "sandbox_check_path": "/etc/hosts",
+        "sandbox_check_rc": "1",
+        "sandbox_check_rc_samples": "0:1",
+        "sandbox_check_repeat": "1",
+        "service_pid": "31333",
+        "session_token": "9B88D2A1-FA8C-481A-9461-460C18CF0FC6",
+        "tmp_dir": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_fully_injectable/Data/tmp/"
+      },
+      "ended_at_iso8601": "2025-12-27T15:52:42.074Z",
+      "normalized_outcome": "deny",
+      "plan_id": "frida-testing:ej-frida",
+      "probe_id": "sandbox_check",
+      "rc": 0,
+      "schema_version": 2,
+      "service_build": "2",
+      "service_bundle_id": "com.yourteam.entitlement-jail.ProbeService_fully_injectable",
+      "service_name": "ProbeService_fully_injectable",
+      "service_version": "2.0.0",
+      "started_at_iso8601": "2025-12-27T15:52:42.074Z",
+      "stderr": "",
+      "stdout": "",
+      "thread_id": "5123"
+    },
+    "generated_at_unix_ms": 1766850762075,
+    "kind": "probe_response",
+    "result": {
+      "exit_code": 0,
+      "normalized_outcome": "deny",
+      "ok": true,
+      "rc": 0
+    },
+    "schema_version": 2
+  },
+  "stdout_jsonl_kinds": {
+    "probe_response": 1,
+    "xpc_session_event": 6
+  },
+  "trigger_delay_s": 0.0,
+  "trigger_events": [
+    {
+      "at_unix_s": 1766850762.047799,
+      "error": null,
+      "kind": "primary"
+    }
+  ],
+  "wait_ready": {
+    "data": {
+      "correlation_id": "frida-testing:ej-frida.f20641ce-63e7-40b6-9d38-3659fcb1246a",
+      "event": "wait_ready",
+      "message": "wait configured",
+      "pid": 31333,
+      "plan_id": "frida-testing:ej-frida",
+      "service_bundle_id": "com.yourteam.entitlement-jail.ProbeService_fully_injectable",
+      "service_name": "ProbeService_fully_injectable",
+      "session_token": "9B88D2A1-FA8C-481A-9461-460C18CF0FC6",
+      "wait_mode": "fifo",
+      "wait_path": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_fully_injectable/Data/tmp/entitlement-jail-session/wait.2047F229-481D-44CA-9E55-1972EAC2FD44.fifo"
+    },
+    "generated_at_unix_ms": 1766850761391,
+    "kind": "xpc_session_event",
+    "result": {
+      "exit_code": 0,
+      "normalized_outcome": "ok",
+      "ok": true,
+      "rc": 0
+    },
+    "schema_version": 2
+  },
+  "wait_spec": "fifo:auto",
+  "wait_timeout_ms": 30000
+}

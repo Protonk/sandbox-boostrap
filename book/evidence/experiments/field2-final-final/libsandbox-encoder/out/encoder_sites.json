@@ -1,0 +1,46 @@
+{
+  "sites": [
+    {
+      "function": "_emit",
+      "address": "0x183d09060",
+      "role": "byte writer",
+      "status": "partial",
+      "details": "Builds up to 8 little-endian bytes from (value,x2,len=w1) into a stack buffer, then calls _sb_mutable_buffer_write(ctx->buf=[x0+8], buf->cursor=[buf+0x18], tmp, len). Used by per-filter emitters such as _emit_network."
+    },
+    {
+      "function": "_emit_network",
+      "address": "0x183d0f694",
+      "role": "filter data emitter (network)",
+      "status": "ok",
+      "details": "Pads mutable buffer to 8-byte boundary if needed, calls _get_current_data_address, then emits three fields via _emit in order: domain (ldrb [arg+1], len=1), type (ldrb [arg+0], len=1), proto (ldrh [arg+2], len=2). All writes go through ctx->mutable_buffer via _emit/_sb_mutable_buffer_write. Disassembly excerpt: book/evidence/experiments/libsandbox-encoder/out/static_re/emit_network.otool.txt. Phase A join (still partial, but now structural): the network matrix artifacts under book/evidence/experiments/libsandbox-encoder/out/network_matrix/ show (1) minimal single-arg forms store the argument in a u16 slot (proto high byte witnessed by proto_tcp_vs_256), (2) pairwise combined forms store the varying arg in u16[0] of a tag=0 record whose kind byte is 0x0b/0x0c/0x0d for domain/type/proto (high byte witness for proto via pair_*_tcp_vs_*_256), and (3) the witnessed triple forms store domain/type/proto values in the record header bytes (tag=lo, kind=hi): small values change only the tag byte (within_record_offset=0), while the proto 256 witness also flips the kind byte (within_record_offset=1) to carry the high byte. An experiment-local extractor (oracle) is provided at book/evidence/experiments/libsandbox-encoder/oracle_network_matrix.py and emits out/network_matrix/oracle_tuples.json. Primary join datasets: book/evidence/experiments/libsandbox-encoder/out/network_matrix/blob_diffs.json and book/evidence/experiments/libsandbox-encoder/out/network_matrix/join_records.jsonl (summary: join_summary.json). Join hypothesis summary: book/evidence/experiments/libsandbox-encoder/out/network_matrix/join_hypotheses.json with experiment-local guardrail book/evidence/experiments/libsandbox-encoder/check_network_join.py."
+    },
+    {
+      "function": "_record_condition_data",
+      "address": "0x183d09200",
+      "role": "condition table linker",
+      "status": "partial",
+      "details": "Consumes a free-slot counter at [ctx+0x18?]/[ctx+24], writes a 0x18-byte entry in the ec_data array ([ctx+0x10?]) with {data_ptr=x1, data_len=w2 at +0x10, next_ptr}, indexes the per-op list via tag byte at [x1+8], and chains the new entry into [ctx + tag*8 + 0x20]."
+    },
+    {
+      "function": "(builder) mutable buffer field",
+      "address": null,
+      "role": "buffer handle",
+      "status": "partial",
+      "details": "Across encoder helpers (e.g., _emit_network, _encode_address), the mutable buffer handle used by _sb_mutable_buffer_set_minimum_size/_write resides at builder+0xe98; _sb_mutable_buffer_make_immutable is later called on this handle before handoff to the kernel."
+    },
+    {
+      "function": "_compile (finalize slice)",
+      "address": "0x183ced36c",
+      "role": "finalize mutable buffer",
+      "status": "partial",
+      "details": "Calls _sb_mutable_buffer_make_immutable on the builder’s mutable buffer (builder+0xe98) once parsing completes; stores resulting sb_buffer* at sp+0x60/0x96. Caller of this finalize is expected to carry the immutable buffer into the registration/apply path; explicit handoff to __sandbox_ms still to be confirmed."
+    },
+    {
+      "function": "(Phase A) network matrix blob witness",
+      "address": null,
+      "role": "compile-blob diff witness",
+      "status": "ok",
+      "details": "See book/evidence/experiments/libsandbox-encoder/out/network_matrix/index.json (section boundaries, op_table entries, tag counts), book/evidence/experiments/libsandbox-encoder/out/network_matrix/blob_diffs.json (byte diffs + record annotations), book/evidence/experiments/libsandbox-encoder/out/network_matrix/join_records.jsonl + join_summary.json (diff offsets normalized into 8-byte record context for both sides of each pair), and book/evidence/experiments/libsandbox-encoder/out/network_matrix/join_hypotheses.json (experiment-local join scoring)."
+    }
+  ]
+}

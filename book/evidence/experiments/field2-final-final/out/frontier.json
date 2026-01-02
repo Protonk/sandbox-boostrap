@@ -1,0 +1,1938 @@
+{
+  "schema_version": "field2-frontier.v0",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "sources": {
+    "seeds": "book/evidence/experiments/field2-final-final/field2-atlas/field2_seeds.json",
+    "inventory": "book/evidence/experiments/field2-final-final/field2-filters/out/field2_inventory.json",
+    "unknown_nodes": "book/evidence/experiments/field2-final-final/field2-filters/out/unknown_nodes.json",
+    "anchor_hits": "book/evidence/experiments/field2-final-final/probe-op-structure/out/anchor_hits.json",
+    "atlas": "book/evidence/experiments/field2-final-final/field2-atlas/out/derived/738fc3d0-1d12-4608-9a97-90addfbc8d4c/atlas/field2_atlas.json"
+  },
+  "candidates": [
+    {
+      "field2": 0,
+      "filter_name": "path",
+      "status": "runtime_backed",
+      "sources": [
+        "seed_manifest",
+        "inventory",
+        "anchor_hits"
+      ],
+      "target_ops": [
+        "file-read-data",
+        "file-write-data"
+      ],
+      "runtime_candidate": {
+        "profile_id": "adv:path_edges_private",
+        "probe_name": "allow-tmp",
+        "scenario_id": "adv:path_edges_private:allow-tmp"
+      },
+      "anchor_count": 9,
+      "anchors_sample": [
+        "/etc/hosts",
+        "/tmp/foo",
+        "/var/log",
+        "IOAccelerator",
+        "IOHIDParamUserClient",
+        "IOSurfaceRootUserClient"
+      ],
+      "inventory": {
+        "count": 131,
+        "profiles_sample": [
+          "probe-op:v0_file_require_all.sb",
+          "probe-op:v10_iokit_user_client_pair.sb",
+          "probe-op:v11_iokit_user_client_connection.sb",
+          "probe-op:v12_iokit_control.sb",
+          "probe-op:v1_file_require_any.sb",
+          "probe-op:v2_file_three_filters_any.sb"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -100
+    },
+    {
+      "field2": 1,
+      "filter_name": "mount-relative-path",
+      "status": "runtime_backed",
+      "sources": [
+        "seed_manifest",
+        "inventory",
+        "anchor_hits"
+      ],
+      "target_ops": [
+        "file-read-data",
+        "file-write-data"
+      ],
+      "runtime_candidate": {
+        "profile_id": "adv:mount_relative_path",
+        "probe_name": "allow-subpath",
+        "scenario_id": "adv:mount_relative_path:allow-subpath"
+      },
+      "anchor_count": 8,
+      "anchors_sample": [
+        "/etc/hosts",
+        "/tmp/foo",
+        "/var/log",
+        "IOAccelerator",
+        "IOHIDParamUserClient",
+        "IOSurfaceRootUserClient"
+      ],
+      "inventory": {
+        "count": 157,
+        "profiles_sample": [
+          "probe-op:v10_iokit_user_client_pair.sb",
+          "probe-op:v11_iokit_user_client_connection.sb",
+          "probe-op:v1_file_require_any.sb",
+          "probe-op:v2_file_three_filters_any.sb",
+          "probe-op:v3_mach_global_local.sb",
+          "probe-op:v4_network_socket_require_all.sb"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -100
+    },
+    {
+      "field2": 2,
+      "filter_name": "xattr",
+      "status": "runtime_backed",
+      "sources": [
+        "seed_manifest",
+        "inventory",
+        "anchor_hits"
+      ],
+      "target_ops": [
+        "file-read-xattr",
+        "file-write-xattr"
+      ],
+      "runtime_candidate": {
+        "profile_id": "adv:xattr",
+        "probe_name": "allow-foo-read",
+        "scenario_id": "adv:xattr:allow-foo-read"
+      },
+      "anchor_count": 1,
+      "anchors_sample": [
+        "/tmp/foo"
+      ],
+      "inventory": {
+        "count": 63,
+        "profiles_sample": [
+          "probe-op:v10_iokit_user_client_pair.sb",
+          "probe-op:v2_file_three_filters_any.sb",
+          "probe-op:v6_file_mach_combo.sb",
+          "probe-op:v9_iokit_user_client_only.sb",
+          "probe:bsd_tail_context.sb",
+          "probe:dtracehelper_posixspawn.sb"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -100
+    },
+    {
+      "field2": 3,
+      "filter_name": "file-mode",
+      "status": "runtime_backed",
+      "sources": [
+        "seed_manifest",
+        "inventory",
+        "anchor_hits"
+      ],
+      "target_ops": [
+        "file-read*"
+      ],
+      "runtime_candidate": {
+        "profile_id": "adv:file_mode",
+        "probe_name": "allow-private",
+        "scenario_id": "adv:file_mode:allow-private"
+      },
+      "anchor_count": 1,
+      "anchors_sample": [
+        "/tmp/foo"
+      ],
+      "inventory": {
+        "count": 108,
+        "profiles_sample": [
+          "probe-op:v0_file_require_all.sb",
+          "probe-op:v11_iokit_user_client_connection.sb",
+          "probe-op:v12_iokit_control.sb",
+          "probe-op:v1_file_require_any.sb",
+          "probe-op:v2_file_three_filters_any.sb",
+          "probe-op:v5_iokit_class_property.sb"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -100
+    },
+    {
+      "field2": 4,
+      "filter_name": "ipc-posix-name",
+      "status": "retired",
+      "sources": [
+        "seed_manifest",
+        "inventory",
+        "anchor_hits"
+      ],
+      "target_ops": [
+        "ipc-posix-shm*",
+        "ipc-posix-sem*"
+      ],
+      "runtime_candidate": null,
+      "anchor_count": 5,
+      "anchors_sample": [
+        "/etc/hosts",
+        "/var/log",
+        "IOHIDParamUserClient",
+        "IOSurfaceRootUserClient",
+        "IOUSBHostInterface"
+      ],
+      "inventory": {
+        "count": 276,
+        "profiles_sample": [
+          "probe-op:v0_file_require_all.sb",
+          "probe-op:v10_iokit_user_client_pair.sb",
+          "probe-op:v11_iokit_user_client_connection.sb",
+          "probe-op:v12_iokit_control.sb",
+          "probe-op:v2_file_three_filters_any.sb",
+          "probe-op:v4_network_socket_require_all.sb"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -1000
+    },
+    {
+      "field2": 5,
+      "filter_name": "global-name",
+      "status": "runtime_backed",
+      "sources": [
+        "seed_manifest",
+        "inventory",
+        "anchor_hits"
+      ],
+      "target_ops": [
+        "mach-lookup"
+      ],
+      "runtime_candidate": {
+        "profile_id": "adv:mach_simple_allow",
+        "probe_name": "allow-cfprefsd",
+        "scenario_id": "field2-5-mach-global"
+      },
+      "anchor_count": 8,
+      "anchors_sample": [
+        "/etc/hosts",
+        "/tmp/foo",
+        "IOAccelerator",
+        "IOSurfaceRootUserClient",
+        "IOUSBHostInterface",
+        "com.apple.cfprefsd.agent"
+      ],
+      "inventory": {
+        "count": 660,
+        "profiles_sample": [
+          "probe-op:v10_iokit_user_client_pair.sb",
+          "probe-op:v11_iokit_user_client_connection.sb",
+          "probe-op:v1_file_require_any.sb",
+          "probe-op:v2_file_three_filters_any.sb",
+          "probe-op:v3_mach_global_local.sb",
+          "probe-op:v5_iokit_class_property.sb"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -100
+    },
+    {
+      "field2": 6,
+      "filter_name": "local-name",
+      "status": "seed_only",
+      "sources": [
+        "seed_manifest",
+        "inventory",
+        "anchor_hits"
+      ],
+      "target_ops": [
+        "mach-lookup"
+      ],
+      "runtime_candidate": {
+        "profile_id": "adv:mach_local_regex",
+        "probe_name": "allow-cfprefsd-local",
+        "scenario_id": "adv:mach_local_regex:allow-cfprefsd-local"
+      },
+      "anchor_count": 1,
+      "anchors_sample": [
+        "/etc/hosts"
+      ],
+      "inventory": {
+        "count": 332,
+        "profiles_sample": [
+          "probe-op:v11_iokit_user_client_connection.sb",
+          "probe-op:v1_file_require_any.sb",
+          "probe-op:v3_mach_global_local.sb",
+          "probe-op:v5_iokit_class_property.sb",
+          "probe:airlock_system_fcntl.sb",
+          "probe:bsd_broader.sb"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": 19
+    },
+    {
+      "field2": 7,
+      "filter_name": "local",
+      "status": "runtime_backed",
+      "sources": [
+        "seed_manifest",
+        "inventory",
+        "anchor_hits"
+      ],
+      "target_ops": [
+        "mach-lookup"
+      ],
+      "runtime_candidate": {
+        "profile_id": "adv:mach_local_literal",
+        "probe_name": "allow-cfprefsd-local",
+        "scenario_id": "field2-7-mach-local"
+      },
+      "anchor_count": 2,
+      "anchors_sample": [
+        "/etc/hosts",
+        "flow-divert"
+      ],
+      "inventory": {
+        "count": 250,
+        "profiles_sample": [
+          "probe-op:v4_network_socket_require_all.sb",
+          "probe-op:v7_file_network_combo.sb",
+          "probe:airlock_system_fcntl.sb",
+          "probe:bsd_broader.sb",
+          "probe:bsd_ops_default_file.sb",
+          "probe:net_require_all_domain_proto.sb"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -100
+    },
+    {
+      "field2": 8,
+      "filter_name": "remote",
+      "status": "inventory_only",
+      "sources": [
+        "inventory"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 169,
+        "profiles_sample": [
+          "probe-op:v4_network_socket_require_all.sb",
+          "probe-op:v7_file_network_combo.sb",
+          "probe:bsd_ops_default_file.sb",
+          "probe:net_require_all_domain_type_proto.sb",
+          "probe:net_require_all_domain_type_proto_udp.sb",
+          "sys:bsd"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -3
+    },
+    {
+      "field2": 9,
+      "filter_name": "control-name",
+      "status": "retired",
+      "sources": [
+        "inventory",
+        "anchor_hits"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 1,
+      "anchors_sample": [
+        "app-sandbox.read"
+      ],
+      "inventory": {
+        "count": 3,
+        "profiles_sample": [
+          "probe-op:v8_all_combo.sb",
+          "sys:airlock",
+          "sys:bsd"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -1000
+    },
+    {
+      "field2": 10,
+      "filter_name": "socket-domain",
+      "status": "retired",
+      "sources": [
+        "inventory",
+        "anchor_hits"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 1,
+      "anchors_sample": [
+        "app-sandbox.read"
+      ],
+      "inventory": {
+        "count": 8,
+        "profiles_sample": [
+          "sys:airlock",
+          "sys:bsd"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -1000
+    },
+    {
+      "field2": 11,
+      "filter_name": "socket-type",
+      "status": "retired",
+      "sources": [
+        "inventory",
+        "anchor_hits"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 4,
+      "anchors_sample": [
+        "/etc/hosts",
+        "IOUSBHostInterface",
+        "com.apple.cfprefsd.agent",
+        "flow-divert"
+      ],
+      "inventory": {
+        "count": 15,
+        "profiles_sample": [
+          "probe-op:v8_all_combo.sb",
+          "sys:bsd"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -1000
+    },
+    {
+      "field2": 12,
+      "filter_name": "socket-protocol",
+      "status": "inventory_only",
+      "sources": [
+        "inventory"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 29,
+        "profiles_sample": [
+          "probe-op:v8_all_combo.sb",
+          "sys:bsd"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -3
+    },
+    {
+      "field2": 15,
+      "filter_name": "ioctl-command",
+      "status": "inventory_only",
+      "sources": [
+        "inventory"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 4,
+        "profiles_sample": [
+          "sys:bsd",
+          "sys:sample"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -3
+    },
+    {
+      "field2": 16,
+      "filter_name": "iokit-registry-entry-class",
+      "status": "inventory_only",
+      "sources": [
+        "inventory"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 2,
+        "profiles_sample": [
+          "sys:airlock",
+          "sys:bsd"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -3
+    },
+    {
+      "field2": 17,
+      "filter_name": "iokit-property",
+      "status": "inventory_only",
+      "sources": [
+        "inventory"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 1,
+        "profiles_sample": [
+          "sys:bsd"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -3
+    },
+    {
+      "field2": 18,
+      "filter_name": "iokit-connection",
+      "status": "inventory_only",
+      "sources": [
+        "inventory"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 1,
+        "profiles_sample": [
+          "sys:bsd"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -3
+    },
+    {
+      "field2": 22,
+      "filter_name": "extension",
+      "status": "inventory_only",
+      "sources": [
+        "inventory"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 1,
+        "profiles_sample": [
+          "sys:bsd"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -3
+    },
+    {
+      "field2": 23,
+      "filter_name": "extension-class",
+      "status": "inventory_only",
+      "sources": [
+        "inventory"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 1,
+        "profiles_sample": [
+          "sys:bsd"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -3
+    },
+    {
+      "field2": 26,
+      "filter_name": "right-name",
+      "status": "retired",
+      "sources": [
+        "seed_manifest",
+        "inventory",
+        "anchor_hits"
+      ],
+      "target_ops": [
+        "authorization-right-obtain"
+      ],
+      "runtime_candidate": null,
+      "anchor_count": 1,
+      "anchors_sample": [
+        "flow-divert"
+      ],
+      "inventory": {
+        "count": 17,
+        "profiles_sample": [
+          "probe-op:v4_network_socket_require_all.sb",
+          "probe-op:v7_file_network_combo.sb",
+          "probe:net_require_all_domain_type_proto.sb",
+          "probe:net_require_all_domain_type_proto_udp.sb",
+          "sys:bsd"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -1000
+    },
+    {
+      "field2": 27,
+      "filter_name": "preference-domain",
+      "status": "retired",
+      "sources": [
+        "seed_manifest",
+        "inventory"
+      ],
+      "target_ops": [
+        "user-preference-read",
+        "user-preference-write"
+      ],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 35,
+        "profiles_sample": [
+          "sys:bsd"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -1000
+    },
+    {
+      "field2": 29,
+      "filter_name": "%entitlement-load",
+      "status": "inventory_only",
+      "sources": [
+        "inventory"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 1,
+        "profiles_sample": [
+          "probe:bsd_ops_default_file.sb"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -3
+    },
+    {
+      "field2": 32,
+      "filter_name": "kext-bundle-id",
+      "status": "inventory_only",
+      "sources": [
+        "inventory"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 1,
+        "profiles_sample": [
+          "sys:airlock"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -3
+    },
+    {
+      "field2": 34,
+      "filter_name": "notification-name",
+      "status": "seed_only",
+      "sources": [
+        "seed_manifest",
+        "inventory"
+      ],
+      "target_ops": [
+        "darwin-notification-post",
+        "distributed-notification-post"
+      ],
+      "runtime_candidate": {
+        "profile_id": "hardened:notifications_allow",
+        "probe_name": "allow-darwin",
+        "scenario_id": "hardened:notifications_allow:allow-darwin"
+      },
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 13,
+        "profiles_sample": [
+          "sys:airlock"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": 14
+    },
+    {
+      "field2": 35,
+      "filter_name": "notification-payload",
+      "status": "inventory_only",
+      "sources": [
+        "inventory"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 1,
+        "profiles_sample": [
+          "sys:airlock"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -3
+    },
+    {
+      "field2": 37,
+      "filter_name": "sysctl-name",
+      "status": "seed_only",
+      "sources": [
+        "seed_manifest"
+      ],
+      "target_ops": [
+        "sysctl-read"
+      ],
+      "runtime_candidate": {
+        "profile_id": "hardened:sysctl_read_allow",
+        "probe_name": "allow-kern-ostype",
+        "scenario_id": "hardened:sysctl_read_allow:allow-kern-ostype"
+      },
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": 14
+    },
+    {
+      "field2": 38,
+      "filter_name": "process-path",
+      "status": "inventory_only",
+      "sources": [
+        "inventory"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 1,
+        "profiles_sample": [
+          "sys:airlock"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -3
+    },
+    {
+      "field2": 39,
+      "filter_name": "rootless-boot-device-filter",
+      "status": "inventory_only",
+      "sources": [
+        "inventory"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 1,
+        "profiles_sample": [
+          "sys:airlock"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -3
+    },
+    {
+      "field2": 49,
+      "filter_name": "xpc-service-name",
+      "status": "retired",
+      "sources": [
+        "seed_manifest"
+      ],
+      "target_ops": [
+        "mach-lookup"
+      ],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -1000
+    },
+    {
+      "field2": 59,
+      "filter_name": "iokit-usb-interface-class",
+      "status": "retired",
+      "sources": [
+        "inventory",
+        "anchor_hits"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 1,
+      "anchors_sample": [
+        "/etc/hosts"
+      ],
+      "inventory": {
+        "count": 2,
+        "profiles_sample": [
+          "probe-op:v8_all_combo.sb",
+          "sys:airlock"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -1000
+    },
+    {
+      "field2": 66,
+      "filter_name": "iokit-registry-entry-attribute",
+      "status": "inventory_only",
+      "sources": [
+        "inventory"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 1,
+        "profiles_sample": [
+          "sys:airlock"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -3
+    },
+    {
+      "field2": 77,
+      "filter_name": "fcntl-command",
+      "status": "inventory_only",
+      "sources": [
+        "inventory"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 1,
+        "profiles_sample": [
+          "sys:airlock"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -3
+    },
+    {
+      "field2": 79,
+      "filter_name": "socket-option-name",
+      "status": "inventory_only",
+      "sources": [
+        "inventory"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 1,
+        "profiles_sample": [
+          "sys:airlock"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -3
+    },
+    {
+      "field2": 89,
+      "filter_name": "fileprovider-syncroot-path",
+      "status": "inventory_only",
+      "sources": [
+        "inventory"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 1,
+        "profiles_sample": [
+          "sys:airlock"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -3
+    },
+    {
+      "field2": 99,
+      "filter_name": null,
+      "status": "inventory_only",
+      "sources": [
+        "inventory"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 1,
+        "profiles_sample": [
+          "sys:airlock"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -6
+    },
+    {
+      "field2": 118,
+      "filter_name": null,
+      "status": "inventory_only",
+      "sources": [
+        "inventory"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 1,
+        "profiles_sample": [
+          "sys:airlock"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -6
+    },
+    {
+      "field2": 121,
+      "filter_name": null,
+      "status": "inventory_only",
+      "sources": [
+        "inventory"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 1,
+        "profiles_sample": [
+          "sys:airlock"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -6
+    },
+    {
+      "field2": 123,
+      "filter_name": null,
+      "status": "inventory_only",
+      "sources": [
+        "inventory"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 1,
+        "profiles_sample": [
+          "sys:airlock"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -6
+    },
+    {
+      "field2": 126,
+      "filter_name": null,
+      "status": "inventory_only",
+      "sources": [
+        "inventory"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 1,
+        "profiles_sample": [
+          "sys:airlock"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -6
+    },
+    {
+      "field2": 128,
+      "filter_name": null,
+      "status": "inventory_only",
+      "sources": [
+        "inventory"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 1,
+        "profiles_sample": [
+          "sys:airlock"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -6
+    },
+    {
+      "field2": 131,
+      "filter_name": null,
+      "status": "inventory_only",
+      "sources": [
+        "inventory"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 1,
+        "profiles_sample": [
+          "sys:airlock"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -6
+    },
+    {
+      "field2": 134,
+      "filter_name": null,
+      "status": "inventory_only",
+      "sources": [
+        "inventory"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 1,
+        "profiles_sample": [
+          "sys:airlock"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -6
+    },
+    {
+      "field2": 135,
+      "filter_name": null,
+      "status": "inventory_only",
+      "sources": [
+        "inventory"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 1,
+        "profiles_sample": [
+          "sys:airlock"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -6
+    },
+    {
+      "field2": 140,
+      "filter_name": null,
+      "status": "inventory_only",
+      "sources": [
+        "inventory"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 1,
+        "profiles_sample": [
+          "sys:airlock"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -6
+    },
+    {
+      "field2": 141,
+      "filter_name": null,
+      "status": "inventory_only",
+      "sources": [
+        "inventory"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 1,
+        "profiles_sample": [
+          "sys:airlock"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -6
+    },
+    {
+      "field2": 142,
+      "filter_name": null,
+      "status": "inventory_only",
+      "sources": [
+        "inventory",
+        "anchor_hits"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 1,
+      "anchors_sample": [
+        "app-sandbox.read"
+      ],
+      "inventory": {
+        "count": 1,
+        "profiles_sample": [
+          "sys:airlock"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -1
+    },
+    {
+      "field2": 143,
+      "filter_name": null,
+      "status": "inventory_only",
+      "sources": [
+        "inventory"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 1,
+        "profiles_sample": [
+          "sys:airlock"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -6
+    },
+    {
+      "field2": 144,
+      "filter_name": null,
+      "status": "inventory_only",
+      "sources": [
+        "inventory"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 1,
+        "profiles_sample": [
+          "sys:airlock"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -6
+    },
+    {
+      "field2": 145,
+      "filter_name": null,
+      "status": "inventory_only",
+      "sources": [
+        "inventory"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 1,
+        "profiles_sample": [
+          "sys:airlock"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -6
+    },
+    {
+      "field2": 149,
+      "filter_name": null,
+      "status": "inventory_only",
+      "sources": [
+        "inventory"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 1,
+        "profiles_sample": [
+          "sys:airlock"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -6
+    },
+    {
+      "field2": 158,
+      "filter_name": null,
+      "status": "inventory_only",
+      "sources": [
+        "inventory"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 1,
+        "profiles_sample": [
+          "sys:airlock"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -6
+    },
+    {
+      "field2": 160,
+      "filter_name": null,
+      "status": "inventory_only",
+      "sources": [
+        "inventory"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 1,
+        "profiles_sample": [
+          "sys:airlock"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -6
+    },
+    {
+      "field2": 164,
+      "filter_name": null,
+      "status": "inventory_only",
+      "sources": [
+        "inventory"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 3,
+        "profiles_sample": [
+          "sys:airlock"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -6
+    },
+    {
+      "field2": 165,
+      "filter_name": null,
+      "status": "retired",
+      "sources": [
+        "inventory",
+        "unknown_nodes",
+        "anchor_hits"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 1,
+      "anchors_sample": [
+        "app-sandbox.read"
+      ],
+      "inventory": {
+        "count": 97,
+        "profiles_sample": [
+          "sys:airlock"
+        ]
+      },
+      "unknown": {
+        "count": 5,
+        "profiles_sample": [
+          "sys:airlock"
+        ]
+      },
+      "score": -1000
+    },
+    {
+      "field2": 166,
+      "filter_name": null,
+      "status": "inventory_only",
+      "sources": [
+        "inventory"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 9,
+        "profiles_sample": [
+          "sys:airlock"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -6
+    },
+    {
+      "field2": 256,
+      "filter_name": null,
+      "status": "retired",
+      "sources": [
+        "inventory",
+        "unknown_nodes",
+        "anchor_hits"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 2,
+      "anchors_sample": [
+        "/etc/hosts",
+        "/tmp/foo"
+      ],
+      "inventory": {
+        "count": 8,
+        "profiles_sample": [
+          "probe-op:v8_all_combo.sb",
+          "probe:bsd_ops_default_file.sb",
+          "sys:sample"
+        ]
+      },
+      "unknown": {
+        "count": 2,
+        "profiles_sample": [
+          "probe:bsd_ops_default_file.sb",
+          "sys:sample"
+        ]
+      },
+      "score": -1000
+    },
+    {
+      "field2": 1281,
+      "filter_name": null,
+      "status": "retired",
+      "sources": [
+        "inventory",
+        "unknown_nodes",
+        "anchor_hits"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 2,
+      "anchors_sample": [
+        "/etc/hosts",
+        "flow-divert"
+      ],
+      "inventory": {
+        "count": 7,
+        "profiles_sample": [
+          "probe-op:v4_network_socket_require_all.sb",
+          "probe-op:v7_file_network_combo.sb",
+          "probe-op:v8_all_combo.sb",
+          "probe:bsd_ops_default_file.sb",
+          "probe:net_require_all_domain_type_proto.sb",
+          "probe:net_require_all_domain_type_proto_udp.sb"
+        ]
+      },
+      "unknown": {
+        "count": 7,
+        "profiles_sample": [
+          "probe-op:v4_network_socket_require_all.sb",
+          "probe-op:v7_file_network_combo.sb",
+          "probe-op:v8_all_combo.sb",
+          "probe:bsd_ops_default_file.sb",
+          "probe:net_require_all_domain_type_proto.sb",
+          "probe:net_require_all_domain_type_proto_udp.sb"
+        ]
+      },
+      "score": -1000
+    },
+    {
+      "field2": 1536,
+      "filter_name": null,
+      "status": "inventory_only",
+      "sources": [
+        "inventory",
+        "anchor_hits"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 2,
+      "anchors_sample": [
+        "/etc/hosts",
+        "/tmp/foo"
+      ],
+      "inventory": {
+        "count": 1,
+        "profiles_sample": [
+          "probe-op:v8_all_combo.sb"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -1
+    },
+    {
+      "field2": 2560,
+      "filter_name": "local",
+      "status": "runtime_backed",
+      "sources": [
+        "seed_manifest",
+        "inventory",
+        "anchor_hits"
+      ],
+      "target_ops": [
+        "network-outbound"
+      ],
+      "runtime_candidate": {
+        "profile_id": "adv:flow_divert_require_all_tcp",
+        "probe_name": "tcp-loopback",
+        "scenario_id": "field2-2560-flow-divert"
+      },
+      "anchor_count": 2,
+      "anchors_sample": [
+        "/etc/hosts",
+        "flow-divert"
+      ],
+      "inventory": {
+        "count": 5,
+        "profiles_sample": [
+          "probe-op:v4_network_socket_require_all.sb",
+          "probe-op:v7_file_network_combo.sb",
+          "probe-op:v8_all_combo.sb",
+          "probe:net_require_all_domain_type_proto.sb",
+          "probe:net_require_all_domain_type_proto_udp.sb"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -100
+    },
+    {
+      "field2": 2816,
+      "filter_name": null,
+      "status": "retired",
+      "sources": [
+        "inventory",
+        "anchor_hits"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 3,
+      "anchors_sample": [
+        "/etc/hosts",
+        "/tmp/foo",
+        "flow-divert"
+      ],
+      "inventory": {
+        "count": 5,
+        "profiles_sample": [
+          "probe-op:v4_network_socket_require_all.sb",
+          "probe-op:v7_file_network_combo.sb",
+          "probe-op:v8_all_combo.sb",
+          "probe:net_require_all_domain_type_proto.sb",
+          "probe:net_require_all_domain_type_proto_udp.sb"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -1000
+    },
+    {
+      "field2": 3072,
+      "filter_name": null,
+      "status": "retired",
+      "sources": [
+        "inventory",
+        "anchor_hits"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 3,
+      "anchors_sample": [
+        "/etc/hosts",
+        "/tmp/foo",
+        "flow-divert"
+      ],
+      "inventory": {
+        "count": 5,
+        "profiles_sample": [
+          "probe-op:v4_network_socket_require_all.sb",
+          "probe-op:v7_file_network_combo.sb",
+          "probe-op:v8_all_combo.sb",
+          "probe:net_require_all_domain_type_proto.sb",
+          "probe:net_require_all_domain_type_proto_udp.sb"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -1000
+    },
+    {
+      "field2": 3328,
+      "filter_name": null,
+      "status": "inventory_only",
+      "sources": [
+        "inventory",
+        "anchor_hits"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 3,
+      "anchors_sample": [
+        "/etc/hosts",
+        "/tmp/foo",
+        "flow-divert"
+      ],
+      "inventory": {
+        "count": 5,
+        "profiles_sample": [
+          "probe-op:v4_network_socket_require_all.sb",
+          "probe-op:v7_file_network_combo.sb",
+          "probe-op:v8_all_combo.sb",
+          "probe:net_require_all_domain_type_proto.sb",
+          "probe:net_require_all_domain_type_proto_udp.sb"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -1
+    },
+    {
+      "field2": 3584,
+      "filter_name": null,
+      "status": "retired",
+      "sources": [
+        "inventory",
+        "unknown_nodes",
+        "anchor_hits"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 3,
+      "anchors_sample": [
+        "/etc/hosts",
+        "/tmp/foo",
+        "flow-divert"
+      ],
+      "inventory": {
+        "count": 27,
+        "profiles_sample": [
+          "probe-op:v0_file_require_all.sb",
+          "probe-op:v12_iokit_control.sb",
+          "probe-op:v4_network_socket_require_all.sb",
+          "probe-op:v7_file_network_combo.sb",
+          "probe-op:v8_all_combo.sb",
+          "probe:airlock_system_fcntl_matrix.sb"
+        ]
+      },
+      "unknown": {
+        "count": 4,
+        "profiles_sample": [
+          "probe-op:v0_file_require_all.sb",
+          "probe:airlock_system_fcntl_matrix.sb",
+          "probe:bsd_ops_default_file.sb",
+          "sys:sample"
+        ]
+      },
+      "score": -1000
+    },
+    {
+      "field2": 4352,
+      "filter_name": null,
+      "status": "inventory_only",
+      "sources": [
+        "inventory",
+        "anchor_hits"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 1,
+      "anchors_sample": [
+        "/etc/hosts"
+      ],
+      "inventory": {
+        "count": 1,
+        "profiles_sample": [
+          "probe-op:v8_all_combo.sb"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -1
+    },
+    {
+      "field2": 7424,
+      "filter_name": null,
+      "status": "inventory_only",
+      "sources": [
+        "inventory",
+        "anchor_hits"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 1,
+      "anchors_sample": [
+        "/etc/hosts"
+      ],
+      "inventory": {
+        "count": 2,
+        "profiles_sample": [
+          "probe-op:v8_all_combo.sb",
+          "sys:sample"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -1
+    },
+    {
+      "field2": 12096,
+      "filter_name": null,
+      "status": "retired",
+      "sources": [
+        "inventory",
+        "unknown_nodes",
+        "anchor_hits"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 1,
+      "anchors_sample": [
+        "/var/log"
+      ],
+      "inventory": {
+        "count": 3,
+        "profiles_sample": [
+          "probe-op:v2_file_three_filters_any.sb",
+          "probe:dtracehelper_posixspawn.sb",
+          "probe:v7_require_any_subpath_literal.sb"
+        ]
+      },
+      "unknown": {
+        "count": 3,
+        "profiles_sample": [
+          "probe-op:v2_file_three_filters_any.sb",
+          "probe:dtracehelper_posixspawn.sb",
+          "probe:v7_require_any_subpath_literal.sb"
+        ]
+      },
+      "score": -1000
+    },
+    {
+      "field2": 18753,
+      "filter_name": null,
+      "status": "inventory_only",
+      "sources": [
+        "inventory",
+        "anchor_hits"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 1,
+      "anchors_sample": [
+        "IOHIDParamUserClient"
+      ],
+      "inventory": {
+        "count": 1,
+        "profiles_sample": [
+          "probe-op:v10_iokit_user_client_pair.sb"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -1
+    },
+    {
+      "field2": 48915,
+      "filter_name": null,
+      "status": "inventory_only",
+      "sources": [
+        "inventory"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 1,
+        "profiles_sample": [
+          "sys:airlock"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -6
+    },
+    {
+      "field2": 49171,
+      "filter_name": null,
+      "status": "inventory_only",
+      "sources": [
+        "inventory",
+        "unknown_nodes"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 6,
+        "profiles_sample": [
+          "sys:airlock"
+        ]
+      },
+      "unknown": {
+        "count": 1,
+        "profiles_sample": [
+          "sys:airlock"
+        ]
+      },
+      "score": -4
+    },
+    {
+      "field2": 65535,
+      "filter_name": null,
+      "status": "inventory_only",
+      "sources": [
+        "inventory"
+      ],
+      "target_ops": [],
+      "runtime_candidate": null,
+      "anchor_count": 0,
+      "anchors_sample": [],
+      "inventory": {
+        "count": 2,
+        "profiles_sample": [
+          "probe:airlock_system_fcntl.sb"
+        ]
+      },
+      "unknown": {
+        "count": 0,
+        "profiles_sample": []
+      },
+      "score": -6
+    }
+  ]
+}

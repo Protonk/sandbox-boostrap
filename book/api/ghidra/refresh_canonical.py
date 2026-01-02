@@ -26,7 +26,7 @@ SENTINELS = {
     "offset_inst_scan_0xc0_write_classify": {
         "fixture_path": "book/integration/tests/ghidra/fixtures/canonical/offset_inst_scan_0xc0_write_classify.json",
         "meta_path": "book/integration/tests/ghidra/fixtures/canonical/offset_inst_scan_0xc0_write_classify.meta.json",
-        "output_path": "book/dumps/ghidra/out/14.4.1-23E224/kernel-collection-offset-scan-0xc0-write-classify/offset_inst_scan.json",
+        "output_path": "book/evidence/dumps/ghidra/out/14.4.1-23E224/kernel-collection-offset-scan-0xc0-write-classify/offset_inst_scan.json",
         "script_path": "book/api/ghidra/scripts/kernel_offset_inst_scan.py",
         "program_path": "book/dumps/ghidra/private/aapl-restricted/14.4.1-23E224/kernel/BootKernelCollection.kc",
         "normalizer_id": "offset_inst_scan_normalizer_v1",
@@ -35,7 +35,7 @@ SENTINELS = {
     "kernel_collection_symbols_canary": {
         "fixture_path": "book/integration/tests/ghidra/fixtures/canonical/kernel_collection_symbols_canary.json",
         "meta_path": "book/integration/tests/ghidra/fixtures/canonical/kernel_collection_symbols_canary.meta.json",
-        "output_path": "book/dumps/ghidra/out/14.4.1-23E224/kernel-collection-symbols/symbols.json",
+        "output_path": "book/evidence/dumps/ghidra/out/14.4.1-23E224/kernel-collection-symbols/symbols.json",
         "script_path": "book/api/ghidra/scripts/kernel_symbols.py",
         "program_path": "book/dumps/ghidra/private/aapl-restricted/14.4.1-23E224/kernel/BootKernelCollection.kc",
         "normalizer_id": "kernel_symbols_normalizer_v1",

@@ -20,7 +20,7 @@ Finally, there is meta-value in the method. A finished, verifiable, agentically 
 
 At the code and data level, the repo now holds a coherent first pass on the static story: how compiled profiles are laid out, which Operations and Filters exist on this host, how node tags and tag layouts work, and how all of that is tied back to concrete IDs, offsets, and literals. Those mappings—from substrate concepts to real bytes—are stable in shape and provenance and are guarded by tests, but they are not yet complete. In particular, coverage for the `field2` key and for anchors (human-meaningful paths and names) is still patchy and explicitly marked as such.
 
-Graph-level structure and the concept inventory sit in an intermediate state between “sketch” and “finished chapter.” Experiments under `book/experiments/` establish the shape of the Operation Pointer Table, the layout of graph nodes and `field2`, and the anchors that bind paths and names to Filters. The concept inventory and validation harness then organize those results into four evidence clusters: Static-Format, Vocabulary/Mapping, Semantic Graph, and Runtime Lifecycle. The static-format and vocabulary clusters are backed by shared decoders, system-profile digests, and guarded mapping files and are treated as solid for this host. The semantic and lifecycle clusters are scaffolded—there are microprofiles, harnesses, and some runs—but are still labeled provisional, with their limitations recorded in the validation output.
+Graph-level structure and the concept inventory sit in an intermediate state between “sketch” and “finished chapter.” Experiments under `book/evidence/experiments/` establish the shape of the Operation Pointer Table, the layout of graph nodes and `field2`, and the anchors that bind paths and names to Filters. The concept inventory and validation harness then organize those results into four evidence clusters: Static-Format, Vocabulary/Mapping, Semantic Graph, and Runtime Lifecycle. The static-format and vocabulary clusters are backed by shared decoders, system-profile digests, and guarded mapping files and are treated as solid for this host. The semantic and lifecycle clusters are scaffolded—there are microprofiles, harnesses, and some runs—but are still labeled provisional, with their limitations recorded in the validation output.
 
 The main uncertainties are about how the whole system behaves when it is actually running: the runtime allow/deny behavior, the way entitlements shape app sandbox policy over time, and the kernel’s internal dispatcher that walks the policy graph. SBPL microprofiles and the wrapper tooling can be applied, but on this host platform profile blobs are gated by `sandbox_init` / `sandbox_apply`, and several “deny-default” profiles do not yet produce the expected Decisions. Entitlement experiments can extract contrasting entitlement sets, but they stop short of a full entitlements → SBPL → compiled profile → runtime pipeline, and kernel reverse engineering has found promising structures without pinning down a definitive PolicyGraph dispatcher. The sections that follow walk through the experiments, the validation state, the supporting tools and datasets, and the next actions against that backdrop.
 
@@ -28,7 +28,7 @@ The main uncertainties are about how the whole system behaves when it is actuall
 
 This report was assembled through several passes by different agents over the same repo. An initial, code-oriented agent produced two status documents (`agent-readout.md` and `validation-status.md`) based on the experiment tree, mapping datasets, and validation harness. A second, chat-style agent then re-read the substrate and primary artifacts, wrote a cross-check (`agent-crosscheck.md`), and used it to correct inaccuracies and tighten the scope of the original reports.
 
-The text here includes that cross-check loop and aims to stand on its own. Descriptions of experiments, mappings, and validation state are grounded in `book/experiments/*/Plan.md` and `ResearchReport.md`, in the mapping files under `book/graph/mappings/*`, and in the validation outputs under `book/graph/concepts/validation/out/*`, rather than inferred from code alone. Machine-generated drafts and human edits have been interleaved to make the prose smoother while keeping every status claim tied to an explicit artifact. All status statements are specific to the Sonoma baseline recorded in `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world.json)` (macOS 14.4.1 / 23E224 on Apple Silicon with SIP enabled), and to the profile-format variant recorded in `book/graph/concepts/validation/out/metadata.json`.
+The text here includes that cross-check loop and aims to stand on its own. Descriptions of experiments, mappings, and validation state are grounded in `book/evidence/experiments/*/Plan.md` and `ResearchReport.md`, in the mapping files under `book/evidence/graph/mappings/*`, and in the validation outputs under `book/evidence/graph/concepts/validation/out/*`, rather than inferred from code alone. Machine-generated drafts and human edits have been interleaved to make the prose smoother while keeping every status claim tied to an explicit artifact. All status statements are specific to the Sonoma baseline recorded in `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world.json)` (macOS 14.4.1 / 23E224 on Apple Silicon with SIP enabled), and to the profile-format variant recorded in `book/evidence/graph/concepts/validation/out/metadata.json`.
 
 The vocabulary throughout matches the substrate (`book/substrate/Orientation.md`, `book/substrate/Concepts.md`, `book/substrate/State.md`): terms like **Operation**, **Filter**, **PolicyGraph**, **Profile Layer**, and **Sandbox Extension** are used with those definitions. The host baseline for almost all artifacts is:
 
@@ -51,7 +51,7 @@ The rest of this document fills in that outline: what each experiment actually e
 
 ## Experiments
 
-This section walks through the `book/experiments/` tree in clusters that make conceptual sense, rather than alphabetically.
+This section walks through the `book/evidence/experiments/` tree in clusters that make conceptual sense, rather than alphabetically.
 
 ### Static structure and vocabulary
 
@@ -60,7 +60,7 @@ This cluster answers the question “What does a modern compiled sandbox profile
 * **`anchor-filter-map`**
   This experiment binds concrete anchor strings (paths, names) to Filter IDs by combining outputs from `probe-op-structure`, `field2-filters`, curated system profiles, and the Filter vocabulary.
 
-  * Final map: `book/graph/mappings/anchors/anchor_filter_map.json`.
+  * Final map: `book/evidence/graph/mappings/anchors/anchor_filter_map.json`.
   * High-confidence examples include:
 
     * `/tmp/foo`, `/etc/hosts` → `path` (filter id 0) for file probes.
@@ -72,13 +72,13 @@ This cluster answers the question “What does a modern compiled sandbox profile
 * **`system-profile-digest`**
   This experiment produces stable digests for a small set of curated system profiles (`airlock`, `bsd`, `sample`) using the shared decoder.
 
-  * Output: `book/graph/mappings/system_profiles/digests.json`, which records host/build metadata, op-table entries, node/tag counts, literal counts, and section offsets.
+  * Output: `book/evidence/graph/mappings/system_profiles/digests.json`, which records host/build metadata, op-table entries, node/tag counts, literal counts, and section offsets.
   * Guardrail: `tests/test_mappings_guardrail.py` asserts that entries for `sys:airlock`, `sys:bsd`, and `sys:sample` exist and have the expected basic shape.
 
 * **`tag-layout-decode`**
   Here the focus is on reconstructing the per-tag layout for nodes that reference literal/regex pools.
 
-  * Output: `book/graph/mappings/tag_layouts/tag_layouts.json`, with entries such as:
+  * Output: `book/evidence/graph/mappings/tag_layouts/tag_layouts.json`, with entries such as:
 
     * `record_size_bytes = 12`, `edge_fields = [0,1]`, `payload_fields = [2]` for tags `0,1,3,5,7,8,17,26,27,166`.
   * The decoder (`book.api.profile_tools.decoder`) uses these tag layouts to parse node arrays correctly. Tests assert that the file is present and that key fields exist, acting as a guardrail against accidental format drift.
@@ -88,10 +88,10 @@ This cluster answers the question “What does a modern compiled sandbox profile
 
   * Outputs:
 
-    * `book/graph/mappings/vocab/ops.json` — 196 operations.
-    * `book/graph/mappings/vocab/filters.json` — 93 filters.
+    * `book/evidence/graph/mappings/vocab/ops.json` — 196 operations.
+    * `book/evidence/graph/mappings/vocab/filters.json` — 93 filters.
     * Name lists under `book/graph/mappings/vocab/{operation_names.json,filter_names.json}`.
-  * These files are treated as canonical for this host and tagged `status: ok` under `book/graph/concepts/validation/out/vocab/*.json`. The `check_vocab.py` script enforces counts and status to catch accidental changes.
+  * These files are treated as canonical for this host and tagged `status: ok` under `book/evidence/graph/concepts/validation/out/vocab/*.json`. The `check_vocab.py` script enforces counts and status to catch accidental changes.
 
 ### Operation pointer table and buckets
 
@@ -101,7 +101,7 @@ This cluster explains how SBPL **Operations** connect to entry points in the com
   This experiment uses synthetic SBPL profiles to see how the op-table behaves as Operations and Filters are added or changed.
 
   * It confirms that there is a structured op-table spanning 196 Operation IDs (matching the vocabulary).
-  * Observed patterns, as recorded in `book/graph/mappings/op_table/op_table_map.json` and `.../op_table_signatures.json`, include:
+  * Observed patterns, as recorded in `book/evidence/graph/mappings/op_table/op_table_map.json` and `.../op_table_signatures.json`, include:
 
     * Unfiltered `file-read*`, `file-write*`, and `network-outbound` clustering in buckets `{3,4}`.
     * Profiles that introduce `mach-lookup` using buckets `{5,6}`.
@@ -111,7 +111,7 @@ This cluster explains how SBPL **Operations** connect to entry points in the com
 * **`op-table-vocab-alignment`**
   This experiment explicitly links op-table buckets to the Operation Vocabulary Map using the vocabulary artifacts above.
 
-  * Alignment file: `book/graph/mappings/op_table/op_table_vocab_alignment.json`.
+  * Alignment file: `book/evidence/graph/mappings/op_table/op_table_vocab_alignment.json`.
   * For each synthetic profile it records:
 
     * `ops` (SBPL operation names),
@@ -146,7 +146,7 @@ This cluster looks closely at the shape of **PolicyGraph** nodes and the role of
 * **`field2-filters`**
   This experiment focuses specifically on relating `field2` values to Filter IDs.
 
-  * Output: `book/experiments/field2-final-final/field2-filters/out/field2_inventory.json`, which aggregates:
+  * Output: `book/evidence/experiments/field2-final-final/field2-filters/out/field2_inventory.json`, which aggregates:
 
     * Canonical system profiles (`airlock`, `bsd`, `sample`).
     * Synthetic single-filter probes.
@@ -256,7 +256,7 @@ The conceptual “truth” lives under `book/graph/concepts/`, with the substrat
 
 * **Concept inventory**
 
-  * `book/graph/concepts/CONCEPT_INVENTORY.md` lists the concepts and assigns each to one or more of the four evidence clusters:
+  * `book/evidence/graph/concepts/CONCEPT_INVENTORY.md` lists the concepts and assigns each to one or more of the four evidence clusters:
 
     * Static-Format
     * Semantic Graph and Evaluation
@@ -329,7 +329,7 @@ This section summarizes the core tools under `book/api/` that decode profiles, a
   * It enforces basic hygiene:
 
     * Inputs are taken from `book/dumps/ghidra/private/aapl-restricted/...`.
-    * Outputs are written under `book/dumps/ghidra/out/` and `book/dumps/ghidra/projects/`.
+    * Outputs are written under `book/evidence/dumps/ghidra/out/` and `book/dumps/ghidra/projects/`.
     * `HOME`, `GHIDRA_USER_HOME`, and temporary directories are pointed inside `book/dumps/ghidra/` to keep Ghidra’s side effects inside the project’s own sandbox.
 
 * **File probe (`book/api/file_probe/file_probe`)**

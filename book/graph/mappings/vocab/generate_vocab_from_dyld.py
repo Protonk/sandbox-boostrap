@@ -4,10 +4,10 @@ Generate canonical vocab mappings and raw name lists from the dyld-libs
 libsandbox slice for the Sonoma baseline.
 
 Outputs:
-- book/graph/mappings/vocab/operation_names.json
-- book/graph/mappings/vocab/filter_names.json
-- book/graph/mappings/vocab/ops.json
-- book/graph/mappings/vocab/filters.json
+- book/evidence/graph/mappings/vocab/operation_names.json
+- book/evidence/graph/mappings/vocab/filter_names.json
+- book/evidence/graph/mappings/vocab/ops.json
+- book/evidence/graph/mappings/vocab/filters.json
 """
 
 from __future__ import annotations
@@ -26,11 +26,11 @@ if str(ROOT) not in sys.path:
 from book.api import path_utils
 from book.api import evidence_tiers
 from book.api import world as world_mod
-LIB_PATH = ROOT / "book/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib"
-OPS_PATH = ROOT / "book/graph/mappings/vocab/ops.json"
-FILTERS_PATH = ROOT / "book/graph/mappings/vocab/filters.json"
-OP_NAMES_PATH = ROOT / "book/graph/mappings/vocab/operation_names.json"
-FILTER_NAMES_PATH = ROOT / "book/graph/mappings/vocab/filter_names.json"
+LIB_PATH = ROOT / "book/evidence/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib"
+OPS_PATH = ROOT / "book/evidence/graph/mappings/vocab/ops.json"
+FILTERS_PATH = ROOT / "book/evidence/graph/mappings/vocab/filters.json"
+OP_NAMES_PATH = ROOT / "book/evidence/graph/mappings/vocab/operation_names.json"
+FILTER_NAMES_PATH = ROOT / "book/evidence/graph/mappings/vocab/filter_names.json"
 
 
 @dataclass

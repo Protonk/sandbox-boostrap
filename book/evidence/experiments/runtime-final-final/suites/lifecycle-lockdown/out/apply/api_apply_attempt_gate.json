@@ -1,0 +1,61 @@
+{
+  "apply_report": {
+    "api": "sandbox_init",
+    "err_class": "errno_eperm",
+    "err_class_source": "errno_only",
+    "errbuf": "Operation not permitted",
+    "errno": 1,
+    "rc": -1
+  },
+  "captured_at": "2025-12-30T15:34:27.339958+00:00",
+  "command": [
+    "book/tools/sbpl/wrapper/wrapper",
+    "--preflight",
+    "force",
+    "--sbpl",
+    "book/evidence/experiments/gate-witnesses/out/witnesses/airlock/minimal_failing.sb",
+    "--",
+    "/usr/bin/true"
+  ],
+  "kind": "apply-attempt",
+  "limits": [
+    "Apply-stage failures (including EPERM) are hypothesis evidence only and do not imply a PolicyGraph decision.",
+    "Wrapper preflight may block known gated signatures before apply; interpret apply-attempt alongside preflight_scan results."
+  ],
+  "preflight_mode": "force",
+  "returncode": 1,
+  "sbpl_apply_markers": [
+    {
+      "api": "sandbox_init",
+      "err_class": "errno_eperm",
+      "err_class_source": "errno_only",
+      "errbuf": "Operation not permitted",
+      "errno": 1,
+      "marker_schema_version": 1,
+      "mode": "sbpl",
+      "pid": 95083,
+      "profile": "book/evidence/experiments/gate-witnesses/out/witnesses/airlock/minimal_failing.sb",
+      "rc": -1,
+      "stage": "apply",
+      "tool": "sbpl-apply"
+    }
+  ],
+  "sbpl_file": "book/evidence/experiments/gate-witnesses/out/witnesses/airlock/minimal_failing.sb",
+  "sbpl_preflight_markers": [
+    {
+      "marker_schema_version": 1,
+      "mode": "sbpl",
+      "pid": 95083,
+      "policy": "force",
+      "profile": "book/evidence/experiments/gate-witnesses/out/witnesses/airlock/minimal_failing.sb",
+      "rc": 2,
+      "record_json": "{\"classification\": \"likely_apply_gated_for_harness_identity\", \"findings\": [{\"denied_operation\": \"iokit-external-method\", \"outer_action\": \"allow\", \"outer_operation\": \"iokit-open-user-client\"}], \"input_kind\": \"sbpl_path\", \"input_ref\": \"book/evidence/experiments/gate-witnesses/out/witnesses/airlock/minimal_failing.sb\", \"preflight_schema_version\": 1, \"signature\": \"deny_message_filter\", \"signature_meta\": {\"pointers\": [\"troubles/EPERMx2.md\", \"book/evidence/experiments/gate-witnesses/Report.md\", \"book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json\"], \"status\": \"partial\"}, \"tool\": \"book/tools/preflight\", \"world_id\": \"sonoma-14.4.1-23E224-arm64-dyld-2c0602c5\"}",
+      "stage": "preflight",
+      "tool": "sbpl-preflight"
+    }
+  ],
+  "stderr": "sandbox initialization failed: Operation not permitted\nsandbox_init failed: Operation not permitted\n",
+  "target": "/usr/bin/true",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "wrapper": "book/tools/sbpl/wrapper/wrapper"
+}

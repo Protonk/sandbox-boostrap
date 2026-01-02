@@ -52,7 +52,7 @@ def test_sbpl_wrapper_blob_mode_emits_markers(run_cmd):
     record = json.loads(record_json)
     assert record.get("tool") == "book/tools/preflight"
     assert record.get("world_id") == models.WORLD_ID
-    assert record.get("input_ref") == "book/experiments/runtime-final-final/suites/sbpl-graph-runtime/out/allow_all.sb.bin"
+    assert record.get("input_ref") == "book/evidence/experiments/runtime-final-final/suites/sbpl-graph-runtime/out/allow_all.sb.bin"
 
     entitlement_markers = rt_contract.extract_entitlement_check_markers(stderr_raw)
     assert entitlement_markers, "expected entitlement-check marker from wrapper"

@@ -1,0 +1,62 @@
+{
+  "metadata": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "inputs": [
+      "book/evidence/graph/mappings/runtime_cuts/runtime_story.json",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/impact_map.json",
+      "book/evidence/graph/mappings/runtime/traces/bucket4_v1_read.jsonl",
+      "book/evidence/graph/mappings/runtime/traces/bucket5_v11_read_subpath.jsonl",
+      "book/evidence/graph/mappings/runtime/traces/runtime_allow_all.jsonl",
+      "book/evidence/graph/mappings/runtime/traces/runtime_metafilter_any.jsonl"
+    ],
+    "source_jobs": [
+      "experiment:runtime-checks",
+      "experiment:runtime-adversarial"
+    ],
+    "status": "ok",
+    "tier": "mapped",
+    "notes": "Runtime expectations summarized from runtime cuts and traces; mismatches are allowed only when tagged in impact_map.json."
+  },
+  "profiles": [
+    {
+      "profile_id": "runtime:allow_all",
+      "profile_path": "book/profiles/golden-triple/allow_all.sb.bin",
+      "profile_sha256": "19832eb9716a32459bee8398c8977fd1dfd575fa26606928f95728462a833c92",
+      "profile_mode": "blob",
+      "status": "ok",
+      "probe_count": 3,
+      "trace_path": "book/evidence/graph/mappings/runtime/traces/runtime_allow_all.jsonl",
+      "notes": null
+    },
+    {
+      "profile_id": "runtime:metafilter_any",
+      "profile_path": "book/profiles/golden-triple/metafilter_any.sb.bin",
+      "profile_sha256": "8bbfd0929503ef11229ee4b48e7a0b6beb05af81fdbc441c7409a10464865b66",
+      "profile_mode": "blob",
+      "status": "ok",
+      "probe_count": 3,
+      "trace_path": "book/evidence/graph/mappings/runtime/traces/runtime_metafilter_any.jsonl",
+      "notes": null
+    },
+    {
+      "profile_id": "bucket4:v1_read",
+      "profile_path": "book/profiles/golden-triple/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
+      "profile_sha256": "c4b59ce1ada17d736b107369ddfce80e090d041239942982969fa949344f7ebd",
+      "profile_mode": "sbpl",
+      "status": "ok",
+      "probe_count": 3,
+      "trace_path": "book/evidence/graph/mappings/runtime/traces/bucket4_v1_read.jsonl",
+      "notes": null
+    },
+    {
+      "profile_id": "bucket5:v11_read_subpath",
+      "profile_path": "book/profiles/golden-triple/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
+      "profile_sha256": "172766f1897fb960eaf6bf32f25a7335419934ce39184b4426b57103a62cb8ad",
+      "profile_mode": "sbpl",
+      "status": "ok",
+      "probe_count": 3,
+      "trace_path": "book/evidence/graph/mappings/runtime/traces/bucket5_v11_read_subpath.jsonl",
+      "notes": null
+    }
+  ]
+}

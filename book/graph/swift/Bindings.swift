@@ -4,7 +4,7 @@ import Foundation
 
 func conceptTextBindings() -> [ConceptTextBinding] {
     let path = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
-        .appendingPathComponent("book/graph/concepts/concept_text_map.json")
+        .appendingPathComponent("book/evidence/graph/concepts/concept_text_map.json")
     if let data = try? Data(contentsOf: path),
        let existing = try? JSONDecoder().decode([ConceptTextBinding].self, from: data) {
         return existing

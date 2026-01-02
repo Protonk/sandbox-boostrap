@@ -1,0 +1,92 @@
+{
+  "capture_sandbox_logs": false,
+  "command": [
+    "book/tools/witness/PolicyWitness.app/Contents/MacOS/policy-witness",
+    "xpc",
+    "run",
+    "--profile",
+    "minimal",
+    "--plan-id",
+    "policywitness-deny-atlas:smoke:smoke-0f3bee8f-2cbc-4339-a076-f1fc023094f9",
+    "--row-id",
+    "minimal.fs_op_allow_hosts_private",
+    "fs_op",
+    "--op",
+    "open_read",
+    "--path",
+    "/private/etc/hosts",
+    "--allow-unsafe-path"
+  ],
+  "correlation_id": null,
+  "duration_s": 0.017283201217651367,
+  "entrypoint": "book/tools/witness/PolicyWitness.app/Contents/MacOS/policy-witness",
+  "evidence_tier": "mapped",
+  "exit_code": 1,
+  "finished_at_unix_s": 1767221406.875873,
+  "lifecycle": {
+    "correlation_id": null,
+    "evidence_tier": "mapped",
+    "file_path": null,
+    "plan_id": "policywitness-deny-atlas:smoke:smoke-0f3bee8f-2cbc-4339-a076-f1fc023094f9",
+    "process_name": null,
+    "profile_id": "minimal",
+    "row_id": "minimal.fs_op_allow_hosts_private",
+    "service_id": null,
+    "service_pid": null,
+    "tmp_dir": null
+  },
+  "log_path": "book/evidence/experiments/policywitness-deny-atlas/out/smoke-0f3bee8f-2cbc-4339-a076-f1fc023094f9/probe_outputs/logs/policywitness-deny-atlas_smoke_smoke-0f3bee8f-2cbc-4339-a076-f1fc023094f9.minimal.fs_op_allow_hosts_private.fs_op.json",
+  "log_write_error": null,
+  "observer": {
+    "skipped": "missing_pid_or_process_name"
+  },
+  "observer_log_path": "book/evidence/experiments/policywitness-deny-atlas/out/smoke-0f3bee8f-2cbc-4339-a076-f1fc023094f9/probe_outputs/logs/observer/policywitness-deny-atlas_smoke_smoke-0f3bee8f-2cbc-4339-a076-f1fc023094f9.minimal.fs_op_allow_hosts_private.fs_op.json.observer.json",
+  "observer_status": "skipped:missing_pid_or_process_name",
+  "plan_id": "policywitness-deny-atlas:smoke:smoke-0f3bee8f-2cbc-4339-a076-f1fc023094f9",
+  "probe_args": [
+    "--op",
+    "open_read",
+    "--path",
+    "/private/etc/hosts",
+    "--allow-unsafe-path"
+  ],
+  "probe_error": null,
+  "probe_id": "fs_op",
+  "probe_timeout_s": 25.0,
+  "profile_id": "minimal",
+  "record_write_error": null,
+  "row_id": "minimal.fs_op_allow_hosts_private",
+  "service_id": null,
+  "started_at_unix_s": 1767221406.85859,
+  "stderr": "",
+  "stdout": "{\"data\":{\"details\":{\"service_bundle_id\":\"com.yourteam.policy-witness.ProbeService_minimal\"},\"error\":\"xpc error: Error Domain=NSCocoaErrorDomain Code=4099 \\\"The connection to service named com.yourteam.policy-witness.ProbeService_minimal was invalidated: failed at lookup with error 159 - Sandbox restriction.\\\" UserInfo={NSDebugDescription=The connection to service named com.yourteam.policy-witness.ProbeService_minimal was invalidated: failed at lookup with error 159 - Sandbox restriction.}\",\"layer_attribution\":{\"other\":\"xpc:openSession_failed\"},\"normalized_outcome\":\"xpc_error\",\"rc\":1,\"schema_version\":1,\"stderr\":\"xpc error: Error Domain=NSCocoaErrorDomain Code=4099 \\\"The connection to service named com.yourteam.policy-witness.ProbeService_minimal was invalidated: failed at lookup with error 159 - Sandbox restriction.\\\" UserInfo={NSDebugDescription=The connection to service named com.yourteam.policy-witness.ProbeService_minimal was invalidated: failed at lookup with error 159 - Sandbox restriction.}\",\"stdout\":\"\"},\"generated_at_unix_ms\":1767221406869,\"kind\":\"probe_response\",\"result\":{\"error\":\"xpc error: Error Domain=NSCocoaErrorDomain Code=4099 \\\"The connection to service named com.yourteam.policy-witness.ProbeService_minimal was invalidated: failed at lookup with error 159 - Sandbox restriction.\\\" UserInfo={NSDebugDescription=The connection to service named com.yourteam.policy-witness.ProbeService_minimal was invalidated: failed at lookup with error 159 - Sandbox restriction.}\",\"exit_code\":1,\"normalized_outcome\":\"xpc_error\",\"ok\":false,\"rc\":1,\"stderr\":\"xpc error: Error Domain=NSCocoaErrorDomain Code=4099 \\\"The connection to service named com.yourteam.policy-witness.ProbeService_minimal was invalidated: failed at lookup with error 159 - Sandbox restriction.\\\" UserInfo={NSDebugDescription=The connection to service named com.yourteam.policy-witness.ProbeService_minimal was invalidated: failed at lookup with error 159 - Sandbox restriction.}\"},\"schema_version\":1}\n",
+  "stdout_json": {
+    "data": {
+      "details": {
+        "service_bundle_id": "com.yourteam.policy-witness.ProbeService_minimal"
+      },
+      "error": "xpc error: Error Domain=NSCocoaErrorDomain Code=4099 \"The connection to service named com.yourteam.policy-witness.ProbeService_minimal was invalidated: failed at lookup with error 159 - Sandbox restriction.\" UserInfo={NSDebugDescription=The connection to service named com.yourteam.policy-witness.ProbeService_minimal was invalidated: failed at lookup with error 159 - Sandbox restriction.}",
+      "layer_attribution": {
+        "other": "xpc:openSession_failed"
+      },
+      "normalized_outcome": "xpc_error",
+      "rc": 1,
+      "schema_version": 1,
+      "stderr": "xpc error: Error Domain=NSCocoaErrorDomain Code=4099 \"The connection to service named com.yourteam.policy-witness.ProbeService_minimal was invalidated: failed at lookup with error 159 - Sandbox restriction.\" UserInfo={NSDebugDescription=The connection to service named com.yourteam.policy-witness.ProbeService_minimal was invalidated: failed at lookup with error 159 - Sandbox restriction.}",
+      "stdout": ""
+    },
+    "generated_at_unix_ms": 1767221406869,
+    "kind": "probe_response",
+    "result": {
+      "error": "xpc error: Error Domain=NSCocoaErrorDomain Code=4099 \"The connection to service named com.yourteam.policy-witness.ProbeService_minimal was invalidated: failed at lookup with error 159 - Sandbox restriction.\" UserInfo={NSDebugDescription=The connection to service named com.yourteam.policy-witness.ProbeService_minimal was invalidated: failed at lookup with error 159 - Sandbox restriction.}",
+      "exit_code": 1,
+      "normalized_outcome": "xpc_error",
+      "ok": false,
+      "rc": 1,
+      "stderr": "xpc error: Error Domain=NSCocoaErrorDomain Code=4099 \"The connection to service named com.yourteam.policy-witness.ProbeService_minimal was invalidated: failed at lookup with error 159 - Sandbox restriction.\" UserInfo={NSDebugDescription=The connection to service named com.yourteam.policy-witness.ProbeService_minimal was invalidated: failed at lookup with error 159 - Sandbox restriction.}"
+    },
+    "schema_version": 1
+  },
+  "stdout_json_error": null,
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

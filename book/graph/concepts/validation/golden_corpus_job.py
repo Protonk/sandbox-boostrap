@@ -20,11 +20,11 @@ from book.graph.concepts.validation import registry
 from book.graph.concepts.validation.registry import ValidationJob
 
 ROOT = find_repo_root(Path(__file__))
-MANIFEST_PATH = ROOT / "book/graph/concepts/validation/golden_corpus/corpus_manifest.json"
-SUMMARY_PATH = ROOT / "book/graph/concepts/validation/golden_corpus/corpus_summary.json"
-STATUS_PATH = ROOT / "book/graph/concepts/validation/out/experiments/golden-corpus/status.json"
-IR_PATH = ROOT / "book/graph/concepts/validation/out/experiments/golden-corpus/rerun_summary.json"
-META_PATH = ROOT / "book/graph/concepts/validation/out/metadata.json"
+MANIFEST_PATH = ROOT / "book/evidence/graph/concepts/validation/golden_corpus/corpus_manifest.json"
+SUMMARY_PATH = ROOT / "book/evidence/graph/concepts/validation/golden_corpus/corpus_summary.json"
+STATUS_PATH = ROOT / "book/evidence/graph/concepts/validation/out/experiments/golden-corpus/status.json"
+IR_PATH = ROOT / "book/evidence/graph/concepts/validation/out/experiments/golden-corpus/rerun_summary.json"
+META_PATH = ROOT / "book/evidence/graph/concepts/validation/out/metadata.json"
 
 
 def rel(path: Path) -> str:

@@ -3,10 +3,11 @@ from pathlib import Path
 
 
 from book.api import path_utils
+
 ROOT = path_utils.find_repo_root(Path(__file__))
-LINKS = ROOT / "book" / "graph" / "mappings" / "runtime" / "runtime_links.json"
-OPS = ROOT / "book" / "graph" / "mappings" / "vocab" / "ops.json"
-SYSTEM_DIGESTS = ROOT / "book" / "graph" / "mappings" / "system_profiles" / "digests.json"
+LINKS = ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "runtime_links.json"
+OPS = ROOT / "book" / "evidence" / "graph" / "mappings" / "vocab" / "ops.json"
+SYSTEM_DIGESTS = ROOT / "book" / "evidence" / "graph" / "mappings" / "system_profiles" / "digests.json"
 BASELINE = ROOT / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world.json"
 
 

@@ -16,10 +16,10 @@ from book.graph.concepts.validation import registry
 from book.graph.concepts.validation.registry import ValidationJob
 
 ROOT = find_repo_root(Path(__file__))
-BUNDLE_ROOT = ROOT / "book/experiments/runtime-final-final/suites/runtime-checks/out"
-META_PATH = ROOT / "book/graph/concepts/validation/out/metadata.json"
-STATUS_PATH = ROOT / "book/graph/concepts/validation/out/experiments/runtime-checks/status.json"
-IR_PATH = ROOT / "book/graph/concepts/validation/out/experiments/runtime-checks/runtime_results.normalized.json"
+BUNDLE_ROOT = ROOT / "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out"
+META_PATH = ROOT / "book/evidence/graph/concepts/validation/out/metadata.json"
+STATUS_PATH = ROOT / "book/evidence/graph/concepts/validation/out/experiments/runtime-checks/status.json"
+IR_PATH = ROOT / "book/evidence/graph/concepts/validation/out/experiments/runtime-checks/runtime_results.normalized.json"
 
 
 def rel(path: Path) -> str:
@@ -83,7 +83,7 @@ def run_runtime_job():
 registry.register(
     ValidationJob(
         id="experiment:runtime-checks",
-        inputs=["book/experiments/runtime-final-final/suites/runtime-checks/out/*/artifact_index.json"],
+        inputs=["book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/*/artifact_index.json"],
         outputs=[rel(IR_PATH), rel(STATUS_PATH)],
         tags=["experiment:runtime-checks", "experiment", "runtime", "smoke", "golden"],
         description="Normalize runtime-checks experiment outputs into shared IR.",

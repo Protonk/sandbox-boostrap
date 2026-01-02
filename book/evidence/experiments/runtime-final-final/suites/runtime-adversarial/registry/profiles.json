@@ -1,0 +1,244 @@
+{
+  "profiles": {
+    "adv:flow_divert_partial_tcp": {
+      "family": "network",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": null,
+      "probe_refs": [
+        "adv:flow_divert_partial_tcp:tcp-loopback",
+        "adv:flow_divert_partial_tcp:tcp-loopback-2"
+      ],
+      "profile_id": "adv:flow_divert_partial_tcp",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/flow_divert_partial_tcp.sb",
+      "semantic_group": "network:flow-divert-partial"
+    },
+    "adv:flow_divert_require_all_tcp": {
+      "family": "network",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": null,
+      "probe_refs": [
+        "adv:flow_divert_require_all_tcp:tcp-loopback",
+        "adv:flow_divert_require_all_tcp:tcp-loopback-2"
+      ],
+      "profile_id": "adv:flow_divert_require_all_tcp",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/flow_divert_require_all_tcp.sb",
+      "semantic_group": "network:flow-divert-require-all"
+    },
+    "adv:mach_local_literal": {
+      "family": "mach_local",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": null,
+      "probe_refs": [
+        "adv:mach_local_literal:allow-cfprefsd-local",
+        "adv:mach_local_literal:deny-bogus-local"
+      ],
+      "profile_id": "adv:mach_local_literal",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/mach_local_literal.sb",
+      "semantic_group": "mach:local-name-allow"
+    },
+    "adv:mach_local_regex": {
+      "family": "mach_local",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": null,
+      "probe_refs": [
+        "adv:mach_local_regex:allow-cfprefsd-local",
+        "adv:mach_local_regex:deny-bogus-local"
+      ],
+      "profile_id": "adv:mach_local_regex",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/mach_local_regex.sb",
+      "semantic_group": "mach:local-name-allow"
+    },
+    "adv:mach_simple_allow": {
+      "family": "mach_variants",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": null,
+      "probe_refs": [
+        "adv:mach_simple_allow:allow-cfprefsd",
+        "adv:mach_simple_allow:deny-bogus"
+      ],
+      "profile_id": "adv:mach_simple_allow",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/mach_simple_allow.sb",
+      "semantic_group": "mach:global-name-allow"
+    },
+    "adv:mach_simple_variants": {
+      "family": "mach_variants",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": null,
+      "probe_refs": [
+        "adv:mach_simple_variants:allow-cfprefsd",
+        "adv:mach_simple_variants:deny-bogus"
+      ],
+      "profile_id": "adv:mach_simple_variants",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/mach_simple_variants.sb",
+      "semantic_group": "mach:global-name-allow"
+    },
+    "adv:net_outbound_allow": {
+      "family": "network",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": null,
+      "probe_refs": [
+        "adv:net_outbound_allow:tcp-loopback",
+        "adv:net_outbound_allow:tcp-loopback-2"
+      ],
+      "profile_id": "adv:net_outbound_allow",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/net_outbound_allow.sb",
+      "semantic_group": "network:outbound-allow"
+    },
+    "adv:net_outbound_deny": {
+      "family": "network",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": null,
+      "probe_refs": [
+        "adv:net_outbound_deny:tcp-loopback",
+        "adv:net_outbound_deny:tcp-loopback-2"
+      ],
+      "profile_id": "adv:net_outbound_deny",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/net_outbound_deny.sb",
+      "semantic_group": "network:outbound-deny"
+    },
+    "adv:path_alias": {
+      "family": "path_alias",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": null,
+      "probe_refs": [
+        "adv:path_alias:alias-tmp",
+        "adv:path_alias:alias-private"
+      ],
+      "profile_id": "adv:path_alias",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/path_alias.sb",
+      "semantic_group": "paths:alias-canonicalization"
+    },
+    "adv:path_edges": {
+      "family": "path_edges",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": null,
+      "probe_refs": [
+        "adv:path_edges:allow-tmp",
+        "adv:path_edges:deny-private",
+        "adv:path_edges:allow-subpath",
+        "adv:path_edges:allow-subpath-normalized",
+        "adv:path_edges:deny-dotdot",
+        "adv:path_edges:write-tmp",
+        "adv:path_edges:write-private",
+        "adv:path_edges:write-subpath",
+        "adv:path_edges:write-dotdot"
+      ],
+      "profile_id": "adv:path_edges",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/path_edges.sb",
+      "semantic_group": "paths:literal-vs-normalized"
+    },
+    "adv:struct_flat": {
+      "family": "structural_variants",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": null,
+      "probe_refs": [
+        "adv:struct_flat:allow-ok-root",
+        "adv:struct_flat:allow-ok-deep",
+        "adv:struct_flat:deny-blocked",
+        "adv:struct_flat:deny-outside",
+        "adv:struct_flat:write-ok-root",
+        "adv:struct_flat:write-ok-deep",
+        "adv:struct_flat:write-blocked",
+        "adv:struct_flat:write-outside"
+      ],
+      "profile_id": "adv:struct_flat",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/struct_flat.sb",
+      "semantic_group": "structural:file-read-subpath"
+    },
+    "adv:struct_nested": {
+      "family": "structural_variants",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": null,
+      "probe_refs": [
+        "adv:struct_nested:allow-ok-root",
+        "adv:struct_nested:allow-ok-deep",
+        "adv:struct_nested:deny-blocked",
+        "adv:struct_nested:deny-outside",
+        "adv:struct_nested:write-ok-root",
+        "adv:struct_nested:write-ok-deep",
+        "adv:struct_nested:write-blocked",
+        "adv:struct_nested:write-outside"
+      ],
+      "profile_id": "adv:struct_nested",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/struct_nested.sb",
+      "semantic_group": "structural:file-read-subpath"
+    },
+    "adv:path_edges_private": {
+      "family": "path_edges",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": "Allow /private/tmp edges to discriminate /tmp normalization.",
+      "probe_refs": [
+        "adv:path_edges_private:allow-private",
+        "adv:path_edges_private:allow-private-subpath",
+        "adv:path_edges_private:allow-tmp",
+        "adv:path_edges_private:allow-tmp-subpath",
+        "adv:path_edges_private:deny-dotdot",
+        "adv:path_edges_private:write-private",
+        "adv:path_edges_private:write-private-subpath",
+        "adv:path_edges_private:write-tmp",
+        "adv:path_edges_private:write-tmp-subpath",
+        "adv:path_edges_private:write-dotdot"
+      ],
+      "profile_id": "adv:path_edges_private",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/path_edges_private.sb",
+      "semantic_group": "paths:literal-vs-normalized"
+    },
+    "adv:mount_relative_path": {
+      "family": "mount_relative_path",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": "Subpath-only allow to isolate mount-relative-path filter behavior.",
+      "probe_refs": [
+        "adv:mount_relative_path:allow-subpath",
+        "adv:mount_relative_path:deny-outside"
+      ],
+      "profile_id": "adv:mount_relative_path",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/mount_relative_path.sb",
+      "semantic_group": "paths:mount-relative-subpath"
+    },
+    "adv:xattr": {
+      "family": "xattr",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": "Xattr read/write discrimination over /private/tmp fixtures.",
+      "probe_refs": [
+        "adv:xattr:allow-foo-read",
+        "adv:xattr:deny-bar-read",
+        "adv:xattr:allow-foo-write",
+        "adv:xattr:deny-bar-write"
+      ],
+      "profile_id": "adv:xattr",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/xattr.sb",
+      "semantic_group": "file:xattr-basic"
+    },
+    "adv:file_mode": {
+      "family": "file_mode",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": "File-mode discriminator: deny world-readable file while allowing private file.",
+      "probe_refs": [
+        "adv:file_mode:allow-private",
+        "adv:file_mode:deny-world"
+      ],
+      "profile_id": "adv:file_mode",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/file_mode.sb",
+      "semantic_group": "file:file-mode"
+    }
+  },
+  "registry_id": "runtime-adversarial",
+  "schema_version": "runtime-tools.profile_registry.v0.2",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

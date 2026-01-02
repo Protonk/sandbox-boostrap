@@ -3,9 +3,10 @@ from pathlib import Path
 
 
 from book.api import path_utils
+
 ROOT = path_utils.find_repo_root(Path(__file__))
-VOCAB_MAPPINGS = ROOT / "book" / "graph" / "mappings" / "vocab"
-DYLD_LIB_SOURCE = "book/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib"
+VOCAB_MAPPINGS = ROOT / "book" / "evidence" / "graph" / "mappings" / "vocab"
+DYLD_LIB_SOURCE = "book/evidence/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib"
 
 
 def load_json(path: Path) -> dict:

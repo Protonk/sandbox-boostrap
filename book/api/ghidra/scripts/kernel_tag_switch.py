@@ -3,7 +3,7 @@
 Surface candidate dispatcher functions by counting computed jumps per function.
 
 Args (from scaffold): <out_dir> <build_id>
-Outputs: book/dumps/ghidra/out/<build>/kernel-tag-switch/switch_candidates.json (plus script.log).
+Outputs: book/evidence/dumps/ghidra/out/<build>/kernel-tag-switch/switch_candidates.json (plus script.log).
 
 Assumptions/pitfalls:
 - Needs functions present (skip --no-analysis); computed_jumps will be zero otherwise.

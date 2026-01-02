@@ -4,12 +4,12 @@ Regenerate tag_u16_roles.json from canonical corpus evidence.
 
 Role meaning (project-scoped):
 - filter_vocab_id: the tag’s u16[2] payload behaves like a Filter vocabulary ID
-  often enough to attempt resolution via `book/graph/mappings/vocab/filters.json`.
+  often enough to attempt resolution via `book/evidence/graph/mappings/vocab/filters.json`.
 - arg_u16: the tag’s u16[2] payload is a meaningful u16 but does not look like a
   Filter vocabulary ID on this host baseline.
 
 Outputs:
-- book/graph/mappings/tag_layouts/tag_u16_roles.json
+- book/evidence/graph/mappings/tag_layouts/tag_u16_roles.json
 """
 
 from __future__ import annotations
@@ -27,10 +27,10 @@ from book.api.profile import decoder  # type: ignore
 from book.api import world as world_mod  # type: ignore
 
 
-DIGESTS_PATH = REPO_ROOT / "book/graph/mappings/system_profiles/digests.json"
-TAG_LAYOUTS_PATH = REPO_ROOT / "book/graph/mappings/tag_layouts/tag_layouts.json"
-FILTERS_PATH = REPO_ROOT / "book/graph/mappings/vocab/filters.json"
-OUT_PATH = REPO_ROOT / "book/graph/mappings/tag_layouts/tag_u16_roles.json"
+DIGESTS_PATH = REPO_ROOT / "book/evidence/graph/mappings/system_profiles/digests.json"
+TAG_LAYOUTS_PATH = REPO_ROOT / "book/evidence/graph/mappings/tag_layouts/tag_layouts.json"
+FILTERS_PATH = REPO_ROOT / "book/evidence/graph/mappings/vocab/filters.json"
+OUT_PATH = REPO_ROOT / "book/evidence/graph/mappings/tag_layouts/tag_u16_roles.json"
 
 
 def load_json(path: Path) -> Dict[str, Any]:

@@ -11,7 +11,7 @@ All fixtures here are host-bound and scoped to the Sonoma baseline
 ### Shape catalog (`shape_catalog/`)
 
 The shape catalog pins the **JSON structure** of selected Ghidra task outputs
-under `book/dumps/ghidra/out/<build>/...` without re-running Ghidra in tests.
+under `book/evidence/dumps/ghidra/out/<build>/...` without re-running Ghidra in tests.
 
 - `shape_catalog/manifest.json` — inventory of outputs and their snapshot paths.
 - `shape_catalog/manifest.strict.json` — strict subset that must always exist and validate.

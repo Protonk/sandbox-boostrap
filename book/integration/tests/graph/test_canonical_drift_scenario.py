@@ -7,8 +7,8 @@ import pytest
 
 from book.api import path_utils
 ROOT = path_utils.find_repo_root(Path(__file__))
-DIGESTS_PATH = ROOT / "book/graph/mappings/system_profiles/digests.json"
-TAG_LAYOUTS_PATH = ROOT / "book/graph/mappings/tag_layouts/tag_layouts.json"
+DIGESTS_PATH = ROOT / "book/evidence/graph/mappings/system_profiles/digests.json"
+TAG_LAYOUTS_PATH = ROOT / "book/evidence/graph/mappings/tag_layouts/tag_layouts.json"
 
 
 def load_json(path: Path) -> dict:

@@ -74,7 +74,7 @@ def test_concept_index_contains_expected_concepts():
     assert expected <= set(concepts.keys())
     op_entries = concepts["operation"]
     paths = {entry["path"] for entry in op_entries}
-    assert "book/graph/mappings/vocab/ops.json" in paths
+    assert "book/evidence/graph/mappings/vocab/ops.json" in paths
     assert "book/integration/carton/bundle/views/operation_index.json" in paths
     filter_entries = concepts["filter"]
     filter_paths = {entry["path"] for entry in filter_entries}

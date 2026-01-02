@@ -8,11 +8,11 @@ from book.api.profile import identity as identity_mod
 from book.api import path_utils
 ROOT = path_utils.find_repo_root(Path(__file__))
 BASELINE = ROOT / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world.json"
-TAG_LAYOUTS = ROOT / "book" / "graph" / "mappings" / "tag_layouts" / "tag_layouts.json"
-DIGESTS = ROOT / "book" / "graph" / "mappings" / "system_profiles" / "digests.json"
-STATIC_CHECKS = ROOT / "book" / "graph" / "mappings" / "system_profiles" / "static_checks.json"
-ATTESTATIONS = ROOT / "book" / "graph" / "mappings" / "system_profiles" / "attestations.json"
-ATTESTATIONS_DIR = ROOT / "book" / "graph" / "mappings" / "system_profiles" / "attestations"
+TAG_LAYOUTS = ROOT / "book" / "evidence" / "graph" / "mappings" / "tag_layouts" / "tag_layouts.json"
+DIGESTS = ROOT / "book" / "evidence" / "graph" / "mappings" / "system_profiles" / "digests.json"
+STATIC_CHECKS = ROOT / "book" / "evidence" / "graph" / "mappings" / "system_profiles" / "static_checks.json"
+ATTESTATIONS = ROOT / "book" / "evidence" / "graph" / "mappings" / "system_profiles" / "attestations.json"
+ATTESTATIONS_DIR = ROOT / "book" / "evidence" / "graph" / "mappings" / "system_profiles" / "attestations"
 
 
 def _load(path: Path) -> dict:
@@ -64,4 +64,3 @@ def test_tag_layout_hash_semantics_are_explicit_and_consistent():
 
     assert static_meta.get("tag_layouts_file_sha256") == tag_layouts_sha256
     assert attest_meta.get("tag_layouts_file_sha256") == tag_layouts_sha256
-

@@ -1,0 +1,52 @@
+{
+  "schema_version": "field2-tranche.v0",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "frontier": "book/evidence/experiments/field2-final-final/out/frontier.json",
+  "selected": {
+    "field2": 4,
+    "filter_name": "ipc-posix-name",
+    "status": "seed_only",
+    "sources": [
+      "seed_manifest",
+      "inventory",
+      "anchor_hits"
+    ],
+    "target_ops": [
+      "ipc-posix-shm*",
+      "ipc-posix-sem*"
+    ],
+    "runtime_candidate": null,
+    "anchor_count": 5,
+    "anchors_sample": [
+      "/etc/hosts",
+      "/var/log",
+      "IOHIDParamUserClient",
+      "IOSurfaceRootUserClient",
+      "IOUSBHostInterface"
+    ],
+    "inventory": {
+      "count": 276,
+      "profiles_sample": [
+        "probe-op:v0_file_require_all.sb",
+        "probe-op:v10_iokit_user_client_pair.sb",
+        "probe-op:v11_iokit_user_client_connection.sb",
+        "probe-op:v12_iokit_control.sb",
+        "probe-op:v2_file_three_filters_any.sb",
+        "probe-op:v4_network_socket_require_all.sb"
+      ]
+    },
+    "unknown": {
+      "count": 0,
+      "profiles_sample": []
+    },
+    "score": 14
+  },
+  "decision_needed": "Define one discriminating micro-suite and either promote a mapping delta or retire this field2 as opaque/blocked.",
+  "fast_discriminator": {
+    "tool": "sandbox_check",
+    "operation": "ipc-posix-shm*",
+    "filter_name": "ipc-posix-name",
+    "argument": "/etc/hosts",
+    "notes": "Use sandbox_check as a preflight discriminator; operation-stage confirmation is still required."
+  }
+}

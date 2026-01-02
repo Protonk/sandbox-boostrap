@@ -30,20 +30,20 @@ High-level layout:
 
 ## Bedrock navigation
 
-The current bedrock surfaces for this world are recorded in `book/graph/concepts/BEDROCK_SURFACES.json`; use that as the registry and cite mapping paths when you rely on them. The promotion narrative in `status/first-promotion/post-remediation.md` explains the initial justification.
+The current bedrock surfaces for this world are recorded in `book/evidence/graph/concepts/BEDROCK_SURFACES.json`; use that as the registry and cite mapping paths when you rely on them. The promotion narrative in `status/first-promotion/post-remediation.md` explains the initial justification.
 
 When in doubt:
 - New *code* that ingests or validates compiled profiles → `concepts/validation/`.
 - New *stable mappings* or “IR” that other code depends on → `mappings/` (with metadata and schema).
-- Experiment-specific scratch outputs stay under `book/experiments/*/out`, not here.
+- Experiment-specific scratch outputs stay under `book/evidence/experiments/*/out`, not here.
 - CARTON is the frozen, host-specific bundle (relationships/views/contracts + manifest); see `book/integration/carton/README.md` and use `python -m book.integration.carton.tools.check` / `python -m book.integration.carton.tools.diff` rather than ad-hoc JSON spelunking.
 
 For **anchor/field2 structure** on this Sonoma world, use this stack as your entrypoint:
-- Structural source (anchors + tags + `field2` per profile): `book/experiments/field2-final-final/probe-op-structure/Report.md` (tier: mapped, structural only).
-- `field2` inventory and unknowns: `book/experiments/field2-final-final/field2-filters/Report.md` (bounded high/unknown IDs, experiment closed).
+- Structural source (anchors + tags + `field2` per profile): `book/evidence/experiments/field2-final-final/probe-op-structure/Report.md` (tier: mapped, structural only).
+- `field2` inventory and unknowns: `book/evidence/experiments/field2-final-final/field2-filters/Report.md` (bounded high/unknown IDs, experiment closed).
 - Curated anchors and their Filter mappings:
-  - Canonical (context-indexed): `book/graph/mappings/anchors/anchor_ctx_filter_map.json`
-  - Compatibility view (literal-keyed, conservative): `book/graph/mappings/anchors/anchor_filter_map.json` (guarded by `book/integration/tests/graph/test_anchor_filter_alignment.py`).
+  - Canonical (context-indexed): `book/evidence/graph/mappings/anchors/anchor_ctx_filter_map.json`
+  - Compatibility view (literal-keyed, conservative): `book/evidence/graph/mappings/anchors/anchor_filter_map.json` (guarded by `book/integration/tests/graph/test_anchor_filter_alignment.py`).
 
 ## Swift generator loop (for agents)
 
@@ -99,7 +99,7 @@ Within `mappings/`, treat files as shared IR:
     - Host-specific.
     - Stable enough to be reused by multiple experiments and chapters.
     - Regenerable from the repo plus the fixed host baseline.
-  - Do not put experiment-local scratch data here; that lives under `book/experiments/*/out`.
+  - Do not put experiment-local scratch data here; that lives under `book/evidence/experiments/*/out`.
 
 - **Alignment with experiments**
   - When an experiment “graduates” a mapping into `mappings/`:
@@ -119,10 +119,10 @@ When working in `book/graph/`, agents should avoid:
 - **Unversioned or opaque changes**
   - Do not silently change the semantics or schema of mapping JSONs under `mappings/` without:
     - Updating metadata and documentation.
-    - Checking (and, if needed, updating) consumers in `concepts/validation/`, `book/experiments/`, and `book/chapters/`.
+    - Checking (and, if needed, updating) consumers in `concepts/validation/`, `book/evidence/experiments/`, and `book/chapters/`.
 
 - **Embedding experiments in `graph/`**
-  - Do not put experiment scaffolds (`Plan`, `Notes`, large `out/` trees) under `book/graph/`; keep those under `book/experiments/` and publish only the stable outputs here.
+  - Do not put experiment scaffolds (`Plan`, `Notes`, large `out/` trees) under `book/graph/`; keep those under `book/evidence/experiments/` and publish only the stable outputs here.
 
 - **Silent decoding failures**
   - Do not ignore decoder/ingestion failures or treat partial decodes as fully valid mappings.

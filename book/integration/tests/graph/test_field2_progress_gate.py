@@ -8,8 +8,8 @@ from book.api import path_utils
 from book.api.runtime.analysis import packet_utils
 
 ROOT = path_utils.find_repo_root(Path(__file__))
-MILESTONE_PATH = ROOT / "book" / "experiments" / "field2-final-final" / "active_milestone.json"
-DECISIONS_PATH = ROOT / "book" / "experiments" / "field2-final-final" / "decisions.jsonl"
+MILESTONE_PATH = ROOT / "book" / "evidence" / "experiments" / "field2-final-final" / "active_milestone.json"
+DECISIONS_PATH = ROOT / "book" / "evidence" / "experiments" / "field2-final-final" / "decisions.jsonl"
 
 
 def _load_json(path: Path):

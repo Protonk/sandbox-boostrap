@@ -1,0 +1,2540 @@
+{
+  "schema_version": "runtime-tools.path_witnesses.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "run_id": "738fc3d0-1d12-4608-9a97-90addfbc8d4c",
+  "plan_id": "runtime-adversarial.v1",
+  "records": [
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:path_alias",
+      "scenario_id": "baseline:adv:path_alias:alias-tmp",
+      "operation": "file-read*",
+      "requested_path": "/tmp/runtime-adv/alias/allow.txt",
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "normalized_path": "/tmp/runtime-adv/alias/allow.txt",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "exit_code": 1,
+      "command": [
+        "/bin/cat",
+        "/tmp/runtime-adv/alias/allow.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:path_alias",
+      "scenario_id": "baseline:adv:path_alias:alias-private",
+      "operation": "file-read*",
+      "requested_path": "/private/tmp/runtime-adv/alias/allow.txt",
+      "observed_path": null,
+      "observed_path_source": "unsandboxed_error",
+      "observed_path_errno": 2,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_error",
+      "observed_path_nofirmlink_errno": 2,
+      "normalized_path": "/private/tmp/runtime-adv/alias/allow.txt",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "exit_code": 1,
+      "command": [
+        "/bin/cat",
+        "/private/tmp/runtime-adv/alias/allow.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:path_edges",
+      "scenario_id": "baseline:adv:path_edges:allow-tmp",
+      "operation": "file-read*",
+      "requested_path": "/tmp/runtime-adv/edges/a",
+      "observed_path": "/private/tmp/runtime-adv/edges/a",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/edges/a",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/tmp/runtime-adv/edges/a"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:path_edges",
+      "scenario_id": "baseline:adv:path_edges:deny-private",
+      "operation": "file-read*",
+      "requested_path": "/private/tmp/runtime-adv/edges/a",
+      "observed_path": "/private/tmp/runtime-adv/edges/a",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/edges/a",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/private/tmp/runtime-adv/edges/a"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:path_edges",
+      "scenario_id": "baseline:adv:path_edges:allow-subpath",
+      "operation": "file-read*",
+      "requested_path": "/tmp/runtime-adv/edges/okdir/item.txt",
+      "observed_path": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/tmp/runtime-adv/edges/okdir/item.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:path_edges",
+      "scenario_id": "baseline:adv:path_edges:allow-subpath-normalized",
+      "operation": "file-read*",
+      "requested_path": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "observed_path": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/private/tmp/runtime-adv/edges/okdir/item.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:path_edges",
+      "scenario_id": "baseline:adv:path_edges:deny-dotdot",
+      "operation": "file-read*",
+      "requested_path": "/tmp/runtime-adv/edges/okdir/../blocked.txt",
+      "observed_path": "/private/tmp/runtime-adv/edges/blocked.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/edges/blocked.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/tmp/runtime-adv/edges/okdir/../blocked.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:path_edges",
+      "scenario_id": "baseline:adv:path_edges:write-tmp",
+      "operation": "file-write*",
+      "requested_path": "/tmp/runtime-adv/edges/a",
+      "observed_path": "/private/tmp/runtime-adv/edges/a",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/edges/a",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/runtime-adv/edges/a'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:path_edges",
+      "scenario_id": "baseline:adv:path_edges:write-private",
+      "operation": "file-write*",
+      "requested_path": "/private/tmp/runtime-adv/edges/a",
+      "observed_path": "/private/tmp/runtime-adv/edges/a",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/edges/a",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/tmp/runtime-adv/edges/a'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:path_edges",
+      "scenario_id": "baseline:adv:path_edges:write-subpath",
+      "operation": "file-write*",
+      "requested_path": "/tmp/runtime-adv/edges/okdir/item.txt",
+      "observed_path": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/runtime-adv/edges/okdir/item.txt'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:path_edges",
+      "scenario_id": "baseline:adv:path_edges:write-dotdot",
+      "operation": "file-write*",
+      "requested_path": "/tmp/runtime-adv/edges/okdir/../blocked.txt",
+      "observed_path": "/private/tmp/runtime-adv/edges/blocked.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/edges/blocked.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/runtime-adv/edges/blocked.txt'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:struct_flat",
+      "scenario_id": "baseline:adv:struct_flat:allow-ok-root",
+      "operation": "file-read*",
+      "requested_path": "/tmp/runtime-adv/struct/ok/allowed.txt",
+      "observed_path": "/private/tmp/runtime-adv/struct/ok/allowed.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/struct/ok/allowed.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/tmp/runtime-adv/struct/ok/allowed.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:struct_flat",
+      "scenario_id": "baseline:adv:struct_flat:allow-ok-deep",
+      "operation": "file-read*",
+      "requested_path": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
+      "observed_path": "/private/tmp/runtime-adv/struct/ok/deep/nested.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/struct/ok/deep/nested.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/tmp/runtime-adv/struct/ok/deep/nested.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:struct_flat",
+      "scenario_id": "baseline:adv:struct_flat:deny-blocked",
+      "operation": "file-read*",
+      "requested_path": "/tmp/runtime-adv/struct/blocked.txt",
+      "observed_path": "/private/tmp/runtime-adv/struct/blocked.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/struct/blocked.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/tmp/runtime-adv/struct/blocked.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:struct_flat",
+      "scenario_id": "baseline:adv:struct_flat:deny-outside",
+      "operation": "file-read*",
+      "requested_path": "/tmp/runtime-adv/struct/outside.txt",
+      "observed_path": "/private/tmp/runtime-adv/struct/outside.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/struct/outside.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/tmp/runtime-adv/struct/outside.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:struct_flat",
+      "scenario_id": "baseline:adv:struct_flat:write-ok-root",
+      "operation": "file-write*",
+      "requested_path": "/tmp/runtime-adv/struct/ok/allowed.txt",
+      "observed_path": "/private/tmp/runtime-adv/struct/ok/allowed.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/struct/ok/allowed.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/runtime-adv/struct/ok/allowed.txt'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:struct_flat",
+      "scenario_id": "baseline:adv:struct_flat:write-ok-deep",
+      "operation": "file-write*",
+      "requested_path": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
+      "observed_path": "/private/tmp/runtime-adv/struct/ok/deep/nested.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/struct/ok/deep/nested.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/runtime-adv/struct/ok/deep/nested.txt'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:struct_flat",
+      "scenario_id": "baseline:adv:struct_flat:write-blocked",
+      "operation": "file-write*",
+      "requested_path": "/tmp/runtime-adv/struct/blocked.txt",
+      "observed_path": "/private/tmp/runtime-adv/struct/blocked.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/struct/blocked.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/runtime-adv/struct/blocked.txt'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:struct_flat",
+      "scenario_id": "baseline:adv:struct_flat:write-outside",
+      "operation": "file-write*",
+      "requested_path": "/tmp/runtime-adv/struct/outside.txt",
+      "observed_path": "/private/tmp/runtime-adv/struct/outside.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/struct/outside.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/runtime-adv/struct/outside.txt'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:struct_nested",
+      "scenario_id": "baseline:adv:struct_nested:allow-ok-root",
+      "operation": "file-read*",
+      "requested_path": "/tmp/runtime-adv/struct/ok/allowed.txt",
+      "observed_path": "/private/tmp/runtime-adv/struct/ok/allowed.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/struct/ok/allowed.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/tmp/runtime-adv/struct/ok/allowed.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:struct_nested",
+      "scenario_id": "baseline:adv:struct_nested:allow-ok-deep",
+      "operation": "file-read*",
+      "requested_path": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
+      "observed_path": "/private/tmp/runtime-adv/struct/ok/deep/nested.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/struct/ok/deep/nested.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/tmp/runtime-adv/struct/ok/deep/nested.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:struct_nested",
+      "scenario_id": "baseline:adv:struct_nested:deny-blocked",
+      "operation": "file-read*",
+      "requested_path": "/tmp/runtime-adv/struct/blocked.txt",
+      "observed_path": "/private/tmp/runtime-adv/struct/blocked.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/struct/blocked.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/tmp/runtime-adv/struct/blocked.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:struct_nested",
+      "scenario_id": "baseline:adv:struct_nested:deny-outside",
+      "operation": "file-read*",
+      "requested_path": "/tmp/runtime-adv/struct/outside.txt",
+      "observed_path": "/private/tmp/runtime-adv/struct/outside.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/struct/outside.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/tmp/runtime-adv/struct/outside.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:struct_nested",
+      "scenario_id": "baseline:adv:struct_nested:write-ok-root",
+      "operation": "file-write*",
+      "requested_path": "/tmp/runtime-adv/struct/ok/allowed.txt",
+      "observed_path": "/private/tmp/runtime-adv/struct/ok/allowed.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/struct/ok/allowed.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/runtime-adv/struct/ok/allowed.txt'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:struct_nested",
+      "scenario_id": "baseline:adv:struct_nested:write-ok-deep",
+      "operation": "file-write*",
+      "requested_path": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
+      "observed_path": "/private/tmp/runtime-adv/struct/ok/deep/nested.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/struct/ok/deep/nested.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/runtime-adv/struct/ok/deep/nested.txt'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:struct_nested",
+      "scenario_id": "baseline:adv:struct_nested:write-blocked",
+      "operation": "file-write*",
+      "requested_path": "/tmp/runtime-adv/struct/blocked.txt",
+      "observed_path": "/private/tmp/runtime-adv/struct/blocked.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/struct/blocked.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/runtime-adv/struct/blocked.txt'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:struct_nested",
+      "scenario_id": "baseline:adv:struct_nested:write-outside",
+      "operation": "file-write*",
+      "requested_path": "/tmp/runtime-adv/struct/outside.txt",
+      "observed_path": "/private/tmp/runtime-adv/struct/outside.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/struct/outside.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/runtime-adv/struct/outside.txt'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:path_edges_private",
+      "scenario_id": "baseline:adv:path_edges_private:allow-private",
+      "operation": "file-read*",
+      "requested_path": "/private/tmp/runtime-adv/edges/a",
+      "observed_path": "/private/tmp/runtime-adv/edges/a",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/edges/a",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/private/tmp/runtime-adv/edges/a"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:path_edges_private",
+      "scenario_id": "baseline:adv:path_edges_private:allow-private-subpath",
+      "operation": "file-read*",
+      "requested_path": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "observed_path": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/private/tmp/runtime-adv/edges/okdir/item.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:path_edges_private",
+      "scenario_id": "baseline:adv:path_edges_private:allow-tmp",
+      "operation": "file-read*",
+      "requested_path": "/tmp/runtime-adv/edges/a",
+      "observed_path": "/private/tmp/runtime-adv/edges/a",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/edges/a",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/tmp/runtime-adv/edges/a"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:path_edges_private",
+      "scenario_id": "baseline:adv:path_edges_private:allow-tmp-subpath",
+      "operation": "file-read*",
+      "requested_path": "/tmp/runtime-adv/edges/okdir/item.txt",
+      "observed_path": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/tmp/runtime-adv/edges/okdir/item.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:path_edges_private",
+      "scenario_id": "baseline:adv:path_edges_private:deny-dotdot",
+      "operation": "file-read*",
+      "requested_path": "/private/tmp/runtime-adv/edges/okdir/../blocked.txt",
+      "observed_path": "/private/tmp/runtime-adv/edges/blocked.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/edges/blocked.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/private/tmp/runtime-adv/edges/okdir/../blocked.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:path_edges_private",
+      "scenario_id": "baseline:adv:path_edges_private:write-private",
+      "operation": "file-write*",
+      "requested_path": "/private/tmp/runtime-adv/edges/a",
+      "observed_path": "/private/tmp/runtime-adv/edges/a",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/edges/a",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/tmp/runtime-adv/edges/a'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:path_edges_private",
+      "scenario_id": "baseline:adv:path_edges_private:write-private-subpath",
+      "operation": "file-write*",
+      "requested_path": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "observed_path": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/tmp/runtime-adv/edges/okdir/item.txt'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:path_edges_private",
+      "scenario_id": "baseline:adv:path_edges_private:write-tmp",
+      "operation": "file-write*",
+      "requested_path": "/tmp/runtime-adv/edges/a",
+      "observed_path": "/private/tmp/runtime-adv/edges/a",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/edges/a",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/runtime-adv/edges/a'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:path_edges_private",
+      "scenario_id": "baseline:adv:path_edges_private:write-tmp-subpath",
+      "operation": "file-write*",
+      "requested_path": "/tmp/runtime-adv/edges/okdir/item.txt",
+      "observed_path": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/tmp/runtime-adv/edges/okdir/item.txt'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:path_edges_private",
+      "scenario_id": "baseline:adv:path_edges_private:write-dotdot",
+      "operation": "file-write*",
+      "requested_path": "/private/tmp/runtime-adv/edges/okdir/../blocked.txt",
+      "observed_path": "/private/tmp/runtime-adv/edges/blocked.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/edges/blocked.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo runtime-check >> '/private/tmp/runtime-adv/edges/blocked.txt'"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:mount_relative_path",
+      "scenario_id": "baseline:adv:mount_relative_path:allow-subpath",
+      "operation": "file-read*",
+      "requested_path": "/private/tmp/runtime-adv/mountrel/allowed.txt",
+      "observed_path": "/private/tmp/runtime-adv/mountrel/allowed.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/mountrel/allowed.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/private/tmp/runtime-adv/mountrel/allowed.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:mount_relative_path",
+      "scenario_id": "baseline:adv:mount_relative_path:deny-outside",
+      "operation": "file-read*",
+      "requested_path": "/private/tmp/runtime-adv/mountrel_outside/blocked.txt",
+      "observed_path": "/private/tmp/runtime-adv/mountrel_outside/blocked.txt",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/mountrel_outside/blocked.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/private/tmp/runtime-adv/mountrel_outside/blocked.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:xattr",
+      "scenario_id": "baseline:adv:xattr:allow-foo-read",
+      "operation": "file-read-xattr",
+      "requested_path": "/private/tmp/foo",
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/foo",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "target=\"$1\"\nmode=\"$2\"\nname=\"user.sandbox_lore\"\nif [ \"$mode\" = \"read\" ]; then\n  /usr/bin/xattr -p \"$name\" \"$target\" >/dev/null 2>&1\n  rc=$?\nelse\n  /usr/bin/xattr -w \"$name\" \"probe\" \"$target\" >/dev/null 2>&1\n  rc=$?\nfi\nif [ \"$rc\" -eq 0 ]; then dec=\"allow\"; else dec=\"deny\"; fi\nprintf \"SBL_PROBE_DETAILS {\\\"decision\\\":\\\"%s\\\",\\\"exit_code\\\":%s}\\n\" \"$dec\" \"$rc\"\nexit 0\n",
+        "xattr_probe",
+        "/private/tmp/foo",
+        "read"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:xattr",
+      "scenario_id": "baseline:adv:xattr:deny-bar-read",
+      "operation": "file-read-xattr",
+      "requested_path": "/private/tmp/bar",
+      "observed_path": "/private/tmp/bar",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/bar",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "target=\"$1\"\nmode=\"$2\"\nname=\"user.sandbox_lore\"\nif [ \"$mode\" = \"read\" ]; then\n  /usr/bin/xattr -p \"$name\" \"$target\" >/dev/null 2>&1\n  rc=$?\nelse\n  /usr/bin/xattr -w \"$name\" \"probe\" \"$target\" >/dev/null 2>&1\n  rc=$?\nfi\nif [ \"$rc\" -eq 0 ]; then dec=\"allow\"; else dec=\"deny\"; fi\nprintf \"SBL_PROBE_DETAILS {\\\"decision\\\":\\\"%s\\\",\\\"exit_code\\\":%s}\\n\" \"$dec\" \"$rc\"\nexit 0\n",
+        "xattr_probe",
+        "/private/tmp/bar",
+        "read"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:xattr",
+      "scenario_id": "baseline:adv:xattr:allow-foo-write",
+      "operation": "file-write-xattr",
+      "requested_path": "/private/tmp/foo",
+      "observed_path": "/private/tmp/foo",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/foo",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "target=\"$1\"\nmode=\"$2\"\nname=\"user.sandbox_lore\"\nif [ \"$mode\" = \"read\" ]; then\n  /usr/bin/xattr -p \"$name\" \"$target\" >/dev/null 2>&1\n  rc=$?\nelse\n  /usr/bin/xattr -w \"$name\" \"probe\" \"$target\" >/dev/null 2>&1\n  rc=$?\nfi\nif [ \"$rc\" -eq 0 ]; then dec=\"allow\"; else dec=\"deny\"; fi\nprintf \"SBL_PROBE_DETAILS {\\\"decision\\\":\\\"%s\\\",\\\"exit_code\\\":%s}\\n\" \"$dec\" \"$rc\"\nexit 0\n",
+        "xattr_probe",
+        "/private/tmp/foo",
+        "write"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:xattr",
+      "scenario_id": "baseline:adv:xattr:deny-bar-write",
+      "operation": "file-write-xattr",
+      "requested_path": "/private/tmp/bar",
+      "observed_path": "/private/tmp/bar",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/bar",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/sh",
+        "-c",
+        "target=\"$1\"\nmode=\"$2\"\nname=\"user.sandbox_lore\"\nif [ \"$mode\" = \"read\" ]; then\n  /usr/bin/xattr -p \"$name\" \"$target\" >/dev/null 2>&1\n  rc=$?\nelse\n  /usr/bin/xattr -w \"$name\" \"probe\" \"$target\" >/dev/null 2>&1\n  rc=$?\nfi\nif [ \"$rc\" -eq 0 ]; then dec=\"allow\"; else dec=\"deny\"; fi\nprintf \"SBL_PROBE_DETAILS {\\\"decision\\\":\\\"%s\\\",\\\"exit_code\\\":%s}\\n\" \"$dec\" \"$rc\"\nexit 0\n",
+        "xattr_probe",
+        "/private/tmp/bar",
+        "write"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:file_mode",
+      "scenario_id": "baseline:adv:file_mode:allow-private",
+      "operation": "file-read*",
+      "requested_path": "/private/tmp/mode_deny",
+      "observed_path": "/private/tmp/mode_deny",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/mode_deny",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/private/tmp/mode_deny"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "baseline",
+      "profile_id": "adv:file_mode",
+      "scenario_id": "baseline:adv:file_mode:deny-world",
+      "operation": "file-read*",
+      "requested_path": "/private/tmp/mode_allow",
+      "observed_path": "/private/tmp/mode_allow",
+      "observed_path_source": "unsandboxed_fd_path",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "unsandboxed_unavailable",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/mode_allow",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "exit_code": 0,
+      "command": [
+        "/bin/cat",
+        "/private/tmp/mode_allow"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:path_alias",
+      "scenario_id": "adv:path_alias:alias-tmp",
+      "operation": "file-read*",
+      "requested_path": "/tmp/runtime-adv/alias/allow.txt",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/runtime-adv/alias/allow.txt",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "errno": 2,
+      "failure_stage": "probe",
+      "failure_kind": "probe_nonzero_exit",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/path_alias.adv_path_alias.runtime.sb",
+        "/tmp/runtime-adv/alias/allow.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:path_alias",
+      "scenario_id": "adv:path_alias:alias-private",
+      "operation": "file-read*",
+      "requested_path": "/private/tmp/runtime-adv/alias/allow.txt",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/alias/allow.txt",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "errno": 2,
+      "failure_stage": "probe",
+      "failure_kind": "probe_nonzero_exit",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/path_alias.adv_path_alias.runtime.sb",
+        "/private/tmp/runtime-adv/alias/allow.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:path_edges",
+      "scenario_id": "adv:path_edges:allow-tmp",
+      "operation": "file-read*",
+      "requested_path": "/tmp/runtime-adv/edges/a",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/runtime-adv/edges/a",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "errno": 2,
+      "failure_stage": "probe",
+      "failure_kind": "probe_nonzero_exit",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/path_edges.adv_path_edges.runtime.sb",
+        "/tmp/runtime-adv/edges/a"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:path_edges",
+      "scenario_id": "adv:path_edges:deny-private",
+      "operation": "file-read*",
+      "requested_path": "/private/tmp/runtime-adv/edges/a",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/edges/a",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "errno": 2,
+      "failure_stage": "probe",
+      "failure_kind": "probe_nonzero_exit",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/path_edges.adv_path_edges.runtime.sb",
+        "/private/tmp/runtime-adv/edges/a"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:path_edges",
+      "scenario_id": "adv:path_edges:allow-subpath",
+      "operation": "file-read*",
+      "requested_path": "/tmp/runtime-adv/edges/okdir/item.txt",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/runtime-adv/edges/okdir/item.txt",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "errno": 2,
+      "failure_stage": "probe",
+      "failure_kind": "probe_nonzero_exit",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/path_edges.adv_path_edges.runtime.sb",
+        "/tmp/runtime-adv/edges/okdir/item.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:path_edges",
+      "scenario_id": "adv:path_edges:allow-subpath-normalized",
+      "operation": "file-read*",
+      "requested_path": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "errno": 2,
+      "failure_stage": "probe",
+      "failure_kind": "probe_nonzero_exit",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/path_edges.adv_path_edges.runtime.sb",
+        "/private/tmp/runtime-adv/edges/okdir/item.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:path_edges",
+      "scenario_id": "adv:path_edges:deny-dotdot",
+      "operation": "file-read*",
+      "requested_path": "/tmp/runtime-adv/edges/okdir/../blocked.txt",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/runtime-adv/edges/okdir/../blocked.txt",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "errno": 2,
+      "failure_stage": "probe",
+      "failure_kind": "probe_nonzero_exit",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/path_edges.adv_path_edges.runtime.sb",
+        "/tmp/runtime-adv/edges/okdir/../blocked.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:path_edges",
+      "scenario_id": "adv:path_edges:write-tmp",
+      "operation": "file-write*",
+      "requested_path": "/tmp/runtime-adv/edges/a",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/runtime-adv/edges/a",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "errno": 2,
+      "failure_stage": "probe",
+      "failure_kind": "probe_nonzero_exit",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_writer",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/path_edges.adv_path_edges.runtime.sb",
+        "/tmp/runtime-adv/edges/a"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:path_edges",
+      "scenario_id": "adv:path_edges:write-private",
+      "operation": "file-write*",
+      "requested_path": "/private/tmp/runtime-adv/edges/a",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/edges/a",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "errno": 2,
+      "failure_stage": "probe",
+      "failure_kind": "probe_nonzero_exit",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_writer",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/path_edges.adv_path_edges.runtime.sb",
+        "/private/tmp/runtime-adv/edges/a"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:path_edges",
+      "scenario_id": "adv:path_edges:write-subpath",
+      "operation": "file-write*",
+      "requested_path": "/tmp/runtime-adv/edges/okdir/item.txt",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/runtime-adv/edges/okdir/item.txt",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "errno": 2,
+      "failure_stage": "probe",
+      "failure_kind": "probe_nonzero_exit",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_writer",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/path_edges.adv_path_edges.runtime.sb",
+        "/tmp/runtime-adv/edges/okdir/item.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:path_edges",
+      "scenario_id": "adv:path_edges:write-dotdot",
+      "operation": "file-write*",
+      "requested_path": "/tmp/runtime-adv/edges/okdir/../blocked.txt",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/runtime-adv/edges/okdir/../blocked.txt",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "errno": 2,
+      "failure_stage": "probe",
+      "failure_kind": "probe_nonzero_exit",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_writer",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/path_edges.adv_path_edges.runtime.sb",
+        "/tmp/runtime-adv/edges/okdir/../blocked.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:struct_flat",
+      "scenario_id": "adv:struct_flat:allow-ok-root",
+      "operation": "file-read*",
+      "requested_path": "/tmp/runtime-adv/struct/ok/allowed.txt",
+      "observed_path": "/private/tmp/runtime-adv/struct/ok/allowed.txt",
+      "observed_path_source": "probe_fgetpath:present",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/runtime-adv/struct/ok/allowed.txt",
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/struct/ok/allowed.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": true
+      },
+      "decision": "allow",
+      "errno": null,
+      "failure_stage": null,
+      "failure_kind": null,
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/struct_flat.adv_struct_flat.runtime.sb",
+        "/tmp/runtime-adv/struct/ok/allowed.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:struct_flat",
+      "scenario_id": "adv:struct_flat:allow-ok-deep",
+      "operation": "file-read*",
+      "requested_path": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
+      "observed_path": "/private/tmp/runtime-adv/struct/ok/deep/nested.txt",
+      "observed_path_source": "probe_fgetpath:present",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/runtime-adv/struct/ok/deep/nested.txt",
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/struct/ok/deep/nested.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": true
+      },
+      "decision": "allow",
+      "errno": null,
+      "failure_stage": null,
+      "failure_kind": null,
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/struct_flat.adv_struct_flat.runtime.sb",
+        "/tmp/runtime-adv/struct/ok/deep/nested.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:struct_flat",
+      "scenario_id": "adv:struct_flat:deny-blocked",
+      "operation": "file-read*",
+      "requested_path": "/tmp/runtime-adv/struct/blocked.txt",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/runtime-adv/struct/blocked.txt",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "errno": 2,
+      "failure_stage": "probe",
+      "failure_kind": "probe_nonzero_exit",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/struct_flat.adv_struct_flat.runtime.sb",
+        "/tmp/runtime-adv/struct/blocked.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:struct_flat",
+      "scenario_id": "adv:struct_flat:deny-outside",
+      "operation": "file-read*",
+      "requested_path": "/tmp/runtime-adv/struct/outside.txt",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/runtime-adv/struct/outside.txt",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "errno": 2,
+      "failure_stage": "probe",
+      "failure_kind": "probe_nonzero_exit",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/struct_flat.adv_struct_flat.runtime.sb",
+        "/tmp/runtime-adv/struct/outside.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:struct_flat",
+      "scenario_id": "adv:struct_flat:write-ok-root",
+      "operation": "file-write*",
+      "requested_path": "/tmp/runtime-adv/struct/ok/allowed.txt",
+      "observed_path": "/private/tmp/runtime-adv/struct/ok/allowed.txt",
+      "observed_path_source": "probe_fgetpath:present",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/runtime-adv/struct/ok/allowed.txt",
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/struct/ok/allowed.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": true
+      },
+      "decision": "allow",
+      "errno": null,
+      "failure_stage": null,
+      "failure_kind": null,
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_writer",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/struct_flat.adv_struct_flat.runtime.sb",
+        "/tmp/runtime-adv/struct/ok/allowed.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:struct_flat",
+      "scenario_id": "adv:struct_flat:write-ok-deep",
+      "operation": "file-write*",
+      "requested_path": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
+      "observed_path": "/private/tmp/runtime-adv/struct/ok/deep/nested.txt",
+      "observed_path_source": "probe_fgetpath:present",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/runtime-adv/struct/ok/deep/nested.txt",
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/struct/ok/deep/nested.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": true
+      },
+      "decision": "allow",
+      "errno": null,
+      "failure_stage": null,
+      "failure_kind": null,
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_writer",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/struct_flat.adv_struct_flat.runtime.sb",
+        "/tmp/runtime-adv/struct/ok/deep/nested.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:struct_flat",
+      "scenario_id": "adv:struct_flat:write-blocked",
+      "operation": "file-write*",
+      "requested_path": "/tmp/runtime-adv/struct/blocked.txt",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/runtime-adv/struct/blocked.txt",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "errno": 2,
+      "failure_stage": "probe",
+      "failure_kind": "probe_nonzero_exit",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_writer",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/struct_flat.adv_struct_flat.runtime.sb",
+        "/tmp/runtime-adv/struct/blocked.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:struct_flat",
+      "scenario_id": "adv:struct_flat:write-outside",
+      "operation": "file-write*",
+      "requested_path": "/tmp/runtime-adv/struct/outside.txt",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/runtime-adv/struct/outside.txt",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "errno": 2,
+      "failure_stage": "probe",
+      "failure_kind": "probe_nonzero_exit",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_writer",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/struct_flat.adv_struct_flat.runtime.sb",
+        "/tmp/runtime-adv/struct/outside.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:struct_nested",
+      "scenario_id": "adv:struct_nested:allow-ok-root",
+      "operation": "file-read*",
+      "requested_path": "/tmp/runtime-adv/struct/ok/allowed.txt",
+      "observed_path": "/private/tmp/runtime-adv/struct/ok/allowed.txt",
+      "observed_path_source": "probe_fgetpath:present",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/runtime-adv/struct/ok/allowed.txt",
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/struct/ok/allowed.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": true
+      },
+      "decision": "allow",
+      "errno": null,
+      "failure_stage": null,
+      "failure_kind": null,
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/struct_nested.adv_struct_nested.runtime.sb",
+        "/tmp/runtime-adv/struct/ok/allowed.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:struct_nested",
+      "scenario_id": "adv:struct_nested:allow-ok-deep",
+      "operation": "file-read*",
+      "requested_path": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
+      "observed_path": "/private/tmp/runtime-adv/struct/ok/deep/nested.txt",
+      "observed_path_source": "probe_fgetpath:present",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/runtime-adv/struct/ok/deep/nested.txt",
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/struct/ok/deep/nested.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": true
+      },
+      "decision": "allow",
+      "errno": null,
+      "failure_stage": null,
+      "failure_kind": null,
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/struct_nested.adv_struct_nested.runtime.sb",
+        "/tmp/runtime-adv/struct/ok/deep/nested.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:struct_nested",
+      "scenario_id": "adv:struct_nested:deny-blocked",
+      "operation": "file-read*",
+      "requested_path": "/tmp/runtime-adv/struct/blocked.txt",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/runtime-adv/struct/blocked.txt",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "errno": 2,
+      "failure_stage": "probe",
+      "failure_kind": "probe_nonzero_exit",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/struct_nested.adv_struct_nested.runtime.sb",
+        "/tmp/runtime-adv/struct/blocked.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:struct_nested",
+      "scenario_id": "adv:struct_nested:deny-outside",
+      "operation": "file-read*",
+      "requested_path": "/tmp/runtime-adv/struct/outside.txt",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/runtime-adv/struct/outside.txt",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "errno": 2,
+      "failure_stage": "probe",
+      "failure_kind": "probe_nonzero_exit",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/struct_nested.adv_struct_nested.runtime.sb",
+        "/tmp/runtime-adv/struct/outside.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:struct_nested",
+      "scenario_id": "adv:struct_nested:write-ok-root",
+      "operation": "file-write*",
+      "requested_path": "/tmp/runtime-adv/struct/ok/allowed.txt",
+      "observed_path": "/private/tmp/runtime-adv/struct/ok/allowed.txt",
+      "observed_path_source": "probe_fgetpath:present",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/runtime-adv/struct/ok/allowed.txt",
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/struct/ok/allowed.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": true
+      },
+      "decision": "allow",
+      "errno": null,
+      "failure_stage": null,
+      "failure_kind": null,
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_writer",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/struct_nested.adv_struct_nested.runtime.sb",
+        "/tmp/runtime-adv/struct/ok/allowed.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:struct_nested",
+      "scenario_id": "adv:struct_nested:write-ok-deep",
+      "operation": "file-write*",
+      "requested_path": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
+      "observed_path": "/private/tmp/runtime-adv/struct/ok/deep/nested.txt",
+      "observed_path_source": "probe_fgetpath:present",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/runtime-adv/struct/ok/deep/nested.txt",
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/struct/ok/deep/nested.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": true
+      },
+      "decision": "allow",
+      "errno": null,
+      "failure_stage": null,
+      "failure_kind": null,
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_writer",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/struct_nested.adv_struct_nested.runtime.sb",
+        "/tmp/runtime-adv/struct/ok/deep/nested.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:struct_nested",
+      "scenario_id": "adv:struct_nested:write-blocked",
+      "operation": "file-write*",
+      "requested_path": "/tmp/runtime-adv/struct/blocked.txt",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/runtime-adv/struct/blocked.txt",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "errno": 2,
+      "failure_stage": "probe",
+      "failure_kind": "probe_nonzero_exit",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_writer",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/struct_nested.adv_struct_nested.runtime.sb",
+        "/tmp/runtime-adv/struct/blocked.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:struct_nested",
+      "scenario_id": "adv:struct_nested:write-outside",
+      "operation": "file-write*",
+      "requested_path": "/tmp/runtime-adv/struct/outside.txt",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/tmp/runtime-adv/struct/outside.txt",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "errno": 2,
+      "failure_stage": "probe",
+      "failure_kind": "probe_nonzero_exit",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_writer",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/struct_nested.adv_struct_nested.runtime.sb",
+        "/tmp/runtime-adv/struct/outside.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:path_edges_private",
+      "scenario_id": "adv:path_edges_private:allow-private",
+      "operation": "file-read*",
+      "requested_path": "/private/tmp/runtime-adv/edges/a",
+      "observed_path": "/private/tmp/runtime-adv/edges/a",
+      "observed_path_source": "probe_fgetpath:present",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/runtime-adv/edges/a",
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/edges/a",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": true
+      },
+      "decision": "allow",
+      "errno": null,
+      "failure_stage": null,
+      "failure_kind": null,
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/path_edges_private.adv_path_edges_private.runtime.sb",
+        "/private/tmp/runtime-adv/edges/a"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:path_edges_private",
+      "scenario_id": "adv:path_edges_private:allow-private-subpath",
+      "operation": "file-read*",
+      "requested_path": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "observed_path": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "observed_path_source": "probe_fgetpath:present",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": true
+      },
+      "decision": "allow",
+      "errno": null,
+      "failure_stage": null,
+      "failure_kind": null,
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/path_edges_private.adv_path_edges_private.runtime.sb",
+        "/private/tmp/runtime-adv/edges/okdir/item.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:path_edges_private",
+      "scenario_id": "adv:path_edges_private:allow-tmp",
+      "operation": "file-read*",
+      "requested_path": "/tmp/runtime-adv/edges/a",
+      "observed_path": "/private/tmp/runtime-adv/edges/a",
+      "observed_path_source": "probe_fgetpath:present",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/runtime-adv/edges/a",
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/edges/a",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": true
+      },
+      "decision": "allow",
+      "errno": null,
+      "failure_stage": null,
+      "failure_kind": null,
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/path_edges_private.adv_path_edges_private.runtime.sb",
+        "/tmp/runtime-adv/edges/a"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:path_edges_private",
+      "scenario_id": "adv:path_edges_private:allow-tmp-subpath",
+      "operation": "file-read*",
+      "requested_path": "/tmp/runtime-adv/edges/okdir/item.txt",
+      "observed_path": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "observed_path_source": "probe_fgetpath:present",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": true
+      },
+      "decision": "allow",
+      "errno": null,
+      "failure_stage": null,
+      "failure_kind": null,
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/path_edges_private.adv_path_edges_private.runtime.sb",
+        "/tmp/runtime-adv/edges/okdir/item.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:path_edges_private",
+      "scenario_id": "adv:path_edges_private:deny-dotdot",
+      "operation": "file-read*",
+      "requested_path": "/private/tmp/runtime-adv/edges/okdir/../blocked.txt",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/edges/okdir/../blocked.txt",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "errno": 2,
+      "failure_stage": "probe",
+      "failure_kind": "probe_nonzero_exit",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/path_edges_private.adv_path_edges_private.runtime.sb",
+        "/private/tmp/runtime-adv/edges/okdir/../blocked.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:path_edges_private",
+      "scenario_id": "adv:path_edges_private:write-private",
+      "operation": "file-write*",
+      "requested_path": "/private/tmp/runtime-adv/edges/a",
+      "observed_path": "/private/tmp/runtime-adv/edges/a",
+      "observed_path_source": "probe_fgetpath:present",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/runtime-adv/edges/a",
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/edges/a",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": true
+      },
+      "decision": "allow",
+      "errno": null,
+      "failure_stage": null,
+      "failure_kind": null,
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_writer",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/path_edges_private.adv_path_edges_private.runtime.sb",
+        "/private/tmp/runtime-adv/edges/a"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:path_edges_private",
+      "scenario_id": "adv:path_edges_private:write-private-subpath",
+      "operation": "file-write*",
+      "requested_path": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "observed_path": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "observed_path_source": "probe_fgetpath:present",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": true
+      },
+      "decision": "allow",
+      "errno": null,
+      "failure_stage": null,
+      "failure_kind": null,
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_writer",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/path_edges_private.adv_path_edges_private.runtime.sb",
+        "/private/tmp/runtime-adv/edges/okdir/item.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:path_edges_private",
+      "scenario_id": "adv:path_edges_private:write-tmp",
+      "operation": "file-write*",
+      "requested_path": "/tmp/runtime-adv/edges/a",
+      "observed_path": "/private/tmp/runtime-adv/edges/a",
+      "observed_path_source": "probe_fgetpath:present",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/runtime-adv/edges/a",
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/edges/a",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": true
+      },
+      "decision": "allow",
+      "errno": null,
+      "failure_stage": null,
+      "failure_kind": null,
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_writer",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/path_edges_private.adv_path_edges_private.runtime.sb",
+        "/tmp/runtime-adv/edges/a"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:path_edges_private",
+      "scenario_id": "adv:path_edges_private:write-tmp-subpath",
+      "operation": "file-write*",
+      "requested_path": "/tmp/runtime-adv/edges/okdir/item.txt",
+      "observed_path": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "observed_path_source": "probe_fgetpath:present",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": true,
+        "nofirmlink_differs": true
+      },
+      "decision": "allow",
+      "errno": null,
+      "failure_stage": null,
+      "failure_kind": null,
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_writer",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/path_edges_private.adv_path_edges_private.runtime.sb",
+        "/tmp/runtime-adv/edges/okdir/item.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:path_edges_private",
+      "scenario_id": "adv:path_edges_private:write-dotdot",
+      "operation": "file-write*",
+      "requested_path": "/private/tmp/runtime-adv/edges/okdir/../blocked.txt",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/edges/okdir/../blocked.txt",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "errno": 2,
+      "failure_stage": "probe",
+      "failure_kind": "probe_nonzero_exit",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_writer",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/path_edges_private.adv_path_edges_private.runtime.sb",
+        "/private/tmp/runtime-adv/edges/okdir/../blocked.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:mount_relative_path",
+      "scenario_id": "adv:mount_relative_path:allow-subpath",
+      "operation": "file-read*",
+      "requested_path": "/private/tmp/runtime-adv/mountrel/allowed.txt",
+      "observed_path": "/private/tmp/runtime-adv/mountrel/allowed.txt",
+      "observed_path_source": "probe_fgetpath:present",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/runtime-adv/mountrel/allowed.txt",
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/mountrel/allowed.txt",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": true
+      },
+      "decision": "allow",
+      "errno": null,
+      "failure_stage": null,
+      "failure_kind": null,
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/mount_relative_path.adv_mount_relative_path.runtime.sb",
+        "/private/tmp/runtime-adv/mountrel/allowed.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:mount_relative_path",
+      "scenario_id": "adv:mount_relative_path:deny-outside",
+      "operation": "file-read*",
+      "requested_path": "/private/tmp/runtime-adv/mountrel_outside/blocked.txt",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/runtime-adv/mountrel_outside/blocked.txt",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "errno": 2,
+      "failure_stage": "probe",
+      "failure_kind": "probe_nonzero_exit",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/mount_relative_path.adv_mount_relative_path.runtime.sb",
+        "/private/tmp/runtime-adv/mountrel_outside/blocked.txt"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:xattr",
+      "scenario_id": "adv:xattr:allow-foo-read",
+      "operation": "file-read-xattr",
+      "requested_path": "/private/tmp/foo",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/foo",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "errno": null,
+      "failure_stage": null,
+      "failure_kind": null,
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_runner",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/xattr.adv_xattr.runtime.sb",
+        "--",
+        "/bin/sh",
+        "-c",
+        "target=\"$1\"\nmode=\"$2\"\nname=\"user.sandbox_lore\"\nif [ \"$mode\" = \"read\" ]; then\n  /usr/bin/xattr -p \"$name\" \"$target\" >/dev/null 2>&1\n  rc=$?\nelse\n  /usr/bin/xattr -w \"$name\" \"probe\" \"$target\" >/dev/null 2>&1\n  rc=$?\nfi\nif [ \"$rc\" -eq 0 ]; then dec=\"allow\"; else dec=\"deny\"; fi\nprintf \"SBL_PROBE_DETAILS {\\\"decision\\\":\\\"%s\\\",\\\"exit_code\\\":%s}\\n\" \"$dec\" \"$rc\"\nexit 0\n",
+        "xattr_probe",
+        "/private/tmp/foo",
+        "read"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:xattr",
+      "scenario_id": "adv:xattr:deny-bar-read",
+      "operation": "file-read-xattr",
+      "requested_path": "/private/tmp/bar",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/bar",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "errno": null,
+      "failure_stage": null,
+      "failure_kind": null,
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_runner",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/xattr.adv_xattr.runtime.sb",
+        "--",
+        "/bin/sh",
+        "-c",
+        "target=\"$1\"\nmode=\"$2\"\nname=\"user.sandbox_lore\"\nif [ \"$mode\" = \"read\" ]; then\n  /usr/bin/xattr -p \"$name\" \"$target\" >/dev/null 2>&1\n  rc=$?\nelse\n  /usr/bin/xattr -w \"$name\" \"probe\" \"$target\" >/dev/null 2>&1\n  rc=$?\nfi\nif [ \"$rc\" -eq 0 ]; then dec=\"allow\"; else dec=\"deny\"; fi\nprintf \"SBL_PROBE_DETAILS {\\\"decision\\\":\\\"%s\\\",\\\"exit_code\\\":%s}\\n\" \"$dec\" \"$rc\"\nexit 0\n",
+        "xattr_probe",
+        "/private/tmp/bar",
+        "read"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:xattr",
+      "scenario_id": "adv:xattr:allow-foo-write",
+      "operation": "file-write-xattr",
+      "requested_path": "/private/tmp/foo",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/foo",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "allow",
+      "errno": null,
+      "failure_stage": null,
+      "failure_kind": null,
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_runner",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/xattr.adv_xattr.runtime.sb",
+        "--",
+        "/bin/sh",
+        "-c",
+        "target=\"$1\"\nmode=\"$2\"\nname=\"user.sandbox_lore\"\nif [ \"$mode\" = \"read\" ]; then\n  /usr/bin/xattr -p \"$name\" \"$target\" >/dev/null 2>&1\n  rc=$?\nelse\n  /usr/bin/xattr -w \"$name\" \"probe\" \"$target\" >/dev/null 2>&1\n  rc=$?\nfi\nif [ \"$rc\" -eq 0 ]; then dec=\"allow\"; else dec=\"deny\"; fi\nprintf \"SBL_PROBE_DETAILS {\\\"decision\\\":\\\"%s\\\",\\\"exit_code\\\":%s}\\n\" \"$dec\" \"$rc\"\nexit 0\n",
+        "xattr_probe",
+        "/private/tmp/foo",
+        "write"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:xattr",
+      "scenario_id": "adv:xattr:deny-bar-write",
+      "operation": "file-write-xattr",
+      "requested_path": "/private/tmp/bar",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/bar",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "errno": null,
+      "failure_stage": null,
+      "failure_kind": null,
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_runner",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/xattr.adv_xattr.runtime.sb",
+        "--",
+        "/bin/sh",
+        "-c",
+        "target=\"$1\"\nmode=\"$2\"\nname=\"user.sandbox_lore\"\nif [ \"$mode\" = \"read\" ]; then\n  /usr/bin/xattr -p \"$name\" \"$target\" >/dev/null 2>&1\n  rc=$?\nelse\n  /usr/bin/xattr -w \"$name\" \"probe\" \"$target\" >/dev/null 2>&1\n  rc=$?\nfi\nif [ \"$rc\" -eq 0 ]; then dec=\"allow\"; else dec=\"deny\"; fi\nprintf \"SBL_PROBE_DETAILS {\\\"decision\\\":\\\"%s\\\",\\\"exit_code\\\":%s}\\n\" \"$dec\" \"$rc\"\nexit 0\n",
+        "xattr_probe",
+        "/private/tmp/bar",
+        "write"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:file_mode",
+      "scenario_id": "adv:file_mode:allow-private",
+      "operation": "file-read*",
+      "requested_path": "/private/tmp/mode_deny",
+      "observed_path": "/private/tmp/mode_deny",
+      "observed_path_source": "probe_fgetpath:present",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": "/System/Volumes/Data/private/tmp/mode_deny",
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:present",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/mode_deny",
+      "normalized_path_source": "observed_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": true
+      },
+      "decision": "allow",
+      "errno": null,
+      "failure_stage": null,
+      "failure_kind": null,
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/file_mode.adv_file_mode.runtime.sb",
+        "/private/tmp/mode_deny"
+      ]
+    },
+    {
+      "schema_version": "runtime-tools.path_witness.v0.1",
+      "lane": "scenario",
+      "profile_id": "adv:file_mode",
+      "scenario_id": "adv:file_mode:deny-world",
+      "operation": "file-read*",
+      "requested_path": "/private/tmp/mode_allow",
+      "observed_path": null,
+      "observed_path_source": "probe_fgetpath:missing",
+      "observed_path_errno": null,
+      "observed_path_nofirmlink": null,
+      "observed_path_nofirmlink_source": "probe_fgetpath_nofirmlink:missing",
+      "observed_path_nofirmlink_errno": null,
+      "normalized_path": "/private/tmp/mode_allow",
+      "normalized_path_source": "requested_path",
+      "canonicalization": {
+        "alias_pair": false,
+        "nofirmlink_differs": false
+      },
+      "decision": "deny",
+      "errno": 2,
+      "failure_stage": "probe",
+      "failure_kind": "probe_nonzero_exit",
+      "command": [
+        "book/api/runtime/native/sandbox_runner/sandbox_reader",
+        "book/evidence/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_profiles/file_mode.adv_file_mode.runtime.sb",
+        "/private/tmp/mode_allow"
+      ]
+    }
+  ]
+}

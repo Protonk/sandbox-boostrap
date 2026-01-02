@@ -1,0 +1,29 @@
+{
+  "apply_preflight_profile": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/apply_preflight_allow.sb",
+  "controls": {
+    "baseline": true
+  },
+  "lanes": {
+    "baseline": true,
+    "oracle": true,
+    "scenario": true
+  },
+  "plan_id": "runtime-checks.v1",
+  "profiles": [
+    "bucket4:v1_read",
+    "bucket5:v11_read_subpath",
+    "runtime:allow_all",
+    "runtime:metafilter_any",
+    "runtime:strict_1",
+    "sys:airlock",
+    "sys:bsd",
+    "sys:blastdoor",
+    "sys:cgpdfservice",
+    "appsandbox:baseline",
+    "appsandbox:net-client",
+    "appsandbox:downloads-rw"
+  ],
+  "registry_id": "runtime-checks",
+  "schema_version": "runtime-tools.plan.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

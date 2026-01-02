@@ -7,17 +7,17 @@
  All automated checks flow through a single CI harness that mirrors pytest discovery without relying on pytest’s runner, and then compiles the Swift graph tools; this keeps “what passes CI” tightly coupled to the host-specific world and the mapping layer.
 
 - Single entrypoint: `make -C book test` (default Make target) calls `book/ci.py`, which in turn runs the Python harness and the Swift build once, with coarse-grained stamps in `book/out/ci-stamps/`.
-- Python side: `book/ci.py` fingerprints `book/tests`, `book/api`, `book/graph/concepts/validation`, `book/examples`, and `book/experiments`, then invokes `python -m book.tests.run_all` as a lightweight stand-in for pytest.
+- Python side: `book/ci.py` fingerprints `book/tests`, `book/api`, `book/graph/concepts/validation`, `book/examples`, and `book/evidence/experiments`, then invokes `python -m book.tests.run_all` as a lightweight stand-in for pytest.
 - Harness shape: `book/tests/run_all.py` discovers `book/tests/test_*.py` plus any `book/api/**/test_*.py` (today only `book/api/golden_runner/test_golden_runner.py`), supports a small fixture set (`tmp_path`, `monkeypatch`), and runs module-level `test_*` callables plus `unittest.TestCase` classes.
 - Expectations: `book/tests/README.md` frames this as a sanity suite—fast, deterministic, with `@pytest.mark.system` on tests that shell out or depend on macOS libs, and with all asserted paths normalized to repo-relative form.
-- Validation bridge: `book/graph/concepts/validation/out/validation_status.json` currently records four `ok` jobs (`vocab:sonoma-14.4.1`, `experiment:field2`, `experiment:runtime-checks`, `experiment:system-profile-digest`), and several tests assume these jobs have run and produced their normalized IR.
+- Validation bridge: `book/evidence/graph/concepts/validation/out/validation_status.json` currently records four `ok` jobs (`vocab:sonoma-14.4.1`, `experiment:field2`, `experiment:runtime-checks`, `experiment:system-profile-digest`), and several tests assume these jobs have run and produced their normalized IR.
 
 ## High-Level Coverage Picture
 
  Coverage clusters fall into four main bands: (1) structural bedrock for vocab, system profiles, tag layouts, and op-table, (2) CARTON manifest and query API contracts, (3) runtime semantics for a small “golden” operation/profile set plus a VFS canonicalization scenario, and (4) shape and presence checks for experiments, examples, and toolchain builds.
 
 At a high level:
-- Structural/mapping tests aim at the **bedrock** tier: they assert file presence, schema, world pinning, and cross-file consistency for the shared IR in `book/graph/mappings/*` and golden-corpus outputs.
+- Structural/mapping tests aim at the **bedrock** tier: they assert file presence, schema, world pinning, and cross-file consistency for the shared IR in `book/evidence/graph/mappings/*` and golden-corpus outputs.
 - CARTON tests sit just above that, ensuring that the frozen IR (`CARTON.json` + indices) remains an accurate projection of the underlying mappings and validation IR for this world.
 - Runtime tests live in the **mapped** tier: they provide detailed allow/deny expectations for a small set of profiles and operations (notably `file-read*`, `file-write*`, and `mach-lookup`) and treat VFS canonicalization quirks as environment facts rather than decoder bugs.
 - Experiments/examples/tests treat their JSON artifacts and SBPL assets as **shape-guarded** but not deeply interpreted; many assertions are “does this JSON look like we expect?” rather than “does this SBPL profile enforce every substrate claim?”.
@@ -31,25 +31,25 @@ The sections below expand each band and connect individual tests back to the con
 In this band, tests mostly answer “are the mapping JSONs that everything else uses still present, well-formed, and aligned with the concept inventory and world baseline?” rather than “are all semantic claims complete?”. Key pieces:
 
 - **Bedrock registry and concept inventory**
-  - `book/tests/planes/graph/test_bedrock_registry.py` keeps `book/graph/concepts/BEDROCK_SURFACES.json` in lockstep with the bedrock navigation bullets in `CONCEPT_INVENTORY.md` and asserts that root and graph-level `AGENTS.md` files direct readers to that registry. This ties the human-facing concept story to the machine-readable surface list.
+  - `book/tests/planes/graph/test_bedrock_registry.py` keeps `book/evidence/graph/concepts/BEDROCK_SURFACES.json` in lockstep with the bedrock navigation bullets in `CONCEPT_INVENTORY.md` and asserts that root and graph-level `AGENTS.md` files direct readers to that registry. This ties the human-facing concept story to the machine-readable surface list.
 
 - **System profile digests, tag layouts, and world pinning**
-  - `book/tests/planes/graph/test_mappings_guardrail.py` and `test_system_profiles_mapping.py` guard `book/graph/mappings/system_profiles/digests.json`: they require the canonical trio (`sys:airlock`, `sys:bsd`, `sys:sample`) to exist, enforce `metadata.status == "ok"`, and insist that mapping- and contract-level `world_id` values both match the Sonoma baseline in `book/world/sonoma-14.4.1-23E224-arm64/world.json`.
-  - The same tests ensure that tag layouts (`book/graph/mappings/tag_layouts/tag_layouts.json`) and CARTON coverage metadata reflect any future status demotions, so drift in canonical digests cannot silently remain “ok” in downstream IR.
+  - `book/tests/planes/graph/test_mappings_guardrail.py` and `test_system_profiles_mapping.py` guard `book/evidence/graph/mappings/system_profiles/digests.json`: they require the canonical trio (`sys:airlock`, `sys:bsd`, `sys:sample`) to exist, enforce `metadata.status == "ok"`, and insist that mapping- and contract-level `world_id` values both match the Sonoma baseline in `book/world/sonoma-14.4.1-23E224-arm64/world.json`.
+  - The same tests ensure that tag layouts (`book/evidence/graph/mappings/tag_layouts/tag_layouts.json`) and CARTON coverage metadata reflect any future status demotions, so drift in canonical digests cannot silently remain “ok” in downstream IR.
   - `book/tests/planes/graph/test_tag_layout_hash.py` asserts that the tag-layout hash function is sensitive to tag-set changes but insensitive to metadata-only churn, keeping the “contract” tied to structure, not comments or notes.
 
 - **Vocab and dyld alignment**
-  - `book/tests/planes/graph/test_vocab_harvest.py` couples the validation vocab mapping in `book/graph/mappings/vocab/{ops.json,filters.json}` to dyld-harvested name lists from `book/experiments/vocab-from-cache/out`. It asserts identical name order, contiguous IDs, and an `ok` metadata status, effectively treating these vocab tables as the canonical Operation/Filter vocabulary for this world.
+  - `book/tests/planes/graph/test_vocab_harvest.py` couples the validation vocab mapping in `book/graph/mappings/vocab/{ops.json,filters.json}` to dyld-harvested name lists from `book/evidence/experiments/vocab-from-cache/out`. It asserts identical name order, contiguous IDs, and an `ok` metadata status, effectively treating these vocab tables as the canonical Operation/Filter vocabulary for this world.
   - `book/tests/planes/graph/test_dyld_libs_manifest.py` shells out to `book/graph/mappings/dyld-libs/check_manifest.py` and fails if the dyld manifest and on-disk slices disagree, tying vocab derivation back to the captured dyld slice set.
 
 - **Anchors, field2, and probe-structure links**
-  - `book/tests/planes/graph/test_anchor_filter_alignment.py`, `test_anchor_outputs.py`, and `test_anchor_scan.py` connect the curated anchor ↔ filter mappings in `book/graph/mappings/anchors/anchor_filter_map.json` to the raw anchor hits produced by `book/experiments/field2-final-final/probe-op-structure/out/anchor_hits.json` and to literal-pool offsets and node indices in compiled probe profiles. They require that mapped anchors have observed `field2` values and that those values are reflected in the mapping, upgrading those entries toward bedrock.
-  - `book/tests/planes/graph/test_mappings_guardrail.py` also checks that the field2 experiment IR (`book/graph/concepts/validation/out/experiments/field2/field2_ir.json`) includes key system profiles such as `sys:bsd` and `sys:sample`, confirming that anchor/field2 work has coverage for the canonical trio.
+  - `book/tests/planes/graph/test_anchor_filter_alignment.py`, `test_anchor_outputs.py`, and `test_anchor_scan.py` connect the curated anchor ↔ filter mappings in `book/evidence/graph/mappings/anchors/anchor_filter_map.json` to the raw anchor hits produced by `book/evidence/experiments/field2-final-final/probe-op-structure/out/anchor_hits.json` and to literal-pool offsets and node indices in compiled probe profiles. They require that mapped anchors have observed `field2` values and that those values are reflected in the mapping, upgrading those entries toward bedrock.
+  - `book/tests/planes/graph/test_mappings_guardrail.py` also checks that the field2 experiment IR (`book/evidence/graph/concepts/validation/out/experiments/field2/field2_ir.json`) includes key system profiles such as `sys:bsd` and `sys:sample`, confirming that anchor/field2 work has coverage for the canonical trio.
 
 - **Decoder structure and golden corpus**
   - `book/tests/planes/contracts/test_decoder_headers.py`, `test_decoder_validation.py`, and `test_validation.py` sanity-check `book/api/profile_tools/decoder.py`: they decode fixtures and assert header shapes, section offsets, tag counts vs node counts, and CLI JSON dump/summary behavior. These tests treat decoder output as structurally reliable (bedrock) for the fixture set.
-  - `book/tests/planes/graph/test_golden_corpus.py` ties the golden-corpus manifest and summary (`book/graph/concepts/validation/golden_corpus/*`) to the Sonoma `world_id` and to the tag-layout hash, ensuring that the curated corpus of compiled profiles stays synchronized with the tag-layout mapping.
-  - `book/tests/planes/runtime/test_golden_decodes.py` validates the `book/graph/mappings/runtime/golden_decodes.json` summaries (node/op counts and literal strings) for the golden runtime set, providing a stable decode view for those profiles.
+  - `book/tests/planes/graph/test_golden_corpus.py` ties the golden-corpus manifest and summary (`book/evidence/graph/concepts/validation/golden_corpus/*`) to the Sonoma `world_id` and to the tag-layout hash, ensuring that the curated corpus of compiled profiles stays synchronized with the tag-layout mapping.
+  - `book/tests/planes/runtime/test_golden_decodes.py` validates the `book/evidence/graph/mappings/runtime/golden_decodes.json` summaries (node/op counts and literal strings) for the golden runtime set, providing a stable decode view for those profiles.
 
 Together, these tests say: if they pass, the project can treat vocab tables, canonical system digests, tag layouts, anchor mappings, and decoder output for golden fixtures as structurally trustworthy bedrock for this world.
 
@@ -62,7 +62,7 @@ Together, these tests say: if they pass, the project can treat vocab tables, can
   - The same test verifies that `world_id` in the manifest matches the Sonoma baseline world in `book/world/sonoma-14.4.1-23E224-arm64/world.json`.
 
 - **Coverage, indices, and downgrade propagation**
-  - `book/tests/planes/graph/test_mappings_guardrail.py` ensures that `book/graph/mappings/carton/operation_coverage.json` and `book/graph/mappings/tag_layouts/tag_layouts.json` carry the same metadata status as system digests and that canonical profile statuses are present for the canonical trio.
+  - `book/tests/planes/graph/test_mappings_guardrail.py` ensures that `book/graph/mappings/carton/operation_coverage.json` and `book/evidence/graph/mappings/tag_layouts/tag_layouts.json` carry the same metadata status as system digests and that canonical profile statuses are present for the canonical trio.
   - `book/tests/planes/graph/test_concept_index_alignment.py` and `test_ops_coverage.py` assert alignment between concept indices, operation vocab, and coverage entries, and require that operations with strong runtime backing today—`file-read*`, `file-write*`, `mach-lookup`—have `runtime_evidence == True` in `ops_coverage.json`.
   - `book/tests/planes/graph/test_canonical_drift_scenario.py` simulates a fabricated hash drift for `sys:bsd` and exercises the system-profiles, tag-layouts, and CARTON overlay generators. It asserts that status demotions propagate all the way from digests into coverage and indices, and that unaffected profiles (e.g., `sys:airlock`) stay `ok`. This test explicitly encodes the downgrade story for canonical drift.
 
@@ -77,23 +77,23 @@ When these tests pass, the project can treat CARTON as a faithful, world-pinned 
  Runtime tests provide a dense, host-specific picture for a handful of “golden” profiles and operations, establishing that the static IR (vocab, tag layouts, system digests) agrees with observed kernel behavior for those cases; outside that slice, runtime coverage is explicitly partial.
 
 - **Golden runtime scenarios**
-  - `book/tests/planes/runtime/test_runtime_golden.py`, `test_runtime_results_structure.py`, `test_runtime_results_outcomes.py`, `test_runtime_matrix_shape.py`, `test_runtime_results_metafilter.py`, and `test_runtime_results_system_profiles.py` all consume normalized runtime IR from `book/graph/concepts/validation/out/experiments/runtime-checks/runtime_results.normalized.json` and from `book/experiments/runtime-final-final/suites/runtime-checks/out`. They assert:
+  - `book/tests/planes/runtime/test_runtime_golden.py`, `test_runtime_results_structure.py`, `test_runtime_results_outcomes.py`, `test_runtime_matrix_shape.py`, `test_runtime_results_metafilter.py`, and `test_runtime_results_system_profiles.py` all consume normalized runtime IR from `book/evidence/graph/concepts/validation/out/experiments/runtime-checks/runtime_results.normalized.json` and from `book/evidence/experiments/runtime-final-final/suites/runtime-checks/out`. They assert:
     - Presence of the golden profiles (`bucket4:v1_read`, `bucket5:v11_read_subpath`, `runtime:metafilter_any`, `runtime:strict_1`, `sys:bsd`, `sys:airlock`) in both expected matrices and runtime results.
     - Stable allow/deny patterns for file-read/write probes across different synthetic profiles (e.g., bucket 4 vs bucket 5).
     - System profile behaviors, including that `sys:bsd` denies all probes in the particular runtime-checks matrix, and that `sys:airlock` probes are recorded as EPERM/deny with a status that allows for `blocked` or `partial` (capturing apply gates rather than treating them as missing profiles).
 
 - **Adversarial profiles and network/VFS behavior**
-  - `book/tests/planes/runtime/test_runtime_adversarial.py` and `test_network_outbound_guardrail.py` ingest artifacts from `book/experiments/runtime-final-final/suites/runtime-adversarial/out` and assert that:
+  - `book/tests/planes/runtime/test_runtime_adversarial.py` and `test_network_outbound_guardrail.py` ingest artifacts from `book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out` and assert that:
     - Expected matrices are world-pinned and profile sets match between expectations and runtime results.
     - Every mismatch in `mismatch_summary.json` is annotated in `impact_map.json`, making divergences explicit rather than silently ignoring them.
     - Carefully paired SBPL profiles for network-outbound allow/deny differ only in the `network-outbound` clause and produce expected allow/deny behavior at runtime.
-  - `book/tests/planes/runtime/test_vfs_canonicalization_outputs.py` and `test_vfs_canonicalization_structural.py` focus on the VFS canonicalization experiment (`book/experiments/runtime-final-final/suites/vfs-canonicalization/out`), asserting:
+  - `book/tests/planes/runtime/test_vfs_canonicalization_outputs.py` and `test_vfs_canonicalization_structural.py` focus on the VFS canonicalization experiment (`book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/out`), asserting:
     - Shape and presence for expected vs runtime JSON lists.
     - That a “tmp-only” profile denies all probes due to `/tmp`→`/private/tmp` canonicalization.
     - That “private-tmp-only” and “both-paths” profiles follow a predictable allow/deny pattern for file-read/write probes across `/tmp`, `/private/tmp`, and related paths, and that metadata probes deny across the board (recorded as a harness limitation).
 
 - **Runtime mappings and signatures**
-  - `book/tests/planes/runtime/test_runtime_signatures_mapping.py` checks `book/graph/mappings/runtime/runtime_signatures.json`: it requires `metadata.status == "ok"`, absence of timestamps, correct `world_id`, presence of signatures for the golden profiles, and structured field2 summaries for key system profiles.
+  - `book/tests/planes/runtime/test_runtime_signatures_mapping.py` checks `book/evidence/graph/mappings/runtime/runtime_signatures.json`: it requires `metadata.status == "ok"`, absence of timestamps, correct `world_id`, presence of signatures for the golden profiles, and structured field2 summaries for key system profiles.
   - `book/tests/planes/runtime/test_golden_decodes.py` links these signatures back to `golden_decodes.json` by requiring non-zero node/op counts and expected literal strings for `runtime:metafilter_any` and `runtime:strict_1`, tying runtime expectations to static decode details.
 
 Collectively, these tests justify treating runtime behavior for `file-read*`, `file-write*`, `mach-lookup`, and the VFS canonicalization scenario as well-understood on this host (mapped), while explicitly leaving most other operations and profiles in a structural-only tier.
@@ -103,7 +103,7 @@ Collectively, these tests justify treating runtime behavior for `file-read*`, `f
  Experiment and example tests are almost entirely structural: they ensure that curated SBPL profiles, experiment outputs, kernel symbol inventories, and example demos remain present and well-shaped so other tools and chapters can rely on them as inputs.
 
 - **Experiment outputs**
-  - `book/tests/planes/examples/test_experiments.py` inspects artifacts from `book/experiments/node-layout/out`, `op-table-operation/out`, and `op-table-vocab-alignment/out`, checking for expected keys (names, op entries, section lengths, alignment records) and verifying that node-layout decoder blocks contain node counts, tag counts, and op-table offsets. These tests treat those JSON files as stable IR for decoder/op-table work.
+  - `book/tests/planes/examples/test_experiments.py` inspects artifacts from `book/evidence/experiments/node-layout/out`, `op-table-operation/out`, and `op-table-vocab-alignment/out`, checking for expected keys (names, op entries, section lengths, alignment records) and verifying that node-layout decoder blocks contain node counts, tag counts, and op-table offsets. These tests treat those JSON files as stable IR for decoder/op-table work.
   - `book/tests/planes/tools/test_entitlement_diff_assets.py` and `test_kernel_string_refs.py` (not detailed here) similarly check the presence and basic structure of outputs in entitlement-diff and kernel-symbols experiments, ensuring that later consumers can assume those artifacts exist and are minimally sane.
 
 - **Examples and SBPL/tooling scaffolds**
@@ -126,12 +126,12 @@ These tests do not claim semantic completeness for the experiments or examples; 
  Test coverage lines up cleanly with the project’s evidence tiers: structural and vocab clusters are treated as bedrock, runtime/lifecycle work as mapped, and much of the narrative/experiment layer as hypothesis or shape-guarded.
 
 - **Bedrock cluster**
-  - `book/graph/concepts/validation/out/validation_status.json` lists four jobs, all `ok` for this world: vocab extraction (`vocab:sonoma-14.4.1`), field2 experiment normalization, runtime-checks normalization, and system-profile-digest IR. Many mapping tests (vocab, system digests, tag layouts, runtime signatures) implicitly assume these jobs have produced their outputs.
-  - Bedrock surfaces in `book/graph/concepts/BEDROCK_SURFACES.json` are enforced via `test_bedrock_registry.py`; system digests in `book/graph/mappings/system_profiles/digests.json` and tag-layouts in `book/graph/mappings/tag_layouts/tag_layouts.json` are treated as `status: ok` and world-pinned unless an explicit drift scenario is staged.
+  - `book/evidence/graph/concepts/validation/out/validation_status.json` lists four jobs, all `ok` for this world: vocab extraction (`vocab:sonoma-14.4.1`), field2 experiment normalization, runtime-checks normalization, and system-profile-digest IR. Many mapping tests (vocab, system digests, tag layouts, runtime signatures) implicitly assume these jobs have produced their outputs.
+  - Bedrock surfaces in `book/evidence/graph/concepts/BEDROCK_SURFACES.json` are enforced via `test_bedrock_registry.py`; system digests in `book/evidence/graph/mappings/system_profiles/digests.json` and tag-layouts in `book/evidence/graph/mappings/tag_layouts/tag_layouts.json` are treated as `status: ok` and world-pinned unless an explicit drift scenario is staged.
 
 - **Mapped cluster**
-  - Runtime mappings in `book/graph/mappings/runtime/runtime_signatures.json` have `metadata.status == "ok"` but intentionally cover only the golden profile set and the operations exercised by runtime-checks and runtime-adversarial. Tests confirm this slice is consistent and well-formed; they do not claim coverage for all 196 operations.
-  - `book/graph/mappings/vocab/ops_coverage.json` encodes structural vs runtime evidence flags per operation. `test_ops_coverage.py` asserts that `file-read*`, `file-write*`, and `mach-lookup` have both `structural_evidence` and `runtime_evidence` set to `True`, while leaving most other ops as structural-only by design.
+  - Runtime mappings in `book/evidence/graph/mappings/runtime/runtime_signatures.json` have `metadata.status == "ok"` but intentionally cover only the golden profile set and the operations exercised by runtime-checks and runtime-adversarial. Tests confirm this slice is consistent and well-formed; they do not claim coverage for all 196 operations.
+  - `book/evidence/graph/mappings/vocab/ops_coverage.json` encodes structural vs runtime evidence flags per operation. `test_ops_coverage.py` asserts that `file-read*`, `file-write*`, and `mach-lookup` have both `structural_evidence` and `runtime_evidence` set to `True`, while leaving most other ops as structural-only by design.
   - Experiments like runtime-adversarial and vfs-canonicalization record EPERM apply gates and VFS quirks explicitly; tests enforce that these are captured and annotated (`status: ok/partial/blocked` at the profile or probe level) rather than silently normalized away.
 
 - **Hypothesis and shape-guarded areas**
@@ -149,7 +149,7 @@ These tests do not claim semantic completeness for the experiments or examples; 
 
 - **Lifecycle, entitlements, and extensions**
   - Lifecycle traces and entitlement/extension scenarios are present in validation IR and some experiments, but there are few direct tests asserting their shape or semantic expectations.
-  - New tests could: (1) assert schema and world pinning for `book/graph/mappings/runtime/lifecycle.json` and lifecycle traces; (2) tie specific entitlements/extension scenarios to expected labels or profile stacks; and (3) encode “golden” lifecycle behaviors in the same way runtime-checks does for operations.
+  - New tests could: (1) assert schema and world pinning for `book/evidence/graph/mappings/runtime/lifecycle.json` and lifecycle traces; (2) tie specific entitlements/extension scenarios to expected labels or profile stacks; and (3) encode “golden” lifecycle behaviors in the same way runtime-checks does for operations.
 
 - **API/tooling and Swift depth**
   - Many `book/api/` modules (decoder, op_table, inspect_profile, runtime_golden, file_probe, ghidra helpers) are covered by smoke tests but lack deeper behavioral assertions (for example, detailed checks on op-table alignment or decode/lifecycle joins).

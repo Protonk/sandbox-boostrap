@@ -1,0 +1,118 @@
+{
+  "inputs": [
+    {
+      "id": "param_path_file_no_params",
+      "sbpl": "book/evidence/experiments/runtime-final-final/suites/sbpl-graph-runtime/profiles/param_path.sb",
+      "compile": {
+        "mode": "file"
+      }
+    },
+    {
+      "id": "param_path_file_with_params",
+      "sbpl": "book/evidence/experiments/runtime-final-final/suites/sbpl-graph-runtime/profiles/param_path.sb",
+      "compile": {
+        "mode": "file",
+        "params": {
+          "ROOT": "/private/tmp"
+        }
+      }
+    },
+    {
+      "id": "param_path_string_no_params",
+      "sbpl": "book/evidence/experiments/runtime-final-final/suites/sbpl-graph-runtime/profiles/param_path.sb",
+      "compile": {
+        "mode": "string"
+      }
+    },
+    {
+      "id": "param_path_string_with_params",
+      "sbpl": "book/evidence/experiments/runtime-final-final/suites/sbpl-graph-runtime/profiles/param_path.sb",
+      "compile": {
+        "mode": "string",
+        "params": {
+          "ROOT": "/private/tmp"
+        }
+      }
+    },
+    {
+      "id": "param_path_file_with_params_alt",
+      "sbpl": "book/evidence/experiments/runtime-final-final/suites/sbpl-graph-runtime/profiles/param_path.sb",
+      "compile": {
+        "mode": "file",
+        "params": {
+          "ROOT": "/private/var/tmp"
+        }
+      }
+    },
+    {
+      "id": "param_path_string_with_params_alt",
+      "sbpl": "book/evidence/experiments/runtime-final-final/suites/sbpl-graph-runtime/profiles/param_path.sb",
+      "compile": {
+        "mode": "string",
+        "params": {
+          "ROOT": "/private/var/tmp"
+        }
+      }
+    },
+    {
+      "id": "baseline_allow_all_file",
+      "sbpl": "book/tools/sbpl/corpus/baseline/allow_all.sb",
+      "compile": {
+        "mode": "file"
+      }
+    },
+    {
+      "id": "baseline_allow_all_string",
+      "sbpl": "book/tools/sbpl/corpus/baseline/allow_all.sb",
+      "compile": {
+        "mode": "string"
+      }
+    },
+    {
+      "id": "baseline_allow_all_file_unused_param",
+      "sbpl": "book/tools/sbpl/corpus/baseline/allow_all.sb",
+      "compile": {
+        "mode": "file",
+        "params": {
+          "UNUSED": "1"
+        }
+      }
+    },
+    {
+      "id": "pair_dt_all_inet_stream_file",
+      "sbpl": "book/tools/sbpl/corpus/network-matrix/pair_dt_all_inet_stream.sb",
+      "compile": {
+        "mode": "file"
+      }
+    },
+    {
+      "id": "pair_dt_all_inet_stream_string",
+      "sbpl": "book/tools/sbpl/corpus/network-matrix/pair_dt_all_inet_stream.sb",
+      "compile": {
+        "mode": "string"
+      }
+    },
+    {
+      "id": "gate_airlock_minimal_file",
+      "sbpl": "book/tools/sbpl/corpus/gate-witness/airlock/minimal_failing.sb",
+      "compile": {
+        "mode": "file"
+      }
+    },
+    {
+      "id": "gate_airlock_minimal_string",
+      "sbpl": "book/tools/sbpl/corpus/gate-witness/airlock/minimal_failing.sb",
+      "compile": {
+        "mode": "string"
+      }
+    },
+    {
+      "id": "golden_strict_1_file",
+      "sbpl": "book/tools/sbpl/corpus/golden-triple/strict_1.sb",
+      "compile": {
+        "mode": "file"
+      }
+    }
+  ],
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

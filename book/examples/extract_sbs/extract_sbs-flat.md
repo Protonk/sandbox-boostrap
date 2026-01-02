@@ -5,8 +5,8 @@ This directory is **docs-only**.
 The original runnable compiler script has been superseded by `book/api/profile`.
 
 Canonical compiled blobs (tracked for this host baseline):
-- `book/graph/concepts/validation/fixtures/blobs/airlock.sb.bin`
-- `book/graph/concepts/validation/fixtures/blobs/bsd.sb.bin`
+- `book/evidence/graph/concepts/validation/fixtures/blobs/airlock.sb.bin`
+- `book/evidence/graph/concepts/validation/fixtures/blobs/bsd.sb.bin`
 
 ---
 
@@ -18,7 +18,7 @@ From the repo root:
 python -m book.api.profile compile \
   /System/Library/Sandbox/Profiles/airlock.sb \
   /System/Library/Sandbox/Profiles/bsd.sb \
-  --out-dir book/graph/concepts/validation/fixtures/blobs \
+  --out-dir book/evidence/graph/concepts/validation/fixtures/blobs \
   --no-preview
 ```
 
@@ -27,8 +27,8 @@ python -m book.api.profile compile \
 ## Decode / inspect
 
 ```sh
-python -m book.api.profile decode dump book/graph/concepts/validation/fixtures/blobs/airlock.sb.bin --summary
-python -m book.api.profile decode dump book/graph/concepts/validation/fixtures/blobs/bsd.sb.bin --summary
+python -m book.api.profile decode dump book/evidence/graph/concepts/validation/fixtures/blobs/airlock.sb.bin --summary
+python -m book.api.profile decode dump book/evidence/graph/concepts/validation/fixtures/blobs/bsd.sb.bin --summary
 ```
 
 ---

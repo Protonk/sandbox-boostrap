@@ -4,7 +4,7 @@ SANDBOX_LORE is a host-bound repo; the operational root is `book/`. Read `book/A
 
 Non-negotiables (summary)
 - Baseline at `book/world/sonoma-14.4.1-23E224-arm64`; all claims are scoped to this host.
-- Be explicit about uncertainty and evidence tiers (bedrock / mapped / hypothesis); cite mapping paths from `book/graph/concepts/BEDROCK_SURFACES.json`.
+- Be explicit about uncertainty and evidence tiers (bedrock / mapped / hypothesis); cite mapping paths from `book/evidence/graph/concepts/BEDROCK_SURFACES.json`.
 - Use substrate vocabulary and the canonical ops/filters vocab mappings only.
 - Safety: never weaken the baseline, do not copy from `book/dumps/ghidra/private/aapl-restricted/`, do not hand-edit stable mappings/CARTON, and do not hide harness/decoder/apply failures.
 

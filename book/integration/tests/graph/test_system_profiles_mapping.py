@@ -2,8 +2,9 @@ import json
 from pathlib import Path
 
 from book.api import path_utils
+
 ROOT = path_utils.find_repo_root(Path(__file__))
-DIGESTS = ROOT / "book" / "graph" / "mappings" / "system_profiles" / "digests.json"
+DIGESTS = ROOT / "book" / "evidence" / "graph" / "mappings" / "system_profiles" / "digests.json"
 BASELINE_REF = "book/world/sonoma-14.4.1-23E224-arm64/world.json"
 
 

@@ -1,0 +1,54 @@
+{
+  "schema": {
+    "job_id": "string",
+    "status": "ok|partial|brittle|blocked|skipped",
+    "tier": "bedrock|mapped|hypothesis",
+    "host": "object",
+    "inputs": "list[str]",
+    "outputs": "list[str]",
+    "tags": "list[str]",
+    "notes": "string?",
+    "metrics": "object?",
+    "error": "string?",
+    "change": "changed|unchanged?"
+  },
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "jobs": [
+    {
+      "job_id": "experiment:system-profile-digest",
+      "status": "ok",
+      "tier": "mapped",
+      "host": {
+        "product": "macOS",
+        "version": "14.4.1",
+        "build": "23E224",
+        "kernel": "23.4.0",
+        "machine": "arm64"
+      },
+      "inputs": [
+        "book/evidence/graph/concepts/validation/fixtures/blobs/airlock.sb.bin",
+        "book/evidence/graph/concepts/validation/fixtures/blobs/bsd.sb.bin",
+        "book/evidence/graph/concepts/validation/fixtures/blobs/sample.sb.bin"
+      ],
+      "outputs": [
+        "book/evidence/graph/concepts/validation/out/experiments/system-profile-digest/digests_ir.json",
+        "book/evidence/graph/concepts/validation/out/experiments/system-profile-digest/status.json"
+      ],
+      "tags": [
+        "experiment:system-profile-digest",
+        "experiment",
+        "system-profiles",
+        "golden"
+      ],
+      "hashes": {
+        "book/evidence/graph/concepts/validation/out/experiments/system-profile-digest/digests_ir.json": "01f00abd66201bfcec8ee15c179f74b79fd119bf391f94969221e432ba01d186",
+        "book/evidence/graph/concepts/validation/out/experiments/system-profile-digest/status.json": "498af79c4888404615c0eae473c2c4c5bfae2d324dc099ff24c36b90202c13c5"
+      },
+      "notes": "Normalized system profile digests into IR.",
+      "metrics": {
+        "profiles": 3
+      },
+      "change": "unchanged"
+    }
+  ]
+}

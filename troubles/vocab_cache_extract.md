@@ -123,15 +123,15 @@ We implemented a slightly adapted version of the guidance:
   - `/System/Volumes/Preboot/Cryptexes/OS/System/Library/dyld/dyld_shared_cache_arm64e`
   (no compat copy under `/System/Library/dyld` on this host).
 - Confirmed `dsc_extractor.bundle` at `/usr/lib/dsc_extractor.bundle`.
-- Added `book/experiments/vocab-from-cache/extract_dsc.swift` based on the suggested shim, adjusted the exit handling for our compiler, and built it with:
+- Added `book/evidence/experiments/vocab-from-cache/extract_dsc.swift` based on the suggested shim, adjusted the exit handling for our compiler, and built it with:
   - `xcrun swiftc extract_dsc.swift -module-cache-path .swift-module-cache -o extract_dsc`.
 - Ran extraction into a project-local directory:
 
   ```bash
-  mkdir -p book/experiments/vocab-from-cache/extracted
-  book/experiments/vocab-from-cache/extract_dsc \
+  mkdir -p book/evidence/experiments/vocab-from-cache/extracted
+  book/evidence/experiments/vocab-from-cache/extract_dsc \
     /System/Volumes/Preboot/Cryptexes/OS/System/Library/dyld/dyld_shared_cache_arm64e \
-    book/experiments/vocab-from-cache/extracted
+    book/evidence/experiments/vocab-from-cache/extracted
   ```
 
 - Confirmed that the extracted tree now includes:

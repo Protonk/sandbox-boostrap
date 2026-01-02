@@ -11,7 +11,7 @@ def _parse_hex(val: str) -> int:
 
 
 def test_mac_policy_conf_candidates_static_scan():
-    path = Path("book/dumps/ghidra/out/14.4.1-23E224/sandbox-kext-conf-scan/mac_policy_conf_candidates.json")
+    path = Path("book/evidence/dumps/ghidra/out/14.4.1-23E224/sandbox-kext-conf-scan/mac_policy_conf_candidates.json")
     assert path.exists(), "mac_policy_conf_candidates.json missing; run sandbox-kext-conf-scan"
     data = json.loads(path.read_text())
 

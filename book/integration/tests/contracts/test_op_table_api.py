@@ -7,10 +7,11 @@ import pytest
 from book.api import profile as pt
 
 from book.api import path_utils
+
 ROOT = path_utils.find_repo_root(Path(__file__))
-SAMPLE_SB = ROOT / "book" / "experiments" / "op-table-operation" / "sb" / "v1_read.sb"
-OPS_VOCAB = ROOT / "book" / "graph" / "mappings" / "vocab" / "ops.json"
-FILTERS_VOCAB = ROOT / "book" / "graph" / "mappings" / "vocab" / "filters.json"
+SAMPLE_SB = ROOT / "book" / "evidence" / "experiments" / "op-table-operation" / "sb" / "v1_read.sb"
+OPS_VOCAB = ROOT / "book" / "evidence" / "graph" / "mappings" / "vocab" / "ops.json"
+FILTERS_VOCAB = ROOT / "book" / "evidence" / "graph" / "mappings" / "vocab" / "filters.json"
 
 
 @pytest.mark.system

@@ -10,7 +10,7 @@ struct GraphChecks {
         // Parse concept sources from book/substrate + inventory markdown
         let concepts = parseConcepts(
             conceptsPath: root.appendingPathComponent("book/substrate/Concepts.md").path,
-            inventoryPath: root.appendingPathComponent("book/graph/concepts/CONCEPT_INVENTORY.md").path
+            inventoryPath: root.appendingPathComponent("book/evidence/graph/concepts/CONCEPT_INVENTORY.md").path
         )
         // Enrich with validation-friendly detail blocks
         let conceptDetails = parseConceptDetails(
@@ -22,11 +22,11 @@ struct GraphChecks {
         let bindings = conceptTextBindings()
 
         // Emit core JSON artifacts
-        writeJSON(concepts, to: root.appendingPathComponent("book/graph/concepts/concepts.json").path)
-        writeJSON(conceptDetails, to: root.appendingPathComponent("book/graph/concepts/concept_map.json").path)
-        writeJSON(strategyList, to: root.appendingPathComponent("book/graph/concepts/validation/strategies.json").path)
+        writeJSON(concepts, to: root.appendingPathComponent("book/evidence/graph/concepts/concepts.json").path)
+        writeJSON(conceptDetails, to: root.appendingPathComponent("book/evidence/graph/concepts/concept_map.json").path)
+        writeJSON(strategyList, to: root.appendingPathComponent("book/evidence/graph/concepts/validation/strategies.json").path)
         writeJSON(examples, to: root.appendingPathComponent("book/examples/examples.json").path)
-        writeJSON(bindings, to: root.appendingPathComponent("book/graph/concepts/concept_text_map.json").path)
+        writeJSON(bindings, to: root.appendingPathComponent("book/evidence/graph/concepts/concept_text_map.json").path)
 
         // Lightweight validation report (non-fatal)
         var errors: [String] = []
@@ -39,7 +39,7 @@ struct GraphChecks {
                 }
             }
         }
-        if let runtimeExp = loadRuntimeExpectations(at: root.appendingPathComponent("book/graph/mappings/runtime/expectations.json").path) {
+        if let runtimeExp = loadRuntimeExpectations(at: root.appendingPathComponent("book/evidence/graph/mappings/runtime/expectations.json").path) {
             for prof in runtimeExp.profiles {
                 if prof.status.isEmpty {
                     warnings.append("runtime profile \(prof.profile_id) has empty status")
@@ -53,7 +53,7 @@ struct GraphChecks {
             warnings: warnings,
             checked: ["concepts", "strategies", "runtime_expectations"]
         )
-        let reportPath = root.appendingPathComponent("book/graph/concepts/validation/validation_report.json").path
+        let reportPath = root.appendingPathComponent("book/evidence/graph/concepts/validation/validation_report.json").path
         writeValidationReport(report, to: reportPath)
     }
 }

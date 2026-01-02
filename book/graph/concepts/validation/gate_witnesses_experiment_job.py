@@ -28,13 +28,13 @@ from book.graph.concepts.validation import registry
 from book.graph.concepts.validation.registry import ValidationJob
 
 ROOT = find_repo_root(Path(__file__))
-WITNESS_ROOT = ROOT / "book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses"
-OUT_DIR = ROOT / "book/graph/concepts/validation/out/experiments/gate-witnesses"
+WITNESS_ROOT = ROOT / "book/evidence/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses"
+OUT_DIR = ROOT / "book/evidence/graph/concepts/validation/out/experiments/gate-witnesses"
 STATUS_PATH = OUT_DIR / "status.json"
 RESULTS_PATH = OUT_DIR / "witness_results.json"
 
 WRAPPER = ROOT / "book/tools/sbpl/wrapper/wrapper"
-CONTROL_SBPL = ROOT / "book/experiments/op-table-operation/sb/v0_empty.sb"
+CONTROL_SBPL = ROOT / "book/evidence/experiments/op-table-operation/sb/v0_empty.sb"
 
 EPERM = 1
 

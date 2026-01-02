@@ -108,10 +108,10 @@ When a design partner says “show me the evidence,” the strongest surfaces ar
 ### 4.1 Stable mappings / pinned IR
 
 Examples:
-- Vocab: `book/graph/mappings/vocab/ops.json` and `book/graph/mappings/vocab/filters.json`
-- Runtime summaries: `book/graph/mappings/runtime/runtime_coverage.json`, `book/graph/mappings/runtime/runtime_signatures.json`
-- Canonical profile contracts: `book/graph/mappings/system_profiles/digests.json`
-- Anchors: `book/graph/mappings/anchors/anchor_field2_map.json`
+- Vocab: `book/evidence/graph/mappings/vocab/ops.json` and `book/evidence/graph/mappings/vocab/filters.json`
+- Runtime summaries: `book/evidence/graph/mappings/runtime/runtime_coverage.json`, `book/evidence/graph/mappings/runtime/runtime_signatures.json`
+- Canonical profile contracts: `book/evidence/graph/mappings/system_profiles/digests.json`
+- Anchors: `book/evidence/graph/mappings/anchors/anchor_field2_map.json`
 
 These are host-bound and world-stamped (see `metadata.world_id`).
 
@@ -138,7 +138,7 @@ Most work follows one of these promotion paths:
 Source work -> normalized IR -> mappings -> CARTON
 
 Examples:
-- concepts/validation outputs under `book/graph/concepts/validation/out/`
+- concepts/validation outputs under `book/evidence/graph/concepts/validation/out/`
 - mapping generator outputs under `book/graph/mappings/`
 - frozen query surfaces under `book/integration/carton/bundle/`
 

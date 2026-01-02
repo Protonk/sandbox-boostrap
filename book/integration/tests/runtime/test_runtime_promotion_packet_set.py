@@ -5,8 +5,8 @@ from book.api import path_utils
 
 
 ROOT = path_utils.find_repo_root(Path(__file__))
-PACKET_SET = ROOT / "book" / "graph" / "mappings" / "runtime" / "packet_set.json"
-PROMOTION_RECEIPT = ROOT / "book" / "graph" / "mappings" / "runtime" / "promotion_receipt.json"
+PACKET_SET = ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "packet_set.json"
+PROMOTION_RECEIPT = ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "promotion_receipt.json"
 
 
 def load_json(path: Path) -> dict:

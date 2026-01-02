@@ -1,0 +1,77 @@
+{
+  "entitlementjail": {
+    "capabilities_snapshot_path": "book/evidence/experiments/frida-testing/out/3636ac13-d8f1-43c8-a2fb-e15ea5f7dab5/ej/capabilities_snapshot.json",
+    "log_path": "book/evidence/experiments/frida-testing/out/3636ac13-d8f1-43c8-a2fb-e15ea5f7dab5/ej/logs/run_xpc.log",
+    "run_xpc_path": "book/evidence/experiments/frida-testing/out/3636ac13-d8f1-43c8-a2fb-e15ea5f7dab5/ej/run_xpc.json"
+  },
+  "frida": {
+    "attach_error": "PermissionDeniedError: unable to access process with pid 71479 from the current user account",
+    "attach_meta": {
+      "attach_stage": "wait",
+      "pid": 71479,
+      "pid_candidates": [
+        71479
+      ],
+      "pid_error": null,
+      "pid_matches_service_pid": true,
+      "pid_source": "pgrep",
+      "run_id": "3636ac13-d8f1-43c8-a2fb-e15ea5f7dab5",
+      "service_pid": "71479",
+      "t0_ns": 1766861969472654000,
+      "wait_info": {
+        "session_ready": {
+          "correlation_id": "frida-testing:ej-frida.3636ac13-d8f1-43c8-a2fb-e15ea5f7dab5",
+          "event": "session_ready",
+          "message": "session opened",
+          "pid": 71479,
+          "plan_id": "frida-testing:ej-frida",
+          "service_bundle_id": "com.yourteam.entitlement-jail.ProbeService_minimal",
+          "service_name": "ProbeService_minimal",
+          "session_token": "BD08EECF-2891-4593-91B3-29CB4BA7B099",
+          "wait_mode": "fifo",
+          "wait_path": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_minimal/Data/tmp/entitlement-jail-session/wait.A3DE0BC9-5DF6-40F2-A80B-2530866F8CAE.fifo"
+        },
+        "wait_mode": "fifo",
+        "wait_path": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_minimal/Data/tmp/entitlement-jail-session/wait.A3DE0BC9-5DF6-40F2-A80B-2530866F8CAE.fifo",
+        "wait_ready": {
+          "correlation_id": "frida-testing:ej-frida.3636ac13-d8f1-43c8-a2fb-e15ea5f7dab5",
+          "event": "wait_ready",
+          "message": "wait configured",
+          "pid": 71479,
+          "plan_id": "frida-testing:ej-frida",
+          "service_bundle_id": "com.yourteam.entitlement-jail.ProbeService_minimal",
+          "service_name": "ProbeService_minimal",
+          "session_token": "BD08EECF-2891-4593-91B3-29CB4BA7B099",
+          "wait_mode": "fifo",
+          "wait_path": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_minimal/Data/tmp/entitlement-jail-session/wait.A3DE0BC9-5DF6-40F2-A80B-2530866F8CAE.fifo"
+        },
+        "wait_timeout_ms": 30000
+      }
+    },
+    "events_path": "book/evidence/experiments/frida-testing/out/3636ac13-d8f1-43c8-a2fb-e15ea5f7dab5/frida/events.jsonl",
+    "meta_path": "book/evidence/experiments/frida-testing/out/3636ac13-d8f1-43c8-a2fb-e15ea5f7dab5/frida/meta.json"
+  },
+  "out_dir": "book/evidence/experiments/frida-testing/out/3636ac13-d8f1-43c8-a2fb-e15ea5f7dab5",
+  "plan_id": "frida-testing:ej-frida",
+  "probe": {
+    "ack_risk": null,
+    "probe_args": [
+      "--op",
+      "consume",
+      "--token",
+      "09902b0d559a762b7462af2cc6cf44908dbb1c9fb9fd47f42acf882467b52886;00;00000000;00000000;00000000;000000000000001a;com.apple.app-sandbox.read;01;01000011;0000000004bce707;01;/private/etc/hosts"
+    ],
+    "probe_id": "sandbox_extension",
+    "profile_id": "minimal"
+  },
+  "row_id": "frida-testing:ej-frida.3636ac13-d8f1-43c8-a2fb-e15ea5f7dab5",
+  "run_id": "3636ac13-d8f1-43c8-a2fb-e15ea5f7dab5",
+  "schema_version": 1,
+  "selftest": {
+    "path": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_minimal/Data/tmp/ej_noaccess",
+    "prepare_error": "PermissionError: [Errno 13] Permission denied: '/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_minimal/Data/tmp/ej_noaccess'",
+    "prepared": false,
+    "source": "capabilities_snapshot"
+  },
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

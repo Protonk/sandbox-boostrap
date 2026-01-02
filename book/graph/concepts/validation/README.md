@@ -8,8 +8,8 @@ Validation units (use these tags/IDs when adding jobs):
 - `vocab:*` — libsandbox/dyld-cache vocab ingestion (ops/filters).
 - `op-table:*` — op-table decoding/alignment runs.
 - `runtime:*` — runtime trace decoding against expectations.
-- `experiment:<name>` — validations whose inputs live under `book/experiments/<name>/out`.
-- `graph:*` — consistency checks for artifacts under `book/graph/mappings/*`.
+- `experiment:<name>` — validations whose inputs live under `book/evidence/experiments/<name>/out`.
+- `graph:*` — consistency checks for artifacts under `book/evidence/graph/mappings/*`.
 
 The Swift `book/graph` generator also writes a lightweight validation report here as `validation_report.json`, capturing schema/ID checks (e.g., concept IDs referenced by strategies and runtime expectations). Run it via:
 

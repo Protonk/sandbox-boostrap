@@ -1,0 +1,67 @@
+[
+  {
+    "actual": "allow",
+    "apply_report": {
+      "api": "sandbox_init",
+      "err_class": "ok",
+      "err_class_source": "none",
+      "errbuf": null,
+      "errno": 0,
+      "rc": 0
+    },
+    "command": [
+      "book/api/runtime/native/probes/sandbox_iokit_probe",
+      "book/evidence/experiments/runtime-closure/out/e720b256-2f6e-4888-9288-2e19b5007fa9/runtime_profiles/v7_iokit_service_user_client_both.runtime-closure_iokit_v20_replay_tuple.runtime.sb",
+      "IOSurfaceRoot"
+    ],
+    "expectation_id": "runtime-closure:iokit:v20_replay_tuple:iosurface_root_replay",
+    "expected": "allow",
+    "match": true,
+    "operation": "iokit-open-service",
+    "preflight": {
+      "classification": "no_known_apply_gate_signature",
+      "findings": [],
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/runtime-closure/out/e720b256-2f6e-4888-9288-2e19b5007fa9/runtime_profiles/v7_iokit_service_user_client_both.runtime-closure_iokit_v20_replay_tuple.runtime.sb",
+      "preflight_schema_version": 1,
+      "signature": null,
+      "tool": "book/tools/preflight",
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "probe_details": {
+      "call_input_scalar_count": null,
+      "call_input_struct_bytes": null,
+      "call_kind": "IOConnectCallMethod",
+      "call_kr": null,
+      "call_kr_string": null,
+      "call_output_scalar_count": null,
+      "call_output_struct_bytes": null,
+      "call_selector": null,
+      "found": true,
+      "open_kr": 0,
+      "replay_attempted": true,
+      "replay_enabled": true,
+      "replay_input_scalar_count": 1,
+      "replay_input_struct_bytes": 16,
+      "replay_kind": "IOConnectCallMethod",
+      "replay_kr": -536870206,
+      "replay_kr_string": "(iokit/common) invalid argument",
+      "replay_output_scalar_count": 0,
+      "replay_output_struct_bytes": 16,
+      "replay_selector": 0,
+      "replay_source": "spec",
+      "replay_status": "replay_attempted",
+      "surface_create_ok": false,
+      "surface_create_signal": null
+    },
+    "probe_name": "iosurface_root_replay",
+    "profile_id": "runtime-closure:iokit:v20_replay_tuple",
+    "run_id": "e720b256-2f6e-4888-9288-2e19b5007fa9",
+    "runtime_status": "success",
+    "scenario_id": "runtime-closure:iokit:v20_replay_tuple:iosurface_root_replay",
+    "stderr": "",
+    "stdout": "{\"found\":true,\"open_kr\":0,\"call_kr\":null,\"call_kr_string\":null,\"call_selector\":null,\"call_input_scalar_count\":null,\"call_input_struct_bytes\":null,\"call_output_scalar_count\":null,\"call_output_struct_bytes\":null,\"surface_create_ok\":false,\"surface_create_signal\":null,\"replay_enabled\":true,\"replay_attempted\":true,\"replay_status\":\"replay_attempted\",\"replay_source\":\"spec\",\"replay_kind\":\"IOConnectCallMethod\",\"replay_selector\":0,\"replay_input_scalar_count\":1,\"replay_input_struct_bytes\":16,\"replay_output_scalar_count\":0,\"replay_output_struct_bytes\":16,\"replay_kr\":-536870206,\"replay_kr_string\":\"(iokit/common) invalid argument\"}\n",
+    "target": "IOSurfaceRoot",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  }
+]

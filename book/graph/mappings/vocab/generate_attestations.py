@@ -3,13 +3,13 @@
 Generate vocab attestation manifest tying ops/filters to their provenance.
 
 Inputs:
-- book/graph/mappings/vocab/ops.json
-- book/graph/mappings/vocab/filters.json
-- book/graph/concepts/validation/out/metadata.json (host/build)
+- book/evidence/graph/mappings/vocab/ops.json
+- book/evidence/graph/mappings/vocab/filters.json
+- book/evidence/graph/concepts/validation/out/metadata.json (host/build)
 - optional compiled blobs to sanity check counts (airlock/bsd/sample)
 
 Outputs:
-- book/graph/mappings/vocab/attestations.json
+- book/evidence/graph/mappings/vocab/attestations.json
 """
 
 from __future__ import annotations
@@ -27,8 +27,8 @@ if str(REPO_ROOT) not in sys.path:
 
 from book.api.profile import digests as digests_mod  # type: ignore
 from book.api import world as world_mod  # type: ignore
-OUT_PATH = REPO_ROOT / "book/graph/mappings/vocab/attestations.json"
-VALIDATION_STATUS = REPO_ROOT / "book/graph/concepts/validation/out/validation_status.json"
+OUT_PATH = REPO_ROOT / "book/evidence/graph/mappings/vocab/attestations.json"
+VALIDATION_STATUS = REPO_ROOT / "book/evidence/graph/concepts/validation/out/validation_status.json"
 VALIDATION_JOB_ID = "vocab:sonoma-14.4.1"
 def load_baseline() -> Dict[str, Any]:
     data, resolution = world_mod.load_world(repo_root=REPO_ROOT)
@@ -76,7 +76,7 @@ def run_validation_job(job_id: str) -> None:
     if status != "ok":
         raise SystemExit(f"validation job {job_id} not ok: {status}")
     # Simple freshness check: status file must be newer than libsandbox slice.
-    lib_path = REPO_ROOT / "book/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib"
+    lib_path = REPO_ROOT / "book/evidence/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib"
     if lib_path.exists():
         if VALIDATION_STATUS.stat().st_mtime < lib_path.stat().st_mtime:
             raise SystemExit(f"validation status older than libsandbox slice for {job_id}")
@@ -85,18 +85,18 @@ def run_validation_job(job_id: str) -> None:
 def main() -> None:
     run_validation_job(VALIDATION_JOB_ID)
     baseline = load_baseline()
-    meta = load_json(REPO_ROOT / "book/graph/concepts/validation/out/metadata.json")
-    ops = load_json(REPO_ROOT / "book/graph/mappings/vocab/ops.json")
-    filters = load_json(REPO_ROOT / "book/graph/mappings/vocab/filters.json")
+    meta = load_json(REPO_ROOT / "book/evidence/graph/concepts/validation/out/metadata.json")
+    ops = load_json(REPO_ROOT / "book/evidence/graph/mappings/vocab/ops.json")
+    filters = load_json(REPO_ROOT / "book/evidence/graph/mappings/vocab/filters.json")
 
     ops_src = blob_hashes(
         [
-            REPO_ROOT / "book/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib",
+            REPO_ROOT / "book/evidence/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib",
         ]
     )
     filt_src = blob_hashes(
         [
-            REPO_ROOT / "book/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib",
+            REPO_ROOT / "book/evidence/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib",
         ]
     )
     canonical = digests_mod.canonical_system_profile_blobs(REPO_ROOT)
@@ -113,13 +113,13 @@ def main() -> None:
         "ops": {
             "count": len(ops.get("ops", [])),
             "source": ops.get("ops", [{}])[0].get("source"),
-            "hash": sha256(REPO_ROOT / "book/graph/mappings/vocab/ops.json"),
+            "hash": sha256(REPO_ROOT / "book/evidence/graph/mappings/vocab/ops.json"),
             "sources": ops_src,
         },
         "filters": {
             "count": len(filters.get("filters", [])),
             "source": filters.get("filters", [{}])[0].get("source"),
-            "hash": sha256(REPO_ROOT / "book/graph/mappings/vocab/filters.json"),
+            "hash": sha256(REPO_ROOT / "book/evidence/graph/mappings/vocab/filters.json"),
             "sources": filt_src,
         },
         "compiled_reference_blobs": compiled_refs,

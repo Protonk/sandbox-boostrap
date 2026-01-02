@@ -2,8 +2,9 @@ import json
 from pathlib import Path
 
 from book.api import path_utils
+
 ROOT = path_utils.find_repo_root(Path(__file__))
-CONCEPT_MAP = ROOT / "book" / "graph" / "concepts" / "concept_map.json"
+CONCEPT_MAP = ROOT / "book" / "evidence" / "graph" / "concepts" / "concept_map.json"
 CONCEPT_INDEX = ROOT / "book" / "integration" / "carton" / "bundle" / "views" / "concept_index.json"
 MANIFEST = ROOT / "book" / "integration" / "carton" / "bundle" / "CARTON.json"
 

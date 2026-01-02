@@ -18,11 +18,11 @@ MAPPING_TARGETS = [
 ]
 
 FORBIDDEN_EXPERIMENT_OUT = [
-    re.compile(r"book/experiments/.+/out/runtime_results\\.json"),
-    re.compile(r"book/experiments/.+/out/runtime_events\\.normalized\\.json"),
-    re.compile(r"book/experiments/.+/out/expected_matrix\\.json"),
-    re.compile(r"book/experiments/.+/out/run_manifest\\.json"),
-    re.compile(r"book/experiments/.+/out/baseline_results\\.json"),
+    re.compile(r"book/evidence/experiments/.+/out/runtime_results\\.json"),
+    re.compile(r"book/evidence/experiments/.+/out/runtime_events\\.normalized\\.json"),
+    re.compile(r"book/evidence/experiments/.+/out/expected_matrix\\.json"),
+    re.compile(r"book/evidence/experiments/.+/out/run_manifest\\.json"),
+    re.compile(r"book/evidence/experiments/.+/out/baseline_results\\.json"),
 ]
 
 
@@ -39,6 +39,7 @@ def test_runtime_promotion_contracts():
     atlas = (
         ROOT
         / "book"
+        / "evidence"
         / "experiments"
         / "field2-final-final"
         / "field2-atlas"
@@ -46,11 +47,11 @@ def test_runtime_promotion_contracts():
     )
     atlas_text = atlas.read_text()
     if "packet_utils.resolve_packet_context" not in atlas_text:
-        failures.append("book/experiments/field2-final-final/field2-atlas/atlas_runtime.py missing packet-only resolver")
+        failures.append("book/evidence/experiments/field2-final-final/field2-atlas/atlas_runtime.py missing packet-only resolver")
     if "allow-legacy" in atlas_text:
-        failures.append("book/experiments/field2-final-final/field2-atlas/atlas_runtime.py still mentions allow-legacy")
+        failures.append("book/evidence/experiments/field2-final-final/field2-atlas/atlas_runtime.py still mentions allow-legacy")
 
-    packet_set_path = ROOT / "book" / "graph" / "mappings" / "runtime" / "packet_set.json"
+    packet_set_path = ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "packet_set.json"
     if not packet_set_path.exists():
         failures.append(f"missing packet_set.json: {packet_set_path}")
     else:
@@ -62,11 +63,11 @@ def test_runtime_promotion_contracts():
         if doc.get("allow_missing") is not True:
             failures.append("packet_set.json allow_missing must be true")
         expected_packets = [
-            "book/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json",
-            "book/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
-            "book/experiments/runtime-final-final/evidence/packets/hardened-runtime.promotion_packet.json",
-            "book/experiments/runtime-final-final/evidence/packets/anchor-filter-map.promotion_packet.json",
-            "book/experiments/runtime-final-final/evidence/packets/anchor-filter-map.iokit-class.promotion_packet.json",
+            "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json",
+            "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+            "book/evidence/experiments/runtime-final-final/evidence/packets/hardened-runtime.promotion_packet.json",
+            "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.promotion_packet.json",
+            "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.iokit-class.promotion_packet.json",
         ]
         if doc.get("packets") != expected_packets:
             failures.append("packet_set.json packets list mismatch")

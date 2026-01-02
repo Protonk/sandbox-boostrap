@@ -8,10 +8,10 @@ false uniqueness: the same SBPL literal can participate in multiple disjoint
 filter contexts across the PolicyGraph.
 
 Canonical source of truth:
-- `book/graph/mappings/anchors/anchor_ctx_filter_map.json` (ctx-indexed)
+- `book/evidence/graph/mappings/anchors/anchor_ctx_filter_map.json` (ctx-indexed)
 
 Output:
-- `book/graph/mappings/anchors/anchor_filter_map.json` (legacy compatibility)
+- `book/evidence/graph/mappings/anchors/anchor_filter_map.json` (legacy compatibility)
 """
 
 from __future__ import annotations
@@ -28,8 +28,8 @@ if str(REPO_ROOT) not in sys.path:
 from book.api import path_utils  # type: ignore
 from book.api import world as world_mod  # type: ignore
 
-CTX_PATH = REPO_ROOT / "book/graph/mappings/anchors/anchor_ctx_filter_map.json"
-OUT_PATH = REPO_ROOT / "book/graph/mappings/anchors/anchor_filter_map.json"
+CTX_PATH = REPO_ROOT / "book/evidence/graph/mappings/anchors/anchor_ctx_filter_map.json"
+OUT_PATH = REPO_ROOT / "book/evidence/graph/mappings/anchors/anchor_filter_map.json"
 
 CTX_SCHEMA_VERSION = "anchors.anchor_ctx_filter_map.v0.1"
 

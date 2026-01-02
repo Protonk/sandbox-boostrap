@@ -1,7 +1,7 @@
 {
   "description": "Non-VFS hardened runtime probe families.",
   "plan": {
-    "apply_preflight_profile": "book/experiments/runtime-final-final/suites/hardened-runtime/sb/apply_preflight_allow.sb",
+    "apply_preflight_profile": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/apply_preflight_allow.sb",
     "controls": {
       "baseline": true
     },
@@ -515,7 +515,7 @@
           "hardened:mach_lookup:deny-bogus"
         ],
         "profile_id": "hardened:mach_lookup",
-        "profile_path": "book/experiments/runtime-final-final/suites/hardened-runtime/sb/mach_lookup.sb",
+        "profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/mach_lookup.sb",
         "semantic_group": "mach:global-name"
       },
       "hardened:mach_lookup_allow": {
@@ -527,7 +527,7 @@
           "hardened:mach_lookup_allow:allow-cfprefsd"
         ],
         "profile_id": "hardened:mach_lookup_allow",
-        "profile_path": "book/experiments/runtime-final-final/suites/hardened-runtime/sb/mach_lookup_allow.sb",
+        "profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/mach_lookup_allow.sb",
         "semantic_group": "mach:global-name"
       },
       "hardened:notifications": {
@@ -542,7 +542,7 @@
           "hardened:notifications:deny-distributed"
         ],
         "profile_id": "hardened:notifications",
-        "profile_path": "book/experiments/runtime-final-final/suites/hardened-runtime/sb/notifications.sb",
+        "profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/notifications.sb",
         "semantic_group": "notifications:post"
       },
       "hardened:notifications_allow": {
@@ -555,7 +555,7 @@
           "hardened:notifications_allow:allow-distributed"
         ],
         "profile_id": "hardened:notifications_allow",
-        "profile_path": "book/experiments/runtime-final-final/suites/hardened-runtime/sb/notifications_allow.sb",
+        "profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/notifications_allow.sb",
         "semantic_group": "notifications:post"
       },
       "hardened:process_info_allow": {
@@ -568,7 +568,7 @@
           "hardened:process_info_allow:pidinfo-init"
         ],
         "profile_id": "hardened:process_info_allow",
-        "profile_path": "book/experiments/runtime-final-final/suites/hardened-runtime/sb/process_info_allow.sb",
+        "profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/process_info_allow.sb",
         "semantic_group": "process-info:pidinfo"
       },
       "hardened:process_info_allow_canary": {
@@ -580,7 +580,7 @@
           "hardened:process_info_allow_canary:pidinfo-self"
         ],
         "profile_id": "hardened:process_info_allow_canary",
-        "profile_path": "book/experiments/runtime-final-final/suites/hardened-runtime/sb/process_info_allow_canary.sb",
+        "profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/process_info_allow_canary.sb",
         "semantic_group": "process-info:pidinfo"
       },
       "hardened:process_info_deny": {
@@ -593,7 +593,7 @@
           "hardened:process_info_deny:pidinfo-init"
         ],
         "profile_id": "hardened:process_info_deny",
-        "profile_path": "book/experiments/runtime-final-final/suites/hardened-runtime/sb/process_info_deny.sb",
+        "profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/process_info_deny.sb",
         "semantic_group": "process-info:pidinfo"
       },
       "hardened:signal_self_allow": {
@@ -605,7 +605,7 @@
           "hardened:signal_self_allow:signal-same-sandbox"
         ],
         "profile_id": "hardened:signal_self_allow",
-        "profile_path": "book/experiments/runtime-final-final/suites/hardened-runtime/sb/signal_self_allow.sb",
+        "profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/signal_self_allow.sb",
         "semantic_group": "signal:self"
       },
       "hardened:signal_self_deny": {
@@ -617,7 +617,7 @@
           "hardened:signal_self_deny:signal-same-sandbox"
         ],
         "profile_id": "hardened:signal_self_deny",
-        "profile_path": "book/experiments/runtime-final-final/suites/hardened-runtime/sb/signal_self_deny.sb",
+        "profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/signal_self_deny.sb",
         "semantic_group": "signal:self"
       },
       "hardened:sysctl_read": {
@@ -630,7 +630,7 @@
           "hardened:sysctl_read:deny-kern-bootargs"
         ],
         "profile_id": "hardened:sysctl_read",
-        "profile_path": "book/experiments/runtime-final-final/suites/hardened-runtime/sb/sysctl_read.sb",
+        "profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/sysctl_read.sb",
         "semantic_group": "sysctl:name"
       },
       "hardened:sysctl_read_allow": {
@@ -642,7 +642,7 @@
           "hardened:sysctl_read_allow:allow-kern-ostype"
         ],
         "profile_id": "hardened:sysctl_read_allow",
-        "profile_path": "book/experiments/runtime-final-final/suites/hardened-runtime/sb/sysctl_read_allow.sb",
+        "profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/sysctl_read_allow.sb",
         "semantic_group": "sysctl:name"
       }
     },

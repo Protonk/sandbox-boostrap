@@ -47,8 +47,8 @@ Interpretation discipline:
 
 Profiles reference operations and filters by host-specific IDs. SANDBOX_LORE pins that vocabulary as bedrock:
 
-- `book/graph/mappings/vocab/ops.json`
-- `book/graph/mappings/vocab/filters.json`
+- `book/evidence/graph/mappings/vocab/ops.json`
+- `book/evidence/graph/mappings/vocab/filters.json`
 
 Everything else (decoding, tag layouts, runtime coverage) is keyed off these names/IDs.
 
@@ -60,7 +60,7 @@ SANDBOX_LORE curates a small set of system profiles as “structural anchors.”
 - and stable reference points for later semantic witness work.
 
 The canonical contract surface lives under:
-- `book/graph/mappings/system_profiles/digests.json`
+- `book/evidence/graph/mappings/system_profiles/digests.json`
 
 That file encodes:
 - which canonical profiles exist (for example `sys:bsd`, `sys:airlock`),

@@ -6,8 +6,9 @@ from book.graph.mappings.runtime import promotion_packets
 
 
 from book.api import path_utils
+
 ROOT = path_utils.find_repo_root(Path(__file__))
-SIGNATURES = ROOT / "book" / "graph" / "mappings" / "runtime" / "runtime_signatures.json"
+SIGNATURES = ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "runtime_signatures.json"
 
 
 def load(path: Path):

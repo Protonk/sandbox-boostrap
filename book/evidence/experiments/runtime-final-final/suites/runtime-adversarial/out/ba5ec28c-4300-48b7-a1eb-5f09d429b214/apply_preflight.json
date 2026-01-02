@@ -1,0 +1,32 @@
+{
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "run_id": "ba5ec28c-4300-48b7-a1eb-5f09d429b214",
+  "profile": "book/evidence/experiments/runtime-adversarial/sb/apply_preflight_allow.sb",
+  "runner": "book/api/runtime/native/sandbox_runner/sandbox_runner",
+  "sandbox_check_self": {
+    "source": "sandbox_check",
+    "error": "libsystem_sandbox not found"
+  },
+  "status": "ok",
+  "command": [
+    "book/api/runtime/native/sandbox_runner/sandbox_runner",
+    "book/evidence/experiments/runtime-adversarial/sb/apply_preflight_allow.sb",
+    "--",
+    "/usr/bin/true"
+  ],
+  "exit_code": 0,
+  "stdout": "",
+  "stderr": "",
+  "apply_report": {
+    "api": "sandbox_init",
+    "rc": 0,
+    "errno": 0,
+    "errbuf": null,
+    "err_class": "ok",
+    "err_class_source": "none"
+  },
+  "apply_marker_pid": 99580,
+  "apply_ok": true,
+  "failure_stage": null,
+  "schema_version": "runtime-tools.apply_preflight.v0.1"
+}

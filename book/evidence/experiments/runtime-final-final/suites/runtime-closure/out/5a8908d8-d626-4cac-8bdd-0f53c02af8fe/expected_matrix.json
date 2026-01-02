@@ -1,0 +1,92 @@
+{
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "profiles": {
+    "runtime-closure:file:v1_etc_alias_only": {
+      "blob": "book/evidence/experiments/runtime-closure/sb/v1_etc_alias_only.sb",
+      "mode": "sbpl",
+      "family": "file-read",
+      "semantic_group": "file-read:canonicalization",
+      "probes": [
+        {
+          "name": "etc_hosts",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "allow",
+          "expectation_id": "runtime-closure:file:v1_etc_alias_only:etc_hosts"
+        },
+        {
+          "name": "private_etc_hosts",
+          "operation": "file-read*",
+          "target": "/private/etc/hosts",
+          "expected": "deny",
+          "expectation_id": "runtime-closure:file:v1_etc_alias_only:private_etc_hosts"
+        },
+        {
+          "name": "tmp_foo",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "expectation_id": "runtime-closure:file:v1_etc_alias_only:tmp_foo"
+        }
+      ]
+    },
+    "runtime-closure:file:v1_etc_private_only": {
+      "blob": "book/evidence/experiments/runtime-closure/sb/v1_etc_private_only.sb",
+      "mode": "sbpl",
+      "family": "file-read",
+      "semantic_group": "file-read:canonicalization",
+      "probes": [
+        {
+          "name": "etc_hosts",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "expectation_id": "runtime-closure:file:v1_etc_private_only:etc_hosts"
+        },
+        {
+          "name": "private_etc_hosts",
+          "operation": "file-read*",
+          "target": "/private/etc/hosts",
+          "expected": "allow",
+          "expectation_id": "runtime-closure:file:v1_etc_private_only:private_etc_hosts"
+        },
+        {
+          "name": "tmp_foo",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "expectation_id": "runtime-closure:file:v1_etc_private_only:tmp_foo"
+        }
+      ]
+    },
+    "runtime-closure:file:v1_etc_both": {
+      "blob": "book/evidence/experiments/runtime-closure/sb/v1_etc_both.sb",
+      "mode": "sbpl",
+      "family": "file-read",
+      "semantic_group": "file-read:canonicalization",
+      "probes": [
+        {
+          "name": "etc_hosts",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "allow",
+          "expectation_id": "runtime-closure:file:v1_etc_both:etc_hosts"
+        },
+        {
+          "name": "private_etc_hosts",
+          "operation": "file-read*",
+          "target": "/private/etc/hosts",
+          "expected": "allow",
+          "expectation_id": "runtime-closure:file:v1_etc_both:private_etc_hosts"
+        },
+        {
+          "name": "tmp_foo",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "expectation_id": "runtime-closure:file:v1_etc_both:tmp_foo"
+        }
+      ]
+    }
+  }
+}

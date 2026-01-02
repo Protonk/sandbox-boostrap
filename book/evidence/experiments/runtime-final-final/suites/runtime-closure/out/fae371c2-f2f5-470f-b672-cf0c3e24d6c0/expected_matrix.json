@@ -1,0 +1,227 @@
+{
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "profiles": {
+    "runtime-closure:file:v2_alias_literals": {
+      "blob": "book/evidence/experiments/runtime-closure/sb/v2_alias_literals.sb",
+      "mode": "sbpl",
+      "family": "file-read",
+      "semantic_group": "file-read:canonicalization-matrix",
+      "probes": [
+        {
+          "name": "etc_hosts_alias",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "allow",
+          "expectation_id": "runtime-closure:file:v2_alias_literals:etc_hosts_alias"
+        },
+        {
+          "name": "etc_hosts_private",
+          "operation": "file-read*",
+          "target": "/private/etc/hosts",
+          "expected": "deny",
+          "expectation_id": "runtime-closure:file:v2_alias_literals:etc_hosts_private"
+        },
+        {
+          "name": "etc_hosts_data",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/etc/hosts",
+          "expected": "deny",
+          "expectation_id": "runtime-closure:file:v2_alias_literals:etc_hosts_data"
+        },
+        {
+          "name": "tmp_alias",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "expectation_id": "runtime-closure:file:v2_alias_literals:tmp_alias"
+        },
+        {
+          "name": "tmp_private",
+          "operation": "file-read*",
+          "target": "/private/tmp/foo",
+          "expected": "deny",
+          "expectation_id": "runtime-closure:file:v2_alias_literals:tmp_private"
+        },
+        {
+          "name": "tmp_data",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/tmp/foo",
+          "expected": "deny",
+          "expectation_id": "runtime-closure:file:v2_alias_literals:tmp_data"
+        }
+      ]
+    },
+    "runtime-closure:file:v2_private_literals": {
+      "blob": "book/evidence/experiments/runtime-closure/sb/v2_private_literals.sb",
+      "mode": "sbpl",
+      "family": "file-read",
+      "semantic_group": "file-read:canonicalization-matrix",
+      "probes": [
+        {
+          "name": "etc_hosts_alias",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "expectation_id": "runtime-closure:file:v2_private_literals:etc_hosts_alias"
+        },
+        {
+          "name": "etc_hosts_private",
+          "operation": "file-read*",
+          "target": "/private/etc/hosts",
+          "expected": "allow",
+          "expectation_id": "runtime-closure:file:v2_private_literals:etc_hosts_private"
+        },
+        {
+          "name": "etc_hosts_data",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/etc/hosts",
+          "expected": "deny",
+          "expectation_id": "runtime-closure:file:v2_private_literals:etc_hosts_data"
+        },
+        {
+          "name": "tmp_alias",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "deny",
+          "expectation_id": "runtime-closure:file:v2_private_literals:tmp_alias"
+        },
+        {
+          "name": "tmp_private",
+          "operation": "file-read*",
+          "target": "/private/tmp/foo",
+          "expected": "allow",
+          "expectation_id": "runtime-closure:file:v2_private_literals:tmp_private"
+        },
+        {
+          "name": "tmp_data",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/tmp/foo",
+          "expected": "deny",
+          "expectation_id": "runtime-closure:file:v2_private_literals:tmp_data"
+        }
+      ]
+    },
+    "runtime-closure:file:v2_data_literals": {
+      "blob": "book/evidence/experiments/runtime-closure/sb/v2_data_literals.sb",
+      "mode": "sbpl",
+      "family": "file-read",
+      "semantic_group": "file-read:canonicalization-matrix",
+      "probes": [
+        {
+          "name": "etc_hosts_alias",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "expectation_id": "runtime-closure:file:v2_data_literals:etc_hosts_alias"
+        },
+        {
+          "name": "etc_hosts_private",
+          "operation": "file-read*",
+          "target": "/private/etc/hosts",
+          "expected": "deny",
+          "expectation_id": "runtime-closure:file:v2_data_literals:etc_hosts_private"
+        },
+        {
+          "name": "etc_hosts_data",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/etc/hosts",
+          "expected": "allow",
+          "expectation_id": "runtime-closure:file:v2_data_literals:etc_hosts_data"
+        },
+        {
+          "name": "tmp_alias",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "deny",
+          "expectation_id": "runtime-closure:file:v2_data_literals:tmp_alias"
+        },
+        {
+          "name": "tmp_private",
+          "operation": "file-read*",
+          "target": "/private/tmp/foo",
+          "expected": "deny",
+          "expectation_id": "runtime-closure:file:v2_data_literals:tmp_private"
+        },
+        {
+          "name": "tmp_data",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/tmp/foo",
+          "expected": "allow",
+          "expectation_id": "runtime-closure:file:v2_data_literals:tmp_data"
+        }
+      ]
+    },
+    "runtime-closure:mach:v1_service_discriminator": {
+      "blob": "book/evidence/experiments/runtime-closure/sb/v1_mach_service_discriminator.sb",
+      "mode": "sbpl",
+      "family": "mach-lookup",
+      "semantic_group": "mach:service-discriminator",
+      "probes": [
+        {
+          "name": "cfprefsd_agent",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.agent",
+          "expected": "allow",
+          "expectation_id": "runtime-closure:mach:v1_service_discriminator:cfprefsd_agent",
+          "driver": "sandbox_mach_probe"
+        },
+        {
+          "name": "missing_service",
+          "operation": "mach-lookup",
+          "target": "com.apple.sandbox-lore.missing",
+          "expected": "deny",
+          "expectation_id": "runtime-closure:mach:v1_service_discriminator:missing_service",
+          "driver": "sandbox_mach_probe"
+        }
+      ]
+    },
+    "runtime-closure:iokit:v5_service_only": {
+      "blob": "book/evidence/experiments/runtime-closure/sb/v5_iokit_service_only.sb",
+      "mode": "sbpl",
+      "family": "iokit-open-service",
+      "semantic_group": "iokit:op-identity",
+      "probes": [
+        {
+          "name": "iosurface_root",
+          "operation": "iokit-open-service",
+          "target": "IOSurfaceRoot",
+          "expected": "allow",
+          "expectation_id": "runtime-closure:iokit:v5_service_only:iosurface_root",
+          "driver": "sandbox_iokit_probe"
+        }
+      ]
+    },
+    "runtime-closure:iokit:v6_user_client_only": {
+      "blob": "book/evidence/experiments/runtime-closure/sb/v6_iokit_user_client_only.sb",
+      "mode": "sbpl",
+      "family": "iokit-open-user-client",
+      "semantic_group": "iokit:op-identity",
+      "probes": [
+        {
+          "name": "iosurface_root",
+          "operation": "iokit-open-service",
+          "target": "IOSurfaceRoot",
+          "expected": "allow",
+          "expectation_id": "runtime-closure:iokit:v6_user_client_only:iosurface_root",
+          "driver": "sandbox_iokit_probe"
+        }
+      ]
+    },
+    "runtime-closure:iokit:v7_service_user_client_both": {
+      "blob": "book/evidence/experiments/runtime-closure/sb/v7_iokit_service_user_client_both.sb",
+      "mode": "sbpl",
+      "family": "iokit-open-service",
+      "semantic_group": "iokit:op-identity",
+      "probes": [
+        {
+          "name": "iosurface_root",
+          "operation": "iokit-open-service",
+          "target": "IOSurfaceRoot",
+          "expected": "allow",
+          "expectation_id": "runtime-closure:iokit:v7_service_user_client_both:iosurface_root",
+          "driver": "sandbox_iokit_probe"
+        }
+      ]
+    }
+  }
+}

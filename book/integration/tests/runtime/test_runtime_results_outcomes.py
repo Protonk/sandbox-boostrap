@@ -3,8 +3,20 @@ from pathlib import Path
 
 
 from book.api import path_utils
+
 ROOT = path_utils.find_repo_root(Path(__file__))
-RUNTIME_IR = ROOT / "book" / "graph" / "concepts" / "validation" / "out" / "experiments" / "runtime-checks" / "runtime_results.normalized.json"
+RUNTIME_IR = (
+    ROOT
+    / "book"
+    / "evidence"
+    / "graph"
+    / "concepts"
+    / "validation"
+    / "out"
+    / "experiments"
+    / "runtime-checks"
+    / "runtime_results.normalized.json"
+)
 GOLDEN = {
     "bucket4:v1_read",
     "bucket5:v11_read_subpath",

@@ -1,0 +1,59 @@
+{
+  "apply_eperm": false,
+  "apply_markers": [
+    {
+      "api": "sandbox_init",
+      "err_class": "ok",
+      "err_class_source": "none",
+      "errno": 0,
+      "marker_schema_version": 1,
+      "mode": "sbpl",
+      "pid": 42073,
+      "profile": "book/evidence/experiments/sbpl-graph-runtime/profiles/allow_all.sb",
+      "rc": 0,
+      "stage": "apply",
+      "tool": "sbpl-apply"
+    },
+    {
+      "api": "sandbox_init",
+      "marker_schema_version": 1,
+      "mode": "sbpl",
+      "pid": 42073,
+      "profile": "book/evidence/experiments/sbpl-graph-runtime/profiles/allow_all.sb",
+      "rc": 0,
+      "stage": "applied",
+      "tool": "sbpl-apply"
+    }
+  ],
+  "apply_ok": true,
+  "cmd_duration_s": 0.08797597885131836,
+  "cmd_finished_at_unix_s": 1767251455.931423,
+  "cmd_started_at_unix_s": 1767251455.843447,
+  "command": [
+    "book/tools/sbpl/wrapper/wrapper",
+    "--preflight",
+    "enforce",
+    "--sbpl",
+    "book/evidence/experiments/sbpl-graph-runtime/profiles/allow_all.sb",
+    "--",
+    "/usr/bin/true"
+  ],
+  "exit_code": 0,
+  "preflight_markers": [
+    {
+      "marker_schema_version": 1,
+      "mode": "sbpl",
+      "pid": 42073,
+      "policy": "enforce",
+      "profile": "book/evidence/experiments/sbpl-graph-runtime/profiles/allow_all.sb",
+      "rc": 0,
+      "record_json": "{\"classification\": \"no_known_apply_gate_signature\", \"findings\": [], \"input_kind\": \"sbpl_path\", \"input_ref\": \"book/evidence/experiments/sbpl-graph-runtime/profiles/allow_all.sb\", \"preflight_schema_version\": 1, \"signature\": null, \"tool\": \"book/tools/preflight\", \"world_id\": \"sonoma-14.4.1-23E224-arm64-dyld-2c0602c5\"}",
+      "stage": "preflight",
+      "tool": "sbpl-preflight"
+    }
+  ],
+  "signal_id": "S4",
+  "stderr": "{\"tool\":\"sbpl-preflight\",\"marker_schema_version\":1,\"stage\":\"preflight\",\"mode\":\"sbpl\",\"policy\":\"enforce\",\"profile\":\"book/evidence/experiments/sbpl-graph-runtime/profiles/allow_all.sb\",\"rc\":0,\"record_json\":\"{\\\"classification\\\": \\\"no_known_apply_gate_signature\\\", \\\"findings\\\": [], \\\"input_kind\\\": \\\"sbpl_path\\\", \\\"input_ref\\\": \\\"book/evidence/experiments/sbpl-graph-runtime/profiles/allow_all.sb\\\", \\\"preflight_schema_version\\\": 1, \\\"signature\\\": null, \\\"tool\\\": \\\"book/tools/preflight\\\", \\\"world_id\\\": \\\"sonoma-14.4.1-23E224-arm64-dyld-2c0602c5\\\"}\",\"pid\":42073}\n{\"tool\":\"entitlement-check\",\"marker_schema_version\":1,\"stage\":\"pre_apply\",\"entitlement\":\"com.apple.private.security.message-filter\",\"pid\":42073,\"rc\":0,\"present\":false,\"value_type\":\"absent\"}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"book/evidence/experiments/sbpl-graph-runtime/profiles/allow_all.sb\",\"pid\":42073}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"book/evidence/experiments/sbpl-graph-runtime/profiles/allow_all.sb\",\"pid\":42073}\n",
+  "stdout": "",
+  "timeout_s": 25.0
+}

@@ -6,7 +6,16 @@ from pathlib import Path
 from book.api import path_utils
 
 ROOT = path_utils.find_repo_root(Path(__file__))
-INVENTORY = ROOT / "book" / "experiments" / "runtime-final-final" / "suites" / "hardened-runtime" / "other_runtime_inventory.json"
+INVENTORY = (
+    ROOT
+    / "book"
+    / "evidence"
+    / "experiments"
+    / "runtime-final-final"
+    / "suites"
+    / "hardened-runtime"
+    / "other_runtime_inventory.json"
+)
 
 
 def _iter_inventory_paths(doc: dict) -> list[str]:
@@ -36,7 +45,7 @@ def test_hardened_runtime_inventory_paths_are_current():
     legacy_test_plane_paths = []
 
     def _canonicalize_repo_path(rel: str) -> str:
-        # `other_runtime_inventory.json` lives under `book/experiments/` and is
+        # `other_runtime_inventory.json` lives under `book/evidence/experiments/` and is
         # excluded from repo-wide link updates. That means it may legitimately
         # contain historical references to test locations.
         #
@@ -62,6 +71,6 @@ def test_hardened_runtime_inventory_paths_are_current():
 
     assert not absolute_paths, f"inventory contains absolute paths: {absolute_paths[:5]}"
     assert not old_test_paths, (
-        "inventory still references legacy test paths; regenerate via book/experiments/runtime-final-final/suites/hardened-runtime/build_other_runtime_inventory.py"
+        "inventory still references legacy test paths; regenerate via book/evidence/experiments/runtime-final-final/suites/hardened-runtime/build_other_runtime_inventory.py"
     )
     assert not missing, f"inventory paths missing on disk: {missing[:5]}"

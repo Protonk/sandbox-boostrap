@@ -1,0 +1,527 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "tier": "mapped",
+    "source_jobs": [],
+    "notes": "scenario-level runtime summaries"
+  },
+  "op_to_scenarios": {
+    "file-read*": [
+      "bucket4:v1_read:read_/etc/hosts",
+      "bucket4:v1_read:read_/tmp/foo",
+      "bucket5:v11_read_subpath:read_/tmp/foo",
+      "bucket5:v11_read_subpath:read_/tmp/bar",
+      "allow_all|file-read*|/etc/hosts",
+      "allow_all|file-read*|/tmp/sbpl_rt/read.txt",
+      "metafilter_any|file-read*|/tmp/foo.txt",
+      "metafilter_any|file-read*|/tmp/bar.txt",
+      "metafilter_any|file-read*|/tmp/qux.txt",
+      "metafilter_any|file-read*|/tmp/baz.txt",
+      "runtime:strict_1:read_ok",
+      "runtime:strict_1:read_hosts",
+      "sys:airlock:read_/etc/hosts",
+      "sys:airlock:read_/tmp/foo",
+      "sys:bsd:read_/etc/hosts",
+      "sys:bsd:read_/tmp/foo",
+      "adv:path_alias:alias-tmp",
+      "adv:path_alias:alias-private",
+      "adv:path_edges:allow-tmp",
+      "adv:path_edges:deny-private",
+      "adv:path_edges:allow-subpath",
+      "adv:path_edges:allow-subpath-normalized",
+      "adv:path_edges:deny-dotdot",
+      "adv:struct_flat:allow-ok-root",
+      "adv:struct_flat:allow-ok-deep",
+      "adv:struct_flat:deny-blocked",
+      "adv:struct_flat:deny-outside",
+      "adv:struct_nested:allow-ok-root",
+      "adv:struct_nested:allow-ok-deep",
+      "adv:struct_nested:deny-blocked",
+      "adv:struct_nested:deny-outside",
+      "adv:path_edges_private:allow-private",
+      "adv:path_edges_private:allow-private-subpath",
+      "adv:path_edges_private:allow-tmp",
+      "adv:path_edges_private:allow-tmp-subpath",
+      "adv:path_edges_private:deny-dotdot",
+      "adv:mount_relative_path:allow-subpath",
+      "adv:mount_relative_path:deny-outside",
+      "adv:file_mode:allow-private",
+      "adv:file_mode:deny-world"
+    ],
+    "file-write*": [
+      "bucket4:v1_read:write_/etc/hosts",
+      "bucket5:v11_read_subpath:write_/tmp/foo",
+      "allow_all|file-write*|/tmp/sbpl_rt/write.txt",
+      "metafilter_any|file-write*|/tmp/baz.txt",
+      "runtime:strict_1:write_ok",
+      "runtime:strict_1:write_hosts",
+      "sys:airlock:write_/etc/hosts",
+      "sys:airlock:write_/tmp/foo",
+      "sys:bsd:write_/etc/hosts",
+      "sys:bsd:write_/tmp/foo",
+      "adv:path_edges:write-tmp",
+      "adv:path_edges:write-private",
+      "adv:path_edges:write-subpath",
+      "adv:path_edges:write-dotdot",
+      "adv:struct_flat:write-ok-root",
+      "adv:struct_flat:write-ok-deep",
+      "adv:struct_flat:write-blocked",
+      "adv:struct_flat:write-outside",
+      "adv:struct_nested:write-ok-root",
+      "adv:struct_nested:write-ok-deep",
+      "adv:struct_nested:write-blocked",
+      "adv:struct_nested:write-outside",
+      "adv:path_edges_private:write-private",
+      "adv:path_edges_private:write-private-subpath",
+      "adv:path_edges_private:write-tmp",
+      "adv:path_edges_private:write-tmp-subpath",
+      "adv:path_edges_private:write-dotdot"
+    ],
+    "network-outbound": [
+      "adv:flow_divert_partial_tcp:tcp-loopback",
+      "adv:flow_divert_partial_tcp:tcp-loopback-2",
+      "adv:flow_divert_require_all_tcp:tcp-loopback",
+      "adv:flow_divert_require_all_tcp:tcp-loopback-2",
+      "adv:net_outbound_allow:tcp-loopback",
+      "adv:net_outbound_allow:tcp-loopback-2",
+      "adv:net_outbound_deny:tcp-loopback",
+      "adv:net_outbound_deny:tcp-loopback-2"
+    ],
+    "mach-lookup": [
+      "adv:mach_local_literal:allow-cfprefsd-local",
+      "adv:mach_local_literal:deny-bogus-local",
+      "adv:mach_local_regex:allow-cfprefsd-local",
+      "adv:mach_local_regex:deny-bogus-local",
+      "adv:mach_simple_allow:allow-cfprefsd",
+      "adv:mach_simple_allow:deny-bogus",
+      "adv:mach_simple_variants:allow-cfprefsd",
+      "adv:mach_simple_variants:deny-bogus",
+      "hardened:mach_lookup:deny-cfprefsd",
+      "hardened:mach_lookup:deny-bogus",
+      "hardened:mach_lookup_allow:allow-cfprefsd",
+      "anchor-filter-map:cfprefsd:S0_allow_any",
+      "anchor-filter-map:cfprefsd:S1_allow_global",
+      "anchor-filter-map:cfprefsd:S2_allow_local",
+      "anchor-filter-map:cfprefsd:S3_allow_both",
+      "anchor-filter-map:cfprefsd:N1_deny_default",
+      "anchor-filter-map:cfprefsd:bogus_baseline",
+      "anchor-filter-map:cfprefsd:C1_deny_global",
+      "anchor-filter-map:cfprefsd:C2_deny_local"
+    ],
+    "file-read-xattr": [
+      "adv:xattr:allow-foo-read",
+      "adv:xattr:deny-bar-read"
+    ],
+    "file-write-xattr": [
+      "adv:xattr:allow-foo-write",
+      "adv:xattr:deny-bar-write"
+    ],
+    "darwin-notification-post": [
+      "hardened:notifications:deny-allowed-darwin",
+      "hardened:notifications:deny-darwin",
+      "hardened:notifications_allow:allow-darwin"
+    ],
+    "distributed-notification-post": [
+      "hardened:notifications:deny-allowed-distributed",
+      "hardened:notifications:deny-distributed",
+      "hardened:notifications_allow:allow-distributed"
+    ],
+    "process-info-pidinfo": [
+      "hardened:process_info_allow:pidinfo-self",
+      "hardened:process_info_allow:pidinfo-init",
+      "hardened:process_info_allow_canary:pidinfo-self",
+      "hardened:process_info_deny:pidinfo-self",
+      "hardened:process_info_deny:pidinfo-init"
+    ],
+    "signal": [
+      "hardened:signal_self_allow:signal-same-sandbox",
+      "hardened:signal_self_deny:signal-same-sandbox"
+    ],
+    "sysctl-read": [
+      "hardened:sysctl_read:deny-kern-osrelease",
+      "hardened:sysctl_read:deny-kern-bootargs",
+      "hardened:sysctl_read_allow:allow-kern-ostype"
+    ],
+    "iokit-open-service": [
+      "anchor-filter-map:iokit_class:S0_allow_any",
+      "anchor-filter-map:iokit_class:S1_allow_class",
+      "anchor-filter-map:iokit_class:S2_allow_property_literal",
+      "anchor-filter-map:iokit_class:S3_allow_both",
+      "anchor-filter-map:iokit_class:N1_deny_default",
+      "anchor-filter-map:iokit_class:bogus_baseline",
+      "anchor-filter-map:iokit_class:C1_deny_class",
+      "anchor-filter-map:iokit_class:C2_deny_property_literal"
+    ]
+  },
+  "scenario_to_traces": {
+    "bucket4:v1_read:read_/etc/hosts": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/bucket4_v1_read_read__etc_hosts.jsonl"
+    ],
+    "bucket4:v1_read:write_/etc/hosts": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/bucket4_v1_read_write__etc_hosts.jsonl"
+    ],
+    "bucket4:v1_read:read_/tmp/foo": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/bucket4_v1_read_read__tmp_foo.jsonl"
+    ],
+    "bucket5:v11_read_subpath:read_/tmp/foo": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/bucket5_v11_read_subpath_read__tmp_foo.jsonl"
+    ],
+    "bucket5:v11_read_subpath:read_/tmp/bar": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/bucket5_v11_read_subpath_read__tmp_bar.jsonl"
+    ],
+    "bucket5:v11_read_subpath:write_/tmp/foo": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/bucket5_v11_read_subpath_write__tmp_foo.jsonl"
+    ],
+    "allow_all|file-read*|/etc/hosts": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/allow_all_file-read_etc_hosts.jsonl"
+    ],
+    "allow_all|file-read*|/tmp/sbpl_rt/read.txt": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/allow_all_file-read_tmp_sbpl_rt_read.txt.jsonl"
+    ],
+    "allow_all|file-write*|/tmp/sbpl_rt/write.txt": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/allow_all_file-write_tmp_sbpl_rt_write.txt.jsonl"
+    ],
+    "metafilter_any|file-read*|/tmp/foo.txt": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/metafilter_any_file-read_tmp_foo.txt.jsonl"
+    ],
+    "metafilter_any|file-read*|/tmp/bar.txt": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/metafilter_any_file-read_tmp_bar.txt.jsonl"
+    ],
+    "metafilter_any|file-read*|/tmp/qux.txt": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/metafilter_any_file-read_tmp_qux.txt.jsonl"
+    ],
+    "metafilter_any|file-read*|/tmp/baz.txt": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/metafilter_any_file-read_tmp_baz.txt.jsonl"
+    ],
+    "metafilter_any|file-write*|/tmp/baz.txt": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/metafilter_any_file-write_tmp_baz.txt.jsonl"
+    ],
+    "runtime:strict_1:read_ok": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/runtime_strict_1_read_ok.jsonl"
+    ],
+    "runtime:strict_1:write_ok": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/runtime_strict_1_write_ok.jsonl"
+    ],
+    "runtime:strict_1:read_hosts": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/runtime_strict_1_read_hosts.jsonl"
+    ],
+    "runtime:strict_1:write_hosts": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/runtime_strict_1_write_hosts.jsonl"
+    ],
+    "sys:airlock:read_/etc/hosts": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/sys_airlock_read__etc_hosts.jsonl"
+    ],
+    "sys:airlock:write_/etc/hosts": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/sys_airlock_write__etc_hosts.jsonl"
+    ],
+    "sys:airlock:read_/tmp/foo": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/sys_airlock_read__tmp_foo.jsonl"
+    ],
+    "sys:airlock:write_/tmp/foo": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/sys_airlock_write__tmp_foo.jsonl"
+    ],
+    "sys:bsd:read_/etc/hosts": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/sys_bsd_read__etc_hosts.jsonl"
+    ],
+    "sys:bsd:write_/etc/hosts": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/sys_bsd_write__etc_hosts.jsonl"
+    ],
+    "sys:bsd:read_/tmp/foo": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/sys_bsd_read__tmp_foo.jsonl"
+    ],
+    "sys:bsd:write_/tmp/foo": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/sys_bsd_write__tmp_foo.jsonl"
+    ],
+    "adv:flow_divert_partial_tcp:tcp-loopback": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_flow_divert_partial_tcp_tcp-loopback.jsonl"
+    ],
+    "adv:flow_divert_partial_tcp:tcp-loopback-2": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_flow_divert_partial_tcp_tcp-loopback-2.jsonl"
+    ],
+    "adv:flow_divert_require_all_tcp:tcp-loopback": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_flow_divert_require_all_tcp_tcp-loopback.jsonl"
+    ],
+    "adv:flow_divert_require_all_tcp:tcp-loopback-2": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_flow_divert_require_all_tcp_tcp-loopback-2.jsonl"
+    ],
+    "adv:mach_local_literal:allow-cfprefsd-local": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_mach_local_literal_allow-cfprefsd-local.jsonl"
+    ],
+    "adv:mach_local_literal:deny-bogus-local": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_mach_local_literal_deny-bogus-local.jsonl"
+    ],
+    "adv:mach_local_regex:allow-cfprefsd-local": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_mach_local_regex_allow-cfprefsd-local.jsonl"
+    ],
+    "adv:mach_local_regex:deny-bogus-local": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_mach_local_regex_deny-bogus-local.jsonl"
+    ],
+    "adv:mach_simple_allow:allow-cfprefsd": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_mach_simple_allow_allow-cfprefsd.jsonl"
+    ],
+    "adv:mach_simple_allow:deny-bogus": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_mach_simple_allow_deny-bogus.jsonl"
+    ],
+    "adv:mach_simple_variants:allow-cfprefsd": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_mach_simple_variants_allow-cfprefsd.jsonl"
+    ],
+    "adv:mach_simple_variants:deny-bogus": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_mach_simple_variants_deny-bogus.jsonl"
+    ],
+    "adv:net_outbound_allow:tcp-loopback": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_net_outbound_allow_tcp-loopback.jsonl"
+    ],
+    "adv:net_outbound_allow:tcp-loopback-2": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_net_outbound_allow_tcp-loopback-2.jsonl"
+    ],
+    "adv:net_outbound_deny:tcp-loopback": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_net_outbound_deny_tcp-loopback.jsonl"
+    ],
+    "adv:net_outbound_deny:tcp-loopback-2": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_net_outbound_deny_tcp-loopback-2.jsonl"
+    ],
+    "adv:path_alias:alias-tmp": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_path_alias_alias-tmp.jsonl"
+    ],
+    "adv:path_alias:alias-private": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_path_alias_alias-private.jsonl"
+    ],
+    "adv:path_edges:allow-tmp": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_path_edges_allow-tmp.jsonl"
+    ],
+    "adv:path_edges:deny-private": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_path_edges_deny-private.jsonl"
+    ],
+    "adv:path_edges:allow-subpath": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_path_edges_allow-subpath.jsonl"
+    ],
+    "adv:path_edges:allow-subpath-normalized": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_path_edges_allow-subpath-normalized.jsonl"
+    ],
+    "adv:path_edges:deny-dotdot": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_path_edges_deny-dotdot.jsonl"
+    ],
+    "adv:path_edges:write-tmp": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_path_edges_write-tmp.jsonl"
+    ],
+    "adv:path_edges:write-private": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_path_edges_write-private.jsonl"
+    ],
+    "adv:path_edges:write-subpath": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_path_edges_write-subpath.jsonl"
+    ],
+    "adv:path_edges:write-dotdot": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_path_edges_write-dotdot.jsonl"
+    ],
+    "adv:struct_flat:allow-ok-root": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_struct_flat_allow-ok-root.jsonl"
+    ],
+    "adv:struct_flat:allow-ok-deep": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_struct_flat_allow-ok-deep.jsonl"
+    ],
+    "adv:struct_flat:deny-blocked": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_struct_flat_deny-blocked.jsonl"
+    ],
+    "adv:struct_flat:deny-outside": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_struct_flat_deny-outside.jsonl"
+    ],
+    "adv:struct_flat:write-ok-root": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_struct_flat_write-ok-root.jsonl"
+    ],
+    "adv:struct_flat:write-ok-deep": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_struct_flat_write-ok-deep.jsonl"
+    ],
+    "adv:struct_flat:write-blocked": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_struct_flat_write-blocked.jsonl"
+    ],
+    "adv:struct_flat:write-outside": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_struct_flat_write-outside.jsonl"
+    ],
+    "adv:struct_nested:allow-ok-root": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_struct_nested_allow-ok-root.jsonl"
+    ],
+    "adv:struct_nested:allow-ok-deep": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_struct_nested_allow-ok-deep.jsonl"
+    ],
+    "adv:struct_nested:deny-blocked": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_struct_nested_deny-blocked.jsonl"
+    ],
+    "adv:struct_nested:deny-outside": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_struct_nested_deny-outside.jsonl"
+    ],
+    "adv:struct_nested:write-ok-root": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_struct_nested_write-ok-root.jsonl"
+    ],
+    "adv:struct_nested:write-ok-deep": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_struct_nested_write-ok-deep.jsonl"
+    ],
+    "adv:struct_nested:write-blocked": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_struct_nested_write-blocked.jsonl"
+    ],
+    "adv:struct_nested:write-outside": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_struct_nested_write-outside.jsonl"
+    ],
+    "adv:path_edges_private:allow-private": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_path_edges_private_allow-private.jsonl"
+    ],
+    "adv:path_edges_private:allow-private-subpath": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_path_edges_private_allow-private-subpath.jsonl"
+    ],
+    "adv:path_edges_private:allow-tmp": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_path_edges_private_allow-tmp.jsonl"
+    ],
+    "adv:path_edges_private:allow-tmp-subpath": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_path_edges_private_allow-tmp-subpath.jsonl"
+    ],
+    "adv:path_edges_private:deny-dotdot": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_path_edges_private_deny-dotdot.jsonl"
+    ],
+    "adv:path_edges_private:write-private": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_path_edges_private_write-private.jsonl"
+    ],
+    "adv:path_edges_private:write-private-subpath": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_path_edges_private_write-private-subpath.jsonl"
+    ],
+    "adv:path_edges_private:write-tmp": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_path_edges_private_write-tmp.jsonl"
+    ],
+    "adv:path_edges_private:write-tmp-subpath": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_path_edges_private_write-tmp-subpath.jsonl"
+    ],
+    "adv:path_edges_private:write-dotdot": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_path_edges_private_write-dotdot.jsonl"
+    ],
+    "adv:mount_relative_path:allow-subpath": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_mount_relative_path_allow-subpath.jsonl"
+    ],
+    "adv:mount_relative_path:deny-outside": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_mount_relative_path_deny-outside.jsonl"
+    ],
+    "adv:xattr:allow-foo-read": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_xattr_allow-foo-read.jsonl"
+    ],
+    "adv:xattr:deny-bar-read": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_xattr_deny-bar-read.jsonl"
+    ],
+    "adv:xattr:allow-foo-write": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_xattr_allow-foo-write.jsonl"
+    ],
+    "adv:xattr:deny-bar-write": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_xattr_deny-bar-write.jsonl"
+    ],
+    "adv:file_mode:allow-private": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_file_mode_allow-private.jsonl"
+    ],
+    "adv:file_mode:deny-world": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/adv_file_mode_deny-world.jsonl"
+    ],
+    "hardened:mach_lookup:deny-cfprefsd": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/hardened_mach_lookup_deny-cfprefsd.jsonl"
+    ],
+    "hardened:mach_lookup:deny-bogus": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/hardened_mach_lookup_deny-bogus.jsonl"
+    ],
+    "hardened:mach_lookup_allow:allow-cfprefsd": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/hardened_mach_lookup_allow_allow-cfprefsd.jsonl"
+    ],
+    "hardened:notifications:deny-allowed-darwin": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/hardened_notifications_deny-allowed-darwin.jsonl"
+    ],
+    "hardened:notifications:deny-darwin": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/hardened_notifications_deny-darwin.jsonl"
+    ],
+    "hardened:notifications:deny-allowed-distributed": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/hardened_notifications_deny-allowed-distributed.jsonl"
+    ],
+    "hardened:notifications:deny-distributed": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/hardened_notifications_deny-distributed.jsonl"
+    ],
+    "hardened:notifications_allow:allow-darwin": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/hardened_notifications_allow_allow-darwin.jsonl"
+    ],
+    "hardened:notifications_allow:allow-distributed": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/hardened_notifications_allow_allow-distributed.jsonl"
+    ],
+    "hardened:process_info_allow:pidinfo-self": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/hardened_process_info_allow_pidinfo-self.jsonl"
+    ],
+    "hardened:process_info_allow:pidinfo-init": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/hardened_process_info_allow_pidinfo-init.jsonl"
+    ],
+    "hardened:process_info_allow_canary:pidinfo-self": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/hardened_process_info_allow_canary_pidinfo-self.jsonl"
+    ],
+    "hardened:process_info_deny:pidinfo-self": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/hardened_process_info_deny_pidinfo-self.jsonl"
+    ],
+    "hardened:process_info_deny:pidinfo-init": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/hardened_process_info_deny_pidinfo-init.jsonl"
+    ],
+    "hardened:signal_self_allow:signal-same-sandbox": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/hardened_signal_self_allow_signal-same-sandbox.jsonl"
+    ],
+    "hardened:signal_self_deny:signal-same-sandbox": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/hardened_signal_self_deny_signal-same-sandbox.jsonl"
+    ],
+    "hardened:sysctl_read:deny-kern-osrelease": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/hardened_sysctl_read_deny-kern-osrelease.jsonl"
+    ],
+    "hardened:sysctl_read:deny-kern-bootargs": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/hardened_sysctl_read_deny-kern-bootargs.jsonl"
+    ],
+    "hardened:sysctl_read_allow:allow-kern-ostype": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/hardened_sysctl_read_allow_allow-kern-ostype.jsonl"
+    ],
+    "anchor-filter-map:cfprefsd:S0_allow_any": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/anchor-filter-map_cfprefsd_S0_allow_any.jsonl"
+    ],
+    "anchor-filter-map:cfprefsd:S1_allow_global": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/anchor-filter-map_cfprefsd_S1_allow_global.jsonl"
+    ],
+    "anchor-filter-map:cfprefsd:S2_allow_local": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/anchor-filter-map_cfprefsd_S2_allow_local.jsonl"
+    ],
+    "anchor-filter-map:cfprefsd:S3_allow_both": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/anchor-filter-map_cfprefsd_S3_allow_both.jsonl"
+    ],
+    "anchor-filter-map:cfprefsd:N1_deny_default": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/anchor-filter-map_cfprefsd_N1_deny_default.jsonl"
+    ],
+    "anchor-filter-map:cfprefsd:bogus_baseline": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/anchor-filter-map_cfprefsd_bogus_baseline.jsonl"
+    ],
+    "anchor-filter-map:cfprefsd:C1_deny_global": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/anchor-filter-map_cfprefsd_C1_deny_global.jsonl"
+    ],
+    "anchor-filter-map:cfprefsd:C2_deny_local": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/anchor-filter-map_cfprefsd_C2_deny_local.jsonl"
+    ],
+    "anchor-filter-map:iokit_class:S0_allow_any": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/anchor-filter-map_iokit_class_S0_allow_any.jsonl"
+    ],
+    "anchor-filter-map:iokit_class:S1_allow_class": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/anchor-filter-map_iokit_class_S1_allow_class.jsonl"
+    ],
+    "anchor-filter-map:iokit_class:S2_allow_property_literal": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/anchor-filter-map_iokit_class_S2_allow_property_literal.jsonl"
+    ],
+    "anchor-filter-map:iokit_class:S3_allow_both": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/anchor-filter-map_iokit_class_S3_allow_both.jsonl"
+    ],
+    "anchor-filter-map:iokit_class:N1_deny_default": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/anchor-filter-map_iokit_class_N1_deny_default.jsonl"
+    ],
+    "anchor-filter-map:iokit_class:bogus_baseline": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/anchor-filter-map_iokit_class_bogus_baseline.jsonl"
+    ],
+    "anchor-filter-map:iokit_class:C1_deny_class": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/anchor-filter-map_iokit_class_C1_deny_class.jsonl"
+    ],
+    "anchor-filter-map:iokit_class:C2_deny_property_literal": [
+      "book/evidence/graph/mappings/runtime_cuts/traces/anchor-filter-map_iokit_class_C2_deny_property_literal.jsonl"
+    ]
+  }
+}

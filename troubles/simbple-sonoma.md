@@ -62,7 +62,7 @@ All three crash in the same place (`load-profile`, Signal 11).
 - Trace/output examples: `/tmp/simbple-trace.log`, `/tmp/simbple-out.sb`.
 
 ## Artifact Evidence (partial)
-- `book/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib` string tables include:
+- `book/evidence/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib` string tables include:
   - `*ios-sandbox-system-container*` → `com.apple.sandbox.system-container`
   - `*ios-sandbox-system-group*` → `com.apple.sandbox.system-group`
   - `*sandbox-executable-bundle*` → `com.apple.sandbox.executable`
@@ -70,19 +70,19 @@ All three crash in the same place (`load-profile`, Signal 11).
 - Host system profiles: `/System/Library/Sandbox/Profiles/system.sb` and `/System/Library/Sandbox/Profiles/contacts.sb` both declare `(version 3)` on this host baseline.
 
 ## Log (append-only)
-- 2024-12-03: extracted `fcntl-command` and `fsctl-command` named-argument values from `book/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib` (world_id `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`) and replaced placeholders in `book/tools/sbpl/simbple/src/platform_data/catalina/filters.c` (`F_GETCONFINED`, `F_SETCONFINED`, and `APFSIOC_*` values).
+- 2024-12-03: extracted `fcntl-command` and `fsctl-command` named-argument values from `book/evidence/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib` (world_id `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`) and replaced placeholders in `book/tools/sbpl/simbple/src/platform_data/catalina/filters.c` (`F_GETCONFINED`, `F_SETCONFINED`, and `APFSIOC_*` values).
 - 2024-12-03: confirmed libsandbox contains `*ios-sandbox-container*` and `*ios-sandbox-application-group*` strings but no concrete values for `*ios-sandbox-system-container*`, `*ios-sandbox-system-group*`, or `*ios-sandbox-executable*`.
-- 2024-12-03: removed the ad-hoc `iokit-user-client-class` filter entry from `book/tools/sbpl/simbple/src/platform_data/catalina/filters.c` to align with `book/graph/mappings/vocab/filters.json` (SBPL aliases it to `iokit-registry-entry-class`).
+- 2024-12-03: removed the ad-hoc `iokit-user-client-class` filter entry from `book/tools/sbpl/simbple/src/platform_data/catalina/filters.c` to align with `book/evidence/graph/mappings/vocab/filters.json` (SBPL aliases it to `iokit-registry-entry-class`).
 - 2024-12-03: rebuilt `simbple` and verified extraction succeeds without `SIMBPLE_PERMISSIVE=1` for `~/Library/Containers/com.apple.AppStore/.com.apple.containermanagerd.metadata.plist` (initial run hit a 10s timeout; rerun with a larger timeout completed).
 - 2024-12-03: updated `book/tools/sbpl/simbple/src/scm/sbpl.scm` to enforce SBPL v1-only semantics; any `version` other than 1 now triggers an error.
 - 2024-12-03: reran `simbple` without permissive mode against AppStore, Archive Utility, FaceTime, and iBooks container metadata; all crash at `load-profile` with Signal 11 after the v1-only change (`/tmp/simbple-*.log` capture traces that stop at `load-profile`).
 - 2024-12-03: attempted a diagnostic run with `SIMBPLE_SKIP_PROFILE=1` (AppStore metadata) to isolate snippet loading; encountered unbound variables (`entitlement`, `when*`, `home-subpath`) and an assertion failure in `sbpl_create_rule` (Signal 6).
-- 2024-12-03: searched `book/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib` for `*ios-sandbox-*` values; found `com.apple.sandbox.system-container`, `com.apple.sandbox.system-group`, and `com.apple.sandbox.executable` strings (partial host evidence) and updated `book/tools/sbpl/simbple/src/scm/sbpl_v1.scm` accordingly. No `*ios-sandbox-executable*` string found.
+- 2024-12-03: searched `book/evidence/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib` for `*ios-sandbox-*` values; found `com.apple.sandbox.system-container`, `com.apple.sandbox.system-group`, and `com.apple.sandbox.executable` strings (partial host evidence) and updated `book/tools/sbpl/simbple/src/scm/sbpl_v1.scm` accordingly. No `*ios-sandbox-executable*` string found.
 - 2024-12-03: added a profile preflight that scans `(version N)` directives in `book/tools/sbpl/simbple/src/misc/scheme_support.c` and a `%sbpl-version` foreign function to expose the check to Scheme; `load` now rejects any version other than 1.
 - 2024-12-03: added `%sbpl-unsupported-version` to emit a fatal error and `exit(EXIT_FAILURE)` when a non-v1 profile is encountered; this avoids the earlier segfault path at the cost of a hard process exit.
 - 2024-12-03: verified that `system.sb` (version 3) now fails fast with a clear error instead of a segfault when loaded directly or via `load`.
 - 2024-12-03: re-ran the default AppStore container extraction; it now exits early with an explicit unsupported version error from `system.sb` rather than crashing.
-- Added socket constants (`AF_INET=2`, `AF_SYSTEM=32`, `SOCK_STREAM=1`, `SOCK_DGRAM=2`, `IPPROTO_TCP=6`, `IPPROTO_UDP=17`) to `book/tools/sbpl/simbple/src/scm/sbpl_v1.scm` using the libsandbox-encoder network-matrix witness (`book/experiments/field2-final-final/libsandbox-encoder/Notes.md`, partial) and rebuilt `simbple`; network-matrix v1 profiles now load under `SIMBPLE_PERMISSIVE=1` and `SIMBPLE_SKIP_SNIPPETS=1`.
+- Added socket constants (`AF_INET=2`, `AF_SYSTEM=32`, `SOCK_STREAM=1`, `SOCK_DGRAM=2`, `IPPROTO_TCP=6`, `IPPROTO_UDP=17`) to `book/tools/sbpl/simbple/src/scm/sbpl_v1.scm` using the libsandbox-encoder network-matrix witness (`book/evidence/experiments/field2-final-final/libsandbox-encoder/Notes.md`, partial) and rebuilt `simbple`; network-matrix v1 profiles now load under `SIMBPLE_PERMISSIVE=1` and `SIMBPLE_SKIP_SNIPPETS=1`.
 - Added `iokit-async-external-method`, `iokit-external-method`, and `iokit-external-trap` to `book/tools/sbpl/simbple/src/platform_data/catalina/operations.c` (mapped to `iokit*`) and introduced an `apply-message-filter` placeholder (`book/tools/sbpl/simbple/src/scm/sbpl_v1.scm` macro → `(with "apply-message-filter")`, `book/tools/sbpl/simbple/src/sb/modifiers.c` modifier); nested message-filter rules are ignored (partial) but the v1 gate-witness minimal profile now loads cleanly.
 - Re-ran the v1 corpus (`book/tools/sbpl/corpus`) with `SIMBPLE_PERMISSIVE=1` + `SIMBPLE_SKIP_SNIPPETS=1`; all v1 entries now exit cleanly.
 - Decision: keep the `apply-message-filter` placeholder path (flat modifier, ignore nested rules) because the early substrate sources describe modifiers as a flat list and do not mention message-filter nesting; this is a hypothesis inference with no host witness yet.

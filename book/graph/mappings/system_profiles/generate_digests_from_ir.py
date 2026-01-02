@@ -3,12 +3,12 @@
 Regenerate system profile digests mapping from validation IR only.
 
 Inputs:
-- book/graph/concepts/validation/out/experiments/system-profile-digest/digests_ir.json
+- book/evidence/graph/concepts/validation/out/experiments/system-profile-digest/digests_ir.json
 
 Flow:
 - Run validation driver with tag `system-profiles` (and smoke for dependencies).
 - Require job experiment:system-profile-digest to be ok.
-- Write book/graph/mappings/system_profiles/digests.json with host metadata and source_jobs.
+- Write book/evidence/graph/mappings/system_profiles/digests.json with host metadata and source_jobs.
 """
 
 from __future__ import annotations

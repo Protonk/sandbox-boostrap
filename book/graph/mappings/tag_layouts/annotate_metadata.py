@@ -20,8 +20,8 @@ if str(ROOT) not in sys.path:
 from book.api import evidence_tiers  # noqa: E402
 from book.api import world as world_mod  # noqa: E402
 
-TAG_LAYOUTS_PATH = ROOT / "book/graph/mappings/tag_layouts/tag_layouts.json"
-DIGESTS_PATH = ROOT / "book/graph/mappings/system_profiles/digests.json"
+TAG_LAYOUTS_PATH = ROOT / "book/evidence/graph/mappings/tag_layouts/tag_layouts.json"
+DIGESTS_PATH = ROOT / "book/evidence/graph/mappings/system_profiles/digests.json"
 
 
 def load_json(path: Path) -> dict:

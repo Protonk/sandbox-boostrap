@@ -1,0 +1,340 @@
+{
+  "action_id": "downloads_direct_6b6d6d71bb48",
+  "evidence_tier": "mapped",
+  "limits": [
+    "entitlements: PolicyWitness XPC run (observer-only deny evidence)",
+    "sbpl: wrapper apply failures are apply-stage gates, not policy decisions",
+    "none: unsandboxed baseline (no policy apply)"
+  ],
+  "results": {
+    "entitlements": {
+      "bundle": null,
+      "capture_sandbox_logs": false,
+      "command": [
+        "book/tools/witness/PolicyWitness.app/Contents/MacOS/policy-witness",
+        "xpc",
+        "run",
+        "--profile",
+        "minimal",
+        "--plan-id",
+        "deny-delay-detail:compare:6b6d6d71-bb48-4172-85fa-f4c476fb62a4",
+        "--row-id",
+        "entitlements.fs_op_create_direct",
+        "fs_op",
+        "--op",
+        "create",
+        "--path",
+        "/Users/achyland/Downloads/atlas_compare_6b6d6d71bb48.txt",
+        "--allow-unsafe-path"
+      ],
+      "correlation_id": null,
+      "duration_s": 0.03309297561645508,
+      "entrypoint": "book/tools/witness/PolicyWitness.app/Contents/MacOS/policy-witness",
+      "evidence_tier": "mapped",
+      "exit_code": 1,
+      "finished_at_unix_s": 1767246043.597755,
+      "lifecycle": {
+        "correlation_id": "20B5667A-7FF8-43CA-A2AD-3E2DE9C022BF",
+        "evidence_tier": "mapped",
+        "file_path": "/Users/achyland/Downloads/atlas_compare_6b6d6d71bb48.txt",
+        "plan_id": "deny-delay-detail:compare:6b6d6d71-bb48-4172-85fa-f4c476fb62a4",
+        "process_name": "ProbeService_minimal",
+        "profile_id": "minimal",
+        "row_id": "entitlements.fs_op_create_direct",
+        "service_id": "com.yourteam.policy-witness.ProbeService_minimal",
+        "service_pid": "46897",
+        "tmp_dir": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal/Data/tmp/"
+      },
+      "log_path": "book/evidence/experiments/deny-delay-detail/out/compare/downloads_direct_6b6d6d71bb48/logs/downloads_direct_6b6d6d71bb48.entitlements.json",
+      "log_write_error": null,
+      "observer": {
+        "command": [
+          "book/tools/witness/PolicyWitness.app/Contents/MacOS/sandbox-log-observer",
+          "--pid",
+          "46897",
+          "--process-name",
+          "ProbeService_minimal",
+          "--format",
+          "json",
+          "--start",
+          "2025-12-31 21:40:41",
+          "--end",
+          "2025-12-31 21:40:45",
+          "--plan-id",
+          "deny-delay-detail:compare:6b6d6d71-bb48-4172-85fa-f4c476fb62a4",
+          "--row-id",
+          "entitlements.fs_op_create_direct",
+          "--correlation-id",
+          "20B5667A-7FF8-43CA-A2AD-3E2DE9C022BF"
+        ],
+        "correlation_id": "20B5667A-7FF8-43CA-A2AD-3E2DE9C022BF",
+        "exit_code": 0,
+        "last": "10s",
+        "log_path": "book/evidence/experiments/deny-delay-detail/out/compare/downloads_direct_6b6d6d71bb48/logs/observer/downloads_direct_6b6d6d71bb48.entitlements.json.observer.json",
+        "log_write_error": null,
+        "observer_window_end": "2025-12-31 21:40:45",
+        "observer_window_mode": "range",
+        "observer_window_pad_s": 2.0,
+        "observer_window_start": "2025-12-31 21:40:41",
+        "pid": "46897",
+        "plan_id": "deny-delay-detail:compare:6b6d6d71-bb48-4172-85fa-f4c476fb62a4",
+        "process_name": "ProbeService_minimal",
+        "report": {
+          "data": {
+            "correlation_id": "20B5667A-7FF8-43CA-A2AD-3E2DE9C022BF",
+            "deny_lines": [
+              "2025-12-31 21:40:43.612577-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_minimal(46897) deny(1) file-write-create /Users/achyland/Downloads/atlas_compare_6b6d6d71bb48.txt"
+            ],
+            "duration_ms": null,
+            "end": "2025-12-31 21:40:45",
+            "last": null,
+            "layer_attribution": {
+              "seatbelt": "observer_only"
+            },
+            "log_error": null,
+            "log_rc": 0,
+            "log_stderr": "",
+            "log_stdout": "Timestamp                       (process)[PID]    \n2025-12-31 21:40:43.612577-0800  localhost kernel[0]: (Sandbox) Sandbox: ProbeService_minimal(46897) deny(1) file-write-create /Users/achyland/Downloads/atlas_compare_6b6d6d71bb48.txt",
+            "log_truncated": false,
+            "mode": "show",
+            "observed_deny": true,
+            "observed_lines": 2,
+            "observer_schema_version": 1,
+            "pid": 46897,
+            "plan_id": "deny-delay-detail:compare:6b6d6d71-bb48-4172-85fa-f4c476fb62a4",
+            "predicate": "((eventMessage CONTAINS[c] \"Sandbox: ProbeService_minimal(46897)\") OR ((eventMessage CONTAINS[c] \"deny\") AND (eventMessage CONTAINS[c] \"46897\")))",
+            "process_name": "ProbeService_minimal",
+            "row_id": "entitlements.fs_op_create_direct",
+            "start": "2025-12-31 21:40:41",
+            "stop_on_pid_exit": false
+          },
+          "generated_at_unix_ms": 1767246043743,
+          "kind": "sandbox_log_observer_report",
+          "result": {
+            "errno": null,
+            "error": null,
+            "exit_code": 0,
+            "normalized_outcome": null,
+            "ok": true,
+            "rc": null,
+            "stderr": null,
+            "stdout": null
+          },
+          "schema_version": 1
+        },
+        "report_error": null,
+        "row_id": "entitlements.fs_op_create_direct",
+        "stderr": "",
+        "stdout_bytes": 1615
+      },
+      "observer_log_path": "book/evidence/experiments/deny-delay-detail/out/compare/downloads_direct_6b6d6d71bb48/logs/observer/downloads_direct_6b6d6d71bb48.entitlements.json.observer.json",
+      "observer_status": "ok",
+      "plan_id": "deny-delay-detail:compare:6b6d6d71-bb48-4172-85fa-f4c476fb62a4",
+      "probe_args": [
+        "--op",
+        "create",
+        "--path",
+        "/Users/achyland/Downloads/atlas_compare_6b6d6d71bb48.txt",
+        "--allow-unsafe-path"
+      ],
+      "probe_error": null,
+      "probe_id": "fs_op",
+      "probe_timeout_s": 25.0,
+      "profile_id": "minimal",
+      "record_write_error": null,
+      "row_id": "entitlements.fs_op_create_direct",
+      "runner_info": {
+        "entrypoint": "policy-witness",
+        "entrypoint_path": "book/tools/witness/PolicyWitness.app/Contents/MacOS/policy-witness",
+        "entrypoint_sha256": "70932a56ecb32fc5e87b70ee3c144c200c3377d2bbdc288739ea385177aa4b24",
+        "tool_build_id": "70932a56ecb32fc5e87b70ee3c144c200c3377d2bbdc288739ea385177aa4b24"
+      },
+      "service_id": null,
+      "started_at_unix_s": 1767246043.564662,
+      "stderr": "",
+      "stdout": "{\"data\":{\"argv\":[\"--op\",\"create\",\"--path\",\"\\/Users\\/achyland\\/Downloads\\/atlas_compare_6b6d6d71bb48.txt\",\"--allow-unsafe-path\"],\"correlation_id\":\"20B5667A-7FF8-43CA-A2AD-3E2DE9C022BF\",\"details\":{\"base_dir\":\"\",\"bundle_id\":\"com.yourteam.policy-witness.ProbeService_minimal\",\"cleanup_mode\":\"default\",\"correlation_id\":\"20B5667A-7FF8-43CA-A2AD-3E2DE9C022BF\",\"cwd\":\"\\/Users\\/achyland\\/Library\\/Containers\\/com.yourteam.policy-witness.ProbeService_minimal\\/Data\",\"duration_ms\":\"3\",\"file_path\":\"\\/Users\\/achyland\\/Downloads\\/atlas_compare_6b6d6d71bb48.txt\",\"harness_dir\":\"\",\"home_dir\":\"\\/Users\\/achyland\\/Library\\/Containers\\/com.yourteam.policy-witness.ProbeService_minimal\\/Data\",\"op\":\"create\",\"path_class\":\"\",\"path_mode\":\"direct_path\",\"pid\":\"46897\",\"probe_family\":\"fs_op\",\"probe_pid\":\"46897\",\"process_name\":\"ProbeService_minimal\",\"run_dir\":\"\",\"service_pid\":\"46897\",\"session_token\":\"2F475AEC-4709-43D8-94F1-B04F8817C811\",\"target\":\"specimen_file\",\"tmp_dir\":\"\\/Users\\/achyland\\/Library\\/Containers\\/com.yourteam.policy-witness.ProbeService_minimal\\/Data\\/tmp\\/\"},\"ended_at_iso8601\":\"2026-01-01T05:40:43.595Z\",\"errno\":1,\"error\":\"Error Domain=NSCocoaErrorDomain Code=513 \\\"You don\u2019t have permission to save the file \u201catlas_compare_6b6d6d71bb48.txt\u201d in the folder \u201cDownloads\u201d.\\\" UserInfo={NSFilePath=\\/Users\\/achyland\\/Downloads\\/atlas_compare_6b6d6d71bb48.txt, NSUnderlyingError=0x6000006703f0 {Error Domain=NSPOSIXErrorDomain Code=1 \\\"Operation not permitted\\\"}}\",\"normalized_outcome\":\"permission_error\",\"plan_id\":\"deny-delay-detail:compare:6b6d6d71-bb48-4172-85fa-f4c476fb62a4\",\"probe_id\":\"fs_op\",\"rc\":1,\"row_id\":\"entitlements.fs_op_create_direct\",\"schema_version\":1,\"service_build\":\"2\",\"service_bundle_id\":\"com.yourteam.policy-witness.ProbeService_minimal\",\"service_name\":\"ProbeService_minimal\",\"service_version\":\"2.0.0\",\"started_at_iso8601\":\"2026-01-01T05:40:43.591Z\",\"stderr\":\"\",\"stdout\":\"\",\"thread_id\":\"5891\"},\"generated_at_unix_ms\":1767246043596,\"kind\":\"probe_response\",\"result\":{\"errno\":1,\"error\":\"Error Domain=NSCocoaErrorDomain Code=513 \\\"You don\u2019t have permission to save the file \u201catlas_compare_6b6d6d71bb48.txt\u201d in the folder \u201cDownloads\u201d.\\\" UserInfo={NSFilePath=\\/Users\\/achyland\\/Downloads\\/atlas_compare_6b6d6d71bb48.txt, NSUnderlyingError=0x6000006703f0 {Error Domain=NSPOSIXErrorDomain Code=1 \\\"Operation not permitted\\\"}}\",\"exit_code\":1,\"normalized_outcome\":\"permission_error\",\"ok\":false,\"rc\":1},\"schema_version\":1}\n",
+      "stdout_json": {
+        "data": {
+          "argv": [
+            "--op",
+            "create",
+            "--path",
+            "/Users/achyland/Downloads/atlas_compare_6b6d6d71bb48.txt",
+            "--allow-unsafe-path"
+          ],
+          "correlation_id": "20B5667A-7FF8-43CA-A2AD-3E2DE9C022BF",
+          "details": {
+            "base_dir": "",
+            "bundle_id": "com.yourteam.policy-witness.ProbeService_minimal",
+            "cleanup_mode": "default",
+            "correlation_id": "20B5667A-7FF8-43CA-A2AD-3E2DE9C022BF",
+            "cwd": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal/Data",
+            "duration_ms": "3",
+            "file_path": "/Users/achyland/Downloads/atlas_compare_6b6d6d71bb48.txt",
+            "harness_dir": "",
+            "home_dir": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal/Data",
+            "op": "create",
+            "path_class": "",
+            "path_mode": "direct_path",
+            "pid": "46897",
+            "probe_family": "fs_op",
+            "probe_pid": "46897",
+            "process_name": "ProbeService_minimal",
+            "run_dir": "",
+            "service_pid": "46897",
+            "session_token": "2F475AEC-4709-43D8-94F1-B04F8817C811",
+            "target": "specimen_file",
+            "tmp_dir": "/Users/achyland/Library/Containers/com.yourteam.policy-witness.ProbeService_minimal/Data/tmp/"
+          },
+          "ended_at_iso8601": "2026-01-01T05:40:43.595Z",
+          "errno": 1,
+          "error": "Error Domain=NSCocoaErrorDomain Code=513 \"You don\u2019t have permission to save the file \u201catlas_compare_6b6d6d71bb48.txt\u201d in the folder \u201cDownloads\u201d.\" UserInfo={NSFilePath=/Users/achyland/Downloads/atlas_compare_6b6d6d71bb48.txt, NSUnderlyingError=0x6000006703f0 {Error Domain=NSPOSIXErrorDomain Code=1 \"Operation not permitted\"}}",
+          "normalized_outcome": "permission_error",
+          "plan_id": "deny-delay-detail:compare:6b6d6d71-bb48-4172-85fa-f4c476fb62a4",
+          "probe_id": "fs_op",
+          "rc": 1,
+          "row_id": "entitlements.fs_op_create_direct",
+          "schema_version": 1,
+          "service_build": "2",
+          "service_bundle_id": "com.yourteam.policy-witness.ProbeService_minimal",
+          "service_name": "ProbeService_minimal",
+          "service_version": "2.0.0",
+          "started_at_iso8601": "2026-01-01T05:40:43.591Z",
+          "stderr": "",
+          "stdout": "",
+          "thread_id": "5891"
+        },
+        "generated_at_unix_ms": 1767246043596,
+        "kind": "probe_response",
+        "result": {
+          "errno": 1,
+          "error": "Error Domain=NSCocoaErrorDomain Code=513 \"You don\u2019t have permission to save the file \u201catlas_compare_6b6d6d71bb48.txt\u201d in the folder \u201cDownloads\u201d.\" UserInfo={NSFilePath=/Users/achyland/Downloads/atlas_compare_6b6d6d71bb48.txt, NSUnderlyingError=0x6000006703f0 {Error Domain=NSPOSIXErrorDomain Code=1 \"Operation not permitted\"}}",
+          "exit_code": 1,
+          "normalized_outcome": "permission_error",
+          "ok": false,
+          "rc": 1
+        },
+        "schema_version": 1
+      },
+      "stdout_json_error": null,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+    },
+    "none": {
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo test > \"$HOME/Downloads/atlas_compare_6b6d6d71bb48.txt\"; rm -f \"$HOME/Downloads/atlas_compare_6b6d6d71bb48.txt\""
+      ],
+      "duration_s": 0.004178762435913086,
+      "error": null,
+      "evidence_tier": "mapped",
+      "exit_code": 0,
+      "finished_at_unix_s": 1767246043.8434439,
+      "preflight": null,
+      "runner_info": null,
+      "started_at_unix_s": 1767246043.839265,
+      "stderr": "",
+      "stdout": "",
+      "tool_markers": null
+    },
+    "sbpl": {
+      "command": [
+        "book/tools/sbpl/wrapper/wrapper",
+        "--preflight",
+        "enforce",
+        "--sbpl",
+        "book/evidence/experiments/sbpl-graph-runtime/profiles/allow_all.sb",
+        "--",
+        "/bin/sh",
+        "-c",
+        "echo test > \"$HOME/Downloads/atlas_compare_6b6d6d71bb48.txt\"; rm -f \"$HOME/Downloads/atlas_compare_6b6d6d71bb48.txt\""
+      ],
+      "duration_s": 0.08362221717834473,
+      "error": null,
+      "evidence_tier": "mapped",
+      "exit_code": 0,
+      "finished_at_unix_s": 1767246043.829601,
+      "preflight": {
+        "apply_marker_pid": 46903,
+        "apply_ok": true,
+        "apply_report": {
+          "api": "sandbox_init",
+          "err_class": "ok",
+          "err_class_source": "none",
+          "errbuf": null,
+          "errno": 0,
+          "rc": 0
+        },
+        "command": [
+          "book/api/runtime/native/sandbox_runner/sandbox_runner",
+          "book/evidence/experiments/sbpl-graph-runtime/profiles/allow_all.sb",
+          "--",
+          "/usr/bin/true"
+        ],
+        "exit_code": 0,
+        "failure_stage": null,
+        "profile": "book/evidence/experiments/sbpl-graph-runtime/profiles/allow_all.sb",
+        "run_id": null,
+        "runner": "book/api/runtime/native/sandbox_runner/sandbox_runner",
+        "sandbox_check_self": {
+          "error": "libsystem_sandbox not found",
+          "source": "sandbox_check"
+        },
+        "status": "ok",
+        "stderr": "",
+        "stdout": "",
+        "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+      },
+      "runner_info": {
+        "entrypoint": "sbpl-wrapper",
+        "entrypoint_path": "book/tools/sbpl/wrapper/wrapper",
+        "entrypoint_sha256": "2a4ead954fcceb103a5409d6057ab6803f206a11fc94554638c1b6a2aa065bb3",
+        "tool_build_id": "2a4ead954fcceb103a5409d6057ab6803f206a11fc94554638c1b6a2aa065bb3"
+      },
+      "started_at_unix_s": 1767246043.7459788,
+      "stderr": "{\"tool\":\"sbpl-preflight\",\"marker_schema_version\":1,\"stage\":\"preflight\",\"mode\":\"sbpl\",\"policy\":\"enforce\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/sbpl-graph-runtime/profiles/allow_all.sb\",\"rc\":0,\"record_json\":\"{\\\"classification\\\": \\\"no_known_apply_gate_signature\\\", \\\"findings\\\": [], \\\"input_kind\\\": \\\"sbpl_path\\\", \\\"input_ref\\\": \\\"book/evidence/experiments/sbpl-graph-runtime/profiles/allow_all.sb\\\", \\\"preflight_schema_version\\\": 1, \\\"signature\\\": null, \\\"tool\\\": \\\"book/tools/preflight\\\", \\\"world_id\\\": \\\"sonoma-14.4.1-23E224-arm64-dyld-2c0602c5\\\"}\",\"pid\":46900}\n{\"tool\":\"entitlement-check\",\"marker_schema_version\":1,\"stage\":\"pre_apply\",\"entitlement\":\"com.apple.private.security.message-filter\",\"pid\":46900,\"rc\":0,\"present\":false,\"value_type\":\"absent\"}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/sbpl-graph-runtime/profiles/allow_all.sb\",\"pid\":46900}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/sbpl-graph-runtime/profiles/allow_all.sb\",\"pid\":46900}\n",
+      "stdout": "",
+      "tool_markers": {
+        "sbpl_apply": [
+          {
+            "api": "sandbox_init",
+            "err_class": "ok",
+            "err_class_source": "none",
+            "errno": 0,
+            "marker_schema_version": 1,
+            "mode": "sbpl",
+            "pid": 46900,
+            "profile": "/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/sbpl-graph-runtime/profiles/allow_all.sb",
+            "rc": 0,
+            "stage": "apply",
+            "tool": "sbpl-apply"
+          },
+          {
+            "api": "sandbox_init",
+            "marker_schema_version": 1,
+            "mode": "sbpl",
+            "pid": 46900,
+            "profile": "/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/sbpl-graph-runtime/profiles/allow_all.sb",
+            "rc": 0,
+            "stage": "applied",
+            "tool": "sbpl-apply"
+          }
+        ],
+        "sbpl_preflight": [
+          {
+            "marker_schema_version": 1,
+            "mode": "sbpl",
+            "pid": 46900,
+            "policy": "enforce",
+            "profile": "/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/experiments/sbpl-graph-runtime/profiles/allow_all.sb",
+            "rc": 0,
+            "record_json": "{\"classification\": \"no_known_apply_gate_signature\", \"findings\": [], \"input_kind\": \"sbpl_path\", \"input_ref\": \"book/evidence/experiments/sbpl-graph-runtime/profiles/allow_all.sb\", \"preflight_schema_version\": 1, \"signature\": null, \"tool\": \"book/tools/preflight\", \"world_id\": \"sonoma-14.4.1-23E224-arm64-dyld-2c0602c5\"}",
+            "stage": "preflight",
+            "tool": "sbpl-preflight"
+          }
+        ]
+      }
+    }
+  },
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

@@ -44,7 +44,7 @@ To write the canonical validation output:
 
 ```sh
 python -m book.api.lifecycle extensions \
-  --out book/graph/concepts/validation/out/lifecycle/extensions_dynamic.md
+  --out book/evidence/graph/concepts/validation/out/lifecycle/extensions_dynamic.md
 ```
 
 You should expect:

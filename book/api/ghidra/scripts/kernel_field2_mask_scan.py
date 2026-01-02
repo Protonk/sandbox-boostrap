@@ -5,7 +5,7 @@ Args: <out_dir> <build_id> [mask_hex ...] [all]
 Defaults to masks 0x3fff, 0x4000, 0xc000 if none provided. Add "all" to scan the entire binary
 instead of sandbox memory blocks only.
 
-Outputs: book/dumps/ghidra/out/<build>/kernel-field2-mask-scan/mask_scan.json (plus script.log).
+Outputs: book/evidence/dumps/ghidra/out/<build>/kernel-field2-mask-scan/mask_scan.json (plus script.log).
 Pitfalls: with --no-analysis basic instruction iteration still works, but function metadata/xrefs will be sparse.
 Notes:
 - Defaults mirror the most common field2 masks seen in Sonoma KC patterns.

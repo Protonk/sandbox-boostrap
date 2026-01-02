@@ -9,7 +9,7 @@ Uses decoder + inspect_profile to record invariants:
 - anchor hits (reusing attestation generation)
 
 Outputs:
-- book/graph/mappings/system_profiles/static_checks.json
+- book/evidence/graph/mappings/system_profiles/static_checks.json
 """
 
 from __future__ import annotations
@@ -29,7 +29,7 @@ from book.api.profile import digests as digests_mod
 from book.api import evidence_tiers
 from book.api import world as world_mod
 from book.graph.concepts.validation import profile_ingestion as pi
-OUT_PATH = REPO_ROOT / "book/graph/mappings/system_profiles/static_checks.json"
+OUT_PATH = REPO_ROOT / "book/evidence/graph/mappings/system_profiles/static_checks.json"
 
 
 def load_baseline() -> Dict[str, Any]:
@@ -90,7 +90,7 @@ def summarize(path: Path, tag_layout_hash: str) -> Dict[str, Any]:
 def main() -> None:
     world_doc, resolution = world_mod.load_world(repo_root=REPO_ROOT)
     world_id = world_mod.require_world_id(world_doc, world_path=resolution.entry.world_path)
-    tag_layouts_path = REPO_ROOT / "book/graph/mappings/tag_layouts/tag_layouts.json"
+    tag_layouts_path = REPO_ROOT / "book/evidence/graph/mappings/tag_layouts/tag_layouts.json"
     tag_layout_hash_value = tag_layout_hash(tag_layouts_path)
     tag_layouts_file_sha256 = sha256(tag_layouts_path)
     canonical = digests_mod.canonical_system_profile_blobs(REPO_ROOT)
@@ -106,7 +106,7 @@ def main() -> None:
                     "tag_layouts_file_sha256": tag_layouts_file_sha256,
                     "inputs": [
                         world_mod.world_path_for_metadata(resolution, repo_root=REPO_ROOT),
-                        "book/graph/mappings/tag_layouts/tag_layouts.json",
+                        "book/evidence/graph/mappings/tag_layouts/tag_layouts.json",
                     ]
                     + [str(p.relative_to(REPO_ROOT)) for p in profiles if p.exists()],
                     "source_jobs": ["generator:system_profiles:static_checks"],

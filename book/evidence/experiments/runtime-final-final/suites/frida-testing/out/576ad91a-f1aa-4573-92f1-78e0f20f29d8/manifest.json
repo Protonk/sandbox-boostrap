@@ -1,0 +1,73 @@
+{
+  "entitlementjail": {
+    "capabilities_snapshot_path": "book/evidence/experiments/frida-testing/out/576ad91a-f1aa-4573-92f1-78e0f20f29d8/ej/capabilities_snapshot.json",
+    "log_path": "book/evidence/experiments/frida-testing/out/576ad91a-f1aa-4573-92f1-78e0f20f29d8/ej/logs/run_xpc.log",
+    "run_xpc_path": "book/evidence/experiments/frida-testing/out/576ad91a-f1aa-4573-92f1-78e0f20f29d8/ej/run_xpc.json"
+  },
+  "frida": {
+    "attach_error": "ProcessNotRespondingError: process with pid 65521 either refused to load frida-agent, or terminated during injection",
+    "attach_meta": {
+      "attach_stage": "wait",
+      "pid": 65521,
+      "pid_candidates": [
+        65521
+      ],
+      "pid_error": null,
+      "pid_source": "pgrep",
+      "run_id": "576ad91a-f1aa-4573-92f1-78e0f20f29d8",
+      "service_pid": null,
+      "t0_ns": 1766797850355275000,
+      "wait_info": {
+        "session_ready": {
+          "correlation_id": "frida-testing:ej-frida.576ad91a-f1aa-4573-92f1-78e0f20f29d8",
+          "event": "session_ready",
+          "message": "session opened",
+          "pid": 65521,
+          "plan_id": "frida-testing:ej-frida",
+          "service_bundle_id": "com.yourteam.entitlement-jail.ProbeService_get-task-allow",
+          "service_name": "ProbeService_get-task-allow",
+          "session_token": "DF68F1AC-25ED-4FC6-8FEF-5F584B311591",
+          "wait_mode": "fifo",
+          "wait_path": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_get-task-allow/Data/tmp/entitlement-jail-session/wait.89BBDB0C-503C-4698-9CA1-BE4B936C7381.fifo"
+        },
+        "wait_mode": "fifo",
+        "wait_path": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_get-task-allow/Data/tmp/entitlement-jail-session/wait.89BBDB0C-503C-4698-9CA1-BE4B936C7381.fifo",
+        "wait_ready": {
+          "correlation_id": "frida-testing:ej-frida.576ad91a-f1aa-4573-92f1-78e0f20f29d8",
+          "event": "wait_ready",
+          "message": "wait configured",
+          "pid": 65521,
+          "plan_id": "frida-testing:ej-frida",
+          "service_bundle_id": "com.yourteam.entitlement-jail.ProbeService_get-task-allow",
+          "service_name": "ProbeService_get-task-allow",
+          "session_token": "DF68F1AC-25ED-4FC6-8FEF-5F584B311591",
+          "wait_mode": "fifo",
+          "wait_path": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_get-task-allow/Data/tmp/entitlement-jail-session/wait.89BBDB0C-503C-4698-9CA1-BE4B936C7381.fifo"
+        },
+        "wait_timeout_ms": 60000
+      }
+    },
+    "events_path": "book/evidence/experiments/frida-testing/out/576ad91a-f1aa-4573-92f1-78e0f20f29d8/frida/events.jsonl",
+    "meta_path": "book/evidence/experiments/frida-testing/out/576ad91a-f1aa-4573-92f1-78e0f20f29d8/frida/meta.json"
+  },
+  "out_dir": "book/evidence/experiments/frida-testing/out/576ad91a-f1aa-4573-92f1-78e0f20f29d8",
+  "plan_id": "frida-testing:ej-frida",
+  "probe": {
+    "ack_risk": null,
+    "probe_args": [],
+    "probe_id": "probe_catalog",
+    "profile_id": "get-task-allow",
+    "service_id": "get-task-allow",
+    "use_profile": true
+  },
+  "row_id": "frida-testing:ej-frida.576ad91a-f1aa-4573-92f1-78e0f20f29d8",
+  "run_id": "576ad91a-f1aa-4573-92f1-78e0f20f29d8",
+  "schema_version": 1,
+  "selftest": {
+    "path": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_get-task-allow/Data/tmp/ej_noaccess",
+    "prepare_error": null,
+    "prepared": true,
+    "source": "capabilities_snapshot"
+  },
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

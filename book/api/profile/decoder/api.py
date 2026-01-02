@@ -16,8 +16,8 @@ How to read this module:
 
 Evidence tiering (important):
 - The goal is to expose *structural evidence* from bytes, not kernel semantics.
-- When this decoder uses published mappings (e.g. `book/graph/mappings/tag_layouts/tag_layouts.json`,
-  `book/graph/mappings/tag_layouts/tag_u16_roles.json`, `book/graph/mappings/vocab/filters.json`),
+- When this decoder uses published mappings (e.g. `book/evidence/graph/mappings/tag_layouts/tag_layouts.json`,
+  `book/evidence/graph/mappings/tag_layouts/tag_u16_roles.json`, `book/evidence/graph/mappings/vocab/filters.json`),
   treat those annotations as “mapped” evidence.
 - When it falls back to built-in defaults or heuristics (stride selection, literal refs),
   treat output as “hypothesis” and corroborate with experiments / validation fixtures.
@@ -47,7 +47,7 @@ WORD_OFFSET_BYTES = 8
 # Built-in fallback tag layout hints.
 #
 # The authoritative tag layouts for this world live under:
-# `book/graph/mappings/tag_layouts/tag_layouts.json`.
+# `book/evidence/graph/mappings/tag_layouts/tag_layouts.json`.
 # These defaults exist to keep the decoder usable when mappings are absent or
 # when you're decoding a blob in isolation.
 #
@@ -274,7 +274,7 @@ def _load_external_tag_layouts() -> Dict[int, Tuple[int, Tuple[int, ...], Tuple[
     """
     Optionally merge in tag layout hints from stable mappings or experiments.
 
-    Priority: published mapping under book/graph/mappings/tag_layouts/tag_layouts.json,
+    Priority: published mapping under book/evidence/graph/mappings/tag_layouts/tag_layouts.json,
     then experimental assumptions under probe-op-structure. If none found, fall
     back to the built-in defaults. Keys are tag ints; values mirror DEFAULT_TAG_LAYOUTS.
     """

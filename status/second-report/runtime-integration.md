@@ -27,7 +27,7 @@ Throughout, runtime evidence is treated as mapped: useful and grounded on this h
 ## Tooling Inventory (shared pool)
 - **Runners (capture/schema/loaders)**: `runtime_log_schema.v0.1.json`; sandbox_runner/reader/writer; mach_probe; runtime_harness runner; log readers in run_probes.py/run_adversarial.py; path_utils helpers.
 - **Drivers (families/orchestration)**: runtime-checks `run_probes.py`; runtime-adversarial `run_adversarial.py` (expected matrix generation, probe families, mismatch/impact computation); harvest_runtime_artifacts.py (copy stage).
-- **Aggregators (summaries)**: runtime-adversarial mismatch/impact builders; op-coverage summarize_from_adversarial.py (per-op scorecards); coverage/signature generation feeding `book/graph/mappings/runtime/runtime_signatures.json` and `ops_coverage.json`.
+- **Aggregators (summaries)**: runtime-adversarial mismatch/impact builders; op-coverage summarize_from_adversarial.py (per-op scorecards); coverage/signature generation feeding `book/evidence/graph/mappings/runtime/runtime_signatures.json` and `ops_coverage.json`.
 - **Plan**: lift runners+drivers+aggregators together into `book/api/runtime` (module exposing capture, run, mismatch, coverage transforms).
 
 ## Artifact Families (grouped by level)

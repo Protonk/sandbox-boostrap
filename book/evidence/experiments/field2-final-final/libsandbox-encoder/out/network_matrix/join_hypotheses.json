@@ -1,0 +1,631 @@
+{
+  "hypotheses": [
+    {
+      "category": "single_arg",
+      "expected": {
+        "role": "u16_field_byte",
+        "u16_index": 1
+      },
+      "header_byte_counts": {},
+      "id": "single_arg_join_pattern",
+      "kind_counts": {
+        "0": 5
+      },
+      "pair_summaries": [
+        {
+          "diff_byte_count": 1,
+          "header_byte_counts": {},
+          "kind_counts": {
+            "0": 1
+          },
+          "pair_id": "domain_af_inet_vs_af_system",
+          "role_counts": {
+            "u16_field_byte": 1
+          },
+          "tag_counts": {
+            "1": 1
+          },
+          "u16_index_counts": {
+            "1": 1
+          }
+        },
+        {
+          "diff_byte_count": 2,
+          "header_byte_counts": {},
+          "kind_counts": {
+            "0": 2
+          },
+          "pair_id": "proto_tcp_vs_256",
+          "role_counts": {
+            "u16_field_byte": 2
+          },
+          "tag_counts": {
+            "1": 2
+          },
+          "u16_index_counts": {
+            "1": 2
+          }
+        },
+        {
+          "diff_byte_count": 1,
+          "header_byte_counts": {},
+          "kind_counts": {
+            "0": 1
+          },
+          "pair_id": "proto_tcp_vs_udp",
+          "role_counts": {
+            "u16_field_byte": 1
+          },
+          "tag_counts": {
+            "1": 1
+          },
+          "u16_index_counts": {
+            "1": 1
+          }
+        },
+        {
+          "diff_byte_count": 1,
+          "header_byte_counts": {},
+          "kind_counts": {
+            "0": 1
+          },
+          "pair_id": "type_sock_stream_vs_sock_dgram",
+          "role_counts": {
+            "u16_field_byte": 1
+          },
+          "tag_counts": {
+            "1": 1
+          },
+          "u16_index_counts": {
+            "1": 1
+          }
+        }
+      ],
+      "pairs": [
+        "domain_af_inet_vs_af_system",
+        "proto_tcp_vs_256",
+        "proto_tcp_vs_udp",
+        "type_sock_stream_vs_sock_dgram"
+      ],
+      "role_counts": {
+        "u16_field_byte": 5
+      },
+      "status": "ok",
+      "tag_counts": {
+        "1": 5
+      },
+      "total_diff_bytes": 5,
+      "u16_index_counts": {
+        "1": 5
+      },
+      "violations": []
+    },
+    {
+      "category": "pairwise",
+      "expected": {
+        "kind_set": [
+          11,
+          12,
+          13
+        ],
+        "role": "u16_field_byte",
+        "tag": 0,
+        "u16_index": 0
+      },
+      "header_byte_counts": {},
+      "id": "pairwise_join_pattern",
+      "kind_counts": {
+        "11": 4,
+        "12": 4,
+        "13": 12
+      },
+      "pair_summaries": [
+        {
+          "diff_byte_count": 2,
+          "header_byte_counts": {},
+          "kind_counts": {
+            "13": 2
+          },
+          "pair_id": "pair_dp_all_inet_tcp_vs_inet_256",
+          "role_counts": {
+            "u16_field_byte": 2
+          },
+          "tag_counts": {
+            "0": 2
+          },
+          "u16_index_counts": {
+            "0": 2
+          }
+        },
+        {
+          "diff_byte_count": 1,
+          "header_byte_counts": {},
+          "kind_counts": {
+            "13": 1
+          },
+          "pair_id": "pair_dp_all_inet_tcp_vs_inet_udp",
+          "role_counts": {
+            "u16_field_byte": 1
+          },
+          "tag_counts": {
+            "0": 1
+          },
+          "u16_index_counts": {
+            "0": 1
+          }
+        },
+        {
+          "diff_byte_count": 1,
+          "header_byte_counts": {},
+          "kind_counts": {
+            "11": 1
+          },
+          "pair_id": "pair_dp_all_inet_tcp_vs_system_tcp",
+          "role_counts": {
+            "u16_field_byte": 1
+          },
+          "tag_counts": {
+            "0": 1
+          },
+          "u16_index_counts": {
+            "0": 1
+          }
+        },
+        {
+          "diff_byte_count": 2,
+          "header_byte_counts": {},
+          "kind_counts": {
+            "13": 2
+          },
+          "pair_id": "pair_dp_any_inet_tcp_vs_inet_256",
+          "role_counts": {
+            "u16_field_byte": 2
+          },
+          "tag_counts": {
+            "0": 2
+          },
+          "u16_index_counts": {
+            "0": 2
+          }
+        },
+        {
+          "diff_byte_count": 1,
+          "header_byte_counts": {},
+          "kind_counts": {
+            "13": 1
+          },
+          "pair_id": "pair_dp_any_inet_tcp_vs_inet_udp",
+          "role_counts": {
+            "u16_field_byte": 1
+          },
+          "tag_counts": {
+            "0": 1
+          },
+          "u16_index_counts": {
+            "0": 1
+          }
+        },
+        {
+          "diff_byte_count": 1,
+          "header_byte_counts": {},
+          "kind_counts": {
+            "11": 1
+          },
+          "pair_id": "pair_dp_any_inet_tcp_vs_system_tcp",
+          "role_counts": {
+            "u16_field_byte": 1
+          },
+          "tag_counts": {
+            "0": 1
+          },
+          "u16_index_counts": {
+            "0": 1
+          }
+        },
+        {
+          "diff_byte_count": 1,
+          "header_byte_counts": {},
+          "kind_counts": {
+            "12": 1
+          },
+          "pair_id": "pair_dt_all_inet_stream_vs_inet_dgram",
+          "role_counts": {
+            "u16_field_byte": 1
+          },
+          "tag_counts": {
+            "0": 1
+          },
+          "u16_index_counts": {
+            "0": 1
+          }
+        },
+        {
+          "diff_byte_count": 1,
+          "header_byte_counts": {},
+          "kind_counts": {
+            "11": 1
+          },
+          "pair_id": "pair_dt_all_inet_stream_vs_system_stream",
+          "role_counts": {
+            "u16_field_byte": 1
+          },
+          "tag_counts": {
+            "0": 1
+          },
+          "u16_index_counts": {
+            "0": 1
+          }
+        },
+        {
+          "diff_byte_count": 1,
+          "header_byte_counts": {},
+          "kind_counts": {
+            "12": 1
+          },
+          "pair_id": "pair_dt_any_inet_stream_vs_inet_dgram",
+          "role_counts": {
+            "u16_field_byte": 1
+          },
+          "tag_counts": {
+            "0": 1
+          },
+          "u16_index_counts": {
+            "0": 1
+          }
+        },
+        {
+          "diff_byte_count": 1,
+          "header_byte_counts": {},
+          "kind_counts": {
+            "11": 1
+          },
+          "pair_id": "pair_dt_any_inet_stream_vs_system_stream",
+          "role_counts": {
+            "u16_field_byte": 1
+          },
+          "tag_counts": {
+            "0": 1
+          },
+          "u16_index_counts": {
+            "0": 1
+          }
+        },
+        {
+          "diff_byte_count": 1,
+          "header_byte_counts": {},
+          "kind_counts": {
+            "12": 1
+          },
+          "pair_id": "pair_tp_all_stream_tcp_vs_dgram_tcp",
+          "role_counts": {
+            "u16_field_byte": 1
+          },
+          "tag_counts": {
+            "0": 1
+          },
+          "u16_index_counts": {
+            "0": 1
+          }
+        },
+        {
+          "diff_byte_count": 2,
+          "header_byte_counts": {},
+          "kind_counts": {
+            "13": 2
+          },
+          "pair_id": "pair_tp_all_stream_tcp_vs_stream_256",
+          "role_counts": {
+            "u16_field_byte": 2
+          },
+          "tag_counts": {
+            "0": 2
+          },
+          "u16_index_counts": {
+            "0": 2
+          }
+        },
+        {
+          "diff_byte_count": 1,
+          "header_byte_counts": {},
+          "kind_counts": {
+            "13": 1
+          },
+          "pair_id": "pair_tp_all_stream_tcp_vs_stream_udp",
+          "role_counts": {
+            "u16_field_byte": 1
+          },
+          "tag_counts": {
+            "0": 1
+          },
+          "u16_index_counts": {
+            "0": 1
+          }
+        },
+        {
+          "diff_byte_count": 1,
+          "header_byte_counts": {},
+          "kind_counts": {
+            "12": 1
+          },
+          "pair_id": "pair_tp_any_stream_tcp_vs_dgram_tcp",
+          "role_counts": {
+            "u16_field_byte": 1
+          },
+          "tag_counts": {
+            "0": 1
+          },
+          "u16_index_counts": {
+            "0": 1
+          }
+        },
+        {
+          "diff_byte_count": 2,
+          "header_byte_counts": {},
+          "kind_counts": {
+            "13": 2
+          },
+          "pair_id": "pair_tp_any_stream_tcp_vs_stream_256",
+          "role_counts": {
+            "u16_field_byte": 2
+          },
+          "tag_counts": {
+            "0": 2
+          },
+          "u16_index_counts": {
+            "0": 2
+          }
+        },
+        {
+          "diff_byte_count": 1,
+          "header_byte_counts": {},
+          "kind_counts": {
+            "13": 1
+          },
+          "pair_id": "pair_tp_any_stream_tcp_vs_stream_udp",
+          "role_counts": {
+            "u16_field_byte": 1
+          },
+          "tag_counts": {
+            "0": 1
+          },
+          "u16_index_counts": {
+            "0": 1
+          }
+        }
+      ],
+      "pairs": [
+        "pair_dp_all_inet_tcp_vs_inet_256",
+        "pair_dp_all_inet_tcp_vs_inet_udp",
+        "pair_dp_all_inet_tcp_vs_system_tcp",
+        "pair_dp_any_inet_tcp_vs_inet_256",
+        "pair_dp_any_inet_tcp_vs_inet_udp",
+        "pair_dp_any_inet_tcp_vs_system_tcp",
+        "pair_dt_all_inet_stream_vs_inet_dgram",
+        "pair_dt_all_inet_stream_vs_system_stream",
+        "pair_dt_any_inet_stream_vs_inet_dgram",
+        "pair_dt_any_inet_stream_vs_system_stream",
+        "pair_tp_all_stream_tcp_vs_dgram_tcp",
+        "pair_tp_all_stream_tcp_vs_stream_256",
+        "pair_tp_all_stream_tcp_vs_stream_udp",
+        "pair_tp_any_stream_tcp_vs_dgram_tcp",
+        "pair_tp_any_stream_tcp_vs_stream_256",
+        "pair_tp_any_stream_tcp_vs_stream_udp"
+      ],
+      "role_counts": {
+        "u16_field_byte": 20
+      },
+      "status": "ok",
+      "tag_counts": {
+        "0": 20
+      },
+      "total_diff_bytes": 20,
+      "u16_index_counts": {
+        "0": 20
+      },
+      "violations": []
+    },
+    {
+      "category": "triple",
+      "expected": {
+        "role": "record_header_byte"
+      },
+      "header_byte_counts": {
+        "kind": 3,
+        "tag": 8
+      },
+      "id": "triple_join_pattern",
+      "kind_counts": {
+        "0": 11
+      },
+      "pair_summaries": [
+        {
+          "diff_byte_count": 1,
+          "header_byte_counts": {
+            "tag": 1
+          },
+          "kind_counts": {
+            "0": 1
+          },
+          "pair_id": "triple_all_tcp_vs_inet_dgram_tcp",
+          "role_counts": {
+            "record_header_byte": 1
+          },
+          "tag_counts": {
+            "1": 1
+          },
+          "u16_index_counts": {}
+        },
+        {
+          "diff_byte_count": 2,
+          "header_byte_counts": {
+            "kind": 1,
+            "tag": 1
+          },
+          "kind_counts": {
+            "0": 2
+          },
+          "pair_id": "triple_all_tcp_vs_inet_stream_256",
+          "role_counts": {
+            "record_header_byte": 2
+          },
+          "tag_counts": {
+            "6": 2
+          },
+          "u16_index_counts": {}
+        },
+        {
+          "diff_byte_count": 1,
+          "header_byte_counts": {
+            "tag": 1
+          },
+          "kind_counts": {
+            "0": 1
+          },
+          "pair_id": "triple_all_tcp_vs_inet_stream_udp",
+          "role_counts": {
+            "record_header_byte": 1
+          },
+          "tag_counts": {
+            "6": 1
+          },
+          "u16_index_counts": {}
+        },
+        {
+          "diff_byte_count": 1,
+          "header_byte_counts": {
+            "tag": 1
+          },
+          "kind_counts": {
+            "0": 1
+          },
+          "pair_id": "triple_all_tcp_vs_system_stream_tcp",
+          "role_counts": {
+            "record_header_byte": 1
+          },
+          "tag_counts": {
+            "2": 1
+          },
+          "u16_index_counts": {}
+        },
+        {
+          "diff_byte_count": 2,
+          "header_byte_counts": {
+            "tag": 2
+          },
+          "kind_counts": {
+            "0": 2
+          },
+          "pair_id": "triple_all_tcp_vs_udp",
+          "role_counts": {
+            "record_header_byte": 2
+          },
+          "tag_counts": {
+            "1": 1,
+            "6": 1
+          },
+          "u16_index_counts": {}
+        },
+        {
+          "diff_byte_count": 2,
+          "header_byte_counts": {
+            "kind": 1,
+            "tag": 1
+          },
+          "kind_counts": {
+            "0": 2
+          },
+          "pair_id": "triple_any_tcp_vs_256",
+          "role_counts": {
+            "record_header_byte": 2
+          },
+          "tag_counts": {
+            "6": 2
+          },
+          "u16_index_counts": {}
+        },
+        {
+          "diff_byte_count": 2,
+          "header_byte_counts": {
+            "kind": 1,
+            "tag": 1
+          },
+          "kind_counts": {
+            "0": 2
+          },
+          "pair_id": "triple_nested_tcp_vs_256",
+          "role_counts": {
+            "record_header_byte": 2
+          },
+          "tag_counts": {
+            "6": 2
+          },
+          "u16_index_counts": {}
+        }
+      ],
+      "pairs": [
+        "triple_all_tcp_vs_inet_dgram_tcp",
+        "triple_all_tcp_vs_inet_stream_256",
+        "triple_all_tcp_vs_inet_stream_udp",
+        "triple_all_tcp_vs_system_stream_tcp",
+        "triple_all_tcp_vs_udp",
+        "triple_any_tcp_vs_256",
+        "triple_nested_tcp_vs_256"
+      ],
+      "role_counts": {
+        "record_header_byte": 11
+      },
+      "status": "ok",
+      "tag_counts": {
+        "1": 2,
+        "2": 1,
+        "6": 8
+      },
+      "total_diff_bytes": 11,
+      "u16_index_counts": {},
+      "violations": []
+    }
+  ],
+  "inputs": {
+    "join_records": "book/evidence/experiments/libsandbox-encoder/out/network_matrix/join_records.jsonl",
+    "join_summary": "book/evidence/experiments/libsandbox-encoder/out/network_matrix/join_summary.json"
+  },
+  "notes": "Experiment-local hypothesis scoring; do not promote without additional evidence.",
+  "outputs": {
+    "join_hypotheses": "book/evidence/experiments/libsandbox-encoder/out/network_matrix/join_hypotheses.json"
+  },
+  "skipped_pairs": [
+    {
+      "diff_byte_count": 243,
+      "pair_id": "domain_only_vs_pair_dp_all_inet_tcp"
+    },
+    {
+      "diff_byte_count": 4,
+      "pair_id": "pair_dp_all_inet_tcp_vs_order2"
+    },
+    {
+      "diff_byte_count": 4,
+      "pair_id": "pair_dt_all_inet_stream_vs_order2"
+    },
+    {
+      "diff_byte_count": 244,
+      "pair_id": "pair_dt_all_vs_triple_all_tcp"
+    },
+    {
+      "diff_byte_count": 4,
+      "pair_id": "pair_tp_all_stream_tcp_vs_order2"
+    },
+    {
+      "diff_byte_count": 245,
+      "pair_id": "proto_only_vs_pair_dp_all_inet_tcp"
+    },
+    {
+      "diff_byte_count": 245,
+      "pair_id": "proto_only_vs_pair_tp_all_stream_tcp"
+    },
+    {
+      "diff_byte_count": 243,
+      "pair_id": "type_only_vs_pair_tp_all_stream_tcp"
+    }
+  ],
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

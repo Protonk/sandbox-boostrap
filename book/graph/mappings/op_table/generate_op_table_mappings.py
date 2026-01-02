@@ -6,9 +6,9 @@ This generator intentionally treats the experiments as the source of truth and
 publishes curated, world-pinned snapshots under `book/graph/mappings/op_table/`.
 
 Inputs:
-- book/experiments/node-layout/out/summary.json
-- book/experiments/op-table-operation/out/{op_table_map.json,op_table_signatures.json}
-- book/experiments/op-table-vocab-alignment/out/op_table_vocab_alignment.json
+- book/evidence/experiments/node-layout/out/summary.json
+- book/evidence/experiments/op-table-operation/out/{op_table_map.json,op_table_signatures.json}
+- book/evidence/experiments/op-table-vocab-alignment/out/op_table_vocab_alignment.json
 - book/graph/mappings/vocab/{ops.json,filters.json}
 - book/world/sonoma-14.4.1-23E224-arm64/world.json
 
@@ -64,8 +64,8 @@ def _load_world_id(repo_root: Path) -> str:
 
 
 def _vocab_versions(repo_root: Path) -> Dict[str, Any]:
-    ops_path = repo_root / "book/graph/mappings/vocab/ops.json"
-    filters_path = repo_root / "book/graph/mappings/vocab/filters.json"
+    ops_path = repo_root / "book/evidence/graph/mappings/vocab/ops.json"
+    filters_path = repo_root / "book/evidence/graph/mappings/vocab/filters.json"
     ops = _load_json(ops_path)
     filters = _load_json(filters_path)
 
@@ -86,16 +86,16 @@ def _vocab_versions(repo_root: Path) -> Dict[str, Any]:
 
 
 def _promote_operation_summary(repo_root: Path, world_id: str, vocab_versions: Dict[str, Any]) -> None:
-    src = repo_root / "book/experiments/node-layout/out/summary.json"
-    out = repo_root / "book/graph/mappings/op_table/op_table_operation_summary.json"
+    src = repo_root / "book/evidence/experiments/node-layout/out/summary.json"
+    out = repo_root / "book/evidence/graph/mappings/op_table/op_table_operation_summary.json"
     records = _load_json(src)
     payload = {"metadata": {"world_id": world_id, "vocab_versions": vocab_versions}, "records": records}
     _write_json(out, payload)
 
 
 def _promote_op_table_map(repo_root: Path, world_id: str, vocab_versions: Dict[str, Any]) -> None:
-    src = repo_root / "book/experiments/op-table-operation/out/op_table_map.json"
-    out = repo_root / "book/graph/mappings/op_table/op_table_map.json"
+    src = repo_root / "book/evidence/experiments/op-table-operation/out/op_table_map.json"
+    out = repo_root / "book/evidence/graph/mappings/op_table/op_table_map.json"
     data = _load_json(src)
     profiles = data.get("profiles") or {}
     promoted_profiles = {
@@ -110,8 +110,8 @@ def _promote_op_table_map(repo_root: Path, world_id: str, vocab_versions: Dict[s
 
 
 def _promote_op_table_signatures(repo_root: Path, world_id: str, vocab_versions: Dict[str, Any]) -> None:
-    src = repo_root / "book/experiments/op-table-operation/out/op_table_signatures.json"
-    out = repo_root / "book/graph/mappings/op_table/op_table_signatures.json"
+    src = repo_root / "book/evidence/experiments/op-table-operation/out/op_table_signatures.json"
+    out = repo_root / "book/evidence/graph/mappings/op_table/op_table_signatures.json"
     records = _load_json(src)
     records = [r for r in records if _is_promoted_profile_id(str(r.get("name", "")))]
     payload = {"metadata": {"world_id": world_id, "vocab_versions": vocab_versions}, "records": records}
@@ -119,8 +119,8 @@ def _promote_op_table_signatures(repo_root: Path, world_id: str, vocab_versions:
 
 
 def _promote_op_table_vocab_alignment(repo_root: Path, world_id: str, vocab_versions: Dict[str, Any]) -> None:
-    src = repo_root / "book/experiments/op-table-vocab-alignment/out/op_table_vocab_alignment.json"
-    out = repo_root / "book/graph/mappings/op_table/op_table_vocab_alignment.json"
+    src = repo_root / "book/evidence/experiments/op-table-vocab-alignment/out/op_table_vocab_alignment.json"
+    out = repo_root / "book/evidence/graph/mappings/op_table/op_table_vocab_alignment.json"
     data = _load_json(src)
     records = data.get("records") or []
     records = [r for r in records if _is_promoted_profile_id(str(r.get("profile", "")))]

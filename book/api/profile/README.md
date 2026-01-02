@@ -72,8 +72,8 @@ python -m book.api.profile inspect /tmp/sample.sb.bin --out /tmp/summary.json
 
 `profile` sits upstream of the validation → mappings → CARTON pipeline:
 1. Compile SBPL (`compile/`) and slice/decode compiled blobs (`ingestion/`, `decoder/`).
-2. Normalize structural outputs into validation IR (`book/graph/concepts/validation/out/…`).
-3. Generate host mappings from validation IR (`book/graph/mappings/**`).
+2. Normalize structural outputs into validation IR (`book/evidence/graph/concepts/validation/out/…`).
+3. Generate host mappings from validation IR (`book/evidence/graph/mappings/**`).
 4. Run CARTON fixers to refresh relationships, views, contracts, and manifest (`python -m book.integration.carton.tools.update`).
 
 If you are trying to answer “what does this operation/filter mean?”, prefer CARTON (relationships/views/contracts in `book/integration/carton/bundle/`). If you are trying to answer “what bytes did libsandbox emit for this SBPL input on this host?”, use `profile`.

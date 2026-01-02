@@ -142,8 +142,8 @@ registry.register(
         id="vocab:stub-harvest",
         inputs=_CANONICAL_INPUTS,
         outputs=[
-            "book/graph/concepts/validation/out/vocab/ops.json",
-            "book/graph/concepts/validation/out/vocab/filters.json",
+            "book/evidence/graph/concepts/validation/out/vocab/ops.json",
+            "book/evidence/graph/concepts/validation/out/vocab/filters.json",
         ],
         tags=["vocab", "graph"],
         description="Stub vocabulary extraction using decoder-derived metadata.",

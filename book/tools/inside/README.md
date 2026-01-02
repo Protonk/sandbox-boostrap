@@ -11,9 +11,9 @@ Host baseline: `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
 - **Hypothesis**: log corroboration (S5) because access is blocked under sandbox and noisy under elevated.
 
 Bedrock surfaces (context only; this tool does not map ops/filters):
-- `book/graph/mappings/vocab/ops.json`
-- `book/graph/mappings/vocab/filters.json`
-- `book/graph/mappings/vocab/ops_coverage.json`
+- `book/evidence/graph/mappings/vocab/ops.json`
+- `book/evidence/graph/mappings/vocab/filters.json`
+- `book/evidence/graph/mappings/vocab/ops_coverage.json`
 
 ## Sensors and thresholds
 

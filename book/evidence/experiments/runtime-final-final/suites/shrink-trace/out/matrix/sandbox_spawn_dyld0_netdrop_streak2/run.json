@@ -1,0 +1,48 @@
+{
+  "knobs": {
+    "allow_fixture_exec": 1,
+    "deny_scope": "all",
+    "deny_sigstop": 0,
+    "dyld_log": 0,
+    "dyld_support_present": 1,
+    "fixture": "sandbox_spawn",
+    "import_dyld_support": 0,
+    "network_rules": "drop",
+    "seed_dyld": 1,
+    "success_streak": 2
+  },
+  "paths": {
+    "artifacts": {
+      "bin_dir": "book/evidence/experiments/shrink-trace/out/matrix/sandbox_spawn_dyld0_netdrop_streak2/artifacts/bin"
+    },
+    "phases": {
+      "shrink": "book/evidence/experiments/shrink-trace/out/matrix/sandbox_spawn_dyld0_netdrop_streak2/phases/shrink",
+      "trace": "book/evidence/experiments/shrink-trace/out/matrix/sandbox_spawn_dyld0_netdrop_streak2/phases/trace"
+    },
+    "profiles": {
+      "shrunk": "book/evidence/experiments/shrink-trace/out/matrix/sandbox_spawn_dyld0_netdrop_streak2/profiles/shrunk.sb",
+      "trace": "book/evidence/experiments/shrink-trace/out/matrix/sandbox_spawn_dyld0_netdrop_streak2/profiles/trace.sb"
+    },
+    "run_dir": "book/evidence/experiments/shrink-trace/out/matrix/sandbox_spawn_dyld0_netdrop_streak2"
+  },
+  "shrink": {
+    "kept": 12,
+    "metrics_path": "book/evidence/experiments/shrink-trace/out/matrix/sandbox_spawn_dyld0_netdrop_streak2/phases/shrink/metrics.jsonl",
+    "post_shrink_fresh_rc": 0,
+    "post_shrink_repeat_rc": 0,
+    "profile_lines": 12,
+    "removed": 36,
+    "status": "success",
+    "status_path": "book/evidence/experiments/shrink-trace/out/matrix/sandbox_spawn_dyld0_netdrop_streak2/phases/shrink/status.json"
+  },
+  "trace": {
+    "bad_rules": 20,
+    "issue_dir": null,
+    "iterations": 8,
+    "metrics_path": "book/evidence/experiments/shrink-trace/out/matrix/sandbox_spawn_dyld0_netdrop_streak2/phases/trace/metrics.jsonl",
+    "profile_lines": 48,
+    "status": "success",
+    "status_path": "book/evidence/experiments/shrink-trace/out/matrix/sandbox_spawn_dyld0_netdrop_streak2/phases/trace/status.json"
+  },
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

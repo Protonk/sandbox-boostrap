@@ -42,13 +42,13 @@ KEYWORDS = [
     "PolicyWitness",
 ]
 EXCLUDED_SCAN_PREFIXES = (
-    "book/experiments/archive/",
+    "book/evidence/experiments/archive/",
 )
 
 IN_REPO_ITEMS: List[Dict[str, Any]] = [
     {
         "id": "runtime-checks",
-        "paths": ["book/experiments/runtime-final-final/suites/runtime-checks"],
+        "paths": ["book/evidence/experiments/runtime-final-final/suites/runtime-checks"],
         "category": "decision-stage",
         "description": "Decision-stage runtime matrix for bucket/system profiles via sandbox_runner/wrapper.",
         "privileges": "user (launchd clean recommended)",
@@ -57,7 +57,7 @@ IN_REPO_ITEMS: List[Dict[str, Any]] = [
     },
     {
         "id": "runtime-adversarial",
-        "paths": ["book/experiments/runtime-final-final/suites/runtime-adversarial"],
+        "paths": ["book/evidence/experiments/runtime-final-final/suites/runtime-adversarial"],
         "category": "decision-stage",
         "description": "Decision-stage adversarial probes (path edges, flow-divert, mach, net).",
         "privileges": "user (launchd clean required)",
@@ -66,7 +66,7 @@ IN_REPO_ITEMS: List[Dict[str, Any]] = [
     },
     {
         "id": "sbpl-graph-runtime",
-        "paths": ["book/experiments/runtime-final-final/suites/sbpl-graph-runtime", "book/profiles/golden-triple"],
+        "paths": ["book/evidence/experiments/runtime-final-final/suites/sbpl-graph-runtime", "book/profiles/golden-triple"],
         "category": "decision-stage",
         "description": "Golden triples: SBPL ↔ PolicyGraph ↔ runtime outcomes for selected profiles.",
         "privileges": "user",
@@ -75,7 +75,7 @@ IN_REPO_ITEMS: List[Dict[str, Any]] = [
     },
     {
         "id": "runtime-mac_policy",
-        "paths": ["book/experiments/runtime-final-final/suites/nonbaseline/runtime-mac_policy"],
+        "paths": ["book/evidence/experiments/runtime-final-final/suites/nonbaseline/runtime-mac_policy"],
         "category": "tracing",
         "description": "Runtime MACF policy registration tracing via DTrace/FBT on a separate runtime host.",
         "privileges": "root, SIP disabled (runtime-only world)",
@@ -84,7 +84,7 @@ IN_REPO_ITEMS: List[Dict[str, Any]] = [
     },
     {
         "id": "sandbox-init-params",
-        "paths": ["book/experiments/sandbox-init-params"],
+        "paths": ["book/evidence/experiments/sandbox-init-params"],
         "category": "apply-stage",
         "description": "Investigates sandbox_init_with_parameters plumbing and __sandbox_ms argument layout.",
         "privileges": "user",
@@ -93,7 +93,7 @@ IN_REPO_ITEMS: List[Dict[str, Any]] = [
     },
     {
         "id": "metadata-runner",
-        "paths": ["book/experiments/runtime-final-final/suites/metadata-runner"],
+        "paths": ["book/evidence/experiments/runtime-final-final/suites/metadata-runner"],
         "category": "decision-stage",
         "description": "Swift-based metadata syscalls under sandbox_init to probe metadata canonicalization.",
         "privileges": "user",
@@ -102,7 +102,7 @@ IN_REPO_ITEMS: List[Dict[str, Any]] = [
     },
     {
         "id": "vfs-canonicalization",
-        "paths": ["book/experiments/runtime-final-final/suites/vfs-canonicalization"],
+        "paths": ["book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization"],
         "category": "decision-stage",
         "description": "Path alias/canonicalization runtime probes for VFS operations.",
         "privileges": "user",
@@ -111,7 +111,7 @@ IN_REPO_ITEMS: List[Dict[str, Any]] = [
     },
     {
         "id": "dtrace-testing",
-        "paths": ["book/experiments/runtime-final-final/suites/dtrace-testing"],
+        "paths": ["book/evidence/experiments/runtime-final-final/suites/dtrace-testing"],
         "category": "tracing",
         "description": "DTrace-based runtime instrumentation experiments.",
         "privileges": "root, SIP disabled",
@@ -120,7 +120,7 @@ IN_REPO_ITEMS: List[Dict[str, Any]] = [
     },
     {
         "id": "frida-testing",
-        "paths": ["book/experiments/runtime-final-final/suites/frida-testing"],
+        "paths": ["book/evidence/experiments/runtime-final-final/suites/frida-testing"],
         "category": "tracing",
         "description": "Frida-based runtime instrumentation experiments.",
         "privileges": "user (Frida attach; may require entitlements)",
@@ -129,7 +129,7 @@ IN_REPO_ITEMS: List[Dict[str, Any]] = [
     },
     {
         "id": "runtime-mappings",
-        "paths": ["book/graph/mappings/runtime", "book/graph/mappings/runtime_cuts"],
+        "paths": ["book/graph/mappings/runtime", "book/evidence/graph/mappings/runtime_cuts"],
         "category": "mapping",
         "description": "Canonical runtime mappings (signatures, coverage, story, traces).",
         "privileges": "n/a (derived)",
@@ -147,7 +147,7 @@ IN_REPO_ITEMS: List[Dict[str, Any]] = [
     },
     {
         "id": "preflight-tools",
-        "paths": ["book/tools/preflight", "book/tools/preflight/index", "book/experiments/runtime-final-final/suites/preflight-blob-digests"],
+        "paths": ["book/tools/preflight", "book/tools/preflight/index", "book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests"],
         "category": "apply-stage",
         "description": "Apply-gate preflight scanning and enterability indices.",
         "privileges": "user",
@@ -165,7 +165,7 @@ IN_REPO_ITEMS: List[Dict[str, Any]] = [
     },
     {
         "id": "mac-policy-registration",
-        "paths": ["book/experiments/mac-policy-registration"],
+        "paths": ["book/evidence/experiments/mac-policy-registration"],
         "category": "tracing",
         "description": "MACF registration trace scaffolding and structure notes.",
         "privileges": "root, SIP disabled (if tracing)",
@@ -290,7 +290,7 @@ def _rg_files(pattern: str, repo_root: Path) -> Iterable[Path]:
         "-g",
         "!**/out/**",
         "-g",
-        "!book/experiments/archive/**",
+        "!book/evidence/experiments/archive/**",
     ]
     res = subprocess.run(cmd, capture_output=True, text=True)
     if res.returncode not in (0, 1):

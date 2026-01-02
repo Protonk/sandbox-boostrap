@@ -2,7 +2,7 @@
   "runtime:allow_all": {
     "status": "ok",
     "profile_path": "book/profiles/golden-triple/runtime_profiles/allow_all.runtime_allow_all.runtime.sb",
-    "base_profile_path": "book/experiments/runtime-final-final/suites/sbpl-graph-runtime/profiles/allow_all.sb",
+    "base_profile_path": "book/evidence/experiments/runtime-final-final/suites/sbpl-graph-runtime/profiles/allow_all.sb",
     "probes": [
       {
         "name": "read_/etc/hosts",
@@ -32,7 +32,7 @@
             "apply_model": "self_apply",
             "apply_timing": "pre_syscall",
             "preexisting_sandbox_suspected": false,
-            "entrypoint_path": "book/experiments/runtime-checks/sandbox_reader",
+            "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_reader",
             "entrypoint_sha256": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e",
             "tool_build_id": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e"
           },
@@ -60,7 +60,7 @@
         },
         "violation_summary": null,
         "command": [
-          "book/experiments/runtime-checks/sandbox_reader",
+          "book/evidence/experiments/runtime-checks/sandbox_reader",
           "book/profiles/golden-triple/runtime_profiles/allow_all.runtime_allow_all.runtime.sb",
           "/private/etc/hosts"
         ],
@@ -96,7 +96,7 @@
             "apply_model": "self_apply",
             "apply_timing": "pre_syscall",
             "preexisting_sandbox_suspected": false,
-            "entrypoint_path": "book/experiments/runtime-checks/sandbox_reader",
+            "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_reader",
             "entrypoint_sha256": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e",
             "tool_build_id": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e"
           },
@@ -124,7 +124,7 @@
         },
         "violation_summary": null,
         "command": [
-          "book/experiments/runtime-checks/sandbox_reader",
+          "book/evidence/experiments/runtime-checks/sandbox_reader",
           "book/profiles/golden-triple/runtime_profiles/allow_all.runtime_allow_all.runtime.sb",
           "/private/tmp/sbpl_rt/read.txt"
         ],
@@ -160,7 +160,7 @@
             "apply_model": "self_apply",
             "apply_timing": "pre_syscall",
             "preexisting_sandbox_suspected": false,
-            "entrypoint_path": "book/experiments/runtime-checks/sandbox_writer",
+            "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_writer",
             "entrypoint_sha256": "ec8330a5bf28154c20e9dd645b319a546712bee28a5ace7a92b56ad2e32485b1",
             "tool_build_id": "ec8330a5bf28154c20e9dd645b319a546712bee28a5ace7a92b56ad2e32485b1"
           },
@@ -188,7 +188,7 @@
         },
         "violation_summary": null,
         "command": [
-          "book/experiments/runtime-checks/sandbox_writer",
+          "book/evidence/experiments/runtime-checks/sandbox_writer",
           "book/profiles/golden-triple/runtime_profiles/allow_all.runtime_allow_all.runtime.sb",
           "/private/tmp/sbpl_rt/write.txt"
         ],
@@ -201,7 +201,7 @@
   "runtime:metafilter_any": {
     "status": "ok",
     "profile_path": "book/profiles/golden-triple/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
-    "base_profile_path": "book/experiments/runtime-final-final/suites/sbpl-graph-runtime/profiles/metafilter_any.sb",
+    "base_profile_path": "book/evidence/experiments/runtime-final-final/suites/sbpl-graph-runtime/profiles/metafilter_any.sb",
     "probes": [
       {
         "name": "read_foo",
@@ -231,7 +231,7 @@
             "apply_model": "self_apply",
             "apply_timing": "pre_syscall",
             "preexisting_sandbox_suspected": false,
-            "entrypoint_path": "book/experiments/runtime-checks/sandbox_reader",
+            "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_reader",
             "entrypoint_sha256": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e",
             "tool_build_id": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e"
           },
@@ -259,7 +259,7 @@
         },
         "violation_summary": null,
         "command": [
-          "book/experiments/runtime-checks/sandbox_reader",
+          "book/evidence/experiments/runtime-checks/sandbox_reader",
           "book/profiles/golden-triple/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
           "/private/tmp/foo.txt"
         ],
@@ -295,7 +295,7 @@
             "apply_model": "self_apply",
             "apply_timing": "pre_syscall",
             "preexisting_sandbox_suspected": false,
-            "entrypoint_path": "book/experiments/runtime-checks/sandbox_reader",
+            "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_reader",
             "entrypoint_sha256": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e",
             "tool_build_id": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e"
           },
@@ -323,7 +323,7 @@
         },
         "violation_summary": null,
         "command": [
-          "book/experiments/runtime-checks/sandbox_reader",
+          "book/evidence/experiments/runtime-checks/sandbox_reader",
           "book/profiles/golden-triple/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
           "/private/tmp/bar.txt"
         ],
@@ -359,7 +359,7 @@
             "apply_model": "self_apply",
             "apply_timing": "pre_syscall",
             "preexisting_sandbox_suspected": false,
-            "entrypoint_path": "book/experiments/runtime-checks/sandbox_reader",
+            "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_reader",
             "entrypoint_sha256": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e",
             "tool_build_id": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e"
           },
@@ -387,7 +387,7 @@
         },
         "violation_summary": null,
         "command": [
-          "book/experiments/runtime-checks/sandbox_reader",
+          "book/evidence/experiments/runtime-checks/sandbox_reader",
           "book/profiles/golden-triple/runtime_profiles/metafilter_any.runtime_metafilter_any.runtime.sb",
           "/private/tmp/qux.txt"
         ],
@@ -400,7 +400,7 @@
   "bucket4:v1_read": {
     "status": "ok",
     "profile_path": "book/profiles/golden-triple/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
-    "base_profile_path": "book/experiments/op-table-operation/sb/v1_read.sb",
+    "base_profile_path": "book/evidence/experiments/op-table-operation/sb/v1_read.sb",
     "probes": [
       {
         "name": "read_/etc/hosts",
@@ -430,7 +430,7 @@
             "apply_model": "self_apply",
             "apply_timing": "pre_syscall",
             "preexisting_sandbox_suspected": false,
-            "entrypoint_path": "book/experiments/runtime-checks/sandbox_reader",
+            "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_reader",
             "entrypoint_sha256": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e",
             "tool_build_id": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e"
           },
@@ -458,7 +458,7 @@
         },
         "violation_summary": null,
         "command": [
-          "book/experiments/runtime-checks/sandbox_reader",
+          "book/evidence/experiments/runtime-checks/sandbox_reader",
           "book/profiles/golden-triple/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
           "/private/etc/hosts"
         ],
@@ -494,7 +494,7 @@
             "apply_model": "self_apply",
             "apply_timing": "pre_syscall",
             "preexisting_sandbox_suspected": false,
-            "entrypoint_path": "book/experiments/runtime-checks/sandbox_writer",
+            "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_writer",
             "entrypoint_sha256": "ec8330a5bf28154c20e9dd645b319a546712bee28a5ace7a92b56ad2e32485b1",
             "tool_build_id": "ec8330a5bf28154c20e9dd645b319a546712bee28a5ace7a92b56ad2e32485b1"
           },
@@ -522,7 +522,7 @@
         },
         "violation_summary": null,
         "command": [
-          "book/experiments/runtime-checks/sandbox_writer",
+          "book/evidence/experiments/runtime-checks/sandbox_writer",
           "book/profiles/golden-triple/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
           "/private/etc/hosts"
         ],
@@ -558,7 +558,7 @@
             "apply_model": "self_apply",
             "apply_timing": "pre_syscall",
             "preexisting_sandbox_suspected": false,
-            "entrypoint_path": "book/experiments/runtime-checks/sandbox_reader",
+            "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_reader",
             "entrypoint_sha256": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e",
             "tool_build_id": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e"
           },
@@ -586,7 +586,7 @@
         },
         "violation_summary": null,
         "command": [
-          "book/experiments/runtime-checks/sandbox_reader",
+          "book/evidence/experiments/runtime-checks/sandbox_reader",
           "book/profiles/golden-triple/runtime_profiles/v1_read.bucket4_v1_read.runtime.sb",
           "/private/tmp/foo"
         ],
@@ -599,7 +599,7 @@
   "bucket5:v11_read_subpath": {
     "status": "partial",
     "profile_path": "book/profiles/golden-triple/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
-    "base_profile_path": "book/experiments/op-table-operation/sb/v11_read_subpath.sb",
+    "base_profile_path": "book/evidence/experiments/op-table-operation/sb/v11_read_subpath.sb",
     "probes": [
       {
         "name": "read_/tmp/foo",
@@ -629,7 +629,7 @@
             "apply_model": "self_apply",
             "apply_timing": "pre_syscall",
             "preexisting_sandbox_suspected": false,
-            "entrypoint_path": "book/experiments/runtime-checks/sandbox_reader",
+            "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_reader",
             "entrypoint_sha256": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e",
             "tool_build_id": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e"
           },
@@ -657,7 +657,7 @@
         },
         "violation_summary": null,
         "command": [
-          "book/experiments/runtime-checks/sandbox_reader",
+          "book/evidence/experiments/runtime-checks/sandbox_reader",
           "book/profiles/golden-triple/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
           "/private/tmp/foo"
         ],
@@ -693,7 +693,7 @@
             "apply_model": "self_apply",
             "apply_timing": "pre_syscall",
             "preexisting_sandbox_suspected": false,
-            "entrypoint_path": "book/experiments/runtime-checks/sandbox_reader",
+            "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_reader",
             "entrypoint_sha256": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e",
             "tool_build_id": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e"
           },
@@ -721,7 +721,7 @@
         },
         "violation_summary": null,
         "command": [
-          "book/experiments/runtime-checks/sandbox_reader",
+          "book/evidence/experiments/runtime-checks/sandbox_reader",
           "book/profiles/golden-triple/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
           "/private/tmp/bar"
         ],
@@ -757,7 +757,7 @@
             "apply_model": "self_apply",
             "apply_timing": "pre_syscall",
             "preexisting_sandbox_suspected": false,
-            "entrypoint_path": "book/experiments/runtime-checks/sandbox_writer",
+            "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_writer",
             "entrypoint_sha256": "ec8330a5bf28154c20e9dd645b319a546712bee28a5ace7a92b56ad2e32485b1",
             "tool_build_id": "ec8330a5bf28154c20e9dd645b319a546712bee28a5ace7a92b56ad2e32485b1"
           },
@@ -785,7 +785,7 @@
         },
         "violation_summary": null,
         "command": [
-          "book/experiments/runtime-checks/sandbox_writer",
+          "book/evidence/experiments/runtime-checks/sandbox_writer",
           "book/profiles/golden-triple/runtime_profiles/v11_read_subpath.bucket5_v11_read_subpath.runtime.sb",
           "/private/tmp/foo"
         ],
@@ -829,7 +829,7 @@
             "apply_model": "self_apply",
             "apply_timing": "pre_syscall",
             "preexisting_sandbox_suspected": false,
-            "entrypoint_path": "book/experiments/runtime-checks/sandbox_reader",
+            "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_reader",
             "entrypoint_sha256": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e",
             "tool_build_id": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e"
           },
@@ -857,7 +857,7 @@
         },
         "violation_summary": null,
         "command": [
-          "book/experiments/runtime-checks/sandbox_reader",
+          "book/evidence/experiments/runtime-checks/sandbox_reader",
           "book/profiles/golden-triple/runtime_profiles/strict_1.runtime_strict_1.runtime.sb",
           "/private/tmp/strict_ok/allow.txt"
         ],
@@ -893,7 +893,7 @@
             "apply_model": "self_apply",
             "apply_timing": "pre_syscall",
             "preexisting_sandbox_suspected": false,
-            "entrypoint_path": "book/experiments/runtime-checks/sandbox_writer",
+            "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_writer",
             "entrypoint_sha256": "ec8330a5bf28154c20e9dd645b319a546712bee28a5ace7a92b56ad2e32485b1",
             "tool_build_id": "ec8330a5bf28154c20e9dd645b319a546712bee28a5ace7a92b56ad2e32485b1"
           },
@@ -921,7 +921,7 @@
         },
         "violation_summary": null,
         "command": [
-          "book/experiments/runtime-checks/sandbox_writer",
+          "book/evidence/experiments/runtime-checks/sandbox_writer",
           "book/profiles/golden-triple/runtime_profiles/strict_1.runtime_strict_1.runtime.sb",
           "/private/tmp/strict_ok/allow.txt"
         ],
@@ -957,7 +957,7 @@
             "apply_model": "self_apply",
             "apply_timing": "pre_syscall",
             "preexisting_sandbox_suspected": false,
-            "entrypoint_path": "book/experiments/runtime-checks/sandbox_reader",
+            "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_reader",
             "entrypoint_sha256": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e",
             "tool_build_id": "5af5d148787993f29efdcaf577a3f474b9d37d0da9c6bd1832ac1da86ca2e12e"
           },
@@ -985,7 +985,7 @@
         },
         "violation_summary": null,
         "command": [
-          "book/experiments/runtime-checks/sandbox_reader",
+          "book/evidence/experiments/runtime-checks/sandbox_reader",
           "book/profiles/golden-triple/runtime_profiles/strict_1.runtime_strict_1.runtime.sb",
           "/private/etc/hosts"
         ],
@@ -1021,7 +1021,7 @@
             "apply_model": "self_apply",
             "apply_timing": "pre_syscall",
             "preexisting_sandbox_suspected": false,
-            "entrypoint_path": "book/experiments/runtime-checks/sandbox_writer",
+            "entrypoint_path": "book/evidence/experiments/runtime-checks/sandbox_writer",
             "entrypoint_sha256": "ec8330a5bf28154c20e9dd645b319a546712bee28a5ace7a92b56ad2e32485b1",
             "tool_build_id": "ec8330a5bf28154c20e9dd645b319a546712bee28a5ace7a92b56ad2e32485b1"
           },
@@ -1049,7 +1049,7 @@
         },
         "violation_summary": null,
         "command": [
-          "book/experiments/runtime-checks/sandbox_writer",
+          "book/evidence/experiments/runtime-checks/sandbox_writer",
           "book/profiles/golden-triple/runtime_profiles/strict_1.runtime_strict_1.runtime.sb",
           "/private/etc/hosts"
         ],

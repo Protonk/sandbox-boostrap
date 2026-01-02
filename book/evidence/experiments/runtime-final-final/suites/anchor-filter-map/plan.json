@@ -1,0 +1,26 @@
+{
+  "schema_version": "runtime-tools.plan.v0.1",
+  "plan_id": "anchor-filter-map.cfprefsd.v1",
+  "registry_id": "anchor-filter-map",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "profiles": [
+    "anchor-filter-map:cfprefsd:S0_allow_any",
+    "anchor-filter-map:cfprefsd:S1_allow_global",
+    "anchor-filter-map:cfprefsd:S2_allow_local",
+    "anchor-filter-map:cfprefsd:S3_allow_both",
+    "anchor-filter-map:cfprefsd:N1_deny_default",
+    "anchor-filter-map:cfprefsd:C1_deny_global",
+    "anchor-filter-map:cfprefsd:C2_deny_local"
+  ],
+  "lanes": {
+    "baseline": true,
+    "scenario": true,
+    "oracle": true
+  },
+  "controls": {
+    "baseline": true
+  },
+  "apply_preflight_profile": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/apply_preflight_allow.sb",
+  "notes": "Predicate discriminator matrix for com.apple.cfprefsd.agent anchor: establish reachability under deny-default, then discriminate global-name vs local-name with allow/deny controls."
+}
+

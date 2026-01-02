@@ -7,7 +7,7 @@ Defaults:
 - Adds the `disable_x86_analyzers.py` pre-script to avoid wasting time on x86 analyzers.
 - Sets the processor to an Apple Silicon ARM64 language ID (overrideable).
 - Pulls inputs from `book/dumps/ghidra/private/aapl-restricted/<build>/...`; outputs go to
-  `book/dumps/ghidra/out/<build>/<task>/`.
+  `book/evidence/dumps/ghidra/out/<build>/<task>/`.
 
 Examples:
 - Import + (optional) analysis with defaults:

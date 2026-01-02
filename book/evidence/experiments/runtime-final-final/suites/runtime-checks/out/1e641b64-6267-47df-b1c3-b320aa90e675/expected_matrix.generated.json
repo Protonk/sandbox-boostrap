@@ -1,0 +1,243 @@
+{
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "profiles": {
+    "bucket4:v1_read": {
+      "blob": "book/evidence/experiments/op-table-operation/sb/v1_read.sb",
+      "mode": "sbpl",
+      "family": null,
+      "semantic_group": null,
+      "probes": [
+        {
+          "name": "read_/etc/hosts",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "allow",
+          "expectation_id": "bucket4:v1_read:read_/etc/hosts"
+        },
+        {
+          "name": "write_/etc/hosts",
+          "operation": "file-write*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "expectation_id": "bucket4:v1_read:write_/etc/hosts"
+        },
+        {
+          "name": "read_/tmp/foo",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "expectation_id": "bucket4:v1_read:read_/tmp/foo"
+        }
+      ]
+    },
+    "bucket5:v11_read_subpath": {
+      "blob": "book/evidence/experiments/op-table-operation/sb/v11_read_subpath.sb",
+      "mode": "sbpl",
+      "family": null,
+      "semantic_group": null,
+      "probes": [
+        {
+          "name": "read_/tmp/foo",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "expectation_id": "bucket5:v11_read_subpath:read_/tmp/foo"
+        },
+        {
+          "name": "read_/tmp/bar",
+          "operation": "file-read*",
+          "target": "/tmp/bar",
+          "expected": "deny",
+          "expectation_id": "bucket5:v11_read_subpath:read_/tmp/bar"
+        },
+        {
+          "name": "write_/tmp/foo",
+          "operation": "file-write*",
+          "target": "/tmp/foo",
+          "expected": "deny",
+          "expectation_id": "bucket5:v11_read_subpath:write_/tmp/foo"
+        }
+      ]
+    },
+    "runtime:allow_all": {
+      "blob": "book/profiles/golden-triple/allow_all.sb.bin",
+      "mode": "blob",
+      "family": null,
+      "semantic_group": null,
+      "probes": [
+        {
+          "name": "read_/etc/hosts",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "allow",
+          "expectation_id": "allow_all|file-read*|/etc/hosts"
+        },
+        {
+          "name": "read_/tmp/sbpl_rt/read.txt",
+          "operation": "file-read*",
+          "target": "/tmp/sbpl_rt/read.txt",
+          "expected": "allow",
+          "expectation_id": "allow_all|file-read*|/tmp/sbpl_rt/read.txt"
+        },
+        {
+          "name": "write_/tmp/sbpl_rt/write.txt",
+          "operation": "file-write*",
+          "target": "/tmp/sbpl_rt/write.txt",
+          "expected": "allow",
+          "expectation_id": "allow_all|file-write*|/tmp/sbpl_rt/write.txt"
+        }
+      ]
+    },
+    "runtime:metafilter_any": {
+      "blob": "book/evidence/experiments/runtime-final-final/suites/sbpl-graph-runtime/profiles/metafilter_any.sb",
+      "mode": "sbpl",
+      "family": null,
+      "semantic_group": null,
+      "probes": [
+        {
+          "name": "read_foo",
+          "operation": "file-read*",
+          "target": "/tmp/foo.txt",
+          "expected": "allow",
+          "expectation_id": "metafilter_any|file-read*|/tmp/foo.txt"
+        },
+        {
+          "name": "read_bar",
+          "operation": "file-read*",
+          "target": "/tmp/bar.txt",
+          "expected": "allow",
+          "expectation_id": "metafilter_any|file-read*|/tmp/bar.txt"
+        },
+        {
+          "name": "read_other",
+          "operation": "file-read*",
+          "target": "/tmp/qux.txt",
+          "expected": "allow",
+          "expectation_id": "metafilter_any|file-read*|/tmp/qux.txt"
+        },
+        {
+          "name": "read_baz",
+          "operation": "file-read*",
+          "target": "/tmp/baz.txt",
+          "expected": "deny",
+          "expectation_id": "metafilter_any|file-read*|/tmp/baz.txt"
+        },
+        {
+          "name": "write_baz",
+          "operation": "file-write*",
+          "target": "/tmp/baz.txt",
+          "expected": "deny",
+          "expectation_id": "metafilter_any|file-write*|/tmp/baz.txt"
+        }
+      ]
+    },
+    "runtime:strict_1": {
+      "blob": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/strict_1.sb",
+      "mode": "sbpl",
+      "family": null,
+      "semantic_group": null,
+      "probes": [
+        {
+          "name": "read_ok",
+          "operation": "file-read*",
+          "target": "/private/tmp/strict_ok/allow.txt",
+          "expected": "allow",
+          "expectation_id": "runtime:strict_1:read_ok"
+        },
+        {
+          "name": "write_ok",
+          "operation": "file-write*",
+          "target": "/private/tmp/strict_ok/allow.txt",
+          "expected": "allow",
+          "expectation_id": "runtime:strict_1:write_ok"
+        },
+        {
+          "name": "read_hosts",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "expectation_id": "runtime:strict_1:read_hosts"
+        },
+        {
+          "name": "write_hosts",
+          "operation": "file-write*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "expectation_id": "runtime:strict_1:write_hosts"
+        }
+      ]
+    },
+    "sys:airlock": {
+      "blob": "/System/Library/Sandbox/Profiles/airlock.sb",
+      "mode": "sbpl",
+      "family": null,
+      "semantic_group": null,
+      "probes": [
+        {
+          "name": "read_/etc/hosts",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "expectation_id": "sys:airlock:read_/etc/hosts"
+        },
+        {
+          "name": "write_/etc/hosts",
+          "operation": "file-write*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "expectation_id": "sys:airlock:write_/etc/hosts"
+        },
+        {
+          "name": "read_/tmp/foo",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "deny",
+          "expectation_id": "sys:airlock:read_/tmp/foo"
+        },
+        {
+          "name": "write_/tmp/foo",
+          "operation": "file-write*",
+          "target": "/tmp/foo",
+          "expected": "deny",
+          "expectation_id": "sys:airlock:write_/tmp/foo"
+        }
+      ]
+    },
+    "sys:bsd": {
+      "blob": "/System/Library/Sandbox/Profiles/bsd.sb",
+      "mode": "sbpl",
+      "family": null,
+      "semantic_group": null,
+      "probes": [
+        {
+          "name": "read_/etc/hosts",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "expectation_id": "sys:bsd:read_/etc/hosts"
+        },
+        {
+          "name": "write_/etc/hosts",
+          "operation": "file-write*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "expectation_id": "sys:bsd:write_/etc/hosts"
+        },
+        {
+          "name": "read_/tmp/foo",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "deny",
+          "expectation_id": "sys:bsd:read_/tmp/foo"
+        },
+        {
+          "name": "write_/tmp/foo",
+          "operation": "file-write*",
+          "target": "/tmp/foo",
+          "expected": "deny",
+          "expectation_id": "sys:bsd:write_/tmp/foo"
+        }
+      ]
+    }
+  }
+}

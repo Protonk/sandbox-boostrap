@@ -4,8 +4,9 @@ from pathlib import Path
 
 from book.api import path_utils
 from book.integration.tests.runtime.runtime_bundle_helpers import load_bundle_json
+
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))
-BASE_DIR = REPO_ROOT / "book" / "experiments" / "runtime-final-final" / "suites" / "runtime-adversarial"
+BASE_DIR = REPO_ROOT / "book" / "evidence" / "experiments" / "runtime-final-final" / "suites" / "runtime-adversarial"
 OUT_DIR = BASE_DIR / "out"
 WORLD_PATH = REPO_ROOT / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world.json"
 

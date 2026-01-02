@@ -9,10 +9,10 @@ set of disjoint "anchor contexts" (`anchor_ctx_id`) rather than a single
 literal-keyed record.
 
 Outputs:
-- `book/graph/mappings/anchors/anchor_ctx_filter_map.json`
+- `book/evidence/graph/mappings/anchors/anchor_ctx_filter_map.json`
 
 Compatibility:
-- `book/graph/mappings/anchors/anchor_filter_map.json` is a lossy, derived view
+- `book/evidence/graph/mappings/anchors/anchor_filter_map.json` is a lossy, derived view
   generated from the ctx map by `generate_anchor_filter_map.py`.
 """
 
@@ -33,9 +33,9 @@ from book.api import world as world_mod  # type: ignore
 from book.api.profile import decoder  # type: ignore
 from book.api.profile import digests as digests_mod  # type: ignore
 
-ANCHOR_FIELD2_MAP_PATH = REPO_ROOT / "book/graph/mappings/anchors/anchor_field2_map.json"
-FILTER_VOCAB_PATH = REPO_ROOT / "book/graph/mappings/vocab/filters.json"
-OUT_PATH = REPO_ROOT / "book/graph/mappings/anchors/anchor_ctx_filter_map.json"
+ANCHOR_FIELD2_MAP_PATH = REPO_ROOT / "book/evidence/graph/mappings/anchors/anchor_field2_map.json"
+FILTER_VOCAB_PATH = REPO_ROOT / "book/evidence/graph/mappings/vocab/filters.json"
+OUT_PATH = REPO_ROOT / "book/evidence/graph/mappings/anchors/anchor_ctx_filter_map.json"
 
 SCHEMA_VERSION = "anchors.anchor_ctx_filter_map.v0.1"
 
@@ -60,7 +60,7 @@ def _probe_blob_path(profile_id: str) -> Optional[Path]:
     name = profile_id.split(":", 1)[1]
     p = (
         REPO_ROOT
-        / "book/experiments/field2-final-final/probe-op-structure/sb/build"
+        / "book/evidence/experiments/field2-final-final/probe-op-structure/sb/build"
         / f"{name}.sb.bin"
     )
     return p if p.exists() else None

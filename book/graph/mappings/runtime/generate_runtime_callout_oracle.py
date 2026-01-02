@@ -23,7 +23,7 @@ from book.api import world as world_mod
 from book.api.runtime.contracts import models
 from book.api.runtime.analysis.mapping import views as runtime_views
 
-OUT = ROOT / "book/graph/mappings/runtime/runtime_callout_oracle.json"
+OUT = ROOT / "book/evidence/graph/mappings/runtime/runtime_callout_oracle.json"
 
 SCRIPT_ROOT = Path(__file__).resolve().parent
 if str(SCRIPT_ROOT) not in sys.path:

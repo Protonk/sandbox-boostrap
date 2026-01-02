@@ -1,0 +1,410 @@
+{
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "profiles": {
+    "adv:flow_divert_partial_tcp": {
+      "blob": "book/evidence/experiments/runtime-adversarial/sb/flow_divert_partial_tcp.sb",
+      "mode": "sbpl",
+      "family": "network",
+      "semantic_group": "network:flow-divert-partial",
+      "probes": [
+        {
+          "name": "tcp-loopback",
+          "operation": "network-outbound",
+          "target": "127.0.0.1:62646",
+          "expected": "allow",
+          "expectation_id": "adv:flow_divert_partial_tcp:tcp-loopback"
+        },
+        {
+          "name": "tcp-loopback-2",
+          "operation": "network-outbound",
+          "target": "127.0.0.1:62647",
+          "expected": "allow",
+          "expectation_id": "adv:flow_divert_partial_tcp:tcp-loopback-2"
+        }
+      ]
+    },
+    "adv:flow_divert_require_all_tcp": {
+      "blob": "book/evidence/experiments/runtime-adversarial/sb/flow_divert_require_all_tcp.sb",
+      "mode": "sbpl",
+      "family": "network",
+      "semantic_group": "network:flow-divert-require-all",
+      "probes": [
+        {
+          "name": "tcp-loopback",
+          "operation": "network-outbound",
+          "target": "127.0.0.1:62646",
+          "expected": "allow",
+          "expectation_id": "adv:flow_divert_require_all_tcp:tcp-loopback"
+        },
+        {
+          "name": "tcp-loopback-2",
+          "operation": "network-outbound",
+          "target": "127.0.0.1:62647",
+          "expected": "allow",
+          "expectation_id": "adv:flow_divert_require_all_tcp:tcp-loopback-2"
+        }
+      ]
+    },
+    "adv:mach_local_literal": {
+      "blob": "book/evidence/experiments/runtime-adversarial/sb/mach_local_literal.sb",
+      "mode": "sbpl",
+      "family": "mach_local",
+      "semantic_group": "mach:local-name-allow",
+      "probes": [
+        {
+          "name": "allow-cfprefsd-local",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.agent",
+          "expected": "allow",
+          "expectation_id": "adv:mach_local_literal:allow-cfprefsd-local",
+          "driver": "sandbox_mach_probe"
+        },
+        {
+          "name": "deny-bogus-local",
+          "operation": "mach-lookup",
+          "target": "com.apple.sandboxadversarial.fake",
+          "expected": "deny",
+          "expectation_id": "adv:mach_local_literal:deny-bogus-local",
+          "driver": "sandbox_mach_probe"
+        }
+      ]
+    },
+    "adv:mach_local_regex": {
+      "blob": "book/evidence/experiments/runtime-adversarial/sb/mach_local_regex.sb",
+      "mode": "sbpl",
+      "family": "mach_local",
+      "semantic_group": "mach:local-name-allow",
+      "probes": [
+        {
+          "name": "allow-cfprefsd-local",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.agent",
+          "expected": "allow",
+          "expectation_id": "adv:mach_local_regex:allow-cfprefsd-local",
+          "driver": "sandbox_mach_probe"
+        },
+        {
+          "name": "deny-bogus-local",
+          "operation": "mach-lookup",
+          "target": "com.apple.sandboxadversarial.fake",
+          "expected": "deny",
+          "expectation_id": "adv:mach_local_regex:deny-bogus-local",
+          "driver": "sandbox_mach_probe"
+        }
+      ]
+    },
+    "adv:mach_simple_allow": {
+      "blob": "book/evidence/experiments/runtime-adversarial/sb/mach_simple_allow.sb",
+      "mode": "sbpl",
+      "family": "mach_variants",
+      "semantic_group": "mach:global-name-allow",
+      "probes": [
+        {
+          "name": "allow-cfprefsd",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.agent",
+          "expected": "allow",
+          "expectation_id": "adv:mach_simple_allow:allow-cfprefsd",
+          "driver": "sandbox_mach_probe"
+        },
+        {
+          "name": "deny-bogus",
+          "operation": "mach-lookup",
+          "target": "com.apple.sandboxadversarial.fake",
+          "expected": "deny",
+          "expectation_id": "adv:mach_simple_allow:deny-bogus",
+          "driver": "sandbox_mach_probe"
+        }
+      ]
+    },
+    "adv:mach_simple_variants": {
+      "blob": "book/evidence/experiments/runtime-adversarial/sb/mach_simple_variants.sb",
+      "mode": "sbpl",
+      "family": "mach_variants",
+      "semantic_group": "mach:global-name-allow",
+      "probes": [
+        {
+          "name": "allow-cfprefsd",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.agent",
+          "expected": "allow",
+          "expectation_id": "adv:mach_simple_variants:allow-cfprefsd",
+          "driver": "sandbox_mach_probe"
+        },
+        {
+          "name": "deny-bogus",
+          "operation": "mach-lookup",
+          "target": "com.apple.sandboxadversarial.fake",
+          "expected": "deny",
+          "expectation_id": "adv:mach_simple_variants:deny-bogus",
+          "driver": "sandbox_mach_probe"
+        }
+      ]
+    },
+    "adv:net_outbound_allow": {
+      "blob": "book/evidence/experiments/runtime-adversarial/sb/net_outbound_allow.sb",
+      "mode": "sbpl",
+      "family": "network",
+      "semantic_group": "network:outbound-allow",
+      "probes": [
+        {
+          "name": "tcp-loopback",
+          "operation": "network-outbound",
+          "target": "127.0.0.1:62646",
+          "expected": "allow",
+          "expectation_id": "adv:net_outbound_allow:tcp-loopback"
+        },
+        {
+          "name": "tcp-loopback-2",
+          "operation": "network-outbound",
+          "target": "127.0.0.1:62647",
+          "expected": "allow",
+          "expectation_id": "adv:net_outbound_allow:tcp-loopback-2"
+        }
+      ]
+    },
+    "adv:net_outbound_deny": {
+      "blob": "book/evidence/experiments/runtime-adversarial/sb/net_outbound_deny.sb",
+      "mode": "sbpl",
+      "family": "network",
+      "semantic_group": "network:outbound-deny",
+      "probes": [
+        {
+          "name": "tcp-loopback",
+          "operation": "network-outbound",
+          "target": "127.0.0.1:62646",
+          "expected": "deny",
+          "expectation_id": "adv:net_outbound_deny:tcp-loopback"
+        },
+        {
+          "name": "tcp-loopback-2",
+          "operation": "network-outbound",
+          "target": "127.0.0.1:62647",
+          "expected": "deny",
+          "expectation_id": "adv:net_outbound_deny:tcp-loopback-2"
+        }
+      ]
+    },
+    "adv:path_alias": {
+      "blob": "book/evidence/experiments/runtime-adversarial/sb/path_alias.sb",
+      "mode": "sbpl",
+      "family": "path_alias",
+      "semantic_group": "paths:alias-canonicalization",
+      "probes": [
+        {
+          "name": "alias-tmp",
+          "operation": "file-read*",
+          "target": "/tmp/runtime-adv/alias/allow.txt",
+          "expected": "allow",
+          "expectation_id": "adv:path_alias:alias-tmp"
+        },
+        {
+          "name": "alias-private",
+          "operation": "file-read*",
+          "target": "/private/tmp/runtime-adv/alias/allow.txt",
+          "expected": "allow",
+          "expectation_id": "adv:path_alias:alias-private"
+        }
+      ]
+    },
+    "adv:path_edges": {
+      "blob": "book/evidence/experiments/runtime-adversarial/sb/path_edges.sb",
+      "mode": "sbpl",
+      "family": "path_edges",
+      "semantic_group": "paths:literal-vs-normalized",
+      "probes": [
+        {
+          "name": "allow-tmp",
+          "operation": "file-read*",
+          "target": "/tmp/runtime-adv/edges/a",
+          "expected": "allow",
+          "expectation_id": "adv:path_edges:allow-tmp"
+        },
+        {
+          "name": "deny-private",
+          "operation": "file-read*",
+          "target": "/private/tmp/runtime-adv/edges/a",
+          "expected": "deny",
+          "expectation_id": "adv:path_edges:deny-private"
+        },
+        {
+          "name": "allow-subpath",
+          "operation": "file-read*",
+          "target": "/tmp/runtime-adv/edges/okdir/item.txt",
+          "expected": "allow",
+          "expectation_id": "adv:path_edges:allow-subpath"
+        },
+        {
+          "name": "allow-subpath-normalized",
+          "operation": "file-read*",
+          "target": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+          "expected": "deny",
+          "expectation_id": "adv:path_edges:allow-subpath-normalized"
+        },
+        {
+          "name": "deny-dotdot",
+          "operation": "file-read*",
+          "target": "/tmp/runtime-adv/edges/okdir/../blocked.txt",
+          "expected": "deny",
+          "expectation_id": "adv:path_edges:deny-dotdot"
+        },
+        {
+          "name": "write-tmp",
+          "operation": "file-write*",
+          "target": "/tmp/runtime-adv/edges/a",
+          "expected": "allow",
+          "expectation_id": "adv:path_edges:write-tmp"
+        },
+        {
+          "name": "write-private",
+          "operation": "file-write*",
+          "target": "/private/tmp/runtime-adv/edges/a",
+          "expected": "deny",
+          "expectation_id": "adv:path_edges:write-private"
+        },
+        {
+          "name": "write-subpath",
+          "operation": "file-write*",
+          "target": "/tmp/runtime-adv/edges/okdir/item.txt",
+          "expected": "allow",
+          "expectation_id": "adv:path_edges:write-subpath"
+        },
+        {
+          "name": "write-dotdot",
+          "operation": "file-write*",
+          "target": "/tmp/runtime-adv/edges/okdir/../blocked.txt",
+          "expected": "deny",
+          "expectation_id": "adv:path_edges:write-dotdot"
+        }
+      ]
+    },
+    "adv:struct_flat": {
+      "blob": "book/evidence/experiments/runtime-adversarial/sb/struct_flat.sb",
+      "mode": "sbpl",
+      "family": "structural_variants",
+      "semantic_group": "structural:file-read-subpath",
+      "probes": [
+        {
+          "name": "allow-ok-root",
+          "operation": "file-read*",
+          "target": "/tmp/runtime-adv/struct/ok/allowed.txt",
+          "expected": "allow",
+          "expectation_id": "adv:struct_flat:allow-ok-root"
+        },
+        {
+          "name": "allow-ok-deep",
+          "operation": "file-read*",
+          "target": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
+          "expected": "allow",
+          "expectation_id": "adv:struct_flat:allow-ok-deep"
+        },
+        {
+          "name": "deny-blocked",
+          "operation": "file-read*",
+          "target": "/tmp/runtime-adv/struct/blocked.txt",
+          "expected": "deny",
+          "expectation_id": "adv:struct_flat:deny-blocked"
+        },
+        {
+          "name": "deny-outside",
+          "operation": "file-read*",
+          "target": "/tmp/runtime-adv/struct/outside.txt",
+          "expected": "deny",
+          "expectation_id": "adv:struct_flat:deny-outside"
+        },
+        {
+          "name": "write-ok-root",
+          "operation": "file-write*",
+          "target": "/tmp/runtime-adv/struct/ok/allowed.txt",
+          "expected": "allow",
+          "expectation_id": "adv:struct_flat:write-ok-root"
+        },
+        {
+          "name": "write-ok-deep",
+          "operation": "file-write*",
+          "target": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
+          "expected": "allow",
+          "expectation_id": "adv:struct_flat:write-ok-deep"
+        },
+        {
+          "name": "write-blocked",
+          "operation": "file-write*",
+          "target": "/tmp/runtime-adv/struct/blocked.txt",
+          "expected": "deny",
+          "expectation_id": "adv:struct_flat:write-blocked"
+        },
+        {
+          "name": "write-outside",
+          "operation": "file-write*",
+          "target": "/tmp/runtime-adv/struct/outside.txt",
+          "expected": "deny",
+          "expectation_id": "adv:struct_flat:write-outside"
+        }
+      ]
+    },
+    "adv:struct_nested": {
+      "blob": "book/evidence/experiments/runtime-adversarial/sb/struct_nested.sb",
+      "mode": "sbpl",
+      "family": "structural_variants",
+      "semantic_group": "structural:file-read-subpath",
+      "probes": [
+        {
+          "name": "allow-ok-root",
+          "operation": "file-read*",
+          "target": "/tmp/runtime-adv/struct/ok/allowed.txt",
+          "expected": "allow",
+          "expectation_id": "adv:struct_nested:allow-ok-root"
+        },
+        {
+          "name": "allow-ok-deep",
+          "operation": "file-read*",
+          "target": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
+          "expected": "allow",
+          "expectation_id": "adv:struct_nested:allow-ok-deep"
+        },
+        {
+          "name": "deny-blocked",
+          "operation": "file-read*",
+          "target": "/tmp/runtime-adv/struct/blocked.txt",
+          "expected": "deny",
+          "expectation_id": "adv:struct_nested:deny-blocked"
+        },
+        {
+          "name": "deny-outside",
+          "operation": "file-read*",
+          "target": "/tmp/runtime-adv/struct/outside.txt",
+          "expected": "deny",
+          "expectation_id": "adv:struct_nested:deny-outside"
+        },
+        {
+          "name": "write-ok-root",
+          "operation": "file-write*",
+          "target": "/tmp/runtime-adv/struct/ok/allowed.txt",
+          "expected": "allow",
+          "expectation_id": "adv:struct_nested:write-ok-root"
+        },
+        {
+          "name": "write-ok-deep",
+          "operation": "file-write*",
+          "target": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
+          "expected": "allow",
+          "expectation_id": "adv:struct_nested:write-ok-deep"
+        },
+        {
+          "name": "write-blocked",
+          "operation": "file-write*",
+          "target": "/tmp/runtime-adv/struct/blocked.txt",
+          "expected": "deny",
+          "expectation_id": "adv:struct_nested:write-blocked"
+        },
+        {
+          "name": "write-outside",
+          "operation": "file-write*",
+          "target": "/tmp/runtime-adv/struct/outside.txt",
+          "expected": "deny",
+          "expectation_id": "adv:struct_nested:write-outside"
+        }
+      ]
+    }
+  }
+}

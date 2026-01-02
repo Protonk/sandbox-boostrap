@@ -3,7 +3,7 @@ from pathlib import Path
 
 
 def test_kernel_import_census_empty():
-    base = Path("book/dumps/ghidra/out/14.4.1-23E224/kernel-imports")
+    base = Path("book/evidence/dumps/ghidra/out/14.4.1-23E224/kernel-imports")
     all_path = base / "imports_all.json"
     filt_path = base / "imports_filtered_sandbox.json"
     assert all_path.exists(), "imports_all.json missing; rerun kernel-imports task"

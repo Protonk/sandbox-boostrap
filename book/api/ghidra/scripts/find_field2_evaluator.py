@@ -4,7 +4,7 @@ Find the field2/filter_arg reader helper (ldrb+ldrh, no masking) and its largest
 then dump their disassembly plus a small JSON summary.
 
 Args: <out_dir> <build_id>
-Outputs: book/dumps/ghidra/out/<build>/find-field2-evaluator/{field2_evaluator.json,helper.txt,eval.txt}
+Outputs: book/evidence/dumps/ghidra/out/<build>/find-field2-evaluator/{field2_evaluator.json,helper.txt,eval.txt}
 
 Assumptions/pitfalls:
 - Requires functions/instructions recovered; avoid --no-analysis if you need reliable callers.

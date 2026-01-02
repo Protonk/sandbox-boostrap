@@ -1,0 +1,57 @@
+{
+  "entitlementjail": {
+    "capabilities_snapshot_path": "book/evidence/experiments/frida-testing/out/6ba32d45-72c2-48fe-9dbe-ffc5ba8753f9/ej/capabilities_snapshot.json",
+    "log_path": "book/evidence/experiments/frida-testing/out/6ba32d45-72c2-48fe-9dbe-ffc5ba8753f9/ej/logs/run_xpc.log",
+    "run_xpc_path": "book/evidence/experiments/frida-testing/out/6ba32d45-72c2-48fe-9dbe-ffc5ba8753f9/ej/run_xpc.json"
+  },
+  "frida": {
+    "attach_error": null,
+    "attach_meta": {
+      "pid": 79306,
+      "pid_candidates": [
+        79306
+      ],
+      "pid_error": null,
+      "pid_source": "pgrep",
+      "run_id": "6ba32d45-72c2-48fe-9dbe-ffc5ba8753f9",
+      "service_pid": null,
+      "t0_ns": 1766711816765040000,
+      "wait_info": {
+        "wait_mode": "fifo",
+        "wait_path": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_fully_injectable/Data/tmp/ej-attach-79AFACC9-D2A5-4B76-BC32-E7E23DE83E1D.fifo",
+        "wait_ready_at_unix_s": 1766711816.774098,
+        "wait_ready_line": "[client] wait-ready mode=fifo wait_path=/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_fully_injectable/Data/tmp/ej-attach-79AFACC9-D2A5-4B76-BC32-E7E23DE83E1D.fifo",
+        "wait_timeout_ms": null
+      }
+    },
+    "events_path": "book/evidence/experiments/frida-testing/out/6ba32d45-72c2-48fe-9dbe-ffc5ba8753f9/frida/events.jsonl",
+    "meta_path": "book/evidence/experiments/frida-testing/out/6ba32d45-72c2-48fe-9dbe-ffc5ba8753f9/frida/meta.json"
+  },
+  "out_dir": "book/evidence/experiments/frida-testing/out/6ba32d45-72c2-48fe-9dbe-ffc5ba8753f9",
+  "plan_id": "frida-testing:ej-frida",
+  "probe": {
+    "ack_risk": "fully_injectable",
+    "probe_args": [
+      "--op",
+      "open_read",
+      "--path-class",
+      "tmp",
+      "--target",
+      "specimen_file"
+    ],
+    "probe_id": "fs_op",
+    "profile_id": "fully_injectable",
+    "service_id": "fully_injectable",
+    "use_profile": true
+  },
+  "row_id": "frida-testing:ej-frida.6ba32d45-72c2-48fe-9dbe-ffc5ba8753f9",
+  "run_id": "6ba32d45-72c2-48fe-9dbe-ffc5ba8753f9",
+  "schema_version": 1,
+  "selftest": {
+    "path": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_fully_injectable/Data/tmp/ej_noaccess",
+    "prepare_error": null,
+    "prepared": null,
+    "source": "capabilities_snapshot"
+  },
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

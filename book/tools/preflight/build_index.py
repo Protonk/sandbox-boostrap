@@ -133,7 +133,7 @@ def discover_inputs() -> List[InputRef]:
 
     Sources:
     - profiles_sbpl: book/profiles/**/*.sb
-    - experiments_sbpl: book/experiments/**/*.sb (excluding out/, entitlement-diff, entitlement-jail-extension-semantics)
+    - experiments_sbpl: book/evidence/experiments/**/*.sb (excluding out/, entitlement-diff, entitlement-jail-extension-semantics)
     - examples_sbpl: book/examples/**/*.sb
     - tools_sbpl: book/tools/sbpl/corpus/**/*.sb
     - book_blobs: book/**/*.sb.bin (excluding book/dumps/**, book/integration/out/**, and excluded experiments)
@@ -188,7 +188,7 @@ def build_manifest(inputs: Sequence[InputRef]) -> Dict[str, Any]:
         "preflight_schema_version": preflight_mod.PREFLIGHT_SCHEMA_VERSION,
         "inputs": {
             "profiles_sbpl": "book/profiles/**/*.sb",
-            "experiments_sbpl": f"book/experiments/**/*.sb (excluding out/ and {EXCLUDED_EXPERIMENTS_LABEL})",
+            "experiments_sbpl": f"book/evidence/experiments/**/*.sb (excluding out/ and {EXCLUDED_EXPERIMENTS_LABEL})",
             "examples_sbpl": "book/examples/**/*.sb",
             "tools_sbpl": "book/tools/sbpl/corpus/**/*.sb",
             "book_blobs": (

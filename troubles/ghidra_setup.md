@@ -46,7 +46,7 @@ All blocking issues are mitigated with the current defaults (ARM64 processor, x8
 - Tag switch (needs functions): drop `--no-analysis` for a slower but populated run.
 - Data define (script-only against existing project): `PYTHONPATH=$PWD GHIDRA_HEADLESS=$GHIDRA_HEADLESS JAVA_HOME=$JAVA_HOME python3 book/api/ghidra/run_data_define.py --address addr:0xffffff800020ef10 --process-existing --no-analysis --timeout 900`
 - Full analysis with x86 analyzers disabled: add `--pre-script disable_x86_analyzers.py` and explicitly set `--processor` to the ARM64 language for the KC (for example, `AARCH64:LE:64:AppleSilicon`) to skip x86-only passes on Apple Silicon. The convenience wrapper `python3 book/api/ghidra/run_task.py <task> --exec` applies these defaults unless overridden.
-- Outputs land under `book/dumps/ghidra/out/14.4.1-23E224/<task>/`; project at `book/dumps/ghidra/projects/sandbox_14.4.1-23E224`; user config at `book/dumps/ghidra/user/`.
+- Outputs land under `book/evidence/dumps/ghidra/out/14.4.1-23E224/<task>/`; project at `book/dumps/ghidra/projects/sandbox_14.4.1-23E224`; user config at `book/dumps/ghidra/user/`.
 
 ## Remaining cautions
 - Running without `--java-home` will still trigger the JDK prompt and fail under headless/non-TTY.

@@ -3,7 +3,7 @@ Decoder-backed digest helpers for compiled sandbox blobs (Sonoma baseline).
 
 This module provides a reusable home for the digest logic originally implemented
 in the experiment:
-- `book/experiments/archive/system-profile-digest/`
+- `book/evidence/experiments/archive/system-profile-digest/`
 
 Digests are meant to be:
 - **stable** (shape and field meanings) on a fixed world baseline,
@@ -47,9 +47,9 @@ def canonical_system_profile_blobs(repo_root: Path | None = None) -> dict[str, P
     """
     root = repo_root or find_repo_root()
     return {
-        "airlock": root / "book/graph/concepts/validation/fixtures/blobs/airlock.sb.bin",
-        "bsd": root / "book/graph/concepts/validation/fixtures/blobs/bsd.sb.bin",
-        "sample": root / "book/graph/concepts/validation/fixtures/blobs/sample.sb.bin",
+        "airlock": root / "book/evidence/graph/concepts/validation/fixtures/blobs/airlock.sb.bin",
+        "bsd": root / "book/evidence/graph/concepts/validation/fixtures/blobs/bsd.sb.bin",
+        "sample": root / "book/evidence/graph/concepts/validation/fixtures/blobs/sample.sb.bin",
     }
 
 

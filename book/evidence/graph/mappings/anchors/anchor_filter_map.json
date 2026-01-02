@@ -1,0 +1,351 @@
+{
+  "/etc/hosts": {
+    "candidates": [
+      "global-name",
+      "iokit-usb-interface-class",
+      "mount-relative-path",
+      "path"
+    ],
+    "ctx_ids": [
+      "ctx:0de4cf2ba3973cf0",
+      "ctx:11497511940cb5df",
+      "ctx:2d096950d1183986",
+      "ctx:6dfb72dd573228bd",
+      "ctx:70628fdfa6fe2e13",
+      "ctx:7c627581bd63274b",
+      "ctx:7d570f6247fd21c6",
+      "ctx:863c40d566b3e129",
+      "ctx:ca14a2e5898d5973",
+      "ctx:d1e5d4c32d8e02f2",
+      "ctx:f05b526248fd8fde",
+      "ctx:f4bf112cd087e3cd"
+    ],
+    "field2_values": [
+      0,
+      1,
+      4,
+      5,
+      6,
+      7,
+      11,
+      59,
+      256,
+      1281,
+      1536,
+      2560,
+      2816,
+      3072,
+      3328,
+      3584,
+      4352,
+      7424
+    ],
+    "filter_id": null,
+    "filter_name": null,
+    "notes": "Ambiguous across contexts; consult anchor_ctx_filter_map.json via ctx_ids.",
+    "sources": [
+      "probe:v1_file_require_any",
+      "probe:v2_file_three_filters_any",
+      "probe:v8_all_combo",
+      "sys:sample"
+    ],
+    "status": "blocked"
+  },
+  "/tmp/foo": {
+    "candidates": [
+      "global-name",
+      "mount-relative-path"
+    ],
+    "ctx_ids": [
+      "ctx:2fed57ff96186587",
+      "ctx:326da461ebd64c0d",
+      "ctx:3c147107a263acba",
+      "ctx:449ae76e0090e8a0",
+      "ctx:5d6713cdb52f8f64",
+      "ctx:b1a657fd0647186d",
+      "ctx:c85503244ce4417e",
+      "ctx:cc385c0bc50590eb",
+      "ctx:e1bd5c8f86413bb6"
+    ],
+    "field2_values": [
+      0,
+      1,
+      2,
+      3,
+      5,
+      256,
+      1536,
+      2816,
+      3072,
+      3328,
+      3584
+    ],
+    "filter_id": null,
+    "filter_name": null,
+    "notes": "Ambiguous across contexts; consult anchor_ctx_filter_map.json via ctx_ids.",
+    "sources": [
+      "probe:v1_file_require_any",
+      "probe:v2_file_three_filters_any",
+      "probe:v8_all_combo"
+    ],
+    "status": "blocked"
+  },
+  "/var/log": {
+    "candidates": [
+      "mount-relative-path",
+      "path"
+    ],
+    "ctx_ids": [
+      "ctx:432da03ebd4431fb",
+      "ctx:4acb751639cc806d",
+      "ctx:716642527f41e42a",
+      "ctx:913a0db463cd8a95",
+      "ctx:b35627b6de92dd02",
+      "ctx:bf642a21e01d7cac"
+    ],
+    "field2_values": [
+      0,
+      1,
+      4,
+      12096
+    ],
+    "filter_id": null,
+    "filter_name": null,
+    "notes": "Ambiguous across contexts; consult anchor_ctx_filter_map.json via ctx_ids.",
+    "sources": [
+      "probe:v2_file_three_filters_any"
+    ],
+    "status": "blocked"
+  },
+  "IOAccelerator": {
+    "candidates": [
+      "global-name"
+    ],
+    "ctx_ids": [
+      "ctx:06b7d652fa227469",
+      "ctx:5179041214b7e8b2"
+    ],
+    "field2_values": [
+      0,
+      1,
+      5
+    ],
+    "filter_id": null,
+    "filter_name": null,
+    "notes": "Ambiguous across contexts; consult anchor_ctx_filter_map.json via ctx_ids.",
+    "sources": [
+      "probe:v11_iokit_user_client_connection"
+    ],
+    "status": "blocked"
+  },
+  "IOHIDParamUserClient": {
+    "candidates": [
+      "mount-relative-path",
+      "path"
+    ],
+    "ctx_ids": [
+      "ctx:362d38670a2b37f3",
+      "ctx:4e64a353043c7c92",
+      "ctx:683b6bdc7530b065",
+      "ctx:6e6e507f2917a414",
+      "ctx:8cc2eee7d110e4b4",
+      "ctx:ac9931e9c5673702"
+    ],
+    "field2_values": [
+      0,
+      1,
+      4,
+      18753
+    ],
+    "filter_id": null,
+    "filter_name": null,
+    "notes": "Ambiguous across contexts; consult anchor_ctx_filter_map.json via ctx_ids.",
+    "sources": [
+      "probe:v10_iokit_user_client_pair"
+    ],
+    "status": "blocked"
+  },
+  "IOSurfaceRootUserClient": {
+    "ctx_ids": [
+      "ctx:78322350c362c30c"
+    ],
+    "field2_values": [
+      1
+    ],
+    "filter_id": 1,
+    "filter_name": "mount-relative-path",
+    "notes": "Derived from anchor_ctx_filter_map.json: all observed contexts resolve to a single filter kind.",
+    "sources": [
+      "probe:v9_iokit_user_client_only"
+    ],
+    "status": "partial"
+  },
+  "IOUSBHostInterface": {
+    "candidates": [
+      "global-name"
+    ],
+    "ctx_ids": [
+      "ctx:2dcd69e1a5c7e14c",
+      "ctx:97bd8ddcd662c75b",
+      "ctx:cdb090b42e667fdf"
+    ],
+    "field2_values": [
+      0,
+      4,
+      5,
+      11
+    ],
+    "filter_id": null,
+    "filter_name": null,
+    "notes": "Ambiguous across contexts; consult anchor_ctx_filter_map.json via ctx_ids.",
+    "sources": [
+      "probe:v5_iokit_class_property",
+      "probe:v8_all_combo"
+    ],
+    "status": "blocked"
+  },
+  "app-sandbox.read": {
+    "candidates": [
+      "control-name"
+    ],
+    "ctx_ids": [
+      "ctx:18c35a0a65c29904",
+      "ctx:3f842d930c733b4a",
+      "ctx:40549ca58ada23bc",
+      "ctx:552dd20d426b99c5",
+      "ctx:5575649617167778",
+      "ctx:561eab52c516a25b",
+      "ctx:68d86cc1bb143d78",
+      "ctx:6df9f8e553a9258b",
+      "ctx:6ea53e7c23229abb",
+      "ctx:7218a826fc333393",
+      "ctx:82da0e2a58ff135b",
+      "ctx:a6deeae428db14c3",
+      "ctx:b2f4a9eb41b0161a",
+      "ctx:b36636ef700c069f",
+      "ctx:b5b6b254234bbb3b",
+      "ctx:d718ba363d4e6720",
+      "ctx:ded5c70a15264824",
+      "ctx:e21c5e2b46491dd2",
+      "ctx:f908e380c75871e3",
+      "ctx:fe7e2a56905cfce7"
+    ],
+    "field2_values": [
+      9,
+      10,
+      142,
+      165
+    ],
+    "filter_id": null,
+    "filter_name": null,
+    "notes": "Ambiguous across contexts; consult anchor_ctx_filter_map.json via ctx_ids.",
+    "sources": [
+      "sys:airlock"
+    ],
+    "status": "blocked"
+  },
+  "com.apple.cfprefsd.agent": {
+    "candidates": [
+      "global-name",
+      "mount-relative-path"
+    ],
+    "ctx_ids": [
+      "ctx:066bdc9aaa221b55",
+      "ctx:9b5e21cd20400844",
+      "ctx:bd2b79af19c45bf1",
+      "ctx:f20e5a0769958cd0"
+    ],
+    "field2_values": [
+      0,
+      1,
+      5,
+      11
+    ],
+    "filter_id": null,
+    "filter_name": null,
+    "notes": "Ambiguous across contexts; consult anchor_ctx_filter_map.json via ctx_ids.",
+    "sources": [
+      "probe:v3_mach_global_local",
+      "probe:v6_file_mach_combo",
+      "probe:v8_all_combo"
+    ],
+    "status": "blocked"
+  },
+  "flow-divert": {
+    "candidates": [
+      "local",
+      "right-name"
+    ],
+    "ctx_ids": [
+      "ctx:107c7e3e08ad2ad4",
+      "ctx:7081712ffc79a77b",
+      "ctx:8324eafe88be81b8",
+      "ctx:97b0be15903ff2e0",
+      "ctx:c3f8c90f0c23ebb4",
+      "ctx:f2e4c309dd41887a"
+    ],
+    "field2_values": [
+      7,
+      11,
+      26,
+      1281,
+      2560,
+      2816,
+      3072,
+      3328,
+      3584
+    ],
+    "filter_id": null,
+    "filter_name": null,
+    "notes": "Ambiguous across contexts; consult anchor_ctx_filter_map.json via ctx_ids.",
+    "sources": [
+      "probe:v4_network_socket_require_all",
+      "probe:v7_file_network_combo",
+      "probe:v8_all_combo"
+    ],
+    "status": "blocked"
+  },
+  "idVendor": {
+    "candidates": [
+      "global-name"
+    ],
+    "ctx_ids": [
+      "ctx:62884a0b8d6bd37f",
+      "ctx:cdb7208013945b4b"
+    ],
+    "field2_values": [
+      0,
+      1,
+      5
+    ],
+    "filter_id": null,
+    "filter_name": null,
+    "notes": "Ambiguous across contexts; consult anchor_ctx_filter_map.json via ctx_ids.",
+    "sources": [
+      "probe:v5_iokit_class_property"
+    ],
+    "status": "blocked"
+  },
+  "metadata": {
+    "anchor_ctx_map": "book/evidence/graph/mappings/anchors/anchor_ctx_filter_map.json",
+    "generated_by": "book/graph/mappings/anchors/generate_anchor_filter_map.py",
+    "notes": "Legacy literal-keyed anchor\u2192filter view derived conservatively from anchor_ctx_filter_map.json; do not treat as a unique binding.",
+    "tier": "mapped",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  "preferences/logging": {
+    "ctx_ids": [
+      "ctx:a40e12993f1b5a56"
+    ],
+    "field2_values": [
+      5
+    ],
+    "filter_id": 5,
+    "filter_name": "global-name",
+    "notes": "Derived from anchor_ctx_filter_map.json: all observed contexts resolve to a single filter kind.",
+    "sources": [
+      "sys:bsd"
+    ],
+    "status": "partial"
+  }
+}

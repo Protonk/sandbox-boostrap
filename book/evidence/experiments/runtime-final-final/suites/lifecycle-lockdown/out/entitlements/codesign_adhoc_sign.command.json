@@ -1,0 +1,15 @@
+{
+  "argv": [
+    "codesign",
+    "--force",
+    "--sign",
+    "-",
+    "--entitlements",
+    "book/evidence/experiments/entitlement-diff/entitlements/none.plist",
+    "book/api/lifecycle/build/entitlements_example"
+  ],
+  "cwd": ".",
+  "returncode": 0,
+  "stderr": "codesign_adhoc_sign.stderr.txt",
+  "stdout": "codesign_adhoc_sign.stdout.txt"
+}

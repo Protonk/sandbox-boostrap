@@ -11,7 +11,16 @@ from book.api.runtime.execution.channels import ChannelSpec
 
 from book.api import path_utils
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))
-HARDENED_PLAN = REPO_ROOT / "book" / "experiments" / "runtime-final-final" / "suites" / "hardened-runtime" / "plan.json"
+HARDENED_PLAN = (
+    REPO_ROOT
+    / "book"
+    / "evidence"
+    / "experiments"
+    / "runtime-final-final"
+    / "suites"
+    / "hardened-runtime"
+    / "plan.json"
+)
 
 
 def test_reindex_bundle_repair_fixes_digest_mismatch(tmp_path, monkeypatch):
@@ -44,4 +53,3 @@ def test_reindex_bundle_repair_fixes_digest_mismatch(tmp_path, monkeypatch):
     assert repair_log.get("schema_version") == "runtime-tools.repair_log.v0.1"
     assert repair_log.get("before", {}).get("digest_mismatches")
     assert repair_log.get("after", {}).get("digest_mismatches") == []
-

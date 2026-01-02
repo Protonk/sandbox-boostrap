@@ -33,14 +33,14 @@ Current signature (witness-backed on this world, but still “partial” for glo
 - **deny-style message filtering**: any `(apply-message-filter … (deny …) …)` construct.
   - Evidence lives in the gate-witness corpus and validation outputs; see:
     - `troubles/EPERMx2.md`
-    - `book/experiments/runtime-final-final/suites/gate-witnesses/Report.md`
-    - `book/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json`
+    - `book/evidence/experiments/runtime-final-final/suites/gate-witnesses/Report.md`
+    - `book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/witness_results.json`
 
 Digest signature (exact-match; host-scoped list):
 
 - `apply_gate_blob_digest` – the `.sb.bin` file’s `sha256` matches a known apply-gated blob digest from:
-  - `book/graph/concepts/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json`
-  - `book/experiments/runtime-final-final/suites/preflight-blob-digests/Report.md`
+  - `book/evidence/graph/concepts/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json`
+  - `book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/Report.md`
 
 ### Usage
 
@@ -48,8 +48,8 @@ From repo root:
 
 ```sh
 python3 book/tools/preflight/preflight.py scan book/examples/sb/sample.sb
-python3 book/tools/preflight/preflight.py scan book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/*/minimal_failing.sb
-python3 book/tools/preflight/preflight.py scan book/graph/concepts/validation/out/experiments/gate-witnesses/forensics/*/*.sb.bin
+python3 book/tools/preflight/preflight.py scan book/evidence/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/*/minimal_failing.sb
+python3 book/tools/preflight/preflight.py scan book/evidence/graph/concepts/validation/out/experiments/gate-witnesses/forensics/*/*.sb.bin
 ```
 
 Output is a JSON array by default. Use `--jsonl` for one JSON object per line.
@@ -77,7 +77,7 @@ Usage:
 ```sh
 python3 book/tools/preflight/preflight.py minimize-gate \
   --input /System/Library/Sandbox/Profiles/airlock.sb \
-  --out-dir book/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock \
+  --out-dir book/evidence/experiments/runtime-final-final/suites/gate-witnesses/out/witnesses/airlock \
   --confirm 10
 ```
 

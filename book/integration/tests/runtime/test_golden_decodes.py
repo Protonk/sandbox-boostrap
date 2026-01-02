@@ -3,8 +3,9 @@ from pathlib import Path
 
 
 from book.api import path_utils
+
 ROOT = path_utils.find_repo_root(Path(__file__))
-DECODE = ROOT / "book" / "graph" / "mappings" / "runtime" / "golden_decodes.json"
+DECODE = ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "golden_decodes.json"
 
 
 def _load():

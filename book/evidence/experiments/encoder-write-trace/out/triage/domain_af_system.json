@@ -1,0 +1,194 @@
+{
+  "arch": "arm64",
+  "bind_analysis": {
+    "bind_kinds": [],
+    "bind_kinds_source": "otool_indirect",
+    "caller_has_bind_record": false,
+    "caller_image": "book/evidence/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib",
+    "callsite_reachability": "internal_direct",
+    "dyld_info": {
+      "fallback_path": "/usr/lib/libsandbox.1.dylib",
+      "requested": {
+        "exports": {
+          "path": "book/evidence/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib",
+          "present": false,
+          "status": "ok"
+        },
+        "imports": {
+          "path": "book/evidence/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib",
+          "present": false,
+          "status": "ok"
+        }
+      },
+      "requested_path": "book/evidence/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib",
+      "role": "convenience",
+      "used_fallback": false
+    },
+    "indirect": {
+      "sections": []
+    },
+    "nm": {
+      "address": "0x0000000183d080cc",
+      "line": "0000000183d080cc (__TEXT,__text) non-external _sb_mutable_buffer_write",
+      "scope": "non-external"
+    },
+    "nm_secondary": {
+      "address": "0x0000000183d0962c",
+      "line": "0000000183d0962c (__TEXT,__text) non-external _sb_mutable_buffer_make_immutable",
+      "scope": "non-external"
+    },
+    "symbol": "_sb_mutable_buffer_write",
+    "uuid": {
+      "arch_requested": "arm64",
+      "extracted": {
+        "entries": [
+          {
+            "arch": "arm64e",
+            "path": "/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib",
+            "uuid": "ba12a951-72d9-3907-9c49-d16d36787181"
+          }
+        ],
+        "path": "book/evidence/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib",
+        "status": "ok"
+      },
+      "extracted_selected": {
+        "arch": "arm64e",
+        "uuid": "ba12a951-72d9-3907-9c49-d16d36787181"
+      },
+      "host": {
+        "entries": [],
+        "error": "error: /usr/lib/libsandbox.1.dylib: No such file or directory",
+        "path": "/usr/lib/libsandbox.1.dylib",
+        "status": "error"
+      },
+      "host_selected": {
+        "arch": null,
+        "uuid": null
+      },
+      "match": null
+    }
+  },
+  "compile": {
+    "attempts": 1,
+    "error": null,
+    "retries_used": 0,
+    "returncode": 0,
+    "signal": null,
+    "status": "ok"
+  },
+  "dyld_dynamic_interpose": true,
+  "dyld_reachability": false,
+  "hook_attempt": "hw_breakpoint",
+  "hook_error": null,
+  "hook_hit_count": 221,
+  "hook_status": "ok",
+  "hw_breakpoint": {
+    "arm_failures": 0,
+    "attempted": true,
+    "bcr_value": "0x1e7",
+    "break_hits": 0,
+    "breakpoint_index": 0,
+    "breakpoint_set_ok": true,
+    "capture_truncated": 0,
+    "chunk_size": 1024,
+    "debug_state_ok": true,
+    "error": null,
+    "exception_port_ok": true,
+    "exception_scope": "task",
+    "forwarded": 0,
+    "handler_thread_ok": true,
+    "immutable_buf": "0x0",
+    "immutable_hits": 0,
+    "port_ok": true,
+    "prev_behavior": -2147483647,
+    "prev_flavor": 6,
+    "prev_handler_ok": true,
+    "rescans": 0,
+    "ring_dropped": 0,
+    "ring_size": 4096,
+    "secondary_addr": "0x18d60562c",
+    "secondary_index": 1,
+    "secondary_set_ok": true,
+    "step_hits": 0,
+    "target_addr": "0x18d6040cc",
+    "thread_overflow": 0,
+    "threads_armed": 3,
+    "threads_armed_total": 3,
+    "threads_scanned": 3,
+    "threads_scanned_total": 3,
+    "unknown_break_hits": 0
+  },
+  "hw_breakpoint_stats": {
+    "arm_failures": 0,
+    "break_hits": 221,
+    "capture_truncated": 0,
+    "chunk_size": 1024,
+    "forwarded": 0,
+    "immutable_buf": "0x16f08cf38",
+    "immutable_hits": 2,
+    "rescans": 9,
+    "ring_dropped": 0,
+    "ring_size": 4096,
+    "step_hits": 223,
+    "thread_overflow": 0,
+    "threads_armed_total": 39,
+    "threads_scanned_total": 39,
+    "unknown_break_hits": 0
+  },
+  "icache_invalidate_target": false,
+  "icache_invalidate_trampoline": false,
+  "image_index": 158,
+  "image_name": "/usr/lib/libsandbox.1.dylib",
+  "image_slide": "0x98fc000",
+  "mode": "hw_breakpoint",
+  "mprotect_end_ok": false,
+  "mprotect_restore_end_ok": false,
+  "mprotect_restore_ok": false,
+  "mprotect_start_ok": false,
+  "patch_applied": false,
+  "patch_attempted": false,
+  "patch_error": null,
+  "patch_post_bytes": null,
+  "patch_pre_bytes": null,
+  "patch_stub_size": 16,
+  "patch_surface": "hw_breakpoint",
+  "reachability_validation": "ok",
+  "region": {
+    "depth": 1,
+    "error": null,
+    "info_ok": true,
+    "inheritance": 1,
+    "is_submap": false,
+    "max_has_write": false,
+    "max_protection": 5,
+    "max_protection_flags": "r-x",
+    "offset": "0x0",
+    "protection": 5,
+    "protection_flags": "r-x",
+    "share_mode": 1,
+    "size": 1690075136,
+    "start": "0x1898fc000",
+    "user_tag": 0
+  },
+  "sandbox_already_loaded": false,
+  "sandbox_base": "0x18d5e6000",
+  "sandbox_loaded": true,
+  "sandbox_path": "/usr/lib/libsandbox.1.dylib",
+  "sandbox_symbol": "sandbox_compile_file",
+  "target_addr": "0x18d6040cc",
+  "target_addr_source": "unslid+slide",
+  "target_exported": false,
+  "target_runtime_addr": "0x18d6040cc",
+  "target_symbol": "_sb_mutable_buffer_write",
+  "trampoline_addr": null,
+  "unslid_addr": "0x183d080cc",
+  "uuid_expected": "ba12a951-72d9-3907-9c49-d16d36787181",
+  "uuid_loaded": "ba12a951-72d9-3907-9c49-d16d36787181",
+  "uuid_match": true,
+  "vm_copy_attempted": false,
+  "vm_copy_end_ok": false,
+  "vm_copy_restore_end_ok": false,
+  "vm_copy_restore_ok": false,
+  "vm_copy_start_ok": false,
+  "write_records": 221
+}

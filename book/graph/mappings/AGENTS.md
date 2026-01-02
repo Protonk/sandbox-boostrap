@@ -9,7 +9,7 @@ Do:
   - `system_profiles/generate_attestations.py`
   - `system_profiles/generate_static_checks.py`
   - `runtime/generate_lifecycle.py`
-  - (runtime expectations/traces come from `book/graph/concepts/validation/out/semantic/runtime_results.json` → normalization script)
+  - (runtime expectations/traces come from `book/evidence/graph/concepts/validation/out/semantic/runtime_results.json` → normalization script)
 - Keep host/build metadata intact; update statuses instead of hand-editing contents.
 
 Don’t:

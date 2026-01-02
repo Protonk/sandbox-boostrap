@@ -14,11 +14,11 @@ from typing import Dict, List
 from book.api.path_utils import find_repo_root, to_repo_relative
 
 ROOT = find_repo_root(Path(__file__))
-LIB_PATH = ROOT / "book/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib"
-OPS_MAP = ROOT / "book/graph/mappings/vocab/ops.json"
-FILTERS_MAP = ROOT / "book/graph/mappings/vocab/filters.json"
-META_PATH = ROOT / "book/graph/concepts/validation/out/metadata.json"
-STATUS_PATH = ROOT / "book/graph/concepts/validation/out/vocab_status.json"
+LIB_PATH = ROOT / "book/evidence/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib"
+OPS_MAP = ROOT / "book/evidence/graph/mappings/vocab/ops.json"
+FILTERS_MAP = ROOT / "book/evidence/graph/mappings/vocab/filters.json"
+META_PATH = ROOT / "book/evidence/graph/concepts/validation/out/metadata.json"
+STATUS_PATH = ROOT / "book/evidence/graph/concepts/validation/out/vocab_status.json"
 
 from book.graph.concepts.validation import registry
 from book.graph.concepts.validation.registry import ValidationJob

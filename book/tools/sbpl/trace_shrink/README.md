@@ -25,7 +25,7 @@ python3 book/tools/sbpl/trace_shrink/trace_shrink.py shrink --no-clean
 Common knobs (also available via env vars):
 
 ```sh
-OUT_DIR=book/experiments/runtime-final-final/suites/shrink-trace/out \
+OUT_DIR=book/evidence/experiments/runtime-final-final/suites/shrink-trace/out \
 FIXTURE_BIN=sandbox_target \
 IMPORT_DYLD_SUPPORT=1 \
 NETWORK_RULES=parsed \
@@ -45,7 +45,7 @@ Each run writes a standardized tree under `OUT_DIR`:
 - `artifacts/bin/` (fixture binaries)
 
 The tool runs `book/tools/preflight/preflight.py` before shrink, and lints profiles using
-`book/experiments/runtime-final-final/suites/shrink-trace/scripts/lint_profile.py`.
+`book/evidence/experiments/runtime-final-final/suites/shrink-trace/scripts/lint_profile.py`.
 
 ## Notes
 

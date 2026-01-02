@@ -1,0 +1,233 @@
+{
+  "structural variants of same intent (read/write)": {
+    "profiles": [
+      "adv:struct_flat",
+      "adv:struct_nested"
+    ],
+    "aligned_expectations": [
+      {
+        "expectation_id": "allow-ok-deep",
+        "profile_a": "adv:struct_flat",
+        "profile_b": "adv:struct_nested",
+        "expected": "allow",
+        "actual_a": "allow",
+        "actual_b": "allow",
+        "both_match": true
+      },
+      {
+        "expectation_id": "allow-ok-root",
+        "profile_a": "adv:struct_flat",
+        "profile_b": "adv:struct_nested",
+        "expected": "allow",
+        "actual_a": "allow",
+        "actual_b": "allow",
+        "both_match": true
+      },
+      {
+        "expectation_id": "deny-blocked",
+        "profile_a": "adv:struct_flat",
+        "profile_b": "adv:struct_nested",
+        "expected": "deny",
+        "actual_a": "deny",
+        "actual_b": "deny",
+        "both_match": true
+      },
+      {
+        "expectation_id": "deny-outside",
+        "profile_a": "adv:struct_flat",
+        "profile_b": "adv:struct_nested",
+        "expected": "deny",
+        "actual_a": "deny",
+        "actual_b": "deny",
+        "both_match": true
+      },
+      {
+        "expectation_id": "write-blocked",
+        "profile_a": "adv:struct_flat",
+        "profile_b": "adv:struct_nested",
+        "expected": "deny",
+        "actual_a": "deny",
+        "actual_b": "deny",
+        "both_match": true
+      },
+      {
+        "expectation_id": "write-ok-deep",
+        "profile_a": "adv:struct_flat",
+        "profile_b": "adv:struct_nested",
+        "expected": "allow",
+        "actual_a": "allow",
+        "actual_b": "allow",
+        "both_match": true
+      },
+      {
+        "expectation_id": "write-ok-root",
+        "profile_a": "adv:struct_flat",
+        "profile_b": "adv:struct_nested",
+        "expected": "allow",
+        "actual_a": "allow",
+        "actual_b": "allow",
+        "both_match": true
+      },
+      {
+        "expectation_id": "write-outside",
+        "profile_a": "adv:struct_flat",
+        "profile_b": "adv:struct_nested",
+        "expected": "deny",
+        "actual_a": "deny",
+        "actual_b": "deny",
+        "both_match": true
+      }
+    ],
+    "mismatches": []
+  },
+  "mach global-name literal vs regex variants": {
+    "profiles": [
+      "adv:mach_simple_allow",
+      "adv:mach_simple_variants"
+    ],
+    "aligned_expectations": [
+      {
+        "expectation_id": "allow-cfprefsd",
+        "profile_a": "adv:mach_simple_allow",
+        "profile_b": "adv:mach_simple_variants",
+        "expected": "allow",
+        "actual_a": "allow",
+        "actual_b": "allow",
+        "both_match": true
+      },
+      {
+        "expectation_id": "deny-bogus",
+        "profile_a": "adv:mach_simple_allow",
+        "profile_b": "adv:mach_simple_variants",
+        "expected": "deny",
+        "actual_a": "deny",
+        "actual_b": "deny",
+        "both_match": true
+      }
+    ],
+    "mismatches": []
+  },
+  "mach local-name literal vs regex variants": {
+    "profiles": [
+      "adv:mach_local_literal",
+      "adv:mach_local_regex"
+    ],
+    "aligned_expectations": [
+      {
+        "expectation_id": "allow-cfprefsd-local",
+        "profile_a": "adv:mach_local_literal",
+        "profile_b": "adv:mach_local_regex",
+        "expected": "allow",
+        "actual_a": "allow",
+        "actual_b": "allow",
+        "both_match": true
+      },
+      {
+        "expectation_id": "deny-bogus-local",
+        "profile_a": "adv:mach_local_literal",
+        "profile_b": "adv:mach_local_regex",
+        "expected": "deny",
+        "actual_a": "deny",
+        "actual_b": "deny",
+        "both_match": true
+      }
+    ],
+    "mismatches": []
+  },
+  "path_edges": {
+    "profiles": [
+      "adv:path_edges"
+    ],
+    "mismatches": [
+      {
+        "name": "allow-tmp",
+        "expectation_id": "adv:path_edges:allow-tmp",
+        "operation": "file-read*",
+        "path": "/tmp/runtime-adv/edges/a",
+        "expected": "allow",
+        "actual": "deny",
+        "match": false,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 2
+        },
+        "violation_summary": "EPERM",
+        "command": [
+          "book/evidence/experiments/runtime-checks/sandbox_reader",
+          "book/evidence/experiments/runtime-adversarial/out/runtime_profiles/path_edges.adv_path_edges.runtime.sb",
+          "/tmp/runtime-adv/edges/a"
+        ],
+        "exit_code": 2,
+        "stdout": "",
+        "stderr": "open target: Operation not permitted\n"
+      },
+      {
+        "name": "allow-subpath",
+        "expectation_id": "adv:path_edges:allow-subpath",
+        "operation": "file-read*",
+        "path": "/tmp/runtime-adv/edges/okdir/item.txt",
+        "expected": "allow",
+        "actual": "deny",
+        "match": false,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 2
+        },
+        "violation_summary": "EPERM",
+        "command": [
+          "book/evidence/experiments/runtime-checks/sandbox_reader",
+          "book/evidence/experiments/runtime-adversarial/out/runtime_profiles/path_edges.adv_path_edges.runtime.sb",
+          "/tmp/runtime-adv/edges/okdir/item.txt"
+        ],
+        "exit_code": 2,
+        "stdout": "",
+        "stderr": "open target: Operation not permitted\n"
+      },
+      {
+        "name": "write-tmp",
+        "expectation_id": "adv:path_edges:write-tmp",
+        "operation": "file-write*",
+        "path": "/tmp/runtime-adv/edges/a",
+        "expected": "allow",
+        "actual": "deny",
+        "match": false,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 2
+        },
+        "violation_summary": "EPERM",
+        "command": [
+          "book/evidence/experiments/runtime-checks/sandbox_writer",
+          "book/evidence/experiments/runtime-adversarial/out/runtime_profiles/path_edges.adv_path_edges.runtime.sb",
+          "/tmp/runtime-adv/edges/a"
+        ],
+        "exit_code": 2,
+        "stdout": "",
+        "stderr": "open target: Operation not permitted\n"
+      },
+      {
+        "name": "write-subpath",
+        "expectation_id": "adv:path_edges:write-subpath",
+        "operation": "file-write*",
+        "path": "/tmp/runtime-adv/edges/okdir/item.txt",
+        "expected": "allow",
+        "actual": "deny",
+        "match": false,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 2
+        },
+        "violation_summary": "EPERM",
+        "command": [
+          "book/evidence/experiments/runtime-checks/sandbox_writer",
+          "book/evidence/experiments/runtime-adversarial/out/runtime_profiles/path_edges.adv_path_edges.runtime.sb",
+          "/tmp/runtime-adv/edges/okdir/item.txt"
+        ],
+        "exit_code": 2,
+        "stdout": "",
+        "stderr": "open target: Operation not permitted\n"
+      }
+    ],
+    "note": "expected allow on /tmp variants denied (VFS canonicalization likely)"
+  }
+}

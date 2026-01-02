@@ -11,4 +11,4 @@ Contents:
 - `op_table_map.json` – Bucket map hints from `op-table-operation` describing how buckets change as operations/filters are added.
 - `metadata.json` – Host/build and vocab stamps (23E224, ops=196/filters=93, status ok) plus canonical filenames for this mapping set.
 
-Source: `book/experiments/op-table-operation/` and `op-table-vocab-alignment/` on this Sonoma host. Treat these as read-only snapshots when reasoning about which Operation entries a profile actually uses.
+Source: `book/evidence/experiments/op-table-operation/` and `op-table-vocab-alignment/` on this Sonoma host. Treat these as read-only snapshots when reasoning about which Operation entries a profile actually uses.

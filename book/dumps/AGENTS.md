@@ -11,7 +11,7 @@ What lives here:
 
 Routing:
 - Need headless Ghidra tasks or scripts? Go to `book/api/ghidra/` (scaffold, connector, scripts, README). Run via `python -m book.api.ghidra.scaffold ...` or `python book/api/ghidra/run_task.py ...`.
-- Need analysis outputs? They should land under `book/dumps/ghidra/out/` and projects under `book/dumps/ghidra/projects/`.
+- Need analysis outputs? They should land under `book/evidence/dumps/ghidra/out/` and projects under `book/dumps/ghidra/projects/`.
 
 Rules:
 - Do **not** check in new code, docs, or tooling here. Keep tracked sources under `book/` (including `book/substrate/`); use `book/dumps/` only for artifacts and runtime outputs.

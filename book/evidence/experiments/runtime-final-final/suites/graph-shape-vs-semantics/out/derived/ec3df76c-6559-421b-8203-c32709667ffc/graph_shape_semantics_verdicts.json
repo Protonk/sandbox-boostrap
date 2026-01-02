@@ -1,0 +1,51 @@
+{
+  "provenance": {
+    "artifact_index": "book/evidence/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/artifact_index.json",
+    "artifact_index_sha256": "a1482ddceb3cf636143be8cdc7c8bbbeedfce681a9f4d7fa069dd07a08d0808d",
+    "bundle_dir": "book/evidence/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc",
+    "consumption_receipt": "book/evidence/experiments/graph-shape-vs-semantics/out/derived/ec3df76c-6559-421b-8203-c32709667ffc/consumption_receipt.json",
+    "exports": {
+      "path_witnesses": "book/evidence/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/path_witnesses.json",
+      "run_manifest": "book/evidence/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/run_manifest.json",
+      "runtime_results": "book/evidence/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/runtime_results.json"
+    },
+    "packet": "book/evidence/experiments/runtime-adversarial/out/promotion_packet.json",
+    "run_id": "ec3df76c-6559-421b-8203-c32709667ffc"
+  },
+  "schema_version": "graph-shape-vs-semantics.verdicts.v0",
+  "verdicts": {
+    "mach global-name literal vs regex variants": {
+      "coverage": 2,
+      "profiles": [
+        "adv:mach_simple_allow",
+        "adv:mach_simple_variants"
+      ],
+      "status": "preserved"
+    },
+    "mach local-name literal vs regex variants": {
+      "coverage": 2,
+      "profiles": [
+        "adv:mach_local_literal",
+        "adv:mach_local_regex"
+      ],
+      "status": "preserved"
+    },
+    "path_edges": {
+      "canonicalization_equivalence": 4,
+      "profiles": [
+        "adv:path_edges"
+      ],
+      "status": "preserved",
+      "witness_source": "book/evidence/experiments/runtime-adversarial/out/ec3df76c-6559-421b-8203-c32709667ffc/path_witnesses.json"
+    },
+    "structural variants of same intent (read/write)": {
+      "coverage": 8,
+      "profiles": [
+        "adv:struct_flat",
+        "adv:struct_nested"
+      ],
+      "status": "preserved"
+    }
+  },
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

@@ -8,12 +8,12 @@ Baseline (single source of truth): `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0
 
 Evidence discipline:
 - Every claim must name its evidence tier: `bedrock` / `mapped` / `hypothesis`.
-- Bedrock surfaces are declared in `book/graph/concepts/BEDROCK_SURFACES.json`; do not upgrade mapped or hypothesis to bedrock.
+- Bedrock surfaces are declared in `book/evidence/graph/concepts/BEDROCK_SURFACES.json`; do not upgrade mapped or hypothesis to bedrock.
 - Many artifacts also carry `status: ok|partial|brittle|blocked` as an operational health/detail signal; it does not change the evidence tier.
 - If the honest answer is “we don’t know yet” or evidence conflicts, say so and point to the bounding artifacts/experiments.
 
 Vocabulary discipline:
-- Use project terms from `book/graph/concepts/concept_map.json` and the substrate (do not invent new jargon).
+- Use project terms from `book/evidence/graph/concepts/concept_map.json` and the substrate (do not invent new jargon).
 - Use only ops/filters from `book/graph/mappings/vocab/{ops.json,filters.json}`.
 
 Runtime discipline:
@@ -61,7 +61,7 @@ Pick the smallest surface that answers your question:
 Then read the nearest `AGENTS.md` in the subtree you touch:
 - API/tooling: `book/api/AGENTS.md`; CARTON fixer bundle: `book/integration/carton/README.md`.
 - Graph/concepts/mappings: `book/graph/AGENTS.md`; deeper routing in `book/graph/concepts/AGENTS.md`, `book/graph/mappings/AGENTS.md`, `book/graph/swift/AGENTS.md`.
-- Experiments: `book/experiments/AGENTS.md`; archived work in `book/experiments/archive/AGENTS.md`.
+- Experiments: `book/evidence/experiments/AGENTS.md`; archived work in `book/evidence/experiments/archive/AGENTS.md`.
 - Dumps/artifacts: `book/dumps/AGENTS.md`.
 - Profiles: `book/profiles/AGENTS.md`.
 - Examples: `book/examples/AGENTS.md`.

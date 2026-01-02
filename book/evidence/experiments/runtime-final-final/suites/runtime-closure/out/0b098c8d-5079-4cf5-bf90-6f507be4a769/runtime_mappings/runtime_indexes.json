@@ -1,0 +1,31 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "tier": "mapped",
+    "source_jobs": [],
+    "notes": "scenario-level runtime summaries"
+  },
+  "op_to_scenarios": {
+    "file-read*": [
+      "runtime-closure:oracle:v1_calibration:file_oracle_temp"
+    ],
+    "mach-lookup": [
+      "runtime-closure:oracle:v1_calibration:mach_cfprefsd_agent",
+      "runtime-closure:oracle:v1_calibration:mach_missing_service"
+    ]
+  },
+  "scenario_to_traces": {
+    "runtime-closure:oracle:v1_calibration:file_oracle_temp": [
+      "book/evidence/experiments/runtime-closure/out/0b098c8d-5079-4cf5-bf90-6f507be4a769/runtime_mappings/traces/runtime-closure_oracle_v1_calibration_file_oracle_temp.jsonl"
+    ],
+    "runtime-closure:oracle:v1_calibration:mach_cfprefsd_agent": [
+      "book/evidence/experiments/runtime-closure/out/0b098c8d-5079-4cf5-bf90-6f507be4a769/runtime_mappings/traces/runtime-closure_oracle_v1_calibration_mach_cfprefsd_agent.jsonl"
+    ],
+    "runtime-closure:oracle:v1_calibration:mach_missing_service": [
+      "book/evidence/experiments/runtime-closure/out/0b098c8d-5079-4cf5-bf90-6f507be4a769/runtime_mappings/traces/runtime-closure_oracle_v1_calibration_mach_missing_service.jsonl"
+    ]
+  }
+}

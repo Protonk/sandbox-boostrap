@@ -9,16 +9,16 @@ Attestations tie together:
 - tag-layout/vocab/runtime linkage
 
 Inputs:
-- `book/graph/mappings/system_profiles/digests.json` (to discover system blobs)
-- `book/graph/concepts/validation/out/semantic/runtime_results.json` (optional link)
-- `book/graph/mappings/runtime/expectations.json` (optional link)
-- `book/graph/mappings/anchors/anchor_filter_map.json`
-- `book/graph/mappings/tag_layouts/tag_layouts.json`
+- `book/evidence/graph/mappings/system_profiles/digests.json` (to discover system blobs)
+- `book/evidence/graph/concepts/validation/out/semantic/runtime_results.json` (optional link)
+- `book/evidence/graph/mappings/runtime/expectations.json` (optional link)
+- `book/evidence/graph/mappings/anchors/anchor_filter_map.json`
+- `book/evidence/graph/mappings/tag_layouts/tag_layouts.json`
 - `book/graph/mappings/vocab/{ops,filters}.json`
 
 Outputs:
-- `book/graph/mappings/system_profiles/attestations.json`
-- `book/graph/mappings/system_profiles/attestations/*.jsonl` (per-profile rows)
+- `book/evidence/graph/mappings/system_profiles/attestations.json`
+- `book/evidence/graph/mappings/system_profiles/attestations/*.jsonl` (per-profile rows)
 """
 
 from __future__ import annotations
@@ -41,9 +41,9 @@ from book.api import world as world_mod
 from book.graph.concepts.validation import profile_ingestion as pi
 
 
-OUT_JSON = REPO_ROOT / "book/graph/mappings/system_profiles/attestations.json"
-OUT_DIR = REPO_ROOT / "book/graph/mappings/system_profiles/attestations"
-TAG_LAYOUTS_PATH = REPO_ROOT / "book/graph/mappings/tag_layouts/tag_layouts.json"
+OUT_JSON = REPO_ROOT / "book/evidence/graph/mappings/system_profiles/attestations.json"
+OUT_DIR = REPO_ROOT / "book/evidence/graph/mappings/system_profiles/attestations"
+TAG_LAYOUTS_PATH = REPO_ROOT / "book/evidence/graph/mappings/tag_layouts/tag_layouts.json"
 GOLDEN_TRIPLE_BLOBS_DIR = REPO_ROOT / "book/profiles/golden-triple"
 
 
@@ -102,7 +102,7 @@ def tag_layout_tag_set_hash(path: Path) -> str:
 
 def gather_profile_paths() -> Set[Path]:
     paths: Set[Path] = set()
-    digests = load_json(REPO_ROOT / "book/graph/mappings/system_profiles/digests.json")
+    digests = load_json(REPO_ROOT / "book/evidence/graph/mappings/system_profiles/digests.json")
     profiles = digests.get("profiles") if isinstance(digests, dict) else None
     if isinstance(profiles, dict):
         for rec in profiles.values():
@@ -220,13 +220,13 @@ def main() -> None:
     # a profile's literal table. The literal-keyed anchor filter map is a derived,
     # lossy compatibility view; do not treat it as a unique binding when making
     # decisions (use the ctx-indexed canonical mapping instead).
-    anchor_map = load_json(REPO_ROOT / "book/graph/mappings/anchors/anchor_filter_map.json")
+    anchor_map = load_json(REPO_ROOT / "book/evidence/graph/mappings/anchors/anchor_filter_map.json")
     tag_layout_hash = tag_layout_tag_set_hash(TAG_LAYOUTS_PATH)
     tag_layouts_file_sha256 = sha256(TAG_LAYOUTS_PATH)
-    vocab_ops = load_json(REPO_ROOT / "book/graph/mappings/vocab/ops.json")
-    vocab_filters = load_json(REPO_ROOT / "book/graph/mappings/vocab/filters.json")
-    runtime_manifest = load_json(REPO_ROOT / "book/graph/mappings/runtime/expectations.json")
-    digests = load_json(REPO_ROOT / "book/graph/mappings/system_profiles/digests.json")
+    vocab_ops = load_json(REPO_ROOT / "book/evidence/graph/mappings/vocab/ops.json")
+    vocab_filters = load_json(REPO_ROOT / "book/evidence/graph/mappings/vocab/filters.json")
+    runtime_manifest = load_json(REPO_ROOT / "book/evidence/graph/mappings/runtime/expectations.json")
+    digests = load_json(REPO_ROOT / "book/evidence/graph/mappings/system_profiles/digests.json")
     canonical_by_source: Dict[str, str] = {}
     for pid, body in (digests.get("profiles") or {}).items():
         if not isinstance(body, dict):
@@ -275,16 +275,16 @@ def main() -> None:
         "tag_layout_hash_method": "tag_set",
         "tag_layouts_file_sha256": tag_layouts_file_sha256,
         "vocab_versions": vocab_versions,
-        "runtime_manifest": str(Path("book/graph/mappings/runtime/expectations.json")) if runtime_manifest else None,
+        "runtime_manifest": str(Path("book/evidence/graph/mappings/runtime/expectations.json")) if runtime_manifest else None,
         "attestation_count": len(attestations),
         "inputs": [
             world_path,
-            str(Path("book/graph/mappings/system_profiles/digests.json")),
-            str(Path("book/graph/mappings/anchors/anchor_filter_map.json")),
-            str(Path("book/graph/mappings/tag_layouts/tag_layouts.json")),
-            str(Path("book/graph/mappings/vocab/ops.json")),
-            str(Path("book/graph/mappings/vocab/filters.json")),
-            str(Path("book/graph/mappings/runtime/expectations.json")),
+            str(Path("book/evidence/graph/mappings/system_profiles/digests.json")),
+            str(Path("book/evidence/graph/mappings/anchors/anchor_filter_map.json")),
+            str(Path("book/evidence/graph/mappings/tag_layouts/tag_layouts.json")),
+            str(Path("book/evidence/graph/mappings/vocab/ops.json")),
+            str(Path("book/evidence/graph/mappings/vocab/filters.json")),
+            str(Path("book/evidence/graph/mappings/runtime/expectations.json")),
         ]
         + [str(p.relative_to(REPO_ROOT)) for p in sorted(GOLDEN_TRIPLE_BLOBS_DIR.glob("*.sb.bin")) if p.exists()],
         "source_jobs": ["generator:system_profiles:attestations"],

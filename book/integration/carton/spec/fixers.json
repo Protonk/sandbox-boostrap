@@ -7,8 +7,8 @@
       "module": "book.integration.carton.fixers.operation_coverage",
       "function": "run",
       "inputs": [
-        "book/graph/mappings/vocab/ops.json",
-        "book/graph/mappings/system_profiles/digests.json",
+        "book/evidence/graph/mappings/vocab/ops.json",
+        "book/evidence/graph/mappings/system_profiles/digests.json",
         "book/integration/carton/bundle/CARTON.json"
       ],
       "outputs": [
@@ -32,8 +32,8 @@
       "module": "book.integration.carton.fixers.profile_layer_ops",
       "function": "run",
       "inputs": [
-        "book/graph/mappings/system_profiles/digests.json",
-        "book/graph/mappings/vocab/ops.json",
+        "book/evidence/graph/mappings/system_profiles/digests.json",
+        "book/evidence/graph/mappings/vocab/ops.json",
         "book/integration/carton/bundle/relationships/operation_coverage.json",
         "book/integration/carton/bundle/CARTON.json"
       ],
@@ -46,8 +46,8 @@
       "module": "book.integration.carton.fixers.filter_usage",
       "function": "run",
       "inputs": [
-        "book/graph/mappings/vocab/filters.json",
-        "book/graph/mappings/system_profiles/digests.json",
+        "book/evidence/graph/mappings/vocab/filters.json",
+        "book/evidence/graph/mappings/system_profiles/digests.json",
         "book/integration/carton/bundle/CARTON.json"
       ],
       "outputs": [
@@ -59,8 +59,8 @@
       "module": "book.integration.carton.fixers.anchor_field2",
       "function": "run",
       "inputs": [
-        "book/graph/mappings/anchors/anchor_field2_map.json",
-        "book/experiments/field2-final-final/probe-op-structure/out/anchor_hits.json"
+        "book/evidence/graph/mappings/anchors/anchor_field2_map.json",
+        "book/evidence/experiments/field2-final-final/probe-op-structure/out/anchor_hits.json"
       ],
       "outputs": [
         "book/integration/carton/bundle/relationships/anchor_field2.json"

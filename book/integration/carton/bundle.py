@@ -116,8 +116,8 @@ def build_manifest_doc(*, spec_path: Path, repo_root: Path) -> Dict[str, Any]:
 
 
 def build_vocab_contract(*, repo_root: Path, world_id: str) -> Dict[str, Any]:
-    ops_path = repo_root / "book/graph/mappings/vocab/ops.json"
-    filters_path = repo_root / "book/graph/mappings/vocab/filters.json"
+    ops_path = repo_root / "book/evidence/graph/mappings/vocab/ops.json"
+    filters_path = repo_root / "book/evidence/graph/mappings/vocab/filters.json"
     ops = _load_json(ops_path).get("ops") or []
     filters = _load_json(filters_path).get("filters") or []
 
@@ -157,7 +157,7 @@ def build_vocab_contract(*, repo_root: Path, world_id: str) -> Dict[str, Any]:
 
 
 def build_profiles_contract(*, repo_root: Path, world_id: str) -> Dict[str, Any]:
-    digests_path = repo_root / "book/graph/mappings/system_profiles/digests.json"
+    digests_path = repo_root / "book/evidence/graph/mappings/system_profiles/digests.json"
     digests = _load_json(digests_path)
     meta = digests.get("metadata") or {}
     canonical = meta.get("canonical_profiles") or {}

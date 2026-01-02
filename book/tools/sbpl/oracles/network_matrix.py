@@ -15,7 +15,7 @@ Why this lives under `book/tools/sbpl/`:
 
 Expected inputs:
 - `manifest_path` follows the shape used by:
-  `book/experiments/field2-final-final/libsandbox-encoder/sb/network_matrix/MANIFEST.json`
+  `book/evidence/experiments/field2-final-final/libsandbox-encoder/sb/network_matrix/MANIFEST.json`
 - `blob_dir` contains `spec_id.sb.bin` for each manifest case.
 
 Output schema:

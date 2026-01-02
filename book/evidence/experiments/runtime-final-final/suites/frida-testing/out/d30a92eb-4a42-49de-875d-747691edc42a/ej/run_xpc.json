@@ -1,0 +1,41 @@
+{
+  "command": [
+    "book/tools/entitlement/EntitlementJail.app/Contents/MacOS/entitlement-jail",
+    "xpc",
+    "session",
+    "--plan-id",
+    "frida-testing:ej-frida",
+    "--correlation-id",
+    "frida-testing:ej-frida.d30a92eb-4a42-49de-875d-747691edc42a",
+    "--wait",
+    "fifo:auto",
+    "--wait-timeout-ms",
+    "30000",
+    "--profile",
+    "net_client@injectable"
+  ],
+  "correlation_id": "frida-testing:ej-frida.d30a92eb-4a42-49de-875d-747691edc42a",
+  "error": "RuntimeError: ('xpc_session_not_ready', {'state': 'exit:1', 'command': ['book/tools/entitlement/EntitlementJail.app/Contents/MacOS/entitlement-jail', 'xpc', 'session', '--plan-id', 'frida-testing:ej-frida', '--correlation-id', 'frida-testing:ej-frida.d30a92eb-4a42-49de-875d-747691edc42a', '--wait', 'fifo:auto', '--wait-timeout-ms', '30000', '--profile', 'net_client@injectable'], 'ready_timeout_s': 30, 'wait_spec': 'fifo:auto', 'wait_timeout_ms': 30000, 'wait_interval_ms': None, 'xpc_timeout_ms': None, 'stdout': '{\"data\":{\"correlation_id\":\"frida-testing:ej-frida.d30a92eb-4a42-49de-875d-747691edc42a\",\"error\":\"xpc connection invalidated\",\"event\":\"connection_invalidated\",\"plan_id\":\"frida-testing:ej-frida\",\"service_bundle_id\":\"com.yourteam.entitlement-jail.ProbeService_net_client.injectable\"},\"generated_at_unix_ms\":1766999041593,\"kind\":\"xpc_session_error\",\"result\":{\"error\":\"xpc connection invalidated\",\"exit_code\":1,\"normalized_outcome\":\"error\",\"ok\":false,\"rc\":1},\"schema_version\":2}\\n{\"data\":{\"correlation_id\":\"frida-testing:ej-frida.d30a92eb-4a42-49de-875d-747691edc42a\",\"error\":\"xpc error: Error Domain=NSCocoaErrorDomain Code=4099 \\\\\"The connection to service named com.yourteam.entitlement-jail.ProbeService_net_client.injectable was invalidated: failed at lookup with error 159 - Sandbox restriction.\\\\\" UserInfo={NSDebugDescription=The connection to service named com.yourteam.entitlement-jail.ProbeService_net_client.injectable was invalidated: failed at lookup with error 159 - Sandbox restriction.}\",\"event\":\"open_session_failed\",\"plan_id\":\"frida-testing:ej-frida\",\"service_bundle_id\":\"com.yourteam.entitlement-jail.ProbeService_net_client.injectable\"},\"generated_at_unix_ms\":1766999041599,\"kind\":\"xpc_session_error\",\"result\":{\"error\":\"xpc error: Error Domain=NSCocoaErrorDomain Code=4099 \\\\\"The connection to service named com.yourteam.entitlement-jail.ProbeService_net_client.injectable was invalidated: failed at lookup with error 159 - Sandbox restriction.\\\\\" UserInfo={NSDebugDescription=The connection to service named com.yourteam.entitlement-jail.ProbeService_net_client.injectable was invalidated: failed at lookup with error 159 - Sandbox restriction.}\",\"exit_code\":1,\"normalized_outcome\":\"error\",\"ok\":false,\"rc\":1},\"schema_version\":2}', 'stderr': 'warning: profile net client@injectable is high concern (reasons: allow_dyld_env, allow_unsigned_exec_mem)'})",
+  "exit_code": 1,
+  "hold_open_s": 20,
+  "log_path": "book/evidence/experiments/frida-testing/out/d30a92eb-4a42-49de-875d-747691edc42a/ej/logs/run_xpc.log",
+  "log_write_error": null,
+  "plan_id": "frida-testing:ej-frida",
+  "probe_args": [],
+  "probe_finished_at_unix_s": null,
+  "probe_id": "probe_catalog",
+  "probe_started_at_unix_s": null,
+  "row_id": "frida-testing:ej-frida.d30a92eb-4a42-49de-875d-747691edc42a",
+  "session_ready": null,
+  "stderr": "warning: profile net client@injectable is high concern (reasons: allow_dyld_env, allow_unsigned_exec_mem)",
+  "stdout": "{\"data\":{\"correlation_id\":\"frida-testing:ej-frida.d30a92eb-4a42-49de-875d-747691edc42a\",\"error\":\"xpc connection invalidated\",\"event\":\"connection_invalidated\",\"plan_id\":\"frida-testing:ej-frida\",\"service_bundle_id\":\"com.yourteam.entitlement-jail.ProbeService_net_client.injectable\"},\"generated_at_unix_ms\":1766999041593,\"kind\":\"xpc_session_error\",\"result\":{\"error\":\"xpc connection invalidated\",\"exit_code\":1,\"normalized_outcome\":\"error\",\"ok\":false,\"rc\":1},\"schema_version\":2}\n{\"data\":{\"correlation_id\":\"frida-testing:ej-frida.d30a92eb-4a42-49de-875d-747691edc42a\",\"error\":\"xpc error: Error Domain=NSCocoaErrorDomain Code=4099 \\\"The connection to service named com.yourteam.entitlement-jail.ProbeService_net_client.injectable was invalidated: failed at lookup with error 159 - Sandbox restriction.\\\" UserInfo={NSDebugDescription=The connection to service named com.yourteam.entitlement-jail.ProbeService_net_client.injectable was invalidated: failed at lookup with error 159 - Sandbox restriction.}\",\"event\":\"open_session_failed\",\"plan_id\":\"frida-testing:ej-frida\",\"service_bundle_id\":\"com.yourteam.entitlement-jail.ProbeService_net_client.injectable\"},\"generated_at_unix_ms\":1766999041599,\"kind\":\"xpc_session_error\",\"result\":{\"error\":\"xpc error: Error Domain=NSCocoaErrorDomain Code=4099 \\\"The connection to service named com.yourteam.entitlement-jail.ProbeService_net_client.injectable was invalidated: failed at lookup with error 159 - Sandbox restriction.\\\" UserInfo={NSDebugDescription=The connection to service named com.yourteam.entitlement-jail.ProbeService_net_client.injectable was invalidated: failed at lookup with error 159 - Sandbox restriction.}\",\"exit_code\":1,\"normalized_outcome\":\"error\",\"ok\":false,\"rc\":1},\"schema_version\":2}",
+  "stdout_json": null,
+  "stdout_jsonl_kinds": {
+    "xpc_session_error": 2
+  },
+  "trigger_delay_s": 0.0,
+  "trigger_events": [],
+  "wait_ready": null,
+  "wait_spec": "fifo:auto",
+  "wait_timeout_ms": 30000
+}

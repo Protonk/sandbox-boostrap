@@ -3,7 +3,7 @@
 Regenerate the preamble/header contract for the canonical system profile blobs.
 
 Output:
-- book/graph/mappings/system_profiles/header_contract.json
+- book/evidence/graph/mappings/system_profiles/header_contract.json
 """
 
 from __future__ import annotations
@@ -21,7 +21,7 @@ from book.api.path_utils import to_repo_relative  # type: ignore
 from book.api import evidence_tiers  # type: ignore
 from book.api.profile import digests as digests_mod  # type: ignore
 from book.api import world as world_mod  # type: ignore
-OUT_PATH = REPO_ROOT / "book/graph/mappings/system_profiles/header_contract.json"
+OUT_PATH = REPO_ROOT / "book/evidence/graph/mappings/system_profiles/header_contract.json"
 
 
 def baseline_world_id() -> str:

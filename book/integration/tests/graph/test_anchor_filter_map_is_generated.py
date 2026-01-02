@@ -3,6 +3,7 @@ from pathlib import Path
 
 
 from book.api import path_utils
+
 ROOT = path_utils.find_repo_root(Path(__file__))
 
 
@@ -24,8 +25,8 @@ def test_anchor_filter_map_is_pure_derived_view_and_deterministic():
 
     from book.graph.mappings.anchors import generate_anchor_filter_map as gen
 
-    ctx_path = ROOT / "book" / "graph" / "mappings" / "anchors" / "anchor_ctx_filter_map.json"
-    legacy_path = ROOT / "book" / "graph" / "mappings" / "anchors" / "anchor_filter_map.json"
+    ctx_path = ROOT / "book" / "evidence" / "graph" / "mappings" / "anchors" / "anchor_ctx_filter_map.json"
+    legacy_path = ROOT / "book" / "evidence" / "graph" / "mappings" / "anchors" / "anchor_filter_map.json"
 
     ctx_doc = load_json(ctx_path)
     expected_doc = gen.build_legacy_anchor_filter_map(ctx_doc, baseline_world_id=gen._baseline_world_id())
@@ -35,7 +36,7 @@ def test_anchor_filter_map_is_pure_derived_view_and_deterministic():
 
     meta = expected_doc.get("metadata") or {}
     assert isinstance(meta, dict)
-    assert meta.get("anchor_ctx_map") == "book/graph/mappings/anchors/anchor_ctx_filter_map.json"
+    assert meta.get("anchor_ctx_map") == "book/evidence/graph/mappings/anchors/anchor_ctx_filter_map.json"
     assert meta.get("generated_by") == "book/graph/mappings/anchors/generate_anchor_filter_map.py"
 
     ctx_entries = (ctx_doc.get("entries") or {}) if isinstance(ctx_doc, dict) else {}
@@ -67,4 +68,3 @@ def test_anchor_filter_map_is_pure_derived_view_and_deterministic():
             all_resolved = all(isinstance(fid, int) and isinstance(fname, str) for fid, fname in resolved)
             all_same = len({pair for pair in resolved if isinstance(pair[0], int) and isinstance(pair[1], str)}) == 1
             assert not (all_resolved and all_same), f"{literal!r} legacy entry should be pinned but is blocked"
-

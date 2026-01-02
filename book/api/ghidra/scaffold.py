@@ -11,7 +11,7 @@ Intent:
 Safety reminders (why the plumbing is opinionated):
 - `HOME`/`GHIDRA_USER_HOME`/`JAVA_TOOL_OPTIONS` are forced under `book/dumps/ghidra/` so headless does not
   touch the real user tree (seatbelt-protected) or prompt for a JDK path.
-- Inputs are always read from `aapl-restricted` in place; outputs stay under `book/dumps/ghidra/out/` with
+- Inputs are always read from `aapl-restricted` in place; outputs stay under `book/evidence/dumps/ghidra/out/` with
   optional redirects (e.g., kernel-symbols into the experiment tree).
 - Apply-gate and analysis churn are expected; scripts should log to `script.log` in their out dir.
 """

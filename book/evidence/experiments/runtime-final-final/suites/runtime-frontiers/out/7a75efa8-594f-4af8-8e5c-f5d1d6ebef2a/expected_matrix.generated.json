@@ -1,0 +1,194 @@
+{
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "profiles": {
+    "frontier:system_ops": {
+      "blob": "book/evidence/experiments/runtime-final-final/suites/runtime-frontiers/sb/frontier_system_ops.sb",
+      "mode": "sbpl",
+      "family": "frontier",
+      "semantic_group": "frontier:system_ops",
+      "probes": [
+        {
+          "name": "read_data_/etc/hosts",
+          "operation": "file-read-data",
+          "target": "/etc/hosts",
+          "expected": "allow",
+          "expectation_id": "frontier:system_ops:read_data_/etc/hosts"
+        },
+        {
+          "name": "read_data_/private/etc/hosts",
+          "operation": "file-read-data",
+          "target": "/private/etc/hosts",
+          "expected": "deny",
+          "expectation_id": "frontier:system_ops:read_data_/private/etc/hosts"
+        },
+        {
+          "name": "test_exists_/etc/hosts",
+          "operation": "file-test-existence",
+          "target": "/etc/hosts",
+          "expected": "allow",
+          "expectation_id": "frontier:system_ops:test_exists_/etc/hosts"
+        },
+        {
+          "name": "test_exists_/private/etc/hosts",
+          "operation": "file-test-existence",
+          "target": "/private/etc/hosts",
+          "expected": "deny",
+          "expectation_id": "frontier:system_ops:test_exists_/private/etc/hosts"
+        },
+        {
+          "name": "search_/tmp/sbpl_rt",
+          "operation": "file-search",
+          "target": "/tmp/sbpl_rt",
+          "expected": "allow",
+          "expectation_id": "frontier:system_ops:search_/tmp/sbpl_rt"
+        },
+        {
+          "name": "search_/private/tmp/sbpl_rt",
+          "operation": "file-search",
+          "target": "/private/tmp/sbpl_rt",
+          "expected": "deny",
+          "expectation_id": "frontier:system_ops:search_/private/tmp/sbpl_rt"
+        },
+        {
+          "name": "write_data_/tmp/sbpl_rt/write.txt",
+          "operation": "file-write-data",
+          "target": "/tmp/sbpl_rt/write.txt",
+          "expected": "allow",
+          "expectation_id": "frontier:system_ops:write_data_/tmp/sbpl_rt/write.txt"
+        },
+        {
+          "name": "write_data_/private/tmp/strict_ok/allow.txt",
+          "operation": "file-write-data",
+          "target": "/private/tmp/strict_ok/allow.txt",
+          "expected": "deny",
+          "expectation_id": "frontier:system_ops:write_data_/private/tmp/strict_ok/allow.txt"
+        }
+      ]
+    },
+    "frontier:anchor_filters": {
+      "blob": "book/evidence/experiments/runtime-final-final/suites/runtime-frontiers/sb/frontier_anchor_filters.sb",
+      "mode": "sbpl",
+      "family": "frontier",
+      "semantic_group": "frontier:anchor_filters",
+      "probes": [
+        {
+          "name": "mach_cfprefsd",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.agent",
+          "expected": "allow",
+          "expectation_id": "frontier:anchor_filters:mach_cfprefsd",
+          "driver": "mach_probe",
+          "anchor_ctx_id": "ctx:bd2b79af19c45bf1",
+          "filter_name": "global-name"
+        },
+        {
+          "name": "mach_bogus",
+          "operation": "mach-lookup",
+          "target": "com.apple.sandbox-lore.frontier.bogus",
+          "expected": "deny",
+          "expectation_id": "frontier:anchor_filters:mach_bogus",
+          "driver": "mach_probe",
+          "filter_name": "global-name"
+        },
+        {
+          "name": "xpc_cfprefsd",
+          "operation": "mach-lookup",
+          "target": "com.apple.cfprefsd.agent",
+          "expected": "deny",
+          "expectation_id": "frontier:anchor_filters:xpc_cfprefsd",
+          "driver": "xpc_probe",
+          "filter_name": "xpc-service-name"
+        },
+        {
+          "name": "notify_allow",
+          "operation": "darwin-notification-post",
+          "target": "com.apple.sandbox-lore.frontier.notify",
+          "expected": "allow",
+          "expectation_id": "frontier:anchor_filters:notify_allow",
+          "filter_name": "notification-name"
+        },
+        {
+          "name": "notify_deny",
+          "operation": "darwin-notification-post",
+          "target": "com.apple.sandbox-lore.frontier.notify.bogus",
+          "expected": "deny",
+          "expectation_id": "frontier:anchor_filters:notify_deny",
+          "filter_name": "notification-name"
+        },
+        {
+          "name": "read_data_/etc/hosts",
+          "operation": "file-read-data",
+          "target": "/etc/hosts",
+          "expected": "allow",
+          "expectation_id": "frontier:anchor_filters:read_data_/etc/hosts",
+          "anchor_ctx_id": "ctx:70628fdfa6fe2e13"
+        },
+        {
+          "name": "read_data_/private/etc/hosts",
+          "operation": "file-read-data",
+          "target": "/private/etc/hosts",
+          "expected": "deny",
+          "expectation_id": "frontier:anchor_filters:read_data_/private/etc/hosts"
+        },
+        {
+          "name": "search_/var/log",
+          "operation": "file-search",
+          "target": "/var/log",
+          "expected": "allow",
+          "expectation_id": "frontier:anchor_filters:search_/var/log",
+          "anchor_ctx_id": "ctx:716642527f41e42a"
+        },
+        {
+          "name": "search_/private/var/log",
+          "operation": "file-search",
+          "target": "/private/var/log",
+          "expected": "deny",
+          "expectation_id": "frontier:anchor_filters:search_/private/var/log"
+        }
+      ]
+    },
+    "frontier:unknown_ops": {
+      "blob": "book/evidence/experiments/runtime-final-final/suites/runtime-frontiers/sb/frontier_unknown_ops.sb",
+      "mode": "sbpl",
+      "family": "frontier",
+      "semantic_group": "frontier:unknown_ops",
+      "probes": [
+        {
+          "name": "read_xattr_/tmp/foo",
+          "operation": "file-read-xattr",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "expectation_id": "frontier:unknown_ops:read_xattr_/tmp/foo"
+        },
+        {
+          "name": "read_xattr_/tmp/bar",
+          "operation": "file-read-xattr",
+          "target": "/tmp/bar",
+          "expected": "deny",
+          "expectation_id": "frontier:unknown_ops:read_xattr_/tmp/bar"
+        },
+        {
+          "name": "write_xattr_/tmp/foo",
+          "operation": "file-write-xattr",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "expectation_id": "frontier:unknown_ops:write_xattr_/tmp/foo"
+        },
+        {
+          "name": "write_xattr_/tmp/bar",
+          "operation": "file-write-xattr",
+          "target": "/tmp/bar",
+          "expected": "deny",
+          "expectation_id": "frontier:unknown_ops:write_xattr_/tmp/bar"
+        },
+        {
+          "name": "process_fork",
+          "operation": "process-fork",
+          "target": "self",
+          "expected": "allow",
+          "expectation_id": "frontier:unknown_ops:process_fork"
+        }
+      ]
+    }
+  }
+}

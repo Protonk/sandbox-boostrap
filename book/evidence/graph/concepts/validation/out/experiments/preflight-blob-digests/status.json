@@ -1,0 +1,27 @@
+{
+  "host": {
+    "build": "23E224",
+    "kernel": "23.4.0",
+    "machine": "arm64",
+    "product": "macOS",
+    "version": "14.4.1"
+  },
+  "inputs": [
+    "book/evidence/experiments/preflight-blob-digests/out/apply_gate_blob_digests.json"
+  ],
+  "job_id": "experiment:preflight-blob-digests",
+  "metrics": {
+    "digests": 9,
+    "evidence_rows": 10
+  },
+  "notes": "Validated and normalized apply-gated blob digest corpus for preflight.",
+  "outputs": [
+    "book/evidence/graph/concepts/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
+  ],
+  "status": "ok",
+  "tags": [
+    "experiment:preflight-blob-digests",
+    "experiment",
+    "apply-gate"
+  ]
+}

@@ -1,0 +1,330 @@
+{
+  "access": {
+    "post_consume_old": {
+      "errno": "",
+      "error": "",
+      "field": "/data/details/access_post_consume_old_open_outcome",
+      "outcome": "allow"
+    },
+    "post_rename_new": {
+      "errno": "1",
+      "error": "Operation not permitted",
+      "field": "/data/details/access_after_rename_new_open_outcome",
+      "outcome": "deny"
+    },
+    "post_update_new": {
+      "errno": "",
+      "error": "",
+      "field": "/data/details/access_after_update_file_new_open_outcome",
+      "outcome": "allow"
+    },
+    "pre_consume_old": {
+      "errno": "1",
+      "error": "Operation not permitted",
+      "field": "/data/details/access_pre_consume_old_open_outcome",
+      "outcome": "deny"
+    }
+  },
+  "attribution": {
+    "deny_evidence_artifacts": [],
+    "deny_evidence_present": false,
+    "note": "EPERM/EACCES treated as permission-shaped outcomes; no sandbox deny evidence attached.",
+    "posture": "permission_shaped_only"
+  },
+  "ej_evidence_bundle": {
+    "bundle_dir": "book/evidence/experiments/entitlement-jail-extension-semantics/out/evidence/entitlementjail",
+    "bundle_meta_path": "book/evidence/experiments/entitlement-jail-extension-semantics/out/evidence/entitlementjail/bundle_meta.json",
+    "bundle_meta_sha256": "f41d9a90ab72f2e74e9476a3822e89753e0f9d98020512b94e3255d07a550d8d",
+    "manifest_path": "book/evidence/experiments/entitlement-jail-extension-semantics/out/evidence/entitlementjail/Evidence/manifest.json",
+    "manifest_sha256": "43e76f19ca3674c3d3c6ad59ccffbeea1e57d215792355f815c6fdb447ed7778",
+    "verify_evidence_json_path": "book/evidence/experiments/entitlement-jail-extension-semantics/out/evidence/entitlementjail/verify-evidence.json",
+    "verify_evidence_json_sha256": "31884f09b7239b26a50684b0b7659f7da5ad2a3f80645ec477c27100ec3babe4"
+  },
+  "extension_live": {
+    "basis": "consume_handle present and post_consume_old_open_outcome == allow",
+    "consume_handle": {
+      "raw": "2",
+      "value": 2
+    },
+    "consume_handle_field": "/data/details/consume_handle",
+    "post_consume_old_open_field": "/data/details/access_post_consume_old_open_outcome",
+    "post_consume_old_open_outcome": "allow",
+    "value": true
+  },
+  "identity": {
+    "pid": {
+      "raw": "10055",
+      "value": 10055
+    },
+    "pid_matches_service_pid": true,
+    "process_name": "ProbeService_temporary_exception",
+    "service_pid": {
+      "raw": "10055",
+      "value": 10055
+    },
+    "session_token": "9BB86F76-8461-4AA0-8574-8531014285DA"
+  },
+  "phase_ordering": {
+    "delta_new_open_transition_field": "/data/details/delta_new_open_transition",
+    "delta_old_open_transition_field": "/data/details/delta_old_open_transition",
+    "post_consume_field_prefix": "access_post_consume_",
+    "pre_consume_field_prefix": "access_pre_consume_"
+  },
+  "premises": {
+    "negative_control": {
+      "dest_preexisted": {
+        "raw": "true",
+        "value": true
+      },
+      "dest_preexisted_field": "/data/details/dest_preexisted",
+      "normalized_outcome": "dest_preexisted",
+      "normalized_outcome_field": "/result/normalized_outcome"
+    }
+  },
+  "rename_premise": {
+    "rename_same_dev": {
+      "raw": "true",
+      "value": true
+    },
+    "rename_same_inode": {
+      "raw": "true",
+      "value": true
+    },
+    "rename_was_inode_preserving": {
+      "raw": "true",
+      "value": true
+    },
+    "stat_new_dev": {
+      "raw": "16777233",
+      "value": 16777233
+    },
+    "stat_new_ino": {
+      "raw": "116068774",
+      "value": 116068774
+    },
+    "stat_old_dev": {
+      "raw": "16777233",
+      "value": 16777233
+    },
+    "stat_old_ino": {
+      "raw": "116068774",
+      "value": 116068774
+    }
+  },
+  "schema_version": 3,
+  "target": {
+    "new_path_field": "/data/details/new_path",
+    "old_path_field": "/data/details/old_path",
+    "path_is_desktop": true,
+    "path_is_desktop_basis": "old_path contains '/Desktop/'"
+  },
+  "update_file": {
+    "errno": {
+      "raw": "0",
+      "value": 0
+    },
+    "error": "",
+    "post_new_open_outcome": "allow",
+    "rc": {
+      "raw": "0",
+      "value": 0
+    }
+  },
+  "update_file_by_fileid": {
+    "candidates": {
+      "consume_handle_high32": {
+        "changed_access": {
+          "raw": "false",
+          "value": false
+        },
+        "changed_access_field": "/data/details/update_by_fileid_consume_handle_high32_changed_access",
+        "errno": {
+          "raw": "22",
+          "value": 22
+        },
+        "error": "Invalid argument",
+        "name": "consume_handle_high32",
+        "payload_hex": "0x0",
+        "payload_u64": {
+          "raw": "0",
+          "value": 0
+        },
+        "post_check_field": "/data/details/access_after_update_by_fileid_consume_handle_high32_new_open_outcome",
+        "post_check_outcome": "deny",
+        "provenance_fields": [
+          "/data/details/consume_handle_high32",
+          "/data/details/update_by_fileid_consume_handle_high32_payload_u64"
+        ],
+        "rc": {
+          "raw": "-1",
+          "value": -1
+        },
+        "rc_field": "/data/details/update_by_fileid_consume_handle_high32_rc"
+      },
+      "consume_handle_low32": {
+        "changed_access": {
+          "raw": "false",
+          "value": false
+        },
+        "changed_access_field": "/data/details/update_by_fileid_consume_handle_low32_changed_access",
+        "errno": {
+          "raw": "22",
+          "value": 22
+        },
+        "error": "Invalid argument",
+        "name": "consume_handle_low32",
+        "payload_hex": "0x2",
+        "payload_u64": {
+          "raw": "2",
+          "value": 2
+        },
+        "post_check_field": "/data/details/access_after_update_by_fileid_consume_handle_low32_new_open_outcome",
+        "post_check_outcome": "deny",
+        "provenance_fields": [
+          "/data/details/consume_handle_low32",
+          "/data/details/update_by_fileid_consume_handle_low32_payload_u64"
+        ],
+        "rc": {
+          "raw": "-1",
+          "value": -1
+        },
+        "rc_field": "/data/details/update_by_fileid_consume_handle_low32_rc"
+      },
+      "consume_handle_xor32": {
+        "changed_access": {
+          "raw": "false",
+          "value": false
+        },
+        "changed_access_field": "/data/details/update_by_fileid_consume_handle_xor32_changed_access",
+        "errno": {
+          "raw": "22",
+          "value": 22
+        },
+        "error": "Invalid argument",
+        "name": "consume_handle_xor32",
+        "payload_hex": "0x2",
+        "payload_u64": {
+          "raw": "2",
+          "value": 2
+        },
+        "post_check_field": "/data/details/access_after_update_by_fileid_consume_handle_xor32_new_open_outcome",
+        "post_check_outcome": "deny",
+        "provenance_fields": [
+          "/data/details/consume_handle_xor32",
+          "/data/details/update_by_fileid_consume_handle_xor32_payload_u64"
+        ],
+        "rc": {
+          "raw": "-1",
+          "value": -1
+        },
+        "rc_field": "/data/details/update_by_fileid_consume_handle_xor32_rc"
+      },
+      "st_dev": {
+        "changed_access": {
+          "raw": "false",
+          "value": false
+        },
+        "changed_access_field": "/data/details/update_by_fileid_st_dev_changed_access",
+        "errno": {
+          "raw": "0",
+          "value": 0
+        },
+        "error": "",
+        "name": "st_dev",
+        "payload_hex": "0x1000011",
+        "payload_u64": {
+          "raw": "16777233",
+          "value": 16777233
+        },
+        "post_check_field": "/data/details/access_after_update_by_fileid_st_dev_new_open_outcome",
+        "post_check_outcome": "deny",
+        "provenance_fields": [
+          "/data/details/stat_old_dev",
+          "/data/details/update_by_fileid_st_dev_payload_u64"
+        ],
+        "rc": {
+          "raw": "0",
+          "value": 0
+        },
+        "rc_field": "/data/details/update_by_fileid_st_dev_rc"
+      },
+      "st_ino": {
+        "changed_access": {
+          "raw": "false",
+          "value": false
+        },
+        "changed_access_field": "/data/details/update_by_fileid_st_ino_changed_access",
+        "errno": {
+          "raw": "22",
+          "value": 22
+        },
+        "error": "Invalid argument",
+        "name": "st_ino",
+        "payload_hex": "0x6eb11a6",
+        "payload_u64": {
+          "raw": "116068774",
+          "value": 116068774
+        },
+        "post_check_field": "/data/details/access_after_update_by_fileid_st_ino_new_open_outcome",
+        "post_check_outcome": "deny",
+        "provenance_fields": [
+          "/data/details/stat_old_ino",
+          "/data/details/update_by_fileid_st_ino_payload_u64"
+        ],
+        "rc": {
+          "raw": "-1",
+          "value": -1
+        },
+        "rc_field": "/data/details/update_by_fileid_st_ino_rc"
+      }
+    },
+    "rc_zero_no_delta_candidates": [
+      "st_dev"
+    ]
+  },
+  "witnesses": {
+    "negative_control": {
+      "generated_at_unix_ms": 1767140482748,
+      "kind": "probe_response",
+      "path": "book/evidence/experiments/entitlement-jail-extension-semantics/out/witnesses/ej_update_file_rename_delta_dest_exists.json",
+      "result": {
+        "errno": null,
+        "error": null,
+        "exit_code": 0,
+        "normalized_outcome": "dest_preexisted",
+        "ok": true,
+        "rc": 0
+      },
+      "schema_version": 2,
+      "service_identity": {
+        "service_build": "2",
+        "service_bundle_id": "com.yourteam.entitlement-jail.ProbeService_temporary_exception",
+        "service_name": "ProbeService_temporary_exception",
+        "service_version": "2.0.0"
+      },
+      "sha256": "4e4d6a9409a0badf6a0e7c2538ef609031b635655af76701753e960413f37a9b"
+    },
+    "primary": {
+      "generated_at_unix_ms": 1767139004594,
+      "kind": "probe_response",
+      "path": "book/evidence/experiments/entitlement-jail-extension-semantics/out/witnesses/ej_update_file_rename_delta.json",
+      "result": {
+        "errno": null,
+        "error": null,
+        "exit_code": 0,
+        "normalized_outcome": "expected",
+        "ok": true,
+        "rc": 0
+      },
+      "schema_version": 2,
+      "service_identity": {
+        "service_build": "2",
+        "service_bundle_id": "com.yourteam.entitlement-jail.ProbeService_temporary_exception",
+        "service_name": "ProbeService_temporary_exception",
+        "service_version": "2.0.0"
+      },
+      "sha256": "57c1a34e8b79985cb9b755de4005fe535b2a3ea7989dc78a6f2d0892897847cb"
+    }
+  },
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

@@ -13,10 +13,10 @@ Example:
 python -m book.api.profile compile book/examples/sb/sample.sb --out /tmp/sample.sb.bin
 python -m book.api.profile decode dump /tmp/sample.sb.bin --summary
 python -m book.api.profile inspect /tmp/sample.sb.bin --out /tmp/summary.json
-python -m book.api.profile op-table book/experiments/op-table-operation/sb/v1_read.sb --compile --op-count 196
+python -m book.api.profile op-table book/evidence/experiments/op-table-operation/sb/v1_read.sb --compile --op-count 196
 python3 book/tools/sbpl/oracles/network_matrix.py \
-  --manifest book/experiments/field2-final-final/libsandbox-encoder/sb/network_matrix/MANIFEST.json \
-  --blob-dir book/experiments/field2-final-final/libsandbox-encoder/out/network_matrix \
+  --manifest book/evidence/experiments/field2-final-final/libsandbox-encoder/sb/network_matrix/MANIFEST.json \
+  --blob-dir book/evidence/experiments/field2-final-final/libsandbox-encoder/out/network_matrix \
   --out /tmp/network_oracle.json
 ```
 
@@ -68,17 +68,17 @@ Role: Normalize harness output into canonical runtime observations, build runtim
 Example:
 ```sh
 python -m book.api.runtime run \
-  --plan book/experiments/runtime-final-final/suites/hardened-runtime/plan.json \
+  --plan book/evidence/experiments/runtime-final-final/suites/hardened-runtime/plan.json \
   --channel launchd_clean \
-  --out book/experiments/runtime-final-final/suites/hardened-runtime/out
+  --out book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out
 
 python -m book.api.runtime status
 python -m book.api.runtime list-plans
-python -m book.api.runtime plan-lint --plan book/experiments/runtime-final-final/suites/hardened-runtime/plan.json
+python -m book.api.runtime plan-lint --plan book/evidence/experiments/runtime-final-final/suites/hardened-runtime/plan.json
 python -m book.api.runtime registry-lint --registry hardened-runtime
 
 python -m book.api.runtime golden \
-  --matrix book/experiments/runtime-final-final/suites/runtime-checks/out/expected_matrix.json
+  --matrix book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/expected_matrix.json
 ```
 
 Preflight (apply-gate avoidance):

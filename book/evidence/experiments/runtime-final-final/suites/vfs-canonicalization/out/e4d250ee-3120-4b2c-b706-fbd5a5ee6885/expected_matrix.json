@@ -1,0 +1,847 @@
+{
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "profiles": {
+    "vfs_tmp_only": {
+      "blob": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_tmp_only.sb",
+      "mode": "sbpl",
+      "family": "vfs",
+      "semantic_group": "vfs:canonicalization",
+      "probes": [
+        {
+          "name": "read_/tmp/foo",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "deny",
+          "expectation_id": "vfs_tmp_only:read_/tmp/foo"
+        },
+        {
+          "name": "read_/private/tmp/foo",
+          "operation": "file-read*",
+          "target": "/private/tmp/foo",
+          "expected": "deny",
+          "expectation_id": "vfs_tmp_only:read_/private/tmp/foo"
+        },
+        {
+          "name": "write_/tmp/foo",
+          "operation": "file-write*",
+          "target": "/tmp/foo",
+          "expected": "deny",
+          "expectation_id": "vfs_tmp_only:write_/tmp/foo"
+        },
+        {
+          "name": "write_/private/tmp/foo",
+          "operation": "file-write*",
+          "target": "/private/tmp/foo",
+          "expected": "deny",
+          "expectation_id": "vfs_tmp_only:write_/private/tmp/foo"
+        },
+        {
+          "name": "read_/tmp/bar",
+          "operation": "file-read*",
+          "target": "/tmp/bar",
+          "expected": "deny",
+          "expectation_id": "vfs_tmp_only:read_/tmp/bar"
+        },
+        {
+          "name": "read_/private/tmp/bar",
+          "operation": "file-read*",
+          "target": "/private/tmp/bar",
+          "expected": "deny",
+          "expectation_id": "vfs_tmp_only:read_/private/tmp/bar"
+        },
+        {
+          "name": "write_/tmp/bar",
+          "operation": "file-write*",
+          "target": "/tmp/bar",
+          "expected": "deny",
+          "expectation_id": "vfs_tmp_only:write_/tmp/bar"
+        },
+        {
+          "name": "write_/private/tmp/bar",
+          "operation": "file-write*",
+          "target": "/private/tmp/bar",
+          "expected": "deny",
+          "expectation_id": "vfs_tmp_only:write_/private/tmp/bar"
+        },
+        {
+          "name": "read_/tmp/nested/child",
+          "operation": "file-read*",
+          "target": "/tmp/nested/child",
+          "expected": "deny",
+          "expectation_id": "vfs_tmp_only:read_/tmp/nested/child"
+        },
+        {
+          "name": "read_/private/tmp/nested/child",
+          "operation": "file-read*",
+          "target": "/private/tmp/nested/child",
+          "expected": "deny",
+          "expectation_id": "vfs_tmp_only:read_/private/tmp/nested/child"
+        },
+        {
+          "name": "write_/tmp/nested/child",
+          "operation": "file-write*",
+          "target": "/tmp/nested/child",
+          "expected": "deny",
+          "expectation_id": "vfs_tmp_only:write_/tmp/nested/child"
+        },
+        {
+          "name": "write_/private/tmp/nested/child",
+          "operation": "file-write*",
+          "target": "/private/tmp/nested/child",
+          "expected": "deny",
+          "expectation_id": "vfs_tmp_only:write_/private/tmp/nested/child"
+        },
+        {
+          "name": "read_/var/tmp/canon",
+          "operation": "file-read*",
+          "target": "/var/tmp/canon",
+          "expected": "deny",
+          "expectation_id": "vfs_tmp_only:read_/var/tmp/canon"
+        },
+        {
+          "name": "read_/private/var/tmp/canon",
+          "operation": "file-read*",
+          "target": "/private/var/tmp/canon",
+          "expected": "deny",
+          "expectation_id": "vfs_tmp_only:read_/private/var/tmp/canon"
+        },
+        {
+          "name": "write_/var/tmp/canon",
+          "operation": "file-write*",
+          "target": "/var/tmp/canon",
+          "expected": "deny",
+          "expectation_id": "vfs_tmp_only:write_/var/tmp/canon"
+        },
+        {
+          "name": "write_/private/var/tmp/canon",
+          "operation": "file-write*",
+          "target": "/private/var/tmp/canon",
+          "expected": "deny",
+          "expectation_id": "vfs_tmp_only:write_/private/var/tmp/canon"
+        }
+      ]
+    },
+    "vfs_private_tmp_only": {
+      "blob": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_private_tmp_only.sb",
+      "mode": "sbpl",
+      "family": "vfs",
+      "semantic_group": "vfs:canonicalization",
+      "probes": [
+        {
+          "name": "read_/tmp/foo",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "expectation_id": "vfs_private_tmp_only:read_/tmp/foo"
+        },
+        {
+          "name": "read_/private/tmp/foo",
+          "operation": "file-read*",
+          "target": "/private/tmp/foo",
+          "expected": "allow",
+          "expectation_id": "vfs_private_tmp_only:read_/private/tmp/foo"
+        },
+        {
+          "name": "write_/tmp/foo",
+          "operation": "file-write*",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "expectation_id": "vfs_private_tmp_only:write_/tmp/foo"
+        },
+        {
+          "name": "write_/private/tmp/foo",
+          "operation": "file-write*",
+          "target": "/private/tmp/foo",
+          "expected": "allow",
+          "expectation_id": "vfs_private_tmp_only:write_/private/tmp/foo"
+        },
+        {
+          "name": "read_/tmp/bar",
+          "operation": "file-read*",
+          "target": "/tmp/bar",
+          "expected": "allow",
+          "expectation_id": "vfs_private_tmp_only:read_/tmp/bar"
+        },
+        {
+          "name": "read_/private/tmp/bar",
+          "operation": "file-read*",
+          "target": "/private/tmp/bar",
+          "expected": "allow",
+          "expectation_id": "vfs_private_tmp_only:read_/private/tmp/bar"
+        },
+        {
+          "name": "write_/tmp/bar",
+          "operation": "file-write*",
+          "target": "/tmp/bar",
+          "expected": "allow",
+          "expectation_id": "vfs_private_tmp_only:write_/tmp/bar"
+        },
+        {
+          "name": "write_/private/tmp/bar",
+          "operation": "file-write*",
+          "target": "/private/tmp/bar",
+          "expected": "allow",
+          "expectation_id": "vfs_private_tmp_only:write_/private/tmp/bar"
+        },
+        {
+          "name": "read_/tmp/nested/child",
+          "operation": "file-read*",
+          "target": "/tmp/nested/child",
+          "expected": "allow",
+          "expectation_id": "vfs_private_tmp_only:read_/tmp/nested/child"
+        },
+        {
+          "name": "read_/private/tmp/nested/child",
+          "operation": "file-read*",
+          "target": "/private/tmp/nested/child",
+          "expected": "allow",
+          "expectation_id": "vfs_private_tmp_only:read_/private/tmp/nested/child"
+        },
+        {
+          "name": "write_/tmp/nested/child",
+          "operation": "file-write*",
+          "target": "/tmp/nested/child",
+          "expected": "allow",
+          "expectation_id": "vfs_private_tmp_only:write_/tmp/nested/child"
+        },
+        {
+          "name": "write_/private/tmp/nested/child",
+          "operation": "file-write*",
+          "target": "/private/tmp/nested/child",
+          "expected": "allow",
+          "expectation_id": "vfs_private_tmp_only:write_/private/tmp/nested/child"
+        },
+        {
+          "name": "read_/var/tmp/canon",
+          "operation": "file-read*",
+          "target": "/var/tmp/canon",
+          "expected": "deny",
+          "expectation_id": "vfs_private_tmp_only:read_/var/tmp/canon"
+        },
+        {
+          "name": "read_/private/var/tmp/canon",
+          "operation": "file-read*",
+          "target": "/private/var/tmp/canon",
+          "expected": "allow",
+          "expectation_id": "vfs_private_tmp_only:read_/private/var/tmp/canon"
+        },
+        {
+          "name": "write_/var/tmp/canon",
+          "operation": "file-write*",
+          "target": "/var/tmp/canon",
+          "expected": "deny",
+          "expectation_id": "vfs_private_tmp_only:write_/var/tmp/canon"
+        },
+        {
+          "name": "write_/private/var/tmp/canon",
+          "operation": "file-write*",
+          "target": "/private/var/tmp/canon",
+          "expected": "allow",
+          "expectation_id": "vfs_private_tmp_only:write_/private/var/tmp/canon"
+        }
+      ]
+    },
+    "vfs_both_paths": {
+      "blob": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_both_paths.sb",
+      "mode": "sbpl",
+      "family": "vfs",
+      "semantic_group": "vfs:canonicalization",
+      "probes": [
+        {
+          "name": "read_/tmp/foo",
+          "operation": "file-read*",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "expectation_id": "vfs_both_paths:read_/tmp/foo"
+        },
+        {
+          "name": "read_/private/tmp/foo",
+          "operation": "file-read*",
+          "target": "/private/tmp/foo",
+          "expected": "allow",
+          "expectation_id": "vfs_both_paths:read_/private/tmp/foo"
+        },
+        {
+          "name": "write_/tmp/foo",
+          "operation": "file-write*",
+          "target": "/tmp/foo",
+          "expected": "allow",
+          "expectation_id": "vfs_both_paths:write_/tmp/foo"
+        },
+        {
+          "name": "write_/private/tmp/foo",
+          "operation": "file-write*",
+          "target": "/private/tmp/foo",
+          "expected": "allow",
+          "expectation_id": "vfs_both_paths:write_/private/tmp/foo"
+        },
+        {
+          "name": "read_/tmp/bar",
+          "operation": "file-read*",
+          "target": "/tmp/bar",
+          "expected": "allow",
+          "expectation_id": "vfs_both_paths:read_/tmp/bar"
+        },
+        {
+          "name": "read_/private/tmp/bar",
+          "operation": "file-read*",
+          "target": "/private/tmp/bar",
+          "expected": "allow",
+          "expectation_id": "vfs_both_paths:read_/private/tmp/bar"
+        },
+        {
+          "name": "write_/tmp/bar",
+          "operation": "file-write*",
+          "target": "/tmp/bar",
+          "expected": "allow",
+          "expectation_id": "vfs_both_paths:write_/tmp/bar"
+        },
+        {
+          "name": "write_/private/tmp/bar",
+          "operation": "file-write*",
+          "target": "/private/tmp/bar",
+          "expected": "allow",
+          "expectation_id": "vfs_both_paths:write_/private/tmp/bar"
+        },
+        {
+          "name": "read_/tmp/nested/child",
+          "operation": "file-read*",
+          "target": "/tmp/nested/child",
+          "expected": "allow",
+          "expectation_id": "vfs_both_paths:read_/tmp/nested/child"
+        },
+        {
+          "name": "read_/private/tmp/nested/child",
+          "operation": "file-read*",
+          "target": "/private/tmp/nested/child",
+          "expected": "allow",
+          "expectation_id": "vfs_both_paths:read_/private/tmp/nested/child"
+        },
+        {
+          "name": "write_/tmp/nested/child",
+          "operation": "file-write*",
+          "target": "/tmp/nested/child",
+          "expected": "allow",
+          "expectation_id": "vfs_both_paths:write_/tmp/nested/child"
+        },
+        {
+          "name": "write_/private/tmp/nested/child",
+          "operation": "file-write*",
+          "target": "/private/tmp/nested/child",
+          "expected": "allow",
+          "expectation_id": "vfs_both_paths:write_/private/tmp/nested/child"
+        },
+        {
+          "name": "read_/var/tmp/canon",
+          "operation": "file-read*",
+          "target": "/var/tmp/canon",
+          "expected": "deny",
+          "expectation_id": "vfs_both_paths:read_/var/tmp/canon"
+        },
+        {
+          "name": "read_/private/var/tmp/canon",
+          "operation": "file-read*",
+          "target": "/private/var/tmp/canon",
+          "expected": "allow",
+          "expectation_id": "vfs_both_paths:read_/private/var/tmp/canon"
+        },
+        {
+          "name": "write_/var/tmp/canon",
+          "operation": "file-write*",
+          "target": "/var/tmp/canon",
+          "expected": "deny",
+          "expectation_id": "vfs_both_paths:write_/var/tmp/canon"
+        },
+        {
+          "name": "write_/private/var/tmp/canon",
+          "operation": "file-write*",
+          "target": "/private/var/tmp/canon",
+          "expected": "allow",
+          "expectation_id": "vfs_both_paths:write_/private/var/tmp/canon"
+        }
+      ]
+    },
+    "vfs_var_tmp_alias_only": {
+      "blob": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_var_tmp_alias_only.sb",
+      "mode": "sbpl",
+      "family": "vfs",
+      "semantic_group": "vfs:canonicalization",
+      "probes": [
+        {
+          "name": "read_/var/tmp/vfs_canon_probe",
+          "operation": "file-read*",
+          "target": "/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "expectation_id": "vfs_var_tmp_alias_only:read_/var/tmp/vfs_canon_probe"
+        },
+        {
+          "name": "write_/var/tmp/vfs_canon_probe",
+          "operation": "file-write*",
+          "target": "/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "expectation_id": "vfs_var_tmp_alias_only:write_/var/tmp/vfs_canon_probe"
+        },
+        {
+          "name": "read_/private/var/tmp/vfs_canon_probe",
+          "operation": "file-read*",
+          "target": "/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_var_tmp_alias_only:read_/private/var/tmp/vfs_canon_probe"
+        },
+        {
+          "name": "write_/private/var/tmp/vfs_canon_probe",
+          "operation": "file-write*",
+          "target": "/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_var_tmp_alias_only:write_/private/var/tmp/vfs_canon_probe"
+        },
+        {
+          "name": "read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_var_tmp_alias_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+        },
+        {
+          "name": "write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "operation": "file-write*",
+          "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_var_tmp_alias_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+        }
+      ]
+    },
+    "vfs_var_tmp_private_only": {
+      "blob": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_var_tmp_private_only.sb",
+      "mode": "sbpl",
+      "family": "vfs",
+      "semantic_group": "vfs:canonicalization",
+      "probes": [
+        {
+          "name": "read_/var/tmp/vfs_canon_probe",
+          "operation": "file-read*",
+          "target": "/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_var_tmp_private_only:read_/var/tmp/vfs_canon_probe"
+        },
+        {
+          "name": "write_/var/tmp/vfs_canon_probe",
+          "operation": "file-write*",
+          "target": "/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_var_tmp_private_only:write_/var/tmp/vfs_canon_probe"
+        },
+        {
+          "name": "read_/private/var/tmp/vfs_canon_probe",
+          "operation": "file-read*",
+          "target": "/private/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "expectation_id": "vfs_var_tmp_private_only:read_/private/var/tmp/vfs_canon_probe"
+        },
+        {
+          "name": "write_/private/var/tmp/vfs_canon_probe",
+          "operation": "file-write*",
+          "target": "/private/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "expectation_id": "vfs_var_tmp_private_only:write_/private/var/tmp/vfs_canon_probe"
+        },
+        {
+          "name": "read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_var_tmp_private_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+        },
+        {
+          "name": "write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "operation": "file-write*",
+          "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_var_tmp_private_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+        }
+      ]
+    },
+    "vfs_var_tmp_both": {
+      "blob": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_var_tmp_both.sb",
+      "mode": "sbpl",
+      "family": "vfs",
+      "semantic_group": "vfs:canonicalization",
+      "probes": [
+        {
+          "name": "read_/var/tmp/vfs_canon_probe",
+          "operation": "file-read*",
+          "target": "/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "expectation_id": "vfs_var_tmp_both:read_/var/tmp/vfs_canon_probe"
+        },
+        {
+          "name": "write_/var/tmp/vfs_canon_probe",
+          "operation": "file-write*",
+          "target": "/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "expectation_id": "vfs_var_tmp_both:write_/var/tmp/vfs_canon_probe"
+        },
+        {
+          "name": "read_/private/var/tmp/vfs_canon_probe",
+          "operation": "file-read*",
+          "target": "/private/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "expectation_id": "vfs_var_tmp_both:read_/private/var/tmp/vfs_canon_probe"
+        },
+        {
+          "name": "write_/private/var/tmp/vfs_canon_probe",
+          "operation": "file-write*",
+          "target": "/private/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "expectation_id": "vfs_var_tmp_both:write_/private/var/tmp/vfs_canon_probe"
+        },
+        {
+          "name": "read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_var_tmp_both:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+        },
+        {
+          "name": "write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "operation": "file-write*",
+          "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_var_tmp_both:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+        }
+      ]
+    },
+    "vfs_var_tmp_data_only": {
+      "blob": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_var_tmp_data_only.sb",
+      "mode": "sbpl",
+      "family": "vfs",
+      "semantic_group": "vfs:canonicalization",
+      "probes": [
+        {
+          "name": "read_/var/tmp/vfs_canon_probe",
+          "operation": "file-read*",
+          "target": "/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_var_tmp_data_only:read_/var/tmp/vfs_canon_probe"
+        },
+        {
+          "name": "write_/var/tmp/vfs_canon_probe",
+          "operation": "file-write*",
+          "target": "/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_var_tmp_data_only:write_/var/tmp/vfs_canon_probe"
+        },
+        {
+          "name": "read_/private/var/tmp/vfs_canon_probe",
+          "operation": "file-read*",
+          "target": "/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_var_tmp_data_only:read_/private/var/tmp/vfs_canon_probe"
+        },
+        {
+          "name": "write_/private/var/tmp/vfs_canon_probe",
+          "operation": "file-write*",
+          "target": "/private/var/tmp/vfs_canon_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_var_tmp_data_only:write_/private/var/tmp/vfs_canon_probe"
+        },
+        {
+          "name": "read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "expectation_id": "vfs_var_tmp_data_only:read_/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+        },
+        {
+          "name": "write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "operation": "file-write*",
+          "target": "/System/Volumes/Data/private/var/tmp/vfs_canon_probe",
+          "expected": "allow",
+          "expectation_id": "vfs_var_tmp_data_only:write_/System/Volumes/Data/private/var/tmp/vfs_canon_probe"
+        }
+      ]
+    },
+    "vfs_etc_alias_only": {
+      "blob": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_etc_alias_only.sb",
+      "mode": "sbpl",
+      "family": "vfs",
+      "semantic_group": "vfs:canonicalization",
+      "probes": [
+        {
+          "name": "read_/etc/hosts",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "allow",
+          "expectation_id": "vfs_etc_alias_only:read_/etc/hosts"
+        },
+        {
+          "name": "read_/private/etc/hosts",
+          "operation": "file-read*",
+          "target": "/private/etc/hosts",
+          "expected": "deny",
+          "expectation_id": "vfs_etc_alias_only:read_/private/etc/hosts"
+        }
+      ]
+    },
+    "vfs_etc_private_only": {
+      "blob": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_etc_private_only.sb",
+      "mode": "sbpl",
+      "family": "vfs",
+      "semantic_group": "vfs:canonicalization",
+      "probes": [
+        {
+          "name": "read_/etc/hosts",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "deny",
+          "expectation_id": "vfs_etc_private_only:read_/etc/hosts"
+        },
+        {
+          "name": "read_/private/etc/hosts",
+          "operation": "file-read*",
+          "target": "/private/etc/hosts",
+          "expected": "allow",
+          "expectation_id": "vfs_etc_private_only:read_/private/etc/hosts"
+        }
+      ]
+    },
+    "vfs_etc_both": {
+      "blob": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_etc_both.sb",
+      "mode": "sbpl",
+      "family": "vfs",
+      "semantic_group": "vfs:canonicalization",
+      "probes": [
+        {
+          "name": "read_/etc/hosts",
+          "operation": "file-read*",
+          "target": "/etc/hosts",
+          "expected": "allow",
+          "expectation_id": "vfs_etc_both:read_/etc/hosts"
+        },
+        {
+          "name": "read_/private/etc/hosts",
+          "operation": "file-read*",
+          "target": "/private/etc/hosts",
+          "expected": "allow",
+          "expectation_id": "vfs_etc_both:read_/private/etc/hosts"
+        }
+      ]
+    },
+    "vfs_firmlink_private_only": {
+      "blob": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_firmlink_private_only.sb",
+      "mode": "sbpl",
+      "family": "vfs",
+      "semantic_group": "vfs:canonicalization",
+      "probes": [
+        {
+          "name": "read_/private/tmp/vfs_firmlink_probe",
+          "operation": "file-read*",
+          "target": "/private/tmp/vfs_firmlink_probe",
+          "expected": "allow",
+          "expectation_id": "vfs_firmlink_private_only:read_/private/tmp/vfs_firmlink_probe"
+        },
+        {
+          "name": "write_/private/tmp/vfs_firmlink_probe",
+          "operation": "file-write*",
+          "target": "/private/tmp/vfs_firmlink_probe",
+          "expected": "allow",
+          "expectation_id": "vfs_firmlink_private_only:write_/private/tmp/vfs_firmlink_probe"
+        },
+        {
+          "name": "read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_firmlink_private_only:read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+        },
+        {
+          "name": "write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "operation": "file-write*",
+          "target": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_firmlink_private_only:write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+        }
+      ]
+    },
+    "vfs_firmlink_data_only": {
+      "blob": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_firmlink_data_only.sb",
+      "mode": "sbpl",
+      "family": "vfs",
+      "semantic_group": "vfs:canonicalization",
+      "probes": [
+        {
+          "name": "read_/private/tmp/vfs_firmlink_probe",
+          "operation": "file-read*",
+          "target": "/private/tmp/vfs_firmlink_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_firmlink_data_only:read_/private/tmp/vfs_firmlink_probe"
+        },
+        {
+          "name": "write_/private/tmp/vfs_firmlink_probe",
+          "operation": "file-write*",
+          "target": "/private/tmp/vfs_firmlink_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_firmlink_data_only:write_/private/tmp/vfs_firmlink_probe"
+        },
+        {
+          "name": "read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "expected": "allow",
+          "expectation_id": "vfs_firmlink_data_only:read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+        },
+        {
+          "name": "write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "operation": "file-write*",
+          "target": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "expected": "allow",
+          "expectation_id": "vfs_firmlink_data_only:write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+        }
+      ]
+    },
+    "vfs_firmlink_both": {
+      "blob": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_firmlink_both.sb",
+      "mode": "sbpl",
+      "family": "vfs",
+      "semantic_group": "vfs:canonicalization",
+      "probes": [
+        {
+          "name": "read_/private/tmp/vfs_firmlink_probe",
+          "operation": "file-read*",
+          "target": "/private/tmp/vfs_firmlink_probe",
+          "expected": "allow",
+          "expectation_id": "vfs_firmlink_both:read_/private/tmp/vfs_firmlink_probe"
+        },
+        {
+          "name": "write_/private/tmp/vfs_firmlink_probe",
+          "operation": "file-write*",
+          "target": "/private/tmp/vfs_firmlink_probe",
+          "expected": "allow",
+          "expectation_id": "vfs_firmlink_both:write_/private/tmp/vfs_firmlink_probe"
+        },
+        {
+          "name": "read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "operation": "file-read*",
+          "target": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "expected": "allow",
+          "expectation_id": "vfs_firmlink_both:read_/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+        },
+        {
+          "name": "write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "operation": "file-write*",
+          "target": "/System/Volumes/Data/private/tmp/vfs_firmlink_probe",
+          "expected": "allow",
+          "expectation_id": "vfs_firmlink_both:write_/System/Volumes/Data/private/tmp/vfs_firmlink_probe"
+        }
+      ]
+    },
+    "vfs_link_var_tmp_only": {
+      "blob": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_link_var_tmp_only.sb",
+      "mode": "sbpl",
+      "family": "vfs",
+      "semantic_group": "vfs:canonicalization",
+      "probes": [
+        {
+          "name": "read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "operation": "file-read*",
+          "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_link_var_tmp_only:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+        },
+        {
+          "name": "write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "operation": "file-write*",
+          "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_link_var_tmp_only:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+        },
+        {
+          "name": "read_/private/var/tmp/vfs_link_probe",
+          "operation": "file-read*",
+          "target": "/private/var/tmp/vfs_link_probe",
+          "expected": "allow",
+          "expectation_id": "vfs_link_var_tmp_only:read_/private/var/tmp/vfs_link_probe"
+        },
+        {
+          "name": "write_/private/var/tmp/vfs_link_probe",
+          "operation": "file-write*",
+          "target": "/private/var/tmp/vfs_link_probe",
+          "expected": "allow",
+          "expectation_id": "vfs_link_var_tmp_only:write_/private/var/tmp/vfs_link_probe"
+        }
+      ]
+    },
+    "vfs_link_private_tmp_only": {
+      "blob": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_link_private_tmp_only.sb",
+      "mode": "sbpl",
+      "family": "vfs",
+      "semantic_group": "vfs:canonicalization",
+      "probes": [
+        {
+          "name": "read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "operation": "file-read*",
+          "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "expected": "allow",
+          "expectation_id": "vfs_link_private_tmp_only:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+        },
+        {
+          "name": "write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "operation": "file-write*",
+          "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "expected": "allow",
+          "expectation_id": "vfs_link_private_tmp_only:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+        },
+        {
+          "name": "read_/private/var/tmp/vfs_link_probe",
+          "operation": "file-read*",
+          "target": "/private/var/tmp/vfs_link_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_link_private_tmp_only:read_/private/var/tmp/vfs_link_probe"
+        },
+        {
+          "name": "write_/private/var/tmp/vfs_link_probe",
+          "operation": "file-write*",
+          "target": "/private/var/tmp/vfs_link_probe",
+          "expected": "deny",
+          "expectation_id": "vfs_link_private_tmp_only:write_/private/var/tmp/vfs_link_probe"
+        }
+      ]
+    },
+    "vfs_link_both": {
+      "blob": "book/evidence/experiments/runtime-final-final/suites/vfs-canonicalization/sb/vfs_link_both.sb",
+      "mode": "sbpl",
+      "family": "vfs",
+      "semantic_group": "vfs:canonicalization",
+      "probes": [
+        {
+          "name": "read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "operation": "file-read*",
+          "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "expected": "allow",
+          "expectation_id": "vfs_link_both:read_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+        },
+        {
+          "name": "write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "operation": "file-write*",
+          "target": "/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe",
+          "expected": "allow",
+          "expectation_id": "vfs_link_both:write_/private/tmp/vfs_linkdir/to_var_tmp/vfs_link_probe"
+        },
+        {
+          "name": "read_/private/var/tmp/vfs_link_probe",
+          "operation": "file-read*",
+          "target": "/private/var/tmp/vfs_link_probe",
+          "expected": "allow",
+          "expectation_id": "vfs_link_both:read_/private/var/tmp/vfs_link_probe"
+        },
+        {
+          "name": "write_/private/var/tmp/vfs_link_probe",
+          "operation": "file-write*",
+          "target": "/private/var/tmp/vfs_link_probe",
+          "expected": "allow",
+          "expectation_id": "vfs_link_both:write_/private/var/tmp/vfs_link_probe"
+        }
+      ]
+    }
+  }
+}

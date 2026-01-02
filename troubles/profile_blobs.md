@@ -17,7 +17,7 @@ We need to apply compiled sandbox profile blobs (`.sb.bin`), including system pr
 
 3. **Known artifacts**
    - Compiled system blobs live at `book/examples/extract_sbs/build/profiles/airlock.sb.bin` and `bsd.sb.bin`.
-   - Digests exist in `book/graph/mappings/system_profiles/digests.json` (operation counts, op-table buckets).
+   - Digests exist in `book/evidence/graph/mappings/system_profiles/digests.json` (operation counts, op-table buckets).
    - Vocab/tag mappings exist in `book/graph/mappings/vocab/` and `.../tag_layouts/`.
 
 ## Hypothesis
@@ -38,11 +38,11 @@ If blob mode remains unavailable, disassemble system blobs to SBPL (`sbdis`) and
 - Blob mode remains blocked pending cache extraction and symbol inspection for `sandbox_apply`/`sandbox_apply_container`.
 
 ## Update: cache extracted externally
-- `libsystem_sandbox.dylib` is available under `book/graph/mappings/dyld-libs/usr/lib/system/libsystem_sandbox.dylib` (extracted from the cache). `nm` shows sandbox-related symbols (`sandbox_check*`, `sandbox_register_app_bundle_*`, etc.) but no `sandbox_apply`/`sandbox_apply_container` exports in the global symbol table.
+- `libsystem_sandbox.dylib` is available under `book/evidence/graph/mappings/dyld-libs/usr/lib/system/libsystem_sandbox.dylib` (extracted from the cache). `nm` shows sandbox-related symbols (`sandbox_check*`, `sandbox_register_app_bundle_*`, etc.) but no `sandbox_apply`/`sandbox_apply_container` exports in the global symbol table.
 - Next: inspect the extracted dylib for private symbols (internal, non-exported) or consider that blob-apply may be non-exported on this build; SBPL fallback remains viable.
 
 ## Update: libsandbox.1 extracted
-- Extracted `libsandbox.1.dylib` from the cache using `dyld-shared-cache-extractor` (cache path `/System/Volumes/Preboot/Cryptexes/OS/System/Library/dyld/dyld_shared_cache_arm64e`); placed at `book/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib`.
+- Extracted `libsandbox.1.dylib` from the cache using `dyld-shared-cache-extractor` (cache path `/System/Volumes/Preboot/Cryptexes/OS/System/Library/dyld/dyld_shared_cache_arm64e`); placed at `book/evidence/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib`.
 - `nm -gU libsandbox.1.dylib` shows `sandbox_apply`, `sandbox_apply_container`, `sandbox_compile_*`, `sandbox_create_params/set_param/free_params/free_profile` exported. Blob-mode wiring can target this dylib directly.
 
 ## Blob mode integration attempt (runtime harness)

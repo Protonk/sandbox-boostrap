@@ -1,0 +1,258 @@
+{
+  "attribution": {
+    "deny_evidence_artifacts": [],
+    "deny_evidence_present": false,
+    "note": "EPERM/EACCES treated as permission-shaped outcomes; no sandbox deny evidence attached.",
+    "posture": "permission_shaped_only"
+  },
+  "claims": [
+    {
+      "attribution": "No deny evidence captured; EPERM treated as permission-shaped outcome (not upgraded to Seatbelt/App Sandbox deny).",
+      "evidence": {
+        "derived_from_invariants": [
+          "target.path_is_desktop",
+          "access.pre_consume_old",
+          "phase_ordering.delta_old_open_transition_field"
+        ],
+        "pointers": [
+          "/data/details/old_path",
+          "/data/details/access_pre_consume_old_open_outcome",
+          "/data/details/access_pre_consume_old_open_errno",
+          "/data/details/access_pre_consume_old_open_error",
+          "/data/details/delta_old_open_transition"
+        ],
+        "witness_path": "book/evidence/experiments/entitlement-jail-extension-semantics/out/witnesses/ej_update_file_rename_delta.json",
+        "witness_sha256": "57c1a34e8b79985cb9b755de4005fe535b2a3ea7989dc78a6f2d0892897847cb"
+      },
+      "hypothesis": "Pre-consume Desktop open_read is denied with EPERM before any consume phase.",
+      "id": "H1",
+      "lane": "scenario",
+      "limits": "Single-run observation; does not prove generalized sandbox behavior beyond this host and target.",
+      "stage": "operation",
+      "status": "accepted",
+      "tier": "mapped"
+    },
+    {
+      "evidence": {
+        "derived_from_invariants": [
+          "access.pre_consume_old",
+          "access.post_consume_old",
+          "identity.pid_matches_service_pid",
+          "identity.session_token",
+          "extension_live.value"
+        ],
+        "pointers": [
+          "/data/details/access_pre_consume_old_open_outcome",
+          "/data/details/access_post_consume_old_open_outcome",
+          "/data/details/pid",
+          "/data/details/service_pid",
+          "/data/details/session_token",
+          "/data/details/consume_handle"
+        ],
+        "witness_path": "book/evidence/experiments/entitlement-jail-extension-semantics/out/witnesses/ej_update_file_rename_delta.json",
+        "witness_sha256": "57c1a34e8b79985cb9b755de4005fe535b2a3ea7989dc78a6f2d0892897847cb"
+      },
+      "hypothesis": "Issue + consume flips open_read to allow in the same pid/session with extension live.",
+      "id": "H2",
+      "lane": "scenario",
+      "limits": "Single-session witness for one target path; does not prove cross-process or cross-path behavior.",
+      "stage": "operation",
+      "status": "accepted",
+      "tier": "mapped"
+    },
+    {
+      "attribution": "No deny evidence captured; EPERM treated as permission-shaped outcome (not upgraded to Seatbelt/App Sandbox deny).",
+      "evidence": {
+        "derived_from_invariants": [
+          "rename_premise.rename_was_inode_preserving",
+          "rename_premise.rename_same_dev",
+          "rename_premise.rename_same_inode",
+          "access.post_rename_new",
+          "extension_live.value"
+        ],
+        "pointers": [
+          "/data/details/rename_was_inode_preserving",
+          "/data/details/rename_same_dev",
+          "/data/details/rename_same_inode",
+          "/data/details/access_after_rename_new_open_outcome",
+          "/data/details/consume_handle"
+        ],
+        "witness_path": "book/evidence/experiments/entitlement-jail-extension-semantics/out/witnesses/ej_update_file_rename_delta.json",
+        "witness_sha256": "57c1a34e8b79985cb9b755de4005fe535b2a3ea7989dc78a6f2d0892897847cb"
+      },
+      "hypothesis": "Consumed grant is path-scoped; inode-preserving rename denies new path while extension remains live.",
+      "id": "H3",
+      "lane": "scenario",
+      "limits": "Path-scope conclusion is limited to this host and harness; does not imply inode-binding semantics for other extension classes.",
+      "stage": "operation",
+      "status": "accepted",
+      "tier": "mapped"
+    },
+    {
+      "evidence": {
+        "derived_from_invariants": [
+          "access.post_rename_new",
+          "update_file.post_new_open_outcome",
+          "extension_live.value"
+        ],
+        "pointers": [
+          "/data/details/access_after_rename_new_open_outcome",
+          "/data/details/update_file_rc",
+          "/data/details/access_after_update_file_new_open_outcome",
+          "/data/details/consume_handle"
+        ],
+        "witness_path": "book/evidence/experiments/entitlement-jail-extension-semantics/out/witnesses/ej_update_file_rename_delta.json",
+        "witness_sha256": "57c1a34e8b79985cb9b755de4005fe535b2a3ea7989dc78a6f2d0892897847cb"
+      },
+      "hypothesis": "update_file(path) retargets the live grant after rename without re-issue/consume.",
+      "id": "H4",
+      "lane": "scenario",
+      "limits": "Shows post-rename retargeting in this session; does not generalize across processes or release semantics.",
+      "stage": "operation",
+      "status": "accepted",
+      "tier": "mapped"
+    },
+    {
+      "evidence": {
+        "candidates": [
+          {
+            "changed_access": {
+              "raw": "false",
+              "value": false
+            },
+            "name": "st_ino",
+            "post_check_field": "/data/details/access_after_update_by_fileid_st_ino_new_open_outcome",
+            "post_check_outcome": "deny",
+            "provenance_fields": [
+              "/data/details/stat_old_ino",
+              "/data/details/update_by_fileid_st_ino_payload_u64"
+            ],
+            "rc": {
+              "raw": "-1",
+              "value": -1
+            }
+          },
+          {
+            "changed_access": {
+              "raw": "false",
+              "value": false
+            },
+            "name": "st_dev",
+            "post_check_field": "/data/details/access_after_update_by_fileid_st_dev_new_open_outcome",
+            "post_check_outcome": "deny",
+            "provenance_fields": [
+              "/data/details/stat_old_dev",
+              "/data/details/update_by_fileid_st_dev_payload_u64"
+            ],
+            "rc": {
+              "raw": "0",
+              "value": 0
+            }
+          },
+          {
+            "changed_access": {
+              "raw": "false",
+              "value": false
+            },
+            "name": "consume_handle_low32",
+            "post_check_field": "/data/details/access_after_update_by_fileid_consume_handle_low32_new_open_outcome",
+            "post_check_outcome": "deny",
+            "provenance_fields": [
+              "/data/details/consume_handle_low32",
+              "/data/details/update_by_fileid_consume_handle_low32_payload_u64"
+            ],
+            "rc": {
+              "raw": "-1",
+              "value": -1
+            }
+          },
+          {
+            "changed_access": {
+              "raw": "false",
+              "value": false
+            },
+            "name": "consume_handle_high32",
+            "post_check_field": "/data/details/access_after_update_by_fileid_consume_handle_high32_new_open_outcome",
+            "post_check_outcome": "deny",
+            "provenance_fields": [
+              "/data/details/consume_handle_high32",
+              "/data/details/update_by_fileid_consume_handle_high32_payload_u64"
+            ],
+            "rc": {
+              "raw": "-1",
+              "value": -1
+            }
+          },
+          {
+            "changed_access": {
+              "raw": "false",
+              "value": false
+            },
+            "name": "consume_handle_xor32",
+            "post_check_field": "/data/details/access_after_update_by_fileid_consume_handle_xor32_new_open_outcome",
+            "post_check_outcome": "deny",
+            "provenance_fields": [
+              "/data/details/consume_handle_xor32",
+              "/data/details/update_by_fileid_consume_handle_xor32_payload_u64"
+            ],
+            "rc": {
+              "raw": "-1",
+              "value": -1
+            }
+          }
+        ],
+        "derived_from_invariants": [
+          "update_file_by_fileid.candidates",
+          "update_file_by_fileid.rc_zero_no_delta_candidates"
+        ],
+        "pointers": [
+          "/data/details/update_by_fileid_candidate_count",
+          "/data/details/update_by_fileid_candidate_0_name",
+          "/data/details/update_by_fileid_st_dev_rc",
+          "/data/details/update_by_fileid_st_dev_changed_access",
+          "/data/details/access_after_update_by_fileid_st_dev_new_open_outcome"
+        ],
+        "witness_path": "book/evidence/experiments/entitlement-jail-extension-semantics/out/witnesses/ej_update_file_rename_delta.json",
+        "witness_sha256": "57c1a34e8b79985cb9b755de4005fe535b2a3ea7989dc78a6f2d0892897847cb"
+      },
+      "hypothesis": "update_file_by_fileid may return rc==0 without access delta for some candidates.",
+      "id": "H5",
+      "lane": "scenario",
+      "limits": "Observed rc==0 with no access delta for a specific candidate; other payloads remain unclassified.",
+      "stage": "operation",
+      "status": "accepted",
+      "tier": "mapped"
+    },
+    {
+      "evidence": {
+        "derived_from_invariants": [
+          "premises.negative_control.dest_preexisted",
+          "premises.negative_control.normalized_outcome"
+        ],
+        "pointers": [
+          "/schema_version",
+          "/kind",
+          "/generated_at_unix_ms",
+          "/result/normalized_outcome",
+          "/result/ok",
+          "/result/rc",
+          "/data",
+          "/data/details/dest_preexisted",
+          "/data/details/pid",
+          "/data/details/session_token"
+        ],
+        "witness_path": "book/evidence/experiments/entitlement-jail-extension-semantics/out/witnesses/ej_update_file_rename_delta_dest_exists.json",
+        "witness_sha256": "4e4d6a9409a0badf6a0e7c2538ef609031b635655af76701753e960413f37a9b"
+      },
+      "hypothesis": "Early harness failures are classified as protocol outcomes with complete witness shape.",
+      "id": "H6",
+      "lane": "scenario",
+      "limits": "Negative-control outcome is a harness precondition failure, not a sandbox policy decision.",
+      "stage": "operation",
+      "status": "accepted",
+      "tier": "mapped"
+    }
+  ],
+  "schema_version": 3,
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

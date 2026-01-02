@@ -32,7 +32,7 @@ Canonical run (from repo root):
 python -m book.api.lifecycle apply-attempt
 ```
 
-This writes `book/graph/concepts/validation/out/lifecycle/apply_attempt.json` by default.
+This writes `book/evidence/graph/concepts/validation/out/lifecycle/apply_attempt.json` by default.
 
 ---
 

@@ -5,7 +5,7 @@ Role: stable, host-specific connector for running Seatbelt-focused Ghidra headle
 Baseline and safety:
 - World: see `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
 - Inputs live in `book/dumps/ghidra/private/aapl-restricted/<build>/...` (KC, libsystem_sandbox, profiles); never copy them into tracked trees.
-- Outputs stay under `book/dumps/ghidra/out/<build>/<task>/`; projects under `book/dumps/ghidra/projects/`; user/home/logs under `book/dumps/ghidra/` (git-ignored: `book/dumps/ghidra/private`, `book/dumps/ghidra/tmp`, `book/dumps/ghidra/user`, `book/dumps/ghidra/projects`, `book/dumps/ghidra/home`, `book/dumps/ghidra/logs`).
+- Outputs stay under `book/evidence/dumps/ghidra/out/<build>/<task>/`; projects under `book/dumps/ghidra/projects/`; user/home/logs under `book/dumps/ghidra/` (git-ignored: `book/dumps/ghidra/private`, `book/dumps/ghidra/tmp`, `book/dumps/ghidra/user`, `book/dumps/ghidra/projects`, `book/dumps/ghidra/home`, `book/dumps/ghidra/logs`).
 - `HOME`/`GHIDRA_USER_HOME` and `JAVA_TOOL_OPTIONS=-Duser.home=... -Djava.io.tmpdir=...` are set to the sandboxed dirs to avoid leakage or prompts.
 
 Interfaces:
@@ -22,8 +22,8 @@ Interfaces:
   Setting `GHIDRA_STRICT_SHAPES=1` additionally runs the optional strict test.
 
 Tasks (examples; see `TaskRegistry.default()` for the full set):
-- `kernel-symbols` (fast, `--no-analysis` OK): dump sandbox symbols/strings; outputs also mirrored to `book/experiments/kernel-symbols/out/<build>/...`.
-- `kernel-tag-switch` (needs full analysis): heuristic ranking of computed-jump functions to find the PolicyGraph dispatcher; output `book/dumps/ghidra/out/<build>/kernel-tag-switch/switch_candidates.json`.
+- `kernel-symbols` (fast, `--no-analysis` OK): dump sandbox symbols/strings; outputs also mirrored to `book/evidence/experiments/kernel-symbols/out/<build>/...`.
+- `kernel-tag-switch` (needs full analysis): heuristic ranking of computed-jump functions to find the PolicyGraph dispatcher; output `book/evidence/dumps/ghidra/out/<build>/kernel-tag-switch/switch_candidates.json`.
 - `kernel-op-table`, `kernel-string-refs`, `kernel-imm-search`, `kernel-field2-mask-scan`: various scans over the KC for op-table candidates, strings/imports, immediates, and field2-like masks.
 - `kernel-collection-symbols`: dump symbols/strings for com.apple.security.sandbox in the KC.
 - `kernel-collection-addr-window-dump`: dump an instruction window around a KC address.
@@ -71,7 +71,7 @@ Catalog maintenance:
 Tag-switch triage:
 - Run with full analysis (no `--no-analysis`) so functions/computed jumps exist.
 - Inspect `switch_candidates.json`, sort by `computed_jumps` then `size`, and skim the top ~20; filter to sandbox.kext address ranges if noise is high.
-- Outputs and decompile batches live under `book/dumps/ghidra/out/<build>/kernel-tag-switch/` and `.../tag-triage/` (when produced); manual review in project `book/dumps/ghidra/projects/sandbox_<build>`.
+- Outputs and decompile batches live under `book/evidence/dumps/ghidra/out/<build>/kernel-tag-switch/` and `.../tag-triage/` (when produced); manual review in project `book/dumps/ghidra/projects/sandbox_<build>`.
 
 Analyzer and processor notes:
 - `analyzeHeadless` 11.4.2 ignores `-analysisProperties`; use pre-scripts. `disable_x86_analyzers.py` is provided; pass `--pre-script disable_x86_analyzers.py`.
@@ -108,7 +108,7 @@ export GHIDRA_USER_HOME="$PWD/book/dumps/ghidra/user"
   -process BootKernelCollection.kc \
   -noanalysis \
   -scriptPath book/api/ghidra/scripts \
-  -postScript kernel_node_struct_scan.py scan book/dumps/ghidra/out/14.4.1-23E224/find-field2-evaluator
+  -postScript kernel_node_struct_scan.py scan book/evidence/dumps/ghidra/out/14.4.1-23E224/find-field2-evaluator
 ```
 
 Outputs: `.../node_struct_scan.txt` and `.../node_struct_scan.json` (includes schema_version, eval_entry, functions_scanned, candidates). Adjust the eval address or process binary as needed.

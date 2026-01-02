@@ -130,7 +130,7 @@ action = models.ActionSpec(
     ),
     sbpl=models.SbplAction(
         command=models.CommandSpec(argv=["/bin/cat", "/etc/hosts"]),
-        sbpl_path=Path("book/experiments/runtime-final-final/suites/runtime-checks/sb/profile.sb"),
+        sbpl_path=Path("book/evidence/experiments/runtime-final-final/suites/runtime-checks/sb/profile.sb"),
     ),
     none=models.CommandSpec(argv=["/bin/cat", "/etc/hosts"]),
 )

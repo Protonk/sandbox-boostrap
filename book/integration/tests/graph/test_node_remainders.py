@@ -4,8 +4,9 @@ from pathlib import Path
 from book.api.profile import ingestion as pi
 
 from book.api import path_utils
+
 ROOT = path_utils.find_repo_root(Path(__file__))
-CONTRACT = ROOT / "book" / "graph" / "concepts" / "validation" / "out" / "static" / "node_remainders.json"
+CONTRACT = ROOT / "book" / "evidence" / "graph" / "concepts" / "validation" / "out" / "static" / "node_remainders.json"
 
 
 def compute_remainder(path: Path, stride: int = 12) -> tuple[int, str]:

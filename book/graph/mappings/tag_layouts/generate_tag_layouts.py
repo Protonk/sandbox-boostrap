@@ -10,7 +10,7 @@ This generator is intentionally structural and world-scoped:
   field indices) suitable for downstream decoders and experiments.
 
 Outputs:
-- book/graph/mappings/tag_layouts/tag_layouts.json
+- book/evidence/graph/mappings/tag_layouts/tag_layouts.json
 """
 
 from __future__ import annotations
@@ -28,8 +28,8 @@ from book.api.profile import decoder  # type: ignore
 from book.graph.mappings.tag_layouts import annotate_metadata  # type: ignore
 
 
-DIGESTS_PATH = REPO_ROOT / "book/graph/mappings/system_profiles/digests.json"
-OUT_PATH = REPO_ROOT / "book/graph/mappings/tag_layouts/tag_layouts.json"
+DIGESTS_PATH = REPO_ROOT / "book/evidence/graph/mappings/system_profiles/digests.json"
+OUT_PATH = REPO_ROOT / "book/evidence/graph/mappings/tag_layouts/tag_layouts.json"
 
 
 def load_json(path: Path) -> Dict[str, Any]:

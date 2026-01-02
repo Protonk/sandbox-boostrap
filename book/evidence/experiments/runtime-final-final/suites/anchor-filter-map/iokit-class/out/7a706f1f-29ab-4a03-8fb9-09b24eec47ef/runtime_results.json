@@ -1,0 +1,435 @@
+{
+  "anchor-filter-map:iokit_class:S0_allow_any": {
+    "status": "partial",
+    "profile_path": "book/evidence/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/runtime_profiles/iokit_open_deny_default.anchor-filter-map_iokit_class_S0_allow_any.runtime.sb",
+    "base_profile_path": "book/evidence/experiments/anchor-filter-map/sb/iokit_open_deny_default.sb",
+    "preflight": {
+      "tool": "book/tools/preflight",
+      "preflight_schema_version": 1,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/runtime_profiles/iokit_open_deny_default.anchor-filter-map_iokit_class_S0_allow_any.runtime.sb",
+      "classification": "no_known_apply_gate_signature",
+      "signature": null,
+      "findings": []
+    },
+    "probes": [
+      {
+        "name": "S0_allow_any",
+        "expectation_id": "anchor-filter-map:iokit_class:S0_allow_any",
+        "operation": "iokit-open-service",
+        "path": "IOUSBHostInterface",
+        "expected": "allow",
+        "actual": "deny",
+        "match": false,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 2,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": 0,
+            "errno": 0,
+            "errbuf": null,
+            "err_class": "ok",
+            "err_class_source": "none"
+          },
+          "runner_info": null,
+          "seatbelt_callouts": null
+        },
+        "violation_summary": null,
+        "command": [
+          "book/evidence/experiments/runtime-checks/sandbox_iokit_probe",
+          "book/evidence/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/runtime_profiles/iokit_open_deny_default.anchor-filter-map_iokit_class_S0_allow_any.runtime.sb",
+          "IOUSBHostInterface"
+        ],
+        "exit_code": 2,
+        "stdout": "{\"found\":false,\"open_kr\":null}\n",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7a706f1f-29ab-4a03-8fb9-09b24eec47ef/book/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/runtime_profiles/iokit_open_deny_default.anchor-filter-map_iokit_class_S0_allow_any.runtime.sb\",\"pid\":84954}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7a706f1f-29ab-4a03-8fb9-09b24eec47ef/book/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/runtime_profiles/iokit_open_deny_default.anchor-filter-map_iokit_class_S0_allow_any.runtime.sb\",\"pid\":84954}\n",
+        "probe_details": null
+      }
+    ],
+    "notes": "runtime results diverged from expected allow/deny matrix",
+    "schema_version": "runtime-tools.runtime_results.v0.1",
+    "run_id": "7a706f1f-29ab-4a03-8fb9-09b24eec47ef"
+  },
+  "anchor-filter-map:iokit_class:S1_allow_class": {
+    "status": "partial",
+    "profile_path": "book/evidence/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/runtime_profiles/iokit_open_deny_default.anchor-filter-map_iokit_class_S1_allow_class.runtime.sb",
+    "base_profile_path": "book/evidence/experiments/anchor-filter-map/sb/iokit_open_deny_default.sb",
+    "preflight": {
+      "tool": "book/tools/preflight",
+      "preflight_schema_version": 1,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/runtime_profiles/iokit_open_deny_default.anchor-filter-map_iokit_class_S1_allow_class.runtime.sb",
+      "classification": "no_known_apply_gate_signature",
+      "signature": null,
+      "findings": []
+    },
+    "probes": [
+      {
+        "name": "S1_allow_class",
+        "expectation_id": "anchor-filter-map:iokit_class:S1_allow_class",
+        "operation": "iokit-open-service",
+        "path": "IOUSBHostInterface",
+        "expected": "allow",
+        "actual": "deny",
+        "match": false,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 2,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": 0,
+            "errno": 0,
+            "errbuf": null,
+            "err_class": "ok",
+            "err_class_source": "none"
+          },
+          "runner_info": null,
+          "seatbelt_callouts": null
+        },
+        "violation_summary": null,
+        "command": [
+          "book/evidence/experiments/runtime-checks/sandbox_iokit_probe",
+          "book/evidence/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/runtime_profiles/iokit_open_deny_default.anchor-filter-map_iokit_class_S1_allow_class.runtime.sb",
+          "IOUSBHostInterface"
+        ],
+        "exit_code": 2,
+        "stdout": "{\"found\":false,\"open_kr\":null}\n",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7a706f1f-29ab-4a03-8fb9-09b24eec47ef/book/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/runtime_profiles/iokit_open_deny_default.anchor-filter-map_iokit_class_S1_allow_class.runtime.sb\",\"pid\":84955}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7a706f1f-29ab-4a03-8fb9-09b24eec47ef/book/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/runtime_profiles/iokit_open_deny_default.anchor-filter-map_iokit_class_S1_allow_class.runtime.sb\",\"pid\":84955}\n",
+        "probe_details": null
+      }
+    ],
+    "notes": "runtime results diverged from expected allow/deny matrix",
+    "schema_version": "runtime-tools.runtime_results.v0.1",
+    "run_id": "7a706f1f-29ab-4a03-8fb9-09b24eec47ef"
+  },
+  "anchor-filter-map:iokit_class:S2_allow_property_literal": {
+    "status": "partial",
+    "profile_path": "book/evidence/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/runtime_profiles/iokit_open_deny_default.anchor-filter-map_iokit_class_S2_allow_property_literal.runtime.sb",
+    "base_profile_path": "book/evidence/experiments/anchor-filter-map/sb/iokit_open_deny_default.sb",
+    "preflight": {
+      "tool": "book/tools/preflight",
+      "preflight_schema_version": 1,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/runtime_profiles/iokit_open_deny_default.anchor-filter-map_iokit_class_S2_allow_property_literal.runtime.sb",
+      "classification": "no_known_apply_gate_signature",
+      "signature": null,
+      "findings": []
+    },
+    "probes": [
+      {
+        "name": "S2_allow_property_literal",
+        "expectation_id": "anchor-filter-map:iokit_class:S2_allow_property_literal",
+        "operation": "iokit-open-service",
+        "path": "IOUSBHostInterface",
+        "expected": "allow",
+        "actual": "deny",
+        "match": false,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 2,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": 0,
+            "errno": 0,
+            "errbuf": null,
+            "err_class": "ok",
+            "err_class_source": "none"
+          },
+          "runner_info": null,
+          "seatbelt_callouts": null
+        },
+        "violation_summary": null,
+        "command": [
+          "book/evidence/experiments/runtime-checks/sandbox_iokit_probe",
+          "book/evidence/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/runtime_profiles/iokit_open_deny_default.anchor-filter-map_iokit_class_S2_allow_property_literal.runtime.sb",
+          "IOUSBHostInterface"
+        ],
+        "exit_code": 2,
+        "stdout": "{\"found\":false,\"open_kr\":null}\n",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7a706f1f-29ab-4a03-8fb9-09b24eec47ef/book/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/runtime_profiles/iokit_open_deny_default.anchor-filter-map_iokit_class_S2_allow_property_literal.runtime.sb\",\"pid\":84956}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7a706f1f-29ab-4a03-8fb9-09b24eec47ef/book/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/runtime_profiles/iokit_open_deny_default.anchor-filter-map_iokit_class_S2_allow_property_literal.runtime.sb\",\"pid\":84956}\n",
+        "probe_details": null
+      }
+    ],
+    "notes": "runtime results diverged from expected allow/deny matrix",
+    "schema_version": "runtime-tools.runtime_results.v0.1",
+    "run_id": "7a706f1f-29ab-4a03-8fb9-09b24eec47ef"
+  },
+  "anchor-filter-map:iokit_class:S3_allow_both": {
+    "status": "partial",
+    "profile_path": "book/evidence/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/runtime_profiles/iokit_open_deny_default.anchor-filter-map_iokit_class_S3_allow_both.runtime.sb",
+    "base_profile_path": "book/evidence/experiments/anchor-filter-map/sb/iokit_open_deny_default.sb",
+    "preflight": {
+      "tool": "book/tools/preflight",
+      "preflight_schema_version": 1,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/runtime_profiles/iokit_open_deny_default.anchor-filter-map_iokit_class_S3_allow_both.runtime.sb",
+      "classification": "no_known_apply_gate_signature",
+      "signature": null,
+      "findings": []
+    },
+    "probes": [
+      {
+        "name": "S3_allow_both",
+        "expectation_id": "anchor-filter-map:iokit_class:S3_allow_both",
+        "operation": "iokit-open-service",
+        "path": "IOUSBHostInterface",
+        "expected": "allow",
+        "actual": "deny",
+        "match": false,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 2,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": 0,
+            "errno": 0,
+            "errbuf": null,
+            "err_class": "ok",
+            "err_class_source": "none"
+          },
+          "runner_info": null,
+          "seatbelt_callouts": null
+        },
+        "violation_summary": null,
+        "command": [
+          "book/evidence/experiments/runtime-checks/sandbox_iokit_probe",
+          "book/evidence/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/runtime_profiles/iokit_open_deny_default.anchor-filter-map_iokit_class_S3_allow_both.runtime.sb",
+          "IOUSBHostInterface"
+        ],
+        "exit_code": 2,
+        "stdout": "{\"found\":false,\"open_kr\":null}\n",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7a706f1f-29ab-4a03-8fb9-09b24eec47ef/book/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/runtime_profiles/iokit_open_deny_default.anchor-filter-map_iokit_class_S3_allow_both.runtime.sb\",\"pid\":84957}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7a706f1f-29ab-4a03-8fb9-09b24eec47ef/book/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/runtime_profiles/iokit_open_deny_default.anchor-filter-map_iokit_class_S3_allow_both.runtime.sb\",\"pid\":84957}\n",
+        "probe_details": null
+      }
+    ],
+    "notes": "runtime results diverged from expected allow/deny matrix",
+    "schema_version": "runtime-tools.runtime_results.v0.1",
+    "run_id": "7a706f1f-29ab-4a03-8fb9-09b24eec47ef"
+  },
+  "anchor-filter-map:iokit_class:N1_deny_default": {
+    "status": "ok",
+    "profile_path": "book/evidence/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/runtime_profiles/iokit_open_deny_default.anchor-filter-map_iokit_class_N1_deny_default.runtime.sb",
+    "base_profile_path": "book/evidence/experiments/anchor-filter-map/sb/iokit_open_deny_default.sb",
+    "preflight": {
+      "tool": "book/tools/preflight",
+      "preflight_schema_version": 1,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/runtime_profiles/iokit_open_deny_default.anchor-filter-map_iokit_class_N1_deny_default.runtime.sb",
+      "classification": "no_known_apply_gate_signature",
+      "signature": null,
+      "findings": []
+    },
+    "probes": [
+      {
+        "name": "N1_deny_default",
+        "expectation_id": "anchor-filter-map:iokit_class:N1_deny_default",
+        "operation": "iokit-open-service",
+        "path": "IOUSBHostInterface",
+        "expected": "deny",
+        "actual": "deny",
+        "match": true,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 2,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": 0,
+            "errno": 0,
+            "errbuf": null,
+            "err_class": "ok",
+            "err_class_source": "none"
+          },
+          "runner_info": null,
+          "seatbelt_callouts": null
+        },
+        "violation_summary": null,
+        "command": [
+          "book/evidence/experiments/runtime-checks/sandbox_iokit_probe",
+          "book/evidence/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/runtime_profiles/iokit_open_deny_default.anchor-filter-map_iokit_class_N1_deny_default.runtime.sb",
+          "IOUSBHostInterface"
+        ],
+        "exit_code": 2,
+        "stdout": "{\"found\":false,\"open_kr\":null}\n",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7a706f1f-29ab-4a03-8fb9-09b24eec47ef/book/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/runtime_profiles/iokit_open_deny_default.anchor-filter-map_iokit_class_N1_deny_default.runtime.sb\",\"pid\":84958}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7a706f1f-29ab-4a03-8fb9-09b24eec47ef/book/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/runtime_profiles/iokit_open_deny_default.anchor-filter-map_iokit_class_N1_deny_default.runtime.sb\",\"pid\":84958}\n",
+        "probe_details": null
+      },
+      {
+        "name": "bogus_baseline",
+        "expectation_id": "anchor-filter-map:iokit_class:bogus_baseline",
+        "operation": "iokit-open-service",
+        "path": "IOSandboxLoreAnchorFilterBogus",
+        "expected": "deny",
+        "actual": "deny",
+        "match": true,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 2,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": 0,
+            "errno": 0,
+            "errbuf": null,
+            "err_class": "ok",
+            "err_class_source": "none"
+          },
+          "runner_info": null,
+          "seatbelt_callouts": null
+        },
+        "violation_summary": null,
+        "command": [
+          "book/evidence/experiments/runtime-checks/sandbox_iokit_probe",
+          "book/evidence/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/runtime_profiles/iokit_open_deny_default.anchor-filter-map_iokit_class_N1_deny_default.runtime.sb",
+          "IOSandboxLoreAnchorFilterBogus"
+        ],
+        "exit_code": 2,
+        "stdout": "{\"found\":false,\"open_kr\":null}\n",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7a706f1f-29ab-4a03-8fb9-09b24eec47ef/book/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/runtime_profiles/iokit_open_deny_default.anchor-filter-map_iokit_class_N1_deny_default.runtime.sb\",\"pid\":84959}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7a706f1f-29ab-4a03-8fb9-09b24eec47ef/book/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/runtime_profiles/iokit_open_deny_default.anchor-filter-map_iokit_class_N1_deny_default.runtime.sb\",\"pid\":84959}\n",
+        "probe_details": null
+      }
+    ],
+    "schema_version": "runtime-tools.runtime_results.v0.1",
+    "run_id": "7a706f1f-29ab-4a03-8fb9-09b24eec47ef"
+  },
+  "anchor-filter-map:iokit_class:C1_deny_class": {
+    "status": "ok",
+    "profile_path": "book/evidence/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/runtime_profiles/iokit_open_allow_default.anchor-filter-map_iokit_class_C1_deny_class.runtime.sb",
+    "base_profile_path": "book/evidence/experiments/anchor-filter-map/sb/iokit_open_allow_default.sb",
+    "preflight": {
+      "tool": "book/tools/preflight",
+      "preflight_schema_version": 1,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/runtime_profiles/iokit_open_allow_default.anchor-filter-map_iokit_class_C1_deny_class.runtime.sb",
+      "classification": "no_known_apply_gate_signature",
+      "signature": null,
+      "findings": []
+    },
+    "probes": [
+      {
+        "name": "C1_deny_class",
+        "expectation_id": "anchor-filter-map:iokit_class:C1_deny_class",
+        "operation": "iokit-open-service",
+        "path": "IOUSBHostInterface",
+        "expected": "deny",
+        "actual": "deny",
+        "match": true,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 2,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": 0,
+            "errno": 0,
+            "errbuf": null,
+            "err_class": "ok",
+            "err_class_source": "none"
+          },
+          "runner_info": null,
+          "seatbelt_callouts": null
+        },
+        "violation_summary": null,
+        "command": [
+          "book/evidence/experiments/runtime-checks/sandbox_iokit_probe",
+          "book/evidence/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/runtime_profiles/iokit_open_allow_default.anchor-filter-map_iokit_class_C1_deny_class.runtime.sb",
+          "IOUSBHostInterface"
+        ],
+        "exit_code": 2,
+        "stdout": "{\"found\":false,\"open_kr\":null}\n",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7a706f1f-29ab-4a03-8fb9-09b24eec47ef/book/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/runtime_profiles/iokit_open_allow_default.anchor-filter-map_iokit_class_C1_deny_class.runtime.sb\",\"pid\":84960}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7a706f1f-29ab-4a03-8fb9-09b24eec47ef/book/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/runtime_profiles/iokit_open_allow_default.anchor-filter-map_iokit_class_C1_deny_class.runtime.sb\",\"pid\":84960}\n",
+        "probe_details": null
+      }
+    ],
+    "schema_version": "runtime-tools.runtime_results.v0.1",
+    "run_id": "7a706f1f-29ab-4a03-8fb9-09b24eec47ef"
+  },
+  "anchor-filter-map:iokit_class:C2_deny_property_literal": {
+    "status": "ok",
+    "profile_path": "book/evidence/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/runtime_profiles/iokit_open_allow_default.anchor-filter-map_iokit_class_C2_deny_property_literal.runtime.sb",
+    "base_profile_path": "book/evidence/experiments/anchor-filter-map/sb/iokit_open_allow_default.sb",
+    "preflight": {
+      "tool": "book/tools/preflight",
+      "preflight_schema_version": 1,
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "input_kind": "sbpl_path",
+      "input_ref": "book/evidence/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/runtime_profiles/iokit_open_allow_default.anchor-filter-map_iokit_class_C2_deny_property_literal.runtime.sb",
+      "classification": "no_known_apply_gate_signature",
+      "signature": null,
+      "findings": []
+    },
+    "probes": [
+      {
+        "name": "C2_deny_property_literal",
+        "expectation_id": "anchor-filter-map:iokit_class:C2_deny_property_literal",
+        "operation": "iokit-open-service",
+        "path": "IOUSBHostInterface",
+        "expected": "deny",
+        "actual": "deny",
+        "match": true,
+        "runtime_result": {
+          "status": "errno",
+          "errno": 2,
+          "runtime_result_schema_version": 1,
+          "tool_marker_schema_version": 2,
+          "failure_stage": "probe",
+          "failure_kind": "probe_nonzero_exit",
+          "apply_report": {
+            "api": "sandbox_init",
+            "rc": 0,
+            "errno": 0,
+            "errbuf": null,
+            "err_class": "ok",
+            "err_class_source": "none"
+          },
+          "runner_info": null,
+          "seatbelt_callouts": null
+        },
+        "violation_summary": null,
+        "command": [
+          "book/evidence/experiments/runtime-checks/sandbox_iokit_probe",
+          "book/evidence/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/runtime_profiles/iokit_open_allow_default.anchor-filter-map_iokit_class_C2_deny_property_literal.runtime.sb",
+          "IOUSBHostInterface"
+        ],
+        "exit_code": 2,
+        "stdout": "{\"found\":false,\"open_kr\":null}\n",
+        "stderr": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7a706f1f-29ab-4a03-8fb9-09b24eec47ef/book/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/runtime_profiles/iokit_open_allow_default.anchor-filter-map_iokit_class_C2_deny_property_literal.runtime.sb\",\"pid\":84961}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.7a706f1f-29ab-4a03-8fb9-09b24eec47ef/book/experiments/anchor-filter-map/iokit-class/out/7a706f1f-29ab-4a03-8fb9-09b24eec47ef/runtime_profiles/iokit_open_allow_default.anchor-filter-map_iokit_class_C2_deny_property_literal.runtime.sb\",\"pid\":84961}\n",
+        "probe_details": null
+      }
+    ],
+    "schema_version": "runtime-tools.runtime_results.v0.1",
+    "run_id": "7a706f1f-29ab-4a03-8fb9-09b24eec47ef"
+  }
+}

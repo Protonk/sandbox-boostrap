@@ -10,6 +10,7 @@ ROOT = path_utils.find_repo_root(Path(__file__))
 PACKET_PATH = (
     ROOT
     / "book"
+    / "evidence"
     / "experiments"
     / "runtime-final-final"
     / "evidence"
@@ -34,6 +35,7 @@ def test_graph_shape_semantics_packet_consumer(tmp_path):
     script = (
         ROOT
         / "book"
+        / "evidence"
         / "experiments"
         / "runtime-final-final"
         / "suites"
@@ -79,8 +81,8 @@ def test_graph_shape_semantics_packet_consumer(tmp_path):
 
 def _iter_consumer_files() -> list[Path]:
     roots = [
-        ROOT / "book" / "experiments" / "field2-final-final" / "field2-atlas",
-        ROOT / "book" / "experiments" / "runtime-final-final" / "suites" / "graph-shape-vs-semantics",
+        ROOT / "book" / "evidence" / "experiments" / "field2-final-final" / "field2-atlas",
+        ROOT / "book" / "evidence" / "experiments" / "runtime-final-final" / "suites" / "graph-shape-vs-semantics",
     ]
     files: list[Path] = []
     for root in roots:

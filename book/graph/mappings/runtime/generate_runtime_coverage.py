@@ -14,8 +14,8 @@ from typing import Dict, Any, List
 import sys
 
 ROOT = Path(__file__).resolve().parents[4]
-RUNTIME_STORY = ROOT / "book/graph/mappings/runtime_cuts/runtime_story.json"
-OUT = ROOT / "book/graph/mappings/runtime/runtime_coverage.json"
+RUNTIME_STORY = ROOT / "book/evidence/graph/mappings/runtime_cuts/runtime_story.json"
+OUT = ROOT / "book/evidence/graph/mappings/runtime/runtime_coverage.json"
 
 SCRIPT_ROOT = Path(__file__).resolve().parent
 if str(SCRIPT_ROOT) not in sys.path:
@@ -147,7 +147,7 @@ def generate(packet_paths: List[Path] | None = None, impact_map_path: Path | Non
     impact_map = load_json(impact_map_path) if impact_map_path else {}
 
     story_meta = story.get("meta") or {}
-    story_inputs = story_meta.get("inputs") or ["book/graph/mappings/runtime_cuts/runtime_story.json"]
+    story_inputs = story_meta.get("inputs") or ["book/evidence/graph/mappings/runtime_cuts/runtime_story.json"]
     inputs = list(story_inputs)
     input_hashes = dict(story_meta.get("input_hashes") or {})
     source_jobs = ["promotion_packet"]

@@ -3,7 +3,7 @@
 Doctor performs a hypothesis-tier checkup of a candidate world baseline by
 verifying dyld manifest integrity and comparing host identity signals.
 Evidence tier: hypothesis. Mapping path: none (see
-`book/graph/concepts/BEDROCK_SURFACES.json` for bedrock surfaces).
+`book/evidence/graph/concepts/BEDROCK_SURFACES.json` for bedrock surfaces).
 
 What it checks:
 - world.json and dyld/manifest.json resolution (plus registry lookups)

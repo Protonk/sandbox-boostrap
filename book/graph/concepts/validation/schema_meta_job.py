@@ -110,7 +110,7 @@ def run_schema_job():
         "status": status,
         "tier": "mapped",
         "host": host,
-        "inputs": [rel(STATUS_PATH), "book/graph/concepts/validation/out/experiments/*/status.json"],
+        "inputs": [rel(STATUS_PATH), "book/evidence/graph/concepts/validation/out/experiments/*/status.json"],
         "outputs": [],
         "notes": "; ".join(errors) if errors else "status files conform to schema",
         "metrics": {"checked": len(sources), "errors": len(errors)},

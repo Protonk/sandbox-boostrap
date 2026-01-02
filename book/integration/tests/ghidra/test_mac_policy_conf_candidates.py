@@ -3,7 +3,7 @@ from pathlib import Path
 
 
 def test_mac_policy_conf_candidates_schema():
-    path = Path("book/dumps/ghidra/out/14.4.1-23E224/sandbox-kext-conf-scan/mac_policy_conf_candidates.json")
+    path = Path("book/evidence/dumps/ghidra/out/14.4.1-23E224/sandbox-kext-conf-scan/mac_policy_conf_candidates.json")
     assert path.exists(), "mac_policy_conf_candidates.json missing; run sandbox-kext-conf-scan task"
     data = json.loads(path.read_text())
     assert "meta" in data and "candidates" in data

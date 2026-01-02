@@ -1,0 +1,70 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-mapping.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "tier": "mapped",
+    "source_jobs": [],
+    "notes": "per-scenario traces"
+  },
+  "traces": {
+    "hardened:mach_lookup:deny-cfprefsd": [
+      "book/evidence/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_mappings/traces/hardened_mach_lookup_deny-cfprefsd.jsonl"
+    ],
+    "hardened:mach_lookup:deny-bogus": [
+      "book/evidence/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_mappings/traces/hardened_mach_lookup_deny-bogus.jsonl"
+    ],
+    "hardened:mach_lookup_allow:allow-cfprefsd": [
+      "book/evidence/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_mappings/traces/hardened_mach_lookup_allow_allow-cfprefsd.jsonl"
+    ],
+    "hardened:notifications:deny-allowed-darwin": [
+      "book/evidence/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_mappings/traces/hardened_notifications_deny-allowed-darwin.jsonl"
+    ],
+    "hardened:notifications:deny-darwin": [
+      "book/evidence/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_mappings/traces/hardened_notifications_deny-darwin.jsonl"
+    ],
+    "hardened:notifications:deny-allowed-distributed": [
+      "book/evidence/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_mappings/traces/hardened_notifications_deny-allowed-distributed.jsonl"
+    ],
+    "hardened:notifications:deny-distributed": [
+      "book/evidence/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_mappings/traces/hardened_notifications_deny-distributed.jsonl"
+    ],
+    "hardened:notifications_allow:allow-darwin": [
+      "book/evidence/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_mappings/traces/hardened_notifications_allow_allow-darwin.jsonl"
+    ],
+    "hardened:notifications_allow:allow-distributed": [
+      "book/evidence/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_mappings/traces/hardened_notifications_allow_allow-distributed.jsonl"
+    ],
+    "hardened:process_info_allow:pidinfo-self": [
+      "book/evidence/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_mappings/traces/hardened_process_info_allow_pidinfo-self.jsonl"
+    ],
+    "hardened:process_info_allow:pidinfo-init": [
+      "book/evidence/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_mappings/traces/hardened_process_info_allow_pidinfo-init.jsonl"
+    ],
+    "hardened:process_info_allow_canary:pidinfo-self": [
+      "book/evidence/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_mappings/traces/hardened_process_info_allow_canary_pidinfo-self.jsonl"
+    ],
+    "hardened:process_info_deny:pidinfo-self": [
+      "book/evidence/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_mappings/traces/hardened_process_info_deny_pidinfo-self.jsonl"
+    ],
+    "hardened:process_info_deny:pidinfo-init": [
+      "book/evidence/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_mappings/traces/hardened_process_info_deny_pidinfo-init.jsonl"
+    ],
+    "hardened:signal_self_allow:signal-same-sandbox": [
+      "book/evidence/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_mappings/traces/hardened_signal_self_allow_signal-same-sandbox.jsonl"
+    ],
+    "hardened:signal_self_deny:signal-same-sandbox": [
+      "book/evidence/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_mappings/traces/hardened_signal_self_deny_signal-same-sandbox.jsonl"
+    ],
+    "hardened:sysctl_read:deny-kern-osrelease": [
+      "book/evidence/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_mappings/traces/hardened_sysctl_read_deny-kern-osrelease.jsonl"
+    ],
+    "hardened:sysctl_read:deny-kern-bootargs": [
+      "book/evidence/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_mappings/traces/hardened_sysctl_read_deny-kern-bootargs.jsonl"
+    ],
+    "hardened:sysctl_read_allow:allow-kern-ostype": [
+      "book/evidence/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_mappings/traces/hardened_sysctl_read_allow_allow-kern-ostype.jsonl"
+    ]
+  }
+}

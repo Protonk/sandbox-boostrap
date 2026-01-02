@@ -24,9 +24,9 @@ from book.graph.concepts.validation.registry import ValidationJob
 ROOT = find_repo_root(Path(__file__))
 WORLD_ID = "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
 
-SBPL_PATH = ROOT / "book/experiments/runtime-final-final/suites/sbpl-graph-runtime/profiles/param_path.sb"
-META_PATH = ROOT / "book/graph/concepts/validation/out/metadata.json"
-STATUS_PATH = ROOT / "book/graph/concepts/validation/out/sbpl_parameterization/status.json"
+SBPL_PATH = ROOT / "book/evidence/experiments/runtime-final-final/suites/sbpl-graph-runtime/profiles/param_path.sb"
+META_PATH = ROOT / "book/evidence/graph/concepts/validation/out/metadata.json"
+STATUS_PATH = ROOT / "book/evidence/graph/concepts/validation/out/sbpl_parameterization/status.json"
 
 PARAM_KEY = "ROOT"
 PARAM_VALUE = "/private/tmp"

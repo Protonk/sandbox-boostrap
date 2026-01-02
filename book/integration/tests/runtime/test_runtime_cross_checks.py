@@ -3,10 +3,11 @@ from pathlib import Path
 
 
 from book.api import path_utils
+
 ROOT = path_utils.find_repo_root(Path(__file__))
-STORY = ROOT / "book" / "graph" / "mappings" / "runtime_cuts" / "runtime_story.json"
-COVERAGE = ROOT / "book" / "graph" / "mappings" / "runtime" / "runtime_coverage.json"
-SIGNATURES = ROOT / "book" / "graph" / "mappings" / "runtime" / "runtime_signatures.json"
+STORY = ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime_cuts" / "runtime_story.json"
+COVERAGE = ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "runtime_coverage.json"
+SIGNATURES = ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "runtime_signatures.json"
 EXPECTED_CATEGORIES = {
     "covered_ok",
     "covered_mismatch_allowed",

@@ -1,0 +1,76 @@
+{
+  "entitlementjail": {
+    "capabilities_snapshot_path": null,
+    "log_path": "book/evidence/experiments/frida-testing/out/a4aa9464-c65d-4f81-847f-c7b4f001d3ef/ej/logs/run_xpc.log",
+    "run_xpc_path": "book/evidence/experiments/frida-testing/out/a4aa9464-c65d-4f81-847f-c7b4f001d3ef/ej/run_xpc.json"
+  },
+  "frida": {
+    "attach_error": null,
+    "attach_meta": {
+      "attach_stage": "post-trigger",
+      "pid": 59951,
+      "pid_candidates": [
+        59951
+      ],
+      "pid_error": null,
+      "pid_matches_service_pid": true,
+      "pid_source": "pgrep",
+      "run_id": "a4aa9464-c65d-4f81-847f-c7b4f001d3ef",
+      "service_pid": "59951",
+      "t0_ns": 1766763873227699000,
+      "trigger_info": {
+        "trigger": {
+          "at_unix_s": 1766763873.2850308,
+          "error": null,
+          "kind": "primary"
+        },
+        "trigger_events": [
+          {
+            "at_unix_s": 1766763873.2850308,
+            "error": null,
+            "kind": "primary"
+          }
+        ],
+        "wait_mode": "fifo",
+        "wait_path": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_fully_injectable/Data/tmp/ej-attach-7E7703C6-8928-47C4-8F42-89EDC7431A78.fifo",
+        "wait_timeout_ms": null
+      },
+      "wait_info": {
+        "wait_mode": "fifo",
+        "wait_path": "/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_fully_injectable/Data/tmp/ej-attach-7E7703C6-8928-47C4-8F42-89EDC7431A78.fifo",
+        "wait_ready_at_unix_s": 1766763873.239778,
+        "wait_ready_line": "[client] wait-ready mode=fifo wait_path=/Users/achyland/Library/Containers/com.yourteam.entitlement-jail.ProbeService_fully_injectable/Data/tmp/ej-attach-7E7703C6-8928-47C4-8F42-89EDC7431A78.fifo",
+        "wait_timeout_ms": null
+      }
+    },
+    "events_path": "book/evidence/experiments/frida-testing/out/a4aa9464-c65d-4f81-847f-c7b4f001d3ef/frida/events.jsonl",
+    "meta_path": "book/evidence/experiments/frida-testing/out/a4aa9464-c65d-4f81-847f-c7b4f001d3ef/frida/meta.json"
+  },
+  "out_dir": "book/evidence/experiments/frida-testing/out/a4aa9464-c65d-4f81-847f-c7b4f001d3ef",
+  "plan_id": "frida-testing:ej-frida",
+  "probe": {
+    "ack_risk": "fully_injectable",
+    "probe_args": [
+      "--op",
+      "stat",
+      "--path-class",
+      "tmp",
+      "--target",
+      "specimen_file"
+    ],
+    "probe_id": "fs_op",
+    "profile_id": "fully_injectable",
+    "service_id": "fully_injectable",
+    "use_profile": true
+  },
+  "row_id": "frida-testing:ej-frida.a4aa9464-c65d-4f81-847f-c7b4f001d3ef",
+  "run_id": "a4aa9464-c65d-4f81-847f-c7b4f001d3ef",
+  "schema_version": 1,
+  "selftest": {
+    "path": null,
+    "prepare_error": null,
+    "prepared": null,
+    "source": null
+  },
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

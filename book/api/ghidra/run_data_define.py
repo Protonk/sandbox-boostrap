@@ -5,7 +5,7 @@ Use when: you want a small wrapper that enforces the correct address format and 
 
 Inputs/outputs:
 - Inputs come from `book/dumps/ghidra/private/aapl-restricted/<build>/...` (KC imported into the project).
-- Outputs land under `book/dumps/ghidra/out/<build>/kernel-data-define/` (data_refs.json, script log).
+- Outputs land under `book/evidence/dumps/ghidra/out/<build>/kernel-data-define/` (data_refs.json, script log).
 
 Address format:
 - Pass targets as `addr:<unsigned hex>` (e.g., `addr:0xffffff800020ef10`). Signed `0x-...` or bare hex will process 0 targets.

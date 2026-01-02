@@ -12,7 +12,7 @@ def _write_fixture(matrix_path: Path, results_path: Path) -> None:
         "world_id": world,
         "profiles": {
             "test:allow": {
-                "blob": "book/experiments/runtime-final-final/suites/runtime-checks/strict_1.sb",
+                "blob": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/strict_1.sb",
                 "mode": "sbpl",
                 "probes": [
                     {

@@ -1,0 +1,105 @@
+{
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "entrypoint": "book/tools/entitlement/EntitlementJail.app/Contents/MacOS/entitlement-jail",
+  "kind": "evidence",
+  "commands": [
+    {
+      "command": [
+        "book/tools/entitlement/EntitlementJail.app/Contents/MacOS/entitlement-jail",
+        "verify-evidence"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"data\": {\n    \"checked\": 20,\n    \"manifest_path\": \"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/tools/entitlement/EntitlementJail.app/Contents/Resources/Evidence/manifest.json\",\n    \"mismatches\": [],\n    \"notes\": [\n      \"Main app binary hash is omitted because the manifest is signed by the app bundle.\"\n    ],\n    \"ok\": true,\n    \"schema_version\": 1\n  },\n  \"generated_at_unix_ms\": 1766618487022,\n  \"kind\": \"verify_evidence_report\",\n  \"result\": {\n    \"errno\": null,\n    \"error\": null,\n    \"exit_code\": 0,\n    \"normalized_outcome\": null,\n    \"ok\": true,\n    \"rc\": null,\n    \"stderr\": null,\n    \"stdout\": null\n  },\n  \"schema_version\": 1\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "book/tools/entitlement/EntitlementJail.app/Contents/MacOS/entitlement-jail",
+        "inspect-macho",
+        "main"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"data\": {\n    \"app_root\": \"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/tools/entitlement/EntitlementJail.app\",\n    \"entry\": {\n      \"abs_path\": \"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/tools/entitlement/EntitlementJail.app/Contents/MacOS/entitlement-jail\",\n      \"bundle_id\": \"com.yourteam.entitlement-jail\",\n      \"entitlements\": {\n        \"com.apple.security.app-sandbox\": true\n      },\n      \"entitlements_error\": null,\n      \"id\": \"main\",\n      \"kind\": \"main\",\n      \"lc_uuid\": null,\n      \"rel_path\": \"Contents/MacOS/entitlement-jail\",\n      \"sha256\": null\n    },\n    \"manifest_path\": \"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/tools/entitlement/EntitlementJail.app/Contents/Resources/Evidence/manifest.json\",\n    \"selector\": \"main\"\n  },\n  \"generated_at_unix_ms\": 1766618487030,\n  \"kind\": \"inspect_macho_report\",\n  \"result\": {\n    \"errno\": null,\n    \"error\": null,\n    \"exit_code\": 0,\n    \"normalized_outcome\": null,\n    \"ok\": true,\n    \"rc\": null,\n    \"stderr\": null,\n    \"stdout\": null\n  },\n  \"schema_version\": 1\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "book/tools/entitlement/EntitlementJail.app/Contents/MacOS/entitlement-jail",
+        "inspect-macho",
+        "evidence.symbols"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"data\": {\n    \"app_root\": \"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/tools/entitlement/EntitlementJail.app\",\n    \"entry\": {\n      \"abs_path\": \"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/tools/entitlement/EntitlementJail.app/Contents/Resources/Evidence/symbols.json\",\n      \"bundle_id\": null,\n      \"entitlements\": null,\n      \"entitlements_error\": null,\n      \"id\": \"evidence.symbols\",\n      \"kind\": \"evidence\",\n      \"lc_uuid\": null,\n      \"rel_path\": \"Contents/Resources/Evidence/symbols.json\",\n      \"sha256\": \"dab685929b638c5ac90ffa805997e484b4c6a84ef054a61dd7089985e54be301\"\n    },\n    \"manifest_path\": \"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/tools/entitlement/EntitlementJail.app/Contents/Resources/Evidence/manifest.json\",\n    \"selector\": \"evidence.symbols\"\n  },\n  \"generated_at_unix_ms\": 1766618487039,\n  \"kind\": \"inspect_macho_report\",\n  \"result\": {\n    \"errno\": null,\n    \"error\": null,\n    \"exit_code\": 0,\n    \"normalized_outcome\": null,\n    \"ok\": true,\n    \"rc\": null,\n    \"stderr\": null,\n    \"stdout\": null\n  },\n  \"schema_version\": 1\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "book/tools/entitlement/EntitlementJail.app/Contents/MacOS/entitlement-jail",
+        "inspect-macho",
+        "evidence.profiles"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"data\": {\n    \"app_root\": \"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/tools/entitlement/EntitlementJail.app\",\n    \"entry\": {\n      \"abs_path\": \"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/tools/entitlement/EntitlementJail.app/Contents/Resources/Evidence/profiles.json\",\n      \"bundle_id\": null,\n      \"entitlements\": null,\n      \"entitlements_error\": null,\n      \"id\": \"evidence.profiles\",\n      \"kind\": \"evidence\",\n      \"lc_uuid\": null,\n      \"rel_path\": \"Contents/Resources/Evidence/profiles.json\",\n      \"sha256\": \"ed976a906ea8c876cbb3beaeea0db6410bcedbe01274e80c2f56639789f4f6db\"\n    },\n    \"manifest_path\": \"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/tools/entitlement/EntitlementJail.app/Contents/Resources/Evidence/manifest.json\",\n    \"selector\": \"evidence.profiles\"\n  },\n  \"generated_at_unix_ms\": 1766618487046,\n  \"kind\": \"inspect_macho_report\",\n  \"result\": {\n    \"errno\": null,\n    \"error\": null,\n    \"exit_code\": 0,\n    \"normalized_outcome\": null,\n    \"ok\": true,\n    \"rc\": null,\n    \"stderr\": null,\n    \"stdout\": null\n  },\n  \"schema_version\": 1\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "book/tools/entitlement/EntitlementJail.app/Contents/MacOS/entitlement-jail",
+        "inspect-macho",
+        "com.yourteam.entitlement-jail.ProbeService_minimal"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"data\": {\n    \"app_root\": \"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/tools/entitlement/EntitlementJail.app\",\n    \"entry\": {\n      \"abs_path\": \"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/tools/entitlement/EntitlementJail.app/Contents/XPCServices/ProbeService_minimal.xpc/Contents/MacOS/ProbeService_minimal\",\n      \"bundle_id\": \"com.yourteam.entitlement-jail.ProbeService_minimal\",\n      \"entitlements\": {\n        \"com.apple.security.app-sandbox\": true\n      },\n      \"entitlements_error\": null,\n      \"id\": \"com.yourteam.entitlement-jail.ProbeService_minimal\",\n      \"kind\": \"xpc-service\",\n      \"lc_uuid\": \"E1F6080D-C4E2-387F-A834-2EA57505138F\",\n      \"rel_path\": \"Contents/XPCServices/ProbeService_minimal.xpc/Contents/MacOS/ProbeService_minimal\",\n      \"sha256\": \"e7d2b99c68a2a3b1d313eb6e4d187053bae0b9bebf40b52a3e831b691f7da112\"\n    },\n    \"manifest_path\": \"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/tools/entitlement/EntitlementJail.app/Contents/Resources/Evidence/manifest.json\",\n    \"selector\": \"com.yourteam.entitlement-jail.ProbeService_minimal\"\n  },\n  \"generated_at_unix_ms\": 1766618487055,\n  \"kind\": \"inspect_macho_report\",\n  \"result\": {\n    \"errno\": null,\n    \"error\": null,\n    \"exit_code\": 0,\n    \"normalized_outcome\": null,\n    \"ok\": true,\n    \"rc\": null,\n    \"stderr\": null,\n    \"stdout\": null\n  },\n  \"schema_version\": 1\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "book/tools/entitlement/EntitlementJail.app/Contents/MacOS/entitlement-jail",
+        "inspect-macho",
+        "com.yourteam.entitlement-jail.ProbeService_bookmarks_app_scope"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"data\": {\n    \"app_root\": \"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/tools/entitlement/EntitlementJail.app\",\n    \"entry\": {\n      \"abs_path\": \"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/tools/entitlement/EntitlementJail.app/Contents/XPCServices/ProbeService_bookmarks_app_scope.xpc/Contents/MacOS/ProbeService_bookmarks_app_scope\",\n      \"bundle_id\": \"com.yourteam.entitlement-jail.ProbeService_bookmarks_app_scope\",\n      \"entitlements\": {\n        \"com.apple.security.app-sandbox\": true,\n        \"com.apple.security.files.bookmarks.app-scope\": true\n      },\n      \"entitlements_error\": null,\n      \"id\": \"com.yourteam.entitlement-jail.ProbeService_bookmarks_app_scope\",\n      \"kind\": \"xpc-service\",\n      \"lc_uuid\": \"5E66E54E-C199-3B95-BC69-636C6C3D928F\",\n      \"rel_path\": \"Contents/XPCServices/ProbeService_bookmarks_app_scope.xpc/Contents/MacOS/ProbeService_bookmarks_app_scope\",\n      \"sha256\": \"17afc533ba0b4bdcf50780c49156e108d53a76b043f3d5d55d191d6565412450\"\n    },\n    \"manifest_path\": \"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/tools/entitlement/EntitlementJail.app/Contents/Resources/Evidence/manifest.json\",\n    \"selector\": \"com.yourteam.entitlement-jail.ProbeService_bookmarks_app_scope\"\n  },\n  \"generated_at_unix_ms\": 1766618487063,\n  \"kind\": \"inspect_macho_report\",\n  \"result\": {\n    \"errno\": null,\n    \"error\": null,\n    \"exit_code\": 0,\n    \"normalized_outcome\": null,\n    \"ok\": true,\n    \"rc\": null,\n    \"stderr\": null,\n    \"stdout\": null\n  },\n  \"schema_version\": 1\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "book/tools/entitlement/EntitlementJail.app/Contents/MacOS/entitlement-jail",
+        "inspect-macho",
+        "com.yourteam.entitlement-jail.ProbeService_downloads_rw"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"data\": {\n    \"app_root\": \"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/tools/entitlement/EntitlementJail.app\",\n    \"entry\": {\n      \"abs_path\": \"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/tools/entitlement/EntitlementJail.app/Contents/XPCServices/ProbeService_downloads_rw.xpc/Contents/MacOS/ProbeService_downloads_rw\",\n      \"bundle_id\": \"com.yourteam.entitlement-jail.ProbeService_downloads_rw\",\n      \"entitlements\": {\n        \"com.apple.security.app-sandbox\": true,\n        \"com.apple.security.files.downloads.read-write\": true\n      },\n      \"entitlements_error\": null,\n      \"id\": \"com.yourteam.entitlement-jail.ProbeService_downloads_rw\",\n      \"kind\": \"xpc-service\",\n      \"lc_uuid\": \"821A2317-3F9A-3E62-9253-260228BAD102\",\n      \"rel_path\": \"Contents/XPCServices/ProbeService_downloads_rw.xpc/Contents/MacOS/ProbeService_downloads_rw\",\n      \"sha256\": \"9c07276637be989e6712bc04d478a67c98e2cfe862aa22370b7d8a201c04bdb1\"\n    },\n    \"manifest_path\": \"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/tools/entitlement/EntitlementJail.app/Contents/Resources/Evidence/manifest.json\",\n    \"selector\": \"com.yourteam.entitlement-jail.ProbeService_downloads_rw\"\n  },\n  \"generated_at_unix_ms\": 1766618487072,\n  \"kind\": \"inspect_macho_report\",\n  \"result\": {\n    \"errno\": null,\n    \"error\": null,\n    \"exit_code\": 0,\n    \"normalized_outcome\": null,\n    \"ok\": true,\n    \"rc\": null,\n    \"stderr\": null,\n    \"stdout\": null\n  },\n  \"schema_version\": 1\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "book/tools/entitlement/EntitlementJail.app/Contents/MacOS/entitlement-jail",
+        "inspect-macho",
+        "com.yourteam.entitlement-jail.ProbeService_net_client"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"data\": {\n    \"app_root\": \"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/tools/entitlement/EntitlementJail.app\",\n    \"entry\": {\n      \"abs_path\": \"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/tools/entitlement/EntitlementJail.app/Contents/XPCServices/ProbeService_net_client.xpc/Contents/MacOS/ProbeService_net_client\",\n      \"bundle_id\": \"com.yourteam.entitlement-jail.ProbeService_net_client\",\n      \"entitlements\": {\n        \"com.apple.security.app-sandbox\": true,\n        \"com.apple.security.network.client\": true\n      },\n      \"entitlements_error\": null,\n      \"id\": \"com.yourteam.entitlement-jail.ProbeService_net_client\",\n      \"kind\": \"xpc-service\",\n      \"lc_uuid\": \"3E3C4324-8E31-3AA6-87E9-0459E8C01A9D\",\n      \"rel_path\": \"Contents/XPCServices/ProbeService_net_client.xpc/Contents/MacOS/ProbeService_net_client\",\n      \"sha256\": \"77450e81cbf80c501469752d3473f0ae03976db44ec8377e493a79ff83f0bf42\"\n    },\n    \"manifest_path\": \"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/tools/entitlement/EntitlementJail.app/Contents/Resources/Evidence/manifest.json\",\n    \"selector\": \"com.yourteam.entitlement-jail.ProbeService_net_client\"\n  },\n  \"generated_at_unix_ms\": 1766618487081,\n  \"kind\": \"inspect_macho_report\",\n  \"result\": {\n    \"errno\": null,\n    \"error\": null,\n    \"exit_code\": 0,\n    \"normalized_outcome\": null,\n    \"ok\": true,\n    \"rc\": null,\n    \"stderr\": null,\n    \"stdout\": null\n  },\n  \"schema_version\": 1\n}\n",
+      "stderr": ""
+    }
+  ],
+  "bundle": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "entrypoint": "book/tools/entitlement/EntitlementJail.app/Contents/MacOS/entitlement-jail",
+    "out_dir": "book/evidence/experiments/entitlement-diff/out/ej/evidence/latest",
+    "source_out_dir_hint": "$HOME/Library/Containers/com.yourteam.entitlement-jail/Data/Library/Application Support/entitlement-jail/evidence/latest",
+    "source_candidates": [
+      "$HOME/Library/Containers/com.yourteam.entitlement-jail/Data/Library/Application Support/entitlement-jail/evidence/latest",
+      "$HOME/Library/Application Support/entitlement-jail/evidence/latest"
+    ],
+    "copy_error": null,
+    "command": [
+      "book/tools/entitlement/EntitlementJail.app/Contents/MacOS/entitlement-jail",
+      "bundle-evidence",
+      "--include-health-check"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"data\": {\n    \"ack_risk\": [],\n    \"app_bundle_id\": \"com.yourteam.entitlement-jail\",\n    \"app_root\": \"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/tools/entitlement/EntitlementJail.app\",\n    \"args\": [\n      \"/Users/achyland/Desktop/VM-BRIDGE/SANDBOX_LORE/book/tools/entitlement/EntitlementJail.app/Contents/MacOS/entitlement-jail\",\n      \"bundle-evidence\",\n      \"--include-health-check\"\n    ],\n    \"generated_at_unix_ms\": 1766618487248,\n    \"health_ok\": true,\n    \"include_health_check\": true,\n    \"output_dir\": \"/Users/achyland/Library/Containers/com.yourteam.entitlement-jail/Data/Library/Application Support/entitlement-jail/evidence/latest\",\n    \"profiles_included\": [\n      \"bookmarks_app_scope\",\n      \"debuggable\",\n      \"downloads_rw\",\n      \"minimal\",\n      \"net_client\",\n      \"plugin_host_relaxed\",\n      \"quarantine_bookmarks_app_scope\",\n      \"quarantine_default\",\n      \"quarantine_downloads_rw\",\n      \"quarantine_net_client\",\n      \"quarantine_user_selected_executable\",\n      \"user_selected_executable\"\n    ],\n    \"profiles_skipped\": [\n      {\n        \"bundle_id\": \"com.yourteam.entitlement-jail.ProbeService_dyld_env_enabled\",\n        \"profile_id\": \"dyld_env_enabled\",\n        \"reason\": \"tier2_requires_ack\",\n        \"risk_reasons\": [\n          \"allow_dyld_env\"\n        ],\n        \"risk_tier\": 2\n      },\n      {\n        \"bundle_id\": \"com.yourteam.entitlement-jail.ProbeService_fully_injectable\",\n        \"profile_id\": \"fully_injectable\",\n        \"reason\": \"tier2_requires_ack\",\n        \"risk_reasons\": [\n          \"allow_dyld_env\",\n          \"allow_jit\",\n          \"allow_unsigned_exec_mem\"\n        ],\n        \"risk_tier\": 2\n      },\n      {\n        \"bundle_id\": \"com.yourteam.entitlement-jail.ProbeService_jit_map_jit\",\n        \"profile_id\": \"jit_map_jit\",\n        \"reason\": \"tier2_requires_ack\",\n        \"risk_reasons\": [\n          \"allow_jit\"\n        ],\n        \"risk_tier\": 2\n      },\n      {\n        \"bundle_id\": \"com.yourteam.entitlement-jail.ProbeService_jit_rwx_legacy\",\n        \"profile_id\": \"jit_rwx_legacy\",\n        \"reason\": \"tier2_requires_ack\",\n        \"risk_reasons\": [\n          \"allow_unsigned_exec_mem\"\n        ],\n        \"risk_tier\": 2\n      }\n    ],\n    \"verify_ok\": true\n  },\n  \"generated_at_unix_ms\": 1766618487248,\n  \"kind\": \"bundle_evidence_report\",\n  \"result\": {\n    \"errno\": null,\n    \"error\": null,\n    \"exit_code\": 0,\n    \"normalized_outcome\": null,\n    \"ok\": true,\n    \"rc\": null,\n    \"stderr\": null,\n    \"stdout\": null\n  },\n  \"schema_version\": 1\n}\n",
+    "stderr": ""
+  }
+}

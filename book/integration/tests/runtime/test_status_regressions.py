@@ -6,25 +6,28 @@ from book.api import evidence_tiers
 
 from book.api import path_utils
 from book.integration.tests.runtime.runtime_bundle_helpers import load_bundle_json
+
 ROOT = path_utils.find_repo_root(Path(__file__))
 BASELINE = ROOT / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world.json"
-VALIDATION_STATUS = ROOT / "book" / "graph" / "concepts" / "validation" / "out" / "validation_status.json"
+VALIDATION_STATUS = (
+    ROOT / "book" / "evidence" / "graph" / "concepts" / "validation" / "out" / "validation_status.json"
+)
 
 STATUS_TARGETS = [
-    ROOT / "book" / "graph" / "mappings" / "system_profiles" / "digests.json",
-    ROOT / "book" / "graph" / "mappings" / "system_profiles" / "static_checks.json",
-    ROOT / "book" / "graph" / "mappings" / "system_profiles" / "attestations.json",
-    ROOT / "book" / "graph" / "mappings" / "vocab" / "ops.json",
-    ROOT / "book" / "graph" / "mappings" / "vocab" / "filters.json",
-    ROOT / "book" / "graph" / "mappings" / "vocab" / "ops_coverage.json",
-    ROOT / "book" / "graph" / "mappings" / "runtime" / "runtime_signatures.json",
-    ROOT / "book" / "graph" / "mappings" / "runtime" / "runtime_coverage.json",
-    ROOT / "book" / "graph" / "mappings" / "runtime" / "expectations.json",
+    ROOT / "book" / "evidence" / "graph" / "mappings" / "system_profiles" / "digests.json",
+    ROOT / "book" / "evidence" / "graph" / "mappings" / "system_profiles" / "static_checks.json",
+    ROOT / "book" / "evidence" / "graph" / "mappings" / "system_profiles" / "attestations.json",
+    ROOT / "book" / "evidence" / "graph" / "mappings" / "vocab" / "ops.json",
+    ROOT / "book" / "evidence" / "graph" / "mappings" / "vocab" / "filters.json",
+    ROOT / "book" / "evidence" / "graph" / "mappings" / "vocab" / "ops_coverage.json",
+    ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "runtime_signatures.json",
+    ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "runtime_coverage.json",
+    ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "expectations.json",
 ]
 RUNTIME_STATUS_TARGETS = {
-    ROOT / "book" / "graph" / "mappings" / "runtime" / "runtime_signatures.json",
-    ROOT / "book" / "graph" / "mappings" / "runtime" / "runtime_coverage.json",
-    ROOT / "book" / "graph" / "mappings" / "runtime" / "expectations.json",
+    ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "runtime_signatures.json",
+    ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "runtime_coverage.json",
+    ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "expectations.json",
 }
 
 # These jobs should remain ok/ok-*; a downgrade is treated as a regression on this world.
@@ -81,13 +84,15 @@ def test_status_regressions():
         if entry.get("tier") not in ALLOWED_TIERS:
             failures.append(f"validation job {job_id} missing/invalid tier: {entry.get('tier')!r}")
 
-    runtime_sig = load_json(ROOT / "book" / "graph" / "mappings" / "runtime" / "runtime_signatures.json")
+    runtime_sig = load_json(ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "runtime_signatures.json")
     meta = runtime_sig.get("metadata") or {}
     if meta.get("status") != "ok":
         # If already partial/brittle, let other tests handle it.
         assert not failures, "\n".join(failures)
         return
-    runtime_adv_out = ROOT / "book" / "experiments" / "runtime-final-final" / "suites" / "runtime-adversarial" / "out"
+    runtime_adv_out = (
+        ROOT / "book" / "evidence" / "experiments" / "runtime-final-final" / "suites" / "runtime-adversarial" / "out"
+    )
     try:
         mismatch_doc = load_bundle_json(runtime_adv_out, "mismatch_summary.json")
     except AssertionError:
@@ -98,7 +103,17 @@ def test_status_regressions():
         assert not failures, "\n".join(failures)
         return
 
-    impact_map_path = ROOT / "book" / "experiments" / "runtime-final-final" / "suites" / "runtime-adversarial" / "out" / "impact_map.json"
+    impact_map_path = (
+        ROOT
+        / "book"
+        / "evidence"
+        / "experiments"
+        / "runtime-final-final"
+        / "suites"
+        / "runtime-adversarial"
+        / "out"
+        / "impact_map.json"
+    )
     impact_map = load_json(impact_map_path) if impact_map_path.exists() else {}
 
     allowed_tags = set((impact_map.get("metadata") or {}).get("allowed_tags") or [])

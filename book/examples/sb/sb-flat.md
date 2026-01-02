@@ -6,7 +6,7 @@ This directory is **docs-only**.
 - Compilation, decoding, and inspection are provided by `book/api/profile/`.
 
 Canonical compiled blob (tracked for this host baseline):
-- `book/graph/concepts/validation/fixtures/blobs/sample.sb.bin`
+- `book/evidence/graph/concepts/validation/fixtures/blobs/sample.sb.bin`
 
 ---
 
@@ -16,7 +16,7 @@ From the repo root:
 
 ```sh
 python -m book.api.profile compile book/examples/sb/sample.sb \
-  --out book/graph/concepts/validation/fixtures/blobs/sample.sb.bin \
+  --out book/evidence/graph/concepts/validation/fixtures/blobs/sample.sb.bin \
   --no-preview
 ```
 
@@ -25,8 +25,8 @@ python -m book.api.profile compile book/examples/sb/sample.sb \
 ## Decode / inspect
 
 ```sh
-python -m book.api.profile inspect book/graph/concepts/validation/fixtures/blobs/sample.sb.bin
-python -m book.api.profile decode dump book/graph/concepts/validation/fixtures/blobs/sample.sb.bin --summary
+python -m book.api.profile inspect book/evidence/graph/concepts/validation/fixtures/blobs/sample.sb.bin
+python -m book.api.profile decode dump book/evidence/graph/concepts/validation/fixtures/blobs/sample.sb.bin --summary
 ```
 
 ---

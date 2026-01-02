@@ -1,0 +1,38 @@
+{
+  "apply_preflight_profile": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/apply_preflight_allow.sb",
+  "controls": {
+    "baseline": true
+  },
+  "lanes": {
+    "baseline": true,
+    "oracle": true,
+    "scenario": true
+  },
+  "notes": "Runtime closure lanes for canonicalization, mach, and IOSurface user-client probes to support probe-op-structure.",
+  "plan_id": "runtime-closure.v7",
+  "profiles": [
+    "runtime-closure:file:v2_alias_literals",
+    "runtime-closure:file:v2_private_literals",
+    "runtime-closure:file:v2_data_literals",
+    "runtime-closure:oracle:v1_calibration",
+    "runtime-closure:mach:v1_service_discriminator",
+    "runtime-closure:iokit:v5_service_only",
+    "runtime-closure:iokit:v6_user_client_only",
+    "runtime-closure:iokit:v7_service_user_client_both",
+    "runtime-closure:iokit:v19_capture_replay",
+    "runtime-closure:iokit:v20_replay_tuple",
+    "runtime-closure:iokit:v12_service_user_client_cvmsserv",
+    "runtime-closure:iokit:v13_ioaccelerator_connection",
+    "runtime-closure:iokit:v14_iosurface_send_right",
+    "runtime-closure:iokit:v15_ioacceleration_user_client",
+    "runtime-closure:iokit:v16_service_only_registry",
+    "runtime-closure:iokit:v17_user_client_registry",
+    "runtime-closure:iokit:v18_service_user_client_registry",
+    "runtime-closure:iokit:v9_message_filter_deny",
+    "runtime-closure:iokit:v10_message_filter_allow",
+    "runtime-closure:iokit:v11_report_loud"
+  ],
+  "registry_id": "runtime-closure",
+  "schema_version": "runtime-tools.plan.v0.1",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

@@ -17,7 +17,7 @@ We attempted, starting from the project’s substrate (a commitment to a small c
 
 ### Background and early suspicion
 
-The project’s [decoded policy graphs](../../book/experiments/node-layout/Report.md) expose a familiar shape for each node: two edge pointers and a third 16-bit payload, dubbed `field2`. For most nodes on this Sonoma host, `field2` lines up cleanly with the harvested filter vocabulary: path, mount-relative-path, global/local name, socket-type, iokit filters, and so on. System profiles ([airlock, bsd, sample](../../book/experiments/system-profile-digest/Report.md)) reinforce those mappings, and their low `field2` values land directly on the 93-entry filter table in `book/graph/mappings/vocab/filters.json`.
+The project’s [decoded policy graphs](../../book/experiments/node-layout/Report.md) expose a familiar shape for each node: two edge pointers and a third 16-bit payload, dubbed `field2`. For most nodes on this Sonoma host, `field2` lines up cleanly with the harvested filter vocabulary: path, mount-relative-path, global/local name, socket-type, iokit filters, and so on. System profiles ([airlock, bsd, sample](../../book/experiments/system-profile-digest/Report.md)) reinforce those mappings, and their low `field2` values land directly on the 93-entry filter table in `book/evidence/graph/mappings/vocab/filters.json`.
 
 But a small set of nodes in richer profiles do something else entirely. In the bsd profile, the tail region carries high `field2` codes like 16660 and nearby 170/174/115/109; in airlock, there are clusters around 165/166/10752 and a 0xffff sentinel; in flow-divert mixed profiles, a `com.apple.flow-divert` branch carries 2560 that disappears as soon as the profile is simplified. These values don’t match the known filter IDs, literal indices, or obvious derived indices.
 
@@ -96,7 +96,7 @@ From there, the human user largely stepped out, and the interaction became a str
 
 There were a few distinct phases.
 
-First, the environment had to be made workable. Headless [Ghidra](../../book/api/ghidra/README.md) runs were blocked by the usual JDK selection prompt and writes under the real `$HOME`. The web agent explained how Ghidra locates its settings directory and `java_home.save` cache, and suggested redirecting both to repo-local paths; the codex agent implemented that pattern so `analyzeHeadless` could run against the BootKernelCollection and reuse an existing project without interactive prompts. That setup became reusable infrastructure for everything that followed and is now the standard recipe for kernel tasks under `book/dumps/ghidra/out/14.4.1-23E224`.
+First, the environment had to be made workable. Headless [Ghidra](../../book/api/ghidra/README.md) runs were blocked by the usual JDK selection prompt and writes under the real `$HOME`. The web agent explained how Ghidra locates its settings directory and `java_home.save` cache, and suggested redirecting both to repo-local paths; the codex agent implemented that pattern so `analyzeHeadless` could run against the BootKernelCollection and reuse an existing project without interactive prompts. That setup became reusable infrastructure for everything that followed and is now the standard recipe for kernel tasks under `book/evidence/dumps/ghidra/out/14.4.1-23E224`.
 
 Second, the codex agent built and used a small family of Ghidra scripts:
 
@@ -160,7 +160,7 @@ That closure has several concrete advantages:
 
 * It prevents future agents or contributors from silently re-running the same “maybe there’s a node array / hi-bit flag” lines of attack every time `field2` comes up.
 * It clarifies that further progress on `field2` mapping will require genuinely new work—dynamic analysis of specific helpers, or a userland `libsandbox` compiler study—rather than more fine-grained heuristics over the same KC.
-* It leaves behind improved tooling and wiring: more reliable headless Ghidra on this host, reusable scan scripts, and schema-tagged outputs that can be fed into later experiments. In practice this means the `book/api/ghidra` scaffold, the `find_field2_evaluator` and `kernel_node_struct_scan` tasks, and their outputs under `book/dumps/ghidra/out/14.4.1-23E224/` now serve as the common entrypoint for any kernel/evaluator work the textbook needs, not just this one trouble.
+* It leaves behind improved tooling and wiring: more reliable headless Ghidra on this host, reusable scan scripts, and schema-tagged outputs that can be fed into later experiments. In practice this means the `book/api/ghidra` scaffold, the `find_field2_evaluator` and `kernel_node_struct_scan` tasks, and their outputs under `book/evidence/dumps/ghidra/out/14.4.1-23E224/` now serve as the common entrypoint for any kernel/evaluator work the textbook needs, not just this one trouble.
 
 The jumping-off points are therefore fairly crisp: if the project wants to learn more about high `field2` values, it can design a new experiment that either:
 

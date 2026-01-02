@@ -59,7 +59,7 @@ These examples assume a macOS system with:
   ```sh
   # Note: example dir is docs-only; runnable probe lives under book/api/.
   python -m book.api.lifecycle entitlements \
-    --out book/graph/concepts/validation/out/lifecycle/entitlements.json
+    --out book/evidence/graph/concepts/validation/out/lifecycle/entitlements.json
 ```
 
 * **Concept:** Entitlements as sandbox inputs. Same binary, different signatures/entitlements → different sandbox outcomes.
@@ -87,7 +87,7 @@ These examples assume a macOS system with:
   ```sh
   # Note: example dir is docs-only; runnable probe lives under book/api/.
   python -m book.api.lifecycle extensions \
-    --out book/graph/concepts/validation/out/lifecycle/extensions_dynamic.md
+    --out book/evidence/graph/concepts/validation/out/lifecycle/extensions_dynamic.md
   ```
 * **Concept:** Sandbox extensions as **dynamic capabilities** stacked on top of platform and per-process policy. Expected to fail issuance on unentitled CLIs; focus is on the API pattern.
 
@@ -199,10 +199,10 @@ Use these when you need to **compile, extract, disassemble, or visualize profile
   python -m book.api.profile compile \
     /System/Library/Sandbox/Profiles/airlock.sb \
     /System/Library/Sandbox/Profiles/bsd.sb \
-    --out-dir book/graph/concepts/validation/fixtures/blobs \
+    --out-dir book/evidence/graph/concepts/validation/fixtures/blobs \
     --no-preview
   ```
-* **Concept:** Harvesting system profiles for decoding. Canonical blobs for this host are tracked at `book/graph/concepts/validation/fixtures/blobs/{airlock,bsd}.sb.bin`.
+* **Concept:** Harvesting system profiles for decoding. Canonical blobs for this host are tracked at `book/evidence/graph/concepts/validation/fixtures/blobs/{airlock,bsd}.sb.bin`.
 
 ---
 
@@ -250,10 +250,10 @@ Use these when you need to **compile, extract, disassemble, or visualize profile
 
   ```sh
   python -m book.api.profile compile book/examples/sb/sample.sb \
-    --out book/graph/concepts/validation/fixtures/blobs/sample.sb.bin \
+    --out book/evidence/graph/concepts/validation/fixtures/blobs/sample.sb.bin \
     --no-preview
   ```
-* **Concept:** Small end-to-end **SBPL → binary → header/sections** sample for the modern graph-based format. Canonical compiled blob: `book/graph/concepts/validation/fixtures/blobs/sample.sb.bin`.
+* **Concept:** Small end-to-end **SBPL → binary → header/sections** sample for the modern graph-based format. Canonical compiled blob: `book/evidence/graph/concepts/validation/fixtures/blobs/sample.sb.bin`.
 
 ---
 

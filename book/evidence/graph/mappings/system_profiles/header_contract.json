@@ -1,0 +1,66 @@
+{
+  "metadata": {
+    "inputs": [
+      "book/evidence/graph/concepts/validation/fixtures/blobs/airlock.sb.bin",
+      "book/evidence/graph/concepts/validation/fixtures/blobs/bsd.sb.bin",
+      "book/evidence/graph/concepts/validation/fixtures/blobs/sample.sb.bin"
+    ],
+    "notes": "Preamble (first 16 bytes) contract for canonical system profiles on this host.",
+    "source_jobs": [
+      "generator:system_profiles:header_contract"
+    ],
+    "status": "ok",
+    "tier": "mapped",
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+  },
+  "profiles": {
+    "sys:airlock": {
+      "header_words": [
+        16384,
+        167,
+        190,
+        0,
+        0,
+        1,
+        7,
+        283
+      ],
+      "length": 4662,
+      "maybe_flags_word": 16384,
+      "op_count_word": 167,
+      "source": "book/evidence/graph/concepts/validation/fixtures/blobs/airlock.sb.bin"
+    },
+    "sys:bsd": {
+      "header_words": [
+        0,
+        28,
+        190,
+        0,
+        0,
+        0,
+        0,
+        27
+      ],
+      "length": 2140,
+      "maybe_flags_word": 0,
+      "op_count_word": 28,
+      "source": "book/evidence/graph/concepts/validation/fixtures/blobs/bsd.sb.bin"
+    },
+    "sys:sample": {
+      "header_words": [
+        0,
+        9,
+        190,
+        0,
+        0,
+        0,
+        0,
+        8
+      ],
+      "length": 583,
+      "maybe_flags_word": 0,
+      "op_count_word": 9,
+      "source": "book/evidence/graph/concepts/validation/fixtures/blobs/sample.sb.bin"
+    }
+  }
+}

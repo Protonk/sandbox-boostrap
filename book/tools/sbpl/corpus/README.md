@@ -15,7 +15,7 @@ runtime behavior.
 Evidence tier: hypothesis. These inputs are utility probes; they do not
 carry runtime witnesses and should not be used to claim policy semantics.
 
-Pointers: `book/experiments/runtime-final-final/suites/sbpl-graph-runtime/Report.md`.
+Pointers: `book/evidence/experiments/runtime-final-final/suites/sbpl-graph-runtime/Report.md`.
 
 ### `golden-triple/`
 
@@ -29,7 +29,7 @@ divergences (for example `bucket5:v11_read_subpath`); check the golden profile
 artifacts before treating a profile as runtime-aligned.
 
 Pointers: `book/profiles/golden-triple/README.md`,
-`book/experiments/runtime-final-final/suites/sbpl-graph-runtime/Report.md`.
+`book/evidence/experiments/runtime-final-final/suites/sbpl-graph-runtime/Report.md`.
 
 ### `network-matrix/`
 
@@ -40,8 +40,8 @@ blobs, used to join encoder-side emission to blob structure (static-only).
 Evidence tier: mapped (experiment-local). The witnesses are about userland
 emission and compiled-blob structure, not kernel semantics.
 
-Pointers: `book/experiments/field2-final-final/libsandbox-encoder/Report.md`,
-`book/experiments/field2-final-final/libsandbox-encoder/out/network_matrix/`.
+Pointers: `book/evidence/experiments/field2-final-final/libsandbox-encoder/Report.md`,
+`book/evidence/experiments/field2-final-final/libsandbox-encoder/out/network_matrix/`.
 
 ### `gate-witness/`
 
@@ -52,7 +52,7 @@ Evidence tier: hypothesis. Apply-stage EPERM is a gate signal (profile never
 attached); use these to avoid apply-gated shapes, not to interpret policy
 decisions.
 
-Pointers: `book/experiments/runtime-final-final/suites/gate-witnesses/Report.md`,
+Pointers: `book/evidence/experiments/runtime-final-final/suites/gate-witnesses/Report.md`,
 `book/tools/preflight/README.md`.
 
 ## Provenance

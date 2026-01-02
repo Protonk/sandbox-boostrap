@@ -3,7 +3,7 @@
 ## Context
 
 - Host: Sonoma baseline (see `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5 (baseline: book/world/sonoma-14.4.1-23E224-arm64/world.json)`), Apple Silicon, SIP enabled.
-- Experiment: `book/experiments/runtime-final-final/suites/runtime-checks/`.
+- Experiment: `book/evidence/experiments/runtime-final-final/suites/runtime-checks/`.
 - Goal: run the bucket-4 (`v1_read`) and bucket-5 (`v11_read_subpath`) SBPL profiles via `sandbox-exec` to collect runtime allow/deny traces.
 - Harness: `run_probes.py` driving `sandbox-exec` with SBPL source (not the compiled `.sb.bin`), writing `out/runtime_results.json`.
 
@@ -89,7 +89,7 @@ This section ties the concrete harness behaviour back to the substrate’s Conce
   - Exit -6 / SIGABRT with a crash report means the compiled policy did attach, but the combination of SBPL Profile and State starved some ambient requirement (dyld or similar) so badly that the process was terminated outside the “clean allow/deny” path.
 
 - **Compiled Profile Source.**  
-  The profiles under `book/experiments/op-table-operation/sb/` are harness SBPL Profiles, not App Sandbox templates or platform policies. In Compiled Profile Source terms, they are “test fixtures,” intended to exercise specific Operation and Filter combinations that the decoder grouped into bucket-4 and bucket-5. The runtime-checks harness is deliberately not using system `.sb` bundles yet; it isolates the experiment to these synthetic sources.
+  The profiles under `book/evidence/experiments/op-table-operation/sb/` are harness SBPL Profiles, not App Sandbox templates or platform policies. In Compiled Profile Source terms, they are “test fixtures,” intended to exercise specific Operation and Filter combinations that the decoder grouped into bucket-4 and bucket-5. The runtime-checks harness is deliberately not using system `.sb` bundles yet; it isolates the experiment to these synthetic sources.
 
 ### 2. Operations, filters, and what is actually being probed
 
