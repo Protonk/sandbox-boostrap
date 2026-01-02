@@ -10,7 +10,7 @@ def _load_json(path: Path):
 
 def test_libsandbox_encoder_network_matrix_blob_diffs():
     root = path_utils.find_repo_root(Path(__file__))
-    diffs_path = root / "book/experiments/libsandbox-encoder/out/network_matrix/blob_diffs.json"
+    diffs_path = root / "book/experiments/field2-final-final/libsandbox-encoder/out/network_matrix/blob_diffs.json"
     diffs = _load_json(diffs_path)
 
     assert diffs["world_id"] == "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"

@@ -146,7 +146,7 @@ This cluster looks closely at the shape of **PolicyGraph** nodes and the role of
 * **`field2-filters`**
   This experiment focuses specifically on relating `field2` values to Filter IDs.
 
-  * Output: `book/experiments/field2-filters/out/field2_inventory.json`, which aggregates:
+  * Output: `book/experiments/field2-final-final/field2-filters/out/field2_inventory.json`, which aggregates:
 
     * Canonical system profiles (`airlock`, `bsd`, `sample`).
     * Synthetic single-filter probes.

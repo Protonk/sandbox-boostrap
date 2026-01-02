@@ -68,7 +68,7 @@ We intentionally avoid guessing op-table slot ordering or Operation↔bucket sem
 - SBPL probe profiles under `sb/` and compiled blobs under `sb/build/*.sb.bin` covering key operation combinations (file-read*/write*, mach-lookup, network-outbound, baselines).
 - `book/experiments/op-table-operation/out/summary.json` with per-profile op-table entries, decoder snapshots, and structural statistics.
 - `book/experiments/op-table-operation/out/op_table_map.json` recording op_entries, unique buckets, and operation sets (plus filter annotations) per profile.
-- `book/experiments/op-table-operation/out/op_table_signatures.json` capturing per-entry structural signatures (tags, `field2` distributions, reachable literals).
+- `book/experiments/op-table-operation/out/op_table_signatures.json` capturing per-entry structural signatures (tags and reachable literals).
 - Promoted mapping snapshots under `book/graph/mappings/op_table/` regenerated via `book/graph/mappings/op_table/generate_op_table_mappings.py` (curated set excludes `v12_runtime_probe`, which remains experiment-local).
 - Narrative notes and this report summarizing bucket behavior and remaining unknowns on this host.
 
@@ -76,7 +76,7 @@ We intentionally avoid guessing op-table slot ordering or Operation↔bucket sem
 ### Completed
 - **Current status**
   - Bucket behavior is stable on this host for this synthetic family: unfiltered read/write/network live in bucket {4}; mach-only lives in bucket {5}; bucket 6 appears only in mach+filtered-read mixes (`[6,…,5]` patterns).
-  - Remaining work is optional: runtime probes or filter-level annotation once field2 decoding matures. Runtime spot-checks are now feasible via the SBPL wrapper if we want to add behavioral evidence.
+  - Remaining work is optional: runtime probes or filter-level annotation once decoder coverage matures. Runtime spot-checks are now feasible via the SBPL wrapper if we want to add behavioral evidence.
 - **1. Setup and scope**
   - Defined the core operation set to probe (file-read*, file-write*, mach-lookup, network-outbound, and a baseline profile).
   - Created single-op and paired-op SBPL profiles under `sb/` covering these operations.
@@ -85,7 +85,7 @@ We intentionally avoid guessing op-table slot ordering or Operation↔bucket sem
   - Compiled all `sb/*.sb` variants and produced `out/summary.json`.
   - Built `out/op_table_map.json` capturing op_entries, unique buckets, and operation sets per profile, including filter annotations.
 - **3. Cross-check with semantic probes (optional stretch)**
-  - Reused the shared decoder to walk from each op-table entrypoint and record per-entry signatures (tag_counts, field2 distributions, reachable literals), stored in `out/op_table_signatures.json`.
+  - Reused the shared decoder to walk from each op-table entrypoint and record per-entry signatures (tag_counts, reachable literals), stored in `out/op_table_signatures.json`.
   - Added an in-process runtime spot-check for the `[6,…,5]` profile (`v12_read_subpath_mach`) via `runtime_probe.c`: `sandbox_init` succeeded; `mach-lookup` (`com.apple.cfprefsd.agent`) returned `kr=0`; file reads of both the allowed subpath and `/etc/hosts` returned `EPERM`. Runtime results recorded in `out/runtime_signatures.json` (schema `provisional`).
   - Added a control runtime probe for `v11_read_subpath` (bucket {5}): `sandbox_init` succeeded; both reads returned `EPERM`; `mach_lookup` returned `kr=1100`. Also recorded as provisional in `out/runtime_signatures.json`.
   - Consolidated static data plus provisional runtime hints into `out/op_table_catalog_v1.json` via `build_catalog.py`. Each record includes bucket pattern, op entries, ops/filters, decoder signatures, and optional `runtime_signature` flagged as provisional for future `ops.json` joins.
@@ -133,7 +133,7 @@ We intentionally avoid guessing op-table slot ordering or Operation↔bucket sem
        - read/write/network behavior is consistent between bucket 4 and 5 where allowed by SBPL.
   
   5. **Coordinate with node-layout and vocab-alignment experiments**
-     - Use node-layout’s findings on node tags and the “field2” key to interpret entry signatures:
+     - Use node-layout’s findings on node tags to interpret entry signatures:
        - bucket 4 signatures should align with tag/field patterns found in unfiltered profiles,
        - bucket 5 signatures with filtered/mach patterns,
        - bucket 6 signatures with tag6-heavy, multi-filter branches.
@@ -188,7 +188,7 @@ Despite the structural progress, several key questions are still open:
 2. **Per-slot assignment in `[6,…,5]` profiles**
    - In `[6,6,6,6,6,6,5]`, multiple op-table entries share each bucket.
    - Without a known Operation vocabulary ordering, we cannot map op-table index positions (0..op_count‑1) to specific Operation IDs.
-   - Entry signatures show that both entries have similar tag/field2 patterns, so structure alone does not yet pin down which slot is “mach” vs “filtered read” vs “helper”.
+   - Entry signatures show that both entries have similar tag patterns, so structure alone does not yet pin down which slot is “mach” vs “filtered read” vs “helper”.
 
 3. **Interaction of Filters and bucket shifts**
    - We have empirical evidence that:
@@ -271,11 +271,10 @@ For each profile, `analyze.py`:
 6. Builds per-entry **signatures**:
    - For each unique entry index `e` in `op_entries`:
      - depth-first walk over decoder nodes, interpreting the first two fields as edges,
-     - record:
-       - reachable node indices count,
-       - tags encountered,
-       - the third field (`fields[2]`, “field2”) values seen,
-       - a truncation flag if the visit limit is exceeded.
+    - record:
+      - reachable node indices count,
+      - tags encountered,
+      - a truncation flag if the visit limit is exceeded.
 
 The analysis then compares:
 
@@ -369,7 +368,6 @@ To attach some structure to each bucket, we compute **entry signatures** using t
   - record:
     - number of reachable nodes,
     - the set of `tag` values seen,
-    - the set of `fields[2]` values (“field2” keys) seen,
     - whether the walk truncated due to a visit limit.
 
 These signatures are stored:
@@ -382,16 +380,14 @@ Early observations:
 - Bucket `4` entries (baseline/read/write/network) tend to:
   - reach a very small region (often a single node),
   - see only `tag4`,
-  - see `field2` in the {3,4} range.
+  - stay in the smallest tag family observed for these profiles.
 
 - Bucket `5` entries (mach-only and filtered read-only families) tend to:
   - reach a small region,
-  - see `tag5` (sometimes `tag6` in mixed cases),
-  - see `field2` values `{4,5}`.
+  - see `tag5` (sometimes `tag6` in mixed cases).
 
 - In `[6,…,5]` profiles:
   - both entries `5` and `6` appear in signatures with tags `{5,6}`,
-  - both see `field2` values that include 5 and 6,
   - walks are shallow (often just 1–2 nodes), reflecting both the limited depth of the heuristic and the small profiles.
 
 Operation IDs (annotation-only):

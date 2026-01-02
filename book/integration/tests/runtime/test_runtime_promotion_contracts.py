@@ -36,12 +36,19 @@ def test_runtime_promotion_contracts():
             if pattern.search(text):
                 failures.append(f"{rel} contains direct experiment out path: {pattern.pattern}")
 
-    atlas = ROOT / "book" / "experiments" / "field2-atlas" / "atlas_runtime.py"
+    atlas = (
+        ROOT
+        / "book"
+        / "experiments"
+        / "field2-final-final"
+        / "field2-atlas"
+        / "atlas_runtime.py"
+    )
     atlas_text = atlas.read_text()
     if "packet_utils.resolve_packet_context" not in atlas_text:
-        failures.append("book/experiments/field2-atlas/atlas_runtime.py missing packet-only resolver")
+        failures.append("book/experiments/field2-final-final/field2-atlas/atlas_runtime.py missing packet-only resolver")
     if "allow-legacy" in atlas_text:
-        failures.append("book/experiments/field2-atlas/atlas_runtime.py still mentions allow-legacy")
+        failures.append("book/experiments/field2-final-final/field2-atlas/atlas_runtime.py still mentions allow-legacy")
 
     packet_set_path = ROOT / "book" / "graph" / "mappings" / "runtime" / "packet_set.json"
     if not packet_set_path.exists():
@@ -58,8 +65,8 @@ def test_runtime_promotion_contracts():
             "book/experiments/runtime-checks/out/promotion_packet.json",
             "book/experiments/runtime-adversarial/out/promotion_packet.json",
             "book/experiments/hardened-runtime/out/promotion_packet.json",
-            "book/experiments/anchor-filter-map/out/promotion_packet.json",
-            "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json",
+            "book/experiments/field2-final-final/anchor-filter-map/out/promotion_packet.json",
+            "book/experiments/field2-final-final/anchor-filter-map/iokit-class/out/promotion_packet.json",
         ]
         if doc.get("packets") != expected_packets:
             failures.append("packet_set.json packets list mismatch")

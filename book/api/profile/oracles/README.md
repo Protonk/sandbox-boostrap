@@ -27,6 +27,6 @@ The dataset output schema is recorded at `book/tools/sbpl/oracles/schemas/networ
 ## Relationship to experiments
 
 The initial witness corpus and the first oracle implementation were developed under:
-- `book/experiments/libsandbox-encoder/`
+- `book/experiments/field2-final-final/libsandbox-encoder/`
 
 The experiment retains the SBPL specimens and compiled blobs as provenance and as a stable test corpus. `profile.oracles` is the maintained surface for reuse across tooling and validation.

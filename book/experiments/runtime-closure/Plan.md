@@ -8,7 +8,7 @@ Provide narrow, stage-labeled runtime evidence that closes gaps in `probe-op-str
 - **Mach service existence vs sandbox denial** (known existing vs known missing service names).
 - **IOKit class presence vs sandbox denial** (class present + openable vs class missing).
 
-This experiment is intentionally small and uses only plan/registry data + the shared runtime harness. It is a runtime companion to the structural anchor work in `book/experiments/probe-op-structure/`.
+This experiment is intentionally small and uses only plan/registry data + the shared runtime harness. It is a runtime companion to the structural anchor work in `book/experiments/field2-final-final/probe-op-structure/`.
 
 ## Stage taxonomy
 

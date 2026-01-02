@@ -58,7 +58,11 @@ def _probe_blob_path(profile_id: str) -> Optional[Path]:
     if not profile_id.startswith("probe:"):
         return None
     name = profile_id.split(":", 1)[1]
-    p = REPO_ROOT / "book/experiments/probe-op-structure/sb/build" / f"{name}.sb.bin"
+    p = (
+        REPO_ROOT
+        / "book/experiments/field2-final-final/probe-op-structure/sb/build"
+        / f"{name}.sb.bin"
+    )
     return p if p.exists() else None
 
 

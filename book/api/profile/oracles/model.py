@@ -4,7 +4,7 @@ Data model for structural oracles over compiled profiles (Sonoma baseline).
 Oracles in this repo are deliberately narrow:
 - They extract *SBPL-visible argument structure* from compiled blobs.
 - They rely on byte-level witnesses established by experiments (e.g.
-  `book/experiments/libsandbox-encoder/`), not on reverse-engineered kernel semantics.
+  `book/experiments/field2-final-final/libsandbox-encoder/`), not on reverse-engineered kernel semantics.
 
 This file contains only data shapes: the actual oracle logic lives in
 `book.api.profile.oracles.network`.

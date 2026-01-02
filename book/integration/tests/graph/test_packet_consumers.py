@@ -63,7 +63,7 @@ def test_graph_shape_semantics_packet_consumer(tmp_path):
 
 def _iter_consumer_files() -> list[Path]:
     roots = [
-        ROOT / "book" / "experiments" / "field2-atlas",
+        ROOT / "book" / "experiments" / "field2-final-final" / "field2-atlas",
         ROOT / "book" / "experiments" / "graph-shape-vs-semantics",
     ]
     files: list[Path] = []

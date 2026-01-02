@@ -22,8 +22,8 @@ if str(REPO_ROOT) not in sys.path:
 from book.api import path_utils  # type: ignore
 from book.api import evidence_tiers  # type: ignore
 from book.api import world as world_mod  # type: ignore
-HITS_PATH = REPO_ROOT / "book/experiments/probe-op-structure/out/anchor_hits.json"
-DELTA_HITS_PATH = REPO_ROOT / "book/experiments/probe-op-structure/out/anchor_hits_delta.json"
+HITS_PATH = REPO_ROOT / "book/experiments/field2-final-final/probe-op-structure/out/anchor_hits.json"
+DELTA_HITS_PATH = REPO_ROOT / "book/experiments/field2-final-final/probe-op-structure/out/anchor_hits_delta.json"
 OUT_PATH = REPO_ROOT / "book/graph/mappings/anchors/anchor_field2_map.json"
 
 

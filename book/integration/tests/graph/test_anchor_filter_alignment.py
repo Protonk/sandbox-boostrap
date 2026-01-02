@@ -19,8 +19,24 @@ def test_anchor_filter_alignment_with_anchor_hits():
     among the observed field2 values for those anchors.
     """
     amap = load_json(ROOT / "book" / "graph" / "mappings" / "anchors" / "anchor_filter_map.json")
-    hits = load_json(ROOT / "book" / "experiments" / "probe-op-structure" / "out" / "anchor_hits.json")
-    delta_path = ROOT / "book" / "experiments" / "probe-op-structure" / "out" / "anchor_hits_delta.json"
+    hits = load_json(
+        ROOT
+        / "book"
+        / "experiments"
+        / "field2-final-final"
+        / "probe-op-structure"
+        / "out"
+        / "anchor_hits.json"
+    )
+    delta_path = (
+        ROOT
+        / "book"
+        / "experiments"
+        / "field2-final-final"
+        / "probe-op-structure"
+        / "out"
+        / "anchor_hits_delta.json"
+    )
     delta_hits = load_json(delta_path) if delta_path.exists() else {}
     delta_targets = set()
     delta_profiles = {}

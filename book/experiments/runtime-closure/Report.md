@@ -1,7 +1,7 @@
 - world_id: sonoma-14.4.1-23E224-arm64-dyld-2c0602c5
 - tier: hypothesis (runtime); mapped only when paired with structural anchor bindings
 - primary outputs: out/<run_id>/{runtime_results.json,runtime_events.normalized.json,run_manifest.json,artifact_index.json,path_witnesses.json}
-- upstream structure: book/experiments/probe-op-structure/Report.md
+- upstream structure: book/experiments/field2-final-final/probe-op-structure/Report.md
 - runtime harness: book/api/runtime (plan/registry execution, launchd_clean channel)
 
 # Runtime Closure – Research Report (Sonoma baseline)

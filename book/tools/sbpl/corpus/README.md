@@ -40,8 +40,8 @@ blobs, used to join encoder-side emission to blob structure (static-only).
 Evidence tier: mapped (experiment-local). The witnesses are about userland
 emission and compiled-blob structure, not kernel semantics.
 
-Pointers: `book/experiments/libsandbox-encoder/Report.md`,
-`book/experiments/libsandbox-encoder/out/network_matrix/`.
+Pointers: `book/experiments/field2-final-final/libsandbox-encoder/Report.md`,
+`book/experiments/field2-final-final/libsandbox-encoder/out/network_matrix/`.
 
 ### `gate-witness/`
 

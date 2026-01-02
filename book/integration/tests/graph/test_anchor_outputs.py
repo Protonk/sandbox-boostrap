@@ -4,7 +4,14 @@ from pathlib import Path
 
 from book.api import path_utils
 ROOT = path_utils.find_repo_root(Path(__file__))
-OUT_DIR = ROOT / "book" / "experiments" / "probe-op-structure" / "out"
+OUT_DIR = (
+    ROOT
+    / "book"
+    / "experiments"
+    / "field2-final-final"
+    / "probe-op-structure"
+    / "out"
+)
 
 
 def test_analysis_contains_expected_profiles():

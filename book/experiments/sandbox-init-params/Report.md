@@ -11,7 +11,7 @@ This experiment starts where `libsandbox-encoder` stopped: it treats the compile
 
 ## Relationship to libsandbox-encoder
 
-- Depends on the closed experiment at `book/experiments/libsandbox-encoder/` for:
+- Depends on the closed experiment at `book/experiments/field2-final-final/libsandbox-encoder/` for:
   - The definition of the compiled profile blob and its PolicyGraph layout.
   - The identification of encoder sites in `libsandbox.1.dylib` (`_emit_*`, `_record_condition_data`, `_compile`, builder+0xe98).
 - Does **not** redo PolicyGraph decoding or field2 layout; those results are assumed as given.
@@ -34,7 +34,7 @@ This experiment starts where `libsandbox-encoder` stopped: it treats the compile
 
 ## Relation to libsandbox-encoder
 
-- Shared inputs: `book/experiments/libsandbox-encoder/out/encoder_sites.json` (mutable buffer at builder+0xe98, `_sb_mutable_buffer_make_immutable` at 0x183ced36c returning sb_buffer*), `tag_layout_overrides.json` (tag layouts).
+- Shared inputs: `book/experiments/field2-final-final/libsandbox-encoder/out/encoder_sites.json` (mutable buffer at builder+0xe98, `_sb_mutable_buffer_make_immutable` at 0x183ced36c returning sb_buffer*), `tag_layout_overrides.json` (tag layouts).
 - This experiment anchors the caller side: how `_sandbox_init_with_parameters` resolves compile/apply symbols, how `_sandbox_apply` packages the sb_buffer handle, and how that handle is handed to `__sandbox_ms`.
 - The sb_buffer ptr produced by `_sb_mutable_buffer_make_immutable` is expected to flow into the handle consumed by `_sandbox_apply`; the current trace records where that handle is read and how it is passed to the MAC syscall stub.
 

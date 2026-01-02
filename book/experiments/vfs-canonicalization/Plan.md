@@ -22,8 +22,7 @@ Metadata canonicalization is handled by `book/experiments/metadata-runner/`.
 Upstream inputs:
 
 - **Tag and layout bedrock:** `book/graph/mappings/tag_layouts/tag_layouts.json` (status: ok, from `tag-layout-decode`).
-- **Anchor/field2 structure:** `book/experiments/probe-op-structure/Report.md` + `out/anchor_hits.json`, plus curated anchors in `book/graph/mappings/anchors/anchor_filter_map.json` (guarded by `book/tests/planes/graph/test_anchor_filter_alignment.py`). In particular, `/tmp/foo` anchor placement and tag/field2 usage.
-- **Field2 inventories:** `book/experiments/field2-filters/Report.md` with `out/field2_inventory.json` and `out/unknown_nodes.json` for high/unknown field2 values.
+- **Anchor structure:** `book/graph/mappings/anchors/anchor_filter_map.json` (guarded by `book/tests/planes/graph/test_anchor_filter_alignment.py`) and anchor placement notes from `book/experiments/field2-final-final/probe-op-structure/Report.md`.
 - **Runtime harness:** `book/api/runtime` plan execution (same shims as `runtime-checks` / `runtime-adversarial`).
 
 Downstream use:
@@ -51,7 +50,7 @@ Scenarios:
 
 - For each profile, attempt `file-read*` and `file-write*` on its configured alias/canonical pairs (except `/etc`, which is read-only).
 - Observe:
-  - Structural placement of the anchors and field2 values in the compiled graphs.
+  - Structural placement of anchors and tags in the compiled graphs.
   - Runtime allow/deny behavior under an SBPL/ blob harness.
 
 ## Evidence pathway (Claim → Signals → IR)
@@ -59,14 +58,13 @@ Scenarios:
 Claims we are probing:
 
 1. **Canonicalization claim:** For this world, certain alias/canonical pairs may resolve to the same effective path in the VFS layer; if they differ structurally or at runtime, we should be able to classify that difference as either canonicalization-only or as a true policy divergence.
-2. **Structural/runtime alignment claim:** For the simple VFS profiles above, structural expectations (anchors, tags, field2) match the runtime allow/deny behavior once canonicalization is taken into account.
+2. **Structural/runtime alignment claim:** For the simple VFS profiles above, structural expectations (anchors, tags) match the runtime allow/deny behavior once canonicalization is taken into account.
 
 Signals:
 
 - **Structural (static) signals:**
   - Decoded nodes and literal/anchor placement for the configured alias/canonical pairs in each profile:
     - tags,
-    - `field2` values,
     - whether the two paths share the same structural placement or not.
   - Stored in `out/derived/decode_tmp_profiles.json` (derived from the committed bundle; includes bundle metadata).
 - **Runtime signals:**
@@ -163,14 +161,12 @@ These sketches are informal; tests will check that the actual JSONs obey the sam
           {
             "path": "/tmp/foo",
             "present": true,
-            "tags": [0],
-            "field2_values": [0]
+            "tags": [0]
           },
           {
             "path": "/private/tmp/foo",
             "present": false,
-            "tags": [],
-            "field2_values": []
+            "tags": []
           }
         ],
         "literal_candidates": ["/tmp/foo", "/private/tmp/foo"],

@@ -33,7 +33,15 @@ def build_anchor_hits(path: Path):
 
 def test_anchor_field2_map_metadata_and_presence():
     anchor_map_path = ROOT / "book" / "graph" / "mappings" / "anchors" / "anchor_field2_map.json"
-    hits_path = ROOT / "book" / "experiments" / "probe-op-structure" / "out" / "anchor_hits.json"
+    hits_path = (
+        ROOT
+        / "book"
+        / "experiments"
+        / "field2-final-final"
+        / "probe-op-structure"
+        / "out"
+        / "anchor_hits.json"
+    )
     anchor_map = load_json(anchor_map_path)
     metadata = anchor_map.get("metadata") or {}
     assert metadata.get("world_id") == WORLD_ID
@@ -74,7 +82,15 @@ def test_anchor_field2_map_metadata_and_presence():
 def test_carton_anchor_field2_aligns_with_map_and_hits():
     anchor_index_path = ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "anchor_field2.json"
     anchor_map_path = ROOT / "book" / "graph" / "mappings" / "anchors" / "anchor_field2_map.json"
-    hits_path = ROOT / "book" / "experiments" / "probe-op-structure" / "out" / "anchor_hits.json"
+    hits_path = (
+        ROOT
+        / "book"
+        / "experiments"
+        / "field2-final-final"
+        / "probe-op-structure"
+        / "out"
+        / "anchor_hits.json"
+    )
 
     index_doc = load_json(anchor_index_path)
     index_meta = index_doc.get("metadata") or {}

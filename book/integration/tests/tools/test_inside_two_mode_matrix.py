@@ -26,7 +26,9 @@ def test_inside_two_mode_matrix(run_cmd, tmp_path: Path):
     env = dict(os.environ)
     env["PYTHONPATH"] = "."
 
-    _run_inside_json(run_cmd, env)
+    baseline = _run_inside_json(run_cmd, env)
+    if baseline["signals"]["S0"]["result_class"] == "strong_true":
+        pytest.skip("sandbox-exec cannot apply a second sandbox when already sandboxed")
 
     profile_text = textwrap.dedent(
         """

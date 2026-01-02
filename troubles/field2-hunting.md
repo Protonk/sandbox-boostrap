@@ -4,7 +4,7 @@ Unknown `filter_arg_raw` values are structurally bounded (tags/ops/fan-in/out) a
 
 This note captures the hunt for the third 16‑bit payload slot in compiled PolicyGraph nodes on this Sonoma host. Early drafts called it `field2`; the decoder now exposes it as `filter_arg_raw` (with `field2_hi = raw & 0xc000`, `field2_lo = raw & 0x3fff`). The search is **closed**: low values line up with the public filter vocabulary, every remaining unknown is bounded by tag/op context, and the kernel reads this slot as a raw u16 with no hi/lo split or obvious node struct.
 
-Key artifacts (all under `book/experiments/field2-filters/`):
+Key artifacts (all under `book/experiments/field2-final-final/field2-filters/`):
 - Inventories: `out/field2_inventory.json`, `out/unknown_nodes.json`.
 - System + probe SBPL: `sb/` and `sb/build/*.sb.bin` (including `bsd_ops_default_file`, `airlock_system_fcntl`, flow-divert variants).
 - Ghidra evaluator/helper dumps: `book/dumps/ghidra/out/14.4.1-23E224/find-field2-evaluator/` (`field2_evaluator.json`, `helper.txt`, `eval.txt`, `candidates.json`).
@@ -30,11 +30,11 @@ Key artifacts (all under `book/experiments/field2-filters/`):
 
 ## Current experiments that touch field2
 
-- `book/experiments/field2-filters` — status: complete (negative). Primary inventories (`out/field2_inventory.json`, `out/unknown_nodes.json`); SBPL probes + Ghidra VM/struct hunts; no hi/lo split.
-- `book/experiments/probe-op-structure` — status: partial. Anchor-aware/tag-aware field2 structuring (`out/anchor_hits.json`, `out/analysis.json`, tag layout assumptions); binds anchors → node indices → field2 values.
-- `book/experiments/anchor-filter-map` — status: partial. Consumes field2 inventories + anchor hits to publish curated anchor → Filter IDs (`book/graph/mappings/anchors/anchor_filter_map.json`, candidates in `out/anchor_filter_candidates.json`); guardrailed by `tests/test_mappings_guardrail.py`.
+- `book/experiments/field2-final-final/field2-filters` — status: complete (negative). Primary inventories (`out/field2_inventory.json`, `out/unknown_nodes.json`); SBPL probes + Ghidra VM/struct hunts; no hi/lo split.
+- `book/experiments/field2-final-final/probe-op-structure` — status: partial. Anchor-aware/tag-aware field2 structuring (`out/anchor_hits.json`, `out/analysis.json`, tag layout assumptions); binds anchors → node indices → field2 values.
+- `book/experiments/field2-final-final/anchor-filter-map` — status: partial. Consumes field2 inventories + anchor hits to publish curated anchor → Filter IDs (`book/graph/mappings/anchors/anchor_filter_map.json`, candidates in `out/anchor_filter_candidates.json`); guardrailed by `tests/test_mappings_guardrail.py`.
 - `book/experiments/tag-layout-decode` — status: ok (structural). Publishes literal-bearing tag layouts at `book/graph/mappings/tag_layouts/tag_layouts.json`, used by decoder and field2 consumers.
-- `book/experiments/libsandbox-encoder` — status: partial. Field2 encoder matrix (`out/field2_encoder_matrix.json`) from SBPL→blob probes; explores compiler emission of field2/payloads for selected tags.
+- `book/experiments/field2-final-final/libsandbox-encoder` — status: partial. Field2 encoder matrix (`out/field2_encoder_matrix.json`) from SBPL→blob probes; explores compiler emission of field2/payloads for selected tags.
 - `book/experiments/node-layout` — status: ok (structural). Node stride/layout census informing where field2/payloads live.
 - `book/experiments/metadata-runner` — status: partial. Structural checks include anchor/field2 consistency (`out/anchor_structural_check.json`).
 - `book/experiments/vfs-canonicalization` — status: partial. Decodes temp profiles; notes field2 payload placement in `out/decode_tmp_profiles.json`.

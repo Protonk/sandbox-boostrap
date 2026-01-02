@@ -1643,6 +1643,18 @@
         "field2_entries": 4,
         "unknown_named": 1
       },
+      "probe-op:v10_iokit_user_client_pair.sb": {
+        "field2_entries": 6,
+        "unknown_named": 1
+      },
+      "probe-op:v11_iokit_user_client_connection.sb": {
+        "field2_entries": 6,
+        "unknown_named": 0
+      },
+      "probe-op:v12_iokit_control.sb": {
+        "field2_entries": 4,
+        "unknown_named": 1
+      },
       "probe-op:v1_file_require_any.sb": {
         "field2_entries": 5,
         "unknown_named": 0
@@ -1674,6 +1686,10 @@
       "probe-op:v8_all_combo.sb": {
         "field2_entries": 16,
         "unknown_named": 10
+      },
+      "probe-op:v9_iokit_user_client_only.sb": {
+        "field2_entries": 5,
+        "unknown_named": 0
       },
       "probe:airlock_system_fcntl.sb": {
         "field2_entries": 6,
@@ -1711,6 +1727,10 @@
         "field2_entries": 1,
         "unknown_named": 0
       },
+      "probe:ipc_posix_name.sb": {
+        "field2_entries": 5,
+        "unknown_named": 0
+      },
       "probe:net_require_all_domain_proto.sb": {
         "field2_entries": 5,
         "unknown_named": 0
@@ -1731,8 +1751,24 @@
         "field2_entries": 5,
         "unknown_named": 0
       },
+      "probe:notification_name.sb": {
+        "field2_entries": 5,
+        "unknown_named": 0
+      },
+      "probe:preference_domain.sb": {
+        "field2_entries": 4,
+        "unknown_named": 0
+      },
       "probe:right_and_preference_names.sb": {
         "field2_entries": 4,
+        "unknown_named": 0
+      },
+      "probe:right_name.sb": {
+        "field2_entries": 5,
+        "unknown_named": 0
+      },
+      "probe:sysctl_name.sb": {
+        "field2_entries": 5,
         "unknown_named": 0
       },
       "probe:v0_subpath.sb": {
@@ -1766,6 +1802,10 @@
       "probe:v7_require_any_subpath_literal.sb": {
         "field2_entries": 7,
         "unknown_named": 1
+      },
+      "probe:xpc_service_name.sb": {
+        "field2_entries": 5,
+        "unknown_named": 0
       },
       "sys:airlock": {
         "field2_entries": 39,
@@ -2380,19 +2420,19 @@
   },
   "metadata": {
     "input_hashes": {
-      "book/experiments/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/run_manifest.json": "46d9bb94a433cb71feba30c3247c887b95bd0c6e2fdeeb52615510fffbc51807",
-      "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json": "b782656b8fc38a49f4c1a91c2b484590773d46fc97fea8c7c9fbb78be3222d54",
-      "book/experiments/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/run_manifest.json": "efefc5cdb2868ef8a296e95fcaaea8b830f8f01fec85870410e898a552248bdf",
-      "book/experiments/anchor-filter-map/out/promotion_packet.json": "3da1176b548091e31d9bed8c9e73bd7c77dc5f8d5b12665ca6a762c27c6e5b13",
+      "book/experiments/field2-final-final/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/run_manifest.json": "46d9bb94a433cb71feba30c3247c887b95bd0c6e2fdeeb52615510fffbc51807",
+      "book/experiments/field2-final-final/anchor-filter-map/iokit-class/out/promotion_packet.json": "b806a4828b78f03a0d4e3eaa15b1819a8cd86c6b868392604a79829824a49999",
+      "book/experiments/field2-final-final/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/run_manifest.json": "efefc5cdb2868ef8a296e95fcaaea8b830f8f01fec85870410e898a552248bdf",
+      "book/experiments/field2-final-final/anchor-filter-map/out/promotion_packet.json": "d842238a0486167fdd7805b1fdc97101b0fd55d158a9eea12ab85545e13970dd",
       "book/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json": "654bb48411211bff7809e5df650b87a89e2dc5d9904858c69b493abf74464dd2",
       "book/experiments/hardened-runtime/out/promotion_packet.json": "5d8f999c2b9f86e80038f61324ca87fc8bb8e72300bc0ee8ce7dc323e821c1b7",
       "book/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/run_manifest.json": "89e1ec26c520f774d30f5e095e98cf05236c1406090219dd29d8a5ca44c22dfe",
       "book/experiments/runtime-adversarial/out/promotion_packet.json": "ff61d1d7c79bcf95057d1443b1f6e6ec848340c1cd80673ff734c4f975500a23",
       "book/experiments/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json": "8c042b30534d5129f1879a78d756922d2ef3fa40a002ca23ef1bf8dc27c3676e",
       "book/experiments/runtime-checks/out/promotion_packet.json": "662297e9f76b45fe433c47a3b882f2e59c020323ec967a76b0a972cc28dc7f95",
-      "book/graph/concepts/validation/out/experiments/field2/field2_ir.json": "17498be658bac148db6939d60c280c95ca18a3b1a2c0089da7443ee46af7f1fc",
-      "book/graph/mappings/runtime/runtime_coverage.json": "fec210e12f985148509114aacb551100d78cf68d644408ececa0728082206509",
-      "book/graph/mappings/runtime_cuts/runtime_story.json": "a164f0c41c04487342724e65bdb1d661f25c444b9c0d01acc2d00ddb5a2de3c2",
+      "book/graph/concepts/validation/out/experiments/field2/field2_ir.json": "6c7b59782c77cb07d4cb0d571fe00c20f827e16f3e067813a42834118e743c82",
+      "book/graph/mappings/runtime/runtime_coverage.json": "ae8c904b10ed253881df40a02d16c944d6e534c71ecfb415ac0a39da3e472817",
+      "book/graph/mappings/runtime_cuts/runtime_story.json": "0794c494ca6ac13805b8a7bd6a347b88f02bc36a6599621c3175a538b2b83a0d",
       "expected_matrix": "449bb8be43e1dc07c9d10fb495923b47698659e941a4b2ee33119d1af623dc5c"
     },
     "inputs": [
@@ -2402,17 +2442,17 @@
       "book/experiments/runtime-checks/out/promotion_packet.json",
       "book/experiments/runtime-adversarial/out/promotion_packet.json",
       "book/experiments/hardened-runtime/out/promotion_packet.json",
-      "book/experiments/anchor-filter-map/out/promotion_packet.json",
-      "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json"
+      "book/experiments/field2-final-final/anchor-filter-map/out/promotion_packet.json",
+      "book/experiments/field2-final-final/anchor-filter-map/iokit-class/out/promotion_packet.json"
     ],
     "notes": "Derived from runtime_story with coverage gating; status cannot exceed runtime_coverage. Decision-stage inputs require launchd_clean run manifests. Disallowed mismatches present: 13.",
     "provenance": {
       "runtime_coverage": {
         "input_hashes": {
-          "book/experiments/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/run_manifest.json": "46d9bb94a433cb71feba30c3247c887b95bd0c6e2fdeeb52615510fffbc51807",
-          "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json": "b782656b8fc38a49f4c1a91c2b484590773d46fc97fea8c7c9fbb78be3222d54",
-          "book/experiments/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/run_manifest.json": "efefc5cdb2868ef8a296e95fcaaea8b830f8f01fec85870410e898a552248bdf",
-          "book/experiments/anchor-filter-map/out/promotion_packet.json": "3da1176b548091e31d9bed8c9e73bd7c77dc5f8d5b12665ca6a762c27c6e5b13",
+          "book/experiments/field2-final-final/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/run_manifest.json": "46d9bb94a433cb71feba30c3247c887b95bd0c6e2fdeeb52615510fffbc51807",
+          "book/experiments/field2-final-final/anchor-filter-map/iokit-class/out/promotion_packet.json": "b806a4828b78f03a0d4e3eaa15b1819a8cd86c6b868392604a79829824a49999",
+          "book/experiments/field2-final-final/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/run_manifest.json": "efefc5cdb2868ef8a296e95fcaaea8b830f8f01fec85870410e898a552248bdf",
+          "book/experiments/field2-final-final/anchor-filter-map/out/promotion_packet.json": "d842238a0486167fdd7805b1fdc97101b0fd55d158a9eea12ab85545e13970dd",
           "book/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json": "654bb48411211bff7809e5df650b87a89e2dc5d9904858c69b493abf74464dd2",
           "book/experiments/hardened-runtime/out/promotion_packet.json": "5d8f999c2b9f86e80038f61324ca87fc8bb8e72300bc0ee8ce7dc323e821c1b7",
           "book/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/run_manifest.json": "89e1ec26c520f774d30f5e095e98cf05236c1406090219dd29d8a5ca44c22dfe",
@@ -2428,13 +2468,13 @@
           "book/experiments/runtime-checks/out/promotion_packet.json",
           "book/experiments/runtime-adversarial/out/promotion_packet.json",
           "book/experiments/hardened-runtime/out/promotion_packet.json",
-          "book/experiments/anchor-filter-map/out/promotion_packet.json",
-          "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json",
+          "book/experiments/field2-final-final/anchor-filter-map/out/promotion_packet.json",
+          "book/experiments/field2-final-final/anchor-filter-map/iokit-class/out/promotion_packet.json",
           "book/experiments/runtime-checks/out/promotion_packet.json",
           "book/experiments/runtime-adversarial/out/promotion_packet.json",
           "book/experiments/hardened-runtime/out/promotion_packet.json",
-          "book/experiments/anchor-filter-map/out/promotion_packet.json",
-          "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json"
+          "book/experiments/field2-final-final/anchor-filter-map/out/promotion_packet.json",
+          "book/experiments/field2-final-final/anchor-filter-map/iokit-class/out/promotion_packet.json"
         ],
         "mismatch_summary": {
           "tags": {},
@@ -2499,10 +2539,10 @@
         "provenance": {
           "runtime_story": {
             "input_hashes": {
-              "book/experiments/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/run_manifest.json": "46d9bb94a433cb71feba30c3247c887b95bd0c6e2fdeeb52615510fffbc51807",
-              "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json": "b782656b8fc38a49f4c1a91c2b484590773d46fc97fea8c7c9fbb78be3222d54",
-              "book/experiments/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/run_manifest.json": "efefc5cdb2868ef8a296e95fcaaea8b830f8f01fec85870410e898a552248bdf",
-              "book/experiments/anchor-filter-map/out/promotion_packet.json": "3da1176b548091e31d9bed8c9e73bd7c77dc5f8d5b12665ca6a762c27c6e5b13",
+              "book/experiments/field2-final-final/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/run_manifest.json": "46d9bb94a433cb71feba30c3247c887b95bd0c6e2fdeeb52615510fffbc51807",
+              "book/experiments/field2-final-final/anchor-filter-map/iokit-class/out/promotion_packet.json": "b806a4828b78f03a0d4e3eaa15b1819a8cd86c6b868392604a79829824a49999",
+              "book/experiments/field2-final-final/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/run_manifest.json": "efefc5cdb2868ef8a296e95fcaaea8b830f8f01fec85870410e898a552248bdf",
+              "book/experiments/field2-final-final/anchor-filter-map/out/promotion_packet.json": "d842238a0486167fdd7805b1fdc97101b0fd55d158a9eea12ab85545e13970dd",
               "book/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json": "654bb48411211bff7809e5df650b87a89e2dc5d9904858c69b493abf74464dd2",
               "book/experiments/hardened-runtime/out/promotion_packet.json": "5d8f999c2b9f86e80038f61324ca87fc8bb8e72300bc0ee8ce7dc323e821c1b7",
               "book/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/run_manifest.json": "89e1ec26c520f774d30f5e095e98cf05236c1406090219dd29d8a5ca44c22dfe",
@@ -2518,8 +2558,8 @@
               "book/experiments/runtime-checks/out/promotion_packet.json",
               "book/experiments/runtime-adversarial/out/promotion_packet.json",
               "book/experiments/hardened-runtime/out/promotion_packet.json",
-              "book/experiments/anchor-filter-map/out/promotion_packet.json",
-              "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json"
+              "book/experiments/field2-final-final/anchor-filter-map/out/promotion_packet.json",
+              "book/experiments/field2-final-final/anchor-filter-map/iokit-class/out/promotion_packet.json"
             ],
             "notes": "joined runtime story Inputs derived from promotion packets.",
             "run_provenance": {
@@ -2527,8 +2567,8 @@
                 "book/experiments/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json",
                 "book/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/run_manifest.json",
                 "book/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json",
-                "book/experiments/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/run_manifest.json",
-                "book/experiments/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/run_manifest.json"
+                "book/experiments/field2-final-final/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/run_manifest.json",
+                "book/experiments/field2-final-final/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/run_manifest.json"
               ],
               "repo_root_contexts": [
                 "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1e641b64-6267-47df-b1c3-b320aa90e675",
@@ -2562,10 +2602,10 @@
       },
       "runtime_story": {
         "input_hashes": {
-          "book/experiments/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/run_manifest.json": "46d9bb94a433cb71feba30c3247c887b95bd0c6e2fdeeb52615510fffbc51807",
-          "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json": "b782656b8fc38a49f4c1a91c2b484590773d46fc97fea8c7c9fbb78be3222d54",
-          "book/experiments/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/run_manifest.json": "efefc5cdb2868ef8a296e95fcaaea8b830f8f01fec85870410e898a552248bdf",
-          "book/experiments/anchor-filter-map/out/promotion_packet.json": "3da1176b548091e31d9bed8c9e73bd7c77dc5f8d5b12665ca6a762c27c6e5b13",
+          "book/experiments/field2-final-final/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/run_manifest.json": "46d9bb94a433cb71feba30c3247c887b95bd0c6e2fdeeb52615510fffbc51807",
+          "book/experiments/field2-final-final/anchor-filter-map/iokit-class/out/promotion_packet.json": "b806a4828b78f03a0d4e3eaa15b1819a8cd86c6b868392604a79829824a49999",
+          "book/experiments/field2-final-final/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/run_manifest.json": "efefc5cdb2868ef8a296e95fcaaea8b830f8f01fec85870410e898a552248bdf",
+          "book/experiments/field2-final-final/anchor-filter-map/out/promotion_packet.json": "d842238a0486167fdd7805b1fdc97101b0fd55d158a9eea12ab85545e13970dd",
           "book/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json": "654bb48411211bff7809e5df650b87a89e2dc5d9904858c69b493abf74464dd2",
           "book/experiments/hardened-runtime/out/promotion_packet.json": "5d8f999c2b9f86e80038f61324ca87fc8bb8e72300bc0ee8ce7dc323e821c1b7",
           "book/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/run_manifest.json": "89e1ec26c520f774d30f5e095e98cf05236c1406090219dd29d8a5ca44c22dfe",
@@ -2581,8 +2621,8 @@
           "book/experiments/runtime-checks/out/promotion_packet.json",
           "book/experiments/runtime-adversarial/out/promotion_packet.json",
           "book/experiments/hardened-runtime/out/promotion_packet.json",
-          "book/experiments/anchor-filter-map/out/promotion_packet.json",
-          "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json"
+          "book/experiments/field2-final-final/anchor-filter-map/out/promotion_packet.json",
+          "book/experiments/field2-final-final/anchor-filter-map/iokit-class/out/promotion_packet.json"
         ],
         "notes": "joined runtime story Inputs derived from promotion packets.",
         "run_provenance": {
@@ -2590,8 +2630,8 @@
             "book/experiments/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json",
             "book/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/run_manifest.json",
             "book/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json",
-            "book/experiments/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/run_manifest.json",
-            "book/experiments/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/run_manifest.json"
+            "book/experiments/field2-final-final/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/run_manifest.json",
+            "book/experiments/field2-final-final/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/run_manifest.json"
           ],
           "repo_root_contexts": [
             "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1e641b64-6267-47df-b1c3-b320aa90e675",
@@ -2621,8 +2661,8 @@
         "book/experiments/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json",
         "book/experiments/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/run_manifest.json",
         "book/experiments/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json",
-        "book/experiments/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/run_manifest.json",
-        "book/experiments/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/run_manifest.json"
+        "book/experiments/field2-final-final/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/run_manifest.json",
+        "book/experiments/field2-final-final/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/run_manifest.json"
       ],
       "repo_root_contexts": [
         "/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.1e641b64-6267-47df-b1c3-b320aa90e675",

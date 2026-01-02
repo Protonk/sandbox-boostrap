@@ -15,8 +15,8 @@ python -m book.api.profile decode dump /tmp/sample.sb.bin --summary
 python -m book.api.profile inspect /tmp/sample.sb.bin --out /tmp/summary.json
 python -m book.api.profile op-table book/experiments/op-table-operation/sb/v1_read.sb --compile --op-count 196
 python3 book/tools/sbpl/oracles/network_matrix.py \
-  --manifest book/experiments/libsandbox-encoder/sb/network_matrix/MANIFEST.json \
-  --blob-dir book/experiments/libsandbox-encoder/out/network_matrix \
+  --manifest book/experiments/field2-final-final/libsandbox-encoder/sb/network_matrix/MANIFEST.json \
+  --blob-dir book/experiments/field2-final-final/libsandbox-encoder/out/network_matrix \
   --out /tmp/network_oracle.json
 ```
 

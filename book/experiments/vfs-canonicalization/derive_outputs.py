@@ -123,22 +123,17 @@ def _decode_profiles(run_dir: Path, bundle_meta: dict[str, Any]) -> dict[str, An
         for anchor in anchors:
             present = _anchor_present(anchor, literal_set)
             tag_ids = set()
-            field2_vals = set()
             for node in nodes:
                 ref_candidates = set()
                 for ref in (node.get("literal_refs") or []):
                     ref_candidates.update(_literal_candidates(ref))
                 if _anchor_present(anchor, ref_candidates):
                     tag_ids.add(node.get("tag"))
-                    fields = node.get("fields") or []
-                    if len(fields) > 2:
-                        field2_vals.add(fields[2])
             anchors_info.append(
                 {
                     "path": anchor,
                     "present": present,
                     "tags": sorted(tag_ids),
-                    "field2_values": sorted(field2_vals),
                 }
             )
         profiles_out[profile_id] = {

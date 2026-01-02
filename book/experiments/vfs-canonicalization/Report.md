@@ -35,7 +35,7 @@ python -m book.api.runtime run \
   - `out/LATEST/runtime_events.normalized.json` – normalized runtime observations (per scenario).
   - `out/LATEST/path_witnesses.json` – file probe FD path witnesses (per scenario).
   - `out/derived/runtime_results.json` – derived summary with bundle metadata and `observed_path_nofirmlink` fields.
-  - `out/derived/decode_tmp_profiles.json` – derived structural view of anchors/tags/field2 (plus literal candidates) for all configured path pairs.
+  - `out/derived/decode_tmp_profiles.json` – derived structural view of anchors/tags (plus literal candidates) for all configured path pairs.
   - `out/derived/mismatch_summary.json` – coarse classification for the base `/tmp` family (canonicalization vs control).
   - `out/promotion_packet.json` – promotion packet (preferred evidence interface) pointing to the committed run-scoped bundle.
   - `book/graph/mappings/vfs_canonicalization/path_canonicalization_map.json` – generated mapping slice derived from the promotion packet, with `book/graph/mappings/vfs_canonicalization/promotion_receipt.json` as the audit receipt.
@@ -44,7 +44,7 @@ python -m book.api.runtime run \
   - For denied requests the FD never opens, so neither FD path exists; `observed_path` remains the requested path and canonicalization for denied paths is inferred from behavior.
 ## Structural observations
 
-From `out/derived/decode_tmp_profiles.json` (anchors, tags, field2, and normalized literal candidates):
+From `out/derived/decode_tmp_profiles.json` (anchors, tags, and normalized literal candidates):
 
 - **Profile `vfs_tmp_only`**
   - Anchors present for `/tmp/foo`, `/tmp/bar`, `/tmp/nested/child`, `/var/tmp/canon`; canonical counterparts absent. Tag counts: `node_count = 53`, `tag_counts = {"4": 17, "5": 28, "3": 4, "1": 1, "0": 3}`.
@@ -153,7 +153,7 @@ Scope and constraints:
 Non-claims and cautions:
 
 - This experiment does **not** attempt to generalize to all alias families; `/var/tmp`, `/etc`, and intermediate symlink behavior remain **partial** and may involve additional alias spellings not yet probed.
-- It does not alter or override the structural anchor story from `probe-op-structure` or the field2 inventories from `field2-filters`; it only adds small, concrete runtime stories on top of them for these path families.
+- It does not alter or override the structural anchor story from `probe-op-structure`; it only adds small, concrete runtime stories on top of it for these path families.
 - Literal decoding here strips the leading literal-type byte; earlier substring-based checks could misclassify which anchors were present. Treat any future deviations as decoder hygiene issues, not policy changes.
 - The latest runtime harness run (summarized in `out/derived/runtime_results.json`) enabled seatbelt callouts for file-read* and file-write* probes; the underlying world and profiles are otherwise unchanged.
 

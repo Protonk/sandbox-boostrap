@@ -52,7 +52,7 @@ Modern compiled profiles on this host follow a specific “modern-heuristic” f
 **Independence and paths**
 
 - The [tag-layout-decode experiment](book/experiments/tag-layout-decode) works purely from decoded blobs: canonical system profiles are ingested, tag histograms and literal-bearing nodes are collected, and per-tag layouts are inferred and written to `tag_layouts.json`.  
-- The [libsandbox-encoder experiment](book/experiments/libsandbox-encoder) approaches the same question from the compiler side, using SBPL matrices plus a trimmed `libsandbox` slice under `book/graph/mappings/dyld-libs/` to confirm, at the byte level, how filter IDs and arguments are written into node records for key tags.  
+- The [libsandbox-encoder experiment](book/experiments/field2-final-final/libsandbox-encoder) approaches the same question from the compiler side, using SBPL matrices plus a trimmed `libsandbox` slice under `book/graph/mappings/dyld-libs/` to confirm, at the byte level, how filter IDs and arguments are written into node records for key tags.  
 
 The fact that header-aligned layouts seen in compiled blobs match the encodings reconstructed from libsandbox’s emit paths is what justifies treating the tag layouts as structural facts rather than decoder accidents.
 

@@ -49,7 +49,7 @@ def kr_for_baseline_target(baseline_results: list[dict], *, target: str) -> int 
 def test_cfprefsd_anchor_ctx_is_backed_by_used_packet_and_discriminating_matrix():
     receipt = load_json(ROOT / "book" / "graph" / "mappings" / "runtime" / "promotion_receipt.json")
     considered = ((receipt.get("packets") or {}).get("considered") or []) if isinstance(receipt, dict) else []
-    want = "book/experiments/anchor-filter-map/out/promotion_packet.json"
+    want = "book/experiments/field2-final-final/anchor-filter-map/out/promotion_packet.json"
     matched = [rec for rec in considered if isinstance(rec, dict) and rec.get("path") == want]
     assert matched and matched[0].get("status") == "used"
 

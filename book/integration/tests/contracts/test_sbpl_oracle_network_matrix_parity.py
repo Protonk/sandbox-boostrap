@@ -8,7 +8,7 @@ from book.tools.sbpl.oracles.network_matrix import run_network_matrix
 from book.api import path_utils
 def test_sbpl_oracle_network_matrix_matches_experiment_oracle_values():
     root = path_utils.find_repo_root(Path(__file__))
-    golden_path = root / "book/experiments/libsandbox-encoder/out/network_matrix/oracle_tuples.json"
+    golden_path = root / "book/experiments/field2-final-final/libsandbox-encoder/out/network_matrix/oracle_tuples.json"
     golden = json.loads(golden_path.read_text())
 
     assert golden["world_id"] == WORLD_ID
@@ -24,15 +24,15 @@ def test_sbpl_oracle_network_matrix_matches_experiment_oracle_values():
 
 def test_sbpl_oracle_network_matrix_runner_parity():
     root = path_utils.find_repo_root(Path(__file__))
-    manifest = root / "book/experiments/libsandbox-encoder/sb/network_matrix/MANIFEST.json"
-    blob_dir = root / "book/experiments/libsandbox-encoder/out/network_matrix"
+    manifest = root / "book/experiments/field2-final-final/libsandbox-encoder/sb/network_matrix/MANIFEST.json"
+    blob_dir = root / "book/experiments/field2-final-final/libsandbox-encoder/out/network_matrix"
     out = run_network_matrix(manifest, blob_dir)
 
     assert out["world_id"] == WORLD_ID
     assert out["oracle_id"] == "sbpl_oracle.network_tuple.v1"
     by_spec = {e["spec_id"]: e for e in out["entries"]}
 
-    golden_path = root / "book/experiments/libsandbox-encoder/out/network_matrix/oracle_tuples.json"
+    golden_path = root / "book/experiments/field2-final-final/libsandbox-encoder/out/network_matrix/oracle_tuples.json"
     golden = json.loads(golden_path.read_text())
     for entry in golden["entries"]:
         got = by_spec[entry["spec_id"]]

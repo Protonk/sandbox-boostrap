@@ -31,7 +31,14 @@ def _packet_context():
 
 
 def _run_atlas_build(tmp_path: Path, run_id: str) -> Path:
-    script = ROOT / "book" / "experiments" / "field2-atlas" / "atlas_build.py"
+    script = (
+        ROOT
+        / "book"
+        / "experiments"
+        / "field2-final-final"
+        / "field2-atlas"
+        / "atlas_build.py"
+    )
     subprocess.check_call(
         [
             sys.executable,
@@ -48,14 +55,30 @@ def _run_atlas_build(tmp_path: Path, run_id: str) -> Path:
 def test_field2_atlas_packet_consumer(tmp_path):
     ctx = _packet_context()
 
-    seeds_doc = load_json(ROOT / "book" / "experiments" / "field2-atlas" / "field2_seeds.json")
+    seeds_doc = load_json(
+        ROOT
+        / "book"
+        / "experiments"
+        / "field2-final-final"
+        / "field2-atlas"
+        / "field2_seeds.json"
+    )
     seeds = seeds_doc.get("seeds") or []
     seed_ids = {entry["field2"] for entry in seeds}
 
     assert seeds, "expected a non-empty seed manifest"
     assert {0, 5, 7}.issubset(seed_ids), "baseline field2 seeds should remain present"
 
-    static_records = load_jsonl(ROOT / "book" / "experiments" / "field2-atlas" / "out" / "static" / "field2_records.jsonl")
+    static_records = load_jsonl(
+        ROOT
+        / "book"
+        / "experiments"
+        / "field2-final-final"
+        / "field2-atlas"
+        / "out"
+        / "static"
+        / "field2_records.jsonl"
+    )
     static_by_id = {entry["field2"]: entry for entry in static_records}
     for fid in seed_ids:
         assert fid in static_by_id, f"no static record for seed field2={fid}"

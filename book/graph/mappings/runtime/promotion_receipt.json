@@ -1,19 +1,19 @@
 {
   "input_hashes": {
-    "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json": "b782656b8fc38a49f4c1a91c2b484590773d46fc97fea8c7c9fbb78be3222d54",
-    "book/experiments/anchor-filter-map/out/promotion_packet.json": "3da1176b548091e31d9bed8c9e73bd7c77dc5f8d5b12665ca6a762c27c6e5b13",
+    "book/experiments/field2-final-final/anchor-filter-map/iokit-class/out/promotion_packet.json": "b806a4828b78f03a0d4e3eaa15b1819a8cd86c6b868392604a79829824a49999",
+    "book/experiments/field2-final-final/anchor-filter-map/out/promotion_packet.json": "d842238a0486167fdd7805b1fdc97101b0fd55d158a9eea12ab85545e13970dd",
     "book/experiments/hardened-runtime/out/promotion_packet.json": "5d8f999c2b9f86e80038f61324ca87fc8bb8e72300bc0ee8ce7dc323e821c1b7",
     "book/experiments/runtime-adversarial/out/promotion_packet.json": "ff61d1d7c79bcf95057d1443b1f6e6ec848340c1cd80673ff734c4f975500a23",
     "book/experiments/runtime-checks/out/promotion_packet.json": "662297e9f76b45fe433c47a3b882f2e59c020323ec967a76b0a972cc28dc7f95",
-    "book/graph/mappings/runtime/packet_set.json": "17346d8c87616fc78353fe6ffb5bee8b5437fc8cccc171fbb436a3db98b7c6e3"
+    "book/graph/mappings/runtime/packet_set.json": "450849fce608a7a88c20f83e8fd2c91087f40566f41b6e0661f6e45a1267b900"
   },
   "inputs": [
     "book/graph/mappings/runtime/packet_set.json",
     "book/experiments/runtime-checks/out/promotion_packet.json",
     "book/experiments/runtime-adversarial/out/promotion_packet.json",
     "book/experiments/hardened-runtime/out/promotion_packet.json",
-    "book/experiments/anchor-filter-map/out/promotion_packet.json",
-    "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json"
+    "book/experiments/field2-final-final/anchor-filter-map/out/promotion_packet.json",
+    "book/experiments/field2-final-final/anchor-filter-map/iokit-class/out/promotion_packet.json"
   ],
   "notes": "Receipt for runtime mapping promotion inputs; used packets are decision-stage promotable per their manifests/promotability blocks.",
   "packet_set": "book/graph/mappings/runtime/packet_set.json",
@@ -84,7 +84,7 @@
       },
       {
         "channel": "launchd_clean",
-        "path": "book/experiments/anchor-filter-map/out/promotion_packet.json",
+        "path": "book/experiments/field2-final-final/anchor-filter-map/out/promotion_packet.json",
         "promotability": {
           "gating_inputs": {
             "apply_ok": true,
@@ -105,7 +105,7 @@
       },
       {
         "channel": "launchd_clean",
-        "path": "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json",
+        "path": "book/experiments/field2-final-final/anchor-filter-map/iokit-class/out/promotion_packet.json",
         "promotability": {
           "gating_inputs": {
             "apply_ok": true,
@@ -127,8 +127,8 @@
     ],
     "rejected": [],
     "used": [
-      "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json",
-      "book/experiments/anchor-filter-map/out/promotion_packet.json",
+      "book/experiments/field2-final-final/anchor-filter-map/iokit-class/out/promotion_packet.json",
+      "book/experiments/field2-final-final/anchor-filter-map/out/promotion_packet.json",
       "book/experiments/hardened-runtime/out/promotion_packet.json",
       "book/experiments/runtime-adversarial/out/promotion_packet.json",
       "book/experiments/runtime-checks/out/promotion_packet.json"

@@ -1,0 +1,50 @@
+{
+  "profiles": {
+    "probe-op-structure:file:v1_file_require_any": {
+      "family": "file-read",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": "Anchor-focused file-read* probes for /tmp/foo and /etc/hosts.",
+      "probe_refs": [
+        "probe-op-structure:file:v1_file_require_any:tmp_foo",
+        "probe-op-structure:file:v1_file_require_any:etc_hosts"
+      ],
+      "profile_id": "probe-op-structure:file:v1_file_require_any",
+      "profile_path": "book/experiments/field2-final-final/probe-op-structure/sb/v1_file_require_any.sb",
+      "semantic_group": "file-read:anchor-check"
+    },
+    "probe-op-structure:iokit:v5_iokit_class_property": {
+      "family": "iokit-open-service",
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ],
+      "mode": "sbpl",
+      "notes": "IOKit class/property probe under deny-default with bootstrap allowances.",
+      "probe_refs": [
+        "probe-op-structure:iokit:v5_iokit_class_property:iousb_host_interface"
+      ],
+      "profile_id": "probe-op-structure:iokit:v5_iokit_class_property",
+      "profile_path": "book/experiments/field2-final-final/probe-op-structure/sb/v5_iokit_class_property.sb",
+      "semantic_group": "iokit:anchor-check"
+    },
+    "probe-op-structure:mach:v3_mach_global_local": {
+      "family": "mach-lookup",
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ],
+      "mode": "sbpl",
+      "notes": "Add bootstrap allowances so mach-lookup probes can run under deny-default SBPL.",
+      "probe_refs": [
+        "probe-op-structure:mach:v3_mach_global_local:cfprefsd_agent"
+      ],
+      "profile_id": "probe-op-structure:mach:v3_mach_global_local",
+      "profile_path": "book/experiments/field2-final-final/probe-op-structure/sb/v3_mach_global_local.sb",
+      "semantic_group": "mach:anchor-check"
+    }
+  },
+  "registry_id": "probe-op-structure",
+  "schema_version": "runtime-tools.profile_registry.v0.2",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+}

@@ -126,7 +126,7 @@ def main(argv: Optional[List[str]] = None) -> int:
     ap.add_argument(
         "--network-diffs",
         type=Path,
-        default=Path("book/experiments/libsandbox-encoder/out/network_matrix/blob_diffs.json"),
+        default=Path("book/experiments/field2-final-final/libsandbox-encoder/out/network_matrix/blob_diffs.json"),
         help="Network matrix diff JSON",
     )
     ap.add_argument(

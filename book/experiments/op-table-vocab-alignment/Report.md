@@ -213,8 +213,8 @@ Bucket→Operation-ID summary (coarse; profile-scoped, not per-slot):
 This experiment can treat “SBPL op name → Operation ID” as complete for the synthetic suite; the remaining work is slot-semantics and filter-aware annotation:
 
 1. **Filter-level alignment (new)**
-   - Correlate bucket changes and decoder `field2` values with filter IDs from `filters.json` (e.g., `subpath`, `literal`) using the filtered variants.
-   - Record any stable field2 ↔ filter-ID patterns in this report and in node-layout notes.
+   - Correlate bucket changes with filter IDs from `filters.json` (e.g., `subpath`, `literal`) using the filtered variants.
+   - Record any stable filter-driven bucket patterns in this report and in node-layout notes.
 
 2. **Maintenance**
    - Keep `op_table_vocab_alignment.json` in sync with future vocab versions (regenerate if `ops.json` changes).
@@ -241,7 +241,7 @@ This experiment can treat “SBPL op name → Operation ID” as complete for th
 
    - update this report and `Plan.md` with a concise summary,
    - cross-link to:
-     - `node-layout` (e.g., “field2=6 and tag6-heavy regions correlate with Operation IDs X, Y, Z in bucket 6”),
+     - `node-layout` (e.g., “tag6-heavy regions correlate with Operation IDs X, Y, Z in bucket 6”),
      - `op-table-operation` (e.g., “bucket 5 is where mach-lookup and filtered read IDs land in these synthetic profiles”),
      - `book/graph/concepts/EXPERIMENT_FEEDBACK.md` with a short note and pointers.
 

@@ -125,8 +125,8 @@ Those scans, built from the web agent’s high-level patterns, were aimed square
 In parallel with the kernel work, the decoded graphs were being combed for patterns that might suggest an alternate explanation for high `field2` values: literal or regex indices, parameter tables, or graph-level metafilters. Those hypotheses were systematically knocked down, and each closed path was reflected back into the inventories and notes rather than left as a vague impression:
 
 * high values did not match literal table indices, offsets, or any simple linear transformation thereof;
-* their presence was tightly tied to rich, mixed profiles (e.g., require-all network + flow-divert) studied in the [probe-op-structure experiment](../../book/experiments/probe-op-structure/Report.md) and to specific tails, not scattered randomly; and
-* small synthetic SBPL fragments built around the interesting literals (flow-divert, `/dev/dtracehelper`, etc.) in the [`field2-filters` probes](../../book/experiments/field2-filters/sb/) collapsed back to low IDs, suggesting context-sensitivity in the compiler or emitter rather than an obvious “use this filter ID when you see this literal” mapping.
+* their presence was tightly tied to rich, mixed profiles (e.g., require-all network + flow-divert) studied in the [probe-op-structure experiment](../../book/experiments/field2-final-final/probe-op-structure/Report.md) and to specific tails, not scattered randomly; and
+* small synthetic SBPL fragments built around the interesting literals (flow-divert, `/dev/dtracehelper`, etc.) in the [`field2-filters` probes](../../book/experiments/field2-final-final/field2-filters/sb/) collapsed back to low IDs, suggesting context-sensitivity in the compiler or emitter rather than an obvious “use this filter ID when you see this literal” mapping.
 
 On the kernel side, the sequence of hypotheses and results went roughly as follows:
 
@@ -137,7 +137,7 @@ On the kernel side, the sequence of hypotheses and results went roughly as follo
 Each of these avenues was explored with scripts, recorded outputs, and concrete addresses; each came back negative for this host, including multiple passes of `kernel_field2_mask_scan`, `kernel_imm_search`, and `kernel_node_struct_scan.py` over the sandbox kext slice for build 23E224. By the end of the run, the combination of:
 
 * public knowledge about how the historical format behaved,
-* [decoded graph inventories](../../book/experiments/field2-filters/out/field2_inventory.json) and [unknown-node tables](../../book/experiments/field2-filters/out/unknown_nodes.json), and
+* [decoded graph inventories](../../book/experiments/field2-final-final/field2-filters/out/field2_inventory.json) and [unknown-node tables](../../book/experiments/field2-final-final/field2-filters/out/unknown_nodes.json), and
 * kernel-side scanning results
 
 left very little room for the idea that the Sonoma kernel was quietly implementing a simple hi/lo bitfield split or using a Blazakis-style node array behind the scenes. The more coherent picture was: the kernel is interpreting a VM-ish profile representation, takes `filter_arg_raw` as a plain u16 payload, and any semantics for high values are encoded in helper logic that has not yet been correlated with the decoded graphs.

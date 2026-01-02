@@ -27,11 +27,11 @@ Coordination: this file is the only coordination surface for the two big steps.
 ### runtime-adversarial
 - canonical invocation: `python -m book.api.runtime run --plan book/experiments/runtime-adversarial/plan.json --channel launchd_clean --out book/experiments/runtime-adversarial/out`
 - authoritative outputs (bundle + packet): `book/experiments/runtime-adversarial/out/<run_id>/artifact_index.json` (bundle authority) and `book/experiments/runtime-adversarial/out/promotion_packet.json` (consumer boundary; `out/LATEST` is convenience only)
-- downstream consumers + allowed reads: `book/experiments/field2-atlas` and `book/experiments/graph-shape-vs-semantics` must consume `book/experiments/runtime-adversarial/out/promotion_packet.json` only; runtime mapping generators also consume the packet; no consumer should read `out/LATEST` directly
+- downstream consumers + allowed reads: `book/experiments/field2-final-final/field2-atlas` and `book/experiments/graph-shape-vs-semantics` must consume `book/experiments/runtime-adversarial/out/promotion_packet.json` only; runtime mapping generators also consume the packet; no consumer should read `out/LATEST` directly
 
 ### field2-atlas
-- canonical invocation: `PYTHONPATH=$PWD python3 book/experiments/field2-atlas/atlas_static.py` then `PYTHONPATH=$PWD python3 book/experiments/field2-atlas/atlas_build.py --packet <promotion_packet.json> --out-root book/experiments/field2-atlas/out/derived`
-- authoritative outputs (bundle + packet): derived outputs only: `book/experiments/field2-atlas/out/static/field2_records.jsonl` plus `book/experiments/field2-atlas/out/derived/<run_id>/runtime/field2_runtime_results.json`, `book/experiments/field2-atlas/out/derived/<run_id>/atlas/field2_atlas.json`, `book/experiments/field2-atlas/out/derived/<run_id>/atlas/summary.json`, and `book/experiments/field2-atlas/out/derived/<run_id>/consumption_receipt.json`; upstream packet supplied by caller
+- canonical invocation: `PYTHONPATH=$PWD python3 book/experiments/field2-final-final/field2-atlas/atlas_static.py` then `PYTHONPATH=$PWD python3 book/experiments/field2-final-final/field2-atlas/atlas_build.py --packet <promotion_packet.json> --out-root book/experiments/field2-final-final/field2-atlas/out/derived`
+- authoritative outputs (bundle + packet): derived outputs only: `book/experiments/field2-final-final/field2-atlas/out/static/field2_records.jsonl` plus `book/experiments/field2-final-final/field2-atlas/out/derived/<run_id>/runtime/field2_runtime_results.json`, `book/experiments/field2-final-final/field2-atlas/out/derived/<run_id>/atlas/field2_atlas.json`, `book/experiments/field2-final-final/field2-atlas/out/derived/<run_id>/atlas/summary.json`, and `book/experiments/field2-final-final/field2-atlas/out/derived/<run_id>/consumption_receipt.json`; upstream packet supplied by caller
 - downstream consumers + allowed reads: `book/integration/tests/graph/test_field2_atlas.py` derives outputs from a promotion packet and validates provenance stamps; inputs must come from the packet (no `out/LATEST` scraping)
 
 ### graph-shape-vs-semantics
@@ -83,12 +83,12 @@ book/experiments/hardened-runtime/Report.md:38:- Bounded mismatches (`out/LATEST
 book/experiments/hardened-runtime/Report.md:39:- Summary (`out/LATEST/summary.json`, `out/LATEST/summary.md`).
 book/experiments/hardened-runtime/Report.md:40:- Artifact index (`out/LATEST/artifact_index.json`) that pins paths, digests, and schema versions for the run.
 book/experiments/hardened-runtime/Report.md:46:- Outputs: `book/experiments/hardened-runtime/out/LATEST/` (see Deliverables).
-book/experiments/field2-atlas/Notes.md:14:- Promoted runtime cut from runtime-adversarial (`python3 -m book.api.runtime promote --staging book/experiments/runtime-adversarial/out/runtime_mappings`) and regenerated `runtime_story`, `runtime_coverage`, and `expectations`.
-book/experiments/field2-atlas/Notes.md:19:- Refreshed via launchd clean channel; field2=1 mismatch now has a bounded packet in `book/experiments/runtime-adversarial/out/mismatch_packets.jsonl`, and field2=2560 carries a partial-triple control + baseline witness in `out/runtime/field2_runtime_results.json`.
-book/experiments/field2-atlas/Report.md:30:- Field2 1 (`mount-relative-path`): Anchored via `/etc/hosts` and present in `sys:sample` tag 8; runtime scenario `adv:path_edges:allow-subpath` is deny where expected allow. The mismatch is captured as a packet in `book/experiments/runtime-adversarial/out/mismatch_packets.jsonl` with baseline/oracle/normalization controls and labeled `canonicalization_boundary`.
-book/experiments/field2-atlas/Report.md:39:- Mismatch packets: `book/experiments/runtime-adversarial/out/mismatch_packets.jsonl` (decision-stage mismatch bundles).
-book/experiments/field2-atlas/Report.md:40:- Promotion packet: `book/experiments/runtime-adversarial/out/promotion_packet.json` (required for runtime events + baseline results + run manifest unless `--allow-legacy` is passed).
-book/experiments/anchor-filter-map/Report.md:17:Use the runtime CLI so the committed bundle is the only authority (resolve the latest run via `out/LATEST`):
+book/experiments/field2-final-final/field2-atlas/Notes.md:14:- Promoted runtime cut from runtime-adversarial (`python3 -m book.api.runtime promote --staging book/experiments/runtime-adversarial/out/runtime_mappings`) and regenerated `runtime_story`, `runtime_coverage`, and `expectations`.
+book/experiments/field2-final-final/field2-atlas/Notes.md:19:- Refreshed via launchd clean channel; field2=1 mismatch now has a bounded packet in `book/experiments/runtime-adversarial/out/mismatch_packets.jsonl`, and field2=2560 carries a partial-triple control + baseline witness in `out/runtime/field2_runtime_results.json`.
+book/experiments/field2-final-final/field2-atlas/Report.md:30:- Field2 1 (`mount-relative-path`): Anchored via `/etc/hosts` and present in `sys:sample` tag 8; runtime scenario `adv:path_edges:allow-subpath` is deny where expected allow. The mismatch is captured as a packet in `book/experiments/runtime-adversarial/out/mismatch_packets.jsonl` with baseline/oracle/normalization controls and labeled `canonicalization_boundary`.
+book/experiments/field2-final-final/field2-atlas/Report.md:39:- Mismatch packets: `book/experiments/runtime-adversarial/out/mismatch_packets.jsonl` (decision-stage mismatch bundles).
+book/experiments/field2-final-final/field2-atlas/Report.md:40:- Promotion packet: `book/experiments/runtime-adversarial/out/promotion_packet.json` (required for runtime events + baseline results + run manifest unless `--allow-legacy` is passed).
+book/experiments/field2-final-final/anchor-filter-map/Report.md:17:Use the runtime CLI so the committed bundle is the only authority (resolve the latest run via `out/LATEST`):
 book/experiments/runtime-checks/Report.md:13:- Output location: run-scoped bundles under `book/experiments/runtime-checks/out/<run_id>/` (resolve via `out/LATEST`).
 book/experiments/runtime-checks/Report.md:16:Run via the runtime CLI and treat the committed bundle as the authority (`out/LATEST` points to the most recent committed run):
 book/experiments/runtime-checks/Report.md:36:  - Expected probe matrix in `out/LATEST/expected_matrix.json` covers bucket-4 (`v1_read`) and bucket-5 (`v11_read_subpath`) synthetic profiles, runtime shapes (`allow_all`, `metafilter_any`), and system blobs (`airlock`, `bsd`) flagged for blob mode (airlock marked expected-fail locally).
@@ -101,13 +101,13 @@ book/experiments/runtime-checks/Report.md:71:- Probe matrix in `book/experiments
 book/experiments/runtime-checks/Report.md:72:- Runtime results in `book/experiments/runtime-checks/out/LATEST/runtime_results.json` and `book/experiments/runtime-checks/out/LATEST/runtime_events.normalized.json`.
 book/experiments/runtime-checks/Report.md:73:- Clean-channel manifests: `book/experiments/runtime-checks/out/LATEST/run_manifest.json` (provenance bundle) and `book/experiments/runtime-checks/out/LATEST/apply_preflight.json` (sandbox_check self check).
 book/experiments/runtime-checks/Report.md:74:- Sandbox_check callouts: `book/experiments/runtime-checks/out/LATEST/runtime_results.json` includes `seatbelt_callouts` markers for file/mach probes (oracle lane only).
-book/experiments/probe-op-structure/Report.md:67:- Latest run: `book/experiments/probe-op-structure/out/39f84aa5-86b4-466d-b5d9-f510299bbd0a/` (see `book/experiments/probe-op-structure/out/LATEST`).
-book/experiments/probe-op-structure/Report.md:96:Run via the runtime CLI and treat the run-scoped bundle as the authority (`out/LATEST` points to the most recent committed run):
+book/experiments/field2-final-final/probe-op-structure/Report.md:67:- Latest run: `book/experiments/field2-final-final/probe-op-structure/out/39f84aa5-86b4-466d-b5d9-f510299bbd0a/` (see `book/experiments/field2-final-final/probe-op-structure/out/LATEST`).
+book/experiments/field2-final-final/probe-op-structure/Report.md:96:Run via the runtime CLI and treat the run-scoped bundle as the authority (`out/LATEST` points to the most recent committed run):
 book/experiments/graph-shape-vs-semantics/Report.md:15:- Harness: `python -m book.api.runtime run --plan book/experiments/runtime-adversarial/plan.json --channel launchd_clean` (bundle outputs under `book/experiments/runtime-adversarial/out/LATEST/`).
 book/experiments/graph-shape-vs-semantics/Report.md:21:- Inputs: `runtime-adversarial` expected/runtime matrices in `book/experiments/runtime-adversarial/out/LATEST/`.
 book/experiments/graph-shape-vs-semantics/Report.md:30:   - Produces per-profile, per-probe runtime results in `book/experiments/runtime-adversarial/out/LATEST/runtime_results.json` (including expectation IDs, allow/deny, match flags, errno, commands).
 book/experiments/archive/op-coverage-and-runtime-signatures/Report.md:26:   - `python -m book.api.runtime emit-promotion --bundle book/experiments/runtime-adversarial/out --out book/experiments/runtime-adversarial/out/promotion_packet.json`
-book/experiments/preflight-blob-digests/Notes.md:62:  - `python3 book/experiments/preflight-blob-digests/blob_apply_matrix.py --label structural_validation_batch3_scan_shortlist --blob book/experiments/gate-witnesses/out/micro_variants/base_v2_inner_allow_external_method.sb.bin --blob book/experiments/sandbox-init-params/out/named_mDNSResponder.sb.bin --blob book/experiments/libsandbox-encoder/out/matrix_v1.sb.bin --blob book/experiments/sandbox-init-params/out/file_ftp_proxy.sb.bin --blob book/experiments/libsandbox-encoder/sb/matrix_v1_domain30.sb.bin --blob book/experiments/bsd-airlock-highvals/sb/build/airlock_system_fcntl_literal_guard.sb.bin --blob book/experiments/bsd-airlock-highvals/sb/build/bsd_tag26_matrix.sb.bin --blob book/experiments/field2-filters/sb/build/bsd_tail_context.sb.bin --blob book/experiments/runtime-adversarial/out/sb_build/net_outbound_deny.sb.bin --blob book/experiments/sbpl-graph-runtime/out/deny_all.sb.bin --out book/experiments/preflight-blob-digests/out/blob_apply_matrix.structural_validation_batch3_scan_shortlist.json`
+book/experiments/preflight-blob-digests/Notes.md:62:  - `python3 book/experiments/preflight-blob-digests/blob_apply_matrix.py --label structural_validation_batch3_scan_shortlist --blob book/experiments/gate-witnesses/out/micro_variants/base_v2_inner_allow_external_method.sb.bin --blob book/experiments/sandbox-init-params/out/named_mDNSResponder.sb.bin --blob book/experiments/field2-final-final/libsandbox-encoder/out/matrix_v1.sb.bin --blob book/experiments/sandbox-init-params/out/file_ftp_proxy.sb.bin --blob book/experiments/field2-final-final/libsandbox-encoder/sb/matrix_v1_domain30.sb.bin --blob book/experiments/field2-final-final/bsd-airlock-highvals/sb/build/airlock_system_fcntl_literal_guard.sb.bin --blob book/experiments/field2-final-final/bsd-airlock-highvals/sb/build/bsd_tag26_matrix.sb.bin --blob book/experiments/field2-final-final/field2-filters/sb/build/bsd_tail_context.sb.bin --blob book/experiments/runtime-adversarial/out/sb_build/net_outbound_deny.sb.bin --blob book/experiments/sbpl-graph-runtime/out/deny_all.sb.bin --out book/experiments/preflight-blob-digests/out/blob_apply_matrix.structural_validation_batch3_scan_shortlist.json`
 book/experiments/vfs-canonicalization/Plan.md:77:  - Stored in `out/derived/runtime_results.json` (derived from `out/LATEST/runtime_events.normalized.json` + `out/LATEST/path_witnesses.json`, includes bundle metadata and a `records` list).
 book/experiments/vfs-canonicalization/Plan.md:79:  - For each `(profile_id, requested_path)` we record an initial expectation in `out/LATEST/expected_matrix.json`, generated from the runtime plan template. The base `/tmp` family encodes the observed canonicalization pattern (including the `/var/tmp` control), while the additional variants default to a literal-only baseline so mismatches are the signal.
 book/experiments/vfs-canonicalization/Plan.md:86:- `python -m book.api.runtime run --plan book/experiments/vfs-canonicalization/plan.json --channel launchd_clean` emits a committed bundle under `out/<run_id>/` and updates `out/LATEST`.
@@ -130,16 +130,16 @@ rg -n --glob '*.{py,sh,js,ts,swift}' "out/LATEST|out/[0-9a-f-]{8}|runtime_events
 Results:
 ```
 book/graph/mappings/system_profiles/generate_attestations.py:13:- `book/graph/concepts/validation/out/semantic/runtime_results.json` (optional link)
-book/experiments/field2-atlas/atlas_build.py:6:- out/runtime/field2_runtime_results.json (from atlas_runtime.py)
-book/experiments/field2-atlas/atlas_build.py:30:RUNTIME_PATH = Path(__file__).with_name("out") / "runtime" / "field2_runtime_results.json"
-book/experiments/field2-atlas/atlas_runtime.py:5:and emits `out/runtime/field2_runtime_results.json`. It reuses canonical runtime
-book/experiments/field2-atlas/atlas_runtime.py:29:    REPO_ROOT / "book" / "experiments" / "runtime-adversarial" / "out" / "promotion_packet.json"
-book/experiments/field2-atlas/atlas_runtime.py:32:    REPO_ROOT / "book" / "experiments" / "runtime-adversarial" / "out" / "runtime_events.normalized.json",
-book/experiments/field2-atlas/atlas_runtime.py:39:DEFAULT_OUTPUT = Path(__file__).with_name("out") / "runtime" / "field2_runtime_results.json"
-book/experiments/field2-atlas/atlas_runtime.py:203:            "promotion_packet.json missing; run runtime emit-promotion or pass --allow-legacy to use legacy paths"
-book/experiments/field2-atlas/atlas_runtime.py:206:        raise RuntimeError("promotion_packet.json missing runtime_events; refuse legacy fallback without --allow-legacy")
-book/experiments/field2-atlas/atlas_runtime.py:452:        help="Path to promotion_packet.json",
-book/experiments/field2-atlas/atlas_runtime.py:463:        help="Output path for field2_runtime_results.json",
+book/experiments/field2-final-final/field2-atlas/atlas_build.py:6:- out/runtime/field2_runtime_results.json (from atlas_runtime.py)
+book/experiments/field2-final-final/field2-atlas/atlas_build.py:30:RUNTIME_PATH = Path(__file__).with_name("out") / "runtime" / "field2_runtime_results.json"
+book/experiments/field2-final-final/field2-atlas/atlas_runtime.py:5:and emits `out/runtime/field2_runtime_results.json`. It reuses canonical runtime
+book/experiments/field2-final-final/field2-atlas/atlas_runtime.py:29:    REPO_ROOT / "book" / "experiments" / "runtime-adversarial" / "out" / "promotion_packet.json"
+book/experiments/field2-final-final/field2-atlas/atlas_runtime.py:32:    REPO_ROOT / "book" / "experiments" / "runtime-adversarial" / "out" / "runtime_events.normalized.json",
+book/experiments/field2-final-final/field2-atlas/atlas_runtime.py:39:DEFAULT_OUTPUT = Path(__file__).with_name("out") / "runtime" / "field2_runtime_results.json"
+book/experiments/field2-final-final/field2-atlas/atlas_runtime.py:203:            "promotion_packet.json missing; run runtime emit-promotion or pass --allow-legacy to use legacy paths"
+book/experiments/field2-final-final/field2-atlas/atlas_runtime.py:206:        raise RuntimeError("promotion_packet.json missing runtime_events; refuse legacy fallback without --allow-legacy")
+book/experiments/field2-final-final/field2-atlas/atlas_runtime.py:452:        help="Path to promotion_packet.json",
+book/experiments/field2-final-final/field2-atlas/atlas_runtime.py:463:        help="Output path for field2_runtime_results.json",
 book/graph/concepts/validation/runtime_checks_experiment_job.py:2:Validation job for the runtime-checks experiment. Normalizes runtime_results.json
 book/graph/concepts/validation/runtime_checks_experiment_job.py:19:RUNTIME_RESULTS = EXP_ROOT / "runtime_results.json"
 book/graph/concepts/validation/metadata_runner_experiment_job.py:4:Normalizes the experiment's bespoke runtime_results.json into contract-shaped
@@ -165,7 +165,7 @@ book/integration/tests/runtime/test_runtime_tools_component_promotion_packet.py:
 book/integration/tests/runtime/test_runtime_tools_component_promotion_packet.py:157:    packet = runtime_api.emit_promotion_packet(run_dir, tmp_path / "promotion_packet.json")
 book/integration/tests/runtime/test_runtime_tools_component_promotion_packet.py:193:    # No artifact_index.json here: strict load must fail, but debug open must not.
 book/integration/tests/runtime/test_runtime_tools_component_promotion_packet.py:198:    packet = runtime_api.emit_promotion_packet(run_dir, tmp_path / "promotion_packet.json")
-book/integration/tests/graph/test_anchor_filter_map_cfprefsd_runtime_lift.py:52:    want = "book/experiments/anchor-filter-map/out/promotion_packet.json"
+book/integration/tests/graph/test_anchor_filter_map_cfprefsd_runtime_lift.py:52:    want = "book/experiments/field2-final-final/anchor-filter-map/out/promotion_packet.json"
 book/integration/tests/runtime/test_hardened_runtime_artifacts.py:38:    artifact_index_path = bundle_dir / "artifact_index.json"
 book/integration/tests/runtime/test_hardened_runtime_artifacts.py:40:    runtime_results_path = bundle_dir / "runtime_results.json"
 book/integration/tests/runtime/test_hardened_runtime_artifacts.py:58:        runtime = load_bundle_json(OUT_DIR, "runtime_results.json")
@@ -198,8 +198,8 @@ book/integration/tests/runtime/test_runtime_promotion_contracts.py:43:    if "pr
 book/integration/tests/runtime/test_runtime_promotion_contracts.py:58:            "book/experiments/runtime-checks/out/promotion_packet.json",
 book/integration/tests/runtime/test_runtime_promotion_contracts.py:59:            "book/experiments/runtime-adversarial/out/promotion_packet.json",
 book/integration/tests/runtime/test_runtime_promotion_contracts.py:60:            "book/experiments/hardened-runtime/out/promotion_packet.json",
-book/integration/tests/runtime/test_runtime_promotion_contracts.py:61:            "book/experiments/anchor-filter-map/out/promotion_packet.json",
-book/integration/tests/runtime/test_runtime_promotion_contracts.py:62:            "book/experiments/anchor-filter-map/iokit-class/out/promotion_packet.json",
+book/integration/tests/runtime/test_runtime_promotion_contracts.py:61:            "book/experiments/field2-final-final/anchor-filter-map/out/promotion_packet.json",
+book/integration/tests/runtime/test_runtime_promotion_contracts.py:62:            "book/experiments/field2-final-final/anchor-filter-map/iokit-class/out/promotion_packet.json",
 book/integration/tests/runtime/test_runtime_golden.py:12:RUNTIME_RESULTS = BUNDLE_DIR / "runtime_results.json"
 book/integration/tests/runtime/test_network_outbound_guardrail.py:38:    results = load_bundle_json(OUT_ROOT, "runtime_results.json")
 ```
@@ -215,7 +215,7 @@ book/experiments/metadata-runner/Notes.md:4:- Swift runner (`book/api/runtime/na
 book/experiments/metadata-runner/Notes.md:5:- `run_metadata.py` compiles SBPL probes, builds the runner, seeds fixtures via canonical paths, and runs the matrix across alias/canonical paths for both operations and all syscalls; outputs land in `out/runtime_results.json` and `out/decode_profiles.json`.
 book/experiments/metadata-runner/Notes.md:9:- Migrated the Swift runner source to `book/api/runtime/native/metadata_runner` and updated the driver to build via the shared build script.
 book/experiments/metadata-runner/Notes.md:10:- Local build attempt of `book/api/runtime/native/metadata_runner/build.sh` failed with Swift module cache permission errors and an SDK/compiler mismatch; the script itself is correct but the toolchain needs alignment to run.
-book/experiments/metadata-runner/check_structural.py:3:Cross-check anchors/tags/field2 against anchor_filter_map for metadata-runner profiles.
+book/experiments/field2-final-final/metadata-runner/check_structural.py:3:Cross-check anchors/tags/field2 against anchor_filter_map for metadata-runner profiles.
 book/experiments/metadata-runner/EPERM.md:1:# EPERM handling for metadata-runner
 book/experiments/metadata-runner/EPERM.md:17:   - `python3 book/experiments/metadata-runner/run_metadata.py`
 book/experiments/metadata-runner/EPERM.md:18:   - Inspect `out/runtime_results.json` for `status`/`errno` and `out/decode_profiles.json` for anchor presence.
