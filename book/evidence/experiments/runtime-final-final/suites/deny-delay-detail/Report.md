@@ -11,9 +11,9 @@ Turn the intermittent “missing deny evidence” problem into a repeatable meth
 - Host-scoped to the baseline above.
 - Focused on PolicyWitness observer evidence and mapped operation/filter outputs.
 - Uses bedrock vocab surfaces (see `book/evidence/graph/concepts/BEDROCK_SURFACES.json`):
-  - `book/evidence/graph/mappings/vocab/ops.json`
-  - `book/evidence/graph/mappings/vocab/filters.json`
-  - `book/evidence/graph/mappings/vocab/ops_coverage.json`
+  - `book/integration/carton/bundle/relationships/mappings/vocab/ops.json`
+  - `book/integration/carton/bundle/relationships/mappings/vocab/filters.json`
+  - `book/integration/carton/bundle/relationships/mappings/vocab/ops_coverage.json`
 
 ## Deliverables / expected outcomes
 

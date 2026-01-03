@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from book.graph.mappings.system_profiles import generate_static_checks as gsc
+from book.integration.carton.mappings.system_profiles import generate_static_checks as gsc
 
 
 def test_tag_layout_hash_resists_metadata_only_changes(tmp_path: Path):

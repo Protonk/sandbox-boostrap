@@ -46,7 +46,7 @@ def _ascii_byte(b: int) -> bool:
 
 
 def _load_known_tags() -> set[int]:
-    path = ROOT / "book/evidence/graph/mappings/tag_layouts/tag_layouts.json"
+    path = ROOT / "book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_layouts.json"
     if not path.exists():
         return set()
     data = json.loads(path.read_text())
@@ -381,7 +381,7 @@ def main(argv: Sequence[str]) -> None:
 
     payload: Dict[str, Any] = {
         "notes": "Experiment-local stride=8 framing cross-check; does not mutate mappings.",
-        "known_tags_source": "book/evidence/graph/mappings/tag_layouts/tag_layouts.json",
+        "known_tags_source": "book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_layouts.json",
         "known_tag_count": len(known_tags),
         "bsd": _analyze_profile(bsd, known_tags),
         "airlock": _analyze_profile(airlock, known_tags, system_fcntl_op_index=162),

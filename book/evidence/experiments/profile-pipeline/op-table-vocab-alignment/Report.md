@@ -57,7 +57,7 @@ This experiment sits between the structural experiments and the validation tooli
 ---
 
 ## Deliverables / expected outcomes
-- This experiment assumes the existence of two vocabulary artifacts under `book/evidence/graph/mappings/vocab/`:
+- This experiment assumes the existence of two vocabulary artifacts under `book/integration/carton/bundle/relationships/mappings/vocab/`:
   
   1. `ops.json` – **Operation Vocabulary Map**
   
@@ -124,7 +124,7 @@ This experiment sits between the structural experiments and the validation tooli
 - **1. Setup and scope**
   - Recorded host / OS baseline in `ResearchReport.md`.
   - Inventoried upstream structural artifacts from `node-layout` and `op-table-operation`.
-  - Located and documented vocabulary-mapping tasks and outputs (`book/evidence/graph/mappings/vocab/ops.json`, `filters.json` with status ok).
+  - Located and documented vocabulary-mapping tasks and outputs (`book/integration/carton/bundle/relationships/mappings/vocab/ops.json`, `filters.json` with status ok).
 - **2. Vocabulary extraction hookup**
   - Defined the expected JSON contracts for `ops.json` / `filters.json` and how alignment ties them to specific OS/builds.
   - Recorded assumptions and requirements for vocabulary artifacts in `ResearchReport.md` for future agents.
@@ -167,7 +167,7 @@ This experiment sits between the structural experiments and the validation tooli
   - Whether future data reveals contradictions between bucket behavior in `op-table-operation` and the canonical Operation Vocabulary Map.
 
 ## Evidence & artifacts
-- `book/evidence/graph/mappings/vocab/ops.json` and `filters.json` harvested from the dyld cache for this host (status: ok).
+- `book/integration/carton/bundle/relationships/mappings/vocab/ops.json` and `filters.json` harvested from the dyld cache for this host (status: ok).
 - `book/evidence/experiments/profile-pipeline/op-table-operation/out/summary.json`, `op_table_map.json`, and `op_table_signatures.json` as upstream structural inputs.
 - `book/evidence/experiments/profile-pipeline/op-table-vocab-alignment/out/op_table_vocab_alignment.json` capturing per-profile operations, op-table buckets, and (when present) vocabulary IDs and versions.
 - Host/format metadata in `book/evidence/graph/concepts/validation/out/metadata.json` that tie alignment runs to the Sonoma baseline.
@@ -184,7 +184,7 @@ This experiment sits between the structural experiments and the validation tooli
 
 ## Appendix
 ### 5. Updated findings (with vocab present)
-With the Sonoma vocab harvested (`book/evidence/graph/mappings/vocab/ops.json` / `filters.json`, status: ok), we can attach numeric Operation IDs to the SBPL operation names present in the synthetic profiles from `op-table-operation`.
+With the Sonoma vocab harvested (`book/integration/carton/bundle/relationships/mappings/vocab/ops.json` / `filters.json`, status: ok), we can attach numeric Operation IDs to the SBPL operation names present in the synthetic profiles from `op-table-operation`.
 
 This does **not** imply that op-table slot indices correspond to operation IDs in these blobs: the synthetic profiles’ op tables are small (typically `op_count` 5–7), and slot semantics remain under exploration. This experiment therefore treats the vocab as an annotation layer (SBPL op name → op ID) and treats `op_entries` patterns as the bucket evidence.
 

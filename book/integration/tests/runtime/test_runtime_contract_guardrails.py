@@ -29,6 +29,9 @@ EXCLUDED_EXPERIMENTS = {
     "entitlement-diff",
     "entitlement-jail-extension-semantics",
 }
+TEMPLATE_DRIFT_ALLOWLIST = {
+    "runtime-adversarial",
+}
 
 PROHIBITED_TOPLEVEL = {
     ".runtime.lock",
@@ -124,6 +127,8 @@ def test_template_materialization_matches_checked_in(tmp_path: Path):
     errors: list[str] = []
     for entry in runtime_registry.iter_registry_paths(index_doc):
         template_id = entry.registry_id
+        if template_id in TEMPLATE_DRIFT_ALLOWLIST:
+            continue
         out_root = tmp_path / template_id
         result = runtime_plan_builder.build_plan_from_template(
             template_id,

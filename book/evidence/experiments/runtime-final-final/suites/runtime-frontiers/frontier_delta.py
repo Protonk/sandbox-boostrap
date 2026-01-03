@@ -19,7 +19,7 @@ from book.api import path_utils
 from book.graph.mappings.runtime import promotion_packets
 
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))
-DEFAULT_PACKET_SET = REPO_ROOT / "book/evidence/graph/mappings/runtime/packet_set.json"
+DEFAULT_PACKET_SET = REPO_ROOT / "book/integration/carton/bundle/relationships/mappings/runtime/packet_set.json"
 
 
 def _load_json(path: Path) -> Any:

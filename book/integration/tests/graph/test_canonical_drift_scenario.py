@@ -7,8 +7,8 @@ import pytest
 
 from book.api import path_utils
 ROOT = path_utils.find_repo_root(Path(__file__))
-DIGESTS_PATH = ROOT / "book/evidence/graph/mappings/system_profiles/digests.json"
-TAG_LAYOUTS_PATH = ROOT / "book/evidence/graph/mappings/tag_layouts/tag_layouts.json"
+DIGESTS_PATH = ROOT / "book/integration/carton/bundle/relationships/mappings/system_profiles/digests.json"
+TAG_LAYOUTS_PATH = ROOT / "book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_layouts.json"
 
 
 def load_json(path: Path) -> dict:
@@ -22,7 +22,7 @@ def test_canonical_drift_demotes_and_propagates(monkeypatch, tmp_path):
     baseline_tag_layouts = TAG_LAYOUTS_PATH.read_text()
 
     # Force a blob hash drift for sys:bsd while keeping contract expectations from baseline.
-    gd = importlib.import_module("book.graph.mappings.system_profiles.generate_digests_from_ir")
+    gd = importlib.import_module("book.integration.carton.mappings.system_profiles.generate_digests_from_ir")
     tmp_digests = tmp_path / "digests.json"
     monkeypatch.setattr(gd, "OUT_PATH", tmp_digests)
     monkeypatch.setattr(gd, "STATIC_CHECKS_PATH", gd.STATIC_CHECKS_PATH)
@@ -47,7 +47,7 @@ def test_canonical_drift_demotes_and_propagates(monkeypatch, tmp_path):
     assert degraded["metadata"]["canonical_profiles"]["sys:airlock"]["status"] == "ok"
 
     # Propagate to tag layouts
-    tl = importlib.import_module("book.graph.mappings.tag_layouts.annotate_metadata")
+    tl = importlib.import_module("book.integration.carton.mappings.tag_layouts.annotate_metadata")
     tmp_tag_layouts = tmp_path / "tag_layouts.json"
     tmp_tag_layouts.write_text(baseline_tag_layouts)
     monkeypatch.setattr(tl, "TAG_LAYOUTS_PATH", tmp_tag_layouts)

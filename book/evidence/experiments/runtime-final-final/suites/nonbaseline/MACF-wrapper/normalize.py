@@ -244,9 +244,9 @@ def build_output(*, events: List[Dict], runtime_world_id: str, run_id: str, os_b
     }
 
 def resolve_default_static_refs(repo_root: pathlib.Path) -> Dict[str, Optional[str]]:
-    op_table = repo_root / "book/evidence/graph/mappings/op_table/op_table_signatures.json"
-    vocab_ops = repo_root / "book/evidence/graph/mappings/vocab/ops.json"
-    vocab_filters = repo_root / "book/evidence/graph/mappings/vocab/filters.json"
+    op_table = repo_root / "book/integration/carton/bundle/relationships/mappings/op_table/op_table_signatures.json"
+    vocab_ops = repo_root / "book/integration/carton/bundle/relationships/mappings/vocab/ops.json"
+    vocab_filters = repo_root / "book/integration/carton/bundle/relationships/mappings/vocab/filters.json"
     return {
         "op_table_hash": sha256_hex(op_table),
         "vocab_ops_hash": sha256_hex(vocab_ops),

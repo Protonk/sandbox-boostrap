@@ -27,8 +27,8 @@ from book.api.profile import digests as digests_mod  # type: ignore
 
 
 def load_vocab() -> Dict[str, Any]:
-    ops = json.loads(Path("book/evidence/graph/mappings/vocab/ops.json").read_text())
-    filters = json.loads(Path("book/evidence/graph/mappings/vocab/filters.json").read_text())
+    ops = json.loads(Path("book/integration/carton/bundle/relationships/mappings/vocab/ops.json").read_text())
+    filters = json.loads(Path("book/integration/carton/bundle/relationships/mappings/vocab/filters.json").read_text())
     return {
         "ops": ops,
         "filters": filters,

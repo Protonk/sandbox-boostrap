@@ -1,14 +1,14 @@
 # Runtime Checks – Research Report
 
 ## Purpose
-Validate that runtime allow/deny behavior for selected profiles matches decoder-derived expectations, especially around bucket‑4 vs bucket‑5 distinctions and canonical system profiles. Capture reproducible traces under `book/evidence/graph/mappings/runtime/` and add guardrails.
+Validate that runtime allow/deny behavior for selected profiles matches decoder-derived expectations, especially around bucket‑4 vs bucket‑5 distinctions and canonical system profiles. Capture reproducible traces under `book/integration/carton/bundle/relationships/mappings/runtime/` and add guardrails.
 
 ## Baseline & scope
 - World: Sonoma baseline from `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
 - Target profiles:
   - Canonical system blobs (`airlock.sb.bin`, `bsd.sb.bin`, `sample.sb.bin`).
   - Representative bucket-4 and bucket-5 synthetic profiles from `op-table-operation`.
-- Inputs: decoder outputs (bucket assignments, tag signatures) and vocab mappings in `book/evidence/graph/mappings/`.
+- Inputs: decoder outputs (bucket assignments, tag signatures) and vocab mappings in `book/integration/carton/bundle/relationships/mappings/`.
 - Harness: plan-based runtime execution via `python -m book.api.runtime run --plan ... --channel ...` (runtime shims + bundle lifecycle).
 - Output location: run-scoped bundles under `book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/<run_id>/` (resolve via `out/LATEST`).
 

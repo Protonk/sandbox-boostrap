@@ -10,7 +10,7 @@ Create a reproducible, observer-backed deny atlas for PolicyWitness profiles usi
 
 - PolicyWitness API: `book.api.witness.client`, `book.api.witness.enforcement`, `book.api.witness.lifecycle`.
 - Observer: `book.api.witness.observer` (manual `--last` default; external range available via `--observer-mode external`).
-- Vocab (bedrock): `book/evidence/graph/mappings/vocab/ops.json`, `book/evidence/graph/mappings/vocab/filters.json`, `book/evidence/graph/mappings/vocab/ops_coverage.json`.
+- Vocab (bedrock): `book/integration/carton/bundle/relationships/mappings/vocab/ops.json`, `book/integration/carton/bundle/relationships/mappings/vocab/filters.json`, `book/integration/carton/bundle/relationships/mappings/vocab/ops_coverage.json`.
 - Path helpers: `book.api.path_utils` for repo-relative outputs.
 
 ## Deny set (initial probes)

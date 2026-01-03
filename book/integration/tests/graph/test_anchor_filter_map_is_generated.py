@@ -23,10 +23,10 @@ def test_anchor_filter_map_is_pure_derived_view_and_deterministic():
     - A literal may be pinned only if all its ctx entries agree on one filter.
     """
 
-    from book.graph.mappings.anchors import generate_anchor_filter_map as gen
+    from book.integration.carton.mappings.anchors import generate_anchor_filter_map as gen
 
-    ctx_path = ROOT / "book" / "evidence" / "graph" / "mappings" / "anchors" / "anchor_ctx_filter_map.json"
-    legacy_path = ROOT / "book" / "evidence" / "graph" / "mappings" / "anchors" / "anchor_filter_map.json"
+    ctx_path = ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "anchors" / "anchor_ctx_filter_map.json"
+    legacy_path = ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "anchors" / "anchor_filter_map.json"
 
     ctx_doc = load_json(ctx_path)
     expected_doc = gen.build_legacy_anchor_filter_map(ctx_doc, baseline_world_id=gen._baseline_world_id())
@@ -36,8 +36,8 @@ def test_anchor_filter_map_is_pure_derived_view_and_deterministic():
 
     meta = expected_doc.get("metadata") or {}
     assert isinstance(meta, dict)
-    assert meta.get("anchor_ctx_map") == "book/evidence/graph/mappings/anchors/anchor_ctx_filter_map.json"
-    assert meta.get("generated_by") == "book/graph/mappings/anchors/generate_anchor_filter_map.py"
+    assert meta.get("anchor_ctx_map") == "book/integration/carton/bundle/relationships/mappings/anchors/anchor_ctx_filter_map.json"
+    assert meta.get("generated_by") == "book/integration/carton/mappings/anchors/generate_anchor_filter_map.py"
 
     ctx_entries = (ctx_doc.get("entries") or {}) if isinstance(ctx_doc, dict) else {}
     assert isinstance(ctx_entries, dict) and ctx_entries, "expected non-empty ctx map entries"

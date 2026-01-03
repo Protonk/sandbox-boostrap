@@ -1,14 +1,14 @@
 import json
 from pathlib import Path
 
-from book.graph.mappings.runtime import generate_runtime_signatures as grs
-from book.graph.mappings.runtime import promotion_packets
+from book.integration.carton.mappings.runtime import generate_runtime_signatures as grs
+from book.integration.carton.mappings.runtime import promotion_packets
 
 
 from book.api import path_utils
 
 ROOT = path_utils.find_repo_root(Path(__file__))
-SIGNATURES = ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "runtime_signatures.json"
+SIGNATURES = ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "runtime" / "runtime_signatures.json"
 
 
 def load(path: Path):

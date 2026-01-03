@@ -47,6 +47,13 @@ TEMPLATE_INDEX: Dict[str, Path] = {
     / "plans"
     / "templates"
     / "lifecycle_lockdown.json",
+    "mach-name-equivalence": REPO_ROOT
+    / "book"
+    / "api"
+    / "runtime"
+    / "plans"
+    / "templates"
+    / "mach_name_equivalence.json",
     "metadata-runner": REPO_ROOT
     / "book"
     / "api"

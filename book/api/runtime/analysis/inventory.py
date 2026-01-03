@@ -129,7 +129,7 @@ IN_REPO_ITEMS: List[Dict[str, Any]] = [
     },
     {
         "id": "runtime-mappings",
-        "paths": ["book/evidence/graph/mappings/runtime", "book/evidence/graph/mappings/runtime_cuts"],
+        "paths": ["book/integration/carton/bundle/relationships/mappings/runtime", "book/integration/carton/bundle/relationships/mappings/runtime_cuts"],
         "category": "mapping",
         "description": "Canonical runtime mappings (signatures, coverage, story, traces).",
         "privileges": "n/a (derived)",

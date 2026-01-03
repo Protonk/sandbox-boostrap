@@ -3,7 +3,7 @@ Static join helper for the Field2 Atlas experiment.
 
 Builds field2-centric records by joining:
 - seed manifest (`field2_seeds.json`)
-- anchor → filter map compatibility view (`book/evidence/graph/mappings/anchors/anchor_filter_map.json`, derived conservatively from the ctx-indexed canonical map)
+- anchor → filter map compatibility view (`book/integration/carton/bundle/relationships/mappings/anchors/anchor_filter_map.json`, derived conservatively from the ctx-indexed canonical map)
 - field2 inventory from field2-filters (`book/evidence/experiments/field2-final-final/field2-filters/out/field2_inventory.json`)
 
 Output: `out/static/field2_records.jsonl`, one JSON object per field2 seed.
@@ -40,7 +40,7 @@ DEFAULT_FIELD2_INVENTORY = (
     / "out"
     / "field2_inventory.json"
 )
-DEFAULT_ANCHOR_MAP = REPO_ROOT / "book" / "evidence" / "graph" / "mappings" / "anchors" / "anchor_filter_map.json"
+DEFAULT_ANCHOR_MAP = REPO_ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "anchors" / "anchor_filter_map.json"
 DEFAULT_OUTPUT = Path(__file__).with_name("out") / "static" / "field2_records.jsonl"
 
 

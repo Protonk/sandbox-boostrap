@@ -37,7 +37,7 @@ struct GraphChecks {
                 }
             }
         }
-        if let runtimeExp = loadRuntimeExpectations(at: root.appendingPathComponent("book/evidence/graph/mappings/runtime/expectations.json").path) {
+        if let runtimeExp = loadRuntimeExpectations(at: root.appendingPathComponent("book/integration/carton/bundle/relationships/mappings/runtime/expectations.json").path) {
             for prof in runtimeExp.profiles {
                 if prof.status.isEmpty {
                     warnings.append("runtime profile \(prof.profile_id) has empty status")

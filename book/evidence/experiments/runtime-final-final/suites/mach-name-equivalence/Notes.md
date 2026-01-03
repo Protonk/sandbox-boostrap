@@ -1,0 +1,3 @@
+- Ran `python -m book.api.runtime run --plan book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/plan.json --channel launchd_clean --out book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/out`.
+- Bundle: `book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/out/e3ff212f-9e01-4eb9-bb59-ce6385bdc848/`.
+- `mach-lookup` shows AA allow vs BB deny; `mach-register` has no operation-stage witness (probe uses `sandbox_runner -- true`).

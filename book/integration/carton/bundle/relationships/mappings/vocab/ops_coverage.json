@@ -1,0 +1,1199 @@
+{
+  "metadata": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "inputs": [
+      "book/integration/carton/bundle/relationships/mappings/vocab/ops.json",
+      "book/integration/carton/bundle/relationships/mappings/runtime/runtime_coverage.json",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/expected_matrix.json",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/expected_matrix.json",
+      "book/profiles/golden-triple/expected_matrix.json"
+    ],
+    "status": "ok",
+    "tier": "bedrock",
+    "source_jobs": [
+      "vocab:sonoma-14.4.1",
+      "experiment:runtime-checks",
+      "experiment:runtime-adversarial",
+      "profiles:golden-triple"
+    ],
+    "notes": "Runtime evidence is derived from runtime coverage when present, else from expected matrices; structural evidence is implied by vocab presence."
+  },
+  "coverage": {
+    "default": {
+      "id": 0,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "appleevent-send": {
+      "id": 1,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "authorization-right-obtain": {
+      "id": 2,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "boot-arg-set": {
+      "id": 3,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "device*": {
+      "id": 4,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "device-camera": {
+      "id": 5,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "device-microphone": {
+      "id": 6,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "darwin-notification-post": {
+      "id": 7,
+      "structural_evidence": true,
+      "runtime_evidence": true,
+      "notes": ""
+    },
+    "distributed-notification-post": {
+      "id": 8,
+      "structural_evidence": true,
+      "runtime_evidence": true,
+      "notes": ""
+    },
+    "dynamic-code-generation": {
+      "id": 9,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "file*": {
+      "id": 10,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "file-chroot": {
+      "id": 11,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "file-clone": {
+      "id": 12,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "file-ioctl": {
+      "id": 13,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "file-issue-extension": {
+      "id": 14,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "file-link": {
+      "id": 15,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "file-lock": {
+      "id": 16,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "file-map-executable": {
+      "id": 17,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "file-mknod": {
+      "id": 18,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "file-mount": {
+      "id": 19,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "file-mount-update": {
+      "id": 20,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "file-read*": {
+      "id": 21,
+      "structural_evidence": true,
+      "runtime_evidence": true,
+      "notes": ""
+    },
+    "file-read-data": {
+      "id": 22,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "file-read-metadata": {
+      "id": 23,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "file-read-xattr": {
+      "id": 24,
+      "structural_evidence": true,
+      "runtime_evidence": true,
+      "notes": ""
+    },
+    "file-revoke": {
+      "id": 25,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "file-search": {
+      "id": 26,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "file-test-existence": {
+      "id": 27,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "file-unmount": {
+      "id": 28,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "file-write*": {
+      "id": 29,
+      "structural_evidence": true,
+      "runtime_evidence": true,
+      "notes": ""
+    },
+    "file-write-acl": {
+      "id": 30,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "file-write-create": {
+      "id": 31,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "file-write-data": {
+      "id": 32,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "file-write-finderinfo": {
+      "id": 33,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "file-write-flags": {
+      "id": 34,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "file-write-mode": {
+      "id": 35,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "file-write-owner": {
+      "id": 36,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "file-write-setugid": {
+      "id": 37,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "file-write-times": {
+      "id": 38,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "file-write-unlink": {
+      "id": 39,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "file-write-xattr": {
+      "id": 40,
+      "structural_evidence": true,
+      "runtime_evidence": true,
+      "notes": ""
+    },
+    "fs-quota*": {
+      "id": 41,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "fs-quota-get": {
+      "id": 42,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "fs-quota-on": {
+      "id": 43,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "fs-quota-off": {
+      "id": 44,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "fs-quota-set*": {
+      "id": 45,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "fs-quota-set-limits": {
+      "id": 46,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "fs-quota-set-usage": {
+      "id": 47,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "fs-quota-stat": {
+      "id": 48,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "fs-quota-sync": {
+      "id": 49,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "fs-rename": {
+      "id": 50,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "fs-snapshot*": {
+      "id": 51,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "fs-snapshot-create": {
+      "id": 52,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "fs-snapshot-delete": {
+      "id": 53,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "fs-snapshot-mount": {
+      "id": 54,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "fs-snapshot-revert": {
+      "id": 55,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "generic-issue-extension": {
+      "id": 56,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "qtn-user": {
+      "id": 57,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "hid-control": {
+      "id": 58,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "iokit*": {
+      "id": 59,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "iokit-get-properties": {
+      "id": 60,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "iokit-issue-extension": {
+      "id": 61,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "iokit-open*": {
+      "id": 62,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "iokit-open-user-client": {
+      "id": 63,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "iokit-open-service": {
+      "id": 64,
+      "structural_evidence": true,
+      "runtime_evidence": true,
+      "notes": ""
+    },
+    "iokit-set-properties": {
+      "id": 65,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "ipc*": {
+      "id": 66,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "ipc-posix*": {
+      "id": 67,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "ipc-posix-issue-extension": {
+      "id": 68,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "ipc-posix-sem*": {
+      "id": 69,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "ipc-posix-sem-create": {
+      "id": 70,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "ipc-posix-sem-open": {
+      "id": 71,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "ipc-posix-sem-post": {
+      "id": 72,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "ipc-posix-sem-unlink": {
+      "id": 73,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "ipc-posix-sem-wait": {
+      "id": 74,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "ipc-posix-shm*": {
+      "id": 75,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "ipc-posix-shm-read-data": {
+      "id": 76,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "ipc-posix-shm-write*": {
+      "id": 77,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "ipc-posix-shm-write-create": {
+      "id": 78,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "ipc-posix-shm-write-data": {
+      "id": 79,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "ipc-posix-shm-write-unlink": {
+      "id": 80,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "ipc-sysv*": {
+      "id": 81,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "ipc-sysv-msg": {
+      "id": 82,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "ipc-sysv-sem": {
+      "id": 83,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "ipc-sysv-shm": {
+      "id": 84,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "job-creation": {
+      "id": 85,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "lsopen": {
+      "id": 86,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "mach*": {
+      "id": 87,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "mach-bootstrap": {
+      "id": 88,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "mach-cross-domain-lookup": {
+      "id": 89,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "mach-derive-port": {
+      "id": 90,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "mach-host*": {
+      "id": 91,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "mach-host-exception-port-set": {
+      "id": 92,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "mach-host-special-port-set": {
+      "id": 93,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "mach-issue-extension": {
+      "id": 94,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "mach-kernel-endpoint": {
+      "id": 95,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "mach-lookup": {
+      "id": 96,
+      "structural_evidence": true,
+      "runtime_evidence": true,
+      "notes": ""
+    },
+    "mach-priv*": {
+      "id": 97,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "mach-priv-host-port": {
+      "id": 98,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "mach-priv-task-port": {
+      "id": 99,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "mach-register": {
+      "id": 100,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "mach-task*": {
+      "id": 101,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "mach-task-inspect": {
+      "id": 102,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "mach-task-name": {
+      "id": 103,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "mach-task-read": {
+      "id": 104,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "mach-task-special-port*": {
+      "id": 105,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "mach-task-special-port-get": {
+      "id": 106,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "mach-task-special-port-set": {
+      "id": 107,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "necp-client-open": {
+      "id": 108,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "network*": {
+      "id": 109,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "network-inbound": {
+      "id": 110,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "network-bind": {
+      "id": 111,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "network-outbound": {
+      "id": 112,
+      "structural_evidence": true,
+      "runtime_evidence": true,
+      "notes": ""
+    },
+    "nvram*": {
+      "id": 113,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "nvram-delete": {
+      "id": 114,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "nvram-get": {
+      "id": 115,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "nvram-set": {
+      "id": 116,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "opendirectory-user-modify": {
+      "id": 117,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "process*": {
+      "id": 118,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "process-codesigning": {
+      "id": 119,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "process-exec*": {
+      "id": 120,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "process-exec-interpreter": {
+      "id": 121,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "process-fork": {
+      "id": 122,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "process-info*": {
+      "id": 123,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "process-info-codesignature": {
+      "id": 124,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "process-info-dirtycontrol": {
+      "id": 125,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "process-info-ledger": {
+      "id": 126,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "process-info-listpids": {
+      "id": 127,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "process-info-rusage": {
+      "id": 128,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "process-info-pidinfo": {
+      "id": 129,
+      "structural_evidence": true,
+      "runtime_evidence": true,
+      "notes": ""
+    },
+    "process-info-pidfdinfo": {
+      "id": 130,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "process-info-pidfileportinfo": {
+      "id": 131,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "process-info-setcontrol": {
+      "id": 132,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "process-legacy-codesigning*": {
+      "id": 133,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "process-legacy-codesigning-blob-get": {
+      "id": 134,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "process-legacy-codesigning-cdhash-get": {
+      "id": 135,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "process-legacy-codesigning-entitlements-blob-get": {
+      "id": 136,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "process-legacy-codesigning-entitlements-der-blob-get": {
+      "id": 137,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "process-legacy-codesigning-identity-get": {
+      "id": 138,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "process-legacy-codesigning-status*": {
+      "id": 139,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "process-legacy-codesigning-status-get": {
+      "id": 140,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "process-legacy-codesigning-status-set": {
+      "id": 141,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "process-legacy-codesigning-teamid-get": {
+      "id": 142,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "process-legacy-codesigning-text-offset-get": {
+      "id": 143,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "pseudo-tty": {
+      "id": 144,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "signal": {
+      "id": 145,
+      "structural_evidence": true,
+      "runtime_evidence": true,
+      "notes": ""
+    },
+    "socket-ioctl": {
+      "id": 146,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "socket-option*": {
+      "id": 147,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "socket-option-get": {
+      "id": 148,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "socket-option-set": {
+      "id": 149,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "syscall*": {
+      "id": 150,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "syscall-unix": {
+      "id": 151,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "syscall-mach": {
+      "id": 152,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "syscall-mig": {
+      "id": 153,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "sysctl*": {
+      "id": 154,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "sysctl-read": {
+      "id": 155,
+      "structural_evidence": true,
+      "runtime_evidence": true,
+      "notes": ""
+    },
+    "sysctl-write": {
+      "id": 156,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "system*": {
+      "id": 157,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "system-acct": {
+      "id": 158,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "system-audit": {
+      "id": 159,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "system-automount": {
+      "id": 160,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "system-debug": {
+      "id": 161,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "system-fcntl": {
+      "id": 162,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "system-fsctl": {
+      "id": 163,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "system-info": {
+      "id": 164,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "system-kas-info": {
+      "id": 165,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "system-kext*": {
+      "id": 166,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "system-kext-load": {
+      "id": 167,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "system-kext-unload": {
+      "id": 168,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "system-kext-query": {
+      "id": 169,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "system-mac*": {
+      "id": 170,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "system-mac-label": {
+      "id": 171,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "system-mac-syscall": {
+      "id": 172,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "system-memorystatus-control": {
+      "id": 173,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "system-necp-client-action": {
+      "id": 174,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "system-nfssvc": {
+      "id": 175,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "system-package-check": {
+      "id": 176,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "system-privilege": {
+      "id": 177,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "system-reboot": {
+      "id": 178,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "system-sched": {
+      "id": 179,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "system-set-time": {
+      "id": 180,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "system-socket": {
+      "id": 181,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "system-suspend-resume": {
+      "id": 182,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "system-swap": {
+      "id": 183,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "user-preference*": {
+      "id": 184,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "user-preference-read": {
+      "id": 185,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "managed-preference-read": {
+      "id": 186,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "user-preference-write": {
+      "id": 187,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "storage-class-map": {
+      "id": 188,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "process-exec-update-label": {
+      "id": 189,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "default-message-filter": {
+      "id": 190,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "iokit-async-external-method": {
+      "id": 191,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "iokit-external-method": {
+      "id": 192,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "iokit-external-trap": {
+      "id": 193,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "mach-message-send": {
+      "id": 194,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    },
+    "xpc-message-send": {
+      "id": 195,
+      "structural_evidence": true,
+      "runtime_evidence": false,
+      "notes": ""
+    }
+  }
+}

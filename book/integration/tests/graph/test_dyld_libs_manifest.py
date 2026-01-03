@@ -8,7 +8,7 @@ ROOT = path_utils.find_repo_root(Path(__file__))
 
 
 def test_dyld_libs_manifest_matches_slices(run_cmd):
-    checker = ROOT / "book" / "graph" / "mappings" / "dyld-libs" / "check_manifest.py"
+    checker = ROOT / "book" / "integration" / "carton" / "mappings" / "dyld-libs" / "check_manifest.py"
     assert checker.exists(), "missing dyld-libs manifest checker"
     res = run_cmd([sys.executable, str(checker)], check=False, label="dyld-libs manifest check")
     if res.returncode != 0:

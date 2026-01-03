@@ -1,13 +1,13 @@
 import json
 from pathlib import Path
 
-from book.graph.mappings.runtime import promotion_packets
+from book.integration.carton.mappings.runtime import promotion_packets
 
 
 from book.api import path_utils
 
 ROOT = path_utils.find_repo_root(Path(__file__))
-STORY = ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime_cuts" / "runtime_story.json"
+STORY = ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "runtime_cuts" / "runtime_story.json"
 ALLOWED_REASONS = {
     "ambient_platform_restriction",
     "canonicalization_boundary",

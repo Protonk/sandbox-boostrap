@@ -14,20 +14,20 @@ VALIDATION_STATUS = (
 )
 
 STATUS_TARGETS = [
-    ROOT / "book" / "evidence" / "graph" / "mappings" / "system_profiles" / "digests.json",
-    ROOT / "book" / "evidence" / "graph" / "mappings" / "system_profiles" / "static_checks.json",
-    ROOT / "book" / "evidence" / "graph" / "mappings" / "system_profiles" / "attestations.json",
-    ROOT / "book" / "evidence" / "graph" / "mappings" / "vocab" / "ops.json",
-    ROOT / "book" / "evidence" / "graph" / "mappings" / "vocab" / "filters.json",
-    ROOT / "book" / "evidence" / "graph" / "mappings" / "vocab" / "ops_coverage.json",
-    ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "runtime_signatures.json",
-    ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "runtime_coverage.json",
-    ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "expectations.json",
+    ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "system_profiles" / "digests.json",
+    ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "system_profiles" / "static_checks.json",
+    ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "system_profiles" / "attestations.json",
+    ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "vocab" / "ops.json",
+    ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "vocab" / "filters.json",
+    ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "vocab" / "ops_coverage.json",
+    ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "runtime" / "runtime_signatures.json",
+    ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "runtime" / "runtime_coverage.json",
+    ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "runtime" / "expectations.json",
 ]
 RUNTIME_STATUS_TARGETS = {
-    ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "runtime_signatures.json",
-    ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "runtime_coverage.json",
-    ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "expectations.json",
+    ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "runtime" / "runtime_signatures.json",
+    ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "runtime" / "runtime_coverage.json",
+    ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "runtime" / "expectations.json",
 }
 
 # These jobs should remain ok/ok-*; a downgrade is treated as a regression on this world.
@@ -84,7 +84,7 @@ def test_status_regressions():
         if entry.get("tier") not in ALLOWED_TIERS:
             failures.append(f"validation job {job_id} missing/invalid tier: {entry.get('tier')!r}")
 
-    runtime_sig = load_json(ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "runtime_signatures.json")
+    runtime_sig = load_json(ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "runtime" / "runtime_signatures.json")
     meta = runtime_sig.get("metadata") or {}
     if meta.get("status") != "ok":
         # If already partial/brittle, let other tests handle it.

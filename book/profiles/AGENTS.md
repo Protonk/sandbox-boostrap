@@ -11,4 +11,4 @@ Golden triple rules
 Workflow
 - Do not use symlinks or manual copies. Regeneration scripts must write artifacts directly into this tree.
 - Keep schema tags as `provisional` until a newer schema is blessed.
-- Use substrate vocabularies (ops/filters from `book/evidence/graph/mappings/vocab`) and keep profile text host-bound.
+- Use substrate vocabularies (ops/filters from `book/integration/carton/bundle/relationships/mappings/vocab`) and keep profile text host-bound.

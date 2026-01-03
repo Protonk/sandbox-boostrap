@@ -9,12 +9,12 @@ MATRIX_RECORDS_PATH = ROOT / "book/evidence/experiments/field2-final-final/flow-
 
 # Stable set of high/unknown field2 payloads on this host baseline.
 EXPECTED_UNKNOWN_RAW = {
-    165,    # opaque out-of-vocab payload in filter_vocab_id role
     256,    # composite/opaque payload surfaced in sample + probes
     1281,   # composite/opaque payload surfaced in sample + probes
     3584,   # composite/opaque payload surfaced in sample + probes
+    7424,   # composite payload surfaced in probe-op structure
     12096,  # composite/opaque payload surfaced in network probes
-    49171,  # hi-bit / composite payload surfaced in airlock
+    18753,  # composite payload surfaced in probe-op structure
 }
 
 FLOW_DIVERT_TRIPLE_SPECS = {

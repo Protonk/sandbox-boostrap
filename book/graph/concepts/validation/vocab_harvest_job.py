@@ -14,9 +14,9 @@ from typing import Dict, List
 from book.api.path_utils import find_repo_root, to_repo_relative
 
 ROOT = find_repo_root(Path(__file__))
-LIB_PATH = ROOT / "book/evidence/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib"
-OPS_MAP = ROOT / "book/evidence/graph/mappings/vocab/ops.json"
-FILTERS_MAP = ROOT / "book/evidence/graph/mappings/vocab/filters.json"
+LIB_PATH = ROOT / "book/integration/carton/bundle/relationships/mappings/dyld-libs/usr/lib/libsandbox.1.dylib"
+OPS_MAP = ROOT / "book/integration/carton/bundle/relationships/mappings/vocab/ops.json"
+FILTERS_MAP = ROOT / "book/integration/carton/bundle/relationships/mappings/vocab/filters.json"
 META_PATH = ROOT / "book/evidence/graph/concepts/validation/out/metadata.json"
 STATUS_PATH = ROOT / "book/evidence/graph/concepts/validation/out/vocab_status.json"
 

@@ -19,8 +19,8 @@ SAMPLE_SB = (
     / "sb"
     / "v1_read.sb"
 )
-OPS_VOCAB = ROOT / "book" / "evidence" / "graph" / "mappings" / "vocab" / "ops.json"
-FILTERS_VOCAB = ROOT / "book" / "evidence" / "graph" / "mappings" / "vocab" / "filters.json"
+OPS_VOCAB = ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "vocab" / "ops.json"
+FILTERS_VOCAB = ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "vocab" / "filters.json"
 
 
 @pytest.mark.system

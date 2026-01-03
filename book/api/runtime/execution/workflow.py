@@ -30,7 +30,7 @@ from book.api.runtime.execution.harness import runner as harness_runner
 from book.api.runtime.analysis.mapping import build as mapping_build
 
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))
-RUNTIME_CUTS_ROOT = REPO_ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime_cuts"
+RUNTIME_CUTS_ROOT = REPO_ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "runtime_cuts"
 
 
 @dataclass

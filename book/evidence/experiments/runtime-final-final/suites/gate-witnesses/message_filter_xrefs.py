@@ -54,8 +54,8 @@ USERLAND_STRING_QUERIES = [
 ]
 
 DYLD_SLICES = [
-    REPO_ROOT / "book/evidence/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib",
-    REPO_ROOT / "book/evidence/graph/mappings/dyld-libs/usr/lib/system/libsystem_sandbox.dylib",
+    REPO_ROOT / "book/integration/carton/bundle/relationships/mappings/dyld-libs/usr/lib/libsandbox.1.dylib",
+    REPO_ROOT / "book/integration/carton/bundle/relationships/mappings/dyld-libs/usr/lib/system/libsystem_sandbox.dylib",
 ]
 
 

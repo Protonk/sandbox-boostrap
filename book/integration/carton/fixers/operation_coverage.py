@@ -15,8 +15,8 @@ from book.api import evidence_tiers
 from book.integration.carton.fixers import common
 
 ROOT = common.repo_root()
-OPS_PATH = ROOT / "book/evidence/graph/mappings/vocab/ops.json"
-DIGESTS_PATH = ROOT / "book/evidence/graph/mappings/system_profiles/digests.json"
+OPS_PATH = ROOT / "book/integration/carton/bundle/relationships/mappings/vocab/ops.json"
+DIGESTS_PATH = ROOT / "book/integration/carton/bundle/relationships/mappings/system_profiles/digests.json"
 MANIFEST_PATH = ROOT / "book/integration/carton/bundle/CARTON.json"
 STATUS_PATH = ROOT / "book/evidence/graph/concepts/validation/out/validation_status.json"
 OUT_PATH = ROOT / "book/integration/carton/bundle/relationships/operation_coverage.json"

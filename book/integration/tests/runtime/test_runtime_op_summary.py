@@ -5,8 +5,8 @@ from pathlib import Path
 from book.api import path_utils
 
 ROOT = path_utils.find_repo_root(Path(__file__))
-SUMMARY = ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "op_runtime_summary.json"
-CUTS = ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime_cuts" / "ops.json"
+SUMMARY = ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "runtime" / "op_runtime_summary.json"
+CUTS = ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "runtime_cuts" / "ops.json"
 BASELINE = ROOT / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world.json"
 
 

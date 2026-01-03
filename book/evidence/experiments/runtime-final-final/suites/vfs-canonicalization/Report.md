@@ -38,7 +38,7 @@ python -m book.api.runtime run \
   - `out/derived/decode_tmp_profiles.json` – derived structural view of anchors/tags (plus literal candidates) for all configured path pairs.
   - `out/derived/mismatch_summary.json` – coarse classification for the base `/tmp` family (canonicalization vs control).
   - `out/promotion_packet.json` – promotion packet (preferred evidence interface) pointing to the committed run-scoped bundle.
-  - `book/evidence/graph/mappings/vfs_canonicalization/path_canonicalization_map.json` – generated mapping slice derived from the promotion packet, with `book/evidence/graph/mappings/vfs_canonicalization/promotion_receipt.json` as the audit receipt.
+  - `book/integration/carton/bundle/relationships/mappings/vfs_canonicalization/path_canonicalization_map.json` – generated mapping slice derived from the promotion packet, with `book/integration/carton/bundle/relationships/mappings/vfs_canonicalization/promotion_receipt.json` as the audit receipt.
 - **Observed vs canonicalized paths:**
   - The harness now emits `F_GETPATH` and (when available) `F_GETPATH_NOFIRMLINK` for successful opens. `observed_path` is sourced from `F_GETPATH` when present, and `observed_path_nofirmlink` captures the alternate FD path spelling when available.
   - For denied requests the FD never opens, so neither FD path exists; `observed_path` remains the requested path and canonicalization for denied paths is inferred from behavior.

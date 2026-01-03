@@ -48,6 +48,8 @@ SH = "/bin/sh"
 NOTIFYUTIL = "/usr/bin/notifyutil"
 PYTHON = "/usr/bin/python3"
 XATTR = "/usr/bin/xattr"
+KMUTIL = "/usr/bin/kmutil"
+KEXTSTAT = "/usr/sbin/kextstat"
 
 RUNTIME_SHIM_RULES = [
     "(allow process-exec*)",
@@ -61,9 +63,9 @@ RUNTIME_SHIM_RULES = [
     '(allow file-read-metadata (literal "/tmp"))',
 ]
 
-FILTER_VOCAB_PATH = REPO_ROOT / "book" / "evidence" / "graph" / "mappings" / "vocab" / "filters.json"
+FILTER_VOCAB_PATH = REPO_ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "vocab" / "filters.json"
 _FILTER_NAME_TO_ID: Dict[str, int] = {}
-ANCHOR_FILTER_MAP_PATH = REPO_ROOT / "book" / "evidence" / "graph" / "mappings" / "anchors" / "anchor_filter_map.json"
+ANCHOR_FILTER_MAP_PATH = REPO_ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "anchors" / "anchor_filter_map.json"
 _ANCHOR_FILTER_MAP: Dict[str, Dict[str, Any]] = {}
 
 # Use anchor_filter_map literals to infer a typed filter when plans omit one.
@@ -86,6 +88,7 @@ DEFAULT_FILTER_NAMES_BY_OP = {
     "mach-lookup": "global-name",
     "darwin-notification-post": "notification-name",
     "distributed-notification-post": "notification-name",
+    "system-kext-query": "kext-bundle-id",
 }
 
 DISALLOWED_SANDBOX_CHECK_FILTERS = {"sysctl-name"}
@@ -702,6 +705,13 @@ def build_probe_command(probe: Dict[str, Any]) -> List[str]:
             cmd = ["/usr/sbin/sysctl", "-n", target]
         else:
             cmd = ["true"]
+    elif op == "system-kext-query":
+        if target and Path(KMUTIL).exists():
+            cmd = [KMUTIL, "showloaded", "-b", target]
+        elif target and Path(KEXTSTAT).exists():
+            cmd = [KEXTSTAT, "-b", target]
+        else:
+            cmd = ["true"]
     elif op == "darwin-notification-post":
         if target and Path(NOTIFYUTIL).exists():
             cmd = [NOTIFYUTIL, "-p", target]
@@ -995,6 +1005,13 @@ def run_probe(profile: Path, probe: Dict[str, Any], profile_mode: str | None, wr
     elif op == "sysctl-read":
         if target:
             cmd = ["/usr/sbin/sysctl", "-n", target]
+        else:
+            cmd = ["true"]
+    elif op == "system-kext-query":
+        if target and Path(KMUTIL).exists():
+            cmd = [KMUTIL, "showloaded", "-b", target]
+        elif target and Path(KEXTSTAT).exists():
+            cmd = [KEXTSTAT, "-b", target]
         else:
             cmd = ["true"]
     elif op == "darwin-notification-post":

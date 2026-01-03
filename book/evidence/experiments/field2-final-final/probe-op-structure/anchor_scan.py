@@ -34,7 +34,7 @@ from book.api.profile import ingestion as pi  # type: ignore
 
 
 def load_filter_names() -> Dict[int, str]:
-    filters = json.loads(Path("book/evidence/graph/mappings/vocab/filters.json").read_text())
+    filters = json.loads(Path("book/integration/carton/bundle/relationships/mappings/vocab/filters.json").read_text())
     return {e["id"]: e["name"] for e in filters.get("filters", [])}
 
 

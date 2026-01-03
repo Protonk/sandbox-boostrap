@@ -11,8 +11,6 @@ ROOT = path_utils.find_repo_root(Path(__file__))
 REGISTRY_PATH = ROOT / "book" / "evidence" / "graph" / "concepts" / "BEDROCK_SURFACES.json"
 INVENTORY_PATH = ROOT / "book" / "evidence" / "graph" / "concepts" / "CONCEPT_INVENTORY.md"
 AGENTS_PATHS = [
-    ROOT / "AGENTS.md",
-    ROOT / "book" / "AGENTS.md",
     ROOT / "book" / "graph" / "AGENTS.md",
 ]
 

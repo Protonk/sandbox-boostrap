@@ -5,7 +5,7 @@ from pathlib import Path
 from book.api import path_utils
 
 ROOT = path_utils.find_repo_root(Path(__file__))
-LIFECYCLE = ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "lifecycle.json"
+LIFECYCLE = ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "runtime" / "lifecycle.json"
 BASELINE = ROOT / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world.json"
 
 

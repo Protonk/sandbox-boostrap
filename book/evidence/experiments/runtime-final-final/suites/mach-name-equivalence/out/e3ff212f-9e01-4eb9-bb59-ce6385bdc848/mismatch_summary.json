@@ -1,0 +1,21 @@
+{
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "generated_by": "book/api/runtime/execution/workflow.py",
+  "mismatches": [
+    {
+      "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+      "profile_id": "mach-name-equivalence",
+      "expectation_id": "mach-name-equivalence:register:allow-aa",
+      "operation": "mach-register",
+      "path": "com.apple.cfprefsd.agent",
+      "expected": "allow",
+      "actual": "deny",
+      "mismatch_type": "unexpected_deny",
+      "violation_summary": null,
+      "notes": "{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"apply\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"errno\":0,\"err_class\":\"ok\",\"err_class_source\":\"none\",\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.e3ff212f-9e01-4eb9-bb59-ce6385bdc848/book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/out/e3ff212f-9e01-4eb9-bb59-ce6385bdc848/runtime_profiles/mach_name_equivalence.mach-name-equivalence.runtime.sb\",\"pid\":60546}\n{\"tool\":\"sbpl-apply\",\"marker_schema_version\":1,\"stage\":\"applied\",\"mode\":\"sbpl\",\"api\":\"sandbox_init\",\"rc\":0,\"profile\":\"/private/tmp/sandbox-lore-launchctl/sandbox-lore.runtime.e3ff212f-9e01-4eb9-bb59-ce6385bdc848/book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/out/e3ff212f-9e01-4eb9-bb59-ce6385bdc848/runtime_profiles/mach_name_equivalence.mach-name-equivalence.runtime.sb\",\"pid\":60546}\n{\"tool\":\"seatbelt-callout\",\"marker_schema_version\":2,\"stage\":\"preflight\",\"api\":\"sandbox_check\",\"operation\":\"mach-register\",\"filter_type\":5,\"filter_type_name\":\"global-name\",\"check_type\":1073741829,\"varargs_count\":1,\"argument\":\"com.apple.cfprefsd.agent\",\"canonicalization\":\"raw\",\"canonical_flag_used\":false,\"canonical_flag_reason\":\"not_requested\",\"no_report\":true,\"token_status\":\"pid\",\"token_mach_kr\":0,\"rc\":1,\"errno\":0,\"decision\":\"deny\"}\n"
+    }
+  ],
+  "counts": {
+    "unexpected_deny": 1
+  }
+}

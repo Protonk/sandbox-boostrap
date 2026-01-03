@@ -16,8 +16,8 @@ High-level layout:
     - Python tooling that ingests/parses compiled profiles, decodes PolicyGraphs, and emits validation outputs under `book/evidence/graph/concepts/validation/out/` (profile ingestion, decoder, vocab extraction, static/mapping metadata).
     - This is the only place new ingestion/decoder logic should live.
 
-- `mappings/`
-  - Generators for stable host-specific mapping artifacts under `book/evidence/graph/mappings/` (see `book/graph/mappings/README.md`); mapping generators read validation IR and write these before CARTON fixers normalize them into the CARTON bundle (relationships/views/contracts + manifest):
+- Mapping generators (outside `book/graph/`):
+  - `book/integration/carton/mappings/` – Generators for stable host-specific mapping artifacts under `book/integration/carton/bundle/relationships/mappings/` (see `book/integration/carton/mappings/README.md`). They read validation IR and write mappings before CARTON fixers normalize the bundle (relationships/views/contracts + manifest):
     - `vocab/` – Operation/Filter Vocabulary Maps.
     - `op_table/` – op-table buckets, signatures, and vocab alignment.
     - `anchors/` – anchor ↔ filter/field2 mappings.
@@ -26,22 +26,22 @@ High-level layout:
     - `runtime/` – runtime expectations/traces that are “golden” enough to depend on.
     - `dyld-libs/` – trimmed dyld slices used to derive vocab.
 
-## Bedrock navigation
+## Surface registry
 
-The current bedrock surfaces for this world are recorded in `book/evidence/graph/concepts/BEDROCK_SURFACES.json`; use that as the registry and cite mapping paths when you rely on them. The promotion narrative in `status/first-promotion/post-remediation.md` explains the initial justification.
+The current surface registry for this world is recorded in `book/evidence/graph/concepts/BEDROCK_SURFACES.json`; use that as the registry and cite mapping paths when you rely on them. The promotion narrative in `status/first-promotion/post-remediation.md` explains the initial justification.
 
 When in doubt:
 - New *code* that ingests or validates compiled profiles → `concepts/validation/`.
-- New *stable mappings* or “IR” that other code depends on → `book/evidence/graph/mappings/` (generated from `book/graph/mappings/`).
+- New *stable mappings* or “IR” that other code depends on → `book/integration/carton/bundle/relationships/mappings/` (generated from `book/integration/carton/mappings/`).
 - Experiment-specific scratch outputs stay under `book/evidence/experiments/*/out`, not here.
 - CARTON is the frozen, host-specific bundle (relationships/views/contracts + manifest); see `book/integration/carton/README.md` and use `python -m book.integration.carton.tools.check` / `python -m book.integration.carton.tools.diff` rather than ad-hoc JSON spelunking.
 
 For **anchor/field2 structure** on this Sonoma world, use this stack as your entrypoint:
-- Structural source (anchors + tags + `field2` per profile): `book/evidence/experiments/field2-final-final/probe-op-structure/Report.md` (tier: mapped, structural only).
+- Structural source (anchors + tags + `field2` per profile): `book/evidence/experiments/field2-final-final/probe-op-structure/Report.md` (structural only).
 - `field2` inventory and unknowns: `book/evidence/experiments/field2-final-final/field2-filters/Report.md` (bounded high/unknown IDs, experiment closed).
 - Curated anchors and their Filter mappings:
-  - Canonical (context-indexed): `book/evidence/graph/mappings/anchors/anchor_ctx_filter_map.json`
-  - Compatibility view (literal-keyed, conservative): `book/evidence/graph/mappings/anchors/anchor_filter_map.json` (guarded by `book/integration/tests/graph/test_anchor_filter_alignment.py`).
+  - Canonical (context-indexed): `book/integration/carton/bundle/relationships/mappings/anchors/anchor_ctx_filter_map.json`
+  - Compatibility view (literal-keyed, conservative): `book/integration/carton/bundle/relationships/mappings/anchors/anchor_filter_map.json` (guarded by `book/integration/tests/graph/test_anchor_filter_alignment.py`).
 
 ## Swift generator loop (for agents)
 
@@ -73,7 +73,7 @@ Within `concepts/` and `concepts/validation/`:
   - Prefer small, composable scripts (e.g., `profile_ingestion.py`, `node_decoder.py`, `vocab_extraction.py`) over monolithic tools.
   - If you change decoding or ingestion semantics, also:
     - Update `validation/README.md` or nearby docs.
-    - Consider whether existing `book/evidence/graph/mappings/` artifacts need to be regenerated and reversioned.
+    - Consider whether existing `book/integration/carton/bundle/relationships/mappings/` artifacts need to be regenerated and reversioned.
 
 - **Fixtures and tests**
   - Keep fixtures under `book/evidence/graph/concepts/validation/fixtures/` small and explicit (short blobs, curated examples, minimal SBPL).
@@ -83,7 +83,7 @@ Within `concepts/` and `concepts/validation/`:
 
 ## Mapping artifacts
 
-Within `book/evidence/graph/mappings/`, treat files as shared IR:
+Within `book/integration/carton/bundle/relationships/mappings/`, treat files as shared IR:
 
 - **General expectations**
   - Every mapping JSON (vocab, op_table, anchors, tag_layouts, system_profiles, runtime) should:
@@ -93,14 +93,14 @@ Within `book/evidence/graph/mappings/`, treat files as shared IR:
   - Keep schemas stable; if you must change a schema, adjust consumers and document the change in `mappings/README.md` or a nearby note.
 
 - **Division of labor**
-  - `book/evidence/graph/mappings/` should contain only artifacts that are:
+  - `book/integration/carton/bundle/relationships/mappings/` should contain only artifacts that are:
     - Host-specific.
     - Stable enough to be reused by multiple experiments and chapters.
     - Regenerable from the repo plus the fixed host baseline.
   - Do not put experiment-local scratch data here; that lives under `book/evidence/experiments/*/out`.
 
 - **Alignment with experiments**
-  - When an experiment “graduates” a mapping into `book/evidence/graph/mappings/`:
+  - When an experiment “graduates” a mapping into `book/integration/carton/bundle/relationships/mappings/`:
     - Make sure the experiment’s `Report.md` points to the new file and describes its schema and status.
     - Prefer naming and shapes that match the concept inventory (e.g., Operation Vocabulary Map, Filter Vocabulary Map, PolicyGraph, tag layouts).
 
@@ -115,7 +115,7 @@ When working in `book/graph/`, agents should avoid:
   - Do not redefine core terms (Operation, Filter, PolicyGraph, Profile Layer, etc.) in local docs or code.
 
 - **Unversioned or opaque changes**
-  - Do not silently change the semantics or schema of mapping JSONs under `book/evidence/graph/mappings/` without:
+  - Do not silently change the semantics or schema of mapping JSONs under `book/integration/carton/bundle/relationships/mappings/` without:
     - Updating metadata and documentation.
     - Checking (and, if needed, updating) consumers in `concepts/validation/`, `book/evidence/experiments/`, and `book/chapters/`.
 

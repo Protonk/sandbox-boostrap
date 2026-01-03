@@ -32,7 +32,7 @@ from book.api.profile import ingestion as pi
 
 
 def load_filters() -> Dict[int, str]:
-    path = ROOT / "book/evidence/graph/mappings/vocab/filters.json"
+    path = ROOT / "book/integration/carton/bundle/relationships/mappings/vocab/filters.json"
     data = json.loads(path.read_text())
     return {entry["id"]: entry["name"] for entry in data.get("filters", [])}
 
@@ -43,7 +43,7 @@ def load_tag_layouts() -> Dict[int, Dict[str, Any]]:
     """
     layouts: Dict[int, Dict[str, Any]] = {}
     # base mapping from published tag_layouts.json
-    base = ROOT / "book/evidence/graph/mappings/tag_layouts/tag_layouts.json"
+    base = ROOT / "book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_layouts.json"
     for path in [base, ROOT / "book/evidence/experiments/field2-final-final/libsandbox-encoder/out/tag_layout_overrides.json"]:
         if not path.exists():
             continue

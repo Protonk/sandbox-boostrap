@@ -32,7 +32,7 @@ def build_anchor_hits(path: Path):
 
 
 def test_anchor_field2_map_metadata_and_presence():
-    anchor_map_path = ROOT / "book" / "evidence" / "graph" / "mappings" / "anchors" / "anchor_field2_map.json"
+    anchor_map_path = ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "anchors" / "anchor_field2_map.json"
     hits_path = (
         ROOT
         / "book"
@@ -82,7 +82,7 @@ def test_anchor_field2_map_metadata_and_presence():
 
 def test_carton_anchor_field2_aligns_with_map_and_hits():
     anchor_index_path = ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "anchor_field2.json"
-    anchor_map_path = ROOT / "book" / "evidence" / "graph" / "mappings" / "anchors" / "anchor_field2_map.json"
+    anchor_map_path = ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "anchors" / "anchor_field2_map.json"
     hits_path = (
         ROOT
         / "book"

@@ -37,7 +37,7 @@ ANCHOR_FILTER_EXCLUDE = {
 CONTROL_PATH = Path("book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v12_iokit_control.sb.bin")
 VARIANT_PATH = Path("book/evidence/experiments/field2-final-final/probe-op-structure/sb/build/v9_iokit_user_client_only.sb.bin")
 OUT_PATH = Path("book/evidence/experiments/field2-final-final/probe-op-structure/out/anchor_hits_delta.json")
-FILTERS_PATH = Path("book/evidence/graph/mappings/vocab/filters.json")
+FILTERS_PATH = Path("book/integration/carton/bundle/relationships/mappings/vocab/filters.json")
 
 
 def _node_fingerprint(node: Dict[str, Any]) -> str:

@@ -552,8 +552,8 @@ def main() -> None:
     out_root = path_utils.ensure_absolute(Path(args.out_root), repo_root)
     out_root.mkdir(parents=True, exist_ok=True)
 
-    ops_map = _load_vocab(repo_root / "book/evidence/graph/mappings/vocab/ops.json", "ops")
-    filters_map = _load_vocab(repo_root / "book/evidence/graph/mappings/vocab/filters.json", "filters")
+    ops_map = _load_vocab(repo_root / "book/integration/carton/bundle/relationships/mappings/vocab/ops.json", "ops")
+    filters_map = _load_vocab(repo_root / "book/integration/carton/bundle/relationships/mappings/vocab/filters.json", "filters")
 
     profiles = client.list_profiles()
     profiles_data = profiles.get("stdout_json", {}).get("data", {})

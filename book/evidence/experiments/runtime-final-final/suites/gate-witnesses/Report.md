@@ -84,7 +84,7 @@ Key observations from that matrix:
   - `iokit-async-external-method`
   - `iokit-external-trap`
 - Switching the inner message-filter payload from `(deny …)` to `(allow …)` avoids the apply gate on this world (apply succeeds; downstream bootstrap outcomes vary).
-- The requested “swap outer op to `iokit-open`” is only meaningful for the `(version 1)` variant: in `(version 2)` it is a compiler error (`unbound variable: iokit-open`), consistent with the Operation vocabulary map for this world (`book/evidence/graph/mappings/vocab/ops.json` includes `iokit-open*` but not `iokit-open`).
+- The requested “swap outer op to `iokit-open`” is only meaningful for the `(version 1)` variant: in `(version 2)` it is a compiler error (`unbound variable: iokit-open`), consistent with the Operation vocabulary map for this world (`book/integration/carton/bundle/relationships/mappings/vocab/ops.json` includes `iokit-open*` but not `iokit-open`).
 
 Taken together, these micro-variants suggest the gate is more tightly keyed than “`apply-message-filter` exists”: on this host, “message filter that denies external-method/trap operations” appears sufficient to trigger the apply-stage gate, while “message filter that allows” does not.
 
@@ -133,7 +133,7 @@ Key xrefs on this world:
 
 This is still **mapped** evidence: it is stronger than “string exists” because it identifies concrete sandbox-kext call sites, but it is still static (not a runtime witness of why a particular `sandbox_apply` failed in our harness identity).
 
-The same summary also records a small userland cross-check: the trimmed dyld slices under `book/evidence/graph/mappings/dyld-libs/` contain many `message-filter`-related SBPL/compiler strings, but do not contain the entitlement key strings themselves, which is consistent with a kernel-side entitlement check rather than a purely userland compiler-side gate.
+The same summary also records a small userland cross-check: the trimmed dyld slices under `book/integration/carton/bundle/relationships/mappings/dyld-libs/` contain many `message-filter`-related SBPL/compiler strings, but do not contain the entitlement key strings themselves, which is consistent with a kernel-side entitlement check rather than a purely userland compiler-side gate.
 
 ## Validation
 

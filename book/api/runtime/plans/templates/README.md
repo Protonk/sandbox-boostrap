@@ -15,6 +15,7 @@ Available templates:
 - `anchor-filter-map` (anchor to filter discriminator probes).
 - `hardened-runtime` (non-VFS operation probes).
 - `lifecycle-lockdown` (apply-gate and lane isolation probes).
+- `mach-name-equivalence` (mach global-name lookup vs register probes).
 - `metadata-runner` (metadata syscall matrix for alias/canonical path probes).
 - `probe-op-structure` (probe-op-structure runtime slice).
 - `runtime-adversarial` (plan + registry for adversarial runtime probes).

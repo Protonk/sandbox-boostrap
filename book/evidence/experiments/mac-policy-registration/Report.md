@@ -65,7 +65,7 @@ Recover the sandbox/mac_policy_conf and mac_policy_ops (plus registration site) 
    - From functions that reference mac_policy_* strings, record call sites and arguments that look like mac_policy_register-style calls.
    - Emit `registration_sites.json` with addresses, targets, and pointer args (conf/ops candidates).
 4) Ops linkage check:
-   - For any ops pointer found, compare table shape against `book/evidence/graph/mappings/op_table/op_table_map.json` using existing tools.
+   - For any ops pointer found, compare table shape against `book/integration/carton/bundle/relationships/mappings/op_table/op_table_map.json` using existing tools.
    - If alignment exists, note it; otherwise mark as non-op-table or unknown.
 
 ## Evidence & artifacts

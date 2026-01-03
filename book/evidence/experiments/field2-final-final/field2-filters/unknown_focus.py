@@ -26,7 +26,7 @@ CHARACTERIZED_FIELD2 = {
 
 
 def load_layouts() -> Dict[int, Dict[str, Any]]:
-    path = Path("book/evidence/graph/mappings/tag_layouts/tag_layouts.json")
+    path = Path("book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_layouts.json")
     data = json.loads(path.read_text())
     return {rec["tag"]: rec for rec in data.get("tags", [])}
 
@@ -115,8 +115,8 @@ def summarize_profile(path: Path, filter_names: Dict[int, str], op_names: Dict[i
 
 
 def main() -> None:
-    filter_names = {entry["id"]: entry["name"] for entry in json.loads(Path("book/evidence/graph/mappings/vocab/filters.json").read_text()).get("filters", [])}
-    op_names = {entry["id"]: entry["name"] for entry in json.loads(Path("book/evidence/graph/mappings/vocab/ops.json").read_text()).get("ops", [])}
+    filter_names = {entry["id"]: entry["name"] for entry in json.loads(Path("book/integration/carton/bundle/relationships/mappings/vocab/filters.json").read_text()).get("filters", [])}
+    op_names = {entry["id"]: entry["name"] for entry in json.loads(Path("book/integration/carton/bundle/relationships/mappings/vocab/ops.json").read_text()).get("ops", [])}
     layouts = load_layouts()
 
     canonical = digests_mod.canonical_system_profile_blobs(ROOT)

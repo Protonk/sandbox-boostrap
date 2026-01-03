@@ -28,7 +28,7 @@ This experiment focuses on that gap:
 - Prepare the ground for later vocabulary-mapping work that will supply real Operation IDs.
 - Shared tooling: for new blob summaries (op_table entries, tag counts, literals, entry signatures), prefer `book/api/profile` (CLI or Python) over extending the batch runner.
 
-We intentionally avoid guessing op-table slot ordering or Operation↔bucket semantics without a witness. The Operation Vocabulary Map exists for this host (`book/evidence/graph/mappings/vocab/ops.json`, status: ok), but connecting these synthetic profiles’ op-table slots/buckets to numeric Operation IDs remains under exploration.
+We intentionally avoid guessing op-table slot ordering or Operation↔bucket semantics without a witness. The Operation Vocabulary Map exists for this host (`book/integration/carton/bundle/relationships/mappings/vocab/ops.json`, status: ok), but connecting these synthetic profiles’ op-table slots/buckets to numeric Operation IDs remains under exploration.
 
 ---
 
@@ -69,7 +69,7 @@ We intentionally avoid guessing op-table slot ordering or Operation↔bucket sem
 - `book/evidence/experiments/profile-pipeline/op-table-operation/out/summary.json` with per-profile op-table entries, decoder snapshots, and structural statistics.
 - `book/evidence/experiments/profile-pipeline/op-table-operation/out/op_table_map.json` recording op_entries, unique buckets, and operation sets (plus filter annotations) per profile.
 - `book/evidence/experiments/profile-pipeline/op-table-operation/out/op_table_signatures.json` capturing per-entry structural signatures (tags and reachable literals).
-- Promoted mapping snapshots under `book/evidence/graph/mappings/op_table/` regenerated via `book/graph/mappings/op_table/generate_op_table_mappings.py` (curated set excludes `v12_runtime_probe`, which remains experiment-local).
+- Promoted mapping snapshots under `book/integration/carton/bundle/relationships/mappings/op_table/` regenerated via `book/graph/mappings/op_table/generate_op_table_mappings.py` (curated set excludes `v12_runtime_probe`, which remains experiment-local).
 - Narrative notes and this report summarizing bucket behavior and remaining unknowns on this host.
 
 ## Plan & execution log
@@ -113,7 +113,7 @@ We intentionally avoid guessing op-table slot ordering or Operation↔bucket sem
        - extend this report if a new pattern emerges.
   
   3. **Integrate with vocabulary-mapping (now available)**
-     - `book/evidence/graph/mappings/vocab/ops.json` exists for this host (`status: ok`), so we can map SBPL operation names to numeric Operation IDs.
+     - `book/integration/carton/bundle/relationships/mappings/vocab/ops.json` exists for this host (`status: ok`), so we can map SBPL operation names to numeric Operation IDs.
      - However, we do **not** yet have a witness that the synthetic profiles’ small op-table slot indices correspond to operation IDs; do not treat “op-table index == op_id” as bedrock.
      - A safe integration step is to annotate the per-profile SBPL `ops` set with their numeric IDs (for joins/search), while keeping bucket claims keyed on the observed `op_entries` patterns.
        - explicitly distinguish:
@@ -170,7 +170,7 @@ We intentionally avoid guessing op-table slot ordering or Operation↔bucket sem
 - Batch runner `book/tools/sbpl/op_table_runner.py`.
 - `out/summary.json`, `out/op_table_map.json`, and `out/op_table_signatures.json` as described above.
 - Consolidated catalog: `out/op_table_catalog_v1.json` (schema `op_table_catalog_v1`) with bucket patterns, ops/filters, decoder signatures, and provisional runtime hints.
-- Promoted op-table mappings: `book/evidence/graph/mappings/op_table/` (regenerate after refreshing experiment outputs via `book/graph/mappings/op_table/generate_op_table_mappings.py`).
+- Promoted op-table mappings: `book/integration/carton/bundle/relationships/mappings/op_table/` (regenerate after refreshing experiment outputs via `book/graph/mappings/op_table/generate_op_table_mappings.py`).
 - Shared decoder/ingestion helpers under `book/graph/concepts/validation/` used to derive op_count, sections, and node lists.
 
 ## Blockers / risks
@@ -197,7 +197,7 @@ Despite the structural progress, several key questions are still open:
    - We do not yet have a principled explanation (per-profile or per-format-variant) of **why** these buckets shift, beyond “compiled profile structure changes”.
 
 4. **Connection to Operation Vocabulary Map**
-   - `book/evidence/graph/mappings/vocab/ops.json` exists for this host (`status: ok`), so we can map SBPL operation names to numeric Operation IDs.
+   - `book/integration/carton/bundle/relationships/mappings/vocab/ops.json` exists for this host (`status: ok`), so we can map SBPL operation names to numeric Operation IDs.
    - The remaining blocker is slot semantics: we do not yet have a witness that op-table slot indices in these synthetic profiles correspond to operation IDs, so we cannot responsibly label bucket 4/5/6 with “Operation ID sets” without additional evidence.
 
 5. **Runtime cross-check**
@@ -206,7 +206,7 @@ Despite the structural progress, several key questions are still open:
 ---
 
 ## Next steps
-- Maintain bucket-level discipline by treating op-table entries as opaque bucket labels; use `book/evidence/graph/mappings/vocab/ops.json` to label SBPL op names with IDs, but do not assume op-table slot indices correspond to operation IDs without a witness.
+- Maintain bucket-level discipline by treating op-table entries as opaque bucket labels; use `book/integration/carton/bundle/relationships/mappings/vocab/ops.json` to label SBPL op names with IDs, but do not assume op-table slot indices correspond to operation IDs without a witness.
 - Refresh analyzer outputs only when the decoder, vocab, or SBPL variants change in ways that affect op-table structure.
 - (Optional) add runtime spot-checks via the SBPL wrapper for a few “mach bucket” and “read/write bucket” profiles once a harness is stable.
 - Coordinate with `op-table-vocab-alignment` and `vocab-from-cache` as Operation Vocabulary Maps evolve, so bucket observations can be anchored to concrete Operation IDs where justified.
@@ -392,7 +392,7 @@ Early observations:
 
 Operation IDs (annotation-only):
 
-Operation IDs are available for this host via `book/evidence/graph/mappings/vocab/ops.json` (`status: ok`). The `op-table-vocab-alignment` experiment annotates each profile’s SBPL `ops` set with those IDs for joins/search, but it does not assert that op-table slot indices correspond to numeric Operation IDs in these synthetic profiles.
+Operation IDs are available for this host via `book/integration/carton/bundle/relationships/mappings/vocab/ops.json` (`status: ok`). The `op-table-vocab-alignment` experiment annotates each profile’s SBPL `ops` set with those IDs for joins/search, but it does not assert that op-table slot indices correspond to numeric Operation IDs in these synthetic profiles.
 
 These signatures:
 

@@ -17,12 +17,12 @@ STATUS_PATH = ROOT / "book" / "evidence" / "graph" / "concepts" / "validation" /
 EXPERIMENT_STATUS_DIR = ROOT / "book" / "evidence" / "graph" / "concepts" / "validation" / "out" / "experiments"
 CARTON_MANIFEST = ROOT / "book" / "integration" / "carton" / "bundle" / "CARTON.json"
 MAPPING_CHECKS = [
-    ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "runtime_signatures.json",
-    ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "runtime_coverage.json",
-    ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "expectations.json",
-    ROOT / "book" / "evidence" / "graph" / "mappings" / "system_profiles" / "digests.json",
-    ROOT / "book" / "evidence" / "graph" / "mappings" / "vocab" / "ops.json",
-    ROOT / "book" / "evidence" / "graph" / "mappings" / "vocab" / "filters.json",
+    ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "runtime" / "runtime_signatures.json",
+    ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "runtime" / "runtime_coverage.json",
+    ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "runtime" / "expectations.json",
+    ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "system_profiles" / "digests.json",
+    ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "vocab" / "ops.json",
+    ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "vocab" / "filters.json",
     ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "operation_coverage.json",
 ]
 META_PATH = ROOT / "book" / "evidence" / "graph" / "concepts" / "validation" / "out" / "metadata.json"

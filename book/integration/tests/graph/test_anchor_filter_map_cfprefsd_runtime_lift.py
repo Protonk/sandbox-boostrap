@@ -48,7 +48,7 @@ def kr_for_baseline_target(baseline_results: list[dict], *, target: str) -> int 
 
 
 def test_cfprefsd_anchor_ctx_is_backed_by_used_packet_and_discriminating_matrix():
-    receipt = load_json(ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "promotion_receipt.json")
+    receipt = load_json(ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "runtime" / "promotion_receipt.json")
     considered = ((receipt.get("packets") or {}).get("considered") or []) if isinstance(receipt, dict) else []
     want = "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.promotion_packet.json"
     matched = [rec for rec in considered if isinstance(rec, dict) and rec.get("path") == want]
@@ -77,7 +77,7 @@ def test_cfprefsd_anchor_ctx_is_backed_by_used_packet_and_discriminating_matrix(
     assert parse_kr(scenario_probe(runtime, "anchor-filter-map:cfprefsd:C1_deny_global").get("stdout") or "") == 1100
     assert parse_kr(scenario_probe(runtime, "anchor-filter-map:cfprefsd:C2_deny_local").get("stdout") or "") == 0
 
-    ctx_map = load_json(ROOT / "book" / "evidence" / "graph" / "mappings" / "anchors" / "anchor_ctx_filter_map.json")
+    ctx_map = load_json(ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "anchors" / "anchor_ctx_filter_map.json")
     entries = ctx_map.get("entries") or {}
     assert isinstance(entries, dict)
     global_ctx_ids = [
@@ -90,7 +90,7 @@ def test_cfprefsd_anchor_ctx_is_backed_by_used_packet_and_discriminating_matrix(
     ]
     assert global_ctx_ids, "expected at least one ctx entry for com.apple.cfprefsd.agent@global-name"
 
-    legacy = load_json(ROOT / "book" / "evidence" / "graph" / "mappings" / "anchors" / "anchor_filter_map.json")
+    legacy = load_json(ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "anchors" / "anchor_filter_map.json")
     legacy_ent = legacy.get(CFPREFSD_SERVICE) or {}
     assert isinstance(legacy_ent, dict)
     assert legacy_ent.get("status") == "blocked"

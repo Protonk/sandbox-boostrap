@@ -38,16 +38,16 @@ This loop repeats. Do not treat “one run” as complete. Prefer several small 
   Use the Concepts and State documents as constraints. If an experiment appears to contradict an invariant, treat that as a tension to investigate, not something to be patched over. Do not rewrite definitions to fit your latest result.
 
 * Require a witness before leaning on a concept  
-  Before treating a concept cluster as more than substrate theory, make sure there is at least one host-specific witness artifact (mapping, decoded profile, experiment report, runtime trace). Example: for the Operation/Filter vocabularies, the witness is the bedrock mapping `book/evidence/graph/mappings/vocab/{ops.json,filters.json}` (generated from `book/evidence/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib`).
+  Before treating a concept cluster as more than substrate theory, make sure there is at least one host-specific witness artifact (mapping, decoded profile, experiment report, runtime trace). Example: for the Operation/Filter vocabularies, the witness is the host-specific mapping `book/integration/carton/bundle/relationships/mappings/vocab/{ops.json,filters.json}` (generated from `book/integration/carton/bundle/relationships/mappings/dyld-libs/usr/lib/libsandbox.1.dylib`).
 
 * Maintain validation status honestly  
   Each experiment has a validation status (`ok`, `partial`, `blocked`, `brittle`). Update this based on actual runs, not on how convincing the narrative feels. Do not silently upgrade `partial` or `brittle` results to `ok` without new evidence.
 
 * Use canonical vocab and concepts  
-  Use only Operation/Filter vocabularies from `book/evidence/graph/mappings/vocab/{ops,filters}.json` and the project’s concept inventory. Do not invent new op/filter names or ad‑hoc jargon.
+  Use only Operation/Filter vocabularies from `book/integration/carton/bundle/relationships/mappings/vocab/{ops,filters}.json` and the project’s concept inventory. Do not invent new op/filter names or ad‑hoc jargon.
 
 * Use the validation driver  
-  When your experiment already has a registered selector, run it instead of bespoke scripts (e.g., `python -m book.graph.concepts.validation --experiment field2` for `book/evidence/experiments/field2-final-final/field2-filters`). For host vocab reuse, prefer `--tag vocab`/`--id vocab:sonoma-14.4.1` and consume the JSONs under `book/evidence/graph/mappings/vocab/`.
+  When your experiment already has a registered selector, run it instead of bespoke scripts (e.g., `python -m book.graph.concepts.validation --experiment field2` for `book/evidence/experiments/field2-final-final/field2-filters`). For host vocab reuse, prefer `--tag vocab`/`--id vocab:sonoma-14.4.1` and consume the JSONs under `book/integration/carton/bundle/relationships/mappings/vocab/`.
   Default smoke check before promotion: `python -m book.graph.concepts.validation --tag smoke` (runs vocab + field2 + runtime-checks).
   If you need to know what a job does, `--describe <job_id>` shows inputs/outputs and the intent; prefer `tag:golden` jobs for canonical IR.
   CARTON is the frozen IR/mapping contract bundle (`book/integration/carton/bundle/CARTON.json`). Add new experiments/outputs without mutating CARTON-listed files; instead, feed them through validation → IR → mappings and only then, if they are stable, propose updates to CARTON via contracts + manifest regeneration.
@@ -59,7 +59,7 @@ This loop repeats. Do not treat “one run” as complete. Prefer several small 
   You choose which probes to run, how to extend the experiment, and when to stop, without step‑by‑step instructions. Stay within the boundaries of the experiment and the project’s invariants; do not refactor the broader textbook or tooling unless promotion is explicitly part of your task.
 
 * Propose promotion, do not self-authorize it  
-  When an experiment produces artifacts or tools that are stable and reusable, identify them and propose promotion: point to the files, explain why they are stable, and suggest where they should live in shared artifacts or tools. Do not assume experiment-local results are automatically canonical. Any artifact promoted into `book/evidence/graph/mappings/*` must carry host metadata and have a guardrail test (e.g., in `book/tests/`) to prevent silent drift.
+  When an experiment produces artifacts or tools that are stable and reusable, identify them and propose promotion: point to the files, explain why they are stable, and suggest where they should live in shared artifacts or tools. Do not assume experiment-local results are automatically canonical. Any artifact promoted into `book/integration/carton/bundle/relationships/mappings/*` must carry host metadata and have a guardrail test (e.g., in `book/tests/`) to prevent silent drift.
 
 ### Path handling
 
@@ -74,7 +74,7 @@ Aim to leave each experiment in a clearer, better-documented state than you foun
 Each subdirectory under `book/evidence/experiments/` is a host-specific experiment. They fall roughly into these families:
 
 - **Archive**
-  - `archive/` – archived experiment scaffolds (historical provenance). Experiments move here only after their useful outputs have been promoted elsewhere (typically into `book/evidence/graph/mappings/**` or `book/tools/**`), and the experiment directory is no longer treated as a live dependency surface. Do not edit anything under `archive/` unless expressly directed; see `book/evidence/experiments/archive/AGENTS.md`.
+  - `archive/` – archived experiment scaffolds (historical provenance). Experiments move here only after their useful outputs have been promoted elsewhere (typically into `book/integration/carton/bundle/relationships/mappings/**` or `book/tools/**`), and the experiment directory is no longer treated as a live dependency surface. Do not edit anything under `archive/` unless expressly directed; see `book/evidence/experiments/archive/AGENTS.md`.
 
 - **Compile/layout pipeline (userland)**
   - `profile-pipeline/` – consolidated compile -> layout -> op-table -> vocab -> apply experiment.
@@ -97,7 +97,7 @@ Each subdirectory under `book/evidence/experiments/` is a host-specific experime
   - `kernel-symbols` – kernel symbol/string inventories for sandbox-related work.
   - `symbol-search` – searches for the PolicyGraph dispatcher and related kernel helpers.
 
-New experiments should follow the same pattern: a dedicated directory with its own `Plan.md`, `Report.md`, `Notes.md`, and local `out/` for artifacts, plugged into the shared mapping layer under `book/evidence/graph/mappings/` once results are stable.
+New experiments should follow the same pattern: a dedicated directory with its own `Plan.md`, `Report.md`, `Notes.md`, and local `out/` for artifacts, plugged into the shared mapping layer under `book/integration/carton/bundle/relationships/mappings/` once results are stable.
 
 Shared tooling tip:
 - For quick blob snapshots (section sizes, op-table entries, stride/tag stats, literals), use `book/api/profile/` (`inspect` / `decode`) instead of duplicating parsers.
@@ -140,7 +140,7 @@ Each experiment uses the same documentation scaffold:
 - **`out/` (local artifacts)**
   - Store machine-readable outputs here (inventories, digests, audits, runtime logs, intermediate mapping JSONs).
   - Name files so that other experiments can consume them (`field2_inventory.json`, `op_table_map.json`, `tag_histogram.json`, etc.).
-  - When an artifact becomes stable and reused across experiments, promote it into `book/evidence/graph/mappings/…` with clear metadata; keep `out/` as the local scratch/provenance.
+  - When an artifact becomes stable and reused across experiments, promote it into `book/integration/carton/bundle/relationships/mappings/…` with clear metadata; keep `out/` as the local scratch/provenance.
 
 - **Common subtrees**
   - `sb/` / `sb/build/` – SBPL source and compiled profiles for probes.

@@ -1,5 +1,5 @@
-from book.graph.mappings.runtime.generate_runtime_signatures import classify_expected
-from book.graph.mappings.runtime.generate_runtime_signatures import build_from_story
+from book.integration.carton.mappings.runtime.generate_runtime_signatures import classify_expected
+from book.integration.carton.mappings.runtime.generate_runtime_signatures import build_from_story
 
 
 def test_classify_expected_covers_all_buckets():

@@ -40,6 +40,7 @@ def test_adversarial_artifacts_present_and_annotated():
         "adv:mach_local_regex",
         "adv:net_outbound_allow",
         "adv:net_outbound_deny",
+        "adv:kext_bundle_query",
         "adv:xattr",
         "adv:file_mode",
         "adv:flow_divert_require_all_tcp",

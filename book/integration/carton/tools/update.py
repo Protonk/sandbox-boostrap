@@ -60,7 +60,7 @@ def main(argv: Optional[List[str]] = None) -> None:
             [
                 sys.executable,
                 "-m",
-                "book.graph.mappings.run_promotion",
+                "book.integration.carton.mappings.run_promotion",
                 "--generators",
                 args.promotion_generators,
             ],

@@ -25,7 +25,7 @@ from typing import Dict, Any, List
 ROOT = Path(__file__).resolve().parents[3]
 
 def load_filters() -> Dict[int, str]:
-    data = json.loads((ROOT / "book/evidence/graph/mappings/vocab/filters.json").read_text())
+    data = json.loads((ROOT / "book/integration/carton/bundle/relationships/mappings/vocab/filters.json").read_text())
     return {entry["id"]: entry["name"] for entry in data.get("filters", [])}
 
 def load_matrix(path: Path) -> Dict[str, Any]:

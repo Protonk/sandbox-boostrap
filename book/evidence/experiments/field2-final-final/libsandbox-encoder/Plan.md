@@ -1,18 +1,18 @@
 ## Aim
 
-Establish how this host’s `libsandbox` populates the per-node u16 payload slot (historically “field2”, now `field2_raw`/`filter_arg_raw` in decoding) when compiling SBPL, and relate the observed values back to the Filter Vocabulary Map (`book/evidence/graph/mappings/vocab/filters.json`, status: ok) *only when the tag’s u16 role warrants it*. The kernel is treated as a black box that consumes a compiled blob; this experiment focuses on userland emission and structural alignment.
+Establish how this host’s `libsandbox` populates the per-node u16 payload slot (historically “field2”, now `field2_raw`/`filter_arg_raw` in decoding) when compiling SBPL, and relate the observed values back to the Filter Vocabulary Map (`book/integration/carton/bundle/relationships/mappings/vocab/filters.json`, status: ok) *only when the tag’s u16 role warrants it*. The kernel is treated as a black box that consumes a compiled blob; this experiment focuses on userland emission and structural alignment.
 
 ## Phases
 
 - **Phase A — SBPL→blob matrix (encoder output view)**
   - Use `book/api/profile` + `profile_ingestion` + stride=8 node parsing to produce a stable, reproducible “encoder matrix” over a small SBPL probe set.
   - Record per observed node: tag, raw u16 payload (`field2_raw`), hi/lo split (`field2_hi`/`field2_lo`), and any heuristic literal refs.
-  - For tags whose payload role is `filter_vocab_id` (see `book/evidence/graph/mappings/tag_layouts/tag_u16_roles.json`), also attempt `filters.json` resolution and record `filter_name`. For tags whose role is `arg_u16`, keep the payload as opaque u16 (do not treat in-range values as proof of a vocab ID).
+  - For tags whose payload role is `filter_vocab_id` (see `book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_u16_roles.json`), also attempt `filters.json` resolution and record `filter_name`. For tags whose role is `arg_u16`, keep the payload as opaque u16 (do not treat in-range values as proof of a vocab ID).
   - First pass stays regex-free to reduce confounders; follow-up matrices can add regex-bearing probes once the structural picture is stable.
   - Maintain a small “network arg” specimen set (`sb/network_matrix/*.sb`) that enables byte-level diffs across controlled deltas (domain/type/proto), producing a falsifiable witness of where those argument bytes land in the compiled blob.
 
 - **Phase B — libsandbox internals (encoder implementation view)**
-  - Inspect the trimmed `libsandbox` slice under `book/evidence/graph/mappings/dyld-libs/` (static only).
+  - Inspect the trimmed `libsandbox` slice under `book/integration/carton/bundle/relationships/mappings/dyld-libs/` (static only).
   - Identify emitters for the condition-data payloads (e.g., network domain/type/proto) and tie those byte writes to the compiled blob’s sections.
   - Summarize encoder-side sites and their observed write order/widths in a small JSON (`out/encoder_sites.json`), without claiming kernel semantics.
 

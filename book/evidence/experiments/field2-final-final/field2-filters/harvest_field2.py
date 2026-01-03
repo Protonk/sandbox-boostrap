@@ -23,7 +23,7 @@ from book.api.profile import digests as digests_mod  # type: ignore
 
 
 def load_filters() -> Dict[int, str]:
-    path = Path("book/evidence/graph/mappings/vocab/filters.json")
+    path = Path("book/integration/carton/bundle/relationships/mappings/vocab/filters.json")
     if not path.exists():
         return {}
     data = json.loads(path.read_text())

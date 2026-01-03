@@ -5,8 +5,8 @@ from pathlib import Path
 from book.api import path_utils
 
 ROOT = path_utils.find_repo_root(Path(__file__))
-OPS = ROOT / "book" / "evidence" / "graph" / "mappings" / "vocab" / "ops.json"
-COVERAGE = ROOT / "book" / "evidence" / "graph" / "mappings" / "vocab" / "ops_coverage.json"
+OPS = ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "vocab" / "ops.json"
+COVERAGE = ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "vocab" / "ops_coverage.json"
 BASELINE = ROOT / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world.json"
 
 

@@ -4,7 +4,7 @@ from pathlib import Path
 from book.api import path_utils
 
 ROOT = path_utils.find_repo_root(Path(__file__))
-SIGNATURES = ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "runtime_signatures.json"
+SIGNATURES = ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "runtime" / "runtime_signatures.json"
 BASELINE_REF = "book/world/sonoma-14.4.1-23E224-arm64/world.json"
 
 

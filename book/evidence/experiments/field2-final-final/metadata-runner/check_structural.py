@@ -22,7 +22,7 @@ METADATA_RUNNER_DIR = BASE_DIR
 SB_BUILD = METADATA_RUNNER_DIR / "sb" / "build"
 OUT_DIR = BASE_DIR / "out"
 WORLD_PATH = find_repo_root(Path(__file__)) / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world.json"
-ANCHOR_MAP_PATH = REPO_ROOT / "book" / "evidence" / "graph" / "mappings" / "anchors" / "anchor_filter_map.json"
+ANCHOR_MAP_PATH = REPO_ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "anchors" / "anchor_filter_map.json"
 
 # Paths exercised by this experiment
 PATH_PAIRS = [

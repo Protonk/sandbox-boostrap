@@ -8,11 +8,11 @@ from book.api.profile import identity as identity_mod
 from book.api import path_utils
 ROOT = path_utils.find_repo_root(Path(__file__))
 BASELINE = ROOT / "book" / "world" / "sonoma-14.4.1-23E224-arm64" / "world.json"
-TAG_LAYOUTS = ROOT / "book" / "evidence" / "graph" / "mappings" / "tag_layouts" / "tag_layouts.json"
-DIGESTS = ROOT / "book" / "evidence" / "graph" / "mappings" / "system_profiles" / "digests.json"
-STATIC_CHECKS = ROOT / "book" / "evidence" / "graph" / "mappings" / "system_profiles" / "static_checks.json"
-ATTESTATIONS = ROOT / "book" / "evidence" / "graph" / "mappings" / "system_profiles" / "attestations.json"
-ATTESTATIONS_DIR = ROOT / "book" / "evidence" / "graph" / "mappings" / "system_profiles" / "attestations"
+TAG_LAYOUTS = ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "tag_layouts" / "tag_layouts.json"
+DIGESTS = ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "system_profiles" / "digests.json"
+STATIC_CHECKS = ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "system_profiles" / "static_checks.json"
+ATTESTATIONS = ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "system_profiles" / "attestations.json"
+ATTESTATIONS_DIR = ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "system_profiles" / "attestations"
 
 
 def _load(path: Path) -> dict:

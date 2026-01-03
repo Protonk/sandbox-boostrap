@@ -104,6 +104,19 @@
       "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/net_outbound_deny.sb",
       "semantic_group": "network:outbound-deny"
     },
+    "adv:kext_bundle_query": {
+      "family": "system_kext",
+      "key_specific_rules": [],
+      "mode": "sbpl",
+      "notes": "Discriminate system-kext-query by kext-bundle-id.",
+      "probe_refs": [
+        "adv:kext_bundle_query:allow-sandbox-kext",
+        "adv:kext_bundle_query:deny-bogus-kext"
+      ],
+      "profile_id": "adv:kext_bundle_query",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/kext_bundle_query.sb",
+      "semantic_group": "system-kext:bundle-id-query"
+    },
     "adv:path_alias": {
       "family": "path_alias",
       "key_specific_rules": [],

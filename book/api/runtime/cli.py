@@ -397,7 +397,7 @@ def main(argv: list[str] | None = None) -> int:
     ap_story.add_argument(
         "--vocab",
         type=Path,
-        default=BOOK_ROOT / "evidence" / "graph" / "mappings" / "vocab" / "ops.json",
+        default=BOOK_ROOT / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "vocab" / "ops.json",
         help="Path to ops vocab",
     )
     ap_story.add_argument("--out", type=Path, required=True, help="Output path for runtime_story.json")
@@ -411,7 +411,7 @@ def main(argv: list[str] | None = None) -> int:
     ap_golden.add_argument(
         "--out",
         type=Path,
-        default=BOOK_ROOT / "evidence" / "graph" / "mappings" / "runtime",
+        default=BOOK_ROOT / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "runtime",
         help="Root output directory",
     )
     ap_golden.set_defaults(func=golden_command)
@@ -421,7 +421,7 @@ def main(argv: list[str] | None = None) -> int:
     ap_promote.add_argument(
         "--out",
         type=Path,
-        default=BOOK_ROOT / "evidence" / "graph" / "mappings" / "runtime_cuts",
+        default=BOOK_ROOT / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "runtime_cuts",
         help="Target root",
     )
     ap_promote.set_defaults(func=promote_command)

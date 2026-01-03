@@ -416,6 +416,56 @@
       },
       "target": "127.0.0.1:62647"
     },
+    "adv:kext_bundle_query:allow-sandbox-kext": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "com.apple.security.sandbox"
+      ],
+      "expected_primary_ops": [
+        "system-kext-query"
+      ],
+      "filter_name": "kext-bundle-id",
+      "name": "allow-sandbox-kext",
+      "operation": "system-kext-query",
+      "probe_id": "adv:kext_bundle_query:allow-sandbox-kext",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "com.apple.security.sandbox"
+    },
+    "adv:kext_bundle_query:deny-bogus-kext": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "com.apple.sandboxadversarial.fake"
+      ],
+      "expected_primary_ops": [
+        "system-kext-query"
+      ],
+      "filter_name": "kext-bundle-id",
+      "name": "deny-bogus-kext",
+      "operation": "system-kext-query",
+      "probe_id": "adv:kext_bundle_query:deny-bogus-kext",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "com.apple.sandboxadversarial.fake"
+    },
     "adv:path_alias:alias-private": {
       "capabilities_required": [],
       "controls_supported": [

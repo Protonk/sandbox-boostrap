@@ -10,11 +10,11 @@ from book.api import path_utils
 ROOT = path_utils.find_repo_root(Path(__file__))
 
 MAPPING_TARGETS = [
-    ROOT / "book" / "graph" / "mappings" / "runtime" / "generate_runtime_story.py",
-    ROOT / "book" / "graph" / "mappings" / "runtime" / "generate_runtime_coverage.py",
-    ROOT / "book" / "graph" / "mappings" / "runtime" / "generate_runtime_callout_oracle.py",
-    ROOT / "book" / "graph" / "mappings" / "runtime" / "generate_runtime_signatures.py",
-    ROOT / "book" / "graph" / "mappings" / "runtime" / "promote_from_packets.py",
+    ROOT / "book" / "integration" / "carton" / "mappings" / "runtime" / "generate_runtime_story.py",
+    ROOT / "book" / "integration" / "carton" / "mappings" / "runtime" / "generate_runtime_coverage.py",
+    ROOT / "book" / "integration" / "carton" / "mappings" / "runtime" / "generate_runtime_callout_oracle.py",
+    ROOT / "book" / "integration" / "carton" / "mappings" / "runtime" / "generate_runtime_signatures.py",
+    ROOT / "book" / "integration" / "carton" / "mappings" / "runtime" / "promote_from_packets.py",
 ]
 
 FORBIDDEN_EXPERIMENT_OUT = [
@@ -51,7 +51,7 @@ def test_runtime_promotion_contracts():
     if "allow-legacy" in atlas_text:
         failures.append("book/evidence/experiments/field2-final-final/field2-atlas/atlas_runtime.py still mentions allow-legacy")
 
-    packet_set_path = ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "packet_set.json"
+    packet_set_path = ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "runtime" / "packet_set.json"
     if not packet_set_path.exists():
         failures.append(f"missing packet_set.json: {packet_set_path}")
     else:

@@ -7,18 +7,15 @@ Mission: Build a checkable, regenerable model of Seatbelt for a single host base
 Baseline (single source of truth): `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` (see `book/world/sonoma-14.4.1-23E224-arm64/world.json`, resolved via `book/world/registry.json` and `book.api.world`). All claims are scoped to this host.
 
 Evidence discipline:
-- Every claim must name its evidence tier: `bedrock` / `mapped` / `hypothesis`.
-- Bedrock surfaces are declared in `book/evidence/graph/concepts/BEDROCK_SURFACES.json`; do not upgrade mapped or hypothesis to bedrock.
-- Many artifacts also carry `status: ok|partial|brittle|blocked` as an operational health/detail signal; it does not change the evidence tier.
 - If the honest answer is “we don’t know yet” or evidence conflicts, say so and point to the bounding artifacts/experiments.
 
 Vocabulary discipline:
 - Use project terms from `book/evidence/graph/concepts/concept_map.json` and the substrate (do not invent new jargon).
-- Use only ops/filters from `book/evidence/graph/mappings/vocab/{ops.json,filters.json}`.
+- Use only ops/filters from `book/integration/carton/bundle/relationships/mappings/vocab/{ops.json,filters.json}`.
 
 Runtime discipline:
 - Runtime statements must include both a `stage` (`compile|apply|bootstrap|operation`) and a `lane` (`scenario|baseline|oracle`).
-- Apply-stage `EPERM` is **hypothesis** evidence (the profile did not attach; no PolicyGraph decision happened).
+- Apply-stage `EPERM` is almost always evidence of a staging problem, not a policy denial. Run `book/tools/preflight`.
 - Treat runtime results as evidence only when sourced from a committed runtime bundle (`artifact_index.json`) or a `promotion_packet.json`.
 
 Safety and boundaries:
@@ -43,7 +40,7 @@ Common host-bound commands (Sonoma 14.4.1 baseline):
 - Decode/inspect blob: `python -m book.api.profile decode dump <blob.sb.bin> --summary`
 - Plan-based runtime run: `python -m book.api.runtime run --plan <plan.json> --channel launchd_clean --out <out_dir>`
 - Emit promotion packet: `python -m book.api.runtime emit-promotion --bundle <out_dir> --out <out_dir>/promotion_packet.json --require-promotable`
-- Promote runtime packets into mappings: `python book/graph/mappings/runtime/promote_from_packets.py --packets <packet.json>` (writes under `book/evidence/graph/mappings/`)
+- Promote runtime packets into mappings: `python book/graph/mappings/runtime/promote_from_packets.py --packets <packet.json>` (writes under `book/integration/carton/bundle/relationships/mappings/`)
 
 Host-neutral (still host-scoped artifacts; no live sandbox):
 - Validate concepts/IR: `python -m book.graph.concepts.validation --tag meta`
@@ -52,11 +49,11 @@ Host-neutral (still host-scoped artifacts; no live sandbox):
 ## Cold-start routing (where to look)
 
 Pick the smallest surface that answers your question:
-- “What operations/filters exist on this host?” → `book/evidence/graph/mappings/vocab/` (bedrock) and the CARTON bundle at `book/integration/carton/bundle/` (relationships/views/contracts + manifest).
+- “What operations/filters exist on this host?” → `book/integration/carton/bundle/relationships/mappings/vocab/` and the CARTON bundle at `book/integration/carton/bundle/` (relationships/views/contracts + manifest).
 - “What bytes did this SBPL compile into?” → `book/api/profile/` (structural tooling).
 - “Why did a runtime probe fail/deny?” → `book/api/runtime/` bundles and promotion packets (stage + lane + promotability).
 - “Am I about to hit apply-gating?” → `book/tools/preflight/` (scan + minimize-gate) and `book/tools/sbpl/wrapper/`.
-- “Is my baseline/world consistent?” → `book/tools/doctor/` (hypothesis-tier checkup).
+- “Is my baseline/world consistent?” → `book/tools/doctor/`.
 
 Then read the nearest `AGENTS.md` in the subtree you touch:
 - API/tooling: `book/api/AGENTS.md`; CARTON fixer bundle: `book/integration/carton/README.md`.
@@ -77,7 +74,6 @@ Minimal witness record (keep short and checkable):
 ```text
 claim:
   world_id: sonoma-14.4.1-23E224-arm64-dyld-2c0602c5
-  tier: bedrock|mapped|hypothesis
   status: ok|partial|brittle|blocked (optional)
   stage: compile|apply|bootstrap|operation
   lane: scenario|baseline|oracle (runtime only)

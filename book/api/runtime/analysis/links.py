@@ -19,7 +19,7 @@ from book.api import path_utils
 
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))
 # Default mapped runtime links location; override for tests as needed.
-RUNTIME_LINKS_PATH = REPO_ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "runtime_links.json"
+RUNTIME_LINKS_PATH = REPO_ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "runtime" / "runtime_links.json"
 
 
 def load_runtime_links(path: Optional[Path] = None) -> Dict[str, Any]:

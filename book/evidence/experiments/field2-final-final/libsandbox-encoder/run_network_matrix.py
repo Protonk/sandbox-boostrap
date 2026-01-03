@@ -62,7 +62,7 @@ def load_tag_layouts() -> Dict[int, Dict[str, Any]]:
     tag -> {record_size_bytes, edge_fields, payload_fields, filter_id_field?}
     """
     layouts: Dict[int, Dict[str, Any]] = {}
-    base = ROOT / "book/evidence/graph/mappings/tag_layouts/tag_layouts.json"
+    base = ROOT / "book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_layouts.json"
     overrides = ROOT / "book/evidence/experiments/field2-final-final/libsandbox-encoder/out/tag_layout_overrides.json"
     for src in [base, overrides]:
         if not src.exists():

@@ -37,7 +37,7 @@ ALLOWLIST = {
     "sandbox_exec": {
         Path("book/api/profile/compile/libsandbox.py"),
         Path("book/api/runtime/execution/harness/runner.py"),
-        Path("book/graph/mappings/runtime/generate_runtime_signatures.py"),
+        Path("book/integration/carton/mappings/runtime/generate_runtime_signatures.py"),
         Path("book/evidence/experiments/runtime-final-final/suites/shrink-trace/scripts/run_workflow.sh"),
         Path("book/evidence/experiments/runtime-final-final/suites/shrink-trace/scripts/shrink_instrumented.sh"),
         Path("book/evidence/experiments/runtime-final-final/suites/shrink-trace/scripts/trace_instrumented.sh"),

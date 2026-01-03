@@ -27,7 +27,7 @@ Probe for static↔runtime divergences by running deliberately adversarial SBPL 
 ## Sequencing
 1. Refresh plan/registry via runtime template (see above).
 2. Run runtime harness to produce runtime_results; compute mismatch_summary.
-3. Add guardrail test and adversarial summary stub under `book/evidence/graph/mappings/runtime/`.
+3. Add guardrail test and adversarial summary stub under `book/integration/carton/bundle/relationships/mappings/runtime/`.
 4. Iterate by adding more families (header/format toggles, field2/tag ambiguity) after Phase 1 lands.
 
 ## Constraints / status markers

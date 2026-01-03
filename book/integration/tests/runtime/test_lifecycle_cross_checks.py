@@ -5,9 +5,9 @@ from pathlib import Path
 from book.api import path_utils
 
 ROOT = path_utils.find_repo_root(Path(__file__))
-MANIFEST = ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "lifecycle.json"
-STORY = ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "lifecycle_story.json"
-COVERAGE = ROOT / "book" / "evidence" / "graph" / "mappings" / "runtime" / "lifecycle_coverage.json"
+MANIFEST = ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "runtime" / "lifecycle.json"
+STORY = ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "runtime" / "lifecycle_story.json"
+COVERAGE = ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "runtime" / "lifecycle_coverage.json"
 
 
 def load(path: Path):

@@ -21,7 +21,7 @@ from book.api.runtime.contracts import models
 from book.api.runtime.analysis.mapping import build as mapping_build
 
 REPO_ROOT = path_utils.find_repo_root(Path(__file__))
-OPS_VOCAB = REPO_ROOT / "book" / "evidence" / "graph" / "mappings" / "vocab" / "ops.json"
+OPS_VOCAB = REPO_ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "vocab" / "ops.json"
 
 
 def _load_json(path: Path) -> Dict[str, Any]:

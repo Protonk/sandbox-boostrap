@@ -54,14 +54,14 @@ python -m book.api.runtime emit-promotion \
 python book/graph/mappings/runtime/promote_from_packets.py \
   --packets book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/promotion_packet.json
 ```
-Outputs land under `book/evidence/graph/mappings/runtime/` and `book/evidence/graph/mappings/runtime_cuts/`.
+Outputs land under `book/integration/carton/bundle/relationships/mappings/runtime/` and `book/integration/carton/bundle/relationships/mappings/runtime_cuts/`.
 
 Optional summary step:
 
 ```sh
 python -m book.api.runtime summarize-ops \
   --bundle book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out \
-  --out book/evidence/graph/mappings/runtime/op_runtime_summary.json
+  --out book/integration/carton/bundle/relationships/mappings/runtime/op_runtime_summary.json
 ```
 
 ## Bundle and promotion artifacts

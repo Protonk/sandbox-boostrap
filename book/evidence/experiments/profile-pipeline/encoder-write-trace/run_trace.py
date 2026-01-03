@@ -29,7 +29,7 @@ from book.api.profile.identity import baseline_world_id  # type: ignore
 
 TARGET_SYMBOL = "_sb_mutable_buffer_write"
 SECONDARY_SYMBOL = "_sb_mutable_buffer_make_immutable"
-DEFAULT_BIND_IMAGE = Path("book/evidence/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib")
+DEFAULT_BIND_IMAGE = Path("book/integration/carton/bundle/relationships/mappings/dyld-libs/usr/lib/libsandbox.1.dylib")
 RETRY_SIGNALS = {int(signal.SIGSEGV), int(signal.SIGTRAP)}
 DEFAULT_RETRIES = 1
 

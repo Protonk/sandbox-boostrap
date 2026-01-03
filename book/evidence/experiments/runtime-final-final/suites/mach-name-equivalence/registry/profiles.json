@@ -1,0 +1,25 @@
+{
+  "schema_version": "runtime-tools.profile_registry.v0.2",
+  "registry_id": "mach-name-equivalence",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "profiles": {
+    "mach-name-equivalence": {
+      "profile_id": "mach-name-equivalence",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/mach-name-equivalence/sb/mach_name_equivalence.sb",
+      "mode": "sbpl",
+      "family": "mach-name-equivalence",
+      "semantic_group": "mach:global-name-allow",
+      "probe_refs": [
+        "mach-name-equivalence:lookup:allow-aa",
+        "mach-name-equivalence:lookup:deny-bb",
+        "mach-name-equivalence:register:allow-aa",
+        "mach-name-equivalence:register:deny-bb"
+      ],
+      "key_specific_rules": [
+        "(allow mach-task-special-port-get)",
+        "(allow mach-bootstrap)"
+      ],
+      "notes": null
+    }
+  }
+}

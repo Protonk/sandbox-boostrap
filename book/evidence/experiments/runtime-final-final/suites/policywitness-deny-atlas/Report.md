@@ -10,9 +10,9 @@ Build an entitlement-lane deny atlas for this host using PolicyWitness and the e
 
 - Uses PolicyWitness probes (`book.api.witness.client.run_probe`) with observer capture.
 - Uses operation/filter vocabulary from the bedrock mappings:
-  - `book/evidence/graph/mappings/vocab/ops.json`
-  - `book/evidence/graph/mappings/vocab/filters.json`
-  - `book/evidence/graph/mappings/vocab/ops_coverage.json`
+  - `book/integration/carton/bundle/relationships/mappings/vocab/ops.json`
+  - `book/integration/carton/bundle/relationships/mappings/vocab/filters.json`
+  - `book/integration/carton/bundle/relationships/mappings/vocab/ops_coverage.json`
 - Produces mapped-tier evidence only when a deny is observed by the external observer and the log line can be mapped to the vocab. Permission-shaped failures without deny evidence are hypothesis-tier.
 - File deny lines frequently omit an explicit primary filter; these are mapped with `filter_inferred` as a limit.
 - Stage/lane: `operation` / `scenario`.

@@ -1,0 +1,3915 @@
+{
+  "meta": {
+    "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+    "schema_version": "runtime-links.v0.1",
+    "runtime_log_schema": "runtime_log_schema.v0.1.json",
+    "status": "partial",
+    "tier": "mapped",
+    "source_jobs": [],
+    "notes": "Cross-links runtime observations to profiles, static mappings, and oracle lanes.",
+    "inputs": [
+      "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/expected_matrix.json",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/runtime_events.normalized.json",
+      "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/run_manifest.json",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_events.normalized.json",
+      "book/evidence/experiments/runtime-final-final/evidence/packets/hardened-runtime.promotion_packet.json",
+      "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json",
+      "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/expected_matrix.json",
+      "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_events.normalized.json",
+      "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.promotion_packet.json",
+      "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/run_manifest.json",
+      "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/expected_matrix.json",
+      "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/runtime_events.normalized.json",
+      "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.iokit-class.promotion_packet.json",
+      "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/run_manifest.json",
+      "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/expected_matrix.json",
+      "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/runtime_events.normalized.json"
+    ],
+    "input_hashes": {
+      "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json": "4ec5c6896c24d62ea07ec2d93ec6200c4ede1de2ecfeb7cbc498992d4e04400c",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json": "d8de1b9c7e9b47af05310ca92ae9b79fe33d74e3da16f10139f88d41aaa8a7b6",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/expected_matrix.json": "ee1e03f02408091e551f4e90af54c5bca205065cd782ae7769c5f542cac9a34f",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/runtime_events.normalized.json": "791b0c7a5d5212205795216cc30f7a4698122db29956d5f0ecf796cfd1a79952",
+      "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json": "e373601ca57196f27968623a20bed2900b19b3496e54bd8d8517c7da6dd9f01f",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/run_manifest.json": "030a6d8b2d5806627e980a90ca7f56d51cb6c52a908ce05881b9c1dd12694136",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json": "de15a46fa9bcc01df8742f8809ca293d64ac5df0013c612604c5152dbd5be66b",
+      "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_events.normalized.json": "6cfba72c2cbaa72338da4d39a36c7421a45bb4c2bd92455fbaaf7bddde51c0ad",
+      "book/evidence/experiments/runtime-final-final/evidence/packets/hardened-runtime.promotion_packet.json": "6097736ae37724d1aaf63f0aed6e11bbc039385b68bde03316de4e5d9da6216f",
+      "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json": "c3a436fe061545ba76f0bb1cbccca9c9060a5fb6e8d577488d6fc8fffb8c04f7",
+      "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/expected_matrix.json": "d6d52e16345e6b456fcef122aeefa147840ca9fa9edd8227155cec51eb558def",
+      "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_events.normalized.json": "a408834d4a15a1191150448c99a0813ddb291a8f4b3438dac03fd96411aaa817",
+      "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.promotion_packet.json": "8854b68b6d7050694c6deecff384b92867fa8df497599a01ec757caab4321560",
+      "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/run_manifest.json": "34a3ba563f88a39c41506fb527a5813af47a8c4a26ed36ea89de3da5b2ef7d6e",
+      "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/expected_matrix.json": "314cb877116c80bc0df953220c1834c232070aadff5fe1de50e55dfcbb564f25",
+      "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/runtime_events.normalized.json": "ed0a82b130efede2b86942f1366439cf6a54cebc1e4be7952c8bfd395437b56c",
+      "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.iokit-class.promotion_packet.json": "6a6cd9bf2747da3dad8cfb77213992bfef1e1b6de70f082a63f425f50e39874d",
+      "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/run_manifest.json": "6d2b4c58467b154f4911763c01d4a45c5b9932e57a9edd014652e72c34ce9e65",
+      "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/expected_matrix.json": "5933c5a0494ad7d03430fbf2752dc75549fa9066aac9bfb6f7a845d8d901b0fc",
+      "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/runtime_events.normalized.json": "898ec677348181657a46b5d9fcd8986103984171fe8ca576991848828b8e9bec"
+    }
+  },
+  "links": {
+    "ops_vocab": "book/integration/carton/bundle/relationships/mappings/vocab/ops.json",
+    "ops_coverage": "book/integration/carton/bundle/relationships/mappings/vocab/ops_coverage.json",
+    "tag_layouts": "book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_layouts.json",
+    "system_profile_digests": "book/integration/carton/bundle/relationships/mappings/system_profiles/digests.json",
+    "runtime_signatures": "book/integration/carton/bundle/relationships/mappings/runtime/runtime_signatures.json",
+    "op_runtime_summary": "book/integration/carton/bundle/relationships/mappings/runtime/op_runtime_summary.json",
+    "runtime_callout_oracle": "book/integration/carton/bundle/relationships/mappings/runtime/runtime_callout_oracle.json"
+  },
+  "packets": {
+    "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json": {
+      "run_id": "1e641b64-6267-47df-b1c3-b320aa90e675",
+      "run_manifest": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/run_manifest.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/expected_matrix.json",
+      "runtime_events": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/runtime_events.normalized.json",
+      "runtime_results": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/runtime_results.json",
+      "baseline_results": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/baseline_results.json",
+      "oracle_results": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/oracle_results.json",
+      "output_root": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675",
+      "sb_build_dir": null,
+      "runtime_profiles_dir": null
+    },
+    "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json": {
+      "run_id": "738fc3d0-1d12-4608-9a97-90addfbc8d4c",
+      "run_manifest": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/run_manifest.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json",
+      "runtime_events": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_events.normalized.json",
+      "runtime_results": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/runtime_results.json",
+      "baseline_results": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/baseline_results.json",
+      "oracle_results": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/oracle_results.json",
+      "output_root": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c",
+      "sb_build_dir": null,
+      "runtime_profiles_dir": null
+    },
+    "book/evidence/experiments/runtime-final-final/evidence/packets/hardened-runtime.promotion_packet.json": {
+      "run_id": "62456e46-0901-4345-b02d-f96becc33310",
+      "run_manifest": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/run_manifest.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/expected_matrix.json",
+      "runtime_events": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_events.normalized.json",
+      "runtime_results": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/runtime_results.json",
+      "baseline_results": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/baseline_results.json",
+      "oracle_results": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/oracle_results.json",
+      "output_root": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310",
+      "sb_build_dir": null,
+      "runtime_profiles_dir": null
+    },
+    "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.promotion_packet.json": {
+      "run_id": "fa90bf31-b6a2-4a0b-bced-78d77be2b89f",
+      "run_manifest": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/run_manifest.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/expected_matrix.json",
+      "runtime_events": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/runtime_events.normalized.json",
+      "runtime_results": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/runtime_results.json",
+      "baseline_results": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/baseline_results.json",
+      "oracle_results": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/oracle_results.json",
+      "output_root": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f",
+      "sb_build_dir": null,
+      "runtime_profiles_dir": null
+    },
+    "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.iokit-class.promotion_packet.json": {
+      "run_id": "83c8343f-44ca-452a-be49-470fb0b5fd3d",
+      "run_manifest": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/run_manifest.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/expected_matrix.json",
+      "runtime_events": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/runtime_events.normalized.json",
+      "runtime_results": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/runtime_results.json",
+      "baseline_results": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/baseline_results.json",
+      "oracle_results": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/oracle_results.json",
+      "output_root": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d",
+      "sb_build_dir": null,
+      "runtime_profiles_dir": null
+    }
+  },
+  "profiles": {
+    "adv:file_mode": {
+      "profile_id": "adv:file_mode",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/file_mode.sb",
+      "profile_mode": "sbpl",
+      "family": "file_mode",
+      "semantic_group": "file:file-mode",
+      "expected_ops": [
+        "file-read*"
+      ],
+      "observed_ops": [
+        "file-read*"
+      ],
+      "expectation_ids": [
+        "adv:file_mode:allow-private",
+        "adv:file_mode:deny-world"
+      ],
+      "scenario_ids": [
+        "adv:file_mode:allow-private",
+        "adv:file_mode:deny-world"
+      ],
+      "observed_expectation_ids": [
+        "adv:file_mode:allow-private",
+        "adv:file_mode:deny-world"
+      ],
+      "observation_counts": {
+        "total": 2,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/file_mode.sb",
+        "exists": true,
+        "sha256": "aa7916e39e4e3d3718e0b96afbfa446242a8836a07cac8d3b5309c1b8ea5e03e",
+        "size": 178
+      },
+      "op_ids": {
+        "file-read*": 21
+      }
+    },
+    "adv:flow_divert_partial_tcp": {
+      "profile_id": "adv:flow_divert_partial_tcp",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/flow_divert_partial_tcp.sb",
+      "profile_mode": "sbpl",
+      "family": "network",
+      "semantic_group": "network:flow-divert-partial",
+      "expected_ops": [
+        "network-outbound"
+      ],
+      "observed_ops": [
+        "network-outbound"
+      ],
+      "expectation_ids": [
+        "adv:flow_divert_partial_tcp:tcp-loopback",
+        "adv:flow_divert_partial_tcp:tcp-loopback-2"
+      ],
+      "scenario_ids": [
+        "adv:flow_divert_partial_tcp:tcp-loopback",
+        "adv:flow_divert_partial_tcp:tcp-loopback-2"
+      ],
+      "observed_expectation_ids": [
+        "adv:flow_divert_partial_tcp:tcp-loopback",
+        "adv:flow_divert_partial_tcp:tcp-loopback-2"
+      ],
+      "observation_counts": {
+        "total": 2,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/flow_divert_partial_tcp.sb",
+        "exists": true,
+        "sha256": "612174c930a922f48aed525de9c262f42fa4dbf28479c9ea6bfd658f641e9a55",
+        "size": 765
+      },
+      "op_ids": {
+        "network-outbound": 112
+      }
+    },
+    "adv:flow_divert_require_all_tcp": {
+      "profile_id": "adv:flow_divert_require_all_tcp",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/flow_divert_require_all_tcp.sb",
+      "profile_mode": "sbpl",
+      "family": "network",
+      "semantic_group": "network:flow-divert-require-all",
+      "expected_ops": [
+        "network-outbound"
+      ],
+      "observed_ops": [
+        "network-outbound"
+      ],
+      "expectation_ids": [
+        "adv:flow_divert_require_all_tcp:tcp-loopback",
+        "adv:flow_divert_require_all_tcp:tcp-loopback-2"
+      ],
+      "scenario_ids": [
+        "adv:flow_divert_require_all_tcp:tcp-loopback",
+        "adv:flow_divert_require_all_tcp:tcp-loopback-2"
+      ],
+      "observed_expectation_ids": [
+        "adv:flow_divert_require_all_tcp:tcp-loopback",
+        "adv:flow_divert_require_all_tcp:tcp-loopback-2"
+      ],
+      "observation_counts": {
+        "total": 2,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/flow_divert_require_all_tcp.sb",
+        "exists": true,
+        "sha256": "71f98dcf90a373fe39d545bba805aaf71a9a70d939dcf4426163455d9418e018",
+        "size": 806
+      },
+      "op_ids": {
+        "network-outbound": 112
+      }
+    },
+    "adv:mach_local_literal": {
+      "profile_id": "adv:mach_local_literal",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/mach_local_literal.sb",
+      "profile_mode": "sbpl",
+      "family": "mach_local",
+      "semantic_group": "mach:local-name-allow",
+      "expected_ops": [
+        "mach-lookup"
+      ],
+      "observed_ops": [
+        "mach-lookup"
+      ],
+      "expectation_ids": [
+        "adv:mach_local_literal:allow-cfprefsd-local",
+        "adv:mach_local_literal:deny-bogus-local"
+      ],
+      "scenario_ids": [
+        "adv:mach_local_literal:allow-cfprefsd-local",
+        "adv:mach_local_literal:deny-bogus-local"
+      ],
+      "observed_expectation_ids": [
+        "adv:mach_local_literal:allow-cfprefsd-local",
+        "adv:mach_local_literal:deny-bogus-local"
+      ],
+      "observation_counts": {
+        "total": 2,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/mach_local_literal.sb",
+        "exists": true,
+        "sha256": "86dceb164d804fa5f305c8ec17cac3370ab0eea394d9c8131dcca3d21f0dfb37",
+        "size": 220
+      },
+      "op_ids": {
+        "mach-lookup": 96
+      }
+    },
+    "adv:mach_local_regex": {
+      "profile_id": "adv:mach_local_regex",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/mach_local_regex.sb",
+      "profile_mode": "sbpl",
+      "family": "mach_local",
+      "semantic_group": "mach:local-name-allow",
+      "expected_ops": [
+        "mach-lookup"
+      ],
+      "observed_ops": [
+        "mach-lookup"
+      ],
+      "expectation_ids": [
+        "adv:mach_local_regex:allow-cfprefsd-local",
+        "adv:mach_local_regex:deny-bogus-local"
+      ],
+      "scenario_ids": [
+        "adv:mach_local_regex:allow-cfprefsd-local",
+        "adv:mach_local_regex:deny-bogus-local"
+      ],
+      "observed_expectation_ids": [
+        "adv:mach_local_regex:allow-cfprefsd-local",
+        "adv:mach_local_regex:deny-bogus-local"
+      ],
+      "observation_counts": {
+        "total": 2,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/mach_local_regex.sb",
+        "exists": true,
+        "sha256": "ca789d4804a37861b66677cb941b24bf1fb80f5f75be4f73d51013f2c1af4e1e",
+        "size": 305
+      },
+      "op_ids": {
+        "mach-lookup": 96
+      }
+    },
+    "adv:mach_simple_allow": {
+      "profile_id": "adv:mach_simple_allow",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/mach_simple_allow.sb",
+      "profile_mode": "sbpl",
+      "family": "mach_variants",
+      "semantic_group": "mach:global-name-allow",
+      "expected_ops": [
+        "mach-lookup"
+      ],
+      "observed_ops": [
+        "mach-lookup"
+      ],
+      "expectation_ids": [
+        "adv:mach_simple_allow:allow-cfprefsd",
+        "adv:mach_simple_allow:deny-bogus"
+      ],
+      "scenario_ids": [
+        "adv:mach_simple_allow:allow-cfprefsd",
+        "adv:mach_simple_allow:deny-bogus"
+      ],
+      "observed_expectation_ids": [
+        "adv:mach_simple_allow:allow-cfprefsd",
+        "adv:mach_simple_allow:deny-bogus"
+      ],
+      "observation_counts": {
+        "total": 2,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/mach_simple_allow.sb",
+        "exists": true,
+        "sha256": "a61d30ce1d97be3aa63f9254f112ec15c5d56a8e8ad2dd33c11ed779c282a3b2",
+        "size": 229
+      },
+      "op_ids": {
+        "mach-lookup": 96
+      }
+    },
+    "adv:mach_simple_variants": {
+      "profile_id": "adv:mach_simple_variants",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/mach_simple_variants.sb",
+      "profile_mode": "sbpl",
+      "family": "mach_variants",
+      "semantic_group": "mach:global-name-allow",
+      "expected_ops": [
+        "mach-lookup"
+      ],
+      "observed_ops": [
+        "mach-lookup"
+      ],
+      "expectation_ids": [
+        "adv:mach_simple_variants:allow-cfprefsd",
+        "adv:mach_simple_variants:deny-bogus"
+      ],
+      "scenario_ids": [
+        "adv:mach_simple_variants:allow-cfprefsd",
+        "adv:mach_simple_variants:deny-bogus"
+      ],
+      "observed_expectation_ids": [
+        "adv:mach_simple_variants:allow-cfprefsd",
+        "adv:mach_simple_variants:deny-bogus"
+      ],
+      "observation_counts": {
+        "total": 2,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/mach_simple_variants.sb",
+        "exists": true,
+        "sha256": "3f6eec069a70c77a5fb8788a80bbfaf750d70ba9f93966b47d6556ad9af1f818",
+        "size": 322
+      },
+      "op_ids": {
+        "mach-lookup": 96
+      }
+    },
+    "adv:mount_relative_path": {
+      "profile_id": "adv:mount_relative_path",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/mount_relative_path.sb",
+      "profile_mode": "sbpl",
+      "family": "mount_relative_path",
+      "semantic_group": "paths:mount-relative-subpath",
+      "expected_ops": [
+        "file-read*"
+      ],
+      "observed_ops": [
+        "file-read*"
+      ],
+      "expectation_ids": [
+        "adv:mount_relative_path:allow-subpath",
+        "adv:mount_relative_path:deny-outside"
+      ],
+      "scenario_ids": [
+        "adv:mount_relative_path:allow-subpath",
+        "adv:mount_relative_path:deny-outside"
+      ],
+      "observed_expectation_ids": [
+        "adv:mount_relative_path:allow-subpath",
+        "adv:mount_relative_path:deny-outside"
+      ],
+      "observation_counts": {
+        "total": 2,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/mount_relative_path.sb",
+        "exists": true,
+        "sha256": "4303b1484ff5fa15ddb836eb53e781e9627d00821693bc60c70a1cda21287a09",
+        "size": 163
+      },
+      "op_ids": {
+        "file-read*": 21
+      }
+    },
+    "adv:net_outbound_allow": {
+      "profile_id": "adv:net_outbound_allow",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/net_outbound_allow.sb",
+      "profile_mode": "sbpl",
+      "family": "network",
+      "semantic_group": "network:outbound-allow",
+      "expected_ops": [
+        "network-outbound"
+      ],
+      "observed_ops": [
+        "network-outbound"
+      ],
+      "expectation_ids": [
+        "adv:net_outbound_allow:tcp-loopback",
+        "adv:net_outbound_allow:tcp-loopback-2"
+      ],
+      "scenario_ids": [
+        "adv:net_outbound_allow:tcp-loopback",
+        "adv:net_outbound_allow:tcp-loopback-2"
+      ],
+      "observed_expectation_ids": [
+        "adv:net_outbound_allow:tcp-loopback",
+        "adv:net_outbound_allow:tcp-loopback-2"
+      ],
+      "observation_counts": {
+        "total": 2,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/net_outbound_allow.sb",
+        "exists": true,
+        "sha256": "8ba971bf1d941417ba943693f74b8c34adf6d54fe4b216c9ad6ae55450e92561",
+        "size": 678
+      },
+      "op_ids": {
+        "network-outbound": 112
+      }
+    },
+    "adv:net_outbound_deny": {
+      "profile_id": "adv:net_outbound_deny",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/net_outbound_deny.sb",
+      "profile_mode": "sbpl",
+      "family": "network",
+      "semantic_group": "network:outbound-deny",
+      "expected_ops": [
+        "network-outbound"
+      ],
+      "observed_ops": [
+        "network-outbound"
+      ],
+      "expectation_ids": [
+        "adv:net_outbound_deny:tcp-loopback",
+        "adv:net_outbound_deny:tcp-loopback-2"
+      ],
+      "scenario_ids": [
+        "adv:net_outbound_deny:tcp-loopback",
+        "adv:net_outbound_deny:tcp-loopback-2"
+      ],
+      "observed_expectation_ids": [
+        "adv:net_outbound_deny:tcp-loopback",
+        "adv:net_outbound_deny:tcp-loopback-2"
+      ],
+      "observation_counts": {
+        "total": 2,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/net_outbound_deny.sb",
+        "exists": true,
+        "sha256": "273d09678a29bc7e54ff9fb1862b49cf68eac8a9ee3378c12f3b873d090587bb",
+        "size": 682
+      },
+      "op_ids": {
+        "network-outbound": 112
+      }
+    },
+    "adv:path_alias": {
+      "profile_id": "adv:path_alias",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/path_alias.sb",
+      "profile_mode": "sbpl",
+      "family": "path_alias",
+      "semantic_group": "paths:alias-canonicalization",
+      "expected_ops": [
+        "file-read*"
+      ],
+      "observed_ops": [
+        "file-read*"
+      ],
+      "expectation_ids": [
+        "adv:path_alias:alias-tmp",
+        "adv:path_alias:alias-private"
+      ],
+      "scenario_ids": [
+        "adv:path_alias:alias-private",
+        "adv:path_alias:alias-tmp"
+      ],
+      "observed_expectation_ids": [
+        "adv:path_alias:alias-private",
+        "adv:path_alias:alias-tmp"
+      ],
+      "observation_counts": {
+        "total": 2,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/path_alias.sb",
+        "exists": true,
+        "sha256": "06fee54f7daa23b3efc36aef1c86f21432dda256f8c6fb7dd2ab9d0f81c4707f",
+        "size": 164
+      },
+      "op_ids": {
+        "file-read*": 21
+      }
+    },
+    "adv:path_edges": {
+      "profile_id": "adv:path_edges",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/path_edges.sb",
+      "profile_mode": "sbpl",
+      "family": "path_edges",
+      "semantic_group": "paths:literal-vs-normalized",
+      "expected_ops": [
+        "file-read*",
+        "file-write*"
+      ],
+      "observed_ops": [
+        "file-read*",
+        "file-write*"
+      ],
+      "expectation_ids": [
+        "adv:path_edges:allow-tmp",
+        "adv:path_edges:deny-private",
+        "adv:path_edges:allow-subpath",
+        "adv:path_edges:allow-subpath-normalized",
+        "adv:path_edges:deny-dotdot",
+        "adv:path_edges:write-tmp",
+        "adv:path_edges:write-private",
+        "adv:path_edges:write-subpath",
+        "adv:path_edges:write-dotdot"
+      ],
+      "scenario_ids": [
+        "adv:path_edges:allow-subpath",
+        "adv:path_edges:allow-subpath-normalized",
+        "adv:path_edges:allow-tmp",
+        "adv:path_edges:deny-dotdot",
+        "adv:path_edges:deny-private",
+        "adv:path_edges:write-dotdot",
+        "adv:path_edges:write-private",
+        "adv:path_edges:write-subpath",
+        "adv:path_edges:write-tmp"
+      ],
+      "observed_expectation_ids": [
+        "adv:path_edges:allow-subpath",
+        "adv:path_edges:allow-subpath-normalized",
+        "adv:path_edges:allow-tmp",
+        "adv:path_edges:deny-dotdot",
+        "adv:path_edges:deny-private",
+        "adv:path_edges:write-dotdot",
+        "adv:path_edges:write-private",
+        "adv:path_edges:write-subpath",
+        "adv:path_edges:write-tmp"
+      ],
+      "observation_counts": {
+        "total": 9,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/path_edges.sb",
+        "exists": true,
+        "sha256": "9dbb36bdee1462af5c8419ad4c3e171c5826149c9f8ef2a1f8028b63fb1146d3",
+        "size": 694
+      },
+      "op_ids": {
+        "file-read*": 21,
+        "file-write*": 29
+      }
+    },
+    "adv:path_edges_private": {
+      "profile_id": "adv:path_edges_private",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/path_edges_private.sb",
+      "profile_mode": "sbpl",
+      "family": "path_edges",
+      "semantic_group": "paths:literal-vs-normalized",
+      "expected_ops": [
+        "file-read*",
+        "file-write*"
+      ],
+      "observed_ops": [
+        "file-read*",
+        "file-write*"
+      ],
+      "expectation_ids": [
+        "adv:path_edges_private:allow-private",
+        "adv:path_edges_private:allow-private-subpath",
+        "adv:path_edges_private:allow-tmp",
+        "adv:path_edges_private:allow-tmp-subpath",
+        "adv:path_edges_private:deny-dotdot",
+        "adv:path_edges_private:write-private",
+        "adv:path_edges_private:write-private-subpath",
+        "adv:path_edges_private:write-tmp",
+        "adv:path_edges_private:write-tmp-subpath",
+        "adv:path_edges_private:write-dotdot"
+      ],
+      "scenario_ids": [
+        "adv:path_edges_private:allow-private",
+        "adv:path_edges_private:allow-private-subpath",
+        "adv:path_edges_private:allow-tmp",
+        "adv:path_edges_private:allow-tmp-subpath",
+        "adv:path_edges_private:deny-dotdot",
+        "adv:path_edges_private:write-dotdot",
+        "adv:path_edges_private:write-private",
+        "adv:path_edges_private:write-private-subpath",
+        "adv:path_edges_private:write-tmp",
+        "adv:path_edges_private:write-tmp-subpath"
+      ],
+      "observed_expectation_ids": [
+        "adv:path_edges_private:allow-private",
+        "adv:path_edges_private:allow-private-subpath",
+        "adv:path_edges_private:allow-tmp",
+        "adv:path_edges_private:allow-tmp-subpath",
+        "adv:path_edges_private:deny-dotdot",
+        "adv:path_edges_private:write-dotdot",
+        "adv:path_edges_private:write-private",
+        "adv:path_edges_private:write-private-subpath",
+        "adv:path_edges_private:write-tmp",
+        "adv:path_edges_private:write-tmp-subpath"
+      ],
+      "observation_counts": {
+        "total": 10,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/path_edges_private.sb",
+        "exists": true,
+        "sha256": "bad4c7f6697489475a822fa47adebb4ed5ac255ad685aa692931c8e8f8b7e4d8",
+        "size": 539
+      },
+      "op_ids": {
+        "file-read*": 21,
+        "file-write*": 29
+      }
+    },
+    "adv:struct_flat": {
+      "profile_id": "adv:struct_flat",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/struct_flat.sb",
+      "profile_mode": "sbpl",
+      "family": "structural_variants",
+      "semantic_group": "structural:file-read-subpath",
+      "expected_ops": [
+        "file-read*",
+        "file-write*"
+      ],
+      "observed_ops": [
+        "file-read*",
+        "file-write*"
+      ],
+      "expectation_ids": [
+        "adv:struct_flat:allow-ok-root",
+        "adv:struct_flat:allow-ok-deep",
+        "adv:struct_flat:deny-blocked",
+        "adv:struct_flat:deny-outside",
+        "adv:struct_flat:write-ok-root",
+        "adv:struct_flat:write-ok-deep",
+        "adv:struct_flat:write-blocked",
+        "adv:struct_flat:write-outside"
+      ],
+      "scenario_ids": [
+        "adv:struct_flat:allow-ok-deep",
+        "adv:struct_flat:allow-ok-root",
+        "adv:struct_flat:deny-blocked",
+        "adv:struct_flat:deny-outside",
+        "adv:struct_flat:write-blocked",
+        "adv:struct_flat:write-ok-deep",
+        "adv:struct_flat:write-ok-root",
+        "adv:struct_flat:write-outside"
+      ],
+      "observed_expectation_ids": [
+        "adv:struct_flat:allow-ok-deep",
+        "adv:struct_flat:allow-ok-root",
+        "adv:struct_flat:deny-blocked",
+        "adv:struct_flat:deny-outside",
+        "adv:struct_flat:write-blocked",
+        "adv:struct_flat:write-ok-deep",
+        "adv:struct_flat:write-ok-root",
+        "adv:struct_flat:write-outside"
+      ],
+      "observation_counts": {
+        "total": 8,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/struct_flat.sb",
+        "exists": true,
+        "sha256": "ae406609b0f56626c81dbecc4bef36d7dc0810c427e5f8ca7df0cfb10de64e31",
+        "size": 707
+      },
+      "op_ids": {
+        "file-read*": 21,
+        "file-write*": 29
+      }
+    },
+    "adv:struct_nested": {
+      "profile_id": "adv:struct_nested",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/struct_nested.sb",
+      "profile_mode": "sbpl",
+      "family": "structural_variants",
+      "semantic_group": "structural:file-read-subpath",
+      "expected_ops": [
+        "file-read*",
+        "file-write*"
+      ],
+      "observed_ops": [
+        "file-read*",
+        "file-write*"
+      ],
+      "expectation_ids": [
+        "adv:struct_nested:allow-ok-root",
+        "adv:struct_nested:allow-ok-deep",
+        "adv:struct_nested:deny-blocked",
+        "adv:struct_nested:deny-outside",
+        "adv:struct_nested:write-ok-root",
+        "adv:struct_nested:write-ok-deep",
+        "adv:struct_nested:write-blocked",
+        "adv:struct_nested:write-outside"
+      ],
+      "scenario_ids": [
+        "adv:struct_nested:allow-ok-deep",
+        "adv:struct_nested:allow-ok-root",
+        "adv:struct_nested:deny-blocked",
+        "adv:struct_nested:deny-outside",
+        "adv:struct_nested:write-blocked",
+        "adv:struct_nested:write-ok-deep",
+        "adv:struct_nested:write-ok-root",
+        "adv:struct_nested:write-outside"
+      ],
+      "observed_expectation_ids": [
+        "adv:struct_nested:allow-ok-deep",
+        "adv:struct_nested:allow-ok-root",
+        "adv:struct_nested:deny-blocked",
+        "adv:struct_nested:deny-outside",
+        "adv:struct_nested:write-blocked",
+        "adv:struct_nested:write-ok-deep",
+        "adv:struct_nested:write-ok-root",
+        "adv:struct_nested:write-outside"
+      ],
+      "observation_counts": {
+        "total": 8,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/struct_nested.sb",
+        "exists": true,
+        "sha256": "d4bfa675a77d89d0b949127fbef9ff82c29fa024d666b90432a9ceb8d46116b4",
+        "size": 1557
+      },
+      "op_ids": {
+        "file-read*": 21,
+        "file-write*": 29
+      }
+    },
+    "adv:xattr": {
+      "profile_id": "adv:xattr",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/xattr.sb",
+      "profile_mode": "sbpl",
+      "family": "xattr",
+      "semantic_group": "file:xattr-basic",
+      "expected_ops": [
+        "file-read-xattr",
+        "file-write-xattr"
+      ],
+      "observed_ops": [
+        "file-read-xattr",
+        "file-write-xattr"
+      ],
+      "expectation_ids": [
+        "adv:xattr:allow-foo-read",
+        "adv:xattr:deny-bar-read",
+        "adv:xattr:allow-foo-write",
+        "adv:xattr:deny-bar-write"
+      ],
+      "scenario_ids": [
+        "adv:xattr:allow-foo-read",
+        "adv:xattr:allow-foo-write",
+        "adv:xattr:deny-bar-read",
+        "adv:xattr:deny-bar-write"
+      ],
+      "observed_expectation_ids": [
+        "adv:xattr:allow-foo-read",
+        "adv:xattr:allow-foo-write",
+        "adv:xattr:deny-bar-read",
+        "adv:xattr:deny-bar-write"
+      ],
+      "observation_counts": {
+        "total": 4,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/sb/xattr.sb",
+        "exists": true,
+        "sha256": "d3d65b75bae4d74cd5b6c1c6b09f7fa5fdb6969623896dbce45a6cda200dad29",
+        "size": 313
+      },
+      "op_ids": {
+        "file-read-xattr": 24,
+        "file-write-xattr": 40
+      }
+    },
+    "anchor-filter-map:cfprefsd:C1_deny_global": {
+      "profile_id": "anchor-filter-map:cfprefsd:C1_deny_global",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/sb/mach_lookup_allow_default.sb",
+      "profile_mode": "sbpl",
+      "family": "mach_lookup",
+      "semantic_group": "mach:mapping-fidelity",
+      "expected_ops": [
+        "mach-lookup"
+      ],
+      "observed_ops": [
+        "mach-lookup"
+      ],
+      "expectation_ids": [
+        "anchor-filter-map:cfprefsd:C1_deny_global"
+      ],
+      "scenario_ids": [
+        "anchor-filter-map:cfprefsd:C1_deny_global"
+      ],
+      "observed_expectation_ids": [
+        "anchor-filter-map:cfprefsd:C1_deny_global"
+      ],
+      "observation_counts": {
+        "total": 1,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/sb/mach_lookup_allow_default.sb",
+        "exists": true,
+        "sha256": "463f2f93249be2c80ecaeef64d73ce7c5498844a922c00266495d703ba65cb6f",
+        "size": 29
+      },
+      "op_ids": {
+        "mach-lookup": 96
+      }
+    },
+    "anchor-filter-map:cfprefsd:C2_deny_local": {
+      "profile_id": "anchor-filter-map:cfprefsd:C2_deny_local",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/sb/mach_lookup_allow_default.sb",
+      "profile_mode": "sbpl",
+      "family": "mach_lookup",
+      "semantic_group": "mach:mapping-fidelity",
+      "expected_ops": [
+        "mach-lookup"
+      ],
+      "observed_ops": [
+        "mach-lookup"
+      ],
+      "expectation_ids": [
+        "anchor-filter-map:cfprefsd:C2_deny_local"
+      ],
+      "scenario_ids": [
+        "anchor-filter-map:cfprefsd:C2_deny_local"
+      ],
+      "observed_expectation_ids": [
+        "anchor-filter-map:cfprefsd:C2_deny_local"
+      ],
+      "observation_counts": {
+        "total": 1,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/sb/mach_lookup_allow_default.sb",
+        "exists": true,
+        "sha256": "463f2f93249be2c80ecaeef64d73ce7c5498844a922c00266495d703ba65cb6f",
+        "size": 29
+      },
+      "op_ids": {
+        "mach-lookup": 96
+      }
+    },
+    "anchor-filter-map:cfprefsd:N1_deny_default": {
+      "profile_id": "anchor-filter-map:cfprefsd:N1_deny_default",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/sb/mach_lookup_deny_default.sb",
+      "profile_mode": "sbpl",
+      "family": "mach_lookup",
+      "semantic_group": "mach:predicate-discriminator",
+      "expected_ops": [
+        "mach-lookup"
+      ],
+      "observed_ops": [
+        "mach-lookup"
+      ],
+      "expectation_ids": [
+        "anchor-filter-map:cfprefsd:N1_deny_default",
+        "anchor-filter-map:cfprefsd:bogus_baseline"
+      ],
+      "scenario_ids": [
+        "anchor-filter-map:cfprefsd:N1_deny_default",
+        "anchor-filter-map:cfprefsd:bogus_baseline"
+      ],
+      "observed_expectation_ids": [
+        "anchor-filter-map:cfprefsd:N1_deny_default",
+        "anchor-filter-map:cfprefsd:bogus_baseline"
+      ],
+      "observation_counts": {
+        "total": 2,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/sb/mach_lookup_deny_default.sb",
+        "exists": true,
+        "sha256": "ed8db9658c4009330556684950d99031c7b3fa8a579dd5b564edcf80b8183da1",
+        "size": 28
+      },
+      "op_ids": {
+        "mach-lookup": 96
+      }
+    },
+    "anchor-filter-map:cfprefsd:S0_allow_any": {
+      "profile_id": "anchor-filter-map:cfprefsd:S0_allow_any",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/sb/mach_lookup_deny_default.sb",
+      "profile_mode": "sbpl",
+      "family": "mach_lookup",
+      "semantic_group": "mach:predicate-discriminator",
+      "expected_ops": [
+        "mach-lookup"
+      ],
+      "observed_ops": [
+        "mach-lookup"
+      ],
+      "expectation_ids": [
+        "anchor-filter-map:cfprefsd:S0_allow_any"
+      ],
+      "scenario_ids": [
+        "anchor-filter-map:cfprefsd:S0_allow_any"
+      ],
+      "observed_expectation_ids": [
+        "anchor-filter-map:cfprefsd:S0_allow_any"
+      ],
+      "observation_counts": {
+        "total": 1,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/sb/mach_lookup_deny_default.sb",
+        "exists": true,
+        "sha256": "ed8db9658c4009330556684950d99031c7b3fa8a579dd5b564edcf80b8183da1",
+        "size": 28
+      },
+      "op_ids": {
+        "mach-lookup": 96
+      }
+    },
+    "anchor-filter-map:cfprefsd:S1_allow_global": {
+      "profile_id": "anchor-filter-map:cfprefsd:S1_allow_global",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/sb/mach_lookup_deny_default.sb",
+      "profile_mode": "sbpl",
+      "family": "mach_lookup",
+      "semantic_group": "mach:predicate-discriminator",
+      "expected_ops": [
+        "mach-lookup"
+      ],
+      "observed_ops": [
+        "mach-lookup"
+      ],
+      "expectation_ids": [
+        "anchor-filter-map:cfprefsd:S1_allow_global"
+      ],
+      "scenario_ids": [
+        "anchor-filter-map:cfprefsd:S1_allow_global"
+      ],
+      "observed_expectation_ids": [
+        "anchor-filter-map:cfprefsd:S1_allow_global"
+      ],
+      "observation_counts": {
+        "total": 1,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/sb/mach_lookup_deny_default.sb",
+        "exists": true,
+        "sha256": "ed8db9658c4009330556684950d99031c7b3fa8a579dd5b564edcf80b8183da1",
+        "size": 28
+      },
+      "op_ids": {
+        "mach-lookup": 96
+      }
+    },
+    "anchor-filter-map:cfprefsd:S2_allow_local": {
+      "profile_id": "anchor-filter-map:cfprefsd:S2_allow_local",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/sb/mach_lookup_deny_default.sb",
+      "profile_mode": "sbpl",
+      "family": "mach_lookup",
+      "semantic_group": "mach:predicate-discriminator",
+      "expected_ops": [
+        "mach-lookup"
+      ],
+      "observed_ops": [
+        "mach-lookup"
+      ],
+      "expectation_ids": [
+        "anchor-filter-map:cfprefsd:S2_allow_local"
+      ],
+      "scenario_ids": [
+        "anchor-filter-map:cfprefsd:S2_allow_local"
+      ],
+      "observed_expectation_ids": [
+        "anchor-filter-map:cfprefsd:S2_allow_local"
+      ],
+      "observation_counts": {
+        "total": 1,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/sb/mach_lookup_deny_default.sb",
+        "exists": true,
+        "sha256": "ed8db9658c4009330556684950d99031c7b3fa8a579dd5b564edcf80b8183da1",
+        "size": 28
+      },
+      "op_ids": {
+        "mach-lookup": 96
+      }
+    },
+    "anchor-filter-map:cfprefsd:S3_allow_both": {
+      "profile_id": "anchor-filter-map:cfprefsd:S3_allow_both",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/sb/mach_lookup_deny_default.sb",
+      "profile_mode": "sbpl",
+      "family": "mach_lookup",
+      "semantic_group": "mach:predicate-discriminator",
+      "expected_ops": [
+        "mach-lookup"
+      ],
+      "observed_ops": [
+        "mach-lookup"
+      ],
+      "expectation_ids": [
+        "anchor-filter-map:cfprefsd:S3_allow_both"
+      ],
+      "scenario_ids": [
+        "anchor-filter-map:cfprefsd:S3_allow_both"
+      ],
+      "observed_expectation_ids": [
+        "anchor-filter-map:cfprefsd:S3_allow_both"
+      ],
+      "observation_counts": {
+        "total": 1,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/sb/mach_lookup_deny_default.sb",
+        "exists": true,
+        "sha256": "ed8db9658c4009330556684950d99031c7b3fa8a579dd5b564edcf80b8183da1",
+        "size": 28
+      },
+      "op_ids": {
+        "mach-lookup": 96
+      }
+    },
+    "anchor-filter-map:iokit_class:C1_deny_class": {
+      "profile_id": "anchor-filter-map:iokit_class:C1_deny_class",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/sb/iokit_open_allow_default.sb",
+      "profile_mode": "sbpl",
+      "family": "iokit_open",
+      "semantic_group": "iokit:mapping-fidelity",
+      "expected_ops": [
+        "iokit-open-service"
+      ],
+      "observed_ops": [
+        "iokit-open-service"
+      ],
+      "expectation_ids": [
+        "anchor-filter-map:iokit_class:C1_deny_class"
+      ],
+      "scenario_ids": [
+        "anchor-filter-map:iokit_class:C1_deny_class"
+      ],
+      "observed_expectation_ids": [
+        "anchor-filter-map:iokit_class:C1_deny_class"
+      ],
+      "observation_counts": {
+        "total": 1,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.iokit-class.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/sb/iokit_open_allow_default.sb",
+        "exists": true,
+        "sha256": "463f2f93249be2c80ecaeef64d73ce7c5498844a922c00266495d703ba65cb6f",
+        "size": 29
+      },
+      "op_ids": {
+        "iokit-open-service": 64
+      }
+    },
+    "anchor-filter-map:iokit_class:C2_deny_property_literal": {
+      "profile_id": "anchor-filter-map:iokit_class:C2_deny_property_literal",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/sb/iokit_open_allow_default.sb",
+      "profile_mode": "sbpl",
+      "family": "iokit_open",
+      "semantic_group": "iokit:mapping-fidelity",
+      "expected_ops": [
+        "iokit-open-service"
+      ],
+      "observed_ops": [
+        "iokit-open-service"
+      ],
+      "expectation_ids": [
+        "anchor-filter-map:iokit_class:C2_deny_property_literal"
+      ],
+      "scenario_ids": [
+        "anchor-filter-map:iokit_class:C2_deny_property_literal"
+      ],
+      "observed_expectation_ids": [
+        "anchor-filter-map:iokit_class:C2_deny_property_literal"
+      ],
+      "observation_counts": {
+        "total": 1,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.iokit-class.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/sb/iokit_open_allow_default.sb",
+        "exists": true,
+        "sha256": "463f2f93249be2c80ecaeef64d73ce7c5498844a922c00266495d703ba65cb6f",
+        "size": 29
+      },
+      "op_ids": {
+        "iokit-open-service": 64
+      }
+    },
+    "anchor-filter-map:iokit_class:N1_deny_default": {
+      "profile_id": "anchor-filter-map:iokit_class:N1_deny_default",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/sb/iokit_open_deny_default.sb",
+      "profile_mode": "sbpl",
+      "family": "iokit_open",
+      "semantic_group": "iokit:predicate-discriminator",
+      "expected_ops": [
+        "iokit-open-service"
+      ],
+      "observed_ops": [
+        "iokit-open-service"
+      ],
+      "expectation_ids": [
+        "anchor-filter-map:iokit_class:N1_deny_default",
+        "anchor-filter-map:iokit_class:bogus_baseline"
+      ],
+      "scenario_ids": [
+        "anchor-filter-map:iokit_class:N1_deny_default",
+        "anchor-filter-map:iokit_class:bogus_baseline"
+      ],
+      "observed_expectation_ids": [
+        "anchor-filter-map:iokit_class:N1_deny_default",
+        "anchor-filter-map:iokit_class:bogus_baseline"
+      ],
+      "observation_counts": {
+        "total": 2,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.iokit-class.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/sb/iokit_open_deny_default.sb",
+        "exists": true,
+        "sha256": "ed8db9658c4009330556684950d99031c7b3fa8a579dd5b564edcf80b8183da1",
+        "size": 28
+      },
+      "op_ids": {
+        "iokit-open-service": 64
+      }
+    },
+    "anchor-filter-map:iokit_class:S0_allow_any": {
+      "profile_id": "anchor-filter-map:iokit_class:S0_allow_any",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/sb/iokit_open_deny_default.sb",
+      "profile_mode": "sbpl",
+      "family": "iokit_open",
+      "semantic_group": "iokit:predicate-discriminator",
+      "expected_ops": [
+        "iokit-open-service"
+      ],
+      "observed_ops": [
+        "iokit-open-service"
+      ],
+      "expectation_ids": [
+        "anchor-filter-map:iokit_class:S0_allow_any"
+      ],
+      "scenario_ids": [
+        "anchor-filter-map:iokit_class:S0_allow_any"
+      ],
+      "observed_expectation_ids": [
+        "anchor-filter-map:iokit_class:S0_allow_any"
+      ],
+      "observation_counts": {
+        "total": 1,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.iokit-class.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/sb/iokit_open_deny_default.sb",
+        "exists": true,
+        "sha256": "ed8db9658c4009330556684950d99031c7b3fa8a579dd5b564edcf80b8183da1",
+        "size": 28
+      },
+      "op_ids": {
+        "iokit-open-service": 64
+      }
+    },
+    "anchor-filter-map:iokit_class:S1_allow_class": {
+      "profile_id": "anchor-filter-map:iokit_class:S1_allow_class",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/sb/iokit_open_deny_default.sb",
+      "profile_mode": "sbpl",
+      "family": "iokit_open",
+      "semantic_group": "iokit:predicate-discriminator",
+      "expected_ops": [
+        "iokit-open-service"
+      ],
+      "observed_ops": [
+        "iokit-open-service"
+      ],
+      "expectation_ids": [
+        "anchor-filter-map:iokit_class:S1_allow_class"
+      ],
+      "scenario_ids": [
+        "anchor-filter-map:iokit_class:S1_allow_class"
+      ],
+      "observed_expectation_ids": [
+        "anchor-filter-map:iokit_class:S1_allow_class"
+      ],
+      "observation_counts": {
+        "total": 1,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.iokit-class.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/sb/iokit_open_deny_default.sb",
+        "exists": true,
+        "sha256": "ed8db9658c4009330556684950d99031c7b3fa8a579dd5b564edcf80b8183da1",
+        "size": 28
+      },
+      "op_ids": {
+        "iokit-open-service": 64
+      }
+    },
+    "anchor-filter-map:iokit_class:S2_allow_property_literal": {
+      "profile_id": "anchor-filter-map:iokit_class:S2_allow_property_literal",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/sb/iokit_open_deny_default.sb",
+      "profile_mode": "sbpl",
+      "family": "iokit_open",
+      "semantic_group": "iokit:predicate-discriminator",
+      "expected_ops": [
+        "iokit-open-service"
+      ],
+      "observed_ops": [
+        "iokit-open-service"
+      ],
+      "expectation_ids": [
+        "anchor-filter-map:iokit_class:S2_allow_property_literal"
+      ],
+      "scenario_ids": [
+        "anchor-filter-map:iokit_class:S2_allow_property_literal"
+      ],
+      "observed_expectation_ids": [
+        "anchor-filter-map:iokit_class:S2_allow_property_literal"
+      ],
+      "observation_counts": {
+        "total": 1,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.iokit-class.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/sb/iokit_open_deny_default.sb",
+        "exists": true,
+        "sha256": "ed8db9658c4009330556684950d99031c7b3fa8a579dd5b564edcf80b8183da1",
+        "size": 28
+      },
+      "op_ids": {
+        "iokit-open-service": 64
+      }
+    },
+    "anchor-filter-map:iokit_class:S3_allow_both": {
+      "profile_id": "anchor-filter-map:iokit_class:S3_allow_both",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/sb/iokit_open_deny_default.sb",
+      "profile_mode": "sbpl",
+      "family": "iokit_open",
+      "semantic_group": "iokit:predicate-discriminator",
+      "expected_ops": [
+        "iokit-open-service"
+      ],
+      "observed_ops": [
+        "iokit-open-service"
+      ],
+      "expectation_ids": [
+        "anchor-filter-map:iokit_class:S3_allow_both"
+      ],
+      "scenario_ids": [
+        "anchor-filter-map:iokit_class:S3_allow_both"
+      ],
+      "observed_expectation_ids": [
+        "anchor-filter-map:iokit_class:S3_allow_both"
+      ],
+      "observation_counts": {
+        "total": 1,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.iokit-class.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/sb/iokit_open_deny_default.sb",
+        "exists": true,
+        "sha256": "ed8db9658c4009330556684950d99031c7b3fa8a579dd5b564edcf80b8183da1",
+        "size": 28
+      },
+      "op_ids": {
+        "iokit-open-service": 64
+      }
+    },
+    "bucket4:v1_read": {
+      "profile_id": "bucket4:v1_read",
+      "profile_path": "book/evidence/experiments/profile-pipeline/op-table-operation/sb/v1_read.sb",
+      "profile_mode": "sbpl",
+      "family": null,
+      "semantic_group": null,
+      "expected_ops": [
+        "file-read*",
+        "file-write*"
+      ],
+      "observed_ops": [
+        "file-read*",
+        "file-write*"
+      ],
+      "expectation_ids": [
+        "bucket4:v1_read:read_/etc/hosts",
+        "bucket4:v1_read:write_/etc/hosts",
+        "bucket4:v1_read:read_/tmp/foo"
+      ],
+      "scenario_ids": [
+        "bucket4:v1_read:read_/etc/hosts",
+        "bucket4:v1_read:read_/tmp/foo",
+        "bucket4:v1_read:write_/etc/hosts"
+      ],
+      "observed_expectation_ids": [
+        "bucket4:v1_read:read_/etc/hosts",
+        "bucket4:v1_read:read_/tmp/foo",
+        "bucket4:v1_read:write_/etc/hosts"
+      ],
+      "observation_counts": {
+        "total": 3,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/profile-pipeline/op-table-operation/sb/v1_read.sb",
+        "exists": true,
+        "sha256": "d876539d90b026acd56dee4a90b7757a90f0ccfaa557c666570a97f4ac4c18c5",
+        "size": 46
+      },
+      "op_ids": {
+        "file-read*": 21,
+        "file-write*": 29
+      }
+    },
+    "bucket5:v11_read_subpath": {
+      "profile_id": "bucket5:v11_read_subpath",
+      "profile_path": "book/evidence/experiments/profile-pipeline/op-table-operation/sb/v11_read_subpath.sb",
+      "profile_mode": "sbpl",
+      "family": null,
+      "semantic_group": null,
+      "expected_ops": [
+        "file-read*",
+        "file-write*"
+      ],
+      "observed_ops": [
+        "file-read*",
+        "file-write*"
+      ],
+      "expectation_ids": [
+        "bucket5:v11_read_subpath:read_/tmp/foo",
+        "bucket5:v11_read_subpath:read_/tmp/bar",
+        "bucket5:v11_read_subpath:write_/tmp/foo"
+      ],
+      "scenario_ids": [
+        "bucket5:v11_read_subpath:read_/tmp/bar",
+        "bucket5:v11_read_subpath:read_/tmp/foo",
+        "bucket5:v11_read_subpath:write_/tmp/foo"
+      ],
+      "observed_expectation_ids": [
+        "bucket5:v11_read_subpath:read_/tmp/bar",
+        "bucket5:v11_read_subpath:read_/tmp/foo",
+        "bucket5:v11_read_subpath:write_/tmp/foo"
+      ],
+      "observation_counts": {
+        "total": 3,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/profile-pipeline/op-table-operation/sb/v11_read_subpath.sb",
+        "exists": true,
+        "sha256": "facffc2b0a01e3c1cdd324d761ad37acd873d33d8290d9495053af3aaa3a25bd",
+        "size": 67
+      },
+      "op_ids": {
+        "file-read*": 21,
+        "file-write*": 29
+      }
+    },
+    "hardened:mach_lookup": {
+      "profile_id": "hardened:mach_lookup",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/mach_lookup.sb",
+      "profile_mode": "sbpl",
+      "family": "mach_lookup",
+      "semantic_group": "mach:global-name",
+      "expected_ops": [
+        "mach-lookup"
+      ],
+      "observed_ops": [
+        "mach-lookup"
+      ],
+      "expectation_ids": [
+        "hardened:mach_lookup:deny-cfprefsd",
+        "hardened:mach_lookup:deny-bogus"
+      ],
+      "scenario_ids": [
+        "hardened:mach_lookup:deny-bogus",
+        "hardened:mach_lookup:deny-cfprefsd"
+      ],
+      "observed_expectation_ids": [
+        "hardened:mach_lookup:deny-bogus",
+        "hardened:mach_lookup:deny-cfprefsd"
+      ],
+      "observation_counts": {
+        "total": 2,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/hardened-runtime.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/mach_lookup.sb",
+        "exists": true,
+        "sha256": "8b29a50c76f733197f93a97b68b95e37c99a895ee4c37652e785a9c739bdfaf3",
+        "size": 114
+      },
+      "op_ids": {
+        "mach-lookup": 96
+      }
+    },
+    "hardened:mach_lookup_allow": {
+      "profile_id": "hardened:mach_lookup_allow",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/mach_lookup_allow.sb",
+      "profile_mode": "sbpl",
+      "family": "mach_lookup",
+      "semantic_group": "mach:global-name",
+      "expected_ops": [
+        "mach-lookup"
+      ],
+      "observed_ops": [
+        "mach-lookup"
+      ],
+      "expectation_ids": [
+        "hardened:mach_lookup_allow:allow-cfprefsd"
+      ],
+      "scenario_ids": [
+        "hardened:mach_lookup_allow:allow-cfprefsd"
+      ],
+      "observed_expectation_ids": [
+        "hardened:mach_lookup_allow:allow-cfprefsd"
+      ],
+      "observation_counts": {
+        "total": 1,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/hardened-runtime.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/mach_lookup_allow.sb",
+        "exists": true,
+        "sha256": "72eac86f198af4e2a8a11f8b67795df6337d90ceb90248b36336c8dc7e802f47",
+        "size": 131
+      },
+      "op_ids": {
+        "mach-lookup": 96
+      }
+    },
+    "hardened:notifications": {
+      "profile_id": "hardened:notifications",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/notifications.sb",
+      "profile_mode": "sbpl",
+      "family": "notifications",
+      "semantic_group": "notifications:post",
+      "expected_ops": [
+        "darwin-notification-post",
+        "distributed-notification-post"
+      ],
+      "observed_ops": [
+        "darwin-notification-post",
+        "distributed-notification-post"
+      ],
+      "expectation_ids": [
+        "hardened:notifications:deny-allowed-darwin",
+        "hardened:notifications:deny-darwin",
+        "hardened:notifications:deny-allowed-distributed",
+        "hardened:notifications:deny-distributed"
+      ],
+      "scenario_ids": [
+        "hardened:notifications:deny-allowed-darwin",
+        "hardened:notifications:deny-allowed-distributed",
+        "hardened:notifications:deny-darwin",
+        "hardened:notifications:deny-distributed"
+      ],
+      "observed_expectation_ids": [
+        "hardened:notifications:deny-allowed-darwin",
+        "hardened:notifications:deny-allowed-distributed",
+        "hardened:notifications:deny-darwin",
+        "hardened:notifications:deny-distributed"
+      ],
+      "observation_counts": {
+        "total": 4,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/hardened-runtime.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/notifications.sb",
+        "exists": true,
+        "sha256": "0ff72279cd237723ad3eb491df683d77bac513bf32d7f55ecee583ff658b0bfa",
+        "size": 558
+      },
+      "op_ids": {
+        "darwin-notification-post": 7,
+        "distributed-notification-post": 8
+      }
+    },
+    "hardened:notifications_allow": {
+      "profile_id": "hardened:notifications_allow",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/notifications_allow.sb",
+      "profile_mode": "sbpl",
+      "family": "notifications",
+      "semantic_group": "notifications:post",
+      "expected_ops": [
+        "darwin-notification-post",
+        "distributed-notification-post"
+      ],
+      "observed_ops": [
+        "darwin-notification-post",
+        "distributed-notification-post"
+      ],
+      "expectation_ids": [
+        "hardened:notifications_allow:allow-darwin",
+        "hardened:notifications_allow:allow-distributed"
+      ],
+      "scenario_ids": [
+        "hardened:notifications_allow:allow-darwin",
+        "hardened:notifications_allow:allow-distributed"
+      ],
+      "observed_expectation_ids": [
+        "hardened:notifications_allow:allow-darwin",
+        "hardened:notifications_allow:allow-distributed"
+      ],
+      "observation_counts": {
+        "total": 2,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/hardened-runtime.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/notifications_allow.sb",
+        "exists": true,
+        "sha256": "109fa78a2b050edcf58fa6c6a347d11ce6505ab6c449e918be4b8dc3f627884d",
+        "size": 607
+      },
+      "op_ids": {
+        "darwin-notification-post": 7,
+        "distributed-notification-post": 8
+      }
+    },
+    "hardened:process_info_allow": {
+      "profile_id": "hardened:process_info_allow",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/process_info_allow.sb",
+      "profile_mode": "sbpl",
+      "family": "process_info",
+      "semantic_group": "process-info:pidinfo",
+      "expected_ops": [
+        "process-info-pidinfo"
+      ],
+      "observed_ops": [
+        "process-info-pidinfo"
+      ],
+      "expectation_ids": [
+        "hardened:process_info_allow:pidinfo-self",
+        "hardened:process_info_allow:pidinfo-init"
+      ],
+      "scenario_ids": [
+        "hardened:process_info_allow:pidinfo-init",
+        "hardened:process_info_allow:pidinfo-self"
+      ],
+      "observed_expectation_ids": [
+        "hardened:process_info_allow:pidinfo-init",
+        "hardened:process_info_allow:pidinfo-self"
+      ],
+      "observation_counts": {
+        "total": 2,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/hardened-runtime.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/process_info_allow.sb",
+        "exists": true,
+        "sha256": "f50ad397d352a2b08df60566e4b23daca4df7010d8478b02d10019e48de4de4e",
+        "size": 79
+      },
+      "op_ids": {
+        "process-info-pidinfo": 129
+      }
+    },
+    "hardened:process_info_allow_canary": {
+      "profile_id": "hardened:process_info_allow_canary",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/process_info_allow_canary.sb",
+      "profile_mode": "sbpl",
+      "family": "process_info",
+      "semantic_group": "process-info:pidinfo",
+      "expected_ops": [
+        "process-info-pidinfo"
+      ],
+      "observed_ops": [
+        "process-info-pidinfo"
+      ],
+      "expectation_ids": [
+        "hardened:process_info_allow_canary:pidinfo-self"
+      ],
+      "scenario_ids": [
+        "hardened:process_info_allow_canary:pidinfo-self"
+      ],
+      "observed_expectation_ids": [
+        "hardened:process_info_allow_canary:pidinfo-self"
+      ],
+      "observation_counts": {
+        "total": 1,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/hardened-runtime.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/process_info_allow_canary.sb",
+        "exists": true,
+        "sha256": "87e82c70d68c9a61e306dc0c836e940da27b5601609dfa518539e8c8f771e651",
+        "size": 72
+      },
+      "op_ids": {
+        "process-info-pidinfo": 129
+      }
+    },
+    "hardened:process_info_deny": {
+      "profile_id": "hardened:process_info_deny",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/process_info_deny.sb",
+      "profile_mode": "sbpl",
+      "family": "process_info",
+      "semantic_group": "process-info:pidinfo",
+      "expected_ops": [
+        "process-info-pidinfo"
+      ],
+      "observed_ops": [
+        "process-info-pidinfo"
+      ],
+      "expectation_ids": [
+        "hardened:process_info_deny:pidinfo-self",
+        "hardened:process_info_deny:pidinfo-init"
+      ],
+      "scenario_ids": [
+        "hardened:process_info_deny:pidinfo-init",
+        "hardened:process_info_deny:pidinfo-self"
+      ],
+      "observed_expectation_ids": [
+        "hardened:process_info_deny:pidinfo-init",
+        "hardened:process_info_deny:pidinfo-self"
+      ],
+      "observation_counts": {
+        "total": 2,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/hardened-runtime.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/process_info_deny.sb",
+        "exists": true,
+        "sha256": "6906c7cd0f1fe84d3891a055adeb34e2d5475c71dcbbd91fb83d6a813e031d5f",
+        "size": 27
+      },
+      "op_ids": {
+        "process-info-pidinfo": 129
+      }
+    },
+    "hardened:signal_self_allow": {
+      "profile_id": "hardened:signal_self_allow",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/signal_self_allow.sb",
+      "profile_mode": "sbpl",
+      "family": "signal",
+      "semantic_group": "signal:self",
+      "expected_ops": [
+        "signal"
+      ],
+      "observed_ops": [
+        "signal"
+      ],
+      "expectation_ids": [
+        "hardened:signal_self_allow:signal-same-sandbox"
+      ],
+      "scenario_ids": [
+        "hardened:signal_self_allow:signal-same-sandbox"
+      ],
+      "observed_expectation_ids": [
+        "hardened:signal_self_allow:signal-same-sandbox"
+      ],
+      "observation_counts": {
+        "total": 1,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/hardened-runtime.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/signal_self_allow.sb",
+        "exists": true,
+        "sha256": "18ed1501366219b874d2d7d8da7aec83d2cb7d426794caf4762da8cb7e5cf891",
+        "size": 123
+      },
+      "op_ids": {
+        "signal": 145
+      }
+    },
+    "hardened:signal_self_deny": {
+      "profile_id": "hardened:signal_self_deny",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/signal_self_deny.sb",
+      "profile_mode": "sbpl",
+      "family": "signal",
+      "semantic_group": "signal:self",
+      "expected_ops": [
+        "signal"
+      ],
+      "observed_ops": [
+        "signal"
+      ],
+      "expectation_ids": [
+        "hardened:signal_self_deny:signal-same-sandbox"
+      ],
+      "scenario_ids": [
+        "hardened:signal_self_deny:signal-same-sandbox"
+      ],
+      "observed_expectation_ids": [
+        "hardened:signal_self_deny:signal-same-sandbox"
+      ],
+      "observation_counts": {
+        "total": 1,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/hardened-runtime.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/signal_self_deny.sb",
+        "exists": true,
+        "sha256": "f7287ee24f7e0324fad650301f478d6aa1400fab8b7788c0b29cb49282014c01",
+        "size": 65
+      },
+      "op_ids": {
+        "signal": 145
+      }
+    },
+    "hardened:sysctl_read": {
+      "profile_id": "hardened:sysctl_read",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/sysctl_read.sb",
+      "profile_mode": "sbpl",
+      "family": "sysctl_read",
+      "semantic_group": "sysctl:name",
+      "expected_ops": [
+        "sysctl-read"
+      ],
+      "observed_ops": [
+        "sysctl-read"
+      ],
+      "expectation_ids": [
+        "hardened:sysctl_read:deny-kern-osrelease",
+        "hardened:sysctl_read:deny-kern-bootargs"
+      ],
+      "scenario_ids": [
+        "hardened:sysctl_read:deny-kern-bootargs",
+        "hardened:sysctl_read:deny-kern-osrelease"
+      ],
+      "observed_expectation_ids": [
+        "hardened:sysctl_read:deny-kern-bootargs",
+        "hardened:sysctl_read:deny-kern-osrelease"
+      ],
+      "observation_counts": {
+        "total": 2,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/hardened-runtime.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/sysctl_read.sb",
+        "exists": true,
+        "sha256": "2695ae5da59493f1bf6c0b2fbc54019742a0fefb4bb5b0478ac67dfec4120eae",
+        "size": 128
+      },
+      "op_ids": {
+        "sysctl-read": 155
+      }
+    },
+    "hardened:sysctl_read_allow": {
+      "profile_id": "hardened:sysctl_read_allow",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/sysctl_read_allow.sb",
+      "profile_mode": "sbpl",
+      "family": "sysctl_read",
+      "semantic_group": "sysctl:name",
+      "expected_ops": [
+        "sysctl-read"
+      ],
+      "observed_ops": [
+        "sysctl-read"
+      ],
+      "expectation_ids": [
+        "hardened:sysctl_read_allow:allow-kern-ostype"
+      ],
+      "scenario_ids": [
+        "hardened:sysctl_read_allow:allow-kern-ostype"
+      ],
+      "observed_expectation_ids": [
+        "hardened:sysctl_read_allow:allow-kern-ostype"
+      ],
+      "observation_counts": {
+        "total": 1,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/hardened-runtime.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/sb/sysctl_read_allow.sb",
+        "exists": true,
+        "sha256": "9217eaa7564e0f9f8cdad55ad1a07d7a6a58eaee6566862bbeb8662c8c4618dd",
+        "size": 63
+      },
+      "op_ids": {
+        "sysctl-read": 155
+      }
+    },
+    "runtime:allow_all": {
+      "profile_id": "runtime:allow_all",
+      "profile_path": "book/profiles/golden-triple/allow_all.sb.bin",
+      "profile_mode": "blob",
+      "family": null,
+      "semantic_group": null,
+      "expected_ops": [
+        "file-read*",
+        "file-write*"
+      ],
+      "observed_ops": [
+        "file-read*",
+        "file-write*"
+      ],
+      "expectation_ids": [
+        "allow_all|file-read*|/etc/hosts",
+        "allow_all|file-read*|/tmp/sbpl_rt/read.txt",
+        "allow_all|file-write*|/tmp/sbpl_rt/write.txt"
+      ],
+      "scenario_ids": [
+        "allow_all|file-read*|/etc/hosts",
+        "allow_all|file-read*|/tmp/sbpl_rt/read.txt",
+        "allow_all|file-write*|/tmp/sbpl_rt/write.txt"
+      ],
+      "observed_expectation_ids": [
+        "allow_all|file-read*|/etc/hosts",
+        "allow_all|file-read*|/tmp/sbpl_rt/read.txt",
+        "allow_all|file-write*|/tmp/sbpl_rt/write.txt"
+      ],
+      "observation_counts": {
+        "total": 3,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/expected_matrix.json"
+      ],
+      "compiled_blob": {
+        "path": "book/profiles/golden-triple/allow_all.sb.bin",
+        "exists": true,
+        "sha256": "19832eb9716a32459bee8398c8977fd1dfd575fa26606928f95728462a833c92",
+        "size": 416
+      },
+      "profile_source": {
+        "path": "book/profiles/golden-triple/allow_all.sb.bin",
+        "exists": true,
+        "sha256": "19832eb9716a32459bee8398c8977fd1dfd575fa26606928f95728462a833c92",
+        "size": 416
+      },
+      "op_ids": {
+        "file-read*": 21,
+        "file-write*": 29
+      }
+    },
+    "runtime:metafilter_any": {
+      "profile_id": "runtime:metafilter_any",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/sbpl-graph-runtime/profiles/metafilter_any.sb",
+      "profile_mode": "sbpl",
+      "family": null,
+      "semantic_group": null,
+      "expected_ops": [
+        "file-read*",
+        "file-write*"
+      ],
+      "observed_ops": [
+        "file-read*",
+        "file-write*"
+      ],
+      "expectation_ids": [
+        "metafilter_any|file-read*|/tmp/foo.txt",
+        "metafilter_any|file-read*|/tmp/bar.txt",
+        "metafilter_any|file-read*|/tmp/qux.txt",
+        "metafilter_any|file-read*|/tmp/baz.txt",
+        "metafilter_any|file-write*|/tmp/baz.txt"
+      ],
+      "scenario_ids": [
+        "metafilter_any|file-read*|/tmp/bar.txt",
+        "metafilter_any|file-read*|/tmp/baz.txt",
+        "metafilter_any|file-read*|/tmp/foo.txt",
+        "metafilter_any|file-read*|/tmp/qux.txt",
+        "metafilter_any|file-write*|/tmp/baz.txt"
+      ],
+      "observed_expectation_ids": [
+        "metafilter_any|file-read*|/tmp/bar.txt",
+        "metafilter_any|file-read*|/tmp/baz.txt",
+        "metafilter_any|file-read*|/tmp/foo.txt",
+        "metafilter_any|file-read*|/tmp/qux.txt",
+        "metafilter_any|file-write*|/tmp/baz.txt"
+      ],
+      "observation_counts": {
+        "total": 5,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/sbpl-graph-runtime/profiles/metafilter_any.sb",
+        "exists": true,
+        "sha256": "c42737bc9b3adbed25e666509ee16c251435d489caabd81e8ee339aea7f635b9",
+        "size": 272
+      },
+      "op_ids": {
+        "file-read*": 21,
+        "file-write*": 29
+      }
+    },
+    "runtime:strict_1": {
+      "profile_id": "runtime:strict_1",
+      "profile_path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/strict_1.sb",
+      "profile_mode": "sbpl",
+      "family": null,
+      "semantic_group": null,
+      "expected_ops": [
+        "file-read*",
+        "file-write*"
+      ],
+      "observed_ops": [
+        "file-read*",
+        "file-write*"
+      ],
+      "expectation_ids": [
+        "runtime:strict_1:read_ok",
+        "runtime:strict_1:write_ok",
+        "runtime:strict_1:read_hosts",
+        "runtime:strict_1:write_hosts"
+      ],
+      "scenario_ids": [
+        "runtime:strict_1:read_hosts",
+        "runtime:strict_1:read_ok",
+        "runtime:strict_1:write_hosts",
+        "runtime:strict_1:write_ok"
+      ],
+      "observed_expectation_ids": [
+        "runtime:strict_1:read_hosts",
+        "runtime:strict_1:read_ok",
+        "runtime:strict_1:write_hosts",
+        "runtime:strict_1:write_ok"
+      ],
+      "observation_counts": {
+        "total": 4,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/strict_1.sb",
+        "exists": true,
+        "sha256": "35b0ceafd75fd626fc3ba398296b80be67692dbca912ed5749c80ae5e1041d9f",
+        "size": 298
+      },
+      "op_ids": {
+        "file-read*": 21,
+        "file-write*": 29
+      }
+    },
+    "sys:airlock": {
+      "profile_id": "sys:airlock",
+      "profile_path": "/System/Library/Sandbox/Profiles/airlock.sb",
+      "profile_mode": "sbpl",
+      "family": null,
+      "semantic_group": null,
+      "expected_ops": [
+        "file-read*",
+        "file-write*"
+      ],
+      "observed_ops": [
+        "file-read*",
+        "file-write*"
+      ],
+      "expectation_ids": [
+        "sys:airlock:read_/etc/hosts",
+        "sys:airlock:write_/etc/hosts",
+        "sys:airlock:read_/tmp/foo",
+        "sys:airlock:write_/tmp/foo"
+      ],
+      "scenario_ids": [
+        "sys:airlock:read_/etc/hosts",
+        "sys:airlock:read_/tmp/foo",
+        "sys:airlock:write_/etc/hosts",
+        "sys:airlock:write_/tmp/foo"
+      ],
+      "observed_expectation_ids": [
+        "sys:airlock:read_/etc/hosts",
+        "sys:airlock:read_/tmp/foo",
+        "sys:airlock:write_/etc/hosts",
+        "sys:airlock:write_/tmp/foo"
+      ],
+      "observation_counts": {
+        "total": 4,
+        "blocked": 4,
+        "blocked_by_stage": {
+          "preflight": 4
+        }
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "/System/Library/Sandbox/Profiles/airlock.sb",
+        "exists": true,
+        "sha256": "d95b6e7f4f583646eeb4948ffa3a8383128fd32eb67939570fc99861d6c04e03",
+        "size": 27350
+      },
+      "system_profile_digest_id": "sys:airlock",
+      "system_profile_digest": {
+        "status": "ok",
+        "observed": {
+          "contract_version": 2,
+          "sbpl_hash": null,
+          "blob_sha256": "33d1a72e709f86f7827cb6e5a919a30cc86a3d0ea6e048b2117d0240a923467e",
+          "blob_size": 4662,
+          "op_table_hash": "13e3fba47db79e535d2b9cab56cc7252f15ad32ef2d5b1977a4f1a2bbb5fa67e",
+          "op_table_len": 167,
+          "tag_counts": {
+            "0": 11,
+            "1": 2,
+            "10": 1,
+            "101": 1,
+            "102": 1,
+            "103": 1,
+            "104": 2,
+            "105": 1,
+            "106": 1,
+            "107": 1,
+            "108": 1,
+            "109": 1,
+            "11": 1,
+            "110": 1,
+            "111": 1,
+            "112": 1,
+            "113": 1,
+            "114": 1,
+            "115": 1,
+            "116": 1,
+            "117": 1,
+            "12": 2,
+            "120": 1,
+            "122": 2,
+            "124": 2,
+            "125": 1,
+            "127": 2,
+            "129": 2,
+            "13": 1,
+            "130": 1,
+            "132": 2,
+            "133": 1,
+            "136": 2,
+            "137": 1,
+            "138": 2,
+            "139": 1,
+            "14": 1,
+            "141": 1,
+            "146": 6,
+            "148": 1,
+            "15": 2,
+            "150": 2,
+            "151": 1,
+            "152": 1,
+            "154": 1,
+            "155": 1,
+            "156": 1,
+            "157": 1,
+            "159": 2,
+            "162": 2,
+            "166": 26,
+            "18": 1,
+            "19": 1,
+            "2": 2,
+            "20": 1,
+            "21": 1,
+            "22": 1,
+            "23": 1,
+            "24": 1,
+            "25": 1,
+            "26": 1,
+            "27": 1,
+            "28": 1,
+            "29": 1,
+            "3": 1,
+            "30": 1,
+            "31": 1,
+            "33": 2,
+            "37": 1,
+            "4": 1,
+            "44": 1,
+            "45": 1,
+            "46": 1,
+            "48": 1,
+            "5": 1,
+            "50": 1,
+            "51": 1,
+            "52": 1,
+            "53": 2,
+            "54": 1,
+            "55": 1,
+            "57": 1,
+            "58": 2,
+            "6": 1,
+            "61": 1,
+            "62": 2,
+            "63": 1,
+            "64": 1,
+            "65": 1,
+            "68": 1,
+            "69": 1,
+            "70": 1,
+            "71": 2,
+            "72": 1,
+            "73": 1,
+            "74": 1,
+            "75": 1,
+            "76": 1,
+            "8": 1,
+            "81": 1,
+            "82": 1,
+            "83": 1,
+            "84": 1,
+            "85": 1,
+            "86": 1,
+            "87": 1,
+            "88": 1,
+            "91": 1,
+            "92": 1,
+            "93": 1,
+            "94": 1,
+            "95": 1,
+            "96": 1,
+            "97": 1,
+            "98": 2
+          },
+          "tag_layout_hash": "bbe78d204d7d08ecc7e4468e874e9789586b263b4a947b66c826cb0b532a5797",
+          "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+        },
+        "source": "book/evidence/graph/concepts/validation/fixtures/blobs/airlock.sb.bin"
+      },
+      "op_ids": {
+        "file-read*": 21,
+        "file-write*": 29
+      }
+    },
+    "sys:bsd": {
+      "profile_id": "sys:bsd",
+      "profile_path": "/System/Library/Sandbox/Profiles/bsd.sb",
+      "profile_mode": "sbpl",
+      "family": null,
+      "semantic_group": null,
+      "expected_ops": [
+        "file-read*",
+        "file-write*"
+      ],
+      "observed_ops": [
+        "file-read*",
+        "file-write*"
+      ],
+      "expectation_ids": [
+        "sys:bsd:read_/etc/hosts",
+        "sys:bsd:write_/etc/hosts",
+        "sys:bsd:read_/tmp/foo",
+        "sys:bsd:write_/tmp/foo"
+      ],
+      "scenario_ids": [
+        "sys:bsd:read_/etc/hosts",
+        "sys:bsd:read_/tmp/foo",
+        "sys:bsd:write_/etc/hosts",
+        "sys:bsd:write_/tmp/foo"
+      ],
+      "observed_expectation_ids": [
+        "sys:bsd:read_/etc/hosts",
+        "sys:bsd:read_/tmp/foo",
+        "sys:bsd:write_/etc/hosts",
+        "sys:bsd:write_/tmp/foo"
+      ],
+      "observation_counts": {
+        "total": 4,
+        "blocked": 0,
+        "blocked_by_stage": {}
+      },
+      "source_packets": [
+        "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json"
+      ],
+      "expected_matrix_sources": [
+        "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/expected_matrix.json"
+      ],
+      "profile_source": {
+        "path": "/System/Library/Sandbox/Profiles/bsd.sb",
+        "exists": true,
+        "sha256": "f69ffbefe3300388671c7e2db05d41cacb96500bdd1827ab2caed044a441f8c8",
+        "size": 858
+      },
+      "system_profile_digest_id": "sys:bsd",
+      "system_profile_digest": {
+        "status": "ok",
+        "observed": {
+          "contract_version": 2,
+          "sbpl_hash": null,
+          "blob_sha256": "c6fe205fe002bcb0e094419e149d5f1a8a49517d034033fe5bec52ef8e75a179",
+          "blob_size": 2140,
+          "op_table_hash": "b1348042b3647334ee961a645d358116d81340488c0088aaac3742c5d06799e6",
+          "op_table_len": 28,
+          "tag_counts": {
+            "0": 26,
+            "1": 2,
+            "17": 1,
+            "26": 13,
+            "27": 26,
+            "5": 1
+          },
+          "tag_layout_hash": "bbe78d204d7d08ecc7e4468e874e9789586b263b4a947b66c826cb0b532a5797",
+          "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5"
+        },
+        "source": "book/evidence/graph/concepts/validation/fixtures/blobs/bsd.sb.bin"
+      },
+      "op_ids": {
+        "file-read*": 21,
+        "file-write*": 29
+      }
+    }
+  },
+  "expectations": {
+    "adv:file_mode:allow-private": {
+      "expectation_id": "adv:file_mode:allow-private",
+      "profile_id": "adv:file_mode",
+      "operation": "file-read*",
+      "op_id": 21,
+      "expected": "allow",
+      "target": "/private/tmp/mode_deny",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:file_mode:deny-world": {
+      "expectation_id": "adv:file_mode:deny-world",
+      "profile_id": "adv:file_mode",
+      "operation": "file-read*",
+      "op_id": 21,
+      "expected": "deny",
+      "target": "/private/tmp/mode_allow",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:flow_divert_partial_tcp:tcp-loopback": {
+      "expectation_id": "adv:flow_divert_partial_tcp:tcp-loopback",
+      "profile_id": "adv:flow_divert_partial_tcp",
+      "operation": "network-outbound",
+      "op_id": 112,
+      "expected": "allow",
+      "target": "127.0.0.1:62646",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:flow_divert_partial_tcp:tcp-loopback-2": {
+      "expectation_id": "adv:flow_divert_partial_tcp:tcp-loopback-2",
+      "profile_id": "adv:flow_divert_partial_tcp",
+      "operation": "network-outbound",
+      "op_id": 112,
+      "expected": "allow",
+      "target": "127.0.0.1:62647",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:flow_divert_require_all_tcp:tcp-loopback": {
+      "expectation_id": "adv:flow_divert_require_all_tcp:tcp-loopback",
+      "profile_id": "adv:flow_divert_require_all_tcp",
+      "operation": "network-outbound",
+      "op_id": 112,
+      "expected": "allow",
+      "target": "127.0.0.1:62646",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:flow_divert_require_all_tcp:tcp-loopback-2": {
+      "expectation_id": "adv:flow_divert_require_all_tcp:tcp-loopback-2",
+      "profile_id": "adv:flow_divert_require_all_tcp",
+      "operation": "network-outbound",
+      "op_id": 112,
+      "expected": "allow",
+      "target": "127.0.0.1:62647",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:mach_local_literal:allow-cfprefsd-local": {
+      "expectation_id": "adv:mach_local_literal:allow-cfprefsd-local",
+      "profile_id": "adv:mach_local_literal",
+      "operation": "mach-lookup",
+      "op_id": 96,
+      "expected": "allow",
+      "target": "com.apple.cfprefsd.agent",
+      "driver": "sandbox_mach_probe",
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:mach_local_literal:deny-bogus-local": {
+      "expectation_id": "adv:mach_local_literal:deny-bogus-local",
+      "profile_id": "adv:mach_local_literal",
+      "operation": "mach-lookup",
+      "op_id": 96,
+      "expected": "deny",
+      "target": "com.apple.sandboxadversarial.fake",
+      "driver": "sandbox_mach_probe",
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:mach_local_regex:allow-cfprefsd-local": {
+      "expectation_id": "adv:mach_local_regex:allow-cfprefsd-local",
+      "profile_id": "adv:mach_local_regex",
+      "operation": "mach-lookup",
+      "op_id": 96,
+      "expected": "allow",
+      "target": "com.apple.cfprefsd.agent",
+      "driver": "sandbox_mach_probe",
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:mach_local_regex:deny-bogus-local": {
+      "expectation_id": "adv:mach_local_regex:deny-bogus-local",
+      "profile_id": "adv:mach_local_regex",
+      "operation": "mach-lookup",
+      "op_id": 96,
+      "expected": "deny",
+      "target": "com.apple.sandboxadversarial.fake",
+      "driver": "sandbox_mach_probe",
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:mach_simple_allow:allow-cfprefsd": {
+      "expectation_id": "adv:mach_simple_allow:allow-cfprefsd",
+      "profile_id": "adv:mach_simple_allow",
+      "operation": "mach-lookup",
+      "op_id": 96,
+      "expected": "allow",
+      "target": "com.apple.cfprefsd.agent",
+      "driver": "sandbox_mach_probe",
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:mach_simple_allow:deny-bogus": {
+      "expectation_id": "adv:mach_simple_allow:deny-bogus",
+      "profile_id": "adv:mach_simple_allow",
+      "operation": "mach-lookup",
+      "op_id": 96,
+      "expected": "deny",
+      "target": "com.apple.sandboxadversarial.fake",
+      "driver": "sandbox_mach_probe",
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:mach_simple_variants:allow-cfprefsd": {
+      "expectation_id": "adv:mach_simple_variants:allow-cfprefsd",
+      "profile_id": "adv:mach_simple_variants",
+      "operation": "mach-lookup",
+      "op_id": 96,
+      "expected": "allow",
+      "target": "com.apple.cfprefsd.agent",
+      "driver": "sandbox_mach_probe",
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:mach_simple_variants:deny-bogus": {
+      "expectation_id": "adv:mach_simple_variants:deny-bogus",
+      "profile_id": "adv:mach_simple_variants",
+      "operation": "mach-lookup",
+      "op_id": 96,
+      "expected": "deny",
+      "target": "com.apple.sandboxadversarial.fake",
+      "driver": "sandbox_mach_probe",
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:mount_relative_path:allow-subpath": {
+      "expectation_id": "adv:mount_relative_path:allow-subpath",
+      "profile_id": "adv:mount_relative_path",
+      "operation": "file-read*",
+      "op_id": 21,
+      "expected": "allow",
+      "target": "/private/tmp/runtime-adv/mountrel/allowed.txt",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:mount_relative_path:deny-outside": {
+      "expectation_id": "adv:mount_relative_path:deny-outside",
+      "profile_id": "adv:mount_relative_path",
+      "operation": "file-read*",
+      "op_id": 21,
+      "expected": "deny",
+      "target": "/private/tmp/runtime-adv/mountrel_outside/blocked.txt",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:net_outbound_allow:tcp-loopback": {
+      "expectation_id": "adv:net_outbound_allow:tcp-loopback",
+      "profile_id": "adv:net_outbound_allow",
+      "operation": "network-outbound",
+      "op_id": 112,
+      "expected": "allow",
+      "target": "127.0.0.1:62646",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:net_outbound_allow:tcp-loopback-2": {
+      "expectation_id": "adv:net_outbound_allow:tcp-loopback-2",
+      "profile_id": "adv:net_outbound_allow",
+      "operation": "network-outbound",
+      "op_id": 112,
+      "expected": "allow",
+      "target": "127.0.0.1:62647",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:net_outbound_deny:tcp-loopback": {
+      "expectation_id": "adv:net_outbound_deny:tcp-loopback",
+      "profile_id": "adv:net_outbound_deny",
+      "operation": "network-outbound",
+      "op_id": 112,
+      "expected": "deny",
+      "target": "127.0.0.1:62646",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:net_outbound_deny:tcp-loopback-2": {
+      "expectation_id": "adv:net_outbound_deny:tcp-loopback-2",
+      "profile_id": "adv:net_outbound_deny",
+      "operation": "network-outbound",
+      "op_id": 112,
+      "expected": "deny",
+      "target": "127.0.0.1:62647",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:path_alias:alias-private": {
+      "expectation_id": "adv:path_alias:alias-private",
+      "profile_id": "adv:path_alias",
+      "operation": "file-read*",
+      "op_id": 21,
+      "expected": "allow",
+      "target": "/private/tmp/runtime-adv/alias/allow.txt",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:path_alias:alias-tmp": {
+      "expectation_id": "adv:path_alias:alias-tmp",
+      "profile_id": "adv:path_alias",
+      "operation": "file-read*",
+      "op_id": 21,
+      "expected": "allow",
+      "target": "/tmp/runtime-adv/alias/allow.txt",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:path_edges:allow-subpath": {
+      "expectation_id": "adv:path_edges:allow-subpath",
+      "profile_id": "adv:path_edges",
+      "operation": "file-read*",
+      "op_id": 21,
+      "expected": "allow",
+      "target": "/tmp/runtime-adv/edges/okdir/item.txt",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:path_edges:allow-subpath-normalized": {
+      "expectation_id": "adv:path_edges:allow-subpath-normalized",
+      "profile_id": "adv:path_edges",
+      "operation": "file-read*",
+      "op_id": 21,
+      "expected": "deny",
+      "target": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:path_edges:allow-tmp": {
+      "expectation_id": "adv:path_edges:allow-tmp",
+      "profile_id": "adv:path_edges",
+      "operation": "file-read*",
+      "op_id": 21,
+      "expected": "allow",
+      "target": "/tmp/runtime-adv/edges/a",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:path_edges:deny-dotdot": {
+      "expectation_id": "adv:path_edges:deny-dotdot",
+      "profile_id": "adv:path_edges",
+      "operation": "file-read*",
+      "op_id": 21,
+      "expected": "deny",
+      "target": "/tmp/runtime-adv/edges/okdir/../blocked.txt",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:path_edges:deny-private": {
+      "expectation_id": "adv:path_edges:deny-private",
+      "profile_id": "adv:path_edges",
+      "operation": "file-read*",
+      "op_id": 21,
+      "expected": "deny",
+      "target": "/private/tmp/runtime-adv/edges/a",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:path_edges:write-dotdot": {
+      "expectation_id": "adv:path_edges:write-dotdot",
+      "profile_id": "adv:path_edges",
+      "operation": "file-write*",
+      "op_id": 29,
+      "expected": "deny",
+      "target": "/tmp/runtime-adv/edges/okdir/../blocked.txt",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:path_edges:write-private": {
+      "expectation_id": "adv:path_edges:write-private",
+      "profile_id": "adv:path_edges",
+      "operation": "file-write*",
+      "op_id": 29,
+      "expected": "deny",
+      "target": "/private/tmp/runtime-adv/edges/a",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:path_edges:write-subpath": {
+      "expectation_id": "adv:path_edges:write-subpath",
+      "profile_id": "adv:path_edges",
+      "operation": "file-write*",
+      "op_id": 29,
+      "expected": "allow",
+      "target": "/tmp/runtime-adv/edges/okdir/item.txt",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:path_edges:write-tmp": {
+      "expectation_id": "adv:path_edges:write-tmp",
+      "profile_id": "adv:path_edges",
+      "operation": "file-write*",
+      "op_id": 29,
+      "expected": "allow",
+      "target": "/tmp/runtime-adv/edges/a",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:path_edges_private:allow-private": {
+      "expectation_id": "adv:path_edges_private:allow-private",
+      "profile_id": "adv:path_edges_private",
+      "operation": "file-read*",
+      "op_id": 21,
+      "expected": "allow",
+      "target": "/private/tmp/runtime-adv/edges/a",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:path_edges_private:allow-private-subpath": {
+      "expectation_id": "adv:path_edges_private:allow-private-subpath",
+      "profile_id": "adv:path_edges_private",
+      "operation": "file-read*",
+      "op_id": 21,
+      "expected": "allow",
+      "target": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:path_edges_private:allow-tmp": {
+      "expectation_id": "adv:path_edges_private:allow-tmp",
+      "profile_id": "adv:path_edges_private",
+      "operation": "file-read*",
+      "op_id": 21,
+      "expected": "allow",
+      "target": "/tmp/runtime-adv/edges/a",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:path_edges_private:allow-tmp-subpath": {
+      "expectation_id": "adv:path_edges_private:allow-tmp-subpath",
+      "profile_id": "adv:path_edges_private",
+      "operation": "file-read*",
+      "op_id": 21,
+      "expected": "allow",
+      "target": "/tmp/runtime-adv/edges/okdir/item.txt",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:path_edges_private:deny-dotdot": {
+      "expectation_id": "adv:path_edges_private:deny-dotdot",
+      "profile_id": "adv:path_edges_private",
+      "operation": "file-read*",
+      "op_id": 21,
+      "expected": "deny",
+      "target": "/private/tmp/runtime-adv/edges/okdir/../blocked.txt",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:path_edges_private:write-dotdot": {
+      "expectation_id": "adv:path_edges_private:write-dotdot",
+      "profile_id": "adv:path_edges_private",
+      "operation": "file-write*",
+      "op_id": 29,
+      "expected": "deny",
+      "target": "/private/tmp/runtime-adv/edges/okdir/../blocked.txt",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:path_edges_private:write-private": {
+      "expectation_id": "adv:path_edges_private:write-private",
+      "profile_id": "adv:path_edges_private",
+      "operation": "file-write*",
+      "op_id": 29,
+      "expected": "allow",
+      "target": "/private/tmp/runtime-adv/edges/a",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:path_edges_private:write-private-subpath": {
+      "expectation_id": "adv:path_edges_private:write-private-subpath",
+      "profile_id": "adv:path_edges_private",
+      "operation": "file-write*",
+      "op_id": 29,
+      "expected": "allow",
+      "target": "/private/tmp/runtime-adv/edges/okdir/item.txt",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:path_edges_private:write-tmp": {
+      "expectation_id": "adv:path_edges_private:write-tmp",
+      "profile_id": "adv:path_edges_private",
+      "operation": "file-write*",
+      "op_id": 29,
+      "expected": "allow",
+      "target": "/tmp/runtime-adv/edges/a",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:path_edges_private:write-tmp-subpath": {
+      "expectation_id": "adv:path_edges_private:write-tmp-subpath",
+      "profile_id": "adv:path_edges_private",
+      "operation": "file-write*",
+      "op_id": 29,
+      "expected": "allow",
+      "target": "/tmp/runtime-adv/edges/okdir/item.txt",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:struct_flat:allow-ok-deep": {
+      "expectation_id": "adv:struct_flat:allow-ok-deep",
+      "profile_id": "adv:struct_flat",
+      "operation": "file-read*",
+      "op_id": 21,
+      "expected": "allow",
+      "target": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:struct_flat:allow-ok-root": {
+      "expectation_id": "adv:struct_flat:allow-ok-root",
+      "profile_id": "adv:struct_flat",
+      "operation": "file-read*",
+      "op_id": 21,
+      "expected": "allow",
+      "target": "/tmp/runtime-adv/struct/ok/allowed.txt",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:struct_flat:deny-blocked": {
+      "expectation_id": "adv:struct_flat:deny-blocked",
+      "profile_id": "adv:struct_flat",
+      "operation": "file-read*",
+      "op_id": 21,
+      "expected": "deny",
+      "target": "/tmp/runtime-adv/struct/blocked.txt",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:struct_flat:deny-outside": {
+      "expectation_id": "adv:struct_flat:deny-outside",
+      "profile_id": "adv:struct_flat",
+      "operation": "file-read*",
+      "op_id": 21,
+      "expected": "deny",
+      "target": "/tmp/runtime-adv/struct/outside.txt",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:struct_flat:write-blocked": {
+      "expectation_id": "adv:struct_flat:write-blocked",
+      "profile_id": "adv:struct_flat",
+      "operation": "file-write*",
+      "op_id": 29,
+      "expected": "deny",
+      "target": "/tmp/runtime-adv/struct/blocked.txt",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:struct_flat:write-ok-deep": {
+      "expectation_id": "adv:struct_flat:write-ok-deep",
+      "profile_id": "adv:struct_flat",
+      "operation": "file-write*",
+      "op_id": 29,
+      "expected": "allow",
+      "target": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:struct_flat:write-ok-root": {
+      "expectation_id": "adv:struct_flat:write-ok-root",
+      "profile_id": "adv:struct_flat",
+      "operation": "file-write*",
+      "op_id": 29,
+      "expected": "allow",
+      "target": "/tmp/runtime-adv/struct/ok/allowed.txt",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:struct_flat:write-outside": {
+      "expectation_id": "adv:struct_flat:write-outside",
+      "profile_id": "adv:struct_flat",
+      "operation": "file-write*",
+      "op_id": 29,
+      "expected": "deny",
+      "target": "/tmp/runtime-adv/struct/outside.txt",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:struct_nested:allow-ok-deep": {
+      "expectation_id": "adv:struct_nested:allow-ok-deep",
+      "profile_id": "adv:struct_nested",
+      "operation": "file-read*",
+      "op_id": 21,
+      "expected": "allow",
+      "target": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:struct_nested:allow-ok-root": {
+      "expectation_id": "adv:struct_nested:allow-ok-root",
+      "profile_id": "adv:struct_nested",
+      "operation": "file-read*",
+      "op_id": 21,
+      "expected": "allow",
+      "target": "/tmp/runtime-adv/struct/ok/allowed.txt",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:struct_nested:deny-blocked": {
+      "expectation_id": "adv:struct_nested:deny-blocked",
+      "profile_id": "adv:struct_nested",
+      "operation": "file-read*",
+      "op_id": 21,
+      "expected": "deny",
+      "target": "/tmp/runtime-adv/struct/blocked.txt",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:struct_nested:deny-outside": {
+      "expectation_id": "adv:struct_nested:deny-outside",
+      "profile_id": "adv:struct_nested",
+      "operation": "file-read*",
+      "op_id": 21,
+      "expected": "deny",
+      "target": "/tmp/runtime-adv/struct/outside.txt",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:struct_nested:write-blocked": {
+      "expectation_id": "adv:struct_nested:write-blocked",
+      "profile_id": "adv:struct_nested",
+      "operation": "file-write*",
+      "op_id": 29,
+      "expected": "deny",
+      "target": "/tmp/runtime-adv/struct/blocked.txt",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:struct_nested:write-ok-deep": {
+      "expectation_id": "adv:struct_nested:write-ok-deep",
+      "profile_id": "adv:struct_nested",
+      "operation": "file-write*",
+      "op_id": 29,
+      "expected": "allow",
+      "target": "/tmp/runtime-adv/struct/ok/deep/nested.txt",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:struct_nested:write-ok-root": {
+      "expectation_id": "adv:struct_nested:write-ok-root",
+      "profile_id": "adv:struct_nested",
+      "operation": "file-write*",
+      "op_id": 29,
+      "expected": "allow",
+      "target": "/tmp/runtime-adv/struct/ok/allowed.txt",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:struct_nested:write-outside": {
+      "expectation_id": "adv:struct_nested:write-outside",
+      "profile_id": "adv:struct_nested",
+      "operation": "file-write*",
+      "op_id": 29,
+      "expected": "deny",
+      "target": "/tmp/runtime-adv/struct/outside.txt",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:xattr:allow-foo-read": {
+      "expectation_id": "adv:xattr:allow-foo-read",
+      "profile_id": "adv:xattr",
+      "operation": "file-read-xattr",
+      "op_id": 24,
+      "expected": "allow",
+      "target": "/private/tmp/foo",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:xattr:allow-foo-write": {
+      "expectation_id": "adv:xattr:allow-foo-write",
+      "profile_id": "adv:xattr",
+      "operation": "file-write-xattr",
+      "op_id": 40,
+      "expected": "allow",
+      "target": "/private/tmp/foo",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:xattr:deny-bar-read": {
+      "expectation_id": "adv:xattr:deny-bar-read",
+      "profile_id": "adv:xattr",
+      "operation": "file-read-xattr",
+      "op_id": 24,
+      "expected": "deny",
+      "target": "/private/tmp/bar",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "adv:xattr:deny-bar-write": {
+      "expectation_id": "adv:xattr:deny-bar-write",
+      "profile_id": "adv:xattr",
+      "operation": "file-write-xattr",
+      "op_id": 40,
+      "expected": "deny",
+      "target": "/private/tmp/bar",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-adversarial.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-adversarial/out/738fc3d0-1d12-4608-9a97-90addfbc8d4c/expected_matrix.json"
+    },
+    "allow_all|file-read*|/etc/hosts": {
+      "expectation_id": "allow_all|file-read*|/etc/hosts",
+      "profile_id": "runtime:allow_all",
+      "operation": "file-read*",
+      "op_id": 21,
+      "expected": "allow",
+      "target": "/etc/hosts",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/expected_matrix.json"
+    },
+    "allow_all|file-read*|/tmp/sbpl_rt/read.txt": {
+      "expectation_id": "allow_all|file-read*|/tmp/sbpl_rt/read.txt",
+      "profile_id": "runtime:allow_all",
+      "operation": "file-read*",
+      "op_id": 21,
+      "expected": "allow",
+      "target": "/tmp/sbpl_rt/read.txt",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/expected_matrix.json"
+    },
+    "allow_all|file-write*|/tmp/sbpl_rt/write.txt": {
+      "expectation_id": "allow_all|file-write*|/tmp/sbpl_rt/write.txt",
+      "profile_id": "runtime:allow_all",
+      "operation": "file-write*",
+      "op_id": 29,
+      "expected": "allow",
+      "target": "/tmp/sbpl_rt/write.txt",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/expected_matrix.json"
+    },
+    "anchor-filter-map:cfprefsd:C1_deny_global": {
+      "expectation_id": "anchor-filter-map:cfprefsd:C1_deny_global",
+      "profile_id": "anchor-filter-map:cfprefsd:C1_deny_global",
+      "operation": "mach-lookup",
+      "op_id": 96,
+      "expected": "deny",
+      "target": "com.apple.cfprefsd.agent",
+      "driver": "sandbox_mach_probe",
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/expected_matrix.json"
+    },
+    "anchor-filter-map:cfprefsd:C2_deny_local": {
+      "expectation_id": "anchor-filter-map:cfprefsd:C2_deny_local",
+      "profile_id": "anchor-filter-map:cfprefsd:C2_deny_local",
+      "operation": "mach-lookup",
+      "op_id": 96,
+      "expected": "deny",
+      "target": "com.apple.cfprefsd.agent",
+      "driver": "sandbox_mach_probe",
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/expected_matrix.json"
+    },
+    "anchor-filter-map:cfprefsd:N1_deny_default": {
+      "expectation_id": "anchor-filter-map:cfprefsd:N1_deny_default",
+      "profile_id": "anchor-filter-map:cfprefsd:N1_deny_default",
+      "operation": "mach-lookup",
+      "op_id": 96,
+      "expected": "deny",
+      "target": "com.apple.cfprefsd.agent",
+      "driver": "sandbox_mach_probe",
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/expected_matrix.json"
+    },
+    "anchor-filter-map:cfprefsd:S0_allow_any": {
+      "expectation_id": "anchor-filter-map:cfprefsd:S0_allow_any",
+      "profile_id": "anchor-filter-map:cfprefsd:S0_allow_any",
+      "operation": "mach-lookup",
+      "op_id": 96,
+      "expected": "allow",
+      "target": "com.apple.cfprefsd.agent",
+      "driver": "sandbox_mach_probe",
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/expected_matrix.json"
+    },
+    "anchor-filter-map:cfprefsd:S1_allow_global": {
+      "expectation_id": "anchor-filter-map:cfprefsd:S1_allow_global",
+      "profile_id": "anchor-filter-map:cfprefsd:S1_allow_global",
+      "operation": "mach-lookup",
+      "op_id": 96,
+      "expected": "allow",
+      "target": "com.apple.cfprefsd.agent",
+      "driver": "sandbox_mach_probe",
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/expected_matrix.json"
+    },
+    "anchor-filter-map:cfprefsd:S2_allow_local": {
+      "expectation_id": "anchor-filter-map:cfprefsd:S2_allow_local",
+      "profile_id": "anchor-filter-map:cfprefsd:S2_allow_local",
+      "operation": "mach-lookup",
+      "op_id": 96,
+      "expected": "allow",
+      "target": "com.apple.cfprefsd.agent",
+      "driver": "sandbox_mach_probe",
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/expected_matrix.json"
+    },
+    "anchor-filter-map:cfprefsd:S3_allow_both": {
+      "expectation_id": "anchor-filter-map:cfprefsd:S3_allow_both",
+      "profile_id": "anchor-filter-map:cfprefsd:S3_allow_both",
+      "operation": "mach-lookup",
+      "op_id": 96,
+      "expected": "allow",
+      "target": "com.apple.cfprefsd.agent",
+      "driver": "sandbox_mach_probe",
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/expected_matrix.json"
+    },
+    "anchor-filter-map:cfprefsd:bogus_baseline": {
+      "expectation_id": "anchor-filter-map:cfprefsd:bogus_baseline",
+      "profile_id": "anchor-filter-map:cfprefsd:N1_deny_default",
+      "operation": "mach-lookup",
+      "op_id": 96,
+      "expected": "deny",
+      "target": "com.apple.sandbox-lore.anchor-filter-map.bogus",
+      "driver": "sandbox_mach_probe",
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/out/fa90bf31-b6a2-4a0b-bced-78d77be2b89f/expected_matrix.json"
+    },
+    "anchor-filter-map:iokit_class:C1_deny_class": {
+      "expectation_id": "anchor-filter-map:iokit_class:C1_deny_class",
+      "profile_id": "anchor-filter-map:iokit_class:C1_deny_class",
+      "operation": "iokit-open-service",
+      "op_id": 64,
+      "expected": "deny",
+      "target": "IOUSBHostInterface",
+      "driver": "sandbox_iokit_probe",
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.iokit-class.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/expected_matrix.json"
+    },
+    "anchor-filter-map:iokit_class:C2_deny_property_literal": {
+      "expectation_id": "anchor-filter-map:iokit_class:C2_deny_property_literal",
+      "profile_id": "anchor-filter-map:iokit_class:C2_deny_property_literal",
+      "operation": "iokit-open-service",
+      "op_id": 64,
+      "expected": "deny",
+      "target": "IOUSBHostInterface",
+      "driver": "sandbox_iokit_probe",
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.iokit-class.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/expected_matrix.json"
+    },
+    "anchor-filter-map:iokit_class:N1_deny_default": {
+      "expectation_id": "anchor-filter-map:iokit_class:N1_deny_default",
+      "profile_id": "anchor-filter-map:iokit_class:N1_deny_default",
+      "operation": "iokit-open-service",
+      "op_id": 64,
+      "expected": "deny",
+      "target": "IOUSBHostInterface",
+      "driver": "sandbox_iokit_probe",
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.iokit-class.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/expected_matrix.json"
+    },
+    "anchor-filter-map:iokit_class:S0_allow_any": {
+      "expectation_id": "anchor-filter-map:iokit_class:S0_allow_any",
+      "profile_id": "anchor-filter-map:iokit_class:S0_allow_any",
+      "operation": "iokit-open-service",
+      "op_id": 64,
+      "expected": "allow",
+      "target": "IOUSBHostInterface",
+      "driver": "sandbox_iokit_probe",
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.iokit-class.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/expected_matrix.json"
+    },
+    "anchor-filter-map:iokit_class:S1_allow_class": {
+      "expectation_id": "anchor-filter-map:iokit_class:S1_allow_class",
+      "profile_id": "anchor-filter-map:iokit_class:S1_allow_class",
+      "operation": "iokit-open-service",
+      "op_id": 64,
+      "expected": "allow",
+      "target": "IOUSBHostInterface",
+      "driver": "sandbox_iokit_probe",
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.iokit-class.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/expected_matrix.json"
+    },
+    "anchor-filter-map:iokit_class:S2_allow_property_literal": {
+      "expectation_id": "anchor-filter-map:iokit_class:S2_allow_property_literal",
+      "profile_id": "anchor-filter-map:iokit_class:S2_allow_property_literal",
+      "operation": "iokit-open-service",
+      "op_id": 64,
+      "expected": "allow",
+      "target": "IOUSBHostInterface",
+      "driver": "sandbox_iokit_probe",
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.iokit-class.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/expected_matrix.json"
+    },
+    "anchor-filter-map:iokit_class:S3_allow_both": {
+      "expectation_id": "anchor-filter-map:iokit_class:S3_allow_both",
+      "profile_id": "anchor-filter-map:iokit_class:S3_allow_both",
+      "operation": "iokit-open-service",
+      "op_id": 64,
+      "expected": "allow",
+      "target": "IOUSBHostInterface",
+      "driver": "sandbox_iokit_probe",
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.iokit-class.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/expected_matrix.json"
+    },
+    "anchor-filter-map:iokit_class:bogus_baseline": {
+      "expectation_id": "anchor-filter-map:iokit_class:bogus_baseline",
+      "profile_id": "anchor-filter-map:iokit_class:N1_deny_default",
+      "operation": "iokit-open-service",
+      "op_id": 64,
+      "expected": "deny",
+      "target": "IOSandboxLoreAnchorFilterBogus",
+      "driver": "sandbox_iokit_probe",
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.iokit-class.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/iokit-class/out/83c8343f-44ca-452a-be49-470fb0b5fd3d/expected_matrix.json"
+    },
+    "bucket4:v1_read:read_/etc/hosts": {
+      "expectation_id": "bucket4:v1_read:read_/etc/hosts",
+      "profile_id": "bucket4:v1_read",
+      "operation": "file-read*",
+      "op_id": 21,
+      "expected": "allow",
+      "target": "/etc/hosts",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/expected_matrix.json"
+    },
+    "bucket4:v1_read:read_/tmp/foo": {
+      "expectation_id": "bucket4:v1_read:read_/tmp/foo",
+      "profile_id": "bucket4:v1_read",
+      "operation": "file-read*",
+      "op_id": 21,
+      "expected": "allow",
+      "target": "/tmp/foo",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/expected_matrix.json"
+    },
+    "bucket4:v1_read:write_/etc/hosts": {
+      "expectation_id": "bucket4:v1_read:write_/etc/hosts",
+      "profile_id": "bucket4:v1_read",
+      "operation": "file-write*",
+      "op_id": 29,
+      "expected": "deny",
+      "target": "/etc/hosts",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/expected_matrix.json"
+    },
+    "bucket5:v11_read_subpath:read_/tmp/bar": {
+      "expectation_id": "bucket5:v11_read_subpath:read_/tmp/bar",
+      "profile_id": "bucket5:v11_read_subpath",
+      "operation": "file-read*",
+      "op_id": 21,
+      "expected": "deny",
+      "target": "/tmp/bar",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/expected_matrix.json"
+    },
+    "bucket5:v11_read_subpath:read_/tmp/foo": {
+      "expectation_id": "bucket5:v11_read_subpath:read_/tmp/foo",
+      "profile_id": "bucket5:v11_read_subpath",
+      "operation": "file-read*",
+      "op_id": 21,
+      "expected": "allow",
+      "target": "/tmp/foo",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/expected_matrix.json"
+    },
+    "bucket5:v11_read_subpath:write_/tmp/foo": {
+      "expectation_id": "bucket5:v11_read_subpath:write_/tmp/foo",
+      "profile_id": "bucket5:v11_read_subpath",
+      "operation": "file-write*",
+      "op_id": 29,
+      "expected": "deny",
+      "target": "/tmp/foo",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/expected_matrix.json"
+    },
+    "hardened:mach_lookup:deny-bogus": {
+      "expectation_id": "hardened:mach_lookup:deny-bogus",
+      "profile_id": "hardened:mach_lookup",
+      "operation": "mach-lookup",
+      "op_id": 96,
+      "expected": "deny",
+      "target": "com.apple.sandbox-lore.hardened-runtime.bogus",
+      "driver": "sandbox_mach_probe",
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/hardened-runtime.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/expected_matrix.json"
+    },
+    "hardened:mach_lookup:deny-cfprefsd": {
+      "expectation_id": "hardened:mach_lookup:deny-cfprefsd",
+      "profile_id": "hardened:mach_lookup",
+      "operation": "mach-lookup",
+      "op_id": 96,
+      "expected": "deny",
+      "target": "com.apple.cfprefsd.agent",
+      "driver": "sandbox_mach_probe",
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/hardened-runtime.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/expected_matrix.json"
+    },
+    "hardened:mach_lookup_allow:allow-cfprefsd": {
+      "expectation_id": "hardened:mach_lookup_allow:allow-cfprefsd",
+      "profile_id": "hardened:mach_lookup_allow",
+      "operation": "mach-lookup",
+      "op_id": 96,
+      "expected": "allow",
+      "target": "com.apple.cfprefsd.agent",
+      "driver": "sandbox_mach_probe",
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/hardened-runtime.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/expected_matrix.json"
+    },
+    "hardened:notifications:deny-allowed-darwin": {
+      "expectation_id": "hardened:notifications:deny-allowed-darwin",
+      "profile_id": "hardened:notifications",
+      "operation": "darwin-notification-post",
+      "op_id": 7,
+      "expected": "deny",
+      "target": "com.sandboxlore.hardened_runtime.test1",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/hardened-runtime.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/expected_matrix.json"
+    },
+    "hardened:notifications:deny-allowed-distributed": {
+      "expectation_id": "hardened:notifications:deny-allowed-distributed",
+      "profile_id": "hardened:notifications",
+      "operation": "distributed-notification-post",
+      "op_id": 8,
+      "expected": "deny",
+      "target": "com.sandboxlore.hardened_runtime.test1",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/hardened-runtime.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/expected_matrix.json"
+    },
+    "hardened:notifications:deny-darwin": {
+      "expectation_id": "hardened:notifications:deny-darwin",
+      "profile_id": "hardened:notifications",
+      "operation": "darwin-notification-post",
+      "op_id": 7,
+      "expected": "deny",
+      "target": "com.sandboxlore.hardened_runtime.test2",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/hardened-runtime.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/expected_matrix.json"
+    },
+    "hardened:notifications:deny-distributed": {
+      "expectation_id": "hardened:notifications:deny-distributed",
+      "profile_id": "hardened:notifications",
+      "operation": "distributed-notification-post",
+      "op_id": 8,
+      "expected": "deny",
+      "target": "com.sandboxlore.hardened_runtime.test2",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/hardened-runtime.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/expected_matrix.json"
+    },
+    "hardened:notifications_allow:allow-darwin": {
+      "expectation_id": "hardened:notifications_allow:allow-darwin",
+      "profile_id": "hardened:notifications_allow",
+      "operation": "darwin-notification-post",
+      "op_id": 7,
+      "expected": "allow",
+      "target": "com.sandboxlore.hardened_runtime.test1",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/hardened-runtime.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/expected_matrix.json"
+    },
+    "hardened:notifications_allow:allow-distributed": {
+      "expectation_id": "hardened:notifications_allow:allow-distributed",
+      "profile_id": "hardened:notifications_allow",
+      "operation": "distributed-notification-post",
+      "op_id": 8,
+      "expected": "allow",
+      "target": "com.sandboxlore.hardened_runtime.test1",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/hardened-runtime.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/expected_matrix.json"
+    },
+    "hardened:process_info_allow:pidinfo-init": {
+      "expectation_id": "hardened:process_info_allow:pidinfo-init",
+      "profile_id": "hardened:process_info_allow",
+      "operation": "process-info-pidinfo",
+      "op_id": 129,
+      "expected": "deny",
+      "target": "1",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/hardened-runtime.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/expected_matrix.json"
+    },
+    "hardened:process_info_allow:pidinfo-self": {
+      "expectation_id": "hardened:process_info_allow:pidinfo-self",
+      "profile_id": "hardened:process_info_allow",
+      "operation": "process-info-pidinfo",
+      "op_id": 129,
+      "expected": "deny",
+      "target": "self",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/hardened-runtime.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/expected_matrix.json"
+    },
+    "hardened:process_info_allow_canary:pidinfo-self": {
+      "expectation_id": "hardened:process_info_allow_canary:pidinfo-self",
+      "profile_id": "hardened:process_info_allow_canary",
+      "operation": "process-info-pidinfo",
+      "op_id": 129,
+      "expected": "allow",
+      "target": "self",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/hardened-runtime.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/expected_matrix.json"
+    },
+    "hardened:process_info_deny:pidinfo-init": {
+      "expectation_id": "hardened:process_info_deny:pidinfo-init",
+      "profile_id": "hardened:process_info_deny",
+      "operation": "process-info-pidinfo",
+      "op_id": 129,
+      "expected": "deny",
+      "target": "1",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/hardened-runtime.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/expected_matrix.json"
+    },
+    "hardened:process_info_deny:pidinfo-self": {
+      "expectation_id": "hardened:process_info_deny:pidinfo-self",
+      "profile_id": "hardened:process_info_deny",
+      "operation": "process-info-pidinfo",
+      "op_id": 129,
+      "expected": "deny",
+      "target": "self",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/hardened-runtime.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/expected_matrix.json"
+    },
+    "hardened:signal_self_allow:signal-same-sandbox": {
+      "expectation_id": "hardened:signal_self_allow:signal-same-sandbox",
+      "profile_id": "hardened:signal_self_allow",
+      "operation": "signal",
+      "op_id": 145,
+      "expected": "allow",
+      "target": "same-sandbox",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/hardened-runtime.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/expected_matrix.json"
+    },
+    "hardened:signal_self_deny:signal-same-sandbox": {
+      "expectation_id": "hardened:signal_self_deny:signal-same-sandbox",
+      "profile_id": "hardened:signal_self_deny",
+      "operation": "signal",
+      "op_id": 145,
+      "expected": "deny",
+      "target": "same-sandbox",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/hardened-runtime.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/expected_matrix.json"
+    },
+    "hardened:sysctl_read:deny-kern-bootargs": {
+      "expectation_id": "hardened:sysctl_read:deny-kern-bootargs",
+      "profile_id": "hardened:sysctl_read",
+      "operation": "sysctl-read",
+      "op_id": 155,
+      "expected": "deny",
+      "target": "kern.bootargs",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/hardened-runtime.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/expected_matrix.json"
+    },
+    "hardened:sysctl_read:deny-kern-osrelease": {
+      "expectation_id": "hardened:sysctl_read:deny-kern-osrelease",
+      "profile_id": "hardened:sysctl_read",
+      "operation": "sysctl-read",
+      "op_id": 155,
+      "expected": "deny",
+      "target": "kern.osrelease",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/hardened-runtime.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/expected_matrix.json"
+    },
+    "hardened:sysctl_read_allow:allow-kern-ostype": {
+      "expectation_id": "hardened:sysctl_read_allow:allow-kern-ostype",
+      "profile_id": "hardened:sysctl_read_allow",
+      "operation": "sysctl-read",
+      "op_id": 155,
+      "expected": "allow",
+      "target": "kern.ostype",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/hardened-runtime.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/out/62456e46-0901-4345-b02d-f96becc33310/expected_matrix.json"
+    },
+    "metafilter_any|file-read*|/tmp/bar.txt": {
+      "expectation_id": "metafilter_any|file-read*|/tmp/bar.txt",
+      "profile_id": "runtime:metafilter_any",
+      "operation": "file-read*",
+      "op_id": 21,
+      "expected": "allow",
+      "target": "/tmp/bar.txt",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/expected_matrix.json"
+    },
+    "metafilter_any|file-read*|/tmp/baz.txt": {
+      "expectation_id": "metafilter_any|file-read*|/tmp/baz.txt",
+      "profile_id": "runtime:metafilter_any",
+      "operation": "file-read*",
+      "op_id": 21,
+      "expected": "deny",
+      "target": "/tmp/baz.txt",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/expected_matrix.json"
+    },
+    "metafilter_any|file-read*|/tmp/foo.txt": {
+      "expectation_id": "metafilter_any|file-read*|/tmp/foo.txt",
+      "profile_id": "runtime:metafilter_any",
+      "operation": "file-read*",
+      "op_id": 21,
+      "expected": "allow",
+      "target": "/tmp/foo.txt",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/expected_matrix.json"
+    },
+    "metafilter_any|file-read*|/tmp/qux.txt": {
+      "expectation_id": "metafilter_any|file-read*|/tmp/qux.txt",
+      "profile_id": "runtime:metafilter_any",
+      "operation": "file-read*",
+      "op_id": 21,
+      "expected": "allow",
+      "target": "/tmp/qux.txt",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/expected_matrix.json"
+    },
+    "metafilter_any|file-write*|/tmp/baz.txt": {
+      "expectation_id": "metafilter_any|file-write*|/tmp/baz.txt",
+      "profile_id": "runtime:metafilter_any",
+      "operation": "file-write*",
+      "op_id": 29,
+      "expected": "deny",
+      "target": "/tmp/baz.txt",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/expected_matrix.json"
+    },
+    "runtime:strict_1:read_hosts": {
+      "expectation_id": "runtime:strict_1:read_hosts",
+      "profile_id": "runtime:strict_1",
+      "operation": "file-read*",
+      "op_id": 21,
+      "expected": "deny",
+      "target": "/etc/hosts",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/expected_matrix.json"
+    },
+    "runtime:strict_1:read_ok": {
+      "expectation_id": "runtime:strict_1:read_ok",
+      "profile_id": "runtime:strict_1",
+      "operation": "file-read*",
+      "op_id": 21,
+      "expected": "allow",
+      "target": "/private/tmp/strict_ok/allow.txt",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/expected_matrix.json"
+    },
+    "runtime:strict_1:write_hosts": {
+      "expectation_id": "runtime:strict_1:write_hosts",
+      "profile_id": "runtime:strict_1",
+      "operation": "file-write*",
+      "op_id": 29,
+      "expected": "deny",
+      "target": "/etc/hosts",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/expected_matrix.json"
+    },
+    "runtime:strict_1:write_ok": {
+      "expectation_id": "runtime:strict_1:write_ok",
+      "profile_id": "runtime:strict_1",
+      "operation": "file-write*",
+      "op_id": 29,
+      "expected": "allow",
+      "target": "/private/tmp/strict_ok/allow.txt",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/expected_matrix.json"
+    },
+    "sys:airlock:read_/etc/hosts": {
+      "expectation_id": "sys:airlock:read_/etc/hosts",
+      "profile_id": "sys:airlock",
+      "operation": "file-read*",
+      "op_id": 21,
+      "expected": "deny",
+      "target": "/etc/hosts",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/expected_matrix.json"
+    },
+    "sys:airlock:read_/tmp/foo": {
+      "expectation_id": "sys:airlock:read_/tmp/foo",
+      "profile_id": "sys:airlock",
+      "operation": "file-read*",
+      "op_id": 21,
+      "expected": "deny",
+      "target": "/tmp/foo",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/expected_matrix.json"
+    },
+    "sys:airlock:write_/etc/hosts": {
+      "expectation_id": "sys:airlock:write_/etc/hosts",
+      "profile_id": "sys:airlock",
+      "operation": "file-write*",
+      "op_id": 29,
+      "expected": "deny",
+      "target": "/etc/hosts",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/expected_matrix.json"
+    },
+    "sys:airlock:write_/tmp/foo": {
+      "expectation_id": "sys:airlock:write_/tmp/foo",
+      "profile_id": "sys:airlock",
+      "operation": "file-write*",
+      "op_id": 29,
+      "expected": "deny",
+      "target": "/tmp/foo",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/expected_matrix.json"
+    },
+    "sys:bsd:read_/etc/hosts": {
+      "expectation_id": "sys:bsd:read_/etc/hosts",
+      "profile_id": "sys:bsd",
+      "operation": "file-read*",
+      "op_id": 21,
+      "expected": "deny",
+      "target": "/etc/hosts",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/expected_matrix.json"
+    },
+    "sys:bsd:read_/tmp/foo": {
+      "expectation_id": "sys:bsd:read_/tmp/foo",
+      "profile_id": "sys:bsd",
+      "operation": "file-read*",
+      "op_id": 21,
+      "expected": "deny",
+      "target": "/tmp/foo",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/expected_matrix.json"
+    },
+    "sys:bsd:write_/etc/hosts": {
+      "expectation_id": "sys:bsd:write_/etc/hosts",
+      "profile_id": "sys:bsd",
+      "operation": "file-write*",
+      "op_id": 29,
+      "expected": "deny",
+      "target": "/etc/hosts",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/expected_matrix.json"
+    },
+    "sys:bsd:write_/tmp/foo": {
+      "expectation_id": "sys:bsd:write_/tmp/foo",
+      "profile_id": "sys:bsd",
+      "operation": "file-write*",
+      "op_id": 29,
+      "expected": "deny",
+      "target": "/tmp/foo",
+      "driver": null,
+      "source_packet": "book/evidence/experiments/runtime-final-final/evidence/packets/runtime-checks.promotion_packet.json",
+      "expected_matrix": "book/evidence/experiments/runtime-final-final/suites/runtime-checks/out/1e641b64-6267-47df-b1c3-b320aa90e675/expected_matrix.json"
+    }
+  }
+}

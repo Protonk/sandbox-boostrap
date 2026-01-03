@@ -28,7 +28,7 @@ This file captures a kext-probe path to collect runtime evidence for `mac_policy
 
 ## Alignment metadata
 - Log KASLR slide, BootKC UUID/hash, sandbox kext UUID/hash, and the binary ranges used for image/segment classification.
-- In userland, keep a small static op-table index (from `book/evidence/graph/mappings/op_table/op_table_map.json`) to compare representative indices against captured `mpc_ops` without re-running the probe.
+- In userland, keep a small static op-table index (from `book/integration/carton/bundle/relationships/mappings/op_table/op_table_map.json`) to compare representative indices against captured `mpc_ops` without re-running the probe.
 
 ## Safety notes
 - Minimize instruction patching; verify alignment and cache sync after writes.

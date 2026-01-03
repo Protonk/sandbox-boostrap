@@ -9,11 +9,12 @@ ROOT = path_utils.find_repo_root(Path(__file__))
 INVENTORY = (
     ROOT
     / "book"
-    / "evidence"
-    / "experiments"
-    / "runtime-final-final"
-    / "suites"
-    / "hardened-runtime"
+    / "integration"
+    / "carton"
+    / "bundle"
+    / "relationships"
+    / "mappings"
+    / "runtime"
     / "other_runtime_inventory.json"
 )
 
@@ -34,7 +35,11 @@ def _iter_inventory_paths(doc: dict) -> list[str]:
 
 
 def test_hardened_runtime_inventory_paths_are_current():
-    assert INVENTORY.exists(), f"missing inventory: {INVENTORY} (run build_other_runtime_inventory.py)"
+    assert INVENTORY.exists(), (
+        "missing inventory: "
+        f"{INVENTORY} "
+        "(run book/integration/carton/mappings/runtime/generate_other_runtime_inventory.py)"
+    )
     doc = json.loads(INVENTORY.read_text())
     paths = _iter_inventory_paths(doc)
     assert paths, "expected inventory to include repo paths"
@@ -43,21 +48,7 @@ def test_hardened_runtime_inventory_paths_are_current():
     old_test_paths = []
     absolute_paths = []
     legacy_test_plane_paths = []
-
-    def _canonicalize_repo_path(rel: str) -> str:
-        # `other_runtime_inventory.json` lives under `book/evidence/experiments/` and is
-        # excluded from repo-wide link updates. That means it may legitimately
-        # contain historical references to test locations.
-        #
-        # We treat legacy test paths as an alias and validate that the *current*
-        # target exists on disk.
-        if rel.startswith("book/tests/planes/"):
-            legacy_test_plane_paths.append(rel)
-            return rel.replace("book/tests/planes/", "book/integration/tests/", 1)
-        if rel.startswith("book/tests/"):
-            legacy_test_plane_paths.append(rel)
-            return rel.replace("book/tests/", "book/integration/", 1)
-        return rel
+    legacy_mapping_paths = []
 
     for rel in paths:
         if Path(rel).is_absolute():
@@ -65,11 +56,22 @@ def test_hardened_runtime_inventory_paths_are_current():
             continue
         if rel.startswith("book/integration/test_"):
             old_test_paths.append(rel)
-        canon = _canonicalize_repo_path(rel)
-        if not (ROOT / canon).exists():
+        if rel.startswith("book/tests/planes/") or rel.startswith("book/tests/"):
+            legacy_test_plane_paths.append(rel)
+        if rel.startswith("book/graph/mappings/"):
+            legacy_mapping_paths.append(rel)
+        if not (ROOT / rel).exists():
             missing.append(rel)
 
     assert not absolute_paths, f"inventory contains absolute paths: {absolute_paths[:5]}"
+    assert not legacy_mapping_paths, (
+        "inventory references legacy book/graph/mappings paths; "
+        "regenerate via book/integration/carton/mappings/runtime/generate_other_runtime_inventory.py"
+    )
+    assert not legacy_test_plane_paths, (
+        "inventory still references legacy test paths; regenerate via "
+        "book/evidence/experiments/runtime-final-final/suites/hardened-runtime/build_other_runtime_inventory.py"
+    )
     assert not old_test_paths, (
         "inventory still references legacy test paths; regenerate via book/evidence/experiments/runtime-final-final/suites/hardened-runtime/build_other_runtime_inventory.py"
     )

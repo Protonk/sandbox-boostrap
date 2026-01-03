@@ -19,7 +19,7 @@ def test_anchor_filter_alignment_with_anchor_hits():
     delta attribution path is in use), and the pinned filter_id must appear
     among the observed field2 values for those anchors.
     """
-    amap = load_json(ROOT / "book" / "evidence" / "graph" / "mappings" / "anchors" / "anchor_filter_map.json")
+    amap = load_json(ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "anchors" / "anchor_filter_map.json")
     hits = load_json(
         ROOT
         / "book"

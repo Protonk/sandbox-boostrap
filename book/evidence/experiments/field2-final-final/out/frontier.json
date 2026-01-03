@@ -6,7 +6,7 @@
     "inventory": "book/evidence/experiments/field2-final-final/field2-filters/out/field2_inventory.json",
     "unknown_nodes": "book/evidence/experiments/field2-final-final/field2-filters/out/unknown_nodes.json",
     "anchor_hits": "book/evidence/experiments/field2-final-final/probe-op-structure/out/anchor_hits.json",
-    "atlas": "book/evidence/experiments/field2-final-final/field2-atlas/out/derived/738fc3d0-1d12-4608-9a97-90addfbc8d4c/atlas/field2_atlas.json"
+    "atlas": "book/evidence/experiments/field2-final-final/field2-atlas/out/derived/62456e46-0901-4345-b02d-f96becc33310/atlas/field2_atlas.json"
   },
   "candidates": [
     {
@@ -37,7 +37,7 @@
         "IOSurfaceRootUserClient"
       ],
       "inventory": {
-        "count": 131,
+        "count": 118,
         "profiles_sample": [
           "probe-op:v0_file_require_all.sb",
           "probe-op:v10_iokit_user_client_pair.sb",
@@ -81,7 +81,7 @@
         "IOSurfaceRootUserClient"
       ],
       "inventory": {
-        "count": 157,
+        "count": 155,
         "profiles_sample": [
           "probe-op:v10_iokit_user_client_pair.sb",
           "probe-op:v11_iokit_user_client_connection.sb",
@@ -120,7 +120,7 @@
         "/tmp/foo"
       ],
       "inventory": {
-        "count": 63,
+        "count": 61,
         "profiles_sample": [
           "probe-op:v10_iokit_user_client_pair.sb",
           "probe-op:v2_file_three_filters_any.sb",
@@ -158,7 +158,7 @@
         "/tmp/foo"
       ],
       "inventory": {
-        "count": 108,
+        "count": 105,
         "profiles_sample": [
           "probe-op:v0_file_require_all.sb",
           "probe-op:v11_iokit_user_client_connection.sb",
@@ -197,7 +197,7 @@
         "IOUSBHostInterface"
       ],
       "inventory": {
-        "count": 276,
+        "count": 274,
         "profiles_sample": [
           "probe-op:v0_file_require_all.sb",
           "probe-op:v10_iokit_user_client_pair.sb",
@@ -230,7 +230,7 @@
         "probe_name": "allow-cfprefsd",
         "scenario_id": "field2-5-mach-global"
       },
-      "anchor_count": 8,
+      "anchor_count": 7,
       "anchors_sample": [
         "/etc/hosts",
         "/tmp/foo",
@@ -240,7 +240,7 @@
         "com.apple.cfprefsd.agent"
       ],
       "inventory": {
-        "count": 660,
+        "count": 658,
         "profiles_sample": [
           "probe-op:v10_iokit_user_client_pair.sb",
           "probe-op:v11_iokit_user_client_connection.sb",
@@ -259,7 +259,7 @@
     {
       "field2": 6,
       "filter_name": "local-name",
-      "status": "seed_only",
+      "status": "runtime_backed",
       "sources": [
         "seed_manifest",
         "inventory",
@@ -292,7 +292,7 @@
         "count": 0,
         "profiles_sample": []
       },
-      "score": 19
+      "score": -100
     },
     {
       "field2": 7,
@@ -311,13 +311,12 @@
         "probe_name": "allow-cfprefsd-local",
         "scenario_id": "field2-7-mach-local"
       },
-      "anchor_count": 2,
+      "anchor_count": 1,
       "anchors_sample": [
-        "/etc/hosts",
         "flow-divert"
       ],
       "inventory": {
-        "count": 250,
+        "count": 232,
         "profiles_sample": [
           "probe-op:v4_network_socket_require_all.sb",
           "probe-op:v7_file_network_combo.sb",
@@ -336,7 +335,7 @@
     {
       "field2": 8,
       "filter_name": "remote",
-      "status": "inventory_only",
+      "status": "retired",
       "sources": [
         "inventory"
       ],
@@ -345,42 +344,13 @@
       "anchor_count": 0,
       "anchors_sample": [],
       "inventory": {
-        "count": 169,
+        "count": 145,
         "profiles_sample": [
           "probe-op:v4_network_socket_require_all.sb",
           "probe-op:v7_file_network_combo.sb",
           "probe:bsd_ops_default_file.sb",
           "probe:net_require_all_domain_type_proto.sb",
-          "probe:net_require_all_domain_type_proto_udp.sb",
-          "sys:bsd"
-        ]
-      },
-      "unknown": {
-        "count": 0,
-        "profiles_sample": []
-      },
-      "score": -3
-    },
-    {
-      "field2": 9,
-      "filter_name": "control-name",
-      "status": "retired",
-      "sources": [
-        "inventory",
-        "anchor_hits"
-      ],
-      "target_ops": [],
-      "runtime_candidate": null,
-      "anchor_count": 1,
-      "anchors_sample": [
-        "app-sandbox.read"
-      ],
-      "inventory": {
-        "count": 3,
-        "profiles_sample": [
-          "probe-op:v8_all_combo.sb",
-          "sys:airlock",
-          "sys:bsd"
+          "probe:net_require_all_domain_type_proto_udp.sb"
         ]
       },
       "unknown": {
@@ -390,24 +360,20 @@
       "score": -1000
     },
     {
-      "field2": 10,
-      "filter_name": "socket-domain",
+      "field2": 9,
+      "filter_name": "control-name",
       "status": "retired",
       "sources": [
-        "inventory",
-        "anchor_hits"
+        "inventory"
       ],
       "target_ops": [],
       "runtime_candidate": null,
-      "anchor_count": 1,
-      "anchors_sample": [
-        "app-sandbox.read"
-      ],
+      "anchor_count": 0,
+      "anchors_sample": [],
       "inventory": {
-        "count": 8,
+        "count": 1,
         "profiles_sample": [
-          "sys:airlock",
-          "sys:bsd"
+          "probe-op:v8_all_combo.sb"
         ]
       },
       "unknown": {
@@ -434,10 +400,9 @@
         "flow-divert"
       ],
       "inventory": {
-        "count": 15,
+        "count": 14,
         "profiles_sample": [
-          "probe-op:v8_all_combo.sb",
-          "sys:bsd"
+          "probe-op:v8_all_combo.sb"
         ]
       },
       "unknown": {
@@ -449,7 +414,7 @@
     {
       "field2": 12,
       "filter_name": "socket-protocol",
-      "status": "inventory_only",
+      "status": "retired",
       "sources": [
         "inventory"
       ],
@@ -458,157 +423,16 @@
       "anchor_count": 0,
       "anchors_sample": [],
       "inventory": {
-        "count": 29,
+        "count": 28,
         "profiles_sample": [
-          "probe-op:v8_all_combo.sb",
-          "sys:bsd"
+          "probe-op:v8_all_combo.sb"
         ]
       },
       "unknown": {
         "count": 0,
         "profiles_sample": []
       },
-      "score": -3
-    },
-    {
-      "field2": 15,
-      "filter_name": "ioctl-command",
-      "status": "inventory_only",
-      "sources": [
-        "inventory"
-      ],
-      "target_ops": [],
-      "runtime_candidate": null,
-      "anchor_count": 0,
-      "anchors_sample": [],
-      "inventory": {
-        "count": 4,
-        "profiles_sample": [
-          "sys:bsd",
-          "sys:sample"
-        ]
-      },
-      "unknown": {
-        "count": 0,
-        "profiles_sample": []
-      },
-      "score": -3
-    },
-    {
-      "field2": 16,
-      "filter_name": "iokit-registry-entry-class",
-      "status": "inventory_only",
-      "sources": [
-        "inventory"
-      ],
-      "target_ops": [],
-      "runtime_candidate": null,
-      "anchor_count": 0,
-      "anchors_sample": [],
-      "inventory": {
-        "count": 2,
-        "profiles_sample": [
-          "sys:airlock",
-          "sys:bsd"
-        ]
-      },
-      "unknown": {
-        "count": 0,
-        "profiles_sample": []
-      },
-      "score": -3
-    },
-    {
-      "field2": 17,
-      "filter_name": "iokit-property",
-      "status": "inventory_only",
-      "sources": [
-        "inventory"
-      ],
-      "target_ops": [],
-      "runtime_candidate": null,
-      "anchor_count": 0,
-      "anchors_sample": [],
-      "inventory": {
-        "count": 1,
-        "profiles_sample": [
-          "sys:bsd"
-        ]
-      },
-      "unknown": {
-        "count": 0,
-        "profiles_sample": []
-      },
-      "score": -3
-    },
-    {
-      "field2": 18,
-      "filter_name": "iokit-connection",
-      "status": "inventory_only",
-      "sources": [
-        "inventory"
-      ],
-      "target_ops": [],
-      "runtime_candidate": null,
-      "anchor_count": 0,
-      "anchors_sample": [],
-      "inventory": {
-        "count": 1,
-        "profiles_sample": [
-          "sys:bsd"
-        ]
-      },
-      "unknown": {
-        "count": 0,
-        "profiles_sample": []
-      },
-      "score": -3
-    },
-    {
-      "field2": 22,
-      "filter_name": "extension",
-      "status": "inventory_only",
-      "sources": [
-        "inventory"
-      ],
-      "target_ops": [],
-      "runtime_candidate": null,
-      "anchor_count": 0,
-      "anchors_sample": [],
-      "inventory": {
-        "count": 1,
-        "profiles_sample": [
-          "sys:bsd"
-        ]
-      },
-      "unknown": {
-        "count": 0,
-        "profiles_sample": []
-      },
-      "score": -3
-    },
-    {
-      "field2": 23,
-      "filter_name": "extension-class",
-      "status": "inventory_only",
-      "sources": [
-        "inventory"
-      ],
-      "target_ops": [],
-      "runtime_candidate": null,
-      "anchor_count": 0,
-      "anchors_sample": [],
-      "inventory": {
-        "count": 1,
-        "profiles_sample": [
-          "sys:bsd"
-        ]
-      },
-      "unknown": {
-        "count": 0,
-        "profiles_sample": []
-      },
-      "score": -3
+      "score": -1000
     },
     {
       "field2": 26,
@@ -628,13 +452,12 @@
         "flow-divert"
       ],
       "inventory": {
-        "count": 17,
+        "count": 4,
         "profiles_sample": [
           "probe-op:v4_network_socket_require_all.sb",
           "probe-op:v7_file_network_combo.sb",
           "probe:net_require_all_domain_type_proto.sb",
-          "probe:net_require_all_domain_type_proto_udp.sb",
-          "sys:bsd"
+          "probe:net_require_all_domain_type_proto_udp.sb"
         ]
       },
       "unknown": {
@@ -648,8 +471,7 @@
       "filter_name": "preference-domain",
       "status": "retired",
       "sources": [
-        "seed_manifest",
-        "inventory"
+        "seed_manifest"
       ],
       "target_ops": [
         "user-preference-read",
@@ -659,10 +481,8 @@
       "anchor_count": 0,
       "anchors_sample": [],
       "inventory": {
-        "count": 35,
-        "profiles_sample": [
-          "sys:bsd"
-        ]
+        "count": 0,
+        "profiles_sample": []
       },
       "unknown": {
         "count": 0,
@@ -673,7 +493,7 @@
     {
       "field2": 29,
       "filter_name": "%entitlement-load",
-      "status": "inventory_only",
+      "status": "retired",
       "sources": [
         "inventory"
       ],
@@ -691,38 +511,14 @@
         "count": 0,
         "profiles_sample": []
       },
-      "score": -3
-    },
-    {
-      "field2": 32,
-      "filter_name": "kext-bundle-id",
-      "status": "inventory_only",
-      "sources": [
-        "inventory"
-      ],
-      "target_ops": [],
-      "runtime_candidate": null,
-      "anchor_count": 0,
-      "anchors_sample": [],
-      "inventory": {
-        "count": 1,
-        "profiles_sample": [
-          "sys:airlock"
-        ]
-      },
-      "unknown": {
-        "count": 0,
-        "profiles_sample": []
-      },
-      "score": -3
+      "score": -1000
     },
     {
       "field2": 34,
       "filter_name": "notification-name",
-      "status": "seed_only",
+      "status": "runtime_backed",
       "sources": [
-        "seed_manifest",
-        "inventory"
+        "seed_manifest"
       ],
       "target_ops": [
         "darwin-notification-post",
@@ -736,44 +532,19 @@
       "anchor_count": 0,
       "anchors_sample": [],
       "inventory": {
-        "count": 13,
-        "profiles_sample": [
-          "sys:airlock"
-        ]
+        "count": 0,
+        "profiles_sample": []
       },
       "unknown": {
         "count": 0,
         "profiles_sample": []
       },
-      "score": 14
-    },
-    {
-      "field2": 35,
-      "filter_name": "notification-payload",
-      "status": "inventory_only",
-      "sources": [
-        "inventory"
-      ],
-      "target_ops": [],
-      "runtime_candidate": null,
-      "anchor_count": 0,
-      "anchors_sample": [],
-      "inventory": {
-        "count": 1,
-        "profiles_sample": [
-          "sys:airlock"
-        ]
-      },
-      "unknown": {
-        "count": 0,
-        "profiles_sample": []
-      },
-      "score": -3
+      "score": -100
     },
     {
       "field2": 37,
       "filter_name": "sysctl-name",
-      "status": "seed_only",
+      "status": "runtime_backed",
       "sources": [
         "seed_manifest"
       ],
@@ -795,53 +566,7 @@
         "count": 0,
         "profiles_sample": []
       },
-      "score": 14
-    },
-    {
-      "field2": 38,
-      "filter_name": "process-path",
-      "status": "inventory_only",
-      "sources": [
-        "inventory"
-      ],
-      "target_ops": [],
-      "runtime_candidate": null,
-      "anchor_count": 0,
-      "anchors_sample": [],
-      "inventory": {
-        "count": 1,
-        "profiles_sample": [
-          "sys:airlock"
-        ]
-      },
-      "unknown": {
-        "count": 0,
-        "profiles_sample": []
-      },
-      "score": -3
-    },
-    {
-      "field2": 39,
-      "filter_name": "rootless-boot-device-filter",
-      "status": "inventory_only",
-      "sources": [
-        "inventory"
-      ],
-      "target_ops": [],
-      "runtime_candidate": null,
-      "anchor_count": 0,
-      "anchors_sample": [],
-      "inventory": {
-        "count": 1,
-        "profiles_sample": [
-          "sys:airlock"
-        ]
-      },
-      "unknown": {
-        "count": 0,
-        "profiles_sample": []
-      },
-      "score": -3
+      "score": -100
     },
     {
       "field2": 49,
@@ -881,10 +606,9 @@
         "/etc/hosts"
       ],
       "inventory": {
-        "count": 2,
+        "count": 1,
         "profiles_sample": [
-          "probe-op:v8_all_combo.sb",
-          "sys:airlock"
+          "probe-op:v8_all_combo.sb"
         ]
       },
       "unknown": {
@@ -892,590 +616,6 @@
         "profiles_sample": []
       },
       "score": -1000
-    },
-    {
-      "field2": 66,
-      "filter_name": "iokit-registry-entry-attribute",
-      "status": "inventory_only",
-      "sources": [
-        "inventory"
-      ],
-      "target_ops": [],
-      "runtime_candidate": null,
-      "anchor_count": 0,
-      "anchors_sample": [],
-      "inventory": {
-        "count": 1,
-        "profiles_sample": [
-          "sys:airlock"
-        ]
-      },
-      "unknown": {
-        "count": 0,
-        "profiles_sample": []
-      },
-      "score": -3
-    },
-    {
-      "field2": 77,
-      "filter_name": "fcntl-command",
-      "status": "inventory_only",
-      "sources": [
-        "inventory"
-      ],
-      "target_ops": [],
-      "runtime_candidate": null,
-      "anchor_count": 0,
-      "anchors_sample": [],
-      "inventory": {
-        "count": 1,
-        "profiles_sample": [
-          "sys:airlock"
-        ]
-      },
-      "unknown": {
-        "count": 0,
-        "profiles_sample": []
-      },
-      "score": -3
-    },
-    {
-      "field2": 79,
-      "filter_name": "socket-option-name",
-      "status": "inventory_only",
-      "sources": [
-        "inventory"
-      ],
-      "target_ops": [],
-      "runtime_candidate": null,
-      "anchor_count": 0,
-      "anchors_sample": [],
-      "inventory": {
-        "count": 1,
-        "profiles_sample": [
-          "sys:airlock"
-        ]
-      },
-      "unknown": {
-        "count": 0,
-        "profiles_sample": []
-      },
-      "score": -3
-    },
-    {
-      "field2": 89,
-      "filter_name": "fileprovider-syncroot-path",
-      "status": "inventory_only",
-      "sources": [
-        "inventory"
-      ],
-      "target_ops": [],
-      "runtime_candidate": null,
-      "anchor_count": 0,
-      "anchors_sample": [],
-      "inventory": {
-        "count": 1,
-        "profiles_sample": [
-          "sys:airlock"
-        ]
-      },
-      "unknown": {
-        "count": 0,
-        "profiles_sample": []
-      },
-      "score": -3
-    },
-    {
-      "field2": 99,
-      "filter_name": null,
-      "status": "inventory_only",
-      "sources": [
-        "inventory"
-      ],
-      "target_ops": [],
-      "runtime_candidate": null,
-      "anchor_count": 0,
-      "anchors_sample": [],
-      "inventory": {
-        "count": 1,
-        "profiles_sample": [
-          "sys:airlock"
-        ]
-      },
-      "unknown": {
-        "count": 0,
-        "profiles_sample": []
-      },
-      "score": -6
-    },
-    {
-      "field2": 118,
-      "filter_name": null,
-      "status": "inventory_only",
-      "sources": [
-        "inventory"
-      ],
-      "target_ops": [],
-      "runtime_candidate": null,
-      "anchor_count": 0,
-      "anchors_sample": [],
-      "inventory": {
-        "count": 1,
-        "profiles_sample": [
-          "sys:airlock"
-        ]
-      },
-      "unknown": {
-        "count": 0,
-        "profiles_sample": []
-      },
-      "score": -6
-    },
-    {
-      "field2": 121,
-      "filter_name": null,
-      "status": "inventory_only",
-      "sources": [
-        "inventory"
-      ],
-      "target_ops": [],
-      "runtime_candidate": null,
-      "anchor_count": 0,
-      "anchors_sample": [],
-      "inventory": {
-        "count": 1,
-        "profiles_sample": [
-          "sys:airlock"
-        ]
-      },
-      "unknown": {
-        "count": 0,
-        "profiles_sample": []
-      },
-      "score": -6
-    },
-    {
-      "field2": 123,
-      "filter_name": null,
-      "status": "inventory_only",
-      "sources": [
-        "inventory"
-      ],
-      "target_ops": [],
-      "runtime_candidate": null,
-      "anchor_count": 0,
-      "anchors_sample": [],
-      "inventory": {
-        "count": 1,
-        "profiles_sample": [
-          "sys:airlock"
-        ]
-      },
-      "unknown": {
-        "count": 0,
-        "profiles_sample": []
-      },
-      "score": -6
-    },
-    {
-      "field2": 126,
-      "filter_name": null,
-      "status": "inventory_only",
-      "sources": [
-        "inventory"
-      ],
-      "target_ops": [],
-      "runtime_candidate": null,
-      "anchor_count": 0,
-      "anchors_sample": [],
-      "inventory": {
-        "count": 1,
-        "profiles_sample": [
-          "sys:airlock"
-        ]
-      },
-      "unknown": {
-        "count": 0,
-        "profiles_sample": []
-      },
-      "score": -6
-    },
-    {
-      "field2": 128,
-      "filter_name": null,
-      "status": "inventory_only",
-      "sources": [
-        "inventory"
-      ],
-      "target_ops": [],
-      "runtime_candidate": null,
-      "anchor_count": 0,
-      "anchors_sample": [],
-      "inventory": {
-        "count": 1,
-        "profiles_sample": [
-          "sys:airlock"
-        ]
-      },
-      "unknown": {
-        "count": 0,
-        "profiles_sample": []
-      },
-      "score": -6
-    },
-    {
-      "field2": 131,
-      "filter_name": null,
-      "status": "inventory_only",
-      "sources": [
-        "inventory"
-      ],
-      "target_ops": [],
-      "runtime_candidate": null,
-      "anchor_count": 0,
-      "anchors_sample": [],
-      "inventory": {
-        "count": 1,
-        "profiles_sample": [
-          "sys:airlock"
-        ]
-      },
-      "unknown": {
-        "count": 0,
-        "profiles_sample": []
-      },
-      "score": -6
-    },
-    {
-      "field2": 134,
-      "filter_name": null,
-      "status": "inventory_only",
-      "sources": [
-        "inventory"
-      ],
-      "target_ops": [],
-      "runtime_candidate": null,
-      "anchor_count": 0,
-      "anchors_sample": [],
-      "inventory": {
-        "count": 1,
-        "profiles_sample": [
-          "sys:airlock"
-        ]
-      },
-      "unknown": {
-        "count": 0,
-        "profiles_sample": []
-      },
-      "score": -6
-    },
-    {
-      "field2": 135,
-      "filter_name": null,
-      "status": "inventory_only",
-      "sources": [
-        "inventory"
-      ],
-      "target_ops": [],
-      "runtime_candidate": null,
-      "anchor_count": 0,
-      "anchors_sample": [],
-      "inventory": {
-        "count": 1,
-        "profiles_sample": [
-          "sys:airlock"
-        ]
-      },
-      "unknown": {
-        "count": 0,
-        "profiles_sample": []
-      },
-      "score": -6
-    },
-    {
-      "field2": 140,
-      "filter_name": null,
-      "status": "inventory_only",
-      "sources": [
-        "inventory"
-      ],
-      "target_ops": [],
-      "runtime_candidate": null,
-      "anchor_count": 0,
-      "anchors_sample": [],
-      "inventory": {
-        "count": 1,
-        "profiles_sample": [
-          "sys:airlock"
-        ]
-      },
-      "unknown": {
-        "count": 0,
-        "profiles_sample": []
-      },
-      "score": -6
-    },
-    {
-      "field2": 141,
-      "filter_name": null,
-      "status": "inventory_only",
-      "sources": [
-        "inventory"
-      ],
-      "target_ops": [],
-      "runtime_candidate": null,
-      "anchor_count": 0,
-      "anchors_sample": [],
-      "inventory": {
-        "count": 1,
-        "profiles_sample": [
-          "sys:airlock"
-        ]
-      },
-      "unknown": {
-        "count": 0,
-        "profiles_sample": []
-      },
-      "score": -6
-    },
-    {
-      "field2": 142,
-      "filter_name": null,
-      "status": "inventory_only",
-      "sources": [
-        "inventory",
-        "anchor_hits"
-      ],
-      "target_ops": [],
-      "runtime_candidate": null,
-      "anchor_count": 1,
-      "anchors_sample": [
-        "app-sandbox.read"
-      ],
-      "inventory": {
-        "count": 1,
-        "profiles_sample": [
-          "sys:airlock"
-        ]
-      },
-      "unknown": {
-        "count": 0,
-        "profiles_sample": []
-      },
-      "score": -1
-    },
-    {
-      "field2": 143,
-      "filter_name": null,
-      "status": "inventory_only",
-      "sources": [
-        "inventory"
-      ],
-      "target_ops": [],
-      "runtime_candidate": null,
-      "anchor_count": 0,
-      "anchors_sample": [],
-      "inventory": {
-        "count": 1,
-        "profiles_sample": [
-          "sys:airlock"
-        ]
-      },
-      "unknown": {
-        "count": 0,
-        "profiles_sample": []
-      },
-      "score": -6
-    },
-    {
-      "field2": 144,
-      "filter_name": null,
-      "status": "inventory_only",
-      "sources": [
-        "inventory"
-      ],
-      "target_ops": [],
-      "runtime_candidate": null,
-      "anchor_count": 0,
-      "anchors_sample": [],
-      "inventory": {
-        "count": 1,
-        "profiles_sample": [
-          "sys:airlock"
-        ]
-      },
-      "unknown": {
-        "count": 0,
-        "profiles_sample": []
-      },
-      "score": -6
-    },
-    {
-      "field2": 145,
-      "filter_name": null,
-      "status": "inventory_only",
-      "sources": [
-        "inventory"
-      ],
-      "target_ops": [],
-      "runtime_candidate": null,
-      "anchor_count": 0,
-      "anchors_sample": [],
-      "inventory": {
-        "count": 1,
-        "profiles_sample": [
-          "sys:airlock"
-        ]
-      },
-      "unknown": {
-        "count": 0,
-        "profiles_sample": []
-      },
-      "score": -6
-    },
-    {
-      "field2": 149,
-      "filter_name": null,
-      "status": "inventory_only",
-      "sources": [
-        "inventory"
-      ],
-      "target_ops": [],
-      "runtime_candidate": null,
-      "anchor_count": 0,
-      "anchors_sample": [],
-      "inventory": {
-        "count": 1,
-        "profiles_sample": [
-          "sys:airlock"
-        ]
-      },
-      "unknown": {
-        "count": 0,
-        "profiles_sample": []
-      },
-      "score": -6
-    },
-    {
-      "field2": 158,
-      "filter_name": null,
-      "status": "inventory_only",
-      "sources": [
-        "inventory"
-      ],
-      "target_ops": [],
-      "runtime_candidate": null,
-      "anchor_count": 0,
-      "anchors_sample": [],
-      "inventory": {
-        "count": 1,
-        "profiles_sample": [
-          "sys:airlock"
-        ]
-      },
-      "unknown": {
-        "count": 0,
-        "profiles_sample": []
-      },
-      "score": -6
-    },
-    {
-      "field2": 160,
-      "filter_name": null,
-      "status": "inventory_only",
-      "sources": [
-        "inventory"
-      ],
-      "target_ops": [],
-      "runtime_candidate": null,
-      "anchor_count": 0,
-      "anchors_sample": [],
-      "inventory": {
-        "count": 1,
-        "profiles_sample": [
-          "sys:airlock"
-        ]
-      },
-      "unknown": {
-        "count": 0,
-        "profiles_sample": []
-      },
-      "score": -6
-    },
-    {
-      "field2": 164,
-      "filter_name": null,
-      "status": "inventory_only",
-      "sources": [
-        "inventory"
-      ],
-      "target_ops": [],
-      "runtime_candidate": null,
-      "anchor_count": 0,
-      "anchors_sample": [],
-      "inventory": {
-        "count": 3,
-        "profiles_sample": [
-          "sys:airlock"
-        ]
-      },
-      "unknown": {
-        "count": 0,
-        "profiles_sample": []
-      },
-      "score": -6
-    },
-    {
-      "field2": 165,
-      "filter_name": null,
-      "status": "retired",
-      "sources": [
-        "inventory",
-        "unknown_nodes",
-        "anchor_hits"
-      ],
-      "target_ops": [],
-      "runtime_candidate": null,
-      "anchor_count": 1,
-      "anchors_sample": [
-        "app-sandbox.read"
-      ],
-      "inventory": {
-        "count": 97,
-        "profiles_sample": [
-          "sys:airlock"
-        ]
-      },
-      "unknown": {
-        "count": 5,
-        "profiles_sample": [
-          "sys:airlock"
-        ]
-      },
-      "score": -1000
-    },
-    {
-      "field2": 166,
-      "filter_name": null,
-      "status": "inventory_only",
-      "sources": [
-        "inventory"
-      ],
-      "target_ops": [],
-      "runtime_candidate": null,
-      "anchor_count": 0,
-      "anchors_sample": [],
-      "inventory": {
-        "count": 9,
-        "profiles_sample": [
-          "sys:airlock"
-        ]
-      },
-      "unknown": {
-        "count": 0,
-        "profiles_sample": []
-      },
-      "score": -6
     },
     {
       "field2": 256,
@@ -1494,18 +634,16 @@
         "/tmp/foo"
       ],
       "inventory": {
-        "count": 8,
+        "count": 5,
         "profiles_sample": [
           "probe-op:v8_all_combo.sb",
-          "probe:bsd_ops_default_file.sb",
-          "sys:sample"
+          "probe:bsd_ops_default_file.sb"
         ]
       },
       "unknown": {
-        "count": 2,
+        "count": 1,
         "profiles_sample": [
-          "probe:bsd_ops_default_file.sb",
-          "sys:sample"
+          "probe:bsd_ops_default_file.sb"
         ]
       },
       "score": -1000
@@ -1527,7 +665,7 @@
         "flow-divert"
       ],
       "inventory": {
-        "count": 7,
+        "count": 6,
         "profiles_sample": [
           "probe-op:v4_network_socket_require_all.sb",
           "probe-op:v7_file_network_combo.sb",
@@ -1538,7 +676,7 @@
         ]
       },
       "unknown": {
-        "count": 7,
+        "count": 6,
         "profiles_sample": [
           "probe-op:v4_network_socket_require_all.sb",
           "probe-op:v7_file_network_combo.sb",
@@ -1553,7 +691,7 @@
     {
       "field2": 1536,
       "filter_name": null,
-      "status": "inventory_only",
+      "status": "retired",
       "sources": [
         "inventory",
         "anchor_hits"
@@ -1575,7 +713,7 @@
         "count": 0,
         "profiles_sample": []
       },
-      "score": -1
+      "score": -1000
     },
     {
       "field2": 2560,
@@ -1682,7 +820,7 @@
     {
       "field2": 3328,
       "filter_name": null,
-      "status": "inventory_only",
+      "status": "retired",
       "sources": [
         "inventory",
         "anchor_hits"
@@ -1709,7 +847,7 @@
         "count": 0,
         "profiles_sample": []
       },
-      "score": -1
+      "score": -1000
     },
     {
       "field2": 3584,
@@ -1729,7 +867,7 @@
         "flow-divert"
       ],
       "inventory": {
-        "count": 27,
+        "count": 24,
         "profiles_sample": [
           "probe-op:v0_file_require_all.sb",
           "probe-op:v12_iokit_control.sb",
@@ -1743,9 +881,9 @@
         "count": 4,
         "profiles_sample": [
           "probe-op:v0_file_require_all.sb",
+          "probe-op:v12_iokit_control.sb",
           "probe:airlock_system_fcntl_matrix.sb",
-          "probe:bsd_ops_default_file.sb",
-          "sys:sample"
+          "probe:bsd_ops_default_file.sb"
         ]
       },
       "score": -1000
@@ -1753,7 +891,7 @@
     {
       "field2": 4352,
       "filter_name": null,
-      "status": "inventory_only",
+      "status": "retired",
       "sources": [
         "inventory",
         "anchor_hits"
@@ -1774,14 +912,15 @@
         "count": 0,
         "profiles_sample": []
       },
-      "score": -1
+      "score": -1000
     },
     {
       "field2": 7424,
       "filter_name": null,
-      "status": "inventory_only",
+      "status": "retired",
       "sources": [
         "inventory",
+        "unknown_nodes",
         "anchor_hits"
       ],
       "target_ops": [],
@@ -1791,17 +930,18 @@
         "/etc/hosts"
       ],
       "inventory": {
-        "count": 2,
+        "count": 1,
         "profiles_sample": [
-          "probe-op:v8_all_combo.sb",
-          "sys:sample"
+          "probe-op:v8_all_combo.sb"
         ]
       },
       "unknown": {
-        "count": 0,
-        "profiles_sample": []
+        "count": 1,
+        "profiles_sample": [
+          "probe-op:v8_all_combo.sb"
+        ]
       },
-      "score": -1
+      "score": -1000
     },
     {
       "field2": 12096,
@@ -1839,9 +979,10 @@
     {
       "field2": 18753,
       "filter_name": null,
-      "status": "inventory_only",
+      "status": "retired",
       "sources": [
         "inventory",
+        "unknown_nodes",
         "anchor_hits"
       ],
       "target_ops": [],
@@ -1857,59 +998,12 @@
         ]
       },
       "unknown": {
-        "count": 0,
-        "profiles_sample": []
-      },
-      "score": -1
-    },
-    {
-      "field2": 48915,
-      "filter_name": null,
-      "status": "inventory_only",
-      "sources": [
-        "inventory"
-      ],
-      "target_ops": [],
-      "runtime_candidate": null,
-      "anchor_count": 0,
-      "anchors_sample": [],
-      "inventory": {
         "count": 1,
         "profiles_sample": [
-          "sys:airlock"
+          "probe-op:v10_iokit_user_client_pair.sb"
         ]
       },
-      "unknown": {
-        "count": 0,
-        "profiles_sample": []
-      },
-      "score": -6
-    },
-    {
-      "field2": 49171,
-      "filter_name": null,
-      "status": "inventory_only",
-      "sources": [
-        "inventory",
-        "unknown_nodes"
-      ],
-      "target_ops": [],
-      "runtime_candidate": null,
-      "anchor_count": 0,
-      "anchors_sample": [],
-      "inventory": {
-        "count": 6,
-        "profiles_sample": [
-          "sys:airlock"
-        ]
-      },
-      "unknown": {
-        "count": 1,
-        "profiles_sample": [
-          "sys:airlock"
-        ]
-      },
-      "score": -4
+      "score": -1000
     },
     {
       "field2": 65535,

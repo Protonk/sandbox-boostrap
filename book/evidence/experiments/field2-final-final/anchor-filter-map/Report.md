@@ -1,17 +1,17 @@
 # Anchor ↔ Filter ID Mapping – Research Report
 
 ## Purpose
-Bind anchor labels emitted by `probe-op-structure` to concrete Filter IDs, while avoiding the “string-only anchor identity” trap: the same SBPL literal can legitimately appear in multiple disjoint filter contexts (and in non-filter structural roles). The canonical output is therefore ctx-indexed (`book/evidence/graph/mappings/anchors/anchor_ctx_filter_map.json`), with a conservative literal-keyed compatibility view (`book/evidence/graph/mappings/anchors/anchor_filter_map.json`) generated from it.
+Bind anchor labels emitted by `probe-op-structure` to concrete Filter IDs, while avoiding the “string-only anchor identity” trap: the same SBPL literal can legitimately appear in multiple disjoint filter contexts (and in non-filter structural roles). The canonical output is therefore ctx-indexed (`book/integration/carton/bundle/relationships/mappings/anchors/anchor_ctx_filter_map.json`), with a conservative literal-keyed compatibility view (`book/integration/carton/bundle/relationships/mappings/anchors/anchor_filter_map.json`) generated from it.
 
 ## Baseline & scope
 - World: Sonoma baseline from `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
 - Inputs:
   - Anchor hits from `book/evidence/experiments/field2-final-final/probe-op-structure/out/anchor_hits.json`.
   - Field2 inventory (with anchors) from `book/evidence/experiments/field2-final-final/field2-filters/out/field2_inventory.json`.
-  - Filter vocab from `book/evidence/graph/mappings/vocab/filters.json`.
-  - Existing anchor → field2 hints from `book/evidence/graph/mappings/anchors/anchor_field2_map.json`.
+  - Filter vocab from `book/integration/carton/bundle/relationships/mappings/vocab/filters.json`.
+  - Existing anchor → field2 hints from `book/integration/carton/bundle/relationships/mappings/anchors/anchor_field2_map.json`.
 - Tooling: `book.api.profile.decoder` for any new probes; existing probe outputs as primary evidence.
-- Target artifact: `book/evidence/graph/mappings/anchors/anchor_ctx_filter_map.json` (canonical), plus derived `book/evidence/graph/mappings/anchors/anchor_filter_map.json` (compatibility view).
+- Target artifact: `book/integration/carton/bundle/relationships/mappings/anchors/anchor_ctx_filter_map.json` (canonical), plus derived `book/integration/carton/bundle/relationships/mappings/anchors/anchor_filter_map.json` (compatibility view).
 
 ## How to run
 Use the runtime CLI so the committed bundle is the only authority (resolve the latest run via `out/LATEST`):
@@ -24,8 +24,8 @@ python -m book.api.runtime run \
 ```
 
 ## Deliverables / expected outcomes
-- `book/evidence/graph/mappings/anchors/anchor_ctx_filter_map.json` as the source of truth for anchor→Filter bindings keyed by `anchor_ctx_id`.
-- `book/evidence/graph/mappings/anchors/anchor_filter_map.json` as a deterministic, conservative derived view keyed by literal string with `ctx_ids` backpointers.
+- `book/integration/carton/bundle/relationships/mappings/anchors/anchor_ctx_filter_map.json` as the source of truth for anchor→Filter bindings keyed by `anchor_ctx_id`.
+- `book/integration/carton/bundle/relationships/mappings/anchors/anchor_filter_map.json` as a deterministic, conservative derived view keyed by literal string with `ctx_ids` backpointers.
 - `book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/out/anchor_filter_candidates.json` summarizing candidate mappings and evidence.
 - Guardrail coverage in `book/tests/planes/graph/test_mappings_guardrail.py` for at least one high-confidence anchor → filter-ID pair.
 - Notes/Report entries describing ambiguous anchors and how to revisit them.
@@ -35,13 +35,13 @@ python -m book.api.runtime run \
 - **Current status**
   - Experiment scaffolded (this Report, Plan, Notes).
   - Baseline candidate extraction done: `out/anchor_filter_candidates.json` holds anchor → {field2_names, field2_values, sources}.
-  - Canonical ctx-indexed anchor map published at `book/evidence/graph/mappings/anchors/anchor_ctx_filter_map.json`, and legacy literal view regenerated conservatively at `book/evidence/graph/mappings/anchors/anchor_filter_map.json` (pins a literal only when all contexts agree).
+  - Canonical ctx-indexed anchor map published at `book/integration/carton/bundle/relationships/mappings/anchors/anchor_ctx_filter_map.json`, and legacy literal view regenerated conservatively at `book/integration/carton/bundle/relationships/mappings/anchors/anchor_filter_map.json` (pins a literal only when all contexts agree).
   - Runtime discriminator run for `com.apple.cfprefsd.agent` (mach-lookup predicate kind):
     - Result (tier `mapped`; host-scoped): the discriminating matrix is consistent with `com.apple.cfprefsd.agent@global-name` on this host; the literal-keyed compatibility view remains blocked because the same literal is observed in multiple contexts.
     - Provenance:
       - `run_id`: `028d4d91-1c9e-4c2f-95da-7fc89ec3635a`
       - Promotion packet: `book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.promotion_packet.json`
-      - Promotion receipt: `book/evidence/graph/mappings/runtime/promotion_receipt.json` (packet `status: used`)
+      - Promotion receipt: `book/integration/carton/bundle/relationships/mappings/runtime/promotion_receipt.json` (packet `status: used`)
     - Bounded witness summary:
       - Baseline lane: `com.apple.cfprefsd.agent` is observable (`kr=0`), and a bogus name is unregistered (`kr=1102`).
       - Under `(deny default)`: allowing `mach-lookup` unfiltered reaches/permits the lookup; denying by default yields `kr=1100`.
@@ -51,12 +51,12 @@ python -m book.api.runtime run \
     - Provenance:
       - `run_id`: `bf80e47b-3020-4b13-bfa7-249cfcff8b52`
       - Promotion packet: `book/evidence/experiments/runtime-final-final/evidence/packets/anchor-filter-map.iokit-class.promotion_packet.json`
-      - Promotion receipt: `book/evidence/graph/mappings/runtime/promotion_receipt.json` (packet `status: used`)
+      - Promotion receipt: `book/integration/carton/bundle/relationships/mappings/runtime/promotion_receipt.json` (packet `status: used`)
     - Bounded witness summary:
       - Baseline lane: `IOUSBHostInterface` not found (`found=false`), so the discriminator matrix cannot lift the anchor on this host baseline.
 - **1) Scope and setup**
   - Host baseline (OS/build, SIP) recorded in this Report and in `Notes.md`.
-  - Inputs confirmed: `probe-op-structure/out/anchor_hits.json`, `field2-filters/out/field2_inventory.json`, vocab (`book/evidence/graph/mappings/vocab/filters.json`), anchor → field2 hints (`book/evidence/graph/mappings/anchors/anchor_field2_map.json`).
+  - Inputs confirmed: `probe-op-structure/out/anchor_hits.json`, `field2-filters/out/field2_inventory.json`, vocab (`book/integration/carton/bundle/relationships/mappings/vocab/filters.json`), anchor → field2 hints (`book/integration/carton/bundle/relationships/mappings/anchors/anchor_field2_map.json`).
   - Decoder (`book.api.profile.decoder`) validated via existing probes and inventories.
 - **2) Baseline data pass**
   - Loaded anchor hits and field2 inventory; identified anchors with clear filter context (paths, mach names, iokit symbols).
@@ -64,7 +64,7 @@ python -m book.api.runtime run \
 - **3) Targeted probes (if needed)**
   - None so far; current map is based solely on existing probes and system profiles.
 - **4) Synthesis and guardrails**
-  - Finalized `book/evidence/graph/mappings/anchors/anchor_ctx_filter_map.json` as the canonical ctx-indexed mapping surface; regenerated `book/evidence/graph/mappings/anchors/anchor_filter_map.json` as the deterministic derived view.
+  - Finalized `book/integration/carton/bundle/relationships/mappings/anchors/anchor_ctx_filter_map.json` as the canonical ctx-indexed mapping surface; regenerated `book/integration/carton/bundle/relationships/mappings/anchors/anchor_filter_map.json` as the deterministic derived view.
   - Added a guardrail test (`book/tests/planes/graph/test_mappings_guardrail.py`) that asserts map presence and at least one mapped anchor → filter ID.
   - Updated `ResearchReport.md` and `Notes.md` with current mapping decisions, evidence sources, and remaining ambiguous anchors.
 
@@ -87,10 +87,10 @@ If the anchor map needs to be updated (for example, new probes or improved decod
 ## Evidence & artifacts
 - Anchor hits from `book/evidence/experiments/field2-final-final/probe-op-structure/out/anchor_hits.json`.
 - Field2 inventory from `book/evidence/experiments/field2-final-final/field2-filters/out/field2_inventory.json`.
-- Filter vocabulary from `book/evidence/graph/mappings/vocab/filters.json`.
+- Filter vocabulary from `book/integration/carton/bundle/relationships/mappings/vocab/filters.json`.
 - Intermediate candidates in `book/evidence/experiments/runtime-final-final/suites/anchor-filter-map/out/anchor_filter_candidates.json`.
-- Canonical ctx-indexed mapping in `book/evidence/graph/mappings/anchors/anchor_ctx_filter_map.json`.
-- Derived compatibility view in `book/evidence/graph/mappings/anchors/anchor_filter_map.json`.
+- Canonical ctx-indexed mapping in `book/integration/carton/bundle/relationships/mappings/anchors/anchor_ctx_filter_map.json`.
+- Derived compatibility view in `book/integration/carton/bundle/relationships/mappings/anchors/anchor_filter_map.json`.
 
 ## Blockers / risks
 - Some anchors remain ambiguous and map to multiple plausible filters; these are explicitly marked in the map and may change as decoder/tag layouts improve.

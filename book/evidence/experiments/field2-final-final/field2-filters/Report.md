@@ -15,7 +15,7 @@ This closure is not “we learned nothing.” We learned a stable set of structu
 
 All claims in this report are about the single frozen world `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`. The primary evidence is compiled profiles and host-bound mappings.
 
-Canonical vocabulary mappings live at `book/evidence/graph/mappings/vocab/filters.json` and `book/evidence/graph/mappings/vocab/ops.json` (status: ok). Canonical profiles used throughout this work are `book/evidence/graph/concepts/validation/fixtures/blobs/{airlock,bsd,sample}.sb.bin`. Experimental probes (SBPL sources and compiled blobs) live under `book/evidence/experiments/field2-final-final/field2-filters/sb/` and `book/evidence/experiments/field2-final-final/field2-filters/sb/build/`.
+Canonical vocabulary mappings live at `book/integration/carton/bundle/relationships/mappings/vocab/filters.json` and `book/integration/carton/bundle/relationships/mappings/vocab/ops.json` (status: ok). Canonical profiles used throughout this work are `book/evidence/graph/concepts/validation/fixtures/blobs/{airlock,bsd,sample}.sb.bin`. Experimental probes (SBPL sources and compiled blobs) live under `book/evidence/experiments/field2-final-final/field2-filters/sb/` and `book/evidence/experiments/field2-final-final/field2-filters/sb/build/`.
 
 The experiment’s primary outputs are `book/evidence/experiments/field2-final-final/field2-filters/out/field2_inventory.json` (per-profile histograms, tag counts, and hi/lo census) and `book/evidence/experiments/field2-final-final/field2-filters/out/unknown_nodes.json` (concrete unknown/high nodes with fields, fan-in/out derived from the current edge assumptions, and op reach when available).
 
@@ -25,7 +25,7 @@ Kernel-side evidence is sourced from Ghidra analysis outputs under `book/evidenc
 
 We approached “field2” as a structural slot whose meaning must be inferred from repeated host witnesses. The work progressed in four strands that fed one another.
 
-First, we established and reused a tag-aware structural decoder and tag layout map. The repo’s tag layout mapping for this world is `book/evidence/graph/mappings/tag_layouts/tag_layouts.json` (regenerated from the canonical corpus via `book/graph/mappings/tag_layouts/generate_tag_layouts.py`). On this host baseline the decoder’s strongest structural witness is an 8-byte node record framing, with `field2` surfaced as the third u16 in each record (u16[2]). The tag layout map makes this framing explicit (record size, edge field indices, payload field indices) so later work can talk about “the u16 slot” without relying on ad hoc record parsing.
+First, we established and reused a tag-aware structural decoder and tag layout map. The repo’s tag layout mapping for this world is `book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_layouts.json` (regenerated from the canonical corpus via `book/graph/mappings/tag_layouts/generate_tag_layouts.py`). On this host baseline the decoder’s strongest structural witness is an 8-byte node record framing, with `field2` surfaced as the third u16 in each record (u16[2]). The tag layout map makes this framing explicit (record size, edge field indices, payload field indices) so later work can talk about “the u16 slot” without relying on ad hoc record parsing.
 
 Second, we harvested inventories over canonical blobs and probe blobs. The scripts `book/evidence/experiments/field2-final-final/field2-filters/harvest_field2.py` and `book/evidence/experiments/field2-final-final/field2-filters/unknown_focus.py` aggregate, for each profile, the multiset of observed `filter_arg_raw` u16 values, their tag distributions, and (where decode makes it possible) their attachment to literals/anchors and to op reach. The inventory is intentionally descriptive: it records which values appear, where they appear (tag context), and how often; it does not attempt to assign semantics.
 
@@ -37,7 +37,7 @@ Fourth, we hunted for kernel-side structure and transforms. Using the extracted 
 
 ### Low values align with the host filter vocabulary
 
-Across the canonical `bsd` and `sample` profiles, low u16 values in the payload slot correspond directly to filter IDs in `book/evidence/graph/mappings/vocab/filters.json`. The inventory includes repeated witnesses for common filter IDs such as path/name/socket classes and system-specific filters (`right-name`, `preference-domain`, iokit-related filters, and others). This is the positive core: when a tag’s payload u16 is used as a filter vocabulary id, the mapping is stable and matches the host vocabulary.
+Across the canonical `bsd` and `sample` profiles, low u16 values in the payload slot correspond directly to filter IDs in `book/integration/carton/bundle/relationships/mappings/vocab/filters.json`. The inventory includes repeated witnesses for common filter IDs such as path/name/socket classes and system-specific filters (`right-name`, `preference-domain`, iokit-related filters, and others). This is the positive core: when a tag’s payload u16 is used as a filter vocabulary id, the mapping is stable and matches the host vocabulary.
 
 ### A bounded set of out-of-vocab/high values persists
 
@@ -65,7 +65,7 @@ Separately, a dedicated scan (`kernel_node_struct_scan.py`) over all functions r
 
 This experiment produced two repository-level contract improvements that reduce ambiguity for future work without prematurely enforcing cross-world assumptions.
 
-First, u16 role is now explicit per tag for this world. The mapping `book/evidence/graph/mappings/tag_layouts/tag_u16_roles.json` declares, for each tag in the canonical corpus, whether the payload u16 slot is intended to be treated as a filter vocabulary id (`filter_vocab_id`) or as an opaque argument u16 (`arg_u16`). This keeps the “unknown” census scoped to tags where out-of-vocab payloads are meaningfully interpreted as “unknown filter IDs” rather than conflating all tags’ u16[2] slots.
+First, u16 role is now explicit per tag for this world. The mapping `book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_u16_roles.json` declares, for each tag in the canonical corpus, whether the payload u16 slot is intended to be treated as a filter vocabulary id (`filter_vocab_id`) or as an opaque argument u16 (`arg_u16`). This keeps the “unknown” census scoped to tags where out-of-vocab payloads are meaningfully interpreted as “unknown filter IDs” rather than conflating all tags’ u16[2] slots.
 
 Second, the decoder now exposes structure with provenance rather than silently guessing. `book/api/profile/decoder/` remains permissive, but it now attaches `filter_arg_raw`, `u16_role`, and (when applicable) `filter_vocab_ref` / `filter_out_of_vocab` directly on decoded nodes, and it records provenance for layout selection and literal reference recovery. The decoder does not enforce “unknown-but-bounded”; discovery stays possible.
 
@@ -77,6 +77,6 @@ The guardrail test `book/tests/planes/graph/test_field2_unknowns.py` pins the cu
 
 This report does not claim a semantic interpretation of out-of-vocab/high values such as 2560, 2816, 12096, 49171, or 3584. It does not claim that these values are sentinels, indices, or flags; it claims only that they are observed, context-bounded u16 payloads in compiled profiles on this host (with 2560/2816 being characterized only by their triple-only structural witness).
 
-This report also does not claim semantic completeness for the tag layout map. `book/evidence/graph/mappings/tag_layouts/tag_layouts.json` is a structural, canonical-corpus-derived framing map; it improves decoder stability and repeatability but does not, by itself, establish semantic meaning for each tag’s payload.
+This report also does not claim semantic completeness for the tag layout map. `book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_layouts.json` is a structural, canonical-corpus-derived framing map; it improves decoder stability and repeatability but does not, by itself, establish semantic meaning for each tag’s payload.
 
 Finally, platform/runtime gates (e.g., inability to apply certain system profiles) mean that this experiment is predominantly static. Runtime semantics, if they exist, are not established here.

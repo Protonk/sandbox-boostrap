@@ -11,7 +11,7 @@ Scope / non-goals:
 - This is a *structural* toolkit for working with compiled sandbox profile bytes
   on a pinned host baseline (`world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`).
 - It does not claim kernel policy semantics. For policy questions, consume the
-  mapped artifacts under `book/evidence/graph/mappings/` and the CARTON bundle under
+  mapped artifacts under `book/integration/carton/bundle/relationships/mappings/` and the CARTON bundle under
   `book/integration/carton/bundle/` (relationships/views/contracts + manifest), and treat decoder
   output as evidence-tiered (bedrock/mapped/hypothesis).
 

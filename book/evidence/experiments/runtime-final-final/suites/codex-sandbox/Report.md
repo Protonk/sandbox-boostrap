@@ -8,9 +8,9 @@ Determine whether the Codex harness is sandboxed by comparing six host-grounded 
 
 - Host baseline: `sonoma-14.4.1-23E224-arm64-dyld-2c0602c5`.
 - Bedrock surfaces referenced (bedrock tier):
-  - `book/evidence/graph/mappings/vocab/ops.json`
-  - `book/evidence/graph/mappings/vocab/filters.json`
-  - `book/evidence/graph/mappings/vocab/ops_coverage.json`
+  - `book/integration/carton/bundle/relationships/mappings/vocab/ops.json`
+  - `book/integration/carton/bundle/relationships/mappings/vocab/filters.json`
+  - `book/integration/carton/bundle/relationships/mappings/vocab/ops_coverage.json`
 - Scope: harness detection only; no SIP/TCC changes; no policy claims beyond the harness boundary.
 
 ## Deliverables / expected outcomes

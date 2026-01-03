@@ -9,7 +9,7 @@ Validation units (use these tags/IDs when adding jobs):
 - `op-table:*` — op-table decoding/alignment runs.
 - `runtime:*` — runtime trace decoding against expectations.
 - `experiment:<name>` — validations whose inputs live under `book/evidence/experiments/<name>/out`.
-- `graph:*` — consistency checks for artifacts under `book/evidence/graph/mappings/*`.
+- `graph:*` — consistency checks for artifacts under `book/integration/carton/bundle/relationships/mappings/*`.
 
 The Swift `book/graph` generator also writes a lightweight validation report to `book/evidence/graph/concepts/validation/validation_report.json`, capturing schema/ID checks (e.g., concept IDs referenced by strategies and runtime expectations). Run it via:
 
@@ -34,7 +34,7 @@ Smoke tag:
 - `python -m book.graph.concepts.validation --tag smoke` runs the core fast jobs (vocab:sonoma-14.4.1 + experiment:field2 + experiment:runtime-checks) as a default pre-promotion gate. `tag:golden` marks canonical jobs.
 
 Promotion contract:
-- Mapping generators must: (1) run the validation driver for relevant tags/IDs, (2) refuse to proceed on non-`ok` jobs, (3) read normalized validation IR only (not raw experiment out/), and (4) carry host/provenance (`host`, `source_jobs`) into outputs. See `book/graph/mappings/run_promotion.py` and `generate_runtime_signatures.py` / `generate_digests_from_ir.py` for the pattern.
+- Mapping generators must: (1) run the validation driver for relevant tags/IDs, (2) refuse to proceed on non-`ok` jobs, (3) read normalized validation IR only (not raw experiment out/), and (4) carry host/provenance (`host`, `source_jobs`) into outputs. See `book/integration/carton/mappings/run_promotion.py` and `book/integration/carton/mappings/runtime/generate_runtime_signatures.py` / `book/integration/carton/mappings/system_profiles/generate_digests_from_ir.py` for the pattern.
 - CARTON: the frozen IR/mapping bundle for Sonoma 14.4.1 lives under `book/integration/carton/bundle/` with its manifest at `book/integration/carton/bundle/CARTON.json`. After rerunning validation + mapping generators, refresh CARTON via `python -m book.integration.carton.tools.update` to rebuild relationships/views/contracts and the manifest. Schema checks assert CARTON and mapping provenance. CARTON is what the textbook and CI read; this validation directory is where you extend or regenerate the IR that feeds it.
 
 Keep Swift-side validation non-fatal: extend the report rather than blocking generation when checks fail.
@@ -50,7 +50,7 @@ Keep Swift-side validation non-fatal: extend the report rather than blocking gen
 1. Use `tasks.py` to enumerate the validation tasks for a cluster.
 2. For Static-Format tasks, compile the SBPL inputs using `python -m book.api.profile compile …` (see `tasks.py`) and feed the resulting `.sb.bin` blobs through the shared ingestion layer to emit JSON summaries under `out/static/`.
 3. For Semantic Graph tasks, prefer the runtime-checks plan and the golden-triple harness; normalize runtime bundles into shared IR under `out/experiments/runtime-checks/`, and annotate TCC/SIP involvement when observed.
-4. For Vocabulary tasks, extract operation/filter maps from compiled blobs (from Static-Format) and from runtime logs (from Semantic Graph), then normalize into versioned tables under `book/evidence/graph/mappings/vocab/` (a shared, stable location). Stable op-table artifacts live under `book/evidence/graph/mappings/op_table/`.
+4. For Vocabulary tasks, extract operation/filter maps from compiled blobs (from Static-Format) and from runtime logs (from Semantic Graph), then normalize into versioned tables under `book/integration/carton/bundle/relationships/mappings/vocab/` (a shared, stable location). Stable op-table artifacts live under `book/integration/carton/bundle/relationships/mappings/op_table/`.
 5. For Runtime Lifecycle tasks, run the lifecycle probes via `book.api.lifecycle` (entitlements/platform/containers/extensions/apply attempts) and capture label/entitlement/container/extension evidence under `out/lifecycle/`.
 
 All scripts and automation that support these steps should live in this directory; fixtures live under `book/evidence/graph/concepts/validation/fixtures/`, and experiment bundles stay under `book/evidence/experiments/`.

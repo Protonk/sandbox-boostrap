@@ -14,16 +14,16 @@ def load_json(path: Path):
 
 def test_vfs_path_canonicalization_map_is_generated_and_deterministic():
     """
-    Contract: `book/evidence/graph/mappings/vfs_canonicalization/*` is generated from promotion packets.
+    Contract: `book/integration/carton/bundle/relationships/mappings/vfs_canonicalization/*` is generated from promotion packets.
 
     - `path_canonicalization_map.json` and `promotion_receipt.json` are a pure
       function of `packet_set.json` and the referenced promotion packets.
     - Regeneration is byte-identical (stable ordering + formatting).
     """
 
-    from book.graph.mappings.vfs_canonicalization import generate_path_canonicalization_map as gen
+    from book.integration.carton.mappings.vfs_canonicalization import generate_path_canonicalization_map as gen
 
-    mapping_root = ROOT / "book" / "evidence" / "graph" / "mappings" / "vfs_canonicalization"
+    mapping_root = ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "vfs_canonicalization"
     packet_set_path = mapping_root / "packet_set.json"
     mapping_path = mapping_root / "path_canonicalization_map.json"
     receipt_path = mapping_root / "promotion_receipt.json"

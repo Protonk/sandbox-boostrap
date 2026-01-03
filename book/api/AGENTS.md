@@ -1,6 +1,6 @@
 # Agents in `book/api/`
 
-This directory is the API/tooling layer for the Seatbelt textbook. All tools assume the fixed host baseline in `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` and the vocab/format mappings under `book/evidence/graph/mappings/` (generators live under `book/graph/mappings/`).
+This directory is the API/tooling layer for the Seatbelt textbook. All tools assume the fixed host baseline in `world_id sonoma-14.4.1-23E224-arm64-dyld-2c0602c5` and the vocab/format mappings under `book/integration/carton/bundle/relationships/mappings/` (generators live under `book/graph/mappings/`).
 
 ## How to route here
 
@@ -13,7 +13,7 @@ This directory is the API/tooling layer for the Seatbelt textbook. All tools ass
 
 ## Expectations
 
-- Stay within the host baseline and substrate vocabulary; lean on `book/evidence/graph/mappings/` for vocab and format truths.
+- Stay within the host baseline and substrate vocabulary; lean on `book/integration/carton/bundle/relationships/mappings/` for vocab and format truths.
 - CARTON is the integration fixer bundle; prefer its frozen relationships/views/contracts instead of re-parsing validation outputs ad hoc.
 - Use the validation driver and promotion pipeline when changing mappings that feed CARTON; do not hand-edit files listed in `book/integration/carton/bundle/CARTON.json`.
 - Keep tools small, host-specific, and backed by minimal guards run via `make -C book test`.

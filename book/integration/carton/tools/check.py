@@ -183,7 +183,7 @@ def _invariant_statuses(repo_root: Path, invariants: Dict[str, Any]) -> List[str
     errors: List[str] = []
     expected_profiles = invariants.get("canonical_profile_status") or {}
     if expected_profiles:
-        digests_path = repo_root / "book/evidence/graph/mappings/system_profiles/digests.json"
+        digests_path = repo_root / "book/integration/carton/bundle/relationships/mappings/system_profiles/digests.json"
         digests = _load_json(digests_path)
         canonical = (digests.get("metadata") or {}).get("canonical_profiles") or {}
         for profile_id, expected in expected_profiles.items():

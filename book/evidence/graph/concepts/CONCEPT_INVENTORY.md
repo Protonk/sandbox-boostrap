@@ -32,9 +32,9 @@ Concretely, “success” means that each concept has:
 
 ### Current bedrock surfaces (navigation)
 This list mirrors the registry in `book/evidence/graph/concepts/BEDROCK_SURFACES.json`; that file is the source of truth for bedrock in this world. For navigation, the current set is:
-- Operation and Filter vocabularies in `book/evidence/graph/mappings/vocab/{ops.json,filters.json,ops_coverage.json}`.
-- Modern format/tag-layout subset in `book/evidence/graph/mappings/tag_layouts/tag_layouts.json`.
-- Canonical system profiles in `book/evidence/graph/mappings/system_profiles/{digests.json,static_checks.json,attestations.json}` (`sys:airlock`, `sys:bsd`, `sys:sample`).
+- Operation and Filter vocabularies in `book/integration/carton/bundle/relationships/mappings/vocab/{ops.json,filters.json,ops_coverage.json}`.
+- Modern format/tag-layout subset in `book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_layouts.json`.
+- Canonical system profiles in `book/integration/carton/bundle/relationships/mappings/system_profiles/{digests.json,static_checks.json,attestations.json}` (`sys:airlock`, `sys:bsd`, `sys:sample`).
 
 When you start a new concept cluster, add a 3–5 sentence “claims and limits” block near the top of its primary README/Report and keep it in sync with the actual witnesses and validation status.
 
@@ -46,7 +46,7 @@ When you start a new concept cluster, add a 3–5 sentence “claims and limits�
   - What evidence “looks like”.
   - Which manifests already witness those concepts.
   - Where the gaps are.
-- Use the **Evidence manifests** section as the router into `book/evidence/graph/mappings/` and `book/evidence/graph/concepts/validation/out/`.
+- Use the **Evidence manifests** section as the router into `book/integration/carton/bundle/relationships/mappings/` and `book/evidence/graph/concepts/validation/out/`.
 - Use **Validation workflow** and **Guidance for new validation paths** when you want to add new evidence or extend the inventory.
 - Treat the **Appendix on misconceptions** as conceptual hygiene: it describes ways to be wrong, not new evidence or instructions.
 
@@ -105,16 +105,16 @@ A single “profile ingestion” spine (decoder + tag layouts) serves this clust
 ### Current evidence & manifests
 
 - **System profile digests and attestation**
-  - `book/evidence/graph/mappings/system_profiles/digests.json` – per-profile digests (op-table buckets, tag mixes, literal samples) for canonical system blobs (`sys:airlock`, `sys:bsd`, `sys:sample`).
-  - `book/evidence/graph/mappings/system_profiles/attestations.json` – cross-linked attestations (blob hashes, op-table entries, tag counts, literal strings/anchor hits, tag-layout/vocab versions, runtime links where available).
-  - `book/evidence/graph/mappings/system_profiles/static_checks.json` – decoder-backed invariants (header op_count, section sizes, tag_counts, tag_layout hash) for the same canonical blobs.
+  - `book/integration/carton/bundle/relationships/mappings/system_profiles/digests.json` – per-profile digests (op-table buckets, tag mixes, literal samples) for canonical system blobs (`sys:airlock`, `sys:bsd`, `sys:sample`).
+  - `book/integration/carton/bundle/relationships/mappings/system_profiles/attestations.json` – cross-linked attestations (blob hashes, op-table entries, tag counts, literal strings/anchor hits, tag-layout/vocab versions, runtime links where available).
+  - `book/integration/carton/bundle/relationships/mappings/system_profiles/static_checks.json` – decoder-backed invariants (header op_count, section sizes, tag_counts, tag_layout hash) for the same canonical blobs.
 
 - **Op-table and node layout**
-  - `book/evidence/graph/mappings/op_table/{op_table_map.json,op_table_signatures.json,op_table_operation_summary.json,op_table_vocab_alignment.json}` – op-table bucket maps, structural signatures, and vocab alignment for synthetic profiles.
-  - `book/evidence/graph/mappings/tag_layouts/tag_layouts.json` – per-tag node layouts for tags that carry literal/regex operands; used by the decoder.
+  - `book/integration/carton/bundle/relationships/mappings/op_table/{op_table_map.json,op_table_signatures.json,op_table_operation_summary.json,op_table_vocab_alignment.json}` – op-table bucket maps, structural signatures, and vocab alignment for synthetic profiles.
+  - `book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_layouts.json` – per-tag node layouts for tags that carry literal/regex operands; used by the decoder.
 
 - **Anchors and field2**
-- `book/evidence/graph/mappings/anchors/{anchor_field2_map.json,anchor_ctx_filter_map.json,anchor_filter_map.json}` – anchor-derived mappings: structural anchor hits (`anchor_field2_map.json`), canonical ctx-indexed anchor→Filter bindings (`anchor_ctx_filter_map.json`), and a conservative literal-keyed compatibility view (`anchor_filter_map.json`).
+- `book/integration/carton/bundle/relationships/mappings/anchors/{anchor_field2_map.json,anchor_ctx_filter_map.json,anchor_filter_map.json}` – anchor-derived mappings: structural anchor hits (`anchor_field2_map.json`), canonical ctx-indexed anchor→Filter bindings (`anchor_ctx_filter_map.json`), and a conservative literal-keyed compatibility view (`anchor_filter_map.json`).
 
 - **Static ingestion outputs**
   - `book/evidence/graph/concepts/validation/out/static/*` – JSON summaries of modern and legacy blobs produced by ingestion tools (`profile_ingestion.py`, `decode_blob.py`).
@@ -159,8 +159,8 @@ The ideal pattern is “microprofile + probe + decoded graph path”: for each s
 ### Current evidence & manifests
 
 - **Golden-triple runtime expectations (preferred semantic witnesses)**
-  - `book/evidence/graph/mappings/runtime/expectations.json` – manifest keyed by `profile_id` with host/build/SIP metadata, blob path + SHA256, status (`ok`/`partial`/`blocked`), probe count, and trace path.
-  - `book/evidence/graph/mappings/runtime/traces/*.jsonl` – normalized per-profile probe rows (operation name/ID, input path, expected vs actual, match/status, command, exit code).
+  - `book/integration/carton/bundle/relationships/mappings/runtime/expectations.json` – manifest keyed by `profile_id` with host/build/SIP metadata, blob path + SHA256, status (`ok`/`partial`/`blocked`), probe count, and trace path.
+  - `book/integration/carton/bundle/relationships/mappings/runtime/traces/*.jsonl` – normalized per-profile probe rows (operation name/ID, input path, expected vs actual, match/status, command, exit code).
   - These runs currently cover `allow_all`, `metafilter_any`, and a bucket4 profile (`ok`), plus a bucket5 profile (`partial`) where expected vs actual diverge.
 
 - **Legacy sandbox-exec traces (brittle, but still informative)**
@@ -199,14 +199,14 @@ Primary evidence:
 ### Current evidence & manifests
 
 - **Canonical vocab tables**
-  - `book/evidence/graph/mappings/vocab/ops.json` – Operation vocab map (ID↔name + provenance).
-  - `book/evidence/graph/mappings/vocab/filters.json` – Filter vocab map.
-  - `book/evidence/graph/mappings/vocab/operation_names.json` / `filter_names.json` – raw harvested names from dyld cache.
-  - `book/evidence/graph/mappings/vocab/attestations.json` – attestation tying vocab tables to dyld slices and reference blobs (SHA256, counts, source paths).
+  - `book/integration/carton/bundle/relationships/mappings/vocab/ops.json` – Operation vocab map (ID↔name + provenance).
+  - `book/integration/carton/bundle/relationships/mappings/vocab/filters.json` – Filter vocab map.
+  - `book/integration/carton/bundle/relationships/mappings/vocab/operation_names.json` / `filter_names.json` – raw harvested names from dyld cache.
+  - `book/integration/carton/bundle/relationships/mappings/vocab/attestations.json` – attestation tying vocab tables to dyld slices and reference blobs (SHA256, counts, source paths).
 
 - **Op-table ↔ vocab alignment**
-  - `book/evidence/graph/mappings/op_table/op_table_vocab_alignment.json` – per-profile alignment of op-table entries to Operation IDs, used to interpret buckets in terms of concrete operations.
-  - `book/evidence/graph/mappings/op_table/{op_table_map.json,op_table_signatures.json,op_table_operation_summary.json}` – bucket maps and structural signatures for synthetic profiles.
+  - `book/integration/carton/bundle/relationships/mappings/op_table/op_table_vocab_alignment.json` – per-profile alignment of op-table entries to Operation IDs, used to interpret buckets in terms of concrete operations.
+  - `book/integration/carton/bundle/relationships/mappings/op_table/{op_table_map.json,op_table_signatures.json,op_table_operation_summary.json}` – bucket maps and structural signatures for synthetic profiles.
 
 - **Validation outputs**
   - `book/evidence/graph/concepts/validation/out/vocab/*` – mirrored vocab tables and any runtime-usage summaries (`runtime_usage.json` is currently `blocked` when no runtime IDs are observed).
@@ -245,16 +245,16 @@ Primary evidence:
 ### Current evidence & manifests
 
 - **Runtime expectations (golden triple)**  
-  - `book/evidence/graph/mappings/runtime/expectations.json` + `traces/*` – provide end-to-end runs for a small set of profiles, including their blob paths and statuses. These are primarily semantic witnesses but also serve as concrete examples of policy attachment for non-platform profiles.
+  - `book/integration/carton/bundle/relationships/mappings/runtime/expectations.json` + `traces/*` – provide end-to-end runs for a small set of profiles, including their blob paths and statuses. These are primarily semantic witnesses but also serve as concrete examples of policy attachment for non-platform profiles.
 
 - **Lifecycle manifest**
-  - `book/evidence/graph/mappings/runtime/lifecycle.json` – normalized lifecycle scenarios:
+  - `book/integration/carton/bundle/relationships/mappings/runtime/lifecycle.json` – normalized lifecycle scenarios:
     - `entitlements-evolution` (unsigned baseline; `partial` – entitlements absent, useful as a baseline witness).
     - `extensions-dynamic` (`blocked` – token issuance not observed, see `extensions_dynamic.md`).
-  - `book/evidence/graph/mappings/runtime/lifecycle_traces/*.jsonl` – per-scenario rows with key fields (executable, entitlements_present, notes, source logs).
+  - `book/integration/carton/bundle/relationships/mappings/runtime/lifecycle_traces/*.jsonl` – per-scenario rows with key fields (executable, entitlements_present, notes, source logs).
 
 - **System profile attestations**
-  - `book/evidence/graph/mappings/system_profiles/attestations.json` – provides blob hashes, tag-layout/vocab versions, anchors, and runtime links where expectations exist. These are the static “profile layer” side of lifecycle examples.
+  - `book/integration/carton/bundle/relationships/mappings/system_profiles/attestations.json` – provides blob hashes, tag-layout/vocab versions, anchors, and runtime links where expectations exist. These are the static “profile layer” side of lifecycle examples.
 
 - **Lifecycle validation outputs**
   - `book/evidence/graph/concepts/validation/out/lifecycle/*` – source logs for entitlements and extension attempts (see `entitlements.json`, `extensions_dynamic.md`).
@@ -274,32 +274,32 @@ The following manifests are the main entry points from concepts → examples →
 - `book/evidence/graph/concepts/validation/out/index.json`  
   - Cluster-level summary of validation outputs (static/semantic/vocab/lifecycle) and their statuses.
 
-- `book/evidence/graph/mappings/system_profiles/digests.json`  
+- `book/integration/carton/bundle/relationships/mappings/system_profiles/digests.json`  
   - Static digests for canonical system/profile blobs.
 
-- `book/evidence/graph/mappings/system_profiles/attestations.json`  
+- `book/integration/carton/bundle/relationships/mappings/system_profiles/attestations.json`  
   - Compiled-profile attestations: blob hashes, op-table entries, tag counts, literal strings/anchor hits, vocab/tag-layout versions, runtime links.
 
-- `book/evidence/graph/mappings/system_profiles/static_checks.json`  
+- `book/integration/carton/bundle/relationships/mappings/system_profiles/static_checks.json`  
   - Decoder-backed structural checks (header op_count, section sizes, tag_layout hash) for canonical blobs.
 
-- `book/evidence/graph/mappings/op_table/*`  
+- `book/integration/carton/bundle/relationships/mappings/op_table/*`  
   - Op-table buckets, signatures, operation summaries, and vocab alignment.
 
-- `book/evidence/graph/mappings/tag_layouts/tag_layouts.json`  
+- `book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_layouts.json`  
   - Per-tag PolicyGraph layouts.
 
-- `book/evidence/graph/mappings/anchors/anchor_ctx_filter_map.json` (canonical)  
-- `book/evidence/graph/mappings/anchors/anchor_filter_map.json` (compatibility view; derived)  
+- `book/integration/carton/bundle/relationships/mappings/anchors/anchor_ctx_filter_map.json` (canonical)  
+- `book/integration/carton/bundle/relationships/mappings/anchors/anchor_filter_map.json` (compatibility view; derived)  
   - Anchor → filter-ID/name map with status per anchor.
 
-- `book/evidence/graph/mappings/vocab/{ops.json,filters.json,attestations.json}`  
+- `book/integration/carton/bundle/relationships/mappings/vocab/{ops.json,filters.json,attestations.json}`  
   - Canonical vocab tables and their attestation to dyld slices and reference blobs.
 
-- `book/evidence/graph/mappings/runtime/expectations.json` + `traces/*`  
+- `book/integration/carton/bundle/relationships/mappings/runtime/expectations.json` + `traces/*`  
   - Golden-triple runtime expectations and per-profile probe traces.
 
-- `book/evidence/graph/mappings/runtime/lifecycle.json` + `lifecycle_traces/*`  
+- `book/integration/carton/bundle/relationships/mappings/runtime/lifecycle.json` + `lifecycle_traces/*`  
   - Lifecycle scenarios (entitlements/extension attempts) and their normalized traces.
 
 Agents should treat these manifests as the primary handles when wiring concepts to artifacts or adding new witnesses.
@@ -371,7 +371,7 @@ For both humans and agents, the safest way to extend validation is to reuse the 
 - Prefer:
   - Small, composable examples over large scenarios.
   - Evidence that is regenerable on this host over opaque or manual logs.
-  - Outputs that plug into existing manifests under `book/evidence/graph/mappings/` and `book/evidence/graph/concepts/validation/out/`.
+  - Outputs that plug into existing manifests under `book/integration/carton/bundle/relationships/mappings/` and `book/evidence/graph/concepts/validation/out/`.
 
 ### What has been done vs what remains
 

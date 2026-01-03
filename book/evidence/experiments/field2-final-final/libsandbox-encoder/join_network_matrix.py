@@ -108,7 +108,7 @@ def load_cases(index: Dict[str, Any]) -> Dict[str, CaseInfo]:
 
 
 def load_known_tags() -> set[int]:
-    tag_layouts_path = ROOT / "book/evidence/graph/mappings/tag_layouts/tag_layouts.json"
+    tag_layouts_path = ROOT / "book/integration/carton/bundle/relationships/mappings/tag_layouts/tag_layouts.json"
     data = load_json(tag_layouts_path)
     return {int(t["tag"]) for t in data.get("tags", []) if "tag" in t}
 

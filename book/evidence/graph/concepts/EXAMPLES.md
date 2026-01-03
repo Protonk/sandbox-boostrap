@@ -29,7 +29,7 @@ Static-format witnesses are built from SBPL specimens and compiled system profil
 - **SBPL corpus sample** (`book/tools/sbpl/corpus/baseline/sample.sb`)
   - Compile with `python -m book.api.profile compile`.
   - Outputs land in `book/evidence/graph/concepts/validation/fixtures/blobs/` and are summarized under `book/evidence/graph/concepts/validation/out/static/`.
-  - Feeds system-profile digests and attestations under `book/evidence/graph/mappings/system_profiles/`.
+  - Feeds system-profile digests and attestations under `book/integration/carton/bundle/relationships/mappings/system_profiles/`.
 
 - **System profile fixtures** (`book/evidence/graph/concepts/validation/fixtures/blobs/{airlock,bsd}.sb.bin`)
   - Compiled from `/System/Library/Sandbox/Profiles/*.sb` via `book.api.profile`.
@@ -49,11 +49,11 @@ Semantic witnesses are driven by runtime bundles and golden-triple profiles rath
 - **Runtime-checks experiment** (`book/evidence/experiments/runtime-final-final/suites/runtime-checks/`)
   - Run via `python -m book.api.runtime run --plan ... --channel launchd_clean`.
   - Normalized outputs live at `book/evidence/graph/concepts/validation/out/experiments/runtime-checks/runtime_results.normalized.json`.
-  - Feeds runtime expectations and trace mappings under `book/evidence/graph/mappings/runtime/`.
+  - Feeds runtime expectations and trace mappings under `book/integration/carton/bundle/relationships/mappings/runtime/`.
 
 - **Golden-triple harness** (`book/profiles/golden-triple/`)
   - Provides curated SBPL/compiled/runtime triples for allow_all, metafilter_any, bucket4, and bucket5 profiles.
-  - Feeds `book/evidence/graph/mappings/runtime/expectations.json` + `traces/*`.
+  - Feeds `book/integration/carton/bundle/relationships/mappings/runtime/expectations.json` + `traces/*`.
 
 Legacy sandbox-exec snapshots remain under `book/evidence/graph/concepts/validation/out/semantic/` for historical context, but they are not a current regeneration path.
 
@@ -63,8 +63,8 @@ Legacy sandbox-exec snapshots remain under `book/evidence/graph/concepts/validat
 
 Vocabulary/mapping evidence is anchored in dyld extraction and op-table alignment, with runtime checks as a secondary cross-check.
 
-- **Dyld-derived vocab**: `book/graph/mappings/vocab/generate_vocab_from_dyld.py` → `book/evidence/graph/mappings/vocab/{ops.json,filters.json,attestations.json}`.
-- **Op-table alignment**: `book/evidence/graph/mappings/op_table/op_table_vocab_alignment.json`.
+- **Dyld-derived vocab**: `book/graph/mappings/vocab/generate_vocab_from_dyld.py` → `book/integration/carton/bundle/relationships/mappings/vocab/{ops.json,filters.json,attestations.json}`.
+- **Op-table alignment**: `book/integration/carton/bundle/relationships/mappings/op_table/op_table_vocab_alignment.json`.
 - **Runtime cross-check**: normalized runtime events from runtime-checks (see semantic section) can be mapped back to vocab IDs to flag unknowns.
 
 ---
@@ -74,12 +74,12 @@ Vocabulary/mapping evidence is anchored in dyld extraction and op-table alignmen
 Lifecycle witnesses come from host-bound probes and normalized lifecycle traces.
 
 - **Lifecycle probes**: `book.api.lifecycle` CLI produces outputs under `book/evidence/graph/concepts/validation/out/lifecycle/`.
-- **Lifecycle mappings**: `book/evidence/graph/mappings/runtime/lifecycle.json` + `lifecycle_traces/*` for promoted scenarios.
+- **Lifecycle mappings**: `book/integration/carton/bundle/relationships/mappings/runtime/lifecycle.json` + `lifecycle_traces/*` for promoted scenarios.
 
 ---
 
 ## How to use this map
 
 - Start from the cluster you care about and pick the smallest, most direct witness (fixtures or experiment bundles).
-- Prefer evidence that is regenerable on this host and already feeds existing manifests under `book/evidence/graph/mappings/` and `book/evidence/graph/concepts/validation/out/`.
+- Prefer evidence that is regenerable on this host and already feeds existing manifests under `book/integration/carton/bundle/relationships/mappings/` and `book/evidence/graph/concepts/validation/out/`.
 - When adding a new witness, update the relevant manifest or status file rather than leaving evidence as a one-off log.

@@ -64,7 +64,7 @@ Use this file for concise notes on commands, findings, and pivots.
 - `python -m book.api.ghidra.run_task kernel-data-define --process-existing --no-analysis --exec --script-args "addr:0xffffff8002dd2920 addr:0xffffff800020ef10 addr:0xffffff8002650f78 addr:0xffffff8002698000 addr:0xffffff8002726010 addr:0xffffff8002cd1000"`. Targets = sandbox name strings plus a few __const table starts from op_table_candidates.
 - Results (`book/evidence/dumps/ghidra/out/14.4.1-23E224/kernel-data-define/data_refs.json`): two targets typed as strings (`com.apple.security.sandbox`, no callers); four targets typed as pointers to `0xffffff8000100000`. Only `0x-7ffd968000` shows a DATA ref from `0x-7ffc3311d0` (no function); other targets have zero callers.
 - Follow-up `kernel-addr-lookup` on `0xffffff8003ccee30` (the lone ref site) reports a LINKEDIT address with no data/function metadata. No mac_policy_conf/mac_policy_ops struct located; MACF hook path still unresolved and needs a different pivot (GOT/stub decode or mac_policy registration decomp).
-- No dispatcher/helper candidates surfaced to compare against `book/evidence/graph/mappings/op_table/op_table_map.json`; intersection remains empty.
+- No dispatcher/helper candidates surfaced to compare against `book/integration/carton/bundle/relationships/mappings/op_table/op_table_map.json`; intersection remains empty.
 
 ## GOT/import scan (new headless task)
 

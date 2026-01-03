@@ -25,7 +25,7 @@ from book.api.profile import identity as identity_mod  # type: ignore
 SCHEMA_VERSION = 1
 
 DEFAULT_INVENTORY = REPO_ROOT / "book/evidence/experiments/runtime-final-final/suites/preflight-blob-digests/out/repo_sb_bin_inventory.json"
-DEFAULT_SYS_DIGESTS = REPO_ROOT / "book/evidence/graph/mappings/system_profiles/digests.json"
+DEFAULT_SYS_DIGESTS = REPO_ROOT / "book/integration/carton/bundle/relationships/mappings/system_profiles/digests.json"
 DEFAULT_PREFLIGHT_IR = (
     REPO_ROOT / "book/evidence/graph/concepts/validation/out/experiments/preflight-blob-digests/blob_digests_ir.json"
 )

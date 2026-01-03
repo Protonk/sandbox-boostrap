@@ -19,7 +19,7 @@ from book.api import path_utils
 
 SCHEMA_VERSION = "field2-filters.libsandbox_scheme_extract.v0"
 DEFAULT_LIBSANDBOX = (
-    REPO_ROOT / "book" / "evidence" / "graph" / "mappings" / "dyld-libs" / "usr" / "lib" / "libsandbox.1.dylib"
+    REPO_ROOT / "book" / "integration" / "carton" / "bundle" / "relationships" / "mappings" / "dyld-libs" / "usr" / "lib" / "libsandbox.1.dylib"
 )
 DEFAULT_UNKNOWN_NODES = (
     REPO_ROOT

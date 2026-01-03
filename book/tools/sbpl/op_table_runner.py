@@ -36,7 +36,7 @@ ROOT = path_utils.find_repo_root(Path(__file__))
 EXP_ROOT = ROOT / "book/evidence/experiments/profile-pipeline"
 OP_ROOT = EXP_ROOT / "op-table-operation"
 ALIGN_ROOT = EXP_ROOT / "op-table-vocab-alignment"
-VOCAB_ROOT = ROOT / "book/evidence/graph/mappings/vocab"
+VOCAB_ROOT = ROOT / "book/integration/carton/bundle/relationships/mappings/vocab"
 
 OPS_VOCAB_PATH = VOCAB_ROOT / "ops.json"
 FILTERS_VOCAB_PATH = VOCAB_ROOT / "filters.json"

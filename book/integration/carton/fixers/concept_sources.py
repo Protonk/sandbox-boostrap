@@ -14,7 +14,7 @@ OUT_PATH = ROOT / "book/integration/carton/bundle/relationships/concept_sources.
 CONCEPTS: Dict[str, List[Dict[str, str]]] = {
     "operation": [
         {
-            "path": "book/evidence/graph/mappings/vocab/ops.json",
+            "path": "book/integration/carton/bundle/relationships/mappings/vocab/ops.json",
             "key": "ops",
             "by": "id/name",
         },
@@ -31,7 +31,7 @@ CONCEPTS: Dict[str, List[Dict[str, str]]] = {
     ],
     "filter": [
         {
-            "path": "book/evidence/graph/mappings/vocab/filters.json",
+            "path": "book/integration/carton/bundle/relationships/mappings/vocab/filters.json",
             "key": "filters",
             "by": "id/name",
         },

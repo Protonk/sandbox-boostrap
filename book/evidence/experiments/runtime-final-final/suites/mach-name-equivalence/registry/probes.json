@@ -1,0 +1,109 @@
+{
+  "schema_version": "runtime-tools.probe_registry.v0.2",
+  "registry_id": "mach-name-equivalence",
+  "world_id": "sonoma-14.4.1-23E224-arm64-dyld-2c0602c5",
+  "probes": {
+    "mach-name-equivalence:lookup:allow-aa": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "driver": "sandbox_mach_probe",
+      "expected": "allow",
+      "expected_predicates": [
+        "com.apple.cfprefsd.agent"
+      ],
+      "expected_primary_ops": [
+        "mach-lookup"
+      ],
+      "filter_name": "global-name",
+      "name": "lookup-allow-aa",
+      "operation": "mach-lookup",
+      "probe_id": "mach-name-equivalence:lookup:allow-aa",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "com.apple.cfprefsd.agent"
+    },
+    "mach-name-equivalence:lookup:deny-bb": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "driver": "sandbox_mach_probe",
+      "expected": "deny",
+      "expected_predicates": [
+        "com.apple.cfprefsd.agent.sandboxlore"
+      ],
+      "expected_primary_ops": [
+        "mach-lookup"
+      ],
+      "filter_name": "global-name",
+      "name": "lookup-deny-bb",
+      "operation": "mach-lookup",
+      "probe_id": "mach-name-equivalence:lookup:deny-bb",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "com.apple.cfprefsd.agent.sandboxlore"
+    },
+    "mach-name-equivalence:register:allow-aa": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "allow",
+      "expected_predicates": [
+        "com.apple.cfprefsd.agent"
+      ],
+      "expected_primary_ops": [
+        "mach-register"
+      ],
+      "filter_name": "global-name",
+      "name": "register-allow-aa",
+      "operation": "mach-register",
+      "probe_id": "mach-name-equivalence:register:allow-aa",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "com.apple.cfprefsd.agent"
+    },
+    "mach-name-equivalence:register:deny-bb": {
+      "capabilities_required": [],
+      "controls_supported": [
+        "baseline",
+        "allow_default",
+        "deny_default"
+      ],
+      "expected": "deny",
+      "expected_predicates": [
+        "com.apple.cfprefsd.agent.sandboxlore"
+      ],
+      "expected_primary_ops": [
+        "mach-register"
+      ],
+      "filter_name": "global-name",
+      "name": "register-deny-bb",
+      "operation": "mach-register",
+      "probe_id": "mach-name-equivalence:register:deny-bb",
+      "supports_lanes": {
+        "baseline": true,
+        "oracle": true,
+        "scenario": true
+      },
+      "target": "com.apple.cfprefsd.agent.sandboxlore"
+    }
+  }
+}

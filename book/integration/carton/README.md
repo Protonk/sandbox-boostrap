@@ -39,7 +39,7 @@ CARTON is the integration-time contract for SANDBOX_LORE: a small, reviewable bu
    ```
 
 Manual (advanced) steps:
-- `python -m book.graph.mappings.run_promotion --generators runtime,system-profiles`
+- `python -m book.integration.carton.mappings.run_promotion --generators runtime,system-profiles`
 - `python -m book.integration.carton.tools.fix --ids relationships.operation_coverage`
 
 ## Notes

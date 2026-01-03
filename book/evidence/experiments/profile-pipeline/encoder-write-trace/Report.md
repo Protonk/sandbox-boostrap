@@ -149,7 +149,7 @@ then `book/tools/sbpl/encoder_write_trace_analyze.py`.
   `avoid` aborts because core system dylibs are not present on disk when bypassing
   the shared cache.
 - Attempting a non-shared-cache helper by loading
-  `book/evidence/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib` via `ctypes.CDLL`
+  `book/integration/carton/bundle/relationships/mappings/dyld-libs/usr/lib/libsandbox.1.dylib` via `ctypes.CDLL`
   fails with a code-signature error ("Trying to load an unsigned library").
 - A fresh libsandbox extracted with `extract_dsc.swift` (from the dyld shared cache)
   still fails ad-hoc signing (`main executable failed strict validation`), so the

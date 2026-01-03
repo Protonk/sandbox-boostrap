@@ -27,7 +27,7 @@
 
 ### Phase B kick-off
 
-- libsandbox slice: `book/evidence/graph/mappings/dyld-libs/usr/lib/libsandbox.1.dylib` (arm64e, ~512KB). `nm -gU` shows exported compile/apply symbols (`_sandbox_compile_*`, `_sandbox_apply`, `_sandbox_apply_container`) plus profile-related helpers (`___emit_profile_block_invoke`, `__populate_atom_tables_profile`, etc.).
+- libsandbox slice: `book/integration/carton/bundle/relationships/mappings/dyld-libs/usr/lib/libsandbox.1.dylib` (arm64e, ~512KB). `nm -gU` shows exported compile/apply symbols (`_sandbox_compile_*`, `_sandbox_apply`, `_sandbox_apply_container`) plus profile-related helpers (`___emit_profile_block_invoke`, `__populate_atom_tables_profile`, etc.).
 - Need to identify the profile serializer path (buffer allocator → node emission loop) and map halfword stores for tag10. Initial `otool -p` lookup for `_populate_atom_tables_profile` failed (likely non-external symbol lookup); next steps: disassemble via address/symbol table or Ghidra to find the serializer and the `__mac_syscall` call site.
 
 ## Updated

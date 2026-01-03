@@ -25,6 +25,6 @@ Extending it:
 Directory map (agent quick reference):
 - `swift/` – Swift generator/validator, split by concern (types/utils, concept parsing, strategies, bindings, entrypoint).
 - `concepts/` – Concept inventory source (markdown), generated JSON, validation metadata, and Swift validation reports.
-- `mappings/` – Generators for stable host-specific IR (vocab, op_table, anchors, tag_layouts, system_profiles, runtime) that live under `book/evidence/graph/mappings/` and feed into CARTON fixers.
+- `book/integration/carton/mappings/` – Generators for stable host-specific IR (vocab, op_table, anchors, tag_layouts, system_profiles, runtime) that live under `book/integration/carton/bundle/relationships/mappings/` and feed into CARTON fixers.
 - CARTON bundle lives under `book/integration/carton/` (relationships, views, contracts, manifest, and tools).
 - `regions/` – Generated chapter/section map for the textbook.
